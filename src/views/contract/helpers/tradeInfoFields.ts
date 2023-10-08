@@ -121,22 +121,22 @@ NATIONALTRANSFERCOUNTRIES.forEach(
 )
 
 export const tradeFields = {
-  past: {
-    buyer: {
+  buyer: {
+    past: {
       cash: pastCashBuyTradeFields,
       default: pastBuyTradeFields,
     },
-    seller: {
-      cash: pastCashSellTradeFields,
-      default: pastSellTradeFields,
-    },
-  },
-  active: {
-    buyer: {
+    active: {
       cash: activeCashBuyTradeFields,
       default: PaymentMethodFields,
     },
-    seller: {
+  },
+  seller: {
+    past: {
+      cash: pastCashSellTradeFields,
+      default: pastSellTradeFields,
+    },
+    active: {
       cash: activeCashSellTradeFields,
       default: activeSellTradeFields,
     },

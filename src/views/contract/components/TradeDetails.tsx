@@ -66,14 +66,15 @@ function getTradeInfoFields (
   { paymentMethod, releaseTxId }: Pick<Contract, 'paymentMethod' | 'releaseTxId'>,
   view: ContractViewer,
 ) {
-  const applicableTradeFields = tradeFields[releaseTxId ? 'past' : 'active']
-
-  if (isCashTrade(paymentMethod)) {
-    return applicableTradeFields[view].cash
-  }
   if (view === 'seller') {
-    return applicableTradeFields[view].default
+    return tradeFields.seller[releaseTxId ? 'past' : 'active'][isCashTrade(paymentMethod) ? 'cash' : 'default']
   }
 
-  return applicableTradeFields[view].default[paymentMethod]
+  if (releaseTxId) {
+    return tradeFields.buyer.past[isCashTrade(paymentMethod) ? 'cash' : 'default']
+  }
+
+  return isCashTrade(paymentMethod)
+    ? tradeFields.buyer.active.cash
+    : tradeFields.buyer.active.default[paymentMethod] || []
 }
