@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`usePaymentMethodsSetup should setup header 1`] = `<React.Fragment />`;
-
-exports[`usePaymentMethodsSetup should setup header for account with payment data 1`] = `<React.Fragment />`;
-
-exports[`usePaymentMethodsSetup should setup header when coming from settings 1`] = `<React.Fragment />`;

@@ -15,7 +15,12 @@ const emailRules = {
   required: true,
   email: true,
 }
-export function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: ContractViewer }) {
+type Props = {
+  contract: Contract
+  view: ContractViewer
+}
+
+export function DisputeRaisedPopup ({ contract, view }: Props) {
   const submitDisputeAcknowledgement = useSubmitDisputeAcknowledgement()
   const [email, setEmail, , emailErrors] = useValidatedState<string>('', emailRules)
   const submit = () => {

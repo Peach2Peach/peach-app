@@ -9,7 +9,7 @@ import { error } from '../../../utils/log'
 import { useWebsocketContext } from '../../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../../utils/pgp'
 import { parseError } from '../../../utils/result'
-import { useDecryptedContractData } from '../ContractChat'
+import { useDecryptedContractData } from '../useDecryptedContractData'
 
 export const useContractChatSetup = (contract: Contract) => {
   const { contractId } = useRoute<'contractChat'>().params

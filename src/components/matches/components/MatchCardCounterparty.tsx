@@ -17,12 +17,12 @@ export const MatchCardCounterparty = ({ user: { trades, id, rating, medals } }: 
         <Rating rating={rating} isNewUser={isNewUser} />
       </View>
 
-      {!isNewUser && <NewBadges unlockedBadges={medals} />}
+      {!isNewUser && <Badges unlockedBadges={medals} />}
     </View>
   )
 }
 
-function NewBadges ({ unlockedBadges }: { unlockedBadges: User['medals'] }) {
+function Badges ({ unlockedBadges }: { unlockedBadges: User['medals'] }) {
   const openPeachBadgesPopup = useShowHelp('myBadges')
 
   return (

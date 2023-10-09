@@ -6,7 +6,7 @@ import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisput
 import { account } from '../../../utils/account'
 import { getContractViewer } from '../../../utils/contract'
 import { isEmailRequiredForDispute } from '../../../utils/dispute'
-import { useDecryptedContractData } from '../../contractChat/ContractChat'
+import { useDecryptedContractData } from '../../contractChat/useDecryptedContractData'
 import { submitRaiseDispute } from '../utils/submitRaiseDispute'
 
 const required = { required: true }

@@ -1,19 +1,49 @@
 import { useState } from 'react'
-import { Header, HorizontalLine, PeachScrollView, Screen } from '..'
-import { usePreviousRouteName, useShowHelp, useToggleBoolean } from '../../hooks'
+import { shallow } from 'zustand/shallow'
+import { Header, HorizontalLine, PeachScrollView, Screen, Text } from '..'
+import { useNavigation, usePreviousRouteName, useRoute, useShowHelp, useToggleBoolean } from '../../hooks'
+import { useUserPaymentMethodInfo } from '../../hooks/query/useUserPaymentMethodInfo'
+import { InfoPopup } from '../../popups/InfoPopup'
+import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
+import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
+import { getSelectedPaymentDataIds } from '../../utils/account'
+import { intersect } from '../../utils/array'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
+import { isCashTrade } from '../../utils/paymentMethod'
+import { NewButton as Button } from '../buttons/Button'
 import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavigation'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 import { MeetupPaymentMethods } from './MeetupPaymentMethods'
 import { RemotePaymentMethods } from './RemotePaymentMethods'
-import { NextButton } from './components/NextButton'
-import { usePaymentMethodsSetup } from './hooks/usePaymentMethodsSetup'
 
 export const PaymentMethods = () => {
-  const { editItem, select, isSelected } = usePaymentMethodsSetup()
+  const navigation = useNavigation()
+  const currentRouteName = useRoute().name
+  const [preferredPaymentMethods, select] = useOfferPreferences(
+    (state) => [state.preferredPaymentMethods, state.selectPaymentMethod],
+    shallow,
+  )
+  const selectedPaymentDataIds = getSelectedPaymentDataIds(preferredPaymentMethods)
+
+  const editItem = (data: PaymentData) => {
+    if (isCashTrade(data.type)) {
+      navigation.push('meetupScreen', {
+        eventId: data.id.replace('cash.', ''),
+        deletable: true,
+        origin: currentRouteName,
+      })
+    } else {
+      navigation.push('paymentMethodForm', {
+        paymentData: data,
+        origin: currentRouteName,
+      })
+    }
+  }
+
+  const isSelected = (itm: { value: string }) => selectedPaymentDataIds.includes(itm.value)
   const origin = usePreviousRouteName()
   const [isEditing, toggleIsEditing] = useToggleBoolean(origin === 'settings')
   const tabs: TabbedNavigationItem[] = [
@@ -62,5 +92,34 @@ function PaymentMethodsHeader ({ isEditing, toggleIsEditing }: Props) {
           : [{ ...headerIcons.help, onPress: showHelp }]
       }
     />
+  )
+}
+
+function NextButton () {
+  const navigation = useNavigation()
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const showHelp = () => setPopup(<InfoPopup content={<Text>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</Text>} />)
+  const origin = usePreviousRouteName()
+  const [isStepValid, paymentMethods] = useOfferPreferences(
+    (state) => [state.canContinue.paymentMethods, Object.values(state.meansOfPayment).flat()],
+    shallow,
+  )
+  const { data: paymentMethodInfo } = useUserPaymentMethodInfo()
+
+  const goToSummary = () => {
+    const flow = origin === 'premium' ? 'sell' : 'buy'
+    const forbiddenPaymentMethdos = intersect(paymentMethodInfo.forbidden[flow], paymentMethods)
+    if (forbiddenPaymentMethdos.length) {
+      const paymentMethod = forbiddenPaymentMethdos.pop()
+      if (paymentMethod === 'paypal') showHelp()
+      return
+    }
+    navigation.navigate(flow === 'sell' ? 'sellSummary' : 'buySummary')
+  }
+
+  return (
+    <Button style={tw`self-center`} disabled={!isStepValid} onPress={goToSummary}>
+      {i18n('next')}
+    </Button>
   )
 }

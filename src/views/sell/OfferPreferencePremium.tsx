@@ -1,5 +1,6 @@
 import { shallow } from 'zustand/shallow'
-import { Header, PrimaryButton, Screen } from '../../components'
+import { Header, Screen } from '../../components'
+import { NewButton } from '../../components/buttons/Button'
 import { useNavigation, useShowHelp } from '../../hooks'
 import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
 import tw from '../../styles/tailwind'
@@ -22,9 +23,9 @@ export const OfferPreferencePremium = () => {
       <Premium
         {...{ premium, setPremium, amount }}
         confirmButton={
-          <PrimaryButton style={tw`self-center`} disabled={!isStepValid} narrow onPress={next}>
+          <NewButton style={tw`self-center`} disabled={!isStepValid} onPress={next}>
             {i18n('next')}
-          </PrimaryButton>
+          </NewButton>
         }
         offerPrice={<CurrentOfferPrice />}
       />

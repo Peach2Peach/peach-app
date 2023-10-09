@@ -57,7 +57,7 @@ export const SignMessage = () => {
         />
       </PeachScrollView>
       {!keyboardOpen && (
-        <Button style={tw`self-center min-w-52`} disabled={!signatureValid} onPress={submitSignature}>
+        <Button style={tw`self-center`} disabled={!signatureValid} onPress={submitSignature}>
           {i18n('confirm')}
         </Button>
       )}

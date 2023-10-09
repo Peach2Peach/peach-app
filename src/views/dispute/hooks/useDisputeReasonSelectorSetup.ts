@@ -3,7 +3,7 @@ import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
 import { account } from '../../../utils/account'
 import { getContractViewer } from '../../../utils/contract'
-import { useDecryptedContractData } from '../../contractChat/ContractChat'
+import { useDecryptedContractData } from '../../contractChat/useDecryptedContractData'
 import { submitRaiseDispute } from '../utils/submitRaiseDispute'
 import { disputeReasons } from './disputeReasons'
 

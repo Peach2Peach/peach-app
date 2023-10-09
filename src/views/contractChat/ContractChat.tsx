@@ -1,7 +1,6 @@
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { Header, Screen } from '../../components'
 import { MessageInput } from '../../components/inputs/MessageInput'
@@ -10,22 +9,13 @@ import { useContractDetails } from '../../hooks/query/useContractDetails'
 import { useOpenDispute } from '../../popups/dispute/hooks/useOpenDispute'
 import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
 import { account } from '../../utils/account'
-import { canCancelContract, contractIdToHex, decryptContractData, getContractViewer } from '../../utils/contract'
+import { canCancelContract, contractIdToHex, getContractViewer } from '../../utils/contract'
 import { headerIcons } from '../../utils/layout'
 import { isCashTrade } from '../../utils/paymentMethod'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { ChatBox } from './components/ChatBox'
 import { useContractChatSetup } from './hooks/useContractChatSetup'
-
-export const useDecryptedContractData = (contract: Contract) =>
-  useQuery({
-    queryKey: ['contract', contract.id, 'decrytedData'],
-    queryFn: async () => {
-      const { symmetricKey, paymentData } = await decryptContractData(contract)
-      if (!symmetricKey || !paymentData) throw new Error('Could not decrypt contract data')
-      return { symmetricKey, paymentData }
-    },
-  })
+import { useDecryptedContractData } from './useDecryptedContractData'
 
 export const ContractChat = () => {
   const { contractId } = useRoute<'contractChat'>().params

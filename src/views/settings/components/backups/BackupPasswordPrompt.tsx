@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { TextInput, View } from 'react-native'
 
 import { Input, PeachScrollView, Text } from '../../../../components'
-import { PrimaryButton } from '../../../../components/buttons'
+import { NewButton as Button } from '../../../../components/buttons/Button'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import { usePasswordPromptSetup } from '../../hooks/usePasswordPromptSetup'
@@ -56,9 +56,9 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
           />
         </View>
       </PeachScrollView>
-      <PrimaryButton disabled={!validate()} style={tw`self-center`} onPress={startAccountBackup} iconId="save" wide>
+      <Button disabled={!validate()} style={tw`self-center`} onPress={startAccountBackup} iconId="save">
         {i18n('settings.backups.fileBackup.createNew')}
-      </PrimaryButton>
+      </Button>
     </>
   )
 }

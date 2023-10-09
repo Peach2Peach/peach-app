@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { View } from 'react-native'
-import { SummaryItem } from '../../../components/payment/paymentDetailTemplates/SummaryItem'
+import { SummaryItem } from '../../../components/payment/SummaryItem'
 import { ErrorBox, HorizontalLine } from '../../../components/ui'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import tw from '../../../styles/tailwind'

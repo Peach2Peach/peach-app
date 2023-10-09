@@ -9,13 +9,13 @@ export const PeachFees = () => {
 
   return (
     <Screen style={tw`justify-center`} header={i18n('settings.peachFees')}>
-      <Text style={tw`body-m`}>
+      <Text>
         {i18n('settings.fees.text.1')}
         <Text style={tw`body-m text-primary-main`}> {(peachFee * 100).toString()}% </Text>
         {i18n('settings.fees.text.2')}
         {'\n'}
       </Text>
-      <Text style={tw`body-m`}>
+      <Text>
         {i18n('settings.fees.text.3')}
         {'\n'}
       </Text>

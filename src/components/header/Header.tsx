@@ -160,7 +160,7 @@ type TickerProps = {
   type?: 'buy' | 'sell'
 }
 
-export function Tickers ({ type = 'sell' }: TickerProps) {
+function Tickers ({ type = 'sell' }: TickerProps) {
   const [currency, satsPerUnit, price] = useBitcoinStore(
     (state) => [state.currency, state.satsPerUnit, state.price],
     shallow,

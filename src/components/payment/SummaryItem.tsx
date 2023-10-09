@@ -1,8 +1,6 @@
 import { View } from 'react-native'
-import { CopyAble, Text } from '../..'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
-import { PaymentMethodBubble } from '../../bubble'
+import { CopyAble, Text } from '..'
+import tw from '../../styles/tailwind'
 
 type Props = {
   label: string
@@ -30,14 +28,4 @@ function TextValue ({ value, copyable = false }: TextValueProps) {
   )
 }
 
-function NoReference () {
-  return (
-    <View style={tw`flex-row items-center justify-end gap-10px`}>
-      <Text style={[tw`subtitle-1 text-black-5`, tw.md`subtitle-0`]}>{i18n('none')}</Text>
-    </View>
-  )
-}
-
 SummaryItem.Text = TextValue
-SummaryItem.PaymentMethod = PaymentMethodBubble
-SummaryItem.NoReference = NoReference

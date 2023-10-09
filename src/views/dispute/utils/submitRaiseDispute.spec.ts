@@ -43,7 +43,7 @@ describe('submitRaiseDispute', () => {
     const [result, err] = await submitRaiseDispute({
       contract: mockContract,
       reason: 'noPayment.buyer',
-      symmetricKey: undefined,
+      symmetricKey: 'TODO',
     })
     expect(result).toBe(false)
     expect(err).toBe('error')
@@ -53,7 +53,7 @@ describe('submitRaiseDispute', () => {
     const [result, err] = await submitRaiseDispute({
       contract: mockContract,
       reason: 'noPayment.buyer',
-      symmetricKey: undefined,
+      symmetricKey: 'TODO',
     })
     expect(result).toBe(true)
     expect(err).toBe(null)
@@ -77,7 +77,7 @@ describe('submitRaiseDispute', () => {
     const [result, err] = await submitRaiseDispute({
       contract: mockContract,
       reason: 'noPayment.seller',
-      symmetricKey: undefined,
+      symmetricKey: 'TODO',
     })
     expect(result).toBe(true)
     expect(err).toBe(null)

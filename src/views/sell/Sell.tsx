@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { Header, PrimaryButton, Screen } from '../../components'
+import { Header, Screen } from '../../components'
+import { NewButton as Button } from '../../components/buttons/Button'
 import { useNavigation, useShowHelp } from '../../hooks'
 import { useConfigStore } from '../../store/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
@@ -29,9 +30,9 @@ export const Sell = () => {
         <FundMultipleOffers />
       </SellAmountSelector>
       <View style={[tw`flex-row items-center justify-center pt-4 pb-1`, tw.md`pb-4`]}>
-        <PrimaryButton disabled={!isAmountValid} onPress={next} narrow>
+        <Button disabled={!isAmountValid} onPress={next}>
           {i18n('next')}
-        </PrimaryButton>
+        </Button>
         {showBackupReminder && <BackupReminderIcon />}
       </View>
     </Screen>

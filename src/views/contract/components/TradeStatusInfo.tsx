@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { HorizontalLine } from '../../../components'
-import { SummaryItem } from '../../../components/payment/paymentDetailTemplates/SummaryItem'
+import { SummaryItem } from '../../../components/payment/SummaryItem'
 import { Text } from '../../../components/text'
 import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'

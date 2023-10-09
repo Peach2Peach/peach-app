@@ -3,7 +3,7 @@ import { TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { Input, PeachScrollView, Screen } from '../../components'
-import { NewButton } from '../../components/buttons/Button'
+import { NewButton as Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
 import { useRoute } from '../../hooks'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
@@ -49,9 +49,9 @@ function DisputeFormScreen ({ contract }: { contract: Contract }) {
           />
         </View>
       </PeachScrollView>
-      <NewButton onPress={submit} disabled={loading || !isFormValid} style={tw`self-center min-w-52`}>
+      <Button onPress={submit} disabled={loading || !isFormValid} style={tw`self-center`}>
         {i18n('confirm')}
-      </NewButton>
+      </Button>
     </Screen>
   )
 }
