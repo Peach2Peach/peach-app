@@ -15,13 +15,7 @@ export function EscrowButton ({ releaseTxId, escrow, style }: Props) {
   const openEscrow = () => (releaseTxId ? showTransaction(releaseTxId, NETWORK) : showAddress(escrow, NETWORK))
 
   return (
-    <Button
-      iconId="externalLink"
-      style={[tw`flex-1 bg-transparent`, style]}
-      textColor={tw`text-primary-main`}
-      ghost
-      onPress={openEscrow}
-    >
+    <Button iconId="externalLink" style={style} textColor={tw`text-primary-main`} ghost onPress={openEscrow}>
       {i18n('escrow')}
     </Button>
   )

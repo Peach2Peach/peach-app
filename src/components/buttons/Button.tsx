@@ -75,7 +75,7 @@ export const NewButton = ({
     <TouchableOpacity
       {...touchableOpacityProps}
       style={[
-        tw`bg-primary-main`,
+        tw`bg-primary-main min-w-26`,
         touchableOpacityProps.style,
         tw`flex-row items-center justify-center h-8 gap-2 px-6 rounded-full`,
         tw.md`h-10 px-8`,

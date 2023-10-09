@@ -48,7 +48,7 @@ export const ContractActions = () => {
   return (
     <View style={tw`items-center justify-end w-full gap-3`}>
       <View style={tw`flex-row items-center justify-center gap-6`}>
-        <EscrowButton {...contract} />
+        <EscrowButton {...contract} style={tw`flex-1`} />
         <ChatButton />
       </View>
 

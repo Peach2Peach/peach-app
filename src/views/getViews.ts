@@ -17,7 +17,7 @@ import { DisputeForm } from './dispute/DisputeForm'
 import { DisputeReasonSelector } from './dispute/DisputeReasonSelector'
 import { FundEscrow } from './fundEscrow/FundEscrow'
 import { NewUser } from './newUser/NewUser'
-import { OfferDetails } from './offerDetails/OfferDetails'
+import { CanceledOfferDetails } from './offerDetails/CanceledOfferDetails'
 import { GroupHugAnnouncement } from './overlays/GroupHugAnnouncement'
 import { NewBadge } from './overlays/NewBadge'
 import { PublicProfile } from './publicProfile/PublicProfile'
@@ -139,7 +139,7 @@ const trade: ViewType[] = [
 
 const tradeHistory: ViewType[] = [
   { name: 'yourTrades', component: YourTrades, ...defaultConfig, animationEnabled: false },
-  { name: 'offer', component: OfferDetails, ...defaultConfig },
+  { name: 'offer', component: CanceledOfferDetails, ...defaultConfig },
   { name: 'exportTradeHistory', component: ExportTradeHistory, ...defaultConfig },
 ]
 

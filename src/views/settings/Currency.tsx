@@ -1,7 +1,8 @@
 import tw from '../../styles/tailwind'
 
 import { shallow } from 'zustand/shallow'
-import { PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
+import { PeachScrollView, RadioButtons, Screen } from '../../components'
+import { NewButton as Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import { CURRENCIES } from '../../paymentMethods'
 import { useBitcoinStore } from '../../store/bitcoinStore'
@@ -27,16 +28,16 @@ export const Currency = () => {
 
   return (
     <Screen header={i18n('currency')}>
-      <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
+      <PeachScrollView style={tw`mb-4`} contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
         <RadioButtons
           selectedValue={displayCurrency}
           items={CURRENCIES.map((c) => ({ value: c, display: i18n(`currency.${c}`) }))}
           onButtonPress={updateCurrency}
         />
       </PeachScrollView>
-      <PrimaryButton onPress={goBack} style={tw`self-center mb-5 mt-18px`} narrow>
+      <Button onPress={goBack} style={tw`self-center`}>
         {i18n('confirm')}
-      </PrimaryButton>
+      </Button>
     </Screen>
   )
 }

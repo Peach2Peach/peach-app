@@ -9,13 +9,16 @@ import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import i18n from '../../utils/i18n'
 import { EscrowButton } from '../contract/EscrowButton'
 import { LoadingScreen } from '../loading/LoadingScreen'
-import { isCanceledOffer } from './helpers/isCanceledOffer'
 
-export const OfferDetails = () => {
+export const CanceledOfferDetails = () => {
   const { offerId } = useRoute<'offer'>().params
   const { offer } = useOfferDetails(offerId)
 
-  return isCanceledOffer(offer) && isSellOffer(offer) ? <OfferDetailsScreen offer={offer} /> : <LoadingScreen />
+  return offer?.tradeStatus === 'offerCanceled' && isSellOffer(offer) ? (
+    <OfferDetailsScreen offer={offer} />
+  ) : (
+    <LoadingScreen />
+  )
 }
 
 function OfferDetailsHeader ({ amount, premium }: { amount: number; premium: number }) {

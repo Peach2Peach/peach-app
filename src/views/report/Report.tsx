@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
 import { Icon, Input, PeachScrollView, Screen, Text } from '../../components'
-import { NewButton } from '../../components/buttons/Button'
+import { NewButton as Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -84,13 +84,9 @@ export const Report = () => {
           <Text style={tw`pl-2 subtitle-1`}>{i18n('form.shareLogs')}</Text>
         </Pressable>
       </PeachScrollView>
-      <NewButton
-        style={tw`self-center min-w-52`}
-        onPress={submit}
-        disabled={!(isEmailValid && isTopicValid && isMessageValid)}
-      >
+      <Button style={tw`self-center`} onPress={submit} disabled={!(isEmailValid && isTopicValid && isMessageValid)}>
         {i18n('report.sendReport')}
-      </NewButton>
+      </Button>
     </Screen>
   )
 }
