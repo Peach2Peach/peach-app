@@ -60,7 +60,7 @@ function ContractChatHeader ({ contract, symmetricKey }: Props) {
   const view = getContractViewer(contract, account)
   const { contractId } = useRoute<'contractChat'>().params
 
-  const { showConfirmPopup } = useConfirmCancelTrade()
+  const showConfirmPopup = useConfirmCancelTrade()
   const openDisputePopup = useOpenDispute(contractId)
 
   const memoizedIcons = useMemo(() => {

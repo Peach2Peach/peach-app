@@ -104,5 +104,5 @@ export const useConfirmCancelTrade = () => {
     [setPopup, cancelSeller, cancelBuyer, closePopup],
   )
 
-  return { showConfirmPopup, cancelSeller, cancelBuyer, closePopup }
+  return showConfirmPopup
 }

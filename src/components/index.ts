@@ -1,6 +1,7 @@
 export { AvoidKeyboard } from './AvoidKeyboard'
 export { ConditionalWrapper } from './ConditionalWrapper'
 export { Divider } from './Divider'
+export { EscrowButton } from './EscrowButton'
 export { Flag } from './Flag'
 export { Icon } from './Icon'
 export { PeachScrollView } from './PeachScrollView'

@@ -3,11 +3,11 @@ import tw from '../../styles/tailwind'
 import { isSellOffer } from '../../utils/offer'
 
 import { View } from 'react-native'
+import { EscrowButton } from '../../components/EscrowButton'
 import { useWalletLabel } from '../../components/offer/useWalletLabel'
 import { useRoute } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import i18n from '../../utils/i18n'
-import { EscrowButton } from '../contract/EscrowButton'
 import { LoadingScreen } from '../loading/LoadingScreen'
 
 export const CanceledOfferDetails = () => {

@@ -1,50 +1,28 @@
-/* eslint-disable max-lines */
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useCallback } from 'react'
 import { View } from 'react-native'
-import { shallow } from 'zustand/shallow'
-import { Button } from '../../components/buttons/Button'
+import { EscrowButton, Icon, Text, Timer } from '../../components'
 import { ConfirmSlider } from '../../components/inputs'
 import { UnlockedSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
-import { MSINANHOUR } from '../../constants'
-import { useNavigation, useRoute, useShowHelp } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
-import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { cancelContractAsSeller } from '../../popups/tradeCancelation/helpers/cancelContractAsSeller'
-import { useStartRefundPopup } from '../../popups/useStartRefundPopup'
-import { useConfigStore } from '../../store/configStore'
 import tw from '../../styles/tailwind'
-import {
-  getNavigationDestinationForContract,
-  getOfferIdFromContract,
-  getRequiredAction,
-  getSellOfferFromContract,
-  verifyAndSignReleaseTx,
-} from '../../utils/contract'
+import { getOfferIdFromContract, getPaymentExpectedBy, getRequiredAction } from '../../utils/contract'
 import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../utils/i18n'
+import { isCashTrade } from '../../utils/paymentMethod'
+import { ChatButton, NewOfferButton, PayoutPendingButton, ProvideEmailButton } from './ContractButtons'
 import {
-  confirmContractCancelation,
-  confirmPayment,
-  extendPaymentTimer,
-  getContract,
-  getOfferDetails,
-  rejectContractCancelation,
-} from '../../utils/peachAPI'
-import { getEscrowWalletForOffer } from '../../utils/wallet'
-import { getNavigationDestinationForOffer } from '../yourTrades/utils'
-import { EscrowButton } from './EscrowButton'
-import { ReleaseEscrowSlider } from './ReleaseEscrowSlider'
-import { ContractStatusInfo } from './components/ContractStatusInfo'
-import { ProvideEmailButton } from './components/ProvideEmailButton'
+  CancelTradeSlider,
+  ExtendTimerSlider,
+  PaymentMadeSlider,
+  PaymentReceivedSlider,
+  RefundEscrowSlider,
+  ReleaseEscrowSlider,
+  RepublishOfferSlider,
+  ResolveCancelRequestSliders,
+} from './ContractSliders'
 import { useContractContext } from './context'
-import { useRepublishOffer } from './hooks/useRepublishOffer'
 
 export const ContractActions = () => {
   const { contract, view } = useContractContext()
-  const requiredAction = getRequiredAction(contract)
-  const { isEmailRequired, tradeStatus, disputeWinner, batchInfo, releaseTxId } = contract
-  const shouldShowReleaseEscrow = tradeStatus === 'releaseEscrow' && !!disputeWinner
   return (
     <View style={tw`items-center justify-end w-full gap-3`}>
       <View style={tw`flex-row items-center justify-center gap-6`}>
@@ -52,419 +30,110 @@ export const ContractActions = () => {
         <ChatButton />
       </View>
 
-      {shouldShowPayoutPending(view, batchInfo, releaseTxId) && <PayoutPendingButton />}
-      <ContractStatusInfo requiredAction={requiredAction} />
-      {!!isEmailRequired && <ProvideEmailButton />}
-      <NewOfferButton />
-      {!shouldShowReleaseEscrow && <ContractCTA requiredAction={requiredAction} />}
-      {shouldShowReleaseEscrow && <ReleaseEscrowSlider {...{ contract }} />}
+      <ContractStatusInfo />
+
+      <ContractButtons />
+      {view === 'buyer' ? <BuyerSliders /> : <SellerSliders />}
     </View>
   )
 }
 
-type Props = {
-  requiredAction: ContractAction
-}
-function ContractCTA ({ requiredAction }: Props) {
+function ContractStatusInfo () {
   const { contract, view } = useContractContext()
+  const { disputeActive, disputeWinner, cancelationRequested, paymentMethod } = contract
 
-  if (view === 'buyer') {
-    if (contract.tradeStatus === 'confirmCancelation') {
-      return <ResolveCancelRequestSliders />
-    }
-    if (requiredAction === 'confirmPayment' && !contract.disputeWinner) {
-      return <UnlockedSlider label={i18n('contract.payment.made')} />
-    }
-    if (requiredAction === 'sendPayment') {
-      return <PaymentMadeSlider />
-    }
-  }
-  if (view === 'seller') {
-    if (isPaymentTooLate(contract) && contract.tradeStatus === 'paymentRequired') {
-      return (
-        <>
-          <CancelTradeSlider />
-          <ExtendTimerSlider />
-        </>
-      )
-    }
-    if (requiredAction === 'sendPayment') {
-      return (
-        <ConfirmSlider
-          enabled={false}
-          onConfirm={() => {}}
-          label1={i18n('offer.requiredAction.waiting', i18n('buyer'))}
-        />
-      )
-    }
-    if (requiredAction === 'confirmPayment') return <PaymentReceivedSlider />
+  const shouldShowInfo = !(disputeActive || disputeWinner || cancelationRequested)
 
-    if (contract.tradeStatus === 'refundOrReviveRequired') {
-      return (
-        <>
-          <RepublishOfferSlider />
-          <RefundEscrowSlider />
-        </>
-      )
+  if (shouldShowInfo) {
+    const requiredAction = getRequiredAction(contract)
+
+    if (requiredAction === 'sendPayment' && !isCashTrade(paymentMethod)) {
+      const paymentExpectedBy = getPaymentExpectedBy(contract)
+      if (Date.now() <= paymentExpectedBy || view === 'buyer') {
+        return <Timer text={i18n(`contract.timer.${requiredAction}.${view}`)} end={paymentExpectedBy} />
+      }
+      return <></>
     }
-    if (contract.tradeStatus === 'refundTxSignatureRequired') {
-      return <RefundEscrowSlider />
+
+    if (requiredAction === 'confirmPayment') {
+      return (
+        <View style={tw`flex-row items-center justify-center`}>
+          <Text style={tw`text-center button-medium`}>{i18n(`contract.timer.confirmPayment.${view}`)}</Text>
+          {view === 'seller' && <Icon id="check" style={tw`w-5 h-5 ml-1 -mt-0.5`} color={tw`text-success-main`.color} />}
+        </View>
+      )
     }
   }
 
   return <></>
 }
 
-function RepublishOfferSlider () {
-  const { contract } = useContractContext()
-  const republishOffer = useRepublishOffer()
-  return <ConfirmSlider onConfirm={() => republishOffer(contract)} label1={i18n('republishOffer')} iconId="refreshCw" />
-}
-
-function RefundEscrowSlider () {
-  const { contract } = useContractContext()
-  const startRefund = useStartRefundPopup()
+function ContractButtons () {
+  const { contract, view } = useContractContext()
+  const { isEmailRequired, batchInfo, releaseTxId } = contract
+  const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   return (
-    <ConfirmSlider
-      onConfirm={() => startRefund(getSellOfferFromContract(contract))}
-      label1={i18n('refundEscrow')}
-      iconId="rotateCounterClockwise"
-    />
+    <>
+      {shouldShowPayoutPending(view, batchInfo, releaseTxId) && <PayoutPendingButton />}
+      {!!isEmailRequired && <ProvideEmailButton />}
+      {!!offer?.newOfferId && <NewOfferButton />}
+    </>
   )
 }
-
-function NewOfferButton () {
-  const navigation = useNavigation()
-  const { contract } = useContractContext()
-  const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
-  const newOfferId = offer?.newOfferId
-  const goToNewOffer = useCallback(async () => {
-    if (!newOfferId) return
-    const [newOffer] = await getOfferDetails({ offerId: newOfferId })
-    if (!newOffer) return
-    if (newOffer?.contractId) {
-      const [newContract] = await getContract({ contractId: newOffer.contractId })
-      if (newContract === null) return
-      const [screen, params] = await getNavigationDestinationForContract(newContract)
-      navigation.replace(screen, params)
-    } else {
-      navigation.replace(...getNavigationDestinationForOffer(newOffer))
-    }
-  }, [newOfferId, navigation])
-
-  return <>{!!newOfferId && <Button onPress={goToNewOffer}>{i18n('contract.goToNewTrade')}</Button>}</>
-}
-
 function shouldShowPayoutPending (view: string, batchInfo: BatchInfo | undefined, releaseTxId: string | undefined) {
   return view === 'buyer' && !!batchInfo && !batchInfo.completed && !releaseTxId
 }
 
-function PayoutPendingButton () {
-  const { showBatchInfo, toggleShowBatchInfo } = useContractContext()
+function BuyerSliders () {
+  const { contract } = useContractContext()
+  const { tradeStatus, disputeWinner } = contract
+  const requiredAction = getRequiredAction(contract)
 
-  return (
-    <Button style={tw`self-center`} iconId="eye" onPress={toggleShowBatchInfo}>
-      {i18n(showBatchInfo ? 'contract.summary.tradeDetails' : 'offer.requiredAction.payoutPending')}
-    </Button>
-  )
-}
-
-function ChatButton () {
-  const {
-    contract: { unreadMessages, id },
-  } = useContractContext()
-  const navigation = useNavigation()
-  const showHelp = useShowHelp('disputeDisclaimer')
-  const [seenDisputeDisclaimer, setSeenDisputeDisclaimer] = useConfigStore(
-    (state) => [state.seenDisputeDisclaimer, state.setSeenDisputeDisclaimer],
-    shallow,
-  )
-  const { contractId } = useRoute<'contract'>().params
-  const queryClient = useQueryClient()
-  const goToChat = () => {
-    queryClient.setQueryData(['contract', contractId], (oldQueryData: GetContractResponse | undefined) => {
-      if (!oldQueryData) return oldQueryData
-      return {
-        ...oldQueryData,
-        unreadMessages: 0,
-      }
-    })
-    navigation.push('contractChat', { contractId: id })
-    if (!seenDisputeDisclaimer) {
-      showHelp()
-      setSeenDisputeDisclaimer(true)
-    }
+  if (tradeStatus === 'confirmCancelation') {
+    return <ResolveCancelRequestSliders />
   }
-  return (
-    <Button style={tw`flex-1`} iconId={unreadMessages === 0 ? 'messageCircle' : 'messageFull'} onPress={goToChat}>
-      {unreadMessages === 0 ? i18n('chat') : `${unreadMessages} ${i18n('contract.unread')}`}
-    </Button>
-  )
+  if (requiredAction === 'sendPayment') {
+    return <PaymentMadeSlider />
+  }
+  if (requiredAction === 'confirmPayment' && !disputeWinner) {
+    return <UnlockedSlider label={i18n('contract.payment.made')} />
+  }
+  return <></>
 }
 
-function PaymentMadeSlider () {
-  const { contractId } = useRoute<'contract'>().params
+function SellerSliders () {
   const { contract } = useContractContext()
-  const showError = useShowErrorBanner()
-  const queryClient = useQueryClient()
-  const mutation = useMutation({
-    onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
-      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contractId])
-      queryClient.setQueryData(['contract', contractId], (oldQueryData: GetContractResponse | undefined) => {
-        if (!oldQueryData) return oldQueryData
-        return {
-          ...oldQueryData,
-          paymentMade: new Date(),
-          tradeStatus: 'confirmPaymentRequired' as const,
-          lastModified: new Date(),
-        }
-      })
+  const { tradeStatus, disputeWinner } = contract
+  if (tradeStatus === 'releaseEscrow' && !!disputeWinner) {
+    return <ReleaseEscrowSlider />
+  }
 
-      return { previousData }
-    },
-    mutationFn: async () => {
-      const [, err] = await confirmPayment({ contractId })
-      if (err) throw err
-    },
-    onError: (err: APIError, _variables, context) => {
-      queryClient.setQueryData(['contract', contractId], context?.previousData)
-      showError(err.error)
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['contract', contractId])
-    },
-  })
+  const requiredAction = getRequiredAction(contract)
+  if (isPaymentTooLate(contract) && tradeStatus === 'paymentRequired') {
+    return (
+      <>
+        <CancelTradeSlider />
+        <ExtendTimerSlider />
+      </>
+    )
+  }
+  if (requiredAction === 'sendPayment') {
+    return (
+      <ConfirmSlider enabled={false} onConfirm={() => {}} label1={i18n('offer.requiredAction.waiting', i18n('buyer'))} />
+    )
+  }
+  if (requiredAction === 'confirmPayment') return <PaymentReceivedSlider />
 
-  return (
-    <ConfirmSlider
-      enabled={!mutation.isLoading && !isPaymentTooLate(contract)}
-      onConfirm={() => mutation.mutate()}
-      label1={i18n('contract.payment.buyer.confirm')}
-      label2={i18n('contract.payment.made')}
-    />
-  )
-}
-
-function PaymentReceivedSlider () {
-  const { contract } = useContractContext()
-  const showError = useShowErrorBanner()
-
-  const queryClient = useQueryClient()
-  const mutatian = useMutation({
-    onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['contract', contract.id] })
-      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contract.id])
-      queryClient.setQueryData(['contract', contract.id], (oldQueryData: GetContractResponse | undefined) => {
-        if (!oldQueryData) return oldQueryData
-        return {
-          ...oldQueryData,
-          paymentReceived: new Date(),
-          tradeStatus: 'rateUser' as const,
-          lastModified: new Date(),
-        }
-      })
-
-      return { previousData }
-    },
-    mutationFn: async () => {
-      const sellOffer = getSellOfferFromContract(contract)
-      const { releaseTransaction, batchReleasePsbt, errorMsg } = verifyAndSignReleaseTx(
-        contract,
-        sellOffer,
-        getEscrowWalletForOffer(sellOffer),
-      )
-
-      if (!releaseTransaction) {
-        throw new Error(errorMsg)
-      }
-
-      const [, err] = await confirmPayment({
-        contractId: contract.id,
-        releaseTransaction,
-        batchReleasePsbt,
-      })
-      if (err) throw new Error(err.error)
-    },
-    onError: (err: Error, _variables, context) => {
-      queryClient.setQueryData(['contract', contract.id], context?.previousData)
-      showError(err.message)
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['contract', contract.id])
-    },
-  })
-
-  return (
-    <ConfirmSlider
-      enabled={!mutatian.isLoading}
-      onConfirm={() => mutatian.mutate()}
-      label1={i18n('contract.payment.confirm')}
-      label2={i18n('contract.payment.received')}
-    />
-  )
-}
-
-function CancelTradeSlider () {
-  const showError = useShowErrorBanner()
-  const { contract } = useContractContext()
-  const queryClient = useQueryClient()
-  const { mutate } = useMutation({
-    onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['contract', contract.id] })
-      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contract.id])
-      queryClient.setQueryData(['contract', contract.id], (oldQueryData: GetContractResponse | undefined) => {
-        if (!oldQueryData) return oldQueryData
-        return {
-          ...oldQueryData,
-          canceled: true,
-          tradeStatus: 'tradeCanceled' as const,
-          lastModified: new Date(),
-        }
-      })
-      return { previousData }
-    },
-    mutationFn: async () => {
-      const result = await cancelContractAsSeller(contract)
-      if (!result || result.isError()) throw result.getError()
-    },
-    onError: (err: string, _variables, context) => {
-      queryClient.setQueryData(['contract', contract.id], context?.previousData)
-      showError(err)
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['contract', contract.id])
-    },
-  })
-
-  return (
-    <ConfirmSlider
-      enabled
-      iconId="xCircle"
-      onConfirm={() => mutate()}
-      label1={i18n('contract.seller.paymentTimerHasRunOut.cancelTrade')}
-    />
-  )
-}
-
-function ExtendTimerSlider () {
-  const { contractId } = useRoute<'contract'>().params
-  const showError = useShowErrorBanner()
-
-  const queryClient = useQueryClient()
-  const { mutate } = useMutation({
-    onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
-      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contractId])
-      queryClient.setQueryData(['contract', contractId], (oldQueryData: GetContractResponse | undefined) => {
-        if (!oldQueryData) return oldQueryData
-        return {
-          ...oldQueryData,
-          paymentExpectedBy: new Date(Date.now() + MSINANHOUR * 12),
-          lastModified: new Date(),
-        }
-      })
-      return { previousData }
-    },
-    mutationFn: async () => {
-      const [result, err] = await extendPaymentTimer({ contractId })
-      if (!result || err) throw err
-    },
-    onError: (err: APIError, _variables, context) => {
-      queryClient.setQueryData(['contract', contractId], context?.previousData)
-      showError(err.error)
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['contract', contractId])
-    },
-  })
-
-  return (
-    <ConfirmSlider
-      iconId="arrowRightCircle"
-      enabled
-      onConfirm={() => mutate()}
-      label1={i18n('contract.seller.giveMoreTime')}
-    />
-  )
-}
-
-function ResolveCancelRequestSliders () {
-  const { contractId } = useRoute<'contract'>().params
-  const showError = useShowErrorBanner()
-  const queryClient = useQueryClient()
-
-  const { mutate: continueTrade } = useMutation({
-    onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
-      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contractId])
-      queryClient.setQueryData(['contract', contractId], (oldQueryData: GetContractResponse | undefined) => {
-        if (!oldQueryData) return oldQueryData
-        return {
-          ...oldQueryData,
-          cancelationRequested: false,
-          lastModified: new Date(),
-        }
-      })
-
-      return { previousData }
-    },
-    mutationFn: async () => {
-      const [, err] = await rejectContractCancelation({ contractId })
-      if (err) throw err
-    },
-    onError: (err: APIError, _variables, context) => {
-      queryClient.setQueryData(['contract', contractId], context?.previousData)
-      showError(err.error)
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['contract', contractId])
-    },
-  })
-
-  const { mutate: cancelTrade } = useMutation({
-    onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
-      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contractId])
-      queryClient.setQueryData(['contract', contractId], (oldQueryData: GetContractResponse | undefined) => {
-        if (!oldQueryData) return oldQueryData
-        return {
-          ...oldQueryData,
-          canceled: true,
-          cancelationRequested: false,
-          lastModified: new Date(),
-        }
-      })
-
-      return { previousData }
-    },
-    mutationFn: async () => {
-      const [, err] = await confirmContractCancelation({ contractId })
-      if (err) throw err
-    },
-    onError: (err: APIError, _variables, context) => {
-      queryClient.setQueryData(['contract', contractId], context?.previousData)
-      showError(err.error)
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['contract', contractId])
-    },
-  })
-
-  return (
-    <>
-      <ConfirmSlider
-        enabled
-        onConfirm={() => cancelTrade()}
-        label1={i18n('contract.cancelationRequested.agree')}
-        iconId="xCircle"
-      />
-      <ConfirmSlider
-        enabled
-        onConfirm={() => continueTrade()}
-        label1={i18n('contract.cancelationRequested.continueTrade')}
-        iconId="arrowRightCircle"
-      />
-    </>
-  )
+  if (tradeStatus === 'refundOrReviveRequired') {
+    return (
+      <>
+        <RepublishOfferSlider />
+        <RefundEscrowSlider />
+      </>
+    )
+  }
+  if (tradeStatus === 'refundTxSignatureRequired') {
+    return <RefundEscrowSlider />
+  }
+  return <></>
 }
