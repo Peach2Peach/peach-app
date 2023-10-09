@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { Header, Screen } from '../../components'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { useNavigation, useShowHelp } from '../../hooks'
 import { useConfigStore } from '../../store/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'

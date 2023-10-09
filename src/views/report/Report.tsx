@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
 import { Icon, Input, PeachScrollView, Screen, Text } from '../../components'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'

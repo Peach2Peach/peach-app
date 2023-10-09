@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { TextInput, View } from 'react-native'
 
 import { Input, PeachScrollView, Text } from '../../../../components'
-import { NewButton as Button } from '../../../../components/buttons/Button'
+import { Button } from '../../../../components/buttons/Button'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import { usePasswordPromptSetup } from '../../hooks/usePasswordPromptSetup'

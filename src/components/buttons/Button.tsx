@@ -21,7 +21,7 @@ export type ButtonProps = {
 } & TouchableOpacityProps
 
 /** @deprecated Use NewButton instead */
-export const Button = (props: ButtonProps) => {
+export const OldButton = (props: ButtonProps) => {
   const { wide, children, iconId, narrow, color, textColor, borderColor, loading, ...pressableProps } = props
   const width = iconId && !children ? tw`w-14` : wide ? tw`w-57` : narrow ? tw`w-39` : undefined
   const iconSize = loading ? tw`w-5 h-5` : !children ? tw`w-6 h-6` : tw`w-4 h-4`
@@ -62,7 +62,7 @@ type Props = {
 } & TouchableOpacityProps
 
 /** This button is intented to replace the base layer + the primary button component due to its greater simplicity */
-export const NewButton = ({
+export const Button = ({
   iconId,
   ghost,
   textColor = tw`text-primary-background-light`,

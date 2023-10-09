@@ -3,7 +3,7 @@ import { TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { Input, PeachScrollView, Screen } from '../../components'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
 import { useRoute } from '../../hooks'
 import { useContractDetails } from '../../hooks/query/useContractDetails'

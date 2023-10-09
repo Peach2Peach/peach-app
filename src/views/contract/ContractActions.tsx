@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { NewButton as Button, NewButton } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { ConfirmSlider } from '../../components/inputs'
 import { UnlockedSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
 import { MSINANHOUR } from '../../constants'
@@ -152,7 +152,7 @@ function NewOfferButton () {
     }
   }, [newOfferId, navigation])
 
-  return <>{!!newOfferId && <NewButton onPress={goToNewOffer}>{i18n('contract.goToNewTrade')}</NewButton>}</>
+  return <>{!!newOfferId && <Button onPress={goToNewOffer}>{i18n('contract.goToNewTrade')}</Button>}</>
 }
 
 function shouldShowPayoutPending (view: string, batchInfo: BatchInfo | undefined, releaseTxId: string | undefined) {

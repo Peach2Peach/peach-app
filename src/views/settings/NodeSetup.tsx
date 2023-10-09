@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { Header, Icon, PeachScrollView, Screen, Text } from '../../components'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { ScanQR } from '../../components/camera/ScanQR'
 import { Toggle } from '../../components/inputs'
 import { URLInput } from '../../components/inputs/URLInput'

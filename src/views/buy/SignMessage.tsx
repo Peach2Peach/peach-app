@@ -1,7 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import { View } from 'react-native'
 import { CopyAble, Header, Input, PeachScrollView, Screen } from '../../components'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { Text } from '../../components/text'
 import { useKeyboard, useShowHelp } from '../../hooks'
 import tw from '../../styles/tailwind'

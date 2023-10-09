@@ -6,7 +6,7 @@ import i18n from '../../utils/i18n'
 
 import { useMemo, useState } from 'react'
 
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { headerIcons } from '../../utils/layout'
 import { countrySupportsCurrency, getPaymentMethodInfo } from '../../utils/paymentMethod'
 import { usePaymentMethodLabel } from './hooks'

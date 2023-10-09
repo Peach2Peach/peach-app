@@ -11,7 +11,7 @@ import {
   Text,
 } from '../../components'
 import { BTCAmount } from '../../components/bitcoin'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { TradeInfo } from '../../components/offer'
 import { SATSINBTC } from '../../constants'
 import { useCancelOffer, useRoute, useShowHelp } from '../../hooks'

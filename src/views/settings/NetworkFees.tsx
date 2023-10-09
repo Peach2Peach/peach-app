@@ -1,7 +1,7 @@
 import tw from '../../styles/tailwind'
 
 import { Header, HorizontalLine, PeachScrollView, RadioButtons, Screen, Text } from '../../components'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { useShowHelp } from '../../hooks'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'

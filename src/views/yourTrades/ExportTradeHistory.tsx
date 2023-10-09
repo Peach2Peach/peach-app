@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { Screen, Text } from '../../components'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { useWriteCSV } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import tw from '../../styles/tailwind'

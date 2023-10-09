@@ -1,4 +1,4 @@
-import { NewButton as Button } from '../../../components/buttons/Button'
+import { Button } from '../../../components/buttons/Button'
 import { DisputeRaisedPopup } from '../../../popups/dispute/components/DisputeRaisedPopup'
 import { usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'

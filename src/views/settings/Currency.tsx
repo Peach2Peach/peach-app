@@ -2,7 +2,7 @@ import tw from '../../styles/tailwind'
 
 import { shallow } from 'zustand/shallow'
 import { PeachScrollView, RadioButtons, Screen } from '../../components'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import { CURRENCIES } from '../../paymentMethods'
 import { useBitcoinStore } from '../../store/bitcoinStore'

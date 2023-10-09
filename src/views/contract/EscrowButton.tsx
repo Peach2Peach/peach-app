@@ -1,6 +1,6 @@
 import { NETWORK } from '@env'
 import { StyleProp, ViewStyle } from 'react-native'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'

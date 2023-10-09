@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import { PeachScrollView, RadioButtons, Screen } from '../../components'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { FlagType } from '../../components/flags'
 import { useNavigation, useRoute } from '../../hooks'
 import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../paymentMethods'

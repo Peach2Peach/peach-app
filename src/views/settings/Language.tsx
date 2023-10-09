@@ -1,5 +1,5 @@
 import { PeachScrollView, RadioButtons, Screen } from '../../components'
-import { NewButton } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import { useLanguage } from '../../hooks/useLanguage'
 import tw from '../../styles/tailwind'
@@ -26,9 +26,9 @@ export const Language = () => {
           onButtonPress={setLocale}
         />
       </PeachScrollView>
-      <NewButton style={tw`self-center`} onPress={onConfirm}>
+      <Button style={tw`self-center`} onPress={onConfirm}>
         {i18n('confirm')}
-      </NewButton>
+      </Button>
     </Screen>
   )
 }

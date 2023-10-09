@@ -1,7 +1,7 @@
 import { TouchableOpacity, View } from 'react-native'
 
 import { Icon, RadioButtons, Screen, Text } from '../../components'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useSelectWalletSetup } from './hooks/useSelectWalletSetup'
