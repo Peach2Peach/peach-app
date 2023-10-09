@@ -1,47 +1,48 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
-import { usePopupStore } from '../../../store/usePopupStore'
-import { saveContract } from '../../../utils/contract'
 import { signReleaseTxOfContract } from '../../../utils/contract/signReleaseTxOfContract'
-import i18n from '../../../utils/i18n'
 import { confirmPayment } from '../../../utils/peachAPI'
 
 export const useReleaseEscrow = (contract: Contract) => {
-  const closePopup = usePopupStore((state) => state.closePopup)
   const showError = useShowErrorBanner()
-  const showLoadingPopup = useShowLoadingPopup()
 
-  const releaseEscrow = async () => {
-    showLoadingPopup({
-      title: i18n('dispute.lost'),
-      level: 'WARN',
-    })
-    const { releaseTransaction, batchReleasePsbt, errorMsg } = signReleaseTxOfContract(contract)
-    if (!releaseTransaction) {
-      closePopup()
-      return showError(errorMsg)
-    }
+  const queryClient = useQueryClient()
+  return useMutation({
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['contract', contract.id] })
+      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contract.id])
+      queryClient.setQueryData(['contract', contract.id], (old: GetContractResponse | undefined) => {
+        if (!old) return old
+        return {
+          ...old,
+          paymentConfirmed: new Date(),
+          releaseTxId: '',
+          disputeResolvedDate: new Date(),
+        }
+      })
+      return { previousData }
+    },
+    mutationFn: async () => {
+      const { releaseTransaction, batchReleasePsbt, errorMsg } = signReleaseTxOfContract(contract)
+      if (!releaseTransaction) {
+        throw new Error(errorMsg)
+      }
 
-    const [result, err] = await confirmPayment({
-      contractId: contract.id,
-      releaseTransaction,
-      batchReleasePsbt,
-    })
-    if (err) {
-      closePopup()
-      return showError(err.error)
-    }
-
-    saveContract({
-      ...contract,
-      paymentConfirmed: new Date(),
-      cancelConfirmationDismissed: true,
-      releaseTxId: result?.txId || '',
-      disputeResultAcknowledged: true,
-      disputeResolvedDate: new Date(),
-    })
-    return closePopup()
-  }
-
-  return releaseEscrow
+      const [, err] = await confirmPayment({
+        contractId: contract.id,
+        releaseTransaction,
+        batchReleasePsbt,
+      })
+      if (err) {
+        throw new Error(err.error)
+      }
+    },
+    onError: (err: string | undefined, _variables, context) => {
+      queryClient.setQueryData(['contract', contract.id], context?.previousData)
+      showError(err)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['contract', contract.id])
+    },
+  })
 }

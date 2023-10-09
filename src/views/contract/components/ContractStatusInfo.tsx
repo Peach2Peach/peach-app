@@ -12,7 +12,7 @@ type Props = {
 export const ContractStatusInfo = ({ requiredAction }: Props) => {
   const { contract, view } = useContractContext()
 
-  if (contract.disputeActive || contract.cancelationRequested) {
+  if (contract.disputeActive || contract.disputeWinner || contract.cancelationRequested) {
     return <></>
   }
 

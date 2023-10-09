@@ -37,5 +37,6 @@ export const getBuyerStatusText = (contract: Contract) => {
   if (isResolved) {
     return i18n('contract.buyer.disputeWon.paidOut')
   }
+
   return i18n('contract.buyer.disputeWon.awaitingPayout')
 }

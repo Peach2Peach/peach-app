@@ -17,6 +17,7 @@ export const getActionLabel = (tradeSummary: PartialTradeSummary, isWaiting: boo
       return unreadMessages > 0 ? i18n('yourTrades.newMessages') : undefined
     }
     if (disputeWinner) {
+      if (tradeStatus === 'releaseEscrow') return i18n('offer.requiredAction.releaseEscrow')
       return i18n(`offer.requiredAction.${translationStatusKey}.dispute`)
     }
 

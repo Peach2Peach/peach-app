@@ -7,7 +7,7 @@ type Props = {
 }
 
 export const ReleaseEscrowSlider = ({ contract }: Props) => {
-  const releaseEscrow = useReleaseEscrow(contract)
+  const { mutate } = useReleaseEscrow(contract)
 
-  return <ConfirmSlider label1={i18n('releaseEscrow')} onConfirm={releaseEscrow} />
+  return <ConfirmSlider label1={i18n('releaseEscrow')} onConfirm={() => mutate()} />
 }

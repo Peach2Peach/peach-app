@@ -72,7 +72,7 @@ function ContractCTA ({ requiredAction }: Props) {
     if (contract.tradeStatus === 'confirmCancelation') {
       return <ResolveCancelRequestSliders />
     }
-    if (requiredAction === 'confirmPayment') {
+    if (requiredAction === 'confirmPayment' && !contract.disputeWinner) {
       return <UnlockedSlider label={i18n('contract.payment.made')} />
     }
     if (requiredAction === 'sendPayment') {

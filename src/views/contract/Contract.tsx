@@ -60,7 +60,7 @@ function ContractHeader () {
   }, [showConfirmPopup, contract, requiredAction, showConfirmPaymentHelp, showMakePaymentHelp, view])
 
   const theme = useMemo(() => {
-    if (contract?.disputeActive) return 'dispute'
+    if (contract?.disputeActive || contract.disputeWinner) return 'dispute'
     if (contract?.canceled || tradeStatus === 'confirmCancelation') return 'cancel'
     if (isPaymentTooLate(contract)) return 'paymentTooLate'
     return view
@@ -72,10 +72,14 @@ function ContractHeader () {
         if (isPaymentTooLate(contract)) return i18n('contract.seller.paymentTimerHasRunOut.title')
         return i18n('offer.requiredAction.paymentRequired')
       }
+      if (contract.disputeWinner === 'buyer') return i18n('contract.disputeWon')
+      if (contract.disputeWinner === 'seller') return i18n('contract.disputeLost')
       if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.waiting.seller')
       if (tradeStatus === 'confirmCancelation') return i18n('offer.requiredAction.confirmCancelation.buyer')
     }
     if (view === 'seller') {
+      if (contract?.disputeWinner === 'seller') return i18n('contract.disputeWon')
+      if (contract?.disputeWinner === 'buyer') return i18n('contract.disputeLost')
       if (contract?.canceled) return i18n('contract.tradeCanceled')
     }
     if (isPaymentTooLate(contract)) {
