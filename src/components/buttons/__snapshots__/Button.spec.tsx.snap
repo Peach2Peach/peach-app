@@ -266,6 +266,7 @@ exports[`NewButton should render correctly 1`] = `
       "gap": 8,
       "height": 40,
       "justifyContent": "center",
+      "minWidth": 128,
       "opacity": 1,
       "paddingLeft": 32,
       "paddingRight": 32,
@@ -331,12 +332,12 @@ exports[`NewButton should render correctly when disabled 1`] = `
       }
     }
     accessibilityValue={
-@@ -34,11 +34,11 @@
-        "borderRadius": 9999,
+@@ -35,11 +35,11 @@
         "flexDirection": "row",
         "gap": 8,
         "height": 40,
         "justifyContent": "center",
+        "minWidth": 128,
 -       "opacity": 1,
 +       "opacity": 0.33,
         "paddingLeft": 32,
@@ -367,7 +368,7 @@ exports[`NewButton should render correctly when ghost is true 1`] = `
         "gap": 8,
         "height": 40,
         "justifyContent": "center",
-        "opacity": 1,"
+        "minWidth": 128,"
 `;
 
 exports[`NewButton should render correctly with icon 1`] = `
@@ -375,7 +376,7 @@ exports[`NewButton should render correctly with icon 1`] = `
 - First value
 + Second value
 
-@@ -78,6 +78,18 @@
+@@ -79,6 +79,18 @@
         ]
       }
     >

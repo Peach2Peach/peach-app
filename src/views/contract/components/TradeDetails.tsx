@@ -1,6 +1,5 @@
 import { Fragment } from 'react'
 import { View } from 'react-native'
-import { SummaryItem } from '../../../components/payment/SummaryItem'
 import { ErrorBox, HorizontalLine } from '../../../components/ui'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import tw from '../../../styles/tailwind'
@@ -10,6 +9,7 @@ import { useContractContext } from '../context'
 import { isTradeInformationGetter, tradeInformationGetters } from '../helpers'
 import { tradeFields } from '../helpers/tradeInfoFields'
 import { TradeInfoField } from '../helpers/tradeInformationGetters'
+import { SummaryItem } from './SummaryItem'
 
 export const TradeDetails = () => {
   const { contract, view } = useContractContext()

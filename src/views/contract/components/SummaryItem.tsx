@@ -1,6 +1,6 @@
 import { View } from 'react-native'
-import { CopyAble, Text } from '..'
-import tw from '../../styles/tailwind'
+import { CopyAble, Text } from '../../../components'
+import tw from '../../../styles/tailwind'
 
 type Props = {
   label: string

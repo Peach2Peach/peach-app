@@ -1,6 +1,5 @@
 import { View } from 'react-native'
 import { HorizontalLine } from '../../../components'
-import { SummaryItem } from '../../../components/payment/SummaryItem'
 import { Text } from '../../../components/text'
 import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'
@@ -9,6 +8,7 @@ import { useContractContext } from '../context'
 import { tradeInformationGetters } from '../helpers'
 import { getBuyerStatusText } from '../helpers/getBuyerStatusText'
 import { getSellerStatusText } from '../helpers/getSellerStatusText'
+import { SummaryItem } from './SummaryItem'
 
 export const TradeStatusInfo = () => {
   const { contract, view } = useContractContext()
