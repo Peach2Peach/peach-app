@@ -1,10 +1,14 @@
 import { useNavigation } from '@react-navigation/native'
 import { ColorValue, SafeAreaView, TouchableOpacity, View, ViewProps } from 'react-native'
-import { HorizontalLine, Icon, Text, Tickers } from '..'
+import shallow from 'zustand/shallow'
+import { HorizontalLine, Icon, PriceFormat, Text } from '..'
 import { IconType } from '../../assets/icons'
+import { useBitcoinStore } from '../../store/bitcoinStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getHeaderStyles } from '../../utils/layout'
+import { round } from '../../utils/math'
+import { thousands } from '../../utils/string'
 import { BTCAmount } from '../bitcoin'
 
 const oldThemes = {
@@ -149,6 +153,36 @@ function HeaderNavigation ({
   )
 }
 
+const colStyle = [tw`flex-row items-center gap-2`, tw.md`flex-col items-start gap-0`]
+const unitStyle = tw`subtitle-1`
+
+type TickerProps = {
+  type?: 'buy' | 'sell'
+}
+
+export function Tickers ({ type = 'sell' }: TickerProps) {
+  const [currency, satsPerUnit, price] = useBitcoinStore(
+    (state) => [state.currency, state.satsPerUnit, state.price],
+    shallow,
+  )
+  const valueStyle = [tw`leading-xl`, type === 'sell' ? tw`text-primary-main` : tw`text-success-main`, tw.md`body-l`]
+
+  return (
+    <View style={[tw`flex-row items-center justify-between py-1 px-sm`, tw.md`px-md py-2px`]}>
+      <View style={colStyle}>
+        <Text style={unitStyle}>{`1 ${i18n('btc')}`}</Text>
+        <PriceFormat style={valueStyle} currency={currency} amount={price} round />
+      </View>
+      <View style={[...colStyle, tw.md`items-end`]}>
+        <Text style={[unitStyle, tw`text-right`]}>{`1 ${currency}`}</Text>
+        <Text style={[...valueStyle, tw`text-right`]}>
+          {i18n('currency.format.sats', thousands(round(satsPerUnit)))}
+        </Text>
+      </View>
+    </View>
+  )
+}
+
 type HeaderSubtitleProps = {
   theme?: keyof typeof newThemes
   amount: number
@@ -156,7 +190,6 @@ type HeaderSubtitleProps = {
   viewer: 'buyer' | 'seller'
   text?: string
 }
-
 function HeaderSubtitle ({ theme = 'default', amount, premium, viewer, text }: HeaderSubtitleProps) {
   return (
     <View style={[tw`flex-row items-center justify-between py-2px px-sm`, tw.md`px-md py-2`]}>
