@@ -5,8 +5,10 @@ import { ErrorBox, HorizontalLine } from '../../../components/ui'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { isCashTrade } from '../../../utils/paymentMethod'
 import { useContractContext } from '../context'
-import { getTradeInfoFields, isTradeInformationGetter, tradeInformationGetters } from '../helpers'
+import { isTradeInformationGetter, tradeInformationGetters } from '../helpers'
+import { tradeFields } from '../helpers/tradeInfoFields'
 import { TradeInfoField } from '../helpers/tradeInformationGetters'
 
 export const TradeDetails = () => {
@@ -58,4 +60,21 @@ function TradeDetailField ({ fieldName }: { fieldName: TradeInfoField }) {
       }
     />
   )
+}
+
+function getTradeInfoFields (
+  { paymentMethod, releaseTxId }: Pick<Contract, 'paymentMethod' | 'releaseTxId'>,
+  view: ContractViewer,
+) {
+  if (view === 'seller') {
+    return tradeFields.seller[releaseTxId ? 'past' : 'active'][isCashTrade(paymentMethod) ? 'cash' : 'default']
+  }
+
+  if (releaseTxId) {
+    return tradeFields.buyer.past[isCashTrade(paymentMethod) ? 'cash' : 'default']
+  }
+
+  return isCashTrade(paymentMethod)
+    ? tradeFields.buyer.active.cash
+    : tradeFields.buyer.active.default[paymentMethod] || []
 }

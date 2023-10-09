@@ -30,6 +30,6 @@ export const SimpleTimer = ({ end, style }: Props) => {
 export const Timer = ({ text, end, style }: Props) => (
   <View style={[tw`flex-row justify-center w-full gap-1`, style]}>
     {!!text && <Text style={tw`button-medium`}>{text}</Text>}
-    <SimpleTimer style={[tw`button-medium`, Date.now() > end ? tw`text-black-3` : tw`text-error-main`]} end={end} />
+    <SimpleTimer style={[tw`button-medium`, Date.now() <= end ? tw`text-black-3` : tw`text-error-main`]} end={end} />
   </View>
 )

@@ -62,6 +62,7 @@
   "UNKNOWN_ERROR.text" : "Something went wrong. Please try again later or contact the Peach support-team.",
   "UPDATE_AVAILABLE.text" : "Peach just got even better! Use the latest version of the app!",
   "UPDATE_AVAILABLE.title" : "update available",
+  "WALLET_SYNC_ERROR.text" : "Oops! Something went wrong while syncing your wallet. It appears there's a connection issue. Please check your internet connection and try syncing again.",
   "WRONG_PASSWORD.text" : "We can't decrypt the backup file because you entered a wrong password. Please try again.",
   "WRONG_PASSWORD.title" : "wrong password",
   "YEARLY_TRADING_LIMIT_REACHED.text" : "You've hit the yearly trading limit. That's impressive!",

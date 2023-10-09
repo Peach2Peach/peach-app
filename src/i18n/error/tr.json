@@ -62,6 +62,7 @@
   "UNKNOWN_ERROR.text" : "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin veya hata devam ederse bizimle iletişime geçin.",
   "UPDATE_AVAILABLE.text" : "Peach daha da iyi hale geldi! En son sürümü kullanın!",
   "UPDATE_AVAILABLE.title" : "güncelleme mevcut",
+  "WALLET_SYNC_ERROR.text" : "Hata! Cüzdanınızı senkronize ederken bir bağlantı sorunu oluştu gibi görünüyor. İnternet bağlantınızı kontrol edip senkronizasyonu tekrar deneyin.",
   "WRONG_PASSWORD.text" : "Yedekleme dosyasını şifreleyemiyoruz çünkü yanlış bir parola girdiniz. Lütfen tekrar deneyin.",
   "WRONG_PASSWORD.title" : "yanlış parola",
   "YEARLY_TRADING_LIMIT_REACHED.text" : "Yıllık ticaret limitinize ulaştınız. Bu etkileyici!",

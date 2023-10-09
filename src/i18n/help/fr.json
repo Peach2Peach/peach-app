@@ -37,9 +37,6 @@
   "help.referral.title" : "Points de parrainage Peach",
   "help.sellingBitcoin.description" : "Vendre vos sats sur Peach est gratuit !",
   "help.sellingBitcoin.title" : "vente de bitcoin",
-  "help.tooLate.text.1" : "Le vendeur a été informé que vous n'avez pas fait le paiement à temps. Vous devez attendre qu'il prenne une décision: vous accorder plus de temps ou annuler la transaction.",
-  "help.tooLate.text.2" : "Dans les deux cas, votre réputation a été affectée.",
-  "help.tooLate.title" : "Trop tard !",
   "help.tradingLimit.description" : "Peach doit respecter des limites de trading pour se conformer à la législation suisse. Il existe trois limites de trading :\n\nVous pouvez acheter ou vendre jusqu'à 1000 CHF de bitcoin sur Peach chaque jour.\n\nVous pouvez acheter ou vendre jusqu'à 1000 CHF de bitcoin en espèces ou en cartes-cadeaux en ligne (méthodes de paiement considérées comme anonymes) chaque mois.\n\nVous pouvez acheter ou vendre jusqu'à  100 000 CHF de bitcoin par an.",
   "help.tradingLimit.title" : "limites de trading"
 }

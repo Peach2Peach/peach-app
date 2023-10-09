@@ -62,6 +62,7 @@
   "UNKNOWN_ERROR.text" : "Kitu kimetokea kimetokea. Tafadhali jaribu tena baadaye au wasiliana na timu ya usaidizi ya Peach.",
   "UPDATE_AVAILABLE.text" : "Peach imeboreshwa hata zaidi! Tumia toleo la hivi karibuni la programu!",
   "UPDATE_AVAILABLE.title" : "kisasisho kinapatikana",
+  "WALLET_SYNC_ERROR.text" : "Samahani! Kuna tatizo lililotokea wakati wa kusawazisha mkoba wako. Inaonekana kuna shida ya uunganisho. Tafadhali angalia uunganisho wako wa intaneti na jaribu kusawazisha tena.",
   "WRONG_PASSWORD.text" : "Hatufai kufichua faili ya nakala rudufu kwa sababu umeingiza nenosiri lisilo sahihi. Tafadhali jaribu tena.",
   "WRONG_PASSWORD.title" : "nenosiri lisilo sahihi",
   "YEARLY_TRADING_LIMIT_REACHED.text" : "Umefikia kikomo cha biashara cha kila mwaka. Hilo ni la kushangaza!",

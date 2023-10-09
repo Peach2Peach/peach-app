@@ -16,7 +16,11 @@ export const Bottom = ({ labelIcon: icon, label: text, unreadMessages: messages,
         <Text style={[tw`subtitle-1`, statusCardStyles.text[color]]}>{text}</Text>
       </View>
       <View style={[tw`items-center justify-center w-7 h-7`, !messages && tw`opacity-0`]}>
-        <Icon id="messageFull" style={tw`w-7 h-7`} color={statusCardStyles.text[color].color} />
+        <Icon
+          id="messageFull"
+          style={tw`w-7 h-7`}
+          color={color !== 'primary-mild' ? statusCardStyles.text[color].color : statusCardStyles.text.primary.color}
+        />
         <Text style={tw`absolute text-center font-baloo-bold`}>{messages}</Text>
       </View>
     </View>

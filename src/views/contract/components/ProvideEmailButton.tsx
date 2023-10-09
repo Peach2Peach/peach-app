@@ -1,17 +1,18 @@
-import { PrimaryButton } from '../../../components'
+import { NewButton } from '../../../components/buttons/Button'
+import { DisputeRaisedPopup } from '../../../popups/dispute/components/DisputeRaisedPopup'
+import { usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
-import { useDisputeRaisedNotice } from '../../../popups/dispute/hooks/useDisputeRaisedNotice'
 import i18n from '../../../utils/i18n'
 import { useContractContext } from '../context'
 
-export const ProvideEmailButton = ({ style }: ComponentProps) => {
-  const { showDisputeRaisedNotice } = useDisputeRaisedNotice()
+export const ProvideEmailButton = () => {
   const { contract, view } = useContractContext()
-  const onPress = () => showDisputeRaisedNotice(contract, view)
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const onPress = () => setPopup(<DisputeRaisedPopup contract={contract} view={view} />)
 
   return (
-    <PrimaryButton style={[tw`bg-error-main`, style]} onPress={onPress} iconId="alertCircle" narrow>
+    <NewButton style={tw`bg-error-main`} onPress={onPress} iconId="alertCircle">
       {i18n('contract.provideEmail')}
-    </PrimaryButton>
+    </NewButton>
   )
 }

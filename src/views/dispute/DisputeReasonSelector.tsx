@@ -2,15 +2,21 @@ import tw from '../../styles/tailwind'
 
 import { OptionButton, PeachScrollView, Screen, Text } from '../../components'
 import { useRoute } from '../../hooks'
-import { contractIdToHex, getContract } from '../../utils/contract'
+import { useContractDetails } from '../../hooks/query/useContractDetails'
+import { contractIdToHex } from '../../utils/contract'
 import i18n from '../../utils/i18n'
+import { LoadingScreen } from '../loading/LoadingScreen'
 import { useDisputeReasonSelectorSetup } from './hooks/useDisputeReasonSelectorSetup'
 
 export const DisputeReasonSelector = () => {
-  const { availableReasons, setReason } = useDisputeReasonSelectorSetup()
   const { contractId } = useRoute<'disputeReasonSelector'>().params
-  const contract = getContract(contractId)
+  const { contract } = useContractDetails(contractId)
 
+  return !contract ? <LoadingScreen /> : <DisputeReasonScreen contract={contract} />
+}
+
+function DisputeReasonScreen ({ contract }: { contract: Contract }) {
+  const { availableReasons, setReason } = useDisputeReasonSelectorSetup(contract)
   return (
     <Screen header={i18n('dispute.disputeForTrade', contract ? contractIdToHex(contract.id) : '')}>
       <PeachScrollView contentContainerStyle={tw`items-center justify-center grow`} contentStyle={tw`gap-4`}>

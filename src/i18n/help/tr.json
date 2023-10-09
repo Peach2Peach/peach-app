@@ -37,9 +37,6 @@
   "help.referral.title" : "Peach yönlendirme puanları",
   "help.sellingBitcoin.description" : "Peach üzerinde sats'larınızı satmak ücretsizdir!",
   "help.sellingBitcoin.title" : "bitcoin satma",
-  "help.tooLate.text.1" : "Satıcıya zamanında yetişmediğiniz bildirildi. Şimdi satıcı size daha fazla zaman tanıyabilir veya işlemi iptal edebilir.",
-  "help.tooLate.text.2" : "Her iki durumda da itibarınız etkilendi.",
-  "help.tooLate.title" : "çok geç!",
   "help.tradingLimit.description" : "Peach, İsviçre yasalarına uymak için işlem limitlerini uygulamak zorundadır. Üç işlem limiti bulunmaktadır:\n\nGünlük olarak Peach'te 1000 CHF değerinde bitcoin alıp satabilirsiniz\n\nNakit veya çevrimdışı hediye kartları (anonim ödeme yöntemleri) ile ayda 1000 CHF değerinde bitcoin alıp satabilirsiniz\n\nYıllık olarak 100.000 CHF değerinde bitcoin alıp satabilirsiniz.",
   "help.tradingLimit.title" : "işlem limitleri"
 }

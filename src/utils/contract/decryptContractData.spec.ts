@@ -1,5 +1,5 @@
 import { decryptContractData } from '.'
-import { decryptSymmetricKey, getPaymentData } from '../../views/contract/helpers'
+import { decryptSymmetricKey } from '../../views/contract/helpers'
 
 jest.mock('../../views/contract/helpers', () => ({
   getPaymentData: jest.fn(),
@@ -23,7 +23,6 @@ describe('decryptContractData', () => {
     const symmetricKey = 'some_symmetric_key'
     const paymentData = 'some_payment_data'
     ;(decryptSymmetricKey as jest.Mock).mockResolvedValue([symmetricKey, null])
-    ;(getPaymentData as jest.Mock).mockResolvedValue([paymentData, null])
 
     const result = await decryptContractData(contract as Contract)
 
@@ -35,9 +34,7 @@ describe('decryptContractData', () => {
 
   it('should return null when payment data decryption fails', async () => {
     const symmetricKey = 'some_symmetric_key'
-    const decryptionError = 'some_decryption_error'
     ;(decryptSymmetricKey as jest.Mock).mockResolvedValue([symmetricKey, null])
-    ;(getPaymentData as jest.Mock).mockResolvedValue([null, decryptionError])
 
     const result = await decryptContractData(contract as Contract)
 

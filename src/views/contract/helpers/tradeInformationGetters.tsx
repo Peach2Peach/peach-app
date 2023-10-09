@@ -1,20 +1,16 @@
-import { NETWORK } from '@env'
 import { Bubble, PaymentMethodBubble } from '../../../components/bubble'
-import { WalletLabel } from '../../../components/offer/WalletLabel'
-import { TradeBreakdown } from '../../../popups/TradeBreakdown'
-import { usePopupStore } from '../../../store/usePopupStore'
-import { showAddress, showTransaction } from '../../../utils/bitcoin'
+import { useWalletLabel } from '../../../components/offer/useWalletLabel'
 import { contractIdToHex, getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../../utils/contract'
 import { toShortDateFormat } from '../../../utils/date'
 import i18n from '../../../utils/i18n'
 import { getPaymentMethodName } from '../../../utils/paymentMethod'
 import { groupChars, priceFormat } from '../../../utils/string'
 import { UserId } from '../../settings/profile/profileOverview/components'
+import { TradeBreakdownBubble } from '../components/TradeBreakdownBubble'
 
 export const tradeInformationGetters: Record<
   | 'bitcoinAmount'
   | 'bitcoinPrice'
-  | 'buyer'
   | 'location'
   | 'meetup'
   | 'method'
@@ -25,7 +21,6 @@ export const tradeInformationGetters: Record<
   | 'price'
   | 'ratingBuyer'
   | 'ratingSeller'
-  | 'seller'
   | 'soldFor'
   | 'tradeBreakdown'
   | 'tradeId'
@@ -34,30 +29,18 @@ export const tradeInformationGetters: Record<
   | 'youShouldPay'
   | 'youWillGet',
   (contract: Contract) => string | number | JSX.Element | undefined
-> = {
-  price: (contract: Contract) =>
-    `${contract.currency === 'SAT' ? groupChars(String(contract.price), 3) : priceFormat(contract.price)} ${
-      contract.currency
-    }`,
-  soldFor: (contract: Contract) =>
-    `${contract.currency === 'SAT' ? groupChars(String(contract.price), 3) : priceFormat(contract.price)} ${
-      contract.currency
-    }`,
-  youShouldPay: (contract: Contract) =>
-    `${contract.currency === 'SAT' ? groupChars(String(contract.price), 3) : priceFormat(contract.price)} ${
-      contract.currency
-    }`,
-  youPaid: (contract: Contract) =>
-    `${contract.currency === 'SAT' ? groupChars(String(contract.price), 3) : priceFormat(contract.price)} ${
-      contract.currency
-    }`,
-  youWillGet: (contract: Contract) =>
-    `${contract.currency === 'SAT' ? groupChars(String(contract.price), 3) : priceFormat(contract.price)} ${
-      contract.currency
-    }`,
+> & {
+  buyer: (contract: Contract) => JSX.Element
+  seller: (contract: Contract) => JSX.Element
+} = {
+  price: getPrice,
+  soldFor: getPrice,
+  youShouldPay: getPrice,
+  youPaid: getPrice,
+  youWillGet: getPrice,
   buyer: (contract: Contract) => <UserId id={contract.buyer.id} showInfo />,
-  paidWithMethod: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
-  paidToMethod: (contract: Contract) => <PaymentMethodBubble paymentMethod={contract.paymentMethod} />,
+  paidWithMethod: getPaymentMethod,
+  paidToMethod: getPaymentMethodBubble,
   paidToWallet: (contract: Contract) => {
     const buyOffer = getBuyOfferFromContract(contract)
     return <WalletLabel label={buyOffer.walletLabel} address={buyOffer.releaseAddress} />
@@ -69,20 +52,14 @@ export const tradeInformationGetters: Record<
     if (contract.currency === 'SAT') return `${groupChars(String(bitcoinPrice), 3)} ${contract.currency}`
     return `${priceFormat(bitcoinPrice)} ${contract.currency}`
   },
-  ratingBuyer: (contract: Contract) =>
-    contract.ratingBuyer !== 0 ? (
-      <Bubble iconId={contract.ratingBuyer === 1 ? 'thumbsUp' : 'thumbsDown'} color={'primary'} ghost />
-    ) : undefined,
-  ratingSeller: (contract: Contract) =>
-    contract.ratingSeller !== 0 ? (
-      <Bubble iconId={contract.ratingSeller === 1 ? 'thumbsUp' : 'thumbsDown'} color={'primary'} ghost />
-    ) : undefined,
+  ratingBuyer: (contract: Contract) => getRatingBubble(contract, 'Buyer'),
+  ratingSeller: (contract: Contract) => getRatingBubble(contract, 'Seller'),
   seller: (contract: Contract) => <UserId id={contract.seller.id} showInfo />,
   tradeBreakdown: (contract: Contract) => <TradeBreakdownBubble contract={contract} />,
   tradeId: (contract: Contract) => contractIdToHex(contract.id),
-  via: (contract: Contract) => <PaymentMethodBubble paymentMethod={contract.paymentMethod} />,
-  method: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
-  meetup: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
+  via: getPaymentMethodBubble,
+  method: getPaymentMethod,
+  meetup: getPaymentMethod,
   location: (_contract: Contract) => i18n('contract.summary.location.text'),
 }
 
@@ -132,29 +109,28 @@ export const isTradeInformationGetter = (
   fieldName: keyof typeof tradeInformationGetters | TradeInfoField,
 ): fieldName is keyof typeof tradeInformationGetters => tradeInformationGetters.hasOwnProperty(fieldName)
 
-export const pastCashTradeFields: TradeInfoField[] = ['meetup']
+function getPrice (contract: Contract) {
+  return `${contract.currency === 'SAT' ? groupChars(String(contract.price), 3) : priceFormat(contract.price)} ${
+    contract.currency
+  }`
+}
 
-function TradeBreakdownBubble ({ contract }: { contract: Contract }) {
-  const setPopup = usePopupStore((state) => state.setPopup)
-  const viewInExplorer = () =>
-    contract.releaseTxId ? showTransaction(contract.releaseTxId, NETWORK) : showAddress(contract.escrow, NETWORK)
-  const showTradeBreakdown = () => {
-    setPopup({
-      title: i18n('tradeComplete.popup.tradeBreakdown.title'),
-      content: <TradeBreakdown {...contract} />,
-      visible: true,
-      level: 'APP',
-      action2: {
-        label: i18n('tradeComplete.popup.tradeBreakdown.explorer'),
-        callback: viewInExplorer,
-        icon: 'externalLink',
-      },
-    })
-  }
+function getPaymentMethodBubble (contract: Contract) {
+  return <PaymentMethodBubble paymentMethod={contract.paymentMethod} />
+}
 
-  return (
-    <Bubble iconId="info" color="primary" onPress={showTradeBreakdown}>
-      {i18n('contract.summary.tradeBreakdown.show')}
-    </Bubble>
-  )
+function getRatingBubble (contract: Contract, userType: 'Buyer' | 'Seller') {
+  return contract[`rating${userType}`] !== 0 ? (
+    <Bubble iconId={contract[`rating${userType}`] === 1 ? 'thumbsUp' : 'thumbsDown'} color={'primary'} ghost />
+  ) : undefined
+}
+
+function getPaymentMethod (contract: Contract) {
+  return getPaymentMethodName(contract.paymentMethod)
+}
+
+function WalletLabel ({ label, address }: { label?: string; address?: string }) {
+  const walletLabel = useWalletLabel({ label, address })
+
+  return <>{walletLabel}</>
 }

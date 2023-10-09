@@ -2,9 +2,9 @@ import { Header, PeachScrollView, Screen } from '../../components'
 import tw from '../../styles/tailwind'
 
 import { useMemo } from 'react'
-import { useRoute, useShowHelp } from '../../hooks'
+import { useRoute, useShowHelp, useToggleBoolean } from '../../hooks'
 import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
-import { canCancelContract, contractIdToHex } from '../../utils/contract'
+import { canCancelContract, contractIdToHex, getRequiredAction } from '../../utils/contract'
 import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
@@ -16,29 +16,28 @@ import { ContractContext, useContractContext } from './context'
 import { useContractSetup } from './hooks/useContractSetup'
 
 export const Contract = () => {
-  const { contract, isLoading, view, showBatchInfo, toggleShowBatchInfo, ...contractActionsProps } = useContractSetup()
+  const { contract, isLoading, view } = useContractSetup()
+  const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean()
 
   if (!contract || !view || isLoading) return <LoadingScreen />
 
   return (
     <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo }}>
-      <Screen header={<ContractHeader requiredAction={contractActionsProps.requiredAction} />}>
+      <Screen header={<ContractHeader />}>
         <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
           {showBatchInfo ? <PendingPayoutInfo /> : <TradeInformation />}
-          <ContractActions style={tw`items-center justify-end w-full`} {...contractActionsProps} />
+          <ContractActions />
         </PeachScrollView>
       </Screen>
     </ContractContext.Provider>
   )
 }
 
-type Props = {
-  requiredAction: ContractAction
-}
-
-function ContractHeader ({ requiredAction }: Props) {
+function ContractHeader () {
   const { contractId } = useRoute<'contract'>().params
   const { contract, view } = useContractContext()
+  const { tradeStatus } = contract
+  const requiredAction = getRequiredAction(contract)
   const { showConfirmPopup } = useConfirmCancelTrade()
   const showMakePaymentHelp = useShowHelp('makePayment')
   const showConfirmPaymentHelp = useShowHelp('confirmPayment')
@@ -61,22 +60,37 @@ function ContractHeader ({ requiredAction }: Props) {
   }, [showConfirmPopup, contract, requiredAction, showConfirmPaymentHelp, showMakePaymentHelp, view])
 
   const theme = useMemo(() => {
-    if (contract?.disputeActive) return 'dispute'
-    if (contract?.canceled) return 'cancel'
+    if (contract?.disputeActive || contract.disputeWinner) return 'dispute'
+    if (contract?.canceled || tradeStatus === 'confirmCancelation') return 'cancel'
     if (isPaymentTooLate(contract)) return 'paymentTooLate'
     return view
-  }, [contract, view])
+  }, [contract, tradeStatus, view])
 
   const title = useMemo(() => {
-    const { tradeStatus } = contract
     if (view === 'buyer') {
-      if (tradeStatus === 'paymentRequired') return i18n('offer.requiredAction.paymentRequired')
+      if (tradeStatus === 'paymentRequired') {
+        if (isPaymentTooLate(contract)) return i18n('contract.seller.paymentTimerHasRunOut.title')
+        return i18n('offer.requiredAction.paymentRequired')
+      }
+      if (contract.disputeWinner === 'buyer') return i18n('contract.disputeWon')
+      if (contract.disputeWinner === 'seller') return i18n('contract.disputeLost')
       if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.waiting.seller')
+      if (tradeStatus === 'confirmCancelation') return i18n('offer.requiredAction.confirmCancelation.buyer')
     }
+    if (view === 'seller') {
+      if (contract?.disputeWinner === 'seller') return i18n('contract.disputeWon')
+      if (contract?.disputeWinner === 'buyer') return i18n('contract.disputeLost')
+      if (contract?.canceled) return i18n('contract.tradeCanceled')
+    }
+    if (isPaymentTooLate(contract)) {
+      return i18n('contract.seller.paymentTimerHasRunOut.title', contractIdToHex(contract.id))
+    }
+    if (contract?.disputeActive) return i18n('offer.requiredAction.dispute')
+    if (tradeStatus === 'confirmCancelation') return i18n('offer.requiredAction.confirmCancelation.seller')
     if (tradeStatus === 'paymentRequired') return i18n('offer.requiredAction.waiting.buyer')
     if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.confirmPaymentRequired')
     return contractIdToHex(contractId)
-  }, [contract, contractId, view])
+  }, [contract, contractId, tradeStatus, view])
 
   return (
     <Header
