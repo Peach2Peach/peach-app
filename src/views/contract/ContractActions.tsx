@@ -171,7 +171,7 @@ function PayoutPendingButton () {
 
 function ChatButton () {
   const {
-    contract: { messages, id },
+    contract: { unreadMessages, id },
   } = useContractContext()
   const navigation = useNavigation()
   const showHelp = useShowHelp('disputeDisclaimer')
@@ -196,8 +196,8 @@ function ChatButton () {
     }
   }
   return (
-    <Button style={tw`flex-1`} iconId={messages === 0 ? 'messageCircle' : 'messageFull'} onPress={goToChat}>
-      {messages === 0 ? i18n('chat') : `${messages} ${i18n('contract.unread')}`}
+    <Button style={tw`flex-1`} iconId={unreadMessages === 0 ? 'messageCircle' : 'messageFull'} onPress={goToChat}>
+      {unreadMessages === 0 ? i18n('chat') : `${unreadMessages} ${i18n('contract.unread')}`}
     </Button>
   )
 }
