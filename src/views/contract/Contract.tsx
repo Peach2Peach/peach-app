@@ -81,6 +81,7 @@ function ContractHeader () {
     if (isPaymentTooLate(contract)) {
       return i18n('contract.seller.paymentTimerHasRunOut.title', contractIdToHex(contract.id))
     }
+    if (contract?.disputeActive) return i18n('offer.requiredAction.dispute')
     if (tradeStatus === 'confirmCancelation') return i18n('offer.requiredAction.confirmCancelation.seller')
     if (tradeStatus === 'paymentRequired') return i18n('offer.requiredAction.waiting.buyer')
     if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.confirmPaymentRequired')

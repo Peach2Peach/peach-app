@@ -160,11 +160,10 @@ function shouldShowPayoutPending (view: string, batchInfo: BatchInfo | undefined
 }
 
 function PayoutPendingButton () {
-  const { contract, showBatchInfo, toggleShowBatchInfo } = useContractContext()
-  const { disputeActive } = contract
+  const { showBatchInfo, toggleShowBatchInfo } = useContractContext()
 
   return (
-    <Button style={[tw`self-center`, disputeActive && tw`bg-error-main`]} iconId="eye" onPress={toggleShowBatchInfo}>
+    <Button style={tw`self-center`} iconId="eye" onPress={toggleShowBatchInfo}>
       {i18n(showBatchInfo ? 'contract.summary.tradeDetails' : 'offer.requiredAction.payoutPending')}
     </Button>
   )
@@ -172,7 +171,7 @@ function PayoutPendingButton () {
 
 function ChatButton () {
   const {
-    contract: { messages, id, disputeActive },
+    contract: { messages, id },
   } = useContractContext()
   const navigation = useNavigation()
   const showHelp = useShowHelp('disputeDisclaimer')
@@ -197,11 +196,7 @@ function ChatButton () {
     }
   }
   return (
-    <Button
-      style={[tw`flex-1`, disputeActive && tw`bg-error-main`]}
-      iconId={messages === 0 ? 'messageCircle' : 'messageFull'}
-      onPress={goToChat}
-    >
+    <Button style={tw`flex-1`} iconId={messages === 0 ? 'messageCircle' : 'messageFull'} onPress={goToChat}>
       {messages === 0 ? i18n('chat') : `${messages} ${i18n('contract.unread')}`}
     </Button>
   )
