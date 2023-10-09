@@ -7,11 +7,11 @@ import {
   Icon,
   Loading,
   PeachScrollView,
-  PrimaryButton,
   Screen,
   Text,
 } from '../../components'
 import { BTCAmount } from '../../components/bitcoin'
+import { NewButton as Button } from '../../components/buttons/Button'
 import { TradeInfo } from '../../components/offer'
 import { SATSINBTC } from '../../constants'
 import { useCancelOffer, useRoute, useShowHelp } from '../../hooks'
@@ -73,9 +73,9 @@ export const FundEscrow = () => {
             IconComponent={<Icon id="checkCircle" size={16} color={tw`text-success-main`.color} />}
           />
         ) : (
-          <PrimaryButton border iconId="sell" onPress={fundFromPeachWallet}>
+          <Button ghost textColor={tw`text-primary-main`} iconId="sell" onPress={fundFromPeachWallet}>
             {i18n('fundFromPeachWallet.button')}
-          </PrimaryButton>
+          </Button>
         )}
       </View>
     </Screen>

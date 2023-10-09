@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { ColorValue, SafeAreaView, TouchableOpacity, View, ViewProps } from 'react-native'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { HorizontalLine, Icon, PriceFormat, Text } from '..'
 import { IconType } from '../../assets/icons'
 import { useBitcoinStore } from '../../store/bitcoinStore'
