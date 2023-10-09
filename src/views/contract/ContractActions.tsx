@@ -54,7 +54,7 @@ export const ContractActions = () => {
 
       {shouldShowPayoutPending(view, batchInfo, releaseTxId) && <PayoutPendingButton />}
       <ContractStatusInfo requiredAction={requiredAction} />
-      {!!isEmailRequired && <ProvideEmailButton style={tw`self-center`} />}
+      {!!isEmailRequired && <ProvideEmailButton />}
       <NewOfferButton />
       {!shouldShowReleaseEscrow && <ContractCTA requiredAction={requiredAction} />}
       {shouldShowReleaseEscrow && <ReleaseEscrowSlider {...{ contract }} />}
