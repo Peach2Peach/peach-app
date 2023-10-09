@@ -103,7 +103,13 @@ function ContractHeader () {
           premium={contract.premium}
           viewer={view}
           theme={theme}
-          text={contract.releaseTxId ? (view === 'buyer' ? i18n('contract.bought') : i18n('contract.sold')) : undefined}
+          text={
+            contract.releaseTxId || tradeStatus === 'payoutPending'
+              ? view === 'buyer'
+                ? i18n('contract.bought')
+                : i18n('contract.sold')
+              : undefined
+          }
         />
       }
     />

@@ -4,7 +4,7 @@ import { SATSINBTC } from '../../../constants'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { defaultLimits } from '../../../utils/account/account'
-import { usePremiumStepValidation } from './usePremiumSetup'
+import { usePremiumStepValidation } from './usePremiumStepValidation'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {

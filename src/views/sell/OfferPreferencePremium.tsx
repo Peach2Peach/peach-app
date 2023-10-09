@@ -7,7 +7,7 @@ import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { Premium } from './Premium'
 import { CurrentOfferPrice, SellTitleComponent } from './components'
-import { usePremiumStepValidation } from './hooks/usePremiumSetup'
+import { usePremiumStepValidation } from './hooks/usePremiumStepValidation'
 
 export const OfferPreferencePremium = () => {
   const navigation = useNavigation()

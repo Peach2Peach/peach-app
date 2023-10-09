@@ -63,14 +63,14 @@ function TradeDetailField ({ fieldName }: { fieldName: TradeInfoField }) {
 }
 
 function getTradeInfoFields (
-  { paymentMethod, releaseTxId }: Pick<Contract, 'paymentMethod' | 'releaseTxId'>,
+  { paymentMethod, releaseTxId, batchInfo }: Pick<Contract, 'paymentMethod' | 'releaseTxId' | 'batchInfo'>,
   view: ContractViewer,
 ) {
   if (view === 'seller') {
     return tradeFields.seller[releaseTxId ? 'past' : 'active'][isCashTrade(paymentMethod) ? 'cash' : 'default']
   }
 
-  if (releaseTxId) {
+  if (releaseTxId || (view === 'buyer' && !!batchInfo && !batchInfo.completed)) {
     return tradeFields.buyer.past[isCashTrade(paymentMethod) ? 'cash' : 'default']
   }
 
