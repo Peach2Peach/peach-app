@@ -38,10 +38,7 @@
   "contract.cancel.seller" : "Emin misin? Bir alışverişi iptal etmek, itibarını olumsuz etkiler.\n\nAlıcının da alışverişi iptal etmeyi kabul etmesi gerektiğini unutma, çünkü ödeme yapmış olabilirler.",
   "contract.cancel.seller.text.backOnline" : "Alıcı, bu ticareti iptal etmeyi kabul ederse, satış teklifini eşleşme havuzuna geri koyarız.",
   "contract.cancel.seller.text.refundEscrow" : "Alıcı, bu ticareti iptal etmeyi kabul ederse, emaneti geri ödeyeceğiz.",
-  "contract.cancel.sellerWantsToCancel.cancel" : "iptal et",
-  "contract.cancel.sellerWantsToCancel.continue" : "alışverişe devam et",
   "contract.cancel.sellerWantsToCancel.text" : "Satıcı, $0 karşılığında $1 sats'lik alışverişi iptal etmek istiyor.\n\nÖzellikle de ödeme yaptıysan alışveriş iptalini reddetmekte özgürsün.",
-  "contract.cancel.sellerWantsToCancel.title" : "alışveriş iptali",
   "contract.cancel.success" : "alışveriş iptal edildi!",
   "contract.cancel.title" : "ticareti iptal et",
   "contract.cancel.tradeCanceled" : "alışveriş iptal edildi",
@@ -50,6 +47,7 @@
   "contract.cancel.tradeCanceled.text.backOnline" : "Satış teklifin tekrar eşleşme havuzuna konuldu.",
   "contract.cancel.tradeCanceled.text.refunded" : "Satoshilerin, emanetten cüzdanına geri geldi.",
   "contract.cancel.waiting" : "alıcının ticareti iptal etmesi bekleniyor...",
+  "contract.cancelationRequested.continueTrade" : "alışverişe devam et",
   "contract.checkTheChat" : "sohbeti kontrol et",
   "contract.disputeLost" : "anlaşmazlık kaybedildi",
   "contract.disputeLost.seller.text" : "Anlaşmazlığı kaybettin! İtibarın etkilendi ve emaneti alıcıya serbest bırakmalısın.",
@@ -184,7 +182,5 @@
   "dispute.reason.unresponsive.buyer" : "satıcı yanıt vermiyor",
   "dispute.reason.unresponsive.seller" : "alıcı yanıt vermiyor",
   "dispute.seller.won.button" : "geri ödeme al",
-  "dispute.won" : "anlaşmazlık kazanıldı!",
-  "dispute.won.text.1" : "Anlaşmazlıkta sizin lehinize karar verildi, $0 işlemi için.",
-  "dispute.won.text.2" : "Devam eden mesajları kontrol ederek arabulucunun mesajını görebilirsiniz."
+  "dispute.won" : "anlaşmazlık kazanıldı!"
 }

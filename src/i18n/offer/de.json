@@ -9,7 +9,7 @@
   "offer.published.description" : "Wir senden dir eine Benachrichtigung, wenn Matches verfügbar sind.",
   "offer.published.title" : "Angebot veröffentlicht!",
   "offer.publishing" : "veröffentlichen",
-  "offer.requiredAction.confirmCancelation" : "Verkäufer möchte stornieren",
+  "offer.requiredAction.confirmCancelation.buyer" : "Verkäufer möchte stornieren",
   "offer.requiredAction.confirmPaymentRequired" : "Zahlung bestätigen",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "Streitfall gewonnen: Auszahlung ausstehend",
   "offer.requiredAction.dispute" : "Streitfall eröffnet",

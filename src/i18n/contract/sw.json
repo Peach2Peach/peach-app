@@ -38,10 +38,7 @@
   "contract.cancel.seller" : "Je, una uhakika? Kufuta biashara kutaaathiri sana sifa yako.\n\nMnunuzi pia anahitaji kukubaliana kufuta biashara, tayari wanaweza kuwa wamelipa.",
   "contract.cancel.seller.text.backOnline" : "Ikiwa Mnunuzi anakubaliana kufuta biashara hii, tutarudisha ofa yako kwenye dimbwi la mechi.",
   "contract.cancel.seller.text.refundEscrow" : "Ikiwa Mnunuzi anakubaliana kufuta biashara hii, tutakurudishia escrow.",
-  "contract.cancel.sellerWantsToCancel.cancel" : "futa",
-  "contract.cancel.sellerWantsToCancel.continue" : "endelea biashara",
   "contract.cancel.sellerWantsToCancel.text" : "Muuzaji anataka kufuta biashara $0 kwa $1 sats.\n\nUko huru kukataa kufuta, hasa ikiwa tayari umefanya malipo.",
-  "contract.cancel.sellerWantsToCancel.title" : "kufuta biashara",
   "contract.cancel.success" : "biashara imefutwa!",
   "contract.cancel.title" : "kufuta biashara",
   "contract.cancel.tradeCanceled" : "biashara imefutwa",
@@ -50,6 +47,7 @@
   "contract.cancel.tradeCanceled.text.backOnline" : "Ofa yako ya kuuza imerudishwa kwenye dimbwi la mechi.",
   "contract.cancel.tradeCanceled.text.refunded" : "Sats zako kutoka kwa escrow zimerudishwa kwako.",
   "contract.cancel.waiting" : "inasubiri mnunuzi afute biashara...",
+  "contract.cancelationRequested.continueTrade" : "endelea na biashara",
   "contract.checkTheChat" : "angalia gumzo",
   "contract.disputeLost" : "mzozo umepotea",
   "contract.disputeLost.seller.text" : "Ulipoteza mzozo! Sifa yako imeathirika, na unahitaji kuachilia escrow kwa mnunuzi.",
@@ -186,7 +184,5 @@
   "dispute.reason.unresponsive.buyer" : "muuzaji hajajibu",
   "dispute.reason.unresponsive.seller" : "mnunuzi hajajibu",
   "dispute.seller.won.button" : "pata kurudishiwa",
-  "dispute.won" : "mzozo umeshindwa!",
-  "dispute.won.text.1" : "Tumefanya uamuzi kwa upande wako katika mzozo wa biashara $0.",
-  "dispute.won.text.2" : "Tafadhali angalia ujumbe kutoka kwa mpatanishi wako kwenye gumzo la biashara ili uone kinachoendelea."
+  "dispute.won" : "mzozo umeshindwa!"
 }

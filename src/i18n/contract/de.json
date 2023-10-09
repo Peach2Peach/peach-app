@@ -38,10 +38,7 @@
   "contract.cancel.seller" : "Bist du sicher? Die Stornierung eines Handels wirkt sich negativ auf deinen Ruf aus.\n\nDer Käufer muss ebenfalls der Stornierung zustimmen, da er ggf. bereits die Zahlung geleistet hat.",
   "contract.cancel.seller.text.backOnline" : "Wenn der Käufer der Stornierung zustimmt, werden wir dein Verkaufsangebot wieder veröffentlichen.",
   "contract.cancel.seller.text.refundEscrow" : "Wenn der Käufer der Stornierung zustimmt, erstatten wir dir das Treuhandguthaben.",
-  "contract.cancel.sellerWantsToCancel.cancel" : "Abbrechen",
-  "contract.cancel.sellerWantsToCancel.continue" : "Handel fortsetzen",
   "contract.cancel.sellerWantsToCancel.text" : "Der Verkäufer möchte den Handel $0 für $1 Sats abbrechen.\n\nDu kannst die Stornierung ablehnen, v.a. wenn du bereits die Zahlung geleistet hast.",
-  "contract.cancel.sellerWantsToCancel.title" : "Handel abbrechen",
   "contract.cancel.success" : "Handel abgebrochen!",
   "contract.cancel.title" : "Handel abbrechen",
   "contract.cancel.tradeCanceled" : "Handel abgebrochen",
@@ -50,6 +47,7 @@
   "contract.cancel.tradeCanceled.text.backOnline" : "Dein Verkaufsangebot wurde wieder veröffentlicht.",
   "contract.cancel.tradeCanceled.text.refunded" : "Deine Sats von dem Escrow-Guthaben wurden dir zurückerstattet.",
   "contract.cancel.waiting" : "Warte auf die Stornierung des Käufers...",
+  "contract.cancelationRequested.continueTrade" : "Handel fortsetzen",
   "contract.checkTheChat" : "Überprüfe den Chat",
   "contract.disputeLost" : "Streitfall verloren",
   "contract.disputeLost.seller.text" : "Du hast den Streitfall verloren! Dein Ruf wurde beeinträchtigt, und du musst das Escrow-Guthaben an den Käufer freigeben.",
@@ -185,7 +183,5 @@
   "dispute.reason.unresponsive.buyer" : "Verkäufer reagiert nicht",
   "dispute.reason.unresponsive.seller" : "Käufer reagiert nicht",
   "dispute.seller.won.button" : "Rückerstattung erhalten",
-  "dispute.won" : "Streitfall gewonnen!",
-  "dispute.won.text.1" : "Wir haben im Streitfall für deine Seite entschieden beim Handel $0.",
-  "dispute.won.text.2" : "Bitte überprüfe die Nachricht von deinem Vermittler, um zu sehen, was zu tun ist."
+  "dispute.won" : "Streitfall gewonnen!"
 }

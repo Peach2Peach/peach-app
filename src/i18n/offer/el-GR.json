@@ -9,7 +9,7 @@
   "offer.published.description" : "Θα σας στείλουμε ειδοποίηση όταν υπάρχουν διαθέσιμες συναλλαγές που σας ταιριάζουν.",
   "offer.published.title" : "η προσφορά δημοσιεύτηκε!",
   "offer.publishing" : "δημοσίευση",
-  "offer.requiredAction.confirmCancelation" : "ο πωλητής επιθυμεί ακύρωση",
+  "offer.requiredAction.confirmCancelation.buyer" : "ο πωλητής επιθυμεί ακύρωση",
   "offer.requiredAction.confirmPaymentRequired" : "επιβεβαίωση πληρωμής",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "κερδίσατε τη διένεξη: αναμονή για αποζημίωση",
   "offer.requiredAction.dispute" : "ξεκίνησε διένεξη",

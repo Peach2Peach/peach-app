@@ -38,10 +38,7 @@
   "contract.cancel.seller" : "Sei sicuro? Annullare uno scambio avrà conseguenze negative sulla tua reputazione. È inoltre necessario che il compratore acconsenta ad annullare lo scambio, poiché potrebbe aver già effettuato il pagamento.",
   "contract.cancel.seller.text.backOnline" : "Se il compratore accetta di annullare questo scambio, reinseriremo la tua offerta di vendita nell'elenco dei match.",
   "contract.cancel.seller.text.refundEscrow" : "Se il compratore accetta di annullare questo scambio, ti rimborseremo il deposito.",
-  "contract.cancel.sellerWantsToCancel.cancel" : "annulla",
-  "contract.cancel.sellerWantsToCancel.continue" : "continua scambio",
   "contract.cancel.sellerWantsToCancel.text" : "Il venditore desidera annullare lo scambio $0 di $1 sats. Se hai già effettuato il pagamento, sei libero di rifiutare.",
-  "contract.cancel.sellerWantsToCancel.title" : "annullare lo scambio",
   "contract.cancel.success" : "scambio annullato!",
   "contract.cancel.title" : "annulla scambio",
   "contract.cancel.tradeCanceled" : "scambio annullato",
@@ -50,6 +47,7 @@
   "contract.cancel.tradeCanceled.text.backOnline" : "La tua offerta di vendita è stata reinserita nell'elenco dei match.",
   "contract.cancel.tradeCanceled.text.refunded" : "Ti sono stati restituiti i sats dal tuo deposito.",
   "contract.cancel.waiting" : "in attesa che il compratore annulli lo scambio.",
+  "contract.cancelationRequested.continueTrade" : "continua lo scambio",
   "contract.checkTheChat" : "controlla la chat",
   "contract.disputeLost" : "disputa persa",
   "contract.disputeLost.seller.text" : "Hai perso la disputa! La tua reputazione è stata influenzata negativamente e devi rilasciare il deposito al compratore.",
@@ -185,7 +183,5 @@
   "dispute.reason.unresponsive.buyer" : "il venditore non risponde",
   "dispute.reason.unresponsive.seller" : "l'acquirente non risponde",
   "dispute.seller.won.button" : "ottenere rimborso",
-  "dispute.won" : "controversia vinta!",
-  "dispute.won.text.1" : "Ci siamo pronunciati a tuo favore nella controversia per lo scambio $0.",
-  "dispute.won.text.2" : "Controlla il messaggio del tuo mediatore nella chat di scambio per vedere cosa succede."
+  "dispute.won" : "controversia vinta!"
 }

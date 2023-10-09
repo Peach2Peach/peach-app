@@ -38,10 +38,7 @@
   "contract.cancel.seller" : "¿Estás seguro? Cancelar un intercambio afectará negativamente tu reputación.\n\nEl comprador debe acceder a cancelar el intercambio, ya que ya ha hecho el pago.",
   "contract.cancel.seller.text.backOnline" : "Si el comprador acepta cancelar este intercambio, pondremos tu oferta de venta de nuevo en la lista de matches.",
   "contract.cancel.seller.text.refundEscrow" : "Si el comprador acepta cancelar este intercambio, te devolveremos el depósito en garantía.",
-  "contract.cancel.sellerWantsToCancel.cancel" : "cancelar",
-  "contract.cancel.sellerWantsToCancel.continue" : "continuar intercambio",
   "contract.cancel.sellerWantsToCancel.text" : "El vendedor quiere cancelar el intercambio de $0 por $1 sats.\n\nEres libre de rechazar la cancelación, especialmente si ya has realizado el pago.",
-  "contract.cancel.sellerWantsToCancel.title" : "cancelación del intercambio",
   "contract.cancel.success" : "¡trade cancelado!",
   "contract.cancel.title" : "cancelar intercambio",
   "contract.cancel.tradeCanceled" : "Intercambio cancelado",
@@ -50,6 +47,7 @@
   "contract.cancel.tradeCanceled.text.backOnline" : "Tu oferta de venta ha vuelto al grupo de intercambios disponibles.",
   "contract.cancel.tradeCanceled.text.refunded" : "Tus sats han sido devueltos.",
   "contract.cancel.waiting" : "esperando a que el comprador cancele el intercambio...",
+  "contract.cancelationRequested.continueTrade" : "continuar con el intercambio",
   "contract.checkTheChat" : "revisar el chat",
   "contract.disputeLost" : "disputa perdida",
   "contract.disputeLost.seller.text" : "¡Has perdido la disputa! Tu reputación se ha visto afectada, debes liberar los fondos para el comprador.",
@@ -185,7 +183,5 @@
   "dispute.reason.unresponsive.buyer" : "vendedor no responde",
   "dispute.reason.unresponsive.seller" : "comprador no responde",
   "dispute.seller.won.button" : "obtener reembolso",
-  "dispute.won" : "disputa ganada",
-  "dispute.won.text.1" : "Hemos resuelto la disputa a tu favor en el intercambio $0.",
-  "dispute.won.text.2" : "Por favor, revisa el mensaje de tu mediador en el chat para ver qué sigue."
+  "dispute.won" : "disputa ganada"
 }

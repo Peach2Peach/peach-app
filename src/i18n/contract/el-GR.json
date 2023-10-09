@@ -38,10 +38,7 @@
   "contract.cancel.seller" : "Είσατε σίγουροι; Η ακύρωση μιας συναλλαγής θα έχει αρνητικές επιπτώσεις στη φήμη σας.\n\nΟ αγοραστής πρέπει επίσης να συμφωνήσει με την ακύρωση της συναλλαγής, αφού μπορεί να έχει ήδη πραγματοποιήσει την πληρωμή.",
   "contract.cancel.seller.text.backOnline" : "Εάν ο Αγοραστής συμφωνήσει να ακυρώσει αυτήν τη συναλλαγή, θα επαναφέρουμε την προσφορά πώλησης στη λίστα των αντιστοιχιών.",
   "contract.cancel.seller.text.refundEscrow" : "Εάν ο Αγοραστής συμφωνήσει να ακυρώσει αυτήν τη συναλλαγή, θα σας επιστρέψουμε ττην εγγύηση.",
-  "contract.cancel.sellerWantsToCancel.cancel" : "ακύρωση",
-  "contract.cancel.sellerWantsToCancel.continue" : "συνέχιση συναλλαγής",
   "contract.cancel.sellerWantsToCancel.text" : "Ο πωλητής θέλει να ακυρώσει τη συναλλαγή $0 για $1 sats.\n\nΕίστε ελεύθεροι να απορρίψετε την ακύρωση, ειδικά αν έχετε ήδη πραγματοποιήσει την πληρωμή.",
-  "contract.cancel.sellerWantsToCancel.title" : "ακύρωση συναλλαγής",
   "contract.cancel.success" : "η συναλλαγή ακυρώθηκε!",
   "contract.cancel.title" : "ακύρωση συναλλαγής",
   "contract.cancel.tradeCanceled" : "η συναλλαγή ακυρώθηκε",
@@ -50,6 +47,7 @@
   "contract.cancel.tradeCanceled.text.backOnline" : "Η προσφορά πώλησης έχει επανεισαχθεί στη λίστα των αντιστοιχιών.",
   "contract.cancel.tradeCanceled.text.refunded" : "Τα sats από την εγγύηση έχουν επιστραφεί σε εσάς.",
   "contract.cancel.waiting" : "αναμονή για την ακύρωση συναλλαγής του αγοραστή...",
+  "contract.cancelationRequested.continueTrade" : "συνέχιση συναλλαγής",
   "contract.checkTheChat" : "έλεγξε τη συνομιλία",
   "contract.disputeLost" : "η διένεξη χάθηκε",
   "contract.disputeLost.seller.text" : "Χάσατε τη διένεξη! Η φήμη σας επηρεάστηκε και πρέπει να αποδεσμεύσετε την εγγύηση στον αγοραστή.",
@@ -183,7 +181,5 @@
   "dispute.reason.unresponsive.buyer" : "ο πωλητής δεν απαντά",
   "dispute.reason.unresponsive.seller" : "ο αγοραστής δεν απαντά",
   "dispute.seller.won.button" : "επιστροφή χρημάτων",
-  "dispute.won" : "η διένεξη κερδήθηκε!",
-  "dispute.won.text.1" : "Έχουμε αποφασίσει υπέρ της πλευράς σας στη διένεξη για τη συναλλαγή $0.",
-  "dispute.won.text.2" : "Παρακαλούμε ελέγξτε το μήνυμα του διαμεσολαβητή σας στη συνομιλία της συναλλαγής για να δείτε τι ακολουθεί."
+  "dispute.won" : "η διένεξη κερδήθηκε!"
 }
