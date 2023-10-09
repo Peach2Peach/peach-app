@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { TouchableOpacity, View, ViewStyle } from 'react-native'
 import { Icon, Text } from '..'
 import PeachBorder from '../../assets/logo/peachBorder.svg'
@@ -6,29 +5,11 @@ import PeachOrange from '../../assets/logo/peachOrange.svg'
 import { useKeyboard, useNavigation, useRoute } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useWebsocketContext } from '../../utils/peachAPI/websocket'
-import { contractUpdateHandler } from './eventHandlers/contractUpdateHandler'
-import { messageHandler } from './eventHandlers/messageHandler'
 import { useNotificationStore } from './notificationsStore'
 
 const tabs = ['buy', 'sell', 'wallet', 'yourTrades', 'settings'] as const
 
 export const Footer = () => {
-  const ws = useWebsocketContext()
-
-  useEffect(() => {
-    const unsubscribe = () => {
-      ws.off('message', contractUpdateHandler)
-      ws.off('message', messageHandler)
-    }
-
-    if (!ws.connected) return unsubscribe
-
-    ws.on('message', contractUpdateHandler)
-    ws.on('message', messageHandler)
-
-    return unsubscribe
-  }, [ws, ws.connected])
   const keyboardOpen = useKeyboard()
 
   if (keyboardOpen) return <View />
