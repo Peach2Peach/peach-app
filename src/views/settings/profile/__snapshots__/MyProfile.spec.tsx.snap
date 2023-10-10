@@ -1684,6 +1684,7 @@ exports[`MyProfile should render correctly 1`] = `
                   "alignItems": "center",
                   "alignSelf": "center",
                   "flexDirection": "row",
+                  "gap": 16,
                   "opacity": 1,
                 }
               }
@@ -1717,14 +1718,10 @@ exports[`MyProfile should render correctly 1`] = `
                 style={
                   [
                     {
-                      "height": 24,
-                      "width": 24,
-                    },
-                    {
                       "height": 16,
-                      "marginLeft": 16,
                       "width": 16,
                     },
+                    undefined,
                   ]
                 }
               />
