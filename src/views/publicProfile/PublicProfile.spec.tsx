@@ -8,6 +8,10 @@ jest.useFakeTimers()
 
 jest.mock('../../utils/peachAPI', () => ({
   getUser: jest.fn(() => Promise.resolve([defaultUser, null])),
+  getUserStatus: jest.fn(() => Promise.resolve({ isBlocked: false })),
+}))
+jest.mock('../../utils/peachAPI/private/user/getUserStatus', () => ({
+  useUserStatus: jest.fn(() => ({ data: { isBlocked: false } })),
 }))
 
 jest.mock('@react-navigation/native', () => ({
