@@ -204,14 +204,9 @@ exports[`MyProfile should render correctly 1`] = `
     >
       <RCTScrollView
         contentContainerStyle={
-          [
-            {
-              "paddingTop": 16,
-            },
-            {
-              "paddingTop": 32,
-            },
-          ]
+          {
+            "flexGrow": 1,
+          }
         }
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
@@ -221,7 +216,9 @@ exports[`MyProfile should render correctly 1`] = `
             onStartShouldSetResponder={[Function]}
             style={
               {
+                "flexGrow": 1,
                 "gap": 28,
+                "justifyContent": "space-between",
               }
             }
           >
