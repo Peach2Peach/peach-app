@@ -1,7 +1,8 @@
 import tw from '../../styles/tailwind'
 
 import { useState } from 'react'
-import { NewHeader as Header, PrimaryButton, Screen } from '../../components'
+import { Screen } from '../../components'
+import { Button } from '../../components/buttons/Button'
 import { useNavigation, useRoute } from '../../hooks'
 import i18n from '../../utils/i18n'
 import { CurrencyTabs } from './CurrencyTabs'
@@ -30,12 +31,11 @@ export const SelectCurrency = () => {
   }
 
   return (
-    <Screen>
-      <Header title={i18n('selectCurrency.title')} />
+    <Screen header={i18n('selectCurrency.title')}>
       <CurrencyTabs currency={selectedCurrency} setCurrency={setSelectedCurrency} />
-      <PrimaryButton style={tw`self-center mt-2 mb-5`} onPress={next} narrow>
+      <Button style={tw`self-center mt-2`} onPress={next}>
         {i18n('next')}
-      </PrimaryButton>
+      </Button>
     </Screen>
   )
 }

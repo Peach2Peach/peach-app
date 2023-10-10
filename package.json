@@ -42,9 +42,7 @@
   "dependencies": {
     "@msml/react-native-notification-badge": "^0.1.6",
     "@react-native-clipboard/clipboard": "^1.11.2",
-    "@react-native-community/blur": "^4.3.2",
     "@react-native-community/cli-platform-android": "^11.3.6",
-    "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "^9.4.1",
     "@react-native-firebase/analytics": "^18.2.0",
     "@react-native-firebase/app": "^18.2.0",
@@ -82,7 +80,6 @@
     "react-native-fast-openpgp": "^2.6.0",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.11.0",
-    "react-native-gradients": "^2.0.1",
     "react-native-level-fs": "^3.0.1",
     "react-native-mmkv-storage": "^0.9.1",
     "react-native-pager-view": "^6.2.0",

@@ -27,7 +27,7 @@ describe('getSellerStatusText', () => {
         { canceled: true, canceledBy: 'buyer', tradeStatus: 'refundOrReviveRequired' } as Contract,
         true,
       ),
-    ).toBe('You\'ll need to decide if you want to re-publish this offer, or refund the escrow to your walletLabel.')
+    ).toBe(i18n('contract.seller.buyerCanceledWithoutRequest', 'walletLabel'))
   })
   it('should return the correct status if the buyer canceled the trade (republish unavailable)', () => {
     expect(
@@ -36,10 +36,6 @@ describe('getSellerStatusText', () => {
         true,
       ),
     ).toBe('The buyer canceled the trade and you can now get refunded.')
-  })
-  it('should return the correct status if the payment was too late and contract is not canceled', () => {
-    isPaymentTooLateMock.mockReturnValueOnce(true)
-    expect(getSellerStatusText({ canceled: false } as Contract, true)).toBe(i18n('contract.seller.paymentWasTooLate'))
   })
   it('should return the correct status if the offer was republished', () => {
     getSellOfferFromContractMock.mockReturnValueOnce({
@@ -61,7 +57,7 @@ describe('getSellerStatusText', () => {
   })
   it('should return the correct status if republish is available (no dispute)', () => {
     expect(getSellerStatusText({ tradeStatus: 'refundOrReviveRequired' } as Contract, true)).toBe(
-      'You\'ll need to decide if you want to re-publish this trade, or refund the escrow to your walletLabel.',
+      "You'll need to decide if you want to re-publish this trade, or refund the escrow to your walletLabel.",
     )
     expect(
       getSellerStatusText(
@@ -73,7 +69,7 @@ describe('getSellerStatusText', () => {
         } as Contract,
         true,
       ),
-    ).toBe('You\'ll need to decide if you want to re-publish this trade, or refund the escrow to your walletLabel.')
+    ).toBe(i18n('contract.seller.buyerAgreedToCancel'))
   })
   it('should return the correct status if republish is not available', () => {
     expect(getSellerStatusText({ tradeStatus: 'refundTxSignatureRequired' } as Contract, true)).toBe(

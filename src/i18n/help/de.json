@@ -37,9 +37,6 @@
   "help.referral.title" : "Peach Empfehlungspunkte",
   "help.sellingBitcoin.description" : "Den Verkauf deiner Sats auf Peach berechnen wir dir keine Gebühren!",
   "help.sellingBitcoin.title" : "Bitcoin verkaufen",
-  "help.tooLate.text.1" : "Der Verkäufer wurde benachrichtigt, dass du nicht rechtzeitig da warst. Nun musst du warten, bis er sich entscheidet: entweder gibt er dir mehr Zeit oder storniert den Handel.",
-  "help.tooLate.text.2" : "In jedem Fall wird deine Reputation beeinträchtigt.",
-  "help.tooLate.title" : "Zu spät!",
   "help.tradingLimit.description" : "Peach muss Handelsbeschränkungen einhalten, um die schweizerischen Gesetze einzuhalten. Es gibt drei Handelsbeschränkungen:\n\nDu kannst jeden Tag Bitcoin im Wert von 1000 CHF auf Peach kaufen oder verkaufen.\n\nDu kannst jeden Monat Bitcoin im Wert von 1000 CHF mit Bargeld oder Online-Geschenkkarten (anonyme Zahlungsmethoden) kaufen oder verkaufen.\n\nDu kannst jedes Jahr Bitcoin im Wert von 100.000 CHF kaufen oder verkaufen.",
   "help.tradingLimit.title" : "Handelsbeschränkungen"
 }

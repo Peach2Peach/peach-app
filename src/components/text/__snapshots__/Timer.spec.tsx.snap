@@ -45,7 +45,7 @@ exports[`Timer should render correctly 1`] = `
           "textTransform": "uppercase",
         },
         {
-          "color": "#DF321F",
+          "color": "#9F8C82",
         },
       ]
     }
@@ -92,7 +92,7 @@ exports[`Timer should render correctly when timer expired 1`] = `
           "textTransform": "uppercase",
         },
         {
-          "color": "#DF321F",
+          "color": "#9F8C82",
         },
       ]
     }

@@ -13,7 +13,7 @@ export type PopupComponentProps = {
 }
 
 export const PopupComponent = ({ content, actions, title, bgColor, actionBgColor }: PopupComponentProps) => (
-  <View style={tw`mx-6 overflow-hidden rounded-2xl`}>
+  <View style={tw`mx-3 overflow-hidden rounded-2xl`}>
     <PopupContent style={[bgColor, tw`items-stretch`]}>
       {!!title && <PopupTitle text={title} />}
       {content}

@@ -1,25 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`OfferPreferencePremium should render the OfferPreferencePremium view 1`] = `
-<Premium
-  amount={0}
-  confirmButton={
-    <PrimaryButton
-      disabled={true}
-      narrow={true}
-      onPress={[Function]}
-      style={
-        {
-          "alignSelf": "center",
-          "marginBottom": 20,
+<Screen
+  header={<PremiumHeader />}
+>
+  <Premium
+    amount={0}
+    confirmButton={
+      <Button
+        disabled={true}
+        onPress={[Function]}
+        style={
+          {
+            "alignSelf": "center",
+          }
         }
-      }
-    >
-      next
-    </PrimaryButton>
-  }
-  offerPrice={<CurrentOfferPrice />}
-  premium={1.5}
-  setPremium={[Function]}
-/>
+      >
+        next
+      </Button>
+    }
+    offerPrice={<CurrentOfferPrice />}
+    premium={1.5}
+    setPremium={[Function]}
+  />
+</Screen>
 `;

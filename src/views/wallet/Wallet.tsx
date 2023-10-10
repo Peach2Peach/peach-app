@@ -1,6 +1,6 @@
 import { RefreshControl, View } from 'react-native'
 import { PeachScrollView, Screen } from '../../components'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -15,11 +15,10 @@ export const Wallet = () => {
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (
-    <Screen>
-      <WalletHeader />
+    <Screen header={<WalletHeader />} showFooter>
       <PeachScrollView
-        contentContainerStyle={tw`flex-grow`}
-        contentStyle={tw`justify-center flex-grow`}
+        contentContainerStyle={tw`grow`}
+        contentStyle={tw`justify-center grow`}
         refreshControl={<RefreshControl refreshing={false} onRefresh={refresh} />}
       >
         <TotalBalance amount={balance} isRefreshing={isRefreshing} />

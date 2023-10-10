@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MeetupScreen should render correctly 1`] = `
-<Screen>
-  <MeetupScreenHeader />
+<Screen
+  header={<MeetupScreenHeader />}
+>
   <ForwardRef
     contentContainerStyle={
       {
@@ -54,8 +55,9 @@ exports[`MeetupScreen should render correctly 1`] = `
 `;
 
 exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
-<Screen>
-  <MeetupScreenHeader />
+<Screen
+  header={<MeetupScreenHeader />}
+>
   <ForwardRef
     contentContainerStyle={
       {

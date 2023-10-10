@@ -11,30 +11,50 @@ jest.mock('../../../utils/peachAPI', () => ({
 describe('submitRaiseDispute', () => {
   const mockContract = { ...contract }
   it('should return [false, null] if contract is undefined', async () => {
-    const [result, err] = await submitRaiseDispute(undefined, 'noPayment.buyer')
+    const [result, err] = await submitRaiseDispute({
+      contract: undefined,
+      reason: 'noPayment.buyer',
+      symmetricKey: undefined,
+    })
     expect(result).toBe(false)
     expect(err).toBe(null)
   })
   it('should return [false, null] if contract.symmetricKey is undefined', async () => {
-    const [result, err] = await submitRaiseDispute({ ...mockContract, symmetricKey: undefined }, 'noPayment.buyer')
+    const [result, err] = await submitRaiseDispute({
+      contract: mockContract,
+      reason: 'noPayment.buyer',
+      symmetricKey: undefined,
+    })
     expect(result).toBe(false)
     expect(err).toBe(null)
   })
   it('should return [false, null] if raiseDispute returns no result and no error', async () => {
     raiseDisputeMock.mockResolvedValue([null, null])
-    const [result, err] = await submitRaiseDispute(mockContract, 'noPayment.buyer')
+    const [result, err] = await submitRaiseDispute({
+      contract: mockContract,
+      reason: 'noPayment.buyer',
+      symmetricKey: undefined,
+    })
     expect(result).toBe(false)
     expect(err).toBe(null)
   })
   it('should return [false, error] if raiseDispute returns no result and an error', async () => {
     raiseDisputeMock.mockResolvedValue([null, 'error'])
-    const [result, err] = await submitRaiseDispute(mockContract, 'noPayment.buyer')
+    const [result, err] = await submitRaiseDispute({
+      contract: mockContract,
+      reason: 'noPayment.buyer',
+      symmetricKey: 'TODO',
+    })
     expect(result).toBe(false)
     expect(err).toBe('error')
   })
   it('should return [true, null] if raiseDispute returns a result and no error', async () => {
     raiseDisputeMock.mockResolvedValue([{}, null])
-    const [result, err] = await submitRaiseDispute(mockContract, 'noPayment.buyer')
+    const [result, err] = await submitRaiseDispute({
+      contract: mockContract,
+      reason: 'noPayment.buyer',
+      symmetricKey: 'TODO',
+    })
     expect(result).toBe(true)
     expect(err).toBe(null)
   })
@@ -54,7 +74,11 @@ describe('submitRaiseDispute', () => {
     }
     raiseDisputeMock.mockResolvedValue([contractInDispute, null])
 
-    const [result, err] = await submitRaiseDispute(mockContract, 'noPayment.seller')
+    const [result, err] = await submitRaiseDispute({
+      contract: mockContract,
+      reason: 'noPayment.seller',
+      symmetricKey: 'TODO',
+    })
     expect(result).toBe(true)
     expect(err).toBe(null)
   })

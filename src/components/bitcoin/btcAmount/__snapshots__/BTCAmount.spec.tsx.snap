@@ -74,7 +74,6 @@ exports[`BTCAmount should render correctly for extra large size 1`] = `
       }
     >
       <MixedLetterSpacingText
-        isError={false}
         style={
           [
             {
@@ -89,6 +88,7 @@ exports[`BTCAmount should render correctly for extra large size 1`] = `
           ]
         }
         value={21000}
+        white={false}
       />
       <View
         style={
@@ -192,7 +192,6 @@ exports[`BTCAmount should render correctly for extra small size 1`] = `
       }
     >
       <MixedLetterSpacingText
-        isError={false}
         style={
           [
             {
@@ -207,6 +206,7 @@ exports[`BTCAmount should render correctly for extra small size 1`] = `
           ]
         }
         value={21000}
+        white={false}
       />
       <View
         style={
@@ -312,7 +312,6 @@ exports[`BTCAmount should render correctly for large size 1`] = `
       }
     >
       <MixedLetterSpacingText
-        isError={false}
         style={
           [
             {
@@ -327,6 +326,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
           ]
         }
         value={21000}
+        white={false}
       />
       <View
         style={
@@ -432,7 +432,6 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
       }
     >
       <MixedLetterSpacingText
-        isError={false}
         style={
           [
             {
@@ -447,6 +446,7 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
           ]
         }
         value={21000}
+        white={false}
       />
       <View
         style={
@@ -550,7 +550,6 @@ exports[`BTCAmount should render correctly for small size 1`] = `
       }
     >
       <MixedLetterSpacingText
-        isError={false}
         style={
           [
             {
@@ -565,6 +564,7 @@ exports[`BTCAmount should render correctly for small size 1`] = `
           ]
         }
         value={21000}
+        white={false}
       />
       <View
         style={
@@ -823,7 +823,6 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
       }
     >
       <MixedLetterSpacingText
-        isError={false}
         style={
           [
             {
@@ -838,6 +837,7 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
           ]
         }
         value={0}
+        white={false}
       />
       <View
         style={
@@ -869,7 +869,7 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
 </View>
 `;
 
-exports[`BTCAmount should render correctly with isError 1`] = `
+exports[`BTCAmount should render correctly with white 1`] = `
 <View
   style={
     [
@@ -915,7 +915,7 @@ exports[`BTCAmount should render correctly with isError 1`] = `
       }
     >
       <Icon
-        id="bitcoinLogo"
+        id="bitcoinTransparent"
         style={
           [
             {
@@ -943,7 +943,6 @@ exports[`BTCAmount should render correctly with isError 1`] = `
       }
     >
       <MixedLetterSpacingText
-        isError={true}
         style={
           [
             {
@@ -958,6 +957,7 @@ exports[`BTCAmount should render correctly with isError 1`] = `
           ]
         }
         value={21000}
+        white={true}
       />
       <View
         style={
@@ -973,7 +973,7 @@ exports[`BTCAmount should render correctly with isError 1`] = `
                 "fontFamily": "Baloo2-Medium",
               },
               {
-                "color": "#B01807",
+                "color": "#FFFCFA",
               },
               {
                 "fontSize": 20,

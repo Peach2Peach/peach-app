@@ -1,10 +1,13 @@
 import { isPaymentTooLate } from '../../../utils/contract/status/isPaymentTooLate'
 
 export const shouldShowTradeStatusInfo = (
-  contract: Pick<Contract, 'paymentMade' | 'paymentExpectedBy' | 'canceled' | 'cancelationRequested' | 'disputeWinner'>,
+  contract: Pick<
+    Contract,
+    'paymentMade' | 'paymentExpectedBy' | 'canceled' | 'cancelationRequested' | 'disputeWinner' | 'tradeStatus'
+  >,
   view: ContractViewer,
 ) =>
-  (isPaymentTooLate(contract) && view === 'seller')
+  isPaymentTooLate(contract)
   || contract.canceled
-  || !!contract.disputeWinner
+  || (contract.disputeWinner === 'buyer' && ['releaseEscrow', 'confirmPaymentRequired'].includes(contract.tradeStatus))
   || (contract.cancelationRequested && view === 'buyer')

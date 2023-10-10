@@ -5,8 +5,8 @@ exports[`useConfirmCancelTrade should show confirm cancelation popup for buyer 1
   style={
     {
       "borderRadius": 16,
-      "marginLeft": 24,
-      "marginRight": 24,
+      "marginLeft": 12,
+      "marginRight": 12,
       "overflow": "hidden",
     }
   }
@@ -297,8 +297,8 @@ exports[`useConfirmCancelTrade should show confirm cancelation popup for seller 
   style={
     {
       "borderRadius": 16,
-      "marginLeft": 24,
-      "marginRight": 24,
+      "marginLeft": 12,
+      "marginRight": 12,
       "overflow": "hidden",
     }
   }
@@ -589,8 +589,8 @@ exports[`useConfirmCancelTrade should show the correct popup for cash trades of 
   style={
     {
       "borderRadius": 16,
-      "marginLeft": 24,
-      "marginRight": 24,
+      "marginLeft": 12,
+      "marginRight": 12,
       "overflow": "hidden",
     }
   }

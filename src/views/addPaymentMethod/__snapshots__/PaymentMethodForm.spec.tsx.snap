@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PaymentMethodForm should render correctly 1`] = `
-<Screen>
-  <PaymentMethodFormHeader />
+<Screen
+  header={<PaymentMethodFormHeader />}
+>
   <ForwardRef
     contentContainerStyle={
       {
@@ -37,19 +38,17 @@ exports[`PaymentMethodForm should render correctly 1`] = `
         setStepValid={[Function]}
       />
     </View>
-    <PrimaryButton
+    <Button
       disabled={true}
-      narrow={true}
       onPress={[Function]}
       style={
         {
           "alignSelf": "center",
-          "marginBottom": 20,
         }
       }
     >
       confirm
-    </PrimaryButton>
+    </Button>
   </ForwardRef>
 </Screen>
 `;

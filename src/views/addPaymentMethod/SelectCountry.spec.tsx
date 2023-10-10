@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { NavigationWrapper, navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import { PrimaryButton } from '../../components'
+import { Button } from '../../components/buttons/Button'
 import { setPaymentMethods } from '../../paymentMethods'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { SelectCountry } from './SelectCountry'
@@ -76,7 +76,7 @@ describe('SelectCountry', () => {
 
     expect(navigateMock).not.toHaveBeenCalled()
 
-    const nextButton = UNSAFE_getByType(PrimaryButton)
+    const nextButton = UNSAFE_getByType(Button)
     expect(nextButton.props.disabled).toBe(true)
     nextButton.props.onPress()
     expect(navigateMock).not.toHaveBeenCalled()

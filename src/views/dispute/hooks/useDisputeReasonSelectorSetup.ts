@@ -1,17 +1,16 @@
-import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
+import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
 import { account } from '../../../utils/account'
-import { contractIdToHex, getContract, getContractViewer } from '../../../utils/contract'
-import i18n from '../../../utils/i18n'
+import { getContractViewer } from '../../../utils/contract'
+import { useDecryptedContractData } from '../../contractChat/useDecryptedContractData'
 import { submitRaiseDispute } from '../utils/submitRaiseDispute'
 import { disputeReasons } from './disputeReasons'
 
-export const useDisputeReasonSelectorSetup = () => {
-  const route = useRoute<'disputeReasonSelector'>()
-  const contract = getContract(route.params.contractId)
+export const useDisputeReasonSelectorSetup = (contract: Contract) => {
+  const { data: decrptedData } = useDecryptedContractData(contract)
 
-  const view = contract ? getContractViewer(contract, account) : ''
+  const view = getContractViewer(contract, account)
   const availableReasons = view === 'seller' ? disputeReasons.seller : disputeReasons.buyer
 
   const navigation = useNavigation()
@@ -19,10 +18,8 @@ export const useDisputeReasonSelectorSetup = () => {
 
   const showDisputeRaisedPopup = useDisputeRaisedSuccess()
 
-  useHeaderSetup(i18n('dispute.disputeForTrade', contract ? contractIdToHex(contract.id) : ''))
-
   const setAndSubmit = async (reason: DisputeReason) => {
-    const [success, error] = await submitRaiseDispute(contract, reason)
+    const [success, error] = await submitRaiseDispute({ contract, reason, symmetricKey: decrptedData?.symmetricKey })
     if (!success || error) {
       showErrorBanner(error?.error)
       return
@@ -32,7 +29,6 @@ export const useDisputeReasonSelectorSetup = () => {
   }
 
   const setReason = async (reason: DisputeReason) => {
-    if (!contract) return
     if (reason === 'noPayment.buyer' || reason === 'noPayment.seller') {
       navigation.navigate('disputeForm', { contractId: contract.id, reason })
       return

@@ -108,7 +108,9 @@ type RootStackParamList = {
   }
   language: undefined
   currency: undefined
-  publicProfile: undefined
+  publicProfile: {
+    userId: string
+  }
   referrals: undefined
   backupTime: {
     nextScreen?: keyof RootStackParamList

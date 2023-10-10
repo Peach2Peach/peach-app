@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ReleaseEscrowSlider should render correctly 1`] = `
-<ConfirmSlider
-  label1="release escrow"
-  onConfirm={[Function]}
-/>
-`;

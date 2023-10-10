@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from 'react'
 import { Animated, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { Button } from '../../buttons'
+import { OldButton } from '../../buttons'
 
 type Props = {
   onPress: () => void
@@ -50,14 +50,14 @@ export const UndoButton = ({ onPress, onTimerFinished }: Props) => {
   return (
     <View style={tw`items-center justify-center min-w-39`}>
       <Animated.View style={[tw`self-start overflow-hidden`, { width }]}>
-        <Button {...sharedProps} style={tw`bg-primary-background-light`}>
+        <OldButton {...sharedProps} style={tw`bg-primary-background-light`}>
           {i18n('search.undo')}
-        </Button>
+        </OldButton>
       </Animated.View>
 
-      <Button {...sharedProps} style={[tw`absolute`, { backgroundColor: '#FFFCFA80' }]}>
+      <OldButton {...sharedProps} style={[tw`absolute`, { backgroundColor: '#FFFCFA80' }]}>
         {i18n('search.undo')}
-      </Button>
+      </OldButton>
     </View>
   )
 }

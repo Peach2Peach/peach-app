@@ -173,7 +173,7 @@ exports[`PremiumInput should render the PremiumInput view with premium 1`] = `
             "textAlign": "center",
           },
           {
-            "color": "#05A85A",
+            "color": "#65A519",
           },
         ]
       }

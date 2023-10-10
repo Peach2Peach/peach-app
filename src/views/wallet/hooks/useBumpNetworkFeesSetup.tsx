@@ -1,17 +1,14 @@
 import { useMemo, useState } from 'react'
-import { useHeaderSetup, useRoute, useShowHelp } from '../../../hooks'
+import { useRoute } from '../../../hooks'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useTransactionDetails } from '../../../hooks/query/useTransactionDetails'
 import { getTransactionFeeRate } from '../../../utils/bitcoin'
-import i18n from '../../../utils/i18n'
-import { headerIcons } from '../../../utils/layout'
 import { getErrorsInField } from '../../../utils/validation'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 
 export const useBumpNetworkFeesSetup = () => {
   const { txId } = useRoute<'bumpNetworkFees'>().params
 
-  const showHelp = useShowHelp('rbf')
   const localTransaction = useWalletState((state) => state.getTransaction(txId))
   const { transaction } = useTransactionDetails({ txId })
   const { estimatedFees } = useFeeEstimate()
@@ -23,15 +20,6 @@ export const useBumpNetworkFeesSetup = () => {
   const newFeeRateErrors = useMemo(() => getErrorsInField(feeRate, newFeeRateRules), [feeRate, newFeeRateRules])
   const newFeeRateIsValid = feeRate && newFeeRateErrors.length === 0
   const overpayingBy = Number(feeRate) / estimatedFees.fastestFee - 1
-
-  useHeaderSetup(
-    transaction
-      ? {
-        title: i18n('wallet.bumpNetworkFees.title'),
-        icons: [{ ...headerIcons.help, onPress: showHelp }],
-      }
-      : {},
-  )
 
   return {
     transaction,

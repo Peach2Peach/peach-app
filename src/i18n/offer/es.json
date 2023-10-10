@@ -9,7 +9,7 @@
   "offer.published.description" : "Te enviaremos una notificación cuando haya matches disponibles.",
   "offer.published.title" : "¡Oferta publicada!",
   "offer.publishing" : "publicando",
-  "offer.requiredAction.confirmCancelation" : "el vendedor quiere cancelar",
+  "offer.requiredAction.confirmCancelation.buyer" : "el vendedor quiere cancelar",
   "offer.requiredAction.confirmPaymentRequired" : "confirmar pago",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "disputa ganada: esperando pago",
   "offer.requiredAction.dispute" : "disputa iniciada",

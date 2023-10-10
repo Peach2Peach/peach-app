@@ -52,7 +52,7 @@ exports[`SellOfferSummary renders correctly 1`] = `
             "textAlign": "center",
           },
           {
-            "color": "#05A85A",
+            "color": "#65A519",
           },
         ]
       }
@@ -152,9 +152,7 @@ exports[`SellOfferSummary renders correctly 1`] = `
         }
       }
     >
-      <WalletLabel
-        address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-      />
+      loading...
     </PeachText>
   </SummarySection>
 </SummaryCard>
@@ -225,7 +223,7 @@ exports[`SellOfferSummary renders correctly when funding multiple offers 1`] = `
             "textAlign": "center",
           },
           {
-            "color": "#05A85A",
+            "color": "#65A519",
           },
         ]
       }
@@ -325,9 +323,7 @@ exports[`SellOfferSummary renders correctly when funding multiple offers 1`] = `
         }
       }
     >
-      <WalletLabel
-        address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-      />
+      loading...
     </PeachText>
   </SummarySection>
 </SummaryCard>
@@ -485,9 +481,7 @@ exports[`SellOfferSummary renders correctly when the premium is 0 1`] = `
         }
       }
     >
-      <WalletLabel
-        address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-      />
+      loading...
     </PeachText>
   </SummarySection>
 </SummaryCard>

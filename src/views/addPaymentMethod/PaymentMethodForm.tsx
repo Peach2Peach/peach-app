@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useCallback } from 'react'
 import { View } from 'react-native'
-import { NewHeader as Header, Screen } from '../../components'
+import { Header, Screen } from '../../components'
 import { PeachScrollView } from '../../components/PeachScrollView'
-import { PrimaryButton } from '../../components/buttons'
+import { Button } from '../../components/buttons/Button'
 import { HeaderConfig } from '../../components/header/Header'
 import { PaymentMethodForms } from '../../components/inputs/paymentMethods/paymentForms'
 import { useSubmitForm } from '../../components/inputs/paymentMethods/paymentForms/hooks/useSubmitForm'
@@ -28,18 +28,17 @@ export const PaymentMethodForm = () => {
   const { type: paymentMethod } = data
   const { stepValid, setStepValid, setFormData, submitForm } = useSubmitForm<PaymentData>(onSubmit)
 
-  const Form = PaymentMethodForms[paymentMethod]?.component
+  const Form = PaymentMethodForms[paymentMethod]
 
   return (
-    <Screen>
-      <PaymentMethodFormHeader />
+    <Screen header={<PaymentMethodFormHeader />}>
       <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
         <View style={tw`justify-center grow`}>
           {!!Form && <Form onSubmit={submitForm} {...{ data, setStepValid, setFormData }} />}
         </View>
-        <PrimaryButton style={tw`self-center mb-5`} disabled={!stepValid} onPress={submitForm} narrow>
+        <Button style={tw`self-center`} disabled={!stepValid} onPress={submitForm}>
           {i18n('confirm')}
-        </PrimaryButton>
+        </Button>
       </PeachScrollView>
     </Screen>
   )

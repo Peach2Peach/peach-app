@@ -37,9 +37,6 @@
   "help.referral.title" : "Punti affiliazione Peach",
   "help.sellingBitcoin.description" : "La vendita dei tuoi sats su Peach è gratuita!",
   "help.sellingBitcoin.title" : "Vendi bitcoin",
-  "help.tooLate.text.1" : "Il venditore è stato informato che non sei stato puntuale. Ora dovrai aspettare che prenda una decisione: darti più tempo o annullare la transazione.",
-  "help.tooLate.text.2" : "In entrambi i casi, la tua reputazione è stata compromessa.",
-  "help.tooLate.title" : "troppo tardi!",
   "help.tradingLimit.description" : "Peach deve rispettare i limiti di scambio per conformarsi alle leggi svizzere. Ci sono tre limiti di scambio:\n\nPuoi comprare o vendere bitcoin per un valore di 1000 CHF al giorno su Peach.\n\nPuoi comprare o vendere bitcoin per un valore di 1000 CHF in contanti o con carte regalo online (metodi di pagamento anonimi) ogni mese su Peach.\n\nPuoi comprare o vendere bitcoin per un valore di 100.000 CHF all'anno su Peach.",
   "help.tradingLimit.title" : "Limiti di scambio"
 }

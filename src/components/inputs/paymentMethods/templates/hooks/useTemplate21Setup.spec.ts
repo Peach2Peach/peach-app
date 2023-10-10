@@ -8,7 +8,7 @@ describe('useTemplate21Setup', () => {
         data: {
           id: 'id',
           label: 'label',
-          type: 'gtBank',
+          type: 'nationalTransferNG',
           accountNumber: 'accountNumber',
           currencies: [],
         },

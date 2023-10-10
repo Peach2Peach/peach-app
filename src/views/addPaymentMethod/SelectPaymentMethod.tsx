@@ -4,7 +4,8 @@ import { useDrawerContext } from '../../contexts/drawer'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { NewHeader as Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
+import { PeachScrollView, RadioButtons, Screen } from '../../components'
+import { Button } from '../../components/buttons/Button'
 import { FlagType } from '../../components/flags'
 import { useNavigation, useRoute } from '../../hooks'
 import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../paymentMethods'
@@ -118,8 +119,7 @@ export const SelectPaymentMethod = () => {
   }
 
   return (
-    <Screen>
-      <Header title={i18n('selectPaymentMethod.title')} />
+    <Screen header={i18n('selectPaymentMethod.title')}>
       <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
         <RadioButtons
           items={paymentCategories}
@@ -127,9 +127,9 @@ export const SelectPaymentMethod = () => {
           onButtonPress={selectPaymentCategory}
         />
       </PeachScrollView>
-      <PrimaryButton style={tw`self-center mt-2 mb-5`} disabled={!selectedPaymentCategory} narrow>
+      <Button style={tw`self-center`} disabled={!selectedPaymentCategory}>
         {i18n('next')}
-      </PrimaryButton>
+      </Button>
     </Screen>
   )
 }

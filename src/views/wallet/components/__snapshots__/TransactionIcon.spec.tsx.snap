@@ -2,7 +2,7 @@
 
 exports[`TransactionIcon should render correctly for type DEPOSIT 1`] = `
 <Icon
-  color="#05A85A"
+  color="#65A519"
   id="arrowDownCircle"
   size={20}
 />
@@ -26,7 +26,7 @@ exports[`TransactionIcon should render correctly for type REFUND 1`] = `
 
 exports[`TransactionIcon should render correctly for type TRADE 1`] = `
 <Icon
-  color="#05A85A"
+  color="#65A519"
   id="buy"
   size={20}
 />

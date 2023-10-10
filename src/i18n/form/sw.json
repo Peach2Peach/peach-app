@@ -72,6 +72,8 @@
   "form.phone.highRisk" : "nambari kutoka nchi hii haziruhusiwi",
   "form.phone.placeholder" : "+01 234 5678 9101",
   "form.phoneLong" : "nambari ya simu",
+  "form.pixAlias" : "lakabu ya pix",
+  "form.pixAlias.placeholder" : "lakabu ya pix",
   "form.receiveAddress" : "anwani ya kupokea",
   "form.receiveAddress.placeholder" : "bc1q ...",
   "form.reference" : "kumbukumbu ya malipo",

@@ -4,7 +4,6 @@ exports[`UserExistsForDevice should render correctly 1`] = `
 <View
   style={
     {
-      "display": "flex",
       "height": "100%",
       "justifyContent": "center",
     }
@@ -14,7 +13,6 @@ exports[`UserExistsForDevice should render correctly 1`] = `
     style={
       {
         "alignItems": "center",
-        "display": "flex",
         "justifyContent": "center",
       }
     }

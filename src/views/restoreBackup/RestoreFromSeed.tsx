@@ -18,7 +18,7 @@ export const RestoreFromSeed = ({ style }: ComponentProps) => {
   if (error) return <RestoreBackupError err={error} />
   if (restored) return <RestoreSuccess />
   return (
-    <View style={[tw`flex flex-col px-6`, style]}>
+    <View style={[tw`px-6`, style]}>
       <View style={tw`h-full pb-8`}>
         <PeachScrollView style={tw`flex-shrink h-full`}>
           <Text style={tw`mt-3 text-center text-primary-background-light`}>

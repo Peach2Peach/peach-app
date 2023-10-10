@@ -1,28 +1,33 @@
+import { useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
 import { useNavigation } from '.'
+import { useStartRefundPopup } from '../popups/useStartRefundPopup'
 import { getNavigationDestinationForContract } from '../utils/contract'
+import { isSellOffer } from '../utils/offer'
+import { getOfferDetails } from '../utils/peachAPI'
 import { getNavigationDestinationForOffer, isContractSummary } from '../views/yourTrades/utils'
-import { useHandleRefund } from './useHandleRefund'
-import { useNavigateToContractPopups } from './useNavigateToContractPopups'
 
-export const useNavigateToOfferOrContract = (item?: TradeSummary) => {
+export const useNavigateToOfferOrContract = (item: TradeSummary) => {
   const navigation = useNavigation()
-  const handleRefund = useHandleRefund()
-  const showContractPopup = useNavigateToContractPopups(item?.id || '')
+  const showStartRefundPopup = useStartRefundPopup()
+  const queryClient = useQueryClient()
 
   const navigateToOfferOrContract = useCallback(async () => {
-    if (!item) return
     const destination = isContractSummary(item)
       ? await getNavigationDestinationForContract(item)
       : getNavigationDestinationForOffer(item)
-
-    const offerId = isContractSummary(item) ? item.offerId : item.id
-    const refundHandled = await handleRefund(item.tradeStatus, offerId)
-    if (refundHandled) return
+    if (item.tradeStatus === 'refundTxSignatureRequired') {
+      const offerId = isContractSummary(item) ? item.offerId : item.id
+      const [sellOffer] = await getOfferDetails({ offerId })
+      if (sellOffer && isSellOffer(sellOffer)) {
+        queryClient.setQueryData(['offer', sellOffer.id], sellOffer)
+        showStartRefundPopup(sellOffer)
+        return
+      }
+    }
 
     navigation.navigate(...destination)
-    if (isContractSummary(item)) showContractPopup()
-  }, [handleRefund, item, navigation, showContractPopup])
+  }, [item, navigation, queryClient, showStartRefundPopup])
 
   return navigateToOfferOrContract
 }
