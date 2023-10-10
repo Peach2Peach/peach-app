@@ -1,5 +1,6 @@
 import { View } from 'react-native'
 import { Header, PeachScrollView, Screen } from '../../../components'
+import { TouchableRedText } from '../../../components/text/TouchableRedText'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import tw from '../../../styles/tailwind'
@@ -8,7 +9,7 @@ import { headerIcons } from '../../../utils/layout/headerIcons'
 import { ProfileOverview } from '../../publicProfile/components'
 import { TradingLimits } from './TradingLimits'
 import { AccountInfo } from './accountInfo/AccountInfo'
-import { DeleteAccountButton } from './deleteAccount/DeleteAccountButton'
+import { useDeleteAccountPopups } from './deleteAccount/useDeleteAccountPopups'
 
 export const MyProfile = () => {
   const { user, isLoading } = useSelfUser()
@@ -21,7 +22,7 @@ export const MyProfile = () => {
         <Header title={i18n('settings.myProfile')} icons={[{ ...headerIcons.help, onPress: openTradingLimitsPopup }]} />
       }
     >
-      <PeachScrollView contentContainerStyle={[tw`pt-sm`, tw.md`pt-md`]} contentStyle={tw`gap-7`}>
+      <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`justify-between grow gap-7`}>
         <View style={tw`gap-12`}>
           <View style={tw`gap-6`}>
             <ProfileOverview user={user} />
@@ -32,5 +33,15 @@ export const MyProfile = () => {
         <DeleteAccountButton style={tw`self-center`} />
       </PeachScrollView>
     </Screen>
+  )
+}
+
+function DeleteAccountButton ({ style }: ComponentProps) {
+  const showDeleteAccountPopup = useDeleteAccountPopups()
+
+  return (
+    <TouchableRedText onPress={showDeleteAccountPopup} style={style} iconId="trash">
+      {i18n('settings.deleteAccount')}
+    </TouchableRedText>
   )
 }
