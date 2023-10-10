@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { shallow } from 'zustand/shallow'
-import { Header, PeachScrollView, PrimaryButton, Screen, Text } from '../../components'
+import { Header, PeachScrollView, Screen, Text } from '../../components'
+import { Button } from '../../components/buttons/Button'
 import { BuyOfferSummary } from '../../components/offer'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
@@ -91,14 +92,9 @@ function PublishOfferButton ({ offerDraft }: { offerDraft: BuyOfferDraft }) {
   const { mutate, isLoading } = usePublishOffer(offerDraft)
 
   return (
-    <PrimaryButton
-      narrow
-      style={tw`self-center`}
-      onPress={canPublish ? () => mutate() : goToMessageSigning}
-      loading={isLoading}
-    >
+    <Button style={tw`self-center`} onPress={canPublish ? () => mutate() : goToMessageSigning} loading={isLoading}>
       {i18n(getButtonTextId(canPublish, isLoading))}
-    </PrimaryButton>
+    </Button>
   )
 }
 
