@@ -5,8 +5,8 @@ import { useShowErrorBanner } from '../../../../hooks/useShowErrorBanner'
 import fetch from '../../../fetch'
 import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { parseResponse } from '../../parseResponse'
-import { UserStatus } from '../../private/user/getUserStatus'
-import { getPublicHeaders } from '../getPublicHeaders'
+import { getPrivateHeaders } from '../getPrivateHeaders'
+import { UserStatus } from './getUserStatus'
 
 type GetUserProps = RequestProps & {
   userId: User['id']
@@ -14,7 +14,7 @@ type GetUserProps = RequestProps & {
 
 const blockUser = async ({ userId, timeout }: GetUserProps) => {
   const response = await fetch(`${API_URL}/v1/user/${userId}/block`, {
-    headers: getPublicHeaders(),
+    headers: await getPrivateHeaders(),
     method: 'PUT',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
