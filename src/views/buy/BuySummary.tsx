@@ -151,7 +151,7 @@ function usePublishOffer (offerDraft: BuyOfferDraft) {
       }
     },
     onSuccess: (offerId) => {
-      if (hasSeenGroupHugAnnouncement) {
+      if (!hasSeenGroupHugAnnouncement) {
         navigation.reset({
           index: 1,
           routes: [{ name: 'yourTrades' }, { name: 'groupHugAnnouncement', params: { offerId } }],
