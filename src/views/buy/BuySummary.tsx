@@ -151,10 +151,19 @@ function usePublishOffer (offerDraft: BuyOfferDraft) {
       }
     },
     onSuccess: (offerId) => {
-      if (!hasSeenGroupHugAnnouncement) {
-        navigation.replace('groupHugAnnouncement', { offerId })
+      if (hasSeenGroupHugAnnouncement) {
+        navigation.reset({
+          index: 1,
+          routes: [{ name: 'yourTrades' }, { name: 'groupHugAnnouncement', params: { offerId } }],
+        })
       } else {
-        navigation.replace('offerPublished', { offerId, isSellOffer: false })
+        navigation.reset({
+          index: 1,
+          routes: [
+            { name: 'yourTrades' },
+            { name: 'offerPublished', params: { offerId, isSellOffer: false, shouldGoBack: true } },
+          ],
+        })
       }
     },
   })

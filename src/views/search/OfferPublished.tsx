@@ -1,12 +1,16 @@
 import { View } from 'react-native'
 import { Icon, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
+import { useNavigation, useRoute } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useOfferPublishedSetup } from './hooks'
 
 export const OfferPublished = () => {
-  const { goToOffer, closeAction } = useOfferPublishedSetup()
+  const { isSellOffer, shouldGoBack, offerId } = useRoute<'offerPublished'>().params
+  const navigation = useNavigation()
+  const goBackHome = () => navigation.replace(isSellOffer ? 'sell' : 'buy')
+  const goToOffer = () => navigation.replace('search', { offerId })
+  const goBack = () => navigation.goBack()
 
   return (
     <View style={tw`items-center justify-between h-full px-9 pb-7`}>
@@ -21,7 +25,7 @@ export const OfferPublished = () => {
         <Button style={tw`bg-primary-background-light`} textColor={tw`text-primary-main`} onPress={goToOffer}>
           {i18n('showOffer')}
         </Button>
-        <Button ghost onPress={closeAction}>
+        <Button ghost onPress={shouldGoBack ? goBack : goBackHome}>
           {i18n('close')}
         </Button>
       </View>
