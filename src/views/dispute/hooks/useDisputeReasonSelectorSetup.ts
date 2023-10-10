@@ -10,7 +10,7 @@ import { disputeReasons } from './disputeReasons'
 export const useDisputeReasonSelectorSetup = (contract: Contract) => {
   const { data: decrptedData } = useDecryptedContractData(contract)
 
-  const view = contract ? getContractViewer(contract, account) : ''
+  const view = getContractViewer(contract, account)
   const availableReasons = view === 'seller' ? disputeReasons.seller : disputeReasons.buyer
 
   const navigation = useNavigation()
@@ -29,7 +29,6 @@ export const useDisputeReasonSelectorSetup = (contract: Contract) => {
   }
 
   const setReason = async (reason: DisputeReason) => {
-    if (!contract) return
     if (reason === 'noPayment.buyer' || reason === 'noPayment.seller') {
       navigation.navigate('disputeForm', { contractId: contract.id, reason })
       return

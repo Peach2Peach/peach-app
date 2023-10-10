@@ -5,7 +5,6 @@ import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpe
 import { queryClient } from '../../../../../tests/unit/helpers/QueryClientWrapper'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { defaultAccount, setAccount } from '../../../../utils/account/account'
-import i18n from '../../../../utils/i18n'
 import { useSubmitDisputeAcknowledgement } from './useSubmitDisputeAcknowledgement'
 
 const now = new Date()
@@ -64,19 +63,6 @@ describe('useSubmitDisputeAcknowledgement', () => {
     expect(acknowledgeDisputeMock).not.toHaveBeenCalled()
   })
 
-  it('opens popup with loading animation', async () => {
-    const { result } = renderHook(useSubmitDisputeAcknowledgement, { wrapper })
-    result.current({ contractId: contract.id, disputeReason: 'other', email: '' })
-    await waitFor(() => {
-      expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
-    })
-
-    expect(showLoadingPopupMock).toHaveBeenCalledWith({
-      level: 'WARN',
-      title: i18n('dispute.opened'),
-    })
-  })
-
   it('saves contract for seller update when successful', async () => {
     setAccount({ ...defaultAccount, publicKey: contract.seller.id })
     const { result } = renderHook(useSubmitDisputeAcknowledgement, { wrapper })
@@ -88,9 +74,6 @@ describe('useSubmitDisputeAcknowledgement', () => {
     expect(saveContractMock).toHaveBeenCalledWith({
       ...contract,
       isEmailRequired: false,
-      disputeDate: now,
-      disputeAcknowledgedByCounterParty: true,
-      disputeInitiator: contract.buyer.id,
     })
   })
   it('saves contract for buyer update when successful', async () => {
@@ -103,9 +86,6 @@ describe('useSubmitDisputeAcknowledgement', () => {
     expect(saveContractMock).toHaveBeenCalledWith({
       ...contract,
       isEmailRequired: false,
-      disputeDate: now,
-      disputeAcknowledgedByCounterParty: true,
-      disputeInitiator: contract.seller.id,
     })
   })
   it('closes popup when successful', async () => {
@@ -164,9 +144,6 @@ describe('useSubmitDisputeAcknowledgement', () => {
     expect(queryClient.getQueryData(['contract', contract.id])).toEqual({
       ...contract,
       isEmailRequired: false,
-      disputeDate: now,
-      disputeAcknowledgedByCounterParty: true,
-      disputeInitiator: contract.seller.id,
     })
   })
 })

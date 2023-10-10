@@ -33,7 +33,6 @@ export const useDisputeFormSetup = (contract: Contract) => {
     Keyboard.dismiss()
 
     if (!decrptedData?.symmetricKey || !isFormValid) return
-
     setLoading(true)
     const [disputeRaised, disputeRaisedError] = await submitRaiseDispute({
       contract,
