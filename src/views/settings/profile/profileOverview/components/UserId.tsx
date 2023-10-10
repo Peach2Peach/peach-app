@@ -1,12 +1,13 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import { Bubble } from '../../../../../components/bubble'
-import { usePublicProfileNavigation } from '../../../../../hooks'
+import { useNavigation } from '../../../../../hooks'
 
 type Props = { id: string; showInfo?: boolean } & ComponentProps
 
 export const UserId = ({ id, showInfo = false, style }: Props) => {
   const peachId = `Peach${id.slice(0, 8)}`
-  const goToUserProfile = usePublicProfileNavigation(id)
+  const navigation = useNavigation()
+  const goToUserProfile = () => navigation.navigate('publicProfile', { userId: id })
   const copy = () => Clipboard.setString(peachId)
 
   return (
