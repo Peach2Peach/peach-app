@@ -1,10 +1,10 @@
 import { TouchableOpacity, View } from 'react-native'
 
+import { Badge } from '../../../components/Badge'
 import { useShowHelp } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { Rating, UserId } from '../../settings/profile/profileOverview/components'
 import { badges } from '../../settings/profile/profileOverview/components/badges'
-import { Badge } from './Badge'
 
 type Props = {
   user: Pick<User, 'rating' | 'trades' | 'medals' | 'id'>
