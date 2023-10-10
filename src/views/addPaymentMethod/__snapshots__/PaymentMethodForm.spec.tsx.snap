@@ -38,9 +38,8 @@ exports[`PaymentMethodForm should render correctly 1`] = `
         setStepValid={[Function]}
       />
     </View>
-    <PrimaryButton
+    <Button
       disabled={true}
-      narrow={true}
       onPress={[Function]}
       style={
         {
@@ -49,7 +48,7 @@ exports[`PaymentMethodForm should render correctly 1`] = `
       }
     >
       confirm
-    </PrimaryButton>
+    </Button>
   </ForwardRef>
 </Screen>
 `;

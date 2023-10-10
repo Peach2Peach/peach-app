@@ -1294,7 +1294,6 @@ exports[`Referrals renders correctly when user is undefined 1`] = `
   style={
     {
       "alignItems": "center",
-      "display": "flex",
       "height": "100%",
       "justifyContent": "center",
     }

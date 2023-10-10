@@ -8,8 +8,7 @@ exports[`SelectCurrency should render correctly 1`] = `
     currency="EUR"
     setCurrency={[Function]}
   />
-  <PrimaryButton
-    narrow={true}
+  <Button
     onPress={[Function]}
     style={
       {
@@ -19,6 +18,6 @@ exports[`SelectCurrency should render correctly 1`] = `
     }
   >
     next
-  </PrimaryButton>
+  </Button>
 </Screen>
 `;

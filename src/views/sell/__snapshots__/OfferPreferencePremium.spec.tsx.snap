@@ -7,9 +7,8 @@ exports[`OfferPreferencePremium should render the OfferPreferencePremium view 1`
   <Premium
     amount={0}
     confirmButton={
-      <PrimaryButton
+      <Button
         disabled={true}
-        narrow={true}
         onPress={[Function]}
         style={
           {
@@ -18,7 +17,7 @@ exports[`OfferPreferencePremium should render the OfferPreferencePremium view 1`
         }
       >
         next
-      </PrimaryButton>
+      </Button>
     }
     offerPrice={<CurrentOfferPrice />}
     premium={1.5}

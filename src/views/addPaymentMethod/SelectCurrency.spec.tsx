@@ -1,10 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { SelectCurrency } from './SelectCurrency'
 
-jest.mock('../../hooks/useHeaderSetup', () => ({
-  useHeaderSetup: jest.fn(),
-}))
-
 jest.mock('../../hooks/useNavigation', () => ({
   useNavigation: jest.fn(),
 }))

@@ -1,7 +1,7 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { OfferPreferencePremium } from './OfferPreferencePremium'
 
-jest.mock('./hooks/usePremiumSetup', () => ({
+jest.mock('./hooks/usePremiumStepValidation', () => ({
   usePremiumStepValidation: jest.fn(),
 }))
 jest.mock('../../hooks', () => ({

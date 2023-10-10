@@ -447,7 +447,6 @@ exports[`TransactionBatching should render correctly when loading 1`] = `
   style={
     {
       "alignItems": "center",
-      "display": "flex",
       "height": "100%",
       "justifyContent": "center",
     }

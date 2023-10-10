@@ -5,10 +5,6 @@ jest.mock('../../contexts/drawer', () => ({
   useDrawerContext: jest.fn(() => [null, jest.fn()]),
 }))
 
-jest.mock('../../hooks/useHeaderSetup', () => ({
-  useHeaderSetup: jest.fn(),
-}))
-
 jest.mock('../../hooks/useNavigation', () => ({
   useNavigation: jest.fn(),
 }))

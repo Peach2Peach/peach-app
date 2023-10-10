@@ -103,13 +103,18 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
       />
     </View>
     <HorizontalLine />
-    <PrimaryButton
-      border={true}
+    <Button
+      ghost={true}
       iconId="sell"
       onPress={[MockFunction]}
+      textColor={
+        {
+          "color": "#F56522",
+        }
+      }
     >
       fund from peach wallet
-    </PrimaryButton>
+    </Button>
   </View>
 </Screen>
 `;

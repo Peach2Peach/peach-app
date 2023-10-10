@@ -32,17 +32,15 @@ exports[`SelectPaymentMethod should render correctly 1`] = `
       onButtonPress={[Function]}
     />
   </ForwardRef>
-  <PrimaryButton
+  <Button
     disabled={true}
-    narrow={true}
     style={
       {
         "alignSelf": "center",
-        "marginTop": 8,
       }
     }
   >
     next
-  </PrimaryButton>
+  </Button>
 </Screen>
 `;

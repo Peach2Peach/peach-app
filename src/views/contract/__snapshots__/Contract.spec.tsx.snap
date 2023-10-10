@@ -13,18 +13,14 @@ exports[`Contract should render a default Contract 1`] = `
           "username": "sellerUsername",
         },
       },
-      "showBatchInfo": undefined,
-      "toggleShowBatchInfo": undefined,
+      "showBatchInfo": false,
+      "toggleShowBatchInfo": [Function],
       "view": "buyer",
     }
   }
 >
   <Screen
-    header={
-      <ContractHeader
-        requiredAction="requiredAction"
-      />
-    }
+    header={<ContractHeader />}
   >
     <ForwardRef
       contentContainerStyle={
@@ -39,20 +35,7 @@ exports[`Contract should render a default Contract 1`] = `
       }
     >
       <TradeInformation />
-      <ContractActions
-        actionPending={false}
-        isEmailRequired={false}
-        postConfirmPaymentBuyer={[MockFunction]}
-        postConfirmPaymentSeller={[MockFunction]}
-        requiredAction="requiredAction"
-        style={
-          {
-            "alignItems": "center",
-            "justifyContent": "flex-end",
-            "width": "100%",
-          }
-        }
-      />
+      <ContractActions />
     </ForwardRef>
   </Screen>
 </Context.Provider>

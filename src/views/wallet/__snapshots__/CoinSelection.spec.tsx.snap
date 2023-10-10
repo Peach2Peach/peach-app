@@ -942,6 +942,7 @@ exports[`CoinSelection renders correctly 1`] = `
             "gap": 8,
             "height": 40,
             "justifyContent": "center",
+            "minWidth": 128,
             "opacity": 1,
             "paddingLeft": 32,
             "paddingRight": 32,
