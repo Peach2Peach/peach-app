@@ -1,35 +1,54 @@
-import { useMemo } from 'react'
-import { Header, PeachScrollView, PrimaryButton, Screen } from '../../components'
+import { useMutation } from '@tanstack/react-query'
+import { shallow } from 'zustand/shallow'
+import { Header, PeachScrollView, PrimaryButton, Screen, Text } from '../../components'
 import { BuyOfferSummary } from '../../components/offer'
 import { useNavigation } from '../../hooks'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { publishPGPPublicKey } from '../../init/publishPGPPublicKey'
+import { InfoPopup } from '../../popups/InfoPopup'
+import { useConfigStore } from '../../store/configStore'
+import { useOfferPreferences } from '../../store/offerPreferenes'
+import { useSettingsStore } from '../../store/settingsStore'
+import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
+import { account, getMessageToSignForAddress } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
+import { postBuyOffer } from '../../utils/peachAPI'
+import { isValidBitcoinSignature } from '../../utils/validation'
+import { peachWallet } from '../../utils/wallet/setWallet'
 import { useGlobalSortAndFilterPopup } from '../search/hooks/useSortAndFilterPopup'
-import { useBuySummarySetup } from './hooks/useBuySummarySetup'
-
-const getButtonTextId = (canPublish: boolean, isPublishing: boolean) => {
-  if (isPublishing) return 'offer.publishing'
-  if (canPublish) return 'offer.publish'
-  return 'next'
-}
+import { isForbiddenPaymentMethodError } from './helpers/isForbiddenPaymentMethodError'
 
 export const BuySummary = () => {
-  const { canPublish, publishOffer, isPublishing, goToMessageSigning, offerDraft } = useBuySummarySetup()
+  const [peachWalletActive, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.payoutAddressLabel],
+    shallow,
+  )
+  const buyOfferPreferences = useOfferPreferences(
+    (state) => ({
+      amount: state.buyAmountRange,
+      meansOfPayment: state.meansOfPayment,
+      paymentData: state.paymentData,
+      originalPaymentData: state.originalPaymentData,
+      maxPremium: state.filter.buyOffer.maxPremium,
+    }),
+    shallow,
+  )
+
+  const offerDraft = {
+    type: 'bid' as const,
+    releaseAddress: '',
+    ...buyOfferPreferences,
+    walletLabel: peachWalletActive ? i18n('peachWallet') : payoutAddressLabel,
+  }
 
   return (
     <Screen header={<BuySummaryHeader />}>
-      <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-sm`, tw.md`py-md`]}>
+      <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <BuyOfferSummary offer={offerDraft} />
       </PeachScrollView>
-      <PrimaryButton
-        style={tw`self-center mt-2`}
-        narrow
-        onPress={canPublish ? publishOffer : goToMessageSigning}
-        loading={isPublishing}
-      >
-        {i18n(getButtonTextId(canPublish, isPublishing))}
-      </PrimaryButton>
+      <PublishOfferButton offerDraft={offerDraft} />
     </Screen>
   )
 }
@@ -37,17 +56,118 @@ export const BuySummary = () => {
 function BuySummaryHeader () {
   const navigation = useNavigation()
   const showSortAndFilterPopup = useGlobalSortAndFilterPopup('buy')
-  const icons = useMemo(
-    () => [
-      {
-        ...headerIcons.bitcoin,
-        accessibilityHint: `${i18n('goTo')} ${i18n('settings.networkFees')}`,
-        onPress: () => navigation.navigate('networkFees'),
-      },
-      { ...headerIcons.buyFilter, onPress: showSortAndFilterPopup },
-      { ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'payout' }) },
-    ],
-    [navigation, showSortAndFilterPopup],
-  )
+  const icons = [
+    {
+      ...headerIcons.bitcoin,
+      accessibilityHint: `${i18n('goTo')} ${i18n('settings.networkFees')}`,
+      onPress: () => navigation.navigate('networkFees'),
+    },
+    { ...headerIcons.buyFilter, onPress: showSortAndFilterPopup },
+    { ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'payout' }) },
+  ]
   return <Header title={i18n('buy.summary.title')} icons={icons} />
+}
+
+function PublishOfferButton ({ offerDraft }: { offerDraft: BuyOfferDraft }) {
+  const navigation = useNavigation()
+  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressSignature] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressSignature],
+    shallow,
+  )
+  if (!peachWalletActive && !payoutAddress) setPeachWalletActive(true)
+
+  const canPublish
+    = peachWalletActive
+    || (!!payoutAddress
+      && !!payoutAddressSignature
+      && isValidBitcoinSignature(
+        getMessageToSignForAddress(account.publicKey, payoutAddress),
+        payoutAddress,
+        payoutAddressSignature,
+      ))
+
+  const goToMessageSigning = () => navigation.navigate('signMessage')
+
+  const { mutate, isLoading } = usePublishOffer(offerDraft)
+
+  return (
+    <PrimaryButton
+      narrow
+      style={tw`self-center`}
+      onPress={canPublish ? () => mutate() : goToMessageSigning}
+      loading={isLoading}
+    >
+      {i18n(getButtonTextId(canPublish, isLoading))}
+    </PrimaryButton>
+  )
+}
+
+function getButtonTextId (canPublish: boolean, isPublishing: boolean) {
+  if (isPublishing) return 'offer.publishing'
+  if (canPublish) return 'offer.publish'
+  return 'next'
+}
+
+function usePublishOffer (offerDraft: BuyOfferDraft) {
+  const navigation = useNavigation()
+  const showErrorBanner = useShowErrorBanner()
+  const hasSeenGroupHugAnnouncement = useConfigStore((state) => state.hasSeenGroupHugAnnouncement)
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const showHelp = () => setPopup(<InfoPopup content={<Text>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</Text>} />)
+  const [peachWalletActive, payoutAddress, payoutAddressSignature] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressSignature],
+    shallow,
+  )
+
+  const getMessageSignature = (message: string, releaseAddress: string, index?: number) =>
+    peachWalletActive ? peachWallet.signMessage(message, releaseAddress, index) : payoutAddressSignature || ''
+
+  return useMutation({
+    mutationFn: async () => {
+      const { releaseAddress, index } = await getReleaseAddress(peachWalletActive, payoutAddress)
+      if (!releaseAddress) throw new Error('MISSING_ADDRESS')
+
+      const message = getMessageToSignForAddress(account.publicKey, releaseAddress)
+      const messageSignature = getMessageSignature(message, releaseAddress, index)
+
+      if (!isValidBitcoinSignature(message, releaseAddress, messageSignature)) throw new Error('INAVLID_SIGNATURE')
+      const finalizedOfferDraft = { ...offerDraft, releaseAddress, message, messageSignature }
+
+      let [result, err] = await postBuyOffer(finalizedOfferDraft)
+
+      if (err?.error === 'PGP_MISSING') {
+        await publishPGPPublicKey()
+        const response = await postBuyOffer(finalizedOfferDraft)
+        result = response[0]
+        err = response[1]
+      }
+      if (result) {
+        return result.id
+      }
+      throw new Error(err?.error || 'POST_OFFER_ERROR', { cause: err?.details })
+    },
+    onError: ({ message, cause }: Error) => {
+      if (isForbiddenPaymentMethodError(message, cause)) {
+        const paymentMethod = cause.pop()
+        if (paymentMethod === 'paypal') showHelp()
+      } else {
+        showErrorBanner(message)
+      }
+    },
+    onSuccess: (offerId) => {
+      if (!hasSeenGroupHugAnnouncement) {
+        navigation.replace('groupHugAnnouncement', { offerId })
+      } else {
+        navigation.replace('offerPublished', { offerId, isSellOffer: false })
+      }
+    },
+  })
+}
+
+async function getReleaseAddress (peachWalletActive: boolean, payoutAddress: string | undefined) {
+  if (peachWalletActive) {
+    const { address: releaseAddress, index } = await peachWallet.getReceivingAddress()
+    return { releaseAddress, index }
+  }
+  return { releaseAddress: payoutAddress, index: undefined }
 }
