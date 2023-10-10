@@ -1,5 +1,6 @@
 {
   "profile.accountCreated" : "hesap oluşturuldu",
+  "profile.blockUser" : "Bu kullanıcıyı engelle",
   "profile.daysAgo" : "$0 gün önce",
   "profile.disputes" : "anlaşmazlıklar",
   "profile.disputesLost" : "kaybedildi",
@@ -13,5 +14,6 @@
   "profile.tradingLimits.monthly" : "aylık anonim limit:",
   "profile.tradingLimits.yearly" : "yıllık ticaret limiti:",
   "profile.tradingLimits.yearly.short" : "yıllık limit:",
+  "profile.unblockUser" : "Bu kullanıcıyı engellemeyi kaldır",
   "profile.user.title" : "genel profil"
 }
