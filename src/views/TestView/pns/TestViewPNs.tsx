@@ -2,7 +2,7 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useMemo, useState } from 'react'
 import { FlatList, View } from 'react-native'
-import { PrimaryButton } from '../../../components'
+import { PrimaryButton, Screen } from '../../../components'
 import { TabbedNavigation } from '../../../components/navigation/TabbedNavigation'
 import { useMessageHandler } from '../../../hooks/notifications/useMessageHandler'
 import tw from '../../../styles/tailwind'
@@ -303,7 +303,7 @@ export const TestViewPNs = () => {
   ]
   const [currentTab, setCurrentTab] = useState(tabs[0])
   return (
-    <View style={tw`py-10`}>
+    <Screen>
       <TabbedNavigation style={tw`mb-4`} items={tabs} selected={currentTab} select={setCurrentTab} />
       {currentTab.id === 'offer' && (
         <FlatList
@@ -329,6 +329,6 @@ export const TestViewPNs = () => {
           ItemSeparatorComponent={() => <View style={tw`h-2`} />}
         />
       )}
-    </View>
+    </Screen>
   )
 }
