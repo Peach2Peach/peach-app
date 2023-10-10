@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`useOnboardingHeader allows overwriting values 1`] = `
-<Header
+<OldHeader
   hideGoBackButton={true}
   icons={[]}
   theme="inverted"
@@ -10,7 +10,7 @@ exports[`useOnboardingHeader allows overwriting values 1`] = `
 `;
 
 exports[`useOnboardingHeader should set up the header correctly 1`] = `
-<Header
+<OldHeader
   icons={
     [
       {

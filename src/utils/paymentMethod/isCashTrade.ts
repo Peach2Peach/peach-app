@@ -1,2 +1,2 @@
-export const isCashTrade = (paymentMethod: PaymentMethod): paymentMethod is CashTrade =>
+export const isCashTrade = (paymentMethod: PaymentMethod): paymentMethod is CashPaymentMethds =>
   paymentMethod.startsWith('cash')

@@ -18,7 +18,7 @@ export const RestoreFromFile = ({ style }: ComponentProps) => {
   if (restored) return <RestoreSuccess />
 
   return (
-    <View style={[tw`flex flex-col px-6`, style]}>
+    <View style={[tw`px-6`, style]}>
       <View style={tw`flex flex-col justify-between flex-shrink h-full`}>
         <View style={tw`flex flex-col justify-center flex-shrink w-full h-full`}>
           <Text style={tw`mt-4 text-center subtitle-1 text-primary-background-light`}>

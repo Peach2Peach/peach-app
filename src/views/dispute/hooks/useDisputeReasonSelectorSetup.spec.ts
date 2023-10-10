@@ -2,6 +2,7 @@ import { renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { setAccount } from '../../../utils/account'
 import { disputeReasons } from './disputeReasons'
@@ -49,65 +50,71 @@ jest.mock('../../../popups/dispute/hooks/useDisputeRaisedSuccess', () => ({
   useDisputeRaisedSuccess: () => showDisputeRaisedPopupMock,
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe('useDisputeReasonSelectorSetup', () => {
   it('returns default values correctly for seller', () => {
     setAccount({ ...account1, publicKey: contract.seller.id })
-    const { result } = renderHook(useDisputeReasonSelectorSetup)
+    const { result } = renderHook(useDisputeReasonSelectorSetup, {
+      initialProps: contract,
+      wrapper: NavigationAndQueryClientWrapper,
+    })
 
     expect(result.current.availableReasons).toEqual(disputeReasons.seller)
     expect(result.current.setReason).toBeInstanceOf(Function)
   })
   it('returns default values correctly for buyer', () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
-    const { result } = renderHook(useDisputeReasonSelectorSetup)
+    const { result } = renderHook(useDisputeReasonSelectorSetup, {
+      initialProps: contract,
+      wrapper: NavigationAndQueryClientWrapper,
+    })
 
     expect(result.current.availableReasons).toEqual(disputeReasons.buyer)
   })
-  it('respects route params', () => {
-    useRouteMock.mockReturnValueOnce({
-      params: {
-        contractId: contract.id,
-      },
-    })
-    renderHook(useDisputeReasonSelectorSetup)
-    expect(getContractMock).toHaveBeenCalledWith(contract.id)
-  })
   it('sets up the header correctly', () => {
-    renderHook(useDisputeReasonSelectorSetup)
+    renderHook(useDisputeReasonSelectorSetup, { initialProps: contract, wrapper: NavigationAndQueryClientWrapper })
     expect(headerState.header()).toMatchSnapshot()
-  })
-  it('does not set reason if no contract could be fetched', async () => {
-    getContractMock.mockReturnValueOnce(undefined)
-    const { result } = renderHook(useDisputeReasonSelectorSetup)
-    await result.current.setReason('other')
-    expect(submitRaiseDisputeMock).not.toHaveBeenCalled()
-    expect(navigateMock).not.toHaveBeenCalled()
   })
   it('sets reason and navigate to dispute form if reason is noPayment.buyer', async () => {
     const reason = 'noPayment.buyer'
-    const { result } = renderHook(useDisputeReasonSelectorSetup)
+    const { result } = renderHook(useDisputeReasonSelectorSetup, {
+      initialProps: contract,
+      wrapper: NavigationAndQueryClientWrapper,
+    })
     await result.current.setReason(reason)
     expect(navigateMock).toHaveBeenCalledWith('disputeForm', { contractId: contract.id, reason })
     expect(showDisputeRaisedPopupMock).not.toHaveBeenCalled()
   })
   it('sets reason and navigate to dispute form if reason is noPayment.seller', async () => {
     const reason = 'noPayment.seller'
-    const { result } = renderHook(useDisputeReasonSelectorSetup)
+    const { result } = renderHook(useDisputeReasonSelectorSetup, {
+      initialProps: contract,
+      wrapper: NavigationAndQueryClientWrapper,
+    })
     await result.current.setReason(reason)
     expect(navigateMock).toHaveBeenCalledWith('disputeForm', { contractId: contract.id, reason })
     expect(showDisputeRaisedPopupMock).not.toHaveBeenCalled()
   })
   it('sets reason and submits dispute request if reason is any other', async () => {
     const reason = 'abusive'
-    const { result } = renderHook(useDisputeReasonSelectorSetup)
+    const { result } = renderHook(useDisputeReasonSelectorSetup, {
+      initialProps: contract,
+      wrapper: NavigationAndQueryClientWrapper,
+    })
     await result.current.setReason(reason)
-    expect(submitRaiseDisputeMock).toHaveBeenCalledWith(contract, reason)
+    expect(submitRaiseDisputeMock).toHaveBeenCalledWith({
+      contract,
+      reason,
+    })
     expect(showDisputeRaisedPopupMock).toHaveBeenCalled()
   })
   it('shows error banner if dispute request fails', async () => {
     submitRaiseDisputeMock.mockResolvedValueOnce([null, unauthorizedError])
     const reason = 'abusive'
-    const { result } = renderHook(useDisputeReasonSelectorSetup)
+    const { result } = renderHook(useDisputeReasonSelectorSetup, {
+      initialProps: contract,
+      wrapper: NavigationAndQueryClientWrapper,
+    })
     await result.current.setReason(reason)
     expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
     expect(showDisputeRaisedPopupMock).not.toHaveBeenCalled()

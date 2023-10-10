@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`useOfferDetailsSetup should set up header correctly 1`] = `
-<Header
-  title="P‑7B"
-/>
-`;

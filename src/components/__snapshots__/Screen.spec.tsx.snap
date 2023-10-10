@@ -3,38 +3,88 @@
 exports[`Screen renders correctly 1`] = `
 <View
   style={
-    [
-      {
-        "height": "100%",
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-      undefined,
-    ]
+    {
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+    }
   }
 >
-  <View />
+  <RCTSafeAreaView
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          },
+          {
+            "paddingBottom": 32,
+            "paddingLeft": 32,
+            "paddingRight": 32,
+            "paddingTop": 32,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View />
+    </View>
+  </RCTSafeAreaView>
 </View>
 `;
 
 exports[`Screen renders correctly on small screens 1`] = `
 <View
   style={
-    [
-      {
-        "height": "100%",
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
-      {},
-      undefined,
-    ]
+    {
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+    }
   }
 >
-  <View />
+  <RCTSafeAreaView
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          },
+          {},
+          undefined,
+        ]
+      }
+    >
+      <View />
+    </View>
+  </RCTSafeAreaView>
 </View>
 `;

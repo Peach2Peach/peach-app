@@ -1,8 +1,8 @@
 import { Pressable, View, ViewStyle } from 'react-native'
-import tw from '../../styles/tailwind'
 import { Text } from '../'
-import { ChatMessages } from '../../views/yourTrades/components/ChatMessages'
+import tw from '../../styles/tailwind'
 import { isIOS } from '../../utils/system'
+import { ChatMessages } from '../../views/yourTrades/components/ChatMessages'
 import { PulsingText } from '../matches/components/selectors/PulsingText'
 
 export const themes = {

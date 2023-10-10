@@ -1,10 +1,5 @@
 import { account } from '../account'
 
-/**
- * @description Method to get saved chat
- * @param id chat id
- * @returns chat
- */
 export const getChat = (id: string): Chat => {
   const chat = account.chats[id]
   let messages = chat?.messages

@@ -1,4 +1,4 @@
-import { NewHeader as Header, PeachScrollView, Screen } from '../../components'
+import { Header, PeachScrollView, Screen } from '../../components'
 import { useShowHelp } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -14,8 +14,7 @@ export const Referrals = () => {
 
   if (!user) return <LoadingScreen />
   return (
-    <Screen>
-      <ReferralsHeader />
+    <Screen header={<ReferralsHeader />}>
       <BonusPointsBar balance={pointsBalance} />
       <PeachScrollView contentContainerStyle={tw`justify-center flex-grow`}>
         <ReferralRewards

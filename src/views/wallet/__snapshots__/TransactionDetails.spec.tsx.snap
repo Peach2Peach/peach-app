@@ -1,67 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TransactionDetails renders correctly 1`] = `
-<ForwardRef
-  contentContainerStyle={
-    [
+<Screen
+  header="transaction details"
+>
+  <ForwardRef
+    contentContainerStyle={
       {
         "flexGrow": 1,
         "justifyContent": "center",
-        "paddingLeft": 28,
-        "paddingRight": 28,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-    ]
-  }
-  contentStyle={
-    {
-      "gap": 32,
-    }
-  }
-  refreshControl={
-    <RefreshControlMock
-      onRefresh={[MockFunction]}
-      refreshing={false}
-    />
-  }
->
-  <TransactionHeader
-    amount={900}
-    confirmed={true}
-    date={2022-09-14T16:14:02.835Z}
-    height={1}
-    id="txid1"
-    offerData={
-      [
-        {
-          "address": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
-          "amount": 900,
-          "contractId": undefined,
-          "currency": undefined,
-          "offerId": "123",
-          "price": undefined,
-        },
-      ]
-    }
-    style={
-      {
-        "alignSelf": "center",
       }
     }
-    type="TRADE"
-  />
-  <TransactionDetailsInfo
-    transaction={
+    contentStyle={
       {
-        "amount": 900,
-        "confirmed": true,
-        "date": 2022-09-14T16:14:02.835Z,
-        "height": 1,
-        "id": "txid1",
-        "offerData": [
+        "gap": 32,
+      }
+    }
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[MockFunction]}
+        refreshing={false}
+      />
+    }
+  >
+    <TransactionHeader
+      amount={900}
+      confirmed={true}
+      date={2022-09-14T16:14:02.835Z}
+      height={1}
+      id="txid1"
+      offerData={
+        [
           {
             "address": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
             "amount": 900,
@@ -70,10 +39,37 @@ exports[`TransactionDetails renders correctly 1`] = `
             "offerId": "123",
             "price": undefined,
           },
-        ],
-        "type": "TRADE",
+        ]
       }
-    }
-  />
-</ForwardRef>
+      style={
+        {
+          "alignSelf": "center",
+        }
+      }
+      type="TRADE"
+    />
+    <TransactionDetailsInfo
+      transaction={
+        {
+          "amount": 900,
+          "confirmed": true,
+          "date": 2022-09-14T16:14:02.835Z,
+          "height": 1,
+          "id": "txid1",
+          "offerData": [
+            {
+              "address": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+              "amount": 900,
+              "contractId": undefined,
+              "currency": undefined,
+              "offerId": "123",
+              "price": undefined,
+            },
+          ],
+          "type": "TRADE",
+        }
+      }
+    />
+  </ForwardRef>
+</Screen>
 `;

@@ -9,7 +9,7 @@
   "offer.published.description" : "Ti invieremo una notifica quando ci saranno match disponibili.",
   "offer.published.title" : "offerta pubblicata!",
   "offer.publishing" : "pubblicazione",
-  "offer.requiredAction.confirmCancelation" : "il venditore desidera annullare",
+  "offer.requiredAction.confirmCancelation.buyer" : "il venditore desidera annullare",
   "offer.requiredAction.confirmPaymentRequired" : "conferma pagamento",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "disputa vinta: in attesa di pagamento",
   "offer.requiredAction.dispute" : "disputa avviata",

@@ -1,56 +1,41 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
-import { useHeaderSetup, useRoute } from '../../../hooks'
+import { useCallback, useEffect, useState } from 'react'
+import { useRoute } from '../../../hooks'
 import { useChatMessages } from '../../../hooks/query/useChatMessages'
-import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useOpenDispute } from '../../../popups/dispute/hooks/useOpenDispute'
-import { useConfirmCancelTrade } from '../../../popups/tradeCancelation/useConfirmCancelTrade'
-import { useConfigStore } from '../../../store/configStore'
 import { account } from '../../../utils/account'
 import { deleteMessage, getChat, getUnsentMessages, saveChat } from '../../../utils/chat'
-import { contractIdToHex, getTradingPartner } from '../../../utils/contract'
+import { getTradingPartner } from '../../../utils/contract'
 import { error } from '../../../utils/log'
-import { PeachWSContext } from '../../../utils/peachAPI/websocket'
+import { useWebsocketContext } from '../../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../../utils/pgp'
 import { parseError } from '../../../utils/result'
-import { getHeaderChatActions } from '../utils/getHeaderChatActions'
-import { useShowDisputeDisclaimer } from './useShowDisputeDisclaimer'
+import { useDecryptedContractData } from '../useDecryptedContractData'
 
-// eslint-disable-next-line max-statements
-export const useContractChatSetup = () => {
+export const useContractChatSetup = (contract: Contract) => {
   const { contractId } = useRoute<'contractChat'>().params
+  const { data: decryptedData } = useDecryptedContractData(contract)
 
-  const { connected, send, off, on } = useContext(PeachWSContext)
-  const { contract, view } = useCommonContractSetup(contractId)
+  const { connected, send, off, on } = useWebsocketContext()
   const {
     messages,
     isLoading,
     error: messagesError,
     page,
     fetchNextPage,
-  } = useChatMessages(contractId, contract?.symmetricKey)
+  } = useChatMessages(contractId, decryptedData?.symmetricKey)
   const showError = useShowErrorBanner()
-  const { showConfirmPopup } = useConfirmCancelTrade()
-  const showDisputeDisclaimer = useShowDisputeDisclaimer()
-  const openDisputePopup = useOpenDispute(contractId)
   const tradingPartner = contract ? getTradingPartner(contract, account) : null
   const [chat, setChat] = useState(getChat(contractId))
   const [newMessage, setNewMessage] = useState(chat.draftMessage)
   const [disableSend, setDisableSend] = useState(false)
-  const seenDisputeDisclaimer = useConfigStore((state) => state.seenDisputeDisclaimer)
-
-  useHeaderSetup({
-    title: contractIdToHex(contractId),
-    icons: contract ? getHeaderChatActions(contract, () => showConfirmPopup(contract), openDisputePopup, view) : [],
-  })
 
   const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
 
   const sendMessage = useCallback(
     async (message: string) => {
-      if (!tradingPartner || !contract?.symmetricKey || !message) return
+      if (!tradingPartner || !decryptedData?.symmetricKey || !message) return
 
-      const encryptedResult = await signAndEncryptSymmetric(message, contract.symmetricKey)
+      const encryptedResult = await signAndEncryptSymmetric(message, decryptedData.symmetricKey)
       const messageObject: Message = {
         roomId: `contract-${contractId}`,
         from: account.publicKey,
@@ -79,7 +64,7 @@ export const useContractChatSetup = () => {
         false,
       )
     },
-    [contractId, connected, contract?.symmetricKey, send, tradingPartner],
+    [contractId, connected, decryptedData?.symmetricKey, send, tradingPartner],
   )
   const resendMessage = (message: Message) => {
     if (!connected) return
@@ -88,7 +73,7 @@ export const useContractChatSetup = () => {
   }
 
   const submit = () => {
-    if (!contract || !tradingPartner || !contract.symmetricKey || !newMessage) return
+    if (!contract || !tradingPartner || !decryptedData?.symmetricKey || !newMessage) return
     setDisableSend(true)
     setTimeout(() => setDisableSend(false), 300)
 
@@ -109,8 +94,6 @@ export const useContractChatSetup = () => {
     [contractId, newMessage],
   )
 
-  const onChangeMessage = setNewMessage
-
   useEffect(() => {
     const timeout = setTimeout(() => {
       const unsentMessages = getUnsentMessages(chat.messages)
@@ -126,12 +109,12 @@ export const useContractChatSetup = () => {
 
   useEffect(() => {
     const messageHandler = async (message: Message) => {
-      if (!contract || !contract.symmetricKey) return
+      if (!contract || !decryptedData?.symmetricKey) return
       if (!message.message || message.roomId !== `contract-${contract.id}`) return
 
       let messageBody = ''
       try {
-        messageBody = await decryptSymmetric(message.message, contract.symmetricKey)
+        messageBody = await decryptSymmetric(message.message, decryptedData.symmetricKey)
       } catch {
         error(new Error(`Could not decrypt message for contract ${contract.id}`))
       }
@@ -161,7 +144,7 @@ export const useContractChatSetup = () => {
     if (!connected) return unsubscribe
     on('message', messageHandler)
     return unsubscribe
-  }, [contract, contractId, connected, on, send, off])
+  }, [contract, contractId, connected, on, send, off, decryptedData?.symmetricKey])
 
   useEffect(() => {
     if (messages) setAndSaveChat(contractId, { messages })
@@ -170,12 +153,6 @@ export const useContractChatSetup = () => {
   useEffect(() => {
     if (messagesError) showError(parseError(messagesError))
   }, [messagesError, showError])
-
-  useEffect(() => {
-    if (contract && !contract.disputeActive && !seenDisputeDisclaimer) {
-      showDisputeDisclaimer()
-    }
-  }, [chat, contract, seenDisputeDisclaimer, showDisputeDisclaimer])
 
   return {
     contract,
@@ -186,7 +163,7 @@ export const useContractChatSetup = () => {
     page,
     fetchNextPage,
     isLoading,
-    onChangeMessage,
+    setNewMessage,
     resendMessage,
     submit,
     disableSend,

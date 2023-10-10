@@ -1,4 +1,4 @@
-import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
+import { useNavigation, useRoute } from '../../../hooks'
 
 export const usePaymentMadeSetup = () => {
   const route = useRoute<'paymentMade'>()
@@ -11,6 +11,5 @@ export const usePaymentMadeSetup = () => {
     })
   const close = () => (navigation.canGoBack() ? navigation.goBack() : navigation.navigate('home'))
 
-  useHeaderSetup({})
   return { close, goToTrade }
 }

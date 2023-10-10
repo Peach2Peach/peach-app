@@ -9,7 +9,7 @@
   "offer.published.description" : "Eşleşmeler mevcut olduğunda size bir bildirim göndereceğiz.",
   "offer.published.title" : "teklif yayınlandı!",
   "offer.publishing" : "yayınlanıyor",
-  "offer.requiredAction.confirmCancelation" : "satıcı iptal istiyor",
+  "offer.requiredAction.confirmCancelation.buyer" : "satıcı iptal istiyor",
   "offer.requiredAction.confirmPaymentRequired" : "ödemeyi onayla",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "anlaşmazlık kazanıldı: ödeme bekleniyor",
   "offer.requiredAction.dispute" : "anlaşmazlık başlatıldı",

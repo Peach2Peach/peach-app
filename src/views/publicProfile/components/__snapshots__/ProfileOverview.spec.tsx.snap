@@ -367,9 +367,8 @@ exports[`ProfileOverview should render correctly 1`] = `
             },
             [
               {
-                "fontFamily": "Baloo2-Regular",
+                "fontFamily": "Baloo2-SemiBold",
                 "fontSize": 12,
-                "fontWeight": "600",
                 "letterSpacing": -0.36,
                 "lineHeight": 22,
                 "textAlign": "center",
@@ -442,9 +441,8 @@ exports[`ProfileOverview should render correctly 1`] = `
             },
             [
               {
-                "fontFamily": "Baloo2-Regular",
+                "fontFamily": "Baloo2-SemiBold",
                 "fontSize": 12,
-                "fontWeight": "600",
                 "letterSpacing": -0.36,
                 "lineHeight": 22,
                 "textAlign": "center",
@@ -517,9 +515,8 @@ exports[`ProfileOverview should render correctly 1`] = `
             },
             [
               {
-                "fontFamily": "Baloo2-Regular",
+                "fontFamily": "Baloo2-SemiBold",
                 "fontSize": 12,
-                "fontWeight": "600",
                 "letterSpacing": -0.36,
                 "lineHeight": 22,
                 "textAlign": "center",

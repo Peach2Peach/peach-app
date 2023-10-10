@@ -14,7 +14,7 @@ describe('getBuyerStatusText', () => {
   } as unknown as Contract
   it('should return correct text if seller requested cancelation', () => {
     expect(getBuyerStatusText({ ...mockContract, cancelationRequested: true })).toBe(
-      "You'll need to agree to or reject the cancelation.",
+      i18n('contract.buyer.collaborativeCancel.notResolved'),
     )
   })
   it("should return correct text if the buyer canceled the trade, it's not a cash trade and not collab cancel", () => {
@@ -39,7 +39,7 @@ describe('getBuyerStatusText', () => {
   })
   it('should return correct text if payment is too late', () => {
     isPaymentTooLateMock.mockReturnValueOnce(true)
-    expect(getBuyerStatusText(mockContract)).toBe(i18n('contract.buyer.paymentWasTooLate'))
+    expect(getBuyerStatusText(mockContract)).toBe(i18n('contract.buyer.paymentWasTooLate.waitingForSeller'))
   })
   it('should return the correct text if buyer lost a dispute', () => {
     expect(getBuyerStatusText({ ...mockContract, disputeWinner: 'seller' })).toBe(i18n('contract.buyer.disputeLost'))

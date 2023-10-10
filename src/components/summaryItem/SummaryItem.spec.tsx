@@ -1,7 +1,7 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { SummaryItem } from './SummaryItem'
-import { Text } from '../text'
 import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
+import { Text } from '../text'
+import { SummaryItem } from './SummaryItem'
 
 describe('SummaryItem', () => {
   const renderer = createRenderer()

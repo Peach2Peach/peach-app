@@ -1,46 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useSearchSetup should set up header correctly for buy offers 1`] = `
-<Header
-  icons={
-    [
-      {
-        "color": "#05A85A",
-        "id": "filter",
-        "onPress": [Function],
-      },
-      {
-        "color": "#9F8C82",
-        "id": "xCircle",
-        "onPress": [Function],
-      },
-    ]
-  }
-  title="P‑25"
-/>
-`;
+exports[`useSearchSetup should set up header correctly for buy offers 1`] = `<React.Fragment />`;
 
-exports[`useSearchSetup should set up header correctly for sell offers 1`] = `
-<Header
-  icons={
-    [
-      {
-        "color": "#F56522",
-        "id": "filter",
-        "onPress": [Function],
-      },
-      {
-        "color": "#F56522",
-        "id": "percent",
-        "onPress": [Function],
-      },
-      {
-        "color": "#9F8C82",
-        "id": "xCircle",
-        "onPress": [Function],
-      },
-    ]
-  }
-  title="P‑25"
-/>
-`;
+exports[`useSearchSetup should set up header correctly for sell offers 1`] = `<React.Fragment />`;

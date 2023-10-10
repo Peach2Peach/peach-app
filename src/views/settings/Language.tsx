@@ -1,4 +1,5 @@
-import { NewHeader as Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
+import { PeachScrollView, RadioButtons, Screen } from '../../components'
+import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import { useLanguage } from '../../hooks/useLanguage'
 import tw from '../../styles/tailwind'
@@ -14,8 +15,7 @@ export const Language = () => {
   }
 
   return (
-    <Screen>
-      <Header title={i18n('language')} />
+    <Screen header={i18n('language')}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <RadioButtons
           selectedValue={locale}
@@ -26,9 +26,9 @@ export const Language = () => {
           onButtonPress={setLocale}
         />
       </PeachScrollView>
-      <PrimaryButton style={tw`self-center mb-5`} narrow onPress={onConfirm}>
+      <Button style={tw`self-center`} onPress={onConfirm}>
         {i18n('confirm')}
-      </PrimaryButton>
+      </Button>
     </Screen>
   )
 }

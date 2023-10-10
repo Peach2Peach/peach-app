@@ -120,5 +120,6 @@
   "settings.terms" : "conditions générales",
   "settings.testView" : "Ouvrir TestView",
   "settings.title" : "réglages",
+  "settings.transactionBatching" : "Groupement de transactions",
   "settings.website" : "site web"
 }

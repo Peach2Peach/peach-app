@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { Divider, Loading, PeachScrollView, PrimaryButton, Text } from '../../../components'
 import { BTCAmount } from '../../../components/bitcoin'
 import { BitcoinAddressInput, NumberInput } from '../../../components/inputs'
-import { useHeaderSetup, useValidatedState } from '../../../hooks'
+import { useValidatedState } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { showTransaction } from '../../../utils/bitcoin'
 import i18n from '../../../utils/i18n'
@@ -34,7 +34,6 @@ export const TestViewPeachWallet = () => {
   const { balance, isRefreshing, walletLoading, address, setAddress, addressErrors } = useTestViewWalletSetup()
   const { refresh } = useSyncWallet()
 
-  useHeaderSetup('test view - peach wallet')
   const [amount, setAmount] = useState('0')
   const [txId, setTxId] = useState('')
   const getNewAddress = async () => {

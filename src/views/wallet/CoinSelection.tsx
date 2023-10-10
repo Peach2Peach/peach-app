@@ -1,9 +1,9 @@
 import { TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Fragment, useState } from 'react'
 import { View } from 'react-native'
-import { Checkbox, NewHeader as Header, HorizontalLine, PeachScrollView, Screen } from '../../components'
+import { Checkbox, Header, HorizontalLine, PeachScrollView, Screen } from '../../components'
 import { BTCAmount } from '../../components/bitcoin'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Button } from '../../components/buttons/Button'
 import { useNavigation, useShowHelp } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -33,8 +33,7 @@ export const CoinSelection = () => {
   }
 
   return (
-    <Screen>
-      <CoinSelectionHeader />
+    <Screen header={<CoinSelectionHeader />}>
       <UTXOList selectedUTXOs={selectedUTXOs} toggleSelection={toggleSelection} />
       <ConfirmButton selectedUTXOIds={selectedUTXOs} />
     </Screen>

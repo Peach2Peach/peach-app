@@ -128,7 +128,7 @@ exports[`SliderKnob renders when slided to the end 1`] = `
   style={
     [
       {
-        "backgroundColor": "rgba(5, 168, 90, 1)",
+        "backgroundColor": "rgba(101, 165, 25, 1)",
       },
       {
         "alignItems": "center",

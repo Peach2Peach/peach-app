@@ -15,7 +15,7 @@ type LevelColorMap = {
 const levelColorMap: LevelColorMap = {
   bg: {
     APP: tw`bg-primary-main`,
-    SUCCESS: tw`bg-success-background`,
+    SUCCESS: tw`bg-success-background-main`,
     WARN: tw`bg-warning-background`,
     ERROR: tw`bg-error-main`,
     INFO: tw`bg-info-background`,

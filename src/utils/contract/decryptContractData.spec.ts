@@ -1,8 +1,7 @@
 import { decryptContractData } from '.'
-import { decryptSymmetricKey, getPaymentData } from '../../views/contract/helpers'
+import { decryptSymmetricKey } from '../../views/contract/helpers'
 
 jest.mock('../../views/contract/helpers', () => ({
-  getPaymentData: jest.fn(),
   decryptSymmetricKey: jest.fn(),
 }))
 
@@ -15,17 +14,12 @@ describe('decryptContractData', () => {
     } as User,
   }
 
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
   it('should return symmetric key and payment data when decryption is successful', async () => {
     const symmetricKey = 'some_symmetric_key'
     const paymentData = 'some_payment_data'
     ;(decryptSymmetricKey as jest.Mock).mockResolvedValue([symmetricKey, null])
-    ;(getPaymentData as jest.Mock).mockResolvedValue([paymentData, null])
 
-    const result = await decryptContractData(contract as Contract)
+    const result = await decryptContractData({ ...contract, paymentData } as unknown as Contract)
 
     expect(result).toEqual({
       symmetricKey,
@@ -35,9 +29,7 @@ describe('decryptContractData', () => {
 
   it('should return null when payment data decryption fails', async () => {
     const symmetricKey = 'some_symmetric_key'
-    const decryptionError = 'some_decryption_error'
     ;(decryptSymmetricKey as jest.Mock).mockResolvedValue([symmetricKey, null])
-    ;(getPaymentData as jest.Mock).mockResolvedValue([null, decryptionError])
 
     const result = await decryptContractData(contract as Contract)
 

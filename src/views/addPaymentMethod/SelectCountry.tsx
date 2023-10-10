@@ -1,11 +1,12 @@
 import tw from '../../styles/tailwind'
 
-import { NewHeader as Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
+import { Header, PeachScrollView, RadioButtons, Screen } from '../../components'
 import { useNavigation, useRoute, useShowHelp } from '../../hooks'
 import i18n from '../../utils/i18n'
 
 import { useMemo, useState } from 'react'
 
+import { Button } from '../../components/buttons/Button'
 import { headerIcons } from '../../utils/layout'
 import { countrySupportsCurrency, getPaymentMethodInfo } from '../../utils/paymentMethod'
 import { usePaymentMethodLabel } from './hooks'
@@ -42,22 +43,20 @@ export const SelectCountry = () => {
   const showHelp = useShowHelp('giftCards')
 
   return (
-    <Screen>
-      <Header
-        title={i18n('paymentMethod.giftCard.countrySelect.title')}
-        icons={[{ ...headerIcons.help, onPress: showHelp }]}
-      />
-      <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-4`, tw.md`py-8`]}>
+    <Screen
+      header={
+        <Header
+          title={i18n('paymentMethod.giftCard.countrySelect.title')}
+          icons={[{ ...headerIcons.help, onPress: showHelp }]}
+        />
+      }
+    >
+      <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
         {!!countries && <RadioButtons items={countries} selectedValue={selectedCountry} onButtonPress={setCountry} />}
       </PeachScrollView>
-      <PrimaryButton
-        style={tw`self-center mt-2 mb-5`}
-        disabled={!selectedCountry}
-        onPress={goToPaymentMethodForm}
-        narrow
-      >
+      <Button style={tw`self-center mt-2`} disabled={!selectedCountry} onPress={goToPaymentMethodForm}>
         {i18n('next')}
-      </PrimaryButton>
+      </Button>
     </Screen>
   )
 }

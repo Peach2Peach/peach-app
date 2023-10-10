@@ -1,5 +1,5 @@
 import { SectionList, View } from 'react-native'
-import { NewHeader as Header, Loading, Screen } from '../../components'
+import { Header, Loading, Screen } from '../../components'
 
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 import { useNavigation } from '../../hooks'
@@ -33,8 +33,7 @@ export const YourTrades = () => {
   }
 
   return (
-    <Screen>
-      <YourTradesHeader />
+    <Screen header={<YourTradesHeader />} showFooter>
       <TabbedNavigation
         items={tabs}
         select={switchTab}

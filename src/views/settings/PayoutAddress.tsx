@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 
-import { NewHeader as Header, Icon, PeachScrollView, PrimaryButton, Screen, Text } from '../../components'
+import { Header, Icon, PeachScrollView, PrimaryButton, Screen, Text } from '../../components'
 import { OpenWallet } from '../../components/bitcoin'
 import { BitcoinAddressInput, Input } from '../../components/inputs'
 import { useRoute, useShowHelp } from '../../hooks'
@@ -25,8 +25,7 @@ export const PayoutAddress = () => {
   } = usePayoutAddressSetup()
 
   return (
-    <Screen>
-      <PayoutAddressHeader />
+    <Screen header={<PayoutAddressHeader />}>
       <PeachScrollView contentContainerStyle={tw`items-center justify-center px-8 grow`}>
         <Text style={tw`text-center h6`}>
           {i18n(type === 'refund' ? 'settings.refundAddress.title' : 'settings.payoutAddress.title')}

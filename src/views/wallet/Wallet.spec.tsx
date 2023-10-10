@@ -18,6 +18,11 @@ const useWalletSetupMock = jest.fn(() => defaultReturnValue)
 jest.mock('./hooks/useWalletSetup', () => ({
   useWalletSetup: () => useWalletSetupMock(),
 }))
+jest.mock('../../hooks/useRoute', () => ({
+  useRoute: jest.fn(() => ({
+    name: 'wallet',
+  })),
+}))
 
 const addresses = {
   first: {

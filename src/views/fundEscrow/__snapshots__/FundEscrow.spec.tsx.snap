@@ -1,39 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FundEscrow should render the FundEscrow view 1`] = `
-<View
-  style={
-    {
-      "height": "100%",
-    }
-  }
+<Screen
+  header={<FundEscrowHeader />}
 >
   <ForwardRef
-    contentContainerStyle={
-      [
-        {
-          "justifyContent": "center",
-          "paddingLeft": 16,
-          "paddingRight": 16,
-        },
-        {
-          "paddingLeft": 32,
-          "paddingRight": 32,
-        },
-      ]
-    }
     contentStyle={
       {
         "alignItems": "center",
-        "flexShrink": 1,
         "gap": 16,
-        "height": "100%",
-      }
-    }
-    style={
-      {
-        "flexShrink": 1,
-        "height": "100%",
       }
     }
   >
@@ -88,14 +63,7 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
           "gap": 16,
           "justifyContent": "center",
           "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
           "paddingTop": 16,
-          "width": "100%",
-        },
-        {
-          "paddingLeft": 32,
-          "paddingRight": 32,
         },
       ]
     }
@@ -134,17 +102,21 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         }
       />
     </View>
-    <Divider />
-    <PrimaryButton
-      border={true}
+    <HorizontalLine />
+    <Button
+      ghost={true}
       iconId="sell"
       onPress={[MockFunction]}
-      testID="escrow-fund"
+      textColor={
+        {
+          "color": "#F56522",
+        }
+      }
     >
       fund from peach wallet
-    </PrimaryButton>
+    </Button>
   </View>
-</View>
+</Screen>
 `;
 
 exports[`FundEscrow should show Loading, while escrow creation is pending 1`] = `
@@ -170,39 +142,14 @@ exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOO
 `;
 
 exports[`FundEscrow should show funded from peach wallet, if funded from peach wallet 1`] = `
-<View
-  style={
-    {
-      "height": "100%",
-    }
-  }
+<Screen
+  header={<FundEscrowHeader />}
 >
   <ForwardRef
-    contentContainerStyle={
-      [
-        {
-          "justifyContent": "center",
-          "paddingLeft": 16,
-          "paddingRight": 16,
-        },
-        {
-          "paddingLeft": 32,
-          "paddingRight": 32,
-        },
-      ]
-    }
     contentStyle={
       {
         "alignItems": "center",
-        "flexShrink": 1,
         "gap": 16,
-        "height": "100%",
-      }
-    }
-    style={
-      {
-        "flexShrink": 1,
-        "height": "100%",
       }
     }
   >
@@ -257,14 +204,7 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
           "gap": 16,
           "justifyContent": "center",
           "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
           "paddingTop": 16,
-          "width": "100%",
-        },
-        {
-          "paddingLeft": 32,
-          "paddingRight": 32,
         },
       ]
     }
@@ -303,22 +243,17 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
         }
       />
     </View>
-    <Divider />
+    <HorizontalLine />
     <TradeInfo
       IconComponent={
         <Icon
-          color="#05A85A"
+          color="#65A519"
           id="checkCircle"
-          style={
-            {
-              "height": 16,
-              "width": 16,
-            }
-          }
+          size={16}
         />
       }
       text="funded from peach wallet"
     />
   </View>
-</View>
+</Screen>
 `;

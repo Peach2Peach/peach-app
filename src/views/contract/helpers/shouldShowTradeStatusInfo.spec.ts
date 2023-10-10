@@ -12,6 +12,7 @@ describe('shouldShowTradeStatusInfo', () => {
     disputeWinner: undefined,
     canceled: false,
     cancelationRequested: false,
+    tradeStatus: 'tradeCompleted' as const,
   }
   it('should return false by default', () => {
     expect(shouldShowTradeStatusInfo(mockContract, 'seller')).toEqual(false)
@@ -29,12 +30,28 @@ describe('shouldShowTradeStatusInfo', () => {
     isPaymentTooLateMock.mockReturnValueOnce(true)
     expect(shouldShowTradeStatusInfo(mockContract, 'seller')).toEqual(true)
   })
-  it('should return false if the payment is too late and view is buyer', () => {
+  it('should return true if the payment is too late and view is buyer', () => {
     isPaymentTooLateMock.mockReturnValueOnce(true)
-    expect(shouldShowTradeStatusInfo(mockContract, 'buyer')).toEqual(false)
+    expect(shouldShowTradeStatusInfo(mockContract, 'buyer')).toEqual(true)
   })
-  it('should return true if there is a dispute winner', () => {
-    expect(shouldShowTradeStatusInfo({ ...mockContract, disputeWinner: 'seller' }, 'seller')).toEqual(true)
-    expect(shouldShowTradeStatusInfo({ ...mockContract, disputeWinner: 'buyer' }, 'buyer')).toEqual(true)
+  it('should return true if the buyer won and the escrow isnt paid out', () => {
+    expect(
+      shouldShowTradeStatusInfo({ ...mockContract, disputeWinner: 'buyer', tradeStatus: 'releaseEscrow' }, 'seller'),
+    ).toEqual(true)
+    expect(
+      shouldShowTradeStatusInfo(
+        { ...mockContract, disputeWinner: 'buyer', tradeStatus: 'confirmPaymentRequired' },
+        'buyer',
+      ),
+    ).toEqual(true)
+    expect(
+      shouldShowTradeStatusInfo({ ...mockContract, disputeWinner: 'buyer', tradeStatus: 'releaseEscrow' }, 'seller'),
+    ).toEqual(true)
+    expect(
+      shouldShowTradeStatusInfo(
+        { ...mockContract, disputeWinner: 'buyer', tradeStatus: 'confirmPaymentRequired' },
+        'buyer',
+      ),
+    ).toEqual(true)
   })
 })

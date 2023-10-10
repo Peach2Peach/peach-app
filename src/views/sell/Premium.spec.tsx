@@ -1,14 +1,8 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { PrimaryButton } from '../../components'
-import { CurrentOfferPrice } from './components'
 import { Premium } from './Premium'
+import { CurrentOfferPrice } from './components'
 
-jest.mock('./hooks/usePremiumSetup', () => ({
-  usePremiumSetup: jest.fn().mockReturnValue({
-    currentPrice: 150,
-    displayCurrency: 'EUR',
-  }),
-}))
 jest.mock('../../hooks', () => ({
   useNavigation: jest.fn().mockReturnValue({
     navigate: jest.fn(),

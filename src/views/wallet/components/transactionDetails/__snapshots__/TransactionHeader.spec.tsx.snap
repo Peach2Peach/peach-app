@@ -17,7 +17,7 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
   }
 >
   <test-file-stub
-    fill="#05A85A"
+    fill="#65A519"
     style={
       [
         {
@@ -549,7 +549,7 @@ exports[`TransactionHeader should render correctly for a receiving transaction 1
   }
 >
   <test-file-stub
-    fill="#05A85A"
+    fill="#65A519"
     style={
       [
         {

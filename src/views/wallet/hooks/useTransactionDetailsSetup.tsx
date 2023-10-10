@@ -1,9 +1,8 @@
 import { BlockTime, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { useMemo } from 'react'
-import { useHeaderSetup, useRoute } from '../../../hooks'
+import { useRoute } from '../../../hooks'
 import { useTransactionDetails } from '../../../hooks/query/useTransactionDetails'
 import { useAreMyAddresses } from '../../../hooks/wallet/useIsMyAddress'
-import i18n from '../../../utils/i18n'
 import { sum } from '../../../utils/math'
 import { isDefined } from '../../../utils/validation'
 import { useWalletState } from '../../../utils/wallet/walletStore'
@@ -43,8 +42,6 @@ export const useTransactionDetailsSetup = () => {
   const tx = localTx || mappedTx
   const transaction = useMemo(() => (tx ? getTxSummary(tx) : undefined), [tx])
   const { refresh, isRefreshing } = useSyncWallet()
-
-  useHeaderSetup(i18n('wallet.transactionDetails'))
 
   return { transaction, refresh, isRefreshing }
 }

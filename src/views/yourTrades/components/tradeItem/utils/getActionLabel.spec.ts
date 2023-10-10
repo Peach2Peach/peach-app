@@ -1,6 +1,7 @@
 import { useWalletState } from '../../../../../utils/wallet/walletStore'
 import { getActionLabel } from './getActionLabel'
 
+// eslint-disable-next-line max-lines-per-function
 describe('getActionLabel', () => {
   const pastContractSummary = {
     tradeStatus: 'tradeCompleted',
@@ -65,5 +66,24 @@ describe('getActionLabel', () => {
     useWalletState.getState().registerFundMultiple('address', [sellOfferSummary.id])
     const result = getActionLabel({ ...sellOfferSummary, tradeStatus: 'fundEscrow' }, false)
     expect(result).toEqual('fund multiple escrow')
+  })
+  it('should return the correct label for seller sending a cancelation request', () => {
+    const tradeSummary = {
+      amount: 40000,
+      creationDate: new Date('2020-11-11'),
+      currency: 'EUR',
+      disputeOutcomeAcknowledged: false,
+      id: '816-826',
+      isChatActive: true,
+      lastModified: new Date('2020-11-11'),
+      offerId: '816',
+      paymentConfirmed: undefined,
+      paymentMade: undefined,
+      price: 10.45,
+      tradeStatus: 'confirmCancelation',
+      unreadMessages: 0,
+    } as const
+    expect(getActionLabel({ ...tradeSummary, type: 'bid' }, false)).toEqual('seller wants to cancel')
+    expect(getActionLabel({ ...tradeSummary, type: 'ask' }, false)).toEqual('cancel request sent')
   })
 })

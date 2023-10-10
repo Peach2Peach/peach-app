@@ -5,6 +5,7 @@ export const getActionIcon = (tradeSummary: Pick<TradeSummary, 'tradeStatus'>, i
     return undefined
   }
   if (isContractSummary(tradeSummary) && tradeSummary.disputeWinner) {
+    if (tradeSummary.tradeStatus === 'releaseEscrow') return 'sell'
     return 'alertOctagon'
   }
 

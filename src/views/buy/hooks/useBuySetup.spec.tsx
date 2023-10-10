@@ -56,17 +56,6 @@ describe('useBuySetup', () => {
     await waitFor(() => expect(result.current.freeTrades).toEqual(freeTrades))
     expect(result.current.freeTrades).toEqual(maxFreeTrades)
   })
-  it('should add the correct header', () => {
-    renderHook(useBuySetup, { wrapper })
-
-    expect(useHeaderSetupMock).toHaveBeenCalled()
-    const args = useHeaderSetupMock.mock.calls[0][0]
-    expect(args.titleComponent).toMatchInlineSnapshot('<BuyTitleComponent />')
-    expect(args.hideGoBackButton).toBe(true)
-    expect(args.icons[0].id).toBe('helpCircle')
-    expect(args.icons[0].color).toBe('#099DE2')
-    expect(args.icons[0].onPress).toBe(showHelpMock)
-  })
   it('should return isLoading as true if minTradingAmount is 0', () => {
     const { result } = renderHook(useBuySetup, { wrapper })
     expect(result.current.isLoading).toBeTruthy()

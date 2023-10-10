@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import { navigateMock, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { TxStatusCard } from './TxStatusCard'
 
 const wrapper = NavigationWrapper

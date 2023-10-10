@@ -2,5 +2,5 @@ import { PopupComponent, PopupComponentProps } from '../components/popup/PopupCo
 import tw from '../styles/tailwind'
 
 export function SuccessPopup (props: Omit<PopupComponentProps, 'bgColor' | 'actionBgColor'>) {
-  return <PopupComponent {...props} bgColor={tw`bg-success-background`} actionBgColor={tw`bg-success-main`} />
+  return <PopupComponent {...props} bgColor={tw`bg-success-background-main`} actionBgColor={tw`bg-success-main`} />
 }

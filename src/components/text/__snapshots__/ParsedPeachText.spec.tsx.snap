@@ -9,7 +9,7 @@ exports[`ParsedPeachText should render correctly 1`] = `
       {
         "pattern": "pattern",
         "style": {
-          "color": "#05A85A",
+          "color": "#65A519",
         },
       },
     ]

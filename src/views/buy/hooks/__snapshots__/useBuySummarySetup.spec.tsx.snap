@@ -5,8 +5,8 @@ exports[`useBuySummarySetup should open payment method forbidden popup for respe
   style={
     {
       "borderRadius": 16,
-      "marginLeft": 24,
-      "marginRight": 24,
+      "marginLeft": 12,
+      "marginRight": 12,
       "overflow": "hidden",
     }
   }

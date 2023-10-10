@@ -3,16 +3,16 @@ import { Icon, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
 
 import { useNavigation } from '../../hooks'
+import { useOnboardingHeader } from '../../hooks/headers/useOnboardingHeader'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useBackupHeader } from './hooks/useBackupHeader'
 
 type Props = {
   err: string
 }
 
 export const RestoreBackupError = ({ err }: Props) => {
-  useBackupHeader()
+  useOnboardingHeader({ title: i18n('restoreBackup.title') })
   const navigation = useNavigation()
   const goToContact = () => navigation.navigate('contact')
 

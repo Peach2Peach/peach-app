@@ -1,11 +1,27 @@
 import { View } from 'react-native'
-import { BitcoinAddress, CopyAble, Divider, Icon, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
+import {
+  BitcoinAddress,
+  CopyAble,
+  Header,
+  HorizontalLine,
+  Icon,
+  Loading,
+  PeachScrollView,
+  Screen,
+  Text,
+} from '../../components'
 import { BTCAmount } from '../../components/bitcoin'
+import { Button } from '../../components/buttons/Button'
 import { TradeInfo } from '../../components/offer'
 import { SATSINBTC } from '../../constants'
+import { useCancelOffer, useRoute, useShowHelp } from '../../hooks'
+import { useMultipleOfferDetails } from '../../hooks/query/useOfferDetails'
+import { useCancelFundMultipleSellOffers } from '../../hooks/useCancelFundMultipleSellOffers'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { offerIdToHex } from '../../utils/offer'
+import { headerIcons } from '../../utils/layout'
+import { isSellOffer, offerIdToHex } from '../../utils/offer'
+import { useWalletState } from '../../utils/wallet/walletStore'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { NoEscrowFound } from './components/NoEscrowFound'
 import { TransactionInMempool } from './components/TransactionInMempool'
@@ -30,12 +46,8 @@ export const FundEscrow = () => {
   if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool txId={fundingStatus.txIds[0]} />
 
   return (
-    <View style={tw`h-full`}>
-      <PeachScrollView
-        style={tw`h-full shrink`}
-        contentContainerStyle={[tw`justify-center px-sm`, tw.md`px-md`]}
-        contentStyle={tw`items-center h-full gap-4 shrink`}
-      >
+    <Screen header={<FundEscrowHeader />}>
+      <PeachScrollView contentStyle={tw`items-center gap-4`}>
         <View style={tw`flex-row items-center justify-center gap-1`}>
           <Text style={tw`settings`}>{i18n('sell.escrow.sendSats')}</Text>
           <BTCAmount style={tw`-mt-0.5`} amount={fundingAmount} size="medium" />
@@ -49,23 +61,44 @@ export const FundEscrow = () => {
         />
       </PeachScrollView>
 
-      <View style={[tw`items-center justify-center w-full gap-4 p-4 px-sm`, tw.md`px-md`]}>
+      <View style={[tw`items-center justify-center gap-4 py-4`]}>
         <View style={tw`flex-row items-center justify-center gap-2`}>
           <Text style={tw`text-primary-main button-medium`}>{i18n('sell.escrow.checkingFundingStatus')}</Text>
           <Loading style={tw`w-4 h-4`} color={tw`text-primary-main`.color} />
         </View>
-        <Divider />
+        <HorizontalLine />
         {fundedFromPeachWallet ? (
           <TradeInfo
             text={i18n('fundFromPeachWallet.funded')}
-            IconComponent={<Icon id="checkCircle" style={tw`w-4 h-4`} color={tw`text-success-main`.color} />}
+            IconComponent={<Icon id="checkCircle" size={16} color={tw`text-success-main`.color} />}
           />
         ) : (
-          <PrimaryButton testID="escrow-fund" border iconId="sell" onPress={fundFromPeachWallet}>
+          <Button ghost textColor={tw`text-primary-main`} iconId="sell" onPress={fundFromPeachWallet}>
             {i18n('fundFromPeachWallet.button')}
-          </PrimaryButton>
+          </Button>
         )}
       </View>
-    </View>
+    </Screen>
+  )
+}
+
+function FundEscrowHeader () {
+  const { offerId } = useRoute<'fundEscrow'>().params
+  const fundMultiple = useWalletState((state) => state.getFundMultipleByOfferId(offerId))
+  const { offers } = useMultipleOfferDetails(fundMultiple?.offerIds || [offerId])
+  const offer = offers[0]
+  const sellOffer = offer && isSellOffer(offer) ? offer : undefined
+  const showHelp = useShowHelp('escrow')
+  const cancelOffer = useCancelOffer(sellOffer)
+  const cancelFundMultipleOffers = useCancelFundMultipleSellOffers({ fundMultiple })
+
+  return (
+    <Header
+      title={i18n('sell.escrow.title')}
+      icons={[
+        { ...headerIcons.cancel, onPress: fundMultiple ? cancelFundMultipleOffers : cancelOffer },
+        { ...headerIcons.help, onPress: showHelp },
+      ]}
+    />
   )
 }
