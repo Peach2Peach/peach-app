@@ -759,109 +759,103 @@ exports[`Referrals renders correctly 1`] = `
               </View>
             </View>
             <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": true,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
               style={
                 {
                   "alignItems": "center",
-                  "display": "flex",
+                  "alignSelf": "center",
+                  "backgroundColor": "#F56522",
+                  "borderColor": undefined,
+                  "borderRadius": 9999,
+                  "flexDirection": "row",
+                  "gap": 8,
+                  "height": 40,
+                  "justifyContent": "center",
                   "marginBottom": 40,
                   "marginTop": 20,
+                  "minWidth": 128,
+                  "opacity": 0.33,
+                  "paddingLeft": 32,
+                  "paddingRight": 32,
                 }
               }
             >
-              <View
-                accessibilityState={
-                  {
-                    "busy": undefined,
-                    "checked": undefined,
-                    "disabled": true,
-                    "expanded": undefined,
-                    "selected": undefined,
-                  }
-                }
-                accessibilityValue={
-                  {
-                    "max": undefined,
-                    "min": undefined,
-                    "now": undefined,
-                    "text": undefined,
-                  }
-                }
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
+              <Text
+                allowFontScaling={false}
+                ellipsizeMode="tail"
+                numberOfLines={1}
                 style={
-                  {
-                    "alignItems": "center",
-                    "backgroundColor": "#FCCCB6",
-                    "borderRadius": 9999,
-                    "flexDirection": "row",
-                    "height": 40,
-                    "justifyContent": "center",
-                    "opacity": 1,
-                    "paddingLeft": 16,
-                    "paddingRight": 16,
-                    "width": 228,
-                  }
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 13,
+                        "letterSpacing": 0.47,
+                        "lineHeight": 22,
+                        "textTransform": "uppercase",
+                      },
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 15,
+                        "letterSpacing": 0.54,
+                        "lineHeight": 26,
+                        "textTransform": "uppercase",
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                    false,
+                  ]
                 }
               >
-                <Text
-                  allowFontScaling={false}
-                  ellipsizeMode="tail"
-                  numberOfLines={1}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      [
-                        {
-                          "color": "#FFFCFA",
-                        },
-                        {
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 14,
-                          "letterSpacing": 0.5,
-                          "lineHeight": 24,
-                          "minWidth": 96,
-                          "paddingLeft": 8,
-                          "paddingRight": 8,
-                          "textAlign": "center",
-                          "textTransform": "uppercase",
-                        },
-                      ],
-                      false,
-                    ]
-                  }
-                >
-                  select reward
-                </Text>
-                <test-file-stub
-                  fill="#FFFCFA"
-                  style={
-                    [
-                      {
-                        "height": 24,
-                        "width": 24,
-                      },
-                      {
-                        "height": 16,
-                        "width": 16,
-                      },
-                    ]
-                  }
-                />
-              </View>
+                select reward
+              </Text>
+              <test-file-stub
+                fill="#FFFCFA"
+                style={
+                  [
+                    {
+                      "height": 18,
+                      "width": 18,
+                    },
+                    undefined,
+                  ]
+                }
+              />
             </View>
             <View
               style={
@@ -1232,15 +1226,18 @@ exports[`Referrals renders correctly 1`] = `
                   {
                     "alignItems": "center",
                     "alignSelf": "center",
+                    "backgroundColor": "transparent",
                     "borderColor": "#F56522",
                     "borderRadius": 9999,
                     "borderWidth": 2,
                     "flexDirection": "row",
+                    "gap": 8,
                     "height": 40,
                     "justifyContent": "center",
+                    "minWidth": 128,
                     "opacity": 1,
-                    "paddingLeft": 16,
-                    "paddingRight": 16,
+                    "paddingLeft": 32,
+                    "paddingRight": 32,
                   }
                 }
               >
@@ -1259,18 +1256,21 @@ exports[`Referrals renders correctly 1`] = `
                       },
                       [
                         {
-                          "color": "#F56522",
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 13,
+                          "letterSpacing": 0.47,
+                          "lineHeight": 22,
+                          "textTransform": "uppercase",
                         },
                         {
                           "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 14,
-                          "letterSpacing": 0.5,
-                          "lineHeight": 24,
-                          "minWidth": 96,
-                          "paddingLeft": 8,
-                          "paddingRight": 8,
-                          "textAlign": "center",
+                          "fontSize": 15,
+                          "letterSpacing": 0.54,
+                          "lineHeight": 26,
                           "textTransform": "uppercase",
+                        },
+                        {
+                          "color": "#F56522",
                         },
                       ],
                       false,

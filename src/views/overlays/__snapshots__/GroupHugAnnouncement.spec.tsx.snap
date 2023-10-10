@@ -58,25 +58,35 @@ Opt in, wait a tad, save more.
 You're in control, switch anytime.
     </PeachText>
   </View>
-  <PrimaryButton
-    onPress={[MockFunction]}
-    white={true}
-    wide={true}
-  >
-    go to settings
-  </PrimaryButton>
-  <PrimaryButton
-    border={true}
-    onPress={[MockFunction]}
+  <View
     style={
       {
-        "marginTop": 8,
+        "alignItems": "stretch",
+        "gap": 12,
       }
     }
-    white={true}
-    wide={true}
   >
-    close
-  </PrimaryButton>
+    <Button
+      onPress={[MockFunction]}
+      style={
+        {
+          "backgroundColor": "#FFFCFA",
+        }
+      }
+      textColor={
+        {
+          "color": "#F56522",
+        }
+      }
+    >
+      go to settings
+    </Button>
+    <Button
+      ghost={true}
+      onPress={[MockFunction]}
+    >
+      close
+    </Button>
+  </View>
 </View>
 `;

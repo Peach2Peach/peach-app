@@ -66,25 +66,20 @@ exports[`ReferralRewards should render component correctly 1`] = `
     }
     onButtonPress={[MockFunction]}
   />
-  <View
+  <Button
+    disabled={true}
+    iconId="gift"
+    onPress={[MockFunction]}
     style={
       {
-        "alignItems": "center",
-        "display": "flex",
+        "alignSelf": "center",
         "marginBottom": 40,
         "marginTop": 20,
       }
     }
   >
-    <PrimaryButton
-      disabled={true}
-      iconId="gift"
-      onPress={[MockFunction]}
-      wide={true}
-    >
-      select reward
-    </PrimaryButton>
-  </View>
+    select reward
+  </Button>
 </React.Fragment>
 `;
 
@@ -155,24 +150,19 @@ exports[`ReferralRewards should render component correctly with selected reward 
     onButtonPress={[MockFunction]}
     selectedValue="customReferralCode"
   />
-  <View
+  <Button
+    disabled={false}
+    iconId="gift"
+    onPress={[MockFunction]}
     style={
       {
-        "alignItems": "center",
-        "display": "flex",
+        "alignSelf": "center",
         "marginBottom": 40,
         "marginTop": 20,
       }
     }
   >
-    <PrimaryButton
-      disabled={false}
-      iconId="gift"
-      onPress={[MockFunction]}
-      wide={true}
-    >
-      select reward
-    </PrimaryButton>
-  </View>
+    select reward
+  </Button>
 </React.Fragment>
 `;
