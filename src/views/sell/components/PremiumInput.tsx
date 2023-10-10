@@ -34,13 +34,13 @@ export const PremiumInput = ({ premium, setPremium }: Props) => {
   }
 
   const onMinusPress = () => {
-    const newPremium = round(Math.max(premium - 1, -21), 2)
+    const newPremium = round(Math.max(premium - 0.1, -21), 2)
     setPremium(newPremium)
     setDisplayPremium(newPremium.toString())
   }
 
   const onPlusPress = () => {
-    const newPremium = round(Math.min(premium + 1, 21), 2)
+    const newPremium = round(Math.min(premium + 0.1, 21), 2)
     setPremium(newPremium)
     setDisplayPremium(newPremium.toString())
   }
