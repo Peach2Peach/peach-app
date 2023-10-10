@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { Header, PrimaryButton, Screen } from '../../components'
+import { Header, Screen } from '../../components'
+import { Button } from '../../components/buttons/Button'
 import { ProgressDonut } from '../../components/ui'
 import { useShowHelp } from '../../hooks'
 import { useSettingsStore } from '../../store/settingsStore'
@@ -30,9 +31,9 @@ export const Buy = () => {
             max={maxFreeTrades}
           />
         )}
-        <PrimaryButton disabled={!rangeIsValid} onPress={next} narrow>
+        <Button disabled={!rangeIsValid} onPress={next}>
           {i18n('next')}
-        </PrimaryButton>
+        </Button>
         {showBackupReminder && <BackupReminderIcon />}
       </View>
     </Screen>

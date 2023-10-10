@@ -46,12 +46,9 @@ import { PayoutAddress } from './settings/PayoutAddress'
 import { MyProfile } from './settings/profile/MyProfile'
 import { Settings } from './settings/Settings'
 import { TransactionBatching } from './settings/TransactionBatching'
-import { TestViewButtons } from './TestView/buttons'
-import { TestViewComponents } from './TestView/components'
-import { TestViewMessages } from './TestView/messages'
+
 import { TestViewPeachWallet } from './TestView/peachWallet'
 import { TestViewPNs } from './TestView/pns'
-import { TestViewPopups } from './TestView/popups'
 import { TestView } from './TestView/TestView'
 import { TradeComplete } from './tradeComplete/TradeComplete'
 import { AddressChecker } from './wallet/AddressChecker'
@@ -192,10 +189,7 @@ const settings: ViewType[] = [
 const testViews: ViewType[] = [
   { name: 'testView', component: TestView, ...defaultConfig },
   { name: 'testViewPeachWallet', component: TestViewPeachWallet, ...defaultConfig },
-  { name: 'testViewButtons', component: TestViewButtons, ...defaultConfig },
-  { name: 'testViewPopups', component: TestViewPopups, ...defaultConfig },
-  { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },
-  { name: 'testViewComponents', component: TestViewComponents, ...defaultConfig },
+
   { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
 ]
 

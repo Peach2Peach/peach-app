@@ -1,5 +1,5 @@
 import Share from 'react-native-share'
-import { PrimaryButton } from '../../../components'
+import { Button } from '../../../components/buttons/Button'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { info } from '../../../utils/log'
@@ -13,8 +13,8 @@ export const InviteFriendsButton = ({ referralCode, inviteLink }: { referralCode
     })
   }
   return (
-    <PrimaryButton style={tw`self-center`} border onPress={inviteFriend}>
+    <Button style={tw`self-center`} textColor={tw`text-primary-main`} ghost onPress={inviteFriend}>
       {i18n('referrals.inviteFriends')}
-    </PrimaryButton>
+    </Button>
   )
 }
