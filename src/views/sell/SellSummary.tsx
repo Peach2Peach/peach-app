@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
-import { Header, PeachScrollView, PrimaryButton, Screen } from '../../components'
+import { Header, PeachScrollView, Screen } from '../../components'
+import { Button } from '../../components/buttons/Button'
 import { SellOfferSummary } from '../../components/offer'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -16,15 +17,14 @@ export const SellSummary = () => {
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <SellOfferSummary offer={offerDraft} />
       </PeachScrollView>
-      <PrimaryButton
+      <Button
         style={tw`self-center`}
-        narrow
         onPress={canPublish ? publishOffer : undefined}
         disabled={!canPublish}
         loading={isPublishing}
       >
         {i18n('next')}
-      </PrimaryButton>
+      </Button>
     </Screen>
   )
 }
