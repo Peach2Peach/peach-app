@@ -1029,6 +1029,7 @@ exports[`EditPremium should render correctly 1`] = `
             }
           >
             <View
+              accessibilityHint="decrease number"
               accessibilityState={
                 {
                   "busy": undefined,
@@ -1183,6 +1184,7 @@ exports[`EditPremium should render correctly 1`] = `
               </View>
             </View>
             <View
+              accessibilityHint="increase number"
               accessibilityState={
                 {
                   "busy": undefined,

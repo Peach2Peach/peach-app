@@ -11,6 +11,7 @@ exports[`PremiumInput should render the PremiumInput view with 0 premium 1`] = `
   }
 >
   <TouchableOpacity
+    accessibilityHint="decrease number"
     onPress={[Function]}
   >
     <Icon
@@ -55,6 +56,7 @@ exports[`PremiumInput should render the PremiumInput view with 0 premium 1`] = `
     />
   </View>
   <TouchableOpacity
+    accessibilityHint="increase number"
     onPress={[Function]}
   >
     <Icon
@@ -77,6 +79,7 @@ exports[`PremiumInput should render the PremiumInput view with discount 1`] = `
   }
 >
   <TouchableOpacity
+    accessibilityHint="decrease number"
     onPress={[Function]}
   >
     <Icon
@@ -121,6 +124,7 @@ exports[`PremiumInput should render the PremiumInput view with discount 1`] = `
     />
   </View>
   <TouchableOpacity
+    accessibilityHint="increase number"
     onPress={[Function]}
   >
     <Icon
@@ -143,6 +147,7 @@ exports[`PremiumInput should render the PremiumInput view with premium 1`] = `
   }
 >
   <TouchableOpacity
+    accessibilityHint="decrease number"
     onPress={[Function]}
   >
     <Icon
@@ -187,6 +192,7 @@ exports[`PremiumInput should render the PremiumInput view with premium 1`] = `
     />
   </View>
   <TouchableOpacity
+    accessibilityHint="increase number"
     onPress={[Function]}
   >
     <Icon

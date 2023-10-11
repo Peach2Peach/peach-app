@@ -62,7 +62,7 @@
   "UNKNOWN_ERROR.text" : "Quelque chose s'est mal passé. Veuillez réessayer ultérieurement ou contacter l'équipe d'assistance de Peach.",
   "UPDATE_AVAILABLE.text" : "Peach vient encore de s'améliorer! Vous pouvez continuer à utiliser cette version si vous le souhaitez.",
   "UPDATE_AVAILABLE.title" : "mise à jour disponible",
-  "WALLET_SYNC_ERROR.text" : "Oups ! Une erreur s'est produite lors de la synchronisation de votre portefeuille. Il semble y avoir un problème de connexion. Veuillez vérifier votre connexion Internet et réessayer la synchronisation.",
+  "WALLET_SYNC_ERROR.text" : "Oups ! Une erreur s'est produite lors de la synchronisation de votre portefeuille. Il semble y avoir un problème de connexion. Réessaie plus tard.",
   "WRONG_PASSWORD.text" : "Nous ne pouvons pas déchiffrer le fichier de récupération car vous avez saisi un mot de passe incorrect. Veuillez réessayer.",
   "WRONG_PASSWORD.title" : "mauvais mot de passe",
   "YEARLY_TRADING_LIMIT_REACHED.text" : "Vous avez atteint la limite de trading annuelle. C'est impressionnant !",
