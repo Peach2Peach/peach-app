@@ -21,6 +21,7 @@
   "offer.requiredAction.offerHidden" : "κρυμμένη προσφορά ",
   "offer.requiredAction.offerHiddenWithMatchesAvailable" : "επιλέξτε τι σας ταιριάζει",
   "offer.requiredAction.paymentRequired" : "κάντε την πληρωμή",
+  "offer.requiredAction.paymentTooLate" : "δεν πληρώθηκε εγκαίρως!",
   "offer.requiredAction.provideReturnAddress" : "ορίσατε διεύθυνση επιστροφής",
   "offer.requiredAction.rateUser.buyer" : "αξιολόγηση αγοραστή",
   "offer.requiredAction.rateUser.seller" : "αξιολόγηση πωλητή",

@@ -22,6 +22,7 @@
   "offer.requiredAction.offerHidden" : "offer hidden",
   "offer.requiredAction.offerHiddenWithMatchesAvailable" : "select match",
   "offer.requiredAction.paymentRequired" : "make payment",
+  "offer.requiredAction.paymentTooLate" : "not paid in time!",
   "offer.requiredAction.provideReturnAddress" : "provide refund address",
   "offer.requiredAction.rateUser.buyer" : "rate buyer",
   "offer.requiredAction.rateUser.seller" : "rate seller",
