@@ -50,7 +50,6 @@
   "fundFromPeachWallet.insufficientFunds.description.1" : "Votre portefeuille Peach contient :",
   "fundFromPeachWallet.insufficientFunds.description.2" : "Voulez-vous financer le coffre avec ce montant? ",
   "fundFromPeachWallet.insufficientFunds.title" : "fonds insuffisants",
-  "help.contactEncryption.description" : "On utilise une tiers plateforme, Zammad, pour gérer les tickets clients. Si tu préfères nous écrire avec une communication chiffrée, envoi nous un email à support@peachbitcoin.com",
   "home.currentPrice" : "prix actuel du bitcoin",
   "instagram" : "Instagram",
   "kyc" : "KYC",
