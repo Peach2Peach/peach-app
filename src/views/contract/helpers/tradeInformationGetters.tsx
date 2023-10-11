@@ -1,5 +1,8 @@
+import { View } from 'react-native'
+import { CopyAble, Text } from '../../../components'
 import { Bubble, PaymentMethodBubble } from '../../../components/bubble'
 import { useWalletLabel } from '../../../components/offer/useWalletLabel'
+import tw from '../../../styles/tailwind'
 import { contractIdToHex, getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../../utils/contract'
 import { toShortDateFormat } from '../../../utils/date'
 import i18n from '../../../utils/i18n'
@@ -26,16 +29,16 @@ export const tradeInformationGetters: Record<
   | 'tradeId'
   | 'via'
   | 'youPaid'
-  | 'youShouldPay'
   | 'youWillGet',
   (contract: Contract) => string | number | JSX.Element | undefined
 > & {
   buyer: (contract: Contract) => JSX.Element
   seller: (contract: Contract) => JSX.Element
+  youShouldPay: (contract: Contract) => JSX.Element
 } = {
   price: getPrice,
   soldFor: getPrice,
-  youShouldPay: getPrice,
+  youShouldPay: (contract: Contract) => <YouShouldPay contract={contract} />,
   youPaid: getPrice,
   youWillGet: getPrice,
   buyer: (contract: Contract) => <UserId id={contract.buyer.id} showInfo />,
@@ -133,4 +136,13 @@ function WalletLabel ({ label, address }: { label?: string; address?: string }) 
   const walletLabel = useWalletLabel({ label, address })
 
   return <>{walletLabel}</>
+}
+
+function YouShouldPay ({ contract }: { contract: Contract }) {
+  return (
+    <View style={tw`flex-row items-center justify-end gap-10px`}>
+      <Text style={[tw`subtitle-1`, tw.md`subtitle-0`]}>{getPrice(contract)}</Text>
+      <CopyAble value={String(contract.price)} style={tw.md`w-5 h-5`} />
+    </View>
+  )
 }

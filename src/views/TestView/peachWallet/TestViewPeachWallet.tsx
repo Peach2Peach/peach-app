@@ -1,8 +1,9 @@
 import { NETWORK } from '@env'
 import { useState } from 'react'
 import { View } from 'react-native'
-import { Divider, Loading, PeachScrollView, PrimaryButton, Text } from '../../../components'
+import { Divider, Loading, PeachScrollView, Text } from '../../../components'
 import { BTCAmount } from '../../../components/bitcoin'
+import { Button } from '../../../components/buttons/Button'
 import { BitcoinAddressInput, NumberInput } from '../../../components/inputs'
 import { useValidatedState } from '../../../hooks'
 import tw from '../../../styles/tailwind'
@@ -62,9 +63,9 @@ export const TestViewPeachWallet = () => {
           <BitcoinAddressInput style={tw`mt-4`} onChange={setAddress} value={address} errorMessage={addressErrors} />
           <NumberInput onChange={setAmount} value={amount} />
         </View>
-        <PrimaryButton onPress={send} iconId="upload">
+        <Button onPress={send} iconId="upload">
           send {thousands(Number(amount))} sats
-        </PrimaryButton>
+        </Button>
         {!!txId && (
           <View>
             <Text onPress={() => showTransaction(txId, NETWORK)}>txId: {txId}</Text>
@@ -72,17 +73,17 @@ export const TestViewPeachWallet = () => {
         )}
 
         <Divider />
-        <PrimaryButton onPress={getNewAddress} iconId="refreshCcw">
+        <Button onPress={getNewAddress} iconId="refreshCcw">
           get new address
-        </PrimaryButton>
-        <PrimaryButton onPress={refill} iconId="star">
+        </Button>
+        <Button onPress={refill} iconId="star">
           1M sats refill
-        </PrimaryButton>
+        </Button>
 
         <Divider />
-        <PrimaryButton onPress={refresh} iconId="refreshCcw">
+        <Button onPress={() => refresh()} iconId="refreshCcw">
           sync wallet
-        </PrimaryButton>
+        </Button>
       </View>
     </PeachScrollView>
   )

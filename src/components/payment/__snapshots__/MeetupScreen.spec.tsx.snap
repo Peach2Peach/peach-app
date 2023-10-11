@@ -41,7 +41,7 @@ exports[`MeetupScreen should render correctly 1`] = `
       />
     </View>
   </ForwardRef>
-  <PrimaryButton
+  <Button
     onPress={[MockFunction]}
     style={
       {
@@ -50,7 +50,7 @@ exports[`MeetupScreen should render correctly 1`] = `
     }
   >
     add this meetup
-  </PrimaryButton>
+  </Button>
 </Screen>
 `;
 
@@ -113,7 +113,7 @@ exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
       />
     </View>
   </ForwardRef>
-  <PrimaryButton
+  <Button
     onPress={[MockFunction]}
     style={
       {
@@ -122,6 +122,6 @@ exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
     }
   >
     add this meetup
-  </PrimaryButton>
+  </Button>
 </Screen>
 `;

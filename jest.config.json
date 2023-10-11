@@ -37,6 +37,7 @@
     "\\.(ttf|woff|woff2|eot|otf)$": "jest-transform-stub",
     "\\.(svg)$": "<rootDir>/__mocks__/fileMock.js"
   },
+  "moduleDirectories": ["node_modules", "./tests/unit/helpers"],
   "coveragePathIgnorePatterns": ["/node_modules/", "src/views/TestView"],
   "collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}", "!src/**/*.d.ts", "!src/views/TestView/**/*"]
 }

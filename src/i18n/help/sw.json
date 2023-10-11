@@ -7,6 +7,7 @@
   "help.checkTrade" : "angalia biashara",
   "help.confirmPayment.description" : "Mara tu unapowasha kitufe cha \"malipo yamepokelewa\", bitcoin itatumwa kwa mnunuzi.\n\nHakikisha kila kitu kiko sahihi, kwa sababu hii haiwezi kufutwa!",
   "help.confirmPayment.title" : "malipo yamepokelewa?",
+  "help.contactEncryption.description" : "Tunatumia mfumo wa tiketi wa mtu wa tatu unaoitwa Zammad kusimamia maombi yanayoingia. Ikiwa unapendelea kutumia mawasiliano yaliyosimbwa kwa njia fiche, tafadhali tutumie barua pepe kwa support@peachbitcoin.com",
   "help.currency.description" : "Ikiwa mkoba wako wa mtandaoni unaweza kupokea sarafu nyingi na kufanya ubadilishaji kwa niaba yako, unaweza kuchagua sarafu yoyote unayoweza kupokea hapa.",
   "help.currency.title" : "sarafu zinazokubalika",
   "help.escrow.description" : "Unaweza kufadhili kabla escrow unapofanya biashara kwenye Peach. Hii inalinda wewe na mnunuzi. Unaweza kusoma zaidi kuhusu escrow hapa.\n\nOmbi lako litachapishwa baada ya uthibitisho wa mtandao mmoja. Unaweza kufunga programu wakati unasubiri hii.",

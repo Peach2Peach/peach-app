@@ -59,6 +59,7 @@ type Props = {
   ghost?: boolean
   textColor?: TextStyle
   children: ReactNode
+  loading?: boolean
 } & TouchableOpacityProps
 
 /** This button is intented to replace the base layer + the primary button component due to its greater simplicity */
@@ -67,6 +68,7 @@ export const Button = ({
   ghost,
   textColor = tw`text-primary-background-light`,
   children,
+  loading,
   ...touchableOpacityProps
 }: Props) => {
   const isMediumScreen = useIsMediumScreen()
@@ -74,6 +76,7 @@ export const Button = ({
   return (
     <TouchableOpacity
       {...touchableOpacityProps}
+      disabled={touchableOpacityProps.disabled || loading}
       style={[
         tw`bg-primary-main min-w-26`,
         tw.md`min-w-32`,
@@ -89,7 +92,11 @@ export const Button = ({
         {children}
       </Text>
 
-      {!!iconId && <Icon id={iconId} size={isMediumScreen ? 18 : 14} color={textColor?.color} />}
+      {loading ? (
+        <Loading style={[tw`h-14px w-14px`, tw.md`h-18px w-18px`]} color={textColor?.color} />
+      ) : (
+        !!iconId && <Icon id={iconId} size={isMediumScreen ? 18 : 14} color={textColor?.color} />
+      )}
     </TouchableOpacity>
   )
 }

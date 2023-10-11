@@ -14,10 +14,9 @@ exports[`SellSummary should render the SellSummary view 1`] = `
   >
     <SellOfferSummary />
   </ForwardRef>
-  <PrimaryButton
+  <Button
     disabled={false}
     loading={false}
-    narrow={true}
     onPress={[MockFunction]}
     style={
       {
@@ -26,7 +25,7 @@ exports[`SellSummary should render the SellSummary view 1`] = `
     }
   >
     next
-  </PrimaryButton>
+  </Button>
 </Screen>
 `;
 
@@ -44,10 +43,9 @@ exports[`SellSummary should render the SellSummary view with the publish button 
   >
     <SellOfferSummary />
   </ForwardRef>
-  <PrimaryButton
+  <Button
     disabled={true}
     loading={false}
-    narrow={true}
     style={
       {
         "alignSelf": "center",
@@ -55,6 +53,6 @@ exports[`SellSummary should render the SellSummary view with the publish button 
     }
   >
     next
-  </PrimaryButton>
+  </Button>
 </Screen>
 `;

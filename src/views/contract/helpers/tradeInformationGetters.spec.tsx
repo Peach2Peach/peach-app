@@ -1,4 +1,6 @@
-import { render } from '@testing-library/react-native'
+import Clipboard from '@react-native-clipboard/clipboard'
+import { Pressable } from 'react-native'
+import { fireEvent, render } from 'test-utils'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
@@ -24,18 +26,19 @@ describe('tradeInformationGetters', () => {
   it('should apply the priceFormat function to the price field', () => {
     expect(tradeInformationGetters.price({ ...contract, price: 21000000 })).toEqual('21 000 000.00 EUR')
   })
+  it('should only copy the amount and not the currency for "you should pay" field', () => {
+    const element = tradeInformationGetters.youShouldPay({ ...contract, price: 89.04, currency: 'EUR' })
+    const { UNSAFE_getByType } = render(element)
+    fireEvent.press(UNSAFE_getByType(Pressable))
+    expect(Clipboard.setString).toHaveBeenCalledWith('89.04')
+  })
   it('should return the correct value for the paidToMethod field', () => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData)
-    const element = tradeInformationGetters.paidToMethod({ ...contract, paymentData: validSEPAData }) as JSX.Element
+    const element = tradeInformationGetters.paidToMethod({ ...contract }) as JSX.Element
     expect(render(element).toJSON()).toMatchSnapshot()
   })
   it('should return the correct value for the paidWithMethod field', () => {
     expect(tradeInformationGetters.paidWithMethod(contract)).toEqual('SEPA')
-  })
-  it.skip('should return the correct value for the paidToWallet field', () => {
-    expect(tradeInformationGetters.paidToWallet(contract)).toEqual('')
-    getBuyOfferFromContractMock.mockReturnValueOnce({ walletLabel: '', releaseAddress: 'releaseAddress' })
-    expect(tradeInformationGetters.paidToWallet(contract)).toEqual('')
   })
   it('should return the correct value for the bitcoinAmount field', () => {
     expect(tradeInformationGetters.bitcoinAmount(contract)).toEqual(250000)
@@ -47,7 +50,7 @@ describe('tradeInformationGetters', () => {
     )
   })
   it('should return the correct value for the via field', () => {
-    const element = tradeInformationGetters.via({ ...contract, paymentData: validSEPAData }) as JSX.Element
+    const element = tradeInformationGetters.via({ ...contract }) as JSX.Element
     expect(render(element).toJSON()).toMatchSnapshot()
   })
   it('should return the correct value for the method field', () => {

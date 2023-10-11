@@ -32,8 +32,8 @@ export const PaymentMethodForm = () => {
 
   return (
     <Screen header={<PaymentMethodFormHeader />}>
-      <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
-        <View style={tw`justify-center grow`}>
+      <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
+        <View style={tw`justify-center pb-4 grow`}>
           {!!Form && <Form onSubmit={submitForm} {...{ data, setStepValid, setFormData }} />}
         </View>
         <Button style={tw`self-center`} disabled={!stepValid} onPress={submitForm}>

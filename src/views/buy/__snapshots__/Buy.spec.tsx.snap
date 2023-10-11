@@ -2620,15 +2620,17 @@ exports[`Buy should render correctly 1`] = `
           style={
             {
               "alignItems": "center",
-              "backgroundColor": "#FCCCB6",
+              "backgroundColor": "#F56522",
+              "borderColor": undefined,
               "borderRadius": 9999,
               "flexDirection": "row",
+              "gap": 8,
               "height": 40,
               "justifyContent": "center",
-              "opacity": 1,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "width": 156,
+              "minWidth": 128,
+              "opacity": 0.33,
+              "paddingLeft": 32,
+              "paddingRight": 32,
             }
           }
         >
@@ -2647,18 +2649,21 @@ exports[`Buy should render correctly 1`] = `
                 },
                 [
                   {
-                    "color": "#FFFCFA",
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 13,
+                    "letterSpacing": 0.47,
+                    "lineHeight": 22,
+                    "textTransform": "uppercase",
                   },
                   {
                     "fontFamily": "Baloo2-SemiBold",
-                    "fontSize": 14,
-                    "letterSpacing": 0.5,
-                    "lineHeight": 24,
-                    "minWidth": 96,
-                    "paddingLeft": 8,
-                    "paddingRight": 8,
-                    "textAlign": "center",
+                    "fontSize": 15,
+                    "letterSpacing": 0.54,
+                    "lineHeight": 26,
                     "textTransform": "uppercase",
+                  },
+                  {
+                    "color": "#FFFCFA",
                   },
                 ],
                 false,
@@ -3597,13 +3602,13 @@ exports[`Buy should render correctly with free trades 1`] = `
                 "busy": undefined,
                 "checked": undefined,
 -               "disabled": true,
-+               "disabled": false,
++               "disabled": undefined,
                 "expanded": undefined,
                 "selected": undefined,
               }
             }
             accessibilityValue={
-@@ -2604,22 +2819,22 @@
+@@ -2604,11 +2819,11 @@
                 "text": undefined,
               }
             }
@@ -3616,16 +3621,17 @@ exports[`Buy should render correctly with free trades 1`] = `
             onResponderMove={[Function onResponderMove]}
             onResponderRelease={[Function onResponderRelease]}
             onResponderTerminate={[Function onResponderTerminate]}
-            onResponderTerminationRequest={[Function onResponderTerminationRequest]}
-            onStartShouldSetResponder={[Function onStartShouldSetResponder]}
-            style={
-              Object {
-                "alignItems": "center",
--               "backgroundColor": "#FCCCB6",
-+               "backgroundColor": "#F56522",
-                "borderRadius": 9999,
+@@ -2623,11 +2838,11 @@
                 "flexDirection": "row",
+                "gap": 8,
                 "height": 40,
                 "justifyContent": "center",
-                "opacity": 1,"
+                "minWidth": 128,
+-               "opacity": 0.33,
++               "opacity": 1,
+                "paddingLeft": 32,
+                "paddingRight": 32,
+              }
+            }
+          >"
 `;

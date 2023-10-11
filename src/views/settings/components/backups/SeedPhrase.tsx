@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 
 import { PeachScrollView } from '../../../../components'
-import { PrimaryButton } from '../../../../components/buttons'
+import { Button } from '../../../../components/buttons/Button'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import { useSeedBackupSetup } from '../../hooks/useSeedBackupSetup'
@@ -33,9 +33,9 @@ export const SeedPhrase = ({ style }: ComponentProps) => {
           <ReadAndUnderstood style={tw`self-center mb-10`} checkBoxProps={{ checked, onPress: toggleChecked }} />
         )}
         {currentScreenIndex !== 0 && (
-          <PrimaryButton narrow onPress={showNextScreen} style={tw`self-center mb-6`} disabled={!checked}>
+          <Button onPress={showNextScreen} style={tw`self-center`} disabled={!checked}>
             {i18n(screens[currentScreenIndex].buttonText || 'next')}
-          </PrimaryButton>
+          </Button>
         )}
       </View>
     </View>

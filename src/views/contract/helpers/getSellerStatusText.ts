@@ -21,7 +21,7 @@ export const getSellerStatusText = (contract: Contract, isPeachWalletActive: boo
   const isResolved = sellOffer.refunded || sellOffer.newOfferId
   if (isResolved) {
     if (sellOffer.newOfferId) {
-      return i18n('contract.seller.republished', sellOffer.newOfferId)
+      return i18n('contract.seller.republished')
     }
     return i18n('contract.seller.refunded', getWalletLabelFromContract({ contract, isPeachWalletActive }))
   }

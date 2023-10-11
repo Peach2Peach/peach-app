@@ -1,6 +1,6 @@
-import { GradientBorder } from './GradientBorder'
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
 import tw from '../styles/tailwind'
+import { GradientBorder } from './GradientBorder'
 
 describe('GradientBorder', () => {
   const testGradient = [

@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { Text } from '../../../../components'
-import { PrimaryButton } from '../../../../components/buttons'
+import { Button } from '../../../../components/buttons/Button'
 import tw from '../../../../styles/tailwind'
 import { toShortDateFormat } from '../../../../utils/date'
 import i18n from '../../../../utils/i18n'
@@ -20,9 +20,9 @@ export const FileBackupOverview = ({ next }: FileBackupOverviewProps) => {
             <Text style={tw`mt-2 mb-8`}>{toShortDateFormat(new Date(lastFileBackupDate), true)}</Text>
           </>
         )}
-        <PrimaryButton onPress={next} iconId="save" wide>
+        <Button onPress={next} iconId="save">
           {i18n('settings.backups.fileBackup.createNew')}
-        </PrimaryButton>
+        </Button>
       </View>
     </View>
   )

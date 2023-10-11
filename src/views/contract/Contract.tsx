@@ -9,6 +9,7 @@ import { canCancelContract, contractIdToHex, getRequiredAction } from '../../uti
 import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
+import { useDecryptedContractData } from '../contractChat/useDecryptedContractData'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { ContractActions } from './ContractActions'
 import { PendingPayoutInfo } from './components/PendingPayoutInfo'
@@ -18,12 +19,22 @@ import { useContractSetup } from './hooks/useContractSetup'
 
 export const Contract = () => {
   const { contract, isLoading, view } = useContractSetup()
+  const { data, isLoading: isLoadingPaymentData, isError } = useDecryptedContractData(contract)
   const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean()
 
-  if (!contract || !view || isLoading) return <LoadingScreen />
+  if (!contract || !view || isLoading || isLoadingPaymentData) return <LoadingScreen />
 
   return (
-    <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo }}>
+    <ContractContext.Provider
+      value={{
+        contract,
+        paymentData: data?.paymentData,
+        isDecryptionError: isError,
+        view,
+        showBatchInfo,
+        toggleShowBatchInfo,
+      }}
+    >
       <Screen header={<ContractHeader />}>
         <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
           {showBatchInfo ? <PendingPayoutInfo /> : <TradeInformation />}
@@ -93,7 +104,7 @@ function getHeaderTitle (view: string, contract: Contract) {
     if (disputeWinner === 'seller') return i18n('contract.disputeLost')
 
     if (tradeStatus === 'paymentRequired') {
-      if (isPaymentTooLate(contract)) return i18n('contract.seller.paymentTimerHasRunOut.title')
+      if (isPaymentTooLate(contract)) return i18n('contract.paymentTimerHasRunOut.title')
       return i18n('offer.requiredAction.paymentRequired')
     }
     if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.waiting.seller')
@@ -107,7 +118,7 @@ function getHeaderTitle (view: string, contract: Contract) {
   }
 
   if (isPaymentTooLate(contract)) {
-    return i18n('contract.seller.paymentTimerHasRunOut.title')
+    return i18n('contract.paymentTimerHasRunOut.title')
   }
   if (disputeActive) return i18n('offer.requiredAction.dispute')
   if (tradeStatus === 'confirmCancelation') return i18n('offer.requiredAction.confirmCancelation.seller')

@@ -1207,12 +1207,13 @@ exports[`Match should render correctly for matched offers 1`] = `
             </View>
             <View
               style={
-@@ -984,24 +1052,224 @@
+@@ -983,25 +1051,227 @@
+                    },
                     Object {
                       "height": 18,
                       "marginBottom": 2,
                       "marginLeft": 2,
-                      "width": 18,
++                     "width": 18,
 +                   },
 +                 ]
 +               }
@@ -1355,14 +1356,16 @@ exports[`Match should render correctly for matched offers 1`] = `
 +               Object {
 +                 "alignItems": "center",
 +                 "backgroundColor": "#FFFCFA",
++                 "borderColor": undefined,
 +                 "borderRadius": 9999,
 +                 "flexDirection": "row",
++                 "gap": 8,
 +                 "height": 40,
 +                 "justifyContent": "center",
++                 "minWidth": 128,
 +                 "opacity": 1,
-+                 "paddingLeft": 16,
-+                 "paddingRight": 16,
-+                 "width": 156,
++                 "paddingLeft": 32,
++                 "paddingRight": 32,
 +               }
 +             }
 +           >
@@ -1381,23 +1384,26 @@ exports[`Match should render correctly for matched offers 1`] = `
 +                   },
 +                   Array [
 +                     Object {
-+                       "color": "#DF321F",
-                      },
++                       "fontFamily": "Baloo2-SemiBold",
++                       "fontSize": 13,
++                       "letterSpacing": 0.47,
++                       "lineHeight": 22,
++                       "textTransform": "uppercase",
++                     },
 +                     Object {
 +                       "fontFamily": "Baloo2-SemiBold",
-+                       "fontSize": 14,
-+                       "letterSpacing": 0.5,
-+                       "lineHeight": 24,
-+                       "minWidth": 96,
-+                       "paddingLeft": 8,
-+                       "paddingRight": 8,
-+                       "textAlign": "center",
++                       "fontSize": 15,
++                       "letterSpacing": 0.54,
++                       "lineHeight": 26,
 +                       "textTransform": "uppercase",
++                     },
++                     Object {
++                       "color": "#DF321F",
 +                     },
 +                   ],
 +                   false,
-                  ]
-                }
++                 ]
++               }
 +             >
 +               unmatch
 +             </Text>
@@ -1406,15 +1412,12 @@ exports[`Match should render correctly for matched offers 1`] = `
 +               style={
 +                 Array [
 +                   Object {
-+                     "height": 24,
-+                     "width": 24,
-+                   },
-+                   Object {
-+                     "height": 16,
-+                     "width": 16,
-+                   },
-+                 ]
-+               }
++                     "height": 18,
+                      "width": 18,
+                    },
++                   undefined,
+                  ]
+                }
               />
 +           </View>
           </View>
@@ -1433,7 +1436,7 @@ exports[`Match should render correctly for matched offers 1`] = `
         }
       }
       accessibilityValue={
-@@ -1023,11 +1291,11 @@
+@@ -1023,11 +1293,11 @@
       onResponderTerminationRequest={[Function onResponderTerminationRequest]}
       onStartShouldSetResponder={[Function onStartShouldSetResponder]}
       style={
@@ -1446,7 +1449,7 @@ exports[`Match should render correctly for matched offers 1`] = `
           "flexDirection": "row",
           "justifyContent": "center",
           "opacity": 1,
-@@ -1057,11 +1325,11 @@
+@@ -1057,11 +1327,11 @@
             },
             false,
           ]

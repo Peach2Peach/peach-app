@@ -1,7 +1,8 @@
 import { View } from 'react-native'
 
-import { Header, Icon, PeachScrollView, PrimaryButton, Screen, Text } from '../../components'
+import { Header, Icon, PeachScrollView, Screen, Text } from '../../components'
 import { OpenWallet } from '../../components/bitcoin'
+import { Button } from '../../components/buttons/Button'
 import { BitcoinAddressInput, Input } from '../../components/inputs'
 import { useRoute, useShowHelp } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -47,14 +48,13 @@ export const PayoutAddress = () => {
           <OpenWallet style={tw`h-6`} address={address} />
         )}
       </PeachScrollView>
-      <PrimaryButton
-        narrow
+      <Button
         style={tw`self-center`}
         onPress={save}
         disabled={!address || !addressLabel || !addressValid || !addressLabelValid || isUpdated}
       >
         {i18n(type === 'refund' ? 'settings.refundAddress.confirm' : 'settings.payoutAddress.confirm')}
-      </PrimaryButton>
+      </Button>
     </Screen>
   )
 }

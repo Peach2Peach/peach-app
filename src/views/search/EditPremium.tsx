@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Header, PrimaryButton, Screen, Text } from '../../components'
+import { Header, Screen, Text } from '../../components'
+import { Button } from '../../components/buttons/Button'
 import { useMarketPrices, useNavigation, useRoute, useShowHelp } from '../../hooks'
 import { usePatchOffer } from '../../hooks/offer'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
@@ -55,12 +56,8 @@ function ConfirmButton ({ offerId, newPremium }: Props) {
   const { mutate: confirmPremium } = usePatchOffer(offerId, { premium: newPremium })
   const navigation = useNavigation()
   return (
-    <PrimaryButton
-      onPress={() => confirmPremium(undefined, { onSuccess: navigation.goBack })}
-      style={tw`self-center `}
-      narrow
-    >
+    <Button onPress={() => confirmPremium(undefined, { onSuccess: navigation.goBack })} style={tw`self-center`}>
       {i18n('confirm')}
-    </PrimaryButton>
+    </Button>
   )
 }

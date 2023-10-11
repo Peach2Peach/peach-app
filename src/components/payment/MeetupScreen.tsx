@@ -8,7 +8,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { PeachScrollView } from '../PeachScrollView'
-import { PrimaryButton } from '../buttons'
+import { Button } from '../buttons/Button'
 import { CurrencySelection } from '../inputs/paymentMethods/paymentForms/components'
 import { Link } from './components/Link'
 import { useDeletePaymentMethod } from './hooks/useDeletePaymentMethod'
@@ -47,9 +47,9 @@ export const MeetupScreen = () => {
         </View>
       </PeachScrollView>
       {(!deletable || event.currencies.length > 1) && (
-        <PrimaryButton style={tw`self-center`} onPress={addToPaymentMethods}>
+        <Button style={tw`self-center`} onPress={addToPaymentMethods}>
           {i18n('meetup.add')}
-        </PrimaryButton>
+        </Button>
       )}
     </Screen>
   )

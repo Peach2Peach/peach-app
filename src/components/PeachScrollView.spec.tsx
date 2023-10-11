@@ -1,6 +1,6 @@
-import { PeachScrollView } from './PeachScrollView'
-import { render } from '@testing-library/react-native'
 import { Text, View } from 'react-native'
+import { render } from 'test-utils'
+import { PeachScrollView } from './PeachScrollView'
 
 describe('PeachScrollView', () => {
   it('renders correctly', () => {

@@ -33,7 +33,7 @@ function ChatScreen ({ contract }: { contract: Contract }) {
       style={tw`p-0`}
       header={<ContractChatHeader contract={contract} symmetricKey={decryptedData?.symmetricKey} />}
     >
-      <View style={[tw`grow`, !decryptedData?.symmetricKey && tw`opacity-50`]}>
+      <View style={[tw`flex-1`, !decryptedData?.symmetricKey && tw`opacity-50`]}>
         <ChatBox tradingPartner={tradingPartner?.id || ''} online={connected} {...chatboxProps} />
       </View>
       {contract.isChatActive && (

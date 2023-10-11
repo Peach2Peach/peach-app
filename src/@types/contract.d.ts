@@ -28,7 +28,6 @@ type Contract = {
   premium: number
   paymentMethod: PaymentMethod
   paymentDataEncrypted?: string
-  paymentData?: PaymentData
   paymentDataSignature?: string
 
   paymentMade: Date | null
