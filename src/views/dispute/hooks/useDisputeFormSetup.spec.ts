@@ -54,12 +54,13 @@ jest.mock('../../../popups/dispute/hooks/useDisputeRaisedSuccess', () => ({
   useDisputeRaisedSuccess: () => useDisputeRaisedSuccessMock(),
 }))
 
-const decryptContractDataMock = jest.fn((): { symmetricKey: string; paymentData: string } | null => ({
-  symmetricKey: 'symmetricKey',
-  paymentData: 'paymentData',
-}))
-jest.mock('../../../utils/contract/decryptContractData', () => ({
-  decryptContractData: () => decryptContractDataMock(),
+const useDecryptedContractDataMock = jest.fn(
+  (): { data: { symmetricKey: string; paymentData: string } | undefined } => ({
+    data: { symmetricKey: 'symmetricKey', paymentData: 'paymentData' },
+  }),
+)
+jest.mock('../../contractChat/useDecryptedContractData', () => ({
+  useDecryptedContractData: () => useDecryptedContractDataMock(),
 }))
 
 // eslint-disable-next-line max-lines-per-function
@@ -144,7 +145,7 @@ describe('useDisputeFormSetup', () => {
       wrapper: NavigationAndQueryClientWrapper,
     })
 
-    decryptContractDataMock.mockReturnValueOnce(null)
+    useDecryptedContractDataMock.mockReturnValueOnce({ data: undefined })
 
     await actSubmit(result.current)
     expect(submitRaiseDisputeMock).not.toHaveBeenCalled()
