@@ -14,7 +14,10 @@
     "allowJs": true,
     "moduleResolution": "node",
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "test-utils": ["./tests/unit/helpers/test-utils"]
+    }
   },
   "include": ["src", "@types", "tests"],
   "exclude": ["node_modules"]
