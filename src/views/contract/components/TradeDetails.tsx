@@ -1,7 +1,6 @@
 import { Fragment } from 'react'
 import { View } from 'react-native'
 import { ErrorBox, HorizontalLine } from '../../../components/ui'
-import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { isCashTrade } from '../../../utils/paymentMethod'
@@ -12,9 +11,8 @@ import { TradeInfoField } from '../helpers/tradeInformationGetters'
 import { SummaryItem } from './SummaryItem'
 
 export const TradeDetails = () => {
-  const { contract, view } = useContractContext()
+  const { contract, paymentData, isDecryptionError, view } = useContractContext()
   const sections = getTradeInfoFields(contract, view)
-  const error = useLocalContractStore((state) => state.contracts[contract.id]?.error)
 
   return (
     <View style={tw`justify-center gap-4 grow`}>
@@ -29,7 +27,7 @@ export const TradeDetails = () => {
         </Fragment>
       ))}
 
-      {!contract.paymentData && error === 'DECRYPTION_ERROR' && (
+      {!paymentData && isDecryptionError && (
         <ErrorBox style={tw`mt-[2px]`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>
       )}
     </View>
@@ -37,11 +35,11 @@ export const TradeDetails = () => {
 }
 
 function TradeDetailField ({ fieldName }: { fieldName: TradeInfoField }) {
-  const { contract, view } = useContractContext()
+  const { contract, view, paymentData } = useContractContext()
 
   const information = isTradeInformationGetter(fieldName)
     ? tradeInformationGetters[fieldName](contract)
-    : contract.paymentData?.[fieldName]
+    : paymentData?.[fieldName]
 
   if (!information) return null
 
