@@ -5,16 +5,6 @@ exports[`BuySummary should render correctly when publishing 1`] = `
 Compared values have no visual difference."
 `;
 
-exports[`BuySummary should render correctly while peach wallet is still signing message 1`] = `
-"Snapshot Diff:
-Compared values have no visual difference."
-`;
-
-exports[`BuySummary should render correctly with custom payout wallet and signature is still missing 1`] = `
-"Snapshot Diff:
-Compared values have no visual difference."
-`;
-
 exports[`BuySummary should render the BuySummary view 1`] = `
 <View
   style={
