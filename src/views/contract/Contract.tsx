@@ -104,7 +104,7 @@ function getHeaderTitle (view: string, contract: Contract) {
     if (disputeWinner === 'seller') return i18n('contract.disputeLost')
 
     if (tradeStatus === 'paymentRequired') {
-      if (isPaymentTooLate(contract)) return i18n('contract.seller.paymentTimerHasRunOut.title')
+      if (isPaymentTooLate(contract)) return i18n('contract.paymentTimerHasRunOut.title')
       return i18n('offer.requiredAction.paymentRequired')
     }
     if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.waiting.seller')
@@ -118,7 +118,7 @@ function getHeaderTitle (view: string, contract: Contract) {
   }
 
   if (isPaymentTooLate(contract)) {
-    return i18n('contract.seller.paymentTimerHasRunOut.title')
+    return i18n('contract.paymentTimerHasRunOut.title')
   }
   if (disputeActive) return i18n('offer.requiredAction.dispute')
   if (tradeStatus === 'confirmCancelation') return i18n('offer.requiredAction.confirmCancelation.seller')
