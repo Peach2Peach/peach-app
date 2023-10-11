@@ -1,6 +1,6 @@
-import { ConditionalWrapper } from './ConditionalWrapper'
-import { render } from '@testing-library/react-native'
 import { Text, View } from 'react-native'
+import { render } from 'test-utils'
+import { ConditionalWrapper } from './ConditionalWrapper'
 
 describe('ConditionalWrapper', () => {
   it('should apply wrapper when condition is true', () => {

@@ -722,7 +722,7 @@ exports[`NetworkFees should render correctly 1`] = `
                           }
                         }
                         testID="input-custom-fees"
-                        value={5}
+                        value="5"
                       />
                     </View>
                     <Text
@@ -833,7 +833,7 @@ exports[`NetworkFees should render correctly 1`] = `
           {
             "busy": undefined,
             "checked": undefined,
-            "disabled": false,
+            "disabled": undefined,
             "expanded": undefined,
             "selected": undefined,
           }

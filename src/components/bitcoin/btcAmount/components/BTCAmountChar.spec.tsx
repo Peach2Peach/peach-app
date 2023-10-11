@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
 import { BTCAmountChar } from './BTCAmountChar'
 
 describe('BTCAmountChar', () => {

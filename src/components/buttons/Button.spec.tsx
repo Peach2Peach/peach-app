@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { render } from 'test-utils'
 import tw from '../../styles/tailwind'
 import { Button, OldButton } from './Button'
 expect.extend({ toMatchDiffSnapshot })

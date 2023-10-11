@@ -1,8 +1,7 @@
-import { act, fireEvent, render } from '@testing-library/react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { act, fireEvent, render } from 'test-utils'
 import { buyOffer, matchOffer, sellOffer } from '../../../tests/unit/data/offerData'
 import { validSEPAData } from '../../../tests/unit/data/paymentData'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { Match } from './Match'
@@ -49,24 +48,21 @@ describe('Match', () => {
     usePaymentDataStore.getState().reset()
     usePaymentDataStore.getState().addPaymentData(validSEPAData)
   })
-  const wrapper = NavigationAndQueryClientWrapper
   const defaultBuyComponent = <Match match={{ ...matchOffer, matched: false }} offer={buyOffer} />
   const defaultSellComponent = <Match match={{ ...matchOffer, matched: false }} offer={sellOffer} />
   it('should render correctly for buy offers', () => {
-    const { toJSON } = render(defaultBuyComponent, { wrapper })
+    const { toJSON } = render(defaultBuyComponent)
     expect(toJSON()).toMatchSnapshot()
   })
 
   it('should render correctly for sell offers', () => {
-    const { toJSON } = render(defaultSellComponent, { wrapper })
+    const { toJSON } = render(defaultSellComponent)
     expect(toJSON()).toMatchSnapshot()
   })
 
   it('should render correctly for matched offers', () => {
-    const { toJSON } = render(<Match match={matchOffer} offer={buyOffer} />, {
-      wrapper,
-    })
-    expect(render(defaultBuyComponent, { wrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
+    const { toJSON } = render(<Match match={matchOffer} offer={buyOffer} />)
+    expect(render(defaultBuyComponent).toJSON()).toMatchDiffSnapshot(toJSON())
   })
 
   it('should match after 5 seconds', async () => {
@@ -83,9 +79,7 @@ describe('Match', () => {
         },
       },
     })
-    const { getByText } = render(<Match match={{ ...matchOffer, matched: false }} offer={buyOffer} />, {
-      wrapper,
-    })
+    const { getByText } = render(<Match match={{ ...matchOffer, matched: false }} offer={buyOffer} />)
 
     await act(async () => {
       fireEvent.press(getByText('match offer'))
