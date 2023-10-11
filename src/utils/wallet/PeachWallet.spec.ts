@@ -1,11 +1,12 @@
 /* eslint-disable max-lines */
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
+import { BLOCKEXPLORER } from '@env'
 import { waitFor } from '@testing-library/react-native'
 import { Address, PartiallySignedTransaction, Transaction, TxBuilder } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
-import { AddressIndex, KeychainKind } from 'bdk-rn/lib/lib/enums'
+import { AddressIndex, BlockChainNames, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { insufficientFunds } from '../../../tests/unit/data/errors'
 import {
@@ -482,5 +483,28 @@ describe('PeachWallet - buildFinishedTransaction', () => {
     peachWallet.wallet = undefined
     const error = await getError<Error>(() => peachWallet.buildFinishedTransaction(params))
     expect(error.message).toBe('WALLET_NOT_READY')
+  })
+  it('sets correct blockchain by config', async () => {
+    const url = 'blockstream.info'
+    await peachWallet.setBlockchain({ enabled: true, url, ssl: true, type: BlockChainNames.Electrum })
+    expect(blockChainCreateMock).toHaveBeenCalledWith(
+      { url: `ssl://${url}`, sock5: null, retry: 1, timeout: 5, stopGap: 25, validateDomain: false },
+      BlockChainNames.Electrum,
+    )
+    await peachWallet.setBlockchain({ enabled: true, url, ssl: true, type: BlockChainNames.Esplora })
+    expect(blockChainCreateMock).toHaveBeenCalledWith(
+      { baseUrl: `https://${url}`, proxy: null, concurrency: 1, timeout: 30, stopGap: 25 },
+      BlockChainNames.Esplora,
+    )
+    await peachWallet.setBlockchain({ enabled: false, url, ssl: true, type: BlockChainNames.Electrum })
+    expect(blockChainCreateMock).toHaveBeenCalledWith(
+      { baseUrl: BLOCKEXPLORER, proxy: null, concurrency: 1, timeout: 30, stopGap: 25 },
+      BlockChainNames.Esplora,
+    )
+    await peachWallet.setBlockchain({ enabled: true, url, ssl: true, type: BlockChainNames.Rpc })
+    expect(blockChainCreateMock).toHaveBeenCalledWith(
+      { url, walletName: 'peach', network: Network.Bitcoin },
+      BlockChainNames.Rpc,
+    )
   })
 })
