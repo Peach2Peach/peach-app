@@ -219,6 +219,7 @@ type TradeStatus =
   | 'refundAddressRequired'
   | 'refundTxSignatureRequired'
   | 'paymentRequired'
+  | 'paymentTooLate'
   | 'confirmPaymentRequired'
   | 'payoutPending'
   | 'dispute'

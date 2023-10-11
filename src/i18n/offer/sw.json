@@ -21,6 +21,7 @@
   "offer.requiredAction.offerHidden" : "ombi limefichwa",
   "offer.requiredAction.offerHiddenWithMatchesAvailable" : "chagua vilingana",
   "offer.requiredAction.paymentRequired" : "fanya malipo",
+  "offer.requiredAction.paymentTooLate" : "hakulipwa kwa wakati!",
   "offer.requiredAction.provideReturnAddress" : "tolea anwani ya kurudishiwa",
   "offer.requiredAction.rateUser.buyer" : "toa alama kwa mnunuzi",
   "offer.requiredAction.rateUser.seller" : "toa alama kwa muuzaji",

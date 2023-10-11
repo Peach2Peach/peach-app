@@ -21,6 +21,7 @@
   "offer.requiredAction.offerHidden" : "Angebot versteckt",
   "offer.requiredAction.offerHiddenWithMatchesAvailable" : "Match auswählen",
   "offer.requiredAction.paymentRequired" : "Zahlung leisten",
+  "offer.requiredAction.paymentTooLate" : "Nicht rechtzeitig bezahlt!",
   "offer.requiredAction.provideReturnAddress" : "Rückerstattungsadresse angeben",
   "offer.requiredAction.rateUser.buyer" : "Käufer bewerten",
   "offer.requiredAction.rateUser.seller" : "Verkäufer bewerten",

@@ -21,6 +21,7 @@
   "offer.requiredAction.offerHidden" : "teklif gizli",
   "offer.requiredAction.offerHiddenWithMatchesAvailable" : "eşleşme seçin",
   "offer.requiredAction.paymentRequired" : "ödeme yapın",
+  "offer.requiredAction.paymentTooLate" : "zamanında ödenmedi!",
   "offer.requiredAction.provideReturnAddress" : "iade adresi sağlayın",
   "offer.requiredAction.rateUser.buyer" : "alıcıyı değerlendir",
   "offer.requiredAction.rateUser.seller" : "satıcıyı değerlendir",

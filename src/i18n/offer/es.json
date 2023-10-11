@@ -21,6 +21,7 @@
   "offer.requiredAction.offerHidden" : "oferta oculta",
   "offer.requiredAction.offerHiddenWithMatchesAvailable" : "selecciona un match",
   "offer.requiredAction.paymentRequired" : "hacer el pago",
+  "offer.requiredAction.paymentTooLate" : "¡no se ha pagado a tiempo!",
   "offer.requiredAction.provideReturnAddress" : "proporciona dirección de reembolso",
   "offer.requiredAction.rateUser.buyer" : "calificar comprador",
   "offer.requiredAction.rateUser.seller" : "calificar vendedor",
