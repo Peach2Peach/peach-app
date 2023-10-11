@@ -3602,7 +3602,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                 "busy": undefined,
                 "checked": undefined,
 -               "disabled": true,
-+               "disabled": false,
++               "disabled": undefined,
                 "expanded": undefined,
                 "selected": undefined,
               }

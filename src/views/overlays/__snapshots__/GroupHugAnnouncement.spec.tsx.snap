@@ -25,30 +25,52 @@ exports[`GroupHugAnnouncement renders correctly 1`] = `
       }
     }
   >
-    <PeachText
+    <Text
+      allowFontScaling={false}
       style={
-        {
-          "color": "#FFFCFA",
-          "fontFamily": "Baloo2-Bold",
-          "fontSize": 34,
-          "letterSpacing": 0.34,
-          "lineHeight": 42,
-          "textAlign": "center",
-        }
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#FFFCFA",
+            "fontFamily": "Baloo2-Bold",
+            "fontSize": 34,
+            "letterSpacing": 0.34,
+            "lineHeight": 42,
+            "textAlign": "center",
+          },
+          false,
+        ]
       }
     >
       It's time for a GroupHug!
-    </PeachText>
-    <PeachText
+    </Text>
+    <Text
+      allowFontScaling={false}
       style={
-        {
-          "color": "#FFFCFA",
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 20,
-          "letterSpacing": 0.2,
-          "lineHeight": 28,
-          "textAlign": "center",
-        }
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#FFFCFA",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+            "textAlign": "center",
+          },
+          false,
+        ]
       }
     >
       With GroupHug, we bundle escrow releases for lower transaction fees.
@@ -56,7 +78,7 @@ exports[`GroupHugAnnouncement renders correctly 1`] = `
 Opt in, wait a tad, save more.
 
 You're in control, switch anytime.
-    </PeachText>
+    </Text>
   </View>
   <View
     style={
@@ -66,27 +88,175 @@ You're in control, switch anytime.
       }
     }
   >
-    <Button
-      onPress={[MockFunction]}
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         {
+          "alignItems": "center",
           "backgroundColor": "#FFFCFA",
+          "borderColor": undefined,
+          "borderRadius": 9999,
+          "flexDirection": "row",
+          "gap": 8,
+          "height": 40,
+          "justifyContent": "center",
+          "minWidth": 128,
+          "opacity": 1,
+          "paddingLeft": 32,
+          "paddingRight": 32,
         }
       }
-      textColor={
+    >
+      <Text
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 13,
+                "letterSpacing": 0.47,
+                "lineHeight": 22,
+                "textTransform": "uppercase",
+              },
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 15,
+                "letterSpacing": 0.54,
+                "lineHeight": 26,
+                "textTransform": "uppercase",
+              },
+              {
+                "color": "#F56522",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        go to settings
+      </Text>
+    </View>
+    <View
+      accessibilityState={
         {
-          "color": "#F56522",
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderColor": "#FFFCFA",
+          "borderRadius": 9999,
+          "borderWidth": 2,
+          "flexDirection": "row",
+          "gap": 8,
+          "height": 40,
+          "justifyContent": "center",
+          "minWidth": 128,
+          "opacity": 1,
+          "paddingLeft": 32,
+          "paddingRight": 32,
         }
       }
     >
-      go to settings
-    </Button>
-    <Button
-      ghost={true}
-      onPress={[MockFunction]}
-    >
-      close
-    </Button>
+      <Text
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 13,
+                "letterSpacing": 0.47,
+                "lineHeight": 22,
+                "textTransform": "uppercase",
+              },
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 15,
+                "letterSpacing": 0.54,
+                "lineHeight": 26,
+                "textTransform": "uppercase",
+              },
+              {
+                "color": "#FFFCFA",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        close
+      </Text>
+    </View>
   </View>
 </View>
 `;
