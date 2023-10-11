@@ -1,7 +1,7 @@
-import { Screen } from './Screen'
-import { render } from '@testing-library/react-native'
 import { View } from 'react-native'
+import { render } from 'test-utils'
 import { mockDimensions } from '../../tests/unit/helpers/mockDimensions'
+import { Screen } from './Screen'
 
 describe('Screen', () => {
   it('renders correctly', () => {

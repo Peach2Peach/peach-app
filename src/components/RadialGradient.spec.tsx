@@ -1,5 +1,5 @@
+import { render } from 'test-utils'
 import { RadialGradient } from './RadialGradient'
-import { render } from '@testing-library/react-native'
 
 describe('RadialGradient', () => {
   it('should render correctly', () => {

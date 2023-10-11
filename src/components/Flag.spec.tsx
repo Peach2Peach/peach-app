@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
 import { Flag } from './Flag'
 
 describe('Flag', () => {
