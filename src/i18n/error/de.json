@@ -62,7 +62,7 @@
   "UNKNOWN_ERROR.text" : "Etwas ist schiefgegangen. Bitte versuche es später erneut oder kontaktiere das Peach-Supportteam.",
   "UPDATE_AVAILABLE.text" : "Peach ist nun noch besser! Verwende die neueste Version der App!",
   "UPDATE_AVAILABLE.title" : "Update verfügbar",
-  "WALLET_SYNC_ERROR.text" : "Oops! Beim Synchronisieren Ihres Wallets ist ein Fehler aufgetreten. Es scheint ein Verbindungsproblem zu geben. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie die Synchronisierung erneut.",
+  "WALLET_SYNC_ERROR.text" : "Oops! Beim Synchronisieren Ihres Wallets ist ein Fehler aufgetreten. Es scheint ein Verbindungsproblem zu geben. Bitte versuch es später erneut.",
   "WRONG_PASSWORD.text" : "Wir können die Backup-Datei nicht entschlüsseln, weil du ein falsches Passwort eingegeben hast. Bitte versuche es erneut.",
   "WRONG_PASSWORD.title" : "Falsches Passwort",
   "YEARLY_TRADING_LIMIT_REACHED.text" : "Du hast das jährliche Handelslimit erreicht. Das ist beeindruckend!",
