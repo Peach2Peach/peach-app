@@ -1,15 +1,15 @@
 {
-  "batching.eta.tba" : "TBA",
-  "batching.willBeSenTTo" : "θα σταλεί σε",
-  "help.payoutPending.title" : "πληρωμή σε αναμονή",
-  "offer.requiredAction.payoutPending" : "πληρωμή σε αναμονή",
-  "settings.batching.delayedPayouts" : "Οι πληρωμές εγγυήσεων καθυστερούν.",
-  "settings.batching.title" : "ομαδοποίηση συναλλαγών",
-  "settings.batching.toggle" : "ομαδοποίηση συναλλαγών",
-  "settings.batching.turnOff.description" : "Έχετε μια εκκρεμή πληρωμή. Η απενεργοποίηση της ομαδοποίησης αυτή τη στιγμή θα καταβάλει τη εγγύηση αμέσως, με υψηλότερες χρεώσεις. Είστε σίγουρος;\n",
-  "settings.batching.turnOff.no" : "όχι, περιμένετε",
-  "settings.batching.turnOff.title" : "απενεργοποίηση ομαδοποίησης ",
-  "settings.batching.turnOff.yes" : "ναι, παρακαλώ πληρώστε ",
-  "settings.batching.youSave" : "\nΕξοικονομείτε έως και 23% από τα τέλη δικτύου",
-  "settings.batching.youSave.highlight" : "εξοικονομείτε έως και 23%"
+  "batching.eta.tba": "TBA",
+  "batching.willBeSentTo": "θα σταλεί σε",
+  "help.payoutPending.title": "πληρωμή σε αναμονή",
+  "offer.requiredAction.payoutPending": "πληρωμή σε αναμονή",
+  "settings.batching.delayedPayouts": "Οι πληρωμές εγγυήσεων καθυστερούν.",
+  "settings.batching.title": "ομαδοποίηση συναλλαγών",
+  "settings.batching.toggle": "ομαδοποίηση συναλλαγών",
+  "settings.batching.turnOff.description": "Έχετε μια εκκρεμή πληρωμή. Η απενεργοποίηση της ομαδοποίησης αυτή τη στιγμή θα καταβάλει τη εγγύηση αμέσως, με υψηλότερες χρεώσεις. Είστε σίγουρος;\n",
+  "settings.batching.turnOff.no": "όχι, περιμένετε",
+  "settings.batching.turnOff.title": "απενεργοποίηση ομαδοποίησης ",
+  "settings.batching.turnOff.yes": "ναι, παρακαλώ πληρώστε ",
+  "settings.batching.youSave": "\nΕξοικονομείτε έως και 23% από τα τέλη δικτύου",
+  "settings.batching.youSave.highlight": "εξοικονομείτε έως και 23%"
 }
