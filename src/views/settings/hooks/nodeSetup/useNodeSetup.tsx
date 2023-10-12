@@ -49,8 +49,8 @@ export const useNodeSetup = () => {
   }
 
   useEffect(() => {
-    peachWallet.setBlockchain({ ...node, enabled, url })
-  }, [enabled, node, url])
+    peachWallet.setBlockchain(node)
+  }, [node])
 
   return {
     enabled,

@@ -1,3 +1,5 @@
+import { networks } from 'bitcoinjs-lib'
+import { useMemo } from 'react'
 import { View } from 'react-native'
 import {
   BitcoinAddress,
@@ -21,6 +23,8 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { isSellOffer, offerIdToHex } from '../../utils/offer'
+import { generateBlock } from '../../utils/regtest'
+import { getNetwork } from '../../utils/wallet'
 import { useWalletState } from '../../utils/wallet/walletStore'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { NoEscrowFound } from './components/NoEscrowFound'
@@ -92,13 +96,16 @@ function FundEscrowHeader () {
   const cancelOffer = useCancelOffer(sellOffer)
   const cancelFundMultipleOffers = useCancelFundMultipleSellOffers({ fundMultiple })
 
-  return (
-    <Header
-      title={i18n('sell.escrow.title')}
-      icons={[
-        { ...headerIcons.cancel, onPress: fundMultiple ? cancelFundMultipleOffers : cancelOffer },
-        { ...headerIcons.help, onPress: showHelp },
-      ]}
-    />
-  )
+  const memoizedHeaderIcons = useMemo(() => {
+    const icons = [
+      { ...headerIcons.cancel, onPress: fundMultiple ? cancelFundMultipleOffers : cancelOffer },
+      { ...headerIcons.help, onPress: showHelp },
+    ]
+    if (getNetwork() === networks.regtest) {
+      icons.unshift({ ...headerIcons.generateBlock, onPress: generateBlock })
+    }
+    return icons
+  }, [cancelFundMultipleOffers, cancelOffer, fundMultiple, showHelp])
+
+  return <Header title={i18n('sell.escrow.title')} icons={memoizedHeaderIcons} />
 }

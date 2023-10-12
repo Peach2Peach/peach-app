@@ -17,7 +17,7 @@ jest.mock('../../helpers/checkNodeConnection', () => ({
 describe('useNodeSetup', () => {
   const url = 'blockstream.info'
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
     useNodeConfigState.getState().reset()
   })
