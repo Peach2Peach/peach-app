@@ -18,7 +18,7 @@ export const PendingPayoutInfo = () => {
   const { timeRemaining, participants, maxParticipants } = batchInfo
   return (
     <View style={tw`justify-center gap-4 grow`}>
-      <AddressSummaryItem title={i18n('batching.willBeSenTTo')} address={releaseAddress} />
+      <AddressSummaryItem title={i18n('batching.willBeSentTo')} address={releaseAddress} />
       {timeRemaining === -2 ? (
         <TextSummaryItem text={i18n('batching.eta.tba')} {...etaProps} />
       ) : (
