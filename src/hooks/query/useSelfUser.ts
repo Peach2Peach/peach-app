@@ -2,8 +2,9 @@ import { useQuery } from '@tanstack/react-query'
 import { getSelfUser } from '../../utils/peachAPI'
 
 const getUserQuery = async () => {
-  const [user] = await getSelfUser({})
+  const [user, error] = await getSelfUser({})
 
+  if (error) throw new Error(error.error)
   return user
 }
 

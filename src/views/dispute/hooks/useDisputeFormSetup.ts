@@ -1,23 +1,21 @@
 import { useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
-import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../../hooks'
+import { useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
 import { account } from '../../../utils/account'
-import { contractIdToHex, getContract, getContractViewer } from '../../../utils/contract'
+import { getContractViewer } from '../../../utils/contract'
 import { isEmailRequiredForDispute } from '../../../utils/dispute'
-import i18n from '../../../utils/i18n'
+import { useDecryptedContractData } from '../../contractChat/useDecryptedContractData'
 import { submitRaiseDispute } from '../utils/submitRaiseDispute'
 
 const required = { required: true }
 
-export const useDisputeFormSetup = () => {
-  const route = useRoute<'disputeForm'>()
+export const useDisputeFormSetup = (contract: Contract) => {
   const navigation = useNavigation()
+  const { reason, contractId } = useRoute<'disputeForm'>().params
+  const { data: decrptedData } = useDecryptedContractData(contract)
 
-  const reason = route.params.reason
-  const contractId = route.params.contractId
-  const contract = getContract(contractId)
   const emailRules = useMemo(
     () => ({ email: isEmailRequiredForDispute(reason), required: isEmailRequiredForDispute(reason) }),
     [reason],
@@ -31,15 +29,18 @@ export const useDisputeFormSetup = () => {
 
   const showErrorBanner = useShowErrorBanner()
 
-  useHeaderSetup(i18n('dispute.disputeForTrade', contractIdToHex(contractId)))
-
   const submit = async () => {
     Keyboard.dismiss()
 
-    if (!contract?.symmetricKey || !isFormValid) return
-
+    if (!decrptedData?.symmetricKey || !isFormValid) return
     setLoading(true)
-    const [disputeRaised, disputeRaisedError] = await submitRaiseDispute(contract, reason, email, message)
+    const [disputeRaised, disputeRaisedError] = await submitRaiseDispute({
+      contract,
+      reason,
+      email,
+      message,
+      symmetricKey: decrptedData.symmetricKey,
+    })
     if (disputeRaised) {
       navigation.navigate('contractChat', { contractId })
       disputeRaisedPopup(getContractViewer(contract, account))

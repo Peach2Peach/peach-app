@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react-native'
-import { NavigationWrapper, canGoBackMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import { Header, HeaderConfig, NewHeader } from './Header'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { NavigationWrapper, canGoBackMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { Header, HeaderConfig, OldHeader } from './Header'
 expect.extend({ toMatchDiffSnapshot })
 
 describe('Header', () => {
@@ -11,16 +11,16 @@ describe('Header', () => {
     { id: 'globe', accessibilityHint: 'a globe icon', onPress: jest.fn() },
   ]
   it('should render correctly for default state', () => {
-    const { toJSON } = render(<Header />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<OldHeader />, { wrapper: NavigationWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with title and icons', () => {
     canGoBackMock.mockReturnValueOnce(true)
-    const { toJSON } = render(<Header {...{ title, icons }} />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<OldHeader {...{ title, icons }} />, { wrapper: NavigationWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with PriceStats', () => {
-    const { toJSON } = render(<Header {...{ title, icons, showPriceStats: true }} />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<OldHeader {...{ title, icons, showPriceStats: true }} />, { wrapper: NavigationWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
 })
@@ -32,18 +32,18 @@ describe('NewHeader', () => {
     { id: 'globe', accessibilityHint: 'a globe icon', onPress: jest.fn() },
   ]
   it('should render correctly for default state', () => {
-    const { toJSON } = render(<NewHeader />, { wrapper: NavigationWrapper })
-    expect(render(<Header />, { wrapper: NavigationWrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
+    const { toJSON } = render(<Header />, { wrapper: NavigationWrapper })
+    expect(render(<OldHeader />, { wrapper: NavigationWrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
   })
   it('should render correctly with title and icons', () => {
     canGoBackMock.mockReturnValueOnce(true)
     const props = { title, icons }
-    const { toJSON } = render(<NewHeader {...props} />, { wrapper: NavigationWrapper })
-    expect(render(<Header {...props} />, { wrapper: NavigationWrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
+    const { toJSON } = render(<Header {...props} />, { wrapper: NavigationWrapper })
+    expect(render(<OldHeader {...props} />, { wrapper: NavigationWrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
   })
   it('should render correctly with PriceStats', () => {
     const props = { title, icons, showPriceStats: true }
-    const { toJSON } = render(<NewHeader {...props} />, { wrapper: NavigationWrapper })
-    expect(render(<Header {...props} />, { wrapper: NavigationWrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
+    const { toJSON } = render(<Header {...props} />, { wrapper: NavigationWrapper })
+    expect(render(<OldHeader {...props} />, { wrapper: NavigationWrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
   })
 })

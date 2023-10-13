@@ -5,8 +5,8 @@ exports[`PopupComponent renders correctly 1`] = `
   style={
     {
       "borderRadius": 16,
-      "marginLeft": 24,
-      "marginRight": 24,
+      "marginLeft": 12,
+      "marginRight": 12,
       "overflow": "hidden",
     }
   }
@@ -44,7 +44,7 @@ exports[`PopupComponent renders correctly 1`] = `
     style={
       [
         {
-          "alignItems": "center",
+          "alignItems": "stretch",
           "backgroundColor": "#FEEDE5",
           "gap": 12,
           "paddingBottom": 24,
@@ -52,7 +52,12 @@ exports[`PopupComponent renders correctly 1`] = `
           "paddingRight": 24,
           "paddingTop": 16,
         },
-        undefined,
+        [
+          undefined,
+          {
+            "alignItems": "stretch",
+          },
+        ],
       ]
     }
   >
@@ -165,22 +170,22 @@ exports[`PopupComponent renders correctly with different background colors 1`] =
 - First value
 + Second value
 
-@@ -47,11 +47,13 @@
-            "paddingBottom": 24,
+@@ -48,11 +48,13 @@
             "paddingLeft": 24,
             "paddingRight": 24,
             "paddingTop": 16,
           },
--         undefined,
-+         Object {
-+           "backgroundColor": "red",
-+         },
+          Array [
+-           undefined,
++           Object {
++             "backgroundColor": "red",
++           },
+            Object {
+              "alignItems": "stretch",
+            },
+          ],
         ]
-      }
-    >
-      <Text>
-        content
-@@ -64,12 +66,14 @@
+@@ -69,12 +71,14 @@
             "alignItems": "center",
             "alignSelf": "stretch",
             "backgroundColor": "#F56522",
@@ -203,9 +208,9 @@ exports[`PopupComponent renders correctly with title 1`] = `
 - First value
 + Second value
 
-@@ -51,10 +51,34 @@
-          },
-          undefined,
+@@ -56,10 +56,34 @@
+            },
+          ],
         ]
       }
     >

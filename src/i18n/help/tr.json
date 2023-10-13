@@ -7,6 +7,7 @@
   "help.checkTrade" : "işlemi kontrol et",
   "help.confirmPayment.description" : "\"Ödeme alındı\" kaydırıcısını kaydırdığınız anda, bitcoin alıcıya gönderilir.\n\nHer şeyin doğru olduğundan emin olun, çünkü bu geri alınamaz!",
   "help.confirmPayment.title" : "ödeme alındı mı?",
+  "help.contactEncryption.description" : "Gelen talepleri yönetmek için Zammad adlı üçüncü taraf bir bilet sistemini kullanıyoruz.\n\nŞifreli iletişim kullanmayı tercih ederseniz, lütfen bize support@peachbitcoin.com adresine bir e-posta gönderin.",
   "help.currency.description" : "Çevrimiçi cüzdanınız birden fazla para birimi alabilir ve dönüştürebilirse, burada alabileceğiniz tüm para birimlerini seçebilirsiniz.",
   "help.currency.title" : "kabul edilen para birimleri",
   "help.escrow.description" : "Peach'te işlem yaparken, işlemi korumak için önceden escrow'u finanse edersiniz. Bu hem sizi hem de alıcıyı korur. Escrow teklifiniz bir ağ onayından sonra yayınlanır. Bu süreçte uygulamayı kapatmanız mümkündür.",
@@ -14,6 +15,8 @@
   "help.escrow.description.proTip" : "QR kodunu uzun süre basılı tutarak tam ödeme talebini kopyalayabilirsiniz.",
   "help.escrow.description.proTip.2" : "If the escrow is not funded after 7 days, the offer will be deleted.",
   "help.escrow.title" : "Peach escrow",
+  "help.giftCards.description" : "Bu ödeme yöntemini kullanırken, işlemin tam değeri için yeni bir online hediye kartı satın almalısınız.\n\nÖnceden mevcut fiziksel hediye kartları (henüz) desteklenmemektedir.",
+  "help.giftCards.title" : "çevrimiçi hediye kartları",
   "help.lnurl.description" : "Bu ödeme yöntemini kullanarak on-chain bitcoinlerinizi lightning için takas edebilirsiniz. Bunun için Peach ücreti ödemezsiniz.\n\nAlıcı iseniz, on-chain bitcoin alıp LN bitcoin gönderiyorsunuz.\n\nSatıcı iseniz, on-chain bitcoin gönderip LN bitcoin alıyorsunuz.",
   "help.lnurl.description.bold" : "Bunun için Peach ücreti ödemezsiniz.",
   "help.lnurl.title" : "LNURL Takasları",
@@ -36,9 +39,6 @@
   "help.referral.title" : "Peach yönlendirme puanları",
   "help.sellingBitcoin.description" : "Peach üzerinde sats'larınızı satmak ücretsizdir!",
   "help.sellingBitcoin.title" : "bitcoin satma",
-  "help.tooLate.text.1" : "Satıcıya zamanında yetişmediğiniz bildirildi. Şimdi satıcı size daha fazla zaman tanıyabilir veya işlemi iptal edebilir.",
-  "help.tooLate.text.2" : "Her iki durumda da itibarınız etkilendi.",
-  "help.tooLate.title" : "çok geç!",
   "help.tradingLimit.description" : "Peach, İsviçre yasalarına uymak için işlem limitlerini uygulamak zorundadır. Üç işlem limiti bulunmaktadır:\n\nGünlük olarak Peach'te 1000 CHF değerinde bitcoin alıp satabilirsiniz\n\nNakit veya çevrimdışı hediye kartları (anonim ödeme yöntemleri) ile ayda 1000 CHF değerinde bitcoin alıp satabilirsiniz\n\nYıllık olarak 100.000 CHF değerinde bitcoin alıp satabilirsiniz.",
   "help.tradingLimit.title" : "işlem limitleri"
 }

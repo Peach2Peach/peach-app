@@ -219,6 +219,7 @@ type TradeStatus =
   | 'refundAddressRequired'
   | 'refundTxSignatureRequired'
   | 'paymentRequired'
+  | 'paymentTooLate'
   | 'confirmPaymentRequired'
   | 'payoutPending'
   | 'dispute'
@@ -488,4 +489,14 @@ type Sorter = BuySorter | SellSorter
 
 type MatchFilter = {
   maxPremium: number | null
+}
+
+declare type GetUserPaymentMethodInfoRequestParams = {}
+declare type GetUserPaymentMethodInfoRequestQuery = {}
+declare type GetUserPaymentMethodInfoRequestBody = {}
+declare type GetUserPaymentMethodInfoResponseBody = {
+  forbidden: {
+    buy: PaymentMethod[]
+    sell: PaymentMethod[]
+  }
 }

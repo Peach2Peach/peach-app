@@ -5,8 +5,8 @@ exports[`SellSorters should render correctly 1`] = `
   style={
     {
       "borderRadius": 16,
-      "marginLeft": 24,
-      "marginRight": 24,
+      "marginLeft": 12,
+      "marginRight": 12,
       "overflow": "hidden",
     }
   }
@@ -44,7 +44,7 @@ exports[`SellSorters should render correctly 1`] = `
     style={
       [
         {
-          "alignItems": "center",
+          "alignItems": "stretch",
           "backgroundColor": "#FEEDE5",
           "gap": 12,
           "paddingBottom": 24,
@@ -52,7 +52,12 @@ exports[`SellSorters should render correctly 1`] = `
           "paddingRight": 24,
           "paddingTop": 16,
         },
-        undefined,
+        [
+          undefined,
+          {
+            "alignItems": "stretch",
+          },
+        ],
       ]
     }
   >

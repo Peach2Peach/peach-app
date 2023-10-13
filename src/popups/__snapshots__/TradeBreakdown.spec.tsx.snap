@@ -16,6 +16,7 @@ exports[`TradeBreakdown should render correctly 1`] = `
       style={
         {
           "color": "#7D675E",
+          "flexShrink": 1,
           "fontFamily": "Baloo2-SemiBold",
           "fontSize": 16,
           "letterSpacing": 0.16,
@@ -25,8 +26,9 @@ exports[`TradeBreakdown should render correctly 1`] = `
     >
       seller amount
     </PeachText>
-    <TradeBreakdownSats
+    <BTCAmount
       amount={210000}
+      size="x small"
     />
   </View>
   <View
@@ -43,6 +45,7 @@ exports[`TradeBreakdown should render correctly 1`] = `
       style={
         {
           "color": "#7D675E",
+          "flexShrink": 1,
           "fontFamily": "Baloo2-SemiBold",
           "fontSize": 16,
           "letterSpacing": 0.16,
@@ -52,8 +55,9 @@ exports[`TradeBreakdown should render correctly 1`] = `
     >
       peach fees
     </PeachText>
-    <TradeBreakdownSats
+    <BTCAmount
       amount={21000}
+      size="x small"
     />
   </View>
   <HorizontalLine
@@ -80,6 +84,7 @@ exports[`TradeBreakdown should render correctly 1`] = `
       style={
         {
           "color": "#7D675E",
+          "flexShrink": 1,
           "fontFamily": "Baloo2-SemiBold",
           "fontSize": 16,
           "letterSpacing": 0.16,
@@ -89,8 +94,9 @@ exports[`TradeBreakdown should render correctly 1`] = `
     >
       trade amount
     </PeachText>
-    <TradeBreakdownSats
+    <BTCAmount
       amount={189000}
+      size="x small"
     />
   </View>
   <View
@@ -107,6 +113,7 @@ exports[`TradeBreakdown should render correctly 1`] = `
       style={
         {
           "color": "#7D675E",
+          "flexShrink": 1,
           "fontFamily": "Baloo2-SemiBold",
           "fontSize": 16,
           "letterSpacing": 0.16,
@@ -116,8 +123,9 @@ exports[`TradeBreakdown should render correctly 1`] = `
     >
       network fees
     </PeachText>
-    <TradeBreakdownSats
+    <BTCAmount
       amount={1000}
+      size="x small"
     />
   </View>
   <HorizontalLine
@@ -144,6 +152,7 @@ exports[`TradeBreakdown should render correctly 1`] = `
       style={
         {
           "color": "#7D675E",
+          "flexShrink": 1,
           "fontFamily": "Baloo2-SemiBold",
           "fontSize": 16,
           "letterSpacing": 0.16,
@@ -153,8 +162,9 @@ exports[`TradeBreakdown should render correctly 1`] = `
     >
       you get
     </PeachText>
-    <TradeBreakdownSats
+    <BTCAmount
       amount={188000}
+      size="x small"
     />
   </View>
 </View>

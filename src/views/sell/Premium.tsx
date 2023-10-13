@@ -14,25 +14,21 @@ type Props = {
 }
 
 export const Premium = ({ premium, setPremium, confirmButton, amount, offerPrice }: Props) => (
-  <View style={tw`h-full`}>
-    <View style={[tw`flex-grow px-sm`, tw.md`px-md`]}>
-      <View style={tw`items-center justify-center flex-grow`}>
-        <View style={tw`items-center self-stretch gap-7`}>
-          <View style={tw`items-center`}>
-            <Text style={[tw`text-center h6`, tw.md`h5`]}>{i18n('sell.premium.title')}</Text>
-            <View style={tw`flex-row items-center gap-1`}>
-              <Text style={tw`text-center subtitle-1`}>{i18n('search.sellOffer')}</Text>
-              <BTCAmount size="small" amount={amount} />
-            </View>
-          </View>
-          <View style={tw`items-center gap-1`}>
-            <PremiumInput premium={premium} setPremium={setPremium} />
-            {offerPrice}
-          </View>
-          <PremiumSlider style={tw`items-center self-stretch gap-6px`} premium={premium} setPremium={setPremium} />
+  <>
+    <View style={tw`items-center justify-center grow gap-7`}>
+      <View style={tw`items-center`}>
+        <Text style={[tw`text-center h6`, tw.md`h5`]}>{i18n('sell.premium.title')}</Text>
+        <View style={tw`flex-row items-center gap-1`}>
+          <Text style={tw`text-center subtitle-1`}>{i18n('search.sellOffer')}</Text>
+          <BTCAmount size="small" amount={amount} />
         </View>
       </View>
-      {confirmButton}
+      <View style={tw`items-center gap-1`}>
+        <PremiumInput premium={premium} setPremium={setPremium} />
+        {offerPrice}
+      </View>
+      <PremiumSlider style={tw`items-center self-stretch gap-6px`} premium={premium} setPremium={setPremium} />
     </View>
-  </View>
+    {confirmButton}
+  </>
 )

@@ -1,19 +1,20 @@
 import { useWindowDimensions } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
-import { useRoute } from '../../hooks'
+import { useIsMediumScreen, useRoute } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useOfferMatches } from '../../views/search/hooks'
-import { useMatchesSetup } from './hooks'
 import { Match } from './Match'
+import { useMatchesSetup } from './hooks'
 import { useMatchStore } from './store'
 
 export const Matches = () => {
   const { width } = useWindowDimensions()
+  const isMediumScreen = useIsMediumScreen()
   const carouselConfig = {
     loop: false,
     enableMomentum: false,
     sliderWidth: width,
-    itemWidth: width - 64,
+    itemWidth: width - (isMediumScreen ? 48 : 24),
     inactiveSlideScale: 0.9,
     inactiveSlideOpacity: 0.7,
     inactiveSlideShift: -10,

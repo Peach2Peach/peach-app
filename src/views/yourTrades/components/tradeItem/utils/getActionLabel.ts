@@ -11,15 +11,18 @@ export const getActionLabel = (tradeSummary: PartialTradeSummary, isWaiting: boo
   if (isContractSummary(tradeSummary)) {
     const { unreadMessages, type, disputeWinner } = tradeSummary
     const counterparty = type === 'bid' ? 'seller' : 'buyer'
+    const viewer = type === 'bid' ? 'buyer' : 'seller'
 
     if (isPastOffer(tradeStatus)) {
       return unreadMessages > 0 ? i18n('yourTrades.newMessages') : undefined
     }
     if (disputeWinner) {
+      if (tradeStatus === 'releaseEscrow') return i18n('offer.requiredAction.releaseEscrow')
       return i18n(`offer.requiredAction.${translationStatusKey}.dispute`)
     }
 
-    if (tradeSummary.tradeStatus === 'payoutPending') return i18n('offer.requiredAction.payoutPending')
+    if (tradeStatus === 'payoutPending') return i18n('offer.requiredAction.payoutPending')
+    if (tradeStatus === 'confirmCancelation') return i18n(`offer.requiredAction.confirmCancelation.${viewer}`)
 
     return isWaiting || tradeStatus === 'rateUser'
       ? i18n(`offer.requiredAction.${translationStatusKey}.${counterparty}`)

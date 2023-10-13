@@ -28,13 +28,6 @@ jest.mock('../utils/offer', () => ({
   saveOffer: (...args: unknown[]) => saveOfferMock(...args),
 }))
 
-const syncWalletMock = jest.fn()
-jest.mock('../utils/wallet/setWallet', () => ({
-  peachWallet: {
-    syncWallet: (...args: unknown[]) => syncWalletMock(...args),
-  },
-}))
-
 const refetchTradeSummariesMock = jest.fn()
 jest.mock('../hooks/query/useTradeSummaries', () => ({
   useTradeSummaries: jest.fn(() => ({
@@ -108,7 +101,6 @@ describe('useRefundEscrow', () => {
       refunded: true,
     })
     expect(refetchTradeSummariesMock).toHaveBeenCalled()
-    expect(syncWalletMock).toHaveBeenCalled()
   })
 
   it('should handle psbt errors', async () => {

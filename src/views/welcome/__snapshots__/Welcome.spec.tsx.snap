@@ -12,11 +12,17 @@ exports[`Welcome should render correctly 1`] = `
 >
   <View
     style={
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-        "width": "100%",
-      }
+      [
+        {
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "width": "100%",
+        },
+        {
+          "paddingLeft": 32,
+          "paddingRight": 32,
+        },
+      ]
     }
   >
     <View
@@ -279,7 +285,7 @@ exports[`Welcome should render correctly 1`] = `
 `;
 
 exports[`Welcome should set header correctly 1`] = `
-<Header
+<OldHeader
   hideGoBackButton={true}
   icons={
     [

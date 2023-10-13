@@ -20,7 +20,7 @@ exports[`useTemplate21Setup should return the correct values 1`] = `
   },
   "currencySelectionProps": {
     "onToggle": [Function],
-    "paymentMethod": "gtBank",
+    "paymentMethod": "nationalTransferNG",
     "selectedCurrencies": [],
   },
   "labelInputProps": {

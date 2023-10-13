@@ -41,6 +41,7 @@ describe('useSettingsSetup', () => {
         items: [
           { enabled: false, iconId: 'toggleLeft', onPress: expect.any(Function), title: 'analytics' },
           { onPress: expect.any(Function), title: 'notifications' },
+          { title: 'nodeSetup' },
           { title: 'payoutAddress' },
           { title: 'currency' },
           { title: 'language' },
@@ -55,6 +56,7 @@ describe('useSettingsSetup', () => {
     expect(result.current[2].items).toEqual([
       { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'analytics' },
       { onPress: expect.any(Function), title: 'notifications' },
+      { title: 'nodeSetup' },
       { title: 'payoutAddress' },
       { title: 'currency' },
       { title: 'language' },

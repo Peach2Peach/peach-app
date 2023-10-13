@@ -2,10 +2,9 @@ import { renderHook } from '@testing-library/react-native'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { bitcoinTransaction } from '../../../../tests/unit/data/transactionDetailData'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { PopupLoadingSpinner } from '../../../../tests/unit/helpers/PopupLoadingSpinner'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
-import { Loading } from '../../../components'
 import { usePopupStore } from '../../../store/usePopupStore'
-import tw from '../../../styles/tailwind'
 import { getTransactionFeeRate } from '../../../utils/bitcoin'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -42,10 +41,10 @@ describe('useShowConfirmRbfPopup', () => {
     useWalletState.getState().addPendingTransactionHex(bitcoinTransaction.txid, 'hex')
   })
 
-  it('should show bump fee confirmation popup', async () => {
+  it('should show bump fee confirmation popup', () => {
     const { result } = renderHook(useShowConfirmRbfPopup, { wrapper })
 
-    await result.current(props)
+    result.current(props)
 
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
@@ -72,10 +71,10 @@ describe('useShowConfirmRbfPopup', () => {
       },
     })
   })
-  it('should show bump fee confirmation popup with no change warning', async () => {
+  it('should show bump fee confirmation popup with no change warning', () => {
     const { result } = renderHook(useShowConfirmRbfPopup, { wrapper })
 
-    await result.current({
+    result.current({
       ...props,
       transaction: {
         ...bitcoinTransaction,
@@ -98,14 +97,14 @@ describe('useShowConfirmRbfPopup', () => {
 
     const { result } = renderHook(useShowConfirmRbfPopup, { wrapper })
 
-    await result.current(props)
+    result.current(props)
     const promise = usePopupStore.getState().action1?.callback()
 
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       title: 'increasing fees',
       level: 'APP',
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      content: PopupLoadingSpinner,
       action1: {
         label: 'loading...',
         icon: 'clock',
@@ -126,7 +125,7 @@ describe('useShowConfirmRbfPopup', () => {
     })
 
     const { result } = renderHook(useShowConfirmRbfPopup, { wrapper })
-    await result.current(props)
+    result.current(props)
 
     await usePopupStore.getState().action1?.callback()
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])

@@ -1,99 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PaymentMethods should render correctly 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "flexShrink": 1,
-      "height": "100%",
-      "paddingBottom": 28,
-      "paddingLeft": 20,
-      "paddingRight": 20,
-      "paddingTop": 20,
-    }
+<Screen
+  header={
+    <PaymentMethodsHeader
+      isEditing={false}
+      toggleIsEditing={[Function]}
+    />
   }
 >
   <ForwardRef
-    style={
+    contentContainerStyle={
       [
         {
-          "flexShrink": 1,
-          "height": "100%",
-          "marginBottom": 40,
+          "flexGrow": 1,
+          "paddingBottom": 40,
+        },
+        {
+          "paddingBottom": 64,
         },
       ]
     }
-  >
-    <View
-      style={
-        {
-          "marginTop": 16,
-        }
+    style={
+      {
+        "height": "100%",
+        "marginBottom": 16,
       }
-    >
-      <TabbedNavigation
-        items={
-          [
-            {
-              "display": "online",
-              "id": "online",
-            },
-            {
-              "display": "meetups",
-              "id": "meetups",
-            },
-          ]
-        }
-        select={[Function]}
-        selected={
+    }
+  >
+    <TabbedNavigation
+      items={
+        [
           {
             "display": "online",
             "id": "online",
+          },
+          {
+            "display": "meetups",
+            "id": "meetups",
+          },
+        ]
+      }
+      select={[Function]}
+      selected={
+        {
+          "display": "online",
+          "id": "online",
+        }
+      }
+    />
+    <ForwardRef
+      contentContainerStyle={
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+          "paddingTop": 24,
+        }
+      }
+      style={
+        {
+          "height": "100%",
+        }
+      }
+    >
+      <RemotePaymentMethods
+        editItem={[Function]}
+        isEditing={false}
+        isSelected={[Function]}
+        select={[Function]}
+      />
+      <HorizontalLine
+        style={
+          {
+            "marginBottom": 20,
+            "marginLeft": 20,
+            "marginRight": 20,
+            "marginTop": 20,
           }
         }
       />
-      <ForwardRef
-        contentContainerStyle={
-          {
-            "flexGrow": 1,
-            "justifyContent": "center",
-            "paddingBottom": 40,
-            "paddingLeft": 24,
-            "paddingRight": 24,
-            "paddingTop": 28,
-          }
-        }
-        style={
-          {
-            "flexShrink": 1,
-            "height": "100%",
-          }
-        }
-      >
-        <RemotePaymentMethods
-          editItem={[MockFunction]}
-          isEditing={false}
-          isSelected={[MockFunction]}
-          select={[MockFunction]}
-        />
-        <HorizontalLine
-          style={
-            {
-              "marginBottom": 20,
-              "marginLeft": 20,
-              "marginRight": 20,
-              "marginTop": 20,
-              "width": "auto",
-            }
-          }
-        />
-        <AddPaymentMethodButton
-          isCash={false}
-        />
-      </ForwardRef>
-    </View>
+      <AddPaymentMethodButton
+        isCash={false}
+      />
+    </ForwardRef>
   </ForwardRef>
   <NextButton />
-</View>
+</Screen>
 `;

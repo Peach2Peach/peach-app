@@ -1,11 +1,16 @@
 import { View } from 'react-native'
-import { Icon, PrimaryButton, Text } from '../../components'
+import { Icon, Text } from '../../components'
+import { Button } from '../../components/buttons/Button'
+import { useNavigation, useRoute } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useOfferPublishedSetup } from './hooks'
 
 export const OfferPublished = () => {
-  const { goToOffer, closeAction } = useOfferPublishedSetup()
+  const { isSellOffer, shouldGoBack, offerId } = useRoute<'offerPublished'>().params
+  const navigation = useNavigation()
+  const goBackHome = () => navigation.replace(isSellOffer ? 'sell' : 'buy')
+  const goToOffer = () => navigation.replace('search', { offerId })
+  const goBack = () => navigation.goBack()
 
   return (
     <View style={tw`items-center justify-between h-full px-9 pb-7`}>
@@ -16,12 +21,14 @@ export const OfferPublished = () => {
           <Text style={tw`flex-shrink body-l text-primary-background-light`}>{i18n('offer.published.description')}</Text>
         </View>
       </View>
-      <PrimaryButton white wide onPress={goToOffer}>
-        {i18n('showOffer')}
-      </PrimaryButton>
-      <PrimaryButton style={tw`mt-3`} white wide border onPress={closeAction}>
-        {i18n('close')}
-      </PrimaryButton>
+      <View style={tw`items-stretch gap-3`}>
+        <Button style={tw`bg-primary-background-light`} textColor={tw`text-primary-main`} onPress={goToOffer}>
+          {i18n('showOffer')}
+        </Button>
+        <Button ghost onPress={shouldGoBack ? goBack : goBackHome}>
+          {i18n('close')}
+        </Button>
+      </View>
     </View>
   )
 }

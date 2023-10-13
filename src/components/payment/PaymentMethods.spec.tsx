@@ -11,18 +11,6 @@ jest.mock('../../hooks/useRoute', () => ({
   useRoute: jest.fn(() => ({ name: 'paymentMethods' })),
 }))
 
-const editItem = jest.fn()
-const select = jest.fn()
-const isSelected = jest.fn()
-jest.mock('./hooks/usePaymentMethodsSetup', () => ({
-  usePaymentMethodsSetup: jest.fn(() => ({
-    editItem,
-    select,
-    isSelected,
-    isEditing: false,
-  })),
-}))
-
 describe('PaymentMethods', () => {
   const renderer = createRenderer()
   it('should render correctly', () => {

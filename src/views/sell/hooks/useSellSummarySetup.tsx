@@ -1,15 +1,13 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useHeaderSetup, useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useSettingsStore } from '../../../store/settingsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
+import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
-import { headerIcons } from '../../../utils/layout/headerIcons'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { publishSellOffer } from '../helpers/publishSellOffer'
-import { useGlobalSortAndFilterPopup } from '../../search/hooks/useSortAndFilterPopup'
 
 export const useSellSummarySetup = () => {
   const navigation = useNavigation()
@@ -60,7 +58,6 @@ export const useSellSummarySetup = () => {
     }
     setIsPublishing(false)
   }
-  useSellSummaryHeaderSetup()
 
   useEffect(() => {
     (async () => {
@@ -83,20 +80,4 @@ export const useSellSummarySetup = () => {
   }, [payoutAddressLabel, peachWalletActive])
 
   return { canPublish, publishOffer, isPublishing, offerDraft }
-}
-
-function useSellSummaryHeaderSetup () {
-  const navigation = useNavigation()
-  const showSortAndFilterPopup = useGlobalSortAndFilterPopup('sell')
-  const icons = useMemo(
-    () => [
-      { ...headerIcons.sellFilter, onPress: showSortAndFilterPopup },
-      { ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'refund' }) },
-    ],
-    [navigation, showSortAndFilterPopup],
-  )
-  useHeaderSetup({
-    title: i18n('sell.summary.title'),
-    icons,
-  })
 }

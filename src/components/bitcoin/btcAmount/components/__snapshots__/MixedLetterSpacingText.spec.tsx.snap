@@ -6,87 +6,87 @@ exports[`MixedLetterSpacingText should render correctly 1`] = `
 >
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="."
-    isError={false}
     letterSpacing={-4.62}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="1"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char=" "
-    isError={false}
     letterSpacing={-7.699999999999999}
     reduceOpacity={false}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="2"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="8"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char=" "
-    isError={false}
     letterSpacing={-7.699999999999999}
     reduceOpacity={false}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={false}
   />
 </PeachText>
 `;
@@ -97,178 +97,178 @@ exports[`MixedLetterSpacingText should render correctly if the value is 0 1`] = 
 >
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="."
-    isError={false}
     letterSpacing={-4.62}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char=" "
-    isError={false}
     letterSpacing={-7.699999999999999}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char=" "
-    isError={false}
     letterSpacing={-7.699999999999999}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={true}
     style={[]}
+    white={false}
   />
   <BTCAmountChar
     char="0"
-    isError={false}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={false}
   />
 </PeachText>
 `;
 
-exports[`MixedLetterSpacingText should render correctly with error 1`] = `
+exports[`MixedLetterSpacingText should render correctly with white 1`] = `
 <PeachText
   style={[]}
 >
   <BTCAmountChar
     char="0"
-    isError={true}
     letterSpacing={-1.65}
     reduceOpacity={true}
     style={[]}
+    white={true}
   />
   <BTCAmountChar
     char="."
-    isError={true}
     letterSpacing={-4.62}
     reduceOpacity={true}
     style={[]}
+    white={true}
   />
   <BTCAmountChar
     char="0"
-    isError={true}
     letterSpacing={-1.65}
     reduceOpacity={true}
     style={[]}
+    white={true}
   />
   <BTCAmountChar
     char="1"
-    isError={true}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={true}
   />
   <BTCAmountChar
     char=" "
-    isError={true}
     letterSpacing={-7.699999999999999}
     reduceOpacity={false}
     style={[]}
+    white={true}
   />
   <BTCAmountChar
     char="2"
-    isError={true}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={true}
   />
   <BTCAmountChar
     char="8"
-    isError={true}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={true}
   />
   <BTCAmountChar
     char="0"
-    isError={true}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={true}
   />
   <BTCAmountChar
     char=" "
-    isError={true}
     letterSpacing={-7.699999999999999}
     reduceOpacity={false}
     style={[]}
+    white={true}
   />
   <BTCAmountChar
     char="0"
-    isError={true}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={true}
   />
   <BTCAmountChar
     char="0"
-    isError={true}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={true}
   />
   <BTCAmountChar
     char="0"
-    isError={true}
     letterSpacing={-1.65}
     reduceOpacity={false}
     style={[]}
+    white={true}
   />
 </PeachText>
 `;

@@ -3,12 +3,20 @@ import { defaultUser } from '../../../tests/unit/data/userData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { PublicProfile } from './PublicProfile'
-import { useProfileStore } from './store'
 
 jest.useFakeTimers()
 
 jest.mock('../../utils/peachAPI', () => ({
   getUser: jest.fn(() => Promise.resolve([defaultUser, null])),
+  getUserStatus: jest.fn(() => Promise.resolve({ isBlocked: false })),
+}))
+jest.mock('../../utils/peachAPI/private/user/getUserStatus', () => ({
+  useUserStatus: jest.fn(() => ({ data: { isBlocked: false } })),
+}))
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useRoute: jest.fn(() => ({ params: { userId: defaultUser.id } })),
 }))
 
 const DATE_TO_USE = new Date('2009-01-09')
@@ -23,7 +31,6 @@ describe('PublicProfile', () => {
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly when loaded', async () => {
-    useProfileStore.setState({ currentUserPubkey: defaultUser.id })
     const { toJSON } = render(<PublicProfile />, { wrapper })
 
     await waitFor(() => {

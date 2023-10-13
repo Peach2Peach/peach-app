@@ -1,46 +1,64 @@
-import { Dispatch, SetStateAction } from 'react'
-import { View } from 'react-native'
-import { useKeyboard } from '../../hooks'
+import { TouchableOpacity, View, ViewStyle } from 'react-native'
+import { Icon, Text } from '..'
+import PeachBorder from '../../assets/logo/peachBorder.svg'
+import PeachOrange from '../../assets/logo/peachOrange.svg'
+import { useKeyboard, useNavigation, useRoute } from '../../hooks'
 import tw from '../../styles/tailwind'
-import { FooterItem } from './FooterItem'
-import { footerThemes } from './footerThemes'
-import { useFooterSetup } from './hooks/useFooterSetup'
+import i18n from '../../utils/i18n'
+import { useNotificationStore } from './notificationsStore'
 
-type Props = ComponentProps & {
-  currentPage: keyof RootStackParamList
-  setCurrentPage: Dispatch<SetStateAction<keyof RootStackParamList | undefined>>
-  theme?: 'default' | 'inverted'
-}
+const tabs = ['buy', 'sell', 'wallet', 'yourTrades', 'settings'] as const
 
-const isSettings
-  = /settings|contact|report|language|currency|backup|paymentMethods|deleteAccount|fees|socials|seedWords/u
-const isWallet = /wallet|transactionHistory|transactionDetails/u
-const isBuy = /buy|buyPreferences|home/u
-const isSell = /sell|premium|sellPreferences/u
-
-export const Footer = ({ currentPage, style, setCurrentPage, theme = 'default' }: Props) => {
-  const { navigate, notifications } = useFooterSetup({ setCurrentPage })
+export const Footer = () => {
   const keyboardOpen = useKeyboard()
-  const colors = footerThemes[theme]
 
   if (keyboardOpen) return <View />
 
   return (
-    <View style={[tw`flex-row items-start w-full`, style]}>
-      <View style={tw`relative flex-grow`}>
-        <View style={[tw`flex-row items-center justify-between px-2 py-4`, colors.bg]}>
-          <FooterItem theme={theme} id="buy" active={isBuy.test(currentPage)} onPress={navigate.buy} />
-          <FooterItem theme={theme} id="sell" active={isSell.test(currentPage)} onPress={navigate.sell} />
-          <FooterItem theme={theme} id="wallet" active={isWallet.test(currentPage)} onPress={navigate.wallet} />
-          <FooterItem
-            theme={theme}
-            id="yourTrades"
-            active={currentPage === 'yourTrades' || /contract/u.test(currentPage)}
-            onPress={navigate.yourTrades}
-            notifications={notifications}
-          />
-          <FooterItem theme={theme} id="settings" active={isSettings.test(currentPage)} onPress={navigate.settings} />
-        </View>
+    <View style={[tw`flex-row items-center self-stretch justify-between py-2 bg-primary-background`, tw.md`pt-4 pb-0`]}>
+      {tabs.map((id) => (
+        <FooterItem key={`footer-${id}`} id={id} />
+      ))}
+    </View>
+  )
+}
+
+function FooterItem ({ id }: { id: (typeof tabs)[number] }) {
+  const currentPage = useRoute().name
+  const navigation = useNavigation()
+  const onPress = () => {
+    navigation.reset({ index: 0, routes: [{ name: id }] })
+  }
+
+  const active = currentPage === id || (currentPage === 'home' && id === 'buy')
+  const color = active ? (id === 'settings' ? tw`text-primary-main` : tw`text-black-1`) : tw`text-black-2`
+  const size = tw`w-6 h-6`
+  return (
+    <TouchableOpacity onPress={onPress} style={tw`items-center flex-1 gap-2px`}>
+      <View style={size}>
+        {id === 'settings' ? (
+          active ? (
+            <PeachOrange style={size} />
+          ) : (
+            <PeachBorder style={size} />
+          )
+        ) : (
+          <Icon id={id} style={size} color={color.color} />
+        )}
+        {id === 'yourTrades' ? <NotificationBubble style={tw`absolute -right-2 -top-2`} /> : null}
+      </View>
+      <Text style={[color, tw`leading-relaxed text-center subtitle-1 text-9px`]}>{i18n(`footer.${id}`)}</Text>
+    </TouchableOpacity>
+  )
+}
+
+function NotificationBubble ({ style }: { style?: ViewStyle }) {
+  const notifications = useNotificationStore((state) => state.notifications)
+
+  return notifications === 0 ? null : (
+    <View style={[tw`items-center justify-center w-5 h-5 rounded-full bg-primary-background`, style]}>
+      <View style={tw`items-center justify-center w-4 h-4 rounded-full bg-primary-main`}>
+        <Text style={tw`-my-0.5 text-primary-background notification`}>{String(Math.min(99, notifications))}</Text>
       </View>
     </View>
   )

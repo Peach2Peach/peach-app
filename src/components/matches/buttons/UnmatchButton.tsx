@@ -4,12 +4,12 @@ import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
 import { UnmatchPopup } from '../../../popups/UnmatchPopup'
 import tw from '../../../styles/tailwind'
 
+import { shallow } from 'zustand/shallow'
+import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
-import { PrimaryButton } from '../../buttons'
+import { Button } from '../../buttons/Button'
 import { useUnmatchOffer } from '../hooks'
 import { UndoButton } from './UndoButton'
-import { usePopupStore } from '../../../store/usePopupStore'
-import { shallow } from 'zustand/shallow'
 
 type Props = {
   match: Pick<Match, 'matched' | 'offerId'>
@@ -56,9 +56,14 @@ export const UnmatchButton = ({ match, offer, interruptMatching, showUnmatchedCa
   }
 
   return showUnmatch ? (
-    <PrimaryButton onPress={showUnmatchPopup} iconId="minusCircle" textColor={tw`text-error-main`} white narrow>
+    <Button
+      onPress={showUnmatchPopup}
+      iconId="minusCircle"
+      textColor={tw`text-error-main`}
+      style={tw`bg-primary-background-light`}
+    >
       {i18n('search.unmatch')}
-    </PrimaryButton>
+    </Button>
   ) : (
     <UndoButton onPress={onUndoPress} onTimerFinished={toggle} />
   )

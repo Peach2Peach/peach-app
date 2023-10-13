@@ -8,7 +8,7 @@ describe('getActionIcon', () => {
     const actionIcon = getActionIcon(tradeSummary, false)
     expect(actionIcon).toBe(undefined)
   })
-  it('should return alertOctagon if the trade is a contract summary and has a dispute winner', () => {
+  it('should return sell if the trade is a contract summary and has a dispute winner', () => {
     const tradeSummary = {
       tradeStatus: 'releaseEscrow',
       price: 21,
@@ -16,7 +16,7 @@ describe('getActionIcon', () => {
       disputeWinner: 'seller',
     } as const
     const actionIcon = getActionIcon(tradeSummary, false)
-    expect(actionIcon).toBe('alertOctagon')
+    expect(actionIcon).toBe('sell')
   })
   it('should return the icon from the statusIcons object otherwise', () => {
     const tradeSummary = {

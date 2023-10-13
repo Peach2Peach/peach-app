@@ -1,5 +1,6 @@
 {
   "profile.accountCreated" : "account created",
+  "profile.blockUser" : "block this user",
   "profile.daysAgo" : "$0 days ago",
   "profile.disputes" : "disputes",
   "profile.disputesLost" : "lost",
@@ -13,5 +14,6 @@
   "profile.tradingLimits.monthly" : "monthly anonymous limit:",
   "profile.tradingLimits.yearly" : "yearly trading limit:",
   "profile.tradingLimits.yearly.short" : "yearly limit:",
+  "profile.unblockUser" : "unblock this user",
   "profile.user.title" : "public profile"
 }

@@ -1,13 +1,13 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
 
-import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
+import { Animated, Dimensions, SafeAreaView } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import analytics from '@react-native-firebase/analytics'
 import { DefaultTheme, NavigationContainer, NavigationState, useNavigationContainerRef } from '@react-navigation/native'
 import { enableScreens } from 'react-native-screens'
 
-import { AvoidKeyboard, Drawer, Footer, Message, Popup } from './components'
+import { AvoidKeyboard, Drawer, Message, Popup } from './components'
 import tw from './styles/tailwind'
 import i18n, { LanguageContext } from './utils/i18n'
 import { getViews } from './views/getViews'
@@ -54,7 +54,6 @@ export const App = () => {
 
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
   const views = getViews(!!account?.publicKey)
-  const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
   const backgroundConfig = views.find((v) => v.name === currentPage)?.background
 
   ErrorUtils.setGlobalHandler((err: Error) => {
@@ -147,24 +146,15 @@ export const App = () => {
                     <Background config={backgroundConfig}>
                       <Drawer />
                       <Popup />
-                      <SafeAreaView>
-                        <View style={tw`flex-col h-full`}>
-                          {!!messageState.msgKey && (
-                            <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
-                              <Message {...messageState} />
-                            </Animated.View>
-                          )}
-                          <Screens />
-                          {showFooter && (
-                            <Footer
-                              style={tw`z-10`}
-                              currentPage={currentPage}
-                              setCurrentPage={setCurrentPage}
-                              theme={backgroundConfig?.color === 'primaryGradient' ? 'inverted' : 'default'}
-                            />
-                          )}
-                        </View>
-                      </SafeAreaView>
+
+                      {!!messageState.msgKey && (
+                        <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
+                          <SafeAreaView>
+                            <Message {...messageState} />
+                          </SafeAreaView>
+                        </Animated.View>
+                      )}
+                      <Screens />
                     </Background>
                   </NavigationContainer>
                 </DrawerContext.Provider>

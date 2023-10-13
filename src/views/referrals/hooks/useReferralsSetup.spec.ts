@@ -1,9 +1,9 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook } from '@testing-library/react-native'
 import { defaultSelfUser } from '../../../../tests/unit/data/userData'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useReferralsSetup } from './useReferralsSetup'
-import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 jest.mock('../../../hooks/query/useSelfUser', () => ({
   useSelfUser: jest.fn(),
@@ -37,10 +37,6 @@ describe('useReferralsSetup', () => {
     expect(result.current.selectedReward).toBeUndefined()
     expect(result.current.setSelectedReward).toBeDefined()
     expect(result.current.redeem).toBeDefined()
-  })
-  it('sets up header correctly', () => {
-    renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
-    expect(headerState.header()).toMatchSnapshot()
   })
 
   it('returns correct bonus points and available rewards', () => {

@@ -1,34 +1,139 @@
-import tw from '../../styles/tailwind'
-import { ContractCTA } from './components/ContractCTA'
-import { ProvideEmailButton } from './components/ProvideEmailButton'
-import { ResolveDisputeSliders } from './ResolveDisputeSliders'
-import { ReleaseEscrowSlider } from './ReleaseEscrowSlider'
 import { View } from 'react-native'
-import { useContractContext } from './context'
-import { ContractStatusInfo } from './components/ContractStatusInfo'
-import { PrimaryButton } from '../../components'
+import { EscrowButton, Icon, Text, Timer } from '../../components'
+import { ConfirmSlider } from '../../components/inputs'
+import { UnlockedSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
+import { useOfferDetails } from '../../hooks/query/useOfferDetails'
+import tw from '../../styles/tailwind'
+import { getOfferIdFromContract, getPaymentExpectedBy, getRequiredAction } from '../../utils/contract'
+import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../utils/i18n'
+import { isCashTrade } from '../../utils/paymentMethod'
+import { ChatButton, NewOfferButton, PayoutPendingButton, ProvideEmailButton } from './ContractButtons'
+import {
+  CancelTradeSlider,
+  ExtendTimerSlider,
+  PaymentMadeSlider,
+  PaymentReceivedSlider,
+  RefundEscrowSlider,
+  ReleaseEscrowSlider,
+  RepublishOfferSlider,
+  ResolveCancelRequestSliders,
+} from './ContractSliders'
+import { useContractContext } from './context'
 
-type Props = ComponentProps & {
-  requiredAction: ContractAction
-  actionPending: boolean
-  postConfirmPaymentBuyer: () => void
-  postConfirmPaymentSeller: () => void
-  hasNewOffer: boolean
-  goToNewOffer: () => void
-}
-export const ContractActions = ({ style, hasNewOffer, goToNewOffer, ...contractCTAProps }: Props) => {
-  const { contract } = useContractContext()
-  const { isEmailRequired, tradeStatus, disputeWinner } = contract
-  const shouldShowReleaseEscrow = tradeStatus === 'releaseEscrow' && !!disputeWinner
+export const ContractActions = () => {
+  const { contract, view } = useContractContext()
   return (
-    <View style={[tw`gap-3`, style]}>
-      <ContractStatusInfo {...contractCTAProps} />
-      {!!isEmailRequired && <ProvideEmailButton style={tw`self-center`} />}
-      {hasNewOffer && <PrimaryButton onPress={goToNewOffer}>{i18n('contract.goToNewTrade')}</PrimaryButton>}
-      {!shouldShowReleaseEscrow && <ContractCTA {...{ ...contractCTAProps }} />}
-      {tradeStatus === 'refundOrReviveRequired' && !!disputeWinner && <ResolveDisputeSliders />}
-      {shouldShowReleaseEscrow && <ReleaseEscrowSlider {...{ contract }} />}
+    <View style={tw`items-center justify-end w-full gap-3`}>
+      <View style={tw`flex-row items-center justify-center gap-6`}>
+        <EscrowButton {...contract} style={tw`flex-1`} />
+        <ChatButton />
+      </View>
+
+      <ContractStatusInfo />
+
+      <ContractButtons />
+      {view === 'buyer' ? <BuyerSliders /> : <SellerSliders />}
     </View>
   )
+}
+
+function ContractStatusInfo () {
+  const { contract, view } = useContractContext()
+  const { disputeActive, disputeWinner, cancelationRequested, paymentMethod } = contract
+
+  const shouldShowInfo = !(disputeActive || disputeWinner || cancelationRequested)
+
+  if (shouldShowInfo) {
+    const requiredAction = getRequiredAction(contract)
+
+    if (requiredAction === 'sendPayment' && !isCashTrade(paymentMethod)) {
+      const paymentExpectedBy = getPaymentExpectedBy(contract)
+      if (Date.now() <= paymentExpectedBy || view === 'buyer') {
+        return <Timer text={i18n(`contract.timer.${requiredAction}.${view}`)} end={paymentExpectedBy} />
+      }
+      return <></>
+    }
+
+    if (requiredAction === 'confirmPayment') {
+      return (
+        <View style={tw`flex-row items-center justify-center`}>
+          <Text style={tw`text-center button-medium`}>{i18n(`contract.timer.confirmPayment.${view}`)}</Text>
+          {view === 'seller' && <Icon id="check" style={tw`w-5 h-5 ml-1 -mt-0.5`} color={tw`text-success-main`.color} />}
+        </View>
+      )
+    }
+  }
+
+  return <></>
+}
+
+function ContractButtons () {
+  const { contract, view } = useContractContext()
+  const { isEmailRequired, batchInfo, releaseTxId } = contract
+  const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
+  return (
+    <>
+      {shouldShowPayoutPending(view, batchInfo, releaseTxId) && <PayoutPendingButton />}
+      {!!isEmailRequired && <ProvideEmailButton />}
+      {!!offer?.newOfferId && <NewOfferButton />}
+    </>
+  )
+}
+function shouldShowPayoutPending (view: string, batchInfo: BatchInfo | undefined, releaseTxId: string | undefined) {
+  return view === 'buyer' && !!batchInfo && !batchInfo.completed && !releaseTxId
+}
+
+function BuyerSliders () {
+  const { contract } = useContractContext()
+  const { tradeStatus, disputeWinner } = contract
+  const requiredAction = getRequiredAction(contract)
+
+  if (tradeStatus === 'confirmCancelation') {
+    return <ResolveCancelRequestSliders />
+  }
+  if (requiredAction === 'sendPayment') {
+    return <PaymentMadeSlider />
+  }
+  if (requiredAction === 'confirmPayment' && !disputeWinner) {
+    return <UnlockedSlider label={i18n('contract.payment.made')} />
+  }
+  return <></>
+}
+
+function SellerSliders () {
+  const { contract } = useContractContext()
+  const { tradeStatus, disputeWinner } = contract
+  if (tradeStatus === 'releaseEscrow' && !!disputeWinner) {
+    return <ReleaseEscrowSlider />
+  }
+
+  const requiredAction = getRequiredAction(contract)
+  if (isPaymentTooLate(contract) && tradeStatus === 'paymentRequired') {
+    return (
+      <>
+        <CancelTradeSlider />
+        <ExtendTimerSlider />
+      </>
+    )
+  }
+  if (requiredAction === 'sendPayment') {
+    return (
+      <ConfirmSlider enabled={false} onConfirm={() => {}} label1={i18n('offer.requiredAction.waiting', i18n('buyer'))} />
+    )
+  }
+  if (requiredAction === 'confirmPayment') return <PaymentReceivedSlider />
+
+  if (tradeStatus === 'refundOrReviveRequired') {
+    return (
+      <>
+        <RepublishOfferSlider />
+        <RefundEscrowSlider />
+      </>
+    )
+  }
+  if (tradeStatus === 'refundTxSignatureRequired') {
+    return <RefundEscrowSlider />
+  }
+  return <></>
 }

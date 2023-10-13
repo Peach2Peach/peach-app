@@ -4,8 +4,7 @@ exports[`KeepPhraseSecure should render correctly 1`] = `
 <View
   style={
     {
-      "paddingLeft": 24,
-      "paddingRight": 24,
+      "alignItems": "center",
     }
   }
 >
@@ -45,10 +44,6 @@ exports[`KeepPhraseSecure should render correctly 1`] = `
       style={
         {
           "flexShrink": 1,
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 24,
           "paddingLeft": 16,
         }
       }

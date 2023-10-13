@@ -7,6 +7,7 @@
   "help.checkTrade" : "Handel überprüfen",
   "help.confirmPayment.description" : "Sobald du den Schieberegler für \"Zahlung erhalten\" betätigst, wird der Bitcoin an den Käufer gesendet.\n\nStelle sicher, dass alles korrekt ist, denn dies kann nicht rückgängig gemacht werden!",
   "help.confirmPayment.title" : "Zahlung erhalten?",
+  "help.contactEncryption.description" : "Wir verwenden ein Drittanbieter-Ticketingsystem namens Zammad, um die eingehenden Anfragen zu verwalten.\n\nWenn Sie lieber verschlüsselte Kommunikation verwenden möchten, senden Sie uns bitte eine E-Mail an support@peachbitcoin.com.",
   "help.currency.description" : "Wenn dein Online-Wallet mehrere Währungen empfangen und den Umtausch automatisch durchführen kann, kannst du hier alle Währungen auswählen, die du empfangen kannst.",
   "help.currency.title" : "Akzeptierte Währungen",
   "help.escrow.description" : "Du füllst bei einem Handel auf Peach die Escrow vorab auf. Dies schützt sowohl dich als auch den Käufer. Weitere Informationen zur Escrow findest du hier.\n\nDein Angebot wird nach einer Bestätigung des Netzwerks veröffentlicht. Du kannst die App währenddessen schließen.",
@@ -14,6 +15,8 @@
   "help.escrow.description.proTip" : "Du kannst den QR-Code lange drücken, um die vollständige Zahlungsanforderung zu kopieren.",
   "help.escrow.description.proTip.2" : "If the escrow is not funded after 7 days, the offer will be deleted.",
   "help.escrow.title" : "Peach Escrow",
+  "help.giftCards.description" : "Bei Verwendung dieser Zahlungsmethode sollten Sie eine neue Online-Geschenkkarte im exakten Wert des Handels kaufen.\n\nBereits vorhandene physische Geschenkkarten werden (noch) nicht unterstützt.",
+  "help.giftCards.title" : "Online-Geschenkkarten",
   "help.lnurl.description" : "Du kannst diese Zahlungsmethode nutzen, um deine On-Chain-Bitcoin gegen Lightning zu tauschen. Du zahlst dafür keine Peach-Gebühren.\n\nWenn du kaufst, erhältst du On-Chain-Bitcoin und sendest LN-Bitcoin.\n\nWenn du verkaufst, sendest du On-Chain-Bitcoin und erhältst LN-Bitcoin.",
   "help.lnurl.description.bold" : "Du zahlst keine Peach-Gebühren.",
   "help.lnurl.title" : "LNURL Swaps",
@@ -36,9 +39,6 @@
   "help.referral.title" : "Peach Empfehlungspunkte",
   "help.sellingBitcoin.description" : "Den Verkauf deiner Sats auf Peach berechnen wir dir keine Gebühren!",
   "help.sellingBitcoin.title" : "Bitcoin verkaufen",
-  "help.tooLate.text.1" : "Der Verkäufer wurde benachrichtigt, dass du nicht rechtzeitig da warst. Nun musst du warten, bis er sich entscheidet: entweder gibt er dir mehr Zeit oder storniert den Handel.",
-  "help.tooLate.text.2" : "In jedem Fall wird deine Reputation beeinträchtigt.",
-  "help.tooLate.title" : "Zu spät!",
   "help.tradingLimit.description" : "Peach muss Handelsbeschränkungen einhalten, um die schweizerischen Gesetze einzuhalten. Es gibt drei Handelsbeschränkungen:\n\nDu kannst jeden Tag Bitcoin im Wert von 1000 CHF auf Peach kaufen oder verkaufen.\n\nDu kannst jeden Monat Bitcoin im Wert von 1000 CHF mit Bargeld oder Online-Geschenkkarten (anonyme Zahlungsmethoden) kaufen oder verkaufen.\n\nDu kannst jedes Jahr Bitcoin im Wert von 100.000 CHF kaufen oder verkaufen.",
   "help.tradingLimit.title" : "Handelsbeschränkungen"
 }

@@ -5,8 +5,8 @@ exports[`BuyFilterAndSort should render correctly 1`] = `
   style={
     {
       "borderRadius": 16,
-      "marginLeft": 24,
-      "marginRight": 24,
+      "marginLeft": 12,
+      "marginRight": 12,
       "overflow": "hidden",
     }
   }
@@ -44,7 +44,7 @@ exports[`BuyFilterAndSort should render correctly 1`] = `
     style={
       [
         {
-          "alignItems": "center",
+          "alignItems": "stretch",
           "backgroundColor": "#FEEDE5",
           "gap": 12,
           "paddingBottom": 24,
@@ -52,7 +52,12 @@ exports[`BuyFilterAndSort should render correctly 1`] = `
           "paddingRight": 24,
           "paddingTop": 16,
         },
-        undefined,
+        [
+          undefined,
+          {
+            "alignItems": "stretch",
+          },
+        ],
       ]
     }
   >
@@ -779,7 +784,7 @@ exports[`BuyFilterAndSort should show the loading indicator after the apply butt
 - First value
 + Second value
 
-@@ -688,11 +688,11 @@
+@@ -693,11 +693,11 @@
       <View
         accessibilityState={
           Object {
@@ -792,7 +797,7 @@ exports[`BuyFilterAndSort should show the loading indicator after the apply butt
           }
         }
         accessibilityValue={
-@@ -725,21 +725,43 @@
+@@ -730,21 +730,43 @@
             "paddingRight": 24,
             "paddingTop": 8,
           }
@@ -839,7 +844,7 @@ exports[`BuyFilterAndSort should show the loading indicator after the apply butt
           allowFontScaling={false}
           style={
             Array [
-@@ -762,10 +784,10 @@
+@@ -767,10 +789,10 @@
               ],
               false,
             ]
@@ -858,8 +863,8 @@ exports[`BuyFilterAndSort should use the global preferences as defaults when the
   style={
     {
       "borderRadius": 16,
-      "marginLeft": 24,
-      "marginRight": 24,
+      "marginLeft": 12,
+      "marginRight": 12,
       "overflow": "hidden",
     }
   }
@@ -897,7 +902,7 @@ exports[`BuyFilterAndSort should use the global preferences as defaults when the
     style={
       [
         {
-          "alignItems": "center",
+          "alignItems": "stretch",
           "backgroundColor": "#FEEDE5",
           "gap": 12,
           "paddingBottom": 24,
@@ -905,7 +910,12 @@ exports[`BuyFilterAndSort should use the global preferences as defaults when the
           "paddingRight": 24,
           "paddingTop": 16,
         },
-        undefined,
+        [
+          undefined,
+          {
+            "alignItems": "stretch",
+          },
+        ],
       ]
     }
   >
@@ -1632,7 +1642,7 @@ exports[`BuyFilterAndSort should use the offer maxPremium as the default value f
 - First value
 + Second value
 
-@@ -156,11 +156,11 @@
+@@ -161,11 +161,11 @@
                 "opacity": 1,
               }
             }
@@ -1645,7 +1655,7 @@ exports[`BuyFilterAndSort should use the offer maxPremium as the default value f
                   Object {
                     "height": 24,
                     "width": 24,
-@@ -185,13 +185,11 @@
+@@ -190,13 +190,11 @@
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
@@ -1660,7 +1670,7 @@ exports[`BuyFilterAndSort should use the offer maxPremium as the default value f
                 ]
               }
             >
-@@ -238,11 +236,11 @@
+@@ -243,11 +241,11 @@
                   "paddingBottom": 0,
                   "paddingTop": 0,
                   "textAlign": "center",

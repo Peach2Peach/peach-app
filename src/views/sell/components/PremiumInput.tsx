@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react'
-import { View } from 'react-native'
-import { Text } from '../../../components'
+import { TouchableOpacity, View } from 'react-native'
+import { Icon, Text } from '../../../components'
 import { PercentageInput } from '../../../components/inputs'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { round } from '../../../utils/math'
 import { enforcePremiumFormat } from '../helpers/enforcePremiumFormat'
 
 const convertDisplayPremiumToNumber = (displayPremium: string) => {
@@ -32,12 +33,32 @@ export const PremiumInput = ({ premium, setPremium }: Props) => {
     setPremium(convertDisplayPremiumToNumber(newPremium))
   }
 
+  const onMinusPress = () => {
+    const newPremium = round(Math.max(premium - 0.1, -21), 2)
+    setPremium(newPremium)
+    setDisplayPremium(newPremium.toString())
+  }
+
+  const onPlusPress = () => {
+    const newPremium = round(Math.min(premium + 0.1, 21), 2)
+    setPremium(newPremium)
+    setDisplayPremium(newPremium.toString())
+  }
+
   const textColor = premium === 0 ? tw`text-black-1` : premium > 0 ? tw`text-success-main` : tw`text-primary-main`
 
   return (
-    <View style={tw`flex-row items-center justify-center gap-2 pl-2`}>
-      <Text style={[tw`text-center body-l`, textColor]}>{i18n(premium >= 0 ? 'sell.premium' : 'sell.discount')}:</Text>
-      <PercentageInput value={displayValue} onChange={changePremium} />
+    <View style={tw`flex-row items-center justify-between`}>
+      <TouchableOpacity onPress={onMinusPress} accessibilityHint={i18n('number.decrease')}>
+        <Icon id="minusCircle" size={24} color={tw`text-primary-main`.color} />
+      </TouchableOpacity>
+      <View style={tw`flex-row items-center justify-center gap-2 grow`}>
+        <Text style={[tw`text-center body-l`, textColor]}>{i18n(premium >= 0 ? 'sell.premium' : 'sell.discount')}:</Text>
+        <PercentageInput value={displayValue} onChange={changePremium} />
+      </View>
+      <TouchableOpacity onPress={onPlusPress} accessibilityHint={i18n('number.increase')}>
+        <Icon id="plusCircle" size={24} color={tw`text-primary-main`.color} />
+      </TouchableOpacity>
     </View>
   )
 }

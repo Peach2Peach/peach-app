@@ -1,8 +1,8 @@
-import { QRCodeScanner } from './QRCodeScanner'
-import { fireEvent, render } from '@testing-library/react-native'
 import { View } from 'react-native'
-import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { RNCamera } from 'react-native-camera'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { fireEvent, render } from 'test-utils'
+import { QRCodeScanner } from './QRCodeScanner'
 expect.extend({ toMatchDiffSnapshot })
 
 jest.useFakeTimers()

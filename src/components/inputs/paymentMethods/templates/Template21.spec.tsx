@@ -6,7 +6,7 @@ jest.mock('../../../../views/contract/helpers')
 
 describe('Template21', () => {
   const mockProps: FormProps = {
-    data: { currencies: ['NGN'], type: 'accessBank' },
+    data: { currencies: ['NGN'], type: 'nationalTransferNG' },
     onSubmit: jest.fn(),
     setStepValid: jest.fn(),
     setFormData: jest.fn(),

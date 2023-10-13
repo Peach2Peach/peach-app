@@ -1,12 +1,17 @@
 import { API_URL } from '@env'
+import { useMemo } from 'react'
 import { Image, View } from 'react-native'
-import { Text } from '../../components'
+import { Header, Screen, Text } from '../../components'
+import { useRoute, useShowHelp } from '../../hooks'
+import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout'
 import { PeachScrollView } from '../PeachScrollView'
-import { PrimaryButton } from '../buttons'
+import { Button } from '../buttons/Button'
 import { CurrencySelection } from '../inputs/paymentMethods/paymentForms/components'
 import { Link } from './components/Link'
+import { useDeletePaymentMethod } from './hooks/useDeletePaymentMethod'
 import { useMeetupScreenSetup } from './hooks/useMeetupScreenSetup'
 
 export const MeetupScreen = () => {
@@ -14,8 +19,8 @@ export const MeetupScreen = () => {
     = useMeetupScreenSetup()
 
   return (
-    <View style={tw`h-full pb-7`}>
-      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow p-8`}>
+    <Screen header={<MeetupScreenHeader />}>
+      <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         {!!event.logo && (
           <Image source={{ uri: API_URL + event.logo }} style={tw`w-full mb-5 h-30`} resizeMode={'contain'} />
         )}
@@ -42,10 +47,29 @@ export const MeetupScreen = () => {
         </View>
       </PeachScrollView>
       {(!deletable || event.currencies.length > 1) && (
-        <PrimaryButton style={tw`self-center`} onPress={addToPaymentMethods}>
+        <Button style={tw`self-center`} onPress={addToPaymentMethods}>
           {i18n('meetup.add')}
-        </PrimaryButton>
+        </Button>
       )}
-    </View>
+    </Screen>
   )
+}
+
+function MeetupScreenHeader () {
+  const route = useRoute<'meetupScreen'>()
+  const { eventId } = route.params
+  const deletable = route.params.deletable ?? false
+  const showHelp = useShowHelp('cashTrades')
+  const deletePaymentMethod = useDeletePaymentMethod(`cash.${eventId}`)
+  const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
+
+  const icons = useMemo(() => {
+    const icns = [{ ...headerIcons.help, onPress: showHelp }]
+    if (deletable) {
+      icns[1] = { ...headerIcons.delete, onPress: deletePaymentMethod }
+    }
+    return icns
+  }, [deletable, deletePaymentMethod, showHelp])
+
+  return <Header title={getMeetupEvent(eventId)?.shortName} icons={icons} />
 }

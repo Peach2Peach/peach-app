@@ -1,37 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DisputeDisclaimer renders correctly 1`] = `
-<React.Fragment>
-  <PeachText>
-    This is your private trade chat.
-  </PeachText>
+<PeachText>
+  This is your private trade chat.
+  
+
+
+  If your counterparty suggests trading outside of Peach, keep in mind that you will 
   <PeachText
     style={
       {
-        "marginTop": 12,
+        "textDecorationLine": "underline",
       }
     }
   >
-    If your counterparty suggests trading outside of Peach, keep in mind that you will 
-    <PeachText
-      style={
-        {
-          "textDecorationLine": "underline",
-        }
-      }
-    >
-      no longer be protected
-    </PeachText>
-     by the Peach escrow!
+    no longer be protected
   </PeachText>
-  <PeachText
-    style={
-      {
-        "marginTop": 12,
-      }
-    }
-  >
-    If you think something is going wrong, you can open a dispute in the top right.
-  </PeachText>
-</React.Fragment>
+   by the Peach escrow!
+  
+
+
+  If you think something is going wrong, you can open a dispute in the top right.
+</PeachText>
 `;

@@ -20,7 +20,6 @@
   "discord" : "Discord",
   "dispute.explanation.description.3" : "When you open a dispute, the chats between you and your counterparty will be shared with Peach",
   "dispute.nonDispute.text.1" : "The dispute is cancelled! Peach Mediator is leaving the chat.",
-  "dispute.seller.lost.completed.text" : "We've ruled in favour of the buyer in the dispute for trade $0",
   "done" : "done",
   "download" : "download",
   "edit" : "edit",
@@ -84,6 +83,7 @@
   "no" : "no",
   "noThanks" : "no thanks",
   "none" : "none",
+  "nostr" : "Nostr",
   "other" : "other",
   "paste" : "paste",
   "payment" : "payment",
@@ -169,7 +169,7 @@
   "search.popups.cancelOffer.title" : "cancel offer",
   "search.popups.matchUndone.text" : "Your reputation has not been affected, and you can always re-match.\n\nWhen you unmatch after the timer runs out, your reputation will be negatively affected.",
   "search.popups.matchUndone.title" : "match undone",
-  "search.popups.matchmatchmatch.text" : "You can match as many offers as you want! A trade will be created with the first Seller who matches you back.",
+  "search.popups.matchmatchmatch.text" : "You can match as many offers as you want!\n\nA trade will be created with the first seller who matches you back.",
   "search.popups.matchmatchmatch.title" : "match, match & match again",
   "search.popups.offerTaken.text" : "sorry, someone else was faster!",
   "search.popups.offerTaken.title" : "offer taken...",
@@ -249,5 +249,6 @@
   "yourTrades.start.selling" : "start selling!",
   "yourTrades.title" : "your trades",
   "yourTrades.tradeCanceled.subtitle" : "trade canceled",
-  "yourTrades.waiting" : "waiting"
+  "yourTrades.waiting" : "waiting",
+  "youtube" : "YouTube"
 }

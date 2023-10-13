@@ -2,9 +2,9 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useMemo, useState } from 'react'
 import { FlatList, View } from 'react-native'
-import { PrimaryButton } from '../../../components'
+import { Screen } from '../../../components'
+import { Button } from '../../../components/buttons/Button'
 import { TabbedNavigation } from '../../../components/navigation/TabbedNavigation'
-import { useHeaderSetup } from '../../../hooks'
 import { useMessageHandler } from '../../../hooks/notifications/useMessageHandler'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
@@ -296,7 +296,6 @@ const useFakePNs = () => {
 }
 
 export const TestViewPNs = () => {
-  useHeaderSetup('test view - pns')
   const messageHandler = useMessageHandler('testViewPNs')
   const { fakeOfferPNs, fakeContractPNs } = useFakePNs()
   const tabs = [
@@ -305,16 +304,16 @@ export const TestViewPNs = () => {
   ]
   const [currentTab, setCurrentTab] = useState(tabs[0])
   return (
-    <View style={tw`py-10`}>
+    <Screen>
       <TabbedNavigation style={tw`mb-4`} items={tabs} selected={currentTab} select={setCurrentTab} />
       {currentTab.id === 'offer' && (
         <FlatList
           contentContainerStyle={tw`px-6 `}
           data={fakeOfferPNs}
           renderItem={({ item }) => (
-            <PrimaryButton onPress={() => messageHandler(item as unknown as FirebaseMessagingTypes.RemoteMessage)}>
+            <Button onPress={() => messageHandler(item as unknown as FirebaseMessagingTypes.RemoteMessage)}>
               {item.data.type}
-            </PrimaryButton>
+            </Button>
           )}
           ItemSeparatorComponent={() => <View style={tw`h-2`} />}
         />
@@ -324,13 +323,13 @@ export const TestViewPNs = () => {
           contentContainerStyle={tw`px-6 `}
           data={fakeContractPNs}
           renderItem={({ item }) => (
-            <PrimaryButton onPress={() => messageHandler(item as unknown as FirebaseMessagingTypes.RemoteMessage)}>
+            <Button onPress={() => messageHandler(item as unknown as FirebaseMessagingTypes.RemoteMessage)}>
               {item.data.type}
-            </PrimaryButton>
+            </Button>
           )}
           ItemSeparatorComponent={() => <View style={tw`h-2`} />}
         />
       )}
-    </View>
+    </Screen>
   )
 }

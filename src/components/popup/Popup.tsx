@@ -1,8 +1,8 @@
-import { usePopupStore } from '../../store/usePopupStore'
 import { Modal, Pressable, View, ViewStyle } from 'react-native'
-import { Text } from '../text'
+import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { Text } from '../text'
 import { PopupAction } from './DeprecatedPopupAction'
 
 type LevelColorMap = {
@@ -21,7 +21,7 @@ const levelColorMap: LevelColorMap = {
   bg2: {
     DEFAULT: tw`bg-primary-background-light`,
     APP: tw`bg-primary-background-dark`,
-    SUCCESS: tw`bg-success-background`,
+    SUCCESS: tw`bg-success-background-main`,
     WARN: tw`bg-warning-background`,
     ERROR: tw`bg-error-background`,
     INFO: tw`bg-info-background`,

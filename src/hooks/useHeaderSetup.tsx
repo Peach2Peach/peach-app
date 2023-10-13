@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import { Header } from '../components'
+import { OldHeader } from '../components'
 import { HeaderConfig } from '../components/header/Header'
 import { useNavigation } from './useNavigation'
 
@@ -13,6 +13,6 @@ export const useHeaderSetup = (headerConfig: HeaderConfig | string) => {
   )
 
   useEffect(() => {
-    setOptions({ header: () => <Header {...props} /> })
+    setOptions({ header: () => <OldHeader {...props} /> })
   }, [props, setOptions])
 }

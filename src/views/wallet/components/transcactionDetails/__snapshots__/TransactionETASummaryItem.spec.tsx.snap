@@ -1,5 +1,297 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`TransactionETA should open help popup 1`] = `
+<View
+  style={
+    {
+      "borderRadius": 16,
+      "marginLeft": 12,
+      "marginRight": 12,
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "alignItems": "stretch",
+          "backgroundColor": "#FEEDE5",
+          "gap": 12,
+          "paddingBottom": 24,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 16,
+        },
+        [
+          {
+            "backgroundColor": "#D7F2FE",
+          },
+          {
+            "alignItems": "stretch",
+          },
+        ],
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "fontFamily": "Baloo2-Bold",
+            "fontSize": 24,
+            "letterSpacing": 0.24,
+            "lineHeight": 32,
+            "width": "100%",
+          },
+          false,
+        ]
+      }
+    >
+      confirmation time
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          undefined,
+          false,
+        ]
+      }
+    >
+      It's hard to predict how long a bitcoin transaction will take, so this is only an estimate.
+
+One bitcoin block takes, on average, ten minutes.
+    </Text>
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "alignSelf": "stretch",
+          "backgroundColor": "#F56522",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        },
+        {
+          "backgroundColor": "#099DE2",
+        },
+      ]
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "gap": 4,
+          "opacity": 1,
+          "paddingBottom": 8,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "color": "#FFFCFA",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              undefined,
+            ],
+            false,
+          ]
+        }
+      >
+        help
+      </Text>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row-reverse",
+          "flexGrow": 1,
+          "gap": 4,
+          "opacity": 1,
+          "paddingBottom": 8,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "color": "#FFFCFA",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              undefined,
+            ],
+            false,
+          ]
+        }
+      >
+        close
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
 exports[`TransactionETA should render correctly for 1 block ETA 1`] = `
 <View
   style={

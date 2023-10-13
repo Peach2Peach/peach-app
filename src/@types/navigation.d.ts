@@ -11,6 +11,7 @@ type RootStackParamList = {
     badges: string
   }
   wallet: undefined
+  nodeSetup: undefined
   sendBitcoin: undefined
   receiveBitcoin: undefined
   addressChecker: undefined
@@ -107,7 +108,9 @@ type RootStackParamList = {
   }
   language: undefined
   currency: undefined
-  publicProfile: undefined
+  publicProfile: {
+    userId: string
+  }
   referrals: undefined
   backupTime: {
     nextScreen?: keyof RootStackParamList

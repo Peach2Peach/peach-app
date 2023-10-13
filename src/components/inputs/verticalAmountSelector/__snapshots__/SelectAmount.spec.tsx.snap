@@ -8,8 +8,6 @@ exports[`SelectAmount should render children correctly 1`] = `
         "alignItems": "center",
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "paddingRight": 16,
       },
       undefined,
     ]
@@ -131,8 +129,6 @@ exports[`SelectAmount should render correctly 1`] = `
         "alignItems": "center",
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "paddingRight": 16,
       },
       undefined,
     ]

@@ -1,11 +1,12 @@
 /* eslint-disable max-lines */
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
+import { BLOCKEXPLORER } from '@env'
 import { waitFor } from '@testing-library/react-native'
 import { Address, PartiallySignedTransaction, Transaction, TxBuilder } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
-import { AddressIndex, KeychainKind } from 'bdk-rn/lib/lib/enums'
+import { AddressIndex, BlockChainNames, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { insufficientFunds } from '../../../tests/unit/data/errors'
 import {
@@ -70,7 +71,7 @@ describe('PeachWallet', () => {
 
   beforeEach(async () => {
     peachWallet = new PeachWallet({ wallet })
-    await peachWallet.loadWallet()
+    await peachWallet.initWallet()
   })
   afterEach(() => {
     useWalletState.getState().reset()
@@ -81,14 +82,12 @@ describe('PeachWallet', () => {
 
     expect(peachWallet.initialized).toBeFalsy()
     expect(useWalletState.getState().isSynced).toBeFalsy()
-    expect(peachWallet.descriptorPath).toEqual("/84'/1'/0'/0/*")
   })
   it('instantiates for mainnet', () => {
     peachWallet = new PeachWallet({ wallet, network: 'bitcoin' })
 
     expect(peachWallet.initialized).toBeFalsy()
     expect(useWalletState.getState().isSynced).toBeFalsy()
-    expect(peachWallet.descriptorPath).toEqual("/84'/0'/0'/0/*")
   })
   it('synchronises wallet with the blockchain', async () => {
     walletSyncMock.mockResolvedValueOnce(true)
@@ -97,6 +96,15 @@ describe('PeachWallet', () => {
     await peachWallet.syncWallet()
     expect(useWalletState.getState().isSynced).toBeTruthy()
     expect(walletSyncMock).toHaveBeenCalled()
+  })
+  it('catches wallet sync errors', async () => {
+    walletSyncMock.mockImplementationOnce(() => {
+      throw new Error('error')
+    })
+
+    expect(useWalletState.getState().isSynced).toBeFalsy()
+    const error = await getError<Error>(() => peachWallet.syncWallet())
+    expect(error.message).toBe('error')
   })
   it('waits for already running sync', async () => {
     jest.clearAllMocks()
@@ -414,7 +422,7 @@ describe('PeachWallet - loadWallet', () => {
   it('loads existing data', async () => {
     const balance = 50000
     useWalletState.getState().setBalance(balance)
-    await peachWallet.loadWallet()
+    await peachWallet.initWallet()
     expect(peachWallet.balance).toBe(balance)
     expect(blockChainCreateMock).toHaveBeenCalledWith(
       { concurrency: 1, proxy: null, stopGap: 25, timeout: 30, baseUrl: 'https://localhost:3000' },
@@ -422,7 +430,7 @@ describe('PeachWallet - loadWallet', () => {
     )
   })
   it('loads wallet with seed', async () => {
-    await peachWallet.loadWallet(account1.mnemonic)
+    await peachWallet.initWallet(account1.mnemonic)
     expect(mnemonicFromStringMock).toHaveBeenCalledWith(account1.mnemonic)
   })
   it('load existing when wallet store is ready', () => {
@@ -437,7 +445,7 @@ describe('PeachWallet - loadWallet', () => {
     expect(peachWallet.balance).toBe(balance)
   })
   it('sets initialized to true when wallet is loaded', async () => {
-    await peachWallet.loadWallet()
+    await peachWallet.initWallet()
     expect(peachWallet.initialized).toBeTruthy()
   })
 })
@@ -448,7 +456,7 @@ describe('PeachWallet - buildFinishedTransaction', () => {
 
   beforeEach(async () => {
     peachWallet = new PeachWallet({ wallet })
-    await peachWallet.loadWallet()
+    await peachWallet.initWallet()
   })
   const utxo = new LocalUtxo(
     new OutPoint('txid', 0),
@@ -475,5 +483,28 @@ describe('PeachWallet - buildFinishedTransaction', () => {
     peachWallet.wallet = undefined
     const error = await getError<Error>(() => peachWallet.buildFinishedTransaction(params))
     expect(error.message).toBe('WALLET_NOT_READY')
+  })
+  it('sets correct blockchain by config', async () => {
+    const url = 'blockstream.info'
+    await peachWallet.setBlockchain({ enabled: true, url, ssl: true, type: BlockChainNames.Electrum })
+    expect(blockChainCreateMock).toHaveBeenCalledWith(
+      { url: `ssl://${url}`, sock5: null, retry: 1, timeout: 5, stopGap: 25, validateDomain: false },
+      BlockChainNames.Electrum,
+    )
+    await peachWallet.setBlockchain({ enabled: true, url, ssl: true, type: BlockChainNames.Esplora })
+    expect(blockChainCreateMock).toHaveBeenCalledWith(
+      { baseUrl: `https://${url}`, proxy: null, concurrency: 1, timeout: 30, stopGap: 25 },
+      BlockChainNames.Esplora,
+    )
+    await peachWallet.setBlockchain({ enabled: false, url, ssl: true, type: BlockChainNames.Electrum })
+    expect(blockChainCreateMock).toHaveBeenCalledWith(
+      { baseUrl: BLOCKEXPLORER, proxy: null, concurrency: 1, timeout: 30, stopGap: 25 },
+      BlockChainNames.Esplora,
+    )
+    await peachWallet.setBlockchain({ enabled: true, url, ssl: true, type: BlockChainNames.Rpc })
+    expect(blockChainCreateMock).toHaveBeenCalledWith(
+      { url, walletName: 'peach', network: Network.Bitcoin },
+      BlockChainNames.Rpc,
+    )
   })
 })

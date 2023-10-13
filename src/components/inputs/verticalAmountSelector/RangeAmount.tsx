@@ -37,8 +37,8 @@ export const RangeAmount = ({ min, max, value, onChange, style }: Props) => {
   } = useRangeAmountSetup({ min, max, value, onChange })
 
   return (
-    <View style={[tw`flex-row items-center justify-between pl-5 pr-4`, style]}>
-      <View style={[tw`items-start flex-shrink gap-2`, tw.md`gap-4`]}>
+    <View style={[tw`flex-row items-center justify-between`, style]}>
+      <View style={[tw`items-start gap-2 shrink`, tw.md`gap-4`]}>
         <ParsedPeachText
           style={[tw`h7`, tw.md`h5`]}
           parse={[{ pattern: new RegExp(i18n('buy.subtitle.highlight'), 'u'), style: tw`text-success-main` }]}

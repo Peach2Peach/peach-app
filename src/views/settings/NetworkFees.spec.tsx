@@ -1,5 +1,6 @@
-import { NetworkFees } from './NetworkFees'
 import { render } from '@testing-library/react-native'
+import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { NetworkFees } from './NetworkFees'
 
 const useNetworkFeesSetupMock = jest.fn().mockReturnValue({
   estimatedFees: {
@@ -11,7 +12,7 @@ const useNetworkFeesSetupMock = jest.fn().mockReturnValue({
   },
   selectedFeeRate: 'fastestFee',
   setSelectedFeeRate: jest.fn(),
-  customFeeRate: 5,
+  customFeeRate: '5',
   setCustomFeeRate: jest.fn(),
   submit: jest.fn(),
   isValid: true,
@@ -23,7 +24,7 @@ jest.mock('./hooks/useNetworkFeesSetup', () => ({
 
 describe('NetworkFees', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(<NetworkFees />)
+    const { toJSON } = render(<NetworkFees />, { wrapper: NavigationWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
 })

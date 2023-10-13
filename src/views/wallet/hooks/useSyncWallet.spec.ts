@@ -2,6 +2,13 @@ import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useSyncWallet } from './useSyncWallet'
 
+const showErrorBannerMock = jest.fn()
+jest.mock('../../../hooks/useShowErrorBanner', () => ({
+  useShowErrorBanner:
+    () =>
+      (...args: unknown[]) =>
+        showErrorBannerMock(...args),
+}))
 const mockSyncWallet = jest.fn().mockResolvedValue(undefined)
 jest.mock('../../../utils/wallet/setWallet', () => ({
   peachWallet: {
@@ -35,9 +42,7 @@ describe('useSyncWallet', () => {
   it('should call peachWallet.syncWallet on refresh', async () => {
     const { result } = renderHook(useSyncWallet, { wrapper })
 
-    await act(async () => {
-      await result.current.refresh()
-    })
+    await act(() => result.current.refresh())
 
     expect(mockSyncWallet).toHaveBeenCalled()
   })
@@ -58,11 +63,16 @@ describe('useSyncWallet', () => {
 
   it('should set refreshing to false after refresh', async () => {
     const { result } = renderHook(useSyncWallet, { wrapper })
-
-    await act(async () => {
-      await result.current.refresh()
-    })
-
+    await act(() => result.current.refresh())
     expect(mockSyncWallet).toHaveBeenCalledTimes(1)
+  })
+
+  it('should handle wallet sync errors', async () => {
+    mockSyncWallet.mockImplementationOnce(() => {
+      throw new Error('error')
+    })
+    const { result } = renderHook(useSyncWallet, { wrapper })
+    await act(() => result.current.refresh())
+    expect(showErrorBannerMock).toHaveBeenCalledWith('WALLET_SYNC_ERROR')
   })
 })

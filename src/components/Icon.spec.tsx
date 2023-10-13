@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
 import tw from '../styles/tailwind'
 import { Icon } from './Icon'
 

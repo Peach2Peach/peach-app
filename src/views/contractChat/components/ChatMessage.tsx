@@ -107,11 +107,14 @@ export const ChatMessage = ({
   return (
     <>
       {isChangeDate && (
-        <LinedText style={tw`px-6 mb-5 pt-7`}>
+        <LinedText style={tw`mb-5 px-sm pt-7`}>
           <Text style={tw`body-m text-black-2`}>{toDateFormat(message.date)}</Text>
         </LinedText>
       )}
-      <View onStartShouldSetResponder={() => true} style={[tw`w-10/12 px-4 bg-transparent`, meta.isYou && tw`self-end`]}>
+      <View
+        onStartShouldSetResponder={() => true}
+        style={[tw`w-10/12 bg-transparent px-sm`, meta.isYou && tw`self-end`]}
+      >
         {meta.showName && !meta.isYou && <Text style={[tw`px-1 mt-4 -mb-2 subtitle-2`, text]}>{meta.name}</Text>}
         <View style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}>
           <Text style={tw`flex-shrink-0`} selectable>

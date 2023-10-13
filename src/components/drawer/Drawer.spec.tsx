@@ -1,6 +1,6 @@
-import { act, render } from '@testing-library/react-native'
 import { BackHandler, Text } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { act, render } from 'test-utils'
 import { Drawer } from '.'
 import { DrawerContext } from '../../contexts/drawer'
 

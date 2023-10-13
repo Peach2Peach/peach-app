@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-native'
 import { sellOffer } from '../../tests/unit/data/offerData'
 import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
-import { Loading } from '../components'
+import { PopupLoadingSpinner } from '../../tests/unit/helpers/PopupLoadingSpinner'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { useCancelAndStartRefundPopup } from './useCancelAndStartRefundPopup'
 
@@ -38,14 +38,7 @@ describe('useCancelAndStartRefundPopup', () => {
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       title: 'refunding escrow',
-      content: (
-        <Loading
-          color="#2B1911"
-          style={{
-            alignSelf: 'center',
-          }}
-        />
-      ),
+      content: PopupLoadingSpinner,
       visible: true,
       level: 'APP',
       requireUserAction: true,

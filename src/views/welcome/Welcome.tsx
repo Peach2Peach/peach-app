@@ -17,7 +17,7 @@ export const Welcome = () => {
 
   return (
     <View style={tw`flex h-full`} testID="welcome">
-      <View style={tw`w-full px-8`}>
+      <View style={[tw`w-full px-sm`, tw.md`px-md`]}>
         <Progress
           percent={progress}
           backgroundStyle={tw`opacity-50 bg-primary-background-light`}

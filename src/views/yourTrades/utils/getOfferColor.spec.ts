@@ -40,11 +40,11 @@ describe('getOfferColor', () => {
   it('should return "black" when tradeStatus is "confirmCancelation"', () => {
     expect(getOfferColor({ ...defaultTrade, tradeStatus: 'confirmCancelation' })).toBe('black')
   })
-  it('should return "warning" when tradeStatus is "refundTxSignatureRequired"', () => {
-    expect(getOfferColor({ ...defaultTrade, tradeStatus: 'refundTxSignatureRequired' })).toBe('warning')
+  it('should return "black" when tradeStatus is "refundTxSignatureRequired"', () => {
+    expect(getOfferColor({ ...defaultTrade, tradeStatus: 'refundTxSignatureRequired' })).toBe('black')
   })
-  it('should return "warning" when tradeStatus is "refundOrReviveRequired"', () => {
-    expect(getOfferColor({ ...defaultTrade, tradeStatus: 'refundOrReviveRequired' })).toBe('warning')
+  it('should return "black" when tradeStatus is "refundOrReviveRequired"', () => {
+    expect(getOfferColor({ ...defaultTrade, tradeStatus: 'refundOrReviveRequired' })).toBe('black')
   })
   it('should return "primary-mild" when tradeStatus is "escrowWaitingForConfirmation"', () => {
     expect(getOfferColor({ ...defaultTrade, tradeStatus: 'escrowWaitingForConfirmation' })).toBe('primary-mild')

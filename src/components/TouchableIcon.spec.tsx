@@ -1,5 +1,5 @@
-import { render } from '@testing-library/react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { render } from 'test-utils'
 import { TouchableIcon } from './TouchableIcon'
 expect.extend({ toMatchDiffSnapshot })
 

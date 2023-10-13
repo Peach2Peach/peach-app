@@ -1,5 +1,4 @@
 import { shouldGoToFundEscrow } from './shouldGoToFundEscrow'
-import { shouldGoToOfferSummary } from './shouldGoToOfferSummary'
 import { shouldGoToSearch } from './shouldGoToSearch'
 import { shouldGoToWrongFundingAmount } from './shouldGoToWrongFundingAmount'
 
@@ -14,7 +13,7 @@ export const getNavigationDestinationForOffer = ({
   tradeStatus: OfferSummary['tradeStatus']
   id: OfferSummary['id']
 }): Destination => {
-  if (shouldGoToOfferSummary(tradeStatus)) {
+  if (tradeStatus === 'offerCanceled') {
     return ['offer', { offerId }]
   }
 

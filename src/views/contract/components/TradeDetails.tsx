@@ -1,59 +1,79 @@
+import { Fragment } from 'react'
 import { View } from 'react-native'
+import { ErrorBox, HorizontalLine } from '../../../components/ui'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { SummaryItem } from '../../../components/payment/paymentDetailTemplates/SummaryItem'
-import { CopyAble, ErrorBox } from '../../../components/ui'
-import { tradeInformationGetters, isTradeInformationGetter, getTradeInfoFields } from '../helpers'
-import { isPaymentTooLate } from '../../../utils/contract/status/isPaymentTooLate'
+import { isCashTrade } from '../../../utils/paymentMethod'
 import { useContractContext } from '../context'
-import { Icon } from '../../../components'
-import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
-import { useLocalContractStore } from '../../../store/useLocalContractStore'
-
-const getTradeDetailsIcon = (shouldShowCopyable: boolean, shouldShowCashIcon: boolean, information: string) =>
-  shouldShowCopyable ? (
-    <CopyAble value={information} style={[tw`w-4 h-4`, tw.md`w-5 h-5`]} />
-  ) : shouldShowCashIcon ? (
-    <Icon style={tw`w-4 h-4`} id="arrowDown" color={tw`text-primary-main`.color} />
-  ) : undefined
+import { isTradeInformationGetter, tradeInformationGetters } from '../helpers'
+import { tradeFields } from '../helpers/tradeInfoFields'
+import { TradeInfoField } from '../helpers/tradeInformationGetters'
+import { SummaryItem } from './SummaryItem'
 
 export const TradeDetails = () => {
-  const { contract, view } = useContractContext()
-  const fields = getTradeInfoFields(contract, view)
-  const shouldBlur = isPaymentTooLate(contract)
-  const error = useLocalContractStore((state) => state.contracts[contract.id]?.error)
+  const { contract, paymentData, isDecryptionError, view } = useContractContext()
+  const sections = getTradeInfoFields(contract, view)
 
   return (
-    <View style={tw`gap-2`}>
-      {fields.map((fieldName, index) => {
-        const label = i18n(`contract.summary.${fieldName}`)
-        const information = isTradeInformationGetter(fieldName)
-          ? tradeInformationGetters[fieldName](contract)
-          : contract.paymentData?.[fieldName]
-        if (!information && fieldName !== 'reference') return null
-        const props
-          = typeof information === 'number'
-            ? { label, information, isBitcoinAmount: true as const }
-            : !information
-              ? { label, information: 'none', isAvailable: false }
-              : { label, information }
-        return (
-          <SummaryItem
-            {...props}
-            shouldBlur={shouldBlur}
-            isDisputeActive={contract.disputeActive}
-            icon={getTradeDetailsIcon(
-              view === 'buyer' && !contract.releaseTxId && !isCashTrade(contract.paymentMethod),
-              isCashTrade(contract.paymentMethod) && fieldName === 'location',
-              String(information),
-            )}
-            key={`${fieldName}-${index}`}
-          />
-        )
-      })}
-      {!contract.paymentData && error === 'DECRYPTION_ERROR' && (
+    <View style={tw`justify-center gap-4 grow`}>
+      {sections.map((fields: TradeInfoField[], index) => (
+        <Fragment key={`section-${index}`}>
+          <View style={tw`gap-2`}>
+            {fields.map((fieldName, fieldIndex) => (
+              <TradeDetailField fieldName={fieldName} key={`${fieldName}-${fieldIndex}`} />
+            ))}
+          </View>
+          {index < sections.length - 1 && <HorizontalLine />}
+        </Fragment>
+      ))}
+
+      {!paymentData && isDecryptionError && (
         <ErrorBox style={tw`mt-[2px]`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>
       )}
     </View>
   )
+}
+
+function TradeDetailField ({ fieldName }: { fieldName: TradeInfoField }) {
+  const { contract, view, paymentData } = useContractContext()
+
+  const information = isTradeInformationGetter(fieldName)
+    ? tradeInformationGetters[fieldName](contract)
+    : paymentData?.[fieldName]
+
+  if (!information) return null
+
+  return (
+    <SummaryItem
+      label={i18n(`contract.summary.${fieldName}`)}
+      value={
+        typeof information === 'string' || typeof information === 'number' ? (
+          <SummaryItem.Text
+            value={String(information)}
+            copyable={view === 'buyer' && !contract.releaseTxId && fieldName !== 'location'}
+          />
+        ) : (
+          information
+        )
+      }
+    />
+  )
+}
+
+function getTradeInfoFields (
+  { paymentMethod, releaseTxId, batchInfo }: Pick<Contract, 'paymentMethod' | 'releaseTxId' | 'batchInfo'>,
+  view: ContractViewer,
+) {
+  const isTradeCompleted = !!releaseTxId || (!!batchInfo && !batchInfo.completed)
+  if (view === 'seller') {
+    return tradeFields.seller[isTradeCompleted ? 'past' : 'active'][isCashTrade(paymentMethod) ? 'cash' : 'default']
+  }
+
+  if (isTradeCompleted) {
+    return tradeFields.buyer.past[isCashTrade(paymentMethod) ? 'cash' : 'default']
+  }
+
+  return isCashTrade(paymentMethod)
+    ? tradeFields.buyer.active.cash
+    : tradeFields.buyer.active.default[paymentMethod] || []
 }

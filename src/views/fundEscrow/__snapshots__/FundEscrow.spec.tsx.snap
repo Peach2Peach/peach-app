@@ -1,94 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FundEscrow should render the FundEscrow view 1`] = `
-<View
-  style={
-    {
-      "height": "100%",
-    }
-  }
+<Screen
+  header={<FundEscrowHeader />}
 >
   <ForwardRef
-    contentContainerStyle={
+    contentStyle={
       {
-        "justifyContent": "center",
-        "paddingLeft": 28,
-        "paddingRight": 28,
-      }
-    }
-    style={
-      {
-        "flexShrink": 1,
-        "height": "100%",
+        "alignItems": "center",
+        "gap": 16,
       }
     }
   >
     <View
       style={
         {
-          "flexShrink": 1,
-          "gap": 16,
-          "height": "100%",
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "center",
         }
       }
     >
-      <View
+      <PeachText
         style={
           {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "gap": 4,
-            "justifyContent": "center",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 32,
+            "textTransform": "lowercase",
           }
         }
       >
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 32,
-              "textTransform": "lowercase",
-            }
+        send
+      </PeachText>
+      <BTCAmount
+        amount={100000}
+        size="medium"
+        style={
+          {
+            "marginTop": -2,
           }
-        >
-          send
-        </PeachText>
-        <BTCAmount
-          amount={100000}
-          size="medium"
-          style={
-            {
-              "marginTop": -2,
-            }
-          }
-        />
-        <CopyAble
-          textPosition="bottom"
-          value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-        />
-      </View>
-      <BitcoinAddress
-        address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-        amount={0.001}
-        label="Peach Escrow - offer P‑26"
+        }
+      />
+      <CopyAble
+        textPosition="bottom"
+        value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
       />
     </View>
+    <BitcoinAddress
+      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+      amount={0.001}
+      label="Peach Escrow - offer P‑26"
+    />
   </ForwardRef>
   <View
     style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "gap": 16,
-        "justifyContent": "center",
-        "paddingBottom": 16,
-        "paddingLeft": 28,
-        "paddingRight": 28,
-        "paddingTop": 16,
-        "width": "100%",
-      }
+      [
+        {
+          "alignItems": "center",
+          "gap": 16,
+          "justifyContent": "center",
+          "paddingBottom": 16,
+          "paddingTop": 16,
+        },
+      ]
     }
   >
     <View
@@ -125,17 +102,21 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         }
       />
     </View>
-    <Divider />
-    <PrimaryButton
-      border={true}
+    <HorizontalLine />
+    <Button
+      ghost={true}
       iconId="sell"
       onPress={[MockFunction]}
-      testID="escrow-fund"
+      textColor={
+        {
+          "color": "#F56522",
+        }
+      }
     >
       fund from peach wallet
-    </PrimaryButton>
+    </Button>
   </View>
-</View>
+</Screen>
 `;
 
 exports[`FundEscrow should show Loading, while escrow creation is pending 1`] = `
@@ -161,94 +142,71 @@ exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOO
 `;
 
 exports[`FundEscrow should show funded from peach wallet, if funded from peach wallet 1`] = `
-<View
-  style={
-    {
-      "height": "100%",
-    }
-  }
+<Screen
+  header={<FundEscrowHeader />}
 >
   <ForwardRef
-    contentContainerStyle={
+    contentStyle={
       {
-        "justifyContent": "center",
-        "paddingLeft": 28,
-        "paddingRight": 28,
-      }
-    }
-    style={
-      {
-        "flexShrink": 1,
-        "height": "100%",
+        "alignItems": "center",
+        "gap": 16,
       }
     }
   >
     <View
       style={
         {
-          "flexShrink": 1,
-          "gap": 16,
-          "height": "100%",
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "center",
         }
       }
     >
-      <View
+      <PeachText
         style={
           {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "gap": 4,
-            "justifyContent": "center",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 32,
+            "textTransform": "lowercase",
           }
         }
       >
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 32,
-              "textTransform": "lowercase",
-            }
+        send
+      </PeachText>
+      <BTCAmount
+        amount={100000}
+        size="medium"
+        style={
+          {
+            "marginTop": -2,
           }
-        >
-          send
-        </PeachText>
-        <BTCAmount
-          amount={100000}
-          size="medium"
-          style={
-            {
-              "marginTop": -2,
-            }
-          }
-        />
-        <CopyAble
-          textPosition="bottom"
-          value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-        />
-      </View>
-      <BitcoinAddress
-        address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-        amount={0.001}
-        label="Peach Escrow - offer P‑26"
+        }
+      />
+      <CopyAble
+        textPosition="bottom"
+        value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
       />
     </View>
+    <BitcoinAddress
+      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+      amount={0.001}
+      label="Peach Escrow - offer P‑26"
+    />
   </ForwardRef>
   <View
     style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-        "gap": 16,
-        "justifyContent": "center",
-        "paddingBottom": 16,
-        "paddingLeft": 28,
-        "paddingRight": 28,
-        "paddingTop": 16,
-        "width": "100%",
-      }
+      [
+        {
+          "alignItems": "center",
+          "gap": 16,
+          "justifyContent": "center",
+          "paddingBottom": 16,
+          "paddingTop": 16,
+        },
+      ]
     }
   >
     <View
@@ -285,22 +243,17 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
         }
       />
     </View>
-    <Divider />
+    <HorizontalLine />
     <TradeInfo
       IconComponent={
         <Icon
-          color="#05A85A"
+          color="#65A519"
           id="checkCircle"
-          style={
-            {
-              "height": 16,
-              "width": 16,
-            }
-          }
+          size={16}
         />
       }
       text="funded from peach wallet"
     />
   </View>
-</View>
+</Screen>
 `;

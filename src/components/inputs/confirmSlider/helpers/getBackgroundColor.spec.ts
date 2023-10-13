@@ -10,7 +10,7 @@ describe('getBackgroundColor', () => {
     expect(getBackgroundColor(pan)).toBe(bg)
     expect(pan.interpolate).toHaveBeenCalledWith({
       inputRange: [0, 0.8, 1],
-      outputRange: ['#F56522', '#F56522', '#05A85A'],
+      outputRange: ['#F56522', '#F56522', '#65A519'],
     })
   })
 })

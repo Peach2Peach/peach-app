@@ -17,7 +17,7 @@ import { DisputeForm } from './dispute/DisputeForm'
 import { DisputeReasonSelector } from './dispute/DisputeReasonSelector'
 import { FundEscrow } from './fundEscrow/FundEscrow'
 import { NewUser } from './newUser/NewUser'
-import { OfferDetails } from './offerDetails/OfferDetails'
+import { CanceledOfferDetails } from './offerDetails/CanceledOfferDetails'
 import { GroupHugAnnouncement } from './overlays/GroupHugAnnouncement'
 import { NewBadge } from './overlays/NewBadge'
 import { PublicProfile } from './publicProfile/PublicProfile'
@@ -41,16 +41,14 @@ import { BackupCreated } from './settings/components/backups/BackupCreated'
 import { Currency } from './settings/Currency'
 import { Language } from './settings/Language'
 import { NetworkFees } from './settings/NetworkFees'
+import { NodeSetup } from './settings/NodeSetup'
 import { PayoutAddress } from './settings/PayoutAddress'
 import { MyProfile } from './settings/profile/MyProfile'
 import { Settings } from './settings/Settings'
 import { TransactionBatching } from './settings/TransactionBatching'
-import { TestViewButtons } from './TestView/buttons'
-import { TestViewComponents } from './TestView/components'
-import { TestViewMessages } from './TestView/messages'
+
 import { TestViewPeachWallet } from './TestView/peachWallet'
 import { TestViewPNs } from './TestView/pns'
-import { TestViewPopups } from './TestView/popups'
 import { TestView } from './TestView/TestView'
 import { TradeComplete } from './tradeComplete/TradeComplete'
 import { AddressChecker } from './wallet/AddressChecker'
@@ -70,22 +68,18 @@ import { YourTrades } from './yourTrades/YourTrades'
 type ViewType = {
   name: keyof RootStackParamList
   component: () => JSX.Element
-  showHeader: boolean
-  showFooter: boolean
   background: BackgroundConfig
   animationEnabled: boolean
+  headerShown?: boolean
 }
 
 const onboardingConfig = {
-  showHeader: true,
-  showFooter: false,
   background: { color: 'primaryGradient' },
   animationEnabled: false,
+  headerShown: true,
 } as const
-const defaultConfig = { showHeader: true, showFooter: true, background: { color: undefined }, animationEnabled: true }
+const defaultConfig = { background: { color: undefined }, animationEnabled: true }
 const invertedThemeConfig = {
-  showHeader: false,
-  showFooter: false,
   background: { color: 'primaryGradient' },
   animationEnabled: false,
 } as const
@@ -101,20 +95,20 @@ const onboarding: ViewType[] = [
 const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
 
 const wallet: ViewType[] = [
-  { name: 'wallet', component: Wallet, ...defaultConfig, showHeader: false, animationEnabled: false },
-  { name: 'sendBitcoin', component: SendBitcoin, ...defaultConfig, showHeader: false },
-  { name: 'receiveBitcoin', component: ReceiveBitcoin, ...defaultConfig, showHeader: false },
-  { name: 'addressChecker', component: AddressChecker, ...defaultConfig, showHeader: false },
-  { name: 'coinSelection', component: CoinSelection, ...defaultConfig, showHeader: false },
-  { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig, showHeader: false },
-  { name: 'exportTransactionHistory', component: ExportTransactionHistory, ...defaultConfig, showHeader: false },
+  { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },
+  { name: 'sendBitcoin', component: SendBitcoin, ...defaultConfig },
+  { name: 'receiveBitcoin', component: ReceiveBitcoin, ...defaultConfig },
+  { name: 'addressChecker', component: AddressChecker, ...defaultConfig },
+  { name: 'coinSelection', component: CoinSelection, ...defaultConfig },
+  { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
+  { name: 'exportTransactionHistory', component: ExportTransactionHistory, ...defaultConfig },
   { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
   { name: 'bumpNetworkFees', component: BumpNetworkFees, ...defaultConfig },
 ]
 const buyFlow: ViewType[] = [
   { name: 'buy', component: Buy, ...defaultConfig, animationEnabled: false },
   { name: 'buyPreferences', component: PaymentMethods, ...defaultConfig },
-  { name: 'buySummary', component: BuySummary, ...defaultConfig, showHeader: false },
+  { name: 'buySummary', component: BuySummary, ...defaultConfig },
   { name: 'signMessage', component: SignMessage, ...defaultConfig },
 ]
 
@@ -141,32 +135,25 @@ const trade: ViewType[] = [
 ]
 
 const tradeHistory: ViewType[] = [
-  { name: 'yourTrades', component: YourTrades, ...defaultConfig, animationEnabled: false, showHeader: false },
-  { name: 'offer', component: OfferDetails, ...defaultConfig },
-  { name: 'exportTradeHistory', component: ExportTradeHistory, ...defaultConfig, showHeader: false },
+  { name: 'yourTrades', component: YourTrades, ...defaultConfig, animationEnabled: false },
+  { name: 'offer', component: CanceledOfferDetails, ...defaultConfig },
+  { name: 'exportTradeHistory', component: ExportTradeHistory, ...defaultConfig },
 ]
 
 const contact = (hasAccount: boolean): ViewType[] =>
   hasAccount
     ? [
-      { name: 'contact', component: Contact, ...defaultConfig, showFooter: hasAccount },
-      { name: 'report', component: Report, ...defaultConfig, showFooter: hasAccount },
+      { name: 'contact', component: Contact, ...defaultConfig },
+      { name: 'report', component: Report, ...defaultConfig },
       { name: 'disputeReasonSelector', component: DisputeReasonSelector, ...defaultConfig },
       { name: 'disputeForm', component: DisputeForm, ...defaultConfig },
     ]
     : [
-      { name: 'contact', component: Contact, ...defaultConfig, showFooter: false },
-      { name: 'report', component: Report, ...defaultConfig, showFooter: false },
+      { name: 'contact', component: Contact, ...defaultConfig },
+      { name: 'report', component: Report, ...defaultConfig },
     ]
 
-const publicProfile: ViewType[] = [
-  {
-    name: 'publicProfile',
-    component: PublicProfile,
-    ...defaultConfig,
-    showHeader: false,
-  },
-]
+const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile, ...defaultConfig }]
 
 const overlays: ViewType[] = [
   { name: 'offerPublished', component: OfferPublished, ...invertedThemeConfig },
@@ -177,7 +164,7 @@ const overlays: ViewType[] = [
 const settings: ViewType[] = [
   { name: 'settings', component: Settings, ...defaultConfig, animationEnabled: false },
   { name: 'aboutPeach', component: AboutPeach, ...defaultConfig },
-  { name: 'myProfile', component: MyProfile, ...defaultConfig, showHeader: false },
+  { name: 'myProfile', component: MyProfile, ...defaultConfig },
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
   { name: 'selectCurrency', component: SelectCurrency, ...defaultConfig },
   { name: 'selectPaymentMethod', component: SelectPaymentMethod, ...defaultConfig },
@@ -187,9 +174,10 @@ const settings: ViewType[] = [
   { name: 'currency', component: Currency, ...defaultConfig },
   { name: 'language', component: Language, ...defaultConfig },
   { name: 'referrals', component: Referrals, ...defaultConfig },
-  { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
-  { name: 'backups', component: Backups, ...defaultConfig },
+  { name: 'backupTime', component: BackupTime, ...invertedThemeConfig },
+  { name: 'backups', component: Backups, ...defaultConfig, headerShown: true },
   { name: 'backupCreated', component: BackupCreated, ...invertedThemeConfig },
+  { name: 'nodeSetup', component: NodeSetup, ...defaultConfig },
   { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },
@@ -201,10 +189,7 @@ const settings: ViewType[] = [
 const testViews: ViewType[] = [
   { name: 'testView', component: TestView, ...defaultConfig },
   { name: 'testViewPeachWallet', component: TestViewPeachWallet, ...defaultConfig },
-  { name: 'testViewButtons', component: TestViewButtons, ...defaultConfig },
-  { name: 'testViewPopups', component: TestViewPopups, ...defaultConfig },
-  { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },
-  { name: 'testViewComponents', component: TestViewComponents, ...defaultConfig },
+
   { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
 ]
 

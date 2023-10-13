@@ -21,7 +21,7 @@ export type ButtonProps = {
 } & TouchableOpacityProps
 
 /** @deprecated Use NewButton instead */
-export const Button = (props: ButtonProps) => {
+export const OldButton = (props: ButtonProps) => {
   const { wide, children, iconId, narrow, color, textColor, borderColor, loading, ...pressableProps } = props
   const width = iconId && !children ? tw`w-14` : wide ? tw`w-57` : narrow ? tw`w-39` : undefined
   const iconSize = loading ? tw`w-5 h-5` : !children ? tw`w-6 h-6` : tw`w-4 h-4`
@@ -59,14 +59,16 @@ type Props = {
   ghost?: boolean
   textColor?: TextStyle
   children: ReactNode
+  loading?: boolean
 } & TouchableOpacityProps
 
 /** This button is intented to replace the base layer + the primary button component due to its greater simplicity */
-export const NewButton = ({
+export const Button = ({
   iconId,
   ghost,
   textColor = tw`text-primary-background-light`,
   children,
+  loading,
   ...touchableOpacityProps
 }: Props) => {
   const isMediumScreen = useIsMediumScreen()
@@ -74,13 +76,15 @@ export const NewButton = ({
   return (
     <TouchableOpacity
       {...touchableOpacityProps}
+      disabled={touchableOpacityProps.disabled || loading}
       style={[
-        tw`bg-primary-main`,
+        tw`bg-primary-main min-w-26`,
+        tw.md`min-w-32`,
         touchableOpacityProps.style,
         tw`flex-row items-center justify-center h-8 gap-2 px-6 rounded-full`,
         tw.md`h-10 px-8`,
         touchableOpacityProps.disabled && tw`opacity-33`,
-        ghost && tw`border-2`,
+        ghost && tw`bg-transparent border-2`,
         { borderColor: ghost ? textColor?.color : undefined },
       ]}
     >
@@ -88,7 +92,11 @@ export const NewButton = ({
         {children}
       </Text>
 
-      {!!iconId && <Icon id={iconId} size={isMediumScreen ? 18 : 14} color={textColor?.color} />}
+      {loading ? (
+        <Loading style={[tw`h-14px w-14px`, tw.md`h-18px w-18px`]} color={textColor?.color} />
+      ) : (
+        !!iconId && <Icon id={iconId} size={isMediumScreen ? 18 : 14} color={textColor?.color} />
+      )}
     </TouchableOpacity>
   )
 }

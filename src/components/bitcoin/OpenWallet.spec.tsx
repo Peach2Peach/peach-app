@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent, render } from 'test-utils'
 import { openInWallet } from '../../utils/bitcoin'
 import { OpenWallet } from './OpenWallet'
 

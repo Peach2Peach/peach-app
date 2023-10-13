@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Mempool renders correctly 1`] = `
-<PeachText>
-  When you make a bitcoin transaction, it doesn't immediately get processed.
-
-Instead, they are first put in a list of unconfirmed transactions called the "mempool". The transactions that pay the highest fee will be processed first.
-</PeachText>
-`;

@@ -2,10 +2,9 @@ import { Linking, View } from 'react-native'
 
 import tw from '../../../styles/tailwind'
 
-import { OptionButton } from '../../../components'
-import { useHeaderSetup } from '../../../hooks'
+import { OptionButton, Screen } from '../../../components'
+import { DISCORD, INSTAGRAM, NOSTR, TELEGRAM, TWITCH, TWITTER, YOUTUBE } from '../../../constants'
 import i18n from '../../../utils/i18n'
-import { DISCORD, INSTAGRAM, TELEGRAM, TWITCH, TWITTER } from '../../../constants'
 
 const socials = [
   { name: 'twitter', url: TWITTER },
@@ -13,18 +12,18 @@ const socials = [
   { name: 'telegram', url: TELEGRAM },
   { name: 'discord', url: DISCORD },
   { name: 'twitch', url: TWITCH },
+  { name: 'youtube', url: YOUTUBE },
+  { name: 'nostr', url: NOSTR },
 ]
 
-export const Socials = () => {
-  useHeaderSetup(i18n('settings.socials.subtitle'))
-
-  return (
-    <View style={tw`items-center justify-center flex-1`}>
+export const Socials = () => (
+  <Screen header={i18n('settings.socials.subtitle')}>
+    <View style={tw`items-center justify-center grow`}>
       {socials.map(({ name, url }) => (
         <OptionButton key={name} onPress={() => Linking.openURL(url)} style={tw`mt-2`} wide>
           {i18n(name)}
         </OptionButton>
       ))}
     </View>
-  )
-}
+  </Screen>
+)

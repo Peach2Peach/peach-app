@@ -1,95 +1,96 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Rate should render correctly 1`] = `
-<View>
+<View
+  style={
+    {
+      "gap": 12,
+    }
+  }
+>
   <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
-      [
-        {
-          "marginBottom": 16,
-        },
-        false,
-      ]
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FFFCFA",
+        "borderColor": undefined,
+        "borderRadius": 9999,
+        "flexDirection": "row",
+        "gap": 8,
+        "height": 40,
+        "justifyContent": "center",
+        "minWidth": 128,
+        "opacity": 1,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      }
     }
   >
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+    <Text
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      numberOfLines={1}
       style={
-        {
-          "alignItems": "center",
-          "backgroundColor": "#FFFCFA",
-          "borderRadius": 9999,
-          "flexDirection": "row",
-          "height": 40,
-          "justifyContent": "center",
-          "opacity": 1,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-        }
-      }
-    >
-      <Text
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
           [
             {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 13,
+              "letterSpacing": 0.47,
+              "lineHeight": 22,
+              "textTransform": "uppercase",
             },
-            [
-              {
-                "color": "#F56522",
-              },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
-                "lineHeight": 24,
-                "minWidth": 96,
-                "paddingLeft": 8,
-                "paddingRight": 8,
-                "textAlign": "center",
-                "textTransform": "uppercase",
-              },
-            ],
-            false,
-          ]
-        }
-      >
-        rate & finish
-      </Text>
-    </View>
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 15,
+              "letterSpacing": 0.54,
+              "lineHeight": 26,
+              "textTransform": "uppercase",
+            },
+            {
+              "color": "#F56522",
+            },
+          ],
+          false,
+        ]
+      }
+    >
+      rate & finish
+    </Text>
   </View>
   <View
     accessibilityState={
@@ -122,15 +123,18 @@ exports[`Rate should render correctly 1`] = `
     style={
       {
         "alignItems": "center",
+        "backgroundColor": "transparent",
         "borderColor": "#FFFCFA",
         "borderRadius": 9999,
         "borderWidth": 2,
         "flexDirection": "row",
+        "gap": 8,
         "height": 40,
         "justifyContent": "center",
+        "minWidth": 128,
         "opacity": 1,
-        "paddingLeft": 16,
-        "paddingRight": 16,
+        "paddingLeft": 32,
+        "paddingRight": 32,
       }
     }
   >
@@ -149,18 +153,21 @@ exports[`Rate should render correctly 1`] = `
           },
           [
             {
-              "color": "#FFFCFA",
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 13,
+              "letterSpacing": 0.47,
+              "lineHeight": 22,
+              "textTransform": "uppercase",
             },
             {
               "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 14,
-              "letterSpacing": 0.5,
-              "lineHeight": 24,
-              "minWidth": 96,
-              "paddingLeft": 8,
-              "paddingRight": 8,
-              "textAlign": "center",
+              "fontSize": 15,
+              "letterSpacing": 0.54,
+              "lineHeight": 26,
               "textTransform": "uppercase",
+            },
+            {
+              "color": "#FFFCFA",
             },
           ],
           false,

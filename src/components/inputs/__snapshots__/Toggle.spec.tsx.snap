@@ -1,15 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Toggle renders correctly when enabled 1`] = `
+exports[`Toggle renders correctly when disabled 1`] = `
 <TouchableOpacity
-  activeOpacity={0.2}
-  delayLongPress={600}
-  extraButtonProps={
-    {
-      "exclusive": true,
-      "rippleColor": "transparent",
-    }
-  }
+  disabled={true}
   onPress={[MockFunction]}
   style={
     [
@@ -19,6 +12,9 @@ exports[`Toggle renders correctly when enabled 1`] = `
         "gap": 16,
       },
       {
+        "opacity": 0.33,
+      },
+      {
         "marginTop": 16,
       },
     ]
@@ -26,13 +22,57 @@ exports[`Toggle renders correctly when enabled 1`] = `
 >
   <PeachText
     style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
+          "textTransform": "lowercase",
+        },
+        undefined,
+      ]
+    }
+  >
+    label
+  </PeachText>
+  <Icon
+    color="#9F8C82"
+    id="toggleLeft"
+    size={32}
+  />
+</TouchableOpacity>
+`;
+
+exports[`Toggle renders correctly when enabled 1`] = `
+<TouchableOpacity
+  onPress={[MockFunction]}
+  style={
+    [
       {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 20,
-        "letterSpacing": 0.2,
-        "lineHeight": 32,
-        "textTransform": "lowercase",
-      }
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 16,
+      },
+      undefined,
+      {
+        "marginTop": 16,
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
+          "textTransform": "lowercase",
+        },
+        undefined,
+      ]
     }
   >
     label
@@ -47,14 +87,6 @@ exports[`Toggle renders correctly when enabled 1`] = `
 
 exports[`Toggle renders correctly when not enabled 1`] = `
 <TouchableOpacity
-  activeOpacity={0.2}
-  delayLongPress={600}
-  extraButtonProps={
-    {
-      "exclusive": true,
-      "rippleColor": "transparent",
-    }
-  }
   onPress={[MockFunction]}
   style={
     [
@@ -64,18 +96,22 @@ exports[`Toggle renders correctly when not enabled 1`] = `
         "gap": 16,
       },
       undefined,
+      undefined,
     ]
   }
 >
   <PeachText
     style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 20,
-        "letterSpacing": 0.2,
-        "lineHeight": 32,
-        "textTransform": "lowercase",
-      }
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
+          "textTransform": "lowercase",
+        },
+        undefined,
+      ]
     }
   >
     label

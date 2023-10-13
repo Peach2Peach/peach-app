@@ -32,5 +32,5 @@ export const postBuyOffer = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return parseResponse<PostOfferResponseBody>(response, 'postOffer')
+  return parseResponse<BuyOffer>(response, 'postOffer')
 }

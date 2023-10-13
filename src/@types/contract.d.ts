@@ -16,7 +16,6 @@ type Contract = {
   buyer: User
 
   symmetricKeyEncrypted: string
-  symmetricKey?: string
   symmetricKeySignature: string
 
   amount: number
@@ -29,7 +28,6 @@ type Contract = {
   premium: number
   paymentMethod: PaymentMethod
   paymentDataEncrypted?: string
-  paymentData?: PaymentData
   paymentDataSignature?: string
 
   paymentMade: Date | null
@@ -69,6 +67,7 @@ type Contract = {
 
   messages: number
   unreadMessages: number
+  isChatActive: boolean
 }
 
 type LocalContract = {

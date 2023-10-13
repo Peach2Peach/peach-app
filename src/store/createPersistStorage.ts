@@ -1,7 +1,7 @@
 import { MMKVInstance } from 'react-native-mmkv-storage'
 import { createJSONStorage } from 'zustand/middleware'
 import { error } from '../utils/log'
-import { dateTimeReviver } from '../utils/system'
+import { dateTimeReviver } from '../utils/system/dateTimeReviver'
 
 export const createPersistStorage = <T>(storage: MMKVInstance) =>
   createJSONStorage<T>(() => ({
