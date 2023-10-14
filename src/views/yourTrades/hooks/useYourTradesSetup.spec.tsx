@@ -1,5 +1,5 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { renderHook, waitFor } from 'test-utils'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/CustomWrapper'
 import { useYourTradesSetup } from './useYourTradesSetup'
 
 const useRouteMock = jest.fn(() => ({

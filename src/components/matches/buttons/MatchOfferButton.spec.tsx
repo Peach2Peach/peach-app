@@ -1,8 +1,8 @@
-import { MatchOfferButton } from './MatchOfferButton'
-import { render, act, fireEvent } from '@testing-library/react-native'
+import { act, fireEvent, render } from 'test-utils'
 import i18n from '../../../utils/i18n'
-import { options } from './options'
 import { useMatchStore } from '../store'
+import { MatchOfferButton } from './MatchOfferButton'
+import { options } from './options'
 
 describe('MatchOfferButton', () => {
   const matchOffer = jest.fn()

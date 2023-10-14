@@ -1,9 +1,9 @@
 /* eslint-disable max-lines-per-function */
-import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../tests/unit/data/accountData'
 import { sellOffer } from '../../tests/unit/data/offerData'
 import { offerSummary } from '../../tests/unit/data/offerSummaryData'
-import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/CustomWrapper'
 import { getTransactionDetails } from '../../tests/unit/helpers/getTransactionDetails'
 import { MSINAMINUTE } from '../constants'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'

@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
 import { UserExistsForDevice } from './UserExistsForDevice'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
 
 const useRouteMock = jest.fn().mockReturnValue({
   params: {},
@@ -11,7 +10,7 @@ jest.mock('../../hooks/useRoute', () => ({
 
 describe('UserExistsForDevice', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(<UserExistsForDevice />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<UserExistsForDevice />)
     expect(toJSON()).toMatchSnapshot()
   })
 })

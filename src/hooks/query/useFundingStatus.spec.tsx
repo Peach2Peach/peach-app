@@ -1,10 +1,10 @@
 /* eslint-disable max-lines-per-function */
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { renderHook, waitFor } from 'test-utils'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { queryClient, QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultFundingStatus } from '../../utils/offer/constants'
 import { useFundingStatus } from './useFundingStatus'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 
 const defaultFundingStatusResponse = { funding: defaultFundingStatus, userConfirmationRequired: false }
 const inMempool = {
@@ -24,10 +24,7 @@ describe('useFundingStatus', () => {
   it('fetches funding status from API', async () => {
     getFundingStatusMock.mockResolvedValueOnce([inMempool])
 
-    const { result } = renderHook(useFundingStatus, {
-      wrapper: QueryClientWrapper,
-      initialProps: sellOffer.id,
-    })
+    const { result } = renderHook(useFundingStatus, { initialProps: sellOffer.id })
 
     expect(result.current).toEqual({
       fundingStatus: defaultFundingStatus,
@@ -48,10 +45,7 @@ describe('useFundingStatus', () => {
   it('returns default funding status if API does not return one', async () => {
     getFundingStatusMock.mockResolvedValueOnce([null, unauthorizedError])
 
-    const { result } = renderHook(useFundingStatus, {
-      wrapper: QueryClientWrapper,
-      initialProps: sellOffer.id,
-    })
+    const { result } = renderHook(useFundingStatus, { initialProps: sellOffer.id })
 
     expect(result.current).toEqual({
       fundingStatus: defaultFundingStatus,

@@ -1,10 +1,9 @@
-import { act, renderHook } from '@testing-library/react-native'
 import { RefObject } from 'react'
 import Carousel from 'react-native-snap-carousel'
-import { NavigationWrapper, headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { act, renderHook } from 'test-utils'
+import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useWelcomeSetup } from './useWelcomeSetup'
 
-const wrapper = NavigationWrapper
 type CarouselType = Carousel<() => JSX.Element>
 
 describe('useWelcomeSetup', () => {
@@ -16,11 +15,11 @@ describe('useWelcomeSetup', () => {
   }
   const initialProps = { carousel: { current: null } }
   it('should set up header correctly', () => {
-    renderHook(useWelcomeSetup, { wrapper, initialProps })
+    renderHook(useWelcomeSetup, { initialProps })
     expect(headerState.header()).toMatchSnapshot()
   })
   it('returns defaults', () => {
-    const { result } = renderHook(useWelcomeSetup, { wrapper, initialProps })
+    const { result } = renderHook(useWelcomeSetup, { initialProps })
     expect(result.current).toEqual({
       endReached: false,
       progress: 0.2,
@@ -31,7 +30,7 @@ describe('useWelcomeSetup', () => {
     })
   })
   it('sets page', () => {
-    const { result } = renderHook(useWelcomeSetup, { wrapper, initialProps })
+    const { result } = renderHook(useWelcomeSetup, { initialProps })
     act(() => {
       result.current.setPage(2)
     })
@@ -39,7 +38,7 @@ describe('useWelcomeSetup', () => {
     expect(result.current.progress).toEqual(0.6)
   })
   it('should return endReached true if last page is reached', () => {
-    const { result } = renderHook(useWelcomeSetup, { wrapper, initialProps })
+    const { result } = renderHook(useWelcomeSetup, { initialProps })
     act(() => {
       result.current.setPage(4)
     })
@@ -49,7 +48,6 @@ describe('useWelcomeSetup', () => {
   })
   it('should go to next', () => {
     const { result } = renderHook(useWelcomeSetup, {
-      wrapper,
       initialProps: { carousel: carousel as RefObject<CarouselType> },
     })
     act(() => {
@@ -59,7 +57,6 @@ describe('useWelcomeSetup', () => {
   })
   it('should go to end', () => {
     const { result } = renderHook(useWelcomeSetup, {
-      wrapper,
       initialProps: { carousel: carousel as RefObject<CarouselType> },
     })
     act(() => {

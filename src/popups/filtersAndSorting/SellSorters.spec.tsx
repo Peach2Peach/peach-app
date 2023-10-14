@@ -1,10 +1,10 @@
-import { SellSorters } from './SellSorters'
-import { render, fireEvent, waitFor } from '@testing-library/react-native'
+import { fireEvent, render, waitFor } from 'test-utils'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePopupStore } from '../../store/usePopupStore'
-import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { SellSorters } from './SellSorters'
 
 jest.useFakeTimers()
 

@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent, render } from 'test-utils'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { MeetupPaymentMethods } from './MeetupPaymentMethods'
 

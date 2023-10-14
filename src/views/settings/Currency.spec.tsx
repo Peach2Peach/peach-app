@@ -1,10 +1,9 @@
-import { render } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { render } from 'test-utils'
 import { Currency } from './Currency'
 
 describe('Currency', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(<Currency />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<Currency />)
     expect(toJSON()).toMatchSnapshot()
   })
 })

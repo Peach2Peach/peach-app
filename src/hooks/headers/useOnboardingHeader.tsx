@@ -1,5 +1,5 @@
+import { useDrawerState } from '../../components/drawer/useDrawerState'
 import { HeaderConfig } from '../../components/header/Header'
-import { useDrawerContext } from '../../contexts/drawer'
 import { LanguageSelect } from '../../drawers/LanguageSelect'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -9,7 +9,7 @@ import { useNavigation } from '../useNavigation'
 
 export const useOnboardingHeader = (config: HeaderConfig) => {
   const navigation = useNavigation()
-  const [, updateDrawer] = useDrawerContext()
+  const updateDrawer = useDrawerState((state) => state.updateDrawer)
   const { locale, setLocale, saveLocale } = useLanguage()
 
   const openLanguageDrawer = () => {

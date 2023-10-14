@@ -1,5 +1,5 @@
+import { render } from 'test-utils'
 import { WelcomeInfo } from './WelcomeInfo'
-import { render } from '@testing-library/react-native'
 
 describe('WelcomeInfo - peachOfMind', () => {
   it('renders correctly', () => {

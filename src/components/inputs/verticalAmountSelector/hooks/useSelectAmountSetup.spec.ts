@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react-native'
-import { useSelectAmountSetup } from './useSelectAmountSetup'
 import { Keyboard, LayoutChangeEvent } from 'react-native'
+import { act, renderHook } from 'test-utils'
+import { useSelectAmountSetup } from './useSelectAmountSetup'
 
 describe('useSelectAmountSetup', () => {
   const min = 50000

@@ -1,9 +1,9 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
 import { LocalUtxo, OutPoint, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { KeychainKind } from 'bdk-rn/lib/lib/enums'
+import { renderHook, waitFor } from 'test-utils'
 import { confirmed1 } from '../../../../tests/unit/data/transactionDetailData'
-import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { getUTXOId } from '../../../utils/wallet'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -28,7 +28,7 @@ describe('useUTXOs', () => {
   })
 
   it('should unspent transaction outputs', async () => {
-    const { result } = renderHook(useUTXOs, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useUTXOs)
 
     await waitFor(() => {
       expect(result.current.data).toEqual([utxo])
@@ -37,7 +37,7 @@ describe('useUTXOs', () => {
 
   it('should return selected utxos', async () => {
     useWalletState.setState({ selectedUTXOIds: [getUTXOId(utxo)] })
-    const { result } = renderHook(useUTXOs, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useUTXOs)
 
     await waitFor(() => {
       expect(result.current.selectedUTXOs).toEqual([utxo])
@@ -47,7 +47,7 @@ describe('useUTXOs', () => {
   it('should not get utxos if wallet is not initialized', async () => {
     // @ts-ignore
     peachWallet.wallet = undefined
-    renderHook(useUTXOs, { wrapper: QueryClientWrapper })
+    renderHook(useUTXOs)
 
     await waitFor(() => {
       expect(listUnspentMock).not.toHaveBeenCalled()
@@ -55,7 +55,7 @@ describe('useUTXOs', () => {
   })
 
   it('should update the query cache', async () => {
-    const { result } = renderHook(useUTXOs, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useUTXOs)
 
     await waitFor(() => {
       expect(result.current.data).toEqual([utxo])

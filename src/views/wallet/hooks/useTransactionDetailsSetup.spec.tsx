@@ -1,11 +1,11 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { buyOffer } from '../../../../tests/unit/data/offerData'
 import {
   pending1,
   pendingTransactionSummary,
   transactionWithRBF1,
 } from '../../../../tests/unit/data/transactionDetailData'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/CustomWrapper'
 import { saveOffer } from '../../../utils/offer'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useTransactionDetailsSetup } from './useTransactionDetailsSetup'

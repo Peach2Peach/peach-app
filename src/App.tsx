@@ -12,7 +12,6 @@ import tw from './styles/tailwind'
 import i18n, { LanguageContext } from './utils/i18n'
 import { getViews } from './views/getViews'
 
-import { defaultState, DrawerContext, setDrawer } from './contexts/drawer'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
@@ -46,7 +45,6 @@ const navTheme = {
 export const App = () => {
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const languageReducer = useReducer(i18n.setLocale, i18n.getState())
-  const drawerReducer = useReducer(setDrawer, defaultState)
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
@@ -140,24 +138,22 @@ export const App = () => {
           <LanguageContext.Provider value={languageReducer}>
             <PeachWSContext.Provider value={peachWS}>
               <MessageContext.Provider value={[messageState, updateMessage]}>
-                <DrawerContext.Provider value={drawerReducer}>
-                  <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
-                    <GlobalHandlers {...{ currentPage }} />
-                    <Background config={backgroundConfig}>
-                      <Drawer />
-                      <Popup />
+                <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
+                  <GlobalHandlers {...{ currentPage }} />
+                  <Background config={backgroundConfig}>
+                    <Drawer />
+                    <Popup />
 
-                      {!!messageState.msgKey && (
-                        <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
-                          <SafeAreaView>
-                            <Message {...messageState} />
-                          </SafeAreaView>
-                        </Animated.View>
-                      )}
-                      <Screens />
-                    </Background>
-                  </NavigationContainer>
-                </DrawerContext.Provider>
+                    {!!messageState.msgKey && (
+                      <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
+                        <SafeAreaView>
+                          <Message {...messageState} />
+                        </SafeAreaView>
+                      </Animated.View>
+                    )}
+                    <Screens />
+                  </Background>
+                </NavigationContainer>
               </MessageContext.Provider>
             </PeachWSContext.Provider>
           </LanguageContext.Provider>

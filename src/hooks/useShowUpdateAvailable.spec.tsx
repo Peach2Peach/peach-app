@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
-import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
+import { renderHook } from 'test-utils'
 import { APPVERSION } from '../constants'
 import { MessageContext, defaultMessageState } from '../contexts/message'
 import { useConfigStore } from '../store/configStore'

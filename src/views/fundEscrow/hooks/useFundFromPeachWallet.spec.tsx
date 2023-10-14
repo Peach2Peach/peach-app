@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
-import { renderHook } from '@testing-library/react-native'
 import { TxBuilder } from 'bdk-rn'
 import { act } from 'react-test-renderer'
+import { renderHook } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'

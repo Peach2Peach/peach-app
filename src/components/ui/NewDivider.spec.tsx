@@ -1,6 +1,6 @@
-import { NewDivider } from './NewDivider'
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
 import { Divider } from '../Divider'
+import { NewDivider } from './NewDivider'
 
 describe('NewDivider', () => {
   it('should render correctly', () => {

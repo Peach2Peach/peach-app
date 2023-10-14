@@ -1,5 +1,5 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { fireEvent, render } from 'test-utils'
 import i18n from '../../utils/i18n'
 import { Message } from './Message'
 

@@ -1,6 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { confirmedTransactionSummary } from '../../../tests/unit/data/transactionDetailData'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { TransactionDetails } from './TransactionDetails'
 
 const openInExplorerMock = jest.fn()

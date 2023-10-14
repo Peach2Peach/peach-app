@@ -1,5 +1,5 @@
+import { render } from 'test-utils'
 import { FixedHeightText } from './FixedHeightText'
-import { render } from '@testing-library/react-native'
 
 describe('FixedHeightText', () => {
   it('renders correctly', () => {

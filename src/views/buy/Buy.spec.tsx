@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { render } from 'test-utils'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { useBitcoinStore } from '../../store/bitcoinStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { Buy } from './Buy'

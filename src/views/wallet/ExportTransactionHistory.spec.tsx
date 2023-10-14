@@ -1,7 +1,7 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { fireEvent, render, waitFor } from 'test-utils'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { useWalletState } from '../../utils/wallet/walletStore'
 import { ExportTransactionHistory } from './ExportTransactionHistory'
 

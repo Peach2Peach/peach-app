@@ -1,8 +1,8 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
+import { fireEvent, render, waitFor } from 'test-utils'
 import { tradeSummary } from '../../../tests/unit/data/tradeSummaryData'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { ExportTradeHistory } from './ExportTradeHistory'
 
 const useTradeSummariesMock = jest.fn((): { tradeSummaries: (OfferSummary | ContractSummary)[] } => ({

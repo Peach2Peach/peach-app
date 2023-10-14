@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { sellOffer } from '../../tests/unit/data/offerData'
-import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/CustomWrapper'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
 import { Refund } from '../popups/Refund'
 import { useSettingsStore } from '../store/settingsStore'

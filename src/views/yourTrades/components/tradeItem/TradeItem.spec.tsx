@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
 import { account1 } from '../../../../../tests/unit/data/accountData'
-import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/CustomWrapper'
 import { updateAccount } from '../../../../utils/account'
 import { TradeItem } from './TradeItem'
 
@@ -30,7 +30,7 @@ describe('OfferItem', () => {
     const { toJSON } = render(<TradeItem item={defaultOffer} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should render correctly if it\'s a past offer', () => {
+  it("should render correctly if it's a past offer", () => {
     const { toJSON } = render(<TradeItem item={{ ...defaultOffer, tradeStatus: 'tradeCompleted' }} />, {
       wrapper,
     })

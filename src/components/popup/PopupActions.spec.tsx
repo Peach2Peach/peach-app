@@ -1,7 +1,7 @@
-import { PopupActions } from './PopupActions'
-import { render } from '@testing-library/react-native'
-import { PopupAction } from './PopupAction'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { render } from 'test-utils'
+import { PopupAction } from './PopupAction'
+import { PopupActions } from './PopupActions'
 expect.extend({ toMatchDiffSnapshot })
 
 describe('PopupActions', () => {

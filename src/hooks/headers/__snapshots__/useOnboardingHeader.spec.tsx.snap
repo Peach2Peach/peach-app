@@ -9,6 +9,8 @@ exports[`useOnboardingHeader allows overwriting values 1`] = `
 />
 `;
 
+exports[`useOnboardingHeader should open language select drawer 1`] = `<Drawer />`;
+
 exports[`useOnboardingHeader should set up the header correctly 1`] = `
 <OldHeader
   icons={

@@ -1,6 +1,6 @@
-import { usePaymentMethodLabel } from './usePaymentMethodLabel'
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
+import { usePaymentMethodLabel } from './usePaymentMethodLabel'
 
 describe('usePaymentMethodLabel', () => {
   it('should return a function', () => {

@@ -1,5 +1,5 @@
-import { render, waitFor } from '@testing-library/react-native'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { render, waitFor } from 'test-utils'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../utils/wallet/setWallet'

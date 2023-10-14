@@ -1,5 +1,5 @@
+import { render } from 'test-utils'
 import { PriceFormat } from './PriceFormat'
-import { render } from '@testing-library/react-native'
 
 describe('PriceFormat', () => {
   it('renders correctly', () => {

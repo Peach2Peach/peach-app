@@ -1,5 +1,5 @@
 import { CommonActions } from '@react-navigation/native'
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { deleteAccount } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'

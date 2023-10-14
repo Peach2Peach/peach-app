@@ -1,5 +1,5 @@
-import { act, renderHook } from '@testing-library/react-native'
-import { NavigationWrapper, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { act, renderHook } from 'test-utils'
+import { setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
@@ -27,15 +27,13 @@ jest.mock('../../../hooks/useGoToOrigin', () => ({
   useGoToOrigin: jest.fn(() => goToOriginMock),
 }))
 
-const wrapper = NavigationWrapper
-
 describe('usePaymentMethodFormSetup', () => {
   beforeEach(() => {
     setOptionsMock({ header: { title: '', icons: [] } })
     usePopupStore.setState(defaultPopupState)
   })
   it('should return paymentMethod, onSubmit, currencies, data', () => {
-    const { result } = renderHook(usePaymentMethodFormSetup, { wrapper })
+    const { result } = renderHook(usePaymentMethodFormSetup)
     expect(result.current).toEqual({
       onSubmit: expect.any(Function),
       data: {
@@ -48,7 +46,7 @@ describe('usePaymentMethodFormSetup', () => {
     })
   })
   it('should add the payment method when the form is submitted', () => {
-    const { result } = renderHook(usePaymentMethodFormSetup, { wrapper })
+    const { result } = renderHook(usePaymentMethodFormSetup)
     const paymentMethod = {
       id: '1',
       label: 'Revolut',
@@ -61,7 +59,7 @@ describe('usePaymentMethodFormSetup', () => {
     expect(usePaymentDataStore.getState().getPaymentData(paymentMethod.id)).toEqual(paymentMethod)
   })
   it('should automatically select the payment method', () => {
-    const { result } = renderHook(usePaymentMethodFormSetup, { wrapper })
+    const { result } = renderHook(usePaymentMethodFormSetup)
     useOfferPreferences.setState({ preferredPaymentMethods: {} })
     const paymentMethod = {
       id: '1',
@@ -75,7 +73,7 @@ describe('usePaymentMethodFormSetup', () => {
     expect(useOfferPreferences.getState().preferredPaymentMethods).toEqual({ revolut: '1' })
   })
   it('should go to the origin when the form is submitted', () => {
-    const { result } = renderHook(usePaymentMethodFormSetup, { wrapper })
+    const { result } = renderHook(usePaymentMethodFormSetup)
     act(() => {
       result.current.onSubmit({ id: '1', label: 'Revolut', type: 'revolut', currencies: ['EUR'] })
     })

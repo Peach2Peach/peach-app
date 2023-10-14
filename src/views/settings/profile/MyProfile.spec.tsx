@@ -1,7 +1,7 @@
-import { render, waitFor } from '@testing-library/react-native'
+import { render, waitFor } from 'test-utils'
 import { apiSuccess } from '../../../../tests/unit/data/peachAPIData'
 import { defaultSelfUser } from '../../../../tests/unit/data/userData'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/CustomWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { MyProfile } from './MyProfile'
 

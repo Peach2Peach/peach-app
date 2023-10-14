@@ -1,5 +1,5 @@
-import { renderHook } from '@testing-library/react-native'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { renderHook } from 'test-utils'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/CustomWrapper'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { MessageContext, defaultMessageState } from '../../../contexts/message'
 import { useSettingsStore } from '../../../store/settingsStore'

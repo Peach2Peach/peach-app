@@ -1,5 +1,5 @@
+import { render } from 'test-utils'
 import { Right } from './Right'
-import { render } from '@testing-library/react-native'
 
 describe('Right', () => {
   it('should render correctly with amount', () => {

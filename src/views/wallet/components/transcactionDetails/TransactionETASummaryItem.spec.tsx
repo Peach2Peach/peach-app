@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent, render } from 'test-utils'
 import { feeEstimates } from '../../../../../tests/unit/data/electrumData'
 import { bitcoinTransaction, pendingTransactionSummary } from '../../../../../tests/unit/data/transactionDetailData'
 import { placeholderFeeEstimates } from '../../../../hooks/query/useFeeEstimates'

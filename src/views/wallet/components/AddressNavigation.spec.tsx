@@ -1,6 +1,6 @@
-import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
-import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { act, fireEvent, render, waitFor } from 'test-utils'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { AddressNavigation } from './AddressNavigation'
@@ -22,15 +22,13 @@ describe('AddressNavigation', () => {
 
   it('should render correctly', () => {
     peachWallet.getLastUnusedAddress = getLastUnusedAddressMock
-    const { toJSON } = render(<AddressNavigation index={1} setIndex={jest.fn()} />, { wrapper: QueryClientWrapper })
+    const { toJSON } = render(<AddressNavigation index={1} setIndex={jest.fn()} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should update the index when the user clicks on the arrows', () => {
     peachWallet.getLastUnusedAddress = getLastUnusedAddressMock
     const setIndexMock = jest.fn()
-    const { UNSAFE_getByProps } = render(<AddressNavigation index={1} setIndex={setIndexMock} />, {
-      wrapper: QueryClientWrapper,
-    })
+    const { UNSAFE_getByProps } = render(<AddressNavigation index={1} setIndex={setIndexMock} />)
     const leftArrow = UNSAFE_getByProps({ id: 'arrowLeftCircle' })
     const rightArrow = UNSAFE_getByProps({ id: 'arrowRightCircle' })
 
@@ -47,9 +45,7 @@ describe('AddressNavigation', () => {
   it('should go to the last unused address when the user clicks on the chevrons', () => {
     peachWallet.getLastUnusedAddress = getLastUnusedAddressMock
     const setIndexMock = jest.fn()
-    const { UNSAFE_getByProps, rerender } = render(<AddressNavigation index={10} setIndex={setIndexMock} />, {
-      wrapper: QueryClientWrapper,
-    })
+    const { UNSAFE_getByProps, rerender } = render(<AddressNavigation index={10} setIndex={setIndexMock} />)
     const leftChevron = UNSAFE_getByProps({ id: 'chevronsLeft' })
 
     act(() => {
@@ -70,9 +66,7 @@ describe('AddressNavigation', () => {
       Promise.resolve({ address: `address-${index}`, index, used: false }),
     )
 
-    const { UNSAFE_getByProps } = render(<AddressNavigation index={1} setIndex={jest.fn()} />, {
-      wrapper: QueryClientWrapper,
-    })
+    const { UNSAFE_getByProps } = render(<AddressNavigation index={1} setIndex={jest.fn()} />)
     const rightArrow = UNSAFE_getByProps({ id: 'arrowRightCircle' })
     act(() => {
       fireEvent.press(rightArrow)
@@ -92,9 +86,7 @@ describe('AddressNavigation', () => {
       Promise.resolve({ address: `address-${index}`, index, used: false }),
     )
 
-    const { UNSAFE_getByProps } = render(<AddressNavigation index={3} setIndex={jest.fn()} />, {
-      wrapper: QueryClientWrapper,
-    })
+    const { UNSAFE_getByProps } = render(<AddressNavigation index={3} setIndex={jest.fn()} />)
     const leftArrow = UNSAFE_getByProps({ id: 'arrowLeftCircle' })
     act(() => {
       fireEvent.press(leftArrow)
@@ -110,9 +102,7 @@ describe('AddressNavigation', () => {
   })
   it('should only show the chevrons when the user is more than 2 addresses away from the last unused address', () => {
     peachWallet.getLastUnusedAddress = getLastUnusedAddressMock
-    const { toJSON, rerender } = render(<AddressNavigation index={5} setIndex={jest.fn()} />, {
-      wrapper: QueryClientWrapper,
-    })
+    const { toJSON, rerender } = render(<AddressNavigation index={5} setIndex={jest.fn()} />)
     const withoutChevrons = toJSON()
 
     rerender(<AddressNavigation index={3} setIndex={jest.fn()} />)

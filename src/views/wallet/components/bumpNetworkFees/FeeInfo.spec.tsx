@@ -1,5 +1,5 @@
-import { render } from '@testing-library/react-native'
 import ShallowRenderer from 'react-test-renderer/shallow'
+import { render } from 'test-utils'
 import { FeeInfo } from './FeeInfo'
 
 describe('FeeInfo', () => {

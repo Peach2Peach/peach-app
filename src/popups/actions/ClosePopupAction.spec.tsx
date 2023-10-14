@@ -1,7 +1,7 @@
-import { ClosePopupAction } from './ClosePopupAction'
-import { render, fireEvent } from '@testing-library/react-native'
-import { usePopupStore } from '../../store/usePopupStore'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { fireEvent, render } from 'test-utils'
+import { usePopupStore } from '../../store/usePopupStore'
+import { ClosePopupAction } from './ClosePopupAction'
 expect.extend({ toMatchDiffSnapshot })
 
 describe('ClosePopupAction', () => {

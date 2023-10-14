@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { useReferenceInput } from './useReferenceInput'
 
 describe('useReferenceInput', () => {

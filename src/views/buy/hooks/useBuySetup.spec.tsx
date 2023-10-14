@@ -1,6 +1,6 @@
-import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from 'test-utils'
 import { defaultSelfUser } from '../../../../tests/unit/data/userData'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/CustomWrapper'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { useBuySetup } from './useBuySetup'

@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import i18n from '../../../utils/i18n'
 import { useFileBackupOverviewSetup } from './useFileBackupOverviewSetup'
 

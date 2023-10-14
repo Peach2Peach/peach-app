@@ -1,6 +1,6 @@
-import { act, render, renderHook, waitFor } from '@testing-library/react-native'
+import { act, render, renderHook, waitFor } from 'test-utils'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/CustomWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { getOfferDetails } from '../../../utils/peachAPI'

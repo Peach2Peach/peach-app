@@ -1,6 +1,6 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import Share from 'react-native-share'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { fireEvent, render } from 'test-utils'
 import { InviteFriendsButton } from './InviteFriendsButton'
 
 describe('InviteFriendsButtonInviteFriendsButton', () => {

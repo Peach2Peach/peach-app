@@ -1,10 +1,9 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import { fireEvent, render, waitFor } from 'test-utils'
 import { balticHoneyBadger, belgianBTCEmbassy, breizhBitcoin, decouvreBTC } from '../../../tests/unit/data/eventData'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { navigateMock, pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { DrawerContext, defaultState } from '../../contexts/drawer'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
+import { defaultState, useDrawerState } from '../drawer/useDrawerState'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 
 jest.mock('../../hooks/useRoute', () => ({
@@ -23,22 +22,6 @@ jest.mock('../../utils/peachAPI/public/meetupEvents', () => ({
 jest.useFakeTimers()
 
 describe('AddPaymentMethodButton', () => {
-  const onCloseMock = jest.fn()
-  let drawer = { ...defaultState, onClose: onCloseMock }
-
-  const updateDrawer = jest.fn((newDrawer) => {
-    drawer = { ...drawer, ...newDrawer }
-  })
-  const DrawerContextWrapper = ({ children }: { children: JSX.Element }) => (
-    <DrawerContext.Provider value={[drawer, updateDrawer]}>{children}</DrawerContext.Provider>
-  )
-
-  const wrapper = ({ children }: { children: JSX.Element }) => (
-    <DrawerContextWrapper>
-      <NavigationAndQueryClientWrapper>{children}</NavigationAndQueryClientWrapper>
-    </DrawerContextWrapper>
-  )
-
   beforeEach(() => {
     useMeetupEventsStore.getState().setMeetupEvents([])
   })
@@ -47,7 +30,7 @@ describe('AddPaymentMethodButton', () => {
   })
 
   it('should render correctly', async () => {
-    const { toJSON } = render(<AddPaymentMethodButton isCash={false} />, { wrapper })
+    const { toJSON } = render(<AddPaymentMethodButton isCash={false} />)
     await waitFor(() => {
       expect(useMeetupEventsStore.getState().meetupEvents).toEqual(mockEvents)
     })
@@ -55,7 +38,7 @@ describe('AddPaymentMethodButton', () => {
   })
 
   it('should render correctly with isCash', async () => {
-    const { toJSON } = render(<AddPaymentMethodButton isCash />, { wrapper })
+    const { toJSON } = render(<AddPaymentMethodButton isCash />)
     await waitFor(() => {
       expect(useMeetupEventsStore.getState().meetupEvents).toEqual(mockEvents)
       jest.advanceTimersByTime(1000)
@@ -64,7 +47,7 @@ describe('AddPaymentMethodButton', () => {
   })
 
   it('should render correctly with isCash while still loading', async () => {
-    const { toJSON } = render(<AddPaymentMethodButton isCash />, { wrapper })
+    const { toJSON } = render(<AddPaymentMethodButton isCash />)
     expect(toJSON()).toMatchSnapshot()
     await waitFor(() => {
       expect(queryClient.getQueryState(['meetupEvents'])?.status).toBe('success')
@@ -73,71 +56,87 @@ describe('AddPaymentMethodButton', () => {
 
   it('should not update the drawer if meetupEvents are undefined', async () => {
     getMeetupEventsMock.mockResolvedValueOnce([null, { error: 'error' }])
-    const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
+    const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
     await waitFor(() => {
       expect(queryClient.getQueryState(['meetupEvents'])?.status).toBe('error')
     })
     fireEvent.press(getByText('add new cash option'))
-    expect(updateDrawer).not.toHaveBeenCalled()
+    expect(useDrawerState.getState()).toStrictEqual(expect.objectContaining(defaultState))
   })
 
   it('should update the drawer with the right parameters for cash trades', async () => {
-    const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
+    const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
     await waitFor(() => {
       expect(queryClient.getQueryState(['meetupEvents'])?.status).toBe('success')
     })
     fireEvent.press(getByText('add new cash option'))
-    expect(drawer.title).toBe('select country')
-    expect(drawer.show).toBe(true)
-    expect(drawer.options).toStrictEqual([
-      { flagID: 'BE', onPress: expect.any(Function), title: 'Belgium' },
-      { flagID: 'FR', onPress: expect.any(Function), title: 'France' },
-    ])
+    expect(useDrawerState.getState()).toStrictEqual(
+      expect.objectContaining({
+        title: 'select country',
+        show: true,
+        options: [
+          { flagID: 'BE', onPress: expect.any(Function), title: 'Belgium' },
+          { flagID: 'FR', onPress: expect.any(Function), title: 'France' },
+        ],
+      }),
+    )
   })
 
   it('should show the meetup select drawer after selecting a country', async () => {
-    const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
+    const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
     await waitFor(() => {
       expect(queryClient.getQueryState(['meetupEvents'])?.status).toBe('success')
     })
     fireEvent.press(getByText('add new cash option'))
-    drawer.options.find((e) => e.title === 'Belgium')?.onPress()
+    const onPress = useDrawerState.getState().options.find((e) => e.title === 'Belgium')?.onPress
+    onPress?.()
 
-    expect(drawer.title).toBe('select meetup')
-    expect(drawer.show).toBe(true)
-    expect(drawer.options).toStrictEqual([
-      {
-        highlighted: false,
-        onPress: expect.any(Function),
-        subtext: 'Antwerp',
-        title: 'Belgian Bitcoin Embassy',
-      },
-    ])
-    expect(drawer.previousDrawer?.title).toBe('select country')
-    expect(drawer.previousDrawer?.show).toBe(true)
-    expect(drawer.previousDrawer?.options).toStrictEqual([
-      { flagID: 'BE', onPress: expect.any(Function), title: 'Belgium' },
-      { flagID: 'FR', onPress: expect.any(Function), title: 'France' },
-    ])
+    expect(useDrawerState.getState()).toStrictEqual(
+      expect.objectContaining({
+        title: 'select meetup',
+        show: true,
+        options: [
+          {
+            highlighted: false,
+            onPress: expect.any(Function),
+            subtext: 'Antwerp',
+            title: 'Belgian Bitcoin Embassy',
+          },
+        ],
+        previousDrawer: expect.objectContaining({
+          title: 'select country',
+          show: true,
+          options: [
+            { flagID: 'BE', onPress: expect.any(Function), title: 'Belgium' },
+            { flagID: 'FR', onPress: expect.any(Function), title: 'France' },
+          ],
+        }),
+      }),
+    )
   })
 
   it('should navigate to the meetupScreen with the right parameters', async () => {
-    const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
+    const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
     await waitFor(() => {
       expect(queryClient.getQueryState(['meetupEvents'])?.status).toBe('success')
     })
     fireEvent.press(getByText('add new cash option'))
-    drawer.options.find((e) => e.title === 'Belgium')?.onPress()
-    drawer.options.find((e) => e.title === belgianBTCEmbassy.longName)?.onPress()
+    const onBelgiumPress = useDrawerState.getState().options.find((e) => e.title === 'Belgium')?.onPress
+    onBelgiumPress?.()
 
-    expect(drawer.show).toBe(false)
+    const onBelgianBTCEmbassyPress = useDrawerState
+      .getState()
+      .options.find((e) => e.title === belgianBTCEmbassy.longName)?.onPress
+    onBelgianBTCEmbassyPress?.()
+
+    expect(useDrawerState.getState().show).toBe(false)
     expect(pushMock).toHaveBeenCalledWith('meetupScreen', {
       eventId: belgianBTCEmbassy.id,
       origin: 'paymentMethods',
     })
   })
   it('should navigate to the addPaymentMethod screen with the right parameters for isCash false', () => {
-    const { getByText } = render(<AddPaymentMethodButton isCash={false} />, { wrapper })
+    const { getByText } = render(<AddPaymentMethodButton isCash={false} />)
     fireEvent.press(getByText('add new currency /\npayment method'))
     expect(navigateMock).toHaveBeenCalledWith('selectCurrency', {
       origin: 'paymentMethods',
@@ -145,12 +144,12 @@ describe('AddPaymentMethodButton', () => {
   })
   it('should sort the countries alphabetically and keep super featured events on top', async () => {
     getMeetupEventsMock.mockResolvedValueOnce([[...mockEvents, balticHoneyBadger], null])
-    const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
+    const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
     await waitFor(() => {
       expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([...mockEvents, balticHoneyBadger])
     })
     fireEvent.press(getByText('add new cash option'))
-    expect(drawer.options).toStrictEqual([
+    expect(useDrawerState.getState().options).toStrictEqual([
       {
         highlighted: true,
         onPress: expect.any(Function),
@@ -165,14 +164,16 @@ describe('AddPaymentMethodButton', () => {
   it('should sort the meetups by their city alphabetically', async () => {
     getMeetupEventsMock.mockResolvedValueOnce([[breizhBitcoin, ...mockEvents], null])
 
-    const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
+    const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
     await waitFor(() => {
       expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([breizhBitcoin, ...mockEvents])
     })
     fireEvent.press(getByText('add new cash option'))
 
-    drawer.options.find((e) => e.title === 'France')?.onPress()
-    expect(drawer.options).toStrictEqual([
+    const onPress = useDrawerState.getState().options.find((e) => e.title === 'France')?.onPress
+    onPress?.()
+
+    expect(useDrawerState.getState().options).toStrictEqual([
       { highlighted: false, onPress: expect.any(Function), subtext: decouvreBTC.city, title: decouvreBTC.longName },
       { highlighted: false, onPress: expect.any(Function), subtext: breizhBitcoin.city, title: breizhBitcoin.longName },
     ])
@@ -185,14 +186,16 @@ describe('AddPaymentMethodButton', () => {
     }
     getMeetupEventsMock.mockResolvedValueOnce([[decouvreBTC, featuredEvent], null])
     expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([])
-    const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
+    const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
     await waitFor(() => {
       expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([decouvreBTC, featuredEvent])
     })
     fireEvent.press(getByText('add new cash option'))
 
-    drawer.options.find((e) => e.title === 'France')?.onPress()
-    expect(drawer.options).toStrictEqual([
+    const onPress = useDrawerState.getState().options.find((e) => e.title === 'France')?.onPress
+    onPress?.()
+
+    expect(useDrawerState.getState().options).toStrictEqual([
       { highlighted: false, onPress: expect.any(Function), subtext: decouvreBTC.city, title: decouvreBTC.longName },
       { highlighted: true, onPress: expect.any(Function), subtext: featuredEvent.city, title: featuredEvent.longName },
     ])

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { act, renderHook } from '@testing-library/react-native'
-import { useStateUpdateEvents } from './useStateUpdateEvents'
+import { act, renderHook } from 'test-utils'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
+import { useStateUpdateEvents } from './useStateUpdateEvents'
 
 jest.mock('../../../store/tradeSummaryStore', () => ({
   useTradeSummaryStore: jest.fn(),

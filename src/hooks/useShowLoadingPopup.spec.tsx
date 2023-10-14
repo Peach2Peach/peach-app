@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { PopupLoadingSpinner } from '../../tests/unit/helpers/PopupLoadingSpinner'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'

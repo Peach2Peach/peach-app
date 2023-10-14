@@ -1,5 +1,5 @@
-import { renderHook } from '@testing-library/react-native'
-import { NavigationAndQueryClientWrapper } from '../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { renderHook } from 'test-utils'
+import { NavigationAndQueryClientWrapper } from '../tests/unit/helpers/CustomWrapper'
 import { Props, useGlobalHandlers } from './useGlobalHandlers'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({

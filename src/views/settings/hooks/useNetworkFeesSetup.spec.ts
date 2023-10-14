@@ -1,8 +1,8 @@
 /* eslint-disable max-lines-per-function */
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { NavigationWrapper, headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
 
@@ -27,7 +27,7 @@ describe('useNetworkFeesSetup', () => {
     useSettingsStore.getState().setFeeRate('halfHourFee')
   })
   it('returns default correct values', () => {
-    const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNetworkFeesSetup)
     expect(result.current).toEqual({
       estimatedFees,
       selectedFeeRate: 'halfHourFee',
@@ -41,14 +41,14 @@ describe('useNetworkFeesSetup', () => {
   })
   it('sets custom fee rate if custom had been selected before', () => {
     useSettingsStore.getState().setFeeRate(3)
-    const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNetworkFeesSetup)
     expect(result.current.selectedFeeRate).toBe('custom')
     expect(result.current.customFeeRate).toBe('3')
     expect(result.current.isValid).toBeTruthy()
     expect(result.current.feeRateSet).toBeTruthy()
   })
   it('handles invalid fee selection', () => {
-    const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNetworkFeesSetup)
 
     act(() => {
       result.current.setSelectedFeeRate('custom')
@@ -63,7 +63,7 @@ describe('useNetworkFeesSetup', () => {
     expect(result.current.isValid).toBeFalsy()
   })
   it('returns info whether a new fee rate has been set', () => {
-    const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNetworkFeesSetup)
 
     expect(result.current.feeRateSet).toBeTruthy()
     act(() => {
@@ -72,18 +72,18 @@ describe('useNetworkFeesSetup', () => {
     expect(result.current.feeRateSet).toBeFalsy()
   })
   it('sets header as expected', () => {
-    renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
+    renderHook(useNetworkFeesSetup)
     expect(headerState.header()).toMatchSnapshot()
   })
   it('sets fee preferences', () => {
-    const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNetworkFeesSetup)
     act(() => {
       result.current.setSelectedFeeRate('fastestFee')
     })
     expect(result.current.selectedFeeRate).toBe('fastestFee')
   })
   it('submits fee preferences', async () => {
-    const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNetworkFeesSetup)
     await act(async () => {
       await result.current.submit()
     })
@@ -104,7 +104,7 @@ describe('useNetworkFeesSetup', () => {
     expect(useSettingsStore.getState().feeRate).toEqual('fastestFee')
   })
   it('submits custom fee preferences', async () => {
-    const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNetworkFeesSetup)
 
     act(() => {
       result.current.setSelectedFeeRate('custom')
@@ -120,7 +120,7 @@ describe('useNetworkFeesSetup', () => {
   })
   it('handles request errors', async () => {
     updateUserMock.mockResolvedValueOnce([null, unauthorizedError])
-    const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNetworkFeesSetup)
 
     await result.current.submit()
     expect(updateMessageMock).toHaveBeenCalledWith({

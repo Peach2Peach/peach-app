@@ -1,5 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { renderHook, waitFor } from 'test-utils'
 import { usePatchOffer } from './usePatchOffer'
 
 const showErrorBannerMock = jest.fn()
@@ -20,7 +19,7 @@ describe('usePatchOffer - update Premium', () => {
 
   it('should call patchOffer with the correct params', async () => {
     const newData = { premium: newPremium }
-    const { result } = renderHook(() => usePatchOffer(offerId, newData), { wrapper: QueryClientWrapper })
+    const { result } = renderHook(() => usePatchOffer(offerId, newData))
     result.current.mutate()
 
     await waitFor(() => {
@@ -35,7 +34,7 @@ describe('usePatchOffer - update Premium', () => {
     const error = [, { error: 'errorMessage' }]
     patchOfferMock.mockReturnValueOnce(Promise.resolve(error))
     const newData = { premium: newPremium }
-    const { result } = renderHook(() => usePatchOffer(offerId, newData), { wrapper: QueryClientWrapper })
+    const { result } = renderHook(() => usePatchOffer(offerId, newData))
     result.current.mutate()
 
     await waitFor(() => {
@@ -50,7 +49,7 @@ describe('usePatchOffer - update MaxPremium', () => {
 
   it('should call patchOffer with the correct params', async () => {
     const newData = { maxPremium: newMaxPremium }
-    const { result } = renderHook(() => usePatchOffer(offerId, newData), { wrapper: QueryClientWrapper })
+    const { result } = renderHook(() => usePatchOffer(offerId, newData))
     result.current.mutate()
 
     await waitFor(() => {
@@ -65,7 +64,7 @@ describe('usePatchOffer - update MaxPremium', () => {
     const error = [, { error: 'errorMessage' }]
     patchOfferMock.mockReturnValueOnce(Promise.resolve(error))
     const newData = { maxPremium: newMaxPremium }
-    const { result } = renderHook(() => usePatchOffer(offerId, newData), { wrapper: QueryClientWrapper })
+    const { result } = renderHook(() => usePatchOffer(offerId, newData))
     result.current.mutate()
 
     await waitFor(() => {

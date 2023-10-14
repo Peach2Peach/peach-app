@@ -1,17 +1,17 @@
-import { renderHook } from '@testing-library/react-native'
-import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
-import { useOpenDispute } from './useOpenDispute'
+import { renderHook } from 'test-utils'
 import { contract } from '../../../../tests/unit/data/contractData'
+import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { OpenDispute } from '../components/OpenDispute'
+import { useOpenDispute } from './useOpenDispute'
 
 describe('useOpenDispute', () => {
-  afterEach(() => {
+  beforeEach(() => {
     usePopupStore.setState(defaultPopupState)
   })
 
   it('should show open dispute popup', () => {
-    const { result } = renderHook(useOpenDispute, { wrapper: NavigationWrapper, initialProps: contract.id })
+    const { result } = renderHook(useOpenDispute, { initialProps: contract.id })
     result.current()
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
@@ -31,13 +31,13 @@ describe('useOpenDispute', () => {
     })
   })
   it('should close popup', () => {
-    const { result } = renderHook(useOpenDispute, { wrapper: NavigationWrapper, initialProps: contract.id })
+    const { result } = renderHook(useOpenDispute, { initialProps: contract.id })
     result.current()
     usePopupStore.getState().action1?.callback()
     expect(usePopupStore.getState().visible).toEqual(false)
   })
   it('should navigate to disputeReasonSelector', () => {
-    const { result } = renderHook(useOpenDispute, { wrapper: NavigationWrapper, initialProps: contract.id })
+    const { result } = renderHook(useOpenDispute, { initialProps: contract.id })
     result.current()
     usePopupStore.getState().action2?.callback()
     expect(navigateMock).toHaveBeenCalledWith('disputeReasonSelector', { contractId: contract.id })

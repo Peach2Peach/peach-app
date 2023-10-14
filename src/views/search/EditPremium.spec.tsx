@@ -1,8 +1,8 @@
-import { EditPremium } from './EditPremium'
-import { render, waitFor } from '@testing-library/react-native'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { render, waitFor } from 'test-utils'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { headerState } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { EditPremium } from './EditPremium'
 
 jest.useFakeTimers()
 

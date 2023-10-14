@@ -1,6 +1,6 @@
-import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from 'test-utils'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/CustomWrapper'
 import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useSearchSetup } from './useSearchSetup'

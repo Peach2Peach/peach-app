@@ -1,17 +1,17 @@
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
+import { headerState, setOptionsMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { RestoreBackupLoading } from './RestoreBackupLoading'
-import { headerState, NavigationWrapper, setOptionsMock } from '../../../tests/unit/helpers/NavigationWrapper'
 
 describe('RestoreBackupLoading', () => {
   beforeEach(() => {
     setOptionsMock({ header: { title: '', icons: [] } })
   })
   it('should render correctly', () => {
-    const { toJSON } = render(<RestoreBackupLoading />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<RestoreBackupLoading />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should set header correctly', () => {
-    render(<RestoreBackupLoading />, { wrapper: NavigationWrapper })
+    render(<RestoreBackupLoading />)
     expect(headerState.header()).toMatchSnapshot()
   })
 })

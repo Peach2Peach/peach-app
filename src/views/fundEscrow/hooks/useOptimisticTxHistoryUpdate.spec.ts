@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { saveOffer } from '../../../utils/offer'

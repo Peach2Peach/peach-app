@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { useBackupTimeSetup } from './useBackupTimeSetup'
 
 const useRouteMock = jest.fn(() => ({ params: {} }))

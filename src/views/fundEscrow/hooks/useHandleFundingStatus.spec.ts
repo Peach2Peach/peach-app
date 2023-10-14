@@ -1,11 +1,11 @@
 /* eslint-disable max-lines-per-function */
-import { renderHook, waitFor } from '@testing-library/react-native'
-import { useHandleFundingStatus } from './useHandleFundingStatus'
-import { sellOffer } from '../../../../tests/unit/data/offerData'
-import { account, setAccount } from '../../../utils/account'
+import { renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
+import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { account, setAccount } from '../../../utils/account'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
-import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { useHandleFundingStatus } from './useHandleFundingStatus'
 
 const useTradeSummariesMock = jest.fn().mockReturnValue({
   offers: [],
@@ -82,7 +82,7 @@ describe('useHandleFundingStatus', () => {
       fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
     }
-    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
+    renderHook(useHandleFundingStatus, { initialProps })
     expect(replaceMock).not.toHaveBeenCalled()
     expect(startRefundPopupMock).not.toHaveBeenCalled()
     expect(account.offers).toEqual([])
@@ -95,7 +95,7 @@ describe('useHandleFundingStatus', () => {
       fundingStatus,
       userConfirmationRequired: false,
     }
-    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
+    renderHook(useHandleFundingStatus, { initialProps })
     expect(account.offers[0]).toEqual({ ...sellOffer, funding: fundingStatus })
   })
   it('should handle funding status when it is CANCELED', () => {
@@ -106,7 +106,7 @@ describe('useHandleFundingStatus', () => {
       fundingStatus,
       userConfirmationRequired: false,
     }
-    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
+    renderHook(useHandleFundingStatus, { initialProps })
     expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer)
   })
   it('should show showWronglyFundedPopup when WRONG_FUNDING_AMOUNT', () => {
@@ -117,7 +117,7 @@ describe('useHandleFundingStatus', () => {
       fundingStatus,
       userConfirmationRequired: false,
     }
-    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
+    renderHook(useHandleFundingStatus, { initialProps })
     expect(showWronglyFundedPopupMock).toHaveBeenCalledWith({ ...sellOffer, funding: fundingStatus })
   })
   it('should navigate to wrongFundingAmount when user confirmation is required', () => {
@@ -128,25 +128,25 @@ describe('useHandleFundingStatus', () => {
       fundingStatus,
       userConfirmationRequired: true,
     }
-    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
+    renderHook(useHandleFundingStatus, { initialProps })
     expect(replaceMock).toHaveBeenCalledWith('wrongFundingAmount', { offerId: sellOffer.id })
   })
   it('should go to offerPublished if funding status is FUNDED but no matches yet', async () => {
-    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps: fundedProps })
+    renderHook(useHandleFundingStatus, { initialProps: fundedProps })
     await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
     expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId: sellOffer.id, isSellOffer: true })
   })
   it('should go to search if funding status is FUNDED with matches already', async () => {
     fetchMatchesMock.mockResolvedValueOnce(searchWithMatches)
 
-    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps: fundedProps })
+    renderHook(useHandleFundingStatus, { initialProps: fundedProps })
     await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
     expect(replaceMock).toHaveBeenCalledWith('search', { offerId: sellOffer.id })
   })
   it('should go to offerPublished if funding status is FUNDED but no search response', async () => {
     fetchMatchesMock.mockResolvedValueOnce(searchWithNoPages)
 
-    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps: fundedProps })
+    renderHook(useHandleFundingStatus, { initialProps: fundedProps })
     await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
     expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId: sellOffer.id, isSellOffer: true })
   })

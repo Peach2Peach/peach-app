@@ -1,10 +1,5 @@
-import { renderHook } from '@testing-library/react-native'
-import {
-  NavigationWrapper,
-  goBackMock,
-  replaceMock,
-  setParamsMock,
-} from '../../../../tests/unit/helpers/NavigationWrapper'
+import { renderHook } from 'test-utils'
+import { goBackMock, replaceMock, setParamsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useNewBadgeSetup } from './useNewBadgeSetup'
 
 const useRouteMock = jest.fn().mockReturnValue({
@@ -18,7 +13,7 @@ jest.mock('../../../hooks/useRoute', () => ({
 
 describe('useNewBadgeSetup', () => {
   it('returns default values', () => {
-    const { result } = renderHook(useNewBadgeSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNewBadgeSetup)
     expect(result.current).toEqual({
       badge: 'fastTrader',
       icon: 'zapCircleInverted',
@@ -27,12 +22,12 @@ describe('useNewBadgeSetup', () => {
     })
   })
   it('goes to profile', () => {
-    const { result } = renderHook(useNewBadgeSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNewBadgeSetup)
     result.current.goToProfile()
     expect(replaceMock).toHaveBeenCalledWith('myProfile')
   })
   it('closes popup', () => {
-    const { result } = renderHook(useNewBadgeSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNewBadgeSetup)
     result.current.close()
     expect(goBackMock).toHaveBeenCalled()
   })
@@ -40,7 +35,7 @@ describe('useNewBadgeSetup', () => {
     useRouteMock.mockReturnValueOnce({
       params: { badges: 'fastTrader,superTrader' },
     })
-    const { result } = renderHook(useNewBadgeSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNewBadgeSetup)
     result.current.close()
     expect(setParamsMock).toHaveBeenCalledWith({ badges: 'superTrader' })
   })

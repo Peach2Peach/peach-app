@@ -1,6 +1,6 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { act, renderHook } from '@testing-library/react-native'
 import { AppState } from 'react-native'
+import { act, renderHook } from 'test-utils'
 import { contract } from '../../../tests/unit/data/contractData'
 import { getContract } from '../../utils/contract'
 import { getContract as getContractAPI } from '../../utils/peachAPI'

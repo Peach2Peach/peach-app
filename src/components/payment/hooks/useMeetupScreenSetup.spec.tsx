@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { NavigationContainer } from '@react-navigation/native'
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { setPaymentMethods } from '../../../paymentMethods'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'

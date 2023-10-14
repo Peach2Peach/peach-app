@@ -1,5 +1,5 @@
-import { renderHook } from '@testing-library/react-native'
 import { Linking } from 'react-native'
+import { renderHook } from 'test-utils'
 import {
   confirmedTransactionSummary,
   pending1,
@@ -7,7 +7,7 @@ import {
   transactionWithRBF1,
   transactionWithoutRBF1,
 } from '../../../../tests/unit/data/transactionDetailData'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/CustomWrapper'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'

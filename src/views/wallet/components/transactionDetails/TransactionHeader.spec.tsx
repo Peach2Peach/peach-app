@@ -1,7 +1,7 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent, render } from 'test-utils'
 import { contractSummary } from '../../../../../tests/unit/data/contractSummaryData'
 import { offerSummary } from '../../../../../tests/unit/data/offerSummaryData'
-import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/CustomWrapper'
 import { useTradeSummaryStore } from '../../../../store/tradeSummaryStore'
 import { TransactionHeader } from './TransactionHeader'
 

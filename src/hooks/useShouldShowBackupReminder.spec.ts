@@ -1,7 +1,7 @@
-import { useShouldShowBackupReminder } from './useShouldShowBackupReminder'
-import { renderHook } from '@testing-library/react-native'
-import { useSettingsStore } from '../store/settingsStore'
+import { renderHook } from 'test-utils'
 import { MSINAMONTH } from '../constants'
+import { useSettingsStore } from '../store/settingsStore'
+import { useShouldShowBackupReminder } from './useShouldShowBackupReminder'
 
 const now = new Date('2021-07-12T13:00:00.000Z').valueOf()
 jest.spyOn(global.Date, 'now').mockImplementation(() => now)

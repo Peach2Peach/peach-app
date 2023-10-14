@@ -1,7 +1,6 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import { Linking } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { fireEvent, render } from 'test-utils'
 import { setPaymentMethods } from '../../paymentMethods'
 import { MeetupScreen } from './MeetupScreen'
 
@@ -85,7 +84,7 @@ describe('MeetupScreen', () => {
       event: btcPragueEvent,
       selectedCurrencies: ['EUR'],
     })
-    const { getByText } = render(<MeetupScreen />, { wrapper: NavigationWrapper })
+    const { getByText } = render(<MeetupScreen />)
     fireEvent(getByText('view on maps'), 'onPress')
     expect(openURLSpy).toHaveBeenCalledWith('http://maps.google.com/maps?daddr=Prague')
     fireEvent(getByText('meetup link'), 'onPress')

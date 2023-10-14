@@ -1,7 +1,7 @@
-import { render } from '@testing-library/react-native'
 import { View } from 'react-native'
+import { render } from 'test-utils'
 import { pendingTransactionSummary, transactionWithRBF1 } from '../../../../../tests/unit/data/transactionDetailData'
-import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/CustomWrapper'
 import { OfferData } from './OfferData'
 
 const wrapper = NavigationAndQueryClientWrapper

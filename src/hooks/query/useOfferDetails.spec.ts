@@ -1,8 +1,8 @@
 /* eslint-disable max-lines-per-function */
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { renderHook, waitFor } from 'test-utils'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
-import { QueryClientWrapper, queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useMultipleOfferDetails, useOfferDetails } from './useOfferDetails'
 
 const getStoredOfferMock = jest.fn()
@@ -21,10 +21,7 @@ describe('useOfferDetails', () => {
     queryClient.clear()
   })
   it('fetches offer details from API', async () => {
-    const { result } = renderHook(useOfferDetails, {
-      wrapper: QueryClientWrapper,
-      initialProps: sellOffer.id,
-    })
+    const { result } = renderHook(useOfferDetails, { initialProps: sellOffer.id })
 
     expect(result.current).toEqual({
       offer: undefined,
@@ -44,10 +41,7 @@ describe('useOfferDetails', () => {
   })
   it('returns local offer first if given and up to date', async () => {
     getStoredOfferMock.mockReturnValueOnce(localOfferUpToDate)
-    const { result } = renderHook(useOfferDetails, {
-      wrapper: QueryClientWrapper,
-      initialProps: sellOffer.id,
-    })
+    const { result } = renderHook(useOfferDetails, { initialProps: sellOffer.id })
 
     expect(result.current).toEqual({
       offer: localOfferUpToDate,
@@ -63,10 +57,7 @@ describe('useOfferDetails', () => {
   it('returns local offer if given and server did not return result', async () => {
     getOfferDetailsMock.mockResolvedValueOnce([null])
     getStoredOfferMock.mockReturnValueOnce(localOffer)
-    const { result } = renderHook(useOfferDetails, {
-      wrapper: QueryClientWrapper,
-      initialProps: sellOffer.id,
-    })
+    const { result } = renderHook(useOfferDetails, { initialProps: sellOffer.id })
     expect(result.current).toEqual({
       offer: localOffer,
       isLoading: false,
@@ -81,10 +72,7 @@ describe('useOfferDetails', () => {
   it('returns error if server did not return result and no local offers exists', async () => {
     getStoredOfferMock.mockReturnValueOnce(undefined)
     getOfferDetailsMock.mockResolvedValueOnce([null, unauthorizedError])
-    const { result } = renderHook(useOfferDetails, {
-      wrapper: QueryClientWrapper,
-      initialProps: sellOffer.id,
-    })
+    const { result } = renderHook(useOfferDetails, { initialProps: sellOffer.id })
 
     expect(result.current).toEqual({
       offer: undefined,
@@ -106,10 +94,7 @@ describe('useOfferDetails', () => {
     const expectedError = new Error('NOT_FOUND')
     getStoredOfferMock.mockReturnValueOnce(undefined)
     getOfferDetailsMock.mockResolvedValueOnce([null])
-    const { result } = renderHook(useOfferDetails, {
-      wrapper: QueryClientWrapper,
-      initialProps: sellOffer.id,
-    })
+    const { result } = renderHook(useOfferDetails, { initialProps: sellOffer.id })
 
     expect(result.current).toEqual({
       offer: undefined,
@@ -137,7 +122,6 @@ describe('useMultipleOfferDetails', () => {
   })
   it('fetches offers details from API', async () => {
     const { result } = renderHook(useMultipleOfferDetails, {
-      wrapper: QueryClientWrapper,
       initialProps: [sellOffer.id],
     })
 
@@ -160,7 +144,6 @@ describe('useMultipleOfferDetails', () => {
   it('returns local offers first if given and up to date', async () => {
     getStoredOfferMock.mockReturnValueOnce(localOfferUpToDate)
     const { result } = renderHook(useMultipleOfferDetails, {
-      wrapper: QueryClientWrapper,
       initialProps: [sellOffer.id],
     })
 
@@ -179,7 +162,6 @@ describe('useMultipleOfferDetails', () => {
     getOfferDetailsMock.mockResolvedValueOnce([null])
     getStoredOfferMock.mockReturnValueOnce(localOffer)
     const { result } = renderHook(useMultipleOfferDetails, {
-      wrapper: QueryClientWrapper,
       initialProps: [sellOffer.id],
     })
     expect(result.current).toEqual({
@@ -197,7 +179,6 @@ describe('useMultipleOfferDetails', () => {
     getStoredOfferMock.mockReturnValueOnce(undefined)
     getOfferDetailsMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useMultipleOfferDetails, {
-      wrapper: QueryClientWrapper,
       initialProps: [sellOffer.id],
     })
 
@@ -222,7 +203,6 @@ describe('useMultipleOfferDetails', () => {
     getStoredOfferMock.mockReturnValueOnce(undefined)
     getOfferDetailsMock.mockResolvedValueOnce([null])
     const { result } = renderHook(useMultipleOfferDetails, {
-      wrapper: QueryClientWrapper,
       initialProps: [sellOffer.id],
     })
 

@@ -1,7 +1,7 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/CustomWrapper'
 import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useDisputeFormSetup } from './useDisputeFormSetup'
 

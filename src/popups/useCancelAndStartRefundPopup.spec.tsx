@@ -1,6 +1,6 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { sellOffer } from '../../tests/unit/data/offerData'
-import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/CustomWrapper'
 import { PopupLoadingSpinner } from '../../tests/unit/helpers/PopupLoadingSpinner'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { useCancelAndStartRefundPopup } from './useCancelAndStartRefundPopup'

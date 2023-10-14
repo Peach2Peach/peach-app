@@ -1,6 +1,5 @@
-import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from 'test-utils'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useMatchStore } from '../../../components/matches/store'
 import { useOfferMatches } from './useOfferMatches'
 
@@ -13,35 +12,23 @@ jest.mock('../../../utils/peachAPI', () => ({
   getMatches: (...args: unknown[]) => getMatchesMock(...args),
 }))
 
-jest.mock('@react-navigation/native', () => ({
-  ...jest.requireActual('@react-navigation/native'),
-  useIsFocused: jest.fn().mockReturnValue(true),
-}))
 jest.useFakeTimers()
 
 describe('useOfferMatches', () => {
   it('should return the matches for an offer', async () => {
-    const { result } = renderHook(useOfferMatches, {
-      initialProps: 'offerId',
-      wrapper: QueryClientWrapper,
-    })
+    const { result } = renderHook(useOfferMatches, { initialProps: 'offerId' })
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)
     })
     expect(result.current.allMatches).toEqual(['match'])
   })
   it('should not make a request if not enabled', () => {
-    renderHook(() => useOfferMatches('offerId', false), {
-      wrapper: QueryClientWrapper,
-    })
+    renderHook(() => useOfferMatches('offerId', false), {})
 
     expect(getMatchesMock).not.toHaveBeenCalled()
   })
   it('should refetch after 15 seconds', async () => {
-    const { result } = renderHook(useOfferMatches, {
-      initialProps: 'offerId',
-      wrapper: QueryClientWrapper,
-    })
+    const { result } = renderHook(useOfferMatches, { initialProps: 'offerId' })
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)
     })
@@ -67,10 +54,7 @@ describe('useOfferMatches', () => {
       return Promise.resolve([{ matches: [], nextPage: undefined }, null])
     })
 
-    const { result } = renderHook(useOfferMatches, {
-      initialProps: 'newOfferId',
-      wrapper: QueryClientWrapper,
-    })
+    const { result } = renderHook(useOfferMatches, { initialProps: 'newOfferId' })
 
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)
@@ -92,10 +76,7 @@ describe('useOfferMatches', () => {
       .map((match, index) => `${match}${index}`)
     const secondPage = ['match10']
 
-    const { result } = renderHook(useOfferMatches, {
-      initialProps: 'newOfferId',
-      wrapper: QueryClientWrapper,
-    })
+    const { result } = renderHook(useOfferMatches, { initialProps: 'newOfferId' })
 
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)
@@ -128,20 +109,14 @@ describe('useOfferMatches', () => {
       },
       null,
     ])
-    const { result } = renderHook(useOfferMatches, {
-      initialProps: 'thirdOfferId',
-      wrapper: QueryClientWrapper,
-    })
+    const { result } = renderHook(useOfferMatches, { initialProps: 'thirdOfferId' })
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)
     })
     expect(result.current.allMatches).toEqual(['match'])
   })
   it('should apply sorting to the matches', async () => {
-    const { result } = renderHook(useOfferMatches, {
-      initialProps: 'offerId',
-      wrapper: QueryClientWrapper,
-    })
+    const { result } = renderHook(useOfferMatches, { initialProps: 'offerId' })
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)
     })

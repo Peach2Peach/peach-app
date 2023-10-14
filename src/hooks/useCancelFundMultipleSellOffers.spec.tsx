@@ -1,6 +1,6 @@
-import { act, fireEvent, render, renderHook, waitFor } from '@testing-library/react-native'
+import { act, fireEvent, render, renderHook, waitFor } from 'test-utils'
 import { unauthorizedError } from '../../tests/unit/data/peachAPIData'
-import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/CustomWrapper'
 import { usePopupStore } from '../store/usePopupStore'
 import { useWalletState } from '../utils/wallet/walletStore'
 import { useCancelFundMultipleSellOffers } from './useCancelFundMultipleSellOffers'

@@ -1,5 +1,5 @@
-import { render } from '@testing-library/react-native'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { render } from 'test-utils'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { useBitcoinStore } from '../../store/bitcoinStore'
 import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
 import { Sell } from './Sell'

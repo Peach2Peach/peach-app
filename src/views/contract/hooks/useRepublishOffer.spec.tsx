@@ -1,8 +1,8 @@
-import { useRepublishOffer } from './useRepublishOffer'
-import { renderHook } from '@testing-library/react-native'
-import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { renderHook } from 'test-utils'
+import { replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { OfferRepublished } from '../../../popups/tradeCancelation'
 import { usePopupStore } from '../../../store/usePopupStore'
+import { useRepublishOffer } from './useRepublishOffer'
 
 const reviveSellOfferMock = jest.fn()
 jest.mock('../../../utils/peachAPI', () => ({
@@ -21,7 +21,6 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
 }))
 
-const wrapper = NavigationWrapper
 describe('useRepublishOffer', () => {
   const contract = {
     id: 'contractId',
@@ -35,7 +34,7 @@ describe('useRepublishOffer', () => {
   it('should revive the sell offer', async () => {
     reviveSellOfferMock.mockResolvedValue([{ newOfferId: 'newOfferId' }, null])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
-    const { result } = renderHook(useRepublishOffer, { wrapper })
+    const { result } = renderHook(useRepublishOffer)
     await result.current(contract)
     expect(reviveSellOfferMock).toHaveBeenCalledWith({ offerId: sellOffer.id })
   })
@@ -43,14 +42,14 @@ describe('useRepublishOffer', () => {
   it('should show an error banner and close the popup if the sell offer could not be revived', async () => {
     reviveSellOfferMock.mockResolvedValue([null, { error: 'error' }])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
-    const { result } = renderHook(useRepublishOffer, { wrapper })
+    const { result } = renderHook(useRepublishOffer)
     await result.current(contract)
     expect(showErrorBannerMock).toHaveBeenCalledWith('error')
     expect(usePopupStore.getState().visible).toBe(false)
   })
 
   it('should show the offer republished popup', async () => {
-    const { result } = renderHook(useRepublishOffer, { wrapper })
+    const { result } = renderHook(useRepublishOffer)
     reviveSellOfferMock.mockResolvedValue([{ newOfferId: 'newOfferId' }, null])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
     await result.current(contract)
@@ -75,7 +74,7 @@ describe('useRepublishOffer', () => {
   })
 
   it('should close the popup, save the contract and navigate to contract when the close is pressed', async () => {
-    const { result } = renderHook(useRepublishOffer, { wrapper })
+    const { result } = renderHook(useRepublishOffer)
     reviveSellOfferMock.mockResolvedValue([{ newOfferId: 'newOfferId' }, null])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
     await result.current(contract)
@@ -90,7 +89,7 @@ describe('useRepublishOffer', () => {
   })
 
   it('should close the popup, save the contract and navigate to search when the go to offer is pressed', async () => {
-    const { result } = renderHook(useRepublishOffer, { wrapper })
+    const { result } = renderHook(useRepublishOffer)
     reviveSellOfferMock.mockResolvedValue([{ newOfferId: 'newOfferId' }, null])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
     await result.current(contract)
