@@ -20,7 +20,7 @@ export const useOfferSummaries = (enabled = true) => {
     queryFn: getOfferSummariesQuery,
     enabled,
     initialData: offers.length ? offers : undefined,
-    initialDataUpdatedAt: lastModified.getTime(),
+    initialDataUpdatedAt: lastModified.getTime?.(),
     onSuccess: setOffers,
   })
 

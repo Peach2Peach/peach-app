@@ -1,5 +1,4 @@
-import { act, renderHook } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { act, renderHook } from 'test-utils'
 import { SATSINBTC } from '../../../constants'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { useSettingsStore } from '../../../store/settingsStore'
@@ -33,7 +32,7 @@ describe('usePremiumSetup', () => {
   it('should validate the premium step when the premium is set too high', () => {
     const SATSPrice = 20000 / SATSINBTC
     useOfferPreferences.setState({ sellAmount: defaultLimits.daily / SATSPrice, premium: 0 })
-    renderHook(usePremiumStepValidation, { wrapper: NavigationWrapper })
+    renderHook(usePremiumStepValidation)
     expect(useOfferPreferences.getState().canContinue.premium).toBe(true)
     act(() => {
       useOfferPreferences.setState({ premium: 0.5 })
@@ -42,7 +41,7 @@ describe('usePremiumSetup', () => {
   })
   it('should validate the premium step when the price pumps', () => {
     useOfferPreferences.setState({ sellAmount: 210000, premium: 0 })
-    const { rerender } = renderHook(usePremiumStepValidation, { wrapper: NavigationWrapper })
+    const { rerender } = renderHook(usePremiumStepValidation)
     expect(useOfferPreferences.getState().canContinue.premium).toBe(true)
     useMarketPricesMock.mockReturnValue({
       data: {
@@ -64,7 +63,7 @@ describe('usePremiumSetup', () => {
     })
     const SATSPrice = 20000 / SATSINBTC
     useOfferPreferences.setState({ sellAmount: defaultLimits.daily / SATSPrice, premium: 0 })
-    const { rerender } = renderHook(usePremiumStepValidation, { wrapper: NavigationWrapper })
+    const { rerender } = renderHook(usePremiumStepValidation)
     expect(useOfferPreferences.getState().canContinue.premium).toBe(true)
     useTradingLimitsMock.mockReturnValue({ limits: { daily: 100 } })
     act(() => {
@@ -76,7 +75,7 @@ describe('usePremiumSetup', () => {
     useTradingLimitsMock.mockReturnValue({ limits: defaultLimits })
     const SATSPrice = 20000 / SATSINBTC
     useOfferPreferences.setState({ sellAmount: defaultLimits.daily / SATSPrice, premium: 0 })
-    renderHook(usePremiumStepValidation, { wrapper: NavigationWrapper })
+    renderHook(usePremiumStepValidation)
     expect(useOfferPreferences.getState().canContinue.premium).toBe(true)
     act(() => {
       useOfferPreferences.setState({ sellAmount: defaultLimits.daily / SATSPrice + 1000 })
@@ -86,7 +85,7 @@ describe('usePremiumSetup', () => {
   it('should not update the state, if the validation result is the same', () => {
     const setPremiumSpy = jest.spyOn(useOfferPreferences.getState(), 'setPremium')
     useOfferPreferences.setState({ sellAmount: 210000, premium: 0 })
-    const { rerender } = renderHook(usePremiumStepValidation, { wrapper: NavigationWrapper })
+    const { rerender } = renderHook(usePremiumStepValidation)
     expect(setPremiumSpy).toHaveBeenCalledTimes(0)
     useMarketPricesMock.mockReturnValue({
       data: {

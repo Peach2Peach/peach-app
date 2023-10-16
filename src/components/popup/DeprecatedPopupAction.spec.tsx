@@ -1,6 +1,6 @@
-import { PopupAction } from './DeprecatedPopupAction'
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
 import tw from '../../styles/tailwind'
+import { PopupAction } from './DeprecatedPopupAction'
 
 describe('DeprecatedPopupAction', () => {
   const defaultProps = {

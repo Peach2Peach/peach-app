@@ -1,22 +1,22 @@
+import { useNavigationState } from '@react-navigation/native'
 import { useEffect } from 'react'
-import { View, StatusBar, ViewStyle } from 'react-native'
+import { StatusBar, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { primaryGradient } from '../../utils/layout'
 import { isAndroid } from '../../utils/system'
+import { views } from '../../views/views'
 import { RadialGradient } from '../RadialGradient'
 
 export type BackgroundConfig = {
   color?: 'primaryGradient' | ViewStyle
 }
-
 const defaultConfig: BackgroundConfig = {
   color: undefined,
 }
-type BackgroundProps = ComponentProps & {
-  config?: BackgroundConfig
-}
 
-export const Background = ({ config = defaultConfig, children }: BackgroundProps) => {
+export const Background = ({ children }: ComponentProps) => {
+  const currentPage = useNavigationState((state) => state?.routes[state.index].name)
+  const config = views.find((v) => v.name === currentPage)?.background || defaultConfig
   const coverStyle = tw`absolute top-0 left-0 w-full h-full`
 
   useEffect(() => {

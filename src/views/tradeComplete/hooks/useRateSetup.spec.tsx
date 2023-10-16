@@ -1,8 +1,8 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { TradeBreakdown } from '../../../popups/TradeBreakdown'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
@@ -54,10 +54,7 @@ describe('useRateSetup', () => {
     useSettingsStore.getState().setShowBackupReminder(false)
   })
   it('returns default values correctly', () => {
-    const { result } = renderHook(useRateSetup, {
-      initialProps,
-      wrapper: NavigationWrapper,
-    })
+    const { result } = renderHook(useRateSetup, { initialProps })
 
     expect(result.current).toEqual({
       rate: expect.any(Function),
@@ -66,10 +63,7 @@ describe('useRateSetup', () => {
     })
   })
   it('does not submit rating if none has been set', async () => {
-    const { result } = renderHook(useRateSetup, {
-      initialProps,
-      wrapper: NavigationWrapper,
-    })
+    const { result } = renderHook(useRateSetup, { initialProps })
     await act(async () => {
       await result.current.rate()
     })
@@ -77,10 +71,7 @@ describe('useRateSetup', () => {
   })
   it('does submit rating as buyer', async () => {
     createUserRatingMock.mockReturnValueOnce(positiveRating)
-    const { result } = renderHook(useRateSetup, {
-      initialProps: { ...initialProps, vote: 'positive', view: 'buyer' },
-      wrapper: NavigationWrapper,
-    })
+    const { result } = renderHook(useRateSetup, { initialProps: { ...initialProps, vote: 'positive', view: 'buyer' } })
     await act(async () => {
       await result.current.rate()
     })
@@ -96,10 +87,7 @@ describe('useRateSetup', () => {
   })
   it('does submit rating as seller', async () => {
     createUserRatingMock.mockReturnValueOnce(positiveRating)
-    const { result } = renderHook(useRateSetup, {
-      initialProps: { ...initialProps, vote: 'positive', view: 'seller' },
-      wrapper: NavigationWrapper,
-    })
+    const { result } = renderHook(useRateSetup, { initialProps: { ...initialProps, vote: 'positive', view: 'seller' } })
     await act(async () => {
       await result.current.rate()
     })
@@ -116,10 +104,7 @@ describe('useRateSetup', () => {
   it('does submit positive rating and navigates to backupTime', async () => {
     useSettingsStore.getState().setShowBackupReminder(true)
     createUserRatingMock.mockReturnValueOnce(positiveRating)
-    const { result } = renderHook(useRateSetup, {
-      initialProps: { ...initialProps, vote: 'positive' },
-      wrapper: NavigationWrapper,
-    })
+    const { result } = renderHook(useRateSetup, { initialProps: { ...initialProps, vote: 'positive' } })
     await act(async () => {
       await result.current.rate()
     })
@@ -136,10 +121,7 @@ describe('useRateSetup', () => {
   it('does submit negative rating and navigates to backupTime', async () => {
     useSettingsStore.getState().setShowBackupReminder(true)
     createUserRatingMock.mockReturnValueOnce(negativeRating)
-    const { result } = renderHook(useRateSetup, {
-      initialProps: { ...initialProps, vote: 'negative' },
-      wrapper: NavigationWrapper,
-    })
+    const { result } = renderHook(useRateSetup, { initialProps: { ...initialProps, vote: 'negative' } })
     await act(async () => {
       await result.current.rate()
     })
@@ -155,10 +137,7 @@ describe('useRateSetup', () => {
   it('does submit positive rating and navigates back to contract', async () => {
     useSettingsStore.getState().setShowBackupReminder(false)
     createUserRatingMock.mockReturnValueOnce(positiveRating)
-    const { result } = renderHook(useRateSetup, {
-      initialProps: { ...initialProps, vote: 'positive' },
-      wrapper: NavigationWrapper,
-    })
+    const { result } = renderHook(useRateSetup, { initialProps: { ...initialProps, vote: 'positive' } })
     await act(async () => {
       await result.current.rate()
     })
@@ -169,10 +148,7 @@ describe('useRateSetup', () => {
   it('does submit negative rating and navigates to yourTrades', async () => {
     useSettingsStore.getState().setShowBackupReminder(false)
     createUserRatingMock.mockReturnValueOnce(negativeRating)
-    const { result } = renderHook(useRateSetup, {
-      initialProps: { ...initialProps, vote: 'negative' },
-      wrapper: NavigationWrapper,
-    })
+    const { result } = renderHook(useRateSetup, { initialProps: { ...initialProps, vote: 'negative' } })
     await act(async () => {
       await result.current.rate()
     })
@@ -181,10 +157,7 @@ describe('useRateSetup', () => {
   it('handles rating submit error', async () => {
     createUserRatingMock.mockReturnValueOnce(negativeRating)
     rateUserMock.mockResolvedValueOnce([null, unauthorizedError])
-    const { result } = renderHook(useRateSetup, {
-      initialProps: { ...initialProps, vote: 'negative' },
-      wrapper: NavigationWrapper,
-    })
+    const { result } = renderHook(useRateSetup, { initialProps: { ...initialProps, vote: 'negative' } })
     await act(async () => {
       await result.current.rate()
     })
@@ -192,10 +165,7 @@ describe('useRateSetup', () => {
     expect(replaceMock).not.toHaveBeenCalled()
   })
   it('opens trade breakdown poup', () => {
-    const { result } = renderHook(useRateSetup, {
-      initialProps,
-      wrapper: NavigationWrapper,
-    })
+    const { result } = renderHook(useRateSetup, { initialProps })
     result.current.showTradeBreakdown()
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
@@ -212,18 +182,12 @@ describe('useRateSetup', () => {
   })
   it('opens tx in explorer', () => {
     const contractWithTxId = { ...contract, releaseTxId: 'releaseTxId' }
-    const { result } = renderHook(useRateSetup, {
-      initialProps: { ...initialProps, contract: contractWithTxId },
-      wrapper: NavigationWrapper,
-    })
+    const { result } = renderHook(useRateSetup, { initialProps: { ...initialProps, contract: contractWithTxId } })
     result.current.viewInExplorer()
     expect(showTransactionMock).toHaveBeenCalledWith(contractWithTxId.releaseTxId, 'regtest')
   })
   it('opens escrow address in explorer if txId is not known', () => {
-    const { result } = renderHook(useRateSetup, {
-      initialProps,
-      wrapper: NavigationWrapper,
-    })
+    const { result } = renderHook(useRateSetup, { initialProps })
     result.current.viewInExplorer()
     expect(showAddressMock).toHaveBeenCalledWith(contract.escrow, 'regtest')
   })

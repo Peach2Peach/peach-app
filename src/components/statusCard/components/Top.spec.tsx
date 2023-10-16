@@ -1,6 +1,6 @@
-import { Top } from './Top'
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
 import { StatusCardProps } from '../StatusCard'
+import { Top } from './Top'
 
 jest.mock('./Left', () => ({
   Left: 'Left',

@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { useBackupTimeSetup } from './useBackupTimeSetup'
 
 const useRouteMock = jest.fn(() => ({ params: {} }))
@@ -46,11 +46,11 @@ describe('useBackupTimeSetup', () => {
     expect(replaceMock).toHaveBeenCalledWith('someScreen', {})
   })
 
-  it('should navigate to home screen when skip is called without nextScreen provided', () => {
+  it('should navigate to buy screen when skip is called without nextScreen provided', () => {
     const { result } = renderHook(useBackupTimeSetup)
 
     result.current.skip()
 
-    expect(replaceMock).toHaveBeenCalledWith('home')
+    expect(replaceMock).toHaveBeenCalledWith('buy')
   })
 })

@@ -1,5 +1,5 @@
-import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
+import { renderHook } from 'test-utils'
 import { useUpdateTradingAmounts } from '.'
 import { useConfigStore } from '../store/configStore'
 import { useOfferPreferences } from '../store/offerPreferenes/useOfferPreferences'

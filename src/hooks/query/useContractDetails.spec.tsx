@@ -1,6 +1,6 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { renderHook, waitFor } from 'test-utils'
 import { contract } from '../../../tests/unit/data/contractData'
-import { queryClient, QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useContractDetails } from './useContractDetails'
 
 const getStoredContractMock = jest.fn()
@@ -11,20 +11,13 @@ const getContractMock = jest.fn().mockResolvedValue([contract])
 jest.mock('../../utils/peachAPI', () => ({
   getContract: () => getContractMock(),
 }))
-const useIsFocusedMock = jest.fn().mockReturnValue(true)
-jest.mock('@react-navigation/native', () => ({
-  useIsFocused: () => useIsFocusedMock(),
-}))
 
 describe('useContractDetails', () => {
   afterEach(() => {
     queryClient.clear()
   })
   it('fetches contract details from API', async () => {
-    const { result } = renderHook((id) => useContractDetails(id), {
-      wrapper: QueryClientWrapper,
-      initialProps: contract.id,
-    })
+    const { result } = renderHook(useContractDetails, { initialProps: contract.id })
 
     expect(result.current.contract).toBeUndefined()
     expect(result.current.isLoading).toBeTruthy()
@@ -39,10 +32,7 @@ describe('useContractDetails', () => {
   it('returns local contract first if given', async () => {
     const localContract = { ...contract, symmetricKey: 'local' }
     getStoredContractMock.mockReturnValueOnce(localContract)
-    const { result } = renderHook((id) => useContractDetails(id), {
-      wrapper: QueryClientWrapper,
-      initialProps: contract.id,
-    })
+    const { result } = renderHook(useContractDetails, { initialProps: contract.id })
 
     expect(result.current.contract).toEqual(localContract)
     expect(result.current.isLoading).toBeFalsy()
@@ -55,10 +45,7 @@ describe('useContractDetails', () => {
     const localContract = { ...contract, symmetricKey: 'local' }
     getContractMock.mockResolvedValueOnce([null])
     getStoredContractMock.mockReturnValueOnce(localContract)
-    const { result } = renderHook((id) => useContractDetails(id), {
-      wrapper: QueryClientWrapper,
-      initialProps: contract.id,
-    })
+    const { result } = renderHook(useContractDetails, { initialProps: contract.id })
 
     expect(result.current.contract).toEqual(localContract)
     expect(result.current.isLoading).toBeFalsy()
@@ -70,10 +57,7 @@ describe('useContractDetails', () => {
     const localContract = undefined
     getStoredContractMock.mockReturnValueOnce(localContract)
     getContractMock.mockResolvedValueOnce([null])
-    const { result } = renderHook((id) => useContractDetails(id), {
-      wrapper: QueryClientWrapper,
-      initialProps: contract.id,
-    })
+    const { result } = renderHook(useContractDetails, { initialProps: contract.id })
 
     expect(result.current.contract).toBeUndefined()
     expect(result.current.isLoading).toBeTruthy()

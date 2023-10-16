@@ -1,7 +1,7 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { BICInput } from './BICInput'
-import { act, fireEvent, render } from '@testing-library/react-native'
+import { act, fireEvent, render } from 'test-utils'
 import i18n from '../../utils/i18n'
+import { BICInput } from './BICInput'
 
 describe('BICInput', () => {
   const renderer = createRenderer()

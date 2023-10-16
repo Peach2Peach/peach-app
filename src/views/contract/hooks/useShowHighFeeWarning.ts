@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react'
-import { MessageContext } from '../../../contexts/message'
+import { useEffect } from 'react'
+import { useMessageState } from '../../../components/message/useMessageState'
 import { useNavigation } from '../../../hooks'
 import { useFeeRate } from '../../../hooks/useFeeRate'
 import i18n from '../../../utils/i18n'
@@ -13,7 +13,7 @@ type Props = {
 }
 export const useShowHighFeeWarning = ({ enabled, amount }: Props) => {
   const navigation = useNavigation()
-  const [, updateMessage] = useContext(MessageContext)
+  const updateMessage = useMessageState((state) => state.updateMessage)
   const feeRate = useFeeRate()
 
   useEffect(() => {

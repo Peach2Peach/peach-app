@@ -1,17 +1,16 @@
-import { BackupReminderIcon } from './BackupReminderIcon'
-import { fireEvent, render } from '@testing-library/react-native'
-import { usePopupStore } from '../../store/usePopupStore'
-import { FirstBackup } from '../../popups/warning/FirstBackup'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
 import { TouchableOpacity } from 'react-native'
+import { fireEvent, render } from 'test-utils'
+import { FirstBackup } from '../../popups/warning/FirstBackup'
+import { usePopupStore } from '../../store/usePopupStore'
+import { BackupReminderIcon } from './BackupReminderIcon'
 
 describe('BackupReminderIcon', () => {
   it('renders correctly', () => {
-    expect(render(<BackupReminderIcon />, { wrapper: NavigationWrapper })).toMatchSnapshot()
+    expect(render(<BackupReminderIcon />)).toMatchSnapshot()
   })
 
   it('opens backup popup', () => {
-    const { UNSAFE_getByType } = render(<BackupReminderIcon />, { wrapper: NavigationWrapper })
+    const { UNSAFE_getByType } = render(<BackupReminderIcon />)
     fireEvent.press(UNSAFE_getByType(TouchableOpacity))
     expect(usePopupStore.getState()).toEqual(
       expect.objectContaining({

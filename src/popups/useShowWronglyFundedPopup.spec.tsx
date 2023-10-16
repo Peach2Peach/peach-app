@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { useShowWronglyFundedPopup } from './useShowWronglyFundedPopup'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'

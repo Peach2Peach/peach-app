@@ -1,6 +1,5 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useCallback, useEffect } from 'react'
-import SplashScreen from 'react-native-splash-screen'
 import { useNavigation } from '../hooks'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation'
@@ -37,8 +36,6 @@ export const useInitialNavigation = () => {
 
       if (dataIsDefined(remoteMessage)) handlePushNotification(navigation, remoteMessage)
     })
-
-    SplashScreen.hide()
   }, [navigation])
 
   useEffect(() => {

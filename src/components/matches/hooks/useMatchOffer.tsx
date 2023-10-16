@@ -1,12 +1,11 @@
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useContext } from 'react'
 import { shallow } from 'zustand/shallow'
-import { MessageContext } from '../../../contexts/message'
 import { useNavigation } from '../../../hooks'
 import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
 import { error, info } from '../../../utils/log'
 import { isSellOffer, saveOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/result'
+import { useMessageState } from '../../message/useMessageState'
 import { useMatchStore } from '../store'
 import { createRefundTx, handleError, handleMissingPaymentData, matchFn, updateMatchedStatus } from '../utils'
 
@@ -14,7 +13,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
   const matchingOfferId = match.offerId
   const queryClient = useQueryClient()
   const navigation = useNavigation()
-  const [, updateMessage] = useContext(MessageContext)
+  const updateMessage = useMessageState((state) => state.updateMessage)
 
   const showPopup = useShowAppPopup('offerTaken')
 

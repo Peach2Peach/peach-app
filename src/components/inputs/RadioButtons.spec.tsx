@@ -1,6 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
+import { fireEvent, render } from 'test-utils'
 import { RadioButtons } from './RadioButtons'
-import { fireEvent, render } from '@testing-library/react-native'
 
 describe('RadioButtons', () => {
   const renderer = createRenderer()

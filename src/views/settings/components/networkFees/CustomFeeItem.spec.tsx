@@ -1,5 +1,5 @@
-import { act, fireEvent, render } from '@testing-library/react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { act, fireEvent, render } from 'test-utils'
 import { CustomFeeItem } from './CustomFeeItem'
 expect.extend({ toMatchDiffSnapshot })
 

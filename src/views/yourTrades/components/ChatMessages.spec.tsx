@@ -1,5 +1,5 @@
+import { render } from 'test-utils'
 import { NewChatMessages } from './ChatMessages'
-import { render } from '@testing-library/react-native'
 
 describe('ChatMessages', () => {
   it('should render correctly', () => {

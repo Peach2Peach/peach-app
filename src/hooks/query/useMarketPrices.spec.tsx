@@ -1,5 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { renderHook, waitFor } from 'test-utils'
 import { useMarketPrices } from './useMarketPrices'
 
 const marketPricesMock = jest.fn().mockResolvedValue([
@@ -15,7 +14,7 @@ jest.mock('../../utils/peachAPI/public/market', () => ({
 jest.useFakeTimers()
 describe('useMarketPrices', () => {
   it('should return marketPrices', async () => {
-    const { result } = renderHook(useMarketPrices, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useMarketPrices)
     expect(result.current.isLoading).toEqual(true)
     await waitFor(() => expect(result.current.isLoading).toEqual(false))
     expect(result.current.data).toEqual({
@@ -25,7 +24,7 @@ describe('useMarketPrices', () => {
   })
   it('should handle errors', async () => {
     marketPricesMock.mockResolvedValueOnce([null, null])
-    const { result } = renderHook(useMarketPrices, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useMarketPrices)
     await waitFor(() => {
       expect(result.current.error).toEqual(Error('Error fetching market prices'))
     })
@@ -47,7 +46,7 @@ describe('useMarketPrices', () => {
         null,
       ])
 
-    const { result } = renderHook(useMarketPrices, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useMarketPrices)
     await waitFor(() => {
       expect(result.current.data).toEqual({
         EUR: 21000,
@@ -73,7 +72,7 @@ describe('useMarketPrices', () => {
       ])
       .mockResolvedValueOnce([null, null])
 
-    const { result } = renderHook(useMarketPrices, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useMarketPrices)
     await waitFor(() => {
       expect(result.current.data).toEqual({
         EUR: 21000,

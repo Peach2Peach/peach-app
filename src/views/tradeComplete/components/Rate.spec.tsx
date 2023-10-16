@@ -1,5 +1,4 @@
-import { render } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { render } from 'test-utils'
 import { Rate } from './Rate'
 
 describe('Rate', () => {
@@ -9,7 +8,7 @@ describe('Rate', () => {
     const saveAndUpdate = jest.fn()
     const vote = 'positive'
 
-    const { toJSON } = render(<Rate {...{ contract, view, vote, saveAndUpdate }} />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<Rate {...{ contract, view, vote, saveAndUpdate }} />)
     expect(toJSON()).toMatchSnapshot()
   })
 })

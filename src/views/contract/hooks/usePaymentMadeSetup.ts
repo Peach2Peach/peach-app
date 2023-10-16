@@ -9,7 +9,7 @@ export const usePaymentMadeSetup = () => {
       index: 1,
       routes: [{ name: 'yourTrades' }, { name: 'contract', params: { contractId } }],
     })
-  const close = () => (navigation.canGoBack() ? navigation.goBack() : navigation.navigate('home'))
+  const close = () => (navigation.canGoBack() ? navigation.goBack() : navigation.navigate('buy'))
 
   return { close, goToTrade }
 }

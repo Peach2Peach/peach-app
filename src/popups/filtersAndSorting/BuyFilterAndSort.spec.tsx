@@ -1,8 +1,7 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import { TextInput } from 'react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { fireEvent, render, waitFor } from 'test-utils'
 import { buyOffer } from '../../../tests/unit/data/offerData'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePopupStore } from '../../store/usePopupStore'
@@ -16,24 +15,22 @@ jest.mock('../../utils/peachAPI', () => ({
   patchOffer: (...args: unknown[]) => patchOfferMock(...args),
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
-
 const defaultComponent = <BuyFilterAndSort offer={buyOffer} />
 describe('BuyFilterAndSort', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(defaultComponent, { wrapper })
+    const { toJSON } = render(defaultComponent)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should use the offer maxPremium as the default value for the maxPremium input', () => {
     const offerWithMaxPremium = { ...buyOffer, maxPremium: 0.5 }
-    const { getByPlaceholderText, toJSON } = render(<BuyFilterAndSort offer={offerWithMaxPremium} />, { wrapper })
+    const { getByPlaceholderText, toJSON } = render(<BuyFilterAndSort offer={offerWithMaxPremium} />)
     const maxPremiumInput = getByPlaceholderText('20.00')
     expect(maxPremiumInput.props.value).toBe('0.5')
-    expect(render(defaultComponent, { wrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
+    expect(render(defaultComponent).toJSON()).toMatchDiffSnapshot(toJSON())
   })
   it('should focus the maxPremium input when the maxPremium checkbox gets checked', () => {
     const focusSpy = jest.spyOn(TextInput.prototype, 'focus')
-    const { getByText } = render(defaultComponent, { wrapper })
+    const { getByText } = render(defaultComponent)
     const checkbox = getByText('max premium')
 
     fireEvent.press(checkbox)
@@ -41,7 +38,7 @@ describe('BuyFilterAndSort', () => {
   })
   it("shouldn't focus the input when the filter has changed from the global state", () => {
     const focusSpy = jest.spyOn(TextInput.prototype, 'focus')
-    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
+    const { getByText, getByPlaceholderText } = render(defaultComponent)
     const maxPremiumInput = getByPlaceholderText('20.00')
     const checkbox = getByText('max premium')
 
@@ -50,11 +47,11 @@ describe('BuyFilterAndSort', () => {
     expect(focusSpy).not.toHaveBeenCalled()
   })
   it('should use the global preferences as defaults when the offer is undefined', () => {
-    const { toJSON } = render(<BuyFilterAndSort />, { wrapper })
+    const { toJSON } = render(<BuyFilterAndSort />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should show the loading indicator after the apply button is pressed', () => {
-    const { getByText, getByPlaceholderText, toJSON } = render(defaultComponent, { wrapper })
+    const { getByText, getByPlaceholderText, toJSON } = render(defaultComponent)
     const maxPremiumInput = getByPlaceholderText('20.00')
     const applyButton = getByText('apply')
 
@@ -73,7 +70,7 @@ describe('ApplyBuyFilterAction', () => {
     queryClient.resetQueries()
   })
   it('should patch the offer with the selected filter', async () => {
-    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
+    const { getByText, getByPlaceholderText } = render(defaultComponent)
     const maxPremiumInput = getByPlaceholderText('20.00')
     const applyButton = getByText('apply')
     const checkbox = getByText('max premium')
@@ -84,7 +81,7 @@ describe('ApplyBuyFilterAction', () => {
     await waitFor(() => expect(patchOfferMock).toHaveBeenCalledWith({ offerId: buyOffer.id, maxPremium: 0.5 }))
   })
   it('should set maxPremium to null when the checkbox is not checked', async () => {
-    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
+    const { getByText, getByPlaceholderText } = render(defaultComponent)
     const maxPremiumInput = getByPlaceholderText('20.00')
     const applyButton = getByText('apply')
 
@@ -93,7 +90,7 @@ describe('ApplyBuyFilterAction', () => {
     await waitFor(() => expect(patchOfferMock).toHaveBeenCalledWith({ offerId: buyOffer.id, maxPremium: null }))
   })
   it('should set maxPremium to null when the checkbox is checked but the input is empty', async () => {
-    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
+    const { getByText, getByPlaceholderText } = render(defaultComponent)
     const maxPremiumInput = getByPlaceholderText('20.00')
     const applyButton = getByText('apply')
     const checkbox = getByText('max premium')
@@ -105,7 +102,7 @@ describe('ApplyBuyFilterAction', () => {
   })
 
   it('should update the global state with the new filter', () => {
-    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
+    const { getByText, getByPlaceholderText } = render(defaultComponent)
     const maxPremiumInput = getByPlaceholderText('20.00')
     const applyButton = getByText('apply')
     const checkbox = getByText('max premium')
@@ -118,7 +115,7 @@ describe('ApplyBuyFilterAction', () => {
 
   it('should update the global state with the new filter when entering an empty string', () => {
     useOfferPreferences.setState({ filter: { buyOffer: { maxPremium: 0.5 } } })
-    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
+    const { getByText, getByPlaceholderText } = render(defaultComponent)
     const maxPremiumInput = getByPlaceholderText('20.00')
     const applyButton = getByText('apply')
     const checkbox = getByText('max premium')
@@ -130,7 +127,7 @@ describe('ApplyBuyFilterAction', () => {
   })
 
   it('should not update the global state with the new filter when the checkbox is not checked', () => {
-    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
+    const { getByText, getByPlaceholderText } = render(defaultComponent)
     const maxPremiumInput = getByPlaceholderText('20.00')
     const applyButton = getByText('apply')
 
@@ -140,7 +137,7 @@ describe('ApplyBuyFilterAction', () => {
   })
 
   it('should apply the selected sorter', () => {
-    const { getByText } = render(defaultComponent, { wrapper })
+    const { getByText } = render(defaultComponent)
     const applyButton = getByText('apply')
     const highestAmountButton = getByText('highest amount first')
 
@@ -155,7 +152,7 @@ describe('ApplyBuyFilterAction', () => {
     queryClient.setQueryData(['matches', buyOffer.id], { matches: [] })
     queryClient.setQueryData(['matches', buyOffer.id, 'bestReputation'], { matches: [] })
 
-    const { getByText } = render(defaultComponent, { wrapper })
+    const { getByText } = render(defaultComponent)
     const applyButton = getByText('apply')
 
     fireEvent.press(applyButton)
@@ -172,7 +169,7 @@ describe('ApplyBuyFilterAction', () => {
     queryClient.setQueryData(['matches', buyOffer.id], { matches: [] })
     queryClient.setQueryData(['matches', buyOffer.id, 'bestReputation'], { matches: [] })
 
-    const { getByText } = render(defaultComponent, { wrapper })
+    const { getByText } = render(defaultComponent)
     const applyButton = getByText('apply')
 
     const refetchSpy = jest.spyOn(queryClient, 'refetchQueries')
@@ -186,7 +183,7 @@ describe('ApplyBuyFilterAction', () => {
   })
 
   it('should close the popup', async () => {
-    const { getByText } = render(defaultComponent, { wrapper })
+    const { getByText } = render(defaultComponent)
     const applyButton = getByText('apply')
 
     fireEvent.press(applyButton)
@@ -194,7 +191,7 @@ describe('ApplyBuyFilterAction', () => {
   })
 
   it('should not patch the offer when the offer is undefined', async () => {
-    const { getByText, getByPlaceholderText } = render(<BuyFilterAndSort />, { wrapper })
+    const { getByText, getByPlaceholderText } = render(<BuyFilterAndSort />)
     const maxPremiumInput = getByPlaceholderText('20.00')
     const applyButton = getByText('apply')
     const checkbox = getByText('max premium')

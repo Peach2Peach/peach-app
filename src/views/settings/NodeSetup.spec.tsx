@@ -1,10 +1,8 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { fireEvent, render } from 'test-utils'
 import { usePopupStore } from '../../store/usePopupStore'
 import { NodeSetup } from './NodeSetup'
 
-const wrapper = NavigationWrapper
 const url = 'blockstream.info'
 const nodeSetup = {
   enabled: false,
@@ -28,7 +26,7 @@ jest.mock('./hooks/nodeSetup/useNodeSetup', () => ({
 describe('NodeSetup', () => {
   const shallowRenderer = createRenderer()
   it('should render with default settings', () => {
-    shallowRenderer.render(<NodeSetup />, { wrapper })
+    shallowRenderer.render(<NodeSetup />)
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render with valid node settings', () => {
@@ -41,42 +39,42 @@ describe('NodeSetup', () => {
       urlErrors: [],
       canCheckConnection: true,
     })
-    shallowRenderer.render(<NodeSetup />, { wrapper })
+    shallowRenderer.render(<NodeSetup />)
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should toggle enabled', () => {
-    const { queryAllByText } = render(<NodeSetup />, { wrapper })
+    const { queryAllByText } = render(<NodeSetup />)
     fireEvent.press(queryAllByText('use your own node')[1])
     expect(nodeSetup.toggleEnabled).toHaveBeenCalled()
   })
   it('should not be able to toggle ssl if disabled', () => {
     useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: false })
-    const { getByText } = render(<NodeSetup />, { wrapper })
+    const { getByText } = render(<NodeSetup />)
     fireEvent.press(getByText('use SSL'))
     expect(nodeSetup.toggleSSL).not.toHaveBeenCalled()
   })
   it('should toggle ssl', () => {
     useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true })
-    const { getByText } = render(<NodeSetup />, { wrapper })
+    const { getByText } = render(<NodeSetup />)
     fireEvent.press(getByText('use SSL'))
     expect(nodeSetup.toggleSSL).toHaveBeenCalled()
   })
   it('should change address', () => {
     useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true })
-    const { getByPlaceholderText } = render(<NodeSetup />, { wrapper })
+    const { getByPlaceholderText } = render(<NodeSetup />)
     fireEvent(getByPlaceholderText('192.168.0.1:50001'), 'onChange', url)
     expect(nodeSetup.setURL).toHaveBeenCalledWith(url)
   })
   it('should open call checkConnection', () => {
     useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true, address: url, canCheckConnection: true })
-    const { getByText } = render(<NodeSetup />, { wrapper })
+    const { getByText } = render(<NodeSetup />)
     fireEvent.press(getByText('check connection'))
     expect(nodeSetup.checkConnection).toHaveBeenCalled()
   })
   it('should open help popup', () => {
-    const { getByAccessibilityHint } = render(<NodeSetup />, { wrapper })
+    const { getByAccessibilityHint } = render(<NodeSetup />)
 
     fireEvent.press(getByAccessibilityHint('help use your own node'))
-    expect(render(usePopupStore.getState().popupComponent || <></>, { wrapper })).toMatchSnapshot()
+    expect(render(usePopupStore.getState().popupComponent || <></>)).toMatchSnapshot()
   })
 })

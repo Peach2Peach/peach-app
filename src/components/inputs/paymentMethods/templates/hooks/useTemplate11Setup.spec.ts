@@ -1,6 +1,6 @@
-import { useTemplate11Setup } from './useTemplate11Setup'
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
+import { useTemplate11Setup } from './useTemplate11Setup'
 
 describe('useTemplate11Setup', () => {
   const mockProps: FormProps = {

@@ -1,8 +1,8 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { GestureResponderEvent, View } from 'react-native'
 import { HorizontalLine } from '../..'
-import { DrawerContext } from '../../../contexts/drawer'
 import tw from '../../../styles/tailwind'
+import { useDrawerState } from '../useDrawerState'
 import { CloseIcon } from './CloseIcon'
 import { DrawerTitle } from './DrawerTitle'
 import { GoBackIcon } from './GoBackIcon'
@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const DrawerHeader = ({ closeDrawer }: Props) => {
-  const [{ options }] = useContext(DrawerContext)
+  const options = useDrawerState((state) => state.options)
   const [touchY, setTouchY] = useState<number>()
   const registerTouchStart = (e: GestureResponderEvent) => setTouchY(e.nativeEvent.pageY)
   const registerTouchMove = (e: GestureResponderEvent) => {

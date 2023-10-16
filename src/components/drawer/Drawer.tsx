@@ -1,9 +1,10 @@
-import { useCallback, useContext, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { Animated, BackHandler, Easing, Pressable, View, useWindowDimensions } from 'react-native'
 
-import { DrawerContext } from '../../contexts/drawer'
+import { shallow } from 'zustand/shallow'
 import tw from '../../styles/tailwind'
 import { DrawerHeader, DrawerOptions } from './components'
+import { useDrawerState } from './useDrawerState'
 
 const animConfig = {
   duration: 300,
@@ -14,7 +15,10 @@ const animConfig = {
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export const Drawer = () => {
-  const [{ content, show, onClose, options, previousDrawer }, updateDrawer] = useContext(DrawerContext)
+  const [{ content, show, onClose, options, previousDrawer }, updateDrawer] = useDrawerState(
+    (state) => [state, state.updateDrawer],
+    shallow,
+  )
   const { height } = useWindowDimensions()
   const slideAnim = useRef(new Animated.Value(0)).current
   const fadeAnim = useRef(new Animated.Value(0)).current

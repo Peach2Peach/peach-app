@@ -1,13 +1,13 @@
-import { shallow } from 'zustand/shallow'
-import { useConfigStore } from '../store/configStore'
-import { compatibilityCheck, linkToAppStore } from '../utils/system'
-import { useMessageContext } from '../contexts/message'
-import { APPVERSION } from '../constants'
-import i18n from '../utils/i18n'
 import { useEffect } from 'react'
+import { shallow } from 'zustand/shallow'
+import { useMessageState } from '../components/message/useMessageState'
+import { APPVERSION } from '../constants'
+import { useConfigStore } from '../store/configStore'
+import i18n from '../utils/i18n'
+import { compatibilityCheck, linkToAppStore } from '../utils/system'
 
 export const useShowUpdateAvailable = () => {
-  const [, updateMessage] = useMessageContext()
+  const updateMessage = useMessageState((state) => state.updateMessage)
   const [minAppVersion, latestAppVersion] = useConfigStore(
     (state) => [state.minAppVersion, state.latestAppVersion],
     shallow,

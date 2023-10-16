@@ -32,7 +32,7 @@
   "transformIgnorePatterns": [
     "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-form-validator|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg|bdk-rn|react-native-parsed-text|react-native-snap-carousel|react-native-url-polyfill|react-native-camera)/)"
   ],
-  "setupFiles": ["./tests/unit/prepare.ts", "./node_modules/react-native-gesture-handler/jestSetup.js"],
+  "setupFiles": ["./tests/unit/prepare.ts"],
   "moduleNameMapper": {
     "\\.(ttf|woff|woff2|eot|otf)$": "jest-transform-stub",
     "\\.(svg)$": "<rootDir>/__mocks__/fileMock.js"

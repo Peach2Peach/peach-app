@@ -1,9 +1,9 @@
-import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { renderHook, waitFor } from 'test-utils'
 import { contractSummary } from '../../../tests/unit/data/contractSummaryData'
-import { QueryClientWrapper, queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultTradeSummaryState, useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { useContractSummaries } from './useContractSummaries'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 
 const getContractSummariesMock = jest.fn().mockResolvedValue([[contractSummary]])
 jest.mock('../../utils/peachAPI', () => ({
@@ -16,14 +16,14 @@ describe('useContractSummaries', () => {
   const localContractSumary: ContractSummary = { ...contractSummary, tradeStatus: 'tradeCanceled' }
 
   beforeEach(() => {
-    act(() => useTradeSummaryStore.setState(defaultTradeSummaryState))
+    useTradeSummaryStore.setState(defaultTradeSummaryState)
   })
 
   afterEach(() => {
     queryClient.clear()
   })
   it('fetches contract summaries from API and save in local store', async () => {
-    const { result } = renderHook(useContractSummaries, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useContractSummaries)
 
     expect(result.current.contracts).toEqual([])
     expect(result.current.isLoading).toBeTruthy()
@@ -38,7 +38,7 @@ describe('useContractSummaries', () => {
   })
   it('returns local contract summaries first if given', async () => {
     useTradeSummaryStore.setState({ contracts: [localContractSumary], lastModified: new Date() })
-    const { result } = renderHook(useContractSummaries, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useContractSummaries)
 
     expect(result.current.contracts).toEqual([localContractSumary])
     expect(result.current.isLoading).toBeFalsy()
@@ -52,7 +52,7 @@ describe('useContractSummaries', () => {
     useTradeSummaryStore.setState({ contracts: [localContractSumary], lastModified: new Date() })
     getContractSummariesMock.mockResolvedValueOnce([null])
 
-    const { result } = renderHook(useContractSummaries, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useContractSummaries)
 
     expect(result.current.contracts).toEqual([localContractSumary])
     expect(result.current.isLoading).toBeFalsy()
@@ -62,7 +62,7 @@ describe('useContractSummaries', () => {
   })
   it('returns error if server did return error and no local contract summaries exists', async () => {
     getContractSummariesMock.mockResolvedValueOnce([null, unauthorizedError])
-    const { result } = renderHook(useContractSummaries, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useContractSummaries)
 
     expect(result.current.contracts).toEqual([])
     expect(result.current.isLoading).toBeTruthy()

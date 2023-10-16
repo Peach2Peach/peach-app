@@ -1,5 +1,5 @@
+import { act, renderHook } from 'test-utils'
 import { useReceiveAddressInput } from './useReceiveAddressInput'
-import { act, renderHook } from '@testing-library/react-native'
 
 describe('useReceiveAddressInput', () => {
   const mockData: Partial<PaymentData> = {}

@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useTemplate9Setup } from './useTemplate9Setup'
 

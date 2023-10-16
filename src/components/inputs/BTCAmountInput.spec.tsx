@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
 import { BTCAmountInput } from './BTCAmountInput'
 
 describe('BTCAmountInput', () => {

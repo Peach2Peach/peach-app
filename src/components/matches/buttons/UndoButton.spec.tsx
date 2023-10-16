@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent, render } from 'test-utils'
 import i18n from '../../../utils/i18n'
 import { UndoButton } from './UndoButton'
 

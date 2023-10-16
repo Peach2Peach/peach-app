@@ -1,6 +1,5 @@
-import { act, render, renderHook, waitFor } from '@testing-library/react-native'
+import { act, render, renderHook, waitFor } from 'test-utils'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { getOfferDetails } from '../../../utils/peachAPI'
@@ -25,7 +24,6 @@ jest.mock('../../../popups/filtersAndSorting', () => ({
   SellSorters: 'SellSorters',
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
 describe('useSortAndFilterPopup', () => {
   beforeEach(() => {
     queryClient.clear()
@@ -33,38 +31,38 @@ describe('useSortAndFilterPopup', () => {
   })
 
   it('should return a function', async () => {
-    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
+    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id))
     expect(result.current).toBeInstanceOf(Function)
     await waitForQuery()
   })
   it('should call getOfferDetails with the offerId', async () => {
-    renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
+    renderHook(() => useSortAndFilterPopup(buyOffer.id))
 
     await waitForQuery()
     expect(getOfferDetailsMock).toHaveBeenCalledWith({ offerId: buyOffer.id })
   })
   it('should update the popup store with the correct content for buy offers', async () => {
-    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
+    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id))
     await waitForQuery()
     const showPopup = result.current
     act(() => {
       showPopup()
     })
 
-    expect(render(usePopupStore.getState().popupComponent || <></>, { wrapper })).toMatchSnapshot()
+    expect(render(usePopupStore.getState().popupComponent || <></>)).toMatchSnapshot()
   })
   it('should update the popup store with the correct content for sell offers', async () => {
     getOfferDetailsMock.mockResolvedValueOnce([sellOffer, null])
-    const { result } = renderHook(() => useSortAndFilterPopup(sellOffer.id), { wrapper })
+    const { result } = renderHook(() => useSortAndFilterPopup(sellOffer.id))
     await waitForQuery()
     const showPopup = result.current
     act(() => {
       showPopup()
     })
-    expect(render(usePopupStore.getState().popupComponent || <></>, { wrapper })).toMatchSnapshot()
+    expect(render(usePopupStore.getState().popupComponent || <></>)).toMatchSnapshot()
   })
   it('should not update the popup store if the offer is not found', async () => {
-    const { result } = renderHook(() => useSortAndFilterPopup('unknownOfferId'), { wrapper })
+    const { result } = renderHook(() => useSortAndFilterPopup('unknownOfferId'))
     await waitForQuery()
     const showPopup = result.current
     act(() => {

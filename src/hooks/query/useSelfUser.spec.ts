@@ -1,7 +1,7 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { renderHook, waitFor } from 'test-utils'
 import { buyer } from '../../../tests/unit/data/accountData'
 import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
-import { QueryClientWrapper, queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useSelfUser } from './useSelfUser'
 
 jest.useFakeTimers()
@@ -11,15 +11,13 @@ jest.mock('../../utils/peachAPI', () => ({
   getSelfUser: () => getSelfUserMock(),
 }))
 
-const wrapper = QueryClientWrapper
-
 describe('useSelfUser', () => {
   afterEach(() => {
     queryClient.clear()
   })
 
   it('fetches user from API', async () => {
-    const { result } = renderHook(useSelfUser, { wrapper })
+    const { result } = renderHook(useSelfUser)
     expect(result.current).toEqual({
       user: undefined,
       isLoading: true,
@@ -34,7 +32,7 @@ describe('useSelfUser', () => {
   })
   it('returns error if server did not return result', async () => {
     getSelfUserMock.mockResolvedValueOnce([null, unauthorizedError])
-    const { result } = renderHook(useSelfUser, { wrapper })
+    const { result } = renderHook(useSelfUser)
     expect(result.current).toEqual({
       user: undefined,
       isLoading: true,

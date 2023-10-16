@@ -1,5 +1,5 @@
-import { CommonActions } from '@react-navigation/native'
 import { useCallback } from 'react'
+import { useNavigation } from '../../../../hooks'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { deleteAccount } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -8,6 +8,7 @@ import { DeleteAccountPopup } from './DeleteAccountPopup'
 
 export const useDeleteAccountPopups = () => {
   const setPopup = usePopupStore((state) => state.setPopup)
+  const navigation = useNavigation()
 
   const showPopup = useCallback(
     (content: JSX.Element, callback?: () => void, isSuccess = false) =>
@@ -31,7 +32,7 @@ export const useDeleteAccountPopups = () => {
   const deleteAccountClicked = () => {
     deleteAccount()
     logoutUser({})
-    CommonActions.reset({
+    navigation.reset({
       index: 0,
       routes: [{ name: 'welcome' }],
     })

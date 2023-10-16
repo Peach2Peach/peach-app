@@ -1,11 +1,10 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { buyOffer } from '../../../../tests/unit/data/offerData'
 import {
   pending1,
   pendingTransactionSummary,
   transactionWithRBF1,
 } from '../../../../tests/unit/data/transactionDetailData'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { saveOffer } from '../../../utils/offer'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useTransactionDetailsSetup } from './useTransactionDetailsSetup'
@@ -22,7 +21,6 @@ jest.mock('../../../hooks/query/useTransactionDetails', () => ({
   useTransactionDetails: (...args: unknown[]) => useTransactionDetailsMock(...args),
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
 jest.useFakeTimers({ now: pendingTransactionSummary.date })
 
 describe('useTransactionDetailsSetup', () => {
@@ -37,7 +35,7 @@ describe('useTransactionDetailsSetup', () => {
   })
 
   it('should return defaults', () => {
-    const { result } = renderHook(useTransactionDetailsSetup, { wrapper })
+    const { result } = renderHook(useTransactionDetailsSetup)
     expect(result.current).toEqual({
       transaction: undefined,
       refresh: expect.any(Function),
@@ -47,7 +45,7 @@ describe('useTransactionDetailsSetup', () => {
   it('should return local transaction', () => {
     useWalletState.getState().setTransactions([pendingTx])
 
-    const { result } = renderHook(useTransactionDetailsSetup, { wrapper })
+    const { result } = renderHook(useTransactionDetailsSetup)
     expect(result.current.transaction).toEqual({
       ...pendingTransactionSummary,
       id: pendingTx.txid,
@@ -73,12 +71,12 @@ describe('useTransactionDetailsSetup', () => {
       type: 'DEPOSIT',
     }
     useTransactionDetailsMock.mockReturnValueOnce({ transaction: transactionWithRBF1 })
-    const { result } = renderHook(useTransactionDetailsSetup, { wrapper })
+    const { result } = renderHook(useTransactionDetailsSetup)
     expect(result.current.transaction).toEqual(transactionSummary)
   })
   it('should reload when transaction in store update', () => {
     useWalletState.getState().setTransactions([])
-    const { result } = renderHook(useTransactionDetailsSetup, { wrapper })
+    const { result } = renderHook(useTransactionDetailsSetup)
     expect(result.current.transaction).toBeUndefined()
 
     act(() => useWalletState.getState().setTransactions([pendingTx]))

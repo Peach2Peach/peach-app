@@ -31,7 +31,7 @@ export const useRestoreReputationSetup = () => {
       setIsRestored(true)
 
       setTimeout(() => {
-        navigation.replace('home')
+        navigation.replace('buy')
       }, 1500)
     })
   }

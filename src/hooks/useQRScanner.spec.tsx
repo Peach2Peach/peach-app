@@ -1,6 +1,5 @@
-import { act, render, renderHook, waitFor } from '@testing-library/react-native'
 import permissions, { RESULTS } from 'react-native-permissions'
-import { NavigationWrapper } from '../../tests/unit/helpers/NavigationWrapper'
+import { act, render, renderHook, waitFor } from 'test-utils'
 import { usePopupStore } from '../store/usePopupStore'
 import { useQRScanner } from './useQRScanner'
 
@@ -22,9 +21,11 @@ describe('useQRScanner', () => {
       onRead: expect.any(Function),
     })
   })
-  it('requests permissions on iOS', () => {
+  it('requests permissions on iOS', async () => {
     const { result } = renderHook(useQRScanner, { initialProps })
-    act(() => result.current.showQR())
+    await act(async () => {
+      await result.current.showQR()
+    })
     expect(permissions.request).toHaveBeenCalledWith('ios.permission.CAMERA')
   })
   it('does not request permissions on android and shows qr scanner', () => {
@@ -46,7 +47,7 @@ describe('useQRScanner', () => {
     act(() => result.current.showQR())
     expect(result.current.showQRScanner).toBeFalsy()
     const popup = usePopupStore.getState().popupComponent || <></>
-    expect(render(popup, { wrapper: NavigationWrapper }).toJSON()).toMatchSnapshot()
+    expect(render(popup).toJSON()).toMatchSnapshot()
   })
   it('should show and closeQR', async () => {
     requestSpy.mockImplementationOnce(() => Promise.resolve(RESULTS.GRANTED))

@@ -1,7 +1,7 @@
-import ShallowRenderer from 'react-test-renderer/shallow'
-import { WithdrawingFundsHelp } from './WithdrawingFundsHelp'
-import { fireEvent, render } from '@testing-library/react-native'
 import { Linking } from 'react-native'
+import ShallowRenderer from 'react-test-renderer/shallow'
+import { fireEvent, render } from 'test-utils'
+import { WithdrawingFundsHelp } from './WithdrawingFundsHelp'
 
 describe('WithdrawingFundsHelp', () => {
   const renderer = ShallowRenderer.createRenderer()
