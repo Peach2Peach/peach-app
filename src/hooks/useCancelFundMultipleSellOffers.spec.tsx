@@ -1,6 +1,5 @@
 import { act, fireEvent, render, renderHook, waitFor } from 'test-utils'
 import { unauthorizedError } from '../../tests/unit/data/peachAPIData'
-import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/CustomWrapper'
 import { usePopupStore } from '../store/usePopupStore'
 import { useWalletState } from '../utils/wallet/walletStore'
 import { useCancelFundMultipleSellOffers } from './useCancelFundMultipleSellOffers'
@@ -15,8 +14,6 @@ jest.mock('../utils/peachAPI', () => ({
   cancelOffer: (...args: unknown[]) => cancelOfferMock(...args),
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
-
 describe('useCancelFundMultipleSellOffers', () => {
   const fundMultiple = {
     address: 'address1',
@@ -26,26 +23,22 @@ describe('useCancelFundMultipleSellOffers', () => {
     useWalletState.getState().registerFundMultiple(fundMultiple.address, fundMultiple.offerIds)
   })
   it('should show cancel offer popup', () => {
-    const { result } = renderHook(useCancelFundMultipleSellOffers, {
-      wrapper,
-      initialProps: { fundMultiple },
-    })
+    const { result } = renderHook(useCancelFundMultipleSellOffers, { initialProps: { fundMultiple } })
     result.current()
 
     const popupComponent = usePopupStore.getState().content || <></>
-    const { toJSON } = render(popupComponent, { wrapper })
+    const { toJSON } = render(popupComponent)
     expect(toJSON()).toMatchSnapshot()
   })
 
   it('should show cancel offer confirmation popup', async () => {
     const { result } = renderHook(useCancelFundMultipleSellOffers, {
-      wrapper,
       initialProps: { fundMultiple },
     })
     result.current()
 
     const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { getAllByText } = render(popupComponent, { wrapper })
+    const { getAllByText } = render(popupComponent)
     fireEvent.press(getAllByText('cancel offer')[1])
 
     await waitFor(() => {
@@ -63,13 +56,12 @@ describe('useCancelFundMultipleSellOffers', () => {
   })
   it('not not cancel if no fundMultiple has been passed', async () => {
     const { result } = renderHook(useCancelFundMultipleSellOffers, {
-      wrapper,
       initialProps: { fundMultiple: undefined },
     })
     result.current()
 
     const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { getAllByText } = render(popupComponent, { wrapper })
+    const { getAllByText } = render(popupComponent)
     await act(async () => {
       await fireEvent.press(getAllByText('cancel offer')[1])
     })
@@ -81,13 +73,12 @@ describe('useCancelFundMultipleSellOffers', () => {
     cancelOfferMock.mockResolvedValueOnce([null, null])
 
     const { result } = renderHook(useCancelFundMultipleSellOffers, {
-      wrapper,
       initialProps: { fundMultiple },
     })
     result.current()
 
     const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { getAllByText } = render(popupComponent, { wrapper })
+    const { getAllByText } = render(popupComponent)
     fireEvent.press(getAllByText('cancel offer')[1])
 
     await waitFor(() => {

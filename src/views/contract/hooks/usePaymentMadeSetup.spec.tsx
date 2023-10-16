@@ -32,10 +32,10 @@ describe('usePaymentMadeSetup', () => {
     result.current.close()
     expect(goBackMock).toHaveBeenCalled()
   })
-  it('should close popup by navigating to home if cannot go back', () => {
+  it('should close popup by navigating to buy if cannot go back', () => {
     canGoBackMock.mockReturnValueOnce(false)
     const { result } = renderHook(usePaymentMadeSetup)
     result.current.close()
-    expect(navigateMock).toHaveBeenCalledWith('home')
+    expect(navigateMock).toHaveBeenCalledWith('buy')
   })
 })

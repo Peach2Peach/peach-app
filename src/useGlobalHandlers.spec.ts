@@ -1,6 +1,5 @@
 import { renderHook } from 'test-utils'
-import { NavigationAndQueryClientWrapper } from '../tests/unit/helpers/CustomWrapper'
-import { Props, useGlobalHandlers } from './useGlobalHandlers'
+import { useGlobalHandlers } from './useGlobalHandlers'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: { EUR: 20000, CHF: 20000 },
@@ -33,34 +32,29 @@ jest.mock('./hooks/notifications/useHandleNotifications', () => ({
   useHandleNotifications: () => useHandleNotificationsMock(),
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
-
 describe('useGlobalHandlers', () => {
-  const initialProps: Props = {
-    currentPage: 'home',
-  }
   it('should call useShouldShowBackupReminder', () => {
-    renderHook(useGlobalHandlers, { wrapper, initialProps })
+    renderHook(useGlobalHandlers)
     expect(useShouldShowBackupReminderMock).toHaveBeenCalled()
   })
   it('should call useInitialNavigation', () => {
-    renderHook(useGlobalHandlers, { wrapper, initialProps })
+    renderHook(useGlobalHandlers)
     expect(useInitialNavigationMock).toHaveBeenCalled()
   })
   it('should call useShowUpdateAvailable', () => {
-    renderHook(useGlobalHandlers, { wrapper, initialProps })
+    renderHook(useGlobalHandlers)
     expect(useShowUpdateAvailableMock).toHaveBeenCalled()
   })
   it('should call useDynamicLinks', () => {
-    renderHook(useGlobalHandlers, { wrapper, initialProps })
+    renderHook(useGlobalHandlers)
     expect(useDynamicLinksMock).toHaveBeenCalled()
   })
   it('should call useCheckFundingMultipleEscrows', () => {
-    renderHook(useGlobalHandlers, { wrapper, initialProps })
+    renderHook(useGlobalHandlers)
     expect(useCheckFundingMultipleEscrowsMock).toHaveBeenCalled()
   })
   it('should call useHandleNotifications', () => {
-    renderHook(useGlobalHandlers, { wrapper, initialProps })
+    renderHook(useGlobalHandlers)
     expect(useHandleNotificationsMock).toHaveBeenCalled()
   })
 })

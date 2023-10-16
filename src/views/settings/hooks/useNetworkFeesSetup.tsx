@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useMessageContext } from '../../../contexts/message'
+import { useMessageState } from '../../../components/message/useMessageState'
 import { useValidatedState } from '../../../hooks'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useSettingsStore } from '../../../store/settingsStore'
@@ -11,7 +11,7 @@ const customFeeRules = {
   feeRate: true,
 }
 export const useNetworkFeesSetup = () => {
-  const [, updateMessage] = useMessageContext()
+  const updateMessage = useMessageState((state) => state.updateMessage)
   const { estimatedFees } = useFeeEstimate()
 
   const [feeRate, setFeeRate] = useSettingsStore((state) => [state.feeRate, state.setFeeRate], shallow)

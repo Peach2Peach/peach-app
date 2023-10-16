@@ -1,6 +1,5 @@
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { render } from 'test-utils'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { useBitcoinStore } from '../../store/bitcoinStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { Buy } from './Buy'
@@ -28,8 +27,6 @@ jest.mock('./hooks/useBuySetup', () => ({
   useBuySetup: () => useBuySetupMock(),
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
-
 jest.useFakeTimers()
 
 describe('Buy', () => {
@@ -43,18 +40,18 @@ describe('Buy', () => {
   })
   it('should render correctly while loading max trading amount', () => {
     useBuySetupMock.mockReturnValueOnce({ ...buySetup, isLoading: true })
-    const { toJSON } = render(<Buy />, { wrapper })
+    const { toJSON } = render(<Buy />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly', () => {
-    const { toJSON } = render(<Buy />, { wrapper })
+    const { toJSON } = render(<Buy />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with free trades', () => {
-    const withoutFreeTrades = render(<Buy />, { wrapper }).toJSON()
+    const withoutFreeTrades = render(<Buy />).toJSON()
     const freeTrades = 5
     useBuySetupMock.mockReturnValueOnce({ ...buySetup, freeTrades, maxFreeTrades: 5 })
-    const { toJSON } = render(<Buy />, { wrapper })
+    const { toJSON } = render(<Buy />)
     expect(withoutFreeTrades).toMatchDiffSnapshot(toJSON())
   })
 })

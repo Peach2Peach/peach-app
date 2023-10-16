@@ -1,5 +1,4 @@
 import { render } from 'test-utils'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { useBitcoinStore } from '../../store/bitcoinStore'
 import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
 import { Sell } from './Sell'
@@ -10,8 +9,6 @@ const useMarketPricesMock = jest.fn().mockReturnValue({
 jest.mock('../../hooks/query/useMarketPrices', () => ({
   useMarketPrices: () => useMarketPricesMock(),
 }))
-
-const wrapper = NavigationAndQueryClientWrapper
 
 jest.useFakeTimers()
 
@@ -25,13 +22,13 @@ describe('Sell', () => {
   })
   it('should render correctly while loading max trading amount', () => {
     useOfferPreferences.getState().setSellAmount(Infinity, { min: 0, max: 10 })
-    const { toJSON } = render(<Sell />, { wrapper })
+    const { toJSON } = render(<Sell />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly', () => {
     useOfferPreferences.getState().setSellAmount(1000000, { min: 0, max: 10 })
 
-    const { toJSON } = render(<Sell />, { wrapper })
+    const { toJSON } = render(<Sell />)
     expect(toJSON()).toMatchSnapshot()
   })
 })

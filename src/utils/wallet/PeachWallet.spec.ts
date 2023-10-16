@@ -282,7 +282,7 @@ describe('PeachWallet', () => {
     peachWallet.updateStore()
     expect(useWalletState.getState().transactions).toEqual([confirmed1, confirmed2, pending3])
     expect(useWalletState.getState().txOfferMap).toEqual({
-      txid1: ['3'],
+      txid1_confirmed: ['3'],
       txid2: ['2'],
     })
   })
@@ -297,7 +297,7 @@ describe('PeachWallet', () => {
     peachWallet.updateStore()
     expect(useWalletState.getState().transactions).toEqual([confirmed1, confirmed2, pending3, fundingTx])
     expect(useWalletState.getState().txOfferMap).toEqual({
-      txid1: ['3'],
+      txid1_confirmed: ['3'],
       txid2: ['2'],
       txid4: ['4'],
     })

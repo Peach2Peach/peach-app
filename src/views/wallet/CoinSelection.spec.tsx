@@ -4,7 +4,6 @@ import { KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { fireEvent, render, waitFor } from 'test-utils'
 import { confirmed1 } from '../../../tests/unit/data/transactionDetailData'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { usePopupStore } from '../../store/usePopupStore'
@@ -17,7 +16,6 @@ expect.extend({ toMatchDiffSnapshot })
 
 jest.useFakeTimers()
 
-const wrapper = NavigationAndQueryClientWrapper
 describe('CoinSelection', () => {
   const outpoint = new OutPoint(confirmed1.txid, 0)
   const script = new Script('address')
@@ -44,7 +42,7 @@ describe('CoinSelection', () => {
   })
 
   it('should open the help popup when the help icon is pressed', async () => {
-    const { getByAccessibilityHint } = render(<CoinSelection />, { wrapper })
+    const { getByAccessibilityHint } = render(<CoinSelection />)
 
     await waitFor(() => {
       expect(queryClient.getQueryData(['utxos'])).toStrictEqual([utxo])
@@ -53,15 +51,15 @@ describe('CoinSelection', () => {
 
     fireEvent.press(helpIcon)
     const popupComponent = usePopupStore.getState().popupComponent || <></>
-    expect(render(popupComponent, { wrapper }).toJSON()).toMatchSnapshot()
+    expect(render(popupComponent).toJSON()).toMatchSnapshot()
   })
   it('renders correctly while loading', () => {
-    const { toJSON } = render(<CoinSelection />, { wrapper })
+    const { toJSON } = render(<CoinSelection />)
 
     expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly', async () => {
-    const { toJSON } = render(<CoinSelection />, { wrapper })
+    const { toJSON } = render(<CoinSelection />)
 
     await waitFor(() => {
       expect(queryClient.getQueryData(['utxos'])).toStrictEqual([utxo])
@@ -71,7 +69,7 @@ describe('CoinSelection', () => {
     expect(toJSON()).toMatchSnapshot()
   })
   it('selects coins', async () => {
-    const { toJSON, getByTestId } = render(<CoinSelection />, { wrapper })
+    const { toJSON, getByTestId } = render(<CoinSelection />)
 
     await waitFor(() => {
       expect(queryClient.getQueryData(['utxos'])).toStrictEqual([utxo])
@@ -87,7 +85,7 @@ describe('CoinSelection', () => {
     expect(withoutSelection).toMatchDiffSnapshot(withSelection)
   })
   it('saves selection and navigates to "sendBitcoin" when "confirm" is pressed', async () => {
-    const { getByText, getByTestId } = render(<CoinSelection />, { wrapper })
+    const { getByText, getByTestId } = render(<CoinSelection />)
 
     await waitFor(() => {
       expect(queryClient.getQueryData(['utxos'])).toStrictEqual([utxo])

@@ -3,13 +3,9 @@ import { act, renderHook } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { useMessageState } from '../../../components/message/useMessageState'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
-
-const updateMessageMock = jest.fn()
-jest.mock('../../../contexts/message', () => ({
-  useMessageContext: () => [, updateMessageMock],
-}))
 
 jest.mock('../../../hooks/query/useFeeEstimate', () => ({
   useFeeEstimate: () => ({
@@ -123,9 +119,8 @@ describe('useNetworkFeesSetup', () => {
     const { result } = renderHook(useNetworkFeesSetup)
 
     await result.current.submit()
-    expect(updateMessageMock).toHaveBeenCalledWith({
-      msgKey: unauthorizedError.error,
-      level: 'ERROR',
-    })
+    expect(useMessageState.getState()).toEqual(
+      expect.objectContaining({ msgKey: unauthorizedError.error, level: 'ERROR' }),
+    )
   })
 })

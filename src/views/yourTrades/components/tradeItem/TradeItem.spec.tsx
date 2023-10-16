@@ -1,12 +1,9 @@
 import { render } from 'test-utils'
 import { account1 } from '../../../../../tests/unit/data/accountData'
-import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/CustomWrapper'
 import { updateAccount } from '../../../../utils/account'
 import { TradeItem } from './TradeItem'
 
 jest.useFakeTimers()
-
-const wrapper = NavigationAndQueryClientWrapper
 
 jest.mock('../../../../components/statusCard', () => ({
   StatusCard: 'StatusCard',
@@ -27,13 +24,11 @@ describe('OfferItem', () => {
   }
 
   it('should render correctly', () => {
-    const { toJSON } = render(<TradeItem item={defaultOffer} />, { wrapper })
+    const { toJSON } = render(<TradeItem item={defaultOffer} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it("should render correctly if it's a past offer", () => {
-    const { toJSON } = render(<TradeItem item={{ ...defaultOffer, tradeStatus: 'tradeCompleted' }} />, {
-      wrapper,
-    })
+    const { toJSON } = render(<TradeItem item={{ ...defaultOffer, tradeStatus: 'tradeCompleted' }} />)
     expect(toJSON()).toMatchSnapshot()
   })
 })
@@ -57,19 +52,15 @@ describe('ContractItem', () => {
   })
 
   it('should render correctly', () => {
-    const { toJSON } = render(<TradeItem item={contract} />, { wrapper })
+    const { toJSON } = render(<TradeItem item={contract} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with unread messages', () => {
-    const { toJSON } = render(<TradeItem item={{ ...contract, unreadMessages: 1 }} />, {
-      wrapper,
-    })
+    const { toJSON } = render(<TradeItem item={{ ...contract, unreadMessages: 1 }} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with past contract', () => {
-    const { toJSON } = render(<TradeItem item={{ ...contract, tradeStatus: 'tradeCompleted' }} />, {
-      wrapper,
-    })
+    const { toJSON } = render(<TradeItem item={{ ...contract, tradeStatus: 'tradeCompleted' }} />)
     expect(toJSON()).toMatchSnapshot()
   })
 })

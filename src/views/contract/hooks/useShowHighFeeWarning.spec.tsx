@@ -1,18 +1,8 @@
 import { renderHook } from 'test-utils'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/CustomWrapper'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { MessageContext, defaultMessageState } from '../../../contexts/message'
+import { defaultState, useMessageState } from '../../../components/message/useMessageState'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { useShowHighFeeWarning } from './useShowHighFeeWarning'
-
-let messageState = defaultMessageState
-const updateMessage = jest.fn().mockImplementation((state) => (messageState = state))
-const Wrapper = ({ children }: ComponentProps) => (
-  <MessageContext.Provider value={[messageState, updateMessage]}>
-    <NavigationAndQueryClientWrapper>{children}</NavigationAndQueryClientWrapper>
-  </MessageContext.Provider>
-)
-const wrapper = Wrapper
 
 jest.useFakeTimers()
 
@@ -23,25 +13,27 @@ describe('useShowHighFeeWarning', () => {
   }
 
   beforeEach(() => {
-    messageState = defaultMessageState
+    useMessageState.setState(defaultState)
     useSettingsStore.getState().setFeeRate(100)
   })
   it('should show high fee warning banner if fees are bigger than 10%', () => {
-    renderHook(useShowHighFeeWarning, { initialProps, wrapper })
-    expect(messageState).toEqual({
-      action: {
-        callback: expect.any(Function),
-        icon: 'settingsGear',
-        label: 'change fee',
-      },
-      bodyArgs: ['100', '10.0'],
-      level: 'WARN',
-      msgKey: 'contract.warning.highFee',
-    })
+    renderHook(useShowHighFeeWarning, { initialProps })
+    expect(useMessageState.getState()).toEqual(
+      expect.objectContaining({
+        action: {
+          callback: expect.any(Function),
+          icon: 'settingsGear',
+          label: 'change fee',
+        },
+        bodyArgs: ['100', '10.0'],
+        level: 'WARN',
+        msgKey: 'contract.warning.highFee',
+      }),
+    )
   })
   it('should navigate to fee settings', () => {
-    renderHook(useShowHighFeeWarning, { initialProps, wrapper })
-    messageState.action?.callback()
+    renderHook(useShowHighFeeWarning, { initialProps })
+    useMessageState.getState().action?.callback()
     expect(navigateMock).toHaveBeenCalledWith('networkFees')
   })
   it('should not show high fee warning banner if disabled', () => {
@@ -50,9 +42,8 @@ describe('useShowHighFeeWarning', () => {
         enabled: false,
         amount: 100000,
       },
-      wrapper,
     })
-    expect(messageState).toEqual(defaultMessageState)
+    expect(useMessageState.getState()).toEqual(expect.objectContaining(defaultState))
   })
   it('should not show high fee warning banner if fees are lower than 10%', () => {
     renderHook(useShowHighFeeWarning, {
@@ -60,9 +51,8 @@ describe('useShowHighFeeWarning', () => {
         enabled: true,
         amount: 173001,
       },
-      wrapper,
     })
-    expect(messageState).toEqual(defaultMessageState)
+    expect(useMessageState.getState()).toEqual(expect.objectContaining(defaultState))
   })
   it('should not show high fee warning banner if no amount is passed', () => {
     renderHook(useShowHighFeeWarning, {
@@ -70,8 +60,7 @@ describe('useShowHighFeeWarning', () => {
         enabled: true,
         amount: undefined,
       },
-      wrapper,
     })
-    expect(messageState).toEqual(defaultMessageState)
+    expect(useMessageState.getState()).toEqual(expect.objectContaining(defaultState))
   })
 })

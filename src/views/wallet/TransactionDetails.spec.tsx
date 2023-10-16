@@ -1,6 +1,5 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { confirmedTransactionSummary } from '../../../tests/unit/data/transactionDetailData'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { TransactionDetails } from './TransactionDetails'
 
 const openInExplorerMock = jest.fn()
@@ -22,12 +21,10 @@ jest.mock('./hooks/useTransactionDetailsSetup', () => ({
   useTransactionDetailsSetup: () => useTransactionDetailsSetupMock(),
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
-
 describe('TransactionDetails', () => {
   const renderer = createRenderer()
   it('renders correctly', () => {
-    renderer.render(<TransactionDetails />, { wrapper })
+    renderer.render(<TransactionDetails />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })

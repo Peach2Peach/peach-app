@@ -1,15 +1,17 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { useCallback, useContext } from 'react'
+import { useNavigationState } from '@react-navigation/native'
+import { useCallback } from 'react'
 import { AppState } from 'react-native'
-import { MessageContext } from '../../contexts/message'
+import { useMessageState } from '../../components/message/useMessageState'
 import { info } from '../../utils/log'
 import { useOfferPopupEvents } from './eventHandler/offer/useOfferPopupEvents'
 import { useOverlayEvents } from './eventHandler/useOverlayEvents'
 import { useStateUpdateEvents } from './eventHandler/useStateUpdateEvents'
 import { useGetPNActionHandler } from './useGetPNActionHandler'
 
-export const useMessageHandler = (currentPage: keyof RootStackParamList | undefined) => {
-  const [, updateMessage] = useContext(MessageContext)
+export const useMessageHandler = () => {
+  const updateMessage = useMessageState((state) => state.updateMessage)
+  const currentPage = useNavigationState((state) => state?.routes[state.index].name)
   const getPNActionHandler = useGetPNActionHandler()
   const overlayEvents = useOverlayEvents()
   const offerPopupEvents = useOfferPopupEvents()

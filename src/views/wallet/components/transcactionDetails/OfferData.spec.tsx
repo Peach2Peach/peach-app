@@ -1,10 +1,7 @@
 import { View } from 'react-native'
 import { render } from 'test-utils'
 import { pendingTransactionSummary, transactionWithRBF1 } from '../../../../../tests/unit/data/transactionDetailData'
-import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/CustomWrapper'
 import { OfferData } from './OfferData'
-
-const wrapper = NavigationAndQueryClientWrapper
 
 const useTransactionDetailsMock = jest.fn().mockReturnValue({ transaction: transactionWithRBF1 })
 jest.mock('../../../../hooks/query/useTransactionDetails', () => ({
@@ -28,14 +25,11 @@ describe('OfferData', () => {
         transaction={pendingTransactionSummary}
         type="WITHDRAWAL"
       />,
-      { wrapper },
     )
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly without  price, currency and address', () => {
-    const { toJSON } = render(<OfferData amount={100000} transaction={pendingTransactionSummary} type="WITHDRAWAL" />, {
-      wrapper,
-    })
+    const { toJSON } = render(<OfferData amount={100000} transaction={pendingTransactionSummary} type="WITHDRAWAL" />)
     expect(toJSON()).toMatchSnapshot()
   })
 })

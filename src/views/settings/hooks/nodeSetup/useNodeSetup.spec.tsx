@@ -16,7 +16,7 @@ jest.mock('../../helpers/checkNodeConnection', () => ({
 describe('useNodeSetup', () => {
   const url = 'blockstream.info'
   beforeEach(() => {
-    // @ts-expect-error mock doesn't need args
+    // @ts-ignore
     setPeachWallet(new PeachWallet())
     useNodeConfigState.getState().reset()
   })
@@ -106,7 +106,9 @@ describe('useNodeSetup', () => {
     const popup = usePopupStore.getState().popupComponent || <></>
     const { getByText } = render(popup)
     const button = getByText('save node info')
-    fireEvent.press(button)
+    await act(async () => {
+      await fireEvent.press(button)
+    })
     expect(result.current.isConnected).toBeTruthy()
     expect(useNodeConfigState.getState()).toEqual({
       ...useNodeConfigState.getState(),

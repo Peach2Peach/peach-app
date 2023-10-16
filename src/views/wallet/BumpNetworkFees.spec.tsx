@@ -1,15 +1,9 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { fireEvent, render } from 'test-utils'
 import { bitcoinTransaction } from '../../../tests/unit/data/transactionDetailData'
-import { navigationMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
 import { placeholderFees } from '../../hooks/query/useFeeEstimate'
 import { getTransactionFeeRate } from '../../utils/bitcoin'
 import { BumpNetworkFees } from './BumpNetworkFees'
-
-jest.mock('../../hooks/useNavigation', () => ({
-  useNavigation: () => navigationMock,
-}))
 
 const setNewFeeRateMock = jest.fn()
 const bumpFeesMock = jest.fn()
@@ -29,20 +23,14 @@ const useBumpNetworkFeesSetupMock = jest.fn().mockReturnValue(bumpNetworkFeesSet
 jest.mock('./hooks/useBumpNetworkFeesSetup', () => ({
   useBumpNetworkFeesSetup: () => useBumpNetworkFeesSetupMock(),
 }))
-const useBumpFeesMock = jest.fn().mockReturnValue(bumpFeesMock)
+
 jest.mock('./hooks/useBumpFees', () => ({
-  useBumpFees: () => useBumpFeesMock(),
+  useBumpFees: () => bumpFeesMock,
 }))
 
 describe('BumpNetworkFees', () => {
   const renderer = createRenderer()
   it('renders correctly', () => {
-    renderer.render(<BumpNetworkFees />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
-  it('renders correctly for medium screens', () => {
-    mockDimensions({ width: 600, height: 840 })
-
     renderer.render(<BumpNetworkFees />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })

@@ -30,7 +30,7 @@ describe('useShowConfirmTransactionPopup', () => {
     onSuccess,
   }
   beforeEach(() => {
-    // @ts-expect-error mock doesn't need args
+    // @ts-ignore
     setPeachWallet(new PeachWallet())
   })
 

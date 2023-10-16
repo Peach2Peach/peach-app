@@ -53,7 +53,7 @@ describe('useRestoreReputationSetup', () => {
     expect(account).toEqual(account1)
 
     await act(jest.runAllTimers)
-    expect(replaceMock).toHaveBeenCalledWith('home')
+    expect(replaceMock).toHaveBeenCalledWith('buy')
     expect(userUpdateMock).toHaveBeenCalledWith(params.referralCode)
   })
 })

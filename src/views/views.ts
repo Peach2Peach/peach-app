@@ -86,13 +86,10 @@ const invertedThemeConfig = {
 
 const onboarding: ViewType[] = [
   { name: 'welcome', component: Welcome, ...onboardingConfig },
-  { name: 'home', component: Welcome, ...onboardingConfig },
   { name: 'newUser', component: NewUser, ...onboardingConfig },
   { name: 'restoreBackup', component: RestoreBackup, ...onboardingConfig },
   { name: 'restoreReputation', component: RestoreReputation, ...onboardingConfig },
 ]
-
-const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
 
 const wallet: ViewType[] = [
   { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },
@@ -140,18 +137,12 @@ const tradeHistory: ViewType[] = [
   { name: 'exportTradeHistory', component: ExportTradeHistory, ...defaultConfig },
 ]
 
-const contact = (hasAccount: boolean): ViewType[] =>
-  hasAccount
-    ? [
-      { name: 'contact', component: Contact, ...defaultConfig },
-      { name: 'report', component: Report, ...defaultConfig },
-      { name: 'disputeReasonSelector', component: DisputeReasonSelector, ...defaultConfig },
-      { name: 'disputeForm', component: DisputeForm, ...defaultConfig },
-    ]
-    : [
-      { name: 'contact', component: Contact, ...defaultConfig },
-      { name: 'report', component: Report, ...defaultConfig },
-    ]
+const contact: ViewType[] = [
+  { name: 'contact', component: Contact, ...defaultConfig },
+  { name: 'report', component: Report, ...defaultConfig },
+  { name: 'disputeReasonSelector', component: DisputeReasonSelector, ...defaultConfig },
+  { name: 'disputeForm', component: DisputeForm, ...defaultConfig },
+]
 
 const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile, ...defaultConfig }]
 
@@ -193,20 +184,17 @@ const testViews: ViewType[] = [
   { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
 ]
 
-export const getViews = (hasAccount: boolean): ViewType[] =>
-  hasAccount
-    ? [
-      ...home,
-      ...wallet,
-      ...buyFlow,
-      ...sellFlow,
-      ...search,
-      ...trade,
-      ...tradeHistory,
-      ...publicProfile,
-      ...contact(hasAccount),
-      ...settings,
-      ...overlays,
-      ...testViews,
-    ]
-    : [...onboarding, ...contact(hasAccount)]
+export const views = [
+  ...onboarding,
+  ...wallet,
+  ...buyFlow,
+  ...sellFlow,
+  ...search,
+  ...trade,
+  ...tradeHistory,
+  ...publicProfile,
+  ...contact,
+  ...settings,
+  ...overlays,
+  ...testViews,
+]

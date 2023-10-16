@@ -1,18 +1,17 @@
 import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
 import { fireEvent, render, waitFor } from 'test-utils'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { useWalletState } from '../../utils/wallet/walletStore'
 import { ExportTransactionHistory } from './ExportTransactionHistory'
 
 describe('ExportTransactionHistory', () => {
   const firstCSVRow = 'Date, Type, Amount, Transaction ID\n'
   it('should render correctly', () => {
-    const { toJSON } = render(<ExportTransactionHistory />, { wrapper: NavigationAndQueryClientWrapper })
+    const { toJSON } = render(<ExportTransactionHistory />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should create a csv with date, type, amount, and transaction ID', () => {
-    const { getByText } = render(<ExportTransactionHistory />, { wrapper: NavigationAndQueryClientWrapper })
+    const { getByText } = render(<ExportTransactionHistory />)
     const exportButton = getByText('export')
 
     fireEvent.press(exportButton)
@@ -38,7 +37,7 @@ describe('ExportTransactionHistory', () => {
         '2': ['2'],
       },
     })
-    const { getByText } = render(<ExportTransactionHistory />, { wrapper: NavigationAndQueryClientWrapper })
+    const { getByText } = render(<ExportTransactionHistory />)
     const exportButton = getByText('export')
     const DATE_TO_USE = new Date('2023-08-18T17:50:25.000Z')
     DATE_TO_USE.toLocaleString = jest.fn(() => '8/18/2023 5:50:25 PM')
@@ -54,7 +53,7 @@ describe('ExportTransactionHistory', () => {
   })
 
   it('should open the native share sheet when the export button is pressed', async () => {
-    const { getByText } = render(<ExportTransactionHistory />, { wrapper: NavigationAndQueryClientWrapper })
+    const { getByText } = render(<ExportTransactionHistory />)
     const exportButton = getByText('export')
 
     fireEvent.press(exportButton)

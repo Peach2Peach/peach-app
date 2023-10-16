@@ -20,7 +20,7 @@ export const useContractSummaries = (enabled = true) => {
     queryFn: getContractSummariesQuery,
     enabled,
     initialData: contracts.length ? contracts : undefined,
-    initialDataUpdatedAt: lastModified.getTime(),
+    initialDataUpdatedAt: lastModified.getTime?.(),
     onSuccess: setContracts,
   })
 

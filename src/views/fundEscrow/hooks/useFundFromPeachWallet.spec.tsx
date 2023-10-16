@@ -50,7 +50,7 @@ describe('useFundFromPeachWallet', () => {
     usePopupStore.setState(defaultPopupState)
   })
   beforeEach(() => {
-    // @ts-expect-error mock PeachWallet doesn't need arguments
+    // @ts-ignore
     setPeachWallet(new PeachWallet())
   })
   it('should return default values', () => {

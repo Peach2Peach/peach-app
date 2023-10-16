@@ -5,10 +5,7 @@ import {
   confirmedTransactionSummary,
   pendingTransactionSummary,
 } from '../../../../../tests/unit/data/transactionDetailData'
-import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/CustomWrapper'
 import { TransactionDetailsInfo } from './TransactionDetailsInfo'
-
-const wrapper = NavigationAndQueryClientWrapper
 
 jest.mock('../../../../components/animation/Fade', () => ({
   Fade: (_props: { show: boolean }) => <View />,
@@ -33,7 +30,7 @@ jest.useFakeTimers()
 describe('TransactionDetailsInfo', () => {
   const renderer = createRenderer()
   it('should render correctly for a pending transaction', () => {
-    renderer.render(<TransactionDetailsInfo transaction={pendingTransactionSummary} />, { wrapper })
+    renderer.render(<TransactionDetailsInfo transaction={pendingTransactionSummary} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for a confirmed transaction', () => {
@@ -42,12 +39,12 @@ describe('TransactionDetailsInfo', () => {
       canBumpFees: false,
     })
 
-    renderer.render(<TransactionDetailsInfo transaction={confirmedTransactionSummary} />, { wrapper })
+    renderer.render(<TransactionDetailsInfo transaction={confirmedTransactionSummary} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 
   it('should go to increase network fee screen if rbf is possible', () => {
-    const { getByText } = render(<TransactionDetailsInfo transaction={pendingTransactionSummary} />, { wrapper })
+    const { getByText } = render(<TransactionDetailsInfo transaction={pendingTransactionSummary} />)
     fireEvent(getByText('increase network fee'), 'onPress')
     expect(goToBumpNetworkFeesMock).toHaveBeenCalled()
   })

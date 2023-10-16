@@ -16,7 +16,7 @@ describe('DrawerHeader', () => {
   const closeDrawerMock = jest.fn()
   const updateDrawer = useDrawerState.setState
 
-  afterEach(() => {
+  beforeEach(() => {
     updateDrawer(defaultState)
   })
   it('renders correctly', () => {

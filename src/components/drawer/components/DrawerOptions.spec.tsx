@@ -10,7 +10,7 @@ jest.mock('./DrawerOption', () => ({
 
 describe('DrawerOptions', () => {
   const updateDrawer = useDrawerState.setState
-  afterEach(() => {
+  beforeEach(() => {
     updateDrawer(defaultState)
   })
   it('renders correctly', () => {

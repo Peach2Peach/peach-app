@@ -1,6 +1,5 @@
 import { act, renderHook, waitFor } from 'test-utils'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/CustomWrapper'
 import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useSearchSetup } from './useSearchSetup'
@@ -30,8 +29,6 @@ jest.mock('../../../utils/peachAPI', () => ({
   getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
-
 jest.useFakeTimers()
 
 describe('useSearchSetup', () => {
@@ -39,7 +36,7 @@ describe('useSearchSetup', () => {
     queryClient.clear()
   })
   it('should set up header correctly for buy offers', async () => {
-    renderHook(useSearchSetup, { wrapper })
+    renderHook(useSearchSetup)
 
     await act(async () => {
       await waitFor(() => expect(queryClient.isFetching()).toBe(0))
@@ -48,21 +45,21 @@ describe('useSearchSetup', () => {
   })
   it('should set up header correctly for sell offers', async () => {
     getOfferDetailsMock.mockResolvedValueOnce([sellOffer, null])
-    renderHook(useSearchSetup, { wrapper })
+    renderHook(useSearchSetup)
     await act(async () => {
       await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     })
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should return defaults', async () => {
-    const { result } = renderHook(useSearchSetup, { wrapper })
+    const { result } = renderHook(useSearchSetup)
     expect(result.current).toEqual({ offer: buyOffer, hasMatches: false })
     await act(async () => {
       await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     })
   })
   it('should load offer and matches', async () => {
-    const { result } = renderHook(useSearchSetup, { wrapper })
+    const { result } = renderHook(useSearchSetup)
     await act(async () => {
       await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     })
@@ -70,7 +67,7 @@ describe('useSearchSetup', () => {
   })
 
   it('should call get matches once', async () => {
-    renderHook(useSearchSetup, { wrapper })
+    renderHook(useSearchSetup)
     await act(async () => {
       await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     })

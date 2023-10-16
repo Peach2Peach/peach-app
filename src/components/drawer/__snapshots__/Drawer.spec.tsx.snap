@@ -13,9 +13,7 @@ exports[`Drawer renders correctly 1`] = `
         "width": "100%",
         "zIndex": 20,
       },
-      {
-        "display": "none",
-      },
+      false,
     ]
   }
 >
@@ -81,9 +79,7 @@ exports[`Drawer renders correctly with options 1`] = `
         "width": "100%",
         "zIndex": 20,
       },
-      {
-        "display": "none",
-      },
+      false,
     ]
   }
 >
@@ -149,9 +145,7 @@ exports[`Drawer renders correctly with previous drawer 1`] = `
         "width": "100%",
         "zIndex": 20,
       },
-      {
-        "display": "none",
-      },
+      false,
     ]
   }
 >

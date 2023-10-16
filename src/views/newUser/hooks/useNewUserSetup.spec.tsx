@@ -119,10 +119,10 @@ describe('useNewUserSetup', () => {
     await forProcessToFinish()
     expect(result.current).toStrictEqual({ success: true, error: '', userExistsForDevice: false })
   })
-  it('should navigate to the home screen after 1500ms', async () => {
+  it('should navigate to the buy screen after 1500ms', async () => {
     renderHook(useNewUserSetup)
     await forProcessToFinish()
-    expect(replaceMock).toHaveBeenCalledWith('home')
+    expect(replaceMock).toHaveBeenCalledWith('buy')
   })
   it('should handle authentication errors', async () => {
     // @ts-ignore

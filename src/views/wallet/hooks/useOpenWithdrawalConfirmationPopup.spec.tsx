@@ -14,10 +14,7 @@ import { useOpenWithdrawalConfirmationPopup } from './useOpenWithdrawalConfirmat
 
 const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner:
-    () =>
-      (...args: any[]) =>
-        showErrorBannerMock(...args),
+  useShowErrorBanner: () => showErrorBannerMock,
 }))
 
 const amount = sellOffer.amount

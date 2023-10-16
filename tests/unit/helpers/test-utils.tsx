@@ -7,8 +7,7 @@ const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>
 
 const customRenderHook = <Result, Props>(
   renderCallback: (props: Props) => Result,
-  options?: RenderHookOptions<Props> & { wrapper?: never },
-  // @ts-ignore - not sure if I am missing something here or if this is a bug in the types
+  options?: Omit<RenderHookOptions<Props>, 'wrapper'>,
 ) => renderHook<Result, Props>(renderCallback, { wrapper: CustomWrapper, ...options })
 
 // re-export everything

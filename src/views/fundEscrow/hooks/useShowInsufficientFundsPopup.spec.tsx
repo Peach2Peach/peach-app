@@ -29,7 +29,7 @@ describe('useShowInsufficientFundsPopup', () => {
   const propsWithChange = { ...props, transaction: transactionWithChange }
 
   beforeEach(() => {
-    // @ts-expect-error mock doesn't need args
+    // @ts-ignore
     setPeachWallet(new PeachWallet())
   })
   it('should open insufficient funds popup', async () => {

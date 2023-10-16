@@ -65,7 +65,7 @@ export const useRestoreFromFileSetup = () => {
     updateFileBackupDate()
 
     setTimeout(() => {
-      navigation.replace('home')
+      navigation.replace('buy')
     }, 1500)
   }
 

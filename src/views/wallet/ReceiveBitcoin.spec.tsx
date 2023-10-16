@@ -1,5 +1,4 @@
 import { render, waitFor } from 'test-utils'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../utils/wallet/setWallet'
@@ -24,7 +23,6 @@ const addresses = [
     used: false,
   },
 ]
-const wrapper = NavigationAndQueryClientWrapper
 
 describe('ReceiveBitcoin', () => {
   beforeAll(() => {
@@ -33,13 +31,13 @@ describe('ReceiveBitcoin', () => {
   })
 
   it('should render correctly while loading', () => {
-    const { toJSON } = render(<ReceiveBitcoin />, { wrapper })
+    const { toJSON } = render(<ReceiveBitcoin />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly when loaded', async () => {
     peachWallet.getLastUnusedAddress = jest.fn().mockResolvedValue(addresses[1])
     peachWallet.getAddressByIndex = jest.fn().mockImplementation((index: number) => Promise.resolve(addresses[index]))
-    const { toJSON } = render(<ReceiveBitcoin />, { wrapper })
+    const { toJSON } = render(<ReceiveBitcoin />)
 
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0)

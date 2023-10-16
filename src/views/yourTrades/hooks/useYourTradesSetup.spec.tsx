@@ -1,5 +1,4 @@
 import { renderHook, waitFor } from 'test-utils'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/CustomWrapper'
 import { useYourTradesSetup } from './useYourTradesSetup'
 
 const useRouteMock = jest.fn(() => ({
@@ -17,8 +16,6 @@ jest.mock('../../../utils/peachAPI', () => ({
   getOfferSummaries: (...args: unknown[]) => getOfferSummariesMock(...args),
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
-
 jest.useFakeTimers()
 
 describe('useYourTradesSetup', () => {
@@ -29,7 +26,7 @@ describe('useYourTradesSetup', () => {
   ]
 
   it('should return defaults', () => {
-    const { result } = renderHook(useYourTradesSetup, { wrapper })
+    const { result } = renderHook(useYourTradesSetup)
     expect(result.current).toEqual({
       isLoading: true,
       refetch: expect.any(Function),
@@ -46,7 +43,7 @@ describe('useYourTradesSetup', () => {
   })
 
   it('should call offer and contract summaries once', () => {
-    renderHook(useYourTradesSetup, { wrapper })
+    renderHook(useYourTradesSetup)
     expect(getOfferSummariesMock).toHaveBeenCalledTimes(1)
     expect(getContractSummariesMock).toHaveBeenCalledTimes(1)
   })
@@ -79,7 +76,7 @@ describe('useYourTradesSetup', () => {
     }
 
     getOfferSummariesMock.mockResolvedValueOnce([[unfundedOffer, fundedOffer], null])
-    const { result } = renderHook(useYourTradesSetup, { wrapper })
+    const { result } = renderHook(useYourTradesSetup)
     await waitFor(() => {
       expect(result.current.pastOffers).toEqual([fundedOffer])
     })

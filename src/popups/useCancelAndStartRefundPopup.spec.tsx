@@ -1,6 +1,5 @@
 import { renderHook } from 'test-utils'
 import { sellOffer } from '../../tests/unit/data/offerData'
-import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/CustomWrapper'
 import { PopupLoadingSpinner } from '../../tests/unit/helpers/PopupLoadingSpinner'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { useCancelAndStartRefundPopup } from './useCancelAndStartRefundPopup'
@@ -21,19 +20,17 @@ jest.mock('../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: jest.fn(() => showErrorMock),
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
-
 describe('useCancelAndStartRefundPopup', () => {
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
   })
   it('should return a function', () => {
-    const { result } = renderHook(useCancelAndStartRefundPopup, { wrapper })
+    const { result } = renderHook(useCancelAndStartRefundPopup)
     expect(result.current).toBeInstanceOf(Function)
   })
 
   it('should show the loading popup and start refund', async () => {
-    const { result } = renderHook(useCancelAndStartRefundPopup, { wrapper })
+    const { result } = renderHook(useCancelAndStartRefundPopup)
     await result.current(sellOffer)
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),

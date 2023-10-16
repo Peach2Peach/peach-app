@@ -1,5 +1,5 @@
-import { CommonActions } from '@react-navigation/native'
 import { act, renderHook } from 'test-utils'
+import { resetMock } from '../../../../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { deleteAccount } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -13,12 +13,6 @@ jest.mock('../../../../utils/account', () => ({
 
 jest.mock('../../../../utils/peachAPI', () => ({
   logoutUser: jest.fn(),
-}))
-
-jest.mock('@react-navigation/native', () => ({
-  CommonActions: {
-    reset: jest.fn(),
-  },
 }))
 
 describe('useDeleteAccountPopups', () => {
@@ -100,7 +94,7 @@ describe('useDeleteAccountPopups', () => {
       result.current()
     })
     await logout()
-    expect(CommonActions.reset).toHaveBeenCalledTimes(1)
+    expect(resetMock).toHaveBeenCalledTimes(1)
   })
 
   it('should show success ovelay', async () => {

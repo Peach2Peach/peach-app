@@ -1,5 +1,4 @@
 import { render, waitFor } from 'test-utils'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { headerState } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { EditPremium } from './EditPremium'
@@ -44,7 +43,7 @@ jest.mock('../../utils/peachAPI/public/market', () => ({
 
 describe('EditPremium', () => {
   it('should render correctly', async () => {
-    const { toJSON } = render(<EditPremium />, { wrapper: NavigationAndQueryClientWrapper })
+    const { toJSON } = render(<EditPremium />)
     await waitFor(() => {
       expect(queryClient.getQueryState(['offer', '123'])?.status).toBe('success')
       expect(queryClient.getQueryState(['marketPrices'])?.status).toBe('success')
@@ -52,7 +51,7 @@ describe('EditPremium', () => {
     expect(toJSON()).toMatchSnapshot()
   })
   it('should set up the header correctly', () => {
-    render(<EditPremium />, { wrapper: NavigationAndQueryClientWrapper })
+    render(<EditPremium />)
     expect(headerState.header()).toMatchSnapshot()
   })
 })

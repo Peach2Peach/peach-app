@@ -1,14 +1,12 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import { useWindowDimensions } from 'react-native'
 import tw from '../styles/tailwind'
-import { account } from '../utils/account'
 import { screenTransition } from '../utils/layout/screenTransition'
 import { isIOS } from '../utils/system'
-import { getViews } from './getViews'
+import { views } from './views'
 
 const Stack = createStackNavigator<RootStackParamList>()
 export const Screens = () => {
-  const views = getViews(!!account?.publicKey)
   const { width } = useWindowDimensions()
   return (
     <Stack.Navigator

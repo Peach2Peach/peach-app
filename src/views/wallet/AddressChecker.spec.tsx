@@ -1,8 +1,7 @@
 import { Wallet } from 'bdk-rn'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
-import { act, fireEvent, render, waitFor } from 'test-utils'
+import { fireEvent, render, waitFor } from 'test-utils'
 import { account1 } from '../../../tests/unit/data/accountData'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { walletIsMineMock } from '../../../tests/unit/mocks/bdkRN'
 import { createWalletFromBase58, getNetwork } from '../../utils/wallet'
@@ -14,6 +13,8 @@ expect.extend({ toMatchDiffSnapshot })
 const validAddress = 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0'
 const invalidAddress = 'invalidAddress'
 
+jest.useFakeTimers()
+
 describe('AddressChecker', () => {
   beforeAll(() => {
     const wallet = createWalletFromBase58(account1.base58, getNetwork())
@@ -21,17 +22,17 @@ describe('AddressChecker', () => {
     peachWallet.wallet = new Wallet()
   })
 
-  beforeEach(() => {
+  afterEach(() => {
     queryClient.clear()
   })
 
   it('should render correctly', () => {
-    const { toJSON } = render(<AddressChecker />, { wrapper: NavigationAndQueryClientWrapper })
+    const { toJSON } = render(<AddressChecker />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly when address belongs to wallet', async () => {
     walletIsMineMock.mockResolvedValue(true)
-    const { toJSON, getByPlaceholderText } = render(<AddressChecker />, { wrapper: NavigationAndQueryClientWrapper })
+    const { toJSON, getByPlaceholderText } = render(<AddressChecker />)
     const withoutAddress = toJSON()
 
     const addressInput = getByPlaceholderText('bc1q ...')
@@ -45,7 +46,7 @@ describe('AddressChecker', () => {
   })
 
   it('should render correctly when address does not belong to wallet', async () => {
-    const { toJSON, getByPlaceholderText } = render(<AddressChecker />, { wrapper: NavigationAndQueryClientWrapper })
+    const { toJSON, getByPlaceholderText } = render(<AddressChecker />)
     const withoutAddress = toJSON()
     walletIsMineMock.mockResolvedValue(false)
 
@@ -58,8 +59,8 @@ describe('AddressChecker', () => {
     const withAddress = toJSON()
     expect(withoutAddress).toMatchDiffSnapshot(withAddress)
   })
-  it('should render correctly while loading', async () => {
-    const { toJSON, getByPlaceholderText } = render(<AddressChecker />, { wrapper: NavigationAndQueryClientWrapper })
+  it('should render correctly while loading', () => {
+    const { toJSON, getByPlaceholderText } = render(<AddressChecker />)
     const withoutAddress = toJSON()
     walletIsMineMock.mockResolvedValue(true)
 
@@ -69,15 +70,9 @@ describe('AddressChecker', () => {
     const withAddress = toJSON()
     expect(withoutAddress).toMatchDiffSnapshot(withAddress)
     expect(queryClient.getQueryData(['isMine', validAddress])).toBe(undefined)
-
-    await waitFor(() => {
-      act(() => {
-        expect(queryClient.getQueryData(['isMine', validAddress])).toBe(undefined)
-      })
-    })
   })
   it('should render correctly when address is invalid', async () => {
-    const { toJSON, getByPlaceholderText } = render(<AddressChecker />, { wrapper: NavigationAndQueryClientWrapper })
+    const { toJSON, getByPlaceholderText } = render(<AddressChecker />)
     const withoutAddress = toJSON()
     walletIsMineMock.mockResolvedValue(false)
 

@@ -2,15 +2,6 @@ import { renderHook } from 'test-utils'
 import i18n from '../../../utils/i18n'
 import { useFileBackupOverviewSetup } from './useFileBackupOverviewSetup'
 
-jest.mock('@react-navigation/native', () => ({
-  useFocusEffect: jest.fn(),
-}))
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: jest.fn().mockReturnValue({
-    navigate: jest.fn(),
-  }),
-}))
-
 const useSettingsStoreMock = jest.fn((selector, _compareFn) => selector({ lastFileBackupDate: 'correctDateFromStore' }))
 jest.mock('../../../store/settingsStore', () => ({
   useSettingsStore: (selector: unknown, compareFn: unknown) => useSettingsStoreMock(selector, compareFn),

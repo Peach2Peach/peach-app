@@ -1,6 +1,5 @@
 import { fireEvent, render, waitFor } from 'test-utils'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/CustomWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePopupStore } from '../../store/usePopupStore'
@@ -13,18 +12,16 @@ jest.mock('../../utils/peachAPI', () => ({
   patchOffer: (...args: unknown[]) => patchOfferMock(...args),
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
-
 describe('SellSorters', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(<SellSorters />, { wrapper })
+    const { toJSON } = render(<SellSorters />)
     expect(toJSON()).toMatchSnapshot()
   })
 })
 
 describe('ApplySellSorterAction', () => {
   it('should apply the selected sorter', () => {
-    const { getByText } = render(<SellSorters />, { wrapper })
+    const { getByText } = render(<SellSorters />)
     const applyButton = getByText('apply')
     const highestPriceButton = getByText('highest price first')
 
@@ -39,7 +36,7 @@ describe('ApplySellSorterAction', () => {
     queryClient.setQueryData(['matches', sellOffer.id], { matches: [] })
     queryClient.setQueryData(['matches', sellOffer.id, 'bestReputation'], { matches: [] })
 
-    const { getByText } = render(<SellSorters />, { wrapper })
+    const { getByText } = render(<SellSorters />)
     const applyButton = getByText('apply')
 
     fireEvent.press(applyButton)
@@ -52,7 +49,7 @@ describe('ApplySellSorterAction', () => {
   })
 
   it('should close the popup', () => {
-    const { getByText } = render(<SellSorters />, { wrapper })
+    const { getByText } = render(<SellSorters />)
     const applyButton = getByText('apply')
 
     fireEvent.press(applyButton)
