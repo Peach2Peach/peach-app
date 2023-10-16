@@ -1,5 +1,4 @@
 /* eslint-disable max-lines */
-import { NavigationContainer } from '@react-navigation/native'
 import { act, renderHook } from 'test-utils'
 import { setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { setPaymentMethods } from '../../../paymentMethods'
@@ -54,9 +53,7 @@ describe('useMeetupScreenSetup', () => {
     usePaymentDataStore.setState(defaultPaymentDataStore)
   })
   it('should return the correct values', () => {
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     expect(result.current).toStrictEqual({
       event: {
@@ -80,9 +77,7 @@ describe('useMeetupScreenSetup', () => {
   it('should add a meetup to the payment methods', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR'], anonymous: true }])
     useMeetupEventsStore.getState().setMeetupEvents([defaultEvent])
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     result.current.addToPaymentMethods()
     expect(usePaymentDataStore.getState().getPaymentData('cash.123')).toStrictEqual({
@@ -105,9 +100,7 @@ describe('useMeetupScreenSetup', () => {
     })
     useMeetupEventsStore.getState().setMeetupEvents([])
 
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     result.current.addToPaymentMethods()
     expect(usePaymentDataStore.getState().paymentData).toStrictEqual(defaultPaymentDataStore.paymentData)
@@ -117,9 +110,7 @@ describe('useMeetupScreenSetup', () => {
     useOfferPreferences.getState().setPaymentMethods([])
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR'], anonymous: true }])
     useMeetupEventsStore.getState().setMeetupEvents([defaultEvent])
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     expect(useOfferPreferences.getState().preferredPaymentMethods).toStrictEqual({})
     act(() => {
@@ -157,9 +148,7 @@ describe('useMeetupScreenSetup', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
     useMeetupEventsStore.getState().setMeetupEvents([{ ...defaultEvent, currencies: ['EUR', 'CHF'] }])
 
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     expect(result.current.selectedCurrencies).toStrictEqual(['EUR', 'CHF'])
   })
@@ -168,9 +157,7 @@ describe('useMeetupScreenSetup', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
     useMeetupEventsStore.getState().setMeetupEvents([{ ...defaultEvent, currencies: ['EUR', 'CHF'] }])
 
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     act(() => {
       result.current.onCurrencyToggle('CHF')
@@ -185,9 +172,7 @@ describe('useMeetupScreenSetup', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
     useMeetupEventsStore.getState().setMeetupEvents([{ ...defaultEvent, currencies: [] }])
 
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     expect(result.current.selectedCurrencies).toStrictEqual([])
   })
@@ -195,9 +180,7 @@ describe('useMeetupScreenSetup', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
     useMeetupEventsStore.getState().setMeetupEvents([{ ...defaultEvent, currencies: ['EUR', 'CHF'] }])
 
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     act(() => {
       result.current.onCurrencyToggle('EUR')
