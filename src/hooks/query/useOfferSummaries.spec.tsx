@@ -28,7 +28,7 @@ describe('useOfferSummaries', () => {
     expect(result.current.offers).toEqual([])
     expect(result.current.isLoading).toBeTruthy()
 
-    await waitFor(() => expect(result.current.isFetching).toBe(false))
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
 
     expect(result.current.offers).toEqual([offerSummary])
     expect(result.current.isLoading).toBeFalsy()
@@ -43,9 +43,9 @@ describe('useOfferSummaries', () => {
 
     expect(result.current.offers).toEqual([localOfferSummary])
     expect(result.current.isLoading).toBeFalsy()
-    expect(result.current.isFetching).toBeTruthy()
+    expect(queryClient.isFetching()).toBeTruthy()
 
-    await waitFor(() => expect(result.current.isFetching).toBe(false))
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
 
     expect(result.current.offers).toEqual([offerSummary])
   })
@@ -58,7 +58,7 @@ describe('useOfferSummaries', () => {
     expect(result.current.offers).toEqual([localOfferSummary])
     expect(result.current.isLoading).toBeFalsy()
 
-    await waitFor(() => expect(result.current.isFetching).toBe(false))
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     expect(result.current.offers).toEqual([localOfferSummary])
   })
   it('returns error if server did return error and no local offer summaries exists', async () => {
@@ -68,7 +68,7 @@ describe('useOfferSummaries', () => {
     expect(result.current.offers).toEqual([])
     expect(result.current.isLoading).toBeTruthy()
 
-    await waitFor(() => expect(result.current.isFetching).toBe(false))
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
 
     expect(result.current.offers).toEqual([])
     expect(result.current.isLoading).toBeFalsy()

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ContractActions should not show the dispute sliders when there is no dispute winner 1`] = `
+exports[`ContractActions should show the paymentTooLate sliders for the seller 1`] = `
 <View
   style={
     {
@@ -21,139 +21,637 @@ exports[`ContractActions should not show the dispute sliders when there is no di
       }
     }
   >
-    <EscrowButton
-      style={
+    <View
+      accessibilityState={
         {
-          "flexBasis": "0%",
-          "flexGrow": 1,
-          "flexShrink": 1,
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
         }
       }
-      tradeStatus="refundOrReviveRequired"
-    />
-    <ChatButton />
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderColor": "#F56522",
+          "borderRadius": 9999,
+          "borderWidth": 2,
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "gap": 8,
+          "height": 40,
+          "justifyContent": "center",
+          "minWidth": 128,
+          "opacity": 1,
+          "paddingLeft": 32,
+          "paddingRight": 32,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 13,
+                "letterSpacing": 0.47,
+                "lineHeight": 22,
+                "textTransform": "uppercase",
+              },
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 15,
+                "letterSpacing": 0.54,
+                "lineHeight": 26,
+                "textTransform": "uppercase",
+              },
+              {
+                "color": "#F56522",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        escrow
+      </Text>
+      <test-file-stub
+        fill="#F56522"
+        style={
+          [
+            {
+              "height": 18,
+              "width": 18,
+            },
+            undefined,
+          ]
+        }
+      />
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#F56522",
+          "borderColor": undefined,
+          "borderRadius": 9999,
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "gap": 8,
+          "height": 40,
+          "justifyContent": "center",
+          "minWidth": 128,
+          "opacity": 1,
+          "paddingLeft": 32,
+          "paddingRight": 32,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 13,
+                "letterSpacing": 0.47,
+                "lineHeight": 22,
+                "textTransform": "uppercase",
+              },
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 15,
+                "letterSpacing": 0.54,
+                "lineHeight": 26,
+                "textTransform": "uppercase",
+              },
+              {
+                "color": "#FFFCFA",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        chat
+      </Text>
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 18,
+              "width": 18,
+            },
+            undefined,
+          ]
+        }
+      />
+    </View>
   </View>
-  <ContractStatusInfo />
-  <ContractButtons />
-  <SellerSliders />
-</View>
-`;
-
-exports[`ContractActions should show the "go to new trade" button when there is a new offer 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "gap": 12,
-      "justifyContent": "flex-end",
-      "width": "100%",
-    }
-  }
->
   <View
+    onMoveShouldSetResponder={[Function]}
+    onMoveShouldSetResponderCapture={[Function]}
+    onResponderEnd={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderReject={[Function]}
+    onResponderRelease={[Function]}
+    onResponderStart={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    onStartShouldSetResponderCapture={[Function]}
     style={
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-        "gap": 24,
-        "justifyContent": "center",
-      }
+      [
+        {
+          "backgroundColor": "#FEEDE5",
+          "borderColor": "#FCCCB6",
+          "borderRadius": 20,
+          "borderWidth": 1,
+          "overflow": "hidden",
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+          "paddingTop": 4,
+          "width": "100%",
+        },
+        undefined,
+      ]
     }
+    testID="confirmSlider"
   >
-    <EscrowButton
-      disputeWinner="seller"
+    <View
+      collapsable={false}
+      onLayout={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         {
-          "flexBasis": "0%",
-          "flexGrow": 1,
-          "flexShrink": 1,
+          "alignItems": "center",
+          "flexDirection": "row",
+          "transform": [
+            {
+              "translateX": 0,
+            },
+          ],
         }
       }
-      tradeStatus="refundOrReviveRequired"
-    />
-    <ChatButton />
+    >
+      <View
+        collapsable={false}
+        style={
+          {
+            "opacity": 0,
+            "paddingTop": 1,
+            "position": "absolute",
+            "right": "100%",
+            "width": 204,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "height": 9,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            numberOfLines={1}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.5,
+                      "lineHeight": 24,
+                      "textAlign": "center",
+                      "textTransform": "uppercase",
+                    },
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 15,
+                      "letterSpacing": 0.54,
+                      "lineHeight": 26,
+                      "textTransform": "uppercase",
+                    },
+                  ],
+                  {
+                    "marginBottom": -40,
+                    "marginTop": -40,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            cancel trade
+          </Text>
+        </View>
+      </View>
+      <View
+        collapsable={false}
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "rgba(245, 101, 34, 1)",
+            "borderRadius": 16,
+            "flexDirection": "row",
+            "gap": 4,
+            "justifyContent": "center",
+            "paddingBottom": 6,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 6,
+          }
+        }
+      >
+        <test-file-stub
+          fill="#FFFCFA"
+          style={
+            [
+              {
+                "height": 18,
+                "width": 18,
+              },
+              undefined,
+            ]
+          }
+        />
+        <test-file-stub
+          fill="#FFFCFA"
+          style={
+            [
+              {
+                "height": 18,
+                "width": 18,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+      <View
+        collapsable={false}
+        style={
+          {
+            "opacity": 1,
+            "paddingTop": 1,
+            "width": 204,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "height": 9,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            numberOfLines={1}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.5,
+                      "lineHeight": 24,
+                      "textAlign": "center",
+                      "textTransform": "uppercase",
+                    },
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 15,
+                      "letterSpacing": 0.54,
+                      "lineHeight": 26,
+                      "textTransform": "uppercase",
+                    },
+                  ],
+                  {
+                    "marginBottom": -40,
+                    "marginTop": -40,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            cancel trade
+          </Text>
+        </View>
+      </View>
+    </View>
   </View>
-  <ContractStatusInfo />
-  <ContractButtons />
-  <SellerSliders />
-</View>
-`;
-
-exports[`ContractActions should show the dispute sliders when the contract is in the refundOrReviveRequired state 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "gap": 12,
-      "justifyContent": "flex-end",
-      "width": "100%",
-    }
-  }
->
   <View
+    onMoveShouldSetResponder={[Function]}
+    onMoveShouldSetResponderCapture={[Function]}
+    onResponderEnd={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderReject={[Function]}
+    onResponderRelease={[Function]}
+    onResponderStart={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    onStartShouldSetResponderCapture={[Function]}
     style={
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-        "gap": 24,
-        "justifyContent": "center",
-      }
+      [
+        {
+          "backgroundColor": "#FEEDE5",
+          "borderColor": "#FCCCB6",
+          "borderRadius": 20,
+          "borderWidth": 1,
+          "overflow": "hidden",
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+          "paddingTop": 4,
+          "width": "100%",
+        },
+        undefined,
+      ]
     }
+    testID="confirmSlider"
   >
-    <EscrowButton
-      disputeWinner="seller"
+    <View
+      collapsable={false}
+      onLayout={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         {
-          "flexBasis": "0%",
-          "flexGrow": 1,
-          "flexShrink": 1,
+          "alignItems": "center",
+          "flexDirection": "row",
+          "transform": [
+            {
+              "translateX": 0,
+            },
+          ],
         }
       }
-      tradeStatus="refundOrReviveRequired"
-    />
-    <ChatButton />
-  </View>
-  <ContractStatusInfo />
-  <ContractButtons />
-  <SellerSliders />
-</View>
-`;
-
-exports[`ContractActions should show the provide email button when the contract requires an email 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "gap": 12,
-      "justifyContent": "flex-end",
-      "width": "100%",
-    }
-  }
->
-  <View
-    style={
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-        "gap": 24,
-        "justifyContent": "center",
-      }
-    }
-  >
-    <EscrowButton
-      isEmailRequired={true}
-      style={
-        {
-          "flexBasis": "0%",
-          "flexGrow": 1,
-          "flexShrink": 1,
+    >
+      <View
+        collapsable={false}
+        style={
+          {
+            "opacity": 0,
+            "paddingTop": 1,
+            "position": "absolute",
+            "right": "100%",
+            "width": 204,
+          }
         }
-      }
-    />
-    <ChatButton />
+      >
+        <View
+          style={
+            {
+              "height": 9,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            numberOfLines={1}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.5,
+                      "lineHeight": 24,
+                      "textAlign": "center",
+                      "textTransform": "uppercase",
+                    },
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 15,
+                      "letterSpacing": 0.54,
+                      "lineHeight": 26,
+                      "textTransform": "uppercase",
+                    },
+                  ],
+                  {
+                    "marginBottom": -40,
+                    "marginTop": -40,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            give more time
+          </Text>
+        </View>
+      </View>
+      <View
+        collapsable={false}
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "rgba(245, 101, 34, 1)",
+            "borderRadius": 16,
+            "flexDirection": "row",
+            "gap": 4,
+            "justifyContent": "center",
+            "paddingBottom": 6,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 6,
+          }
+        }
+      >
+        <test-file-stub
+          fill="#FFFCFA"
+          style={
+            [
+              {
+                "height": 18,
+                "width": 18,
+              },
+              undefined,
+            ]
+          }
+        />
+        <test-file-stub
+          fill="#FFFCFA"
+          style={
+            [
+              {
+                "height": 18,
+                "width": 18,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+      <View
+        collapsable={false}
+        style={
+          {
+            "opacity": 1,
+            "paddingTop": 1,
+            "width": 204,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "height": 9,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            numberOfLines={1}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.5,
+                      "lineHeight": 24,
+                      "textAlign": "center",
+                      "textTransform": "uppercase",
+                    },
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 15,
+                      "letterSpacing": 0.54,
+                      "lineHeight": 26,
+                      "textTransform": "uppercase",
+                    },
+                  ],
+                  {
+                    "marginBottom": -40,
+                    "marginTop": -40,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            give more time
+          </Text>
+        </View>
+      </View>
+    </View>
   </View>
-  <ContractStatusInfo />
-  <ContractButtons />
-  <SellerSliders />
 </View>
 `;

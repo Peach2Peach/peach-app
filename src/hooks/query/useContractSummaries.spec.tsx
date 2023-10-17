@@ -28,7 +28,7 @@ describe('useContractSummaries', () => {
     expect(result.current.contracts).toEqual([])
     expect(result.current.isLoading).toBeTruthy()
 
-    await waitFor(() => expect(result.current.isFetching).toBe(false))
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
 
     expect(result.current.contracts).toEqual([contractSummary])
     expect(result.current.isLoading).toBeFalsy()
@@ -42,9 +42,9 @@ describe('useContractSummaries', () => {
 
     expect(result.current.contracts).toEqual([localContractSumary])
     expect(result.current.isLoading).toBeFalsy()
-    expect(result.current.isFetching).toBeTruthy()
+    expect(queryClient.isFetching()).toBeTruthy()
 
-    await waitFor(() => expect(result.current.isFetching).toBe(false))
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
 
     expect(result.current.contracts).toEqual([contractSummary])
   })
@@ -57,7 +57,7 @@ describe('useContractSummaries', () => {
     expect(result.current.contracts).toEqual([localContractSumary])
     expect(result.current.isLoading).toBeFalsy()
 
-    await waitFor(() => expect(result.current.isFetching).toBe(false))
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     expect(result.current.contracts).toEqual([localContractSumary])
   })
   it('returns error if server did return error and no local contract summaries exists', async () => {
@@ -67,7 +67,7 @@ describe('useContractSummaries', () => {
     expect(result.current.contracts).toEqual([])
     expect(result.current.isLoading).toBeTruthy()
 
-    await waitFor(() => expect(result.current.isFetching).toBe(false))
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
 
     expect(result.current.contracts).toEqual([])
     expect(result.current.isLoading).toBeFalsy()

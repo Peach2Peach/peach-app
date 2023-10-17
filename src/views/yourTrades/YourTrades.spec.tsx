@@ -1,3 +1,4 @@
+import { Attributes, ReactElement, createElement } from 'react'
 import { fireEvent, render, waitFor } from 'test-utils'
 import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
@@ -10,6 +11,13 @@ jest.mock('../../hooks/useRoute', () => ({
     params: {
       tab: 'buy',
     },
+  })),
+}))
+
+jest.mock('@react-navigation/material-top-tabs', () => ({
+  createMaterialTopTabNavigator: jest.fn(() => ({
+    Navigator: (props: Attributes) => createElement('Navigator', props),
+    Screen: (props: { children: () => ReactElement }) => createElement('Screen', props, props.children()),
   })),
 }))
 

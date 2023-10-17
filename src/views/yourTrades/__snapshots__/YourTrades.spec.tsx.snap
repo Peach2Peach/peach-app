@@ -199,68 +199,42 @@ exports[`YourTrades should render correctly 1`] = `
             "paddingRight": 32,
             "paddingTop": 32,
           },
-          undefined,
+          {
+            "paddingLeft": 0,
+            "paddingRight": 0,
+          },
         ]
       }
     >
-      <View
-        style={
+      <Navigator
+        initialRouteName="buy"
+        sceneContainerStyle={
           [
             {
-              "flexDirection": "row",
-              "justifyContent": "center",
+              "paddingLeft": 16,
+              "paddingRight": 16,
             },
-            undefined,
+            {
+              "paddingLeft": 32,
+              "paddingRight": 32,
+            },
           ]
         }
+        tabBar={[Function]}
       >
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            [
-              {
-                "flexShrink": 1,
-                "paddingLeft": 8,
-                "paddingRight": 8,
-              },
-              undefined,
-              false,
-            ]
-          }
+        <Screen
+          name="yourTrades.buy"
         >
           <View
             style={
               {
                 "alignItems": "center",
-                "flexDirection": "row",
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "justifyContent": "center",
+                "paddingLeft": 60,
+                "paddingRight": 60,
               }
             }
           >
@@ -275,91 +249,129 @@ exports[`YourTrades should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
+                  {
+                    "color": "#9F8C82",
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 32,
+                  },
+                  false,
+                ]
+              }
+            >
+              none yet!
+            </Text>
+            <View
+              style={
+                [
+                  {
+                    "backgroundColor": "#EAE3DF",
+                    "flexShrink": 1,
+                    "height": 1,
+                    "width": "100%",
+                  },
+                  {
+                    "backgroundColor": "#F4EEEB",
+                    "marginBottom": 32,
+                    "marginTop": 32,
+                    "width": "100%",
+                  },
+                ]
+              }
+            />
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
                   [
-                    {
-                      "fontFamily": "Baloo2-Bold",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 20,
-                      "paddingBottom": 8,
-                      "paddingLeft": 16,
-                      "paddingRight": 16,
-                      "paddingTop": 8,
-                      "textAlign": "center",
-                    },
                     {
                       "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    {
+                      "color": "#F56522",
+                      "fontFamily": "Baloo2-Bold",
+                      "fontSize": 20,
+                      "letterSpacing": 0.2,
+                      "lineHeight": 32,
                     },
                     false,
-                  ],
-                  false,
-                ]
-              }
-            >
-              buy
-            </Text>
+                  ]
+                }
+              >
+                start buying!
+              </Text>
+              <test-file-stub
+                fill="#F56522"
+                style={
+                  [
+                    {
+                      "height": 24,
+                      "width": 24,
+                    },
+                    {
+                      "height": 20,
+                      "marginLeft": 8,
+                      "width": 20,
+                    },
+                  ]
+                }
+              />
+            </View>
           </View>
-          <View
-            style={
-              [
-                {
-                  "height": 2,
-                  "width": "100%",
-                },
-                {
-                  "backgroundColor": "#2B1911",
-                },
-              ]
-            }
-          />
-        </View>
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            [
-              {
-                "flexShrink": 1,
-                "paddingLeft": 8,
-                "paddingRight": 8,
-              },
-              undefined,
-              false,
-            ]
-          }
+        </Screen>
+        <Screen
+          name="yourTrades.sell"
         >
           <View
             style={
               {
                 "alignItems": "center",
-                "flexDirection": "row",
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "justifyContent": "center",
+                "paddingLeft": 60,
+                "paddingRight": 60,
               }
             }
           >
@@ -374,78 +386,129 @@ exports[`YourTrades should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
-                  [
-                    {
-                      "fontFamily": "Baloo2-Bold",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 20,
-                      "paddingBottom": 8,
-                      "paddingLeft": 16,
-                      "paddingRight": 16,
-                      "paddingTop": 8,
-                      "textAlign": "center",
-                    },
-                    {
-                      "color": "#7D675E",
-                    },
-                    false,
-                  ],
+                  {
+                    "color": "#9F8C82",
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 32,
+                  },
                   false,
                 ]
               }
             >
-              sell
+              none yet!
             </Text>
+            <View
+              style={
+                [
+                  {
+                    "backgroundColor": "#EAE3DF",
+                    "flexShrink": 1,
+                    "height": 1,
+                    "width": "100%",
+                  },
+                  {
+                    "backgroundColor": "#F4EEEB",
+                    "marginBottom": 32,
+                    "marginTop": 32,
+                    "width": "100%",
+                  },
+                ]
+              }
+            />
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    {
+                      "color": "#F56522",
+                      "fontFamily": "Baloo2-Bold",
+                      "fontSize": 20,
+                      "letterSpacing": 0.2,
+                      "lineHeight": 32,
+                    },
+                    false,
+                  ]
+                }
+              >
+                start selling!
+              </Text>
+              <test-file-stub
+                fill="#F56522"
+                style={
+                  [
+                    {
+                      "height": 24,
+                      "width": 24,
+                    },
+                    {
+                      "height": 20,
+                      "marginLeft": 8,
+                      "width": 20,
+                    },
+                  ]
+                }
+              />
+            </View>
           </View>
-        </View>
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            [
-              {
-                "flexShrink": 1,
-                "paddingLeft": 8,
-                "paddingRight": 8,
-              },
-              undefined,
-              false,
-            ]
-          }
+        </Screen>
+        <Screen
+          name="yourTrades.history"
         >
           <View
             style={
               {
                 "alignItems": "center",
-                "flexDirection": "row",
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "justifyContent": "center",
+                "paddingLeft": 60,
+                "paddingRight": 60,
               }
             }
           >
@@ -460,165 +523,22 @@ exports[`YourTrades should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
-                  [
-                    {
-                      "fontFamily": "Baloo2-Bold",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 20,
-                      "paddingBottom": 8,
-                      "paddingLeft": 16,
-                      "paddingRight": 16,
-                      "paddingTop": 8,
-                      "textAlign": "center",
-                    },
-                    {
-                      "color": "#7D675E",
-                    },
-                    false,
-                  ],
+                  {
+                    "color": "#9F8C82",
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 32,
+                  },
                   false,
                 ]
               }
             >
-              history
+              none yet!
             </Text>
           </View>
-        </View>
-      </View>
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "justifyContent": "center",
-            "paddingLeft": 60,
-            "paddingRight": 60,
-          }
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              {
-                "color": "#9F8C82",
-                "fontFamily": "Baloo2-Bold",
-                "fontSize": 20,
-                "letterSpacing": 0.2,
-                "lineHeight": 32,
-              },
-              false,
-            ]
-          }
-        >
-          none yet!
-        </Text>
-        <View
-          style={
-            [
-              {
-                "backgroundColor": "#EAE3DF",
-                "flexShrink": 1,
-                "height": 1,
-                "width": "100%",
-              },
-              {
-                "backgroundColor": "#F4EEEB",
-                "marginBottom": 32,
-                "marginTop": 32,
-                "width": "100%",
-              },
-            ]
-          }
-        />
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "opacity": 1,
-            }
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                {
-                  "color": "#F56522",
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 20,
-                  "letterSpacing": 0.2,
-                  "lineHeight": 32,
-                },
-                false,
-              ]
-            }
-          >
-            start buying!
-          </Text>
-          <test-file-stub
-            fill="#F56522"
-            style={
-              [
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-                {
-                  "height": 20,
-                  "marginLeft": 8,
-                  "width": 20,
-                },
-              ]
-            }
-          />
-        </View>
-      </View>
+        </Screen>
+      </Navigator>
     </View>
     <View
       style={

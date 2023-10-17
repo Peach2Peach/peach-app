@@ -109,7 +109,7 @@ function SellerSliders () {
   }
 
   const requiredAction = getRequiredAction(contract)
-  if (isPaymentTooLate(contract) && tradeStatus === 'paymentRequired') {
+  if (isPaymentTooLate(contract) && tradeStatus === 'paymentTooLate') {
     return (
       <>
         <CancelTradeSlider />
