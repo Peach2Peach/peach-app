@@ -4,8 +4,6 @@ import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 
 // eslint-disable-next-line max-statements
 export const getBuyerStatusText = (contract: Contract) => {
-  const paymentWasTooLate = isPaymentTooLate(contract)
-
   const buyerCanceledTrade = !contract.cancelationRequested && contract.canceledBy === 'buyer'
   const collaborativeTradeCancel = contract.cancelationRequested
   const isCash = isCashTrade(contract.paymentMethod)
@@ -16,6 +14,7 @@ export const getBuyerStatusText = (contract: Contract) => {
     return i18n('contract.buyer.sellerCanceledCashTrade')
   }
 
+  const paymentWasTooLate = isPaymentTooLate(contract)
   if (buyerCanceledTrade) {
     return i18n('contract.buyer.buyerCanceledTrade')
   } else if (collaborativeTradeCancel) {
