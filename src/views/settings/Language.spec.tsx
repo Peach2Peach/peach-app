@@ -1,10 +1,9 @@
-import { render } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { render } from 'test-utils'
 import { Language } from './Language'
 
 describe('Language', () => {
   it('renders correctly', () => {
-    const { toJSON } = render(<Language />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<Language />)
     expect(toJSON()).toMatchSnapshot()
   })
 })

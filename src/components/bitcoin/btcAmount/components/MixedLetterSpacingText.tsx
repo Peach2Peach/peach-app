@@ -1,15 +1,15 @@
 import { TextStyle } from 'react-native'
 import { Text } from '../../..'
-import { getLetterSpacing, getNewNumber } from './helpers'
 import { BTCAmountChar } from './BTCAmountChar'
+import { getLetterSpacing, getNewNumber } from './helpers'
 
 type Props = {
   value: number
   style: (false | TextStyle)[]
-  isError: boolean
+  white: boolean
 }
 
-export const MixedLetterSpacingText = ({ value, style, isError }: Props) => {
+export const MixedLetterSpacingText = ({ value, style, white }: Props) => {
   const newNum = getNewNumber(value)
   const { dot, whiteSpace, digit } = getLetterSpacing(style)
 
@@ -19,7 +19,7 @@ export const MixedLetterSpacingText = ({ value, style, isError }: Props) => {
         const reduceOpacity
           = index < newNum.findIndex((c) => c !== '0' && Number(c) > 0) || (value === 0 && index !== newNum.length - 1)
         const letterSpacing = char === '.' ? dot : char === ' ' ? whiteSpace : digit
-        const props = { style, reduceOpacity, isError, char, letterSpacing }
+        const props = { style, reduceOpacity, white, char, letterSpacing }
         return <BTCAmountChar key={index} {...props} />
       })}
     </Text>

@@ -5,37 +5,38 @@ import { BTCAmount } from '../bitcoin'
 import { FixedHeightText, Text } from '../text'
 import { HorizontalLine } from '../ui'
 import { SummaryCard } from './SummaryCard'
-import { WalletLabel } from './WalletLabel'
+import { useWalletLabel } from './useWalletLabel'
 
 type Props = {
   offer: BuyOffer | BuyOfferDraft
 }
 
-export const BuyOfferSummary = ({ offer }: Props) => (
-  <SummaryCard>
-    <SummaryCard.Section>
-      <Text style={tw`text-center text-black-2`}>{i18n('offer.summary.youAreBuying')}</Text>
+export const BuyOfferSummary = ({ offer }: Props) => {
+  const walletLabel = useWalletLabel({ label: offer.walletLabel, address: offer.releaseAddress })
+  return (
+    <SummaryCard>
+      <SummaryCard.Section>
+        <Text style={tw`text-center text-black-2`}>{i18n('offer.summary.youAreBuying')}</Text>
 
-      <View style={tw`gap-2`}>
-        <BTCAmount size="small" amount={offer.amount[0]} />
-        <FixedHeightText height={10} style={tw`text-center text-black-2`}>
-          &
-        </FixedHeightText>
-        <BTCAmount size="small" amount={offer.amount[1]} />
-      </View>
-    </SummaryCard.Section>
+        <View style={tw`gap-2`}>
+          <BTCAmount size="small" amount={offer.amount[0]} />
+          <FixedHeightText height={10} style={tw`text-center text-black-2`}>
+            &
+          </FixedHeightText>
+          <BTCAmount size="small" amount={offer.amount[1]} />
+        </View>
+      </SummaryCard.Section>
 
-    <HorizontalLine />
+      <HorizontalLine />
 
-    <SummaryCard.PaymentMethods offer={offer} />
+      <SummaryCard.PaymentMethods offer={offer} />
 
-    <HorizontalLine />
+      <HorizontalLine />
 
-    <SummaryCard.Section>
-      <Text style={tw`text-center text-black-2`}>{i18n('to')}</Text>
-      <Text style={tw`text-center subtitle-1`}>
-        <WalletLabel label={offer.walletLabel} address={offer.releaseAddress} />
-      </Text>
-    </SummaryCard.Section>
-  </SummaryCard>
-)
+      <SummaryCard.Section>
+        <Text style={tw`text-center text-black-2`}>{i18n('to')}</Text>
+        <Text style={tw`text-center subtitle-1`}>{walletLabel}</Text>
+      </SummaryCard.Section>
+    </SummaryCard>
+  )
+}

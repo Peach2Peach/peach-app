@@ -1,5 +1,5 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { Attributes, ReactElement, createElement } from 'react'
+import { fireEvent, render, waitFor } from 'test-utils'
 import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { YourTrades } from './YourTrades'
@@ -14,10 +14,16 @@ jest.mock('../../hooks/useRoute', () => ({
   })),
 }))
 
+jest.mock('@react-navigation/material-top-tabs', () => ({
+  createMaterialTopTabNavigator: jest.fn(() => ({
+    Navigator: (props: Attributes) => createElement('Navigator', props),
+    Screen: (props: { children: () => ReactElement }) => createElement('Screen', props, props.children()),
+  })),
+}))
+
 describe('YourTrades', () => {
-  const wrapper = NavigationAndQueryClientWrapper
   it('should render correctly', async () => {
-    const { toJSON } = render(<YourTrades />, { wrapper })
+    const { toJSON } = render(<YourTrades />)
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0)
     })
@@ -25,7 +31,7 @@ describe('YourTrades', () => {
   })
 
   it('should navigate to "exportTradeHistory" when clicking on the icon in the header', () => {
-    const { getByAccessibilityHint } = render(<YourTrades />, { wrapper })
+    const { getByAccessibilityHint } = render(<YourTrades />)
     const icon = getByAccessibilityHint('go to export trade history')
     fireEvent.press(icon)
 

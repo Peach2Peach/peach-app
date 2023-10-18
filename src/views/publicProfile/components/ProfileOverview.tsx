@@ -1,10 +1,10 @@
 import { TouchableOpacity, View } from 'react-native'
 
+import { Badge } from '../../../components/Badge'
 import { useShowHelp } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { Rating, UserId } from '../../settings/profile/profileOverview/components'
 import { badges } from '../../settings/profile/profileOverview/components/badges'
-import { Badge } from './Badge'
 
 type Props = {
   user: Pick<User, 'rating' | 'trades' | 'medals' | 'id'>
@@ -29,7 +29,8 @@ function ProfileBadges ({ unlockedBadges }: { unlockedBadges: User['medals'] }) 
       {badges.map(([iconId, badgeName]) => (
         <Badge
           key={`profileOverviewIcon-${iconId}`}
-          {...{ iconId, badgeName, isUnlocked: unlockedBadges.includes(badgeName) }}
+          isUnlocked={unlockedBadges.includes(badgeName)}
+          {...{ iconId, badgeName }}
         />
       ))}
     </TouchableOpacity>

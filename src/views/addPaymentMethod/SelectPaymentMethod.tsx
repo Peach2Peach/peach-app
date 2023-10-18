@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react'
-import { useDrawerContext } from '../../contexts/drawer'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
+import { PeachScrollView, RadioButtons, Screen } from '../../components'
+import { Button } from '../../components/buttons/Button'
+import { useDrawerState } from '../../components/drawer/useDrawerState'
 import { FlagType } from '../../components/flags'
-import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
+import { useNavigation, useRoute } from '../../hooks'
 import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../paymentMethods'
 import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
 import { usePaymentMethodLabel } from './hooks'
@@ -19,11 +20,9 @@ const mapCountryToDrawerOption = (onPress: (country: FlagType) => void) => (coun
 })
 
 export const SelectPaymentMethod = () => {
-  useHeaderSetup(i18n('selectPaymentMethod.title'))
-
   const navigation = useNavigation()
   const { selectedCurrency, origin } = useRoute<'selectPaymentMethod'>().params
-  const [, updateDrawer] = useDrawerContext()
+  const updateDrawer = useDrawerState((state) => state.updateDrawer)
 
   const [selectedPaymentCategory, setSelectedPaymentCategory] = useState<PaymentCategory>()
   const paymentCategories = useMemo(
@@ -120,17 +119,17 @@ export const SelectPaymentMethod = () => {
   }
 
   return (
-    <Screen>
-      <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-4`, tw.md`py-8`]}>
+    <Screen header={i18n('selectPaymentMethod.title')}>
+      <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
         <RadioButtons
           items={paymentCategories}
           selectedValue={selectedPaymentCategory}
           onButtonPress={selectPaymentCategory}
         />
       </PeachScrollView>
-      <PrimaryButton style={tw`self-center mt-2 mb-5`} disabled={!selectedPaymentCategory} narrow>
+      <Button style={tw`self-center`} disabled={!selectedPaymentCategory}>
         {i18n('next')}
-      </PrimaryButton>
+      </Button>
     </Screen>
   )
 }

@@ -1,7 +1,7 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { headerState, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useDisputeFormSetup } from './useDisputeFormSetup'
 
 const defaultReason = 'other'
@@ -15,22 +15,14 @@ jest.mock('../../../hooks/useRoute', () => ({
   useRoute: () => useRouteMock(),
 }))
 
-const navigateMock = jest.fn()
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: () => ({
-    navigate: navigateMock,
-  }),
-}))
-
 const useHeaderSetupMock = jest.fn()
 jest.mock('../../../hooks/useHeaderSetup', () => ({
   useHeaderSetup: (...args: unknown[]) => useHeaderSetupMock(...args),
 }))
 
 const showErrorBannerMock = jest.fn()
-const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner: () => useShowErrorBannerMock(),
+  useShowErrorBanner: () => showErrorBannerMock,
 }))
 
 const getContractMock = jest.fn()
@@ -44,13 +36,17 @@ jest.mock('../utils/submitRaiseDispute', () => ({
 }))
 
 const disputeRaisedSuccessMock = jest.fn()
-const useDisputeRaisedSuccessMock = jest.fn(
-  () =>
-    (...args: unknown[]) =>
-      disputeRaisedSuccessMock(...args),
-)
 jest.mock('../../../popups/dispute/hooks/useDisputeRaisedSuccess', () => ({
-  useDisputeRaisedSuccess: () => useDisputeRaisedSuccessMock(),
+  useDisputeRaisedSuccess: () => disputeRaisedSuccessMock,
+}))
+
+const useDecryptedContractDataMock = jest.fn(
+  (): { data: { symmetricKey: string; paymentData: string } | undefined } => ({
+    data: { symmetricKey: 'symmetricKey', paymentData: 'paymentData' },
+  }),
+)
+jest.mock('../../contractChat/useDecryptedContractData', () => ({
+  useDecryptedContractData: () => useDecryptedContractDataMock(),
 }))
 
 // eslint-disable-next-line max-lines-per-function
@@ -69,11 +65,8 @@ describe('useDisputeFormSetup', () => {
       await current.submit()
     })
 
-  beforeEach(() => {
-    getContractMock.mockReturnValue(contract)
-  })
   it('should return the correct default values', () => {
-    const { result } = renderHook(() => useDisputeFormSetup())
+    const { result } = renderHook(useDisputeFormSetup, { initialProps: contract })
     expect(result.current).toStrictEqual({
       email: '',
       setEmail: expect.any(Function),
@@ -89,11 +82,11 @@ describe('useDisputeFormSetup', () => {
     })
   })
   it('sets up the header correctly', () => {
-    renderHook(useDisputeFormSetup)
+    renderHook(useDisputeFormSetup, { initialProps: contract })
     expect(headerState.header()).toMatchSnapshot()
   })
   it('sets email', () => {
-    const { result } = renderHook(useDisputeFormSetup)
+    const { result } = renderHook(useDisputeFormSetup, { initialProps: contract })
 
     act(() => {
       result.current.setEmail(email)
@@ -103,7 +96,7 @@ describe('useDisputeFormSetup', () => {
     expect(result.current.emailErrors).toHaveLength(0)
   })
   it('sets message', () => {
-    const { result } = renderHook(useDisputeFormSetup)
+    const { result } = renderHook(useDisputeFormSetup, { initialProps: contract })
 
     act(() => {
       result.current.setMessage(message)
@@ -113,7 +106,7 @@ describe('useDisputeFormSetup', () => {
     expect(result.current.messageErrors).toHaveLength(0)
   })
   it('validates form', () => {
-    const { result } = renderHook(useDisputeFormSetup)
+    const { result } = renderHook(useDisputeFormSetup, { initialProps: contract })
 
     expect(result.current.isFormValid).toBeFalsy()
     fillAllFields(result.current)
@@ -121,39 +114,33 @@ describe('useDisputeFormSetup', () => {
   })
 
   it('does not submit report if conditions are not met', async () => {
-    const { result } = renderHook(useDisputeFormSetup)
+    const { result } = renderHook(useDisputeFormSetup, { initialProps: contract })
+
+    useDecryptedContractDataMock.mockReturnValueOnce({ data: undefined })
 
     await actSubmit(result.current)
-    expect(submitRaiseDisputeMock).not.toHaveBeenCalled()
-
-    getContractMock.mockReturnValue({ ...contract, symmetricKey: undefined })
-    await actSubmit(result.current)
-    expect(submitRaiseDisputeMock).not.toHaveBeenCalled()
-
-    fillAllFields(result.current)
-    await actSubmit(result.current)
-
     expect(submitRaiseDisputeMock).not.toHaveBeenCalled()
   })
   it('submits report and navigates to contract chat on success', async () => {
     submitRaiseDisputeMock.mockResolvedValueOnce([true, null])
-    const { result } = renderHook(useDisputeFormSetup)
+    const { result } = renderHook(useDisputeFormSetup, { initialProps: contract })
 
     fillAllFields(result.current)
     await actSubmit(result.current)
 
-    expect(submitRaiseDisputeMock).toHaveBeenCalledWith(
+    expect(submitRaiseDisputeMock).toHaveBeenCalledWith({
       contract,
-      defaultReason,
-      result.current.email,
-      result.current.message,
-    )
+      reason: defaultReason,
+      email: result.current.email,
+      message: result.current.message,
+      symmetricKey: 'symmetricKey',
+    })
     expect(disputeRaisedSuccessMock).toHaveBeenCalledWith('buyer')
     expect(navigateMock).toHaveBeenCalledWith('contractChat', { contractId: contract.id })
   })
   it('shows error if raising dispute was not successful', async () => {
     submitRaiseDisputeMock.mockResolvedValueOnce([false, unauthorizedError])
-    const { result } = renderHook(useDisputeFormSetup)
+    const { result } = renderHook(useDisputeFormSetup, { initialProps: contract })
     fillAllFields(result.current)
     await actSubmit(result.current)
 

@@ -1,6 +1,6 @@
-import { useMatchPriceData } from './useMatchPriceData'
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { buyOffer, matchOffer } from '../../../../tests/unit/data/offerData'
+import { useMatchPriceData } from './useMatchPriceData'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
-import { View } from 'react-native'
-import { PrimaryButton, RadioButtons, Text } from '../../../components'
+import { RadioButtons, Text } from '../../../components'
+import { Button } from '../../../components/buttons/Button'
 import { RadioButtonItem } from '../../../components/inputs/RadioButtons'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -36,11 +36,9 @@ export const ReferralRewards = ({
         {i18n(availableRewards ? 'referrals.selectReward' : 'referrals.continueSaving')}
       </Text>
       <RadioButtons selectedValue={selectedReward} items={rewards} onButtonPress={setSelectedReward} />
-      <View style={tw`flex items-center mt-5 mb-10`}>
-        <PrimaryButton onPress={redeem} wide disabled={!selectedReward} iconId={'gift'}>
-          {i18n('referrals.reward.select')}
-        </PrimaryButton>
-      </View>
+      <Button style={tw`self-center mt-5 mb-10`} onPress={redeem} disabled={!selectedReward} iconId={'gift'}>
+        {i18n('referrals.reward.select')}
+      </Button>
     </>
   )
 }

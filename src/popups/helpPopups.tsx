@@ -4,6 +4,7 @@ import { CashTrades } from './info/CashTrades'
 import { CoinControl } from './info/CoinControl'
 import { ConfirmationTime } from './info/ConfirmationTime'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
+import { DisputeDisclaimer } from './info/DisputeDisclaimer'
 import { Escrow } from './info/Escrow'
 import { FileBackupPopup } from './info/FileBackupPopup'
 import { LNURLSwaps } from './info/LNURLSwaps'
@@ -15,6 +16,7 @@ import { PayoutAddressPopup } from './info/PayoutAddressPopup'
 import { RBFHelp } from './info/RBFHelp'
 import { ReferralsHelp } from './info/ReferralsHelp'
 import { SeedPhrasePopup } from './info/SeedPhrasePopup'
+import { UseYourOwnNode } from './info/UseYourOwnNode'
 import { WithdrawingFundsHelp } from './info/WithdrawingFundsHelp'
 import { YourPassword } from './info/YourPassword'
 
@@ -24,6 +26,7 @@ export const helpPopups: Record<string, { title: string; content: () => JSX.Elem
   confirmationTime: { title: i18n('wallet.help.confirmationTime.title'), content: ConfirmationTime },
   coinControl: { title: i18n('wallet.coinControl.help.title'), content: CoinControl },
   currencies: { title: i18n('help.currency.title'), content: CurrenciesHelp },
+  disputeDisclaimer: { title: i18n('trade.chat'), content: DisputeDisclaimer },
   escrow: { title: i18n('help.escrow.title'), content: Escrow },
   fileBackup: { title: i18n('settings.backups.fileBackup.popup.title'), content: FileBackupPopup },
   lnurl: { title: i18n('help.lnurl.title'), content: LNURLSwaps },
@@ -35,6 +38,7 @@ export const helpPopups: Record<string, { title: string; content: () => JSX.Elem
   rbf: { title: i18n('wallet.bumpNetworkFees.help.title'), content: RBFHelp },
   referrals: { title: i18n('help.referral.title'), content: ReferralsHelp },
   seedPhrase: { title: i18n('settings.backups.seedPhrase.popup.title'), content: SeedPhrasePopup },
+  useYourOwnNode: { title: i18n('wallet.settings.node.help.title'), content: UseYourOwnNode },
   withdrawingFunds: { title: i18n('wallet.withdraw.help.title'), content: WithdrawingFundsHelp },
   yourPassword: { title: i18n('settings.backups.fileBackup.popup2.title'), content: YourPassword },
 }

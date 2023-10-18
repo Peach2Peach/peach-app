@@ -1,5 +1,5 @@
-import { render, waitFor } from '@testing-library/react-native'
-import { queryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { render, waitFor } from 'test-utils'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { CurrentOfferPrice } from './CurrentOfferPrice'
@@ -19,7 +19,7 @@ describe('CurrentOfferPrice', () => {
     queryClient.clear()
   })
   it('should not render if currentPrice is 0', async () => {
-    const { toJSON } = render(<CurrentOfferPrice />, { wrapper: QueryClientWrapper })
+    const { toJSON } = render(<CurrentOfferPrice />)
     expect(toJSON()).toBeNull()
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0)
@@ -34,7 +34,7 @@ describe('CurrentOfferPrice', () => {
     useSettingsStore.setState({
       displayCurrency: 'EUR',
     })
-    const { toJSON } = render(<CurrentOfferPrice />, { wrapper: QueryClientWrapper })
+    const { toJSON } = render(<CurrentOfferPrice />)
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0)
     })

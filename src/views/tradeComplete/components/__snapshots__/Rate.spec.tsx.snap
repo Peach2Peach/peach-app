@@ -13,7 +13,7 @@ exports[`Rate should render correctly 1`] = `
       {
         "busy": undefined,
         "checked": undefined,
-        "disabled": false,
+        "disabled": undefined,
         "expanded": undefined,
         "selected": undefined,
       }
@@ -46,6 +46,7 @@ exports[`Rate should render correctly 1`] = `
         "gap": 8,
         "height": 40,
         "justifyContent": "center",
+        "minWidth": 128,
         "opacity": 1,
         "paddingLeft": 32,
         "paddingRight": 32,
@@ -130,6 +131,7 @@ exports[`Rate should render correctly 1`] = `
         "gap": 8,
         "height": 40,
         "justifyContent": "center",
+        "minWidth": 128,
         "opacity": 1,
         "paddingLeft": 32,
         "paddingRight": 32,

@@ -1,20 +1,17 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { wronglyFundedSellOffer } from '../../tests/unit/data/offerData'
-import { NavigationWrapper, replaceMock } from '../../tests/unit/helpers/NavigationWrapper'
+import { replaceMock } from '../../tests/unit/helpers/NavigationWrapper'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { useShowFundingAmountDifferentPopup } from './useShowFundingAmountDifferentPopup'
 import { FundingAmountDifferent } from './warning/FundingAmountDifferent'
 
-const wrapper = NavigationWrapper
-
 describe('useShowFundingAmountDifferentPopup', () => {
-  afterEach(() => {
+  beforeEach(() => {
     usePopupStore.setState(defaultPopupState)
-    jest.resetAllMocks()
   })
 
   it('opens funding amount different popup', () => {
-    const { result } = renderHook(useShowFundingAmountDifferentPopup, { wrapper })
+    const { result } = renderHook(useShowFundingAmountDifferentPopup)
     act(() => {
       result.current(wronglyFundedSellOffer)
     })
@@ -37,7 +34,7 @@ describe('useShowFundingAmountDifferentPopup', () => {
     })
   })
   it('navigates to wrongFundingAmount', () => {
-    const { result } = renderHook(useShowFundingAmountDifferentPopup, { wrapper })
+    const { result } = renderHook(useShowFundingAmountDifferentPopup)
     act(() => {
       result.current(wronglyFundedSellOffer)
     })

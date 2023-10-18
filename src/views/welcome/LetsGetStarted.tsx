@@ -20,7 +20,7 @@ export const LetsGetStarted = () => {
   const keyboardOpen = useKeyboard()
   const checkCode = () => checkReferralCode(referralCode)
   return (
-    <View style={tw`flex flex-col items-center justify-between h-full`}>
+    <View style={tw`items-center justify-between h-full`}>
       <View>{/* dummy for layout */}</View>
       <View>
         <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('welcome.letsGetStarted.title')}</Text>

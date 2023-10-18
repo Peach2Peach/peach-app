@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Badge should render correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "marginRight": 8,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "backgroundColor": "#FCCCB6",
+        },
+        {
+          "borderRadius": 9999,
+          "marginLeft": 2,
+          "marginRight": 2,
+        },
+      ]
+    }
+  >
+    <test-file-stub
+      fill="#FFFCFA"
+      style={
+        [
+          {
+            "height": 24,
+            "width": 24,
+          },
+          {
+            "height": 8,
+            "marginBottom": 2,
+            "marginLeft": 2,
+            "marginRight": 2,
+            "marginTop": 2,
+            "width": 8,
+          },
+        ]
+      }
+    />
+  </View>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 12,
+            "letterSpacing": -0.36,
+            "lineHeight": 22,
+            "textAlign": "center",
+            "textTransform": "uppercase",
+          },
+          {
+            "color": "#FCCCB6",
+          },
+        ],
+        false,
+      ]
+    }
+  >
+    fast trader
+  </Text>
+</View>
+`;
+
+exports[`Badge should render correctly if badge is unlocked 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "marginRight": 8,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "backgroundColor": "#F56522",
+        },
+        {
+          "borderRadius": 9999,
+          "marginLeft": 2,
+          "marginRight": 2,
+        },
+      ]
+    }
+  >
+    <test-file-stub
+      fill="#FFFCFA"
+      style={
+        [
+          {
+            "height": 24,
+            "width": 24,
+          },
+          {
+            "height": 8,
+            "marginBottom": 2,
+            "marginLeft": 2,
+            "marginRight": 2,
+            "marginTop": 2,
+            "width": 8,
+          },
+        ]
+      }
+    />
+  </View>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 12,
+            "letterSpacing": -0.36,
+            "lineHeight": 22,
+            "textAlign": "center",
+            "textTransform": "uppercase",
+          },
+          {
+            "color": "#F56522",
+          },
+        ],
+        false,
+      ]
+    }
+  >
+    fast trader
+  </Text>
+</View>
+`;

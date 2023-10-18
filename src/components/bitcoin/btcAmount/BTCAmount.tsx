@@ -7,8 +7,8 @@ import { MixedLetterSpacingText } from './components'
 type Props = ComponentProps & {
   amount: number
   size: 'extra large' | 'large' | 'medium' | 'small' | 'x small'
-  isError?: boolean
   showAmount?: boolean
+  white?: boolean
 }
 
 const styles = {
@@ -60,18 +60,18 @@ const styles = {
   },
 }
 
-export const BTCAmount = ({ amount, size, isError = false, showAmount = true, style }: Props) => (
+export const BTCAmount = ({ amount, size, white = false, showAmount = true, style }: Props) => (
   <View style={[style, tw`justify-center`, styles[size].container]}>
     <View style={[tw`flex-row items-center justify-end -my-10`, styles[size].contentContainer]}>
       <View style={[tw`items-center justify-center`, styles[size].iconContainer]}>
-        <Icon id="bitcoinLogo" style={[styles[size].icon]} />
+        <Icon id={white ? 'bitcoinTransparent' : 'bitcoinLogo'} style={[styles[size].icon]} />
       </View>
       <View style={[tw`flex-row`, !showAmount ? tw`items-end` : tw`items-baseline`, styles[size].textContainer]}>
         {showAmount ? (
           <MixedLetterSpacingText
             style={[tw`items-center text-center font-courier-prime-bold`, styles[size].amount]}
             value={amount}
-            isError={isError}
+            white={white}
           />
         ) : (
           <View style={styles['extra large'].hiddenAmount}>
@@ -81,7 +81,7 @@ export const BTCAmount = ({ amount, size, isError = false, showAmount = true, st
           </View>
         )}
         <View style={tw`justify-center`}>
-          <Text style={[tw`font-baloo-medium`, isError && tw`text-error-dark`, styles[size].sats]}>
+          <Text style={[tw`font-baloo-medium`, white && tw`text-primary-background-light`, styles[size].sats]}>
             {i18n('currency.SATS')}
           </Text>
         </View>

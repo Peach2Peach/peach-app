@@ -1,8 +1,7 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
+import { fireEvent, render, waitFor } from 'test-utils'
 import { tradeSummary } from '../../../tests/unit/data/tradeSummaryData'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { ExportTradeHistory } from './ExportTradeHistory'
 
 const useTradeSummariesMock = jest.fn((): { tradeSummaries: (OfferSummary | ContractSummary)[] } => ({
@@ -16,11 +15,11 @@ jest.mock('../../hooks/query/useTradeSummaries', () => ({
 describe('ExportTradeHistory', () => {
   const firstCSVRow = 'Date, Trade ID, Type, Amount, Price\n'
   it('should render correctly', () => {
-    const { toJSON } = render(<ExportTradeHistory />, { wrapper: NavigationAndQueryClientWrapper })
+    const { toJSON } = render(<ExportTradeHistory />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should create a csv with date, type, amount, and transaction ID', () => {
-    const { getByText } = render(<ExportTradeHistory />, { wrapper: NavigationAndQueryClientWrapper })
+    const { getByText } = render(<ExportTradeHistory />)
     const exportButton = getByText('export')
 
     fireEvent.press(exportButton)
@@ -31,7 +30,7 @@ describe('ExportTradeHistory', () => {
     useTradeSummariesMock.mockReturnValueOnce({
       tradeSummaries: [tradeSummary],
     })
-    const { getByText } = render(<ExportTradeHistory />, { wrapper: NavigationAndQueryClientWrapper })
+    const { getByText } = render(<ExportTradeHistory />)
     const exportButton = getByText('export')
 
     fireEvent.press(exportButton)
@@ -44,7 +43,7 @@ describe('ExportTradeHistory', () => {
   })
 
   it('should open the native share sheet when the export button is pressed', async () => {
-    const { getByText } = render(<ExportTradeHistory />, { wrapper: NavigationAndQueryClientWrapper })
+    const { getByText } = render(<ExportTradeHistory />)
     const exportButton = getByText('export')
 
     fireEvent.press(exportButton)

@@ -1,11 +1,8 @@
-import { OfferPreferencePremium } from './OfferPreferencePremium'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { OfferPreferencePremium } from './OfferPreferencePremium'
 
-jest.mock('./hooks/usePremiumSetup', () => ({
-  usePremiumSetup: jest.fn().mockReturnValue({
-    currentPrice: 150,
-    displayCurrency: 'EUR',
-  }),
+jest.mock('./hooks/usePremiumStepValidation', () => ({
+  usePremiumStepValidation: jest.fn(),
 }))
 jest.mock('../../hooks', () => ({
   useNavigation: jest.fn().mockReturnValue({

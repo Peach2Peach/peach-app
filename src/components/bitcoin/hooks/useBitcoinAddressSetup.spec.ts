@@ -1,7 +1,7 @@
-import { useBitcoinAddressSetup } from './useBitcoinAddressSetup'
-import { renderHook, act } from '@testing-library/react-native'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { Linking } from 'react-native'
+import { act, renderHook } from 'test-utils'
+import { useBitcoinAddressSetup } from './useBitcoinAddressSetup'
 
 jest.useFakeTimers()
 // eslint-disable-next-line max-lines-per-function

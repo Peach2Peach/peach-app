@@ -3,13 +3,19 @@
 exports[`WelcomeInfo - aWalletYouControl renders correctly 1`] = `
 <View
   style={
-    {
-      "alignItems": "center",
-      "display": "flex",
-      "flexDirection": "column",
-      "height": "100%",
-      "justifyContent": "center",
-    }
+    [
+      {
+        "alignItems": "center",
+        "height": "100%",
+        "justifyContent": "center",
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
   }
 >
   <Text
@@ -79,13 +85,19 @@ exports[`WelcomeInfo - aWalletYouControl renders correctly 1`] = `
 exports[`WelcomeInfo - peachOfMind renders correctly 1`] = `
 <View
   style={
-    {
-      "alignItems": "center",
-      "display": "flex",
-      "flexDirection": "column",
-      "height": "100%",
-      "justifyContent": "center",
-    }
+    [
+      {
+        "alignItems": "center",
+        "height": "100%",
+        "justifyContent": "center",
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
   }
 >
   <Text
@@ -155,13 +167,19 @@ exports[`WelcomeInfo - peachOfMind renders correctly 1`] = `
 exports[`WelcomeInfo - peerToPeer renders correctly 1`] = `
 <View
   style={
-    {
-      "alignItems": "center",
-      "display": "flex",
-      "flexDirection": "column",
-      "height": "100%",
-      "justifyContent": "center",
-    }
+    [
+      {
+        "alignItems": "center",
+        "height": "100%",
+        "justifyContent": "center",
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
   }
 >
   <Text
@@ -231,13 +249,19 @@ exports[`WelcomeInfo - peerToPeer renders correctly 1`] = `
 exports[`WelcomeInfo - privacyFirst renders correctly 1`] = `
 <View
   style={
-    {
-      "alignItems": "center",
-      "display": "flex",
-      "flexDirection": "column",
-      "height": "100%",
-      "justifyContent": "center",
-    }
+    [
+      {
+        "alignItems": "center",
+        "height": "100%",
+        "justifyContent": "center",
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
   }
 >
   <Text

@@ -24,7 +24,7 @@ export const genesisTx = createTransaction({
 })
 
 export const confirmed1 = createTransaction({
-  txid: 'txid1',
+  txid: 'txid1_confirmed',
   sent: 1,
   received: 1,
   fee: 1,
@@ -89,6 +89,7 @@ export const pendingReceivedTransactionSummary: TransactionSummary = {
 }
 export const confirmedTransactionSummary: TransactionSummary = {
   ...pendingTransactionSummary,
+  id: confirmed1.txid,
   height: 1,
   confirmed: true,
 }

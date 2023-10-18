@@ -1,7 +1,5 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { act, fireEvent, render, renderHook, waitFor } from 'test-utils'
 import { unauthorizedError } from '../../tests/unit/data/peachAPIData'
-import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
-import { CancelOffer } from '../popups/CancelOffer'
 import { usePopupStore } from '../store/usePopupStore'
 import { useWalletState } from '../utils/wallet/walletStore'
 import { useCancelFundMultipleSellOffers } from './useCancelFundMultipleSellOffers'
@@ -16,8 +14,6 @@ jest.mock('../utils/peachAPI', () => ({
   cancelOffer: (...args: unknown[]) => cancelOfferMock(...args),
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
-
 describe('useCancelFundMultipleSellOffers', () => {
   const fundMultiple = {
     address: 'address1',
@@ -27,39 +23,24 @@ describe('useCancelFundMultipleSellOffers', () => {
     useWalletState.getState().registerFundMultiple(fundMultiple.address, fundMultiple.offerIds)
   })
   it('should show cancel offer popup', () => {
-    const { result } = renderHook(useCancelFundMultipleSellOffers, {
-      wrapper,
-      initialProps: { fundMultiple },
-    })
+    const { result } = renderHook(useCancelFundMultipleSellOffers, { initialProps: { fundMultiple } })
     result.current()
 
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      action1: {
-        callback: expect.any(Function),
-        icon: 'xCircle',
-        label: 'cancel offer',
-      },
-      action2: {
-        callback: usePopupStore.getState().closePopup,
-        icon: 'arrowLeftCircle',
-        label: 'never mind',
-      },
-      content: <CancelOffer type="ask" />,
-      level: 'DEFAULT',
-      title: 'cancel offer',
-      visible: true,
-    })
+    const popupComponent = usePopupStore.getState().content || <></>
+    const { toJSON } = render(popupComponent)
+    expect(toJSON()).toMatchSnapshot()
   })
 
   it('should show cancel offer confirmation popup', async () => {
     const { result } = renderHook(useCancelFundMultipleSellOffers, {
-      wrapper,
       initialProps: { fundMultiple },
     })
     result.current()
 
-    usePopupStore.getState().action1?.callback()
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    const { getAllByText } = render(popupComponent)
+    fireEvent.press(getAllByText('cancel offer')[1])
+
     await waitFor(() => {
       expect(usePopupStore.getState()).toEqual({
         ...usePopupStore.getState(),
@@ -73,14 +54,17 @@ describe('useCancelFundMultipleSellOffers', () => {
     expect(cancelOfferMock).toHaveBeenCalledWith({ offerId: fundMultiple.offerIds[2] })
     expect(useWalletState.getState().fundMultipleMap).toEqual({})
   })
-  it('not not cancel if no fundMultiple has been passed', () => {
+  it('not not cancel if no fundMultiple has been passed', async () => {
     const { result } = renderHook(useCancelFundMultipleSellOffers, {
-      wrapper,
       initialProps: { fundMultiple: undefined },
     })
     result.current()
 
-    usePopupStore.getState().action1?.callback()
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    const { getAllByText } = render(popupComponent)
+    await act(async () => {
+      await fireEvent.press(getAllByText('cancel offer')[1])
+    })
 
     expect(cancelOfferMock).not.toHaveBeenCalled()
   })
@@ -89,12 +73,13 @@ describe('useCancelFundMultipleSellOffers', () => {
     cancelOfferMock.mockResolvedValueOnce([null, null])
 
     const { result } = renderHook(useCancelFundMultipleSellOffers, {
-      wrapper,
       initialProps: { fundMultiple },
     })
     result.current()
 
-    usePopupStore.getState().action1?.callback()
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    const { getAllByText } = render(popupComponent)
+    fireEvent.press(getAllByText('cancel offer')[1])
 
     await waitFor(() => {
       expect(usePopupStore.getState()).toEqual({

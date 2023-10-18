@@ -42,11 +42,17 @@ module.exports = {
         },
         success: {
           dark: {
-            2: '#016736',
-            1: '#008847',
+            2: '#246F00',
+            1: '#4F910C',
           },
-          main: '#05A85A',
-          mild: '#88E2B7',
+          main: '#65A519',
+          mild: {
+            2: '#AFDA73',
+            1: '#DDEFC3',
+          },
+          'background-dark': '#F2F9E7',
+          'background-main': '#FCFEF6',
+          'background-light': '#FEFEFB',
           background: '#C9FFE5',
         },
         warning: {
@@ -55,8 +61,14 @@ module.exports = {
             1: '#F3B71A',
           },
           main: '#F5CE22',
-          mild: '#DFD79A',
+          mild: {
+            2: '#F9E96C',
+            1: '#FDF6C0',
+          },
           background: '#FDF6C0',
+          backgroundDark: '#FEFCE5',
+          backgroundMain: '#FFFEF5',
+          backgroundLight: '#FFFEFA',
         },
         error: {
           dark: '#B01807',
@@ -161,6 +173,7 @@ module.exports = {
         h6: 'font-baloo-bold text-xl leading-2xl tracking-normal',
         h7: 'font-baloo-bold text-base leading-lg tracking-normal',
         'drawer-title': 'font-baloo-bold text-base leading-relaxed tracking-widest uppercase',
+        'subtitle-0': 'font-baloo-semibold text-xl tracking-normal',
         'subtitle-1': 'font-baloo-semibold text-base leading-xl tracking-normal',
         'subtitle-2': 'font-baloo-semibold text-xs leading-sm tracking-normal',
         avatar: 'font-baloo text-xs leading-xs tracking-normal',
@@ -178,7 +191,7 @@ module.exports = {
         'input-text': 'font-baloo text-lg leading-relaxed tracking-normal',
         'input-title': 'font-baloo text-base tracking-normal font-bold leading-23px',
         tooltip: 'font-baloo-medium text-xs leading-xs tracking-normal',
-        notification: 'font-baloo text-3xs font-semibold tracking-superTightest leading-sm text-center',
+        notification: 'font-baloo-semibold text-3xs tracking-superTightest leading-sm text-center',
       })
     }),
   ],

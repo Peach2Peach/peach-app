@@ -78,6 +78,7 @@
   "settings.networkFees.feeRateSet" : "taux de frais défini",
   "settings.networkFees.help" : "Il s'agit des frais que vous payez au réseau Bitcoin pour recevoir vos sats après une transaction, ou en cas de remboursement. Ces frais varient dans le temps, en fonction de l'activité du réseau.\n\nPlus le réseau est occupé, plus vous devrez payer pour obtenir une confirmation rapide.",
   "settings.networkFees.xSatsPerByte" : "$0 sat/vB",
+  "settings.nodeSetup" : "Utilise ton propre nœud",
   "settings.notifications" : "notifications",
   "settings.notifications.popup" : "Sans notifications, vous ne serez pas informé en cas de match.\n\nPrendre beaucoup de temps pour répondre à une offre aura un impact négatif sur votre réputation.",
   "settings.notifications.popup.neverMind" : "ne pas désactiver",
@@ -105,8 +106,8 @@
   "settings.referrals.noPeachFees.freeTrades" : "transactions gratuites :",
   "settings.referrals.noPeachFees.popup.redeem" : "activer",
   "settings.referrals.noPeachFees.popup.success" : "Le cadeau pour les transactions gratuites est activé. Allons-y !",
-  "settings.referrals.noPeachFees.popup.text" : "Regarde, on aime l'argent. Mais on t'aime encore plus <3\n\nEn activant ce cadeau, tu ne paies aucun frais Peach pour tes cinq prochaines transactions.\n\nPlus les transactions sont importantes, plus tu économises !",
-  "settings.referrals.noPeachFees.popup.title" : "5 fois sans frais",
+  "settings.referrals.noPeachFees.popup.text" : "Regarde, on aime l'argent. Mais on t'aime encore plus <3\n\nEn activant ce cadeau, tu ne paies aucun frais Peach pour tes deux prochaines transactions.\n\nPlus les transactions sont importantes, plus tu économises !",
+  "settings.referrals.noPeachFees.popup.title" : "2 fois sans frais",
   "settings.refundAddress" : "adresse de remboursement",
   "settings.refundAddress.confirm" : "suivant",
   "settings.refundAddress.title" : "adresse de remboursement manuelle",
@@ -119,5 +120,6 @@
   "settings.terms" : "conditions générales",
   "settings.testView" : "Ouvrir TestView",
   "settings.title" : "réglages",
+  "settings.transactionBatching" : "Groupement de transactions",
   "settings.website" : "site web"
 }

@@ -12,6 +12,5 @@ export const getNavigationDestinationForContract = async (contract: {
       return ['tradeComplete', { contract: fullContract }]
     }
   }
-
   return ['contract', { contractId: contract.id }]
 }

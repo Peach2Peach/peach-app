@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react'
-import { MessageContext } from '../../../contexts/message'
+import { useState } from 'react'
+import { useMessageState } from '../../../components/message/useMessageState'
 import { useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { peachAPI } from '../../../utils/peachAPI'
@@ -7,7 +7,7 @@ import { peachAPI } from '../../../utils/peachAPI'
 const referralCodeRules = { referralCode: true }
 
 export const useNewUserSetup = () => {
-  const [, updateMessage] = useContext(MessageContext)
+  const updateMessage = useMessageState((state) => state.updateMessage)
 
   const route = useRoute<'welcome'>()
   const navigation = useNavigation()

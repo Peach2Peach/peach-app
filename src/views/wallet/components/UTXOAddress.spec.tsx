@@ -1,6 +1,6 @@
-import { render, waitFor } from '@testing-library/react-native'
 import { Script } from 'bdk-rn/lib/classes/Script'
-import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { render, waitFor } from 'test-utils'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
@@ -18,7 +18,7 @@ describe('UTXOAddress', () => {
   })
   it('should render correctly', async () => {
     useWalletState.setState({ addressLabelMap: { address: 'addressLabel' } })
-    const { toJSON } = render(<UTXOAddress script={script} />, { wrapper: QueryClientWrapper })
+    const { toJSON } = render(<UTXOAddress script={script} />)
 
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0)

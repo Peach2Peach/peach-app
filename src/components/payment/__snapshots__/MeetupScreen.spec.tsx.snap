@@ -1,23 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MeetupScreen should render correctly 1`] = `
-<View
-  style={
-    {
-      "height": "100%",
-      "paddingBottom": 28,
-    }
-  }
+<Screen
+  header={<MeetupScreenHeader />}
 >
   <ForwardRef
     contentContainerStyle={
       {
         "flexGrow": 1,
         "justifyContent": "center",
-        "paddingBottom": 32,
-        "paddingLeft": 32,
-        "paddingRight": 32,
-        "paddingTop": 32,
       }
     }
   >
@@ -50,7 +41,7 @@ exports[`MeetupScreen should render correctly 1`] = `
       />
     </View>
   </ForwardRef>
-  <PrimaryButton
+  <Button
     onPress={[MockFunction]}
     style={
       {
@@ -59,28 +50,19 @@ exports[`MeetupScreen should render correctly 1`] = `
     }
   >
     add this meetup
-  </PrimaryButton>
-</View>
+  </Button>
+</Screen>
 `;
 
 exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
-<View
-  style={
-    {
-      "height": "100%",
-      "paddingBottom": 28,
-    }
-  }
+<Screen
+  header={<MeetupScreenHeader />}
 >
   <ForwardRef
     contentContainerStyle={
       {
         "flexGrow": 1,
         "justifyContent": "center",
-        "paddingBottom": 32,
-        "paddingLeft": 32,
-        "paddingRight": 32,
-        "paddingTop": 32,
       }
     }
   >
@@ -131,7 +113,7 @@ exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
       />
     </View>
   </ForwardRef>
-  <PrimaryButton
+  <Button
     onPress={[MockFunction]}
     style={
       {
@@ -140,6 +122,6 @@ exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
     }
   >
     add this meetup
-  </PrimaryButton>
-</View>
+  </Button>
+</Screen>
 `;

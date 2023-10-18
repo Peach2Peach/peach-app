@@ -4,7 +4,6 @@ exports[`UserExistsForDevice should render correctly 1`] = `
 <View
   style={
     {
-      "display": "flex",
       "height": "100%",
       "justifyContent": "center",
     }
@@ -14,7 +13,6 @@ exports[`UserExistsForDevice should render correctly 1`] = `
     style={
       {
         "alignItems": "center",
-        "display": "flex",
         "justifyContent": "center",
       }
     }
@@ -95,213 +93,243 @@ exports[`UserExistsForDevice should render correctly 1`] = `
       }
     }
   >
-    <RNGestureHandlerButton
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
       collapsable={false}
-      delayLongPress={600}
-      enabled={true}
-      exclusive={true}
-      handlerTag={1}
-      handlerType="NativeViewGestureHandler"
-      onGestureEvent={[Function]}
-      onGestureHandlerEvent={[Function]}
-      onGestureHandlerStateChange={[Function]}
-      onHandlerStateChange={[Function]}
-      rippleColor={0}
-      touchSoundDisabled={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "opacity": 1,
+          "width": 240,
+        }
+      }
     >
-      <View
-        accessible={true}
-        collapsable={false}
+      <Text
+        allowFontScaling={false}
         style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "opacity": 1,
-            "width": 240,
-          }
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "color": "#FFFCFA",
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textTransform": "lowercase",
+            },
+            false,
+          ]
         }
       >
-        <Text
-          allowFontScaling={false}
-          style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              {
-                "color": "#FFFCFA",
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 20,
-                "letterSpacing": 0.2,
-                "lineHeight": 32,
-                "textTransform": "lowercase",
-              },
-              false,
-            ]
-          }
-        >
-          restore from file
-        </Text>
-        <test-file-stub
-          fill="#FFFCFA"
-          style={
-            [
-              {
-                "height": 24,
-                "width": 24,
-              },
-              {
-                "height": 24,
-                "width": 24,
-              },
-            ]
-          }
-        />
-      </View>
-    </RNGestureHandlerButton>
-    <RNGestureHandlerButton
-      collapsable={false}
-      delayLongPress={600}
-      enabled={true}
-      exclusive={true}
-      handlerTag={2}
-      handlerType="NativeViewGestureHandler"
-      onGestureEvent={[Function]}
-      onGestureHandlerEvent={[Function]}
-      onGestureHandlerStateChange={[Function]}
-      onHandlerStateChange={[Function]}
-      rippleColor={0}
-      touchSoundDisabled={false}
-    >
-      <View
-        accessible={true}
-        collapsable={false}
+        restore from file
+      </Text>
+      <test-file-stub
+        fill="#FFFCFA"
         style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "opacity": 1,
-            "width": 240,
-          }
+          [
+            {
+              "height": 24,
+              "width": 24,
+            },
+            {
+              "height": 24,
+              "width": 24,
+            },
+          ]
+        }
+      />
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "opacity": 1,
+          "width": 240,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "color": "#FFFCFA",
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textTransform": "lowercase",
+            },
+            false,
+          ]
         }
       >
-        <Text
-          allowFontScaling={false}
-          style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              {
-                "color": "#FFFCFA",
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 20,
-                "letterSpacing": 0.2,
-                "lineHeight": 32,
-                "textTransform": "lowercase",
-              },
-              false,
-            ]
-          }
-        >
-          restore from seed
-        </Text>
-        <test-file-stub
-          fill="#FFFCFA"
-          style={
-            [
-              {
-                "height": 24,
-                "width": 24,
-              },
-              {
-                "height": 24,
-                "width": 24,
-              },
-            ]
-          }
-        />
-      </View>
-    </RNGestureHandlerButton>
-    <RNGestureHandlerButton
-      collapsable={false}
-      delayLongPress={600}
-      enabled={true}
-      exclusive={true}
-      handlerTag={3}
-      handlerType="NativeViewGestureHandler"
-      onGestureEvent={[Function]}
-      onGestureHandlerEvent={[Function]}
-      onGestureHandlerStateChange={[Function]}
-      onHandlerStateChange={[Function]}
-      rippleColor={0}
-      touchSoundDisabled={false}
-    >
-      <View
-        accessible={true}
-        collapsable={false}
+        restore from seed
+      </Text>
+      <test-file-stub
+        fill="#FFFCFA"
         style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "opacity": 1,
-            "width": 240,
-          }
+          [
+            {
+              "height": 24,
+              "width": 24,
+            },
+            {
+              "height": 24,
+              "width": 24,
+            },
+          ]
+        }
+      />
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "opacity": 1,
+          "width": 240,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "color": "#FFFCFA",
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textTransform": "lowercase",
+            },
+            false,
+          ]
         }
       >
-        <Text
-          allowFontScaling={false}
-          style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              {
-                "color": "#FFFCFA",
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 20,
-                "letterSpacing": 0.2,
-                "lineHeight": 32,
-                "textTransform": "lowercase",
-              },
-              false,
-            ]
-          }
-        >
-          I don't have a backup
-        </Text>
-        <test-file-stub
-          fill="#FFFCFA"
-          style={
-            [
-              {
-                "height": 24,
-                "width": 24,
-              },
-              {
-                "height": 24,
-                "width": 24,
-              },
-            ]
-          }
-        />
-      </View>
-    </RNGestureHandlerButton>
+        I don't have a backup
+      </Text>
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 24,
+              "width": 24,
+            },
+            {
+              "height": 24,
+              "width": 24,
+            },
+          ]
+        }
+      />
+    </View>
   </View>
 </View>
 `;

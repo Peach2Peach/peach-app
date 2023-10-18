@@ -1,6 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
+import { fireEvent, render } from 'test-utils'
 import { UsernameInput } from './UsernameInput'
-import { fireEvent, render } from '@testing-library/react-native'
 
 describe('UsernameInput', () => {
   const renderer = createRenderer()

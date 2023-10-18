@@ -1,5 +1,4 @@
-import { render } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { render } from 'test-utils'
 import { RestoreBackup } from './RestoreBackup'
 
 const useRouteMock = jest.fn(() => ({ params: {} }))
@@ -9,7 +8,7 @@ jest.mock('../../hooks/useRoute', () => ({
 
 describe('RestoreBackup', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(<RestoreBackup />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<RestoreBackup />)
     expect(toJSON()).toMatchSnapshot()
   })
 })

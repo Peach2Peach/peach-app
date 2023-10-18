@@ -12,9 +12,9 @@ type Props = {
 export const FundingAmountDifferent = ({ amount, actualAmount }: Props) => (
   <View>
     <Text>{i18n('warning.fundingAmountDifferent.description.1')}</Text>
-    <SatsFormat style={tw`text-warning-mild`} color={tw`text-black-1`} sats={actualAmount} />
+    <SatsFormat style={tw`text-warning-mild-2`} color={tw`text-black-1`} sats={actualAmount} />
     <Text style={tw`mt-4`}>{i18n('warning.fundingAmountDifferent.description.2')}</Text>
-    <SatsFormat style={tw`text-warning-mild`} color={tw`text-black-1`} sats={amount} />
+    <SatsFormat style={tw`text-warning-mild-2`} color={tw`text-black-1`} sats={amount} />
     <Text style={tw`mt-4`}>{i18n('warning.fundingAmountDifferent.description.3', thousands(actualAmount))}</Text>
   </View>
 )

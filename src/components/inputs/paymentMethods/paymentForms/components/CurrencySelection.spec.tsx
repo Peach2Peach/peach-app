@@ -1,5 +1,5 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { fireEvent, render } from 'test-utils'
 import { setPaymentMethods } from '../../../../../paymentMethods'
 import { CurrencySelection } from './CurrencySelection'
 

@@ -3,54 +3,59 @@
 exports[`YourTrades should render correctly 1`] = `
 <View
   style={
-    [
-      {
-        "height": "100%",
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-      undefined,
-    ]
+    {
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+    }
   }
 >
-  <View
+  <RCTSafeAreaView
     style={
       [
         {
-          "alignItems": "center",
-          "gap": 6,
-          "paddingBottom": 4,
-          "paddingTop": 4,
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 8,
+          "borderBottomWidth": 1,
         },
-        false,
         {
           "backgroundColor": "#FFF9F6",
+        },
+        {
+          "borderColor": "#FEEDE5",
         },
       ]
     }
   >
     <View
       style={
-        {
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "width": "100%",
-        }
+        [
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 8,
+            "paddingBottom": 6,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 6,
+          },
+          {
+            "paddingLeft": 32,
+            "paddingRight": 32,
+          },
+          false,
+        ]
       }
     >
       <View
         style={
           {
             "alignItems": "center",
+            "flexBasis": "0%",
             "flexDirection": "row",
+            "flexGrow": 1,
             "flexShrink": 1,
             "gap": 4,
-            "justifyContent": "flex-start",
-            "width": "100%",
           }
         }
       >
@@ -83,6 +88,8 @@ exports[`YourTrades should render correctly 1`] = `
                   "color": "#2B1911",
                 },
                 {
+                  "flexBasis": "0%",
+                  "flexGrow": 1,
                   "flexShrink": 1,
                 },
               ],
@@ -164,422 +171,853 @@ exports[`YourTrades should render correctly 1`] = `
         </View>
       </View>
     </View>
-  </View>
-  <View
-    style={
-      [
-        {
-          "flexDirection": "row",
-          "justifyContent": "center",
-        },
-        undefined,
-      ]
-    }
-  >
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        [
-          {
-            "flexShrink": 1,
-            "paddingLeft": 8,
-            "paddingRight": 8,
-          },
-          undefined,
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 20,
-                  "paddingBottom": 8,
-                  "paddingLeft": 16,
-                  "paddingRight": 16,
-                  "paddingTop": 8,
-                  "textAlign": "center",
-                },
-                {
-                  "color": "#2B1911",
-                },
-                false,
-              ],
-              false,
-            ]
-          }
-        >
-          buy
-        </Text>
-      </View>
-      <View
-        style={
-          [
-            {
-              "height": 2,
-              "width": "100%",
-            },
-            {
-              "backgroundColor": "#2B1911",
-            },
-          ]
-        }
-      />
-    </View>
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        [
-          {
-            "flexShrink": 1,
-            "paddingLeft": 8,
-            "paddingRight": 8,
-          },
-          undefined,
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 20,
-                  "paddingBottom": 8,
-                  "paddingLeft": 16,
-                  "paddingRight": 16,
-                  "paddingTop": 8,
-                  "textAlign": "center",
-                },
-                {
-                  "color": "#7D675E",
-                },
-                false,
-              ],
-              false,
-            ]
-          }
-        >
-          sell
-        </Text>
-      </View>
-    </View>
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        [
-          {
-            "flexShrink": 1,
-            "paddingLeft": 8,
-            "paddingRight": 8,
-          },
-          undefined,
-          false,
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 20,
-                  "paddingBottom": 8,
-                  "paddingLeft": 16,
-                  "paddingRight": 16,
-                  "paddingTop": 8,
-                  "textAlign": "center",
-                },
-                {
-                  "color": "#7D675E",
-                },
-                false,
-              ],
-              false,
-            ]
-          }
-        >
-          history
-        </Text>
-      </View>
-    </View>
-  </View>
-  <View
+  </RCTSafeAreaView>
+  <RCTSafeAreaView
     style={
       {
-        "alignItems": "center",
         "flexBasis": "0%",
         "flexGrow": 1,
         "flexShrink": 1,
-        "justifyContent": "center",
-        "paddingLeft": 60,
-        "paddingRight": 60,
       }
     }
   >
-    <Text
-      allowFontScaling={false}
-      style={
-        [
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
-          },
-          {
-            "color": "#9F8C82",
-            "fontFamily": "Baloo2-Bold",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 32,
-          },
-          false,
-        ]
-      }
-    >
-      none yet!
-    </Text>
     <View
       style={
         [
           {
-            "backgroundColor": "#EAE3DF",
+            "flexBasis": "0%",
+            "flexGrow": 1,
             "flexShrink": 1,
-            "height": 1,
-            "width": "100%",
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
           },
           {
-            "backgroundColor": "#F4EEEB",
-            "marginBottom": 32,
-            "marginTop": 32,
-            "width": "100%",
+            "paddingBottom": 32,
+            "paddingLeft": 32,
+            "paddingRight": 32,
+            "paddingTop": 32,
+          },
+          {
+            "paddingLeft": 0,
+            "paddingRight": 0,
           },
         ]
       }
-    />
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "opacity": 1,
-        }
-      }
     >
-      <Text
-        allowFontScaling={false}
-        style={
+      <Navigator
+        initialRouteName="buy"
+        sceneContainerStyle={
           [
             {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
+              "paddingLeft": 16,
+              "paddingRight": 16,
             },
             {
-              "color": "#F56522",
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 32,
+              "paddingLeft": 32,
+              "paddingRight": 32,
             },
-            false,
           ]
         }
+        tabBar={[Function]}
       >
-        start buying!
-      </Text>
-      <test-file-stub
-        fill="#F56522"
+        <Screen
+          name="yourTrades.buy"
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "justifyContent": "center",
+                "paddingLeft": 60,
+                "paddingRight": 60,
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  {
+                    "color": "#9F8C82",
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 32,
+                  },
+                  false,
+                ]
+              }
+            >
+              none yet!
+            </Text>
+            <View
+              style={
+                [
+                  {
+                    "backgroundColor": "#EAE3DF",
+                    "flexShrink": 1,
+                    "height": 1,
+                    "width": "100%",
+                  },
+                  {
+                    "backgroundColor": "#F4EEEB",
+                    "marginBottom": 32,
+                    "marginTop": 32,
+                    "width": "100%",
+                  },
+                ]
+              }
+            />
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    {
+                      "color": "#F56522",
+                      "fontFamily": "Baloo2-Bold",
+                      "fontSize": 20,
+                      "letterSpacing": 0.2,
+                      "lineHeight": 32,
+                    },
+                    false,
+                  ]
+                }
+              >
+                start buying!
+              </Text>
+              <test-file-stub
+                fill="#F56522"
+                style={
+                  [
+                    {
+                      "height": 24,
+                      "width": 24,
+                    },
+                    {
+                      "height": 20,
+                      "marginLeft": 8,
+                      "width": 20,
+                    },
+                  ]
+                }
+              />
+            </View>
+          </View>
+        </Screen>
+        <Screen
+          name="yourTrades.sell"
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "justifyContent": "center",
+                "paddingLeft": 60,
+                "paddingRight": 60,
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  {
+                    "color": "#9F8C82",
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 32,
+                  },
+                  false,
+                ]
+              }
+            >
+              none yet!
+            </Text>
+            <View
+              style={
+                [
+                  {
+                    "backgroundColor": "#EAE3DF",
+                    "flexShrink": 1,
+                    "height": 1,
+                    "width": "100%",
+                  },
+                  {
+                    "backgroundColor": "#F4EEEB",
+                    "marginBottom": 32,
+                    "marginTop": 32,
+                    "width": "100%",
+                  },
+                ]
+              }
+            />
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    {
+                      "color": "#F56522",
+                      "fontFamily": "Baloo2-Bold",
+                      "fontSize": 20,
+                      "letterSpacing": 0.2,
+                      "lineHeight": 32,
+                    },
+                    false,
+                  ]
+                }
+              >
+                start selling!
+              </Text>
+              <test-file-stub
+                fill="#F56522"
+                style={
+                  [
+                    {
+                      "height": 24,
+                      "width": 24,
+                    },
+                    {
+                      "height": 20,
+                      "marginLeft": 8,
+                      "width": 20,
+                    },
+                  ]
+                }
+              />
+            </View>
+          </View>
+        </Screen>
+        <Screen
+          name="yourTrades.history"
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "justifyContent": "center",
+                "paddingLeft": 60,
+                "paddingRight": 60,
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  {
+                    "color": "#9F8C82",
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 32,
+                  },
+                  false,
+                ]
+              }
+            >
+              none yet!
+            </Text>
+          </View>
+        </Screen>
+      </Navigator>
+    </View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "alignSelf": "stretch",
+            "backgroundColor": "#FFF9F6",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingBottom": 8,
+            "paddingTop": 8,
+          },
+          {
+            "paddingBottom": 0,
+            "paddingTop": 16,
+          },
+        ]
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          [
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "gap": 2,
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
             {
               "height": 24,
               "width": 24,
-            },
-            {
-              "height": 20,
-              "marginLeft": 8,
-              "width": 20,
-            },
-          ]
+            }
+          }
+        >
+          <test-file-stub
+            fill="#7D675E"
+            style={
+              [
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+              ]
+            }
+          />
+        </View>
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "color": "#7D675E",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 9,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 14.625,
+                  "textAlign": "center",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          buy btc
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
         }
-      />
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "gap": 2,
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "height": 24,
+              "width": 24,
+            }
+          }
+        >
+          <test-file-stub
+            fill="#7D675E"
+            style={
+              [
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+              ]
+            }
+          />
+        </View>
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "color": "#7D675E",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 9,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 14.625,
+                  "textAlign": "center",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          sell btc
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "gap": 2,
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "height": 24,
+              "width": 24,
+            }
+          }
+        >
+          <test-file-stub
+            fill="#7D675E"
+            style={
+              [
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+              ]
+            }
+          />
+        </View>
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "color": "#7D675E",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 9,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 14.625,
+                  "textAlign": "center",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          wallet
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "gap": 2,
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "height": 24,
+              "width": 24,
+            }
+          }
+        >
+          <test-file-stub
+            fill="#7D675E"
+            style={
+              [
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+              ]
+            }
+          />
+        </View>
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "color": "#7D675E",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 9,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 14.625,
+                  "textAlign": "center",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          trades
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "gap": 2,
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "height": 24,
+              "width": 24,
+            }
+          }
+        >
+          <test-file-stub
+            style={
+              {
+                "height": 24,
+                "width": 24,
+              }
+            }
+          />
+        </View>
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "color": "#7D675E",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 9,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 14.625,
+                  "textAlign": "center",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          settings
+        </Text>
+      </View>
     </View>
-  </View>
+  </RCTSafeAreaView>
 </View>
 `;

@@ -1,10 +1,9 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import { LocalUtxo, OutPoint, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { KeychainKind } from 'bdk-rn/lib/lib/enums'
 import ShallowRenderer from 'react-test-renderer/shallow'
+import { fireEvent, render, waitFor } from 'test-utils'
 import { confirmed1 } from '../../../tests/unit/data/transactionDetailData'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { Wallet } from './Wallet'
@@ -17,6 +16,11 @@ const defaultReturnValue = {
 const useWalletSetupMock = jest.fn(() => defaultReturnValue)
 jest.mock('./hooks/useWalletSetup', () => ({
   useWalletSetup: () => useWalletSetupMock(),
+}))
+jest.mock('../../hooks/useRoute', () => ({
+  useRoute: jest.fn(() => ({
+    name: 'wallet',
+  })),
 }))
 
 const addresses = {
@@ -90,19 +94,19 @@ describe('Wallet', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should navigate to send screen when send button is pressed', () => {
-    const { getByText } = render(<Wallet />, { wrapper: NavigationAndQueryClientWrapper })
+    const { getByText } = render(<Wallet />)
     fireEvent.press(getByText('send'))
 
     expect(navigateMock).toHaveBeenCalledWith('sendBitcoin')
   })
   it('should navigate to receive screen when receive button is pressed', () => {
-    const { getByText } = render(<Wallet />, { wrapper: NavigationAndQueryClientWrapper })
+    const { getByText } = render(<Wallet />)
     fireEvent.press(getByText('receive'))
 
     expect(navigateMock).toHaveBeenCalledWith('receiveBitcoin')
   })
   it('should prefetch addresses', async () => {
-    render(<Wallet />, { wrapper: NavigationAndQueryClientWrapper })
+    render(<Wallet />)
 
     await waitFor(() => {
       expect(queryClient.getQueriesData(['receiveAddress'])).toEqual([
@@ -116,7 +120,7 @@ describe('Wallet', () => {
     })
   })
   it('should prefetch utxos', async () => {
-    render(<Wallet />, { wrapper: NavigationAndQueryClientWrapper })
+    render(<Wallet />)
 
     await waitFor(() => {
       expect(queryClient.getQueryData(['utxos'])).toEqual([utxo])

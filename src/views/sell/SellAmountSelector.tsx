@@ -24,7 +24,7 @@ export const SellAmountSelector = ({ children, style }: ComponentProps) => {
 
   return (
     <SelectAmount
-      style={[tw`flex-shrink h-full`, style]}
+      style={[tw`h-full shrink`, style]}
       min={minTradingAmount}
       max={maxTradingAmount}
       value={sellAmount}

@@ -1,7 +1,11 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { PopupAction } from '../components/popup'
+import { PopupComponent } from '../components/popup/PopupComponent'
 import { CancelOffer } from '../popups/CancelOffer'
+import { LoadingPopupAction } from '../popups/actions/LoadingPopupAction'
 import { usePopupStore } from '../store/usePopupStore'
+import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { peachAPI } from '../utils/peachAPI'
 import { getError, getResult, parseError } from '../utils/result'
@@ -51,22 +55,20 @@ export const useCancelFundMultipleSellOffers = ({ fundMultiple }: Props) => {
   }, [fundMultiple, navigation, showError, showOfferCanceled])
 
   const showCancelSellOffersPopup = useCallback(() => {
-    setPopup({
-      title: i18n('offer.cancel.popup.title'),
-      content: <CancelOffer type="ask" />,
-      visible: true,
-      level: 'DEFAULT',
-      action2: {
-        label: i18n('neverMind'),
-        icon: 'arrowLeftCircle',
-        callback: closePopup,
-      },
-      action1: {
-        label: i18n('cancelOffer'),
-        icon: 'xCircle',
-        callback: confirmCancelOffer,
-      },
-    })
+    setPopup(
+      <PopupComponent
+        title={i18n('offer.cancel.popup.title')}
+        content={<CancelOffer type="ask" />}
+        actionBgColor={tw`bg-black-3`}
+        bgColor={tw`bg-primary-background-light`}
+        actions={
+          <>
+            <PopupAction label={i18n('neverMind')} iconId="arrowLeftCircle" onPress={closePopup} />
+            <LoadingPopupAction label={i18n('cancelOffer')} iconId="xCircle" onPress={confirmCancelOffer} reverseOrder />
+          </>
+        }
+      />,
+    )
   }, [closePopup, confirmCancelOffer, setPopup])
 
   return showCancelSellOffersPopup

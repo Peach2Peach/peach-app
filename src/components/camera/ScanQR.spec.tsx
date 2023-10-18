@@ -1,6 +1,6 @@
-import { ScanQR } from './ScanQR'
-import { fireEvent, render } from '@testing-library/react-native'
 import { Modal } from 'react-native'
+import { fireEvent, render } from 'test-utils'
+import { ScanQR } from './ScanQR'
 
 jest.useFakeTimers()
 jest.mock('react-native-camera', () => ({

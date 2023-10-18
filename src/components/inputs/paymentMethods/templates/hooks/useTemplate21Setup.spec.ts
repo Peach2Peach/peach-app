@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { useTemplate21Setup } from './useTemplate21Setup'
 
 describe('useTemplate21Setup', () => {
@@ -8,7 +8,7 @@ describe('useTemplate21Setup', () => {
         data: {
           id: 'id',
           label: 'label',
-          type: 'gtBank',
+          type: 'nationalTransferNG',
           accountNumber: 'accountNumber',
           currencies: [],
         },

@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@testing-library/react-native'
+import { act, fireEvent, render } from 'test-utils'
 import { TransactionInMempool } from './TransactionInMempool'
 
 describe('TransactionInMempool', () => {

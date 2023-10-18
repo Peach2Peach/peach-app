@@ -1,5 +1,4 @@
 import { shallow } from 'zustand/shallow'
-import { useHeaderSetup } from '../../../hooks'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useToggleBatching } from '../../../hooks/user'
 import { TurnOffBatching } from '../../../popups/app/TurnOffBatching'
@@ -22,7 +21,7 @@ export const useTransactionBatchingSetup = () => {
         action2: {
           callback: closePopup,
           icon: 'xCircle',
-          label: 'no, wait',
+          label: i18n('settings.batching.turnOff.no'),
         },
         action1: {
           callback: () => {
@@ -30,14 +29,13 @@ export const useTransactionBatchingSetup = () => {
             closePopup()
           },
           icon: 'arrowRightCircle',
-          label: 'yes, pay out',
+          label: i18n('settings.batching.turnOff.yes'),
         },
       })
     } else {
       mutate()
     }
   }
-  useHeaderSetup(i18n('settings.transactionBatching'))
 
   return {
     isLoading,

@@ -1,5 +1,5 @@
+import { render } from 'test-utils'
 import { SelectWallet } from './SelectWallet'
-import { render } from '@testing-library/react-native'
 
 const useSelectWalletSetupMock = jest.fn().mockReturnValue({
   type: 'payout',
@@ -18,6 +18,14 @@ const useSelectWalletSetupMock = jest.fn().mockReturnValue({
 
 jest.mock('./hooks/useSelectWalletSetup', () => ({
   useSelectWalletSetup: () => useSelectWalletSetupMock(),
+}))
+
+jest.mock('../../hooks/useRoute', () => ({
+  useRoute: jest.fn(() => ({
+    params: {
+      type: 'payout',
+    },
+  })),
 }))
 
 describe('SelectWallet', () => {

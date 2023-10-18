@@ -16,7 +16,12 @@ export const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
 
   return (
     <View>
-      <PeachScrollView contentStyle={tw`flex-row justify-center gap-4`} horizontal>
+      <PeachScrollView
+        style={tw`w-full`}
+        contentContainerStyle={tw`justify-center grow`}
+        contentStyle={tw`flex-row justify-center gap-4`}
+        horizontal
+      >
         {items.map((item) => (
           <TouchableOpacity style={tw`flex-shrink`} key={item.key + item.name} onPress={() => select(item)}>
             <Text

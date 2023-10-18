@@ -1,15 +1,14 @@
 /* eslint-disable max-lines */
-import { renderHook } from '@testing-library/react-native'
 import { TxBuilder } from 'bdk-rn'
 import { act } from 'react-test-renderer'
+import { renderHook } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { PopupLoadingSpinner } from '../../../../tests/unit/helpers/PopupLoadingSpinner'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
-import { Loading } from '../../../components'
 import { useConfigStore } from '../../../store/configStore'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
-import tw from '../../../styles/tailwind'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -51,7 +50,7 @@ describe('useFundFromPeachWallet', () => {
     usePopupStore.setState(defaultPopupState)
   })
   beforeEach(() => {
-    // @ts-expect-error mock PeachWallet doesn't need arguments
+    // @ts-ignore
     setPeachWallet(new PeachWallet())
   })
   it('should return default values', () => {
@@ -168,7 +167,7 @@ describe('useFundFromPeachWallet', () => {
       ...usePopupStore.getState(),
       title: 'funding escrow',
       level: 'APP',
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      content: PopupLoadingSpinner,
       action1: {
         label: 'loading...',
         icon: 'clock',
@@ -291,7 +290,7 @@ describe('useFundFromPeachWallet', () => {
       ...usePopupStore.getState(),
       title: 'funding escrow',
       level: 'APP',
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      content: PopupLoadingSpinner,
       action1: {
         label: 'loading...',
         icon: 'clock',

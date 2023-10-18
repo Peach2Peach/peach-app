@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectPaymentMethod should render correctly 1`] = `
-<Screen>
+<Screen
+  header="select payment method"
+>
   <ForwardRef
     contentContainerStyle={
       [
@@ -30,18 +32,15 @@ exports[`SelectPaymentMethod should render correctly 1`] = `
       onButtonPress={[Function]}
     />
   </ForwardRef>
-  <PrimaryButton
+  <Button
     disabled={true}
-    narrow={true}
     style={
       {
         "alignSelf": "center",
-        "marginBottom": 20,
-        "marginTop": 8,
       }
     }
   >
     next
-  </PrimaryButton>
+  </Button>
 </Screen>
 `;

@@ -12,7 +12,6 @@ import { shouldGetFundingStatus } from '../../sell/helpers/shouldGetFundingStatu
 import { useSyncWallet } from '../../wallet/hooks/useSyncWallet'
 import { getFundingAmount } from '../helpers/getFundingAmount'
 import { useCreateEscrow } from './useCreateEscrow'
-import { useFundEscrowHeader } from './useFundEscrowHeader'
 import { useHandleFundingStatus } from './useHandleFundingStatus'
 
 const MIN_LOADING_TIME = 1000
@@ -42,8 +41,6 @@ export const useFundEscrowSetup = () => {
     .filter(isDefined)
   const fundingAmount = getFundingAmount(sellOffer, fundMultiple)
   const cancelOffer = useCancelOffer(sellOffer)
-
-  useFundEscrowHeader({ fundingStatus, sellOffer, fundMultiple })
 
   useHandleFundingStatus({
     offerId,

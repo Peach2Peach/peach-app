@@ -11,7 +11,7 @@ export const TransactionBatching = () => {
 
   if (isLoading) return <LoadingScreen />
   return (
-    <Screen style={tw`justify-center gap-8`}>
+    <Screen style={tw`justify-center gap-8`} header={i18n('settings.transactionBatching')}>
       <View style={tw`gap-4`}>
         <Text style={tw`body-l`}>
           {i18n(isBatchingEnabled ? 'settings.batching.delayedPayouts' : 'settings.batching.immediatePayouts')}

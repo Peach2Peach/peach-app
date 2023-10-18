@@ -1,5 +1,5 @@
-import { BTCAmount } from './BTCAmount'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { BTCAmount } from './BTCAmount'
 
 describe('BTCAmount', () => {
   const renderer = createRenderer()
@@ -24,8 +24,8 @@ describe('BTCAmount', () => {
     renderer.render(<BTCAmount amount={amount} size="extra large" />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
-  it('should render correctly with isError', () => {
-    renderer.render(<BTCAmount amount={amount} size="extra large" isError />)
+  it('should render correctly with white', () => {
+    renderer.render(<BTCAmount amount={amount} size="extra large" white />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly when the value is 0', () => {

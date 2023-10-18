@@ -1,9 +1,8 @@
 /* eslint-disable max-lines-per-function */
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { defaultSelfUser } from '../../../../tests/unit/data/userData'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useReferralsSetup } from './useReferralsSetup'
-import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 jest.mock('../../../hooks/query/useSelfUser', () => ({
   useSelfUser: jest.fn(),
@@ -29,7 +28,7 @@ describe('useReferralsSetup', () => {
     })
   })
   it('returns default correct values', () => {
-    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useReferralsSetup)
 
     expect(result.current.user).toEqual(defaultSelfUser)
     expect(result.current.pointsBalance).toEqual(defaultSelfUser.bonusPoints)
@@ -37,10 +36,6 @@ describe('useReferralsSetup', () => {
     expect(result.current.selectedReward).toBeUndefined()
     expect(result.current.setSelectedReward).toBeDefined()
     expect(result.current.redeem).toBeDefined()
-  })
-  it('sets up header correctly', () => {
-    renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
-    expect(headerState.header()).toMatchSnapshot()
   })
 
   it('returns correct bonus points and available rewards', () => {
@@ -51,7 +46,7 @@ describe('useReferralsSetup', () => {
         bonusPoints,
       },
     })
-    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useReferralsSetup)
 
     expect(result.current.pointsBalance).toEqual(bonusPoints)
     expect(result.current.availableRewards).toEqual(2)
@@ -60,7 +55,7 @@ describe('useReferralsSetup', () => {
     (useSelfUser as jest.Mock).mockReturnValue({
       user: undefined,
     })
-    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useReferralsSetup)
 
     expect(result.current.pointsBalance).toEqual(0)
     expect(result.current.availableRewards).toEqual(0)
@@ -73,7 +68,7 @@ describe('useReferralsSetup', () => {
         bonusPoints,
       },
     })
-    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useReferralsSetup)
 
     expect(result.current.selectedReward).toBeUndefined()
 
@@ -83,7 +78,7 @@ describe('useReferralsSetup', () => {
     expect(result.current.selectedReward).toEqual('customReferralCode')
   })
   it('does not let user start redemption of an unavailable reward', () => {
-    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useReferralsSetup)
 
     act(() => {
       result.current.setSelectedReward('sats')
@@ -93,7 +88,7 @@ describe('useReferralsSetup', () => {
     expect(setCustomReferralCodePopupMock).not.toHaveBeenCalled()
   })
   it('lets user start redemption of a custom referral code', () => {
-    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useReferralsSetup)
 
     act(() => {
       result.current.setSelectedReward('customReferralCode')
@@ -105,7 +100,7 @@ describe('useReferralsSetup', () => {
     expect(setCustomReferralCodePopupMock).toHaveBeenCalled()
   })
   it('lets user start redemption of a no peach fees', () => {
-    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useReferralsSetup)
 
     act(() => {
       result.current.setSelectedReward('noPeachFees')

@@ -1,51 +1,25 @@
+import { render } from 'test-utils'
+import { contract } from '../../../tests/unit/data/contractData'
 import { ContractActions } from './ContractActions'
-import { createRenderer } from 'react-test-renderer/shallow'
 
-const useContractContextMock = jest.fn()
-jest.mock('./context', () => ({
+const useContractContextMock = jest.fn().mockReturnValue({ contract })
+jest.mock('./context/useContractContext', () => ({
   useContractContext: () => useContractContextMock(),
 }))
+jest.mock('../../hooks/useRoute', () => ({
+  useRoute: jest.fn().mockReturnValue({ params: { contractId: 'contractId' } }),
+}))
+
+jest.useFakeTimers()
 
 describe('ContractActions', () => {
-  const renderer = createRenderer()
-  const contract = {
-    tradeStatus: 'refundOrReviveRequired',
-    disputeWinner: 'seller',
-  } as Contract
-  useContractContextMock.mockReturnValue({ contract })
-  const props = {
-    requiredAction: 'none' as const,
-    actionPending: false,
-    postConfirmPaymentBuyer: jest.fn(),
-    postConfirmPaymentSeller: jest.fn(),
-    hasNewOffer: false,
-    goToNewOffer: jest.fn(),
-  }
-  it('should show the dispute sliders when the contract is in the refundOrReviveRequired state', () => {
-    renderer.render(<ContractActions {...props} />)
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
-  })
-  it('should not show the dispute sliders when there is no dispute winner', () => {
-    useContractContextMock.mockReturnValueOnce({
-      contract: {
-        ...contract,
-        disputeWinner: undefined,
-      },
+  it('should show the paymentTooLate sliders for the seller', () => {
+    jest.spyOn(Date, 'now').mockImplementation(() => new Date(1).getTime())
+    useContractContextMock.mockReturnValue({
+      contract: { ...contract, paymentExpectedBy: new Date(0), paymentMade: null, tradeStatus: 'paymentTooLate' },
+      view: 'seller',
     })
-    renderer.render(<ContractActions {...props} />)
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
-  })
-  it('should show the provide email button when the contract requires an email', () => {
-    useContractContextMock.mockReturnValueOnce({ contract: { isEmailRequired: true } })
-    renderer.render(<ContractActions {...props} />)
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
-  })
-  it('should show the "go to new trade" button when there is a new offer', () => {
-    renderer.render(<ContractActions {...props} hasNewOffer />)
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
+    const { toJSON } = render(<ContractActions />)
+    expect(toJSON()).toMatchSnapshot()
   })
 })

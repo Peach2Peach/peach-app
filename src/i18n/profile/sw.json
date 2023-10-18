@@ -1,5 +1,6 @@
 {
   "profile.accountCreated" : "akaunti imeundwa",
+  "profile.blockUser" : "Weka mtumiaji huyu kwenye kizuizi",
   "profile.daysAgo" : "siku $0 zilizopita",
   "profile.disputes" : "mgogoro",
   "profile.disputesLost" : "imepoteza",
@@ -13,5 +14,6 @@
   "profile.tradingLimits.monthly" : "kiwango cha kila mwezi bila kujulikana:",
   "profile.tradingLimits.yearly" : "kiwango cha kila mwaka cha biashara:",
   "profile.tradingLimits.yearly.short" : "kiwango cha kila mwaka:",
+  "profile.unblockUser" : "Fungua mtumiaji huyu",
   "profile.user.title" : "wasifu wa umma"
 }

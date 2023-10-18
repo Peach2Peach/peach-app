@@ -1,13 +1,14 @@
 import { validateMnemonic, wordlists } from 'bip39'
+import { getNetwork } from '../wallet'
 import { isAdvcashWallet } from './isAdvcashWallet'
-import { isBancolombiaAccountNumber } from './isBancolombiaAccountNumber'
 import { isBIC } from './isBIC'
+import { isBancolombiaAccountNumber } from './isBancolombiaAccountNumber'
 import { isBitcoinAddress } from './isBitcoinAddress'
 import { isCBU } from './isCBU'
 import { isCVU } from './isCVU'
 import { isCVUAlias } from './isCVUAlias'
-import { isEmail } from './isEmail'
 import { isEUIBAN } from './isEUIBAN'
+import { isEmail } from './isEmail'
 import { isIBAN } from './isIBAN'
 import { isNUBAN } from './isNUBAN'
 import { isPaypalUsername } from './isPaypalUsername'
@@ -48,7 +49,7 @@ export const rules = {
     return isURL(value)
   },
   bitcoinAddress (_: boolean, value: string) {
-    return isBitcoinAddress(value)
+    return isBitcoinAddress(value, getNetwork())
   },
   blockTaprootAddress (_: boolean, value: string) {
     return !isTaproot(value)

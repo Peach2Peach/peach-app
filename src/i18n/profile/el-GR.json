@@ -1,5 +1,6 @@
 {
   "profile.accountCreated" : "δημιουργήθηκε λογαριασμός",
+  "profile.blockUser" : "Αποκλείστε αυτόν τον χρήστη",
   "profile.daysAgo" : "πριν από $0 ημέρες ",
   "profile.disputes" : "διενέξεις",
   "profile.disputesLost" : "χαμένες",
@@ -13,5 +14,6 @@
   "profile.tradingLimits.monthly" : "μηνιαίο ανώνυμο όριο:",
   "profile.tradingLimits.yearly" : "ετήσιο όριο συναλλαγών:",
   "profile.tradingLimits.yearly.short" : "ετήσιο όριο:",
+  "profile.unblockUser" : "Ξεκλείδωσε αυτόν τον χρήστη",
   "profile.user.title" : "δημόσιο προφίλ"
 }

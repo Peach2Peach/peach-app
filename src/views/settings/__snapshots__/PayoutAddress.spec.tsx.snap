@@ -1,31 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PayoutAddress should render correctly 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "height": "100%",
-      "justifyContent": "space-between",
-    }
-  }
+<Screen
+  header={<PayoutAddressHeader />}
 >
   <ForwardRef
     contentContainerStyle={
       {
-        "height": "100%",
+        "alignItems": "center",
+        "flexGrow": 1,
         "justifyContent": "center",
-        "paddingBottom": 32,
         "paddingLeft": 32,
         "paddingRight": 32,
-        "paddingTop": 32,
-      }
-    }
-    style={
-      {
-        "flexShrink": 1,
-        "height": "100%",
-        "width": "100%",
       }
     }
   >
@@ -67,49 +53,32 @@ exports[`PayoutAddress should render correctly 1`] = `
       }
     />
   </ForwardRef>
-  <PrimaryButton
+  <Button
     disabled={false}
-    narrow={true}
     onPress={[MockFunction]}
     style={
       {
-        "bottom": 24,
-        "marginTop": 64,
-        "position": "absolute",
+        "alignSelf": "center",
       }
     }
   >
     confirm
-  </PrimaryButton>
-</View>
+  </Button>
+</Screen>
 `;
 
 exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "height": "100%",
-      "justifyContent": "space-between",
-    }
-  }
+<Screen
+  header={<PayoutAddressHeader />}
 >
   <ForwardRef
     contentContainerStyle={
       {
-        "height": "100%",
+        "alignItems": "center",
+        "flexGrow": 1,
         "justifyContent": "center",
-        "paddingBottom": 32,
         "paddingLeft": 32,
         "paddingRight": 32,
-        "paddingTop": 32,
-      }
-    }
-    style={
-      {
-        "flexShrink": 1,
-        "height": "100%",
-        "width": "100%",
       }
     }
   >
@@ -146,9 +115,12 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
       style={
         {
           "flexDirection": "row",
-          "height": 24,
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 20,
+          "gap": 4,
           "justifyContent": "center",
-          "width": "100%",
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
         }
       }
     >
@@ -166,61 +138,38 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
         address set
       </PeachText>
       <Icon
-        color="#05A85A"
+        color="#65A519"
         id="check"
-        style={
-          {
-            "height": 20,
-            "marginLeft": 4,
-            "width": 20,
-          }
-        }
+        size={20}
       />
     </View>
   </ForwardRef>
-  <PrimaryButton
+  <Button
     disabled={true}
-    narrow={true}
     onPress={[MockFunction]}
     style={
       {
-        "bottom": 24,
-        "marginTop": 64,
-        "position": "absolute",
+        "alignSelf": "center",
       }
     }
   >
     confirm
-  </PrimaryButton>
-</View>
+  </Button>
+</Screen>
 `;
 
 exports[`PayoutAddress should render correctly when type is refund 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "height": "100%",
-      "justifyContent": "space-between",
-    }
-  }
+<Screen
+  header={<PayoutAddressHeader />}
 >
   <ForwardRef
     contentContainerStyle={
       {
-        "height": "100%",
+        "alignItems": "center",
+        "flexGrow": 1,
         "justifyContent": "center",
-        "paddingBottom": 32,
         "paddingLeft": 32,
         "paddingRight": 32,
-        "paddingTop": 32,
-      }
-    }
-    style={
-      {
-        "flexShrink": 1,
-        "height": "100%",
-        "width": "100%",
       }
     }
   >
@@ -262,19 +211,16 @@ exports[`PayoutAddress should render correctly when type is refund 1`] = `
       }
     />
   </ForwardRef>
-  <PrimaryButton
+  <Button
     disabled={false}
-    narrow={true}
     onPress={[MockFunction]}
     style={
       {
-        "bottom": 24,
-        "marginTop": 64,
-        "position": "absolute",
+        "alignSelf": "center",
       }
     }
   >
     next
-  </PrimaryButton>
-</View>
+  </Button>
+</Screen>
 `;

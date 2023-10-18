@@ -1,19 +1,17 @@
-import { createRenderer } from 'react-test-renderer/shallow'
+import { render } from 'test-utils'
 import { GroupHugAnnouncement } from './GroupHugAnnouncement'
 
-const useGroupHugAnnouncementSetupMock = jest.fn().mockReturnValue({
-  goToSettings: jest.fn(),
-  close: jest.fn(),
-})
-jest.mock('./hooks/useGroupHugAnnouncementSetup', () => ({
-  useGroupHugAnnouncementSetup: () => useGroupHugAnnouncementSetupMock(),
+jest.mock('../../hooks/useRoute', () => ({
+  useRoute: jest.fn(() => ({
+    params: {
+      offerId: '1234',
+    },
+  })),
 }))
 
 describe('GroupHugAnnouncement', () => {
-  const shallowRenderer = createRenderer()
-
   it('renders correctly', () => {
-    shallowRenderer.render(<GroupHugAnnouncement />)
-    expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<GroupHugAnnouncement />)
+    expect(toJSON()).toMatchSnapshot()
   })
 })

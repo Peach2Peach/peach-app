@@ -1,5 +1,5 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import ShallowRenderer from 'react-test-renderer/shallow'
+import { fireEvent, render } from 'test-utils'
 import { FeeEstimates } from './FeeEstimates'
 
 describe('FeeEstimates', () => {

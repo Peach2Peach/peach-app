@@ -1,8 +1,6 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { fireEvent, render, renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../tests/unit/data/accountData'
 import { buyOffer } from '../../tests/unit/data/offerData'
-import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
-import { CancelOffer } from '../popups/CancelOffer'
 import { usePopupStore } from '../store/usePopupStore'
 import { updateAccount } from '../utils/account'
 import { useCancelOffer } from './useCancelOffer'
@@ -17,46 +15,26 @@ jest.mock('../utils/peachAPI', () => ({
   cancelOffer: () => cancelOfferMock(),
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
-
 describe('useCancelOffer', () => {
   beforeEach(() => {
     updateAccount(account1)
   })
   it('should show cancel offer popup', () => {
-    const { result } = renderHook(useCancelOffer, {
-      wrapper,
-      initialProps: buyOffer,
-    })
+    const { result } = renderHook(useCancelOffer, { initialProps: buyOffer })
     result.current()
 
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      action1: {
-        callback: expect.any(Function),
-        icon: 'xCircle',
-        label: 'cancel offer',
-      },
-      action2: {
-        callback: usePopupStore.getState().closePopup,
-        icon: 'arrowLeftCircle',
-        label: 'never mind',
-      },
-      content: <CancelOffer type="bid" />,
-      level: 'DEFAULT',
-      title: 'cancel offer',
-      visible: true,
-    })
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    const { toJSON } = render(popupComponent)
+    expect(toJSON()).toMatchSnapshot()
   })
 
   it('should show cancel offer confirmation popup', async () => {
-    const { result } = renderHook(useCancelOffer, {
-      wrapper,
-      initialProps: buyOffer,
-    })
+    const { result } = renderHook(useCancelOffer, { initialProps: buyOffer })
     result.current()
 
-    usePopupStore.getState().action1?.callback()
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    const { getAllByText } = render(popupComponent)
+    fireEvent.press(getAllByText('cancel offer')[1])
 
     await waitFor(() => {
       expect(usePopupStore.getState()).toEqual({

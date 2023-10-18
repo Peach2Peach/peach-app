@@ -1,7 +1,7 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { renderHook, waitFor } from 'test-utils'
 import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { bitcoinTransaction } from '../../../tests/unit/data/transactionDetailData'
-import { QueryClientWrapper, queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useTransactionDetails } from './useTransactionDetails'
 
 jest.useFakeTimers()
@@ -10,8 +10,6 @@ const getTransactionDetailsMock = jest.fn().mockResolvedValue([bitcoinTransactio
 jest.mock('../../utils/electrum', () => ({
   getTransactionDetails: () => getTransactionDetailsMock(),
 }))
-
-const wrapper = QueryClientWrapper
 
 describe('useTransactionDetails', () => {
   const initialProps = { txId: 'txId' }
@@ -22,7 +20,7 @@ describe('useTransactionDetails', () => {
   })
 
   it('fetches transaction details from API', async () => {
-    const { result } = renderHook(useTransactionDetails, { wrapper, initialProps })
+    const { result } = renderHook(useTransactionDetails, { initialProps })
     expect(result.current).toEqual({
       transaction: undefined,
       isLoading: true,
@@ -37,7 +35,7 @@ describe('useTransactionDetails', () => {
   })
   it('returns error if server did not return result', async () => {
     getTransactionDetailsMock.mockResolvedValueOnce([null, unauthorizedError])
-    const { result } = renderHook(useTransactionDetails, { wrapper, initialProps })
+    const { result } = renderHook(useTransactionDetails, { initialProps })
     expect(result.current).toEqual({
       transaction: undefined,
       isLoading: true,

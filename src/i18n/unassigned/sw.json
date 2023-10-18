@@ -20,7 +20,6 @@
   "discord" : "Discord",
   "dispute.explanation.description.3" : "Unapofungua mzozo, mazungumzo kati yako na mshirika wako yatakuwa yamegawanywa na Peach",
   "dispute.nonDispute.text.1" : "Mzozo umefutwa! Msuluhishi wa Peach anaondoka kwenye mazungumzo.",
-  "dispute.seller.lost.completed.text" : "Tumetoa uamuzi kwa faida ya mnunuzi katika mzozo wa biashara $0",
   "done" : "kamaliza",
   "download" : "pakua",
   "edit" : "hariri",
@@ -84,6 +83,7 @@
   "no" : "hapana",
   "noThanks" : "hapana, asante",
   "none" : "hakuna",
+  "nostr" : "Nostr",
   "other" : "nyingine",
   "paste" : "bandika",
   "payment" : "malipo",
@@ -249,5 +249,6 @@
   "yourTrades.start.selling" : "anza kuuza!",
   "yourTrades.title" : "biashara zako",
   "yourTrades.tradeCanceled.subtitle" : "biashara imefutwa",
-  "yourTrades.waiting" : "inasubiri"
+  "yourTrades.waiting" : "inasubiri",
+  "youtube" : "YouTube"
 }

@@ -3,54 +3,59 @@
 exports[`MyProfile should render correctly 1`] = `
 <View
   style={
-    [
-      {
-        "height": "100%",
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-      undefined,
-    ]
+    {
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+    }
   }
 >
-  <View
+  <RCTSafeAreaView
     style={
       [
         {
-          "alignItems": "center",
-          "gap": 6,
-          "paddingBottom": 4,
-          "paddingTop": 4,
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 8,
+          "borderBottomWidth": 1,
         },
-        undefined,
         {
           "backgroundColor": "#FFF9F6",
+        },
+        {
+          "borderColor": "#FEEDE5",
         },
       ]
     }
   >
     <View
       style={
-        {
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "width": "100%",
-        }
+        [
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 8,
+            "paddingBottom": 6,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 6,
+          },
+          {
+            "paddingLeft": 32,
+            "paddingRight": 32,
+          },
+          undefined,
+        ]
       }
     >
       <View
         style={
           {
             "alignItems": "center",
+            "flexBasis": "0%",
             "flexDirection": "row",
+            "flexGrow": 1,
             "flexShrink": 1,
             "gap": 4,
-            "justifyContent": "flex-start",
-            "width": "100%",
           }
         }
       >
@@ -83,6 +88,8 @@ exports[`MyProfile should render correctly 1`] = `
                   "color": "#2B1911",
                 },
                 {
+                  "flexBasis": "0%",
+                  "flexGrow": 1,
                   "flexShrink": 1,
                 },
               ],
@@ -163,1189 +170,345 @@ exports[`MyProfile should render correctly 1`] = `
         </View>
       </View>
     </View>
-  </View>
-  <RCTScrollView
-    contentContainerStyle={
-      [
-        {
-          "paddingTop": 16,
-        },
-        {
-          "paddingTop": 32,
-        },
-      ]
+  </RCTSafeAreaView>
+  <RCTSafeAreaView
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
     }
-    showsHorizontalScrollIndicator={false}
-    showsVerticalScrollIndicator={false}
   >
-    <View>
-      <View
-        onStartShouldSetResponder={[Function]}
-        style={
+    <View
+      style={
+        [
           {
-            "gap": 28,
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          },
+          {
+            "paddingBottom": 32,
+            "paddingLeft": 32,
+            "paddingRight": 32,
+            "paddingTop": 32,
+          },
+          undefined,
+        ]
+      }
+    >
+      <RCTScrollView
+        contentContainerStyle={
+          {
+            "flexGrow": 1,
           }
         }
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
       >
-        <View
-          style={
-            {
-              "gap": 48,
-            }
-          }
-        >
+        <View>
           <View
+            onStartShouldSetResponder={[Function]}
             style={
               {
-                "gap": 24,
+                "flexGrow": 1,
+                "gap": 28,
+                "justifyContent": "space-between",
               }
             }
           >
             <View
               style={
                 {
-                  "alignSelf": "stretch",
-                  "gap": 2,
+                  "gap": 48,
                 }
               }
             >
               <View
                 style={
                   {
-                    "alignItems": "center",
-                    "alignSelf": "stretch",
-                    "flexDirection": "row",
-                    "justifyContent": "space-between",
+                    "gap": 24,
                   }
                 }
               >
                 <View
-                  accessibilityState={
-                    {
-                      "busy": undefined,
-                      "checked": undefined,
-                      "disabled": false,
-                      "expanded": undefined,
-                      "selected": undefined,
-                    }
-                  }
-                  accessibilityValue={
-                    {
-                      "max": undefined,
-                      "min": undefined,
-                      "now": undefined,
-                      "text": undefined,
-                    }
-                  }
-                  accessible={true}
-                  collapsable={false}
-                  focusable={true}
-                  onClick={[Function]}
-                  onResponderGrant={[Function]}
-                  onResponderMove={[Function]}
-                  onResponderRelease={[Function]}
-                  onResponderTerminate={[Function]}
-                  onResponderTerminationRequest={[Function]}
-                  onStartShouldSetResponder={[Function]}
                   style={
                     {
-                      "alignItems": "center",
-                      "backgroundColor": "#FEEDE5",
-                      "borderColor": "#FCCCB6",
-                      "borderRadius": 8,
-                      "borderWidth": 1,
-                      "flexDirection": "row",
-                      "gap": 4,
-                      "height": 28,
-                      "justifyContent": "center",
-                      "opacity": 1,
-                      "paddingLeft": 10,
-                      "paddingRight": 10,
+                      "alignSelf": "stretch",
+                      "gap": 2,
                     }
-                  }
-                >
-                  <Text
-                    allowFontScaling={false}
-                    ellipsizeMode="tail"
-                    numberOfLines={1}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "color": "#2B1911",
-                          },
-                          {
-                            "fontFamily": "Baloo2-SemiBold",
-                            "fontSize": 14,
-                            "letterSpacing": 0.5,
-                            "lineHeight": 24,
-                            "textAlign": "center",
-                            "textTransform": "uppercase",
-                          },
-                          {
-                            "fontFamily": "Baloo2-SemiBold",
-                            "fontSize": 15,
-                            "letterSpacing": 0.54,
-                            "lineHeight": 26,
-                            "textTransform": "uppercase",
-                          },
-                        ],
-                        false,
-                      ]
-                    }
-                  >
-                    Peach02135832
-                  </Text>
-                  <test-file-stub
-                    fill="#F56522"
-                    style={
-                      [
-                        {
-                          "height": 16,
-                          "width": 16,
-                        },
-                        undefined,
-                      ]
-                    }
-                  />
-                </View>
-                <View
-                  style={
-                    [
-                      {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                      },
-                      undefined,
-                    ]
                   }
                 >
                   <View
                     style={
                       {
+                        "alignItems": "center",
+                        "alignSelf": "stretch",
                         "flexDirection": "row",
+                        "justifyContent": "space-between",
                       }
                     }
                   >
-                    <test-file-stub
-                      style={
+                    <View
+                      accessibilityState={
                         {
-                          "height": 12,
-                          "marginRight": 4,
-                          "opacity": 0.5,
-                          "width": 12,
+                          "busy": undefined,
+                          "checked": undefined,
+                          "disabled": false,
+                          "expanded": undefined,
+                          "selected": undefined,
                         }
                       }
-                    />
-                    <test-file-stub
-                      style={
+                      accessibilityValue={
                         {
-                          "height": 12,
-                          "marginRight": 4,
-                          "opacity": 0.5,
-                          "width": 12,
+                          "max": undefined,
+                          "min": undefined,
+                          "now": undefined,
+                          "text": undefined,
                         }
                       }
-                    />
-                    <test-file-stub
+                      accessible={true}
+                      collapsable={false}
+                      focusable={true}
+                      onClick={[Function]}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
                       style={
                         {
-                          "height": 12,
-                          "marginRight": 4,
-                          "opacity": 0.5,
-                          "width": 12,
+                          "alignItems": "center",
+                          "backgroundColor": "#FEEDE5",
+                          "borderColor": "#FCCCB6",
+                          "borderRadius": 8,
+                          "borderWidth": 1,
+                          "flexDirection": "row",
+                          "gap": 4,
+                          "height": 28,
+                          "justifyContent": "center",
+                          "opacity": 1,
+                          "paddingLeft": 10,
+                          "paddingRight": 10,
                         }
                       }
-                    />
-                    <test-file-stub
-                      style={
-                        {
-                          "height": 12,
-                          "marginRight": 4,
-                          "opacity": 0.5,
-                          "width": 12,
+                    >
+                      <Text
+                        allowFontScaling={false}
+                        ellipsizeMode="tail"
+                        numberOfLines={1}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "color": "#2B1911",
+                              },
+                              {
+                                "fontFamily": "Baloo2-SemiBold",
+                                "fontSize": 14,
+                                "letterSpacing": 0.5,
+                                "lineHeight": 24,
+                                "textAlign": "center",
+                                "textTransform": "uppercase",
+                              },
+                              {
+                                "fontFamily": "Baloo2-SemiBold",
+                                "fontSize": 15,
+                                "letterSpacing": 0.54,
+                                "lineHeight": 26,
+                                "textTransform": "uppercase",
+                              },
+                            ],
+                            false,
+                          ]
                         }
-                      }
-                    />
-                    <test-file-stub
-                      style={
-                        {
-                          "height": 12,
-                          "marginRight": 4,
-                          "opacity": 0.5,
-                          "width": 12,
+                      >
+                        Peach02135832
+                      </Text>
+                      <test-file-stub
+                        fill="#F56522"
+                        style={
+                          [
+                            {
+                              "height": 16,
+                              "width": 16,
+                            },
+                            undefined,
+                          ]
                         }
-                      }
-                    />
+                      />
+                    </View>
                     <View
                       style={
                         [
                           {
-                            "alignSelf": "center",
+                            "alignItems": "center",
                             "flexDirection": "row",
-                            "overflow": "hidden",
-                            "position": "absolute",
                           },
-                          {
-                            "width": "100%",
-                          },
+                          undefined,
                         ]
                       }
                     >
-                      <test-file-stub
+                      <View
                         style={
                           {
-                            "height": 12,
-                            "marginRight": 4,
-                            "width": 12,
+                            "flexDirection": "row",
                           }
                         }
-                      />
-                      <test-file-stub
+                      >
+                        <test-file-stub
+                          style={
+                            {
+                              "height": 12,
+                              "marginRight": 4,
+                              "opacity": 0.5,
+                              "width": 12,
+                            }
+                          }
+                        />
+                        <test-file-stub
+                          style={
+                            {
+                              "height": 12,
+                              "marginRight": 4,
+                              "opacity": 0.5,
+                              "width": 12,
+                            }
+                          }
+                        />
+                        <test-file-stub
+                          style={
+                            {
+                              "height": 12,
+                              "marginRight": 4,
+                              "opacity": 0.5,
+                              "width": 12,
+                            }
+                          }
+                        />
+                        <test-file-stub
+                          style={
+                            {
+                              "height": 12,
+                              "marginRight": 4,
+                              "opacity": 0.5,
+                              "width": 12,
+                            }
+                          }
+                        />
+                        <test-file-stub
+                          style={
+                            {
+                              "height": 12,
+                              "marginRight": 4,
+                              "opacity": 0.5,
+                              "width": 12,
+                            }
+                          }
+                        />
+                        <View
+                          style={
+                            [
+                              {
+                                "alignSelf": "center",
+                                "flexDirection": "row",
+                                "overflow": "hidden",
+                                "position": "absolute",
+                              },
+                              {
+                                "width": "100%",
+                              },
+                            ]
+                          }
+                        >
+                          <test-file-stub
+                            style={
+                              {
+                                "height": 12,
+                                "marginRight": 4,
+                                "width": 12,
+                              }
+                            }
+                          />
+                          <test-file-stub
+                            style={
+                              {
+                                "height": 12,
+                                "marginRight": 4,
+                                "width": 12,
+                              }
+                            }
+                          />
+                          <test-file-stub
+                            style={
+                              {
+                                "height": 12,
+                                "marginRight": 4,
+                                "width": 12,
+                              }
+                            }
+                          />
+                          <test-file-stub
+                            style={
+                              {
+                                "height": 12,
+                                "marginRight": 4,
+                                "width": 12,
+                              }
+                            }
+                          />
+                          <test-file-stub
+                            style={
+                              {
+                                "height": 12,
+                                "marginRight": 4,
+                                "width": 12,
+                              }
+                            }
+                          />
+                        </View>
+                      </View>
+                      <Text
+                        allowFontScaling={false}
                         style={
-                          {
-                            "height": 12,
-                            "marginRight": 4,
-                            "width": 12,
-                          }
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            {
+                              "color": "#7D675E",
+                              "fontFamily": "Baloo2-SemiBold",
+                              "fontSize": 13,
+                              "letterSpacing": 0.47,
+                              "lineHeight": 22,
+                              "textTransform": "uppercase",
+                            },
+                            false,
+                          ]
                         }
-                      />
-                      <test-file-stub
-                        style={
-                          {
-                            "height": 12,
-                            "marginRight": 4,
-                            "width": 12,
-                          }
-                        }
-                      />
-                      <test-file-stub
-                        style={
-                          {
-                            "height": 12,
-                            "marginRight": 4,
-                            "width": 12,
-                          }
-                        }
-                      />
-                      <test-file-stub
-                        style={
-                          {
-                            "height": 12,
-                            "marginRight": 4,
-                            "width": 12,
-                          }
-                        }
-                      />
+                      >
+                        5.0
+                      </Text>
                     </View>
                   </View>
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        {
-                          "color": "#7D675E",
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 13,
-                          "letterSpacing": 0.47,
-                          "lineHeight": 22,
-                          "textTransform": "uppercase",
-                        },
-                        false,
-                      ]
-                    }
-                  >
-                    5.0
-                  </Text>
-                </View>
-              </View>
-              <View
-                accessibilityState={
-                  {
-                    "busy": undefined,
-                    "checked": undefined,
-                    "disabled": undefined,
-                    "expanded": undefined,
-                    "selected": undefined,
-                  }
-                }
-                accessibilityValue={
-                  {
-                    "max": undefined,
-                    "min": undefined,
-                    "now": undefined,
-                    "text": undefined,
-                  }
-                }
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  {
-                    "alignItems": "center",
-                    "alignSelf": "stretch",
-                    "flexDirection": "row",
-                    "justifyContent": "space-between",
-                    "opacity": 1,
-                  }
-                }
-              >
-                <View
-                  style={
-                    {
-                      "alignItems": "center",
-                      "flexDirection": "row",
-                      "marginRight": 8,
-                    }
-                  }
-                >
                   <View
-                    style={
-                      [
-                        {
-                          "backgroundColor": "#FCCCB6",
-                        },
-                        {
-                          "borderRadius": 9999,
-                          "marginLeft": 2,
-                          "marginRight": 2,
-                        },
-                      ]
-                    }
-                  >
-                    <test-file-stub
-                      fill="#FFFCFA"
-                      style={
-                        [
-                          {
-                            "height": 24,
-                            "width": 24,
-                          },
-                          {
-                            "height": 8,
-                            "marginBottom": 2,
-                            "marginLeft": 2,
-                            "marginRight": 2,
-                            "marginTop": 2,
-                            "width": 8,
-                          },
-                        ]
-                      }
-                    />
-                  </View>
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-Regular",
-                            "fontSize": 12,
-                            "fontWeight": "600",
-                            "letterSpacing": -0.36,
-                            "lineHeight": 22,
-                            "textAlign": "center",
-                            "textTransform": "uppercase",
-                          },
-                          {
-                            "color": "#FCCCB6",
-                          },
-                        ],
-                        false,
-                      ]
-                    }
-                  >
-                    supertrader
-                  </Text>
-                </View>
-                <View
-                  style={
-                    {
-                      "alignItems": "center",
-                      "flexDirection": "row",
-                      "marginRight": 8,
-                    }
-                  }
-                >
-                  <View
-                    style={
-                      [
-                        {
-                          "backgroundColor": "#F56522",
-                        },
-                        {
-                          "borderRadius": 9999,
-                          "marginLeft": 2,
-                          "marginRight": 2,
-                        },
-                      ]
-                    }
-                  >
-                    <test-file-stub
-                      fill="#FFFCFA"
-                      style={
-                        [
-                          {
-                            "height": 24,
-                            "width": 24,
-                          },
-                          {
-                            "height": 8,
-                            "marginBottom": 2,
-                            "marginLeft": 2,
-                            "marginRight": 2,
-                            "marginTop": 2,
-                            "width": 8,
-                          },
-                        ]
-                      }
-                    />
-                  </View>
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-Regular",
-                            "fontSize": 12,
-                            "fontWeight": "600",
-                            "letterSpacing": -0.36,
-                            "lineHeight": 22,
-                            "textAlign": "center",
-                            "textTransform": "uppercase",
-                          },
-                          {
-                            "color": "#F56522",
-                          },
-                        ],
-                        false,
-                      ]
-                    }
-                  >
-                    fast trader
-                  </Text>
-                </View>
-                <View
-                  style={
-                    {
-                      "alignItems": "center",
-                      "flexDirection": "row",
-                      "marginRight": 8,
-                    }
-                  }
-                >
-                  <View
-                    style={
-                      [
-                        {
-                          "backgroundColor": "#F56522",
-                        },
-                        {
-                          "borderRadius": 9999,
-                          "marginLeft": 2,
-                          "marginRight": 2,
-                        },
-                      ]
-                    }
-                  >
-                    <test-file-stub
-                      fill="#FFFCFA"
-                      style={
-                        [
-                          {
-                            "height": 24,
-                            "width": 24,
-                          },
-                          {
-                            "height": 8,
-                            "marginBottom": 2,
-                            "marginLeft": 2,
-                            "marginRight": 2,
-                            "marginTop": 2,
-                            "width": 8,
-                          },
-                        ]
-                      }
-                    />
-                  </View>
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-Regular",
-                            "fontSize": 12,
-                            "fontWeight": "600",
-                            "letterSpacing": -0.36,
-                            "lineHeight": 22,
-                            "textAlign": "center",
-                            "textTransform": "uppercase",
-                          },
-                          {
-                            "color": "#F56522",
-                          },
-                        ],
-                        false,
-                      ]
-                    }
-                  >
-                    early adopter
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View>
-              <View
-                style={
-                  [
-                    {
-                      "borderRadius": 9999,
-                      "height": 16,
-                      "overflow": "hidden",
-                      "width": "100%",
-                    },
-                    {
-                      "height": 6,
-                    },
-                  ]
-                }
-              >
-                <View
-                  style={
-                    [
-                      {
-                        "borderRadius": 9999,
-                        "height": "100%",
-                        "position": "absolute",
-                        "width": "100%",
-                      },
-                      {
-                        "backgroundColor": "#FCCCB6",
-                      },
-                    ]
-                  }
-                />
-                <View
-                  collapsable={false}
-                  style={
-                    {
-                      "borderRadius": 9999,
-                      "height": "100%",
-                      "width": "0%",
-                    }
-                  }
-                />
-              </View>
-              <View
-                style={
-                  {
-                    "marginTop": 4,
-                    "paddingLeft": 8,
-                  }
-                }
-              >
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      {
-                        "color": "#7D675E",
-                        "fontFamily": "Baloo2-Medium",
-                        "fontSize": 14,
-                        "letterSpacing": 0.14,
-                        "lineHeight": 20,
-                      },
-                      false,
-                    ]
-                  }
-                >
-                  daily trading limit
-                    
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-Medium",
-                            "fontSize": 14,
-                            "fontWeight": "bold",
-                            "letterSpacing": 0.14,
-                            "lineHeight": 20,
-                          },
-                          {
-                            "color": "#F56522",
-                          },
-                        ],
-                        false,
-                      ]
-                    }
-                  >
-                    0
-                     
-                    EUR
-                  </Text>
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-Medium",
-                            "fontSize": 14,
-                            "fontWeight": "bold",
-                            "letterSpacing": 0.14,
-                            "lineHeight": 20,
-                          },
-                          {
-                            "color": "#7D675E",
-                          },
-                        ],
-                        false,
-                      ]
-                    }
-                  >
-                     / 
-                  </Text>
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-Medium",
-                            "fontSize": 14,
-                            "fontWeight": "bold",
-                            "letterSpacing": 0.14,
-                            "lineHeight": 20,
-                          },
-                          {
-                            "color": "#FCCCB6",
-                          },
-                        ],
-                        false,
-                      ]
-                    }
-                  >
-                    1 000
-                     
-                    EUR
-                  </Text>
-                </Text>
-              </View>
-            </View>
-            <View>
-              <View
-                style={
-                  [
-                    {
-                      "borderRadius": 9999,
-                      "height": 16,
-                      "overflow": "hidden",
-                      "width": "100%",
-                    },
-                    {
-                      "height": 6,
-                    },
-                  ]
-                }
-              >
-                <View
-                  style={
-                    [
-                      {
-                        "borderRadius": 9999,
-                        "height": "100%",
-                        "position": "absolute",
-                        "width": "100%",
-                      },
-                      {
-                        "backgroundColor": "#FCCCB6",
-                      },
-                    ]
-                  }
-                />
-                <View
-                  collapsable={false}
-                  style={
-                    {
-                      "borderRadius": 9999,
-                      "height": "100%",
-                      "width": "0%",
-                    }
-                  }
-                />
-              </View>
-              <View
-                style={
-                  {
-                    "marginTop": 4,
-                    "paddingLeft": 8,
-                  }
-                }
-              >
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      {
-                        "color": "#7D675E",
-                        "fontFamily": "Baloo2-Medium",
-                        "fontSize": 14,
-                        "letterSpacing": 0.14,
-                        "lineHeight": 20,
-                      },
-                      false,
-                    ]
-                  }
-                >
-                  monthly anonymous limit:
-                    
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-Medium",
-                            "fontSize": 14,
-                            "fontWeight": "bold",
-                            "letterSpacing": 0.14,
-                            "lineHeight": 20,
-                          },
-                          {
-                            "color": "#F56522",
-                          },
-                        ],
-                        false,
-                      ]
-                    }
-                  >
-                    0
-                     
-                    EUR
-                  </Text>
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-Medium",
-                            "fontSize": 14,
-                            "fontWeight": "bold",
-                            "letterSpacing": 0.14,
-                            "lineHeight": 20,
-                          },
-                          {
-                            "color": "#7D675E",
-                          },
-                        ],
-                        false,
-                      ]
-                    }
-                  >
-                     / 
-                  </Text>
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-Medium",
-                            "fontSize": 14,
-                            "fontWeight": "bold",
-                            "letterSpacing": 0.14,
-                            "lineHeight": 20,
-                          },
-                          {
-                            "color": "#FCCCB6",
-                          },
-                        ],
-                        false,
-                      ]
-                    }
-                  >
-                    1 000
-                     
-                    EUR
-                  </Text>
-                </Text>
-              </View>
-            </View>
-            <View>
-              <View
-                style={
-                  [
-                    {
-                      "borderRadius": 9999,
-                      "height": 16,
-                      "overflow": "hidden",
-                      "width": "100%",
-                    },
-                    {
-                      "height": 6,
-                    },
-                  ]
-                }
-              >
-                <View
-                  style={
-                    [
-                      {
-                        "borderRadius": 9999,
-                        "height": "100%",
-                        "position": "absolute",
-                        "width": "100%",
-                      },
-                      {
-                        "backgroundColor": "#FCCCB6",
-                      },
-                    ]
-                  }
-                />
-                <View
-                  collapsable={false}
-                  style={
-                    {
-                      "borderRadius": 9999,
-                      "height": "100%",
-                      "width": "0%",
-                    }
-                  }
-                />
-              </View>
-              <View
-                style={
-                  {
-                    "marginTop": 4,
-                    "paddingLeft": 8,
-                  }
-                }
-              >
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      {
-                        "color": "#7D675E",
-                        "fontFamily": "Baloo2-Medium",
-                        "fontSize": 14,
-                        "letterSpacing": 0.14,
-                        "lineHeight": 20,
-                      },
-                      false,
-                    ]
-                  }
-                >
-                  yearly trading limit:
-                    
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-Medium",
-                            "fontSize": 14,
-                            "fontWeight": "bold",
-                            "letterSpacing": 0.14,
-                            "lineHeight": 20,
-                          },
-                          {
-                            "color": "#F56522",
-                          },
-                        ],
-                        false,
-                      ]
-                    }
-                  >
-                    0
-                     
-                    EUR
-                  </Text>
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-Medium",
-                            "fontSize": 14,
-                            "fontWeight": "bold",
-                            "letterSpacing": 0.14,
-                            "lineHeight": 20,
-                          },
-                          {
-                            "color": "#7D675E",
-                          },
-                        ],
-                        false,
-                      ]
-                    }
-                  >
-                     / 
-                  </Text>
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "fontFamily": "Baloo2-Medium",
-                            "fontSize": 14,
-                            "fontWeight": "bold",
-                            "letterSpacing": 0.14,
-                            "lineHeight": 20,
-                          },
-                          {
-                            "color": "#FCCCB6",
-                          },
-                        ],
-                        false,
-                      ]
-                    }
-                  >
-                    100 000
-                     
-                    EUR
-                  </Text>
-                </Text>
-              </View>
-            </View>
-          </View>
-          <View
-            style={
-              {
-                "gap": 16,
-                "paddingLeft": 4,
-              }
-            }
-          >
-            <View>
-              <Text
-                allowFontScaling={false}
-                style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    {
-                      "color": "#7D675E",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                      "textTransform": "lowercase",
-                    },
-                    false,
-                  ]
-                }
-              >
-                account pubkey
-                :
-              </Text>
-              <View
-                style={
-                  {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                  }
-                }
-              >
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      {
-                        "color": "#2B1911",
-                        "flexShrink": 1,
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 14,
-                        "letterSpacing": 0.14,
-                        "lineHeight": 22,
-                        "textTransform": "uppercase",
-                      },
-                      false,
-                    ]
-                  }
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        {
-                          "color": "#F56522",
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 14,
-                          "letterSpacing": 0.14,
-                          "lineHeight": 22,
-                        },
-                        false,
-                      ]
-                    }
-                  >
-                    02135832
-                  </Text>
-                  09ada26c16e5c3157d86809f8fd46e602936a4e3d51cd988a42ebe19f3
-                </Text>
-                <View
-                  style={
-                    {
-                      "alignItems": "center",
-                      "marginLeft": 12,
-                    }
-                  }
-                >
-                  <View
-                    accessibilityHint="copy"
                     accessibilityState={
                       {
                         "busy": undefined,
@@ -1375,224 +538,1157 @@ exports[`MyProfile should render correctly 1`] = `
                     onStartShouldSetResponder={[Function]}
                     style={
                       {
+                        "alignItems": "center",
+                        "alignSelf": "stretch",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
                         "opacity": 1,
                       }
                     }
                   >
-                    <test-file-stub
-                      fill="#F56522"
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "flexDirection": "row",
+                          "marginRight": 8,
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          [
+                            {
+                              "backgroundColor": "#FCCCB6",
+                            },
+                            {
+                              "borderRadius": 9999,
+                              "marginLeft": 2,
+                              "marginRight": 2,
+                            },
+                          ]
+                        }
+                      >
+                        <test-file-stub
+                          fill="#FFFCFA"
+                          style={
+                            [
+                              {
+                                "height": 24,
+                                "width": 24,
+                              },
+                              {
+                                "height": 8,
+                                "marginBottom": 2,
+                                "marginLeft": 2,
+                                "marginRight": 2,
+                                "marginTop": 2,
+                                "width": 8,
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "fontFamily": "Baloo2-SemiBold",
+                                "fontSize": 12,
+                                "letterSpacing": -0.36,
+                                "lineHeight": 22,
+                                "textAlign": "center",
+                                "textTransform": "uppercase",
+                              },
+                              {
+                                "color": "#FCCCB6",
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        supertrader
+                      </Text>
+                    </View>
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "flexDirection": "row",
+                          "marginRight": 8,
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          [
+                            {
+                              "backgroundColor": "#F56522",
+                            },
+                            {
+                              "borderRadius": 9999,
+                              "marginLeft": 2,
+                              "marginRight": 2,
+                            },
+                          ]
+                        }
+                      >
+                        <test-file-stub
+                          fill="#FFFCFA"
+                          style={
+                            [
+                              {
+                                "height": 24,
+                                "width": 24,
+                              },
+                              {
+                                "height": 8,
+                                "marginBottom": 2,
+                                "marginLeft": 2,
+                                "marginRight": 2,
+                                "marginTop": 2,
+                                "width": 8,
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "fontFamily": "Baloo2-SemiBold",
+                                "fontSize": 12,
+                                "letterSpacing": -0.36,
+                                "lineHeight": 22,
+                                "textAlign": "center",
+                                "textTransform": "uppercase",
+                              },
+                              {
+                                "color": "#F56522",
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        fast trader
+                      </Text>
+                    </View>
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "flexDirection": "row",
+                          "marginRight": 8,
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          [
+                            {
+                              "backgroundColor": "#F56522",
+                            },
+                            {
+                              "borderRadius": 9999,
+                              "marginLeft": 2,
+                              "marginRight": 2,
+                            },
+                          ]
+                        }
+                      >
+                        <test-file-stub
+                          fill="#FFFCFA"
+                          style={
+                            [
+                              {
+                                "height": 24,
+                                "width": 24,
+                              },
+                              {
+                                "height": 8,
+                                "marginBottom": 2,
+                                "marginLeft": 2,
+                                "marginRight": 2,
+                                "marginTop": 2,
+                                "width": 8,
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "fontFamily": "Baloo2-SemiBold",
+                                "fontSize": 12,
+                                "letterSpacing": -0.36,
+                                "lineHeight": 22,
+                                "textAlign": "center",
+                                "textTransform": "uppercase",
+                              },
+                              {
+                                "color": "#F56522",
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        early adopter
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <View>
+                  <View
+                    style={
+                      [
+                        {
+                          "borderRadius": 9999,
+                          "height": 16,
+                          "overflow": "hidden",
+                          "width": "100%",
+                        },
+                        {
+                          "height": 6,
+                        },
+                      ]
+                    }
+                  >
+                    <View
                       style={
                         [
                           {
-                            "height": 24,
-                            "width": 24,
+                            "borderRadius": 9999,
+                            "height": "100%",
+                            "position": "absolute",
+                            "width": "100%",
                           },
                           {
-                            "height": 24,
-                            "width": 24,
+                            "backgroundColor": "#FCCCB6",
                           },
                         ]
                       }
                     />
+                    <View
+                      collapsable={false}
+                      style={
+                        {
+                          "borderRadius": 9999,
+                          "height": "100%",
+                          "width": "0%",
+                        }
+                      }
+                    />
+                  </View>
+                  <View
+                    style={
+                      {
+                        "marginTop": 4,
+                        "paddingLeft": 8,
+                      }
+                    }
+                  >
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          {
+                            "color": "#7D675E",
+                            "fontFamily": "Baloo2-Medium",
+                            "fontSize": 14,
+                            "letterSpacing": 0.14,
+                            "lineHeight": 20,
+                          },
+                          false,
+                        ]
+                      }
+                    >
+                      daily trading limit
+                        
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "fontFamily": "Baloo2-Medium",
+                                "fontSize": 14,
+                                "fontWeight": "bold",
+                                "letterSpacing": 0.14,
+                                "lineHeight": 20,
+                              },
+                              {
+                                "color": "#F56522",
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        0
+                         
+                        EUR
+                      </Text>
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "fontFamily": "Baloo2-Medium",
+                                "fontSize": 14,
+                                "fontWeight": "bold",
+                                "letterSpacing": 0.14,
+                                "lineHeight": 20,
+                              },
+                              {
+                                "color": "#7D675E",
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                         / 
+                      </Text>
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "fontFamily": "Baloo2-Medium",
+                                "fontSize": 14,
+                                "fontWeight": "bold",
+                                "letterSpacing": 0.14,
+                                "lineHeight": 20,
+                              },
+                              {
+                                "color": "#FCCCB6",
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        1 000
+                         
+                        EUR
+                      </Text>
+                    </Text>
+                  </View>
+                </View>
+                <View>
+                  <View
+                    style={
+                      [
+                        {
+                          "borderRadius": 9999,
+                          "height": 16,
+                          "overflow": "hidden",
+                          "width": "100%",
+                        },
+                        {
+                          "height": 6,
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        [
+                          {
+                            "borderRadius": 9999,
+                            "height": "100%",
+                            "position": "absolute",
+                            "width": "100%",
+                          },
+                          {
+                            "backgroundColor": "#FCCCB6",
+                          },
+                        ]
+                      }
+                    />
+                    <View
+                      collapsable={false}
+                      style={
+                        {
+                          "borderRadius": 9999,
+                          "height": "100%",
+                          "width": "0%",
+                        }
+                      }
+                    />
+                  </View>
+                  <View
+                    style={
+                      {
+                        "marginTop": 4,
+                        "paddingLeft": 8,
+                      }
+                    }
+                  >
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          {
+                            "color": "#7D675E",
+                            "fontFamily": "Baloo2-Medium",
+                            "fontSize": 14,
+                            "letterSpacing": 0.14,
+                            "lineHeight": 20,
+                          },
+                          false,
+                        ]
+                      }
+                    >
+                      monthly anonymous limit:
+                        
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "fontFamily": "Baloo2-Medium",
+                                "fontSize": 14,
+                                "fontWeight": "bold",
+                                "letterSpacing": 0.14,
+                                "lineHeight": 20,
+                              },
+                              {
+                                "color": "#F56522",
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        0
+                         
+                        EUR
+                      </Text>
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "fontFamily": "Baloo2-Medium",
+                                "fontSize": 14,
+                                "fontWeight": "bold",
+                                "letterSpacing": 0.14,
+                                "lineHeight": 20,
+                              },
+                              {
+                                "color": "#7D675E",
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                         / 
+                      </Text>
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "fontFamily": "Baloo2-Medium",
+                                "fontSize": 14,
+                                "fontWeight": "bold",
+                                "letterSpacing": 0.14,
+                                "lineHeight": 20,
+                              },
+                              {
+                                "color": "#FCCCB6",
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        1 000
+                         
+                        EUR
+                      </Text>
+                    </Text>
+                  </View>
+                </View>
+                <View>
+                  <View
+                    style={
+                      [
+                        {
+                          "borderRadius": 9999,
+                          "height": 16,
+                          "overflow": "hidden",
+                          "width": "100%",
+                        },
+                        {
+                          "height": 6,
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        [
+                          {
+                            "borderRadius": 9999,
+                            "height": "100%",
+                            "position": "absolute",
+                            "width": "100%",
+                          },
+                          {
+                            "backgroundColor": "#FCCCB6",
+                          },
+                        ]
+                      }
+                    />
+                    <View
+                      collapsable={false}
+                      style={
+                        {
+                          "borderRadius": 9999,
+                          "height": "100%",
+                          "width": "0%",
+                        }
+                      }
+                    />
+                  </View>
+                  <View
+                    style={
+                      {
+                        "marginTop": 4,
+                        "paddingLeft": 8,
+                      }
+                    }
+                  >
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          {
+                            "color": "#7D675E",
+                            "fontFamily": "Baloo2-Medium",
+                            "fontSize": 14,
+                            "letterSpacing": 0.14,
+                            "lineHeight": 20,
+                          },
+                          false,
+                        ]
+                      }
+                    >
+                      yearly trading limit:
+                        
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "fontFamily": "Baloo2-Medium",
+                                "fontSize": 14,
+                                "fontWeight": "bold",
+                                "letterSpacing": 0.14,
+                                "lineHeight": 20,
+                              },
+                              {
+                                "color": "#F56522",
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        0
+                         
+                        EUR
+                      </Text>
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "fontFamily": "Baloo2-Medium",
+                                "fontSize": 14,
+                                "fontWeight": "bold",
+                                "letterSpacing": 0.14,
+                                "lineHeight": 20,
+                              },
+                              {
+                                "color": "#7D675E",
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                         / 
+                      </Text>
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "fontFamily": "Baloo2-Medium",
+                                "fontSize": 14,
+                                "fontWeight": "bold",
+                                "letterSpacing": 0.14,
+                                "lineHeight": 20,
+                              },
+                              {
+                                "color": "#FCCCB6",
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        100 000
+                         
+                        EUR
+                      </Text>
+                    </Text>
                   </View>
                 </View>
               </View>
-            </View>
-            <View>
-              <Text
-                allowFontScaling={false}
-                style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    {
-                      "color": "#7D675E",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                      "textTransform": "lowercase",
-                    },
-                    false,
-                  ]
-                }
-              >
-                account created
-                :
-              </Text>
-              <Text
-                allowFontScaling={false}
-                style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    {
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 28,
-                    },
-                    false,
-                  ]
-                }
-              >
-                01/09/2009 (today)
-              </Text>
-            </View>
-            <View>
-              <Text
-                allowFontScaling={false}
-                style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    {
-                      "color": "#7D675E",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                      "textTransform": "lowercase",
-                    },
-                    false,
-                  ]
-                }
-              >
-                disputes
-                :
-              </Text>
               <View
                 style={
                   {
-                    "flexDirection": "row",
+                    "gap": 16,
+                    "paddingLeft": 4,
                   }
                 }
               >
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
+                <View>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        {
+                          "color": "#7D675E",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                          "textTransform": "lowercase",
+                        },
+                        false,
+                      ]
+                    }
+                  >
+                    account pubkey
+                    :
+                  </Text>
+                  <View
+                    style={
                       {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
+                        "alignItems": "center",
+                        "flexDirection": "row",
+                      }
+                    }
+                  >
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          {
+                            "color": "#2B1911",
+                            "flexShrink": 1,
+                            "fontFamily": "Baloo2-SemiBold",
+                            "fontSize": 14,
+                            "letterSpacing": 0.14,
+                            "lineHeight": 22,
+                            "textTransform": "uppercase",
+                          },
+                          false,
+                        ]
+                      }
+                    >
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            {
+                              "color": "#F56522",
+                              "fontFamily": "Baloo2-SemiBold",
+                              "fontSize": 14,
+                              "letterSpacing": 0.14,
+                              "lineHeight": 22,
+                            },
+                            false,
+                          ]
+                        }
+                      >
+                        02135832
+                      </Text>
+                      09ada26c16e5c3157d86809f8fd46e602936a4e3d51cd988a42ebe19f3
+                    </Text>
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "marginLeft": 12,
+                        }
+                      }
+                    >
+                      <View
+                        accessibilityHint="copy"
+                        accessibilityState={
+                          {
+                            "busy": undefined,
+                            "checked": undefined,
+                            "disabled": undefined,
+                            "expanded": undefined,
+                            "selected": undefined,
+                          }
+                        }
+                        accessibilityValue={
+                          {
+                            "max": undefined,
+                            "min": undefined,
+                            "now": undefined,
+                            "text": undefined,
+                          }
+                        }
+                        accessible={true}
+                        collapsable={false}
+                        focusable={true}
+                        onClick={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        style={
+                          {
+                            "opacity": 1,
+                          }
+                        }
+                      >
+                        <test-file-stub
+                          fill="#F56522"
+                          style={
+                            [
+                              {
+                                "height": 24,
+                                "width": 24,
+                              },
+                              {
+                                "height": 24,
+                                "width": 24,
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                    </View>
+                  </View>
+                </View>
+                <View>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        {
+                          "color": "#7D675E",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                          "textTransform": "lowercase",
+                        },
+                        false,
+                      ]
+                    }
+                  >
+                    account created
+                    :
+                  </Text>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        {
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 28,
+                        },
+                        false,
+                      ]
+                    }
+                  >
+                    01/09/2009 (today)
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        {
+                          "color": "#7D675E",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                          "textTransform": "lowercase",
+                        },
+                        false,
+                      ]
+                    }
+                  >
+                    disputes
+                    :
+                  </Text>
+                  <View
+                    style={
                       {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                        "paddingRight": 16,
-                        "textTransform": "lowercase",
-                      },
-                      false,
-                    ]
-                  }
-                >
-                  0
-                   
-                  opened
-                </Text>
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                        "paddingRight": 16,
-                        "textTransform": "lowercase",
-                      },
-                      false,
-                    ]
-                  }
-                >
-                  0
-                   
-                  won
-                </Text>
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                        "paddingRight": 16,
-                        "textTransform": "lowercase",
-                      },
-                      false,
-                    ]
-                  }
-                >
-                  0
-                   
-                  lost
-                </Text>
+                        "flexDirection": "row",
+                      }
+                    }
+                  >
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          {
+                            "fontFamily": "Baloo2-SemiBold",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 28,
+                            "paddingRight": 16,
+                            "textTransform": "lowercase",
+                          },
+                          false,
+                        ]
+                      }
+                    >
+                      0
+                       
+                      opened
+                    </Text>
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          {
+                            "fontFamily": "Baloo2-SemiBold",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 28,
+                            "paddingRight": 16,
+                            "textTransform": "lowercase",
+                          },
+                          false,
+                        ]
+                      }
+                    >
+                      0
+                       
+                      won
+                    </Text>
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          {
+                            "fontFamily": "Baloo2-SemiBold",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 28,
+                            "paddingRight": 16,
+                            "textTransform": "lowercase",
+                          },
+                          false,
+                        ]
+                      }
+                    >
+                      0
+                       
+                      lost
+                    </Text>
+                  </View>
+                </View>
+                <View>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        {
+                          "color": "#7D675E",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                          "textTransform": "lowercase",
+                        },
+                        false,
+                      ]
+                    }
+                  >
+                    number of trades
+                    :
+                  </Text>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        {
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 28,
+                        },
+                        false,
+                      ]
+                    }
+                  >
+                    11
+                  </Text>
+                </View>
               </View>
             </View>
-            <View>
-              <Text
-                allowFontScaling={false}
-                style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    {
-                      "color": "#7D675E",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                      "textTransform": "lowercase",
-                    },
-                    false,
-                  ]
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
                 }
-              >
-                number of trades
-                :
-              </Text>
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "center",
+                  "alignSelf": "center",
+                  "flexDirection": "row",
+                  "gap": 16,
+                  "opacity": 1,
+                }
+              }
+            >
               <Text
                 allowFontScaling={false}
                 style={
@@ -1605,6 +1701,7 @@ exports[`MyProfile should render correctly 1`] = `
                       "lineHeight": 24,
                     },
                     {
+                      "color": "#DF321F",
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
@@ -1614,91 +1711,25 @@ exports[`MyProfile should render correctly 1`] = `
                   ]
                 }
               >
-                11
+                delete account
               </Text>
+              <test-file-stub
+                fill="#DF321F"
+                style={
+                  [
+                    {
+                      "height": 16,
+                      "width": 16,
+                    },
+                    undefined,
+                  ]
+                }
+              />
             </View>
           </View>
         </View>
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            {
-              "alignItems": "center",
-              "alignSelf": "center",
-              "flexDirection": "row",
-              "opacity": 1,
-            }
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                {
-                  "color": "#DF321F",
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 28,
-                },
-                false,
-              ]
-            }
-          >
-            delete account
-          </Text>
-          <test-file-stub
-            fill="#DF321F"
-            style={
-              [
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-                {
-                  "height": 16,
-                  "marginLeft": 16,
-                  "width": 16,
-                },
-              ]
-            }
-          />
-        </View>
-      </View>
+      </RCTScrollView>
     </View>
-  </RCTScrollView>
+  </RCTSafeAreaView>
 </View>
 `;

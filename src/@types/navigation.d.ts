@@ -1,5 +1,4 @@
 type RootStackParamList = {
-  home: undefined
   newUser: {
     referralCode?: string
   }
@@ -11,6 +10,7 @@ type RootStackParamList = {
     badges: string
   }
   wallet: undefined
+  nodeSetup: undefined
   sendBitcoin: undefined
   receiveBitcoin: undefined
   addressChecker: undefined
@@ -107,7 +107,9 @@ type RootStackParamList = {
   }
   language: undefined
   currency: undefined
-  publicProfile: undefined
+  publicProfile: {
+    userId: string
+  }
   referrals: undefined
   backupTime: {
     nextScreen?: keyof RootStackParamList
@@ -133,9 +135,11 @@ type RootStackParamList = {
   aboutPeach: undefined
   bitcoinProducts: undefined
   socials: undefined
-  welcome: {
-    referralCode?: string
-  }
+  welcome:
+    | {
+        referralCode?: string
+      }
+    | undefined
   splashScreen: undefined
   myProfile: undefined
   transactionBatching: undefined

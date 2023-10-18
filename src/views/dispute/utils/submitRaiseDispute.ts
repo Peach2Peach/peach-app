@@ -3,16 +3,24 @@ import { error } from '../../../utils/log'
 import { peachAPI } from '../../../utils/peachAPI'
 import { signAndEncrypt } from '../../../utils/pgp'
 
-export const submitRaiseDispute = async (
-  contract: Contract | undefined,
-  reason: DisputeReason,
-  email?: string,
-  message?: string,
-  // eslint-disable-next-line max-params
-): Promise<[boolean, APIError | null]> => {
-  if (!contract || !contract.symmetricKey) return [false, null]
+type Props = {
+  contract: Contract | undefined
+  symmetricKey: string | undefined
+  reason: DisputeReason
+  email?: string
+  message?: string
+}
+
+export const submitRaiseDispute = async ({
+  contract,
+  symmetricKey,
+  reason,
+  email,
+  message,
+}: Props): Promise<[boolean, APIError | null]> => {
+  if (!contract || !symmetricKey) return [false, null]
   const { encrypted: symmetricKeyEncrypted } = await signAndEncrypt(
-    contract.symmetricKey,
+    symmetricKey,
     useConfigStore.getState().peachPGPPublicKey,
   )
   const { result, error: err } = await peachAPI.private.contract.raiseDispute({

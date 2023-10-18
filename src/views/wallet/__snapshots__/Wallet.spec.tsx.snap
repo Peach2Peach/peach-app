@@ -1,8 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Wallet should render correctly 1`] = `
-<Screen>
-  <WalletHeader />
+<Screen
+  header={<WalletHeader />}
+  showFooter={true}
+>
   <ForwardRef
     contentContainerStyle={
       {

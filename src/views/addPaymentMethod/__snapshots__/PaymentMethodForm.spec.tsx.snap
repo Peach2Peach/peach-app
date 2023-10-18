@@ -1,60 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PaymentMethodForm should render correctly 1`] = `
-<ForwardRef
-  contentContainerStyle={
-    {
-      "flexGrow": 1,
-    }
-  }
-  contentStyle={
-    [
+<Screen
+  header={<PaymentMethodFormHeader />}
+>
+  <ForwardRef
+    contentContainerStyle={
       {
         "flexGrow": 1,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
+      }
+    }
+    contentStyle={
       {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-    ]
-  }
->
-  <View
+        "flexGrow": 1,
+      }
+    }
     style={
       {
-        "flexGrow": 1,
-        "justifyContent": "center",
+        "height": "100%",
       }
     }
   >
-    <Template1
-      data={
+    <View
+      style={
         {
-          "currencies": [
-            "EUR",
-          ],
-          "type": "sepa",
+          "flexGrow": 1,
+          "justifyContent": "center",
+          "paddingBottom": 16,
         }
       }
-      onSubmit={[Function]}
-      setFormData={[Function]}
-      setStepValid={[Function]}
-    />
-  </View>
-  <PrimaryButton
-    disabled={true}
-    narrow={true}
-    onPress={[Function]}
-    style={
-      {
-        "alignSelf": "center",
-        "marginBottom": 20,
+    >
+      <Template1
+        data={
+          {
+            "currencies": [
+              "EUR",
+            ],
+            "type": "sepa",
+          }
+        }
+        onSubmit={[Function]}
+        setFormData={[Function]}
+        setStepValid={[Function]}
+      />
+    </View>
+    <Button
+      disabled={true}
+      onPress={[Function]}
+      style={
+        {
+          "alignSelf": "center",
+        }
       }
-    }
-  >
-    confirm
-  </PrimaryButton>
-</ForwardRef>
+    >
+      confirm
+    </Button>
+  </ForwardRef>
+</Screen>
 `;

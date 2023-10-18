@@ -10,7 +10,7 @@ const items = [
 ] as const
 
 export const SecurityInfo = () => (
-  <View style={tw`h-full px-6`}>
+  <View style={tw`grow`}>
     <Text style={tw`text-center subtitle-1`}>{i18n('settings.backups.seedPhrase.toRestore')}</Text>
     <Text style={tw`h6 text-center mt-[45px]`}>{i18n('settings.backups.seedPhrase.keepSecure')}</Text>
     {items.map(({ id, text, color }) => (

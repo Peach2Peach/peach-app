@@ -1,4 +1,4 @@
-import { useHeaderSetup, useNavigation, useRoute, useToggleBoolean, useValidatedState } from '../../../hooks'
+import { useNavigation, useRoute, useToggleBoolean, useValidatedState } from '../../../hooks'
 import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { account } from '../../../utils/account'
@@ -20,8 +20,6 @@ export const useReportSetup = () => {
   const reason = route.params.reason
 
   const showError = useShowErrorBanner()
-
-  useHeaderSetup(i18n('contact.title'))
 
   const submit = async () => {
     const isFormValid = isEmailValid && isTopicValid && isMessageValid

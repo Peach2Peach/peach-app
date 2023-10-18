@@ -1,5 +1,5 @@
-import { render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { render } from 'test-utils'
 import { fireSwipeEvent } from '../../../../tests/unit/helpers/fireSwipeEvent'
 import { ConfirmSlider } from './ConfirmSlider'
 

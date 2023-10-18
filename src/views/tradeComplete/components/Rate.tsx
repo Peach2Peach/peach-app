@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { NewButton as Button } from '../../../components/buttons/Button'
+import { Button } from '../../../components/buttons/Button'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useRateSetup } from '../hooks/useRateSetup'

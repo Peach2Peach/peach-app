@@ -1,5 +1,6 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
-import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { renderHook, waitFor } from 'test-utils'
+import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { useSessionStore } from '../../../store/sessionStore'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
@@ -12,9 +13,7 @@ jest.mock('./useSyncWallet', () => ({
 }))
 jest.useFakeTimers()
 
-const wrapper = NavigationWrapper
-
-// @ts-expect-error Mock doesn't need arguments
+// @ts-ignore
 const peachWallet = new PeachWallet()
 peachWallet.initialized = true
 const initialProps = { peachWallet, syncOnLoad: true }
@@ -27,8 +26,11 @@ const setupWalletTests = () => () => {
 
 describe('useWalletSetup', () => {
   beforeAll(setupWalletTests())
+  beforeEach(() => {
+    useSessionStore.getState().reset()
+  })
   it('should return correct default values', async () => {
-    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+    const { result } = renderHook(useWalletSetup, { initialProps })
 
     expect(result.current.balance).toEqual(balance)
     expect(result.current.refresh).toEqual(refreshMock)
@@ -36,17 +38,20 @@ describe('useWalletSetup', () => {
     expect(result.current.walletLoading).toBeTruthy()
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
-  it('should sync wallet on load', async () => {
-    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+  it('should sync wallet once on load', async () => {
+    const { result, rerender } = renderHook(useWalletSetup, { initialProps })
 
     expect(result.current.walletLoading).toBeTruthy()
     expect(refreshMock).toHaveBeenCalled()
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+
+    rerender(initialProps)
+    expect(refreshMock).toHaveBeenCalledTimes(1)
   })
   it('should retry sync wallet on load if peach wallet is not ready yet', async () => {
     peachWallet.initialized = false
 
-    const { rerender } = renderHook(useWalletSetup, { wrapper, initialProps })
+    const { rerender } = renderHook(useWalletSetup, { initialProps })
     expect(refreshMock).not.toHaveBeenCalled()
     peachWallet.initialized = true
     rerender(initialProps)
@@ -59,7 +64,7 @@ describe('useWalletSetup', () => {
       showBackupReminder: false,
       shouldShowBackupOverlay: true,
     })
-    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+    const { result } = renderHook(useWalletSetup, { initialProps })
 
     expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'wallet' })
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
@@ -70,7 +75,7 @@ describe('useWalletSetup', () => {
       showBackupReminder: true,
       shouldShowBackupOverlay: true,
     })
-    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+    const { result } = renderHook(useWalletSetup, { initialProps })
 
     expect(navigateMock).not.toHaveBeenCalled()
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())

@@ -1,16 +1,16 @@
 import { NETWORK } from '@env'
 import { TouchableOpacity, View } from 'react-native'
+import { useOfferPreferences } from '../../store/offerPreferenes'
 import tw from '../../styles/tailwind'
 import { showAddress } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
-import { BTCAmount } from '../bitcoin'
 import { Icon } from '../Icon'
+import { BTCAmount } from '../bitcoin'
 import { getPremiumColor } from '../matches/utils'
 import { Text } from '../text'
 import { HorizontalLine } from '../ui'
 import { SummaryCard } from './SummaryCard'
-import { WalletLabel } from './WalletLabel'
-import { useOfferPreferences } from '../../store/offerPreferenes'
+import { useWalletLabel } from './useWalletLabel'
 
 type Props = {
   offer: SellOffer | SellOfferDraft
@@ -21,13 +21,14 @@ const isSellOfferWithDefinedEscrow = (offer: SellOffer | SellOfferDraft): offer 
 
 export const SellOfferSummary = ({ offer }: Props) => {
   const multi = useOfferPreferences((state) => state.multi)
+  const walletLabel = useWalletLabel({ label: offer.walletLabel, address: offer.returnAddress })
   return (
     <SummaryCard>
       <SummaryCard.Section>
         <Text style={tw`text-center text-black-2`}>
           {i18n(`offer.summary.${offer.tradeStatus !== 'offerCanceled' ? 'youAreSelling' : 'youWereSelling'}`)}
         </Text>
-        <View style={tw`flex-row justify-center items-center gap-2`}>
+        <View style={tw`flex-row items-center justify-center gap-2`}>
           {!!multi && <Text style={tw`h6`}>{multi} x</Text>}
           <BTCAmount amount={offer.amount} size="small" />
         </View>
@@ -51,9 +52,7 @@ export const SellOfferSummary = ({ offer }: Props) => {
 
       <SummaryCard.Section>
         <Text style={tw`text-center text-black-2`}>{i18n('offer.summary.refundWallet')}</Text>
-        <Text style={tw`text-center subtitle-1`}>
-          <WalletLabel label={offer.walletLabel} address={offer.returnAddress} />
-        </Text>
+        <Text style={tw`text-center subtitle-1`}>{walletLabel}</Text>
       </SummaryCard.Section>
 
       {isSellOfferWithDefinedEscrow(offer) && (

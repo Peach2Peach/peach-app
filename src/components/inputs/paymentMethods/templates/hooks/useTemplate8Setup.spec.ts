@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { useTemplate8Setup } from './useTemplate8Setup'
 
 describe('useTemplate8Setup', () => {

@@ -1,6 +1,6 @@
-import { fireEvent, render } from '@testing-library/react-native'
-import { NavigationWrapper, navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import { PrimaryButton } from '../../components'
+import { fireEvent, render } from 'test-utils'
+import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { Button } from '../../components/buttons/Button'
 import { setPaymentMethods } from '../../paymentMethods'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { SelectCountry } from './SelectCountry'
@@ -27,12 +27,12 @@ describe('SelectCountry', () => {
   })
 
   it('should render correctly', () => {
-    const { toJSON } = render(<SelectCountry />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<SelectCountry />)
     expect(toJSON()).toMatchSnapshot()
   })
 
   it('should go to payment method form', () => {
-    const { getByText } = render(<SelectCountry />, { wrapper: NavigationWrapper })
+    const { getByText } = render(<SelectCountry />)
     fireEvent.press(getByText('Germany'))
     fireEvent.press(getByText('next'))
 
@@ -55,7 +55,7 @@ describe('SelectCountry', () => {
       country: 'DE',
       id: '1',
     })
-    const { getByText } = render(<SelectCountry />, { wrapper: NavigationWrapper })
+    const { getByText } = render(<SelectCountry />)
     fireEvent.press(getByText('Germany'))
     fireEvent.press(getByText('next'))
 
@@ -71,12 +71,12 @@ describe('SelectCountry', () => {
   })
 
   it('should not go to payment method form if no country is selected', () => {
-    const { getByText, UNSAFE_getByType } = render(<SelectCountry />, { wrapper: NavigationWrapper })
+    const { getByText, UNSAFE_getByType } = render(<SelectCountry />)
     fireEvent.press(getByText('next'))
 
     expect(navigateMock).not.toHaveBeenCalled()
 
-    const nextButton = UNSAFE_getByType(PrimaryButton)
+    const nextButton = UNSAFE_getByType(Button)
     expect(nextButton.props.disabled).toBe(true)
     nextButton.props.onPress()
     expect(navigateMock).not.toHaveBeenCalled()

@@ -2,7 +2,6 @@ import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useMemo, useState } from 'react'
 import { AppState } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { useHeaderSetup } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
@@ -18,7 +17,6 @@ const contactUs = (() => {
 })()
 
 export const useSettingsSetup = () => {
-  useHeaderSetup({ title: i18n('settings.title'), hideGoBackButton: true })
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const [notificationsOn, setNotificationsOn] = useState(false)
   const [enableAnalytics, toggleAnalytics, showBackupReminder] = useSettingsStore(
@@ -97,6 +95,7 @@ export const useSettingsSetup = () => {
             title: 'notifications',
             onPress: notificationClick,
           },
+          { title: 'nodeSetup' },
           { title: 'payoutAddress' },
           { title: 'currency' },
           { title: 'language' },

@@ -1,5 +1,5 @@
+import { render } from 'test-utils'
 import { NetworkFees } from './NetworkFees'
-import { render } from '@testing-library/react-native'
 
 const useNetworkFeesSetupMock = jest.fn().mockReturnValue({
   estimatedFees: {
@@ -11,7 +11,7 @@ const useNetworkFeesSetupMock = jest.fn().mockReturnValue({
   },
   selectedFeeRate: 'fastestFee',
   setSelectedFeeRate: jest.fn(),
-  customFeeRate: 5,
+  customFeeRate: '5',
   setCustomFeeRate: jest.fn(),
   submit: jest.fn(),
   isValid: true,

@@ -1,8 +1,7 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
+import { renderHook, waitFor } from 'test-utils'
 import { chat1 } from '../../../tests/unit/data/chatData'
-import { contract } from '../../../tests/unit/data/contractData'
-import { QueryClientWrapper, queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useChatMessages } from './useChatMessages'
 
 const decryptSymmetricMock = jest.fn().mockImplementation((str) => str)
@@ -14,21 +13,17 @@ const getChatMock = jest.fn().mockResolvedValue([chat1.messages.slice(0, 22)])
 jest.mock('../../utils/peachAPI', () => ({
   getChat: (...args: unknown[]) => getChatMock(...args),
 }))
-const useIsFocusedMock = jest.fn().mockReturnValue(true)
-jest.mock('@react-navigation/native', () => ({
-  useIsFocused: () => useIsFocusedMock(),
-}))
 
 jest.useFakeTimers()
+const symmetricKey = 'TODO'
 
 describe('useChatMessages', () => {
   afterEach(() => {
     queryClient.clear()
   })
   it('fetches chat messages from API', async () => {
-    const { result } = renderHook((props: [string, string | undefined]) => useChatMessages(...props), {
-      wrapper: QueryClientWrapper,
-      initialProps: [chat1.id, contract.symmetricKey],
+    const { result } = renderHook(useChatMessages, {
+      initialProps: { id: chat1.id, symmetricKey },
     })
 
     expect(result.current.messages).toEqual([])
@@ -67,9 +62,8 @@ describe('useChatMessages', () => {
       signature: '-----BEGIN PGP SIGNATURE-----\nVersion: openpgp-mobile\n\nsig\n-----END PGP SIGNATURE-----',
     }
     getChatMock.mockResolvedValueOnce([[systemMessage1, systemMessage2]])
-    const { result } = renderHook((props: [string, string | undefined]) => useChatMessages(...props), {
-      wrapper: QueryClientWrapper,
-      initialProps: [chat1.id, contract.symmetricKey],
+    const { result } = renderHook(useChatMessages, {
+      initialProps: { id: chat1.id, symmetricKey },
     })
 
     await waitFor(() => expect(result.current.isLoading).toBe(false))
@@ -87,9 +81,8 @@ describe('useChatMessages', () => {
     ])
   })
   it('fetches next page', async () => {
-    const { result } = renderHook((props: [string, string | undefined]) => useChatMessages(...props), {
-      wrapper: QueryClientWrapper,
-      initialProps: [chat1.id, contract.symmetricKey],
+    const { result } = renderHook(useChatMessages, {
+      initialProps: { id: chat1.id, symmetricKey },
     })
 
     expect(result.current.messages).toEqual([])
@@ -98,8 +91,10 @@ describe('useChatMessages', () => {
     await waitFor(() => expect(result.current.isLoading).toBe(false))
 
     getChatMock.mockResolvedValueOnce([chat1.messages.slice(-1)])
-    // @ts-ignore
-    await act(() => result.current.fetchNextPage())
+
+    await act(() => {
+      result.current.fetchNextPage()
+    })
 
     await waitFor(() => expect(result.current.messages.length).toBe(23))
     expect(getChatMock).toHaveBeenCalledWith({ contractId: chat1.id, page: 1 })

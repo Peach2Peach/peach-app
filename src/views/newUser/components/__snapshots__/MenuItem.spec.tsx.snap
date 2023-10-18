@@ -2,14 +2,6 @@
 
 exports[`MenuItem should render correctly 1`] = `
 <TouchableOpacity
-  activeOpacity={0.2}
-  delayLongPress={600}
-  extraButtonProps={
-    {
-      "exclusive": true,
-      "rippleColor": "transparent",
-    }
-  }
   onPress={[MockFunction]}
   style={
     [

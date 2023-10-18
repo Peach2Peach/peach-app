@@ -1,8 +1,8 @@
-import tw from '../../styles/tailwind'
+import { LegacyRef, forwardRef } from 'react'
 import { TextInput, TextInputProps, View } from 'react-native'
-import { Icon } from '../Icon'
+import tw from '../../styles/tailwind'
 import { enforceDecimalsFormat } from '../../utils/format'
-import { forwardRef, LegacyRef } from 'react'
+import { Icon } from '../Icon'
 
 type Props = Omit<TextInputProps, 'onChange'> & {
   onChange: (number: string) => void

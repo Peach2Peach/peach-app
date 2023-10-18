@@ -1,14 +1,18 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { PopupAction } from '../../components/popup'
+import { PopupComponent } from '../../components/popup/PopupComponent'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../store/settingsStore'
 import { usePopupStore } from '../../store/usePopupStore'
+import tw from '../../styles/tailwind'
 import { getContractViewer, getSellOfferFromContract, saveContract } from '../../utils/contract'
 import { getWalletLabelFromContract } from '../../utils/contract/getWalletLabelFromContract'
 import i18n from '../../utils/i18n'
 import { getOfferExpiry, saveOffer } from '../../utils/offer'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
+import { LoadingPopupAction } from '../actions/LoadingPopupAction'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
 import { SellerCanceledContent } from './SellerCanceledContent'
 import { getSellerCanceledTitle } from './getSellerCanceledTitle'
@@ -76,25 +80,28 @@ export const useConfirmCancelTrade = () => {
       const view = getContractViewer(contract.seller.id)
       const cancelAction = () => (view === 'seller' ? cancelSeller(contract) : cancelBuyer(contract))
       const title = i18n(isCashTrade(contract.paymentMethod) ? 'contract.cancel.cash.title' : 'contract.cancel.title')
-      setPopup({
-        title,
-        level: 'DEFAULT',
-        content: <ConfirmCancelTrade {...{ contract, view }} />,
-        visible: true,
-        action1: {
-          label: i18n('contract.cancel.title'),
-          icon: 'xCircle',
-          callback: cancelAction,
-        },
-        action2: {
-          label: i18n('contract.cancel.confirm.back'),
-          icon: 'arrowLeftCircle',
-          callback: closePopup,
-        },
-      })
+      setPopup(
+        <PopupComponent
+          title={title}
+          content={<ConfirmCancelTrade {...{ contract, view }} />}
+          actions={
+            <>
+              <PopupAction label={i18n('contract.cancel.confirm.back')} iconId="arrowLeftCircle" onPress={closePopup} />
+              <LoadingPopupAction
+                label={i18n('contract.cancel.title')}
+                iconId="xCircle"
+                onPress={cancelAction}
+                reverseOrder
+              />
+            </>
+          }
+          actionBgColor={tw`bg-black-3`}
+          bgColor={tw`bg-primary-background-light`}
+        />,
+      )
     },
     [setPopup, cancelSeller, cancelBuyer, closePopup],
   )
 
-  return { showConfirmPopup, cancelSeller, cancelBuyer, closePopup }
+  return showConfirmPopup
 }

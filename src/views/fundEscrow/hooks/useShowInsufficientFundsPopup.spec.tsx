@@ -1,18 +1,15 @@
-import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
+import { renderHook } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { PopupLoadingSpinner } from '../../../../tests/unit/helpers/PopupLoadingSpinner'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
-import { Loading } from '../../../components'
 import { usePopupStore } from '../../../store/usePopupStore'
-import tw from '../../../styles/tailwind'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { ConfirmFundingWithInsufficientFunds } from '../components/ConfirmFundingWithInsufficientFunds'
 import { useShowInsufficientFundsPopup } from './useShowInsufficientFundsPopup'
 
-const wrapper = NavigationWrapper
 describe('useShowInsufficientFundsPopup', () => {
   const amount = sellOffer.amount
   const address = 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'
@@ -32,11 +29,11 @@ describe('useShowInsufficientFundsPopup', () => {
   const propsWithChange = { ...props, transaction: transactionWithChange }
 
   beforeEach(() => {
-    // @ts-expect-error mock doesn't need args
+    // @ts-ignore
     setPeachWallet(new PeachWallet())
   })
   it('should open insufficient funds popup', async () => {
-    const { result } = renderHook(useShowInsufficientFundsPopup, { wrapper })
+    const { result } = renderHook(useShowInsufficientFundsPopup)
 
     await result.current(props)
     expect(usePopupStore.getState()).toEqual({
@@ -58,7 +55,7 @@ describe('useShowInsufficientFundsPopup', () => {
   })
 
   it('should open insufficient funds popup with change considered', async () => {
-    const { result } = renderHook(useShowInsufficientFundsPopup, { wrapper })
+    const { result } = renderHook(useShowInsufficientFundsPopup)
 
     await result.current(propsWithChange)
     expect(usePopupStore.getState()).toEqual({
@@ -70,7 +67,7 @@ describe('useShowInsufficientFundsPopup', () => {
   it('should broadcast withdraw all transaction on confirm', async () => {
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(transaction.psbt)
 
-    const { result } = renderHook(useShowInsufficientFundsPopup, { wrapper })
+    const { result } = renderHook(useShowInsufficientFundsPopup)
 
     await act(() => result.current(props))
     const promise = usePopupStore.getState().action1?.callback()
@@ -79,7 +76,7 @@ describe('useShowInsufficientFundsPopup', () => {
       ...usePopupStore.getState(),
       title: 'funding escrow',
       level: 'APP',
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      content: PopupLoadingSpinner,
       action1: {
         label: 'loading...',
         icon: 'clock',

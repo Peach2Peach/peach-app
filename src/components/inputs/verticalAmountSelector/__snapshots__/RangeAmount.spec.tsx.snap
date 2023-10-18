@@ -8,8 +8,6 @@ exports[`RangeAmount should render correctly 1`] = `
         "alignItems": "center",
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingLeft": 20,
-        "paddingRight": 16,
       },
       undefined,
     ]
@@ -35,7 +33,7 @@ exports[`RangeAmount should render correctly 1`] = `
           {
             "pattern": /buying/u,
             "style": {
-              "color": "#05A85A",
+              "color": "#65A519",
             },
           },
         ]

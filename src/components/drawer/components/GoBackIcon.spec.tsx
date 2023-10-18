@@ -1,23 +1,11 @@
-import { fireEvent, render } from '@testing-library/react-native'
-import { DrawerContext, defaultState } from '../../../contexts/drawer'
+import { fireEvent, render } from 'test-utils'
 import { Icon } from '../../Icon'
+import { defaultState, useDrawerState } from '../useDrawerState'
 import { GoBackIcon } from './GoBackIcon'
 
 describe('GoBackIcon', () => {
-  let drawerState = {
-    ...defaultState,
-  }
-  const updateDrawer = jest.fn((newDrawerState: Partial<DrawerState>) => {
-    drawerState = {
-      ...drawerState,
-      ...newDrawerState,
-    }
-  })
-
-  const wrapper = ({ children }: { children: JSX.Element }) => (
-    <DrawerContext.Provider value={[drawerState, updateDrawer]}>{children}</DrawerContext.Provider>
-  )
-  afterEach(() => {
+  const updateDrawer = useDrawerState.setState
+  beforeEach(() => {
     updateDrawer(defaultState)
   })
   it('renders correctly', () => {
@@ -31,31 +19,31 @@ describe('GoBackIcon', () => {
         onClose: jest.fn(),
       },
     })
-    const { toJSON } = render(<GoBackIcon />, { wrapper })
+    const { toJSON } = render(<GoBackIcon />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly when there is no previous drawer', () => {
-    const { toJSON } = render(<GoBackIcon />, { wrapper })
+    const { toJSON } = render(<GoBackIcon />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should update the drawer to the previous drawer when pressed', () => {
-    updateDrawer({
-      previousDrawer: {
-        title: 'testTitle',
-        content: 'testContent',
-        options: [],
-        show: true,
-        previousDrawer: undefined,
-        onClose: jest.fn(),
-      },
-    })
-    const { UNSAFE_getByType } = render(<GoBackIcon />, { wrapper })
+    const previousDrawer = {
+      title: 'testTitle',
+      content: 'testContent',
+      options: [],
+      show: true,
+      previousDrawer: undefined,
+      onClose: jest.fn(),
+    }
+    updateDrawer({ previousDrawer })
+    const { UNSAFE_getByType } = render(<GoBackIcon />)
     fireEvent.press(UNSAFE_getByType(Icon))
-    expect(updateDrawer).toHaveBeenCalled()
+    expect(useDrawerState.getState().previousDrawer).toBeUndefined()
+    expect(useDrawerState.getState()).toStrictEqual(expect.objectContaining(previousDrawer))
   })
   it('should not update the drawer to the previous drawer when pressed if there is no previous drawer', () => {
-    const { UNSAFE_getByType } = render(<GoBackIcon />, { wrapper })
+    const { UNSAFE_getByType } = render(<GoBackIcon />)
     fireEvent.press(UNSAFE_getByType(Icon))
-    expect(updateDrawer).not.toHaveBeenCalled()
+    expect(useDrawerState.getState()).toStrictEqual(expect.objectContaining(defaultState))
   })
 })

@@ -1,12 +1,11 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { bitcoinTransaction, pending1 } from '../../../../tests/unit/data/transactionDetailData'
-import { NavigationWrapper, goBackMock, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { goBackMock, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { PopupLoadingSpinner } from '../../../../tests/unit/helpers/PopupLoadingSpinner'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
-import { Loading } from '../../../components'
 import { usePopupStore } from '../../../store/usePopupStore'
-import tw from '../../../styles/tailwind'
 import { getTransactionFeeRate } from '../../../utils/bitcoin'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -27,8 +26,6 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
         showErrorBannerMock(...args),
 }))
 
-const wrapper = NavigationWrapper
-
 describe('useBumpFees', () => {
   const currentFeeRate = getTransactionFeeRate(bitcoinTransaction)
   const newFeeRate = 10
@@ -37,7 +34,7 @@ describe('useBumpFees', () => {
     newFeeRate,
     sendingAmount: bitcoinTransaction.value as number,
   }
-  // @ts-expect-error mock does not need args
+  // @ts-ignore
   const peachWallet = new PeachWallet()
 
   const newTxId = 'newTxId'
@@ -51,14 +48,14 @@ describe('useBumpFees', () => {
   })
 
   it('should not show bump fee confirmation popup if transaction details could not be loaded', async () => {
-    const { result } = renderHook(useBumpFees, { wrapper, initialProps: { ...initialProps, transaction: undefined } })
+    const { result } = renderHook(useBumpFees, { initialProps: { ...initialProps, transaction: undefined } })
 
     await result.current()
 
     expect(usePopupStore.getState().visible).toBeFalsy()
   })
   it('should show bump fee confirmation popup', async () => {
-    const { result } = renderHook(useBumpFees, { wrapper, initialProps })
+    const { result } = renderHook(useBumpFees, { initialProps })
 
     await result.current()
 
@@ -92,7 +89,7 @@ describe('useBumpFees', () => {
     peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails.psbt)
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(txDetails.psbt)
 
-    const { result } = renderHook(useBumpFees, { wrapper, initialProps })
+    const { result } = renderHook(useBumpFees, { initialProps })
 
     await result.current()
     const promise = usePopupStore.getState().action1?.callback()
@@ -101,7 +98,7 @@ describe('useBumpFees', () => {
       ...usePopupStore.getState(),
       title: 'increasing fees',
       level: 'APP',
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      content: PopupLoadingSpinner,
       action1: {
         label: 'loading...',
         icon: 'clock',
@@ -123,7 +120,7 @@ describe('useBumpFees', () => {
       throw transactionError
     })
 
-    const { result } = renderHook(useBumpFees, { wrapper, initialProps })
+    const { result } = renderHook(useBumpFees, { initialProps })
 
     await result.current()
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
@@ -138,7 +135,7 @@ describe('useBumpFees', () => {
       throw transactionError
     })
 
-    const { result } = renderHook(useBumpFees, { wrapper, initialProps })
+    const { result } = renderHook(useBumpFees, { initialProps })
 
     await result.current()
     await usePopupStore.getState().action1?.callback()

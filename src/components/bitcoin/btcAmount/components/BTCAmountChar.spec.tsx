@@ -1,29 +1,23 @@
+import { render } from 'test-utils'
 import { BTCAmountChar } from './BTCAmountChar'
-import { render } from '@testing-library/react-native'
 
 describe('BTCAmountChar', () => {
   it('should render correctly', () => {
     const { toJSON } = render(
-      <BTCAmountChar char="1" isError={false} reduceOpacity={false} style={[]} letterSpacing={0} />,
+      <BTCAmountChar char="1" white={false} reduceOpacity={false} style={[]} letterSpacing={0} />,
     )
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should render correctly with error', () => {
-    const { toJSON } = render(
-      <BTCAmountChar char="1" isError={true} reduceOpacity={false} style={[]} letterSpacing={0} />,
-    )
+  it('should render correctly when white', () => {
+    const { toJSON } = render(<BTCAmountChar char="1" white reduceOpacity={false} style={[]} letterSpacing={0} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with reduceOpacity', () => {
-    const { toJSON } = render(
-      <BTCAmountChar char="1" isError={false} reduceOpacity={true} style={[]} letterSpacing={0} />,
-    )
+    const { toJSON } = render(<BTCAmountChar char="1" white={false} reduceOpacity={true} style={[]} letterSpacing={0} />)
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should render correctly with reduceOpacity and isError', () => {
-    const { toJSON } = render(
-      <BTCAmountChar char="1" isError={true} reduceOpacity={true} style={[]} letterSpacing={0} />,
-    )
+  it('should render correctly with reduceOpacity and white', () => {
+    const { toJSON } = render(<BTCAmountChar char="1" white={true} reduceOpacity={true} style={[]} letterSpacing={0} />)
     expect(toJSON()).toMatchSnapshot()
   })
 })

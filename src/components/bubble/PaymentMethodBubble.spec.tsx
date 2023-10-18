@@ -1,6 +1,6 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import { Linking } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { fireEvent, render } from 'test-utils'
 import { PaymentMethodBubble } from './PaymentMethodBubble'
 
 describe('PaymentMethodBubble', () => {

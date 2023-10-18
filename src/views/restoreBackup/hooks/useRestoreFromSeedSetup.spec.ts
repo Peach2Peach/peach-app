@@ -1,5 +1,5 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
+import { renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { MSINANHOUR } from '../../../constants'
 import { useSettingsStore } from '../../../store/settingsStore'

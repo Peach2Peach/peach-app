@@ -1,16 +1,14 @@
 import { TouchableOpacity, View } from 'react-native'
+import { Screen } from '../../../components'
 import { Icon } from '../../../components/Icon'
 import { PeachText } from '../../../components/text/Text'
-import { useHeaderSetup } from '../../../hooks/useHeaderSetup'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { goToShiftCrypto } from '../../../utils/web'
 
-export const BitcoinProducts = () => {
-  useHeaderSetup(i18n('settings.bitcoinProducts'))
-
-  return (
-    <View style={tw`justify-center flex-grow p-8`}>
+export const BitcoinProducts = () => (
+  <Screen header={i18n('settings.bitcoinProducts')}>
+    <View style={tw`justify-center grow`}>
       <PeachText style={tw`h5`}>{i18n('settings.bitcoinProducts.proSecurity')}</PeachText>
       <PeachText style={tw`mt-1`}>
         {i18n('settings.bitcoinProducts.proSecurity.description1')}
@@ -22,5 +20,5 @@ export const BitcoinProducts = () => {
         <Icon id="externalLink" style={tw`w-6 h-6 -mt-1`} color={tw`text-primary-main`.color} />
       </TouchableOpacity>
     </View>
-  )
-}
+  </Screen>
+)

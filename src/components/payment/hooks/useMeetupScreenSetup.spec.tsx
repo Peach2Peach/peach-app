@@ -1,15 +1,11 @@
 /* eslint-disable max-lines */
-import { NavigationContainer } from '@react-navigation/native'
-import { act, renderHook } from '@testing-library/react-native'
-import { headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { act, renderHook } from 'test-utils'
+import { setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { setPaymentMethods } from '../../../paymentMethods'
-import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { defaultPaymentDataStore } from '../../../store/usePaymentDataStore/usePaymentDataStore'
-import { usePopupStore } from '../../../store/usePopupStore'
-import i18n from '../../../utils/i18n'
 import { useMeetupScreenSetup } from './useMeetupScreenSetup'
 
 const useRouteMock = jest.fn(() => ({
@@ -57,9 +53,7 @@ describe('useMeetupScreenSetup', () => {
     usePaymentDataStore.setState(defaultPaymentDataStore)
   })
   it('should return the correct values', () => {
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     expect(result.current).toStrictEqual({
       event: {
@@ -79,34 +73,11 @@ describe('useMeetupScreenSetup', () => {
       selectedCurrencies: [],
     })
   })
-  it('should set up the header correctly', () => {
-    renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
-
-    expect(headerState.header()).toMatchSnapshot()
-  })
-  it('should set up the header correctly when deletable is undefined', () => {
-    useRouteMock.mockReturnValueOnce({
-      // @ts-expect-error
-      params: {
-        eventId: '123',
-        origin: 'origin',
-      },
-    })
-    renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
-
-    expect(headerState.header()).toMatchSnapshot()
-  })
 
   it('should add a meetup to the payment methods', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR'], anonymous: true }])
     useMeetupEventsStore.getState().setMeetupEvents([defaultEvent])
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     result.current.addToPaymentMethods()
     expect(usePaymentDataStore.getState().getPaymentData('cash.123')).toStrictEqual({
@@ -129,9 +100,7 @@ describe('useMeetupScreenSetup', () => {
     })
     useMeetupEventsStore.getState().setMeetupEvents([])
 
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     result.current.addToPaymentMethods()
     expect(usePaymentDataStore.getState().paymentData).toStrictEqual(defaultPaymentDataStore.paymentData)
@@ -141,9 +110,7 @@ describe('useMeetupScreenSetup', () => {
     useOfferPreferences.getState().setPaymentMethods([])
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR'], anonymous: true }])
     useMeetupEventsStore.getState().setMeetupEvents([defaultEvent])
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     expect(useOfferPreferences.getState().preferredPaymentMethods).toStrictEqual({})
     act(() => {
@@ -176,35 +143,12 @@ describe('useMeetupScreenSetup', () => {
       }),
     )
   })
-  it('should show the delete payment method popup', () => {
-    renderHook(useMeetupScreenSetup, { wrapper: NavigationContainer })
 
-    headerState.header()?.props.icons[1].onPress()
-    expect(usePopupStore.getState()).toStrictEqual({
-      ...usePopupStore.getState(),
-      title: i18n('help.paymentMethodDelete.title'),
-      content: <DeletePaymentMethodConfirm />,
-      visible: true,
-      level: 'ERROR',
-      action1: {
-        callback: expect.any(Function),
-        icon: 'xSquare',
-        label: i18n('neverMind'),
-      },
-      action2: {
-        callback: expect.any(Function),
-        icon: 'trash',
-        label: i18n('delete'),
-      },
-    })
-  })
   it('should select all currencies by default', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
     useMeetupEventsStore.getState().setMeetupEvents([{ ...defaultEvent, currencies: ['EUR', 'CHF'] }])
 
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     expect(result.current.selectedCurrencies).toStrictEqual(['EUR', 'CHF'])
   })
@@ -213,9 +157,7 @@ describe('useMeetupScreenSetup', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
     useMeetupEventsStore.getState().setMeetupEvents([{ ...defaultEvent, currencies: ['EUR', 'CHF'] }])
 
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     act(() => {
       result.current.onCurrencyToggle('CHF')
@@ -230,9 +172,7 @@ describe('useMeetupScreenSetup', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
     useMeetupEventsStore.getState().setMeetupEvents([{ ...defaultEvent, currencies: [] }])
 
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     expect(result.current.selectedCurrencies).toStrictEqual([])
   })
@@ -240,9 +180,7 @@ describe('useMeetupScreenSetup', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
     useMeetupEventsStore.getState().setMeetupEvents([{ ...defaultEvent, currencies: ['EUR', 'CHF'] }])
 
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
+    const { result } = renderHook(useMeetupScreenSetup)
 
     act(() => {
       result.current.onCurrencyToggle('EUR')

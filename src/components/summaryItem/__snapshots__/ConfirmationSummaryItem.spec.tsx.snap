@@ -2,7 +2,7 @@
 
 exports[`ConfirmationSummaryItem renders correctly when confirmed 1`] = `
 <TextSummaryItem
-  iconColor="#05A85A"
+  iconColor="#65A519"
   iconId="checkCircle"
   text="confirmed"
   title="status"

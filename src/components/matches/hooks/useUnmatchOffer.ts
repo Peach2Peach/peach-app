@@ -1,12 +1,11 @@
-import { useQueryClient, useMutation, InfiniteData } from '@tanstack/react-query'
-import { useContext } from 'react'
-import { MessageContext } from '../../../contexts/message'
+import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMessageState } from '../../message/useMessageState'
 import { useMatchStore } from '../store'
 import { unmatchFn, updateMatchedStatus } from '../utils'
 
 export const useUnmatchOffer = (offer: BuyOffer | SellOffer, matchingOfferId: string) => {
   const queryClient = useQueryClient()
-  const [, updateMessage] = useContext(MessageContext)
+  const updateMessage = useMessageState((state) => state.updateMessage)
   const currentPage = useMatchStore((state) => state.currentPage)
 
   return useMutation({

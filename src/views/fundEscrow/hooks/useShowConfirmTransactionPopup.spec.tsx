@@ -1,26 +1,19 @@
-import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
+import { renderHook } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { PopupLoadingSpinner } from '../../../../tests/unit/helpers/PopupLoadingSpinner'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
-import { Loading } from '../../../components'
 import { usePopupStore } from '../../../store/usePopupStore'
-import tw from '../../../styles/tailwind'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
 import { useShowConfirmTransactionPopup } from './useShowConfirmTransactionPopup'
 
-const wrapper = NavigationWrapper
-
 const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner:
-    () =>
-      (...args: unknown[]) =>
-        showErrorBannerMock(...args),
+  useShowErrorBanner: () => showErrorBannerMock,
 }))
 
 describe('useShowConfirmTransactionPopup', () => {
@@ -37,14 +30,14 @@ describe('useShowConfirmTransactionPopup', () => {
     onSuccess,
   }
   beforeEach(() => {
-    // @ts-expect-error mock doesn't need args
+    // @ts-ignore
     setPeachWallet(new PeachWallet())
   })
 
-  it('should open confirmation popup', async () => {
-    const { result } = renderHook(useShowConfirmTransactionPopup, { wrapper })
+  it('should open confirmation popup', () => {
+    const { result } = renderHook(useShowConfirmTransactionPopup)
 
-    await result.current(props)
+    result.current(props)
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       title: 'funding escrow',
@@ -65,7 +58,7 @@ describe('useShowConfirmTransactionPopup', () => {
   it('should broadcast transaction on confirm', async () => {
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(transaction.psbt)
 
-    const { result } = renderHook(useShowConfirmTransactionPopup, { wrapper })
+    const { result } = renderHook(useShowConfirmTransactionPopup)
 
     await act(() => result.current(props))
     const promise = usePopupStore.getState().action1?.callback()
@@ -74,7 +67,7 @@ describe('useShowConfirmTransactionPopup', () => {
       ...usePopupStore.getState(),
       title: 'funding escrow',
       level: 'APP',
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      content: PopupLoadingSpinner,
       action1: {
         label: 'loading...',
         icon: 'clock',
@@ -93,9 +86,9 @@ describe('useShowConfirmTransactionPopup', () => {
       throw transactionError
     })
 
-    const { result } = renderHook(useShowConfirmTransactionPopup, { wrapper })
+    const { result } = renderHook(useShowConfirmTransactionPopup)
 
-    await result.current(props)
+    result.current(props)
     await usePopupStore.getState().action1?.callback()
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
     expect(usePopupStore.getState().visible).toBeFalsy()

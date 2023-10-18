@@ -1,5 +1,5 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { fireEvent, render } from 'test-utils'
 import { TotalBalance } from './TotalBalance'
 expect.extend({ toMatchDiffSnapshot })
 

@@ -1,8 +1,8 @@
-import { act, renderHook } from '@testing-library/react-native'
-import { useLanguage } from './useLanguage'
-import i18n, { LanguageContext } from '../utils/i18n'
 import { useReducer } from 'react'
+import { act, renderHook } from 'test-utils'
 import { useSettingsStore } from '../store/settingsStore'
+import i18n, { LanguageContext } from '../utils/i18n'
+import { useLanguage } from './useLanguage'
 
 const Wrapper = ({ children }: ComponentProps) => {
   const [languageState, updateLanguage] = useReducer(i18n.setLocale, i18n.getState())

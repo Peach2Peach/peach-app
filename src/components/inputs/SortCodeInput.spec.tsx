@@ -1,7 +1,7 @@
-import { SortCodeInput } from './SortCodeInput'
 import { createRenderer } from 'react-test-renderer/shallow'
-import { act, fireEvent, render } from '@testing-library/react-native'
+import { act, fireEvent, render } from 'test-utils'
 import i18n from '../../utils/i18n'
+import { SortCodeInput } from './SortCodeInput'
 
 describe('SortCodeInput', () => {
   it('renders correctly', () => {

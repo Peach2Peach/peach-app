@@ -5,33 +5,37 @@ exports[`LastSeedBackup should render correctly 1`] = `
   style={
     {
       "alignItems": "center",
+      "gap": 40,
     }
   }
 >
-  <PeachText
+  <View
     style={
       {
-        "fontFamily": "Baloo2-Bold",
-        "fontSize": 20,
-        "letterSpacing": 0.2,
-        "lineHeight": 32,
+        "alignItems": "center",
+        "gap": 8,
       }
     }
   >
-    last seed backup made:
-  </PeachText>
-  <PrimaryButton
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
+        }
+      }
+    >
+      last seed backup made:
+    </PeachText>
+  </View>
+  <Button
     iconId="rotateCounterClockwise"
     onPress={[MockFunction]}
-    style={
-      {
-        "marginTop": 40,
-      }
-    }
-    wide={true}
   >
     check seed words
-  </PrimaryButton>
+  </Button>
 </View>
 `;
 
@@ -40,41 +44,39 @@ exports[`LastSeedBackup should render correctly with seedbackup date 1`] = `
   style={
     {
       "alignItems": "center",
+      "gap": 40,
     }
   }
 >
-  <PeachText
+  <View
     style={
       {
-        "fontFamily": "Baloo2-Bold",
-        "fontSize": 20,
-        "letterSpacing": 0.2,
-        "lineHeight": 32,
+        "alignItems": "center",
+        "gap": 8,
       }
     }
   >
-    last seed backup made:
-  </PeachText>
-  <PeachText
-    style={
-      {
-        "marginTop": 8,
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
+        }
       }
-    }
-  >
-    01/09/2022 00:00
-  </PeachText>
-  <PrimaryButton
+    >
+      last seed backup made:
+    </PeachText>
+    <PeachText>
+      01/09/2022 00:00
+    </PeachText>
+  </View>
+  <Button
     iconId="rotateCounterClockwise"
     onPress={[MockFunction]}
-    style={
-      {
-        "marginTop": 40,
-      }
-    }
-    wide={true}
   >
     check seed words
-  </PrimaryButton>
+  </Button>
 </View>
 `;

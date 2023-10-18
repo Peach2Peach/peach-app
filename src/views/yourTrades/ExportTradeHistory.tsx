@@ -1,6 +1,6 @@
 import { View } from 'react-native'
-import { NewHeader as Header, Screen, Text } from '../../components'
-import { NewButton as Button } from '../../components/buttons/Button'
+import { Screen, Text } from '../../components'
+import { Button } from '../../components/buttons/Button'
 import { useWriteCSV } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import tw from '../../styles/tailwind'
@@ -20,8 +20,7 @@ export function ExportTradeHistory () {
   }
 
   return (
-    <Screen>
-      <Header title={i18n('exportTradeHistory.title')} />
+    <Screen header={i18n('exportTradeHistory.title')}>
       <View style={tw`justify-center gap-8 grow`}>
         <Text style={tw`body-l`}>
           {`${i18n('exportTradeHistory.description')}

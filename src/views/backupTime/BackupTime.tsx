@@ -2,7 +2,8 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Icon, PrimaryButton, Text } from '../../components'
+import { Icon, Text } from '../../components'
+import { Button } from '../../components/buttons/Button'
 import i18n from '../../utils/i18n'
 import { useBackupTimeSetup } from './hooks/useBackupTimeSetup'
 
@@ -20,13 +21,13 @@ export const BackupTime = () => {
           </Text>
         </View>
       </View>
-      <View style={tw`items-center`}>
-        <PrimaryButton white onPress={goToBackups}>
+      <View style={tw`items-stretch gap-3`}>
+        <Button style={tw`bg-primary-background-light`} textColor={tw`text-primary-main`} onPress={goToBackups}>
           {i18n('backupTime.makeABackup')}
-        </PrimaryButton>
-        <PrimaryButton style={tw`mt-3`} white border onPress={skip}>
+        </Button>
+        <Button ghost onPress={skip}>
           {i18n('backupTime.skipForNow')}
-        </PrimaryButton>
+        </Button>
       </View>
     </View>
   )

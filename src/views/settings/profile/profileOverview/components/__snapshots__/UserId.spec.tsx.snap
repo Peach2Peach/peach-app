@@ -1,28 +1,101 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UserId should render correctly 1`] = `
-<Bubble
-  color="primary-mild"
-  iconId="info"
-  iconSize={12}
-  onPress={[Function]}
->
-  PeachuserId
-</Bubble>
-`;
-
-exports[`UserId should render correctly with a dispute 1`] = `
-<Bubble
-  color="primary-mild"
-  iconColor={
+<View
+  accessibilityState={
     {
-      "color": "#DF321F",
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": false,
+      "expanded": undefined,
+      "selected": undefined,
     }
   }
-  iconId="info"
-  iconSize={12}
-  onPress={[Function]}
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#FEEDE5",
+      "borderColor": "#FCCCB6",
+      "borderRadius": 8,
+      "borderWidth": 1,
+      "flexDirection": "row",
+      "gap": 4,
+      "height": 28,
+      "justifyContent": "center",
+      "opacity": 1,
+      "paddingLeft": 10,
+      "paddingRight": 10,
+    }
+  }
 >
-  PeachuserId
-</Bubble>
+  <Text
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    numberOfLines={1}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        [
+          {
+            "color": "#2B1911",
+          },
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textAlign": "center",
+            "textTransform": "uppercase",
+          },
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 15,
+            "letterSpacing": 0.54,
+            "lineHeight": 26,
+            "textTransform": "uppercase",
+          },
+        ],
+        false,
+      ]
+    }
+  >
+    PeachuserId
+  </Text>
+  <test-file-stub
+    fill="#F56522"
+    style={
+      [
+        {
+          "height": 16,
+          "width": 16,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
 `;

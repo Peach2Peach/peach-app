@@ -1,6 +1,6 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import { Linking } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { fireEvent, render } from 'test-utils'
 import { setPaymentMethods } from '../../paymentMethods'
 import { MeetupScreen } from './MeetupScreen'
 
@@ -22,6 +22,15 @@ const useMeetupScreenSetupMock = jest.fn().mockReturnValue({
 })
 jest.mock('./hooks/useMeetupScreenSetup', () => ({
   useMeetupScreenSetup: () => useMeetupScreenSetupMock(),
+}))
+
+jest.mock('../../hooks/useRoute', () => ({
+  useRoute: () => ({
+    params: {
+      eventId: 'pt.porto.portugal-norte-bitcoin',
+      origin: 'origin',
+    },
+  }),
 }))
 
 describe('MeetupScreen', () => {

@@ -7,6 +7,7 @@
   "help.checkTrade" : "angalia biashara",
   "help.confirmPayment.description" : "Mara tu unapowasha kitufe cha \"malipo yamepokelewa\", bitcoin itatumwa kwa mnunuzi.\n\nHakikisha kila kitu kiko sahihi, kwa sababu hii haiwezi kufutwa!",
   "help.confirmPayment.title" : "malipo yamepokelewa?",
+  "help.contactEncryption.description" : "Tunatumia mfumo wa tiketi wa mtu wa tatu unaoitwa Zammad kusimamia maombi yanayoingia. Ikiwa unapendelea kutumia mawasiliano yaliyosimbwa kwa njia fiche, tafadhali tutumie barua pepe kwa support@peachbitcoin.com",
   "help.currency.description" : "Ikiwa mkoba wako wa mtandaoni unaweza kupokea sarafu nyingi na kufanya ubadilishaji kwa niaba yako, unaweza kuchagua sarafu yoyote unayoweza kupokea hapa.",
   "help.currency.title" : "sarafu zinazokubalika",
   "help.escrow.description" : "Unaweza kufadhili kabla escrow unapofanya biashara kwenye Peach. Hii inalinda wewe na mnunuzi. Unaweza kusoma zaidi kuhusu escrow hapa.\n\nOmbi lako litachapishwa baada ya uthibitisho wa mtandao mmoja. Unaweza kufunga programu wakati unasubiri hii.",
@@ -38,9 +39,6 @@
   "help.referral.title" : "Pointi za Rufaa za Peach",
   "help.sellingBitcoin.description" : "Kuuzwa kwa sats zako kwenye Peach ni bure!",
   "help.sellingBitcoin.title" : "kuuza bitcoin",
-  "help.tooLate.text.1" : "Muuza amefahamishwa kuwa hukufika kwa wakati. Sasa utalazimika kusubiri mpaka afanye uamuzi: kukupa muda zaidi au kufuta biashara.",
-  "help.tooLate.text.2" : "Kwa hali yoyote, sifa yako imeathiriwa.",
-  "help.tooLate.title" : "kuchelewa sana!",
   "help.tradingLimit.description" : "Peach lazima itekeleze mipaka ya biashara kufuata sheria za Uswisi. Kuna mipaka mitatu ya biashara:\n\nUnaweza kununua au kuuza bitcoin yenye thamani ya CHF 1000 kwenye Peach kila siku\n\nUnaweza kununua au kuuza bitcoin yenye thamani ya CHF 1000 kwa pesa au kadi za zawadi mtandaoni (yaani njia za malipo isiyo na utambulisho) kila mwezi\n\nUnaweza kununua au kuuza bitcoin yenye thamani ya CHF 100,000 kwa mwaka.",
   "help.tradingLimit.title" : "mipaka ya biashara"
 }

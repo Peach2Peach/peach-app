@@ -1,18 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BitcoinAddress should render correctly 1`] = `
-<View
-  style={
-    [
-      {
-        "alignItems": "center",
-        "flexDirection": "column",
-        "width": "100%",
-      },
-      undefined,
-    ]
-  }
->
+<React.Fragment>
   <Memo(Pressable)
     onLongPress={[Function]}
     onPress={[Function]}
@@ -56,7 +45,7 @@ exports[`BitcoinAddress should render correctly 1`] = `
       {
         "alignItems": "stretch",
         "flexDirection": "row",
-        "marginTop": 16,
+        "gap": 8,
         "width": "100%",
       }
     }
@@ -70,61 +59,53 @@ exports[`BitcoinAddress should render correctly 1`] = `
           "borderWidth": 1,
           "flexShrink": 1,
           "justifyContent": "center",
-          "marginRight": 8,
           "paddingBottom": 8,
           "paddingLeft": 12,
           "paddingRight": 12,
           "paddingTop": 8,
-          "width": "100%",
         }
       }
     >
-      <Fade
-        delay={0}
-        duration={200}
-        show={true}
+      <PeachText
         style={
           {
-            "position": "absolute",
+            "color": "#9F8C82",
           }
         }
       >
+        bcrt
         <PeachText
           style={
             {
-              "color": "#9F8C82",
+              "color": "#2B1911",
             }
           }
         >
-          bcrt
-          <PeachText
-            style={
-              {
-                "color": "#2B1911",
-              }
-            }
-          >
-            1q70z
-          </PeachText>
-          7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4
-          <PeachText
-            style={
-              {
-                "color": "#2B1911",
-              }
-            }
-          >
-            c0fuh
-          </PeachText>
+          1q70z
         </PeachText>
-      </Fade>
+        7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4
+        <PeachText
+          style={
+            {
+              "color": "#2B1911",
+            }
+          }
+        >
+          c0fuh
+        </PeachText>
+      </PeachText>
       <Fade
         delay={0}
         duration={200}
         show={false}
         style={
           {
+            "alignItems": "center",
+            "backgroundColor": "#FFFCFA",
+            "height": "100%",
+            "justifyContent": "center",
             "position": "absolute",
+            "width": "100%",
           }
         }
       >
@@ -143,7 +124,14 @@ exports[`BitcoinAddress should render correctly 1`] = `
         </PeachText>
       </Fade>
     </View>
-    <View>
+    <View
+      style={
+        {
+          "gap": 8,
+          "justifyContent": "center",
+        }
+      }
+    >
       <PrimaryButton
         iconId="copy"
         onPress={[Function]}
@@ -151,30 +139,14 @@ exports[`BitcoinAddress should render correctly 1`] = `
       <PrimaryButton
         iconId="externalLink"
         onPress={[Function]}
-        style={
-          {
-            "marginTop": 8,
-          }
-        }
       />
     </View>
   </View>
-</View>
+</React.Fragment>
 `;
 
 exports[`BitcoinAddress should render correctly for small screens 1`] = `
-<View
-  style={
-    [
-      {
-        "alignItems": "center",
-        "flexDirection": "column",
-        "width": "100%",
-      },
-      undefined,
-    ]
-  }
->
+<React.Fragment>
   <Memo(Pressable)
     onLongPress={[Function]}
     onPress={[Function]}
@@ -218,7 +190,7 @@ exports[`BitcoinAddress should render correctly for small screens 1`] = `
       {
         "alignItems": "stretch",
         "flexDirection": "row",
-        "marginTop": 16,
+        "gap": 8,
         "width": "100%",
       }
     }
@@ -232,54 +204,41 @@ exports[`BitcoinAddress should render correctly for small screens 1`] = `
           "borderWidth": 1,
           "flexShrink": 1,
           "justifyContent": "center",
-          "marginRight": 8,
           "paddingBottom": 8,
           "paddingLeft": 12,
           "paddingRight": 12,
           "paddingTop": 8,
-          "width": "100%",
         }
       }
     >
-      <Fade
-        delay={0}
-        duration={200}
-        show={false}
+      <PeachText
         style={
           {
-            "position": "absolute",
+            "color": "#9F8C82",
           }
         }
       >
+        bcrt
         <PeachText
           style={
             {
-              "color": "#9F8C82",
+              "color": "#2B1911",
             }
           }
         >
-          bcrt
-          <PeachText
-            style={
-              {
-                "color": "#2B1911",
-              }
-            }
-          >
-            1q70z
-          </PeachText>
-          7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4
-          <PeachText
-            style={
-              {
-                "color": "#2B1911",
-              }
-            }
-          >
-            c0fuh
-          </PeachText>
+          1q70z
         </PeachText>
-      </Fade>
+        7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4
+        <PeachText
+          style={
+            {
+              "color": "#2B1911",
+            }
+          }
+        >
+          c0fuh
+        </PeachText>
+      </PeachText>
       <Fade
         delay={0}
         duration={200}
@@ -293,7 +252,12 @@ exports[`BitcoinAddress should render correctly for small screens 1`] = `
         }
         style={
           {
+            "alignItems": "center",
+            "backgroundColor": "#FFFCFA",
+            "height": "100%",
+            "justifyContent": "center",
             "position": "absolute",
+            "width": "100%",
           }
         }
       >
@@ -312,7 +276,14 @@ exports[`BitcoinAddress should render correctly for small screens 1`] = `
         </PeachText>
       </Fade>
     </View>
-    <View>
+    <View
+      style={
+        {
+          "gap": 8,
+          "justifyContent": "center",
+        }
+      }
+    >
       <PrimaryButton
         iconId="copy"
         onPress={[Function]}
@@ -320,13 +291,8 @@ exports[`BitcoinAddress should render correctly for small screens 1`] = `
       <PrimaryButton
         iconId="externalLink"
         onPress={[Function]}
-        style={
-          {
-            "marginTop": 8,
-          }
-        }
       />
     </View>
   </View>
-</View>
+</React.Fragment>
 `;

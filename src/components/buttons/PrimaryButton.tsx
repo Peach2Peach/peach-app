@@ -1,5 +1,5 @@
 import tw from '../../styles/tailwind'
-import { Button, ButtonProps } from './Button'
+import { ButtonProps, OldButton } from './Button'
 
 export type PrimaryButtonProps = {
   white?: true
@@ -25,5 +25,5 @@ export const PrimaryButton = (props: PrimaryButtonProps) => {
         : tw`text-primary-background-light`
   const borderColor = border ? (white ? tw`border-primary-background-light` : tw`border-primary-main`) : undefined
 
-  return <Button {...{ ...props, color, textColor, borderColor }} />
+  return <OldButton {...{ ...props, color, textColor, borderColor }} />
 }

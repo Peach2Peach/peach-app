@@ -39,9 +39,6 @@
   "help.referral.title" : "Peach referral points",
   "help.sellingBitcoin.description" : "Selling your sats on Peach is free of charge!",
   "help.sellingBitcoin.title" : "selling bitcoin",
-  "help.tooLate.text.1" : "The seller has been notified that you were not on time. Now you'll have to wait until he makes a decision: either give you more time, or cancel the trade.",
-  "help.tooLate.text.2" : "In either case, your reputation has been impacted.",
-  "help.tooLate.title" : "too late!",
   "help.tradingLimit.description" : "Peach has to enforce trading limits to abide by Swiss law. There are three trading limits:\n\nYou can buy or sell 1000 CHF worth of bitcoin on Peach every day\n\nYou can buy or sell 1000 CHF worth of bitcoin with cash or online gift cards (aka anonymous payment methods) every month\n\nYou can buy or sell 100 000 CHF worth of bitcoin per year.",
   "help.tradingLimit.title" : "trading limits"
 }

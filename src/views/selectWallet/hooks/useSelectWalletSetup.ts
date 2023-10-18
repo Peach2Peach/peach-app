@@ -1,6 +1,5 @@
-import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
+import { useNavigation, useRoute } from '../../../hooks'
 import { account, getMessageToSignForAddress } from '../../../utils/account'
-import i18n from '../../../utils/i18n'
 import { isValidBitcoinSignature } from '../../../utils/validation'
 import { useWalletSetup } from './useWalletSetup'
 
@@ -11,8 +10,6 @@ export const useSelectWalletSetup = () => {
   const navigation = useNavigation()
 
   const { type } = route.params
-
-  useHeaderSetup(i18n(`${type}.wallet.select.title`))
 
   const goToSetRefundWallet = () => navigation.navigate('payoutAddress', { type })
 
