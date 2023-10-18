@@ -19,7 +19,7 @@ jest.mock('../../../../hooks/useShowLoadingPopup', () => ({
   useShowLoadingPopup: () => showLoadingPopupMock,
 }))
 
-jest.mock('../../../../utils/peachAPI/peachAPI')
+jest.mock('../../../../../peach-api')
 
 const saveContractMock = jest.fn()
 jest.mock('../../../../utils/contract/saveContract', () => ({
