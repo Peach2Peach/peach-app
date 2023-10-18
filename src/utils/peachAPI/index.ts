@@ -1,3 +1,8 @@
+import { API_URL } from '@env'
+import { peachAPI as peachAPIBuilder } from '../../../peach-api'
+import { UNIQUEID } from '../../constants'
+import { getPeachAccount } from './peachAccount'
+
 export type RequestProps = {
   timeout?: number
   abortSignal?: AbortSignal
@@ -54,3 +59,9 @@ export { sendReport } from './public/contact'
 export { marketPrice } from './public/market'
 export { getInfo, getStatus } from './public/system'
 export { checkReferralCode, getUser } from './public/user'
+
+export const peachAPI = peachAPIBuilder({
+  url: API_URL,
+  peachAccount: getPeachAccount(),
+  uniqueId: UNIQUEID,
+})
