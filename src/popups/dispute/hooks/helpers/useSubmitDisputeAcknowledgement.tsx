@@ -4,7 +4,7 @@ import { useShowErrorBanner } from '../../../../hooks/useShowErrorBanner'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { saveContract } from '../../../../utils/contract'
 import { isEmailRequiredForDispute } from '../../../../utils/dispute'
-import { acknowledgeDispute } from '../../../../utils/peachAPI/private/contract'
+import { peachAPI } from '../../../../utils/peachAPI/peachAPI'
 import { isEmail } from '../../../../utils/validation'
 
 export const useSubmitDisputeAcknowledgement = () => {
@@ -37,7 +37,7 @@ export const useSubmitDisputeAcknowledgement = () => {
       if (isEmailRequiredForDispute(disputeReason) && !isEmail(email)) {
         throw new Error('INVALID_EMAIL')
       }
-      const [result, err] = await acknowledgeDispute({
+      const { result, error: err } = await peachAPI.private.contract.acknowledgeDispute({
         contractId,
         email,
       })
