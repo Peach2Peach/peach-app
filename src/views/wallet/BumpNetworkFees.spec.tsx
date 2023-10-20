@@ -1,15 +1,9 @@
-import { fireEvent, render } from '@testing-library/react-native'
-import { createRenderer } from 'react-test-renderer/shallow'
+import { fireEvent, render } from 'test-utils'
 import { bitcoinTransaction } from '../../../tests/unit/data/transactionDetailData'
-import { NavigationWrapper, navigationMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
 import { placeholderFees } from '../../hooks/query/useFeeEstimate'
 import { getTransactionFeeRate } from '../../utils/bitcoin'
 import { BumpNetworkFees } from './BumpNetworkFees'
-
-jest.mock('../../hooks/useNavigation', () => ({
-  useNavigation: () => navigationMock,
-}))
 
 const setNewFeeRateMock = jest.fn()
 const bumpFeesMock = jest.fn()
@@ -35,24 +29,23 @@ jest.mock('./hooks/useBumpFees', () => ({
 }))
 
 describe('BumpNetworkFees', () => {
-  const renderer = createRenderer()
   it('renders correctly', () => {
-    renderer.render(<BumpNetworkFees />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<BumpNetworkFees />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly for medium screens', () => {
     mockDimensions({ width: 600, height: 840 })
 
-    renderer.render(<BumpNetworkFees />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<BumpNetworkFees />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly while still loading', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
       ...bumpNetworkFeesSetupReturnValue,
       transaction: undefined,
     })
-    renderer.render(<BumpNetworkFees />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<BumpNetworkFees />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when new fee is valid', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
@@ -60,8 +53,8 @@ describe('BumpNetworkFees', () => {
       newFeeRate: '20',
       newFeeRateIsValid: true,
     })
-    renderer.render(<BumpNetworkFees />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<BumpNetworkFees />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when new fee is invalid', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
@@ -69,8 +62,8 @@ describe('BumpNetworkFees', () => {
       newFeeRate: '1',
       newFeeRateIsValid: false,
     })
-    renderer.render(<BumpNetworkFees />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<BumpNetworkFees />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when user would be overpaying by at least 100%', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
@@ -79,8 +72,8 @@ describe('BumpNetworkFees', () => {
       overpayingBy: 2,
       newFeeRateIsValid: true,
     })
-    renderer.render(<BumpNetworkFees />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<BumpNetworkFees />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('new fee input changes fee value', () => {
     const newFeeRate = 20
@@ -89,7 +82,7 @@ describe('BumpNetworkFees', () => {
       newFeeRate: String(bumpNetworkFeesSetupReturnValue.currentFee * 3),
       newFeeRateIsValid: true,
     })
-    const { getByPlaceholderText } = render(<BumpNetworkFees />, { wrapper: NavigationWrapper })
+    const { getByPlaceholderText } = render(<BumpNetworkFees />)
     fireEvent(getByPlaceholderText(''), 'onChange', String(newFeeRate))
     expect(setNewFeeRateMock).toHaveBeenCalledWith(String(newFeeRate))
   })
@@ -99,7 +92,7 @@ describe('BumpNetworkFees', () => {
       newFeeRate: '20',
       newFeeRateIsValid: true,
     })
-    const { getByText } = render(<BumpNetworkFees />, { wrapper: NavigationWrapper })
+    const { getByText } = render(<BumpNetworkFees />)
     fireEvent(getByText('confirm'), 'onPress')
     expect(bumpFeesMock).toHaveBeenCalled()
   })
