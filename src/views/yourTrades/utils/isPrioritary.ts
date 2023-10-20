@@ -4,6 +4,7 @@ const prioritaryStatus: TradeStatus[] = [
   'refundAddressRequired',
   'refundTxSignatureRequired',
   'refundOrReviveRequired',
+  'paymentTooLate',
 ]
 
 export const isPrioritary = (tradeStatus: TradeStatus) => prioritaryStatus.includes(tradeStatus)
