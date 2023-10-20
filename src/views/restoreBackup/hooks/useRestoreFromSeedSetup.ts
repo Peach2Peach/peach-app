@@ -7,7 +7,7 @@ import { createAccount, deleteAccount, recoverAccount } from '../../../utils/acc
 import { createPeachAccount } from '../../../utils/account/createPeachAccount'
 import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
-import { auth } from '../../../utils/peachAPI'
+import { auth, peachAPI } from '../../../utils/peachAPI'
 import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
 
 export const bip39WordRules = {
@@ -56,7 +56,9 @@ export const useRestoreFromSeedSetup = () => {
   const createAndRecover = async () => {
     const recoveredAccount = await createAccount(mnemonic)
     const wallet = loadWalletFromAccount(recoveredAccount)
-    setPeachAccount(createPeachAccount(wallet))
+    const peachAccount = createPeachAccount(wallet)
+    setPeachAccount(peachAccount)
+    peachAPI.setPeachAccount(peachAccount)
 
     const [, authError] = await auth({})
     if (authError) {

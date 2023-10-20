@@ -1,15 +1,17 @@
-import { account, setAccount } from '../account'
-import { createUserRating } from '.'
 import { account1 } from '../../../tests/unit/data/accountData'
+import { account, setAccount } from '../account'
+import { createUserRating } from './createUserRating'
 
 const signMock = jest.fn().mockReturnValue(Buffer.from('abc'))
 const keyPairMock = {
   sign: signMock,
 }
 
-const getPeachAccountMock = jest.fn().mockReturnValue(keyPairMock)
+const getPeachAccountMock = jest
+  .spyOn(jest.requireMock('../peachAPI/peachAccount'), 'getPeachAccount')
+  .mockReturnValue(keyPairMock)
 jest.mock('../peachAPI/peachAccount', () => ({
-  getPeachAccount: () => getPeachAccountMock(),
+  getPeachAccount: jest.fn(),
 }))
 
 jest.mock('../wallet/getWallet', () => ({

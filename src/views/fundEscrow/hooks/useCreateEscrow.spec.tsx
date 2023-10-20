@@ -15,6 +15,7 @@ const createEscrowMock = jest.fn().mockResolvedValue([
   },
 ])
 jest.mock('../../../utils/peachAPI', () => ({
+  peachAPI: jest.requireActual('../../../utils/peachAPI').peachAPI,
   createEscrow: (...args: unknown[]) => createEscrowMock(...args),
 }))
 

@@ -4,7 +4,7 @@ import { useShowErrorBanner } from '../../../../hooks/useShowErrorBanner'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { saveContract } from '../../../../utils/contract'
 import { isEmailRequiredForDispute } from '../../../../utils/dispute'
-import { peachAPI } from '../../../../utils/peachAPI/peachAPI'
+import { peachAPI } from '../../../../utils/peachAPI'
 import { isEmail } from '../../../../utils/validation'
 
 export const useSubmitDisputeAcknowledgement = () => {

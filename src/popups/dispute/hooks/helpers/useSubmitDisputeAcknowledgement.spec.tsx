@@ -4,7 +4,7 @@ import { contract } from '../../../../../tests/unit/data/contractData'
 import { queryClient } from '../../../../../tests/unit/helpers/QueryClientWrapper'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { defaultAccount, setAccount } from '../../../../utils/account/account'
-import { peachAPI } from '../../../../utils/peachAPI/peachAPI'
+import { peachAPI } from '../../../../utils/peachAPI'
 import { useSubmitDisputeAcknowledgement } from './useSubmitDisputeAcknowledgement'
 
 const now = new Date()
@@ -19,8 +19,6 @@ jest.mock('../../../../hooks/useShowLoadingPopup', () => ({
   useShowLoadingPopup: () => showLoadingPopupMock,
 }))
 
-jest.mock('../../../../../peach-api')
-
 const saveContractMock = jest.fn()
 jest.mock('../../../../utils/contract/saveContract', () => ({
   saveContract: (...args: unknown[]) => saveContractMock(...args),
@@ -28,7 +26,6 @@ jest.mock('../../../../utils/contract/saveContract', () => ({
 
 describe('useSubmitDisputeAcknowledgement', () => {
   const acknowledgeDisputeMock = jest.spyOn(peachAPI.private.contract, 'acknowledgeDispute')
-
   beforeEach(() => {
     queryClient.setQueryData(['contract', contract.id], contract)
   })

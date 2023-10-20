@@ -8,7 +8,7 @@ import { createPeachAccount } from '../../../utils/account/createPeachAccount'
 import { decryptAccount } from '../../../utils/account/decryptAccount'
 import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
-import { auth } from '../../../utils/peachAPI'
+import { auth, peachAPI } from '../../../utils/peachAPI'
 import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
 import { parseError } from '../../../utils/result'
 
@@ -48,7 +48,9 @@ export const useRestoreFromFileSetup = () => {
     }
 
     const wallet = loadWalletFromAccount(recoveredAccount)
-    setPeachAccount(createPeachAccount(wallet))
+    const peachAccount = createPeachAccount(wallet)
+    setPeachAccount(peachAccount)
+    peachAPI.setPeachAccount(peachAccount)
 
     const [, authErr] = await auth({})
     if (authErr) {

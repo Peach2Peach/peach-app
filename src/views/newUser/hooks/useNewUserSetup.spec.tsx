@@ -50,6 +50,7 @@ jest.mock('../../../init/userUpdate', () => ({
 }))
 
 jest.mock('../../../utils/peachAPI', () => ({
+  peachAPI: jest.requireActual('../../../utils/peachAPI').peachAPI,
   register: (...args: unknown[]) => registerMock(...args),
 }))
 
