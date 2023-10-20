@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 import { getOfferColor } from './getOfferColor'
 
 const defaultTrade: TradeSummary = {
@@ -69,6 +70,9 @@ describe('getOfferColor', () => {
   })
   it('should return "warning" when the trade has a dispute winner and is a contract summary', () => {
     expect(getOfferColor({ ...defaultTrade, disputeWinner: 'buyer' })).toBe('warning')
+  })
+  it('should return "warning" when the tradeStatus is "paymentTooLate"', () => {
+    expect(getOfferColor({ ...defaultTrade, tradeStatus: 'paymentTooLate' })).toBe('warning')
   })
   it('should return "black" when tradeStatus is "tradeCanceled" and is a contract summary', () => {
     expect(getOfferColor({ ...defaultTrade, tradeStatus: 'tradeCanceled' })).toBe('black')
