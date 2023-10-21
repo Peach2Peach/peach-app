@@ -1,4 +1,3 @@
-import { createRenderer } from 'react-test-renderer/shallow'
 import { fireEvent, render } from 'test-utils'
 import { bitcoinTransaction } from '../../../tests/unit/data/transactionDetailData'
 import { placeholderFees } from '../../hooks/query/useFeeEstimate'
@@ -29,18 +28,17 @@ jest.mock('./hooks/useBumpFees', () => ({
 }))
 
 describe('BumpNetworkFees', () => {
-  const renderer = createRenderer()
   it('renders correctly', () => {
-    renderer.render(<BumpNetworkFees />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<BumpNetworkFees />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly while still loading', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
       ...bumpNetworkFeesSetupReturnValue,
       transaction: undefined,
     })
-    renderer.render(<BumpNetworkFees />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<BumpNetworkFees />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when new fee is valid', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
@@ -48,8 +46,8 @@ describe('BumpNetworkFees', () => {
       newFeeRate: '20',
       newFeeRateIsValid: true,
     })
-    renderer.render(<BumpNetworkFees />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<BumpNetworkFees />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when new fee is invalid', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
@@ -57,8 +55,8 @@ describe('BumpNetworkFees', () => {
       newFeeRate: '1',
       newFeeRateIsValid: false,
     })
-    renderer.render(<BumpNetworkFees />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<BumpNetworkFees />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when user would be overpaying by at least 100%', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
@@ -67,8 +65,8 @@ describe('BumpNetworkFees', () => {
       overpayingBy: 2,
       newFeeRateIsValid: true,
     })
-    renderer.render(<BumpNetworkFees />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<BumpNetworkFees />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('new fee input changes fee value', () => {
     const newFeeRate = 20
