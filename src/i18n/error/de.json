@@ -12,7 +12,7 @@
   "ERROR_SAVE_ACCOUNT.text" : "Beim Speichern des Kontos ist ein Fehler aufgetreten. Bitte versuche die App neu zu starten oder kontaktiere das Peach-Supportteam.",
   "ERROR_SAVE_ACCOUNT.title" : "Konto kann nicht gespeichert werden",
   "FEES_TOO_HIGH.text" : "Die gewählten Netzwerkgebühren von $0 sat/vB sind zu hoch. Bitte wähle einen niedrigeren Betrag, um Transaktionen durchzuführen.",
-  "FORBIDDEN_PAYMENT_METHOD.paypal.text" : "Du hast noch keinen Zugriff auf PayPal. Aufgrund der hohen Risiken für Rückbuchungen bei PayPal wird diese Zahlungsmethode erst zugänglich, wenn:\n\n- Du das #superTrader-Abzeichen freigeschaltet hast (mehr als 20 Trades abgeschlossen).\n\n- Dein Rufscore mindestens 4,5 Pfirsiche beträgt.\n\n- Du bereits mindestens 2100 CHF im letzten Jahr gehandelt hast.\n",
+  "FORBIDDEN_PAYMENT_METHOD.paypal.text" : "Du hast noch keinen Zugriff auf PayPal. Aufgrund der hohen Risiken für Rückbuchungen bei PayPal wird diese Zahlungsmethode erst zugänglich, wenn:\n\n- Du das #superTrader-Abzeichen freigeschaltet hast (mehr als 20 Trades abgeschlossen).\n\n- Dein Rufscore mindestens 4,5 Pfirsiche beträgt.\n\n- Du bereits mindestens 500 CHF im letzten Jahr gehandelt hast.",
   "FORM_INVALID.text" : "Diese Informationen sind ungültig.\n$0",
   "FORM_INVALID.title" : "Das stimmt nicht",
   "GENERAL_ERROR.text" : "Hoppla, etwas ist schiefgegangen! Bitte versuche es später erneut oder kontaktiere uns, wenn der Fehler weiterhin besteht.",
