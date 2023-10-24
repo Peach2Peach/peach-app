@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRoute } from '../../../hooks'
 import { account } from '../../../utils/account'
 import { logTradeCompleted } from '../../../utils/analytics'
-import { getContractViewer, saveContract } from '../../../utils/contract'
+import { getContractViewer } from '../../../utils/contract'
 
 export const useTradeCompleteSetup = () => {
   const route = useRoute<'tradeComplete'>()
@@ -11,10 +11,7 @@ export const useTradeCompleteSetup = () => {
 
   const [vote, setVote] = useState<'positive' | 'negative'>()
 
-  const saveAndUpdate = (contractData: Contract) => {
-    setContract(contractData)
-    saveContract(contractData)
-  }
+  const saveAndUpdate = setContract
 
   useEffect(() => {
     setContract(() => route.params.contract)
