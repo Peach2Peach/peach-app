@@ -2,7 +2,6 @@ import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { act, renderHook } from '@testing-library/react-native'
 import { AppState } from 'react-native'
 import { contract } from '../../../tests/unit/data/contractData'
-import { getContract } from '../../utils/contract'
 import { getContract as getContractAPI } from '../../utils/peachAPI'
 import { useMessageHandler } from './useMessageHandler'
 
@@ -49,8 +48,7 @@ jest.mock('./useGetPNActionHandler', () => ({
 // eslint-disable-next-line max-lines-per-function
 describe('useMessageHandler', () => {
   beforeEach(() => {
-    (getContract as jest.Mock).mockReturnValue(contract)
-    ;(getContractAPI as jest.Mock).mockResolvedValue([contract])
+    (getContractAPI as jest.Mock).mockResolvedValue([contract])
   })
   afterEach(() => {
     jest.resetAllMocks()

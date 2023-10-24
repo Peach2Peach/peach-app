@@ -1,7 +1,6 @@
 import analytics from '@react-native-firebase/analytics'
 import { recoverAccount } from '.'
 import { recoveredAccount } from '../../../tests/unit/data/accountData'
-import { contract } from '../../../tests/unit/data/contractData'
 import { buyOffer, sellOffer } from '../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { useSettingsStore } from '../../store/settingsStore'
@@ -39,13 +38,6 @@ describe('recoverAccount', () => {
     const recovered = await recoverAccount(recoveredAccount)
     expect(recovered?.offers).toEqual(offers)
     expect(recoveredAccount.offers).toEqual(offers)
-  })
-  it('gets contracts and stores them', async () => {
-    const contracts = [contract]
-    getContractsMock.mockReturnValueOnce([contracts, null])
-    const recovered = await recoverAccount(recoveredAccount)
-    expect(recovered?.contracts).toEqual(contracts)
-    expect(recoveredAccount.contracts).toEqual(contracts)
   })
   it('logs event account_restored', async () => {
     await recoverAccount(recoveredAccount)

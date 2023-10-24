@@ -16,11 +16,7 @@ export const useRepublishOffer = () => {
   const confirmPopup = useCallback(
     (contract: Contract) => {
       closePopup()
-      saveContract({
-        ...contract,
-        cancelConfirmationDismissed: true,
-        cancelConfirmationPending: false,
-      })
+      saveContract(contract)
     },
     [closePopup],
   )
