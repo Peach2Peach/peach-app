@@ -54,7 +54,8 @@ export function PayoutPendingButton () {
 }
 export function ProvideEmailButton () {
   const setPopup = usePopupStore((state) => state.setPopup)
-  const onPress = () => setPopup(<DisputeRaisedPopup />)
+  const { contract, view } = useContractContext()
+  const onPress = () => setPopup(<DisputeRaisedPopup contract={contract} view={view} />)
 
   return (
     <Button style={tw`bg-error-main`} onPress={onPress} iconId="alertCircle">
@@ -63,8 +64,7 @@ export function ProvideEmailButton () {
   )
 }
 const emailRules = { required: true, email: true }
-function DisputeRaisedPopup () {
-  const { contract, view } = useContractContext()
+function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: ContractViewer }) {
   const { id, disputeReason, amount } = contract
   const submitDisputeAcknowledgement = useSubmitDisputeAcknowledgement()
   const [email, setEmail, , emailErrors] = useValidatedState<string>('', emailRules)
