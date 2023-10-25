@@ -1,16 +1,12 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
-import { NavigationWrapper, resetMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { resetMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useConfirmEscrow } from './useConfirmEscrow'
 
 const apiSuccess = { success: true }
 const unauthorizedError = { error: 'UNAUTHORIZED' }
-const wrapper = ({ children }: { children: JSX.Element }) => (
-  <QueryClientWrapper>
-    <NavigationWrapper>{children}</NavigationWrapper>
-  </QueryClientWrapper>
-)
+
 const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner:
@@ -40,18 +36,18 @@ describe('useConfirmEscrow', () => {
   })
   it('shows error banner if escrow could not be confirmed', async () => {
     confirmEscrowMock.mockResolvedValueOnce([null, unauthorizedError])
-    const { result } = renderHook(useConfirmEscrow, { wrapper })
+    const { result } = renderHook(useConfirmEscrow)
     await result.current(sellOffer)
     expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })
   it('shows error banner if escrow server did not return result', async () => {
     confirmEscrowMock.mockResolvedValueOnce([null, null])
-    const { result } = renderHook(useConfirmEscrow, { wrapper })
+    const { result } = renderHook(useConfirmEscrow)
     await result.current(sellOffer)
     expect(showErrorBannerMock).toHaveBeenCalledWith(undefined)
   })
   it('confirms escrow and navigates to search if sell offer is funded', async () => {
-    const { result } = renderHook(useConfirmEscrow, { wrapper })
+    const { result } = renderHook(useConfirmEscrow)
     await result.current({ ...sellOffer, funding: { status: 'FUNDED' } as FundingStatus })
     expect(queryClient.getQueryData(['fundingStatus', sellOffer.id])).toEqual({
       ...fundingStatusResponse,
@@ -63,7 +59,7 @@ describe('useConfirmEscrow', () => {
     })
   })
   it('confirms escrow and navigates to fundEscrow if sell offer is not yet funded', async () => {
-    const { result } = renderHook(useConfirmEscrow, { wrapper })
+    const { result } = renderHook(useConfirmEscrow)
     await result.current({ ...sellOffer, funding: { status: 'MEMPOOL' } as FundingStatus })
     expect(queryClient.getQueryData(['fundingStatus', sellOffer.id])).toEqual({
       ...fundingStatusResponse,

@@ -1,13 +1,13 @@
 {
-  "batching.willBeSenTTo" : "serán enviados a",
-  "offer.requiredAction.pendingPayout" : "pago pendiente",
-  "settings.batching.delayedPayouts" : "Los depósitos han sido retrasados hasta una hora.",
-  "settings.batching.title" : "unión de transacciones",
-  "settings.batching.toggle" : "unión de transacciones",
-  "settings.batching.turnOff.description" : "Tienes un pago pendiente. Deshabilitar la unión de transacciones ahora mismo hará que tu pago se realice inmediatamente con una comisión de red mayor. ¿Estás seguro?",
-  "settings.batching.turnOff.no" : "no, espera",
-  "settings.batching.turnOff.title" : "deshabilitar unión de transacciones",
-  "settings.batching.turnOff.yes" : "sí, pagar",
-  "settings.batching.youSave" : "has ahorrado un 23% en comisiones de red.",
-  "settings.batching.youSave.highlight" : "ahorra hasta un 23%"
+  "batching.willBeSentTo": "serán enviados a",
+  "offer.requiredAction.pendingPayout": "pago pendiente",
+  "settings.batching.delayedPayouts": "Los depósitos han sido retrasados hasta una hora.",
+  "settings.batching.title": "unión de transacciones",
+  "settings.batching.toggle": "unión de transacciones",
+  "settings.batching.turnOff.description": "Tienes un pago pendiente. Deshabilitar la unión de transacciones ahora mismo hará que tu pago se realice inmediatamente con una comisión de red mayor. ¿Estás seguro?",
+  "settings.batching.turnOff.no": "no, espera",
+  "settings.batching.turnOff.title": "deshabilitar unión de transacciones",
+  "settings.batching.turnOff.yes": "sí, pagar",
+  "settings.batching.youSave": "has ahorrado un 23% en comisiones de red.",
+  "settings.batching.youSave.highlight": "ahorra hasta un 23%"
 }

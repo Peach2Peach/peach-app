@@ -1,7 +1,7 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { EmailInput } from './EmailInput'
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent, render } from 'test-utils'
 import i18n from '../../utils/i18n'
+import { EmailInput } from './EmailInput'
 
 describe('EmailInput', () => {
   const renderer = createRenderer()

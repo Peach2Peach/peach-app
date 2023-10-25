@@ -1,8 +1,8 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
-import { BumpNetworkFeesButton } from './BumpNetworkFeesButton'
+import { fireEvent, render } from 'test-utils'
 import { bitcoinTransaction } from '../../../../tests/unit/data/transactionDetailData'
-import { fireEvent, render } from '@testing-library/react-native'
 import tw from '../../../styles/tailwind'
+import { BumpNetworkFeesButton } from './BumpNetworkFeesButton'
 
 const bumpFeesMock = jest.fn()
 const useBumpFeesMock = jest.fn().mockReturnValue(bumpFeesMock)

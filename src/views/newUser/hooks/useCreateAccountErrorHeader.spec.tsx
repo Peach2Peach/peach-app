@@ -1,10 +1,10 @@
-import { renderHook } from '@testing-library/react-native'
-import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { renderHook } from 'test-utils'
+import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useCreateAccountErrorHeader } from './useCreateAccountErrorHeader'
 
 describe('useCreateAccountErrorHeader', () => {
   it('should set up the header correctly', () => {
-    renderHook(useCreateAccountErrorHeader, { wrapper: NavigationWrapper })
+    renderHook(useCreateAccountErrorHeader)
     expect(headerState.header()).toMatchSnapshot()
   })
 })

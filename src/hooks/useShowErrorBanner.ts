@@ -1,13 +1,13 @@
-import { useCallback, useContext } from 'react'
+import { useCallback } from 'react'
 import { useNavigation } from '.'
-import { MessageContext } from '../contexts/message'
+import { useMessageState } from '../components/message/useMessageState'
 import i18n from '../utils/i18n'
 import { error } from '../utils/log'
 import { parseError } from '../utils/result'
 
 export const useShowErrorBanner = () => {
   const navigation = useNavigation()
-  const [, updateMessage] = useContext(MessageContext)
+  const updateMessage = useMessageState((state) => state.updateMessage)
 
   const showErrorBanner = useCallback(
     (err?: Error | string | null, bodyArgs?: string[]) => {

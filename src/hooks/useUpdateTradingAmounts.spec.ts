@@ -1,88 +1,50 @@
-import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
+import { renderHook } from 'test-utils'
 import { useUpdateTradingAmounts } from '.'
 import { useConfigStore } from '../store/configStore'
 import { useOfferPreferences } from '../store/offerPreferenes/useOfferPreferences'
 
-const getTradingAmountLimitsMock = jest.fn().mockReturnValue([10, 100])
-jest.mock('../utils/market', () => ({
-  getTradingAmountLimits: (priceCHF: number) => getTradingAmountLimitsMock(priceCHF),
-}))
-
-// eslint-disable-next-line max-lines-per-function
 describe('useUpdateTradingAmounts', () => {
+  const priceCHF = 20000
   it('updates the min and max trading amounts correctly', () => {
-    const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
+    const { result: updateTradingAmounts } = renderHook(useUpdateTradingAmounts)
 
     act(() => {
       useConfigStore.getState().setMinTradingAmount(5)
       useConfigStore.getState().setMaxTradingAmount(400)
+      useConfigStore.getState().setMaxSellTradingAmount(300)
     })
+    act(() => updateTradingAmounts.current(priceCHF))
 
-    act(() => {
-      updateTradingAmounts.current(50)
-    })
-
-    expect(getTradingAmountLimitsMock).toHaveBeenCalledWith(50)
-    expect(useConfigStore.getState().minTradingAmount).toEqual(10)
-    expect(useConfigStore.getState().maxTradingAmount).toEqual(100)
+    expect(useConfigStore.getState().minTradingAmount).toEqual(50000)
+    expect(useConfigStore.getState().maxTradingAmount).toEqual(4990000)
+    expect(useConfigStore.getState().maxSellTradingAmount).toEqual(3990000)
   })
   it('updates selected amounts if they fall out of range', () => {
-    const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
+    const { result: updateTradingAmounts } = renderHook(useUpdateTradingAmounts)
 
     act(() => {
       useOfferPreferences.getState().setSellAmount(5, { min: 5, max: 400 })
       useOfferPreferences.getState().setBuyAmountRange([5, 200], { min: 5, max: 400 })
     })
+    act(() => updateTradingAmounts.current(priceCHF))
 
-    act(() => {
-      updateTradingAmounts.current(50)
-    })
-
-    expect(getTradingAmountLimitsMock).toHaveBeenCalledWith(50)
-    expect(useOfferPreferences.getState().sellAmount).toEqual(10)
-    expect(useOfferPreferences.getState().buyAmountRange).toEqual([10, 100])
-
-    act(() => {
-      useOfferPreferences.getState().setSellAmount(400, { min: 5, max: 400 })
-    })
-    act(() => {
-      updateTradingAmounts.current(50)
-    })
-
-    expect(getTradingAmountLimitsMock).toHaveBeenCalledWith(50)
-    expect(useOfferPreferences.getState().sellAmount).toEqual(100)
+    expect(useOfferPreferences.getState().sellAmount).toEqual(50000)
+    expect(useOfferPreferences.getState().buyAmountRange).toEqual([50000, 4990000])
   })
 
   it('does not update selected amounts if they do not fall out of range', () => {
-    const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
+    const buyRange: [number, number] = [60000, 100000]
+    const sellAmount = 60000
+    const { result: updateTradingAmounts } = renderHook(useUpdateTradingAmounts)
 
     act(() => {
-      useOfferPreferences.getState().setSellAmount(20, { min: 5, max: 400 })
-      useOfferPreferences.getState().setBuyAmountRange([20, 40], { min: 5, max: 400 })
+      useOfferPreferences.getState().setSellAmount(sellAmount, { min: 50000, max: 4990000 })
+      useOfferPreferences.getState().setBuyAmountRange(buyRange, { min: 50000, max: 4990000 })
     })
+    act(() => updateTradingAmounts.current(priceCHF))
 
-    act(() => {
-      updateTradingAmounts.current(50)
-    })
-
-    expect(getTradingAmountLimitsMock).toHaveBeenCalledWith(50)
-    expect(useOfferPreferences.getState().sellAmount).toEqual(20)
-    expect(useOfferPreferences.getState().buyAmountRange).toEqual([20, 40])
-  })
-  it('only updates the buy amount that fell out of range', () => {
-    getTradingAmountLimitsMock.mockReturnValue([10, 300])
-    const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
-
-    act(() => {
-      useOfferPreferences.getState().setBuyAmountRange([5, 200], { min: 5, max: 400 })
-    })
-    act(() => {
-      updateTradingAmounts.current(50)
-    })
-
-    expect(getTradingAmountLimitsMock).toHaveBeenCalledWith(50)
-    expect(useOfferPreferences.getState().buyAmountRange[0]).toEqual(10)
-    expect(useOfferPreferences.getState().buyAmountRange[1]).toEqual(200)
+    expect(useOfferPreferences.getState().sellAmount).toEqual(sellAmount)
+    expect(useOfferPreferences.getState().buyAmountRange).toEqual(buyRange)
   })
 })

@@ -1,6 +1,6 @@
+import { renderHook } from 'test-utils'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useTemplate12Setup } from './useTemplate12Setup'
-import { renderHook } from '@testing-library/react-native'
 
 describe('useTemplate12Setup', () => {
   const defaultData = {

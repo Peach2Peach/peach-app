@@ -1,5 +1,5 @@
-import { renderHook } from '@testing-library/react-native'
 import { Linking } from 'react-native'
+import { renderHook } from 'test-utils'
 import {
   confirmedTransactionSummary,
   pending1,
@@ -7,7 +7,6 @@ import {
   transactionWithRBF1,
   transactionWithoutRBF1,
 } from '../../../../tests/unit/data/transactionDetailData'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -30,13 +29,11 @@ jest.mock('../../../hooks/query/useTransactionDetails', () => ({
   useTransactionDetails: (...args: unknown[]) => useTransactionDetailsMock(...args),
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
-
 describe('useTransactionDetailsInfoSetup', () => {
   const initialProps = {
     transaction: pendingTransactionSummary,
   }
-  // @ts-expect-error no args needed as it's a mock
+  // @ts-ignore
   const peachWallet = new PeachWallet()
 
   beforeAll(() => {
@@ -47,7 +44,7 @@ describe('useTransactionDetailsInfoSetup', () => {
   })
 
   it('should return defaults', () => {
-    const { result } = renderHook(useTransactionDetailsInfoSetup, { wrapper, initialProps })
+    const { result } = renderHook(useTransactionDetailsInfoSetup, { initialProps })
     expect(result.current).toEqual({
       receivingAddress: myAddress,
       canBumpFees: true,
@@ -58,7 +55,6 @@ describe('useTransactionDetailsInfoSetup', () => {
   })
   it('should set canBumpFees to false if tx is confirmed', () => {
     const { result } = renderHook(useTransactionDetailsInfoSetup, {
-      wrapper,
       initialProps: {
         transaction: confirmedTransactionSummary,
       },
@@ -70,7 +66,6 @@ describe('useTransactionDetailsInfoSetup', () => {
       transaction: transactionWithoutRBF1,
     })
     const { result } = renderHook(useTransactionDetailsInfoSetup, {
-      wrapper,
       initialProps: {
         transaction: { ...pendingTransactionSummary, id: transactionWithoutRBF1.txid },
       },
@@ -78,14 +73,14 @@ describe('useTransactionDetailsInfoSetup', () => {
     expect(result.current.canBumpFees).toBeFalsy()
   })
   it('should go to bump network fees', () => {
-    const { result } = renderHook(useTransactionDetailsInfoSetup, { wrapper, initialProps })
+    const { result } = renderHook(useTransactionDetailsInfoSetup, { initialProps })
     result.current.goToBumpNetworkFees()
     expect(navigateMock).toHaveBeenCalledWith('bumpNetworkFees', { txId: pending1.txid })
   })
   it('should open transaction in explorer', () => {
     const openURL = jest.spyOn(Linking, 'openURL')
 
-    const { result } = renderHook(useTransactionDetailsInfoSetup, { wrapper, initialProps })
+    const { result } = renderHook(useTransactionDetailsInfoSetup, { initialProps })
     result.current.openInExplorer()
     expect(openURL).toHaveBeenCalledWith('https://localhost:3000/tx/txid1')
   })

@@ -1,9 +1,9 @@
-import { PopupComponent } from './PopupComponent'
 import { Text } from 'react-native'
-import { render } from '@testing-library/react-native'
-import { PopupAction } from './PopupAction'
-import tw from '../../styles/tailwind'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { render } from 'test-utils'
+import tw from '../../styles/tailwind'
+import { PopupAction } from './PopupAction'
+import { PopupComponent } from './PopupComponent'
 expect.extend({ toMatchDiffSnapshot })
 
 describe('PopupComponent', () => {

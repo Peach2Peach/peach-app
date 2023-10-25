@@ -1,15 +1,11 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { renderHook, waitFor } from 'test-utils'
 import { contract } from '../../../tests/unit/data/contractData'
-import { QueryClientWrapper, queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useContractDetails } from './useContractDetails'
 
 const getContractMock = jest.fn().mockResolvedValue([contract])
 jest.mock('../../utils/peachAPI', () => ({
   getContract: () => getContractMock(),
-}))
-const useIsFocusedMock = jest.fn().mockReturnValue(true)
-jest.mock('@react-navigation/native', () => ({
-  useIsFocused: () => useIsFocusedMock(),
 }))
 
 describe('useContractDetails', () => {
@@ -17,10 +13,7 @@ describe('useContractDetails', () => {
     queryClient.clear()
   })
   it('fetches contract details from API', async () => {
-    const { result } = renderHook(useContractDetails, {
-      wrapper: QueryClientWrapper,
-      initialProps: contract.id,
-    })
+    const { result } = renderHook(useContractDetails, { initialProps: contract.id })
 
     expect(result.current.contract).toBeUndefined()
     expect(result.current.isLoading).toBeTruthy()
@@ -34,10 +27,7 @@ describe('useContractDetails', () => {
   })
   it('returns error if server did not return result and no local contract exists', async () => {
     getContractMock.mockResolvedValueOnce([null])
-    const { result } = renderHook(useContractDetails, {
-      wrapper: QueryClientWrapper,
-      initialProps: contract.id,
-    })
+    const { result } = renderHook(useContractDetails, { initialProps: contract.id })
 
     expect(result.current.contract).toBeUndefined()
     expect(result.current.isLoading).toBeTruthy()

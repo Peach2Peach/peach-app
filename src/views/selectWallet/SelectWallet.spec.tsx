@@ -1,5 +1,4 @@
-import { render } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { render } from 'test-utils'
 import { SelectWallet } from './SelectWallet'
 
 const useSelectWalletSetupMock = jest.fn().mockReturnValue({
@@ -31,7 +30,7 @@ jest.mock('../../hooks/useRoute', () => ({
 
 describe('SelectWallet', () => {
   it('renders correctly', () => {
-    const { toJSON } = render(<SelectWallet />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<SelectWallet />)
 
     expect(toJSON()).toMatchSnapshot()
   })

@@ -1,16 +1,14 @@
-import { renderHook } from '@testing-library/react-native'
-import { headerState, NavigationWrapper } from '../../tests/unit/helpers/NavigationWrapper'
+import { renderHook } from 'test-utils'
+import { headerState } from '../../tests/unit/helpers/NavigationWrapper'
 import { useHeaderSetup } from './useHeaderSetup'
 
 describe('useHeaderSetup', () => {
   it('should update the header with the headerConfig', () => {
-    renderHook(() => useHeaderSetup({ title: 'test', hideGoBackButton: true, theme: 'default' }), {
-      wrapper: NavigationWrapper,
-    })
+    renderHook(() => useHeaderSetup({ title: 'test', hideGoBackButton: true, theme: 'default' }))
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should handle a string as headerConfig', () => {
-    renderHook(() => useHeaderSetup('test'), { wrapper: NavigationWrapper })
+    renderHook(() => useHeaderSetup('test'))
     expect(headerState.header()).toMatchSnapshot()
   })
 })

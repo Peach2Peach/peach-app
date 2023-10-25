@@ -1,6 +1,5 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import { Linking } from 'react-native'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { fireEvent, render } from 'test-utils'
 import { BitcoinProducts } from './BitcoinProducts'
 
 jest.mock('@react-navigation/native', () => ({
@@ -10,12 +9,12 @@ jest.mock('@react-navigation/native', () => ({
 
 describe('BitcoinProducts', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(<BitcoinProducts />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<BitcoinProducts />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should link to bitbox', () => {
     const openURLSpy = jest.spyOn(Linking, 'openURL')
-    const { getByText } = render(<BitcoinProducts />, { wrapper: NavigationWrapper })
+    const { getByText } = render(<BitcoinProducts />)
     fireEvent(getByText('check out bitbox'), 'onPress')
     expect(openURLSpy).toHaveBeenCalledWith('https://bitbox.swiss/bitbox02/?ref=DLX6l9ccCc')
   })

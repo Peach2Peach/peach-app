@@ -1,8 +1,6 @@
-import { fireEvent, render } from '@testing-library/react-native'
-import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { fireEvent, render } from 'test-utils'
+import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { TxStatusCard } from './TxStatusCard'
-
-const wrapper = NavigationWrapper
 
 describe('TxStatusCard', () => {
   const date = new Date('2022-09-15T07:23:25.797Z')
@@ -37,32 +35,32 @@ describe('TxStatusCard', () => {
   } as const
 
   it('should render correctly for a pending buy trade tx', () => {
-    const { toJSON } = render(<TxStatusCard item={buyTradeTx} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={buyTradeTx} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a pending sent tx', () => {
-    const { toJSON } = render(<TxStatusCard item={sentTx} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={sentTx} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a pending refund tx', () => {
-    const { toJSON } = render(<TxStatusCard item={refundTx} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={refundTx} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a pending receive tx', () => {
-    const { toJSON } = render(<TxStatusCard item={receiveTx} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={receiveTx} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a escrow funded tx', () => {
-    const { toJSON } = render(<TxStatusCard item={escrowFundedTx} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={escrowFundedTx} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should navigate to the transaction details screen when pressed', () => {
-    const { getByText } = render(<TxStatusCard item={receiveTx} />, { wrapper })
+    const { getByText } = render(<TxStatusCard item={receiveTx} />)
     fireEvent.press(getByText('received'))
     expect(navigateMock).toHaveBeenCalledWith('transactionDetails', { txId: 'receiveTx' })
   })
   it('should not render the fiat price', () => {
-    const { queryByText } = render(<TxStatusCard item={receiveTx} />, { wrapper })
+    const { queryByText } = render(<TxStatusCard item={receiveTx} />)
     expect(queryByText('100.00 EUR')).toBeFalsy()
   })
 })

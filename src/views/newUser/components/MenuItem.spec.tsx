@@ -1,7 +1,7 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { MenuItem } from './MenuItem'
+import { fireEvent, render } from 'test-utils'
 import tw from '../../../styles/tailwind'
-import { fireEvent, render } from '@testing-library/react-native'
+import { MenuItem } from './MenuItem'
 
 describe('MenuItem', () => {
   const shallowRenderer = createRenderer()

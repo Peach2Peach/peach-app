@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { useOfferPopupEvents } from './useOfferPopupEvents'
 
 const getOfferDetailsMock = jest.fn()

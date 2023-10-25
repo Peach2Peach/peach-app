@@ -2,11 +2,11 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 import { BLOCKEXPLORER } from '@env'
-import { waitFor } from '@testing-library/react-native'
 import { Address, PartiallySignedTransaction, Transaction, TxBuilder } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { AddressIndex, BlockChainNames, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
+import { waitFor } from 'test-utils'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { insufficientFunds } from '../../../tests/unit/data/errors'
 import {
@@ -282,7 +282,7 @@ describe('PeachWallet', () => {
     peachWallet.updateStore()
     expect(useWalletState.getState().transactions).toEqual([confirmed1, confirmed2, pending3])
     expect(useWalletState.getState().txOfferMap).toEqual({
-      txid1: ['3'],
+      txid1_confirmed: ['3'],
       txid2: ['2'],
     })
   })
@@ -297,7 +297,7 @@ describe('PeachWallet', () => {
     peachWallet.updateStore()
     expect(useWalletState.getState().transactions).toEqual([confirmed1, confirmed2, pending3, fundingTx])
     expect(useWalletState.getState().txOfferMap).toEqual({
-      txid1: ['3'],
+      txid1_confirmed: ['3'],
       txid2: ['2'],
       txid4: ['4'],
     })

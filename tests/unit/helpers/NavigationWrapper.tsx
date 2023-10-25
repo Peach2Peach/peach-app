@@ -25,6 +25,7 @@ export const getStateMock = jest.fn(() => ({
       name: 'meetupScreen',
     },
   ],
+  index: 1,
 }))
 
 export const navigationMock = {

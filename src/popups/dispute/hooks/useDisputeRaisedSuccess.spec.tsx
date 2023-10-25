@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { DisputeRaisedSuccess } from '../components/DisputeRaisedSuccess'
 import { useDisputeRaisedSuccess } from './useDisputeRaisedSuccess'

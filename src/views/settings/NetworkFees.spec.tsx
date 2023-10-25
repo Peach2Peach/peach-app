@@ -1,5 +1,4 @@
-import { render } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { render } from 'test-utils'
 import { NetworkFees } from './NetworkFees'
 
 const useNetworkFeesSetupMock = jest.fn().mockReturnValue({
@@ -24,7 +23,7 @@ jest.mock('./hooks/useNetworkFeesSetup', () => ({
 
 describe('NetworkFees', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(<NetworkFees />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<NetworkFees />)
     expect(toJSON()).toMatchSnapshot()
   })
 })

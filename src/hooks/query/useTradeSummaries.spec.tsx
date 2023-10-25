@@ -1,7 +1,6 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { renderHook, waitFor } from 'test-utils'
 import { contractSummary } from '../../../tests/unit/data/contractSummaryData'
 import { offerSummary } from '../../../tests/unit/data/offerSummaryData'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useTradeSummaries } from './useTradeSummaries'
 
 jest.useFakeTimers()
@@ -13,7 +12,7 @@ jest.mock('../../utils/peachAPI', () => ({
 
 describe('useTradeSummaries', () => {
   it('should return a list of trade summaries', async () => {
-    const { result } = renderHook(useTradeSummaries, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useTradeSummaries)
 
     await waitFor(() => {
       expect(result.current.tradeSummaries).toEqual([contractSummary, offerSummary])

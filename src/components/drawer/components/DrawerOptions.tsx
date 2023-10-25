@@ -1,12 +1,19 @@
-import { Fragment, useContext, useEffect, useRef } from 'react'
+import { Fragment, useEffect, useRef } from 'react'
 import { ScrollView } from 'react-native'
+import { shallow } from 'zustand/shallow'
 import { HorizontalLine, PeachScrollView } from '../..'
-import { DrawerContext } from '../../../contexts/drawer'
 import tw from '../../../styles/tailwind'
+import { useDrawerState } from '../useDrawerState'
 import { DrawerOption } from './DrawerOption'
 
 export const DrawerOptions = ({ style }: ComponentProps) => {
-  const [{ content, options }] = useContext(DrawerContext)
+  const { content, options } = useDrawerState(
+    (state) => ({
+      content: state.content,
+      options: state.options,
+    }),
+    shallow,
+  )
   const $scroll = useRef<ScrollView>(null)
 
   useEffect(() => {

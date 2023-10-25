@@ -43,7 +43,7 @@ export const useNewUserSetup = () => {
       setSuccess(true)
 
       setTimeout(() => {
-        navigation.replace('home')
+        navigation.replace('buy')
       }, 1500)
     },
     [navigation, route.params.referralCode],

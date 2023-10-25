@@ -1,8 +1,8 @@
-import { PopupContent } from './PopupContent'
-import { fireEvent, render } from '@testing-library/react-native'
-import { Text } from '../text'
 import { Keyboard } from 'react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { fireEvent, render } from 'test-utils'
+import { Text } from '../text'
+import { PopupContent } from './PopupContent'
 expect.extend({ toMatchDiffSnapshot })
 
 describe('PopupContent', () => {

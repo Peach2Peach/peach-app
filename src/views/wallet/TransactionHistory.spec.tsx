@@ -21,8 +21,8 @@ describe('TransactionHistory', () => {
       ...useTransactionHistorySetupData,
       transactions: [],
     })
-
     const { toJSON } = render(<TransactionHistory />)
+
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with tx', () => {

@@ -1,6 +1,6 @@
-import { renderHook } from '@testing-library/react-native'
-import { useBitcoinPrices } from './useBitcoinPrices'
+import { renderHook } from 'test-utils'
 import { useSettingsStore } from '../store/settingsStore'
+import { useBitcoinPrices } from './useBitcoinPrices'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {

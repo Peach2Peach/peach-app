@@ -1,7 +1,6 @@
-import { renderHook } from '@testing-library/react-native'
-import { tabs, useRestoreBackupSetup } from './useRestoreBackupSetup'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { act } from 'react-test-renderer'
+import { renderHook } from 'test-utils'
+import { tabs, useRestoreBackupSetup } from './useRestoreBackupSetup'
 
 const useRouteMock = jest.fn(() => ({ params: {} }))
 jest.mock('../../../hooks/useRoute', () => ({
@@ -10,7 +9,7 @@ jest.mock('../../../hooks/useRoute', () => ({
 
 describe('useRestoreBackupSetup', () => {
   it('returns defaults', () => {
-    const { result } = renderHook(useRestoreBackupSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useRestoreBackupSetup)
 
     expect(result.current).toEqual({
       tabs,
@@ -20,7 +19,7 @@ describe('useRestoreBackupSetup', () => {
   })
   it('respects route params defaults', () => {
     useRouteMock.mockReturnValueOnce({ params: { tab: 'seedPhrase' } })
-    const { result } = renderHook(useRestoreBackupSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useRestoreBackupSetup)
 
     expect(result.current).toEqual({
       tabs,
@@ -29,7 +28,7 @@ describe('useRestoreBackupSetup', () => {
     })
   })
   it('changes current tab', () => {
-    const { result } = renderHook(useRestoreBackupSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useRestoreBackupSetup)
 
     act(() => result.current.setCurrentTab(tabs[1]))
     expect(result.current).toEqual({

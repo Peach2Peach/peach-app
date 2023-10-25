@@ -1,7 +1,7 @@
-import { renderHook } from '@testing-library/react-native'
-import { usePremiumSliderSetup } from './usePremiumSliderSetup'
-import { act } from 'react-test-renderer'
 import { LayoutChangeEvent } from 'react-native'
+import { act } from 'react-test-renderer'
+import { renderHook } from 'test-utils'
+import { usePremiumSliderSetup } from './usePremiumSliderSetup'
 
 describe('usePremiumSliderSetup', () => {
   const labelPosition = [-130, -62, 0, 62, 130]

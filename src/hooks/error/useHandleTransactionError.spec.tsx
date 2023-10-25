@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { transactionError } from '../../../tests/unit/data/errors'
 import { useHandleTransactionError } from './useHandleTransactionError'
 

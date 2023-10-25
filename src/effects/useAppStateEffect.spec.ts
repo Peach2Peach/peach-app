@@ -1,6 +1,6 @@
-import { useAppStateEffect } from './useAppStateEffect'
-import { renderHook } from '@testing-library/react-native'
 import { AppState } from 'react-native'
+import { renderHook } from 'test-utils'
+import { useAppStateEffect } from './useAppStateEffect'
 
 describe('useAppStateEffect', () => {
   const appStateSpy = jest.spyOn(AppState, 'addEventListener')

@@ -1,6 +1,6 @@
-import { useCallback, useContext, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
-import { MessageContext } from '../../../contexts/message'
+import { useMessageState } from '../../../components/message/useMessageState'
 import { useNavigation, useValidatedState } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { createAccount, deleteAccount, recoverAccount } from '../../../utils/account'
@@ -20,7 +20,7 @@ const bip39Rules = {
 }
 
 export const useRestoreFromSeedSetup = () => {
-  const [, updateMessage] = useContext(MessageContext)
+  const updateMessage = useMessageState((state) => state.updateMessage)
   const navigation = useNavigation()
   const updateSeedBackupDate = useSettingsStore((state) => state.updateSeedBackupDate)
 
@@ -72,7 +72,7 @@ export const useRestoreFromSeedSetup = () => {
     updateSeedBackupDate()
 
     setTimeout(() => {
-      navigation.replace('home')
+      navigation.replace('buy')
     }, 1500)
   }
 

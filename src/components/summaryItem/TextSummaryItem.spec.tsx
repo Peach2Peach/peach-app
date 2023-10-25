@@ -1,6 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
+import { fireEvent, render } from 'test-utils'
 import { TextSummaryItem } from './TextSummaryItem'
-import { fireEvent, render } from '@testing-library/react-native'
 
 describe('TextSummaryItem', () => {
   const renderer = createRenderer()

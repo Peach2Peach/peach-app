@@ -1,5 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { renderHook, waitFor } from 'test-utils'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletAddress } from './useWalletAddress'
@@ -30,9 +29,8 @@ describe('useWalletAddress', () => {
 
   it('should return the address at the given index', async () => {
     peachWallet.getAddressByIndex = jest.fn().mockImplementation((index: number) => Promise.resolve(addresses[index]))
-    const initialProps: number | undefined = 0
-    const { result, rerender } = renderHook(useWalletAddress, {
-      wrapper: QueryClientWrapper,
+    const initialProps = 0
+    const { result, rerender } = renderHook<ReturnType<typeof useWalletAddress>, number>(useWalletAddress, {
       initialProps,
     })
 

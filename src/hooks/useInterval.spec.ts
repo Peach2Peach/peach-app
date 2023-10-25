@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { useInterval } from './useInterval'
 
 jest.useFakeTimers()

@@ -10,23 +10,23 @@ export const SellAmountSelector = ({ children, style }: ComponentProps) => {
     (state) => [state.sellAmount, state.setSellAmount, state.canContinue.sellAmount],
     shallow,
   )
-  const [minTradingAmount, maxTradingAmount] = useConfigStore(
-    (state) => [state.minTradingAmount, state.maxTradingAmount],
+  const [minTradingAmount, maxSellTradingAmount] = useConfigStore(
+    (state) => [state.minTradingAmount, state.maxSellTradingAmount],
     shallow,
   )
 
   const updateSellAmount = useCallback(
     (value: number) => {
-      setSellAmount(value, { min: minTradingAmount, max: maxTradingAmount })
+      setSellAmount(value, { min: minTradingAmount, max: maxSellTradingAmount })
     },
-    [setSellAmount, minTradingAmount, maxTradingAmount],
+    [setSellAmount, minTradingAmount, maxSellTradingAmount],
   )
 
   return (
     <SelectAmount
       style={[tw`h-full shrink`, style]}
       min={minTradingAmount}
-      max={maxTradingAmount}
+      max={maxSellTradingAmount}
       value={sellAmount}
       onChange={updateSellAmount}
     >

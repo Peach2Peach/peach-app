@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
 import { contract } from '../../../../tests/unit/data/contractData'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { PendingPayoutInfo } from './PendingPayoutInfo'
 
 const useContractContextMock = jest.fn().mockReturnValue({
@@ -19,10 +18,9 @@ jest.mock('../context', () => ({
 }))
 jest.useFakeTimers()
 
-const wrapper = NavigationWrapper
 describe('PendingPayoutInfo', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(<PendingPayoutInfo />, { wrapper })
+    const { toJSON } = render(<PendingPayoutInfo />)
 
     expect(toJSON()).toMatchSnapshot()
   })
@@ -38,7 +36,7 @@ describe('PendingPayoutInfo', () => {
         },
       },
     })
-    const { toJSON } = render(<PendingPayoutInfo />, { wrapper })
+    const { toJSON } = render(<PendingPayoutInfo />)
     expect(toJSON()).toMatchSnapshot()
   })
 })

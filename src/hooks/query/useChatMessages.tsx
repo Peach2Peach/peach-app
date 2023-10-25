@@ -1,9 +1,9 @@
 import { useIsFocused } from '@react-navigation/native'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
+import i18n from '../../utils/i18n'
 import { getChat } from '../../utils/peachAPI'
 import { decryptSymmetric } from '../../utils/pgp'
-import i18n from '../../utils/i18n'
 
 const PAGE_SIZE = 22
 
@@ -55,7 +55,7 @@ const getDecryptedChat
       )
     }
 
-export const useChatMessages = (id: string, symmetricKey?: string) => {
+export const useChatMessages = ({ id, symmetricKey }: { id: string; symmetricKey?: string }) => {
   const isFocused = useIsFocused()
   const { data, isLoading, error, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
     queryKey: ['contract-chat', id],

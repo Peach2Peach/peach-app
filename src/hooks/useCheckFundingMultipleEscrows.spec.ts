@@ -1,9 +1,8 @@
 /* eslint-disable max-lines-per-function */
-import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../tests/unit/data/accountData'
 import { sellOffer } from '../../tests/unit/data/offerData'
 import { offerSummary } from '../../tests/unit/data/offerSummaryData'
-import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { getTransactionDetails } from '../../tests/unit/helpers/getTransactionDetails'
 import { MSINAMINUTE } from '../constants'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
@@ -13,8 +12,6 @@ import { PeachWallet } from '../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../utils/wallet/setWallet'
 import { useWalletState } from '../utils/wallet/walletStore'
 import { useCheckFundingMultipleEscrows } from './useCheckFundingMultipleEscrows'
-
-const wrapper = NavigationAndQueryClientWrapper
 
 jest.useFakeTimers()
 
@@ -30,7 +27,7 @@ describe('useCheckFundingMultipleEscrows', () => {
   const fundingAmount = sellOffers.map((o) => o.amount).reduce(sum, 0)
   const txDetails = getTransactionDetails(fundingAmount, 1)
 
-  // @ts-expect-error init mock, doesn't need args
+  // @ts-ignore
   const peachWallet = new PeachWallet()
   peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails)
   const getAddressUTXOSpy = jest.spyOn(peachWallet, 'getAddressUTXO')
@@ -49,7 +46,7 @@ describe('useCheckFundingMultipleEscrows', () => {
     )
   })
   it('check each registered address for funding each minute', () => {
-    renderHook(useCheckFundingMultipleEscrows, { wrapper })
+    renderHook(useCheckFundingMultipleEscrows)
 
     expect(getAddressUTXOSpy).not.toHaveBeenCalled()
     jest.advanceTimersByTime(MSINAMINUTE)
@@ -58,13 +55,13 @@ describe('useCheckFundingMultipleEscrows', () => {
     expect(getAddressUTXOSpy).toHaveBeenCalledTimes(2)
   })
   it('craft batched funding transaction once funds have been detected in address', async () => {
-    renderHook(useCheckFundingMultipleEscrows, { wrapper })
+    renderHook(useCheckFundingMultipleEscrows)
 
     jest.advanceTimersByTime(MSINAMINUTE)
     await waitFor(() => expect(signAndBroadcastPSBTSpy).toHaveBeenCalledWith(txDetails.psbt))
   })
   it('unregisters batch funding once batched tx has been broadcasted and registered by peach server', async () => {
-    renderHook(useCheckFundingMultipleEscrows, { wrapper })
+    renderHook(useCheckFundingMultipleEscrows)
 
     jest.advanceTimersByTime(MSINAMINUTE)
     await waitFor(() => expect(signAndBroadcastPSBTSpy).toHaveBeenCalledWith(txDetails.psbt))
@@ -82,13 +79,13 @@ describe('useCheckFundingMultipleEscrows', () => {
   })
   it('aborts if no escrow addresses can be found', () => {
     setAccount(defaultAccount)
-    renderHook(useCheckFundingMultipleEscrows, { wrapper })
+    renderHook(useCheckFundingMultipleEscrows)
 
     jest.advanceTimersByTime(MSINAMINUTE)
     expect(getAddressUTXOSpy).not.toHaveBeenCalled()
   })
   it('aborts if no local utxo can be found', () => {
-    renderHook(useCheckFundingMultipleEscrows, { wrapper })
+    renderHook(useCheckFundingMultipleEscrows)
 
     getAddressUTXOSpy.mockResolvedValueOnce([])
     jest.advanceTimersByTime(MSINAMINUTE)

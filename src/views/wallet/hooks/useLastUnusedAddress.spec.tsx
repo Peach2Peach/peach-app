@@ -1,5 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { renderHook, waitFor } from 'test-utils'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useLastUnusedAddress } from './useLastUnusedAddress'
@@ -16,7 +15,7 @@ describe('useLastUnusedAddress', () => {
 
   it('should return last unused address', async () => {
     peachWallet.getLastUnusedAddress = getLastUnusedAddressMock
-    const { result } = renderHook(useLastUnusedAddress, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useLastUnusedAddress)
 
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false)

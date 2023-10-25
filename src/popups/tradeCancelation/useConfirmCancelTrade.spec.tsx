@@ -1,8 +1,7 @@
-import { act, fireEvent, render, renderHook } from '@testing-library/react-native'
+import { act, fireEvent, render, renderHook } from 'test-utils'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
 import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
 import { setAccount } from '../../utils/account'
 import { getSellOfferIdFromContract } from '../../utils/contract'
@@ -13,9 +12,8 @@ import { SellerCanceledContent } from './SellerCanceledContent'
 import { useConfirmCancelTrade } from './useConfirmCancelTrade'
 
 const showLoadingpopupMock = jest.fn()
-const useShowLoadingpopupMock = jest.fn().mockReturnValue(showLoadingpopupMock)
 jest.mock('../../hooks/useShowLoadingPopup', () => ({
-  useShowLoadingPopup: () => useShowLoadingpopupMock(),
+  useShowLoadingPopup: () => showLoadingpopupMock,
 }))
 
 const saveOfferMock = jest.fn()
@@ -49,7 +47,6 @@ jest.mock('./helpers/cancelContractAsBuyer', () => ({
   cancelContractAsBuyer: (...args: unknown[]) => cancelContractAsBuyerMock(...args),
 }))
 describe('useConfirmCancelTrade', () => {
-  const wrapper = NavigationWrapper
   beforeAll(() => {
     setAccount({ ...account1, offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }] })
     // @ts-ignore
@@ -61,11 +58,11 @@ describe('useConfirmCancelTrade', () => {
 
   it('should show confirm cancelation popup for buyer', async () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
+    const { result } = renderHook(useConfirmCancelTrade)
     result.current(contract)
 
     const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { toJSON, getAllByText } = render(popupComponent, { wrapper })
+    const { toJSON, getAllByText } = render(popupComponent)
     expect(toJSON()).toMatchSnapshot()
     await act(async () => {
       await fireEvent.press(getAllByText('cancel trade')[1])
@@ -78,11 +75,11 @@ describe('useConfirmCancelTrade', () => {
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
       publicKey: contract.seller.id,
     })
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
+    const { result } = renderHook(useConfirmCancelTrade)
     result.current(contract)
 
     const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { toJSON, getAllByText } = render(popupComponent, { wrapper })
+    const { toJSON, getAllByText } = render(popupComponent)
     expect(toJSON()).toMatchSnapshot()
     await act(async () => {
       await fireEvent.press(getAllByText('cancel trade')[1])
@@ -90,26 +87,26 @@ describe('useConfirmCancelTrade', () => {
     expect(cancelContractAsSellerMock).toHaveBeenCalledWith(contract)
   })
   it('confirmpopup should be gray', () => {
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
+    const { result } = renderHook(useConfirmCancelTrade)
     result.current(contract)
 
     expect(usePopupStore.getState().level).toBe('DEFAULT')
   })
   it('should show the correct popup for cash trades of the seller', () => {
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
+    const { result } = renderHook(useConfirmCancelTrade)
     result.current({ ...contract, paymentMethod: 'cash' })
 
     const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { toJSON } = render(popupComponent, { wrapper })
+    const { toJSON } = render(popupComponent)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should show the correct confirmation popup for canceled trade as buyer', async () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
 
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
+    const { result } = renderHook(useConfirmCancelTrade)
     result.current(contract)
     const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { getAllByText } = render(popupComponent, { wrapper })
+    const { getAllByText } = render(popupComponent)
     await act(async () => {
       await fireEvent.press(getAllByText('cancel trade')[1])
     })
@@ -128,11 +125,11 @@ describe('useConfirmCancelTrade', () => {
       publicKey: contract.seller.id,
     })
 
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
+    const { result } = renderHook(useConfirmCancelTrade)
     result.current(contract)
 
     const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { getAllByText } = render(popupComponent, { wrapper })
+    const { getAllByText } = render(popupComponent)
 
     await act(async () => {
       await fireEvent.press(getAllByText('cancel trade')[1])
@@ -159,11 +156,11 @@ describe('useConfirmCancelTrade', () => {
       publicKey: contract.seller.id,
     })
 
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
+    const { result } = renderHook(useConfirmCancelTrade)
     result.current({ ...contract, paymentMethod: 'cash' })
 
     const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { getByText } = render(popupComponent, { wrapper })
+    const { getByText } = render(popupComponent)
 
     await act(async () => {
       await fireEvent.press(getByText('cancel trade'))
@@ -184,11 +181,11 @@ describe('useConfirmCancelTrade', () => {
       publicKey: contract.seller.id,
     })
 
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
+    const { result } = renderHook(useConfirmCancelTrade)
     result.current({ ...contract, paymentMethod: 'cash' })
 
     const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { getByText } = render(popupComponent, { wrapper })
+    const { getByText } = render(popupComponent)
 
     await act(async () => {
       await fireEvent.press(getByText('cancel trade'))
