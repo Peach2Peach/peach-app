@@ -5,13 +5,10 @@ import { sellOffer } from '../../../tests/unit/data/offerData'
 import { handlePushNotification } from './handlePushNotification'
 
 const getContractMock = jest.fn()
-jest.mock('../contract', () => ({
-  getContract: (...args: unknown[]) => getContractMock(...args),
-}))
-
 const getOfferDetailsMock = jest.fn()
 jest.mock('../peachAPI', () => ({
   getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
+  getContract: (...args: unknown[]) => getContractMock(...args),
 }))
 
 describe('handlePushNotification', () => {
@@ -32,7 +29,7 @@ describe('handlePushNotification', () => {
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
 
-    getContractMock.mockReturnValue(contract)
+    getContractMock.mockResolvedValue([contract])
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
@@ -53,7 +50,7 @@ describe('handlePushNotification', () => {
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
 
-    getContractMock.mockReturnValue(null)
+    getContractMock.mockResolvedValue([null])
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
@@ -70,7 +67,7 @@ describe('handlePushNotification', () => {
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
 
-    getContractMock.mockReturnValue(contract)
+    getContractMock.mockResolvedValue([contract])
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
