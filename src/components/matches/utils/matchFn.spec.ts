@@ -28,7 +28,10 @@ const generateMatchOfferDataMock = jest.fn().mockResolvedValue(getResult(default
 jest.mock('./generateMatchOfferData', () => ({
   generateMatchOfferData: () => generateMatchOfferDataMock(),
 }))
-const matchOfferMock = jest.fn(() => [offer.paymentData[selectedPaymentMethod], undefined])
+const matchOfferMock = jest.fn(
+  (): Promise<[MatchResponse | null, APIError | null]> =>
+    Promise.resolve([{ ...(offer.paymentData[selectedPaymentMethod] || null), success: true }, null]),
+)
 jest.mock('../../../utils/peachAPI', () => ({
   matchOffer: () => matchOfferMock(),
 }))
@@ -70,7 +73,7 @@ describe('matchFn', () => {
   })
 
   it('should throw an error if no result', async () => {
-    matchOfferMock.mockReturnValueOnce([undefined, 'UNKNOWN_ERROR'])
+    matchOfferMock.mockResolvedValueOnce([null, { error: 'UNKNOWN_ERROR' }])
     await expect(matchFn(match, offer, selectedCurrency, selectedPaymentMethod, updateMessage)).rejects.toThrow()
   })
 })

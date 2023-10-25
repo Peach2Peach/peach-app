@@ -30,7 +30,7 @@ describe('useWalletAddress', () => {
 
   it('should return the address at the given index', async () => {
     peachWallet.getAddressByIndex = jest.fn().mockImplementation((index: number) => Promise.resolve(addresses[index]))
-    const initialProps = 0
+    const initialProps: number | undefined = 0
     const { result, rerender } = renderHook(useWalletAddress, {
       wrapper: QueryClientWrapper,
       initialProps,
