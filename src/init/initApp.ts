@@ -3,7 +3,6 @@ import { userUpdate } from '../init/userUpdate'
 import { account, loadAccount } from '../utils/account'
 import { getPeachInfo } from './getPeachInfo'
 import { getTrades } from './getTrades'
-import { saveMeetupEvents } from './saveMeetupEvents'
 
 export const initApp = async (): Promise<GetStatusResponse | undefined> => {
   dataMigrationBeforeLoadingAccount()
@@ -15,6 +14,6 @@ export const initApp = async (): Promise<GetStatusResponse | undefined> => {
     userUpdate()
     dataMigrationAfterLoadingAccount()
   }
-  if (!statusResponse?.error) saveMeetupEvents()
+
   return statusResponse
 }
