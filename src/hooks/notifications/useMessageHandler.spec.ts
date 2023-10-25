@@ -3,7 +3,6 @@ import { AppState } from 'react-native'
 import { act, renderHook } from 'test-utils'
 import { contract } from '../../../tests/unit/data/contractData'
 import { defaultState, useMessageState } from '../../components/message/useMessageState'
-import { getContract } from '../../utils/contract'
 import { getContract as getContractAPI } from '../../utils/peachAPI'
 import { useMessageHandler } from './useMessageHandler'
 
@@ -45,7 +44,7 @@ jest.mock('./useGetPNActionHandler', () => ({
 // eslint-disable-next-line max-lines-per-function
 describe('useMessageHandler', () => {
   beforeEach(() => {
-    (getContract as jest.Mock).mockReturnValue(contract)
+    (getContractAPI as jest.Mock).mockResolvedValue([contract])
     ;(getContractAPI as jest.Mock).mockResolvedValue([contract])
     useMessageState.setState(defaultState)
   })

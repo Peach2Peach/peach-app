@@ -99,7 +99,7 @@ export function PaymentReceivedSlider () {
 export function CancelTradeSlider () {
   const { contract } = useContractContext()
   const { mutate } = useContractMutation(
-    { canceled: true, tradeStatus: 'tradeCanceled' },
+    { canceled: true, tradeStatus: 'refundOrReviveRequired' },
     {
       mutationFn: async () => {
         const result = await cancelContractAsSeller(contract)
@@ -204,6 +204,7 @@ function useContractMutation (optimisticContract: Partial<Contract>, options: Us
     },
     onSettled: () => {
       queryClient.invalidateQueries(['contract', contractId])
+      queryClient.invalidateQueries(['contractSummaries'])
     },
   })
 }

@@ -1,5 +1,4 @@
 import * as chatData from './chatData'
-import { contract } from './contractData'
 import { buyOffer, sellOffer } from './offerData'
 
 const publicKey = '03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682'
@@ -17,7 +16,6 @@ const pgp = {
 }
 export const recoveredAccount: Account = {
   offers: [],
-  contracts: [],
   chats: {},
   tradingLimit: {
     daily: 1000,
@@ -44,7 +42,6 @@ export const account1: Account & { mnemonic: string; base58: string } = {
     yearlyAmount: 0,
   },
   offers: [buyOffer, sellOffer],
-  contracts: [contract],
   chats: {},
   pgp,
   publicKey,
@@ -63,7 +60,6 @@ export const seller: Account = {
     yearlyAmount: 0,
   },
   offers: [buyOffer, sellOffer],
-  contracts: [],
   chats: {},
   pgp,
   publicKey,
@@ -82,7 +78,6 @@ export const buyer: Account = {
     yearlyAmount: 0,
   },
   offers: [buyOffer, sellOffer],
-  contracts: [],
   chats: {
     [chatData.chat1.id]: chatData.chat1,
   },
@@ -103,7 +98,6 @@ export const userWithNoTrades: Account = {
     yearlyAmount: 0,
   },
   offers: [],
-  contracts: [],
   chats: {},
   pgp,
   publicKey: '02adcf3c857078dc3ca7064a49d20c6ae4978809057ffb75dc0750d8b5020aafe9',

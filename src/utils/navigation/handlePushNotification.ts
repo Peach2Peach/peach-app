@@ -1,8 +1,7 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { getContract } from '../contract'
-import { getOfferDetails } from '../peachAPI'
+import { getContract, getOfferDetails } from '../peachAPI'
 import { isDefined } from '../validation'
 import { shouldGoToContract } from './shouldGoToContract'
 import { shouldGoToContractChat } from './shouldGoToContractChat'
@@ -30,7 +29,7 @@ export const handlePushNotification = async (
     const {
       data: { contractId, sentTime },
     } = remoteMessage
-    const contract = getContract(contractId)
+    const [contract] = await getContract({ contractId })
     navigationRef.navigate('contract', {
       contract: contract
         ? {
