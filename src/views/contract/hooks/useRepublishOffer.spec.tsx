@@ -1,8 +1,8 @@
-import { useRepublishOffer } from './useRepublishOffer'
 import { renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { OfferRepublished } from '../../../popups/tradeCancelation'
 import { usePopupStore } from '../../../store/usePopupStore'
+import { useRepublishOffer } from './useRepublishOffer'
 
 const reviveSellOfferMock = jest.fn()
 jest.mock('../../../utils/peachAPI', () => ({
@@ -10,10 +10,8 @@ jest.mock('../../../utils/peachAPI', () => ({
 }))
 
 const getSellOfferFromContractMock = jest.fn()
-const saveContractMock = jest.fn()
 jest.mock('../../../utils/contract', () => ({
   getSellOfferFromContract: (contract: Contract) => getSellOfferFromContractMock(contract),
-  saveContract: (contract: Contract) => saveContractMock(contract),
 }))
 
 const showErrorBannerMock = jest.fn()
@@ -81,11 +79,6 @@ describe('useRepublishOffer', () => {
     await result.current(contract)
     usePopupStore.getState().action2?.callback()
     expect(usePopupStore.getState().visible).toBe(false)
-    expect(saveContractMock).toHaveBeenCalledWith({
-      ...contract,
-      cancelConfirmationPending: false,
-      cancelConfirmationDismissed: true,
-    })
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
 
@@ -96,11 +89,6 @@ describe('useRepublishOffer', () => {
     await result.current(contract)
     usePopupStore.getState().action1?.callback()
     expect(usePopupStore.getState().visible).toBe(false)
-    expect(saveContractMock).toHaveBeenCalledWith({
-      ...contract,
-      cancelConfirmationPending: false,
-      cancelConfirmationDismissed: true,
-    })
     expect(replaceMock).toHaveBeenCalledWith('search', { offerId: 'newOfferId' })
   })
 })

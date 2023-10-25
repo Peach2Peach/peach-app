@@ -10,10 +10,8 @@ const userUpdateMock = jest.fn()
 jest.mock('../../init/userUpdate', () => ({
   userUpdate: () => userUpdateMock(),
 }))
-const getContractsMock = jest.fn().mockResolvedValue([[], null])
 const getOffersMock = jest.fn().mockResolvedValue([[], null])
 jest.mock('../peachAPI', () => ({
-  getContracts: (...args: unknown[]) => getContractsMock(...args),
   getOffers: (...args: unknown[]) => getOffersMock(...args),
 }))
 
@@ -45,12 +43,6 @@ describe('recoverAccount', () => {
   })
   it('handles api errors for offers', async () => {
     getOffersMock.mockReturnValueOnce([null, unauthorizedError])
-
-    await recoverAccount(recoveredAccount)
-    expect(error).toHaveBeenCalledWith('Error', unauthorizedError)
-  })
-  it('handles api errors for contracts', async () => {
-    getContractsMock.mockReturnValueOnce([null, unauthorizedError])
 
     await recoverAccount(recoveredAccount)
     expect(error).toHaveBeenCalledWith('Error', unauthorizedError)

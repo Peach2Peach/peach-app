@@ -31,11 +31,6 @@ jest.mock('../../../hooks/useHeaderSetup', () => ({
   useHeaderSetup: (...args: unknown[]) => useHeaderSetupMock(...args),
 }))
 
-const getContractMock = jest.fn().mockReturnValue(contract)
-jest.mock('../../../utils/contract/getContract', () => ({
-  getContract: (...args: unknown[]) => getContractMock(...args),
-}))
-
 const submitRaiseDisputeMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../utils/submitRaiseDispute', () => ({
   submitRaiseDispute: (...args: unknown[]) => submitRaiseDisputeMock(...args),
@@ -50,7 +45,6 @@ jest.mock('../../../popups/dispute/hooks/useDisputeRaisedSuccess', () => ({
   useDisputeRaisedSuccess: () => showDisputeRaisedPopupMock,
 }))
 
-// eslint-disable-next-line max-lines-per-function
 describe('useDisputeReasonSelectorSetup', () => {
   it('returns default values correctly for seller', () => {
     setAccount({ ...account1, publicKey: contract.seller.id })

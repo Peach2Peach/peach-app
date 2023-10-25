@@ -26,11 +26,6 @@ jest.mock('../../../../utils/peachAPI/private/contract', () => ({
   acknowledgeDispute: (...args: unknown[]) => acknowledgeDisputeMock(...args),
 }))
 
-const saveContractMock = jest.fn()
-jest.mock('../../../../utils/contract/saveContract', () => ({
-  saveContract: (...args: unknown[]) => saveContractMock(...args),
-}))
-
 const wrapper = NavigationAndQueryClientWrapper
 
 describe('useSubmitDisputeAcknowledgement', () => {
@@ -71,10 +66,6 @@ describe('useSubmitDisputeAcknowledgement', () => {
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
-    expect(saveContractMock).toHaveBeenCalledWith({
-      ...contract,
-      isEmailRequired: false,
-    })
   })
   it('saves contract for buyer update when successful', async () => {
     setAccount({ ...defaultAccount, publicKey: contract.buyer.id })
@@ -82,10 +73,6 @@ describe('useSubmitDisputeAcknowledgement', () => {
     result.current({ contractId: contract.id, disputeReason: 'other', email: '' })
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
-    })
-    expect(saveContractMock).toHaveBeenCalledWith({
-      ...contract,
-      isEmailRequired: false,
     })
   })
   it('closes popup when successful', async () => {

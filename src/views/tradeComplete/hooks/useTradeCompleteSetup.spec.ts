@@ -16,11 +16,6 @@ jest.mock('../../../utils/analytics', () => ({
   logTradeCompleted: (...args: unknown[]) => logTradeCompletedMock(...args),
 }))
 
-const saveContractMock = jest.fn()
-jest.mock('../../../utils/contract/saveContract', () => ({
-  saveContract: (...args: unknown[]) => saveContractMock(...args),
-}))
-
 describe('useTradeCompleteSetup', () => {
   it('returns default values correctly as buyer', () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
@@ -60,6 +55,5 @@ describe('useTradeCompleteSetup', () => {
 
     act(() => result.current.saveAndUpdate(contractUpdate))
     expect(result.current.contract).toEqual(contractUpdate)
-    expect(saveContractMock).toHaveBeenCalledWith(contractUpdate)
   })
 })

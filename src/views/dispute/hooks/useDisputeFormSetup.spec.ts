@@ -29,14 +29,8 @@ jest.mock('../../../hooks/useHeaderSetup', () => ({
 }))
 
 const showErrorBannerMock = jest.fn()
-const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner: () => useShowErrorBannerMock(),
-}))
-
-const getContractMock = jest.fn()
-jest.mock('../../../utils/contract/getContract', () => ({
-  getContract: () => getContractMock(),
+  useShowErrorBanner: () => showErrorBannerMock,
 }))
 
 const submitRaiseDisputeMock = jest.fn()
@@ -45,11 +39,7 @@ jest.mock('../utils/submitRaiseDispute', () => ({
 }))
 
 const disputeRaisedSuccessMock = jest.fn()
-const useDisputeRaisedSuccessMock = jest.fn(
-  () =>
-    (...args: unknown[]) =>
-      disputeRaisedSuccessMock(...args),
-)
+const useDisputeRaisedSuccessMock = jest.fn(() => disputeRaisedSuccessMock)
 jest.mock('../../../popups/dispute/hooks/useDisputeRaisedSuccess', () => ({
   useDisputeRaisedSuccess: () => useDisputeRaisedSuccessMock(),
 }))

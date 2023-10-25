@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { sortContractsByDate } from '../../utils/contract'
+import { sortSummariesByDate } from '../../utils/contract'
 import { useContractSummaries } from './useContractSummaries'
 import { useOfferSummaries } from './useOfferSummaries'
 
@@ -18,7 +18,7 @@ export const useTradeSummaries = (enabled = true) => {
   }, [refetchContracts, refetchOffers])
 
   const filteredOffers = offers.filter(({ contractId }) => !contractId)
-  const tradeSummaries = [...filteredOffers, ...contracts].sort(sortContractsByDate).reverse()
+  const tradeSummaries = [...filteredOffers, ...contracts].sort(sortSummariesByDate).reverse()
 
   return {
     isLoading: offersLoading || contractsLoading,
