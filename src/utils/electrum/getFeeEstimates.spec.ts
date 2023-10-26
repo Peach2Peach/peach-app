@@ -12,6 +12,7 @@ describe('getFeeEstimates', () => {
         'Content-Type': 'application/json',
         Origin: 'https://localhost:8080',
         Referer: 'https://localhost:8080',
+        'User-Agent': '',
       },
       method: 'GET',
       signal: undefined,

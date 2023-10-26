@@ -108,7 +108,6 @@ export const Message = () => {
     (async () => {
       const statusResponse = await initApp()
 
-      console.log(statusResponse)
       if (!statusResponse || statusResponse.error) {
         if (statusResponse?.error === 'HUMAN_VERIFICATION_REQUIRED') {
           setPopup(<VerifyYouAreAHumanPopup />)

@@ -72,7 +72,7 @@ exports[`VerifyYouAreAHumanPopup renders correctly 1`] = `
   }
   content={
     <PeachText>
-      Our threat detection systems believe you might not be human, please continue and pass the test.
+      Our security systems would like to make sure you're human. Before you continue, please complete a quick verification test.
     </PeachText>
   }
   title="Please verify you are human"
