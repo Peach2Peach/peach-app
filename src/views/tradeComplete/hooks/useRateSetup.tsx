@@ -55,6 +55,7 @@ export const useRateSetup = ({ contract, view, vote }: Props) => {
       return
     }
     await queryClient.invalidateQueries(['contract', contract.id])
+    await queryClient.invalidateQueries(['contractSummaries'])
     navigateAfterRating(rating)
   }
 
