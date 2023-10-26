@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query'
 import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -14,6 +15,7 @@ type Props = {
 }
 export const useRateSetup = ({ contract, view, vote }: Props) => {
   const navigation = useNavigation()
+  const queryClient = useQueryClient()
   const setPopup = usePopupStore((state) => state.setPopup)
   const showError = useShowErrorBanner()
   const [shouldShowBackupOverlay, setShowBackupReminder, isPeachWalletActive] = useSettingsStore(
@@ -52,7 +54,7 @@ export const useRateSetup = ({ contract, view, vote }: Props) => {
       showError(err.error)
       return
     }
-
+    await queryClient.invalidateQueries(['contract', contract.id])
     navigateAfterRating(rating)
   }
 

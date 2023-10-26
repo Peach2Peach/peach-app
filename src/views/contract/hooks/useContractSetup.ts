@@ -7,8 +7,7 @@ import { useNavigation, useRoute } from '../../../hooks'
 import { useHandleNotifications } from '../../../hooks/notifications/useHandleNotifications'
 import { useContractDetails } from '../../../hooks/query/useContractDetails'
 import { account } from '../../../utils/account'
-import { getContractViewer, shouldRateCounterParty } from '../../../utils/contract'
-import { isTradeComplete } from '../../../utils/contract/status'
+import { getContractViewer } from '../../../utils/contract'
 import { useWebsocketContext } from '../../../utils/peachAPI/websocket'
 import { useShowHighFeeWarning } from './useShowHighFeeWarning'
 import { useShowLowFeeWarning } from './useShowLowFeeWarning'
@@ -34,15 +33,11 @@ export const useContractSetup = () => {
   useShowLowFeeWarning({ enabled: shouldShowFeeWarning })
 
   useEffect(() => {
-    if (!contract || !view || isLoading || !isFocused) return
-    if (isTradeComplete(contract) && !contract.disputeWinner && !contract.canceled) {
-      if (shouldRateCounterParty(contract, view)) {
-        refetch().then(({ data }) => {
-          if (data && shouldRateCounterParty(data, view)) navigation.replace('tradeComplete', { contract: data })
-        })
-      }
+    if (!isFocused) return
+    if (contract?.tradeStatus === 'rateUser') {
+      navigation.navigate('tradeComplete', { contractId })
     }
-  }, [contract, isFocused, isLoading, navigation, refetch, view])
+  }, [contract?.tradeStatus, contractId, isFocused, navigation])
 
   useChatMessageHandler()
   useContractUpdateHandler()

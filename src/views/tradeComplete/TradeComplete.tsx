@@ -4,18 +4,27 @@ import { IconType } from '../../assets/icons'
 import { Icon, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { useRoute } from '../../hooks'
+import { useContractDetails } from '../../hooks/query/useContractDetails'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import { logTradeCompleted } from '../../utils/analytics'
 import { getContractViewer } from '../../utils/contract'
 import i18n from '../../utils/i18n'
+import { LoadingScreen } from '../loading/LoadingScreen'
 import { useRateSetup } from './hooks/useRateSetup'
 
 export const TradeComplete = () => {
-  const { contract } = useRoute<'tradeComplete'>().params
-  const view = getContractViewer(contract, account)
+  const { contractId } = useRoute<'tradeComplete'>().params
+  const { contract } = useContractDetails(contractId)
+  if (!contract) return <LoadingScreen />
 
+  return <TradeCompleteView contract={contract} />
+}
+
+function TradeCompleteView ({ contract }: { contract: Contract }) {
   const [vote, setVote] = useState<'positive' | 'negative'>()
+
+  const view = getContractViewer(contract, account)
 
   useEffect(() => {
     logTradeCompleted(contract)

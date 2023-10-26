@@ -86,7 +86,7 @@ type RootStackParamList = {
     reason: DisputeReason
   }
   tradeComplete: {
-    contract: Contract
+    contractId: Contract['id']
   }
   yourTrades:
     | {
