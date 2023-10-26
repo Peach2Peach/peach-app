@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import tw from '../styles/tailwind'
+import { account } from '../utils/account'
 import { screenTransition } from '../utils/layout/screenTransition'
 import { isIOS } from '../utils/system'
 import { views } from './views'
@@ -11,6 +12,7 @@ export const Screens = () => (
       gestureEnabled: isIOS(),
       headerShown: false,
     }}
+    initialRouteName={account.publicKey ? 'welcome' : 'buy'}
   >
     {views.map(({ name, component, background, animationEnabled, headerShown }) => (
       <Stack.Screen
