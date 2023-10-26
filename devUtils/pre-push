@@ -1,3 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env bash
+
 npm run lint
-npm run test:ci
+npm run test
