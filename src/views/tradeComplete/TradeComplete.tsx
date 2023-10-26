@@ -11,13 +11,10 @@ import i18n from '../../utils/i18n'
 import { useRateSetup } from './hooks/useRateSetup'
 
 export const TradeComplete = () => {
-  const route = useRoute<'tradeComplete'>()
-  const [contract, setContract] = useState<Contract>(route.params.contract)
-  const view = getContractViewer(route.params.contract, account)
+  const { contract } = useRoute<'tradeComplete'>().params
+  const view = getContractViewer(contract, account)
 
   const [vote, setVote] = useState<'positive' | 'negative'>()
-
-  const saveAndUpdate = setContract
 
   useEffect(() => {
     logTradeCompleted(contract)
@@ -65,7 +62,7 @@ export const TradeComplete = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <Rate {...{ contract, view, vote, saveAndUpdate }} />
+      <Rate {...{ contract, view, vote }} />
     </View>
   )
 }
@@ -74,11 +71,10 @@ type Props = ComponentProps & {
   contract: Contract
   view: ContractViewer
   vote: 'positive' | 'negative' | undefined
-  saveAndUpdate: (contract: Contract) => void
 }
 
-function Rate ({ contract, view, saveAndUpdate, vote }: Props) {
-  const { rate, showTradeBreakdown } = useRateSetup({ contract, view, saveAndUpdate, vote })
+function Rate ({ contract, view, vote }: Props) {
+  const { rate, showTradeBreakdown } = useRateSetup({ contract, view, vote })
 
   return (
     <View style={tw`gap-3`}>
