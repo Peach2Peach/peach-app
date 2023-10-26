@@ -248,7 +248,10 @@ export class PeachWallet extends PeachJSWallet {
 
       this.blockchain.broadcast(await signedPSBT.extractTx())
       info('PeachWallet - signAndBroadcastPSBT - broadcasted')
-      this.syncWallet()
+
+      this.syncWallet().catch((e) => {
+        error(parseError(e))
+      })
 
       info('PeachWallet - signAndBroadcastPSBT - end')
 
