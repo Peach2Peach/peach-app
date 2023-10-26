@@ -34,6 +34,7 @@ export type SettingsStore = Settings & {
   setUsedReferralCode: (usedReferralCode: boolean) => void
   setPGPPublished: (pgpPublished: boolean) => void
   setFCMToken: (fcmToken: string) => void
+  setCloudflareChallenge: (cloudflareChallenge: Settings['cloudflareChallenge']) => void
 }
 
 const storage = createPersistStorage<SettingsStore>(settingsStorage)
@@ -79,6 +80,7 @@ export const useSettingsStore = create(
       setUsedReferralCode: (usedReferralCode) => set({ usedReferralCode }),
       setPGPPublished: (pgpPublished) => set({ pgpPublished }),
       setFCMToken: (fcmToken) => set({ fcmToken }),
+      setCloudflareChallenge: (cloudflareChallenge) => set({ cloudflareChallenge }),
     }),
     {
       name: 'settings',

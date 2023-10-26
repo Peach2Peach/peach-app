@@ -11,7 +11,7 @@ const setPaymentMethodsFromStore = () => {
   setPaymentMethods(useConfigStore.getState().paymentMethods.filter(shouldUsePaymentMethod(PAYMENTCATEGORIES)))
 }
 
-export const getPeachInfo = async (): Promise<GetStatusResponse | undefined> => {
+export const getPeachInfo = async (): Promise<GetStatusResponse | APIError | null> => {
   if (!useConfigStore.persist.hasHydrated() || !usePaymentDataStore.persist.hasHydrated()) {
     await new Promise((resolve) => setTimeout(resolve, 1000))
     return getPeachInfo()
