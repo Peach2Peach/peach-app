@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View, ViewStyle } from 'react-native'
+import { IconType } from '../../assets/icons'
 import { Icon, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { useRoute } from '../../hooks'
@@ -31,35 +32,19 @@ export const TradeComplete = () => {
         </View>
 
         <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('rate.subtitle')}</Text>
-        <View style={tw`flex-row justify-center mt-4`}>
-          <TouchableOpacity
+        <View style={tw`flex-row justify-center gap-12 mt-4`}>
+          <RateButton
             onPress={() => setVote('negative')}
-            style={[
-              tw`px-4 pb-[13px] pt-[19px] w-16 h-16 items-center justify-center mr-6`,
-              tw`border-[3px] border-primary-background-light rounded-[21px]`,
-              vote === 'negative' && tw`bg-primary-background-light`,
-            ]}
-          >
-            <Icon
-              id="thumbsDown"
-              style={tw`w-8 h-8`}
-              color={vote === 'negative' ? tw`text-primary-main`.color : tw`text-primary-background-light`.color}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
+            iconId="thumbsDown"
+            isSelected={vote === 'negative'}
+            style={tw`pb-[13px] pt-[19px]`}
+          />
+          <RateButton
             onPress={() => setVote('positive')}
-            style={[
-              tw`px-4 pt-[13px] pb-[19px] w-16 h-16 items-center justify-center ml-6`,
-              tw`border-[3px] border-primary-background-light rounded-[21px]`,
-              vote === 'positive' && tw`bg-primary-background-light`,
-            ]}
-          >
-            <Icon
-              id="thumbsUp"
-              style={tw`w-8 h-8`}
-              color={vote === 'positive' ? tw`text-primary-main`.color : tw`text-primary-background-light`.color}
-            />
-          </TouchableOpacity>
+            iconId="thumbsUp"
+            isSelected={vote === 'positive'}
+            style={tw`pt-[13px] pb-[19px]`}
+          />
         </View>
       </View>
       <Rate {...{ contract, view, vote }} />
@@ -67,13 +52,40 @@ export const TradeComplete = () => {
   )
 }
 
-type Props = ComponentProps & {
+type RateButtonProps = {
+  isSelected: boolean
+  onPress: () => void
+  iconId: IconType
+  style: ViewStyle
+}
+
+function RateButton ({ isSelected, onPress, iconId, style }: RateButtonProps) {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={[
+        tw`items-center justify-center w-16 h-16 px-4`,
+        tw`border-[3px] border-primary-background-light rounded-[21px]`,
+        isSelected && tw`bg-primary-background-light`,
+        style,
+      ]}
+    >
+      <Icon
+        id={iconId}
+        size={32}
+        color={isSelected ? tw`text-primary-main`.color : tw`text-primary-background-light`.color}
+      />
+    </TouchableOpacity>
+  )
+}
+
+type RateProps = ComponentProps & {
   contract: Contract
   view: ContractViewer
   vote: 'positive' | 'negative' | undefined
 }
 
-function Rate ({ contract, view, vote }: Props) {
+function Rate ({ contract, view, vote }: RateProps) {
   const { rate, showTradeBreakdown } = useRateSetup({ contract, view, vote })
 
   return (
