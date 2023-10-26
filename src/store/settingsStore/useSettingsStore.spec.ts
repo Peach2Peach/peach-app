@@ -1,6 +1,6 @@
-import { useSettingsStore } from './useSettingsStore'
 import analytics from '@react-native-firebase/analytics'
 import perf from '@react-native-firebase/perf'
+import { useSettingsStore } from './useSettingsStore'
 
 describe('settingsStore', () => {
   it('should keep analytics popup seen state when resetting', () => {
@@ -95,5 +95,16 @@ describe('settingsStore - togglePeachWallet', () => {
     expect(useSettingsStore.getState().peachWalletActive).toBeFalsy()
     useSettingsStore.getState().togglePeachWallet()
     expect(useSettingsStore.getState().peachWalletActive).toBeTruthy()
+  })
+})
+
+describe('settingsStore - setCloudflareChallenge', () => {
+  it('should set cloudflare challenge solution', () => {
+    const cloudflareChallenge = {
+      cfClearance: 'cfClearance',
+      userAgent: 'userAgent',
+    }
+    useSettingsStore.getState().setCloudflareChallenge(cloudflareChallenge)
+    expect(useSettingsStore.getState().cloudflareChallenge).toEqual(cloudflareChallenge)
   })
 })
