@@ -8,9 +8,8 @@ import { usePopupStore } from '../../../store/usePopupStore'
 import { useRateSetup } from './useRateSetup'
 
 const showErrorBannerMock = jest.fn()
-const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner: () => useShowErrorBannerMock(),
+  useShowErrorBanner: () => showErrorBannerMock,
 }))
 
 const rateUserMock = jest.fn().mockResolvedValue([apiSuccess, null])
@@ -37,7 +36,6 @@ jest.mock('../../../utils/bitcoin', () => ({
   getTradeBreakdown: (...args: unknown[]) => getTradeBreakdownMock(...args),
 }))
 
-// eslint-disable-next-line max-lines-per-function
 describe('useRateSetup', () => {
   const now = new Date()
   const positiveRating = {
@@ -65,7 +63,6 @@ describe('useRateSetup', () => {
     expect(result.current).toEqual({
       rate: expect.any(Function),
       showTradeBreakdown: expect.any(Function),
-      viewInExplorer: expect.any(Function),
     })
   })
   it('does not submit rating if none has been set', async () => {
@@ -86,10 +83,6 @@ describe('useRateSetup', () => {
       rating: positiveRating.rating,
       signature: positiveRating.signature,
     })
-    expect(saveAndUpdateMock).toHaveBeenCalledWith({
-      ...contract,
-      ratingSeller: 1,
-    })
   })
   it('does submit rating as seller', async () => {
     createUserRatingMock.mockReturnValueOnce(positiveRating)
@@ -101,10 +94,6 @@ describe('useRateSetup', () => {
       contractId: contract.id,
       rating: positiveRating.rating,
       signature: positiveRating.signature,
-    })
-    expect(saveAndUpdateMock).toHaveBeenCalledWith({
-      ...contract,
-      ratingBuyer: 1,
     })
   })
   it('does submit positive rating and navigates to backupTime', async () => {
@@ -177,16 +166,5 @@ describe('useRateSetup', () => {
 
     expect(render(popupComponent)).toMatchSnapshot()
     expect(getTradeBreakdownMock).toHaveBeenCalled()
-  })
-  it('opens tx in explorer', () => {
-    const contractWithTxId = { ...contract, releaseTxId: 'releaseTxId' }
-    const { result } = renderHook(useRateSetup, { initialProps: { ...initialProps, contract: contractWithTxId } })
-    result.current.viewInExplorer()
-    expect(showTransactionMock).toHaveBeenCalledWith(contractWithTxId.releaseTxId, 'regtest')
-  })
-  it('opens escrow address in explorer if txId is not known', () => {
-    const { result } = renderHook(useRateSetup, { initialProps })
-    result.current.viewInExplorer()
-    expect(showAddressMock).toHaveBeenCalledWith(contract.escrow, 'regtest')
   })
 })
