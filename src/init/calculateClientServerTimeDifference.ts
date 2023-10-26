@@ -9,7 +9,7 @@ import { getStatus } from '../utils/peachAPI'
  */
 export const calculateClientServerTimeDifference = async (): Promise<GetStatusResponse | APIError | null> => {
   const start = Date.now()
-  const [peachStatusResponse, peachStatusErr] = await getStatus({})
+  const [peachStatusResponse, peachStatusErr] = await getStatus({ timeout: 10000 })
   const end = Date.now()
   const roundTrip = (end - start) / 2
 
