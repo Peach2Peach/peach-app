@@ -1,12 +1,11 @@
-import { act, renderHook } from 'test-utils'
+import { act, render, renderHook } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { TradeBreakdown } from '../../../popups/TradeBreakdown'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
-import { Props, useRateSetup } from './useRateSetup'
+import { useRateSetup } from './useRateSetup'
 
 const showErrorBannerMock = jest.fn()
 const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
@@ -26,9 +25,16 @@ jest.mock('../../../utils/contract', () => ({
 
 const showTransactionMock = jest.fn()
 const showAddressMock = jest.fn()
+const getTradeBreakdownMock = jest.fn((..._args: unknown[]) => ({
+  totalAmount: 21000,
+  peachFee: 21,
+  networkFee: 210,
+  amountReceived: 20769,
+}))
 jest.mock('../../../utils/bitcoin', () => ({
   showTransaction: (...args: unknown[]) => showTransactionMock(...args),
   showAddress: (...args: unknown[]) => showAddressMock(...args),
+  getTradeBreakdown: (...args: unknown[]) => getTradeBreakdownMock(...args),
 }))
 
 // eslint-disable-next-line max-lines-per-function
@@ -47,7 +53,7 @@ describe('useRateSetup', () => {
     signature: 'signature',
   }
   const saveAndUpdateMock = jest.fn()
-  const initialProps: Props = { contract, view: 'buyer', vote: undefined, saveAndUpdate: saveAndUpdateMock }
+  const initialProps = { contract, view: 'buyer', vote: undefined, saveAndUpdate: saveAndUpdateMock } as const
 
   beforeEach(() => {
     useSettingsStore.getState().reset()
@@ -167,18 +173,10 @@ describe('useRateSetup', () => {
   it('opens trade breakdown poup', () => {
     const { result } = renderHook(useRateSetup, { initialProps })
     result.current.showTradeBreakdown()
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      action2: {
-        callback: result.current.viewInExplorer,
-        icon: 'externalLink',
-        label: 'view in explorer',
-      },
-      content: <TradeBreakdown {...contract} />,
-      level: 'APP',
-      title: 'trade breakdown',
-      visible: true,
-    })
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+
+    expect(render(popupComponent)).toMatchSnapshot()
+    expect(getTradeBreakdownMock).toHaveBeenCalled()
   })
   it('opens tx in explorer', () => {
     const contractWithTxId = { ...contract, releaseTxId: 'releaseTxId' }
