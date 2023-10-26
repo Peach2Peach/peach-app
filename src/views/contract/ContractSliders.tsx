@@ -14,9 +14,9 @@ import {
 } from '../../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../../utils/wallet'
 import { useContractContext } from './context'
+import { useContractMutation } from './hooks/useContractMutation'
 import { useReleaseEscrow } from './hooks/useReleaseEscrow'
 import { useRepublishOffer } from './hooks/useRepublishOffer'
-import { useContractMutation } from './useContractMutation'
 
 export function RepublishOfferSlider () {
   const { contract } = useContractContext()

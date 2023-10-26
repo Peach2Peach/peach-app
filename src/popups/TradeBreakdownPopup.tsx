@@ -1,10 +1,10 @@
 import { NETWORK } from '@env'
-import { PopupAction } from '../../../components/popup'
-import { PopupComponent } from '../../../components/popup/PopupComponent'
-import { TradeBreakdown } from '../../../popups/TradeBreakdown'
-import { ClosePopupAction } from '../../../popups/actions'
-import { showAddress, showTransaction } from '../../../utils/bitcoin'
-import i18n from '../../../utils/i18n'
+import { PopupAction } from '../components/popup'
+import { PopupComponent } from '../components/popup/PopupComponent'
+import { showAddress, showTransaction } from '../utils/bitcoin'
+import i18n from '../utils/i18n'
+import { TradeBreakdown } from './TradeBreakdown'
+import { ClosePopupAction } from './actions'
 
 export function TradeBreakdownPopup ({ contract }: { contract: Contract }) {
   const viewInExplorer = () =>

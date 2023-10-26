@@ -1,7 +1,7 @@
 import { Bubble } from '../../../components/bubble'
+import { TradeBreakdownPopup } from '../../../popups/TradeBreakdownPopup'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
-import { TradeBreakdownPopup } from '../../tradeComplete/hooks/TradeBreakdownPopup'
 
 export function TradeBreakdownBubble ({ contract }: { contract: Contract }) {
   const setPopup = usePopupStore((state) => state.setPopup)
