@@ -1,4 +1,4 @@
-export const shouldGoToYourTradesSell = ({ data }: { data: PNData }) =>
+export const shouldGoToYourTradesSell = (data: PNData) =>
   !!data.offerId
   && (data.type === 'offer.sellOfferExpired'
     || data.type === 'offer.fundingAmountDifferent'
