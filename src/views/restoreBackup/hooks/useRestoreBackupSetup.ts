@@ -10,7 +10,7 @@ export const tabs: TabbedNavigationItem[] = [
   { id: 'seedPhrase', display: i18n('settings.backups.seedPhrase') },
 ]
 export const useRestoreBackupSetup = () => {
-  const route = useRoute<'yourTrades'>()
+  const route = useRoute<'restoreBackup'>()
   const { tab = 'fileBackup' } = route.params || {}
 
   useOnboardingHeader({ title: i18n('restoreBackup.title') })
