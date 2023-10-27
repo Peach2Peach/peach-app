@@ -57,7 +57,6 @@
   "contract.disputeWon.seller.text" : "Anlaşmazlığı kazandın! Alıcının itibarı etkilendi. Şimdi teklifi yeniden yayınlayabilir veya geri ödeme alabilirsin.",
   "contract.goToNewOffer" : "yeni teklife git",
   "contract.goToNewTrade" : "yeni alışverişe git",
-  "contract.payment.at" : "konumunda",
   "contract.payment.buyer.confirm" : "Ödemeyi yaptım",
   "contract.payment.confirm" : "ödemeyi onayla",
   "contract.payment.made" : "ödeme yapıldı",

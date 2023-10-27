@@ -83,6 +83,7 @@
   "no" : "no",
   "noThanks" : "no gracias",
   "none" : "ninguno",
+  "nostr" : "Nostr",
   "other" : "otro",
   "paste" : "pegar",
   "payment" : "pago",
@@ -248,5 +249,6 @@
   "yourTrades.start.selling" : "¡empezar a vender!",
   "yourTrades.title" : "tus intercambios",
   "yourTrades.tradeCanceled.subtitle" : "intercambio cancelado",
-  "yourTrades.waiting" : "esperando"
+  "yourTrades.waiting" : "esperando",
+  "youtube" : "YouTube"
 }

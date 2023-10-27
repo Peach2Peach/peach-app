@@ -203,7 +203,7 @@ The seller has already matched you back, so canceling now will impact your reput
           ]
         }
       >
-        never mind
+        no, don't cancel
       </Text>
     </View>
     <View
@@ -495,7 +495,7 @@ The buyer also needs to agree to cancel the trade, since they might have already
           ]
         }
       >
-        never mind
+        no, don't cancel
       </Text>
     </View>
     <View
@@ -785,7 +785,7 @@ exports[`useConfirmCancelTrade should show the correct popup for cash trades of 
           ]
         }
       >
-        never mind
+        no, don't cancel
       </Text>
     </View>
     <View

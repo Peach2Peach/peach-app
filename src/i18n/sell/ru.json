@@ -1,0 +1,23 @@
+{
+  "sell.discount" : "скидка",
+  "sell.escrow.checkingFundingStatus" : "проверка статуса пополнения",
+  "sell.escrow.loading" : "создаём эскроу-счёт, секундочку...",
+  "sell.escrow.mempool" : "Транзакция попала в мемпул!",
+  "sell.escrow.returnAddress.subtitle" : "(на всякий случай, если вам понадобится возврат средств)",
+  "sell.escrow.returnAddress.title" : "какой у вас адрес для возврата?",
+  "sell.escrow.sendSats" : "отправить",
+  "sell.escrow.title" : "пополнить эксроу-счёт",
+  "sell.funding.mempool.description" : "Ваша биткойн-транзакция находится в обработке... Вы можете заняться чем-нибудь другим, мы автоматически опубликуем ваше предложение, как только транзакция будет обработана!",
+  "sell.funding.mempool.title" : "транзакция в обработке",
+  "sell.meansOfPayment" : "как бы вы хотели получить деньги?",
+  "sell.premium" : "наценка",
+  "sell.premium.currently" : "сейчас $0",
+  "sell.premium.marketPrice" : "рыночная цена",
+  "sell.premium.title" : "установите свою наценку/скидку",
+  "sell.subtitle" : "Вы продаете:",
+  "sell.subtitle.highlight" : "продаёте",
+  "sell.summary.title" : "сводка предложений о продаже",
+  "sell.title" : "продать биткойн",
+  "sell.title.highlight" : "продать",
+  "yourTrades.search.sell.subtitle" : "предложение о продаже за"
+}

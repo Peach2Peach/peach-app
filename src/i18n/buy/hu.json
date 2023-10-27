@@ -1,0 +1,14 @@
+{
+  "buy.addressSigning.message" : "üzenet",
+  "buy.addressSigning.signature" : "aláírás",
+  "buy.addressSigning.title" : "címed aláírása",
+  "buy.addressSigning.yourAddress" : "a te címed",
+  "buy.meansOfPayment" : "hogy szeretnél fizetni?",
+  "buy.releaseAddress.title" : "visszautalási cím",
+  "buy.subtitle" : "Ezen értékek között vásárol:",
+  "buy.subtitle.highlight" : "vásárol",
+  "buy.summary.title" : "vásárlási ajánlat közzététele",
+  "buy.title" : "bitcoin vásárlása",
+  "buy.title.highlight" : "vásárlás",
+  "yourTrades.search.buy.subtitle" : "vásárlási ajánlat"
+}

@@ -1,0 +1,23 @@
+{
+  "sell.discount" : "kedvezmény",
+  "sell.escrow.checkingFundingStatus" : "finanszírozási állapot ellenőrzése",
+  "sell.escrow.loading" : "letét létrehozása, egy másodperc...",
+  "sell.escrow.mempool" : "A tranzakció már a Mempool-ban van!",
+  "sell.escrow.returnAddress.subtitle" : "(biztos, ami biztos, visszatérítés esetén)",
+  "sell.escrow.returnAddress.title" : "mi a visszatérítési címed?",
+  "sell.escrow.sendSats" : "küldés",
+  "sell.escrow.title" : "letét finanszírozása",
+  "sell.funding.mempool.description" : "Bitcoin tranzakciód függőben van...\n\nMost csinálhatsz valami mást, mert mi az ajánlatodat amint készen áll automatikusan közzé tesszük!",
+  "sell.funding.mempool.title" : "tranzakció függőben",
+  "sell.meansOfPayment" : "hogyan szeretnéd, hogy kifizessenek?",
+  "sell.premium" : "felár",
+  "sell.premium.currently" : "jelenleg $0",
+  "sell.premium.marketPrice" : "piaci\nár",
+  "sell.premium.title" : "állítsd be a felárad / kedvezményed",
+  "sell.subtitle" : "Eladásra kínálsz:",
+  "sell.subtitle.highlight" : "eladásra",
+  "sell.summary.title" : "eladási ajánlat összefoglalója",
+  "sell.title" : "Bitcoin eladása",
+  "sell.title.highlight" : "eladás",
+  "yourTrades.search.sell.subtitle" : "eladási ajánlat"
+}

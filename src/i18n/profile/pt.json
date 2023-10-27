@@ -1,0 +1,19 @@
+{
+  "profile.accountCreated" : "conta criada",
+  "profile.blockUser" : "Bloquear este utilizador",
+  "profile.daysAgo" : "$0 dias atrás",
+  "profile.disputes" : "disputas",
+  "profile.disputesLost" : "perdidas",
+  "profile.disputesOpened" : "abertas",
+  "profile.disputesWon" : "vencidas",
+  "profile.myAccount.title" : "minha conta",
+  "profile.numberOfTrades" : "número de negociações",
+  "profile.publicKey" : "chave pública da conta",
+  "profile.tradingLimits" : "limites de negociação",
+  "profile.tradingLimits.daily" : "limite diário de negociação",
+  "profile.tradingLimits.monthly" : "limite mensal anónimo:",
+  "profile.tradingLimits.yearly" : "limite anual de negociação:",
+  "profile.tradingLimits.yearly.short" : "limite anual:",
+  "profile.unblockUser" : "Desbloquear este utilizador",
+  "profile.user.title" : "perfil público"
+}

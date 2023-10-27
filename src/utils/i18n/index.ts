@@ -5,9 +5,16 @@ import elGR from '../../i18n/el-GR'
 import en from '../../i18n/en'
 import es from '../../i18n/es'
 import fr from '../../i18n/fr'
+import hu from '../../i18n/hu'
 import it from '../../i18n/it'
+import nl from '../../i18n/nl'
+import pl from '../../i18n/pl'
+import pt from '../../i18n/pt'
+import ptBR from '../../i18n/pt-BR'
+import ru from '../../i18n/ru'
 import sw from '../../i18n/sw'
 import tr from '../../i18n/tr'
+import uk from '../../i18n/uk'
 import { getLocaleLanguage } from './getLocaleLanguage'
 
 const localeMapping: Record<string, Record<string, string>> = {
@@ -19,6 +26,13 @@ const localeMapping: Record<string, Record<string, string>> = {
   'el-GR': elGR,
   tr,
   sw,
+  hu,
+  nl,
+  pl,
+  pt,
+  'pt-BR': ptBR,
+  ru,
+  uk,
   raw: {},
 }
 
@@ -30,7 +44,7 @@ type LanguageState = {
 export const languageState: LanguageState = {
   locale: 'en',
 }
-export const locales = ['en', 'es', 'fr', 'it', 'de', 'el-GR', 'tr', 'sw']
+export const locales = ['en', 'es', 'fr', 'it', 'de', 'el-GR', 'tr', 'sw', 'hu', 'nl', 'pl', 'pt', 'pt-BR', 'ru', 'uk']
 if (NETWORK !== 'bitcoin') locales.push('raw')
 
 export const setLocaleQuiet = (lcl: Locale) => {

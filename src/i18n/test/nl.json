@@ -1,0 +1,10 @@
+{
+  "i18n.test" : "Variabelen test: $0 $1 $2",
+  "i18n.test.fallback.1" : "Fallback Test 1 en",
+  "i18n.test.fallback.2" : "Fallback Test 2 en",
+  "i18n.test.fallback.3" : "Fallback Test 3 en",
+  "i18n.test.five" : "Vijf woorden worden erg interessant",
+  "i18n.test.four" : "Vier woorden zijn top",
+  "i18n.test.three" : "Tof! Drie woorden",
+  "i18n.test.two" : "twee woorden"
+}
