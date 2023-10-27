@@ -1,3 +1,4 @@
+import { Platform } from 'react-native'
 import { BackgroundConfig } from '../components/background/Background'
 import { MeetupScreen } from '../components/payment/MeetupScreen'
 import { PaymentMethods } from '../components/payment/PaymentMethods'
@@ -128,7 +129,12 @@ const trade: ViewType[] = [
   { name: 'contract', component: Contract, ...defaultConfig },
   { name: 'contractChat', component: ContractChat, ...defaultConfig },
   { name: 'paymentMade', component: PaymentMade, ...invertedThemeConfig },
-  { name: 'tradeComplete', component: TradeComplete, ...invertedThemeConfig, animationEnabled: true },
+  {
+    name: 'tradeComplete',
+    component: TradeComplete,
+    ...invertedThemeConfig,
+    animationEnabled: Platform.OS === 'android',
+  },
 ]
 
 const tradeHistory: ViewType[] = [
