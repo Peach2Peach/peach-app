@@ -14,9 +14,9 @@ describe('PaymentMethodBubble', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 
-  it('should open the url when it is present', () => {
+  it('should open the url when it is present', async () => {
     const { getByText } = render(<PaymentMethodBubble paymentMethod="revolut" />)
-    fireEvent.press(getByText('Revolut'))
+    await fireEvent.press(getByText('Revolut'))
     expect(Linking.openURL).toHaveBeenCalledWith('https://revolut.com/app')
   })
 })

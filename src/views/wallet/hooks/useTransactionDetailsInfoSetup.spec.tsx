@@ -77,11 +77,11 @@ describe('useTransactionDetailsInfoSetup', () => {
     result.current.goToBumpNetworkFees()
     expect(navigateMock).toHaveBeenCalledWith('bumpNetworkFees', { txId: pending1.txid })
   })
-  it('should open transaction in explorer', () => {
+  it('should open transaction in explorer', async () => {
     const openURL = jest.spyOn(Linking, 'openURL')
 
     const { result } = renderHook(useTransactionDetailsInfoSetup, { initialProps })
-    result.current.openInExplorer()
+    await result.current.openInExplorer()
     expect(openURL).toHaveBeenCalledWith('https://localhost:3000/tx/txid1')
   })
 })
