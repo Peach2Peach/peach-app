@@ -68,11 +68,14 @@ describe('Drawer', () => {
   it('should close the drawer and call onClose on hardware back press', () => {
     render(<Drawer />)
 
+    expect(useDrawerState.getState().show).toBe(true)
+
     act(() => {
-      // @ts-ignore
+      // @ts-expect-error it works for testing
       BackHandler.mockPressBack()
       jest.runAllTimers()
     })
+    expect(BackHandler.exitApp).not.toHaveBeenCalled()
     expect(useDrawerState.getState().show).toBe(false)
     expect(onCloseMock).toHaveBeenCalledTimes(1)
   })
@@ -87,7 +90,7 @@ describe('Drawer', () => {
     render(<Drawer />)
 
     act(() => {
-      // @ts-ignore
+      // @ts-expect-error it works for testing
       BackHandler.mockPressBack()
       jest.runAllTimers()
     })
@@ -95,5 +98,18 @@ describe('Drawer', () => {
     expect(onCloseMock).toHaveBeenCalledTimes(0)
     expect(useDrawerState.getState().previousDrawer).toEqual(undefined)
     expect(useDrawerState.getState().title).toBe('previousDrawerTitle')
+  })
+  it('should perform default action on hardware back press when drawer is not shown', () => {
+    updateDrawer({ ...defaultState, show: false })
+    render(<Drawer />)
+
+    act(() => {
+      // @ts-expect-error it works for testing
+      BackHandler.mockPressBack()
+      jest.runAllTimers()
+    })
+
+    // `exitApp` in this case is the default action
+    expect(BackHandler.exitApp).toHaveBeenCalled()
   })
 })
