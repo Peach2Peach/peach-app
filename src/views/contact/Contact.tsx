@@ -1,4 +1,4 @@
-import { Linking, View } from 'react-native'
+import { View } from 'react-native'
 import { Header, OptionButton, PeachScrollView, Screen, Text } from '../../components'
 import { LinedText } from '../../components/ui/LinedText'
 import { DISCORD, TELEGRAM } from '../../constants'
@@ -8,11 +8,12 @@ import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
+import { openURL } from '../../utils/web/openURL'
 
 export const contactReasonsNoAccount: ContactReason[] = ['bug', 'accountLost', 'question', 'sellMore', 'other']
 export const contactReasonsWithAccount: ContactReason[] = ['bug', 'userProblem', 'sellMore', 'other']
-const openTelegram = () => Linking.openURL(TELEGRAM)
-const openDiscord = () => Linking.openURL(DISCORD)
+const openTelegram = () => openURL(TELEGRAM)
+const openDiscord = () => openURL(DISCORD)
 
 export const Contact = () => {
   const navigation = useNavigation()
