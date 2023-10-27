@@ -10,7 +10,7 @@ describe('GradientBorder', () => {
   ]
   it('should render correctly and show border by default', () => {
     const { toJSON } = render(
-      <GradientBorder gradientBorderWidths={[2, 1, 0, 0]} defaultBorderWidths={[0, 2, 1, 0]} gradient={testGradient}>
+      <GradientBorder gradientBorderWidth={2} gradient={testGradient}>
         {<></>}
       </GradientBorder>,
     )
@@ -18,12 +18,7 @@ describe('GradientBorder', () => {
   })
   it('should render correctly and hide border', () => {
     const { toJSON } = render(
-      <GradientBorder
-        gradientBorderWidths={[2, 1, 0, 0]}
-        defaultBorderWidths={[0, 2, 1, 0]}
-        gradient={testGradient}
-        showBorder={false}
-      >
+      <GradientBorder gradientBorderWidth={2} gradient={testGradient} showBorder={false}>
         {<></>}
       </GradientBorder>,
     )
