@@ -93,10 +93,16 @@ describe('PeachWallet', () => {
   it('synchronises wallet with the blockchain', async () => {
     walletSyncMock.mockResolvedValueOnce(true)
 
+    peachWallet.lastUnusedAddress = {
+      index: 0,
+      address: 'addres',
+      keychain: KeychainKind.External,
+    }
     expect(useWalletState.getState().isSynced).toBeFalsy()
     await peachWallet.syncWallet()
     expect(useWalletState.getState().isSynced).toBeTruthy()
     expect(walletSyncMock).toHaveBeenCalled()
+    expect(peachWallet.lastUnusedAddress).toBeUndefined()
   })
   it('catches wallet sync errors', async () => {
     walletSyncMock.mockImplementationOnce(() => {
@@ -231,6 +237,19 @@ describe('PeachWallet', () => {
     expect(newAddress).toBe(address)
     expect(addressIndex).toBe(index)
     expect(walletGetAddressMock).toHaveBeenCalledWith(AddressIndex.LastUnused)
+  })
+  it('gets the last unused receiving address once and caches the result', async () => {
+    const address = 'address'
+    const addressObject = new Address()
+    addressObject.asString = jest.fn().mockResolvedValueOnce(address)
+    const index = 4
+    walletGetAddressMock.mockResolvedValueOnce({ address: addressObject, index })
+
+    await peachWallet.getLastUnusedAddress()
+    const { address: newAddress, index: addressIndex } = await peachWallet.getLastUnusedAddress()
+    expect(newAddress).toBe(address)
+    expect(addressIndex).toBe(index)
+    expect(walletGetAddressMock).toHaveBeenCalledTimes(1)
   })
   it('gets new internal address', async () => {
     const address = 'address'
