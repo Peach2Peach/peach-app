@@ -1,11 +1,9 @@
-/**
- * @description Method to check response for error codes
- * @param response response
- * @returns error or null
- */
+const isCloudflareChallenge = (response: Response) => response.headers.get('cf-mitigated') === 'challenge'
+
 export const getResponseError = (response: Response): string | null => {
   if (response.statusText === 'Aborted') return 'ABORTED'
 
+  if (isCloudflareChallenge(response)) return 'HUMAN_VERIFICATION_REQUIRED'
   if (response.status === 0) return 'EMPTY_RESPONSE'
   if (response.status === 500) return 'INTERNAL_SERVER_ERROR'
   if (response.status === 503) return 'SERVICE_UNAVAILABLE'

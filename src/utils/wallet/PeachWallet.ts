@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import { NETWORK } from '@env'
 import { Blockchain, BumpFeeTxBuilder, DatabaseConfig, PartiallySignedTransaction, TxBuilder, Wallet } from 'bdk-rn'
-import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import { AddressInfo, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
 import { error, info } from '../log'
@@ -38,6 +38,10 @@ export class PeachWallet extends PeachJSWallet {
   transactions: TransactionDetails[]
 
   wallet: Wallet | undefined
+
+  lastUnusedAddress?: Omit<AddressInfo, 'address'> & {
+    address: string
+  }
 
   blockchain: Blockchain | undefined
 
@@ -113,6 +117,7 @@ export class PeachWallet extends PeachJSWallet {
           if (success) {
             this.getBalance()
             this.getTransactions()
+            this.lastUnusedAddress = undefined
             useWalletState.getState().setIsSynced(true)
             info('PeachWallet - syncWallet - synced')
           }
@@ -168,13 +173,19 @@ export class PeachWallet extends PeachJSWallet {
     return this.transactions.filter((tx) => !tx.confirmationTime?.height)
   }
 
-  async getLastUnusedAddress () {
+  async fetchLastUnusedAddress () {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
     const addressInfo = await this.wallet.getAddress(AddressIndex.LastUnused)
-    return {
+    this.lastUnusedAddress = {
       ...addressInfo,
       address: await addressInfo.address.asString(),
     }
+    return this.lastUnusedAddress
+  }
+
+  getLastUnusedAddress () {
+    if (!this.lastUnusedAddress) return this.fetchLastUnusedAddress()
+    return this.lastUnusedAddress
   }
 
   async getNewInternalAddress () {
@@ -248,7 +259,10 @@ export class PeachWallet extends PeachJSWallet {
 
       this.blockchain.broadcast(await signedPSBT.extractTx())
       info('PeachWallet - signAndBroadcastPSBT - broadcasted')
-      this.syncWallet()
+
+      this.syncWallet().catch((e) => {
+        error(parseError(e))
+      })
 
       info('PeachWallet - signAndBroadcastPSBT - end')
 

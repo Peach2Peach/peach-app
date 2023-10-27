@@ -9,6 +9,7 @@ describe('getPublicHeaders', () => {
       Referer: API_URL,
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      'User-Agent': '',
     })
   })
 })

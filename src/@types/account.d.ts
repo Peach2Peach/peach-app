@@ -20,6 +20,10 @@ type Settings = {
   nodeURL: string
   feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'
   usedReferralCode?: boolean
+  cloudflareChallenge?: {
+    cfClearance: string
+    userAgent: string
+  }
 }
 
 type PGPKeychain = {
