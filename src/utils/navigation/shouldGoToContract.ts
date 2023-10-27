@@ -1,6 +1,4 @@
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-
-export const shouldGoToContract = (remoteMessage: {
-  data: PNData
-}): remoteMessage is FirebaseMessagingTypes.RemoteMessage & { data: PNData & { contractId: string } } =>
-  !!remoteMessage.data.contractId && remoteMessage.data.isChat !== 'true'
+export const shouldGoToContract = (
+  data: PNData,
+): data is PNData & { contractId: string; sentTime: string | number | Date | undefined } =>
+  !!data.contractId && data.isChat !== 'true'

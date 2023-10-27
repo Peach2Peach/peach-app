@@ -16,45 +16,27 @@ jest.mock('../../queryClient', () => ({
 }))
 
 describe('getNavigationDestinationForContract', () => {
-  it('should navigate to contract', async () => {
-    const contractSummary: Partial<ContractSummary> = {
+  it('should navigate to contract', () => {
+    const contractSummary = {
       id: '3',
       tradeStatus: 'paymentRequired',
-    }
+    } as const
 
-    const [destination, params] = await getNavigationDestinationForContract(contractSummary as ContractSummary)
+    const [destination, params] = getNavigationDestinationForContract(contractSummary)
 
     expect(destination).toBe('contract')
     expect(params).toEqual({ contractId: '3' })
   })
 
-  it('should navigate to tradeComplete (rate user screen)', async () => {
-    const contract = {
-      id: '1-2',
-    }
-    const contractSummary: Partial<ContractSummary> = {
+  it('should navigate to tradeComplete (rate user screen)', () => {
+    const contractSummary = {
       id: '3',
       tradeStatus: 'rateUser',
-    }
+    } as const
 
-    getContractMock.mockReturnValue([contract])
-    const [destination, params] = await getNavigationDestinationForContract(contractSummary as ContractSummary)
+    const [destination, params] = getNavigationDestinationForContract(contractSummary)
 
     expect(destination).toBe('tradeComplete')
-    expect(params).toEqual({ contract })
-  })
-
-  it('should update the query cache', async () => {
-    const contractSummary: Partial<ContractSummary> = {
-      id: '1-2',
-      tradeStatus: 'rateUser',
-    }
-
-    getContractMock.mockReturnValue([{ id: '1-2' }])
-    await getNavigationDestinationForContract(contractSummary as ContractSummary)
-
-    expect(queryClient.getQueryData(['contract', '1-2'])).toEqual({
-      id: '1-2',
-    })
+    expect(params).toEqual({ contractId: contractSummary.id })
   })
 })
