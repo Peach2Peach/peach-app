@@ -1,17 +1,14 @@
 import { RefObject } from 'react'
-import Carousel from 'react-native-snap-carousel'
+import { ICarouselInstance } from 'react-native-reanimated-carousel'
 import { act, renderHook } from 'test-utils'
 import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useWelcomeSetup } from './useWelcomeSetup'
 
-type CarouselType = Carousel<() => JSX.Element>
-
 describe('useWelcomeSetup', () => {
-  const carousel: RefObject<CarouselType> = {
+  const carousel: RefObject<ICarouselInstance> = {
     current: {
-      snapToNext: jest.fn(),
-      snapToItem: jest.fn(),
-    } as unknown as CarouselType,
+      next: jest.fn(),
+    } as unknown as ICarouselInstance,
   }
   const initialProps = { carousel: { current: null } }
   it('should set up header correctly', () => {
@@ -48,20 +45,20 @@ describe('useWelcomeSetup', () => {
   })
   it('should go to next', () => {
     const { result } = renderHook(useWelcomeSetup, {
-      initialProps: { carousel: carousel as RefObject<CarouselType> },
+      initialProps: { carousel: carousel as RefObject<ICarouselInstance> },
     })
     act(() => {
       result.current.next()
     })
-    expect(carousel.current?.snapToNext).toHaveBeenCalled()
+    expect(carousel.current?.next).toHaveBeenCalled()
   })
   it('should go to end', () => {
     const { result } = renderHook(useWelcomeSetup, {
-      initialProps: { carousel: carousel as RefObject<CarouselType> },
+      initialProps: { carousel: carousel as RefObject<ICarouselInstance> },
     })
     act(() => {
       result.current.goToEnd()
     })
-    expect(carousel.current?.snapToItem).toHaveBeenCalledWith(4)
+    expect(carousel.current?.next).toHaveBeenCalledWith({ count: 4 })
   })
 })

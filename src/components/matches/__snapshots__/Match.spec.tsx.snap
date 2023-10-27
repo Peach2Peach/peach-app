@@ -6,6 +6,8 @@ exports[`Match should render correctly for buy offers 1`] = `
   style={
     {
       "flexShrink": 1,
+      "height": "100%",
+      "justifyContent": "center",
     }
   }
 >
@@ -1089,7 +1091,7 @@ exports[`Match should render correctly for matched offers 1`] = `
 - First value
 + Second value
 
-@@ -13,30 +13,98 @@
+@@ -15,30 +15,98 @@
             "borderTopLeftRadius": 16,
             "borderTopRightRadius": 16,
             "flexShrink": 1,
@@ -1194,7 +1196,7 @@ exports[`Match should render correctly for matched offers 1`] = `
                 "backgroundColor": "#FFFCFA",
                 "borderTopLeftRadius": 12,
                 "borderTopRightRadius": 12,
-@@ -820,11 +888,11 @@
+@@ -822,11 +890,11 @@
                       false,
                     ]
                   }
@@ -1207,7 +1209,7 @@ exports[`Match should render correctly for matched offers 1`] = `
             </View>
             <View
               style={
-@@ -983,25 +1051,227 @@
+@@ -985,25 +1053,227 @@
                     },
                     Object {
                       "height": 18,
@@ -1436,7 +1438,7 @@ exports[`Match should render correctly for matched offers 1`] = `
         }
       }
       accessibilityValue={
-@@ -1023,11 +1293,11 @@
+@@ -1025,11 +1295,11 @@
       onResponderTerminationRequest={[Function onResponderTerminationRequest]}
       onStartShouldSetResponder={[Function onStartShouldSetResponder]}
       style={
@@ -1449,7 +1451,7 @@ exports[`Match should render correctly for matched offers 1`] = `
           "flexDirection": "row",
           "justifyContent": "center",
           "opacity": 1,
-@@ -1057,11 +1327,11 @@
+@@ -1059,11 +1329,11 @@
             },
             false,
           ]
@@ -1470,6 +1472,8 @@ exports[`Match should render correctly for sell offers 1`] = `
   style={
     {
       "flexShrink": 1,
+      "height": "100%",
+      "justifyContent": "center",
     }
   }
 >

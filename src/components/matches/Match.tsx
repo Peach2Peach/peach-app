@@ -55,7 +55,7 @@ export const Match = ({ match, offer }: MatchProps) => {
   )
 
   return (
-    <View onStartShouldSetResponder={() => true} style={tw`flex-shrink`}>
+    <View onStartShouldSetResponder={() => true} style={tw`flex-shrink h-full justify-center`}>
       <GradientBorder
         gradient={peachyGradient}
         gradientBorderWidths={[4, 4, 0, 4]}
