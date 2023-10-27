@@ -128,7 +128,7 @@ const trade: ViewType[] = [
   { name: 'contract', component: Contract, ...defaultConfig },
   { name: 'contractChat', component: ContractChat, ...defaultConfig },
   { name: 'paymentMade', component: PaymentMade, ...invertedThemeConfig },
-  { name: 'tradeComplete', component: TradeComplete, ...invertedThemeConfig },
+  { name: 'tradeComplete', component: TradeComplete, ...invertedThemeConfig, animationEnabled: true },
 ]
 
 const tradeHistory: ViewType[] = [
