@@ -1,7 +1,7 @@
-import { useEffect, useReducer } from 'react'
-
 import analytics from '@react-native-firebase/analytics'
 import { DefaultTheme, NavigationContainer, NavigationState } from '@react-navigation/native'
+import { useEffect, useReducer } from 'react'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { enableScreens } from 'react-native-screens'
 
 import { AvoidKeyboard, Drawer, Message, Popup } from './components'
@@ -50,23 +50,25 @@ export const App = () => {
   }
 
   return (
-    <AvoidKeyboard>
-      <QueryClientProvider client={queryClient}>
-        <LanguageContext.Provider value={languageReducer}>
-          <PeachWSContext.Provider value={peachWS}>
-            <NavigationContainer theme={navTheme} onStateChange={onNavStateChange}>
-              <GlobalHandlers />
-              <Background>
-                <Drawer />
-                <Popup />
+    <GestureHandlerRootView>
+      <AvoidKeyboard>
+        <QueryClientProvider client={queryClient}>
+          <LanguageContext.Provider value={languageReducer}>
+            <PeachWSContext.Provider value={peachWS}>
+              <NavigationContainer theme={navTheme} onStateChange={onNavStateChange}>
+                <GlobalHandlers />
+                <Background>
+                  <Drawer />
+                  <Popup />
 
-                <Message />
-                <Screens />
-              </Background>
-            </NavigationContainer>
-          </PeachWSContext.Provider>
-        </LanguageContext.Provider>
-      </QueryClientProvider>
-    </AvoidKeyboard>
+                  <Message />
+                  <Screens />
+                </Background>
+              </NavigationContainer>
+            </PeachWSContext.Provider>
+          </LanguageContext.Provider>
+        </QueryClientProvider>
+      </AvoidKeyboard>
+    </GestureHandlerRootView>
   )
 }

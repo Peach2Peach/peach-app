@@ -534,7 +534,8 @@ PODS:
     - RNFBApp
   - RNFS (2.20.0):
     - React-Core
-  - RNGestureHandler (2.11.0):
+  - RNGestureHandler (2.13.4):
+    - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - RNPermissions (3.8.4):
     - React-Core
@@ -878,7 +879,7 @@ SPEC CHECKSUMS:
   RNFBMessaging: 47f1dbed2fb6dc9f4a79adc33bd32e52c901e4d4
   RNFBPerf: f78d6ce4678dbda0a16e9f67440d36f951422080
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
-  RNGestureHandler: 026038a97d4c8649ce397a22e162ca58b4e6c230
+  RNGestureHandler: 6e46dde1f87e5f018a54fe5d40cd0e0b942b49ee
   RNPermissions: cb034b756decd0253dd9919d140aab1c01f704f2
   RNReanimated: 9976fbaaeb8a188c36026154c844bf374b3b7eeb
   RNScreens: 85d3880b52d34db7b8eeebe2f1a0e807c05e69fa

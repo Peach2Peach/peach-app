@@ -80,6 +80,7 @@
     "react-native-dotenv": "^3.4.8",
     "react-native-fast-openpgp": "^2.6.0",
     "react-native-fs": "^2.20.0",
+    "react-native-gesture-handler": "^2.13.4",
     "react-native-level-fs": "^3.0.1",
     "react-native-mmkv-storage": "^0.9.1",
     "react-native-pager-view": "^6.2.0",
