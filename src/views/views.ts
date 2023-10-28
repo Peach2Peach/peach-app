@@ -111,7 +111,7 @@ const buyFlow: ViewType[] = [
 ]
 
 const sellFlow: ViewType[] = [
-  { name: 'sell', component: Sell, ...defaultConfig, animationEnabled: false },
+  { name: 'sell', component: Sell, ...defaultConfig, animationEnabled: Platform.OS === 'android' },
   { name: 'premium', component: OfferPreferencePremium, ...defaultConfig },
   { name: 'sellPreferences', component: PaymentMethods, ...defaultConfig },
   { name: 'sellSummary', component: SellSummary, ...defaultConfig },
