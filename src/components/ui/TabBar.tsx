@@ -29,7 +29,7 @@ export const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
             >
               {i18n(item.name)}
             </Text>
-            {item.name === selected && <View style={[tw`w-full h-0.5 `, colors.underline]} />}
+            {item.name === selected && <View style={[tw`w-full h-0.5`, colors.underline]} />}
           </TouchableOpacity>
         ))}
       </PeachScrollView>
