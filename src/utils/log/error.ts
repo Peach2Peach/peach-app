@@ -11,7 +11,6 @@ export const error = (...args: any[]) => {
 
     if (errors.length) openCrashReportPrompt(errors)
   } else {
-    // eslint-disable-next-line no-alert -- only in dev
     Alert.alert(message)
     console.error(message)
   }
