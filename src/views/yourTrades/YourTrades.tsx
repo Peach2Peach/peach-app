@@ -2,8 +2,8 @@ import { SectionList, View } from 'react-native'
 import { Header, Loading, Screen } from '../../components'
 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import { useEffect } from 'react'
-import { TabBar } from '../../components/ui/TabBar'
+import { useEffect, useMemo } from 'react'
+import { NotificationBubble } from '../../components/bubble/NotificationBubble'
 import { useNavigation, useRoute } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
@@ -18,36 +18,56 @@ import { getPastOffers, isOpenOffer } from './utils'
 import { getCategories } from './utils/getCategories'
 
 const YourTradesTab = createMaterialTopTabNavigator()
-const tabs = ['buy', 'sell', 'history'] as const
+const tabs = ['yourTrades.buy', 'yourTrades.sell', 'yourTrades.history'] as const
+
+const tabbedNavigaitonScreenOptions = {
+  tabBarLabelStyle: tw`lowercase input-title`,
+  tabBarStyle: [tw`bg-transparent mx-sm`, tw.md`mx-md`],
+  tabBarContentContainerStyle: tw`bg-transparent`,
+  tabBarIndicatorStyle: tw`bg-black-1`,
+  tabBarItemStyle: tw`p-0`,
+  tabBarPressColor: 'transparent',
+}
 
 export const YourTrades = () => {
   const { tradeSummaries, isLoading, error, refetch } = useTradeSummaries()
+  const { params } = useRoute<'yourTrades'>()
   const showErrorBanner = useShowErrorBanner()
+
   useEffect(() => {
     if (error) showErrorBanner(parseError(error))
   }, [error, showErrorBanner])
 
-  const { params } = useRoute<'yourTrades'>()
-  const allOpenOffers = tradeSummaries.filter(({ tradeStatus }) => isOpenOffer(tradeStatus))
-  const summaries = {
-    buy: allOpenOffers.filter(({ type }) => type === 'bid'),
-    sell: allOpenOffers.filter(({ type }) => type === 'ask'),
-    history: getPastOffers(tradeSummaries),
-  }
+  const allOpenOffers = useMemo(
+    () => tradeSummaries.filter(({ tradeStatus }) => isOpenOffer(tradeStatus)),
+    [tradeSummaries],
+  )
+  const summaries = useMemo(
+    () => ({
+      'yourTrades.buy': allOpenOffers.filter(({ type }) => type === 'bid'),
+      'yourTrades.sell': allOpenOffers.filter(({ type }) => type === 'ask'),
+      'yourTrades.history': getPastOffers(tradeSummaries),
+    }),
+    [allOpenOffers, tradeSummaries],
+  )
 
   return (
     <Screen style={tw`px-0`} header={<YourTradesHeader />} showFooter>
       <YourTradesTab.Navigator
-        initialRouteName={params?.tab || 'buy'}
-        tabBar={TabBar}
+        initialRouteName={params?.tab || 'yourTrades.buy'}
+        screenOptions={tabbedNavigaitonScreenOptions}
         sceneContainerStyle={[tw`px-sm`, tw.md`px-md`]}
       >
         {tabs.map((tab) => (
           <YourTradesTab.Screen
             key={tab}
-            name={`yourTrades.${tab}`}
+            name={tab}
+            options={{
+              title: `${i18n(tab)}`,
+              tabBarBadge: () => <TabBarBadge summaries={summaries[tab]} />,
+            }}
             children={() => (
-              <>
+              <View style={tw`grow`} onStartShouldSetResponder={() => true}>
                 {summaries[tab].length > 0 ? (
                   <SectionList
                     contentContainerStyle={[tw`bg-transparent py-7`, isLoading && tw`opacity-60`]}
@@ -63,7 +83,7 @@ export const YourTrades = () => {
                 ) : (
                   <TradePlaceholders tab={tab} />
                 )}
-              </>
+              </View>
             )}
           />
         ))}
@@ -75,6 +95,20 @@ export const YourTrades = () => {
       )}
     </Screen>
   )
+}
+
+function TabBarBadge ({ summaries }: { summaries: TradeSummary[] }) {
+  const notifications = useMemo(
+    () =>
+      summaries.reduce((acc, curr) => {
+        if ('unreadMessages' in curr && curr.unreadMessages) {
+          acc += curr.unreadMessages
+        }
+        return acc
+      }, 0),
+    [summaries],
+  )
+  return <NotificationBubble notifications={notifications} />
 }
 
 function YourTradesHeader () {

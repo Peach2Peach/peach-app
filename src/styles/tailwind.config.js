@@ -143,6 +143,10 @@ module.exports = {
         sm: '16px',
         md: '32px',
       },
+      margin: {
+        sm: '16px',
+        md: '32px',
+      },
     },
     fontFamily: {
       baloo: ['Baloo2-Regular', 'sans-serif'],
