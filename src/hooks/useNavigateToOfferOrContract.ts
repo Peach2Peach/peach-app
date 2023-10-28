@@ -14,7 +14,7 @@ export const useNavigateToOfferOrContract = (item: TradeSummary) => {
 
   const navigateToOfferOrContract = useCallback(async () => {
     const destination = isContractSummary(item)
-      ? await getNavigationDestinationForContract(item)
+      ? getNavigationDestinationForContract(item)
       : getNavigationDestinationForOffer(item)
     if (item.tradeStatus === 'refundTxSignatureRequired') {
       const offerId = isContractSummary(item) ? item.offerId : item.id
