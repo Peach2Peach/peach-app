@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import { FIFTEEN_SECONDS } from '../../../constants'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
-import { error, info } from '../../../utils/log'
+import { info } from '../../../utils/log'
 import { isBuyOffer } from '../../../utils/offer'
 import { getMatches } from '../../../utils/peachAPI'
 
@@ -57,7 +57,6 @@ async function getMatchesFn ({
     info('matches: ', result.matches.length)
     return result
   } else if (err) {
-    error('Error', err)
     throw err
   }
   throw new Error()
