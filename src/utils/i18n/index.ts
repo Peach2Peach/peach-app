@@ -24,6 +24,7 @@ const localeMapping: Record<string, Record<string, string>> = {
   fr,
   it,
   de,
+  nl,
   'el-GR': elGR,
   tr,
   sw,
@@ -41,7 +42,6 @@ export const languageState: LanguageState = {
 }
 if (NETWORK !== 'bitcoin') {
   localeMapping.hu = hu
-  localeMapping.nl = nl
   localeMapping.pl = pl
   localeMapping.pt = pt
   localeMapping['pt-BR'] = ptBR
