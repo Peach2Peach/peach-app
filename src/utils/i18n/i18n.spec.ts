@@ -51,6 +51,10 @@ describe('i18n', () => {
     expect(i18n('i18n.test.four')).toBe('four words are nice')
     expect(i18n('i18n.test.five')).toBe('five words get very interesting')
   })
+  it('ignores orphans for 4 or more words', () => {
+    i18n.setLocale(null, { locale: 'en' })
+    expect(i18n.break('i18n.test.five')).toBe('five words get very interesting')
+  })
 })
 
 describe('setLocaleQuite', () => {

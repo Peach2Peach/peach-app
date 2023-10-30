@@ -1,5 +1,3 @@
-import { View } from 'react-native'
-
 import tw from '../../styles/tailwind'
 
 import { useCallback, useMemo } from 'react'
@@ -8,7 +6,7 @@ import { useCancelOffer, useNavigation, useRoute, useShowHelp } from '../../hook
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { headerIcons } from '../../utils/layout'
 import { isBuyOffer, isSellOffer, offerIdToHex } from '../../utils/offer'
-import { MatchInformation, NoMatchesYet } from './components'
+import { NoMatchesYet } from './components'
 import { useSearchSetup } from './hooks'
 import { useSortAndFilterPopup } from './hooks/useSortAndFilterPopup'
 
@@ -18,11 +16,7 @@ export const Search = () => {
   return (
     <Screen style={hasMatches && tw`px-0`} header={<SearchHeader />} showTradingLimit>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`} bounces={false}>
-        <View style={tw`grow`}>
-          {hasMatches && isSellOffer(offer) && <MatchInformation offer={offer} />}
-          {!hasMatches && <NoMatchesYet offer={offer} />}
-        </View>
-        {hasMatches && <Matches />}
+        {hasMatches ? <Matches /> : <NoMatchesYet offer={offer} />}
       </PeachScrollView>
     </Screen>
   )

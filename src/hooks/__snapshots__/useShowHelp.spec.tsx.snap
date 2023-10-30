@@ -105,7 +105,7 @@ exports[`useShowHelp opens popup with help text 1`] = `
     >
       You can only match one buyer per offer. Once you've accepted a match, the trade is started.
 
-Once started, you can only do a collaborative cancel with your buyer, and your reputation will be harmed.
+Once started, you can only do a collaborative cancel with your buyer, or your reputation will be harmed.
     </Text>
   </View>
   <View

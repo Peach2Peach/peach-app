@@ -1,0 +1,23 @@
+{
+  "sell.discount" : "знижка",
+  "sell.escrow.checkingFundingStatus" : "перевіряємо статус оплати",
+  "sell.escrow.loading" : " секундочку, створюється депозит",
+  "sell.escrow.mempool" : "Переказ досягнув мемпула!",
+  "sell.escrow.returnAddress.subtitle" : "(на випадок, якщо вам потрібно повернути гроші)",
+  "sell.escrow.returnAddress.title" : "яка ваша зворотня адреса?",
+  "sell.escrow.sendSats" : "відправити",
+  "sell.escrow.title" : "сплатити депозит",
+  "sell.funding.mempool.description" : "Ваша транзакція біткойн очікує на розгляд... Ви можете зробити щось інше, ми автоматично опублікуємо вашу пропозицію, щойно вона буде завершена!",
+  "sell.funding.mempool.title" : "транзакція очікує на розгляд",
+  "sell.meansOfPayment" : "як ви бажаєте отримати кошти?",
+  "sell.premium" : "преміум",
+  "sell.premium.currently" : "наразі $0",
+  "sell.premium.marketPrice" : "ринкова вартість",
+  "sell.premium.title" : "налаштуйте свою премію / знижку",
+  "sell.subtitle" : "Ви продаєте:",
+  "sell.subtitle.highlight" : "продаж",
+  "sell.summary.title" : "підсумок пропозиції продажу",
+  "sell.title" : "продати биткойн",
+  "sell.title.highlight" : "продати",
+  "yourTrades.search.sell.subtitle" : "продати лот за"
+}

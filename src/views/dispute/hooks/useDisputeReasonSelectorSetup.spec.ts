@@ -21,11 +21,6 @@ jest.mock('../../../hooks/useHeaderSetup', () => ({
   useHeaderSetup: (...args: unknown[]) => useHeaderSetupMock(...args),
 }))
 
-const getContractMock = jest.fn().mockReturnValue(contract)
-jest.mock('../../../utils/contract/getContract', () => ({
-  getContract: (...args: unknown[]) => getContractMock(...args),
-}))
-
 const submitRaiseDisputeMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../utils/submitRaiseDispute', () => ({
   submitRaiseDispute: (...args: unknown[]) => submitRaiseDisputeMock(...args),

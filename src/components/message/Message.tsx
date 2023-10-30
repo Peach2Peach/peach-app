@@ -10,6 +10,8 @@ import { ISEMULATOR } from '../../constants'
 import { useNavigation } from '../../hooks'
 import { initApp } from '../../init/initApp'
 import { requestUserPermissions } from '../../init/requestUserPermissions'
+import { VerifyYouAreAHumanPopup } from '../../popups/warning/VerifyYouAreAHumanPopup'
+import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
@@ -44,6 +46,7 @@ const levelColorMap: LevelColorMap = {
 }
 
 export const Message = () => {
+  const setPopup = usePopupStore((state) => state.setPopup)
   const [{ level, msgKey, bodyArgs = [], action, onClose, time, keepAlive }, updateMessage] = useMessageState(
     (state) => [
       {
@@ -77,6 +80,11 @@ export const Message = () => {
   setUnhandledPromiseRejectionTracker((id, err) => {
     error(err)
     const errorMessage = parseError(err)
+
+    if (errorMessage === 'HUMAN_VERIFICATION_REQUIRED') {
+      setPopup(<VerifyYouAreAHumanPopup />)
+      return
+    }
     const errorMsgKey = isNetworkError(errorMessage) ? 'NETWORK_ERROR' : errorMessage
     updateMessage({
       msgKey: errorMsgKey || 'GENERAL_ERROR',
@@ -99,16 +107,21 @@ export const Message = () => {
 
     (async () => {
       const statusResponse = await initApp()
+
       if (!statusResponse || statusResponse.error) {
-        updateMessage({
-          msgKey: statusResponse?.error || 'NETWORK_ERROR',
-          level: 'ERROR',
-          action: {
-            callback: () => navigation.navigate('contact'),
-            label: i18n('contactUs'),
-            icon: 'mail',
-          },
-        })
+        if (statusResponse?.error === 'HUMAN_VERIFICATION_REQUIRED') {
+          setPopup(<VerifyYouAreAHumanPopup />)
+        } else {
+          updateMessage({
+            msgKey: statusResponse?.error || 'NETWORK_ERROR',
+            level: 'ERROR',
+            action: {
+              callback: () => navigation.navigate('contact'),
+              label: i18n('contactUs'),
+              icon: 'mail',
+            },
+          })
+        }
       }
       navigation.navigate(account.publicKey ? 'buy' : 'welcome')
       requestUserPermissions()

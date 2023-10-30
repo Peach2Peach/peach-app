@@ -113,7 +113,7 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         }
       }
     >
-      fund from peach wallet
+      fund from Peach wallet
     </Button>
   </View>
 </Screen>

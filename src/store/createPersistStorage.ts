@@ -11,7 +11,7 @@ export const createPersistStorage = <T>(storage: MMKVInstance) =>
     getItem: async (name: string) => {
       const value = await storage.getItem(name)
       try {
-        if (typeof value === 'string') return JSON.parse(value, dateTimeReviver)
+        if (value && typeof value === 'string') return JSON.parse(value, dateTimeReviver)
       } catch (e) {
         error(e)
       }

@@ -1,8 +1,9 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { shallow } from 'zustand/shallow'
-import { TabBar } from '../../components/ui/TabBar'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { CurrencyType } from '../../store/offerPreferenes/types'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 import { Currencies } from './Currencies'
 import { defaultCurrencies } from './constants'
 
@@ -31,12 +32,21 @@ export const CurrencyTabs = (props: Props) => {
           props.setCurrency(defaultCurrencies[currencyType])
         },
       }}
-      tabBar={TabBar}
+      screenOptions={{
+        tabBarLabelStyle: tw`capitalize input-title`,
+        tabBarStyle: tw`bg-transparent`,
+        tabBarContentContainerStyle: tw`bg-transparent`,
+        tabBarIndicatorStyle: tw`bg-black-1`,
+        tabBarItemStyle: tw`px-0`,
+        tabBarPressColor: 'transparent',
+        tabBarScrollEnabled: true,
+      }}
     >
       {currencyTabs.map((currencyTab) => (
         <CurrencyTab.Screen
           key={currencyTab}
           name={currencyTab}
+          options={{ title: i18n(currencyTab) }}
           children={() => <Currencies type={currencyTab} {...props} />}
         />
       ))}

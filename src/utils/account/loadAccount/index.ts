@@ -1,8 +1,6 @@
 export { loadAccount } from './loadAccount'
 export { loadChat } from './loadChat'
 export { loadChats } from './loadChats'
-export { loadContract } from './loadContract'
-export { loadContracts } from './loadContracts'
 export { loadIdentity } from './loadIdentity'
 export { loadOffers } from './loadOffers'
 export { loadPaymentData } from './loadPaymentData'

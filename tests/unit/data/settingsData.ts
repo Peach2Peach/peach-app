@@ -9,9 +9,5 @@ export const settings1: Settings = {
   peachWalletActive: true,
   nodeURL: 'https://localhost:3000/',
   feeRate: 'halfHourFee',
-  shouldShowBackupOverlay: {
-    bitcoinReceived: false,
-    completedBuyOffer: false,
-    refundedEscrow: false,
-  },
+  shouldShowBackupOverlay: false,
 }

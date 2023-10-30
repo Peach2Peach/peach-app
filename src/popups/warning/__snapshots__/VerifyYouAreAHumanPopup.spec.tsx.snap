@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VerifyYouAreAHuman renders correctly 1`] = `
+<PopupComponent
+  actionBgColor={
+    {
+      "backgroundColor": "#F5CE22",
+    }
+  }
+  actions={
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "width": "100%",
+        }
+      }
+    >
+      <ClosePopupAction
+        textStyle={
+          {
+            "color": "#2B1911",
+          }
+        }
+      />
+    </View>
+  }
+  bgColor={
+    {
+      "backgroundColor": "#FDF6C0",
+      "paddingBottom": 0,
+      "paddingLeft": 0,
+      "paddingRight": 0,
+      "paddingTop": 0,
+    }
+  }
+  content={
+    <View
+      style={
+        {
+          "height": 450,
+        }
+      }
+    >
+      <WebView
+        contentMode="mobile"
+        onMessage={[Function]}
+        source={
+          {
+            "uri": "https://localhost:8080/v1/human/verify",
+          }
+        }
+      />
+    </View>
+  }
+/>
+`;
+
+exports[`VerifyYouAreAHumanPopup renders correctly 1`] = `
+<WarningPopup
+  actions={
+    <React.Fragment>
+      <ClosePopupAction
+        textStyle={
+          {
+            "color": "#2B1911",
+          }
+        }
+      />
+      <GoToChallengeAction />
+    </React.Fragment>
+  }
+  content={
+    <PeachText>
+      Our security systems would like to make sure you're human. Before you continue, please complete a quick verification test.
+    </PeachText>
+  }
+  title="Please verify you are human"
+/>
+`;

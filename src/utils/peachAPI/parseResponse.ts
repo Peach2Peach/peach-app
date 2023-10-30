@@ -16,6 +16,7 @@ export const parseResponse = async <T>(
     const data = !string ? JSON.parse(await response.text(), dateTimeReviver) : await response.text()
 
     if (response.status !== 200) {
+      if (data.error === 'CONTRACT_EXISTS') return [null, data]
       error(
         `peachAPI - ${caller}`,
         JSON.stringify({

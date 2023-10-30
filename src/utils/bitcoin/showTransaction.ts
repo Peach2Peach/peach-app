@@ -1,5 +1,5 @@
 import { BLOCKEXPLORER } from '@env'
-import { Linking } from 'react-native'
+import { openURL } from '../web/openURL'
 
 export const showTransaction = (txId: string, network: BitcoinNetwork) => {
   let link = `https://mempool.space/tx/${txId}`
@@ -7,5 +7,5 @@ export const showTransaction = (txId: string, network: BitcoinNetwork) => {
   if (network === 'testnet') link = `https://mempool.space/testnet/tx/${txId}`
   if (network === 'regtest') link = `${BLOCKEXPLORER}/tx/${txId}`
 
-  Linking.openURL(link)
+  return openURL(link)
 }

@@ -21,7 +21,7 @@ type AnyObject = {
   [key: string]: unknown
 }
 
-type TradeTab = 'buy' | 'sell' | 'history'
+type TradeTab = 'yourTrades.buy' | 'yourTrades.sell' | 'yourTrades.history'
 
 type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
 

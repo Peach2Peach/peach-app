@@ -21,23 +21,25 @@ describe('openAppLink', () => {
   it('should open the fallback url if the app link is not available', async () => {
     const appLink = 'app://'
     const fallbackUrl = 'http://fallback.com'
-    const canOpenStub = jest.spyOn(Linking, 'canOpenURL').mockResolvedValue(false)
+    const canOpenStub = jest
+      .spyOn(Linking, 'canOpenURL')
+      .mockImplementation((url: string) => Promise.resolve(url === fallbackUrl))
     const openStub = jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined)
 
     await openAppLink(fallbackUrl, appLink)
 
     expect(canOpenStub).toHaveBeenCalledWith(appLink)
+    expect(canOpenStub).toHaveBeenCalledWith(fallbackUrl)
     expect(openStub).toHaveBeenCalledWith(fallbackUrl)
   })
 
   it('should open the fallback url', async () => {
     const fallbackUrl = 'http://fallback.com'
-    const canOpenStub = jest.spyOn(Linking, 'canOpenURL').mockResolvedValue(false)
+    jest.spyOn(Linking, 'canOpenURL').mockImplementation((url: string) => Promise.resolve(url === fallbackUrl))
     const openStub = jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined)
 
     await openAppLink(fallbackUrl)
 
-    expect(canOpenStub).not.toHaveBeenCalled()
     expect(openStub).toHaveBeenCalledWith(fallbackUrl)
   })
 })

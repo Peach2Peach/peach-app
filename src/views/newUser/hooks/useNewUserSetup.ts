@@ -50,7 +50,7 @@ export const useNewUserSetup = () => {
   )
 
   const onSuccess = useCallback(
-    async (account: Account & { mnemonic: string }) => {
+    async (account: Account & { mnemonic: string; base58: string }) => {
       const message = getAuthenticationChallenge()
 
       const [result, authError] = await register({

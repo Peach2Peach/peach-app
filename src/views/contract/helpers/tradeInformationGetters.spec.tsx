@@ -18,6 +18,15 @@ jest.mock('../../../utils/contract/getBuyOfferFromContract', () => ({
   getBuyOfferFromContract: () => getBuyOfferFromContractMock(),
 }))
 
+const useDecryptedContractDataMock = jest.fn(
+  (): { data: { symmetricKey: string; paymentData: string } | undefined } => ({
+    data: { symmetricKey: 'symmetricKey', paymentData: 'paymentData' },
+  }),
+)
+jest.mock('../../contractChat/useDecryptedContractData', () => ({
+  useDecryptedContractData: () => useDecryptedContractDataMock(),
+}))
+
 describe('tradeInformationGetters', () => {
   it('should return the correct value for the price field', () => {
     expect(tradeInformationGetters.price(contract)).toEqual('89.04 EUR')

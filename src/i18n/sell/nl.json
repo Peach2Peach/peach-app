@@ -1,0 +1,23 @@
+{
+  "sell.discount" : "korting",
+  "sell.escrow.checkingFundingStatus" : "financieringsstatus aan het controleren",
+  "sell.escrow.loading" : "borg wordt aangemaakt, momentje...",
+  "sell.escrow.mempool" : "Transactie is toegevoegd aan de Mempool!",
+  "sell.escrow.returnAddress.subtitle" : "(in geval je een terugbetaling nodig hebt)",
+  "sell.escrow.returnAddress.title" : "wat is je retouradres?",
+  "sell.escrow.sendSats" : "stuur",
+  "sell.escrow.title" : "betaal borg",
+  "sell.funding.mempool.description" : "Je bitcointransactie is in behandeling... Je kunt iets anders gaan doen, wij publiceren je bod automatisch zodra deze klaar is!",
+  "sell.funding.mempool.title" : "transactie in behandeling",
+  "sell.meansOfPayment" : "Hoe wil je betaald worden?",
+  "sell.premium" : "toeslag",
+  "sell.premium.currently" : "momenteel $0",
+  "sell.premium.marketPrice" : "marktprijs",
+  "sell.premium.title" : "stel je toeslag / korting in",
+  "sell.subtitle" : "Je verkoopt:",
+  "sell.subtitle.highlight" : "verkopen",
+  "sell.summary.title" : "verkoopaanbod overzicht",
+  "sell.title" : "verkoop bitcoin",
+  "sell.title.highlight" : "verkoop",
+  "yourTrades.search.sell.subtitle" : "koop aanbod voor"
+}

@@ -63,12 +63,12 @@ export const Drawer = () => {
       } else {
         closeDrawer()
       }
-      return true
+      return show
     })
     return () => {
       listener.remove()
     }
-  }, [closeDrawer, previousDrawer, updateDrawer])
+  }, [closeDrawer, previousDrawer, show, updateDrawer])
 
   return (
     <View style={[tw`absolute top-0 left-0 z-20 flex w-full h-full`, !show && tw`hidden`]}>

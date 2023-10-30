@@ -3,7 +3,6 @@
 exports[`FileInput renders correctly 1`] = `
 <Input
   disabled={true}
-  errorMessage={[]}
   icons={
     [
       [
@@ -13,6 +12,7 @@ exports[`FileInput renders correctly 1`] = `
     ]
   }
   onPressIn={[Function]}
-  theme="default"
+  placeholder="backup file"
+  theme="inverted"
 />
 `;

@@ -12,7 +12,6 @@ import { deletePeachAccount } from '../peachAPI/peachAccount'
 import { useWalletState, walletStorage } from '../wallet/walletStore'
 import { accountStorage } from './accountStorage'
 import { chatStorage } from './chatStorage'
-import { contractStorage } from './contractStorage'
 import { offerStorage } from './offerStorage'
 import { updateAccount } from './updateAccount'
 
@@ -20,15 +19,9 @@ export const deleteAccount = () => {
   info('Deleting account')
 
   updateAccount(defaultAccount, true)
-  ;[
-    accountStorage,
-    walletStorage,
-    offerStorage,
-    contractStorage,
-    chatStorage,
-    settingsStorage,
-    notificationStorage,
-  ].forEach((storage) => storage.clearStore())
+  ;[accountStorage, walletStorage, offerStorage, chatStorage, settingsStorage, notificationStorage].forEach((storage) =>
+    storage.clearStore(),
+  )
   ;[
     useNotificationStore,
     useConfigStore,

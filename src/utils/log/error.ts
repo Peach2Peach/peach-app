@@ -1,4 +1,5 @@
 import crashlytics from '@react-native-firebase/crashlytics'
+import { Alert } from 'react-native'
 import { openCrashReportPrompt } from '../analytics'
 import { isNetworkError, isProduction } from '../system'
 
@@ -10,6 +11,7 @@ export const error = (...args: any[]) => {
 
     if (errors.length) openCrashReportPrompt(errors)
   } else {
+    Alert.alert(message)
     console.error(message)
   }
 }

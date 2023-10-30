@@ -4,7 +4,7 @@ import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { OfferRepublished } from '../../../popups/tradeCancelation'
 import { usePopupStore } from '../../../store/usePopupStore'
-import { getSellOfferFromContract, saveContract } from '../../../utils/contract'
+import { getSellOfferFromContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { reviveSellOffer } from '../../../utils/peachAPI'
 
@@ -12,18 +12,6 @@ export const useRepublishOffer = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const showErrorBanner = useShowErrorBanner()
   const navigation = useNavigation()
-
-  const confirmPopup = useCallback(
-    (contract: Contract) => {
-      closePopup()
-      saveContract({
-        ...contract,
-        cancelConfirmationDismissed: true,
-        cancelConfirmationPending: false,
-      })
-    },
-    [closePopup],
-  )
 
   const republishOffer = useCallback(
     async (contract: Contract) => {
@@ -38,11 +26,11 @@ export const useRepublishOffer = () => {
 
       const closeAction = () => {
         navigation.replace('contract', { contractId: contract.id })
-        confirmPopup(contract)
+        closePopup()
       }
       const goToOfferAction = () => {
         navigation.replace('search', { offerId: reviveSellOfferResult.newOfferId })
-        confirmPopup(contract)
+        closePopup()
       }
 
       setPopup({
@@ -63,7 +51,7 @@ export const useRepublishOffer = () => {
         },
       })
     },
-    [closePopup, confirmPopup, navigation, setPopup, showErrorBanner],
+    [closePopup, navigation, setPopup, showErrorBanner],
   )
 
   return republishOffer

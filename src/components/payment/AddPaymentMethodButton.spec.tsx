@@ -196,8 +196,8 @@ describe('AddPaymentMethodButton', () => {
     onPress?.()
 
     expect(useDrawerState.getState().options).toStrictEqual([
-      { highlighted: false, onPress: expect.any(Function), subtext: decouvreBTC.city, title: decouvreBTC.longName },
       { highlighted: true, onPress: expect.any(Function), subtext: featuredEvent.city, title: featuredEvent.longName },
+      { highlighted: false, onPress: expect.any(Function), subtext: decouvreBTC.city, title: decouvreBTC.longName },
     ])
   })
 })

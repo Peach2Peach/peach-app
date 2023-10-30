@@ -1,8 +1,6 @@
 import { Pressable, View, ViewStyle } from 'react-native'
 import { Text } from '../'
 import tw from '../../styles/tailwind'
-import { isIOS } from '../../utils/system'
-import { ChatMessages } from '../../views/yourTrades/components/ChatMessages'
 import { PulsingText } from '../matches/components/selectors/PulsingText'
 
 export const themes = {
@@ -29,7 +27,6 @@ type TabbedNavigationProps = ComponentProps & {
   select: (item: TabbedNavigationItem) => void
   buttonStyle?: ViewStyle
   theme?: 'default' | 'inverted'
-  messages?: { buy: number; sell: number; history: number }
   tabHasError?: string[]
 }
 
@@ -39,7 +36,6 @@ export const TabbedNavigation = ({
   select,
   theme = 'default',
   style,
-  messages,
   buttonStyle,
   tabHasError = [],
 }: TabbedNavigationProps) => {
@@ -71,14 +67,6 @@ export const TabbedNavigation = ({
               >
                 {item.display}
               </Text>
-            )}
-            {!!messages && messages[item.id as TradeTab] > 0 && (
-              <ChatMessages
-                style={tw`mb-1 -mt-px w-[18px] h-[18px]`}
-                textStyle={[tw`text-[10px] text-primary-background-light`, isIOS() ? tw`pt-px pl-px` : {}]}
-                iconColor={tw`text-primary-main`.color}
-                messages={messages[item.id as TradeTab]}
-              />
             )}
           </View>
           {item.id === selected.id && <View style={[tw`w-full h-0.5 `, colors.underline]} />}

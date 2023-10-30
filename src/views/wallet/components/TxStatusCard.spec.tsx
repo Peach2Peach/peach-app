@@ -4,72 +4,54 @@ import { TxStatusCard } from './TxStatusCard'
 
 describe('TxStatusCard', () => {
   const date = new Date('2022-09-15T07:23:25.797Z')
-  const baseTx: Pick<TransactionSummary, 'amount' | 'date' | 'confirmed' | 'offerData'> = {
+  const baseTx: Pick<TransactionSummary, 'amount' | 'date'> = {
     amount: 123456,
     date,
-    confirmed: false,
-    offerData: [],
   }
-  const buyTradeTx: TransactionSummary = {
+  const buyTradeTx = {
     ...baseTx,
     id: 'buyTradeTx',
     type: 'TRADE',
-  }
-  const sentTx: TransactionSummary = {
+  } as const
+  const sentTx = {
     ...baseTx,
     id: 'sendTx',
     type: 'WITHDRAWAL',
-  }
-  const refundTx: TransactionSummary = {
+  } as const
+  const refundTx = {
     ...baseTx,
     id: 'refundTx',
     type: 'REFUND',
-  }
-  const receiveTx: TransactionSummary = {
+  } as const
+  const receiveTx = {
     ...baseTx,
     id: 'receiveTx',
     type: 'DEPOSIT',
-  }
-  const escrowFundedTx: TransactionSummary = {
+  } as const
+  const escrowFundedTx = {
     ...baseTx,
     id: 'receiveTx',
     type: 'ESCROWFUNDED',
-  }
+  } as const
 
   it('should render correctly for a pending buy trade tx', () => {
     const { toJSON } = render(<TxStatusCard item={buyTradeTx} />)
-    expect(toJSON()).toMatchSnapshot()
-  })
-  it('should render correctly for a confirmed buy trade tx', () => {
-    const { toJSON } = render(<TxStatusCard item={{ ...buyTradeTx, confirmed: true }} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a pending sent tx', () => {
     const { toJSON } = render(<TxStatusCard item={sentTx} />)
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should render correctly for a pending confirmed tx', () => {
-    const { toJSON } = render(<TxStatusCard item={{ ...sentTx, confirmed: true }} />)
-    expect(toJSON()).toMatchSnapshot()
-  })
   it('should render correctly for a pending refund tx', () => {
     const { toJSON } = render(<TxStatusCard item={refundTx} />)
-    expect(toJSON()).toMatchSnapshot()
-  })
-  it('should render correctly for a confirmed refund tx', () => {
-    const { toJSON } = render(<TxStatusCard item={{ ...refundTx, confirmed: true }} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a pending receive tx', () => {
     const { toJSON } = render(<TxStatusCard item={receiveTx} />)
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should render correctly for a confirmed receive tx', () => {
-    const { toJSON } = render(<TxStatusCard item={{ ...receiveTx, confirmed: true }} />)
-    expect(toJSON()).toMatchSnapshot()
-  })
   it('should render correctly for a escrow funded tx', () => {
-    const { toJSON } = render(<TxStatusCard item={{ ...escrowFundedTx, confirmed: true }} />)
+    const { toJSON } = render(<TxStatusCard item={escrowFundedTx} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should navigate to the transaction details screen when pressed', () => {

@@ -32,10 +32,8 @@ exports[`MatchOfferButton renders correctly 1`] = `
   style={
     {
       "alignItems": "center",
-      "backgroundColor": "#F56522",
-      "borderBottomLeftRadius": 12,
-      "borderBottomRightRadius": 12,
       "flexDirection": "row",
+      "gap": 10,
       "justifyContent": "center",
       "opacity": 1,
       "paddingBottom": 8,
@@ -76,11 +74,7 @@ exports[`MatchOfferButton renders correctly 1`] = `
           "height": 24,
           "width": 24,
         },
-        {
-          "height": 24,
-          "marginLeft": 10,
-          "width": 24,
-        },
+        undefined,
       ]
     }
   />
