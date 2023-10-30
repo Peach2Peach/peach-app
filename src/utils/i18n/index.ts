@@ -52,7 +52,7 @@ export const setLocaleQuiet = (lcl: Locale) => {
   languageState.locale = lcl
 }
 
-const i18n = (id: string, ...args: string[]): string => {
+const i18n = (id: string, ...args: string[]) => {
   const locale = languageState.locale.replace('_', '-')
   if (locale === 'raw') return id
   let text = localeMapping[locale]?.[id]
@@ -73,9 +73,11 @@ const i18n = (id: string, ...args: string[]): string => {
   return (text.match(/ /gu) || []).length >= 4 ? text.replace(/ (?=[^ ]*$)/u, ' ') : text
 }
 
+i18n.break = (id: string, ...args: string[]) => i18n(id, ...args).replace(/ /gu, ' ')
+
 i18n.getState = (): LanguageState => languageState
-i18n.getLocale = (): string => languageState.locale
-i18n.getLocales = (): string[] => locales
+i18n.getLocale = () => languageState.locale
+i18n.getLocales = () => locales
 
 i18n.setLocale = (prev: ReducerState<any>, newState: LanguageState): LanguageState => {
   if (!localeMapping[newState.locale]) newState.locale = 'en'
