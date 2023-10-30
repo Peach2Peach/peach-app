@@ -11,9 +11,9 @@ import i18n from '../../../utils/i18n'
 import { getPaymentMethodName } from '../../../utils/paymentMethod'
 import { groupChars, priceFormat } from '../../../utils/string'
 import { openAppLink } from '../../../utils/web'
-import { useDecryptedContractData } from '../../contractChat/useDecryptedContractData'
 import { UserId } from '../../settings/profile/profileOverview/components'
 import { TradeBreakdownBubble } from '../components/TradeBreakdownBubble'
+import { useContractContext } from '../context'
 
 export const tradeInformationGetters: Record<
   | 'bitcoinAmount'
@@ -132,12 +132,11 @@ function PaymentMethodBubble ({ contract }: { contract: Contract }) {
   const appLink = APPLINKS[paymentMethod]?.appLink
   const hasLink = !!(url || appLink)
   const openLink = () => (url ? openAppLink(url, appLink) : null)
-  const { data } = useDecryptedContractData(contract)
+  const { paymentData } = useContractContext()
   const paymentMethodName = getPaymentMethodName(paymentMethod)
   const paymentMethodLabel = usePaymentDataStore((state) =>
-    data ? state.searchPaymentData(data?.paymentData)[0]?.label : undefined,
+    paymentData ? state.searchPaymentData(paymentData)[0]?.label : undefined,
   )
-  if (!data) return <></>
   return (
     <View style={tw`items-end gap-1`}>
       <Bubble color={'primary-mild'}>{paymentMethodLabel ?? paymentMethodName}</Bubble>

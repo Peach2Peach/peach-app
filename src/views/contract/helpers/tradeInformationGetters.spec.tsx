@@ -18,13 +18,10 @@ jest.mock('../../../utils/contract/getBuyOfferFromContract', () => ({
   getBuyOfferFromContract: () => getBuyOfferFromContractMock(),
 }))
 
-const useDecryptedContractDataMock = jest.fn(
-  (): { data: { symmetricKey: string; paymentData: string } | undefined } => ({
-    data: { symmetricKey: 'symmetricKey', paymentData: 'paymentData' },
-  }),
-)
-jest.mock('../../contractChat/useDecryptedContractData', () => ({
-  useDecryptedContractData: () => useDecryptedContractDataMock(),
+jest.mock('../context', () => ({
+  useContractContext: jest.fn(() => ({
+    paymentData: 'paymentData',
+  })),
 }))
 
 describe('tradeInformationGetters', () => {
