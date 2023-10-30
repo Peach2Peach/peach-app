@@ -47,9 +47,7 @@ async function decryptContractData (contract: Contract) {
   }
 }
 
-async function getPaymentData (contract: Contract, symmetricKey: string) {
-  const { paymentDataEncrypted, paymentDataSignature, seller } = contract
-
+async function getPaymentData ({ paymentDataEncrypted, paymentDataSignature, seller }: Contract, symmetricKey: string) {
   if (!paymentDataEncrypted || !paymentDataSignature) return [null, new Error('MISSING_PAYMENTDATA')] as const
 
   let decryptedPaymentData: PaymentData | null = null
