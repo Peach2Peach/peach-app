@@ -8,11 +8,11 @@ import { isLimitReached } from '../../utils/match'
 import { isBuyOffer } from '../../utils/offer'
 import { GradientBorder } from '../GradientBorder'
 import { RadialGradient } from '../RadialGradient'
+import { MatchPaymentDetails } from './MatchPaymentDetails'
 import { MatchOfferButton, UnmatchButton } from './buttons'
 import { options } from './buttons/options'
 import { EscrowLink, MatchCardCounterparty, PaymentMethodSelector, PriceInfo } from './components'
 import { useInterruptibleFunction, useMatchOffer } from './hooks'
-import { MatchPaymentDetails } from './MatchPaymentDetails'
 import { useMatchStore } from './store'
 
 type MatchProps = ComponentProps & { match: Match; offer: BuyOffer | SellOffer }
@@ -55,12 +55,12 @@ export const Match = ({ match, offer }: MatchProps) => {
   )
 
   return (
-    <View style={tw`h-full justify-center`}>
+    <View style={tw`justify-center flex-1`}>
       <GradientBorder
         gradient={peachyGradient}
         gradientBorderWidth={4}
         showBorder={showMatchedCard}
-        style={[tw`overflow-hidden rounded-2xl `, options[currentOptionName].backgroundColor]}
+        style={[tw`overflow-hidden rounded-2xl`, options[currentOptionName].backgroundColor]}
         onStartShouldSetResponder={() => true}
       >
         <View style={tw`bg-primary-background-light rounded-t-xl`}>
