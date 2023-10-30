@@ -15,6 +15,7 @@ import ru from '../../i18n/ru'
 import sw from '../../i18n/sw'
 import tr from '../../i18n/tr'
 import uk from '../../i18n/uk'
+import { keys } from '../object'
 import { getLocaleLanguage } from './getLocaleLanguage'
 
 const localeMapping: Record<string, Record<string, string>> = {
@@ -26,13 +27,7 @@ const localeMapping: Record<string, Record<string, string>> = {
   'el-GR': elGR,
   tr,
   sw,
-  hu,
-  nl,
-  pl,
-  pt,
-  'pt-BR': ptBR,
-  ru,
-  uk,
+
   raw: {},
 }
 
@@ -44,8 +39,17 @@ type LanguageState = {
 export const languageState: LanguageState = {
   locale: 'en',
 }
-export const locales = ['en', 'es', 'fr', 'it', 'de', 'el-GR', 'tr', 'sw', 'hu', 'nl', 'pl', 'pt', 'pt-BR', 'ru', 'uk']
-if (NETWORK !== 'bitcoin') locales.push('raw')
+if (NETWORK !== 'bitcoin') {
+  localeMapping.hu = hu
+  localeMapping.nl = nl
+  localeMapping.pl = pl
+  localeMapping.pt = pt
+  localeMapping['pt-BR'] = ptBR
+  localeMapping.ru = ru
+  localeMapping.uk = uk
+  localeMapping.raw = {}
+}
+export const locales = keys(localeMapping)
 
 export const setLocaleQuiet = (lcl: Locale) => {
   if (!localeMapping[lcl]) lcl = 'en'
