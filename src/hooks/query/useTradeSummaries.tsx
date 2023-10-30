@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { sortSummariesByDate } from '../../utils/contract'
 import { useContractSummaries } from './useContractSummaries'
 import { useOfferSummaries } from './useOfferSummaries'
@@ -17,8 +17,11 @@ export const useTradeSummaries = (enabled = true) => {
     refetchContracts()
   }, [refetchContracts, refetchOffers])
 
-  const filteredOffers = offers.filter(({ contractId }) => !contractId)
-  const tradeSummaries = [...filteredOffers, ...contracts].sort(sortSummariesByDate).reverse()
+  const filteredOffers = useMemo(() => offers.filter(({ contractId }) => !contractId), [offers])
+  const tradeSummaries = useMemo(
+    () => [...filteredOffers, ...contracts].sort(sortSummariesByDate).reverse(),
+    [contracts, filteredOffers],
+  )
 
   return {
     isLoading: offersLoading || contractsLoading,

@@ -1,7 +1,5 @@
 export const getNavigationDestinationForContract = ({
   tradeStatus,
   id: contractId,
-}: Pick<Contract | ContractSummary, 'tradeStatus' | 'id'>) => [
-  tradeStatus === 'rateUser' ? 'tradeComplete' : 'contract',
-  { contractId },
-]
+}: Pick<Contract | ContractSummary, 'tradeStatus' | 'id'>) =>
+  [tradeStatus === 'rateUser' ? 'tradeComplete' : 'contract', { contractId }] as const

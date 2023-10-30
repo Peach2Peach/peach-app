@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { error, info } from '../../utils/log'
+import { info } from '../../utils/log'
 import { decryptSymmetric, verify } from '../../utils/pgp'
 import { decryptSymmetricKey } from '../contract/helpers'
 
@@ -27,7 +27,6 @@ async function decryptContractData (contract: Contract) {
   )
 
   if (!symmetricKey || err) {
-    error(err)
     return {
       symmetricKey,
       paymentData: null,
@@ -36,12 +35,10 @@ async function decryptContractData (contract: Contract) {
   info('Symmetric decryption success')
   info('decryptContractData - decrypting payment data')
 
-  const [paymentData, getPaymentDataError] = await getPaymentData(contract, symmetricKey)
+  const [paymentData] = await getPaymentData(contract, symmetricKey)
 
   if (paymentData) {
     info('Payment data decryption, success')
-  } else {
-    error(getPaymentDataError)
   }
 
   return {
