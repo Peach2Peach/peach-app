@@ -703,7 +703,7 @@ exports[`useRateSetup opens trade breakdown poup 1`] = `
             ]
           }
         >
-          peach fees
+          Peach fees
         </Text>
         <View
           style={

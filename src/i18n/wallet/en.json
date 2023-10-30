@@ -64,7 +64,7 @@
   "wallet.settings.node.connected" : "connected to your node",
   "wallet.settings.node.error.text" : "Please check if you have entered all the connection information correctly.\n\nWe got the following response:\n\n$0",
   "wallet.settings.node.error.title" : "no connection...",
-  "wallet.settings.node.help.text" : "You can instruct the Peach wallet to use your own electrum server for getting information from the blockchain.\n\nIf you don’t, you’ll be trusting the Peach node to give you correct information.",
+  "wallet.settings.node.help.text" : "You can instruct the Peach wallet to use your own electrum server for getting information from the blockchain.\n\nIf you don’t, you’ll be using the Peach node to give you correct information.",
   "wallet.settings.node.help.title" : "use your own node",
   "wallet.settings.node.ssl" : "use SSL",
   "wallet.settings.node.success.confirm" : "save node info",

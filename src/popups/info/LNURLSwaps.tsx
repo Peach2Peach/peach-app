@@ -6,7 +6,7 @@ export const LNURLSwaps = () => (
   <ParsedPeachText
     parse={[
       {
-        pattern: new RegExp(i18n('help.lnurl.description.bold').replace(' ', ' '), 'u'),
+        pattern: new RegExp(i18n.break('help.lnurl.description.bold'), 'u'),
         style: tw`font-baloo-bold`,
       },
     ]}

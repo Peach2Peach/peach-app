@@ -59,7 +59,6 @@
   "contract.disputeWon.seller.text" : "Vous avez remporté la dispute! La réputation de l'acheteur a été affectée. Vous pouvez maintenant soit re-publier l'offre, soit demander un remboursement.",
   "contract.goToNewOffer" : "aller à la nouvelle offre",
   "contract.goToNewTrade" : "aller à un nouvel échange",
-  "contract.payment.at" : "à",
   "contract.payment.buyer.confirm" : "J'ai effectué le paiement",
   "contract.payment.confirm" : "confirmer le paiement",
   "contract.payment.made" : "paiement effectué",

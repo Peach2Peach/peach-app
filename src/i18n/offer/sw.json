@@ -10,6 +10,7 @@
   "offer.published.title" : "ombi limetangazwa!",
   "offer.publishing" : "inatangazwa",
   "offer.requiredAction.confirmCancelation.buyer" : "muuzaji anataka kufuta",
+  "offer.requiredAction.confirmCancelation.seller" : "ombi la kughairi limetumwa",
   "offer.requiredAction.confirmPaymentRequired" : "thibitisha malipo",
   "offer.requiredAction.confirmPaymentRequired.dispute" : "mzozo umeshindwa: inangojea malipo",
   "offer.requiredAction.dispute" : "mzozo umeanza",
