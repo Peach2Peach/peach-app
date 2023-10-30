@@ -461,8 +461,8 @@ describe('PeachWallet - loadWallet', () => {
     await peachWallet.initWallet()
     expect(peachWallet.balance).toBe(balance)
     expect(blockChainCreateMock).toHaveBeenCalledWith(
-      { concurrency: 1, proxy: null, stopGap: 25, timeout: 30, baseUrl: 'https://localhost:3000' },
-      'Esplora',
+      { sock5: null, retry: 1, timeout: 5, validateDomain: false, stopGap: 25, url: BLOCKEXPLORER },
+      BlockChainNames.Electrum,
     )
   })
   it('loads wallet with seed', async () => {
@@ -533,9 +533,10 @@ describe('PeachWallet - buildFinishedTransaction', () => {
       BlockChainNames.Esplora,
     )
     await peachWallet.setBlockchain({ enabled: false, url, ssl: true, type: BlockChainNames.Electrum })
+
     expect(blockChainCreateMock).toHaveBeenCalledWith(
-      { baseUrl: BLOCKEXPLORER, proxy: null, concurrency: 1, timeout: 30, stopGap: 25 },
-      BlockChainNames.Esplora,
+      { sock5: null, retry: 1, timeout: 5, validateDomain: false, stopGap: 25, url: BLOCKEXPLORER },
+      BlockChainNames.Electrum,
     )
     await peachWallet.setBlockchain({ enabled: true, url, ssl: true, type: BlockChainNames.Rpc })
     expect(blockChainCreateMock).toHaveBeenCalledWith(
