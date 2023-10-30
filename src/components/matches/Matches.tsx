@@ -1,7 +1,10 @@
-import { useWindowDimensions } from 'react-native'
+import { View, useWindowDimensions } from 'react-native'
 import Carousel from 'react-native-reanimated-carousel'
 import { useIsMediumScreen, useRoute } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
+import tw from '../../styles/tailwind'
+import { isSellOffer } from '../../utils/offer'
+import { MatchInformation } from '../../views/search/components'
 import { useOfferMatches } from '../../views/search/hooks'
 import { Match } from './Match'
 import { useMatchesSetup } from './hooks'
@@ -22,17 +25,23 @@ export const Matches = () => {
   if (!offer) return <></>
 
   return (
-    <Carousel
-      {...{ width, onSnapToItem }}
-      loop={false}
-      snapEnabled
-      mode="parallax"
-      modeConfig={{
-        parallaxScrollingScale: 0.9,
-        parallaxScrollingOffset: isMediumScreen ? 48 : 24,
-      }}
-      data={matches}
-      renderItem={({ item: match }) => <Match {...{ match, offer }} />}
-    />
+    <View style={tw`h-full`}>
+      {isSellOffer(offer) && <MatchInformation offer={offer} />}
+      <View style={tw`shrink`}>
+        <Carousel
+          {...{ width, onSnapToItem }}
+          loop={false}
+          snapEnabled
+          mode="parallax"
+          style={tw`grow`}
+          modeConfig={{
+            parallaxScrollingScale: 0.9,
+            parallaxScrollingOffset: isMediumScreen ? 48 : 40,
+          }}
+          data={matches}
+          renderItem={({ item: match }) => <Match {...{ match, offer }} />}
+        />
+      </View>
+    </View>
   )
 }
