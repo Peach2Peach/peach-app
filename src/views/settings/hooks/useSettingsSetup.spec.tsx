@@ -98,7 +98,7 @@ describe('useSettingsSetup', () => {
       level: 'WARN',
       action2: {
         callback: expect.any(Function),
-        label: 'never mind',
+        label: 'no, keep them on',
         icon: 'arrowLeftCircle',
       },
       action1: {

@@ -1,0 +1,23 @@
+{
+  "sell.discount" : "desconto",
+  "sell.escrow.checkingFundingStatus" : "a verificar o estado dos fundos",
+  "sell.escrow.loading" : "a criar o depósito de caução, um segundo...",
+  "sell.escrow.mempool" : "A transação foi para o Mempool!",
+  "sell.escrow.returnAddress.subtitle" : "(caso precise de um reembolso)",
+  "sell.escrow.returnAddress.title" : "qual é o seu endereço de devolução?",
+  "sell.escrow.sendSats" : "enviar",
+  "sell.escrow.title" : "financiar o depósitos de caução",
+  "sell.funding.mempool.description" : "A sua transação de Bitcoin está pendente...\n\nPode fazer outra coisa, publicaremos automaticamente a sua oferta assim que estiver pronta!",
+  "sell.funding.mempool.title" : "transação pendente",
+  "sell.meansOfPayment" : "como gostaria de ser pago?",
+  "sell.premium" : "premium",
+  "sell.premium.currently" : "atualmente $0",
+  "sell.premium.marketPrice" : "preço de mercado",
+  "sell.premium.title" : "defina o seu premium / desconto",
+  "sell.subtitle" : "Está vendendo:",
+  "sell.subtitle.highlight" : "venda",
+  "sell.summary.title" : "resumo da oferta de venda",
+  "sell.title" : "vender Bitcoin",
+  "sell.title.highlight" : "vender",
+  "yourTrades.search.sell.subtitle" : "oferta de venda para"
+}

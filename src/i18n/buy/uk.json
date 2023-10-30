@@ -1,0 +1,14 @@
+{
+  "buy.addressSigning.message" : "повідомлення",
+  "buy.addressSigning.signature" : "підпис",
+  "buy.addressSigning.title" : "напишіть Вашу адресу",
+  "buy.addressSigning.yourAddress" : "ваша адреса",
+  "buy.meansOfPayment" : "як би ви хотіли сплатити?",
+  "buy.releaseAddress.title" : "вивільнити адресу",
+  "buy.subtitle" : "Ви купляєте між:",
+  "buy.subtitle.highlight" : "купівля",
+  "buy.summary.title" : "опублікувати пропозицію покупки",
+  "buy.title" : "придбати біткоін",
+  "buy.title.highlight" : "придбати",
+  "yourTrades.search.buy.subtitle" : "купити лот за"
+}

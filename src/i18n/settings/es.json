@@ -45,7 +45,6 @@
   "settings.contact" : "contactar a Peach",
   "settings.currency" : "moneda",
   "settings.deleteAccount" : "eliminar cuenta",
-  "settings.deleteAccount.back" : "ups, mejor no",
   "settings.deleteAccount.deleted.title" : "adiós datos",
   "settings.deleteAccount.forRealsies" : "En serio. ¡Sin copia de seguridad o sin contraseña = datos perdidos!",
   "settings.deleteAccount.ok" : "borrar",
