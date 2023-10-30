@@ -3,7 +3,7 @@ import { useConfigStore } from '../../../store/configStore'
 import { txIdPartOfPSBT } from '../../../utils/bitcoin'
 import { releaseTransactionHasValidOutputs } from './releaseTransactionHasValidOutputs'
 
-export const verifyReleasePSBT = (psbt: Psbt, sellOffer?: SellOffer, contract?: Contract): string | null => {
+export const verifyReleasePSBT = (psbt: Psbt, sellOffer?: SellOffer, contract?: Contract) => {
   if (!sellOffer || sellOffer.funding.txIds.length === 0 || !contract) return 'MISSING_DATA'
 
   const txIds = sellOffer.funding.txIds

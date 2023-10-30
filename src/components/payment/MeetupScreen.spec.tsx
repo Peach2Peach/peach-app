@@ -76,7 +76,7 @@ describe('MeetupScreen', () => {
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
-  it('should open link to google maps and meetup website', () => {
+  it('should open link to google maps and meetup website', async () => {
     useMeetupScreenSetupMock.mockReturnValueOnce({
       ...meetupScreenSetup,
       deletable: true,
@@ -85,9 +85,9 @@ describe('MeetupScreen', () => {
       selectedCurrencies: ['EUR'],
     })
     const { getByText } = render(<MeetupScreen />)
-    fireEvent(getByText('view on maps'), 'onPress')
+    await fireEvent(getByText('view on maps'), 'onPress')
     expect(openURLSpy).toHaveBeenCalledWith('http://maps.google.com/maps?daddr=Prague')
-    fireEvent(getByText('meetup link'), 'onPress')
+    await fireEvent(getByText('meetup link'), 'onPress')
     expect(openURLSpy).toHaveBeenCalledWith(btcPragueEvent.url)
   })
 })

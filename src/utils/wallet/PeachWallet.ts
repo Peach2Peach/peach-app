@@ -1,9 +1,10 @@
 /* eslint-disable max-lines */
-import { NETWORK } from '@env'
+import { NETWORK, NODE_TYPE } from '@env'
 import { Blockchain, BumpFeeTxBuilder, DatabaseConfig, PartiallySignedTransaction, TxBuilder, Wallet } from 'bdk-rn'
-import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { AddressIndex, BlockChainNames } from 'bdk-rn/lib/lib/enums'
+import { AddressInfo, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import { AddressIndex } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
+import RNFS from 'react-native-fs'
 import { error, info } from '../log'
 import { parseError } from '../result'
 import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
@@ -39,6 +40,10 @@ export class PeachWallet extends PeachJSWallet {
 
   wallet: Wallet | undefined
 
+  lastUnusedAddress?: Omit<AddressInfo, 'address'> & {
+    address: string
+  }
+
   blockchain: Blockchain | undefined
 
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
@@ -63,7 +68,9 @@ export class PeachWallet extends PeachJSWallet {
 
         this.setBlockchain(useNodeConfigState.getState())
 
-        const dbConfig = await new DatabaseConfig().memory()
+        const dbConfig = await new DatabaseConfig().sqlite(
+          `${RNFS.DocumentDirectoryPath}/${NETWORK}-${useNodeConfigState.getState().type || NODE_TYPE}`,
+        )
 
         info('PeachWallet - initWallet - createWallet')
 
@@ -94,7 +101,7 @@ export class PeachWallet extends PeachJSWallet {
     const blockchainConfig = buildBlockchainConfig(nodeConfig)
     this.blockchain = await new Blockchain().create(
       blockchainConfig,
-      nodeConfig.enabled ? nodeConfig.type || BlockChainNames.Esplora : BlockChainNames.Esplora,
+      nodeConfig.enabled ? nodeConfig.type || NODE_TYPE : NODE_TYPE,
     )
   }
 
@@ -113,6 +120,7 @@ export class PeachWallet extends PeachJSWallet {
           if (success) {
             this.getBalance()
             this.getTransactions()
+            this.lastUnusedAddress = undefined
             useWalletState.getState().setIsSynced(true)
             info('PeachWallet - syncWallet - synced')
           }
@@ -168,13 +176,19 @@ export class PeachWallet extends PeachJSWallet {
     return this.transactions.filter((tx) => !tx.confirmationTime?.height)
   }
 
-  async getLastUnusedAddress () {
+  async fetchLastUnusedAddress () {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
     const addressInfo = await this.wallet.getAddress(AddressIndex.LastUnused)
-    return {
+    this.lastUnusedAddress = {
       ...addressInfo,
       address: await addressInfo.address.asString(),
     }
+    return this.lastUnusedAddress
+  }
+
+  getLastUnusedAddress () {
+    if (!this.lastUnusedAddress) return this.fetchLastUnusedAddress()
+    return this.lastUnusedAddress
   }
 
   async getNewInternalAddress () {
@@ -248,7 +262,10 @@ export class PeachWallet extends PeachJSWallet {
 
       this.blockchain.broadcast(await signedPSBT.extractTx())
       info('PeachWallet - signAndBroadcastPSBT - broadcasted')
-      this.syncWallet()
+
+      this.syncWallet().catch((e) => {
+        error(parseError(e))
+      })
 
       info('PeachWallet - signAndBroadcastPSBT - end')
 

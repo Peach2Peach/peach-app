@@ -4,15 +4,9 @@ exports[`GradientBorder should render correctly and hide border 1`] = `
 <View>
   <View
     style={
-      [
-        {
-          "marginBottom": 0,
-          "marginLeft": 0,
-          "marginRight": 1,
-          "marginTop": 2,
-        },
-        undefined,
-      ]
+      {
+        "margin": 2,
+      }
     }
   />
 </View>
@@ -20,95 +14,87 @@ exports[`GradientBorder should render correctly and hide border 1`] = `
 
 exports[`GradientBorder should render correctly and show border by default 1`] = `
 <View>
-  <View>
-    <RNSVGSvgView
-      bbHeight="100%"
-      bbWidth="100%"
-      focusable={false}
-      height="100%"
-      style={
+  <RNSVGSvgView
+    bbHeight="100%"
+    bbWidth="100%"
+    focusable={false}
+    height="100%"
+    style={
+      [
+        {
+          "backgroundColor": "transparent",
+          "borderWidth": 0,
+        },
         [
           {
-            "backgroundColor": "transparent",
-            "borderWidth": 0,
+            "position": "absolute",
           },
-          [
-            {
-              "position": "absolute",
-            },
-          ],
-          {
-            "flex": 0,
-            "height": "100%",
-            "width": "100%",
-          },
-        ]
-      }
-      width="100%"
-    >
-      <RNSVGGroup
-        fill={
-          {
-            "payload": 4278190080,
-            "type": 0,
-          }
+        ],
+        {
+          "flex": 0,
+          "height": "100%",
+          "width": "100%",
+        },
+      ]
+    }
+    width="100%"
+  >
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
         }
-      >
-        <RNSVGDefs>
-          <RNSVGRadialGradient
-            cx="100%"
-            cy="0%"
-            fx="100%"
-            fy="0%"
-            gradient={
-              [
-                0,
-                -23988,
-                0.5025,
-                -34224,
-                1,
-                -45758,
-              ]
-            }
-            gradientTransform={null}
-            gradientUnits={1}
-            name="grad"
-            rx="110.76%"
-            ry="117.21%"
-          />
-        </RNSVGDefs>
-        <RNSVGRect
-          fill={
-            {
-              "brushRef": "grad",
-              "type": 1,
-            }
-          }
-          height="100%"
-          propList={
+      }
+    >
+      <RNSVGDefs>
+        <RNSVGRadialGradient
+          cx="100%"
+          cy="0%"
+          fx="100%"
+          fy="0%"
+          gradient={
             [
-              "fill",
+              0,
+              -23988,
+              0.5025,
+              -34224,
+              1,
+              -45758,
             ]
           }
-          width="100%"
-          x="0"
-          y="0"
+          gradientTransform={null}
+          gradientUnits={1}
+          name="grad"
+          rx="110.76%"
+          ry="117.21%"
         />
-      </RNSVGGroup>
-    </RNSVGSvgView>
-    <View
-      style={
-        [
+      </RNSVGDefs>
+      <RNSVGRect
+        fill={
           {
-            "marginBottom": 1,
-            "marginLeft": 0,
-            "marginRight": 3,
-            "marginTop": 2,
-          },
-          undefined,
-        ]
+            "brushRef": "grad",
+            "type": 1,
+          }
+        }
+        height="100%"
+        propList={
+          [
+            "fill",
+          ]
+        }
+        width="100%"
+        x="0"
+        y="0"
+      />
+    </RNSVGGroup>
+  </RNSVGSvgView>
+  <View
+    style={
+      {
+        "margin": 2,
       }
-    />
-  </View>
+    }
+  />
 </View>
 `;

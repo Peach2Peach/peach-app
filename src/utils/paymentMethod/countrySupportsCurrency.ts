@@ -13,6 +13,18 @@ const map: Record<Currency, PaymentMethodCountry[]> = {
   ISK: [],
   NOK: [],
   USDT: [],
+  SAT: [],
+  TRY: [],
+  ARS: [],
+  COP: [],
+  PEN: [],
+  MXN: [],
+  CLP: [],
+  XOF: [],
+  NGN: [],
+  CDF: [],
+  CRC: [],
+  BRL: [],
 }
 
 export const countrySupportsCurrency = (currency: Currency) => (country: PaymentMethodCountry) =>

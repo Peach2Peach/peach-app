@@ -8,6 +8,7 @@ export const defaultConfig: Config = {
   latestAppVersion: APPVERSION,
   minTradingAmount: 0,
   maxTradingAmount: Infinity,
+  maxSellTradingAmount: Infinity,
   seenDisputeDisclaimer: false,
   hasSeenGroupHugAnnouncement: false,
 }

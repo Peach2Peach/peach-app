@@ -41,7 +41,7 @@ exports[`WelcomeInfo - aWalletYouControl renders correctly 1`] = `
       ]
     }
   >
-    a wallet you control
+    a wallet YOU control
   </Text>
   <Text
     allowFontScaling={false}
@@ -63,7 +63,7 @@ exports[`WelcomeInfo - aWalletYouControl renders correctly 1`] = `
       ]
     }
   >
-    Peach has a built-in wallet, so you can get started right away. No third-party apps required!
+    Peach has a built-in wallet, so you can get started right away. No third-party apps required to use Bitcoin properly!
   </Text>
   <Image
     resizeMode="contain"
@@ -227,7 +227,7 @@ exports[`WelcomeInfo - peerToPeer renders correctly 1`] = `
       ]
     }
   >
-    With Peach, you don't buy from us, but from other people. It's like a marketplace for bitcoin!
+    With Peach, you don't buy from us, but from other people. It's a marketplace for bitcoin!
   </Text>
   <Image
     resizeMode="contain"

@@ -8,25 +8,71 @@ exports[`CurrencyTabs should render correctly 1`] = `
       "focus": [Function],
     }
   }
-  tabBar={[Function]}
+  screenOptions={
+    {
+      "tabBarContentContainerStyle": {
+        "backgroundColor": "transparent",
+      },
+      "tabBarIndicatorStyle": {
+        "backgroundColor": "#2B1911",
+      },
+      "tabBarItemStyle": {
+        "paddingLeft": 0,
+        "paddingRight": 0,
+      },
+      "tabBarLabelStyle": {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "letterSpacing": 0.16,
+        "lineHeight": 23,
+        "textTransform": "capitalize",
+      },
+      "tabBarPressColor": "transparent",
+      "tabBarScrollEnabled": true,
+      "tabBarStyle": {
+        "backgroundColor": "transparent",
+      },
+    }
+  }
 >
   <Screen
     name="europe"
+    options={
+      {
+        "title": "Europe",
+      }
+    }
   >
     [Function]
   </Screen>
   <Screen
     name="latinAmerica"
+    options={
+      {
+        "title": "Latin America",
+      }
+    }
   >
     [Function]
   </Screen>
   <Screen
     name="africa"
+    options={
+      {
+        "title": "Africa",
+      }
+    }
   >
     [Function]
   </Screen>
   <Screen
     name="other"
+    options={
+      {
+        "title": "other",
+      }
+    }
   >
     [Function]
   </Screen>

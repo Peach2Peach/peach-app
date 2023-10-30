@@ -1,8 +1,8 @@
-import { Linking } from 'react-native'
 import { Text } from '../components'
 import tw from '../styles/tailwind'
 import i18n, { languageState } from '../utils/i18n'
 import { getLocalizedLink } from '../utils/web'
+import { openURL } from '../utils/web/openURL'
 
 export const AnalyticsPrompt = () => (
   <Text>
@@ -11,7 +11,7 @@ export const AnalyticsPrompt = () => (
     {i18n('analytics.request.description2')}
     <Text
       style={tw`mt-2 text-center underline`}
-      onPress={() => Linking.openURL(getLocalizedLink('privacy-policy', languageState.locale))}
+      onPress={() => openURL(getLocalizedLink('privacy-policy', languageState.locale))}
     >
       {i18n('privacyPolicy').toLocaleLowerCase()}.
     </Text>

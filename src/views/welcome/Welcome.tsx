@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { Pressable, View, useWindowDimensions } from 'react-native'
-import Carousel from 'react-native-snap-carousel'
+import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel'
 import { Icon, Progress, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
 import { useKeyboard } from '../../hooks'
@@ -11,7 +11,7 @@ import { screens, useWelcomeSetup } from './hooks/useWelcomeSetup'
 const onStartShouldSetResponder = () => true
 export const Welcome = () => {
   const { width } = useWindowDimensions()
-  const $carousel = useRef<Carousel<() => JSX.Element>>(null)
+  const $carousel = useRef<ICarouselInstance>(null)
   const { page, setPage, progress, endReached, next, goToEnd } = useWelcomeSetup({ carousel: $carousel })
   const keyboardOpen = useKeyboard()
 
@@ -38,15 +38,9 @@ export const Welcome = () => {
           <Carousel
             ref={$carousel}
             data={screens}
-            enableSnap={true}
-            enableMomentum={false}
-            sliderWidth={width}
-            itemWidth={width}
-            inactiveSlideScale={1}
-            inactiveSlideOpacity={1}
-            inactiveSlideShift={0}
-            onBeforeSnapToItem={setPage}
-            shouldOptimizeUpdates={true}
+            snapEnabled={true}
+            width={width}
+            onSnapToItem={setPage}
             renderItem={({ item: Item, index }) => (
               <View
                 testID={`welcome-screen-${index}`}

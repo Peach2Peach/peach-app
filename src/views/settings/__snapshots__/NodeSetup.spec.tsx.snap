@@ -105,7 +105,7 @@ exports[`NodeSetup should open help popup 1`] = `
     >
       You can instruct the Peach wallet to use your own electrum server for getting information from the blockchain.
 
-If you don’t, you’ll be trusting the Peach node to give you correct information.
+If you don’t, you’ll be using the Peach node to give you correct information.
     </Text>
   </View>
   <View

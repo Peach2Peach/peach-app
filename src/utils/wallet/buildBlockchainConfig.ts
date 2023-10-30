@@ -1,4 +1,4 @@
-import { BLOCKEXPLORER } from '@env'
+import { BLOCKEXPLORER, NODE_TYPE } from '@env'
 import {
   BlockChainNames,
   BlockchainElectrumConfig,
@@ -33,6 +33,6 @@ const configBuilders = {
   }),
 }
 export const buildBlockchainConfig = (nodeConfig: NodeConfig) => {
-  if (nodeConfig.enabled) return configBuilders[nodeConfig.type || BlockChainNames.Esplora](nodeConfig)
-  return configBuilders[BlockChainNames.Esplora]({ enabled: false, ssl: true })
+  if (nodeConfig.enabled) return configBuilders[nodeConfig.type || NODE_TYPE](nodeConfig)
+  return configBuilders[NODE_TYPE]({ enabled: false, ssl: true })
 }

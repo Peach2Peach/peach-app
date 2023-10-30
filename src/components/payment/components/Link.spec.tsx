@@ -13,9 +13,9 @@ describe('Link', () => {
     renderer.render(<Link text={text} url={url} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
-  it('should open link', () => {
+  it('should open link', async () => {
     const { getByText } = render(<Link text={text} url={url} />)
-    fireEvent(getByText(text), 'onPress')
+    await fireEvent(getByText(text), 'onPress')
     expect(openURLSpy).toHaveBeenCalledWith(url)
   })
 })

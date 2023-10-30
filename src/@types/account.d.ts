@@ -20,6 +20,10 @@ type Settings = {
   nodeURL: string
   feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'
   usedReferralCode?: boolean
+  cloudflareChallenge?: {
+    cfClearance: string
+    userAgent: string
+  }
 }
 
 type PGPKeychain = {
@@ -38,7 +42,6 @@ type Identity = {
 type Account = Identity & {
   tradingLimit: TradingLimit
   offers: (SellOffer | BuyOffer)[]
-  contracts: Contract[]
   chats: {
     [key: string]: Chat
   }

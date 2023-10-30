@@ -45,7 +45,6 @@
   "settings.contact" : "Peach ile iletişim",
   "settings.currency" : "para birimi",
   "settings.deleteAccount" : "hesabı sil",
-  "settings.deleteAccount.back" : "vazgeç, sorun değil",
   "settings.deleteAccount.deleted.title" : "hoşça kal - veriler",
   "settings.deleteAccount.forRealsies" : "Cidden. \nYedek veya şifre yoksa veriler kaybolur!",
   "settings.deleteAccount.ok" : "yap",

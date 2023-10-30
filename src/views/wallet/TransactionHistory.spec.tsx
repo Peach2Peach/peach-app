@@ -27,7 +27,6 @@ describe('TransactionHistory', () => {
   })
   it('should render correctly with tx', () => {
     const { toJSON } = render(<TransactionHistory />)
-
     expect(toJSON()).toMatchSnapshot()
   })
   it('should navigate to "exportTransactionHistory" when share icon is pressed', () => {

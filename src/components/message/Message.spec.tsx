@@ -1,4 +1,6 @@
-import { fireEvent, render } from 'test-utils'
+import { fireEvent, render, waitFor } from 'test-utils'
+import { VerifyYouAreAHumanPopup } from '../../popups/warning/VerifyYouAreAHumanPopup'
+import { usePopupStore } from '../../store/usePopupStore'
 import i18n from '../../utils/i18n'
 import { Message } from './Message'
 import { useMessageState } from './useMessageState'
@@ -6,13 +8,12 @@ import { useMessageState } from './useMessageState'
 jest.mock('react-native-promise-rejection-utils', () => ({
   setUnhandledPromiseRejectionTracker: jest.fn(),
 }))
+const initAppMock = jest.fn().mockResolvedValue({
+  error: null,
+  status: 'online',
+})
 jest.mock('../../init/initApp', () => ({
-  initApp: jest.fn(() =>
-    Promise.resolve({
-      error: null,
-      status: 'online',
-    }),
-  ),
+  initApp: () => initAppMock(),
 }))
 
 describe('Message', () => {
@@ -49,5 +50,10 @@ describe('Message', () => {
     const { getByText } = render(<Message />)
     fireEvent.press(getByText(i18n('close')))
     expect(defaultProps.onClose).toHaveBeenCalled()
+  })
+  it('shows verify you are a human popup if verification is required', async () => {
+    initAppMock.mockResolvedValueOnce({ error: 'HUMAN_VERIFICATION_REQUIRED' })
+    render(<Message />)
+    await waitFor(() => expect(usePopupStore.getState().popupComponent).toEqual(<VerifyYouAreAHumanPopup />))
   })
 })

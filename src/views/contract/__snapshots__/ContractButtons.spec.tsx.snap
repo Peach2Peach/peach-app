@@ -1,0 +1,445 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContractButtons - ProvideEmailButton should open the popup when pressed 1`] = `
+<View
+  style={
+    {
+      "borderRadius": 16,
+      "marginLeft": 12,
+      "marginRight": 12,
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "alignItems": "stretch",
+          "backgroundColor": "#FEEDE5",
+          "gap": 12,
+          "paddingBottom": 24,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 16,
+        },
+        [
+          {
+            "backgroundColor": "#FDF6C0",
+          },
+          {
+            "alignItems": "stretch",
+          },
+        ],
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "fontFamily": "Baloo2-Bold",
+            "fontSize": 24,
+            "letterSpacing": 0.24,
+            "lineHeight": 32,
+            "width": "100%",
+          },
+          false,
+        ]
+      }
+    >
+      dispute opened
+    </Text>
+    <View
+      style={
+        {
+          "gap": 16,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            undefined,
+            false,
+          ]
+        }
+      >
+        The seller claims he hasn't received the money for the 250 000 sats of trade PC‑E‑F.
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            undefined,
+            false,
+          ]
+        }
+      >
+        Please enter your email address so we can contact you for more information.
+      </Text>
+      <View>
+        <View>
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "gap": 4,
+                  "justifyContent": "space-between",
+                  "paddingLeft": 12,
+                  "paddingRight": 12,
+                  "width": "100%",
+                },
+                {
+                  "borderRadius": 12,
+                  "borderWidth": 1,
+                  "overflow": "hidden",
+                },
+                {
+                  "backgroundColor": "#FFFCFA",
+                },
+                {
+                  "borderColor": "#2B1911",
+                },
+                false,
+                false,
+                {
+                  "marginBottom": 1,
+                  "marginTop": 1,
+                },
+                {
+                  "backgroundColor": "#FDF6C0",
+                },
+              ]
+            }
+          >
+            <TextInput
+              allowFontScaling={false}
+              autoCapitalize="none"
+              autoCorrect={false}
+              blurOnSubmit={false}
+              editable={true}
+              keyboardType="email-address"
+              multiline={false}
+              onBlur={[Function]}
+              onChangeText={[Function]}
+              onEndEditing={[Function]}
+              onFocus={[Function]}
+              onSubmitEditing={[Function]}
+              placeholder="example@provider.com"
+              placeholderTextColor="#BAADA7"
+              removeClippedSubviews={false}
+              style={
+                [
+                  {
+                    "flexShrink": 1,
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 18,
+                    "height": 40,
+                    "letterSpacing": 0.18,
+                    "lineHeight": 29.25,
+                    "paddingBottom": 0,
+                    "paddingTop": 0,
+                    "width": "100%",
+                  },
+                  {
+                    "color": "#BAADA7",
+                  },
+                  false,
+                  {
+                    "borderColor": "transparent",
+                    "borderWidth": 1,
+                  },
+                  false,
+                  false,
+                ]
+              }
+              textAlignVertical="center"
+              value=""
+            />
+            <View
+              style={
+                {
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "gap": 16,
+                }
+              }
+            />
+          </View>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Medium",
+                    "fontSize": 14,
+                    "letterSpacing": 0.14,
+                    "lineHeight": 20,
+                    "marginLeft": 12,
+                    "marginTop": 4,
+                  },
+                  {
+                    "color": "#DF321F",
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+             
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "alignSelf": "stretch",
+          "backgroundColor": "#F56522",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        },
+        {
+          "backgroundColor": "#F5CE22",
+        },
+      ]
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "gap": 4,
+          "opacity": 1,
+          "paddingBottom": 8,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#2B1911"
+        style={
+          [
+            {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "color": "#FFFCFA",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              {
+                "color": "#2B1911",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        close
+      </Text>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row-reverse",
+          "flexGrow": 1,
+          "gap": 4,
+          "opacity": 1,
+          "paddingBottom": 8,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#2B1911"
+        style={
+          [
+            {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "color": "#FFFCFA",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              {
+                "color": "#2B1911",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        send
+      </Text>
+    </View>
+  </View>
+</View>
+`;

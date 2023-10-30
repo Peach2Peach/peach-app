@@ -1,17 +1,15 @@
-import { act, renderHook } from 'test-utils'
+import { act, render, renderHook } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { TradeBreakdown } from '../../../popups/TradeBreakdown'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
-import { Props, useRateSetup } from './useRateSetup'
+import { useRateSetup } from './useRateSetup'
 
 const showErrorBannerMock = jest.fn()
-const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner: () => useShowErrorBannerMock(),
+  useShowErrorBanner: () => showErrorBannerMock,
 }))
 
 const rateUserMock = jest.fn().mockResolvedValue([apiSuccess, null])
@@ -26,12 +24,18 @@ jest.mock('../../../utils/contract', () => ({
 
 const showTransactionMock = jest.fn()
 const showAddressMock = jest.fn()
+const getTradeBreakdownMock = jest.fn((..._args: unknown[]) => ({
+  totalAmount: 21000,
+  peachFee: 21,
+  networkFee: 210,
+  amountReceived: 20769,
+}))
 jest.mock('../../../utils/bitcoin', () => ({
   showTransaction: (...args: unknown[]) => showTransactionMock(...args),
   showAddress: (...args: unknown[]) => showAddressMock(...args),
+  getTradeBreakdown: (...args: unknown[]) => getTradeBreakdownMock(...args),
 }))
 
-// eslint-disable-next-line max-lines-per-function
 describe('useRateSetup', () => {
   const now = new Date()
   const positiveRating = {
@@ -47,7 +51,7 @@ describe('useRateSetup', () => {
     signature: 'signature',
   }
   const saveAndUpdateMock = jest.fn()
-  const initialProps: Props = { contract, view: 'buyer', vote: undefined, saveAndUpdate: saveAndUpdateMock }
+  const initialProps = { contract, view: 'buyer', vote: undefined, saveAndUpdate: saveAndUpdateMock } as const
 
   beforeEach(() => {
     useSettingsStore.getState().reset()
@@ -59,7 +63,6 @@ describe('useRateSetup', () => {
     expect(result.current).toEqual({
       rate: expect.any(Function),
       showTradeBreakdown: expect.any(Function),
-      viewInExplorer: expect.any(Function),
     })
   })
   it('does not submit rating if none has been set', async () => {
@@ -80,10 +83,6 @@ describe('useRateSetup', () => {
       rating: positiveRating.rating,
       signature: positiveRating.signature,
     })
-    expect(saveAndUpdateMock).toHaveBeenCalledWith({
-      ...contract,
-      ratingSeller: 1,
-    })
   })
   it('does submit rating as seller', async () => {
     createUserRatingMock.mockReturnValueOnce(positiveRating)
@@ -95,10 +94,6 @@ describe('useRateSetup', () => {
       contractId: contract.id,
       rating: positiveRating.rating,
       signature: positiveRating.signature,
-    })
-    expect(saveAndUpdateMock).toHaveBeenCalledWith({
-      ...contract,
-      ratingBuyer: 1,
     })
   })
   it('does submit positive rating and navigates to backupTime', async () => {
@@ -167,28 +162,9 @@ describe('useRateSetup', () => {
   it('opens trade breakdown poup', () => {
     const { result } = renderHook(useRateSetup, { initialProps })
     result.current.showTradeBreakdown()
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      action2: {
-        callback: result.current.viewInExplorer,
-        icon: 'externalLink',
-        label: 'view in explorer',
-      },
-      content: <TradeBreakdown {...contract} />,
-      level: 'APP',
-      title: 'trade breakdown',
-      visible: true,
-    })
-  })
-  it('opens tx in explorer', () => {
-    const contractWithTxId = { ...contract, releaseTxId: 'releaseTxId' }
-    const { result } = renderHook(useRateSetup, { initialProps: { ...initialProps, contract: contractWithTxId } })
-    result.current.viewInExplorer()
-    expect(showTransactionMock).toHaveBeenCalledWith(contractWithTxId.releaseTxId, 'regtest')
-  })
-  it('opens escrow address in explorer if txId is not known', () => {
-    const { result } = renderHook(useRateSetup, { initialProps })
-    result.current.viewInExplorer()
-    expect(showAddressMock).toHaveBeenCalledWith(contract.escrow, 'regtest')
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+
+    expect(render(popupComponent)).toMatchSnapshot()
+    expect(getTradeBreakdownMock).toHaveBeenCalled()
   })
 })

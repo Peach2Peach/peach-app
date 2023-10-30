@@ -19,6 +19,7 @@ describe('fundAddress', () => {
         'Content-Type': 'application/json',
         Origin: 'https://localhost:8080',
         Referer: 'https://localhost:8080',
+        'User-Agent': '',
       },
       body: '{"address":"address","amount":100000}',
       method: 'POST',

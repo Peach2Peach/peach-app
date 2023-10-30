@@ -1,11 +1,12 @@
 import { useCallback } from 'react'
-import { Linking, ViewStyle } from 'react-native'
+import { ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
 import { PeachScrollView, Screen } from '../../../components'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n, { languageState } from '../../../utils/i18n'
 import { getLocalizedLink } from '../../../utils/web'
+import { openURL } from '../../../utils/web/openURL'
 import { SettingsItem } from '../components/SettingsItem'
 
 export const AboutPeach = () => {
@@ -26,19 +27,19 @@ export const AboutPeach = () => {
     },
     {
       title: 'website',
-      onPress: () => Linking.openURL(getLocalizedLink('', languageState.locale)),
+      onPress: () => openURL(getLocalizedLink('', languageState.locale)),
       icon: 'externalLink',
       iconSize: tw`w-6 h-6`,
     },
     {
       title: 'privacyPolicy',
-      onPress: () => Linking.openURL(getLocalizedLink('privacy-policy', languageState.locale)),
+      onPress: () => openURL(getLocalizedLink('privacy-policy', languageState.locale)),
       icon: 'externalLink',
       iconSize: tw`w-6 h-6`,
     },
     {
       title: 'terms',
-      onPress: () => Linking.openURL(getLocalizedLink('terms-and-conditions', languageState.locale)),
+      onPress: () => openURL(getLocalizedLink('terms-and-conditions', languageState.locale)),
       icon: 'externalLink',
       iconSize: tw`w-6 h-6`,
     },

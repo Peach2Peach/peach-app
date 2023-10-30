@@ -25,11 +25,6 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
 }))
 
-const getContractMock = jest.fn()
-jest.mock('../../../utils/contract/getContract', () => ({
-  getContract: () => getContractMock(),
-}))
-
 const submitRaiseDisputeMock = jest.fn()
 jest.mock('../utils/submitRaiseDispute', () => ({
   submitRaiseDispute: (...args: unknown[]) => submitRaiseDisputeMock(...args),

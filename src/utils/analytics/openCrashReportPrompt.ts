@@ -1,6 +1,7 @@
-import { Alert, Linking } from 'react-native'
+import { Alert } from 'react-native'
 import i18n, { languageState } from '../i18n'
 import { getLocalizedLink } from '../web'
+import { openURL } from '../web/openURL'
 import { deleteUnsentReports } from './deleteUnsentReports'
 import { sendErrors } from './sendErrors'
 
@@ -15,7 +16,7 @@ export const openCrashReportPrompt = (errors: Error[]): void => {
         text: i18n('privacyPolicy'),
         onPress: () => {
           openCrashReportPrompt(errors)
-          Linking.openURL(getLocalizedLink('privacy-policy', languageState.locale))
+          openURL(getLocalizedLink('privacy-policy', languageState.locale))
         },
         style: 'default',
       },

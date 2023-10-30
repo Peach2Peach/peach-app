@@ -25,12 +25,7 @@ export const RestoreFromFile = ({ style }: ComponentProps) => {
             {i18n('restoreBackup.manual.description.1')}
           </Text>
           <View style={tw`w-full px-2 mt-2`}>
-            <FileInput
-              theme="inverted"
-              fileName={file.name}
-              placeholder={i18n('restoreBackup.decrypt.file')}
-              onChange={setFile}
-            />
+            <FileInput fileName={file.name} onChange={setFile} />
           </View>
           <View style={tw`px-2`}>
             <Input

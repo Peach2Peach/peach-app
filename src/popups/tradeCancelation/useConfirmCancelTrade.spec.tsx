@@ -16,10 +16,6 @@ jest.mock('../../hooks/useShowLoadingPopup', () => ({
   useShowLoadingPopup: () => showLoadingpopupMock,
 }))
 
-const saveContractMock = jest.fn()
-jest.mock('../../utils/contract/saveContract', () => ({
-  saveContract: (...args: unknown[]) => saveContractMock(...args),
-}))
 const saveOfferMock = jest.fn()
 jest.mock('../../utils/offer/saveOffer', () => ({
   saveOffer: (...args: unknown[]) => saveOfferMock(...args),
