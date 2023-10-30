@@ -4,6 +4,7 @@ import { Blockchain, BumpFeeTxBuilder, DatabaseConfig, PartiallySignedTransactio
 import { AddressInfo, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
+import RNFS from 'react-native-fs'
 import { error, info } from '../log'
 import { parseError } from '../result'
 import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
@@ -67,7 +68,7 @@ export class PeachWallet extends PeachJSWallet {
 
         this.setBlockchain(useNodeConfigState.getState())
 
-        const dbConfig = await new DatabaseConfig().memory()
+        const dbConfig = await new DatabaseConfig().sqlite(`${RNFS.DocumentDirectoryPath}/peach-wallet`)
 
         info('PeachWallet - initWallet - createWallet')
 
