@@ -106,6 +106,7 @@
   "contract.summary.meetup" : "συνάντηση",
   "contract.summary.method" : "μέθοδος",
   "contract.summary.name" : "όνομα",
+  "contract.summary.openApp" : "Άνοιξε την εφαρμογή",
   "contract.summary.paidToMethod" : "πληρώθηκε σε",
   "contract.summary.paidToWallet" : "απεστάλη σε",
   "contract.summary.paidWithMethod" : "πληρώθηκε με",

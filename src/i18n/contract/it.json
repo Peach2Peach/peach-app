@@ -106,6 +106,7 @@
   "contract.summary.meetup" : "meetup",
   "contract.summary.method" : "metodo",
   "contract.summary.name" : "nome",
+  "contract.summary.openApp" : "apri l'app",
   "contract.summary.paidToMethod" : "Pagato a",
   "contract.summary.paidToWallet" : "Inviato a",
   "contract.summary.paidWithMethod" : "Pagato con",

@@ -112,6 +112,7 @@
   "contract.summary.meetup" : "meetup",
   "contract.summary.method" : "method",
   "contract.summary.name" : "name",
+  "contract.summary.openApp" : "open app",
   "contract.summary.paidToMethod" : "paid to",
   "contract.summary.paidToWallet" : "sent to",
   "contract.summary.paidWithMethod" : "paid with",

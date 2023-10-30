@@ -106,6 +106,7 @@
   "contract.summary.meetup" : "buluşma",
   "contract.summary.method" : "metot",
   "contract.summary.name" : "ad",
+  "contract.summary.openApp" : "uygulamayı aç",
   "contract.summary.paidToMethod" : "ödendi",
   "contract.summary.paidToWallet" : "cüzdandan gönderildi",
   "contract.summary.paidWithMethod" : "ile ödendi",
