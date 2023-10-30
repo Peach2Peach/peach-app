@@ -27,7 +27,7 @@
   "contract.cancel.cash.title" : "cancelar negociação em dinheiro",
   "contract.cancel.cash.tradeCanceled.text" : "A negociação $0 foi cancelada.\n\nO depósito de caução será reembolsado para a sua carteira $1.",
   "contract.cancel.confirm" : "confirmar o cancelamento",
-  "contract.cancel.confirm.back" : "deixa estar",
+  "contract.cancel.confirm.back" : "não, não cancelar",
   "contract.cancel.confirm.ok" : "faça isso",
   "contract.cancel.mediator.canceled.text.1" : "O mediador da disputa decidiu cancelar a negociação.",
   "contract.cancel.mediator.canceled.title" : "negociação cancelada",

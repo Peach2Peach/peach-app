@@ -1,5 +1,5 @@
 {
-  "profile.accountCreated" : "fiók létrehozva",
+  "profile.accountCreated" : "Fiók létrehozva!",
   "profile.blockUser" : "felhasználó letiltása",
   "profile.daysAgo" : "$0 napja",
   "profile.disputes" : "viták",
@@ -10,7 +10,7 @@
   "profile.numberOfTrades" : "kereskedések száma",
   "profile.publicKey" : "fiók publikus kulcsa",
   "profile.tradingLimits" : "kereskedési limitek",
-  "profile.tradingLimits.daily" : "napi kereskedési limit",
+  "profile.tradingLimits.daily" : "Napi kereskedési limit",
   "profile.tradingLimits.monthly" : "havi anonim limit:",
   "profile.tradingLimits.yearly" : "éves kereskedési limit:",
   "profile.tradingLimits.yearly.short" : "éves limit:",
