@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react'
-import { useDrawerContext } from '../../contexts/drawer'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import { PeachScrollView, RadioButtons, Screen } from '../../components'
 import { Button } from '../../components/buttons/Button'
+import { useDrawerState } from '../../components/drawer/useDrawerState'
 import { FlagType } from '../../components/flags'
 import { useNavigation, useRoute } from '../../hooks'
 import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../paymentMethods'
@@ -22,7 +22,7 @@ const mapCountryToDrawerOption = (onPress: (country: FlagType) => void) => (coun
 export const SelectPaymentMethod = () => {
   const navigation = useNavigation()
   const { selectedCurrency, origin } = useRoute<'selectPaymentMethod'>().params
-  const [, updateDrawer] = useDrawerContext()
+  const updateDrawer = useDrawerState((state) => state.updateDrawer)
 
   const [selectedPaymentCategory, setSelectedPaymentCategory] = useState<PaymentCategory>()
   const paymentCategories = useMemo(

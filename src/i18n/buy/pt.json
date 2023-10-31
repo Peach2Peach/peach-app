@@ -1,0 +1,14 @@
+{
+  "buy.addressSigning.message" : "mensagem",
+  "buy.addressSigning.signature" : "assinatura",
+  "buy.addressSigning.title" : "assine o seu endereço",
+  "buy.addressSigning.yourAddress" : "o seu endereço",
+  "buy.meansOfPayment" : "como gostaria de pagar?",
+  "buy.releaseAddress.title" : "endereço para libertação",
+  "buy.subtitle" : "Está a comprar entre:",
+  "buy.subtitle.highlight" : "comprar",
+  "buy.summary.title" : "publicar oferta de compra",
+  "buy.title" : "comprar bitcoin",
+  "buy.title.highlight" : "comprar",
+  "yourTrades.search.buy.subtitle" : "oferta de compra para"
+}

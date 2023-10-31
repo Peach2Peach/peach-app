@@ -1,16 +1,11 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { act, renderHook } from '@testing-library/react-native'
 import { AppState } from 'react-native'
+import { act, renderHook } from 'test-utils'
 import { contract } from '../../../tests/unit/data/contractData'
-import { getContract } from '../../utils/contract'
+import { defaultState, useMessageState } from '../../components/message/useMessageState'
 import { getContract as getContractAPI } from '../../utils/peachAPI'
 import { useMessageHandler } from './useMessageHandler'
 
-const updateMessageMock = jest.fn()
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useContext: () => [undefined, updateMessageMock],
-}))
 const overlayEventHanderMock = jest.fn()
 const overlayEvents = { overlayEvent: overlayEventHanderMock }
 jest.mock('./eventHandler/useOverlayEvents', () => ({
@@ -49,13 +44,10 @@ jest.mock('./useGetPNActionHandler', () => ({
 // eslint-disable-next-line max-lines-per-function
 describe('useMessageHandler', () => {
   beforeEach(() => {
-    (getContract as jest.Mock).mockReturnValue(contract)
+    (getContractAPI as jest.Mock).mockResolvedValue([contract])
     ;(getContractAPI as jest.Mock).mockResolvedValue([contract])
+    useMessageState.setState(defaultState)
   })
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
   it('should call updateMessage when type is not found', async () => {
     const mockRemoteMessage = {
       data: {
@@ -66,18 +58,20 @@ describe('useMessageHandler', () => {
       },
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
-    const { result: onMessageHandler } = renderHook(() => useMessageHandler('home'))
+    const { result: onMessageHandler } = renderHook(useMessageHandler)
     AppState.currentState = 'active'
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
 
-    expect(updateMessageMock).toHaveBeenCalledWith({
-      msgKey: 'notification.SOME_TYPE',
-      bodyArgs: ['arg1', 'arg2'],
-      level: 'WARN',
-      action: actionMock,
-    })
+    expect(useMessageState.getState()).toEqual(
+      expect.objectContaining({
+        msgKey: 'notification.SOME_TYPE',
+        bodyArgs: ['arg1', 'arg2'],
+        level: 'WARN',
+        action: actionMock,
+      }),
+    )
   })
   it('should not call updateMessage when type is not found and appstate is background', async () => {
     const mockRemoteMessage = {
@@ -89,14 +83,14 @@ describe('useMessageHandler', () => {
       },
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
-    const { result: onMessageHandler } = renderHook(() => useMessageHandler('home'))
+    const { result: onMessageHandler } = renderHook(useMessageHandler)
     AppState.currentState = 'background'
 
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
 
-    expect(updateMessageMock).not.toHaveBeenCalled()
+    expect(useMessageState.getState()).toEqual(expect.objectContaining(defaultState))
   })
 
   it('should call overlay event when type is found in overlayEvents', async () => {
@@ -109,7 +103,7 @@ describe('useMessageHandler', () => {
       },
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
-    const { result: onMessageHandler } = renderHook(() => useMessageHandler('home'))
+    const { result: onMessageHandler } = renderHook(useMessageHandler)
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
@@ -127,7 +121,7 @@ describe('useMessageHandler', () => {
       },
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
-    const { result: onMessageHandler } = renderHook(() => useMessageHandler('home'))
+    const { result: onMessageHandler } = renderHook(useMessageHandler)
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
@@ -145,7 +139,7 @@ describe('useMessageHandler', () => {
       },
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
-    const { result: onMessageHandler } = renderHook(() => useMessageHandler('home'))
+    const { result: onMessageHandler } = renderHook(useMessageHandler)
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
@@ -160,7 +154,7 @@ describe('useMessageHandler', () => {
         bodyLocArgs: ['arg1', 'arg2'],
       },
     } as FirebaseMessagingTypes.RemoteMessage
-    const { result: onMessageHandler } = renderHook(() => useMessageHandler('home'))
+    const { result: onMessageHandler } = renderHook(useMessageHandler)
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
@@ -168,7 +162,7 @@ describe('useMessageHandler', () => {
     expect(overlayEventHanderMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
     expect(offerPopupEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
     expect(stateUpdateEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
-    expect(updateMessageMock).not.toHaveBeenCalled()
+    expect(useMessageState.getState()).toEqual(expect.objectContaining(defaultState))
   })
 
   it('should not call anything when type is undefined', async () => {
@@ -179,7 +173,7 @@ describe('useMessageHandler', () => {
       },
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
-    const { result: onMessageHandler } = renderHook(() => useMessageHandler('home'))
+    const { result: onMessageHandler } = renderHook(useMessageHandler)
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
@@ -187,6 +181,6 @@ describe('useMessageHandler', () => {
     expect(overlayEventHanderMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
     expect(offerPopupEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
     expect(stateUpdateEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
-    expect(updateMessageMock).not.toHaveBeenCalled()
+    expect(useMessageState.getState()).toEqual(expect.objectContaining(defaultState))
   })
 })

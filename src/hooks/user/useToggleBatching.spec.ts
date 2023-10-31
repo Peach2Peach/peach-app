@@ -1,6 +1,6 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { renderHook, waitFor } from 'test-utils'
 import { defaultSelfUser } from '../../../tests/unit/data/userData'
-import { QueryClientWrapper, queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useToggleBatching } from './useToggleBatching'
 
 const showErrorBannerMock = jest.fn()
@@ -20,7 +20,7 @@ describe('useToggleBatching', () => {
     queryClient.setQueryData(['user', 'self'], defaultSelfUser)
   })
   it('should call setBatching with inverted boolean', async () => {
-    const { result } = renderHook(() => useToggleBatching(defaultSelfUser), { wrapper: QueryClientWrapper })
+    const { result } = renderHook(() => useToggleBatching(defaultSelfUser))
     await result.current.mutate()
 
     await waitFor(() => {
@@ -37,9 +37,9 @@ describe('useToggleBatching', () => {
   })
 
   it('should call showErrorBanner on error', async () => {
-    const error = [, { error: 'errorMessage' }]
+    const error = [null, { error: 'errorMessage' }]
     setBatchingMock.mockReturnValueOnce(Promise.resolve(error))
-    const { result } = renderHook(() => useToggleBatching(defaultSelfUser), { wrapper: QueryClientWrapper })
+    const { result } = renderHook(() => useToggleBatching(defaultSelfUser))
     result.current.mutate()
 
     await waitFor(() => {

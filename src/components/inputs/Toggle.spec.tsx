@@ -1,5 +1,5 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { fireEvent, render } from 'test-utils'
 import tw from '../../styles/tailwind'
 import { Toggle } from './Toggle'
 

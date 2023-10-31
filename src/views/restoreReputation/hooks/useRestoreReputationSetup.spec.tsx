@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
-import { NavigationWrapper, headerState, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { headerState, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 import { account } from '../../../utils/account'
 import { useRestoreReputationSetup } from './useRestoreReputationSetup'
@@ -19,7 +19,7 @@ jest.mock('../../../hooks/useRoute', () => ({
 
 describe('useRestoreReputationSetup', () => {
   it('should return defaults', () => {
-    const { result } = renderHook(useRestoreReputationSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useRestoreReputationSetup)
     expect(result.current).toEqual({
       restoreReputation: expect.any(Function),
       isLoading: false,
@@ -27,18 +27,18 @@ describe('useRestoreReputationSetup', () => {
     })
   })
   it('should set up the header correctly', () => {
-    renderHook(useRestoreReputationSetup, { wrapper: NavigationWrapper })
+    renderHook(useRestoreReputationSetup)
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should not restore reputation if temporary account is not set', async () => {
-    const { result } = renderHook(useRestoreReputationSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useRestoreReputationSetup)
 
     await act(result.current.restoreReputation)
     expect(result.current.isLoading).toBeFalsy()
     expect(result.current.isRestored).toBeFalsy()
   })
   it('should restore reputation by saving temporary account and navigate to home', async () => {
-    const { result } = renderHook(useRestoreReputationSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useRestoreReputationSetup)
     const { result: tempAccount } = renderHook(() => useTemporaryAccount())
 
     act(() => {
@@ -53,7 +53,7 @@ describe('useRestoreReputationSetup', () => {
     expect(account).toEqual(account1)
 
     await act(jest.runAllTimers)
-    expect(replaceMock).toHaveBeenCalledWith('home')
+    expect(replaceMock).toHaveBeenCalledWith('buy')
     expect(userUpdateMock).toHaveBeenCalledWith(params.referralCode)
   })
 })

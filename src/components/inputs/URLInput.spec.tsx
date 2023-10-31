@@ -1,7 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { act, fireEvent, render, waitFor } from 'test-utils'
 import { ScanQR } from '../camera/ScanQR'
 import { URLInput } from './URLInput'
 expect.extend({ toMatchDiffSnapshot })

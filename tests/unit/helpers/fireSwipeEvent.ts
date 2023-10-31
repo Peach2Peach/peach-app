@@ -1,5 +1,5 @@
-import { fireEvent } from '@testing-library/react-native'
 import { ReactTestInstance } from 'react-test-renderer'
+import { fireEvent } from 'test-utils'
 
 type Props = {
   element: ReactTestInstance

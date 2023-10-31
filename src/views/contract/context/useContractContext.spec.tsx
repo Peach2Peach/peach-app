@@ -1,11 +1,17 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { ContractContext } from '.'
 import { useContractContext } from './useContractContext'
 
 const toggleShowBatchInfo = jest.fn()
 const wrapper = ({ children }: ComponentProps) => (
   <ContractContext.Provider
-    value={{ contract: {} as Contract, view: 'buyer', showBatchInfo: false, toggleShowBatchInfo }}
+    value={{
+      contract: {} as Contract,
+      view: 'buyer',
+      showBatchInfo: false,
+      toggleShowBatchInfo,
+      isDecryptionError: false,
+    }}
   >
     {children}
   </ContractContext.Provider>
@@ -18,6 +24,7 @@ describe('useContractContext', () => {
       view: 'buyer',
       showBatchInfo: false,
       toggleShowBatchInfo,
+      isDecryptionError: false,
     })
   })
   it('should throw an error if used outside of a ContractContext', () => {

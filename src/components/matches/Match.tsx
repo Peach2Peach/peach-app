@@ -8,11 +8,11 @@ import { isLimitReached } from '../../utils/match'
 import { isBuyOffer } from '../../utils/offer'
 import { GradientBorder } from '../GradientBorder'
 import { RadialGradient } from '../RadialGradient'
+import { MatchPaymentDetails } from './MatchPaymentDetails'
 import { MatchOfferButton, UnmatchButton } from './buttons'
 import { options } from './buttons/options'
 import { EscrowLink, MatchCardCounterparty, PaymentMethodSelector, PriceInfo } from './components'
 import { useInterruptibleFunction, useMatchOffer } from './hooks'
-import { MatchPaymentDetails } from './MatchPaymentDetails'
 import { useMatchStore } from './store'
 
 type MatchProps = ComponentProps & { match: Match; offer: BuyOffer | SellOffer }
@@ -55,33 +55,29 @@ export const Match = ({ match, offer }: MatchProps) => {
   )
 
   return (
-    <View onStartShouldSetResponder={() => true} style={tw`flex-shrink`}>
+    <View style={tw`justify-center flex-1`}>
       <GradientBorder
         gradient={peachyGradient}
-        gradientBorderWidths={[4, 4, 0, 4]}
-        defaultBorderWidths={[1, 1, 0, 1]}
+        gradientBorderWidth={4}
         showBorder={showMatchedCard}
-        containerStyle={[
-          tw`flex-shrink overflow-hidden rounded-t-2xl`,
-          !showMatchedCard && [tw`border border-b-0`, options[currentOptionName].borderColor],
-        ]}
-        style={tw`rounded-t-xl bg-primary-background-light`}
+        style={[tw`overflow-hidden rounded-2xl`, options[currentOptionName].backgroundColor]}
+        onStartShouldSetResponder={() => true}
       >
-        <>
-          <View style={tw`p-4`}>
+        <View style={tw`bg-primary-background-light rounded-t-xl`}>
+          <View style={tw`gap-4 p-4`}>
             <MatchCardCounterparty user={match.user} />
-            <HorizontalLine style={tw`my-4`} />
+            <HorizontalLine />
             <PriceInfo {...{ match, offer }} />
-            <HorizontalLine style={tw`my-4`} />
+            <HorizontalLine />
 
             {isBuyOffer(offer) ? (
               <>
                 <PaymentMethodSelector matchId={match.offerId} disabled={currentOptionName === 'tradingLimitReached'} />
-                <HorizontalLine style={tw`my-4`} />
+                <HorizontalLine />
                 <EscrowLink address={match.escrow || ''} />
               </>
             ) : (
-              <MatchPaymentDetails match={match} style={tw`mb-2`} />
+              <MatchPaymentDetails match={match} />
             )}
           </View>
           {isMatched && isBuyOffer(offer) && (
@@ -101,9 +97,9 @@ export const Match = ({ match, offer }: MatchProps) => {
               </View>
             </>
           )}
-        </>
+        </View>
+        <MatchOfferButton matchId={match.offerId} matchOffer={onMatchPress} optionName={currentOptionName} />
       </GradientBorder>
-      <MatchOfferButton matchId={match.offerId} matchOffer={onMatchPress} optionName={currentOptionName} />
     </View>
   )
 }

@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { usePreviousRouteName } from './usePreviousRouteName'
 
 jest.mock('./useNavigation', () => ({

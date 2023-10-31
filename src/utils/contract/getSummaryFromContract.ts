@@ -2,7 +2,24 @@ import { account } from './../account/account'
 import { getBuyOfferIdFromContract } from './getBuyOfferIdFromContract'
 import { getSellOfferIdFromContract } from './getSellOfferIdFromContract'
 
-export const getSummaryFromContract = (contract: Contract): ContractSummary => {
+export const getSummaryFromContract = (
+  contract: Pick<
+    Contract,
+    | 'seller'
+    | 'id'
+    | 'creationDate'
+    | 'lastModified'
+    | 'paymentMade'
+    | 'paymentConfirmed'
+    | 'tradeStatus'
+    | 'amount'
+    | 'price'
+    | 'currency'
+    | 'disputeWinner'
+    | 'unreadMessages'
+    | 'releaseTxId'
+  >,
+): ContractSummary => {
   const type = account.publicKey === contract.seller.id ? 'ask' : 'bid'
   return {
     id: contract.id,

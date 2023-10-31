@@ -1,7 +1,6 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import { Linking } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { fireEvent, render } from 'test-utils'
 import { setPaymentMethods } from '../../paymentMethods'
 import { MeetupScreen } from './MeetupScreen'
 
@@ -77,7 +76,7 @@ describe('MeetupScreen', () => {
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
-  it('should open link to google maps and meetup website', () => {
+  it('should open link to google maps and meetup website', async () => {
     useMeetupScreenSetupMock.mockReturnValueOnce({
       ...meetupScreenSetup,
       deletable: true,
@@ -85,10 +84,10 @@ describe('MeetupScreen', () => {
       event: btcPragueEvent,
       selectedCurrencies: ['EUR'],
     })
-    const { getByText } = render(<MeetupScreen />, { wrapper: NavigationWrapper })
-    fireEvent(getByText('view on maps'), 'onPress')
+    const { getByText } = render(<MeetupScreen />)
+    await fireEvent(getByText('view on maps'), 'onPress')
     expect(openURLSpy).toHaveBeenCalledWith('http://maps.google.com/maps?daddr=Prague')
-    fireEvent(getByText('meetup link'), 'onPress')
+    await fireEvent(getByText('meetup link'), 'onPress')
     expect(openURLSpy).toHaveBeenCalledWith(btcPragueEvent.url)
   })
 })

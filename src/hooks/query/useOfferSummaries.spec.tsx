@@ -1,7 +1,7 @@
-import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { renderHook, waitFor } from 'test-utils'
 import { offerSummary } from '../../../tests/unit/data/offerSummaryData'
 import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
-import { QueryClientWrapper, queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultTradeSummaryState, useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { useOfferSummaries } from './useOfferSummaries'
 
@@ -16,19 +16,19 @@ describe('useOfferSummaries', () => {
   const localOfferSummary: OfferSummary = { ...offerSummary, tradeStatus: 'tradeCanceled' }
 
   beforeEach(() => {
-    act(() => useTradeSummaryStore.setState(defaultTradeSummaryState))
+    useTradeSummaryStore.setState(defaultTradeSummaryState)
   })
 
   afterEach(() => {
     queryClient.clear()
   })
   it('fetches offer summaries from API and stores in local store', async () => {
-    const { result } = renderHook(useOfferSummaries, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useOfferSummaries)
 
     expect(result.current.offers).toEqual([])
     expect(result.current.isLoading).toBeTruthy()
 
-    await waitFor(() => expect(result.current.isFetching).toBe(false))
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
 
     expect(result.current.offers).toEqual([offerSummary])
     expect(result.current.isLoading).toBeFalsy()
@@ -39,13 +39,13 @@ describe('useOfferSummaries', () => {
   })
   it('returns local offer summaries first if given', async () => {
     useTradeSummaryStore.setState({ offers: [localOfferSummary], lastModified: new Date() })
-    const { result } = renderHook(useOfferSummaries, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useOfferSummaries)
 
     expect(result.current.offers).toEqual([localOfferSummary])
     expect(result.current.isLoading).toBeFalsy()
-    expect(result.current.isFetching).toBeTruthy()
+    expect(queryClient.isFetching()).toBeTruthy()
 
-    await waitFor(() => expect(result.current.isFetching).toBe(false))
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
 
     expect(result.current.offers).toEqual([offerSummary])
   })
@@ -53,22 +53,22 @@ describe('useOfferSummaries', () => {
     useTradeSummaryStore.setState({ offers: [localOfferSummary], lastModified: new Date() })
     getOfferSummariesMock.mockResolvedValueOnce([null])
 
-    const { result } = renderHook(useOfferSummaries, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useOfferSummaries)
 
     expect(result.current.offers).toEqual([localOfferSummary])
     expect(result.current.isLoading).toBeFalsy()
 
-    await waitFor(() => expect(result.current.isFetching).toBe(false))
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     expect(result.current.offers).toEqual([localOfferSummary])
   })
   it('returns error if server did return error and no local offer summaries exists', async () => {
     getOfferSummariesMock.mockResolvedValueOnce([null, unauthorizedError])
-    const { result } = renderHook(useOfferSummaries, { wrapper: QueryClientWrapper })
+    const { result } = renderHook(useOfferSummaries)
 
     expect(result.current.offers).toEqual([])
     expect(result.current.isLoading).toBeTruthy()
 
-    await waitFor(() => expect(result.current.isFetching).toBe(false))
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
 
     expect(result.current.offers).toEqual([])
     expect(result.current.isLoading).toBeFalsy()

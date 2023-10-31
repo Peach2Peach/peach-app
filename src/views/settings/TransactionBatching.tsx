@@ -28,7 +28,7 @@ export const TransactionBatching = () => {
             },
           ]}
         >
-          {i18n(isBatchingEnabled ? 'settings.batching.youSave' : 'settings.batching.youPay').replace(' ', ' ')}
+          {i18n.break(isBatchingEnabled ? 'settings.batching.youSave' : 'settings.batching.youPay')}
         </ParsedPeachText>
       </View>
       <Toggle enabled={isBatchingEnabled} onPress={toggleBatching}>

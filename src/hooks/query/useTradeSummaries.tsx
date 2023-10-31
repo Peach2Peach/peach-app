@@ -1,19 +1,12 @@
-import { useCallback } from 'react'
-import { sortContractsByDate } from '../../utils/contract'
+import { useCallback, useMemo } from 'react'
+import { sortSummariesByDate } from '../../utils/contract'
 import { useContractSummaries } from './useContractSummaries'
 import { useOfferSummaries } from './useOfferSummaries'
 
 export const useTradeSummaries = (enabled = true) => {
-  const {
-    offers,
-    isFetching: offersFetching,
-    isLoading: offersLoading,
-    error: offersError,
-    refetch: refetchOffers,
-  } = useOfferSummaries(enabled)
+  const { offers, isLoading: offersLoading, error: offersError, refetch: refetchOffers } = useOfferSummaries(enabled)
   const {
     contracts,
-    isFetching: contractsFetching,
     isLoading: contractsLoading,
     error: contractsError,
     refetch: refetchContracts,
@@ -24,11 +17,13 @@ export const useTradeSummaries = (enabled = true) => {
     refetchContracts()
   }, [refetchContracts, refetchOffers])
 
-  const filteredOffers = offers.filter(({ contractId }) => !contractId)
-  const tradeSummaries = [...filteredOffers, ...contracts].sort(sortContractsByDate).reverse()
+  const filteredOffers = useMemo(() => offers.filter(({ contractId }) => !contractId), [offers])
+  const tradeSummaries = useMemo(
+    () => [...filteredOffers, ...contracts].sort(sortSummariesByDate).reverse(),
+    [contracts, filteredOffers],
+  )
 
   return {
-    isFetching: offersFetching || contractsFetching,
     isLoading: offersLoading || contractsLoading,
     error: offersError || contractsError,
     tradeSummaries,

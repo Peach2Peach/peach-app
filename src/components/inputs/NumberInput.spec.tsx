@@ -1,5 +1,5 @@
-import { act, fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { act, fireEvent, render } from 'test-utils'
 import { NumberInput } from './NumberInput'
 
 describe('NumberInput', () => {

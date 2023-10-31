@@ -43,10 +43,7 @@ exports[`GoBackIcon renders correctly 1`] = `
           "height": 24,
           "width": 24,
         },
-        {
-          "height": 24,
-          "width": 24,
-        },
+        undefined,
       ]
     }
   />
@@ -96,10 +93,7 @@ exports[`GoBackIcon should render correctly when there is no previous drawer 1`]
           "height": 24,
           "width": 24,
         },
-        {
-          "height": 24,
-          "width": 24,
-        },
+        undefined,
       ]
     }
   />

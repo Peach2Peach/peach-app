@@ -1,5 +1,5 @@
-import { act, renderHook } from '@testing-library/react-native'
-import { NavigationWrapper, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { act, renderHook } from 'test-utils'
+import { replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../../store/usePopupStore'
 import i18n from '../../utils/i18n'
 import { SetCustomReferralCode } from './SetCustomReferralCode'
@@ -12,19 +12,16 @@ jest.mock('../../utils/peachAPI', () => ({
 }))
 const showErrorBannerMock = jest.fn()
 jest.mock('../../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner:
-    () =>
-      (...args: unknown[]) =>
-        showErrorBannerMock(...args),
+  useShowErrorBanner: () => showErrorBannerMock,
 }))
 
 describe('useSetCustomReferralCodePopup', () => {
   it('returns function to start setCustomReferralCodePopup', () => {
-    const { result } = renderHook(useSetCustomReferralCodePopup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useSetCustomReferralCodePopup)
     expect(result.current.setCustomReferralCodePopup).toBeInstanceOf(Function)
   })
   it('returns referral code state', () => {
-    const { result } = renderHook(useSetCustomReferralCodePopup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useSetCustomReferralCodePopup)
     const { referralCode, setReferralCode, referralCodeValid, referralCodeErrors } = result.current
 
     expect(referralCode).toBe('')
@@ -33,7 +30,7 @@ describe('useSetCustomReferralCodePopup', () => {
     expect(referralCodeErrors).toHaveLength(2)
   })
   it('opens popup with correct default values', () => {
-    const { result } = renderHook(useSetCustomReferralCodePopup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useSetCustomReferralCodePopup)
     const { submitCustomReferralCode, setReferralCode, referralCodeErrors } = result.current
     act(() => {
       result.current.setCustomReferralCodePopup()
@@ -59,7 +56,7 @@ describe('useSetCustomReferralCodePopup', () => {
     })
   })
   it('can close popup', () => {
-    const { result } = renderHook(useSetCustomReferralCodePopup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useSetCustomReferralCodePopup)
     act(() => {
       result.current.setCustomReferralCodePopup()
     })
@@ -69,7 +66,7 @@ describe('useSetCustomReferralCodePopup', () => {
     expect(usePopupStore.getState().visible).toEqual(false)
   })
   it('updates referral code state', () => {
-    const { result } = renderHook(useSetCustomReferralCodePopup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useSetCustomReferralCodePopup)
     act(() => {
       result.current.setReferralCode('HODL')
     })
@@ -84,7 +81,7 @@ describe('useSetCustomReferralCodePopup', () => {
       },
       null,
     ])
-    const { result } = renderHook(useSetCustomReferralCodePopup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useSetCustomReferralCodePopup)
     act(() => {
       result.current.setReferralCode('HODL')
     })
@@ -109,7 +106,7 @@ describe('useSetCustomReferralCodePopup', () => {
         error: 'ALREADY_TAKEN',
       },
     ])
-    const { result } = renderHook(useSetCustomReferralCodePopup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useSetCustomReferralCodePopup)
     expect(result.current.referralCodeErrors).toHaveLength(2)
     act(() => {
       result.current.setReferralCode('HODL')
@@ -130,7 +127,7 @@ describe('useSetCustomReferralCodePopup', () => {
       },
     ])
 
-    const { result } = renderHook(useSetCustomReferralCodePopup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useSetCustomReferralCodePopup)
     expect(result.current.referralCodeErrors).toHaveLength(2)
     act(() => {
       result.current.setReferralCode('HODL')

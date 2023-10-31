@@ -1,7 +1,7 @@
 {
   "batching.eta" : "ETA",
   "batching.eta.tba" : "TBA",
-  "batching.willBeSenTTo" : "gönderilecek",
+  "batching.willBeSentTo" : "gönderilecek",
   "grouphug.announcement.title" : "Grup sarılması zamanı.",
   "grouphug.goToSettings" : "ayarlara gidin.",
   "help.payoutPending.description" : "İşlemler kümeler halinde ödenir.  Küme dolana kadar veya maksimum bekleme zamanına ulaşılana kadar beklemeniz gerekir. Küme işlemler ile %23'e kadar ücret tasarrufu sağlayabilirsiniz.",

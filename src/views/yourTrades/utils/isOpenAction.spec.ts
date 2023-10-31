@@ -10,6 +10,7 @@ describe('isOpenAction', () => {
 
     expect(isOpenAction('bid', 'paymentRequired')).toBe(true)
     expect(isOpenAction('ask', 'confirmPaymentRequired')).toBe(true)
+    expect(isOpenAction('ask', 'paymentTooLate')).toBe(true)
   })
   it('should return false for status that should not show as waiting', () => {
     expect(isOpenAction('ask', 'offerCanceled')).toBe(false)
@@ -18,5 +19,6 @@ describe('isOpenAction', () => {
 
     expect(isOpenAction('ask', 'paymentRequired')).toBe(false)
     expect(isOpenAction('bid', 'confirmPaymentRequired')).toBe(false)
+    expect(isOpenAction('bid', 'paymentTooLate')).toBe(false)
   })
 })

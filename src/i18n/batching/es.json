@@ -2,7 +2,7 @@
   "batching.eta" : "ETA",
   "batching.eta.tba" : "por anunciar",
   "batching.slots" : "sitios",
-  "batching.willBeSenTTo" : "serán enviados a",
+  "batching.willBeSentTo" : "serán enviados a",
   "grouphug.announcement.text" : "Con GroupHug, ajuntamos las transacciones para disminuir las comisiones de cada usuario. Puedes elegir siempre si quieres, o no quieres participar.",
   "grouphug.announcement.title" : "Es hora de usar GroupHug!",
   "grouphug.goToSettings" : "ir a ajustes",

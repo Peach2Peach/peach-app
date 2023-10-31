@@ -15,14 +15,14 @@ export const useOfferSummaries = (enabled = true) => {
     (state) => [state.offers, state.setOffers, state.lastModified],
     shallow,
   )
-  const { data, isLoading, isFetching, error, refetch } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['offerSummaries'],
     queryFn: getOfferSummariesQuery,
     enabled,
     initialData: offers.length ? offers : undefined,
-    initialDataUpdatedAt: lastModified.getTime(),
+    initialDataUpdatedAt: lastModified.getTime?.(),
     onSuccess: setOffers,
   })
 
-  return { offers: data || [], isLoading, isFetching, error, refetch }
+  return { offers: data || [], isLoading, error, refetch }
 }

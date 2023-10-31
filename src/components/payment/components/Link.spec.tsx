@@ -1,7 +1,7 @@
-import { createRenderer } from 'react-test-renderer/shallow'
-import { Link } from './Link'
 import { Linking } from 'react-native'
-import { fireEvent, render } from '@testing-library/react-native'
+import { createRenderer } from 'react-test-renderer/shallow'
+import { fireEvent, render } from 'test-utils'
+import { Link } from './Link'
 
 describe('Link', () => {
   const renderer = createRenderer()
@@ -13,9 +13,9 @@ describe('Link', () => {
     renderer.render(<Link text={text} url={url} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
-  it('should open link', () => {
+  it('should open link', async () => {
     const { getByText } = render(<Link text={text} url={url} />)
-    fireEvent(getByText(text), 'onPress')
+    await fireEvent(getByText(text), 'onPress')
     expect(openURLSpy).toHaveBeenCalledWith(url)
   })
 })

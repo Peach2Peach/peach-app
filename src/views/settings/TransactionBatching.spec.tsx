@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { render } from 'test-utils'
 import { TransactionBatching } from './TransactionBatching'
 expect.extend({ toMatchDiffSnapshot })
 
@@ -16,13 +15,13 @@ jest.mock('./hooks/useTransactionBatchingSetup', () => ({
 
 describe('TransactionBatching', () => {
   it('should render correctly when batching is enabled', () => {
-    const { toJSON } = render(<TransactionBatching />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<TransactionBatching />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly when batching is disabled', () => {
-    const enabled = render(<TransactionBatching />, { wrapper: NavigationWrapper }).toJSON()
+    const enabled = render(<TransactionBatching />).toJSON()
     useTransactionBatchingSetupMock.mockReturnValueOnce({ ...setupMock, isBatchingEnabled: false })
-    const { toJSON } = render(<TransactionBatching />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<TransactionBatching />)
     expect(enabled).toMatchDiffSnapshot(toJSON())
   })
   it('should render correctly when loading', () => {

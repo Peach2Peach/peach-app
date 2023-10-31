@@ -1,8 +1,7 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { contract } from '../../tests/unit/data/contractData'
 import { contractSummary } from '../../tests/unit/data/contractSummaryData'
 import { sellOffer } from '../../tests/unit/data/offerData'
-import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../tests/unit/helpers/QueryClientWrapper'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
@@ -24,15 +23,13 @@ jest.mock('../queryClient', () => ({
   queryClient,
 }))
 
-const wrapper = NavigationAndQueryClientWrapper
-
 describe('useNavigateToOfferOrContract - contracts', () => {
   beforeEach(() => {
     usePopupStore.setState(defaultPopupState)
   })
 
   it('should navigate to the contract', async () => {
-    const { result } = renderHook(() => useNavigateToOfferOrContract(contractSummary), { wrapper })
+    const { result } = renderHook(() => useNavigateToOfferOrContract(contractSummary))
     await act(async () => {
       await result.current()
     })
@@ -49,7 +46,6 @@ describe('useNavigateToOfferOrContract - offers', () => {
     }
     const { result } = renderHook(useNavigateToOfferOrContract, {
       initialProps: offerSummary as OfferSummary,
-      wrapper,
     })
     await result.current()
     expect(navigateMock).toHaveBeenCalledWith('offer', { offerId: offerSummary.id })
@@ -61,7 +57,6 @@ describe('useNavigateToOfferOrContract - offers', () => {
     }
     const { result } = renderHook(useNavigateToOfferOrContract, {
       initialProps: offerSummary as OfferSummary,
-      wrapper,
     })
     await result.current()
     expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer)
@@ -73,7 +68,6 @@ describe('useNavigateToOfferOrContract - offers', () => {
     }
     const { result } = renderHook(useNavigateToOfferOrContract, {
       initialProps: offerSummary as OfferSummary,
-      wrapper,
     })
     await result.current()
     expect(navigateMock).toHaveBeenCalledWith('wrongFundingAmount', { offerId: offerSummary.id })

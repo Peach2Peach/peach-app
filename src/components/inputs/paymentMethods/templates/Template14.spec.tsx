@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
 import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { Template14 } from './Template14'
 

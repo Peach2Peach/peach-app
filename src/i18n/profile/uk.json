@@ -1,0 +1,19 @@
+{
+  "profile.accountCreated" : "обліковий запис створено",
+  "profile.blockUser" : "заблокувати цього користувача",
+  "profile.daysAgo" : "$0 днів тому",
+  "profile.disputes" : "суперечки",
+  "profile.disputesLost" : "втрачено",
+  "profile.disputesOpened" : "відкрито",
+  "profile.disputesWon" : "виграно",
+  "profile.myAccount.title" : "мій обліковий запис",
+  "profile.numberOfTrades" : "кількість торгів",
+  "profile.publicKey" : "акаунт pubkey",
+  "profile.tradingLimits" : "торгівельні ліміти",
+  "profile.tradingLimits.daily" : "денний торгівельний ліміт",
+  "profile.tradingLimits.monthly" : "місячний анонімний ліміт",
+  "profile.tradingLimits.yearly" : "річний торгівельний ліміт",
+  "profile.tradingLimits.yearly.short" : "річний ліміт:",
+  "profile.unblockUser" : "розблокувати цього користувача",
+  "profile.user.title" : "публічна анкета"
+}

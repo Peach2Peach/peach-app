@@ -1,20 +1,17 @@
-import { act, renderHook } from '@testing-library/react-native'
-import { NavigationWrapper, navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
+import { act, renderHook } from 'test-utils'
+import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
-import { useOfferOutsideRangePopup } from './useOfferOutsideRangePopup'
 import { OfferOutsideRange } from './OfferOutsideRange'
-
-const wrapper = NavigationWrapper
+import { useOfferOutsideRangePopup } from './useOfferOutsideRangePopup'
 
 describe('useOfferOutsideRangePopup', () => {
   const offerId = '37'
-  afterEach(() => {
+  beforeEach(() => {
     usePopupStore.setState(defaultPopupState)
-    jest.resetAllMocks()
   })
 
   it('opens BuyOfferExpired popup', () => {
-    const { result } = renderHook(useOfferOutsideRangePopup, { wrapper })
+    const { result } = renderHook(useOfferOutsideRangePopup)
     act(() => {
       result.current(offerId)
     })
@@ -38,7 +35,7 @@ describe('useOfferOutsideRangePopup', () => {
     })
   })
   it('closes popup', () => {
-    const { result } = renderHook(useOfferOutsideRangePopup, { wrapper })
+    const { result } = renderHook(useOfferOutsideRangePopup)
     act(() => {
       result.current(offerId)
     })
@@ -48,7 +45,7 @@ describe('useOfferOutsideRangePopup', () => {
     expect(usePopupStore.getState().visible).toBeFalsy()
   })
   it('navigates to offer', () => {
-    const { result } = renderHook(useOfferOutsideRangePopup, { wrapper })
+    const { result } = renderHook(useOfferOutsideRangePopup)
     act(() => {
       result.current(offerId)
     })

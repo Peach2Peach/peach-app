@@ -1,15 +1,11 @@
-import { render } from '@testing-library/react-native'
-import { defaultState, DrawerContext } from '../../../contexts/drawer'
+import { render } from 'test-utils'
+import { useDrawerState } from '../useDrawerState'
 import { DrawerTitle } from './DrawerTitle'
 
 describe('DrawerTitle', () => {
-  const wrapper = ({ children }: { children: JSX.Element }) => (
-    <DrawerContext.Provider value={[{ ...defaultState, title: 'testTitle' }, jest.fn()]}>
-      {children}
-    </DrawerContext.Provider>
-  )
   it('renders correctly', () => {
-    const { toJSON } = render(<DrawerTitle />, { wrapper })
+    useDrawerState.setState({ title: 'testTitle' })
+    const { toJSON } = render(<DrawerTitle />)
     expect(toJSON()).toMatchSnapshot()
   })
 })

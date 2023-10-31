@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook } from 'test-utils'
 import { estimatedFees } from '../../tests/unit/data/bitcoinNetworkData'
 import { useSettingsStore } from '../store/settingsStore'
 import { useFeeRate } from './useFeeRate'

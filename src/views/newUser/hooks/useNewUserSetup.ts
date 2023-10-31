@@ -43,14 +43,14 @@ export const useNewUserSetup = () => {
       setSuccess(true)
 
       setTimeout(() => {
-        navigation.replace('home')
+        navigation.replace('buy')
       }, 1500)
     },
     [navigation, route.params.referralCode],
   )
 
   const onSuccess = useCallback(
-    async (account: Account & { mnemonic: string }) => {
+    async (account: Account & { mnemonic: string; base58: string }) => {
       const message = getAuthenticationChallenge()
 
       const [result, authError] = await register({

@@ -1,6 +1,6 @@
-import { act, fireEvent, render } from '@testing-library/react-native'
+import { act, fireEvent, render } from 'test-utils'
 import { buyOffer } from '../../../../tests/unit/data/offerData'
-import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { UnmatchPopup } from '../../../popups/UnmatchPopup'
 import { MatchUndone } from '../../../popups/app/MatchUndone'
 import { appPopups } from '../../../popups/appPopups'
@@ -70,28 +70,22 @@ describe('UnmatchButton', () => {
     usePopupStore.getState().setPopup(defaultPopupState)
   })
   it('renders correctly', () => {
-    const { toJSON } = render(<UnmatchButton {...defaultProps} />, { wrapper: QueryClientWrapper })
+    const { toJSON } = render(<UnmatchButton {...defaultProps} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should show the undo button if not yet matched', () => {
-    const { toJSON } = render(<UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />, {
-      wrapper: QueryClientWrapper,
-    })
+    const { toJSON } = render(<UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should show the unmatch button again after the timer is over', async () => {
-    const { getByText } = render(<UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />, {
-      wrapper: QueryClientWrapper,
-    })
+    const { getByText } = render(<UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />)
     await act(() => {
       jest.advanceTimersByTime(5000)
     })
     expect(getByText(i18n('search.unmatch'))).toBeTruthy()
   })
   it('should show the unmatch popup when unmatch is pressed', async () => {
-    const { getByText } = render(<UnmatchButton {...defaultProps} />, {
-      wrapper: QueryClientWrapper,
-    })
+    const { getByText } = render(<UnmatchButton {...defaultProps} />)
 
     const expectedPopup = {
       ...usePopupStore.getState(),
@@ -118,9 +112,7 @@ describe('UnmatchButton', () => {
     expect(usePopupStore.getState()).toStrictEqual(expectedPopup)
   })
   it('should close the popup when action1 is pressed', async () => {
-    const { getByText } = render(<UnmatchButton {...defaultProps} />, {
-      wrapper: QueryClientWrapper,
-    })
+    const { getByText } = render(<UnmatchButton {...defaultProps} />)
 
     await act(() => {
       fireEvent.press(getByText(i18n('search.unmatch')))
@@ -134,9 +126,7 @@ describe('UnmatchButton', () => {
     expect(showUnmatchedCard).not.toHaveBeenCalled()
   })
   it('should unmatch and show confirmation popup when action2 is pressed', async () => {
-    const { getByText } = render(<UnmatchButton {...defaultProps} />, {
-      wrapper: QueryClientWrapper,
-    })
+    const { getByText } = render(<UnmatchButton {...defaultProps} />)
 
     await act(() => {
       fireEvent.press(getByText(i18n('search.unmatch')))
@@ -170,9 +160,6 @@ describe('UnmatchButton', () => {
   it('should call showUnmatchedCard when undo is pressed', async () => {
     const { getAllByText } = render(
       <UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />,
-      {
-        wrapper: QueryClientWrapper,
-      },
     )
 
     await act(() => {
@@ -184,9 +171,6 @@ describe('UnmatchButton', () => {
   it('should call interruptMatching when undo is pressed', async () => {
     const { getAllByText } = render(
       <UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />,
-      {
-        wrapper: QueryClientWrapper,
-      },
     )
 
     await act(() => {
@@ -198,9 +182,6 @@ describe('UnmatchButton', () => {
   it('show the match undone popup when undo is pressed', async () => {
     const { getAllByText } = render(
       <UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />,
-      {
-        wrapper: QueryClientWrapper,
-      },
     )
 
     await act(() => {

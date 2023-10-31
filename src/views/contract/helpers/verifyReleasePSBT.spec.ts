@@ -6,30 +6,31 @@ import { useConfigStore } from '../../../store/configStore'
 import { defaultConfig } from '../../../store/defaults'
 import { verifyReleasePSBT } from './verifyReleasePSBT'
 
+const wallet = createTestWallet()
+const psbt = constructPSBT(wallet, undefined, { value: contract.amount, address: contract.releaseAddress })
+const feeAmount = contract.amount * defaultConfig.peachFee
+const psbtWithFeeOutput = constructPSBT(wallet, undefined, {
+  value: contract.amount - feeAmount,
+  address: contract.releaseAddress,
+})
+psbtWithFeeOutput.addOutput({
+  address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+  value: feeAmount,
+})
+const mockSellOfferWithoutFunding = sellOffer
+const mockSellOffer = {
+  ...sellOffer,
+  funding: { ...sellOffer.funding, txIds: ['d8a31704d33febfc8a4271c3f9d65b5d7679c5cab19f25058f2d7d2bc6e7b86c'] },
+}
 describe('verifyReleasePSBT', () => {
-  const wallet = createTestWallet()
-  const psbt = constructPSBT(wallet, undefined, { value: contract.amount, address: contract.releaseAddress })
-  const feeAmount = contract.amount * defaultConfig.peachFee
-  const psbtWithFeeOutput = constructPSBT(wallet, undefined, {
-    value: contract.amount - feeAmount,
-    address: contract.releaseAddress,
-  })
-  psbtWithFeeOutput.addOutput({
-    address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
-    value: feeAmount,
-  })
-  const mockSellOfferWithoutFunding = sellOffer
-  const mockSellOffer = {
-    ...sellOffer,
-    funding: { ...sellOffer.funding, txIds: ['d8a31704d33febfc8a4271c3f9d65b5d7679c5cab19f25058f2d7d2bc6e7b86c'] },
-  }
-
   afterEach(() => {
     useConfigStore.getState().reset()
   })
 
   it('should verify a valid release PSBT', () => {
-    expect(verifyReleasePSBT(psbtWithFeeOutput, mockSellOffer, contract)).toBe('')
+    expect(verifyReleasePSBT(psbtWithFeeOutput, mockSellOffer, { ...contract, buyerFee: defaultConfig.peachFee })).toBe(
+      '',
+    )
   })
   it('should handle missing data', () => {
     expect(verifyReleasePSBT(psbt, undefined, contract)).toBe('MISSING_DATA')
@@ -55,7 +56,9 @@ describe('verifyReleasePSBT', () => {
     expect(verifyReleasePSBT(psbtWithFeeOutput, mockSellOffer, contractWithDifferentAmount)).toBe('INVALID_OUTPUT')
   })
   it('should handle missing peachFee', () => {
-    expect(verifyReleasePSBT(psbt, mockSellOffer, contract)).toBe('INVALID_OUTPUT')
+    expect(verifyReleasePSBT(psbt, mockSellOffer, { ...contract, buyerFee: defaultConfig.peachFee })).toBe(
+      'INVALID_OUTPUT',
+    )
   })
   it('should handle invalid peach fee', () => {
     useConfigStore.setState({ peachFee: defaultConfig.peachFee / 2 })

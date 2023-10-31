@@ -2,7 +2,7 @@ import { BackHandler, Text } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { act, render } from 'test-utils'
 import { Drawer } from '.'
-import { DrawerContext } from '../../contexts/drawer'
+import { useDrawerState } from './useDrawerState'
 
 const onCloseMock = jest.fn()
 const defaultState: DrawerState = {
@@ -22,22 +22,14 @@ jest.useFakeTimers()
 
 describe('Drawer', () => {
   const shallowRenderer = createRenderer()
-  let drawerState = { ...defaultState }
-  const updateDrawer = jest.fn((newDrawerState: Partial<DrawerState>) => {
-    drawerState = {
-      ...drawerState,
-      ...newDrawerState,
-    }
-  })
-  const wrapper = ({ children }: { children: JSX.Element }) => (
-    <DrawerContext.Provider value={[drawerState, updateDrawer]}>{children}</DrawerContext.Provider>
-  )
+
+  const updateDrawer = useDrawerState.setState
 
   beforeEach(() => {
     updateDrawer(defaultState)
   })
   it('renders correctly', () => {
-    shallowRenderer.render(<Drawer />, { wrapper })
+    shallowRenderer.render(<Drawer />)
     const result = shallowRenderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
@@ -57,7 +49,7 @@ describe('Drawer', () => {
       content: null,
       show: true,
     })
-    shallowRenderer.render(<Drawer />, { wrapper })
+    shallowRenderer.render(<Drawer />)
     const result = shallowRenderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
@@ -69,19 +61,22 @@ describe('Drawer', () => {
         title: 'previousDrawerTitle',
       },
     })
-    shallowRenderer.render(<Drawer />, { wrapper })
+    shallowRenderer.render(<Drawer />)
     const result = shallowRenderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
   it('should close the drawer and call onClose on hardware back press', () => {
-    render(<Drawer />, { wrapper })
+    render(<Drawer />)
+
+    expect(useDrawerState.getState().show).toBe(true)
 
     act(() => {
-      // @ts-ignore
+      // @ts-expect-error it works for testing
       BackHandler.mockPressBack()
       jest.runAllTimers()
     })
-    expect(drawerState.show).toBe(false)
+    expect(BackHandler.exitApp).not.toHaveBeenCalled()
+    expect(useDrawerState.getState().show).toBe(false)
     expect(onCloseMock).toHaveBeenCalledTimes(1)
   })
   it('should show the previous drawer on hardware back press if it exists', () => {
@@ -92,16 +87,29 @@ describe('Drawer', () => {
         title: 'previousDrawerTitle',
       },
     })
-    render(<Drawer />, { wrapper })
+    render(<Drawer />)
 
     act(() => {
-      // @ts-ignore
+      // @ts-expect-error it works for testing
       BackHandler.mockPressBack()
       jest.runAllTimers()
     })
-    expect(drawerState.show).toBe(true)
+    expect(useDrawerState.getState().show).toBe(true)
     expect(onCloseMock).toHaveBeenCalledTimes(0)
-    expect(drawerState.previousDrawer).toEqual(undefined)
-    expect(drawerState.title).toBe('previousDrawerTitle')
+    expect(useDrawerState.getState().previousDrawer).toEqual(undefined)
+    expect(useDrawerState.getState().title).toBe('previousDrawerTitle')
+  })
+  it('should perform default action on hardware back press when drawer is not shown', () => {
+    updateDrawer({ ...defaultState, show: false })
+    render(<Drawer />)
+
+    act(() => {
+      // @ts-expect-error it works for testing
+      BackHandler.mockPressBack()
+      jest.runAllTimers()
+    })
+
+    // `exitApp` in this case is the default action
+    expect(BackHandler.exitApp).toHaveBeenCalled()
   })
 })

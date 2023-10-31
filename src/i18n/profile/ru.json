@@ -1,0 +1,19 @@
+{
+  "profile.accountCreated" : "учётная запись создана",
+  "profile.blockUser" : "заблокировать этого пользователя",
+  "profile.daysAgo" : "$0 дней назад",
+  "profile.disputes" : "споры",
+  "profile.disputesLost" : "проиграно",
+  "profile.disputesOpened" : "открыто",
+  "profile.disputesWon" : "выиграно",
+  "profile.myAccount.title" : "моя учётная запись",
+  "profile.numberOfTrades" : "к-во сделок",
+  "profile.publicKey" : "Публичный ключ аккаунта",
+  "profile.tradingLimits" : "торговые лимиты",
+  "profile.tradingLimits.daily" : "дневной торговый лимит",
+  "profile.tradingLimits.monthly" : "месячный анонимный лимит:",
+  "profile.tradingLimits.yearly" : "годовой торговый лимит:",
+  "profile.tradingLimits.yearly.short" : "годовой лимит:",
+  "profile.unblockUser" : "разблокировать этого пользователя",
+  "profile.user.title" : "открытый профиль"
+}

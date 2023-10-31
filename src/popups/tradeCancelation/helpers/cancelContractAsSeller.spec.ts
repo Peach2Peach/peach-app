@@ -28,31 +28,25 @@ describe('cancelContractAsSeller', () => {
     const result = await cancelContractAsSeller(activeContract)
     expect(cancelContractMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(result.isOk()).toBeTruthy()
-    expect(result.getValue()).toEqual({
-      contract: activeContract,
-    })
+    expect(result.getValue()).toEqual({ sellOffer: undefined })
   })
   it('calls cancelContract with expired payment timer and returns contract update', async () => {
     const result = await cancelContractAsSeller(expiredContract)
     expect(cancelContractMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(result.isOk()).toBeTruthy()
-    expect(result.getValue()).toEqual({
-      contract: { ...expiredContract, cancelConfirmationDismissed: false, canceled: true },
-    })
+    expect(result.getValue()).toEqual({ sellOffer: undefined })
   })
   it('calls cancelContract', async () => {
     const result = await cancelContractAsSeller(expiredContract)
     expect(cancelContractMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(result.isOk()).toBeTruthy()
-    expect(result.getValue()).toEqual({
-      contract: { ...expiredContract, canceled: true },
-    })
+    expect(result.getValue()).toEqual({ sellOffer: undefined })
   })
   it('handles cancelContract error response', async () => {
     cancelContractMock.mockResolvedValueOnce([null, unauthorizedError])
     const result = await cancelContractAsSeller(contract)
     expect(result.isError()).toBeTruthy()
-    expect(result.getValue()).toEqual({ contract })
+    expect(result.getValue()).toEqual({ sellOffer: undefined })
   })
   it('also calls patchSellOfferWithRefundTx if result returned psbt and returns updates', async () => {
     cancelContractMock.mockResolvedValueOnce([cancelContractSuccessWithPSBT, null])
@@ -60,13 +54,7 @@ describe('cancelContractAsSeller', () => {
     const result = await cancelContractAsSeller(expiredContract)
     expect(cancelContractMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(result.isOk()).toBeTruthy()
-    expect(result.getValue()).toEqual({
-      contract: {
-        ...expiredContract,
-        canceled: true,
-      },
-      sellOffer,
-    })
+    expect(result.getValue()).toEqual({ sellOffer })
   })
   it('also handles patchSellOfferWithRefundTx error case', async () => {
     patchSellOfferWithRefundTxMock.mockResolvedValueOnce(getResult({ sellOffer }, unauthorizedError.error))
@@ -76,9 +64,6 @@ describe('cancelContractAsSeller', () => {
     expect(cancelContractMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(result.isError()).toBeTruthy()
     expect(result.getError()).toBe(unauthorizedError.error)
-    expect(result.getValue()).toEqual({
-      contract: { ...expiredContract, canceled: true },
-      sellOffer,
-    })
+    expect(result.getValue()).toEqual({ sellOffer })
   })
 })

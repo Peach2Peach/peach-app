@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react-native'
 import { Keyboard } from 'react-native'
-import { NavigationWrapper, headerState, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { act, renderHook } from 'test-utils'
+import { headerState, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePasswordPromptSetup } from './usePasswordPromptSetup'
 
@@ -14,7 +14,7 @@ const password = 'password'
 const passwordRepeat = 'password'
 describe('usePasswordPromptSetup', () => {
   it('returns default correct values', () => {
-    const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
+    const { result } = renderHook(usePasswordPromptSetup, { initialProps: onSuccessMock })
     expect(result.current.setPassword).toBeInstanceOf(Function)
     expect(result.current.password).toBe('')
     expect(result.current.passwordIsValid).toBeFalsy()
@@ -27,11 +27,11 @@ describe('usePasswordPromptSetup', () => {
     expect(result.current.startAccountBackup).toBeInstanceOf(Function)
   })
   it('should set up header correctly', () => {
-    renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
+    renderHook(usePasswordPromptSetup, { initialProps: onSuccessMock })
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should set the password', () => {
-    const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
+    const { result } = renderHook(usePasswordPromptSetup, { initialProps: onSuccessMock })
     act(() => {
       result.current.setPassword(password)
     })
@@ -39,7 +39,7 @@ describe('usePasswordPromptSetup', () => {
   })
 
   it('should set the password repeat', () => {
-    const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
+    const { result } = renderHook(usePasswordPromptSetup, { initialProps: onSuccessMock })
     act(() => {
       result.current.setPasswordRepeat(passwordRepeat)
     })
@@ -47,7 +47,7 @@ describe('usePasswordPromptSetup', () => {
   })
 
   it('should validate the passwords', () => {
-    const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
+    const { result } = renderHook(usePasswordPromptSetup, { initialProps: onSuccessMock })
     act(() => {
       result.current.setPassword(password)
       result.current.setPasswordRepeat(passwordRepeat)
@@ -61,7 +61,7 @@ describe('usePasswordPromptSetup', () => {
 describe('startAccountBackup', () => {
   it('should not start backup when passwords are not valid', () => {
     const keyboardSpy = jest.spyOn(Keyboard, 'dismiss')
-    const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
+    const { result } = renderHook(usePasswordPromptSetup, { initialProps: onSuccessMock })
     act(() => {
       result.current.startAccountBackup()
     })
@@ -70,7 +70,7 @@ describe('startAccountBackup', () => {
   })
   it('should dismiss keyboard when passwords are valid', () => {
     const keyboardSpy = jest.spyOn(Keyboard, 'dismiss')
-    const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
+    const { result } = renderHook(usePasswordPromptSetup, { initialProps: onSuccessMock })
     act(() => {
       result.current.setPassword(password)
       result.current.setPasswordRepeat(passwordRepeat)
@@ -85,7 +85,7 @@ describe('startAccountBackup', () => {
   it('should set the last file backup date to now', () => {
     const now = new Date('2021-01-01')
     jest.spyOn(Date, 'now').mockImplementationOnce(() => now.getTime())
-    const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
+    const { result } = renderHook(usePasswordPromptSetup, { initialProps: onSuccessMock })
     act(() => {
       result.current.setPassword(password)
       result.current.setPasswordRepeat(passwordRepeat)
@@ -98,7 +98,7 @@ describe('startAccountBackup', () => {
   })
 
   it('should set the show backup reminder to false', () => {
-    const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
+    const { result } = renderHook(usePasswordPromptSetup, { initialProps: onSuccessMock })
     act(() => {
       result.current.setPassword(password)
       result.current.setPasswordRepeat(passwordRepeat)
@@ -111,7 +111,7 @@ describe('startAccountBackup', () => {
   })
 
   it('should call backupAccount with the password', () => {
-    const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
+    const { result } = renderHook(usePasswordPromptSetup, { initialProps: onSuccessMock })
     act(() => {
       result.current.setPassword(password)
       result.current.setPasswordRepeat(passwordRepeat)
@@ -126,7 +126,7 @@ describe('startAccountBackup', () => {
 
   it('should handle a successful backup', () => {
     backupAccountMock.mockImplementationOnce(({ onSuccess }) => onSuccess())
-    const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
+    const { result } = renderHook(usePasswordPromptSetup, { initialProps: onSuccessMock })
     act(() => {
       result.current.setPassword(password)
       result.current.setPasswordRepeat(passwordRepeat)
@@ -141,7 +141,7 @@ describe('startAccountBackup', () => {
 
   it('should handle a failed backup', () => {
     backupAccountMock.mockImplementationOnce(({ onError }) => onError())
-    const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
+    const { result } = renderHook(usePasswordPromptSetup, { initialProps: onSuccessMock })
     act(() => {
       result.current.setPassword(password)
       result.current.setPasswordRepeat(passwordRepeat)
@@ -156,7 +156,7 @@ describe('startAccountBackup', () => {
 
   it('should handle a cancelled backup', () => {
     backupAccountMock.mockImplementationOnce(({ onCancel }) => onCancel())
-    const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
+    const { result } = renderHook(usePasswordPromptSetup, { initialProps: onSuccessMock })
     act(() => {
       result.current.setPassword(password)
       result.current.setPasswordRepeat(passwordRepeat)

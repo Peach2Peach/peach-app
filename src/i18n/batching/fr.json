@@ -2,7 +2,7 @@
   "batching.eta" : "Temps estimé",
   "batching.eta.tba" : "à confirmer",
   "batching.slots" : "Nombre de transactions",
-  "batching.willBeSenTTo" : "sera envoyé à",
+  "batching.willBeSentTo" : "sera envoyé à",
   "grouphug.announcement.text" : "Avec GroupHug, on groupe plusieurs transactions d'achat ensemble pour réduire les frais de réseau Bitcoin. Attends 12 heures de plus et paies moins de frais! Tu peux changer d'avis dans Réglages à tout moment.",
   "grouphug.announcement.title" : "C'est l'heure du GroupHug!",
   "grouphug.goToSettings" : "aller à Reglages",

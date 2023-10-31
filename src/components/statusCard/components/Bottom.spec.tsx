@@ -1,6 +1,6 @@
-import { Bottom } from './Bottom'
-import { render } from '@testing-library/react-native'
+import { render } from 'test-utils'
 import { Icon } from '../../Icon'
+import { Bottom } from './Bottom'
 
 describe('Bottom', () => {
   it("should not render anything if the label doesn't exist", () => {

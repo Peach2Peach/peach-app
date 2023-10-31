@@ -13,6 +13,5 @@ export const getAccountBackup = ({ account, settings, paymentData }: Props): Acc
   paymentData,
   settings,
   offers: [],
-  contracts: [],
   chats: {},
 })

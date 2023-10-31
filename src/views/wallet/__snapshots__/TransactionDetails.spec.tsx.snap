@@ -28,7 +28,7 @@ exports[`TransactionDetails renders correctly 1`] = `
       confirmed={true}
       date={2022-09-14T16:14:02.835Z}
       height={1}
-      id="txid1"
+      id="txid1_confirmed"
       offerData={
         [
           {
@@ -55,7 +55,7 @@ exports[`TransactionDetails renders correctly 1`] = `
           "confirmed": true,
           "date": 2022-09-14T16:14:02.835Z,
           "height": 1,
-          "id": "txid1",
+          "id": "txid1_confirmed",
           "offerData": [
             {
               "address": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",

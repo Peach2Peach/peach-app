@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react-native'
+import { fireEvent, render } from 'test-utils'
 import { Text } from '../text'
 import { RadioButtonItem } from './RadioButtonItem'
 

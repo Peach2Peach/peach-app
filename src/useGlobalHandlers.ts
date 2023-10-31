@@ -11,12 +11,8 @@ import { useShowAnalyticsPopup } from './popups/useShowAnalyticsPopup'
 import { useBitcoinStore } from './store/bitcoinStore'
 import { useSettingsStore } from './store/settingsStore'
 
-export type Props = {
-  currentPage: keyof RootStackParamList | undefined
-}
-
-export const useGlobalHandlers = ({ currentPage }: Props) => {
-  const messageHandler = useMessageHandler(currentPage)
+export const useGlobalHandlers = () => {
+  const messageHandler = useMessageHandler()
   const showAnalyticsPrompt = useShowAnalyticsPopup()
   const analyticsPopupSeen = useSettingsStore((state) => state.analyticsPopupSeen)
   const updateTradingAmounts = useUpdateTradingAmounts()

@@ -1,8 +1,6 @@
-import { UseMutationOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 import { ConfirmSlider } from '../../components/inputs'
 import { MSINANHOUR } from '../../constants'
 import { useRoute } from '../../hooks'
-import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { cancelContractAsSeller } from '../../popups/tradeCancelation/helpers/cancelContractAsSeller'
 import { useStartRefundPopup } from '../../popups/useStartRefundPopup'
 import { getSellOfferFromContract, verifyAndSignReleaseTx } from '../../utils/contract'
@@ -16,6 +14,7 @@ import {
 } from '../../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../../utils/wallet'
 import { useContractContext } from './context'
+import { useContractMutation } from './hooks/useContractMutation'
 import { useReleaseEscrow } from './hooks/useReleaseEscrow'
 import { useRepublishOffer } from './hooks/useRepublishOffer'
 
@@ -99,7 +98,7 @@ export function PaymentReceivedSlider () {
 export function CancelTradeSlider () {
   const { contract } = useContractContext()
   const { mutate } = useContractMutation(
-    { canceled: true, tradeStatus: 'tradeCanceled' },
+    { canceled: true, tradeStatus: 'refundOrReviveRequired' },
     {
       mutationFn: async () => {
         const result = await cancelContractAsSeller(contract)
@@ -175,35 +174,4 @@ export function ReleaseEscrowSlider () {
   const { mutate } = useReleaseEscrow(contract)
 
   return <ConfirmSlider label1={i18n('releaseEscrow')} onConfirm={() => mutate()} />
-}
-
-function useContractMutation (optimisticContract: Partial<Contract>, options: UseMutationOptions) {
-  const { contractId } = useRoute<'contract'>().params
-  const queryClient = useQueryClient()
-  const showError = useShowErrorBanner()
-
-  return useMutation({
-    ...options,
-    onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
-      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contractId])
-      queryClient.setQueryData(['contract', contractId], (oldQueryData: GetContractResponse | undefined) => {
-        if (!oldQueryData) return oldQueryData
-        return {
-          ...oldQueryData,
-          ...optimisticContract,
-          lastModified: new Date(),
-        }
-      })
-
-      return { previousData }
-    },
-    onError: (err: Error, _variables: void, context: { previousData: Contract | undefined } | undefined) => {
-      queryClient.setQueryData(['contract', contractId], context?.previousData)
-      showError(err.message)
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['contract', contractId])
-    },
-  })
 }

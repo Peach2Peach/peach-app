@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook } from 'test-utils'
 import { useSettingsStore } from '../store/settingsStore'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { AnalyticsPrompt } from './AnalyticsPrompt'

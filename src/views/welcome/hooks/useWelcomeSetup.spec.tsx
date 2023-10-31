@@ -1,26 +1,22 @@
-import { act, renderHook } from '@testing-library/react-native'
 import { RefObject } from 'react'
-import Carousel from 'react-native-snap-carousel'
-import { NavigationWrapper, headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { ICarouselInstance } from 'react-native-reanimated-carousel'
+import { act, renderHook } from 'test-utils'
+import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useWelcomeSetup } from './useWelcomeSetup'
 
-const wrapper = NavigationWrapper
-type CarouselType = Carousel<() => JSX.Element>
-
 describe('useWelcomeSetup', () => {
-  const carousel: RefObject<CarouselType> = {
+  const carousel: RefObject<ICarouselInstance> = {
     current: {
-      snapToNext: jest.fn(),
-      snapToItem: jest.fn(),
-    } as unknown as CarouselType,
+      next: jest.fn(),
+    } as unknown as ICarouselInstance,
   }
   const initialProps = { carousel: { current: null } }
   it('should set up header correctly', () => {
-    renderHook(useWelcomeSetup, { wrapper, initialProps })
+    renderHook(useWelcomeSetup, { initialProps })
     expect(headerState.header()).toMatchSnapshot()
   })
   it('returns defaults', () => {
-    const { result } = renderHook(useWelcomeSetup, { wrapper, initialProps })
+    const { result } = renderHook(useWelcomeSetup, { initialProps })
     expect(result.current).toEqual({
       endReached: false,
       progress: 0.2,
@@ -31,7 +27,7 @@ describe('useWelcomeSetup', () => {
     })
   })
   it('sets page', () => {
-    const { result } = renderHook(useWelcomeSetup, { wrapper, initialProps })
+    const { result } = renderHook(useWelcomeSetup, { initialProps })
     act(() => {
       result.current.setPage(2)
     })
@@ -39,7 +35,7 @@ describe('useWelcomeSetup', () => {
     expect(result.current.progress).toEqual(0.6)
   })
   it('should return endReached true if last page is reached', () => {
-    const { result } = renderHook(useWelcomeSetup, { wrapper, initialProps })
+    const { result } = renderHook(useWelcomeSetup, { initialProps })
     act(() => {
       result.current.setPage(4)
     })
@@ -49,22 +45,20 @@ describe('useWelcomeSetup', () => {
   })
   it('should go to next', () => {
     const { result } = renderHook(useWelcomeSetup, {
-      wrapper,
-      initialProps: { carousel: carousel as RefObject<CarouselType> },
+      initialProps: { carousel: carousel as RefObject<ICarouselInstance> },
     })
     act(() => {
       result.current.next()
     })
-    expect(carousel.current?.snapToNext).toHaveBeenCalled()
+    expect(carousel.current?.next).toHaveBeenCalled()
   })
   it('should go to end', () => {
     const { result } = renderHook(useWelcomeSetup, {
-      wrapper,
-      initialProps: { carousel: carousel as RefObject<CarouselType> },
+      initialProps: { carousel: carousel as RefObject<ICarouselInstance> },
     })
     act(() => {
       result.current.goToEnd()
     })
-    expect(carousel.current?.snapToItem).toHaveBeenCalledWith(4)
+    expect(carousel.current?.next).toHaveBeenCalledWith({ count: 4 })
   })
 })

@@ -1,0 +1,19 @@
+{
+  "profile.accountCreated" : "account aangemaakt",
+  "profile.blockUser" : "blokkeer deze gebruiker",
+  "profile.daysAgo" : "$0 dagen geleden",
+  "profile.disputes" : "geschillen",
+  "profile.disputesLost" : "verloren",
+  "profile.disputesOpened" : "geopend",
+  "profile.disputesWon" : "gewonnen",
+  "profile.myAccount.title" : "mijn account",
+  "profile.numberOfTrades" : "aantal transacties",
+  "profile.publicKey" : "account pubkey",
+  "profile.tradingLimits" : "handelslimieten",
+  "profile.tradingLimits.daily" : "dagelijkse handelslimiet",
+  "profile.tradingLimits.monthly" : "maandelijkse anonieme limiet:",
+  "profile.tradingLimits.yearly" : "jaarlijkse handelslimiet:",
+  "profile.tradingLimits.yearly.short" : "jaarlijkse limiet:",
+  "profile.unblockUser" : "deblokkeer deze gebruiker",
+  "profile.user.title" : "openbaar profiel"
+}

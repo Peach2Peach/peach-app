@@ -1,11 +1,11 @@
-import { useContext } from 'react'
 import { TouchableOpacity } from 'react-native'
+import { shallow } from 'zustand/shallow'
 import { Icon } from '../..'
-import { DrawerContext } from '../../../contexts/drawer'
 import tw from '../../../styles/tailwind'
+import { useDrawerState } from '../useDrawerState'
 
 export const GoBackIcon = () => {
-  const [{ previousDrawer }, updateDrawer] = useContext(DrawerContext)
+  const [previousDrawer, updateDrawer] = useDrawerState((state) => [state.previousDrawer, state.updateDrawer], shallow)
   const goBack = () => {
     if (previousDrawer) {
       updateDrawer(previousDrawer)
@@ -14,7 +14,7 @@ export const GoBackIcon = () => {
 
   return (
     <TouchableOpacity onPress={goBack} disabled={!previousDrawer} style={!previousDrawer && tw`opacity-0`}>
-      <Icon id="chevronLeft" style={tw`w-6 h-6`} color={tw`text-black-4`.color} />
+      <Icon id="chevronLeft" size={24} color={tw`text-black-4`.color} />
     </TouchableOpacity>
   )
 }

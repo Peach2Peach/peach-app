@@ -1,8 +1,8 @@
 import analytics from '@react-native-firebase/analytics'
-import { renderHook, waitFor } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
+import { renderHook, waitFor } from 'test-utils'
 import { recoveredAccount } from '../../../../tests/unit/data/accountData'
-import { headerState, NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { headerState, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import {
   defaultNotificationState,
   notificationStorage,
@@ -15,7 +15,6 @@ import { defaultSettings, settingsStorage, useSettingsStore } from '../../../sto
 import { defaultAccount, getAccount, setAccount } from '../../../utils/account'
 import { accountStorage } from '../../../utils/account/accountStorage'
 import { chatStorage } from '../../../utils/account/chatStorage'
-import { contractStorage } from '../../../utils/account/contractStorage'
 import { offerStorage } from '../../../utils/account/offerStorage'
 import { getAccessToken } from '../../../utils/peachAPI/accessToken'
 import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
@@ -69,21 +68,21 @@ describe('useNewUserSetup', () => {
     setAccount(defaultAccount)
   })
   it('should return default values', () => {
-    const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNewUserSetup)
     expect(result.current).toStrictEqual({ success: false, error: '', userExistsForDevice: false })
   })
   it('should set up the header correctly', () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+    renderHook(useNewUserSetup)
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should show header actions when not loading', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+    renderHook(useNewUserSetup)
 
     await waitFor(() => expect(headerState.header().props.icons).toHaveLength(2))
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should create an account', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+    renderHook(useNewUserSetup)
     await forProcessToFinish()
     expect(getAccount()).toStrictEqual(recoveredAccount)
     expect(registerMock).toHaveBeenCalledWith({
@@ -95,12 +94,12 @@ describe('useNewUserSetup', () => {
     })
   })
   it('should update the user', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+    renderHook(useNewUserSetup)
     await forProcessToFinish()
     expect(userUpdateMock).toHaveBeenCalled()
   })
   it('should store the new identity', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+    renderHook(useNewUserSetup)
     await forProcessToFinish()
 
     const expectedIdentity = {
@@ -115,19 +114,19 @@ describe('useNewUserSetup', () => {
   })
 
   it('should set success to true', async () => {
-    const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNewUserSetup)
     await forProcessToFinish()
     expect(result.current).toStrictEqual({ success: true, error: '', userExistsForDevice: false })
   })
-  it('should navigate to the home screen after 1500ms', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+  it('should navigate to the buy screen after 1500ms', async () => {
+    renderHook(useNewUserSetup)
     await forProcessToFinish()
-    expect(replaceMock).toHaveBeenCalledWith('home')
+    expect(replaceMock).toHaveBeenCalledWith('buy')
   })
   it('should handle authentication errors', async () => {
     // @ts-ignore
     registerMock.mockReturnValue([null, { error: 'testError' }])
-    const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNewUserSetup)
     await forProcessToFinish()
 
     expect(result.current).toStrictEqual({
@@ -137,15 +136,7 @@ describe('useNewUserSetup', () => {
     })
     expect(getAccount()).toStrictEqual(defaultAccount)
 
-    const storages = [
-      accountStorage,
-      walletStorage,
-      offerStorage,
-      contractStorage,
-      chatStorage,
-      settingsStorage,
-      notificationStorage,
-    ]
+    const storages = [accountStorage, walletStorage, offerStorage, chatStorage, settingsStorage, notificationStorage]
 
     storages.forEach((storage) => {
       expect(storage.clearStore).toHaveBeenCalled()
@@ -164,7 +155,7 @@ describe('useNewUserSetup', () => {
     entropyToMnemonicMock.mockImplementationOnce(() => {
       throw new Error('testError')
     })
-    const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNewUserSetup)
     await forProcessToFinish()
 
     expect(result.current).toStrictEqual({
@@ -174,15 +165,7 @@ describe('useNewUserSetup', () => {
     })
     expect(getAccount()).toStrictEqual(defaultAccount)
 
-    const storages = [
-      accountStorage,
-      walletStorage,
-      offerStorage,
-      contractStorage,
-      chatStorage,
-      settingsStorage,
-      notificationStorage,
-    ]
+    const storages = [accountStorage, walletStorage, offerStorage, chatStorage, settingsStorage, notificationStorage]
 
     storages.forEach((storage) => {
       expect(storage.clearStore).toHaveBeenCalled()
@@ -200,7 +183,7 @@ describe('useNewUserSetup', () => {
   it('should use "UNKNOWN_ERROR" as the fallback error value', async () => {
     registerMock.mockReturnValue([null, null])
 
-    const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNewUserSetup)
     await forProcessToFinish()
 
     expect(result.current).toStrictEqual({
@@ -218,7 +201,7 @@ describe('useNewUserSetup', () => {
       },
       null,
     ])
-    const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useNewUserSetup)
     await forProcessToFinish()
 
     expect(result.current).toStrictEqual({

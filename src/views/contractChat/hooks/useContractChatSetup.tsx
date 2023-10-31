@@ -22,7 +22,7 @@ export const useContractChatSetup = (contract: Contract) => {
     error: messagesError,
     page,
     fetchNextPage,
-  } = useChatMessages(contractId, decryptedData?.symmetricKey)
+  } = useChatMessages({ id: contractId, symmetricKey: decryptedData?.symmetricKey })
   const showError = useShowErrorBanner()
   const tradingPartner = contract ? getTradingPartner(contract, account) : null
   const [chat, setChat] = useState(getChat(contractId))

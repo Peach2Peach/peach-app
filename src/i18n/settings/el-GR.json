@@ -45,7 +45,6 @@
   "settings.contact" : "επικοινωνία με την Peach",
   "settings.currency" : "νόμισμα",
   "settings.deleteAccount" : "διαγραφή λογαριασμού",
-  "settings.deleteAccount.back" : "Ωπ! Δεν πειράζει",
   "settings.deleteAccount.deleted.title" : "αντίο δεδομένα",
   "settings.deleteAccount.forRealsies" : "Πραγματικά. \nΧωρίς αντίγραφα ασφαλείας ή χωρίς κωδικό πρόσβασης = τα δεδομένα χάθηκαν!",
   "settings.deleteAccount.ok" : "κάντε το ",

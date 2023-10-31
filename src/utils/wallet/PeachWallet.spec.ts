@@ -2,11 +2,11 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 import { BLOCKEXPLORER } from '@env'
-import { waitFor } from '@testing-library/react-native'
 import { Address, PartiallySignedTransaction, Transaction, TxBuilder } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { AddressIndex, BlockChainNames, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
+import { waitFor } from 'test-utils'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { insufficientFunds } from '../../../tests/unit/data/errors'
 import {
@@ -32,6 +32,7 @@ import {
   walletSyncMock,
 } from '../../../tests/unit/mocks/bdkRN'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
+import { error as logError } from '../log'
 import { PeachWallet } from './PeachWallet'
 import { createWalletFromBase58 } from './createWalletFromBase58'
 import { getNetwork } from './getNetwork'
@@ -92,10 +93,16 @@ describe('PeachWallet', () => {
   it('synchronises wallet with the blockchain', async () => {
     walletSyncMock.mockResolvedValueOnce(true)
 
+    peachWallet.lastUnusedAddress = {
+      index: 0,
+      address: 'addres',
+      keychain: KeychainKind.External,
+    }
     expect(useWalletState.getState().isSynced).toBeFalsy()
     await peachWallet.syncWallet()
     expect(useWalletState.getState().isSynced).toBeTruthy()
     expect(walletSyncMock).toHaveBeenCalled()
+    expect(peachWallet.lastUnusedAddress).toBeUndefined()
   })
   it('catches wallet sync errors', async () => {
     walletSyncMock.mockImplementationOnce(() => {
@@ -222,7 +229,7 @@ describe('PeachWallet', () => {
   it('gets the last unused receiving address', async () => {
     const address = 'address'
     const addressObject = new Address()
-    addressObject.asString = jest.fn().mockResolvedValue(address)
+    addressObject.asString = jest.fn().mockResolvedValueOnce(address)
     const index = 4
     walletGetAddressMock.mockResolvedValueOnce({ address: addressObject, index })
 
@@ -231,10 +238,23 @@ describe('PeachWallet', () => {
     expect(addressIndex).toBe(index)
     expect(walletGetAddressMock).toHaveBeenCalledWith(AddressIndex.LastUnused)
   })
+  it('gets the last unused receiving address once and caches the result', async () => {
+    const address = 'address'
+    const addressObject = new Address()
+    addressObject.asString = jest.fn().mockResolvedValueOnce(address)
+    const index = 4
+    walletGetAddressMock.mockResolvedValueOnce({ address: addressObject, index })
+
+    await peachWallet.getLastUnusedAddress()
+    const { address: newAddress, index: addressIndex } = await peachWallet.getLastUnusedAddress()
+    expect(newAddress).toBe(address)
+    expect(addressIndex).toBe(index)
+    expect(walletGetAddressMock).toHaveBeenCalledTimes(1)
+  })
   it('gets new internal address', async () => {
     const address = 'address'
     const addressObject = new Address()
-    addressObject.asString = jest.fn().mockResolvedValue(address)
+    addressObject.asString = jest.fn().mockResolvedValueOnce(address)
     const index = 4
     walletGetInternalAddressMock.mockResolvedValueOnce({ address: addressObject, index })
 
@@ -246,7 +266,7 @@ describe('PeachWallet', () => {
   it('gets address by index', async () => {
     const address = 'address'
     const addressObject = new Address()
-    addressObject.asString = jest.fn().mockResolvedValue(address)
+    addressObject.asString = jest.fn().mockResolvedValueOnce(address)
     const index = 4
     walletGetAddressMock.mockResolvedValueOnce({ address: addressObject, index })
 
@@ -260,7 +280,7 @@ describe('PeachWallet', () => {
   it('gets a new unused receiving address', async () => {
     const address = 'address'
     const addressObject = new Address()
-    addressObject.asString = jest.fn().mockResolvedValue(address)
+    addressObject.asString = jest.fn().mockResolvedValueOnce(address)
     const index = 4
     walletGetAddressMock.mockResolvedValueOnce({ address: addressObject, index })
 
@@ -282,7 +302,7 @@ describe('PeachWallet', () => {
     peachWallet.updateStore()
     expect(useWalletState.getState().transactions).toEqual([confirmed1, confirmed2, pending3])
     expect(useWalletState.getState().txOfferMap).toEqual({
-      txid1: ['3'],
+      txid1_confirmed: ['3'],
       txid2: ['2'],
     })
   })
@@ -297,7 +317,7 @@ describe('PeachWallet', () => {
     peachWallet.updateStore()
     expect(useWalletState.getState().transactions).toEqual([confirmed1, confirmed2, pending3, fundingTx])
     expect(useWalletState.getState().txOfferMap).toEqual({
-      txid1: ['3'],
+      txid1_confirmed: ['3'],
       txid2: ['2'],
       txid4: ['4'],
     })
@@ -391,11 +411,27 @@ describe('PeachWallet', () => {
 
     walletSignMock.mockResolvedValueOnce(result.psbt)
     psbtExtractTxMock.mockResolvedValueOnce(transaction)
-    blockchainBroadcastMock.mockImplementation(() => {
+    blockchainBroadcastMock.mockImplementationOnce(() => {
       throw insufficientFunds
     })
     const error = await getError<Error>(() => peachWallet.signAndBroadcastPSBT(result.psbt))
     expect(error).toEqual([new Error('INSUFFICIENT_FUNDS'), { available: '1089000', needed: '78999997952' }])
+  })
+  it('silently catches sync errors after broadcast', async () => {
+    const result: TxBuilderResult = {
+      psbt: new PartiallySignedTransaction('base64'),
+      txDetails: pending1,
+    }
+    const transaction = await new Transaction().create([])
+
+    walletSignMock.mockResolvedValueOnce(result.psbt)
+    psbtExtractTxMock.mockResolvedValueOnce(transaction)
+    walletSyncMock.mockImplementationOnce(() => {
+      throw new Error('sync error')
+    })
+    const signAndSendResult = await peachWallet.signAndBroadcastPSBT(result.psbt)
+    expect(signAndSendResult).toEqual(result.psbt)
+    await waitFor(() => expect(logError).toHaveBeenCalledWith('sync error'))
   })
   it('throws error when trying to finish transaction before wallet is ready', async () => {
     peachWallet.wallet = undefined
@@ -425,8 +461,8 @@ describe('PeachWallet - loadWallet', () => {
     await peachWallet.initWallet()
     expect(peachWallet.balance).toBe(balance)
     expect(blockChainCreateMock).toHaveBeenCalledWith(
-      { concurrency: 1, proxy: null, stopGap: 25, timeout: 30, baseUrl: 'https://localhost:3000' },
-      'Esplora',
+      { sock5: null, retry: 1, timeout: 5, validateDomain: false, stopGap: 25, url: BLOCKEXPLORER },
+      BlockChainNames.Electrum,
     )
   })
   it('loads wallet with seed', async () => {
@@ -473,7 +509,7 @@ describe('PeachWallet - buildFinishedTransaction', () => {
   }
   it('should call buildTransaction with the correct params and finish the tx', async () => {
     const txBuilder = await new TxBuilder().create()
-    buildTransactionMock.mockResolvedValue(txBuilder)
+    buildTransactionMock.mockResolvedValueOnce(txBuilder)
 
     await peachWallet.buildFinishedTransaction(params)
     expect(buildTransactionMock).toHaveBeenCalledWith(params)
@@ -497,9 +533,10 @@ describe('PeachWallet - buildFinishedTransaction', () => {
       BlockChainNames.Esplora,
     )
     await peachWallet.setBlockchain({ enabled: false, url, ssl: true, type: BlockChainNames.Electrum })
+
     expect(blockChainCreateMock).toHaveBeenCalledWith(
-      { baseUrl: BLOCKEXPLORER, proxy: null, concurrency: 1, timeout: 30, stopGap: 25 },
-      BlockChainNames.Esplora,
+      { sock5: null, retry: 1, timeout: 5, validateDomain: false, stopGap: 25, url: BLOCKEXPLORER },
+      BlockChainNames.Electrum,
     )
     await peachWallet.setBlockchain({ enabled: true, url, ssl: true, type: BlockChainNames.Rpc })
     expect(blockChainCreateMock).toHaveBeenCalledWith(

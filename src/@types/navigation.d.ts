@@ -1,5 +1,4 @@
 type RootStackParamList = {
-  home: undefined
   newUser: {
     referralCode?: string
   }
@@ -87,7 +86,7 @@ type RootStackParamList = {
     reason: DisputeReason
   }
   tradeComplete: {
-    contract: Contract
+    contractId: Contract['id']
   }
   yourTrades:
     | {
@@ -136,9 +135,11 @@ type RootStackParamList = {
   aboutPeach: undefined
   bitcoinProducts: undefined
   socials: undefined
-  welcome: {
-    referralCode?: string
-  }
+  welcome:
+    | {
+        referralCode?: string
+      }
+    | undefined
   splashScreen: undefined
   myProfile: undefined
   transactionBatching: undefined

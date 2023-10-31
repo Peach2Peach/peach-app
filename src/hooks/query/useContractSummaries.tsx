@@ -15,14 +15,14 @@ export const useContractSummaries = (enabled = true) => {
     (state) => [state.contracts, state.setContracts, state.lastModified],
     shallow,
   )
-  const { data, isLoading, isFetching, error, refetch } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['contractSummaries'],
     queryFn: getContractSummariesQuery,
     enabled,
     initialData: contracts.length ? contracts : undefined,
-    initialDataUpdatedAt: lastModified.getTime(),
+    initialDataUpdatedAt: lastModified.getTime?.(),
     onSuccess: setContracts,
   })
 
-  return { contracts: data || [], isLoading, isFetching, error, refetch }
+  return { contracts: data || [], isLoading, error, refetch }
 }

@@ -1,7 +1,7 @@
-import { act, render } from '@testing-library/react-native'
-import { DrawerContext, defaultState } from '../../../contexts/drawer'
+import { act, render } from 'test-utils'
 import { PeachScrollView } from '../../PeachScrollView'
 import { Text } from '../../text'
+import { defaultState, useDrawerState } from '../useDrawerState'
 import { DrawerOptions } from './DrawerOptions'
 
 jest.mock('./DrawerOption', () => ({
@@ -9,22 +9,12 @@ jest.mock('./DrawerOption', () => ({
 }))
 
 describe('DrawerOptions', () => {
-  let drawerState = defaultState
-  const updateDrawer = jest.fn((newDrawerState: Partial<DrawerState>) => {
-    drawerState = {
-      ...drawerState,
-      ...newDrawerState,
-    }
-  })
-  const wrapper = ({ children }: { children: JSX.Element }) => (
-    <DrawerContext.Provider value={[drawerState, updateDrawer]}>{children}</DrawerContext.Provider>
-  )
-
-  afterEach(() => {
+  const updateDrawer = useDrawerState.setState
+  beforeEach(() => {
     updateDrawer(defaultState)
   })
   it('renders correctly', () => {
-    const { toJSON } = render(<DrawerOptions />, { wrapper })
+    const { toJSON } = render(<DrawerOptions />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when there are options', () => {
@@ -36,7 +26,7 @@ describe('DrawerOptions', () => {
         },
       ],
     })
-    const { toJSON } = render(<DrawerOptions />, { wrapper })
+    const { toJSON } = render(<DrawerOptions />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when there are highlighted options', () => {
@@ -50,14 +40,14 @@ describe('DrawerOptions', () => {
         },
       ],
     })
-    const { toJSON } = render(<DrawerOptions />, { wrapper })
+    const { toJSON } = render(<DrawerOptions />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when there is content', () => {
     updateDrawer({
       content: <Text>testContent</Text>,
     })
-    const { toJSON } = render(<DrawerOptions />, { wrapper })
+    const { toJSON } = render(<DrawerOptions />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should scroll back to the top when either options or content changes', () => {
@@ -69,7 +59,7 @@ describe('DrawerOptions', () => {
         },
       ],
     })
-    const { rerender, UNSAFE_getByType } = render(<DrawerOptions />, { wrapper })
+    const { rerender, UNSAFE_getByType } = render(<DrawerOptions />)
     // @ts-ignore
     const scrollViewRef = UNSAFE_getByType(PeachScrollView)._fiber.ref.current
     expect(scrollViewRef.scrollTo).toHaveBeenCalledWith({ y: 0, animated: false })
