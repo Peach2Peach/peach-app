@@ -7,6 +7,7 @@ import { BIP32Interface } from 'bip32'
 import RNFS from 'react-native-fs'
 import { error, info } from '../log'
 import { parseError } from '../result'
+import { isIOS } from '../system'
 import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
 import { callWhenInternet } from '../web'
 import { PeachJSWallet } from './PeachJSWallet'
@@ -68,9 +69,7 @@ export class PeachWallet extends PeachJSWallet {
 
         this.setBlockchain(useNodeConfigState.getState())
 
-        const dbConfig = await new DatabaseConfig().sqlite(
-          `${RNFS.DocumentDirectoryPath}/${NETWORK}-${useNodeConfigState.getState().type || NODE_TYPE}`,
-        )
+        const dbConfig = await getDBConfig()
 
         info('PeachWallet - initWallet - createWallet')
 
@@ -289,4 +288,11 @@ export class PeachWallet extends PeachJSWallet {
       })
     }
   }
+}
+
+function getDBConfig () {
+  if (isIOS()) return new DatabaseConfig().memory()
+  const dbName = `peach-${NETWORK}${useNodeConfigState.getState().type || NODE_TYPE}`
+  const directory = `${RNFS.DocumentDirectoryPath}/${dbName}`
+  return new DatabaseConfig().sqlite(directory)
 }
