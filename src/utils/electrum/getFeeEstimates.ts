@@ -1,12 +1,12 @@
-import { BLOCKEXPLORER } from '@env'
+import { ESPLORA_URL } from '@env'
+import fetch from '../fetch'
 import { getAbortWithTimeout } from '../getAbortWithTimeout'
 import { RequestProps } from '../peachAPI'
 import { parseResponse } from '../peachAPI/parseResponse'
 import { getPublicHeaders } from '../peachAPI/public/getPublicHeaders'
-import fetch from '../fetch'
 
 export const getFeeEstimates = async ({ timeout, abortSignal }: RequestProps) => {
-  const response = await fetch(`${BLOCKEXPLORER}/fee-estimates`, {
+  const response = await fetch(`${ESPLORA_URL}/fee-estimates`, {
     headers: getPublicHeaders(),
     method: 'GET',
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
