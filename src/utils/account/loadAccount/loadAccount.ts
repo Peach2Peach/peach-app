@@ -1,13 +1,4 @@
-import {
-  account,
-  defaultAccount,
-  loadChats,
-  loadContracts,
-  loadIdentity,
-  loadOffers,
-  loadTradingLimit,
-  updateAccount,
-} from '../'
+import { account, defaultAccount, loadChats, loadIdentity, loadOffers, loadTradingLimit, updateAccount } from '../'
 import { error, info } from '../../log'
 
 export const loadAccount = async (): Promise<Account> => {
@@ -21,18 +12,12 @@ export const loadAccount = async (): Promise<Account> => {
     return defaultAccount
   }
 
-  const [tradingLimit, offers, contracts, chats] = await Promise.all([
-    loadTradingLimit(),
-    loadOffers(),
-    loadContracts(),
-    loadChats(),
-  ])
+  const [tradingLimit, offers, chats] = await Promise.all([loadTradingLimit(), loadOffers(), loadChats()])
 
   const acc = {
     ...identity,
     tradingLimit,
     offers,
-    contracts,
     chats,
   }
 

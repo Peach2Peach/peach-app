@@ -10,10 +10,8 @@ jest.mock('../../../utils/peachAPI', () => ({
 }))
 
 const getSellOfferFromContractMock = jest.fn()
-const saveContractMock = jest.fn()
 jest.mock('../../../utils/contract', () => ({
   getSellOfferFromContract: (contract: Contract) => getSellOfferFromContractMock(contract),
-  saveContract: (contract: Contract) => saveContractMock(contract),
 }))
 
 const showErrorBannerMock = jest.fn()
@@ -80,11 +78,6 @@ describe('useRepublishOffer', () => {
     await result.current(contract)
     usePopupStore.getState().action2?.callback()
     expect(usePopupStore.getState().visible).toBe(false)
-    expect(saveContractMock).toHaveBeenCalledWith({
-      ...contract,
-      cancelConfirmationPending: false,
-      cancelConfirmationDismissed: true,
-    })
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
 
@@ -95,11 +88,6 @@ describe('useRepublishOffer', () => {
     await result.current(contract)
     usePopupStore.getState().action1?.callback()
     expect(usePopupStore.getState().visible).toBe(false)
-    expect(saveContractMock).toHaveBeenCalledWith({
-      ...contract,
-      cancelConfirmationPending: false,
-      cancelConfirmationDismissed: true,
-    })
     expect(replaceMock).toHaveBeenCalledWith('search', { offerId: 'newOfferId' })
   })
 })

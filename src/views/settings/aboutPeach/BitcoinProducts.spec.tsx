@@ -12,10 +12,10 @@ describe('BitcoinProducts', () => {
     const { toJSON } = render(<BitcoinProducts />)
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should link to bitbox', () => {
+  it('should link to bitbox', async () => {
     const openURLSpy = jest.spyOn(Linking, 'openURL')
     const { getByText } = render(<BitcoinProducts />)
-    fireEvent(getByText('check out bitbox'), 'onPress')
+    await fireEvent(getByText('check out bitbox'), 'onPress')
     expect(openURLSpy).toHaveBeenCalledWith('https://bitbox.swiss/bitbox02/?ref=DLX6l9ccCc')
   })
 })

@@ -9,25 +9,45 @@ export const useUpdateTradingAmounts = () => {
     (state) => [state.sellAmount, state.setSellAmount, state.buyAmountRange, state.setBuyAmountRange],
     shallow,
   )
-  const [setMinTradingAmount, setMaxTradingAmount] = useConfigStore(
-    (state) => [state.setMinTradingAmount, state.setMaxTradingAmount],
+  const [setMinTradingAmount, setMaxTradingAmount, setMaxSellTradingAmount] = useConfigStore(
+    (state) => [state.setMinTradingAmount, state.setMaxTradingAmount, state.setMaxSellTradingAmount],
     shallow,
+  )
+
+  const updateBuyTradingAmounts = useCallback(
+    (priceCHF: number) => {
+      const [newMinBuyAmount, newMaxBuyAmount] = getTradingAmountLimits(priceCHF, 'buy')
+      setMinTradingAmount(newMinBuyAmount)
+      setMaxTradingAmount(newMaxBuyAmount)
+
+      if (minBuyAmount < newMinBuyAmount || maxBuyAmount > newMaxBuyAmount) {
+        const newMinAmount = Math.max(newMinBuyAmount, minBuyAmount)
+        const newMaxAmount = Math.min(newMaxBuyAmount, maxBuyAmount)
+        setBuyAmountRange([newMinAmount, newMaxBuyAmount], { min: newMinAmount, max: newMaxAmount })
+      }
+    },
+    [maxBuyAmount, minBuyAmount, setBuyAmountRange, setMaxTradingAmount, setMinTradingAmount],
+  )
+  const updateSellTradingAmounts = useCallback(
+    (priceCHF: number) => {
+      const [newMinSellAmount, newMaxSellAmount] = getTradingAmountLimits(priceCHF, 'sell')
+      setMaxSellTradingAmount(newMaxSellAmount)
+
+      if (sellAmount < newMinSellAmount) {
+        setSellAmount(newMinSellAmount, { min: newMinSellAmount, max: newMaxSellAmount })
+      } else if (sellAmount > newMaxSellAmount) {
+        setSellAmount(newMaxSellAmount, { min: newMinSellAmount, max: newMaxSellAmount })
+      }
+    },
+    [sellAmount, setMaxSellTradingAmount, setSellAmount],
   )
 
   const updateTradingAmounts = useCallback(
     (priceCHF: number) => {
-      const [newMinAmount, newMaxAmount] = getTradingAmountLimits(priceCHF)
-      setMinTradingAmount(newMinAmount)
-      setMaxTradingAmount(newMaxAmount)
-      if (sellAmount < newMinAmount) setSellAmount(newMinAmount, { min: newMinAmount, max: newMaxAmount })
-      else if (sellAmount > newMaxAmount) setSellAmount(newMaxAmount, { min: newMinAmount, max: newMaxAmount })
-      if (minBuyAmount < newMinAmount || maxBuyAmount > newMaxAmount) {
-        const newMinBuyAmount = Math.max(newMinAmount, minBuyAmount)
-        const newMaxBuyAmount = Math.min(newMaxAmount, maxBuyAmount)
-        setBuyAmountRange([newMinBuyAmount, newMaxBuyAmount], { min: newMinAmount, max: newMaxAmount })
-      }
+      updateBuyTradingAmounts(priceCHF)
+      updateSellTradingAmounts(priceCHF)
     },
-    [maxBuyAmount, minBuyAmount, sellAmount, setBuyAmountRange, setMaxTradingAmount, setMinTradingAmount, setSellAmount],
+    [updateBuyTradingAmounts, updateSellTradingAmounts],
   )
 
   return updateTradingAmounts

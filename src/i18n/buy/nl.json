@@ -1,0 +1,14 @@
+{
+  "buy.addressSigning.message" : "bericht",
+  "buy.addressSigning.signature" : "handtekening",
+  "buy.addressSigning.title" : "onderteken jouw adres",
+  "buy.addressSigning.yourAddress" : "jouw adres",
+  "buy.meansOfPayment" : "hoe wil je betalen?",
+  "buy.releaseAddress.title" : "adres vrijgeven",
+  "buy.subtitle" : "Je koopt tussen:",
+  "buy.subtitle.highlight" : "kopen",
+  "buy.summary.title" : "publiceerd koop aanbod",
+  "buy.title" : "koop bitcoin",
+  "buy.title.highlight" : "koop",
+  "yourTrades.search.buy.subtitle" : "koop aanbod voor"
+}

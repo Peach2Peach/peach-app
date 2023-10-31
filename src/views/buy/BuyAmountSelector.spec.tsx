@@ -1,5 +1,5 @@
-import { BuyAmountSelector } from './BuyAmountSelector'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { BuyAmountSelector } from './BuyAmountSelector'
 
 describe('BuyAmountSelector', () => {
   it('should render correctly', () => {

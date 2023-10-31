@@ -34,7 +34,10 @@ exports[`AddPaymentMethodButton should render correctly 1`] = `
       "alignItems": "center",
       "alignSelf": "center",
       "flexDirection": "row",
+      "gap": 12,
+      "justifyContent": "center",
       "opacity": 1,
+      "width": "100%",
     }
   }
 >
@@ -48,7 +51,6 @@ exports[`AddPaymentMethodButton should render correctly 1`] = `
         },
         {
           "height": 28,
-          "marginRight": 12,
           "width": 28,
         },
       ]
@@ -67,6 +69,7 @@ exports[`AddPaymentMethodButton should render correctly 1`] = `
         },
         {
           "color": "#F56522",
+          "flexShrink": 1,
           "fontFamily": "Baloo2-Bold",
           "fontSize": 20,
           "letterSpacing": 0.2,
@@ -77,7 +80,7 @@ exports[`AddPaymentMethodButton should render correctly 1`] = `
     }
   >
     add new currency /
-payment method
+payment method
   </Text>
 </View>
 `;
@@ -116,7 +119,10 @@ exports[`AddPaymentMethodButton should render correctly with isCash 1`] = `
       "alignItems": "center",
       "alignSelf": "center",
       "flexDirection": "row",
+      "gap": 12,
+      "justifyContent": "center",
       "opacity": 1,
+      "width": "100%",
     }
   }
 >
@@ -130,7 +136,6 @@ exports[`AddPaymentMethodButton should render correctly with isCash 1`] = `
         },
         {
           "height": 28,
-          "marginRight": 12,
           "width": 28,
         },
       ]
@@ -149,6 +154,7 @@ exports[`AddPaymentMethodButton should render correctly with isCash 1`] = `
         },
         {
           "color": "#F56522",
+          "flexShrink": 1,
           "fontFamily": "Baloo2-Bold",
           "fontSize": 20,
           "letterSpacing": 0.2,
@@ -197,7 +203,10 @@ exports[`AddPaymentMethodButton should render correctly with isCash while still 
       "alignItems": "center",
       "alignSelf": "center",
       "flexDirection": "row",
+      "gap": 12,
+      "justifyContent": "center",
       "opacity": 0.5,
+      "width": "100%",
     }
   }
 >
@@ -211,7 +220,6 @@ exports[`AddPaymentMethodButton should render correctly with isCash while still 
         },
         {
           "height": 28,
-          "marginRight": 12,
           "width": 28,
         },
       ]
@@ -230,6 +238,7 @@ exports[`AddPaymentMethodButton should render correctly with isCash while still 
         },
         {
           "color": "#F56522",
+          "flexShrink": 1,
           "fontFamily": "Baloo2-Bold",
           "fontSize": 20,
           "letterSpacing": 0.2,

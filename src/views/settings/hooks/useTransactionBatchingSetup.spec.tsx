@@ -87,7 +87,7 @@ describe('useTransactionBatchingSetup', () => {
       action1: {
         callback: expect.any(Function),
         icon: 'arrowRightCircle',
-        label: 'yes, pay out',
+        label: 'yes, I want it faster',
       },
     })
     await waitFor(() => expect(setBatchingMock).not.toHaveBeenCalled())

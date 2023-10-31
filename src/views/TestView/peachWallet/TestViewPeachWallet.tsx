@@ -41,6 +41,10 @@ export const TestViewPeachWallet = () => {
     const newAddress = await peachWallet.getReceivingAddress()
     setAddress(newAddress.address)
   }
+  const getNewInternalAddress = async () => {
+    const newAddress = await peachWallet.getNewInternalAddress()
+    setAddress(newAddress.address)
+  }
   const send = async () => {
     if (!address) throw Error('Address invalid')
     const result = await peachWallet.sendTo({ address, amount: 50000, feeRate: 3 })
@@ -75,6 +79,9 @@ export const TestViewPeachWallet = () => {
         <Divider />
         <Button onPress={getNewAddress} iconId="refreshCcw">
           get new address
+        </Button>
+        <Button onPress={getNewInternalAddress} iconId="refreshCcw">
+          get new internal address
         </Button>
         <Button onPress={refill} iconId="star">
           1M sats refill

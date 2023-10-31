@@ -16,7 +16,6 @@ describe('getAccountBackup', () => {
       paymentData: [],
       settings: defaultSettings,
       offers: [],
-      contracts: [],
       chats: {},
     })
   })

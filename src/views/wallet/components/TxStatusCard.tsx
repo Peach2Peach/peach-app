@@ -6,7 +6,7 @@ import { TransactionIcon } from './TransactionIcon'
 import { levelMap } from './levelMap'
 
 type Props = {
-  item: TransactionSummary
+  item: Pick<TransactionSummary, 'amount' | 'type' | 'date' | 'id'>
 }
 
 export const TxStatusCard = ({ item: { type, amount, date, id } }: Props) => {

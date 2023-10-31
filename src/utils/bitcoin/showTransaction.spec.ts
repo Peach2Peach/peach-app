@@ -4,16 +4,16 @@ import { showTransaction } from './showTransaction'
 describe('showTransaction', () => {
   const openURLSpy = jest.spyOn(Linking, 'openURL')
 
-  it('links to mainnet blockexplorer', () => {
-    showTransaction('txId', 'bitcoin')
+  it('links to mainnet blockexplorer', async () => {
+    await showTransaction('txId', 'bitcoin')
     expect(openURLSpy).toHaveBeenCalledWith('https://mempool.space/tx/txId')
   })
-  it('links to testnet blockexplorer', () => {
-    showTransaction('txId', 'testnet')
+  it('links to testnet blockexplorer', async () => {
+    await showTransaction('txId', 'testnet')
     expect(openURLSpy).toHaveBeenCalledWith('https://mempool.space/testnet/tx/txId')
   })
-  it('links to regtest blockexplorer', () => {
-    showTransaction('txId', 'regtest')
+  it('links to regtest blockexplorer', async () => {
+    await showTransaction('txId', 'regtest')
     expect(openURLSpy).toHaveBeenCalledWith('https://localhost:3000/tx/txId')
   })
 })

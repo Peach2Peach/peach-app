@@ -11,8 +11,9 @@ type ConfigStore = Config & {
   setPeachFee: (fee: number) => void
   setMinAppVersion: (ver: string) => void
   setLatestAppVersion: (ver: string) => void
-  setMinTradingAmount: (amount: number) => void
-  setMaxTradingAmount: (amount: number) => void
+  setMinTradingAmount: (minTradingAmount: number) => void
+  setMaxTradingAmount: (maxTradingAmount: number) => void
+  setMaxSellTradingAmount: (maxSellTradingAmount: number) => void
   setSeenDisputeDisclaimer: (seenDisputeDisclaimer: boolean) => void
   setHasSeenGroupHugAnnouncement: (hasSeenGroupHugAnnouncement: boolean) => void
 }
@@ -32,6 +33,7 @@ export const useConfigStore = create(
       setLatestAppVersion: (latestAppVersion) => set({ latestAppVersion }),
       setMinTradingAmount: (minTradingAmount) => set({ minTradingAmount }),
       setMaxTradingAmount: (maxTradingAmount) => set({ maxTradingAmount }),
+      setMaxSellTradingAmount: (maxSellTradingAmount) => set({ maxSellTradingAmount }),
       setSeenDisputeDisclaimer: (seenDisputeDisclaimer) => set({ seenDisputeDisclaimer }),
       setHasSeenGroupHugAnnouncement: (hasSeenGroupHugAnnouncement) => set({ hasSeenGroupHugAnnouncement }),
     }),

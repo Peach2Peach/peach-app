@@ -13,7 +13,7 @@ import { isBuyOffer, isSellOffer } from '../../../utils/offer'
 const useFakePNs = () => {
   const firstSellOffer = useMemo(() => account.offers.find(isSellOffer), [])
   const firstBuyOffer = useMemo(() => account.offers.find(isBuyOffer), [])
-  const firstContract = useMemo(() => account.contracts[0], [])
+  const firstContract = undefined as Contract | undefined
   const sellOfferId = firstSellOffer?.id || '1'
   const buyOfferId = firstBuyOffer?.id || '1'
   const contractId = firstContract?.id || '1-2'

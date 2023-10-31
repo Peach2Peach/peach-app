@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Keyboard } from 'react-native'
 import { useShowErrorBanner } from '../../../../hooks/useShowErrorBanner'
 import { usePopupStore } from '../../../../store/usePopupStore'
-import { saveContract } from '../../../../utils/contract'
 import { isEmailRequiredForDispute } from '../../../../utils/dispute'
 import { peachAPI } from '../../../../utils/peachAPI'
 import { isEmail } from '../../../../utils/validation'
@@ -52,11 +51,7 @@ export const useSubmitDisputeAcknowledgement = () => {
       showError(err.message)
       queryClient.setQueryData(['contract', contractId], context?.previousContract)
     },
-    onSuccess: (_data, { disputeReason, contractId }) => {
-      const updatedContract = queryClient.getQueryData<Contract>(['contract', contractId])
-      if (!updatedContract) return
-      saveContract(updatedContract)
-
+    onSuccess: (_data, { disputeReason }) => {
       if (isEmailRequiredForDispute(disputeReason)) {
         Keyboard.dismiss()
       }

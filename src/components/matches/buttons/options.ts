@@ -2,33 +2,28 @@ import tw from '../../../styles/tailwind'
 
 export const options = {
   missingSelection: {
+    text: 'search.matchButton.matchOffer',
     iconId: 'plusSquare',
     backgroundColor: tw`bg-primary-mild-1`,
-    borderColor: tw`border-primary-mild-1`,
-    text: 'search.matchButton.matchOffer',
   },
   tradingLimitReached: {
+    text: 'search.matchButton.tradingLimitReached',
     iconId: 'pauseCircle',
     backgroundColor: tw`bg-black-3`,
-    borderColor: tw`border-black-3`,
-    text: 'search.matchButton.tradingLimitReached',
   },
   matchOffer: {
+    text: 'search.matchButton.matchOffer',
     iconId: 'plusSquare',
     backgroundColor: tw`bg-primary-main`,
-    borderColor: tw`border-primary-main`,
-    text: 'search.matchButton.matchOffer',
   },
   acceptMatch: {
+    text: 'search.matchButton.acceptMatch',
     iconId: 'checkSquare',
     backgroundColor: tw`bg-primary-main`,
-    borderColor: tw`border-primary-main`,
-    text: 'search.matchButton.acceptMatch',
   },
   offerMatched: {
+    text: 'search.matchButton.offerMatched',
     iconId: 'checkSquare',
     backgroundColor: tw`bg-gradient-red`,
-    borderColor: tw`border-primary-main`,
-    text: 'search.matchButton.offerMatched',
   },
 } as const

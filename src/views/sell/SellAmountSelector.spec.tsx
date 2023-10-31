@@ -1,6 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { SellAmountSelector } from './SellAmountSelector'
 import { Text } from '../../components'
+import { SellAmountSelector } from './SellAmountSelector'
 
 describe('SellAmountSelector', () => {
   it('should render correctly', () => {

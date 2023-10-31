@@ -15,7 +15,6 @@ import { defaultSettings, settingsStorage, useSettingsStore } from '../../../sto
 import { defaultAccount, getAccount, setAccount } from '../../../utils/account'
 import { accountStorage } from '../../../utils/account/accountStorage'
 import { chatStorage } from '../../../utils/account/chatStorage'
-import { contractStorage } from '../../../utils/account/contractStorage'
 import { offerStorage } from '../../../utils/account/offerStorage'
 import { getAccessToken } from '../../../utils/peachAPI/accessToken'
 import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
@@ -138,15 +137,7 @@ describe('useNewUserSetup', () => {
     })
     expect(getAccount()).toStrictEqual(defaultAccount)
 
-    const storages = [
-      accountStorage,
-      walletStorage,
-      offerStorage,
-      contractStorage,
-      chatStorage,
-      settingsStorage,
-      notificationStorage,
-    ]
+    const storages = [accountStorage, walletStorage, offerStorage, chatStorage, settingsStorage, notificationStorage]
 
     storages.forEach((storage) => {
       expect(storage.clearStore).toHaveBeenCalled()
@@ -175,15 +166,7 @@ describe('useNewUserSetup', () => {
     })
     expect(getAccount()).toStrictEqual(defaultAccount)
 
-    const storages = [
-      accountStorage,
-      walletStorage,
-      offerStorage,
-      contractStorage,
-      chatStorage,
-      settingsStorage,
-      notificationStorage,
-    ]
+    const storages = [accountStorage, walletStorage, offerStorage, chatStorage, settingsStorage, notificationStorage]
 
     storages.forEach((storage) => {
       expect(storage.clearStore).toHaveBeenCalled()

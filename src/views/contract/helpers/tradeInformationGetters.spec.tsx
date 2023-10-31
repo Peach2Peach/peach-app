@@ -18,6 +18,12 @@ jest.mock('../../../utils/contract/getBuyOfferFromContract', () => ({
   getBuyOfferFromContract: () => getBuyOfferFromContractMock(),
 }))
 
+jest.mock('../context', () => ({
+  useContractContext: jest.fn(() => ({
+    paymentData: 'paymentData',
+  })),
+}))
+
 describe('tradeInformationGetters', () => {
   it('should return the correct value for the price field', () => {
     expect(tradeInformationGetters.price(contract)).toEqual('89.04 EUR')

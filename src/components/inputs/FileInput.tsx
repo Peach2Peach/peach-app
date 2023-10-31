@@ -2,27 +2,21 @@ import { useState } from 'react'
 import { Platform } from 'react-native'
 import DocumentPicker from 'react-native-document-picker'
 import { readFileInChunks } from '../../utils/file'
+import i18n from '../../utils/i18n'
 import { error } from '../../utils/log'
-import { Input, InputProps } from './Input'
+import { Input } from './Input'
 
-export type FileData = {
+type FileData = {
   name: string
-  content: string | object | null
+  content: string
 }
 
-type FileInputProps = InputProps & {
+type Props = {
   fileName?: string
   onChange?: (file: FileData) => void
 }
 
-export const FileInput = ({
-  fileName,
-  placeholder,
-  style,
-  theme = 'default',
-  errorMessage = [],
-  onChange,
-}: FileInputProps) => {
+export const FileInput = ({ fileName, onChange }: Props) => {
   const [loading, setLoading] = useState(false)
   const selectFile = (): Promise<FileData> =>
     new Promise(async (resolve) => {
@@ -73,7 +67,8 @@ export const FileInput = ({
       onPressIn={onPress}
       icons={[['clipboard', onPress]]}
       disabled
-      {...{ style, theme, placeholder, errorMessage }}
+      theme="inverted"
+      placeholder={i18n('restoreBackup.decrypt.file')}
     />
   )
 }

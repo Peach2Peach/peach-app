@@ -19,11 +19,6 @@ jest.mock('../../../../hooks/useShowLoadingPopup', () => ({
   useShowLoadingPopup: () => showLoadingPopupMock,
 }))
 
-const saveContractMock = jest.fn()
-jest.mock('../../../../utils/contract/saveContract', () => ({
-  saveContract: (...args: unknown[]) => saveContractMock(...args),
-}))
-
 describe('useSubmitDisputeAcknowledgement', () => {
   const acknowledgeDisputeMock = jest.spyOn(peachAPI.private.contract, 'acknowledgeDispute')
   beforeEach(() => {
@@ -63,10 +58,6 @@ describe('useSubmitDisputeAcknowledgement', () => {
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
-    expect(saveContractMock).toHaveBeenCalledWith({
-      ...contract,
-      isEmailRequired: false,
-    })
   })
   it('saves contract for buyer update when successful', async () => {
     setAccount({ ...defaultAccount, publicKey: contract.buyer.id })
@@ -74,10 +65,6 @@ describe('useSubmitDisputeAcknowledgement', () => {
     result.current({ contractId: contract.id, disputeReason: 'other', email: '' })
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
-    })
-    expect(saveContractMock).toHaveBeenCalledWith({
-      ...contract,
-      isEmailRequired: false,
     })
   })
   it('closes popup when successful', async () => {

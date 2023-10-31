@@ -71,7 +71,11 @@ export const contract: Contract = {
   messages: 0,
   unreadMessages: 0,
 
-  disputeResultAcknowledged: false,
-  cancelConfirmationPending: false,
-  cancelConfirmationDismissed: false,
+  buyerFee: 0,
+  sellerFee: 0,
+  tradeStatus: 'tradeCompleted',
+  lastModified: new Date('2022-03-08T11:41:07.245Z'),
+  releasePsbt: '',
+  isChatActive: true,
+  isEmailRequired: false,
 }

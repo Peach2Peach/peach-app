@@ -28,7 +28,7 @@ export const useAddPaymentMethodButtonSetup = () => {
       title: i18n('meetup.select'),
       options: eventsByCountry[selected]
         .sort((a, b) => sortAlphabetically(a.city, b.city))
-        .sort((a, b) => Number(a.featured) - Number(b.featured))
+        .sort((a, b) => Number(b.featured) - Number(a.featured))
         .map(mapEventToDrawerOption(goToEventDetails)),
       previousDrawer: getCountrySelectDrawerOptions(meetupEvents, goToEventDetails, selectCountry),
       show: true,

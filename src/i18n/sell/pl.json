@@ -1,0 +1,23 @@
+{
+  "sell.discount" : "zniżka",
+  "sell.escrow.checkingFundingStatus" : "sprawdzanie statusu zasilenia",
+  "sell.escrow.loading" : "tworzenie depozytu,\njeden moment...",
+  "sell.escrow.mempool" : "Transakcja trafiła do Mempoola!",
+  "sell.escrow.returnAddress.subtitle" : "(na wypadek potrzeby zwrotu środków)",
+  "sell.escrow.returnAddress.title" : "jaki jest twój adres zwrotny?",
+  "sell.escrow.sendSats" : "wyślij",
+  "sell.escrow.title" : "zasil depozyt",
+  "sell.funding.mempool.description" : "Twoja transakcja Bitcoin jest oczekująca...\n\nMożesz zająć się czymś innym, automatycznie opublikujemy twoją ofertę, jak tylko zostanie zakończona!",
+  "sell.funding.mempool.title" : "transakcja oczekuje",
+  "sell.meansOfPayment" : "jak chciałbyś otrzymać płatność?",
+  "sell.premium" : "marża",
+  "sell.premium.currently" : "obecnie $0",
+  "sell.premium.marketPrice" : "cena rynkowa",
+  "sell.premium.title" : "ustaw swoją marżę / zniżkę",
+  "sell.subtitle" : "Sprzedajesz:",
+  "sell.subtitle.highlight" : "sprzedaż",
+  "sell.summary.title" : "podsumowanie oferty sprzedaży",
+  "sell.title" : "sprzedaj bitcoin",
+  "sell.title.highlight" : "sprzedaj",
+  "yourTrades.search.sell.subtitle" : "sprzedaj ofertę zą"
+}

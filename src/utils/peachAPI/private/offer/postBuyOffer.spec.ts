@@ -66,6 +66,7 @@ describe('postBuyOffer', () => {
       'Content-Type': 'application/json',
       Origin: 'https://localhost:8080',
       Referer: 'https://localhost:8080',
+      'User-Agent': '',
     },
     method: 'POST',
     signal: undefined,
@@ -143,7 +144,7 @@ describe('postBuyOffer', () => {
       },
       otherSensitiveData: ['myPrivateKey'],
     }
-    // @ts-expect-error
+    // @ts-expect-error all necessary data is passed
     await postBuyOffer(offerDraft)
     expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/v1/offer`, {
       ...defaultArgs,
@@ -171,16 +172,14 @@ describe('postBuyOffer', () => {
       maxPremium: null,
       messageSignature: 'messageSignature',
     }
-    // @ts-expect-error
+    // @ts-expect-error all necessary data is passed
     await postBuyOffer(offerDraft)
     expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/v1/offer`, {
       ...defaultArgs,
       body: JSON.stringify({
         type: 'bid',
         amount: [1000, 2000],
-        meansOfPayment: {
-          EUR: ['sepa'],
-        },
+        meansOfPayment: { EUR: ['sepa'] },
         paymentData,
         releaseAddress: 'releaseAddress',
         messageSignature: 'messageSignature',

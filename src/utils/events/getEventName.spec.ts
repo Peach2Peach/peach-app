@@ -1,11 +1,29 @@
-import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import { getEventName } from '.'
+import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 
 describe('getEventName', () => {
   useMeetupEventsStore.setState({
     meetupEvents: [
-      { id: '1', shortName: 'event 1', country: 'DE', city: '', longName: '', currencies: ['EUR'], featured: false },
-      { id: '2', shortName: 'event 2', country: 'DE', city: '', longName: '', currencies: ['EUR'], featured: false },
+      {
+        id: '1',
+        shortName: 'event 1',
+        country: 'DE',
+        city: '',
+        longName: '',
+        currencies: ['EUR'],
+        featured: false,
+        superFeatured: false,
+      },
+      {
+        id: '2',
+        shortName: 'event 2',
+        country: 'DE',
+        city: '',
+        longName: '',
+        currencies: ['EUR'],
+        featured: false,
+        superFeatured: false,
+      },
     ],
   })
 

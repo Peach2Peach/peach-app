@@ -3,6 +3,7 @@ import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import { useLanguage } from '../../hooks/useLanguage'
 import tw from '../../styles/tailwind'
+import { sortAlphabetically } from '../../utils/array'
 import i18n from '../../utils/i18n'
 
 export const Language = () => {
@@ -19,10 +20,10 @@ export const Language = () => {
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <RadioButtons
           selectedValue={locale}
-          items={i18n.getLocales().map((l) => ({
-            value: l,
-            display: i18n(`languageName.${l}`),
-          }))}
+          items={i18n
+            .getLocales()
+            .map((l) => ({ value: l, display: i18n(`languageName.${l}`) }))
+            .sort((a, b) => sortAlphabetically(a.display, b.display))}
           onButtonPress={setLocale}
         />
       </PeachScrollView>

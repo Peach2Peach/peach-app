@@ -8,7 +8,7 @@ import { useSettingsStore } from '../../store/settingsStore'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
-import { getSellOfferFromContract, saveContract } from '../../utils/contract'
+import { getSellOfferFromContract } from '../../utils/contract'
 import { getWalletLabelFromContract } from '../../utils/contract/getWalletLabelFromContract'
 import i18n from '../../utils/i18n'
 import { getOfferExpiry, saveOffer } from '../../utils/offer'
@@ -38,7 +38,6 @@ export const useConfirmCancelTrade = () => {
         showError(result.isError() ? result.getError() : undefined)
         return
       }
-      saveContract(result.getValue().contract)
       navigation.replace('contract', { contractId: contract.id })
     },
     [navigation, showError, setPopup],
@@ -68,8 +67,7 @@ export const useConfirmCancelTrade = () => {
         return
       }
 
-      const { contract: contractUpdate, sellOffer } = result.getValue()
-      saveContract(contractUpdate)
+      const { sellOffer } = result.getValue()
       if (sellOffer) saveOffer(sellOffer)
       navigation.replace('contract', { contractId: contract.id })
     },

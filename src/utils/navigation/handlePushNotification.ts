@@ -1,8 +1,6 @@
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { getContract } from '../contract'
-import { getOfferDetails } from '../peachAPI'
+import { getContract, getOfferDetails } from '../peachAPI'
 import { isDefined } from '../validation'
 import { shouldGoToContract } from './shouldGoToContract'
 import { shouldGoToContractChat } from './shouldGoToContractChat'
@@ -16,21 +14,19 @@ export type Navigation = NavigationContainerRefWithCurrent<RootStackParamList> |
 
 export const handlePushNotification = async (
   navigationRef: Navigation,
-  remoteMessage: FirebaseMessagingTypes.RemoteMessage & { data: PNData },
+  { data }: { data: PNData },
 ): Promise<boolean> => {
-  if (isDefined(remoteMessage.data.badges)) {
+  if (isDefined(data.badges)) {
     navigationRef.navigate('newBadge', {
-      badges: remoteMessage.data.badges,
+      badges: data.badges,
     })
 
     return true
   }
 
-  if (shouldGoToContract(remoteMessage)) {
-    const {
-      data: { contractId, sentTime },
-    } = remoteMessage
-    const contract = getContract(contractId)
+  if (shouldGoToContract(data)) {
+    const { contractId, sentTime } = data
+    const [contract] = await getContract({ contractId })
     navigationRef.navigate('contract', {
       contract: contract
         ? {
@@ -40,24 +36,19 @@ export const handlePushNotification = async (
         : undefined,
       contractId,
     })
-  } else if (shouldGoToContractChat(remoteMessage)) {
-    const {
-      data: { contractId },
-    } = remoteMessage
-
+  } else if (shouldGoToContractChat(data)) {
+    const { contractId } = data
     navigationRef.navigate('contractChat', { contractId })
-  } else if (shouldGoToYourTradesSell(remoteMessage)) {
+  } else if (shouldGoToYourTradesSell(data)) {
     navigationRef.navigate('yourTrades', { tab: 'sell' })
-  } else if (shouldGoToSell(remoteMessage)) {
+  } else if (shouldGoToSell(data)) {
     navigationRef.navigate('sell')
-  } else if (isDefined(remoteMessage.data.offerId)) {
-    const [offer] = await getOfferDetails({ offerId: remoteMessage.data.offerId })
-    const {
-      data: { offerId },
-    } = remoteMessage
-    if (shouldGoToSearch(remoteMessage.data.type, !!(offer?.matches && offer.matches.length > 0))) {
+  } else if (isDefined(data.offerId)) {
+    const [offer] = await getOfferDetails({ offerId: data.offerId })
+    const { offerId } = data
+    if (shouldGoToSearch(data.type, !!(offer?.matches && offer.matches.length > 0))) {
       navigationRef.navigate('search', { offerId })
-    } else if (shouldGoToOfferPublished(remoteMessage.data.type)) {
+    } else if (shouldGoToOfferPublished(data.type)) {
       navigationRef.navigate('offerPublished', { offerId, isSellOffer: true, shouldGoBack: true })
     } else {
       navigationRef.navigate('offer', { offerId })

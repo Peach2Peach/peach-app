@@ -18,4 +18,16 @@ describe('configStore', () => {
     useConfigStore.getState().setHasSeenGroupHugAnnouncement(true)
     expect(useConfigStore.getState().hasSeenGroupHugAnnouncement).toBeTruthy()
   })
+  it('should set minimum trading amount', () => {
+    useConfigStore.getState().setMinTradingAmount(10)
+    expect(useConfigStore.getState().minTradingAmount).toBe(10)
+  })
+  it('should set maximum trading amount', () => {
+    useConfigStore.getState().setMaxTradingAmount(100)
+    expect(useConfigStore.getState().maxTradingAmount).toBe(100)
+  })
+  it('should set maximum sell trading amount', () => {
+    useConfigStore.getState().setMaxSellTradingAmount(80)
+    expect(useConfigStore.getState().maxSellTradingAmount).toBe(80)
+  })
 })

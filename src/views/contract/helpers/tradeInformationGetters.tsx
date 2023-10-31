@@ -1,15 +1,19 @@
-import { View } from 'react-native'
-import { CopyAble, Text } from '../../../components'
-import { Bubble, PaymentMethodBubble } from '../../../components/bubble'
+import { TouchableOpacity, View } from 'react-native'
+import { CopyAble, Icon, Text } from '../../../components'
+import { Bubble } from '../../../components/bubble'
 import { useWalletLabel } from '../../../components/offer/useWalletLabel'
+import { APPLINKS } from '../../../paymentMethods'
+import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import tw from '../../../styles/tailwind'
 import { contractIdToHex, getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../../utils/contract'
 import { toShortDateFormat } from '../../../utils/date'
 import i18n from '../../../utils/i18n'
 import { getPaymentMethodName } from '../../../utils/paymentMethod'
 import { groupChars, priceFormat } from '../../../utils/string'
+import { openAppLink } from '../../../utils/web'
 import { UserId } from '../../settings/profile/profileOverview/components'
 import { TradeBreakdownBubble } from '../components/TradeBreakdownBubble'
+import { useContractContext } from '../context'
 
 export const tradeInformationGetters: Record<
   | 'bitcoinAmount'
@@ -119,7 +123,31 @@ function getPrice (contract: Contract) {
 }
 
 function getPaymentMethodBubble (contract: Contract) {
-  return <PaymentMethodBubble paymentMethod={contract.paymentMethod} />
+  return <PaymentMethodBubble contract={contract} />
+}
+
+function PaymentMethodBubble ({ contract }: { contract: Contract }) {
+  const { paymentMethod } = contract
+  const url = APPLINKS[paymentMethod]?.url
+  const appLink = APPLINKS[paymentMethod]?.appLink
+  const hasLink = !!(url || appLink)
+  const openLink = () => (url ? openAppLink(url, appLink) : null)
+  const { paymentData } = useContractContext()
+  const paymentMethodName = getPaymentMethodName(paymentMethod)
+  const paymentMethodLabel = usePaymentDataStore((state) =>
+    paymentData ? state.searchPaymentData(paymentData)[0]?.label : undefined,
+  )
+  return (
+    <View style={tw`items-end gap-1`}>
+      <Bubble color={'primary-mild'}>{paymentMethodLabel ?? paymentMethodName}</Bubble>
+      {hasLink && (
+        <TouchableOpacity onPress={openLink} style={tw`flex-row items-center justify-end gap-1`}>
+          <Text style={tw`underline body-s text-black-2`}>{i18n('contract.summary.openApp')}</Text>
+          <Icon id="externalLink" size={16} color={tw`text-primary-main`.color} />
+        </TouchableOpacity>
+      )}
+    </View>
+  )
 }
 
 function getRatingBubble (contract: Contract, userType: 'Buyer' | 'Seller') {

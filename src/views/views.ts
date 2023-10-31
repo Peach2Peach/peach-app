@@ -1,3 +1,4 @@
+import { Platform } from 'react-native'
 import { BackgroundConfig } from '../components/background/Background'
 import { MeetupScreen } from '../components/payment/MeetupScreen'
 import { PaymentMethods } from '../components/payment/PaymentMethods'
@@ -110,7 +111,7 @@ const buyFlow: ViewType[] = [
 ]
 
 const sellFlow: ViewType[] = [
-  { name: 'sell', component: Sell, ...defaultConfig, animationEnabled: false },
+  { name: 'sell', component: Sell, ...defaultConfig, animationEnabled: Platform.OS === 'android' },
   { name: 'premium', component: OfferPreferencePremium, ...defaultConfig },
   { name: 'sellPreferences', component: PaymentMethods, ...defaultConfig },
   { name: 'sellSummary', component: SellSummary, ...defaultConfig },
@@ -128,7 +129,12 @@ const trade: ViewType[] = [
   { name: 'contract', component: Contract, ...defaultConfig },
   { name: 'contractChat', component: ContractChat, ...defaultConfig },
   { name: 'paymentMade', component: PaymentMade, ...invertedThemeConfig },
-  { name: 'tradeComplete', component: TradeComplete, ...invertedThemeConfig },
+  {
+    name: 'tradeComplete',
+    component: TradeComplete,
+    ...invertedThemeConfig,
+    animationEnabled: Platform.OS === 'android',
+  },
 ]
 
 const tradeHistory: ViewType[] = [
