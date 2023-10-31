@@ -10,9 +10,6 @@ const keyPairMock = {
 const getPeachAccountMock = jest
   .spyOn(jest.requireMock('../peachAPI/peachAccount'), 'getPeachAccount')
   .mockReturnValue(keyPairMock)
-jest.mock('../peachAPI/peachAccount', () => ({
-  getPeachAccount: jest.fn(),
-}))
 
 jest.mock('../wallet/getWallet', () => ({
   getWallet: jest.fn(),
