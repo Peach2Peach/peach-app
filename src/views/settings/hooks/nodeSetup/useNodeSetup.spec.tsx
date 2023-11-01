@@ -5,7 +5,7 @@ import { usePopupStore } from '../../../../store/usePopupStore'
 import { getError, getResult } from '../../../../utils/result'
 import { PeachWallet } from '../../../../utils/wallet/PeachWallet'
 import { NodeConfig, useNodeConfigState } from '../../../../utils/wallet/nodeConfigStore'
-import { setPeachWallet } from '../../../../utils/wallet/setWallet'
+import { peachWallet, setPeachWallet } from '../../../../utils/wallet/setWallet'
 import { useNodeSetup } from './useNodeSetup'
 
 const checkNodeConnectionMock = jest.fn()
@@ -16,7 +16,7 @@ jest.mock('../../helpers/checkNodeConnection', () => ({
 describe('useNodeSetup', () => {
   const url = 'blockstream.info'
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
     useNodeConfigState.getState().reset()
   })
@@ -75,6 +75,7 @@ describe('useNodeSetup', () => {
     expect(result.current.canCheckConnection).toBeTruthy()
   })
   it('should successfully check connection and save config', async () => {
+    const initWalletSpy = jest.spyOn(peachWallet, 'initWallet')
     const promise = Promise.resolve(getResult('esplora'))
     checkNodeConnectionMock.mockReturnValue(promise)
     const { result } = renderHook(useNodeSetup)
@@ -106,10 +107,9 @@ describe('useNodeSetup', () => {
     const popup = usePopupStore.getState().popupComponent || <></>
     const { getByText } = render(popup)
     const button = getByText('save node info')
-    await act(async () => {
-      await fireEvent.press(button)
-    })
+    await act(() => fireEvent.press(button))
     expect(result.current.isConnected).toBeTruthy()
+    expect(initWalletSpy).toHaveBeenCalled()
     expect(useNodeConfigState.getState()).toEqual({
       ...useNodeConfigState.getState(),
       enabled: true,
