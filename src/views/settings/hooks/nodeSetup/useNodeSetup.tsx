@@ -35,6 +35,7 @@ export const useNodeSetup = () => {
     setCustomNode({ enabled, ssl, url, type: blockchainType })
     setIsConnected(true)
     peachWallet.setBlockchain({ enabled, ssl, url, type: blockchainType })
+    peachWallet.initWallet()
   }
 
   const checkConnection = async () => {
