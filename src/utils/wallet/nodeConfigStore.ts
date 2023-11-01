@@ -20,7 +20,7 @@ export type NodeConfigStore = NodeConfig & {
 
 export const defaultNodeConfig: NodeConfig = { enabled: false, ssl: false, gapLimit: 25 }
 
-export const nodeConfigStore = createStorage('nodeConfig-ugh-2')
+export const nodeConfigStore = createStorage('nodeConfig')
 const storage = createPersistStorage(nodeConfigStore)
 
 export const useNodeConfigState = create<NodeConfigStore>()(
