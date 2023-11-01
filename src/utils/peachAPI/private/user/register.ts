@@ -34,10 +34,11 @@ export const register = async ({
       signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
     })
     const responseError = getResponseError(response)
-    if (responseError) return [null, { error: responseError }]
+    if (responseError) {
+      return [null, { error: responseError }]
+    }
 
     const result = response?.json ? ((await response.json()) as RegisterResponseBody | APIError) : null
-
     if (result && 'accessToken' in result) {
       setAccessToken(result)
       info('peachAPI - register - SUCCESS', publicKey)
