@@ -33,6 +33,6 @@ const configBuilders = {
   }),
 }
 export const buildBlockchainConfig = (nodeConfig: NodeConfig) => {
-  if (nodeConfig.enabled) return configBuilders[nodeConfig.type || NODE_TYPE](nodeConfig)
+  if (nodeConfig.enabled && nodeConfig.url) return configBuilders[nodeConfig.type || NODE_TYPE](nodeConfig)
   return configBuilders[NODE_TYPE]({ enabled: false, ssl: true })
 }

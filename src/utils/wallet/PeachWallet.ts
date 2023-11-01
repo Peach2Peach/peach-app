@@ -98,6 +98,7 @@ export class PeachWallet extends PeachJSWallet {
   async setBlockchain (nodeConfig: NodeConfig) {
     info('PeachWallet - setBlockchain - start')
     const blockchainConfig = buildBlockchainConfig(nodeConfig)
+    console.log(blockchainConfig)
     this.blockchain = await new Blockchain().create(
       blockchainConfig,
       nodeConfig.enabled ? nodeConfig.type || NODE_TYPE : NODE_TYPE,

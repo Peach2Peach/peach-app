@@ -25,7 +25,6 @@ export const setClientServerTimeDifference = (diff: number) => (CLIENTSERVERTIME
 export const ISEMULATOR = isEmulatorSync()
 
 export const UNIQUEID = sha256(getUniqueIdSync())
-
 export const TWITTER = 'https://twitter.com/peachbitcoin'
 export const INSTAGRAM = 'https://www.instagram.com/peachbitcoin'
 export const TELEGRAM = 'https://t.me/+3KpdrMw25xBhNGJk'
