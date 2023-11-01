@@ -11,37 +11,58 @@ describe('buildBlockchainConfig', () => {
     validateDomain: false,
   }
   it('should return the default config is custom setting is disabled', () => {
-    expect(buildBlockchainConfig({ enabled: false, ssl: false })).toEqual(defaultConfig)
+    expect(buildBlockchainConfig({ enabled: false, ssl: false })).toEqual({
+      type: BlockChainNames.Electrum,
+      config: defaultConfig,
+    })
   })
   it('should return the default config is custom setting is enabed but no url set', () => {
-    expect(buildBlockchainConfig({ enabled: true, ssl: false })).toEqual(defaultConfig)
+    expect(buildBlockchainConfig({ enabled: true, ssl: false })).toEqual({
+      type: BlockChainNames.Electrum,
+      config: defaultConfig,
+    })
   })
   it('should return the custom config is custom setting is enabed', () => {
     expect(buildBlockchainConfig({ enabled: true, ssl: false, url: 'url' })).toEqual({
-      ...defaultConfig,
-      url: 'tcp://url',
+      type: BlockChainNames.Electrum,
+      config: {
+        ...defaultConfig,
+        url: 'tcp://url',
+      },
     })
     expect(buildBlockchainConfig({ enabled: true, ssl: true, url: 'url' })).toEqual({
-      ...defaultConfig,
-      url: 'ssl://url',
+      type: BlockChainNames.Electrum,
+      config: {
+        ...defaultConfig,
+        url: 'ssl://url',
+      },
     })
   })
   it('should return the custom config for different node type', () => {
     expect(buildBlockchainConfig({ enabled: true, ssl: true, url: 'url', type: BlockChainNames.Electrum })).toEqual({
-      ...defaultConfig,
-      url: 'ssl://url',
+      type: BlockChainNames.Electrum,
+      config: {
+        ...defaultConfig,
+        url: 'ssl://url',
+      },
     })
     expect(buildBlockchainConfig({ enabled: true, ssl: true, url: 'url', type: BlockChainNames.Esplora })).toEqual({
-      baseUrl: 'https://url',
-      concurrency: 1,
-      proxy: null,
-      stopGap: 25,
-      timeout: 30,
+      type: BlockChainNames.Esplora,
+      config: {
+        baseUrl: 'https://url',
+        concurrency: 1,
+        proxy: null,
+        stopGap: 25,
+        timeout: 30,
+      },
     })
     expect(buildBlockchainConfig({ enabled: true, ssl: true, url: 'url', type: BlockChainNames.Rpc })).toEqual({
-      network: 'bitcoin',
-      url: 'url',
-      walletName: 'peach',
+      type: BlockChainNames.Rpc,
+      config: {
+        network: 'bitcoin',
+        url: 'url',
+        walletName: 'peach',
+      },
     })
   })
 })

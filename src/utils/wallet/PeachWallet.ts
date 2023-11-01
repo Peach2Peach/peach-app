@@ -1,8 +1,8 @@
 /* eslint-disable max-lines */
-import { NETWORK, NODE_TYPE } from '@env'
+import { NETWORK } from '@env'
 import { Blockchain, BumpFeeTxBuilder, DatabaseConfig, PartiallySignedTransaction, TxBuilder, Wallet } from 'bdk-rn'
 import { AddressInfo, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { AddressIndex } from 'bdk-rn/lib/lib/enums'
+import { AddressIndex, BlockChainNames, Network } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
 import RNFS from 'react-native-fs'
 import { error, info } from '../log'
@@ -47,6 +47,8 @@ export class PeachWallet extends PeachJSWallet {
 
   blockchain: Blockchain | undefined
 
+  nodeType?: BlockChainNames
+
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
     super({ wallet, network, gapLimit })
     this.balance = 0
@@ -69,7 +71,7 @@ export class PeachWallet extends PeachJSWallet {
 
         this.setBlockchain(useNodeConfigState.getState())
 
-        const dbConfig = await getDBConfig()
+        const dbConfig = await getDBConfig(this.network, this.nodeType)
 
         info('PeachWallet - initWallet - createWallet')
 
@@ -98,11 +100,8 @@ export class PeachWallet extends PeachJSWallet {
   async setBlockchain (nodeConfig: NodeConfig) {
     info('PeachWallet - setBlockchain - start')
     const blockchainConfig = buildBlockchainConfig(nodeConfig)
-    console.log(blockchainConfig)
-    this.blockchain = await new Blockchain().create(
-      blockchainConfig,
-      nodeConfig.enabled ? nodeConfig.type || NODE_TYPE : NODE_TYPE,
-    )
+    this.blockchain = await new Blockchain().create(blockchainConfig.config, blockchainConfig.type)
+    this.nodeType = blockchainConfig.type
   }
 
   syncWallet (): Promise<void> {
@@ -291,9 +290,9 @@ export class PeachWallet extends PeachJSWallet {
   }
 }
 
-function getDBConfig () {
+function getDBConfig (network: Network, nodeType: BlockChainNames = BlockChainNames.Electrum) {
   if (isIOS()) return new DatabaseConfig().memory()
-  const dbName = `peach-${NETWORK}${useNodeConfigState.getState().type || NODE_TYPE}`
+  const dbName = `peach-${network}${nodeType}`
   const directory = `${RNFS.DocumentDirectoryPath}/${dbName}`
   return new DatabaseConfig().sqlite(directory)
 }
