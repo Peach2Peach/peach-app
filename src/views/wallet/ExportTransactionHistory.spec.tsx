@@ -4,6 +4,10 @@ import { fireEvent, render, waitFor } from 'test-utils'
 import { useWalletState } from '../../utils/wallet/walletStore'
 import { ExportTransactionHistory } from './ExportTransactionHistory'
 
+const toShortDateFormatMock = jest.fn()
+jest.mock('../../utils/date/toShortDateFormat', () => ({
+  toShortDateFormat: (...args: unknown[]) => toShortDateFormatMock(...args),
+}))
 describe('ExportTransactionHistory', () => {
   const firstCSVRow = 'Date, Type, Amount, Transaction ID\n'
   it('should render correctly', () => {
@@ -21,33 +25,20 @@ describe('ExportTransactionHistory', () => {
   it('should add a row for each transaction', () => {
     useWalletState.setState({
       transactions: [
-        {
-          txid: '1',
-          sent: 21000,
-          received: 210000,
-        },
-        {
-          txid: '2',
-          sent: 42000,
-          received: 0,
-        },
+        { txid: '1', sent: 21000, received: 210000 },
+        { txid: '2', sent: 42000, received: 0 },
       ],
-      txOfferMap: {
-        '1': ['1'],
-        '2': ['2'],
-      },
+      txOfferMap: { '1': ['1'], '2': ['2'] },
     })
     const { getByText } = render(<ExportTransactionHistory />)
     const exportButton = getByText('export')
-    const DATE_TO_USE = new Date('2023-08-18T17:50:25.000Z')
-    DATE_TO_USE.toLocaleString = jest.fn(() => '8/18/2023 5:50:25 PM')
-    jest.spyOn(global, 'Date').mockImplementation(() => DATE_TO_USE)
+    toShortDateFormatMock.mockReturnValue('18/08/2023 19:50')
 
     fireEvent.press(exportButton)
 
     expect(RNFS.writeFile).toHaveBeenCalledWith(
       'DDirPath//transaction-history.csv',
-      `${firstCSVRow}8/18/2023 5:50:25 PM, WITHDRAWAL, 189000, 1\n8/18/2023 5:50:25 PM, WITHDRAWAL, 42000, 2\n`,
+      `${firstCSVRow}18/08/2023 19:50, WITHDRAWAL, 189000, 1\n18/08/2023 19:50, WITHDRAWAL, 42000, 2\n`,
       'utf8',
     )
   })
