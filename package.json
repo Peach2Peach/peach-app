@@ -17,7 +17,7 @@
     "start:mainnet": "NODE_ENV=production react-native start --port=8081",
     "cache:clear": "react-native start --reset-cache",
     "postinstall:hooks": "cp devUtils/pre-push .git/hooks/ && chmod +x .git/hooks/pre-push",
-    "postinstall": "npm run postintall:hooks && rn-nodeify --install buffer,stream,util --hack",
+    "postinstall": "cp devUtils/pre-push .git/hooks/ && chmod +x .git/hooks/pre-push && rn-nodeify --install buffer,stream,util --hack",
     "podinstall": "react-native setup-ios-permissions && cd ios && pod install --repo-update",
     "build:web": "cp -r ./assets ./public/assets/ && react-scripts build",
     "build:android:testnet": "./devUtils/buildAndroidTestnet.sh",
