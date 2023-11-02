@@ -11,9 +11,6 @@ export const MSINAMONTH = MSINADAY * 30
 
 export const FIFTEEN_SECONDS = 15 * MSINASECOND
 
-// time to automatically restart app when calling app from background after this time has passed
-export const TIMETORESTART = 5 * MSINAMINUTE
-
 export const MAXTRADESWITHOUTHBACKUP = 3
 
 export const APPVERSION = getVersion()
@@ -25,7 +22,6 @@ export const setClientServerTimeDifference = (diff: number) => (CLIENTSERVERTIME
 export const ISEMULATOR = isEmulatorSync()
 
 export const UNIQUEID = sha256(getUniqueIdSync())
-
 export const TWITTER = 'https://twitter.com/peachbitcoin'
 export const INSTAGRAM = 'https://www.instagram.com/peachbitcoin'
 export const TELEGRAM = 'https://t.me/+3KpdrMw25xBhNGJk'
