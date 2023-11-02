@@ -3,6 +3,7 @@ export type RequestProps = {
   abortSignal?: AbortSignal
 }
 
+export { peachAPI } from './peachAPI'
 export {
   cancelContract,
   confirmContractCancelation,

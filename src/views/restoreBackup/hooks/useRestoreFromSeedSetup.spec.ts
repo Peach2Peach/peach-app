@@ -7,14 +7,6 @@ import { useRestoreFromSeedSetup } from './useRestoreFromSeedSetup'
 
 jest.useFakeTimers()
 
-const navigationReplaceMock = jest.fn()
-const useNavigationMock = jest.fn().mockReturnValue({
-  replace: (...args: unknown[]) => navigationReplaceMock(...args),
-})
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: () => useNavigationMock(),
-}))
-
 const createAccountMock = jest.fn().mockResolvedValue(account1)
 jest.mock('../../../utils/account/createAccount', () => ({
   createAccount: (...args: unknown[]) => createAccountMock(...args),
@@ -35,6 +27,7 @@ const apiSuccess = {
 }
 const authMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
+  peachAPI: jest.requireActual('../../../utils/peachAPI').peachAPI,
   auth: (...args: unknown[]) => authMock(...args),
 }))
 

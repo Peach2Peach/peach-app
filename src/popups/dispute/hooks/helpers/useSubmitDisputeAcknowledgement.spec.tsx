@@ -4,6 +4,7 @@ import { contract } from '../../../../../tests/unit/data/contractData'
 import { queryClient } from '../../../../../tests/unit/helpers/QueryClientWrapper'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { defaultAccount, setAccount } from '../../../../utils/account/account'
+import { peachAPI } from '../../../../utils/peachAPI'
 import { useSubmitDisputeAcknowledgement } from './useSubmitDisputeAcknowledgement'
 
 const now = new Date()
@@ -18,12 +19,8 @@ jest.mock('../../../../hooks/useShowLoadingPopup', () => ({
   useShowLoadingPopup: () => showLoadingPopupMock,
 }))
 
-const acknowledgeDisputeMock = jest.fn().mockResolvedValue([{ success: true }, null])
-jest.mock('../../../../utils/peachAPI/private/contract', () => ({
-  acknowledgeDispute: (...args: unknown[]) => acknowledgeDisputeMock(...args),
-}))
-
 describe('useSubmitDisputeAcknowledgement', () => {
+  const acknowledgeDisputeMock = jest.spyOn(peachAPI.private.contract, 'acknowledgeDispute')
   beforeEach(() => {
     queryClient.setQueryData(['contract', contract.id], contract)
   })
@@ -96,8 +93,17 @@ describe('useSubmitDisputeAcknowledgement', () => {
     expect(keyboardSpy).toHaveBeenCalled()
   })
   it('opens error banner if submit was not successful', async () => {
-    const error = 'TEST_ERROR'
-    acknowledgeDisputeMock.mockResolvedValueOnce([null, { error }])
+    const error = 'NOT_FOUND'
+    acknowledgeDisputeMock.mockResolvedValueOnce({
+      result: undefined,
+      error: { error },
+      isError: () => true,
+      isOk: () => false,
+      getValue: () => undefined,
+      getError: () => ({
+        error,
+      }),
+    })
     const disputeReason = 'noPayment.buyer'
     const noPaymentContract: Contract = {
       ...contract,

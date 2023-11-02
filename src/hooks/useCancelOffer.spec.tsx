@@ -12,6 +12,7 @@ jest.mock('../utils/offer/saveOffer', () => ({
 
 const cancelOfferMock = jest.fn().mockResolvedValue([{}, null])
 jest.mock('../utils/peachAPI', () => ({
+  peachAPI: jest.requireActual('../utils/peachAPI').peachAPI,
   cancelOffer: () => cancelOfferMock(),
 }))
 
