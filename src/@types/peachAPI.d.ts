@@ -53,11 +53,7 @@ type User = {
   usedReferralCode?: string
   bonusPoints: number
   referredTradingAmount: number
-  disputes: {
-    opened: number
-    won: number
-    lost: number
-  }
+  disputes: { opened: number; won: number; lost: number; resolved: number }
   pgpPublicKey: string
   pgpPublicKeyProof: string
 }
