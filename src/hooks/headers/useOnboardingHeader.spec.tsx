@@ -39,7 +39,7 @@ describe('useOnboardingHeader', () => {
 
     expect(drawerContent).toEqual(
       <LanguageSelect
-        locales={['en', 'es', 'fr', 'it', 'de', 'nl', 'el-GR', 'tr', 'sw', 'raw', 'hu', 'pl', 'pt', 'pt-BR', 'ru', 'uk']}
+        locales={['en', 'es', 'fr', 'it', 'de', 'nl', 'el-GR', 'tr', 'sw', 'hu', 'raw', 'pl', 'pt', 'pt-BR', 'ru', 'uk']}
         onSelect={expect.any(Function)}
         selected="en"
       />,

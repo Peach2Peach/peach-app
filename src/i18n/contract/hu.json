@@ -112,6 +112,7 @@
   "contract.summary.meetup" : "találkozó",
   "contract.summary.method" : "módszer",
   "contract.summary.name" : "név",
+  "contract.summary.openApp" : "App megnyitása",
   "contract.summary.paidToMethod" : "fizetve a(z)",
   "contract.summary.paidToWallet" : "elküldve a(z)",
   "contract.summary.paidWithMethod" : "fizetve a(z)",
