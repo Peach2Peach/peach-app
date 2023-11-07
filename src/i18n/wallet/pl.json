@@ -1,6 +1,6 @@
 {
   "peachWallet" : "Portfel Peach",
-  "transaction.details.networkFee" : "opłata sieciowa: $0 satoshi ($1 sat/vB)",
+  "transaction.details.networkFee" : "opłata sieciowa: $0 sats ($1 sat/vB)",
   "transaction.details.to" : "do:",
   "transaction.eta.in1Block" : "w następnym bloku",
   "transaction.eta.inXBlocks" : "w ciągu $0 bloków",
@@ -82,7 +82,7 @@
   "wallet.transactionDetails.type.DEPOSIT" : "otrzymane na portfel",
   "wallet.transactionDetails.type.ESCROWFUNDED" : "zasilony depozyt",
   "wallet.transactionDetails.type.REFUND" : "zwrócone",
-  "wallet.transactionDetails.type.TRADE" : "satoshi uciułane",
+  "wallet.transactionDetails.type.TRADE" : "uciułane satsy",
   "wallet.transactionDetails.type.WITHDRAWAL" : "wysłane z portfela",
   "wallet.transactionHistory" : "historia transakcji",
   "wallet.transactionHistory.empty" : "nic jeszcze...",

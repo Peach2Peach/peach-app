@@ -16,7 +16,7 @@
   "settings.batching.turnOff.description" : "Masz oczekującą wypłatę. Wyłączenie grupowania teraz spowoduje natychmiastową wypłatę zabezpieczenia, ale z wyższymi opłatami.\n\nCzy jesteś pewien?",
   "settings.batching.turnOff.no" : "nie, poczekaj",
   "settings.batching.turnOff.title" : "wyłącz grupowanie",
-  "settings.batching.turnOff.yes" : "tak, wypłać",
+  "settings.batching.turnOff.yes" : "tak, chcę szybciej",
   "settings.batching.youPay" : "Płacisz nawet o 30% więcej",
   "settings.batching.youPay.highlight" : "30% więcej",
   "settings.batching.youSave" : "Oszczędzasz nawet do 23% na opłatach sieciowych",
