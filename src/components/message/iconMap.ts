@@ -21,7 +21,6 @@ export const iconMap: Record<string, IconType> = {
   INVALID_OUTPUT: 'xCircle',
   NAVIGATION_INIT_ERROR: 'map',
   NETWORK_ERROR: 'noNetwork',
-  NO_EMULATOR: 'cpu',
   NOT_FOUND: 'map',
   OFFER_TAKEN: 'shuffle',
   PAYMENT_DATA_MISSING: 'creditCard',

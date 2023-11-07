@@ -1,4 +1,3 @@
-import { DEV } from '@env'
 import { useEffect, useRef } from 'react'
 import { Animated, SafeAreaView, TextStyle, TouchableOpacity, View, ViewStyle, useWindowDimensions } from 'react-native'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
@@ -6,7 +5,6 @@ import SplashScreen from 'react-native-splash-screen'
 import { shallow } from 'zustand/shallow'
 import { Icon, Placeholder, Text } from '..'
 import { IconType } from '../../assets/icons'
-import { ISEMULATOR } from '../../constants'
 import { useNavigation } from '../../hooks'
 import { initApp } from '../../init/initApp'
 import { requestUserPermissions } from '../../init/requestUserPermissions'
@@ -98,13 +96,6 @@ export const Message = () => {
   })
 
   useEffect(() => {
-    if (DEV !== 'true' && ISEMULATOR) {
-      error(new Error('NO_EMULATOR'))
-      updateMessage({ msgKey: 'NO_EMULATOR', level: 'ERROR' })
-
-      return
-    }
-
     (async () => {
       const statusResponse = await initApp()
 
