@@ -3,6 +3,7 @@ import { Header, PeachScrollView, Screen } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { SellOfferSummary } from '../../components/offer'
 import { useNavigation } from '../../hooks'
+import { useOfferPreferences } from '../../store/offerPreferenes'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
@@ -11,11 +12,12 @@ import { useSellSummarySetup } from './hooks/useSellSummarySetup'
 
 export const SellSummary = () => {
   const { canPublish, publishOffer, isPublishing, offerDraft } = useSellSummarySetup()
+  const numberOfOffers = useOfferPreferences((state) => state.multi)
 
   return (
     <Screen header={<SellSummaryHeader />}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
-        <SellOfferSummary offer={offerDraft} />
+        <SellOfferSummary offer={offerDraft} numberOfOffers={numberOfOffers} />
       </PeachScrollView>
       <Button
         style={tw`self-center`}

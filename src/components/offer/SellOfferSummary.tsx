@@ -1,6 +1,5 @@
 import { NETWORK } from '@env'
 import { TouchableOpacity, View } from 'react-native'
-import { useOfferPreferences } from '../../store/offerPreferenes'
 import tw from '../../styles/tailwind'
 import { showAddress } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
@@ -14,13 +13,13 @@ import { useWalletLabel } from './useWalletLabel'
 
 type Props = {
   offer: SellOffer | SellOfferDraft
+  numberOfOffers?: number
 }
 
 const isSellOfferWithDefinedEscrow = (offer: SellOffer | SellOfferDraft): offer is SellOffer & { escrow: string } =>
   'escrow' in offer && !!offer.escrow
 
-export const SellOfferSummary = ({ offer }: Props) => {
-  const multi = useOfferPreferences((state) => state.multi)
+export const SellOfferSummary = ({ offer, numberOfOffers }: Props) => {
   const walletLabel = useWalletLabel({ label: offer.walletLabel, address: offer.returnAddress })
   return (
     <SummaryCard>
@@ -29,7 +28,7 @@ export const SellOfferSummary = ({ offer }: Props) => {
           {i18n(`offer.summary.${offer.tradeStatus !== 'offerCanceled' ? 'youAreSelling' : 'youWereSelling'}`)}
         </Text>
         <View style={tw`flex-row items-center justify-center gap-2`}>
-          {!!multi && <Text style={tw`h6`}>{multi} x</Text>}
+          {!!numberOfOffers && <Text style={tw`h6`}>{numberOfOffers} x</Text>}
           <BTCAmount amount={offer.amount} size="small" />
         </View>
       </SummaryCard.Section>

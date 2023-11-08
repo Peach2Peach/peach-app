@@ -1,7 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { SellOfferSummary } from './SellOfferSummary'
-import { useOfferPreferences } from '../../store/offerPreferenes'
 
 jest.useFakeTimers({ now: new Date('2023-04-26T14:58:49.437Z') })
 
@@ -18,8 +17,7 @@ describe('SellOfferSummary', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('renders correctly when funding multiple offers', () => {
-    useOfferPreferences.getState().setMulti(5)
-    renderer.render(<SellOfferSummary offer={sellOffer} />)
+    renderer.render(<SellOfferSummary offer={sellOffer} numberOfOffers={5} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })
