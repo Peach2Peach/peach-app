@@ -49,7 +49,7 @@ export const useSellSummarySetup = () => {
       navigation.reset({
         index: 1,
         routes: [
-          { name: 'yourTrades', params: { tab: 'sell' } },
+          { name: 'yourTrades', params: { tab: 'yourTrades.sell' } },
           { name: 'fundEscrow', params: navigationParams },
         ],
       })

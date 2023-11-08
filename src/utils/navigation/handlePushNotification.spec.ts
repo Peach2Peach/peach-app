@@ -102,7 +102,7 @@ describe('handlePushNotification', () => {
 
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('yourTrades', { tab: 'sell' })
+    expect(navigationRef.navigate).toHaveBeenCalledWith('yourTrades', { tab: 'yourTrades.sell' })
   })
 
   it('navigates to sell when shouldGoToSell is true', async () => {
