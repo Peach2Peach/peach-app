@@ -135,6 +135,7 @@ function useOfferFilters (offerId: string, filter: MatchFilter, sortBy: BuySorte
     patchOffer(undefined, {
       onSettled: async () => {
         await queryClient.invalidateQueries({ queryKey: matchesKeys.matches })
+        await queryClient.refetchQueries({ queryKey: ['offerSummaries'] })
         await queryClient.refetchQueries({ queryKey: matchesKeys.matchesByOfferId(offerId) })
         closePopup()
       },

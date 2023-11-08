@@ -2,7 +2,7 @@ import { act, render, renderHook } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { navigateMock, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { useRateSetup } from './useRateSetup'
@@ -126,7 +126,8 @@ describe('useRateSetup', () => {
       signature: negativeRating.signature,
     })
     expect(replaceMock).toHaveBeenCalledWith('backupTime', {
-      nextScreen: 'yourTrades',
+      contractId: contract.id,
+      nextScreen: 'contract',
     })
   })
   it('does submit positive rating and navigates back to contract', async () => {
@@ -136,18 +137,20 @@ describe('useRateSetup', () => {
     await act(async () => {
       await result.current.rate()
     })
-    expect(replaceMock).toHaveBeenCalledWith('contract', {
+    expect(navigateMock).toHaveBeenCalledWith('contract', {
       contractId: contract.id,
     })
   })
-  it('does submit negative rating and navigates to yourTrades', async () => {
+  it('does submit negative rating and navigates back to contract', async () => {
     useSettingsStore.getState().setShowBackupReminder(false)
     createUserRatingMock.mockReturnValueOnce(negativeRating)
     const { result } = renderHook(useRateSetup, { initialProps: { ...initialProps, vote: 'negative' } })
     await act(async () => {
       await result.current.rate()
     })
-    expect(replaceMock).toHaveBeenCalledWith('yourTrades')
+    expect(navigateMock).toHaveBeenCalledWith('contract', {
+      contractId: contract.id,
+    })
   })
   it('handles rating submit error', async () => {
     createUserRatingMock.mockReturnValueOnce(negativeRating)

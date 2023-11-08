@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { PopupAction } from '../components/popup'
@@ -16,6 +17,7 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const queryClient = useQueryClient()
 
   const showOfferCanceled = useCallback(() => {
     setPopup({ title: i18n('offer.canceled.popup.title'), level: 'DEFAULT' })
@@ -38,7 +40,8 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
     } else {
       startRefund(offer)
     }
-  }, [navigation, offer, showError, showOfferCanceled, startRefund])
+    queryClient.refetchQueries({ queryKey: ['offerSummaries'] })
+  }, [navigation, offer, queryClient, showError, showOfferCanceled, startRefund])
 
   const cancelOffer = useCallback(() => {
     if (!offer) return

@@ -207,7 +207,7 @@ exports[`YourTrades should render correctly 1`] = `
       }
     >
       <Navigator
-        initialRouteName="buy"
+        initialRouteName="yourTrades.buy"
         sceneContainerStyle={
           [
             {
