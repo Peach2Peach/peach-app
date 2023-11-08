@@ -29,8 +29,6 @@ const localeMapping: Record<string, Record<string, string>> = {
   tr,
   sw,
   hu,
-
-  raw: {},
 }
 
 export type Locale = keyof typeof localeMapping
