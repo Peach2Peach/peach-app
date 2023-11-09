@@ -1,24 +1,19 @@
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
 import i18n from '../../../utils/i18n'
+import { peachAPI } from '../../../utils/peachAPI'
 import { publishSellOffer } from './publishSellOffer'
 
-const pgpMock = jest.fn().mockResolvedValue(undefined)
-const postSellOfferMock = jest.fn().mockResolvedValue([undefined, undefined])
-const getOfferDetailsMock = jest.fn().mockResolvedValue([undefined])
-const infoMock = jest.fn()
+const postSellOfferMock = jest.spyOn(peachAPI.private.offer, 'postSellOffer')
 
+const pgpMock = jest.fn().mockResolvedValue(undefined)
 jest.mock('../../../init/publishPGPPublicKey', () => ({
   publishPGPPublicKey: () => pgpMock(),
 }))
 
+const infoMock = jest.fn()
 jest.mock('../../../utils/log', () => ({
   info: (...args: unknown[]) => infoMock(...args),
-}))
-
-jest.mock('../../../utils/peachAPI', () => ({
-  postSellOffer: (offerDraft: unknown) => postSellOfferMock(offerDraft),
-  getOfferDetails: (offerId: unknown) => getOfferDetailsMock(offerId),
 }))
 
 const singleOfferResult = { isPublished: true, navigationParams: { offerId: sellOffer.id }, errorMessage: null }
@@ -33,6 +28,13 @@ jest.mock('./handleMultipleOffersPublished', () => ({
   handleMultipleOffersPublished: (...args: unknown[]) => handleMultipleOffersPublishedMock(...args),
 }))
 
+const responseUtils = {
+  isError: jest.fn(),
+  isOk: jest.fn(),
+  getError: jest.fn(),
+  getValue: jest.fn(),
+}
+
 // eslint-disable-next-line max-lines-per-function
 describe('publishSellOffer', () => {
   const offerDraft: SellOfferDraft = {
@@ -41,7 +43,6 @@ describe('publishSellOffer', () => {
   }
 
   it('should call info with "Posting offer"', async () => {
-    // @ts-ignore
     await publishSellOffer(offerDraft)
 
     expect(infoMock).toHaveBeenCalledWith('Posting sell offer')
@@ -62,30 +63,51 @@ describe('publishSellOffer', () => {
   })
 
   test('if there is no result from postSellOffer it should return an errorMessage', async () => {
-    postSellOfferMock.mockResolvedValue([undefined])
+    postSellOfferMock.mockResolvedValue({
+      result: undefined,
+      error: { error: 'INTERNAL_SERVER_ERROR' },
+      ...responseUtils,
+    })
     const { isPublished: result, navigationParams: offer, errorMessage: error } = await publishSellOffer(offerDraft)
 
     expect(result).toBeFalsy()
     expect(offer).toBeNull()
-    expect(error).toBe(i18n('POST_OFFER_ERROR'))
+    expect(error).toBe(i18n('INTERNAL_SERVER_ERROR'))
   })
 
   it('should handle single offer being published', async () => {
-    postSellOfferMock.mockResolvedValue([sellOffer, undefined])
+    postSellOfferMock.mockResolvedValue({
+      result: sellOffer,
+      error: undefined,
+      ...responseUtils,
+    })
     const publishSellOfferResult = await publishSellOffer(offerDraft)
     expect(publishSellOfferResult).toEqual(singleOfferResult)
     expect(handleSellOfferPublishedMock).toHaveBeenCalledWith(sellOffer, offerDraft)
   })
   it('should handle multiple offer being published', async () => {
-    postSellOfferMock.mockResolvedValue([[sellOffer, sellOffer], undefined])
+    postSellOfferMock.mockResolvedValue({
+      result: [sellOffer, sellOffer],
+      error: undefined,
+      ...responseUtils,
+    })
     const publishSellOfferResult = await publishSellOffer(offerDraft)
     expect(publishSellOfferResult).toEqual(multipleOffersResult)
     expect(handleMultipleOffersPublishedMock).toHaveBeenCalledWith([sellOffer, sellOffer], offerDraft)
   })
 
   it('should send pgp keys and retry posting buy offer if first error is PGP_MISSING', async () => {
-    postSellOfferMock.mockResolvedValueOnce([undefined, { error: 'PGP_MISSING' }])
-    postSellOfferMock.mockResolvedValueOnce([sellOffer, undefined])
+    postSellOfferMock
+      .mockResolvedValueOnce({
+        result: undefined,
+        error: { error: 'PGP_MISSING' },
+        ...responseUtils,
+      })
+      .mockResolvedValueOnce({
+        result: sellOffer,
+        error: undefined,
+        ...responseUtils,
+      })
 
     const { isPublished: result, navigationParams: offer, errorMessage: error } = await publishSellOffer(offerDraft)
 
