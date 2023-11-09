@@ -17,8 +17,8 @@ const SummarySection = ({ children }: ComponentProps) => <View style={tw`items-c
 
 SummaryCard.Section = SummarySection
 
-const PaymentMethods = ({ offer }: { offer: BuyOffer | BuyOfferDraft | SellOffer | SellOfferDraft }) => {
-  const currencies = getCurrencies(offer.meansOfPayment)
+const PaymentMethods = ({ meansOfPayment }: { meansOfPayment: MeansOfPayment }) => {
+  const currencies = getCurrencies(meansOfPayment)
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
 
   return (
@@ -27,7 +27,7 @@ const PaymentMethods = ({ offer }: { offer: BuyOffer | BuyOfferDraft | SellOffer
 
       <CurrencySelection currencies={currencies} selected={selectedCurrency} select={setSelectedCurrency} />
       <View style={tw`flex-row flex-wrap items-center justify-center`}>
-        {offer.meansOfPayment[selectedCurrency]?.map((p) => (
+        {meansOfPayment[selectedCurrency]?.map((p) => (
           <PaymentMethod key={`buyOfferMethod-${p}`} paymentMethod={p} style={tw`m-1`} />
         ))}
       </View>
