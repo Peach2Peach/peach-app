@@ -20,8 +20,6 @@ const responseBody: PostOfferResponseBody = {
   online: true,
   matches: [],
   doubleMatched: false,
-  matched: [],
-  seenMatches: [],
   creationDate: new Date('2021-01-01'),
 }
 const fetchMock = jest.fn().mockImplementation((url: string) => {

@@ -6,14 +6,13 @@ import { updateMatchSelectors } from './updateMatchSelectors'
 
 type MatchState = {
   matchSelectors: MatchSelectors
-  currentIndex: number
   currentPage: number
 }
 
 export type MatchStore = MatchState & {
   setSelectedCurrency: (currency: Currency, matchId: Match['offerId']) => void
   setSelectedPaymentMethod: (paymentMethod: PaymentMethod | undefined, matchId: Match['offerId']) => void
-  setCurrentIndex: (newIndex: number) => void
+  setCurrentPage: (currentPage: number) => void
   setAvailablePaymentMethods: (methods: PaymentMethod[], matchId: Match['offerId']) => void
   resetStore: () => void
   addMatchSelectors: (matches: Match[], offerMeansOfPayment: MeansOfPayment) => void
@@ -21,7 +20,6 @@ export type MatchStore = MatchState & {
 }
 
 const defaultState: MatchState = {
-  currentIndex: 0,
   currentPage: 0,
   matchSelectors: {},
 }
@@ -48,21 +46,17 @@ export const useMatchStore = create<MatchStore>()(
         state.matchSelectors[matchId].showPaymentMethodPulse = false
         state.matchSelectors[matchId].selectedPaymentMethod = paymentMethod
       }),
-    setCurrentIndex: (newIndex) =>
-      set((state) => ({ ...state, currentIndex: newIndex, currentPage: Math.floor(newIndex / 10) })),
+    setCurrentPage: (currentPage) => set({ currentPage }),
     setAvailablePaymentMethods: (methods, matchId) =>
       set((state) => {
         state.matchSelectors[matchId].availablePaymentMethods = methods
       }),
-    resetStore: () => set(() => defaultState),
+    resetStore: () => set(defaultState),
     addMatchSelectors: (matches, offerMeansOfPayment) => {
       const newMatchSelectors = createMatchSelectors(matches, offerMeansOfPayment)
       const updatedMatchSelectors = updateMatchSelectors(get().matchSelectors, newMatchSelectors)
 
-      return set((state) => ({
-        ...state,
-        matchSelectors: { ...newMatchSelectors, ...updatedMatchSelectors },
-      }))
+      return set({ matchSelectors: { ...newMatchSelectors, ...updatedMatchSelectors } })
     },
     setShowPaymentMethodPulse: (matchId, show = true) =>
       set((state) => {

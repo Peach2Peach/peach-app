@@ -103,7 +103,6 @@ exports[`BuyOfferSummary renders correctly 1`] = `
         },
         "publishingDate": 2022-03-08T11:41:07.245Z,
         "releaseAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
-        "seenMatches": [],
         "tradeStatus": "waiting",
         "type": "bid",
       }

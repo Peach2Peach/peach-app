@@ -46,6 +46,8 @@ type User = {
   trades: number
   rating: number
   userRating: number
+  historyRating: number
+  recentRating: number
   ratingCount: number
   peachRating: number
   medals: Medal[]
@@ -57,6 +59,19 @@ type User = {
   pgpPublicKey: string
   pgpPublicKeyProof: string
 }
+
+type PublicUser = Omit<
+  User,
+  | 'disabled'
+  | 'banned'
+  | 'linkedIds'
+  | 'lastModified'
+  | 'kyc'
+  | 'uniqueId'
+  | 'referredTradingAmount'
+  | 'bonusPoints'
+  | 'feeRate'
+>
 
 type SelfUser = User & {
   feeRate: FeeRate
@@ -79,6 +94,7 @@ type TradingLimit = {
 type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 
 type Currency =
+  | 'BTC'
   | 'SAT'
   | 'USD'
   | 'EUR'
@@ -93,7 +109,6 @@ type Currency =
   | 'RON'
   | 'ISK'
   | 'NOK'
-  | 'RON'
   | 'TRY'
   | 'USDT'
   | 'ARS'
@@ -101,13 +116,15 @@ type Currency =
   | 'PEN'
   | 'MXN'
   | 'CLP'
-  | 'PEN'
-  | 'COP'
   | 'XOF'
   | 'NGN'
   | 'CDF'
   | 'CRC'
   | 'BRL'
+  | 'GTQ'
+  | 'ZAR'
+  | 'KES'
+  | 'GHS'
 type Pricebook = {
   [key in Currency]?: number
 }
@@ -204,28 +221,28 @@ type PeachPairInfo = {
 type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 
 type TradeStatus =
-  | 'fundEscrow'
+  | 'confirmCancelation'
+  | 'confirmPaymentRequired'
+  | 'dispute'
   | 'escrowWaitingForConfirmation'
+  | 'fundEscrow'
   | 'fundingAmountDifferent'
-  | 'searchingForPeer'
+  | 'hasMatchesAvailable'
+  | 'messageSigningRequired'
+  | 'offerCanceled'
   | 'offerHidden'
   | 'offerHiddenWithMatchesAvailable'
-  | 'hasMatchesAvailable'
-  | 'offerCanceled'
-  | 'refundAddressRequired'
-  | 'refundTxSignatureRequired'
   | 'paymentRequired'
   | 'paymentTooLate'
-  | 'confirmPaymentRequired'
   | 'payoutPending'
-  | 'dispute'
-  | 'releaseEscrow'
   | 'rateUser'
-  | 'confirmCancelation'
-  | 'tradeCompleted'
-  | 'tradeCanceled'
+  | 'refundAddressRequired'
   | 'refundOrReviveRequired'
-  | 'waiting'
+  | 'refundTxSignatureRequired'
+  | 'releaseEscrow'
+  | 'searchingForPeer'
+  | 'tradeCanceled'
+  | 'tradeCompleted'
 
 type OfferPaymentData = Partial<
   Record<
@@ -236,33 +253,6 @@ type OfferPaymentData = Partial<
     }
   >
 >
-type OfferDraft = {
-  type: 'bid' | 'ask'
-  meansOfPayment: MeansOfPayment
-  paymentData: OfferPaymentData
-  originalPaymentData: PaymentData[]
-  walletLabel?: string
-  tradeStatus?: TradeStatus
-}
-type Offer = OfferDraft & {
-  id: string
-  oldOfferId?: string
-  newOfferId?: string
-  publishingDate?: Date
-  online: boolean
-  user?: User
-  publicKey?: string
-  premium?: number
-  prices?: Pricebook
-  refunded?: boolean
-  funding?: FundingStatus
-  matches: Offer['id'][]
-  doubleMatched: boolean
-  contractId?: string
-  tradeStatus: TradeStatus
-  creationDate: Date
-  lastModified?: Date
-}
 type PostedOffer = BuyOffer | SellOffer
 type PostOfferResponseBody = PostedOffer | PostedOffer[]
 type OfferType = 'ask' | 'bid'
@@ -306,7 +296,7 @@ type Match = {
   matchedPrice: number | null
   premium: number
   meansOfPayment: MeansOfPayment
-  paymentData: Offer['paymentData']
+  paymentData: OfferPaymentData
   selectedCurrency?: Currency
   selectedPaymentMethod?: PaymentMethod
   symmetricKeyEncrypted: string

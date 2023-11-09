@@ -123,7 +123,6 @@ exports[`SellOfferSummary renders correctly 1`] = `
         "refunded": false,
         "released": false,
         "returnAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
-        "seenMatches": [],
         "tradeStatus": "waiting",
         "type": "ask",
       }
@@ -294,7 +293,6 @@ exports[`SellOfferSummary renders correctly when funding multiple offers 1`] = `
         "refunded": false,
         "released": false,
         "returnAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
-        "seenMatches": [],
         "tradeStatus": "waiting",
         "type": "ask",
       }
@@ -452,7 +450,6 @@ exports[`SellOfferSummary renders correctly when the premium is 0 1`] = `
         "refunded": false,
         "released": false,
         "returnAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
-        "seenMatches": [],
         "tradeStatus": "waiting",
         "type": "ask",
       }

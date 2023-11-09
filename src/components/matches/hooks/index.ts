@@ -1,5 +1,4 @@
-export { useMatchesSetup } from './useMatchesSetup'
-export { useUnmatchOffer } from './useUnmatchOffer'
-export { useMatchOffer } from './useMatchOffer'
 export { useInterruptibleFunction } from './useInterruptibleFunction'
+export { useMatchOffer } from './useMatchOffer'
 export { useMatchPriceData } from './useMatchPriceData'
+export { useUnmatchOffer } from './useUnmatchOffer'

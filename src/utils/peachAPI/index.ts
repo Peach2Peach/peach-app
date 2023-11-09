@@ -31,7 +31,6 @@ export {
   matchOffer,
   patchOffer,
   postBuyOffer,
-  postSellOffer,
   refundSellOffer,
   reviveSellOffer,
   unmatchOffer,

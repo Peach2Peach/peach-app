@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable max-lines */
 
-import { twintData, twintDataHashes, validSEPAData, validSEPADataHashes } from './paymentData'
+import { twintDataHashes, validSEPAData, validSEPADataHashes } from './paymentData'
 
 export const buyOffer: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
@@ -18,11 +18,8 @@ export const buyOffer: BuyOffer = {
     sepa: { hashes: validSEPADataHashes },
     twint: { hashes: twintDataHashes },
   },
-  originalPaymentData: [validSEPAData, twintData],
   amount: [50000, 250000],
   matches: [],
-  matched: [],
-  seenMatches: [],
   doubleMatched: false,
   releaseAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
   tradeStatus: 'waiting',
@@ -42,7 +39,6 @@ export const sellOffer: SellOffer = {
   paymentData: {
     sepa: { hashes: validSEPADataHashes },
   },
-  originalPaymentData: [validSEPAData],
   funding: {
     status: 'NULL',
     txIds: [],
@@ -53,8 +49,6 @@ export const sellOffer: SellOffer = {
   amount: 250000,
   premium: 1.5,
   matches: [],
-  matched: [],
-  seenMatches: [],
   doubleMatched: false,
   returnAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
   refunded: false,
@@ -91,6 +85,8 @@ export const matchOffer: Match = {
     trades: 0,
     rating: 0,
     userRating: 0,
+    historyRating: 0,
+    recentRating: 0,
     ratingCount: 0,
     peachRating: 0,
     medals: [],
@@ -100,6 +96,7 @@ export const matchOffer: Match = {
       opened: 0,
       won: 0,
       lost: 0,
+      resolved: 0,
     },
     pgpPublicKey: 'TODO add pgp public key',
     pgpPublicKeyProof: 'TODO add pgp',

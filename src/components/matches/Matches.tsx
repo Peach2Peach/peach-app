@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { View, useWindowDimensions } from 'react-native'
 import Carousel from 'react-native-reanimated-carousel'
 import { useIsMediumScreen, useRoute } from '../../hooks'
@@ -7,20 +8,26 @@ import { isSellOffer } from '../../utils/offer'
 import { MatchInformation } from '../../views/search/components'
 import { useOfferMatches } from '../../views/search/hooks'
 import { Match } from './Match'
-import { useMatchesSetup } from './hooks'
 import { useMatchStore } from './store'
 
 export const Matches = () => {
   const { width } = useWindowDimensions()
   const isMediumScreen = useIsMediumScreen()
-  useMatchesSetup()
   const { offerId } = useRoute<'search'>().params
   const { offer } = useOfferDetails(offerId)
-  const { allMatches: matches } = useOfferMatches(offerId)
+  const { allMatches: matches, fetchNextPage, hasNextPage } = useOfferMatches(offerId)
 
-  const setCurrentIndex = useMatchStore((state) => state.setCurrentIndex)
+  const setCurrentPage = useMatchStore((state) => state.setCurrentPage)
+
+  useEffect(() => {
+    setCurrentPage(0)
+    return () => setCurrentPage(0)
+  }, [setCurrentPage])
+
   const onSnapToItem = (index: number) => {
-    setCurrentIndex(Math.min(index, matches.length - 1))
+    const newIndex = Math.min(index, matches.length - 1)
+    setCurrentPage(Math.floor(newIndex / 10))
+    if (newIndex === matches.length - 1 && hasNextPage) fetchNextPage()
   }
   if (!offer) return <></>
 

@@ -6,8 +6,6 @@ export const getOffer = (id: string): SellOffer | BuyOffer | undefined => {
 
   if (!offer) return undefined
 
-  if (!offer.seenMatches) offer.seenMatches = []
-
   if (isSellOffer(offer)) {
     offer.funding.txIds = offer.funding.txIds || []
     offer.funding.vouts = offer.funding.vouts || []
