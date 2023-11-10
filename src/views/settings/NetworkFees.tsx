@@ -9,7 +9,7 @@ import { CustomFeeItem } from './components/networkFees/CustomFeeItem'
 import { EstimatedFeeItem } from './components/networkFees/EstimatedFeeItem'
 import { useNetworkFeesSetup } from './hooks/useNetworkFeesSetup'
 
-const estimatedFeeRates: FeeRate[] = ['fastestFee', 'halfHourFee', 'hourFee', 'custom']
+const estimatedFeeRates = ['fastestFee', 'halfHourFee', 'hourFee', 'custom'] as const
 
 export const NetworkFees = () => {
   const {

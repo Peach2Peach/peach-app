@@ -1,3 +1,4 @@
+import { responseUtils } from 'test-utils'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
 import i18n from '../../../utils/i18n'
@@ -27,13 +28,6 @@ const handleMultipleOffersPublishedMock = jest.fn().mockResolvedValue(multipleOf
 jest.mock('./handleMultipleOffersPublished', () => ({
   handleMultipleOffersPublished: (...args: unknown[]) => handleMultipleOffersPublishedMock(...args),
 }))
-
-const responseUtils = {
-  isError: jest.fn(),
-  isOk: jest.fn(),
-  getError: jest.fn(),
-  getValue: jest.fn(),
-}
 
 // eslint-disable-next-line max-lines-per-function
 describe('publishSellOffer', () => {

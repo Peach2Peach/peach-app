@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { setBatching } from '../../utils/peachAPI'
+import { setBatching } from '../../utils/peachAPI/private/user/setBatching'
 import { useShowErrorBanner } from '../useShowErrorBanner'
 
-type Props = Pick<SelfUser, 'isBatchingEnabled'>
+type Props = Pick<User, 'isBatchingEnabled'>
 
 export const useToggleBatching = ({ isBatchingEnabled }: Props) => {
   const queryClient = useQueryClient()
@@ -11,11 +11,10 @@ export const useToggleBatching = ({ isBatchingEnabled }: Props) => {
   return useMutation({
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['user', 'self'] })
-      const previousData = queryClient.getQueryData<SelfUser>(['user', 'self'])
+      const previousData = queryClient.getQueryData<User>(['user', 'self'])
       queryClient.setQueryData(
         ['user', 'self'],
-        (oldQueryData: SelfUser | undefined) =>
-          oldQueryData && { ...oldQueryData, isBatchingEnabled: !isBatchingEnabled },
+        (oldQueryData: User | undefined) => oldQueryData && { ...oldQueryData, isBatchingEnabled: !isBatchingEnabled },
       )
 
       return { previousData }

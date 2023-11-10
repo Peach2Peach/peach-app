@@ -36,7 +36,7 @@ export type UpdateUserProps = RequestProps & {
   pgp?: PGPKeychain
   fcmToken?: string
   referralCode?: string
-  feeRate?: FeeRate | number
+  feeRate?: FeeRate
 }
 
 export const updateUser = async ({ pgp, fcmToken, referralCode, feeRate, timeout }: UpdateUserProps) => {

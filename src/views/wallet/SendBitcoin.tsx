@@ -126,14 +126,14 @@ function Section ({ title, action, children }: SectionProps) {
   )
 }
 
-const feeRates: FeeRate[] = ['fastestFee', 'halfHourFee', 'hourFee', 'custom']
+const feeRates = ['fastestFee', 'halfHourFee', 'hourFee', 'custom'] as const
 
 function Fees ({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
-  const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate>('fastestFee')
+  const [selectedFeeRate, setSelectedFeeRate] = useState<(typeof feeRates)[number]>('fastestFee')
   const [customFeeRate, setCustomFeeRate] = useState('')
   const { estimatedFees } = useFeeEstimate()
 
-  const onFeeRateChange = (feeRate: FeeRate) => {
+  const onFeeRateChange = (feeRate: (typeof feeRates)[number]) => {
     updateFee(feeRate === 'custom' ? (customFeeRate === '' ? undefined : Number(customFeeRate)) : estimatedFees[feeRate])
   }
 
@@ -142,7 +142,7 @@ function Fees ({ updateFee }: { updateFee: (fee: number | undefined) => void }) 
     updateFee(feeRate === '' ? undefined : Number(feeRate))
   }
 
-  const onButtonPress = (feeRate: FeeRate) => {
+  const onButtonPress = (feeRate: (typeof feeRates)[number]) => {
     setSelectedFeeRate(feeRate)
     onFeeRateChange(feeRate)
   }
