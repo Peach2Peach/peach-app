@@ -18,7 +18,7 @@ type Settings = {
   shouldShowBackupOverlay: boolean
   peachWalletActive: boolean
   nodeURL: string
-  feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'
+  feeRate: FeeRate
   usedReferralCode?: boolean
   cloudflareChallenge?: {
     cfClearance: string

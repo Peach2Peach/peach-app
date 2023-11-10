@@ -1619,6 +1619,7 @@ exports[`MyProfile should render correctly 1`] = `
                         ]
                       }
                     >
+                      0
                        
                       resolved
                     </Text>

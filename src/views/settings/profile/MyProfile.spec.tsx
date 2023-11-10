@@ -1,14 +1,12 @@
 import { render, waitFor } from 'test-utils'
 import { apiSuccess } from '../../../../tests/unit/data/peachAPIData'
-import { defaultSelfUser } from '../../../../tests/unit/data/userData'
+import { defaultUser } from '../../../../tests/unit/data/userData'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { MyProfile } from './MyProfile'
 
 const authMock = jest.fn().mockResolvedValue([apiSuccess, null])
-const getSelfUser = jest.fn().mockResolvedValue([defaultSelfUser, null])
-jest.mock('../../../utils/peachAPI', () => ({
+jest.mock('../../../utils/peachAPI/private/user', () => ({
   auth: (...args: unknown[]) => authMock(...args),
-  getSelfUser: (...args: unknown[]) => getSelfUser(...args),
 }))
 
 jest.useFakeTimers()
@@ -21,7 +19,7 @@ describe('MyProfile', () => {
     const { toJSON } = render(<MyProfile />)
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(['user', 'self'])).toEqual(defaultSelfUser)
+      expect(queryClient.getQueryData(['user', 'self'])).toEqual(defaultUser)
     })
 
     expect(toJSON()).toMatchSnapshot()

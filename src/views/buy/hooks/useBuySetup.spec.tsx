@@ -1,7 +1,8 @@
-import { act, renderHook, waitFor } from 'test-utils'
-import { defaultSelfUser } from '../../../../tests/unit/data/userData'
+import { act, renderHook, responseUtils, waitFor } from 'test-utils'
+import { defaultUser } from '../../../../tests/unit/data/userData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { peachAPI } from '../../../utils/peachAPI'
 import { useBuySetup } from './useBuySetup'
 
 const useHeaderSetupMock = jest.fn()
@@ -26,10 +27,7 @@ jest.mock('../../../utils/account', () => ({
   isBackupMandatory: () => mockIsBackupMandatory(),
 }))
 
-const getSelfUserMock = jest.fn().mockResolvedValue([defaultSelfUser, null])
-jest.mock('../../../utils/peachAPI', () => ({
-  getSelfUser: () => getSelfUserMock(),
-}))
+const getSelfUserMock = jest.spyOn(peachAPI.private.user, 'getSelfUser')
 
 jest.useFakeTimers()
 
@@ -47,7 +45,11 @@ describe('useBuySetup', () => {
   it('should free trades from user', async () => {
     const freeTrades = 5
     const maxFreeTrades = 5
-    getSelfUserMock.mockResolvedValueOnce([{ ...defaultSelfUser, freeTrades, maxFreeTrades }, null])
+    getSelfUserMock.mockResolvedValueOnce({
+      result: { ...defaultUser, freeTrades, maxFreeTrades },
+      error: undefined,
+      ...responseUtils,
+    })
     const { result } = renderHook(useBuySetup)
     await waitFor(() => expect(result.current.freeTrades).toEqual(freeTrades))
     expect(result.current.freeTrades).toEqual(maxFreeTrades)

@@ -16,7 +16,7 @@ export const useNetworkFeesSetup = () => {
 
   const [feeRate, setFeeRate] = useSettingsStore((state) => [state.feeRate, state.setFeeRate], shallow)
 
-  const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate | number>(
+  const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate | 'custom'>(
     typeof feeRate === 'number' ? 'custom' : feeRate,
   )
   const [customFeeRate, setCustomFeeRate, isValidCustomFeeRate] = useValidatedState(

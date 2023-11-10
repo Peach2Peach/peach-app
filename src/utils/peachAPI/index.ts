@@ -39,7 +39,6 @@ export {
   auth,
   deletePaymentHash,
   fetchAccessToken,
-  getSelfUser,
   getTradingLimit,
   getUserPaymentMethodInfo,
   logoutUser,

@@ -15,3 +15,10 @@ export * from '@testing-library/react-native'
 
 // override render method
 export { customRender as render, customRenderHook as renderHook }
+
+export const responseUtils = {
+  isError: jest.fn(),
+  isOk: jest.fn(),
+  getError: jest.fn(),
+  getValue: jest.fn(),
+}

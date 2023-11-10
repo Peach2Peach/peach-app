@@ -38,26 +38,37 @@ type APIError = {
   details?: unknown
 }
 
-type FeeRate = 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee' | 'custom'
+type FeeRate = 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee' | number
 
 type User = {
-  id: string
-  creationDate: Date
-  trades: number
-  rating: number
-  userRating: number
-  historyRating: number
-  recentRating: number
-  ratingCount: number
-  peachRating: number
-  medals: Medal[]
-  referralCode?: string
-  usedReferralCode?: string
+  banned: boolean
   bonusPoints: number
-  referredTradingAmount: number
+  creationDate: Date
+  disabled: boolean
   disputes: { opened: number; won: number; lost: number; resolved: number }
+  fcmToken?: string
+  feeRate: FeeRate
+  freeTrades?: number
+  historyRating: number
+  id: string
+  isBatchingEnabled: boolean
+  kyc: boolean
+  lastModified: Date
+  linkedIds: string[]
+  maxFreeTrades?: number
+  medals: Medal[]
+  peachRating: number
   pgpPublicKey: string
   pgpPublicKeyProof: string
+  rating: number
+  ratingCount: number
+  recentRating: number
+  referralCode?: string
+  referredTradingAmount: number
+  trades: number
+  uniqueId: string
+  usedReferralCode?: string
+  userRating: number
 }
 
 type PublicUser = Omit<
@@ -71,16 +82,10 @@ type PublicUser = Omit<
   | 'referredTradingAmount'
   | 'bonusPoints'
   | 'feeRate'
+  | 'freeTrades'
+  | 'maxFreeTrades'
+  | 'isBatchingEnabled'
 >
-
-type SelfUser = User & {
-  feeRate: FeeRate
-  freeTrades: number
-  maxFreeTrades: number
-  historyRating: number
-  recentRating: number
-  isBatchingEnabled: boolean
-}
 
 type TradingLimit = {
   daily: number

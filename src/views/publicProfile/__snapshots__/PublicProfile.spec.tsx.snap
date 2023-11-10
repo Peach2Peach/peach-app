@@ -1029,6 +1029,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                   ]
                 }
               >
+                0
                  
                 resolved
               </Text>
