@@ -51,7 +51,7 @@ export const useMeetupScreenSetup = () => {
   }
 
   return {
-    paymentMethod: `cash.${event.id}` as PaymentMethod,
+    paymentMethod: `cash.${event.id}` satisfies PaymentMethod,
     event,
     deletable,
     addToPaymentMethods,

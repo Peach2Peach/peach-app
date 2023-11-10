@@ -1,3 +1,29 @@
+type OfferDraft = {
+  type: 'bid' | 'ask'
+  meansOfPayment: MeansOfPayment
+  paymentData: OfferPaymentData
+  originalPaymentData: PaymentData[]
+  walletLabel?: string
+  tradeStatus?: TradeStatus
+}
+
+type Offer = Omit<OfferDraft, 'originalPaymentData'> & {
+  id: string
+  creationDate: Date
+  lastModified: Date
+  publishingDate?: Date
+  online: boolean
+
+  user: PublicUser
+  matches: Offer['id'][]
+  doubleMatched: boolean
+  contractId?: string
+  escrowFee: number
+  freeTrade: boolean
+
+  tradeStatus: TradeStatus
+}
+
 type SellOfferDraft = OfferDraft & {
   type: 'ask'
   amount: number
@@ -6,31 +32,30 @@ type SellOfferDraft = OfferDraft & {
   funding: FundingStatus
   multi?: number
 }
-type SellOffer = SellOfferDraft &
-  Offer & {
-    id: string
-    escrow?: string
-    tx?: string
-    refundTx?: string // base 64 encoded psbt
-    txId?: string
-    released: boolean
-    matched: Offer['id'][]
-    seenMatches: Offer['id'][]
-  }
+type SellOffer = Omit<SellOfferDraft & Offer, 'originalPaymentData'> & {
+  escrow?: string
+  escrowNotifiedUser?: boolean
+  tx?: string
+  refundTx?: string // base 64 encoded psbt
+  releaseTx?: string
+  txId?: string
+  refunded: boolean
+  released: boolean
+  fundingAmountDifferent: boolean
+  publicKey: string
+
+  oldOfferId?: string
+  newOfferId?: string
+  prices?: Pricebook
+}
 
 type BuyOfferDraft = OfferDraft & {
-  amount: [number, number]
   type: 'bid'
   releaseAddress: string
-  message?: string
+  amount: [number, number]
+  message: string
   messageSignature?: string
   maxPremium: number | null
 }
 
-type BuyOffer = BuyOfferDraft &
-  Offer & {
-    id: string
-    matched: Offer['id'][]
-    seenMatches: Offer['id'][]
-    maxPremium: number | null
-  }
+type BuyOffer = Omit<BuyOfferDraft & Offer, 'originalPaymentData'>
