@@ -5,10 +5,6 @@ import { ReferralCode } from './ReferralCode'
 
 jest.useFakeTimers()
 
-jest.mock('../../../utils/peachAPI', () => ({
-  getSelfUser: jest.fn(() => Promise.resolve([{ referralCode: 'HALFIN' }])),
-}))
-
 describe('ReferralCode', () => {
   it('should render component correctly', async () => {
     await waitFor(() => {
@@ -28,7 +24,7 @@ describe('ReferralCode', () => {
     expect(openSpy).toHaveBeenCalledWith({
       message:
         // eslint-disable-next-line max-len
-        "Hey! I've been loving Peach for buying and selling Bitcoin – it's flexible, peer-to-peer, and KYC-free. Join me using my code HALFIN or simply follow this link: https://peachbitcoin.com/referral?code=HALFIN",
+        "Hey! I've been loving Peach for buying and selling Bitcoin – it's flexible, peer-to-peer, and KYC-free. Join me using my code PR0063 or simply follow this link: https://peachbitcoin.com/referral?code=PR0063",
     })
   })
 })
