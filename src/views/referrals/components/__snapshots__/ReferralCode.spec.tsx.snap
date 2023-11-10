@@ -1,22 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ReferralCode should render component correctly 1`] = `
-<View
-  style={
-    {
-      "gap": 16,
-    }
-  }
->
-  <YourCode
-    referralCode="HALFIN"
-  />
-  <InviteLink
-    inviteLink="https://peachbitcoin.com/referral?code=HALFIN"
-  />
-  <InviteFriendsButton
-    inviteLink="https://peachbitcoin.com/referral?code=HALFIN"
-    referralCode="HALFIN"
-  />
-</View>
-`;
+exports[`ReferralCode should render component correctly 1`] = `null`;

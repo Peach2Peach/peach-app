@@ -1,20 +1,29 @@
 import Share from 'react-native-share'
-import { createRenderer } from 'react-test-renderer/shallow'
-import { fireEvent, render } from 'test-utils'
+import { fireEvent, render, waitFor } from 'test-utils'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { ReferralCode } from './ReferralCode'
 
 jest.useFakeTimers()
 
+jest.mock('../../../utils/peachAPI', () => ({
+  getSelfUser: jest.fn(() => Promise.resolve([{ referralCode: 'HALFIN' }])),
+}))
+
 describe('ReferralCode', () => {
-  const shallowRenderer = createRenderer()
-  it('should render component correctly', () => {
-    shallowRenderer.render(<ReferralCode referralCode="HALFIN" />)
-    expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
+  it('should render component correctly', async () => {
+    await waitFor(() => {
+      expect(queryClient.isFetching()).toBeFalsy()
+    })
+    expect(render(<ReferralCode />)).toMatchSnapshot()
   })
-  it('open share dialogue with ref code and invite link', () => {
+  it('open share dialogue with ref code and invite link', async () => {
     const openSpy = jest.spyOn(Share, 'open')
     openSpy.mockResolvedValue({ message: 'ok', success: true })
-    const { getByText } = render(<ReferralCode referralCode="HALFIN" />)
+    await waitFor(() => {
+      expect(queryClient.isFetching()).toBeFalsy()
+    })
+
+    const { getByText } = render(<ReferralCode />)
     fireEvent.press(getByText('invite friends'))
     expect(openSpy).toHaveBeenCalledWith({
       message:
