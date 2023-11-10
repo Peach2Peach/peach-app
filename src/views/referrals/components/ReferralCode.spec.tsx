@@ -7,10 +7,11 @@ jest.useFakeTimers()
 
 describe('ReferralCode', () => {
   it('should render component correctly', async () => {
+    const { toJSON } = render(<ReferralCode />)
     await waitFor(() => {
-      expect(queryClient.isFetching()).toBeFalsy()
+      expect(queryClient.isFetching()).toBe(0)
     })
-    expect(render(<ReferralCode />)).toMatchSnapshot()
+    expect(toJSON()).toMatchSnapshot()
   })
   it('open share dialogue with ref code and invite link', async () => {
     const openSpy = jest.spyOn(Share, 'open')
