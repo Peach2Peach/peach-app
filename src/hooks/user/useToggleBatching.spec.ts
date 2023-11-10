@@ -9,7 +9,7 @@ jest.mock('../../hooks/useShowErrorBanner', () => ({
 }))
 
 const setBatchingMock = jest.fn().mockResolvedValue([{ success: true }, null])
-jest.mock('../../utils/peachAPI', () => ({
+jest.mock('../../utils/peachAPI/private/user/setBatching', () => ({
   setBatching: (...args: unknown[]) => setBatchingMock(...args),
 }))
 
