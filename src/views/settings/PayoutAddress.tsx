@@ -1,53 +1,75 @@
-import { View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 
-import { Header, Icon, PeachScrollView, Screen, Text } from '../../components'
+import { shallow } from 'zustand/shallow'
+import { Header, Icon, Screen, Text } from '../../components'
 import { OpenWallet } from '../../components/bitcoin'
 import { Button } from '../../components/buttons/Button'
 import { BitcoinAddressInput, Input } from '../../components/inputs'
-import { useRoute, useShowHelp } from '../../hooks'
+import { PopupAction } from '../../components/popup'
+import { useNavigation, useRoute, useShowHelp, useValidatedState } from '../../hooks'
+import { ErrorPopup } from '../../popups/ErrorPopup'
+import { ClosePopupAction } from '../../popups/actions'
+import { useSettingsStore } from '../../store/settingsStore'
+import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
-import { usePayoutAddressSetup } from './hooks/usePayoutAddressSetup'
+
+const addressRules = { bitcoinAddress: true, blockTaprootAddress: true, required: true }
+const labelRules = { required: true }
 
 export const PayoutAddress = () => {
-  const {
-    type,
-    address,
-    setAddress,
-    addressErrors,
-    addressValid,
-    addressLabel,
-    setAddressLabel,
-    addressLabelErrors,
-    addressLabelValid,
-    isUpdated,
-    save,
-  } = usePayoutAddressSetup()
+  const { type } = useRoute<'payoutAddress'>().params || {}
+  const navigation = useNavigation()
+
+  const [payoutAddress, setPayoutAddress, payoutAddressLabel, setPayoutAddressLabel] = useSettingsStore(
+    (state) => [state.payoutAddress, state.setPayoutAddress, state.payoutAddressLabel, state.setPayoutAddressLabel],
+    shallow,
+  )
+  const [address, setAddress, addressValid, addressErrors] = useValidatedState(payoutAddress || '', addressRules)
+  const [addressLabel, setAddressLabel, addressLabelValid, addressLabelErrors] = useValidatedState(
+    payoutAddressLabel || '',
+    labelRules,
+  )
+  const isUpdated = address === payoutAddress && addressLabel === payoutAddressLabel
+
+  const save = () => {
+    if (addressValid && addressLabelValid) {
+      const addressChanged = payoutAddress !== address
+      setPayoutAddress(address)
+      setPayoutAddressLabel(addressLabel)
+
+      if (type === 'payout' && addressChanged) navigation.replace('signMessage')
+      if (type === 'refund' && addressChanged) navigation.goBack()
+    }
+  }
 
   return (
     <Screen header={<PayoutAddressHeader />}>
-      <PeachScrollView contentContainerStyle={tw`items-center justify-center px-8 grow`}>
-        <Text style={tw`text-center h6`}>
+      <View style={tw`items-center justify-center grow`}>
+        <Text style={tw`h6`}>
           {i18n(type === 'refund' ? 'settings.refundAddress.title' : 'settings.payoutAddress.title')}
         </Text>
         <Input
-          style={tw`mt-4`}
           value={addressLabel}
           placeholder={i18n('form.address.label.placeholder')}
+          placeholderTextColor={tw`text-black-5`.color}
           onChange={setAddressLabel}
           errorMessage={addressLabelErrors}
         />
         <BitcoinAddressInput onChange={setAddress} value={address} errorMessage={addressErrors} />
         {isUpdated ? (
-          <View style={tw`flex-row justify-center gap-1 h6`}>
-            <Text style={tw`uppercase button-medium`}>{i18n('settings.payoutAddress.success')}</Text>
-            <Icon id="check" size={20} color={tw`text-success-main`.color} />
+          <View style={tw`gap-2`}>
+            <View style={tw`flex-row justify-center gap-1`}>
+              <Text style={tw`uppercase button-medium`}>{i18n('settings.payoutAddress.success')}</Text>
+              <Icon id="check" size={20} color={tw`text-success-main`.color} />
+            </View>
+            <RemoveWalletButton setAddressInput={setAddress} setAddressLabelInput={setAddressLabel} />
           </View>
         ) : (
-          <OpenWallet style={tw`h-6`} address={address} />
+          <OpenWallet address={address} />
         )}
-      </PeachScrollView>
+      </View>
       <Button
         style={tw`self-center`}
         onPress={save}
@@ -67,4 +89,49 @@ function PayoutAddressHeader () {
     payout: 'settings.payoutAddress',
   }
   return <Header title={i18n(title[type || 'payout'])} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
+}
+type PopupProps = {
+  setAddressInput: (address: string) => void
+  setAddressLabelInput: (label: string) => void
+}
+
+function RemoveWalletButton (popupProps: PopupProps) {
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const openRemoveWalletPopup = () => {
+    setPopup(<RemoveWalletPopup {...popupProps} />)
+  }
+
+  return (
+    <TouchableOpacity onPress={openRemoveWalletPopup} style={tw`flex-row justify-center gap-1`}>
+      <Text style={tw`underline uppercase button-medium`}>{i18n('settings.payoutAddress.removeWallet')}</Text>
+      <Icon id="trash" size={20} color={tw`text-error-main`.color} />
+    </TouchableOpacity>
+  )
+}
+
+function RemoveWalletPopup ({ setAddressInput, setAddressLabelInput }: PopupProps) {
+  const [setPayoutAddress, setPayoutAddressLabel] = useSettingsStore(
+    (state) => [state.setPayoutAddress, state.setPayoutAddressLabel],
+    shallow,
+  )
+  const closePopup = usePopupStore((state) => state.closePopup)
+  const removeWallet = () => {
+    setPayoutAddress(undefined)
+    setPayoutAddressLabel(undefined)
+    setAddressInput('')
+    setAddressLabelInput('')
+    closePopup()
+  }
+  return (
+    <ErrorPopup
+      title={i18n('settings.payoutAddress.popup.title')}
+      content={<Text>{i18n('settings.payoutAddress.popup.content')}</Text>}
+      actions={
+        <>
+          <PopupAction iconId="trash" label={i18n('settings.payoutAddress.popup.remove')} onPress={removeWallet} />
+          <ClosePopupAction reverseOrder />
+        </>
+      }
+    />
+  )
 }

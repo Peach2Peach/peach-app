@@ -91,6 +91,7 @@
   "settings.payoutAddress" : "benutzerdefinierte Auszahlungsadresse",
   "settings.payoutAddress.confirm" : "bestätigen",
   "settings.payoutAddress.popup" : "Standardmäßig werden alle Auszahlungen an deine Peach-Wallet gesendet.\n\nWenn du möchtest, dass sie an eine andere Adresse gesendet werden, kannst du hier eine benutzerdefinierte Adresse eingeben.",
+  "settings.payoutAddress.removeWallet" : "Wallet entfernen",
   "settings.payoutAddress.success" : "Adresse festgelegt",
   "settings.payoutAddress.title" : "benutzerdefinierte Adresse festlegen",
   "settings.peachApp" : "Peach Bitcoin v",
