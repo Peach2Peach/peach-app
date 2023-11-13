@@ -469,7 +469,7 @@ describe('PeachWallet - loadWallet', () => {
     await peachWallet.initWallet(account1.mnemonic)
     expect(mnemonicFromStringMock).toHaveBeenCalledWith(account1.mnemonic)
   })
-  it('load existing when wallet store is ready', () => {
+  it('load existing when wallet store is ready', async () => {
     const balance = 50000
     const hasHydratedSpy = jest.spyOn(useWalletState.persist, 'hasHydrated')
     const onFinishHydrationSpy = jest.spyOn(useWalletState.persist, 'onFinishHydration')
@@ -477,7 +477,7 @@ describe('PeachWallet - loadWallet', () => {
     // @ts-expect-error it's just a mock
     onFinishHydrationSpy.mockImplementationOnce((cb) => cb(useWalletState.getState()))
     useWalletState.getState().setBalance(balance)
-    peachWallet.loadWallet()
+    await peachWallet.loadWallet()
     expect(peachWallet.balance).toBe(balance)
   })
   it('sets initialized to true when wallet is loaded', async () => {
