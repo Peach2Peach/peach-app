@@ -52,31 +52,37 @@ export type HeaderConfig = {
 const newThemes = {
   buyer: {
     bg: tw`bg-success-background-dark`,
+    title: tw`text-black-1`,
     subtitle: tw`text-success-main`,
     border: tw`border-success-mild-1`,
   },
   seller: {
     bg: tw`bg-primary-background-dark`,
+    title: tw`text-black-1`,
     subtitle: tw`text-primary-main`,
     border: tw`border-primary-mild-1`,
   },
   paymentTooLate: {
     bg: tw`bg-warning-mild-1`,
+    title: tw`text-black-1`,
     subtitle: tw`text-black-1`,
     border: tw`border-warning-mild-2`,
   },
   dispute: {
     bg: tw`bg-error-main`,
+    title: tw`text-primary-background-light`,
     subtitle: tw`text-primary-background-light`,
     border: tw`border-error-dark`,
   },
   cancel: {
     bg: tw`bg-black-5`,
+    title: tw`text-black-1`,
     subtitle: tw`text-black-1`,
     border: tw`border-black-4`,
   },
   default: {
     bg: tw`bg-primary-background`,
+    title: tw`text-black-1`,
     subtitle: tw`text-black-1`,
     border: tw`border-primary-background-dark`,
   },
@@ -129,10 +135,7 @@ function HeaderNavigation ({
           </TouchableOpacity>
         )}
         {titleComponent || (
-          <Text
-            style={[...fontSize, theme !== 'dispute' ? tw`text-black-1` : tw`text-primary-background-light`, tw`flex-1`]}
-            numberOfLines={1}
-          >
+          <Text style={[...fontSize, newThemes[theme].title, tw`flex-1`]} numberOfLines={1}>
             {title}
           </Text>
         )}
