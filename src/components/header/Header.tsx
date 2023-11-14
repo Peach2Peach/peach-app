@@ -52,32 +52,32 @@ export type HeaderConfig = {
 const newThemes = {
   buyer: {
     bg: tw`bg-success-background-dark`,
-    text: tw`text-success-main`,
+    subtitle: tw`text-success-main`,
     border: tw`border-success-mild-1`,
   },
   seller: {
     bg: tw`bg-primary-background-dark`,
-    text: tw`text-primary-main`,
+    subtitle: tw`text-primary-main`,
     border: tw`border-primary-mild-1`,
   },
   paymentTooLate: {
     bg: tw`bg-warning-mild-1`,
-    text: tw`text-black-1`,
+    subtitle: tw`text-black-1`,
     border: tw`border-warning-mild-2`,
   },
   dispute: {
     bg: tw`bg-error-main`,
-    text: tw`text-primary-background-light`,
+    subtitle: tw`text-primary-background-light`,
     border: tw`border-error-dark`,
   },
   cancel: {
     bg: tw`bg-black-5`,
-    text: tw`text-black-1`,
+    subtitle: tw`text-black-1`,
     border: tw`border-black-4`,
   },
   default: {
     bg: tw`bg-primary-background`,
-    text: tw`text-black-1`,
+    subtitle: tw`text-black-1`,
     border: tw`border-primary-background-dark`,
   },
 }
@@ -193,11 +193,11 @@ type HeaderSubtitleProps = {
 function HeaderSubtitle ({ theme = 'default', amount, premium, viewer, text }: HeaderSubtitleProps) {
   return (
     <View style={[tw`flex-row items-center justify-between py-2px px-sm`, tw.md`px-md py-2`]}>
-      <Text style={[tw`subtitle-1`, newThemes[theme].text, tw.md`subtitle-0`]}>
+      <Text style={[tw`subtitle-1`, newThemes[theme].subtitle, tw.md`subtitle-0`]}>
         {text ?? i18n(viewer === 'buyer' ? 'buy.subtitle.highlight' : 'sell.subtitle.highlight')}
       </Text>
       <BTCAmount amount={amount} style={tw`pb-2px`} white={theme === 'dispute'} size="medium" />
-      <Text style={[tw`subtitle-1 pt-3px`, newThemes[theme].text]}>
+      <Text style={[tw`subtitle-1 pt-3px`, newThemes[theme].subtitle]}>
         {premium > 0 ? '+' : ''}
         {String(premium)}%
       </Text>
