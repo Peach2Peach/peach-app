@@ -86,6 +86,12 @@ const newThemes = {
     subtitle: tw`text-black-1`,
     border: tw`border-primary-background-dark`,
   },
+  transparent: {
+    bg: tw`bg-transparent`,
+    title: tw`text-primary-background-light`,
+    subtitle: tw`text-primary-background-light`,
+    border: tw`border-transparent`,
+  },
 }
 export const Header = ({
   showPriceStats,
