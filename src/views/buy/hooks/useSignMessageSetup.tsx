@@ -2,7 +2,8 @@ import { useMemo } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useNavigation, useValidatedState } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { account, getMessageToSignForAddress } from '../../../utils/account'
+import { getMessageToSignForAddress } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { parseSignature } from '../helpers/parseSignature'
 
 export const useSignMessageSetup = () => {
@@ -11,7 +12,8 @@ export const useSignMessageSetup = () => {
     (state) => [state.payoutAddress, state.setPayoutAddressSignature],
     shallow,
   )
-  const message = address ? getMessageToSignForAddress(account.publicKey, address) : undefined
+  const publicKey = useAccountStore((state) => state.account.publicKey)
+  const message = address ? getMessageToSignForAddress(publicKey, address) : undefined
   const signatureRules = useMemo(
     () => ({
       signature: [address, message],

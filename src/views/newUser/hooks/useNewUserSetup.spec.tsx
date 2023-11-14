@@ -9,10 +9,11 @@ import {
   useNotificationStore,
 } from '../../../components/footer/notificationsStore'
 import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
-import { useConfigStore } from '../../../store/configStore'
-import { defaultConfig } from '../../../store/defaults'
+import { useConfigStore } from '../../../store/configStore/configStore'
+import { defaultConfig } from '../../../store/configStore/defaultConfig'
 import { defaultSettings, settingsStorage, useSettingsStore } from '../../../store/settingsStore'
-import { defaultAccount, getAccount, setAccount } from '../../../utils/account'
+import { defaultAccount, setAccount } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { accountStorage } from '../../../utils/account/accountStorage'
 import { chatStorage } from '../../../utils/account/chatStorage'
 import { offerStorage } from '../../../utils/account/offerStorage'
@@ -85,7 +86,8 @@ describe('useNewUserSetup', () => {
   it('should create an account', async () => {
     renderHook(useNewUserSetup)
     await forProcessToFinish()
-    expect(getAccount()).toStrictEqual(recoveredAccount)
+    const account = useAccountStore.getState().account
+    expect(account).toStrictEqual(recoveredAccount)
     expect(registerMock).toHaveBeenCalledWith({
       message: 'Peach Registration 1672441200000',
       publicKey: '03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682',
@@ -135,7 +137,8 @@ describe('useNewUserSetup', () => {
       error: 'testError',
       userExistsForDevice: false,
     })
-    expect(getAccount()).toStrictEqual(defaultAccount)
+    const account = useAccountStore.getState().account
+    expect(account).toStrictEqual(defaultAccount)
 
     const storages = [accountStorage, walletStorage, offerStorage, chatStorage, settingsStorage, notificationStorage]
 
@@ -164,7 +167,8 @@ describe('useNewUserSetup', () => {
       error: 'testError',
       userExistsForDevice: false,
     })
-    expect(getAccount()).toStrictEqual(defaultAccount)
+    const account = useAccountStore.getState().account
+    expect(account).toStrictEqual(defaultAccount)
 
     const storages = [accountStorage, walletStorage, offerStorage, chatStorage, settingsStorage, notificationStorage]
 

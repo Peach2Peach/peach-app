@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import { Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation, useRoute } from '../../hooks'
-import { useConfigStore } from '../../store/configStore'
+import { useConfigStore } from '../../store/configStore/configStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 

@@ -6,7 +6,7 @@ import { Button } from '../../components/buttons/Button'
 import { useRoute } from '../../hooks'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
 import tw from '../../styles/tailwind'
-import { account } from '../../utils/account'
+import { useAccountStore } from '../../utils/account/account'
 import { logTradeCompleted } from '../../utils/analytics'
 import { getContractViewer } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -23,7 +23,7 @@ export const TradeComplete = () => {
 
 function TradeCompleteView ({ contract }: { contract: Contract }) {
   const [vote, setVote] = useState<'positive' | 'negative'>()
-
+  const account = useAccountStore((state) => state.account)
   const view = getContractViewer(contract, account)
 
   useEffect(() => {

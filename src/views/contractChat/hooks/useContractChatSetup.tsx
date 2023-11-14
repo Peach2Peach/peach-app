@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useRoute } from '../../../hooks'
 import { useChatMessages } from '../../../hooks/query/useChatMessages'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { account } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { deleteMessage, getChat, getUnsentMessages, saveChat } from '../../../utils/chat'
 import { getTradingPartner } from '../../../utils/contract'
 import { error } from '../../../utils/log'
@@ -24,6 +24,7 @@ export const useContractChatSetup = (contract: Contract) => {
     fetchNextPage,
   } = useChatMessages({ id: contractId, symmetricKey: decryptedData?.symmetricKey })
   const showError = useShowErrorBanner()
+  const account = useAccountStore((state) => state.account)
   const tradingPartner = contract ? getTradingPartner(contract, account) : null
   const [chat, setChat] = useState(getChat(contractId))
   const [newMessage, setNewMessage] = useState(chat.draftMessage)
@@ -64,7 +65,7 @@ export const useContractChatSetup = (contract: Contract) => {
         false,
       )
     },
-    [contractId, connected, decryptedData?.symmetricKey, send, tradingPartner],
+    [contractId, connected, decryptedData?.symmetricKey, send, tradingPartner, account.publicKey],
   )
   const resendMessage = (message: Message) => {
     if (!connected) return
@@ -144,7 +145,7 @@ export const useContractChatSetup = (contract: Contract) => {
     if (!connected) return unsubscribe
     on('message', messageHandler)
     return unsubscribe
-  }, [contract, contractId, connected, on, send, off, decryptedData?.symmetricKey])
+  }, [contract, contractId, connected, on, send, off, decryptedData?.symmetricKey, account.publicKey])
 
   useEffect(() => {
     if (messages) setAndSaveChat(contractId, { messages })

@@ -4,7 +4,7 @@ import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
-import { account } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
 import { toggleCurrency } from '../../inputs/paymentMethods/paymentForms/utils'
 
@@ -14,6 +14,7 @@ export const useMeetupScreenSetup = () => {
   const deletable = route.params.deletable ?? false
   const goToOrigin = useGoToOrigin()
   const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
+  const account = useAccountStore((state) => state.account)
   const event: MeetupEvent = getMeetupEvent(eventId) || {
     id: eventId,
     longName: '',

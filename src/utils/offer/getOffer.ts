@@ -1,7 +1,8 @@
-import { account } from '../account'
+import { useAccountStore } from '../account/account'
 import { isSellOffer } from './isSellOffer'
 
 export const getOffer = (id: string): SellOffer | BuyOffer | undefined => {
+  const account = useAccountStore.getState().account
   const offer = account.offers.find((c) => c.id === id)
 
   if (!offer) return undefined

@@ -1,7 +1,7 @@
-import { account } from '../account'
+import { useAccountStore } from '../account/account'
 
 export const getChat = (id: string): Chat => {
-  const chat = account.chats[id]
+  const chat = useAccountStore.getState().account.chats[id]
   let messages = chat?.messages
   const draftMessage = chat?.draftMessage
 

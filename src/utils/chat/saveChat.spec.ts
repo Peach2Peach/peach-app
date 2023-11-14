@@ -1,7 +1,8 @@
 import { deepStrictEqual, strictEqual } from 'assert'
-import { account, defaultAccount, setAccount } from '../account'
 import { saveChat } from '.'
 import * as chatData from '../../../tests/unit/data/chatData'
+import { defaultAccount, setAccount } from '../account'
+import { useAccountStore } from '../account/account'
 
 describe('saveChat', () => {
   beforeEach(() => {
@@ -11,11 +12,13 @@ describe('saveChat', () => {
   it('saves a new chat', () => {
     const savedChat = saveChat(chatData.chat1.id, chatData.chat1)
     deepStrictEqual(savedChat, chatData.chat1)
+    const account = useAccountStore.getState().account
     deepStrictEqual(account.chats[chatData.chat1.id], chatData.chat1)
   })
   it('does not duplicate messages when overwriting existing chat', () => {
     saveChat(chatData.chat1.id, chatData.chat1)
     saveChat(chatData.chat1.id, chatData.chat1)
+    const account = useAccountStore.getState().account
     strictEqual(account.chats[chatData.chat1.id].messages.length, 23)
   })
   it('removes duplicate messages', () => {

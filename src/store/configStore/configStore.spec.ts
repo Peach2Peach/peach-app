@@ -1,7 +1,7 @@
 import { useConfigStore } from './configStore'
 
 describe('configStore', () => {
-  afterEach(() => {
+  beforeEach(() => {
     useConfigStore.getState().reset()
   })
   it('dispute disclaimer seen state is false by default', () => {

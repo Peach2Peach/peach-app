@@ -2,7 +2,7 @@ import { act, renderHook } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { headerState, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
-import { account } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { useRestoreReputationSetup } from './useRestoreReputationSetup'
 
 jest.useFakeTimers()
@@ -50,6 +50,7 @@ describe('useRestoreReputationSetup', () => {
     })
     expect(result.current.isLoading).toBeTruthy()
     expect(result.current.isRestored).toBeTruthy()
+    const account = useAccountStore.getState().account
     expect(account).toEqual(account1)
 
     await act(jest.runAllTimers)

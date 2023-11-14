@@ -1,12 +1,13 @@
 import { Dispatch, EffectCallback } from 'react'
-import { account } from '../utils/account'
+import { useAccountStore } from '../utils/account/account'
 import { info } from '../utils/log'
 import { createWebsocket } from '../utils/peachAPI/websocket/createWebsocket'
 
 export const initWebSocket
   = (updatePeachWS: Function, updateMessage: Dispatch<MessageState>): EffectCallback =>
     () => {
-      if (!account.publicKey) {
+      const publicKey = useAccountStore.getState().account.publicKey
+      if (!publicKey) {
         setTimeout(() => {
           initWebSocket(updatePeachWS, updateMessage)()
         }, 10000)

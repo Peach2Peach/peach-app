@@ -1,4 +1,4 @@
-export { account, defaultAccount, getAccount, setAccount } from './account'
+export { defaultAccount, setAccount } from './account'
 export { backupAccount } from './backupAccount'
 export { createAccount } from './createAccount'
 export { createPeachAccount } from './createPeachAccount'

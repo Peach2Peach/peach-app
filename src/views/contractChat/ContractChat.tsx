@@ -8,7 +8,7 @@ import { useRoute } from '../../hooks'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
 import { useOpenDispute } from '../../popups/dispute/hooks/useOpenDispute'
 import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
-import { account } from '../../utils/account'
+import { useAccountStore } from '../../utils/account/account'
 import { canCancelContract, contractIdToHex, getContractViewer } from '../../utils/contract'
 import { headerIcons } from '../../utils/layout'
 import { isCashTrade } from '../../utils/paymentMethod'
@@ -57,6 +57,7 @@ type Props = {
 }
 
 function ContractChatHeader ({ contract, symmetricKey }: Props) {
+  const account = useAccountStore((state) => state.account)
   const view = getContractViewer(contract, account)
   const { contractId } = useRoute<'contractChat'>().params
 

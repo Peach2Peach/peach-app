@@ -1,4 +1,4 @@
-import { account } from './../account/account'
+import { useAccountStore } from './../account/account'
 import { getBuyOfferIdFromContract } from './getBuyOfferIdFromContract'
 import { getSellOfferIdFromContract } from './getSellOfferIdFromContract'
 
@@ -20,7 +20,8 @@ export const getSummaryFromContract = (
     | 'releaseTxId'
   >,
 ): ContractSummary => {
-  const type = account.publicKey === contract.seller.id ? 'ask' : 'bid'
+  const publicKey = useAccountStore.getState().account.publicKey
+  const type = publicKey === contract.seller.id ? 'ask' : 'bid'
   return {
     id: contract.id,
     offerId: type === 'ask' ? getSellOfferIdFromContract(contract) : getBuyOfferIdFromContract(contract),

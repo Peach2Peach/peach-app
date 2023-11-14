@@ -1,4 +1,4 @@
-import { APPVERSION } from '../constants'
+import { APPVERSION } from '../../constants'
 
 export const defaultConfig: Config = {
   paymentMethods: [],

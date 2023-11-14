@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
-import { useConfigStore } from '../../store/configStore'
+import { useConfigStore } from '../../store/configStore/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import tw from '../../styles/tailwind'
 

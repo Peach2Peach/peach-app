@@ -1,4 +1,4 @@
-import { account } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { getRandom } from '../../../utils/crypto'
 import { isBuyOffer } from '../../../utils/offer'
 import { cleanPaymentData, encryptPaymentData } from '../../../utils/paymentMethod'
@@ -18,6 +18,7 @@ type Props = {
   currency: Currency
   paymentMethod: PaymentMethod
 }
+// eslint-disable-next-line max-statements
 export const generateMatchOfferData = async ({
   offer,
   match,
@@ -43,6 +44,7 @@ export const generateMatchOfferData = async ({
 
   if (isBuyOffer(offer)) {
     const key = (await getRandom(256)).toString('hex')
+    const account = useAccountStore.getState().account
     const { encrypted, signature } = await signAndEncrypt(
       key,
       [account.pgp.publicKey, match.user.pgpPublicKey].join('\n'),

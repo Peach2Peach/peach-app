@@ -3,7 +3,8 @@ import { renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { account, setAccount } from '../../../utils/account'
+import { setAccount } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useHandleFundingStatus } from './useHandleFundingStatus'
 
@@ -85,6 +86,7 @@ describe('useHandleFundingStatus', () => {
     renderHook(useHandleFundingStatus, { initialProps })
     expect(replaceMock).not.toHaveBeenCalled()
     expect(startRefundPopupMock).not.toHaveBeenCalled()
+    const account = useAccountStore.getState().account
     expect(account.offers).toEqual([])
   })
   it('should save offer when funding status updates', () => {
@@ -96,6 +98,7 @@ describe('useHandleFundingStatus', () => {
       userConfirmationRequired: false,
     }
     renderHook(useHandleFundingStatus, { initialProps })
+    const account = useAccountStore.getState().account
     expect(account.offers[0]).toEqual({ ...sellOffer, funding: fundingStatus })
   })
   it('should handle funding status when it is CANCELED', () => {

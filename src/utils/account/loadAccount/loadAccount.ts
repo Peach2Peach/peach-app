@@ -1,7 +1,9 @@
-import { account, defaultAccount, loadChats, loadIdentity, loadOffers, loadTradingLimit, updateAccount } from '../'
+import { defaultAccount, loadChats, loadIdentity, loadOffers, loadTradingLimit, updateAccount } from '../'
 import { error, info } from '../../log'
+import { useAccountStore } from '../account'
 
 export const loadAccount = async (): Promise<Account> => {
+  const account = useAccountStore.getState().account
   if (account.publicKey) return account
 
   info('Loading full account from secure storage')
@@ -21,12 +23,10 @@ export const loadAccount = async (): Promise<Account> => {
     chats,
   }
 
-  if (!acc.publicKey) {
-    error('Account does not exist')
-  } else {
-    info('Account loaded', account.publicKey)
-    updateAccount(acc)
-  }
+  info('Account loaded', account.publicKey)
+  updateAccount(acc)
 
-  return account
+  const newAccount = useAccountStore.getState().account
+
+  return newAccount
 }

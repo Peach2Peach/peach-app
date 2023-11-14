@@ -1,6 +1,7 @@
 import { getChat, saveChat } from '.'
 import { chat1 } from '../../../tests/unit/data/chatData'
-import { account, defaultAccount, setAccount } from '../account'
+import { defaultAccount, setAccount } from '../account'
+import { useAccountStore } from '../account/account'
 
 const now = new Date()
 jest.useFakeTimers({ now })
@@ -13,6 +14,7 @@ describe('getChat', () => {
     saveChat(chat1.id, chat1)
     const chat = getChat(chat1.id)
     expect(chat).toEqual(chat1)
+    const account = useAccountStore.getState().account
     expect(account.chats[chat1.id]).toEqual(chat1)
   })
   it('returns an empty chat for non existing chats', () => {

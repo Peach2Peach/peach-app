@@ -1,5 +1,5 @@
 import { account1 } from '../../../tests/unit/data/accountData'
-import { account, setAccount } from '../account'
+import { setAccount } from '../account'
 import { createUserRating } from './createUserRating'
 
 const signMock = jest.fn().mockReturnValue(Buffer.from('abc'))
@@ -25,12 +25,10 @@ describe('createUserRating', () => {
   const rating = 1
 
   beforeEach(() => {
-    setAccount(account1)
+    setAccount({ ...account1, publicKey: 'publicKey' })
   })
 
   it('creates a rating with correct signature by using peach account', () => {
-    account.publicKey = 'publicKey'
-
     const ratingObj = createUserRating(userId, rating)
 
     expect(ratingObj.creationDate).toBeInstanceOf(Date)

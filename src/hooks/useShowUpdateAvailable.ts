@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useMessageState } from '../components/message/useMessageState'
 import { APPVERSION, BUILDNUMBER } from '../constants'
-import { useConfigStore } from '../store/configStore'
+import { useConfigStore } from '../store/configStore/configStore'
 import i18n from '../utils/i18n'
 import { compatibilityCheck, linkToAppStore } from '../utils/system'
 

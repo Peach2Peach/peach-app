@@ -7,7 +7,7 @@ import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../store/settingsStore'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
-import { account } from '../../utils/account'
+import { useAccountStore } from '../../utils/account/account'
 import { getSellOfferFromContract } from '../../utils/contract'
 import { getWalletLabelFromContract } from '../../utils/contract/getWalletLabelFromContract'
 import i18n from '../../utils/i18n'
@@ -28,6 +28,7 @@ export const useConfirmCancelTrade = () => {
     (state) => [state.payoutAddress, state.payoutAddressLabel, state.peachWalletActive],
     shallow,
   )
+  const publicKey = useAccountStore((state) => state.account.publicKey)
 
   const cancelBuyer = useCallback(
     async (contract: Contract) => {
@@ -76,7 +77,7 @@ export const useConfirmCancelTrade = () => {
 
   const showConfirmPopup = useCallback(
     (contract: Contract) => {
-      const view = account.publicKey === contract?.seller.id ? 'seller' : 'buyer'
+      const view = publicKey === contract?.seller.id ? 'seller' : 'buyer'
       const cancelAction = () => (view === 'seller' ? cancelSeller(contract) : cancelBuyer(contract))
       const title = i18n(isCashTrade(contract.paymentMethod) ? 'contract.cancel.cash.title' : 'contract.cancel.title')
       setPopup(
@@ -99,7 +100,7 @@ export const useConfirmCancelTrade = () => {
         />,
       )
     },
-    [setPopup, cancelSeller, cancelBuyer, closePopup],
+    [publicKey, setPopup, closePopup, cancelSeller, cancelBuyer],
   )
 
   return showConfirmPopup

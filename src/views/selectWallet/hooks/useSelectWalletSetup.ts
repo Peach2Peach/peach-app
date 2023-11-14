@@ -1,5 +1,6 @@
 import { useNavigation, useRoute } from '../../../hooks'
-import { account, getMessageToSignForAddress } from '../../../utils/account'
+import { getMessageToSignForAddress } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { isValidBitcoinSignature } from '../../../utils/validation'
 import { useWalletSetup } from './useWalletSetup'
 
@@ -8,6 +9,7 @@ export const useSelectWalletSetup = () => {
     = useWalletSetup()
   const route = useRoute<'selectWallet'>()
   const navigation = useNavigation()
+  const publicKey = useAccountStore((state) => state.account.publicKey)
 
   const { type } = route.params
 
@@ -17,7 +19,7 @@ export const useSelectWalletSetup = () => {
     if (type === 'refund' || peachWalletActive) return navigation.goBack()
 
     if (!payoutAddress) return undefined
-    const message = getMessageToSignForAddress(account.publicKey, payoutAddress)
+    const message = getMessageToSignForAddress(publicKey, payoutAddress)
     if (!payoutAddressSignature || !isValidBitcoinSignature(message, payoutAddress, payoutAddressSignature)) {
       return navigation.navigate('signMessage')
     }

@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { createStorage } from '../utils/storage'
-import { createPersistStorage } from './createPersistStorage'
-import { defaultConfig } from './defaults'
+import { createStorage } from '../../utils/storage'
+import { createPersistStorage } from '../createPersistStorage'
+import { defaultConfig } from './defaultConfig'
 
 type ConfigStore = Config & {
   reset: () => void
