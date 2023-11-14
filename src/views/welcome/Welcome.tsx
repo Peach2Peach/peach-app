@@ -1,17 +1,39 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { TouchableOpacity, View, useWindowDimensions } from 'react-native'
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel'
 import { Icon, Progress, Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { useKeyboard } from '../../hooks'
+import { useOnboardingHeader } from '../../hooks/headers/useOnboardingHeader'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { screens, useWelcomeSetup } from './hooks/useWelcomeSetup'
+import { AWalletYouControl } from './AWalletYouControl'
+import { LetsGetStarted } from './LetsGetStarted'
+import { PeachOfMind } from './PeachOfMind'
+import { PeerToPeer } from './PeerToPeer'
+import { PrivacyFirst } from './PrivacyFirst'
+
+export const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, AWalletYouControl, LetsGetStarted]
 
 export const Welcome = () => {
   const { width } = useWindowDimensions()
   const $carousel = useRef<ICarouselInstance>(null)
-  const { page, setPage, progress, endReached, next, goToEnd } = useWelcomeSetup({ carousel: $carousel })
+  useOnboardingHeader({
+    title: i18n('welcome.welcomeToPeach.title'),
+    hideGoBackButton: true,
+  })
+  const [page, setPage] = useState(0)
+
+  const next = () => {
+    $carousel.current?.next()
+    setPage((p) => p + 1)
+  }
+  const goToEnd = () => {
+    $carousel.current?.next({ count: screens.length - 1 - page })
+    setPage(screens.length - 1)
+  }
+  const progress = (page + 1) / screens.length
+  const endReached = progress === 1
   const keyboardOpen = useKeyboard()
 
   return (
