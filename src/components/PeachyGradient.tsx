@@ -1,5 +1,6 @@
 import { StyleProp, ViewStyle } from 'react-native'
-import Svg, { Defs, NumberProp, RadialGradient as SVGRadialGradient, Rect, Stop } from 'react-native-svg'
+import Svg, { Defs, NumberProp, Rect, RadialGradient as SVGRadialGradient, Stop } from 'react-native-svg'
+import { peachyGradient } from '../utils/layout'
 
 export type ColorStop = {
   offset: string
@@ -16,8 +17,8 @@ type Props = {
   style?: StyleProp<ViewStyle>
 }
 
-export const RadialGradient = ({ colorList, x, y, rx, ry, style }: Props) => (
-  <Svg width="100%" height="100%" style={[style]}>
+const RadialGradient = ({ colorList, x, y, rx, ry, style }: Props) => (
+  <Svg width="100%" height="100%" style={style}>
     <Defs>
       <SVGRadialGradient id="grad" cx={x} cy={y} rx={rx} ry={ry} gradientUnits="userSpaceOnUse">
         {colorList.map(({ offset, color, opacity }, index) => (
@@ -27,4 +28,8 @@ export const RadialGradient = ({ colorList, x, y, rx, ry, style }: Props) => (
     </Defs>
     <Rect x="0" y="0" width="100%" height="100%" fill="url(#grad)" />
   </Svg>
+)
+
+export const PeachyGradient = (props: Pick<Props, 'style'>) => (
+  <RadialGradient x="100%" y="0%" rx="110.76%" ry="117.21%" colorList={peachyGradient} {...props} />
 )

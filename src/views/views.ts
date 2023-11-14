@@ -1,5 +1,4 @@
 import { Platform } from 'react-native'
-import { BackgroundConfig } from '../components/background/Background'
 import { MeetupScreen } from '../components/payment/MeetupScreen'
 import { PaymentMethods } from '../components/payment/PaymentMethods'
 import { PaymentMethodForm } from './addPaymentMethod/PaymentMethodForm'
@@ -69,20 +68,17 @@ import { YourTrades } from './yourTrades/YourTrades'
 type ViewType = {
   name: keyof RootStackParamList
   component: () => JSX.Element
-  background: BackgroundConfig
   animationEnabled: boolean
   headerShown?: boolean
 }
 
-const onboardingConfig = {
-  background: { color: 'primaryGradient' },
-  animationEnabled: false,
-  headerShown: true,
-} as const
-const defaultConfig = { background: { color: undefined }, animationEnabled: true }
+const defaultConfig = { animationEnabled: true }
 const invertedThemeConfig = {
-  background: { color: 'primaryGradient' },
   animationEnabled: false,
+} as const
+const onboardingConfig = {
+  ...invertedThemeConfig,
+  headerShown: false,
 } as const
 
 const onboarding: ViewType[] = [

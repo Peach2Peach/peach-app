@@ -1,4 +1,3 @@
-export { AvoidKeyboard } from './AvoidKeyboard'
 export { ConditionalWrapper } from './ConditionalWrapper'
 export { Divider } from './Divider'
 export { EscrowButton } from './EscrowButton'

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { LogoIcons } from '../assets/logo'
-import { RadialGradient } from '../components/RadialGradient'
+import { PeachyGradient } from '../components/PeachyGradient'
 import { useMessageState } from '../components/message/useMessageState'
 import { useNavigation } from '../hooks'
 import { initApp } from '../init/initApp'
@@ -13,7 +13,6 @@ import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import { useAccountStore } from '../utils/account/account'
 import i18n from '../utils/i18n'
-import { primaryGradient } from '../utils/layout'
 import { screenTransition } from '../utils/layout/screenTransition'
 import { isIOS } from '../utils/system'
 import { onboardingViews, views } from './views'
@@ -32,14 +31,14 @@ export function Screens () {
         headerShown: false,
       }}
     >
-      {(isLoggedIn ? views : onboardingViews).map(({ name, component, background, animationEnabled, headerShown }) => (
+      {(isLoggedIn ? views : onboardingViews).map(({ name, component, animationEnabled, headerShown }) => (
         <Stack.Screen
           {...{ name, component }}
           key={name}
           options={{
             headerShown: headerShown ?? false,
             animationEnabled,
-            cardStyle: !background.color && tw`bg-primary-background`,
+            cardStyle: tw`bg-primary-background`,
             transitionSpec: {
               open: screenTransition,
               close: screenTransition,
@@ -82,7 +81,7 @@ function SplashScreenComponent ({ setIsLoading }: { setIsLoading: (isLoading: bo
 
   return (
     <View>
-      <RadialGradient x="100%" y="0%" rx="110.76%" ry="117.21%" colorList={primaryGradient} />
+      <PeachyGradient />
       <View style={tw`w-full h-full absolute items-center justify-center`}>
         <LogoIcons.fullLogo style={tw``} />
       </View>
