@@ -5,7 +5,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { enableScreens } from 'react-native-screens'
 
 import { AvoidKeyboard, Drawer, Message, Popup } from './components'
-import i18n, { LanguageContext } from './utils/i18n'
 
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
@@ -30,7 +29,6 @@ const navTheme = {
 }
 
 export const App = () => {
-  const languageReducer = useReducer(i18n.setLocale, i18n.getState())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
 
   const updateMessage = useMessageState((state) => state.updateMessage)
@@ -53,20 +51,18 @@ export const App = () => {
     <GestureHandlerRootView>
       <AvoidKeyboard>
         <QueryClientProvider client={queryClient}>
-          <LanguageContext.Provider value={languageReducer}>
-            <PeachWSContext.Provider value={peachWS}>
-              <NavigationContainer theme={navTheme} onStateChange={onNavStateChange}>
-                <GlobalHandlers />
-                <Background>
-                  <Drawer />
-                  <Popup />
+          <PeachWSContext.Provider value={peachWS}>
+            <NavigationContainer theme={navTheme} onStateChange={onNavStateChange}>
+              <GlobalHandlers />
+              <Background>
+                <Drawer />
+                <Popup />
+                <Message />
 
-                  <Message />
-                  <Screens />
-                </Background>
-              </NavigationContainer>
-            </PeachWSContext.Provider>
-          </LanguageContext.Provider>
+                <Screens />
+              </Background>
+            </NavigationContainer>
+          </PeachWSContext.Provider>
         </QueryClientProvider>
       </AvoidKeyboard>
     </GestureHandlerRootView>

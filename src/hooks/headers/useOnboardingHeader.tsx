@@ -1,6 +1,5 @@
 import { useDrawerState } from '../../components/drawer/useDrawerState'
 import { HeaderConfig } from '../../components/header/Header'
-import { LanguageSelect } from '../../drawers/LanguageSelect'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useHeaderSetup } from '../useHeaderSetup'
@@ -10,22 +9,19 @@ import { useNavigation } from '../useNavigation'
 export const useOnboardingHeader = (config: HeaderConfig) => {
   const navigation = useNavigation()
   const updateDrawer = useDrawerState((state) => state.updateDrawer)
-  const { locale, setLocale, saveLocale } = useLanguage()
+  const { locale, updateLocale } = useLanguage()
 
   const openLanguageDrawer = () => {
     updateDrawer({
       title: i18n('language.select'),
-      content: (
-        <LanguageSelect
-          locales={i18n.getLocales()}
-          selected={locale}
-          onSelect={(lcl: string) => {
-            setLocale(lcl)
-            saveLocale(lcl)
-            updateDrawer({ show: false })
-          }}
-        />
-      ),
+      options: i18n.getLocales().map((l) => ({
+        title: i18n(`languageName.${l}`),
+        onPress: () => {
+          updateLocale(l)
+          updateDrawer({ show: false })
+        },
+        iconRightID: l === locale ? 'check' : undefined,
+      })),
       show: true,
     })
   }

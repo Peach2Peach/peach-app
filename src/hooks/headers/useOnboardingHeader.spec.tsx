@@ -1,7 +1,6 @@
 import { renderHook } from 'test-utils'
 import { headerState, navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { useDrawerState } from '../../components/drawer/useDrawerState'
-import { LanguageSelect } from '../../drawers/LanguageSelect'
 import { useOnboardingHeader } from './useOnboardingHeader'
 
 describe('useOnboardingHeader', () => {
@@ -35,14 +34,8 @@ describe('useOnboardingHeader', () => {
 
     headerState.header().props.icons[1].onPress()
 
-    const drawerContent = useDrawerState.getState().content || <></>
-
-    expect(drawerContent).toEqual(
-      <LanguageSelect
-        locales={['en', 'es', 'fr', 'it', 'de', 'nl', 'el-GR', 'tr', 'sw', 'hu', 'pl', 'pt', 'pt-BR', 'ru', 'uk', 'raw']}
-        onSelect={expect.any(Function)}
-        selected="en"
-      />,
+    expect(useDrawerState.getState()).toStrictEqual(
+      expect.objectContaining({ show: true, title: 'select language', options: expect.any(Array) }),
     )
   })
 })

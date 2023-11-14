@@ -7,11 +7,10 @@ import { sortAlphabetically } from '../../utils/array'
 import i18n from '../../utils/i18n'
 
 export const Language = () => {
-  const { locale, setLocale, saveLocale } = useLanguage()
+  const { locale, updateLocale } = useLanguage()
   const navigation = useNavigation()
 
   const onConfirm = () => {
-    saveLocale(locale)
     navigation.goBack()
   }
 
@@ -19,12 +18,12 @@ export const Language = () => {
     <Screen header={i18n('language')}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <RadioButtons
-          selectedValue={locale}
+          selectedValue={locale || 'en'}
           items={i18n
             .getLocales()
             .map((l) => ({ value: l, display: i18n(`languageName.${l}`) }))
             .sort((a, b) => sortAlphabetically(a.display, b.display))}
-          onButtonPress={setLocale}
+          onButtonPress={updateLocale}
         />
       </PeachScrollView>
       <Button style={tw`self-center`} onPress={onConfirm}>

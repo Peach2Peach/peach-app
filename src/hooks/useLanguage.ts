@@ -1,10 +1,18 @@
+import { useCallback } from 'react'
+import { shallow } from 'zustand/shallow'
 import { useSettingsStore } from '../store/settingsStore'
-import { Locale, useLanguageContext } from '../utils/i18n'
+import i18n, { Locale } from '../utils/i18n'
 
 export const useLanguage = () => {
-  const [{ locale }, updateLanguageContext] = useLanguageContext()
-  const setLocale = (l: Locale) => updateLanguageContext({ locale: l })
-  const setLocaleStore = useSettingsStore((state) => state.setLocale)
+  const [locale, setLocaleStore] = useSettingsStore((state) => [state.locale, state.setLocale], shallow)
 
-  return { locale, setLocale, saveLocale: setLocaleStore }
+  const updateLocale = useCallback(
+    (l: Locale) => {
+      i18n.setLocale(l)
+      setLocaleStore(l)
+    },
+    [setLocaleStore],
+  )
+
+  return { locale, updateLocale }
 }

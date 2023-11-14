@@ -1,6 +1,6 @@
 import { dataMigrationAfterLoadingWallet } from '../../init/dataMigration/dataMigrationAfterLoadingWallet'
 import { useSettingsStore } from '../../store/settingsStore'
-import { setLocaleQuiet } from '../i18n'
+import i18n from '../i18n'
 import { getDeviceLocale } from '../system'
 import { account, defaultAccount, setAccount } from './account'
 import { loadWalletFromAccount } from './loadWalletFromAccount'
@@ -17,7 +17,7 @@ export const updateAccount = (acc: Account, overwrite?: boolean) => {
       },
   )
 
-  setLocaleQuiet(useSettingsStore.getState().locale || getDeviceLocale() || 'en')
+  i18n.setLocale(useSettingsStore.getState().locale || getDeviceLocale() || 'en')
 
   if (account.mnemonic) {
     const wallet = loadWalletFromAccount(account)

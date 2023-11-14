@@ -186,7 +186,6 @@ const settings: ViewType[] = [
 const testViews: ViewType[] = [
   { name: 'testView', component: TestView, ...defaultConfig },
   { name: 'testViewPeachWallet', component: TestViewPeachWallet, ...defaultConfig },
-
   { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
 ]
 
