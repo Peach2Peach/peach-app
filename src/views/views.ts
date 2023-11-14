@@ -190,10 +190,9 @@ const testViews: ViewType[] = [
 ]
 
 export const views = [
-  ...onboarding,
-  ...wallet,
   ...buyFlow,
   ...sellFlow,
+  ...wallet,
   ...search,
   ...trade,
   ...tradeHistory,
@@ -203,3 +202,5 @@ export const views = [
   ...overlays,
   ...testViews,
 ]
+
+export const onboardingViews = [...onboarding, ...contact]
