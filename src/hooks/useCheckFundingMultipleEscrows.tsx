@@ -28,9 +28,11 @@ const getSellOffersByAddress = (fundMultipleMap: Record<string, string[]>, addre
 
   return sellOffers
 }
-const areSellOffersFunded = (sellOffers: SellOffer[], offers: OfferSummary[]) => {
+const canFundSellOffers = (sellOffers: SellOffer[], offers: OfferSummary[]) => {
   const sellOfferIds = sellOffers.map((offer) => offer.id)
   if (sellOfferIds.length === 0) return false
+  if (sellOffers.map((sellOffer) => sellOffer.funding.status !== 'NULL')) return false
+
   return offers.filter((offer) => sellOfferIds.includes(offer.id)).every((offer) => offer.fundingTxId)
 }
 
@@ -50,7 +52,7 @@ export const useCheckFundingMultipleEscrows = () => {
     async (address: string) => {
       const sellOffers = getSellOffersByAddress(fundMultipleMap, address)
 
-      if (areSellOffersFunded(sellOffers, offerSummaries)) {
+      if (!canFundSellOffers(sellOffers, offerSummaries)) {
         unregisterFundMultiple(address)
         return
       }

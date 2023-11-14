@@ -20,7 +20,10 @@ export const useCancelFundMultipleSellOffers = ({ fundMultiple }: Props) => {
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-
+  const [registerFundMultiple, unregisterFundMultiple] = useWalletState(
+    (state) => [state.registerFundMultiple, state.unregisterFundMultiple],
+    shallow,
+  )
   const showOfferCanceled = useCallback(() => {
     setPopup({ title: i18n('offer.canceled.popup.title'), level: 'DEFAULT' })
   }, [setPopup])
@@ -42,9 +45,9 @@ export const useCancelFundMultipleSellOffers = ({ fundMultiple }: Props) => {
     const errorMessage = error?.isError() ? error.getError() : undefined
 
     if (notCanceledOffers.length > 0) {
-      useWalletState.getState().registerFundMultiple(fundMultiple.address, notCanceledOffers)
+      registerFundMultiple(fundMultiple.address, notCanceledOffers)
     } else {
-      useWalletState.getState().unregisterFundMultiple(fundMultiple.address)
+      unregisterFundMultiple(fundMultiple.address)
     }
 
     if (errorMessage) {
@@ -52,7 +55,7 @@ export const useCancelFundMultipleSellOffers = ({ fundMultiple }: Props) => {
     }
     showOfferCanceled()
     navigation.replace('sell')
-  }, [fundMultiple, navigation, showError, showOfferCanceled])
+  }, [fundMultiple, navigation, registerFundMultiple, showError, showOfferCanceled, unregisterFundMultiple])
 
   const showCancelSellOffersPopup = useCallback(() => {
     setPopup(
