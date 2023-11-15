@@ -8,7 +8,7 @@ import { useMessageState } from '../../components/message/useMessageState'
 import { useNavigation, useRoute, useValidatedState } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import i18n from '../../utils/i18n'
-import { checkReferralCode as checkReferralCodeAPI } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 
 const referralCodeRules = { referralCode: true }
 export const LetsGetStarted = () => {
@@ -29,7 +29,7 @@ export const LetsGetStarted = () => {
 
   const checkReferralCode = async (code: string) => {
     setWillUseReferralCode(false)
-    const [result, error] = await checkReferralCodeAPI({ code })
+    const { result, error } = await peachAPI.public.user.checkReferralCode({ code })
     if (!result || error) return showError(error?.error)
     setWillUseReferralCode(result.valid)
     return updateMessage({
