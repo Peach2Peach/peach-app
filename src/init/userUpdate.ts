@@ -8,7 +8,6 @@ import { parseError } from '../utils/result'
 
 export const userUpdate = async (referralCode?: string) => {
   const account = useAccountStore.getState().account
-  if (!account) return
 
   const settings = useSettingsStore.getState()
   try {
