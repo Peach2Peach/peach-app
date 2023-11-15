@@ -58,7 +58,7 @@ export const Welcome = () => {
           width={width}
           onSnapToItem={setPage}
           renderItem={({ item: Item }) => (
-            <View onStartShouldSetResponder={() => true} style={tw`h-full px-6`}>
+            <View onStartShouldSetResponder={() => !keyboardOpen} style={tw`h-full px-6`}>
               <Item />
             </View>
           )}
