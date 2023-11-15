@@ -1,10 +1,12 @@
 import { useRef, useState } from 'react'
 import { TouchableOpacity, View, useWindowDimensions } from 'react-native'
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel'
-import { Icon, Progress, Screen, Text } from '../../components'
+import { Header, Icon, Progress, Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
-import { useKeyboard } from '../../hooks'
-import { useOnboardingHeader } from '../../hooks/headers/useOnboardingHeader'
+import { useDrawerState } from '../../components/drawer/useDrawerState'
+import { HeaderIcon } from '../../components/header/Header'
+import { useKeyboard, useNavigation } from '../../hooks'
+import { useLanguage } from '../../hooks/useLanguage'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { AWalletYouControl } from './AWalletYouControl'
@@ -18,10 +20,6 @@ export const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, AWalletYouControl
 export const Welcome = () => {
   const { width } = useWindowDimensions()
   const $carousel = useRef<ICarouselInstance>(null)
-  useOnboardingHeader({
-    title: i18n('welcome.welcomeToPeach.title'),
-    hideGoBackButton: true,
-  })
   const [page, setPage] = useState(0)
 
   const next = () => {
@@ -37,7 +35,7 @@ export const Welcome = () => {
   const keyboardOpen = useKeyboard()
 
   return (
-    <Screen gradientBackground>
+    <Screen header={<OnboardingHeader />} gradientBackground>
       <Progress
         percent={progress}
         backgroundStyle={tw`opacity-50 bg-primary-background-light`}
@@ -78,4 +76,30 @@ export const Welcome = () => {
       )}
     </Screen>
   )
+}
+
+function OnboardingHeader () {
+  const navigation = useNavigation()
+  const updateDrawer = useDrawerState((state) => state.updateDrawer)
+  const { locale, updateLocale } = useLanguage()
+
+  const openLanguageDrawer = () => {
+    updateDrawer({
+      title: i18n('language.select'),
+      options: i18n.getLocales().map((l) => ({
+        title: i18n(`languageName.${l}`),
+        onPress: () => {
+          updateLocale(l)
+          updateDrawer({ show: false })
+        },
+        iconRightID: l === locale ? 'check' : undefined,
+      })),
+      show: true,
+    })
+  }
+  const headerIcons: HeaderIcon[] = [
+    { id: 'mail', color: tw`text-primary-background-light`.color, onPress: () => navigation.navigate('contact') },
+    { id: 'globe', color: tw`text-primary-background-light`.color, onPress: openLanguageDrawer },
+  ]
+  return <Header title={i18n('welcome.welcomeToPeach.title')} icons={headerIcons} theme="transparent" hideGoBackButton />
 }
