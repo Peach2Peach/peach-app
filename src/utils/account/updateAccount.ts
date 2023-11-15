@@ -14,7 +14,7 @@ export const updateAccount = (acc: Account, overwrite?: boolean) => {
       ...acc,
       tradingLimit: defaultAccount.tradingLimit,
     }
-  useAccountStore.getState().setAccount(newAccount)
+  useAccountStore.setState({ account: newAccount })
 
   i18n.setLocale(useSettingsStore.getState().locale || getDeviceLocale() || 'en')
   const account = useAccountStore.getState().account
