@@ -1,12 +1,18 @@
 import { View } from 'react-native'
 import { Icon, Text } from '../../components'
+import { useNavigation, useRoute } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { MenuItem } from './components/MenuItem'
-import { useUserExistsForDeviceSetup } from './hooks/useUserExistsForDeviceSetup'
+import { useCreateAccountErrorHeader } from './hooks/useCreateAccountErrorHeader'
 
 export const UserExistsForDevice = () => {
-  const { goToRestoreFromFile, goToRestoreFromSeed, goToRestoreReputation } = useUserExistsForDeviceSetup()
+  useCreateAccountErrorHeader()
+  const route = useRoute<'newUser'>()
+  const navigation = useNavigation()
+  const goToRestoreFromFile = () => navigation.navigate('restoreBackup', { tab: 'fileBackup' })
+  const goToRestoreFromSeed = () => navigation.navigate('restoreBackup', { tab: 'seedPhrase' })
+  const goToRestoreReputation = () => navigation.navigate('restoreReputation', route.params)
 
   return (
     <View style={tw`justify-center h-full`}>
