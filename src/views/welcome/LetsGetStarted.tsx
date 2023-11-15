@@ -27,9 +27,9 @@ export const LetsGetStarted = () => {
     setReferralCode(code)
   }
 
-  const checkReferralCode = async (code: string) => {
+  const checkReferralCode = async () => {
     setWillUseReferralCode(false)
-    const { result, error } = await peachAPI.public.user.checkReferralCode({ code })
+    const { result, error } = await peachAPI.public.user.checkReferralCode({ code: referralCode })
     if (!result || error) return showError(error?.error)
     setWillUseReferralCode(result.valid)
     return updateMessage({
@@ -42,7 +42,6 @@ export const LetsGetStarted = () => {
     navigation.navigate('newUser', { referralCode: willUseReferralCode ? referralCode : undefined })
   }
   const goToRestoreBackup = () => navigation.navigate('restoreBackup')
-  const checkCode = () => checkReferralCode(referralCode)
 
   return (
     <View style={tw`items-center flex-1 gap-4 shrink`}>
@@ -70,7 +69,7 @@ export const LetsGetStarted = () => {
               style={tw`w-20 min-w-20 bg-primary-background-light`}
               textColor={tw`text-primary-main`}
               disabled={willUseReferralCode || !referralCode || !referralCodeIsValid}
-              onPress={checkCode}
+              onPress={checkReferralCode}
             >
               {i18n(willUseReferralCode ? 'referrals.used' : 'referrals.use')}
             </Button>
