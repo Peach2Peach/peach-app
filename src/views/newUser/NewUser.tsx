@@ -35,21 +35,6 @@ export const NewUser = () => {
     deleteAccount()
   }, [])
 
-  const finishRegistration = useCallback(
-    async (account: Account) => {
-      updateAccount(account, true)
-      await userUpdate(route.params.referralCode)
-
-      storeAccount(account)
-      setSuccess(true)
-
-      setTimeout(() => {
-        navigation.replace('buy')
-      }, 1500)
-    },
-    [navigation, route.params.referralCode],
-  )
-
   const onSuccess = useCallback(
     async (account: Account & { mnemonic: string; base58: string }) => {
       const message = getAuthenticationChallenge()
@@ -70,9 +55,17 @@ export const NewUser = () => {
         setUserExistsForDevice(true)
         return
       }
-      finishRegistration(account)
+      updateAccount(account, true)
+      await userUpdate(route.params.referralCode)
+
+      storeAccount(account)
+      setSuccess(true)
+
+      setTimeout(() => {
+        navigation.replace('buy')
+      }, 1500)
     },
-    [finishRegistration, onError, setTemporaryAccount],
+    [navigation, onError, route.params.referralCode, setTemporaryAccount],
   )
 
   useEffect(() => {
