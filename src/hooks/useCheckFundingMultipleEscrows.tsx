@@ -31,7 +31,6 @@ const getSellOffersByAddress = (fundMultipleMap: Record<string, string[]>, addre
 const canFundSellOffers = (sellOffers: SellOffer[], offers: OfferSummary[]) => {
   const sellOfferIds = sellOffers.map((offer) => offer.id)
   if (sellOfferIds.length === 0) return false
-  if (sellOffers.map((sellOffer) => sellOffer.funding.status !== 'NULL')) return false
 
   return offers.filter((offer) => sellOfferIds.includes(offer.id)).every((offer) => offer.fundingTxId)
 }
