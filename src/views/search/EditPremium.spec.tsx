@@ -1,5 +1,4 @@
 import { render, waitFor } from 'test-utils'
-import { headerState } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { EditPremium } from './EditPremium'
 
@@ -49,9 +48,5 @@ describe('EditPremium', () => {
       expect(queryClient.getQueryState(['marketPrices'])?.status).toBe('success')
     })
     expect(toJSON()).toMatchSnapshot()
-  })
-  it('should set up the header correctly', () => {
-    render(<EditPremium />)
-    expect(headerState.header()).toMatchSnapshot()
   })
 })

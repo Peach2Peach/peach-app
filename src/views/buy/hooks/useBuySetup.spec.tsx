@@ -5,11 +5,6 @@ import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useBuySetup } from './useBuySetup'
 
-const useHeaderSetupMock = jest.fn()
-jest.mock('../../../hooks/useHeaderSetup', () => ({
-  useHeaderSetup: (...args: unknown[]) => useHeaderSetupMock(...args),
-}))
-
 const showHelpMock = jest.fn()
 jest.mock('../../../hooks/useShowHelp', () => ({
   useShowHelp: () => showHelpMock,

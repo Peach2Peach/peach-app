@@ -1,5 +1,4 @@
 import { act, renderHook } from 'test-utils'
-import { setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
@@ -29,7 +28,6 @@ jest.mock('../../../hooks/useGoToOrigin', () => ({
 
 describe('usePaymentMethodFormSetup', () => {
   beforeEach(() => {
-    setOptionsMock({ header: { title: '', icons: [] } })
     usePopupStore.setState(defaultPopupState)
   })
   it('should return paymentMethod, onSubmit, currencies, data', () => {

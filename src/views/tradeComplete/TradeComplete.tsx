@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { TouchableOpacity, View, ViewStyle } from 'react-native'
 import { IconType } from '../../assets/icons'
-import { Icon, Text } from '../../components'
+import { Icon, Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { useRoute } from '../../hooks'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
@@ -31,33 +31,35 @@ function TradeCompleteView ({ contract }: { contract: Contract }) {
   }, [])
 
   return (
-    <View style={tw`items-center justify-center h-full px-8 pt-5 pb-10`}>
-      <View style={tw`justify-center gap-6 grow`}>
-        <View style={tw`items-center`}>
-          <Icon id="fullLogo" />
-          <Text style={tw`text-center h5 text-primary-background-light`}>
-            {i18n(`tradeComplete.title.${view}.default`)}
-          </Text>
-        </View>
+    <Screen gradientBackground>
+      <View style={tw`items-center justify-center grow`}>
+        <View style={tw`justify-center gap-6 grow`}>
+          <View style={tw`items-center`}>
+            <Icon id="fullLogo" />
+            <Text style={tw`text-center h5 text-primary-background-light`}>
+              {i18n(`tradeComplete.title.${view}.default`)}
+            </Text>
+          </View>
 
-        <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('rate.subtitle')}</Text>
-        <View style={tw`flex-row justify-center gap-12 mt-4`}>
-          <RateButton
-            onPress={() => setVote('negative')}
-            iconId="thumbsDown"
-            isSelected={vote === 'negative'}
-            style={tw`pb-[13px] pt-[19px]`}
-          />
-          <RateButton
-            onPress={() => setVote('positive')}
-            iconId="thumbsUp"
-            isSelected={vote === 'positive'}
-            style={tw`pt-[13px] pb-[19px]`}
-          />
+          <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('rate.subtitle')}</Text>
+          <View style={tw`flex-row justify-center gap-12`}>
+            <RateButton
+              onPress={() => setVote('negative')}
+              iconId="thumbsDown"
+              isSelected={vote === 'negative'}
+              style={tw`pb-[13px] pt-[19px]`}
+            />
+            <RateButton
+              onPress={() => setVote('positive')}
+              iconId="thumbsUp"
+              isSelected={vote === 'positive'}
+              style={tw`pt-[13px] pb-[19px]`}
+            />
+          </View>
         </View>
+        <Rate {...{ contract, view, vote }} />
       </View>
-      <Rate {...{ contract, view, vote }} />
-    </View>
+    </Screen>
   )
 }
 

@@ -10,6 +10,8 @@ import { Rule } from '../utils/validation/rules'
  *
  * @example
  * const [value, setValue, isValueValid, valueErrors, pristine] = useValidatedState('defaultValue', { required: true })
+ *
+ * @deprecated the only thing stateful about this is the value, the rest are derived values.
  */
 export const useValidatedState = <S extends string | number | undefined>(
   input: S,

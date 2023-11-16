@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { Header, Screen } from '../../components'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Button } from '../../components/buttons/Button'
-import { HeaderConfig } from '../../components/header/Header'
+import { HeaderIcon } from '../../components/header/Header'
 import { PaymentMethodForms } from '../../components/inputs/paymentMethods/paymentForms'
 import { useSubmitForm } from '../../components/inputs/paymentMethods/paymentForms/hooks/useSubmitForm'
 import { useDeletePaymentMethod } from '../../components/payment/hooks/useDeletePaymentMethod'
@@ -53,7 +53,7 @@ function PaymentMethodFormHeader () {
   const deletePaymentMethod = useDeletePaymentMethod(id ?? '')
 
   const getHeaderIcons = useCallback(() => {
-    const icons: HeaderConfig['icons'] = []
+    const icons: HeaderIcon[] = []
     if (['revolut', 'wise', 'paypal', 'advcash'].includes(paymentMethod)) {
       icons[0] = { ...headerIcons.help, onPress: showHelp }
     }

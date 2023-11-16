@@ -4,18 +4,20 @@ import { useEffect, useReducer } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { enableScreens } from 'react-native-screens'
 
-import { AvoidKeyboard, Drawer, Message, Popup } from './components'
+import { Drawer, Message, Popup } from './components'
 
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
 import { QueryClientProvider } from '@tanstack/react-query'
-import { Background } from './components/background/Background'
+import { Keyboard, KeyboardAvoidingView, Pressable } from 'react-native'
 import { useMessageState } from './components/message/useMessageState'
 import { GlobalHandlers } from './GlobalHandlers'
 import { initWebSocket } from './init/websocket'
 import { queryClient } from './queryClient'
+import tw from './styles/tailwind'
 import { usePartialAppSetup } from './usePartialAppSetup'
 import { info } from './utils/log'
+import { isIOS } from './utils/system'
 import { Screens } from './views/Screens'
 
 enableScreens()
@@ -49,22 +51,22 @@ export const App = () => {
 
   return (
     <GestureHandlerRootView>
-      <AvoidKeyboard>
-        <QueryClientProvider client={queryClient}>
-          <PeachWSContext.Provider value={peachWS}>
-            <NavigationContainer theme={navTheme} onStateChange={onNavStateChange}>
-              <GlobalHandlers />
-              <Background>
+      <KeyboardAvoidingView behavior={isIOS() ? 'padding' : undefined}>
+        <Pressable style={tw`h-full`} onPress={Keyboard.dismiss}>
+          <QueryClientProvider client={queryClient}>
+            <PeachWSContext.Provider value={peachWS}>
+              <NavigationContainer theme={navTheme} onStateChange={onNavStateChange}>
+                <GlobalHandlers />
                 <Drawer />
                 <Popup />
                 <Message />
 
                 <Screens />
-              </Background>
-            </NavigationContainer>
-          </PeachWSContext.Provider>
-        </QueryClientProvider>
-      </AvoidKeyboard>
+              </NavigationContainer>
+            </PeachWSContext.Provider>
+          </QueryClientProvider>
+        </Pressable>
+      </KeyboardAvoidingView>
     </GestureHandlerRootView>
   )
 }

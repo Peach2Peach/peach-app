@@ -1,9 +1,9 @@
+import { NETWORK } from '@env'
 import OpenPGP from 'react-native-fast-openpgp'
 import { defaultAccount } from '.'
 import { info } from '../log'
 import { createRandomWallet, createWalletFromSeedPhrase, getNetwork } from '../wallet'
 import { getMainAccount } from './getMainAccount'
-import { NETWORK } from '@env'
 
 export const createAccount = async (seedPhrase?: string) => {
   info('Create account')
@@ -12,10 +12,11 @@ export const createAccount = async (seedPhrase?: string) => {
     : await createRandomWallet(getNetwork())
   const mainAccount = getMainAccount(wallet, NETWORK)
   const recipient = await OpenPGP.generate({})
+  const publicKey = mainAccount.publicKey.toString('hex')
 
   const newAccount = {
     ...defaultAccount,
-    publicKey: mainAccount.publicKey.toString('hex'),
+    publicKey,
     privKey: (wallet.privateKey as Buffer).toString('hex'),
     mnemonic,
     base58: wallet.toBase58(),

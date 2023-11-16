@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RadialGradient should render correctly 1`] = `
+exports[`PeachyGradient should render correctly 1`] = `
 <RNSVGSvgView
   bbHeight="100%"
   bbWidth="100%"
@@ -12,9 +12,6 @@ exports[`RadialGradient should render correctly 1`] = `
         "backgroundColor": "transparent",
         "borderWidth": 0,
       },
-      [
-        undefined,
-      ],
       {
         "flex": 0,
         "height": "100%",
@@ -34,25 +31,25 @@ exports[`RadialGradient should render correctly 1`] = `
   >
     <RNSVGDefs>
       <RNSVGRadialGradient
-        cx="50%"
-        cy="50%"
-        fx="50%"
-        fy="50%"
+        cx="100%"
+        cy="0%"
+        fx="100%"
+        fy="0%"
         gradient={
           [
             0,
-            -65536,
+            -23988,
             0.5025,
-            -16744448,
+            -34224,
             1,
-            -16776961,
+            -45758,
           ]
         }
         gradientTransform={null}
         gradientUnits={1}
         name="grad"
-        rx="50%"
-        ry="50%"
+        rx="110.76%"
+        ry="117.21%"
       />
     </RNSVGDefs>
     <RNSVGRect

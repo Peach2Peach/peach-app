@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`useSearchSetup should set up header correctly for buy offers 1`] = `<React.Fragment />`;
-
-exports[`useSearchSetup should set up header correctly for sell offers 1`] = `<React.Fragment />`;

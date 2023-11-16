@@ -6,7 +6,7 @@ import { defaultAccount, useAccountStore } from './account'
 import { loadWalletFromAccount } from './loadWalletFromAccount'
 import { setWallets } from './setWallets'
 
-export const updateAccount = (acc: Account, overwrite?: boolean) => {
+export const updateAccount = async (acc: Account, overwrite?: boolean) => {
   const newAccount = overwrite
     ? acc
     : {
@@ -14,13 +14,13 @@ export const updateAccount = (acc: Account, overwrite?: boolean) => {
       ...acc,
       tradingLimit: defaultAccount.tradingLimit,
     }
-  useAccountStore.getState().setAccount(newAccount)
+  useAccountStore.setState({ account: newAccount })
 
   i18n.setLocale(useSettingsStore.getState().locale || getDeviceLocale() || 'en')
   const account = useAccountStore.getState().account
   if (account.mnemonic) {
     const wallet = loadWalletFromAccount(account)
-    setWallets(wallet, account.mnemonic)
+    await setWallets(wallet, account.mnemonic)
     if (!account.base58) {
       dataMigrationAfterLoadingWallet(wallet, account)
     }

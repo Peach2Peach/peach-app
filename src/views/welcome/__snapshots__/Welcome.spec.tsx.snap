@@ -4,23 +4,98 @@ exports[`Welcome should render correctly 1`] = `
 <View
   style={
     {
-      "display": "flex",
-      "height": "100%",
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
     }
   }
-  testID="welcome"
 >
-  <View
+  <RNSVGSvgView
+    bbHeight="100%"
+    bbWidth="100%"
+    focusable={false}
+    height="100%"
     style={
       [
         {
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "width": "100%",
+          "backgroundColor": "transparent",
+          "borderWidth": 0,
         },
         {
-          "paddingLeft": 32,
-          "paddingRight": 32,
+          "position": "absolute",
+        },
+        {
+          "flex": 0,
+          "height": "100%",
+          "width": "100%",
+        },
+      ]
+    }
+    width="100%"
+  >
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    >
+      <RNSVGDefs>
+        <RNSVGRadialGradient
+          cx="100%"
+          cy="0%"
+          fx="100%"
+          fy="0%"
+          gradient={
+            [
+              0,
+              -23988,
+              0.5025,
+              -34224,
+              1,
+              -45758,
+            ]
+          }
+          gradientTransform={null}
+          gradientUnits={1}
+          name="grad"
+          rx="110.76%"
+          ry="117.21%"
+        />
+      </RNSVGDefs>
+      <RNSVGRect
+        fill={
+          {
+            "brushRef": "grad",
+            "type": 1,
+          }
+        }
+        height="100%"
+        propList={
+          [
+            "fill",
+          ]
+        }
+        width="100%"
+        x="0"
+        y="0"
+      />
+    </RNSVGGroup>
+  </RNSVGSvgView>
+  <RCTSafeAreaView
+    style={
+      [
+        {
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 8,
+          "borderBottomWidth": 1,
+        },
+        {
+          "backgroundColor": "transparent",
+        },
+        {
+          "borderColor": "transparent",
         },
       ]
     }
@@ -29,14 +104,232 @@ exports[`Welcome should render correctly 1`] = `
       style={
         [
           {
-            "borderRadius": 9999,
-            "height": 16,
-            "overflow": "hidden",
-            "width": "100%",
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 8,
+            "paddingBottom": 6,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 6,
           },
           {
-            "height": 8,
+            "paddingLeft": 32,
+            "paddingRight": 32,
           },
+          false,
+        ]
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "gap": 4,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          numberOfLines={1}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 26,
+                },
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                  "lineHeight": 32,
+                },
+                {
+                  "color": "#FFFCFA",
+                },
+                {
+                  "flexBasis": "0%",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          welcome to Peach!
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 10,
+            "justifyContent": "flex-end",
+          }
+        }
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+              "paddingBottom": 2,
+              "paddingLeft": 2,
+              "paddingRight": 2,
+              "paddingTop": 2,
+            }
+          }
+        >
+          <test-file-stub
+            fill="#FFFCFA"
+            style={
+              [
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+                {
+                  "height": 20,
+                  "width": 20,
+                },
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+              ]
+            }
+          />
+        </View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+              "paddingBottom": 2,
+              "paddingLeft": 2,
+              "paddingRight": 2,
+              "paddingTop": 2,
+            }
+          }
+        >
+          <test-file-stub
+            fill="#FFFCFA"
+            style={
+              [
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+                {
+                  "height": 20,
+                  "width": 20,
+                },
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </RCTSafeAreaView>
+  <RCTSafeAreaView
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          },
+          {
+            "paddingBottom": 32,
+            "paddingLeft": 32,
+            "paddingRight": 32,
+            "paddingTop": 32,
+          },
+          undefined,
         ]
       }
     >
@@ -45,263 +338,223 @@ exports[`Welcome should render correctly 1`] = `
           [
             {
               "borderRadius": 9999,
-              "height": "100%",
-              "position": "absolute",
+              "height": 16,
+              "overflow": "hidden",
               "width": "100%",
             },
             {
-              "backgroundColor": "#FFFCFA",
-              "opacity": 0.5,
+              "height": 8,
             },
           ]
         }
-      />
+      >
+        <View
+          style={
+            [
+              {
+                "borderRadius": 9999,
+                "height": "100%",
+                "position": "absolute",
+                "width": "100%",
+              },
+              {
+                "backgroundColor": "#FFFCFA",
+                "opacity": 0.5,
+              },
+            ]
+          }
+        />
+        <View
+          collapsable={false}
+          style={
+            {
+              "backgroundColor": "#FFFCFA",
+              "borderRadius": 9999,
+              "height": "100%",
+              "width": "20%",
+            }
+          }
+        />
+      </View>
       <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
         collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           {
-            "backgroundColor": "#FFFCFA",
-            "borderRadius": 9999,
+            "alignItems": "center",
+            "alignSelf": "flex-end",
+            "flexDirection": "row",
+            "gap": 4,
+            "height": 32,
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              {
+                "color": "#FFFCFA",
+              },
+              false,
+            ]
+          }
+        >
+          skip
+        </Text>
+        <test-file-stub
+          fill="#FFFCFA"
+          style={
+            [
+              {
+                "height": 12,
+                "width": 12,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexShrink": 1,
             "height": "100%",
-            "width": "20%",
           }
         }
       />
-    </View>
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
         }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
         }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        [
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
           {
             "alignItems": "center",
-            "display": "flex",
+            "alignSelf": "center",
+            "backgroundColor": "#FFFCFA",
+            "borderColor": undefined,
+            "borderRadius": 9999,
             "flexDirection": "row",
-            "height": 32,
-            "justifyContent": "flex-end",
-          },
-          {},
-        ]
-      }
-      testID="welcome-skipFoward"
-    >
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            {
-              "color": "#FFFCFA",
-              "marginRight": 4,
-            },
-            false,
-          ]
+            "gap": 8,
+            "height": 40,
+            "justifyContent": "center",
+            "minWidth": 128,
+            "opacity": 1,
+            "paddingLeft": 32,
+            "paddingRight": 32,
+          }
         }
       >
-        skip
-      </Text>
-      <test-file-stub
-        fill="#FFFCFA"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-            {
-              "height": 12,
-              "width": 12,
-            },
-          ]
-        }
-      />
-    </View>
-  </View>
-  <View
-    style={
-      {
-        "alignItems": "center",
-        "flexDirection": "column",
-        "flexShrink": 1,
-        "height": "100%",
-        "justifyContent": "flex-end",
-      }
-    }
-  >
-    <View
-      style={
-        {
-          "flexShrink": 1,
-          "height": "100%",
-          "width": "100%",
-        }
-      }
-    />
-  </View>
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "display": "flex",
-          "marginBottom": 32,
-          "paddingTop": 16,
-          "width": "100%",
-        },
-        {},
-      ]
-    }
-  >
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "backgroundColor": "#FFFCFA",
-          "borderRadius": 9999,
-          "flexDirection": "row",
-          "height": 40,
-          "justifyContent": "center",
-          "opacity": 1,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "width": 156,
-        }
-      }
-      testID="welcome-next"
-    >
-      <Text
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        numberOfLines={1}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
+        <Text
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          style={
             [
               {
-                "color": "#F56522",
-              },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
                 "lineHeight": 24,
-                "minWidth": 96,
-                "paddingLeft": 8,
-                "paddingRight": 8,
-                "textAlign": "center",
-                "textTransform": "uppercase",
               },
-            ],
-            false,
-          ]
-        }
-      >
-        next
-      </Text>
-      <test-file-stub
-        fill="#F56522"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-            {
-              "height": 16,
-              "width": 16,
-            },
-          ]
-        }
-      />
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 13,
+                  "letterSpacing": 0.47,
+                  "lineHeight": 22,
+                  "textTransform": "uppercase",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 15,
+                  "letterSpacing": 0.54,
+                  "lineHeight": 26,
+                  "textTransform": "uppercase",
+                },
+                {
+                  "color": "#F56522",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          next
+        </Text>
+        <test-file-stub
+          fill="#F56522"
+          style={
+            [
+              {
+                "height": 18,
+                "width": 18,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
     </View>
-  </View>
+  </RCTSafeAreaView>
 </View>
-`;
-
-exports[`Welcome should set header correctly 1`] = `
-<OldHeader
-  hideGoBackButton={true}
-  icons={
-    [
-      {
-        "color": "#FFFCFA",
-        "id": "mail",
-        "onPress": [Function],
-      },
-      {
-        "color": "#FFFCFA",
-        "id": "globe",
-        "onPress": [Function],
-      },
-    ]
-  }
-  theme="inverted"
-  title="welcome to Peach!"
-/>
 `;

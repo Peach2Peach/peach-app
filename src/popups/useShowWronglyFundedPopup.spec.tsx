@@ -12,7 +12,7 @@ jest.mock('./useCancelAndStartRefundPopup', () => ({
 }))
 
 const useConfigStoreMock = jest.fn((selector) => selector({ maxTradingAmount: 2000000 }))
-jest.mock('../store/configStore', () => ({
+jest.mock('../store/configStore/configStore', () => ({
   useConfigStore: (selector: unknown) => useConfigStoreMock(selector),
 }))
 
@@ -21,10 +21,7 @@ describe('useShowWronglyFundedPopup', () => {
 
   beforeEach(() => {
     useConfigStoreMock.mockImplementation((selector) => selector({ maxTradingAmount }))
-  })
-  afterEach(() => {
     usePopupStore.setState(defaultPopupState)
-    jest.resetAllMocks()
   })
   it('opens WrongFundingAmount popup', () => {
     const amount = 100000
