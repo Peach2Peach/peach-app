@@ -1,10 +1,13 @@
 import { View } from 'react-native'
 
+import { useCallback, useState } from 'react'
+import { shallow } from 'zustand/shallow'
 import { PeachScrollView } from '../../../../components'
 import { Button } from '../../../../components/buttons/Button'
+import { useToggleBoolean } from '../../../../hooks'
+import { useSettingsStore } from '../../../../store/settingsStore'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { useSeedBackupSetup } from '../../hooks/useSeedBackupSetup'
 import { KeepPhraseSecure } from './KeepPhraseSecure'
 import { LastSeedBackup } from './LastSeedBackup'
 import { ReadAndUnderstood } from './ReadAndUnderstood'
@@ -19,14 +22,36 @@ export const screens = [
 ]
 
 export const SeedPhrase = ({ style }: ComponentProps) => {
-  const { checked, toggleChecked, showNextScreen, currentScreenIndex, goBackToStart } = useSeedBackupSetup()
+  const [updateSeedBackupDate, lastSeedBackupDate] = useSettingsStore(
+    (state) => [state.updateSeedBackupDate, state.lastSeedBackupDate],
+    shallow,
+  )
+
+  const [checked, toggleChecked] = useToggleBoolean()
+  const [currentScreenIndex, setCurrentScreenIndex] = useState(lastSeedBackupDate ? 0 : 1)
+  const getCurrentScreen = useCallback(() => screens[currentScreenIndex], [currentScreenIndex])
+  const showNextScreen = useCallback(() => {
+    if (getCurrentScreen().id === 'keepPhraseSecure') {
+      updateSeedBackupDate()
+    }
+    if (currentScreenIndex < screens.length - 1) {
+      setCurrentScreenIndex((prev) => prev + 1)
+    } else {
+      setCurrentScreenIndex(0)
+      toggleChecked()
+    }
+  }, [getCurrentScreen, currentScreenIndex, updateSeedBackupDate, toggleChecked])
+
+  const goBackToStart = useCallback(() => {
+    setCurrentScreenIndex(1)
+  }, [])
 
   const CurrentView = screens[currentScreenIndex].view
 
   return (
     <View style={[tw`h-full`, style]}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
-        {<CurrentView {...{ goBackToStart }} />}
+        <CurrentView {...{ goBackToStart }} />
       </PeachScrollView>
       <View>
         {currentScreenIndex === 1 && (

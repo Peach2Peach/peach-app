@@ -31,12 +31,11 @@ export function Screens () {
         headerShown: false,
       }}
     >
-      {(isLoggedIn ? views : onboardingViews).map(({ name, component, animationEnabled, headerShown }) => (
+      {(isLoggedIn ? views : onboardingViews).map(({ name, component, animationEnabled }) => (
         <Stack.Screen
           {...{ name, component }}
           key={name}
           options={{
-            headerShown: headerShown ?? false,
             animationEnabled,
             cardStyle: tw`bg-primary-background`,
             transitionSpec: {

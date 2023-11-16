@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { ColorValue, SafeAreaView, TouchableOpacity, View, ViewProps } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { HorizontalLine, Icon, PriceFormat, Text } from '..'
+import { Icon, PriceFormat, Text } from '..'
 import { IconType } from '../../assets/icons'
 import { useBitcoinStore } from '../../store/bitcoinStore'
 import tw from '../../styles/tailwind'
@@ -11,19 +11,6 @@ import { round } from '../../utils/math'
 import { thousands } from '../../utils/string'
 import { BTCAmount } from '../bitcoin'
 
-const oldThemes = {
-  default: {
-    text: tw`text-black-1`,
-    backButton: tw`text-black-2`,
-    bg: tw`bg-primary-background`,
-  },
-  inverted: {
-    text: tw`text-primary-background-light`,
-    backButton: tw`text-primary-mild-1`,
-    bg: tw`bg-transparent`,
-  },
-}
-
 export type HeaderIcon = {
   id: IconType
   accessibilityHint?: string
@@ -31,7 +18,7 @@ export type HeaderIcon = {
   onPress: () => void
 }
 
-export type HeaderConfig = {
+type HeaderConfig = {
   subtitle?: JSX.Element
   icons?: HeaderIcon[]
   hideGoBackButton?: boolean
@@ -218,56 +205,3 @@ function HeaderSubtitle ({ theme = 'default', amount, premium, viewer, text }: H
 }
 
 Header.Subtitle = HeaderSubtitle
-
-/** @deprecated */
-export const OldHeader = ({ title, icons, titleComponent, hideGoBackButton, showPriceStats, theme }: HeaderConfig) => {
-  const colors = oldThemes[theme || 'default']
-  const { goBack, canGoBack } = useNavigation()
-  const { fontSize } = getHeaderStyles()
-
-  const shouldShowBackButton = !hideGoBackButton && canGoBack()
-
-  return (
-    <SafeAreaView>
-      <View
-        style={[
-          tw`items-center py-1 px-sm gap-6px`,
-          tw.md`px-md`,
-          shouldShowBackButton && [tw`pl-3`, tw.md`pl-22px`],
-          colors.bg,
-        ]}
-      >
-        <View style={tw`flex-row justify-between w-full`}>
-          <View style={tw`flex-row items-center justify-start flex-shrink w-full gap-1`}>
-            {shouldShowBackButton && (
-              <TouchableOpacity onPress={goBack}>
-                <Icon id="chevronLeft" size={24} color={colors.backButton.color} />
-              </TouchableOpacity>
-            )}
-            {title ? (
-              <Text style={[...fontSize, colors.text, tw`flex-shrink`]} numberOfLines={1}>
-                {title}
-              </Text>
-            ) : (
-              titleComponent
-            )}
-          </View>
-
-          <View style={tw`flex-row items-center justify-end gap-10px`}>
-            {icons?.map(({ id, accessibilityHint, color, onPress }, i) => (
-              <TouchableOpacity key={`${i}-${id}`} style={tw`p-2px`} {...{ accessibilityHint, onPress }}>
-                <Icon {...{ id, color }} size={24} />
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
-        {showPriceStats && (
-          <>
-            <HorizontalLine />
-            <Tickers />
-          </>
-        )}
-      </View>
-    </SafeAreaView>
-  )
-}

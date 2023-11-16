@@ -69,7 +69,6 @@ type ViewType = {
   name: keyof RootStackParamList
   component: () => JSX.Element
   animationEnabled: boolean
-  headerShown?: boolean
 }
 
 const defaultConfig = { animationEnabled: true }
@@ -168,7 +167,7 @@ const settings: ViewType[] = [
   { name: 'language', component: Language, ...defaultConfig },
   { name: 'referrals', component: Referrals, ...defaultConfig },
   { name: 'backupTime', component: BackupTime, ...invertedThemeConfig },
-  { name: 'backups', component: Backups, ...defaultConfig, headerShown: true },
+  { name: 'backups', component: Backups, ...defaultConfig },
   { name: 'backupCreated', component: BackupCreated, ...invertedThemeConfig },
   { name: 'nodeSetup', component: NodeSetup, ...defaultConfig },
   { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
