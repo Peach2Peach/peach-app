@@ -11,8 +11,8 @@ import { SeedPhrase } from './components/backups/SeedPhrase'
 
 export const Backups = () => {
   const tabs: TabbedNavigationItem<'fileBackup' | 'seedPhrase'>[] = [
-    { id: 'fileBackup' as const, display: i18n('settings.backups.fileBackup'), view: FileBackup },
-    { id: 'seedPhrase' as const, display: i18n('settings.backups.seedPhrase'), view: SeedPhrase },
+    { id: 'fileBackup', display: i18n('settings.backups.fileBackup'), view: FileBackup },
+    { id: 'seedPhrase', display: i18n('settings.backups.seedPhrase'), view: SeedPhrase },
   ]
   const [currentTab, setCurrentTab] = useState(tabs[0])
   const [showPasswordPrompt, toggle] = useToggleBoolean()
