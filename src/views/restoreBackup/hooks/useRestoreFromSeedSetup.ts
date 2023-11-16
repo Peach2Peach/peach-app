@@ -19,6 +19,7 @@ const bip39Rules = {
   bip39: true,
 }
 
+// eslint-disable-next-line max-lines-per-function
 export const useRestoreFromSeedSetup = () => {
   const updateMessage = useMessageState((state) => state.updateMessage)
   const navigation = useNavigation()
@@ -59,6 +60,7 @@ export const useRestoreFromSeedSetup = () => {
     const peachAccount = createPeachAccount(wallet)
     setPeachAccount(peachAccount)
     peachAPI.setPeachAccount(peachAccount)
+    await peachAPI.authenticate()
 
     const [, authError] = await auth({})
     if (authError) {

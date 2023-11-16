@@ -48,7 +48,7 @@ export const NewUser = () => {
         setUserExistsForDevice(true)
         return
       }
-      updateAccount(account, true)
+      await updateAccount(account, true)
       await userUpdate(route.params.referralCode)
 
       storeAccount(account)

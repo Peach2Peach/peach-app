@@ -35,6 +35,7 @@ export const useRestoreFromFileSetup = () => {
     deleteAccount()
   }
 
+  // eslint-disable-next-line max-statements
   const decryptAndRecover = async () => {
     const [recoveredAccount, err] = decryptAccount({
       encryptedAccount: file.content,
@@ -51,6 +52,7 @@ export const useRestoreFromFileSetup = () => {
     const peachAccount = createPeachAccount(wallet)
     setPeachAccount(peachAccount)
     peachAPI.setPeachAccount(peachAccount)
+    await peachAPI.authenticate()
 
     const [, authErr] = await auth({})
     if (authErr) {
