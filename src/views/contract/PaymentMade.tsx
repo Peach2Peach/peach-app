@@ -2,34 +2,45 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Icon, PrimaryButton, Text } from '../../components'
+import { Icon, Screen, Text } from '../../components'
+import { Button } from '../../components/buttons/Button'
+import { useNavigation, useRoute } from '../../hooks'
 import i18n from '../../utils/i18n'
-import { usePaymentMadeSetup } from './hooks/usePaymentMadeSetup'
 
 export const PaymentMade = () => {
-  const { goToTrade, close } = usePaymentMadeSetup()
+  const { contractId } = useRoute<'paymentMade'>().params
+  const navigation = useNavigation()
+  const goToTrade = () =>
+    navigation.reset({
+      index: 1,
+      routes: [{ name: 'yourTrades' }, { name: 'contract', params: { contractId } }],
+    })
+  const close = () => (navigation.canGoBack() ? navigation.goBack() : navigation.navigate('buy'))
 
   return (
-    <View style={tw`items-center justify-between h-full px-6 pb-7`}>
-      <View style={tw`justify-center flex-shrink w-full h-full`}>
-        <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('contract.paymentMade.title')}</Text>
-        <View style={tw`flex-row items-center mt-8`}>
-          <Icon
-            id="dollarSignCircleInverted"
-            style={tw`mr-6 w-23 h-23`}
-            color={tw`text-primary-background-light`.color}
-          />
-          <Text style={tw`flex-shrink body-l text-primary-background-light`}>
-            {i18n('contract.paymentMade.description')}
+    <Screen gradientBackground>
+      <View style={tw`grow`}>
+        <View style={tw`justify-center gap-8 grow`}>
+          <Text style={tw`text-center h4 text-primary-background-light shrink`}>
+            {i18n('contract.paymentMade.title')}
           </Text>
+          <View style={tw`flex-row items-center gap-6`}>
+            <Icon id="dollarSignCircleInverted" size={92} color={tw`text-primary-background-light`.color} />
+            <Text style={tw`flex-1 body-l text-primary-background-light`}>
+              {i18n('contract.paymentMade.description')}
+            </Text>
+          </View>
+        </View>
+
+        <View style={tw`self-center gap-3`}>
+          <Button style={tw`bg-primary-background-light`} textColor={tw`text-primary-main`} onPress={goToTrade}>
+            {i18n('goToTrade')}
+          </Button>
+          <Button onPress={close} ghost>
+            {i18n('close')}
+          </Button>
         </View>
       </View>
-      <PrimaryButton white narrow onPress={goToTrade}>
-        {i18n('goToTrade')}
-      </PrimaryButton>
-      <PrimaryButton style={tw`mt-3`} border white narrow onPress={close}>
-        {i18n('close')}
-      </PrimaryButton>
-    </View>
+    </Screen>
   )
 }
