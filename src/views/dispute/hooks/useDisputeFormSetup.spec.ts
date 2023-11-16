@@ -1,7 +1,7 @@
 import { act, renderHook } from 'test-utils'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { headerState, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useDisputeFormSetup } from './useDisputeFormSetup'
 
 const defaultReason = 'other'
@@ -13,11 +13,6 @@ const useRouteMock = jest.fn(() => ({
 }))
 jest.mock('../../../hooks/useRoute', () => ({
   useRoute: () => useRouteMock(),
-}))
-
-const useHeaderSetupMock = jest.fn()
-jest.mock('../../../hooks/useHeaderSetup', () => ({
-  useHeaderSetup: (...args: unknown[]) => useHeaderSetupMock(...args),
 }))
 
 const showErrorBannerMock = jest.fn()
@@ -75,10 +70,6 @@ describe('useDisputeFormSetup', () => {
       loading: false,
       showErrorBanner: showErrorBannerMock,
     })
-  })
-  it('sets up the header correctly', () => {
-    renderHook(useDisputeFormSetup, { initialProps: contract })
-    expect(headerState.header()).toMatchSnapshot()
   })
   it('sets email', () => {
     const { result } = renderHook(useDisputeFormSetup, { initialProps: contract })

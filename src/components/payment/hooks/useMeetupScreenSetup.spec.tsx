@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { act, renderHook } from 'test-utils'
-import { setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { getStateMock, goBackMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { setPaymentMethods } from '../../../paymentMethods'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
@@ -18,23 +18,24 @@ const useRouteMock = jest.fn(() => ({
 jest.mock('../../../hooks/useRoute', () => ({
   useRoute: () => useRouteMock(),
 }))
-const goBackMock = jest.fn()
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: jest.fn(() => ({
-    goBack: goBackMock,
-    getState: jest.fn(() => ({
-      routes: [
-        {
-          name: 'origin',
-        },
-        {
-          name: 'meetupScreen',
-        },
-      ],
-    })),
-    setOptions: setOptionsMock,
-  })),
-}))
+
+getStateMock.mockReturnValue({
+  routes: [
+    {
+      name: 'origin',
+      key: 'origin',
+    },
+    {
+      key: 'meetupScreen',
+      name: 'meetupScreen',
+    },
+  ],
+  index: 1,
+  key: 'key',
+  routeNames: ['origin', 'meetupScreen'],
+  type: 'stack',
+  stale: false,
+})
 
 const defaultEvent: MeetupEvent = {
   id: '123',

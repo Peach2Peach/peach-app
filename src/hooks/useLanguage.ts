@@ -14,5 +14,5 @@ export const useLanguage = () => {
     [setLocaleStore],
   )
 
-  return { locale, updateLocale }
+  return { locale: locale || 'en', updateLocale }
 }

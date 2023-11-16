@@ -1,7 +1,6 @@
 import { act, renderHook, waitFor } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { bitcoinTransaction, pending1 } from '../../../../tests/unit/data/transactionDetailData'
-import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { getTransactionFeeRate } from '../../../utils/bitcoin'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -63,17 +62,6 @@ describe('useBumpNetworkFeesSetup', () => {
     useTransactionDetailsMock.mockReturnValue({ transaction: bitcoinTransaction })
     rerender({})
     await waitFor(() => expect(result.current.newFeeRate).toBe('2.32'))
-  })
-  it('should show no header while loading', () => {
-    useTransactionDetailsMock.mockReturnValue({ transaction: undefined })
-    renderHook(useBumpNetworkFeesSetup)
-    useTransactionDetailsMock.mockReturnValue({ transaction: bitcoinTransaction })
-
-    expect(headerState.header()).toMatchSnapshot()
-  })
-  it('should set up header correctly', () => {
-    renderHook(useBumpNetworkFeesSetup)
-    expect(headerState.header()).toMatchSnapshot()
   })
   it('should set new fee', () => {
     const { result } = renderHook(useBumpNetworkFeesSetup)

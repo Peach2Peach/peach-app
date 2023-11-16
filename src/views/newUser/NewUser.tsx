@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { Header, Icon, Loading, Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation, useRoute } from '../../hooks'
@@ -11,7 +11,6 @@ import i18n from '../../utils/i18n'
 import { register } from '../../utils/peachAPI'
 import { getAuthenticationChallenge } from '../../utils/peachAPI/getAuthenticationChallenge'
 import { parseError } from '../../utils/result'
-import { MenuItem } from './components/MenuItem'
 
 export const NewUser = () => {
   const route = useRoute<'newUser'>()
@@ -162,5 +161,17 @@ function UserExistsForDevice () {
         <MenuItem onPress={goToRestoreReputation}>{i18n('restoreBackup.IdontHave')}</MenuItem>
       </View>
     </View>
+  )
+}
+
+type MenuItemProps = ComponentProps & {
+  onPress: () => void
+}
+function MenuItem ({ children, onPress }: MenuItemProps) {
+  return (
+    <TouchableOpacity onPress={onPress} style={tw`flex-row items-center justify-between w-60`}>
+      <Text style={tw`settings text-primary-background-light`}>{children}</Text>
+      <Icon id="chevronRight" style={tw`w-6 h-6`} color={tw`text-primary-background-light`.color} />
+    </TouchableOpacity>
   )
 }

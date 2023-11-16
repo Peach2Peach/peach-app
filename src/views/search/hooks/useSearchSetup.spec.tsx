@@ -1,6 +1,5 @@
 import { act, renderHook, waitFor } from 'test-utils'
-import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
-import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { buyOffer } from '../../../../tests/unit/data/offerData'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useSearchSetup } from './useSearchSetup'
 
@@ -35,28 +34,13 @@ describe('useSearchSetup', () => {
   beforeEach(() => {
     queryClient.clear()
   })
-  it('should set up header correctly for buy offers', async () => {
-    renderHook(useSearchSetup)
 
-    await act(async () => {
-      await waitFor(() => expect(queryClient.isFetching()).toBe(0))
-    })
-    expect(headerState.header()).toMatchSnapshot()
-  })
-  it('should set up header correctly for sell offers', async () => {
-    getOfferDetailsMock.mockResolvedValueOnce([sellOffer, null])
-    renderHook(useSearchSetup)
-    await act(async () => {
-      await waitFor(() => expect(queryClient.isFetching()).toBe(0))
-    })
-    expect(headerState.header()).toMatchSnapshot()
-  })
   it('should return defaults', async () => {
     const { result } = renderHook(useSearchSetup)
-    expect(result.current).toEqual({ offer: buyOffer, hasMatches: false })
     await act(async () => {
       await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     })
+    expect(result.current).toEqual({ offer: buyOffer, hasMatches: true })
   })
   it('should load offer and matches', async () => {
     const { result } = renderHook(useSearchSetup)

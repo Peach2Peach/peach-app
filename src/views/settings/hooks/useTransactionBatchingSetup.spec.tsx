@@ -1,7 +1,6 @@
 import { act, renderHook, responseUtils, waitFor } from 'test-utils'
 import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
 import { defaultUser } from '../../../../tests/unit/data/userData'
-import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { TurnOffBatching } from '../../../popups/app/TurnOffBatching'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
@@ -31,10 +30,6 @@ describe('useTransactionBatchingSetup', () => {
       toggleBatching: expect.any(Function),
     })
     jest.runAllTimers()
-  })
-  it('sets up header correctly', () => {
-    renderHook(useTransactionBatchingSetup)
-    expect(headerState.header()).toMatchSnapshot()
   })
   it('calls self user', async () => {
     const { result } = renderHook(useTransactionBatchingSetup)

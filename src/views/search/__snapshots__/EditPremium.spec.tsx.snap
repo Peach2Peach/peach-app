@@ -1798,5 +1798,3 @@ price
   </RCTSafeAreaView>
 </View>
 `;
-
-exports[`EditPremium should set up the header correctly 1`] = `<React.Fragment />`;

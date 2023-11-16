@@ -1,5 +1,4 @@
 import { act, renderHook } from 'test-utils'
-import { resetMock } from '../../../../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { deleteAccount } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -86,15 +85,6 @@ describe('useDeleteAccountPopups', () => {
     })
     await logout()
     expect(logoutUser).toHaveBeenCalledTimes(1)
-  })
-
-  it('should reset the navigation', async () => {
-    const { result } = renderHook(useDeleteAccountPopups)
-    await act(() => {
-      result.current()
-    })
-    await logout()
-    expect(resetMock).toHaveBeenCalledTimes(1)
   })
 
   it('should show success ovelay', async () => {

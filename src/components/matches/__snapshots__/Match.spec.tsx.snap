@@ -1070,7 +1070,7 @@ exports[`Match should render correctly for matched offers 1`] = `
 - First value
 + Second value
 
-@@ -15,15 +15,90 @@
+@@ -15,15 +15,88 @@
           Object {
             "borderRadius": 16,
             "overflow": "hidden",
@@ -1093,11 +1093,9 @@ exports[`Match should render correctly for matched offers 1`] = `
 +             "backgroundColor": "transparent",
 +             "borderWidth": 0,
 +           },
-+           Array [
-+             Object {
-+               "position": "absolute",
-+             },
-+           ],
++           Object {
++             "position": "absolute",
++           },
 +           Object {
 +             "flex": 0,
 +             "height": "100%",
@@ -1112,8 +1110,8 @@ exports[`Match should render correctly for matched offers 1`] = `
 +           Object {
 +             "payload": 4278190080,
 +             "type": 0,
-+           }
-          }
+            }
++         }
         >
 +         <RNSVGDefs>
 +           <RNSVGRadialGradient
@@ -1162,7 +1160,7 @@ exports[`Match should render correctly for matched offers 1`] = `
           Object {
             "margin": 4,
           }
-@@ -812,11 +887,11 @@
+@@ -812,11 +885,11 @@
                       false,
                     ]
                   }
@@ -1175,19 +1173,12 @@ exports[`Match should render correctly for matched offers 1`] = `
             </View>
             <View
               style={
-@@ -969,12 +1044,213 @@
-                    },
-                    Object {
-                      "height": 18,
-                      "marginBottom": 2,
-                      "marginLeft": 2,
-+                     "width": 18,
-+                   },
-+                 ]
-+               }
-+             />
-+           </View>
-+         </View>
+@@ -976,17 +1049,215 @@
+                  ]
+                }
+              />
+            </View>
+          </View>
 +         <View
 +           pointerEvents="none"
 +           style={
@@ -1215,9 +1206,6 @@ exports[`Match should render correctly for matched offers 1`] = `
 +                   "backgroundColor": "transparent",
 +                   "borderWidth": 0,
 +                 },
-+                 Array [
-+                   undefined,
-+                 ],
 +                 Object {
 +                   "flex": 0,
 +                   "height": "100%",
@@ -1277,8 +1265,8 @@ exports[`Match should render correctly for matched offers 1`] = `
 +               />
 +             </RNSVGGroup>
 +           </RNSVGSvgView>
-+         </View>
-+         <View
+          </View>
+          <View
 +           pointerEvents="box-none"
 +           style={
 +             Object {
@@ -1293,10 +1281,11 @@ exports[`Match should render correctly for matched offers 1`] = `
 +           }
 +         >
 +           <View
-+             accessibilityState={
-+               Object {
-+                 "busy": undefined,
-+                 "checked": undefined,
+              accessibilityState={
+                Object {
+                  "busy": undefined,
+                  "checked": undefined,
+-             "disabled": false,
 +                 "disabled": undefined,
 +                 "expanded": undefined,
 +                 "selected": undefined,
@@ -1381,28 +1370,27 @@ exports[`Match should render correctly for matched offers 1`] = `
 +                 Array [
 +                   Object {
 +                     "height": 18,
-                      "width": 18,
-                    },
++                     "width": 18,
++                   },
 +                   undefined,
-                  ]
-                }
-              />
-            </View>
-          </View>
-@@ -982,11 +1258,11 @@
-        <View
-          accessibilityState={
-            Object {
-              "busy": undefined,
-              "checked": undefined,
--             "disabled": false,
++                 ]
++               }
++             />
++           </View>
++         </View>
++       </View>
++       <View
++         accessibilityState={
++           Object {
++             "busy": undefined,
++             "checked": undefined,
 +             "disabled": true,
               "expanded": undefined,
               "selected": undefined,
             }
           }
           accessibilityValue={
-@@ -1040,11 +1316,11 @@
+@@ -1040,11 +1311,11 @@
                 },
                 false,
               ]
