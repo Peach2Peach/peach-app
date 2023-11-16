@@ -3,7 +3,6 @@ import { View } from 'react-native'
 import { Header, Icon, Loading, Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation, useRoute } from '../../hooks'
-import { useOnboardingHeader } from '../../hooks/headers/useOnboardingHeader'
 import { useTemporaryAccount } from '../../hooks/useTemporaryAccount'
 import { userUpdate } from '../../init/userUpdate'
 import tw from '../../styles/tailwind'
@@ -22,12 +21,6 @@ export const NewUser = () => {
   const { setTemporaryAccount } = useTemporaryAccount()
   const [userExistsForDevice, setUserExistsForDevice] = useState(false)
   const [error, setError] = useState('')
-
-  useOnboardingHeader({
-    title: i18n('welcome.welcomeToPeach.title'),
-    hideGoBackButton: !success || userExistsForDevice || !!error,
-    icons: isLoading ? [] : undefined,
-  })
 
   const onError = useCallback((err?: string) => {
     const errorMsg = err || 'UNKNOWN_ERROR'
