@@ -16,7 +16,7 @@ const tabContent: Record<string, () => JSX.Element> = {
   seedPhrase: RestoreFromSeed,
 }
 
-const tabs: TabbedNavigationItem[] = [
+const tabs: TabbedNavigationItem<'fileBackup' | 'seedPhrase'>[] = [
   { id: 'fileBackup', display: i18n('settings.backups.fileBackup') },
   { id: 'seedPhrase', display: i18n('settings.backups.seedPhrase') },
 ]
