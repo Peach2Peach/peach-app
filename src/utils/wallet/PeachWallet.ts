@@ -181,32 +181,9 @@ export class PeachWallet extends PeachJSWallet {
     return this.lastUnusedAddress
   }
 
-  async getAddress (index: number) {
+  async getAddress (index: AddressIndex | number = AddressIndex.New) {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
     const addressInfo = await this.wallet.getAddress(index)
-    return {
-      ...addressInfo,
-      address: await addressInfo.address.asString(),
-    }
-  }
-
-  getLastUnusedAddress () {
-    if (!this.lastUnusedAddress) return this.fetchLastUnusedAddress()
-    return this.lastUnusedAddress
-  }
-
-  async getNewInternalAddress () {
-    if (!this.wallet) throw Error('WALLET_NOT_READY')
-    const addressInfo = await this.wallet.getInternalAddress(AddressIndex.New)
-    return {
-      ...addressInfo,
-      address: await addressInfo.address.asString(),
-    }
-  }
-
-  async getInternalAddress (index: number) {
-    if (!this.wallet) throw Error('WALLET_NOT_READY')
-    const addressInfo = await this.wallet.getInternalAddress(index)
     return {
       ...addressInfo,
       address: await addressInfo.address.asString(),
@@ -223,9 +200,14 @@ export class PeachWallet extends PeachJSWallet {
     }
   }
 
-  async getReceivingAddress () {
+  getLastUnusedAddress () {
+    if (!this.lastUnusedAddress) return this.fetchLastUnusedAddress()
+    return this.lastUnusedAddress
+  }
+
+  async getInternalAddress (index: AddressIndex | number = AddressIndex.New) {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
-    const addressInfo = await this.wallet.getAddress(AddressIndex.New)
+    const addressInfo = await this.wallet.getInternalAddress(index)
     return {
       ...addressInfo,
       address: await addressInfo.address.asString(),

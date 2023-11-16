@@ -43,7 +43,7 @@ export const SellSummary = () => {
   const publishOffer = async () => {
     if (isPublishing) return
     setIsPublishing(true)
-    const { address } = peachWalletActive ? await peachWallet.getReceivingAddress() : { address: payoutAddress }
+    const { address } = peachWalletActive ? await peachWallet.getAddress() : { address: payoutAddress }
     if (!address) {
       setIsPublishing(false)
       return

@@ -258,7 +258,7 @@ describe('PeachWallet', () => {
     const index = 4
     walletGetInternalAddressMock.mockResolvedValueOnce({ address: addressObject, index })
 
-    const { address: newAddress, index: addressIndex } = await peachWallet.getNewInternalAddress()
+    const { address: newAddress, index: addressIndex } = await peachWallet.getInternalAddress()
     expect(newAddress).toBe(address)
     expect(addressIndex).toBe(index)
     expect(walletGetInternalAddressMock).toHaveBeenCalledWith(AddressIndex.New)
@@ -266,16 +266,12 @@ describe('PeachWallet', () => {
   it('gets address by index', async () => {
     const address = 'address'
     const addressObject = new Address()
-    addressObject.asString = jest.fn().mockResolvedValueOnce(address)
+    addressObject.asString = jest.fn().mockResolvedValue(address)
     const index = 4
-    walletGetAddressMock.mockResolvedValueOnce({ address: addressObject, index })
+    walletGetAddressMock.mockResolvedValue({ address: addressObject, index })
 
-    const addressInfo = await peachWallet.getAddressByIndex(0)
-    expect(addressInfo).toEqual({
-      index: 0,
-      address: 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt',
-      used: true,
-    })
+    const addressInfo = await peachWallet.getAddressByIndex(index)
+    expect(addressInfo).toEqual({ index, address, used: false })
   })
   it('gets a new unused receiving address', async () => {
     const address = 'address'
@@ -284,14 +280,14 @@ describe('PeachWallet', () => {
     const index = 4
     walletGetAddressMock.mockResolvedValueOnce({ address: addressObject, index })
 
-    const { address: newAddress, index: addressIndex } = await peachWallet.getReceivingAddress()
+    const { address: newAddress, index: addressIndex } = await peachWallet.getAddress()
     expect(newAddress).toBe(address)
     expect(addressIndex).toBe(index)
     expect(walletGetAddressMock).toHaveBeenCalledWith(AddressIndex.New)
   })
   it('throws error when requesting receiving address before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(() => peachWallet.getReceivingAddress())
+    const error = await getError<Error>(() => peachWallet.getAddress())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('updates wallet store', () => {

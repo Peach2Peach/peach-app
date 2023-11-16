@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable class-methods-use-this, require-await */
 import { PartiallySignedTransaction } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
@@ -41,7 +42,11 @@ export class PeachWallet {
     return { address: 'bcrt1qwype5wug33a6hwz9u2n6vz4lc0kpw0kg4xc8fq', index: 0 }
   }
 
-  async getNewInternalAddress () {
+  async getAddress () {
+    return { address: 'bcrt1qwype5wug33a6hwz9u2n6vz4lc0kpw0kg4xc8fq', index: 0 }
+  }
+
+  async getInternalAddress () {
     return { address: 'bcrt1qwype5wug33a6hwz9u2n6vz4lc0kpw0kg4xc8fq', index: 0 }
   }
 
