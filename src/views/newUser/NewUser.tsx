@@ -17,7 +17,6 @@ export const NewUser = () => {
   const route = useRoute<'newUser'>()
   const navigation = useNavigation()
 
-  const [isLoading, setIsLoading] = useState(true)
   const [success, setSuccess] = useState(false)
   const { setTemporaryAccount } = useTemporaryAccount()
   const [userExistsForDevice, setUserExistsForDevice] = useState(false)
@@ -70,7 +69,6 @@ export const NewUser = () => {
       } catch (e) {
         onError(parseError(e))
       }
-      setIsLoading(false)
     })
   }, [onError, onSuccess])
 
