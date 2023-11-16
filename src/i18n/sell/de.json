@@ -19,5 +19,7 @@
   "sell.summary.title" : "Übersicht des Verkaufsangebots",
   "sell.title" : "Bitcoin verkaufen",
   "sell.title.highlight" : "verkaufen",
+  "warning.incorrectFunding.description" : "Du hast dein Angebot mit $0 Transaktionen finanziert, was wegen übertriebenen Netzwerkgebühren für den Käufer nicht erlaubt ist.\n\nDu bekommst eine Rückerstattung.",
+  "warning.incorrectFunding.title" : "Falsche Finanzierung",
   "yourTrades.search.sell.subtitle" : "Verkaufsangebot für"
 }

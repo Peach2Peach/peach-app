@@ -19,5 +19,7 @@
   "sell.summary.title" : "podsumowanie oferty sprzedaży",
   "sell.title" : "sprzedaj bitcoin",
   "sell.title.highlight" : "sprzedaj",
+  "warning.incorrectFunding.description" : "Zfinansowałeś swoją ofertę $0 transakcjami, co nie jest dozwolone ze względu na nadmierne opłaty sieciowe dla kupującego.\n\nBędziesz zwrócony.",
+  "warning.incorrectFunding.title" : "Nieprawidłowe finansowanie",
   "yourTrades.search.sell.subtitle" : "sprzedaj ofertę zą"
 }
