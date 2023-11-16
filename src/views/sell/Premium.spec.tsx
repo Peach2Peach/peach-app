@@ -1,5 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { PrimaryButton } from '../../components'
+import { Button } from '../../components/buttons/Button'
+import tw from '../../styles/tailwind'
 import { Premium } from './Premium'
 import { CurrentOfferPrice } from './components'
 
@@ -21,17 +22,9 @@ describe('Premium', () => {
         setPremium={jest.fn()}
         offerPrice={<CurrentOfferPrice />}
         confirmButton={
-          <PrimaryButton
-            disabled={true}
-            narrow={true}
-            onPress={jest.fn()}
-            style={{
-              alignSelf: 'center',
-              marginBottom: 20,
-            }}
-          >
+          <Button style={tw`self-center`} disabled onPress={jest.fn()}>
             {'next'}
-          </PrimaryButton>
+          </Button>
         }
         amount={21000000}
       />,

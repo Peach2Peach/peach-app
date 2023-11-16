@@ -1,26 +1,36 @@
+import { useMemo, useState } from 'react'
 import { Divider, Header, PeachScrollView, Screen } from '../../components'
-import { useShowHelp } from '../../hooks'
+import { Button } from '../../components/buttons/Button'
+import { useRoute, useShowHelp } from '../../hooks'
+import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
+import { useTransactionDetails } from '../../hooks/query/useTransactionDetails'
 import tw from '../../styles/tailwind'
+import { getTransactionFeeRate } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
+import { getErrorsInField } from '../../utils/validation'
+import { useWalletState } from '../../utils/wallet/walletStore'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
-import { BumpNetworkFeesButton } from './components/BumpNetworkFeesButton'
 import { CurrentFee } from './components/bumpNetworkFees/CurrentFee'
 import { FeeEstimates } from './components/bumpNetworkFees/FeeEstimates'
 import { NewFee } from './components/bumpNetworkFees/NewFee'
-import { useBumpNetworkFeesSetup } from './hooks/useBumpNetworkFeesSetup'
+import { useBumpFees } from './hooks/useBumpFees'
 
 export const BumpNetworkFees = () => {
-  const {
-    transaction,
-    currentFeeRate,
-    newFeeRate,
-    setNewFeeRate,
-    newFeeRateIsValid,
-    estimatedFees,
-    sendingAmount,
-    overpayingBy,
-  } = useBumpNetworkFeesSetup()
+  const { txId } = useRoute<'bumpNetworkFees'>().params
+
+  const localTransaction = useWalletState((state) => state.getTransaction(txId))
+  const { transaction } = useTransactionDetails({ txId })
+  const { estimatedFees } = useFeeEstimate()
+  const currentFeeRate = transaction ? getTransactionFeeRate(transaction) : 1
+  const [feeRate, setNewFeeRate] = useState<string>()
+  const newFeeRate = feeRate ?? (currentFeeRate + 1.01).toFixed(2)
+
+  const newFeeRateRules = useMemo(() => ({ min: currentFeeRate + 1, required: true, feeRate: true }), [currentFeeRate])
+  const newFeeRateErrors = useMemo(() => getErrorsInField(newFeeRate, newFeeRateRules), [newFeeRate, newFeeRateRules])
+  const newFeeRateIsValid = newFeeRate && newFeeRateErrors.length === 0
+  const overpayingBy = Number(newFeeRate) / estimatedFees.fastestFee - 1
+  const sendingAmount = localTransaction ? localTransaction.sent - localTransaction.received : 0
 
   if (!transaction) return <BitcoinLoading />
 
@@ -37,11 +47,7 @@ export const BumpNetworkFees = () => {
         <Divider />
         <NewFee {...{ newFeeRate, setNewFeeRate, overpayingBy }} />
       </PeachScrollView>
-      <BumpNetworkFeesButton
-        style={tw`self-center`}
-        {...{ transaction, newFeeRate, sendingAmount }}
-        disabled={!newFeeRateIsValid}
-      />
+      <BumpNetworkFeesButton {...{ transaction, newFeeRate, sendingAmount }} disabled={!newFeeRateIsValid} />
     </Screen>
   )
 }
@@ -49,4 +55,20 @@ export const BumpNetworkFees = () => {
 function BumpNetworkFeesHeader () {
   const showHelp = useShowHelp('rbf')
   return <Header title={i18n('wallet.bumpNetworkFees.title')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
+}
+
+type Props = {
+  transaction?: Transaction | null
+  newFeeRate: string
+  sendingAmount: number
+  disabled?: boolean
+}
+function BumpNetworkFeesButton ({ transaction, newFeeRate, sendingAmount, disabled }: Props) {
+  const bumpFees = useBumpFees({ transaction, newFeeRate: Number(newFeeRate), sendingAmount })
+
+  return (
+    <Button style={tw`self-center`} disabled={disabled} onPress={bumpFees}>
+      {i18n('confirm')}
+    </Button>
+  )
 }
