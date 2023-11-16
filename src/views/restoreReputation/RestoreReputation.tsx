@@ -3,10 +3,10 @@ import { View } from 'react-native'
 import { Header, Icon, Loading, Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation, useRoute } from '../../hooks'
-import { useTemporaryAccount } from '../../hooks/useTemporaryAccount'
 import { userUpdate } from '../../init/userUpdate'
 import tw from '../../styles/tailwind'
 import { storeAccount, updateAccount } from '../../utils/account'
+import { useAccountStore } from '../../utils/account/account'
 import i18n from '../../utils/i18n'
 
 export const RestoreReputation = () => {
@@ -14,17 +14,16 @@ export const RestoreReputation = () => {
   const navigation = useNavigation()
   const [isRestored, setIsRestored] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const { temporaryAccount } = useTemporaryAccount()
+  const account = useAccountStore((state) => state.account)
 
   const restoreReputation = () => {
-    if (!temporaryAccount) return
     setIsLoading(true)
     // prevent render blocking
     setTimeout(async () => {
-      updateAccount(temporaryAccount, true)
+      updateAccount(account, true)
       await userUpdate(route.params.referralCode)
 
-      storeAccount(temporaryAccount)
+      storeAccount(account)
       setIsRestored(true)
 
       setTimeout(() => {

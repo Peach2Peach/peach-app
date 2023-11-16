@@ -3,10 +3,10 @@ import { View } from 'react-native'
 import { Header, Icon, Loading, Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation, useRoute } from '../../hooks'
-import { useTemporaryAccount } from '../../hooks/useTemporaryAccount'
 import { userUpdate } from '../../init/userUpdate'
 import tw from '../../styles/tailwind'
 import { createAccount, deleteAccount, signMessageWithAccount, storeAccount, updateAccount } from '../../utils/account'
+import { useAccountStore } from '../../utils/account/account'
 import i18n from '../../utils/i18n'
 import { register } from '../../utils/peachAPI'
 import { getAuthenticationChallenge } from '../../utils/peachAPI/getAuthenticationChallenge'
@@ -18,7 +18,7 @@ export const NewUser = () => {
   const navigation = useNavigation()
 
   const [success, setSuccess] = useState(false)
-  const { setTemporaryAccount } = useTemporaryAccount()
+  const setAccount = useAccountStore((state) => state.setAccount)
   const [userExistsForDevice, setUserExistsForDevice] = useState(false)
   const [error, setError] = useState('')
 
@@ -44,7 +44,7 @@ export const NewUser = () => {
       }
 
       if (result.restored) {
-        setTemporaryAccount(account)
+        setAccount(account)
         setUserExistsForDevice(true)
         return
       }
@@ -58,7 +58,7 @@ export const NewUser = () => {
         navigation.replace('buy')
       }, 1500)
     },
-    [navigation, onError, route.params.referralCode, setTemporaryAccount],
+    [navigation, onError, route.params.referralCode, setAccount],
   )
 
   useEffect(() => {
