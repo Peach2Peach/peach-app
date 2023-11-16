@@ -19,5 +19,7 @@
   "sell.summary.title" : "verkoopaanbod overzicht",
   "sell.title" : "verkoop bitcoin",
   "sell.title.highlight" : "verkoop",
+  "warning.incorrectFunding.description" : "Je hebt je aanbieding gefinancierd met $0 transacties, wat niet is toegestaan vanwege de hoge netwerkkosten voor de koper.\n\nJe krijgt een terugbetaling.",
+  "warning.incorrectFunding.title" : "Onjuiste financiering",
   "yourTrades.search.sell.subtitle" : "koop aanbod voor"
 }

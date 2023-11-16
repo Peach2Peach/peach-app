@@ -19,5 +19,7 @@
   "sell.summary.title" : "сводка предложений о продаже",
   "sell.title" : "продать биткойн",
   "sell.title.highlight" : "продать",
+  "warning.incorrectFunding.description" : "Ты финансировал своё предложение $0 транзакциями, что не разрешено из-за излишних сетевых сборов для покупателя.\n\nТебе вернут деньги.",
+  "warning.incorrectFunding.title" : "Неправильное финансирование",
   "yourTrades.search.sell.subtitle" : "предложение о продаже за"
 }

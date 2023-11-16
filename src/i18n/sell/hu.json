@@ -19,5 +19,7 @@
   "sell.summary.title" : "eladási ajánlat összefoglalója",
   "sell.title" : "Bitcoin eladás",
   "sell.title.highlight" : "eladás",
+  "warning.incorrectFunding.description" : "A kínálatodat $0 tranzakcióval finanszíroztad, ami a vevő számára felmerülő túlzott hálózati díjak miatt nem engedélyezett.\n\nVisszakapod a pénzt.",
+  "warning.incorrectFunding.title" : "Hibás finanszírozás",
   "yourTrades.search.sell.subtitle" : "eladási ajánlat"
 }

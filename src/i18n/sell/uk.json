@@ -19,5 +19,7 @@
   "sell.summary.title" : "підсумок пропозиції продажу",
   "sell.title" : "продати биткойн",
   "sell.title.highlight" : "продати",
+  "warning.incorrectFunding.description" : "Ви фінансували свою пропозицію за допомогою транзакцій на $0, що не дозволено через занадто великі мережеві витрати для покупця.\n\nВам повернуть гроші.",
+  "warning.incorrectFunding.title" : "Неправильне фінансування",
   "yourTrades.search.sell.subtitle" : "продати лот за"
 }
