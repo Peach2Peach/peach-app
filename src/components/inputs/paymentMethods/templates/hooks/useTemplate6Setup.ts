@@ -12,15 +12,15 @@ const referenceRules = { required: false, isValidPaymentReference: true }
 // eslint-disable-next-line max-lines-per-function, max-statements
 export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
   const { type: paymentMethod } = data
-  const tabs: TabbedNavigationItem[] = useMemo(() => {
-    const tabItems = [
+  const tabs = useMemo(() => {
+    const tabItems: TabbedNavigationItem<'phone' | 'email' | 'userName' | 'revtag'>[] = [
       { id: 'phone', display: i18n('form.phone') },
       { id: 'email', display: i18n('form.email') },
     ]
     if (paymentMethod === 'paypal') {
-      tabItems.push({ id: 'userName', display: i18n('form.userName') })
+      tabItems.push({ id: 'userName' as const, display: i18n('form.userName') })
     } else if (paymentMethod === 'revolut') {
-      tabItems.push({ id: 'revtag', display: i18n('form.revtag') })
+      tabItems.push({ id: 'revtag' as const, display: i18n('form.revtag') })
     }
     return tabItems
   }, [paymentMethod])

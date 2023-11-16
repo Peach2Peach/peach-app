@@ -7,7 +7,6 @@ import { useNavigation, useRoute } from '../../hooks'
 import { useLanguage } from '../../hooks/useLanguage'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { getTabById } from '../yourTrades/utils/getTabById'
 import { RestoreFromFile } from './RestoreFromFile'
 import { RestoreFromSeed } from './RestoreFromSeed'
 
@@ -20,6 +19,8 @@ const tabs: TabbedNavigationItem<'fileBackup' | 'seedPhrase'>[] = [
   { id: 'fileBackup', display: i18n('settings.backups.fileBackup') },
   { id: 'seedPhrase', display: i18n('settings.backups.seedPhrase') },
 ]
+
+const getTabById = <T extends string>(items: TabbedNavigationItem<T>[], id: T) => items.find((t) => t.id === id)
 
 export const RestoreBackup = () => {
   const { tab = 'fileBackup' } = useRoute<'restoreBackup'>().params || {}
