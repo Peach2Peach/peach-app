@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { Header, Icon, Loading, Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
@@ -6,10 +6,11 @@ import { useNavigation, useRoute } from '../../hooks'
 import { useTemporaryAccount } from '../../hooks/useTemporaryAccount'
 import { userUpdate } from '../../init/userUpdate'
 import tw from '../../styles/tailwind'
-import { deleteAccount, signMessageWithAccount, storeAccount, updateAccount } from '../../utils/account'
+import { createAccount, deleteAccount, signMessageWithAccount, storeAccount, updateAccount } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { register } from '../../utils/peachAPI'
 import { getAuthenticationChallenge } from '../../utils/peachAPI/getAuthenticationChallenge'
+import { parseError } from '../../utils/result'
 import { MenuItem } from './components/MenuItem'
 
 export const NewUser = () => {
@@ -61,17 +62,17 @@ export const NewUser = () => {
     [navigation, onError, route.params.referralCode, setTemporaryAccount],
   )
 
-  // useEffect(() => {
-  //   // creating an account is CPU intensive and causing iOS to show a black bg upon hiding keyboard
-  //   setTimeout(async () => {
-  //     try {
-  //       await onSuccess(await createAccount())
-  //     } catch (e) {
-  //       onError(parseError(e))
-  //     }
-  //     setIsLoading(false)
-  //   })
-  // }, [onError, onSuccess])
+  useEffect(() => {
+    // creating an account is CPU intensive and causing iOS to show a black bg upon hiding keyboard
+    setTimeout(async () => {
+      try {
+        await onSuccess(await createAccount())
+      } catch (e) {
+        onError(parseError(e))
+      }
+      setIsLoading(false)
+    })
+  }, [onError, onSuccess])
 
   return (
     <Screen
