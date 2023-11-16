@@ -7,7 +7,7 @@ type Props = {
   buttons: React.ReactNode
   title: string
   text: string
-  iconId: IconType
+  iconId?: IconType
 }
 
 export function Overlay ({ buttons, title, text, iconId }: Props) {
@@ -17,8 +17,8 @@ export function Overlay ({ buttons, title, text, iconId }: Props) {
         <View style={tw`justify-center gap-8 grow`}>
           <Text style={tw`text-center h4 text-primary-background-light shrink`}>{title}</Text>
           <View style={tw`flex-row items-center gap-6`}>
-            <Icon id={iconId} size={92} color={tw`text-primary-background-light`.color} />
-            <Text style={tw`flex-1 body-l text-primary-background-light`}>{text}</Text>
+            {iconId && <Icon id={iconId} size={92} color={tw`text-primary-background-light`.color} />}
+            <Text style={[tw`flex-1 body-l text-primary-background-light`, !iconId && tw`text-center`]}>{text}</Text>
           </View>
         </View>
 
