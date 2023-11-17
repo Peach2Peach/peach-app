@@ -1,4 +1,3 @@
-export { loadAccount } from './loadAccount'
 export { loadChat } from './loadChat'
 export { loadChats } from './loadChats'
 export { loadIdentity } from './loadIdentity'

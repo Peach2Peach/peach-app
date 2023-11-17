@@ -10,15 +10,7 @@ export { getMessageToSignForAddress } from './getMessageToSignForAddress'
 export { getNewPreferredPaymentMethods } from './getNewPreferredPaymentMethods'
 export { getSelectedPaymentDataIds } from './getSelectedPaymentDataIds'
 export { isBackupMandatory } from './isBackupMandatory'
-export {
-  loadAccount,
-  loadChat,
-  loadChats,
-  loadIdentity,
-  loadOffers,
-  loadPaymentData,
-  loadTradingLimit,
-} from './loadAccount'
+export { loadChat, loadChats, loadIdentity, loadOffers, loadPaymentData, loadTradingLimit } from './loadAccount'
 export { loadAccountFromBase58 } from './loadAccountFromBase58'
 export { loadAccountFromSeedPhrase } from './loadAccountFromSeedPhrase'
 export { recoverAccount } from './recoverAccount'
