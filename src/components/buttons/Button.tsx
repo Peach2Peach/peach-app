@@ -15,7 +15,6 @@ export type ButtonProps = {
   loading?: boolean
 } & TouchableOpacityProps
 
-/** This button is intented to replace the base layer + the primary button component due to its greater simplicity */
 export const Button = ({
   iconId,
   ghost,
