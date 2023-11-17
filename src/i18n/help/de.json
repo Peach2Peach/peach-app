@@ -1,6 +1,6 @@
 {
   "help" : "Hilfe",
-  "help.addressSigning.description" : "Aufgrund schweizer Gesetze musst du eine Signatur abgeben, um zu bestätigen, dass du im Besitz der Adresse bist, an die der Handel ausgezahlt wird.\n\nWenn du nicht weißt, wie das funktioniert, empfehlen wir die das Peach Wallet zu verwenden. Dann musst du diesen Schritt nicht manuell durchführen.",
+  "help.addressSigning.description" : "Aufgrund schweizer Gesetze musst du eine Signatur abgeben, um zu bestätigen, dass du im Besitz der Adresse bist, an die der Handel ausgezahlt wird.\n\nWenn du nicht weißt, wie das funktioniert, empfehlen wir dir das Peach Wallet zu verwenden. Dann musst du diesen Schritt nicht manuell durchführen.",
   "help.addressSigning.title" : "Adresssignierung",
   "help.buyingBitcoin.description" : "Wenn du Bitcoin auf Peach kaufst, wählst du zunächst einen Bereich aus, wie viel du kaufen möchtest.\n\nAnschließend werden dir alle Verkaufsangebote angezeigt, die in diesen Bereich passen.\n\nDie Gebühren bei Peach betragen 2% des Handelsbetrags.",
   "help.buyingBitcoin.title" : "Bitcoin kaufen",
