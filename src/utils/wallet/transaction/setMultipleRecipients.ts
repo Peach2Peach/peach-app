@@ -1,6 +1,6 @@
 import { TxBuilder } from 'bdk-rn'
 import { ScriptAmount } from 'bdk-rn/lib/classes/Bindings'
-import { getScriptPubKeyFromAddress } from '.'
+import { getScriptPubKeyFromAddress } from './getScriptPubKeyFromAddress'
 
 export const setMultipleRecipients = async (transaction: TxBuilder, amount: number, addresses: string[]) => {
   const splitAmount = Math.floor(amount / addresses.length)
