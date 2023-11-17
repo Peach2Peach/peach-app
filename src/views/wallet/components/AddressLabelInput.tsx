@@ -4,26 +4,23 @@ import { shallow } from 'zustand/shallow'
 import { Icon } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { useWalletState } from '../../../utils/wallet/walletStore'
-import { useLastUnusedAddress, useWalletAddress } from '../hooks'
 
-export function AddressLabelInput ({ index }: { index: number }) {
-  const { data } = useLastUnusedAddress()
-  const showChevronsLeft = !!data && index >= data.index + 2
-  const showChevronsRight = !!data && index <= data.index - 2
+type Props = {
+  address?: string
+  fallback?: string
+}
 
-  const { data: currentAddress } = useWalletAddress(index)
+export function AddressLabelInput ({ address, fallback }: Props) {
   const [isEditing, setIsEditing] = useState(false)
   const [label, setLabel] = useWalletState(
-    (state) => [state.addressLabelMap[currentAddress?.address ?? ''] ?? `address #${index + 1}`, state.labelAddress],
+    (state) => [state.addressLabelMap[address ?? ''] ?? fallback, state.labelAddress],
     shallow,
   )
 
   const $input = useRef<TextInput>(null)
 
   const onChangeText = (text: string) => {
-    if (currentAddress?.address) {
-      setLabel(currentAddress.address, text)
-    }
+    setLabel(address, text)
   }
 
   const onIconPress = () => {
@@ -37,13 +34,7 @@ export function AddressLabelInput ({ index }: { index: number }) {
   }
 
   return (
-    <View
-      style={[
-        tw`flex-row items-center justify-center flex-1 gap-1`,
-        showChevronsLeft && tw`pr-6`,
-        showChevronsRight && tw`pl-6`,
-      ]}
-    >
+    <View style={tw`flex-row items-center justify-center gap-1`}>
       <TextInput
         value={label}
         onChangeText={onChangeText}

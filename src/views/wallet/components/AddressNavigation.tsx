@@ -2,9 +2,21 @@ import { useQueryClient } from '@tanstack/react-query'
 import { View } from 'react-native'
 import { TouchableIcon } from '../../../components'
 import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { useLastUnusedAddress } from '../hooks'
+import { useLastUnusedAddress, useWalletAddress } from '../hooks'
 import { AddressLabelInput } from './AddressLabelInput'
+
+function AddressLabelInputByIndex ({ index, style }: ComponentProps & { index: number }) {
+  const fallback = { address: undefined, used: false, index }
+  const { data: currentAddress = fallback } = useWalletAddress(index)
+
+  return (
+    <View style={[tw`flex-row items-center justify-center flex-1 gap-1`, style]}>
+      <AddressLabelInput address={currentAddress.address || i18n('loading')} fallback={`address #${index}`} />
+    </View>
+  )
+}
 
 type Props = {
   setIndex: React.Dispatch<React.SetStateAction<number | undefined>>
@@ -41,7 +53,11 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
         <ArrowLeftCircle onPress={prevAddress} index={index} />
       </ArrowWrapper>
 
-      <AddressLabelInput key={`addressLabel-${index}`} index={index} />
+      <AddressLabelInputByIndex
+        key={`addressLabel-${index}`}
+        index={index}
+        style={[showChevronsLeft && tw`pr-6`, showChevronsRight && tw`pl-6`]}
+      />
 
       <ArrowWrapper>
         <TouchableIcon id="arrowRightCircle" onPress={nextAddress} />

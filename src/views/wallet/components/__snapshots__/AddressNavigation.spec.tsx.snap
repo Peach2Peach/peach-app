@@ -5,35 +5,35 @@ exports[`AddressNavigation should only show the chevrons when the user is more t
 - First value
 + Second value
 
-@@ -79,11 +79,13 @@
-            "flexShrink": 1,
+@@ -80,11 +80,13 @@
             "gap": 4,
             "justifyContent": "center",
           },
-          false,
--         false,
-+         Object {
-+           "paddingLeft": 24,
-+         },
+          Array [
+            false,
+-           false,
++           Object {
++             "paddingLeft": 24,
++           },
+          ],
         ]
       }
     >
-      <TextInput
-        onChangeText={[Function onChangeText]}
-@@ -96,11 +98,11 @@
-            "lineHeight": 32.5,
-            "overflow": "hidden",
-            "textAlign": "center",
-          }
-        }
--       value="address #6"
-+       value="address #4"
-      />
       <View
-        accessibilityState={
-          Object {
-            "busy": undefined,
-@@ -156,10 +158,57 @@
+@@ -108,11 +110,11 @@
+              "lineHeight": 32.5,
+              "overflow": "hidden",
+              "textAlign": "center",
+            }
+          }
+-         value="address #5"
++         value="address #3"
+        />
+        <View
+          accessibilityState={
+            Object {
+              "busy": undefined,
+@@ -169,10 +171,57 @@
           "gap": 2,
           "justifyContent": "flex-end",
         }
@@ -156,36 +156,35 @@ exports[`AddressNavigation should only show the chevrons when the user is more t
             "selected": undefined,
           }
         }
-@@ -77,13 +124,15 @@
-            "flexDirection": "row",
-            "flexGrow": 1,
+@@ -79,12 +126,14 @@
             "flexShrink": 1,
             "gap": 4,
             "justifyContent": "center",
-+         },
-+         Object {
-+           "paddingRight": 24,
           },
-          false,
--         false,
+          Array [
++           Object {
++             "paddingRight": 24,
++           },
+            false,
+-           false,
+          ],
         ]
       }
     >
-      <TextInput
-        onChangeText={[Function onChangeText]}
-@@ -96,11 +145,11 @@
-            "lineHeight": 32.5,
-            "overflow": "hidden",
-            "textAlign": "center",
-          }
-        }
--       value="address #6"
-+       value="address #8"
-      />
       <View
-        accessibilityState={
-          Object {
-            "busy": undefined,"
+@@ -108,11 +157,11 @@
+              "lineHeight": 32.5,
+              "overflow": "hidden",
+              "textAlign": "center",
+            }
+          }
+-         value="address #5"
++         value="address #7"
+        />
+        <View
+          accessibilityState={
+            Object {
+              "busy": undefined,"
 `;
 
 exports[`AddressNavigation should render correctly 1`] = `
@@ -271,72 +270,85 @@ exports[`AddressNavigation should render correctly 1`] = `
           "gap": 4,
           "justifyContent": "center",
         },
-        false,
-        false,
+        [
+          false,
+          false,
+        ],
       ]
     }
   >
-    <TextInput
-      onChangeText={[Function]}
-      style={
-        {
-          "color": "#2B1911",
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 20,
-          "letterSpacing": 0.2,
-          "lineHeight": 32.5,
-          "overflow": "hidden",
-          "textAlign": "center",
-        }
-      }
-      value="address #2"
-    />
     <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         {
-          "opacity": 1,
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "center",
         }
       }
     >
-      <test-file-stub
-        fill="#F56522"
+      <TextInput
+        onChangeText={[Function]}
         style={
-          [
-            {
-              "height": 16,
-              "width": 16,
-            },
-            undefined,
-          ]
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 32.5,
+            "overflow": "hidden",
+            "textAlign": "center",
+          }
         }
+        value="address #1"
       />
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+      >
+        <test-file-stub
+          fill="#F56522"
+          style={
+            [
+              {
+                "height": 16,
+                "width": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
     </View>
   </View>
   <View
