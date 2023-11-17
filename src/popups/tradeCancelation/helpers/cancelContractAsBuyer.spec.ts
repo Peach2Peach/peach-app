@@ -11,12 +11,11 @@ describe('cancelContractAsBuyer', () => {
   it('calls cancelContract and returns contract update', async () => {
     const result = await cancelContractAsBuyer(contract)
     expect(cancelContractMock).toHaveBeenCalledWith({ contractId: contract.id })
-    expect(result.isOk()).toBeTruthy()
-    expect(result.getValue()).toEqual({
+    expect(result.result).toBeTruthy()
+    expect(result.result).toEqual({
       contract: {
         ...contract,
         canceled: true,
-        cancelConfirmationDismissed: false,
       },
     })
   })
@@ -24,8 +23,8 @@ describe('cancelContractAsBuyer', () => {
   it('handles cancelContract error response', async () => {
     cancelContractMock.mockResolvedValueOnce([null, unauthorizedError])
     const result = await cancelContractAsBuyer(contract)
-    expect(result.isError()).toBeTruthy()
-    expect(result.getError()).toBe(unauthorizedError.error)
-    expect(result.getValue()).toEqual({ contract })
+    expect(result.error).toBeTruthy()
+    expect(result.error).toBe(unauthorizedError.error)
+    expect(result.result).toEqual({ contract })
   })
 })

@@ -1,7 +1,6 @@
 import { FlagType } from './components/flags'
 import { CurrencyType } from './store/offerPreferenes/types'
 import { unique } from './utils/array'
-import { Country } from './utils/country/countryMap'
 import { isCashTrade } from './utils/paymentMethod/isCashTrade'
 
 export let CURRENCIES: Currency[] = [
@@ -41,7 +40,7 @@ export const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
   other: ['USDT', 'SAT'],
 }
 
-export let GIFTCARDCOUNTRIES: Country[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
+export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
 export const NATIONALTRANSFERCOUNTRIES = ['BG', 'CZ', 'DK', 'HU', 'NO', 'PL', 'RO', 'CH', 'IS', 'SE', 'TR'] as const
 
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']

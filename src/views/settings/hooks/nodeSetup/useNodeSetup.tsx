@@ -41,12 +41,11 @@ export const useNodeSetup = () => {
   const checkConnection = async () => {
     showLoadingPopup({ title: i18n('wallet.settings.node.checkingConnection') })
 
-    const result = await checkNodeConnection(url, ssl)
-    if (result.isOk()) {
-      const nodeType = result.getValue()
+    const { result: nodeType, error } = await checkNodeConnection(url, ssl)
+    if (nodeType) {
       return setPopup(<NodeConnectionSuccessPopup url={url} save={() => save(nodeType)} />)
     }
-    return setPopup(<NodeConnectionErrorPopup error={result.getError()} />)
+    return setPopup(<NodeConnectionErrorPopup error={error} />)
   }
 
   useEffect(() => {

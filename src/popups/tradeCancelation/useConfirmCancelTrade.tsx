@@ -33,10 +33,10 @@ export const useConfirmCancelTrade = () => {
   const cancelBuyer = useCallback(
     async (contract: Contract) => {
       setPopup({ title: i18n('contract.cancel.success'), visible: true, level: 'DEFAULT' })
-      const result = await cancelContractAsBuyer(contract)
+      const { result, error } = await cancelContractAsBuyer(contract)
 
-      if (result.isError() || !result.isOk()) {
-        showError(result.isError() ? result.getError() : undefined)
+      if (error || !result) {
+        showError(error)
         return
       }
       navigation.replace('contract', { contractId: contract.id })
@@ -61,14 +61,14 @@ export const useConfirmCancelTrade = () => {
         content: <SellerCanceledContent {...{ isCash, canRepublish, tradeID: contract.id, walletName }} />,
       })
 
-      const result = await cancelContractAsSeller(contract)
+      const { result, error } = await cancelContractAsSeller(contract)
 
-      if (result.isError() || !result.isOk()) {
-        showError(result.isError() ? result.getError() : undefined)
+      if (error || !result) {
+        showError(error)
         return
       }
 
-      const { sellOffer } = result.getValue()
+      const { sellOffer } = result
       if (sellOffer) saveOffer(sellOffer)
       navigation.replace('contract', { contractId: contract.id })
     },

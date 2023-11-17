@@ -37,6 +37,7 @@
     "test:e2e:ios:build": "detox build --configuration ios",
     "test:e2e:ios": "detox test --configuration ios --config ./tests/e2e/jest.config.js",
     "test:detox:clean": "detox clean-framework-cache && detox build-framework-cache",
+    "tsc": "tsc",
     "lint": "eslint . --ext .tsx,.ts"
   },
   "dependencies": {

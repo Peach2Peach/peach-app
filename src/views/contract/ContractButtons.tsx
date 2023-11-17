@@ -25,7 +25,7 @@ export function NewOfferButton () {
   const navigation = useNavigation()
   const { contract } = useContractContext()
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
-  const newOfferId = offer?.newOfferId
+  const newOfferId = !!offer && 'newOfferId' in offer ? offer?.newOfferId : undefined
   const goToNewOffer = useCallback(async () => {
     if (!newOfferId) return
     const [newOffer] = await getOfferDetails({ offerId: newOfferId })

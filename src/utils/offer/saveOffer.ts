@@ -1,7 +1,6 @@
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { useAccountStore } from '../account/account'
 import { storeOffer } from '../account/storeAccount'
-import { sort } from '../array'
 import { error, info } from '../log'
 import { getSummaryFromOffer } from './getSummaryFromOffer'
 import { offerExists } from './offerExists'
@@ -27,7 +26,7 @@ export const saveOffer = (offer: SellOffer | BuyOffer) => {
     return {
       account: {
         ...state.account,
-        offers: newOffers.sort(sort('id')),
+        offers: newOffers.sort((a, b) => (a.id === b.id ? 0 : a.id > b.id ? 1 : -1)),
       },
     }
   })

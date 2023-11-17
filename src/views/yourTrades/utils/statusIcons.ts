@@ -1,6 +1,6 @@
 import { IconType } from '../../../assets/icons'
 
-export const statusIcons: Record<TradeStatus, IconType> = {
+export const statusIcons: Record<TradeStatus | 'waiting', IconType> = {
   fundEscrow: 'uploadCloud',
   searchingForPeer: 'search',
   offerHidden: 'eyeOff',

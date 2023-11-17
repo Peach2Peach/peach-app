@@ -31,11 +31,11 @@ describe('getActionLabel', () => {
     expect(result).toEqual('new chat message')
   })
   it('should return correct label for a contract summary that is waiting', () => {
-    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'waiting' }, true)
+    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'searchingForPeer' }, true)
     expect(result).toEqual('waiting for payment')
   })
   it('should return correct label for a contract summary that is waiting and a buyer', () => {
-    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'waiting', type: 'bid' }, true)
+    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'searchingForPeer', type: 'bid' }, true)
     expect(result).toEqual('waiting for seller')
   })
   it('should return correct label for a contract summary that is rateUser', () => {

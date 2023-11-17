@@ -1,23 +1,17 @@
 import { cancelContract } from '../../../utils/peachAPI'
-import { getResult } from '../../../utils/result'
-import { Result } from '../../../utils/result/types'
 import { patchSellOfferWithRefundTx } from './patchSellOfferWithRefundTx'
 
-type UpdateResult = {
-  sellOffer?: SellOffer
-}
-
-export const cancelContractAsSeller = async (contract: Contract): Promise<Result<UpdateResult, string>> => {
+export const cancelContractAsSeller = async (contract: Contract) => {
   const [result, err] = await cancelContract({ contractId: contract.id })
 
-  if (!result?.success || err) return getResult({ sellOffer: undefined }, err?.error)
+  if (!result?.success || err) return { result: { sellOffer: undefined }, error: err?.error }
 
-  if (!result.psbt) return getResult({ sellOffer: undefined })
+  if (!result.psbt) return { result: { sellOffer: undefined } }
 
-  const patchOfferResult = await patchSellOfferWithRefundTx(contract, result.psbt)
-  if (patchOfferResult.isError() || !patchOfferResult.isOk()) {
-    return getResult({ sellOffer: patchOfferResult.getValue()?.sellOffer }, patchOfferResult.getError())
+  const { result: patchOfferResult, error } = await patchSellOfferWithRefundTx(contract, result.psbt)
+  if (error || !patchOfferResult) {
+    return { result: { sellOffer: patchOfferResult.sellOffer }, error }
   }
 
-  return getResult({ sellOffer: patchOfferResult.getValue().sellOffer })
+  return { result: { sellOffer: patchOfferResult.sellOffer } }
 }

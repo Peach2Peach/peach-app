@@ -29,8 +29,7 @@ describe('patchSellOfferWithRefundTx', () => {
   it('calls patchOffer', async () => {
     const result = await patchSellOfferWithRefundTx(contract, refundPSBT)
     expect(patchOfferMock).toHaveBeenCalledWith({ offerId: sellOffer.id, refundTx })
-    expect(result.isOk()).toBeTruthy()
-    expect(result.getValue()).toEqual({
+    expect(result.result).toEqual({
       sellOffer: {
         ...sellOffer,
         refundTx: 'cHNidP8BAAoCAAAAAAAAAAAAAAAA',
@@ -42,29 +41,25 @@ describe('patchSellOfferWithRefundTx', () => {
     const checkRefundPSBTError = 'RETURN_ADDRESS_MISMATCH'
     checkRefundPSBTMock.mockReturnValueOnce({ isValid: false, psbt: new Psbt(), err: checkRefundPSBTError })
     const result = await patchSellOfferWithRefundTx(contract, refundPSBT)
-    expect(result.isError()).toBeTruthy()
-    expect(result.getError()).toEqual(checkRefundPSBTError)
-    expect(result.getValue()).toEqual({ sellOffer })
+    expect(result.error).toEqual(checkRefundPSBTError)
+    expect(result.result).toEqual({ sellOffer })
   })
   it('returns error result offer could not be patched', async () => {
     patchOfferMock.mockResolvedValueOnce([null, unauthorizedError])
     const result = await patchSellOfferWithRefundTx(contract, refundPSBT)
-    expect(result.isError()).toBeTruthy()
-    expect(result.getError()).toBe(unauthorizedError.error)
-    expect(result.getValue()).toEqual({ sellOffer })
+    expect(result.error).toBe(unauthorizedError.error)
+    expect(result.result).toEqual({ sellOffer })
   })
   it('returns unknown error result offer could not be patched with no reason', async () => {
     patchOfferMock.mockResolvedValueOnce([null, { error: undefined }])
     const result = await patchSellOfferWithRefundTx(contract, refundPSBT)
-    expect(result.isError()).toBeTruthy()
-    expect(result.getError()).toBe('UNKNOWN_ERROR')
-    expect(result.getValue()).toEqual({ sellOffer })
+    expect(result.error).toBe('UNKNOWN_ERROR')
+    expect(result.result).toEqual({ sellOffer })
   })
   it('returns unknown error result if something else went wrong', async () => {
     checkRefundPSBTMock.mockReturnValueOnce({ isValid: false, psbt: undefined })
     const result = await patchSellOfferWithRefundTx(contract, refundPSBT)
-    expect(result.isError()).toBeTruthy()
-    expect(result.getError()).toBe('UNKNOWN_ERROR')
-    expect(result.getValue()).toEqual({ sellOffer })
+    expect(result.error).toBe('UNKNOWN_ERROR')
+    expect(result.result).toEqual({ sellOffer })
   })
 })

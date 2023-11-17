@@ -102,11 +102,6 @@ exports[`OfferItem should render correctly 1`] = `
   lastModified={2021-01-01T00:00:00.000Z}
   matches={[]}
   onPress={[Function]}
-  prices={
-    {
-      "EUR": 21,
-    }
-  }
   subtext="01 / 01 / 21"
   title="P‑NAN"
   tradeStatus="searchingForPeer"
@@ -135,11 +130,6 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
   lastModified={2021-01-01T00:00:00.000Z}
   matches={[]}
   onPress={[Function]}
-  prices={
-    {
-      "EUR": 21,
-    }
-  }
   subtext="01 / 01 / 21"
   title="P‑NAN"
   tradeStatus="tradeCompleted"

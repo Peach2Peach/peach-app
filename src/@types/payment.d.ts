@@ -69,8 +69,7 @@ type AfricaPaymentMethods =
   | 'mobileAirtime'
 
 type BitcoinPaymentMethods = 'liquid' | 'lnurl'
-type Country = 'DE' | 'FR' | 'IT' | 'ES' | 'NL' | 'UK' | 'SE'
-type InternationalPaymentMethds = 'giftCard.amazon' | `giftCard.amazon.${Country}`
+type InternationalPaymentMethds = 'giftCard.amazon' | `giftCard.amazon.${PaymentMethodCountry}`
 type CashPaymentMethds = `cash.${string}`
 
 type PaymentMethod =

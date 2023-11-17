@@ -10,13 +10,13 @@ export let peachWS: PeachWS = {
     close: [],
   },
   send: () => true,
-  on: (listener: 'message' | 'close', callback: WSCallback) => {
+  on: (listener, callback) => {
     peachWS.listeners[listener].push(callback)
     peachWS.listeners[listener] = peachWS.listeners[listener].filter(
       (cllbck, index, self) => self.findIndex((c) => c.toString() === cllbck.toString()) === index,
     )
   },
-  off: (listener: 'message' | 'close', callback: WSCallback) => {
+  off: (listener, callback) => {
     peachWS.listeners[listener] = peachWS.listeners[listener].filter(
       (cllbck) => cllbck.toString() !== callback.toString(),
     ) as WSCallback[]

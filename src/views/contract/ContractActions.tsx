@@ -7,6 +7,7 @@ import tw from '../../styles/tailwind'
 import { getOfferIdFromContract, getPaymentExpectedBy, getRequiredAction } from '../../utils/contract'
 import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../utils/i18n'
+import { isSellOffer } from '../../utils/offer'
 import { isCashTrade } from '../../utils/paymentMethod'
 import { ChatButton, NewOfferButton, PayoutPendingButton, ProvideEmailButton } from './ContractButtons'
 import {
@@ -76,7 +77,7 @@ function ContractButtons () {
     <>
       {shouldShowPayoutPending(view, batchInfo, releaseTxId) && <PayoutPendingButton />}
       {!!isEmailRequired && <ProvideEmailButton />}
-      {!!offer?.newOfferId && <NewOfferButton />}
+      {!!offer && isSellOffer(offer) && offer?.newOfferId && <NewOfferButton />}
     </>
   )
 }

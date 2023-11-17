@@ -109,7 +109,8 @@ export const useContractChatSetup = (contract: Contract) => {
   }, [contractId, chat.messages])
 
   useEffect(() => {
-    const messageHandler = async (message: Message) => {
+    const messageHandler = async (message?: Message) => {
+      if (!message) return
       if (!contract || !decryptedData?.symmetricKey) return
       if (!message.message || message.roomId !== `contract-${contract.id}`) return
 

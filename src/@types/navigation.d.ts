@@ -146,10 +146,7 @@ type RootStackParamList = {
   groupHugAnnouncement: {
     offerId: string
   }
-} & Record<`testView${string}`, undefined>
-
-type KeysWithUndefined<T> = {
-  [K in keyof T]: undefined extends T[K] ? K : never
-}[keyof T]
-
-type ScreenWithoutProps = KeysWithUndefined<RootStackParamList>
+  testView: undefined
+  testViewPeachWallet: undefined
+  testViewPNs: undefined
+}

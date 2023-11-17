@@ -9,12 +9,14 @@ export const getCountryCodeByPhone = (phone: string): Country | undefined => {
   // more than 1 result, disambiguate
   return (
     candidates.find((country) => {
-      const { dialCode, phoneAreaCodes } = countryMap[country]
+      const countryData = countryMap[country]
+      const { dialCode } = countryData
 
-      if (!phoneAreaCodes) return false
+      if (!('phoneAreaCodes' in countryData)) return false
+      const phoneAreaCodes = countryData.phoneAreaCodes
       return phoneAreaCodes.some((areaCode) => phone.includes(dialCode + areaCode))
     })
-    || candidates.find((country) => !countryMap[country].phoneAreaCodes)
+    || candidates.find((country) => !('phoneAreaCodes' in countryMap[country]))
     || candidates[0]
   )
 }
