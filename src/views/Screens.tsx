@@ -81,8 +81,8 @@ function SplashScreenComponent ({ setIsLoading }: { setIsLoading: (isLoading: bo
   return (
     <View>
       <PeachyGradient />
-      <View style={tw`w-full h-full absolute items-center justify-center`}>
-        <LogoIcons.fullLogo style={tw``} />
+      <View style={tw`absolute items-center justify-center w-full h-full`}>
+        <LogoIcons.fullLogo />
       </View>
     </View>
   )
