@@ -1,16 +1,12 @@
 import { ok } from 'assert'
-import { getOS } from './getOS'
+import { Platform } from 'react-native'
 import { isIOS } from './isIOS'
-
-jest.mock('./getOS', () => ({
-  getOS: jest.fn(),
-}))
 
 describe('isIOS', () => {
   it('checks whether app is running on android', () => {
-    (<jest.Mock>getOS).mockReturnValue('ios')
+    jest.replaceProperty(Platform, 'OS', 'ios')
     ok(isIOS())
-    ;(<jest.Mock>getOS).mockReturnValue('android')
+    jest.replaceProperty(Platform, 'OS', 'android')
     ok(!isIOS())
   })
 })

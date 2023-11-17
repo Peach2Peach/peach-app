@@ -1,21 +1,21 @@
 import { Keyboard } from 'react-native'
 import { renderHook, waitFor } from 'test-utils'
-import { contract } from '../../../../../tests/unit/data/contractData'
-import { queryClient } from '../../../../../tests/unit/helpers/QueryClientWrapper'
-import { usePopupStore } from '../../../../store/usePopupStore'
-import { defaultAccount, setAccount } from '../../../../utils/account/account'
-import { peachAPI } from '../../../../utils/peachAPI'
+import { contract } from '../../../../tests/unit/data/contractData'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { usePopupStore } from '../../../store/usePopupStore'
+import { defaultAccount, setAccount } from '../../../utils/account/account'
+import { peachAPI } from '../../../utils/peachAPI'
 import { useSubmitDisputeAcknowledgement } from './useSubmitDisputeAcknowledgement'
 
 const now = new Date()
 jest.useFakeTimers({ now })
 
 const showErrorBannerMock = jest.fn()
-jest.mock('../../../../hooks/useShowErrorBanner', () => ({
+jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
 }))
 const showLoadingPopupMock = jest.fn()
-jest.mock('../../../../hooks/useShowLoadingPopup', () => ({
+jest.mock('../../../hooks/useShowLoadingPopup', () => ({
   useShowLoadingPopup: () => showLoadingPopupMock,
 }))
 

@@ -1,7 +1,5 @@
 export { cutOffAddress } from './cutOffAddress'
-export { getNumberFormatParts } from './getNumberFormatParts'
 export { groupChars } from './groupChars'
 export { msToTimer } from './msToTimer'
 export { priceFormat } from './priceFormat'
-export { splitAt } from './splitAt'
 export { thousands } from './thousands'

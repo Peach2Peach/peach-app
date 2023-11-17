@@ -5,9 +5,9 @@ import tw from '../styles/tailwind'
 import { peachyGradient } from '../utils/layout'
 import { isAndroid } from '../utils/system'
 import { DailyTradingLimit } from '../views/settings/profile/DailyTradingLimit'
+import { Header } from './Header'
 import { PeachyBackground } from './PeachyBackground'
 import { Footer } from './footer'
-import { Header } from './header/Header'
 
 type Props = {
   style?: ViewProps['style']

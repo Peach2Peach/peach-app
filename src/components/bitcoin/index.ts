@@ -1,5 +1,4 @@
 export { BitcoinAddress } from './BitcoinAddress'
-export { BitcoinPrice } from './BitcoinPrice'
 export { OpenWallet } from './OpenWallet'
 export { ShortBitcoinAddress } from './ShortBitcoinAddress'
 export { BTCAmount } from './btcAmount'

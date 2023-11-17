@@ -1,3 +1,3 @@
-import { getOS } from './getOS'
+import { Platform } from 'react-native'
 
-export const isIOS = () => getOS() === 'ios'
+export const isIOS = () => Platform.OS === 'ios'

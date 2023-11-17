@@ -11,7 +11,6 @@ import { offerStorage } from '../utils/account/offerStorage'
 import { error, info } from '../utils/log'
 import { getIndexedMap } from '../utils/storage'
 import { getPeachInfo } from './getPeachInfo'
-import { getTrades } from './getTrades'
 
 export const initApp = async () => {
   dataMigrationBeforeLoadingAccount()
@@ -21,7 +20,6 @@ export const initApp = async () => {
   const statusResponse = await getPeachInfo()
   if (!statusResponse?.error && publicKey) {
     useAccountStore.setState({ isLoggedIn: true })
-    getTrades()
     userUpdate()
     dataMigrationAfterLoadingAccount()
   }

@@ -7,7 +7,6 @@ import { writeFile } from '../file'
 import { error, info } from '../log'
 import { parseError } from '../result'
 import { useAccountStore } from './account'
-import { getAccountBackup } from './getAccountBackup'
 
 type BackupAccountProps = {
   password: string
@@ -27,13 +26,13 @@ export const backupAccount = async ({ password, onSuccess, onCancel, onError }: 
 
     await writeFile(
       `/${destinationFileName}`,
-      JSON.stringify(
-        getAccountBackup({
-          account,
-          paymentData: usePaymentDataStore.getState().getPaymentDataArray(),
-          settings: useSettingsStore.getState().getPureState(),
-        }),
-      ),
+      JSON.stringify({
+        ...account,
+        paymentData: usePaymentDataStore.getState().getPaymentDataArray(),
+        settings: useSettingsStore.getState().getPureState(),
+        offers: [],
+        chats: {},
+      }),
       password,
     )
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Screen } from '../../components'
+import { Header, HeaderIcon } from '../../components/Header'
 import { useDrawerState } from '../../components/drawer/useDrawerState'
-import { Header, HeaderIcon } from '../../components/header/Header'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 import { useNavigation, useRoute } from '../../hooks'
 import { useLanguage } from '../../hooks/useLanguage'
