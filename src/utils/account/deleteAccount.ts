@@ -10,6 +10,7 @@ import { info } from '../log'
 import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
 import { useWalletState, walletStorage } from '../wallet/walletStore'
+import { useAccountStore } from './account'
 import { accountStorage } from './accountStorage'
 import { chatStorage } from './chatStorage'
 import { offerStorage } from './offerStorage'
@@ -34,4 +35,5 @@ export const deleteAccount = () => {
   deleteAccessToken()
   deletePeachAccount()
   analytics().logEvent('account_deleted')
+  useAccountStore.setState({ isLoggedIn: false })
 }
