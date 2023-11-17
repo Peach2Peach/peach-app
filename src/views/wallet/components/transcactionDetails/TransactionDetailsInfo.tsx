@@ -4,6 +4,7 @@ import { Bubble } from '../../../../components/bubble'
 import { CopyableSummaryItem } from '../../../../components/summaryItem'
 import { ConfirmationSummaryItem } from '../../../../components/summaryItem/ConfirmationSummaryItem'
 import tw from '../../../../styles/tailwind'
+import { getBitcoinAddressParts } from '../../../../utils/bitcoin'
 import { contractIdToHex } from '../../../../utils/contract'
 import { toShortDateFormat } from '../../../../utils/date'
 import i18n from '../../../../utils/i18n'
@@ -22,11 +23,15 @@ export const TransactionDetailsInfo = ({ transaction }: Props) => {
   const { receivingAddress, canBumpFees, goToBumpNetworkFees, openInExplorer } = useTransactionDetailsInfoSetup({
     transaction,
   })
+  const addressParts = receivingAddress && getBitcoinAddressParts(receivingAddress)
 
   return (
     <View style={tw`gap-4`}>
-      {transaction.type === 'DEPOSIT' && !!receivingAddress && (
-        <AddressLabelInput address={receivingAddress} fallback={i18n('unlabeled')} />
+      {transaction.type === 'DEPOSIT' && addressParts && (
+        <AddressLabelInput
+          address={receivingAddress}
+          fallback={`${addressParts.one}${addressParts.two}...${addressParts.four}`}
+        />
       )}
       <Divider />
 

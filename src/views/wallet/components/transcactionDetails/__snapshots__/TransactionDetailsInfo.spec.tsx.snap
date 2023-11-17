@@ -74,7 +74,7 @@ exports[`TransactionDetailsInfo should render correctly for a deposit transactio
 >
   <AddressLabelInput
     address="receivingAddress"
-    fallback="unlabeled"
+    fallback="receiving...dress"
   />
   <Divider />
   <OutputInfo
