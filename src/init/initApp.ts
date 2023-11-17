@@ -13,10 +13,10 @@ export const initApp = async () => {
   dataMigrationBeforeLoadingAccount()
 
   await setCookies()
-  await loadAccount()
+  const { publicKey } = await loadAccount()
   const statusResponse = await getPeachInfo()
-  const publicKey = useAccountStore.getState().account.publicKey
   if (!statusResponse?.error && publicKey) {
+    useAccountStore.setState({ isLoggedIn: true })
     getTrades()
     userUpdate()
     dataMigrationAfterLoadingAccount()
@@ -60,7 +60,5 @@ async function loadAccount () {
   info('Account loaded', account.publicKey)
   updateAccount(acc)
 
-  const newAccount = useAccountStore.getState().account
-
-  return newAccount
+  return useAccountStore.getState().account
 }
