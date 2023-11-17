@@ -1,27 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GradientBorder should render correctly and hide border 1`] = `
-<View
-  gradient={
-    [
-      {
-        "color": "#FFA24C",
-        "offset": "0%",
-        "opacity": "1",
-      },
-      {
-        "color": "#FF7A50",
-        "offset": "50.25%",
-        "opacity": "1",
-      },
-      {
-        "color": "#FF4D42",
-        "offset": "100%",
-        "opacity": "1",
-      },
-    ]
-  }
->
+<View>
   <View
     style={
       {
@@ -33,27 +13,7 @@ exports[`GradientBorder should render correctly and hide border 1`] = `
 `;
 
 exports[`GradientBorder should render correctly and show border by default 1`] = `
-<View
-  gradient={
-    [
-      {
-        "color": "#FFA24C",
-        "offset": "0%",
-        "opacity": "1",
-      },
-      {
-        "color": "#FF7A50",
-        "offset": "50.25%",
-        "opacity": "1",
-      },
-      {
-        "color": "#FF4D42",
-        "offset": "100%",
-        "opacity": "1",
-      },
-    ]
-  }
->
+<View>
   <RNSVGSvgView
     bbHeight="100%"
     bbWidth="100%"
