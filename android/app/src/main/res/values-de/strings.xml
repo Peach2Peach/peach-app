@@ -25,8 +25,8 @@
     <string name="notification.body.offer.buyOfferExpired">Dein Kaufangebot %1$s hat seit %2$s Tagen kein Match erzielt und wurde entfernt.</string>
     <string name="notification.body.offer.escrowFunded">Die Escrow wurde aufgeladen und dein Angebot wurde veröffentlicht.</string>
     <string name="notification.body.offer.fundingAmountDifferent">Die Escrow wurde mit einem abweichenden Betrag aufgeladen. Möchtest du mit diesem Angebot fortfahren oder eine Rückerstattung erhalten?</string>
-    <string name="notification.body.offer.matchBuyer">Du hast neue Matches. Lass sie nicht warten!</string>
-    <string name="notification.body.offer.matchSeller">Du hast neue Matches. Lass sie nicht warten!</string>
+    <string name="notification.body.offer.matchBuyer">Du hast Verkaufsangebote verfügbar! Stapel diese sats!</string>
+    <string name="notification.body.offer.matchSeller">Du hast Kaufanfragen verfügbar! Lass sie nicht hängen!</string>
     <string name="notification.body.offer.notFunded">Du hast die Escrow seit %2$s Tagen nicht aufgeladen \uD83D\uDE1E. Wir entfernen das Angebot.</string>
     <string name="notification.body.offer.outsideRange">Das Angebot %1$s liegt außerhalb des Handelsbereichs und wird für Käufer nicht sichtbar sein. Du kannst das Angebot stornieren und ein neues erstellen, oder es so belassen.</string>
     <string name="notification.body.offer.sellOfferExpired">Dein Verkaufsangebot wurde geschlossen, da seit %2$s Tagen kein Match erzielt wurde.</string>

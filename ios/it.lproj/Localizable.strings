@@ -23,8 +23,8 @@
 "notification.body.offer.buyOfferExpired" = "La tua offerta di acquisto %1$@ non ha trovato match da %2$@ giorni ed è stata rimossa.";
 "notification.body.offer.escrowFunded" = "Il deposito è stato ricevuto e la tua offerta è stata pubblicata.";
 "notification.body.offer.fundingAmountDifferent" = "Il deposito è stato effettuato per un importo diverso. Vuoi continuare con la tua offerta o richiedere un rimborso?";
-"notification.body.offer.matchBuyer" = "Hai nuovi match. Non lasciarli aspettare!";
-"notification.body.offer.matchSeller" = "Hai nuovi match. Non lasciarli aspettare!";
+"notification.body.offer.matchBuyer" = "Hai offerte di vendita disponibili! Accatasta quei sats!";
+"notification.body.offer.matchSeller" = "Hai richieste di acquisto disponibili! Non lasciarle in sospeso!";
 "notification.body.offer.notFunded" = "Non hai effettuato il deposito dei tuoi fondi da %2$@ giorni 😞. Rimuoveremo questa offerta.";
 "notification.body.offer.outsideRange" = "L'offerta %1$@ si trova al di fuori dell'intervallo di trading e non sarà visibile agli acquirenti. Puoi annullare l'offerta e crearne una nuova o lasciarla così com'è.";
 "notification.body.offer.sellOfferExpired" = "La tua offerta di vendita è stata chiusa poiché non sono state trovati match da %2$@ giorni.";
