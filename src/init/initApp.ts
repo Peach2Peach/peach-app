@@ -3,9 +3,13 @@ import CookieManager from '@react-native-cookies/cookies'
 import { dataMigrationAfterLoadingAccount, dataMigrationBeforeLoadingAccount } from '../init/dataMigration'
 import { userUpdate } from '../init/userUpdate'
 import { useSettingsStore } from '../store/settingsStore'
-import { loadChats, loadIdentity, loadOffers, loadTradingLimit, updateAccount } from '../utils/account'
+import { updateAccount } from '../utils/account'
 import { defaultAccount, useAccountStore } from '../utils/account/account'
+import { accountStorage } from '../utils/account/accountStorage'
+import { chatStorage } from '../utils/account/chatStorage'
+import { offerStorage } from '../utils/account/offerStorage'
 import { error, info } from '../utils/log'
+import { getIndexedMap } from '../utils/storage'
 import { getPeachInfo } from './getPeachInfo'
 import { getTrades } from './getTrades'
 
@@ -61,4 +65,42 @@ async function loadAccount () {
   updateAccount(acc)
 
   return useAccountStore.getState().account
+}
+
+async function loadChats () {
+  return (await getIndexedMap(chatStorage)) as Account['chats']
+}
+
+const emptyIdentity: Identity = {
+  publicKey: '',
+  privKey: '',
+  mnemonic: '',
+  pgp: {
+    publicKey: '',
+    privateKey: '',
+  },
+}
+
+function loadIdentity () {
+  const identity = accountStorage.getMap('identity')
+
+  if (identity) return identity as Identity
+
+  error('Could not load identity')
+  return emptyIdentity
+}
+
+async function loadOffers () {
+  const offers = await getIndexedMap(offerStorage)
+
+  return Object.values(offers) as Account['offers']
+}
+
+function loadTradingLimit () {
+  const tradingLimit = accountStorage.getMap('tradingLimit')
+
+  if (tradingLimit) return tradingLimit as Account['tradingLimit']
+
+  error('Could not load tradingLimit')
+  return defaultAccount.tradingLimit
 }
