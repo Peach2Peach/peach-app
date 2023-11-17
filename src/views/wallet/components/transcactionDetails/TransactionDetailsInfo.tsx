@@ -9,12 +9,12 @@ import { toShortDateFormat } from '../../../../utils/date'
 import i18n from '../../../../utils/i18n'
 import { offerIdToHex } from '../../../../utils/offer'
 import { useTransactionDetailsInfoSetup } from '../../hooks/useTransactionDetailsInfoSetup'
+import { AddressLabelInput } from '../AddressLabelInput'
 import { OutputInfo } from './OutputInfo'
 import { TransactionETASummaryItem } from './TransactionETASummaryItem'
 
 type Props = {
   transaction: TransactionSummary
-  transactionDetails?: Transaction | null
 }
 
 export const TransactionDetailsInfo = ({ transaction }: Props) => {
@@ -25,6 +25,9 @@ export const TransactionDetailsInfo = ({ transaction }: Props) => {
 
   return (
     <View style={tw`gap-4`}>
+      {transaction.type === 'DEPOSIT' && !!receivingAddress && (
+        <AddressLabelInput address={receivingAddress} fallback={i18n('unlabeled')} />
+      )}
       <Divider />
 
       <OutputInfo {...{ transaction, receivingAddress }} />

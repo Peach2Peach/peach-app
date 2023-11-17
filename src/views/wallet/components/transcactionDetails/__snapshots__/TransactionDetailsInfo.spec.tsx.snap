@@ -64,6 +64,80 @@ exports[`TransactionDetailsInfo should render correctly for a confirmed transact
 </View>
 `;
 
+exports[`TransactionDetailsInfo should render correctly for a deposit transaction 1`] = `
+<View
+  style={
+    {
+      "gap": 16,
+    }
+  }
+>
+  <AddressLabelInput
+    address="receivingAddress"
+    fallback="unlabeled"
+  />
+  <Divider />
+  <OutputInfo
+    receivingAddress="receivingAddress"
+    transaction={
+      {
+        "amount": 900,
+        "confirmed": false,
+        "date": 2022-09-14T16:14:02.835Z,
+        "height": undefined,
+        "id": "txid1",
+        "offerData": [
+          {
+            "address": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+            "amount": 900,
+            "contractId": undefined,
+            "currency": undefined,
+            "offerId": "123",
+            "price": undefined,
+          },
+        ],
+        "type": "DEPOSIT",
+      }
+    }
+  />
+  <Divider />
+  <ConfirmationSummaryItem
+    confirmed={false}
+  />
+  <TransactionETASummaryItem
+    txId="txid1"
+  />
+  <Bubble
+    color="primary"
+    iconId="chevronsUp"
+    iconSize={16}
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  >
+    increase network fee
+  </Bubble>
+  <Divider />
+  <Bubble
+    color="primary"
+    ghost={true}
+    iconId="externalLink"
+    iconSize={16}
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  >
+    view in explorer
+  </Bubble>
+</View>
+`;
+
 exports[`TransactionDetailsInfo should render correctly for a pending transaction 1`] = `
 <View
   style={
