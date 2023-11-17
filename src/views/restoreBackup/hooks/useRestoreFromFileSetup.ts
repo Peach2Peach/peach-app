@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Keyboard } from 'react-native'
-import { useNavigation, useValidatedState } from '../../../hooks'
+import { useValidatedState } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { deleteAccount, recoverAccount } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { createPeachAccount } from '../../../utils/account/createPeachAccount'
 import { decryptAccount } from '../../../utils/account/decryptAccount'
 import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
@@ -15,8 +16,6 @@ import { parseError } from '../../../utils/result'
 const passwordRules = { password: true, required: true }
 
 export const useRestoreFromFileSetup = () => {
-  const navigation = useNavigation()
-
   const [file, setFile] = useState({
     name: '',
     content: '',
@@ -28,6 +27,7 @@ export const useRestoreFromFileSetup = () => {
   const [restored, setRestored] = useState(false)
 
   const updateFileBackupDate = useSettingsStore((state) => state.updateFileBackupDate)
+  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn)
 
   const onError = (err?: string) => {
     const errorMsg = err || 'UNKNOWN_ERROR'
@@ -69,7 +69,7 @@ export const useRestoreFromFileSetup = () => {
     updateFileBackupDate()
 
     setTimeout(() => {
-      navigation.replace('buy')
+      setIsLoggedIn(true)
     }, 1500)
   }
 

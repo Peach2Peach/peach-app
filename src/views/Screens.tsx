@@ -21,7 +21,7 @@ const Stack = createStackNavigator<RootStackParamList>()
 
 export function Screens () {
   const [isLoading, setIsLoading] = useState(true)
-  const isLoggedIn = useAccountStore((state) => !!state.account.publicKey)
+  const isLoggedIn = useAccountStore((state) => state.isLoggedIn)
   if (isLoading) return <SplashScreenComponent setIsLoading={setIsLoading} />
 
   return (

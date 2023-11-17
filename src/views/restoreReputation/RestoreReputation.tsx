@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { View } from 'react-native'
+import { shallow } from 'zustand/shallow'
 import { Header, Icon, Loading, Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
-import { useNavigation, useRoute } from '../../hooks'
+import { useRoute } from '../../hooks'
 import { userUpdate } from '../../init/userUpdate'
 import tw from '../../styles/tailwind'
 import { storeAccount, updateAccount } from '../../utils/account'
@@ -11,10 +12,9 @@ import i18n from '../../utils/i18n'
 
 export const RestoreReputation = () => {
   const route = useRoute<'restoreReputation'>()
-  const navigation = useNavigation()
   const [isRestored, setIsRestored] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const account = useAccountStore((state) => state.account)
+  const [account, setIsLoggedIn] = useAccountStore((state) => [state.account, state.setIsLoggedIn], shallow)
 
   const restoreReputation = () => {
     setIsLoading(true)
@@ -27,7 +27,7 @@ export const RestoreReputation = () => {
       setIsRestored(true)
 
       setTimeout(() => {
-        navigation.replace('buy')
+        setIsLoggedIn(true)
       }, 1500)
     })
   }

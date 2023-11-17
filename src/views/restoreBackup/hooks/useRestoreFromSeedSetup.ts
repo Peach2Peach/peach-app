@@ -1,9 +1,10 @@
 import { useCallback, useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
 import { useMessageState } from '../../../components/message/useMessageState'
-import { useNavigation, useValidatedState } from '../../../hooks'
+import { useValidatedState } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { createAccount, deleteAccount, recoverAccount } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { createPeachAccount } from '../../../utils/account/createPeachAccount'
 import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
@@ -22,7 +23,6 @@ const bip39Rules = {
 // eslint-disable-next-line max-lines-per-function
 export const useRestoreFromSeedSetup = () => {
   const updateMessage = useMessageState((state) => state.updateMessage)
-  const navigation = useNavigation()
   const updateSeedBackupDate = useSettingsStore((state) => state.updateSeedBackupDate)
 
   const [words, setWords] = useState<string[]>(new Array(12).fill(''))
@@ -38,6 +38,7 @@ export const useRestoreFromSeedSetup = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
+  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn)
 
   const onError = useCallback(
     (err?: string) => {
@@ -76,7 +77,7 @@ export const useRestoreFromSeedSetup = () => {
     updateSeedBackupDate()
 
     setTimeout(() => {
-      navigation.replace('buy')
+      setIsLoggedIn(true)
     }, 1500)
   }
 
