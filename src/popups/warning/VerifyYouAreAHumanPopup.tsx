@@ -31,11 +31,7 @@ export const VerifyYouAreAHuman = () => {
           <WebView contentMode="mobile" onMessage={handleMessage} source={{ uri: `${API_URL}/v1/human/verify` }} />
         </View>
       }
-      actions={
-        <View style={tw`items-center w-full`}>
-          <ClosePopupAction textStyle={tw`text-black-1`} />
-        </View>
-      }
+      actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-1`} />}
     />
   )
 }

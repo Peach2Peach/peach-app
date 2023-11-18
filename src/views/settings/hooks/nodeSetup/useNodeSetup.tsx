@@ -1,6 +1,5 @@
 import { BlockChainNames } from 'bdk-rn/lib/lib/enums'
 import { useEffect, useState } from 'react'
-import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { Text } from '../../../../components'
 import { useToggleBoolean, useValidatedState } from '../../../../hooks'
@@ -76,11 +75,7 @@ function NodeConnectionErrorPopup ({ error }: ErrorPopupProps) {
     <WarningPopup
       title={i18n('wallet.settings.node.error.title')}
       content={<Text selectable>{i18n('wallet.settings.node.error.text', error)}</Text>}
-      actions={
-        <View style={tw`items-center w-full`}>
-          <ClosePopupAction textStyle={tw`text-black-1`} />
-        </View>
-      }
+      actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-1`} />}
     />
   )
 }
