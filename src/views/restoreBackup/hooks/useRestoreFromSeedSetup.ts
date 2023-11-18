@@ -5,11 +5,8 @@ import { useValidatedState } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { createAccount, deleteAccount, recoverAccount } from '../../../utils/account'
 import { useAccountStore } from '../../../utils/account/account'
-import { createPeachAccount } from '../../../utils/account/createPeachAccount'
-import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
-import { auth, peachAPI } from '../../../utils/peachAPI'
-import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
+import { setupPeachAccount } from './setupPeachAccount'
 
 export const bip39WordRules = {
   required: true,
@@ -20,7 +17,6 @@ const bip39Rules = {
   bip39: true,
 }
 
-// eslint-disable-next-line max-lines-per-function
 export const useRestoreFromSeedSetup = () => {
   const updateMessage = useMessageState((state) => state.updateMessage)
   const updateSeedBackupDate = useSettingsStore((state) => state.updateSeedBackupDate)
@@ -41,8 +37,7 @@ export const useRestoreFromSeedSetup = () => {
   const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn)
 
   const onError = useCallback(
-    (err?: string) => {
-      const errorMsg = err || 'UNKNOWN_ERROR'
+    (errorMsg = 'UNKNOWN_ERROR') => {
       setError(errorMsg)
       if (errorMsg !== 'REGISTRATION_DENIED') {
         updateMessage({
@@ -57,15 +52,11 @@ export const useRestoreFromSeedSetup = () => {
 
   const createAndRecover = async () => {
     const recoveredAccount = await createAccount(mnemonic)
-    const wallet = loadWalletFromAccount(recoveredAccount)
-    const peachAccount = createPeachAccount(wallet)
-    setPeachAccount(peachAccount)
-    peachAPI.setPeachAccount(peachAccount)
-    await peachAPI.authenticate()
 
-    const [, authError] = await auth({})
+    const authError = await setupPeachAccount(recoveredAccount)
+
     if (authError) {
-      onError(authError.error)
+      onError(authError)
       setLoading(false)
       return
     }

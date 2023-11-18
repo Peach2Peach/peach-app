@@ -5,13 +5,10 @@ import { useSettingsStore } from '../../../store/settingsStore'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { deleteAccount, recoverAccount } from '../../../utils/account'
 import { useAccountStore } from '../../../utils/account/account'
-import { createPeachAccount } from '../../../utils/account/createPeachAccount'
 import { decryptAccount } from '../../../utils/account/decryptAccount'
-import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
-import { auth, peachAPI } from '../../../utils/peachAPI'
-import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
 import { parseError } from '../../../utils/result'
+import { setupPeachAccount } from './setupPeachAccount'
 
 const passwordRules = { password: true, required: true }
 
@@ -29,13 +26,11 @@ export const useRestoreFromFileSetup = () => {
   const updateFileBackupDate = useSettingsStore((state) => state.updateFileBackupDate)
   const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn)
 
-  const onError = (err?: string) => {
-    const errorMsg = err || 'UNKNOWN_ERROR'
+  const onError = (errorMsg = 'UNKNOWN_ERROR') => {
     if (errorMsg !== 'WRONG_PASSWORD') setError(errorMsg)
     deleteAccount()
   }
 
-  // eslint-disable-next-line max-statements
   const decryptAndRecover = async () => {
     const [recoveredAccount, err] = decryptAccount({
       encryptedAccount: file.content,
@@ -48,21 +43,17 @@ export const useRestoreFromFileSetup = () => {
       return
     }
 
-    const wallet = loadWalletFromAccount(recoveredAccount)
-    const peachAccount = createPeachAccount(wallet)
-    setPeachAccount(peachAccount)
-    peachAPI.setPeachAccount(peachAccount)
-    await peachAPI.authenticate()
+    const authErr = await setupPeachAccount(recoveredAccount)
 
-    const [, authErr] = await auth({})
     if (authErr) {
       setLoading(false)
-      onError(authErr.error)
+      onError(authErr)
       return
     }
     const updatedAccount = await recoverAccount(recoveredAccount)
 
     if (recoveredAccount.paymentData) recoveredAccount.paymentData.map(usePaymentDataStore.getState().addPaymentData)
+
     await storeAccount(updatedAccount)
     setRestored(true)
     setLoading(false)
