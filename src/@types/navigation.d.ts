@@ -140,7 +140,6 @@ type RootStackParamList = {
         referralCode?: string
       }
     | undefined
-  splashScreen: undefined
   myProfile: undefined
   transactionBatching: undefined
   groupHugAnnouncement: {
