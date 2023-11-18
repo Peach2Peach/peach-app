@@ -19,13 +19,17 @@ export const useSetCustomReferralCodePopup = () => {
     [referralCodeTaken],
   )
 
-  const [referralCode, setReferralCode, referralCodeValid, referralCodeErrors, referralCodePristine]
-    = useValidatedState<string>('', referralCodeRules)
+  const [referralCodePristine, setReferralCodePristine] = useState(true)
+  const [referralCode, setReferralCode, referralCodeValid, referralCodeErrors] = useValidatedState<string>(
+    '',
+    referralCodeRules,
+  )
 
   const updateReferralCode = useCallback(
     (code: string) => {
       setReferralCode(code)
       setReferralCodeTaken(false)
+      setReferralCodePristine(false)
     },
     [setReferralCode],
   )
