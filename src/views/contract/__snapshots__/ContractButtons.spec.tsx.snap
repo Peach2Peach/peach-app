@@ -361,7 +361,7 @@ exports[`ContractButtons - ProvideEmailButton should open the popup when pressed
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": false,
+          "disabled": undefined,
           "expanded": undefined,
           "selected": undefined,
         }

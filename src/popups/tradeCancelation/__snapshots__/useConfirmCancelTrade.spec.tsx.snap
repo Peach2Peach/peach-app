@@ -211,7 +211,7 @@ The seller has already matched you back, so canceling now will impact your reput
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": false,
+          "disabled": undefined,
           "expanded": undefined,
           "selected": undefined,
         }
@@ -503,7 +503,7 @@ The buyer also needs to agree to cancel the trade, since they might have already
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": false,
+          "disabled": undefined,
           "expanded": undefined,
           "selected": undefined,
         }
@@ -793,7 +793,7 @@ exports[`useConfirmCancelTrade should show the correct popup for cash trades of 
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": false,
+          "disabled": undefined,
           "expanded": undefined,
           "selected": undefined,
         }
