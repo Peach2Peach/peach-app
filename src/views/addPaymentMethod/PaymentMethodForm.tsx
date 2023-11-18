@@ -8,10 +8,12 @@ import { PaymentMethodForms } from '../../components/inputs/paymentMethods/payme
 import { useSubmitForm } from '../../components/inputs/paymentMethods/paymentForms/hooks/useSubmitForm'
 import { useDeletePaymentMethod } from '../../components/payment/hooks/useDeletePaymentMethod'
 import { useRoute, useShowHelp } from '../../hooks'
+import { useGoToOrigin } from '../../hooks/useGoToOrigin'
+import { useOfferPreferences } from '../../store/offerPreferenes'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
-import { usePaymentMethodFormSetup } from './hooks'
 
 export type FormProps = {
   data: Partial<PaymentData> & {
@@ -24,8 +26,17 @@ export type FormProps = {
 }
 
 export const PaymentMethodForm = () => {
-  const { data, onSubmit } = usePaymentMethodFormSetup()
-  const { type: paymentMethod } = data
+  const { paymentData, origin } = useRoute<'paymentMethodForm'>().params
+  const goBackTo = useGoToOrigin()
+  const selectPaymentMethod = useOfferPreferences((state) => state.selectPaymentMethod)
+  const addPaymentData = usePaymentDataStore((state) => state.addPaymentData)
+
+  const onSubmit = (data: PaymentData) => {
+    addPaymentData(data)
+    selectPaymentMethod(data.id)
+    goBackTo(origin)
+  }
+  const { type: paymentMethod } = paymentData
   const { stepValid, setStepValid, setFormData, submitForm } = useSubmitForm<PaymentData>(onSubmit)
 
   const Form = PaymentMethodForms[paymentMethod]
@@ -34,7 +45,7 @@ export const PaymentMethodForm = () => {
     <Screen header={<PaymentMethodFormHeader />}>
       <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
         <View style={tw`justify-center pb-4 grow`}>
-          {!!Form && <Form onSubmit={submitForm} {...{ data, setStepValid, setFormData }} />}
+          {!!Form && <Form onSubmit={submitForm} data={paymentData} {...{ setStepValid, setFormData }} />}
         </View>
         <Button style={tw`self-center`} disabled={!stepValid} onPress={submitForm}>
           {i18n('confirm')}
