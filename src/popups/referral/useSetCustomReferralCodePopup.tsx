@@ -57,12 +57,13 @@ function CustomReferralCodePopup () {
       showErrorBanner(redeemError.error)
       return
     }
-    setPopup({
-      title: i18n('settings.referrals.customReferralCode.popup.title'),
-      content: <SetCustomReferralCodeSuccess {...{ referralCode }} />,
-      level: 'APP',
-      visible: true,
-    })
+    setPopup(
+      <PopupComponent
+        title={i18n('settings.referrals.customReferralCode.popup.title')}
+        content={<SetCustomReferralCodeSuccess {...{ referralCode }} />}
+        actions={<ClosePopupAction style={tw`justify-center`} />}
+      />,
+    )
     navigation.replace('referrals')
   }, [navigation, referralCode, showErrorBanner, setPopup])
 

@@ -1,10 +1,9 @@
-import { act, renderHook } from 'test-utils'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { act, fireEvent, render, renderHook } from 'test-utils'
 import { replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../../store/usePopupStore'
-import i18n from '../../utils/i18n'
-import { SetCustomReferralCode } from './SetCustomReferralCode'
-import { SetCustomReferralCodeSuccess } from './SetCustomReferralCodeSuccess'
 import { useSetCustomReferralCodePopup } from './useSetCustomReferralCodePopup'
+expect.extend({ toMatchDiffSnapshot })
 
 const redeemReferralCodeMock = jest.fn().mockReturnValue(jest.fn())
 jest.mock('../../utils/peachAPI', () => ({
@@ -18,60 +17,43 @@ jest.mock('../../hooks/useShowErrorBanner', () => ({
 describe('useSetCustomReferralCodePopup', () => {
   it('returns function to start setCustomReferralCodePopup', () => {
     const { result } = renderHook(useSetCustomReferralCodePopup)
-    expect(result.current.setCustomReferralCodePopup).toBeInstanceOf(Function)
-  })
-  it('returns referral code state', () => {
-    const { result } = renderHook(useSetCustomReferralCodePopup)
-    const { referralCode, setReferralCode, referralCodeValid, referralCodeErrors } = result.current
-
-    expect(referralCode).toBe('')
-    expect(setReferralCode).toBeInstanceOf(Function)
-    expect(referralCodeValid).toBeFalsy()
-    expect(referralCodeErrors).toHaveLength(2)
+    expect(result.current).toBeInstanceOf(Function)
   })
   it('opens popup with correct default values', () => {
     const { result } = renderHook(useSetCustomReferralCodePopup)
-    const { submitCustomReferralCode, setReferralCode, referralCodeErrors } = result.current
     act(() => {
-      result.current.setCustomReferralCodePopup()
+      result.current()
     })
 
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: i18n('settings.referrals.customReferralCode.popup.title'),
-      content: <SetCustomReferralCode {...{ referralCode: '', setReferralCode, referralCodeErrors }} />,
-      level: 'APP',
-      visible: true,
-      action1: expect.objectContaining({
-        label: i18n('settings.referrals.customReferralCode.popup.redeem'),
-        icon: 'checkSquare',
-        callback: submitCustomReferralCode,
-        disabled: true,
-      }),
-      action2: expect.objectContaining({
-        label: i18n('close'),
-        icon: 'xSquare',
-        callback: expect.any(Function),
-      }),
-    })
+    const popup = usePopupStore.getState().popupComponent || <></>
+    expect(render(popup)).toMatchSnapshot()
   })
   it('can close popup', () => {
     const { result } = renderHook(useSetCustomReferralCodePopup)
     act(() => {
-      result.current.setCustomReferralCodePopup()
+      result.current()
     })
 
-    usePopupStore.getState().action2?.callback()
+    const popup = usePopupStore.getState().popupComponent || <></>
+    const { getByText } = render(popup)
 
+    fireEvent.press(getByText('close'))
     expect(usePopupStore.getState().visible).toEqual(false)
   })
   it('updates referral code state', () => {
     const { result } = renderHook(useSetCustomReferralCodePopup)
     act(() => {
-      result.current.setReferralCode('HODL')
+      result.current()
     })
 
-    expect(result.current.referralCode).toBe('HODL')
+    const popup = usePopupStore.getState().popupComponent || <></>
+    const { getByPlaceholderText, toJSON } = render(popup)
+
+    const withoutText = toJSON()
+    fireEvent.changeText(getByPlaceholderText('creative thing here'), 'HODL')
+    const withText = toJSON()
+
+    expect(withoutText).toMatchDiffSnapshot(withText)
   })
   it('submits custom referral code', async () => {
     redeemReferralCodeMock.mockResolvedValueOnce([
@@ -82,21 +64,20 @@ describe('useSetCustomReferralCodePopup', () => {
       null,
     ])
     const { result } = renderHook(useSetCustomReferralCodePopup)
+
     act(() => {
-      result.current.setReferralCode('HODL')
-    })
-    await act(async () => {
-      await result.current.submitCustomReferralCode()
+      result.current()
     })
 
+    const popup = usePopupStore.getState().popupComponent || <></>
+    const { getByText, getByPlaceholderText } = render(popup)
+
+    fireEvent.changeText(getByPlaceholderText('creative thing here'), 'HODL')
+    await fireEvent.press(getByText('set referral'))
+
     expect(redeemReferralCodeMock).toHaveBeenCalledWith({ code: 'HODL' })
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: i18n('settings.referrals.customReferralCode.popup.title'),
-      content: <SetCustomReferralCodeSuccess {...{ referralCode: 'HODL' }} />,
-      level: 'APP',
-      visible: true,
-    })
+    const newPopup = usePopupStore.getState().popupComponent || <></>
+    expect(render(newPopup).toJSON()).toMatchSnapshot()
     expect(replaceMock).toHaveBeenCalledWith('referrals')
   })
   it('handles referral code exists error', async () => {
@@ -106,18 +87,24 @@ describe('useSetCustomReferralCodePopup', () => {
         error: 'ALREADY_TAKEN',
       },
     ])
+
     const { result } = renderHook(useSetCustomReferralCodePopup)
-    expect(result.current.referralCodeErrors).toHaveLength(2)
+
     act(() => {
-      result.current.setReferralCode('HODL')
+      result.current()
     })
-    expect(result.current.referralCodeErrors).toHaveLength(0)
 
+    const popup = usePopupStore.getState().popupComponent || <></>
+    const { getByText, getByPlaceholderText, toJSON } = render(popup)
+
+    fireEvent.changeText(getByPlaceholderText('creative thing here'), 'HODL')
+    const withoutError = toJSON()
     await act(async () => {
-      await result.current.submitCustomReferralCode()
+      await fireEvent.press(getByText('set referral'))
     })
+    const withError = toJSON()
 
-    expect(result.current.referralCodeErrors).toHaveLength(1)
+    expect(withoutError).toMatchDiffSnapshot(withError)
   })
   it('handles other API Errors', async () => {
     redeemReferralCodeMock.mockResolvedValueOnce([
@@ -128,16 +115,17 @@ describe('useSetCustomReferralCodePopup', () => {
     ])
 
     const { result } = renderHook(useSetCustomReferralCodePopup)
-    expect(result.current.referralCodeErrors).toHaveLength(2)
+
     act(() => {
-      result.current.setReferralCode('HODL')
+      result.current()
     })
 
-    await act(async () => {
-      await result.current.submitCustomReferralCode()
-    })
+    const popup = usePopupStore.getState().popupComponent || <></>
+    const { getByText, getByPlaceholderText } = render(popup)
 
-    expect(result.current.referralCodeErrors).toHaveLength(0)
+    fireEvent.changeText(getByPlaceholderText('creative thing here'), 'HODL')
+    await fireEvent.press(getByText('set referral'))
+
     expect(showErrorBannerMock).toHaveBeenCalledWith('NOT_ENOUGH_POINTS')
   })
 })
