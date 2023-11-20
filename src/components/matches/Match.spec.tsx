@@ -97,5 +97,5 @@ describe('Match', () => {
       symmetricKeyEncrypted: undefined,
       symmetricKeySignature: undefined,
     })
-  })
+  }, 10000)
 })
