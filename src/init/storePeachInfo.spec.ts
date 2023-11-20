@@ -1,5 +1,5 @@
 import { peachInfo } from '../../tests/unit/data/peachInfoData'
-import { useConfigStore } from '../store/configStore'
+import { useConfigStore } from '../store/configStore/configStore'
 import { storePeachInfo } from './storePeachInfo'
 
 describe('storePeachInfo', () => {

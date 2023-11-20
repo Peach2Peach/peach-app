@@ -1,12 +1,6 @@
 /* eslint-disable max-lines */
-type CountryData = {
-  name: string
-  dialCode: string
-  phoneAreaCodes?: string[]
-  highRisk: boolean
-}
 
-export const countryMap: Record<string, CountryData> = {
+export const countryMap = {
   AF: {
     name: 'Afghanistan',
     dialCode: '+93',
@@ -1260,6 +1254,6 @@ export const countryMap: Record<string, CountryData> = {
     dialCode: '+263',
     highRisk: false,
   },
-}
+} as const
 
 export type Country = keyof typeof countryMap

@@ -28,7 +28,7 @@ export type WalletStateVersion0 = {
   txOfferMap: Record<string, string>
 }
 
-const convertLegacyTxConfirmed = (tx: ConfirmedTransaction): TransactionDetails => ({
+const convertLegacyTxConfirmed = (tx: ConfirmedTransaction) => ({
   txid: tx.txid,
   received: tx.received,
   sent: tx.sent,
@@ -40,7 +40,7 @@ const convertLegacyTxConfirmed = (tx: ConfirmedTransaction): TransactionDetails 
 })
 const convertLegacyTxPending = (tx: PendingTransaction): TransactionDetails => tx
 
-export const version0 = (persistedState: unknown): WalletStore => {
+export const version0 = (persistedState: unknown) => {
   info('WalletStore - migrating from version 0')
 
   const version0State = persistedState as WalletStateVersion0
@@ -49,5 +49,5 @@ export const version0 = (persistedState: unknown): WalletStore => {
   return {
     ...version0State,
     transactions: [...confirmed.map(convertLegacyTxConfirmed), ...pending.map(convertLegacyTxPending)],
-  } as WalletStore
+  } as unknown as WalletStore
 }

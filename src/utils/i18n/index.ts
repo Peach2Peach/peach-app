@@ -1,5 +1,4 @@
 import { NETWORK } from '@env'
-import { Dispatch, ReducerState, createContext, useContext } from 'react'
 import de from '../../i18n/de'
 import elGR from '../../i18n/el-GR'
 import en from '../../i18n/en'
@@ -47,12 +46,7 @@ if (NETWORK !== 'bitcoin') {
   localeMapping.uk = uk
   localeMapping.raw = {}
 }
-export const locales = keys(localeMapping)
-
-export const setLocaleQuiet = (lcl: Locale) => {
-  if (!localeMapping[lcl]) lcl = 'en'
-  languageState.locale = lcl
-}
+const locales = keys(localeMapping)
 
 const i18n = (id: string, ...args: string[]) => {
   const locale = languageState.locale.replace('_', '-')
@@ -77,19 +71,11 @@ const i18n = (id: string, ...args: string[]) => {
 
 i18n.break = (id: string, ...args: string[]) => i18n(id, ...args).replace(/ /gu, ' ')
 
-i18n.getState = (): LanguageState => languageState
-i18n.getLocale = () => languageState.locale
 i18n.getLocales = () => locales
 
-i18n.setLocale = (prev: ReducerState<any>, newState: LanguageState): LanguageState => {
-  if (!localeMapping[newState.locale]) newState.locale = 'en'
-
-  languageState.locale = newState.locale
-  return newState
+i18n.setLocale = (newLocale: Locale) => {
+  if (!localeMapping[newLocale]) newLocale = 'en'
+  languageState.locale = newLocale
 }
-const dispatch: Dispatch<LanguageState> = () => {}
-
-export const LanguageContext = createContext([i18n.getState(), dispatch] as const)
-export const useLanguageContext = () => useContext(LanguageContext)
 
 export default i18n

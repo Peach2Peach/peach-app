@@ -1,15 +1,16 @@
-import { View } from 'react-native'
+import { View, ViewStyle } from 'react-native'
 
-import { useToggleBoolean } from '../../../../hooks'
 import { BackupPasswordPrompt } from './BackupPasswordPrompt'
 import { FileBackupOverview } from './FileBackupOverview'
 
-export const FileBackup = ({ style }: ComponentProps) => {
-  const [showPasswordPrompt, toggle] = useToggleBoolean()
-
-  return (
-    <View style={style}>
-      {showPasswordPrompt ? <BackupPasswordPrompt toggle={toggle} /> : <FileBackupOverview next={toggle} />}
-    </View>
-  )
+type Props = {
+  style?: ViewStyle
+  showPasswordPrompt: boolean
+  toggle: () => void
 }
+
+export const FileBackup = ({ style, showPasswordPrompt, toggle }: Props) => (
+  <View style={style}>
+    {showPasswordPrompt ? <BackupPasswordPrompt toggle={toggle} /> : <FileBackupOverview next={toggle} />}
+  </View>
+)

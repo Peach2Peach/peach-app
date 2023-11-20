@@ -5,7 +5,7 @@ import { DISCORD, TELEGRAM } from '../../constants'
 import { useNavigation } from '../../hooks'
 import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
-import { account } from '../../utils/account'
+import { useAccountStore } from '../../utils/account/account'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { openURL } from '../../utils/web/openURL'
@@ -22,8 +22,8 @@ export const Contact = () => {
   const goToReport = (reason: ContactReason) => {
     navigation.navigate('report', { reason, shareDeviceID: reason === 'accountLost' })
   }
-
-  const contactReasons = account?.publicKey ? contactReasonsWithAccount : contactReasonsNoAccount
+  const publicKey = useAccountStore((state) => state.account.publicKey)
+  const contactReasons = publicKey ? contactReasonsWithAccount : contactReasonsNoAccount
 
   return (
     <Screen header={<Header title={i18n('contact.title')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />}>

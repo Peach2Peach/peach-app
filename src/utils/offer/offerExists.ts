@@ -1,3 +1,6 @@
-import { account } from '../account'
+import { useAccountStore } from '../account/account'
 
-export const offerExists = (id: string): boolean => account.offers.some((o) => o.id === id)
+export const offerExists = (id: string): boolean => {
+  const offers = useAccountStore.getState().account.offers
+  return offers.some((o) => o.id === id)
+}

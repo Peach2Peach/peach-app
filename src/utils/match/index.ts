@@ -1,4 +1,3 @@
-export { getMatchCurrency } from './getMatchCurrency'
-export { getAvailableMethods } from './getAvailableMethods'
 export { getAvailableCurrencies } from './getAvailableCurrencies'
+export { getAvailableMethods } from './getAvailableMethods'
 export { isLimitReached } from './isLimitReached'

@@ -1,6 +1,10 @@
 import { deepStrictEqual } from 'assert'
-import { defaultAccount, loadAccount, setAccount, storeAccount } from '..'
+import { defaultAccount, setAccount, storeAccount } from '..'
 import * as accountData from '../../../../tests/unit/data/accountData'
+import { getIndexedMap } from '../../storage'
+import { accountStorage } from '../accountStorage'
+import { chatStorage } from '../chatStorage'
+import { offerStorage } from '../offerStorage'
 
 describe('storeAccount', () => {
   beforeEach(() => {
@@ -9,6 +13,20 @@ describe('storeAccount', () => {
 
   it('would store whole account', async () => {
     await storeAccount(accountData.buyer)
-    deepStrictEqual(await loadAccount(), accountData.buyer)
+    const identity = accountStorage.getMap('identity') as Identity
+    const [tradingLimit, offers, chats] = await Promise.all([
+      accountStorage.getMap('tradingLimit') || defaultAccount.tradingLimit,
+      Object.values(await getIndexedMap(offerStorage)),
+      getIndexedMap(chatStorage),
+    ])
+    deepStrictEqual(
+      {
+        ...identity,
+        tradingLimit,
+        offers,
+        chats,
+      },
+      accountData.buyer,
+    )
   })
 })

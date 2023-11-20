@@ -11,8 +11,6 @@ export const MSINAMONTH = MSINADAY * 30
 
 export const FIFTEEN_SECONDS = 15 * MSINASECOND
 
-export const MAXTRADESWITHOUTHBACKUP = 3
-
 export const APPVERSION = getVersion()
 export const BUILDNUMBER = getBuildNumber()
 

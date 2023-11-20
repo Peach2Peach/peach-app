@@ -1,0 +1,804 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useSetCustomReferralCodePopup handles referral code exists error 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -130,15 +130,18 @@
+                  "backgroundColor": "#FFFCFA",
+                },
+                Object {
+                  "borderColor": "#2B1911",
+                },
+-               false,
+-               false,
+                Object {
+-                 "marginBottom": 1,
+-                 "marginTop": 1,
++                 "backgroundColor": "#FFFCFA",
++               },
++               Object {
++                 "borderColor": "#DF321F",
++               },
++               Object {
++                 "borderWidth": 2,
+                },
+                Object {
+                  "backgroundColor": "#FEEDE5",
+                },
+              ]
+@@ -173,17 +176,16 @@
+                    "width": "100%",
+                  },
+                  Object {
+                    "color": "#2B1911",
+                  },
+-                 false,
+                  Object {
+-                   "borderColor": "transparent",
+-                   "borderWidth": 1,
++                   "color": "#2B1911",
+                  },
+                  false,
+                  false,
++                 false,
+                ]
+              }
+              textAlignVertical="center"
+              value="HODL"
+            />
+@@ -223,11 +225,11 @@
+                ],
+                false,
+              ]
+            }
+          >
+-            
++           that one's already taken...
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+@@ -329,11 +331,11 @@
+      <View
+        accessibilityState={
+          Object {
+            "busy": undefined,
+            "checked": undefined,
+-           "disabled": false,
++           "disabled": true,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={"
+`;
+
+exports[`useSetCustomReferralCodePopup opens popup with correct default values 1`] = `
+<View
+  style={
+    {
+      "borderRadius": 16,
+      "marginLeft": 12,
+      "marginRight": 12,
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "alignItems": "stretch",
+          "backgroundColor": "#FEEDE5",
+          "gap": 12,
+          "paddingBottom": 24,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 16,
+        },
+        [
+          undefined,
+          {
+            "alignItems": "stretch",
+          },
+        ],
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "fontFamily": "Baloo2-Bold",
+            "fontSize": 24,
+            "letterSpacing": 0.24,
+            "lineHeight": 32,
+            "width": "100%",
+          },
+          false,
+        ]
+      }
+    >
+      custom referral code
+    </Text>
+    <View
+      style={
+        {
+          "gap": 12,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            undefined,
+            false,
+          ]
+        }
+      >
+        Let's get creative! Having a custom referral code is a lot more fun than all those numbers, right?
+      </Text>
+      <View>
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "gap": 4,
+                "justifyContent": "space-between",
+                "paddingLeft": 12,
+                "paddingRight": 12,
+                "width": "100%",
+              },
+              {
+                "borderRadius": 12,
+                "borderWidth": 1,
+                "overflow": "hidden",
+              },
+              {
+                "backgroundColor": "#FFFCFA",
+              },
+              {
+                "borderColor": "#2B1911",
+              },
+              false,
+              false,
+              {
+                "marginBottom": 1,
+                "marginTop": 1,
+              },
+              {
+                "backgroundColor": "#FEEDE5",
+              },
+            ]
+          }
+        >
+          <TextInput
+            allowFontScaling={false}
+            autoCapitalize="characters"
+            autoCorrect={false}
+            blurOnSubmit={false}
+            editable={true}
+            multiline={false}
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            onEndEditing={[Function]}
+            onFocus={[Function]}
+            onSubmitEditing={[Function]}
+            placeholder="creative thing here"
+            placeholderTextColor="#BAADA7"
+            removeClippedSubviews={false}
+            style={
+              [
+                {
+                  "flexShrink": 1,
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 18,
+                  "height": 40,
+                  "letterSpacing": 0.18,
+                  "lineHeight": 29.25,
+                  "paddingBottom": 0,
+                  "paddingTop": 0,
+                  "width": "100%",
+                },
+                {
+                  "color": "#BAADA7",
+                },
+                false,
+                {
+                  "borderColor": "transparent",
+                  "borderWidth": 1,
+                },
+                false,
+                false,
+              ]
+            }
+            textAlignVertical="center"
+            value=""
+          />
+          <View
+            style={
+              {
+                "display": "flex",
+                "flexDirection": "row",
+                "gap": 16,
+              }
+            }
+          />
+        </View>
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-Medium",
+                  "fontSize": 14,
+                  "letterSpacing": 0.14,
+                  "lineHeight": 20,
+                  "marginLeft": 12,
+                  "marginTop": 4,
+                },
+                {
+                  "color": "#DF321F",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+           
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "alignSelf": "stretch",
+          "backgroundColor": "#F56522",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "gap": 4,
+          "opacity": 1,
+          "paddingBottom": 8,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "color": "#FFFCFA",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              undefined,
+            ],
+            false,
+          ]
+        }
+      >
+        close
+      </Text>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": true,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row-reverse",
+          "flexGrow": 1,
+          "gap": 4,
+          "opacity": 0.5,
+          "paddingBottom": 8,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "color": "#FFFCFA",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              undefined,
+            ],
+            false,
+          ]
+        }
+      >
+        set referral
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`useSetCustomReferralCodePopup submits custom referral code 1`] = `
+<View
+  style={
+    {
+      "borderRadius": 16,
+      "marginLeft": 12,
+      "marginRight": 12,
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "alignItems": "stretch",
+          "backgroundColor": "#FEEDE5",
+          "gap": 12,
+          "paddingBottom": 24,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 16,
+        },
+        [
+          undefined,
+          {
+            "alignItems": "stretch",
+          },
+        ],
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "fontFamily": "Baloo2-Bold",
+            "fontSize": 24,
+            "letterSpacing": 0.24,
+            "lineHeight": 32,
+            "width": "100%",
+          },
+          false,
+        ]
+      }
+    >
+      custom referral code
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          undefined,
+          false,
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              undefined,
+              false,
+            ],
+            undefined,
+          ]
+        }
+      >
+        Your custom referral code 
+      </Text>
+      <Text
+        style={
+          [
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              undefined,
+              false,
+            ],
+            {
+              "color": "#F56522",
+            },
+          ]
+        }
+      >
+        HODL
+      </Text>
+      <Text
+        style={
+          [
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              undefined,
+              false,
+            ],
+            undefined,
+          ]
+        }
+      >
+         is now active!
+      </Text>
+    </Text>
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "alignSelf": "stretch",
+          "backgroundColor": "#F56522",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "gap": 4,
+          "justifyContent": "center",
+          "opacity": 1,
+          "paddingBottom": 8,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "color": "#FFFCFA",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              undefined,
+            ],
+            false,
+          ]
+        }
+      >
+        close
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`useSetCustomReferralCodePopup updates referral code state 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -171,11 +171,11 @@
+                    "paddingBottom": 0,
+                    "paddingTop": 0,
+                    "width": "100%",
+                  },
+                  Object {
+-                   "color": "#BAADA7",
++                   "color": "#2B1911",
+                  },
+                  false,
+                  Object {
+                    "borderColor": "transparent",
+                    "borderWidth": 1,
+@@ -183,11 +183,11 @@
+                  false,
+                  false,
+                ]
+              }
+              textAlignVertical="center"
+-             value=""
++             value="HODL"
+            />
+            <View
+              style={
+                Object {
+                  "display": "flex",
+@@ -329,11 +329,11 @@
+      <View
+        accessibilityState={
+          Object {
+            "busy": undefined,
+            "checked": undefined,
+-           "disabled": true,
++           "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={"
+`;

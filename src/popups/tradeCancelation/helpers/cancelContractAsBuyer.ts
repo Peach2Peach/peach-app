@@ -1,22 +1,17 @@
 import { cancelContract } from '../../../utils/peachAPI'
-import { getResult } from '../../../utils/result'
-import { Result } from '../../../utils/result/types'
 
-type UpdateResult = {
-  contract: Contract
-}
-
-export const cancelContractAsBuyer = async (contract: Contract): Promise<Result<UpdateResult, string>> => {
+export const cancelContractAsBuyer = async (contract: Contract) => {
   const [result, err] = await cancelContract({
     contractId: contract.id,
   })
 
-  if (result) return getResult({
-    contract: {
-      ...contract,
-      canceled: true,
-      cancelConfirmationDismissed: false,
+  if (result) return {
+    result: {
+      contract: {
+        ...contract,
+        canceled: true,
+      },
     },
-  })
-  return getResult({ contract }, err?.error)
+  }
+  return { result: { contract }, error: err?.error }
 }

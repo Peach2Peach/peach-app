@@ -1,7 +1,6 @@
 import { useNavigation, useRoute } from '../../../hooks'
 import { useMeetupEvents } from '../../../hooks/query/useMeetupEvents'
 import { sortAlphabetically } from '../../../utils/array'
-import { Country } from '../../../utils/country/countryMap'
 import i18n from '../../../utils/i18n'
 import { useDrawerState } from '../../drawer/useDrawerState'
 import { getCountrySelectDrawerOptions } from '../helpers/getCountrySelectDrawerOptions'

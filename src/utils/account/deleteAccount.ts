@@ -2,7 +2,7 @@ import analytics from '@react-native-firebase/analytics'
 
 import { defaultAccount } from '.'
 import { notificationStorage, useNotificationStore } from '../../components/footer/notificationsStore'
-import { useConfigStore } from '../../store/configStore'
+import { useConfigStore } from '../../store/configStore/configStore'
 import { useSessionStore } from '../../store/sessionStore'
 import { settingsStorage, useSettingsStore } from '../../store/settingsStore'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'

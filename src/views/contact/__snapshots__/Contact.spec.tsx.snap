@@ -317,15 +317,18 @@ exports[`Contact should render correctly 1`] = `
                 style={
                   {
                     "alignItems": "center",
+                    "backgroundColor": "transparent",
                     "borderColor": "#7D675E",
                     "borderRadius": 9999,
                     "borderWidth": 2,
                     "flexDirection": "row",
+                    "gap": 8,
                     "height": 40,
                     "justifyContent": "center",
+                    "minWidth": 128,
                     "opacity": 1,
-                    "paddingLeft": 16,
-                    "paddingRight": 16,
+                    "paddingLeft": 32,
+                    "paddingRight": 32,
                   }
                 }
               >
@@ -344,18 +347,21 @@ exports[`Contact should render correctly 1`] = `
                       },
                       [
                         {
-                          "color": "#7D675E",
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 13,
+                          "letterSpacing": 0.47,
+                          "lineHeight": 22,
+                          "textTransform": "uppercase",
                         },
                         {
                           "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 14,
-                          "letterSpacing": 0.5,
-                          "lineHeight": 24,
-                          "minWidth": 96,
-                          "paddingLeft": 8,
-                          "paddingRight": 8,
-                          "textAlign": "center",
+                          "fontSize": 15,
+                          "letterSpacing": 0.54,
+                          "lineHeight": 26,
                           "textTransform": "uppercase",
+                        },
+                        {
+                          "color": "#7D675E",
                         },
                       ],
                       false,
@@ -396,15 +402,18 @@ exports[`Contact should render correctly 1`] = `
                 style={
                   {
                     "alignItems": "center",
+                    "backgroundColor": "transparent",
                     "borderColor": "#7D675E",
                     "borderRadius": 9999,
                     "borderWidth": 2,
                     "flexDirection": "row",
+                    "gap": 8,
                     "height": 40,
                     "justifyContent": "center",
+                    "minWidth": 128,
                     "opacity": 1,
-                    "paddingLeft": 16,
-                    "paddingRight": 16,
+                    "paddingLeft": 32,
+                    "paddingRight": 32,
                   }
                 }
               >
@@ -423,18 +432,21 @@ exports[`Contact should render correctly 1`] = `
                       },
                       [
                         {
-                          "color": "#7D675E",
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 13,
+                          "letterSpacing": 0.47,
+                          "lineHeight": 22,
+                          "textTransform": "uppercase",
                         },
                         {
                           "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 14,
-                          "letterSpacing": 0.5,
-                          "lineHeight": 24,
-                          "minWidth": 96,
-                          "paddingLeft": 8,
-                          "paddingRight": 8,
-                          "textAlign": "center",
+                          "fontSize": 15,
+                          "letterSpacing": 0.54,
+                          "lineHeight": 26,
                           "textTransform": "uppercase",
+                        },
+                        {
+                          "color": "#7D675E",
                         },
                       ],
                       false,
@@ -475,15 +487,18 @@ exports[`Contact should render correctly 1`] = `
                 style={
                   {
                     "alignItems": "center",
+                    "backgroundColor": "transparent",
                     "borderColor": "#7D675E",
                     "borderRadius": 9999,
                     "borderWidth": 2,
                     "flexDirection": "row",
+                    "gap": 8,
                     "height": 40,
                     "justifyContent": "center",
+                    "minWidth": 128,
                     "opacity": 1,
-                    "paddingLeft": 16,
-                    "paddingRight": 16,
+                    "paddingLeft": 32,
+                    "paddingRight": 32,
                   }
                 }
               >
@@ -502,18 +517,21 @@ exports[`Contact should render correctly 1`] = `
                       },
                       [
                         {
-                          "color": "#7D675E",
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 13,
+                          "letterSpacing": 0.47,
+                          "lineHeight": 22,
+                          "textTransform": "uppercase",
                         },
                         {
                           "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 14,
-                          "letterSpacing": 0.5,
-                          "lineHeight": 24,
-                          "minWidth": 96,
-                          "paddingLeft": 8,
-                          "paddingRight": 8,
-                          "textAlign": "center",
+                          "fontSize": 15,
+                          "letterSpacing": 0.54,
+                          "lineHeight": 26,
                           "textTransform": "uppercase",
+                        },
+                        {
+                          "color": "#7D675E",
                         },
                       ],
                       false,
@@ -554,15 +572,18 @@ exports[`Contact should render correctly 1`] = `
                 style={
                   {
                     "alignItems": "center",
+                    "backgroundColor": "transparent",
                     "borderColor": "#7D675E",
                     "borderRadius": 9999,
                     "borderWidth": 2,
                     "flexDirection": "row",
+                    "gap": 8,
                     "height": 40,
                     "justifyContent": "center",
+                    "minWidth": 128,
                     "opacity": 1,
-                    "paddingLeft": 16,
-                    "paddingRight": 16,
+                    "paddingLeft": 32,
+                    "paddingRight": 32,
                   }
                 }
               >
@@ -581,18 +602,21 @@ exports[`Contact should render correctly 1`] = `
                       },
                       [
                         {
-                          "color": "#7D675E",
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 13,
+                          "letterSpacing": 0.47,
+                          "lineHeight": 22,
+                          "textTransform": "uppercase",
                         },
                         {
                           "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 14,
-                          "letterSpacing": 0.5,
-                          "lineHeight": 24,
-                          "minWidth": 96,
-                          "paddingLeft": 8,
-                          "paddingRight": 8,
-                          "textAlign": "center",
+                          "fontSize": 15,
+                          "letterSpacing": 0.54,
+                          "lineHeight": 26,
                           "textTransform": "uppercase",
+                        },
+                        {
+                          "color": "#7D675E",
                         },
                       ],
                       false,
@@ -633,15 +657,18 @@ exports[`Contact should render correctly 1`] = `
                 style={
                   {
                     "alignItems": "center",
+                    "backgroundColor": "transparent",
                     "borderColor": "#7D675E",
                     "borderRadius": 9999,
                     "borderWidth": 2,
                     "flexDirection": "row",
+                    "gap": 8,
                     "height": 40,
                     "justifyContent": "center",
+                    "minWidth": 128,
                     "opacity": 1,
-                    "paddingLeft": 16,
-                    "paddingRight": 16,
+                    "paddingLeft": 32,
+                    "paddingRight": 32,
                   }
                 }
               >
@@ -660,18 +687,21 @@ exports[`Contact should render correctly 1`] = `
                       },
                       [
                         {
-                          "color": "#7D675E",
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 13,
+                          "letterSpacing": 0.47,
+                          "lineHeight": 22,
+                          "textTransform": "uppercase",
                         },
                         {
                           "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 14,
-                          "letterSpacing": 0.5,
-                          "lineHeight": 24,
-                          "minWidth": 96,
-                          "paddingLeft": 8,
-                          "paddingRight": 8,
-                          "textAlign": "center",
+                          "fontSize": 15,
+                          "letterSpacing": 0.54,
+                          "lineHeight": 26,
                           "textTransform": "uppercase",
+                        },
+                        {
+                          "color": "#7D675E",
                         },
                       ],
                       false,
@@ -778,15 +808,18 @@ exports[`Contact should render correctly 1`] = `
                 style={
                   {
                     "alignItems": "center",
+                    "backgroundColor": "transparent",
                     "borderColor": "#7D675E",
                     "borderRadius": 9999,
                     "borderWidth": 2,
                     "flexDirection": "row",
+                    "gap": 8,
                     "height": 40,
                     "justifyContent": "center",
+                    "minWidth": 128,
                     "opacity": 1,
-                    "paddingLeft": 16,
-                    "paddingRight": 16,
+                    "paddingLeft": 32,
+                    "paddingRight": 32,
                   }
                 }
               >
@@ -805,18 +838,21 @@ exports[`Contact should render correctly 1`] = `
                       },
                       [
                         {
-                          "color": "#7D675E",
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 13,
+                          "letterSpacing": 0.47,
+                          "lineHeight": 22,
+                          "textTransform": "uppercase",
                         },
                         {
                           "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 14,
-                          "letterSpacing": 0.5,
-                          "lineHeight": 24,
-                          "minWidth": 96,
-                          "paddingLeft": 8,
-                          "paddingRight": 8,
-                          "textAlign": "center",
+                          "fontSize": 15,
+                          "letterSpacing": 0.54,
+                          "lineHeight": 26,
                           "textTransform": "uppercase",
+                        },
+                        {
+                          "color": "#7D675E",
                         },
                       ],
                       false,
@@ -857,15 +893,18 @@ exports[`Contact should render correctly 1`] = `
                 style={
                   {
                     "alignItems": "center",
+                    "backgroundColor": "transparent",
                     "borderColor": "#7D675E",
                     "borderRadius": 9999,
                     "borderWidth": 2,
                     "flexDirection": "row",
+                    "gap": 8,
                     "height": 40,
                     "justifyContent": "center",
+                    "minWidth": 128,
                     "opacity": 1,
-                    "paddingLeft": 16,
-                    "paddingRight": 16,
+                    "paddingLeft": 32,
+                    "paddingRight": 32,
                   }
                 }
               >
@@ -884,18 +923,21 @@ exports[`Contact should render correctly 1`] = `
                       },
                       [
                         {
-                          "color": "#7D675E",
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 13,
+                          "letterSpacing": 0.47,
+                          "lineHeight": 22,
+                          "textTransform": "uppercase",
                         },
                         {
                           "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 14,
-                          "letterSpacing": 0.5,
-                          "lineHeight": 24,
-                          "minWidth": 96,
-                          "paddingLeft": 8,
-                          "paddingRight": 8,
-                          "textAlign": "center",
+                          "fontSize": 15,
+                          "letterSpacing": 0.54,
+                          "lineHeight": 26,
                           "textTransform": "uppercase",
+                        },
+                        {
+                          "color": "#7D675E",
                         },
                       ],
                       false,

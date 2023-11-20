@@ -1,9 +1,10 @@
 import { useSettingsStore } from '../store/settingsStore'
-import { account } from '../utils/account'
+import { useAccountStore } from '../utils/account/account'
 import { error, info } from '../utils/log'
 import { updateUser } from '../utils/peachAPI'
 
 export const publishPGPPublicKey = async () => {
+  const account = useAccountStore.getState().account
   if (!account.pgp.publicKey) return
   try {
     const [result, err] = await updateUser({ pgp: account.pgp })

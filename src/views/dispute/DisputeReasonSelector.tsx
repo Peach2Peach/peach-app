@@ -22,7 +22,7 @@ function DisputeReasonScreen ({ contract }: { contract: Contract }) {
       <PeachScrollView contentContainerStyle={tw`items-center justify-center grow`} contentStyle={tw`gap-4`}>
         <Text style={tw`text-center h6`}>{i18n('contact.whyAreYouContactingUs')}</Text>
         {availableReasons.map((rsn) => (
-          <OptionButton key={rsn} onPress={() => setReason(rsn)} style={tw`w-64`} narrow>
+          <OptionButton key={rsn} onPress={() => setReason(rsn)} style={tw`w-64`}>
             {i18n(`dispute.reason.${rsn}`)}
           </OptionButton>
         ))}

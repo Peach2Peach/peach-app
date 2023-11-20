@@ -1,5 +1,4 @@
 import { sortAlphabetically } from '../../../utils/array/sortAlphabetically'
-import { Country } from '../../../utils/country/countryMap'
 import { structureEventsByCountry } from '../../../utils/events'
 import i18n from '../../../utils/i18n'
 import { keys } from '../../../utils/object'

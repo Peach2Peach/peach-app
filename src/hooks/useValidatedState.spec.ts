@@ -6,21 +6,19 @@ const requiredRule = { required: true }
 describe('useValidatedState', () => {
   it('returns state value, setter, isValid, errors and isPristine accordingly', () => {
     const { result } = renderHook(() => useValidatedState('', requiredRule))
-    const [value, setValue, valueValid, valueErrors, valuePristine] = result.current
+    const [value, setValue, valueValid, valueErrors] = result.current
     expect(value).toBe('')
     expect(setValue).toBeInstanceOf(Function)
     expect(valueValid).toBeFalsy()
-    expect(valueErrors).toHaveLength(1)
-    expect(valuePristine).toBeTruthy()
+    expect(valueErrors).toStrictEqual(['this field is required'])
   })
   it('returns state value, setter, isValid, errors and isPristine with default', () => {
     const { result } = renderHook(() => useValidatedState('default', requiredRule))
-    const [value, setValue, valueValid, valueErrors, valuePristine] = result.current
+    const [value, setValue, valueValid, valueErrors] = result.current
     expect(value).toBe('default')
     expect(setValue).toBeInstanceOf(Function)
     expect(valueValid).toBeTruthy()
     expect(valueErrors).toHaveLength(0)
-    expect(valuePristine).toBeFalsy()
   })
 
   it('updates the state correctly', () => {
@@ -35,6 +33,5 @@ describe('useValidatedState', () => {
     expect(result.current[0]).toBe('newValue')
     expect(result.current[2]).toBeTruthy()
     expect(result.current[3]).toHaveLength(0)
-    expect(result.current[4]).toBeFalsy()
   })
 })

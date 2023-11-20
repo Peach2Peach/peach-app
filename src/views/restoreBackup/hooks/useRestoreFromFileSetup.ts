@@ -1,22 +1,18 @@
 import { useState } from 'react'
 import { Keyboard } from 'react-native'
-import { useNavigation, useValidatedState } from '../../../hooks'
+import { useValidatedState } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { deleteAccount, recoverAccount } from '../../../utils/account'
-import { createPeachAccount } from '../../../utils/account/createPeachAccount'
+import { useAccountStore } from '../../../utils/account/account'
 import { decryptAccount } from '../../../utils/account/decryptAccount'
-import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
-import { auth, peachAPI } from '../../../utils/peachAPI'
-import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
 import { parseError } from '../../../utils/result'
+import { setupPeachAccount } from './setupPeachAccount'
 
 const passwordRules = { password: true, required: true }
 
 export const useRestoreFromFileSetup = () => {
-  const navigation = useNavigation()
-
   const [file, setFile] = useState({
     name: '',
     content: '',
@@ -28,9 +24,9 @@ export const useRestoreFromFileSetup = () => {
   const [restored, setRestored] = useState(false)
 
   const updateFileBackupDate = useSettingsStore((state) => state.updateFileBackupDate)
+  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn)
 
-  const onError = (err?: string) => {
-    const errorMsg = err || 'UNKNOWN_ERROR'
+  const onError = (errorMsg = 'UNKNOWN_ERROR') => {
     if (errorMsg !== 'WRONG_PASSWORD') setError(errorMsg)
     deleteAccount()
   }
@@ -47,27 +43,24 @@ export const useRestoreFromFileSetup = () => {
       return
     }
 
-    const wallet = loadWalletFromAccount(recoveredAccount)
-    const peachAccount = createPeachAccount(wallet)
-    setPeachAccount(peachAccount)
-    peachAPI.setPeachAccount(peachAccount)
+    const authErr = await setupPeachAccount(recoveredAccount)
 
-    const [, authErr] = await auth({})
     if (authErr) {
       setLoading(false)
-      onError(authErr.error)
+      onError(authErr)
       return
     }
     const updatedAccount = await recoverAccount(recoveredAccount)
 
     if (recoveredAccount.paymentData) recoveredAccount.paymentData.map(usePaymentDataStore.getState().addPaymentData)
+
     await storeAccount(updatedAccount)
     setRestored(true)
     setLoading(false)
     updateFileBackupDate()
 
     setTimeout(() => {
-      navigation.replace('buy')
+      setIsLoggedIn(true)
     }, 1500)
   }
 

@@ -1,4 +1,3 @@
-import { Country } from '../../../utils/country/countryMap'
 import i18n from '../../../utils/i18n'
 
 export const mapCountryToDrawerOption

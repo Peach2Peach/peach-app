@@ -132,11 +132,11 @@ exports[`BitcoinAddress should render correctly 1`] = `
         }
       }
     >
-      <PrimaryButton
+      <IconButton
         iconId="copy"
         onPress={[Function]}
       />
-      <PrimaryButton
+      <IconButton
         iconId="externalLink"
         onPress={[Function]}
       />
@@ -284,11 +284,11 @@ exports[`BitcoinAddress should render correctly for small screens 1`] = `
         }
       }
     >
-      <PrimaryButton
+      <IconButton
         iconId="copy"
         onPress={[Function]}
       />
-      <PrimaryButton
+      <IconButton
         iconId="externalLink"
         onPress={[Function]}
       />

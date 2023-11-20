@@ -3,7 +3,7 @@ import { IconType } from '../../../assets/icons'
 import { Icon, Text } from '../../../components'
 import { LinedText } from '../../../components/ui/LinedText'
 import tw from '../../../styles/tailwind'
-import { account } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { toDateFormat, toTimeFormat } from '../../../utils/date'
 import i18n from '../../../utils/i18n'
 
@@ -25,7 +25,8 @@ type MessageMeta = {
 }
 
 const getMessageMeta = ({ message, previous, tradingPartner, online }: GetMessageMetaProps): MessageMeta => {
-  const isYou = message.from === account.publicKey
+  const publicKey = useAccountStore.getState().account.publicKey
+  const isYou = message.from === publicKey
   const isTradingPartner = message.from === tradingPartner
   const isMediator = !isYou && !isTradingPartner
   const isSystemMessage = message.from === 'system'

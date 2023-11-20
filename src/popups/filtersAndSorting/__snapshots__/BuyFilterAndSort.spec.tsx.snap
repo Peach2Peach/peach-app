@@ -698,7 +698,7 @@ exports[`BuyFilterAndSort should render correctly 1`] = `
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": false,
+          "disabled": undefined,
           "expanded": undefined,
           "selected": undefined,
         }
@@ -790,7 +790,7 @@ exports[`BuyFilterAndSort should show the loading indicator after the apply butt
           Object {
             "busy": undefined,
             "checked": undefined,
--           "disabled": false,
+-           "disabled": undefined,
 +           "disabled": true,
             "expanded": undefined,
             "selected": undefined,

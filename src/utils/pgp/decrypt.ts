@@ -1,4 +1,7 @@
 import OpenPGP from 'react-native-fast-openpgp'
-import { account } from '../account'
+import { useAccountStore } from '../account/account'
 
-export const decrypt = (encrypted: string) => OpenPGP.decrypt(encrypted, account.pgp.privateKey, '')
+export const decrypt = (encrypted: string) => {
+  const privateKey = useAccountStore.getState().account.pgp.privateKey
+  return OpenPGP.decrypt(encrypted, privateKey, '')
+}

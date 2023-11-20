@@ -101,8 +101,8 @@ export function CancelTradeSlider () {
     { canceled: true, tradeStatus: 'refundOrReviveRequired' },
     {
       mutationFn: async () => {
-        const result = await cancelContractAsSeller(contract)
-        if (!result || result.isError()) throw new Error(result.error)
+        const { result, error } = await cancelContractAsSeller(contract)
+        if (!result || error) throw new Error(error)
       },
     },
   )

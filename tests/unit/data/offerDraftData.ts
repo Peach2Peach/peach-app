@@ -7,7 +7,7 @@ export const getBuyOfferDraft = (): BuyOfferDraft => ({
   releaseAddress: 'releaseAddress',
   paymentData: sellOffer.paymentData,
   meansOfPayment: sellOffer.meansOfPayment,
-  originalPaymentData: sellOffer.originalPaymentData,
+  originalPaymentData: [],
   maxPremium: null,
 })
 export const getSellOfferDraft = (): SellOfferDraft => ({
@@ -18,5 +18,5 @@ export const getSellOfferDraft = (): SellOfferDraft => ({
   paymentData: sellOffer.paymentData,
   funding: defaultFundingStatus,
   meansOfPayment: sellOffer.meansOfPayment,
-  originalPaymentData: sellOffer.originalPaymentData,
+  originalPaymentData: [],
 })

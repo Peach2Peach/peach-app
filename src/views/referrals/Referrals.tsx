@@ -58,11 +58,11 @@ function ReferralRewards () {
 }
 
 function RedeemButton ({ selectedReward }: { selectedReward: RewardType | undefined }) {
-  const { setCustomReferralCodePopup } = useSetCustomReferralCodePopup()
+  const showCustomReferralCodePopup = useSetCustomReferralCodePopup()
   const redeemNoPeachFeesReward = useRedeemNoPeachFeesReward()
   const redeem = () => {
     if (selectedReward === 'customReferralCode') {
-      setCustomReferralCodePopup()
+      showCustomReferralCodePopup()
     } else if (selectedReward === 'noPeachFees') {
       redeemNoPeachFeesReward()
     }

@@ -1,4 +1,4 @@
-import { setLocaleQuiet } from '../../../utils/i18n'
+import { languageState } from '../../../utils/i18n'
 import { getInviteLink } from './getInviteLink'
 
 describe('getInviteLink', () => {
@@ -6,7 +6,7 @@ describe('getInviteLink', () => {
     expect(getInviteLink('ADAMSBACK')).toBe('https://peachbitcoin.com/referral?code=ADAMSBACK')
   })
   it('returns localized invite link', () => {
-    setLocaleQuiet('de')
+    languageState.locale = 'de'
     expect(getInviteLink('ADAMSBACK')).toBe('https://peachbitcoin.com/de/referral?code=ADAMSBACK')
   })
 })

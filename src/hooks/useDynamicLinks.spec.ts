@@ -17,9 +17,9 @@ const dynamicLink = 'https://peachbitcoin.page.link/?link=https%3A%2F%2Fpeachbit
 const getInitialURLSpy = jest.spyOn(Linking, 'getInitialURL').mockResolvedValue(dynamicLink)
 
 describe('useDynamicLinks', () => {
-  afterEach(() => {
-    onLinkHandlers = []
+  beforeEach(() => {
     setAccount(defaultAccount)
+    onLinkHandlers = []
   })
   it('navigates to welcome screen w/ refCode if no user is registered & refCode exists', async () => {
     renderHook(useDynamicLinks)

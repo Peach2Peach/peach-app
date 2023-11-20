@@ -2,7 +2,6 @@
 import { act, renderHook } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useMessageState } from '../../../components/message/useMessageState'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
@@ -66,10 +65,6 @@ describe('useNetworkFeesSetup', () => {
       result.current.setSelectedFeeRate('fastestFee')
     })
     expect(result.current.feeRateSet).toBeFalsy()
-  })
-  it('sets header as expected', () => {
-    renderHook(useNetworkFeesSetup)
-    expect(headerState.header()).toMatchSnapshot()
   })
   it('sets fee preferences', () => {
     const { result } = renderHook(useNetworkFeesSetup)

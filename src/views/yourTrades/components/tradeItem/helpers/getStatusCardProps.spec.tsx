@@ -8,10 +8,7 @@ const mockItem: TradeSummary = {
   type: 'ask',
   lastModified: new Date('2021-08-01'),
   matches: [],
-  prices: {
-    EUR: 21,
-  },
-  tradeStatus: 'waiting',
+  tradeStatus: 'searchingForPeer',
 }
 
 describe('getStatusCardProps', () => {

@@ -17,9 +17,6 @@ describe('OfferItem', () => {
     lastModified: new Date('2021-01-01'),
     amount: [21000, 210000],
     matches: [],
-    prices: {
-      EUR: 21,
-    },
     tradeStatus: 'searchingForPeer',
   }
 

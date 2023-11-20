@@ -3,8 +3,13 @@ import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { MeetupPaymentMethods } from './MeetupPaymentMethods'
 
 describe('MeetupPaymentMethods', () => {
-  const cashPaymentData: PaymentData = { id: '1', type: 'cash', label: 'EINUNDZWANZIG', currencies: ['EUR'] }
-  const cashPaymentData2: PaymentData = { id: '2', type: 'cash', label: 'ZWEIUNDZWANZIG', currencies: ['EUR'] }
+  const cashPaymentData: PaymentData = { id: '1', type: 'cash.someMeetup', label: 'EINUNDZWANZIG', currencies: ['EUR'] }
+  const cashPaymentData2: PaymentData = {
+    id: '2',
+    type: 'cash.someMeetup',
+    label: 'ZWEIUNDZWANZIG',
+    currencies: ['EUR'],
+  }
   const editItemMock = jest.fn()
   const selectMock = jest.fn()
   const isSelectedMock = jest.fn(() => false)

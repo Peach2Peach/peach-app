@@ -25,11 +25,9 @@ exports[`GradientBorder should render correctly and show border by default 1`] =
           "backgroundColor": "transparent",
           "borderWidth": 0,
         },
-        [
-          {
-            "position": "absolute",
-          },
-        ],
+        {
+          "position": "absolute",
+        },
         {
           "flex": 0,
           "height": "100%",

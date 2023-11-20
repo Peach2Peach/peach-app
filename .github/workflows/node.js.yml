@@ -25,4 +25,5 @@ jobs:
       - run: git submodule update --init --recursive
 
       - run: npm run lint
+      - run: npm run tsc
       - run: npm run test:ci

@@ -143,7 +143,7 @@ exports[`Match should render correctly for buy offers 1`] = `
                     ]
                   }
                 >
-                  Peach1
+                  Peach02135832
                 </Text>
                 <test-file-stub
                   fill="#F56522"
@@ -158,30 +158,427 @@ exports[`Match should render correctly for buy offers 1`] = `
                   }
                 />
               </View>
-              <Text
-                allowFontScaling={false}
+              <View
                 style={
                   [
                     {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
+                      "alignItems": "center",
+                      "flexDirection": "row",
                     },
-                    {
-                      "color": "#7D675E",
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 14,
-                      "letterSpacing": 0.14,
-                      "lineHeight": 22,
-                    },
-                    false,
+                    undefined,
                   ]
                 }
               >
-                new user
-              </Text>
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <test-file-stub
+                    style={
+                      {
+                        "height": 12,
+                        "marginRight": 4,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
+                    }
+                  />
+                  <test-file-stub
+                    style={
+                      {
+                        "height": 12,
+                        "marginRight": 4,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
+                    }
+                  />
+                  <test-file-stub
+                    style={
+                      {
+                        "height": 12,
+                        "marginRight": 4,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
+                    }
+                  />
+                  <test-file-stub
+                    style={
+                      {
+                        "height": 12,
+                        "marginRight": 4,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
+                    }
+                  />
+                  <test-file-stub
+                    style={
+                      {
+                        "height": 12,
+                        "marginRight": 4,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      [
+                        {
+                          "alignSelf": "center",
+                          "flexDirection": "row",
+                          "overflow": "hidden",
+                          "position": "absolute",
+                        },
+                        {
+                          "width": "100%",
+                        },
+                      ]
+                    }
+                  >
+                    <test-file-stub
+                      style={
+                        {
+                          "height": 12,
+                          "marginRight": 4,
+                          "width": 12,
+                        }
+                      }
+                    />
+                    <test-file-stub
+                      style={
+                        {
+                          "height": 12,
+                          "marginRight": 4,
+                          "width": 12,
+                        }
+                      }
+                    />
+                    <test-file-stub
+                      style={
+                        {
+                          "height": 12,
+                          "marginRight": 4,
+                          "width": 12,
+                        }
+                      }
+                    />
+                    <test-file-stub
+                      style={
+                        {
+                          "height": 12,
+                          "marginRight": 4,
+                          "width": 12,
+                        }
+                      }
+                    />
+                    <test-file-stub
+                      style={
+                        {
+                          "height": 12,
+                          "marginRight": 4,
+                          "width": 12,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      {
+                        "color": "#7D675E",
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 13,
+                        "letterSpacing": 0.47,
+                        "lineHeight": 22,
+                        "textTransform": "uppercase",
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  5.0
+                </Text>
+              </View>
+            </View>
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <View
+                  style={
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "marginRight": 8,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      [
+                        {
+                          "backgroundColor": "#FCCCB6",
+                        },
+                        {
+                          "borderRadius": 9999,
+                          "marginLeft": 2,
+                          "marginRight": 2,
+                        },
+                      ]
+                    }
+                  >
+                    <test-file-stub
+                      fill="#FFFCFA"
+                      style={
+                        [
+                          {
+                            "height": 24,
+                            "width": 24,
+                          },
+                          {
+                            "height": 8,
+                            "marginBottom": 2,
+                            "marginLeft": 2,
+                            "marginRight": 2,
+                            "marginTop": 2,
+                            "width": 8,
+                          },
+                        ]
+                      }
+                    />
+                  </View>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        [
+                          {
+                            "fontFamily": "Baloo2-SemiBold",
+                            "fontSize": 12,
+                            "letterSpacing": -0.36,
+                            "lineHeight": 22,
+                            "textAlign": "center",
+                            "textTransform": "uppercase",
+                          },
+                          {
+                            "color": "#FCCCB6",
+                          },
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                    supertrader
+                  </Text>
+                </View>
+                <View
+                  style={
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "marginRight": 8,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      [
+                        {
+                          "backgroundColor": "#F56522",
+                        },
+                        {
+                          "borderRadius": 9999,
+                          "marginLeft": 2,
+                          "marginRight": 2,
+                        },
+                      ]
+                    }
+                  >
+                    <test-file-stub
+                      fill="#FFFCFA"
+                      style={
+                        [
+                          {
+                            "height": 24,
+                            "width": 24,
+                          },
+                          {
+                            "height": 8,
+                            "marginBottom": 2,
+                            "marginLeft": 2,
+                            "marginRight": 2,
+                            "marginTop": 2,
+                            "width": 8,
+                          },
+                        ]
+                      }
+                    />
+                  </View>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        [
+                          {
+                            "fontFamily": "Baloo2-SemiBold",
+                            "fontSize": 12,
+                            "letterSpacing": -0.36,
+                            "lineHeight": 22,
+                            "textAlign": "center",
+                            "textTransform": "uppercase",
+                          },
+                          {
+                            "color": "#F56522",
+                          },
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                    fast trader
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginRight": 8,
+                  }
+                }
+              >
+                <View
+                  style={
+                    [
+                      {
+                        "backgroundColor": "#F56522",
+                      },
+                      {
+                        "borderRadius": 9999,
+                        "marginLeft": 2,
+                        "marginRight": 2,
+                      },
+                    ]
+                  }
+                >
+                  <test-file-stub
+                    fill="#FFFCFA"
+                    style={
+                      [
+                        {
+                          "height": 24,
+                          "width": 24,
+                        },
+                        {
+                          "height": 8,
+                          "marginBottom": 2,
+                          "marginLeft": 2,
+                          "marginRight": 2,
+                          "marginTop": 2,
+                          "width": 8,
+                        },
+                      ]
+                    }
+                  />
+                </View>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 12,
+                          "letterSpacing": -0.36,
+                          "lineHeight": 22,
+                          "textAlign": "center",
+                          "textTransform": "uppercase",
+                        },
+                        {
+                          "color": "#F56522",
+                        },
+                      ],
+                      false,
+                    ]
+                  }
+                >
+                  early adopter
+                </Text>
+              </View>
             </View>
           </View>
           <View
@@ -1070,7 +1467,7 @@ exports[`Match should render correctly for matched offers 1`] = `
 - First value
 + Second value
 
-@@ -15,15 +15,90 @@
+@@ -15,15 +15,88 @@
           Object {
             "borderRadius": 16,
             "overflow": "hidden",
@@ -1093,11 +1490,9 @@ exports[`Match should render correctly for matched offers 1`] = `
 +             "backgroundColor": "transparent",
 +             "borderWidth": 0,
 +           },
-+           Array [
-+             Object {
-+               "position": "absolute",
-+             },
-+           ],
++           Object {
++             "position": "absolute",
++           },
 +           Object {
 +             "flex": 0,
 +             "height": "100%",
@@ -1112,8 +1507,8 @@ exports[`Match should render correctly for matched offers 1`] = `
 +           Object {
 +             "payload": 4278190080,
 +             "type": 0,
-+           }
-          }
+            }
++         }
         >
 +         <RNSVGDefs>
 +           <RNSVGRadialGradient
@@ -1162,7 +1557,7 @@ exports[`Match should render correctly for matched offers 1`] = `
           Object {
             "margin": 4,
           }
-@@ -812,11 +887,11 @@
+@@ -1209,11 +1282,11 @@
                       false,
                     ]
                   }
@@ -1175,19 +1570,12 @@ exports[`Match should render correctly for matched offers 1`] = `
             </View>
             <View
               style={
-@@ -969,12 +1044,213 @@
-                    },
-                    Object {
-                      "height": 18,
-                      "marginBottom": 2,
-                      "marginLeft": 2,
-+                     "width": 18,
-+                   },
-+                 ]
-+               }
-+             />
-+           </View>
-+         </View>
+@@ -1373,17 +1446,215 @@
+                  ]
+                }
+              />
+            </View>
+          </View>
 +         <View
 +           pointerEvents="none"
 +           style={
@@ -1215,9 +1603,6 @@ exports[`Match should render correctly for matched offers 1`] = `
 +                   "backgroundColor": "transparent",
 +                   "borderWidth": 0,
 +                 },
-+                 Array [
-+                   undefined,
-+                 ],
 +                 Object {
 +                   "flex": 0,
 +                   "height": "100%",
@@ -1277,8 +1662,8 @@ exports[`Match should render correctly for matched offers 1`] = `
 +               />
 +             </RNSVGGroup>
 +           </RNSVGSvgView>
-+         </View>
-+         <View
+          </View>
+          <View
 +           pointerEvents="box-none"
 +           style={
 +             Object {
@@ -1293,10 +1678,11 @@ exports[`Match should render correctly for matched offers 1`] = `
 +           }
 +         >
 +           <View
-+             accessibilityState={
-+               Object {
-+                 "busy": undefined,
-+                 "checked": undefined,
+              accessibilityState={
+                Object {
+                  "busy": undefined,
+                  "checked": undefined,
+-             "disabled": false,
 +                 "disabled": undefined,
 +                 "expanded": undefined,
 +                 "selected": undefined,
@@ -1381,28 +1767,27 @@ exports[`Match should render correctly for matched offers 1`] = `
 +                 Array [
 +                   Object {
 +                     "height": 18,
-                      "width": 18,
-                    },
++                     "width": 18,
++                   },
 +                   undefined,
-                  ]
-                }
-              />
-            </View>
-          </View>
-@@ -982,11 +1258,11 @@
-        <View
-          accessibilityState={
-            Object {
-              "busy": undefined,
-              "checked": undefined,
--             "disabled": false,
++                 ]
++               }
++             />
++           </View>
++         </View>
++       </View>
++       <View
++         accessibilityState={
++           Object {
++             "busy": undefined,
++             "checked": undefined,
 +             "disabled": true,
               "expanded": undefined,
               "selected": undefined,
             }
           }
           accessibilityValue={
-@@ -1040,11 +1316,11 @@
+@@ -1437,11 +1708,11 @@
                 },
                 false,
               ]
@@ -1560,7 +1945,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                     ]
                   }
                 >
-                  Peach1
+                  Peach02135832
                 </Text>
                 <test-file-stub
                   fill="#F56522"
@@ -1575,30 +1960,427 @@ exports[`Match should render correctly for sell offers 1`] = `
                   }
                 />
               </View>
-              <Text
-                allowFontScaling={false}
+              <View
                 style={
                   [
                     {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
+                      "alignItems": "center",
+                      "flexDirection": "row",
                     },
-                    {
-                      "color": "#7D675E",
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 14,
-                      "letterSpacing": 0.14,
-                      "lineHeight": 22,
-                    },
-                    false,
+                    undefined,
                   ]
                 }
               >
-                new user
-              </Text>
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <test-file-stub
+                    style={
+                      {
+                        "height": 12,
+                        "marginRight": 4,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
+                    }
+                  />
+                  <test-file-stub
+                    style={
+                      {
+                        "height": 12,
+                        "marginRight": 4,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
+                    }
+                  />
+                  <test-file-stub
+                    style={
+                      {
+                        "height": 12,
+                        "marginRight": 4,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
+                    }
+                  />
+                  <test-file-stub
+                    style={
+                      {
+                        "height": 12,
+                        "marginRight": 4,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
+                    }
+                  />
+                  <test-file-stub
+                    style={
+                      {
+                        "height": 12,
+                        "marginRight": 4,
+                        "opacity": 0.5,
+                        "width": 12,
+                      }
+                    }
+                  />
+                  <View
+                    style={
+                      [
+                        {
+                          "alignSelf": "center",
+                          "flexDirection": "row",
+                          "overflow": "hidden",
+                          "position": "absolute",
+                        },
+                        {
+                          "width": "100%",
+                        },
+                      ]
+                    }
+                  >
+                    <test-file-stub
+                      style={
+                        {
+                          "height": 12,
+                          "marginRight": 4,
+                          "width": 12,
+                        }
+                      }
+                    />
+                    <test-file-stub
+                      style={
+                        {
+                          "height": 12,
+                          "marginRight": 4,
+                          "width": 12,
+                        }
+                      }
+                    />
+                    <test-file-stub
+                      style={
+                        {
+                          "height": 12,
+                          "marginRight": 4,
+                          "width": 12,
+                        }
+                      }
+                    />
+                    <test-file-stub
+                      style={
+                        {
+                          "height": 12,
+                          "marginRight": 4,
+                          "width": 12,
+                        }
+                      }
+                    />
+                    <test-file-stub
+                      style={
+                        {
+                          "height": 12,
+                          "marginRight": 4,
+                          "width": 12,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      {
+                        "color": "#7D675E",
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 13,
+                        "letterSpacing": 0.47,
+                        "lineHeight": 22,
+                        "textTransform": "uppercase",
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  5.0
+                </Text>
+              </View>
+            </View>
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <View
+                  style={
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "marginRight": 8,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      [
+                        {
+                          "backgroundColor": "#FCCCB6",
+                        },
+                        {
+                          "borderRadius": 9999,
+                          "marginLeft": 2,
+                          "marginRight": 2,
+                        },
+                      ]
+                    }
+                  >
+                    <test-file-stub
+                      fill="#FFFCFA"
+                      style={
+                        [
+                          {
+                            "height": 24,
+                            "width": 24,
+                          },
+                          {
+                            "height": 8,
+                            "marginBottom": 2,
+                            "marginLeft": 2,
+                            "marginRight": 2,
+                            "marginTop": 2,
+                            "width": 8,
+                          },
+                        ]
+                      }
+                    />
+                  </View>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        [
+                          {
+                            "fontFamily": "Baloo2-SemiBold",
+                            "fontSize": 12,
+                            "letterSpacing": -0.36,
+                            "lineHeight": 22,
+                            "textAlign": "center",
+                            "textTransform": "uppercase",
+                          },
+                          {
+                            "color": "#FCCCB6",
+                          },
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                    supertrader
+                  </Text>
+                </View>
+                <View
+                  style={
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "marginRight": 8,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      [
+                        {
+                          "backgroundColor": "#F56522",
+                        },
+                        {
+                          "borderRadius": 9999,
+                          "marginLeft": 2,
+                          "marginRight": 2,
+                        },
+                      ]
+                    }
+                  >
+                    <test-file-stub
+                      fill="#FFFCFA"
+                      style={
+                        [
+                          {
+                            "height": 24,
+                            "width": 24,
+                          },
+                          {
+                            "height": 8,
+                            "marginBottom": 2,
+                            "marginLeft": 2,
+                            "marginRight": 2,
+                            "marginTop": 2,
+                            "width": 8,
+                          },
+                        ]
+                      }
+                    />
+                  </View>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        [
+                          {
+                            "fontFamily": "Baloo2-SemiBold",
+                            "fontSize": 12,
+                            "letterSpacing": -0.36,
+                            "lineHeight": 22,
+                            "textAlign": "center",
+                            "textTransform": "uppercase",
+                          },
+                          {
+                            "color": "#F56522",
+                          },
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                    fast trader
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginRight": 8,
+                  }
+                }
+              >
+                <View
+                  style={
+                    [
+                      {
+                        "backgroundColor": "#F56522",
+                      },
+                      {
+                        "borderRadius": 9999,
+                        "marginLeft": 2,
+                        "marginRight": 2,
+                      },
+                    ]
+                  }
+                >
+                  <test-file-stub
+                    fill="#FFFCFA"
+                    style={
+                      [
+                        {
+                          "height": 24,
+                          "width": 24,
+                        },
+                        {
+                          "height": 8,
+                          "marginBottom": 2,
+                          "marginLeft": 2,
+                          "marginRight": 2,
+                          "marginTop": 2,
+                          "width": 8,
+                        },
+                      ]
+                    }
+                  />
+                </View>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 12,
+                          "letterSpacing": -0.36,
+                          "lineHeight": 22,
+                          "textAlign": "center",
+                          "textTransform": "uppercase",
+                        },
+                        {
+                          "color": "#F56522",
+                        },
+                      ],
+                      false,
+                    ]
+                  }
+                >
+                  early adopter
+                </Text>
+              </View>
             </View>
           </View>
           <View

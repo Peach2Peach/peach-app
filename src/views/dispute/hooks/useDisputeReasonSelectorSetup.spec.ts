@@ -2,7 +2,7 @@ import { renderHook } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { headerState, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { setAccount } from '../../../utils/account'
 import { disputeReasons } from './disputeReasons'
 import { useDisputeReasonSelectorSetup } from './useDisputeReasonSelectorSetup'
@@ -14,11 +14,6 @@ const useRouteMock = jest.fn().mockReturnValue({
 })
 jest.mock('../../../hooks/useRoute', () => ({
   useRoute: () => useRouteMock(),
-}))
-
-const useHeaderSetupMock = jest.fn()
-jest.mock('../../../hooks/useHeaderSetup', () => ({
-  useHeaderSetup: (...args: unknown[]) => useHeaderSetupMock(...args),
 }))
 
 const submitRaiseDisputeMock = jest.fn().mockResolvedValue([apiSuccess, null])
@@ -48,10 +43,6 @@ describe('useDisputeReasonSelectorSetup', () => {
     const { result } = renderHook(useDisputeReasonSelectorSetup, { initialProps: contract })
 
     expect(result.current.availableReasons).toEqual(disputeReasons.buyer)
-  })
-  it('sets up the header correctly', () => {
-    renderHook(useDisputeReasonSelectorSetup, { initialProps: contract })
-    expect(headerState.header()).toMatchSnapshot()
   })
   it('sets reason and navigate to dispute form if reason is noPayment.buyer', async () => {
     const reason = 'noPayment.buyer'

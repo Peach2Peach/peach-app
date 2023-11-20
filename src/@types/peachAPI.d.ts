@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-type WSCallback = (message?: unknown) => void
+type WSCallback = (message?: Message) => Promise<void> | void
 type PeachWS = {
   ws?: WebSocket
   authenticated: boolean
@@ -7,7 +7,7 @@ type PeachWS = {
   queue: (() => boolean)[]
   listeners: {
     message: WSCallback[]
-    close: (() => void)[]
+    close: WSCallback[]
   }
   on: (listener: 'message' | 'close', callback: WSCallback) => void
   off: (listener: 'message' | 'close', callback: WSCallback) => void
@@ -161,11 +161,13 @@ type PaymentMethodCountry =
   | 'SI'
   | 'LV'
   | 'US'
+  | 'FI'
 
+type Country = 'DE' | 'FR' | 'IT' | 'ES' | 'NL' | 'UK' | 'SE' | 'FI' | 'BE' | 'LV'
 type MeetupEvent = {
   id: string
   currencies: Currency[]
-  country: PaymentMethodCountry
+  country: Country
   city: string
   shortName: string
   longName: string
@@ -233,7 +235,6 @@ type TradeStatus =
   | 'fundEscrow'
   | 'fundingAmountDifferent'
   | 'hasMatchesAvailable'
-  | 'messageSigningRequired'
   | 'offerCanceled'
   | 'offerHidden'
   | 'offerHiddenWithMatchesAvailable'
@@ -250,13 +251,7 @@ type TradeStatus =
   | 'tradeCompleted'
 
 type OfferPaymentData = Partial<
-  Record<
-    PaymentMethod,
-    {
-      hashes: string[]
-      country?: PaymentMethodCountry
-    }
-  >
+  Record<PaymentMethod, { hashes: string[]; hash?: string; country?: PaymentMethodCountry }>
 >
 type PostedOffer = BuyOffer | SellOffer
 type PostOfferResponseBody = PostedOffer | PostedOffer[]
@@ -332,7 +327,6 @@ type OfferSummary = {
   lastModified: Date
   amount: number | [number, number]
   matches: string[]
-  prices: Pricebook
   tradeStatus: TradeStatus
   contractId?: string
   txId?: string

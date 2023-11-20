@@ -16,21 +16,21 @@ export const themes = {
   },
 }
 
-export type TabbedNavigationItem = {
-  id: string
+export type TabbedNavigationItem<T> = {
+  id: T
   display: string
   view?: (props: any) => JSX.Element
 }
-type TabbedNavigationProps = ComponentProps & {
-  items: TabbedNavigationItem[]
-  selected: TabbedNavigationItem
-  select: (item: TabbedNavigationItem) => void
+type TabbedNavigationProps<T extends string> = ComponentProps & {
+  items: TabbedNavigationItem<T>[]
+  selected: TabbedNavigationItem<T>
+  select: (item: TabbedNavigationItem<T>) => void
   buttonStyle?: ViewStyle
   theme?: 'default' | 'inverted'
   tabHasError?: string[]
 }
 
-export const TabbedNavigation = ({
+export const TabbedNavigation = <T extends string>({
   items,
   selected,
   select,
@@ -38,7 +38,7 @@ export const TabbedNavigation = ({
   style,
   buttonStyle,
   tabHasError = [],
-}: TabbedNavigationProps) => {
+}: TabbedNavigationProps<T>) => {
   const colors = themes[theme]
   return (
     <View style={[tw`flex-row justify-center`, style]}>

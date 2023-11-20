@@ -1,4 +1,6 @@
-import { account } from '../account'
+import { useAccountStore } from '../account/account'
 
-export const getOfferIdFromContract = (contract: Contract) =>
-  contract.id.split('-')[account.publicKey === contract.seller.id ? 0 : 1]
+export const getOfferIdFromContract = (contract: Contract) => {
+  const publicKey = useAccountStore.getState().account.publicKey
+  return contract.id.split('-')[publicKey === contract.seller.id ? 0 : 1]
+}

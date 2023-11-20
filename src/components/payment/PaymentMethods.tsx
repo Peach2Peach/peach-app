@@ -46,7 +46,7 @@ export const PaymentMethods = () => {
   const isSelected = (itm: { value: string }) => selectedPaymentDataIds.includes(itm.value)
   const origin = usePreviousRouteName()
   const [isEditing, toggleIsEditing] = useToggleBoolean(origin === 'settings')
-  const tabs: TabbedNavigationItem[] = [
+  const tabs: TabbedNavigationItem<'online' | 'meetups'>[] = [
     { id: 'online', display: i18n('paymentSection.online') },
     { id: 'meetups', display: i18n('paymentSection.meetups') },
   ]

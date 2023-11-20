@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { useConfigStore } from '../store/configStore'
+import { useConfigStore } from '../store/configStore/configStore'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { sum } from '../utils/math'

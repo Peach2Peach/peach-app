@@ -1,65 +1,105 @@
-import { useRef } from 'react'
-import { Pressable, View, useWindowDimensions } from 'react-native'
+import { useRef, useState } from 'react'
+import { TouchableOpacity, View, useWindowDimensions } from 'react-native'
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel'
-import { Icon, Progress, Text } from '../../components'
-import { PrimaryButton } from '../../components/buttons'
-import { useKeyboard } from '../../hooks'
+import { Header, Icon, Progress, Screen, Text } from '../../components'
+import { HeaderIcon } from '../../components/Header'
+import { Button } from '../../components/buttons/Button'
+import { useDrawerState } from '../../components/drawer/useDrawerState'
+import { useKeyboard, useNavigation } from '../../hooks'
+import { useLanguage } from '../../hooks/useLanguage'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { screens, useWelcomeSetup } from './hooks/useWelcomeSetup'
+import { AWalletYouControl } from './AWalletYouControl'
+import { LetsGetStarted } from './LetsGetStarted'
+import { PeachOfMind } from './PeachOfMind'
+import { PeerToPeer } from './PeerToPeer'
+import { PrivacyFirst } from './PrivacyFirst'
 
-const onStartShouldSetResponder = () => true
+export const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, AWalletYouControl, LetsGetStarted]
+
 export const Welcome = () => {
   const { width } = useWindowDimensions()
   const $carousel = useRef<ICarouselInstance>(null)
-  const { page, setPage, progress, endReached, next, goToEnd } = useWelcomeSetup({ carousel: $carousel })
+  const [page, setPage] = useState(0)
+
+  const next = () => {
+    $carousel.current?.next()
+    setPage((p) => p + 1)
+  }
+  const goToEnd = () => {
+    $carousel.current?.next({ count: screens.length - 1 - page })
+    setPage(screens.length - 1)
+  }
+  const progress = (page + 1) / screens.length
+  const endReached = progress === 1
   const keyboardOpen = useKeyboard()
 
   return (
-    <View style={tw`flex h-full`} testID="welcome">
-      <View style={[tw`w-full px-sm`, tw.md`px-md`]}>
-        <Progress
-          percent={progress}
-          backgroundStyle={tw`opacity-50 bg-primary-background-light`}
-          barStyle={tw`bg-primary-background-light`}
-          style={tw`h-2`}
+    <Screen header={<OnboardingHeader />} gradientBackground>
+      <Progress
+        percent={progress}
+        backgroundStyle={tw`opacity-50 bg-primary-background-light`}
+        barStyle={tw`bg-primary-background-light`}
+        style={tw`h-2`}
+      />
+      <TouchableOpacity
+        onPress={goToEnd}
+        style={[tw`flex-row items-center self-end h-8 gap-1`, endReached && tw`opacity-0`]}
+      >
+        <Text style={tw`text-primary-background-light`}>{i18n('skip')}</Text>
+        <Icon id="skipForward" size={12} color={tw`text-primary-background-light`.color} />
+      </TouchableOpacity>
+      <View style={tw`items-center h-full shrink`}>
+        <Carousel
+          ref={$carousel}
+          data={screens}
+          snapEnabled={true}
+          loop={false}
+          width={width}
+          onSnapToItem={setPage}
+          renderItem={({ item: Item }) => (
+            <View onStartShouldSetResponder={() => !keyboardOpen} style={tw`h-full px-6`}>
+              <Item />
+            </View>
+          )}
         />
-        <Pressable
-          testID="welcome-skipFoward"
-          onPress={goToEnd}
-          style={[tw`flex flex-row items-center justify-end h-8`, endReached ? tw`opacity-0` : {}]}
-        >
-          <Text style={tw`mr-1 text-primary-background-light`}>{i18n('skip')}</Text>
-          <Icon id="skipForward" style={tw`w-3 h-3`} color={tw`text-primary-background-light`.color} />
-        </Pressable>
-      </View>
-      <View style={tw`flex-col items-center justify-end flex-shrink h-full`}>
-        <View style={tw`flex-shrink w-full h-full`}>
-          <Carousel
-            ref={$carousel}
-            data={screens}
-            snapEnabled={true}
-            width={width}
-            onSnapToItem={setPage}
-            renderItem={({ item: Item, index }) => (
-              <View
-                testID={`welcome-screen-${index}`}
-                onStartShouldSetResponder={onStartShouldSetResponder}
-                style={tw`h-full px-6`}
-              >
-                <Item />
-              </View>
-            )}
-          />
-        </View>
       </View>
       {!keyboardOpen && (
-        <View style={[tw`flex items-center w-full pt-4 mb-8`, page === screens.length - 1 ? tw`opacity-0` : {}]}>
-          <PrimaryButton testID="welcome-next" narrow white onPress={next} iconId="arrowRightCircle">
-            {i18n('next')}
-          </PrimaryButton>
-        </View>
+        <Button
+          style={[tw`self-center bg-primary-background-light`, page === screens.length - 1 && tw`opacity-0`]}
+          textColor={tw`text-primary-main`}
+          onPress={next}
+          iconId="arrowRightCircle"
+        >
+          {i18n('next')}
+        </Button>
       )}
-    </View>
+    </Screen>
   )
+}
+
+function OnboardingHeader () {
+  const navigation = useNavigation()
+  const updateDrawer = useDrawerState((state) => state.updateDrawer)
+  const { locale, updateLocale } = useLanguage()
+
+  const openLanguageDrawer = () => {
+    updateDrawer({
+      title: i18n('language.select'),
+      options: i18n.getLocales().map((l) => ({
+        title: i18n(`languageName.${l}`),
+        onPress: () => {
+          updateLocale(l)
+          updateDrawer({ show: false })
+        },
+        iconRightID: l === locale ? 'check' : undefined,
+      })),
+      show: true,
+    })
+  }
+  const headerIcons: HeaderIcon[] = [
+    { id: 'mail', color: tw`text-primary-background-light`.color, onPress: () => navigation.navigate('contact') },
+    { id: 'globe', color: tw`text-primary-background-light`.color, onPress: openLanguageDrawer },
+  ]
+  return <Header title={i18n('welcome.welcomeToPeach.title')} icons={headerIcons} theme="transparent" hideGoBackButton />
 }

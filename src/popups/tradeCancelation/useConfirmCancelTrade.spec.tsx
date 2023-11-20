@@ -94,7 +94,7 @@ describe('useConfirmCancelTrade', () => {
   })
   it('should show the correct popup for cash trades of the seller', () => {
     const { result } = renderHook(useConfirmCancelTrade)
-    result.current({ ...contract, paymentMethod: 'cash' })
+    result.current({ ...contract, paymentMethod: 'cash.someMeetup' })
 
     const popupComponent = usePopupStore.getState().popupComponent || <></>
     const { toJSON } = render(popupComponent)
@@ -157,7 +157,7 @@ describe('useConfirmCancelTrade', () => {
     })
 
     const { result } = renderHook(useConfirmCancelTrade)
-    result.current({ ...contract, paymentMethod: 'cash' })
+    result.current({ ...contract, paymentMethod: 'cash.someMeetup' })
 
     const popupComponent = usePopupStore.getState().popupComponent || <></>
     const { getByText } = render(popupComponent)
@@ -182,7 +182,7 @@ describe('useConfirmCancelTrade', () => {
     })
 
     const { result } = renderHook(useConfirmCancelTrade)
-    result.current({ ...contract, paymentMethod: 'cash' })
+    result.current({ ...contract, paymentMethod: 'cash.someMeetup' })
 
     const popupComponent = usePopupStore.getState().popupComponent || <></>
     const { getByText } = render(popupComponent)

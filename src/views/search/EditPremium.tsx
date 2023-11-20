@@ -14,8 +14,9 @@ import { Premium } from '../sell/Premium'
 export const EditPremium = () => {
   const { offerId } = useRoute<'editPremium'>().params
   const { offer } = useOfferDetails(offerId)
-  const [premium, setPremium] = useState(offer?.premium)
-  const displayPremium = premium ?? offer?.premium ?? 0
+  const offerPremium = !!offer && 'premium' in offer ? offer.premium : undefined
+  const [premium, setPremium] = useState(offerPremium)
+  const displayPremium = premium ?? offerPremium ?? 0
   const { data: priceBook, isSuccess } = useMarketPrices()
 
   if (offer && !isSellOffer(offer)) {

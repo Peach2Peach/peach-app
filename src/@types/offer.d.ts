@@ -53,7 +53,6 @@ type BuyOfferDraft = OfferDraft & {
   type: 'bid'
   releaseAddress: string
   amount: [number, number]
-  message: string
   messageSignature?: string
   maxPremium: number | null
 }

@@ -3,31 +3,56 @@ import { Pressable, TextInput, View } from 'react-native'
 import { Icon, Input, PeachScrollView, Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
+import { useNavigation, useRoute, useToggleBoolean, useValidatedState } from '../../hooks'
+import { useShowAppPopup } from '../../hooks/useShowAppPopup'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import tw from '../../styles/tailwind'
+import { useAccountStore } from '../../utils/account/account'
 import i18n from '../../utils/i18n'
-import { useReportSetup } from './hooks/useReportSetup'
+import { submitReport } from './helpers/submitReport'
+
+const emailRules = { email: true, required: true }
+const required = { required: true }
 
 export const Report = () => {
-  const {
-    email,
-    setEmail,
-    isEmailValid,
-    emailErrors,
-    topic,
-    setTopic,
-    isTopicValid,
-    topicErrors,
-    message,
-    setMessage,
-    isMessageValid,
-    messageErrors,
-    account,
-    shareDeviceID,
-    toggleDeviceIDSharing,
-    shareLogs,
-    toggleShareLogs,
-    submit,
-  } = useReportSetup()
+  const route = useRoute<'report'>()
+  const navigation = useNavigation()
+  const showReportSuccess = useShowAppPopup('reportSuccess')
+  const [email, setEmail, isEmailValid, emailErrors] = useValidatedState<string>('', emailRules)
+  const [topic, setTopic, isTopicValid, topicErrors] = useValidatedState(route.params.topic || '', required)
+  const [message, setMessage, isMessageValid, messageErrors] = useValidatedState(route.params.message || '', required)
+  const [shareDeviceID, toggleDeviceIDSharing] = useToggleBoolean(route.params.shareDeviceID || false)
+  const [shareLogs, toggleShareLogs] = useToggleBoolean(false)
+  const reason = route.params.reason
+  const publicKey = useAccountStore((state) => state.account.publicKey)
+
+  const showError = useShowErrorBanner()
+
+  const submit = async () => {
+    const isFormValid = isEmailValid && isTopicValid && isMessageValid
+    if (!isFormValid) return
+
+    const [result, err] = await submitReport({
+      email,
+      reason: i18n(`contact.reason.${reason}`),
+      topic,
+      message,
+      shareDeviceID,
+      shareLogs,
+    })
+
+    if (result) {
+      if (publicKey) {
+        navigation.navigate('settings')
+      } else {
+        navigation.navigate('welcome')
+      }
+      showReportSuccess()
+      return
+    }
+
+    if (err) showError()
+  }
 
   let $topic = useRef<TextInput>(null).current
   let $message = useRef<TextInput>(null).current
@@ -61,7 +86,7 @@ export const Report = () => {
           autoCorrect={false}
           errorMessage={messageErrors}
         />
-        {!account.publicKey && (
+        {!publicKey && (
           <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row items-center pl-3`}>
             <View style={tw`items-center justify-center w-5 h-5`}>
               {shareDeviceID ? (

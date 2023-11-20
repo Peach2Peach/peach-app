@@ -1,15 +1,29 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { shallow } from 'zustand/shallow'
+import { useCallback, useMemo, useState } from 'react'
+import { View } from 'react-native'
+import { Input, Text } from '../../components'
+import { PopupAction } from '../../components/popup'
+import { PopupComponent } from '../../components/popup/PopupComponent'
 import { useNavigation, useValidatedState } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { usePopupStore } from '../../store/usePopupStore'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { redeemReferralCode } from '../../utils/peachAPI'
-import { SetCustomReferralCode } from './SetCustomReferralCode'
+import { ClosePopupAction } from '../actions'
 import { SetCustomReferralCodeSuccess } from './SetCustomReferralCodeSuccess'
 
 export const useSetCustomReferralCodePopup = () => {
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setPopup = usePopupStore((state) => state.setPopup)
+
+  const showCustomReferralCodePopup = useCallback(() => {
+    setPopup(<CustomReferralCodePopup />)
+  }, [setPopup])
+
+  return showCustomReferralCodePopup
+}
+
+function CustomReferralCodePopup () {
+  const setPopup = usePopupStore((state) => state.setPopup)
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
@@ -19,8 +33,10 @@ export const useSetCustomReferralCodePopup = () => {
     [referralCodeTaken],
   )
 
-  const [referralCode, setReferralCode, referralCodeValid, referralCodeErrors, referralCodePristine]
-    = useValidatedState<string>('', referralCodeRules)
+  const [referralCode, setReferralCode, referralCodeValid, referralCodeErrors] = useValidatedState<string>(
+    '',
+    referralCodeRules,
+  )
 
   const updateReferralCode = useCallback(
     (code: string) => {
@@ -41,57 +57,44 @@ export const useSetCustomReferralCodePopup = () => {
       showErrorBanner(redeemError.error)
       return
     }
-    setPopup({
-      title: i18n('settings.referrals.customReferralCode.popup.title'),
-      content: <SetCustomReferralCodeSuccess {...{ referralCode }} />,
-      level: 'APP',
-      visible: true,
-    })
+    setPopup(
+      <PopupComponent
+        title={i18n('settings.referrals.customReferralCode.popup.title')}
+        content={<SetCustomReferralCodeSuccess {...{ referralCode }} />}
+        actions={<ClosePopupAction style={tw`justify-center`} />}
+      />,
+    )
     navigation.replace('referrals')
   }, [navigation, referralCode, showErrorBanner, setPopup])
 
-  const setCustomReferralCodePopup = useCallback(() => {
-    setPopup({
-      title: i18n('settings.referrals.customReferralCode.popup.title'),
-      content: <SetCustomReferralCode {...{ referralCode, setReferralCode: updateReferralCode, referralCodeErrors }} />,
-      level: 'APP',
-      visible: true,
-      action1: {
-        label: i18n('settings.referrals.customReferralCode.popup.redeem'),
-        icon: 'checkSquare',
-        callback: submitCustomReferralCode,
-        disabled: !referralCodeValid,
-      },
-      action2: {
-        label: i18n('close'),
-        icon: 'xSquare',
-        callback: closePopup,
-      },
-    })
-  }, [
-    setPopup,
-    referralCode,
-    updateReferralCode,
-    referralCodeErrors,
-    submitCustomReferralCode,
-    referralCodeValid,
-    closePopup,
-  ])
-
-  useEffect(() => {
-    // This is not optimal but needed to update the content of the input field
-    // should be tackled with issue #1154
-    if (referralCodePristine) return
-    setCustomReferralCodePopup()
-  }, [referralCodePristine, setCustomReferralCodePopup])
-
-  return {
-    setCustomReferralCodePopup,
-    closePopup,
-    submitCustomReferralCode,
-    referralCode,
-    setReferralCode: updateReferralCode,
-    referralCodeValid,
-    referralCodeErrors,
-  }
+  return (
+    <PopupComponent
+      title={i18n('settings.referrals.customReferralCode.popup.title')}
+      content={
+        <View style={tw`gap-3`}>
+          <Text>{i18n('settings.referrals.customReferralCode.popup.text')}</Text>
+          <Input
+            style={tw`bg-primary-background-dark`}
+            placeholder={i18n('form.referral.placeholder')}
+            value={referralCode}
+            onChange={updateReferralCode}
+            autoCapitalize="characters"
+            errorMessage={referralCodeErrors}
+          />
+        </View>
+      }
+      actions={
+        <>
+          <ClosePopupAction />
+          <PopupAction
+            label={i18n('settings.referrals.customReferralCode.popup.redeem')}
+            iconId="checkSquare"
+            onPress={submitCustomReferralCode}
+            disabled={!referralCodeValid}
+            reverseOrder
+          />
+        </>
+      }
+    />
+  )
 }
