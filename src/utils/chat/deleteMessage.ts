@@ -6,20 +6,10 @@ export const deleteMessage = (id: string, message: Message) => {
 
   if (!savedChat) return false
 
-  useAccountStore.setState((state) => ({
-    account: {
-      ...state.account,
-      chats: {
-        ...state.account.chats,
-        [id]: {
-          ...savedChat,
-          messages: savedChat.messages.filter(
-            ({ date, message: msg }) => date !== message.date && msg !== message.message,
-          ),
-        },
-      },
-    },
-  }))
+  useAccountStore.getState().setChat(id, {
+    ...savedChat,
+    messages: savedChat.messages.filter(({ date, message: msg }) => date !== message.date && msg !== message.message),
+  })
 
   return true
 }
