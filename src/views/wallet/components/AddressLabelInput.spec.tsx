@@ -7,7 +7,7 @@ describe('AddressLabelInput', () => {
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with callback', () => {
-    const { toJSON } = render(<AddressLabelInput fallback={'fallback'} />)
+    const { toJSON } = render(<AddressLabelInput address="" fallback={'fallback'} />)
     expect(toJSON()).toMatchSnapshot()
   })
 })
