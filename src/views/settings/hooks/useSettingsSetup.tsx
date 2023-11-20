@@ -2,19 +2,17 @@ import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useMemo, useState } from 'react'
 import { AppState } from 'react-native'
 import { shallow } from 'zustand/shallow'
+import { useShowAnalyticsPopup } from '../../../popups/useShowAnalyticsPopup'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../../utils/system'
 import { isDefined } from '../../../utils/validation'
 import { NotificationPopup } from '../components/NotificationPopup'
-import { SettingsItemProps } from '../components/SettingsItem'
 
-const contactUs = (() => {
-  let arr: SettingsItemProps[] = [{ title: 'contact' }, { title: 'aboutPeach' }]
-  if (!isProduction()) arr = [{ title: 'testView' }, ...arr]
-  return arr
-})()
+const contactUs = isProduction()
+  ? (['contact', 'aboutPeach'] as const)
+  : (['testView', 'contact', 'aboutPeach'] as const)
 
 export const useSettingsSetup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
@@ -65,29 +63,39 @@ export const useSettingsSetup = () => {
     }
   }, [closePopup, notificationsOn, setPopup])
 
-  const profileSettings: SettingsItemProps[] = useMemo(
-    () => [
-      { title: 'myProfile' },
-      { title: 'referrals' },
-      {
-        title: 'backups',
-        iconId: showBackupReminder ? 'alertTriangle' : undefined,
-        warning: !!showBackupReminder,
-      },
-      { title: 'networkFees' },
-      { title: 'transactionBatching' },
-      { title: 'paymentMethods' },
-    ],
+  const profileSettings = useMemo(
+    () =>
+      [
+        'myProfile',
+        'referrals',
+        {
+          title: 'backups',
+          iconId: showBackupReminder ? 'alertTriangle' : undefined,
+          warning: !!showBackupReminder,
+        },
+        'networkFees',
+        'transactionBatching',
+        'paymentMethods',
+      ] as const,
     [showBackupReminder],
   )
 
-  const appSettings: SettingsItemProps[] = useMemo(
+  const showAnalyticsPopup = useShowAnalyticsPopup()
+  const onAnalyticsPress = useCallback(() => {
+    if (!enableAnalytics) {
+      showAnalyticsPopup()
+    } else {
+      toggleAnalytics()
+    }
+  }, [enableAnalytics, showAnalyticsPopup, toggleAnalytics])
+
+  const appSettings = useMemo(
     () =>
       (
         [
           {
             title: 'analytics',
-            onPress: toggleAnalytics,
+            onPress: onAnalyticsPress,
             iconId: enableAnalytics ? 'toggleRight' : 'toggleLeft',
             enabled: enableAnalytics,
           },
@@ -95,13 +103,13 @@ export const useSettingsSetup = () => {
             title: 'notifications',
             onPress: notificationClick,
           },
-          { title: 'nodeSetup' },
-          { title: 'payoutAddress' },
-          { title: 'currency' },
-          { title: 'language' },
-        ] satisfies (SettingsItemProps | undefined)[]
+          'nodeSetup',
+          'payoutAddress',
+          'currency',
+          'language',
+        ] as const
       ).filter(isDefined),
-    [toggleAnalytics, enableAnalytics, notificationClick],
+    [onAnalyticsPress, enableAnalytics, notificationClick],
   )
 
   const settings = [
