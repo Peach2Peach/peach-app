@@ -6,14 +6,14 @@ import tw from '../../../styles/tailwind'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 
 type Props = {
-  address?: string
+  address: string
   fallback?: string
 }
 
 export function AddressLabelInput ({ address, fallback }: Props) {
   const [isEditing, setIsEditing] = useState(false)
   const [label, setLabel] = useWalletState(
-    (state) => [state.addressLabelMap[address ?? ''] ?? fallback, state.labelAddress],
+    (state) => [state.addressLabelMap[address] ?? fallback, state.labelAddress],
     shallow,
   )
 

@@ -1,5 +1,7 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { PopupAction } from '../components/popup'
+import { PopupComponent } from '../components/popup/PopupComponent'
 import { useSettingsStore } from '../store/settingsStore'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
@@ -14,34 +16,29 @@ export const useShowAnalyticsPopup = () => {
 
   const accept = useCallback(() => {
     setEnableAnalytics(true)
-    setAnalyticsPopupSeen(true)
     closePopup()
-  }, [setEnableAnalytics, setAnalyticsPopupSeen, closePopup])
+  }, [setEnableAnalytics, closePopup])
 
   const deny = useCallback(() => {
     setEnableAnalytics(false)
-    setAnalyticsPopupSeen(true)
     closePopup()
-  }, [setEnableAnalytics, setAnalyticsPopupSeen, closePopup])
+  }, [setEnableAnalytics, closePopup])
 
   const showAnalyticsPrompt = useCallback(() => {
-    setPopup({
-      title: i18n('analytics.request.title'),
-      content: <AnalyticsPrompt />,
-      visible: true,
-      action1: {
-        callback: accept,
-        label: i18n('analytics.request.yes'),
-        icon: 'checkSquare',
-      },
-      action2: {
-        callback: deny,
-        label: i18n('analytics.request.no'),
-        icon: 'xSquare',
-      },
-      level: 'APP',
-    })
-  }, [accept, deny, setPopup])
+    setAnalyticsPopupSeen(true)
+    setPopup(
+      <PopupComponent
+        title={i18n('analytics.request.title')}
+        content={<AnalyticsPrompt />}
+        actions={
+          <>
+            <PopupAction label={i18n('analytics.request.no')} iconId="xSquare" onPress={deny} />
+            <PopupAction label={i18n('analytics.request.yes')} iconId="checkSquare" onPress={accept} reverseOrder />
+          </>
+        }
+      />,
+    )
+  }, [accept, deny, setAnalyticsPopupSeen, setPopup])
 
   return showAnalyticsPrompt
 }

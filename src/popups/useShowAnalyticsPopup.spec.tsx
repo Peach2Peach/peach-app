@@ -1,11 +1,10 @@
-import { renderHook } from 'test-utils'
+import { fireEvent, render, renderHook } from 'test-utils'
 import { useSettingsStore } from '../store/settingsStore'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
-import { AnalyticsPrompt } from './AnalyticsPrompt'
 import { useShowAnalyticsPopup } from './useShowAnalyticsPopup'
 
 describe('useShowAnalyticsPopup', () => {
-  afterEach(() => {
+  beforeEach(() => {
     usePopupStore.setState(defaultPopupState)
     useSettingsStore.getState().reset()
   })
@@ -14,40 +13,32 @@ describe('useShowAnalyticsPopup', () => {
     const { result } = renderHook(useShowAnalyticsPopup)
     result.current()
 
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: 'share usage data?',
-      content: <AnalyticsPrompt />,
-      visible: true,
-      level: 'APP',
-      action1: {
-        label: 'sure',
-        icon: 'checkSquare',
-        callback: expect.any(Function),
-      },
-      action2: {
-        callback: expect.any(Function),
-        icon: 'xSquare',
-        label: 'no, thanks',
-      },
-    })
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    expect(render(popupComponent)).toMatchSnapshot()
+    expect(useSettingsStore.getState().analyticsPopupSeen).toEqual(true)
   })
   it('enables analytics', () => {
     const { result } = renderHook(useShowAnalyticsPopup)
     result.current()
 
-    usePopupStore.getState().action1?.callback()
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+
+    const { getByText } = render(popupComponent)
+    fireEvent.press(getByText('sure'))
+
     expect(usePopupStore.getState().visible).toEqual(false)
-    expect(useSettingsStore.getState().analyticsPopupSeen).toEqual(true)
     expect(useSettingsStore.getState().enableAnalytics).toEqual(true)
   })
   it('rejects analytics', () => {
     const { result } = renderHook(useShowAnalyticsPopup)
     result.current()
 
-    usePopupStore.getState().action2?.callback()
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+
+    const { getByText } = render(popupComponent)
+    fireEvent.press(getByText('no, thanks'))
+
     expect(usePopupStore.getState().visible).toEqual(false)
-    expect(useSettingsStore.getState().analyticsPopupSeen).toEqual(true)
     expect(useSettingsStore.getState().enableAnalytics).toEqual(false)
   })
 })

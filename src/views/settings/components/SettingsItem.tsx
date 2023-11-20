@@ -5,22 +5,24 @@ import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
+type SettingsTitle =
+  | 'myProfile'
+  | 'referrals'
+  | 'backups'
+  | 'networkFees'
+  | 'transactionBatching'
+  | 'paymentMethods'
+  | 'nodeSetup'
+  | 'payoutAddress'
+  | 'currency'
+  | 'language'
+  | 'contact'
+  | 'aboutPeach'
+  | 'testView'
+
 export type SettingsItemProps = (
   | {
-      title:
-        | 'myProfile'
-        | 'referrals'
-        | 'backups'
-        | 'networkFees'
-        | 'transactionBatching'
-        | 'paymentMethods'
-        | 'nodeSetup'
-        | 'payoutAddress'
-        | 'currency'
-        | 'language'
-        | 'contact'
-        | 'aboutPeach'
-        | 'testView'
+      title: SettingsTitle
       onPress?: undefined
     }
   | {

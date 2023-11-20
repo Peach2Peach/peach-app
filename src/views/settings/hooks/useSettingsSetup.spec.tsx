@@ -19,17 +19,17 @@ describe('useSettingsSetup', () => {
     await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current).toEqual([
       {
-        items: [{ title: 'testView' }, { title: 'contact' }, { title: 'aboutPeach' }],
+        items: ['testView', 'contact', 'aboutPeach'],
       },
       {
         headline: 'profileSettings',
         items: [
-          { title: 'myProfile' },
-          { title: 'referrals' },
+          'myProfile',
+          'referrals',
           { title: 'backups', warning: false },
-          { title: 'networkFees' },
-          { title: 'transactionBatching' },
-          { title: 'paymentMethods' },
+          'networkFees',
+          'transactionBatching',
+          'paymentMethods',
         ],
       },
       {
@@ -37,10 +37,10 @@ describe('useSettingsSetup', () => {
         items: [
           { enabled: false, iconId: 'toggleLeft', onPress: expect.any(Function), title: 'analytics' },
           { onPress: expect.any(Function), title: 'notifications' },
-          { title: 'nodeSetup' },
-          { title: 'payoutAddress' },
-          { title: 'currency' },
-          { title: 'language' },
+          'nodeSetup',
+          'payoutAddress',
+          'currency',
+          'language',
         ],
       },
     ])
@@ -52,10 +52,10 @@ describe('useSettingsSetup', () => {
     expect(result.current[2].items).toEqual([
       { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'analytics' },
       { onPress: expect.any(Function), title: 'notifications' },
-      { title: 'nodeSetup' },
-      { title: 'payoutAddress' },
-      { title: 'currency' },
-      { title: 'language' },
+      'nodeSetup',
+      'payoutAddress',
+      'currency',
+      'language',
     ])
   })
   it('does not highlight backups if backup reminder is not active', async () => {
@@ -63,12 +63,12 @@ describe('useSettingsSetup', () => {
     const { result } = renderHook(useSettingsSetup)
     await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current[1].items).toEqual([
-      { title: 'myProfile' },
-      { title: 'referrals' },
+      'myProfile',
+      'referrals',
       { title: 'backups', warning: false },
-      { title: 'networkFees' },
-      { title: 'transactionBatching' },
-      { title: 'paymentMethods' },
+      'networkFees',
+      'transactionBatching',
+      'paymentMethods',
     ])
   })
   it('does highlight backups if backup reminder is  active', async () => {
@@ -76,20 +76,23 @@ describe('useSettingsSetup', () => {
     const { result } = renderHook(useSettingsSetup)
     await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current[1].items).toEqual([
-      { title: 'myProfile' },
-      { title: 'referrals' },
+      'myProfile',
+      'referrals',
       { title: 'backups', warning: true, iconId: 'alertTriangle' },
-      { title: 'networkFees' },
-      { title: 'transactionBatching' },
-      { title: 'paymentMethods' },
+      'networkFees',
+      'transactionBatching',
+      'paymentMethods',
     ])
   })
 
   it('opens notification popup', async () => {
     const { result } = renderHook(useSettingsSetup)
     await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
+    const notificationItem = result.current[2].items[1]
+    const notificationClick
+      = typeof notificationItem !== 'string' && 'onPress' in notificationItem ? notificationItem.onPress : () => null
 
-    act(() => result.current[2].items[1].onPress?.())
+    act(notificationClick)
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       title: 'turn off notifications?',

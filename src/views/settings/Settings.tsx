@@ -19,9 +19,10 @@ export const Settings = () => {
             {headline && (
               <Text style={tw`mb-3 text-left lowercase h6 text-primary-main mt-9`}>{i18n(`settings.${headline}`)}</Text>
             )}
-            {items.map((item, i) => (
-              <SettingsItem key={`${headline}-${item.title}-${i}`} {...item} />
-            ))}
+            {items.map((item, i) => {
+              const props = typeof item === 'string' ? { title: item } : item
+              return <SettingsItem key={`${headline}-${typeof item === 'string' ? item : item.title}-${i}`} {...props} />
+            })}
           </View>
         ))}
         <VersionInfo style={tw`mb-10 text-center mt-9`} />

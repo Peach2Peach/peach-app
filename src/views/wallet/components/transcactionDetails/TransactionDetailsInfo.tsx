@@ -27,7 +27,7 @@ export const TransactionDetailsInfo = ({ transaction }: Props) => {
 
   return (
     <View style={tw`gap-4`}>
-      {transaction.type === 'DEPOSIT' && addressParts && (
+      {transaction.type === 'DEPOSIT' && addressParts && receivingAddress && (
         <AddressLabelInput
           address={receivingAddress}
           fallback={`${addressParts.one}${addressParts.two}...${addressParts.four}`}
