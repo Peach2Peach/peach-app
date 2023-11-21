@@ -1,4 +1,4 @@
-import { isEmail } from '.'
+import { isEmail } from './isEmail'
 
 describe('isEmail', () => {
   it('should return true for a valid email address', () => {

@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import { intersect } from '.'
+import { intersect } from './intersect'
 
 describe('intersect', () => {
   it('returns the intersection of two arrays', () => {

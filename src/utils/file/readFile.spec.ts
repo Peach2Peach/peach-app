@@ -1,6 +1,6 @@
-import { readFile } from '.'
-import RNFS from 'react-native-fs'
 import CryptoJS from 'react-native-crypto-js'
+import RNFS from 'react-native-fs'
+import { readFile } from './readFile'
 
 describe('readFile', () => {
   it('should handle readFile error', async () => {

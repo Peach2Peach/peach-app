@@ -1,8 +1,8 @@
-import { getSelectedPaymentDataIds } from '.'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { hashPaymentData } from '../paymentMethod'
 import { deletePaymentHash } from '../peachAPI'
+import { getSelectedPaymentDataIds } from './getSelectedPaymentDataIds'
 
 export const removePaymentData = async (id: PaymentData['id']) => {
   const {

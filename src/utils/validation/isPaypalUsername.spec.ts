@@ -1,4 +1,4 @@
-import { isPaypalUsername } from '.'
+import { isPaypalUsername } from './isPaypalUsername'
 
 describe('isPaypalUsername', () => {
   it('should return true for a valid paypal username', () => {

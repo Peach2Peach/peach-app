@@ -1,6 +1,7 @@
 import Share from 'react-native-share'
-import { backupAccount, setAccount } from '.'
 import * as accountData from '../../../tests/unit/data/accountData'
+import { setAccount } from './account'
+import { backupAccount } from './backupAccount'
 
 describe('backupAccount', () => {
   const openSpy = jest.spyOn(Share, 'open')

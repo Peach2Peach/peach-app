@@ -1,9 +1,8 @@
-/* eslint-disable max-lines-per-function */
 import { ok } from 'assert'
 import { networks } from 'bitcoinjs-lib'
-import { rules } from '.'
 import paymentData from '../../../tests/unit/data/paymentData.json'
 import { getNetwork } from '../wallet/getNetwork'
+import { rules } from './rules'
 
 jest.mock('../wallet/getNetwork', () => ({
   getNetwork: jest.fn(),

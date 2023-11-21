@@ -1,8 +1,8 @@
 import { act } from 'react-test-renderer'
 import { renderHook } from 'test-utils'
-import { useUpdateTradingAmounts } from '.'
 import { useConfigStore } from '../store/configStore/configStore'
 import { useOfferPreferences } from '../store/offerPreferenes/useOfferPreferences'
+import { useUpdateTradingAmounts } from './useUpdateTradingAmounts'
 
 describe('useUpdateTradingAmounts', () => {
   const priceCHF = 20000

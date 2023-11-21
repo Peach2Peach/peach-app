@@ -1,6 +1,6 @@
-import { accountStorage } from '../accountStorage'
-import { storeTradingLimit } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
+import { accountStorage } from '../accountStorage'
+import { storeTradingLimit } from './storeTradingLimit'
 
 describe('storeTradingLimit', () => {
   it('would write file to store tradingLimit', () => {

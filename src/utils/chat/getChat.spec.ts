@@ -1,7 +1,8 @@
-import { getChat, saveChat } from '.'
 import { chat1 } from '../../../tests/unit/data/chatData'
 import { defaultAccount, setAccount } from '../account'
 import { useAccountStore } from '../account/account'
+import { getChat } from './getChat'
+import { saveChat } from './saveChat'
 
 const now = new Date()
 jest.useFakeTimers({ now })

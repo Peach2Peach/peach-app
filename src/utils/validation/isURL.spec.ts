@@ -1,4 +1,4 @@
-import { isURL } from '.'
+import { isURL } from './isURL'
 
 describe('isURL', () => {
   it('should return true for a valid URL', () => {

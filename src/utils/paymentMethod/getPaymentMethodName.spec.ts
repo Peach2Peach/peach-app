@@ -1,5 +1,5 @@
 import { getEventName } from '../events'
-import { getPaymentMethodName } from '.'
+import { getPaymentMethodName } from './getPaymentMethodName'
 
 jest.mock('../events', () => ({
   getEventName: jest.fn(),

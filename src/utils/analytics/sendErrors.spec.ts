@@ -1,6 +1,6 @@
-import { sendErrors } from '.'
-import { appendFile } from '../file'
 import crashlytics from '@react-native-firebase/crashlytics'
+import { appendFile } from '../file'
+import { sendErrors } from './sendErrors'
 
 jest.mock('../file', () => ({
   appendFile: jest.fn(),

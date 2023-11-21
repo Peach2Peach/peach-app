@@ -1,6 +1,7 @@
-import { getEscrowWalletForOffer, setWallet } from '.'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
+import { getEscrowWalletForOffer } from './getEscrowWalletForOffer'
+import { setWallet } from './setWallet'
 
 describe('getEscrowWalletForOffer', () => {
   const recoveredWallet = createTestWallet()

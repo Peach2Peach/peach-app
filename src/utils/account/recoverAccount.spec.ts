@@ -1,10 +1,10 @@
 import analytics from '@react-native-firebase/analytics'
-import { recoverAccount } from '.'
 import { recoveredAccount } from '../../../tests/unit/data/accountData'
 import { buyOffer, sellOffer } from '../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { useSettingsStore } from '../../store/settingsStore'
 import { error } from '../log'
+import { recoverAccount } from './recoverAccount'
 
 const userUpdateMock = jest.fn()
 jest.mock('../../init/userUpdate', () => ({

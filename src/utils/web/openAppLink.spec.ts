@@ -1,5 +1,5 @@
 import { Linking } from 'react-native'
-import { openAppLink } from '.'
+import { openAppLink } from './openAppLink'
 
 describe('openAppLink', () => {
   afterEach(() => {

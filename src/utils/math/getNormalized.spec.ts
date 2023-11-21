@@ -1,4 +1,5 @@
-import { getNormalized } from '.'
+/* eslint-disable no-magic-numbers */
+import { getNormalized } from './getNormalized'
 
 describe('getNormalized', () => {
   it('should return 0 if val is negative', () => {

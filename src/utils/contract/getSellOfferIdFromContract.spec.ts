@@ -1,4 +1,4 @@
-import { getSellOfferIdFromContract } from '.'
+import { getSellOfferIdFromContract } from './getSellOfferIdFromContract'
 
 describe('getSellOfferIdFromContract', () => {
   it('should return the correct sell offer id', () => {

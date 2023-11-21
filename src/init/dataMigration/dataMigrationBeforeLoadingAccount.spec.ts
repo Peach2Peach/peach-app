@@ -1,4 +1,4 @@
-import { dataMigrationBeforeLoadingAccount } from '.'
+import { dataMigrationBeforeLoadingAccount } from './dataMigrationBeforeLoadingAccount'
 
 describe('dataMigrationBeforeLoadingAccount', () => {
   it('should do nothing at the moment', async () => {

@@ -1,5 +1,5 @@
 import RNFS from 'react-native-fs'
-import { exists } from '.'
+import { exists } from './exists'
 
 describe('exists', () => {
   it('should return false if file does not exist', async () => {

@@ -1,5 +1,6 @@
+/* eslint-disable no-magic-numbers */
 import { strictEqual } from 'assert'
-import { thousands } from '.'
+import { thousands } from './thousands'
 
 describe('thousands', () => {
   it('groups a number into thousands with non breaking space by default', () => {

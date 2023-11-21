@@ -1,5 +1,5 @@
 import { Linking } from 'react-native'
-import { linkToAppStoreAndroid } from '.'
+import { linkToAppStoreAndroid } from './linkToAppStoreAndroid'
 
 const bundleId = 'com.example.bundleId'
 const getInstallerPackageNameSyncMock = jest.fn()

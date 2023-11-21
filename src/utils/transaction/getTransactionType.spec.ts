@@ -1,4 +1,4 @@
-import { getTransactionType } from '.'
+import { getTransactionType } from './getTransactionType'
 
 describe('getTransactionType', () => {
   it('should return TRADE for a transaction with a BuyOffer', () => {

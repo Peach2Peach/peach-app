@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { ColorValue, SafeAreaView, TouchableOpacity, View, ViewProps } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { Icon, PriceFormat, Text } from '.'
 import { IconType } from '../assets/icons'
 import { useBitcoinStore } from '../store/bitcoinStore'
 import tw from '../styles/tailwind'
@@ -9,7 +8,10 @@ import i18n from '../utils/i18n'
 import { getHeaderStyles } from '../utils/layout'
 import { round } from '../utils/math'
 import { thousands } from '../utils/string'
+import { Icon } from './Icon'
 import { BTCAmount } from './bitcoin'
+import { PriceFormat } from './text/PriceFormat'
+import { PeachText } from './text/Text'
 
 export type HeaderIcon = {
   id: IconType
@@ -131,9 +133,9 @@ function HeaderNavigation ({
           </TouchableOpacity>
         )}
         {titleComponent || (
-          <Text style={[...fontSize, newThemes[theme].title, tw`flex-1`]} numberOfLines={1}>
+          <PeachText style={[...fontSize, newThemes[theme].title, tw`flex-1`]} numberOfLines={1}>
             {title}
-          </Text>
+          </PeachText>
         )}
       </View>
 
@@ -169,14 +171,14 @@ function Tickers ({ type = 'sell' }: TickerProps) {
   return (
     <View style={[tw`flex-row items-center justify-between py-1 px-sm`, tw.md`px-md py-2px`]}>
       <View style={colStyle}>
-        <Text style={unitStyle}>{`1 ${i18n('btc')}`}</Text>
+        <PeachText style={unitStyle}>{`1 ${i18n('btc')}`}</PeachText>
         <PriceFormat style={valueStyle} currency={currency} amount={price} round />
       </View>
       <View style={[...colStyle, tw.md`items-end`]}>
-        <Text style={[unitStyle, tw`text-right`]}>{`1 ${currency}`}</Text>
-        <Text style={[...valueStyle, tw`text-right`]}>
+        <PeachText style={[unitStyle, tw`text-right`]}>{`1 ${currency}`}</PeachText>
+        <PeachText style={[...valueStyle, tw`text-right`]}>
           {i18n('currency.format.sats', thousands(round(satsPerUnit)))}
-        </Text>
+        </PeachText>
       </View>
     </View>
   )
@@ -192,14 +194,14 @@ type HeaderSubtitleProps = {
 function HeaderSubtitle ({ theme = 'default', amount, premium, viewer, text }: HeaderSubtitleProps) {
   return (
     <View style={[tw`flex-row items-center justify-between py-2px px-sm`, tw.md`px-md py-2`]}>
-      <Text style={[tw`subtitle-1`, newThemes[theme].subtitle, tw.md`subtitle-0`]}>
+      <PeachText style={[tw`subtitle-1`, newThemes[theme].subtitle, tw.md`subtitle-0`]}>
         {text ?? i18n(viewer === 'buyer' ? 'buy.subtitle.highlight' : 'sell.subtitle.highlight')}
-      </Text>
+      </PeachText>
       <BTCAmount amount={amount} style={tw`pb-2px`} white={theme === 'dispute'} size="medium" />
-      <Text style={[tw`subtitle-1 pt-3px`, newThemes[theme].subtitle]}>
+      <PeachText style={[tw`subtitle-1 pt-3px`, newThemes[theme].subtitle]}>
         {premium > 0 ? '+' : ''}
         {String(premium)}%
-      </Text>
+      </PeachText>
     </View>
   )
 }

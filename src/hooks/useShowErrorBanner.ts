@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
-import { useNavigation } from '.'
 import { useMessageState } from '../components/message/useMessageState'
 import i18n from '../utils/i18n'
 import { error } from '../utils/log'
 import { parseError } from '../utils/result'
+import { useNavigation } from './useNavigation'
 
 export const useShowErrorBanner = () => {
   const navigation = useNavigation()

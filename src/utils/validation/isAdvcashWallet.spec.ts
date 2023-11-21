@@ -1,4 +1,4 @@
-import { isAdvcashWallet } from '.'
+import { isAdvcashWallet } from './isAdvcashWallet'
 
 describe('isAdvcashWallet', () => {
   it('should return true for a valid AdvCash wallet address', () => {

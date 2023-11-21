@@ -1,7 +1,7 @@
 import { deepStrictEqual, ok } from 'assert'
 import CryptoJS from 'react-native-crypto-js'
-import { decryptAccount } from '.'
 import * as accountData from '../../../tests/unit/data/accountData'
+import { decryptAccount } from './decryptAccount'
 
 describe('decryptAccount', () => {
   it('would decrypt recovery account', () => {

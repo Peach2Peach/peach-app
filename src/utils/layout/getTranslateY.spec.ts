@@ -1,5 +1,6 @@
+/* eslint-disable no-magic-numbers */
 import { Animated } from 'react-native'
-import { getTranslateY } from '.'
+import { getTranslateY } from './getTranslateY'
 
 describe('getTranslateY', () => {
   it('ensures interpolated value is within range', () => {

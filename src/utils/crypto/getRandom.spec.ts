@@ -1,5 +1,5 @@
 import { notDeepStrictEqual } from 'assert'
-import { getRandom } from '.'
+import { getRandom } from './getRandom'
 
 describe('getRandom', () => {
   it('returns random butes', async () => {

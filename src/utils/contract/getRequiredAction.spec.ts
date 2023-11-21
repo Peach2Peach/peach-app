@@ -1,4 +1,4 @@
-import { getRequiredAction } from '.'
+import { getRequiredAction } from './getRequiredAction'
 
 describe('getRequiredAction', () => {
   it('returns none if contract is null or canceled', () => {

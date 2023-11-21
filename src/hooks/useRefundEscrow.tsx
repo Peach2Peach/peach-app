@@ -1,7 +1,6 @@
 import { NETWORK } from '@env'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useNavigation } from '.'
 import { FIFTEEN_SECONDS } from '../constants'
 import { Refund } from '../popups/Refund'
 import { useSettingsStore } from '../store/settingsStore'
@@ -14,6 +13,7 @@ import { saveOffer } from '../utils/offer'
 import { refundSellOffer } from '../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../utils/wallet'
 import { useTradeSummaries } from './query/useTradeSummaries'
+import { useNavigation } from './useNavigation'
 import { useShowErrorBanner } from './useShowErrorBanner'
 
 export const useRefundEscrow = () => {

@@ -1,4 +1,4 @@
-import { isRevtag } from '.'
+import { isRevtag } from './isRevtag'
 
 describe('isRevtag', () => {
   it('should return true for a valid revtag', () => {

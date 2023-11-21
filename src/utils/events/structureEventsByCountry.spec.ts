@@ -1,4 +1,4 @@
-import { structureEventsByCountry } from '.'
+import { structureEventsByCountry } from './structureEventsByCountry'
 
 const events: MeetupEvent[] = [
   {

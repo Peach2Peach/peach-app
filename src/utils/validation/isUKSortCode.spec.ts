@@ -1,4 +1,4 @@
-import { isUKSortCode } from '.'
+import { isUKSortCode } from './isUKSortCode'
 
 describe('isUKSortCode', () => {
   it('should return true for a valid UK sort code', () => {

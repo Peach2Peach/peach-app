@@ -1,4 +1,4 @@
-import { getContractViewer } from '.'
+import { getContractViewer } from './getContractViewer'
 
 describe('getContractViewer', () => {
   it('returns "seller" if account publicKey matches seller id', () => {

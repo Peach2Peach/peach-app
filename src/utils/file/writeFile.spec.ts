@@ -1,6 +1,6 @@
-import { writeFile } from '.'
-import RNFS from 'react-native-fs'
 import CryptoJS from 'react-native-crypto-js'
+import RNFS from 'react-native-fs'
+import { writeFile } from './writeFile'
 
 describe('writeFile', () => {
   it('should handle encrypt error', async () => {

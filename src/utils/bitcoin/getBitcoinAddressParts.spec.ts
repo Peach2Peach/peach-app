@@ -1,4 +1,4 @@
-import { getBitcoinAddressParts } from '.'
+import { getBitcoinAddressParts } from './getBitcoinAddressParts'
 
 describe('getBitcoinAddressParts', () => {
   it('should return an object with 4 parts of the address', () => {

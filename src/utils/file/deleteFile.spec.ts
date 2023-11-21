@@ -1,5 +1,5 @@
 import RNFS from 'react-native-fs'
-import { deleteFile } from '.'
+import { deleteFile } from './deleteFile'
 
 describe('deleteFile', () => {
   it('should catch error', async () => {

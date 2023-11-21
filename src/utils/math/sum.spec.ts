@@ -1,5 +1,6 @@
+/* eslint-disable no-magic-numbers */
 import { strictEqual } from 'assert'
-import { sum } from '.'
+import { sum } from './sum'
 
 describe('sum', () => {
   it('sums two numbers', () => {
