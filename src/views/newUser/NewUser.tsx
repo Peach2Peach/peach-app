@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { shallow } from 'zustand/shallow'
 import { Header, Icon, Loading, Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation, useRoute } from '../../hooks'
@@ -15,9 +14,10 @@ import { parseError } from '../../utils/result'
 
 export const NewUser = () => {
   const route = useRoute<'newUser'>()
+  const navigation = useNavigation()
 
   const [success, setSuccess] = useState(false)
-  const [setAccount, setIsLoggedIn] = useAccountStore((state) => [state.setAccount, state.setIsLoggedIn], shallow)
+  const setAccount = useAccountStore((state) => state.setAccount)
   const [userExistsForDevice, setUserExistsForDevice] = useState(false)
   const [error, setError] = useState('')
 
@@ -54,10 +54,10 @@ export const NewUser = () => {
       setSuccess(true)
 
       setTimeout(() => {
-        setIsLoggedIn(true)
+        navigation.navigate('userSource')
       }, 1500)
     },
-    [onError, route.params.referralCode, setAccount, setIsLoggedIn],
+    [navigation, onError, route.params.referralCode, setAccount],
   )
 
   useEffect(() => {
