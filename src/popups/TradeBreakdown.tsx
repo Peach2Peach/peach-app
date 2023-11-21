@@ -5,14 +5,13 @@ import tw from '../styles/tailwind'
 import { getTradeBreakdown } from '../utils/bitcoin'
 import i18n from '../utils/i18n'
 
-type Props = Pick<Contract, 'releaseTransaction' | 'releaseAddress' | 'amount' | 'batchId'>
+type Props = Pick<Contract, 'releaseTransaction' | 'releaseAddress' | 'amount'>
 
-export const TradeBreakdown = ({ releaseTransaction, releaseAddress, amount, batchId }: Props) => {
+export const TradeBreakdown = ({ releaseTransaction, releaseAddress, amount }: Props) => {
   const { totalAmount, peachFee, networkFee, amountReceived } = getTradeBreakdown({
     releaseTransaction,
     releaseAddress,
     inputAmount: amount,
-    discount: batchId ? 40 : 0,
   })
 
   return (

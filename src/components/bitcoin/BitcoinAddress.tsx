@@ -1,8 +1,9 @@
 import 'react-native-url-polyfill/auto'
 
-import { Pressable, View } from 'react-native'
+import { Pressable, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { PrimaryButton, Text } from '..'
+import { Icon, Text } from '..'
+import { IconType } from '../../assets/icons'
 import { useIsMediumScreen } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -51,10 +52,18 @@ export const BitcoinAddress = ({ address, amount, label }: BitcoinAddressProps) 
         </View>
 
         <View style={tw`justify-center gap-2`}>
-          <PrimaryButton iconId="copy" onPress={copyAddress} />
-          <PrimaryButton iconId="externalLink" onPress={openInWalletOrCopyPaymentRequest} />
+          <IconButton onPress={copyAddress} iconId="copy" />
+          <IconButton iconId="externalLink" onPress={openInWalletOrCopyPaymentRequest} />
         </View>
       </View>
     </>
+  )
+}
+
+function IconButton ({ onPress, iconId }: { onPress: () => void; iconId: IconType }) {
+  return (
+    <TouchableOpacity onPress={onPress} style={tw`items-center px-4 py-1 bg-primary-main rounded-xl`}>
+      <Icon id={iconId} size={24} color={tw`text-primary-background-light`.color} />
+    </TouchableOpacity>
   )
 }

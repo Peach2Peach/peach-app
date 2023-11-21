@@ -25,6 +25,11 @@ const map: Record<Currency, PaymentMethodCountry[]> = {
   CDF: [],
   CRC: [],
   BRL: [],
+  BTC: [],
+  GTQ: [],
+  ZAR: [],
+  KES: [],
+  GHS: [],
 }
 
 export const countrySupportsCurrency = (currency: Currency) => (country: PaymentMethodCountry) =>

@@ -10,7 +10,7 @@ describe('validatePremiumStep', () => {
     const offer1: Partial<SellOfferDraft> = {
       premium: 22,
     }
-    const offer2: Partial<Offer> = {
+    const offer2: Partial<SellOfferDraft> = {
       premium: -22,
     }
     expect(validatePremiumStep(offer1 as SellOfferDraft, marketPrice, tradingLimit as TradingLimit)).toBe(false)

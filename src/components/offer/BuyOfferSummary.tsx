@@ -29,7 +29,7 @@ export const BuyOfferSummary = ({ offer }: Props) => {
 
       <HorizontalLine />
 
-      <SummaryCard.PaymentMethods offer={offer} />
+      <SummaryCard.PaymentMethods meansOfPayment={offer.meansOfPayment} />
 
       <HorizontalLine />
 

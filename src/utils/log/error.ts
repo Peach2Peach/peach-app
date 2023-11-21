@@ -11,7 +11,9 @@ export const error = (...args: any[]) => {
 
     if (errors.length) openCrashReportPrompt(errors)
   } else {
-    Alert.alert(message)
+    const errors = args.filter((arg) => arg instanceof Error).filter((arg) => !isNetworkError(arg.message))
+
+    if (errors.length) Alert.alert('Error', errors.map((err) => err.message).join('\n\n'))
     console.error(message)
   }
 }

@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-type WSCallback = (message?: unknown) => void
+type WSCallback = (message?: Message) => Promise<void> | void
 type PeachWS = {
   ws?: WebSocket
   authenticated: boolean
@@ -7,7 +7,7 @@ type PeachWS = {
   queue: (() => boolean)[]
   listeners: {
     message: WSCallback[]
-    close: (() => void)[]
+    close: WSCallback[]
   }
   on: (listener: 'message' | 'close', callback: WSCallback) => void
   off: (listener: 'message' | 'close', callback: WSCallback) => void
@@ -38,38 +38,54 @@ type APIError = {
   details?: unknown
 }
 
-type FeeRate = 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee' | 'custom'
+type FeeRate = 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee' | number
 
 type User = {
-  id: string
-  creationDate: Date
-  trades: number
-  rating: number
-  userRating: number
-  ratingCount: number
-  peachRating: number
-  medals: Medal[]
-  referralCode?: string
-  usedReferralCode?: string
+  banned: boolean
   bonusPoints: number
-  referredTradingAmount: number
-  disputes: {
-    opened: number
-    won: number
-    lost: number
-  }
+  creationDate: Date
+  disabled: boolean
+  disputes: { opened: number; won: number; lost: number; resolved: number }
+  fcmToken?: string
+  feeRate: FeeRate
+  freeTrades?: number
+  historyRating: number
+  id: string
+  isBatchingEnabled: boolean
+  kyc: boolean
+  lastModified: Date
+  linkedIds: string[]
+  maxFreeTrades?: number
+  medals: Medal[]
+  peachRating: number
   pgpPublicKey: string
   pgpPublicKeyProof: string
+  rating: number
+  ratingCount: number
+  recentRating: number
+  referralCode?: string
+  referredTradingAmount: number
+  trades: number
+  uniqueId: string
+  usedReferralCode?: string
+  userRating: number
 }
 
-type SelfUser = User & {
-  feeRate: FeeRate
-  freeTrades: number
-  maxFreeTrades: number
-  historyRating: number
-  recentRating: number
-  isBatchingEnabled: boolean
-}
+type PublicUser = Omit<
+  User,
+  | 'disabled'
+  | 'banned'
+  | 'linkedIds'
+  | 'lastModified'
+  | 'kyc'
+  | 'uniqueId'
+  | 'referredTradingAmount'
+  | 'bonusPoints'
+  | 'feeRate'
+  | 'freeTrades'
+  | 'maxFreeTrades'
+  | 'isBatchingEnabled'
+>
 
 type TradingLimit = {
   daily: number
@@ -83,6 +99,7 @@ type TradingLimit = {
 type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 
 type Currency =
+  | 'BTC'
   | 'SAT'
   | 'USD'
   | 'EUR'
@@ -97,7 +114,6 @@ type Currency =
   | 'RON'
   | 'ISK'
   | 'NOK'
-  | 'RON'
   | 'TRY'
   | 'USDT'
   | 'ARS'
@@ -105,13 +121,15 @@ type Currency =
   | 'PEN'
   | 'MXN'
   | 'CLP'
-  | 'PEN'
-  | 'COP'
   | 'XOF'
   | 'NGN'
   | 'CDF'
   | 'CRC'
   | 'BRL'
+  | 'GTQ'
+  | 'ZAR'
+  | 'KES'
+  | 'GHS'
 type Pricebook = {
   [key in Currency]?: number
 }
@@ -143,11 +161,13 @@ type PaymentMethodCountry =
   | 'SI'
   | 'LV'
   | 'US'
+  | 'FI'
 
+type Country = 'DE' | 'FR' | 'IT' | 'ES' | 'NL' | 'UK' | 'SE' | 'FI' | 'BE' | 'LV'
 type MeetupEvent = {
   id: string
   currencies: Currency[]
-  country: PaymentMethodCountry
+  country: Country
   city: string
   shortName: string
   longName: string
@@ -208,65 +228,31 @@ type PeachPairInfo = {
 type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 
 type TradeStatus =
-  | 'fundEscrow'
+  | 'confirmCancelation'
+  | 'confirmPaymentRequired'
+  | 'dispute'
   | 'escrowWaitingForConfirmation'
+  | 'fundEscrow'
   | 'fundingAmountDifferent'
-  | 'searchingForPeer'
-  | 'offerHidden'
-  | 'offerHiddenWithMatchesAvailable'
   | 'hasMatchesAvailable'
   | 'offerCanceled'
-  | 'refundAddressRequired'
-  | 'refundTxSignatureRequired'
+  | 'offerHidden'
+  | 'offerHiddenWithMatchesAvailable'
   | 'paymentRequired'
   | 'paymentTooLate'
-  | 'confirmPaymentRequired'
   | 'payoutPending'
-  | 'dispute'
-  | 'releaseEscrow'
   | 'rateUser'
-  | 'confirmCancelation'
-  | 'tradeCompleted'
-  | 'tradeCanceled'
+  | 'refundAddressRequired'
   | 'refundOrReviveRequired'
-  | 'waiting'
+  | 'refundTxSignatureRequired'
+  | 'releaseEscrow'
+  | 'searchingForPeer'
+  | 'tradeCanceled'
+  | 'tradeCompleted'
 
 type OfferPaymentData = Partial<
-  Record<
-    PaymentMethod,
-    {
-      hashes: string[]
-      country?: PaymentMethodCountry
-    }
-  >
+  Record<PaymentMethod, { hashes: string[]; hash?: string; country?: PaymentMethodCountry }>
 >
-type OfferDraft = {
-  type: 'bid' | 'ask'
-  meansOfPayment: MeansOfPayment
-  paymentData: OfferPaymentData
-  originalPaymentData: PaymentData[]
-  walletLabel?: string
-  tradeStatus?: TradeStatus
-}
-type Offer = OfferDraft & {
-  id: string
-  oldOfferId?: string
-  newOfferId?: string
-  publishingDate?: Date
-  online: boolean
-  user?: User
-  publicKey?: string
-  premium?: number
-  prices?: Pricebook
-  refunded?: boolean
-  funding?: FundingStatus
-  matches: Offer['id'][]
-  doubleMatched: boolean
-  contractId?: string
-  tradeStatus: TradeStatus
-  creationDate: Date
-  lastModified?: Date
-}
 type PostedOffer = BuyOffer | SellOffer
 type PostOfferResponseBody = PostedOffer | PostedOffer[]
 type OfferType = 'ask' | 'bid'
@@ -310,7 +296,7 @@ type Match = {
   matchedPrice: number | null
   premium: number
   meansOfPayment: MeansOfPayment
-  paymentData: Offer['paymentData']
+  paymentData: OfferPaymentData
   selectedCurrency?: Currency
   selectedPaymentMethod?: PaymentMethod
   symmetricKeyEncrypted: string
@@ -341,7 +327,6 @@ type OfferSummary = {
   lastModified: Date
   amount: number | [number, number]
   matches: string[]
-  prices: Pricebook
   tradeStatus: TradeStatus
   contractId?: string
   txId?: string

@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
+import { useBuyOfferExpiredPopup } from '../../../../popups/useBuyOfferExpiredPopup'
+import { useOfferOutsideRangePopup } from '../../../../popups/useOfferOutsideRangePopup'
 import { useShowFundingAmountDifferentPopup } from '../../../../popups/useShowFundingAmountDifferentPopup'
 import { useShowWronglyFundedPopup } from '../../../../popups/useShowWronglyFundedPopup'
 import { isSellOffer } from '../../../../utils/offer'
-import { useBuyOfferExpiredPopup } from '../../../../popups/useBuyOfferExpiredPopup'
-import { useOfferOutsideRangePopup } from '../../../../popups/useOfferOutsideRangePopup'
 import { getOfferDetails } from '../../../../utils/peachAPI'
 
 type PNEventHandlers = Partial<Record<NotificationType, (data: PNData, notification?: PNNotification) => void>>

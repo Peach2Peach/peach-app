@@ -23,8 +23,8 @@
 "notification.body.offer.buyOfferExpired" = "Dein Kaufangebot %1$@ hat seit %2$@ Tagen kein Match erzielt und wurde entfernt.";
 "notification.body.offer.escrowFunded" = "Die Escrow wurde aufgeladen und dein Angebot wurde veröffentlicht.";
 "notification.body.offer.fundingAmountDifferent" = "Die Escrow wurde mit einem abweichenden Betrag aufgeladen. Möchtest du mit diesem Angebot fortfahren oder eine Rückerstattung erhalten?";
-"notification.body.offer.matchBuyer" = "Du hast neue Matches. Lass sie nicht warten!";
-"notification.body.offer.matchSeller" = "Du hast neue Matches. Lass sie nicht warten!";
+"notification.body.offer.matchBuyer" = "Du hast Verkaufsangebote verfügbar! Stapel diese sats!";
+"notification.body.offer.matchSeller" = "Du hast Kaufanfragen verfügbar! Lass sie nicht hängen!";
 "notification.body.offer.notFunded" = "Du hast die Escrow seit %2$@ Tagen nicht aufgeladen 😞. Wir entfernen das Angebot.";
 "notification.body.offer.outsideRange" = "Das Angebot %1$@ liegt außerhalb des Handelsbereichs und wird für Käufer nicht sichtbar sein. Du kannst das Angebot stornieren und ein neues erstellen, oder es so belassen.";
 "notification.body.offer.sellOfferExpired" = "Dein Verkaufsangebot wurde geschlossen, da seit %2$@ Tagen kein Match erzielt wurde.";

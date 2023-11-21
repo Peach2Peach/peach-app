@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
 import i18n from '../../../../../utils/i18n'
 import { getErrorsInField } from '../../../../../utils/validation'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { TabbedNavigationItem } from '../../../../navigation/TabbedNavigation'
 import { toggleCurrency } from '../../paymentForms/utils'
 import { useLabelInput } from './useLabelInput'
@@ -11,7 +11,7 @@ const referenceRules = { required: false }
 // eslint-disable-next-line max-lines-per-function
 export const useTemplate2Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
   const { currencies, type: paymentMethod } = data
-  const tabs: TabbedNavigationItem[] = [
+  const tabs: TabbedNavigationItem<'wallet' | 'email'>[] = [
     { id: 'wallet', display: i18n('form.wallet') },
     { id: 'email', display: i18n('form.email') },
   ]

@@ -1,11 +1,26 @@
-type RootStackParamList = {
+type Onboarding = {
+  welcome:
+    | {
+        referralCode?: string
+      }
+    | undefined
   newUser: {
     referralCode?: string
   }
+  userSource: undefined
   restoreBackup: { tab: 'fileBackup' | 'seedPhrase' } | undefined
   restoreReputation: {
     referralCode?: string
   }
+}
+
+type TestViews = {
+  testView: undefined
+  testViewPeachWallet: undefined
+  testViewPNs: undefined
+}
+
+type RootStackParamList = Onboarding & {
   newBadge: {
     badges: string
   }
@@ -135,21 +150,9 @@ type RootStackParamList = {
   aboutPeach: undefined
   bitcoinProducts: undefined
   socials: undefined
-  welcome:
-    | {
-        referralCode?: string
-      }
-    | undefined
-  splashScreen: undefined
   myProfile: undefined
   transactionBatching: undefined
   groupHugAnnouncement: {
     offerId: string
   }
-} & Record<`testView${string}`, undefined>
-
-type KeysWithUndefined<T> = {
-  [K in keyof T]: undefined extends T[K] ? K : never
-}[keyof T]
-
-type ScreenWithoutProps = KeysWithUndefined<RootStackParamList>
+} & TestViews

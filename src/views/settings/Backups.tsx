@@ -1,24 +1,52 @@
 import { useState } from 'react'
 
-import { Screen } from '../../components'
+import { Header, Screen } from '../../components'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
-import tw from '../../styles/tailwind'
+import { useShowHelp, useToggleBoolean } from '../../hooks'
 import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout'
 import { FileBackup } from './components/backups/FileBackup'
 import { SeedPhrase } from './components/backups/SeedPhrase'
 
 export const Backups = () => {
-  const tabs: TabbedNavigationItem[] = [
-    { id: 'fileBackup', display: i18n('settings.backups.fileBackup'), view: FileBackup },
-    { id: 'seedPhrase', display: i18n('settings.backups.seedPhrase'), view: SeedPhrase },
+  const tabs: TabbedNavigationItem<'fileBackup' | 'seedPhrase'>[] = [
+    { id: 'fileBackup', display: i18n('settings.backups.fileBackup') },
+    { id: 'seedPhrase', display: i18n('settings.backups.seedPhrase') },
   ]
   const [currentTab, setCurrentTab] = useState(tabs[0])
-  const CurrentView = currentTab.view
+  const [showPasswordPrompt, toggle] = useToggleBoolean()
 
   return (
-    <Screen>
+    <Screen header={<BackupHeader tab={currentTab.id} showPasswordPrompt={showPasswordPrompt} />}>
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
-      {!!CurrentView && <CurrentView style={tw`pt-4 shrink`} />}
+      {currentTab.id === 'fileBackup' ? (
+        <FileBackup showPasswordPrompt={showPasswordPrompt} toggle={toggle} />
+      ) : (
+        <SeedPhrase />
+      )}
     </Screen>
+  )
+}
+
+function BackupHeader ({ tab, showPasswordPrompt }: { tab: 'fileBackup' | 'seedPhrase'; showPasswordPrompt?: boolean }) {
+  const showSeedPhrasePopup = useShowHelp('seedPhrase')
+  const showFileBackupPopup = useShowHelp('fileBackup')
+  const showYourPasswordPopup = useShowHelp('yourPassword')
+
+  return (
+    <Header
+      title={tab === 'fileBackup' ? i18n('settings.backups.fileBackup.title') : i18n('settings.backups.walletBackup')}
+      icons={[
+        {
+          ...headerIcons.help,
+          onPress:
+            tab === 'fileBackup'
+              ? showPasswordPrompt
+                ? showYourPasswordPopup
+                : showFileBackupPopup
+              : showSeedPhrasePopup,
+        },
+      ]}
+    />
   )
 }

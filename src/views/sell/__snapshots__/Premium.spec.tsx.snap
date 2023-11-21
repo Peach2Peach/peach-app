@@ -94,18 +94,16 @@ exports[`Premium should render the Premium view 1`] = `
       }
     />
   </View>
-  <PrimaryButton
+  <Button
     disabled={true}
-    narrow={true}
     onPress={[MockFunction]}
     style={
       {
         "alignSelf": "center",
-        "marginBottom": 20,
       }
     }
   >
     next
-  </PrimaryButton>
+  </Button>
 </React.Fragment>
 `;

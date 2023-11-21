@@ -8,22 +8,18 @@ exports[`VerifyYouAreAHuman renders correctly 1`] = `
     }
   }
   actions={
-    <View
+    <ClosePopupAction
       style={
         {
-          "alignItems": "center",
-          "width": "100%",
+          "justifyContent": "center",
         }
       }
-    >
-      <ClosePopupAction
-        textStyle={
-          {
-            "color": "#2B1911",
-          }
+      textStyle={
+        {
+          "color": "#2B1911",
         }
-      />
-    </View>
+      }
+    />
   }
   bgColor={
     {

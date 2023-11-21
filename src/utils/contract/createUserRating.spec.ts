@@ -1,16 +1,15 @@
-import { account, setAccount } from '../account'
-import { createUserRating } from '.'
 import { account1 } from '../../../tests/unit/data/accountData'
+import { setAccount } from '../account'
+import { createUserRating } from './createUserRating'
 
 const signMock = jest.fn().mockReturnValue(Buffer.from('abc'))
 const keyPairMock = {
   sign: signMock,
 }
 
-const getPeachAccountMock = jest.fn().mockReturnValue(keyPairMock)
-jest.mock('../peachAPI/peachAccount', () => ({
-  getPeachAccount: () => getPeachAccountMock(),
-}))
+const getPeachAccountMock = jest
+  .spyOn(jest.requireMock('../peachAPI/peachAccount'), 'getPeachAccount')
+  .mockReturnValue(keyPairMock)
 
 jest.mock('../wallet/getWallet', () => ({
   getWallet: jest.fn(),
@@ -26,12 +25,10 @@ describe('createUserRating', () => {
   const rating = 1
 
   beforeEach(() => {
-    setAccount(account1)
+    setAccount({ ...account1, publicKey: 'publicKey' })
   })
 
   it('creates a rating with correct signature by using peach account', () => {
-    account.publicKey = 'publicKey'
-
     const ratingObj = createUserRating(userId, rating)
 
     expect(ratingObj.creationDate).toBeInstanceOf(Date)

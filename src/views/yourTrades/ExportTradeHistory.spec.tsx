@@ -37,7 +37,7 @@ describe('ExportTradeHistory', () => {
 
     expect(RNFS.writeFile).toHaveBeenCalledWith(
       'DDirPath//trade-history.csv',
-      `${firstCSVRow}01 / 01 / 23, P-27D, canceled, 50 000, \n`,
+      `${firstCSVRow}01/01/2023, P-27D, canceled, 50 000, \n`,
       'utf8',
     )
   })

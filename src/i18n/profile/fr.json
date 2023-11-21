@@ -5,6 +5,7 @@
   "profile.disputes" : "dispute",
   "profile.disputesLost" : "perdu",
   "profile.disputesOpened" : "ouvert",
+  "profile.disputesResolved" : "résolue",
   "profile.disputesWon" : "gagnée",
   "profile.myAccount.title" : "mon compte",
   "profile.numberOfTrades" : "nombre d'échanges",

@@ -10,7 +10,7 @@ export type PopupState = {
   action2: Action | undefined
   level: Level
   requireUserAction: boolean
-  popupComponent: React.ReactElement | undefined
+  popupComponent: React.ReactElement<unknown> | undefined
 }
 
 export const defaultPopupState: PopupState = {

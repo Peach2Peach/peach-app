@@ -19,5 +19,7 @@
   "sell.summary.title" : "Riepilogo offerta",
   "sell.title" : "Vendi bitcoin",
   "sell.title.highlight" : "Vendi",
+  "warning.incorrectFunding.description" : "Hai finanziato la tua offerta con $0 transazioni, il che non è consentito a causa delle eccessive commissioni di rete per l'acquirente.\n\nSarai rimborsato.",
+  "warning.incorrectFunding.title" : "Finanziamento non corretto",
   "yourTrades.search.sell.subtitle" : "offerta di vendita per"
 }

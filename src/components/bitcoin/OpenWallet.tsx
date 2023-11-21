@@ -15,7 +15,7 @@ export const OpenWallet = ({ address, style }: OpenWalletProps) => {
 
   return (
     <TouchableOpacity style={[tw`flex-row items-center justify-center`, style]} onPress={openWalletApp}>
-      <Text style={tw`font-semibold underline uppercase body-s text-black-2`}>{i18n('wallet.openWalletApp')}</Text>
+      <Text style={tw`underline uppercase button-medium text-black-2`}>{i18n('wallet.openWalletApp')}</Text>
       <Icon id="externalLink" style={tw`w-4 h-4 ml-1 -mt-1`} color={tw`text-primary-main`.color} />
     </TouchableOpacity>
   )

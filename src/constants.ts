@@ -1,4 +1,4 @@
-import { getBuildNumber, getUniqueIdSync, getVersion, isEmulatorSync } from 'react-native-device-info'
+import { getBuildNumber, getUniqueIdSync, getVersion } from 'react-native-device-info'
 import { IconType } from './assets/icons'
 import { sha256 } from './utils/crypto/sha256'
 
@@ -11,15 +11,11 @@ export const MSINAMONTH = MSINADAY * 30
 
 export const FIFTEEN_SECONDS = 15 * MSINASECOND
 
-export const MAXTRADESWITHOUTHBACKUP = 3
-
 export const APPVERSION = getVersion()
 export const BUILDNUMBER = getBuildNumber()
 
 export let CLIENTSERVERTIMEDIFFERENCE = 0
 export const setClientServerTimeDifference = (diff: number) => (CLIENTSERVERTIMEDIFFERENCE = diff)
-
-export const ISEMULATOR = isEmulatorSync()
 
 export const UNIQUEID = sha256(getUniqueIdSync())
 export const TWITTER = 'https://twitter.com/peachbitcoin'

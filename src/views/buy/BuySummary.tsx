@@ -7,12 +7,13 @@ import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { publishPGPPublicKey } from '../../init/publishPGPPublicKey'
 import { InfoPopup } from '../../popups/InfoPopup'
-import { useConfigStore } from '../../store/configStore'
+import { useConfigStore } from '../../store/configStore/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { useSettingsStore } from '../../store/settingsStore'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
-import { account, getMessageToSignForAddress } from '../../utils/account'
+import { getMessageToSignForAddress } from '../../utils/account'
+import { useAccountStore } from '../../utils/account/account'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { postBuyOffer } from '../../utils/peachAPI'
@@ -75,6 +76,7 @@ function PublishOfferButton ({ offerDraft }: { offerDraft: BuyOfferDraft }) {
     (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressSignature],
     shallow,
   )
+  const publicKey = useAccountStore((state) => state.account.publicKey)
   if (!peachWalletActive && !payoutAddress) setPeachWalletActive(true)
 
   const canPublish
@@ -82,7 +84,7 @@ function PublishOfferButton ({ offerDraft }: { offerDraft: BuyOfferDraft }) {
     || (!!payoutAddress
       && !!payoutAddressSignature
       && isValidBitcoinSignature(
-        getMessageToSignForAddress(account.publicKey, payoutAddress),
+        getMessageToSignForAddress(publicKey, payoutAddress),
         payoutAddress,
         payoutAddressSignature,
       ))
@@ -114,6 +116,7 @@ function usePublishOffer (offerDraft: BuyOfferDraft) {
     (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressSignature],
     shallow,
   )
+  const publicKey = useAccountStore((state) => state.account.publicKey)
 
   const getMessageSignature = (message: string, releaseAddress: string, index?: number) =>
     peachWalletActive ? peachWallet.signMessage(message, releaseAddress, index) : payoutAddressSignature || ''
@@ -123,7 +126,7 @@ function usePublishOffer (offerDraft: BuyOfferDraft) {
       const { releaseAddress, index } = await getReleaseAddress(peachWalletActive, payoutAddress)
       if (!releaseAddress) throw new Error('MISSING_ADDRESS')
 
-      const message = getMessageToSignForAddress(account.publicKey, releaseAddress)
+      const message = getMessageToSignForAddress(publicKey, releaseAddress)
       const messageSignature = getMessageSignature(message, releaseAddress, index)
 
       if (!isValidBitcoinSignature(message, releaseAddress, messageSignature)) throw new Error('INAVLID_SIGNATURE')

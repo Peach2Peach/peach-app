@@ -2,7 +2,7 @@ import { Header, PeachScrollView, Screen } from '../../components'
 import tw from '../../styles/tailwind'
 
 import { useMemo } from 'react'
-import { HeaderIcon } from '../../components/header/Header'
+import { HeaderIcon } from '../../components/Header'
 import { useShowHelp, useToggleBoolean } from '../../hooks'
 import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
 import { canCancelContract, contractIdToHex, getRequiredAction } from '../../utils/contract'

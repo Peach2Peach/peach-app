@@ -1,4 +1,6 @@
-import { account } from '../account'
+import { useAccountStore } from '../account/account'
 
-export const getUnsentMessages = (messages: Message[]): Message[] =>
-  messages.filter((m) => m.from === account.publicKey).filter((m) => m.readBy?.length === 0)
+export const getUnsentMessages = (messages: Message[]) => {
+  const publicKey = useAccountStore.getState().account.publicKey
+  return messages.filter((m) => m.from === publicKey).filter((m) => m.readBy?.length === 0)
+}

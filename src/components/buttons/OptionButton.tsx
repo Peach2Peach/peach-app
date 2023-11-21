@@ -1,8 +1,6 @@
 import tw from '../../styles/tailwind'
-import { ButtonProps, OldButton } from './Button'
+import { Button, ButtonProps } from './Button'
 
-type OptionButtonProps = Omit<ButtonProps, 'borderColor' | 'textColor'>
+type OptionButtonProps = Omit<ButtonProps, 'ghost' | 'textColor'>
 
-export const OptionButton = (props: OptionButtonProps) => (
-  <OldButton {...props} borderColor={tw`border-black-2`} textColor={tw`text-black-2`} />
-)
+export const OptionButton = (props: OptionButtonProps) => <Button {...props} ghost textColor={tw`text-black-2`} />

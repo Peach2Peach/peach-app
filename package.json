@@ -1,6 +1,6 @@
 {
   "name": "peach",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Peach Application",
   "author": "Peach2Peach",
   "private": true,
@@ -37,6 +37,7 @@
     "test:e2e:ios:build": "detox build --configuration ios",
     "test:e2e:ios": "detox test --configuration ios --config ./tests/e2e/jest.config.js",
     "test:detox:clean": "detox clean-framework-cache && detox build-framework-cache",
+    "tsc": "tsc",
     "lint": "eslint . --ext .tsx,.ts"
   },
   "dependencies": {
@@ -97,7 +98,6 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^13.9.0",
     "react-native-tab-view": "^3.5.2",
-    "react-native-typescript-transformer": "^1.2.13",
     "react-native-url-polyfill": "^1.3.0",
     "react-native-webview": "^13.6.2",
     "readable-stream": "^4.3.0",

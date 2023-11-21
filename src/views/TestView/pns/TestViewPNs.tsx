@@ -7,12 +7,13 @@ import { Button } from '../../../components/buttons/Button'
 import { TabbedNavigation } from '../../../components/navigation/TabbedNavigation'
 import { useMessageHandler } from '../../../hooks/notifications/useMessageHandler'
 import tw from '../../../styles/tailwind'
-import { account } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { isBuyOffer, isSellOffer } from '../../../utils/offer'
 
 const useFakePNs = () => {
-  const firstSellOffer = useMemo(() => account.offers.find(isSellOffer), [])
-  const firstBuyOffer = useMemo(() => account.offers.find(isBuyOffer), [])
+  const account = useAccountStore((state) => state.account)
+  const firstSellOffer = useMemo(() => account.offers.find(isSellOffer), [account.offers])
+  const firstBuyOffer = useMemo(() => account.offers.find(isBuyOffer), [account.offers])
   const firstContract = undefined as Contract | undefined
   const sellOfferId = firstSellOffer?.id || '1'
   const buyOfferId = firstBuyOffer?.id || '1'
@@ -296,7 +297,7 @@ const useFakePNs = () => {
 }
 
 export const TestViewPNs = () => {
-  const messageHandler = useMessageHandler('testViewPNs')
+  const messageHandler = useMessageHandler()
   const { fakeOfferPNs, fakeContractPNs } = useFakePNs()
   const tabs = [
     { id: 'offer', display: 'offer' },

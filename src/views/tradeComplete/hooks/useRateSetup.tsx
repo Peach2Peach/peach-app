@@ -23,17 +23,12 @@ export const useRateSetup = ({ contract, view, vote }: Props) => {
     shallow,
   )
 
-  const navigateAfterRating = (rating: 1 | -1) => {
+  const navigateAfterRating = () => {
     if (shouldShowBackupOverlay && isPeachWalletActive && view === 'buyer') {
       setShowBackupReminder(true)
-      return navigation.replace(
-        'backupTime',
-        rating === 1 ? { nextScreen: 'contract', contractId: contract.id } : { nextScreen: 'yourTrades' },
-      )
-    } else if (rating === 1) {
-      return navigation.replace('contract', { contractId: contract.id })
+      return navigation.replace('backupTime', { nextScreen: 'contract', contractId: contract.id })
     }
-    return navigation.replace('yourTrades')
+    return navigation.navigate('contract', { contractId: contract.id })
   }
 
   const rate = async () => {
@@ -56,7 +51,7 @@ export const useRateSetup = ({ contract, view, vote }: Props) => {
     }
     await queryClient.invalidateQueries(['contract', contract.id])
     await queryClient.invalidateQueries(['contractSummaries'])
-    navigateAfterRating(rating)
+    navigateAfterRating()
   }
 
   const showTradeBreakdown = () => setPopup(<TradeBreakdownPopup contract={contract} />)

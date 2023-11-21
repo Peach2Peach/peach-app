@@ -140,7 +140,7 @@ describe('useRefundEscrow', () => {
       usePopupStore.getState().action1?.callback()
     })
     expect(usePopupStore.getState().visible).toEqual(false)
-    expect(navigateMock).toHaveBeenCalledWith('yourTrades', { tab: 'history' })
+    expect(navigateMock).toHaveBeenCalledWith('yourTrades', { tab: 'yourTrades.history' })
   })
   it('should close popup and go to backup time on close of success popup if backup is needed', async () => {
     mockSuccess()

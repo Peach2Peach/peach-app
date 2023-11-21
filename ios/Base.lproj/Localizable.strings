@@ -23,8 +23,8 @@
 "notification.body.offer.buyOfferExpired" = "Your buy offer %1$@ hasn't received a match after %2$@ days and has been removed.";
 "notification.body.offer.escrowFunded" = "The escrow has been funded and your offer is published.";
 "notification.body.offer.fundingAmountDifferent" = "The escrow has been funded with a different amount. Continue with your offer or get refunded!";
-"notification.body.offer.matchBuyer" = "You've got new matches, don't leave them hanging!";
-"notification.body.offer.matchSeller" = "You've got new matches, don't leave them hanging!";
+"notification.body.offer.matchBuyer" = "You’ve got sell offers available! Stack those sats!";
+"notification.body.offer.matchSeller" = "You’ve got buy requests available! Don’t leave them hanging!";
 "notification.body.offer.notFunded" = "You haven't funded your escrow in %2$@ days 😞 We are deleting this offer.";
 "notification.body.offer.outsideRange" = "Offer %1$@ is now outside of the trading range and will not be shown to buyers.\n\nYou can choose to cancel the offer and make a new one, or leave it as is.";
 "notification.body.offer.sellOfferExpired" = "We've canceled your sell offer, since you haven't matched anyone after %2$@ days.";

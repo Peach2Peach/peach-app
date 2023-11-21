@@ -1,17 +1,6 @@
-import { MSINADAY } from '../../constants'
 import { toDateFormat } from '.'
 
 describe('toDateFormat', () => {
-  it('should format the date as "today" if it is the current date', () => {
-    const today = new Date()
-    expect(toDateFormat(today)).toEqual('today')
-  })
-
-  it('should format the date as "yesterday" if it is the previous day', () => {
-    const yesterday = new Date(new Date().getTime() - MSINADAY)
-    expect(toDateFormat(yesterday)).toEqual('yesterday')
-  })
-
   it('should format the date as "month day, year" if it is not today or yesterday', () => {
     const date = new Date('2022-11-28')
     expect(toDateFormat(date)).toEqual('nov 28th, 2022')

@@ -6,7 +6,7 @@ import { FIFTEEN_SECONDS } from '../../../constants'
 import { useNavigation, useRoute } from '../../../hooks'
 import { useHandleNotifications } from '../../../hooks/notifications/useHandleNotifications'
 import { useContractDetails } from '../../../hooks/query/useContractDetails'
-import { account } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { getContractViewer } from '../../../utils/contract'
 import { useWebsocketContext } from '../../../utils/peachAPI/websocket'
 import { useShowHighFeeWarning } from './useShowHighFeeWarning'
@@ -16,6 +16,7 @@ export const useContractSetup = () => {
   const { contractId } = useRoute<'contract'>().params
   const isFocused = useIsFocused()
   const { contract, isLoading, refetch } = useContractDetails(contractId, FIFTEEN_SECONDS)
+  const account = useAccountStore((state) => state.account)
   const view = contract ? getContractViewer(contract, account) : undefined
   const navigation = useNavigation()
   const shouldShowFeeWarning = view === 'buyer' && !!contract?.paymentMade && !contract?.paymentConfirmed
@@ -59,6 +60,7 @@ function useChatMessageHandler () {
   const { contract } = useContractDetails(contractId, FIFTEEN_SECONDS)
   const queryClient = useQueryClient()
   const ws = useWebsocketContext()
+  const publicKey = useAccountStore((state) => state.account.publicKey)
 
   useEffect(() => {
     const messageHandler = (message: unknown) => {
@@ -66,7 +68,7 @@ function useChatMessageHandler () {
       const messageParsed = messageSchema.safeParse(message)
       if (!messageParsed.success) return
       const { message: remoteMessage, roomId, from } = messageParsed.data
-      if (!remoteMessage || roomId !== `contract-${contractId}` || from === account.publicKey) return
+      if (!remoteMessage || roomId !== `contract-${contractId}` || from === publicKey) return
 
       queryClient.setQueryData(['contract', contractId], (oldContract: Contract | undefined) =>
         !oldContract
@@ -88,7 +90,7 @@ function useChatMessageHandler () {
     ws.on('message', messageHandler)
 
     return unsubscribe
-  }, [contract, contractId, queryClient, ws])
+  }, [contract, contractId, publicKey, queryClient, ws])
 }
 
 const contractUpdateSchema = z.object({

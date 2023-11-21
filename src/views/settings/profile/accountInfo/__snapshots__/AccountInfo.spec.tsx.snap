@@ -13,16 +13,25 @@ exports[`AccountInfo should render correctly 1`] = `
     publicKey="02adcf3c857078dc3ca7064a49d20c6ae4978809057ffb75dc0750d8b5020aafe9"
   />
   <AccountCreated
+    banned={false}
     bonusPoints={0}
     creationDate={2022-03-08T11:41:07.245Z}
+    disabled={false}
     disputes={
       {
         "lost": 0,
         "opened": 0,
+        "resolved": 0,
         "won": 0,
       }
     }
+    feeRate={0}
+    historyRating={0}
     id="02adcf3c857078dc3ca7064a49d20c6ae4978809057ffb75dc0750d8b5020aafe9"
+    isBatchingEnabled={false}
+    kyc={false}
+    lastModified={2022-03-08T11:41:07.245Z}
+    linkedIds={[]}
     medals={[]}
     peachRating={0}
     pgpPublicKey="-----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -57,26 +66,38 @@ Apar4GBPVjEMVuNjtPfgC9PtIhFhnK3BFX7VZaCs3Q==
     pgpPublicKeyProof="45a32da3eaaf89803af0cf6f13d68518147ca48c170f3d30a7fe38610513115e0bc73a9d6ea4e3d866014478e576baddfb705a0a36367fe11b8732c47f0b9c8f"
     rating={0}
     ratingCount={0}
+    recentRating={0}
     referredTradingAmount={0}
     trades={0}
+    uniqueId="02adcf3c857078dc3ca7064a49d20c6ae4978809057ffb75dc0750d8b5020aafe9"
     userRating={0}
   />
   <Disputes
     lost={0}
     opened={0}
+    resolved={0}
     won={0}
   />
   <Trades
+    banned={false}
     bonusPoints={0}
     creationDate={2022-03-08T11:41:07.245Z}
+    disabled={false}
     disputes={
       {
         "lost": 0,
         "opened": 0,
+        "resolved": 0,
         "won": 0,
       }
     }
+    feeRate={0}
+    historyRating={0}
     id="02adcf3c857078dc3ca7064a49d20c6ae4978809057ffb75dc0750d8b5020aafe9"
+    isBatchingEnabled={false}
+    kyc={false}
+    lastModified={2022-03-08T11:41:07.245Z}
+    linkedIds={[]}
     medals={[]}
     peachRating={0}
     pgpPublicKey="-----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -111,8 +132,10 @@ Apar4GBPVjEMVuNjtPfgC9PtIhFhnK3BFX7VZaCs3Q==
     pgpPublicKeyProof="45a32da3eaaf89803af0cf6f13d68518147ca48c170f3d30a7fe38610513115e0bc73a9d6ea4e3d866014478e576baddfb705a0a36367fe11b8732c47f0b9c8f"
     rating={0}
     ratingCount={0}
+    recentRating={0}
     referredTradingAmount={0}
     trades={0}
+    uniqueId="02adcf3c857078dc3ca7064a49d20c6ae4978809057ffb75dc0750d8b5020aafe9"
     userRating={0}
   />
 </View>

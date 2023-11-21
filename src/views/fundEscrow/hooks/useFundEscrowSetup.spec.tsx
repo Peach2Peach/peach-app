@@ -50,6 +50,7 @@ const createEscrowSuccess = {
 const getOfferDetailsMock = jest.fn().mockReturnValue([sellOfferWithEscrow, null])
 const createEscrowMock = jest.fn().mockResolvedValue([createEscrowSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
+  peachAPI: jest.requireActual('../../../utils/peachAPI').peachAPI,
   getOfferDetails: () => getOfferDetailsMock(),
   createEscrow: (...args: unknown[]) => createEscrowMock(...args),
 }))
@@ -62,12 +63,6 @@ const cancelOfferMock = jest.fn()
 jest.mock('../../../hooks/useCancelOffer', () => ({
   useCancelOffer: () => cancelOfferMock,
 }))
-
-// jest.mock('../../wallet/hooks/useSyncWallet', () => ({
-//   useSyncWallet: jest.fn(() => ({
-//     refresh: jest.fn(),
-//   })),
-// }))
 
 describe('useFundEscrowSetup', () => {
   beforeEach(() => {

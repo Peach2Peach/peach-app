@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useConfigStore } from '../store/configStore'
+import { useConfigStore } from '../store/configStore/configStore'
 import { useOfferPreferences } from '../store/offerPreferenes/useOfferPreferences'
 import { getTradingAmountLimits } from '../utils/market'
 

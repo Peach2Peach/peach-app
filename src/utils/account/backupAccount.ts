@@ -6,8 +6,7 @@ import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { writeFile } from '../file'
 import { error, info } from '../log'
 import { parseError } from '../result'
-import { account } from './account'
-import { getAccountBackup } from './getAccountBackup'
+import { useAccountStore } from './account'
 
 type BackupAccountProps = {
   password: string
@@ -18,6 +17,7 @@ type BackupAccountProps = {
 
 export const backupAccount = async ({ password, onSuccess, onCancel, onError }: BackupAccountProps) => {
   info('Backing up account')
+  const account = useAccountStore.getState().account
   try {
     const destinationFileName
       = NETWORK === 'bitcoin'
@@ -26,13 +26,13 @@ export const backupAccount = async ({ password, onSuccess, onCancel, onError }: 
 
     await writeFile(
       `/${destinationFileName}`,
-      JSON.stringify(
-        getAccountBackup({
-          account,
-          paymentData: usePaymentDataStore.getState().getPaymentDataArray(),
-          settings: useSettingsStore.getState().getPureState(),
-        }),
-      ),
+      JSON.stringify({
+        ...account,
+        paymentData: usePaymentDataStore.getState().getPaymentDataArray(),
+        settings: useSettingsStore.getState().getPureState(),
+        offers: [],
+        chats: {},
+      }),
       password,
     )
 

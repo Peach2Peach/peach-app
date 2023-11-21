@@ -1,4 +1,3 @@
-import { saveOffer } from './../../../utils/offer/saveOffer'
 import { InfiniteData } from '@tanstack/react-query'
 
 export const updateMatchedStatus = (
@@ -15,11 +14,6 @@ export const updateMatchedStatus = (
       ...m,
       matched: m.offerId === matchingOfferId ? isMatched : m.matched,
     }))
-    const matchedOffers = newMatches.filter((m) => m.matched).map((m) => m.offerId)
-    saveOffer({
-      ...offer,
-      matched: matchedOffers,
-    })
 
     return {
       ...oldQueryData,

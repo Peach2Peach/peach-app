@@ -1,7 +1,7 @@
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
-import { account } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { getContractViewer } from '../../../utils/contract'
 import { useDecryptedContractData } from '../../contractChat/useDecryptedContractData'
 import { submitRaiseDispute } from '../utils/submitRaiseDispute'
@@ -9,7 +9,7 @@ import { disputeReasons } from './disputeReasons'
 
 export const useDisputeReasonSelectorSetup = (contract: Contract) => {
   const { data: decrptedData } = useDecryptedContractData(contract)
-
+  const account = useAccountStore((state) => state.account)
   const view = getContractViewer(contract, account)
   const availableReasons = view === 'seller' ? disputeReasons.seller : disputeReasons.buyer
 

@@ -139,3 +139,7 @@ then run
 3. `npx react-native-asset`
 
 before building the app
+
+### Initializing the peach-api submodule
+
+When cloning this repo you will have to run: `git submodule update --init` to initialize the peach-api submodule.

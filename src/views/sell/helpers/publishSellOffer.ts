@@ -1,7 +1,7 @@
 import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
 import i18n from '../../../utils/i18n'
 import { isSellOffer } from '../../../utils/offer'
-import { postSellOffer } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 import { info } from './../../../utils/log'
 import { handleMultipleOffersPublished } from './handleMultipleOffersPublished'
 import { handleSellOfferPublished } from './handleSellOfferPublished'
@@ -16,19 +16,17 @@ const createPayload = (offerDraft: SellOfferDraft) => ({
   multi: offerDraft.multi,
 })
 
-export const publishSellOffer = async (
-  offerDraft: SellOfferDraft,
-): Promise<{ isPublished: boolean; navigationParams: { offerId: string } | null; errorMessage: string | null }> => {
+export const publishSellOffer = async (offerDraft: SellOfferDraft) => {
   info('Posting sell offer')
 
   const payload = createPayload(offerDraft)
 
-  let [result, err] = await postSellOffer(payload)
+  let { result, error: err } = await peachAPI.private.offer.postSellOffer(payload)
   if (err?.error === 'PGP_MISSING') {
     await publishPGPPublicKey()
-    const response = await postSellOffer(payload)
-    result = response[0]
-    err = response[1]
+    const response = await peachAPI.private.offer.postSellOffer(payload)
+    result = response.result
+    err = response.error
   }
 
   if (result && !Array.isArray(result) && isSellOffer(result)) {

@@ -1,5 +1,5 @@
 import { Psbt } from 'bitcoinjs-lib'
-import { useConfigStore } from '../../../store/configStore'
+import { useConfigStore } from '../../../store/configStore/configStore'
 import { txIdPartOfPSBT } from '../../../utils/bitcoin'
 import { releaseTransactionHasValidOutputs } from './releaseTransactionHasValidOutputs'
 

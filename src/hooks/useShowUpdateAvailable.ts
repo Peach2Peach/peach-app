@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useMessageState } from '../components/message/useMessageState'
-import { APPVERSION } from '../constants'
-import { useConfigStore } from '../store/configStore'
+import { APPVERSION, BUILDNUMBER } from '../constants'
+import { useConfigStore } from '../store/configStore/configStore'
 import i18n from '../utils/i18n'
 import { compatibilityCheck, linkToAppStore } from '../utils/system'
 
@@ -14,8 +14,8 @@ export const useShowUpdateAvailable = () => {
   )
 
   useEffect(() => {
-    if (!compatibilityCheck(APPVERSION, minAppVersion)) return
-    if (compatibilityCheck(APPVERSION, latestAppVersion)) return
+    if (!compatibilityCheck(`${APPVERSION} (${BUILDNUMBER})`, minAppVersion)) return
+    if (compatibilityCheck(`${APPVERSION} (${BUILDNUMBER})`, latestAppVersion)) return
     updateMessage({
       msgKey: 'UPDATE_AVAILABLE',
       level: 'WARN',
@@ -29,7 +29,7 @@ export const useShowUpdateAvailable = () => {
   }, [latestAppVersion, minAppVersion, updateMessage])
 
   useEffect(() => {
-    if (compatibilityCheck(APPVERSION, minAppVersion)) return
+    if (compatibilityCheck(`${APPVERSION} (${BUILDNUMBER})`, minAppVersion)) return
     updateMessage({
       msgKey: 'CRITICAL_UPDATE_AVAILABLE',
       level: 'ERROR',

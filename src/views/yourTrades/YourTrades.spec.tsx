@@ -9,7 +9,7 @@ jest.useFakeTimers()
 jest.mock('../../hooks/useRoute', () => ({
   useRoute: jest.fn(() => ({
     params: {
-      tab: 'buy',
+      tab: 'yourTrades.buy',
     },
   })),
 }))

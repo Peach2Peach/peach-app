@@ -19,9 +19,9 @@ const socials = [
 
 export const Socials = () => (
   <Screen header={i18n('settings.socials.subtitle')}>
-    <View style={tw`items-center justify-center grow`}>
+    <View style={tw`items-center justify-center gap-2 grow`}>
       {socials.map(({ name, url }) => (
-        <OptionButton key={name} onPress={() => openURL(url)} style={tw`mt-2`} wide>
+        <OptionButton key={name} onPress={() => openURL(url)}>
           {i18n(name)}
         </OptionButton>
       ))}

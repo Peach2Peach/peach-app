@@ -10,8 +10,8 @@ import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { WarningPopup } from '../../popups/WarningPopup'
 import { ClosePopupAction } from '../../popups/actions'
 import { LoadingPopupAction } from '../../popups/actions/LoadingPopupAction'
-import { useSubmitDisputeAcknowledgement } from '../../popups/dispute/hooks/helpers/useSubmitDisputeAcknowledgement'
-import { useConfigStore } from '../../store/configStore'
+import { useSubmitDisputeAcknowledgement } from '../../popups/dispute/hooks/useSubmitDisputeAcknowledgement'
+import { useConfigStore } from '../../store/configStore/configStore'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { contractIdToHex, getNavigationDestinationForContract, getOfferIdFromContract } from '../../utils/contract'
@@ -25,7 +25,7 @@ export function NewOfferButton () {
   const navigation = useNavigation()
   const { contract } = useContractContext()
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
-  const newOfferId = offer?.newOfferId
+  const newOfferId = !!offer && 'newOfferId' in offer ? offer?.newOfferId : undefined
   const goToNewOffer = useCallback(async () => {
     if (!newOfferId) return
     const [newOffer] = await getOfferDetails({ offerId: newOfferId })

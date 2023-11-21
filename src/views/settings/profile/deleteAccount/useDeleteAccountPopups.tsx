@@ -1,14 +1,14 @@
 import { useCallback } from 'react'
-import { useNavigation } from '../../../../hooks'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { deleteAccount } from '../../../../utils/account'
+import { useAccountStore } from '../../../../utils/account/account'
 import i18n from '../../../../utils/i18n'
 import { logoutUser } from '../../../../utils/peachAPI'
 import { DeleteAccountPopup } from './DeleteAccountPopup'
 
 export const useDeleteAccountPopups = () => {
   const setPopup = usePopupStore((state) => state.setPopup)
-  const navigation = useNavigation()
+  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn)
 
   const showPopup = useCallback(
     (content: JSX.Element, callback?: () => void, isSuccess = false) =>
@@ -32,10 +32,7 @@ export const useDeleteAccountPopups = () => {
   const deleteAccountClicked = () => {
     deleteAccount()
     logoutUser({})
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'welcome' }],
-    })
+    setIsLoggedIn(false)
     showPopup(<DeleteAccountPopup title={'success'} />, undefined, true)
   }
 

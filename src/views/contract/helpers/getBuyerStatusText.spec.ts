@@ -23,9 +23,9 @@ describe('getBuyerStatusText', () => {
     ).toBe(i18n('contract.buyer.buyerCanceledTrade'))
   })
   it("should return correct text if the buyer canceled the trade and it's a cash trade", () => {
-    expect(getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'buyer', paymentMethod: 'cash' })).toBe(
-      i18n('contract.buyer.buyerCanceledCashTrade'),
-    )
+    expect(
+      getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'buyer', paymentMethod: 'cash.someMeetup' }),
+    ).toBe(i18n('contract.buyer.buyerCanceledCashTrade'))
   })
   it("should return correct text if the buyer canceled the trade and it's a collab cancel", () => {
     expect(
@@ -33,9 +33,9 @@ describe('getBuyerStatusText', () => {
     ).toBe('You agreed to cancel the trade, and the seller has been refunded.')
   })
   it('should return correct text if seller canceled cash trade', () => {
-    expect(getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'seller', paymentMethod: 'cash' })).toBe(
-      i18n('contract.buyer.sellerCanceledCashTrade'),
-    )
+    expect(
+      getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'seller', paymentMethod: 'cash.someMeetup' }),
+    ).toBe(i18n('contract.buyer.sellerCanceledCashTrade'))
   })
   it('should return correct text if payment is too late', () => {
     isPaymentTooLateMock.mockReturnValueOnce(true)

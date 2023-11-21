@@ -1,13 +1,13 @@
 import messaging from '@react-native-firebase/messaging'
 import { useSettingsStore } from '../store/settingsStore'
-import { account } from '../utils/account'
+import { useAccountStore } from '../utils/account/account'
 import { error, info } from '../utils/log'
 import { updateUser } from '../utils/peachAPI'
 import { UpdateUserProps } from '../utils/peachAPI/private/user/updateUser'
 import { parseError } from '../utils/result'
 
 export const userUpdate = async (referralCode?: string) => {
-  if (!account) return
+  const account = useAccountStore.getState().account
 
   const settings = useSettingsStore.getState()
   try {

@@ -20,8 +20,6 @@ const responseBody: PostOfferResponseBody = {
   online: true,
   matches: [],
   doubleMatched: false,
-  matched: [],
-  seenMatches: [],
   creationDate: new Date('2021-01-01'),
 }
 const fetchMock = jest.fn().mockImplementation((url: string) => {
@@ -72,7 +70,7 @@ describe('postBuyOffer', () => {
     signal: undefined,
   }
   it('should call fetch with the right arguments', async () => {
-    const offerDraft: Omit<BuyOfferDraft, 'originalPaymentData'> = {
+    const offerDraft: Omit<BuyOfferDraft, 'originalPaymentData' | 'message'> = {
       type: 'bid',
       amount: [1000, 2000],
       meansOfPayment: {
@@ -89,7 +87,7 @@ describe('postBuyOffer', () => {
     })
   })
   it('should return the response body and null if the request is successful', async () => {
-    const offerDraft: Omit<BuyOfferDraft, 'originalPaymentData'> = {
+    const offerDraft: Omit<BuyOfferDraft, 'originalPaymentData' | 'message'> = {
       type: 'bid',
       amount: [1000, 2000],
       meansOfPayment: {
@@ -104,7 +102,7 @@ describe('postBuyOffer', () => {
     expect(result).toEqual([responseBody, null])
   })
   it('should return null and an APIError if the request is not successful', async () => {
-    const offerDraft: Omit<BuyOfferDraft, 'originalPaymentData'> = {
+    const offerDraft: Omit<BuyOfferDraft, 'originalPaymentData' | 'message'> = {
       type: 'bid',
       amount: [1000, 2000],
       meansOfPayment: {
@@ -126,7 +124,7 @@ describe('postBuyOffer', () => {
   })
 
   it('should not send sensitive data to the server', async () => {
-    const offerDraft = {
+    const offerDraft: Omit<BuyOfferDraft, 'message'> = {
       type: 'bid',
       amount: [1000, 2000],
       meansOfPayment: {
@@ -135,16 +133,20 @@ describe('postBuyOffer', () => {
       paymentData,
       releaseAddress: 'releaseAddress',
       maxPremium: null,
-      originalPaymentData: {
-        sepa: {
+      originalPaymentData: [
+        {
+          id: 'sepa',
+          label: 'SEPA',
+          currencies: ['EUR'],
+          type: 'sepa',
           iban: 'iban',
           bic: 'bic',
-          holder: 'holder',
+          beneficiary: 'holder',
         },
-      },
+      ],
+      // @ts-expect-error testing unexpected sensitive input
       otherSensitiveData: ['myPrivateKey'],
     }
-    // @ts-expect-error all necessary data is passed
     await postBuyOffer(offerDraft)
     expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/v1/offer`, {
       ...defaultArgs,
@@ -161,7 +163,7 @@ describe('postBuyOffer', () => {
     })
   })
   it('should send the messageSignature to the server', async () => {
-    const offerDraft = {
+    const offerDraft: Omit<BuyOfferDraft, 'message' | 'originalPaymentData'> = {
       type: 'bid',
       amount: [1000, 2000],
       meansOfPayment: {
@@ -172,7 +174,6 @@ describe('postBuyOffer', () => {
       maxPremium: null,
       messageSignature: 'messageSignature',
     }
-    // @ts-expect-error all necessary data is passed
     await postBuyOffer(offerDraft)
     expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/v1/offer`, {
       ...defaultArgs,

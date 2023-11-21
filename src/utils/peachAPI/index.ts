@@ -3,6 +3,7 @@ export type RequestProps = {
   abortSignal?: AbortSignal
 }
 
+export { peachAPI } from './peachAPI'
 export {
   cancelContract,
   confirmContractCancelation,
@@ -30,7 +31,6 @@ export {
   matchOffer,
   patchOffer,
   postBuyOffer,
-  postSellOffer,
   refundSellOffer,
   reviveSellOffer,
   unmatchOffer,
@@ -39,7 +39,6 @@ export {
   auth,
   deletePaymentHash,
   fetchAccessToken,
-  getSelfUser,
   getTradingLimit,
   getUserPaymentMethodInfo,
   logoutUser,
@@ -53,4 +52,4 @@ export { getFeeEstimate, postTx } from './public/bitcoin'
 export { sendReport } from './public/contact'
 export { marketPrice } from './public/market'
 export { getInfo, getStatus } from './public/system'
-export { checkReferralCode, getUser } from './public/user'
+export { getUser } from './public/user'

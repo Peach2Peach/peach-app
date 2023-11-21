@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { error, info } from '../../utils/log'
 import { parseError } from '../../utils/result'
 
-export const useHandleNotifications = (messageHandler: (message: FirebaseMessagingTypes.RemoteMessage) => any) => {
+export const useHandleNotifications = (messageHandler: (message: FirebaseMessagingTypes.RemoteMessage) => void) => {
   useEffect(() => {
     info('Subscribe to push notifications')
     try {

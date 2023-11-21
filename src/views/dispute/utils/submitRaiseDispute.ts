@@ -1,4 +1,4 @@
-import { useConfigStore } from '../../../store/configStore'
+import { useConfigStore } from '../../../store/configStore/configStore'
 import { error } from '../../../utils/log'
 import { raiseDispute } from '../../../utils/peachAPI'
 import { signAndEncrypt } from '../../../utils/pgp'

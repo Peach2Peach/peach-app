@@ -1,10 +1,13 @@
 import { useCallback } from 'react'
+import { shallow } from 'zustand/shallow'
+import { PopupAction } from '../components/popup'
 import { useNavigation } from '../hooks'
 import { usePopupStore } from '../store/usePopupStore'
+import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { sum } from '../utils/math'
+import { WarningPopup } from './WarningPopup'
 import { FundingAmountDifferent } from './warning/FundingAmountDifferent'
-import { shallow } from 'zustand/shallow'
 
 export const useShowFundingAmountDifferentPopup = () => {
   const navigation = useNavigation()
@@ -12,22 +15,27 @@ export const useShowFundingAmountDifferentPopup = () => {
 
   const showFundingAmountDifferentPopup = useCallback(
     (sellOffer: SellOffer) =>
-      setPopup({
-        title: i18n('warning.fundingAmountDifferent.title'),
-        content: (
-          <FundingAmountDifferent amount={sellOffer.amount} actualAmount={sellOffer.funding.amounts.reduce(sum, 0)} />
-        ),
-        visible: true,
-        level: 'WARN',
-        action1: {
-          label: i18n('goToTrade'),
-          icon: 'arrowRightCircle',
-          callback: () => {
-            closePopup()
-            navigation.replace('wrongFundingAmount', { offerId: sellOffer.id })
-          },
-        },
-      }),
+      setPopup(
+        <WarningPopup
+          title={i18n('warning.fundingAmountDifferent.title')}
+          content={
+            <FundingAmountDifferent amount={sellOffer.amount} actualAmount={sellOffer.funding.amounts.reduce(sum, 0)} />
+          }
+          actions={
+            <PopupAction
+              style={tw`justify-center`}
+              label={i18n('goToTrade')}
+              iconId="arrowRightCircle"
+              textStyle={tw`text-black-1`}
+              reverseOrder
+              onPress={() => {
+                closePopup()
+                navigation.navigate('wrongFundingAmount', { offerId: sellOffer.id })
+              }}
+            />
+          }
+        />,
+      ),
     [closePopup, navigation, setPopup],
   )
   return showFundingAmountDifferentPopup

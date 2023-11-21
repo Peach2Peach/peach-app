@@ -1006,6 +1006,33 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                  
                 lost
               </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 28,
+                      "paddingRight": 16,
+                      "textTransform": "lowercase",
+                    },
+                    false,
+                  ]
+                }
+              >
+                0
+                 
+                resolved
+              </Text>
             </View>
           </View>
           <View>

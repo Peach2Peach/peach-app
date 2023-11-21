@@ -4,6 +4,7 @@ import { Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { useWriteCSV } from '../../hooks'
 import tw from '../../styles/tailwind'
+import { toShortDateFormat } from '../../utils/date'
 import { createCSV } from '../../utils/file'
 import i18n from '../../utils/i18n'
 import { useWalletState } from '../../utils/wallet/walletStore'
@@ -42,7 +43,7 @@ function createCSVValue (transactions: TransactionDetails[]) {
   const fields = {
     Date: (d: TransactionDetails) => {
       const { date } = getTxSummary(d)
-      return date.toLocaleString().replaceAll(',', '')
+      return toShortDateFormat(date, true)
     },
     Type: (d: TransactionDetails) => getTxSummary(d).type,
     Amount: (d: TransactionDetails) => getTxSummary(d).amount,

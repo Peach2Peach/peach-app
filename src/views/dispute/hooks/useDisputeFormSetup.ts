@@ -3,7 +3,7 @@ import { Keyboard } from 'react-native'
 import { useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
-import { account } from '../../../utils/account'
+import { useAccountStore } from '../../../utils/account/account'
 import { getContractViewer } from '../../../utils/contract'
 import { isEmailRequiredForDispute } from '../../../utils/dispute'
 import { useDecryptedContractData } from '../../contractChat/useDecryptedContractData'
@@ -24,6 +24,8 @@ export const useDisputeFormSetup = (contract: Contract) => {
   const [message, setMessage, messageIsValid, messageErrors] = useValidatedState<string>('', required)
   const [loading, setLoading] = useState(false)
   const isFormValid = emailIsValid && messageIsValid
+
+  const account = useAccountStore((state) => state.account)
 
   const disputeRaisedPopup = useDisputeRaisedSuccess()
 

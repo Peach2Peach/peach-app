@@ -8,15 +8,421 @@ exports[`ReferralCode should render component correctly 1`] = `
     }
   }
 >
-  <YourCode
-    referralCode="HALFIN"
-  />
-  <InviteLink
-    inviteLink="https://peachbitcoin.com/referral?code=HALFIN"
-  />
-  <InviteFriendsButton
-    inviteLink="https://peachbitcoin.com/referral?code=HALFIN"
-    referralCode="HALFIN"
-  />
+  <View>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#7D675E",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+            "textAlign": "center",
+          },
+          false,
+        ]
+      }
+    >
+      your referral code:
+    </Text>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 34,
+              "letterSpacing": 0.34,
+              "lineHeight": 42,
+              "marginRight": 4,
+              "textAlign": "center",
+            },
+            false,
+          ]
+        }
+      >
+        PR0063
+      </Text>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "flexShrink": 1,
+              "height": 16,
+              "justifyContent": "center",
+              "width": 16,
+            },
+            {
+              "height": 28,
+              "width": 28,
+            },
+          ]
+        }
+      >
+        <test-file-stub
+          fill="#F56522"
+          style={
+            [
+              {
+                "height": 24,
+                "width": 24,
+              },
+              {
+                "height": "100%",
+                "width": "100%",
+              },
+            ]
+          }
+        />
+        <View
+          collapsable={false}
+          style={
+            {
+              "bottom": "100%",
+              "marginBottom": 4,
+              "opacity": 0,
+              "position": "absolute",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Medium",
+                    "fontSize": 14,
+                    "letterSpacing": 0.14,
+                    "lineHeight": 20,
+                  },
+                  {
+                    "color": "#F56522",
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            copied!
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "borderColor": "#F56522",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      }
+    }
+  >
+    <View>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "color": "#7D675E",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            false,
+          ]
+        }
+      >
+        invite link
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "fontSize": 12,
+            },
+            false,
+          ]
+        }
+      >
+        peachbitcoin.com/referral?code=PR0063
+      </Text>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        [
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "flexShrink": 1,
+            "height": 16,
+            "justifyContent": "center",
+            "width": 16,
+          },
+          {
+            "height": 28,
+            "width": 28,
+          },
+        ]
+      }
+    >
+      <test-file-stub
+        fill="#F56522"
+        style={
+          [
+            {
+              "height": 24,
+              "width": 24,
+            },
+            {
+              "height": "100%",
+              "width": "100%",
+            },
+          ]
+        }
+      />
+      <View
+        collapsable={false}
+        style={
+          {
+            "bottom": "100%",
+            "marginBottom": 4,
+            "opacity": 0,
+            "position": "absolute",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-Medium",
+                  "fontSize": 14,
+                  "letterSpacing": 0.14,
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "#F56522",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          copied!
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "backgroundColor": "transparent",
+        "borderColor": "#F56522",
+        "borderRadius": 9999,
+        "borderWidth": 2,
+        "flexDirection": "row",
+        "gap": 8,
+        "height": 40,
+        "justifyContent": "center",
+        "minWidth": 128,
+        "opacity": 1,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      numberOfLines={1}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 13,
+              "letterSpacing": 0.47,
+              "lineHeight": 22,
+              "textTransform": "uppercase",
+            },
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 15,
+              "letterSpacing": 0.54,
+              "lineHeight": 26,
+              "textTransform": "uppercase",
+            },
+            {
+              "color": "#F56522",
+            },
+          ],
+          false,
+        ]
+      }
+    >
+      invite friends
+    </Text>
+  </View>
 </View>
 `;

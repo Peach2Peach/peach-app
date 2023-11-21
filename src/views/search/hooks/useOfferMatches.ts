@@ -23,7 +23,12 @@ export const useOfferMatches = (offerId: string, enabled = true) => {
     !offer ? ['bestReputation'] : isBuyOffer(offer) ? state.sortBy.buyOffer : state.sortBy.sellOffer,
   )
 
-  const queryData = useInfiniteQuery({
+  const queryData = useInfiniteQuery<
+    GetMatchesResponse,
+    APIError,
+    GetMatchesResponse,
+    ReturnType<typeof matchesKeys.sortedMatchesByOfferId>
+  >({
     queryKey: matchesKeys.sortedMatchesByOfferId(offerId, sortBy),
     queryFn: getMatchesFn,
     refetchInterval: FIFTEEN_SECONDS,

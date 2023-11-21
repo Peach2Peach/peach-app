@@ -1,19 +1,13 @@
-import { DEV } from '@env'
 import { useEffect, useRef } from 'react'
 import { Animated, SafeAreaView, TextStyle, TouchableOpacity, View, ViewStyle, useWindowDimensions } from 'react-native'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import SplashScreen from 'react-native-splash-screen'
 import { shallow } from 'zustand/shallow'
 import { Icon, Placeholder, Text } from '..'
 import { IconType } from '../../assets/icons'
-import { ISEMULATOR } from '../../constants'
 import { useNavigation } from '../../hooks'
-import { initApp } from '../../init/initApp'
-import { requestUserPermissions } from '../../init/requestUserPermissions'
 import { VerifyYouAreAHumanPopup } from '../../popups/warning/VerifyYouAreAHumanPopup'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
-import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { messageShadow } from '../../utils/layout/shadows'
 import { error } from '../../utils/log'
@@ -96,38 +90,6 @@ export const Message = () => {
       },
     })
   })
-
-  useEffect(() => {
-    if (DEV !== 'true' && ISEMULATOR) {
-      error(new Error('NO_EMULATOR'))
-      updateMessage({ msgKey: 'NO_EMULATOR', level: 'ERROR' })
-
-      return
-    }
-
-    (async () => {
-      const statusResponse = await initApp()
-
-      if (!statusResponse || statusResponse.error) {
-        if (statusResponse?.error === 'HUMAN_VERIFICATION_REQUIRED') {
-          setPopup(<VerifyYouAreAHumanPopup />)
-        } else {
-          updateMessage({
-            msgKey: statusResponse?.error || 'NETWORK_ERROR',
-            level: 'ERROR',
-            action: {
-              callback: () => navigation.navigate('contact'),
-              label: i18n('contactUs'),
-              icon: 'mail',
-            },
-          })
-        }
-      }
-      navigation.navigate(account.publicKey ? 'buy' : 'welcome')
-      requestUserPermissions()
-      SplashScreen.hide()
-    })()
-  }, [])
 
   const { width } = useWindowDimensions()
   const top = useRef(new Animated.Value(-width)).current

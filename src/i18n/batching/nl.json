@@ -16,7 +16,7 @@
   "settings.batching.turnOff.description" : "Je hebt een uitbetaling in behandeling. Als je batchen nu uitschakelt, wordt deze borg meteen uitbetaald, tegen hogere kosten. Weet je het zeker?",
   "settings.batching.turnOff.no" : "nee, wacht",
   "settings.batching.turnOff.title" : "batchen uitschakelen",
-  "settings.batching.turnOff.yes" : "ja, betaal uit",
+  "settings.batching.turnOff.yes" : "ja, ik wil het eerder",
   "settings.batching.youPay" : "Je betaald tot 30% meer",
   "settings.batching.youPay.highlight" : "30% meer",
   "settings.batching.youSave" : "Bespaar tot wel 23% in netwerkkosten",

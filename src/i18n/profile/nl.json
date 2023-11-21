@@ -5,6 +5,7 @@
   "profile.disputes" : "geschillen",
   "profile.disputesLost" : "verloren",
   "profile.disputesOpened" : "geopend",
+  "profile.disputesResolved" : "opgelost",
   "profile.disputesWon" : "gewonnen",
   "profile.myAccount.title" : "mijn account",
   "profile.numberOfTrades" : "aantal transacties",

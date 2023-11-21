@@ -40,7 +40,7 @@ export const handlePushNotification = async (
     const { contractId } = data
     navigationRef.navigate('contractChat', { contractId })
   } else if (shouldGoToYourTradesSell(data)) {
-    navigationRef.navigate('yourTrades', { tab: 'sell' })
+    navigationRef.navigate('yourTrades', { tab: 'yourTrades.sell' })
   } else if (shouldGoToSell(data)) {
     navigationRef.navigate('sell')
   } else if (isDefined(data.offerId)) {

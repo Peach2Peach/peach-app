@@ -12,6 +12,7 @@ jest.mock('../../init/userUpdate', () => ({
 }))
 const getOffersMock = jest.fn().mockResolvedValue([[], null])
 jest.mock('../peachAPI', () => ({
+  peachAPI: jest.requireActual('../peachAPI').peachAPI,
   getOffers: (...args: unknown[]) => getOffersMock(...args),
 }))
 

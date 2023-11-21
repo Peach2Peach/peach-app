@@ -91,6 +91,7 @@
   "settings.payoutAddress" : "carteira de pagamento personalizada",
   "settings.payoutAddress.confirm" : "confirmar",
   "settings.payoutAddress.popup" : "Por predefinição, todos os pagamentos de transacções são enviados para a sua carteira Peach. Se quiser que sejam enviados para outro local, pode introduzir um endereço personalizado aqui.",
+  "settings.payoutAddress.removeWallet" : "remover carteira",
   "settings.payoutAddress.success" : "endereço definido",
   "settings.payoutAddress.title" : "definir endereço personalizado",
   "settings.peachApp" : "Peach Bitcoin v",

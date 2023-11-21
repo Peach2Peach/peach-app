@@ -5,7 +5,6 @@ exports[`RestoreBackupLoading should render correctly 1`] = `
   style={
     {
       "alignItems": "center",
-      "display": "flex",
       "height": "100%",
       "justifyContent": "center",
     }
@@ -96,13 +95,4 @@ exports[`RestoreBackupLoading should render correctly 1`] = `
     useNativeLooping={false}
   />
 </View>
-`;
-
-exports[`RestoreBackupLoading should set header correctly 1`] = `
-<OldHeader
-  hideGoBackButton={true}
-  icons={[]}
-  theme="inverted"
-  title="restore backup"
-/>
 `;

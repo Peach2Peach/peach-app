@@ -2,11 +2,12 @@ import { account1 } from '../../../tests/unit/data/accountData'
 import { tradingLimit } from '../../../tests/unit/data/tradingLimitsData'
 import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
 import { dataMigrationAfterLoadingWallet } from '../../init/dataMigration/dataMigrationAfterLoadingWallet'
+import { useSettingsStore } from '../../store/settingsStore'
+import i18n from '../i18n'
 import { getPeachAccount } from '../peachAPI/peachAccount'
 import { getWallet } from '../wallet'
 import { PeachWallet } from '../wallet/PeachWallet'
-import { useSettingsStore } from '../../store/settingsStore'
-import { account, defaultAccount } from './account'
+import { defaultAccount, useAccountStore } from './account'
 import { updateAccount } from './updateAccount'
 
 const getDeviceLocaleMock = jest.fn((): string | undefined => 'en')
@@ -14,12 +15,7 @@ jest.mock('../system', () => ({
   getDeviceLocale: () => getDeviceLocaleMock(),
 }))
 
-const setLocaleQuietMock = jest.fn()
-jest.mock('../i18n', () => ({
-  __esModule: true,
-  ...jest.requireActual('../i18n'),
-  setLocaleQuiet: (locale: string) => setLocaleQuietMock(locale),
-}))
+const setLocaleQuietMock = jest.spyOn(i18n, 'setLocale')
 
 jest.mock('../../init/dataMigration/dataMigrationAfterLoadingWallet', () => ({
   dataMigrationAfterLoadingWallet: jest.fn(),
@@ -34,16 +30,19 @@ describe('updateAccount', () => {
   const loadWalletSpy = jest.spyOn(PeachWallet.prototype, 'loadWallet')
   it('sets an account, sets wallet and peachAccount', () => {
     updateAccount(account1)
+    const account = useAccountStore.getState().account
     expect(account).toEqual(account1)
     expect(getWallet()).toBeDefined()
     expect(getPeachAccount()).toBeDefined()
   })
   it('overwrites an account', () => {
     updateAccount({ ...account1, tradingLimit }, true)
+    const account = useAccountStore.getState().account
     expect(account.tradingLimit).toEqual(tradingLimit)
   })
   it('merges an account with update', () => {
     updateAccount({ ...account1, tradingLimit })
+    const account = useAccountStore.getState().account
     expect(account.tradingLimit).toEqual(defaultAccount.tradingLimit)
   })
   it('does not set the locale to undefined', () => {

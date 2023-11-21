@@ -1,7 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable max-lines */
 
-import { twintData, twintDataHashes, validSEPAData, validSEPADataHashes } from './paymentData'
+import { twintDataHashes, validSEPAData, validSEPADataHashes } from './paymentData'
+import { defaultUser } from './userData'
 
 export const buyOffer: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
@@ -18,15 +19,15 @@ export const buyOffer: BuyOffer = {
     sepa: { hashes: validSEPADataHashes },
     twint: { hashes: twintDataHashes },
   },
-  originalPaymentData: [validSEPAData, twintData],
   amount: [50000, 250000],
   matches: [],
-  matched: [],
-  seenMatches: [],
   doubleMatched: false,
   releaseAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
-  tradeStatus: 'waiting',
+  tradeStatus: 'searchingForPeer',
   maxPremium: null,
+  user: defaultUser,
+  escrowFee: 0.0001,
+  freeTrade: false,
 }
 
 export const sellOffer: SellOffer = {
@@ -42,7 +43,6 @@ export const sellOffer: SellOffer = {
   paymentData: {
     sepa: { hashes: validSEPADataHashes },
   },
-  originalPaymentData: [validSEPAData],
   funding: {
     status: 'NULL',
     txIds: [],
@@ -53,13 +53,16 @@ export const sellOffer: SellOffer = {
   amount: 250000,
   premium: 1.5,
   matches: [],
-  matched: [],
-  seenMatches: [],
   doubleMatched: false,
   returnAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
   refunded: false,
   released: false,
-  tradeStatus: 'waiting',
+  tradeStatus: 'searchingForPeer',
+  escrowFee: 0.0001,
+  freeTrade: false,
+  user: defaultUser,
+  fundingAmountDifferent: false,
+  publicKey: 'TODO add public key',
 }
 
 export const wronglyFundedSellOffer: SellOffer = {
@@ -85,25 +88,7 @@ export const buyOfferUnpublished: BuyOfferDraft = {
 }
 
 export const matchOffer: Match = {
-  user: {
-    id: '1',
-    creationDate: new Date('2022-03-08T11:41:07.245Z'),
-    trades: 0,
-    rating: 0,
-    userRating: 0,
-    ratingCount: 0,
-    peachRating: 0,
-    medals: [],
-    bonusPoints: 0,
-    referredTradingAmount: 0,
-    disputes: {
-      opened: 0,
-      won: 0,
-      lost: 0,
-    },
-    pgpPublicKey: 'TODO add pgp public key',
-    pgpPublicKeyProof: 'TODO add pgp',
-  },
+  user: defaultUser,
   offerId: '37',
   prices: {
     EUR: 1,

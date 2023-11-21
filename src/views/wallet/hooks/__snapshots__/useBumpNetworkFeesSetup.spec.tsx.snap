@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`useBumpNetworkFeesSetup should set up header correctly 1`] = `<React.Fragment />`;
-
-exports[`useBumpNetworkFeesSetup should show no header while loading 1`] = `<React.Fragment />`;

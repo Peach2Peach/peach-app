@@ -4,6 +4,7 @@ import { Button } from '../../components/buttons/Button'
 import { useWriteCSV } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import tw from '../../styles/tailwind'
+import { toShortDateFormat } from '../../utils/date'
 import { createCSV } from '../../utils/file'
 import i18n from '../../utils/i18n'
 import { groupChars, priceFormat } from '../../utils/string'
@@ -42,10 +43,7 @@ export function ExportTradeHistory () {
 function createCSVValue (tradeSummaries: (OfferSummary | ContractSummary)[]) {
   const headers = ['Date', 'Trade ID', 'Type', 'Amount', 'Price']
   const fields = {
-    Date: (d: OfferSummary | ContractSummary) => {
-      const { subtext: date } = getStatusCardProps(d)
-      return date.toLocaleString().replaceAll(',', '')
-    },
+    Date: (d: OfferSummary | ContractSummary) => toShortDateFormat(d.creationDate),
     'Trade ID': (d: OfferSummary | ContractSummary) => getStatusCardProps(d).title.replaceAll('‑', '-'),
     Type: getTradeSummaryType,
     Amount: (d: OfferSummary | ContractSummary) => {

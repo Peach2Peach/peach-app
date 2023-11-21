@@ -1,52 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FundingAmountDifferent renders correctly 1`] = `
-<View>
+<View
+  style={
+    {
+      "gap": 16,
+    }
+  }
+>
   <PeachText>
     You funded the escrow with:
   </PeachText>
-  <SatsFormat
-    color={
-      {
-        "color": "#2B1911",
-      }
-    }
-    sats={69420}
-    style={
-      {
-        "color": "#F9E96C",
-      }
-    }
+  <BTCAmount
+    amount={69420}
+    size="medium"
   />
-  <PeachText
-    style={
-      {
-        "marginTop": 16,
-      }
-    }
-  >
+  <PeachText>
     The escrow was made for:
   </PeachText>
-  <SatsFormat
-    color={
-      {
-        "color": "#2B1911",
-      }
-    }
-    sats={42060}
-    style={
-      {
-        "color": "#F9E96C",
-      }
-    }
+  <BTCAmount
+    amount={42060}
+    size="medium"
   />
-  <PeachText
-    style={
-      {
-        "marginTop": 16,
-      }
-    }
-  >
+  <PeachText>
     You should decide if you want to sell 69 420 sats, or if we should refund the escrow to you.
   </PeachText>
 </View>

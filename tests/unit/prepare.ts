@@ -9,8 +9,9 @@ jest.mock('react-native-webview', () => ({
 }))
 
 jest.mock('../../src/utils/peachAPI', () => ({
-  ...jest.requireActual('../../src/utils/__mocks__/peachAPI'),
+  peachAPI: jest.requireActual('../../src/utils/peachAPI/peachAPI').peachAPI,
 }))
+jest.mock('../../peach-api/src/peachAPI')
 jest.mock('../../src/utils/wallet/PeachWallet')
 jest.mock('../../src/utils/log')
 

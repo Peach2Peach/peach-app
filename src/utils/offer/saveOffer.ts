@@ -1,50 +1,37 @@
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
-import { account } from '../account'
+import { useAccountStore } from '../account/account'
 import { storeOffer } from '../account/storeAccount'
-import { sort } from '../array'
 import { error, info } from '../log'
 import { getSummaryFromOffer } from './getSummaryFromOffer'
-import { isBuyOffer } from './isBuyOffer'
-import { isSellOffer } from './isSellOffer'
 import { offerExists } from './offerExists'
 
-/**
- * @description Method to add offer to offer list
- * @param offer the offer
- * @param disableSave if true, don't save account (performance)
- * @param shield if true, don't overwrite sensitive data (returnAddress, releaseAddress, etc...)
- */
-export const saveOffer = (offer: SellOffer | BuyOffer, disableSave = false, shield = true): void => {
+export const saveOffer = (offer: SellOffer | BuyOffer) => {
   if (!offer.id) {
     error('saveOffer', 'offer.id is undefined')
     return
   }
 
-  delete offer.user
+  useAccountStore.setState((state) => {
+    const newOffers = offerExists(offer.id)
+      ? state.account.offers.map((o) => {
+        if (o.id !== offer.id) return o
 
-  if (offerExists(offer.id)) {
-    account.offers = account.offers.map((o) => {
-      if (o.id !== offer.id) return o
-
-      if (shield) {
-        if (isSellOffer(offer)) {
-        } else if (isBuyOffer(o) && o.releaseAddress) {
-          offer.releaseAddress = o.releaseAddress
+        return {
+          ...o,
+          ...offer,
         }
-      }
-      return {
-        ...o,
-        ...offer,
-      }
-    })
-  } else {
-    account.offers.push(offer)
-  }
+      })
+      : state.account.offers.concat(offer)
 
-  account.offers = account.offers.sort(sort('id'))
-  if (!disableSave) {
-    storeOffer(offer)
-    info('saveOffer', offer.id)
-  }
+    return {
+      account: {
+        ...state.account,
+        offers: newOffers.sort((a, b) => (a.id === b.id ? 0 : a.id > b.id ? 1 : -1)),
+      },
+    }
+  })
+
+  storeOffer(offer)
+  info('saveOffer', offer.id)
   useTradeSummaryStore.getState().setOffer(offer.id, getSummaryFromOffer(offer))
 }

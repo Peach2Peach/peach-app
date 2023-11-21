@@ -1,14 +1,12 @@
 import { useCallback, useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
 import { useMessageState } from '../../../components/message/useMessageState'
-import { useNavigation, useValidatedState } from '../../../hooks'
+import { useValidatedState } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { createAccount, deleteAccount, recoverAccount } from '../../../utils/account'
-import { createPeachAccount } from '../../../utils/account/createPeachAccount'
-import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
+import { useAccountStore } from '../../../utils/account/account'
 import { storeAccount } from '../../../utils/account/storeAccount'
-import { auth } from '../../../utils/peachAPI'
-import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
+import { setupPeachAccount } from './setupPeachAccount'
 
 export const bip39WordRules = {
   required: true,
@@ -21,7 +19,6 @@ const bip39Rules = {
 
 export const useRestoreFromSeedSetup = () => {
   const updateMessage = useMessageState((state) => state.updateMessage)
-  const navigation = useNavigation()
   const updateSeedBackupDate = useSettingsStore((state) => state.updateSeedBackupDate)
 
   const [words, setWords] = useState<string[]>(new Array(12).fill(''))
@@ -37,10 +34,10 @@ export const useRestoreFromSeedSetup = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
+  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn)
 
   const onError = useCallback(
-    (err?: string) => {
-      const errorMsg = err || 'UNKNOWN_ERROR'
+    (errorMsg = 'UNKNOWN_ERROR') => {
       setError(errorMsg)
       if (errorMsg !== 'REGISTRATION_DENIED') {
         updateMessage({
@@ -55,12 +52,11 @@ export const useRestoreFromSeedSetup = () => {
 
   const createAndRecover = async () => {
     const recoveredAccount = await createAccount(mnemonic)
-    const wallet = loadWalletFromAccount(recoveredAccount)
-    setPeachAccount(createPeachAccount(wallet))
 
-    const [, authError] = await auth({})
+    const authError = await setupPeachAccount(recoveredAccount)
+
     if (authError) {
-      onError(authError.error)
+      onError(authError)
       setLoading(false)
       return
     }
@@ -72,7 +68,7 @@ export const useRestoreFromSeedSetup = () => {
     updateSeedBackupDate()
 
     setTimeout(() => {
-      navigation.replace('buy')
+      setIsLoggedIn(true)
     }, 1500)
   }
 

@@ -13,7 +13,7 @@ const referenceRules = { required: false, isValidPaymentReference: true }
 // eslint-disable-next-line max-lines-per-function
 export const useTemplate9Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
   const { currencies, type: paymentMethod } = data
-  const tabs: TabbedNavigationItem[] = [
+  const tabs: TabbedNavigationItem<'iban' | 'account'>[] = [
     { id: 'iban', display: i18n('form.iban') },
     { id: 'account', display: i18n('form.account') },
   ]

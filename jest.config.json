@@ -8,12 +8,13 @@
   "coverageReporters": ["lcov", "text-summary"],
   "coverageThreshold": {
     "global": {
-      "statements": 84.51,
-      "branches": 66.89,
-      "functions": 78.24,
-      "lines": 85.27
+      "statements": 84,
+      "branches": 66,
+      "functions": 77,
+      "lines": 85
     }
   },
+  "testPathIgnorePatterns": ["<rootDir>/peach-api"],
   "transform": {
     "\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
     "^.+\\.(t|j)sx?$": [

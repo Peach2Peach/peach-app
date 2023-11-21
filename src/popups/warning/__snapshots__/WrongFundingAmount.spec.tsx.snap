@@ -1,52 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WrongFundingAmount renders correctly 1`] = `
-<View>
+<View
+  style={
+    {
+      "gap": 16,
+    }
+  }
+>
   <PeachText>
     You funded the escrow with:
   </PeachText>
-  <SatsFormat
-    color={
-      {
-        "color": "#2B1911",
-      }
-    }
-    sats={69420}
-    style={
-      {
-        "color": "#F9E96C",
-      }
-    }
+  <BTCAmount
+    amount={69420}
+    size="medium"
   />
-  <PeachText
-    style={
-      {
-        "marginTop": 16,
-      }
-    }
-  >
+  <PeachText>
     The escrow was made for:
   </PeachText>
-  <SatsFormat
-    color={
-      {
-        "color": "#2B1911",
-      }
-    }
-    sats={42060}
-    style={
-      {
-        "color": "#F9E96C",
-      }
-    }
+  <BTCAmount
+    amount={42060}
+    size="medium"
   />
-  <PeachText
-    style={
-      {
-        "marginTop": 16,
-      }
-    }
-  >
+  <PeachText>
     This exceeds the 61 500 sat limit per sell offer, you will be refunded.
   </PeachText>
 </View>

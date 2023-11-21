@@ -1,4 +1,4 @@
-import { useConfigStore } from '../store/configStore'
+import { useConfigStore } from '../store/configStore/configStore'
 import { usePaymentDataStore } from '../store/usePaymentDataStore'
 import { getPeachInfo } from './getPeachInfo'
 import { storePeachInfo } from './storePeachInfo'

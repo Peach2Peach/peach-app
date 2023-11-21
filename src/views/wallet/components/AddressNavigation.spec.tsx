@@ -10,7 +10,7 @@ jest.useFakeTimers()
 
 describe('AddressNavigation', () => {
   beforeAll(() => {
-    // @ts-ignore
+    // @ts-expect-error it's a mock, no args needed
     setPeachWallet(new PeachWallet())
     queryClient.clear()
   })

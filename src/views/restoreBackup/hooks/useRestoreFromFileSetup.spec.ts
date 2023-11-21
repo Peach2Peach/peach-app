@@ -8,14 +8,6 @@ import { useRestoreFromFileSetup } from './useRestoreFromFileSetup'
 
 jest.useFakeTimers()
 
-const navigationReplaceMock = jest.fn()
-const useNavigationMock = jest.fn().mockReturnValue({
-  replace: (...args: unknown[]) => navigationReplaceMock(...args),
-})
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: () => useNavigationMock(),
-}))
-
 const decryptAccountMock = jest.fn().mockReturnValue([account1])
 jest.mock('../../../utils/account/decryptAccount', () => ({
   decryptAccount: (...args: unknown[]) => decryptAccountMock(...args),
@@ -36,6 +28,7 @@ const apiSuccess = {
 }
 const authMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
+  peachAPI: jest.requireActual('../../../utils/peachAPI').peachAPI,
   auth: (...args: unknown[]) => authMock(...args),
 }))
 

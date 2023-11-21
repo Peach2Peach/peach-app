@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { SatsFormat, Text } from '../../components'
+import { Text } from '../../components'
+import { BTCAmount } from '../../components/bitcoin'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { thousands } from '../../utils/string'
@@ -10,11 +11,11 @@ type Props = {
 }
 
 export const FundingAmountDifferent = ({ amount, actualAmount }: Props) => (
-  <View>
+  <View style={tw`gap-4`}>
     <Text>{i18n('warning.fundingAmountDifferent.description.1')}</Text>
-    <SatsFormat style={tw`text-warning-mild-2`} color={tw`text-black-1`} sats={actualAmount} />
-    <Text style={tw`mt-4`}>{i18n('warning.fundingAmountDifferent.description.2')}</Text>
-    <SatsFormat style={tw`text-warning-mild-2`} color={tw`text-black-1`} sats={amount} />
-    <Text style={tw`mt-4`}>{i18n('warning.fundingAmountDifferent.description.3', thousands(actualAmount))}</Text>
+    <BTCAmount amount={actualAmount} size="medium" />
+    <Text>{i18n('warning.fundingAmountDifferent.description.2')}</Text>
+    <BTCAmount amount={amount} size="medium" />
+    <Text>{i18n('warning.fundingAmountDifferent.description.3', thousands(actualAmount))}</Text>
   </View>
 )

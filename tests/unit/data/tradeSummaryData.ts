@@ -5,7 +5,6 @@ export const tradeSummary: OfferSummary | ContractSummary = {
   id: '637',
   lastModified: new Date('2023-01-01'),
   matches: [],
-  prices: { USDT: 13.23 },
   tradeStatus: 'offerCanceled',
   txId: '8ea66bb91bbac381b143bced21926fb2787d28638de4757051ea412ca0887ddc',
   type: 'ask',

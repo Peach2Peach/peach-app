@@ -27,7 +27,7 @@ describe('useGoToOfferOrContract', () => {
     await result.current('123')
 
     expect(navigateMock).toHaveBeenCalledTimes(1)
-    expect(navigateMock).toHaveBeenCalledWith('yourTrades', undefined)
+    expect(navigateMock).toHaveBeenCalledWith('search', { offerId: '38' })
   })
   it('should not navigate if the id is a contract id and the contract is not found', async () => {
     getContractMock.mockResolvedValueOnce([null, null])

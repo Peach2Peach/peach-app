@@ -164,6 +164,20 @@ describe('ApplyBuyFilterAction', () => {
     })
   })
 
+  it('should refetch the offer summaries query', async () => {
+    queryClient.setQueryData(['offerSummaries'], { offers: [] })
+
+    const { getByText } = render(defaultComponent)
+    const applyButton = getByText('apply')
+
+    const refetchSpy = jest.spyOn(queryClient, 'refetchQueries')
+    fireEvent.press(applyButton)
+
+    await waitFor(() => {
+      expect(refetchSpy).toHaveBeenCalledWith({ queryKey: ['offerSummaries'] })
+    })
+  })
+
   it('should refetch all matches queries for the offer', async () => {
     queryClient.setQueryData(['matches'], { matches: [] })
     queryClient.setQueryData(['matches', buyOffer.id], { matches: [] })

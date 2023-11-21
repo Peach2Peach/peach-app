@@ -19,5 +19,7 @@
   "sell.summary.title" : "sell offer summary",
   "sell.title" : "sell bitcoin",
   "sell.title.highlight" : "sell",
+  "warning.incorrectFunding.description" : "You funded your offer with $0 transactions, which is not allowed due to excessive network fees for the buyer.\n\nYou will be refunded.",
+  "warning.incorrectFunding.title" : "Incorrect funding",
   "yourTrades.search.sell.subtitle" : "sell offer for"
 }

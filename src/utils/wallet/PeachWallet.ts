@@ -5,6 +5,7 @@ import { AddressInfo, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, Network } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
 import RNFS from 'react-native-fs'
+import { waitForHydration } from '../../store/waitForHydration'
 import { error, info } from '../log'
 import { parseError } from '../result'
 import { isIOS } from '../system'
@@ -87,14 +88,9 @@ export class PeachWallet extends PeachJSWallet {
     )
   }
 
-  loadWallet (seedphrase?: string): void {
-    if (useNodeConfigState.persist.hasHydrated()) {
-      this.initWallet(seedphrase)
-    } else {
-      useNodeConfigState.persist.onFinishHydration(() => {
-        this.initWallet(seedphrase)
-      })
-    }
+  async loadWallet (seedphrase?: string): Promise<void> {
+    await waitForHydration(useNodeConfigState)
+    this.initWallet(seedphrase)
   }
 
   async setBlockchain (nodeConfig: NodeConfig) {
@@ -279,14 +275,9 @@ export class PeachWallet extends PeachJSWallet {
     this.balance = useWalletState.getState().balance
   }
 
-  loadFromStorage (): void {
-    if (useWalletState.persist.hasHydrated()) {
-      this.loadWalletStore()
-    } else {
-      useWalletState.persist.onFinishHydration(() => {
-        this.loadWalletStore()
-      })
-    }
+  async loadFromStorage (): Promise<void> {
+    await waitForHydration(useWalletState)
+    this.loadWalletStore()
   }
 }
 

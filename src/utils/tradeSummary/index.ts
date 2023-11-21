@@ -1,1 +1,0 @@
-export { getCompletedTrades } from './getCompletedTrades'

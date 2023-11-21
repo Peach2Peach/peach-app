@@ -1,15 +1,15 @@
 import { View } from 'react-native'
 import { Text } from '../../../../components'
 import { Button } from '../../../../components/buttons/Button'
+import { useSettingsStore } from '../../../../store/settingsStore'
 import tw from '../../../../styles/tailwind'
 import { toShortDateFormat } from '../../../../utils/date'
 import i18n from '../../../../utils/i18n'
-import { useFileBackupOverviewSetup } from '../../hooks/useFileBackupOverviewSetup'
 
-type FileBackupOverviewProps = { next: () => void }
+type Props = { next: () => void }
 
-export const FileBackupOverview = ({ next }: FileBackupOverviewProps) => {
-  const { lastFileBackupDate } = useFileBackupOverviewSetup()
+export const FileBackupOverview = ({ next }: Props) => {
+  const lastFileBackupDate = useSettingsStore((state) => state.lastFileBackupDate)
   return (
     <View style={tw`items-center h-full`}>
       <Text style={tw`subtitle-1`}>{i18n('settings.backups.fileBackup.toRestore')}</Text>

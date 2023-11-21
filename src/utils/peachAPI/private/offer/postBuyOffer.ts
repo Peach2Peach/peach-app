@@ -9,7 +9,7 @@ type Props = RequestProps & {
   type: 'bid'
   amount: [number, number]
   meansOfPayment: MeansOfPayment
-  paymentData: Offer['paymentData']
+  paymentData: OfferPaymentData
   releaseAddress: string
   messageSignature?: string
   maxPremium: number | null

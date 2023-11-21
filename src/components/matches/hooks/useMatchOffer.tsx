@@ -71,6 +71,8 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['matches', offer.id] })
+      queryClient.invalidateQueries({ queryKey: ['offerSummaries'] })
+      queryClient.invalidateQueries({ queryKey: ['contractSummaries'] })
     },
   })
 }

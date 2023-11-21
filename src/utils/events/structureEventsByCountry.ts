@@ -1,6 +1,3 @@
-/**
- * @example events.reduce(structureEventsByCountry, {} as CountryEventsMap)
- */
 export const structureEventsByCountry = (obj: CountryEventsMap, event: MeetupEvent) => {
   if (event.country in obj) {
     obj[event.country] = [...obj[event.country], event]

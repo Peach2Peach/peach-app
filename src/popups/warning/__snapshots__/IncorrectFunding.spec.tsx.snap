@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IncorrectFunding renders correctly 1`] = `
+<View>
+  <PeachText>
+    You funded your offer with 3 transactions, which is not allowed due to excessive network fees for the buyer.
+
+You will be refunded.
+  </PeachText>
+</View>
+`;

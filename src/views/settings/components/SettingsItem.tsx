@@ -1,12 +1,30 @@
 import { TouchableOpacity, View, ViewStyle } from 'react-native'
+import { IconType } from '../../../assets/icons'
 import { Icon, Text } from '../../../components'
+import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { useNavigation } from '../../../hooks'
-import { IconType } from '../../../assets/icons'
+
+type SettingsTitle =
+  | 'myProfile'
+  | 'referrals'
+  | 'backups'
+  | 'networkFees'
+  | 'transactionBatching'
+  | 'paymentMethods'
+  | 'nodeSetup'
+  | 'payoutAddress'
+  | 'currency'
+  | 'language'
+  | 'contact'
+  | 'aboutPeach'
+  | 'testView'
 
 export type SettingsItemProps = (
-  | { title: ScreenWithoutProps; onPress?: undefined }
+  | {
+      title: SettingsTitle
+      onPress?: undefined
+    }
   | {
       onPress: () => void
       title: string

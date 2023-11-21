@@ -1,19 +1,19 @@
-import { act, renderHook, waitFor } from 'test-utils'
+import { act, renderHook, responseUtils, waitFor } from 'test-utils'
 import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
-import { defaultSelfUser } from '../../../../tests/unit/data/userData'
-import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { defaultUser } from '../../../../tests/unit/data/userData'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { TurnOffBatching } from '../../../popups/app/TurnOffBatching'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { usePopupStore } from '../../../store/usePopupStore'
+import { peachAPI } from '../../../utils/peachAPI'
 import { useTransactionBatchingSetup } from './useTransactionBatchingSetup'
 
-const getSelfUserMock = jest.fn().mockResolvedValue([defaultSelfUser])
 const setBatchingMock = jest.fn().mockResolvedValue([{ success: true }])
-jest.mock('../../../utils/peachAPI', () => ({
-  getSelfUser: (...args: unknown[]) => getSelfUserMock(...args),
+jest.mock('../../../utils/peachAPI/private/user/setBatching', () => ({
   setBatching: (...args: unknown[]) => setBatchingMock(...args),
 }))
+
+const getSelfUserMock = jest.spyOn(peachAPI.private.user, 'getSelfUser')
 
 jest.useFakeTimers()
 
@@ -30,10 +30,6 @@ describe('useTransactionBatchingSetup', () => {
       toggleBatching: expect.any(Function),
     })
     jest.runAllTimers()
-  })
-  it('sets up header correctly', () => {
-    renderHook(useTransactionBatchingSetup)
-    expect(headerState.header()).toMatchSnapshot()
   })
   it('calls self user', async () => {
     const { result } = renderHook(useTransactionBatchingSetup)
@@ -53,7 +49,11 @@ describe('useTransactionBatchingSetup', () => {
     await waitFor(() => expect(setBatchingMock).toHaveBeenCalledWith({ enableBatching: true }))
   })
   it('disables batching when enabled', async () => {
-    getSelfUserMock.mockResolvedValue([{ ...defaultSelfUser, isBatchingEnabled: true }])
+    getSelfUserMock.mockResolvedValue({
+      result: { ...defaultUser, isBatchingEnabled: true },
+      error: undefined,
+      ...responseUtils,
+    })
 
     const { result } = renderHook(useTransactionBatchingSetup)
     await waitFor(() => expect(result.current.isBatchingEnabled).toBeTruthy())
@@ -62,7 +62,11 @@ describe('useTransactionBatchingSetup', () => {
   })
   it('shows confirmation popup before disabling batching', async () => {
     useTradeSummaryStore.getState().setContracts([{ ...contractSummary, tradeStatus: 'payoutPending' }])
-    getSelfUserMock.mockResolvedValue([{ ...defaultSelfUser, isBatchingEnabled: true }])
+    getSelfUserMock.mockResolvedValue({
+      result: { ...defaultUser, isBatchingEnabled: true },
+      error: undefined,
+      ...responseUtils,
+    })
     const { result } = renderHook(useTransactionBatchingSetup)
     await waitFor(() =>
       expect(result.current).toEqual({

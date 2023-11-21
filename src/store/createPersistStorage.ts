@@ -3,6 +3,12 @@ import { createJSONStorage } from 'zustand/middleware'
 import { error } from '../utils/log'
 import { dateTimeReviver } from '../utils/system/dateTimeReviver'
 
+export type StorePersist = {
+  persist: {
+    hasHydrated: () => boolean
+    onFinishHydration: (fn: () => void) => () => void
+  }
+}
 export const createPersistStorage = <T>(storage: MMKVInstance) =>
   createJSONStorage<T>(() => ({
     setItem: async (name: string, value: unknown) => {
