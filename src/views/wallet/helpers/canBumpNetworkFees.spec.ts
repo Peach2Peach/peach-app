@@ -9,7 +9,7 @@ import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { canBumpNetworkFees } from './canBumpNetworkFees'
 
 describe('canBumpNetworkFees', () => {
-  // @ts-ignore
+  // @ts-expect-error mock doesn't need args
   const peachWallet = new PeachWallet({})
   peachWallet.transactions = [pending1, pendingReceived1]
 

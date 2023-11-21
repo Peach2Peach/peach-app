@@ -8,6 +8,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 const images = { peachOfMind, peerToPeer, privacyFirst, aWalletYouControl }
+const ASPECT_RATIO = 0.7
 export const WelcomeInfo = ({ name }: { name: 'peachOfMind' | 'peerToPeer' | 'privacyFirst' | 'aWalletYouControl' }) => {
   const { width } = useWindowDimensions()
 
@@ -15,7 +16,7 @@ export const WelcomeInfo = ({ name }: { name: 'peachOfMind' | 'peerToPeer' | 'pr
     <View style={[tw`items-center justify-center h-full px-sm`, tw.md`px-md`]}>
       <Text style={tw`text-center h5 text-primary-background-light`}>{i18n(`welcome.${name}.title`)}</Text>
       <Text style={tw`mt-4 text-center text-primary-background-light`}>{i18n(`welcome.${name}.description`)}</Text>
-      <Image source={images[name]} style={{ width, height: width * 0.7 }} resizeMode="contain" />
+      <Image source={images[name]} style={{ width, height: width * ASPECT_RATIO }} resizeMode="contain" />
     </View>
   )
 }

@@ -11,6 +11,8 @@ import { groupChars, priceFormat } from '../../utils/string'
 import { getStatusCardProps } from './components/tradeItem/helpers'
 import { getPastOffers, getThemeForTradeItem } from './utils'
 
+const THOUSANDS_GROUP = 3
+
 export function ExportTradeHistory () {
   const { tradeSummaries } = useTradeSummaries()
   const openShareMenu = useWriteCSV()
@@ -48,7 +50,7 @@ function createCSVValue (tradeSummaries: (OfferSummary | ContractSummary)[]) {
     Type: getTradeSummaryType,
     Amount: (d: OfferSummary | ContractSummary) => {
       const { amount } = d
-      return groupChars(String(amount), 3)
+      return groupChars(String(amount), THOUSANDS_GROUP)
     },
     Price: (d: OfferSummary | ContractSummary) => {
       const tradePrice

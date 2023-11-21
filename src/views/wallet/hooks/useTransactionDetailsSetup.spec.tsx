@@ -5,6 +5,7 @@ import {
   pendingTransactionSummary,
   transactionWithRBF1,
 } from '../../../../tests/unit/data/transactionDetailData'
+import { MSINASECOND } from '../../../constants'
 import { saveOffer } from '../../../utils/offer'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useTransactionDetailsSetup } from './useTransactionDetailsSetup'
@@ -23,12 +24,14 @@ jest.mock('../../../hooks/query/useTransactionDetails', () => ({
 
 jest.useFakeTimers({ now: pendingTransactionSummary.date })
 
+const minAmount = 900
+const maxAmount = 900
 describe('useTransactionDetailsSetup', () => {
   const pendingTx = { ...pending1, txid: transactionWithRBF1.txid, sent: 0, received: 900 }
 
   beforeAll(() => {
     useWalletState.getState().updateTxOfferMap(transactionWithRBF1.txid, ['123'])
-    saveOffer({ ...buyOffer, amount: [900, 900], id: '123' })
+    saveOffer({ ...buyOffer, amount: [minAmount, maxAmount], id: '123' })
   })
   beforeEach(() => {
     useWalletState.getState().setTransactions([])
@@ -55,7 +58,7 @@ describe('useTransactionDetailsSetup', () => {
     const transactionSummary = {
       amount: 0,
       confirmed: true,
-      date: new Date(transactionWithRBF1.status.block_time * 1000),
+      date: new Date(transactionWithRBF1.status.block_time * MSINASECOND),
       height: transactionWithRBF1.status.block_height,
       id: transactionWithRBF1.txid,
       offerData: [

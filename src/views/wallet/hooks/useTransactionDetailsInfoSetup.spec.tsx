@@ -33,7 +33,7 @@ describe('useTransactionDetailsInfoSetup', () => {
   const initialProps = {
     transaction: pendingTransactionSummary,
   }
-  // @ts-ignore
+  // @ts-expect-error mock doesn't need args
   const peachWallet = new PeachWallet()
 
   beforeAll(() => {

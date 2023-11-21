@@ -9,6 +9,8 @@ expect.extend({ toMatchDiffSnapshot })
 jest.useFakeTimers()
 
 describe('AddressNavigation', () => {
+  const index = 5
+
   beforeAll(() => {
     // @ts-expect-error it's a mock, no args needed
     setPeachWallet(new PeachWallet())
@@ -51,40 +53,37 @@ describe('AddressNavigation', () => {
     act(() => {
       fireEvent.press(leftChevron)
     })
-    expect(setIndexMock).toHaveBeenCalledWith(5)
+    expect(setIndexMock).toHaveBeenCalledWith(index)
 
     rerender(<AddressNavigation index={0} setIndex={setIndexMock} />)
     const rightChevron = UNSAFE_getByProps({ id: 'chevronsRight' })
     act(() => {
       fireEvent.press(rightChevron)
     })
-    expect(setIndexMock).toHaveBeenCalledWith(5)
+    expect(setIndexMock).toHaveBeenCalledWith(index)
   })
   it('should prefetch the next address when the user clicks on the right arrow', async () => {
     peachWallet.getLastUnusedAddress = getLastUnusedAddressMock
-    peachWallet.getAddressByIndex = jest.fn((index) =>
-      Promise.resolve({ address: `address-${index}`, index, used: false }),
-    )
+    peachWallet.getAddressByIndex = jest.fn((i) => Promise.resolve({ address: `address-${i}`, index: i, used: false }))
 
     const { UNSAFE_getByProps } = render(<AddressNavigation index={1} setIndex={jest.fn()} />)
     const rightArrow = UNSAFE_getByProps({ id: 'arrowRightCircle' })
     act(() => {
       fireEvent.press(rightArrow)
     })
+    const nextIndex = 3
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(['receiveAddress', 3])).toStrictEqual({
+      expect(queryClient.getQueryData(['receiveAddress', nextIndex])).toStrictEqual({
         address: 'address-3',
-        index: 3,
+        index: nextIndex,
         used: false,
       })
     })
   })
   it('should prefetch the previous address when the user clicks on the left arrow', async () => {
     peachWallet.getLastUnusedAddress = getLastUnusedAddressMock
-    peachWallet.getAddressByIndex = jest.fn((index) =>
-      Promise.resolve({ address: `address-${index}`, index, used: false }),
-    )
+    peachWallet.getAddressByIndex = jest.fn((i) => Promise.resolve({ address: `address-${i}`, index: i, used: false }))
 
     const { UNSAFE_getByProps } = render(<AddressNavigation index={3} setIndex={jest.fn()} />)
     const leftArrow = UNSAFE_getByProps({ id: 'arrowLeftCircle' })

@@ -13,6 +13,8 @@ import { TradeIdBubble } from './TradeIdBubble'
 
 type Props = ComponentProps & Pick<TransactionSummary, 'type' | 'offerData'>
 
+const MEDIUM_SIZE = 56
+const SMALL_SIZE = 48
 export const TransactionHeader = ({ type, offerData, style }: Props) => {
   const isMediumScreen = useIsMediumScreen()
   const [getOffer, getContract] = useTradeSummaryStore((state) => [state.getOffer, state.getContract], shallow)
@@ -31,7 +33,7 @@ export const TransactionHeader = ({ type, offerData, style }: Props) => {
 
   return (
     <View style={[tw`flex-row items-center gap-4`, hasIdBubbles && tw`items-end`, style]}>
-      <TransactionIcon type={type} size={isMediumScreen ? 56 : 48} />
+      <TransactionIcon type={type} size={isMediumScreen ? MEDIUM_SIZE : SMALL_SIZE} />
       <View style={tw`items-start flex-shrink`}>
         <Text style={[tw`h6`, tw.md`h5`]}>{i18n(`wallet.transactionDetails.type.${type}`)}</Text>
         <View style={tw`flex-row flex-wrap gap-1`}>

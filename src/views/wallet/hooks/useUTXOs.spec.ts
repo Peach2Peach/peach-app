@@ -14,14 +14,15 @@ jest.useFakeTimers()
 
 describe('useUTXOs', () => {
   const outpoint = new OutPoint(confirmed1.txid, 0)
-  const txOut = new TxOut(10000, new Script('address'))
+  const amount = 10000
+  const txOut = new TxOut(amount, new Script('address'))
   const utxo = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
   const listUnspentMock = jest.fn().mockResolvedValue([utxo])
 
   beforeAll(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need all methods
     peachWallet.wallet = {
       listUnspent: listUnspentMock,
     }
@@ -45,7 +46,6 @@ describe('useUTXOs', () => {
   })
 
   it('should not get utxos if wallet is not initialized', async () => {
-    // @ts-ignore
     peachWallet.wallet = undefined
     renderHook(useUTXOs)
 

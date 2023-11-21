@@ -10,12 +10,14 @@ jest.mock('../../../../components/statusCard', () => ({
 }))
 
 describe('OfferItem', () => {
+  const minAmount = 21000
+  const maxAmount = 210000
   const defaultOffer: OfferSummary = {
     id: 'id',
     type: 'bid',
     creationDate: new Date('2021-01-01'),
     lastModified: new Date('2021-01-01'),
-    amount: [21000, 210000],
+    amount: [minAmount, maxAmount],
     matches: [],
     tradeStatus: 'searchingForPeer',
   }

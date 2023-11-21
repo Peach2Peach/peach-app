@@ -13,7 +13,7 @@ jest.mock('./useSyncWallet', () => ({
 }))
 jest.useFakeTimers()
 
-// @ts-ignore
+// @ts-expect-error mock doesn't need args
 const peachWallet = new PeachWallet()
 peachWallet.initialized = true
 const initialProps = { peachWallet, syncOnLoad: true }

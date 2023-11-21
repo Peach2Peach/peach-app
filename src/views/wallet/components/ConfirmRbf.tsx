@@ -2,6 +2,7 @@ import { View } from 'react-native'
 import { Icon } from '../../../components'
 import { BTCAmount } from '../../../components/bitcoin'
 import { PeachText } from '../../../components/text/Text'
+import { CENT } from '../../../constants'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { round } from '../../../utils/math'
@@ -35,7 +36,7 @@ export const ConfirmRbf = ({ oldFeeRate, newFeeRate, bytes, sendingAmount, hasNo
       <View>
         <BTCAmount amount={oldFee} size="medium" />
         <PeachText style={tw`text-primary-main`}>
-          {i18n('wallet.bumpNetworkFees.confirmRbf.percentOfTx', String(round((oldFee / sendingAmount) * 100, 1)))}
+          {i18n('wallet.bumpNetworkFees.confirmRbf.percentOfTx', String(round((oldFee / sendingAmount) * CENT, 1)))}
         </PeachText>
       </View>
       <PeachText>
@@ -46,7 +47,7 @@ export const ConfirmRbf = ({ oldFeeRate, newFeeRate, bytes, sendingAmount, hasNo
       <View>
         <BTCAmount amount={newFee} size="medium" />
         <PeachText style={tw`text-primary-main`}>
-          {i18n('wallet.bumpNetworkFees.confirmRbf.percentOfTx', String(round((newFee / sendingAmount) * 100, 1)))}
+          {i18n('wallet.bumpNetworkFees.confirmRbf.percentOfTx', String(round((newFee / sendingAmount) * CENT, 1)))}
         </PeachText>
       </View>
       {hasNoChange && <NoChangeWarning />}

@@ -1,4 +1,5 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import { MSINASECOND } from '../../../constants'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { getOffer, isBuyOffer } from '../../../utils/offer'
 import { getTransactionType, txIsConfirmed } from '../../../utils/transaction'
@@ -36,7 +37,7 @@ export const getTxSummary = (tx: TransactionDetails): TransactionSummary => {
     type,
     offerData,
     amount,
-    date: txIsConfirmed(tx) ? new Date((tx.confirmationTime?.timestamp || Date.now()) * 1000) : new Date(),
+    date: txIsConfirmed(tx) ? new Date((tx.confirmationTime?.timestamp || Date.now()) * MSINASECOND) : new Date(),
     height: tx.confirmationTime?.height,
     confirmed: txIsConfirmed(tx),
   }
