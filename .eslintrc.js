@@ -155,7 +155,14 @@ module.exports = {
     'no-lonely-if': 'error',
     'no-loop-func': 'error',
     'no-loss-of-precision': 'error',
-    'no-magic-numbers': 'warn',
+    'no-magic-numbers': [
+      'warn',
+      {
+        ignoreArrayIndexes: true,
+        ignoreClassFieldInitialValues: true,
+        ignore: [-1, 0, 1, 2],
+      },
+    ],
     'no-mixed-operators': 'off',
     'no-multi-assign': 'error',
     'no-multi-spaces': 'error',
