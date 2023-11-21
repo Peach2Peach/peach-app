@@ -34,12 +34,18 @@ export const ReceiveBitcoin = () => {
   )
 }
 
+const MEDIUM_SIZE = 327
+const SMALL_SIZE = 275
 function AddressQRCode ({ index }: { index: number }) {
   const { data } = useWalletAddress(index)
   const isMediumScreen = useIsMediumScreen()
   return (
     <>
-      <QRCode value={data?.address} size={isMediumScreen ? 327 : 275} color={String(tw`text-black-1`.color)} />
+      <QRCode
+        value={data?.address}
+        size={isMediumScreen ? MEDIUM_SIZE : SMALL_SIZE}
+        color={String(tw`text-black-1`.color)}
+      />
       {data?.used && (
         <Text
           style={[

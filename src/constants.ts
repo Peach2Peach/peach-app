@@ -2,6 +2,7 @@ import { getBuildNumber, getUniqueIdSync, getVersion } from 'react-native-device
 import { IconType } from './assets/icons'
 import { sha256 } from './utils/crypto/sha256'
 
+export const THOUSANDS_GROUP = 3
 export const CENT = 100
 export const SATSINBTC = 100000000
 export const MSINASECOND = 1000

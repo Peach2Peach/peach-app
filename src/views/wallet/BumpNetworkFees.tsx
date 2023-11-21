@@ -16,6 +16,7 @@ import { FeeEstimates } from './components/bumpNetworkFees/FeeEstimates'
 import { NewFee } from './components/bumpNetworkFees/NewFee'
 import { useBumpFees } from './hooks/useBumpFees'
 
+const MIN_EXTRA_FEE_RATE = 1.01
 export const BumpNetworkFees = () => {
   const { txId } = useRoute<'bumpNetworkFees'>().params
 
@@ -24,7 +25,7 @@ export const BumpNetworkFees = () => {
   const { estimatedFees } = useFeeEstimate()
   const currentFeeRate = transaction ? getTransactionFeeRate(transaction) : 1
   const [feeRate, setNewFeeRate] = useState<string>()
-  const newFeeRate = feeRate ?? (currentFeeRate + 1.01).toFixed(2)
+  const newFeeRate = feeRate ?? (currentFeeRate + MIN_EXTRA_FEE_RATE).toFixed(2)
 
   const newFeeRateRules = useMemo(() => ({ min: currentFeeRate + 1, required: true, feeRate: true }), [currentFeeRate])
   const newFeeRateErrors = useMemo(() => getErrorsInField(newFeeRate, newFeeRateRules), [newFeeRate, newFeeRateRules])

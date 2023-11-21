@@ -1,6 +1,7 @@
 import { View } from 'react-native'
 import { Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
+import { THOUSANDS_GROUP } from '../../constants'
 import { useWriteCSV } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import tw from '../../styles/tailwind'
@@ -10,8 +11,6 @@ import i18n from '../../utils/i18n'
 import { groupChars, priceFormat } from '../../utils/string'
 import { getStatusCardProps } from './components/tradeItem/helpers'
 import { getPastOffers, getThemeForTradeItem } from './utils'
-
-const THOUSANDS_GROUP = 3
 
 export function ExportTradeHistory () {
   const { tradeSummaries } = useTradeSummaries()
@@ -54,7 +53,8 @@ function createCSVValue (tradeSummaries: (OfferSummary | ContractSummary)[]) {
     },
     Price: (d: OfferSummary | ContractSummary) => {
       const tradePrice
-        = 'price' in d ? (d.currency === 'SAT' ? groupChars(String(d.price), 3) : priceFormat(d.price)) : ''
+        // eslint-disable-next-line max-len
+        = 'price' in d ? (d.currency === 'SAT' ? groupChars(String(d.price), THOUSANDS_GROUP) : priceFormat(d.price)) : ''
       const price = 'price' in d ? `${tradePrice} ${d.currency}` : ''
       return price
     },

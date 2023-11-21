@@ -73,7 +73,7 @@ describe('SendBitcoin', () => {
     const { getByAccessibilityHint } = render(<SendBitcoin />)
     const helpButton = getByAccessibilityHint('help')
     fireEvent.press(helpButton)
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    const popupComponent = usePopupStore.getState().popupComponent ?? <></>
     expect(render(popupComponent).toJSON()).toMatchSnapshot()
   })
   it('should disable the slider while the wallet is not synced', () => {
@@ -108,7 +108,8 @@ describe('SendBitcoin', () => {
     fireEvent.press(mediumFeeButton)
 
     const slider = getByTestId('confirmSlider')
-    peachWallet.buildFinishedTransaction = jest.fn().mockResolvedValue({ psbt: { feeAmount: () => 1000 } })
+    const feeAmount = 1000
+    peachWallet.buildFinishedTransaction = jest.fn().mockResolvedValue({ psbt: { feeAmount: () => feeAmount } })
     swipeRight(slider)
 
     await waitFor(() => {
@@ -212,7 +213,8 @@ describe('SendBitcoin', () => {
 
 describe('SendBitcoin - With selected coins', () => {
   const outpoint = new OutPoint(confirmed1.txid, 0)
-  const txOut = new TxOut(10000, new Script('address'))
+  const amount = 10000
+  const txOut = new TxOut(amount, new Script('address'))
   const utxo = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
 
   beforeAll(() => {
