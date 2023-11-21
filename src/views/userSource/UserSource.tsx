@@ -27,8 +27,8 @@ export function UserSource () {
     <Screen gradientBackground>
       <View style={tw`items-center justify-center flex-1 gap-8`}>
         <View style={tw`items-center gap-2px`}>
-          <Text style={tw`text-center h4 text-primary-background-light`}>one more thing</Text>
-          <Text style={tw`text-center text-primary-background-light body-l`}>how did you hear about us?</Text>
+          <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('userSource.title')}</Text>
+          <Text style={tw`text-center text-primary-background-light body-l`}>{i18n('userSource.subtitle')}</Text>
         </View>
         <View style={tw`items-stretch gap-10px`}>
           {possibleSources.map((source) => (
