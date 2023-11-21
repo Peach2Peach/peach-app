@@ -32,25 +32,26 @@ import { SelectWallet } from './selectWallet/SelectWallet'
 import { OfferPreferencePremium } from './sell/OfferPreferencePremium'
 import { Sell } from './sell/Sell'
 import { SellSummary } from './sell/SellSummary'
-import { AboutPeach } from './settings/aboutPeach/AboutPeach'
-import { BitcoinProducts } from './settings/aboutPeach/BitcoinProducts'
-import { PeachFees } from './settings/aboutPeach/PeachFees'
-import { Socials } from './settings/aboutPeach/Socials'
 import { Backups } from './settings/Backups'
-import { BackupCreated } from './settings/components/backups/BackupCreated'
 import { Currency } from './settings/Currency'
 import { Language } from './settings/Language'
 import { NetworkFees } from './settings/NetworkFees'
 import { NodeSetup } from './settings/NodeSetup'
 import { PayoutAddress } from './settings/PayoutAddress'
-import { MyProfile } from './settings/profile/MyProfile'
 import { Settings } from './settings/Settings'
 import { TransactionBatching } from './settings/TransactionBatching'
+import { AboutPeach } from './settings/aboutPeach/AboutPeach'
+import { BitcoinProducts } from './settings/aboutPeach/BitcoinProducts'
+import { PeachFees } from './settings/aboutPeach/PeachFees'
+import { Socials } from './settings/aboutPeach/Socials'
+import { BackupCreated } from './settings/components/backups/BackupCreated'
+import { MyProfile } from './settings/profile/MyProfile'
 
+import { TestView } from './TestView/TestView'
 import { TestViewPeachWallet } from './TestView/peachWallet'
 import { TestViewPNs } from './TestView/pns'
-import { TestView } from './TestView/TestView'
 import { TradeComplete } from './tradeComplete/TradeComplete'
+import { UserSource } from './userSource/UserSource'
 import { AddressChecker } from './wallet/AddressChecker'
 import { BumpNetworkFees } from './wallet/BumpNetworkFees'
 import { CoinSelection } from './wallet/CoinSelection'
@@ -74,6 +75,7 @@ type ViewType = {
 const onboarding: ViewType[] = [
   { name: 'welcome', component: Welcome, animationEnabled: false },
   { name: 'newUser', component: NewUser, animationEnabled: false },
+  { name: 'userSource', component: UserSource, animationEnabled: false },
   { name: 'restoreBackup', component: RestoreBackup, animationEnabled: false },
   { name: 'restoreReputation', component: RestoreReputation, animationEnabled: false },
 ]

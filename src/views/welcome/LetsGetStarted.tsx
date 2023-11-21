@@ -66,7 +66,7 @@ export const LetsGetStarted = () => {
               />
             </View>
             <Button
-              style={tw`w-20 min-w-20 bg-primary-background-light`}
+              style={tw`min-w-20 bg-primary-background-light`}
               textColor={tw`text-primary-main`}
               disabled={willUseReferralCode || !referralCode || !referralCodeIsValid}
               onPress={checkReferralCode}
