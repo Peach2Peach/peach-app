@@ -149,7 +149,7 @@ function UserExistsForDevice () {
   const goToRestoreReputation = () => navigation.navigate('restoreReputation', route.params)
 
   return (
-    <View style={tw`items-center justify-center gap-8`}>
+    <View style={tw`items-center justify-center gap-8 grow`}>
       <View>
         <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.accountNotCreated')}</Text>
         <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.youAlreadyHaveOne')}</Text>
