@@ -1,5 +1,4 @@
-/* eslint-disable max-lines-per-function */
-import { getTradeBreakdown } from '.'
+import { getTradeBreakdown } from './getTradeBreakdown'
 
 const fromHexMock = jest.fn()
 const fromOutputScriptMock = jest.fn((script) => (script === 'peach' ? 'peach' : 'releaseAddress'))
@@ -60,23 +59,6 @@ describe('getTradeBreakdown', () => {
       peachFee: 10,
       networkFee: 10,
       amountReceived: 100,
-    })
-  })
-
-  it('should return correct breakdown with discount', () => {
-    const inputAmount = 100000
-    fromHexMock.mockReturnValue({
-      virtualSize: () => 171,
-      outs: [
-        { script: 'peach', value: 2000 },
-        { script: 'releaseAddress', value: 97829 },
-      ],
-    })
-    expect(getTradeBreakdown({ releaseTransaction, releaseAddress, inputAmount, discount: 40 })).toEqual({
-      totalAmount: 100000,
-      peachFee: 2000,
-      networkFee: 131,
-      amountReceived: 97869,
     })
   })
 

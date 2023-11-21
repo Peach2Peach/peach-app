@@ -25,8 +25,8 @@
     <string name="notification.body.offer.buyOfferExpired">La tua offerta di acquisto %1$s non ha trovato match da %2$s giorni ed è stata rimossa.</string>
     <string name="notification.body.offer.escrowFunded">Il deposito è stato ricevuto e la tua offerta è stata pubblicata.</string>
     <string name="notification.body.offer.fundingAmountDifferent">Il deposito è stato effettuato per un importo diverso. Vuoi continuare con la tua offerta o richiedere un rimborso?</string>
-    <string name="notification.body.offer.matchBuyer">Hai nuovi match. Non lasciarli aspettare!</string>
-    <string name="notification.body.offer.matchSeller">Hai nuovi match. Non lasciarli aspettare!</string>
+    <string name="notification.body.offer.matchBuyer">Hai offerte di vendita disponibili! Accatasta quei sats!</string>
+    <string name="notification.body.offer.matchSeller">Hai richieste di acquisto disponibili! Non lasciarle in sospeso!</string>
     <string name="notification.body.offer.notFunded">Non hai effettuato il deposito dei tuoi fondi da %2$s giorni \uD83D\uDE1E. Rimuoveremo questa offerta.</string>
     <string name="notification.body.offer.outsideRange">L\'offerta %1$s si trova al di fuori dell\'intervallo di trading e non sarà visibile agli acquirenti. Puoi annullare l\'offerta e crearne una nuova o lasciarla così com\'è.</string>
     <string name="notification.body.offer.sellOfferExpired">La tua offerta di vendita è stata chiusa poiché non sono state trovati match da %2$s giorni.</string>

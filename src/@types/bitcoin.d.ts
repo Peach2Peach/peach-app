@@ -1,7 +1,7 @@
 type Input = {
   txid: string
   vout: number
-  prevout: {
+  prevout?: {
     scriptpubkey: string
     scriptpubkey_asm: string
     scriptpubkey_type: string

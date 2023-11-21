@@ -25,8 +25,8 @@
     <string name="notification.body.offer.buyOfferExpired">Votre offre d\'achat %1$s n\'a reçu aucune correspondance depuis %2$s jours et a été supprimée.</string>
     <string name="notification.body.offer.escrowFunded">Le dépôt a été reçu et votre offre est publiée.</string>
     <string name="notification.body.offer.fundingAmountDifferent">Le dépôt a été effectué pour un montant différent. Souhaitez-vous continuer avec votre offre ou obtenir un remboursement ?</string>
-    <string name="notification.body.offer.matchBuyer">Vous avez de nouvelles correspondances, ne les laissez pas attendre !</string>
-    <string name="notification.body.offer.matchSeller">Vous avez de nouvelles correspondances, ne les laissez pas attendre !</string>
+    <string name="notification.body.offer.matchBuyer">T\'as des offres de vente dispo ! Empile ces sats !</string>
+    <string name="notification.body.offer.matchSeller">T\'as des demandes d\'achat dispo ! Ne les laisse pas en suspens !</string>
     <string name="notification.body.offer.notFunded">Vous n\'avez pas déposé vos fonds depuis %2$s jours \uD83D\uDE1E. Nous allons supprimer cette offre.</string>
     <string name="notification.body.offer.outsideRange">L\'offre %1$s est en dehors de la plage de négociation et ne sera pas visible par les acheteurs. Vous pouvez choisir d\'annuler l\'offre et d\'en créer une nouvelle, ou la laisser telle quelle.</string>
     <string name="notification.body.offer.sellOfferExpired">Votre offre de vente a été fermée après n\'avoir reçu aucune correspondance depuis %2$s jours.</string>

@@ -12,7 +12,11 @@ import { useSyncWallet } from './useSyncWallet'
 const useMapTransactionToTx = (transaction?: Transaction | null) => {
   const areMyReceivingAddresses = useAreMyAddresses(transaction?.vout.map((vout) => vout.scriptpubkey_address) || [])
   const areMySendingAddresses = useAreMyAddresses(
-    transaction?.vin.map((vout) => vout.prevout.scriptpubkey_address) || [],
+    transaction?.vin
+      .map((vout) => vout.prevout)
+      .filter(isDefined)
+      .filter((prevout) => prevout)
+      .map((prevout) => prevout.scriptpubkey_address) || [],
   )
   if (!transaction) return undefined
 
@@ -23,7 +27,12 @@ const useMapTransactionToTx = (transaction?: Transaction | null) => {
     .map((isMine, index) => (isMine ? transaction.vin[index] : undefined))
     .filter(isDefined)
   const received = receivingOutputs.map((vout) => vout?.value).reduce(sum, 0)
-  const sent = sendingOutputs.map((vin) => vin.prevout.value).reduce(sum, 0)
+  const sent = sendingOutputs
+    .map((vout) => vout.prevout)
+    .filter(isDefined)
+    .filter((prevout) => prevout)
+    .map((prevout) => prevout.value)
+    .reduce(sum, 0)
   return new TransactionDetails(
     transaction.txid,
     received,

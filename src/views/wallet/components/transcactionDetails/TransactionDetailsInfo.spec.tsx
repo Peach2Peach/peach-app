@@ -42,6 +42,10 @@ describe('TransactionDetailsInfo', () => {
     renderer.render(<TransactionDetailsInfo transaction={confirmedTransactionSummary} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('should render correctly for a deposit transaction', () => {
+    renderer.render(<TransactionDetailsInfo transaction={{ ...pendingTransactionSummary, type: 'DEPOSIT' }} />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
 
   it('should go to increase network fee screen if rbf is possible', () => {
     const { getByText } = render(<TransactionDetailsInfo transaction={pendingTransactionSummary} />)

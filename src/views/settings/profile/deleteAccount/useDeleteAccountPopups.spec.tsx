@@ -1,6 +1,7 @@
 import { act, renderHook } from 'test-utils'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { deleteAccount } from '../../../../utils/account'
+import { useAccountStore } from '../../../../utils/account/account'
 import i18n from '../../../../utils/i18n'
 import { logoutUser } from '../../../../utils/peachAPI'
 import { DeleteAccountPopup } from './DeleteAccountPopup'
@@ -85,6 +86,15 @@ describe('useDeleteAccountPopups', () => {
     })
     await logout()
     expect(logoutUser).toHaveBeenCalledTimes(1)
+  })
+
+  it('should update the login state', async () => {
+    const { result } = renderHook(useDeleteAccountPopups)
+    await act(() => {
+      result.current()
+    })
+    await logout()
+    expect(useAccountStore.getState().isLoggedIn).toEqual(false)
   })
 
   it('should show success ovelay', async () => {

@@ -23,8 +23,8 @@
 "notification.body.offer.buyOfferExpired" = "Tu oferta de compra %1$@ no ha recibido una match después de %2$@ días y ha sido eliminada.";
 "notification.body.offer.escrowFunded" = "El depósito se ha recibido y tu oferta está publicada.";
 "notification.body.offer.fundingAmountDifferent" = "El depósito ha recibido una cantidad diferente. ¿Deseas continuar con tu oferta o recibir un reembolso?";
-"notification.body.offer.matchBuyer" = "Tienes nuevas matches, ¡no las dejes esperando!";
-"notification.body.offer.matchSeller" = "Tienes nuevas matches, ¡no las dejes esperando!";
+"notification.body.offer.matchBuyer" = "¡Tienes ofertas de venta disponibles! ¡Apila esos sats!";
+"notification.body.offer.matchSeller" = "¡Tienes solicitudes de compra disponibles! ¡No las dejes en el aire!";
 "notification.body.offer.notFunded" = "No has depositado tus fondos en %2$@ días 😞. Procedemos a eliminar esta oferta.";
 "notification.body.offer.outsideRange" = "La oferta %1$@ está fuera del rango de negociación y no se mostrará a los compradores. Puedes optar por cancelar la oferta y hacer una nueva, o dejarla tal como está.";
 "notification.body.offer.sellOfferExpired" = "Tu oferta de venta ha sido cerrada después de no recibir una match por %2$@ días.";

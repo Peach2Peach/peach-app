@@ -18,7 +18,7 @@ export const Language = () => {
     <Screen header={i18n('language')}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <RadioButtons
-          selectedValue={locale || 'en'}
+          selectedValue={locale}
           items={i18n
             .getLocales()
             .map((l) => ({ value: l, display: i18n(`languageName.${l}`) }))

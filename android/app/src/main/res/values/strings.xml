@@ -25,8 +25,8 @@
     <string name="notification.body.offer.buyOfferExpired">Your buy offer %1$s hasn\'t received a match after %2$s days and has been removed.</string>
     <string name="notification.body.offer.escrowFunded">The escrow has been funded and your offer is published.</string>
     <string name="notification.body.offer.fundingAmountDifferent">The escrow has been funded with a different amount. Continue with your offer or get refunded!</string>
-    <string name="notification.body.offer.matchBuyer">You\'ve got new matches, don\'t leave them hanging!</string>
-    <string name="notification.body.offer.matchSeller">You\'ve got new matches, don\'t leave them hanging!</string>
+    <string name="notification.body.offer.matchBuyer">You\'ve got sell offers available! Stack those sats!</string>
+    <string name="notification.body.offer.matchSeller">You\'ve got buy requests available! Don\'t leave them hanging!</string>
     <string name="notification.body.offer.notFunded">You haven\'t funded your escrow in %2$s days \uD83D\uDE1E We are deleting this offer.</string>
     <string name="notification.body.offer.outsideRange">Offer %1$s is now outside of the trading range and will not be shown to buyers.\n\nYou can choose to cancel the offer and make a new one, or leave it as is.</string>
     <string name="notification.body.offer.sellOfferExpired">We\'ve canceled your sell offer, since you haven\'t matched anyone after %2$s days.</string>

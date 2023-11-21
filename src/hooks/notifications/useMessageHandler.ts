@@ -18,7 +18,7 @@ export const useMessageHandler = () => {
   const stateUpdateEvents = useStateUpdateEvents()
 
   const onMessageHandler = useCallback(
-    async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<void> => {
+    (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
       info(`A new FCM message arrived! ${JSON.stringify(remoteMessage)}`, `currentPage ${currentPage}`)
       if (!remoteMessage.data) return
 

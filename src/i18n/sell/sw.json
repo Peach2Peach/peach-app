@@ -19,5 +19,7 @@
   "sell.summary.title" : "muhtasari wa ofa ya kuuza",
   "sell.title" : "uuze Bitcoin",
   "sell.title.highlight" : "uuze",
+  "warning.incorrectFunding.description" : "Umefadhili ombi lako na $0 miamala, ambayo haiwezekani kutokana na ada kubwa ya mtandao kwa mnunuzi.\n\nUtarejeshewa fedha.",
+  "warning.incorrectFunding.title" : "Ukosefu wa Fedha Sahihi",
   "yourTrades.search.sell.subtitle" : "toa ofa ya kuuza kwa"
 }

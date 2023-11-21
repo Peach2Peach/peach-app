@@ -2,14 +2,10 @@ import 'react-native-url-polyfill/auto'
 
 import { Text } from '..'
 import tw from '../../styles/tailwind'
+import { getBitcoinAddressParts } from '../../utils/bitcoin'
 
 const getAddressParts = (address: string) => {
-  const addressParts = {
-    one: address.slice(0, 4),
-    two: address.slice(4, 9),
-    three: address.slice(9, -5),
-    four: address.slice(-5),
-  }
+  const addressParts = getBitcoinAddressParts(address)
   addressParts.three = `${addressParts.three[0]} ... ${addressParts.three[addressParts.three.length - 1]}`
   return addressParts
 }

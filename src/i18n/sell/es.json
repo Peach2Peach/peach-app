@@ -19,5 +19,7 @@
   "sell.summary.title" : "resumen de oferta de venta",
   "sell.title" : "vender bitcoin",
   "sell.title.highlight" : "vender",
+  "warning.incorrectFunding.description" : "Has financiado tu oferta con $0 transacciones, lo cual no está permitido debido a las tarifas excesivas de la red para el comprador.\n\nTe devolverán el dinero.",
+  "warning.incorrectFunding.title" : "Financiación incorrecta",
   "yourTrades.search.sell.subtitle" : "oferta de venta para"
 }
