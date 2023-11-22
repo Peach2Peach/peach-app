@@ -2,7 +2,9 @@ import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { migrateWalletStore } from './migrateWalletStore'
 import { ConfirmedTransaction, PendingTransaction, WalletStateVersion0 } from './version0'
 import { WalletStateVersion1 } from './version1'
+import { WalletStateVersion2 } from './version2'
 
+// eslint-disable-next-line max-lines-per-function
 describe('migrateWalletStore', () => {
   it('should migrate from version 0', () => {
     const confirmed: ConfirmedTransaction = {
@@ -28,6 +30,12 @@ describe('migrateWalletStore', () => {
       },
       pendingTransactions: {},
       txOfferMap: {},
+      fundedFromPeachWallet: [],
+      addressLabelMap: {},
+      fundMultipleMap: {},
+      showBalance: false,
+      selectedUTXOIds: [],
+      isSynced: false,
     }
 
     const newConfirmed: TransactionDetails = {
@@ -44,6 +52,7 @@ describe('migrateWalletStore', () => {
     expect(migratedStore).toEqual({
       ...version0Store,
       transactions: [newConfirmed, pending],
+      pendingTransactions: undefined,
     })
   })
   it('should migrate from version 1 by nuking txOfferMap (will be rebuilt)', () => {
@@ -53,19 +62,40 @@ describe('migrateWalletStore', () => {
       transactions: [],
       pendingTransactions: {},
       fundedFromPeachWallet: [],
-      txOfferMap: {
-        txId1: '1',
-      },
+      txOfferMap: { txId1: '1' },
       addressLabelMap: {},
       fundMultipleMap: {},
       showBalance: true,
       selectedUTXOIds: [],
+      isSynced: false,
     }
 
     const migratedStore = migrateWalletStore(version1Store, 1)
     expect(migratedStore).toEqual({
       ...version1Store,
       txOfferMap: {},
+      pendingTransactions: undefined,
+    })
+  })
+  it('should migrate from version 2 by removing pendingTransactions', () => {
+    const version2Store: WalletStateVersion2 = {
+      addresses: [],
+      balance: 0,
+      transactions: [],
+      pendingTransactions: {},
+      fundedFromPeachWallet: [],
+      txOfferMap: { txId1: ['1'] },
+      addressLabelMap: {},
+      fundMultipleMap: {},
+      showBalance: true,
+      selectedUTXOIds: [],
+      isSynced: false,
+    }
+
+    const migratedStore = migrateWalletStore(version2Store, 2)
+    expect(migratedStore).toEqual({
+      ...version2Store,
+      pendingTransactions: undefined,
     })
   })
 })

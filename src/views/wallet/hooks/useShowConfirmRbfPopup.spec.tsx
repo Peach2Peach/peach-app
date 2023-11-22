@@ -7,7 +7,6 @@ import { usePopupStore } from '../../../store/usePopupStore'
 import { getTransactionFeeRate } from '../../../utils/bitcoin'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
-import { useWalletState } from '../../../utils/wallet/walletStore'
 import { ConfirmRbf } from '../components/ConfirmRbf'
 import { useShowConfirmRbfPopup } from './useShowConfirmRbfPopup'
 
@@ -32,7 +31,6 @@ describe('useShowConfirmRbfPopup', () => {
   beforeEach(() => {
     // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
-    useWalletState.getState().addPendingTransactionHex(bitcoinTransaction.txid, 'hex')
   })
 
   it('should show bump fee confirmation popup', () => {
@@ -110,7 +108,6 @@ describe('useShowConfirmRbfPopup', () => {
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(txDetails.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()
-    expect(useWalletState.getState().pendingTransactions).toEqual({})
     expect(onSuccess).toHaveBeenCalled()
   })
   it('should handle broadcast errors', async () => {
@@ -124,8 +121,5 @@ describe('useShowConfirmRbfPopup', () => {
     await usePopupStore.getState().action1?.callback()
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
     expect(usePopupStore.getState().visible).toBeFalsy()
-    expect(useWalletState.getState().pendingTransactions).toEqual({
-      credacted: 'hex',
-    })
   })
 })
