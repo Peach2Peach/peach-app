@@ -6,7 +6,7 @@ type RuleRecord = {
   [K in Rule]?: boolean
 }
 
-export const getErrorsInField = (value: string | number | undefined, rulesToCheck: RuleRecord) =>
+export const getErrorsInField = (value: string, rulesToCheck: RuleRecord) =>
   !value && rulesToCheck.required === false
     ? []
     : [
