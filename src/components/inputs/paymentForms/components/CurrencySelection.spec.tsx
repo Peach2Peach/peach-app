@@ -1,6 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { fireEvent, render } from 'test-utils'
-import { setPaymentMethods } from '../../../../../paymentMethods'
+import { setPaymentMethods } from '../../../../paymentMethods'
 import { CurrencySelection } from './CurrencySelection'
 
 describe('CurrencySelection', () => {

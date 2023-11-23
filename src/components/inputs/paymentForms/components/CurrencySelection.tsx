@@ -1,9 +1,9 @@
 import { View } from 'react-native'
-import tw from '../../../../../styles/tailwind'
-import i18n from '../../../../../utils/i18n'
-import { getPaymentMethodInfo } from '../../../../../utils/paymentMethod'
-import { Text } from '../../../../text'
-import { CurrencyItem } from '../../../CurrencyItem'
+import tw from '../../../../styles/tailwind'
+import i18n from '../../../../utils/i18n'
+import { getPaymentMethodInfo } from '../../../../utils/paymentMethod'
+import { Text } from '../../../text'
+import { CurrencyItem } from '../../CurrencyItem'
 
 type Props = ComponentProps & {
   paymentMethod: PaymentMethod

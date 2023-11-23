@@ -7,13 +7,12 @@ import { Header, Screen } from '../../components'
 import { HeaderIcon } from '../../components/Header'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Button } from '../../components/buttons/Button'
-import { CurrencySelection } from '../../components/inputs/paymentMethods/paymentForms/components'
-import { toggleCurrency } from '../../components/inputs/paymentMethods/paymentForms/utils'
-// eslint-disable-next-line max-len
-import { hasMultipleAvailableCurrencies } from '../../components/inputs/paymentMethods/paymentForms/utils/hasMultipleAvailableCurrencies'
+import { CurrencySelection } from '../../components/inputs/paymentForms/components'
+import { toggleCurrency } from '../../components/inputs/paymentForms/utils'
 import { useDeletePaymentMethod } from '../../components/payment/hooks/useDeletePaymentMethod'
 import { useRoute, useShowHelp } from '../../hooks'
 import { useGoToOrigin } from '../../hooks/useGoToOrigin'
+import { PAYMENTMETHODINFOS } from '../../paymentMethods'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
@@ -123,6 +122,11 @@ export const PaymentMethodForm = () => {
       )}
     </Screen>
   )
+}
+
+function hasMultipleAvailableCurrencies (paymentMethod: PaymentMethod) {
+  const selectedMethod = PAYMENTMETHODINFOS.find((pm) => pm.id === paymentMethod)
+  return !!selectedMethod && selectedMethod.currencies.length > 1
 }
 
 function PaymentMethodFormHeader () {
