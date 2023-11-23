@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`IBANInput renders correctly 1`] = `
-<Input
-  autoCorrect={false}
-  placeholder="AB12 CDEF 3456 7890 1234"
-  required={true}
-/>
-`;

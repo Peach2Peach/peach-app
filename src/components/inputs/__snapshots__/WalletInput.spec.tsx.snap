@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`WalletInput should render correctly 1`] = `
-<Input
-  placeholder="U012345678910"
-/>
-`;

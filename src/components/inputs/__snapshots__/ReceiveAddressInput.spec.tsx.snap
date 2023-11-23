@@ -30,33 +30,6 @@ exports[`ReceiveAddressInput should render correctly 1`] = `
     }
   >
     receiving address
-    <Text
-      allowFontScaling={false}
-      style={
-        [
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
-          },
-          [
-            {
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 16,
-              "fontWeight": "500",
-              "letterSpacing": 0.16,
-              "lineHeight": 20,
-            },
-            {
-              "color": "#BAADA7",
-            },
-          ],
-          false,
-        ]
-      }
-    />
   </Text>
   <View
     style={
