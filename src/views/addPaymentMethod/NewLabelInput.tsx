@@ -3,10 +3,11 @@ import { Input } from '../../components/inputs'
 import { InputProps } from '../../components/inputs/Input'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import i18n from '../../utils/i18n'
+import { FormType } from './PaymentMethodForm'
 
 type Props = {
-  control: Control
-  name: string
+  control: Control<FormType>
+  name: keyof FormType
   optional?: boolean
 } & InputProps
 

@@ -5,6 +5,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { PaymentFieldTypes } from '../../utils/validation/rules'
 import { FormInput } from './FormInput'
+import { FormType } from './PaymentMethodForm'
 
 export function TabbedFormNavigation ({
   row,
@@ -14,12 +15,12 @@ export function TabbedFormNavigation ({
   getValues,
 }: {
   row: PaymentFieldTypes[][]
-  control: Control
+  control: Control<FormType>
   paymentData: Partial<PaymentData> & {
     type: PaymentMethod
     currencies: Currency[]
   }
-  getFieldState: (name: string) => {
+  getFieldState: (name: keyof FormType) => {
     invalid: boolean
     isDirty: boolean
     isTouched: boolean

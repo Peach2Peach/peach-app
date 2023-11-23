@@ -48,7 +48,7 @@ export const PaymentMethodForm = () => {
     formState: { isValid },
     getFieldState,
     getValues,
-  } = useForm({ mode: 'all' })
+  } = useForm<FormType>({ mode: 'all' })
   // this could become part of the form
   const [selectedCurrencies, setSelectedCurrencies] = useState(currencies)
   const onCurrencyToggle = (currency: Currency) => {

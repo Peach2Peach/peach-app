@@ -5,9 +5,10 @@ import { InputProps } from '../../components/inputs/Input'
 import i18n from '../../utils/i18n'
 import { getMessages } from '../../utils/validation'
 import { Formatter, PaymentFieldTypes, formatters, getNewRules } from '../../utils/validation/rules'
+import { FormType } from './PaymentMethodForm'
 
 type Props = {
-  control: Control
+  control: Control<FormType>
   name: PaymentFieldTypes
   optional?: boolean
   defaultValue?: string
