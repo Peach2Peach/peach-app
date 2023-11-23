@@ -31,11 +31,16 @@ export const SelectCountry = () => {
 
   const goToPaymentMethodForm = () => {
     if (!selectedCountry) return
-    const methodType = `giftCard.amazon.${selectedCountry}` satisfies PaymentMethod
-    const label = getPaymentMethodLabel(methodType)
+    const type = `giftCard.amazon.${selectedCountry}` satisfies PaymentMethod
+    const label = getPaymentMethodLabel(type)
 
     navigation.navigate('paymentMethodForm', {
-      paymentData: { type: 'giftCard.amazon', label, currencies: [selectedCurrency], country: selectedCountry },
+      paymentData: {
+        type,
+        label,
+        currencies: [selectedCurrency],
+        country: selectedCountry,
+      },
       origin,
     })
   }

@@ -57,16 +57,10 @@ type RootStackParamList = Onboarding & {
     origin: keyof RootStackParamList
   }
   paymentMethodForm: {
-    paymentData: Partial<Omit<PaymentData, 'type' | 'country' | 'currencies'>> &
-      (
-        | {
-            type: Exclude<PaymentMethod, 'giftCard.amazon'>
-            country?: PaymentMethodCountry
-          }
-        | { type: 'giftCard.amazon'; country: PaymentMethodCountry }
-      ) & {
-        currencies: Currency[]
-      }
+    paymentData: Partial<PaymentData> & {
+      type: PaymentMethod
+      currencies: Currency[]
+    }
     origin: keyof RootStackParamList
   }
   signMessage: undefined

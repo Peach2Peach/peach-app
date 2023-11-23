@@ -61,8 +61,9 @@ export const PaymentMethodForm = () => {
       ...rest,
       id: id || `${paymentMethod}-${Date.now()}`,
       label: paymentMethodName,
-      type: paymentMethod !== 'giftCard.amazon' ? paymentMethod : `${paymentMethod}.${country}`,
+      type: paymentMethod,
       currencies: selectedCurrencies,
+      country,
     } satisfies PaymentData
 
     addPaymentData(test)
