@@ -61,7 +61,7 @@ export function TabbedFormNavigation ({
         style={tw`pb-2`}
       />
       {row[selected].map((field) => {
-        const otherColumns = row.filter((column, index) => index !== selected)
+        const otherColumns = row.filter((_column, index) => index !== selected)
         const hasValidColumnWithValues = otherColumns.some((column) =>
           column.every((f) => !!getValues(f) && !getFieldState(f).invalid),
         )
