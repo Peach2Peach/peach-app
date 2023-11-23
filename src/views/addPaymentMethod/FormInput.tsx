@@ -40,7 +40,7 @@ export function FormInput ({ control, name, optional = false, defaultValue = '',
       value={field.value}
       errorMessage={error?.message ? [error.message] : undefined}
       onChangeText={field.onChange}
-      keyboardType={name === 'phone' ? 'phone-pad' : undefined}
+      keyboardType={name === 'phone' ? 'phone-pad' : name === 'email' ? 'email-address' : undefined}
       onEndEditing={(val) => field.onChange(inputFormatter(val))}
       onSubmit={(val) => field.onChange(inputFormatter(val))}
       required={!optional}
