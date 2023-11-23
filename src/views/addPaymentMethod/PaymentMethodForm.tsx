@@ -26,9 +26,6 @@ import { FormInput } from './FormInput'
 import { NewLabelInput } from './NewLabelInput'
 import { TabbedFormNavigation } from './TabbedFormNavigation'
 
-// todo: double check cbu, cvu. was called accountNumber before
-// todo: add migration for new field names
-
 export type FormType = Record<PaymentFieldTypes, string> & { paymentMethodName: string }
 
 export const PaymentMethodForm = () => {
@@ -178,7 +175,6 @@ function useFormFields (paymentMethod: PaymentMethod) {
         throw error
       }
 
-      // TODO: remove this type assertion
       return result as {
         id: PaymentMethod
         fields: {
