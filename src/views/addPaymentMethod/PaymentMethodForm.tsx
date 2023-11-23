@@ -167,7 +167,7 @@ function useFormFields (paymentMethod: PaymentMethod) {
     queryKey: ['paymentMethods'],
     queryFn: async () => {
       const [result, error] = await parseResponse(
-        await fetch(`${API_URL}/v1/info/paymentMethods`, {
+        await fetch(`${API_URL}/v1/info/paymentMethods/${paymentMethod}`, {
           headers: await getPrivateHeaders(),
           method: 'GET',
         }),
@@ -185,12 +185,11 @@ function useFormFields (paymentMethod: PaymentMethod) {
           mandatory: PaymentFieldTypes[][][]
           optional: PaymentFieldTypes[]
         }
-      }[]
+      }
     },
   })
 
-  const method = queryData.data?.find(({ id }) => id === paymentMethod)
-  const fields = method?.fields
+  const fields = queryData.data?.fields
 
   return fields
 }
