@@ -1,4 +1,14 @@
 import { validateMnemonic, wordlists } from 'bip39'
+import { z } from 'zod'
+import {
+  enforceBICFormat,
+  enforceBankNumberFormat,
+  enforceIBANFormat,
+  enforcePhoneFormat,
+  enforceSortCodeFormat,
+  enforceUsernameFormat,
+} from '../format'
+import { enforceWalletFormat } from '../format/enforceWalletFormat'
 import i18n from '../i18n'
 import { getNetwork } from '../wallet'
 import { isAdvcashWallet } from './isAdvcashWallet'
@@ -84,7 +94,7 @@ export const newRules = {
     userName: userNameValidator,
   },
   accountNumber: {
-    straksbetaling: accountNumberValidator,
+    accountNumber: accountNumberValidator,
   },
   lnurlAddress: {
     lnurlAddress: emailValidator,
@@ -120,4 +130,30 @@ export const getNewRules = (fieldName: PaymentFieldTypes, optional = false) => {
     {},
   )
   return rulesWithEmptyCheck
+}
+
+export const Formatter = z.enum([
+  'bic',
+  'cbu',
+  'cvu',
+  'cvuAlias',
+  'iban',
+  'phone',
+  'ukBankAccount',
+  'ukSortCode',
+  'userName',
+  'wallet',
+])
+
+export const formatters: Record<z.infer<typeof Formatter>, (val: string) => string> = {
+  bic: enforceBICFormat,
+  cbu: enforceBankNumberFormat,
+  cvu: enforceBankNumberFormat,
+  cvuAlias: enforceBankNumberFormat,
+  iban: enforceIBANFormat,
+  phone: enforcePhoneFormat,
+  ukBankAccount: enforceBankNumberFormat,
+  ukSortCode: enforceSortCodeFormat,
+  userName: enforceUsernameFormat,
+  wallet: enforceWalletFormat,
 }
