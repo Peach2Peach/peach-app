@@ -1,5 +1,5 @@
-import { Text } from '.'
 import { groupChars, priceFormat } from '../../utils/string'
+import { PeachText } from './Text'
 
 type Props = ComponentProps & {
   amount: number
@@ -8,7 +8,7 @@ type Props = ComponentProps & {
 }
 
 export const PriceFormat = ({ amount, currency, round, style }: Props) => (
-  <Text style={style}>
+  <PeachText style={style}>
     {currency === 'SAT' ? groupChars(amount.toFixed(), 3) : priceFormat(amount, round)} {currency}
-  </Text>
+  </PeachText>
 )

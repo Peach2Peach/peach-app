@@ -1,4 +1,4 @@
-import { getPaymentDataInfoFields } from '.'
+import { getPaymentDataInfoFields } from './getPaymentDataInfoFields'
 
 export const cleanPaymentData = (data: PaymentData): PaymentDataInfo =>
   getPaymentDataInfoFields(data).reduce(

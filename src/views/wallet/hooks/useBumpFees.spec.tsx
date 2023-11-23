@@ -34,7 +34,7 @@ describe('useBumpFees', () => {
     newFeeRate,
     sendingAmount: bitcoinTransaction.value as number,
   }
-  // @ts-ignore
+  // @ts-expect-error mock doesn't need args
   const peachWallet = new PeachWallet()
 
   const newTxId = 'newTxId'

@@ -1,4 +1,4 @@
-import { isNumber } from '.'
+import { isNumber } from './isNumber'
 
 describe('isNumber', () => {
   it('validates numbers', () => {

@@ -30,7 +30,7 @@ describe('useShowConfirmRbfPopup', () => {
     onSuccess,
   }
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
     useWalletState.getState().addPendingTransactionHex(bitcoinTransaction.txid, 'hex')
   })

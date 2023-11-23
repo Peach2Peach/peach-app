@@ -4,8 +4,9 @@ import { useNavigation } from '../../../../../hooks'
 
 type Props = { id: string; showInfo?: boolean } & ComponentProps
 
+const MAX_LENGTH = 8
 export const UserId = ({ id, showInfo = false, style }: Props) => {
-  const peachId = `Peach${id.slice(0, 8)}`
+  const peachId = `Peach${id.slice(0, MAX_LENGTH)}`
   const navigation = useNavigation()
   const goToUserProfile = () => navigation.navigate('publicProfile', { userId: id })
   const copy = () => Clipboard.setString(peachId)

@@ -1,11 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
-import { useNavigation } from '.'
 import { useStartRefundPopup } from '../popups/useStartRefundPopup'
 import { getNavigationDestinationForContract } from '../utils/contract'
 import { isSellOffer } from '../utils/offer'
 import { getOfferDetails } from '../utils/peachAPI'
 import { getNavigationDestinationForOffer, isContractSummary } from '../views/yourTrades/utils'
+import { useNavigation } from './useNavigation'
 
 export const useNavigateToOfferOrContract = (item: TradeSummary) => {
   const navigation = useNavigation()

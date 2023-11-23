@@ -1,5 +1,5 @@
-import { getPremiumColor } from '.'
 import tw from '../../../styles/tailwind'
+import { getPremiumColor } from './getPremiumColor'
 
 describe('getPremiumColor', () => {
   const green = tw`text-success-main`

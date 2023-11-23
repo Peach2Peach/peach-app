@@ -1,6 +1,7 @@
 import { View } from 'react-native'
 import { Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
+import { THOUSANDS_GROUP } from '../../constants'
 import { useWriteCSV } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import tw from '../../styles/tailwind'
@@ -48,11 +49,12 @@ function createCSVValue (tradeSummaries: (OfferSummary | ContractSummary)[]) {
     Type: getTradeSummaryType,
     Amount: (d: OfferSummary | ContractSummary) => {
       const { amount } = d
-      return groupChars(String(amount), 3)
+      return groupChars(String(amount), THOUSANDS_GROUP)
     },
     Price: (d: OfferSummary | ContractSummary) => {
       const tradePrice
-        = 'price' in d ? (d.currency === 'SAT' ? groupChars(String(d.price), 3) : priceFormat(d.price)) : ''
+        // eslint-disable-next-line max-len
+        = 'price' in d ? (d.currency === 'SAT' ? groupChars(String(d.price), THOUSANDS_GROUP) : priceFormat(d.price)) : ''
       const price = 'price' in d ? `${tradePrice} ${d.currency}` : ''
       return price
     },

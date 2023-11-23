@@ -1,5 +1,5 @@
 import { renderHook } from 'test-utils'
-import { ContractContext } from '.'
+import { ContractContext } from './ContractContext'
 import { useContractContext } from './useContractContext'
 
 const toggleShowBatchInfo = jest.fn()

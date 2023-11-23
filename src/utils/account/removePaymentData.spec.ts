@@ -1,10 +1,10 @@
 /* eslint-disable max-lines-per-function */
-import { removePaymentData } from '.'
 import { twintData, validSEPAData, validSEPAData2, validSEPADataHashes } from '../../../tests/unit/data/paymentData'
 import { apiSuccess } from '../../../tests/unit/data/peachAPIData'
 import { NoErrorThrownError, getError } from '../../../tests/unit/helpers/getError'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
+import { removePaymentData } from './removePaymentData'
 
 const deletePaymentHashMock = jest.fn().mockResolvedValue([apiSuccess])
 jest.mock('../peachAPI', () => ({

@@ -5,7 +5,7 @@ import { useLastUnusedAddress } from './useLastUnusedAddress'
 
 describe('useLastUnusedAddress', () => {
   beforeAll(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
   })
   const getLastUnusedAddressMock = jest.fn().mockResolvedValue({

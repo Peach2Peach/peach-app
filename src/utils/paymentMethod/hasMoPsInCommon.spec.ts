@@ -1,4 +1,4 @@
-import { hasMoPsInCommon } from '.'
+import { hasMoPsInCommon } from './hasMoPsInCommon'
 
 describe('hasMoPsInCommon', () => {
   test('should return true if both means of payment have common values', () => {

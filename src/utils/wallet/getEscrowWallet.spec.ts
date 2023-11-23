@@ -1,6 +1,7 @@
 import { deepStrictEqual, strictEqual } from 'assert'
-import { getEscrowWallet, getNetwork } from '.'
 import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
+import { getEscrowWallet } from './getEscrowWallet'
+import { getNetwork } from './getNetwork'
 
 describe('getEscrowWallet', () => {
   it('returns wallet for escrow depending on offer id', () => {

@@ -1,13 +1,14 @@
 import { ok } from 'assert'
-import { deleteAccount, setAccount } from '.'
 import * as accountData from '../../../tests/unit/data/accountData'
 import { useSessionStore } from '../../store/sessionStore'
 import { settingsStorage } from '../../store/settingsStore'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
+import { setAccount } from './account'
 import { accountStorage } from './accountStorage'
 import { chatStorage } from './chatStorage'
+import { deleteAccount } from './deleteAccount'
 import { offerStorage } from './offerStorage'
 
 jest.mock('../peachAPI/accessToken', () => ({

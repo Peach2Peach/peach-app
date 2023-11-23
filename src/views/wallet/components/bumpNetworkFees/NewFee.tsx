@@ -1,9 +1,10 @@
 import { Dispatch } from 'react'
+import { View } from 'react-native'
 import { Text } from '../../../../components'
 import { NumberInput } from '../../../../components/inputs'
-import i18n from '../../../../utils/i18n'
-import { View } from 'react-native'
+import { CENT } from '../../../../constants'
 import tw from '../../../../styles/tailwind'
+import i18n from '../../../../utils/i18n'
 import { round } from '../../../../utils/math'
 
 type Props = {
@@ -29,7 +30,7 @@ export const NewFee = ({ newFeeRate, setNewFeeRate, overpayingBy = 0 }: Props) =
       <Text style={tw`text-center text-black-3`}>{i18n('satPerByte')}</Text>
     </View>
     <Text style={[tw`text-center text-primary-main`, overpayingBy < 1 && tw`opacity-0`]}>
-      {i18n('wallet.bumpNetworkFees.overPayingBy', String(round(overpayingBy * 100)))}
+      {i18n('wallet.bumpNetworkFees.overPayingBy', String(round(overpayingBy * CENT)))}
     </Text>
   </View>
 )

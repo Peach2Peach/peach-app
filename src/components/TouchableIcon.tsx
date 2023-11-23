@@ -1,7 +1,7 @@
 import { ColorValue, TouchableOpacity, TouchableOpacityProps } from 'react-native'
-import { Icon } from '.'
 import { IconType } from '../assets/icons'
 import tw from '../styles/tailwind'
+import { Icon } from './Icon'
 
 type Props = {
   id: IconType

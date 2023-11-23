@@ -1,4 +1,4 @@
-import { isPhone } from '.'
+import { isPhone } from './isPhone'
 
 describe('isPhone', () => {
   it('should return true for a valid phone number', () => {

@@ -1,4 +1,5 @@
-import { priceFormat } from '.'
+/* eslint-disable no-magic-numbers */
+import { priceFormat } from './priceFormat'
 
 describe('priceFormat', () => {
   it('formats the amount correctly', () => {

@@ -2,9 +2,13 @@ import { View } from 'react-native'
 
 import RatingPeach from '../../../../../assets/icons/ratingPeach.svg'
 import { Text } from '../../../../../components'
+import { CENT } from '../../../../../constants'
 import tw from '../../../../../styles/tailwind'
 import i18n from '../../../../../utils/i18n'
 import { interpolate } from '../../../../../utils/math'
+
+// eslint-disable-next-line no-magic-numbers
+const PEACHES = [1, 2, 3, 4, 5]
 
 type RatingProps = ComponentProps & {
   rating: number
@@ -17,16 +21,16 @@ export const Rating = ({ rating, style, isNewUser }: RatingProps) =>
   ) : (
     <View style={[tw`flex-row items-center`, style]}>
       <View style={tw`flex-row`}>
-        {[1, 2, 3, 4, 5].map((peach) => (
+        {PEACHES.map((peach) => (
           <RatingPeach key={`rating-peach-background-${peach}`} style={tw`w-3 h-3 mr-1 opacity-50`} />
         ))}
         <View
           style={[
             tw`absolute flex-row self-center overflow-hidden`,
-            { width: `${interpolate(rating, [-1, 1], [0, 100])}%` },
+            { width: `${interpolate(rating, [-1, 1], [0, CENT])}%` },
           ]}
         >
-          {[1, 2, 3, 4, 5].map((peach) => (
+          {PEACHES.map((peach) => (
             <RatingPeach key={`rating-peach-colored-${peach}`} style={tw`w-3 h-3 mr-1`} />
           ))}
         </View>

@@ -1,4 +1,4 @@
-import { getAvailableCurrencies } from '.'
+import { getAvailableCurrencies } from './getAvailableCurrencies'
 
 describe('getAvailableCurrencies', () => {
   it('should return only shared currencies if they exist', () => {

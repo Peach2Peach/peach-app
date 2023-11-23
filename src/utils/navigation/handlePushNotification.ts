@@ -7,6 +7,7 @@ import { shouldGoToContractChat } from './shouldGoToContractChat'
 import { shouldGoToOfferPublished } from './shouldGoToOfferPublished'
 import { shouldGoToSearch } from './shouldGoToSearch'
 import { shouldGoToSell } from './shouldGoToSell'
+import { shouldGoToYourTradesBuy } from './shouldGoToYourTradesBuy'
 import { shouldGoToYourTradesSell } from './shouldGoToYourTradesSell'
 
 export type StackNavigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
@@ -41,6 +42,8 @@ export const handlePushNotification = async (
     navigationRef.navigate('contractChat', { contractId })
   } else if (shouldGoToYourTradesSell(data)) {
     navigationRef.navigate('yourTrades', { tab: 'yourTrades.sell' })
+  } else if (shouldGoToYourTradesBuy(data)) {
+    navigationRef.navigate('yourTrades', { tab: 'yourTrades.buy' })
   } else if (shouldGoToSell(data)) {
     navigationRef.navigate('sell')
   } else if (isDefined(data.offerId)) {

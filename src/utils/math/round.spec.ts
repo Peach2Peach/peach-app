@@ -1,5 +1,6 @@
+/* eslint-disable no-magic-numbers */
 import { strictEqual } from 'assert'
-import { round } from '.'
+import { round } from './round'
 
 describe('round', () => {
   it('rounds values to integers', () => {

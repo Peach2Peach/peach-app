@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
-import { usePaymentDataStore } from '.'
 import { paypalData, revolutData, twintData, validSEPAData, validSEPAData2 } from '../../../tests/unit/data/paymentData'
+import { usePaymentDataStore } from './usePaymentDataStore'
 
 describe('usePaymentDataStore', () => {
   it('returns defaults', () => {

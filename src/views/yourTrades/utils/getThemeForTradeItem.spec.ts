@@ -1,4 +1,4 @@
-import { getThemeForTradeItem } from '.'
+import { getThemeForTradeItem } from './getThemeForTradeItem'
 
 const completedTradeSeller: Partial<ContractSummary> = {
   id: '1',

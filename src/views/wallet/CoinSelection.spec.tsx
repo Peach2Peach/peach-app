@@ -19,14 +19,15 @@ jest.useFakeTimers()
 describe('CoinSelection', () => {
   const outpoint = new OutPoint(confirmed1.txid, 0)
   const script = new Script('address')
-  const txOut = new TxOut(10000, script)
+  const amount = 10000
+  const txOut = new TxOut(amount, script)
   const utxo = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
   const listUnspentMock = jest.fn().mockResolvedValue([utxo])
 
   beforeAll(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
-    // @ts-ignore
+    // @ts-expect-error mock doesn't all methods
     peachWallet.wallet = {
       listUnspent: listUnspentMock,
     }
@@ -50,7 +51,7 @@ describe('CoinSelection', () => {
     const helpIcon = getByAccessibilityHint('help')
 
     fireEvent.press(helpIcon)
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    const popupComponent = usePopupStore.getState().popupComponent ?? <></>
     expect(render(popupComponent).toJSON()).toMatchSnapshot()
   })
   it('renders correctly while loading', () => {

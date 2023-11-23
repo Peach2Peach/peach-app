@@ -1,5 +1,6 @@
+/* eslint-disable no-magic-numbers */
 import { strictEqual } from 'assert'
-import { interpolate } from '.'
+import { interpolate } from './interpolate'
 
 describe('interpolate', () => {
   it('interpolates a number to a new range', () => {

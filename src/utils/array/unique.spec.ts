@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import { unique } from '.'
+import { unique } from './unique'
 
 describe('unique', () => {
   it('filters duplicated items in an array', () => {

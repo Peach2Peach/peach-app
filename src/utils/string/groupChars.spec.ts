@@ -1,6 +1,7 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable no-loss-of-precision */
 
-import { groupChars } from '.'
+import { groupChars } from './groupChars'
 
 describe('groupChars', () => {
   it('should group characters in sets of the specified size', () => {

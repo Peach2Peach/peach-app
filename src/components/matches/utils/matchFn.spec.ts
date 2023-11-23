@@ -1,6 +1,6 @@
-import { matchFn } from '.'
 import * as offerData from '../../../../tests/unit/data/offerData'
 import { getError, getResult } from '../../../utils/result'
+import { matchFn } from './matchFn'
 
 const selectedCurrency: Currency = 'EUR'
 const selectedPaymentMethod: PaymentMethod = 'sepa'

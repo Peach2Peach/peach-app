@@ -1,5 +1,5 @@
-import { getEventName } from '.'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
+import { getEventName } from './getEventName'
 
 describe('getEventName', () => {
   useMeetupEventsStore.setState({

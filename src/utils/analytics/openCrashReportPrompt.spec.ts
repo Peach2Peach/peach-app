@@ -1,6 +1,6 @@
 import { Alert, Linking } from 'react-native'
-import { openCrashReportPrompt } from '.'
 import { deleteUnsentReports } from './deleteUnsentReports'
+import { openCrashReportPrompt } from './openCrashReportPrompt'
 import { sendErrors } from './sendErrors'
 
 jest.mock('./deleteUnsentReports', () => ({

@@ -1,5 +1,5 @@
 import OpenPGP from 'react-native-fast-openpgp'
-import { verify } from '.'
+import { verify } from './verify'
 
 describe('verify', () => {
   afterEach(() => {

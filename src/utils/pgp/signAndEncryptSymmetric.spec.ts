@@ -1,7 +1,7 @@
 import OpenPGP from 'react-native-fast-openpgp'
-import { signAndEncryptSymmetric } from '.'
 import { defaultAccount, setAccount } from '../account'
 import { useAccountStore } from '../account/account'
+import { signAndEncryptSymmetric } from './signAndEncryptSymmetric'
 
 describe('signAndEncryptSymmetric', () => {
   beforeEach(() => {

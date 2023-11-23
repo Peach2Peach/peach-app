@@ -1,5 +1,6 @@
+/* eslint-disable no-magic-numbers */
 import { strictEqual } from 'assert'
-import { floor } from '.'
+import { floor } from './floor'
 
 describe('floor', () => {
   it('floors values to integers', () => {

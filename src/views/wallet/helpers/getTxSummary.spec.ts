@@ -23,11 +23,12 @@ const baseTx = {
 }
 const receivedTx = { ...baseTx, received: 100000000 }
 const sentTx = { ...baseTx, sent: 100000000 }
+const timestamp = 1234567890000
 const baseSummary = {
   id: '123',
   offerData: [],
   amount: 100000000,
-  date: new Date(1234567890000),
+  date: new Date(timestamp),
   height: 1,
   confirmed: true,
 }

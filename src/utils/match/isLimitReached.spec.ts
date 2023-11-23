@@ -1,5 +1,5 @@
-import { isLimitReached } from '.'
 import { ANONYMOUS_PAYMENTCATEGORIES } from '../../paymentMethods'
+import { isLimitReached } from './isLimitReached'
 
 describe('isLimitReached', () => {
   it('should return true if all limits are exceeded', () => {

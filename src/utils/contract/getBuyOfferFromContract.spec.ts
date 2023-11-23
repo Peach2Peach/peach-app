@@ -1,5 +1,5 @@
-import { getBuyOfferFromContract } from '.'
 import { getOffer } from '../offer'
+import { getBuyOfferFromContract } from './getBuyOfferFromContract'
 
 jest.mock('../offer', () => ({
   getOffer: jest.fn(),

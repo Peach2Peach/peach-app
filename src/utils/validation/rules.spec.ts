@@ -1,10 +1,5 @@
-/* eslint-disable max-lines-per-function */
 import { ok } from 'assert'
-import { rules } from '.'
-
-jest.mock('../wallet/getNetwork', () => ({
-  getNetwork: jest.fn(),
-}))
+import { rules } from './rules'
 
 describe('rules', () => {
   it('validates required fields correctly', () => {

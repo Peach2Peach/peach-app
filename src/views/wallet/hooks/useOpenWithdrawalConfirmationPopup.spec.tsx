@@ -20,10 +20,12 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 const amount = sellOffer.amount
 const address = 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'
 const feeRate = estimatedFees.halfHourFee
-const fee = feeRate * 110
+const TX_SIZE = 110
+const fee = feeRate * TX_SIZE
 const transaction = getTransactionDetails(amount, feeRate)
 const transactionWithChange = getTransactionDetails(amount, feeRate)
-transactionWithChange.txDetails.sent = sellOffer.amount + 5000
+const changeAmount = 5000
+transactionWithChange.txDetails.sent = sellOffer.amount + changeAmount
 
 const props = {
   address,
@@ -37,7 +39,7 @@ jest.mock('../../../utils/wallet/transaction/buildTransaction', () => ({
 
 describe('useOpenWithdrawalConfirmationPopup', () => {
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
   })
 

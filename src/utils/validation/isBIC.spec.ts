@@ -1,4 +1,4 @@
-import { isBIC } from '.'
+import { isBIC } from './isBIC'
 
 describe('isBIC', () => {
   it('should return true for a valid BIC', () => {

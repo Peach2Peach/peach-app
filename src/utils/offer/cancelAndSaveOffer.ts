@@ -1,6 +1,7 @@
 import { error, info } from '../log'
-import { isSellOffer, saveOffer } from '.'
 import { cancelOffer } from '../peachAPI'
+import { isSellOffer } from './isSellOffer'
+import { saveOffer } from './saveOffer'
 
 export const cancelAndSaveOffer = async (
   offer: BuyOffer | SellOffer,
