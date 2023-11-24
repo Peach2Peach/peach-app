@@ -6,12 +6,7 @@ import { useStartRefundPopup } from '../../popups/useStartRefundPopup'
 import { getSellOfferFromContract, verifyAndSignReleaseTx } from '../../utils/contract'
 import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../utils/i18n'
-import {
-  confirmContractCancelation,
-  confirmPayment,
-  extendPaymentTimer,
-  rejectContractCancelation,
-} from '../../utils/peachAPI'
+import { confirmPayment, extendPaymentTimer, peachAPI, rejectContractCancelation } from '../../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../../utils/wallet'
 import { useContractContext } from './context'
 import { useContractMutation } from './hooks/useContractMutation'
@@ -148,7 +143,7 @@ export function ResolveCancelRequestSliders () {
     { canceled: true, cancelationRequested: false },
     {
       mutationFn: async () => {
-        const [, err] = await confirmContractCancelation({ contractId })
+        const { error: err } = await peachAPI.private.contract.confirmContractCancelation({ contractId })
         if (err) throw new Error(err.error)
       },
     },
