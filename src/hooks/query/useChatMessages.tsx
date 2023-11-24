@@ -2,7 +2,7 @@ import { useIsFocused } from '@react-navigation/native'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import i18n from '../../utils/i18n'
-import { getChat } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 import { decryptSymmetric } from '../../utils/pgp'
 
 const PAGE_SIZE = 22
@@ -13,14 +13,17 @@ type GetChatQueryProps = {
 }
 const getChatQuery = async ({ queryKey, pageParam = 0 }: GetChatQueryProps) => {
   const [, contractId] = queryKey
-  const [messages, error] = await getChat({
+  const { result: messages, error } = await peachAPI.private.contract.getChat({
     contractId,
     page: pageParam,
   })
 
   if (!messages || error) throw new Error(error?.error)
 
-  return messages
+  return messages.map((message) => ({
+    ...message,
+    date: new Date(message.date),
+  }))
 }
 
 const getDecryptedChat
