@@ -5,7 +5,8 @@ import { Input } from '../../components/inputs'
 import { InputProps } from '../../components/inputs/Input'
 import i18n from '../../utils/i18n'
 import { getMessages } from '../../utils/validation'
-import { Formatter, formatters, getNewRules } from '../../utils/validation/rules'
+import { Formatter, formatters } from '../../utils/validation/formatters'
+import { getValidators } from '../../utils/validation/validators'
 import { FormType } from './PaymentMethodForm'
 
 type Props = {
@@ -25,7 +26,7 @@ export function FormInput ({ control, name, optional = false, defaultValue = '',
     name,
     rules: {
       required: optional ? false : getMessages().required,
-      validate: getNewRules(name, optional),
+      validate: getValidators(name, optional),
     },
   })
 
