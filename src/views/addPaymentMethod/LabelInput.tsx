@@ -7,7 +7,7 @@ import { FormType } from './PaymentMethodForm'
 
 type Props = {
   control: Control<FormType>
-  name: keyof FormType
+  name: 'paymentMethodName'
   optional?: boolean
 } & InputProps
 
