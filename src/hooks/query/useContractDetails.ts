@@ -1,10 +1,10 @@
 import { useIsFocused } from '@react-navigation/native'
 import { useQuery } from '@tanstack/react-query'
-import { getContract } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 
 const getContractQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
   const [, contractId] = queryKey
-  const [contract] = await getContract({ contractId })
+  const { result: contract } = await peachAPI.private.contract.getContract({ contractId })
 
   if (!contract) {
     throw new Error('Contract not found')

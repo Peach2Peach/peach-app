@@ -16,7 +16,7 @@ import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { contractIdToHex, getNavigationDestinationForContract, getOfferIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { getContract, getOfferDetails } from '../../utils/peachAPI'
+import { getOfferDetails, peachAPI } from '../../utils/peachAPI'
 import { thousands } from '../../utils/string'
 import { getNavigationDestinationForOffer } from '../yourTrades/utils'
 import { useContractContext } from './context'
@@ -31,8 +31,8 @@ export function NewOfferButton () {
     const [newOffer] = await getOfferDetails({ offerId: newOfferId })
     if (!newOffer) return
     if (newOffer?.contractId) {
-      const [newContract] = await getContract({ contractId: newOffer.contractId })
-      if (newContract === null) return
+      const { result: newContract } = await peachAPI.private.contract.getContract({ contractId: newOffer.contractId })
+      if (!newContract) return
       const [screen, params] = await getNavigationDestinationForContract(newContract)
       navigation.replace(screen, params)
     } else {

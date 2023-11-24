@@ -8,10 +8,8 @@ import { offerIdToHex } from '../../../utils/offer'
 import { Icon } from '../../Icon'
 import { Left } from './Left'
 
-const getContractMock = jest.fn(() => Promise.resolve([contract, null]))
 const getOfferDetailsMock = jest.fn(() => Promise.resolve([{ ...sellOffer, tradeStatus: 'searchingForPeer' }, null]))
-jest.mock('../../../utils/peachAPI', () => ({
-  getContract: () => getContractMock(),
+jest.mock('../../../utils/peachAPI/private/offer/getOfferDetails', () => ({
   getOfferDetails: () => getOfferDetailsMock(),
 }))
 

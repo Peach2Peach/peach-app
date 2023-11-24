@@ -5,7 +5,6 @@ export type RequestProps = {
 
 export { peachAPI } from './peachAPI'
 export {
-  getContract,
   getContractSummaries,
   getContracts,
   postChat,

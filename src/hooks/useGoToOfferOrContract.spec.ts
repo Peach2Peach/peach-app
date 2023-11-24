@@ -1,13 +1,13 @@
-import { renderHook } from 'test-utils'
+import { renderHook, responseUtils } from 'test-utils'
 import { contract } from '../../tests/unit/data/contractData'
 import { sellOffer } from '../../tests/unit/data/offerData'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
+import { peachAPI } from '../utils/peachAPI'
 import { useGoToOfferOrContract } from './useGoToOfferOrContract'
 
-const getContractMock = jest.fn(() => Promise.resolve([contract, null]))
+const getContractMock = jest.spyOn(peachAPI.private.contract, 'getContract')
 const getOfferDetailsMock = jest.fn(() => Promise.resolve([sellOffer, null]))
-jest.mock('../utils/peachAPI', () => ({
-  getContract: () => getContractMock(),
+jest.mock('../utils/peachAPI/private/offer/getOfferDetails', () => ({
   getOfferDetails: () => getOfferDetailsMock(),
 }))
 
@@ -30,7 +30,7 @@ describe('useGoToOfferOrContract', () => {
     expect(navigateMock).toHaveBeenCalledWith('search', { offerId: '38' })
   })
   it('should not navigate if the id is a contract id and the contract is not found', async () => {
-    getContractMock.mockResolvedValueOnce([null, null])
+    getContractMock.mockResolvedValueOnce(responseUtils)
     const { result } = renderHook(useGoToOfferOrContract)
 
     await result.current('123-456')

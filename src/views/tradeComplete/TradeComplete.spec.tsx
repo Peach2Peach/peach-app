@@ -15,11 +15,6 @@ jest.mock('../../utils/analytics', () => ({
   logTradeCompleted: (...args: unknown[]) => logTradeCompletedMock(...args),
 }))
 
-const getContractMock = jest.fn().mockResolvedValue([contract, null])
-jest.mock('../../utils/peachAPI', () => ({
-  getContract: (...args: unknown[]) => getContractMock(...args),
-}))
-
 jest.useFakeTimers()
 
 describe('TradeComplete', () => {
