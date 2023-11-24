@@ -1,5 +1,6 @@
 import { validateMnemonic, wordlists } from 'bip39'
 import { z } from 'zod'
+import { PaymentMethodField } from '../../../peach-api/src/@types/payment'
 import {
   enforceBICFormat,
   enforceBankNumberFormat,
@@ -62,7 +63,11 @@ const accountNumberValidator = (value: string) => isValidDigitLength(value, [10,
 const cbuValidator = (value: string) => isCBU(value) || getMessages().isCBU
 const cvuValidator = (value: string) => isCVU(value) || getMessages().isCVU
 
-export const newRules = {
+type NewRule = {
+  [key: string]: (value: string) => true | string
+}
+
+export const newRules: Record<PaymentMethodField, NewRule> = {
   beneficiary: {},
   iban: {
     iban: ibanValidator,
@@ -84,6 +89,9 @@ export const newRules = {
     phone: phoneValidator,
     isPhoneAllowed: isPhoneAllowedValidator,
   },
+  pixAlias: {},
+  postePayNumber: {},
+  receiveAddress: {},
   ukBankAccount: {
     ukBankAccount: ukBankAccountValidator,
   },
@@ -107,9 +115,6 @@ export const newRules = {
   },
   cvuAlias: {
     isCVUAlias: cvuValidator,
-  },
-  chipperTag: {
-    userName: userNameValidator,
   },
 }
 

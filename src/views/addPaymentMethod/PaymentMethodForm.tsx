@@ -1,8 +1,8 @@
-import { API_URL } from '@env'
 import { useQuery } from '@tanstack/react-query'
 import { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { View } from 'react-native'
+import { PaymentMethodField } from '../../../peach-api/src/@types/payment'
 import { Header, Screen } from '../../components'
 import { HeaderIcon } from '../../components/Header'
 import { PeachScrollView } from '../../components/PeachScrollView'
@@ -16,17 +16,14 @@ import { PAYMENTMETHODINFOS } from '../../paymentMethods'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
-import fetch from '../../utils/fetch'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
-import { parseResponse } from '../../utils/peachAPI/parseResponse'
-import { getPrivateHeaders } from '../../utils/peachAPI/private/getPrivateHeaders'
-import { PaymentFieldTypes } from '../../utils/validation/rules'
+import { peachAPI } from '../../utils/peachAPI'
 import { FormInput } from './FormInput'
 import { NewLabelInput } from './NewLabelInput'
 import { TabbedFormNavigation } from './TabbedFormNavigation'
 
-export type FormType = Record<PaymentFieldTypes, string> & { paymentMethodName: string }
+export type FormType = Record<PaymentMethodField, string> & { paymentMethodName: string }
 
 export const PaymentMethodForm = () => {
   const { paymentData, origin } = useRoute<'paymentMethodForm'>().params
@@ -94,7 +91,7 @@ export const PaymentMethodForm = () => {
               )
             })}
 
-            {fields.optional.map((field: PaymentFieldTypes) => (
+            {fields.optional.map((field) => (
               <FormInput
                 key={`formInput-${field}`}
                 name={field}
@@ -163,29 +160,16 @@ function useFormFields (paymentMethod: PaymentMethod) {
   const queryData = useQuery({
     queryKey: ['paymentMethods'],
     queryFn: async () => {
-      const [result, error] = await parseResponse(
-        await fetch(`${API_URL}/v1/info/paymentMethods/${paymentMethod}`, {
-          headers: await getPrivateHeaders(),
-          method: 'GET',
-        }),
-        'paymentMethods',
-      )
+      const { result, error } = await peachAPI.public.system.getPaymentMethodInfo({ paymentMethod })
 
       if (error) {
         throw error
       }
 
-      return result as {
-        id: PaymentMethod
-        fields: {
-          mandatory: PaymentFieldTypes[][][]
-          optional: PaymentFieldTypes[]
-        }
-      }
+      return result
     },
   })
 
   const fields = queryData.data?.fields
-
   return fields
 }

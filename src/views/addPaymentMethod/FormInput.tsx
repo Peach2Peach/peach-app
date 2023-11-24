@@ -1,15 +1,16 @@
 import { useMemo } from 'react'
 import { Control, useController } from 'react-hook-form'
+import { PaymentMethodField } from '../../../peach-api/src/@types/payment'
 import { Input } from '../../components/inputs'
 import { InputProps } from '../../components/inputs/Input'
 import i18n from '../../utils/i18n'
 import { getMessages } from '../../utils/validation'
-import { Formatter, PaymentFieldTypes, formatters, getNewRules } from '../../utils/validation/rules'
+import { Formatter, formatters, getNewRules } from '../../utils/validation/rules'
 import { FormType } from './PaymentMethodForm'
 
 type Props = {
   control: Control<FormType>
-  name: PaymentFieldTypes
+  name: PaymentMethodField
   optional?: boolean
   defaultValue?: string
 } & InputProps

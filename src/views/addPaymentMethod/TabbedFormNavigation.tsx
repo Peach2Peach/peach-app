@@ -1,20 +1,14 @@
 import { useMemo, useState } from 'react'
 import { Control, FieldError } from 'react-hook-form'
+import { PaymentMethodField } from '../../../peach-api/src/@types/payment'
 import { TabbedNavigation } from '../../components/navigation'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { PaymentFieldTypes } from '../../utils/validation/rules'
 import { FormInput } from './FormInput'
 import { FormType } from './PaymentMethodForm'
 
-export function TabbedFormNavigation ({
-  row,
-  control,
-  paymentData,
-  getFieldState,
-  getValues,
-}: {
-  row: PaymentFieldTypes[][]
+type Props = {
+  row: PaymentMethodField[][]
   control: Control<FormType>
   paymentData: Partial<PaymentData> & {
     type: PaymentMethod
@@ -26,8 +20,10 @@ export function TabbedFormNavigation ({
     isTouched: boolean
     error?: FieldError | undefined
   }
-  getValues: (fieldName?: PaymentFieldTypes) => unknown
-}) {
+  getValues: (fieldName?: PaymentMethodField) => unknown
+}
+
+export function TabbedFormNavigation ({ row, control, paymentData, getFieldState, getValues }: Props) {
   const [selected, setSelected] = useState(0)
   const tabbedNavigationItems = row.map((column) => ({
     id: column[0],
@@ -35,7 +31,7 @@ export function TabbedFormNavigation ({
   }))
 
   const errorTabs = useMemo(() => {
-    const fields: PaymentFieldTypes[] = []
+    const fields: PaymentMethodField[] = []
     row.forEach((column, index) => {
       column.some((field) => {
         const fieldHasError = !!getValues(field) && getFieldState(field).error
