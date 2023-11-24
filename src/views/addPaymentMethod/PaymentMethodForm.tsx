@@ -1,6 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
-import { useCallback, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useCallback } from 'react'
+import { Control, useController, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { PaymentMethodField } from '../../../peach-api/src/@types/payment'
 import { Header, Screen } from '../../components'
@@ -8,7 +7,6 @@ import { HeaderIcon } from '../../components/Header'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Button } from '../../components/buttons/Button'
 import { CurrencySelection } from '../../components/inputs/paymentForms/components'
-import { toggleCurrency } from '../../components/inputs/paymentForms/utils'
 import { useDeletePaymentMethod } from '../../components/payment/hooks/useDeletePaymentMethod'
 import { useRoute, useShowHelp } from '../../hooks'
 import { useGoToOrigin } from '../../hooks/useGoToOrigin'
@@ -18,12 +16,12 @@ import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
-import { peachAPI } from '../../utils/peachAPI'
 import { FormInput } from './FormInput'
 import { LabelInput } from './LabelInput'
 import { TabbedFormNavigation } from './TabbedFormNavigation'
+import { useFormFields } from './useFormFields'
 
-export type FormType = Record<PaymentMethodField, string> & { paymentMethodName: string }
+export type FormType = Record<PaymentMethodField, string> & { paymentMethodName: string; currencies: Currency[] }
 
 export const PaymentMethodForm = () => {
   const { paymentData, origin } = useRoute<'paymentMethodForm'>().params
@@ -31,7 +29,7 @@ export const PaymentMethodForm = () => {
   const selectPaymentMethod = useOfferPreferences((state) => state.selectPaymentMethod)
   const addPaymentData = usePaymentDataStore((state) => state.addPaymentData)
 
-  const { currencies, type: paymentMethod, id, country, label } = paymentData
+  const { type: paymentMethod, id, country, label } = paymentData
 
   const fields = useFormFields(paymentMethod)
 
@@ -41,12 +39,8 @@ export const PaymentMethodForm = () => {
     formState: { isValid },
     getFieldState,
     getValues,
+    setValue,
   } = useForm<FormType>({ mode: 'all' })
-  // this could become part of the form
-  const [selectedCurrencies, setSelectedCurrencies] = useState(currencies)
-  const onCurrencyToggle = (currency: Currency) => {
-    setSelectedCurrencies(toggleCurrency(currency))
-  }
 
   const onValid = (data: FormType) => {
     const { paymentMethodName, ...rest } = data
@@ -55,7 +49,6 @@ export const PaymentMethodForm = () => {
       id: id || `${paymentMethod}-${Date.now()}`,
       label: paymentMethodName,
       type: paymentMethod,
-      currencies: selectedCurrencies,
       country,
     } satisfies PaymentData
 
@@ -102,11 +95,7 @@ export const PaymentMethodForm = () => {
             ))}
 
             {hasMultipleAvailableCurrencies(paymentMethod) && (
-              <CurrencySelection
-                paymentMethod={paymentMethod}
-                onToggle={onCurrencyToggle}
-                selectedCurrencies={selectedCurrencies}
-              />
+              <CurrencySelectionController {...{ paymentData, setValue, control }} />
             )}
           </View>
           <Button style={tw`self-center`} disabled={!isValid} onPress={handleSubmit(onValid)}>
@@ -116,6 +105,40 @@ export const PaymentMethodForm = () => {
       )}
     </Screen>
   )
+}
+
+function CurrencySelectionController ({
+  paymentData: { type, currencies },
+  control,
+  setValue,
+}: {
+  paymentData: {
+    type: PaymentMethod
+    currencies: Currency[]
+  }
+  control: Control<FormType>
+  setValue: (name: keyof FormType, value: Currency[]) => void
+}) {
+  const { field } = useController({
+    control,
+    defaultValue: currencies,
+    name: 'currencies',
+    rules: {
+      validate: (value: Currency[]) => {
+        const isValid = value.length > 0
+        return isValid || i18n('form.required.error')
+      },
+    },
+  })
+
+  const onCurrencyToggle = (currency: Currency) => {
+    const newCurrencies = field.value.includes(currency)
+      ? field.value.filter((c) => c !== currency)
+      : [...field.value, currency]
+    setValue('currencies', newCurrencies)
+  }
+
+  return <CurrencySelection paymentMethod={type} onToggle={onCurrencyToggle} selectedCurrencies={field.value} />
 }
 
 function hasMultipleAvailableCurrencies (paymentMethod: PaymentMethod) {
@@ -154,22 +177,4 @@ function PaymentMethodFormHeader () {
       icons={getHeaderIcons()}
     />
   )
-}
-
-function useFormFields (paymentMethod: PaymentMethod) {
-  const queryData = useQuery({
-    queryKey: ['paymentMethods'],
-    queryFn: async () => {
-      const { result, error } = await peachAPI.public.system.getPaymentMethodInfo({ paymentMethod })
-
-      if (error) {
-        throw error
-      }
-
-      return result
-    },
-  })
-
-  const fields = queryData.data?.fields
-  return fields
 }
