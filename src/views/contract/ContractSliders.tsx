@@ -6,7 +6,7 @@ import { useStartRefundPopup } from '../../popups/useStartRefundPopup'
 import { getSellOfferFromContract, verifyAndSignReleaseTx } from '../../utils/contract'
 import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../utils/i18n'
-import { confirmPayment, extendPaymentTimer, peachAPI, rejectContractCancelation } from '../../utils/peachAPI'
+import { extendPaymentTimer, peachAPI, rejectContractCancelation } from '../../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../../utils/wallet'
 import { useContractContext } from './context'
 import { useContractMutation } from './hooks/useContractMutation'
@@ -38,7 +38,7 @@ export function PaymentMadeSlider () {
     { paymentMade: new Date(), tradeStatus: 'confirmPaymentRequired' },
     {
       mutationFn: async () => {
-        const [, err] = await confirmPayment({ contractId })
+        const { error: err } = await peachAPI.private.contract.confirmPaymentBuyer({ contractId })
         if (err) throw new Error(err.error)
       },
     },
@@ -71,7 +71,7 @@ export function PaymentReceivedSlider () {
           throw new Error(errorMsg)
         }
 
-        const [, err] = await confirmPayment({
+        const { error: err } = await peachAPI.private.contract.confirmPaymentSeller({
           contractId: contract.id,
           releaseTransaction,
           batchReleasePsbt,

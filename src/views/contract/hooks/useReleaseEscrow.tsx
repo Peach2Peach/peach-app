@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { signReleaseTxOfContract } from '../../../utils/contract/signReleaseTxOfContract'
-import { confirmPayment } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 
 export const useReleaseEscrow = (contract: Contract) => {
   const showError = useShowErrorBanner()
@@ -28,7 +28,7 @@ export const useReleaseEscrow = (contract: Contract) => {
         throw new Error(errorMsg)
       }
 
-      const [, err] = await confirmPayment({
+      const { error: err } = await peachAPI.private.contract.confirmPaymentSeller({
         contractId: contract.id,
         releaseTransaction,
         batchReleasePsbt,
