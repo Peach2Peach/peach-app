@@ -1,4 +1,3 @@
-export { extendPaymentTimer } from './extendPaymentTimer'
 export { getChat } from './getChat'
 export { getContract } from './getContract'
 export { getContractSummaries } from './getContractSummaries'
