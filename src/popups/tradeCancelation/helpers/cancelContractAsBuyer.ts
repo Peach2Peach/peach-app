@@ -1,7 +1,7 @@
-import { cancelContract } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 
 export const cancelContractAsBuyer = async (contract: Contract) => {
-  const [result, err] = await cancelContract({
+  const { result, error: err } = await peachAPI.private.contract.cancelContract({
     contractId: contract.id,
   })
 

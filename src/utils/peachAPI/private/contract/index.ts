@@ -1,4 +1,3 @@
-export { cancelContract } from './cancelContract'
 export { confirmContractCancelation } from './confirmContractCancelation'
 export { confirmPayment } from './confirmPayment'
 export { extendPaymentTimer } from './extendPaymentTimer'
