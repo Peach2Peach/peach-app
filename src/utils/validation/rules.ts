@@ -15,8 +15,6 @@ import { getNetwork } from '../wallet'
 import { isAdvcashWallet } from './isAdvcashWallet'
 import { isBIC } from './isBIC'
 import { isBitcoinAddress } from './isBitcoinAddress'
-import { isCBU } from './isCBU'
-import { isCVU } from './isCVU'
 import { isEUIBAN } from './isEUIBAN'
 import { isEmail } from './isEmail'
 import { isIBAN } from './isIBAN'
@@ -60,8 +58,6 @@ const ukSortCodeValidator = (value: string) => isUKSortCode(value) || getMessage
 const userNameValidator = (value: string) => isUsername(value) || getMessages().userName
 const isPhoneAllowedValidator = (value: string) => isPhoneAllowed(value) || getMessages().isPhoneAllowed
 const accountNumberValidator = (value: string) => isValidDigitLength(value, [10, 28]) || i18n('form.account.errors')
-const cbuValidator = (value: string) => isCBU(value) || getMessages().isCBU
-const cvuValidator = (value: string) => isCVU(value) || getMessages().isCVU
 
 type NewRule = {
   [key: string]: (value: string) => true | string
@@ -106,15 +102,6 @@ export const newRules: Record<PaymentMethodField, NewRule> = {
   },
   lnurlAddress: {
     lnurlAddress: emailValidator,
-  },
-  cbu: {
-    isCBU: cbuValidator,
-  },
-  cvu: {
-    isCVU: cvuValidator,
-  },
-  cvuAlias: {
-    isCVUAlias: cvuValidator,
   },
 }
 
