@@ -1,5 +1,5 @@
 import { keys } from '../object'
-import { getMessages } from './messages'
+import { getMessages } from './getMessages'
 import { Rule, rules } from './rules'
 
 type RuleRecord = {

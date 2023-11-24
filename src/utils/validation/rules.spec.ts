@@ -68,3 +68,74 @@ describe('bitcoinAddress', () => {
     invalidAddresses.regtest.forEach((address) => expect(rules.bitcoinAddress(address)).toBeFalsy())
   })
 })
+
+describe('isURL', () => {
+  it('should return true for a valid URL', () => {
+    expect(rules.url('https://www.example.com')).toBe(true)
+    expect(rules.url('https://www.example.com:8333')).toBe(true)
+    expect(rules.url('https://www.example.com/?query=param')).toBe(true)
+    expect(rules.url('https://www.example.com/#anchor')).toBe(true)
+    expect(rules.url('http://example.com')).toBe(true)
+    expect(rules.url('ssl://example.com')).toBe(true)
+    expect(rules.url('ftp://example.com')).toBe(true)
+    expect(rules.url('example.com')).toBe(true)
+  })
+  it('should return true for a valid IP', () => {
+    expect(rules.url('192.168.1.21')).toBe(true)
+    expect(rules.url('192.168.1.21:8333')).toBe(true)
+  })
+
+  it('should return false for an invalid URL', () => {
+    expect(rules.url('https://')).toBe(false)
+  })
+
+  it('should return false for an empty string', () => {
+    expect(rules.url('')).toBe(false)
+  })
+})
+
+describe('isTaproot', () => {
+  it('should return false if address is taproot address', () => {
+    expect(rules.blockTaprootAddress('tb1p')).toBe(false)
+    expect(rules.blockTaprootAddress('bcrt1p')).toBe(false)
+    expect(rules.blockTaprootAddress('bc1p')).toBe(false)
+  })
+  it('should return true if address is not taproot address', () => {
+    expect(rules.blockTaprootAddress('tb1q')).toBe(true)
+    expect(rules.blockTaprootAddress('bcrt1q')).toBe(true)
+    expect(rules.blockTaprootAddress('bc1q')).toBe(true)
+  })
+})
+
+describe('isReferralCode', () => {
+  it('should return true for a valid referral code', () => {
+    expect(rules.referralCode('PR0043')).toBe(true)
+    expect(rules.referralCode('SATOSHI')).toBe(true)
+  })
+
+  it('should return false for an empty referral code', () => {
+    expect(rules.referralCode('')).toBe(false)
+  })
+  it('should return false for an invalid referral code', () => {
+    expect(rules.referralCode('ABCDEFGHIJKLMNOPQ')).toBe(false)
+    expect(rules.referralCode('@CRAIGWRONG')).toBe(false)
+  })
+})
+
+describe('isValidFeeRate', () => {
+  it('should return true a valid fee rate', () => {
+    expect(rules.feeRate('123')).toBe(true)
+    expect(rules.feeRate('1')).toBe(true)
+    expect(rules.feeRate('1.4')).toBe(true)
+  })
+  it('should return false a fee rate below 1', () => {
+    expect(rules.feeRate('0.8')).toBe(false)
+    expect(rules.feeRate('0')).toBe(false)
+    expect(rules.feeRate('-1')).toBe(false)
+    expect(rules.feeRate('-1.5')).toBe(false)
+  })
+  it('should return false not a number', () => {
+    expect(rules.feeRate('a')).toBe(false)
+    expect(rules.feeRate('.')).toBe(false)
+  })
+})

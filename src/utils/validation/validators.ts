@@ -1,5 +1,6 @@
 import { PaymentMethodField } from '../../../peach-api/src/@types/payment'
 import i18n from '../i18n'
+import { getMessages } from './getMessages'
 import { isAdvcashWallet } from './isAdvcashWallet'
 import { isBIC } from './isBIC'
 import { isEUIBAN } from './isEUIBAN'
@@ -12,7 +13,6 @@ import { isUKSortCode } from './isUKSortCode'
 import { isUsername } from './isUsername'
 import { isValidDigitLength } from './isValidDigitLength'
 import { isValidPaymentReference } from './isValidPaymentReference'
-import { getMessages } from './messages'
 
 const ibanValidator = (value: string) => isIBAN(value) || getMessages().iban
 const isEUIBANValidator = (value: string) => isEUIBAN(value) || getMessages().isEUIBAN

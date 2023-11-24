@@ -1,11 +1,8 @@
 import { validateMnemonic, wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
 import { getNetwork } from '../wallet'
+import { addProtocol } from '../web'
 import { isEmail } from './isEmail'
-import { isReferralCode } from './isReferralCode'
-import { isTaproot } from './isTaproot'
-import { isURL } from './isURL'
-import { isValidFeeRate } from './isValidFeeRate'
 
 export const rules = {
   required: (value: string) => !!value,
@@ -35,4 +32,24 @@ function isBitcoinAddress (value: string) {
       return false
     }
   }
+}
+
+function isURL (url: string) {
+  try {
+    return !!new URL(addProtocol(url.toLowerCase(), 'https'))
+  } catch (e) {
+    return false
+  }
+}
+
+function isTaproot (value: string) {
+  return /^(tb1p|bcrt1p|bc1p)/u.test(value)
+}
+
+function isReferralCode (code: string) {
+  return code.length > 0 && /^[A-Z0-9]{1,16}$/u.test(code)
+}
+
+function isValidFeeRate (feeRate: string) {
+  return /^[0-9.]*$/u.test(feeRate) && Number(feeRate) >= 1
 }
