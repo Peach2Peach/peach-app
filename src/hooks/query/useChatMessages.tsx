@@ -13,17 +13,21 @@ type GetChatQueryProps = {
 }
 const getChatQuery = async ({ queryKey, pageParam = 0 }: GetChatQueryProps) => {
   const [, contractId] = queryKey
-  const { result: messages, error } = await peachAPI.private.contract.getChat({
+  const { result, error } = await peachAPI.private.contract.getChat({
     contractId,
     page: pageParam,
   })
+  let messages
+  if (result) {
+    messages = result.map((message) => ({
+      ...message,
+      date: new Date(message.date),
+    }))
+  }
 
   if (!messages || error) throw new Error(error?.error)
 
-  return messages.map((message) => ({
-    ...message,
-    date: new Date(message.date),
-  }))
+  return messages
 }
 
 const getDecryptedChat
