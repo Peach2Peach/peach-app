@@ -20,7 +20,7 @@ import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { peachAPI } from '../../utils/peachAPI'
 import { FormInput } from './FormInput'
-import { NewLabelInput } from './NewLabelInput'
+import { LabelInput } from './LabelInput'
 import { TabbedFormNavigation } from './TabbedFormNavigation'
 
 export type FormType = Record<PaymentMethodField, string> & { paymentMethodName: string }
@@ -69,7 +69,7 @@ export const PaymentMethodForm = () => {
       {!!fields && (
         <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`gap-4 grow`}>
           <View style={tw`justify-center grow`}>
-            <NewLabelInput name="paymentMethodName" control={control} id={id} defaultValue={label} />
+            <LabelInput name="paymentMethodName" control={control} id={id} defaultValue={label} />
 
             {fields.mandatory.map((row) => {
               if (row.length === 1) {

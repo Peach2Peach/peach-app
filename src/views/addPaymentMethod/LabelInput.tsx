@@ -11,7 +11,7 @@ type Props = {
   optional?: boolean
 } & InputProps
 
-export function NewLabelInput ({ control, name, id, optional = false, defaultValue = '', ...inputProps }: Props) {
+export function LabelInput ({ control, name, id, optional = false, defaultValue = '', ...inputProps }: Props) {
   const getPaymentDataByLabel = usePaymentDataStore((state) => state.getPaymentDataByLabel)
   const {
     field,
