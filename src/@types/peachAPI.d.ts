@@ -323,12 +323,13 @@ type MatchResponse = {
 type OfferSummary = {
   id: string
   type: 'bid' | 'ask'
-  creationDate: Date
+  contractId?: string
   lastModified: Date
+  creationDate: Date
   amount: number | [number, number]
   matches: string[]
+  prices?: Pricebook
   tradeStatus: TradeStatus
-  contractId?: string
   txId?: string
   fundingTxId?: string
 }
