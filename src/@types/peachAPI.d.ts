@@ -344,14 +344,14 @@ type ContractSummary = {
   creationDate: Date
   lastModified: Date
   paymentMade?: Date
-  paymentConfirmed?: Date
   tradeStatus: TradeStatus
+  disputeWinner?: Contract['disputeWinner']
+  unreadMessages: number
   amount: number
   price: number
   currency: Currency
-  disputeWinner?: Contract['disputeWinner']
-  unreadMessages: number
   releaseTxId?: string
+  isChatActive: boolean
 }
 type GetContractsResponse = Contract[]
 type GetContractSummariesResponse = ContractSummary[]

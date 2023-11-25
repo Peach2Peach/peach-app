@@ -1,5 +1,3 @@
-export { getContractSummaries } from './getContractSummaries'
-export { getContracts } from './getContracts'
 export { postChat } from './postChat'
 export { raiseDispute } from './raiseDispute'
 export { rateUser } from './rateUser'

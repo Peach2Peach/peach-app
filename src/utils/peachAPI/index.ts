@@ -4,14 +4,7 @@ export type RequestProps = {
 }
 
 export { peachAPI } from './peachAPI'
-export {
-  getContractSummaries,
-  getContracts,
-  postChat,
-  raiseDispute,
-  rateUser,
-  rejectContractCancelation,
-} from './private/contract'
+export { postChat, raiseDispute, rateUser, rejectContractCancelation } from './private/contract'
 export {
   cancelOffer,
   confirmEscrow,
