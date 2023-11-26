@@ -2,10 +2,6 @@ import { Linking } from 'react-native'
 import { linkToAppStoreIOS } from './linkToAppStoreIOS'
 
 describe('linkToAppStoreIOS', () => {
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
   it('opens the correct URL when "itms-beta://" can be opened', async () => {
     (<jest.Mock>Linking.canOpenURL).mockResolvedValueOnce(true)
     await linkToAppStoreIOS()

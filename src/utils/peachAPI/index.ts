@@ -18,5 +18,4 @@ export {
   setBatching,
   updateUser,
 } from './private/user'
-export { getInfo, getStatus } from './public/system'
 export { getUser } from './public/user'

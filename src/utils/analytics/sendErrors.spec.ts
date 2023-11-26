@@ -7,9 +7,6 @@ jest.mock('../file', () => ({
 }))
 
 describe('sendErrors function', () => {
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
   const isAirplaneModeSync = jest.spyOn(require('react-native-device-info'), 'isAirplaneModeSync')
   it('should append the error messages to a file when airplane mode is enabled', async () => {
     isAirplaneModeSync.mockReturnValueOnce(true)
