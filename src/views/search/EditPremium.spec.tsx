@@ -1,5 +1,6 @@
-import { render, waitFor } from 'test-utils'
+import { render, responseUtils, waitFor } from 'test-utils'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { peachAPI } from '../../utils/peachAPI'
 import { EditPremium } from './EditPremium'
 
 jest.useFakeTimers()
@@ -11,8 +12,15 @@ jest.mock('../../hooks/useRoute', () => ({
     },
   }),
 }))
+jest.spyOn(peachAPI.public.market, 'marketPrices').mockResolvedValue({
+  result: {
+    EUR: 100000,
+  },
+  ...responseUtils,
+})
 
 jest.mock('../../utils/peachAPI', () => ({
+  peachAPI: jest.requireActual('../../utils/peachAPI').peachAPI,
   getOfferDetails: jest.fn(() =>
     Promise.resolve([
       {
@@ -25,16 +33,6 @@ jest.mock('../../utils/peachAPI', () => ({
             id: '123',
           },
         },
-      },
-    ]),
-  ),
-}))
-
-jest.mock('../../utils/peachAPI/public/market', () => ({
-  marketPrices: jest.fn(() =>
-    Promise.resolve([
-      {
-        EUR: 100000,
       },
     ]),
   ),
