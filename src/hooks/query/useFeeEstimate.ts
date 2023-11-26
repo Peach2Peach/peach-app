@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getFeeEstimate } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 
 const ONEMINUTE = 60 * 1000
 export const placeholderFees = {
@@ -10,7 +10,7 @@ export const placeholderFees = {
   minimumFee: 1,
 }
 const getFeeEstimateQuery = async () => {
-  const [result, err] = await getFeeEstimate({})
+  const { result, error: err } = await peachAPI.public.bitcoin.getFeeEstimate()
   if (err) throw new Error(err.error)
   return result
 }

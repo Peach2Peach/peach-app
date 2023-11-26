@@ -18,7 +18,6 @@ export {
   setBatching,
   updateUser,
 } from './private/user'
-export { getFeeEstimate, postTx } from './public/bitcoin'
 export { sendReport } from './public/contact'
 export { marketPrice } from './public/market'
 export { getInfo, getStatus } from './public/system'
