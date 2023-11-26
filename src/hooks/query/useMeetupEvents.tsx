@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 import { shallow } from 'zustand/shallow'
 import { MSINANHOUR } from '../../constants'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
-import { getMeetupEvents } from '../../utils/peachAPI/public/meetupEvents'
+import { peachAPI } from '../../utils/peachAPI'
 
 const getMeetupEventsQuery = async () => {
-  const [events, error] = await getMeetupEvents({})
+  const { result: events, error } = await peachAPI.public.events.getEvents()
 
-  if (error) throw new Error(error.error)
+  if (error) throw new Error(error.error || 'Error fetching events')
 
   return events
 }
