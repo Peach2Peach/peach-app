@@ -1,4 +1,4 @@
-import { act, renderHook, waitFor } from 'test-utils'
+import { act, renderHook, responseUtils, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
@@ -7,6 +7,7 @@ import { MSINAMINUTE } from '../../../constants'
 import { setAccount, updateAccount } from '../../../utils/account'
 import { saveOffer } from '../../../utils/offer'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
+import { peachAPI } from '../../../utils/peachAPI'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
@@ -48,11 +49,12 @@ const createEscrowSuccess = {
 }
 
 const getOfferDetailsMock = jest.fn().mockReturnValue([sellOfferWithEscrow, null])
-const createEscrowMock = jest.fn().mockResolvedValue([createEscrowSuccess, null])
+const createEscrowMock = jest
+  .spyOn(peachAPI.private.offer, 'createEscrow')
+  .mockResolvedValue({ result: createEscrowSuccess, ...responseUtils })
 jest.mock('../../../utils/peachAPI', () => ({
   peachAPI: jest.requireActual('../../../utils/peachAPI').peachAPI,
   getOfferDetails: () => getOfferDetailsMock(),
-  createEscrow: (...args: unknown[]) => createEscrowMock(...args),
 }))
 
 jest.mock('./useHandleFundingStatus', () => ({
@@ -128,7 +130,7 @@ describe('useFundEscrowSetup', () => {
   })
   it('should handle create escrow errors', async () => {
     getOfferDetailsMock.mockReturnValueOnce([{ ...sellOffer, escrow: undefined }, null])
-    createEscrowMock.mockResolvedValueOnce([null, unauthorizedError])
+    createEscrowMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const { result } = renderHook(useFundEscrowSetup)
     await waitFor(() => expect(createEscrowMock).toHaveBeenCalled())
     expect(result.current.createEscrowError).toEqual(new Error(unauthorizedError.error))

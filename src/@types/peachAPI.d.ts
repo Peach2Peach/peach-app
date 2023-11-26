@@ -288,7 +288,7 @@ type MatchUnavailableReasons = {
 }
 
 type Match = {
-  user: User
+  user: PublicUser
   offerId: string
   amount: number
   escrow?: string
@@ -296,7 +296,7 @@ type Match = {
   matchedPrice: number | null
   premium: number
   meansOfPayment: MeansOfPayment
-  paymentData: OfferPaymentData
+  paymentData?: OfferPaymentData
   selectedCurrency?: Currency
   selectedPaymentMethod?: PaymentMethod
   symmetricKeyEncrypted: string
@@ -309,16 +309,16 @@ type GetMatchesResponse = {
   matches: Match[]
   totalMatches: number
   nextPage: number
-
-  /** @deprecated */
-  remainingMatches: number
 }
-type MatchResponse = {
-  success: true
-  matchedPrice?: number
-  contractId?: string
-  refundTx?: string
-}
+type MatchResponse =
+  | {
+      success: true
+      contractId: string
+      refundTx: string
+    }
+  | {
+      matchedPrice: number
+    }
 
 type OfferSummary = {
   id: string

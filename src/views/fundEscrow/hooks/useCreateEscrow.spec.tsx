@@ -1,23 +1,13 @@
-import { renderHook, waitFor } from 'test-utils'
+import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { updateAccount } from '../../../utils/account'
-import { defaultFundingStatus } from '../../../utils/offer/constants'
+import { peachAPI } from '../../../utils/peachAPI'
 import { useCreateEscrow } from './useCreateEscrow'
 
 jest.useFakeTimers()
 
-const createEscrowMock = jest.fn().mockResolvedValue([
-  {
-    offerId: '38',
-    escrow: 'escrow',
-    funding: defaultFundingStatus,
-  },
-])
-jest.mock('../../../utils/peachAPI', () => ({
-  peachAPI: jest.requireActual('../../../utils/peachAPI').peachAPI,
-  createEscrow: (...args: unknown[]) => createEscrowMock(...args),
-}))
+const createEscrowMock = jest.spyOn(peachAPI.private.offer, 'createEscrow')
 
 const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
@@ -51,7 +41,7 @@ describe('useCreateEscrow', () => {
     })
   })
   it('shows error banner on API errors', async () => {
-    createEscrowMock.mockResolvedValueOnce([null, unauthorizedError])
+    createEscrowMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const { result } = renderHook(useCreateEscrow, { initialProps: { offerIds: ['38'] } })
     result.current.mutate()
     await waitFor(() => expect(result.current.isLoading).toBeFalsy())

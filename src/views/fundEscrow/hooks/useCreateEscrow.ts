@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { getPublicKeyForEscrow, getWallet } from '../../../utils/wallet'
-import { createEscrow } from '../../../utils/peachAPI'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { peachAPI } from '../../../utils/peachAPI'
 import { parseError } from '../../../utils/result'
+import { getPublicKeyForEscrow, getWallet } from '../../../utils/wallet'
 
 const createEscrowFn = async (offerId: string) => {
   const publicKey = getPublicKeyForEscrow(getWallet(), offerId)
 
-  const [result, err] = await createEscrow({
+  const { result, error: err } = await peachAPI.private.offer.createEscrow({
     offerId,
     publicKey,
   })

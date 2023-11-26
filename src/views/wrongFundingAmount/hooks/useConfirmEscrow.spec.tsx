@@ -1,24 +1,18 @@
-import { renderHook } from 'test-utils'
+import { renderHook, responseUtils } from 'test-utils'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { resetMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { peachAPI } from '../../../utils/peachAPI'
 import { useConfirmEscrow } from './useConfirmEscrow'
 
-const apiSuccess = { success: true }
-const unauthorizedError = { error: 'UNAUTHORIZED' }
+const unauthorizedError = { error: 'UNAUTHORIZED' } as const
 
 const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner:
-    () =>
-      (...args: unknown[]) =>
-        showErrorBannerMock(...args),
+  useShowErrorBanner: () => showErrorBannerMock,
 }))
 
-const confirmEscrowMock = jest.fn().mockResolvedValue([apiSuccess, null])
-jest.mock('../../../utils/peachAPI', () => ({
-  confirmEscrow: (...args: unknown[]) => confirmEscrowMock(...args),
-}))
+const confirmEscrowMock = jest.spyOn(peachAPI.private.offer, 'confirmEscrow')
 
 describe('useConfirmEscrow', () => {
   const fundingStatusResponse = {
@@ -35,13 +29,13 @@ describe('useConfirmEscrow', () => {
     queryClient.clear()
   })
   it('shows error banner if escrow could not be confirmed', async () => {
-    confirmEscrowMock.mockResolvedValueOnce([null, unauthorizedError])
+    confirmEscrowMock.mockResolvedValueOnce({ error: unauthorizedError, ...responseUtils })
     const { result } = renderHook(useConfirmEscrow)
     await result.current(sellOffer)
     expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })
   it('shows error banner if escrow server did not return result', async () => {
-    confirmEscrowMock.mockResolvedValueOnce([null, null])
+    confirmEscrowMock.mockResolvedValueOnce(responseUtils)
     const { result } = renderHook(useConfirmEscrow)
     await result.current(sellOffer)
     expect(showErrorBannerMock).toHaveBeenCalledWith(undefined)

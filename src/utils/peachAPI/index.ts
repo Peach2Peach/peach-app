@@ -4,22 +4,7 @@ export type RequestProps = {
 }
 
 export { peachAPI } from './peachAPI'
-export {
-  cancelOffer,
-  confirmEscrow,
-  createEscrow,
-  getFundingStatus,
-  getMatches,
-  getOfferDetails,
-  getOffers,
-  getRefundPSBT,
-  matchOffer,
-  patchOffer,
-  postBuyOffer,
-  refundSellOffer,
-  reviveSellOffer,
-  unmatchOffer,
-} from './private/offer'
+export { cancelOffer, getOfferDetails } from './private/offer'
 export {
   auth,
   deletePaymentHash,
