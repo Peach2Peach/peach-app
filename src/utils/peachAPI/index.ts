@@ -18,6 +18,5 @@ export {
   setBatching,
   updateUser,
 } from './private/user'
-export { marketPrice } from './public/market'
 export { getInfo, getStatus } from './public/system'
 export { getUser } from './public/user'
