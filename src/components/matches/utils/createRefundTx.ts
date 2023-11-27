@@ -1,5 +1,5 @@
 import { checkRefundPSBT } from '../../../utils/bitcoin'
-import { patchOffer } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 import { getEscrowWalletForOffer, signPSBT } from '../../../utils/wallet'
 
 export const createRefundTx = async (offer: SellOffer, refundTx: string): Promise<string | undefined> => {
@@ -7,7 +7,7 @@ export const createRefundTx = async (offer: SellOffer, refundTx: string): Promis
   const { isValid, psbt } = checkRefundPSBT(refundTx, offer)
   if (isValid && psbt) {
     const signedPSBT = signPSBT(psbt, getEscrowWalletForOffer(offer))
-    const [patchOfferResult] = await patchOffer({
+    const { result: patchOfferResult } = await peachAPI.private.offer.patchOffer({
       offerId: offer.id,
       refundTx: signedPSBT.toBase64(),
     })

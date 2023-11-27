@@ -5,6 +5,7 @@ import { sellOffer } from '../../../tests/unit/data/offerData'
 import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
 import { setAccount } from '../../utils/account'
 import { getSellOfferIdFromContract } from '../../utils/contract'
+import { peachAPI } from '../../utils/peachAPI'
 import { getResult } from '../../utils/result'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../utils/wallet/setWallet'
@@ -38,14 +39,7 @@ const cancelContractAsSellerMock = jest.fn().mockResolvedValue(
 jest.mock('./helpers/cancelContractAsSeller', () => ({
   cancelContractAsSeller: (...args: unknown[]) => cancelContractAsSellerMock(...args),
 }))
-const cancelContractAsBuyerMock = jest.fn().mockResolvedValue(
-  getResult({
-    contract: contractUpdate,
-  }),
-)
-jest.mock('./helpers/cancelContractAsBuyer', () => ({
-  cancelContractAsBuyer: (...args: unknown[]) => cancelContractAsBuyerMock(...args),
-}))
+const cancelContractAsBuyerMock = jest.spyOn(peachAPI.private.contract, 'cancelContract')
 describe('useConfirmCancelTrade', () => {
   beforeAll(() => {
     setAccount({ ...account1, offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }] })
@@ -67,7 +61,7 @@ describe('useConfirmCancelTrade', () => {
     await act(async () => {
       await fireEvent.press(getAllByText('cancel trade')[1])
     })
-    expect(cancelContractAsBuyerMock).toHaveBeenCalledWith(contract)
+    expect(cancelContractAsBuyerMock).toHaveBeenCalledWith({ contractId: contract.id })
   })
   it('should show confirm cancelation popup for seller', async () => {
     setAccount({

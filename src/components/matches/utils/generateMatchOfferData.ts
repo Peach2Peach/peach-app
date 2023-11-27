@@ -1,8 +1,8 @@
+import { MatchOfferRequestBody, MatchOfferRequestParams } from '../../../../peach-api/src/@types/api/offerAPI'
 import { useAccountStore } from '../../../utils/account/account'
 import { getRandom } from '../../../utils/crypto'
 import { isBuyOffer } from '../../../utils/offer'
 import { cleanPaymentData, encryptPaymentData } from '../../../utils/paymentMethod'
-import { MatchProps } from '../../../utils/peachAPI/private/offer/matchOffer'
 import { signAndEncrypt } from '../../../utils/pgp'
 import { decryptSymmetricKey } from '../../../views/contract/helpers'
 import { buildPaymentDataFromHashes } from './buildPaymentDataFromHashes'
@@ -16,7 +16,7 @@ type Props = {
 }
 // eslint-disable-next-line max-statements
 export const generateMatchOfferData = async ({ offer, match, currency, paymentMethod }: Props) => {
-  const defaultOfferData: MatchProps = {
+  const defaultOfferData: MatchOfferRequestParams & MatchOfferRequestBody = {
     offerId: offer.id,
     matchingOfferId: match.offerId,
     price: getMatchPrice(match, paymentMethod, currency),

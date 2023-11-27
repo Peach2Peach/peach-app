@@ -1,7 +1,8 @@
+import { apiSuccess } from '../../../../tests/unit/data/peachAPIData'
 import { sendErrors } from '../../../utils/analytics'
-import { submitReport } from './submitReport'
+import { peachAPI } from '../../../utils/peachAPI'
 import { buildReportMessage } from './buildReportMessage'
-import { sendReport } from '../../../utils/peachAPI'
+import { submitReport } from './submitReport'
 
 jest.mock('./buildReportMessage', () => ({
   buildReportMessage: jest.fn().mockReturnValue('reportMessage'),
@@ -9,9 +10,7 @@ jest.mock('./buildReportMessage', () => ({
 jest.mock('../../../utils/analytics', () => ({
   sendErrors: jest.fn(),
 }))
-jest.mock('../../../utils/peachAPI', () => ({
-  sendReport: jest.fn().mockResolvedValue(['success', null]),
-}))
+const sendReportSpy = jest.spyOn(peachAPI.public.contact, 'sendReport')
 
 describe('submitReport', () => {
   const email = 'adam@back.space'
@@ -22,13 +21,13 @@ describe('submitReport', () => {
   it('returns a message for report', async () => {
     const result = await submitReport({ email, reason, topic, message, shareDeviceID: false, shareLogs: false })
     expect(buildReportMessage).toHaveBeenCalledWith({ message, shareDeviceID: false, shareLogs: false })
-    expect(sendReport).toHaveBeenCalledWith({
+    expect(sendReportSpy).toHaveBeenCalledWith({
       email,
       reason,
       topic,
       message: 'reportMessage',
     })
-    expect(result).toEqual(['success', null])
+    expect(result.result).toEqual(apiSuccess)
   })
   it('does not send error report if logs are not intended to be shared', async () => {
     await submitReport({ email, reason, topic, message, shareDeviceID: false, shareLogs: false })

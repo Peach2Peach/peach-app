@@ -55,7 +55,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       queryClient.setQueryData(['matches', offer.id], context?.previousData)
     },
     onSuccess: async (result: MatchResponse) => {
-      if (isSellOffer(offer) && result.refundTx) {
+      if (isSellOffer(offer) && 'refundTx' in result && result.refundTx) {
         const refundTx = await createRefundTx(offer, result.refundTx)
         saveOffer({
           ...offer,
@@ -64,7 +64,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
           refundTx,
         })
       }
-      if (result.contractId) {
+      if ('contractId' in result && result.contractId) {
         info('Search.tsx - _match', `navigate to contract ${result.contractId}`)
         navigation.replace('contract', { contractId: result.contractId })
       }

@@ -6,22 +6,12 @@ import { MatchUndone } from '../../../popups/app/MatchUndone'
 import { appPopups } from '../../../popups/appPopups'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
+import { peachAPI } from '../../../utils/peachAPI'
 import { UnmatchButton } from './UnmatchButton'
 
 jest.useFakeTimers()
 
-const unmatchOfferMock = jest.fn((..._args: unknown[]) =>
-  Promise.resolve([
-    {
-      success: true,
-    },
-    null,
-  ]),
-)
-
-jest.mock('../../../utils/peachAPI', () => ({
-  unmatchOffer: (...args: unknown[]) => unmatchOfferMock(...args),
-}))
+const unmatchOfferMock = jest.spyOn(peachAPI.private.offer, 'unmatchOffer')
 
 describe('UnmatchButton', () => {
   const interruptMatching = jest.fn()

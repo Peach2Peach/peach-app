@@ -10,15 +10,13 @@ jest.mock('../hooks/useRefundEscrow', () => ({
 }))
 
 const psbt = 'psbt'
-const getRefundPSBTMock = jest.fn().mockResolvedValue([{ psbt }, null])
-jest.mock('../utils/peachAPI', () => ({
-  getRefundPSBT: (...args: unknown[]) => getRefundPSBTMock(...args),
-}))
 
 const showErrorMock = jest.fn()
 jest.mock('../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorMock,
 }))
+
+jest.useFakeTimers()
 
 describe('useStartRefundPopup', () => {
   beforeEach(() => {

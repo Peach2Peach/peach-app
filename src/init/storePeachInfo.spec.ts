@@ -3,10 +3,6 @@ import { useConfigStore } from '../store/configStore/configStore'
 import { storePeachInfo } from './storePeachInfo'
 
 describe('storePeachInfo', () => {
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
   it('stores peach info', () => {
     storePeachInfo(peachInfo)
     expect(useConfigStore.getState().paymentMethods).toStrictEqual(

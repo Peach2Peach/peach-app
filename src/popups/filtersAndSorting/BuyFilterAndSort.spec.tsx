@@ -5,15 +5,13 @@ import { buyOffer } from '../../../tests/unit/data/offerData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePopupStore } from '../../store/usePopupStore'
+import { peachAPI } from '../../utils/peachAPI'
 import { BuyFilterAndSort } from './BuyFilterAndSort'
 expect.extend({ toMatchDiffSnapshot })
 
 jest.useFakeTimers()
 
-const patchOfferMock = jest.fn().mockResolvedValue([{ success: true }, null])
-jest.mock('../../utils/peachAPI', () => ({
-  patchOffer: (...args: unknown[]) => patchOfferMock(...args),
-}))
+const patchOfferMock = jest.spyOn(peachAPI.private.offer, 'patchOffer')
 
 const defaultComponent = <BuyFilterAndSort offer={buyOffer} />
 describe('BuyFilterAndSort', () => {

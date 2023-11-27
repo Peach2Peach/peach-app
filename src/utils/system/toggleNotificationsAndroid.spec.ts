@@ -1,5 +1,5 @@
-import { toggleNotificationsAndroid } from './toggleNotificationsAndroid'
 import { Linking } from 'react-native'
+import { toggleNotificationsAndroid } from './toggleNotificationsAndroid'
 
 jest.mock('react-native', () => ({
   Linking: {
@@ -8,10 +8,6 @@ jest.mock('react-native', () => ({
 }))
 
 describe('toggleNotifications', () => {
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
   it('calls Linking.openSettings', async () => {
     await toggleNotificationsAndroid()
     expect(Linking.openSettings).toHaveBeenCalled()

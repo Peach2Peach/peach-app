@@ -10,7 +10,7 @@ const buildQuery = (address: string) => ({
     const script = await getScriptPubKeyFromAddress(address)
     return peachWallet.wallet.isMine(script)
   },
-  enabled: !!address && !!peachWallet?.wallet && rules.bitcoinAddress(true, address),
+  enabled: !!address && !!peachWallet?.wallet && rules.bitcoinAddress(address),
 })
 
 export const useIsMyAddress = (address: string) => {

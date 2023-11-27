@@ -17,9 +17,6 @@ describe('checkSupportedPaymentMethods', () => {
     usePaymentDataStore.getState().addPaymentData(paypalData)
     useOfferPreferences.getState().setPaymentMethods([validSEPAData.id, paypalData.id])
   })
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
 
   it('sets inactive flag on payment methods that are not supported', async () => {
     const [method1, method2] = await checkSupportedPaymentMethods(paymentInfo)

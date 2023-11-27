@@ -184,7 +184,14 @@ module.exports = {
     'no-restricted-globals': 'error',
     'no-restricted-imports': [
       'warn',
-      { paths: [{ name: '.', message: 'Avoid imports from the index file on the same level.' }] },
+      {
+        paths: [
+          {
+            name: '.',
+            message: 'Avoid imports from the index file on the same level.',
+          },
+        ],
+      },
     ],
     'no-restricted-properties': 'error',
     'no-restricted-syntax': 'error',

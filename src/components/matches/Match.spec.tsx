@@ -4,6 +4,7 @@ import { buyOffer, matchOffer, sellOffer } from '../../../tests/unit/data/offerD
 import { validSEPAData } from '../../../tests/unit/data/paymentData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
+import { peachAPI } from '../../utils/peachAPI'
 import { Match } from './Match'
 import { useMatchStore } from './store'
 expect.extend({ toMatchDiffSnapshot })
@@ -23,10 +24,10 @@ jest.mock('../../utils/paymentMethod/encryptPaymentData', () => ({
   encryptPaymentData: (...args: unknown[]) => encryptPaymentDataMock(...args),
 }))
 
-const matchOfferMock = jest.fn()
+const matchOfferMock = jest.spyOn(peachAPI.private.offer, 'matchOffer')
 const getOfferDetailsMock = jest.fn().mockResolvedValue([matchOffer, null])
 jest.mock('../../utils/peachAPI', () => ({
-  matchOffer: (...args: unknown[]) => matchOfferMock(...args),
+  peachAPI: jest.requireActual('../../utils/peachAPI').peachAPI,
   getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
 }))
 

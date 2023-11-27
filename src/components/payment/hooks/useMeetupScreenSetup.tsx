@@ -6,7 +6,7 @@ import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { useAccountStore } from '../../../utils/account/account'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
-import { toggleCurrency } from '../../inputs/paymentMethods/paymentForms/utils'
+import { toggleCurrency } from '../../inputs/paymentForms/utils'
 
 export const useMeetupScreenSetup = () => {
   const route = useRoute<'meetupScreen'>()

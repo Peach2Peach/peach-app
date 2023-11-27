@@ -1,3 +1,4 @@
+import { contract } from '../../../../tests/unit/data/contractData'
 import { shouldShowTradeStatusInfo } from './shouldShowTradeStatusInfo'
 
 const isPaymentTooLateMock = jest.fn((..._args: unknown[]) => false)
@@ -7,8 +8,8 @@ jest.mock('../../../utils/contract/status/isPaymentTooLate', () => ({
 
 describe('shouldShowTradeStatusInfo', () => {
   const mockContract = {
+    ...contract,
     paymentMade: null,
-    paymentExpectedBy: undefined,
     disputeWinner: undefined,
     canceled: false,
     cancelationRequested: false,

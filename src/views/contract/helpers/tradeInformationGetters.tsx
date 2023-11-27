@@ -99,8 +99,6 @@ const allPossibleFields = [
   'location',
   'receiveAddress',
   'lnurlAddress',
-  'chipperTag',
-  'eversendUserName',
   'ratingBuyer',
   'ratingSeller',
   'seller',

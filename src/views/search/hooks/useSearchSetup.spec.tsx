@@ -1,6 +1,7 @@
-import { act, renderHook, waitFor } from 'test-utils'
+import { act, renderHook, responseUtils, waitFor } from 'test-utils'
 import { buyOffer } from '../../../../tests/unit/data/offerData'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { peachAPI } from '../../../utils/peachAPI'
 import { useSearchSetup } from './useSearchSetup'
 
 jest.mock('../../../hooks/useRoute', () => ({
@@ -21,10 +22,13 @@ const match: Partial<Match> = {
   },
 }
 
-const getMatchesMock = jest.fn().mockResolvedValue([{ matches: [match], nextPage: undefined }, null])
+const getMatchesMock = jest
+  .spyOn(peachAPI.private.offer, 'getMatches')
+  // @ts-ignore mock implementation is not correct
+  .mockResolvedValue({ result: { matches: [match], nextPage: undefined }, ...responseUtils })
 const getOfferDetailsMock = jest.fn().mockResolvedValue([buyOffer, null])
 jest.mock('../../../utils/peachAPI', () => ({
-  getMatches: (...args: unknown[]) => getMatchesMock(...args),
+  peachAPI: jest.requireActual('../../../utils/peachAPI').peachAPI,
   getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
 }))
 

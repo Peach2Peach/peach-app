@@ -1,6 +1,7 @@
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { getContract, getOfferDetails } from '../peachAPI'
+import { peachAPI } from '../peachAPI'
+import { getOfferDetails } from '../peachAPI/private/offer/getOfferDetails'
 import { isDefined } from '../validation'
 import { shouldGoToContract } from './shouldGoToContract'
 import { shouldGoToContractChat } from './shouldGoToContractChat'
@@ -27,7 +28,7 @@ export const handlePushNotification = async (
 
   if (shouldGoToContract(data)) {
     const { contractId, sentTime } = data
-    const [contract] = await getContract({ contractId })
+    const { result: contract } = await peachAPI.private.contract.getContract({ contractId })
     navigationRef.navigate('contract', {
       contract: contract
         ? {

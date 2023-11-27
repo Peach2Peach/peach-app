@@ -1,15 +1,14 @@
-import { act, renderHook, waitFor } from 'test-utils'
+import { act, renderHook, responseUtils, waitFor } from 'test-utils'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
 import { useMatchStore } from '../../../components/matches/store'
+import { peachAPI } from '../../../utils/peachAPI'
 import { useOfferMatches } from './useOfferMatches'
 
-const getMatchesMock = jest
-  .fn()
-  .mockImplementation((..._args) => Promise.resolve([{ matches: ['match'], nextPage: undefined }, null]))
+const getMatchesMock = jest.spyOn(peachAPI.private.offer, 'getMatches')
 const getOfferDetailsMock = jest.fn().mockResolvedValue([buyOffer, null])
 jest.mock('../../../utils/peachAPI', () => ({
+  peachAPI: jest.requireActual('../../../utils/peachAPI').peachAPI,
   getOfferDetails: () => getOfferDetailsMock(),
-  getMatches: (...args: unknown[]) => getMatchesMock(...args),
 }))
 
 jest.useFakeTimers()
@@ -44,14 +43,15 @@ describe('useOfferMatches', () => {
       .fill('match')
       .map((match, index) => `${match}${index}`)
     const secondPage = ['match10']
-    getMatchesMock.mockImplementation(({ page }: { page: number }) => {
+    // @ts-ignore this should be replaced with better match data
+    getMatchesMock.mockImplementation(({ page }: { page?: number }) => {
       if (page === 0) {
-        return Promise.resolve([{ matches: firstPage, nextPage: 1 }, null])
+        return Promise.resolve({ result: { matches: firstPage, nextPage: 1 }, ...responseUtils })
       }
       if (page === 1) {
-        return Promise.resolve([{ matches: secondPage, nextPage: undefined }, null])
+        return Promise.resolve({ result: { matches: secondPage, nextPage: undefined }, ...responseUtils })
       }
-      return Promise.resolve([{ matches: [], nextPage: undefined }, null])
+      return Promise.resolve({ result: { matches: [], nextPage: undefined }, ...responseUtils })
     })
 
     const { result } = renderHook(useOfferMatches, { initialProps: 'newOfferId' })
@@ -101,7 +101,10 @@ describe('useOfferMatches', () => {
   })
 
   it('should return matches for a funded sell offer', async () => {
-    getMatchesMock.mockImplementation((..._args) => Promise.resolve([{ matches: ['match'], remainingMatches: 0 }, null]))
+    // @ts-ignore this should be replaced with better match data
+    getMatchesMock.mockImplementation((..._args) =>
+      Promise.resolve({ result: { matches: ['match'], remainingMatches: 0 }, ...responseUtils }),
+    )
     getOfferDetailsMock.mockResolvedValueOnce([
       {
         ...sellOffer,

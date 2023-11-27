@@ -7,9 +7,8 @@ import { useBuyOfferExpiredPopup } from './useBuyOfferExpiredPopup'
 describe('useBuyOfferExpiredPopup', () => {
   const offerId = '37'
   const days = '30'
-  afterEach(() => {
+  beforeEach(() => {
     usePopupStore.setState(defaultPopupState)
-    jest.resetAllMocks()
   })
 
   it('opens BuyOfferExpired popup', () => {

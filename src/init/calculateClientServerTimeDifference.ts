@@ -1,15 +1,18 @@
 import { setClientServerTimeDifference } from '../constants'
+import { getAbortWithTimeout } from '../utils/getAbortWithTimeout'
 import { error } from '../utils/log'
-import { getStatus } from '../utils/peachAPI'
+import { peachAPI } from '../utils/peachAPI'
 
 /**
  * Note: we estimate the time it took for the response to arrive from server to client
  * by dividing the round trip time in half
  * This is only an estimation as round trips are often asymmetric
  */
-export const calculateClientServerTimeDifference = async (): Promise<GetStatusResponse | APIError | null> => {
+export const calculateClientServerTimeDifference = async () => {
   const start = Date.now()
-  const [peachStatusResponse, peachStatusErr] = await getStatus({ timeout: 10000 })
+  const { result: peachStatusResponse, error: peachStatusErr } = await peachAPI.public.system.getStatus({
+    signal: getAbortWithTimeout(10000).signal,
+  })
   const end = Date.now()
   const roundTrip = (end - start) / 2
 

@@ -1,8 +1,9 @@
-import { fireEvent, render, waitFor } from 'test-utils'
+import { fireEvent, render, responseUtils, waitFor } from 'test-utils'
 import { balticHoneyBadger, belgianBTCEmbassy, breizhBitcoin, decouvreBTC } from '../../../tests/unit/data/eventData'
 import { navigateMock, pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
+import { peachAPI } from '../../utils/peachAPI'
 import { defaultState, useDrawerState } from '../drawer/useDrawerState'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 
@@ -12,12 +13,9 @@ jest.mock('../../hooks/useRoute', () => ({
 
 const mockEvents: MeetupEvent[] = [belgianBTCEmbassy, decouvreBTC]
 
-const getMeetupEventsMock = jest.fn(
-  (): Promise<[MeetupEvent[] | null, APIError | null]> => Promise.resolve([mockEvents, null]),
-)
-jest.mock('../../utils/peachAPI/public/meetupEvents', () => ({
-  getMeetupEvents: () => getMeetupEventsMock(),
-}))
+const getMeetupEventsMock = jest
+  .spyOn(peachAPI.public.events, 'getEvents')
+  .mockResolvedValue({ result: mockEvents, ...responseUtils })
 
 jest.useFakeTimers()
 
@@ -55,7 +53,7 @@ describe('AddPaymentMethodButton', () => {
   })
 
   it('should not update the drawer if meetupEvents are undefined', async () => {
-    getMeetupEventsMock.mockResolvedValueOnce([null, { error: 'error' }])
+    getMeetupEventsMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
     await waitFor(() => {
       expect(queryClient.getQueryState(['meetupEvents'])?.status).toBe('error')
@@ -143,7 +141,7 @@ describe('AddPaymentMethodButton', () => {
     })
   })
   it('should sort the countries alphabetically and keep super featured events on top', async () => {
-    getMeetupEventsMock.mockResolvedValueOnce([[...mockEvents, balticHoneyBadger], null])
+    getMeetupEventsMock.mockResolvedValueOnce({ result: [...mockEvents, balticHoneyBadger], ...responseUtils })
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
     await waitFor(() => {
       expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([...mockEvents, balticHoneyBadger])
@@ -162,7 +160,7 @@ describe('AddPaymentMethodButton', () => {
     ])
   })
   it('should sort the meetups by their city alphabetically', async () => {
-    getMeetupEventsMock.mockResolvedValueOnce([[breizhBitcoin, ...mockEvents], null])
+    getMeetupEventsMock.mockResolvedValueOnce({ result: [breizhBitcoin, ...mockEvents], ...responseUtils })
 
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
     await waitFor(() => {
@@ -184,7 +182,7 @@ describe('AddPaymentMethodButton', () => {
       ...breizhBitcoin,
       featured: true,
     }
-    getMeetupEventsMock.mockResolvedValueOnce([[decouvreBTC, featuredEvent], null])
+    getMeetupEventsMock.mockResolvedValueOnce({ result: [decouvreBTC, featuredEvent], ...responseUtils })
     expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([])
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
     await waitFor(() => {

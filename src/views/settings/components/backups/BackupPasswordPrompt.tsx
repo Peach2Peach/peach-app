@@ -59,7 +59,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
 
   return (
     <>
-      <PeachScrollView contentContainerStyle={tw`h-full`}>
+      <PeachScrollView contentContainerStyle={tw`grow`}>
         <View style={tw`justify-center h-full`}>
           <Text style={tw`self-center mb-4 tooltip`}>{i18n('settings.backups.createASecurePassword')}</Text>
           <Input

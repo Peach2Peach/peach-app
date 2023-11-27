@@ -288,7 +288,7 @@ type MatchUnavailableReasons = {
 }
 
 type Match = {
-  user: User
+  user: PublicUser
   offerId: string
   amount: number
   escrow?: string
@@ -296,7 +296,7 @@ type Match = {
   matchedPrice: number | null
   premium: number
   meansOfPayment: MeansOfPayment
-  paymentData: OfferPaymentData
+  paymentData?: OfferPaymentData
   selectedCurrency?: Currency
   selectedPaymentMethod?: PaymentMethod
   symmetricKeyEncrypted: string
@@ -309,26 +309,27 @@ type GetMatchesResponse = {
   matches: Match[]
   totalMatches: number
   nextPage: number
-
-  /** @deprecated */
-  remainingMatches: number
 }
-type MatchResponse = {
-  success: true
-  matchedPrice?: number
-  contractId?: string
-  refundTx?: string
-}
+type MatchResponse =
+  | {
+      success: true
+      contractId: string
+      refundTx: string
+    }
+  | {
+      matchedPrice: number
+    }
 
 type OfferSummary = {
   id: string
   type: 'bid' | 'ask'
-  creationDate: Date
+  contractId?: string
   lastModified: Date
+  creationDate: Date
   amount: number | [number, number]
   matches: string[]
+  prices?: Pricebook
   tradeStatus: TradeStatus
-  contractId?: string
   txId?: string
   fundingTxId?: string
 }
@@ -344,14 +345,14 @@ type ContractSummary = {
   creationDate: Date
   lastModified: Date
   paymentMade?: Date
-  paymentConfirmed?: Date
   tradeStatus: TradeStatus
+  disputeWinner?: Contract['disputeWinner']
+  unreadMessages: number
   amount: number
   price: number
   currency: Currency
-  disputeWinner?: Contract['disputeWinner']
-  unreadMessages: number
   releaseTxId?: string
+  isChatActive: boolean
 }
 type GetContractsResponse = Contract[]
 type GetContractSummariesResponse = ContractSummary[]

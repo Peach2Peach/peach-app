@@ -13,11 +13,11 @@ import { getWalletLabelFromContract } from '../../utils/contract/getWalletLabelF
 import i18n from '../../utils/i18n'
 import { getOfferExpiry, saveOffer } from '../../utils/offer'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
+import { peachAPI } from '../../utils/peachAPI'
 import { LoadingPopupAction } from '../actions/LoadingPopupAction'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
 import { SellerCanceledContent } from './SellerCanceledContent'
 import { getSellerCanceledTitle } from './getSellerCanceledTitle'
-import { cancelContractAsBuyer } from './helpers/cancelContractAsBuyer'
 import { cancelContractAsSeller } from './helpers/cancelContractAsSeller'
 
 export const useConfirmCancelTrade = () => {
@@ -31,15 +31,15 @@ export const useConfirmCancelTrade = () => {
   const publicKey = useAccountStore((state) => state.account.publicKey)
 
   const cancelBuyer = useCallback(
-    async (contract: Contract) => {
+    async (contractId: string) => {
       setPopup({ title: i18n('contract.cancel.success'), visible: true, level: 'DEFAULT' })
-      const { result, error } = await cancelContractAsBuyer(contract)
+      const { error } = await peachAPI.private.contract.cancelContract({ contractId })
 
-      if (error || !result) {
-        showError(error)
+      if (error?.error) {
+        showError(error.error)
         return
       }
-      navigation.replace('contract', { contractId: contract.id })
+      navigation.replace('contract', { contractId })
     },
     [navigation, showError, setPopup],
   )
@@ -78,7 +78,7 @@ export const useConfirmCancelTrade = () => {
   const showConfirmPopup = useCallback(
     (contract: Contract) => {
       const view = publicKey === contract?.seller.id ? 'seller' : 'buyer'
-      const cancelAction = () => (view === 'seller' ? cancelSeller(contract) : cancelBuyer(contract))
+      const cancelAction = () => (view === 'seller' ? cancelSeller(contract) : cancelBuyer(contract.id))
       const title = i18n(isCashTrade(contract.paymentMethod) ? 'contract.cancel.cash.title' : 'contract.cancel.title')
       setPopup(
         <PopupComponent
