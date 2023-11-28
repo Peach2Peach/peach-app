@@ -87,7 +87,7 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
     expect(usePopupStore.getState().visible).toBe(false)
     expect(useWalletState.getState().selectedUTXOIds).toEqual([])
-    expect(navigateMock).toHaveBeenCalledWith('home', { screen: 'wallet' })
+    expect(navigateMock).toHaveBeenCalledWith('homeScreen', { screen: 'wallet' })
   })
 
   it('should be able to send all funds', async () => {

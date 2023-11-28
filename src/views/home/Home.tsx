@@ -2,8 +2,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import PeachBorder from '../../assets/logo/peachBorder.svg'
-import PeachOrange from '../../assets/logo/peachOrange.svg'
 import { Icon, Text } from '../../components'
 import { NotificationBubble } from '../../components/bubble/NotificationBubble'
 import { useNavigation, useRoute } from '../../hooks'
@@ -14,12 +12,13 @@ import { useNotificationStore } from './notificationsStore'
 
 const Tab = createBottomTabNavigator()
 
-export function Home () {
+export function HomeScreen () {
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName="home"
       sceneContainerStyle={tw`flex-1`}
       tabBar={() => <Footer />}
       id="homeNavigator"
@@ -49,25 +48,21 @@ function Footer () {
 }
 
 function FooterItem ({ id }: { id: HomeTabName }) {
-  const currentPage = useRoute<'home'>().params?.screen
+  const currentPage = useRoute<'homeScreen'>().params?.screen ?? 'home'
   const navigation = useNavigation()
   const onPress = () => {
-    navigation.navigate('home', { screen: id })
+    navigation.navigate('homeScreen', { screen: id })
   }
 
   const active = currentPage === id
-  const color = active ? (id === 'settings' ? tw`text-primary-main` : tw`text-black-1`) : tw`text-black-2`
+  const color = active ? tw`text-black-1` : tw`text-black-2`
   const size = tw`w-6 h-6`
   const notifications = useNotificationStore((state) => state.notifications)
   return (
     <TouchableOpacity onPress={onPress} style={tw`items-center flex-1 gap-2px`}>
       <View style={size}>
-        {id === 'settings' ? (
-          active ? (
-            <PeachOrange style={size} />
-          ) : (
-            <PeachBorder style={size} />
-          )
+        {id === 'home' ? (
+          <Icon id={active ? 'home' : 'homeUnselected'} style={size} color={color.color} />
         ) : (
           <Icon id={id} style={size} color={color.color} />
         )}
@@ -75,7 +70,15 @@ function FooterItem ({ id }: { id: HomeTabName }) {
           <NotificationBubble notifications={notifications} style={tw`absolute -right-2 -top-2`} />
         ) : null}
       </View>
-      <Text style={[color, tw`leading-relaxed text-center subtitle-1 text-9px`]}>{i18n(`footer.${id}`)}</Text>
+      <Text
+        style={[
+          color,
+          id === 'home' && active && tw`text-primary-main`,
+          tw`leading-relaxed text-center subtitle-1 text-9px`,
+        ]}
+      >
+        {i18n(`footer.${id}`)}
+      </Text>
     </TouchableOpacity>
   )
 }

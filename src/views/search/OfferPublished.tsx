@@ -7,7 +7,7 @@ import i18n from '../../utils/i18n'
 export const OfferPublished = () => {
   const { isSellOffer, shouldGoBack, offerId } = useRoute<'offerPublished'>().params
   const navigation = useNavigation()
-  const goBackHome = () => navigation.replace('home', { screen: isSellOffer ? 'sell' : 'buy' })
+  const goBackHome = () => navigation.replace('homeScreen', { screen: isSellOffer ? 'sell' : 'buy' })
   const goToOffer = () => navigation.replace('search', { offerId })
   const goBack = () => navigation.goBack()
 

@@ -94,7 +94,7 @@ describe('handlePushNotification', () => {
 
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('home', {
+    expect(navigationRef.navigate).toHaveBeenCalledWith('homeScreen', {
       screen: 'yourTrades',
       params: { tab: 'yourTrades.sell' },
     })
@@ -107,7 +107,7 @@ describe('handlePushNotification', () => {
 
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('home', {
+    expect(navigationRef.navigate).toHaveBeenCalledWith('homeScreen', {
       screen: 'yourTrades',
       params: { tab: 'yourTrades.buy' },
     })
@@ -119,7 +119,7 @@ describe('handlePushNotification', () => {
     } as MessageWithData
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('home', {
+    expect(navigationRef.navigate).toHaveBeenCalledWith('homeScreen', {
       screen: 'sell',
     })
   })

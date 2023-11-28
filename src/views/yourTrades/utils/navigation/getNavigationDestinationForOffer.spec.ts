@@ -51,7 +51,7 @@ describe('getNavigationDestinationForOffer', () => {
       tradeStatus: 'dispute',
     })
 
-    expect(destination).toBe('home')
+    expect(destination).toBe('homeScreen')
     expect(params).toEqual({ screen: 'yourTrades' })
   })
 })

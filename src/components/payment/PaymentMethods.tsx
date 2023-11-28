@@ -45,7 +45,7 @@ export const PaymentMethods = () => {
 
   const isSelected = (itm: { value: string }) => selectedPaymentDataIds.includes(itm.value)
   const { name: origin, params } = usePreviousRoute()
-  const isComingFromSettings = origin === 'home' && params && 'screen' in params && params?.screen === 'settings'
+  const isComingFromSettings = origin === 'homeScreen' && params && 'screen' in params && params?.screen === 'settings'
   const [isEditing, toggleIsEditing] = useToggleBoolean(isComingFromSettings)
   const tabs: TabbedNavigationItem<'online' | 'meetups'>[] = [
     { id: 'online', display: i18n('paymentSection.online') },

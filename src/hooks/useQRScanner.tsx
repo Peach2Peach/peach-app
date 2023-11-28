@@ -61,7 +61,7 @@ function OpenSettingsAction () {
       label={i18n('settings.openSettings')}
       textStyle={tw`text-black-1`}
       onPress={Linking.openSettings}
-      iconId={'settingsGear'}
+      iconId={'settings'}
       reverseOrder
     />
   )

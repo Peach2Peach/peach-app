@@ -51,7 +51,7 @@ export const useCancelFundMultipleSellOffers = ({ fundMultiple }: Props) => {
       showError(parseError(errorMessage))
     }
     showOfferCanceled()
-    navigation.replace('home', { screen: 'sell' })
+    navigation.replace('homeScreen', { screen: 'sell' })
   }, [fundMultiple, navigation, showError, showOfferCanceled])
 
   const showCancelSellOffersPopup = useCallback(() => {

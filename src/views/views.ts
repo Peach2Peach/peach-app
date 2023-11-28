@@ -47,7 +47,7 @@ import { MyProfile } from './settings/profile/MyProfile'
 import { TestView } from './TestView/TestView'
 import { TestViewPeachWallet } from './TestView/peachWallet'
 import { TestViewPNs } from './TestView/pns'
-import { Home } from './home/Home'
+import { HomeScreen } from './home/Home'
 import { TradeComplete } from './tradeComplete/TradeComplete'
 import { UserSource } from './userSource/UserSource'
 import { AddressChecker } from './wallet/AddressChecker'
@@ -76,7 +76,7 @@ const onboarding: ViewType[] = [
   { name: 'restoreReputation', component: RestoreReputation, animationEnabled: false },
 ]
 
-const home: ViewType[] = [{ name: 'home', component: Home }]
+const home: ViewType[] = [{ name: 'homeScreen', component: HomeScreen }]
 
 const wallet: ViewType[] = [
   { name: 'sendBitcoin', component: SendBitcoin },

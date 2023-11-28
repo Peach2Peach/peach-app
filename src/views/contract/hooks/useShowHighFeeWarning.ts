@@ -34,7 +34,7 @@ export const useShowHighFeeWarning = ({ enabled, amount }: Props) => {
           updateMessage({ msgKey: undefined, level: 'WARN' })
         },
         label: i18n('contract.warning.highFee.changeFee'),
-        icon: 'settingsGear',
+        icon: 'settings',
       },
     })
   }, [updateMessage, amount, feeRate, navigation, enabled])

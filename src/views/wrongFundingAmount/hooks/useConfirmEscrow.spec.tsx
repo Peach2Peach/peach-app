@@ -50,7 +50,7 @@ describe('useConfirmEscrow', () => {
     expect(resetMock).toHaveBeenCalledWith({
       index: 1,
       routes: [
-        { name: 'home', params: { screen: 'yourTrades' } },
+        { name: 'homeScreen', params: { screen: 'yourTrades' } },
         { name: 'search', params: { offerId: sellOffer.id } },
       ],
     })
@@ -65,7 +65,7 @@ describe('useConfirmEscrow', () => {
     expect(resetMock).toHaveBeenCalledWith({
       index: 1,
       routes: [
-        { name: 'home', params: { screen: 'yourTrades' } },
+        { name: 'homeScreen', params: { screen: 'yourTrades' } },
         { name: 'fundEscrow', params: { offerId: sellOffer.id } },
       ],
     })

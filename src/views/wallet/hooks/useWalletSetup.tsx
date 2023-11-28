@@ -29,7 +29,7 @@ export const useWalletSetup = ({ peachWallet, syncOnLoad }: Props) => {
 
   if (!showBackupReminder && balance > 0 && shouldShowBackupOverlay) {
     setShowBackupReminder(true)
-    navigation.navigate('backupTime', { nextScreen: 'home', screen: 'wallet' })
+    navigation.navigate('backupTime', { nextScreen: 'homeScreen', screen: 'wallet' })
   }
 
   const syncWalletOnLoad = useCallback(async () => {
