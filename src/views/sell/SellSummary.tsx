@@ -60,7 +60,7 @@ export const SellSummary = () => {
       navigation.reset({
         index: 1,
         routes: [
-          { name: 'yourTrades', params: { tab: 'yourTrades.sell' } },
+          { name: 'home', params: { screen: 'yourTrades', tab: 'yourTrades.sell' } },
           { name: 'fundEscrow', params: navigationParams },
         ],
       })

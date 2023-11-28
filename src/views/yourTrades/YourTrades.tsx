@@ -52,7 +52,7 @@ export const YourTrades = () => {
   )
 
   return (
-    <Screen style={tw`px-0`} header={<YourTradesHeader />} showFooter>
+    <Screen style={tw`px-0`} header={<YourTradesHeader />}>
       <YourTradesTab.Navigator
         initialRouteName={params?.tab || 'yourTrades.buy'}
         screenOptions={tabbedNavigationScreenOptions}

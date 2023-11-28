@@ -42,11 +42,11 @@ export const handlePushNotification = async (
     const { contractId } = data
     navigationRef.navigate('contractChat', { contractId })
   } else if (shouldGoToYourTradesSell(data)) {
-    navigationRef.navigate('yourTrades', { tab: 'yourTrades.sell' })
+    navigationRef.navigate('home', { screen: 'yourTrades', params: { tab: 'yourTrades.sell' } })
   } else if (shouldGoToYourTradesBuy(data)) {
-    navigationRef.navigate('yourTrades', { tab: 'yourTrades.buy' })
+    navigationRef.navigate('home', { screen: 'yourTrades', params: { tab: 'yourTrades.buy' } })
   } else if (shouldGoToSell(data)) {
-    navigationRef.navigate('sell')
+    navigationRef.navigate('home', { screen: 'sell' })
   } else if (isDefined(data.offerId)) {
     const [offer] = await getOfferDetails({ offerId: data.offerId })
     const { offerId } = data

@@ -3,7 +3,6 @@
 exports[`Wallet should render correctly 1`] = `
 <Screen
   header={<WalletHeader />}
-  showFooter={true}
 >
   <ForwardRef
     contentContainerStyle={

@@ -15,7 +15,7 @@ export const Wallet = () => {
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (
-    <Screen header={<WalletHeader />} showFooter>
+    <Screen header={<WalletHeader />}>
       <PeachScrollView
         contentContainerStyle={tw`grow`}
         contentStyle={tw`justify-center grow`}

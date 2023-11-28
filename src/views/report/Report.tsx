@@ -43,7 +43,7 @@ export const Report = () => {
 
     if (result) {
       if (publicKey) {
-        navigation.navigate('settings')
+        navigation.navigate('home', { screen: 'settings' })
       } else {
         navigation.navigate('welcome')
       }

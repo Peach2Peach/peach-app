@@ -11,6 +11,7 @@ import { requestUserPermissions } from '../init/requestUserPermissions'
 import { VerifyYouAreAHumanPopup } from '../popups/warning/VerifyYouAreAHumanPopup'
 import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
+import { useGlobalHandlers } from '../useGlobalHandlers'
 import { useAccountStore } from '../utils/account/account'
 import i18n from '../utils/i18n'
 import { screenTransition } from '../utils/layout/screenTransition'
@@ -22,13 +23,14 @@ const Stack = createStackNavigator<RootStackParamList>()
 export function Screens () {
   const [isLoading, setIsLoading] = useState(true)
   const isLoggedIn = useAccountStore((state) => state.isLoggedIn)
+  useGlobalHandlers()
   if (isLoading) return <SplashScreenComponent setIsLoading={setIsLoading} />
-
   return (
     <Stack.Navigator
       screenOptions={{
         gestureEnabled: isIOS(),
         headerShown: false,
+        cardStyle: tw`flex-1 bg-primary-background`,
       }}
     >
       {(isLoggedIn ? views : onboardingViews).map(({ name, component, animationEnabled }) => (
@@ -37,7 +39,6 @@ export function Screens () {
           key={name}
           options={{
             animationEnabled,
-            cardStyle: tw`bg-primary-background`,
             transitionSpec: {
               open: screenTransition,
               close: screenTransition,

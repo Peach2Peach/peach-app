@@ -1,5 +1,5 @@
 import { renderHook } from 'test-utils'
-import { usePreviousRouteName } from './usePreviousRouteName'
+import { usePreviousRoute } from './usePreviousRoute'
 
 jest.mock('./useNavigation', () => ({
   useNavigation: () => ({
@@ -9,9 +9,9 @@ jest.mock('./useNavigation', () => ({
   }),
 }))
 
-describe('usePreviousRouteName', () => {
+describe('usePreviousRoute', () => {
   it('should return the name of the previous route', () => {
-    const { result } = renderHook(usePreviousRouteName)
-    expect(result.current).toEqual('Second')
+    const { result } = renderHook(usePreviousRoute)
+    expect(result.current).toEqual({ name: 'Second' })
   })
 })

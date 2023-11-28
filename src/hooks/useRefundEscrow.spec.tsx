@@ -135,7 +135,7 @@ describe('useRefundEscrow', () => {
       usePopupStore.getState().action1?.callback()
     })
     expect(usePopupStore.getState().visible).toEqual(false)
-    expect(navigateMock).toHaveBeenCalledWith('yourTrades', { tab: 'yourTrades.history' })
+    expect(navigateMock).toHaveBeenCalledWith('home', { screen: 'yourTrades', params: { tab: 'yourTrades.history' } })
   })
   it('should close popup and go to backup time on close of success popup if backup is needed', async () => {
     mockSuccess()
@@ -150,7 +150,7 @@ describe('useRefundEscrow', () => {
       usePopupStore.getState().action1?.callback()
     })
     expect(usePopupStore.getState().visible).toEqual(false)
-    expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'yourTrades' })
+    expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'home', screen: 'yourTrades' })
   })
 
   it('should show the right success popup when peach wallet is active', async () => {

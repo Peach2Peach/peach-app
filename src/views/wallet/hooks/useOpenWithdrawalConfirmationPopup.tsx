@@ -28,7 +28,7 @@ export const useOpenWithdrawalConfirmationPopup = () => {
           }
           setSelectedUTXOIds([])
           closePopup()
-          navigation.navigate('wallet')
+          navigation.navigate('home', { screen: 'wallet' })
         }
         const fee = await psbt.feeAmount()
 

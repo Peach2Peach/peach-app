@@ -2,117 +2,39 @@
 
 exports[`AddressChecker should render correctly 1`] = `
 <View
+  onLayout={[Function]}
   style={
-    {
-      "flexBasis": "0%",
-      "flexGrow": 1,
-      "flexShrink": 1,
-    }
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      {
+        "paddingBottom": 0,
+      },
+    ]
   }
 >
-  <RCTSafeAreaView
-    style={
-      [
-        {
-          "borderBottomLeftRadius": 8,
-          "borderBottomRightRadius": 8,
-          "borderBottomWidth": 1,
-        },
-        {
-          "backgroundColor": "#FFF9F6",
-        },
-        {
-          "borderColor": "#FEEDE5",
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "gap": 8,
-            "paddingBottom": 6,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 6,
-          },
-          {
-            "paddingLeft": 32,
-            "paddingRight": 32,
-          },
-          undefined,
-        ]
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
       }
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexBasis": "0%",
-            "flexDirection": "row",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "gap": 4,
-          }
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          numberOfLines={1}
-          style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 26,
-                },
-                {
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 20,
-                  "letterSpacing": 0.2,
-                  "lineHeight": 32,
-                },
-                {
-                  "color": "#2B1911",
-                },
-                {
-                  "flexBasis": "0%",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                },
-              ],
-              false,
-            ]
-          }
-        >
-          address checker
-        </Text>
-      </View>
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "gap": 10,
-            "justifyContent": "flex-end",
-          }
-        }
-      />
-    </View>
-  </RCTSafeAreaView>
-  <RCTSafeAreaView
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       {
         "flexBasis": "0%",
@@ -125,77 +47,57 @@ exports[`AddressChecker should render correctly 1`] = `
       style={
         [
           {
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 16,
+            "borderBottomLeftRadius": 8,
+            "borderBottomRightRadius": 8,
+            "borderBottomWidth": 1,
           },
           {
-            "paddingBottom": 32,
-            "paddingLeft": 32,
-            "paddingRight": 32,
-            "paddingTop": 32,
+            "paddingTop": 0,
           },
-          undefined,
+          {
+            "backgroundColor": "#FFF9F6",
+          },
+          {
+            "borderColor": "#FEEDE5",
+          },
         ]
       }
     >
       <View
         style={
-          {
-            "alignItems": "center",
-            "flexGrow": 1,
-            "gap": 64,
-            "justifyContent": "center",
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 8,
+              "paddingBottom": 6,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 6,
+            },
+            {
+              "paddingLeft": 32,
+              "paddingRight": 32,
+            },
+            undefined,
+          ]
         }
       >
         <View
           style={
             {
               "alignItems": "center",
-              "borderColor": "#099DE2",
-              "borderRadius": 8,
-              "borderWidth": 2,
-              "gap": 10,
-              "maxWidth": 230,
-              "paddingBottom": 10,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 10,
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "gap": 4,
             }
           }
         >
-          <View
-            style={
-              {
-                "backgroundColor": "#FFFCFA",
-                "left": -12,
-                "paddingBottom": 2,
-                "paddingTop": 2,
-                "position": "absolute",
-                "top": 8,
-              }
-            }
-          >
-            <test-file-stub
-              fill="#037DB5"
-              style={
-                [
-                  {
-                    "height": 20,
-                    "width": 20,
-                  },
-                  undefined,
-                ]
-              }
-            />
-          </View>
           <Text
             allowFontScaling={false}
+            numberOfLines={1}
             style={
               [
                 {
@@ -205,240 +107,381 @@ exports[`AddressChecker should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
-                undefined,
-                false,
-              ]
-            }
-          >
-            you can use this to verify if an address belongs to your Peach wallet
-          </Text>
-        </View>
-        <View>
-          <View
-            style={
-              [
-                {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "flexDirection": "row",
-                  "gap": 4,
-                  "justifyContent": "space-between",
-                  "paddingLeft": 12,
-                  "paddingRight": 12,
-                  "width": "100%",
-                },
-                {
-                  "borderRadius": 12,
-                  "borderWidth": 1,
-                  "overflow": "hidden",
-                },
-                {
-                  "backgroundColor": "#FFFCFA",
-                },
-                {
-                  "borderColor": "#2B1911",
-                },
-                false,
-                false,
-                {
-                  "marginBottom": 1,
-                  "marginTop": 1,
-                },
-                undefined,
-              ]
-            }
-          >
-            <TextInput
-              allowFontScaling={false}
-              autoCapitalize="none"
-              autoCorrect={false}
-              blurOnSubmit={false}
-              editable={true}
-              multiline={false}
-              onBlur={[Function]}
-              onChangeText={[Function]}
-              onEndEditing={[Function]}
-              onFocus={[Function]}
-              onSubmitEditing={[Function]}
-              placeholder="bc1q ..."
-              placeholderTextColor="#EAE3DF"
-              removeClippedSubviews={false}
-              style={
                 [
                   {
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 26,
+                  },
+                  {
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 32,
+                  },
+                  {
+                    "color": "#2B1911",
+                  },
+                  {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
                     "flexShrink": 1,
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 18,
-                    "height": 40,
-                    "letterSpacing": 0.18,
-                    "lineHeight": 29.25,
-                    "paddingBottom": 0,
-                    "paddingTop": 0,
-                    "width": "100%",
-                  },
-                  {
-                    "color": "#BAADA7",
-                  },
-                  false,
-                  {
-                    "borderColor": "transparent",
-                    "borderWidth": 1,
-                  },
-                  false,
-                  false,
-                ]
-              }
-              textAlignVertical="center"
-              value=""
-            />
-            <View
-              style={
-                {
-                  "display": "flex",
-                  "flexDirection": "row",
-                  "gap": 16,
-                }
-              }
-            >
-              <View
-                accessibilityState={
-                  {
-                    "busy": undefined,
-                    "checked": undefined,
-                    "disabled": undefined,
-                    "expanded": undefined,
-                    "selected": undefined,
-                  }
-                }
-                accessibilityValue={
-                  {
-                    "max": undefined,
-                    "min": undefined,
-                    "now": undefined,
-                    "text": undefined,
-                  }
-                }
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-              >
-                <test-file-stub
-                  fill="#2B1911"
-                  style={
-                    [
-                      {
-                        "height": 24,
-                        "width": 24,
-                      },
-                      {
-                        "height": 20,
-                        "width": 20,
-                      },
-                    ]
-                  }
-                />
-              </View>
-              <View
-                accessibilityState={
-                  {
-                    "busy": undefined,
-                    "checked": undefined,
-                    "disabled": undefined,
-                    "expanded": undefined,
-                    "selected": undefined,
-                  }
-                }
-                accessibilityValue={
-                  {
-                    "max": undefined,
-                    "min": undefined,
-                    "now": undefined,
-                    "text": undefined,
-                  }
-                }
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-              >
-                <test-file-stub
-                  fill="#2B1911"
-                  style={
-                    [
-                      {
-                        "height": 24,
-                        "width": 24,
-                      },
-                      {
-                        "height": 20,
-                        "width": 20,
-                      },
-                    ]
-                  }
-                />
-              </View>
-            </View>
-          </View>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "fontFamily": "Baloo2-Medium",
-                    "fontSize": 14,
-                    "letterSpacing": 0.14,
-                    "lineHeight": 20,
-                    "marginLeft": 12,
-                    "marginTop": 4,
-                  },
-                  {
-                    "color": "#DF321F",
                   },
                 ],
                 false,
               ]
             }
           >
-             
+            address checker
           </Text>
         </View>
-        <View>
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 10,
+              "justifyContent": "flex-end",
+            }
+          }
+        />
+      </View>
+    </View>
+    <View
+      style={
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          },
+          false,
+          {
+            "paddingBottom": 0,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            },
+            {
+              "paddingBottom": 32,
+              "paddingLeft": 32,
+              "paddingRight": 32,
+              "paddingTop": 32,
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexGrow": 1,
+              "gap": 64,
+              "justifyContent": "center",
+            }
+          }
+        >
           <View
             style={
               {
-                "height": 24,
+                "alignItems": "center",
+                "borderColor": "#099DE2",
+                "borderRadius": 8,
+                "borderWidth": 2,
+                "gap": 10,
+                "maxWidth": 230,
+                "paddingBottom": 10,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 10,
               }
             }
-          />
+          >
+            <View
+              style={
+                {
+                  "backgroundColor": "#FFFCFA",
+                  "left": -12,
+                  "paddingBottom": 2,
+                  "paddingTop": 2,
+                  "position": "absolute",
+                  "top": 8,
+                }
+              }
+            >
+              <test-file-stub
+                fill="#037DB5"
+                style={
+                  [
+                    {
+                      "height": 20,
+                      "width": 20,
+                    },
+                    undefined,
+                  ]
+                }
+              />
+            </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  undefined,
+                  false,
+                ]
+              }
+            >
+              you can use this to verify if an address belongs to your Peach wallet
+            </Text>
+          </View>
+          <View>
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "gap": 4,
+                    "justifyContent": "space-between",
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "width": "100%",
+                  },
+                  {
+                    "borderRadius": 12,
+                    "borderWidth": 1,
+                    "overflow": "hidden",
+                  },
+                  {
+                    "backgroundColor": "#FFFCFA",
+                  },
+                  {
+                    "borderColor": "#2B1911",
+                  },
+                  false,
+                  false,
+                  {
+                    "marginBottom": 1,
+                    "marginTop": 1,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <TextInput
+                allowFontScaling={false}
+                autoCapitalize="none"
+                autoCorrect={false}
+                blurOnSubmit={false}
+                editable={true}
+                multiline={false}
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                onEndEditing={[Function]}
+                onFocus={[Function]}
+                onSubmitEditing={[Function]}
+                placeholder="bc1q ..."
+                placeholderTextColor="#EAE3DF"
+                removeClippedSubviews={false}
+                style={
+                  [
+                    {
+                      "flexShrink": 1,
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 18,
+                      "height": 40,
+                      "letterSpacing": 0.18,
+                      "lineHeight": 29.25,
+                      "paddingBottom": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "color": "#BAADA7",
+                    },
+                    false,
+                    {
+                      "borderColor": "transparent",
+                      "borderWidth": 1,
+                    },
+                    false,
+                    false,
+                  ]
+                }
+                textAlignVertical="center"
+                value=""
+              />
+              <View
+                style={
+                  {
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "gap": 16,
+                  }
+                }
+              >
+                <View
+                  accessibilityState={
+                    {
+                      "busy": undefined,
+                      "checked": undefined,
+                      "disabled": undefined,
+                      "expanded": undefined,
+                      "selected": undefined,
+                    }
+                  }
+                  accessibilityValue={
+                    {
+                      "max": undefined,
+                      "min": undefined,
+                      "now": undefined,
+                      "text": undefined,
+                    }
+                  }
+                  accessible={true}
+                  collapsable={false}
+                  focusable={true}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                >
+                  <test-file-stub
+                    fill="#2B1911"
+                    style={
+                      [
+                        {
+                          "height": 24,
+                          "width": 24,
+                        },
+                        {
+                          "height": 20,
+                          "width": 20,
+                        },
+                      ]
+                    }
+                  />
+                </View>
+                <View
+                  accessibilityState={
+                    {
+                      "busy": undefined,
+                      "checked": undefined,
+                      "disabled": undefined,
+                      "expanded": undefined,
+                      "selected": undefined,
+                    }
+                  }
+                  accessibilityValue={
+                    {
+                      "max": undefined,
+                      "min": undefined,
+                      "now": undefined,
+                      "text": undefined,
+                    }
+                  }
+                  accessible={true}
+                  collapsable={false}
+                  focusable={true}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                >
+                  <test-file-stub
+                    fill="#2B1911"
+                    style={
+                      [
+                        {
+                          "height": 24,
+                          "width": 24,
+                        },
+                        {
+                          "height": 20,
+                          "width": 20,
+                        },
+                      ]
+                    }
+                  />
+                </View>
+              </View>
+            </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                      "marginLeft": 12,
+                      "marginTop": 4,
+                    },
+                    {
+                      "color": "#DF321F",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+               
+            </Text>
+          </View>
+          <View>
+            <View
+              style={
+                {
+                  "height": 24,
+                }
+              }
+            />
+          </View>
         </View>
       </View>
     </View>
-  </RCTSafeAreaView>
+  </View>
 </View>
 `;
 
@@ -447,97 +490,97 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
 - First value
 + Second value
 
-@@ -272,11 +272,11 @@
-                      "paddingBottom": 0,
-                      "paddingTop": 0,
-                      "width": "100%",
-                    },
+@@ -314,11 +314,11 @@
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      Object {
+-                       "color": "#BAADA7",
++                       "color": "#2B1911",
+                      },
+                      false,
+                      Object {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+@@ -326,11 +326,11 @@
+                      false,
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+-                 value=""
++                 value="bcrt1qm5 ... jhfgd0"
+                />
+                <View
+                  style={
                     Object {
--                     "color": "#BAADA7",
-+                     "color": "#2B1911",
-                    },
-                    false,
-                    Object {
-                      "borderColor": "transparent",
-                      "borderWidth": 1,
-@@ -284,11 +284,11 @@
-                    false,
-                    false,
-                  ]
-                }
-                textAlignVertical="center"
--               value=""
-+               value="bcrt1qm5 ... jhfgd0"
-              />
+                      "display": "flex",
+@@ -466,16 +466,63 @@
+                 
+              </Text>
+            </View>
+            <View>
               <View
-                style={
-                  Object {
-                    "display": "flex",
-@@ -424,16 +424,63 @@
-               
-            </Text>
-          </View>
-          <View>
-            <View
-+             style={
-+               Array [
-+                 Object {
-+                   "alignItems": "center",
-+                   "alignSelf": "stretch",
-+                   "flexDirection": "row",
-+                   "gap": 4,
-+                   "justifyContent": "center",
-+                 },
-+                 undefined,
-+               ]
-+             }
-+           >
-+             <Text
-+               allowFontScaling={false}
-                style={
-+                 Array [
-                    Object {
--                 "height": 24,
-+                     "color": "#2B1911",
-+                     "fontFamily": "Baloo2-Regular",
-+                     "fontSize": 16,
-+                     "letterSpacing": 0.16,
-+                     "lineHeight": 24,
-+                   },
-+                   Array [
-+                     Object {
-+                       "fontFamily": "Baloo2-SemiBold",
-+                       "fontSize": 14,
-+                       "letterSpacing": 0.5,
-+                       "lineHeight": 24,
-+                       "textTransform": "uppercase",
-+                     },
-+                     undefined,
-+                   ],
-+                   false,
-+                 ]
-                }
-+             >
-+               belongs to peach wallet
-+             </Text>
-+             <test-file-stub
-+               fill="#65A519"
 +               style={
 +                 Array [
 +                   Object {
-+                     "height": 20,
-+                     "width": 20,
++                     "alignItems": "center",
++                     "alignSelf": "stretch",
++                     "flexDirection": "row",
++                     "gap": 4,
++                     "justifyContent": "center",
 +                   },
 +                   undefined,
 +                 ]
-                }
-              />
-+           </View>
++               }
++             >
++               <Text
++                 allowFontScaling={false}
+                  style={
++                   Array [
+                      Object {
+-                   "height": 24,
++                       "color": "#2B1911",
++                       "fontFamily": "Baloo2-Regular",
++                       "fontSize": 16,
++                       "letterSpacing": 0.16,
++                       "lineHeight": 24,
++                     },
++                     Array [
++                       Object {
++                         "fontFamily": "Baloo2-SemiBold",
++                         "fontSize": 14,
++                         "letterSpacing": 0.5,
++                         "lineHeight": 24,
++                         "textTransform": "uppercase",
++                       },
++                       undefined,
++                     ],
++                     false,
++                   ]
+                  }
++               >
++                 belongs to peach wallet
++               </Text>
++               <test-file-stub
++                 fill="#65A519"
++                 style={
++                   Array [
++                     Object {
++                       "height": 20,
++                       "width": 20,
++                     },
++                     undefined,
++                   ]
+                  }
+                />
++             </View>
+            </View>
           </View>
         </View>
       </View>
-    </RCTSafeAreaView>
-  </View>"
+    </View>"
 `;
 
 exports[`AddressChecker should render correctly when address does not belong to wallet 1`] = `
@@ -545,97 +588,97 @@ exports[`AddressChecker should render correctly when address does not belong to 
 - First value
 + Second value
 
-@@ -272,11 +272,11 @@
-                      "paddingBottom": 0,
-                      "paddingTop": 0,
-                      "width": "100%",
-                    },
+@@ -314,11 +314,11 @@
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      Object {
+-                       "color": "#BAADA7",
++                       "color": "#2B1911",
+                      },
+                      false,
+                      Object {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+@@ -326,11 +326,11 @@
+                      false,
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+-                 value=""
++                 value="bcrt1qm5 ... jhfgd0"
+                />
+                <View
+                  style={
                     Object {
--                     "color": "#BAADA7",
-+                     "color": "#2B1911",
-                    },
-                    false,
-                    Object {
-                      "borderColor": "transparent",
-                      "borderWidth": 1,
-@@ -284,11 +284,11 @@
-                    false,
-                    false,
-                  ]
-                }
-                textAlignVertical="center"
--               value=""
-+               value="bcrt1qm5 ... jhfgd0"
-              />
+                      "display": "flex",
+@@ -466,16 +466,63 @@
+                 
+              </Text>
+            </View>
+            <View>
               <View
-                style={
-                  Object {
-                    "display": "flex",
-@@ -424,16 +424,63 @@
-               
-            </Text>
-          </View>
-          <View>
-            <View
-+             style={
-+               Array [
-+                 Object {
-+                   "alignItems": "center",
-+                   "alignSelf": "stretch",
-+                   "flexDirection": "row",
-+                   "gap": 4,
-+                   "justifyContent": "center",
-+                 },
-+                 undefined,
-+               ]
-+             }
-+           >
-+             <Text
-+               allowFontScaling={false}
-                style={
-+                 Array [
-                    Object {
--                 "height": 24,
-+                     "color": "#2B1911",
-+                     "fontFamily": "Baloo2-Regular",
-+                     "fontSize": 16,
-+                     "letterSpacing": 0.16,
-+                     "lineHeight": 24,
-+                   },
-+                   Array [
-+                     Object {
-+                       "fontFamily": "Baloo2-SemiBold",
-+                       "fontSize": 14,
-+                       "letterSpacing": 0.5,
-+                       "lineHeight": 24,
-+                       "textTransform": "uppercase",
-+                     },
-+                     undefined,
-+                   ],
-+                   false,
-+                 ]
-                }
-+             >
-+               doesn’t belong to peach wallet
-+             </Text>
-+             <test-file-stub
-+               fill="#DF321F"
 +               style={
 +                 Array [
 +                   Object {
-+                     "height": 20,
-+                     "width": 20,
++                     "alignItems": "center",
++                     "alignSelf": "stretch",
++                     "flexDirection": "row",
++                     "gap": 4,
++                     "justifyContent": "center",
 +                   },
 +                   undefined,
 +                 ]
-                }
-              />
-+           </View>
++               }
++             >
++               <Text
++                 allowFontScaling={false}
+                  style={
++                   Array [
+                      Object {
+-                   "height": 24,
++                       "color": "#2B1911",
++                       "fontFamily": "Baloo2-Regular",
++                       "fontSize": 16,
++                       "letterSpacing": 0.16,
++                       "lineHeight": 24,
++                     },
++                     Array [
++                       Object {
++                         "fontFamily": "Baloo2-SemiBold",
++                         "fontSize": 14,
++                         "letterSpacing": 0.5,
++                         "lineHeight": 24,
++                         "textTransform": "uppercase",
++                       },
++                       undefined,
++                     ],
++                     false,
++                   ]
+                  }
++               >
++                 doesn’t belong to peach wallet
++               </Text>
++               <test-file-stub
++                 fill="#DF321F"
++                 style={
++                   Array [
++                     Object {
++                       "height": 20,
++                       "width": 20,
++                     },
++                     undefined,
++                   ]
+                  }
+                />
++             </View>
+            </View>
           </View>
         </View>
       </View>
-    </RCTSafeAreaView>
-  </View>"
+    </View>"
 `;
 
 exports[`AddressChecker should render correctly when address is invalid 1`] = `
@@ -643,70 +686,70 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
 - First value
 + Second value
 
-@@ -233,15 +233,18 @@
-                    "backgroundColor": "#FFFCFA",
-                  },
-                  Object {
-                    "borderColor": "#2B1911",
-                  },
--                 false,
--                 false,
-+                 Object {
-+                   "backgroundColor": "#FFFCFA",
-+                 },
-+                 Object {
-+                   "borderColor": "#DF321F",
-+                 },
-                  Object {
--                   "marginBottom": 1,
--                   "marginTop": 1,
-+                   "borderWidth": 2,
-                  },
-                  undefined,
-                ]
-              }
-            >
-@@ -272,23 +275,22 @@
-                      "paddingBottom": 0,
-                      "paddingTop": 0,
-                      "width": "100%",
+@@ -275,15 +275,18 @@
+                      "backgroundColor": "#FFFCFA",
                     },
                     Object {
--                     "color": "#BAADA7",
-+                     "color": "#2B1911",
+                      "borderColor": "#2B1911",
                     },
 -                   false,
+-                   false,
++                   Object {
++                     "backgroundColor": "#FFFCFA",
++                   },
++                   Object {
++                     "borderColor": "#DF321F",
++                   },
                     Object {
--                     "borderColor": "transparent",
--                     "borderWidth": 1,
-+                     "color": "#2B1911",
+-                     "marginBottom": 1,
+-                     "marginTop": 1,
++                     "borderWidth": 2,
                     },
-+                   false,
-                    false,
+                    undefined,
+                  ]
+                }
+              >
+@@ -314,23 +317,22 @@
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      Object {
+-                       "color": "#BAADA7",
++                       "color": "#2B1911",
+                      },
+-                     false,
+                      Object {
+-                       "borderColor": "transparent",
+-                       "borderWidth": 1,
++                       "color": "#2B1911",
+                      },
++                     false,
+                      false,
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+-                 value=""
++                 value="invalidAddress"
+                />
+                <View
+                  style={
+                    Object {
+                      "display": "flex",
+@@ -461,11 +463,11 @@
+                    ],
                     false,
                   ]
                 }
-                textAlignVertical="center"
--               value=""
-+               value="invalidAddress"
-              />
+              >
+-                
++               bitcoin address is invalid
+              </Text>
+            </View>
+            <View>
               <View
-                style={
-                  Object {
-                    "display": "flex",
-@@ -419,11 +421,11 @@
-                  ],
-                  false,
-                ]
-              }
-            >
--              
-+             bitcoin address is invalid
-            </Text>
-          </View>
-          <View>
-            <View
-              style={"
+                style={"
 `;
 
 exports[`AddressChecker should render correctly while loading 1`] = `
@@ -714,76 +757,76 @@ exports[`AddressChecker should render correctly while loading 1`] = `
 - First value
 + Second value
 
-@@ -272,11 +272,11 @@
-                      "paddingBottom": 0,
-                      "paddingTop": 0,
-                      "width": "100%",
-                    },
+@@ -314,11 +314,11 @@
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      Object {
+-                       "color": "#BAADA7",
++                       "color": "#2B1911",
+                      },
+                      false,
+                      Object {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+@@ -326,11 +326,11 @@
+                      false,
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+-                 value=""
++                 value="bcrt1qm5 ... jhfgd0"
+                />
+                <View
+                  style={
                     Object {
--                     "color": "#BAADA7",
-+                     "color": "#2B1911",
-                    },
-                    false,
-                    Object {
-                      "borderColor": "transparent",
-                      "borderWidth": 1,
-@@ -284,11 +284,11 @@
-                    false,
-                    false,
-                  ]
-                }
-                textAlignVertical="center"
--               value=""
-+               value="bcrt1qm5 ... jhfgd0"
-              />
-              <View
+                      "display": "flex",
+@@ -465,16 +465,43 @@
+              >
+                 
+              </Text>
+            </View>
+            <View>
+-             <View
++             <LottieAnimationView
++               autoPlay={true}
++               cacheComposition={true}
++               colorFilters={
++                 Array [
++                   Object {
++                     "color": 4294272290,
++                     "keypath": "main",
++                   },
++                 ]
++               }
++               enableMergePathsAndroidForKitKatAndAbove={false}
++               loop={true}
++               onAnimationFinish={[Function bound ]}
++               progress={0}
++               resizeMode="contain"
++               sourceJson="{\\"v\\":\\"5.1.15\\",\\"fr\\":60,\\"ip\\":0,\\"op\\":141,\\"w\\":120,\\"h\\":120,\\"nm\\":\\"Composição 1\\",\\"ddd\\":0,\\"assets\\":[],\\"layers\\":[{\\"ddd\\":0,\\"ind\\":0,\\"ty\\":4,\\"nm\\":\\"main\\",\\"sr\\":1,\\"ks\\":{\\"o\\":{\\"a\\":0,\\"k\\":100,\\"ix\\":11},\\"r\\":{\\"a\\":1,\\"k\\":[{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":0,\\"s\\":[0],\\"e\\":[1080]},{\\"t\\":180}],\\"ix\\":10},\\"p\\":{\\"a\\":0,\\"k\\":[60,60,0],\\"ix\\":2},\\"a\\":{\\"a\\":0,\\"k\\":[-14.604,-15.104,0],\\"ix\\":1},\\"s\\":{\\"a\\":0,\\"k\\":[100,100,100],\\"ix\\":6}},\\"ao\\":0,\\"shapes\\":[{\\"ty\\":\\"gr\\",\\"it\\":[{\\"d\\":1,\\"ty\\":\\"el\\",\\"s\\":{\\"a\\":0,\\"k\\":[106.793,106.793],\\"ix\\":2},\\"p\\":{\\"a\\":0,\\"k\\":[0,0],\\"ix\\":3},\\"nm\\":\\"Caminho da elipse 1\\",\\"mn\\":\\"ADBE Vector Shape - Ellipse\\",\\"hd\\":false},{\\"ty\\":\\"st\\",\\"c\\":{\\"a\\":0,\\"k\\":[1,1,1,1],\\"ix\\":3},\\"o\\":{\\"a\\":0,\\"k\\":100,\\"ix\\":4},\\"w\\":{\\"a\\":0,\\"k\\":11,\\"ix\\":5},\\"lc\\":2,\\"lj\\":1,\\"ml\\":4,\\"nm\\":\\"Traçado 1\\",\\"mn\\":\\"ADBE Vector Graphic - Stroke\\",\\"hd\\":false},{\\"ty\\":\\"tr\\",\\"p\\":{\\"a\\":0,\\"k\\":[-14.604,-15.104],\\"ix\\":2},\\"a\\":{\\"a\\":0,\\"k\\":[0,0],\\"ix\\":1},\\"s\\":{\\"a\\":0,\\"k\\":[100,100],\\"ix\\":3},\\"r\\":{\\"a\\":0,\\"k\\":0,\\"ix\\":6},\\"o\\":{\\"a\\":0,\\"k\\":100,\\"ix\\":7},\\"sk\\":{\\"a\\":0,\\"k\\":0,\\"ix\\":4},\\"sa\\":{\\"a\\":0,\\"k\\":0,\\"ix\\":5},\\"nm\\":\\"Transformar\\"}],\\"nm\\":\\"Elipse 1\\",\\"np\\":3,\\"cix\\":2,\\"ix\\":1,\\"mn\\":\\"ADBE Vector Group\\",\\"hd\\":false},{\\"ty\\":\\"tm\\",\\"s\\":{\\"a\\":1,\\"k\\":[{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":0,\\"s\\":[0],\\"e\\":[0]},{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":60,\\"s\\":[0],\\"e\\":[67]},{\\"t\\":119}],\\"ix\\":1},\\"e\\":{\\"a\\":1,\\"k\\":[{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":0,\\"s\\":[3],\\"e\\":[70]},{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":60,\\"s\\":[70],\\"e\\":[70]},{\\"t\\":119}],\\"ix\\":2},\\"o\\":{\\"a\\":0,\\"k\\":0,\\"ix\\":3},\\"m\\":1,\\"ix\\":2,\\"nm\\":\\"Aparar caminhos 1\\",\\"mn\\":\\"ADBE Vector Filter - Trim\\",\\"hd\\":false}],\\"ip\\":0,\\"op\\":900,\\"st\\":0,\\"bm\\":0}],\\"chars\\":[],\\"markers\\":[]}"
++               speed={1}
                 style={
-                  Object {
-                    "display": "flex",
-@@ -423,16 +423,43 @@
-            >
-               
-            </Text>
-          </View>
-          <View>
--           <View
-+           <LottieAnimationView
-+             autoPlay={true}
-+             cacheComposition={true}
-+             colorFilters={
-+               Array [
-+                 Object {
-+                   "color": 4294272290,
-+                   "keypath": "main",
-+                 },
-+               ]
-+             }
-+             enableMergePathsAndroidForKitKatAndAbove={false}
-+             loop={true}
-+             onAnimationFinish={[Function bound ]}
-+             progress={0}
-+             resizeMode="contain"
-+             sourceJson="{\\"v\\":\\"5.1.15\\",\\"fr\\":60,\\"ip\\":0,\\"op\\":141,\\"w\\":120,\\"h\\":120,\\"nm\\":\\"Composição 1\\",\\"ddd\\":0,\\"assets\\":[],\\"layers\\":[{\\"ddd\\":0,\\"ind\\":0,\\"ty\\":4,\\"nm\\":\\"main\\",\\"sr\\":1,\\"ks\\":{\\"o\\":{\\"a\\":0,\\"k\\":100,\\"ix\\":11},\\"r\\":{\\"a\\":1,\\"k\\":[{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":0,\\"s\\":[0],\\"e\\":[1080]},{\\"t\\":180}],\\"ix\\":10},\\"p\\":{\\"a\\":0,\\"k\\":[60,60,0],\\"ix\\":2},\\"a\\":{\\"a\\":0,\\"k\\":[-14.604,-15.104,0],\\"ix\\":1},\\"s\\":{\\"a\\":0,\\"k\\":[100,100,100],\\"ix\\":6}},\\"ao\\":0,\\"shapes\\":[{\\"ty\\":\\"gr\\",\\"it\\":[{\\"d\\":1,\\"ty\\":\\"el\\",\\"s\\":{\\"a\\":0,\\"k\\":[106.793,106.793],\\"ix\\":2},\\"p\\":{\\"a\\":0,\\"k\\":[0,0],\\"ix\\":3},\\"nm\\":\\"Caminho da elipse 1\\",\\"mn\\":\\"ADBE Vector Shape - Ellipse\\",\\"hd\\":false},{\\"ty\\":\\"st\\",\\"c\\":{\\"a\\":0,\\"k\\":[1,1,1,1],\\"ix\\":3},\\"o\\":{\\"a\\":0,\\"k\\":100,\\"ix\\":4},\\"w\\":{\\"a\\":0,\\"k\\":11,\\"ix\\":5},\\"lc\\":2,\\"lj\\":1,\\"ml\\":4,\\"nm\\":\\"Traçado 1\\",\\"mn\\":\\"ADBE Vector Graphic - Stroke\\",\\"hd\\":false},{\\"ty\\":\\"tr\\",\\"p\\":{\\"a\\":0,\\"k\\":[-14.604,-15.104],\\"ix\\":2},\\"a\\":{\\"a\\":0,\\"k\\":[0,0],\\"ix\\":1},\\"s\\":{\\"a\\":0,\\"k\\":[100,100],\\"ix\\":3},\\"r\\":{\\"a\\":0,\\"k\\":0,\\"ix\\":6},\\"o\\":{\\"a\\":0,\\"k\\":100,\\"ix\\":7},\\"sk\\":{\\"a\\":0,\\"k\\":0,\\"ix\\":4},\\"sa\\":{\\"a\\":0,\\"k\\":0,\\"ix\\":5},\\"nm\\":\\"Transformar\\"}],\\"nm\\":\\"Elipse 1\\",\\"np\\":3,\\"cix\\":2,\\"ix\\":1,\\"mn\\":\\"ADBE Vector Group\\",\\"hd\\":false},{\\"ty\\":\\"tm\\",\\"s\\":{\\"a\\":1,\\"k\\":[{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":0,\\"s\\":[0],\\"e\\":[0]},{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":60,\\"s\\":[0],\\"e\\":[67]},{\\"t\\":119}],\\"ix\\":1},\\"e\\":{\\"a\\":1,\\"k\\":[{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":0,\\"s\\":[3],\\"e\\":[70]},{\\"i\\":{\\"x\\":[0.833],\\"y\\":[0.833]},\\"o\\":{\\"x\\":[0.167],\\"y\\":[0.167]},\\"n\\":[\\"0p833_0p833_0p167_0p167\\"],\\"t\\":60,\\"s\\":[70],\\"e\\":[70]},{\\"t\\":119}],\\"ix\\":2},\\"o\\":{\\"a\\":0,\\"k\\":0,\\"ix\\":3},\\"m\\":1,\\"ix\\":2,\\"nm\\":\\"Aparar caminhos 1\\",\\"mn\\":\\"ADBE Vector Filter - Trim\\",\\"hd\\":false}],\\"ip\\":0,\\"op\\":900,\\"st\\":0,\\"bm\\":0}],\\"chars\\":[],\\"markers\\":[]}"
-+             speed={1}
-              style={
-+               Array [
-                  Object {
-+                   "height": 80,
-+                   "width": 80,
-+                 },
-+                 Object {
-                    "height": 24,
--               }
-+                   "width": 24,
-+                 },
-+               ]
-              }
-+             textFiltersAndroid={Array []}
-+             textFiltersIOS={Array []}
-+             useNativeLooping={false}
-            />
++                 Array [
+                    Object {
++                     "height": 80,
++                     "width": 80,
++                   },
++                   Object {
+                      "height": 24,
+-                 }
++                     "width": 24,
++                   },
++                 ]
+                }
++               textFiltersAndroid={Array []}
++               textFiltersIOS={Array []}
++               useNativeLooping={false}
+              />
+            </View>
           </View>
         </View>
-      </View>
-    </RCTSafeAreaView>"
+      </View>"
 `;

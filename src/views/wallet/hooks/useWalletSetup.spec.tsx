@@ -66,7 +66,7 @@ describe('useWalletSetup', () => {
     })
     const { result } = renderHook(useWalletSetup, { initialProps })
 
-    expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'wallet' })
+    expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'home', screen: 'wallet' })
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
   it('should not navigate to backupTime if balance is bigger than 0 & showBackupReminder is already true', async () => {

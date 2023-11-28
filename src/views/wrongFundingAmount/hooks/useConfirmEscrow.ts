@@ -31,7 +31,10 @@ export const useConfirmEscrow = () => {
 
       navigation.reset({
         index: 1,
-        routes: [{ name: 'yourTrades' }, { name: destination, params: { offerId: sellOffer.id } }],
+        routes: [
+          { name: 'home', params: { screen: 'yourTrades' } },
+          { name: destination, params: { offerId: sellOffer.id } },
+        ],
       })
     },
     [navigation, queryClient, showErrorBanner],

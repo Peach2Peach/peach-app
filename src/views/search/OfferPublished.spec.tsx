@@ -24,14 +24,14 @@ describe('OfferPublished', () => {
     const { getByText } = render(<OfferPublished />)
     const closeButton = getByText('close')
     fireEvent.press(closeButton)
-    expect(replaceMock).toHaveBeenCalledWith('buy')
+    expect(replaceMock).toHaveBeenCalledWith('home', { screen: 'buy' })
   })
   it('should go back to sell for sell offers when pressing back close button', () => {
     useRouteMock.mockReturnValueOnce({ params: { isSellOffer: true, shouldGoBack: false } })
     const { getByText } = render(<OfferPublished />)
     const closeButton = getByText('close')
     fireEvent.press(closeButton)
-    expect(replaceMock).toHaveBeenCalledWith('sell')
+    expect(replaceMock).toHaveBeenCalledWith('home', { screen: 'sell' })
   })
   it('should go back when pressing close', () => {
     useRouteMock.mockReturnValueOnce({ params: { isSellOffer: true, shouldGoBack: true } })

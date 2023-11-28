@@ -14,7 +14,7 @@ export const GroupHugAnnouncement = () => {
     setHasSeenGroupHugAnnouncement(true)
     navigation.reset({
       index: 1,
-      routes: [{ name: 'settings' }, { name: 'transactionBatching' }],
+      routes: [{ name: 'home', params: { screen: 'settings' } }, { name: 'transactionBatching' }],
     })
   }
   const close = () => {
