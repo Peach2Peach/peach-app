@@ -128,7 +128,7 @@ function HeaderNavigation ({
       style={[
         tw`flex-row items-center gap-2 py-6px px-sm`,
         tw.md`px-md`,
-        shouldShowBackButton && [tw`pl-2`, tw.md`pl-26px`],
+        shouldShowBackButton && [tw`pl-0`, tw.md`pl-10px`],
       ]}
     >
       <View style={tw`flex-row items-center flex-1 gap-1`}>
