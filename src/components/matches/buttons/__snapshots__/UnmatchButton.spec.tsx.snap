@@ -37,12 +37,13 @@ exports[`UnmatchButton renders correctly 1`] = `
       "borderRadius": 9999,
       "flexDirection": "row",
       "gap": 8,
-      "height": 40,
       "justifyContent": "center",
       "minWidth": 128,
       "opacity": 1,
+      "paddingBottom": 7,
       "paddingLeft": 32,
       "paddingRight": 32,
+      "paddingTop": 7,
     }
   }
 >
@@ -155,12 +156,13 @@ exports[`UnmatchButton should show the undo button if not yet matched 1`] = `
           "borderRadius": 9999,
           "flexDirection": "row",
           "gap": 8,
-          "height": 40,
           "justifyContent": "center",
           "minWidth": 128,
           "opacity": 1,
+          "paddingBottom": 7,
           "paddingLeft": 32,
           "paddingRight": 32,
+          "paddingTop": 7,
           "width": 156,
         }
       }
@@ -253,12 +255,13 @@ exports[`UnmatchButton should show the undo button if not yet matched 1`] = `
         "borderRadius": 9999,
         "flexDirection": "row",
         "gap": 8,
-        "height": 40,
         "justifyContent": "center",
         "minWidth": 128,
         "opacity": 1,
+        "paddingBottom": 7,
         "paddingLeft": 32,
         "paddingRight": 32,
+        "paddingTop": 7,
         "position": "absolute",
         "width": 156,
       }

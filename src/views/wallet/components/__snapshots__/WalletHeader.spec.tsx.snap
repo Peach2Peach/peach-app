@@ -29,13 +29,13 @@ exports[`WalletHeader should render correctly 1`] = `
           "flexDirection": "row",
           "gap": 8,
           "paddingBottom": 6,
-          "paddingLeft": 16,
-          "paddingRight": 16,
+          "paddingLeft": 8,
+          "paddingRight": 8,
           "paddingTop": 6,
         },
         {
-          "paddingLeft": 32,
-          "paddingRight": 32,
+          "paddingLeft": 16,
+          "paddingRight": 16,
         },
         false,
       ]

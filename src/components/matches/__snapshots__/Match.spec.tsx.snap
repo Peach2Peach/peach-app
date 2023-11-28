@@ -1499,17 +1499,17 @@ exports[`Match should render correctly for matched offers 1`] = `
 +             "width": "100%",
             },
           ]
-+       }
+        }
 +       width="100%"
-+     >
+      >
 +       <RNSVGGroup
 +         fill={
 +           Object {
 +             "payload": 4278190080,
 +             "type": 0,
-            }
++           }
 +         }
-        >
++       >
 +         <RNSVGDefs>
 +           <RNSVGRadialGradient
 +             cx="100%"
@@ -1570,12 +1570,19 @@ exports[`Match should render correctly for matched offers 1`] = `
             </View>
             <View
               style={
-@@ -1373,17 +1446,215 @@
-                  ]
-                }
-              />
-            </View>
-          </View>
+@@ -1366,12 +1439,211 @@
+                    },
+                    Object {
+                      "height": 18,
+                      "marginBottom": 2,
+                      "marginLeft": 2,
++                     "width": 18,
++                   },
++                 ]
++               }
++             />
++           </View>
++         </View>
 +         <View
 +           pointerEvents="none"
 +           style={
@@ -1662,8 +1669,8 @@ exports[`Match should render correctly for matched offers 1`] = `
 +               />
 +             </RNSVGGroup>
 +           </RNSVGSvgView>
-          </View>
-          <View
++         </View>
++         <View
 +           pointerEvents="box-none"
 +           style={
 +             Object {
@@ -1678,11 +1685,10 @@ exports[`Match should render correctly for matched offers 1`] = `
 +           }
 +         >
 +           <View
-              accessibilityState={
-                Object {
-                  "busy": undefined,
-                  "checked": undefined,
--             "disabled": false,
++             accessibilityState={
++               Object {
++                 "busy": undefined,
++                 "checked": undefined,
 +                 "disabled": undefined,
 +                 "expanded": undefined,
 +                 "selected": undefined,
@@ -1714,12 +1720,13 @@ exports[`Match should render correctly for matched offers 1`] = `
 +                 "borderRadius": 9999,
 +                 "flexDirection": "row",
 +                 "gap": 8,
-+                 "height": 40,
 +                 "justifyContent": "center",
 +                 "minWidth": 128,
 +                 "opacity": 1,
++                 "paddingBottom": 7,
 +                 "paddingLeft": 32,
 +                 "paddingRight": 32,
++                 "paddingTop": 7,
 +               }
 +             }
 +           >
@@ -1767,27 +1774,28 @@ exports[`Match should render correctly for matched offers 1`] = `
 +                 Array [
 +                   Object {
 +                     "height": 18,
-+                     "width": 18,
-+                   },
+                      "width": 18,
+                    },
 +                   undefined,
-+                 ]
-+               }
-+             />
-+           </View>
-+         </View>
-+       </View>
-+       <View
-+         accessibilityState={
-+           Object {
-+             "busy": undefined,
-+             "checked": undefined,
+                  ]
+                }
+              />
+            </View>
+          </View>
+@@ -1379,11 +1651,11 @@
+        <View
+          accessibilityState={
+            Object {
+              "busy": undefined,
+              "checked": undefined,
+-             "disabled": false,
 +             "disabled": true,
               "expanded": undefined,
               "selected": undefined,
             }
           }
           accessibilityValue={
-@@ -1437,11 +1708,11 @@
+@@ -1437,11 +1709,11 @@
                 },
                 false,
               ]

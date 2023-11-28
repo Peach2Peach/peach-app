@@ -61,12 +61,13 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
           "flexGrow": 1,
           "flexShrink": 1,
           "gap": 8,
-          "height": 40,
           "justifyContent": "center",
           "minWidth": 128,
           "opacity": 1,
+          "paddingBottom": 7,
           "paddingLeft": 32,
           "paddingRight": 32,
+          "paddingTop": 7,
         }
       }
     >
@@ -160,12 +161,13 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
           "flexGrow": 1,
           "flexShrink": 1,
           "gap": 8,
-          "height": 40,
           "justifyContent": "center",
           "minWidth": 128,
           "opacity": 1,
+          "paddingBottom": 7,
           "paddingLeft": 32,
           "paddingRight": 32,
+          "paddingTop": 7,
         }
       }
     >

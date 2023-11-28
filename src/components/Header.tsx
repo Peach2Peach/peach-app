@@ -105,8 +105,8 @@ export const Header = ({
         newThemes[props.theme || 'default'].border,
       ]}
     >
-      <HeaderNavigation {...props} />
       {showPriceStats && <Tickers />}
+      {props.title && <HeaderNavigation {...props} />}
       {!!subtitle && subtitle}
     </View>
   )

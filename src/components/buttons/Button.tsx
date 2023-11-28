@@ -32,9 +32,9 @@ export const Button = ({
       style={[
         tw`bg-primary-main min-w-26`,
         tw.md`min-w-32`,
+        tw`flex-row items-center justify-center gap-2 px-6 rounded-full py-3px`,
+        tw.md`py-7px px-8`,
         touchableOpacityProps.style,
-        tw`flex-row items-center justify-center h-8 gap-2 px-6 rounded-full`,
-        tw.md`h-10 px-8`,
         touchableOpacityProps.disabled && tw`opacity-33`,
         ghost && tw`bg-transparent border-2`,
         { borderColor: ghost ? textColor?.color : undefined },

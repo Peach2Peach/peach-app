@@ -140,16 +140,16 @@ exports[`UserSource renders correctly 1`] = `
               "flexBasis": "0%",
               "flexGrow": 1,
               "flexShrink": 1,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {
               "paddingBottom": 16,
               "paddingLeft": 16,
               "paddingRight": 16,
               "paddingTop": 16,
-            },
-            {
-              "paddingBottom": 32,
-              "paddingLeft": 32,
-              "paddingRight": 32,
-              "paddingTop": 32,
             },
             undefined,
           ]
@@ -271,12 +271,13 @@ exports[`UserSource renders correctly 1`] = `
                   "borderWidth": 2,
                   "flexDirection": "row",
                   "gap": 8,
-                  "height": 40,
                   "justifyContent": "center",
                   "minWidth": 128,
                   "opacity": 1,
+                  "paddingBottom": 7,
                   "paddingLeft": 32,
                   "paddingRight": 32,
+                  "paddingTop": 7,
                 }
               }
             >
@@ -356,12 +357,13 @@ exports[`UserSource renders correctly 1`] = `
                   "borderWidth": 2,
                   "flexDirection": "row",
                   "gap": 8,
-                  "height": 40,
                   "justifyContent": "center",
                   "minWidth": 128,
                   "opacity": 1,
+                  "paddingBottom": 7,
                   "paddingLeft": 32,
                   "paddingRight": 32,
+                  "paddingTop": 7,
                 }
               }
             >
@@ -441,12 +443,13 @@ exports[`UserSource renders correctly 1`] = `
                   "borderWidth": 2,
                   "flexDirection": "row",
                   "gap": 8,
-                  "height": 40,
                   "justifyContent": "center",
                   "minWidth": 128,
                   "opacity": 1,
+                  "paddingBottom": 7,
                   "paddingLeft": 32,
                   "paddingRight": 32,
+                  "paddingTop": 7,
                 }
               }
             >
@@ -526,12 +529,13 @@ exports[`UserSource renders correctly 1`] = `
                   "borderWidth": 2,
                   "flexDirection": "row",
                   "gap": 8,
-                  "height": 40,
                   "justifyContent": "center",
                   "minWidth": 128,
                   "opacity": 1,
+                  "paddingBottom": 7,
                   "paddingLeft": 32,
                   "paddingRight": 32,
+                  "paddingTop": 7,
                 }
               }
             >
@@ -611,12 +615,13 @@ exports[`UserSource renders correctly 1`] = `
                   "borderWidth": 2,
                   "flexDirection": "row",
                   "gap": 8,
-                  "height": 40,
                   "justifyContent": "center",
                   "minWidth": 128,
                   "opacity": 1,
+                  "paddingBottom": 7,
                   "paddingLeft": 32,
                   "paddingRight": 32,
+                  "paddingTop": 7,
                 }
               }
             >
