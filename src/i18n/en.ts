@@ -8,6 +8,7 @@ import error from './error/en.json'
 import form from './form/en.json'
 import global from './global/en.json'
 import help from './help/en.json'
+import home from './home/en.json'
 import notification from './notification/en.json'
 import offer from './offer/en.json'
 import paymentMethod from './paymentMethod/en.json'
@@ -31,6 +32,7 @@ const en: Record<string, string> = {
   ...error,
   ...form,
   ...help,
+  ...home,
   ...notification,
   ...offer,
   ...paymentMethod,
