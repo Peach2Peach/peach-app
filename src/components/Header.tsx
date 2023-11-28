@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
-import { ColorValue, SafeAreaView, TouchableOpacity, View, ViewProps } from 'react-native'
+import { ColorValue, TouchableOpacity, View, ViewProps } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { shallow } from 'zustand/shallow'
 import { IconType } from '../assets/icons'
 import { useBitcoinStore } from '../store/bitcoinStore'
@@ -93,19 +94,23 @@ export const Header = ({
   showPriceStats,
   subtitle,
   ...props
-}: Omit<HeaderConfig, 'theme' | 'style'> & { theme?: keyof typeof newThemes }) => (
-  <SafeAreaView
-    style={[
-      tw`border-b rounded-b-lg`,
-      newThemes[props.theme || 'default'].bg,
-      newThemes[props.theme || 'default'].border,
-    ]}
-  >
-    <HeaderNavigation {...props} />
-    {showPriceStats && <Tickers />}
-    {!!subtitle && subtitle}
-  </SafeAreaView>
-)
+}: Omit<HeaderConfig, 'theme' | 'style'> & { theme?: keyof typeof newThemes }) => {
+  const { top } = useSafeAreaInsets()
+  return (
+    <View
+      style={[
+        tw`border-b rounded-b-lg`,
+        { paddingTop: top },
+        newThemes[props.theme || 'default'].bg,
+        newThemes[props.theme || 'default'].border,
+      ]}
+    >
+      <HeaderNavigation {...props} />
+      {showPriceStats && <Tickers />}
+      {!!subtitle && subtitle}
+    </View>
+  )
+}
 
 function HeaderNavigation ({
   title,

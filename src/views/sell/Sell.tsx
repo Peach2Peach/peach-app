@@ -25,7 +25,7 @@ export const Sell = () => {
   if (isLoading) return <LoadingScreen />
 
   return (
-    <Screen header={<SellHeader />} showFooter showTradingLimit>
+    <Screen header={<SellHeader />} showTradingLimit>
       <SellAmountSelector style={tw`pt-4 pb-2`}>
         <FundMultipleOffers />
       </SellAmountSelector>

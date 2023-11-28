@@ -64,9 +64,9 @@ export const useRefundEscrow = () => {
           callback: () => {
             closePopup()
             if (shouldShowBackupOverlay && isPeachWallet) {
-              navigation.navigate('backupTime', { nextScreen: 'yourTrades' })
+              navigation.navigate('backupTime', { nextScreen: 'home', screen: 'yourTrades' })
             } else {
-              navigation.navigate('yourTrades', { tab: 'yourTrades.history' })
+              navigation.navigate('home', { screen: 'yourTrades', params: { tab: 'yourTrades.history' } })
             }
           },
         },
@@ -78,7 +78,11 @@ export const useRefundEscrow = () => {
               goToWallet(txId)
             } else {
               closePopup()
-              navigation.navigate('backupTime', { nextScreen: 'yourTrades', tab: 'yourTrades.sell' })
+              navigation.navigate('backupTime', {
+                nextScreen: 'home',
+                screen: 'yourTrades',
+                params: { tab: 'yourTrades.sell' },
+              })
 
               showTransaction(txId, NETWORK)
             }

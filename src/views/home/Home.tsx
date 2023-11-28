@@ -1,34 +1,58 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+
 import { TouchableOpacity, View } from 'react-native'
-import { Icon, Text } from '..'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import PeachBorder from '../../assets/logo/peachBorder.svg'
 import PeachOrange from '../../assets/logo/peachOrange.svg'
-import { useKeyboard, useNavigation, useRoute } from '../../hooks'
+import { Icon, Text } from '../../components'
+import { NotificationBubble } from '../../components/bubble/NotificationBubble'
+import { useNavigation, useRoute } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { NotificationBubble } from '../bubble/NotificationBubble'
+import { HomeTabName, homeTabNames, homeTabs } from './homeTabNames'
 import { useNotificationStore } from './notificationsStore'
 
-const tabs = ['buy', 'sell', 'wallet', 'yourTrades', 'settings'] as const
+const Tab = createBottomTabNavigator()
 
-export const Footer = () => {
-  const keyboardOpen = useKeyboard()
-
-  if (keyboardOpen) return <View />
-
+export function Home () {
   return (
-    <View style={[tw`flex-row items-center self-stretch justify-between py-2 bg-primary-background`, tw.md`pt-4 pb-0`]}>
-      {tabs.map((id) => (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      sceneContainerStyle={tw`flex-1`}
+      tabBar={() => <Footer />}
+      id="homeNavigator"
+    >
+      {homeTabNames.map((name) => (
+        <Tab.Screen {...{ name }} key={`homeTab-${name}`} component={homeTabs[name]} />
+      ))}
+    </Tab.Navigator>
+  )
+}
+
+function Footer () {
+  const { bottom } = useSafeAreaInsets()
+  return (
+    <View
+      style={[
+        tw`flex-row items-center self-stretch justify-between pt-2 bg-primary-background`,
+        tw.md`pt-4`,
+        { paddingBottom: bottom },
+      ]}
+    >
+      {homeTabNames.map((id) => (
         <FooterItem key={`footer-${id}`} id={id} />
       ))}
     </View>
   )
 }
 
-function FooterItem ({ id }: { id: (typeof tabs)[number] }) {
-  const currentPage = useRoute().name
+function FooterItem ({ id }: { id: HomeTabName }) {
+  const currentPage = useRoute<'home'>().params?.screen
   const navigation = useNavigation()
   const onPress = () => {
-    navigation.reset({ index: 0, routes: [{ name: id }] })
+    navigation.navigate('home', { screen: id })
   }
 
   const active = currentPage === id

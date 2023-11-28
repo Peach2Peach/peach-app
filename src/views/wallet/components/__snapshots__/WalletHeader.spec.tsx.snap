@@ -1,13 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WalletHeader should render correctly 1`] = `
-<RCTSafeAreaView
+<View
   style={
     [
       {
         "borderBottomLeftRadius": 8,
         "borderBottomRightRadius": 8,
         "borderBottomWidth": 1,
+      },
+      {
+        "paddingTop": 0,
       },
       {
         "backgroundColor": "#FFF9F6",
@@ -221,5 +224,5 @@ exports[`WalletHeader should render correctly 1`] = `
       </View>
     </View>
   </View>
-</RCTSafeAreaView>
+</View>
 `;

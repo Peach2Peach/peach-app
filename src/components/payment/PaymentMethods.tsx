@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { Header, HorizontalLine, PeachScrollView, Screen, Text } from '..'
-import { useNavigation, usePreviousRouteName, useRoute, useShowHelp, useToggleBoolean } from '../../hooks'
+import { useNavigation, usePreviousRoute, useRoute, useShowHelp, useToggleBoolean } from '../../hooks'
 import { useUserPaymentMethodInfo } from '../../hooks/query/useUserPaymentMethodInfo'
 import { InfoPopup } from '../../popups/InfoPopup'
 import { useOfferPreferences } from '../../store/offerPreferenes'
@@ -44,8 +44,9 @@ export const PaymentMethods = () => {
   }
 
   const isSelected = (itm: { value: string }) => selectedPaymentDataIds.includes(itm.value)
-  const origin = usePreviousRouteName()
-  const [isEditing, toggleIsEditing] = useToggleBoolean(origin === 'settings')
+  const { name: origin, params } = usePreviousRoute()
+  const isComingFromSettings = origin === 'home' && params && 'screen' in params && params?.screen === 'settings'
+  const [isEditing, toggleIsEditing] = useToggleBoolean(isComingFromSettings)
   const tabs: TabbedNavigationItem<'online' | 'meetups'>[] = [
     { id: 'online', display: i18n('paymentSection.online') },
     { id: 'meetups', display: i18n('paymentSection.meetups') },
@@ -66,7 +67,7 @@ export const PaymentMethods = () => {
           <AddPaymentMethodButton isCash={currentTab.id === 'meetups'} />
         </PeachScrollView>
       </PeachScrollView>
-      {origin !== 'settings' && <NextButton />}
+      {!isComingFromSettings && <NextButton />}
     </Screen>
   )
 }
@@ -99,7 +100,7 @@ function NextButton () {
   const navigation = useNavigation()
   const setPopup = usePopupStore((state) => state.setPopup)
   const showHelp = () => setPopup(<InfoPopup content={<Text>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</Text>} />)
-  const origin = usePreviousRouteName()
+  const { name: origin } = usePreviousRoute()
   const [isStepValid, paymentMethods] = useOfferPreferences(
     (state) => [state.canContinue.paymentMethods, Object.values(state.meansOfPayment).flat()],
     shallow,

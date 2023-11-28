@@ -20,7 +20,7 @@ export const Buy = () => {
   if (isLoading) return <LoadingScreen />
 
   return (
-    <Screen header={<BuyScreenHeader />} showFooter showTradingLimit>
+    <Screen header={<BuyScreenHeader />} showTradingLimit>
       <BuyAmountSelector style={tw`mt-4 mb-2`} />
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-4`]}>
         {freeTrades > 0 && (

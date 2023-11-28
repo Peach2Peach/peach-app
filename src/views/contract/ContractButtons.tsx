@@ -36,7 +36,8 @@ export function NewOfferButton () {
       const [screen, params] = await getNavigationDestinationForContract(newContract)
       navigation.replace(screen, params)
     } else {
-      navigation.replace(...getNavigationDestinationForOffer(newOffer))
+      const [screen, params] = getNavigationDestinationForOffer(newOffer)
+      navigation.replace(screen, params)
     }
   }, [newOfferId, navigation])
 

@@ -94,7 +94,10 @@ describe('handlePushNotification', () => {
 
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('yourTrades', { tab: 'yourTrades.sell' })
+    expect(navigationRef.navigate).toHaveBeenCalledWith('home', {
+      screen: 'yourTrades',
+      params: { tab: 'yourTrades.sell' },
+    })
   })
 
   it('navigates to yourTrades buy when shouldGoToYourTradesBuy is true', async () => {
@@ -104,7 +107,10 @@ describe('handlePushNotification', () => {
 
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('yourTrades', { tab: 'yourTrades.buy' })
+    expect(navigationRef.navigate).toHaveBeenCalledWith('home', {
+      screen: 'yourTrades',
+      params: { tab: 'yourTrades.buy' },
+    })
   })
 
   it('navigates to sell when shouldGoToSell is true', async () => {
@@ -113,7 +119,9 @@ describe('handlePushNotification', () => {
     } as MessageWithData
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('sell')
+    expect(navigationRef.navigate).toHaveBeenCalledWith('home', {
+      screen: 'sell',
+    })
   })
 
   it('navigates to search when shouldGoToSearch is true and offer is defined', async () => {
