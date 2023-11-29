@@ -57,6 +57,8 @@ import gift from './gift.svg'
 import globe from './globe.svg'
 import heart from './heart.svg'
 import helpCircle from './helpCircle.svg'
+import home from './home.svg'
+import homeUnselected from './homeUnselected.svg'
 import inbox from './inbox.svg'
 import info from './info.svg'
 import link from './link.svg'
@@ -75,6 +77,7 @@ import notification from './notification.svg'
 import offline from './offline.svg'
 import paperclip from './paperclip.svg'
 import pauseCircle from './pauseCircle.svg'
+import peachSettings from './peachSettings.svg'
 import percent from './percent.svg'
 import plusCircle from './plusCircle.svg'
 import plusSquare from './plusSquare.svg'
@@ -91,7 +94,6 @@ import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
 import send from './send.svg'
 import settings from './settings.svg'
-import settingsGear from './settingsGear.svg'
 import share from './share.svg'
 import share2 from './share2.svg'
 import shield from './shield.svg'
@@ -184,6 +186,8 @@ export const Icons = {
   globe,
   heart,
   helpCircle,
+  home,
+  homeUnselected,
   inbox,
   info,
   link,
@@ -217,8 +221,8 @@ export const Icons = {
   selectOpen,
   sell,
   send,
+  peachSettings,
   settings,
-  settingsGear,
   share,
   share2,
   shield,

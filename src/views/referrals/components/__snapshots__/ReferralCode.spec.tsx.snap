@@ -376,12 +376,13 @@ exports[`ReferralCode should render component correctly 1`] = `
         "borderWidth": 2,
         "flexDirection": "row",
         "gap": 8,
-        "height": 40,
         "justifyContent": "center",
         "minWidth": 128,
         "opacity": 1,
+        "paddingBottom": 7,
         "paddingLeft": 32,
         "paddingRight": 32,
+        "paddingTop": 7,
       }
     }
   >

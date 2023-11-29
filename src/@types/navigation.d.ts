@@ -21,7 +21,7 @@ type TestViews = {
 }
 
 type RootStackParamList = Onboarding & {
-  home: { screen: 'wallet' | 'buy' | 'sell' | 'yourTrades' | 'settings'; params?: { tab?: string } }
+  homeScreen: { screen: 'wallet' | 'home' | 'yourTrades' | 'settings'; params?: { tab?: string } }
   newBadge: {
     badges: string
   }

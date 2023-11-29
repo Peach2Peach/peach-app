@@ -12,11 +12,12 @@ export const PaymentMade = () => {
     navigation.reset({
       index: 1,
       routes: [
-        { name: 'home', params: { screen: 'yourTrades' } },
+        { name: 'homeScreen', params: { screen: 'yourTrades' } },
         { name: 'contract', params: { contractId } },
       ],
     })
-  const close = () => (navigation.canGoBack() ? navigation.goBack() : navigation.navigate('home', { screen: 'buy' }))
+  const close = () =>
+    navigation.canGoBack() ? navigation.goBack() : navigation.navigate('homeScreen', { screen: 'buy' })
 
   return (
     <Overlay

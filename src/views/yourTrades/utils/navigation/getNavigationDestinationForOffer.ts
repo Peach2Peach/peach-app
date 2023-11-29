@@ -17,5 +17,5 @@ export const getNavigationDestinationForOffer = ({
   if (shouldGoToSearch(tradeStatus)) return ['search', { offerId }] as const
   if (shouldGoToWrongFundingAmount(tradeStatus)) return ['wrongFundingAmount', { offerId }] as const
 
-  return ['home', { screen: 'yourTrades' }] as const
+  return ['homeScreen', { screen: 'yourTrades' }] as const
 }

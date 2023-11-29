@@ -28,7 +28,7 @@ export const useShowLowFeeWarning = ({ enabled }: Props) => {
           updateMessage({ msgKey: undefined, level: 'WARN' })
         },
         label: i18n('contract.warning.lowFee.changeFee'),
-        icon: 'settingsGear',
+        icon: 'settings',
       },
     })
   }, [updateMessage, feeRate, navigation, enabled, estimatedFees.minimumFee])

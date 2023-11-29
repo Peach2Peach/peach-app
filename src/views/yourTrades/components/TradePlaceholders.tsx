@@ -11,7 +11,7 @@ const GoTradeButton = ({ tab }: { tab: 'yourTrades.buy' | 'yourTrades.sell' }) =
   const destination = tab === 'yourTrades.buy' ? 'buy' : 'sell'
 
   const onPress = () => {
-    navigation.navigate('home', { screen: destination })
+    navigation.navigate('homeScreen', { screen: destination })
   }
 
   return (

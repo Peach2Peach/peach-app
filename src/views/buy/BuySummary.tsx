@@ -157,7 +157,7 @@ function usePublishOffer (offerDraft: BuyOfferDraft) {
       navigation.reset({
         index: 1,
         routes: [
-          { name: 'home', params: { screen: 'yourTrades' } },
+          { name: 'homeScreen', params: { screen: 'yourTrades' } },
           !hasSeenGroupHugAnnouncement
             ? { name: 'groupHugAnnouncement', params: { offerId } }
             : { name: 'offerPublished', params: { offerId, isSellOffer: false, shouldGoBack: true } },

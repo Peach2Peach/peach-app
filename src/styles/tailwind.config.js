@@ -140,12 +140,12 @@ module.exports = {
         '8/8': '100%',
       },
       padding: {
-        sm: '16px',
-        md: '32px',
+        sm: '8px',
+        md: '16px',
       },
       margin: {
-        sm: '16px',
-        md: '32px',
+        sm: '8px',
+        md: '16px',
       },
     },
     fontFamily: {

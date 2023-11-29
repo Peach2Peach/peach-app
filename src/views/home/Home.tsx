@@ -1,81 +1,71 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
-import { TouchableOpacity, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import PeachBorder from '../../assets/logo/peachBorder.svg'
-import PeachOrange from '../../assets/logo/peachOrange.svg'
-import { Icon, Text } from '../../components'
-import { NotificationBubble } from '../../components/bubble/NotificationBubble'
-import { useNavigation, useRoute } from '../../hooks'
+import { useQuery } from '@tanstack/react-query'
+import { View } from 'react-native'
+import { LogoIcons } from '../../assets/logo'
+import { Header, Icon, Screen, Text } from '../../components'
+import { PeachyGradient } from '../../components/PeachyGradient'
+import { Button } from '../../components/buttons/Button'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { HomeTabName, homeTabNames, homeTabs } from './homeTabNames'
-import { useNotificationStore } from './notificationsStore'
-
-const Tab = createBottomTabNavigator()
+import { peachAPI } from '../../utils/peachAPI'
 
 export function Home () {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-      sceneContainerStyle={tw`flex-1`}
-      tabBar={() => <Footer />}
-      id="homeNavigator"
-    >
-      {homeTabNames.map((name) => (
-        <Tab.Screen {...{ name }} key={`homeTab-${name}`} component={homeTabs[name]} />
-      ))}
-    </Tab.Navigator>
+    <Screen showTradingLimit header={<Header showPriceStats />}>
+      <View style={tw`items-center flex-1 gap-10px`}>
+        <LogoIcons.homeLogo height={76} width={173} />
+        <View style={tw`self-stretch flex-1 gap-10px`}>
+          <DailyMessage />
+          <MarketStats />
+        </View>
+      </View>
+      <View style={tw`flex-row gap-10px`}>
+        <BuyButton />
+        <SellButton />
+      </View>
+    </Screen>
   )
 }
 
-function Footer () {
-  const { bottom } = useSafeAreaInsets()
+function DailyMessage () {
+  const { data: message } = useQuery({
+    queryKey: ['info', 'news'],
+    queryFn: async () => {
+      const { result, error } = await peachAPI.public.system.getNews()
+      if (error) throw error
+      return result?.[0]
+    },
+  })
+  if (!message) return null
   return (
-    <View
-      style={[
-        tw`flex-row items-center self-stretch justify-between pt-2 bg-primary-background`,
-        tw.md`pt-4`,
-        { paddingBottom: bottom },
-      ]}
-    >
-      {homeTabNames.map((id) => (
-        <FooterItem key={`footer-${id}`} id={id} />
-      ))}
+    <View style={tw`overflow-hidden rounded-2xl`}>
+      <PeachyGradient style={tw`absolute w-full h-full`} />
+      <View style={tw`flex-row items-center self-stretch justify-center p-4 gap-10px`}>
+        <Text style={tw`flex-1 text-center subtitle-1 text-primary-background-light`}>{message.text}</Text>
+        <Icon id="share" color={tw`text-primary-background-light`.color} />
+      </View>
     </View>
   )
 }
 
-function FooterItem ({ id }: { id: HomeTabName }) {
-  const currentPage = useRoute<'home'>().params?.screen
-  const navigation = useNavigation()
-  const onPress = () => {
-    navigation.navigate('home', { screen: id })
-  }
-
-  const active = currentPage === id
-  const color = active ? (id === 'settings' ? tw`text-primary-main` : tw`text-black-1`) : tw`text-black-2`
-  const size = tw`w-6 h-6`
-  const notifications = useNotificationStore((state) => state.notifications)
+function MarketStats () {
+  const data = { openBuyOffers: 0, openSellOffers: 0, averagePremium: 0 }
   return (
-    <TouchableOpacity onPress={onPress} style={tw`items-center flex-1 gap-2px`}>
-      <View style={size}>
-        {id === 'settings' ? (
-          active ? (
-            <PeachOrange style={size} />
-          ) : (
-            <PeachBorder style={size} />
-          )
-        ) : (
-          <Icon id={id} style={size} color={color.color} />
-        )}
-        {id === 'yourTrades' ? (
-          <NotificationBubble notifications={notifications} style={tw`absolute -right-2 -top-2`} />
-        ) : null}
+    <View style={tw`items-center justify-center pb-4 gap-10px grow`}>
+      <View style={tw`items-center gap-1`}>
+        <Text style={tw`subtitle-0 text-success-main`}>{i18n('home.openBuyOffers', String(data.openBuyOffers))}</Text>
+        <Text style={tw`subtitle-0 text-primary-main`}>{i18n('home.openSellOffers', String(data.openSellOffers))}</Text>
       </View>
-      <Text style={[color, tw`leading-relaxed text-center subtitle-1 text-9px`]}>{i18n(`footer.${id}`)}</Text>
-    </TouchableOpacity>
+      <Text style={tw`subtitle-1`}>
+        {i18n('home.averagePremium')}:<Text style={tw`text-error-main subtitle-1`}> ~{data.averagePremium}%</Text>
+      </Text>
+    </View>
   )
+}
+
+function BuyButton () {
+  return <Button style={tw`flex-1 px-5 py-3 bg-success-main`}>{i18n('buy')}</Button>
+}
+
+function SellButton () {
+  return <Button style={tw`flex-1 px-5 py-3`}>{i18n('sell')}</Button>
 }
