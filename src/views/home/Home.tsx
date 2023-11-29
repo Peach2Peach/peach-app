@@ -12,7 +12,7 @@ export function Home () {
   return (
     <Screen showTradingLimit header={<Header showPriceStats />}>
       <View style={tw`items-center flex-1 gap-10px`}>
-        <LogoIcons.homeLogo />
+        <LogoIcons.homeLogo height={76} width={173} />
         <View style={tw`self-stretch flex-1 gap-10px`}>
           <DailyMessage />
           <MarketStats />
