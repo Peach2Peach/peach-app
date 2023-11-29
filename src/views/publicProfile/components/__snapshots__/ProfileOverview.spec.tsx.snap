@@ -5,7 +5,7 @@ exports[`ProfileOverview should render correctly 1`] = `
   style={
     {
       "alignSelf": "stretch",
-      "gap": 2,
+      "gap": 4,
     }
   }
 >
@@ -303,235 +303,244 @@ exports[`ProfileOverview should render correctly 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       {
-        "alignItems": "center",
-        "alignSelf": "stretch",
         "flexDirection": "row",
-        "justifyContent": "space-between",
+        "flexWrap": "wrap",
+        "gap": 4,
+        "maxWidth": 200,
         "opacity": 1,
       }
     }
   >
     <View
       style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "marginRight": 8,
-        }
+        [
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FFFCFA",
+            "borderRadius": 9999,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 2,
+            "paddingBottom": 4,
+            "paddingLeft": 6,
+            "paddingRight": 6,
+            "paddingTop": 4,
+          },
+          {
+            "borderColor": "#FCCCB6",
+          },
+        ]
       }
     >
       <View
         style={
-          [
-            {
-              "backgroundColor": "#FCCCB6",
-            },
-            {
-              "borderRadius": 9999,
-              "marginLeft": 2,
-              "marginRight": 2,
-            },
-          ]
+          {
+            "height": 6,
+            "justifyContent": "center",
+          }
         }
       >
-        <test-file-stub
-          fill="#FFFCFA"
+        <Text
+          allowFontScaling={false}
           style={
             [
               {
-                "height": 24,
-                "width": 24,
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
               },
-              {
-                "height": 8,
-                "marginBottom": 2,
-                "marginLeft": 2,
-                "marginRight": 2,
-                "marginTop": 2,
-                "width": 8,
-              },
+              [
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 10,
+                    "letterSpacing": 0.14,
+                    "lineHeight": 22,
+                  },
+                  {
+                    "color": "#FCCCB6",
+                  },
+                ],
+                {
+                  "marginBottom": -40,
+                  "marginTop": -40,
+                },
+              ],
+              false,
             ]
           }
-        />
+        >
+          supertrader
+        </Text>
       </View>
-      <Text
-        allowFontScaling={false}
+      <test-file-stub
+        fill="#FCCCB6"
         style={
           [
             {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
+              "height": 12,
+              "width": 12,
             },
-            [
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 12,
-                "letterSpacing": -0.36,
-                "lineHeight": 22,
-                "textAlign": "center",
-                "textTransform": "uppercase",
-              },
-              {
-                "color": "#FCCCB6",
-              },
-            ],
-            false,
+            undefined,
           ]
         }
-      >
-        supertrader
-      </Text>
+      />
     </View>
     <View
       style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "marginRight": 8,
-        }
+        [
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FFFCFA",
+            "borderRadius": 9999,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 2,
+            "paddingBottom": 4,
+            "paddingLeft": 6,
+            "paddingRight": 6,
+            "paddingTop": 4,
+          },
+          {
+            "borderColor": "#F56522",
+          },
+        ]
       }
     >
       <View
         style={
-          [
-            {
-              "backgroundColor": "#F56522",
-            },
-            {
-              "borderRadius": 9999,
-              "marginLeft": 2,
-              "marginRight": 2,
-            },
-          ]
+          {
+            "height": 6,
+            "justifyContent": "center",
+          }
         }
       >
-        <test-file-stub
-          fill="#FFFCFA"
+        <Text
+          allowFontScaling={false}
           style={
             [
               {
-                "height": 24,
-                "width": 24,
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
               },
-              {
-                "height": 8,
-                "marginBottom": 2,
-                "marginLeft": 2,
-                "marginRight": 2,
-                "marginTop": 2,
-                "width": 8,
-              },
+              [
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 10,
+                    "letterSpacing": 0.14,
+                    "lineHeight": 22,
+                  },
+                  {
+                    "color": "#F56522",
+                  },
+                ],
+                {
+                  "marginBottom": -40,
+                  "marginTop": -40,
+                },
+              ],
+              false,
             ]
           }
-        />
+        >
+          fast trader
+        </Text>
       </View>
-      <Text
-        allowFontScaling={false}
+      <test-file-stub
+        fill="#F56522"
         style={
           [
             {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
+              "height": 12,
+              "width": 12,
             },
-            [
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 12,
-                "letterSpacing": -0.36,
-                "lineHeight": 22,
-                "textAlign": "center",
-                "textTransform": "uppercase",
-              },
-              {
-                "color": "#F56522",
-              },
-            ],
-            false,
+            undefined,
           ]
         }
-      >
-        fast trader
-      </Text>
+      />
     </View>
     <View
       style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "marginRight": 8,
-        }
+        [
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FFFCFA",
+            "borderRadius": 9999,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 2,
+            "paddingBottom": 4,
+            "paddingLeft": 6,
+            "paddingRight": 6,
+            "paddingTop": 4,
+          },
+          {
+            "borderColor": "#F56522",
+          },
+        ]
       }
     >
       <View
         style={
-          [
-            {
-              "backgroundColor": "#F56522",
-            },
-            {
-              "borderRadius": 9999,
-              "marginLeft": 2,
-              "marginRight": 2,
-            },
-          ]
+          {
+            "height": 6,
+            "justifyContent": "center",
+          }
         }
       >
-        <test-file-stub
-          fill="#FFFCFA"
+        <Text
+          allowFontScaling={false}
           style={
             [
               {
-                "height": 24,
-                "width": 24,
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
               },
-              {
-                "height": 8,
-                "marginBottom": 2,
-                "marginLeft": 2,
-                "marginRight": 2,
-                "marginTop": 2,
-                "width": 8,
-              },
+              [
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 10,
+                    "letterSpacing": 0.14,
+                    "lineHeight": 22,
+                  },
+                  {
+                    "color": "#F56522",
+                  },
+                ],
+                {
+                  "marginBottom": -40,
+                  "marginTop": -40,
+                },
+              ],
+              false,
             ]
           }
-        />
+        >
+          early adopter
+        </Text>
       </View>
-      <Text
-        allowFontScaling={false}
+      <test-file-stub
+        fill="#F56522"
         style={
           [
             {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
+              "height": 12,
+              "width": 12,
             },
-            [
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 12,
-                "letterSpacing": -0.36,
-                "lineHeight": 22,
-                "textAlign": "center",
-                "textTransform": "uppercase",
-              },
-              {
-                "color": "#F56522",
-              },
-            ],
-            false,
+            undefined,
           ]
         }
-      >
-        early adopter
-      </Text>
+      />
     </View>
   </View>
 </View>

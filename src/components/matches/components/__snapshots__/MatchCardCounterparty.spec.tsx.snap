@@ -294,60 +294,43 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "gap": 4,
+        "maxWidth": 200,
         "opacity": 1,
       }
     }
   >
     <View
       style={
-        {
-          "flexDirection": "row",
-        }
+        [
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FFFCFA",
+            "borderRadius": 9999,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 2,
+            "paddingBottom": 4,
+            "paddingLeft": 6,
+            "paddingRight": 6,
+            "paddingTop": 4,
+          },
+          {
+            "borderColor": "#FCCCB6",
+          },
+        ]
       }
     >
       <View
         style={
           {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "marginRight": 8,
+            "height": 6,
+            "justifyContent": "center",
           }
         }
       >
-        <View
-          style={
-            [
-              {
-                "backgroundColor": "#FCCCB6",
-              },
-              {
-                "borderRadius": 9999,
-                "marginLeft": 2,
-                "marginRight": 2,
-              },
-            ]
-          }
-        >
-          <test-file-stub
-            fill="#FFFCFA"
-            style={
-              [
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-                {
-                  "height": 8,
-                  "marginBottom": 2,
-                  "marginLeft": 2,
-                  "marginRight": 2,
-                  "marginTop": 2,
-                  "width": 8,
-                },
-              ]
-            }
-          />
-        </View>
         <Text
           allowFontScaling={false}
           style={
@@ -360,16 +343,20 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
                 "lineHeight": 24,
               },
               [
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 10,
+                    "letterSpacing": 0.14,
+                    "lineHeight": 22,
+                  },
+                  {
+                    "color": "#FCCCB6",
+                  },
+                ],
                 {
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 12,
-                  "letterSpacing": -0.36,
-                  "lineHeight": 22,
-                  "textAlign": "center",
-                  "textTransform": "uppercase",
-                },
-                {
-                  "color": "#FCCCB6",
+                  "marginBottom": -40,
+                  "marginTop": -40,
                 },
               ],
               false,
@@ -379,49 +366,48 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
           supertrader
         </Text>
       </View>
+      <test-file-stub
+        fill="#FCCCB6"
+        style={
+          [
+            {
+              "height": 12,
+              "width": 12,
+            },
+            undefined,
+          ]
+        }
+      />
+    </View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FFFCFA",
+            "borderRadius": 9999,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 2,
+            "paddingBottom": 4,
+            "paddingLeft": 6,
+            "paddingRight": 6,
+            "paddingTop": 4,
+          },
+          {
+            "borderColor": "#FCCCB6",
+          },
+        ]
+      }
+    >
       <View
         style={
           {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "marginRight": 8,
+            "height": 6,
+            "justifyContent": "center",
           }
         }
       >
-        <View
-          style={
-            [
-              {
-                "backgroundColor": "#FCCCB6",
-              },
-              {
-                "borderRadius": 9999,
-                "marginLeft": 2,
-                "marginRight": 2,
-              },
-            ]
-          }
-        >
-          <test-file-stub
-            fill="#FFFCFA"
-            style={
-              [
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-                {
-                  "height": 8,
-                  "marginBottom": 2,
-                  "marginLeft": 2,
-                  "marginRight": 2,
-                  "marginTop": 2,
-                  "width": 8,
-                },
-              ]
-            }
-          />
-        </View>
         <Text
           allowFontScaling={false}
           style={
@@ -434,16 +420,20 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
                 "lineHeight": 24,
               },
               [
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 10,
+                    "letterSpacing": 0.14,
+                    "lineHeight": 22,
+                  },
+                  {
+                    "color": "#FCCCB6",
+                  },
+                ],
                 {
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 12,
-                  "letterSpacing": -0.36,
-                  "lineHeight": 22,
-                  "textAlign": "center",
-                  "textTransform": "uppercase",
-                },
-                {
-                  "color": "#FCCCB6",
+                  "marginBottom": -40,
+                  "marginTop": -40,
                 },
               ],
               false,
@@ -453,80 +443,95 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
           fast trader
         </Text>
       </View>
+      <test-file-stub
+        fill="#FCCCB6"
+        style={
+          [
+            {
+              "height": 12,
+              "width": 12,
+            },
+            undefined,
+          ]
+        }
+      />
     </View>
     <View
       style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "marginRight": 8,
-        }
+        [
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FFFCFA",
+            "borderRadius": 9999,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 2,
+            "paddingBottom": 4,
+            "paddingLeft": 6,
+            "paddingRight": 6,
+            "paddingTop": 4,
+          },
+          {
+            "borderColor": "#F56522",
+          },
+        ]
       }
     >
       <View
         style={
-          [
-            {
-              "backgroundColor": "#F56522",
-            },
-            {
-              "borderRadius": 9999,
-              "marginLeft": 2,
-              "marginRight": 2,
-            },
-          ]
+          {
+            "height": 6,
+            "justifyContent": "center",
+          }
         }
       >
-        <test-file-stub
-          fill="#FFFCFA"
+        <Text
+          allowFontScaling={false}
           style={
             [
               {
-                "height": 24,
-                "width": 24,
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
               },
-              {
-                "height": 8,
-                "marginBottom": 2,
-                "marginLeft": 2,
-                "marginRight": 2,
-                "marginTop": 2,
-                "width": 8,
-              },
+              [
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 10,
+                    "letterSpacing": 0.14,
+                    "lineHeight": 22,
+                  },
+                  {
+                    "color": "#F56522",
+                  },
+                ],
+                {
+                  "marginBottom": -40,
+                  "marginTop": -40,
+                },
+              ],
+              false,
             ]
           }
-        />
+        >
+          early adopter
+        </Text>
       </View>
-      <Text
-        allowFontScaling={false}
+      <test-file-stub
+        fill="#F56522"
         style={
           [
             {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
+              "height": 12,
+              "width": 12,
             },
-            [
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 12,
-                "letterSpacing": -0.36,
-                "lineHeight": 22,
-                "textAlign": "center",
-                "textTransform": "uppercase",
-              },
-              {
-                "color": "#F56522",
-              },
-            ],
-            false,
+            undefined,
           ]
         }
-      >
-        early adopter
-      </Text>
+      />
     </View>
   </View>
 </View>
@@ -678,7 +683,7 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
         style={
           Array [
             Object {
-@@ -246,284 +116,17 @@
+@@ -246,289 +116,17 @@
               "lineHeight": 24,
             },
             Object {
@@ -727,60 +732,43 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
 -     onStartShouldSetResponder={[Function onStartShouldSetResponder]}
 -     style={
 -       Object {
+-         "flexDirection": "row",
+-         "flexWrap": "wrap",
+-         "gap": 4,
+-         "maxWidth": 200,
 -         "opacity": 1,
 -       }
 -     }
 -   >
 -     <View
 -       style={
--         Object {
--           "flexDirection": "row",
--         }
+-         Array [
+-           Object {
+-             "alignItems": "center",
+-             "backgroundColor": "#FFFCFA",
+-             "borderRadius": 9999,
+-             "borderWidth": 1,
+-             "flexDirection": "row",
+-             "gap": 2,
+-             "paddingBottom": 4,
+-             "paddingLeft": 6,
+-             "paddingRight": 6,
+-             "paddingTop": 4,
+-           },
+-           Object {
+-             "borderColor": "#FCCCB6",
+-           },
+-         ]
 -       }
 -     >
 -       <View
 -         style={
 -           Object {
--             "alignItems": "center",
--             "flexDirection": "row",
--             "marginRight": 8,
+-             "height": 6,
+-             "justifyContent": "center",
 -           }
 -         }
 -       >
--         <View
--           style={
--             Array [
--               Object {
--                 "backgroundColor": "#FCCCB6",
--               },
--               Object {
--                 "borderRadius": 9999,
--                 "marginLeft": 2,
--                 "marginRight": 2,
--               },
--             ]
--           }
--         >
--           <test-file-stub
--             fill="#FFFCFA"
--             style={
--               Array [
--                 Object {
--                   "height": 24,
--                   "width": 24,
--                 },
--                 Object {
--                   "height": 8,
--                   "marginBottom": 2,
--                   "marginLeft": 2,
--                   "marginRight": 2,
--                   "marginTop": 2,
--                   "width": 8,
--                 },
--               ]
--             }
--           />
--         </View>
 -         <Text
 -           allowFontScaling={false}
 -           style={
@@ -793,68 +781,149 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
 -                 "lineHeight": 24,
 -               },
 -               Array [
+-                 Array [
+-                   Object {
+-                     "fontFamily": "Baloo2-SemiBold",
+-                     "fontSize": 10,
++             "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22,
+-                   },
+-                   Object {
+-                     "color": "#FCCCB6",
+            },
+-                 ],
 -                 Object {
--                   "fontFamily": "Baloo2-SemiBold",
--                   "fontSize": 12,
--                   "letterSpacing": -0.36,
--                   "lineHeight": 22,
--                   "textAlign": "center",
--                   "textTransform": "uppercase",
+-                   "marginBottom": -40,
+-                   "marginTop": -40,
 -                 },
+-               ],
+            false,
+          ]
+        }
+      >
+-           supertrader
+-         </Text>
+-       </View>
+-       <test-file-stub
+-         fill="#FCCCB6"
+-         style={
+-           Array [
+-             Object {
+-               "height": 12,
+-               "width": 12,
+-             },
+-             undefined,
+-           ]
+-         }
+-       />
+-     </View>
+-     <View
+-       style={
+-         Array [
+-           Object {
+-             "alignItems": "center",
+-             "backgroundColor": "#FFFCFA",
+-             "borderRadius": 9999,
+-             "borderWidth": 1,
+-             "flexDirection": "row",
+-             "gap": 2,
+-             "paddingBottom": 4,
+-             "paddingLeft": 6,
+-             "paddingRight": 6,
+-             "paddingTop": 4,
+-           },
+-           Object {
+-             "borderColor": "#FCCCB6",
+-           },
+-         ]
+-       }
+-     >
+-       <View
+-         style={
+-           Object {
+-             "height": 6,
+-             "justifyContent": "center",
+-           }
+-         }
+-       >
+-         <Text
+-           allowFontScaling={false}
+-           style={
+-             Array [
+-               Object {
+-                 "color": "#2B1911",
+-                 "fontFamily": "Baloo2-Regular",
+-                 "fontSize": 16,
+-                 "letterSpacing": 0.16,
+-                 "lineHeight": 24,
+-               },
+-               Array [
+-                 Array [
+-                   Object {
+-                     "fontFamily": "Baloo2-SemiBold",
+-                     "fontSize": 10,
+-                     "letterSpacing": 0.14,
+-                     "lineHeight": 22,
+-                   },
+-                   Object {
+-                     "color": "#FCCCB6",
+-                   },
+-                 ],
 -                 Object {
--                   "color": "#FCCCB6",
+-                   "marginBottom": -40,
+-                   "marginTop": -40,
 -                 },
 -               ],
 -               false,
 -             ]
 -           }
 -         >
--           supertrader
+-           fast trader
 -         </Text>
 -       </View>
+-       <test-file-stub
+-         fill="#FCCCB6"
+-         style={
+-           Array [
+-             Object {
+-               "height": 12,
+-               "width": 12,
+-             },
+-             undefined,
+-           ]
+-         }
+-       />
+-     </View>
+-     <View
+-       style={
+-         Array [
+-           Object {
+-             "alignItems": "center",
+-             "backgroundColor": "#FFFCFA",
+-             "borderRadius": 9999,
+-             "borderWidth": 1,
+-             "flexDirection": "row",
+-             "gap": 2,
+-             "paddingBottom": 4,
+-             "paddingLeft": 6,
+-             "paddingRight": 6,
+-             "paddingTop": 4,
+-           },
+-           Object {
+-             "borderColor": "#F56522",
+-           },
+-         ]
+-       }
+-     >
 -       <View
 -         style={
 -           Object {
--             "alignItems": "center",
--             "flexDirection": "row",
--             "marginRight": 8,
+-             "height": 6,
+-             "justifyContent": "center",
 -           }
 -         }
 -       >
--         <View
--           style={
--             Array [
--               Object {
--                 "backgroundColor": "#FCCCB6",
--               },
--               Object {
--                 "borderRadius": 9999,
--                 "marginLeft": 2,
--                 "marginRight": 2,
--               },
--             ]
--           }
--         >
--           <test-file-stub
--             fill="#FFFCFA"
--             style={
--               Array [
--                 Object {
--                   "height": 24,
--                   "width": 24,
--                 },
--                 Object {
--                   "height": 8,
--                   "marginBottom": 2,
--                   "marginLeft": 2,
--                   "marginRight": 2,
--                   "marginTop": 2,
--                   "width": 8,
--                 },
--               ]
--             }
--           />
--         </View>
 -         <Text
 -           allowFontScaling={false}
 -           style={
@@ -867,102 +936,42 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
 -                 "lineHeight": 24,
 -               },
 -               Array [
+-                 Array [
+-                   Object {
+-                     "fontFamily": "Baloo2-SemiBold",
+-                     "fontSize": 10,
+-                     "letterSpacing": 0.14,
+-                     "lineHeight": 22,
+-                   },
+-                   Object {
+-                     "color": "#F56522",
+-                   },
+-                 ],
 -                 Object {
--                   "fontFamily": "Baloo2-SemiBold",
--                   "fontSize": 12,
--                   "letterSpacing": -0.36,
-+             "fontSize": 14,
-+             "letterSpacing": 0.14,
-              "lineHeight": 22,
--                   "textAlign": "center",
--                   "textTransform": "uppercase",
+-                   "marginBottom": -40,
+-                   "marginTop": -40,
 -                 },
--                 Object {
--                   "color": "#FCCCB6",
-            },
 -               ],
-            false,
-          ]
-        }
-      >
--           fast trader
--         </Text>
--       </View>
--     </View>
--     <View
--       style={
--         Object {
--           "alignItems": "center",
--           "flexDirection": "row",
--           "marginRight": 8,
--         }
--       }
--     >
--       <View
--         style={
--           Array [
--             Object {
--               "backgroundColor": "#F56522",
--             },
--             Object {
--               "borderRadius": 9999,
--               "marginLeft": 2,
--               "marginRight": 2,
--             },
--           ]
--         }
--       >
--         <test-file-stub
--           fill="#FFFCFA"
--           style={
--             Array [
--               Object {
--                 "height": 24,
--                 "width": 24,
--               },
--               Object {
--                 "height": 8,
--                 "marginBottom": 2,
--                 "marginLeft": 2,
--                 "marginRight": 2,
--                 "marginTop": 2,
--                 "width": 8,
--               },
+-               false,
 -             ]
 -           }
--         />
+-         >
+-           early adopter
++       new user
+      </Text>
 -       </View>
--       <Text
--         allowFontScaling={false}
+-       <test-file-stub
+-         fill="#F56522"
 -         style={
 -           Array [
 -             Object {
--               "color": "#2B1911",
--               "fontFamily": "Baloo2-Regular",
--               "fontSize": 16,
--               "letterSpacing": 0.16,
--               "lineHeight": 24,
+-               "height": 12,
+-               "width": 12,
 -             },
--             Array [
--               Object {
--                 "fontFamily": "Baloo2-SemiBold",
--                 "fontSize": 12,
--                 "letterSpacing": -0.36,
--                 "lineHeight": 22,
--                 "textAlign": "center",
--                 "textTransform": "uppercase",
--               },
--               Object {
--                 "color": "#F56522",
--               },
--             ],
--             false,
+-             undefined,
 -           ]
 -         }
--       >
--         early adopter
-+       new user
-      </Text>
+-       />
 -     </View>
     </View>
   </View>"

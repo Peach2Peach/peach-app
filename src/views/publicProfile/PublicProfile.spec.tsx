@@ -5,14 +5,6 @@ import { PublicProfile } from './PublicProfile'
 
 jest.useFakeTimers()
 
-jest.mock('../../utils/peachAPI', () => ({
-  peachAPI: jest.requireActual('../../utils/peachAPI').peachAPI,
-  getUserStatus: jest.fn(() => Promise.resolve({ isBlocked: false })),
-}))
-jest.mock('../../utils/peachAPI/private/user/getUserStatus', () => ({
-  useUserStatus: jest.fn(() => ({ data: { isBlocked: false } })),
-}))
-
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useRoute: jest.fn(() => ({ params: { userId: defaultUser.id } })),
@@ -32,6 +24,7 @@ describe('PublicProfile', () => {
 
     await waitFor(() => {
       expect(queryClient.getQueryData(['user', defaultUser.id])).toEqual(defaultUser)
+      expect(queryClient.isFetching()).toBe(0)
     })
 
     expect(toJSON()).toMatchSnapshot()
