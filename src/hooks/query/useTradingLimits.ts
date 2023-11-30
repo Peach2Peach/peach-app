@@ -2,15 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 import { useMarketPrices } from '..'
 import { useSettingsStore } from '../../store/settingsStore'
 import { defaultLimits } from '../../utils/account/account'
-import { getTradingLimit } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 
 const tradingLimitQuery = async () => {
-  const [result, err] = await getTradingLimit({})
-  if (result && 'error' in result) {
-    throw new Error(result?.error)
-  }
+  const { result, error: err } = await peachAPI.private.user.getTradingLimit()
   if (err) {
-    throw new Error(err.error)
+    throw new Error(err.error || 'Could not fetch trading limits')
   }
   return result
 }

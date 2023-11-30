@@ -8,7 +8,6 @@ export { cancelOffer, getOfferDetails } from './private/offer'
 export {
   auth,
   fetchAccessToken,
-  getTradingLimit,
   getUserPaymentMethodInfo,
   logoutUser,
   redeemNoPeachFees,

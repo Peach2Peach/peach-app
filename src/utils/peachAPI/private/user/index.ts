@@ -1,7 +1,6 @@
 export { auth } from './auth'
 export { authWS } from './authWS'
 export { fetchAccessToken } from './fetchAccessToken'
-export { getTradingLimit } from './getTradingLimit'
 export { getUserPaymentMethodInfo } from './getUserPaymentMethodInfo'
 export { handleMissingPeachAccount } from './handleMissingPeachAccount'
 export { logoutUser } from './logoutUser'
