@@ -1,26 +1,7 @@
-import { API_URL } from '@env'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { RequestProps } from '../..'
-import { useShowErrorBanner } from '../../../../hooks/useShowErrorBanner'
-import { UserStatus } from '../../../../views/publicProfile/useUserStatus'
-import fetch from '../../../fetch'
-import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
-import { parseResponse } from '../../parseResponse'
-import { getPrivateHeaders } from '../getPrivateHeaders'
-
-type GetUserProps = RequestProps & {
-  userId: User['id']
-}
-
-const unblockUser = async ({ userId, timeout }: GetUserProps) => {
-  const response = await fetch(`${API_URL}/v1/user/${userId}/block`, {
-    headers: await getPrivateHeaders(),
-    method: 'DELETE',
-    signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
-  })
-
-  return parseResponse<APISuccess>(response, 'unblockUser')
-}
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { peachAPI } from '../../utils/peachAPI'
+import { UserStatus } from './useUserStatus'
 
 export const useUnblockUser = (userId: string) => {
   const queryClient = useQueryClient()
@@ -41,9 +22,9 @@ export const useUnblockUser = (userId: string) => {
       return { previousStatus }
     },
     mutationFn: async () => {
-      const [status, error] = await unblockUser({ userId })
+      const { result: status, error } = await peachAPI.private.user.unblockUser({ userId })
 
-      if (error) throw new Error(error.error)
+      if (error) throw new Error(error.error || "Couldn't unblock user")
       return status
     },
     onError: (err: Error, _variables, context) => {

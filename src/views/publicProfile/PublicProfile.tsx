@@ -5,10 +5,10 @@ import { useRoute } from '../../hooks'
 import { useUser } from '../../hooks/query/useUserQuery'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useBlockUser } from '../../utils/peachAPI/private/user/blockUser'
-import { useUnblockUser } from '../../utils/peachAPI/private/user/unblockUser'
 import { AccountInfo } from '../settings/profile/accountInfo/AccountInfo'
 import { ProfileOverview } from './components'
+import { useBlockUser } from './useBlockUser'
+import { useUnblockUser } from './useUnblockUser'
 import { useUserStatus } from './useUserStatus'
 
 export const PublicProfile = () => {
