@@ -51,7 +51,7 @@ export const BumpNetworkFees = () => {
       <PeachScrollView
         style={tw`flex-1 w-full h-full`}
         contentContainerStyle={tw`justify-center flex-1`}
-        contentStyle={[tw`gap-3`, tw.md`gap-5`]}
+        contentStyle={[tw`gap-3`, tw`md:gap-5`]}
       >
         <CurrentFee fee={currentFeeRate} />
         <Divider />

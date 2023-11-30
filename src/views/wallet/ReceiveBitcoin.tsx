@@ -20,7 +20,7 @@ export const ReceiveBitcoin = () => {
 
   return (
     <Screen header={i18n('wallet.receiveBitcoin.title')}>
-      <View style={[tw`items-center flex-1 gap-2 py-1`, tw.md`gap-8 py-6`]}>
+      <View style={[tw`items-center flex-1 gap-2 py-1`, tw`md:gap-8 md:py-6`]}>
         <AddressNavigation setIndex={setIndex} index={displayIndex} />
 
         <HorizontalLine />
@@ -51,7 +51,7 @@ function AddressQRCode ({ index }: { index: number }) {
           style={[
             tw`text-center h3 text-error-main`,
             tw`absolute self-center p-1 overflow-hidden rounded-xl bg-opacity-65 top-110px bg-primary-background-light`,
-            tw.md`top-135px bg-opacity-85`,
+            tw`md:top-135px md:bg-opacity-85`,
           ]}
         >
           {i18n('wallet.address.used')}

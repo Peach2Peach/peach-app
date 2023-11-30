@@ -7,10 +7,12 @@ import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/webso
 
 import { QueryClientProvider } from '@tanstack/react-query'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { useDeviceContext } from 'twrnc'
 import { Drawer, Message, Popup } from './components'
 import { useMessageState } from './components/message/useMessageState'
 import { initWebSocket } from './init/websocket'
 import { queryClient } from './queryClient'
+import tw from './styles/tailwind'
 import { usePartialAppSetup } from './usePartialAppSetup'
 import { info } from './utils/log'
 import { Screens } from './views/Screens'
@@ -26,6 +28,7 @@ const navTheme = {
 }
 
 export const App = () => {
+  useDeviceContext(tw)
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
 
   const updateMessage = useMessageState((state) => state.updateMessage)

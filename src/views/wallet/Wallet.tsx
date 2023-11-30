@@ -47,7 +47,7 @@ function WalletButtons () {
     navigation.navigate('receiveBitcoin')
   }
   return (
-    <View style={[tw`flex-row items-center justify-center gap-2`, tw.md`gap-4`]}>
+    <View style={[tw`flex-row items-center justify-center gap-2`, tw`md:gap-4`]}>
       <Button style={tw`flex-1 bg-success-main`} onPress={goToReceive}>
         {i18n('wallet.receive')}
       </Button>

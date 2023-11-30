@@ -36,7 +36,7 @@ function OfferDetailsScreen ({ offer }: { offer: SellOffer }) {
   return (
     <Screen header={<OfferDetailsHeader {...offer} />}>
       <View style={tw`justify-center grow`}>
-        <Text style={tw.md`body-l`}>{i18n('contract.seller.refunded', walletLabel)}</Text>
+        <Text style={tw`md:body-l`}>{i18n('contract.seller.refunded', walletLabel)}</Text>
       </View>
 
       <View style={tw`h-10`}>{!!offer.escrow && <EscrowButton style={tw`self-center`} escrow={offer.escrow} />}</View>

@@ -55,7 +55,7 @@ export const PaymentMethods = () => {
 
   return (
     <Screen header={<PaymentMethodsHeader isEditing={isEditing} toggleIsEditing={toggleIsEditing} />}>
-      <PeachScrollView style={tw`h-full mb-4`} contentContainerStyle={[tw`pb-10 grow`, tw.md`pb-16`]}>
+      <PeachScrollView style={tw`h-full mb-4`} contentContainerStyle={[tw`pb-10 grow`, tw`md:pb-16`]}>
         <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
         <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`justify-center pt-6 grow`}>
           {currentTab.id === 'online' ? (

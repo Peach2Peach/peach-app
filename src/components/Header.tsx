@@ -127,8 +127,8 @@ function HeaderNavigation ({
     <View
       style={[
         tw`flex-row items-center gap-2 py-6px px-sm`,
-        tw.md`px-md`,
-        shouldShowBackButton && [tw`pl-0`, tw.md`pl-10px`],
+        tw`md:px-md`,
+        shouldShowBackButton && [tw`pl-0`, tw`md:pl-10px`],
       ]}
     >
       <View style={tw`flex-row items-center flex-1 gap-1`}>
@@ -159,7 +159,7 @@ function HeaderNavigation ({
   )
 }
 
-const colStyle = [tw`flex-row items-center gap-2`, tw.md`flex-col items-start gap-0`]
+const colStyle = [tw`flex-row items-center gap-2`, tw`md:flex-col md:items-start md:gap-0`]
 const unitStyle = tw`subtitle-1`
 
 type TickerProps = {
@@ -171,15 +171,15 @@ function Tickers ({ type = 'sell' }: TickerProps) {
     (state) => [state.currency, state.satsPerUnit, state.price],
     shallow,
   )
-  const valueStyle = [tw`leading-xl`, type === 'sell' ? tw`text-primary-main` : tw`text-success-main`, tw.md`body-l`]
+  const valueStyle = [tw`leading-xl`, type === 'sell' ? tw`text-primary-main` : tw`text-success-main`, tw`md:body-l`]
 
   return (
-    <View style={[tw`flex-row items-center justify-between py-1 px-sm`, tw.md`px-md py-2px`]}>
+    <View style={[tw`flex-row items-center justify-between py-1 px-sm`, tw`md:px-md md:py-2px`]}>
       <View style={colStyle}>
         <PeachText style={unitStyle}>{`1 ${i18n('btc')}`}</PeachText>
         <PriceFormat style={valueStyle} currency={currency} amount={price} round />
       </View>
-      <View style={[...colStyle, tw.md`items-end`]}>
+      <View style={[...colStyle, tw`md:items-end`]}>
         <PeachText style={[unitStyle, tw`text-right`]}>{`1 ${currency}`}</PeachText>
         <PeachText style={[...valueStyle, tw`text-right`]}>
           {i18n('currency.format.sats', thousands(round(satsPerUnit)))}
@@ -198,8 +198,8 @@ type HeaderSubtitleProps = {
 }
 function HeaderSubtitle ({ theme = 'default', amount, premium, viewer, text }: HeaderSubtitleProps) {
   return (
-    <View style={[tw`flex-row items-center justify-between py-2px px-sm`, tw.md`px-md py-2`]}>
-      <PeachText style={[tw`subtitle-1`, newThemes[theme].subtitle, tw.md`subtitle-0`]}>
+    <View style={[tw`flex-row items-center justify-between py-2px px-sm`, tw`md:px-md md:py-2`]}>
+      <PeachText style={[tw`subtitle-1`, newThemes[theme].subtitle, tw`md:subtitle-0`]}>
         {text ?? i18n(viewer === 'buyer' ? 'buy.subtitle.highlight' : 'sell.subtitle.highlight')}
       </PeachText>
       <BTCAmount amount={amount} style={tw`pb-2px`} white={theme === 'dispute'} size="medium" />

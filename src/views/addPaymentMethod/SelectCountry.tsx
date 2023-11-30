@@ -56,7 +56,7 @@ export const SelectCountry = () => {
         />
       }
     >
-      <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
+      <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw`md:py-8`]}>
         {!!countries && <RadioButtons items={countries} selectedValue={selectedCountry} onButtonPress={setCountry} />}
       </PeachScrollView>
       <Button style={tw`self-center mt-2`} disabled={!selectedCountry} onPress={goToPaymentMethodForm}>

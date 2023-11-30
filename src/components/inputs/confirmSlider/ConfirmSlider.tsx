@@ -79,7 +79,7 @@ export function UnlockedSlider ({
         <View
           style={[
             tw`flex-row items-center justify-center py-1 bg-success-main rounded-2xl gap-2px px-6px`,
-            tw.md`px-8px py-6px gap-1`,
+            tw`md:px-8px md:py-6px md:gap-1`,
           ]}
         >
           <Icon id={iconId} {...icon} />

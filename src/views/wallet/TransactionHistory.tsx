@@ -18,7 +18,7 @@ export const TransactionHistory = () => {
         <FlatList
           initialNumToRender={10}
           maxToRenderPerBatch={20}
-          contentContainerStyle={[tw`gap-4 py-sm`, tw.md`py-md`]}
+          contentContainerStyle={[tw`gap-4 py-sm`, tw`md:py-md`]}
           data={transactions}
           renderItem={(props) => <TxStatusCard {...props} />}
           keyExtractor={(item) => item.id}

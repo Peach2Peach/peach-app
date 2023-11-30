@@ -17,7 +17,7 @@ export const Premium = ({ premium, setPremium, confirmButton, amount, offerPrice
   <>
     <View style={tw`items-center justify-center grow gap-7`}>
       <View style={tw`items-center`}>
-        <Text style={[tw`text-center h6`, tw.md`h5`]}>{i18n('sell.premium.title')}</Text>
+        <Text style={[tw`text-center h6`, tw`md:h5`]}>{i18n('sell.premium.title')}</Text>
         <View style={tw`flex-row items-center gap-1`}>
           <Text style={tw`text-center subtitle-1`}>{i18n('search.sellOffer')}</Text>
           <BTCAmount size="small" amount={amount} />
