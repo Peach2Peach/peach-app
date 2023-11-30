@@ -31,21 +31,21 @@ export const Button = ({
       disabled={touchableOpacityProps.disabled || loading}
       style={[
         tw`bg-primary-main min-w-26`,
-        tw.md`min-w-32`,
+        tw`md:min-w-32`,
         tw`flex-row items-center justify-center gap-2 px-6 rounded-full py-3px`,
-        tw.md`py-7px px-8`,
+        tw`md:py-7px md:px-8`,
         touchableOpacityProps.style,
         touchableOpacityProps.disabled && tw`opacity-33`,
         ghost && tw`bg-transparent border-2`,
         { borderColor: ghost ? textColor?.color : undefined },
       ]}
     >
-      <Text numberOfLines={1} ellipsizeMode="tail" style={[tw`button-small`, tw.md`button-large`, textColor]}>
+      <Text numberOfLines={1} ellipsizeMode="tail" style={[tw`button-small`, tw`md:button-large`, textColor]}>
         {children}
       </Text>
 
       {loading ? (
-        <Loading style={[tw`h-14px w-14px`, tw.md`h-18px w-18px`]} color={textColor?.color} />
+        <Loading style={[tw`h-14px w-14px`, tw`md:h-18px md:w-18px`]} color={textColor?.color} />
       ) : (
         !!iconId && <Icon id={iconId} size={isMediumScreen ? 18 : 14} color={textColor?.color} />
       )}

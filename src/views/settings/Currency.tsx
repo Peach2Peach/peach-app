@@ -28,7 +28,7 @@ export const Currency = () => {
 
   return (
     <Screen header={i18n('currency')}>
-      <PeachScrollView style={tw`mb-4`} contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
+      <PeachScrollView style={tw`mb-4`} contentContainerStyle={[tw`justify-center py-4 grow`, tw`md:py-8`]}>
         <RadioButtons
           selectedValue={displayCurrency}
           items={CURRENCIES.map((c) => ({ value: c, display: i18n(`currency.${c}`) }))}

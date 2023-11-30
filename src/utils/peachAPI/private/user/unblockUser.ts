@@ -2,11 +2,11 @@ import { API_URL } from '@env'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { RequestProps } from '../..'
 import { useShowErrorBanner } from '../../../../hooks/useShowErrorBanner'
+import { UserStatus } from '../../../../views/publicProfile/useUserStatus'
 import fetch from '../../../fetch'
 import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { parseResponse } from '../../parseResponse'
 import { getPrivateHeaders } from '../getPrivateHeaders'
-import { UserStatus } from './getUserStatus'
 
 type GetUserProps = RequestProps & {
   userId: User['id']

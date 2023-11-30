@@ -60,7 +60,7 @@ function ContractStatusInfo () {
       return (
         <View style={tw`flex-row items-center justify-center`}>
           <Text style={tw`text-center button-medium`}>{i18n(`contract.timer.confirmPayment.${view}`)}</Text>
-          {view === 'seller' && <Icon id="check" style={tw`w-5 h-5 ml-1 -mt-0.5`} color={tw`text-success-main`.color} />}
+          {view === 'seller' && <Icon id="check" style={tw`w-5 h-5 ml-1 -mt-0.5`} color={tw.color('success-main')} />}
         </View>
       )
     }

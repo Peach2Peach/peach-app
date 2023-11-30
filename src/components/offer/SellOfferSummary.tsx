@@ -66,7 +66,7 @@ export const SellOfferSummary = ({ offer, numberOfOffers, walletLabel }: Props) 
           <SummaryCard.Section>
             <TouchableOpacity style={tw`flex-row items-center gap-1`} onPress={() => showAddress(offer.escrow, NETWORK)}>
               <Text style={tw`underline tooltip text-black-2`}>{i18n('escrow.viewInExplorer')}</Text>
-              <Icon id="externalLink" size={18} color={tw`text-primary-main`.color} />
+              <Icon id="externalLink" size={18} color={tw.color('primary-main')} />
             </TouchableOpacity>
           </SummaryCard.Section>
         </>

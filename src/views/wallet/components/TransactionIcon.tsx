@@ -9,11 +9,11 @@ type TxIcon = {
 }
 
 const iconMap: Record<TransactionType, TxIcon> = {
-  TRADE: { id: 'buy', color: tw`text-success-main`.color },
-  ESCROWFUNDED: { id: 'sell', color: tw`text-primary-main`.color },
-  WITHDRAWAL: { id: 'arrowUpCircle', color: tw`text-primary-main`.color },
-  DEPOSIT: { id: 'arrowDownCircle', color: tw`text-success-main`.color },
-  REFUND: { id: 'rotateCounterClockwise', color: tw`text-black-3`.color },
+  TRADE: { id: 'buy', color: tw.color('success-main') },
+  ESCROWFUNDED: { id: 'sell', color: tw.color('primary-main') },
+  WITHDRAWAL: { id: 'arrowUpCircle', color: tw.color('primary-main') },
+  DEPOSIT: { id: 'arrowDownCircle', color: tw.color('success-main') },
+  REFUND: { id: 'rotateCounterClockwise', color: tw.color('black-3') },
 }
 
 type Props = {

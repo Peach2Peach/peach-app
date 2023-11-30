@@ -27,9 +27,9 @@ export const SelectAmount = ({ min, max, value, onChange, children, style }: Pro
   })
   return (
     <View style={[tw`flex-row items-center justify-between`, style]}>
-      <View style={[tw`items-start gap-2 shrink`, tw.md`gap-4`]}>
+      <View style={[tw`items-start gap-2 shrink`, tw`md:gap-4`]}>
         <ParsedPeachText
-          style={[tw`h7`, tw.md`h5`]}
+          style={[tw`h7`, tw`md:h5`]}
           parse={[{ pattern: new RegExp(i18n('sell.subtitle.highlight'), 'u'), style: tw`text-primary-main` }]}
         >
           {i18n('sell.subtitle')}

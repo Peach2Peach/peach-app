@@ -21,7 +21,7 @@ export const RestoreBackupError = ({ err }: Props) => {
           <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('restoreBackup.title')}</Text>
           <Text style={tw`text-center body-l text-primary-background-light`}>{i18n(`${err}.text`)}</Text>
         </View>
-        <Icon id="userX" size={128} color={tw`text-primary-background-light`.color} />
+        <Icon id="userX" size={128} color={tw.color('primary-background-light')} />
       </View>
       <Button
         style={tw`self-center bg-primary-background-light`}

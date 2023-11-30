@@ -22,7 +22,7 @@ export const MessageInput = ({ value, disabled, disableSubmit, onChangeText, onS
     <View style={[tw`flex-row items-end px-2 rounded bg-info-background max-h-40`, disabled && tw`opacity-50`]}>
       <TextInput
         style={tw`flex-shrink w-full p-0 py-3 pl-1 leading-normal body-m text-black-1`}
-        placeholderTextColor={tw`text-info-mild`.color}
+        placeholderTextColor={tw.color('info-mild')}
         allowFontScaling={false}
         removeClippedSubviews={false}
         returnKeyType={'send'}
@@ -36,7 +36,7 @@ export const MessageInput = ({ value, disabled, disableSubmit, onChangeText, onS
         {...{ value, onChangeText, onEndEditing }}
       />
       <Pressable style={tw`px-2 py-3`} onPress={onSubmitHandler}>
-        <Icon id="arrowRightCircle" size={24} color={tw`text-info-light`.color} />
+        <Icon id="arrowRightCircle" size={24} color={tw.color('info-light')} />
       </Pressable>
     </View>
   )

@@ -72,12 +72,7 @@ exports[`Screen renders correctly 1`] = `
               "paddingRight": 8,
               "paddingTop": 8,
             },
-            {
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
-            },
+            {},
             undefined,
           ]
         }

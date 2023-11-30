@@ -2,11 +2,11 @@ import { API_URL } from '@env'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { RequestProps } from '../..'
 import { useShowErrorBanner } from '../../../../hooks/useShowErrorBanner'
+import { UserStatus } from '../../../../views/publicProfile/useUserStatus'
 import fetch from '../../../fetch'
 import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { parseResponse } from '../../parseResponse'
 import { getPrivateHeaders } from '../getPrivateHeaders'
-import { UserStatus } from './getUserStatus'
 
 type GetUserProps = RequestProps & {
   userId: User['id']
@@ -29,7 +29,7 @@ export const useBlockUser = (userId: string) => {
     onMutate: async () => {
       await queryClient.cancelQueries(['user', userId, 'status'])
       const previousStatus = queryClient.getQueryData<UserStatus>(['user', userId, 'status'])
-      queryClient.setQueryData<UserStatus>(['user', userId, 'status'], (oldQueryData: UserStatus | undefined) => {
+      queryClient.setQueryData<UserStatus>(['user', userId, 'status'], (oldQueryData: UserStatus) => {
         if (oldQueryData) {
           return {
             ...oldQueryData,

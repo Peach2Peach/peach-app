@@ -34,9 +34,9 @@ export const PopupAction = ({
     disabled={loading || disabled}
   >
     {loading ? (
-      <Loading color={tw`text-primary-background-light`.color} style={tw`w-4 h-4`} />
+      <Loading color={tw.color('primary-background-light')} style={tw`w-4 h-4`} />
     ) : (
-      <Icon id={iconId} color={textStyle?.color ?? tw`text-primary-background-light`.color} size={16} />
+      <Icon id={iconId} color={textStyle?.color ?? tw.color('primary-background-light')} size={16} />
     )}
     <Text style={[tw`subtitle-1 text-primary-background-light`, textStyle]}>{loading ? i18n('loading') : label}</Text>
   </TouchableOpacity>

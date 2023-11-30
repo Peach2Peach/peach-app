@@ -42,12 +42,7 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -285,12 +280,7 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -407,12 +397,7 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -530,12 +515,7 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -773,12 +753,7 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -895,12 +870,7 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]

@@ -90,7 +90,7 @@ export const Report = () => {
           <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row items-center pl-3`}>
             <View style={tw`items-center justify-center w-5 h-5`}>
               {shareDeviceID ? (
-                <Icon id="checkboxMark" size={20} color={tw`text-primary-main`.color} />
+                <Icon id="checkboxMark" size={20} color={tw.color('primary-main')} />
               ) : (
                 <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
               )}
@@ -101,7 +101,7 @@ export const Report = () => {
         <Pressable onPress={toggleShareLogs} style={tw`flex-row items-center pl-3`}>
           <View style={tw`flex items-center justify-center w-5 h-5`}>
             {shareLogs ? (
-              <Icon id="checkboxMark" size={20} color={tw`text-primary-main`.color} />
+              <Icon id="checkboxMark" size={20} color={tw.color('primary-main')} />
             ) : (
               <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
             )}

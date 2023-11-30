@@ -36,7 +36,7 @@ function Footer () {
     <View
       style={[
         tw`flex-row items-center self-stretch justify-between pt-2 bg-primary-background`,
-        tw.md`pt-4`,
+        tw`md:pt-4`,
         { paddingBottom: bottom },
       ]}
     >
@@ -55,16 +55,16 @@ function FooterItem ({ id }: { id: HomeTabName }) {
   }
 
   const active = currentPage === id
-  const color = active ? tw`text-black-1` : tw`text-black-2`
+  const colorTheme = tw.color(active ? 'black-1' : 'black-2')
   const size = tw`w-6 h-6`
   const notifications = useNotificationStore((state) => state.notifications)
   return (
     <TouchableOpacity onPress={onPress} style={tw`items-center flex-1 gap-2px`}>
       <View style={size}>
         {id === 'home' ? (
-          <Icon id={active ? 'home' : 'homeUnselected'} style={size} color={color.color} />
+          <Icon id={active ? 'home' : 'homeUnselected'} style={size} color={colorTheme} />
         ) : (
-          <Icon id={id} style={size} color={color.color} />
+          <Icon id={id} style={size} color={colorTheme} />
         )}
         {id === 'yourTrades' ? (
           <NotificationBubble notifications={notifications} style={tw`absolute -right-2 -top-2`} />
@@ -72,7 +72,7 @@ function FooterItem ({ id }: { id: HomeTabName }) {
       </View>
       <Text
         style={[
-          color,
+          { color: colorTheme },
           id === 'home' && active && tw`text-primary-main`,
           tw`leading-relaxed text-center subtitle-1 text-9px`,
         ]}

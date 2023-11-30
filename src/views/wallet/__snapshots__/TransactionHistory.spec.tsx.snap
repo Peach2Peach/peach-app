@@ -75,10 +75,7 @@ exports[`TransactionHistory should render correctly when empty 1`] = `
               "paddingRight": 8,
               "paddingTop": 6,
             },
-            {
-              "paddingLeft": 16,
-              "paddingRight": 16,
-            },
+            {},
             undefined,
           ]
         }
@@ -114,12 +111,7 @@ exports[`TransactionHistory should render correctly when empty 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 26,
                   },
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 20,
-                    "letterSpacing": 0.2,
-                    "lineHeight": 32,
-                  },
+                  {},
                   {
                     "color": "#2B1911",
                   },
@@ -197,10 +189,7 @@ exports[`TransactionHistory should render correctly when empty 1`] = `
                     "height": 20,
                     "width": 20,
                   },
-                  {
-                    "height": 24,
-                    "width": 24,
-                  },
+                  {},
                 ]
               }
             />
@@ -235,12 +224,7 @@ exports[`TransactionHistory should render correctly when empty 1`] = `
               "paddingRight": 8,
               "paddingTop": 8,
             },
-            {
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
-            },
+            {},
             undefined,
           ]
         }
@@ -375,10 +359,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
               "paddingRight": 8,
               "paddingTop": 6,
             },
-            {
-              "paddingLeft": 16,
-              "paddingRight": 16,
-            },
+            {},
             undefined,
           ]
         }
@@ -414,12 +395,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 26,
                   },
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 20,
-                    "letterSpacing": 0.2,
-                    "lineHeight": 32,
-                  },
+                  {},
                   {
                     "color": "#2B1911",
                   },
@@ -497,10 +473,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                     "height": 20,
                     "width": 20,
                   },
-                  {
-                    "height": 24,
-                    "width": 24,
-                  },
+                  {},
                 ]
               }
             />
@@ -535,12 +508,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
               "paddingRight": 8,
               "paddingTop": 8,
             },
-            {
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
-            },
+            {},
             undefined,
           ]
         }
@@ -553,10 +521,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                 "paddingBottom": 8,
                 "paddingTop": 8,
               },
-              {
-                "paddingBottom": 16,
-                "paddingTop": 16,
-              },
+              {},
             ]
           }
           data={

@@ -27,7 +27,7 @@ export const RadioButtonItem = ({ display, isSelected, disabled, onPress }: Prop
     <Icon
       id={disabled ? 'minusCircle' : isSelected ? 'radioSelected' : 'circle'}
       style={tw`w-5 h-5`}
-      color={(isSelected ? tw`text-primary-main` : tw`text-black-3`).color}
+      color={tw.color(isSelected ? 'primary-main' : 'black-3')}
     />
   </TouchableOpacity>
 )

@@ -101,8 +101,8 @@ exports[`Match should render correctly for buy offers 1`] = `
                     "height": 28,
                     "justifyContent": "center",
                     "opacity": 1,
-                    "paddingLeft": 10,
-                    "paddingRight": 10,
+                    "paddingLeft": 8,
+                    "paddingRight": 8,
                   }
                 }
               >
@@ -131,13 +131,7 @@ exports[`Match should render correctly for buy offers 1`] = `
                           "textAlign": "center",
                           "textTransform": "uppercase",
                         },
-                        {
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 15,
-                          "letterSpacing": 0.54,
-                          "lineHeight": 26,
-                          "textTransform": "uppercase",
-                        },
+                        {},
                       ],
                       false,
                     ]
@@ -345,60 +339,43 @@ exports[`Match should render correctly for buy offers 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 {
+                  "flexDirection": "row",
+                  "flexWrap": "wrap",
+                  "gap": 4,
+                  "maxWidth": 200,
                   "opacity": 1,
                 }
               }
             >
               <View
                 style={
-                  {
-                    "flexDirection": "row",
-                  }
+                  [
+                    {
+                      "alignItems": "center",
+                      "backgroundColor": "#FFFCFA",
+                      "borderRadius": 9999,
+                      "borderWidth": 1,
+                      "flexDirection": "row",
+                      "gap": 2,
+                      "paddingBottom": 4,
+                      "paddingLeft": 6,
+                      "paddingRight": 6,
+                      "paddingTop": 4,
+                    },
+                    {
+                      "borderColor": "#FCCCB6",
+                    },
+                  ]
                 }
               >
                 <View
                   style={
                     {
-                      "alignItems": "center",
-                      "flexDirection": "row",
-                      "marginRight": 8,
+                      "height": 6,
+                      "justifyContent": "center",
                     }
                   }
                 >
-                  <View
-                    style={
-                      [
-                        {
-                          "backgroundColor": "#FCCCB6",
-                        },
-                        {
-                          "borderRadius": 9999,
-                          "marginLeft": 2,
-                          "marginRight": 2,
-                        },
-                      ]
-                    }
-                  >
-                    <test-file-stub
-                      fill="#FFFCFA"
-                      style={
-                        [
-                          {
-                            "height": 24,
-                            "width": 24,
-                          },
-                          {
-                            "height": 8,
-                            "marginBottom": 2,
-                            "marginLeft": 2,
-                            "marginRight": 2,
-                            "marginTop": 2,
-                            "width": 8,
-                          },
-                        ]
-                      }
-                    />
-                  </View>
                   <Text
                     allowFontScaling={false}
                     style={
@@ -411,16 +388,20 @@ exports[`Match should render correctly for buy offers 1`] = `
                           "lineHeight": 24,
                         },
                         [
+                          [
+                            {
+                              "fontFamily": "Baloo2-SemiBold",
+                              "fontSize": 10,
+                              "letterSpacing": 0.14,
+                              "lineHeight": 22,
+                            },
+                            {
+                              "color": "#FCCCB6",
+                            },
+                          ],
                           {
-                            "fontFamily": "Baloo2-SemiBold",
-                            "fontSize": 12,
-                            "letterSpacing": -0.36,
-                            "lineHeight": 22,
-                            "textAlign": "center",
-                            "textTransform": "uppercase",
-                          },
-                          {
-                            "color": "#FCCCB6",
+                            "marginBottom": -40,
+                            "marginTop": -40,
                           },
                         ],
                         false,
@@ -430,49 +411,48 @@ exports[`Match should render correctly for buy offers 1`] = `
                     supertrader
                   </Text>
                 </View>
+                <test-file-stub
+                  fill="#FCCCB6"
+                  style={
+                    [
+                      {
+                        "height": 12,
+                        "width": 12,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
+              </View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "backgroundColor": "#FFFCFA",
+                      "borderRadius": 9999,
+                      "borderWidth": 1,
+                      "flexDirection": "row",
+                      "gap": 2,
+                      "paddingBottom": 4,
+                      "paddingLeft": 6,
+                      "paddingRight": 6,
+                      "paddingTop": 4,
+                    },
+                    {
+                      "borderColor": "#F56522",
+                    },
+                  ]
+                }
+              >
                 <View
                   style={
                     {
-                      "alignItems": "center",
-                      "flexDirection": "row",
-                      "marginRight": 8,
+                      "height": 6,
+                      "justifyContent": "center",
                     }
                   }
                 >
-                  <View
-                    style={
-                      [
-                        {
-                          "backgroundColor": "#F56522",
-                        },
-                        {
-                          "borderRadius": 9999,
-                          "marginLeft": 2,
-                          "marginRight": 2,
-                        },
-                      ]
-                    }
-                  >
-                    <test-file-stub
-                      fill="#FFFCFA"
-                      style={
-                        [
-                          {
-                            "height": 24,
-                            "width": 24,
-                          },
-                          {
-                            "height": 8,
-                            "marginBottom": 2,
-                            "marginLeft": 2,
-                            "marginRight": 2,
-                            "marginTop": 2,
-                            "width": 8,
-                          },
-                        ]
-                      }
-                    />
-                  </View>
                   <Text
                     allowFontScaling={false}
                     style={
@@ -485,16 +465,20 @@ exports[`Match should render correctly for buy offers 1`] = `
                           "lineHeight": 24,
                         },
                         [
+                          [
+                            {
+                              "fontFamily": "Baloo2-SemiBold",
+                              "fontSize": 10,
+                              "letterSpacing": 0.14,
+                              "lineHeight": 22,
+                            },
+                            {
+                              "color": "#F56522",
+                            },
+                          ],
                           {
-                            "fontFamily": "Baloo2-SemiBold",
-                            "fontSize": 12,
-                            "letterSpacing": -0.36,
-                            "lineHeight": 22,
-                            "textAlign": "center",
-                            "textTransform": "uppercase",
-                          },
-                          {
-                            "color": "#F56522",
+                            "marginBottom": -40,
+                            "marginTop": -40,
                           },
                         ],
                         false,
@@ -504,80 +488,95 @@ exports[`Match should render correctly for buy offers 1`] = `
                     fast trader
                   </Text>
                 </View>
+                <test-file-stub
+                  fill="#F56522"
+                  style={
+                    [
+                      {
+                        "height": 12,
+                        "width": 12,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
               </View>
               <View
                 style={
-                  {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                    "marginRight": 8,
-                  }
+                  [
+                    {
+                      "alignItems": "center",
+                      "backgroundColor": "#FFFCFA",
+                      "borderRadius": 9999,
+                      "borderWidth": 1,
+                      "flexDirection": "row",
+                      "gap": 2,
+                      "paddingBottom": 4,
+                      "paddingLeft": 6,
+                      "paddingRight": 6,
+                      "paddingTop": 4,
+                    },
+                    {
+                      "borderColor": "#F56522",
+                    },
+                  ]
                 }
               >
                 <View
                   style={
-                    [
-                      {
-                        "backgroundColor": "#F56522",
-                      },
-                      {
-                        "borderRadius": 9999,
-                        "marginLeft": 2,
-                        "marginRight": 2,
-                      },
-                    ]
+                    {
+                      "height": 6,
+                      "justifyContent": "center",
+                    }
                   }
                 >
-                  <test-file-stub
-                    fill="#FFFCFA"
+                  <Text
+                    allowFontScaling={false}
                     style={
                       [
                         {
-                          "height": 24,
-                          "width": 24,
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
                         },
-                        {
-                          "height": 8,
-                          "marginBottom": 2,
-                          "marginLeft": 2,
-                          "marginRight": 2,
-                          "marginTop": 2,
-                          "width": 8,
-                        },
+                        [
+                          [
+                            {
+                              "fontFamily": "Baloo2-SemiBold",
+                              "fontSize": 10,
+                              "letterSpacing": 0.14,
+                              "lineHeight": 22,
+                            },
+                            {
+                              "color": "#F56522",
+                            },
+                          ],
+                          {
+                            "marginBottom": -40,
+                            "marginTop": -40,
+                          },
+                        ],
+                        false,
                       ]
                     }
-                  />
+                  >
+                    early adopter
+                  </Text>
                 </View>
-                <Text
-                  allowFontScaling={false}
+                <test-file-stub
+                  fill="#F56522"
                   style={
                     [
                       {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
+                        "height": 12,
+                        "width": 12,
                       },
-                      [
-                        {
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 12,
-                          "letterSpacing": -0.36,
-                          "lineHeight": 22,
-                          "textAlign": "center",
-                          "textTransform": "uppercase",
-                        },
-                        {
-                          "color": "#F56522",
-                        },
-                      ],
-                      false,
+                      undefined,
                     ]
                   }
-                >
-                  early adopter
-                </Text>
+                />
               </View>
             </View>
           </View>
@@ -1499,17 +1498,17 @@ exports[`Match should render correctly for matched offers 1`] = `
 +             "width": "100%",
             },
           ]
-        }
++       }
 +       width="100%"
-      >
++     >
 +       <RNSVGGroup
 +         fill={
 +           Object {
 +             "payload": 4278190080,
 +             "type": 0,
-+           }
+            }
 +         }
-+       >
+        >
 +         <RNSVGDefs>
 +           <RNSVGRadialGradient
 +             cx="100%"
@@ -1557,7 +1556,7 @@ exports[`Match should render correctly for matched offers 1`] = `
           Object {
             "margin": 4,
           }
-@@ -1209,11 +1282,11 @@
+@@ -1208,11 +1281,11 @@
                       false,
                     ]
                   }
@@ -1570,7 +1569,7 @@ exports[`Match should render correctly for matched offers 1`] = `
             </View>
             <View
               style={
-@@ -1366,12 +1439,211 @@
+@@ -1365,12 +1438,205 @@
                     },
                     Object {
                       "height": 18,
@@ -1721,12 +1720,12 @@ exports[`Match should render correctly for matched offers 1`] = `
 +                 "flexDirection": "row",
 +                 "gap": 8,
 +                 "justifyContent": "center",
-+                 "minWidth": 128,
++                 "minWidth": 104,
 +                 "opacity": 1,
-+                 "paddingBottom": 7,
-+                 "paddingLeft": 32,
-+                 "paddingRight": 32,
-+                 "paddingTop": 7,
++                 "paddingBottom": 3,
++                 "paddingLeft": 24,
++                 "paddingRight": 24,
++                 "paddingTop": 3,
 +               }
 +             }
 +           >
@@ -1751,13 +1750,7 @@ exports[`Match should render correctly for matched offers 1`] = `
 +                       "lineHeight": 22,
 +                       "textTransform": "uppercase",
 +                     },
-+                     Object {
-+                       "fontFamily": "Baloo2-SemiBold",
-+                       "fontSize": 15,
-+                       "letterSpacing": 0.54,
-+                       "lineHeight": 26,
-+                       "textTransform": "uppercase",
-+                     },
++                     Object {},
 +                     Object {
 +                       "color": "#DF321F",
 +                     },
@@ -1782,7 +1775,7 @@ exports[`Match should render correctly for matched offers 1`] = `
               />
             </View>
           </View>
-@@ -1379,11 +1651,11 @@
+@@ -1378,11 +1644,11 @@
         <View
           accessibilityState={
             Object {
@@ -1795,7 +1788,7 @@ exports[`Match should render correctly for matched offers 1`] = `
             }
           }
           accessibilityValue={
-@@ -1437,11 +1709,11 @@
+@@ -1436,11 +1702,11 @@
                 },
                 false,
               ]
@@ -1911,8 +1904,8 @@ exports[`Match should render correctly for sell offers 1`] = `
                     "height": 28,
                     "justifyContent": "center",
                     "opacity": 1,
-                    "paddingLeft": 10,
-                    "paddingRight": 10,
+                    "paddingLeft": 8,
+                    "paddingRight": 8,
                   }
                 }
               >
@@ -1941,13 +1934,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                           "textAlign": "center",
                           "textTransform": "uppercase",
                         },
-                        {
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 15,
-                          "letterSpacing": 0.54,
-                          "lineHeight": 26,
-                          "textTransform": "uppercase",
-                        },
+                        {},
                       ],
                       false,
                     ]
@@ -2155,60 +2142,43 @@ exports[`Match should render correctly for sell offers 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 {
+                  "flexDirection": "row",
+                  "flexWrap": "wrap",
+                  "gap": 4,
+                  "maxWidth": 200,
                   "opacity": 1,
                 }
               }
             >
               <View
                 style={
-                  {
-                    "flexDirection": "row",
-                  }
+                  [
+                    {
+                      "alignItems": "center",
+                      "backgroundColor": "#FFFCFA",
+                      "borderRadius": 9999,
+                      "borderWidth": 1,
+                      "flexDirection": "row",
+                      "gap": 2,
+                      "paddingBottom": 4,
+                      "paddingLeft": 6,
+                      "paddingRight": 6,
+                      "paddingTop": 4,
+                    },
+                    {
+                      "borderColor": "#FCCCB6",
+                    },
+                  ]
                 }
               >
                 <View
                   style={
                     {
-                      "alignItems": "center",
-                      "flexDirection": "row",
-                      "marginRight": 8,
+                      "height": 6,
+                      "justifyContent": "center",
                     }
                   }
                 >
-                  <View
-                    style={
-                      [
-                        {
-                          "backgroundColor": "#FCCCB6",
-                        },
-                        {
-                          "borderRadius": 9999,
-                          "marginLeft": 2,
-                          "marginRight": 2,
-                        },
-                      ]
-                    }
-                  >
-                    <test-file-stub
-                      fill="#FFFCFA"
-                      style={
-                        [
-                          {
-                            "height": 24,
-                            "width": 24,
-                          },
-                          {
-                            "height": 8,
-                            "marginBottom": 2,
-                            "marginLeft": 2,
-                            "marginRight": 2,
-                            "marginTop": 2,
-                            "width": 8,
-                          },
-                        ]
-                      }
-                    />
-                  </View>
                   <Text
                     allowFontScaling={false}
                     style={
@@ -2221,16 +2191,20 @@ exports[`Match should render correctly for sell offers 1`] = `
                           "lineHeight": 24,
                         },
                         [
+                          [
+                            {
+                              "fontFamily": "Baloo2-SemiBold",
+                              "fontSize": 10,
+                              "letterSpacing": 0.14,
+                              "lineHeight": 22,
+                            },
+                            {
+                              "color": "#FCCCB6",
+                            },
+                          ],
                           {
-                            "fontFamily": "Baloo2-SemiBold",
-                            "fontSize": 12,
-                            "letterSpacing": -0.36,
-                            "lineHeight": 22,
-                            "textAlign": "center",
-                            "textTransform": "uppercase",
-                          },
-                          {
-                            "color": "#FCCCB6",
+                            "marginBottom": -40,
+                            "marginTop": -40,
                           },
                         ],
                         false,
@@ -2240,49 +2214,48 @@ exports[`Match should render correctly for sell offers 1`] = `
                     supertrader
                   </Text>
                 </View>
+                <test-file-stub
+                  fill="#FCCCB6"
+                  style={
+                    [
+                      {
+                        "height": 12,
+                        "width": 12,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
+              </View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "backgroundColor": "#FFFCFA",
+                      "borderRadius": 9999,
+                      "borderWidth": 1,
+                      "flexDirection": "row",
+                      "gap": 2,
+                      "paddingBottom": 4,
+                      "paddingLeft": 6,
+                      "paddingRight": 6,
+                      "paddingTop": 4,
+                    },
+                    {
+                      "borderColor": "#F56522",
+                    },
+                  ]
+                }
+              >
                 <View
                   style={
                     {
-                      "alignItems": "center",
-                      "flexDirection": "row",
-                      "marginRight": 8,
+                      "height": 6,
+                      "justifyContent": "center",
                     }
                   }
                 >
-                  <View
-                    style={
-                      [
-                        {
-                          "backgroundColor": "#F56522",
-                        },
-                        {
-                          "borderRadius": 9999,
-                          "marginLeft": 2,
-                          "marginRight": 2,
-                        },
-                      ]
-                    }
-                  >
-                    <test-file-stub
-                      fill="#FFFCFA"
-                      style={
-                        [
-                          {
-                            "height": 24,
-                            "width": 24,
-                          },
-                          {
-                            "height": 8,
-                            "marginBottom": 2,
-                            "marginLeft": 2,
-                            "marginRight": 2,
-                            "marginTop": 2,
-                            "width": 8,
-                          },
-                        ]
-                      }
-                    />
-                  </View>
                   <Text
                     allowFontScaling={false}
                     style={
@@ -2295,16 +2268,20 @@ exports[`Match should render correctly for sell offers 1`] = `
                           "lineHeight": 24,
                         },
                         [
+                          [
+                            {
+                              "fontFamily": "Baloo2-SemiBold",
+                              "fontSize": 10,
+                              "letterSpacing": 0.14,
+                              "lineHeight": 22,
+                            },
+                            {
+                              "color": "#F56522",
+                            },
+                          ],
                           {
-                            "fontFamily": "Baloo2-SemiBold",
-                            "fontSize": 12,
-                            "letterSpacing": -0.36,
-                            "lineHeight": 22,
-                            "textAlign": "center",
-                            "textTransform": "uppercase",
-                          },
-                          {
-                            "color": "#F56522",
+                            "marginBottom": -40,
+                            "marginTop": -40,
                           },
                         ],
                         false,
@@ -2314,80 +2291,95 @@ exports[`Match should render correctly for sell offers 1`] = `
                     fast trader
                   </Text>
                 </View>
+                <test-file-stub
+                  fill="#F56522"
+                  style={
+                    [
+                      {
+                        "height": 12,
+                        "width": 12,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
               </View>
               <View
                 style={
-                  {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                    "marginRight": 8,
-                  }
+                  [
+                    {
+                      "alignItems": "center",
+                      "backgroundColor": "#FFFCFA",
+                      "borderRadius": 9999,
+                      "borderWidth": 1,
+                      "flexDirection": "row",
+                      "gap": 2,
+                      "paddingBottom": 4,
+                      "paddingLeft": 6,
+                      "paddingRight": 6,
+                      "paddingTop": 4,
+                    },
+                    {
+                      "borderColor": "#F56522",
+                    },
+                  ]
                 }
               >
                 <View
                   style={
-                    [
-                      {
-                        "backgroundColor": "#F56522",
-                      },
-                      {
-                        "borderRadius": 9999,
-                        "marginLeft": 2,
-                        "marginRight": 2,
-                      },
-                    ]
+                    {
+                      "height": 6,
+                      "justifyContent": "center",
+                    }
                   }
                 >
-                  <test-file-stub
-                    fill="#FFFCFA"
+                  <Text
+                    allowFontScaling={false}
                     style={
                       [
                         {
-                          "height": 24,
-                          "width": 24,
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
                         },
-                        {
-                          "height": 8,
-                          "marginBottom": 2,
-                          "marginLeft": 2,
-                          "marginRight": 2,
-                          "marginTop": 2,
-                          "width": 8,
-                        },
+                        [
+                          [
+                            {
+                              "fontFamily": "Baloo2-SemiBold",
+                              "fontSize": 10,
+                              "letterSpacing": 0.14,
+                              "lineHeight": 22,
+                            },
+                            {
+                              "color": "#F56522",
+                            },
+                          ],
+                          {
+                            "marginBottom": -40,
+                            "marginTop": -40,
+                          },
+                        ],
+                        false,
                       ]
                     }
-                  />
+                  >
+                    early adopter
+                  </Text>
                 </View>
-                <Text
-                  allowFontScaling={false}
+                <test-file-stub
+                  fill="#F56522"
                   style={
                     [
                       {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
+                        "height": 12,
+                        "width": 12,
                       },
-                      [
-                        {
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 12,
-                          "letterSpacing": -0.36,
-                          "lineHeight": 22,
-                          "textAlign": "center",
-                          "textTransform": "uppercase",
-                        },
-                        {
-                          "color": "#F56522",
-                        },
-                      ],
-                      false,
+                      undefined,
                     ]
                   }
-                >
-                  early adopter
-                </Text>
+                />
               </View>
             </View>
           </View>

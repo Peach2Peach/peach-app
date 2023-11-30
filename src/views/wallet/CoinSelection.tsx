@@ -59,7 +59,7 @@ function UTXOList ({ selectedUTXOs, toggleSelection }: UTXOListProps) {
   const { data: utxos } = useUTXOs()
 
   return (
-    <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw.md`py-md`]} contentStyle={tw`gap-4 grow`}>
+    <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw`md:py-md`]} contentStyle={tw`gap-4 grow`}>
       {utxos
         && utxos?.map((utxo, index) => (
           <Fragment key={utxo.txout.script.id}>

@@ -141,7 +141,7 @@ function PaymentMethodBubble ({ contract }: { contract: Contract }) {
       {hasLink && (
         <TouchableOpacity onPress={openLink} style={tw`flex-row items-center justify-end gap-1`}>
           <Text style={tw`underline body-s text-black-2`}>{i18n('contract.summary.openApp')}</Text>
-          <Icon id="externalLink" size={16} color={tw`text-primary-main`.color} />
+          <Icon id="externalLink" size={16} color={tw.color('primary-main')} />
         </TouchableOpacity>
       )}
     </View>
@@ -167,8 +167,8 @@ function WalletLabel ({ label, address }: { label?: string; address?: string }) 
 function YouShouldPay ({ contract }: { contract: Contract }) {
   return (
     <View style={tw`flex-row items-center justify-end gap-10px`}>
-      <Text style={[tw`subtitle-1`, tw.md`subtitle-0`]}>{getPrice(contract)}</Text>
-      <CopyAble value={String(contract.price)} style={tw.md`w-5 h-5`} />
+      <Text style={[tw`subtitle-1`, tw`md:subtitle-0`]}>{getPrice(contract)}</Text>
+      <CopyAble value={String(contract.price)} style={tw`md:w-5 md:h-5`} />
     </View>
   )
 }

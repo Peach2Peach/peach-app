@@ -72,7 +72,7 @@ export const SelectWallet = () => {
             ]}
           >
             <Text style={tw`subtitle-1`}>{i18n(`${type}.wallet.select.setWallet`)}</Text>
-            <Icon id="arrowRightCircle" style={tw`w-5 h-5`} color={tw`text-black-2`.color} />
+            <Icon id="arrowRightCircle" style={tw`w-5 h-5`} color={tw.color('black-2')} />
           </TouchableOpacity>
         )}
       </View>

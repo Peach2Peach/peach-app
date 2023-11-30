@@ -21,9 +21,8 @@ exports[`CurrencyTabs should render correctly 1`] = `
         "paddingRight": 0,
       },
       "tabBarLabelStyle": {
-        "fontFamily": "Baloo2-Regular",
+        "fontFamily": "Baloo2-Bold",
         "fontSize": 16,
-        "fontWeight": "bold",
         "letterSpacing": 0.16,
         "lineHeight": 23,
         "textTransform": "capitalize",

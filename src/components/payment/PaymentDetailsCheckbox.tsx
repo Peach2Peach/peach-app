@@ -30,9 +30,9 @@ export const PaymentDetailsCheckbox = ({ item, checked, onPress, style, testID, 
     {!item.disabled ? (
       <View style={tw`flex items-center justify-center w-5 h-5 ml-4`}>
         {editing ? (
-          <Icon id={'edit3'} color={tw`text-primary-main`.color} />
+          <Icon id={'edit3'} color={tw.color('primary-main')} />
         ) : checked ? (
-          <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
+          <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw.color('primary-main')} />
         ) : (
           <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
         )}

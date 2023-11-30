@@ -15,7 +15,7 @@ export const PaymentMethod = ({ paymentMethod, isVerified = false, style }: Prop
   return (
     <View style={[tw`flex-row items-center px-2 border rounded-lg border-black-1 button-medium`, style]}>
       <Text style={tw`button-medium`}>{name}</Text>
-      {isVerified && <Icon id="userCheck" style={tw`w-3 h-3 ml-1`} color={tw`text-black-1`.color} />}
+      {isVerified && <Icon id="userCheck" style={tw`w-3 h-3 ml-1`} color={tw.color('black-1')} />}
     </View>
   )
 }

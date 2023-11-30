@@ -31,7 +31,7 @@ export const MeetupPaymentMethods = ({ isEditing, editItem, select, isSelected }
       {paymentData.filter((item) => isCashTrade(item.type)).length !== 0 && (
         <LinedText style={tw`pb-3`}>
           <Text style={tw`mr-1 h6 text-black-2`}>{i18n('paymentSection.meetups')}</Text>
-          <Icon color={tw`text-black-2`.color} id={'users'} />
+          <Icon color={tw.color('black-2')} id={'users'} />
         </LinedText>
       )}
       {paymentData

@@ -14,7 +14,7 @@ export const BackupCreated = () => {
       <View style={tw`items-center justify-center grow`}>
         <Text style={tw`h4 text-primary-background-light`}>{i18n('settings.backups.fileBackup.created')}</Text>
         <Text style={tw`body-l text-primary-background-light`}>{i18n('settings.backups.fileBackup.safeNow')}</Text>
-        <Icon id="save" style={tw`w-32 h-32 mt-17`} color={tw`text-primary-background-light`.color} />
+        <Icon id="save" style={tw`w-32 h-32 mt-17`} color={tw.color('primary-background-light')} />
       </View>
       <Button
         style={tw`self-center bg-primary-background-light`}

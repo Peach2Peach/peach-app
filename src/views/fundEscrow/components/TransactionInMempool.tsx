@@ -34,7 +34,7 @@ export const TransactionInMempool = ({ txId }: Props) => {
             style={tw`self-center`}
             text={i18n('showInExplorer')}
             textStyle={tw`underline`}
-            IconComponent={<Icon id="externalLink" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />}
+            IconComponent={<Icon id="externalLink" style={tw`w-5 h-5`} color={tw.color('primary-main')} />}
           />
         </TouchableOpacity>
       </View>

@@ -13,22 +13,22 @@ export const statusCardStyles = {
     black: tw`bg-black-3`,
   },
   border: {
-    primary: tw`border-primary-main`,
-    error: tw`border-error-main`,
-    success: tw`border-success-main`,
-    'primary-mild': tw`border-primary-mild-1`,
-    warning: tw`border-warning-main`,
-    info: tw`border-info-mild`,
-    black: tw`border-black-3`,
+    primary: 'border-primary-main',
+    error: 'border-error-main',
+    success: 'border-success-main',
+    'primary-mild': 'border-primary-mild-1',
+    warning: 'border-warning-main',
+    info: 'border-info-mild',
+    black: 'border-black-3',
   },
   text: {
-    primary: tw`text-primary-background-light`,
-    error: tw`text-primary-background-light`,
-    success: tw`text-primary-background-light`,
-    'primary-mild': tw`text-black-2`,
-    warning: tw`text-black-1`,
-    info: tw`text-black-1`,
-    black: tw`text-primary-background-light`,
+    primary: 'text-primary-background-light',
+    error: 'text-primary-background-light',
+    success: 'text-primary-background-light',
+    'primary-mild': 'text-black-2',
+    warning: 'text-black-1',
+    info: 'text-black-1',
+    black: 'text-primary-background-light',
   },
 }
 
@@ -50,7 +50,10 @@ export type StatusCardProps = {
 export const StatusCard = (props: StatusCardProps) => (
   <TouchableOpacity onPress={props.onPress}>
     <View
-      style={[tw`overflow-hidden border rounded-xl bg-primary-background-light`, statusCardStyles.border[props.color]]}
+      style={[
+        tw`overflow-hidden border rounded-xl bg-primary-background-light`,
+        tw.style(statusCardStyles.border[props.color]),
+      ]}
     >
       <Top {...props} />
       <Bottom {...props} />

@@ -71,7 +71,7 @@ function RestoreReputationLoading () {
     <View style={tw`items-center justify-center grow`}>
       <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('restoreBackup.restoringReputation')}</Text>
       <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.oneSec')}</Text>
-      <Loading style={tw`w-32 h-32`} color={tw`text-primary-mild-1`.color} />
+      <Loading style={tw`w-32 h-32`} color={tw.color('primary-mild-1')} />
     </View>
   )
 }
@@ -81,7 +81,7 @@ function ReputationRestored () {
     <View style={tw`items-center justify-center h-full`}>
       <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('restoreBackup.reputationRestored')}</Text>
       <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('restoreBackup.welcomeBack')}</Text>
-      <Icon id="save" style={tw`w-32 h-32 mt-16`} color={tw`text-primary-background-light`.color} />
+      <Icon id="save" style={tw`w-32 h-32 mt-16`} color={tw.color('primary-background-light')} />
     </View>
   )
 }

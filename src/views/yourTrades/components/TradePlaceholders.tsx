@@ -19,7 +19,7 @@ const GoTradeButton = ({ tab }: { tab: 'yourTrades.buy' | 'yourTrades.sell' }) =
       <Text style={tw`h6 text-primary-main`}>
         {i18n(`yourTrades.start.${tab === 'yourTrades.sell' ? 'selling' : 'buying'}`)}
       </Text>
-      <Icon id="arrowRightCircle" style={tw`w-5 h-5 ml-2`} color={tw`text-primary-main`.color} />
+      <Icon id="arrowRightCircle" style={tw`w-5 h-5 ml-2`} color={tw.color('primary-main')} />
     </TouchableOpacity>
   )
 }

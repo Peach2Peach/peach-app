@@ -56,7 +56,7 @@ export const NodeSetup = () => {
       {isConnected ? (
         <View style={tw`flex-row items-center justify-center gap-1`}>
           <Text style={tw`uppercase button-medium`}>{i18n('wallet.settings.node.connected')}</Text>
-          <Icon id="check" size={16} color={tw`text-success-main`.color} />
+          <Icon id="check" size={16} color={tw.color('success-main')} />
         </View>
       ) : (
         <Button disabled={!canCheckConnection} style={tw`self-center`} iconId="share2" onPress={checkConnection}>

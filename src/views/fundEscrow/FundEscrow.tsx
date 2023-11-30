@@ -68,13 +68,13 @@ export const FundEscrow = () => {
       <View style={[tw`items-center justify-center gap-4 py-4`]}>
         <View style={tw`flex-row items-center justify-center gap-2`}>
           <Text style={tw`text-primary-main button-medium`}>{i18n('sell.escrow.checkingFundingStatus')}</Text>
-          <Loading style={tw`w-4 h-4`} color={tw`text-primary-main`.color} />
+          <Loading style={tw`w-4 h-4`} color={tw.color('primary-main')} />
         </View>
         <HorizontalLine />
         {fundedFromPeachWallet ? (
           <TradeInfo
             text={i18n('fundFromPeachWallet.funded')}
-            IconComponent={<Icon id="checkCircle" size={16} color={tw`text-success-main`.color} />}
+            IconComponent={<Icon id="checkCircle" size={16} color={tw.color('success-main')} />}
           />
         ) : (
           <Button ghost textColor={tw`text-primary-main`} iconId="sell" onPress={fundFromPeachWallet}>

@@ -14,7 +14,7 @@ export const ConfirmSliderLabel = ({ children, width, opacity, style }: Props) =
     <Animated.View style={[style, tw`pt-1px`, { width, opacity }]}>
       <FixedHeightText
         height={isMediumScreen ? 9 : 8}
-        style={[tw`text-center button-medium`, tw.md`button-large`]}
+        style={[tw`text-center button-medium`, tw`md:button-large`]}
         numberOfLines={1}
       >
         {children}

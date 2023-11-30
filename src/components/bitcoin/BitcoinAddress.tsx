@@ -63,7 +63,7 @@ export const BitcoinAddress = ({ address, amount, label }: BitcoinAddressProps) 
 function IconButton ({ onPress, iconId }: { onPress: () => void; iconId: IconType }) {
   return (
     <TouchableOpacity onPress={onPress} style={tw`items-center px-4 py-1 bg-primary-main rounded-xl`}>
-      <Icon id={iconId} size={24} color={tw`text-primary-background-light`.color} />
+      <Icon id={iconId} size={24} color={tw.color('primary-background-light')} />
     </TouchableOpacity>
   )
 }

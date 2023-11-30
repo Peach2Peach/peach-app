@@ -10,6 +10,6 @@ export const RestoreSuccess = () => (
       <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('restoreBackup.backupRestored')}</Text>
       <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('restoreBackup.welcomeBack')}</Text>
     </View>
-    <Icon id="save" size={128} color={tw`text-primary-background-light`.color} />
+    <Icon id="save" size={128} color={tw.color('primary-background-light')} />
   </View>
 )

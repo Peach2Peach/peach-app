@@ -2,8 +2,9 @@ import { View } from 'react-native'
 import { IconType } from '../assets/icons'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
+import { useUserStatus } from '../views/publicProfile/useUserStatus'
 import { Icon } from './Icon'
-import { PeachText } from './text/Text'
+import { FixedHeightText } from './text'
 
 type Props = {
   iconId: IconType
@@ -11,13 +12,52 @@ type Props = {
   isUnlocked?: boolean
 }
 
-export const Badge = ({ iconId, badgeName, isUnlocked }: Props) => (
-  <View style={tw`flex-row items-center mr-2`}>
-    <View style={[isUnlocked ? tw`bg-primary-main` : tw`bg-primary-mild-1`, tw`rounded-full mx-[2px]`]}>
-      <Icon id={iconId} color={tw`text-primary-background-light`.color} style={tw`w-2 h-2 m-[2px]`} />
+export const Badge = ({ iconId, badgeName, isUnlocked }: Props) => {
+  const colorStyle = isUnlocked ? 'text-primary-main' : 'text-primary-mild-1'
+  return (
+    <View
+      style={[
+        tw`flex-row items-center py-1 border rounded-full px-6px bg-primary-background-light gap-2px`,
+        isUnlocked ? tw`border-primary-main` : tw`border-primary-mild-1`,
+      ]}
+    >
+      <FixedHeightText style={[tw`subtitle-2 text-10px`, tw.style(colorStyle)]} height={6}>
+        {i18n(`peachBadges.${badgeName}`)}
+      </FixedHeightText>
+      <Icon id={iconId} color={tw.color(colorStyle)} size={12} />
     </View>
-    <PeachText style={[tw`uppercase notification`, isUnlocked ? tw`text-primary-main` : tw`text-primary-mild-1`]}>
-      {i18n(`peachBadges.${badgeName}`)}
-    </PeachText>
-  </View>
-)
+  )
+}
+
+export function RepeatTraderBadge ({ id }: { id: User['id'] }) {
+  const { data } = useUserStatus(id)
+
+  if (!data?.trades) return null
+
+  const hadBadExperience = data?.badExperience
+  const colorTheme = tw.color(hadBadExperience ? 'error-main' : 'primary-main')
+
+  return (
+    <View
+      style={[
+        tw`flex-row items-center py-1 border rounded-full px-6px bg-primary-background-light gap-2px`,
+        { borderColor: colorTheme },
+      ]}
+    >
+      <FixedHeightText style={[tw`subtitle-2 text-10px`, { color: colorTheme }]} height={6}>
+        {i18n('peachBadges.repeatTrader')}
+      </FixedHeightText>
+
+      <View style={tw`items-center justify-center`}>
+        <Icon id={hadBadExperience ? 'thumbsDown' : 'refreshCcw'} color={colorTheme} size={12} />
+        {!hadBadExperience && (
+          <View style={tw`absolute items-center justify-center w-3 h-3`}>
+            <FixedHeightText style={[tw`w-1 text-center subtitle-2 text-8px`, { color: colorTheme }]} height={4}>
+              {data.trades}
+            </FixedHeightText>
+          </View>
+        )}
+      </View>
+    </View>
+  )
+}

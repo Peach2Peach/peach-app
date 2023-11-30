@@ -14,7 +14,7 @@ export const Checkbox = ({ checked, iconProps, style, text, ...wrapperProps }: P
     <Icon
       id={checked ? 'checkboxMark' : 'square'}
       {...iconProps}
-      color={checked ? tw`text-primary-main`.color : tw`text-black-3`.color}
+      color={checked ? tw.color('primary-main') : tw.color('black-3')}
     />
     {!!text && <Text style={[tw`subtitle-1`, !checked && tw`text-black-4`]}>{text}</Text>}
   </TouchableOpacity>

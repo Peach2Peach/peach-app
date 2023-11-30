@@ -21,7 +21,7 @@ export const PaymentMethodSelectorText = ({ isSelected, isVerified, name }: Prop
         <Icon
           id="userCheck"
           style={tw`w-3 h-3 ml-1`}
-          color={isSelected ? tw`text-primary-background-light`.color : tw`text-black-3`.color}
+          color={isSelected ? tw.color('primary-background-light') : tw.color('black-3')}
         />
       )}
     </>

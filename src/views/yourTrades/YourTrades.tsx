@@ -22,7 +22,7 @@ const tabs = ['yourTrades.buy', 'yourTrades.sell', 'yourTrades.history'] as cons
 
 const tabbedNavigationScreenOptions = {
   tabBarLabelStyle: tw`lowercase input-title`,
-  tabBarStyle: [tw`bg-transparent mx-sm`, tw.md`mx-md`],
+  tabBarStyle: [tw`bg-transparent mx-sm`, tw`md:mx-md`],
   tabBarContentContainerStyle: tw`bg-transparent`,
   tabBarIndicatorStyle: tw`bg-black-1`,
   tabBarItemStyle: tw`p-0`,
@@ -56,7 +56,7 @@ export const YourTrades = () => {
       <YourTradesTab.Navigator
         initialRouteName={params?.tab || 'yourTrades.buy'}
         screenOptions={tabbedNavigationScreenOptions}
-        sceneContainerStyle={[tw`px-sm`, tw.md`px-md`]}
+        sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
       >
         {tabs.map((tab) => (
           <YourTradesTab.Screen

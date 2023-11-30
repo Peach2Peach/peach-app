@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import Clipboard from '@react-native-clipboard/clipboard'
+import { useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { Icon, Text } from '../../../../components'
 import tw from '../../../../styles/tailwind'
@@ -22,7 +22,7 @@ export const PublicKey = ({ publicKey, style }: { publicKey: string } & Componen
 
         <View style={tw`ml-3 items-center`}>
           <TouchableOpacity onPress={copy} accessibilityHint={i18n('copy')}>
-            <Icon id="copy" color={tw`text-primary-main`.color} style={tw`w-6 h-6`} />
+            <Icon id="copy" color={tw.color('primary-main')} style={tw`w-6 h-6`} />
           </TouchableOpacity>
           {copied && <Text style={tw`text-primary-main subtitle-2`}>{i18n('copied')}</Text>}
         </View>

@@ -70,7 +70,7 @@ export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }
             <LinedText style={tw`pb-3`}>
               <Text style={tw`mr-1 h6 text-black-2`}>{i18n(`paymentCategory.${category}`)}</Text>
               {paymentCategoryIcons[category] !== '' && (
-                <Icon color={tw`text-black-2`.color} id={paymentCategoryIcons[category] as IconType} />
+                <Icon color={tw.color('black-2')} id={paymentCategoryIcons[category] as IconType} />
               )}
             </LinedText>
             {checkboxes.map((item, j) => (
@@ -90,7 +90,7 @@ export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }
                   <View style={tw`flex flex-row justify-between`}>
                     <Text style={tw`font-baloo text-error-main`}>{item.data.label}</Text>
                     <Pressable onPress={() => deletePaymentData(item.data)} style={tw`w-6 h-6`}>
-                      <Icon id="trash" style={tw`w-6 h-6`} color={tw`text-black-2`.color} />
+                      <Icon id="trash" style={tw`w-6 h-6`} color={tw.color('black-2')} />
                     </Pressable>
                   </View>
                 )}

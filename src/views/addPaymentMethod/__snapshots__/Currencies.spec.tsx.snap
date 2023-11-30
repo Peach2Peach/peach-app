@@ -10,10 +10,7 @@ exports[`Currencies should render correctly for type "africa" 1`] = `
         "paddingBottom": 8,
         "paddingTop": 8,
       },
-      {
-        "paddingBottom": 16,
-        "paddingTop": 16,
-      },
+      {},
     ]
   }
 >
@@ -54,10 +51,7 @@ exports[`Currencies should render correctly for type "europe" 1`] = `
         "paddingBottom": 8,
         "paddingTop": 8,
       },
-      {
-        "paddingBottom": 16,
-        "paddingTop": 16,
-      },
+      {},
     ]
   }
 >
@@ -134,10 +128,7 @@ exports[`Currencies should render correctly for type "latinAmerica" 1`] = `
         "paddingBottom": 8,
         "paddingTop": 8,
       },
-      {
-        "paddingBottom": 16,
-        "paddingTop": 16,
-      },
+      {},
     ]
   }
 >
@@ -198,10 +189,7 @@ exports[`Currencies should render correctly for type "other" 1`] = `
         "paddingBottom": 8,
         "paddingTop": 8,
       },
-      {
-        "paddingBottom": 16,
-        "paddingTop": 16,
-      },
+      {},
     ]
   }
 >

@@ -75,10 +75,7 @@ exports[`AddressChecker should render correctly 1`] = `
               "paddingRight": 8,
               "paddingTop": 6,
             },
-            {
-              "paddingLeft": 16,
-              "paddingRight": 16,
-            },
+            {},
             undefined,
           ]
         }
@@ -114,12 +111,7 @@ exports[`AddressChecker should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 26,
                   },
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 20,
-                    "letterSpacing": 0.2,
-                    "lineHeight": 32,
-                  },
+                  {},
                   {
                     "color": "#2B1911",
                   },
@@ -175,12 +167,7 @@ exports[`AddressChecker should render correctly 1`] = `
               "paddingRight": 8,
               "paddingTop": 8,
             },
-            {
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
-            },
+            {},
             undefined,
           ]
         }
@@ -490,7 +477,7 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
 - First value
 + Second value
 
-@@ -314,11 +314,11 @@
+@@ -301,11 +301,11 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -503,7 +490,7 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
                       Object {
                         "borderColor": "transparent",
                         "borderWidth": 1,
-@@ -326,11 +326,11 @@
+@@ -313,11 +313,11 @@
                       false,
                       false,
                     ]
@@ -516,7 +503,7 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
                   style={
                     Object {
                       "display": "flex",
-@@ -466,16 +466,63 @@
+@@ -453,16 +453,63 @@
                  
               </Text>
             </View>
@@ -588,7 +575,7 @@ exports[`AddressChecker should render correctly when address does not belong to 
 - First value
 + Second value
 
-@@ -314,11 +314,11 @@
+@@ -301,11 +301,11 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -601,7 +588,7 @@ exports[`AddressChecker should render correctly when address does not belong to 
                       Object {
                         "borderColor": "transparent",
                         "borderWidth": 1,
-@@ -326,11 +326,11 @@
+@@ -313,11 +313,11 @@
                       false,
                       false,
                     ]
@@ -614,7 +601,7 @@ exports[`AddressChecker should render correctly when address does not belong to 
                   style={
                     Object {
                       "display": "flex",
-@@ -466,16 +466,63 @@
+@@ -453,16 +453,63 @@
                  
               </Text>
             </View>
@@ -686,7 +673,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
 - First value
 + Second value
 
-@@ -275,15 +275,18 @@
+@@ -262,15 +262,18 @@
                       "backgroundColor": "#FFFCFA",
                     },
                     Object {
@@ -709,7 +696,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
                   ]
                 }
               >
-@@ -314,23 +317,22 @@
+@@ -301,23 +304,22 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -737,7 +724,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
                   style={
                     Object {
                       "display": "flex",
-@@ -461,11 +463,11 @@
+@@ -448,11 +450,11 @@
                     ],
                     false,
                   ]
@@ -757,7 +744,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
 - First value
 + Second value
 
-@@ -314,11 +314,11 @@
+@@ -301,11 +301,11 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -770,7 +757,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
                       Object {
                         "borderColor": "transparent",
                         "borderWidth": 1,
-@@ -326,11 +326,11 @@
+@@ -313,11 +313,11 @@
                       false,
                       false,
                     ]
@@ -783,7 +770,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
                   style={
                     Object {
                       "display": "flex",
-@@ -465,16 +465,43 @@
+@@ -452,16 +452,43 @@
               >
                  
               </Text>

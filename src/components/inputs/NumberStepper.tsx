@@ -24,7 +24,7 @@ export const NumberStepper = ({ value, onChange, min = -Infinity, max = Infinity
         disabled={!canDecrease}
         style={!canDecrease && tw`opacity-50`}
       >
-        <Icon id="minusCircle" size={24} color={tw`text-primary-main`.color} />
+        <Icon id="minusCircle" size={24} color={tw.color('primary-main')} />
       </TouchableOpacity>
       <Text style={tw`h5 w-11 text-center`}>x {value}</Text>
       <TouchableOpacity
@@ -33,7 +33,7 @@ export const NumberStepper = ({ value, onChange, min = -Infinity, max = Infinity
         disabled={!canIncrease}
         style={!canIncrease && tw`opacity-50`}
       >
-        <Icon id="plusCircle" size={24} color={tw`text-primary-main`.color} />
+        <Icon id="plusCircle" size={24} color={tw.color('primary-main')} />
       </TouchableOpacity>
     </View>
   )

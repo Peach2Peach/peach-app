@@ -38,15 +38,15 @@ export const RangeAmount = ({ min, max, value, onChange, style }: Props) => {
 
   return (
     <View style={[tw`flex-row items-center justify-between`, style]}>
-      <View style={[tw`items-start gap-2 shrink`, tw.md`gap-4`]}>
+      <View style={[tw`items-start gap-2 shrink`, tw`md:gap-4`]}>
         <ParsedPeachText
-          style={[tw`h7`, tw.md`h5`]}
+          style={[tw`h7`, tw`md:h5`]}
           parse={[{ pattern: new RegExp(i18n('buy.subtitle.highlight'), 'u'), style: tw`text-success-main` }]}
         >
           {i18n('buy.subtitle')}
         </ParsedPeachText>
         <CustomAmount amount={maximum} onChange={updateCustomAmountMaximum} style={tw`items-start flex-shrink`} />
-        <Text style={[tw`h7`, tw.md`h5`]}>{i18n('and')}</Text>
+        <Text style={[tw`h7`, tw`md:h5`]}>{i18n('and')}</Text>
         <CustomAmount amount={minimum} onChange={updateCustomAmountMinimum} style={tw`items-start flex-shrink`} />
       </View>
 

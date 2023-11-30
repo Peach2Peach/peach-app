@@ -49,8 +49,8 @@ exports[`tradeInformationGetters should return the correct value for the paidToM
         "height": 28,
         "justifyContent": "center",
         "opacity": 1,
-        "paddingLeft": 10,
-        "paddingRight": 10,
+        "paddingLeft": 8,
+        "paddingRight": 8,
       }
     }
   >
@@ -79,13 +79,7 @@ exports[`tradeInformationGetters should return the correct value for the paidToM
               "textAlign": "center",
               "textTransform": "uppercase",
             },
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 15,
-              "letterSpacing": 0.54,
-              "lineHeight": 26,
-              "textTransform": "uppercase",
-            },
+            {},
           ],
           false,
         ]
@@ -146,8 +140,8 @@ exports[`tradeInformationGetters should return the correct value for the via fie
         "height": 28,
         "justifyContent": "center",
         "opacity": 1,
-        "paddingLeft": 10,
-        "paddingRight": 10,
+        "paddingLeft": 8,
+        "paddingRight": 8,
       }
     }
   >
@@ -176,13 +170,7 @@ exports[`tradeInformationGetters should return the correct value for the via fie
               "textAlign": "center",
               "textTransform": "uppercase",
             },
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 15,
-              "letterSpacing": 0.54,
-              "lineHeight": 26,
-              "textTransform": "uppercase",
-            },
+            {},
           ],
           false,
         ]

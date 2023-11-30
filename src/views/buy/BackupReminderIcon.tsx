@@ -9,7 +9,7 @@ export const BackupReminderIcon = () => {
   return (
     <View style={tw`justify-center`}>
       <TouchableOpacity style={tw`absolute left-4`} onPress={showBackupReminder}>
-        <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw`text-error-main`.color} />
+        <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw.color('error-main')} />
       </TouchableOpacity>
     </View>
   )

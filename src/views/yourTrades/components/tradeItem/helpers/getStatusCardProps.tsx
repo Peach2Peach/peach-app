@@ -1,5 +1,6 @@
 import { Icon } from '../../../../../components'
 import { statusCardStyles } from '../../../../../components/statusCard/StatusCard'
+import tw from '../../../../../styles/tailwind'
 import { contractIdToHex } from '../../../../../utils/contract'
 import { getShortDateFormat } from '../../../../../utils/date/getShortDateFormat'
 import { offerIdToHex } from '../../../../../utils/offer'
@@ -20,10 +21,10 @@ export const getStatusCardProps = (item: TradeSummary) => {
   const isWaiting = color === 'primary-mild' && isContract
   const label = getActionLabel(item, isWaiting)
   const labelIconId = getActionIcon(item, isWaiting)
-  const labelIcon = labelIconId && <Icon id={labelIconId} size={17} color={statusCardStyles.text[color].color} />
+  const labelIcon = labelIconId && <Icon id={labelIconId} size={17} color={tw.color(statusCardStyles.text[color])} />
 
   const icon = isPastOffer(tradeStatus) ? (
-    <Icon id={iconId} size={16} color={statusCardStyles.border[color].borderColor} />
+    <Icon id={iconId} size={16} color={tw.color(statusCardStyles.border[color])} />
   ) : undefined
 
   return {

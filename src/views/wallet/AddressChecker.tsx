@@ -44,7 +44,7 @@ function AddressInfo ({ address }: { address: string }) {
             <Icon
               size={20}
               id={isMine ? 'checkSquare' : 'xSquare'}
-              color={(isMine ? tw`text-success-main` : tw`text-error-main`).color}
+              color={tw.color(isMine ? 'success-main' : 'error-main')}
             />
           }
         />

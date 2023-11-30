@@ -13,7 +13,7 @@ export const WelcomeInfo = ({ name }: { name: 'peachOfMind' | 'peerToPeer' | 'pr
   const { width } = useWindowDimensions()
 
   return (
-    <View style={[tw`items-center justify-center h-full px-sm`, tw.md`px-md`]}>
+    <View style={[tw`items-center justify-center h-full px-sm`, tw`md:px-md`]}>
       <Text style={tw`text-center h5 text-primary-background-light`}>{i18n(`welcome.${name}.title`)}</Text>
       <Text style={tw`mt-4 text-center text-primary-background-light`}>{i18n(`welcome.${name}.description`)}</Text>
       <Image source={images[name]} style={{ width, height: width * ASPECT_RATIO }} resizeMode="contain" />

@@ -23,7 +23,7 @@ export const Escrow = () => (
       {i18n('help.escrow.description')}
     </ParsedPeachText>
     <View style={tw`flex-row gap-3 items-center  mt-4`}>
-      <Icon id="info" style={tw`w-8 h-8`} color={tw`text-black-1`.color} />
+      <Icon id="info" style={tw`w-8 h-8`} color={tw.color('black-1')} />
       <PeachText style={tw`flex-shrink`}>{i18n('help.escrow.description.proTip')}</PeachText>
     </View>
   </>

@@ -13,6 +13,6 @@ export const ConfirmationSummaryItem = ({ confirmed, ...props }: Props) => (
     title={i18n('status')}
     text={i18n(`wallet.transaction.${confirmed ? 'confirmed' : 'pending'}`)}
     iconId={confirmed ? 'checkCircle' : 'clock'}
-    iconColor={confirmed ? tw`text-success-main`.color : tw`text-black-3`.color}
+    iconColor={confirmed ? tw.color('success-main') : tw.color('black-3')}
   />
 )

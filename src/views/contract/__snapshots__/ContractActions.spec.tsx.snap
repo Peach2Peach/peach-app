@@ -62,12 +62,12 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
           "flexShrink": 1,
           "gap": 8,
           "justifyContent": "center",
-          "minWidth": 128,
+          "minWidth": 104,
           "opacity": 1,
-          "paddingBottom": 7,
-          "paddingLeft": 32,
-          "paddingRight": 32,
-          "paddingTop": 7,
+          "paddingBottom": 3,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 3,
         }
       }
     >
@@ -92,13 +92,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                 "lineHeight": 22,
                 "textTransform": "uppercase",
               },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 15,
-                "letterSpacing": 0.54,
-                "lineHeight": 26,
-                "textTransform": "uppercase",
-              },
+              {},
               {
                 "color": "#F56522",
               },
@@ -162,12 +156,12 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
           "flexShrink": 1,
           "gap": 8,
           "justifyContent": "center",
-          "minWidth": 128,
+          "minWidth": 104,
           "opacity": 1,
-          "paddingBottom": 7,
-          "paddingLeft": 32,
-          "paddingRight": 32,
-          "paddingTop": 7,
+          "paddingBottom": 3,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 3,
         }
       }
     >
@@ -192,13 +186,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                 "lineHeight": 22,
                 "textTransform": "uppercase",
               },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 15,
-                "letterSpacing": 0.54,
-                "lineHeight": 26,
-                "textTransform": "uppercase",
-              },
+              {},
               {
                 "color": "#FFFCFA",
               },
@@ -313,13 +301,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                       "textAlign": "center",
                       "textTransform": "uppercase",
                     },
-                    {
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 15,
-                      "letterSpacing": 0.54,
-                      "lineHeight": 26,
-                      "textTransform": "uppercase",
-                    },
+                    {},
                   ],
                   {
                     "marginBottom": -40,
@@ -342,12 +324,12 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
             "backgroundColor": "rgba(245, 101, 34, 1)",
             "borderRadius": 16,
             "flexDirection": "row",
-            "gap": 4,
+            "gap": 2,
             "justifyContent": "center",
-            "paddingBottom": 6,
-            "paddingLeft": 8,
-            "paddingRight": 8,
-            "paddingTop": 6,
+            "paddingBottom": 4,
+            "paddingLeft": 6,
+            "paddingRight": 6,
+            "paddingTop": 4,
           }
         }
       >
@@ -416,13 +398,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                       "textAlign": "center",
                       "textTransform": "uppercase",
                     },
-                    {
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 15,
-                      "letterSpacing": 0.54,
-                      "lineHeight": 26,
-                      "textTransform": "uppercase",
-                    },
+                    {},
                   ],
                   {
                     "marginBottom": -40,
@@ -529,13 +505,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                       "textAlign": "center",
                       "textTransform": "uppercase",
                     },
-                    {
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 15,
-                      "letterSpacing": 0.54,
-                      "lineHeight": 26,
-                      "textTransform": "uppercase",
-                    },
+                    {},
                   ],
                   {
                     "marginBottom": -40,
@@ -558,12 +528,12 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
             "backgroundColor": "rgba(245, 101, 34, 1)",
             "borderRadius": 16,
             "flexDirection": "row",
-            "gap": 4,
+            "gap": 2,
             "justifyContent": "center",
-            "paddingBottom": 6,
-            "paddingLeft": 8,
-            "paddingRight": 8,
-            "paddingTop": 6,
+            "paddingBottom": 4,
+            "paddingLeft": 6,
+            "paddingRight": 6,
+            "paddingTop": 4,
           }
         }
       >
@@ -632,13 +602,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
                       "textAlign": "center",
                       "textTransform": "uppercase",
                     },
-                    {
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 15,
-                      "letterSpacing": 0.54,
-                      "lineHeight": 26,
-                      "textTransform": "uppercase",
-                    },
+                    {},
                   ],
                   {
                     "marginBottom": -40,

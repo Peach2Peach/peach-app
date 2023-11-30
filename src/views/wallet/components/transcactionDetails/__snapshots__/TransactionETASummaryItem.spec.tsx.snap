@@ -325,12 +325,7 @@ exports[`TransactionETA should render correctly for 1 block ETA 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
-          {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 28,
-          },
+          {},
         ],
         false,
       ]
@@ -450,12 +445,7 @@ exports[`TransactionETA should render correctly for more than 1 block ETA 1`] = 
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
-          {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 28,
-          },
+          {},
         ],
         false,
       ]

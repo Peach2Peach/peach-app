@@ -94,7 +94,7 @@ function CreateAccountLoading () {
     <View style={tw`items-center justify-center gap-4 grow`}>
       <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.create')}</Text>
       <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.oneSec')}</Text>
-      <Loading style={tw`w-32 h-32`} color={tw`text-primary-mild-1`.color} />
+      <Loading style={tw`w-32 h-32`} color={tw.color('primary-mild-1')} />
     </View>
   )
 }
@@ -114,7 +114,7 @@ function CreateAccountError ({ err }: Props) {
           <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.create')}</Text>
           <Text style={tw`text-center body-l text-primary-background-light`}>{i18n(`${err}.text`)}</Text>
         </View>
-        <Icon id="userX" size={128} color={tw`text-primary-background-light`.color} />
+        <Icon id="userX" size={128} color={tw.color('primary-background-light')} />
       </View>
 
       <View style={tw`gap-2`}>
@@ -136,7 +136,7 @@ function CreateAccountSuccess () {
         <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.accountCreated')}</Text>
         <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.welcome')}</Text>
       </View>
-      <Icon id="userCheck" size={128} color={tw`text-primary-background-light`.color} />
+      <Icon id="userCheck" size={128} color={tw.color('primary-background-light')} />
     </View>
   )
 }
@@ -154,7 +154,7 @@ function UserExistsForDevice () {
         <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.accountNotCreated')}</Text>
         <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.youAlreadyHaveOne')}</Text>
       </View>
-      <Icon id="userX" size={128} color={tw`text-primary-background-light`.color} />
+      <Icon id="userX" size={128} color={tw.color('primary-background-light')} />
       <View style={tw`items-center gap-8`}>
         <MenuItem onPress={goToRestoreFromFile}>{i18n('restoreBackup.restoreFromFile')}</MenuItem>
         <MenuItem onPress={goToRestoreFromSeed}>{i18n('restoreBackup.restoreFromSeed')}</MenuItem>
@@ -171,7 +171,7 @@ function MenuItem ({ children, onPress }: MenuItemProps) {
   return (
     <TouchableOpacity onPress={onPress} style={tw`flex-row items-center justify-between w-60`}>
       <Text style={tw`settings text-primary-background-light`}>{children}</Text>
-      <Icon id="chevronRight" style={tw`w-6 h-6`} color={tw`text-primary-background-light`.color} />
+      <Icon id="chevronRight" style={tw`w-6 h-6`} color={tw.color('primary-background-light')} />
     </TouchableOpacity>
   )
 }

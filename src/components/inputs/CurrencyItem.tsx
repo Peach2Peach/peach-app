@@ -11,7 +11,7 @@ type ItemProps = ComponentProps & {
 export const CurrencyItem = ({ label, isSelected, onPress, style }: ItemProps) => {
   const bgColor = isSelected ? tw`bg-primary-main` : {}
   const borderColor = isSelected ? tw`border-primary-main` : tw`border-black-3`
-  const textColor = isSelected ? tw`text-primary-background-light` : tw`text-black-3`
+  const textColor = tw.color(isSelected ? 'primary-background-light' : 'black-3')
 
   return (
     <Pressable
@@ -23,8 +23,8 @@ export const CurrencyItem = ({ label, isSelected, onPress, style }: ItemProps) =
         style,
       ]}
     >
-      <Text style={[tw`button-medium`, textColor]}>{label}</Text>
-      <Icon id={isSelected ? 'minusCircle' : 'plusCircle'} color={textColor.color} style={tw`w-3 h-3`} />
+      <Text style={[tw`button-medium`, { color: textColor }]}>{label}</Text>
+      <Icon id={isSelected ? 'minusCircle' : 'plusCircle'} color={textColor} style={tw`w-3 h-3`} />
     </Pressable>
   )
 }

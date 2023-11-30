@@ -11,7 +11,7 @@ export const useShowLoadingPopup = () => {
     (options: Partial<PopupState> = {}) =>
       setPopup({
         title: i18n('loading'),
-        content: <Loading style={tw`w-16 h-16 self-center`} color={tw`text-primary-main`.color} />,
+        content: <Loading style={tw`w-16 h-16 self-center`} color={tw.color('primary-main')} />,
         visible: true,
         level: 'APP',
         requireUserAction: true,

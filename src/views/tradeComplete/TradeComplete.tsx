@@ -81,11 +81,7 @@ function RateButton ({ isSelected, onPress, iconId, style }: RateButtonProps) {
         style,
       ]}
     >
-      <Icon
-        id={iconId}
-        size={32}
-        color={isSelected ? tw`text-primary-main`.color : tw`text-primary-background-light`.color}
-      />
+      <Icon id={iconId} size={32} color={isSelected ? tw.color('primary-main') : tw.color('primary-background-light')} />
     </TouchableOpacity>
   )
 }

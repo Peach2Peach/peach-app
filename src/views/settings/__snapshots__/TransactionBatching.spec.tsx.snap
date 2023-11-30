@@ -5,7 +5,7 @@ exports[`TransactionBatching should render correctly when batching is disabled 1
 - First value
 + Second value
 
-@@ -211,11 +211,11 @@
+@@ -198,11 +198,11 @@
                   },
                   false,
                 ]
@@ -18,7 +18,7 @@ exports[`TransactionBatching should render correctly when batching is disabled 1
               allowFontScaling={false}
               style={
                 Array [
-@@ -257,11 +257,11 @@
+@@ -244,11 +244,11 @@
                     ],
                     undefined,
                   ]
@@ -31,7 +31,7 @@ exports[`TransactionBatching should render correctly when batching is disabled 1
                 style={
                   Array [
                     Array [
-@@ -284,36 +284,11 @@
+@@ -271,36 +271,11 @@
                       "color": "#F56522",
                     },
                   ]
@@ -69,7 +69,7 @@ exports[`TransactionBatching should render correctly when batching is disabled 1
           </View>
           <View
             accessibilityState={
-@@ -378,11 +353,11 @@
+@@ -365,11 +340,11 @@
               }
             >
               transaction batching
@@ -159,10 +159,7 @@ exports[`TransactionBatching should render correctly when batching is enabled 1`
               "paddingRight": 8,
               "paddingTop": 6,
             },
-            {
-              "paddingLeft": 16,
-              "paddingRight": 16,
-            },
+            {},
             undefined,
           ]
         }
@@ -198,12 +195,7 @@ exports[`TransactionBatching should render correctly when batching is enabled 1`
                     "letterSpacing": 0.16,
                     "lineHeight": 26,
                   },
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 20,
-                    "letterSpacing": 0.2,
-                    "lineHeight": 32,
-                  },
+                  {},
                   {
                     "color": "#2B1911",
                   },
@@ -259,12 +251,7 @@ exports[`TransactionBatching should render correctly when batching is enabled 1`
               "paddingRight": 8,
               "paddingTop": 8,
             },
-            {
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
-            },
+            {},
             {
               "gap": 32,
               "justifyContent": "center",

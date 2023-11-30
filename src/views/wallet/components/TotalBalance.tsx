@@ -25,7 +25,7 @@ export const TotalBalance = ({ amount, isRefreshing }: Props) => {
           accessibilityHint={i18n(showBalance ? 'wallet.hideBalance' : 'wallet.showBalance')}
           onPress={toggleShowBalance}
         >
-          <Icon id={showBalance ? 'eyeOff' : 'eye'} size={20} color={tw`text-black-3`.color} />
+          <Icon id={showBalance ? 'eyeOff' : 'eye'} size={20} color={tw.color('black-3')} />
         </TouchableOpacity>
       </View>
       {isRefreshing && <Loading style={tw`w-16 h-16 absolute`} />}

@@ -46,7 +46,7 @@ export const LetsGetStarted = () => {
   return (
     <View style={tw`items-center flex-1 gap-4 shrink`}>
       <View style={tw`justify-center gap-4 grow`}>
-        <Text style={[tw`text-center h5 text-primary-background-light`, tw.md`h4`]}>
+        <Text style={[tw`text-center h5 text-primary-background-light`, tw`md:h4`]}>
           {i18n('welcome.letsGetStarted.title')}
         </Text>
 

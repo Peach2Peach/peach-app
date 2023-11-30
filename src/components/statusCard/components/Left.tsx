@@ -22,11 +22,7 @@ export const Left = ({ icon, title, subtext, replaced = false }: Props) => {
       </FixedHeightText>
 
       <View style={tw`flex-row items-center gap-6px`}>
-        {replaced ? (
-          <Icon id="cornerDownRight" color={tw`text-black-1`.color} style={tw`w-17px h-17px`} />
-        ) : (
-          !!icon && icon
-        )}
+        {replaced ? <Icon id="cornerDownRight" color={tw.color('black-1')} style={tw`w-17px h-17px`} /> : !!icon && icon}
         <FixedHeightText
           style={[
             tw`body-s text-black-2`,

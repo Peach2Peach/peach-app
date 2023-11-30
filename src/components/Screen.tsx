@@ -43,7 +43,7 @@ export const Screen = ({ children, header, showTradingLimit = false, gradientBac
               !hasFooter && { paddingBottom: insets.bottom },
             ]}
           >
-            <View style={[tw`flex-1 p-sm`, tw.md`p-md`, style]}>{children}</View>
+            <View style={[tw`flex-1 p-sm`, tw`md:p-md`, style]}>{children}</View>
             {showTradingLimit && <DailyTradingLimit />}
           </View>
         </View>
