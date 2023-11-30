@@ -42,7 +42,7 @@ export function AddressLabelInput ({ address, fallback }: Props) {
         style={tw`overflow-hidden leading-relaxed text-center body-l text-black-1`}
       />
       <TouchableOpacity onPress={onIconPress}>
-        <Icon id={isEditing ? 'checkSquare' : 'edit3'} color={tw`text-primary-main`.color} size={16} />
+        <Icon id={isEditing ? 'checkSquare' : 'edit3'} color={tw.color('primary-main')} size={16} />
       </TouchableOpacity>
     </View>
   )

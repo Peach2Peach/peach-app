@@ -22,7 +22,7 @@ export const TransactionETASummaryItem = ({ txId }: Props) => {
       title={i18n('time')}
       text={i18n(`transaction.eta.${etaInBlocks === 1 ? 'in1Block' : 'inXBlocks'}`, String(etaInBlocks))}
       iconId="helpCircle"
-      iconColor={tw`text-info-main`.color}
+      iconColor={tw.color('info-main')}
       onPress={showHelp}
     />
   )

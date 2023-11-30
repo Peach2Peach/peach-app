@@ -45,49 +45,49 @@ const newThemes = {
     title: tw`text-black-1`,
     subtitle: tw`text-success-main`,
     border: tw`border-success-mild-1`,
-    backButton: tw`text-black-2`,
+    backButtonColor: tw.color('black-2'),
   },
   seller: {
     bg: tw`bg-primary-background-dark`,
     title: tw`text-black-1`,
     subtitle: tw`text-primary-main`,
     border: tw`border-primary-mild-1`,
-    backButton: tw`text-black-2`,
+    backButtonColor: tw.color('black-2'),
   },
   paymentTooLate: {
     bg: tw`bg-warning-mild-1`,
     title: tw`text-black-1`,
     subtitle: tw`text-black-1`,
     border: tw`border-warning-mild-2`,
-    backButton: tw`text-black-2`,
+    backButtonColor: tw.color('black-2'),
   },
   dispute: {
     bg: tw`bg-error-main`,
     title: tw`text-primary-background-light`,
     subtitle: tw`text-primary-background-light`,
     border: tw`border-error-dark`,
-    backButton: tw`text-primary-background-light`,
+    backButtonColor: tw.color('primary-background-light'),
   },
   cancel: {
     bg: tw`bg-black-5`,
     title: tw`text-black-1`,
     subtitle: tw`text-black-1`,
     border: tw`border-black-4`,
-    backButton: tw`text-black-2`,
+    backButtonColor: tw.color('black-2'),
   },
   default: {
     bg: tw`bg-primary-background`,
     title: tw`text-black-1`,
     subtitle: tw`text-black-1`,
     border: tw`border-primary-background-dark`,
-    backButton: tw`text-black-2`,
+    backButtonColor: tw.color('black-2'),
   },
   transparent: {
     bg: tw`bg-transparent`,
     title: tw`text-primary-background-light`,
     subtitle: tw`text-primary-background-light`,
     border: tw`border-transparent`,
-    backButton: tw`text-primary-background-light`,
+    backButtonColor: tw.color('primary-background-light'),
   },
 }
 export const Header = ({
@@ -134,7 +134,7 @@ function HeaderNavigation ({
       <View style={tw`flex-row items-center flex-1 gap-1`}>
         {shouldShowBackButton && (
           <TouchableOpacity onPress={goBack}>
-            <Icon id="chevronLeft" style={24} color={newThemes[theme].backButton.color} />
+            <Icon id="chevronLeft" style={24} color={newThemes[theme].backButtonColor} />
           </TouchableOpacity>
         )}
         {titleComponent || (
@@ -147,11 +147,7 @@ function HeaderNavigation ({
       <View style={tw`flex-row items-center justify-end gap-10px`}>
         {icons?.map(({ id, accessibilityHint, color, onPress }, i) => (
           <TouchableOpacity key={`${i}-${id}`} style={tw`p-2px`} {...{ accessibilityHint, onPress }}>
-            <Icon
-              id={id}
-              color={theme !== 'dispute' ? color : tw`text-primary-background-light`.color}
-              style={iconSize}
-            />
+            <Icon id={id} color={theme !== 'dispute' ? color : tw.color('primary-background-light')} style={iconSize} />
           </TouchableOpacity>
         ))}
       </View>

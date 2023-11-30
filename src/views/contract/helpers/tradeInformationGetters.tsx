@@ -141,7 +141,7 @@ function PaymentMethodBubble ({ contract }: { contract: Contract }) {
       {hasLink && (
         <TouchableOpacity onPress={openLink} style={tw`flex-row items-center justify-end gap-1`}>
           <Text style={tw`underline body-s text-black-2`}>{i18n('contract.summary.openApp')}</Text>
-          <Icon id="externalLink" size={16} color={tw`text-primary-main`.color} />
+          <Icon id="externalLink" size={16} color={tw.color('primary-main')} />
         </TouchableOpacity>
       )}
     </View>

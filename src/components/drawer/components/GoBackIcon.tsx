@@ -14,7 +14,7 @@ export const GoBackIcon = () => {
 
   return (
     <TouchableOpacity onPress={goBack} disabled={!previousDrawer} style={!previousDrawer && tw`opacity-0`}>
-      <Icon id="chevronLeft" size={24} color={tw`text-black-4`.color} />
+      <Icon id="chevronLeft" size={24} color={tw.color('black-4')} />
     </TouchableOpacity>
   )
 }

@@ -140,7 +140,7 @@ export const ChatMessage = ({
             <Text style={tw`mr-1 text-error-main`}>
               {i18n('chat.failedToSend')} <Text style={tw`underline text-error-main`}>{i18n('retry')}</Text>
             </Text>
-            <Icon id="refreshCcw" style={tw`w-3 h-3`} color={tw`text-error-main`.color} />
+            <Icon id="refreshCcw" style={tw`w-3 h-3`} color={tw.color('error-main')} />
           </TouchableOpacity>
         )}
       </View>

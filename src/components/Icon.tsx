@@ -5,7 +5,7 @@ import { PeachText } from './text/Text'
 
 type Props = ComponentProps & {
   id: IconType
-  color?: FillProps['fill']
+  color?: FillProps['fill'] | ReturnType<typeof tw.color>
   size?: number
 }
 const defaultSize = tw`w-6`.width

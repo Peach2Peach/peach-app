@@ -13,7 +13,7 @@ type Props = {
 
 export const SliderKnob = ({ enabled = true, pan, iconId }: Props) => {
   const icon = {
-    color: tw`text-primary-background-light`.color,
+    color: tw.color('primary-background-light'),
     size: useIsMediumScreen() ? 18 : 16,
   }
 

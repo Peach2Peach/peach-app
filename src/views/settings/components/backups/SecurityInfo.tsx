@@ -4,9 +4,9 @@ import { Icon, Text } from '../../../../components'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 const items = [
-  { id: 'edit', text: 'writeItDown', color: tw`text-success-main`.color },
-  { id: 'cameraOff', text: 'noPictures', color: tw`text-error-main`.color },
-  { id: 'cloudOff', text: 'noDigital', color: tw`text-error-main`.color },
+  { id: 'edit', text: 'writeItDown', color: tw.color('success-main') },
+  { id: 'cameraOff', text: 'noPictures', color: tw.color('error-main') },
+  { id: 'cloudOff', text: 'noDigital', color: tw.color('error-main') },
 ] as const
 
 export const SecurityInfo = () => (

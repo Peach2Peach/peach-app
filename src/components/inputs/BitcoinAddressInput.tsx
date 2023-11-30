@@ -24,7 +24,7 @@ export const BitcoinAddressInput = ({ value, onChange, ...props }: InputProps & 
   return !showQRScanner ? (
     <Input
       placeholder={i18n('form.address.btc.placeholder')}
-      placeholderTextColor={tw`text-black-5`.color}
+      placeholderTextColor={tw.color('black-5')}
       icons={[
         ['clipboard', pasteAddress],
         ['camera', showQR],

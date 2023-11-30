@@ -36,7 +36,7 @@ export const MatchOfferButton = ({ matchId, matchOffer, optionName }: Props) => 
       disabled={optionName === 'offerMatched'}
     >
       <Text style={tw`button-large text-primary-background-light`}>{i18n(currentOption.text)}</Text>
-      <Icon id={currentOption.iconId} color={tw`text-primary-background-light`.color} size={24} />
+      <Icon id={currentOption.iconId} color={tw.color('primary-background-light')} size={24} />
     </TouchableOpacity>
   )
 }

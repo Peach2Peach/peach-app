@@ -19,7 +19,7 @@ export function Overlay ({ buttons, title, text, iconId }: Props) {
         <View style={tw`justify-center gap-8 grow`}>
           <PeachText style={tw`text-center h4 text-primary-background-light shrink`}>{title}</PeachText>
           <View style={tw`flex-row items-center gap-6`}>
-            {iconId && <Icon id={iconId} size={92} color={tw`text-primary-background-light`.color} />}
+            {iconId && <Icon id={iconId} size={92} color={tw.color('primary-background-light')} />}
             <PeachText style={[tw`flex-1 body-l text-primary-background-light`, !iconId && tw`text-center`]}>
               {text}
             </PeachText>

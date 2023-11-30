@@ -3,8 +3,8 @@ import { useCallback, useImperativeHandle, useState } from 'react'
 import { Pressable, TextStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { Fade } from '../animation'
 import { Icon } from '../Icon'
+import { Fade } from '../animation'
 import { Text } from '../text'
 
 export type CopyRef = {
@@ -44,7 +44,7 @@ export const CopyAble = ({ forwardRef, value, color, disabled, style, textPositi
       disabled={!value || disabled}
       style={[tw`flex-row items-center justify-center flex-shrink w-4 h-4`, style]}
     >
-      <Icon id="copy" style={tw`w-full h-full`} color={color?.color || tw`text-primary-main`.color} />
+      <Icon id="copy" style={tw`w-full h-full`} color={color?.color || tw.color('primary-main')} />
       <Fade show={showCopied} duration={300} delay={0} style={textPositions[textPosition]}>
         <Text style={[tw`tooltip`, color || tw`text-primary-main`]}>{i18n('copied')}</Text>
       </Fade>

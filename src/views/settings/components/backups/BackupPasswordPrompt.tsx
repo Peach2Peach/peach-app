@@ -70,7 +70,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
             value={password}
             errorMessage={passwordError}
             style={passwordIsValid && tw`border-black-2`}
-            iconColor={tw`text-black-2`.color}
+            iconColor={tw.color('black-2')}
           />
           <Input
             placeholder={i18n('form.repeatpassword.placeholder')}
@@ -81,7 +81,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
             value={passwordRepeat}
             errorMessage={passwordRepeatError}
             style={passwordRepeatIsValid && tw`border-black-2`}
-            iconColor={tw`text-black-2`.color}
+            iconColor={tw.color('black-2')}
           />
         </View>
       </PeachScrollView>

@@ -50,14 +50,14 @@ export const PremiumInput = ({ premium, setPremium }: Props) => {
   return (
     <View style={tw`flex-row items-center justify-between`}>
       <TouchableOpacity onPress={onMinusPress} accessibilityHint={i18n('number.decrease')}>
-        <Icon id="minusCircle" size={24} color={tw`text-primary-main`.color} />
+        <Icon id="minusCircle" size={24} color={tw.color('primary-main')} />
       </TouchableOpacity>
       <View style={tw`flex-row items-center justify-center gap-2 grow`}>
         <Text style={[tw`text-center body-l`, textColor]}>{i18n(premium >= 0 ? 'sell.premium' : 'sell.discount')}:</Text>
         <PercentageInput value={displayValue} onChange={changePremium} />
       </View>
       <TouchableOpacity onPress={onPlusPress} accessibilityHint={i18n('number.increase')}>
-        <Icon id="plusCircle" size={24} color={tw`text-primary-main`.color} />
+        <Icon id="plusCircle" size={24} color={tw.color('primary-main')} />
       </TouchableOpacity>
     </View>
   )

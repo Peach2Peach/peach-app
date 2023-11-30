@@ -55,8 +55,8 @@ function OnboardingHeader () {
     })
   }
   const headerIcons: HeaderIcon[] = [
-    { id: 'mail', color: tw`text-primary-background-light`.color, onPress: () => navigation.navigate('contact') },
-    { id: 'globe', color: tw`text-primary-background-light`.color, onPress: openLanguageDrawer },
+    { id: 'mail', color: tw.color('primary-background-light'), onPress: () => navigation.navigate('contact') },
+    { id: 'globe', color: tw.color('primary-background-light'), onPress: openLanguageDrawer },
   ]
   return <Header title={i18n('restoreBackup.title')} icons={headerIcons} theme="transparent" />
 }

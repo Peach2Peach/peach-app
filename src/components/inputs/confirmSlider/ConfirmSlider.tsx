@@ -65,7 +65,7 @@ export function UnlockedSlider ({
   const { widthToSlide, onLayout } = useConfirmSliderSetup({ onConfirm: () => {}, enabled: false })
   const pan = new Animated.Value(1)
   const icon = {
-    color: tw`text-primary-background-light`.color,
+    color: tw.color('primary-background-light'),
     size: useIsMediumScreen() ? 18 : 16,
   }
   return (

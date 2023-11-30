@@ -47,7 +47,7 @@ export const Welcome = () => {
         style={[tw`flex-row items-center self-end h-8 gap-1`, endReached && tw`opacity-0`]}
       >
         <Text style={tw`text-primary-background-light`}>{i18n('skip')}</Text>
-        <Icon id="skipForward" size={12} color={tw`text-primary-background-light`.color} />
+        <Icon id="skipForward" size={12} color={tw.color('primary-background-light')} />
       </TouchableOpacity>
       <View style={tw`items-center h-full shrink`}>
         <Carousel
@@ -98,8 +98,8 @@ function OnboardingHeader () {
     })
   }
   const headerIcons: HeaderIcon[] = [
-    { id: 'mail', color: tw`text-primary-background-light`.color, onPress: () => navigation.navigate('contact') },
-    { id: 'globe', color: tw`text-primary-background-light`.color, onPress: openLanguageDrawer },
+    { id: 'mail', color: tw.color('primary-background-light'), onPress: () => navigation.navigate('contact') },
+    { id: 'globe', color: tw.color('primary-background-light'), onPress: openLanguageDrawer },
   ]
   return <Header title={i18n('welcome.welcomeToPeach.title')} icons={headerIcons} theme="transparent" hideGoBackButton />
 }

@@ -17,7 +17,7 @@ export const BitcoinProducts = () => (
       </PeachText>
       <TouchableOpacity style={tw`flex-row items-center gap-4 mt-4`} onPress={goToShiftCrypto}>
         <PeachText style={tw`underline text-primary-main settings`}>{i18n('settings.bitcoinProducts.bitBox')}</PeachText>
-        <Icon id="externalLink" style={tw`w-6 h-6 -mt-1`} color={tw`text-primary-main`.color} />
+        <Icon id="externalLink" style={tw`w-6 h-6 -mt-1`} color={tw.color('primary-main')} />
       </TouchableOpacity>
     </View>
   </Screen>

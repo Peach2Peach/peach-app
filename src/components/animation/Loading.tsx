@@ -12,6 +12,6 @@ export const Loading = ({ style, color }: Props) => (
     style={[tw`w-20 h-20`, style]}
     source={loading}
     autoPlay
-    colorFilters={[{ keypath: 'main', color: (color ?? tw`text-primary-main`.color) as string }]}
+    colorFilters={[{ keypath: 'main', color: (color ?? tw.color('primary-main')) as string }]}
   />
 )

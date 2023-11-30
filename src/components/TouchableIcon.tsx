@@ -9,7 +9,7 @@ type Props = {
   iconSize?: number
 } & TouchableOpacityProps
 
-export function TouchableIcon ({ id, iconColor = tw`text-primary-main`.color, iconSize, ...touchableProps }: Props) {
+export function TouchableIcon ({ id, iconColor = tw.color('primary-main'), iconSize, ...touchableProps }: Props) {
   return (
     <TouchableOpacity {...touchableProps}>
       <Icon id={id} size={iconSize ?? 24} color={iconColor} />

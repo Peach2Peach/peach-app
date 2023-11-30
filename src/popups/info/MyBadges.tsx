@@ -12,7 +12,7 @@ export const MyBadges = () => (
       <Fragment key={`peachBadges.popup-${index}`}>
         <View style={tw`flex-row items-center mt-3`}>
           <View style={tw`w-[18px] h-[18px] p-[3px] mx-[3px] rounded-full bg-info-light`}>
-            <Icon id={icon} color={tw`text-primary-background-light`.color} style={tw`w-3 h-3`} />
+            <Icon id={icon} color={tw.color('primary-background-light')} style={tw`w-3 h-3`} />
           </View>
           <PeachText style={tw`ml-1 subtitle-1`}>{i18n(`peachBadges.${value}`)}</PeachText>
         </View>

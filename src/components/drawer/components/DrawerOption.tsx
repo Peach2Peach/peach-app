@@ -3,7 +3,7 @@ import tw from '../../../styles/tailwind'
 import { Flag } from '../../Flag'
 import { Icon } from '../../Icon'
 import { PaymentLogo } from '../../payment/PaymentLogo'
-import { Text, FixedHeightText } from '../../text'
+import { FixedHeightText, Text } from '../../text'
 
 export const DrawerOption = ({
   logoID,
@@ -55,7 +55,7 @@ export const DrawerOption = ({
         ))}
     </View>
     {(iconRightID || highlighted) && (
-      <Icon id={iconRightID ? iconRightID : 'star'} style={tw`w-6 h-6`} color={tw`text-primary-main`.color} />
+      <Icon id={iconRightID ? iconRightID : 'star'} style={tw`w-6 h-6`} color={tw.color('primary-main')} />
     )}
   </TouchableOpacity>
 )

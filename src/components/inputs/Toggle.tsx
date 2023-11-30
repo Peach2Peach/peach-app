@@ -16,9 +16,9 @@ export const Toggle = ({ enabled, disabled, onPress, children, style, textStyle 
   >
     <Text style={[tw`settings`, textStyle]}>{children}</Text>
     {enabled ? (
-      <Icon id="toggleRight" size={32} color={tw`text-primary-main`.color} />
+      <Icon id="toggleRight" size={32} color={tw.color('primary-main')} />
     ) : (
-      <Icon id="toggleLeft" size={32} color={tw`text-black-3`.color} />
+      <Icon id="toggleLeft" size={32} color={tw.color('black-3')} />
     )}
   </TouchableOpacity>
 )

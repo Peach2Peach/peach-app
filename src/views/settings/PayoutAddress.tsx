@@ -53,7 +53,7 @@ export const PayoutAddress = () => {
         <Input
           value={addressLabel}
           placeholder={i18n('form.address.label.placeholder')}
-          placeholderTextColor={tw`text-black-5`.color}
+          placeholderTextColor={tw.color('black-5')}
           onChange={setAddressLabel}
           errorMessage={addressLabelErrors}
         />
@@ -62,7 +62,7 @@ export const PayoutAddress = () => {
           <View style={tw`gap-2`}>
             <View style={tw`flex-row justify-center gap-1`}>
               <Text style={tw`uppercase button-medium`}>{i18n('settings.payoutAddress.success')}</Text>
-              <Icon id="check" size={20} color={tw`text-success-main`.color} />
+              <Icon id="check" size={20} color={tw.color('success-main')} />
             </View>
             <RemoveWalletButton setAddressInput={setAddress} setAddressLabelInput={setAddressLabel} />
           </View>
@@ -104,7 +104,7 @@ function RemoveWalletButton (popupProps: PopupProps) {
   return (
     <TouchableOpacity onPress={openRemoveWalletPopup} style={tw`flex-row justify-center gap-1`}>
       <Text style={tw`underline uppercase button-medium`}>{i18n('settings.payoutAddress.removeWallet')}</Text>
-      <Icon id="trash" size={20} color={tw`text-error-main`.color} />
+      <Icon id="trash" size={20} color={tw.color('error-main')} />
     </TouchableOpacity>
   )
 }

@@ -41,7 +41,7 @@ function DailyMessage () {
       <PeachyGradient style={tw`absolute w-full h-full`} />
       <View style={tw`flex-row items-center self-stretch justify-center p-4 gap-10px`}>
         <Text style={tw`flex-1 text-center subtitle-1 text-primary-background-light`}>{message.text}</Text>
-        <Icon id="share" color={tw`text-primary-background-light`.color} />
+        <Icon id="share" color={tw.color('primary-background-light')} />
       </View>
     </View>
   )

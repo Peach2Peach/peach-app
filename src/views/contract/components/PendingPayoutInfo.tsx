@@ -11,7 +11,7 @@ export const PendingPayoutInfo = () => {
   const etaProps = {
     title: i18n('batching.eta'),
     iconId: 'helpCircle' as const,
-    iconColor: tw`text-info-main`.color,
+    iconColor: tw.color('info-main'),
     onPress: showHelp,
   }
   if (!batchInfo) return <></>
