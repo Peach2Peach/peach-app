@@ -1,6 +1,5 @@
 export { auth } from './auth'
 export { authWS } from './authWS'
-export { deletePaymentHash } from './deletePaymentHash'
 export { fetchAccessToken } from './fetchAccessToken'
 export { getTradingLimit } from './getTradingLimit'
 export { getUserPaymentMethodInfo } from './getUserPaymentMethodInfo'

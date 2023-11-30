@@ -7,7 +7,6 @@ export { peachAPI } from './peachAPI'
 export { cancelOffer, getOfferDetails } from './private/offer'
 export {
   auth,
-  deletePaymentHash,
   fetchAccessToken,
   getTradingLimit,
   getUserPaymentMethodInfo,
