@@ -11,10 +11,7 @@ exports[`WelcomeInfo - aWalletYouControl renders correctly 1`] = `
         "paddingLeft": 8,
         "paddingRight": 8,
       },
-      {
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
+      {},
     ]
   }
 >
@@ -93,10 +90,7 @@ exports[`WelcomeInfo - peachOfMind renders correctly 1`] = `
         "paddingLeft": 8,
         "paddingRight": 8,
       },
-      {
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
+      {},
     ]
   }
 >
@@ -175,10 +169,7 @@ exports[`WelcomeInfo - peerToPeer renders correctly 1`] = `
         "paddingLeft": 8,
         "paddingRight": 8,
       },
-      {
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
+      {},
     ]
   }
 >
@@ -257,10 +248,7 @@ exports[`WelcomeInfo - privacyFirst renders correctly 1`] = `
         "paddingLeft": 8,
         "paddingRight": 8,
       },
-      {
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
+      {},
     ]
   }
 >

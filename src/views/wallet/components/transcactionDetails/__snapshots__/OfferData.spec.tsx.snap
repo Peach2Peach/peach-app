@@ -40,12 +40,7 @@ exports[`OfferData should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -709,12 +704,7 @@ exports[`OfferData should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -880,12 +870,7 @@ exports[`OfferData should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -1095,12 +1080,7 @@ exports[`OfferData should render correctly without  price, currency and address 
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -1764,12 +1744,7 @@ exports[`OfferData should render correctly without  price, currency and address 
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]

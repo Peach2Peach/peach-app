@@ -50,8 +50,8 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
           "height": 28,
           "justifyContent": "center",
           "opacity": 1,
-          "paddingLeft": 10,
-          "paddingRight": 10,
+          "paddingLeft": 8,
+          "paddingRight": 8,
         }
       }
     >
@@ -80,13 +80,7 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
                 "textAlign": "center",
                 "textTransform": "uppercase",
               },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 15,
-                "letterSpacing": 0.54,
-                "lineHeight": 26,
-                "textTransform": "uppercase",
-              },
+              {},
             ],
             false,
           ]
@@ -542,7 +536,7 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
 - First value
 + Second value
 
-@@ -102,140 +102,10 @@
+@@ -96,140 +96,10 @@
               undefined,
             ]
           }
@@ -683,7 +677,7 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
         style={
           Array [
             Object {
-@@ -246,289 +116,17 @@
+@@ -240,289 +110,17 @@
               "lineHeight": 24,
             },
             Object {

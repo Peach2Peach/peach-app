@@ -24,12 +24,7 @@ exports[`SummaryItem renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
-        {
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 20,
-          "letterSpacing": 0.2,
-          "lineHeight": 28,
-        },
+        {},
       ]
     }
   >
@@ -67,12 +62,7 @@ exports[`SummaryItem renders correctly for medium screens 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
-        {
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 20,
-          "letterSpacing": 0.2,
-          "lineHeight": 28,
-        },
+        {},
       ]
     }
   >

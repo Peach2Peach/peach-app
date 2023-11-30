@@ -54,12 +54,7 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
               "letterSpacing": 0.2,
               "lineHeight": 32,
             },
-            {
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 24,
-              "letterSpacing": 0.24,
-              "lineHeight": 32,
-            },
+            {},
           ],
           false,
         ]
@@ -116,8 +111,8 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
             "height": 28,
             "justifyContent": "center",
             "opacity": 1,
-            "paddingLeft": 10,
-            "paddingRight": 10,
+            "paddingLeft": 8,
+            "paddingRight": 8,
           }
         }
       >
@@ -146,13 +141,7 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
                   "textAlign": "center",
                   "textTransform": "uppercase",
                 },
-                {
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 15,
-                  "letterSpacing": 0.54,
-                  "lineHeight": 26,
-                  "textTransform": "uppercase",
-                },
+                {},
               ],
               false,
             ]
@@ -232,12 +221,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
               "letterSpacing": 0.2,
               "lineHeight": 32,
             },
-            {
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 24,
-              "letterSpacing": 0.24,
-              "lineHeight": 32,
-            },
+            {},
           ],
           false,
         ]
@@ -294,8 +278,8 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
             "height": 28,
             "justifyContent": "center",
             "opacity": 1,
-            "paddingLeft": 10,
-            "paddingRight": 10,
+            "paddingLeft": 8,
+            "paddingRight": 8,
           }
         }
       >
@@ -324,13 +308,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
                   "textAlign": "center",
                   "textTransform": "uppercase",
                 },
-                {
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 15,
-                  "letterSpacing": 0.54,
-                  "lineHeight": 26,
-                  "textTransform": "uppercase",
-                },
+                {},
               ],
               false,
             ]
@@ -410,12 +388,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
               "letterSpacing": 0.2,
               "lineHeight": 32,
             },
-            {
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 24,
-              "letterSpacing": 0.24,
-              "lineHeight": 32,
-            },
+            {},
           ],
           false,
         ]
@@ -472,8 +445,8 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
             "height": 28,
             "justifyContent": "center",
             "opacity": 1,
-            "paddingLeft": 10,
-            "paddingRight": 10,
+            "paddingLeft": 8,
+            "paddingRight": 8,
           }
         }
       >
@@ -502,13 +475,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
                   "textAlign": "center",
                   "textTransform": "uppercase",
                 },
-                {
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 15,
-                  "letterSpacing": 0.54,
-                  "lineHeight": 26,
-                  "textTransform": "uppercase",
-                },
+                {},
               ],
               false,
             ]
@@ -586,12 +553,7 @@ exports[`TransactionHeader should render correctly for a receiving transaction 1
               "letterSpacing": 0.2,
               "lineHeight": 32,
             },
-            {
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 24,
-              "letterSpacing": 0.24,
-              "lineHeight": 32,
-            },
+            {},
           ],
           false,
         ]
@@ -666,12 +628,7 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
               "letterSpacing": 0.2,
               "lineHeight": 32,
             },
-            {
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 24,
-              "letterSpacing": 0.24,
-              "lineHeight": 32,
-            },
+            {},
           ],
           false,
         ]
@@ -728,8 +685,8 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
             "height": 28,
             "justifyContent": "center",
             "opacity": 1,
-            "paddingLeft": 10,
-            "paddingRight": 10,
+            "paddingLeft": 8,
+            "paddingRight": 8,
           }
         }
       >
@@ -758,13 +715,7 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
                   "textAlign": "center",
                   "textTransform": "uppercase",
                 },
-                {
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 15,
-                  "letterSpacing": 0.54,
-                  "lineHeight": 26,
-                  "textTransform": "uppercase",
-                },
+                {},
               ],
               false,
             ]
@@ -842,12 +793,7 @@ exports[`TransactionHeader should render correctly for an outgoing transaction 1
               "letterSpacing": 0.2,
               "lineHeight": 32,
             },
-            {
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 24,
-              "letterSpacing": 0.24,
-              "lineHeight": 32,
-            },
+            {},
           ],
           false,
         ]

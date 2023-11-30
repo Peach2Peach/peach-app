@@ -91,7 +91,9 @@ exports[`ProgressDonut should render correctly 1`] = `
               "fontWeight": "bold",
             },
             {},
-            undefined,
+            {
+              "marginTop": 2,
+            },
           ]
         }
       >
@@ -226,9 +228,7 @@ exports[`ProgressDonut should render correctly for medium viewports 1`] = `
           "fontWeight": "bold",
           "textAlign": "center",
         },
-        {
-          "fontSize": 14,
-        },
+        {},
       ]
     }
   >
@@ -241,10 +241,7 @@ exports[`ProgressDonut should render correctly for medium viewports 1`] = `
           "height": 32,
           "width": 32,
         },
-        {
-          "height": 40,
-          "width": 40,
-        },
+        {},
       ]
     }
   >
@@ -301,9 +298,7 @@ exports[`ProgressDonut should render correctly for medium viewports 1`] = `
               "fontSize": 12,
               "fontWeight": "bold",
             },
-            {
-              "fontSize": 16,
-            },
+            {},
             {
               "marginTop": 2,
             },
@@ -408,7 +403,9 @@ exports[`ProgressDonut should render correctly when empty 1`] = `
               "fontWeight": "bold",
             },
             {},
-            undefined,
+            {
+              "marginTop": 2,
+            },
           ]
         }
       >
@@ -510,7 +507,9 @@ exports[`ProgressDonut should render correctly when full 1`] = `
               "fontWeight": "bold",
             },
             {},
-            undefined,
+            {
+              "marginTop": 2,
+            },
           ]
         }
       >

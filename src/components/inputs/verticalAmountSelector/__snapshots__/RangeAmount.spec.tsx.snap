@@ -21,9 +21,7 @@ exports[`RangeAmount should render correctly 1`] = `
           "flexShrink": 1,
           "gap": 8,
         },
-        {
-          "gap": 16,
-        },
+        {},
       ]
     }
   >
@@ -46,12 +44,7 @@ exports[`RangeAmount should render correctly 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 26,
           },
-          {
-            "fontFamily": "Baloo2-Bold",
-            "fontSize": 24,
-            "letterSpacing": 0.24,
-            "lineHeight": 32,
-          },
+          {},
         ]
       }
     >
@@ -76,12 +69,7 @@ exports[`RangeAmount should render correctly 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 26,
           },
-          {
-            "fontFamily": "Baloo2-Bold",
-            "fontSize": 24,
-            "letterSpacing": 0.24,
-            "lineHeight": 32,
-          },
+          {},
         ]
       }
     >

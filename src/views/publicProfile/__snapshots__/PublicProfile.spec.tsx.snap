@@ -75,10 +75,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
               "paddingRight": 8,
               "paddingTop": 6,
             },
-            {
-              "paddingLeft": 16,
-              "paddingRight": 16,
-            },
+            {},
             undefined,
           ]
         }
@@ -114,12 +111,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 26,
                   },
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 20,
-                    "letterSpacing": 0.2,
-                    "lineHeight": 32,
-                  },
+                  {},
                   {
                     "color": "#2B1911",
                   },
@@ -175,12 +167,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
               "paddingRight": 8,
               "paddingTop": 8,
             },
-            {
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
-            },
+            {},
             undefined,
           ]
         }
@@ -251,8 +238,8 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                     "height": 28,
                     "justifyContent": "center",
                     "opacity": 1,
-                    "paddingLeft": 10,
-                    "paddingRight": 10,
+                    "paddingLeft": 8,
+                    "paddingRight": 8,
                   }
                 }
               >
@@ -281,13 +268,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                           "textAlign": "center",
                           "textTransform": "uppercase",
                         },
-                        {
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 15,
-                          "letterSpacing": 0.54,
-                          "lineHeight": 26,
-                          "textTransform": "uppercase",
-                        },
+                        {},
                       ],
                       false,
                     ]

@@ -29,12 +29,7 @@ exports[`Premium should render the Premium view 1`] = `
               "lineHeight": 32,
               "textAlign": "center",
             },
-            {
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 24,
-              "letterSpacing": 0.24,
-              "lineHeight": 32,
-            },
+            {},
           ]
         }
       >

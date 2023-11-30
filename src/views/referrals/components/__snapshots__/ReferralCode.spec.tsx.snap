@@ -377,12 +377,12 @@ exports[`ReferralCode should render component correctly 1`] = `
         "flexDirection": "row",
         "gap": 8,
         "justifyContent": "center",
-        "minWidth": 128,
+        "minWidth": 104,
         "opacity": 1,
-        "paddingBottom": 7,
-        "paddingLeft": 32,
-        "paddingRight": 32,
-        "paddingTop": 7,
+        "paddingBottom": 3,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+        "paddingTop": 3,
       }
     }
   >
@@ -407,13 +407,7 @@ exports[`ReferralCode should render component correctly 1`] = `
               "lineHeight": 22,
               "textTransform": "uppercase",
             },
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 15,
-              "letterSpacing": 0.54,
-              "lineHeight": 26,
-              "textTransform": "uppercase",
-            },
+            {},
             {
               "color": "#F56522",
             },

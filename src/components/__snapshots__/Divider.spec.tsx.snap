@@ -61,12 +61,7 @@ exports[`Divider renders correctly on md 1`] = `
           "marginRight": 8,
         },
         false,
-        {
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 20,
-          "letterSpacing": 0.2,
-          "lineHeight": 30,
-        },
+        {},
         false,
         false,
       ]

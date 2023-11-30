@@ -101,8 +101,8 @@ exports[`Match should render correctly for buy offers 1`] = `
                     "height": 28,
                     "justifyContent": "center",
                     "opacity": 1,
-                    "paddingLeft": 10,
-                    "paddingRight": 10,
+                    "paddingLeft": 8,
+                    "paddingRight": 8,
                   }
                 }
               >
@@ -131,13 +131,7 @@ exports[`Match should render correctly for buy offers 1`] = `
                           "textAlign": "center",
                           "textTransform": "uppercase",
                         },
-                        {
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 15,
-                          "letterSpacing": 0.54,
-                          "lineHeight": 26,
-                          "textTransform": "uppercase",
-                        },
+                        {},
                       ],
                       false,
                     ]
@@ -1504,17 +1498,17 @@ exports[`Match should render correctly for matched offers 1`] = `
 +             "width": "100%",
             },
           ]
-        }
++       }
 +       width="100%"
-      >
++     >
 +       <RNSVGGroup
 +         fill={
 +           Object {
 +             "payload": 4278190080,
 +             "type": 0,
-+           }
+            }
 +         }
-+       >
+        >
 +         <RNSVGDefs>
 +           <RNSVGRadialGradient
 +             cx="100%"
@@ -1562,7 +1556,7 @@ exports[`Match should render correctly for matched offers 1`] = `
           Object {
             "margin": 4,
           }
-@@ -1214,11 +1287,11 @@
+@@ -1208,11 +1281,11 @@
                       false,
                     ]
                   }
@@ -1575,7 +1569,7 @@ exports[`Match should render correctly for matched offers 1`] = `
             </View>
             <View
               style={
-@@ -1371,12 +1444,211 @@
+@@ -1365,12 +1438,205 @@
                     },
                     Object {
                       "height": 18,
@@ -1726,12 +1720,12 @@ exports[`Match should render correctly for matched offers 1`] = `
 +                 "flexDirection": "row",
 +                 "gap": 8,
 +                 "justifyContent": "center",
-+                 "minWidth": 128,
++                 "minWidth": 104,
 +                 "opacity": 1,
-+                 "paddingBottom": 7,
-+                 "paddingLeft": 32,
-+                 "paddingRight": 32,
-+                 "paddingTop": 7,
++                 "paddingBottom": 3,
++                 "paddingLeft": 24,
++                 "paddingRight": 24,
++                 "paddingTop": 3,
 +               }
 +             }
 +           >
@@ -1756,13 +1750,7 @@ exports[`Match should render correctly for matched offers 1`] = `
 +                       "lineHeight": 22,
 +                       "textTransform": "uppercase",
 +                     },
-+                     Object {
-+                       "fontFamily": "Baloo2-SemiBold",
-+                       "fontSize": 15,
-+                       "letterSpacing": 0.54,
-+                       "lineHeight": 26,
-+                       "textTransform": "uppercase",
-+                     },
++                     Object {},
 +                     Object {
 +                       "color": "#DF321F",
 +                     },
@@ -1787,7 +1775,7 @@ exports[`Match should render correctly for matched offers 1`] = `
               />
             </View>
           </View>
-@@ -1384,11 +1656,11 @@
+@@ -1378,11 +1644,11 @@
         <View
           accessibilityState={
             Object {
@@ -1800,7 +1788,7 @@ exports[`Match should render correctly for matched offers 1`] = `
             }
           }
           accessibilityValue={
-@@ -1442,11 +1714,11 @@
+@@ -1436,11 +1702,11 @@
                 },
                 false,
               ]
@@ -1916,8 +1904,8 @@ exports[`Match should render correctly for sell offers 1`] = `
                     "height": 28,
                     "justifyContent": "center",
                     "opacity": 1,
-                    "paddingLeft": 10,
-                    "paddingRight": 10,
+                    "paddingLeft": 8,
+                    "paddingRight": 8,
                   }
                 }
               >
@@ -1946,13 +1934,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                           "textAlign": "center",
                           "textTransform": "uppercase",
                         },
-                        {
-                          "fontFamily": "Baloo2-SemiBold",
-                          "fontSize": 15,
-                          "letterSpacing": 0.54,
-                          "lineHeight": 26,
-                          "textTransform": "uppercase",
-                        },
+                        {},
                       ],
                       false,
                     ]
