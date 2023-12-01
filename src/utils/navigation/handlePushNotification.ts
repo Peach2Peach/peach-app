@@ -45,14 +45,14 @@ export const handlePushNotification = async (
   } else if (shouldGoToYourTradesBuy(data)) {
     navigationRef.navigate('homeScreen', { screen: 'yourTrades', params: { tab: 'yourTrades.buy' } })
   } else if (shouldGoToSell(data)) {
-    navigationRef.navigate('homeScreen', { screen: 'sell' })
+    navigationRef.navigate('homeScreen', { screen: 'home' })
   } else if (isDefined(data.offerId)) {
     const { result: offer } = await peachAPI.private.offer.getOfferDetails({ offerId: data.offerId })
     const { offerId } = data
     if (shouldGoToSearch(data.type, !!(offer?.matches && offer.matches.length > 0))) {
       navigationRef.navigate('search', { offerId })
     } else if (shouldGoToOfferPublished(data.type)) {
-      navigationRef.navigate('offerPublished', { offerId, isSellOffer: true, shouldGoBack: true })
+      navigationRef.navigate('offerPublished', { offerId, shouldGoBack: true })
     } else {
       navigationRef.navigate('offer', { offerId })
     }

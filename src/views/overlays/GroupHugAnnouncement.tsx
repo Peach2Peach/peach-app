@@ -19,7 +19,7 @@ export const GroupHugAnnouncement = () => {
   }
   const close = () => {
     setHasSeenGroupHugAnnouncement(true)
-    navigation.replace('offerPublished', { offerId, isSellOffer: false, shouldGoBack: true })
+    navigation.replace('offerPublished', { offerId, shouldGoBack: true })
   }
 
   return (

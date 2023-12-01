@@ -160,7 +160,7 @@ function usePublishOffer (offerDraft: BuyOfferDraft) {
           { name: 'homeScreen', params: { screen: 'yourTrades' } },
           !hasSeenGroupHugAnnouncement
             ? { name: 'groupHugAnnouncement', params: { offerId } }
-            : { name: 'offerPublished', params: { offerId, isSellOffer: false, shouldGoBack: true } },
+            : { name: 'offerPublished', params: { offerId, shouldGoBack: true } },
         ],
       })
     },

@@ -148,7 +148,6 @@ describe('handlePushNotification', () => {
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('offerPublished', {
       offerId: sellOffer.id,
-      isSellOffer: true,
       shouldGoBack: true,
     })
   })

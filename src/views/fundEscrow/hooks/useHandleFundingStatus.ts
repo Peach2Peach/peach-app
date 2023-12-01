@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { useNavigation } from '../../../hooks'
+import { useShowWronglyFundedPopup } from '../../../popups/useShowWronglyFundedPopup'
+import { useStartRefundPopup } from '../../../popups/useStartRefundPopup'
 import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer'
-import { useStartRefundPopup } from '../../../popups/useStartRefundPopup'
-import { useShowWronglyFundedPopup } from '../../../popups/useShowWronglyFundedPopup'
 import { useOfferMatches } from '../../search/hooks'
 
 type Props = {
@@ -49,7 +49,7 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
         if (hasMatches) {
           navigation.replace('search', { offerId })
         } else {
-          navigation.replace('offerPublished', { offerId, isSellOffer: true })
+          navigation.replace('offerPublished', { offerId })
         }
       })
     }

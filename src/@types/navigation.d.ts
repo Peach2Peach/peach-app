@@ -79,7 +79,6 @@ type RootStackParamList = Onboarding & {
   }
   offerPublished: {
     offerId: string
-    isSellOffer: boolean
     shouldGoBack?: boolean
   }
   search: { offerId: string }
