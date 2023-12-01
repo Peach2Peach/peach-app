@@ -190,6 +190,10 @@ module.exports = {
             name: '.',
             message: 'Avoid imports from the index file on the same level.',
           },
+          {
+            name: '..',
+            message: 'Avoid imports from the index file on the same level.',
+          },
         ],
       },
     ],
