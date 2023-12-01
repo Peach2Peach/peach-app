@@ -48,6 +48,7 @@ import { TestView } from './TestView/TestView'
 import { TestViewPeachWallet } from './TestView/peachWallet'
 import { TestViewPNs } from './TestView/pns'
 import { HomeScreen } from './home/HomeScreen'
+import { SellOfferPreferences } from './sell/SellOfferPreferences'
 import { TradeComplete } from './tradeComplete/TradeComplete'
 import { UserSource } from './userSource/UserSource'
 import { AddressChecker } from './wallet/AddressChecker'
@@ -95,6 +96,7 @@ const buyFlow: ViewType[] = [
 ]
 
 const sellFlow: ViewType[] = [
+  { name: 'sellOfferPreferences', component: SellOfferPreferences },
   { name: 'premium', component: OfferPreferencePremium },
   { name: 'sellPreferences', component: PaymentMethods },
   { name: 'sellSummary', component: SellSummary },

@@ -41,6 +41,7 @@ type RootStackParamList = Onboarding & {
   }
   buy: undefined
   sell: undefined
+  sellOfferPreferences: undefined
   buyPreferences: undefined
   premium: undefined
   sellPreferences: undefined

@@ -4,6 +4,7 @@ import { LogoIcons } from '../../assets/logo'
 import { Header, Icon, Screen, Text } from '../../components'
 import { PeachyGradient } from '../../components/PeachyGradient'
 import { Button } from '../../components/buttons/Button'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
@@ -48,6 +49,7 @@ function DailyMessage () {
 }
 
 function MarketStats () {
+  // TODO: implement
   const data = { openBuyOffers: 0, openSellOffers: 0, averagePremium: 0 }
   return (
     <View style={tw`items-center justify-center pb-4 gap-10px grow`}>
@@ -67,5 +69,11 @@ function BuyButton () {
 }
 
 function SellButton () {
-  return <Button style={tw`flex-1 px-5 py-3`}>{i18n('sell')}</Button>
+  const navigation = useNavigation()
+  const goToSellOfferPreferences = () => navigation.navigate('sellOfferPreferences')
+  return (
+    <Button style={tw`flex-1 px-5 py-3`} onPress={goToSellOfferPreferences}>
+      {i18n('sell')}
+    </Button>
+  )
 }
