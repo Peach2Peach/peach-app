@@ -1,6 +1,6 @@
 import { account1 } from '../../../tests/unit/data/accountData'
 import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
-import { getPeachAccount } from '../peachAPI/peachAccount'
+import { peachAPI } from '../peachAPI'
 import { PeachWallet } from '../wallet/PeachWallet'
 import { setWallets } from './setWallets'
 
@@ -10,7 +10,7 @@ describe('setWallets', () => {
 
   it('loads peach account', async () => {
     await setWallets(wallet, account1.mnemonic)
-    expect(getPeachAccount()?.privateKey?.toString('hex')).toBe(
+    expect(peachAPI.options.peachAccount?.privateKey?.toString('hex')).toBe(
       'ac284cf5aada8604e6d9adb9ce3d946b65d997636c144ad9f9652b342b50cf73',
     )
   })

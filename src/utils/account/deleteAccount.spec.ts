@@ -3,7 +3,7 @@ import * as accountData from '../../../tests/unit/data/accountData'
 import { useSessionStore } from '../../store/sessionStore'
 import { settingsStorage } from '../../store/settingsStore'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
-import { deletePeachAccount } from '../peachAPI/peachAccount'
+import { peachAPI } from '../peachAPI'
 import { setAccount } from './account'
 import { accountStorage } from './accountStorage'
 import { chatStorage } from './chatStorage'
@@ -31,7 +31,7 @@ describe('deleteAccount', () => {
     expect(settingsStorage.clearStore).toHaveBeenCalled()
     expect(usePaymentDataStoreReset).toHaveBeenCalled()
     expect(useSessionStoreReset).toHaveBeenCalled()
-    expect(deletePeachAccount).toHaveBeenCalled()
+    expect(peachAPI.options.peachAccount).toBeNull()
 
     ok(true)
   })

@@ -6,7 +6,6 @@ import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { notificationStorage, useNotificationStore } from '../../views/home/notificationsStore'
 import { info } from '../log'
 import { peachAPI } from '../peachAPI'
-import { deletePeachAccount } from '../peachAPI/peachAccount'
 import { useWalletState, walletStorage } from '../wallet/walletStore'
 import { defaultAccount } from './account'
 import { accountStorage } from './accountStorage'
@@ -30,7 +29,6 @@ export const deleteAccount = () => {
     useSessionStore,
   ].forEach((store) => store.getState().reset())
 
-  deletePeachAccount()
   peachAPI.setPeachAccount(null)
   analytics().logEvent('account_deleted')
 }

@@ -3,7 +3,7 @@ import { crypto } from 'bitcoinjs-lib'
 import { error, info } from '../../log'
 import { dateTimeReviver } from '../../system'
 import { getAuthenticationChallenge } from '../getAuthenticationChallenge'
-import { getPeachAccount } from '../peachAccount'
+import { peachAPI } from '../peachAPI'
 import { peachWS, setPeachWS, setWS, ws } from './index'
 
 export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
@@ -81,7 +81,7 @@ function onMessageHandler (msg: WebSocketMessageEvent) {
 }
 
 function authWS (websocket: WebSocket) {
-  const peachAccount = getPeachAccount()
+  const peachAccount = peachAPI.options.peachAccount
   const message = getAuthenticationChallenge()
 
   if (!peachAccount) {
