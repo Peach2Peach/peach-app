@@ -1,22 +1,17 @@
-import { renderHook, waitFor } from 'test-utils'
-import { notEnoughPointsError } from '../../../tests/unit/data/peachAPIData'
+import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../../store/usePopupStore'
+import { peachAPI } from '../../utils/peachAPI'
 import { NoPeachFees } from './NoPeachFees'
 import { NoPeachFeesSuccess } from './NoPeachFeesSuccess'
 import { useRedeemNoPeachFeesReward } from './useRedeemNoPeachFeesReward'
 
 const showErrorBannerMock = jest.fn()
-const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
 jest.mock('../../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner: () => useShowErrorBannerMock(),
+  useShowErrorBanner: () => showErrorBannerMock,
 }))
 
-const apiSuccess = { success: true, bonusPoints: 10 }
-const redeemNoPeachFeesMock = jest.fn().mockResolvedValue([apiSuccess])
-jest.mock('../../utils/peachAPI', () => ({
-  redeemNoPeachFees: () => redeemNoPeachFeesMock(),
-}))
+const redeemNoPeachFeesMock = jest.spyOn(peachAPI.private.user, 'redeemNoPeachFees')
 
 describe('useRedeemNoPeachFeesReward', () => {
   it('returns function to start setCustomReferralCodePopup', () => {
@@ -69,12 +64,12 @@ describe('useRedeemNoPeachFeesReward', () => {
     expect(replaceMock).toHaveBeenCalledWith('referrals')
   })
   it('show error banner if reward could not be redeemed', async () => {
-    redeemNoPeachFeesMock.mockResolvedValueOnce([null, notEnoughPointsError])
+    redeemNoPeachFeesMock.mockResolvedValueOnce({ error: { error: 'NOT_ENOUGH_POINTS' }, ...responseUtils })
     const { result } = renderHook(useRedeemNoPeachFeesReward)
     result.current()
     usePopupStore.getState().action1?.callback()
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith(notEnoughPointsError.error)
+      expect(showErrorBannerMock).toHaveBeenCalledWith('NOT_ENOUGH_POINTS')
     })
   })
 })

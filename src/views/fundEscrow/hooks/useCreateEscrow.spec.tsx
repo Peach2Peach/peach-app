@@ -1,6 +1,5 @@
 import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
-import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { updateAccount } from '../../../utils/account'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useCreateEscrow } from './useCreateEscrow'
@@ -45,6 +44,6 @@ describe('useCreateEscrow', () => {
     const { result } = renderHook(useCreateEscrow, { initialProps: { offerIds: ['38'] } })
     result.current.mutate()
     await waitFor(() => expect(result.current.isLoading).toBeFalsy())
-    expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
+    expect(showErrorBannerMock).toHaveBeenCalledWith('UNAUTHORIZED')
   })
 })

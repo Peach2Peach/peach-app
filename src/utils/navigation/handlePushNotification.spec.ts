@@ -9,10 +9,7 @@ import { Navigation, handlePushNotification } from './handlePushNotification'
 type MessageWithData = FirebaseMessagingTypes.RemoteMessage & { data: object }
 
 const getContractMock = jest.spyOn(peachAPI.private.contract, 'getContract')
-const getOfferDetailsMock = jest.fn()
-jest.mock('../peachAPI/private/offer/getOfferDetails', () => ({
-  getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
-}))
+const getOfferDetailsMock = jest.spyOn(peachAPI.private.offer, 'getOfferDetails')
 
 const timestamp = 1231006505000
 describe('handlePushNotification', () => {
@@ -125,7 +122,7 @@ describe('handlePushNotification', () => {
   })
 
   it('navigates to search when shouldGoToSearch is true and offer is defined', async () => {
-    getOfferDetailsMock.mockResolvedValue([{ ...sellOffer, matches: ['2'] }, null])
+    getOfferDetailsMock.mockResolvedValueOnce({ result: { ...sellOffer, matches: ['2'] }, ...responseUtils })
 
     const remoteMessage = {
       data: {
@@ -140,7 +137,6 @@ describe('handlePushNotification', () => {
   })
 
   it('navigates to offerPublished when shouldGoToOfferPublished is true and offerId is defined', async () => {
-    getOfferDetailsMock.mockResolvedValue([sellOffer, null])
     const remoteMessage = {
       data: {
         type: 'offer.escrowFunded',
@@ -158,7 +154,6 @@ describe('handlePushNotification', () => {
   })
 
   it('navigates to offer when offerId is defined', async () => {
-    getOfferDetailsMock.mockResolvedValue([sellOffer, null])
     const remoteMessage = {
       data: {
         type: 'offer.canceled',
@@ -172,7 +167,6 @@ describe('handlePushNotification', () => {
   })
 
   it('should do nothing and return false in unknown other case', async () => {
-    getOfferDetailsMock.mockResolvedValue([sellOffer, null])
     const remoteMessage = {
       data: { type: 'unhandled.messageType' },
     } as MessageWithData

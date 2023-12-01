@@ -1,7 +1,5 @@
-import { act } from 'react-test-renderer'
-import { renderHook, waitFor } from 'test-utils'
+import { act, renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
-import { MSINANHOUR } from '../../../constants'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { useRestoreFromSeedSetup } from './useRestoreFromSeedSetup'
 
@@ -19,16 +17,6 @@ jest.mock('../../../utils/account/recoverAccount', () => ({
 const storeAccountMock = jest.fn()
 jest.mock('../../../utils/account/storeAccount', () => ({
   storeAccount: (...args: unknown[]) => storeAccountMock(...args),
-}))
-
-const apiSuccess = {
-  expiry: Date.now() + MSINANHOUR,
-  accessToken: 'accessToken',
-}
-const authMock = jest.fn().mockResolvedValue([apiSuccess, null])
-jest.mock('../../../utils/peachAPI', () => ({
-  peachAPI: jest.requireActual('../../../utils/peachAPI').peachAPI,
-  auth: (...args: unknown[]) => authMock(...args),
 }))
 
 describe('useRestoreFromSeedSetup', () => {

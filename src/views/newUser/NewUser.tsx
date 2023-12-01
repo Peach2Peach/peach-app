@@ -2,13 +2,14 @@ import { useCallback, useEffect, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { Header, Icon, Loading, Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
+import { UNIQUEID } from '../../constants'
 import { useNavigation, useRoute } from '../../hooks'
 import { userUpdate } from '../../init/userUpdate'
 import tw from '../../styles/tailwind'
 import { createAccount, deleteAccount, signMessageWithAccount, storeAccount, updateAccount } from '../../utils/account'
 import { useAccountStore } from '../../utils/account/account'
 import i18n from '../../utils/i18n'
-import { register } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 import { getAuthenticationChallenge } from '../../utils/peachAPI/getAuthenticationChallenge'
 import { parseError } from '../../utils/result'
 
@@ -31,10 +32,11 @@ export const NewUser = () => {
     async (account: Account & { mnemonic: string; base58: string }) => {
       const message = getAuthenticationChallenge()
 
-      const [result, authError] = await register({
+      const { result, error: authError } = await peachAPI.private.user.register({
         publicKey: account.publicKey,
         message,
         signature: signMessageWithAccount(message, account),
+        uniqueId: UNIQUEID,
       })
 
       if (!result || authError) {

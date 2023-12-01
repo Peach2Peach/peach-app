@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
-import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
+import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { useMessageState } from '../../../components/message/useMessageState'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
@@ -12,7 +12,7 @@ jest.mock('../../../hooks/query/useFeeEstimate', () => ({
   }),
 }))
 
-const updateUserMock = jest.fn().mockResolvedValue([apiSuccess])
+const updateUserMock = jest.fn().mockResolvedValue([{ success: true }])
 jest.mock('../../../utils/peachAPI', () => ({
   updateUser: (...args: unknown[]) => updateUserMock(...args),
 }))

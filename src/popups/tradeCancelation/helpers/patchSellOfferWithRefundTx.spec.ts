@@ -3,7 +3,6 @@ import { contract } from '../../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 
 import { responseUtils } from 'test-utils'
-import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { peachAPI } from '../../../utils/peachAPI'
 import { setWallet } from '../../../utils/wallet'
@@ -46,7 +45,7 @@ describe('patchSellOfferWithRefundTx', () => {
   it('returns error result offer could not be patched', async () => {
     patchOfferMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const result = await patchSellOfferWithRefundTx(contract, refundPSBT)
-    expect(result.error).toBe(unauthorizedError.error)
+    expect(result.error).toBe('UNAUTHORIZED')
     expect(result.result).toEqual({ sellOffer })
   })
   it('returns unknown error result offer could not be patched with no reason', async () => {

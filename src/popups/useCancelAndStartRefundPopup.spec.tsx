@@ -9,19 +9,13 @@ jest.mock('../hooks/useRefundEscrow', () => ({
   useRefundEscrow: () => refundEscrowMock,
 }))
 
-const psbt = 'psbt'
-const cancelOfferMock = jest.fn().mockResolvedValue([{ psbt }, null])
-jest.mock('../utils/peachAPI', () => ({
-  cancelOffer: (...args: unknown[]) => cancelOfferMock(...args),
-}))
-
 const showErrorMock = jest.fn()
 jest.mock('../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner: jest.fn(() => showErrorMock),
+  useShowErrorBanner: () => showErrorMock,
 }))
 
 describe('useCancelAndStartRefundPopup', () => {
-  afterEach(() => {
+  beforeEach(() => {
     usePopupStore.setState(defaultPopupState)
   })
   it('should return a function', () => {
@@ -45,6 +39,6 @@ describe('useCancelAndStartRefundPopup', () => {
         callback: expect.any(Function),
       },
     })
-    expect(refundEscrowMock).toHaveBeenCalledWith(sellOffer, psbt)
+    expect(refundEscrowMock).toHaveBeenCalledWith(sellOffer, 'psbt')
   })
 })

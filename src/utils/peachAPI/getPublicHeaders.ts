@@ -1,5 +1,5 @@
 import { API_URL } from '@env'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore'
 
 export const getPublicHeaders = (): RequestInit['headers'] => ({
   Origin: API_URL,

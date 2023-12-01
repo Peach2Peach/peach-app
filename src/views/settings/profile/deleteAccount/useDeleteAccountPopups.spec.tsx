@@ -3,7 +3,7 @@ import { usePopupStore } from '../../../../store/usePopupStore'
 import { deleteAccount } from '../../../../utils/account'
 import { useAccountStore } from '../../../../utils/account/account'
 import i18n from '../../../../utils/i18n'
-import { logoutUser } from '../../../../utils/peachAPI'
+import { peachAPI } from '../../../../utils/peachAPI'
 import { DeleteAccountPopup } from './DeleteAccountPopup'
 import { useDeleteAccountPopups } from './useDeleteAccountPopups'
 
@@ -11,9 +11,7 @@ jest.mock('../../../../utils/account', () => ({
   deleteAccount: jest.fn(),
 }))
 
-jest.mock('../../../../utils/peachAPI', () => ({
-  logoutUser: jest.fn(),
-}))
+const logoutUser = jest.spyOn(peachAPI.private.user, 'logoutUser')
 
 describe('useDeleteAccountPopups', () => {
   const logout = async () => {

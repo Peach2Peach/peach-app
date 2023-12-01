@@ -1,17 +1,11 @@
 import { renderHook, waitFor } from 'test-utils'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
-import { apiSuccess } from '../../../../tests/unit/data/peachAPIData'
 import { goBackMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { useDeletePaymentMethod } from './useDeletePaymentMethod'
-
-const deletePaymentHashMock = jest.fn().mockResolvedValue([apiSuccess])
-jest.mock('../../../utils/peachAPI', () => ({
-  deletePaymentHash: () => deletePaymentHashMock(),
-}))
 
 describe('useDeletePaymentMethod', () => {
   beforeEach(() => {

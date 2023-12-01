@@ -33,7 +33,7 @@ export const placeholderFeeEstimates: ConfirmationTargets = {
 }
 
 const getFeeEstimatesQuery = async () => {
-  const [result, err] = await getFeeEstimates({})
+  const [result, err] = await getFeeEstimates()
   if (err) throw new Error(err.error)
   return result
 }

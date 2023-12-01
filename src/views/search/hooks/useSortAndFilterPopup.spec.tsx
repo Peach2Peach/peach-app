@@ -1,23 +1,17 @@
-import { act, render, renderHook, waitFor } from 'test-utils'
+import { act, render, renderHook, responseUtils, waitFor } from 'test-utils'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
-import { getOfferDetails } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 import { useSortAndFilterPopup } from './useSortAndFilterPopup'
 
 jest.useFakeTimers()
 
-type GetOfferDetailsParams = Parameters<typeof getOfferDetails>[0]
-const getOfferDetailsMock = jest.fn(({ offerId }: GetOfferDetailsParams) => {
-  if (offerId === buyOffer.id) return Promise.resolve([buyOffer, null])
-  if (offerId === sellOffer.id) return Promise.resolve([sellOffer, null])
-  return Promise.resolve([null, null])
+const getOfferDetailsMock = jest.spyOn(peachAPI.private.offer, 'getOfferDetails').mockImplementation(({ offerId }) => {
+  if (offerId === buyOffer.id) return Promise.resolve({ result: buyOffer, ...responseUtils })
+  if (offerId === sellOffer.id) return Promise.resolve({ result: sellOffer, ...responseUtils })
+  return Promise.resolve(responseUtils)
 })
-const patchOfferMock = jest.fn().mockResolvedValue([{ success: true }, null])
-jest.mock('../../../utils/peachAPI', () => ({
-  getOfferDetails: (args: GetOfferDetailsParams) => getOfferDetailsMock(args),
-  patchOffer: (...args: unknown[]) => patchOfferMock(...args),
-}))
 
 jest.mock('../../../popups/filtersAndSorting', () => ({
   BuyFilterAndSort: 'BuyFilterAndSort',
@@ -52,7 +46,6 @@ describe('useSortAndFilterPopup', () => {
     expect(render(usePopupStore.getState().popupComponent || <></>)).toMatchSnapshot()
   })
   it('should update the popup store with the correct content for sell offers', async () => {
-    getOfferDetailsMock.mockResolvedValueOnce([sellOffer, null])
     const { result } = renderHook(() => useSortAndFilterPopup(sellOffer.id))
     await waitForQuery()
     const showPopup = result.current

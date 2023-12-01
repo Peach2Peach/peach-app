@@ -8,10 +8,7 @@ import { usePopupStore } from '../../../store/usePopupStore'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useTransactionBatchingSetup } from './useTransactionBatchingSetup'
 
-const setBatchingMock = jest.fn().mockResolvedValue([{ success: true }])
-jest.mock('../../../utils/peachAPI/private/user/setBatching', () => ({
-  setBatching: (...args: unknown[]) => setBatchingMock(...args),
-}))
+const setBatchingMock = jest.spyOn(peachAPI.private.user, 'enableTransactionBatching')
 
 const getSelfUserMock = jest.spyOn(peachAPI.private.user, 'getSelfUser')
 

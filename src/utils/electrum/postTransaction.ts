@@ -1,15 +1,13 @@
 import { ESPLORA_URL } from '@env'
 import fetch from '../fetch'
-import { getAbortWithTimeout } from '../getAbortWithTimeout'
-import { RequestProps } from '../peachAPI'
+import { getPublicHeaders } from '../peachAPI/getPublicHeaders'
 import { parseResponse } from '../peachAPI/parseResponse'
-import { getPublicHeaders } from '../peachAPI/public/getPublicHeaders'
 
-type Props = RequestProps & {
+type Props = {
   tx: string
 }
 
-export const postTransaction = async ({ tx, timeout, abortSignal }: Props) => {
+export const postTransaction = async ({ tx }: Props) => {
   const response = await fetch(`${ESPLORA_URL}/tx`, {
     headers: {
       ...getPublicHeaders(),
@@ -18,7 +16,6 @@ export const postTransaction = async ({ tx, timeout, abortSignal }: Props) => {
     },
     method: 'POST',
     body: tx,
-    signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
   return parseResponse<string>(response, 'postTransaction', true)

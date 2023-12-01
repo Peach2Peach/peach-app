@@ -1,15 +1,12 @@
-import { renderHook, waitFor } from 'test-utils'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
+import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { peachAPI } from '../../utils/peachAPI'
 import { placeholder, useUserPaymentMethodInfo } from './useUserPaymentMethodInfo'
 
 jest.useFakeTimers()
 
 const paymentMethodInfo = { forbidden: { buy: [], sell: [] } }
-const getUserPaymentMethodInfo = jest.fn().mockResolvedValue([paymentMethodInfo])
-jest.mock('../../utils/peachAPI', () => ({
-  getUserPaymentMethodInfo: () => getUserPaymentMethodInfo(),
-}))
+const getUserPaymentMethodInfo = jest.spyOn(peachAPI.private.user, 'getUserPaymentMethodInfo')
 
 describe('useUserPaymentMethodInfo', () => {
   afterEach(() => {
@@ -31,7 +28,7 @@ describe('useUserPaymentMethodInfo', () => {
     })
   })
   it('returns error and placeholder if server did not return result', async () => {
-    getUserPaymentMethodInfo.mockResolvedValueOnce([null, unauthorizedError])
+    getUserPaymentMethodInfo.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const { result } = renderHook(useUserPaymentMethodInfo)
     expect(result.current).toEqual({
       data: placeholder,
@@ -43,7 +40,7 @@ describe('useUserPaymentMethodInfo', () => {
     expect(result.current).toEqual({
       data: placeholder,
       isLoading: false,
-      error: new Error(unauthorizedError.error),
+      error: new Error('UNAUTHORIZED'),
     })
   })
 })

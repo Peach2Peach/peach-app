@@ -3,7 +3,7 @@ import { useSettingsStore } from '../store/settingsStore'
 import { useAccountStore } from '../utils/account/account'
 import { error, info } from '../utils/log'
 import { updateUser } from '../utils/peachAPI'
-import { UpdateUserProps } from '../utils/peachAPI/private/user/updateUser'
+import { UpdateUserProps } from '../utils/peachAPI/updateUser'
 import { parseError } from '../utils/result'
 
 export const userUpdate = async (referralCode?: string) => {

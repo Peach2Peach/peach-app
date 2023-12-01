@@ -1,14 +1,12 @@
 import { toMatchDiffSnapshot } from 'snapshot-diff'
-import { act, fireEvent, render, renderHook } from 'test-utils'
+import { act, fireEvent, render, renderHook, responseUtils } from 'test-utils'
 import { replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../../store/usePopupStore'
+import { peachAPI } from '../../utils/peachAPI'
 import { useSetCustomReferralCodePopup } from './useSetCustomReferralCodePopup'
 expect.extend({ toMatchDiffSnapshot })
 
-const redeemReferralCodeMock = jest.fn().mockReturnValue(jest.fn())
-jest.mock('../../utils/peachAPI', () => ({
-  redeemReferralCode: (...args: unknown[]) => redeemReferralCodeMock(...args),
-}))
+const redeemReferralCodeMock = jest.spyOn(peachAPI.private.user, 'redeemReferralCode')
 const showErrorBannerMock = jest.fn()
 jest.mock('../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
@@ -56,13 +54,7 @@ describe('useSetCustomReferralCodePopup', () => {
     expect(withoutText).toMatchDiffSnapshot(withText)
   })
   it('submits custom referral code', async () => {
-    redeemReferralCodeMock.mockResolvedValueOnce([
-      {
-        success: true,
-        bonusPoints: 0,
-      },
-      null,
-    ])
+    redeemReferralCodeMock.mockResolvedValueOnce({ result: { success: true, bonusPoints: 0 }, ...responseUtils })
     const { result } = renderHook(useSetCustomReferralCodePopup)
 
     act(() => {
@@ -81,12 +73,12 @@ describe('useSetCustomReferralCodePopup', () => {
     expect(replaceMock).toHaveBeenCalledWith('referrals')
   })
   it('handles referral code exists error', async () => {
-    redeemReferralCodeMock.mockResolvedValueOnce([
-      null,
-      {
+    redeemReferralCodeMock.mockResolvedValueOnce({
+      error: {
         error: 'ALREADY_TAKEN',
       },
-    ])
+      ...responseUtils,
+    })
 
     const { result } = renderHook(useSetCustomReferralCodePopup)
 
@@ -107,12 +99,12 @@ describe('useSetCustomReferralCodePopup', () => {
     expect(withoutError).toMatchDiffSnapshot(withError)
   })
   it('handles other API Errors', async () => {
-    redeemReferralCodeMock.mockResolvedValueOnce([
-      null,
-      {
+    redeemReferralCodeMock.mockResolvedValueOnce({
+      error: {
         error: 'NOT_ENOUGH_POINTS',
       },
-    ])
+      ...responseUtils,
+    })
 
     const { result } = renderHook(useSetCustomReferralCodePopup)
 

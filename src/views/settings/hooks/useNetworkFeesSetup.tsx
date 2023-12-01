@@ -33,7 +33,7 @@ export const useNetworkFeesSetup = () => {
     if (result) {
       setFeeRate(finalFeeRate)
       setFeeRateSet(true)
-    } else if (err) {
+    } else if (err && 'error' in err) {
       updateMessage({
         msgKey: err.error,
         level: 'ERROR',

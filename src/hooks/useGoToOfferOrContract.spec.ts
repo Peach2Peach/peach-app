@@ -1,15 +1,11 @@
 import { renderHook, responseUtils } from 'test-utils'
 import { contract } from '../../tests/unit/data/contractData'
-import { sellOffer } from '../../tests/unit/data/offerData'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
 import { peachAPI } from '../utils/peachAPI'
 import { useGoToOfferOrContract } from './useGoToOfferOrContract'
 
 const getContractMock = jest.spyOn(peachAPI.private.contract, 'getContract')
-const getOfferDetailsMock = jest.fn(() => Promise.resolve([sellOffer, null]))
-jest.mock('../utils/peachAPI/private/offer/getOfferDetails', () => ({
-  getOfferDetails: () => getOfferDetailsMock(),
-}))
+const getOfferDetailsMock = jest.spyOn(peachAPI.private.offer, 'getOfferDetails')
 
 describe('useGoToOfferOrContract', () => {
   it('should navigate to the contract if the id is a contract id', async () => {
@@ -38,7 +34,7 @@ describe('useGoToOfferOrContract', () => {
     expect(navigateMock).toHaveBeenCalledTimes(0)
   })
   it('should not navigate if the id is an offer id and the offer is not found', async () => {
-    getOfferDetailsMock.mockResolvedValueOnce([null, null])
+    getOfferDetailsMock.mockResolvedValueOnce(responseUtils)
     const { result } = renderHook(useGoToOfferOrContract)
 
     await result.current('123')

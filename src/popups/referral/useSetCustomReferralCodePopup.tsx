@@ -8,7 +8,7 @@ import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { redeemReferralCode } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 import { getMessages } from '../../utils/validation'
 import { ClosePopupAction } from '../actions'
 import { SetCustomReferralCodeSuccess } from './SetCustomReferralCodeSuccess'
@@ -60,7 +60,7 @@ function CustomReferralCodePopup () {
   )
 
   const submitCustomReferralCode = useCallback(async () => {
-    const [, redeemError] = await redeemReferralCode({ code: referralCode })
+    const { error: redeemError } = await peachAPI.private.user.redeemReferralCode({ code: referralCode })
 
     if (redeemError?.error === 'ALREADY_TAKEN') {
       setReferralCodeTaken(true)

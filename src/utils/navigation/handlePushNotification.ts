@@ -1,7 +1,6 @@
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { peachAPI } from '../peachAPI'
-import { getOfferDetails } from '../peachAPI/private/offer/getOfferDetails'
 import { isDefined } from '../validation'
 import { shouldGoToContract } from './shouldGoToContract'
 import { shouldGoToContractChat } from './shouldGoToContractChat'
@@ -48,7 +47,7 @@ export const handlePushNotification = async (
   } else if (shouldGoToSell(data)) {
     navigationRef.navigate('homeScreen', { screen: 'sell' })
   } else if (isDefined(data.offerId)) {
-    const [offer] = await getOfferDetails({ offerId: data.offerId })
+    const { result: offer } = await peachAPI.private.offer.getOfferDetails({ offerId: data.offerId })
     const { offerId } = data
     if (shouldGoToSearch(data.type, !!(offer?.matches && offer.matches.length > 0))) {
       navigationRef.navigate('search', { offerId })

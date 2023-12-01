@@ -16,7 +16,7 @@ import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { contractIdToHex, getNavigationDestinationForContract, getOfferIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { getOfferDetails, peachAPI } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 import { thousands } from '../../utils/string'
 import { getNavigationDestinationForOffer } from '../yourTrades/utils'
 import { useContractContext } from './context'
@@ -28,7 +28,7 @@ export function NewOfferButton () {
   const newOfferId = !!offer && 'newOfferId' in offer ? offer?.newOfferId : undefined
   const goToNewOffer = useCallback(async () => {
     if (!newOfferId) return
-    const [newOffer] = await getOfferDetails({ offerId: newOfferId })
+    const { result: newOffer } = await peachAPI.private.offer.getOfferDetails({ offerId: newOfferId })
     if (!newOffer) return
     if (newOffer?.contractId) {
       const { result: newContract } = await peachAPI.private.contract.getContract({ contractId: newOffer.contractId })

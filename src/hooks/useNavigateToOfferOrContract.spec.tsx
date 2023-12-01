@@ -1,7 +1,6 @@
 import { act, renderHook } from 'test-utils'
-import { contract } from '../../tests/unit/data/contractData'
+import { sellOffer } from '../../peach-api/src/testData/offers'
 import { contractSummary } from '../../tests/unit/data/contractSummaryData'
-import { sellOffer } from '../../tests/unit/data/offerData'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../tests/unit/helpers/QueryClientWrapper'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
@@ -10,13 +9,6 @@ import { useNavigateToOfferOrContract } from './useNavigateToOfferOrContract'
 const startRefundPopupMock = jest.fn()
 jest.mock('../popups/useStartRefundPopup', () => ({
   useStartRefundPopup: () => startRefundPopupMock,
-}))
-
-const getContractMock = jest.fn(() => Promise.resolve([contract, null]))
-const getOfferDetailsMock = jest.fn().mockResolvedValue([sellOffer])
-jest.mock('../utils/peachAPI', () => ({
-  getContract: (..._args: unknown[]) => getContractMock(),
-  getOfferDetails: () => getOfferDetailsMock(),
 }))
 
 jest.mock('../queryClient', () => ({

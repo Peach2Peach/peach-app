@@ -1,14 +1,12 @@
 import { error, info } from '../log'
-import { cancelOffer } from '../peachAPI'
+import { peachAPI } from '../peachAPI'
 import { isSellOffer } from './isSellOffer'
 import { saveOffer } from './saveOffer'
 
-export const cancelAndSaveOffer = async (
-  offer: BuyOffer | SellOffer,
-): Promise<[CancelOfferResponse | null, APIError | null]> => {
-  if (!offer.id) return [null, { error: 'GENERAL_ERROR' }]
+export const cancelAndSaveOffer = async (offer: BuyOffer | SellOffer) => {
+  if (!offer.id) return [null, { error: 'GENERAL_ERROR' }] as const
 
-  const [result, err] = await cancelOffer({
+  const { result, error: err } = await peachAPI.private.offer.cancelOffer({
     offerId: offer.id,
   })
   if (result) {
@@ -29,5 +27,5 @@ export const cancelAndSaveOffer = async (
     error('Error', err)
   }
 
-  return [result, err]
+  return [result, err] as const
 }

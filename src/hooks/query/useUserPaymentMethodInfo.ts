@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import { getUserPaymentMethodInfo } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 
 const getUserPaymentMethodInfoQuery = async () => {
-  const [data, error] = await getUserPaymentMethodInfo({})
+  const { result: data, error } = await peachAPI.private.user.getUserPaymentMethodInfo()
 
-  if (error) throw new Error(error.error)
+  if (error) throw new Error(error.error || 'Could not fetch payment methods')
   return data
 }
 

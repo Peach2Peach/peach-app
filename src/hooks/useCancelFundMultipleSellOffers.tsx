@@ -7,7 +7,7 @@ import { LoadingPopupAction } from '../popups/actions/LoadingPopupAction'
 import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { cancelOffer } from '../utils/peachAPI'
+import { peachAPI } from '../utils/peachAPI'
 import { getError, getResult, parseError } from '../utils/result'
 import { FundMultipleInfo, useWalletState } from '../utils/wallet/walletStore'
 import { useNavigation } from './useNavigation'
@@ -30,7 +30,7 @@ export const useCancelFundMultipleSellOffers = ({ fundMultiple }: Props) => {
 
     const results = await Promise.all(
       fundMultiple.offerIds?.map(async (offerId) => {
-        const [cancelResult, cancelError] = await cancelOffer({ offerId })
+        const { result: cancelResult, error: cancelError } = await peachAPI.private.offer.cancelOffer({ offerId })
         if (cancelError) return getError(cancelError?.error)
         if (!cancelResult) return getError(null)
         return getResult(cancelResult)

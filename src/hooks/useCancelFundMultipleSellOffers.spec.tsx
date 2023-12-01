@@ -1,6 +1,6 @@
-import { act, fireEvent, render, renderHook, waitFor } from 'test-utils'
-import { unauthorizedError } from '../../tests/unit/data/peachAPIData'
+import { act, fireEvent, render, renderHook, responseUtils, waitFor } from 'test-utils'
 import { usePopupStore } from '../store/usePopupStore'
+import { peachAPI } from '../utils/peachAPI'
 import { useWalletState } from '../utils/wallet/walletStore'
 import { useCancelFundMultipleSellOffers } from './useCancelFundMultipleSellOffers'
 
@@ -9,10 +9,7 @@ jest.mock('../utils/offer/saveOffer', () => ({
   saveOffer: (...args: unknown[]) => saveOfferMock(...args),
 }))
 
-const cancelOfferMock = jest.fn().mockResolvedValue([{}, null])
-jest.mock('../utils/peachAPI', () => ({
-  cancelOffer: (...args: unknown[]) => cancelOfferMock(...args),
-}))
+const cancelOfferMock = jest.spyOn(peachAPI.private.offer, 'cancelOffer')
 
 describe('useCancelFundMultipleSellOffers', () => {
   const fundMultiple = {
@@ -69,8 +66,8 @@ describe('useCancelFundMultipleSellOffers', () => {
     expect(cancelOfferMock).not.toHaveBeenCalled()
   })
   it('should handle cancelation errors', async () => {
-    cancelOfferMock.mockResolvedValueOnce([null, unauthorizedError])
-    cancelOfferMock.mockResolvedValueOnce([null, null])
+    cancelOfferMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
+    cancelOfferMock.mockResolvedValueOnce(responseUtils)
 
     const { result } = renderHook(useCancelFundMultipleSellOffers, {
       initialProps: { fundMultiple },

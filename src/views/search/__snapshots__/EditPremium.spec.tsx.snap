@@ -649,6 +649,108 @@ exports[`EditPremium should render correctly 1`] = `
                                 },
                               ],
                               {
+                                "color": "#2B19111A",
+                                "letterSpacing": -1.275,
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        0
+                      </Text>
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              [
+                                {
+                                  "alignItems": "center",
+                                  "fontFamily": "CourierPrime-Bold",
+                                  "textAlign": "center",
+                                },
+                                {
+                                  "fontSize": 17,
+                                  "lineHeight": 23,
+                                },
+                              ],
+                              {
+                                "color": "#2B19111A",
+                                "letterSpacing": -1.275,
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        0
+                      </Text>
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              [
+                                {
+                                  "alignItems": "center",
+                                  "fontFamily": "CourierPrime-Bold",
+                                  "textAlign": "center",
+                                },
+                                {
+                                  "fontSize": 17,
+                                  "lineHeight": 23,
+                                },
+                              ],
+                              {
+                                "color": "#2B19111A",
+                                "letterSpacing": -5.949999999999999,
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                         
+                      </Text>
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              [
+                                {
+                                  "alignItems": "center",
+                                  "fontFamily": "CourierPrime-Bold",
+                                  "textAlign": "center",
+                                },
+                                {
+                                  "fontSize": 17,
+                                  "lineHeight": 23,
+                                },
+                              ],
+                              {
                                 "color": "#2B1911",
                                 "letterSpacing": -1.275,
                               },
@@ -691,109 +793,7 @@ exports[`EditPremium should render correctly 1`] = `
                           ]
                         }
                       >
-                        1
-                      </Text>
-                      <Text
-                        allowFontScaling={false}
-                        style={
-                          [
-                            {
-                              "color": "#2B1911",
-                              "fontFamily": "Baloo2-Regular",
-                              "fontSize": 16,
-                              "letterSpacing": 0.16,
-                              "lineHeight": 24,
-                            },
-                            [
-                              [
-                                {
-                                  "alignItems": "center",
-                                  "fontFamily": "CourierPrime-Bold",
-                                  "textAlign": "center",
-                                },
-                                {
-                                  "fontSize": 17,
-                                  "lineHeight": 23,
-                                },
-                              ],
-                              {
-                                "color": "#2B1911",
-                                "letterSpacing": -5.949999999999999,
-                              },
-                            ],
-                            false,
-                          ]
-                        }
-                      >
-                         
-                      </Text>
-                      <Text
-                        allowFontScaling={false}
-                        style={
-                          [
-                            {
-                              "color": "#2B1911",
-                              "fontFamily": "Baloo2-Regular",
-                              "fontSize": 16,
-                              "letterSpacing": 0.16,
-                              "lineHeight": 24,
-                            },
-                            [
-                              [
-                                {
-                                  "alignItems": "center",
-                                  "fontFamily": "CourierPrime-Bold",
-                                  "textAlign": "center",
-                                },
-                                {
-                                  "fontSize": 17,
-                                  "lineHeight": 23,
-                                },
-                              ],
-                              {
-                                "color": "#2B1911",
-                                "letterSpacing": -1.275,
-                              },
-                            ],
-                            false,
-                          ]
-                        }
-                      >
-                        0
-                      </Text>
-                      <Text
-                        allowFontScaling={false}
-                        style={
-                          [
-                            {
-                              "color": "#2B1911",
-                              "fontFamily": "Baloo2-Regular",
-                              "fontSize": 16,
-                              "letterSpacing": 0.16,
-                              "lineHeight": 24,
-                            },
-                            [
-                              [
-                                {
-                                  "alignItems": "center",
-                                  "fontFamily": "CourierPrime-Bold",
-                                  "textAlign": "center",
-                                },
-                                {
-                                  "fontSize": 17,
-                                  "lineHeight": 23,
-                                },
-                              ],
-                              {
-                                "color": "#2B1911",
-                                "letterSpacing": -1.275,
-                              },
-                            ],
-                            false,
-                          ]
-                        }
-                      >
-                        0
+                        5
                       </Text>
                       <Text
                         allowFontScaling={false}
@@ -1248,7 +1248,7 @@ exports[`EditPremium should render correctly 1`] = `
               }
             >
               (
-              currently 21 315.00 EUR
+              currently 253.75 EUR
               )
             </Text>
           </View>

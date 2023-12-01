@@ -10,12 +10,6 @@ jest.mock('../utils/offer/saveOffer', () => ({
   saveOffer: (...args: unknown[]) => saveOfferMock(...args),
 }))
 
-const cancelOfferMock = jest.fn().mockResolvedValue([{}, null])
-jest.mock('../utils/peachAPI', () => ({
-  peachAPI: jest.requireActual('../utils/peachAPI').peachAPI,
-  cancelOffer: () => cancelOfferMock(),
-}))
-
 describe('useCancelOffer', () => {
   beforeEach(() => {
     updateAccount(account1)
