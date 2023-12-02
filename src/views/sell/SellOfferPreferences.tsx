@@ -1,12 +1,13 @@
 import { View } from 'react-native'
 import { Header, PeachScrollView, Screen, Text } from '../../components'
+import { Button } from '../../components/buttons/Button'
 import tw from '../../styles/tailwind'
 
 export function SellOfferPreferences () {
   return (
     <Screen style={tw`bg-primary-background`} header={<Header title="Sell Bitcoin" />}>
-      <PeachScrollView contentContainerStyle={tw`gap-7`}>
-        <OpenOffers />
+      <PeachScrollView contentStyle={tw`gap-7`}>
+        <MarketInfo />
         <PaymentMethods />
         <CompetingOfferStats />
         <AmountSelector />
@@ -29,74 +30,81 @@ function SellAction () {
   )
 }
 
-function OpenOffers () {
+function MarketInfo ({ type = 'buyOffers' }: { type?: 'buyOffers' | 'sellOffers' }) {
+  const textStyle = type === 'buyOffers' ? tw`text-success-main` : tw`text-primary-main`
   return (
-    <View style={tw`w-full h-10 border`}>
-      <Text>Open Offers</Text>
-    </View>
+    <SectionContainer style={tw`-gap-13px`}>
+      <Text style={[tw`h5`, textStyle]}>x buy offers</Text>
+      <Text style={[tw`subtitle-2`, textStyle]}>for your preferences</Text>
+    </SectionContainer>
   )
 }
 
 function PaymentMethods () {
   return (
-    <View style={tw`w-full h-10 border bg-primary-background-dark`}>
+    <SectionContainer style={tw`bg-primary-background-dark`}>
       <Text>Payment Methods</Text>
-    </View>
+    </SectionContainer>
   )
 }
 
 function CompetingOfferStats () {
   return (
-    <View style={tw`w-full h-10 border`}>
+    <SectionContainer>
       <Text>Competing Offer Stats</Text>
-    </View>
+    </SectionContainer>
   )
 }
 
 function AmountSelector () {
   return (
-    <View style={tw`w-full h-10 border bg-primary-background-dark`}>
+    <SectionContainer style={tw`bg-primary-background-dark`}>
       <Text>Amount Selector</Text>
-    </View>
+    </SectionContainer>
   )
 }
 
 function FundMultipleOffers () {
   return (
-    <View style={tw`w-full h-10 border`}>
+    <SectionContainer>
       <Text>Fund Multiple Offers</Text>
-    </View>
+    </SectionContainer>
   )
 }
 
 function InstantTrade () {
   return (
-    <View style={tw`w-full h-10 border bg-primary-background-dark`}>
+    <SectionContainer style={tw`bg-primary-background-dark`}>
       <Text>Instant Trade</Text>
-    </View>
+    </SectionContainer>
   )
 }
 
 function RefundWallet () {
   return (
-    <View style={tw`w-full h-10 border bg-primary-background-dark`}>
+    <SectionContainer style={tw`bg-primary-background-dark`}>
       <Text>Refund Wallet</Text>
-    </View>
+    </SectionContainer>
   )
 }
 
 function FundWithPeachWallet () {
   return (
-    <View style={tw`w-full h-10 border`}>
+    <SectionContainer>
       <Text>Fund With Peach Wallet</Text>
-    </View>
+    </SectionContainer>
   )
 }
 
 function FundEscrowButton () {
+  const formValid = true
   return (
-    <View style={tw`w-full h-10 border`}>
-      <Text>Fund Escrow Button</Text>
-    </View>
+    <Button style={tw`self-center px-5 py-3 min-w-166px`} disabled={formValid}>
+      Fund Escrow
+    </Button>
   )
+}
+
+function SectionContainer ({ children, style }: { children: React.ReactNode; style?: View['props']['style'] }) {
+  return <View style={[tw`items-center w-full p-2 rounded-2xl`, style]}>{children}</View>
 }
