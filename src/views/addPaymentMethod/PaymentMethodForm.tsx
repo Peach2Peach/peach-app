@@ -94,9 +94,7 @@ export const PaymentMethodForm = () => {
               />
             ))}
 
-            {hasMultipleAvailableCurrencies(paymentMethod) && (
-              <CurrencySelectionController {...{ paymentData, setValue, control }} />
-            )}
+            <CurrencySelectionController {...{ paymentData, setValue, control }} />
           </View>
           <Button style={tw`self-center`} disabled={!isValid} onPress={handleSubmit(onValid)}>
             {i18n('confirm')}
@@ -137,6 +135,8 @@ function CurrencySelectionController ({
       : [...field.value, currency]
     setValue('currencies', newCurrencies)
   }
+
+  if (!hasMultipleAvailableCurrencies(type)) return null
 
   return <CurrencySelection paymentMethod={type} onToggle={onCurrencyToggle} selectedCurrencies={field.value} />
 }
