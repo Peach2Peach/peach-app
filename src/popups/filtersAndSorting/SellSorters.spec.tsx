@@ -7,11 +7,6 @@ import { SellSorters } from './SellSorters'
 
 jest.useFakeTimers()
 
-const patchOfferMock = jest.fn().mockResolvedValue([{ success: true }, null])
-jest.mock('../../utils/peachAPI', () => ({
-  patchOffer: (...args: unknown[]) => patchOfferMock(...args),
-}))
-
 describe('SellSorters', () => {
   it('should render correctly', () => {
     const { toJSON } = render(<SellSorters />)

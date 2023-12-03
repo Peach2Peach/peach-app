@@ -6,11 +6,6 @@ jest.mock('../contract', () => ({
   getSellOfferIdFromContract: () => '1',
 }))
 
-const getContractMock = jest.fn()
-jest.mock('../peachAPI', () => ({
-  getContract: () => getContractMock(),
-}))
-
 jest.mock('../../queryClient', () => ({
   queryClient,
 }))

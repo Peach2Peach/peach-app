@@ -117,7 +117,7 @@ describe('handlePushNotification', () => {
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('homeScreen', {
-      screen: 'sell',
+      screen: 'home',
     })
   })
 

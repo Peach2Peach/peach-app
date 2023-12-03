@@ -6,11 +6,6 @@ import { defaultSettings, useSettingsStore } from '../../store/settingsStore'
 import { BuySummary } from './BuySummary'
 expect.extend({ toMatchDiffSnapshot })
 
-const postBuyOfferMock = jest.fn()
-jest.mock('../../utils/peachAPI', () => ({
-  postBuyOffer: () => postBuyOfferMock(),
-}))
-
 jest.useFakeTimers({ now: new Date('2022-02-14T12:00:00.000Z') })
 
 describe('BuySummary', () => {

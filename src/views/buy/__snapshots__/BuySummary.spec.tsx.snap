@@ -1520,26 +1520,36 @@ exports[`BuySummary should render the BuySummary view 1`] = `
                   </Text>
                   <View
                     style={
-                      [
+                      {
+                        "flexBasis": "0%",
+                        "flexGrow": 1,
+                        "flexShrink": 1,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        [
+                          {
+                            "flexDirection": "row",
+                            "flexWrap": "wrap",
+                            "justifyContent": "center",
+                          },
+                          undefined,
+                        ]
+                      }
+                    />
+                    <View
+                      style={
                         {
+                          "alignItems": "center",
                           "flexDirection": "row",
                           "flexWrap": "wrap",
                           "justifyContent": "center",
-                        },
-                        undefined,
-                      ]
-                    }
-                  />
-                  <View
-                    style={
-                      {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                        "flexWrap": "wrap",
-                        "justifyContent": "center",
+                        }
                       }
-                    }
-                  />
+                    />
+                  </View>
                 </View>
                 <View
                   style={
