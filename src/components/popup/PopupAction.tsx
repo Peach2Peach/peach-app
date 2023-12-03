@@ -25,7 +25,7 @@ export const PopupAction = ({
 }: PopupActionProps) => (
   <TouchableOpacity
     style={[
-      tw`flex-row items-center flex-grow gap-1 px-6 py-2`,
+      tw`flex-row items-center grow gap-1 px-6 py-2`,
       disabled && tw`opacity-50`,
       reverseOrder && tw`flex-row-reverse`,
       style,

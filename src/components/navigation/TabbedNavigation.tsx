@@ -45,7 +45,7 @@ export const TabbedNavigation = <T extends string>({
       {items.map((item) => (
         <Pressable
           style={[
-            tw`flex-shrink px-2`,
+            tw`shrink px-2`,
             buttonStyle,
             !!tabHasError.length && !tabHasError.includes(item.id) && tw`opacity-10`,
           ]}

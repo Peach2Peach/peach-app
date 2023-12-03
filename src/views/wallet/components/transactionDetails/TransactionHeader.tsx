@@ -34,7 +34,7 @@ export const TransactionHeader = ({ type, offerData, style }: Props) => {
   return (
     <View style={[tw`flex-row items-center gap-4`, hasIdBubbles && tw`items-end`, style]}>
       <TransactionIcon type={type} size={isMediumScreen ? MEDIUM_SIZE : SMALL_SIZE} />
-      <View style={tw`items-start flex-shrink`}>
+      <View style={tw`items-start shrink`}>
         <Text style={[tw`h6`, tw`md:h5`]}>{i18n(`wallet.transactionDetails.type.${type}`)}</Text>
         <View style={tw`flex-row flex-wrap gap-1`}>
           {offerSummaries.map((offer) => (

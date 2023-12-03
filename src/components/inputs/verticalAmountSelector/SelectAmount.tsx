@@ -34,7 +34,7 @@ export const SelectAmount = ({ min, max, value, onChange, children, style }: Pro
         >
           {i18n('sell.subtitle')}
         </ParsedPeachText>
-        <CustomAmount amount={amount} onChange={updateCustomAmount} style={tw`items-start flex-shrink`} />
+        <CustomAmount amount={amount} onChange={updateCustomAmount} style={tw`items-start shrink`} />
         {children}
       </View>
       <SliderTrack style={tw`h-full`} onLayout={onTrackLayout}>

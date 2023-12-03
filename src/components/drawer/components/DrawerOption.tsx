@@ -36,7 +36,7 @@ export const DrawerOption = ({
     )}
     {flagID && <Flag id={flagID} style={tw`w-8 h-6`} />}
 
-    <View style={[tw`justify-center flex-grow`, flagID && tw`gap-2px`]}>
+    <View style={[tw`justify-center grow`, flagID && tw`gap-2px`]}>
       {flagID || logoID || !subtext ? (
         <FixedHeightText height={flagID && subtext ? 17 : 22} style={tw`input-title`}>
           {title}

@@ -23,7 +23,7 @@ export const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
         horizontal
       >
         {items.map((item) => (
-          <TouchableOpacity style={tw`flex-shrink`} key={item.key + item.name} onPress={() => select(item)}>
+          <TouchableOpacity style={tw`shrink`} key={item.key + item.name} onPress={() => select(item)}>
             <Text
               style={[tw`px-4 py-2 text-center input-label`, item.name === selected ? colors.textSelected : colors.text]}
             >

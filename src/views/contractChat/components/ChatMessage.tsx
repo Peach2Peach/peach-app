@@ -118,7 +118,7 @@ export const ChatMessage = ({
       >
         {meta.showName && !meta.isYou && <Text style={[tw`px-1 mt-4 -mb-2 subtitle-2`, text]}>{meta.name}</Text>}
         <View style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}>
-          <Text style={tw`flex-shrink-0`} selectable>
+          <Text style={tw`shrink-0`} selectable>
             {message.message || i18n('chat.decyptionFailed')}
           </Text>
           <Text style={tw`pt-1 ml-auto leading-5 text-right`}>

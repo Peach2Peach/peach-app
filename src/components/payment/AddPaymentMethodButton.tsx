@@ -22,7 +22,7 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
       ]}
     >
       <Icon id="plusCircle" style={tw`w-7 h-7`} color={tw.color('primary-main')} />
-      <Text style={tw`h6 text-primary-main  flex-shrink`}>
+      <Text style={tw`h6 text-primary-main  shrink`}>
         {i18n.break(`paymentMethod.select.button.${isCash ? 'cash' : 'remote'}`)}
       </Text>
     </TouchableOpacity>

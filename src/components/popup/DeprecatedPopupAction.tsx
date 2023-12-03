@@ -1,8 +1,8 @@
 import { ImageStyle, Pressable, TextStyle, ViewStyle } from 'react-native'
-import { Text } from '../text'
 import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
+import { Text } from '../text'
 
 type Props = {
   onPress: (() => void) | null
@@ -17,7 +17,7 @@ type Props = {
 export const PopupAction = ({ onPress, label, iconId, color, isDisabled, reverseOrder, style }: Props) => (
   <Pressable
     style={[
-      tw`flex-row items-center justify-end flex-grow gap-1`,
+      tw`flex-row items-center justify-end grow gap-1`,
       isDisabled && tw`opacity-50`,
       reverseOrder && tw`flex-row-reverse`,
       style,

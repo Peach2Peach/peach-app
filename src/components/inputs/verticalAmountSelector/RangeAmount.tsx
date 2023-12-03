@@ -45,9 +45,9 @@ export const RangeAmount = ({ min, max, value, onChange, style }: Props) => {
         >
           {i18n('buy.subtitle')}
         </ParsedPeachText>
-        <CustomAmount amount={maximum} onChange={updateCustomAmountMaximum} style={tw`items-start flex-shrink`} />
+        <CustomAmount amount={maximum} onChange={updateCustomAmountMaximum} style={tw`items-start shrink`} />
         <Text style={[tw`h7`, tw`md:h5`]}>{i18n('and')}</Text>
-        <CustomAmount amount={minimum} onChange={updateCustomAmountMinimum} style={tw`items-start flex-shrink`} />
+        <CustomAmount amount={minimum} onChange={updateCustomAmountMinimum} style={tw`items-start shrink`} />
       </View>
 
       <SliderTrack style={tw`h-full`} onLayout={onTrackLayout}>
