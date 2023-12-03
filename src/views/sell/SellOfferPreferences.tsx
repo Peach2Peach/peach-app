@@ -60,7 +60,7 @@ function Methods () {
           <TouchableIcon id="plusCircle" onPress={onPress} style={tw`pt-1`} />
         </SectionContainer>
       ) : (
-        <SectionContainer style={tw`flex-row justify-center bg-primary-background-dark`}>
+        <SectionContainer style={tw`bg-primary-background-dark`}>
           <TouchableOpacity style={tw`flex-row items-center gap-10px`} onPress={onPress}>
             <Icon size={16} id="plusCircle" color={tw.color('primary-main')} />
             <Text style={tw`subtitle-2 text-primary-main`}>{i18n.break('paymentMethod.select.button.remote')}</Text>
