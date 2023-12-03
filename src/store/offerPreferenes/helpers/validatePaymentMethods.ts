@@ -5,4 +5,4 @@ export const validatePaymentMethods = ({
   originalPaymentData,
   meansOfPayment,
 }: Pick<BuyOfferDraft | SellOfferDraft, 'originalPaymentData' | 'meansOfPayment'>) =>
-  hasMopsConfigured({ meansOfPayment }) && originalPaymentData.every(isValidPaymentData)
+  hasMopsConfigured(meansOfPayment) && originalPaymentData.every(isValidPaymentData)
