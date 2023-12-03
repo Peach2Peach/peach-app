@@ -108,14 +108,17 @@ function NextButton () {
   const { data: paymentMethodInfo } = useUserPaymentMethodInfo()
 
   const goToSummary = () => {
-    const flow = origin === 'premium' ? 'sell' : 'buy'
+    // const flow = origin === 'sellOfferPreferences' ? 'sell' : 'buy'
+    // TODO: Add buy flow again
+    const flow = 'sell'
     const forbiddenPaymentMethdos = intersect(paymentMethodInfo.forbidden[flow], paymentMethods)
     if (forbiddenPaymentMethdos.length) {
       const paymentMethod = forbiddenPaymentMethdos.pop()
       if (paymentMethod === 'paypal') showHelp()
       return
     }
-    navigation.navigate(flow === 'sell' ? 'sellSummary' : 'buySummary')
+    navigation.goBack()
+    // navigation.navigate(flow === 'sell' ? 'sellSummary' : 'buySummary')
   }
 
   return (
