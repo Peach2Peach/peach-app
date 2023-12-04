@@ -28,7 +28,6 @@ import { EditPremium } from './search/EditPremium'
 import { OfferPublished } from './search/OfferPublished'
 import { Search } from './search/Search'
 import { SelectWallet } from './selectWallet/SelectWallet'
-import { OfferPreferencePremium } from './sell/OfferPreferencePremium'
 import { SellSummary } from './sell/SellSummary'
 import { Backups } from './settings/Backups'
 import { Currency } from './settings/Currency'
@@ -97,7 +96,6 @@ const buyFlow: ViewType[] = [
 
 const sellFlow: ViewType[] = [
   { name: 'sellOfferPreferences', component: SellOfferPreferences },
-  { name: 'premium', component: OfferPreferencePremium },
   { name: 'sellPreferences', component: PaymentMethods },
   { name: 'sellSummary', component: SellSummary },
   { name: 'fundEscrow', component: FundEscrow },

@@ -40,10 +40,8 @@ type RootStackParamList = Onboarding & {
     txId: string
   }
   buy: undefined
-  sell: undefined
   sellOfferPreferences: undefined
   buyPreferences: undefined
-  premium: undefined
   sellPreferences: undefined
   buySummary: undefined
   sellSummary: undefined

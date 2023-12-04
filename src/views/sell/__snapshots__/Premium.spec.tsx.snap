@@ -75,7 +75,18 @@ exports[`Premium should render the Premium view 1`] = `
         premium={1.5}
         setPremium={[MockFunction]}
       />
-      <CurrentOfferPrice />
+      <PeachText
+        style={
+          {
+            "color": "#7D675E",
+            "textAlign": "center",
+          }
+        }
+      >
+        (
+        currently 21.00 EUR
+        )
+      </PeachText>
     </View>
     <PremiumSlider
       premium={1.5}
