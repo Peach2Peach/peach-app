@@ -1,8 +1,9 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useConfigStore } from '../store/configStore/configStore'
 import { useOfferPreferences } from '../store/offerPreferenes/useOfferPreferences'
 import { getTradingAmountLimits } from '../utils/market'
+import { useMarketPrices } from './query/useMarketPrices'
 
 export const useUpdateTradingAmounts = () => {
   const [sellAmount, setSellAmount, [minBuyAmount, maxBuyAmount], setBuyAmountRange] = useOfferPreferences(
@@ -50,5 +51,8 @@ export const useUpdateTradingAmounts = () => {
     [updateBuyTradingAmounts, updateSellTradingAmounts],
   )
 
-  return updateTradingAmounts
+  const { data: prices } = useMarketPrices()
+  useEffect(() => {
+    if (prices?.CHF) updateTradingAmounts(prices.CHF)
+  }, [prices, updateTradingAmounts])
 }

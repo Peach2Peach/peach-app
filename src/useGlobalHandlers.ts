@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useMarketPrices, useShouldShowBackupReminder, useUpdateTradingAmounts } from './hooks'
+import { useShouldShowBackupReminder, useUpdateTradingAmounts } from './hooks'
 import { useHandleNotifications } from './hooks/notifications/useHandleNotifications'
 import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 import { useCheckFundingMultipleEscrows } from './hooks/useCheckFundingMultipleEscrows'
@@ -13,8 +13,7 @@ export const useGlobalHandlers = () => {
   const messageHandler = useMessageHandler()
   const showAnalyticsPrompt = useShowAnalyticsPopup()
   const analyticsPopupSeen = useSettingsStore((state) => state.analyticsPopupSeen)
-  const updateTradingAmounts = useUpdateTradingAmounts()
-  const { data: prices } = useMarketPrices()
+  useUpdateTradingAmounts()
 
   useShouldShowBackupReminder()
   useInitialNavigation()
@@ -27,8 +26,4 @@ export const useGlobalHandlers = () => {
     if (!useSettingsStore.persist?.hasHydrated()) return
     if (!analyticsPopupSeen) showAnalyticsPrompt()
   }, [analyticsPopupSeen, showAnalyticsPrompt])
-
-  useEffect(() => {
-    if (prices?.CHF) updateTradingAmounts(prices.CHF)
-  }, [prices, updateTradingAmounts])
 }
