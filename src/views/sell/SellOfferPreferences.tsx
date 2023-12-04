@@ -9,6 +9,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getTradingAmountLimits } from '../../utils/market'
 import { hasMopsConfigured } from '../../utils/offer'
+import { FundMultipleOffers } from './components/FundMultipleOffers'
 
 export function SellOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
@@ -28,7 +29,7 @@ export function SellOfferPreferences () {
             </>
           }
         />
-        <FundMultipleOffers />
+        <FundMultipleOffersContainer />
         <InstantTrade />
         <RefundWallet />
       </PeachScrollView>
@@ -205,10 +206,10 @@ function FiatInput ({ amount }: { amount: number }) {
   )
 }
 
-function FundMultipleOffers () {
+function FundMultipleOffersContainer () {
   return (
-    <SectionContainer>
-      <Text>Fund Multiple Offers</Text>
+    <SectionContainer style={tw`items-start`}>
+      <FundMultipleOffers />
     </SectionContainer>
   )
 }
