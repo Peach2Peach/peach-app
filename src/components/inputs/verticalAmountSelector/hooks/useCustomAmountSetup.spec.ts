@@ -2,10 +2,10 @@ import { act, renderHook } from 'test-utils'
 import { useCustomAmountSetup } from './useCustomAmountSetup'
 
 const displayCurrency = 'EUR'
-const fullDisplayPrice = 26600
+const bitcoinPrice = 26600
 const useBitcoinPricesMock = jest.fn().mockReturnValue({
   displayCurrency,
-  fullDisplayPrice,
+  bitcoinPrice,
 })
 jest.mock('../../../../hooks', () => ({
   useBitcoinPrices: () => useBitcoinPricesMock(),
