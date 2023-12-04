@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { APPVERSION } from '../../constants'
 import { createStorage } from '../../utils/storage'
 import { createPersistStorage } from '../createPersistStorage'
-import { defaultConfig } from './defaultConfig'
 
 type ConfigStore = Config & {
   reset: () => void
@@ -20,6 +20,19 @@ type ConfigStore = Config & {
 
 export const configStorage = createStorage('config')
 const storage = createPersistStorage<ConfigStore>(configStorage)
+
+export const defaultConfig: Config = {
+  paymentMethods: [],
+  peachPGPPublicKey: '',
+  peachFee: 0.02,
+  minAppVersion: APPVERSION,
+  latestAppVersion: APPVERSION,
+  minTradingAmount: 0,
+  maxTradingAmount: Infinity,
+  maxSellTradingAmount: Infinity,
+  seenDisputeDisclaimer: false,
+  hasSeenGroupHugAnnouncement: false,
+}
 
 export const useConfigStore = create(
   persist<ConfigStore>(
