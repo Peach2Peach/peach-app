@@ -42,9 +42,7 @@ type RootStackParamList = Onboarding & {
   buy: undefined
   sellOfferPreferences: undefined
   buyPreferences: undefined
-  sellPreferences: undefined
   buySummary: undefined
-  sellSummary: undefined
   selectCurrency: {
     origin: keyof RootStackParamList
   }
