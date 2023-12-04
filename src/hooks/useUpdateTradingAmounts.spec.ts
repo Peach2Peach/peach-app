@@ -11,13 +11,11 @@ describe('useUpdateTradingAmounts', () => {
   it('updates the min and max trading amounts correctly', () => {
     useConfigStore.getState().setMinTradingAmount(5)
     useConfigStore.getState().setMaxTradingAmount(400)
-    useConfigStore.getState().setMaxSellTradingAmount(300)
 
     renderHook(useUpdateTradingAmounts)
 
     expect(useConfigStore.getState().minTradingAmount).toEqual(50000)
     expect(useConfigStore.getState().maxTradingAmount).toEqual(4990000)
-    expect(useConfigStore.getState().maxSellTradingAmount).toEqual(3990000)
   })
   it('updates selected amounts if they fall out of range', () => {
     useOfferPreferences.getState().setSellAmount(5, { min: 5, max: 400 })

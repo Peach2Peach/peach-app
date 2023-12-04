@@ -1,7 +1,6 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
-import { useConfigStore } from '../../store/configStore/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import tw from '../../styles/tailwind'
 
@@ -10,10 +9,7 @@ export const SellAmountSelector = ({ children, style }: ComponentProps) => {
     (state) => [state.sellAmount, state.setSellAmount, state.canContinue.sellAmount],
     shallow,
   )
-  const [minTradingAmount, maxSellTradingAmount] = useConfigStore(
-    (state) => [state.minTradingAmount, state.maxSellTradingAmount],
-    shallow,
-  )
+  const [minTradingAmount, maxSellTradingAmount] = [0, 21000000]
 
   const updateSellAmount = useCallback(
     (value: number) => {

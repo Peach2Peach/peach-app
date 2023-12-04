@@ -13,7 +13,6 @@ type ConfigStore = Config & {
   setLatestAppVersion: (ver: string) => void
   setMinTradingAmount: (minTradingAmount: number) => void
   setMaxTradingAmount: (maxTradingAmount: number) => void
-  setMaxSellTradingAmount: (maxSellTradingAmount: number) => void
   setSeenDisputeDisclaimer: (seenDisputeDisclaimer: boolean) => void
   setHasSeenGroupHugAnnouncement: (hasSeenGroupHugAnnouncement: boolean) => void
 }
@@ -29,7 +28,6 @@ export const defaultConfig: Config = {
   latestAppVersion: APPVERSION,
   minTradingAmount: 0,
   maxTradingAmount: Infinity,
-  maxSellTradingAmount: Infinity,
   seenDisputeDisclaimer: false,
   hasSeenGroupHugAnnouncement: false,
 }
@@ -46,7 +44,6 @@ export const useConfigStore = create(
       setLatestAppVersion: (latestAppVersion) => set({ latestAppVersion }),
       setMinTradingAmount: (minTradingAmount) => set({ minTradingAmount }),
       setMaxTradingAmount: (maxTradingAmount) => set({ maxTradingAmount }),
-      setMaxSellTradingAmount: (maxSellTradingAmount) => set({ maxSellTradingAmount }),
       setSeenDisputeDisclaimer: (seenDisputeDisclaimer) => set({ seenDisputeDisclaimer }),
       setHasSeenGroupHugAnnouncement: (hasSeenGroupHugAnnouncement) => set({ hasSeenGroupHugAnnouncement }),
     }),

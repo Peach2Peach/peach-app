@@ -10,8 +10,8 @@ export const useUpdateTradingAmounts = () => {
     (state) => [state.sellAmount, state.setSellAmount, state.buyAmountRange, state.setBuyAmountRange],
     shallow,
   )
-  const [setMinTradingAmount, setMaxTradingAmount, setMaxSellTradingAmount] = useConfigStore(
-    (state) => [state.setMinTradingAmount, state.setMaxTradingAmount, state.setMaxSellTradingAmount],
+  const [setMinTradingAmount, setMaxTradingAmount] = useConfigStore(
+    (state) => [state.setMinTradingAmount, state.setMaxTradingAmount],
     shallow,
   )
 
@@ -32,7 +32,6 @@ export const useUpdateTradingAmounts = () => {
   const updateSellTradingAmounts = useCallback(
     (priceCHF: number) => {
       const [newMinSellAmount, newMaxSellAmount] = getTradingAmountLimits(priceCHF, 'sell')
-      setMaxSellTradingAmount(newMaxSellAmount)
 
       if (sellAmount < newMinSellAmount) {
         setSellAmount(newMinSellAmount, { min: newMinSellAmount, max: newMaxSellAmount })
@@ -40,7 +39,7 @@ export const useUpdateTradingAmounts = () => {
         setSellAmount(newMaxSellAmount, { min: newMinSellAmount, max: newMaxSellAmount })
       }
     },
-    [sellAmount, setMaxSellTradingAmount, setSellAmount],
+    [sellAmount, setSellAmount],
   )
 
   const updateTradingAmounts = useCallback(
