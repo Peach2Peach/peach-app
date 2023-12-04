@@ -1,21 +1,33 @@
-import { TouchableOpacity, View } from 'react-native'
+import { useState } from 'react'
+import { Animated, GestureResponderEvent, TextInput, TouchableOpacity, View, useWindowDimensions } from 'react-native'
 import { Header, Icon, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { MeansOfPayment } from '../../components/offer/MeansOfPayment'
-import { useNavigation } from '../../hooks'
+import { useBitcoinPrices, useIsMediumScreen, useMarketPrices, useNavigation } from '../../hooks'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { getTradingAmountLimits } from '../../utils/market'
 import { hasMopsConfigured } from '../../utils/offer'
 
 export function SellOfferPreferences () {
+  const [isSliding, setIsSliding] = useState(false)
+  const [amount, setAmount] = useState(0)
   return (
     <Screen style={tw`bg-primary-background`} header={<Header title="Sell Bitcoin" />}>
-      <PeachScrollView contentStyle={tw`gap-7`}>
+      <PeachScrollView contentStyle={tw`gap-7`} scrollEnabled={!isSliding}>
         <MarketInfo />
         <Methods />
         <CompetingOfferStats />
-        <AmountSelector />
+        <AmountSelector
+          slider={<Slider setIsSliding={setIsSliding} setAmount={setAmount} />}
+          inputs={
+            <>
+              <SatsInput amount={amount} />
+              <FiatInput amount={amount} />
+            </>
+          }
+        />
         <FundMultipleOffers />
         <InstantTrade />
         <RefundWallet />
@@ -83,11 +95,113 @@ function CompetingOfferStats () {
   )
 }
 
-function AmountSelector () {
+function AmountSelector ({ slider, inputs }: { slider?: JSX.Element; inputs?: JSX.Element }) {
   return (
     <SectionContainer style={tw`bg-primary-background-dark`}>
-      <Text>Amount Selector</Text>
+      <Text style={tw`subtitle-1`}>amount</Text>
+      <View>
+        <View style={tw`flex-row gap-10px`}>{inputs}</View>
+        {slider}
+      </View>
     </SectionContainer>
+  )
+}
+
+function Slider ({
+  setIsSliding,
+  setAmount,
+}: {
+  setIsSliding: (isSliding: boolean) => void
+  setAmount: (amount: number) => void
+}) {
+  const { width } = useWindowDimensions()
+  const isMediumScreen = useIsMediumScreen()
+  const sectionContainerPadding = 12
+  const screenPadding = isMediumScreen ? 16 : 8
+  const horizontalTrackPadding = 22
+  const horizontalPaddingForSlider = 8
+  const trackWidth = width - screenPadding - sectionContainerPadding - horizontalTrackPadding
+  const iconWidth = 16
+  const horizontalSliderPadding = 8
+  const sliderWidth = iconWidth + horizontalSliderPadding * 2
+
+  const [trackMin, trackMax] = [horizontalPaddingForSlider, trackWidth - sliderWidth - horizontalPaddingForSlider]
+
+  const { data } = useMarketPrices()
+
+  const amountRange = getTradingAmountLimits(data?.CHF || 0, 'sell')
+
+  const sliderPosition = new Animated.Value(trackMin)
+  const onDrag = (event: GestureResponderEvent) => {
+    // calculate the new position
+    const newPosition = event.nativeEvent.pageX - horizontalTrackPadding - screenPadding - sectionContainerPadding
+    const boundedPosition = Math.max(trackMin, Math.min(trackMax, newPosition))
+    sliderPosition.setValue(boundedPosition)
+    // calculate the new amount
+    const amountPosition = (boundedPosition - trackMin) / (trackMax - trackMin)
+    const newAmount = Math.round(amountRange[0] + amountPosition * (amountRange[1] - amountRange[0]))
+    setAmount(newAmount)
+  }
+
+  return (
+    <View
+      style={[
+        tw`flex-row items-center justify-between py-3 border rounded-2xl border-primary-mild-2`,
+        { width: trackWidth, paddingHorizontal: horizontalTrackPadding },
+      ]}
+    >
+      <View style={tw`h-1 w-2px rounded-px bg-primary-mild-2`} />
+      <View style={tw`h-1 w-2px rounded-px bg-primary-mild-2`} />
+      <View style={tw`h-1 w-2px rounded-px bg-primary-mild-2`} />
+      <View style={tw`h-1 w-2px rounded-px bg-primary-mild-2`} />
+      <View style={tw`h-1 w-2px rounded-px bg-primary-mild-2`} />
+
+      <Animated.View
+        style={[
+          tw`absolute items-center justify-center py-2px rounded-2xl bg-primary-main`,
+          { transform: [{ translateX: sliderPosition }], paddingHorizontal: horizontalSliderPadding },
+        ]}
+        hitSlop={{ top: 0, bottom: 80, left: trackWidth, right: trackWidth }}
+        onStartShouldSetResponder={() => true}
+        onMoveShouldSetResponder={() => true}
+        onMoveShouldSetResponderCapture={() => true}
+        onStartShouldSetResponderCapture={() => true}
+        onResponderTerminationRequest={() => false}
+        onResponderMove={onDrag}
+        onTouchStart={() => setIsSliding(true)}
+        onTouchEnd={() => setIsSliding(false)}
+      >
+        <Icon id="chevronsUp" size={iconWidth} color={tw.color('primary-background-light')} />
+      </Animated.View>
+    </View>
+  )
+}
+
+const inputContainerStyle = [
+  'items-center justify-center flex-1 bg-primary-background-light flex-row',
+  'border rounded-lg border-black-4',
+]
+const textStyle = 'text-center subtitle-1 leading-relaxed py-1px'
+
+function SatsInput ({ amount }: { amount: number }) {
+  const updateValue = (value: string) => {}
+  return (
+    <View style={tw.style(inputContainerStyle)}>
+      <TextInput style={tw.style(textStyle)} value={amount.toString()} onChangeText={updateValue} />
+      <Text style={tw.style(textStyle)}> {i18n('currency.SATS')}</Text>
+    </View>
+  )
+}
+
+function FiatInput ({ amount }: { amount: number }) {
+  const { displayCurrency, fiatPrice } = useBitcoinPrices(amount)
+  const value = fiatPrice.toString()
+  const updateValue = (value: string) => {}
+  return (
+    <View style={tw.style(inputContainerStyle)}>
+      <TextInput style={tw.style(textStyle)} value={value} onChangeText={updateValue} />
+      <Text style={tw.style(textStyle)}> {i18n(displayCurrency)}</Text>
+    </View>
   )
 }
 
@@ -133,5 +247,5 @@ function FundEscrowButton () {
 }
 
 function SectionContainer ({ children, style }: { children: React.ReactNode; style?: View['props']['style'] }) {
-  return <View style={[tw`items-center w-full p-2 rounded-2xl gap-10px`, style]}>{children}</View>
+  return <View style={[tw`items-center w-full p-3 rounded-2xl gap-10px`, style]}>{children}</View>
 }
