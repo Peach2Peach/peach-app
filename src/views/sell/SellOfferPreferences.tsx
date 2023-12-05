@@ -377,9 +377,11 @@ function RefundWallet () {
 }
 
 function FundWithPeachWallet () {
+  const [fundWithPeachWallet, toggle] = useToggleBoolean()
   return (
-    <SectionContainer>
-      <Text>Fund With Peach Wallet</Text>
+    <SectionContainer style={tw`flex-row justify-between`}>
+      <Checkbox checked={fundWithPeachWallet} text="fund with Peach wallet (10 sats/vb)" onPress={toggle} />
+      <TouchableIcon id="bitcoin" />
     </SectionContainer>
   )
 }
