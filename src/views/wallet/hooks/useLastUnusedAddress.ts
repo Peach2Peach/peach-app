@@ -5,4 +5,5 @@ export const useLastUnusedAddress = () =>
   useQuery({
     queryKey: ['lastUnusedAddress'],
     queryFn: () => peachWallet.getLastUnusedAddress(),
+    enabled: peachWallet.initialized,
   })
