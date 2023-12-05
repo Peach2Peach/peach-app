@@ -55,7 +55,6 @@ export const defaultPreferences: OfferPreferences = {
 type OfferPreferencesState = OfferPreferences & {
   canContinue: {
     buyAmountRange: boolean
-    sellAmount: boolean
     premium: boolean
     paymentMethods: boolean
   }
@@ -63,7 +62,7 @@ type OfferPreferencesState = OfferPreferences & {
 
 type OfferPreferencesActions = {
   setBuyAmountRange: (buyAmountRange: [number, number], rangeRestrictions: { min: number; max: number }) => void
-  setSellAmount: (sellAmount: number, rangeRestrictions: { min: number; max: number }) => void
+  setSellAmount: (sellAmount: number) => void
   setMulti: (number?: number) => void
   setPremium: (newPremium: number, isValid?: boolean) => void
   setPaymentMethods: (ids: string[]) => void
@@ -103,15 +102,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
           },
         }))
       },
-      setSellAmount: (sellAmount, rangeRestrictions) => {
-        set((state) => ({
-          sellAmount,
-          canContinue: {
-            ...state.canContinue,
-            sellAmount: sellAmount >= rangeRestrictions.min && sellAmount <= rangeRestrictions.max,
-          },
-        }))
-      },
+      setSellAmount: (sellAmount) => set({ sellAmount }),
       setMulti: (multi) => set({ multi }),
       setPremium: (newPremium, isValid) => {
         set((state) => ({

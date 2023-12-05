@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { Icon, Text } from '../../../components'
+import { Icon } from '../../../components'
 import { PercentageInput } from '../../../components/inputs'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -34,26 +34,23 @@ export const PremiumInput = ({ premium, setPremium }: Props) => {
   }
 
   const onMinusPress = () => {
-    const newPremium = round(Math.max(premium - 0.1, -21), 2)
+    const newPremium = round(Math.max(premium - 1, -21), 2)
     setPremium(newPremium)
     setDisplayPremium(newPremium.toString())
   }
 
   const onPlusPress = () => {
-    const newPremium = round(Math.min(premium + 0.1, 21), 2)
+    const newPremium = round(Math.min(premium + 1, 21), 2)
     setPremium(newPremium)
     setDisplayPremium(newPremium.toString())
   }
 
-  const textColor = premium === 0 ? tw`text-black-1` : premium > 0 ? tw`text-success-main` : tw`text-primary-main`
-
   return (
-    <View style={tw`flex-row items-center justify-between`}>
+    <View style={tw`flex-row items-center justify-center gap-10px`}>
       <TouchableOpacity onPress={onMinusPress} accessibilityHint={i18n('number.decrease')}>
         <Icon id="minusCircle" size={24} color={tw.color('primary-main')} />
       </TouchableOpacity>
-      <View style={tw`flex-row items-center justify-center gap-2 grow`}>
-        <Text style={[tw`text-center body-l`, textColor]}>{i18n(premium >= 0 ? 'sell.premium' : 'sell.discount')}:</Text>
+      <View style={tw`flex-row items-center justify-center gap-2`}>
         <PercentageInput value={displayValue} onChange={changePremium} />
       </View>
       <TouchableOpacity onPress={onPlusPress} accessibilityHint={i18n('number.increase')}>

@@ -49,7 +49,7 @@ export const version1 = (migratedState: SettingsVersion1): SettingsVersion2 => {
   setPaymentMethods(getSelectedPaymentDataIds(migratedState.preferredPaymentMethods))
   setPremium(migratedState.premium)
   setBuyAmountRange([migratedState.minBuyAmount, migratedState.maxBuyAmount], { min: 0, max: 0 })
-  setSellAmount(migratedState.sellAmount, { min: 0, max: 0 })
+  setSellAmount(migratedState.sellAmount)
   useOfferPreferences.getState().setPaymentMethods(getSelectedPaymentDataIds(migratedState.preferredPaymentMethods))
   return {
     appVersion: migratedState.appVersion,

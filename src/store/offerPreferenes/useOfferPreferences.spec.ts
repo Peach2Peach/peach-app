@@ -85,18 +85,8 @@ describe('useOfferPreferences - actions - setBuyAmountRange', () => {
 describe('useOfferPreferences - actions - setSellAmount', () => {
   it('should update the sell amount', () => {
     const newSellAmount = 50000
-    useOfferPreferences.getState().setSellAmount(newSellAmount, { min: 0, max: Infinity })
+    useOfferPreferences.getState().setSellAmount(newSellAmount)
     expect(useOfferPreferences.getState().sellAmount).toBe(newSellAmount)
-  })
-  it('should set can continue to false if the sell amount is not valid', () => {
-    const newSellAmount = 50000
-    useOfferPreferences.getState().setSellAmount(newSellAmount, { min: 0, max: 1000 })
-    expect(useOfferPreferences.getState().canContinue.sellAmount).toBe(false)
-  })
-  it('should set can continue to true if the sell amount is valid', () => {
-    const newSellAmount = 50000
-    useOfferPreferences.getState().setSellAmount(newSellAmount, { min: 0, max: Infinity })
-    expect(useOfferPreferences.getState().canContinue.sellAmount).toBe(true)
   })
 })
 
