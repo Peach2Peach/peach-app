@@ -1,4 +1,5 @@
-import { TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
+import { PartiallySignedTransaction } from 'bdk-rn'
+import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
@@ -17,7 +18,10 @@ import { ConfirmTransactionPopup } from './ConfirmTransactionPopup'
 import { useOpenAmountTooLowPopup } from './useOpenAmountTooLowPopup'
 import { useOptimisticTxHistoryUpdate } from './useOptimisticTxHistoryUpdate'
 
-const getPropsFromFinishedTransaction = async ({ psbt, txDetails: { sent, received } }: TxBuilderResult) => ({
+const getPropsFromFinishedTransaction = async (
+  psbt: PartiallySignedTransaction,
+  { sent, received }: TransactionDetails,
+) => ({
   amountToConfirm: sent - received,
   fee: await psbt.feeAmount(),
 })
@@ -28,6 +32,13 @@ type FundFromWalletParams = {
   fundingStatus?: FundingStatus['status']
   address?: string
   addresses?: string[]
+}
+
+type OnSuccessParams = {
+  txDetails: TransactionDetails
+  offerId: string
+  address: string
+  addresses: string[]
 }
 
 export const useFundFromPeachWallet = () => {
@@ -44,7 +55,7 @@ export const useFundFromPeachWallet = () => {
   const setPopup = usePopupStore((state) => state.setPopup)
 
   const onSuccess = useCallback(
-    ({ txDetails }: TxBuilderResult, offerId: string, address: string, addresses = []) => {
+    ({ txDetails, offerId, address, addresses }: OnSuccessParams) => {
       optimisticTxHistoryUpdate(txDetails, offerId)
       unregisterFundMultiple(address)
       setFundedFromPeachWallet(address)
@@ -56,12 +67,10 @@ export const useFundFromPeachWallet = () => {
   const fundFromPeachWallet = useCallback(
     async ({ offerId, amount, fundingStatus = 'NULL', address, addresses = [] }: FundFromWalletParams) => {
       if (!address || !amount || fundingStatus !== 'NULL') return undefined
-      // TODO: EXPENSIVE SYNC
       await peachWallet.syncWallet()
       if (peachWallet.balance < (addresses.length || 1) * minTradingAmount) {
         return openAmountTooLowPopup(peachWallet.balance, (addresses.length || 1) * minTradingAmount)
       }
-      const onSuccessCallback = (txBuilderResult: TxBuilderResult) => onSuccess(txBuilderResult, offerId, address)
 
       let finishedTransaction: TxBuilderResult
       try {
@@ -81,13 +90,14 @@ export const useFundFromPeachWallet = () => {
         try {
           const transaction = await buildTransaction({ address, feeRate, shouldDrainWallet: true })
           finishedTransaction = await peachWallet.finishTransaction(transaction)
-          const { amountToConfirm, fee } = await getPropsFromFinishedTransaction(finishedTransaction)
+          const { txDetails, psbt } = finishedTransaction
+          const { amountToConfirm, fee } = await getPropsFromFinishedTransaction(psbt, txDetails)
           return setPopup(
             <ConfirmTransactionPopup
               title={i18n('fundFromPeachWallet.insufficientFunds.title')}
               content={<ConfirmFundingWithInsufficientFunds amount={amountToConfirm} {...{ address, feeRate, fee }} />}
-              transaction={finishedTransaction}
-              onSuccess={onSuccessCallback}
+              psbt={psbt}
+              onSuccess={() => onSuccess({ txDetails, offerId, address, addresses })}
             />,
           )
         } catch (e2) {
@@ -95,14 +105,14 @@ export const useFundFromPeachWallet = () => {
         }
       }
 
-      const { amountToConfirm, fee } = await getPropsFromFinishedTransaction(finishedTransaction)
-
+      const { txDetails, psbt } = finishedTransaction
+      const { amountToConfirm, fee } = await getPropsFromFinishedTransaction(psbt, txDetails)
       return setPopup(
         <ConfirmTransactionPopup
           title={i18n('fundFromPeachWallet.confirm.title')}
           content={<ConfirmFundingFromPeachWallet amount={amountToConfirm} {...{ address, feeRate, fee }} />}
-          transaction={finishedTransaction}
-          onSuccess={onSuccessCallback}
+          psbt={psbt}
+          onSuccess={() => onSuccess({ txDetails, offerId, address, addresses })}
         />,
       )
     },
