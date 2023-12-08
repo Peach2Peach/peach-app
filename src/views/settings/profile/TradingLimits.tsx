@@ -7,9 +7,7 @@ import tw from '../../../styles/tailwind'
 import { TradingLimitAmount } from './TradingLimitAmount'
 
 export const TradingLimits = () => {
-  const {
-    limits: { dailyAmount, daily, monthlyAnonymous, monthlyAnonymousAmount, yearlyAmount, yearly },
-  } = useTradingLimits()
+  const { dailyAmount, daily, monthlyAnonymous, monthlyAnonymousAmount, yearlyAmount, yearly } = useTradingLimits()
   const limits = [
     [dailyAmount, daily],
     [monthlyAnonymousAmount, monthlyAnonymous],

@@ -30,5 +30,5 @@ export const useTradingLimits = () => {
     }
     : defaultLimits
 
-  return { limits: roundedDisplayLimits }
+  return roundedDisplayLimits
 }
