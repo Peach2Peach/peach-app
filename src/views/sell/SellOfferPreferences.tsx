@@ -29,14 +29,18 @@ import {
 } from '../../hooks'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useConfigStore } from '../../store/configStore/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { convertFiatToSats, getTradingAmountLimits } from '../../utils/market'
 import { round } from '../../utils/math'
+import { keys } from '../../utils/object'
 import { hasMopsConfigured } from '../../utils/offer'
 import { defaultFundingStatus } from '../../utils/offer/constants'
+import { cleanPaymentData } from '../../utils/paymentMethod'
+import { signAndEncrypt } from '../../utils/pgp'
 import { priceFormat } from '../../utils/string'
 import { isDefined } from '../../utils/validation'
 import { peachWallet } from '../../utils/wallet/setWallet'
@@ -463,7 +467,7 @@ function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWa
 function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boolean }) {
   const { data } = useMarketPrices()
   const amountRange = getTradingAmountLimits(data?.CHF || 0, 'sell')
-  const sellAmount = useOfferPreferences((state) => state.sellAmount)
+  const [sellAmount, instantTrade] = useOfferPreferences((state) => [state.sellAmount, state.instantTrade], shallow)
   const limits = useTradingLimits()
   const priceWithPremium = useCurrentOfferPrice()
   const [isPublishing, setIsPublishing] = useState(false)
@@ -472,7 +476,6 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
   const priceIsWithinLimits
     = priceWithPremium + limits.dailyAmount <= limits.daily && priceWithPremium + limits.yearlyAmount <= limits.yearly
   const paymentMethodsAreValid = true
-  const formValid = sellAmountIsValid && priceIsWithinLimits && paymentMethodsAreValid
 
   const [peachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
     (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel],
@@ -487,9 +490,12 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
       paymentData: state.paymentData,
       originalPaymentData: state.originalPaymentData,
       multi: state.multi,
+      instantTradeCriteria: state.instantTrade ? state.instantTradeCriteria : undefined,
     }),
     shallow,
   )
+  const formValid
+    = sellAmountIsValid && priceIsWithinLimits && paymentMethodsAreValid && !!sellPreferences.originalPaymentData.length
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
@@ -499,6 +505,32 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
   const { mutate: createEscrow } = useCreateEscrow()
   const queryClient = useQueryClient()
 
+  const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey)
+
+  const getPaymentData = () => {
+    const { paymentData, originalPaymentData } = sellPreferences
+    if (instantTrade) {
+      return keys(paymentData).reduce(async (accPromise: Promise<OfferPaymentData>, paymentMethod) => {
+        const acc = await accPromise
+        const originalData = originalPaymentData.find((e) => e.type === paymentMethod)
+        if (originalData) {
+          const cleanedData = cleanPaymentData(originalData)
+          const { encrypted, signature } = await signAndEncrypt(JSON.stringify(cleanedData), peachPGPPublicKey)
+          return {
+            ...acc,
+            [paymentMethod]: {
+              ...paymentData[paymentMethod],
+              encrypted,
+              signature,
+            },
+          }
+        }
+        return acc
+      }, Promise.resolve({}))
+    }
+    return Promise.resolve(paymentData)
+  }
+
   const onPress = async () => {
     if (isPublishing) return
     setIsPublishing(true)
@@ -507,8 +539,10 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
       setIsPublishing(false)
       return
     }
+    const paymentData = await getPaymentData()
     const { isPublished, navigationParams, errorMessage } = await publishSellOffer({
       ...sellPreferences,
+      paymentData,
       type: 'ask',
       funding: defaultFundingStatus,
       walletLabel: peachWalletActive ? i18n('peachWallet') : payoutAddressLabel,

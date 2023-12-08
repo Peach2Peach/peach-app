@@ -8,9 +8,9 @@ import { info } from './../../../utils/log'
 
 export const publishSellOffer = async (offerDraft: SellOfferDraft) => {
   info('Posting sell offer')
-  const { type, amount, premium, meansOfPayment, paymentData, returnAddress, multi } = offerDraft
+  const { type, amount, premium, meansOfPayment, paymentData, returnAddress, multi, instantTradeCriteria } = offerDraft
 
-  const payload = { type, amount, premium, meansOfPayment, paymentData, returnAddress, multi }
+  const payload = { type, amount, premium, meansOfPayment, paymentData, returnAddress, multi, instantTradeCriteria }
 
   let { result, error: err } = await peachAPI.private.offer.postSellOffer(payload)
   if (err?.error === 'PGP_MISSING') {
