@@ -1,7 +1,8 @@
 import { TouchableOpacity } from 'react-native'
 import { FillProps } from 'react-native-svg'
-import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
+import { Icon } from '../Icon'
+import Text from '../text/Text'
 
 type Props = ComponentProps & {
   checked: boolean
