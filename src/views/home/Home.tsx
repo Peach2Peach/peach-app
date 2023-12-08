@@ -32,7 +32,7 @@ function DailyMessage () {
     queryKey: ['info', 'news'],
     queryFn: async () => {
       const { result, error } = await peachAPI.public.system.getNews()
-      if (error) throw error
+      if (error || !result?.[0]) throw error || new Error('No message found')
       return result?.[0]
     },
   })
