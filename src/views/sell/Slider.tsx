@@ -1,7 +1,7 @@
 import { Animated, GestureResponderEvent } from 'react-native'
 import { Icon } from '../../components'
 import tw from '../../styles/tailwind'
-import { horizontalSliderPadding, iconWidth, sliderBottomHitSlop } from './SellOfferPreferences'
+import { horizontalSliderPadding, iconWidth, sectionContainerGap } from './SellOfferPreferences'
 
 type Props = {
   trackWidth: number
@@ -17,7 +17,7 @@ export function Slider ({ trackWidth, setIsSliding, onDrag, transform }: Props) 
         tw`absolute items-center justify-center py-2px rounded-2xl bg-primary-main`,
         { transform, paddingHorizontal: horizontalSliderPadding },
       ]}
-      hitSlop={{ bottom: sliderBottomHitSlop, left: trackWidth, right: trackWidth }}
+      hitSlop={{ bottom: sectionContainerGap, left: trackWidth, right: trackWidth }}
       onStartShouldSetResponder={() => true}
       onResponderMove={onDrag}
       onTouchStart={(e) => {

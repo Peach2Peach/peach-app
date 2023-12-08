@@ -24,6 +24,12 @@ type OfferPreferences = {
   filter: {
     buyOffer: MatchFilter
   }
+  instantTrade: boolean
+  instantTradeCriteria: {
+    minReputation: number
+    minTrades: number
+    badges: Medal[]
+  }
 }
 
 export const defaultPreferences: OfferPreferences = {
@@ -45,14 +51,12 @@ export const defaultPreferences: OfferPreferences = {
       maxPremium: null,
     },
   },
-}
-
-type OfferPreferencesState = OfferPreferences & {
-  canContinue: {
-    buyAmountRange: boolean
-    premium: boolean
-    paymentMethods: boolean
-  }
+  instantTrade: false,
+  instantTradeCriteria: {
+    minReputation: 0,
+    minTrades: 0,
+    badges: [],
+  },
 }
 
 type OfferPreferencesActions = {
@@ -66,6 +70,10 @@ type OfferPreferencesActions = {
   setBuyOfferSorter: (sorter: BuySorter) => void
   setSellOfferSorter: (sorter: SellSorter) => void
   setBuyOfferFilter: (filter: MatchFilter) => void
+  toggleInstantTrade: () => void
+  toggleMinTrades: () => void
+  toggleMinReputation: () => void
+  toggleBadge: (badge: Medal) => void
 }
 
 type OfferPreferencesStore = OfferPreferences & OfferPreferencesActions
@@ -101,7 +109,25 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       setBuyOfferSorter: (sorter) => set((state) => ({ sortBy: { ...state.sortBy, buyOffer: [sorter] } })),
       setSellOfferSorter: (sorter) => set((state) => ({ sortBy: { ...state.sortBy, sellOffer: [sorter] } })),
       setBuyOfferFilter: (filter) => set((state) => ({ filter: { ...state.filter, buyOffer: filter } })),
-    }),
+      toggleInstantTrade: () => set((state) => ({ instantTrade: !state.instantTrade })),
+      toggleMinTrades: () =>
+        set((state) => {
+          state.instantTradeCriteria.minTrades = state.instantTradeCriteria.minTrades === 0 ? 3 : 0
+        }),
+      toggleMinReputation: () =>
+        set((state) => {
+          state.instantTradeCriteria.minReputation = state.instantTradeCriteria.minReputation === 0 ? 4.5 : 0
+        }),
+      toggleBadge: (badge: Medal) =>
+        set((state) => {
+          const badges = state.instantTradeCriteria.badges
+          if (badges.includes(badge)) {
+            badges.splice(badges.indexOf(badge), 1)
+          } else {
+            badges.push(badge)
+          }
+        }),
+    })),
     {
       name: 'offerPreferences',
       version: 0,
