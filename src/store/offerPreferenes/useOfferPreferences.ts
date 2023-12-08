@@ -25,11 +25,7 @@ type OfferPreferences = {
     buyOffer: MatchFilter
   }
   instantTrade: boolean
-  instantTradeCriteria: {
-    minReputation: number
-    minTrades: number
-    badges: Medal[]
-  }
+  instantTradeCriteria: InstantTradeCriteria
 }
 
 export const defaultPreferences: OfferPreferences = {

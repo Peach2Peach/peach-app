@@ -24,6 +24,12 @@ type Offer = Omit<OfferDraft, 'originalPaymentData'> & {
   tradeStatus: TradeStatus
 }
 
+type InstantTradeCriteria = {
+  minReputation: number
+  badges: Medal[]
+  minTrades: number
+}
+
 type SellOfferDraft = OfferDraft & {
   type: 'ask'
   amount: number
@@ -31,6 +37,7 @@ type SellOfferDraft = OfferDraft & {
   returnAddress: string
   funding: FundingStatus
   multi?: number
+  instantTradeCriteria?: InstantTradeCriteria
 }
 type SellOffer = Omit<SellOfferDraft & Offer, 'originalPaymentData'> & {
   escrow?: string
