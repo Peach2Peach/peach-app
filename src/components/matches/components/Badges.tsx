@@ -13,7 +13,7 @@ export function Badges ({ unlockedBadges, id }: { unlockedBadges: User['medals']
         <Badge
           key={`profileOverviewIcon-${iconId}`}
           isUnlocked={unlockedBadges.includes(badgeName)}
-          {...{ iconId, badgeName }}
+          badgeName={badgeName}
         />
       ))}
       <RepeatTraderBadge id={id} />
