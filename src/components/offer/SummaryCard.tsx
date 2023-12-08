@@ -17,7 +17,7 @@ SummaryCard.Section = SummarySection
 const PaymentMethods = ({ meansOfPayment }: { meansOfPayment: MeansOfPayment }) => (
   <SummaryCard.Section>
     <Text style={tw`text-center text-black-2`}>{i18n('offer.summary.withTheseMethods')}</Text>
-    <MeansOfPayment meansOfPayment={meansOfPayment} />
+    <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`self-stretch`} />
   </SummaryCard.Section>
 )
 
