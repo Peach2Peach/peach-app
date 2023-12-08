@@ -14,7 +14,7 @@ import { BuyTitleComponent } from './components/BuyTitleComponent'
 import { useBuySetup } from './hooks/useBuySetup'
 
 export const Buy = () => {
-  const { freeTrades, maxFreeTrades, isLoading, rangeIsValid, next } = useBuySetup()
+  const { freeTrades, maxFreeTrades, isLoading, next } = useBuySetup()
   const showBackupReminder = useSettingsStore((state) => state.showBackupReminder)
 
   if (isLoading) return <LoadingScreen />
@@ -31,9 +31,7 @@ export const Buy = () => {
             max={maxFreeTrades}
           />
         )}
-        <Button disabled={!rangeIsValid} onPress={next}>
-          {i18n('next')}
-        </Button>
+        <Button onPress={next}>{i18n('next')}</Button>
         {showBackupReminder && <BackupReminderIcon />}
       </View>
     </Screen>

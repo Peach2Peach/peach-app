@@ -1,18 +1,13 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { immer } from 'zustand/middleware/immer'
 import { getSelectedPaymentDataIds } from '../../utils/account'
 import { createStorage } from '../../utils/storage'
 import { createPersistStorage } from '../createPersistStorage'
-import {
-  getHashedPaymentData,
-  getMeansOfPayment,
-  getOriginalPaymentData,
-  getPreferredMethods,
-  validatePaymentMethods,
-} from './helpers'
+import { getHashedPaymentData, getMeansOfPayment, getOriginalPaymentData, getPreferredMethods } from './helpers'
 import { CurrencyType } from './types'
 
-export type OfferPreferences = {
+type OfferPreferences = {
   buyAmountRange: [number, number]
   sellAmount: number
   premium: number
@@ -61,7 +56,7 @@ type OfferPreferencesState = OfferPreferences & {
 }
 
 type OfferPreferencesActions = {
-  setBuyAmountRange: (buyAmountRange: [number, number], rangeRestrictions: { min: number; max: number }) => void
+  setBuyAmountRange: (buyAmountRange: [number, number]) => void
   setSellAmount: (sellAmount: number) => void
   setMulti: (number?: number) => void
   setPremium: (newPremium: number, isValid?: boolean) => void
@@ -73,66 +68,26 @@ type OfferPreferencesActions = {
   setBuyOfferFilter: (filter: MatchFilter) => void
 }
 
-type OfferPreferencesStore = OfferPreferencesState & OfferPreferencesActions
+type OfferPreferencesStore = OfferPreferences & OfferPreferencesActions
 
 const offerPreferences = createStorage('offerPreferences')
 const storage = createPersistStorage(offerPreferences)
 
 export const useOfferPreferences = create<OfferPreferencesStore>()(
   persist(
-    // eslint-disable-next-line max-lines-per-function
-    (set, get) => ({
+    immer((set, get) => ({
       ...defaultPreferences,
-      canContinue: {
-        buyAmountRange: false,
-        sellAmount: false,
-        premium: false,
-        paymentMethods: false,
-      },
-      setBuyAmountRange: (buyAmountRange, rangeRestrictions) => {
-        const [minBuyAmount, maxBuyAmount] = buyAmountRange
-        set((state) => ({
-          buyAmountRange,
-          canContinue: {
-            ...state.canContinue,
-            buyAmountRange:
-              minBuyAmount >= rangeRestrictions.min
-              && maxBuyAmount <= rangeRestrictions.max
-              && minBuyAmount <= maxBuyAmount,
-          },
-        }))
-      },
+      setBuyAmountRange: (buyAmountRange) => set({ buyAmountRange }),
       setSellAmount: (sellAmount) => set({ sellAmount }),
       setMulti: (multi) => set({ multi }),
-      setPremium: (newPremium, isValid) => {
-        set((state) => ({
-          premium: newPremium,
-          canContinue: {
-            ...state.canContinue,
-            premium: isValid ?? state.canContinue.premium,
-          },
-        }))
-      },
+      setPremium: (premium) => set({ premium }),
       setPaymentMethods: (ids) => {
         const preferredPaymentMethods = getPreferredMethods(ids)
         const originalPaymentData = getOriginalPaymentData(preferredPaymentMethods)
         const meansOfPayment = getMeansOfPayment(originalPaymentData)
         const paymentData = getHashedPaymentData(originalPaymentData)
 
-        const newPreferences = {
-          preferredPaymentMethods,
-          meansOfPayment,
-          paymentData,
-          originalPaymentData,
-        }
-
-        set((state) => ({
-          ...newPreferences,
-          canContinue: {
-            ...state.canContinue,
-            paymentMethods: validatePaymentMethods({ ...state, ...newPreferences }),
-          },
-        }))
+        set({ preferredPaymentMethods, meansOfPayment, paymentData, originalPaymentData })
       },
       selectPaymentMethod: (id: string) => {
         const selectedPaymentDataIds = getSelectedPaymentDataIds(get().preferredPaymentMethods)
