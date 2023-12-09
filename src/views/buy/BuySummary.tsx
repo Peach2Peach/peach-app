@@ -178,7 +178,7 @@ function usePublishOffer (offerDraft: BuyOfferDraft) {
 
 async function getReleaseAddress (peachWalletActive: boolean, payoutAddress: string | undefined) {
   if (peachWalletActive) {
-    const { address: releaseAddress, index } = await peachWallet.getReceivingAddress()
+    const { address: releaseAddress, index } = await peachWallet.getAddress()
     return { releaseAddress, index }
   }
   return { releaseAddress: payoutAddress, index: undefined }

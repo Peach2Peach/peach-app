@@ -74,36 +74,6 @@ export function SellOfferPreferences () {
   )
 }
 
-const sectionContainerPadding = 12
-const horizontalTrackPadding = 22
-function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) => void }) {
-  const { width } = useWindowDimensions()
-  const isMediumScreen = useIsMediumScreen()
-  const screenPadding = useMemo(() => (isMediumScreen ? 16 : 8), [isMediumScreen])
-  const trackWidth = useMemo(
-    () => width - screenPadding - sectionContainerPadding - horizontalTrackPadding,
-    [screenPadding, width],
-  )
-
-  return (
-    <AmountSelectorContainer
-      slider={
-        <SliderTrack
-          slider={<SellAmountSlider setIsSliding={setIsSliding} trackWidth={trackWidth} />}
-          trackWidth={trackWidth}
-          paddingHorizontal={horizontalTrackPadding}
-        />
-      }
-      inputs={
-        <>
-          <SatsInput />
-          <FiatInput />
-        </>
-      }
-    />
-  )
-}
-
 function MarketInfo ({ type = 'buyOffers' }: { type?: 'buyOffers' | 'sellOffers' }) {
   const textStyle = type === 'buyOffers' ? tw`text-success-main` : tw`text-primary-main`
   const openOffers = 0
@@ -149,6 +119,36 @@ function CompetingOfferStats () {
       <Text style={textStyle}>{competingSellOffers} competing sell offers</Text>
       <Text style={textStyle}>premium of completed offers: ~{averageTradingPremium}%</Text>
     </SectionContainer>
+  )
+}
+
+const sectionContainerPadding = 12
+const horizontalTrackPadding = 22
+function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) => void }) {
+  const { width } = useWindowDimensions()
+  const isMediumScreen = useIsMediumScreen()
+  const screenPadding = useMemo(() => (isMediumScreen ? 16 : 8), [isMediumScreen])
+  const trackWidth = useMemo(
+    () => width - screenPadding - sectionContainerPadding - horizontalTrackPadding,
+    [screenPadding, width],
+  )
+
+  return (
+    <AmountSelectorContainer
+      slider={
+        <SliderTrack
+          slider={<SellAmountSlider setIsSliding={setIsSliding} trackWidth={trackWidth} />}
+          trackWidth={trackWidth}
+          paddingHorizontal={horizontalTrackPadding}
+        />
+      }
+      inputs={
+        <>
+          <SatsInput />
+          <FiatInput />
+        </>
+      }
+    />
   )
 }
 
@@ -532,7 +532,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
   const onPress = async () => {
     if (isPublishing) return
     setIsPublishing(true)
-    const { address } = peachWalletActive ? await peachWallet.getReceivingAddress() : { address: payoutAddress }
+    const { address } = peachWalletActive ? await peachWallet.getAddress() : { address: payoutAddress }
     if (!address) {
       setIsPublishing(false)
       return

@@ -35,7 +35,7 @@ export const FundEscrow = () => {
   const { offerId, isLoading, fundingAddress, fundingAddresses, fundingStatus, fundingAmount } = useFundEscrowSetup()
   if (isLoading || !fundingAddress) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
 
-  if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool txId={fundingStatus.txIds[0]} />
+  if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool offerId={offerId} txId={fundingStatus.txIds[0]} />
 
   return (
     <Screen header={<FundEscrowHeader />}>

@@ -44,9 +44,10 @@ async function handleMultipleOffersPublished (result: SellOffer[], offerDraft: S
 
   result.forEach((offer) => saveOffer({ ...offerDraft, ...offer }))
 
-  const internalAddress = await peachWallet.getNewInternalAddress()
+  const internalAddress = await peachWallet.getInternalAddress()
+  const newInternalAddress = await peachWallet.getInternalAddress(internalAddress.index + 10)
   useWalletState.getState().registerFundMultiple(
-    internalAddress.address,
+    newInternalAddress.address,
     result.map((offer) => offer.id),
   )
 

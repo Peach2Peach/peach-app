@@ -37,7 +37,7 @@ export class PeachJSWallet {
     return this.jsWallet.derivePath(`${this.derivationPath}/0/${index}`)
   }
 
-  getAddress (index: number): string | undefined {
+  _getAddress (index: number): string | undefined {
     info('PeachWallet - getAddress', index)
 
     if (this.addresses[index]) return this.addresses[index]
@@ -60,7 +60,7 @@ export class PeachJSWallet {
     for (let i = 0; i <= limit; i++) {
       info('PeachWallet - findKeyPairByAddress - scanning', i)
 
-      const candidate = this.getAddress(i)
+      const candidate = this._getAddress(i)
       if (address === candidate) {
         useWalletState.getState().setAddresses(this.addresses)
         return this.getKeyPair(i)
