@@ -566,7 +566,7 @@ function SellHeader () {
     <Header
       titleComponent={
         <>
-          <Text style={tw`h7 md:h6 text-primary-main`}>sell</Text>
+          <Text style={tw`h7 md:h6 text-primary-main`}>{i18n('sell')}</Text>
           <LogoIcons.bitcoinText style={tw`h-14px md:h-16px w-63px md:w-71px`} />
         </>
       }
