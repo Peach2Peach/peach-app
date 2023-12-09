@@ -6,7 +6,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { MarketInfo } from './components/MarketInfo'
 import { Methods } from './components/Methods'
-import { SectionContainer } from './components/SectionContainer'
+import { Section } from './components/Section'
 
 export function BuyOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
@@ -25,16 +25,16 @@ export function BuyOfferPreferences () {
 
 function AmountSelector () {
   return (
-    <SectionContainer style={tw`bg-success-mild-1`}>
-      <Text>AmountSelector</Text>
-    </SectionContainer>
+    <Section.Container style={tw`bg-success-mild-1`}>
+      <Section.Title>amount to buy</Section.Title>
+    </Section.Container>
   )
 }
 function Filters () {
   return (
-    <SectionContainer style={tw`bg-success-mild-1`}>
-      <Text>Filters</Text>
-    </SectionContainer>
+    <Section.Container style={tw`bg-success-mild-1`}>
+      <Section.Title>filters</Section.Title>
+    </Section.Container>
   )
 }
 function ShowOffersButton () {

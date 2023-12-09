@@ -51,7 +51,7 @@ import { useFundFromPeachWallet } from '../fundEscrow/hooks/useFundFromPeachWall
 import { FundMultipleOffers } from './components/FundMultipleOffers'
 import { MarketInfo } from './components/MarketInfo'
 import { Methods } from './components/Methods'
-import { SectionContainer } from './components/SectionContainer'
+import { Section } from './components/Section'
 import { Slider } from './components/Slider'
 import { SliderTrack } from './components/SliderTrack'
 import { publishSellOffer } from './utils/publishSellOffer'
@@ -80,10 +80,10 @@ function CompetingOfferStats () {
   const competingSellOffers = 0
   const averageTradingPremium = 9
   return (
-    <SectionContainer>
+    <Section.Container>
       <Text style={textStyle}>{competingSellOffers} competing sell offers</Text>
       <Text style={textStyle}>premium of completed offers: ~{averageTradingPremium}%</Text>
-    </SectionContainer>
+    </Section.Container>
   )
 }
 
@@ -119,8 +119,8 @@ function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) 
 
 function AmountSelectorContainer ({ slider, inputs }: { slider?: JSX.Element; inputs?: JSX.Element }) {
   return (
-    <SectionContainer style={tw`bg-primary-background-dark`}>
-      <Text style={tw`subtitle-1`}>amount to sell</Text>
+    <Section.Container style={tw`bg-primary-background-dark`}>
+      <Section.Title>amount to sell</Section.Title>
       <View style={tw`gap-5`}>
         <View style={tw`gap-2`}>
           <View style={tw`flex-row gap-10px`}>{inputs}</View>
@@ -128,7 +128,7 @@ function AmountSelectorContainer ({ slider, inputs }: { slider?: JSX.Element; in
         </View>
         <Premium />
       </View>
-    </SectionContainer>
+    </Section.Container>
   )
 }
 
@@ -312,9 +312,9 @@ function FiatInput () {
 
 function FundMultipleOffersContainer () {
   return (
-    <SectionContainer style={tw`items-start`}>
+    <Section.Container style={tw`items-start`}>
       <FundMultipleOffers />
-    </SectionContainer>
+    </Section.Container>
   )
 }
 
@@ -331,10 +331,10 @@ function InstantTrade () {
     shallow,
   )
   return (
-    <SectionContainer style={tw`bg-primary-background-dark`}>
+    <Section.Container style={tw`bg-primary-background-dark`}>
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={toggle} enabled={enableInstantTrade} />
-        <Text style={tw`subtitle-1`}>instant - trade</Text>
+        <Section.Title>instant - trade</Section.Title>
         <TouchableIcon id="helpCircle" iconColor={tw.color('info-light')} />
       </View>
       {enableInstantTrade && (
@@ -361,7 +361,7 @@ function InstantTrade () {
           </View>
         </>
       )}
-    </SectionContainer>
+    </Section.Container>
   )
 }
 
@@ -379,8 +379,8 @@ function RefundWallet () {
     }
   }
   return (
-    <SectionContainer style={tw`bg-primary-background-dark`}>
-      <Text style={tw`subtitle-1`}>refund to:</Text>
+    <Section.Container style={tw`bg-primary-background-dark`}>
+      <Section.Title>refund to:</Section.Title>
       <View style={tw`flex-row items-center gap-10px`}>
         <NewBubble color="orange" ghost={!peachWalletActive} onPress={() => setPeachWalletActive(true)}>
           peach wallet
@@ -394,7 +394,7 @@ function RefundWallet () {
           {payoutAddressLabel || i18n('externalWallet')}
         </NewBubble>
       </View>
-    </SectionContainer>
+    </Section.Container>
   )
 }
 
@@ -415,7 +415,7 @@ function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWa
   const navigation = useNavigation()
   const onPress = () => navigation.navigate('networkFees')
   return (
-    <SectionContainer style={tw`flex-row justify-between`}>
+    <Section.Container style={tw`flex-row justify-between`}>
       <Checkbox
         checked={fundWithPeachWallet}
         text={`fund with Peach wallet (${estimatedFeeRate} sats/vb)`}
@@ -423,7 +423,7 @@ function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWa
         style={tw`flex-1`}
       />
       <TouchableIcon id="bitcoin" onPress={onPress} />
-    </SectionContainer>
+    </Section.Container>
   )
 }
 

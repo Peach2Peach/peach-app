@@ -6,7 +6,7 @@ import { useOfferPreferences } from '../../../store/offerPreferenes'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { hasMopsConfigured } from '../../../utils/offer'
-import { SectionContainer } from './SectionContainer'
+import { Section } from './Section'
 
 export function Methods ({ type }: { type: 'buy' | 'sell' }) {
   const navigation = useNavigation()
@@ -19,17 +19,17 @@ export function Methods ({ type }: { type: 'buy' | 'sell' }) {
   return (
     <>
       {hasSelectedMethods ? (
-        <SectionContainer style={[tw`flex-row items-start`, { backgroundColor }]}>
+        <Section.Container style={[tw`flex-row items-start`, { backgroundColor }]}>
           <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`flex-1`} />
           <TouchableIcon id="plusCircle" onPress={onPress} iconColor={color} style={tw`pt-1`} />
-        </SectionContainer>
+        </Section.Container>
       ) : (
-        <SectionContainer style={{ backgroundColor }}>
+        <Section.Container style={{ backgroundColor }}>
           <TouchableOpacity style={tw`flex-row items-center gap-10px`} onPress={onPress}>
             <Icon size={16} id="plusCircle" color={color} />
             <Text style={[tw`subtitle-2`, { color }]}>{i18n.break('paymentMethod.select.button.remote')}</Text>
           </TouchableOpacity>
-        </SectionContainer>
+        </Section.Container>
       )}
     </>
   )
