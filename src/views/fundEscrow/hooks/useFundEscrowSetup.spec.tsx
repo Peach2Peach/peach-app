@@ -1,4 +1,4 @@
-import { act, renderHook, responseUtils, waitFor } from 'test-utils'
+import { act, renderHook, responseUtils } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
@@ -42,19 +42,10 @@ jest.mock('../../../hooks/query/useFundingStatus', () => ({
 }))
 
 const sellOfferWithEscrow = { ...sellOffer, escrow: 'escrow' }
-const createEscrowSuccess = {
-  offerId: sellOffer.id,
-  escrow: sellOfferWithEscrow.escrow,
-  funding: sellOffer.funding,
-}
 
 const getOfferDetailsMock = jest
   .spyOn(peachAPI.private.offer, 'getOfferDetails')
   .mockResolvedValue({ result: sellOfferWithEscrow, ...responseUtils })
-const createEscrowMock = jest
-  .spyOn(peachAPI.private.offer, 'createEscrow')
-  .mockResolvedValue({ result: createEscrowSuccess, ...responseUtils })
-
 jest.mock('./useHandleFundingStatus', () => ({
   useHandleFundingStatus: () => jest.fn(),
 }))
@@ -81,7 +72,6 @@ describe('useFundEscrowSetup', () => {
       isLoading: true,
       fundingAddress: undefined,
       fundingAddresses: [],
-      createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
       cancelOffer: expect.any(Function),
@@ -103,35 +93,26 @@ describe('useFundEscrowSetup', () => {
 
     expect(result.current).toEqual({
       offerId: sellOfferWithEscrow.id,
-      isLoading: false,
+      isLoading: true,
       fundingAddress: sellOfferWithEscrow.escrow,
       fundingAddresses: [sellOfferWithEscrow.escrow],
-      createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOfferWithEscrow.amount,
       cancelOffer: expect.any(Function),
     })
   })
-  it('should create escrow when it has not been created yet', async () => {
-    getOfferDetailsMock.mockResolvedValueOnce({ result: { ...sellOffer, escrow: undefined }, ...responseUtils })
-    const { result } = renderHook(useFundEscrowSetup)
-    await waitFor(() => expect(createEscrowMock).toHaveBeenCalled())
-    expect(result.current.fundingAddress).toBe(sellOfferWithEscrow.escrow)
-  })
-  it('should show loading for at least 1 second', async () => {
+  it('should show loading for at least 1 second', () => {
     getOfferDetailsMock.mockResolvedValueOnce({ result: { ...sellOffer, escrow: undefined }, ...responseUtils })
     const { result } = renderHook(useFundEscrowSetup)
     expect(result.current.isLoading).toBeTruthy()
-    await waitFor(() => expect(createEscrowMock).toHaveBeenCalled())
-    act(() => jest.advanceTimersByTime(1000))
+    act(() => {
+      jest.advanceTimersByTime(999)
+    })
+    expect(result.current.isLoading).toBeTruthy()
+    act(() => {
+      jest.advanceTimersByTime(1)
+    })
     expect(result.current.isLoading).toBeFalsy()
-  })
-  it('should handle create escrow errors', async () => {
-    getOfferDetailsMock.mockResolvedValueOnce({ result: { ...sellOffer, escrow: undefined }, ...responseUtils })
-    createEscrowMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
-    const { result } = renderHook(useFundEscrowSetup)
-    await waitFor(() => expect(createEscrowMock).toHaveBeenCalled())
-    expect(result.current.createEscrowError).toEqual(new Error('UNAUTHORIZED'))
   })
   it('should show error banner if there is an error with the funding status', () => {
     useFundingStatusMock.mockReturnValueOnce({
@@ -153,7 +134,6 @@ describe('useFundEscrowSetup', () => {
       isLoading: true,
       fundingAddress: undefined,
       fundingAddresses: [undefined],
-      createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
       cancelOffer: expect.any(Function),
@@ -165,10 +145,9 @@ describe('useFundEscrowSetup', () => {
     const { result } = renderHook(useFundEscrowSetup)
     expect(result.current).toEqual({
       offerId: sellOffer.id,
-      isLoading: false,
+      isLoading: true,
       fundingAddress: 'escrow',
       fundingAddresses: ['escrow'],
-      createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOffer.amount,
       cancelOffer: expect.any(Function),
@@ -205,7 +184,9 @@ describe('useFundEscrowSetup', () => {
     const syncWalletSpy = jest.spyOn(peachWallet, 'syncWallet')
     renderHook(useFundEscrowSetup)
 
-    jest.advanceTimersByTime(MSINAMINUTE * 2)
+    act(() => {
+      jest.advanceTimersByTime(MSINAMINUTE * 2)
+    })
 
     expect(syncWalletSpy).not.toHaveBeenCalled()
   })

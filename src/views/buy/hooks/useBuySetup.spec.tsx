@@ -2,19 +2,13 @@ import { act, renderHook, responseUtils, waitFor } from 'test-utils'
 import { defaultUser } from '../../../../tests/unit/data/userData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useBuySetup } from './useBuySetup'
 
 const showHelpMock = jest.fn()
 jest.mock('../../../hooks/useShowHelp', () => ({
   useShowHelp: () => showHelpMock,
-}))
-
-const useSettingsStoreMock = jest.fn((selector, _compareFn) =>
-  selector({ lastFileBackupDate: null, lastSeedBackupDate: null }),
-)
-jest.mock('../../../store/settingsStore', () => ({
-  useSettingsStore: (selector: unknown, compareFn: unknown) => useSettingsStoreMock(selector, compareFn),
 }))
 
 const mockIsBackupMandatory = jest.fn().mockReturnValue(false)
@@ -27,13 +21,15 @@ const getSelfUserMock = jest.spyOn(peachAPI.private.user, 'getSelfUser')
 jest.useFakeTimers()
 
 describe('useBuySetup', () => {
+  beforeAll(() => {
+    useSettingsStore.setState({ lastFileBackupDate: undefined, lastSeedBackupDate: undefined })
+  })
   it('should return default values', () => {
     const { result } = renderHook(useBuySetup)
     expect(result.current).toEqual({
       freeTrades: 0,
       maxFreeTrades: 0,
       isLoading: true,
-      rangeIsValid: false,
       next: expect.any(Function),
     })
   })
@@ -54,18 +50,11 @@ describe('useBuySetup', () => {
     expect(result.current.isLoading).toBeTruthy()
   })
   it('should return isLoading as true if max buy amount is Infinity (default)', () => {
-    useOfferPreferences.getState().setBuyAmountRange([0, Infinity], { min: 0, max: Infinity })
+    useOfferPreferences.getState().setBuyAmountRange([0, Infinity])
     const { result } = renderHook(useBuySetup)
     expect(result.current.isLoading).toBeTruthy()
-    act(() => useOfferPreferences.getState().setBuyAmountRange([100, 1000], { min: 100, max: 1000 }))
+    act(() => useOfferPreferences.getState().setBuyAmountRange([100, 1000]))
     expect(result.current.isLoading).toBeFalsy()
-  })
-  it('should return rangeIsValid as true if offer preferences allow it', () => {
-    useOfferPreferences.getState().setBuyAmountRange([9, 101], { min: 10, max: 100 })
-    const { result } = renderHook(useBuySetup)
-    expect(result.current.rangeIsValid).toBeFalsy()
-    act(() => useOfferPreferences.getState().setBuyAmountRange([10, 100], { min: 10, max: 100 }))
-    expect(result.current.rangeIsValid).toBeTruthy()
   })
   it('should navigate to buyPreferences screen on next', () => {
     const { result } = renderHook(useBuySetup)

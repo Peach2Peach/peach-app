@@ -155,11 +155,13 @@ function AmountSelectorContainer ({ slider, inputs }: { slider?: JSX.Element; in
   return (
     <SectionContainer style={tw`bg-primary-background-dark`}>
       <Text style={tw`subtitle-1`}>amount to sell</Text>
-      <View style={tw`gap-2`}>
-        <View style={tw`flex-row gap-10px`}>{inputs}</View>
-        {slider}
+      <View style={tw`gap-5`}>
+        <View style={tw`gap-2`}>
+          <View style={tw`flex-row gap-10px`}>{inputs}</View>
+          {slider}
+        </View>
+        <Premium />
       </View>
-      <Premium />
     </SectionContainer>
   )
 }
@@ -168,22 +170,17 @@ const replaceAllCommasWithDots = (value: string) => value.replace(/,/gu, '.')
 const removeAllButOneDot = (value: string) => value.replace(/\.(?=.*\.)/gu, '')
 function Premium () {
   return (
-    <View style={tw`items-center justify-between gap-10px`}>
-      <View style={tw`px-4 pb-1 border-b-2 border-black-1`}>
-        <Text style={tw`subtitle-1`}>premium</Text>
-      </View>
-      <View style={tw`items-center gap-1`}>
-        <PremiumInputComponent />
-        <CurrentPrice />
-        <Text style={tw`text-center body-s text-primary-dark-2`}>x competing sell offers below this premium</Text>
-      </View>
+    <View style={tw`self-stretch gap-1`}>
+      <PremiumInputComponent />
+      <CurrentPrice />
+      <Text style={tw`text-center body-s text-primary-dark-2`}>x competing sell offers below this premium</Text>
     </View>
   )
 }
 
 function PremiumInputComponent () {
   const [premium, setPremium] = useOfferPreferences((state) => [state.premium, state.setPremium])
-  return <PremiumInput premium={premium} setPremium={setPremium} />
+  return <PremiumInput premium={premium} setPremium={setPremium} incrementBy={1} />
 }
 
 function useCurrentOfferPrice () {

@@ -19,7 +19,10 @@ type Props = {
   incrementBy?: number
 }
 
-export const PremiumInput = ({ premium, setPremium, incrementBy = 0.1 }: Props) => {
+const defaultIncrement = 0.1
+const premiumBounds = { min: -21, max: 21 }
+
+export const PremiumInput = ({ premium, setPremium, incrementBy = defaultIncrement }: Props) => {
   const [displayPremium, setDisplayPremium] = useState(premium.toString())
 
   const displayValue = useMemo(() => {
@@ -35,13 +38,13 @@ export const PremiumInput = ({ premium, setPremium, incrementBy = 0.1 }: Props) 
   }
 
   const onMinusPress = () => {
-    const newPremium = round(Math.max(premium - incrementBy, -21), 2)
+    const newPremium = round(Math.max(premium - incrementBy, premiumBounds.min), 2)
     setPremium(newPremium)
     setDisplayPremium(newPremium.toString())
   }
 
   const onPlusPress = () => {
-    const newPremium = round(Math.min(premium + incrementBy, 21), 2)
+    const newPremium = round(Math.min(premium + incrementBy, premiumBounds.max), 2)
     setPremium(newPremium)
     setDisplayPremium(newPremium.toString())
   }

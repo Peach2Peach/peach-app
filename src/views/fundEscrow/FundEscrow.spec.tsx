@@ -51,17 +51,6 @@ describe('FundEscrow', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 
-  it('should show NoEscrowFound, if no there is an error while creating escrow', () => {
-    useFundEscrowSetupMock.mockReturnValueOnce({
-      ...defaultReturnValue,
-      escrow: '',
-      isLoading: false,
-      createEscrowError: new Error('UNAUTHORIZED'),
-    })
-    renderer.render(<FundEscrow />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
-
   it('should show funded from peach wallet, if funded from peach wallet', () => {
     useFundEscrowSetupMock.mockReturnValueOnce(defaultReturnValue)
     useFundFromPeachWalletMock.mockReturnValueOnce({

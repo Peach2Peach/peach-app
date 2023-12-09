@@ -17,13 +17,12 @@ describe('useUpdateTradingAmounts', () => {
     expect(useConfigStore.getState().minTradingAmount).toEqual(50000)
     expect(useConfigStore.getState().maxTradingAmount).toEqual(4990000)
   })
-  it('updates selected amounts if they fall out of range', () => {
-    useOfferPreferences.getState().setSellAmount(5, { min: 5, max: 400 })
-    useOfferPreferences.getState().setBuyAmountRange([5, 200], { min: 5, max: 400 })
+  it('updates buy amount if it falls out of range', () => {
+    useOfferPreferences.getState().setSellAmount(5)
+    useOfferPreferences.getState().setBuyAmountRange([5, 200])
 
     renderHook(useUpdateTradingAmounts)
 
-    expect(useOfferPreferences.getState().sellAmount).toEqual(50000)
     expect(useOfferPreferences.getState().buyAmountRange).toEqual([50000, 4990000])
   })
 
@@ -31,8 +30,8 @@ describe('useUpdateTradingAmounts', () => {
     const buyRange: [number, number] = [60000, 100000]
     const sellAmount = 60000
 
-    useOfferPreferences.getState().setSellAmount(sellAmount, { min: 50000, max: 4990000 })
-    useOfferPreferences.getState().setBuyAmountRange(buyRange, { min: 50000, max: 4990000 })
+    useOfferPreferences.getState().setSellAmount(sellAmount)
+    useOfferPreferences.getState().setBuyAmountRange(buyRange)
 
     renderHook(useUpdateTradingAmounts)
 

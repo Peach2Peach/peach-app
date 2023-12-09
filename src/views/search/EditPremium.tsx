@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { Header, Screen, Text } from '../../components'
+import { View } from 'react-native'
+import { Header, PremiumSlider, Screen, Text } from '../../components'
+import { BTCAmount } from '../../components/bitcoin'
 import { Button } from '../../components/buttons/Button'
 import { useMarketPrices, useNavigation, useRoute, useShowHelp } from '../../hooks'
 import { usePatchOffer } from '../../hooks/offer'
@@ -9,7 +11,7 @@ import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { getOfferPrice, isSellOffer, offerIdToHex } from '../../utils/offer'
 import { priceFormat } from '../../utils/string'
-import { Premium } from '../sell/Premium'
+import { PremiumInput } from '../sell/components'
 
 export const EditPremium = () => {
   const { offerId } = useRoute<'editPremium'>().params
@@ -37,8 +39,8 @@ export const EditPremium = () => {
             ({i18n('sell.premium.currently', `${priceFormat(currentPrice)} ${displayCurrency}`)})
           </Text>
         }
-        confirmButton={<ConfirmButton offerId={offerId} newPremium={displayPremium} />}
       />
+      <ConfirmButton offerId={offerId} newPremium={displayPremium} />
     </Screen>
   )
 }
@@ -46,7 +48,7 @@ export const EditPremium = () => {
 function EditPremiumHeader () {
   const { offerId } = useRoute<'editPremium'>().params
   const showHelp = useShowHelp('premium')
-  return <Header title={offerIdToHex(offerId)} icons={[{ ...headerIcons.help, onPress: showHelp }]} showPriceStats />
+  return <Header title={offerIdToHex(offerId)} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }
 
 type Props = {
@@ -60,5 +62,31 @@ function ConfirmButton ({ offerId, newPremium }: Props) {
     <Button onPress={() => confirmPremium(undefined, { onSuccess: navigation.goBack })} style={tw`self-center`}>
       {i18n('confirm')}
     </Button>
+  )
+}
+
+type PremiumProps = {
+  premium: number
+  setPremium: (newPremium: number, isValid?: boolean | undefined) => void
+  amount: number
+  offerPrice: React.ReactNode
+}
+
+function Premium ({ premium, setPremium, amount, offerPrice }: PremiumProps) {
+  return (
+    <View style={tw`items-center justify-center grow gap-7`}>
+      <View style={tw`items-center`}>
+        <Text style={[tw`text-center h6`, tw`md:h5`]}>{i18n('sell.premium.title')}</Text>
+        <View style={tw`flex-row items-center gap-1`}>
+          <Text style={tw`text-center subtitle-1`}>{i18n('search.sellOffer')}</Text>
+          <BTCAmount size="small" amount={amount} />
+        </View>
+      </View>
+      <View style={tw`items-center gap-1`}>
+        <PremiumInput premium={premium} setPremium={setPremium} />
+        {offerPrice}
+      </View>
+      <PremiumSlider style={tw`items-center self-stretch gap-6px`} premium={premium} setPremium={setPremium} />
+    </View>
   )
 }
