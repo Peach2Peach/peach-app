@@ -9,7 +9,8 @@ export const BackupTime = () => {
   const route = useRoute<'backupTime'>()
   const { nextScreen, ...params } = route.params
   const goToBackups = () => navigation.replace('backups')
-  const skip = () => (nextScreen ? navigation.replace(nextScreen, params) : navigation.replace('buy'))
+  const skip = () =>
+    nextScreen ? navigation.replace(nextScreen, params) : navigation.replace('homeScreen', { screen: 'home' })
 
   return (
     <Overlay
