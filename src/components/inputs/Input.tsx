@@ -153,7 +153,7 @@ export const Input = ({
       >
         <TextInput
           style={[
-            tw`flex-shrink w-full h-10 py-0 input-text`,
+            tw`shrink w-full h-10 py-0 input-text`,
             tw.style(value ? styles.text : styles.placeholder),
             showError && tw.style(styles.textError),
             !showError && tw`border border-transparent`,

@@ -15,7 +15,7 @@ export const PublicKey = ({ publicKey, style }: { publicKey: string } & Componen
     <View style={style}>
       <Text style={tw`body-m text-black-2 lowercase`}>{i18n('profile.publicKey')}:</Text>
       <View style={tw`flex-row items-center`}>
-        <Text style={tw`text-black-1 subtitle-2 uppercase flex-shrink`}>
+        <Text style={tw`text-black-1 subtitle-2 uppercase shrink`}>
           <Text style={tw`text-primary-main subtitle-2`}>{publicKey.slice(0, 8)}</Text>
           {publicKey.slice(8)}
         </Text>

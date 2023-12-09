@@ -9,6 +9,7 @@ import { publishPGPPublicKey } from '../../init/publishPGPPublicKey'
 import { InfoPopup } from '../../popups/InfoPopup'
 import { useConfigStore } from '../../store/configStore/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
+import { validatePaymentMethods } from '../../store/offerPreferenes/helpers'
 import { useSettingsStore } from '../../store/settingsStore'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
@@ -78,16 +79,24 @@ function PublishOfferButton ({ offerDraft }: { offerDraft: BuyOfferDraft }) {
   )
   const publicKey = useAccountStore((state) => state.account.publicKey)
   if (!peachWalletActive && !payoutAddress) setPeachWalletActive(true)
+  const { meansOfPayment, originalPaymentData } = useOfferPreferences(
+    (state) => ({
+      meansOfPayment: state.meansOfPayment,
+      originalPaymentData: state.originalPaymentData,
+    }),
+    shallow,
+  )
 
   const canPublish
-    = peachWalletActive
-    || (!!payoutAddress
-      && !!payoutAddressSignature
-      && isValidBitcoinSignature(
-        getMessageToSignForAddress(publicKey, payoutAddress),
-        payoutAddress,
-        payoutAddressSignature,
-      ))
+    = (peachWalletActive
+      || (!!payoutAddress
+        && !!payoutAddressSignature
+        && isValidBitcoinSignature(
+          getMessageToSignForAddress(publicKey, payoutAddress),
+          payoutAddress,
+          payoutAddressSignature,
+        )))
+    && validatePaymentMethods({ originalPaymentData, meansOfPayment })
 
   const goToMessageSigning = () => navigation.navigate('signMessage')
 
@@ -160,7 +169,7 @@ function usePublishOffer (offerDraft: BuyOfferDraft) {
           { name: 'homeScreen', params: { screen: 'yourTrades' } },
           !hasSeenGroupHugAnnouncement
             ? { name: 'groupHugAnnouncement', params: { offerId } }
-            : { name: 'offerPublished', params: { offerId, isSellOffer: false, shouldGoBack: true } },
+            : { name: 'offerPublished', params: { offerId, shouldGoBack: true } },
         ],
       })
     },

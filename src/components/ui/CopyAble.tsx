@@ -42,7 +42,7 @@ export const CopyAble = ({ forwardRef, value, color, disabled, style, textPositi
     <Pressable
       onPress={copy}
       disabled={!value || disabled}
-      style={[tw`flex-row items-center justify-center flex-shrink w-4 h-4`, style]}
+      style={[tw`flex-row items-center justify-center shrink w-4 h-4`, style]}
     >
       <Icon id="copy" style={tw`w-full h-full`} color={color?.color || tw.color('primary-main')} />
       <Fade show={showCopied} duration={300} delay={0} style={textPositions[textPosition]}>

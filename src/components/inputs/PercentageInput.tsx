@@ -18,7 +18,7 @@ export const PercentageInput = forwardRef(({ onChange, ...props }: Props, ref: L
     <TextInput
       ref={ref}
       onChangeText={(text) => onChange(enforceDecimalsFormat(text, 2))}
-      style={tw`flex-grow py-0 text-center h-38px input-text text-black-1`}
+      style={tw`grow py-0 text-center h-38px input-text text-black-1`}
       keyboardType={'decimal-pad'}
       placeholder={'20.00'}
       placeholderTextColor={tw.color('black-5')}

@@ -1,14 +1,14 @@
 import { useNavigation } from '@react-navigation/native'
 import { ColorValue, TouchableOpacity, View, ViewProps } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { shallow } from 'zustand/shallow'
 import { IconType } from '../assets/icons'
-import { useBitcoinStore } from '../store/bitcoinStore'
+import { useBitcoinPrices } from '../hooks'
+import { useSettingsStore } from '../store/settingsStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { getHeaderStyles } from '../utils/layout'
-import { round } from '../utils/math'
 import { thousands } from '../utils/string'
+import { BackupReminderIcon } from '../views/buy/BackupReminderIcon'
 import { Icon } from './Icon'
 import { BTCAmount } from './bitcoin'
 import { PriceFormat } from './text/PriceFormat'
@@ -106,7 +106,7 @@ export const Header = ({
       ]}
     >
       {showPriceStats && <Tickers />}
-      {props.title && <HeaderNavigation {...props} />}
+      {(props.title || props.titleComponent) && <HeaderNavigation {...props} />}
       {!!subtitle && subtitle}
     </View>
   )
@@ -155,7 +155,9 @@ function HeaderNavigation ({
   )
 }
 
-const colStyle = [tw`flex-row items-center gap-2`, tw`md:flex-col md:items-start md:gap-0`]
+const colStyle = [tw`flex-row items-center flex-1 gap-2`, tw`md:flex-col md:gap-0`]
+const leftColStyle = [...colStyle, tw`justify-start md:items-start`]
+const rightColStyle = [...colStyle, tw`justify-end md:items-end`]
 const unitStyle = tw`subtitle-1`
 
 type TickerProps = {
@@ -163,22 +165,20 @@ type TickerProps = {
 }
 
 function Tickers ({ type = 'sell' }: TickerProps) {
-  const [currency, satsPerUnit, price] = useBitcoinStore(
-    (state) => [state.currency, state.satsPerUnit, state.price],
-    shallow,
-  )
+  const { bitcoinPrice, moscowTime, displayCurrency } = useBitcoinPrices()
   const valueStyle = [tw`leading-xl`, type === 'sell' ? tw`text-primary-main` : tw`text-success-main`, tw`md:body-l`]
-
+  const showBackupReminder = useSettingsStore((state) => state.showBackupReminder)
   return (
     <View style={[tw`flex-row items-center justify-between py-1 px-sm`, tw`md:px-md md:py-2px`]}>
-      <View style={colStyle}>
+      <View style={leftColStyle}>
         <PeachText style={unitStyle}>{`1 ${i18n('btc')}`}</PeachText>
-        <PriceFormat style={valueStyle} currency={currency} amount={price} round />
+        <PriceFormat style={valueStyle} currency={displayCurrency} amount={bitcoinPrice} round />
       </View>
-      <View style={[...colStyle, tw`md:items-end`]}>
-        <PeachText style={[unitStyle, tw`text-right`]}>{`1 ${currency}`}</PeachText>
+      {showBackupReminder && <BackupReminderIcon />}
+      <View style={rightColStyle}>
+        <PeachText style={[unitStyle, tw`text-right`]}>{`1 ${displayCurrency}`}</PeachText>
         <PeachText style={[...valueStyle, tw`text-right`]}>
-          {i18n('currency.format.sats', thousands(round(satsPerUnit)))}
+          {i18n('currency.format.sats', thousands(moscowTime))}
         </PeachText>
       </View>
     </View>

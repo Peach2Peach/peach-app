@@ -8,10 +8,11 @@ type TradePlaceholdersProps = ComponentProps & {
 }
 const GoTradeButton = ({ tab }: { tab: 'yourTrades.buy' | 'yourTrades.sell' }) => {
   const navigation = useNavigation()
-  const destination = tab === 'yourTrades.buy' ? 'buy' : 'sell'
+  const destination
+    = tab === 'yourTrades.buy' ? (['homeScreen', { screen: 'home' }] as const) : (['sellOfferPreferences'] as const)
 
   const onPress = () => {
-    navigation.navigate('homeScreen', { screen: destination })
+    navigation.navigate(...destination)
   }
 
   return (

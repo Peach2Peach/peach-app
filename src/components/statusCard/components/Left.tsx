@@ -16,7 +16,7 @@ export const Left = ({ icon, title, subtext, replaced = false }: Props) => {
     await goToNewOffer(newOfferOrContractID)
   }
   return (
-    <View style={tw`flex-shrink gap-1`}>
+    <View style={tw`shrink gap-1`}>
       <FixedHeightText height={17} style={[tw`subtitle-1`, replaced && tw`text-black-3`]} numberOfLines={1}>
         {title}
       </FixedHeightText>

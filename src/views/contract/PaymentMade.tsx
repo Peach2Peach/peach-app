@@ -17,7 +17,7 @@ export const PaymentMade = () => {
       ],
     })
   const close = () =>
-    navigation.canGoBack() ? navigation.goBack() : navigation.navigate('homeScreen', { screen: 'buy' })
+    navigation.canGoBack() ? navigation.goBack() : navigation.navigate('homeScreen', { screen: 'home' })
 
   return (
     <Overlay

@@ -16,7 +16,7 @@ type Props =
 export const Divider = ({ type = 'light', align = 'left', icon, iconAlign = 'left', text, style }: Props) => (
   <View style={[tw`flex-row items-center`, style]}>
     {!!icon && iconAlign === 'left' && icon}
-    {align === 'center' && <HorizontalLine style={[tw`flex-grow`, type === 'error' && tw`bg-error-mild`]} />}
+    {align === 'center' && <HorizontalLine style={[tw`grow`, type === 'error' && tw`bg-error-mild`]} />}
     {!!text && (
       <Text
         style={[
@@ -30,7 +30,7 @@ export const Divider = ({ type = 'light', align = 'left', icon, iconAlign = 'lef
         {text}
       </Text>
     )}
-    <HorizontalLine style={[tw`flex-grow`, type === 'error' && tw`bg-error-mild`]} />
+    <HorizontalLine style={[tw`grow`, type === 'error' && tw`bg-error-mild`]} />
     {!!icon && iconAlign === 'right' && icon}
   </View>
 )

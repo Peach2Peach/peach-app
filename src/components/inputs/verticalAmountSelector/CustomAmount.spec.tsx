@@ -3,7 +3,7 @@ import { CustomAmount } from './CustomAmount'
 
 const useBitcoinPricesMock = jest.fn().mockReturnValue({
   displayCurrency: 'EUR',
-  fullDisplayPrice: 26600,
+  bitcoinPrice: 26600,
 })
 jest.mock('../../../hooks', () => ({
   useBitcoinPrices: () => useBitcoinPricesMock(),

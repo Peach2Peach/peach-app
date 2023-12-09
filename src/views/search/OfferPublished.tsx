@@ -5,9 +5,9 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 export const OfferPublished = () => {
-  const { isSellOffer, shouldGoBack, offerId } = useRoute<'offerPublished'>().params
+  const { shouldGoBack, offerId } = useRoute<'offerPublished'>().params
   const navigation = useNavigation()
-  const goBackHome = () => navigation.replace('homeScreen', { screen: isSellOffer ? 'sell' : 'buy' })
+  const goBackHome = () => navigation.replace('homeScreen', { screen: 'home' })
   const goToOffer = () => navigation.replace('search', { offerId })
   const goBack = () => navigation.goBack()
 

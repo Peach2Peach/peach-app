@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { useConfigStore } from '../../store/configStore/configStore'
@@ -7,7 +6,7 @@ import tw from '../../styles/tailwind'
 
 export const BuyAmountSelector = ({ style }: ComponentProps) => {
   const [amountRange, setBuyAmountRange] = useOfferPreferences(
-    (state) => [state.buyAmountRange, state.setBuyAmountRange, state.canContinue.buyAmountRange],
+    (state) => [state.buyAmountRange, state.setBuyAmountRange],
     shallow,
   )
   const [minTradingAmount, maxTradingAmount] = useConfigStore(
@@ -15,19 +14,13 @@ export const BuyAmountSelector = ({ style }: ComponentProps) => {
     shallow,
   )
 
-  const setSelectedRange = useCallback(
-    (newRange: [number, number]) => {
-      setBuyAmountRange(newRange, { min: minTradingAmount, max: maxTradingAmount })
-    },
-    [maxTradingAmount, minTradingAmount, setBuyAmountRange],
-  )
   return (
     <RangeAmount
       style={[tw`h-full shrink`, style]}
       min={minTradingAmount}
       max={maxTradingAmount}
       value={amountRange}
-      onChange={setSelectedRange}
+      onChange={setBuyAmountRange}
     />
   )
 }

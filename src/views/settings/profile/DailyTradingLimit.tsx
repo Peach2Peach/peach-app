@@ -7,9 +7,7 @@ import tw from '../../../styles/tailwind'
 import { TradingLimitAmount } from './TradingLimitAmount'
 
 export const DailyTradingLimit = () => {
-  const {
-    limits: { dailyAmount: amount, daily: limit },
-  } = useTradingLimits()
+  const { dailyAmount: amount, daily: limit } = useTradingLimits()
   const displayCurrency = useSettingsStore((state) => state.displayCurrency)
 
   return (

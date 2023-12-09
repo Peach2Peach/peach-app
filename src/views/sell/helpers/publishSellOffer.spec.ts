@@ -3,6 +3,8 @@ import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
 import i18n from '../../../utils/i18n'
 import { peachAPI } from '../../../utils/peachAPI'
+import { PeachWallet } from '../../../utils/wallet/PeachWallet'
+import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { publishSellOffer } from './publishSellOffer'
 
 const postSellOfferMock = jest.spyOn(peachAPI.private.offer, 'postSellOffer')
@@ -18,19 +20,14 @@ jest.mock('../../../utils/log', () => ({
 }))
 
 const singleOfferResult = { isPublished: true, navigationParams: { offerId: sellOffer.id }, errorMessage: null }
-const handleSellOfferPublishedMock = jest.fn().mockReturnValue(singleOfferResult)
-jest.mock('./handleSellOfferPublished', () => ({
-  handleSellOfferPublished: (...args: unknown[]) => handleSellOfferPublishedMock(...args),
-}))
-
 const multipleOffersResult = { isPublished: true, navigationParams: { offerId: '40' }, errorMessage: null }
-const handleMultipleOffersPublishedMock = jest.fn().mockResolvedValue(multipleOffersResult)
-jest.mock('./handleMultipleOffersPublished', () => ({
-  handleMultipleOffersPublished: (...args: unknown[]) => handleMultipleOffersPublishedMock(...args),
-}))
 
 // eslint-disable-next-line max-lines-per-function
 describe('publishSellOffer', () => {
+  beforeAll(() => {
+    // @ts-ignore
+    setPeachWallet(new PeachWallet())
+  })
   const offerDraft: SellOfferDraft = {
     ...sellOffer,
     originalPaymentData: [validSEPAData],
@@ -77,17 +74,15 @@ describe('publishSellOffer', () => {
     })
     const publishSellOfferResult = await publishSellOffer(offerDraft)
     expect(publishSellOfferResult).toEqual(singleOfferResult)
-    expect(handleSellOfferPublishedMock).toHaveBeenCalledWith(sellOffer, offerDraft)
   })
   it('should handle multiple offer being published', async () => {
     postSellOfferMock.mockResolvedValue({
-      result: [sellOffer, sellOffer],
+      result: [{ ...sellOffer, id: '40' }, sellOffer],
       error: undefined,
       ...responseUtils,
     })
     const publishSellOfferResult = await publishSellOffer(offerDraft)
     expect(publishSellOfferResult).toEqual(multipleOffersResult)
-    expect(handleMultipleOffersPublishedMock).toHaveBeenCalledWith([sellOffer, sellOffer], offerDraft)
   })
 
   it('should send pgp keys and retry posting buy offer if first error is PGP_MISSING', async () => {

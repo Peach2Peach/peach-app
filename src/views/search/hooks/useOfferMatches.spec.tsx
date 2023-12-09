@@ -1,15 +1,9 @@
 import { act, renderHook, responseUtils, waitFor } from 'test-utils'
-import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
 import { useMatchStore } from '../../../components/matches/store'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useOfferMatches } from './useOfferMatches'
 
 const getMatchesMock = jest.spyOn(peachAPI.private.offer, 'getMatches')
-const getOfferDetailsMock = jest.fn().mockResolvedValue([buyOffer, null])
-jest.mock('../../../utils/peachAPI', () => ({
-  peachAPI: jest.requireActual('../../../utils/peachAPI').peachAPI,
-  getOfferDetails: () => getOfferDetailsMock(),
-}))
 
 jest.useFakeTimers()
 
@@ -105,13 +99,6 @@ describe('useOfferMatches', () => {
     getMatchesMock.mockImplementation((..._args) =>
       Promise.resolve({ result: { matches: ['match'], remainingMatches: 0 }, ...responseUtils }),
     )
-    getOfferDetailsMock.mockResolvedValueOnce([
-      {
-        ...sellOffer,
-        funding: { status: 'FUNDED' },
-      },
-      null,
-    ])
     const { result } = renderHook(useOfferMatches, { initialProps: 'thirdOfferId' })
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)

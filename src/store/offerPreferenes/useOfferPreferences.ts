@@ -1,18 +1,13 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { immer } from 'zustand/middleware/immer'
 import { getSelectedPaymentDataIds } from '../../utils/account'
 import { createStorage } from '../../utils/storage'
 import { createPersistStorage } from '../createPersistStorage'
-import {
-  getHashedPaymentData,
-  getMeansOfPayment,
-  getOriginalPaymentData,
-  getPreferredMethods,
-  validatePaymentMethods,
-} from './helpers'
+import { getHashedPaymentData, getMeansOfPayment, getOriginalPaymentData, getPreferredMethods } from './helpers'
 import { CurrencyType } from './types'
 
-export type OfferPreferences = {
+type OfferPreferences = {
   buyAmountRange: [number, number]
   sellAmount: number
   premium: number
@@ -29,6 +24,8 @@ export type OfferPreferences = {
   filter: {
     buyOffer: MatchFilter
   }
+  instantTrade: boolean
+  instantTradeCriteria: InstantTradeCriteria
 }
 
 export const defaultPreferences: OfferPreferences = {
@@ -50,20 +47,17 @@ export const defaultPreferences: OfferPreferences = {
       maxPremium: null,
     },
   },
-}
-
-type OfferPreferencesState = OfferPreferences & {
-  canContinue: {
-    buyAmountRange: boolean
-    sellAmount: boolean
-    premium: boolean
-    paymentMethods: boolean
-  }
+  instantTrade: false,
+  instantTradeCriteria: {
+    minReputation: 0,
+    minTrades: 0,
+    badges: [],
+  },
 }
 
 type OfferPreferencesActions = {
-  setBuyAmountRange: (buyAmountRange: [number, number], rangeRestrictions: { min: number; max: number }) => void
-  setSellAmount: (sellAmount: number, rangeRestrictions: { min: number; max: number }) => void
+  setBuyAmountRange: (buyAmountRange: [number, number]) => void
+  setSellAmount: (sellAmount: number) => void
   setMulti: (number?: number) => void
   setPremium: (newPremium: number, isValid?: boolean) => void
   setPaymentMethods: (ids: string[]) => void
@@ -72,76 +66,32 @@ type OfferPreferencesActions = {
   setBuyOfferSorter: (sorter: BuySorter) => void
   setSellOfferSorter: (sorter: SellSorter) => void
   setBuyOfferFilter: (filter: MatchFilter) => void
+  toggleInstantTrade: () => void
+  toggleMinTrades: () => void
+  toggleMinReputation: () => void
+  toggleBadge: (badge: Medal) => void
 }
 
-type OfferPreferencesStore = OfferPreferencesState & OfferPreferencesActions
+type OfferPreferencesStore = OfferPreferences & OfferPreferencesActions
 
 const offerPreferences = createStorage('offerPreferences')
 const storage = createPersistStorage(offerPreferences)
 
 export const useOfferPreferences = create<OfferPreferencesStore>()(
   persist(
-    // eslint-disable-next-line max-lines-per-function
-    (set, get) => ({
+    immer((set, get) => ({
       ...defaultPreferences,
-      canContinue: {
-        buyAmountRange: false,
-        sellAmount: false,
-        premium: false,
-        paymentMethods: false,
-      },
-      setBuyAmountRange: (buyAmountRange, rangeRestrictions) => {
-        const [minBuyAmount, maxBuyAmount] = buyAmountRange
-        set((state) => ({
-          buyAmountRange,
-          canContinue: {
-            ...state.canContinue,
-            buyAmountRange:
-              minBuyAmount >= rangeRestrictions.min
-              && maxBuyAmount <= rangeRestrictions.max
-              && minBuyAmount <= maxBuyAmount,
-          },
-        }))
-      },
-      setSellAmount: (sellAmount, rangeRestrictions) => {
-        set((state) => ({
-          sellAmount,
-          canContinue: {
-            ...state.canContinue,
-            sellAmount: sellAmount >= rangeRestrictions.min && sellAmount <= rangeRestrictions.max,
-          },
-        }))
-      },
+      setBuyAmountRange: (buyAmountRange) => set({ buyAmountRange }),
+      setSellAmount: (sellAmount) => set({ sellAmount }),
       setMulti: (multi) => set({ multi }),
-      setPremium: (newPremium, isValid) => {
-        set((state) => ({
-          premium: newPremium,
-          canContinue: {
-            ...state.canContinue,
-            premium: isValid ?? state.canContinue.premium,
-          },
-        }))
-      },
+      setPremium: (premium) => set({ premium }),
       setPaymentMethods: (ids) => {
         const preferredPaymentMethods = getPreferredMethods(ids)
         const originalPaymentData = getOriginalPaymentData(preferredPaymentMethods)
         const meansOfPayment = getMeansOfPayment(originalPaymentData)
         const paymentData = getHashedPaymentData(originalPaymentData)
 
-        const newPreferences = {
-          preferredPaymentMethods,
-          meansOfPayment,
-          paymentData,
-          originalPaymentData,
-        }
-
-        set((state) => ({
-          ...newPreferences,
-          canContinue: {
-            ...state.canContinue,
-            paymentMethods: validatePaymentMethods({ ...state, ...newPreferences }),
-          },
-        }))
+        set({ preferredPaymentMethods, meansOfPayment, paymentData, originalPaymentData })
       },
       selectPaymentMethod: (id: string) => {
         const selectedPaymentDataIds = getSelectedPaymentDataIds(get().preferredPaymentMethods)
@@ -155,7 +105,25 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       setBuyOfferSorter: (sorter) => set((state) => ({ sortBy: { ...state.sortBy, buyOffer: [sorter] } })),
       setSellOfferSorter: (sorter) => set((state) => ({ sortBy: { ...state.sortBy, sellOffer: [sorter] } })),
       setBuyOfferFilter: (filter) => set((state) => ({ filter: { ...state.filter, buyOffer: filter } })),
-    }),
+      toggleInstantTrade: () => set((state) => ({ instantTrade: !state.instantTrade })),
+      toggleMinTrades: () =>
+        set((state) => {
+          state.instantTradeCriteria.minTrades = state.instantTradeCriteria.minTrades === 0 ? 3 : 0
+        }),
+      toggleMinReputation: () =>
+        set((state) => {
+          state.instantTradeCriteria.minReputation = state.instantTradeCriteria.minReputation === 0 ? 4.5 : 0
+        }),
+      toggleBadge: (badge: Medal) =>
+        set((state) => {
+          const badges = state.instantTradeCriteria.badges
+          if (badges.includes(badge)) {
+            badges.splice(badges.indexOf(badge), 1)
+          } else {
+            badges.push(badge)
+          }
+        }),
+    })),
     {
       name: 'offerPreferences',
       version: 0,

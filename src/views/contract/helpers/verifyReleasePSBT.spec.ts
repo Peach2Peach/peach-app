@@ -2,8 +2,7 @@ import { contract } from '../../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { constructPSBT } from '../../../../tests/unit/helpers/constructPSBT'
 import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
-import { useConfigStore } from '../../../store/configStore/configStore'
-import { defaultConfig } from '../../../store/configStore/defaultConfig'
+import { defaultConfig, useConfigStore } from '../../../store/configStore/configStore'
 import { verifyReleasePSBT } from './verifyReleasePSBT'
 
 const wallet = createTestWallet()

@@ -22,10 +22,17 @@ export const PayoutAddress = () => {
   const { type } = useRoute<'payoutAddress'>().params || {}
   const navigation = useNavigation()
 
-  const [payoutAddress, setPayoutAddress, payoutAddressLabel, setPayoutAddressLabel] = useSettingsStore(
-    (state) => [state.payoutAddress, state.setPayoutAddress, state.payoutAddressLabel, state.setPayoutAddressLabel],
-    shallow,
-  )
+  const [payoutAddress, setPayoutAddress, payoutAddressLabel, setPayoutAddressLabel, setPeachWalletActive]
+    = useSettingsStore(
+      (state) => [
+        state.payoutAddress,
+        state.setPayoutAddress,
+        state.payoutAddressLabel,
+        state.setPayoutAddressLabel,
+        state.setPeachWalletActive,
+      ],
+      shallow,
+    )
   const [address, setAddress, addressValid, addressErrors] = useValidatedState(payoutAddress || '', addressRules)
   const [addressLabel, setAddressLabel, addressLabelValid, addressLabelErrors] = useValidatedState(
     payoutAddressLabel || '',
@@ -40,7 +47,10 @@ export const PayoutAddress = () => {
       setPayoutAddressLabel(addressLabel)
 
       if (type === 'payout' && addressChanged) navigation.replace('signMessage')
-      if (type === 'refund' && addressChanged) navigation.goBack()
+      if (type === 'refund' && addressChanged) {
+        setPeachWalletActive(false)
+        navigation.goBack()
+      }
     }
   }
 
@@ -110,8 +120,8 @@ function RemoveWalletButton (popupProps: PopupProps) {
 }
 
 function RemoveWalletPopup ({ setAddressInput, setAddressLabelInput }: PopupProps) {
-  const [setPayoutAddress, setPayoutAddressLabel] = useSettingsStore(
-    (state) => [state.setPayoutAddress, state.setPayoutAddressLabel],
+  const [setPayoutAddress, setPayoutAddressLabel, setPeachWalletActive] = useSettingsStore(
+    (state) => [state.setPayoutAddress, state.setPayoutAddressLabel, state.setPeachWalletActive],
     shallow,
   )
   const closePopup = usePopupStore((state) => state.closePopup)
@@ -120,6 +130,7 @@ function RemoveWalletPopup ({ setAddressInput, setAddressLabelInput }: PopupProp
     setPayoutAddressLabel(undefined)
     setAddressInput('')
     setAddressLabelInput('')
+    setPeachWalletActive(true)
     closePopup()
   }
   return (

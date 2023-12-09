@@ -12,7 +12,7 @@ import { thousands } from '../../utils/string'
 import { ContinueTradeSlider } from './components/ContinueTradeSlider'
 
 export const WrongFundingAmount = () => {
-  const { offerId } = useRoute<'fundEscrow'>().params
+  const { offerId } = useRoute<'wrongFundingAmount'>().params
   const { offer } = useOfferDetails(offerId)
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined
 

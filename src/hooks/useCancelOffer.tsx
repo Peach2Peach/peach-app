@@ -36,8 +36,7 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
 
     if (isBuyOffer(offer) || offer.funding.status === 'NULL' || offer.funding.txIds.length === 0) {
       showOfferCanceled()
-      const screen = isBuyOffer(offer) ? 'buy' : 'sell'
-      navigation.replace('homeScreen', { screen })
+      navigation.replace('homeScreen', { screen: 'home' })
     } else {
       startRefund(offer)
     }

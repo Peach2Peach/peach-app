@@ -251,7 +251,10 @@ type TradeStatus =
   | 'tradeCompleted'
 
 type OfferPaymentData = Partial<
-  Record<PaymentMethod, { hashes: string[]; hash?: string; country?: PaymentMethodCountry }>
+  Record<
+    PaymentMethod,
+    { hashes: string[]; hash?: string; country?: PaymentMethodCountry; encrypted?: string; signature?: string }
+  >
 >
 type PostedOffer = BuyOffer | SellOffer
 type PostOfferResponseBody = PostedOffer | PostedOffer[]

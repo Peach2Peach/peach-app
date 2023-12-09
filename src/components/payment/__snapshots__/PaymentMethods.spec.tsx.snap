@@ -82,6 +82,5 @@ exports[`PaymentMethods should render correctly 1`] = `
       />
     </ForwardRef>
   </ForwardRef>
-  <NextButton />
 </Screen>
 `;

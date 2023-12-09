@@ -8,7 +8,7 @@ type Props = {
 }
 
 export const useCustomAmountSetup = ({ amount, onChange }: Props) => {
-  const { displayCurrency, fullDisplayPrice: bitcoinPrice } = useBitcoinPrices({ sats: amount })
+  const { displayCurrency, bitcoinPrice } = useBitcoinPrices(amount)
   const [customFiatPrice, setCustomFiatPrice] = useState<number>(getPrice(amount, bitcoinPrice))
 
   const clearCustomAmount = () => {

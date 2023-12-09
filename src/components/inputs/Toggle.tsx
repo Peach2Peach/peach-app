@@ -1,6 +1,7 @@
 import { TextStyle, TouchableOpacity } from 'react-native'
-import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
+import { Icon } from '../Icon'
+import Text from '../text/Text'
 
 type Props = ComponentProps & {
   enabled: boolean
@@ -14,7 +15,7 @@ export const Toggle = ({ enabled, disabled, onPress, children, style, textStyle 
     onPress={onPress}
     disabled={disabled}
   >
-    <Text style={[tw`settings`, textStyle]}>{children}</Text>
+    {!!children && <Text style={[tw`settings`, textStyle]}>{children}</Text>}
     {enabled ? (
       <Icon id="toggleRight" size={32} color={tw.color('primary-main')} />
     ) : (

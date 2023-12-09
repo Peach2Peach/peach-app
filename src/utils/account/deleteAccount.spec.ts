@@ -10,11 +10,6 @@ import { chatStorage } from './chatStorage'
 import { deleteAccount } from './deleteAccount'
 import { offerStorage } from './offerStorage'
 
-jest.mock('../peachAPI/peachAccount', () => ({
-  ...jest.requireActual('../peachAPI/peachAccount'),
-  deletePeachAccount: jest.fn(),
-}))
-
 describe('deleteAccount', () => {
   beforeAll(() => {
     setAccount(accountData.account1)

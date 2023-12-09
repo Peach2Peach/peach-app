@@ -28,8 +28,6 @@ import { EditPremium } from './search/EditPremium'
 import { OfferPublished } from './search/OfferPublished'
 import { Search } from './search/Search'
 import { SelectWallet } from './selectWallet/SelectWallet'
-import { OfferPreferencePremium } from './sell/OfferPreferencePremium'
-import { SellSummary } from './sell/SellSummary'
 import { Backups } from './settings/Backups'
 import { Currency } from './settings/Currency'
 import { Language } from './settings/Language'
@@ -48,6 +46,7 @@ import { TestView } from './TestView/TestView'
 import { TestViewPeachWallet } from './TestView/peachWallet'
 import { TestViewPNs } from './TestView/pns'
 import { HomeScreen } from './home/HomeScreen'
+import { SellOfferPreferences } from './sell/SellOfferPreferences'
 import { TradeComplete } from './tradeComplete/TradeComplete'
 import { UserSource } from './userSource/UserSource'
 import { AddressChecker } from './wallet/AddressChecker'
@@ -92,15 +91,13 @@ const buyFlow: ViewType[] = [
   { name: 'buyPreferences', component: PaymentMethods },
   { name: 'buySummary', component: BuySummary },
   { name: 'signMessage', component: SignMessage },
+  { name: 'selectWallet', component: SelectWallet },
 ]
 
 const sellFlow: ViewType[] = [
-  { name: 'premium', component: OfferPreferencePremium },
-  { name: 'sellPreferences', component: PaymentMethods },
-  { name: 'sellSummary', component: SellSummary },
+  { name: 'sellOfferPreferences', component: SellOfferPreferences },
   { name: 'fundEscrow', component: FundEscrow },
   { name: 'wrongFundingAmount', component: WrongFundingAmount },
-  { name: 'selectWallet', component: SelectWallet },
 ]
 
 const search: ViewType[] = [

@@ -25,11 +25,6 @@ jest.mock('../../utils/paymentMethod/encryptPaymentData', () => ({
 }))
 
 const matchOfferMock = jest.spyOn(peachAPI.private.offer, 'matchOffer')
-const getOfferDetailsMock = jest.fn().mockResolvedValue([matchOffer, null])
-jest.mock('../../utils/peachAPI', () => ({
-  peachAPI: jest.requireActual('../../utils/peachAPI').peachAPI,
-  getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
-}))
 
 jest.mock('../../hooks/query/useMarketPrices', () => ({
   useMarketPrices: jest.fn(() => ({

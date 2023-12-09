@@ -23,7 +23,7 @@ export const Currencies = ({ currency, setCurrency, type }: Props) => {
     display: getDisplayName(c),
   }))
   return (
-    <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-sm`, tw`md:py-md`]}>
+    <PeachScrollView contentContainerStyle={[tw`justify-center grow py-sm`, tw`md:py-md`]}>
       <RadioButtons items={currencies} selectedValue={currency} onButtonPress={setCurrency} />
     </PeachScrollView>
   )

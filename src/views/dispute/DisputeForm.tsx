@@ -27,7 +27,7 @@ function DisputeFormScreen ({ contract }: { contract: Contract }) {
   let $message = useRef<TextInput>(null).current
   return (
     <Screen header={i18n('dispute.disputeForTrade', contractIdToHex(contractId))}>
-      <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
+      <PeachScrollView contentContainerStyle={tw`items-center justify-center grow`}>
         <View style={tw`justify-center h-full max-w-full`}>
           <EmailInput
             onChange={setEmail}

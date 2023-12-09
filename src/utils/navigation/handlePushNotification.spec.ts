@@ -117,7 +117,7 @@ describe('handlePushNotification', () => {
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('homeScreen', {
-      screen: 'sell',
+      screen: 'home',
     })
   })
 
@@ -148,7 +148,6 @@ describe('handlePushNotification', () => {
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('offerPublished', {
       offerId: sellOffer.id,
-      isSellOffer: true,
       shouldGoBack: true,
     })
   })

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { Header, HorizontalLine, PeachScrollView, Screen, Text } from '..'
 import { useNavigation, usePreviousRoute, useRoute, useShowHelp, useToggleBoolean } from '../../hooks'
@@ -13,7 +13,6 @@ import { intersect } from '../../utils/array'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { isCashTrade } from '../../utils/paymentMethod'
-import { Button } from '../buttons/Button'
 import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavigation'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 import { MeetupPaymentMethods } from './MeetupPaymentMethods'
@@ -67,7 +66,6 @@ export const PaymentMethods = () => {
           <AddPaymentMethodButton isCash={currentTab.id === 'meetups'} />
         </PeachScrollView>
       </PeachScrollView>
-      {!isComingFromSettings && <NextButton />}
     </Screen>
   )
 }
@@ -96,31 +94,26 @@ function PaymentMethodsHeader ({ isEditing, toggleIsEditing }: Props) {
   )
 }
 
-function NextButton () {
-  const navigation = useNavigation()
-  const setPopup = usePopupStore((state) => state.setPopup)
-  const showHelp = () => setPopup(<InfoPopup content={<Text>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</Text>} />)
-  const { name: origin } = usePreviousRoute()
-  const [isStepValid, paymentMethods] = useOfferPreferences(
-    (state) => [state.canContinue.paymentMethods, Object.values(state.meansOfPayment).flat()],
-    shallow,
-  )
+// TODO: to be used for publishing buy offers
+export const useForbiddenPaymentMethods = (fn?: () => unknown) => {
   const { data: paymentMethodInfo } = useUserPaymentMethodInfo()
+  const paymentMethods = useOfferPreferences((state) => Object.values(state.meansOfPayment).flat())
 
-  const goToSummary = () => {
-    const flow = origin === 'premium' ? 'sell' : 'buy'
-    const forbiddenPaymentMethdos = intersect(paymentMethodInfo.forbidden[flow], paymentMethods)
+  const forbiddenPaymentMethdos = intersect(paymentMethodInfo.forbidden.buy, paymentMethods)
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const showHelp = useCallback(
+    () => setPopup(<InfoPopup content={<Text>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</Text>} />),
+    [setPopup],
+  )
+
+  return useCallback(() => {
     if (forbiddenPaymentMethdos.length) {
       const paymentMethod = forbiddenPaymentMethdos.pop()
-      if (paymentMethod === 'paypal') showHelp()
-      return
+      if (paymentMethod === 'paypal') {
+        showHelp()
+        return null
+      }
     }
-    navigation.navigate(flow === 'sell' ? 'sellSummary' : 'buySummary')
-  }
-
-  return (
-    <Button style={tw`self-center`} disabled={!isStepValid} onPress={goToSummary}>
-      {i18n('next')}
-    </Button>
-  )
+    return fn && fn()
+  }, [forbiddenPaymentMethdos, fn, showHelp])
 }

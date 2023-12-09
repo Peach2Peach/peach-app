@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { IconType } from '../assets/icons'
+import { badgeIconMap } from '../constants'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { useUserStatus } from '../views/publicProfile/useUserStatus'
@@ -7,13 +7,13 @@ import { Icon } from './Icon'
 import { FixedHeightText } from './text'
 
 type Props = {
-  iconId: IconType
-  badgeName: string
+  badgeName: Medal
   isUnlocked?: boolean
 }
 
-export const Badge = ({ iconId, badgeName, isUnlocked }: Props) => {
+export const Badge = ({ badgeName, isUnlocked }: Props) => {
   const colorStyle = isUnlocked ? 'text-primary-main' : 'text-primary-mild-1'
+  const iconId = badgeIconMap[badgeName]
   return (
     <View
       style={[

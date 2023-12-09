@@ -103,18 +103,20 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
       />
     </View>
     <HorizontalLine />
-    <Button
-      ghost={true}
-      iconId="sell"
-      onPress={[MockFunction]}
-      textColor={
+    <FundFromPeachWalletButton
+      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+      addresses={[]}
+      amount={100000}
+      fundingStatus={
         {
-          "color": "#F56522",
+          "amounts": [],
+          "expiry": 4320,
+          "status": "NULL",
+          "txIds": [],
+          "vouts": [],
         }
       }
-    >
-      fund from Peach wallet
-    </Button>
+    />
   </View>
 </Screen>
 `;
@@ -132,8 +134,6 @@ exports[`FundEscrow should show Loading, while escrow is not defined 1`] = `
 one sec..."
 />
 `;
-
-exports[`FundEscrow should show NoEscrowFound, if no there is an error while creating escrow 1`] = `<NoEscrowFound />`;
 
 exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOOL 1`] = `
 <TransactionInMempool
@@ -244,15 +244,19 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
       />
     </View>
     <HorizontalLine />
-    <TradeInfo
-      IconComponent={
-        <Icon
-          color="#65A519"
-          id="checkCircle"
-          size={16}
-        />
+    <FundFromPeachWalletButton
+      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+      addresses={[]}
+      amount={100000}
+      fundingStatus={
+        {
+          "amounts": [],
+          "expiry": 4320,
+          "status": "NULL",
+          "txIds": [],
+          "vouts": [],
+        }
       }
-      text="funded from peach wallet"
     />
   </View>
 </Screen>

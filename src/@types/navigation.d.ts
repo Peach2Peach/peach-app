@@ -40,12 +40,9 @@ type RootStackParamList = Onboarding & {
     txId: string
   }
   buy: undefined
-  sell: undefined
+  sellOfferPreferences: undefined
   buyPreferences: undefined
-  premium: undefined
-  sellPreferences: undefined
   buySummary: undefined
-  sellSummary: undefined
   selectCurrency: {
     origin: keyof RootStackParamList
   }
@@ -79,7 +76,6 @@ type RootStackParamList = Onboarding & {
   }
   offerPublished: {
     offerId: string
-    isSellOffer: boolean
     shouldGoBack?: boolean
   }
   search: { offerId: string }

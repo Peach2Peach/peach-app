@@ -19,7 +19,7 @@ export function BTCAmountInput ({ amount, onChangeText, style }: Props) {
     >
       <BTCAmount size="medium" amount={amount} />
       <TextInput
-        style={tw`absolute flex-grow w-full py-0 opacity-0 h-38px input-text`}
+        style={tw`absolute grow w-full py-0 opacity-0 h-38px input-text`}
         keyboardType="number-pad"
         value={amount.toString()}
         onChangeText={onChangeText}

@@ -12,7 +12,7 @@ export const useOverlayEvents = () => {
       'user.badge.unlocked': ({ badges }: PNData) => (badges ? navigation.navigate('newBadge', { badges }) : undefined),
       // PN-S03
       'offer.escrowFunded': ({ offerId }: PNData) =>
-        offerId ? navigation.navigate('offerPublished', { offerId, isSellOffer: true, shouldGoBack: true }) : undefined,
+        offerId ? navigation.navigate('offerPublished', { offerId, shouldGoBack: true }) : undefined,
       // PN-S11
       'contract.paymentMade': ({ contractId }: PNData) =>
         contractId ? navigation.navigate('paymentMade', { contractId }) : undefined,
