@@ -49,10 +49,10 @@ import { useWalletState } from '../../utils/wallet/walletStore'
 import { getFundingAmount } from '../fundEscrow/helpers/getFundingAmount'
 import { useCreateEscrow } from '../fundEscrow/hooks/useCreateEscrow'
 import { useFundFromPeachWallet } from '../fundEscrow/hooks/useFundFromPeachWallet'
-import { Slider } from './Slider'
-import { SliderTrack } from './SliderTrack'
 import { PremiumInput } from './components'
 import { FundMultipleOffers } from './components/FundMultipleOffers'
+import { Slider } from './components/Slider'
+import { SliderTrack } from './components/SliderTrack'
 import { publishSellOffer } from './helpers/publishSellOffer'
 
 export function SellOfferPreferences () {

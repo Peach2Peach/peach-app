@@ -1,7 +1,7 @@
 import { Animated, GestureResponderEvent } from 'react-native'
-import { Icon } from '../../components'
-import tw from '../../styles/tailwind'
-import { horizontalSliderPadding, iconWidth, sectionContainerGap } from './SellOfferPreferences'
+import { Icon } from '../../../components'
+import tw from '../../../styles/tailwind'
+import { horizontalSliderPadding, iconWidth, sectionContainerGap } from '../SellOfferPreferences'
 
 type Props = {
   trackWidth: number

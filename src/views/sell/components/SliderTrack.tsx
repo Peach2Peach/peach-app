@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import tw from '../../styles/tailwind'
+import tw from '../../../styles/tailwind'
 
 type Props = {
   slider?: JSX.Element
