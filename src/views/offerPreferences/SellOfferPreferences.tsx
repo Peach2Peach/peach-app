@@ -62,7 +62,7 @@ export function SellOfferPreferences () {
     <Screen style={tw`bg-primary-background`} header={<SellHeader />}>
       <PeachScrollView contentStyle={tw`gap-7`} scrollEnabled={!isSliding}>
         <MarketInfo />
-        <Methods />
+        <Methods type="sell" />
         <CompetingOfferStats />
         <AmountSelector setIsSliding={setIsSliding} />
         <FundMultipleOffersContainer />

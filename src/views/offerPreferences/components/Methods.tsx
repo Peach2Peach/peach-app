@@ -8,7 +8,7 @@ import i18n from '../../../utils/i18n'
 import { hasMopsConfigured } from '../../../utils/offer'
 import { SectionContainer } from './SectionContainer'
 
-export function Methods ({ type = 'sell' }: { type: 'buy' | 'sell' }) {
+export function Methods ({ type }: { type: 'buy' | 'sell' }) {
   const navigation = useNavigation()
   const onPress = () => navigation.navigate('paymentMethods')
   const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment)
