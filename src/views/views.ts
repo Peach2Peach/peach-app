@@ -91,13 +91,13 @@ const buyFlow: ViewType[] = [
   { name: 'buyPreferences', component: PaymentMethods },
   { name: 'buySummary', component: BuySummary },
   { name: 'signMessage', component: SignMessage },
+  { name: 'selectWallet', component: SelectWallet },
 ]
 
 const sellFlow: ViewType[] = [
   { name: 'sellOfferPreferences', component: SellOfferPreferences },
   { name: 'fundEscrow', component: FundEscrow },
   { name: 'wrongFundingAmount', component: WrongFundingAmount },
-  { name: 'selectWallet', component: SelectWallet },
 ]
 
 const search: ViewType[] = [
