@@ -8,12 +8,13 @@ import { isSellOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/result'
 import { isDefined } from '../../../utils/validation'
 import { useWalletState } from '../../../utils/wallet/walletStore'
-import { shouldGetFundingStatus } from '../../sell/helpers/shouldGetFundingStatus'
 import { useSyncWallet } from '../../wallet/hooks/useSyncWallet'
 import { getFundingAmount } from '../helpers/getFundingAmount'
 import { useHandleFundingStatus } from './useHandleFundingStatus'
 
 const MIN_LOADING_TIME = 1000
+const shouldGetFundingStatus = (offer: SellOffer) =>
+  !!offer.escrow && !offer.refunded && !offer.released && offer.funding.status !== 'FUNDED'
 
 export const useFundEscrowSetup = () => {
   const { offerId } = useRoute<'fundEscrow'>().params

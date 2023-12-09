@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { View } from 'react-native'
 import { Header, PremiumSlider, Screen, Text } from '../../components'
+import { PremiumInput } from '../../components/PremiumInput'
 import { BTCAmount } from '../../components/bitcoin'
 import { Button } from '../../components/buttons/Button'
 import { useMarketPrices, useNavigation, useRoute, useShowHelp } from '../../hooks'
@@ -11,7 +12,6 @@ import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { getOfferPrice, isSellOffer, offerIdToHex } from '../../utils/offer'
 import { priceFormat } from '../../utils/string'
-import { PremiumInput } from '../sell/components'
 
 export const EditPremium = () => {
   const { offerId } = useRoute<'editPremium'>().params

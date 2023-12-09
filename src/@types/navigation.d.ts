@@ -39,7 +39,7 @@ type RootStackParamList = Onboarding & {
   bumpNetworkFees: {
     txId: string
   }
-  buy: undefined
+  buyOfferPreferences: undefined
   sellOfferPreferences: undefined
   buyPreferences: undefined
   buySummary: undefined

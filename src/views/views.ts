@@ -46,7 +46,8 @@ import { TestView } from './TestView/TestView'
 import { TestViewPeachWallet } from './TestView/peachWallet'
 import { TestViewPNs } from './TestView/pns'
 import { HomeScreen } from './home/HomeScreen'
-import { SellOfferPreferences } from './sell/SellOfferPreferences'
+import { BuyOfferPreferences } from './offerPreferences/BuyOfferPreferences'
+import { SellOfferPreferences } from './offerPreferences/SellOfferPreferences'
 import { TradeComplete } from './tradeComplete/TradeComplete'
 import { UserSource } from './userSource/UserSource'
 import { AddressChecker } from './wallet/AddressChecker'
@@ -88,6 +89,7 @@ const wallet: ViewType[] = [
   { name: 'bumpNetworkFees', component: BumpNetworkFees },
 ]
 const buyFlow: ViewType[] = [
+  { name: 'buyOfferPreferences', component: BuyOfferPreferences },
   { name: 'buyPreferences', component: PaymentMethods },
   { name: 'buySummary', component: BuySummary },
   { name: 'signMessage', component: SignMessage },

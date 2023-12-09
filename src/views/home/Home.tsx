@@ -64,15 +64,23 @@ function MarketStats () {
   )
 }
 
+const buttonStyle = tw`flex-1 px-5 py-3`
+
 function BuyButton () {
-  return <Button style={tw`flex-1 px-5 py-3 bg-success-main`}>{i18n('buy')}</Button>
+  const navigation = useNavigation()
+  const goToBuyOfferPreferences = () => navigation.navigate('buyOfferPreferences')
+  return (
+    <Button style={[buttonStyle, tw`bg-success-main`]} onPress={goToBuyOfferPreferences}>
+      {i18n('buy')}
+    </Button>
+  )
 }
 
 function SellButton () {
   const navigation = useNavigation()
   const goToSellOfferPreferences = () => navigation.navigate('sellOfferPreferences')
   return (
-    <Button style={tw`flex-1 px-5 py-3`} onPress={goToSellOfferPreferences}>
+    <Button style={[buttonStyle]} onPress={goToSellOfferPreferences}>
       {i18n('sell')}
     </Button>
   )

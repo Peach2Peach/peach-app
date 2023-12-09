@@ -12,13 +12,13 @@ import {
 } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { LogoIcons } from '../../assets/logo'
-import { Checkbox, Header, Icon, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
+import { Checkbox, Header, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
 import { Badge } from '../../components/Badge'
+import { PremiumInput } from '../../components/PremiumInput'
 import { BTCAmount } from '../../components/bitcoin'
 import { NewBubble } from '../../components/bubble/Bubble'
 import { Button } from '../../components/buttons/Button'
 import { Toggle } from '../../components/inputs'
-import { MeansOfPayment } from '../../components/offer/MeansOfPayment'
 import { SATSINBTC } from '../../constants'
 import {
   useBitcoinPrices,
@@ -38,7 +38,6 @@ import i18n from '../../utils/i18n'
 import { convertFiatToSats, getTradingAmountLimits } from '../../utils/market'
 import { round } from '../../utils/math'
 import { keys } from '../../utils/object'
-import { hasMopsConfigured } from '../../utils/offer'
 import { defaultFundingStatus } from '../../utils/offer/constants'
 import { cleanPaymentData } from '../../utils/paymentMethod'
 import { signAndEncrypt } from '../../utils/pgp'
@@ -49,11 +48,13 @@ import { useWalletState } from '../../utils/wallet/walletStore'
 import { getFundingAmount } from '../fundEscrow/helpers/getFundingAmount'
 import { useCreateEscrow } from '../fundEscrow/hooks/useCreateEscrow'
 import { useFundFromPeachWallet } from '../fundEscrow/hooks/useFundFromPeachWallet'
-import { PremiumInput } from './components'
 import { FundMultipleOffers } from './components/FundMultipleOffers'
+import { MarketInfo } from './components/MarketInfo'
+import { Methods } from './components/Methods'
+import { SectionContainer } from './components/SectionContainer'
 import { Slider } from './components/Slider'
 import { SliderTrack } from './components/SliderTrack'
-import { publishSellOffer } from './helpers/publishSellOffer'
+import { publishSellOffer } from './utils/publishSellOffer'
 
 export function SellOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
@@ -71,42 +72,6 @@ export function SellOfferPreferences () {
 
       <SellAction />
     </Screen>
-  )
-}
-
-function MarketInfo ({ type = 'buyOffers' }: { type?: 'buyOffers' | 'sellOffers' }) {
-  const textStyle = type === 'buyOffers' ? tw`text-success-main` : tw`text-primary-main`
-  const openOffers = 0
-  return (
-    <SectionContainer style={tw`-gap-13px`}>
-      <Text style={[tw`h5`, textStyle]}>{openOffers} buy offers</Text>
-      <Text style={[tw`subtitle-2`, textStyle]}>for your preferences</Text>
-    </SectionContainer>
-  )
-}
-
-function Methods () {
-  const navigation = useNavigation()
-  const onPress = () => navigation.navigate('paymentMethods')
-  const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment)
-  const hasSelectedMethods = hasMopsConfigured(meansOfPayment)
-
-  return (
-    <>
-      {hasSelectedMethods ? (
-        <SectionContainer style={tw`flex-row items-start bg-primary-background-dark`}>
-          <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`flex-1`} />
-          <TouchableIcon id="plusCircle" onPress={onPress} style={tw`pt-1`} />
-        </SectionContainer>
-      ) : (
-        <SectionContainer style={tw`bg-primary-background-dark`}>
-          <TouchableOpacity style={tw`flex-row items-center gap-10px`} onPress={onPress}>
-            <Icon size={16} id="plusCircle" color={tw.color('primary-main')} />
-            <Text style={tw`subtitle-2 text-primary-main`}>{i18n.break('paymentMethod.select.button.remote')}</Text>
-          </TouchableOpacity>
-        </SectionContainer>
-      )}
-    </>
   )
 }
 
@@ -594,10 +559,6 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
       Fund Escrow
     </Button>
   )
-}
-
-function SectionContainer ({ children, style }: { children: React.ReactNode; style?: View['props']['style'] }) {
-  return <View style={[tw`items-center w-full p-3 rounded-2xl`, { gap: sectionContainerGap }, style]}>{children}</View>
 }
 
 function SellHeader () {

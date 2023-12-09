@@ -1,17 +1,11 @@
 import { useMemo, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { Icon, Text } from '../../../components'
-import { PercentageInput } from '../../../components/inputs'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
-import { round } from '../../../utils/math'
-import { enforcePremiumFormat } from '../helpers/enforcePremiumFormat'
-
-const convertDisplayPremiumToNumber = (displayPremium: string) => {
-  const asNumberType = Number(enforcePremiumFormat(displayPremium))
-  if (isNaN(asNumberType)) return 0
-  return asNumberType
-}
+import tw from '../styles/tailwind'
+import i18n from '../utils/i18n'
+import { round } from '../utils/math'
+import { Icon } from './Icon'
+import { PercentageInput } from './inputs'
+import Text from './text/Text'
 
 type Props = {
   premium: number
@@ -65,4 +59,21 @@ export const PremiumInput = ({ premium, setPremium, incrementBy = defaultIncreme
       </TouchableOpacity>
     </View>
   )
+}
+
+function convertDisplayPremiumToNumber (displayPremium: string) {
+  const asNumberType = Number(enforcePremiumFormat(displayPremium))
+  if (isNaN(asNumberType)) return 0
+  return asNumberType
+}
+
+function enforcePremiumFormat (premium?: string | number) {
+  if (!premium) return ''
+
+  const number = Number(premium)
+  if (isNaN(number)) return String(premium).trim()
+  if (number < premiumBounds.min) return '-21'
+  if (number > premiumBounds.max) return '21'
+  return String(premium).trim()
+    .replace(/^0/u, '')
 }

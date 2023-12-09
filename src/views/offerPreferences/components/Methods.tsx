@@ -1,0 +1,34 @@
+import { TouchableOpacity } from 'react-native'
+import { Icon, Text, TouchableIcon } from '../../../components'
+import { MeansOfPayment } from '../../../components/offer/MeansOfPayment'
+import { useNavigation } from '../../../hooks'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
+import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
+import { hasMopsConfigured } from '../../../utils/offer'
+import { SectionContainer } from './SectionContainer'
+
+export function Methods () {
+  const navigation = useNavigation()
+  const onPress = () => navigation.navigate('paymentMethods')
+  const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment)
+  const hasSelectedMethods = hasMopsConfigured(meansOfPayment)
+
+  return (
+    <>
+      {hasSelectedMethods ? (
+        <SectionContainer style={tw`flex-row items-start bg-primary-background-dark`}>
+          <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`flex-1`} />
+          <TouchableIcon id="plusCircle" onPress={onPress} style={tw`pt-1`} />
+        </SectionContainer>
+      ) : (
+        <SectionContainer style={tw`bg-primary-background-dark`}>
+          <TouchableOpacity style={tw`flex-row items-center gap-10px`} onPress={onPress}>
+            <Icon size={16} id="plusCircle" color={tw.color('primary-main')} />
+            <Text style={tw`subtitle-2 text-primary-main`}>{i18n.break('paymentMethod.select.button.remote')}</Text>
+          </TouchableOpacity>
+        </SectionContainer>
+      )}
+    </>
+  )
+}
