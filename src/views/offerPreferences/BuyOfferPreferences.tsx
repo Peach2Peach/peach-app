@@ -11,7 +11,7 @@ export function BuyOfferPreferences () {
     <Screen header={<BuyHeader />}>
       <PeachScrollView>
         <MarketInfo type="sellOffers" />
-        <Methods />
+        <Methods type="buy" />
         <AmountSelector />
         <Filters />
       </PeachScrollView>
