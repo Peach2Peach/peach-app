@@ -11,6 +11,7 @@ import {
   useWindowDimensions,
 } from 'react-native'
 import { shallow } from 'zustand/shallow'
+import { LogoIcons } from '../../assets/logo'
 import { Checkbox, Header, Icon, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
 import { Badge } from '../../components/Badge'
 import { BTCAmount } from '../../components/bitcoin'
@@ -57,7 +58,7 @@ import { publishSellOffer } from './helpers/publishSellOffer'
 export function SellOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
   return (
-    <Screen style={tw`bg-primary-background`} header={<Header title="Sell Bitcoin" />}>
+    <Screen style={tw`bg-primary-background`} header={<SellHeader />}>
       <PeachScrollView contentStyle={tw`gap-7`} scrollEnabled={!isSliding}>
         <MarketInfo />
         <Methods />
@@ -597,4 +598,17 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
 
 function SectionContainer ({ children, style }: { children: React.ReactNode; style?: View['props']['style'] }) {
   return <View style={[tw`items-center w-full p-3 rounded-2xl`, { gap: sectionContainerGap }, style]}>{children}</View>
+}
+
+function SellHeader () {
+  return (
+    <Header
+      titleComponent={
+        <>
+          <Text style={tw`h7 md:h6 text-primary-main`}>sell</Text>
+          <LogoIcons.bitcoinText style={tw`h-14px md:h-16px w-63px md:w-71px`} />
+        </>
+      }
+    />
+  )
 }

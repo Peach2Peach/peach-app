@@ -106,7 +106,7 @@ export const Header = ({
       ]}
     >
       {showPriceStats && <Tickers />}
-      {props.title && <HeaderNavigation {...props} />}
+      {(props.title || props.titleComponent) && <HeaderNavigation {...props} />}
       {!!subtitle && subtitle}
     </View>
   )
