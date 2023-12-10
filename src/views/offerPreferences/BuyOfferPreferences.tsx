@@ -6,11 +6,14 @@ import { Checkbox, Header, PeachScrollView, Screen, Text, TouchableIcon } from '
 import { premiumBounds } from '../../components/PremiumInput'
 import { PremiumTextInput } from '../../components/PremiumTextInput'
 import { Button } from '../../components/buttons/Button'
-import { useBitcoinPrices, useIsMediumScreen } from '../../hooks'
+import { useBitcoinPrices, useIsMediumScreen, useMarketPrices } from '../../hooks'
 import { useOfferPreferences } from '../../store/offerPreferenes'
+import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { getTradingAmountLimits } from '../../utils/market'
 import { round } from '../../utils/math'
+import { isValidPaymentData } from '../../utils/paymentMethod'
 import { SatsInputComponent } from './SatsInputComponent'
 import { MarketInfo } from './components/MarketInfo'
 import { Methods } from './components/Methods'
@@ -18,6 +21,7 @@ import { Section } from './components/Section'
 import { SliderTrack } from './components/SliderTrack'
 import { enforceDigitFormat } from './enforceDigitFormat'
 import { useRestrictSatsAmount } from './useRestrictSatsAmount'
+import { usePublishOffer } from './utils/usePublishOffer'
 
 export function BuyOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
@@ -197,9 +201,42 @@ function MaxPremiumFilter () {
 }
 
 function ShowOffersButton () {
-  const formValid = true
-  const isPublishing = false
-  const onPress = () => {}
+  const [peachWalletActive, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.payoutAddressLabel],
+    shallow,
+  )
+  const buyOfferPreferences = useOfferPreferences(
+    (state) => ({
+      amount: state.buyAmountRange,
+      meansOfPayment: state.meansOfPayment,
+      paymentData: state.paymentData,
+      originalPaymentData: state.originalPaymentData,
+      maxPremium: state.filter.buyOffer.shouldApplyMaxPremium ? state.filter.buyOffer.maxPremium : null,
+      minReputation: state.filter.buyOffer.shouldApplyMinReputation ? state.filter.buyOffer.minReputation : null,
+    }),
+    shallow,
+  )
+
+  const offerDraft = {
+    type: 'bid' as const,
+    releaseAddress: '',
+    ...buyOfferPreferences,
+    walletLabel: peachWalletActive ? i18n('peachWallet') : payoutAddressLabel,
+  }
+
+  const originalPaymentData = useOfferPreferences((state) => state.originalPaymentData)
+  const methodsAreValid = originalPaymentData.every(isValidPaymentData)
+  const { data } = useMarketPrices()
+  const [minAmount, maxAmount] = getTradingAmountLimits(data?.CHF || 0, 'sell')
+  const rangeIsValid
+    = offerDraft.amount[0] >= minAmount
+    && offerDraft.amount[1] <= maxAmount
+    && offerDraft.amount[0] <= offerDraft.amount[1]
+  const formValid = methodsAreValid && rangeIsValid
+  const { mutate, isLoading: isPublishing } = usePublishOffer(offerDraft)
+  const onPress = () => {
+    mutate()
+  }
   return (
     <Button
       style={tw`self-center px-5 py-3 bg-success-main min-w-166px`}

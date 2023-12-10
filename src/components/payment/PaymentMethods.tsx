@@ -1,15 +1,11 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { Header, HorizontalLine, PeachScrollView, Screen, Text } from '..'
+import { Header, HorizontalLine, PeachScrollView, Screen } from '..'
 import { useNavigation, usePreviousRoute, useRoute, useShowHelp, useToggleBoolean } from '../../hooks'
-import { useUserPaymentMethodInfo } from '../../hooks/query/useUserPaymentMethodInfo'
-import { InfoPopup } from '../../popups/InfoPopup'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { getSelectedPaymentDataIds } from '../../utils/account'
-import { intersect } from '../../utils/array'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { isCashTrade } from '../../utils/paymentMethod'
@@ -92,28 +88,4 @@ function PaymentMethodsHeader ({ isEditing, toggleIsEditing }: Props) {
       }
     />
   )
-}
-
-// TODO: to be used for publishing buy offers
-export const useForbiddenPaymentMethods = (fn?: () => unknown) => {
-  const { data: paymentMethodInfo } = useUserPaymentMethodInfo()
-  const paymentMethods = useOfferPreferences((state) => Object.values(state.meansOfPayment).flat())
-
-  const forbiddenPaymentMethdos = intersect(paymentMethodInfo.forbidden.buy, paymentMethods)
-  const setPopup = usePopupStore((state) => state.setPopup)
-  const showHelp = useCallback(
-    () => setPopup(<InfoPopup content={<Text>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</Text>} />),
-    [setPopup],
-  )
-
-  return useCallback(() => {
-    if (forbiddenPaymentMethdos.length) {
-      const paymentMethod = forbiddenPaymentMethdos.pop()
-      if (paymentMethod === 'paypal') {
-        showHelp()
-        return null
-      }
-    }
-    return fn && fn()
-  }, [forbiddenPaymentMethdos, fn, showHelp])
 }

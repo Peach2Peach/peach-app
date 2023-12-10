@@ -5,7 +5,6 @@ import { PaymentMethodForm } from './addPaymentMethod/PaymentMethodForm'
 import { SelectCountry } from './addPaymentMethod/SelectCountry'
 import { SelectCurrency } from './addPaymentMethod/SelectCurrency'
 import { SelectPaymentMethod } from './addPaymentMethod/SelectPaymentMethod'
-import { BuySummary } from './buy/BuySummary'
 import { SignMessage } from './buy/SignMessage'
 import { CanceledOfferDetails } from './canceledOfferDetails/CanceledOfferDetails'
 import { Contact } from './contact/Contact'
@@ -91,7 +90,6 @@ const wallet: ViewType[] = [
 const buyFlow: ViewType[] = [
   { name: 'buyOfferPreferences', component: BuyOfferPreferences },
   { name: 'buyPreferences', component: PaymentMethods },
-  { name: 'buySummary', component: BuySummary },
   { name: 'signMessage', component: SignMessage },
   { name: 'selectWallet', component: SelectWallet },
 ]
