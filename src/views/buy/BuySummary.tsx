@@ -35,6 +35,7 @@ export const BuySummary = () => {
       paymentData: state.paymentData,
       originalPaymentData: state.originalPaymentData,
       maxPremium: state.filter.buyOffer.maxPremium,
+      minReputation: state.filter.buyOffer.minReputation,
     }),
     shallow,
   )

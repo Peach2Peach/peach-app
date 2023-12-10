@@ -39,10 +39,14 @@ describe('useOfferPreferences - store', () => {
       filter: {
         buyOffer: {
           maxPremium: null,
+          minReputation: null,
+          shouldApplyMaxPremium: false,
+          shouldApplyMinReputation: false,
         },
       },
       setBuyAmountRange: expect.any(Function),
       setSellAmount: expect.any(Function),
+      setMaxPremiumFilter: expect.any(Function),
       setMulti: expect.any(Function),
       setPreferredCurrencyType: expect.any(Function),
       setPremium: expect.any(Function),
@@ -54,7 +58,9 @@ describe('useOfferPreferences - store', () => {
       toggleBadge: expect.any(Function),
       toggleInstantTrade: expect.any(Function),
       toggleMinReputation: expect.any(Function),
+      toggleMinReputationFilter: expect.any(Function),
       toggleMinTrades: expect.any(Function),
+      toggleShouldApplyMaxPremium: expect.any(Function),
     })
   })
   it('should persist the store', () => {
@@ -245,6 +251,6 @@ describe('useOfferPreferences - actions - setBuyOfferFilter', () => {
   it('should update the buy offer filter', () => {
     const filter = { maxPremium: 1.5 }
     useOfferPreferences.getState().setBuyOfferFilter(filter)
-    expect(useOfferPreferences.getState().filter.buyOffer).toStrictEqual(filter)
+    expect(useOfferPreferences.getState().filter.buyOffer.maxPremium).toStrictEqual(filter.maxPremium)
   })
 })

@@ -24,6 +24,7 @@ exports[`useSortAndFilterPopup should update the popup store with the correct co
           "sepa",
         ],
       },
+      "minReputation": null,
       "online": true,
       "paymentData": {
         "sepa": {

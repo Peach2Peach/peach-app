@@ -62,6 +62,7 @@ type BuyOfferDraft = OfferDraft & {
   amount: [number, number]
   messageSignature?: string
   maxPremium: number | null
+  minReputation: number | null
 }
 
 type BuyOffer = Omit<BuyOfferDraft & Offer, 'originalPaymentData'>
