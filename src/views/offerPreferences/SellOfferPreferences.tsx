@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { useQueryClient } from '@tanstack/react-query'
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import {
   GestureResponderEvent,
   NativeSyntheticEvent,
@@ -54,6 +54,8 @@ import { Methods } from './components/Methods'
 import { Section } from './components/Section'
 import { Slider } from './components/Slider'
 import { SliderTrack } from './components/SliderTrack'
+import { enforceDigitFormat } from './enforceDigitFormat'
+import { useRestrictSatsAmount } from './useRestrictSatsAmount'
 import { publishSellOffer } from './utils/publishSellOffer'
 
 export function SellOfferPreferences () {
@@ -213,30 +215,11 @@ export const inputContainerStyle = [
 ]
 export const textStyle = 'text-center subtitle-1 leading-relaxed py-1px'
 
-const useRestrictSatsAmount = () => {
-  const { data } = useMarketPrices()
-  const [minSellAmount, maxSellAmount] = useMemo(() => getTradingAmountLimits(data?.CHF || 0, 'sell'), [data?.CHF])
-
-  const restrictAmount = useCallback(
-    (amount: number) => {
-      if (amount < minSellAmount) {
-        return minSellAmount
-      } else if (amount > maxSellAmount) {
-        return maxSellAmount
-      }
-      return amount
-    },
-    [minSellAmount, maxSellAmount],
-  )
-  return restrictAmount
-}
-
-const enforceDigitFormat = (value: string) => value.replace(/[^0-9]/gu, '')
 function SatsInput () {
   const [amount, setAmount] = useOfferPreferences((state) => [state.sellAmount, state.setSellAmount])
   const inputRef = useRef<TextInput>(null)
   const [inputValue, setInputValue] = useState(amount.toString())
-  const restrictAmount = useRestrictSatsAmount()
+  const restrictAmount = useRestrictSatsAmount('sell')
 
   const onFocus = () => setInputValue(amount.toString())
 
