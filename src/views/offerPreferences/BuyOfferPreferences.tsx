@@ -49,6 +49,12 @@ export function BuyOfferPreferences () {
 
 const sectionContainerPadding = 12
 const horizontalTrackPadding = 22
+const horizontalPaddingForSlider = 8
+export const iconWidth = 16
+export const horizontalSliderPadding = 8
+const sliderWidth = iconWidth + horizontalSliderPadding * 2
+const trackMin = horizontalPaddingForSlider
+export const sectionContainerGap = 10
 function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) => void }) {
   const { width } = useWindowDimensions()
   const isMediumScreen = useIsMediumScreen()
@@ -58,13 +64,19 @@ function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) 
     [screenPadding, width],
   )
 
+  const { data } = useMarketPrices()
+  const amountRange = getTradingAmountLimits(data?.CHF || 0, 'buy')
+
+  const trackMax = useMemo(() => trackWidth - sliderWidth, [trackWidth])
+  const minSliderDeltaAsAmount = (sliderWidth / (trackMax - trackMin)) * (amountRange[1] - amountRange[0])
+
   return (
     <Section.Container style={tw`bg-success-mild-1`}>
       <Section.Title>amount to buy</Section.Title>
       <View style={tw`flex-row items-center self-stretch gap-10px`}>
-        <MinInput />
+        <MinInput minAmountDelta={minSliderDeltaAsAmount} />
         <Text style={tw`subtitle-1`}>-</Text>
-        <MaxInput />
+        <MaxInput minAmountDelta={minSliderDeltaAsAmount} />
       </View>
       <SliderTrack
         slider={<BuyAmountSliders setIsSliding={setIsSliding} trackWidth={trackWidth} />}
@@ -75,23 +87,20 @@ function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) 
     </Section.Container>
   )
 }
-const horizontalPaddingForSlider = 8
-export const iconWidth = 16
-export const horizontalSliderPadding = 8
-const sliderWidth = iconWidth + horizontalSliderPadding * 2
-const trackMin = horizontalPaddingForSlider
-export const sectionContainerGap = 10
-function BuyAmountSliders ({
-  setIsSliding,
-  trackWidth,
-}: {
+
+type BuyAmountSliderProps = {
   setIsSliding: (isSliding: boolean) => void
   trackWidth: number
-}) {
+}
+
+function BuyAmountSliders ({ setIsSliding, trackWidth }: BuyAmountSliderProps) {
   const { data } = useMarketPrices()
   const amountRange = getTradingAmountLimits(data?.CHF || 0, 'buy')
 
-  const [[min, max], setAmount] = useOfferPreferences((state) => [state.buyAmountRange, state.setBuyAmountRange])
+  const [[min, max], setAmount] = useOfferPreferences(
+    (state) => [state.buyAmountRange, state.setBuyAmountRange],
+    shallow,
+  )
   const isMediumScreen = useIsMediumScreen()
   const screenPadding = useMemo(() => (isMediumScreen ? 16 : 8), [isMediumScreen])
 
@@ -146,7 +155,7 @@ function BuyAmountSliders ({
   )
 }
 
-function MinInput () {
+function MinInput ({ minAmountDelta }: { minAmountDelta: number }) {
   const inputRef = useRef<TextInput>(null)
   const [[amount, max], setAmountRange] = useOfferPreferences(
     (state) => [state.buyAmountRange, state.setBuyAmountRange],
@@ -161,8 +170,10 @@ function MinInput () {
 
   const onEndEditing = ({ nativeEvent: { text } }: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
     const newAmount = restrictAmount(Number(enforceDigitFormat(text)))
-    setAmountRange([newAmount, max])
-    setInputValue(newAmount.toString())
+    const newMax = restrictAmount(Math.max(max, newAmount + minAmountDelta))
+    const newMin = Math.min(newAmount, newMax - minAmountDelta)
+    setAmountRange([newMin, newMax])
+    setInputValue(newMin.toString())
   }
 
   const displayValue = inputRef.current?.isFocused() ? inputValue : amount.toString()
@@ -185,7 +196,7 @@ function MinInput () {
   )
 }
 
-function MaxInput () {
+function MaxInput ({ minAmountDelta }: { minAmountDelta: number }) {
   const inputRef = useRef<TextInput>(null)
   const [[min, amount], setAmountRange] = useOfferPreferences(
     (state) => [state.buyAmountRange, state.setBuyAmountRange],
@@ -200,7 +211,9 @@ function MaxInput () {
 
   const onEndEditing = ({ nativeEvent: { text } }: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
     const newAmount = restrictAmount(Number(enforceDigitFormat(text)))
-    setAmountRange([min, newAmount])
+    const newMin = restrictAmount(Math.min(min, newAmount - minAmountDelta))
+    const newMax = Math.max(newAmount, newMin + minAmountDelta)
+    setAmountRange([newMin, newMax])
     setInputValue(newAmount.toString())
   }
 
