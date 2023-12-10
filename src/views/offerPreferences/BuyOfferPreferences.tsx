@@ -1,5 +1,13 @@
+/* eslint-disable max-lines */
 import { useMemo, useRef, useState } from 'react'
-import { NativeSyntheticEvent, TextInput, TextInputEndEditingEventData, View, useWindowDimensions } from 'react-native'
+import {
+  GestureResponderEvent,
+  NativeSyntheticEvent,
+  TextInput,
+  TextInputEndEditingEventData,
+  View,
+  useWindowDimensions,
+} from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { LogoIcons } from '../../assets/logo'
 import { Checkbox, Header, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
@@ -18,6 +26,7 @@ import { SatsInputComponent } from './SatsInputComponent'
 import { MarketInfo } from './components/MarketInfo'
 import { Methods } from './components/Methods'
 import { Section } from './components/Section'
+import { Slider } from './components/Slider'
 import { SliderTrack } from './components/SliderTrack'
 import { enforceDigitFormat } from './enforceDigitFormat'
 import { useRestrictSatsAmount } from './useRestrictSatsAmount'
@@ -30,7 +39,7 @@ export function BuyOfferPreferences () {
       <PeachScrollView contentStyle={tw`gap-7`} scrollEnabled={!isSliding}>
         <MarketInfo type="sellOffers" />
         <Methods type="buy" />
-        <AmountSelector />
+        <AmountSelector setIsSliding={setIsSliding} />
         <Filters />
       </PeachScrollView>
       <ShowOffersButton />
@@ -40,7 +49,7 @@ export function BuyOfferPreferences () {
 
 const sectionContainerPadding = 12
 const horizontalTrackPadding = 22
-function AmountSelector () {
+function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) => void }) {
   const { width } = useWindowDimensions()
   const isMediumScreen = useIsMediumScreen()
   const screenPadding = useMemo(() => (isMediumScreen ? 16 : 8), [isMediumScreen])
@@ -57,8 +66,83 @@ function AmountSelector () {
         <Text style={tw`subtitle-1`}>-</Text>
         <MaxInput />
       </View>
-      <SliderTrack slider={<></>} trackWidth={trackWidth} paddingHorizontal={horizontalTrackPadding} type="buy" />
+      <SliderTrack
+        slider={<BuyAmountSliders setIsSliding={setIsSliding} trackWidth={trackWidth} />}
+        trackWidth={trackWidth}
+        paddingHorizontal={horizontalTrackPadding}
+        type="buy"
+      />
     </Section.Container>
+  )
+}
+const horizontalPaddingForSlider = 8
+export const iconWidth = 16
+export const horizontalSliderPadding = 8
+const sliderWidth = iconWidth + horizontalSliderPadding * 2
+const trackMin = horizontalPaddingForSlider
+export const sectionContainerGap = 10
+function BuyAmountSliders ({
+  setIsSliding,
+  trackWidth,
+}: {
+  setIsSliding: (isSliding: boolean) => void
+  trackWidth: number
+}) {
+  const { data } = useMarketPrices()
+  const amountRange = getTradingAmountLimits(data?.CHF || 0, 'buy')
+
+  const [[min, max], setAmount] = useOfferPreferences((state) => [state.buyAmountRange, state.setBuyAmountRange])
+  const isMediumScreen = useIsMediumScreen()
+  const screenPadding = useMemo(() => (isMediumScreen ? 16 : 8), [isMediumScreen])
+
+  const trackMax = useMemo(() => trackWidth - sliderWidth, [trackWidth])
+
+  const maxTranslateX = (max / amountRange[1]) * (trackMax - trackMin)
+  const minTranslateX = (min / amountRange[1]) * (trackMax - trackMin)
+
+  const sliderDelta = maxTranslateX - minTranslateX
+  const minSliderDelta = sliderWidth
+  const minSliderDeltaAsAmount = (minSliderDelta / (trackMax - trackMin)) * (amountRange[1] - amountRange[0])
+
+  const onMinSliderDrag = ({ nativeEvent: { pageX } }: GestureResponderEvent) => {
+    const newPosition = pageX - horizontalTrackPadding - screenPadding - sectionContainerPadding
+    const boundedPosition = Math.max(trackMin, Math.min(trackMax - sliderWidth, newPosition))
+    const amountPercentage = (boundedPosition - trackMin) / (trackMax - trackMin)
+    const newAmount = Math.round(amountRange[0] + amountPercentage * (amountRange[1] - amountRange[0]))
+
+    const newMaxAmount = Math.max(newAmount + minSliderDeltaAsAmount, max)
+    setAmount([newAmount, newMaxAmount])
+  }
+
+  const onMaxSliderDrag = ({ nativeEvent: { pageX } }: GestureResponderEvent) => {
+    const newPosition = pageX - horizontalTrackPadding - screenPadding - sectionContainerPadding
+    const boundedPosition = Math.max(trackMin + sliderWidth, Math.min(trackMax, newPosition))
+    const amountPercentage = (boundedPosition - trackMin) / (trackMax - trackMin)
+    const newAmount = Math.round(amountRange[0] + amountPercentage * (amountRange[1] - amountRange[0]))
+
+    const newMinAmount = Math.min(newAmount - minSliderDeltaAsAmount, min)
+    setAmount([newMinAmount, newAmount])
+  }
+
+  return (
+    <>
+      <Slider
+        trackWidth={trackWidth}
+        setIsSliding={setIsSliding}
+        onDrag={onMinSliderDrag}
+        hitSlop={{ bottom: sectionContainerGap, left: trackWidth, right: sliderDelta / 2 + sliderWidth }}
+        type="buy"
+        transform={[{ translateX: minTranslateX }]}
+      />
+      <Slider
+        trackWidth={trackWidth}
+        setIsSliding={setIsSliding}
+        onDrag={onMaxSliderDrag}
+        hitSlop={{ bottom: sectionContainerGap, left: sliderDelta / 2 - sliderWidth, right: trackWidth }}
+        type="buy"
+        transform={[{ translateX: maxTranslateX }]}
+      />
+    </>
   )
 }
 
@@ -227,7 +311,7 @@ function ShowOffersButton () {
   const originalPaymentData = useOfferPreferences((state) => state.originalPaymentData)
   const methodsAreValid = originalPaymentData.every(isValidPaymentData)
   const { data } = useMarketPrices()
-  const [minAmount, maxAmount] = getTradingAmountLimits(data?.CHF || 0, 'sell')
+  const [minAmount, maxAmount] = getTradingAmountLimits(data?.CHF || 0, 'buy')
   const rangeIsValid
     = offerDraft.amount[0] >= minAmount
     && offerDraft.amount[1] <= maxAmount

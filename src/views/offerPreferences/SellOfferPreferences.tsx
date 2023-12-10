@@ -189,7 +189,7 @@ function SellAmountSlider ({ trackWidth, setIsSliding }: SellAmountSliderProps) 
   const isMediumScreen = useIsMediumScreen()
   const screenPadding = useMemo(() => (isMediumScreen ? 16 : 8), [isMediumScreen])
 
-  const trackMax = useMemo(() => trackWidth - sliderWidth - horizontalPaddingForSlider, [trackWidth])
+  const trackMax = useMemo(() => trackWidth - sliderWidth, [trackWidth])
 
   const onDrag = ({ nativeEvent: { pageX } }: GestureResponderEvent) => {
     const newPosition = pageX - horizontalTrackPadding - screenPadding - sectionContainerPadding
@@ -204,6 +204,7 @@ function SellAmountSlider ({ trackWidth, setIsSliding }: SellAmountSliderProps) 
       trackWidth={trackWidth}
       setIsSliding={setIsSliding}
       onDrag={onDrag}
+      type="sell"
       transform={[{ translateX: (amount / amountRange[1]) * (trackMax - trackMin) }]}
     />
   )
@@ -251,7 +252,7 @@ function FiatInput () {
   const { displayCurrency, bitcoinPrice, fiatPrice } = useBitcoinPrices(amount)
   const [inputValue, setInputValue] = useState(fiatPrice.toString())
 
-  const restrictAmount = useRestrictSatsAmount()
+  const restrictAmount = useRestrictSatsAmount('sell')
 
   const onFocus = () => {
     setInputValue(fiatPrice.toString())
