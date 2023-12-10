@@ -25,9 +25,9 @@ import { isValidPaymentData } from '../../utils/paymentMethod'
 import { SatsInputComponent } from './SatsInputComponent'
 import { MarketInfo } from './components/MarketInfo'
 import { Methods } from './components/Methods'
-import { Section } from './components/Section'
-import { Slider } from './components/Slider'
-import { SliderTrack } from './components/SliderTrack'
+import { Section, sectionContainerGap, sectionContainerPadding } from './components/Section'
+import { Slider, horizontalSliderPadding } from './components/Slider'
+import { SliderTrack, horizontalTrackPadding } from './components/SliderTrack'
 import { enforceDigitFormat } from './enforceDigitFormat'
 import { useRestrictSatsAmount } from './useRestrictSatsAmount'
 import { usePublishOffer } from './utils/usePublishOffer'
@@ -42,19 +42,17 @@ export function BuyOfferPreferences () {
         <AmountSelector setIsSliding={setIsSliding} />
         <Filters />
       </PeachScrollView>
+
       <ShowOffersButton />
     </Screen>
   )
 }
 
-const sectionContainerPadding = 12
-const horizontalTrackPadding = 22
 const horizontalPaddingForSlider = 8
 export const iconWidth = 16
-export const horizontalSliderPadding = 8
 const sliderWidth = iconWidth + horizontalSliderPadding * 2
 const trackMin = horizontalPaddingForSlider
-export const sectionContainerGap = 10
+
 function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) => void }) {
   const { width } = useWindowDimensions()
   const isMediumScreen = useIsMediumScreen()
@@ -81,7 +79,6 @@ function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) 
       <SliderTrack
         slider={<BuyAmountSliders setIsSliding={setIsSliding} trackWidth={trackWidth} />}
         trackWidth={trackWidth}
-        paddingHorizontal={horizontalTrackPadding}
         type="buy"
       />
     </Section.Container>

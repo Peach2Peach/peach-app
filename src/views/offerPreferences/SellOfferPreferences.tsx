@@ -51,9 +51,9 @@ import { SatsInputComponent } from './SatsInputComponent'
 import { FundMultipleOffers } from './components/FundMultipleOffers'
 import { MarketInfo } from './components/MarketInfo'
 import { Methods } from './components/Methods'
-import { Section } from './components/Section'
-import { Slider } from './components/Slider'
-import { SliderTrack } from './components/SliderTrack'
+import { Section, sectionContainerPadding } from './components/Section'
+import { Slider, horizontalSliderPadding } from './components/Slider'
+import { SliderTrack, horizontalTrackPadding } from './components/SliderTrack'
 import { enforceDigitFormat } from './enforceDigitFormat'
 import { useRestrictSatsAmount } from './useRestrictSatsAmount'
 import { publishSellOffer } from './utils/publishSellOffer'
@@ -61,9 +61,9 @@ import { publishSellOffer } from './utils/publishSellOffer'
 export function SellOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
   return (
-    <Screen style={tw`bg-primary-background`} header={<SellHeader />}>
+    <Screen header={<SellHeader />}>
       <PeachScrollView contentStyle={tw`gap-7`} scrollEnabled={!isSliding}>
-        <MarketInfo />
+        <MarketInfo type="buyOffers" />
         <Methods type="sell" />
         <CompetingOfferStats />
         <AmountSelector setIsSliding={setIsSliding} />
@@ -89,8 +89,10 @@ function CompetingOfferStats () {
   )
 }
 
-const sectionContainerPadding = 12
-const horizontalTrackPadding = 22
+const horizontalPaddingForSlider = 8
+export const iconWidth = 16
+const sliderWidth = iconWidth + horizontalSliderPadding * 2
+const trackMin = horizontalPaddingForSlider
 function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) => void }) {
   const { width } = useWindowDimensions()
   const isMediumScreen = useIsMediumScreen()
@@ -106,7 +108,6 @@ function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) 
         <SliderTrack
           slider={<SellAmountSlider setIsSliding={setIsSliding} trackWidth={trackWidth} />}
           trackWidth={trackWidth}
-          paddingHorizontal={horizontalTrackPadding}
         />
       }
       inputs={
@@ -168,13 +169,6 @@ function CurrentPrice () {
     </Text>
   )
 }
-
-const horizontalPaddingForSlider = 8
-export const iconWidth = 16
-export const horizontalSliderPadding = 8
-const sliderWidth = iconWidth + horizontalSliderPadding * 2
-const trackMin = horizontalPaddingForSlider
-export const sectionContainerGap = 10
 
 type SellAmountSliderProps = {
   trackWidth: number

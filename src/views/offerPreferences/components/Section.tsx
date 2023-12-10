@@ -1,10 +1,22 @@
 import { View } from 'react-native'
 import { Text } from '../../../components'
 import tw from '../../../styles/tailwind'
-import { sectionContainerGap } from '../SellOfferPreferences'
+
+export const sectionContainerPadding = 12
+export const sectionContainerGap = 10
 
 function Container ({ children, style }: { children: React.ReactNode; style?: View['props']['style'] }) {
-  return <View style={[tw`items-center w-full p-3 rounded-2xl`, { gap: sectionContainerGap }, style]}>{children}</View>
+  return (
+    <View
+      style={[
+        tw`items-center w-full rounded-2xl`,
+        { gap: sectionContainerGap, padding: sectionContainerPadding },
+        style,
+      ]}
+    >
+      {children}
+    </View>
+  )
 }
 
 const Section = {

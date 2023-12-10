@@ -3,7 +3,7 @@ import { Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { Section } from './Section'
 
-export function MarketInfo ({ type = 'buyOffers' }: { type?: 'buyOffers' | 'sellOffers' }) {
+export function MarketInfo ({ type }: { type: 'buyOffers' | 'sellOffers' }) {
   const text = type === 'buyOffers' ? 'buy offers' : 'sell offers'
   const textStyle = type === 'buyOffers' ? tw`text-success-main` : tw`text-primary-main`
   const openOffers = 0
