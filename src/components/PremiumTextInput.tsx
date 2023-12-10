@@ -31,8 +31,9 @@ function convertDisplayPremiumToNumber (displayPremium: string) {
   return asNumberType
 }
 
-function enforcePremiumFormat (premium?: string | number) {
-  if (!premium) return ''
+function enforcePremiumFormat (premium: string) {
+  if (premium === '') return ''
+  if (premium === '0') return '0'
 
   const number = Number(premium)
   if (isNaN(number)) return String(premium).trim()
