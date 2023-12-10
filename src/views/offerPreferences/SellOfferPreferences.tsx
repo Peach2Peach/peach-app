@@ -15,7 +15,6 @@ import { LogoIcons } from '../../assets/logo'
 import { Checkbox, Header, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
 import { Badge } from '../../components/Badge'
 import { PremiumInput } from '../../components/PremiumInput'
-import { BTCAmount } from '../../components/bitcoin'
 import { NewBubble } from '../../components/bubble/Bubble'
 import { Button } from '../../components/buttons/Button'
 import { Toggle } from '../../components/inputs'
@@ -48,6 +47,7 @@ import { useWalletState } from '../../utils/wallet/walletStore'
 import { getFundingAmount } from '../fundEscrow/helpers/getFundingAmount'
 import { useCreateEscrow } from '../fundEscrow/hooks/useCreateEscrow'
 import { useFundFromPeachWallet } from '../fundEscrow/hooks/useFundFromPeachWallet'
+import { SatsInputComponent } from './SatsInputComponent'
 import { FundMultipleOffers } from './components/FundMultipleOffers'
 import { MarketInfo } from './components/MarketInfo'
 import { Methods } from './components/Methods'
@@ -207,11 +207,11 @@ function SellAmountSlider ({ trackWidth, setIsSliding }: SellAmountSliderProps) 
   )
 }
 
-const inputContainerStyle = [
+export const inputContainerStyle = [
   'items-center justify-center flex-1 bg-primary-background-light flex-row',
   'border rounded-lg border-black-4',
 ]
-const textStyle = 'text-center subtitle-1 leading-relaxed py-1px'
+export const textStyle = 'text-center subtitle-1 leading-relaxed py-1px'
 
 const useRestrictSatsAmount = () => {
   const { data } = useMarketPrices()
@@ -251,18 +251,13 @@ function SatsInput () {
   const displayValue = inputRef.current?.isFocused() ? inputValue : amount.toString()
 
   return (
-    <View style={tw.style(inputContainerStyle)}>
-      <BTCAmount size="small" amount={Number(displayValue)} />
-      <TextInput
-        style={[tw.style(textStyle), tw`absolute w-full opacity-0`]}
-        ref={inputRef}
-        value={displayValue}
-        onFocus={onFocus}
-        onChangeText={onChangeText}
-        onEndEditing={onEndEditing}
-        keyboardType="number-pad"
-      />
-    </View>
+    <SatsInputComponent
+      value={displayValue}
+      ref={inputRef}
+      onFocus={onFocus}
+      onChangeText={onChangeText}
+      onEndEditing={onEndEditing}
+    />
   )
 }
 
