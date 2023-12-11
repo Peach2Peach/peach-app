@@ -17,8 +17,8 @@ describe('usePatchOffer - update Premium', () => {
 
   it('should call patchOffer with the correct params', async () => {
     const newData = { premium: newPremium }
-    const { result } = renderHook(() => usePatchOffer(offerId, newData))
-    result.current.mutate()
+    const { result } = renderHook(() => usePatchOffer())
+    result.current.mutate({ offerId, newData })
 
     await waitFor(() => {
       expect(patchOfferMock).toHaveBeenCalledWith({
@@ -31,8 +31,8 @@ describe('usePatchOffer - update Premium', () => {
   it('should call showErrorBanner on error', async () => {
     patchOfferMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const newData = { premium: newPremium }
-    const { result } = renderHook(() => usePatchOffer(offerId, newData))
-    result.current.mutate()
+    const { result } = renderHook(() => usePatchOffer())
+    result.current.mutate({ offerId, newData })
 
     await waitFor(() => {
       expect(showErrorBannerMock).toHaveBeenCalledWith('UNAUTHORIZED')
@@ -46,8 +46,8 @@ describe('usePatchOffer - update MaxPremium', () => {
 
   it('should call patchOffer with the correct params', async () => {
     const newData = { maxPremium: newMaxPremium }
-    const { result } = renderHook(() => usePatchOffer(offerId, newData))
-    result.current.mutate()
+    const { result } = renderHook(() => usePatchOffer())
+    result.current.mutate({ offerId, newData })
 
     await waitFor(() => {
       expect(patchOfferMock).toHaveBeenCalledWith({
@@ -60,8 +60,8 @@ describe('usePatchOffer - update MaxPremium', () => {
   it('should call showErrorBanner on error', async () => {
     patchOfferMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const newData = { maxPremium: newMaxPremium }
-    const { result } = renderHook(() => usePatchOffer(offerId, newData))
-    result.current.mutate()
+    const { result } = renderHook(() => usePatchOffer())
+    result.current.mutate({ offerId, newData })
 
     await waitFor(() => {
       expect(showErrorBannerMock).toHaveBeenCalledWith('UNAUTHORIZED')
