@@ -4,7 +4,9 @@ import { LogoIcons } from '../../assets/logo'
 import { Header, Icon, Screen, Text } from '../../components'
 import { PeachyGradient } from '../../components/PeachyGradient'
 import { Button } from '../../components/buttons/Button'
+import { ProgressDonut } from '../../components/ui'
 import { useNavigation } from '../../hooks'
+import { useSelfUser } from '../../hooks/query/useSelfUser'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
@@ -17,6 +19,7 @@ export function Home () {
         <View style={tw`self-stretch flex-1 gap-10px`}>
           <DailyMessage />
           <MarketStats />
+          <FreeTradesDonut />
         </View>
       </View>
       <View style={tw`flex-row gap-10px`}>
@@ -24,6 +27,21 @@ export function Home () {
         <SellButton />
       </View>
     </Screen>
+  )
+}
+
+function FreeTradesDonut () {
+  const { user } = useSelfUser()
+  const freeTrades = user?.freeTrades || 0
+  const maxFreeTrades = user?.maxFreeTrades || 0
+  if (freeTrades === 0) return null
+  return (
+    <ProgressDonut
+      style={tw`py-2`}
+      title={i18n('settings.referrals.noPeachFees.freeTrades')}
+      value={freeTrades}
+      max={maxFreeTrades}
+    />
   )
 }
 
