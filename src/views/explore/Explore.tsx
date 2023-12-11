@@ -5,7 +5,7 @@ import { horizontalBadgePadding } from '../../components/Badge'
 import { PeachyBackground } from '../../components/PeachyBackground'
 import { BTCAmount } from '../../components/bitcoin'
 import { Badges } from '../../components/matches/components/Badges'
-import { useBitcoinPrices } from '../../hooks'
+import { useBitcoinPrices, useNavigation } from '../../hooks'
 import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -50,12 +50,19 @@ function OfferSummaryCards () {
 function ExploreCard ({ match }: { match: Match }) {
   const { matched, amount, user, premium, instantTrade } = match
   const { fiatPrice, displayCurrency } = useBitcoinPrices(amount)
+  const { offerId } = useRoute<'explore'>().params
+  const navigation = useNavigation()
+  const onPress = () => {
+    navigation.navigate('matchDetails', { matchId: match.offerId, offerId })
+  }
+
   return (
     <TouchableOpacity
       style={[
         tw`justify-center overflow-hidden border bg-primary-background-light rounded-2xl border-primary-main`,
         matched && tw`border-2 border-success-main`,
       ]}
+      onPress={onPress}
     >
       {instantTrade && (
         <View style={tw`overflow-hidden rounded-md`}>
