@@ -9,12 +9,12 @@ type NewData = {
   premium?: number
 } & Partial<MatchFilter>
 
-export const usePatchOffer = (offerId: string, newData: NewData) => {
+export const usePatchOffer = () => {
   const queryClient = useQueryClient()
   const showErrorBanner = useShowErrorBanner()
 
   return useMutation({
-    onMutate: async () => {
+    onMutate: async ({ offerId, newData }) => {
       await queryClient.cancelQueries({ queryKey: ['offer', offerId] })
       const previousData = queryClient.getQueryData<BuyOffer | SellOffer>(['offer', offerId])
       queryClient.setQueryData(
@@ -24,15 +24,15 @@ export const usePatchOffer = (offerId: string, newData: NewData) => {
 
       return { previousData }
     },
-    mutationFn: async () => {
+    mutationFn: async ({ offerId, newData }: { offerId: string; newData: NewData }) => {
       const { error } = await peachAPI.private.offer.patchOffer({ offerId, ...newData })
       if (error) throw new Error(error.error)
     },
-    onError: (err: Error, _variables, context) => {
-      queryClient.setQueryData(['offer', offerId], context?.previousData)
+    onError: (err: Error, { offerId }, context) => {
+      queryClient.setQueryData(['offer', offerId || offerId], context?.previousData)
       showErrorBanner(err.message)
     },
-    onSettled: () => {
+    onSettled: (_data, _error, { offerId }) => {
       queryClient.invalidateQueries(['offer', offerId])
     },
   })
