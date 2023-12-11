@@ -89,7 +89,6 @@ const wallet: ViewType[] = [
 ]
 const buyFlow: ViewType[] = [
   { name: 'buyOfferPreferences', component: BuyOfferPreferences },
-  { name: 'buyPreferences', component: PaymentMethods },
   { name: 'signMessage', component: SignMessage },
   { name: 'selectWallet', component: SelectWallet },
 ]
