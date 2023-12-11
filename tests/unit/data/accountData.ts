@@ -87,21 +87,3 @@ export const buyer: Account = {
   base58,
   mnemonic,
 }
-
-export const userWithNoTrades: Account = {
-  tradingLimit: {
-    daily: 1000,
-    dailyAmount: 0,
-    monthlyAnonymous: 1000,
-    monthlyAnonymousAmount: 0,
-    yearly: 100000,
-    yearlyAmount: 0,
-  },
-  offers: [],
-  chats: {},
-  pgp,
-  publicKey: '02adcf3c857078dc3ca7064a49d20c6ae4978809057ffb75dc0750d8b5020aafe9',
-  privKey,
-  base58,
-  mnemonic,
-}

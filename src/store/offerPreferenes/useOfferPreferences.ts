@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
+import { MatchFilter } from '../../../peach-api/src/@types/api/offerAPI'
 import { getSelectedPaymentDataIds } from '../../utils/account'
 import { createStorage } from '../../utils/storage'
 import { createPersistStorage } from '../createPersistStorage'
@@ -22,7 +23,10 @@ type OfferPreferences = {
     sellOffer: SellSorter[]
   }
   filter: {
-    buyOffer: MatchFilter
+    buyOffer: Required<MatchFilter> & {
+      shouldApplyMaxPremium: boolean
+      shouldApplyMinReputation: boolean
+    }
   }
   instantTrade: boolean
   instantTradeCriteria: InstantTradeCriteria
@@ -45,6 +49,9 @@ export const defaultPreferences: OfferPreferences = {
   filter: {
     buyOffer: {
       maxPremium: null,
+      minReputation: null,
+      shouldApplyMaxPremium: false,
+      shouldApplyMinReputation: false,
     },
   },
   instantTrade: false,
@@ -66,6 +73,9 @@ type OfferPreferencesActions = {
   setBuyOfferSorter: (sorter: BuySorter) => void
   setSellOfferSorter: (sorter: SellSorter) => void
   setBuyOfferFilter: (filter: MatchFilter) => void
+  setMaxPremiumFilter: (maxPremium: number | null) => void
+  toggleShouldApplyMaxPremium: () => void
+  toggleMinReputationFilter: () => void
   toggleInstantTrade: () => void
   toggleMinTrades: () => void
   toggleMinReputation: () => void
@@ -102,9 +112,25 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         }
       },
       setPreferredCurrencyType: (preferredCurrenyType) => set({ preferredCurrenyType }),
-      setBuyOfferSorter: (sorter) => set((state) => ({ sortBy: { ...state.sortBy, buyOffer: [sorter] } })),
-      setSellOfferSorter: (sorter) => set((state) => ({ sortBy: { ...state.sortBy, sellOffer: [sorter] } })),
-      setBuyOfferFilter: (filter) => set((state) => ({ filter: { ...state.filter, buyOffer: filter } })),
+      setBuyOfferSorter: (sorter) =>
+        set((state) => {
+          state.sortBy.buyOffer = [sorter]
+        }),
+      setSellOfferSorter: (sorter) =>
+        set((state) => {
+          state.sortBy.sellOffer = [sorter]
+        }),
+      setBuyOfferFilter: (filter) =>
+        set((state) => {
+          state.filter.buyOffer = {
+            ...state.filter.buyOffer,
+            ...filter,
+          }
+        }),
+      setMaxPremiumFilter: (maxPremium) =>
+        set((state) => {
+          state.filter.buyOffer.maxPremium = maxPremium
+        }),
       toggleInstantTrade: () => set((state) => ({ instantTrade: !state.instantTrade })),
       toggleMinTrades: () =>
         set((state) => {
@@ -113,6 +139,14 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       toggleMinReputation: () =>
         set((state) => {
           state.instantTradeCriteria.minReputation = state.instantTradeCriteria.minReputation === 0 ? 4.5 : 0
+        }),
+      toggleShouldApplyMaxPremium: () =>
+        set((state) => {
+          state.filter.buyOffer.shouldApplyMaxPremium = !state.filter.buyOffer.shouldApplyMaxPremium
+        }),
+      toggleMinReputationFilter: () =>
+        set((state) => {
+          state.filter.buyOffer.minReputation = state.filter.buyOffer.minReputation === 0 ? 4.5 : 0
         }),
       toggleBadge: (badge: Medal) =>
         set((state) => {

@@ -63,7 +63,7 @@ describe('BuyFilterAndSort', () => {
 
 describe('ApplyBuyFilterAction', () => {
   beforeEach(() => {
-    useOfferPreferences.setState({ filter: { buyOffer: { maxPremium: null } } })
+    useOfferPreferences.getState().setMaxPremiumFilter(null)
     usePopupStore.setState({ visible: true })
     queryClient.resetQueries()
   })
@@ -108,11 +108,11 @@ describe('ApplyBuyFilterAction', () => {
     fireEvent.changeText(maxPremiumInput, '0.5')
     fireEvent.press(checkbox)
     fireEvent.press(applyButton)
-    expect(useOfferPreferences.getState().filter.buyOffer).toEqual({ maxPremium: 0.5 })
+    expect(useOfferPreferences.getState().filter.buyOffer.maxPremium).toEqual(0.5)
   })
 
   it('should update the global state with the new filter when entering an empty string', () => {
-    useOfferPreferences.setState({ filter: { buyOffer: { maxPremium: 0.5 } } })
+    useOfferPreferences.getState().setMaxPremiumFilter(0.5)
     const { getByText, getByPlaceholderText } = render(defaultComponent)
     const maxPremiumInput = getByPlaceholderText('20.00')
     const applyButton = getByText('apply')
@@ -121,7 +121,7 @@ describe('ApplyBuyFilterAction', () => {
     fireEvent.changeText(maxPremiumInput, '')
     fireEvent.press(checkbox)
     fireEvent.press(applyButton)
-    expect(useOfferPreferences.getState().filter.buyOffer).toEqual({ maxPremium: null })
+    expect(useOfferPreferences.getState().filter.buyOffer.maxPremium).toEqual(null)
   })
 
   it('should not update the global state with the new filter when the checkbox is not checked', () => {
@@ -131,7 +131,7 @@ describe('ApplyBuyFilterAction', () => {
 
     fireEvent.changeText(maxPremiumInput, '0.5')
     fireEvent.press(applyButton)
-    expect(useOfferPreferences.getState().filter.buyOffer).toEqual({ maxPremium: null })
+    expect(useOfferPreferences.getState().filter.buyOffer.maxPremium).toEqual(null)
   })
 
   it('should apply the selected sorter', () => {
@@ -217,7 +217,7 @@ describe('ApplyBuyFilterAction', () => {
 
     await waitFor(() => expect(patchOfferMock).not.toHaveBeenCalled())
 
-    expect(useOfferPreferences.getState().filter.buyOffer).toEqual({ maxPremium: 0.5 })
+    expect(useOfferPreferences.getState().filter.buyOffer.maxPremium).toEqual(0.5)
     expect(useOfferPreferences.getState().sortBy.buyOffer).toEqual(['highestAmount'])
     expect(usePopupStore.getState().visible).toBe(false)
   })

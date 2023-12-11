@@ -50,9 +50,9 @@ exports[`PremiumInput should render the PremiumInput view with 0 premium 1`] = `
       premium
       :
     </PeachText>
-    <ForwardRef
-      onChange={[Function]}
-      value="0"
+    <PremiumTextInput
+      premium={0}
+      setPremium={[MockFunction]}
     />
   </View>
   <TouchableOpacity
@@ -118,9 +118,9 @@ exports[`PremiumInput should render the PremiumInput view with discount 1`] = `
       discount
       :
     </PeachText>
-    <ForwardRef
-      onChange={[Function]}
-      value="-3.2"
+    <PremiumTextInput
+      premium={-3.2}
+      setPremium={[MockFunction]}
     />
   </View>
   <TouchableOpacity
@@ -186,9 +186,9 @@ exports[`PremiumInput should render the PremiumInput view with premium 1`] = `
       premium
       :
     </PeachText>
-    <ForwardRef
-      onChange={[Function]}
-      value="3.2"
+    <PremiumTextInput
+      premium={3.2}
+      setPremium={[MockFunction]}
     />
   </View>
   <TouchableOpacity

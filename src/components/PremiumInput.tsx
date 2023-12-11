@@ -1,17 +1,10 @@
-import { useMemo, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { Icon, Text } from '../../../components'
-import { PercentageInput } from '../../../components/inputs'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
-import { round } from '../../../utils/math'
-import { enforcePremiumFormat } from '../helpers/enforcePremiumFormat'
-
-const convertDisplayPremiumToNumber = (displayPremium: string) => {
-  const asNumberType = Number(enforcePremiumFormat(displayPremium))
-  if (isNaN(asNumberType)) return 0
-  return asNumberType
-}
+import tw from '../styles/tailwind'
+import i18n from '../utils/i18n'
+import { round } from '../utils/math'
+import { Icon } from './Icon'
+import { PremiumTextInput } from './PremiumTextInput'
+import Text from './text/Text'
 
 type Props = {
   premium: number
@@ -20,33 +13,17 @@ type Props = {
 }
 
 const defaultIncrement = 0.1
-const premiumBounds = { min: -21, max: 21 }
+export const premiumBounds = { min: -21, max: 21 }
 
 export const PremiumInput = ({ premium, setPremium, incrementBy = defaultIncrement }: Props) => {
-  const [displayPremium, setDisplayPremium] = useState(premium.toString())
-
-  const displayValue = useMemo(() => {
-    const displayPremiumAsNumber = convertDisplayPremiumToNumber(displayPremium)
-    if (premium === displayPremiumAsNumber) return displayPremium
-    return premium.toString()
-  }, [premium, displayPremium])
-
-  const changePremium = (value: string) => {
-    const newPremium = enforcePremiumFormat(value)
-    setDisplayPremium(newPremium)
-    setPremium(convertDisplayPremiumToNumber(newPremium))
-  }
-
   const onMinusPress = () => {
     const newPremium = round(Math.max(premium - incrementBy, premiumBounds.min), 2)
     setPremium(newPremium)
-    setDisplayPremium(newPremium.toString())
   }
 
   const onPlusPress = () => {
     const newPremium = round(Math.min(premium + incrementBy, premiumBounds.max), 2)
     setPremium(newPremium)
-    setDisplayPremium(newPremium.toString())
   }
 
   const textColor = premium === 0 ? tw`text-black-1` : premium > 0 ? tw`text-success-main` : tw`text-primary-main`
@@ -58,7 +35,7 @@ export const PremiumInput = ({ premium, setPremium, incrementBy = defaultIncreme
       </TouchableOpacity>
       <View style={tw`flex-row items-center justify-center gap-2 grow`}>
         <Text style={[tw`text-center body-l`, textColor]}>{i18n(premium >= 0 ? 'sell.premium' : 'sell.discount')}:</Text>
-        <PercentageInput value={displayValue} onChange={changePremium} />
+        <PremiumTextInput premium={premium} setPremium={setPremium} />
       </View>
       <TouchableOpacity onPress={onPlusPress} accessibilityHint={i18n('number.increase')}>
         <Icon id="plusCircle" size={24} color={tw.color('primary-main')} />

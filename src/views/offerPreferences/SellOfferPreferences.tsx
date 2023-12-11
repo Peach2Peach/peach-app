@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { useQueryClient } from '@tanstack/react-query'
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import {
   GestureResponderEvent,
   NativeSyntheticEvent,
@@ -8,26 +8,17 @@ import {
   TextInputEndEditingEventData,
   TouchableOpacity,
   View,
-  useWindowDimensions,
 } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { LogoIcons } from '../../assets/logo'
-import { Checkbox, Header, Icon, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
+import { Checkbox, Header, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
 import { Badge } from '../../components/Badge'
-import { BTCAmount } from '../../components/bitcoin'
+import { PremiumInput } from '../../components/PremiumInput'
 import { NewBubble } from '../../components/bubble/Bubble'
 import { Button } from '../../components/buttons/Button'
 import { Toggle } from '../../components/inputs'
-import { MeansOfPayment } from '../../components/offer/MeansOfPayment'
 import { SATSINBTC } from '../../constants'
-import {
-  useBitcoinPrices,
-  useIsMediumScreen,
-  useMarketPrices,
-  useNavigation,
-  useToggleBoolean,
-  useTradingLimits,
-} from '../../hooks'
+import { useBitcoinPrices, useMarketPrices, useNavigation, useToggleBoolean, useTradingLimits } from '../../hooks'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useConfigStore } from '../../store/configStore/configStore'
@@ -38,7 +29,6 @@ import i18n from '../../utils/i18n'
 import { convertFiatToSats, getTradingAmountLimits } from '../../utils/market'
 import { round } from '../../utils/math'
 import { keys } from '../../utils/object'
-import { hasMopsConfigured } from '../../utils/offer'
 import { defaultFundingStatus } from '../../utils/offer/constants'
 import { cleanPaymentData } from '../../utils/paymentMethod'
 import { signAndEncrypt } from '../../utils/pgp'
@@ -49,19 +39,27 @@ import { useWalletState } from '../../utils/wallet/walletStore'
 import { getFundingAmount } from '../fundEscrow/helpers/getFundingAmount'
 import { useCreateEscrow } from '../fundEscrow/hooks/useCreateEscrow'
 import { useFundFromPeachWallet } from '../fundEscrow/hooks/useFundFromPeachWallet'
-import { Slider } from './Slider'
-import { SliderTrack } from './SliderTrack'
-import { PremiumInput } from './components'
+import { SatsInputComponent } from './SatsInputComponent'
 import { FundMultipleOffers } from './components/FundMultipleOffers'
-import { publishSellOffer } from './helpers/publishSellOffer'
+import { MarketInfo } from './components/MarketInfo'
+import { Methods } from './components/Methods'
+import { Section } from './components/Section'
+import { Slider, sliderWidth } from './components/Slider'
+import { SliderTrack } from './components/SliderTrack'
+import { trackMin } from './constants'
+import { enforceDigitFormat } from './enforceDigitFormat'
+import { useAmountInBounds } from './useAmountInBounds'
+import { useRestrictSatsAmount } from './useRestrictSatsAmount'
+import { useTrackWidth } from './useTrackWidth'
+import { publishSellOffer } from './utils/publishSellOffer'
 
 export function SellOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
   return (
-    <Screen style={tw`bg-primary-background`} header={<SellHeader />}>
+    <Screen header={<SellHeader />}>
       <PeachScrollView contentStyle={tw`gap-7`} scrollEnabled={!isSliding}>
-        <MarketInfo />
-        <Methods />
+        <MarketInfo type="buyOffers" />
+        <Methods type="sell" />
         <CompetingOfferStats />
         <AmountSelector setIsSliding={setIsSliding} />
         <FundMultipleOffersContainer />
@@ -74,64 +72,20 @@ export function SellOfferPreferences () {
   )
 }
 
-function MarketInfo ({ type = 'buyOffers' }: { type?: 'buyOffers' | 'sellOffers' }) {
-  const textStyle = type === 'buyOffers' ? tw`text-success-main` : tw`text-primary-main`
-  const openOffers = 0
-  return (
-    <SectionContainer style={tw`-gap-13px`}>
-      <Text style={[tw`h5`, textStyle]}>{openOffers} buy offers</Text>
-      <Text style={[tw`subtitle-2`, textStyle]}>for your preferences</Text>
-    </SectionContainer>
-  )
-}
-
-function Methods () {
-  const navigation = useNavigation()
-  const onPress = () => navigation.navigate('paymentMethods')
-  const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment)
-  const hasSelectedMethods = hasMopsConfigured(meansOfPayment)
-
-  return (
-    <>
-      {hasSelectedMethods ? (
-        <SectionContainer style={tw`flex-row items-start bg-primary-background-dark`}>
-          <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`flex-1`} />
-          <TouchableIcon id="plusCircle" onPress={onPress} style={tw`pt-1`} />
-        </SectionContainer>
-      ) : (
-        <SectionContainer style={tw`bg-primary-background-dark`}>
-          <TouchableOpacity style={tw`flex-row items-center gap-10px`} onPress={onPress}>
-            <Icon size={16} id="plusCircle" color={tw.color('primary-main')} />
-            <Text style={tw`subtitle-2 text-primary-main`}>{i18n.break('paymentMethod.select.button.remote')}</Text>
-          </TouchableOpacity>
-        </SectionContainer>
-      )}
-    </>
-  )
-}
-
 function CompetingOfferStats () {
   const textStyle = tw`text-center text-primary-dark-2 body-s`
   const competingSellOffers = 0
   const averageTradingPremium = 9
   return (
-    <SectionContainer>
+    <Section.Container>
       <Text style={textStyle}>{competingSellOffers} competing sell offers</Text>
       <Text style={textStyle}>premium of completed offers: ~{averageTradingPremium}%</Text>
-    </SectionContainer>
+    </Section.Container>
   )
 }
 
-const sectionContainerPadding = 12
-const horizontalTrackPadding = 22
 function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) => void }) {
-  const { width } = useWindowDimensions()
-  const isMediumScreen = useIsMediumScreen()
-  const screenPadding = useMemo(() => (isMediumScreen ? 16 : 8), [isMediumScreen])
-  const trackWidth = useMemo(
-    () => width - screenPadding - sectionContainerPadding - horizontalTrackPadding,
-    [screenPadding, width],
-  )
+  const trackWidth = useTrackWidth()
 
   return (
     <AmountSelectorContainer
@@ -139,7 +93,7 @@ function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) 
         <SliderTrack
           slider={<SellAmountSlider setIsSliding={setIsSliding} trackWidth={trackWidth} />}
           trackWidth={trackWidth}
-          paddingHorizontal={horizontalTrackPadding}
+          type="sell"
         />
       }
       inputs={
@@ -154,8 +108,8 @@ function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) 
 
 function AmountSelectorContainer ({ slider, inputs }: { slider?: JSX.Element; inputs?: JSX.Element }) {
   return (
-    <SectionContainer style={tw`bg-primary-background-dark`}>
-      <Text style={tw`subtitle-1`}>amount to sell</Text>
+    <Section.Container style={tw`bg-primary-background-dark`}>
+      <Section.Title>amount to sell</Section.Title>
       <View style={tw`gap-5`}>
         <View style={tw`gap-2`}>
           <View style={tw`flex-row gap-10px`}>{inputs}</View>
@@ -163,7 +117,7 @@ function AmountSelectorContainer ({ slider, inputs }: { slider?: JSX.Element; in
         </View>
         <Premium />
       </View>
-    </SectionContainer>
+    </Section.Container>
   )
 }
 
@@ -202,13 +156,6 @@ function CurrentPrice () {
   )
 }
 
-const horizontalPaddingForSlider = 8
-export const iconWidth = 16
-export const horizontalSliderPadding = 8
-const sliderWidth = iconWidth + horizontalSliderPadding * 2
-const trackMin = horizontalPaddingForSlider
-export const sectionContainerGap = 10
-
 type SellAmountSliderProps = {
   trackWidth: number
   setIsSliding: (isSliding: boolean) => void
@@ -216,19 +163,20 @@ type SellAmountSliderProps = {
 
 function SellAmountSlider ({ trackWidth, setIsSliding }: SellAmountSliderProps) {
   const { data } = useMarketPrices()
-  const amountRange = getTradingAmountLimits(data?.CHF || 0, 'sell')
+  const [, maxLimit] = getTradingAmountLimits(data?.CHF || 0, 'sell')
+
+  const trackMax = trackWidth - sliderWidth
+  const trackDelta = trackMax - trackMin
+
+  const getAmountInBounds = useAmountInBounds(trackWidth, 'sell')
 
   const [amount, setAmount] = useOfferPreferences((state) => [state.sellAmount, state.setSellAmount])
-  const isMediumScreen = useIsMediumScreen()
-  const screenPadding = useMemo(() => (isMediumScreen ? 16 : 8), [isMediumScreen])
-
-  const trackMax = useMemo(() => trackWidth - sliderWidth - horizontalPaddingForSlider, [trackWidth])
+  const translateX = (amount / maxLimit) * trackDelta
 
   const onDrag = ({ nativeEvent: { pageX } }: GestureResponderEvent) => {
-    const newPosition = pageX - horizontalTrackPadding - screenPadding - sectionContainerPadding
-    const boundedPosition = Math.max(trackMin, Math.min(trackMax, newPosition))
-    const amountPercentage = (boundedPosition - trackMin) / (trackMax - trackMin)
-    const newAmount = Math.round(amountRange[0] + amountPercentage * (amountRange[1] - amountRange[0]))
+    const bounds = [trackMin, trackMax] as const
+    const newAmount = getAmountInBounds(pageX, bounds)
+
     setAmount(newAmount)
   }
 
@@ -237,41 +185,23 @@ function SellAmountSlider ({ trackWidth, setIsSliding }: SellAmountSliderProps) 
       trackWidth={trackWidth}
       setIsSliding={setIsSliding}
       onDrag={onDrag}
-      transform={[{ translateX: (amount / amountRange[1]) * (trackMax - trackMin) }]}
+      type="sell"
+      transform={[{ translateX }]}
     />
   )
 }
 
-const inputContainerStyle = [
+export const inputContainerStyle = [
   'items-center justify-center flex-1 bg-primary-background-light flex-row',
   'border rounded-lg border-black-4',
 ]
-const textStyle = 'text-center subtitle-1 leading-relaxed py-1px'
+export const textStyle = 'text-center subtitle-1 leading-relaxed py-1px'
 
-const useRestrictSatsAmount = () => {
-  const { data } = useMarketPrices()
-  const [minSellAmount, maxSellAmount] = useMemo(() => getTradingAmountLimits(data?.CHF || 0, 'sell'), [data?.CHF])
-
-  const restrictAmount = useCallback(
-    (amount: number) => {
-      if (amount < minSellAmount) {
-        return minSellAmount
-      } else if (amount > maxSellAmount) {
-        return maxSellAmount
-      }
-      return amount
-    },
-    [minSellAmount, maxSellAmount],
-  )
-  return restrictAmount
-}
-
-const enforceDigitFormat = (value: string) => value.replace(/[^0-9]/gu, '')
 function SatsInput () {
   const [amount, setAmount] = useOfferPreferences((state) => [state.sellAmount, state.setSellAmount])
   const inputRef = useRef<TextInput>(null)
   const [inputValue, setInputValue] = useState(amount.toString())
-  const restrictAmount = useRestrictSatsAmount()
+  const restrictAmount = useRestrictSatsAmount('sell')
 
   const onFocus = () => setInputValue(amount.toString())
 
@@ -286,18 +216,13 @@ function SatsInput () {
   const displayValue = inputRef.current?.isFocused() ? inputValue : amount.toString()
 
   return (
-    <View style={tw.style(inputContainerStyle)}>
-      <BTCAmount size="small" amount={Number(displayValue)} />
-      <TextInput
-        style={[tw.style(textStyle), tw`absolute w-full opacity-0`]}
-        ref={inputRef}
-        value={displayValue}
-        onFocus={onFocus}
-        onChangeText={onChangeText}
-        onEndEditing={onEndEditing}
-        keyboardType="number-pad"
-      />
-    </View>
+    <SatsInputComponent
+      value={displayValue}
+      ref={inputRef}
+      onFocus={onFocus}
+      onChangeText={onChangeText}
+      onEndEditing={onEndEditing}
+    />
   )
 }
 
@@ -308,7 +233,7 @@ function FiatInput () {
   const { displayCurrency, bitcoinPrice, fiatPrice } = useBitcoinPrices(amount)
   const [inputValue, setInputValue] = useState(fiatPrice.toString())
 
-  const restrictAmount = useRestrictSatsAmount()
+  const restrictAmount = useRestrictSatsAmount('sell')
 
   const onFocus = () => {
     setInputValue(fiatPrice.toString())
@@ -347,9 +272,9 @@ function FiatInput () {
 
 function FundMultipleOffersContainer () {
   return (
-    <SectionContainer style={tw`items-start`}>
+    <Section.Container style={tw`items-start`}>
       <FundMultipleOffers />
-    </SectionContainer>
+    </Section.Container>
   )
 }
 
@@ -366,10 +291,10 @@ function InstantTrade () {
     shallow,
   )
   return (
-    <SectionContainer style={tw`bg-primary-background-dark`}>
+    <Section.Container style={tw`bg-primary-background-dark`}>
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={toggle} enabled={enableInstantTrade} />
-        <Text style={tw`subtitle-1`}>instant - trade</Text>
+        <Section.Title>instant - trade</Section.Title>
         <TouchableIcon id="helpCircle" iconColor={tw.color('info-light')} />
       </View>
       {enableInstantTrade && (
@@ -396,7 +321,7 @@ function InstantTrade () {
           </View>
         </>
       )}
-    </SectionContainer>
+    </Section.Container>
   )
 }
 
@@ -414,8 +339,8 @@ function RefundWallet () {
     }
   }
   return (
-    <SectionContainer style={tw`bg-primary-background-dark`}>
-      <Text style={tw`subtitle-1`}>refund to:</Text>
+    <Section.Container style={tw`bg-primary-background-dark`}>
+      <Section.Title>refund to:</Section.Title>
       <View style={tw`flex-row items-center gap-10px`}>
         <NewBubble color="orange" ghost={!peachWalletActive} onPress={() => setPeachWalletActive(true)}>
           peach wallet
@@ -429,7 +354,7 @@ function RefundWallet () {
           {payoutAddressLabel || i18n('externalWallet')}
         </NewBubble>
       </View>
-    </SectionContainer>
+    </Section.Container>
   )
 }
 
@@ -450,7 +375,7 @@ function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWa
   const navigation = useNavigation()
   const onPress = () => navigation.navigate('networkFees')
   return (
-    <SectionContainer style={tw`flex-row justify-between`}>
+    <Section.Container style={tw`flex-row justify-between`}>
       <Checkbox
         checked={fundWithPeachWallet}
         text={`fund with Peach wallet (${estimatedFeeRate} sats/vb)`}
@@ -458,7 +383,7 @@ function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWa
         style={tw`flex-1`}
       />
       <TouchableIcon id="bitcoin" onPress={onPress} />
-    </SectionContainer>
+    </Section.Container>
   )
 }
 
@@ -596,16 +521,12 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
   )
 }
 
-function SectionContainer ({ children, style }: { children: React.ReactNode; style?: View['props']['style'] }) {
-  return <View style={[tw`items-center w-full p-3 rounded-2xl`, { gap: sectionContainerGap }, style]}>{children}</View>
-}
-
 function SellHeader () {
   return (
     <Header
       titleComponent={
         <>
-          <Text style={tw`h7 md:h6 text-primary-main`}>sell</Text>
+          <Text style={tw`h7 md:h6 text-primary-main`}>{i18n('sell')}</Text>
           <LogoIcons.bitcoinText style={tw`h-14px md:h-16px w-63px md:w-71px`} />
         </>
       }

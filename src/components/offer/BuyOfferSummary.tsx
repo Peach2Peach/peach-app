@@ -8,7 +8,7 @@ import { SummaryCard } from './SummaryCard'
 import { useWalletLabel } from './useWalletLabel'
 
 type Props = {
-  offer: BuyOffer | BuyOfferDraft
+  offer: BuyOffer
 }
 
 export const BuyOfferSummary = ({ offer }: Props) => {

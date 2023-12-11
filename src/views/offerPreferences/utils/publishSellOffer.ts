@@ -1,10 +1,10 @@
 import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
 import i18n from '../../../utils/i18n'
+import { info } from '../../../utils/log'
 import { isSellOffer, saveOffer } from '../../../utils/offer'
 import { peachAPI } from '../../../utils/peachAPI'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
-import { info } from './../../../utils/log'
 
 export const publishSellOffer = async (offerDraft: SellOfferDraft) => {
   info('Posting sell offer')

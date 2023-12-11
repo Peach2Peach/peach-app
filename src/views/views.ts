@@ -5,7 +5,6 @@ import { PaymentMethodForm } from './addPaymentMethod/PaymentMethodForm'
 import { SelectCountry } from './addPaymentMethod/SelectCountry'
 import { SelectCurrency } from './addPaymentMethod/SelectCurrency'
 import { SelectPaymentMethod } from './addPaymentMethod/SelectPaymentMethod'
-import { BuySummary } from './buy/BuySummary'
 import { SignMessage } from './buy/SignMessage'
 import { CanceledOfferDetails } from './canceledOfferDetails/CanceledOfferDetails'
 import { Contact } from './contact/Contact'
@@ -46,7 +45,8 @@ import { TestView } from './TestView/TestView'
 import { TestViewPeachWallet } from './TestView/peachWallet'
 import { TestViewPNs } from './TestView/pns'
 import { HomeScreen } from './home/HomeScreen'
-import { SellOfferPreferences } from './sell/SellOfferPreferences'
+import { BuyOfferPreferences } from './offerPreferences/BuyOfferPreferences'
+import { SellOfferPreferences } from './offerPreferences/SellOfferPreferences'
 import { TradeComplete } from './tradeComplete/TradeComplete'
 import { UserSource } from './userSource/UserSource'
 import { AddressChecker } from './wallet/AddressChecker'
@@ -88,8 +88,8 @@ const wallet: ViewType[] = [
   { name: 'bumpNetworkFees', component: BumpNetworkFees },
 ]
 const buyFlow: ViewType[] = [
+  { name: 'buyOfferPreferences', component: BuyOfferPreferences },
   { name: 'buyPreferences', component: PaymentMethods },
-  { name: 'buySummary', component: BuySummary },
   { name: 'signMessage', component: SignMessage },
   { name: 'selectWallet', component: SelectWallet },
 ]

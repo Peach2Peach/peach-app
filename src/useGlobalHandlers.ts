@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useShouldShowBackupReminder, useUpdateTradingAmounts } from './hooks'
+import { useShouldShowBackupReminder } from './hooks'
 import { useHandleNotifications } from './hooks/notifications/useHandleNotifications'
 import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 import { useCheckFundingMultipleEscrows } from './hooks/useCheckFundingMultipleEscrows'
@@ -13,7 +13,6 @@ export const useGlobalHandlers = () => {
   const messageHandler = useMessageHandler()
   const showAnalyticsPrompt = useShowAnalyticsPopup()
   const analyticsPopupSeen = useSettingsStore((state) => state.analyticsPopupSeen)
-  useUpdateTradingAmounts()
 
   useShouldShowBackupReminder()
   useInitialNavigation()
