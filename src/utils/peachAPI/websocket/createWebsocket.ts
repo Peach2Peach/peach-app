@@ -81,7 +81,7 @@ function onMessageHandler (msg: WebSocketMessageEvent) {
 }
 
 function authWS (websocket: WebSocket) {
-  const peachAccount = peachAPI.options.peachAccount
+  const peachAccount = peachAPI.apiOptions.peachAccount
   const message = getAuthenticationChallenge()
 
   if (!peachAccount) {
