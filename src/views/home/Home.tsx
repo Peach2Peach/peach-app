@@ -49,7 +49,6 @@ function DailyMessage () {
 }
 
 function MarketStats () {
-  // TODO: implement
   const data = { openBuyOffers: 0, openSellOffers: 0, averagePremium: 0 }
   return (
     <View style={tw`items-center justify-center pb-4 gap-10px grow`}>
