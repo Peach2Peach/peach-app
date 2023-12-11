@@ -9,6 +9,7 @@ import { useBitcoinPrices, useNavigation } from '../../hooks'
 import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { LoadingScreen } from '../loading/LoadingScreen'
 import { BuyBitcoinHeader } from '../offerPreferences/BuyBitcoinHeader'
 import { MarketInfo } from '../offerPreferences/components/MarketInfo'
 import { useOfferMatches } from '../search/hooks'
@@ -16,8 +17,9 @@ import { Rating } from '../settings/profile/profileOverview/components'
 
 export function Explore () {
   const { offerId } = useRoute<'explore'>().params
-  const { allMatches: matches } = useOfferMatches(offerId)
+  const { allMatches: matches, isLoading } = useOfferMatches(offerId)
   const hasMatches = matches.length > 0
+  if (isLoading) return <LoadingScreen />
   return (
     <Screen header={<BuyBitcoinHeader />}>
       {hasMatches ? (
