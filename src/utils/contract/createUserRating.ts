@@ -6,7 +6,7 @@ import { peachAPI } from '../peachAPI'
 import { getWallet } from '../wallet'
 
 export const createUserRating = (userId: User['id'], rating: Rating['rating']): Rating => {
-  const keyPair = peachAPI.options.peachAccount || getMainAccount(getWallet(), NETWORK)
+  const keyPair = peachAPI.apiOptions.peachAccount || getMainAccount(getWallet(), NETWORK)
 
   const signature = keyPair.sign(crypto.sha256(Buffer.from(userId))).toString('hex')
 

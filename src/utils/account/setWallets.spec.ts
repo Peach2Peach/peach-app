@@ -10,7 +10,7 @@ describe('setWallets', () => {
 
   it('loads peach account', async () => {
     await setWallets(wallet, account1.mnemonic)
-    expect(peachAPI.options.peachAccount?.privateKey?.toString('hex')).toBe(
+    expect(peachAPI.apiOptions.peachAccount?.privateKey?.toString('hex')).toBe(
       'ac284cf5aada8604e6d9adb9ce3d946b65d997636c144ad9f9652b342b50cf73',
     )
   })

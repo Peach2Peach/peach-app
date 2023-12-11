@@ -26,7 +26,7 @@ describe('deleteAccount', () => {
     expect(settingsStorage.clearStore).toHaveBeenCalled()
     expect(usePaymentDataStoreReset).toHaveBeenCalled()
     expect(useSessionStoreReset).toHaveBeenCalled()
-    expect(peachAPI.options.peachAccount).toBeNull()
+    expect(peachAPI.apiOptions.peachAccount).toBeNull()
 
     ok(true)
   })
