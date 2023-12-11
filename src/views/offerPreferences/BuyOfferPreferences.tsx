@@ -61,9 +61,9 @@ function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) 
     <Section.Container style={tw`bg-success-mild-1`}>
       <Section.Title>amount to buy</Section.Title>
       <View style={tw`flex-row items-center self-stretch gap-10px`}>
-        <MinInput minAmountDelta={minSliderDeltaAsAmount} />
+        <BuyAmountInput type="min" minAmountDelta={minSliderDeltaAsAmount} />
         <Text style={tw`subtitle-1`}>-</Text>
-        <MaxInput minAmountDelta={minSliderDeltaAsAmount} />
+        <BuyAmountInput type="max" minAmountDelta={minSliderDeltaAsAmount} />
       </View>
       <SliderTrack
         slider={<BuyAmountSliders setIsSliding={setIsSliding} trackWidth={trackWidth} />}
@@ -135,12 +135,14 @@ function BuyAmountSliders ({ setIsSliding, trackWidth }: BuyAmountSliderProps) {
   )
 }
 
-function MinInput ({ minAmountDelta }: { minAmountDelta: number }) {
+function BuyAmountInput ({ minAmountDelta, type }: { minAmountDelta: number; type: 'min' | 'max' }) {
   const inputRef = useRef<TextInput>(null)
-  const [[amount, max], setAmountRange] = useOfferPreferences(
+  const [[min, max], setAmountRange] = useOfferPreferences(
     (state) => [state.buyAmountRange, state.setBuyAmountRange],
     shallow,
   )
+  const amount = type === 'min' ? min : max
+
   const [inputValue, setInputValue] = useState(amount.toString())
   const restrictAmount = useRestrictSatsAmount('buy')
 
@@ -148,52 +150,20 @@ function MinInput ({ minAmountDelta }: { minAmountDelta: number }) {
 
   const onChangeText = (value: string) => setInputValue(enforceDigitFormat(value))
 
-  const onEndEditing = ({ nativeEvent: { text } }: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
-    const newAmount = restrictAmount(Number(enforceDigitFormat(text)))
-    const newMax = restrictAmount(Math.max(max, newAmount + minAmountDelta))
-    const newMin = Math.min(newAmount, newMax - minAmountDelta)
-    setAmountRange([newMin, newMax])
-    setInputValue(newMin.toString())
-  }
-
-  const displayValue = inputRef.current?.isFocused() ? inputValue : amount.toString()
-
-  const { fiatPrice, displayCurrency } = useBitcoinPrices(amount)
-
-  return (
-    <View style={tw`justify-center grow`}>
-      <SatsInputComponent
-        ref={inputRef}
-        value={displayValue}
-        onFocus={onFocus}
-        onEndEditing={onEndEditing}
-        onChangeText={onChangeText}
-      />
-      <Text style={tw`self-center text-black-3 body-s`}>
-        {fiatPrice} {displayCurrency}
-      </Text>
-    </View>
-  )
-}
-
-function MaxInput ({ minAmountDelta }: { minAmountDelta: number }) {
-  const inputRef = useRef<TextInput>(null)
-  const [[min, amount], setAmountRange] = useOfferPreferences(
-    (state) => [state.buyAmountRange, state.setBuyAmountRange],
-    shallow,
-  )
-  const [inputValue, setInputValue] = useState(amount.toString())
-  const restrictAmount = useRestrictSatsAmount('buy')
-
-  const onFocus = () => setInputValue(amount.toString())
-
-  const onChangeText = (value: string) => setInputValue(enforceDigitFormat(value))
-
-  const onEndEditing = ({ nativeEvent: { text } }: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
-    const newAmount = restrictAmount(Number(enforceDigitFormat(text)))
+  const getNewRange = (newAmount: number): [number, number] => {
+    if (type === 'min') {
+      const newMax = restrictAmount(Math.max(max, newAmount + minAmountDelta))
+      const newMin = Math.min(newAmount, newMax - minAmountDelta)
+      return [newMin, newMax]
+    }
     const newMin = restrictAmount(Math.min(min, newAmount - minAmountDelta))
     const newMax = Math.max(newAmount, newMin + minAmountDelta)
-    setAmountRange([newMin, newMax])
+    return [newMin, newMax]
+  }
+  const onEndEditing = ({ nativeEvent: { text } }: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
+    const newAmount = restrictAmount(Number(enforceDigitFormat(text)))
+    const newRange = getNewRange(newAmount)
+    setAmountRange(newRange)
     setInputValue(newAmount.toString())
   }
 
