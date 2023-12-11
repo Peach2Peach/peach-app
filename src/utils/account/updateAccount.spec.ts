@@ -33,7 +33,7 @@ describe('updateAccount', () => {
     const account = useAccountStore.getState().account
     expect(account).toEqual(account1)
     expect(getWallet()).toBeDefined()
-    expect(peachAPI.options.peachAccount).toBeDefined()
+    expect(peachAPI.apiOptions.peachAccount).toBeDefined()
   })
   it('overwrites an account', () => {
     updateAccount({ ...account1, tradingLimit }, true)
@@ -63,7 +63,7 @@ describe('updateAccount', () => {
   it('loads peach account', async () => {
     await updateAccount(account1)
 
-    expect(peachAPI.options.peachAccount?.privateKey?.toString('hex')).toBe(
+    expect(peachAPI.apiOptions.peachAccount?.privateKey?.toString('hex')).toBe(
       '62233e988e4ca00c3b346b4753c7dc316f6ce39280410072ddab298f36a7fe64',
     )
   })

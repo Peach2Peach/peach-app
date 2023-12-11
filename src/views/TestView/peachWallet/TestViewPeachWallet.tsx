@@ -4,9 +4,10 @@ import { View } from 'react-native'
 import { Divider, Loading, PeachScrollView, Text } from '../../../components'
 import { BTCAmount } from '../../../components/bitcoin'
 import { Button } from '../../../components/buttons/Button'
-import { BitcoinAddressInput, NumberInput } from '../../../components/inputs'
+import { BitcoinAddressInput, Input, NumberInput } from '../../../components/inputs'
 import { useValidatedState } from '../../../hooks'
 import tw from '../../../styles/tailwind'
+import { getMessageToSignForAddress } from '../../../utils/account'
 import { showTransaction } from '../../../utils/bitcoin'
 import i18n from '../../../utils/i18n'
 import { fundAddress } from '../../../utils/regtest'
@@ -91,7 +92,32 @@ export const TestViewPeachWallet = () => {
         <Button onPress={() => refresh()} iconId="refreshCcw">
           sync wallet
         </Button>
+
+        <SignMessage />
       </View>
     </PeachScrollView>
+  )
+}
+
+function SignMessage () {
+  const [userId, setUserId] = useState('')
+  const [address, setAddress] = useState('')
+  const [signature, setSignature] = useState('')
+  const onPress = async () => {
+    const message = getMessageToSignForAddress(userId, address)
+    const sig = await peachWallet.signMessage(message, address)
+    setSignature(sig)
+  }
+
+  return (
+    <View>
+      <Text>sign message</Text>
+      <BitcoinAddressInput onChange={setAddress} value={address} />
+      <Text>userID</Text>
+      <Input onChangeText={setUserId} value={userId} />
+      <Button onPress={onPress}>sign</Button>
+      <Text>signature</Text>
+      <Text>{signature}</Text>
+    </View>
   )
 }

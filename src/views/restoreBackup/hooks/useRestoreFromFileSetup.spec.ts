@@ -45,7 +45,7 @@ describe('useRestoreFromFileSetup', () => {
     })
     expect(recoverAccountMock).toHaveBeenCalledWith(account1)
     expect(storeAccountMock).toHaveBeenCalledWith(account1)
-    expect(peachAPI.options.peachAccount?.privateKey?.toString('hex')).toBe(
+    expect(peachAPI.apiOptions.peachAccount?.privateKey?.toString('hex')).toBe(
       '62233e988e4ca00c3b346b4753c7dc316f6ce39280410072ddab298f36a7fe64',
     )
   })

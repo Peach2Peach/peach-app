@@ -3,7 +3,7 @@ import OpenPGP from 'react-native-fast-openpgp'
 import { peachAPI } from './peachAPI'
 
 const getPGPUpdatePayload = async (pgp?: PGPKeychain) => {
-  const peachAccount = peachAPI.options.peachAccount
+  const peachAccount = peachAPI.apiOptions.peachAccount
   if (!peachAccount || !pgp) return {}
 
   const message = `Peach new PGP key ${new Date().getTime()}`
@@ -26,7 +26,7 @@ export type UpdateUserProps = {
 }
 
 export const updateUser = async ({ pgp, fcmToken, referralCode, feeRate }: UpdateUserProps) => {
-  const peachAccount = peachAPI.options.peachAccount
+  const peachAccount = peachAPI.apiOptions.peachAccount
   if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
   const { result, error } = await peachAPI.private.user.updateUser({
     ...(await getPGPUpdatePayload(pgp)),
