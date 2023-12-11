@@ -1,7 +1,6 @@
 import { Animated, GestureResponderEvent, Insets } from 'react-native'
 import { Icon } from '../../../components'
 import tw from '../../../styles/tailwind'
-import { iconWidth } from '../SellOfferPreferences'
 import { sectionContainerGap } from './Section'
 
 type Props = {
@@ -14,6 +13,8 @@ type Props = {
 }
 
 export const horizontalSliderPadding = 8
+export const iconWidth = 16
+export const sliderWidth = iconWidth + horizontalSliderPadding * 2
 export function Slider ({ trackWidth, setIsSliding, onDrag, transform, hitSlop, type }: Props) {
   const backgroundColor = type === 'sell' ? tw.color('primary-main') : tw.color('success-main')
   return (

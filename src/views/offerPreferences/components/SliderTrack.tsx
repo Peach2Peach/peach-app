@@ -4,12 +4,12 @@ import tw from '../../../styles/tailwind'
 type Props = {
   slider?: JSX.Element
   trackWidth: number
-  type?: 'sell' | 'buy'
+  type: 'sell' | 'buy'
 }
 
 export const horizontalTrackPadding = 22
 
-export function SliderTrack ({ slider, trackWidth, type = 'sell' }: Props) {
+export function SliderTrack ({ slider, trackWidth, type }: Props) {
   const color = type === 'sell' ? tw.color('primary-mild-2') : tw.color('success-mild-2')
   return (
     <View

@@ -8,7 +8,6 @@ import {
   TextInputEndEditingEventData,
   TouchableOpacity,
   View,
-  useWindowDimensions,
 } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { LogoIcons } from '../../assets/logo'
@@ -19,14 +18,7 @@ import { NewBubble } from '../../components/bubble/Bubble'
 import { Button } from '../../components/buttons/Button'
 import { Toggle } from '../../components/inputs'
 import { SATSINBTC } from '../../constants'
-import {
-  useBitcoinPrices,
-  useIsMediumScreen,
-  useMarketPrices,
-  useNavigation,
-  useToggleBoolean,
-  useTradingLimits,
-} from '../../hooks'
+import { useBitcoinPrices, useMarketPrices, useNavigation, useToggleBoolean, useTradingLimits } from '../../hooks'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useConfigStore } from '../../store/configStore/configStore'
@@ -51,11 +43,14 @@ import { SatsInputComponent } from './SatsInputComponent'
 import { FundMultipleOffers } from './components/FundMultipleOffers'
 import { MarketInfo } from './components/MarketInfo'
 import { Methods } from './components/Methods'
-import { Section, sectionContainerPadding } from './components/Section'
-import { Slider, horizontalSliderPadding } from './components/Slider'
-import { SliderTrack, horizontalTrackPadding } from './components/SliderTrack'
+import { Section } from './components/Section'
+import { Slider, sliderWidth } from './components/Slider'
+import { SliderTrack } from './components/SliderTrack'
+import { trackMin } from './constants'
 import { enforceDigitFormat } from './enforceDigitFormat'
+import { useAmountInBounds } from './useAmountInBounds'
 import { useRestrictSatsAmount } from './useRestrictSatsAmount'
+import { useTrackWidth } from './useTrackWidth'
 import { publishSellOffer } from './utils/publishSellOffer'
 
 export function SellOfferPreferences () {
@@ -89,18 +84,8 @@ function CompetingOfferStats () {
   )
 }
 
-const horizontalPaddingForSlider = 8
-export const iconWidth = 16
-const sliderWidth = iconWidth + horizontalSliderPadding * 2
-const trackMin = horizontalPaddingForSlider
 function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) => void }) {
-  const { width } = useWindowDimensions()
-  const isMediumScreen = useIsMediumScreen()
-  const screenPadding = useMemo(() => (isMediumScreen ? 16 : 8), [isMediumScreen])
-  const trackWidth = useMemo(
-    () => width - screenPadding - sectionContainerPadding - horizontalTrackPadding,
-    [screenPadding, width],
-  )
+  const trackWidth = useTrackWidth()
 
   return (
     <AmountSelectorContainer
@@ -108,6 +93,7 @@ function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) 
         <SliderTrack
           slider={<SellAmountSlider setIsSliding={setIsSliding} trackWidth={trackWidth} />}
           trackWidth={trackWidth}
+          type="sell"
         />
       }
       inputs={
@@ -177,19 +163,20 @@ type SellAmountSliderProps = {
 
 function SellAmountSlider ({ trackWidth, setIsSliding }: SellAmountSliderProps) {
   const { data } = useMarketPrices()
-  const amountRange = getTradingAmountLimits(data?.CHF || 0, 'sell')
+  const [, maxLimit] = getTradingAmountLimits(data?.CHF || 0, 'sell')
+
+  const trackMax = trackWidth - sliderWidth
+  const trackDelta = trackMax - trackMin
+
+  const getAmountInBounds = useAmountInBounds(trackWidth, 'sell')
 
   const [amount, setAmount] = useOfferPreferences((state) => [state.sellAmount, state.setSellAmount])
-  const isMediumScreen = useIsMediumScreen()
-  const screenPadding = useMemo(() => (isMediumScreen ? 16 : 8), [isMediumScreen])
-
-  const trackMax = useMemo(() => trackWidth - sliderWidth, [trackWidth])
+  const translateX = (amount / maxLimit) * trackDelta
 
   const onDrag = ({ nativeEvent: { pageX } }: GestureResponderEvent) => {
-    const newPosition = pageX - horizontalTrackPadding - screenPadding - sectionContainerPadding
-    const boundedPosition = Math.max(trackMin, Math.min(trackMax, newPosition))
-    const amountPercentage = (boundedPosition - trackMin) / (trackMax - trackMin)
-    const newAmount = Math.round(amountRange[0] + amountPercentage * (amountRange[1] - amountRange[0]))
+    const bounds = [trackMin, trackMax] as const
+    const newAmount = getAmountInBounds(pageX, bounds)
+
     setAmount(newAmount)
   }
 
@@ -199,7 +186,7 @@ function SellAmountSlider ({ trackWidth, setIsSliding }: SellAmountSliderProps) 
       setIsSliding={setIsSliding}
       onDrag={onDrag}
       type="sell"
-      transform={[{ translateX: (amount / amountRange[1]) * (trackMax - trackMin) }]}
+      transform={[{ translateX }]}
     />
   )
 }

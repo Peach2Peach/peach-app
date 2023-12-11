@@ -1,20 +1,13 @@
 /* eslint-disable max-lines */
-import { useMemo, useRef, useState } from 'react'
-import {
-  GestureResponderEvent,
-  NativeSyntheticEvent,
-  TextInput,
-  TextInputEndEditingEventData,
-  View,
-  useWindowDimensions,
-} from 'react-native'
+import { useRef, useState } from 'react'
+import { GestureResponderEvent, NativeSyntheticEvent, TextInput, TextInputEndEditingEventData, View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { LogoIcons } from '../../assets/logo'
 import { Checkbox, Header, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
 import { premiumBounds } from '../../components/PremiumInput'
 import { PremiumTextInput } from '../../components/PremiumTextInput'
 import { Button } from '../../components/buttons/Button'
-import { useBitcoinPrices, useIsMediumScreen, useMarketPrices } from '../../hooks'
+import { useBitcoinPrices, useMarketPrices } from '../../hooks'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
@@ -25,11 +18,14 @@ import { isValidPaymentData } from '../../utils/paymentMethod'
 import { SatsInputComponent } from './SatsInputComponent'
 import { MarketInfo } from './components/MarketInfo'
 import { Methods } from './components/Methods'
-import { Section, sectionContainerGap, sectionContainerPadding } from './components/Section'
-import { Slider, horizontalSliderPadding } from './components/Slider'
-import { SliderTrack, horizontalTrackPadding } from './components/SliderTrack'
+import { Section, sectionContainerGap } from './components/Section'
+import { Slider, sliderWidth } from './components/Slider'
+import { SliderTrack } from './components/SliderTrack'
+import { trackMin } from './constants'
 import { enforceDigitFormat } from './enforceDigitFormat'
+import { useAmountInBounds } from './useAmountInBounds'
 import { useRestrictSatsAmount } from './useRestrictSatsAmount'
+import { useTrackWidth } from './useTrackWidth'
 import { usePublishOffer } from './utils/usePublishOffer'
 
 export function BuyOfferPreferences () {
@@ -48,25 +44,18 @@ export function BuyOfferPreferences () {
   )
 }
 
-const horizontalPaddingForSlider = 8
-export const iconWidth = 16
-const sliderWidth = iconWidth + horizontalSliderPadding * 2
-const trackMin = horizontalPaddingForSlider
+const useMinSliderDeltaAsAmount = (trackWidth: number) => {
+  const { data } = useMarketPrices()
+  const [minLimit, maxLimit] = getTradingAmountLimits(data?.CHF || 0, 'buy')
+
+  const trackDelta = trackWidth - sliderWidth - trackMin
+  const minSliderDeltaAsAmount = (sliderWidth / trackDelta) * (maxLimit - minLimit)
+  return minSliderDeltaAsAmount
+}
 
 function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) => void }) {
-  const { width } = useWindowDimensions()
-  const isMediumScreen = useIsMediumScreen()
-  const screenPadding = useMemo(() => (isMediumScreen ? 16 : 8), [isMediumScreen])
-  const trackWidth = useMemo(
-    () => width - screenPadding - sectionContainerPadding - horizontalTrackPadding,
-    [screenPadding, width],
-  )
-
-  const { data } = useMarketPrices()
-  const amountRange = getTradingAmountLimits(data?.CHF || 0, 'buy')
-
-  const trackMax = useMemo(() => trackWidth - sliderWidth, [trackWidth])
-  const minSliderDeltaAsAmount = (sliderWidth / (trackMax - trackMin)) * (amountRange[1] - amountRange[0])
+  const trackWidth = useTrackWidth()
+  const minSliderDeltaAsAmount = useMinSliderDeltaAsAmount(trackWidth)
 
   return (
     <Section.Container style={tw`bg-success-mild-1`}>
@@ -92,50 +81,44 @@ type BuyAmountSliderProps = {
 
 function BuyAmountSliders ({ setIsSliding, trackWidth }: BuyAmountSliderProps) {
   const { data } = useMarketPrices()
-  const amountRange = getTradingAmountLimits(data?.CHF || 0, 'buy')
+  const [, maxLimit] = getTradingAmountLimits(data?.CHF || 0, 'buy')
 
-  const [[min, max], setAmount] = useOfferPreferences(
+  const trackMax = trackWidth - sliderWidth
+  const trackDelta = trackMax - trackMin
+
+  const getAmountInBounds = useAmountInBounds(trackWidth, 'buy')
+
+  const [[min, max], setAmountRange] = useOfferPreferences(
     (state) => [state.buyAmountRange, state.setBuyAmountRange],
     shallow,
   )
-  const isMediumScreen = useIsMediumScreen()
-  const screenPadding = useMemo(() => (isMediumScreen ? 16 : 8), [isMediumScreen])
-
-  const trackMax = useMemo(() => trackWidth - sliderWidth, [trackWidth])
-
-  const maxTranslateX = (max / amountRange[1]) * (trackMax - trackMin)
-  const minTranslateX = (min / amountRange[1]) * (trackMax - trackMin)
+  const maxTranslateX = (max / maxLimit) * trackDelta
+  const minTranslateX = (min / maxLimit) * trackDelta
 
   const sliderDelta = maxTranslateX - minTranslateX
-  const minSliderDelta = sliderWidth
-  const minSliderDeltaAsAmount = (minSliderDelta / (trackMax - trackMin)) * (amountRange[1] - amountRange[0])
+  const minSliderDeltaAsAmount = useMinSliderDeltaAsAmount(trackWidth)
+  const onDrag
+    = (type: 'min' | 'max') =>
+      ({ nativeEvent: { pageX } }: GestureResponderEvent) => {
+        const bounds
+        = type === 'min' ? ([trackMin, trackMax - sliderWidth] as const) : ([trackMin + sliderWidth, trackMax] as const)
+        const newAmount = getAmountInBounds(pageX, bounds)
 
-  const onMinSliderDrag = ({ nativeEvent: { pageX } }: GestureResponderEvent) => {
-    const newPosition = pageX - horizontalTrackPadding - screenPadding - sectionContainerPadding
-    const boundedPosition = Math.max(trackMin, Math.min(trackMax - sliderWidth, newPosition))
-    const amountPercentage = (boundedPosition - trackMin) / (trackMax - trackMin)
-    const newAmount = Math.round(amountRange[0] + amountPercentage * (amountRange[1] - amountRange[0]))
-
-    const newMaxAmount = Math.max(newAmount + minSliderDeltaAsAmount, max)
-    setAmount([newAmount, newMaxAmount])
-  }
-
-  const onMaxSliderDrag = ({ nativeEvent: { pageX } }: GestureResponderEvent) => {
-    const newPosition = pageX - horizontalTrackPadding - screenPadding - sectionContainerPadding
-    const boundedPosition = Math.max(trackMin + sliderWidth, Math.min(trackMax, newPosition))
-    const amountPercentage = (boundedPosition - trackMin) / (trackMax - trackMin)
-    const newAmount = Math.round(amountRange[0] + amountPercentage * (amountRange[1] - amountRange[0]))
-
-    const newMinAmount = Math.min(newAmount - minSliderDeltaAsAmount, min)
-    setAmount([newMinAmount, newAmount])
-  }
+        if (type === 'min') {
+          const newMaxAmount = Math.max(newAmount + minSliderDeltaAsAmount, max)
+          setAmountRange([newAmount, newMaxAmount])
+        } else {
+          const newMinAmount = Math.min(newAmount - minSliderDeltaAsAmount, min)
+          setAmountRange([newMinAmount, newAmount])
+        }
+      }
 
   return (
     <>
       <Slider
         trackWidth={trackWidth}
         setIsSliding={setIsSliding}
-        onDrag={onMinSliderDrag}
+        onDrag={onDrag('min')}
         hitSlop={{ bottom: sectionContainerGap, left: trackWidth, right: sliderDelta / 2 + sliderWidth }}
         type="buy"
         transform={[{ translateX: minTranslateX }]}
@@ -143,7 +126,7 @@ function BuyAmountSliders ({ setIsSliding, trackWidth }: BuyAmountSliderProps) {
       <Slider
         trackWidth={trackWidth}
         setIsSliding={setIsSliding}
-        onDrag={onMaxSliderDrag}
+        onDrag={onDrag('max')}
         hitSlop={{ bottom: sectionContainerGap, left: sliderDelta / 2 - sliderWidth, right: trackWidth }}
         type="buy"
         transform={[{ translateX: maxTranslateX }]}
