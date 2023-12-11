@@ -158,7 +158,7 @@ module.exports = {
     },
     screens: {
       sm: '320px',
-      md: '375px',
+      md: '374px',
     },
   },
   variants: {},
