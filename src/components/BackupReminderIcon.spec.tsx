@@ -1,12 +1,17 @@
-import { renderHook } from 'test-utils'
+import { TouchableOpacity } from 'react-native'
+import { fireEvent, render } from 'test-utils'
 import { FirstBackup } from '../popups/warning/FirstBackup'
 import { usePopupStore } from '../store/usePopupStore'
-import { useShowBackupReminder } from './useShowBackupReminder'
+import { BackupReminderIcon } from './BackupReminderIcon'
 
-describe('useShowBackupReminder', () => {
-  it('should upen backup reminder popup', () => {
-    const { result } = renderHook(useShowBackupReminder)
-    result.current()
+describe('BackupReminderIcon', () => {
+  it('renders correctly', () => {
+    expect(render(<BackupReminderIcon />)).toMatchSnapshot()
+  })
+
+  it('opens backup popup', () => {
+    const { UNSAFE_getByType } = render(<BackupReminderIcon />)
+    fireEvent.press(UNSAFE_getByType(TouchableOpacity))
     expect(usePopupStore.getState()).toEqual(
       expect.objectContaining({
         title: 'make a backup!',
