@@ -134,10 +134,17 @@ function ChangePayoutWallet () {
   return (
     <>
       <SummaryItem label="pay out to peach wallet" value={<Toggle enabled={!!paidToPeachWallet} onPress={onPress} />} />
-      {!paidToPeachWallet && payoutAddress && (
+      {!paidToPeachWallet && (
         <SummaryItem
           label="payout address"
-          value={<SummaryItem.Text value={payoutAddressLabel || payoutAddress} copyable />}
+          value={
+            <SummaryItem.Text
+              value={
+                payoutAddress === contract.releaseAddress ? payoutAddressLabel || payoutAddress : contract.releaseAddress
+              }
+              copyable
+            />
+          }
         />
       )}
     </>
