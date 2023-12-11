@@ -9,7 +9,6 @@ export {
   auth,
   deletePaymentHash,
   fetchAccessToken,
-  getTradingLimit,
   getUserPaymentMethodInfo,
   logoutUser,
   redeemNoPeachFees,
