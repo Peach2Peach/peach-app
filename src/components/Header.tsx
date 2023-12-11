@@ -90,11 +90,10 @@ const newThemes = {
     backButtonColor: tw.color('primary-background-light'),
   },
 }
-export const Header = ({
-  showPriceStats,
-  subtitle,
-  ...props
-}: Omit<HeaderConfig, 'theme' | 'style'> & { theme?: keyof typeof newThemes }) => {
+
+export type HeaderProps = Omit<HeaderConfig, 'theme' | 'style'> & { theme?: keyof typeof newThemes }
+
+export const Header = ({ showPriceStats, subtitle, ...props }: HeaderProps) => {
   const { top } = useSafeAreaInsets()
   return (
     <View

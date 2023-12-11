@@ -1,9 +1,7 @@
-/* eslint-disable max-lines */
 import { useRef, useState } from 'react'
 import { GestureResponderEvent, NativeSyntheticEvent, TextInput, TextInputEndEditingEventData, View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { LogoIcons } from '../../assets/logo'
-import { Checkbox, Header, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
+import { Checkbox, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
 import { premiumBounds } from '../../components/PremiumInput'
 import { PremiumTextInput } from '../../components/PremiumTextInput'
 import { Button } from '../../components/buttons/Button'
@@ -15,6 +13,7 @@ import i18n from '../../utils/i18n'
 import { getTradingAmountLimits } from '../../utils/market'
 import { round } from '../../utils/math'
 import { isValidPaymentData } from '../../utils/paymentMethod'
+import { BuyBitcoinHeader } from './BuyBitcoinHeader'
 import { SatsInputComponent } from './SatsInputComponent'
 import { MarketInfo } from './components/MarketInfo'
 import { Methods } from './components/Methods'
@@ -31,7 +30,7 @@ import { usePublishOffer } from './utils/usePublishOffer'
 export function BuyOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
   return (
-    <Screen header={<BuyHeader />}>
+    <Screen header={<BuyBitcoinHeader />}>
       <PeachScrollView contentStyle={tw`gap-7`} scrollEnabled={!isSliding}>
         <MarketInfo type="sellOffers" />
         <Methods type="buy" />
@@ -293,18 +292,5 @@ function ShowOffersButton () {
     >
       Show Offers
     </Button>
-  )
-}
-
-function BuyHeader () {
-  return (
-    <Header
-      titleComponent={
-        <>
-          <Text style={tw`h7 md:h6 text-success-main`}>{i18n('buy')}</Text>
-          <LogoIcons.bitcoinText style={tw`h-14px md:h-16px w-63px md:w-71px`} />
-        </>
-      }
-    />
   )
 }

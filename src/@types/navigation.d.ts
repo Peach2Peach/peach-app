@@ -78,6 +78,7 @@ type RootStackParamList = Onboarding & {
     shouldGoBack?: boolean
   }
   search: { offerId: string }
+  explore: { offerId: string }
   editPremium: { offerId: string }
   contract: {
     contractId: Contract['id']

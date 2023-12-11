@@ -1,6 +1,7 @@
 import { useIsFocused } from '@react-navigation/native'
 import { QueryFunctionContext, useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
+import { GetMatchesResponseBody } from '../../../../peach-api/src/@types/api/offerAPI'
 import { FIFTEEN_SECONDS } from '../../../constants'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
@@ -25,9 +26,9 @@ export const useOfferMatches = (offerId: string, enabled = true) => {
   )
 
   const queryData = useInfiniteQuery<
-    GetMatchesResponse,
+    GetMatchesResponseBody,
     APIError,
-    GetMatchesResponse,
+    GetMatchesResponseBody,
     ReturnType<typeof matchesKeys.sortedMatchesByOfferId>
   >({
     queryKey: matchesKeys.sortedMatchesByOfferId(offerId, sortBy),

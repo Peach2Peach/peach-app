@@ -11,13 +11,16 @@ type Props = {
   isUnlocked?: boolean
 }
 
+export const horizontalBadgePadding = 6
+
 export const Badge = ({ badgeName, isUnlocked }: Props) => {
   const colorStyle = isUnlocked ? 'text-primary-main' : 'text-primary-mild-1'
   const iconId = badgeIconMap[badgeName]
   return (
     <View
       style={[
-        tw`flex-row items-center py-1 border rounded-full px-6px bg-primary-background-light gap-2px`,
+        tw`flex-row items-center py-1 border rounded-full bg-primary-background-light gap-2px`,
+        { paddingHorizontal: horizontalBadgePadding },
         isUnlocked ? tw`border-primary-main` : tw`border-primary-mild-1`,
       ]}
     >
@@ -40,7 +43,8 @@ export function RepeatTraderBadge ({ id }: { id: User['id'] }) {
   return (
     <View
       style={[
-        tw`flex-row items-center py-1 border rounded-full px-6px bg-primary-background-light gap-2px`,
+        tw`flex-row items-center py-1 border rounded-full bg-primary-background-light gap-2px`,
+        { paddingHorizontal: horizontalBadgePadding },
         { borderColor: colorTheme },
       ]}
     >

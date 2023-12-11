@@ -1,8 +1,9 @@
 import { InfiniteData } from '@tanstack/react-query'
+import { GetMatchesResponseBody } from '../../../../peach-api/src/@types/api/offerAPI'
 
 export const updateMatchedStatus = (
   isMatched: boolean,
-  oldQueryData: InfiniteData<GetMatchesResponse> | undefined,
+  oldQueryData: InfiniteData<GetMatchesResponseBody> | undefined,
   matchingOfferId: string,
   offer: BuyOffer | SellOffer,
   currentPage: number,
