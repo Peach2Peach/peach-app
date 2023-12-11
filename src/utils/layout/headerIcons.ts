@@ -18,4 +18,5 @@ export const headerIcons: Record<string, Omit<HeaderIcon, 'onPress'>> = {
   share: { id: 'share', color: tw.color('black-3') },
   wallet: { id: 'wallet', color: tw.color('black-2') },
   warning: { id: 'alertOctagon', color: tw.color('error-main') },
+  buyPreferences: { id: 'edit', color: tw.color('success-main') },
 }

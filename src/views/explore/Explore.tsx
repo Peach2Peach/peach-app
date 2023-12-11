@@ -9,10 +9,12 @@ import { useBitcoinPrices, useNavigation } from '../../hooks'
 import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { BuyBitcoinHeader } from '../offerPreferences/BuyBitcoinHeader'
 import { MarketInfo } from '../offerPreferences/components/MarketInfo'
 import { useOfferMatches } from '../search/hooks'
+import { useSortAndFilterPopup } from '../search/hooks/useSortAndFilterPopup'
 import { Rating } from '../settings/profile/profileOverview/components'
 
 export function Explore () {
@@ -21,7 +23,7 @@ export function Explore () {
   const hasMatches = matches.length > 0
   if (isLoading) return <LoadingScreen />
   return (
-    <Screen header={<BuyBitcoinHeader />}>
+    <Screen header={<ExploreHeader />}>
       {hasMatches ? (
         <PeachScrollView contentStyle={tw`gap-10px`}>
           <MarketInfo type="sellOffers" />
@@ -90,5 +92,22 @@ function ExploreCard ({ match }: { match: Match }) {
         </View>
       </View>
     </TouchableOpacity>
+  )
+}
+
+function ExploreHeader () {
+  const { offerId } = useRoute<'explore'>().params
+  const showSortAndFilterPopup = useSortAndFilterPopup(offerId)
+  const navigation = useNavigation()
+  const goToPreferences = () => {
+    navigation.navigate('buyOfferPreferences', { offerId })
+  }
+  return (
+    <BuyBitcoinHeader
+      icons={[
+        { ...headerIcons.buyFilter, onPress: showSortAndFilterPopup },
+        { ...headerIcons.buyPreferences, onPress: goToPreferences },
+      ]}
+    />
   )
 }
