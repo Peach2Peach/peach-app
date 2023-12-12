@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { MSINAMINUTE } from '../../../constants'
 import { useCancelOffer, useInterval, useRoute } from '../../../hooks'
 import { useFundingStatus } from '../../../hooks/query/useFundingStatus'
@@ -26,7 +26,6 @@ export const useFundEscrowSetup = () => {
   const { offers } = useMultipleOfferDetails(fundMultiple?.offerIds || [offerId])
   const offer = offers[0]
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined
-  const [showLoading, setShowLoading] = useState(true)
   const canFetchFundingStatus = !sellOffer || shouldGetFundingStatus(sellOffer)
   const {
     fundingStatus,
@@ -49,10 +48,6 @@ export const useFundEscrowSetup = () => {
   })
 
   useEffect(() => {
-    setTimeout(() => setShowLoading(false), MIN_LOADING_TIME)
-  }, [])
-
-  useEffect(() => {
     if (!fundingStatusError) return
     showErrorBanner(parseError(fundingStatusError))
   }, [fundingStatusError, showErrorBanner])
@@ -65,7 +60,6 @@ export const useFundEscrowSetup = () => {
 
   return {
     offerId,
-    isLoading: showLoading,
     fundingAddress: fundMultiple?.address || sellOffer?.escrow,
     fundingAddresses: escrows,
     fundingStatus,

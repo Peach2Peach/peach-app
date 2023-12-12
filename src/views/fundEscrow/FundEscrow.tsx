@@ -32,8 +32,8 @@ import { useFundEscrowSetup } from './hooks/useFundEscrowSetup'
 import { useFundFromPeachWallet } from './hooks/useFundFromPeachWallet'
 
 export const FundEscrow = () => {
-  const { offerId, isLoading, fundingAddress, fundingAddresses, fundingStatus, fundingAmount } = useFundEscrowSetup()
-  if (isLoading || !fundingAddress) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
+  const { offerId, fundingAddress, fundingAddresses, fundingStatus, fundingAmount } = useFundEscrowSetup()
+  if (!fundingAddress) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
 
   if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool offerId={offerId} txId={fundingStatus.txIds[0]} />
 
