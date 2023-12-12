@@ -9,19 +9,15 @@ import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useShowConfirmRbfPopup } from './useShowConfirmRbfPopup'
 
 const useRemoveTxFromPeachWallet = () => {
-  const [removeTransaction, removePendingTransaction] = useWalletState(
-    (state) => [state.removeTransaction, state.removePendingTransaction],
-    shallow,
-  )
+  const [removeTransaction] = useWalletState((state) => [state.removeTransaction], shallow)
 
   const removeTxFromPeachWallet = useCallback(
     (transaction: Transaction) => {
       if (!transaction) return
       removeTransaction(transaction.txid)
-      removePendingTransaction(transaction.txid)
       peachWallet.transactions = peachWallet.transactions.filter((tx) => tx.txid !== transaction.txid)
     },
-    [removePendingTransaction, removeTransaction],
+    [removeTransaction],
   )
 
   return removeTxFromPeachWallet

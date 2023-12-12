@@ -1,5 +1,2 @@
-export { findTransactionsToRebroadcast } from './findTransactionsToRebroadcast'
 export { getTransactionType } from './getTransactionType'
-export { isPending } from './isPending'
-export { mergeTransactionList } from './mergeTransactionList'
 export { txIsConfirmed } from './txIsConfirmed'
