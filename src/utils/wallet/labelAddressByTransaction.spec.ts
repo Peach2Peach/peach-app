@@ -1,5 +1,5 @@
+import { contract } from '../../../peach-api/src/testData/contract'
 import { account1 } from '../../../tests/unit/data/accountData'
-import { contract } from '../../../tests/unit/data/contractData'
 import { buyOffer, sellOffer } from '../../../tests/unit/data/offerData'
 import { offerSummary } from '../../../tests/unit/data/offerSummaryData'
 import { confirmed1 } from '../../../tests/unit/data/transactionDetailData'

@@ -1,5 +1,5 @@
 import { renderHook } from 'test-utils'
-import { contract } from '../../../../tests/unit/data/contractData'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { OpenDispute } from '../components/OpenDispute'

@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { contract } from '../../../tests/unit/data/contractData'
+import { contract } from '../../../peach-api/src/testData/contract'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { responseUtils } from '../../../tests/unit/helpers/test-utils'
 import { peachAPI } from '../peachAPI'

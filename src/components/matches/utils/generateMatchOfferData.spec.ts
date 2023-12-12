@@ -28,7 +28,7 @@ jest.mock('../../../utils/paymentMethod/encryptPaymentData', () => ({
   encryptPaymentData: (...args: unknown[]) => encryptPaymentDataMock(...args),
 }))
 
-const decryptSymmetricKeyMock = jest.fn().mockResolvedValue([symmetricKey])
+const decryptSymmetricKeyMock = jest.fn().mockResolvedValue(symmetricKey)
 jest.mock('../../../views/contract/helpers', () => ({
   decryptSymmetricKey: (...args: unknown[]) => decryptSymmetricKeyMock(...args),
 }))

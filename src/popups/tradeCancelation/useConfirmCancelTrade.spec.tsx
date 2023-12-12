@@ -1,6 +1,6 @@
 import { act, fireEvent, render, renderHook } from 'test-utils'
+import { contract } from '../../../peach-api/src/testData/contract'
 import { account1 } from '../../../tests/unit/data/accountData'
-import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
 import { setAccount } from '../../utils/account'

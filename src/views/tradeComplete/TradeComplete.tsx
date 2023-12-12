@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { TouchableOpacity, View, ViewStyle } from 'react-native'
+import { Contract } from '../../../peach-api/src/@types/contract'
 import { IconType } from '../../assets/icons'
 import { Icon, Screen, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
@@ -24,7 +25,7 @@ export const TradeComplete = () => {
 function TradeCompleteView ({ contract }: { contract: Contract }) {
   const [vote, setVote] = useState<'positive' | 'negative'>()
   const account = useAccountStore((state) => state.account)
-  const view = getContractViewer(contract, account)
+  const view = getContractViewer(contract.seller.id, account)
 
   useEffect(() => {
     logTradeCompleted(contract)

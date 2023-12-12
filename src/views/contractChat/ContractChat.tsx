@@ -2,6 +2,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Contract } from '../../../peach-api/src/@types/contract'
 import { Header, Screen } from '../../components'
 import { MessageInput } from '../../components/inputs/MessageInput'
 import { useRoute } from '../../hooks'
@@ -214,7 +215,7 @@ type Props = {
 
 function ContractChatHeader ({ contract, symmetricKey }: Props) {
   const account = useAccountStore((state) => state.account)
-  const view = getContractViewer(contract, account)
+  const view = getContractViewer(contract.seller.id, account)
   const { contractId } = useRoute<'contractChat'>().params
 
   const showConfirmPopup = useConfirmCancelTrade()

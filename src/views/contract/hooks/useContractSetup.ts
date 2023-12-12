@@ -17,7 +17,7 @@ export const useContractSetup = () => {
   const isFocused = useIsFocused()
   const { contract, isLoading, refetch } = useContractDetails(contractId, FIFTEEN_SECONDS)
   const account = useAccountStore((state) => state.account)
-  const view = contract ? getContractViewer(contract, account) : undefined
+  const view = contract ? getContractViewer(contract.seller.id, account) : undefined
   const navigation = useNavigation()
   const shouldShowFeeWarning = view === 'buyer' && !!contract?.paymentMade && !contract?.paymentConfirmed
 

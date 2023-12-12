@@ -1,5 +1,5 @@
 import { Psbt } from 'bitcoinjs-lib'
-import { contract } from '../../../../tests/unit/data/contractData'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 
 import { responseUtils } from 'test-utils'

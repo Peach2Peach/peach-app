@@ -1,5 +1,5 @@
 import { fireEvent, render, responseUtils, waitFor } from 'test-utils'
-import { contract } from '../../../../tests/unit/data/contractData'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import tw from '../../../styles/tailwind'

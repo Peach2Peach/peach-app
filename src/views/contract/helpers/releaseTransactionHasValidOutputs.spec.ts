@@ -1,4 +1,4 @@
-import { contract } from '../../../../tests/unit/data/contractData'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { constructPSBT } from '../../../../tests/unit/helpers/constructPSBT'
 import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { defaultConfig } from '../../../store/configStore/configStore'
