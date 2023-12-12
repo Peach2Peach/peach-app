@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { View } from 'react-native'
+import Share from 'react-native-share'
 import { LogoIcons } from '../../assets/logo'
-import { Header, Icon, Screen, Text } from '../../components'
+import { Header, Screen, Text, TouchableIcon } from '../../components'
 import { PeachyGradient } from '../../components/PeachyGradient'
 import { Button } from '../../components/buttons/Button'
 import { ProgressDonut } from '../../components/ui'
@@ -9,6 +10,7 @@ import { useNavigation } from '../../hooks'
 import { useSelfUser } from '../../hooks/query/useSelfUser'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { info } from '../../utils/log'
 import { peachAPI } from '../../utils/peachAPI'
 
 export function Home () {
@@ -55,12 +57,21 @@ function DailyMessage () {
     },
   })
   if (!message) return null
+
+  const onPress = () => {
+    Share.open({
+      message: message.text,
+      url: message.url,
+    }).catch((e) => {
+      info('User did not share', e)
+    })
+  }
   return (
     <View style={tw`overflow-hidden rounded-2xl`}>
       <PeachyGradient style={tw`absolute w-full h-full`} />
       <View style={tw`flex-row items-center self-stretch justify-center p-4 gap-10px`}>
         <Text style={tw`flex-1 text-center subtitle-1 text-primary-background-light`}>{message.text}</Text>
-        <Icon id="share" color={tw.color('primary-background-light')} />
+        <TouchableIcon onPress={onPress} id="share" iconColor={tw.color('primary-background-light')} />
       </View>
     </View>
   )
