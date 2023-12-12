@@ -29,6 +29,7 @@
     "build:ios:testnet": "./devUtils/buildIOSTestnet.sh",
     "build:ios:mainnet": "./devUtils/buildIOSMainnet.sh",
     "bump:version": "react-native-version --never-amend",
+    "postversion": "react-native-version",
     "test": "jest ./src",
     "test:coverage": "jest --coverage ./src",
     "test:ci": "jest --maxWorkers=100% --coverage --ci --forceExit ./src",
