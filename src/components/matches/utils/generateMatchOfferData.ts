@@ -27,6 +27,7 @@ export const generateMatchOfferData = async ({ offer, match, currency, paymentMe
     symmetricKeySignature: undefined,
     paymentDataEncrypted: undefined,
     paymentDataSignature: undefined,
+    instantTrade: match.instantTrade,
   }
 
   const { symmetricKeyEncrypted, symmetricKeySignature } = match
@@ -45,7 +46,7 @@ export const generateMatchOfferData = async ({ offer, match, currency, paymentMe
     pgpPublicKey = account.pgp.publicKey
     symmetricKey = key
   } else {
-    const [key] = await decryptSymmetricKey(symmetricKeyEncrypted, symmetricKeySignature, pgpPublicKey)
+    const key = await decryptSymmetricKey(symmetricKeyEncrypted, symmetricKeySignature, pgpPublicKey)
     symmetricKey = key
     if (!symmetricKey) return { error: 'PAYMENTDATA_ENCRYPTION_FAILED' }
   }

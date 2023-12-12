@@ -306,6 +306,7 @@ type Match = {
   symmetricKeySignature: string
   matched: boolean
   unavailable: MatchUnavailableReasons
+  instantTrade: boolean
 }
 
 type MatchResponse =

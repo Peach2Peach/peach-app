@@ -1,19 +1,20 @@
-import { decrypt, verify } from '../../../utils/pgp'
+import OpenPGP from 'react-native-fast-openpgp'
+import { decrypt } from '../../../utils/pgp'
 
 export const decryptSymmetricKey = async (
   symmetricKeyEncrypted: string,
   symmetricKeySignature: string,
   pgpPublicKey: string,
-): Promise<[string | null, string | null]> => {
+) => {
   let symmetricKey
   try {
     symmetricKey = await decrypt(symmetricKeyEncrypted)
-    if (!(await verify(symmetricKeySignature, symmetricKey, pgpPublicKey))) {
-      return [symmetricKey, 'INVALID_SIGNATURE']
+    if (!(await OpenPGP.verify(symmetricKeySignature, symmetricKey, pgpPublicKey))) {
+      return symmetricKey
     }
   } catch (err) {
-    return [null, 'DECRYPTION_FAILED']
+    return null
   }
 
-  return [symmetricKey, null]
+  return symmetricKey
 }
