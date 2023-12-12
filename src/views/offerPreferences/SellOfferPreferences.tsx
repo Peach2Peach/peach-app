@@ -295,7 +295,7 @@ function InstantTrade () {
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={toggle} enabled={enableInstantTrade} />
         <Section.Title>instant - trade</Section.Title>
-        <TouchableIcon id="helpCircle" iconColor={tw.color('info-light')} />
+        <TouchableIcon id="helpCircle" disabled iconColor={tw.color('info-light')} style={tw`opacity-0`} />
       </View>
       {enableInstantTrade && (
         <>
