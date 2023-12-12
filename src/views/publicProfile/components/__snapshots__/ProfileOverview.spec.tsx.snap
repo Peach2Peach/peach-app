@@ -316,9 +316,10 @@ exports[`ProfileOverview should render correctly 1`] = `
             "flexDirection": "row",
             "gap": 2,
             "paddingBottom": 4,
-            "paddingLeft": 6,
-            "paddingRight": 6,
             "paddingTop": 4,
+          },
+          {
+            "paddingHorizontal": 6,
           },
           {
             "borderColor": "#FCCCB6",
@@ -393,9 +394,10 @@ exports[`ProfileOverview should render correctly 1`] = `
             "flexDirection": "row",
             "gap": 2,
             "paddingBottom": 4,
-            "paddingLeft": 6,
-            "paddingRight": 6,
             "paddingTop": 4,
+          },
+          {
+            "paddingHorizontal": 6,
           },
           {
             "borderColor": "#F56522",
@@ -470,9 +472,10 @@ exports[`ProfileOverview should render correctly 1`] = `
             "flexDirection": "row",
             "gap": 2,
             "paddingBottom": 4,
-            "paddingLeft": 6,
-            "paddingRight": 6,
             "paddingTop": 4,
+          },
+          {
+            "paddingHorizontal": 6,
           },
           {
             "borderColor": "#F56522",

@@ -15,7 +15,7 @@ export function MarketInfo ({ type }: { type: 'buyOffers' | 'sellOffers' }) {
         </Text>
         <Text style={[tw`subtitle-2`, textStyle]}>for your preferences</Text>
       </View>
-      {type === 'sellOffers' && <AveragePremium />}
+      {type === 'sellOffers' && openOffers > 0 && <AveragePremium />}
     </Section.Container>
   )
 }

@@ -1,10 +1,10 @@
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { isBuyOffer } from '../offer'
 import { peachAPI } from '../peachAPI'
 import { isDefined } from '../validation'
 import { shouldGoToContract } from './shouldGoToContract'
 import { shouldGoToContractChat } from './shouldGoToContractChat'
-import { shouldGoToOfferPublished } from './shouldGoToOfferPublished'
 import { shouldGoToSearch } from './shouldGoToSearch'
 import { shouldGoToSell } from './shouldGoToSell'
 import { shouldGoToYourTradesBuy } from './shouldGoToYourTradesBuy'
@@ -13,6 +13,7 @@ import { shouldGoToYourTradesSell } from './shouldGoToYourTradesSell'
 export type StackNavigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 export type Navigation = NavigationContainerRefWithCurrent<RootStackParamList> | StackNavigation
 
+// eslint-disable-next-line max-statements
 export const handlePushNotification = async (
   navigationRef: Navigation,
   { data }: { data: PNData },
@@ -50,8 +51,12 @@ export const handlePushNotification = async (
     const { result: offer } = await peachAPI.private.offer.getOfferDetails({ offerId: data.offerId })
     const { offerId } = data
     if (shouldGoToSearch(data.type, !!(offer?.matches && offer.matches.length > 0))) {
-      navigationRef.navigate('search', { offerId })
-    } else if (shouldGoToOfferPublished(data.type)) {
+      if (offer && isBuyOffer(offer)) {
+        navigationRef.navigate('explore', { offerId })
+      } else {
+        navigationRef.navigate('search', { offerId })
+      }
+    } else if (data.type === 'offer.escrowFunded') {
       navigationRef.navigate('offerPublished', { offerId, shouldGoBack: true })
     } else {
       navigationRef.navigate('offer', { offerId })

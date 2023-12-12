@@ -39,7 +39,7 @@ type RootStackParamList = Onboarding & {
   bumpNetworkFees: {
     txId: string
   }
-  buyOfferPreferences: undefined
+  buyOfferPreferences: undefined | { offerId: string }
   sellOfferPreferences: undefined
   buyPreferences: undefined
   selectCurrency: {
@@ -78,6 +78,8 @@ type RootStackParamList = Onboarding & {
     shouldGoBack?: boolean
   }
   search: { offerId: string }
+  explore: { offerId: string }
+  matchDetails: { offerId: string; matchId: string }
   editPremium: { offerId: string }
   contract: {
     contractId: Contract['id']

@@ -56,10 +56,13 @@ type Props = {
   newPremium: number
 }
 function ConfirmButton ({ offerId, newPremium }: Props) {
-  const { mutate: confirmPremium } = usePatchOffer(offerId, { premium: newPremium })
+  const { mutate: confirmPremium } = usePatchOffer()
   const navigation = useNavigation()
   return (
-    <Button onPress={() => confirmPremium(undefined, { onSuccess: navigation.goBack })} style={tw`self-center`}>
+    <Button
+      onPress={() => confirmPremium({ offerId, newData: { premium: newPremium } }, { onSuccess: navigation.goBack })}
+      style={tw`self-center`}
+    >
       {i18n('confirm')}
     </Button>
   )

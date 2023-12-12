@@ -44,6 +44,8 @@ import { MyProfile } from './settings/profile/MyProfile'
 import { TestView } from './TestView/TestView'
 import { TestViewPeachWallet } from './TestView/peachWallet'
 import { TestViewPNs } from './TestView/pns'
+import { Explore } from './explore/Explore'
+import { MatchDetails } from './explore/MatchDetails'
 import { HomeScreen } from './home/HomeScreen'
 import { BuyOfferPreferences } from './offerPreferences/BuyOfferPreferences'
 import { SellOfferPreferences } from './offerPreferences/SellOfferPreferences'
@@ -100,6 +102,8 @@ const sellFlow: ViewType[] = [
 ]
 
 const search: ViewType[] = [
+  { name: 'explore', component: Explore },
+  { name: 'matchDetails', component: MatchDetails },
   { name: 'search', component: Search },
   { name: 'editPremium', component: EditPremium },
 ]

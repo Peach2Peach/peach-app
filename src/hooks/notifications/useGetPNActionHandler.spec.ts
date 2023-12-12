@@ -54,7 +54,7 @@ describe('useGetPNActionHandler', () => {
 
   it('should return an action properties when offerId and type are truthy and type is in searchEvents', () => {
     const { result } = renderHook(() => useGetPNActionHandler())
-    const data = { type: 'offer.matchBuyer', offerId: '123' } as PNData
+    const data = { type: 'offer.matchSeller', offerId: '123' } as PNData
     let action: Action | undefined
     act(() => {
       action = result.current(data)

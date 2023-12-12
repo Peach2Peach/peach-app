@@ -307,12 +307,7 @@ type Match = {
   matched: boolean
   unavailable: MatchUnavailableReasons
 }
-type GetMatchesResponse = {
-  offerId: string
-  matches: Match[]
-  totalMatches: number
-  nextPage: number
-}
+
 type MatchResponse =
   | {
       success: true

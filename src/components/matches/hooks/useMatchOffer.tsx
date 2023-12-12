@@ -1,5 +1,6 @@
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { shallow } from 'zustand/shallow'
+import { GetMatchesResponseBody } from '../../../../peach-api/src/@types/api/offerAPI'
 import { useNavigation } from '../../../hooks'
 import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
 import { error, info } from '../../../utils/log'
@@ -29,8 +30,8 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
   return useMutation({
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['matches', offer.id] })
-      const previousData = queryClient.getQueryData<GetMatchesResponse>(['matches', offer.id])
-      queryClient.setQueryData(['matches', offer.id], (oldQueryData: InfiniteData<GetMatchesResponse> | undefined) =>
+      const previousData = queryClient.getQueryData<GetMatchesResponseBody>(['matches', offer.id])
+      queryClient.setQueryData(['matches', offer.id], (oldQueryData: InfiniteData<GetMatchesResponseBody> | undefined) =>
         updateMatchedStatus(true, oldQueryData, matchingOfferId, offer, currentPage),
       )
 

@@ -358,9 +358,10 @@ exports[`Match should render correctly for buy offers 1`] = `
                       "flexDirection": "row",
                       "gap": 2,
                       "paddingBottom": 4,
-                      "paddingLeft": 6,
-                      "paddingRight": 6,
                       "paddingTop": 4,
+                    },
+                    {
+                      "paddingHorizontal": 6,
                     },
                     {
                       "borderColor": "#FCCCB6",
@@ -435,9 +436,10 @@ exports[`Match should render correctly for buy offers 1`] = `
                       "flexDirection": "row",
                       "gap": 2,
                       "paddingBottom": 4,
-                      "paddingLeft": 6,
-                      "paddingRight": 6,
                       "paddingTop": 4,
+                    },
+                    {
+                      "paddingHorizontal": 6,
                     },
                     {
                       "borderColor": "#F56522",
@@ -512,9 +514,10 @@ exports[`Match should render correctly for buy offers 1`] = `
                       "flexDirection": "row",
                       "gap": 2,
                       "paddingBottom": 4,
-                      "paddingLeft": 6,
-                      "paddingRight": 6,
                       "paddingTop": 4,
+                    },
+                    {
+                      "paddingHorizontal": 6,
                     },
                     {
                       "borderColor": "#F56522",
@@ -1556,7 +1559,7 @@ exports[`Match should render correctly for matched offers 1`] = `
           Object {
             "margin": 4,
           }
-@@ -1208,11 +1281,11 @@
+@@ -1211,11 +1284,11 @@
                       false,
                     ]
                   }
@@ -1569,7 +1572,7 @@ exports[`Match should render correctly for matched offers 1`] = `
             </View>
             <View
               style={
-@@ -1365,12 +1438,205 @@
+@@ -1368,12 +1441,205 @@
                     },
                     Object {
                       "height": 18,
@@ -1775,7 +1778,7 @@ exports[`Match should render correctly for matched offers 1`] = `
               />
             </View>
           </View>
-@@ -1378,11 +1644,11 @@
+@@ -1381,11 +1647,11 @@
         <View
           accessibilityState={
             Object {
@@ -1788,7 +1791,7 @@ exports[`Match should render correctly for matched offers 1`] = `
             }
           }
           accessibilityValue={
-@@ -1436,11 +1702,11 @@
+@@ -1439,11 +1705,11 @@
                 },
                 false,
               ]
@@ -2161,9 +2164,10 @@ exports[`Match should render correctly for sell offers 1`] = `
                       "flexDirection": "row",
                       "gap": 2,
                       "paddingBottom": 4,
-                      "paddingLeft": 6,
-                      "paddingRight": 6,
                       "paddingTop": 4,
+                    },
+                    {
+                      "paddingHorizontal": 6,
                     },
                     {
                       "borderColor": "#FCCCB6",
@@ -2238,9 +2242,10 @@ exports[`Match should render correctly for sell offers 1`] = `
                       "flexDirection": "row",
                       "gap": 2,
                       "paddingBottom": 4,
-                      "paddingLeft": 6,
-                      "paddingRight": 6,
                       "paddingTop": 4,
+                    },
+                    {
+                      "paddingHorizontal": 6,
                     },
                     {
                       "borderColor": "#F56522",
@@ -2315,9 +2320,10 @@ exports[`Match should render correctly for sell offers 1`] = `
                       "flexDirection": "row",
                       "gap": 2,
                       "paddingBottom": 4,
-                      "paddingLeft": 6,
-                      "paddingRight": 6,
                       "paddingTop": 4,
+                    },
+                    {
+                      "paddingHorizontal": 6,
                     },
                     {
                       "borderColor": "#F56522",

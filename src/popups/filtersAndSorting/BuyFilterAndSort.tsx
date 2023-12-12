@@ -128,20 +128,23 @@ function GlobalFilterAndSort ({ filter, sortBy }: ApplyFilterActionProps) {
 function useOfferFilters (offerId: string, filter: MatchFilter, sortBy: BuySorter) {
   const queryClient = useQueryClient()
   const applyGlobalFilters = useGlobalFilters(filter, sortBy)
-  const { mutate: patchOffer } = usePatchOffer(offerId, filter)
+  const { mutate: patchOffer } = usePatchOffer()
   const closePopup = usePopupStore((state) => state.closePopup)
 
   const applyFilters = useCallback(() => {
     applyGlobalFilters()
-    patchOffer(undefined, {
-      onSettled: async () => {
-        await queryClient.invalidateQueries({ queryKey: matchesKeys.matches })
-        await queryClient.refetchQueries({ queryKey: ['offerSummaries'] })
-        await queryClient.refetchQueries({ queryKey: matchesKeys.matchesByOfferId(offerId) })
-        closePopup()
+    patchOffer(
+      { offerId, newData: filter },
+      {
+        onSettled: async () => {
+          await queryClient.invalidateQueries({ queryKey: matchesKeys.matches })
+          await queryClient.refetchQueries({ queryKey: ['offerSummaries'] })
+          await queryClient.refetchQueries({ queryKey: matchesKeys.matchesByOfferId(offerId) })
+          closePopup()
+        },
       },
-    })
-  }, [applyGlobalFilters, closePopup, offerId, patchOffer, queryClient])
+    )
+  }, [applyGlobalFilters, closePopup, filter, offerId, patchOffer, queryClient])
 
   return applyFilters
 }
