@@ -1,7 +1,9 @@
 import { NETWORK } from '@env'
 import OpenPGP from 'react-native-fast-openpgp'
 import { info } from '../log'
-import { createRandomWallet, createWalletFromSeedPhrase, getNetwork } from '../wallet'
+import { createRandomWallet } from '../wallet/createRandomWallet'
+import { createWalletFromSeedPhrase } from '../wallet/createWalletFromSeedPhrase'
+import { getNetwork } from '../wallet/getNetwork'
 import { defaultAccount } from './account'
 import { getMainAccount } from './getMainAccount'
 

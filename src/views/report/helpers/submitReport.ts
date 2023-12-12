@@ -1,4 +1,4 @@
-import { sendErrors } from '../../../utils/analytics'
+import { sendErrors } from '../../../utils/analytics/sendErrors'
 import { peachAPI } from '../../../utils/peachAPI'
 import { buildReportMessage } from './buildReportMessage'
 

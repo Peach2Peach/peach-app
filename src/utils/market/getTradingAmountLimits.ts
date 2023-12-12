@@ -1,5 +1,6 @@
 import { SATSINBTC } from '../../constants'
-import { ceil, floor } from '../math'
+import { ceil } from '../math/ceil'
+import { floor } from '../math/floor'
 
 const rangeSellInCHF = [10, 800]
 const rangeBuyInCHF = [10, 1000]

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getTransactionDetails } from '../../utils/electrum'
+import { getTransactionDetails } from '../../utils/electrum/getTransactionDetails'
 
 const getTransactionDetailsQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
   const [, txId] = queryKey

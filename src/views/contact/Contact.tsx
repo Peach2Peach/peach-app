@@ -7,7 +7,7 @@ import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
 import { useAccountStore } from '../../utils/account/account'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
+import { headerIcons } from '../../utils/layout/headerIcons'
 import { openURL } from '../../utils/web/openURL'
 
 export const contactReasonsNoAccount: ContactReason[] = ['bug', 'accountLost', 'question', 'sellMore', 'other']

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { FlatList, Keyboard, View, ViewToken } from 'react-native'
 import tw from '../../../styles/tailwind'
-import { getChat } from '../../../utils/chat'
+import { getChat } from '../../../utils/chat/getChat'
 import { ChatMessage } from './ChatMessage'
 
 const PAGE_SIZE = 22

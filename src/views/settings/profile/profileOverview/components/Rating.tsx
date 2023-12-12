@@ -5,7 +5,7 @@ import { Text } from '../../../../../components'
 import { CENT } from '../../../../../constants'
 import tw from '../../../../../styles/tailwind'
 import i18n from '../../../../../utils/i18n'
-import { interpolate } from '../../../../../utils/math'
+import { interpolate } from '../../../../../utils/math/interpolate'
 
 // eslint-disable-next-line no-magic-numbers
 const PEACHES = [1, 2, 3, 4, 5]

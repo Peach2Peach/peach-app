@@ -1,10 +1,10 @@
 import { View } from 'react-native'
+import { useIsMediumScreen } from '../../hooks'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { BTCAmount } from '../bitcoin'
+import { BTCAmount } from '../bitcoin/btcAmount/BTCAmount'
 import { CopyAble } from '../ui'
 import { SummaryItem, SummaryItemProps } from './SummaryItem'
-import tw from '../../styles/tailwind'
-import { useIsMediumScreen } from '../../hooks'
 
 type Props = Omit<SummaryItemProps, 'title'> & {
   amount: number

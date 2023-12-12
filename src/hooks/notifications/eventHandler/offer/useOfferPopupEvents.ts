@@ -3,7 +3,7 @@ import { useBuyOfferExpiredPopup } from '../../../../popups/useBuyOfferExpiredPo
 import { useOfferOutsideRangePopup } from '../../../../popups/useOfferOutsideRangePopup'
 import { useShowFundingAmountDifferentPopup } from '../../../../popups/useShowFundingAmountDifferentPopup'
 import { useShowWronglyFundedPopup } from '../../../../popups/useShowWronglyFundedPopup'
-import { isSellOffer } from '../../../../utils/offer'
+import { isSellOffer } from '../../../../utils/offer/isSellOffer'
 import { peachAPI } from '../../../../utils/peachAPI'
 
 type PNEventHandlers = Partial<Record<NotificationType, (data: PNData, notification?: PNNotification) => void>>

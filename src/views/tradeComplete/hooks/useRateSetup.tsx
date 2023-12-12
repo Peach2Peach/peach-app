@@ -6,7 +6,7 @@ import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { TradeBreakdownPopup } from '../../../popups/TradeBreakdownPopup'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
-import { createUserRating } from '../../../utils/contract'
+import { createUserRating } from '../../../utils/contract/createUserRating'
 import { peachAPI } from '../../../utils/peachAPI'
 
 type Props = {

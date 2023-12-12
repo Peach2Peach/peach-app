@@ -1,5 +1,5 @@
 import { PAYMENTCATEGORIES } from '../../paymentMethods'
-import { paymentMethodAllowedForCurrency } from '../paymentMethod'
+import { paymentMethodAllowedForCurrency } from '../paymentMethod/paymentMethodAllowedForCurrency'
 
 export const hasApplicablePaymentMethods = (paymentCategory: PaymentCategory, currency: Currency): boolean =>
   PAYMENTCATEGORIES[paymentCategory].filter(

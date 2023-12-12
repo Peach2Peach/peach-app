@@ -2,7 +2,7 @@ import { TouchableOpacity, View } from 'react-native'
 
 import { shallow } from 'zustand/shallow'
 import { Header, Icon, Screen, Text } from '../../components'
-import { OpenWallet } from '../../components/bitcoin'
+import { OpenWallet } from '../../components/bitcoin/OpenWallet'
 import { Button } from '../../components/buttons/Button'
 import { BitcoinAddressInput, Input } from '../../components/inputs'
 import { PopupAction } from '../../components/popup'
@@ -13,7 +13,7 @@ import { useSettingsStore } from '../../store/settingsStore'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
+import { headerIcons } from '../../utils/layout/headerIcons'
 
 const addressRules = { bitcoinAddress: true, blockTaprootAddress: true, required: true }
 const labelRules = { required: true }

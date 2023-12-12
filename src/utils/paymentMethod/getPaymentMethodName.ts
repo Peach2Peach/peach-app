@@ -1,4 +1,4 @@
-import { getEventName } from '../events'
+import { getEventName } from '../events/getEventName'
 import i18n from '../i18n'
 import { isCashTrade } from './isCashTrade'
 

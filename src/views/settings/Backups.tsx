@@ -4,7 +4,7 @@ import { Header, Screen } from '../../components'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 import { useShowHelp, useToggleBoolean } from '../../hooks'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
+import { headerIcons } from '../../utils/layout/headerIcons'
 import { FileBackup } from './components/backups/FileBackup'
 import { SeedPhrase } from './components/backups/SeedPhrase'
 

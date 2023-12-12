@@ -15,7 +15,7 @@ import { useGlobalHandlers } from '../useGlobalHandlers'
 import { useAccountStore } from '../utils/account/account'
 import i18n from '../utils/i18n'
 import { screenTransition } from '../utils/layout/screenTransition'
-import { isIOS } from '../utils/system'
+import { isIOS } from '../utils/system/isIOS'
 import { onboardingViews, views } from './views'
 
 const Stack = createStackNavigator<RootStackParamList>()

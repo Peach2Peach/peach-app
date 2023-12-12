@@ -1,5 +1,7 @@
-import { getAvailableCurrencies, getAvailableMethods } from '../../../utils/match'
-import { hasMoPsInCommon, getMoPsInCommon } from '../../../utils/paymentMethod'
+import { getAvailableCurrencies } from '../../../utils/match/getAvailableCurrencies'
+import { getAvailableMethods } from '../../../utils/match/getAvailableMethods'
+import { getMoPsInCommon } from '../../../utils/paymentMethod/getMoPsInCommon'
+import { hasMoPsInCommon } from '../../../utils/paymentMethod/hasMoPsInCommon'
 
 export type MatchSelectors = {
   [id: Match['offerId']]: {

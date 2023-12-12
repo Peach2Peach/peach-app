@@ -3,7 +3,7 @@ import 'react-native-url-polyfill/auto'
 import { TouchableOpacity } from 'react-native'
 import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
-import { openInWallet } from '../../utils/bitcoin'
+import { openInWallet } from '../../utils/bitcoin/openInWallet'
 import i18n from '../../utils/i18n'
 
 type OpenWalletProps = ComponentProps & {

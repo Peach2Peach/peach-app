@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { BTCAmount } from '../bitcoin'
+import { BTCAmount } from '../bitcoin/btcAmount/BTCAmount'
 import { FixedHeightText, Text } from '../text'
 import { HorizontalLine } from '../ui'
 import { SummaryCard } from './SummaryCard'

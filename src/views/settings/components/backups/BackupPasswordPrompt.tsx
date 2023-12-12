@@ -6,7 +6,7 @@ import { Button } from '../../../../components/buttons/Button'
 import { useNavigation, useValidatedState } from '../../../../hooks'
 import { useSettingsStore } from '../../../../store/settingsStore'
 import tw from '../../../../styles/tailwind'
-import { backupAccount } from '../../../../utils/account'
+import { backupAccount } from '../../../../utils/account/backupAccount'
 import i18n from '../../../../utils/i18n'
 
 type Props = {

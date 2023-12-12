@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { error } from '../../../utils/log'
-import { parseError } from '../../../utils/result'
+import { parseError } from '../../../utils/result/parseError'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 
 export const useSyncWallet = () => {

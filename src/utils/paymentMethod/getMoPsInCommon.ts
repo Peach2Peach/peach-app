@@ -1,5 +1,5 @@
-import { intersect } from '../array'
-import { keys } from '../object'
+import { intersect } from '../array/intersect'
+import { keys } from '../object/keys'
 
 export const getMoPsInCommon = (mopsA: MeansOfPayment, mopsB: MeansOfPayment): MeansOfPayment =>
   intersect<Currency>(keys(mopsA), keys(mopsB)).reduce((mops, c: Currency) => {

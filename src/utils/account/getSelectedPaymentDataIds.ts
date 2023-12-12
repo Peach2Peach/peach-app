@@ -1,5 +1,5 @@
-import { keys } from '../object'
-import { getPaymentMethodInfo } from '../paymentMethod'
+import { keys } from '../object/keys'
+import { getPaymentMethodInfo } from '../paymentMethod/getPaymentMethodInfo'
 
 export const getSelectedPaymentDataIds = (preferredPaymentMethods: Partial<Record<PaymentMethod, string>>) =>
   keys(preferredPaymentMethods)

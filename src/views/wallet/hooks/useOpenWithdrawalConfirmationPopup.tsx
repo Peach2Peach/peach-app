@@ -6,7 +6,7 @@ import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { BuildTxParams } from '../../../utils/wallet/transaction'
+import { BuildTxParams } from '../../../utils/wallet/transaction/buildTransaction'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 
 export const useOpenWithdrawalConfirmationPopup = () => {

@@ -5,7 +5,7 @@ import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { responseUtils } from 'test-utils'
 import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { peachAPI } from '../../../utils/peachAPI'
-import { setWallet } from '../../../utils/wallet'
+import { setWallet } from '../../../utils/wallet/setWallet'
 import { patchSellOfferWithRefundTx } from './patchSellOfferWithRefundTx'
 
 const patchOfferMock = jest.spyOn(peachAPI.private.offer, 'patchOffer')

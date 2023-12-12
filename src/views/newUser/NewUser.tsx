@@ -6,12 +6,16 @@ import { UNIQUEID } from '../../constants'
 import { useNavigation, useRoute } from '../../hooks'
 import { userUpdate } from '../../init/userUpdate'
 import tw from '../../styles/tailwind'
-import { createAccount, deleteAccount, signMessageWithAccount, storeAccount, updateAccount } from '../../utils/account'
 import { useAccountStore } from '../../utils/account/account'
+import { createAccount } from '../../utils/account/createAccount'
+import { deleteAccount } from '../../utils/account/deleteAccount'
+import { signMessageWithAccount } from '../../utils/account/signMessageWithAccount'
+import { storeAccount } from '../../utils/account/storeAccount'
+import { updateAccount } from '../../utils/account/updateAccount'
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
 import { getAuthenticationChallenge } from '../../utils/peachAPI/getAuthenticationChallenge'
-import { parseError } from '../../utils/result'
+import { parseError } from '../../utils/result/parseError'
 
 export const NewUser = () => {
   const route = useRoute<'newUser'>()

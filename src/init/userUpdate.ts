@@ -4,7 +4,7 @@ import { useAccountStore } from '../utils/account/account'
 import { error, info } from '../utils/log'
 import { updateUser } from '../utils/peachAPI'
 import { UpdateUserProps } from '../utils/peachAPI/updateUser'
-import { parseError } from '../utils/result'
+import { parseError } from '../utils/result/parseError'
 
 export const userUpdate = async (referralCode?: string) => {
   const account = useAccountStore.getState().account

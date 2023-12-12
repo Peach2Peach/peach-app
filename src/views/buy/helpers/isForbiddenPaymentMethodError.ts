@@ -1,4 +1,4 @@
-import { isPaymentMethod } from '../../../utils/validation'
+import { isPaymentMethod } from '../../../utils/validation/isPaymentMethod'
 
 export const isForbiddenPaymentMethodError = (
   errorMessage: string | null,

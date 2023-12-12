@@ -1,4 +1,4 @@
-import { getWalletLabel } from '../offer'
+import { getWalletLabel } from '../offer/getWalletLabel'
 import { getSellOfferFromContract } from './getSellOfferFromContract'
 
 type Params = {

@@ -11,7 +11,7 @@ jest.mock('../../hooks/useRoute', () => ({
 }))
 
 const logTradeCompletedMock = jest.fn()
-jest.mock('../../utils/analytics', () => ({
+jest.mock('../../utils/analytics/logTradeCompleted', () => ({
   logTradeCompleted: (...args: unknown[]) => logTradeCompletedMock(...args),
 }))
 

@@ -1,4 +1,4 @@
-import { enforceEmailFormat } from '../../utils/format'
+import { enforceEmailFormat } from '../../utils/format/enforceEmailFormat'
 import i18n from '../../utils/i18n'
 import { Input, InputProps } from './Input'
 

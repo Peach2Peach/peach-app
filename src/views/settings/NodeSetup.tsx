@@ -7,7 +7,7 @@ import { URLInput } from '../../components/inputs/URLInput'
 import { useShowHelp, useToggleBoolean } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
+import { headerIcons } from '../../utils/layout/headerIcons'
 import { useNodeSetup } from './hooks/nodeSetup/useNodeSetup'
 
 export const NodeSetup = () => {

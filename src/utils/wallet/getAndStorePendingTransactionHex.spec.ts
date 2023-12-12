@@ -1,7 +1,7 @@
-import { useWalletState } from './walletStore'
-import { storePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { BlockTime, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { Transaction } from 'bdk-rn/lib/classes/Transaction'
+import { storePendingTransactionHex } from './getAndStorePendingTransactionHex'
+import { useWalletState } from './walletStore'
 
 describe('getAndStorePendingTransactionHex', () => {
   const txId = 'txId'

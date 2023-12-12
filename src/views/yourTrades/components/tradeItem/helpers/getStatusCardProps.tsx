@@ -1,9 +1,9 @@
 import { Icon } from '../../../../../components'
 import { statusCardStyles } from '../../../../../components/statusCard/StatusCard'
 import tw from '../../../../../styles/tailwind'
-import { contractIdToHex } from '../../../../../utils/contract'
+import { contractIdToHex } from '../../../../../utils/contract/contractIdToHex'
 import { getShortDateFormat } from '../../../../../utils/date/getShortDateFormat'
-import { offerIdToHex } from '../../../../../utils/offer'
+import { offerIdToHex } from '../../../../../utils/offer/offerIdToHex'
 import { getThemeForTradeItem, isContractSummary, isPastOffer } from '../../../utils'
 import { getActionIcon, getActionLabel } from '../utils'
 

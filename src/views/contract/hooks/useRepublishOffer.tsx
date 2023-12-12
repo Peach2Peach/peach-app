@@ -4,7 +4,7 @@ import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { OfferRepublished } from '../../../popups/tradeCancelation'
 import { usePopupStore } from '../../../store/usePopupStore'
-import { getSellOfferFromContract } from '../../../utils/contract'
+import { getSellOfferFromContract } from '../../../utils/contract/getSellOfferFromContract'
 import i18n from '../../../utils/i18n'
 import { peachAPI } from '../../../utils/peachAPI'
 

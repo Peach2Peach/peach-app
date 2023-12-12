@@ -1,5 +1,6 @@
 import { base58_12xmom } from '../../../tests/unit/data/accountData'
-import { createWalletFromBase58, getNetwork } from '../wallet'
+import { createWalletFromBase58 } from '../wallet/createWalletFromBase58'
+import { getNetwork } from '../wallet/getNetwork'
 import { createPeachAccount } from './createPeachAccount'
 
 describe('createPeachAccount', () => {

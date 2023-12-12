@@ -1,4 +1,4 @@
-import { getSelectedPaymentDataIds } from '../../../../utils/account'
+import { getSelectedPaymentDataIds } from '../../../../utils/account/getSelectedPaymentDataIds'
 import { info } from '../../../../utils/log'
 import { useOfferPreferences } from '../../../offerPreferenes'
 import { SettingsVersion2 } from './version2'

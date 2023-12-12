@@ -5,7 +5,7 @@ import { NumberInput } from '../../../../components/inputs'
 import { CENT } from '../../../../constants'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { round } from '../../../../utils/math'
+import { round } from '../../../../utils/math/round'
 
 type Props = {
   newFeeRate: string

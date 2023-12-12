@@ -5,13 +5,13 @@ import { dataMigrationAfterLoadingWallet } from '../../init/dataMigration/dataMi
 import { useSettingsStore } from '../../store/settingsStore'
 import i18n from '../i18n'
 import { peachAPI } from '../peachAPI'
-import { getWallet } from '../wallet'
+import { getWallet } from '../wallet/getWallet'
 import { PeachWallet } from '../wallet/PeachWallet'
 import { defaultAccount, useAccountStore } from './account'
 import { updateAccount } from './updateAccount'
 
 const getDeviceLocaleMock = jest.fn((): string | undefined => 'en')
-jest.mock('../system', () => ({
+jest.mock('../system/getDeviceLocale', () => ({
   getDeviceLocale: () => getDeviceLocaleMock(),
 }))
 

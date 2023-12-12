@@ -1,4 +1,4 @@
-import { keys } from '../object'
+import { keys } from '../object/keys'
 import { Country, countryMap } from './countryMap'
 
 export const getCountryCodeByPhone = (phone: string): Country | undefined => {

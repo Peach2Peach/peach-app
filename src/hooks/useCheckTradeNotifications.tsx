@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { info } from '../utils/log'
-import { isIOS } from '../utils/system'
+import { isIOS } from '../utils/system/isIOS'
 import { useNotificationStore } from '../views/home/notificationsStore'
 
 export const statusWithRequiredAction: TradeStatus[] = [

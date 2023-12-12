@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
-import { getNavigationDestinationForContract, isContractId } from '../utils/contract'
+import { getNavigationDestinationForContract } from '../utils/contract/getNavigationDestinationForContract'
+import { isContractId } from '../utils/contract/isContractId'
 import { peachAPI } from '../utils/peachAPI'
 import { getNavigationDestinationForOffer } from '../views/yourTrades/utils'
 import { useNavigation } from './useNavigation'

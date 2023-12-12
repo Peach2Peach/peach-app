@@ -9,7 +9,7 @@ import { ClosePopupAction } from '../popups/actions'
 import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { isIOS } from '../utils/system'
+import { isIOS } from '../utils/system/isIOS'
 
 type Props = {
   onSuccess: (data: string) => void

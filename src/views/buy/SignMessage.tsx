@@ -6,7 +6,7 @@ import { Text } from '../../components/text'
 import { useKeyboard, useShowHelp } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
+import { headerIcons } from '../../utils/layout/headerIcons'
 import { useSignMessageSetup } from './hooks/useSignMessageSetup'
 
 export const SignMessage = () => {

@@ -1,8 +1,9 @@
 import { SATSINBTC } from '../../../constants'
 import { useMarketPrices } from '../../../hooks'
-import { getAvailableCurrencies } from '../../../utils/match'
-import { round } from '../../../utils/math'
-import { getMoPsInCommon, hasMoPsInCommon } from '../../../utils/paymentMethod'
+import { getAvailableCurrencies } from '../../../utils/match/getAvailableCurrencies'
+import { round } from '../../../utils/math/round'
+import { getMoPsInCommon } from '../../../utils/paymentMethod/getMoPsInCommon'
+import { hasMoPsInCommon } from '../../../utils/paymentMethod/hasMoPsInCommon'
 import { useMatchStore } from '../store'
 import { getMatchPrice } from '../utils'
 

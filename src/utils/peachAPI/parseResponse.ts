@@ -1,6 +1,6 @@
 import { error } from '../log'
-import { parseError } from '../result'
-import { dateTimeReviver } from '../system'
+import { parseError } from '../result/parseError'
+import { dateTimeReviver } from '../system/dateTimeReviver'
 
 export const parseResponse = async <T>(
   response: Response,

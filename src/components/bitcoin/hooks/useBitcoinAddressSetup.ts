@@ -2,7 +2,8 @@ import { useState } from 'react'
 import 'react-native-url-polyfill/auto'
 
 import Clipboard from '@react-native-clipboard/clipboard'
-import { getBitcoinAddressParts, openInWallet } from '../../../utils/bitcoin'
+import { getBitcoinAddressParts } from '../../../utils/bitcoin/getBitcoinAddressParts'
+import { openInWallet } from '../../../utils/bitcoin/openInWallet'
 
 export type BitcoinAddressProps = {
   address: string

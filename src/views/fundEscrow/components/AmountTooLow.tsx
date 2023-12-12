@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { Text } from '../../../components'
-import { BTCAmount } from '../../../components/bitcoin'
+import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 

@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import { sortSummariesByDate } from '../../utils/contract'
+import { sortSummariesByDate } from '../../utils/contract/sortSummariesByDate'
 import { useContractSummaries } from './useContractSummaries'
 import { useOfferSummaries } from './useOfferSummaries'
 

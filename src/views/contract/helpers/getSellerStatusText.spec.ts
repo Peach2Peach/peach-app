@@ -5,8 +5,10 @@ const getSellOfferFromContractMock = jest.fn(() => ({
   refunded: false,
   newOfferId: undefined,
 }))
-jest.mock('../../../utils/contract', () => ({
+jest.mock('../../../utils/contract/getWalletLabelFromContract', () => ({
   getWalletLabelFromContract: jest.fn(() => 'walletLabel'),
+}))
+jest.mock('../../../utils/contract/getSellOfferFromContract', () => ({
   getSellOfferFromContract: jest.fn(() => getSellOfferFromContractMock()),
 }))
 

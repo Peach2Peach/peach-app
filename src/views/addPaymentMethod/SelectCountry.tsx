@@ -7,8 +7,9 @@ import i18n from '../../utils/i18n'
 import { useMemo, useState } from 'react'
 
 import { Button } from '../../components/buttons/Button'
-import { headerIcons } from '../../utils/layout'
-import { countrySupportsCurrency, getPaymentMethodInfo } from '../../utils/paymentMethod'
+import { headerIcons } from '../../utils/layout/headerIcons'
+import { countrySupportsCurrency } from '../../utils/paymentMethod/countrySupportsCurrency'
+import { getPaymentMethodInfo } from '../../utils/paymentMethod/getPaymentMethodInfo'
 import { usePaymentMethodLabel } from './hooks'
 
 export const SelectCountry = () => {

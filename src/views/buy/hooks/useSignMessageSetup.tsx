@@ -2,9 +2,10 @@ import { useMemo } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useNavigation, useValidatedState } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { getMessageToSignForAddress } from '../../../utils/account'
 import { useAccountStore } from '../../../utils/account/account'
-import { getMessages, isValidBitcoinSignature } from '../../../utils/validation'
+import { getMessageToSignForAddress } from '../../../utils/account/getMessageToSignForAddress'
+import { getMessages } from '../../../utils/validation/getMessages'
+import { isValidBitcoinSignature } from '../../../utils/validation/isValidBitcoinSignature'
 import { parseSignature } from '../helpers/parseSignature'
 
 const signatureRules = {

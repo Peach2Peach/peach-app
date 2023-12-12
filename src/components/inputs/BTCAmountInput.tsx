@@ -1,6 +1,6 @@
 import { TextInput, TextInputProps, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
-import { BTCAmount } from '../bitcoin'
+import { BTCAmount } from '../bitcoin/btcAmount/BTCAmount'
 
 type Props = {
   amount: number

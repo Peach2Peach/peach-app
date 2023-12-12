@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import OpenPGP from 'react-native-fast-openpgp'
 import { useConfigStore } from '../../store/configStore/configStore'
-import { decrypt, decryptSymmetric } from '../../utils/pgp'
+import { decrypt } from '../../utils/pgp/decrypt'
+import { decryptSymmetric } from '../../utils/pgp/decryptSymmetric'
 import { decryptSymmetricKey } from '../contract/helpers'
 
 export const useDecryptedContractData = (contract?: Contract) =>

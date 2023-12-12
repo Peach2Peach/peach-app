@@ -10,16 +10,20 @@ import { useRefundEscrow } from './useRefundEscrow'
 const refundSellOfferMock = jest.spyOn(peachAPI.private.offer, 'refundSellOffer')
 
 const checkRefundPSBTMock = jest.fn()
-const signAndFinalizePSBTMock = jest.fn()
-const showTransactionMock = jest.fn()
-jest.mock('../utils/bitcoin', () => ({
+jest.mock('../utils/bitcoin/checkRefundPSBT', () => ({
   checkRefundPSBT: (...args: unknown[]) => checkRefundPSBTMock(...args),
+}))
+const signAndFinalizePSBTMock = jest.fn()
+jest.mock('../utils/bitcoin/signAndFinalizePSBT', () => ({
   signAndFinalizePSBT: (...args: unknown[]) => signAndFinalizePSBTMock(...args),
+}))
+const showTransactionMock = jest.fn()
+jest.mock('../utils/bitcoin/showTransaction', () => ({
   showTransaction: (...args: unknown[]) => showTransactionMock(...args),
 }))
 
 const saveOfferMock = jest.fn()
-jest.mock('../utils/offer', () => ({
+jest.mock('../utils/offer/saveOffer', () => ({
   saveOffer: (...args: unknown[]) => saveOfferMock(...args),
 }))
 

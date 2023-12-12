@@ -1,6 +1,5 @@
 import OpenPGP from 'react-native-fast-openpgp'
-import { defaultAccount, setAccount } from '../account'
-import { useAccountStore } from '../account/account'
+import { defaultAccount, setAccount, useAccountStore } from '../account/account'
 import { signAndEncrypt } from './signAndEncrypt'
 
 describe('signAndEncrypt', () => {

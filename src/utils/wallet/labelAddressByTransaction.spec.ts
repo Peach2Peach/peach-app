@@ -4,7 +4,7 @@ import { buyOffer, sellOffer } from '../../../tests/unit/data/offerData'
 import { offerSummary } from '../../../tests/unit/data/offerSummaryData'
 import { confirmed1 } from '../../../tests/unit/data/transactionDetailData'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
-import { setAccount } from '../account'
+import { setAccount } from '../account/account'
 import { labelAddressByTransaction } from './labelAddressByTransaction'
 import { useWalletState } from './walletStore'
 

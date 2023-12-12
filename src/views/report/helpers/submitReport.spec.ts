@@ -1,4 +1,4 @@
-import { sendErrors } from '../../../utils/analytics'
+import { sendErrors } from '../../../utils/analytics/sendErrors'
 import { peachAPI } from '../../../utils/peachAPI'
 import { buildReportMessage } from './buildReportMessage'
 import { submitReport } from './submitReport'
@@ -6,7 +6,7 @@ import { submitReport } from './submitReport'
 jest.mock('./buildReportMessage', () => ({
   buildReportMessage: jest.fn().mockReturnValue('reportMessage'),
 }))
-jest.mock('../../../utils/analytics', () => ({
+jest.mock('../../../utils/analytics/sendErrors', () => ({
   sendErrors: jest.fn(),
 }))
 const sendReportSpy = jest.spyOn(peachAPI.public.contact, 'sendReport')

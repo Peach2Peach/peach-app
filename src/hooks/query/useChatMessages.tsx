@@ -3,7 +3,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
-import { decryptSymmetric } from '../../utils/pgp'
+import { decryptSymmetric } from '../../utils/pgp/decryptSymmetric'
 
 const PAGE_SIZE = 22
 

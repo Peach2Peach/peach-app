@@ -6,8 +6,9 @@ import { Button } from '../../components/buttons/Button'
 import { useRoute } from '../../hooks'
 import { userUpdate } from '../../init/userUpdate'
 import tw from '../../styles/tailwind'
-import { storeAccount, updateAccount } from '../../utils/account'
 import { useAccountStore } from '../../utils/account/account'
+import { storeAccount } from '../../utils/account/storeAccount'
+import { updateAccount } from '../../utils/account/updateAccount'
 import i18n from '../../utils/i18n'
 
 export const RestoreReputation = () => {

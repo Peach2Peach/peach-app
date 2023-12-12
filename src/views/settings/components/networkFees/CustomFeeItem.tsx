@@ -3,7 +3,7 @@ import { TextInput, View } from 'react-native'
 
 import { Text } from '../../../../components'
 import tw from '../../../../styles/tailwind'
-import { enforceDecimalsFormat } from '../../../../utils/format'
+import { enforceDecimalsFormat } from '../../../../utils/format/enforceDecimalsFormat'
 import i18n from '../../../../utils/i18n'
 
 type Props = {

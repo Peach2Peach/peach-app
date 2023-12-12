@@ -2,8 +2,8 @@ import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messag
 import { useCallback, useEffect } from 'react'
 import { useNavigation } from '../hooks'
 import { error, info } from '../utils/log'
-import { handlePushNotification } from '../utils/navigation'
-import { parseError } from '../utils/result'
+import { handlePushNotification } from '../utils/navigation/handlePushNotification'
+import { parseError } from '../utils/result/parseError'
 
 const dataIsDefined = (
   remoteMessage: FirebaseMessagingTypes.RemoteMessage,

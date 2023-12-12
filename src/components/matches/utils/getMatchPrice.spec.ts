@@ -1,7 +1,7 @@
 import { getMatchPrice } from './getMatchPrice'
 
 const getPaymentMethodInfoMock = jest.fn()
-jest.mock('../../../utils/paymentMethod', () => ({
+jest.mock('../../../utils/paymentMethod/getPaymentMethodInfo', () => ({
   getPaymentMethodInfo: (...args: unknown[]) => getPaymentMethodInfoMock(...args),
 }))
 

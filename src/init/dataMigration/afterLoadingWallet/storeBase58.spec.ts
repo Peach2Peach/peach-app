@@ -1,9 +1,9 @@
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
-import { storeIdentity } from '../../../utils/account'
+import { storeIdentity } from '../../../utils/account/storeAccount'
 import { storeBase58 } from './storeBase58'
 
-jest.mock('../../../utils/account', () => ({
+jest.mock('../../../utils/account/storeAccount', () => ({
   storeIdentity: jest.fn(),
 }))
 

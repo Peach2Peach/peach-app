@@ -1,7 +1,8 @@
 import { responseUtils } from 'test-utils'
 import * as offerData from '../../../../tests/unit/data/offerData'
 import { peachAPI } from '../../../utils/peachAPI'
-import { getError, getResult } from '../../../utils/result'
+import { getError } from '../../../utils/result/getError'
+import { getResult } from '../../../utils/result/getResult'
 import { matchFn } from './matchFn'
 
 const selectedCurrency: Currency = 'EUR'

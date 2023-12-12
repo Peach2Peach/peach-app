@@ -1,4 +1,4 @@
-import { unique } from '../array'
+import { unique } from '../array/unique'
 
 /**
  * @description Method to return all selected payment methods

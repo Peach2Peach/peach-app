@@ -1,6 +1,6 @@
 import { FlagType } from './components/flags'
 import { CurrencyType } from './store/offerPreferenes/types'
-import { unique } from './utils/array'
+import { unique } from './utils/array/unique'
 import { isCashTrade } from './utils/paymentMethod/isCashTrade'
 
 export let CURRENCIES: Currency[] = [

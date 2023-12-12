@@ -5,7 +5,7 @@ import { PeachScrollView, Screen } from '../../../components'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n, { languageState } from '../../../utils/i18n'
-import { getLocalizedLink } from '../../../utils/web'
+import { getLocalizedLink } from '../../../utils/web/getLocalizedLink'
 import { openURL } from '../../../utils/web/openURL'
 import { SettingsItem } from '../components/SettingsItem'
 

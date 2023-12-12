@@ -1,4 +1,5 @@
-import { getPaymentMethods, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
+import { getPaymentMethods } from '../../utils/paymentMethod/getPaymentMethods'
+import { paymentMethodAllowedForCurrency } from '../../utils/paymentMethod/paymentMethodAllowedForCurrency'
 
 export const getAvailableMethods = (
   matchMeansOfPayment: Match['meansOfPayment'],

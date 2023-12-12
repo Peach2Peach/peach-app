@@ -1,4 +1,4 @@
-import { keys } from '../object'
+import { keys } from '../object/keys'
 import { cleanPaymentData } from './cleanPaymentData'
 import { isCashTrade } from './isCashTrade'
 

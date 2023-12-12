@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
-import { BTCAmount } from '../../bitcoin'
+import { BTCAmount } from '../../bitcoin/btcAmount/BTCAmount'
 import { PriceFormat, Text } from '../../text'
 import { useMatchPriceData } from '../hooks'
 import { PremiumText } from './PremiumText'

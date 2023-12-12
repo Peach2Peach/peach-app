@@ -1,10 +1,10 @@
+import OpenPGP from 'react-native-fast-openpgp'
 import { decryptSymmetricKey } from './decryptSymmetricKey'
 
+const verifyMock = jest.spyOn(OpenPGP, 'verify')
 const decryptMock = jest.fn()
-const verifyMock = jest.fn()
-jest.mock('../../../utils/pgp', () => ({
+jest.mock('../../../utils/pgp/decrypt', () => ({
   decrypt: (...args: unknown[]) => decryptMock(...args),
-  verify: (...args: unknown[]) => verifyMock(...args),
 }))
 
 describe('decryptSymmetricKey', () => {
@@ -14,7 +14,7 @@ describe('decryptSymmetricKey', () => {
     const pgpPublicKey = 'pgp public key'
     const symmetricKey = 'symmetric key'
     decryptMock.mockReturnValue(symmetricKey)
-    verifyMock.mockReturnValue(true)
+    verifyMock.mockResolvedValue(true)
     const symmetricKeyResult = await decryptSymmetricKey(symmetricKeyEncrypted, symmetricKeySignature, pgpPublicKey)
     expect(symmetricKeyResult).toEqual(symmetricKey)
   })
@@ -34,7 +34,7 @@ describe('decryptSymmetricKey', () => {
     const pgpPublicKey = 'pgp public key'
     const symmetricKey = 'symmetric key'
     decryptMock.mockReturnValue(symmetricKey)
-    verifyMock.mockReturnValue(false)
+    verifyMock.mockResolvedValue(false)
     const symmetricKeyResult = await decryptSymmetricKey(symmetricKeyEncrypted, symmetricKeySignature, pgpPublicKey)
     expect(symmetricKeyResult).toEqual(symmetricKey)
   })

@@ -5,7 +5,7 @@ import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { useAccountStore } from '../../../utils/account/account'
-import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
+import { getPaymentMethodInfo } from '../../../utils/paymentMethod/getPaymentMethodInfo'
 import { toggleCurrency } from '../../inputs/paymentForms/utils'
 
 export const useMeetupScreenSetup = () => {

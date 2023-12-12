@@ -4,7 +4,8 @@ import { Icon, Text } from '../../../components'
 import { LinedText } from '../../../components/ui/LinedText'
 import tw from '../../../styles/tailwind'
 import { useAccountStore } from '../../../utils/account/account'
-import { toDateFormat, toTimeFormat } from '../../../utils/date'
+import { toDateFormat } from '../../../utils/date/toDateFormat'
+import { toTimeFormat } from '../../../utils/date/toTimeFormat'
 import i18n from '../../../utils/i18n'
 
 type GetMessageMetaProps = {

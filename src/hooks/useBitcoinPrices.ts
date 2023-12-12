@@ -1,6 +1,6 @@
 import { SATSINBTC } from '../constants'
 import { useSettingsStore } from '../store/settingsStore'
-import { round } from '../utils/math'
+import { round } from '../utils/math/round'
 import { useMarketPrices } from './query/useMarketPrices'
 
 export const useBitcoinPrices = (sats = 0) => {

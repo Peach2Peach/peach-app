@@ -3,7 +3,7 @@ import { contract } from '../../../../peach-api/src/testData/contract'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { setAccount } from '../../../utils/account'
+import { setAccount } from '../../../utils/account/account'
 import { disputeReasons } from './disputeReasons'
 import { useDisputeReasonSelectorSetup } from './useDisputeReasonSelectorSetup'
 

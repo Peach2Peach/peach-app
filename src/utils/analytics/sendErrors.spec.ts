@@ -1,9 +1,9 @@
 import crashlytics from '@react-native-firebase/crashlytics'
-import { appendFile } from '../file'
 import { sendErrors } from './sendErrors'
 
-jest.mock('../file', () => ({
-  appendFile: jest.fn(),
+const appendFileMock = jest.fn()
+jest.mock('../file/appendFile', () => ({
+  appendFile: (...args: unknown[]) => appendFileMock(...args),
 }))
 
 describe('sendErrors function', () => {
@@ -14,7 +14,7 @@ describe('sendErrors function', () => {
 
     await sendErrors(errors)
 
-    expect(appendFile as jest.Mock).toHaveBeenCalledWith('/error.log', 'error 1\nerror 2', true)
+    expect(appendFileMock).toHaveBeenCalledWith('/error.log', 'error 1\nerror 2', true)
     expect(crashlytics().recordError).not.toHaveBeenCalled()
   })
 
@@ -24,7 +24,7 @@ describe('sendErrors function', () => {
 
     await sendErrors(errors)
 
-    expect((appendFile as jest.Mock).mock.calls.length).toBe(0)
+    expect(appendFileMock.mock.calls.length).toBe(0)
     expect(crashlytics().recordError).toHaveBeenCalledTimes(2)
     expect(crashlytics().recordError).toHaveBeenCalledWith(errors[0])
     expect(crashlytics().recordError).toHaveBeenCalledWith(errors[1])

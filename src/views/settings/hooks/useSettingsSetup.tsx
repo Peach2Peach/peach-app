@@ -6,8 +6,10 @@ import { useShowAnalyticsPopup } from '../../../popups/useShowAnalyticsPopup'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
-import { checkNotificationStatus, isProduction, toggleNotifications } from '../../../utils/system'
-import { isDefined } from '../../../utils/validation'
+import { checkNotificationStatus } from '../../../utils/system/checkNotificationStatus'
+import { isProduction } from '../../../utils/system/isProduction'
+import { toggleNotifications } from '../../../utils/system/toggleNotifications'
+import { isDefined } from '../../../utils/validation/isDefined'
 import { NotificationPopup } from '../components/NotificationPopup'
 
 const contactUs = isProduction()

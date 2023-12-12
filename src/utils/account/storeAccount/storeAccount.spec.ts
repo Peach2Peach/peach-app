@@ -1,10 +1,11 @@
 import { deepStrictEqual } from 'assert'
-import { defaultAccount, setAccount, storeAccount } from '..'
 import * as accountData from '../../../../tests/unit/data/accountData'
 import { getIndexedMap } from '../../storage'
+import { defaultAccount, setAccount } from '../account'
 import { accountStorage } from '../accountStorage'
 import { chatStorage } from '../chatStorage'
 import { offerStorage } from '../offerStorage'
+import { storeAccount } from '../storeAccount'
 
 describe('storeAccount', () => {
   beforeEach(() => {

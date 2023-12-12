@@ -1,7 +1,7 @@
 import { useQueries, useQuery } from '@tanstack/react-query'
-import { rules } from '../../utils/validation'
+import { rules } from '../../utils/validation/rules'
 import { peachWallet } from '../../utils/wallet/setWallet'
-import { getScriptPubKeyFromAddress } from '../../utils/wallet/transaction'
+import { getScriptPubKeyFromAddress } from '../../utils/wallet/transaction/getScriptPubKeyFromAddress'
 
 const buildQuery = (address: string) => ({
   queryKey: ['isMine', address],

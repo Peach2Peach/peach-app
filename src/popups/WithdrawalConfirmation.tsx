@@ -3,7 +3,7 @@ import { Text } from '../components'
 import { BTCAmount, ShortBitcoinAddress } from '../components/bitcoin'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { thousands } from '../utils/string'
+import { thousands } from '../utils/string/thousands'
 
 type Props = {
   amount: number

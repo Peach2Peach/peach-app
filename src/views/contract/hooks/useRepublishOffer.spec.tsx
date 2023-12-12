@@ -8,7 +8,7 @@ import { useRepublishOffer } from './useRepublishOffer'
 const reviveSellOfferMock = jest.spyOn(peachAPI.private.offer, 'republishSellOffer')
 
 const getSellOfferFromContractMock = jest.fn()
-jest.mock('../../../utils/contract', () => ({
+jest.mock('../../../utils/contract/getSellOfferFromContract', () => ({
   getSellOfferFromContract: (contract: Contract) => getSellOfferFromContractMock(contract),
 }))
 
