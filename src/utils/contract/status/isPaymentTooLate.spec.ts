@@ -1,4 +1,4 @@
-import { contract } from '../../../../tests/unit/data/contractData'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { isPaymentTooLate } from './isPaymentTooLate'
 describe('isPaymentTooLate', () => {
   const dateNowSpy = jest.spyOn(Date, 'now')

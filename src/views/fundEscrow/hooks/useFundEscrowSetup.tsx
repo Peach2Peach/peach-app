@@ -12,7 +12,6 @@ import { useSyncWallet } from '../../wallet/hooks/useSyncWallet'
 import { getFundingAmount } from '../helpers/getFundingAmount'
 import { useHandleFundingStatus } from './useHandleFundingStatus'
 
-const MIN_LOADING_TIME = 1000
 const shouldGetFundingStatus = (offer: SellOffer) =>
   !!offer.escrow && !offer.refunded && !offer.released && offer.funding.status !== 'FUNDED'
 

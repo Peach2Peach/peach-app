@@ -92,6 +92,7 @@ describe('Match', () => {
       paymentDataSignature,
       symmetricKeyEncrypted: undefined,
       symmetricKeySignature: undefined,
+      instantTrade: false,
     })
   }, 10000)
 })

@@ -1,5 +1,5 @@
 import { renderHook, responseUtils, waitFor } from 'test-utils'
-import { contract } from '../../../tests/unit/data/contractData'
+import { contract } from '../../../peach-api/src/testData/contract'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { peachAPI } from '../../utils/peachAPI'
 import { useContractDetails } from './useContractDetails'

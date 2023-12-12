@@ -69,7 +69,6 @@ describe('useFundEscrowSetup', () => {
 
     expect(result.current).toEqual({
       offerId: sellOffer.id,
-      isLoading: true,
       fundingAddress: undefined,
       fundingAddresses: [],
       fundingStatus: defaultFundingStatus,
@@ -93,26 +92,12 @@ describe('useFundEscrowSetup', () => {
 
     expect(result.current).toEqual({
       offerId: sellOfferWithEscrow.id,
-      isLoading: true,
       fundingAddress: sellOfferWithEscrow.escrow,
       fundingAddresses: [sellOfferWithEscrow.escrow],
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOfferWithEscrow.amount,
       cancelOffer: expect.any(Function),
     })
-  })
-  it('should show loading for at least 1 second', () => {
-    getOfferDetailsMock.mockResolvedValueOnce({ result: { ...sellOffer, escrow: undefined }, ...responseUtils })
-    const { result } = renderHook(useFundEscrowSetup)
-    expect(result.current.isLoading).toBeTruthy()
-    act(() => {
-      jest.advanceTimersByTime(999)
-    })
-    expect(result.current.isLoading).toBeTruthy()
-    act(() => {
-      jest.advanceTimersByTime(1)
-    })
-    expect(result.current.isLoading).toBeFalsy()
   })
   it('should show error banner if there is an error with the funding status', () => {
     useFundingStatusMock.mockReturnValueOnce({
@@ -131,7 +116,6 @@ describe('useFundEscrowSetup', () => {
     const { result } = renderHook(useFundEscrowSetup)
     expect(result.current).toEqual({
       offerId: sellOffer.id,
-      isLoading: true,
       fundingAddress: undefined,
       fundingAddresses: [undefined],
       fundingStatus: defaultFundingStatus,
@@ -145,7 +129,6 @@ describe('useFundEscrowSetup', () => {
     const { result } = renderHook(useFundEscrowSetup)
     expect(result.current).toEqual({
       offerId: sellOffer.id,
-      isLoading: true,
       fundingAddress: 'escrow',
       fundingAddresses: ['escrow'],
       fundingStatus: defaultFundingStatus,

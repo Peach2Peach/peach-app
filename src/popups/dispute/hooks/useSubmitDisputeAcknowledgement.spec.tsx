@@ -1,6 +1,6 @@
 import { Keyboard } from 'react-native'
 import { renderHook, waitFor } from 'test-utils'
-import { contract } from '../../../../tests/unit/data/contractData'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { defaultAccount, setAccount } from '../../../utils/account/account'

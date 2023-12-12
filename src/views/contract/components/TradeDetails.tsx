@@ -40,6 +40,7 @@ export const TradeDetails = () => {
         </Fragment>
       ))}
 
+      {/** TODO: Do not hide but just prevent changing */}
       {view === 'buyer' && !contract.paymentMade && (
         <>
           <HorizontalLine />

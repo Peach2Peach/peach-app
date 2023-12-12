@@ -121,13 +121,6 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
 </Screen>
 `;
 
-exports[`FundEscrow should show Loading, while escrow creation is pending 1`] = `
-<BitcoinLoading
-  text="creating escrow,
-one sec..."
-/>
-`;
-
 exports[`FundEscrow should show Loading, while escrow is not defined 1`] = `
 <BitcoinLoading
   text="creating escrow,

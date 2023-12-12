@@ -115,4 +115,5 @@ export const matchOffer: Match = {
   unavailable: {
     exceedsLimit: [],
   },
+  instantTrade: false,
 }

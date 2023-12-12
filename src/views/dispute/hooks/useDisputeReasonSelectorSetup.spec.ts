@@ -1,6 +1,6 @@
 import { renderHook } from 'test-utils'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { account1 } from '../../../../tests/unit/data/accountData'
-import { contract } from '../../../../tests/unit/data/contractData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { setAccount } from '../../../utils/account'

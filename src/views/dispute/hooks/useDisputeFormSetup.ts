@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
+import { Contract } from '../../../../peach-api/src/@types/contract'
 import { useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
@@ -45,7 +46,7 @@ export const useDisputeFormSetup = (contract: Contract) => {
     })
     if (disputeRaised) {
       navigation.navigate('contractChat', { contractId })
-      disputeRaisedPopup(getContractViewer(contract, account))
+      disputeRaisedPopup(getContractViewer(contract.seller.id, account))
     } else {
       showErrorBanner(disputeRaisedError?.error)
     }

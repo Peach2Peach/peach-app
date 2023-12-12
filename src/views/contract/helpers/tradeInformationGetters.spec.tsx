@@ -1,7 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import { Pressable } from 'react-native'
 import { fireEvent, render } from 'test-utils'
-import { contract } from '../../../../tests/unit/data/contractData'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { isTradeInformationGetter, tradeInformationGetters } from './tradeInformationGetters'

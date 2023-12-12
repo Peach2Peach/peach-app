@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
+import { Contract } from '../../../peach-api/src/@types/contract'
 import { Input, PeachScrollView, Screen } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
