@@ -58,9 +58,7 @@ export function usePublishOffer (offerDraft: BuyOfferDraft) {
         index: 1,
         routes: [
           { name: 'homeScreen', params: { screen: 'yourTrades' } },
-          !hasSeenGroupHugAnnouncement
-            ? { name: 'groupHugAnnouncement', params: { offerId } }
-            : { name: 'offerPublished', params: { offerId, shouldGoBack: true } },
+          { name: !hasSeenGroupHugAnnouncement ? 'groupHugAnnouncement' : 'explore', params: { offerId } },
         ],
       })
     },

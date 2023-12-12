@@ -1,10 +1,11 @@
-import { getNavigationDestinationForOffer } from '..'
+import { getNavigationDestinationForOffer } from './getNavigationDestinationForOffer'
 
 describe('getNavigationDestinationForOffer', () => {
   it('should navigate to offer', () => {
     const [destination, params] = getNavigationDestinationForOffer({
       id: '3',
       tradeStatus: 'offerCanceled',
+      type: 'bid',
     })
 
     expect(destination).toBe('offer')
@@ -14,6 +15,7 @@ describe('getNavigationDestinationForOffer', () => {
     const [destination, params] = getNavigationDestinationForOffer({
       id: '3',
       tradeStatus: 'hasMatchesAvailable',
+      type: 'ask',
     })
 
     expect(destination).toBe('search')
@@ -23,6 +25,7 @@ describe('getNavigationDestinationForOffer', () => {
     const [destination, params] = getNavigationDestinationForOffer({
       id: '3',
       tradeStatus: 'fundEscrow',
+      type: 'ask',
     })
 
     expect(destination).toBe('fundEscrow')
@@ -31,6 +34,7 @@ describe('getNavigationDestinationForOffer', () => {
     const [destination2, params2] = getNavigationDestinationForOffer({
       id: '4',
       tradeStatus: 'escrowWaitingForConfirmation',
+      type: 'ask',
     })
 
     expect(destination2).toBe('fundEscrow')
@@ -40,6 +44,7 @@ describe('getNavigationDestinationForOffer', () => {
     const [destination, params] = getNavigationDestinationForOffer({
       id: '3',
       tradeStatus: 'fundingAmountDifferent',
+      type: 'ask',
     })
 
     expect(destination).toBe('wrongFundingAmount')
@@ -49,6 +54,7 @@ describe('getNavigationDestinationForOffer', () => {
     const [destination, params] = getNavigationDestinationForOffer({
       id: '3',
       tradeStatus: 'dispute',
+      type: 'ask',
     })
 
     expect(destination).toBe('homeScreen')
