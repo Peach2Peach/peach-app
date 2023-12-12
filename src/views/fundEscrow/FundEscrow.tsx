@@ -1,5 +1,5 @@
 import { networks } from 'bitcoinjs-lib'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { View } from 'react-native'
 import {
   BitcoinAddress,
@@ -105,15 +105,18 @@ function FundFromPeachWalletButton (props: Props) {
   const { offerId } = useRoute<'fundEscrow'>().params
   const fundFromPeachWallet = useFundFromPeachWallet()
   const fundedFromPeachWallet = useWalletState((state) => state.isFundedFromPeachWallet(props.address))
+  const [isFunding, setIsFunding] = useState(false)
 
-  const onButtonPress = () =>
+  const onButtonPress = () => {
+    setIsFunding(true)
     fundFromPeachWallet({
       offerId,
       amount: props.amount,
       fundingStatus: props.fundingStatus.status,
       address: props.address,
       addresses: props.addresses,
-    })
+    }).then(() => setIsFunding(false))
+  }
 
   return (
     <>
@@ -123,7 +126,7 @@ function FundFromPeachWalletButton (props: Props) {
           IconComponent={<Icon id="checkCircle" size={16} color={tw.color('success-main')} />}
         />
       ) : (
-        <Button ghost textColor={tw`text-primary-main`} iconId="sell" onPress={onButtonPress}>
+        <Button ghost textColor={tw`text-primary-main`} iconId="sell" onPress={onButtonPress} loading={isFunding}>
           {i18n('fundFromPeachWallet.button')}
         </Button>
       )}
