@@ -1,6 +1,6 @@
 import { deepStrictEqual } from 'assert'
 import * as chatData from '../../../tests/unit/data/chatData'
-import { defaultAccount, setAccount } from '../account'
+import { defaultAccount, setAccount } from '../account/account'
 import { getUnsentMessages } from './getUnsentMessages'
 import { saveChat } from './saveChat'
 

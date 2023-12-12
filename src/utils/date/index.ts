@@ -1,6 +1,0 @@
-export { getDateSuffix } from './getDateSuffix'
-export { getDateToDisplay } from './getDateToDisplay'
-export { getShortDateFormat } from './getShortDateFormat'
-export { toDateFormat } from './toDateFormat'
-export { toShortDateFormat } from './toShortDateFormat'
-export { toTimeFormat } from './toTimeFormat'

@@ -8,7 +8,8 @@ import { useMemo, useState } from 'react'
 
 import { Button } from '../../components/buttons/Button'
 import { headerIcons } from '../../utils/layout/headerIcons'
-import { countrySupportsCurrency, getPaymentMethodInfo } from '../../utils/paymentMethod'
+import { countrySupportsCurrency } from '../../utils/paymentMethod/countrySupportsCurrency'
+import { getPaymentMethodInfo } from '../../utils/paymentMethod/getPaymentMethodInfo'
 import { usePaymentMethodLabel } from './hooks'
 
 export const SelectCountry = () => {

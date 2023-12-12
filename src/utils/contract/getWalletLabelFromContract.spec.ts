@@ -1,7 +1,7 @@
 import { contract } from '../../../peach-api/src/testData/contract'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { setAccount } from '../account'
+import { setAccount } from '../account/account'
 import { PeachWallet } from '../wallet/PeachWallet'
 import { setPeachWallet } from '../wallet/setWallet'
 import { getSellOfferIdFromContract } from './getSellOfferIdFromContract'

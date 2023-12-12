@@ -1,6 +1,7 @@
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
-import { groupChars, priceFormat } from '../../../utils/string'
+import { groupChars } from '../../../utils/string/groupChars'
+import { priceFormat } from '../../../utils/string/priceFormat'
 import { BTCAmount } from '../../bitcoin/btcAmount/BTCAmount'
 import { Text } from '../../text'
 import { FixedHeightText } from '../../text/FixedHeightText'

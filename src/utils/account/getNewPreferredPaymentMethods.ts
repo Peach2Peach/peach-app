@@ -1,4 +1,4 @@
-import { keys } from '../object'
+import { keys } from '../object/keys'
 
 export const getNewPreferredPaymentMethods = (
   preferredPaymentMethods: Partial<Record<PaymentMethod, string>>,

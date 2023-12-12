@@ -12,7 +12,7 @@ import i18n from '../../utils/i18n'
 import { messageShadow } from '../../utils/layout/shadows'
 import { error } from '../../utils/log'
 import { parseError } from '../../utils/result/parseError'
-import { isNetworkError } from '../../utils/system'
+import { isNetworkError } from '../../utils/system/isNetworkError'
 import { iconMap } from './iconMap'
 import { useMessageState } from './useMessageState'
 

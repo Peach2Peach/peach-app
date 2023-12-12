@@ -2,7 +2,7 @@ import { Linking } from 'react-native'
 import { renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../tests/unit/data/accountData'
 import { resetMock } from '../../tests/unit/helpers/NavigationWrapper'
-import { defaultAccount, setAccount } from '../utils/account'
+import { defaultAccount, setAccount } from '../utils/account/account'
 import { useDynamicLinks } from './useDynamicLinks'
 
 const removeMock = jest.fn()

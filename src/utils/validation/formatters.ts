@@ -1,12 +1,10 @@
 import { z } from 'zod'
-import {
-  enforceBICFormat,
-  enforceBankNumberFormat,
-  enforceIBANFormat,
-  enforcePhoneFormat,
-  enforceSortCodeFormat,
-  enforceUsernameFormat,
-} from '../format'
+import { enforceBICFormat } from '../format/enforceBICFormat'
+import { enforceBankNumberFormat } from '../format/enforceBankNumberFormat'
+import { enforceIBANFormat } from '../format/enforceIBANFormat'
+import { enforcePhoneFormat } from '../format/enforcePhoneFormat'
+import { enforceSortCodeFormat } from '../format/enforceSortCodeFormat'
+import { enforceUsernameFormat } from '../format/enforceUsernameFormat'
 import { enforceWalletFormat } from '../format/enforceWalletFormat'
 
 export const Formatter = z.enum([

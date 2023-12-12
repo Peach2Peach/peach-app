@@ -1,5 +1,6 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { getOffer, isSellOffer } from '../offer'
+import { getOffer } from '../offer/getOffer'
+import { isSellOffer } from '../offer/isSellOffer'
 import { isDefined } from '../validation/isDefined'
 import { getTxDefaultLabel } from './getTxDefaultLabel'
 import { useWalletState } from './walletStore'

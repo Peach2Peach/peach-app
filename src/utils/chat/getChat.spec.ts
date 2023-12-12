@@ -1,6 +1,5 @@
 import { chat1 } from '../../../tests/unit/data/chatData'
-import { defaultAccount, setAccount } from '../account'
-import { useAccountStore } from '../account/account'
+import { defaultAccount, setAccount, useAccountStore } from '../account/account'
 import { getChat } from './getChat'
 import { saveChat } from './saveChat'
 

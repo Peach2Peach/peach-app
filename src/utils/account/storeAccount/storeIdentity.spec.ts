@@ -1,5 +1,5 @@
-import { defaultAccount, setAccount } from '..'
 import { account1 } from '../../../../tests/unit/data/accountData'
+import { defaultAccount, setAccount } from '../account'
 import { accountStorage } from '../accountStorage'
 import { storeIdentity } from './storeIdentity'
 

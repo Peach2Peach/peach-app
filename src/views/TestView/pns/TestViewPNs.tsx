@@ -8,7 +8,8 @@ import { TabbedNavigation } from '../../../components/navigation/TabbedNavigatio
 import { useMessageHandler } from '../../../hooks/notifications/useMessageHandler'
 import tw from '../../../styles/tailwind'
 import { useAccountStore } from '../../../utils/account/account'
-import { isBuyOffer, isSellOffer } from '../../../utils/offer'
+import { isBuyOffer } from '../../../utils/offer/isBuyOffer'
+import { isSellOffer } from '../../../utils/offer/isSellOffer'
 
 const useFakePNs = () => {
   const account = useAccountStore((state) => state.account)

@@ -1,5 +1,5 @@
 import { MMKVInstance } from 'react-native-mmkv-storage'
-import { dateTimeReviver } from '../system'
+import { dateTimeReviver } from '../system/dateTimeReviver'
 
 /**
  * @description indexer.maps.getAll() returns an object with keys 0, 1, 2 ... n

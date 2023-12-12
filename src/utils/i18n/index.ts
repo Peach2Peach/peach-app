@@ -14,7 +14,7 @@ import ru from '../../i18n/ru'
 import sw from '../../i18n/sw'
 import tr from '../../i18n/tr'
 import uk from '../../i18n/uk'
-import { keys } from '../object'
+import { keys } from '../object/keys'
 import { getLocaleLanguage } from './getLocaleLanguage'
 
 const localeMapping: Record<string, Record<string, string>> = {

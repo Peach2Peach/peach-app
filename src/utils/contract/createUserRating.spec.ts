@@ -1,5 +1,5 @@
 import { account1 } from '../../../tests/unit/data/accountData'
-import { setAccount } from '../account'
+import { setAccount } from '../account/account'
 import { createUserRating } from './createUserRating'
 
 const signMock = jest.fn().mockReturnValue(Buffer.from('abc'))

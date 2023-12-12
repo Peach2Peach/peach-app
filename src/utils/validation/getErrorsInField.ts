@@ -1,4 +1,4 @@
-import { keys } from '../object'
+import { keys } from '../object/keys'
 import { getMessages } from './getMessages'
 import { Rule, rules } from './rules'
 

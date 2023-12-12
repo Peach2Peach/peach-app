@@ -1,7 +1,8 @@
 import { QueryFunction, useQueries, useQuery } from '@tanstack/react-query'
 import { MSINAMINUTE } from '../../constants'
 import { error } from '../../utils/log'
-import { getOffer, saveOffer } from '../../utils/offer'
+import { getOffer } from '../../utils/offer/getOffer'
+import { saveOffer } from '../../utils/offer/saveOffer'
 import { peachAPI } from '../../utils/peachAPI'
 
 const getOfferQuery: QueryFunction<BuyOffer | SellOffer> = async ({ queryKey }) => {

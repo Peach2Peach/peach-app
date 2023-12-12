@@ -1,4 +1,4 @@
-import { omit } from '../../../utils/object'
+import { omit } from '../../../utils/object/omit'
 import { getPaymentDataInfoFields } from '../../../utils/paymentMethod/getPaymentDataInfoFields'
 import { PaymentDetailInfo } from '../types'
 import { invertPaymentDetailInfo } from './invertPaymentDetailInfo'

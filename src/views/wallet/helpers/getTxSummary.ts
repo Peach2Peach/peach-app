@@ -1,8 +1,10 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { MSINASECOND } from '../../../constants'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
-import { getOffer, isBuyOffer } from '../../../utils/offer'
-import { getTransactionType, txIsConfirmed } from '../../../utils/transaction'
+import { getOffer } from '../../../utils/offer/getOffer'
+import { isBuyOffer } from '../../../utils/offer/isBuyOffer'
+import { getTransactionType } from '../../../utils/transaction/getTransactionType'
+import { txIsConfirmed } from '../../../utils/transaction/txIsConfirmed'
 import { isDefined } from '../../../utils/validation/isDefined'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 

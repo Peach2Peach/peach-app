@@ -1,6 +1,7 @@
 import { NETWORK } from '@env'
 import { sha256 } from 'bitcoinjs-lib/src/crypto'
-import { createWalletFromBase58, getNetwork } from '../wallet'
+import { createWalletFromBase58 } from '../wallet/createWalletFromBase58'
+import { getNetwork } from '../wallet/getNetwork'
 import { getMainAccount } from './getMainAccount'
 
 export const signMessageWithAccount = (message: string, account: Account & { base58: string }) => {

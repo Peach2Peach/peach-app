@@ -11,7 +11,7 @@ import { defaultAccount, useAccountStore } from './account'
 import { updateAccount } from './updateAccount'
 
 const getDeviceLocaleMock = jest.fn((): string | undefined => 'en')
-jest.mock('../system', () => ({
+jest.mock('../system/getDeviceLocale', () => ({
   getDeviceLocale: () => getDeviceLocaleMock(),
 }))
 

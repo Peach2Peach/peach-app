@@ -1,7 +1,6 @@
 import { deepStrictEqual, strictEqual } from 'assert'
 import * as chatData from '../../../tests/unit/data/chatData'
-import { defaultAccount, setAccount } from '../account'
-import { useAccountStore } from '../account/account'
+import { defaultAccount, setAccount, useAccountStore } from '../account/account'
 import { saveChat } from './saveChat'
 
 describe('saveChat', () => {

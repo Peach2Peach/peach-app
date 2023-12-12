@@ -11,7 +11,7 @@ import { showTransaction } from '../../../utils/bitcoin/showTransaction'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getOffer } from '../../../utils/offer/getOffer'
-import { generateBlock } from '../../../utils/regtest'
+import { generateBlock } from '../../../utils/regtest/generateBlock'
 import { getNetwork } from '../../../utils/wallet/getNetwork'
 
 type Props = {

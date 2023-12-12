@@ -10,7 +10,9 @@ import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
-import { getOfferPrice, isSellOffer, offerIdToHex } from '../../utils/offer'
+import { getOfferPrice } from '../../utils/offer/getOfferPrice'
+import { isSellOffer } from '../../utils/offer/isSellOffer'
+import { offerIdToHex } from '../../utils/offer/offerIdToHex'
 import { priceFormat } from '../../utils/string/priceFormat'
 
 export const EditPremium = () => {

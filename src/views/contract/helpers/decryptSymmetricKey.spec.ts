@@ -14,7 +14,7 @@ describe('decryptSymmetricKey', () => {
     const pgpPublicKey = 'pgp public key'
     const symmetricKey = 'symmetric key'
     decryptMock.mockReturnValue(symmetricKey)
-    verifyMock.mockReturnValue(true)
+    verifyMock.mockResolvedValue(true)
     const symmetricKeyResult = await decryptSymmetricKey(symmetricKeyEncrypted, symmetricKeySignature, pgpPublicKey)
     expect(symmetricKeyResult).toEqual(symmetricKey)
   })
@@ -34,7 +34,7 @@ describe('decryptSymmetricKey', () => {
     const pgpPublicKey = 'pgp public key'
     const symmetricKey = 'symmetric key'
     decryptMock.mockReturnValue(symmetricKey)
-    verifyMock.mockReturnValue(false)
+    verifyMock.mockResolvedValue(false)
     const symmetricKeyResult = await decryptSymmetricKey(symmetricKeyEncrypted, symmetricKeySignature, pgpPublicKey)
     expect(symmetricKeyResult).toEqual(symmetricKey)
   })

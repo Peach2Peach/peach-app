@@ -1,8 +1,10 @@
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { getNavigationDestinationForContract } from './getNavigationDestinationForContract'
 
-jest.mock('../contract', () => ({
+jest.mock('../contract/getOfferIdFromContract', () => ({
   getOfferIdFromContract: () => '1',
+}))
+jest.mock('../contract/getSellOfferIdFromContract', () => ({
   getSellOfferIdFromContract: () => '1',
 }))
 

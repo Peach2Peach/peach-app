@@ -1,7 +1,8 @@
 import { checkRefundPSBT } from '../../../utils/bitcoin/checkRefundPSBT'
 import { getSellOfferFromContract } from '../../../utils/contract/getSellOfferFromContract'
 import { peachAPI } from '../../../utils/peachAPI'
-import { getEscrowWalletForOffer, signPSBT } from '../../../utils/wallet'
+import { getEscrowWalletForOffer } from '../../../utils/wallet/getEscrowWalletForOffer'
+import { signPSBT } from '../../../utils/wallet/signPSBT'
 
 export const patchSellOfferWithRefundTx = async (contract: Contract, refundPSBT: string) => {
   const sellOffer = getSellOfferFromContract(contract)
