@@ -16,10 +16,6 @@ describe('linkToAppStoreAndroid', () => {
     jest.spyOn(Linking, 'canOpenURL').mockResolvedValue(true)
   })
 
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
   it('opens the correct URL when installed from Google Play', async () => {
     getInstallerPackageNameSyncMock.mockReturnValueOnce('com.android.vending')
     await linkToAppStoreAndroid()

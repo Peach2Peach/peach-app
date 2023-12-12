@@ -16,7 +16,7 @@ import { getMessageToSignForAddress } from '../../utils/account'
 import { useAccountStore } from '../../utils/account/account'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
-import { postBuyOffer } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 import { isValidBitcoinSignature } from '../../utils/validation'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { useGlobalSortAndFilterPopup } from '../search/hooks/useSortAndFilterPopup'
@@ -132,13 +132,13 @@ function usePublishOffer (offerDraft: BuyOfferDraft) {
       if (!isValidBitcoinSignature(message, releaseAddress, messageSignature)) throw new Error('INAVLID_SIGNATURE')
       const finalizedOfferDraft = { ...offerDraft, releaseAddress, message, messageSignature }
 
-      let [result, err] = await postBuyOffer(finalizedOfferDraft)
+      let { result, error: err } = await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft)
 
       if (err?.error === 'PGP_MISSING') {
         await publishPGPPublicKey()
-        const response = await postBuyOffer(finalizedOfferDraft)
-        result = response[0]
-        err = response[1]
+        const response = await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft)
+        result = response.result
+        err = response.error
       }
       if (result) {
         return result.id
@@ -174,7 +174,7 @@ function usePublishOffer (offerDraft: BuyOfferDraft) {
 
 async function getReleaseAddress (peachWalletActive: boolean, payoutAddress: string | undefined) {
   if (peachWalletActive) {
-    const { address: releaseAddress, index } = await peachWallet.getReceivingAddress()
+    const { address: releaseAddress, index } = await peachWallet.getAddress()
     return { releaseAddress, index }
   }
   return { releaseAddress: payoutAddress, index: undefined }

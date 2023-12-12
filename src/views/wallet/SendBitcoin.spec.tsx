@@ -65,7 +65,7 @@ describe('SendBitcoin', () => {
   })
   it('should update the fee rate on change', () => {
     const { toJSON, getByText } = render(<SendBitcoin />)
-    const mediumFeeButton = getByText('~ 30 minutes  (1 sat/vB)')
+    const mediumFeeButton = getByText('~ 30 minutes  (6 sat/vB)')
     fireEvent.press(mediumFeeButton)
     expect(render(<SendBitcoin />).toJSON()).toMatchDiffSnapshot(toJSON())
   })
@@ -84,7 +84,7 @@ describe('SendBitcoin', () => {
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
     const amountInput = getByTestId('btc-amount-input')
     fireEvent.changeText(amountInput, '1234')
-    const mediumFeeButton = getByText('~ 30 minutes  (1 sat/vB)')
+    const mediumFeeButton = getByText('~ 30 minutes  (6 sat/vB)')
     fireEvent.press(mediumFeeButton)
 
     const withSyncingWallet = toJSON()
@@ -104,7 +104,7 @@ describe('SendBitcoin', () => {
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
     const amountInput = getByTestId('btc-amount-input')
     fireEvent.changeText(amountInput, '1234')
-    const mediumFeeButton = getByText('~ 30 minutes  (1 sat/vB)')
+    const mediumFeeButton = getByText('~ 30 minutes  (6 sat/vB)')
     fireEvent.press(mediumFeeButton)
 
     const slider = getByTestId('confirmSlider')
@@ -119,7 +119,7 @@ describe('SendBitcoin', () => {
           title: 'sending funds',
           content: (
             <WithdrawalConfirmation
-              feeRate={1}
+              feeRate={6}
               address="bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0"
               amount={1234}
               fee={1000}

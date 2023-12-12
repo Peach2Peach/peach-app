@@ -1,5 +1,5 @@
 import { error } from '../../../utils/log'
-import { unmatchOffer } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 
 export const unmatchFn = async (
   offerId: string | undefined,
@@ -7,7 +7,7 @@ export const unmatchFn = async (
   updateMessage: (value: MessageState) => void,
 ) => {
   if (!offerId) throw new Error()
-  const [result, err] = await unmatchOffer({ offerId, matchingOfferId })
+  const { result, error: err } = await peachAPI.private.offer.unmatchOffer({ offerId, matchingOfferId })
   if (result) {
     return result
   }

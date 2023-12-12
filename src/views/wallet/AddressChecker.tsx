@@ -32,7 +32,7 @@ function AddressInfo ({ address }: { address: string }) {
   return (
     <View>
       {isMine === undefined ? (
-        rules.bitcoinAddress(true, address) ? (
+        rules.bitcoinAddress(address) ? (
           <Loading style={tw`w-6 h-6`} />
         ) : (
           <Placeholder style={tw`h-24px`} />

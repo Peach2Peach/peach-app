@@ -1,8 +1,8 @@
-import { cancelContract } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 import { patchSellOfferWithRefundTx } from './patchSellOfferWithRefundTx'
 
 export const cancelContractAsSeller = async (contract: Contract) => {
-  const [result, err] = await cancelContract({ contractId: contract.id })
+  const { result, error: err } = await peachAPI.private.contract.cancelContract({ contractId: contract.id })
 
   if (!result?.success || err) return { result: { sellOffer: undefined }, error: err?.error }
 

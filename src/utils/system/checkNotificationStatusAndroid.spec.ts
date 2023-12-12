@@ -2,9 +2,6 @@ import { checkNotificationStatusAndroid } from './checkNotificationStatusAndroid
 
 describe('checkNotificationStatusAndroid', () => {
   const checkNotifications = jest.spyOn(require('react-native-permissions'), 'checkNotifications')
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
   it('returns true if notifications are enabled', async () => {
     checkNotifications.mockResolvedValueOnce({ status: 'granted' })
 

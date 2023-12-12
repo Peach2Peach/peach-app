@@ -1,4 +1,5 @@
-import { renderHook, waitFor } from 'test-utils'
+import { renderHook, responseUtils, waitFor } from 'test-utils'
+import { peachAPI } from '../../utils/peachAPI'
 import { usePatchOffer } from './usePatchOffer'
 
 const showErrorBannerMock = jest.fn()
@@ -6,10 +7,7 @@ jest.mock('../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
 }))
 
-const patchOfferMock = jest.fn().mockResolvedValue([{ success: true }, null])
-jest.mock('../../utils/peachAPI', () => ({
-  patchOffer: (...args: unknown[]) => patchOfferMock(...args),
-}))
+const patchOfferMock = jest.spyOn(peachAPI.private.offer, 'patchOffer')
 
 jest.useFakeTimers()
 
@@ -31,14 +29,13 @@ describe('usePatchOffer - update Premium', () => {
   })
 
   it('should call showErrorBanner on error', async () => {
-    const error = [, { error: 'errorMessage' }]
-    patchOfferMock.mockReturnValueOnce(Promise.resolve(error))
+    patchOfferMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const newData = { premium: newPremium }
     const { result } = renderHook(() => usePatchOffer(offerId, newData))
     result.current.mutate()
 
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith('errorMessage')
+      expect(showErrorBannerMock).toHaveBeenCalledWith('UNAUTHORIZED')
     })
   })
 })
@@ -61,14 +58,13 @@ describe('usePatchOffer - update MaxPremium', () => {
   })
 
   it('should call showErrorBanner on error', async () => {
-    const error = [, { error: 'errorMessage' }]
-    patchOfferMock.mockReturnValueOnce(Promise.resolve(error))
+    patchOfferMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const newData = { maxPremium: newMaxPremium }
     const { result } = renderHook(() => usePatchOffer(offerId, newData))
     result.current.mutate()
 
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith('errorMessage')
+      expect(showErrorBannerMock).toHaveBeenCalledWith('UNAUTHORIZED')
     })
   })
 })

@@ -1,4 +1,6 @@
+import { responseUtils } from 'test-utils'
 import * as offerData from '../../../../tests/unit/data/offerData'
+import { peachAPI } from '../../../utils/peachAPI'
 import { getError, getResult } from '../../../utils/result'
 import { matchFn } from './matchFn'
 
@@ -28,13 +30,8 @@ const generateMatchOfferDataMock = jest.fn().mockResolvedValue(getResult(default
 jest.mock('./generateMatchOfferData', () => ({
   generateMatchOfferData: () => generateMatchOfferDataMock(),
 }))
-const matchOfferMock = jest.fn(
-  (): Promise<[MatchResponse | null, APIError | null]> =>
-    Promise.resolve([{ ...(offer.paymentData[selectedPaymentMethod] || null), success: true }, null]),
-)
-jest.mock('../../../utils/peachAPI', () => ({
-  matchOffer: () => matchOfferMock(),
-}))
+
+const matchOfferMock = jest.spyOn(peachAPI.private.offer, 'matchOffer')
 
 describe('matchFn', () => {
   it('should return the result if successful', async () => {
@@ -73,7 +70,7 @@ describe('matchFn', () => {
   })
 
   it('should throw an error if no result', async () => {
-    matchOfferMock.mockResolvedValueOnce([null, { error: 'UNKNOWN_ERROR' }])
+    matchOfferMock.mockResolvedValueOnce({ error: { error: 'CANNOT_MATCH' }, ...responseUtils })
     await expect(matchFn(match, offer, selectedCurrency, selectedPaymentMethod, updateMessage)).rejects.toThrow()
   })
 })

@@ -27,7 +27,7 @@ describe('useNetworkFeesSetup', () => {
       estimatedFees,
       selectedFeeRate: 'halfHourFee',
       setSelectedFeeRate: expect.any(Function),
-      customFeeRate: undefined,
+      customFeeRate: '',
       setCustomFeeRate: expect.any(Function),
       submit: expect.any(Function),
       isValid: true,
@@ -49,12 +49,12 @@ describe('useNetworkFeesSetup', () => {
       result.current.setSelectedFeeRate('custom')
       result.current.setCustomFeeRate('0')
     })
-    expect(result.current.customFeeRate).toBeUndefined()
+    expect(result.current.customFeeRate).toBe('')
     expect(result.current.isValid).toBeFalsy()
     act(() => {
       result.current.setCustomFeeRate('abc')
     })
-    expect(result.current.customFeeRate).toBeUndefined()
+    expect(result.current.customFeeRate).toBe('')
     expect(result.current.isValid).toBeFalsy()
   })
   it('returns info whether a new fee rate has been set', () => {

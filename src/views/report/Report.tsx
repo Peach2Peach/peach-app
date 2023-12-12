@@ -32,7 +32,7 @@ export const Report = () => {
     const isFormValid = isEmailValid && isTopicValid && isMessageValid
     if (!isFormValid) return
 
-    const [result, err] = await submitReport({
+    const { result, error: err } = await submitReport({
       email,
       reason: i18n(`contact.reason.${reason}`),
       topic,

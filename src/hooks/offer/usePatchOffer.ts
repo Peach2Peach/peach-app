@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { patchOffer } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 import { useShowErrorBanner } from '../useShowErrorBanner'
 
 type NewData = {
@@ -24,7 +24,7 @@ export const usePatchOffer = (offerId: string, newData: NewData) => {
       return { previousData }
     },
     mutationFn: async () => {
-      const [, error] = await patchOffer({ offerId, ...newData })
+      const { error } = await peachAPI.private.offer.patchOffer({ offerId, ...newData })
       if (error) throw new Error(error.error)
     },
     onError: (err: Error, _variables, context) => {

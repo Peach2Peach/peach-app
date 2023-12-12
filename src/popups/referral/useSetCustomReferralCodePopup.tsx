@@ -9,6 +9,7 @@ import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { redeemReferralCode } from '../../utils/peachAPI'
+import { getMessages } from '../../utils/validation'
 import { ClosePopupAction } from '../actions'
 import { SetCustomReferralCodeSuccess } from './SetCustomReferralCodeSuccess'
 
@@ -22,21 +23,33 @@ export const useSetCustomReferralCodePopup = () => {
   return showCustomReferralCodePopup
 }
 
+const referralCodeRules = {
+  required: true,
+  referralCode: true,
+}
 function CustomReferralCodePopup () {
   const setPopup = usePopupStore((state) => state.setPopup)
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
   const [referralCodeTaken, setReferralCodeTaken] = useState(false)
-  const referralCodeRules = useMemo(
-    () => ({ required: true, referralCode: true, referralCodeTaken }),
-    [referralCodeTaken],
-  )
 
-  const [referralCode, setReferralCode, referralCodeValid, referralCodeErrors] = useValidatedState<string>(
+  const [referralCode, setReferralCode, isValidReferralCode, inputErrors] = useValidatedState<string>(
     '',
     referralCodeRules,
   )
+
+  const referralCodeValid = useMemo(
+    () => isValidReferralCode && !referralCodeTaken,
+    [isValidReferralCode, referralCodeTaken],
+  )
+  const referralCodeErrors = useMemo(() => {
+    let errs = inputErrors
+    if (referralCodeTaken) {
+      errs = [...errs, getMessages().referralCodeTaken]
+    }
+    return errs
+  }, [inputErrors, referralCodeTaken])
 
   const updateReferralCode = useCallback(
     (code: string) => {

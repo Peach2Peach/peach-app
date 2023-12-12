@@ -20,7 +20,7 @@ export const useNetworkFeesSetup = () => {
     typeof feeRate === 'number' ? 'custom' : feeRate,
   )
   const [customFeeRate, setCustomFeeRate, isValidCustomFeeRate] = useValidatedState(
-    typeof feeRate === 'number' ? feeRate.toString() : undefined,
+    typeof feeRate === 'number' ? feeRate.toString() : '',
     customFeeRules,
   )
   const [feeRateSet, setFeeRateSet] = useState(true)
@@ -42,7 +42,7 @@ export const useNetworkFeesSetup = () => {
   }
 
   useEffect(() => {
-    if (!customFeeRate || isNaN(Number(customFeeRate)) || customFeeRate === '0') setCustomFeeRate(undefined)
+    if (!customFeeRate || isNaN(Number(customFeeRate)) || customFeeRate === '0') setCustomFeeRate('')
   }, [customFeeRate, selectedFeeRate, setCustomFeeRate])
 
   useEffect(() => {

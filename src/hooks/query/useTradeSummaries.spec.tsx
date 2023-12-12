@@ -5,11 +5,6 @@ import { useTradeSummaries } from './useTradeSummaries'
 
 jest.useFakeTimers()
 
-jest.mock('../../utils/peachAPI', () => ({
-  getOfferSummaries: jest.fn(() => Promise.resolve([[offerSummary], null])),
-  getContractSummaries: jest.fn(() => Promise.resolve([[contractSummary], null])),
-}))
-
 describe('useTradeSummaries', () => {
   it('should return a list of trade summaries', async () => {
     const { result } = renderHook(useTradeSummaries)

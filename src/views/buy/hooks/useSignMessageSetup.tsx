@@ -4,7 +4,12 @@ import { useNavigation, useValidatedState } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { getMessageToSignForAddress } from '../../../utils/account'
 import { useAccountStore } from '../../../utils/account/account'
+import { getMessages, isValidBitcoinSignature } from '../../../utils/validation'
 import { parseSignature } from '../helpers/parseSignature'
+
+const signatureRules = {
+  required: true,
+}
 
 export const useSignMessageSetup = () => {
   const navigation = useNavigation()
@@ -13,15 +18,24 @@ export const useSignMessageSetup = () => {
     shallow,
   )
   const publicKey = useAccountStore((state) => state.account.publicKey)
-  const message = address ? getMessageToSignForAddress(publicKey, address) : undefined
-  const signatureRules = useMemo(
-    () => ({
-      signature: [address, message],
-      required: true,
-    }),
-    [address, message],
+  const message = useMemo(
+    () => (address ? getMessageToSignForAddress(publicKey, address) : undefined),
+    [address, publicKey],
   )
-  const [signature, setSignature, signatureValid, signatureError] = useValidatedState<string>('', signatureRules)
+  const [signature, setSignature, signatureExists, requiredErrors] = useValidatedState<string>('', signatureRules)
+
+  const signatureValid = useMemo(() => {
+    if (!signatureExists) return false
+    return isValidBitcoinSignature(message || '', address || '', signature)
+  }, [signatureExists, message, address, signature])
+
+  const signatureError = useMemo(() => {
+    let errs = requiredErrors
+    if (!isValidBitcoinSignature(message || '', address || '', signature)) {
+      errs = [...errs, getMessages().signature]
+    }
+    return errs
+  }, [requiredErrors, message, address, signature])
 
   const parseAndSetSignature = (sig: string) => setSignature(parseSignature(sig))
 

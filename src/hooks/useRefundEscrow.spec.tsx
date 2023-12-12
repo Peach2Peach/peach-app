@@ -1,17 +1,13 @@
-import { act, renderHook } from 'test-utils'
+import { act, renderHook, responseUtils } from 'test-utils'
 import { sellOffer } from '../../tests/unit/data/offerData'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
 import { Refund } from '../popups/Refund'
 import { useSettingsStore } from '../store/settingsStore'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
+import { peachAPI } from '../utils/peachAPI'
 import { useRefundEscrow } from './useRefundEscrow'
 
-const getRefundPSBTMock = jest.fn().mockResolvedValue([null, null])
-const refundSellOfferMock = jest.fn()
-jest.mock('../utils/peachAPI', () => ({
-  getRefundPSBT: (...args: unknown[]) => getRefundPSBTMock(...args),
-  refundSellOffer: (...args: unknown[]) => refundSellOfferMock(...args),
-}))
+const refundSellOfferMock = jest.spyOn(peachAPI.private.offer, 'refundSellOffer')
 
 const checkRefundPSBTMock = jest.fn()
 const signAndFinalizePSBTMock = jest.fn()
@@ -44,16 +40,17 @@ jest.mock('../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorMock,
 }))
 
+jest.useFakeTimers()
+
 describe('useRefundEscrow', () => {
   const psbt = 'psbt'
 
   const mockSuccess = () => {
-    getRefundPSBTMock.mockResolvedValueOnce([{ psbt: 'psbt' }, null])
     checkRefundPSBTMock.mockReturnValueOnce({ psbt: 'checkedPsbt', err: null })
     signAndFinalizePSBTMock.mockReturnValueOnce({
       extractTransaction: () => ({ toHex: () => 'hex', getId: () => 'id' }),
     })
-    refundSellOfferMock.mockResolvedValueOnce([null, null])
+    refundSellOfferMock.mockResolvedValueOnce(responseUtils)
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
   }
   beforeEach(() => {
@@ -102,7 +99,6 @@ describe('useRefundEscrow', () => {
   })
 
   it('should handle psbt errors', async () => {
-    getRefundPSBTMock.mockResolvedValueOnce([{ psbt: 'psbt' }, null])
     checkRefundPSBTMock.mockReturnValueOnce({ psbt: 'something went wrong', err: 'error' })
     const { result } = renderHook(useRefundEscrow)
     await act(async () => {
@@ -113,19 +109,18 @@ describe('useRefundEscrow', () => {
   })
 
   it('should handle refund errors', async () => {
-    getRefundPSBTMock.mockResolvedValueOnce([{ psbt: 'psbt' }, null])
     checkRefundPSBTMock.mockReturnValueOnce({ psbt: 'checkedPsbt', err: null })
     signAndFinalizePSBTMock.mockReturnValueOnce({
       extractTransaction: () => ({ toHex: () => 'hex', getId: () => 'id' }),
     })
-    refundSellOfferMock.mockResolvedValueOnce([null, { error: 'error' }])
+    refundSellOfferMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
     useSettingsStore.setState({ peachWalletActive: false })
     const { result } = renderHook(useRefundEscrow)
     await act(async () => {
       await result.current(sellOffer, psbt)
     })
-    expect(showErrorMock).toHaveBeenCalledWith('error')
+    expect(showErrorMock).toHaveBeenCalledWith('UNAUTHORIZED')
     expect(usePopupStore.getState().visible).toEqual(false)
   })
 

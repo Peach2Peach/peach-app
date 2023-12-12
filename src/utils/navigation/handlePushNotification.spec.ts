@@ -2,15 +2,16 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
+import { responseUtils } from '../../../tests/unit/helpers/test-utils'
+import { peachAPI } from '../peachAPI'
 import { Navigation, handlePushNotification } from './handlePushNotification'
 
 type MessageWithData = FirebaseMessagingTypes.RemoteMessage & { data: object }
 
-const getContractMock = jest.fn()
+const getContractMock = jest.spyOn(peachAPI.private.contract, 'getContract')
 const getOfferDetailsMock = jest.fn()
-jest.mock('../peachAPI', () => ({
+jest.mock('../peachAPI/private/offer/getOfferDetails', () => ({
   getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
-  getContract: (...args: unknown[]) => getContractMock(...args),
 }))
 
 const timestamp = 1231006505000
@@ -27,7 +28,6 @@ describe('handlePushNotification', () => {
       },
     } as MessageWithData
 
-    getContractMock.mockResolvedValue([contract])
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
@@ -48,7 +48,7 @@ describe('handlePushNotification', () => {
       },
     } as MessageWithData
 
-    getContractMock.mockResolvedValue([null])
+    getContractMock.mockResolvedValueOnce(responseUtils)
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
@@ -65,7 +65,6 @@ describe('handlePushNotification', () => {
       },
     } as MessageWithData
 
-    getContractMock.mockResolvedValue([contract])
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {

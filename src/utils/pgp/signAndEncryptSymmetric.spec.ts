@@ -13,9 +13,6 @@ describe('signAndEncryptSymmetric', () => {
       },
     })
   })
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
 
   it('signs and encrypts the message', async () => {
     jest.spyOn(OpenPGP, 'sign').mockResolvedValueOnce('signature')

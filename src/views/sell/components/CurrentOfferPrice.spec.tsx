@@ -4,16 +4,6 @@ import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { CurrentOfferPrice } from './CurrentOfferPrice'
 
-const marketPricesMock = jest.fn().mockResolvedValue([
-  {
-    EUR: 21000,
-  },
-  null,
-])
-jest.mock('../../../utils/peachAPI/public/market', () => ({
-  marketPrices: () => marketPricesMock(),
-}))
-
 describe('CurrentOfferPrice', () => {
   afterEach(() => {
     queryClient.clear()

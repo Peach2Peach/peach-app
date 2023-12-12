@@ -38,11 +38,11 @@ export const TestViewPeachWallet = () => {
   const [amount, setAmount] = useState('0')
   const [txId, setTxId] = useState('')
   const getNewAddress = async () => {
-    const newAddress = await peachWallet.getReceivingAddress()
+    const newAddress = await peachWallet.getAddress()
     setAddress(newAddress.address)
   }
   const getNewInternalAddress = async () => {
-    const newAddress = await peachWallet.getNewInternalAddress()
+    const newAddress = await peachWallet.getInternalAddress()
     setAddress(newAddress.address)
   }
   const send = async () => {
@@ -51,7 +51,7 @@ export const TestViewPeachWallet = () => {
     setTxId(await result.txid())
   }
   const refill = async () => {
-    const { address: newAddress } = await peachWallet.getReceivingAddress()
+    const { address: newAddress } = await peachWallet.getAddress()
     fundAddress({ address: newAddress, amount: 1000000 })
   }
 

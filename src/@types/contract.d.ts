@@ -1,5 +1,7 @@
 type ContractAction = 'none' | 'sendPayment' | 'confirmPayment'
-type PaymentReminder = 'fourHours' | 'oneHour' | 'final'
+type PaymentReminder = 'sixHours' | 'oneHour' | 'final'
+
+type TradeParticipant = 'seller' | 'buyer'
 
 type BatchInfo = {
   participants: number
@@ -11,61 +13,72 @@ type BatchInfo = {
 
 type Contract = {
   creationDate: Date
+  lastModified: Date
   id: string
-  seller: User
-  buyer: User
+  seller: PublicUser
+  buyer: PublicUser
 
   symmetricKeyEncrypted: string
   symmetricKeySignature: string
 
   amount: number
   currency: Currency
-  country?: PaymentMethodCountry
-  buyerFee: number
-  sellerFee: number
-
   price: number
+  priceCHF: number
   premium: number
   paymentMethod: PaymentMethod
   paymentDataEncrypted?: string
   paymentDataSignature?: string
+  paymentData?: PaymentData
+  buyerPaymentDataEncrypted: string
+  buyerPaymentDataSignature: string
+  buyerPaymentData?: PaymentData
+  hashedPaymentData: string[]
+  buyerHashedPaymentData: string[]
+  country?: PaymentMethodCountry
 
   paymentMade: Date | null
   paymentConfirmed: Date | null
-  paymentExpectedBy?: Date
+  paymentExpectedBy: Date
   lastReminderSent?: PaymentReminder
-  lastReminderDismissed?: PaymentReminder
-
-  tradeStatus: TradeStatus
-  lastModified: Date
 
   escrow: string
   releaseAddress: string
-  releasePsbt: string
-  batchReleasePsbt?: string
-  batchInfo?: BatchInfo
-  batchId?: string
-  releaseTransaction: string
+  releaseTransaction?: string
   releaseTxId?: string
+
+  releasePsbt: string
+  batchId?: string
 
   disputeActive: boolean
   disputeDate: Date | null
-  disputeInitiator?: string
-  disputeClaim?: string
   disputeReason?: DisputeReason
+  disputeClaim?: string
+  disputeInitiator?: string
   disputeAcknowledgedByCounterParty?: boolean
-  disputeWinner?: DisputeWinner
   disputeOutcome?: DisputeOutcome
+  disputeOutcomeAcknowledgedBy: TradeParticipant[]
+  disputeWinner?: DisputeWinner
   disputeResolvedDate?: Date | null
-  isEmailRequired: boolean
 
-  cancelationRequested: boolean
+  disputeTicketId?: string
+  disputeTicketIdCounterParty?: string
+
+  cancelationRequested?: boolean
   canceled: boolean
   canceledBy?: 'buyer' | 'seller' | 'mediator'
+
   ratingBuyer: 1 | 0 | -1
   ratingSeller: 1 | 0 | -1
-
   messages: number
+
+  buyerFee: number
+  sellerFee: number
+
+  tradeStatus: TradeStatus
+  batchReleasePsbt?: string
+  batchInfo?: BatchInfo
+  isEmailRequired: boolean
   unreadMessages: number
   isChatActive: boolean
 }

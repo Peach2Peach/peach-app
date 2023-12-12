@@ -6,7 +6,7 @@ import { TradeBreakdownPopup } from '../../../popups/TradeBreakdownPopup'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { createUserRating } from '../../../utils/contract'
-import { rateUser } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 
 type Props = {
   contract: Contract
@@ -39,7 +39,7 @@ export const useRateSetup = ({ contract, view, vote }: Props) => {
       vote === 'positive' ? 1 : -1,
     )
 
-    const [, err] = await rateUser({
+    const { error: err } = await peachAPI.private.contract.rateUser({
       contractId: contract.id,
       rating,
       signature,

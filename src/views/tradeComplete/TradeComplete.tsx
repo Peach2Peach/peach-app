@@ -35,7 +35,7 @@ function TradeCompleteView ({ contract }: { contract: Contract }) {
       <View style={tw`items-center justify-center grow`}>
         <View style={tw`justify-center gap-6 grow`}>
           <View style={tw`items-center`}>
-            <Icon id="fullLogo" />
+            <Icon id="fullLogo" style={tw`w-311px h-127px`} />
             <Text style={tw`text-center h5 text-primary-background-light`}>
               {i18n(`tradeComplete.title.${view}.default`)}
             </Text>

@@ -8,13 +8,18 @@ import tw from '../../styles/tailwind'
 import { getTransactionFeeRate } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
-import { getErrorsInField } from '../../utils/validation'
+import { getErrorsInField, getMessages } from '../../utils/validation'
 import { useWalletState } from '../../utils/wallet/walletStore'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { CurrentFee } from './components/bumpNetworkFees/CurrentFee'
 import { FeeEstimates } from './components/bumpNetworkFees/FeeEstimates'
 import { NewFee } from './components/bumpNetworkFees/NewFee'
 import { useBumpFees } from './hooks/useBumpFees'
+
+const newFeeRateRules = {
+  required: true,
+  feeRate: true,
+}
 
 const MIN_EXTRA_FEE_RATE = 1.01
 export const BumpNetworkFees = () => {
@@ -27,8 +32,14 @@ export const BumpNetworkFees = () => {
   const [feeRate, setNewFeeRate] = useState<string>()
   const newFeeRate = feeRate ?? (currentFeeRate + MIN_EXTRA_FEE_RATE).toFixed(2)
 
-  const newFeeRateRules = useMemo(() => ({ min: currentFeeRate + 1, required: true, feeRate: true }), [currentFeeRate])
-  const newFeeRateErrors = useMemo(() => getErrorsInField(newFeeRate, newFeeRateRules), [newFeeRate, newFeeRateRules])
+  const newFeeRateErrors = useMemo(() => {
+    const errs = getErrorsInField(newFeeRate, newFeeRateRules)
+    if (Number(newFeeRate) < currentFeeRate + 1) {
+      errs.push(getMessages().min)
+    }
+    return errs
+  }, [currentFeeRate, newFeeRate])
+
   const newFeeRateIsValid = newFeeRate && newFeeRateErrors.length === 0
   const overpayingBy = Number(newFeeRate) / estimatedFees.fastestFee - 1
   const sendingAmount = localTransaction ? localTransaction.sent - localTransaction.received : 0

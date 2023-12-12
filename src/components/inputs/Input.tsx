@@ -58,7 +58,6 @@ export type InputProps = ComponentProps &
     inputStyle?: ViewStyle | ViewStyle[]
     required?: boolean
     disabled?: boolean
-    disableSubmit?: boolean
     errorMessage?: string[]
     onChange?: (val: string) => void
     onEndEditing?: (val: string) => void
@@ -66,7 +65,6 @@ export type InputProps = ComponentProps &
     onFocus?: () => void
     onBlur?: (val: string | undefined) => void
     reference?: Ref<TextInput>
-    enforceRequired?: boolean
   }
 
 // eslint-disable-next-line max-lines-per-function, complexity
@@ -78,7 +76,6 @@ export const Input = ({
   required = true,
   multiline = false,
   disabled = false,
-  disableSubmit = false,
   errorMessage = [],
   onChange,
   onSubmit,
@@ -91,7 +88,6 @@ export const Input = ({
   autoCorrect = false,
   style,
   inputStyle,
-  enforceRequired = false,
   theme = 'default',
   reference,
   ...inputProps
@@ -119,13 +115,12 @@ export const Input = ({
       setTouched(true)
     }
     : () => null
-  const onSubmitEditing
-    = onSubmit && !disableSubmit
-      ? (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
-        onSubmit(e.nativeEvent.text?.trim())
-        setTouched(true)
-      }
-      : () => null
+  const onSubmitEditing = onSubmit
+    ? (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
+      onSubmit(e.nativeEvent.text?.trim())
+      setTouched(true)
+    }
+    : () => null
   const onFocusHandler = () => (onFocus ? onFocus() : null)
   const onBlurHandler = () => {
     if (onChange && value) onChange(value.trim())
@@ -137,9 +132,9 @@ export const Input = ({
       {!!label && (
         <Text style={[tw`pl-2 input-label`, colors.text]}>
           {label}
-          <Text style={[tw`font-medium input-label`, colors.placeholder]}>
-            {!required ? ` (${i18n('form.optional')})` : enforceRequired ? ` (${i18n('form.required')})` : ''}
-          </Text>
+          {!required && (
+            <Text style={[tw`font-medium input-label`, colors.placeholder]}>{` (${i18n('form.optional')})`}</Text>
+          )}
         </Text>
       )}
       <View

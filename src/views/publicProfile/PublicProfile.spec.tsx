@@ -6,7 +6,7 @@ import { PublicProfile } from './PublicProfile'
 jest.useFakeTimers()
 
 jest.mock('../../utils/peachAPI', () => ({
-  getUser: jest.fn(() => Promise.resolve([defaultUser, null])),
+  peachAPI: jest.requireActual('../../utils/peachAPI').peachAPI,
   getUserStatus: jest.fn(() => Promise.resolve({ isBlocked: false })),
 }))
 jest.mock('../../utils/peachAPI/private/user/getUserStatus', () => ({

@@ -8,10 +8,6 @@ jest.mock('./checkNotificationStatusIOS')
 jest.mock('./isIOS')
 
 describe('checkNotificationStatus', () => {
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
   it('calls checkNotificationStatusIOS if isIOS returns true', async () => {
     (<jest.Mock>isIOS).mockReturnValueOnce(true)
     await checkNotificationStatus()

@@ -36,7 +36,7 @@ describe('PeachJSWallet', () => {
   })
 
   it('finds key pair by address and stores scanned addresses', () => {
-    const address = peachJSWallet.getAddress(3)
+    const address = peachJSWallet._getAddress(3)
 
     if (!address) throw Error()
     const keyPair = peachJSWallet.findKeyPairByAddress(address)

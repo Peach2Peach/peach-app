@@ -1,5 +1,7 @@
+import { responseUtils } from 'test-utils'
 import { useConfigStore } from '../store/configStore/configStore'
 import { usePaymentDataStore } from '../store/usePaymentDataStore'
+import { peachAPI } from '../utils/peachAPI'
 import { getPeachInfo } from './getPeachInfo'
 import { storePeachInfo } from './storePeachInfo'
 
@@ -8,18 +10,15 @@ jest.mock('../paymentMethods', () => ({
   ...jest.requireActual('../paymentMethods'),
   setPaymentMethods: (...args: unknown[]) => setPaymentMethodsMock(...args),
 }))
-const getInfoMock = jest.fn()
-jest.mock('../utils/peachAPI', () => ({
-  getInfo: () => getInfoMock(),
-}))
+const getInfoMock = jest.spyOn(peachAPI.public.system, 'getInfo')
 const calculateClientServerTimeDifferenceMock = jest.fn()
 jest.mock('./calculateClientServerTimeDifference', () => ({
   calculateClientServerTimeDifference: () => calculateClientServerTimeDifferenceMock(),
 }))
 
+jest.useFakeTimers()
 jest.mock('./storePeachInfo')
 
-// eslint-disable-next-line max-lines-per-function
 describe('getPeachInfo', () => {
   const paymentMethods: PaymentMethodInfo[] = [
     {
@@ -37,23 +36,8 @@ describe('getPeachInfo', () => {
 
     useConfigStore.setState({ paymentMethods })
   })
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
   it('returns error response when server is not available', async () => {
     calculateClientServerTimeDifferenceMock.mockResolvedValueOnce(undefined)
-
-    const response = await getPeachInfo()
-
-    expect(response).toEqual(undefined)
-    expect(setPaymentMethodsMock).toHaveBeenCalledWith(paymentMethods)
-    expect(storePeachInfo).not.toHaveBeenCalled()
-  })
-
-  it('returns status response when getInfo returns an error', async () => {
-    const errorResponse = { error: 'error message' }
-    getInfoMock.mockResolvedValueOnce([null, { error: errorResponse }])
 
     const response = await getPeachInfo()
 
@@ -68,15 +52,24 @@ describe('getPeachInfo', () => {
       status: 'online',
       serverTime: Date.now(),
     }
-    const infoResponse = { info: 'info message' }
     calculateClientServerTimeDifferenceMock.mockResolvedValueOnce([serverStatus, null])
-    getInfoMock.mockResolvedValueOnce([infoResponse, null])
-
     const response = await getPeachInfo()
 
     expect(response).toEqual([serverStatus, null])
-    expect(storePeachInfo).toHaveBeenCalledWith(infoResponse)
+    expect(getInfoMock).toHaveBeenCalledTimes(1)
+    expect(storePeachInfo).toHaveBeenCalledWith({ info: 'info' })
   })
+
+  it('returns status response when getInfo returns an error', async () => {
+    getInfoMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
+
+    const response = await getPeachInfo()
+
+    expect(response).toEqual(undefined)
+    expect(setPaymentMethodsMock).toHaveBeenCalledWith(paymentMethods)
+    expect(storePeachInfo).not.toHaveBeenCalled()
+  })
+
   it('updates payment method from store if getInfo does not return a successful response', async () => {
     const serverStatus = {
       error: null,
@@ -84,7 +77,7 @@ describe('getPeachInfo', () => {
       serverTime: Date.now(),
     }
     calculateClientServerTimeDifferenceMock.mockResolvedValueOnce([serverStatus, null])
-    getInfoMock.mockResolvedValueOnce([null, { error: true }])
+    getInfoMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
 
     const response = await getPeachInfo()
 

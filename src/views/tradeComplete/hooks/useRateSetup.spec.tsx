@@ -1,10 +1,10 @@
-import { act, render, renderHook } from 'test-utils'
+import { act, render, renderHook, responseUtils } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
-import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { navigateMock, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
+import { peachAPI } from '../../../utils/peachAPI'
 import { useRateSetup } from './useRateSetup'
 
 const showErrorBannerMock = jest.fn()
@@ -12,10 +12,7 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
 }))
 
-const rateUserMock = jest.fn().mockResolvedValue([apiSuccess, null])
-jest.mock('../../../utils/peachAPI', () => ({
-  rateUser: (...args: unknown[]) => rateUserMock(...args),
-}))
+const rateUserMock = jest.spyOn(peachAPI.private.contract, 'rateUser')
 
 const createUserRatingMock = jest.fn()
 jest.mock('../../../utils/contract', () => ({
@@ -154,7 +151,7 @@ describe('useRateSetup', () => {
   })
   it('handles rating submit error', async () => {
     createUserRatingMock.mockReturnValueOnce(negativeRating)
-    rateUserMock.mockResolvedValueOnce([null, unauthorizedError])
+    rateUserMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const { result } = renderHook(useRateSetup, { initialProps: { ...initialProps, vote: 'negative' } })
     await act(async () => {
       await result.current.rate()
