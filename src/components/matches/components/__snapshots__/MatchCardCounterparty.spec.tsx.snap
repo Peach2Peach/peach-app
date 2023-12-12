@@ -307,9 +307,10 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
             "flexDirection": "row",
             "gap": 2,
             "paddingBottom": 4,
-            "paddingLeft": 6,
-            "paddingRight": 6,
             "paddingTop": 4,
+          },
+          {
+            "paddingHorizontal": 6,
           },
           {
             "borderColor": "#FCCCB6",
@@ -384,9 +385,10 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
             "flexDirection": "row",
             "gap": 2,
             "paddingBottom": 4,
-            "paddingLeft": 6,
-            "paddingRight": 6,
             "paddingTop": 4,
+          },
+          {
+            "paddingHorizontal": 6,
           },
           {
             "borderColor": "#FCCCB6",
@@ -461,9 +463,10 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
             "flexDirection": "row",
             "gap": 2,
             "paddingBottom": 4,
-            "paddingLeft": 6,
-            "paddingRight": 6,
             "paddingTop": 4,
+          },
+          {
+            "paddingHorizontal": 6,
           },
           {
             "borderColor": "#F56522",
@@ -677,7 +680,7 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
         style={
           Array [
             Object {
-@@ -240,289 +110,17 @@
+@@ -240,292 +110,17 @@
               "lineHeight": 24,
             },
             Object {
@@ -745,9 +748,10 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
 -             "flexDirection": "row",
 -             "gap": 2,
 -             "paddingBottom": 4,
--             "paddingLeft": 6,
--             "paddingRight": 6,
 -             "paddingTop": 4,
+-           },
+-           Object {
+-             "paddingHorizontal": 6,
 -           },
 -           Object {
 -             "borderColor": "#FCCCB6",
@@ -782,10 +786,10 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
 +             "fontSize": 14,
               "letterSpacing": 0.14,
               "lineHeight": 22,
--                   },
+            },
 -                   Object {
 -                     "color": "#FCCCB6",
-            },
+-                   },
 -                 ],
 -                 Object {
 -                   "marginBottom": -40,
@@ -823,9 +827,10 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
 -             "flexDirection": "row",
 -             "gap": 2,
 -             "paddingBottom": 4,
--             "paddingLeft": 6,
--             "paddingRight": 6,
 -             "paddingTop": 4,
+-           },
+-           Object {
+-             "paddingHorizontal": 6,
 -           },
 -           Object {
 -             "borderColor": "#FCCCB6",
@@ -874,7 +879,8 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
 -           }
 -         >
 -           fast trader
--         </Text>
++       new user
+      </Text>
 -       </View>
 -       <test-file-stub
 -         fill="#FCCCB6"
@@ -900,9 +906,10 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
 -             "flexDirection": "row",
 -             "gap": 2,
 -             "paddingBottom": 4,
--             "paddingLeft": 6,
--             "paddingRight": 6,
 -             "paddingTop": 4,
+-           },
+-           Object {
+-             "paddingHorizontal": 6,
 -           },
 -           Object {
 -             "borderColor": "#F56522",
@@ -951,8 +958,7 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
 -           }
 -         >
 -           early adopter
-+       new user
-      </Text>
+-         </Text>
 -       </View>
 -       <test-file-stub
 -         fill="#F56522"

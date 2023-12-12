@@ -495,9 +495,10 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                       "flexDirection": "row",
                       "gap": 2,
                       "paddingBottom": 4,
-                      "paddingLeft": 6,
-                      "paddingRight": 6,
                       "paddingTop": 4,
+                    },
+                    {
+                      "paddingHorizontal": 6,
                     },
                     {
                       "borderColor": "#FCCCB6",
@@ -572,9 +573,10 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                       "flexDirection": "row",
                       "gap": 2,
                       "paddingBottom": 4,
-                      "paddingLeft": 6,
-                      "paddingRight": 6,
                       "paddingTop": 4,
+                    },
+                    {
+                      "paddingHorizontal": 6,
                     },
                     {
                       "borderColor": "#F56522",
@@ -649,9 +651,10 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                       "flexDirection": "row",
                       "gap": 2,
                       "paddingBottom": 4,
-                      "paddingLeft": 6,
-                      "paddingRight": 6,
                       "paddingTop": 4,
+                    },
+                    {
+                      "paddingHorizontal": 6,
                     },
                     {
                       "borderColor": "#F56522",
