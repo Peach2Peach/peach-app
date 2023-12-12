@@ -1,6 +1,6 @@
 import { Bubble } from '../../../../components/bubble'
 import { useNavigateToOfferOrContract } from '../../../../hooks'
-import { offerIdToHex } from '../../../../utils/offer'
+import { offerIdToHex } from '../../../../utils/offer/offerIdToHex'
 
 type Props = {
   offer: OfferSummary

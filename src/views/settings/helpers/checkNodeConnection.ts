@@ -1,8 +1,8 @@
 import { Blockchain } from 'bdk-rn'
 import { BlockChainNames, BlockchainElectrumConfig, BlockchainEsploraConfig } from 'bdk-rn/lib/lib/enums'
 import { info } from '../../../utils/log'
-import { parseError } from '../../../utils/result'
-import { addProtocol } from '../../../utils/web'
+import { parseError } from '../../../utils/result/parseError'
+import { addProtocol } from '../../../utils/web/addProtocol'
 
 const checkElectrumConnection = async (address: string, ssl: boolean) => {
   const config: BlockchainElectrumConfig = {

@@ -1,8 +1,8 @@
 import { View } from 'react-native'
 import { HorizontalLine, Text } from '../components'
-import { BTCAmount } from '../components/bitcoin'
+import { BTCAmount } from '../components/bitcoin/btcAmount/BTCAmount'
 import tw from '../styles/tailwind'
-import { getTradeBreakdown } from '../utils/bitcoin'
+import { getTradeBreakdown } from '../utils/bitcoin/getTradeBreakdown'
 import i18n from '../utils/i18n'
 
 type Props = Pick<Contract, 'releaseTransaction' | 'releaseAddress' | 'amount'>

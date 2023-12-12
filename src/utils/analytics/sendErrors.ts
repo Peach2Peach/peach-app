@@ -1,6 +1,6 @@
 import crashlytics from '@react-native-firebase/crashlytics'
 import { isAirplaneModeSync } from 'react-native-device-info'
-import { appendFile } from '../file'
+import { appendFile } from '../file/appendFile'
 import { info } from '../log'
 
 export const sendErrors = async (errors: Error[]) => {

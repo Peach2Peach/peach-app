@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { View, ViewProps } from 'react-native'
 import tw from '../../styles/tailwind'
-import { getCurrencies } from '../../utils/paymentMethod'
+import { getCurrencies } from '../../utils/paymentMethod/getCurrencies'
 import { PaymentMethod } from '../matches/PaymentMethod'
-import { CurrencySelection } from '../navigation'
+import { CurrencySelection } from '../navigation/CurrencySelection'
 
 type Props = {
   meansOfPayment: MeansOfPayment

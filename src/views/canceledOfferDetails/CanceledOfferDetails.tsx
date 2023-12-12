@@ -1,6 +1,6 @@
 import { Header, Screen, Text } from '../../components'
 import tw from '../../styles/tailwind'
-import { isSellOffer } from '../../utils/offer'
+import { isSellOffer } from '../../utils/offer/isSellOffer'
 
 import { View } from 'react-native'
 import { EscrowButton } from '../../components/EscrowButton'

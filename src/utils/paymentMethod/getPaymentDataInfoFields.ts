@@ -1,5 +1,5 @@
 import { PaymentDataInfoFields } from '../../store/usePaymentDataStore'
-import { isDefined } from '../validation'
+import { isDefined } from '../validation/isDefined'
 
 type ItemWithUnknownValue = { field: PaymentDataField; value?: string }
 type Item = { field: PaymentDataField; value: string }

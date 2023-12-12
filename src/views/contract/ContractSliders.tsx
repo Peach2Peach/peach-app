@@ -7,7 +7,7 @@ import { getSellOfferFromContract, verifyAndSignReleaseTx } from '../../utils/co
 import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
-import { getEscrowWalletForOffer } from '../../utils/wallet'
+import { getEscrowWalletForOffer } from '../../utils/wallet/getEscrowWalletForOffer'
 import { useContractContext } from './context'
 import { useContractMutation } from './hooks/useContractMutation'
 import { useReleaseEscrow } from './hooks/useReleaseEscrow'

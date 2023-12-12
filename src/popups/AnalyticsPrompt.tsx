@@ -1,7 +1,7 @@
 import { Text } from '../components'
 import tw from '../styles/tailwind'
 import i18n, { languageState } from '../utils/i18n'
-import { getLocalizedLink } from '../utils/web'
+import { getLocalizedLink } from '../utils/web/getLocalizedLink'
 import { openURL } from '../utils/web/openURL'
 
 export const AnalyticsPrompt = () => (

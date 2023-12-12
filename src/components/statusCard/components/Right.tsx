@@ -1,11 +1,11 @@
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { groupChars, priceFormat } from '../../../utils/string'
-import { BTCAmount } from '../../bitcoin'
+import { BTCAmount } from '../../bitcoin/btcAmount/BTCAmount'
 import { Text } from '../../text'
 import { FixedHeightText } from '../../text/FixedHeightText'
-import { getPropsWithType } from '../helpers'
 import { StatusCardProps } from '../StatusCard'
+import { getPropsWithType } from '../helpers'
 
 export type Props = Pick<StatusCardProps, 'amount' | 'price' | 'currency' | 'replaced'>
 

@@ -1,8 +1,8 @@
-import { getEventName } from '../events'
 import { getPaymentMethodName } from './getPaymentMethodName'
 
-jest.mock('../events', () => ({
-  getEventName: jest.fn(),
+const getEventNameMock = jest.fn()
+jest.mock('../events/getEventName', () => ({
+  getEventName: (...args: unknown[]) => getEventNameMock(...args),
 }))
 
 describe('getPaymentMethodName', () => {
@@ -12,10 +12,10 @@ describe('getPaymentMethodName', () => {
     const eventName = 'testEvent'
     const expectedName = shortName
 
-    ;(getEventName as jest.Mock).mockReturnValue(shortName)
+    getEventNameMock.mockReturnValue(shortName)
 
     expect(getPaymentMethodName(p)).toEqual(expectedName)
-    expect(getEventName).toHaveBeenCalledWith(eventName)
+    expect(getEventNameMock).toHaveBeenCalledWith(eventName)
   })
 
   it('returns the correct name for non-cash payment methods', () => {

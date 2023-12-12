@@ -2,7 +2,7 @@ import { NETWORK } from '@env'
 import { TouchableOpacity } from 'react-native'
 import { Icon, Text } from '../..'
 import tw from '../../../styles/tailwind'
-import { showAddress } from '../../../utils/bitcoin'
+import { showAddress } from '../../../utils/bitcoin/showAddress'
 import i18n from '../../../utils/i18n'
 
 export const EscrowLink = ({ address }: { address: string }) => (

@@ -2,7 +2,7 @@ import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import i18n from '../../../utils/i18n'
 import { error } from '../../../utils/log'
 import { StackNavigation } from '../../../utils/navigation/handlePushNotification'
-import { isBuyOffer } from '../../../utils/offer'
+import { isBuyOffer } from '../../../utils/offer/isBuyOffer'
 
 export const handleMissingPaymentData = (
   offer: BuyOffer | SellOffer,

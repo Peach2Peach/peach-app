@@ -7,10 +7,10 @@ import { Button } from '../../components/buttons/Button'
 import { useNavigation, useRoute } from '../../hooks'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
-import { getMessageToSignForAddress } from '../../utils/account'
 import { useAccountStore } from '../../utils/account/account'
+import { getMessageToSignForAddress } from '../../utils/account/getMessageToSignForAddress'
 import i18n from '../../utils/i18n'
-import { isValidBitcoinSignature } from '../../utils/validation'
+import { isValidBitcoinSignature } from '../../utils/validation/isValidBitcoinSignature'
 
 export const SelectWallet = () => {
   const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel, payoutAddressSignature]

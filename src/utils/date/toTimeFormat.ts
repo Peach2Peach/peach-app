@@ -1,4 +1,4 @@
-import { isDefined } from '../validation'
+import { isDefined } from '../validation/isDefined'
 
 export const toTimeFormat = (hours: number, minutes: number, seconds?: number) =>
   [

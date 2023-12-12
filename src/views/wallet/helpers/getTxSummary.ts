@@ -3,7 +3,7 @@ import { MSINASECOND } from '../../../constants'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { getOffer, isBuyOffer } from '../../../utils/offer'
 import { getTransactionType, txIsConfirmed } from '../../../utils/transaction'
-import { isDefined } from '../../../utils/validation'
+import { isDefined } from '../../../utils/validation/isDefined'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 
 const mapOfferToOfferData = (type: TransactionType) => (offer: SellOffer | BuyOffer) => {

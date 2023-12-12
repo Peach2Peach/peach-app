@@ -1,4 +1,4 @@
-import { enforceDecimalsFormat } from '../../utils/format'
+import { enforceDecimalsFormat } from '../../utils/format/enforceDecimalsFormat'
 import { Input, InputProps } from './Input'
 
 type Props = InputProps & {

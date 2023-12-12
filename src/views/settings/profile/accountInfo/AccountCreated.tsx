@@ -1,8 +1,8 @@
 import { View } from 'react-native'
 import { Text } from '../../../../components'
 import tw from '../../../../styles/tailwind'
+import { getDateToDisplay } from '../../../../utils/date/getDateToDisplay'
 import i18n from '../../../../utils/i18n'
-import { getDateToDisplay } from '../../../../utils/date'
 
 type Props = ComponentProps & {
   creationDate: Date

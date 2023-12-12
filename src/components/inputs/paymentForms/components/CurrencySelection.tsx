@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { getPaymentMethodInfo } from '../../../../utils/paymentMethod'
+import { getPaymentMethodInfo } from '../../../../utils/paymentMethod/getPaymentMethodInfo'
 import { Text } from '../../../text'
 import { CurrencyItem } from '../../CurrencyItem'
 

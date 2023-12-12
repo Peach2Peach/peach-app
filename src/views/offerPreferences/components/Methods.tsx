@@ -5,7 +5,7 @@ import { useNavigation } from '../../../hooks'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { hasMopsConfigured } from '../../../utils/offer'
+import { hasMopsConfigured } from '../../../utils/offer/hasMopsConfigured'
 import { Section } from './Section'
 
 export function Methods ({ type }: { type: 'buy' | 'sell' }) {

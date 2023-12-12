@@ -3,7 +3,7 @@ import { Text } from '../../../../components'
 import { Button } from '../../../../components/buttons/Button'
 import { useSettingsStore } from '../../../../store/settingsStore'
 import tw from '../../../../styles/tailwind'
-import { toShortDateFormat } from '../../../../utils/date'
+import { toShortDateFormat } from '../../../../utils/date/toShortDateFormat'
 import i18n from '../../../../utils/i18n'
 
 type Props = { next: () => void }

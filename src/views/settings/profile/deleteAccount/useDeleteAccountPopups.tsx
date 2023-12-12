@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { usePopupStore } from '../../../../store/usePopupStore'
-import { deleteAccount } from '../../../../utils/account'
 import { useAccountStore } from '../../../../utils/account/account'
+import { deleteAccount } from '../../../../utils/account/deleteAccount'
 import i18n from '../../../../utils/i18n'
 import { peachAPI } from '../../../../utils/peachAPI'
 import { DeleteAccountPopup } from './DeleteAccountPopup'

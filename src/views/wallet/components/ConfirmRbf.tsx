@@ -1,11 +1,11 @@
 import { View } from 'react-native'
 import { Icon } from '../../../components'
-import { BTCAmount } from '../../../components/bitcoin'
+import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
 import { PeachText } from '../../../components/text/Text'
 import { CENT } from '../../../constants'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { round } from '../../../utils/math'
+import { round } from '../../../utils/math/round'
 
 const NoChangeWarning = () => (
   <View style={tw`flex-row gap-4 items-center`}>

@@ -4,7 +4,7 @@ import { Keyboard, KeyboardAvoidingView, StatusBar, TouchableWithoutFeedback, Vi
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useNavigation } from '../hooks'
 import tw from '../styles/tailwind'
-import { peachyGradient } from '../utils/layout'
+import { peachyGradient } from '../utils/layout/peachyGradient'
 import { isAndroid } from '../utils/system'
 import { DailyTradingLimit } from '../views/settings/profile/DailyTradingLimit'
 import { Header } from './Header'

@@ -1,5 +1,5 @@
 import { Psbt } from 'bitcoinjs-lib'
-import { getNetwork } from '../../utils/wallet'
+import { getNetwork } from '../../utils/wallet/getNetwork'
 import { txIdPartOfPSBT } from './txIdPartOfPSBT'
 
 export const checkRefundPSBT = (

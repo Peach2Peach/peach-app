@@ -1,10 +1,10 @@
+import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../../hooks'
 import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { usePopupStore } from '../../../store/usePopupStore'
-import { removePaymentData } from '../../../utils/account'
+import { removePaymentData } from '../../../utils/account/removePaymentData'
 import i18n from '../../../utils/i18n'
-import { useCallback } from 'react'
 
 export const useDeletePaymentMethod = (id: string) => {
   const navigation = useNavigation()

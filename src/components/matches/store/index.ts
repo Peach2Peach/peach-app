@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { getAvailableMethods } from '../../../utils/match'
+import { getAvailableMethods } from '../../../utils/match/getAvailableMethods'
 import { createMatchSelectors, MatchSelectors } from './createMatchSelectors'
 import { updateMatchSelectors } from './updateMatchSelectors'
 

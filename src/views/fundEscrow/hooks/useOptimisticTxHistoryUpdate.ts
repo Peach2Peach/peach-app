@@ -1,7 +1,7 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { labelAddressByTransaction } from '../../../utils/wallet'
+import { labelAddressByTransaction } from '../../../utils/wallet/labelAddressByTransaction'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 
 // can be removed after sync issue have been resolved

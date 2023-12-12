@@ -15,21 +15,25 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 const rateUserMock = jest.spyOn(peachAPI.private.contract, 'rateUser')
 
 const createUserRatingMock = jest.fn()
-jest.mock('../../../utils/contract', () => ({
+jest.mock('../../../utils/contract/createUserRating', () => ({
   createUserRating: (...args: unknown[]) => createUserRatingMock(...args),
 }))
 
 const showTransactionMock = jest.fn()
+jest.mock('../../../utils/bitcoin/showTransaction', () => ({
+  showTransaction: (...args: unknown[]) => showTransactionMock(...args),
+}))
 const showAddressMock = jest.fn()
+jest.mock('../../../utils/bitcoin/showAddress', () => ({
+  showAddress: (...args: unknown[]) => showAddressMock(...args),
+}))
 const getTradeBreakdownMock = jest.fn((..._args: unknown[]) => ({
   totalAmount: 21000,
   peachFee: 21,
   networkFee: 210,
   amountReceived: 20769,
 }))
-jest.mock('../../../utils/bitcoin', () => ({
-  showTransaction: (...args: unknown[]) => showTransactionMock(...args),
-  showAddress: (...args: unknown[]) => showAddressMock(...args),
+jest.mock('../../../utils/bitcoin/getTradeBreakdown', () => ({
   getTradeBreakdown: (...args: unknown[]) => getTradeBreakdownMock(...args),
 }))
 

@@ -5,7 +5,7 @@ import { App } from './App'
 import { name as appName } from './app.json'
 import { error, info } from './utils/log'
 import { updateUser } from './utils/peachAPI'
-import { parseError } from './utils/result'
+import { parseError } from './utils/result/parseError'
 import { isIOS, isProduction } from './utils/system'
 import { useNotificationStore } from './views/home/notificationsStore'
 

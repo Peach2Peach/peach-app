@@ -3,7 +3,7 @@ import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import { useLanguage } from '../../hooks/useLanguage'
 import tw from '../../styles/tailwind'
-import { sortAlphabetically } from '../../utils/array'
+import { sortAlphabetically } from '../../utils/array/sortAlphabetically'
 import i18n from '../../utils/i18n'
 
 export const Language = () => {

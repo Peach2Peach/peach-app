@@ -3,8 +3,8 @@ import { useShowHelp } from '../../../../hooks'
 import { useFeeEstimates } from '../../../../hooks/query/useFeeEstimates'
 import { useTransactionDetails } from '../../../../hooks/query/useTransactionDetails'
 import tw from '../../../../styles/tailwind'
-import { getTransactionFeeRate } from '../../../../utils/bitcoin'
-import { getETAInBlocks } from '../../../../utils/electrum'
+import { getTransactionFeeRate } from '../../../../utils/bitcoin/getTransactionFeeRate'
+import { getETAInBlocks } from '../../../../utils/electrum/getETAInBlocks'
 import i18n from '../../../../utils/i18n'
 
 type Props = {

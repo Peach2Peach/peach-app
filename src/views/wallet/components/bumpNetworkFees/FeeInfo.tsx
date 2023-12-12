@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import { Text } from '../../../../components'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { round } from '../../../../utils/math'
+import { round } from '../../../../utils/math/round'
 
 type Props = {
   label: string

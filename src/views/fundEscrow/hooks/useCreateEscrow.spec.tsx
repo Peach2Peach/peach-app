@@ -1,6 +1,6 @@
 import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
-import { updateAccount } from '../../../utils/account'
+import { updateAccount } from '../../../utils/account/updateAccount'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useCreateEscrow } from './useCreateEscrow'
 

@@ -1,5 +1,5 @@
-import { hasMopsConfigured } from '../../../utils/offer'
-import { isValidPaymentData } from '../../../utils/paymentMethod'
+import { hasMopsConfigured } from '../../../utils/offer/hasMopsConfigured'
+import { isValidPaymentData } from '../../../utils/paymentMethod/isValidPaymentData'
 
 export const validatePaymentMethods = ({
   originalPaymentData,

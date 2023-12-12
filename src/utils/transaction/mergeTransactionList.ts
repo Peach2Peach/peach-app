@@ -1,5 +1,5 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { unique } from '../array'
+import { unique } from '../array/unique'
 import { isPending } from './isPending'
 
 export const mergeTransactionList = (transactions: TransactionDetails[], txUpdate: TransactionDetails[]) =>

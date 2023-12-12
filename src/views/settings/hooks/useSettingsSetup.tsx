@@ -7,7 +7,7 @@ import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../../utils/system'
-import { isDefined } from '../../../utils/validation'
+import { isDefined } from '../../../utils/validation/isDefined'
 import { NotificationPopup } from '../components/NotificationPopup'
 
 const contactUs = isProduction()

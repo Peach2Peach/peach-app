@@ -6,7 +6,7 @@ import {
   transactionWithRBF1,
 } from '../../../../tests/unit/data/transactionDetailData'
 import { MSINASECOND } from '../../../constants'
-import { saveOffer } from '../../../utils/offer'
+import { saveOffer } from '../../../utils/offer/saveOffer'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useTransactionDetailsSetup } from './useTransactionDetailsSetup'
 

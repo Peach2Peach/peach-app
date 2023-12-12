@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { getPaymentMethodName } from '../../utils/paymentMethod'
+import { getPaymentMethodName } from '../../utils/paymentMethod/getPaymentMethodName'
 import { Icon } from '../Icon'
 import { Text } from '../text'
 

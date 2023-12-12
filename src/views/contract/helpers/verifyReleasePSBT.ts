@@ -1,6 +1,6 @@
 import { Psbt } from 'bitcoinjs-lib'
 import { useConfigStore } from '../../../store/configStore/configStore'
-import { txIdPartOfPSBT } from '../../../utils/bitcoin'
+import { txIdPartOfPSBT } from '../../../utils/bitcoin/txIdPartOfPSBT'
 import { releaseTransactionHasValidOutputs } from './releaseTransactionHasValidOutputs'
 
 export const verifyReleasePSBT = (psbt: Psbt, sellOffer?: SellOffer, contract?: Contract) => {

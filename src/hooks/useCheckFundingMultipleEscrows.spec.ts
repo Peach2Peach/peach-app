@@ -7,7 +7,7 @@ import { getTransactionDetails } from '../../tests/unit/helpers/getTransactionDe
 import { MSINAMINUTE } from '../constants'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { defaultAccount, setAccount } from '../utils/account'
-import { sum } from '../utils/math'
+import { sum } from '../utils/math/sum'
 import { PeachWallet } from '../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../utils/wallet/setWallet'
 import { useWalletState } from '../utils/wallet/walletStore'

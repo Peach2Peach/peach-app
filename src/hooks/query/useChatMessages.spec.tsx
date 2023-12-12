@@ -6,7 +6,7 @@ import { peachAPI } from '../../utils/peachAPI'
 import { useChatMessages } from './useChatMessages'
 
 const decryptSymmetricMock = jest.fn().mockImplementation((str) => str)
-jest.mock('../../utils/pgp', () => ({
+jest.mock('../../utils/pgp/decryptSymmetric', () => ({
   decryptSymmetric: (...args: unknown[]) => decryptSymmetricMock(...args),
 }))
 

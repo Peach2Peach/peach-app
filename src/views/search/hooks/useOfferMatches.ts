@@ -7,7 +7,7 @@ import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { getAbortWithTimeout } from '../../../utils/getAbortWithTimeout'
 import { info } from '../../../utils/log'
-import { isBuyOffer } from '../../../utils/offer'
+import { isBuyOffer } from '../../../utils/offer/isBuyOffer'
 import { peachAPI } from '../../../utils/peachAPI'
 
 const PAGESIZE = 10

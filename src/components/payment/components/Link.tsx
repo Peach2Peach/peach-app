@@ -1,6 +1,6 @@
 import { Pressable } from 'react-native'
 import tw from '../../../styles/tailwind'
-import { openAppLink } from '../../../utils/web'
+import { openAppLink } from '../../../utils/web/openAppLink'
 import { Icon } from '../../Icon'
 import { Text } from '../../text'
 

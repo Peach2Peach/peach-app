@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getFeeEstimates } from '../../utils/electrum'
+import { getFeeEstimates } from '../../utils/electrum/getFeeEstimates'
 
 export const placeholderFeeEstimates: ConfirmationTargets = {
   '1': 1,

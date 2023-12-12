@@ -3,7 +3,7 @@ import { Header, Screen } from '../../components'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
+import { headerIcons } from '../../utils/layout/headerIcons'
 import { EmptyTransactionHistory, TxStatusCard } from './components'
 import { useTransactionHistorySetup } from './hooks'
 

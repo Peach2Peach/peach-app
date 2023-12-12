@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 import { TextInput, TextInputProps, View } from 'react-native'
-import { BTCAmount } from '../../components/bitcoin'
+import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import tw from '../../styles/tailwind'
 import { inputContainerStyle, textStyle } from './SellOfferPreferences'
 

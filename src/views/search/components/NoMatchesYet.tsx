@@ -4,7 +4,7 @@ import { BuyOfferSummary, SellOfferSummary } from '../../../components/offer'
 import { WalletLabel } from '../../../components/offer/WalletLabel'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { isBuyOffer } from '../../../utils/offer'
+import { isBuyOffer } from '../../../utils/offer/isBuyOffer'
 import { useOfferMatches } from '../hooks'
 
 type Props = {

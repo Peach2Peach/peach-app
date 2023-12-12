@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Control, FieldError } from 'react-hook-form'
 import { PaymentMethodField } from '../../../peach-api/src/@types/payment'
-import { TabbedNavigation } from '../../components/navigation'
+import { TabbedNavigation } from '../../components/navigation/TabbedNavigation'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { FormInput } from './FormInput'

@@ -3,7 +3,7 @@ import { useNavigation } from '../../../hooks'
 import { useShowWronglyFundedPopup } from '../../../popups/useShowWronglyFundedPopup'
 import { useStartRefundPopup } from '../../../popups/useStartRefundPopup'
 import { info } from '../../../utils/log'
-import { saveOffer } from '../../../utils/offer'
+import { saveOffer } from '../../../utils/offer/saveOffer'
 import { useOfferMatches } from '../../search/hooks'
 
 type Props = {

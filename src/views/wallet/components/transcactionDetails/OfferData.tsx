@@ -5,7 +5,7 @@ import { AmountSummaryItem } from '../../../../components/summaryItem/AmountSumm
 import { useTransactionDetails } from '../../../../hooks/query/useTransactionDetails'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { priceFormat } from '../../../../utils/string'
+import { priceFormat } from '../../../../utils/string/priceFormat'
 
 type OfferDataProps = ComponentProps & {
   price?: number

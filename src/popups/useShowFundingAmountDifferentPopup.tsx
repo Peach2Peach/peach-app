@@ -5,7 +5,7 @@ import { useNavigation } from '../hooks'
 import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { sum } from '../utils/math'
+import { sum } from '../utils/math/sum'
 import { WarningPopup } from './WarningPopup'
 import { FundingAmountDifferent } from './warning/FundingAmountDifferent'
 

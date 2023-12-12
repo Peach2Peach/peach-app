@@ -1,6 +1,6 @@
 import { StyleProp, ViewStyle } from 'react-native'
 import Svg, { Defs, NumberProp, Rect, RadialGradient as SVGRadialGradient, Stop } from 'react-native-svg'
-import { peachyGradient } from '../utils/layout'
+import { peachyGradient } from '../utils/layout/peachyGradient'
 
 export type ColorStop = {
   offset: string

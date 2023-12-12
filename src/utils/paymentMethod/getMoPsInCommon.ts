@@ -1,4 +1,4 @@
-import { intersect } from '../array'
+import { intersect } from '../array/intersect'
 import { keys } from '../object'
 
 export const getMoPsInCommon = (mopsA: MeansOfPayment, mopsB: MeansOfPayment): MeansOfPayment =>

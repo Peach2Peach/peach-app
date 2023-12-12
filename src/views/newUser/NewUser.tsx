@@ -11,7 +11,7 @@ import { useAccountStore } from '../../utils/account/account'
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
 import { getAuthenticationChallenge } from '../../utils/peachAPI/getAuthenticationChallenge'
-import { parseError } from '../../utils/result'
+import { parseError } from '../../utils/result/parseError'
 
 export const NewUser = () => {
   const route = useRoute<'newUser'>()

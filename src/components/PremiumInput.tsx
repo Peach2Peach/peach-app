@@ -1,7 +1,7 @@
 import { TouchableOpacity, View } from 'react-native'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { round } from '../utils/math'
+import { round } from '../utils/math/round'
 import { Icon } from './Icon'
 import { PremiumTextInput } from './PremiumTextInput'
 import Text from './text/Text'

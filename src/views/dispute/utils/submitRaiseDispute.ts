@@ -1,7 +1,7 @@
 import { useConfigStore } from '../../../store/configStore/configStore'
 import { error } from '../../../utils/log'
 import { peachAPI } from '../../../utils/peachAPI'
-import { signAndEncrypt } from '../../../utils/pgp'
+import { signAndEncrypt } from '../../../utils/pgp/signAndEncrypt'
 
 type Props = {
   contract: Contract | undefined

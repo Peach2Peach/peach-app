@@ -1,9 +1,9 @@
 import { NETWORK } from '@env'
 import { crypto } from 'bitcoinjs-lib'
-import { getMainAccount } from '../account'
 import { useAccountStore } from '../account/account'
+import { getMainAccount } from '../account/getMainAccount'
 import { peachAPI } from '../peachAPI'
-import { getWallet } from '../wallet'
+import { getWallet } from '../wallet/getWallet'
 
 export const createUserRating = (userId: User['id'], rating: Rating['rating']): Rating => {
   const keyPair = peachAPI.apiOptions.peachAccount || getMainAccount(getWallet(), NETWORK)

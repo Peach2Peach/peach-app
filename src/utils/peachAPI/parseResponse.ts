@@ -1,5 +1,5 @@
 import { error } from '../log'
-import { parseError } from '../result'
+import { parseError } from '../result/parseError'
 import { dateTimeReviver } from '../system'
 
 export const parseResponse = async <T>(

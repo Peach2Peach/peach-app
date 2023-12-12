@@ -7,7 +7,7 @@ import { deleteAccount, recoverAccount } from '../../../utils/account'
 import { useAccountStore } from '../../../utils/account/account'
 import { decryptAccount } from '../../../utils/account/decryptAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
-import { parseError } from '../../../utils/result'
+import { parseError } from '../../../utils/result/parseError'
 import { setupPeachAccount } from './setupPeachAccount'
 
 const passwordRules = { password: true, required: true }

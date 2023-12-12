@@ -1,7 +1,7 @@
 import { render } from 'test-utils'
 import { WithdrawalConfirmation } from './WithdrawalConfirmation'
 
-jest.mock('../components/bitcoin/btcAmount', () => ({
+jest.mock('../components/bitcoin/btcAmount/BTCAmount', () => ({
   BTCAmount: 'BTCAmount',
 }))
 

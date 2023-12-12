@@ -4,7 +4,7 @@ import { bitcoinTransaction } from '../../../../tests/unit/data/transactionDetai
 import { PopupLoadingSpinner } from '../../../../tests/unit/helpers/PopupLoadingSpinner'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { usePopupStore } from '../../../store/usePopupStore'
-import { getTransactionFeeRate } from '../../../utils/bitcoin'
+import { getTransactionFeeRate } from '../../../utils/bitcoin/getTransactionFeeRate'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'

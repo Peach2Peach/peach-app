@@ -1,6 +1,6 @@
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
-import { hashPaymentData } from '../paymentMethod'
+import { hashPaymentData } from '../paymentMethod/hashPaymentData'
 import { peachAPI } from '../peachAPI'
 import { getSelectedPaymentDataIds } from './getSelectedPaymentDataIds'
 

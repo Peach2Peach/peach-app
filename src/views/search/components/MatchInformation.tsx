@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { Text } from '../../../components'
-import { BTCAmount } from '../../../components/bitcoin'
+import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
 import { getPremiumColor } from '../../../components/matches/utils'
 import { useRoute } from '../../../hooks'
 import tw from '../../../styles/tailwind'

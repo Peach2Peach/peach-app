@@ -4,7 +4,7 @@ import { Icon } from '../../../components/Icon'
 import { PeachText } from '../../../components/text/Text'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { goToShiftCrypto } from '../../../utils/web'
+import { goToShiftCrypto } from '../../../utils/web/goToShiftCrypto'
 
 export const BitcoinProducts = () => (
   <Screen header={i18n('settings.bitcoinProducts')}>

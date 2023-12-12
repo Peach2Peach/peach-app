@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { peachAPI } from '../../../utils/peachAPI'
-import { parseError } from '../../../utils/result'
+import { parseError } from '../../../utils/result/parseError'
 import { getPublicKeyForEscrow, getWallet } from '../../../utils/wallet'
 
 const createEscrowFn = async (offerId: string) => {

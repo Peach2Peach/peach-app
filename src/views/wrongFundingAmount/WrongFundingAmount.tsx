@@ -1,14 +1,14 @@
 import { View } from 'react-native'
 import { Divider, Header, Icon, Screen, Text } from '../../components'
-import { BTCAmount } from '../../components/bitcoin'
-import { RefundEscrowSlider } from '../../components/offer'
+import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
+import { RefundEscrowSlider } from '../../components/offer/RefundEscrowSlider'
 import { useRoute } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { sum } from '../../utils/math'
+import { sum } from '../../utils/math/sum'
 import { isSellOffer, offerIdToHex } from '../../utils/offer'
-import { thousands } from '../../utils/string'
+import { thousands } from '../../utils/string/thousands'
 import { ContinueTradeSlider } from './components/ContinueTradeSlider'
 
 export const WrongFundingAmount = () => {

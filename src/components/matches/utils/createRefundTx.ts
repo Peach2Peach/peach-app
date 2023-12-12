@@ -1,4 +1,4 @@
-import { checkRefundPSBT } from '../../../utils/bitcoin'
+import { checkRefundPSBT } from '../../../utils/bitcoin/checkRefundPSBT'
 import { peachAPI } from '../../../utils/peachAPI'
 import { getEscrowWalletForOffer, signPSBT } from '../../../utils/wallet'
 

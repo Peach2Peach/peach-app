@@ -3,7 +3,7 @@ import { contractSummary } from '../../../../tests/unit/data/contractSummaryData
 import { buyOffer } from '../../../../tests/unit/data/offerData'
 import { confirmed4, confirmed5 } from '../../../../tests/unit/data/transactionDetailData'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
-import { saveOffer } from '../../../utils/offer'
+import { saveOffer } from '../../../utils/offer/saveOffer'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useTransactionHistorySetup } from './useTransactionHistorySetup'
 

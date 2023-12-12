@@ -1,12 +1,12 @@
 import { View } from 'react-native'
 import { Icon, InfoFrame, Loading, Placeholder, Screen } from '../../components'
 import { BitcoinAddressInput } from '../../components/inputs'
-import { TradeInfo } from '../../components/offer'
+import { TradeInfo } from '../../components/offer/TradeInfo'
 import { useValidatedState } from '../../hooks'
 import { useIsMyAddress } from '../../hooks/wallet/useIsMyAddress'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { rules } from '../../utils/validation'
+import { rules } from '../../utils/validation/rules'
 
 const addressRules = {
   bitcoinAddress: true,

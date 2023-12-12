@@ -7,8 +7,8 @@ import tw from '../../styles/tailwind'
 import { getOfferIdFromContract, getPaymentExpectedBy, getRequiredAction } from '../../utils/contract'
 import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../utils/i18n'
-import { isSellOffer } from '../../utils/offer'
-import { isCashTrade } from '../../utils/paymentMethod'
+import { isSellOffer } from '../../utils/offer/isSellOffer'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { ChatButton, NewOfferButton, PayoutPendingButton, ProvideEmailButton } from './ContractButtons'
 import {
   CancelTradeSlider,

@@ -1,10 +1,10 @@
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { ShortBitcoinAddress } from '../bitcoin'
+import i18n from '../../utils/i18n'
+import { ShortBitcoinAddress } from '../bitcoin/ShortBitcoinAddress'
+import { Text } from '../text'
 import { CopyAble } from '../ui'
 import { SummaryItem, SummaryItemProps } from './SummaryItem'
-import i18n from '../../utils/i18n'
-import { Text } from '../text'
 
 type Props = SummaryItemProps & {
   address?: string

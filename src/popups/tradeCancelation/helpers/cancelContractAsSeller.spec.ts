@@ -4,7 +4,7 @@ import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { MSINADAY } from '../../../constants'
 import { peachAPI } from '../../../utils/peachAPI'
-import { getResult } from '../../../utils/result'
+import { getResult } from '../../../utils/result/getResult'
 import { cancelContractAsSeller } from './cancelContractAsSeller'
 
 const cancelContractSuccessWithPSBT = { success: true as const, psbt: 'psbt' }

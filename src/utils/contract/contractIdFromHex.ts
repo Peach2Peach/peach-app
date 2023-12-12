@@ -1,4 +1,4 @@
-import { offerIdFromHex } from '../offer'
+import { offerIdFromHex } from '../offer/offerIdFromHex'
 
 export const contractIdFromHex = (contractIdHex: string) => {
   const contractId = contractIdHex.replace('PC‑', '')

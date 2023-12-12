@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getUTXOId } from '../../../utils/wallet'
+import { getUTXOId } from '../../../utils/wallet/getUTXOId'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 

@@ -2,7 +2,7 @@ import 'react-native-url-polyfill/auto'
 
 import { Text } from '..'
 import tw from '../../styles/tailwind'
-import { getBitcoinAddressParts } from '../../utils/bitcoin'
+import { getBitcoinAddressParts } from '../../utils/bitcoin/getBitcoinAddressParts'
 
 const getAddressParts = (address: string) => {
   const addressParts = getBitcoinAddressParts(address)

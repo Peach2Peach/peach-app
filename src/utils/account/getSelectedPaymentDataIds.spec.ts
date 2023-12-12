@@ -1,7 +1,7 @@
 import { getSelectedPaymentDataIds } from './getSelectedPaymentDataIds'
 
 const getPaymentMethodInfoMock = jest.fn()
-jest.mock('../paymentMethod', () => ({
+jest.mock('../paymentMethod/getPaymentMethodInfo', () => ({
   getPaymentMethodInfo: () => getPaymentMethodInfoMock(),
 }))
 

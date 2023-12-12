@@ -1,5 +1,5 @@
-import { checkRefundPSBT } from '../../../utils/bitcoin'
-import { getSellOfferFromContract } from '../../../utils/contract'
+import { checkRefundPSBT } from '../../../utils/bitcoin/checkRefundPSBT'
+import { getSellOfferFromContract } from '../../../utils/contract/getSellOfferFromContract'
 import { peachAPI } from '../../../utils/peachAPI'
 import { getEscrowWalletForOffer, signPSBT } from '../../../utils/wallet'
 

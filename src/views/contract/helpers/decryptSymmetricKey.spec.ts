@@ -1,10 +1,10 @@
+import OpenPGP from 'react-native-fast-openpgp'
 import { decryptSymmetricKey } from './decryptSymmetricKey'
 
+const verifyMock = jest.spyOn(OpenPGP, 'verify')
 const decryptMock = jest.fn()
-const verifyMock = jest.fn()
-jest.mock('../../../utils/pgp', () => ({
+jest.mock('../../../utils/pgp/decrypt', () => ({
   decrypt: (...args: unknown[]) => decryptMock(...args),
-  verify: (...args: unknown[]) => verifyMock(...args),
 }))
 
 describe('decryptSymmetricKey', () => {

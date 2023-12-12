@@ -1,5 +1,5 @@
-import { postTransaction } from '../electrum'
-import { isDefined } from '../validation'
+import { postTransaction } from '../electrum/postTransaction'
+import { isDefined } from '../validation/isDefined'
 import { useWalletState } from './walletStore'
 
 export const rebroadcastTransactions = (toRebroadcast: string[]) =>
