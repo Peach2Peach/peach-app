@@ -5,7 +5,7 @@ import { horizontalBadgePadding } from '../../components/Badge'
 import { PeachyBackground } from '../../components/PeachyBackground'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Badges } from '../../components/matches/components/Badges'
-import { useBitcoinPrices, useNavigation } from '../../hooks'
+import { useBitcoinPrices, useCancelOffer, useNavigation } from '../../hooks'
 import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -102,11 +102,14 @@ function ExploreHeader () {
   const goToPreferences = () => {
     navigation.navigate('editBuyPreferences', { offerId })
   }
+  const cancelOffer = useCancelOffer(offerId)
+
   return (
     <BuyBitcoinHeader
       icons={[
         { ...headerIcons.buyFilter, onPress: showSortAndFilterPopup },
         { ...headerIcons.buyPreferences, onPress: goToPreferences },
+        { ...headerIcons.cancel, onPress: cancelOffer },
       ]}
     />
   )
