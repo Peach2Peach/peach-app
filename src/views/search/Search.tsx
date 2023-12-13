@@ -31,7 +31,7 @@ function SearchHeader () {
   const showMatchPopup = useShowHelp('matchmatchmatch')
   const showAcceptMatchPopup = useShowHelp('acceptMatch')
   const showSortAndFilterPopup = useSortAndFilterPopup(offerId)
-  const cancelOffer = useCancelOffer(offer)
+  const cancelOffer = useCancelOffer(offerId)
 
   const goToEditPremium = useCallback(() => navigation.navigate('editPremium', { offerId }), [navigation, offerId])
 

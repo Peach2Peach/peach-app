@@ -13,25 +13,27 @@ import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { cancelAndSaveOffer } from '../utils/offer/cancelAndSaveOffer'
 import { isBuyOffer } from '../utils/offer/isBuyOffer'
+import { useOfferDetails } from './query/useOfferDetails'
 import { useNavigation } from './useNavigation'
 import { useShowErrorBanner } from './useShowErrorBanner'
 
-export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) => {
+export const useCancelOffer = (offerId: undefined | string) => {
   const setPopup = usePopupStore((state) => state.setPopup)
 
   const cancelOffer = useCallback(() => {
-    if (!offer) return
-    setPopup(<CancelOfferPopup offer={offer} />)
-  }, [offer, setPopup])
+    if (!offerId) return
+    setPopup(<CancelOfferPopup offerId={offerId} />)
+  }, [offerId, setPopup])
 
   return cancelOffer
 }
 
-function CancelOfferPopup ({ offer }: { offer: BuyOffer | SellOffer }) {
+function CancelOfferPopup ({ offerId }: { offerId: string }) {
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const queryClient = useQueryClient()
+  const { offer } = useOfferDetails(offerId)
 
   const showOfferCanceled = useCallback(() => {
     setPopup(
@@ -59,6 +61,7 @@ function CancelOfferPopup ({ offer }: { offer: BuyOffer | SellOffer }) {
     queryClient.refetchQueries({ queryKey: ['offerSummaries'] })
   }, [navigation, offer, queryClient, showError, showOfferCanceled, startRefund])
 
+  if (!offer) return null
   return (
     <PopupComponent
       title={i18n('offer.cancel.popup.title')}

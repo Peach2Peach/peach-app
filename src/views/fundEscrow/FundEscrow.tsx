@@ -17,12 +17,10 @@ import { Button } from '../../components/buttons/Button'
 import { TradeInfo } from '../../components/offer/TradeInfo'
 import { SATSINBTC } from '../../constants'
 import { useCancelOffer, useRoute, useShowHelp } from '../../hooks'
-import { useMultipleOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useCancelFundMultipleSellOffers } from '../../hooks/useCancelFundMultipleSellOffers'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
-import { isSellOffer } from '../../utils/offer/isSellOffer'
 import { offerIdToHex } from '../../utils/offer/offerIdToHex'
 import { generateBlock } from '../../utils/regtest/generateBlock'
 import { getNetwork } from '../../utils/wallet/getNetwork'
@@ -74,11 +72,8 @@ export const FundEscrow = () => {
 function FundEscrowHeader () {
   const { offerId } = useRoute<'fundEscrow'>().params
   const fundMultiple = useWalletState((state) => state.getFundMultipleByOfferId(offerId))
-  const { offers } = useMultipleOfferDetails(fundMultiple?.offerIds || [offerId])
-  const offer = offers[0]
-  const sellOffer = offer && isSellOffer(offer) ? offer : undefined
   const showHelp = useShowHelp('escrow')
-  const cancelOffer = useCancelOffer(sellOffer)
+  const cancelOffer = useCancelOffer(offerId)
   const cancelFundMultipleOffers = useCancelFundMultipleSellOffers({ fundMultiple })
 
   const memoizedHeaderIcons = useMemo(() => {

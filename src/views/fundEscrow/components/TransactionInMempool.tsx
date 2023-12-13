@@ -10,7 +10,6 @@ import tw from '../../../styles/tailwind'
 import { showTransaction } from '../../../utils/bitcoin/showTransaction'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
-import { getOffer } from '../../../utils/offer/getOffer'
 import { generateBlock } from '../../../utils/regtest/generateBlock'
 import { getNetwork } from '../../../utils/wallet/getNetwork'
 
@@ -49,8 +48,7 @@ export const TransactionInMempool = ({ offerId, txId }: Props) => {
 
 function MempoolHeader ({ offerId }: { offerId: string }) {
   const showHelp = useShowHelp('mempool')
-  const offer = getOffer(offerId)
-  const cancelOffer = useCancelOffer(offer)
+  const cancelOffer = useCancelOffer(offerId)
 
   const memoizedHeaderIcons = useMemo(() => {
     const icons = [
