@@ -29,6 +29,7 @@ const localeMapping: Record<string, Record<string, string>> = {
   sw,
   hu,
   pt,
+  'pt-BR': ptBR,
 }
 
 export type Locale = keyof typeof localeMapping
@@ -41,7 +42,6 @@ export const languageState: LanguageState = {
 }
 if (NETWORK !== 'bitcoin') {
   localeMapping.pl = pl
-  localeMapping['pt-BR'] = ptBR
   localeMapping.ru = ru
   localeMapping.uk = uk
   localeMapping.raw = {}
