@@ -2,6 +2,8 @@
 
 echo "Build android mainnet"
 
+cp .env.mainnet .env.production
+
 react-native bundle --reset-cache --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle
 cd android
 

@@ -2,4 +2,6 @@
 
 echo "Build iOS Testnet"
 
+cp .env.testnet .env.production
+
 NODE_ENV=development react-native bundle --reset-cache --platform ios --entry-file index.js --dev true --bundle-output ios/main.jsbundle --assets-dest ios
