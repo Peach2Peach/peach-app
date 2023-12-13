@@ -1,8 +1,8 @@
 import { forwardRef } from 'react'
 import { TextInput, TextInputProps, View } from 'react-native'
-import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
-import tw from '../../styles/tailwind'
-import { inputContainerStyle, textStyle } from './SellOfferPreferences'
+import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
+import tw from '../../../styles/tailwind'
+import { inputContainerStyle, textStyle } from '../SellOfferPreferences'
 
 export const SatsInputComponent = forwardRef<TextInput, TextInputProps>((props, ref) => (
   <View style={[tw.style(inputContainerStyle), tw`py-2`]}>

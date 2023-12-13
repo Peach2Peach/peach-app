@@ -11,7 +11,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { LoadingScreen } from '../loading/LoadingScreen'
-import { BuyBitcoinHeader } from '../offerPreferences/BuyBitcoinHeader'
+import { BuyBitcoinHeader } from '../offerPreferences/components/BuyBitcoinHeader'
 import { MarketInfo } from '../offerPreferences/components/MarketInfo'
 import { useOfferMatches } from '../search/hooks'
 import { useSortAndFilterPopup } from '../search/hooks/useSortAndFilterPopup'
@@ -100,7 +100,7 @@ function ExploreHeader () {
   const showSortAndFilterPopup = useSortAndFilterPopup(offerId)
   const navigation = useNavigation()
   const goToPreferences = () => {
-    navigation.navigate('buyOfferPreferences', { offerId })
+    navigation.navigate('editBuyPreferences', { offerId })
   }
   return (
     <BuyBitcoinHeader

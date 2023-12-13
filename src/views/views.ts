@@ -1,6 +1,9 @@
 import { Platform } from 'react-native'
 import { MeetupScreen } from '../components/payment/MeetupScreen'
 import { PaymentMethods } from '../components/payment/PaymentMethods'
+import { TestView } from './TestView/TestView'
+import { TestViewPeachWallet } from './TestView/peachWallet'
+import { TestViewPNs } from './TestView/pns'
 import { PaymentMethodForm } from './addPaymentMethod/PaymentMethodForm'
 import { SelectCountry } from './addPaymentMethod/SelectCountry'
 import { SelectCurrency } from './addPaymentMethod/SelectCurrency'
@@ -13,8 +16,14 @@ import { PaymentMade } from './contract/PaymentMade'
 import { ContractChat } from './contractChat/ContractChat'
 import { DisputeForm } from './dispute/DisputeForm'
 import { DisputeReasonSelector } from './dispute/DisputeReasonSelector'
+import { Explore } from './explore/Explore'
+import { MatchDetails } from './explore/MatchDetails'
 import { FundEscrow } from './fundEscrow/FundEscrow'
+import { HomeScreen } from './home/HomeScreen'
 import { NewUser } from './newUser/NewUser'
+import { BuyOfferPreferences } from './offerPreferences/BuyOfferPreferences'
+import { EditBuyPreferences } from './offerPreferences/EditBuyPreferences'
+import { SellOfferPreferences } from './offerPreferences/SellOfferPreferences'
 import { BackupTime } from './overlays/BackupTime'
 import { GroupHugAnnouncement } from './overlays/GroupHugAnnouncement'
 import { NewBadge } from './overlays/NewBadge'
@@ -40,15 +49,6 @@ import { PeachFees } from './settings/aboutPeach/PeachFees'
 import { Socials } from './settings/aboutPeach/Socials'
 import { BackupCreated } from './settings/components/backups/BackupCreated'
 import { MyProfile } from './settings/profile/MyProfile'
-
-import { TestView } from './TestView/TestView'
-import { TestViewPeachWallet } from './TestView/peachWallet'
-import { TestViewPNs } from './TestView/pns'
-import { Explore } from './explore/Explore'
-import { MatchDetails } from './explore/MatchDetails'
-import { HomeScreen } from './home/HomeScreen'
-import { BuyOfferPreferences } from './offerPreferences/BuyOfferPreferences'
-import { SellOfferPreferences } from './offerPreferences/SellOfferPreferences'
 import { TradeComplete } from './tradeComplete/TradeComplete'
 import { UserSource } from './userSource/UserSource'
 import { AddressChecker } from './wallet/AddressChecker'
@@ -106,6 +106,7 @@ const search: ViewType[] = [
   { name: 'matchDetails', component: MatchDetails },
   { name: 'search', component: Search },
   { name: 'editPremium', component: EditPremium },
+  { name: 'editBuyPreferences', component: EditBuyPreferences },
 ]
 
 const trade: ViewType[] = [

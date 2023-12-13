@@ -75,7 +75,10 @@ type OfferPreferencesActions = {
   setBuyOfferFilter: (filter: MatchFilter) => void
   setMaxPremiumFilter: (maxPremium: number | null) => void
   toggleShouldApplyMaxPremium: () => void
+  setShouldApplyMaxPremium: (shouldApplyMaxPremium: boolean) => void
   toggleMinReputationFilter: () => void
+  setMinReputationFilter: (minReputation: number | null) => void
+  setShouldApplyMinReputation: (shouldApplyMinReputation: boolean) => void
   toggleInstantTrade: () => void
   toggleMinTrades: () => void
   toggleMinReputation: () => void
@@ -89,6 +92,7 @@ const storage = createPersistStorage(offerPreferences)
 
 export const useOfferPreferences = create<OfferPreferencesStore>()(
   persist(
+    // eslint-disable-next-line max-lines-per-function
     immer((set, get) => ({
       ...defaultPreferences,
       setBuyAmountRange: (buyAmountRange) => set({ buyAmountRange }),
@@ -144,9 +148,21 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         set((state) => {
           state.filter.buyOffer.shouldApplyMaxPremium = !state.filter.buyOffer.shouldApplyMaxPremium
         }),
+      setShouldApplyMaxPremium: (shouldApplyMaxPremium) =>
+        set((state) => {
+          state.filter.buyOffer.shouldApplyMaxPremium = shouldApplyMaxPremium
+        }),
       toggleMinReputationFilter: () =>
         set((state) => {
-          state.filter.buyOffer.minReputation = state.filter.buyOffer.minReputation === 0 ? 4.5 : 0
+          state.filter.buyOffer.minReputation = state.filter.buyOffer.minReputation === null ? 4.5 : null
+        }),
+      setMinReputationFilter: (minReputation) =>
+        set((state) => {
+          state.filter.buyOffer.minReputation = minReputation
+        }),
+      setShouldApplyMinReputation: (shouldApplyMinReputation) =>
+        set((state) => {
+          state.filter.buyOffer.shouldApplyMinReputation = shouldApplyMinReputation
         }),
       toggleBadge: (badge: Medal) =>
         set((state) => {

@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
-import { useMarketPrices } from '../../hooks'
-import { getTradingAmountLimits } from '../../utils/market/getTradingAmountLimits'
+import { useMarketPrices } from '../../../hooks'
+import { getTradingAmountLimits } from '../../../utils/market/getTradingAmountLimits'
 
 export const useRestrictSatsAmount = (type: 'sell' | 'buy') => {
   const { data } = useMarketPrices()

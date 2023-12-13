@@ -40,19 +40,19 @@ import { useWalletState } from '../../utils/wallet/walletStore'
 import { getFundingAmount } from '../fundEscrow/helpers/getFundingAmount'
 import { useCreateEscrow } from '../fundEscrow/hooks/useCreateEscrow'
 import { useFundFromPeachWallet } from '../fundEscrow/hooks/useFundFromPeachWallet'
-import { SatsInputComponent } from './SatsInputComponent'
 import { FundMultipleOffers } from './components/FundMultipleOffers'
 import { MarketInfo } from './components/MarketInfo'
-import { Methods } from './components/Methods'
+import { PreferenceMethods } from './components/PreferenceMethods'
+import { SatsInputComponent } from './components/SatsInputComponent'
 import { Section } from './components/Section'
 import { Slider, sliderWidth } from './components/Slider'
 import { SliderTrack } from './components/SliderTrack'
-import { trackMin } from './constants'
-import { enforceDigitFormat } from './enforceDigitFormat'
-import { useAmountInBounds } from './useAmountInBounds'
-import { useRestrictSatsAmount } from './useRestrictSatsAmount'
-import { useTrackWidth } from './useTrackWidth'
+import { trackMin } from './utils/constants'
+import { enforceDigitFormat } from './utils/enforceDigitFormat'
 import { publishSellOffer } from './utils/publishSellOffer'
+import { useAmountInBounds } from './utils/useAmountInBounds'
+import { useRestrictSatsAmount } from './utils/useRestrictSatsAmount'
+import { useTrackWidth } from './utils/useTrackWidth'
 
 export function SellOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
@@ -60,7 +60,7 @@ export function SellOfferPreferences () {
     <Screen header={<SellHeader />}>
       <PeachScrollView contentStyle={tw`gap-7`} scrollEnabled={!isSliding}>
         <MarketInfo type="buyOffers" />
-        <Methods type="sell" />
+        <PreferenceMethods type="sell" />
         <CompetingOfferStats />
         <AmountSelector setIsSliding={setIsSliding} />
         <FundMultipleOffersContainer />

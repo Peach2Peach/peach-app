@@ -1,8 +1,8 @@
-import { LogoIcons } from '../../assets/logo'
-import { Header, Text } from '../../components'
-import { HeaderProps } from '../../components/Header'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
+import { LogoIcons } from '../../../assets/logo'
+import { Header, Text } from '../../../components'
+import { HeaderProps } from '../../../components/Header'
+import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 
 export function BuyBitcoinHeader (props: HeaderProps) {
   return (

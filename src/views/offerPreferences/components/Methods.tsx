@@ -2,16 +2,14 @@ import { TouchableOpacity } from 'react-native'
 import { Icon, Text, TouchableIcon } from '../../../components'
 import { MeansOfPayment } from '../../../components/offer/MeansOfPayment'
 import { useNavigation } from '../../../hooks'
-import { useOfferPreferences } from '../../../store/offerPreferenes'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { hasMopsConfigured } from '../../../utils/offer/hasMopsConfigured'
 import { Section } from './Section'
 
-export function Methods ({ type }: { type: 'buy' | 'sell' }) {
+export function Methods ({ type, meansOfPayment }: { type: 'buy' | 'sell'; meansOfPayment: MeansOfPayment }) {
   const navigation = useNavigation()
   const onPress = () => navigation.navigate('paymentMethods')
-  const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment)
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment)
 
   const backgroundColor = type === 'buy' ? tw.color('success-mild-1') : tw.color('primary-background-dark')

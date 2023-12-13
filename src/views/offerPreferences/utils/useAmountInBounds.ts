@@ -1,9 +1,9 @@
 import { useCallback, useMemo } from 'react'
-import { useMarketPrices } from '../../hooks'
-import { getTradingAmountLimits } from '../../utils/market/getTradingAmountLimits'
-import { sectionContainerPadding } from './components/Section'
-import { sliderWidth } from './components/Slider'
-import { horizontalTrackPadding } from './components/SliderTrack'
+import { useMarketPrices } from '../../../hooks'
+import { getTradingAmountLimits } from '../../../utils/market/getTradingAmountLimits'
+import { sectionContainerPadding } from '../components/Section'
+import { sliderWidth } from '../components/Slider'
+import { horizontalTrackPadding } from '../components/SliderTrack'
 import { trackMin } from './constants'
 
 export const useAmountInBounds = (trackWidth: number, type: 'buy' | 'sell') => {
