@@ -6,6 +6,7 @@ import { Header, Screen, Text, TouchableIcon } from '../../components'
 import { PeachyGradient } from '../../components/PeachyGradient'
 import { Button } from '../../components/buttons/Button'
 import { ProgressDonut } from '../../components/ui'
+import { MSINAMINUTE } from '../../constants'
 import { useNavigation } from '../../hooks'
 import { useSelfUser } from '../../hooks/query/useSelfUser'
 import tw from '../../styles/tailwind'
@@ -78,15 +79,32 @@ function DailyMessage () {
 }
 
 function MarketStats () {
-  const data = { openBuyOffers: 0, openSellOffers: 0, averagePremium: 0 }
+  const { data } = useQuery({
+    queryKey: ['market', 'offers', 'stats'],
+    queryFn: async () => {
+      const { result, error } = await peachAPI.public.market.getOffersStats()
+      if (error) throw error
+      return result
+    },
+    placeholderData: {
+      buy: {
+        open: 0,
+      },
+      sell: {
+        open: 0,
+        avgPremium: 0,
+      },
+    },
+    refetchInterval: MSINAMINUTE,
+  })
   return (
     <View style={tw`items-center justify-center pb-4 gap-10px grow`}>
       <View style={tw`items-center gap-1`}>
-        <Text style={tw`subtitle-0 text-success-main`}>{i18n('home.openBuyOffers', String(data.openBuyOffers))}</Text>
-        <Text style={tw`subtitle-0 text-primary-main`}>{i18n('home.openSellOffers', String(data.openSellOffers))}</Text>
+        <Text style={tw`subtitle-0 text-success-main`}>{i18n('home.openBuyOffers', String(data?.buy.open))}</Text>
+        <Text style={tw`subtitle-0 text-primary-main`}>{i18n('home.openSellOffers', String(data?.sell.open))}</Text>
       </View>
       <Text style={tw`subtitle-1`}>
-        {i18n('home.averagePremium')}:<Text style={tw`text-error-main subtitle-1`}> ~{data.averagePremium}%</Text>
+        {i18n('home.averagePremium')}:<Text style={tw`text-error-main subtitle-1`}> {data?.sell.avgPremium}%</Text>
       </Text>
     </View>
   )
