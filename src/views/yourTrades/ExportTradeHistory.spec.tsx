@@ -2,6 +2,7 @@ import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
 import { fireEvent, render, waitFor } from 'test-utils'
 import { tradeSummary } from '../../../tests/unit/data/tradeSummaryData'
+import { MSINAMONTH } from '../../constants'
 import { ExportTradeHistory } from './ExportTradeHistory'
 
 const useTradeSummariesMock = jest.fn((): { tradeSummaries: (OfferSummary | ContractSummary)[] } => ({
@@ -13,12 +14,12 @@ jest.mock('../../hooks/query/useTradeSummaries', () => ({
 }))
 
 describe('ExportTradeHistory', () => {
-  const firstCSVRow = 'Date, Trade ID, Type, Amount, Price\n'
+  const firstCSVRow = 'Date, Trade ID, Type, Amount, Price, Currency\n'
   it('should render correctly', () => {
     const { toJSON } = render(<ExportTradeHistory />)
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should create a csv with date, type, amount, and transaction ID', () => {
+  it('should create a csv with correct columns', () => {
     const { getByText } = render(<ExportTradeHistory />)
     const exportButton = getByText('export')
 
@@ -27,8 +28,12 @@ describe('ExportTradeHistory', () => {
     expect(RNFS.writeFile).toHaveBeenCalledWith('DDirPath//trade-history.csv', firstCSVRow, 'utf8')
   })
   it('should add a row for each transaction', () => {
+    const dateLastTrade = new Date(tradeSummary.lastModified.getTime() - MSINAMONTH)
     useTradeSummariesMock.mockReturnValueOnce({
-      tradeSummaries: [tradeSummary],
+      tradeSummaries: [
+        tradeSummary,
+        { ...tradeSummary, id: '1-2', currency: 'EUR', price: 10, creationDate: dateLastTrade },
+      ],
     })
     const { getByText } = render(<ExportTradeHistory />)
     const exportButton = getByText('export')
@@ -37,7 +42,7 @@ describe('ExportTradeHistory', () => {
 
     expect(RNFS.writeFile).toHaveBeenCalledWith(
       'DDirPath//trade-history.csv',
-      `${firstCSVRow}01/01/2023, P-27D, canceled, 50 000, \n`,
+      `${firstCSVRow}02/12/2022, PC-1-2, sold, 50000, 10.00, EUR\n01/01/2023, P-27D, canceled, 50000, , \n`,
       'utf8',
     )
   })
