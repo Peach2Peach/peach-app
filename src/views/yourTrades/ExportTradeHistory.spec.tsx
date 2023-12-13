@@ -13,12 +13,12 @@ jest.mock('../../hooks/query/useTradeSummaries', () => ({
 }))
 
 describe('ExportTradeHistory', () => {
-  const firstCSVRow = 'Date, Trade ID, Type, Amount, Price\n'
+  const firstCSVRow = 'Date, Trade ID, Type, Amount, Price, Currency\n'
   it('should render correctly', () => {
     const { toJSON } = render(<ExportTradeHistory />)
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should create a csv with date, type, amount, and transaction ID', () => {
+  it('should create a csv with correct columns', () => {
     const { getByText } = render(<ExportTradeHistory />)
     const exportButton = getByText('export')
 
@@ -37,7 +37,7 @@ describe('ExportTradeHistory', () => {
 
     expect(RNFS.writeFile).toHaveBeenCalledWith(
       'DDirPath//trade-history.csv',
-      `${firstCSVRow}01/01/2023, P-27D, canceled, 50 000, \n`,
+      `${firstCSVRow}01/01/2023, P-27D, canceled, 50000, , \n`,
       'utf8',
     )
   })

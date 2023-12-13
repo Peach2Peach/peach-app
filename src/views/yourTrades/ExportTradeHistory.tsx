@@ -5,6 +5,7 @@ import { THOUSANDS_GROUP } from '../../constants'
 import { useWriteCSV } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import tw from '../../styles/tailwind'
+import { sortByKey } from '../../utils/array/sortByKey'
 import { toShortDateFormat } from '../../utils/date/toShortDateFormat'
 import { createCSV } from '../../utils/file/createCSV'
 import i18n from '../../utils/i18n'
@@ -18,7 +19,7 @@ export function ExportTradeHistory () {
   const openShareMenu = useWriteCSV()
 
   const onPress = async () => {
-    const csvValue = createCSVValue(getPastOffers(tradeSummaries))
+    const csvValue = createCSVValue(getPastOffers(tradeSummaries).sort(sortByKey('lastModified')))
     await openShareMenu(csvValue, 'trade-history.csv')
   }
 
@@ -43,22 +44,23 @@ export function ExportTradeHistory () {
 }
 
 function createCSVValue (tradeSummaries: (OfferSummary | ContractSummary)[]) {
-  const headers = ['Date', 'Trade ID', 'Type', 'Amount', 'Price']
+  const headers = ['Date', 'Trade ID', 'Type', 'Amount', 'Price', 'Currency']
   const fields = {
     Date: (d: OfferSummary | ContractSummary) => toShortDateFormat(d.creationDate),
     'Trade ID': (d: OfferSummary | ContractSummary) => getStatusCardProps(d).title.replaceAll('‑', '-'),
     Type: getTradeSummaryType,
     Amount: (d: OfferSummary | ContractSummary) => {
       const { amount } = d
-      return groupChars(String(amount), THOUSANDS_GROUP)
+      return String(amount)
     },
     Price: (d: OfferSummary | ContractSummary) => {
       const tradePrice
         // eslint-disable-next-line max-len
         = 'price' in d ? (d.currency === 'SAT' ? groupChars(String(d.price), THOUSANDS_GROUP) : priceFormat(d.price)) : ''
-      const price = 'price' in d ? `${tradePrice} ${d.currency}` : ''
+      const price = 'price' in d ? `${tradePrice}` : ''
       return price
     },
+    Currency: (d: OfferSummary | ContractSummary) => ('currency' in d ? d.currency : ''),
   }
 
   return createCSV(tradeSummaries, headers, fields)
