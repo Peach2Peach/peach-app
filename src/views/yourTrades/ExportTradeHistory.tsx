@@ -19,7 +19,7 @@ export function ExportTradeHistory () {
   const openShareMenu = useWriteCSV()
 
   const onPress = async () => {
-    const csvValue = createCSVValue(getPastOffers(tradeSummaries).sort(sortByKey('lastModified')))
+    const csvValue = createCSVValue(getPastOffers(tradeSummaries).sort(sortByKey('creationDate')))
     await openShareMenu(csvValue, 'trade-history.csv')
   }
 
