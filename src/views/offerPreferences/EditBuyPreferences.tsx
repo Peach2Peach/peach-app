@@ -34,7 +34,7 @@ const useOfferContext = () => {
 
 export function EditBuyPreferences () {
   const [isSliding, setIsSliding] = useState(false)
-  const offerId = useRoute<'editBuyPreferences'>().params?.offerId
+  const { offerId } = useRoute<'editBuyPreferences'>().params
   const { offer, isLoading } = useOfferDetails(offerId)
   if (offerId && isLoading) return <LoadingScreen />
   if (offer && !isBuyOffer(offer)) throw new Error('Offer is not a buy offer')
@@ -161,7 +161,7 @@ function ShowOffersButton () {
     && offerDraft.amount[1] <= maxAmount
     && offerDraft.amount[0] <= offerDraft.amount[1]
   const formValid = methodsAreValid && rangeIsValid
-  const offerId = useRoute<'editBuyPreferences'>().params?.offerId
+  const { offerId } = useRoute<'editBuyPreferences'>().params
 
   const { mutate: patchOffer, isLoading: isPatching } = usePatchOffer()
   const navigation = useNavigation()
