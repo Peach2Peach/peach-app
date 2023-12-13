@@ -1,5 +1,6 @@
 import { ok } from 'assert'
 import * as accountData from '../../../tests/unit/data/accountData'
+import { offerPreferencesStorage } from '../../store/offerPreferenes/useOfferPreferences'
 import { useSessionStore } from '../../store/sessionStore'
 import { settingsStorage } from '../../store/settingsStore'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
@@ -24,6 +25,7 @@ describe('deleteAccount', () => {
     expect(offerStorage.clearStore).toHaveBeenCalled()
     expect(chatStorage.clearStore).toHaveBeenCalled()
     expect(settingsStorage.clearStore).toHaveBeenCalled()
+    expect(offerPreferencesStorage.clearStore).toHaveBeenCalled()
     expect(usePaymentDataStoreReset).toHaveBeenCalled()
     expect(useSessionStoreReset).toHaveBeenCalled()
     expect(peachAPI.apiOptions.peachAccount).toBeNull()

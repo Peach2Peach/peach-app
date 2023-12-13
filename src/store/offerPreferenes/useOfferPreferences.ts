@@ -87,8 +87,8 @@ type OfferPreferencesActions = {
 
 type OfferPreferencesStore = OfferPreferences & OfferPreferencesActions
 
-const offerPreferences = createStorage('offerPreferences')
-const storage = createPersistStorage(offerPreferences)
+export const offerPreferencesStorage = createStorage('offerPreferences')
+const storage = createPersistStorage(offerPreferencesStorage)
 
 export const useOfferPreferences = create<OfferPreferencesStore>()(
   persist(

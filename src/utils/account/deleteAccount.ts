@@ -1,5 +1,6 @@
 import analytics from '@react-native-firebase/analytics'
 import { useConfigStore } from '../../store/configStore/configStore'
+import { offerPreferencesStorage } from '../../store/offerPreferenes/useOfferPreferences'
 import { useSessionStore } from '../../store/sessionStore'
 import { settingsStorage, useSettingsStore } from '../../store/settingsStore'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
@@ -17,9 +18,15 @@ export const deleteAccount = () => {
   info('Deleting account')
 
   updateAccount(defaultAccount, true)
-  ;[accountStorage, walletStorage, offerStorage, chatStorage, settingsStorage, notificationStorage].forEach((storage) =>
-    storage.clearStore(),
-  )
+  ;[
+    accountStorage,
+    walletStorage,
+    offerPreferencesStorage,
+    offerStorage,
+    chatStorage,
+    settingsStorage,
+    notificationStorage,
+  ].forEach((storage) => storage.clearStore())
   ;[
     useNotificationStore,
     useConfigStore,
