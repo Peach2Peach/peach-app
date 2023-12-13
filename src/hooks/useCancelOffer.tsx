@@ -35,12 +35,6 @@ function CancelOfferPopup ({ offerId }: { offerId: string }) {
   const queryClient = useQueryClient()
   const { offer } = useOfferDetails(offerId)
 
-  const showOfferCanceled = useCallback(() => {
-    setPopup(
-      <GrayPopup title={i18n('offer.canceled.popup.title')} actions={<ClosePopupAction style={tw`justify-center`} />} />,
-    )
-  }, [setPopup])
-
   const startRefund = useStartRefundPopup()
 
   const confirmCancelOffer = useCallback(async () => {
@@ -53,13 +47,18 @@ function CancelOfferPopup ({ offerId }: { offerId: string }) {
     }
 
     if (isBuyOffer(offer) || offer.funding.status === 'NULL' || offer.funding.txIds.length === 0) {
-      showOfferCanceled()
-      navigation.replace('homeScreen', { screen: 'home' })
+      setPopup(
+        <GrayPopup
+          title={i18n('offer.canceled.popup.title')}
+          actions={<ClosePopupAction style={tw`justify-center`} />}
+        />,
+      )
+      navigation.navigate('homeScreen', { screen: 'home' })
     } else {
       startRefund(offer)
     }
     queryClient.refetchQueries({ queryKey: ['offerSummaries'] })
-  }, [navigation, offer, queryClient, showError, showOfferCanceled, startRefund])
+  }, [navigation, offer, queryClient, setPopup, showError, startRefund])
 
   if (!offer) return null
   return (
