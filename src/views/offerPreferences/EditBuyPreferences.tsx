@@ -7,9 +7,7 @@ import { useMarketPrices, useNavigation, useRoute, useToggleBoolean } from '../.
 import { usePatchOffer } from '../../hooks/offer'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useOfferPreferences } from '../../store/offerPreferenes'
-import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
 import { getTradingAmountLimits } from '../../utils/market/getTradingAmountLimits'
 import { interpolate } from '../../utils/math/interpolate'
 import { isBuyOffer } from '../../utils/offer/isBuyOffer'
@@ -126,40 +124,23 @@ function MaxPremiumFilter () {
 
 function ShowOffersButton () {
   // TODO ensure defaults of offer are set
-  const [peachWalletActive, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.payoutAddressLabel],
-    shallow,
-  )
-  const buyOfferPreferences = useOfferPreferences(
+  const { amount, meansOfPayment, paymentData, originalPaymentData, filter } = useOfferPreferences(
     (state) => ({
       amount: state.buyAmountRange,
       meansOfPayment: state.meansOfPayment,
       paymentData: state.paymentData,
       originalPaymentData: state.originalPaymentData,
+      filter: state.filter.buyOffer,
     }),
     shallow,
   )
-  const filter = useOfferPreferences((state) => state.filter.buyOffer)
   const maxPremium = filter.shouldApplyMaxPremium ? filter.maxPremium : null
   const minReputation = filter.shouldApplyMinReputation ? interpolate(filter.minReputation || 0, [0, 5], [-1, 1]) : null
 
-  const offerDraft = {
-    type: 'bid' as const,
-    releaseAddress: '',
-    ...buyOfferPreferences,
-    maxPremium,
-    minReputation,
-    walletLabel: peachWalletActive ? i18n('peachWallet') : payoutAddressLabel,
-  }
-
-  const originalPaymentData = useOfferPreferences((state) => state.originalPaymentData)
   const methodsAreValid = originalPaymentData.every(isValidPaymentData)
   const { data } = useMarketPrices()
   const [minAmount, maxAmount] = getTradingAmountLimits(data?.CHF || 0, 'buy')
-  const rangeIsValid
-    = offerDraft.amount[0] >= minAmount
-    && offerDraft.amount[1] <= maxAmount
-    && offerDraft.amount[0] <= offerDraft.amount[1]
+  const rangeIsValid = amount[0] >= minAmount && amount[1] <= maxAmount && amount[0] <= amount[1]
   const formValid = methodsAreValid && rangeIsValid
   const { offerId } = useRoute<'editBuyPreferences'>().params
 
@@ -167,14 +148,7 @@ function ShowOffersButton () {
   const navigation = useNavigation()
   const queryClient = useQueryClient()
   const onPress = () => {
-    const { meansOfPayment, amount, paymentData } = offerDraft
-    const newData = {
-      maxPremium,
-      minReputation,
-      meansOfPayment,
-      paymentData,
-      amount,
-    }
+    const newData = { maxPremium, minReputation, meansOfPayment, paymentData, amount }
     patchOffer(
       { offerId, newData },
       {
