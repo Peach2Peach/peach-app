@@ -201,20 +201,20 @@ export const textStyle = 'text-center subtitle-1 leading-relaxed py-1px'
 function SatsInput () {
   const [amount, setAmount] = useOfferPreferences((state) => [state.sellAmount, state.setSellAmount])
   const inputRef = useRef<TextInput>(null)
-  const [inputValue, setInputValue] = useState(amount.toString())
+  const [inputValue, setInputValue] = useState(String(amount))
   const restrictAmount = useRestrictSatsAmount('sell')
 
-  const onFocus = () => setInputValue(amount.toString())
+  const onFocus = () => setInputValue(String(amount))
 
   const onChangeText = (value: string) => setInputValue(enforceDigitFormat(value))
 
   const onEndEditing = ({ nativeEvent: { text } }: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
     const newAmount = restrictAmount(Number(enforceDigitFormat(text)))
     setAmount(newAmount)
-    setInputValue(newAmount.toString())
+    setInputValue(String(newAmount))
   }
 
-  const displayValue = inputRef.current?.isFocused() ? inputValue : amount.toString()
+  const displayValue = inputRef.current?.isFocused() ? inputValue : String(amount)
 
   return (
     <SatsInputComponent
