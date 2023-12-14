@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { Checkbox } from '../../../components'
+import { Checkbox } from '../../../components/inputs/Checkbox'
 import { NumberStepper } from '../../../components/inputs/NumberStepper'
 import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import tw from '../../../styles/tailwind'

@@ -1,4 +1,3 @@
-export { Checkbox } from './Checkbox'
 export { CurrencyItem } from './CurrencyItem'
 export { EmailInput } from './EmailInput'
 export { FileInput } from './FileInput'

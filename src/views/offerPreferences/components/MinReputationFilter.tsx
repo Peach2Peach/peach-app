@@ -1,4 +1,4 @@
-import { Checkbox } from '../../../components'
+import { Checkbox } from '../../../components/inputs/Checkbox'
 import tw from '../../../styles/tailwind'
 
 type Props = {
