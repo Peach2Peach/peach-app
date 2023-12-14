@@ -87,13 +87,13 @@ function SellPreferenceMarketInfo () {
 }
 
 function CompetingOfferStats () {
-  const textStyle = tw`text-center text-primary-dark-2 body-s`
+  const textStyle = tw`text-center text-primary-main subtitle-2`
   const competingSellOffers = 0
   const averageTradingPremium = 9
   return (
-    <Section.Container>
+    <Section.Container style={tw`gap-1 py-0`}>
       <Text style={textStyle}>{competingSellOffers} competing sell offers</Text>
-      <Text style={textStyle}>premium of completed offers: ~{averageTradingPremium}%</Text>
+      <Text style={textStyle}>premium of completed trades: {averageTradingPremium}%</Text>
     </Section.Container>
   )
 }
@@ -142,7 +142,7 @@ function Premium () {
     <View style={tw`self-stretch gap-1`}>
       <PremiumInputComponent />
       <CurrentPrice />
-      <Text style={tw`text-center body-s text-primary-dark-2`}>x competing sell offers below this premium</Text>
+      <Text style={tw`text-center text-primary-main subtitle-2`}>x competing sell offers below this premium</Text>
     </View>
   )
 }
@@ -286,7 +286,7 @@ function FiatInput () {
 
 function FundMultipleOffersContainer () {
   return (
-    <Section.Container style={tw`items-start`}>
+    <Section.Container style={tw`items-start bg-primary-background-dark`}>
       <FundMultipleOffers />
     </Section.Container>
   )
