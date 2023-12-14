@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { TextProps, View } from 'react-native'
 import { CopyAble, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 
@@ -17,13 +17,17 @@ export const SummaryItem = ({ label, value }: Props) => (
 type TextValueProps = {
   value: string
   copyable?: boolean
+  copyValue?: string
+  onPress?: TextProps['onPress']
 }
 
-function TextValue ({ value, copyable = false }: TextValueProps) {
+function TextValue ({ value, copyable = false, copyValue = value, onPress }: TextValueProps) {
   return (
     <View style={tw`flex-row items-center justify-end flex-1 gap-10px`}>
-      <Text style={[tw`flex-1 text-right subtitle-1`, tw`md:subtitle-0`]}>{value}</Text>
-      {copyable && <CopyAble value={value} style={tw`md:w-5 md:h-5`} />}
+      <Text style={[tw`flex-1 text-right subtitle-1`, tw`md:subtitle-0`]} onPress={onPress}>
+        {value}
+      </Text>
+      {copyable && <CopyAble value={copyValue} style={tw`md:w-5 md:h-5`} />}
     </View>
   )
 }

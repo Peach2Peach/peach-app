@@ -15,6 +15,7 @@ import { getOfferIdFromContract } from '../../../utils/contract/getOfferIdFromCo
 import i18n from '../../../utils/i18n'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 import { peachAPI } from '../../../utils/peachAPI'
+import { cutOffAddress } from '../../../utils/string/cutOffAddress'
 import { isValidBitcoinSignature } from '../../../utils/validation/isValidBitcoinSignature'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useContractContext } from '../context'
@@ -40,8 +41,7 @@ export const TradeDetails = () => {
         </Fragment>
       ))}
 
-      {/** TODO: Do not hide but just prevent changing */}
-      {view === 'buyer' && !contract.paymentMade && (
+      {view === 'buyer' && (
         <>
           <HorizontalLine />
           <ChangePayoutWallet />
@@ -132,17 +132,33 @@ function ChangePayoutWallet () {
     }
   }
 
+  const editCustomPayoutAddress
+    = !payoutAddress || paidToPeachWallet || contract.paymentMade
+      ? undefined
+      : () => {
+        navigation.navigate('payoutAddress', { type: 'payout' })
+      }
+
   return (
     <>
-      <SummaryItem label="pay out to peach wallet" value={<Toggle enabled={!!paidToPeachWallet} onPress={onPress} />} />
-      {!paidToPeachWallet && (
+      {!contract.paymentMade && (
+        <SummaryItem
+          label="pay out to peach wallet"
+          value={<Toggle enabled={!!paidToPeachWallet} onPress={onPress} />}
+        />
+      )}
+      {(!paidToPeachWallet || contract.paymentMade) && (
         <SummaryItem
           label="payout address"
           value={
             <SummaryItem.Text
               value={
-                payoutAddress === contract.releaseAddress ? payoutAddressLabel || payoutAddress : contract.releaseAddress
+                payoutAddress === contract.releaseAddress
+                  ? payoutAddressLabel || cutOffAddress(payoutAddress)
+                  : cutOffAddress(contract.releaseAddress)
               }
+              onPress={editCustomPayoutAddress}
+              copyValue={contract.releaseAddress}
               copyable
             />
           }

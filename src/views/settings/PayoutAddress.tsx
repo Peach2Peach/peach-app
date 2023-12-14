@@ -68,7 +68,7 @@ export const PayoutAddress = () => {
           errorMessage={addressLabelErrors}
         />
         <BitcoinAddressInput onChange={setAddress} value={address} errorMessage={addressErrors} />
-        {isUpdated ? (
+        {isUpdated && type !== 'payout' ? (
           <View style={tw`gap-2`}>
             <View style={tw`flex-row justify-center gap-1`}>
               <Text style={tw`uppercase button-medium`}>{i18n('settings.payoutAddress.success')}</Text>
