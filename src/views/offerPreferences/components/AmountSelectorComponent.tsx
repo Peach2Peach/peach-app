@@ -109,10 +109,10 @@ function BuyAmountInput ({ minAmountDelta, type, range: [min, max], setRange }: 
   const inputRef = useRef<TextInput>(null)
   const amount = type === 'min' ? min : max
 
-  const [inputValue, setInputValue] = useState(amount.toString())
+  const [inputValue, setInputValue] = useState(String(amount))
   const restrictAmount = useRestrictSatsAmount('buy')
 
-  const onFocus = () => setInputValue(amount.toString())
+  const onFocus = () => setInputValue(String(amount))
 
   const onChangeText = (value: string) => setInputValue(enforceDigitFormat(value))
 
@@ -130,10 +130,10 @@ function BuyAmountInput ({ minAmountDelta, type, range: [min, max], setRange }: 
     const newAmount = restrictAmount(Number(enforceDigitFormat(text)))
     const newRange = getNewRange(newAmount)
     setRange(newRange)
-    setInputValue(newAmount.toString())
+    setInputValue(String(newAmount))
   }
 
-  const displayValue = inputRef.current?.isFocused() ? inputValue : amount.toString()
+  const displayValue = inputRef.current?.isFocused() ? inputValue : String(amount)
 
   const { fiatPrice, displayCurrency } = useBitcoinPrices(amount)
 
