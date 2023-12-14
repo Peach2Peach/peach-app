@@ -14,7 +14,7 @@ export function BackupReminderIcon () {
   const showBackupReminder = () => setPopup(<BackupReminderPopup />)
 
   return (
-    <TouchableOpacity onPress={showBackupReminder}>
+    <TouchableOpacity style={tw`self-center`} onPress={showBackupReminder}>
       <Icon id="alertTriangle" size={32} color={tw.color('error-main')} />
     </TouchableOpacity>
   )

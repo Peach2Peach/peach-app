@@ -3,12 +3,10 @@ import { ColorValue, TouchableOpacity, View, ViewProps } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { IconType } from '../assets/icons'
 import { useBitcoinPrices } from '../hooks'
-import { useSettingsStore } from '../store/settingsStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { getHeaderStyles } from '../utils/layout/getHeaderStyles'
 import { thousands } from '../utils/string/thousands'
-import { BackupReminderIcon } from './BackupReminderIcon'
 import { Icon } from './Icon'
 import { BTCAmount } from './bitcoin/btcAmount/BTCAmount'
 import { PriceFormat } from './text/PriceFormat'
@@ -166,14 +164,12 @@ type TickerProps = {
 function Tickers ({ type = 'sell' }: TickerProps) {
   const { bitcoinPrice, moscowTime, displayCurrency } = useBitcoinPrices()
   const valueStyle = [tw`leading-xl`, type === 'sell' ? tw`text-primary-main` : tw`text-success-main`, tw`md:body-l`]
-  const showBackupReminder = useSettingsStore((state) => state.showBackupReminder)
   return (
     <View style={[tw`flex-row items-center justify-between py-1 px-sm`, tw`md:px-md md:py-2px`]}>
       <View style={leftColStyle}>
         <PeachText style={unitStyle}>{`1 ${i18n('btc')}`}</PeachText>
         <PriceFormat style={valueStyle} currency={displayCurrency} amount={bitcoinPrice} round />
       </View>
-      {showBackupReminder && <BackupReminderIcon />}
       <View style={rightColStyle}>
         <PeachText style={[unitStyle, tw`text-right`]}>{`1 ${displayCurrency}`}</PeachText>
         <PeachText style={[...valueStyle, tw`text-right`]}>
