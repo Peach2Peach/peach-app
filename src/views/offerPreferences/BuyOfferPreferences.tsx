@@ -23,12 +23,29 @@ export function BuyOfferPreferences () {
 
   return (
     <PreferenceScreen isSliding={isSliding} button={<ShowOffersButton />}>
-      <MarketInfo type="sellOffers" />
+      <PreferenceMarketInfo />
       <PreferenceMethods type="buy" />
       <AmountSelector setIsSliding={setIsSliding} />
       <Filters />
     </PreferenceScreen>
   )
+}
+
+function PreferenceMarketInfo () {
+  const offerPreferenes = useOfferPreferences(
+    (state) => ({
+      buyAmountRange: state.buyAmountRange,
+      meansOfPayment: state.meansOfPayment,
+      maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
+        ? state.filter.buyOffer.maxPremium || undefined
+        : undefined,
+      minReputation: state.filter.buyOffer.shouldApplyMinReputation
+        ? interpolate(state.filter.buyOffer.minReputation || 0, [0, 5], [-1, 1])
+        : undefined,
+    }),
+    shallow,
+  )
+  return <MarketInfo type="sellOffers" {...offerPreferenes} />
 }
 
 function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) => void }) {

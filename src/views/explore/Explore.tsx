@@ -12,10 +12,10 @@ import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { BuyBitcoinHeader } from '../offerPreferences/components/BuyBitcoinHeader'
-import { MarketInfo } from '../offerPreferences/components/MarketInfo'
 import { useOfferMatches } from '../search/hooks'
 import { useSortAndFilterPopup } from '../search/hooks/useSortAndFilterPopup'
 import { Rating } from '../settings/profile/profileOverview/components'
+import { BuyOfferMarketInfo } from './BuyOfferMarketInfo'
 
 export function Explore () {
   const { offerId } = useRoute<'explore'>().params
@@ -26,12 +26,12 @@ export function Explore () {
     <Screen header={<ExploreHeader />}>
       {hasMatches ? (
         <PeachScrollView contentStyle={tw`gap-10px`}>
-          <MarketInfo type="sellOffers" />
+          <BuyOfferMarketInfo offerId={offerId} />
           <OfferSummaryCards />
         </PeachScrollView>
       ) : (
         <View style={tw`items-center justify-center flex-1 gap-4`}>
-          <MarketInfo type="sellOffers" />
+          <BuyOfferMarketInfo offerId={offerId} />
           <Text style={tw`text-center subtitle-2`}>{i18n('search.weWillNotifyYou')}</Text>
         </View>
       )}
