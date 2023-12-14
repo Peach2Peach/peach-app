@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import { useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useMemo, useRef, useState } from 'react'
 import {
   GestureResponderEvent,
@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native'
 import { shallow } from 'zustand/shallow'
+import { MeansOfPayment } from '../../../peach-api/src/@types/payment'
 import { LogoIcons } from '../../assets/logo'
 import { Checkbox, Header, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
 import { Badge } from '../../components/Badge'
@@ -32,6 +33,7 @@ import { round } from '../../utils/math/round'
 import { keys } from '../../utils/object/keys'
 import { defaultFundingStatus } from '../../utils/offer/constants'
 import { cleanPaymentData } from '../../utils/paymentMethod/cleanPaymentData'
+import { peachAPI } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp/signAndEncrypt'
 import { priceFormat } from '../../utils/string/priceFormat'
 import { isDefined } from '../../utils/validation/isDefined'
@@ -47,6 +49,7 @@ import { SatsInputComponent } from './components/SatsInputComponent'
 import { Section } from './components/Section'
 import { Slider, sliderWidth } from './components/Slider'
 import { SliderTrack } from './components/SliderTrack'
+import { useFilteredMarketStats } from './components/useFilteredMarketStats'
 import { trackMin } from './utils/constants'
 import { enforceDigitFormat } from './utils/enforceDigitFormat'
 import { publishSellOffer } from './utils/publishSellOffer'
@@ -86,14 +89,33 @@ function SellPreferenceMarketInfo () {
   return <MarketInfo type="buyOffers" {...preferences} />
 }
 
+function usePastOffersStats ({ meansOfPayment }: { meansOfPayment: MeansOfPayment }) {
+  return useQuery({
+    queryKey: ['market', 'pastOffers', 'stats', { meansOfPayment }] as const,
+    queryFn: async (context) => {
+      const preferences = context.queryKey[3]
+      const { result } = await peachAPI.public.market.getPastOffersStats(preferences)
+      if (!result) throw new Error('no past offers stats found')
+      return result
+    },
+    placeholderData: {
+      avgPremium: 0,
+    },
+    keepPreviousData: true,
+  })
+}
+
 function CompetingOfferStats () {
   const textStyle = tw`text-center text-primary-main subtitle-2`
-  const competingSellOffers = 0
-  const averageTradingPremium = 9
+
+  const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment)
+  const { data: pastOfferData } = usePastOffersStats({ meansOfPayment })
+  const { data: marketStats } = useFilteredMarketStats({ type: 'ask', meansOfPayment })
+
   return (
     <Section.Container style={tw`gap-1 py-0`}>
-      <Text style={textStyle}>{competingSellOffers} competing sell offers</Text>
-      <Text style={textStyle}>premium of completed trades: {averageTradingPremium}%</Text>
+      <Text style={textStyle}>{marketStats.offersWithinRange.length} competing sell offers</Text>
+      <Text style={textStyle}>premium of completed trades: {pastOfferData?.avgPremium}%</Text>
     </Section.Container>
   )
 }
@@ -137,12 +159,23 @@ function AmountSelectorContainer ({ slider, inputs }: { slider?: JSX.Element; in
 
 const replaceAllCommasWithDots = (value: string) => value.replace(/,/gu, '.')
 const removeAllButOneDot = (value: string) => value.replace(/\.(?=.*\.)/gu, '')
+const MIN_PREMIUM_INCREMENT = 0.01
 function Premium () {
+  const preferences = useOfferPreferences(
+    (state) => ({
+      maxPremium: state.premium - MIN_PREMIUM_INCREMENT,
+      meansOfPayment: state.meansOfPayment,
+    }),
+    shallow,
+  )
+  const { data } = useFilteredMarketStats({ type: 'ask', ...preferences })
   return (
     <View style={tw`self-stretch gap-1`}>
       <PremiumInputComponent />
       <CurrentPrice />
-      <Text style={tw`text-center text-primary-main subtitle-2`}>x competing sell offers below this premium</Text>
+      <Text style={tw`text-center text-primary-main subtitle-2`}>
+        {data.offersWithinRange.length} competing sell offers below this premium
+      </Text>
     </View>
   )
 }
