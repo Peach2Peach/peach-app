@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
-import { Divider, Header, PeachScrollView, Screen } from '../../components'
+import { Header, PeachScrollView, Screen } from '../../components'
+import { Divider } from '../../components/Divider'
 import { Button } from '../../components/buttons/Button'
 import { useRoute, useShowHelp } from '../../hooks'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'

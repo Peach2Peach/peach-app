@@ -1,4 +1,3 @@
-export { Divider } from './Divider'
 export { EscrowButton } from './EscrowButton'
 export { Flag } from './Flag'
 export { Header } from './Header'

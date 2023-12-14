@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { Divider, Header, Icon, Screen, Text } from '../../components'
+import { Header, Icon, Screen, Text } from '../../components'
+import { Divider } from '../../components/Divider'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { RefundEscrowSlider } from '../../components/offer/RefundEscrowSlider'
 import { useRoute } from '../../hooks'
