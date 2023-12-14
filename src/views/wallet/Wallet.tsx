@@ -3,7 +3,6 @@ import { PeachScrollView, Screen } from '../../components'
 import { BackupReminderIcon } from '../../components/BackupReminderIcon'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
-import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { peachWallet } from '../../utils/wallet/setWallet'
@@ -13,19 +12,17 @@ import { useLastUnusedAddress, useUTXOs, useWalletAddress, useWalletSetup } from
 
 export const Wallet = () => {
   const { balance, isRefreshing, walletLoading, refresh } = useWalletSetup({ peachWallet, syncOnLoad: true })
-  const showBackupReminder = useSettingsStore((state) => state.showBackupReminder)
-
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (
     <Screen header={<WalletHeader />}>
-      {showBackupReminder && <BackupReminderIcon />}
       <PeachScrollView
         contentContainerStyle={tw`grow`}
-        contentStyle={tw`justify-center grow`}
+        contentStyle={tw`justify-center py-16 grow`}
         refreshControl={<RefreshControl refreshing={false} onRefresh={refresh} />}
       >
         <TotalBalance amount={balance} isRefreshing={isRefreshing} />
+        <BackupReminderIcon />
       </PeachScrollView>
       <WalletButtons />
     </Screen>
