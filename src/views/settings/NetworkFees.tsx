@@ -1,5 +1,6 @@
-import { HorizontalLine, PeachScrollView, RadioButtons, Screen, Text } from '../../components'
+import { HorizontalLine, RadioButtons, Screen, Text } from '../../components'
 import { Header } from '../../components/Header'
+import { PeachScrollView } from '../../components/PeachScrollView'
 import { Button } from '../../components/buttons/Button'
 import { useShowHelp } from '../../hooks'
 import tw from '../../styles/tailwind'

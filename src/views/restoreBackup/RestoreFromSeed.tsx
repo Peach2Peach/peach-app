@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { PeachScrollView, Text } from '../../components'
+import { Text } from '../../components'
+import { PeachScrollView } from '../../components/PeachScrollView'
 import { Button } from '../../components/buttons/Button'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'

@@ -1,4 +1,5 @@
-import { PeachScrollView, Screen } from '../../../components'
+import { PeachScrollView } from '../../../components/PeachScrollView'
+import { Screen } from '../../../components/Screen'
 import tw from '../../../styles/tailwind'
 
 type Props = {

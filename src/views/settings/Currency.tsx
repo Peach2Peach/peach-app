@@ -1,11 +1,11 @@
-import tw from '../../styles/tailwind'
-
 import { shallow } from 'zustand/shallow'
-import { PeachScrollView, RadioButtons, Screen } from '../../components'
+import { RadioButtons, Screen } from '../../components'
+import { PeachScrollView } from '../../components/PeachScrollView'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import { CURRENCIES } from '../../paymentMethods'
 import { useSettingsStore } from '../../store/settingsStore'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 export const Currency = () => {

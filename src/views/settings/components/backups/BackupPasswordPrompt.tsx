@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { Keyboard, TextInput, View } from 'react-native'
-
-import { Input, PeachScrollView, Text } from '../../../../components'
+import { Input, Text } from '../../../../components'
+import { PeachScrollView } from '../../../../components/PeachScrollView'
 import { Button } from '../../../../components/buttons/Button'
 import { useNavigation, useValidatedState } from '../../../../hooks'
 import { useSettingsStore } from '../../../../store/settingsStore'

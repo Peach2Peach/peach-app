@@ -1,6 +1,7 @@
 import { View } from 'react-native'
-import { PeachScrollView, Screen, Text } from '../../components'
+import { Screen, Text } from '../../components'
 import { Header } from '../../components/Header'
+import { PeachScrollView } from '../../components/PeachScrollView'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { SettingsItem } from './components/SettingsItem'

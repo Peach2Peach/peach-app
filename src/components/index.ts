@@ -1,5 +1,3 @@
-export { PeachScrollView } from './PeachScrollView'
-export { Placeholder } from './Placeholder'
 export { Screen } from './Screen'
 export { TouchableIcon } from './TouchableIcon'
 export { Fade, Loading } from './animation'

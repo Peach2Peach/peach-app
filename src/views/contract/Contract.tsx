@@ -1,8 +1,9 @@
-import { PeachScrollView, Screen } from '../../components'
+import { Screen } from '../../components'
 import tw from '../../styles/tailwind'
 
 import { useMemo } from 'react'
 import { Header, HeaderIcon } from '../../components/Header'
+import { PeachScrollView } from '../../components/PeachScrollView'
 import { useShowHelp, useToggleBoolean } from '../../hooks'
 import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
 import { canCancelContract } from '../../utils/contract/canCancelContract'

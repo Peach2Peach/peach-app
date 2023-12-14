@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react'
-import { Matches, PeachScrollView, Screen } from '../../components'
+import { Matches, Screen } from '../../components'
 import { Header } from '../../components/Header'
+import { PeachScrollView } from '../../components/PeachScrollView'
 import { useCancelOffer, useNavigation, useRoute, useShowHelp } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import tw from '../../styles/tailwind'

@@ -1,4 +1,5 @@
-import { PeachScrollView, RadioButtons, Screen } from '../../components'
+import { RadioButtons, Screen } from '../../components'
+import { PeachScrollView } from '../../components/PeachScrollView'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import { useLanguage } from '../../hooks/useLanguage'
