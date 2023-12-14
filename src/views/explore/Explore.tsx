@@ -82,7 +82,7 @@ function ExploreCard ({ match }: { match: Match }) {
         <View style={tw`flex-row items-center justify-between`}>
           <Badges id={user.id} unlockedBadges={user.medals} />
           <Text style={tw`text-center`}>
-            <PriceFormat style={tw`tooltip`} currency={displayCurrency} amount={fiatPrice} />
+            <PriceFormat style={tw`tooltip`} currency={displayCurrency} amount={fiatPrice * (1 + premium / 100)} />
             <Text style={tw`text-black-2`}>
               {' '}
               ({premium >= 0 ? '+' : ''}
