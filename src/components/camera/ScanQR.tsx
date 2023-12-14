@@ -1,9 +1,10 @@
 import { Modal, SafeAreaView, TouchableOpacity, View } from 'react-native'
 import { BarCodeReadEvent } from 'react-native-camera'
 import Svg, { Defs, Mask, Rect } from 'react-native-svg'
-import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { Icon } from '../Icon'
+import { PeachText } from '../text/Text'
 import { QRCodeScanner } from './QRCodeScanner'
 
 type ScanQRProps = {
@@ -24,9 +25,9 @@ function CustomMarker ({ onCancel }: Pick<ScanQRProps, 'onCancel'>) {
       <SafeAreaView style={tw`py-2`}>
         <TouchableOpacity style={tw`flex-row items-center ml-3`} onPress={onCancel}>
           <Icon id="chevronLeft" color={tw.color('primary-background-light')} style={tw`w-6 h-6 mr-1`} />
-          <Text style={tw`h6 text-primary-background-light`} numberOfLines={1}>
+          <PeachText style={tw`h6 text-primary-background-light`} numberOfLines={1}>
             {i18n('scanBTCAddress')}
-          </Text>
+          </PeachText>
         </TouchableOpacity>
       </SafeAreaView>
     </View>

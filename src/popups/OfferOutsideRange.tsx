@@ -1,4 +1,4 @@
-import { Text } from '../components'
+import PeachText from '../components/text/Text'
 import i18n from '../utils/i18n'
 import { offerIdToHex } from '../utils/offer/offerIdToHex'
 
@@ -7,5 +7,5 @@ type Props = {
 }
 
 export const OfferOutsideRange = ({ offerId }: Props) => (
-  <Text>{i18n('notification.offer.outsideRange.text', offerIdToHex(offerId))}</Text>
+  <PeachText>{i18n('notification.offer.outsideRange.text', offerIdToHex(offerId))}</PeachText>
 )

@@ -10,12 +10,11 @@ import {
   View,
   ViewStyle,
 } from 'react-native'
-
-import { Text } from '..'
 import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Icon } from '../Icon'
+import { PeachText } from '../text/Text'
 
 const themes = {
   default: {
@@ -130,14 +129,14 @@ export const Input = ({
   return (
     <View>
       {!!label && (
-        <Text style={[tw`pl-2 input-label`, tw.style(styles.text)]}>
+        <PeachText style={[tw`pl-2 input-label`, tw.style(styles.text)]}>
           {label}
           {!required && (
-            <Text style={[tw`font-medium input-label`, tw.style(styles.placeholder)]}>{` (${i18n(
+            <PeachText style={[tw`font-medium input-label`, tw.style(styles.placeholder)]}>{` (${i18n(
               'form.optional',
-            )})`}</Text>
+            )})`}</PeachText>
           )}
-        </Text>
+        </PeachText>
       )}
       <View
         style={[
@@ -192,7 +191,7 @@ export const Input = ({
           ))}
         </View>
       </View>
-      <Text style={[tw`mt-1 ml-3 tooltip`, styles.error]}>{showError ? errorMessage[0] : ' '}</Text>
+      <PeachText style={[tw`mt-1 ml-3 tooltip`, styles.error]}>{showError ? errorMessage[0] : ' '}</PeachText>
     </View>
   )
 }

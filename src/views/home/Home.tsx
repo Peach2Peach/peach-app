@@ -2,9 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 import { View } from 'react-native'
 import Share from 'react-native-share'
 import { LogoIcons } from '../../assets/logo'
-import { Header, Screen, Text, TouchableIcon } from '../../components'
+import { Header } from '../../components/Header'
 import { PeachyGradient } from '../../components/PeachyGradient'
+import { Screen } from '../../components/Screen'
+import { TouchableIcon } from '../../components/TouchableIcon'
 import { Button } from '../../components/buttons/Button'
+import { PeachText } from '../../components/text/Text'
 import { ProgressDonut } from '../../components/ui'
 import { MSINAMINUTE } from '../../constants'
 import { useNavigation } from '../../hooks'
@@ -71,7 +74,7 @@ function DailyMessage () {
     <View style={tw`overflow-hidden rounded-2xl`}>
       <PeachyGradient style={tw`absolute w-full h-full`} />
       <View style={tw`flex-row items-center self-stretch justify-center p-4 gap-10px`}>
-        <Text style={tw`flex-1 text-center subtitle-1 text-primary-background-light`}>{message.text}</Text>
+        <PeachText style={tw`flex-1 text-center subtitle-1 text-primary-background-light`}>{message.text}</PeachText>
         <TouchableIcon onPress={onPress} id="share" iconColor={tw.color('primary-background-light')} />
       </View>
     </View>
@@ -99,12 +102,16 @@ function MarketStats () {
   })
   return (
     <View style={tw`items-center justify-center gap-5 pb-4 grow`}>
-      <Text style={tw`subtitle-0 text-success-main`}>{i18n('home.openBuyOffers', String(data?.buy.open))}</Text>
+      <PeachText style={tw`subtitle-0 text-success-main`}>
+        {i18n('home.openBuyOffers', String(data?.buy.open))}
+      </PeachText>
       <View style={tw`items-center -gap-2`}>
-        <Text style={tw`subtitle-0 text-primary-main`}>{i18n('home.openSellOffers', String(data?.sell.open))}</Text>
-        <Text style={tw`subtitle-1 text-primary-main`}>
+        <PeachText style={tw`subtitle-0 text-primary-main`}>
+          {i18n('home.openSellOffers', String(data?.sell.open))}
+        </PeachText>
+        <PeachText style={tw`subtitle-1 text-primary-main`}>
           {i18n('home.averagePremium')}: {data?.sell.avgPremium}%
-        </Text>
+        </PeachText>
       </View>
     </View>
   )

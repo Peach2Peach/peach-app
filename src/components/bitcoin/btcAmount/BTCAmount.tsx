@@ -1,8 +1,9 @@
 import { View } from 'react-native'
-import { Icon, Text } from '../..'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { MixedLetterSpacingText } from './components'
+import { Icon } from '../../Icon'
+import { PeachText } from '../../text/Text'
+import { MixedLetterSpacingText } from './components/MixedLetterSpacingText'
 
 type Props = ComponentProps & {
   amount: number
@@ -81,9 +82,9 @@ export const BTCAmount = ({ amount, size, white = false, showAmount = true, styl
           </View>
         )}
         <View style={tw`justify-center`}>
-          <Text style={[tw`font-baloo-medium`, white && tw`text-primary-background-light`, styles[size].sats]}>
+          <PeachText style={[tw`font-baloo-medium`, white && tw`text-primary-background-light`, styles[size].sats]}>
             {i18n('currency.SATS')}
-          </Text>
+          </PeachText>
         </View>
       </View>
     </View>

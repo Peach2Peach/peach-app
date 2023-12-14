@@ -1,9 +1,9 @@
 import { API_URL } from '@env'
 import { View } from 'react-native'
 import { WebView, WebViewMessageEvent } from 'react-native-webview'
-import { Text } from '../../components'
 import { PopupAction } from '../../components/popup'
 import { PopupComponent } from '../../components/popup/PopupComponent'
+import PeachText from '../../components/text/Text'
 import { initApp } from '../../init/initApp'
 import { useSettingsStore } from '../../store/settingsStore'
 import { usePopupStore } from '../../store/usePopupStore'
@@ -40,7 +40,7 @@ export function VerifyYouAreAHumanPopup () {
   return (
     <WarningPopup
       title={i18n('HUMAN_VERIFICATION_REQUIRED.title')}
-      content={<Text>{i18n('HUMAN_VERIFICATION_REQUIRED.text')}</Text>}
+      content={<PeachText>{i18n('HUMAN_VERIFICATION_REQUIRED.text')}</PeachText>}
       actions={
         <>
           <ClosePopupAction textStyle={tw`text-black-1`} />

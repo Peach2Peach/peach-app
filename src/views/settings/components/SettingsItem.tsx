@@ -1,6 +1,7 @@
 import { TouchableOpacity, View, ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
-import { Icon, Text } from '../../../components'
+import { Icon } from '../../../components/Icon'
+import { PeachText } from '../../../components/text/Text'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -38,7 +39,9 @@ export const SettingsItem = ({ onPress: pressAction, title, iconId, warning, ena
 
   return (
     <TouchableOpacity style={tw`my-3 mx-[6px] justify-between items-center flex-row`} onPress={onPress}>
-      <Text style={[tw`settings text-black-2`, warning && tw`text-error-main`]}>{i18n(`settings.${title}`)}</Text>
+      <PeachText style={[tw`settings text-black-2`, warning && tw`text-error-main`]}>
+        {i18n(`settings.${title}`)}
+      </PeachText>
       <View style={tw`flex items-center w-8 h-8`}>
         <Icon id={iconId || 'chevronRight'} style={iconSize || tw`w-8 h-8`} color={iconColor} />
       </View>

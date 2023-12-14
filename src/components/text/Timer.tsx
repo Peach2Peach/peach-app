@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
-import { Text } from '..'
 import tw from '../../styles/tailwind'
 import { msToTimer } from '../../utils/string/msToTimer'
+import { PeachText } from './Text'
 
 type Props = ComponentProps & {
   text?: string
@@ -24,12 +24,12 @@ export const SimpleTimer = ({ end, style }: Props) => {
     }
   }, [end])
 
-  return <Text style={style}>{msToTimer(timer)}</Text>
+  return <PeachText style={style}>{msToTimer(timer)}</PeachText>
 }
 
 export const Timer = ({ text, end, style }: Props) => (
   <View style={[tw`flex-row justify-center w-full gap-1`, style]}>
-    {!!text && <Text style={tw`button-medium`}>{text}</Text>}
+    {!!text && <PeachText style={tw`button-medium`}>{text}</PeachText>}
     <SimpleTimer style={[tw`button-medium`, Date.now() <= end ? tw`text-black-3` : tw`text-error-main`]} end={end} />
   </View>
 )

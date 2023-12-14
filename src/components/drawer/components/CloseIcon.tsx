@@ -1,6 +1,6 @@
 import { TouchableOpacity } from 'react-native'
-import { Icon } from '../..'
 import tw from '../../../styles/tailwind'
+import { Icon } from '../../Icon'
 
 type Props = {
   closeDrawer: () => void

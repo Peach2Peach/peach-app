@@ -2,8 +2,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Icon, Text } from '../../components'
+import { Icon } from '../../components/Icon'
 import { NotificationBubble } from '../../components/bubble/NotificationBubble'
+import { PeachText } from '../../components/text/Text'
 import { useNavigation, useRoute } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -70,7 +71,7 @@ function FooterItem ({ id }: { id: HomeTabName }) {
           <NotificationBubble notifications={notifications} style={tw`absolute -right-2 -top-2`} />
         ) : null}
       </View>
-      <Text
+      <PeachText
         style={[
           { color: colorTheme },
           id === 'home' && active && tw`text-primary-main`,
@@ -78,7 +79,7 @@ function FooterItem ({ id }: { id: HomeTabName }) {
         ]}
       >
         {i18n(`footer.${id}`)}
-      </Text>
+      </PeachText>
     </TouchableOpacity>
   )
 }

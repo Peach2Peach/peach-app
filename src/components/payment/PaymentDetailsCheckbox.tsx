@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
-import { Icon } from '..'
 import tw from '../../styles/tailwind'
+import { Icon } from '../Icon'
 import { Text } from '../text'
 
 type CheckboxType = {

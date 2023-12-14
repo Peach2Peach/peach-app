@@ -1,4 +1,4 @@
-import { Text } from '../../components'
+import PeachText from '../../components/text/Text'
 import i18n from '../../utils/i18n'
 
-export const FirstBackup = () => <Text>{i18n('error.firstBackup.description')}</Text>
+export const FirstBackup = () => <PeachText>{i18n('error.firstBackup.description')}</PeachText>

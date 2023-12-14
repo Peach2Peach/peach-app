@@ -1,17 +1,18 @@
 import { View } from 'react-native'
-import { Icon, Text } from '..'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
+import { Icon } from '../Icon'
+import { PeachText } from '../text/Text'
 import { LinedText } from '../ui/LinedText'
 import { PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
 import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
 
 const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
   value: data.id,
-  display: <Text style={tw`subtitle-1`}>{data.label}</Text>,
+  display: <PeachText style={tw`subtitle-1`}>{data.label}</PeachText>,
   isValid: isValidPaymentData(data),
   data,
 })
@@ -30,7 +31,7 @@ export const MeetupPaymentMethods = ({ isEditing, editItem, select, isSelected }
     <>
       {paymentData.filter((item) => isCashTrade(item.type)).length !== 0 && (
         <LinedText style={tw`pb-3`}>
-          <Text style={tw`mr-1 h6 text-black-2`}>{i18n('paymentSection.meetups')}</Text>
+          <PeachText style={tw`mr-1 h6 text-black-2`}>{i18n('paymentSection.meetups')}</PeachText>
           <Icon color={tw.color('black-2')} id={'users'} />
         </LinedText>
       )}

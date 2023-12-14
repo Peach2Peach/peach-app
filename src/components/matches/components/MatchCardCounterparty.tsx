@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
-
-import { Rating, UserId } from '../../../views/settings/profile/profileOverview/components'
+import { Rating } from '../../../views/settings/profile/profileOverview/components/Rating'
+import { UserId } from '../../../views/settings/profile/profileOverview/components/UserId'
 import { Badges } from './Badges'
 
 type Props = { user: Pick<User, 'trades' | 'id' | 'rating' | 'medals'> }

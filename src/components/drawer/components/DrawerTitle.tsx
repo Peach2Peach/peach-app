@@ -1,8 +1,8 @@
-import { Text } from '../..'
 import tw from '../../../styles/tailwind'
+import { PeachText } from '../../text/Text'
 import { useDrawerState } from '../useDrawerState'
 
 export const DrawerTitle = () => {
   const title = useDrawerState((state) => state.title)
-  return <Text style={tw`text-center drawer-title`}>{title}</Text>
+  return <PeachText style={tw`text-center drawer-title`}>{title}</PeachText>
 }

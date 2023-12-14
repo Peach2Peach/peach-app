@@ -1,4 +1,5 @@
-import { PeachScrollView, RadioButtons } from '../../components'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { RadioButtons } from '../../components/inputs/RadioButtons'
 import { CURRENCIES } from '../../paymentMethods'
 import { CurrencyType } from '../../store/offerPreferenes/types'
 import tw from '../../styles/tailwind'

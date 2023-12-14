@@ -1,7 +1,6 @@
 import { Dispatch } from 'react'
 import { TextInput, View } from 'react-native'
-
-import { Text } from '../../../../components'
+import { PeachText } from '../../../../components/text/Text'
 import tw from '../../../../styles/tailwind'
 import { enforceDecimalsFormat } from '../../../../utils/format/enforceDecimalsFormat'
 import i18n from '../../../../utils/i18n'
@@ -14,7 +13,7 @@ type Props = {
 
 export const CustomFeeItem = ({ customFeeRate, setCustomFeeRate, disabled }: Props) => (
   <View style={tw`flex-row items-center gap-2`}>
-    <Text style={tw`subtitle-1 leading-base`}>{i18n('settings.networkFees.custom')}:</Text>
+    <PeachText style={tw`subtitle-1 leading-base`}>{i18n('settings.networkFees.custom')}:</PeachText>
     <View
       style={[
         tw`flex-row items-center w-16 h-8 py-3 overflow-hidden rounded-xl`,
@@ -30,6 +29,6 @@ export const CustomFeeItem = ({ customFeeRate, setCustomFeeRate, disabled }: Pro
         testID="input-custom-fees"
       />
     </View>
-    <Text style={tw`text-black-2`}>{i18n('satsPerByte')}</Text>
+    <PeachText style={tw`text-black-2`}>{i18n('satsPerByte')}</PeachText>
   </View>
 )

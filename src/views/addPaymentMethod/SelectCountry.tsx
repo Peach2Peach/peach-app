@@ -1,12 +1,12 @@
-import tw from '../../styles/tailwind'
-
-import { Header, PeachScrollView, RadioButtons, Screen } from '../../components'
-import { useNavigation, useRoute, useShowHelp } from '../../hooks'
-import i18n from '../../utils/i18n'
-
 import { useMemo, useState } from 'react'
-
+import { Header } from '../../components/Header'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
+import { RadioButtons } from '../../components/inputs/RadioButtons'
+import { useNavigation, useRoute, useShowHelp } from '../../hooks'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { countrySupportsCurrency } from '../../utils/paymentMethod/countrySupportsCurrency'
 import { getPaymentMethodInfo } from '../../utils/paymentMethod/getPaymentMethodInfo'

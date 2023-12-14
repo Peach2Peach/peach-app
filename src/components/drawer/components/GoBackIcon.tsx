@@ -1,7 +1,7 @@
 import { TouchableOpacity } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { Icon } from '../..'
 import tw from '../../../styles/tailwind'
+import { Icon } from '../../Icon'
 import { useDrawerState } from '../useDrawerState'
 
 export const GoBackIcon = () => {

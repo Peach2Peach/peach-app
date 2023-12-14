@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { Loading } from '../../components'
+import { Loading } from '../../components/animation/Loading'
 import tw from '../../styles/tailwind'
 
 export const LoadingScreen = () => (

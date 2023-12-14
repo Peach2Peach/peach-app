@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Pressable, View } from 'react-native'
-import { Icon, Text } from '..'
 import { IconType } from '../../assets/icons'
 import { PAYMENTCATEGORIES } from '../../paymentMethods'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
@@ -11,13 +10,15 @@ import { keys } from '../../utils/object/keys'
 import { getPaymentMethodInfo } from '../../utils/paymentMethod/getPaymentMethodInfo'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
+import { Icon } from '../Icon'
+import { PeachText } from '../text/Text'
 import { LinedText } from '../ui/LinedText'
 import { PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
 import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
 
 const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
   value: data.id,
-  display: <Text style={tw`subtitle-1`}>{data.label}</Text>,
+  display: <PeachText style={tw`subtitle-1`}>{data.label}</PeachText>,
   isValid: isValidPaymentData(data),
   data,
 })
@@ -51,7 +52,7 @@ export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }
     setRandom(Math.random())
   }
   return paymentData.filter((item) => !isCashTrade(item.type)).length === 0 ? (
-    <Text style={tw`text-center h6 text-black-3`}>{i18n('paymentMethod.empty')}</Text>
+    <PeachText style={tw`text-center h6 text-black-3`}>{i18n('paymentMethod.empty')}</PeachText>
   ) : (
     <View testID={'checkboxes-buy-mops'}>
       {keys(PAYMENTCATEGORIES)
@@ -69,7 +70,7 @@ export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }
         .map(({ category, checkboxes }, i) => (
           <View key={category} style={i > 0 ? tw`mt-8` : {}}>
             <LinedText style={tw`pb-3`}>
-              <Text style={tw`mr-1 h6 text-black-2`}>{i18n(`paymentCategory.${category}`)}</Text>
+              <PeachText style={tw`mr-1 h6 text-black-2`}>{i18n(`paymentCategory.${category}`)}</PeachText>
               {paymentCategoryIcons[category] !== '' && (
                 <Icon color={tw.color('black-2')} id={paymentCategoryIcons[category] as IconType} />
               )}
@@ -89,7 +90,7 @@ export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }
                   </View>
                 ) : (
                   <View style={tw`flex flex-row justify-between`}>
-                    <Text style={tw`font-baloo text-error-main`}>{item.data.label}</Text>
+                    <PeachText style={tw`font-baloo text-error-main`}>{item.data.label}</PeachText>
                     <Pressable onPress={() => deletePaymentData(item.data)} style={tw`w-6 h-6`}>
                       <Icon id="trash" style={tw`w-6 h-6`} color={tw.color('black-2')} />
                     </Pressable>

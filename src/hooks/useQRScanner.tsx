@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Linking } from 'react-native'
 import { BarCodeReadEvent } from 'react-native-camera'
 import { PERMISSIONS, RESULTS, request as requestPermission } from 'react-native-permissions'
-import { Text } from '../components'
 import { PopupAction } from '../components/popup'
+import PeachText from '../components/text/Text'
 import { WarningPopup } from '../popups/WarningPopup'
 import { ClosePopupAction } from '../popups/actions'
 import { usePopupStore } from '../store/usePopupStore'
@@ -44,7 +44,7 @@ function MissingPermissionsPopup () {
   return (
     <WarningPopup
       title={i18n('settings.missingPermissions')}
-      content={<Text>{i18n('settings.missingPermissions.text')}</Text>}
+      content={<PeachText>{i18n('settings.missingPermissions.text')}</PeachText>}
       actions={
         <>
           <ClosePopupAction textStyle={tw`text-black-1`} />

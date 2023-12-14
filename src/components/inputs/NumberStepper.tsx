@@ -1,7 +1,8 @@
 import { TouchableOpacity, View } from 'react-native'
-import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { Icon } from '../Icon'
+import { PeachText } from '../text/Text'
 
 type Props = ComponentProps & {
   value: number
@@ -26,7 +27,7 @@ export const NumberStepper = ({ value, onChange, min = -Infinity, max = Infinity
       >
         <Icon id="minusCircle" size={24} color={tw.color('primary-main')} />
       </TouchableOpacity>
-      <Text style={tw`h5 w-11 text-center`}>x {value}</Text>
+      <PeachText style={tw`h5 w-11 text-center`}>x {value}</PeachText>
       <TouchableOpacity
         onPress={increase}
         accessibilityHint={i18n('number.increase')}

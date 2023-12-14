@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 import { Animated, SafeAreaView, TextStyle, TouchableOpacity, View, ViewStyle, useWindowDimensions } from 'react-native'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { shallow } from 'zustand/shallow'
-import { Icon, Placeholder, Text } from '..'
 import { IconType } from '../../assets/icons'
 import { useNavigation } from '../../hooks'
 import { VerifyYouAreAHumanPopup } from '../../popups/warning/VerifyYouAreAHumanPopup'
@@ -13,6 +12,9 @@ import { messageShadow } from '../../utils/layout/shadows'
 import { error } from '../../utils/log'
 import { parseError } from '../../utils/result/parseError'
 import { isNetworkError } from '../../utils/system/isNetworkError'
+import { Icon } from '../Icon'
+import { Placeholder } from '../Placeholder'
+import { PeachText } from '../text/Text'
 import { iconMap } from './iconMap'
 import { useMessageState } from './useMessageState'
 
@@ -149,23 +151,25 @@ export const Message = () => {
           <View style={tw`p-2`}>
             <View style={tw`flex-row items-center justify-center`}>
               {!!icon && <Icon id={icon} style={tw`w-5 h-5 mr-2`} color={levelColorMap.text[level].color} />}
-              {!!title && <Text style={[tw`text-center h6`, levelColorMap.text[level]]}>{title}</Text>}
+              {!!title && <PeachText style={[tw`text-center h6`, levelColorMap.text[level]]}>{title}</PeachText>}
             </View>
             {!!message && (
-              <Text style={[tw`text-center body-m`, levelColorMap.text[level], !!title && tw`mt-1`]}>{message}</Text>
+              <PeachText style={[tw`text-center body-m`, levelColorMap.text[level], !!title && tw`mt-1`]}>
+                {message}
+              </PeachText>
             )}
           </View>
           <View style={tw`flex flex-row items-center justify-between w-full mt-1`}>
             {action ? (
               <TouchableOpacity onPress={action.callback} style={tw`flex flex-row items-center`}>
                 {!!action.icon && <Icon id={action.icon} style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />}
-                <Text style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}> {action.label}</Text>
+                <PeachText style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}>{action.label}</PeachText>
               </TouchableOpacity>
             ) : (
               <Placeholder />
             )}
             <TouchableOpacity onPress={closeMessage} style={tw`flex flex-row items-center text-right`}>
-              <Text style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}>{i18n('close')} </Text>
+              <PeachText style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}>{i18n('close')} </PeachText>
               <Icon id="xSquare" style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />
             </TouchableOpacity>
           </View>

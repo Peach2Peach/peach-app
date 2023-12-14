@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { Text } from '../../components'
+import PeachText from '../../components/text/Text'
 import i18n from '../../utils/i18n'
 
 type Props = {
@@ -8,6 +8,6 @@ type Props = {
 
 export const IncorrectFunding = ({ utxos }: Props) => (
   <View>
-    <Text>{i18n('warning.incorrectFunding.description', String(utxos))}</Text>
+    <PeachText>{i18n('warning.incorrectFunding.description', String(utxos))}</PeachText>
   </View>
 )

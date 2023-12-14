@@ -1,6 +1,6 @@
 import { Pressable, View } from 'react-native'
-import { Text } from '..'
 import tw from '../../styles/tailwind'
+import { PeachText } from '../text/Text'
 
 type CurrencySelectionItemProps = ComponentProps & {
   currency: Currency
@@ -9,9 +9,9 @@ type CurrencySelectionItemProps = ComponentProps & {
 }
 const CurrencySelectionItem = ({ currency, isSelected, onPress, style }: CurrencySelectionItemProps) => (
   <Pressable style={style} onPress={() => onPress(currency)}>
-    <Text numberOfLines={1} style={[tw`text-center button-large text-black-2`, isSelected && tw`text-black-1`]}>
+    <PeachText numberOfLines={1} style={[tw`text-center button-large text-black-2`, isSelected && tw`text-black-1`]}>
       {currency}
-    </Text>
+    </PeachText>
     {isSelected && <View style={[tw`w-full h-0.5 -mt-0.5 bg-black-1 rounded-1px`]} />}
   </Pressable>
 )
