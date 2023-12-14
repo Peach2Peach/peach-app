@@ -389,14 +389,19 @@ function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWa
 }
 
 function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boolean }) {
-  const { data } = useMarketPrices()
-  const amountRange = getTradingAmountLimits(data?.CHF || 0, 'sell')
+  const amountRange = useTradingAmountLimits('sell')
   const [sellAmount, instantTrade] = useOfferPreferences((state) => [state.sellAmount, state.instantTrade], shallow)
   const limits = useTradingLimits()
   const priceWithPremium = useCurrentOfferPrice()
   const [isPublishing, setIsPublishing] = useState(false)
 
   const sellAmountIsValid = sellAmount >= amountRange[0] && sellAmount <= amountRange[1]
+  const restrictAmount = useRestrictSatsAmount('sell')
+  const setSellAmount = useOfferPreferences((state) => state.setSellAmount)
+  if (!sellAmountIsValid) {
+    setSellAmount(restrictAmount(sellAmount))
+  }
+
   const priceIsWithinLimits
     = priceWithPremium + limits.dailyAmount <= limits.daily && priceWithPremium + limits.yearlyAmount <= limits.yearly
   const paymentMethodsAreValid = true
