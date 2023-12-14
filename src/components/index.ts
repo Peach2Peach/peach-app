@@ -1,4 +1,3 @@
-export { BitcoinAddress } from './bitcoin'
 export { OptionButton } from './buttons'
 export { Drawer } from './drawer'
 export { BTCAmountInput, Checkbox, FileInput, Input, PremiumSlider, RadioButtons } from './inputs'
