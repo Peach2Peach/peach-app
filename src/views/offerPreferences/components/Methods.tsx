@@ -1,6 +1,7 @@
 import { TouchableOpacity } from 'react-native'
-import { Text, TouchableIcon } from '../../../components'
+import { Text } from '../../../components'
 import { Icon } from '../../../components/Icon'
+import { TouchableIcon } from '../../../components/TouchableIcon'
 import { MeansOfPayment } from '../../../components/offer/MeansOfPayment'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'

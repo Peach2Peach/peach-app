@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { View } from 'react-native'
-import { TouchableIcon } from '../../../components'
+import { TouchableIcon } from '../../../components/TouchableIcon'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'

@@ -1,4 +1,3 @@
-export { TouchableIcon } from './TouchableIcon'
 export { Fade, Loading } from './animation'
 export { BitcoinAddress } from './bitcoin'
 export { OptionButton } from './buttons'
