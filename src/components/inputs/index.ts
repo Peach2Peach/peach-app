@@ -1,5 +1,3 @@
-export { BTCAmountInput } from './BTCAmountInput'
-export { BitcoinAddressInput } from './BitcoinAddressInput'
 export { Checkbox } from './Checkbox'
 export { CurrencyItem } from './CurrencyItem'
 export { EmailInput } from './EmailInput'
