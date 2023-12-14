@@ -1,4 +1,4 @@
-import { Header } from '../../../components'
+import { Header } from '../../../components/Header'
 import { useNavigation } from '../../../hooks'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'

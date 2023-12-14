@@ -1,8 +1,8 @@
-import tw from '../../styles/tailwind'
-
-import { Header, HorizontalLine, PeachScrollView, RadioButtons, Screen, Text } from '../../components'
+import { HorizontalLine, PeachScrollView, RadioButtons, Screen, Text } from '../../components'
+import { Header } from '../../components/Header'
 import { Button } from '../../components/buttons/Button'
 import { useShowHelp } from '../../hooks'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { CustomFeeItem } from './components/networkFees/CustomFeeItem'

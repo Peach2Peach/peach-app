@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { Header, OptionButton, PeachScrollView, Screen, Text } from '../../components'
+import { OptionButton, PeachScrollView, Screen, Text } from '../../components'
+import { Header } from '../../components/Header'
 import { LinedText } from '../../components/ui/LinedText'
 import { DISCORD, TELEGRAM } from '../../constants'
 import { useNavigation } from '../../hooks'

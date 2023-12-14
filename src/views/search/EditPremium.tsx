@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { View } from 'react-native'
-import { Header, PremiumSlider, Screen, Text } from '../../components'
+import { PremiumSlider, Screen, Text } from '../../components'
+import { Header } from '../../components/Header'
 import { PremiumInput } from '../../components/PremiumInput'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Button } from '../../components/buttons/Button'

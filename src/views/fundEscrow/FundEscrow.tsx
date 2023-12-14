@@ -1,17 +1,8 @@
 import { networks } from 'bitcoinjs-lib'
 import { useMemo, useState } from 'react'
 import { View } from 'react-native'
-import {
-  BitcoinAddress,
-  CopyAble,
-  Header,
-  HorizontalLine,
-  Icon,
-  Loading,
-  PeachScrollView,
-  Screen,
-  Text,
-} from '../../components'
+import { BitcoinAddress, CopyAble, HorizontalLine, Icon, Loading, PeachScrollView, Screen, Text } from '../../components'
+import { Header } from '../../components/Header'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Button } from '../../components/buttons/Button'
 import { TradeInfo } from '../../components/offer/TradeInfo'

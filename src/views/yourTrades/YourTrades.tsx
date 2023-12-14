@@ -1,8 +1,8 @@
-import { SectionList, View } from 'react-native'
-import { Header, Loading, Screen } from '../../components'
-
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { useEffect, useMemo } from 'react'
+import { SectionList, View } from 'react-native'
+import { Loading, Screen } from '../../components'
+import { Header } from '../../components/Header'
 import { NotificationBubble } from '../../components/bubble/NotificationBubble'
 import { useNavigation, useRoute } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'

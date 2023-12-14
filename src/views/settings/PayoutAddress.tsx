@@ -1,7 +1,7 @@
 import { TouchableOpacity, View } from 'react-native'
-
 import { shallow } from 'zustand/shallow'
-import { Header, Icon, Screen, Text } from '../../components'
+import { Icon, Screen, Text } from '../../components'
+import { Header } from '../../components/Header'
 import { OpenWallet } from '../../components/bitcoin/OpenWallet'
 import { Button } from '../../components/buttons/Button'
 import { BitcoinAddressInput, Input } from '../../components/inputs'

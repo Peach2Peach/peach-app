@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { Header, Icon, Loading, Screen, Text } from '../../components'
+import { Icon, Loading, Screen, Text } from '../../components'
+import { Header } from '../../components/Header'
 import { Button } from '../../components/buttons/Button'
 import { UNIQUEID } from '../../constants'
 import { useNavigation, useRoute } from '../../hooks'

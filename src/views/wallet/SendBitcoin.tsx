@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { Header, HorizontalLine, PeachScrollView, Screen, Text } from '../../components'
+import { HorizontalLine, PeachScrollView, Screen, Text } from '../../components'
+import { Header } from '../../components/Header'
 import { BitcoinAddressInput, ConfirmSlider, RadioButtons } from '../../components/inputs'
 import { BTCAmountInput } from '../../components/inputs/BTCAmountInput'
 import { useNavigation, useShowHelp } from '../../hooks'

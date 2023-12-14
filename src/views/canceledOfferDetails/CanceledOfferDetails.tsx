@@ -1,9 +1,10 @@
-import { Header, Screen, Text } from '../../components'
+import { Screen, Text } from '../../components'
 import tw from '../../styles/tailwind'
 import { isSellOffer } from '../../utils/offer/isSellOffer'
 
 import { View } from 'react-native'
 import { EscrowButton } from '../../components/EscrowButton'
+import { Header } from '../../components/Header'
 import { useWalletLabel } from '../../components/offer/useWalletLabel'
 import { useRoute } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'

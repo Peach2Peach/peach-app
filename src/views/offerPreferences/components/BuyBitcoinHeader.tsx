@@ -1,6 +1,6 @@
 import { LogoIcons } from '../../../assets/logo'
-import { Header, Text } from '../../../components'
-import { HeaderProps } from '../../../components/Header'
+import { Text } from '../../../components'
+import { Header, HeaderProps } from '../../../components/Header'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 

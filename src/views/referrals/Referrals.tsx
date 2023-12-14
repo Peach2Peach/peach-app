@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { View } from 'react-native'
-import { Header, PeachScrollView, Progress, Screen, Text } from '../../components'
+import { PeachScrollView, Progress, Screen, Text } from '../../components'
+import { Header } from '../../components/Header'
 import { Button } from '../../components/buttons/Button'
 import { RadioButtonItem, RadioButtons } from '../../components/inputs/RadioButtons'
 import { useShowHelp } from '../../hooks'

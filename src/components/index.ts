@@ -1,5 +1,3 @@
-export { Flag } from './Flag'
-export { Header } from './Header'
 export { Icon } from './Icon'
 export { PeachScrollView } from './PeachScrollView'
 export { Placeholder } from './Placeholder'

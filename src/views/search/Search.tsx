@@ -1,9 +1,9 @@
-import tw from '../../styles/tailwind'
-
 import { useCallback, useMemo } from 'react'
-import { Header, Matches, PeachScrollView, Screen } from '../../components'
+import { Matches, PeachScrollView, Screen } from '../../components'
+import { Header } from '../../components/Header'
 import { useCancelOffer, useNavigation, useRoute, useShowHelp } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
+import tw from '../../styles/tailwind'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { isBuyOffer } from '../../utils/offer/isBuyOffer'
 import { isSellOffer } from '../../utils/offer/isSellOffer'
