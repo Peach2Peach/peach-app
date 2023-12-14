@@ -6,16 +6,18 @@ import { PeachyBackground } from '../../components/PeachyBackground'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Badges } from '../../components/matches/components/Badges'
 import { useBitcoinPrices, useCancelOffer, useNavigation } from '../../hooks'
+import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
+import { isSellOffer } from '../../utils/offer/isSellOffer'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { BuyBitcoinHeader } from '../offerPreferences/components/BuyBitcoinHeader'
+import { MarketInfo } from '../offerPreferences/components/MarketInfo'
 import { useOfferMatches } from '../search/hooks'
 import { useSortAndFilterPopup } from '../search/hooks/useSortAndFilterPopup'
 import { Rating } from '../settings/profile/profileOverview/components'
-import { BuyOfferMarketInfo } from './BuyOfferMarketInfo'
 
 export function Explore () {
   const { offerId } = useRoute<'explore'>().params
@@ -26,16 +28,35 @@ export function Explore () {
     <Screen header={<ExploreHeader />}>
       {hasMatches ? (
         <PeachScrollView contentStyle={tw`gap-10px`}>
-          <BuyOfferMarketInfo offerId={offerId} />
+          <BuyOfferMarketInfo />
           <OfferSummaryCards />
         </PeachScrollView>
       ) : (
         <View style={tw`items-center justify-center flex-1 gap-4`}>
-          <BuyOfferMarketInfo offerId={offerId} />
+          <BuyOfferMarketInfo />
           <Text style={tw`text-center subtitle-2`}>{i18n('search.weWillNotifyYou')}</Text>
         </View>
       )}
     </Screen>
+  )
+}
+
+function BuyOfferMarketInfo () {
+  const { offerId } = useRoute<'explore'>().params
+  const { offer } = useOfferDetails(offerId)
+
+  if (offer && isSellOffer(offer)) {
+    throw new Error('Offer should be a buy offer')
+  }
+
+  return (
+    <MarketInfo
+      type={'sellOffers'}
+      meansOfPayment={offer?.meansOfPayment}
+      maxPremium={offer?.maxPremium || undefined}
+      minReputation={offer?.minReputation || undefined}
+      buyAmountRange={offer?.amount}
+    />
   )
 }
 
