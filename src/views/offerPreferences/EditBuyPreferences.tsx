@@ -19,22 +19,25 @@ import { MaxPremiumFilterComponent } from './components/MaxPremiumFilterComponen
 import { ReputationFilterComponent } from './components/MinReputationFilter'
 import { PreferenceScreen } from './components/PreferenceScreen'
 import { Section } from './components/Section'
+import { useTradingAmountLimits } from './utils/useTradingAmountLimits'
 
-type OfferAction =
-  | { type: 'amount_changed'; amount: [number, number] }
-  | { type: 'premium_changed'; premium: number }
+type Preferences = Pick<BuyOffer, 'amount' | 'maxPremium' | 'minReputation' | 'meansOfPayment'>
+
+type PreferenceAction =
+  | { type: 'amount_changed'; amount: BuyOffer['amount'] }
+  | { type: 'premium_changed'; premium: BuyOffer['maxPremium'] }
   | { type: 'reputation_toggled' }
   | { type: 'max_premium_toggled' }
-const OfferContext = createContext<[BuyOffer, React.Dispatch<OfferAction>] | null>(null)
-const useOfferContext = () => {
-  const context = useContext(OfferContext)
+const PreferenceContext = createContext<[Preferences, React.Dispatch<PreferenceAction>] | null>(null)
+const usePreferenceContext = () => {
+  const context = useContext(PreferenceContext)
   if (!context) {
-    throw new Error('useOfferContext must be used within OfferContextProvider')
+    throw new Error('usePreferenceContext must be used within a PreferenceContextProvider')
   }
   return context
 }
 
-function offerReducer (state: BuyOffer, action: OfferAction) {
+function offerReducer (state: Preferences, action: PreferenceAction) {
   switch (action.type) {
   case 'amount_changed': {
     return { ...state, amount: action.amount }
@@ -68,26 +71,27 @@ function initializer (offer: BuyOffer) {
   const minReputation
     = typeof offer?.minReputation === 'number' ? interpolate(offer.minReputation, [-1, 1], [0, 5]) : null
   const maxPremium = offer?.maxPremium ?? null
-  return { ...offer, minReputation, maxPremium }
+  const { amount, meansOfPayment } = offer
+  return { amount, meansOfPayment, minReputation, maxPremium }
 }
 
 function ScreenContent ({ offer }: { offer: BuyOffer }) {
   const [isSliding, setIsSliding] = useState(false)
   const reducer = useReducer(offerReducer, offer, initializer)
   return (
-    <OfferContext.Provider value={reducer}>
+    <PreferenceContext.Provider value={reducer}>
       <PreferenceScreen isSliding={isSliding} button={<ShowOffersButton />}>
         <OfferMarketInfo />
         <OfferMethods />
         <AmountSelector setIsSliding={setIsSliding} />
         <Filters />
       </PreferenceScreen>
-    </OfferContext.Provider>
+    </PreferenceContext.Provider>
   )
 }
 
 function OfferMarketInfo () {
-  const [{ amount, maxPremium, minReputation, meansOfPayment }] = useOfferContext()
+  const [{ amount, maxPremium, minReputation, meansOfPayment }] = usePreferenceContext()
   return (
     <MarketInfo
       type={'sellOffers'}
@@ -100,7 +104,7 @@ function OfferMarketInfo () {
 }
 
 function OfferMethods () {
-  const [{ meansOfPayment }] = useOfferContext()
+  const [{ meansOfPayment }] = usePreferenceContext()
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment)
   const backgroundColor = tw.color('success-mild-1')
   return (
@@ -115,7 +119,7 @@ function OfferMethods () {
 }
 
 function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) => void }) {
-  const [offer, dispatch] = useOfferContext()
+  const [offer, dispatch] = usePreferenceContext()
   const offerRange = offer?.amount || ([0, 0] satisfies [number, number])
 
   function handleAmountChange (newAmount: [number, number]) {
@@ -142,7 +146,7 @@ function Filters () {
 }
 
 function ReputationFilter () {
-  const [{ minReputation }, dispatch] = useOfferContext()
+  const [{ minReputation }, dispatch] = usePreferenceContext()
 
   function handleToggle () {
     dispatch({
@@ -154,7 +158,7 @@ function ReputationFilter () {
 }
 
 function MaxPremiumFilter () {
-  const [offer, dispatch] = useOfferContext()
+  const [offer, dispatch] = usePreferenceContext()
   const maxPremium = offer?.maxPremium ?? null
 
   function handlePremiumChange (newPremium: number) {
@@ -181,13 +185,21 @@ function MaxPremiumFilter () {
 }
 
 function ShowOffersButton () {
-  const [buyOffer] = useOfferContext()
-  const { amount, maxPremium } = buyOffer
-  const minReputation = interpolate(buyOffer.minReputation || 0, [0, 5], [-1, 1])
+  const [preferences] = usePreferenceContext()
+  const { maxPremium } = preferences
+  const minReputation = interpolate(preferences.minReputation || 0, [0, 5], [-1, 1])
 
-  const rangeIsValid = amount[0] <= amount[1]
-  const formValid = rangeIsValid
   const { offerId } = useRoute<'editBuyPreferences'>().params
+  const { offer } = useOfferDetails(offerId)
+  if (offer && !isBuyOffer(offer)) throw new Error('Offer is not a buy offer')
+
+  const rangeHasChanged = offer?.amount[0] !== preferences.amount[0] || offer?.amount[1] !== preferences.amount[1]
+  const [min, max] = useTradingAmountLimits('buy')
+  const rangeIsWithinLimits = preferences.amount[0] >= min && preferences.amount[1] <= max
+
+  const rangeIsValid = preferences.amount[0] <= preferences.amount[1] && (!rangeHasChanged || rangeIsWithinLimits)
+  const amount = rangeHasChanged ? preferences.amount : undefined
+  const formValid = rangeIsValid
 
   const { mutate: patchOffer, isLoading: isPatching } = usePatchOffer()
   const navigation = useNavigation()
