@@ -13,6 +13,7 @@ import { isBuyOffer } from '../../utils/offer/isBuyOffer'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { matchesKeys } from '../search/hooks/useOfferMatches'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
+import { BuyBitcoinHeader } from './components/BuyBitcoinHeader'
 import { FilterContainer } from './components/FilterContainer'
 import { MarketInfo } from './components/MarketInfo'
 import { MaxPremiumFilterComponent } from './components/MaxPremiumFilterComponent'
@@ -80,7 +81,7 @@ function ScreenContent ({ offer }: { offer: BuyOffer }) {
   const reducer = useReducer(offerReducer, offer, initializer)
   return (
     <PreferenceContext.Provider value={reducer}>
-      <PreferenceScreen isSliding={isSliding} button={<ShowOffersButton />}>
+      <PreferenceScreen header={<BuyBitcoinHeader />} isSliding={isSliding} button={<ShowOffersButton />}>
         <OfferMarketInfo />
         <OfferMethods />
         <AmountSelector setIsSliding={setIsSliding} />

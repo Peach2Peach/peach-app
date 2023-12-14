@@ -8,6 +8,7 @@ import i18n from '../../utils/i18n'
 import { interpolate } from '../../utils/math/interpolate'
 import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
+import { BuyBitcoinHeader } from './components/BuyBitcoinHeader'
 import { FilterContainer } from './components/FilterContainer'
 import { MarketInfo } from './components/MarketInfo'
 import { MaxPremiumFilterComponent } from './components/MaxPremiumFilterComponent'
@@ -22,7 +23,7 @@ export function BuyOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
 
   return (
-    <PreferenceScreen isSliding={isSliding} button={<ShowOffersButton />}>
+    <PreferenceScreen isSliding={isSliding} header={<BuyBitcoinHeader />} button={<ShowOffersButton />}>
       <PreferenceMarketInfo />
       <PreferenceMethods type="buy" />
       <AmountSelector setIsSliding={setIsSliding} />

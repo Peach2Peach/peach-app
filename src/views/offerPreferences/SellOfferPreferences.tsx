@@ -12,7 +12,7 @@ import {
 import { shallow } from 'zustand/shallow'
 import { MeansOfPayment } from '../../../peach-api/src/@types/payment'
 import { LogoIcons } from '../../assets/logo'
-import { Checkbox, Header, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
+import { Checkbox, Header, Text, TouchableIcon } from '../../components'
 import { Badge } from '../../components/Badge'
 import { PremiumInput } from '../../components/PremiumInput'
 import { NewBubble } from '../../components/bubble/Bubble'
@@ -45,6 +45,7 @@ import { useFundFromPeachWallet } from '../fundEscrow/hooks/useFundFromPeachWall
 import { FundMultipleOffers } from './components/FundMultipleOffers'
 import { MarketInfo } from './components/MarketInfo'
 import { PreferenceMethods } from './components/PreferenceMethods'
+import { PreferenceScreen } from './components/PreferenceScreen'
 import { SatsInputComponent } from './components/SatsInputComponent'
 import { Section } from './components/Section'
 import { Slider, sliderWidth } from './components/Slider'
@@ -61,19 +62,15 @@ import { useTradingAmountLimits } from './utils/useTradingAmountLimits'
 export function SellOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
   return (
-    <Screen header={<SellHeader />}>
-      <PeachScrollView contentStyle={tw`gap-7`} scrollEnabled={!isSliding}>
-        <SellPreferenceMarketInfo />
-        <PreferenceMethods type="sell" />
-        <CompetingOfferStats />
-        <AmountSelector setIsSliding={setIsSliding} />
-        <FundMultipleOffersContainer />
-        <InstantTrade />
-        <RefundWallet />
-      </PeachScrollView>
-
-      <SellAction />
-    </Screen>
+    <PreferenceScreen header={<SellHeader />} button={<SellAction />} isSliding={isSliding}>
+      <SellPreferenceMarketInfo />
+      <PreferenceMethods type="sell" />
+      <CompetingOfferStats />
+      <AmountSelector setIsSliding={setIsSliding} />
+      <FundMultipleOffersContainer />
+      <InstantTrade />
+      <RefundWallet />
+    </PreferenceScreen>
   )
 }
 
