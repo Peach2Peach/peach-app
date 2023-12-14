@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { Loading, Text } from '../../components'
+import { Text } from '../../components'
+import { Loading } from '../../components/animation/Loading'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 

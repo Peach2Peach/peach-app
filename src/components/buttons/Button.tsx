@@ -4,7 +4,7 @@ import { IconType } from '../../assets/icons'
 import { useIsMediumScreen } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
-import { Loading } from '../animation'
+import { Loading } from '../animation/Loading'
 import { Text } from '../text'
 
 export type ButtonProps = {

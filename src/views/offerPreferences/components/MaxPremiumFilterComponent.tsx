@@ -1,7 +1,8 @@
 import { View } from 'react-native'
-import { Checkbox, TouchableIcon } from '../../../components'
+import { Checkbox } from '../../../components'
 import { premiumBounds } from '../../../components/PremiumInput'
 import { PremiumTextInput } from '../../../components/PremiumTextInput'
+import { TouchableIcon } from '../../../components/TouchableIcon'
 import tw from '../../../styles/tailwind'
 import { round } from '../../../utils/math/round'
 
