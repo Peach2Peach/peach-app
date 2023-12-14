@@ -1,6 +1,7 @@
 import { View } from 'react-native'
-import { Icon, PeachScrollView, Screen, Text } from '../../components'
+import { PeachScrollView, Screen, Text } from '../../components'
 import { Header } from '../../components/Header'
+import { Icon } from '../../components/Icon'
 import { Button } from '../../components/buttons/Button'
 import { ScanQR } from '../../components/camera/ScanQR'
 import { Toggle } from '../../components/inputs'

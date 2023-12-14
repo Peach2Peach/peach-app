@@ -1,6 +1,6 @@
 import { View } from 'react-native'
-import { Icon, Text } from '../../components'
-
+import { Text } from '../../components'
+import { Icon } from '../../components/Icon'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'

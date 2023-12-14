@@ -1,5 +1,5 @@
 import { Animated, GestureResponderEvent, Insets } from 'react-native'
-import { Icon } from '../../../components'
+import { Icon } from '../../../components/Icon'
 import tw from '../../../styles/tailwind'
 import { sectionContainerGap } from './Section'
 

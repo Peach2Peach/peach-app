@@ -1,5 +1,6 @@
 import { TouchableOpacity, View } from 'react-native'
-import { CopyAble, Icon, Text } from '../../../components'
+import { CopyAble, Text } from '../../../components'
+import { Icon } from '../../../components/Icon'
 import { Bubble } from '../../../components/bubble'
 import { useWalletLabel } from '../../../components/offer/useWalletLabel'
 import { APPLINKS } from '../../../paymentMethods'

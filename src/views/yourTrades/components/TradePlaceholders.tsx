@@ -1,5 +1,6 @@
 import { TouchableOpacity, View } from 'react-native'
-import { HorizontalLine, Icon, Text } from '../../../components'
+import { HorizontalLine, Text } from '../../../components'
+import { Icon } from '../../../components/Icon'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'

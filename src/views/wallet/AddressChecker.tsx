@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { Icon, InfoFrame, Loading, Placeholder, Screen } from '../../components'
+import { InfoFrame, Loading, Placeholder, Screen } from '../../components'
+import { Icon } from '../../components/Icon'
 import { BitcoinAddressInput } from '../../components/inputs'
 import { TradeInfo } from '../../components/offer/TradeInfo'
 import { useValidatedState } from '../../hooks'

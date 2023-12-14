@@ -1,7 +1,8 @@
 import { TouchableOpacity } from 'react-native'
-import { Icon, Text } from '../'
+import { Text } from '../'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { Icon } from '../Icon'
 import { useAddPaymentMethodButtonSetup } from './hooks/useAddPaymentMethodButtonSetup'
 
 type Props = ComponentProps & {

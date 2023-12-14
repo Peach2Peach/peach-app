@@ -1,4 +1,4 @@
-import { Icon } from '../../../../../components'
+import { Icon } from '../../../../../components/Icon'
 import { statusCardStyles } from '../../../../../components/statusCard/StatusCard'
 import tw from '../../../../../styles/tailwind'
 import { contractIdToHex } from '../../../../../utils/contract/contractIdToHex'

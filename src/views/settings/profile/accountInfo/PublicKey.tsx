@@ -1,7 +1,8 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import { useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { Icon, Text } from '../../../../components'
+import { Text } from '../../../../components'
+import { Icon } from '../../../../components/Icon'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 

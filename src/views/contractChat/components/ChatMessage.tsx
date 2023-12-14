@@ -1,6 +1,7 @@
 import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
-import { Icon, Text } from '../../../components'
+import { Text } from '../../../components'
+import { Icon } from '../../../components/Icon'
 import { LinedText } from '../../../components/ui/LinedText'
 import tw from '../../../styles/tailwind'
 import { useAccountStore } from '../../../utils/account/account'

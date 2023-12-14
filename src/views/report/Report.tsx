@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
-import { Icon, Input, PeachScrollView, Screen, Text } from '../../components'
+import { Input, PeachScrollView, Screen, Text } from '../../components'
+import { Icon } from '../../components/Icon'
 import { Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
 import { useNavigation, useRoute, useToggleBoolean, useValidatedState } from '../../hooks'

@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { Icon } from '../../../components'
+import { Icon } from '../../../components/Icon'
 import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
 import { PeachText } from '../../../components/text/Text'
 import { CENT } from '../../../constants'

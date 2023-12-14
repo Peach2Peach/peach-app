@@ -1,6 +1,6 @@
 import { ColorValue } from 'react-native'
 import { IconType } from '../../../assets/icons'
-import { Icon } from '../../../components'
+import { Icon } from '../../../components/Icon'
 import tw from '../../../styles/tailwind'
 
 type TxIcon = {

@@ -1,6 +1,7 @@
 import { TouchableOpacity, View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { Icon, Loading, Placeholder, Text } from '../../../components'
+import { Loading, Placeholder, Text } from '../../../components'
+import { Icon } from '../../../components/Icon'
 import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
