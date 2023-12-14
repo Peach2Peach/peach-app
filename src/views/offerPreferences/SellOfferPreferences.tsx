@@ -53,13 +53,14 @@ import { publishSellOffer } from './utils/publishSellOffer'
 import { useAmountInBounds } from './utils/useAmountInBounds'
 import { useRestrictSatsAmount } from './utils/useRestrictSatsAmount'
 import { useTrackWidth } from './utils/useTrackWidth'
+import { useTradingAmountLimits } from './utils/useTradingAmountLimits'
 
 export function SellOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
   return (
     <Screen header={<SellHeader />}>
       <PeachScrollView contentStyle={tw`gap-7`} scrollEnabled={!isSliding}>
-        <MarketInfo type="buyOffers" />
+        <SellPreferenceMarketInfo />
         <PreferenceMethods type="sell" />
         <CompetingOfferStats />
         <AmountSelector setIsSliding={setIsSliding} />
@@ -71,6 +72,18 @@ export function SellOfferPreferences () {
       <SellAction />
     </Screen>
   )
+}
+
+function SellPreferenceMarketInfo () {
+  const preferences = useOfferPreferences(
+    (state) => ({
+      meansOfPayment: state.meansOfPayment,
+      premium: state.premium,
+      sellAmount: state.sellAmount,
+    }),
+    shallow,
+  )
+  return <MarketInfo type="buyOffers" {...preferences} />
 }
 
 function CompetingOfferStats () {

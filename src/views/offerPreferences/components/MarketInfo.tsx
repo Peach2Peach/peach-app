@@ -15,9 +15,11 @@ export function MarketInfo ({
 }: {
   type: 'buyOffers' | 'sellOffers'
   meansOfPayment?: MeansOfPayment
+  premium?: number
   maxPremium?: number
   minReputation?: number
   buyAmountRange?: [number, number]
+  sellAmount?: number
 }) {
   const text = type === 'buyOffers' ? 'buy offers' : 'sell offers'
   const textStyle = type === 'buyOffers' ? tw`text-success-main` : tw`text-primary-main`
@@ -36,7 +38,7 @@ export function MarketInfo ({
           <Text style={[tw`subtitle-2`, textStyle]}>for your preferences</Text>
         </View>
       </View>
-      <AveragePremium averagePremium={averagePremium} offersWithinRange={offersWithinRange} />
+      {type === 'sellOffers' && <AveragePremium averagePremium={averagePremium} offersWithinRange={offersWithinRange} />}
     </Section.Container>
   )
 }
@@ -58,18 +60,22 @@ function AveragePremium ({
 function useFilteredMarketStats ({
   type,
   meansOfPayment,
+  premium,
   maxPremium,
   minReputation,
   buyAmountRange,
+  sellAmount,
 }: {
   type: 'bid' | 'ask'
   meansOfPayment?: MeansOfPayment
+  premium?: number
   maxPremium?: number
   minReputation?: number
   buyAmountRange?: [number, number]
+  sellAmount?: number
 }) {
   const queryData = useQuery({
-    queryKey: ['offer', 'search', 'summary', { type, meansOfPayment, maxPremium, minReputation }] as const,
+    queryKey: ['offer', 'search', 'summary', { type, meansOfPayment, maxPremium, minReputation, premium }] as const,
     queryFn: async ({ queryKey }) => {
       const [, , , requestBody] = queryKey
       const { result } = await peachAPI.private.offer.searchOfferSummaries(requestBody)
@@ -80,12 +86,23 @@ function useFilteredMarketStats ({
   })
 
   const offersWithinRange = useMemo(() => {
-    if (!buyAmountRange || !queryData.data?.offers) return []
-    const [min, max] = buyAmountRange
-    return queryData.data.offers.filter(
-      (offer) => 'amount' in offer && typeof offer.amount === 'number' && offer.amount >= min && offer.amount <= max,
-    )
-  }, [buyAmountRange, queryData.data?.offers])
+    if (!queryData.data?.offers) return []
+    if (type === 'bid' && sellAmount) {
+      return queryData.data.offers.filter(
+        (offer) =>
+          'amount' in offer
+          && typeof offer.amount !== 'number'
+          && offer.amount[0] <= sellAmount
+          && offer.amount[1] >= sellAmount,
+      )
+    } else if (type === 'ask' && buyAmountRange) {
+      const [min, max] = buyAmountRange
+      return queryData.data.offers.filter(
+        (offer) => 'amount' in offer && typeof offer.amount === 'number' && offer.amount >= min && offer.amount <= max,
+      )
+    }
+    return []
+  }, [buyAmountRange, queryData?.data?.offers, sellAmount, type])
 
   const averagePremium = useMemo(() => {
     const premiums = offersWithinRange.map((offer) => ('premium' in offer ? offer.premium : undefined)).filter(isDefined)
