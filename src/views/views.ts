@@ -35,7 +35,6 @@ import { RestoreReputation } from './restoreReputation/RestoreReputation'
 import { EditPremium } from './search/EditPremium'
 import { OfferPublished } from './search/OfferPublished'
 import { Search } from './search/Search'
-import { SelectWallet } from './selectWallet/SelectWallet'
 import { Backups } from './settings/Backups'
 import { Currency } from './settings/Currency'
 import { Language } from './settings/Language'
@@ -92,7 +91,6 @@ const wallet: ViewType[] = [
 const buyFlow: ViewType[] = [
   { name: 'buyOfferPreferences', component: BuyOfferPreferences },
   { name: 'signMessage', component: SignMessage },
-  { name: 'selectWallet', component: SelectWallet },
 ]
 
 const sellFlow: ViewType[] = [
