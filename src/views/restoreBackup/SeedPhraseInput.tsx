@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useCallback } from 'react'
-import { Input } from '../../components'
+import { Input } from '../../components/inputs/Input'
 import { useValidatedState } from '../../hooks'
 import { bip39WordRules } from './hooks/useRestoreFromSeedSetup'
 
