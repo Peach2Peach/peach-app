@@ -14,6 +14,7 @@ import { getOfferPrice } from '../../utils/offer/getOfferPrice'
 import { isSellOffer } from '../../utils/offer/isSellOffer'
 import { offerIdToHex } from '../../utils/offer/offerIdToHex'
 import { priceFormat } from '../../utils/string/priceFormat'
+import { MarketInfo } from '../offerPreferences/components/MarketInfo'
 
 export const EditPremium = () => {
   const { offerId } = useRoute<'editPremium'>().params
@@ -32,6 +33,7 @@ export const EditPremium = () => {
 
   return (
     <Screen header={<EditPremiumHeader />}>
+      <MarketInfo type="buyOffers" meansOfPayment={offer?.meansOfPayment} premium={displayPremium} />
       <Premium
         premium={displayPremium}
         setPremium={setPremium}

@@ -1,17 +1,17 @@
 import { PeachScrollView, Screen } from '../../../components'
 import tw from '../../../styles/tailwind'
-import { BuyBitcoinHeader } from './BuyBitcoinHeader'
 
 type Props = {
   children: React.ReactNode
   isSliding: boolean
   button: React.ReactNode
+  header: React.ReactNode
 }
 
-export function PreferenceScreen ({ children, button, isSliding }: Props) {
+export function PreferenceScreen ({ children, button, isSliding, header }: Props) {
   return (
-    <Screen header={<BuyBitcoinHeader />}>
-      <PeachScrollView contentStyle={tw`gap-7`} scrollEnabled={!isSliding}>
+    <Screen header={header}>
+      <PeachScrollView contentStyle={tw`gap-6`} scrollEnabled={!isSliding} showsVerticalScrollIndicator>
         {children}
       </PeachScrollView>
       {button}

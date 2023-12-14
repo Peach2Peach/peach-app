@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import { useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useMemo, useRef, useState } from 'react'
 import {
   GestureResponderEvent,
@@ -10,8 +10,9 @@ import {
   View,
 } from 'react-native'
 import { shallow } from 'zustand/shallow'
+import { MeansOfPayment } from '../../../peach-api/src/@types/payment'
 import { LogoIcons } from '../../assets/logo'
-import { Checkbox, Header, PeachScrollView, Screen, Text, TouchableIcon } from '../../components'
+import { Checkbox, Header, Text, TouchableIcon } from '../../components'
 import { Badge } from '../../components/Badge'
 import { PremiumInput } from '../../components/PremiumInput'
 import { NewBubble } from '../../components/bubble/Bubble'
@@ -32,6 +33,7 @@ import { round } from '../../utils/math/round'
 import { keys } from '../../utils/object/keys'
 import { defaultFundingStatus } from '../../utils/offer/constants'
 import { cleanPaymentData } from '../../utils/paymentMethod/cleanPaymentData'
+import { peachAPI } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp/signAndEncrypt'
 import { priceFormat } from '../../utils/string/priceFormat'
 import { isDefined } from '../../utils/validation/isDefined'
@@ -43,44 +45,74 @@ import { useFundFromPeachWallet } from '../fundEscrow/hooks/useFundFromPeachWall
 import { FundMultipleOffers } from './components/FundMultipleOffers'
 import { MarketInfo } from './components/MarketInfo'
 import { PreferenceMethods } from './components/PreferenceMethods'
+import { PreferenceScreen } from './components/PreferenceScreen'
 import { SatsInputComponent } from './components/SatsInputComponent'
 import { Section } from './components/Section'
 import { Slider, sliderWidth } from './components/Slider'
 import { SliderTrack } from './components/SliderTrack'
+import { useFilteredMarketStats } from './components/useFilteredMarketStats'
 import { trackMin } from './utils/constants'
 import { enforceDigitFormat } from './utils/enforceDigitFormat'
 import { publishSellOffer } from './utils/publishSellOffer'
 import { useAmountInBounds } from './utils/useAmountInBounds'
 import { useRestrictSatsAmount } from './utils/useRestrictSatsAmount'
 import { useTrackWidth } from './utils/useTrackWidth'
+import { useTradingAmountLimits } from './utils/useTradingAmountLimits'
 
 export function SellOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
   return (
-    <Screen header={<SellHeader />}>
-      <PeachScrollView contentStyle={tw`gap-7`} scrollEnabled={!isSliding}>
-        <MarketInfo type="buyOffers" />
-        <PreferenceMethods type="sell" />
-        <CompetingOfferStats />
-        <AmountSelector setIsSliding={setIsSliding} />
-        <FundMultipleOffersContainer />
-        <InstantTrade />
-        <RefundWallet />
-      </PeachScrollView>
-
-      <SellAction />
-    </Screen>
+    <PreferenceScreen header={<SellHeader />} button={<SellAction />} isSliding={isSliding}>
+      <SellPreferenceMarketInfo />
+      <PreferenceMethods type="sell" />
+      <CompetingOfferStats />
+      <AmountSelector setIsSliding={setIsSliding} />
+      <FundMultipleOffersContainer />
+      <InstantTrade />
+      <RefundWallet />
+    </PreferenceScreen>
   )
 }
 
+function SellPreferenceMarketInfo () {
+  const preferences = useOfferPreferences(
+    (state) => ({
+      meansOfPayment: state.meansOfPayment,
+      premium: state.premium,
+      sellAmount: state.sellAmount,
+    }),
+    shallow,
+  )
+  return <MarketInfo type="buyOffers" {...preferences} />
+}
+
+function usePastOffersStats ({ meansOfPayment }: { meansOfPayment: MeansOfPayment }) {
+  return useQuery({
+    queryKey: ['market', 'pastOffers', 'stats', { meansOfPayment }] as const,
+    queryFn: async (context) => {
+      const preferences = context.queryKey[3]
+      const { result } = await peachAPI.public.market.getPastOffersStats(preferences)
+      if (!result) throw new Error('no past offers stats found')
+      return result
+    },
+    placeholderData: {
+      avgPremium: 0,
+    },
+    keepPreviousData: true,
+  })
+}
+
 function CompetingOfferStats () {
-  const textStyle = tw`text-center text-primary-dark-2 body-s`
-  const competingSellOffers = 0
-  const averageTradingPremium = 9
+  const textStyle = tw`text-center text-primary-main subtitle-2`
+
+  const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment)
+  const { data: pastOfferData } = usePastOffersStats({ meansOfPayment })
+  const { data: marketStats } = useFilteredMarketStats({ type: 'ask', meansOfPayment })
+
   return (
-    <Section.Container>
-      <Text style={textStyle}>{competingSellOffers} competing sell offers</Text>
-      <Text style={textStyle}>premium of completed offers: ~{averageTradingPremium}%</Text>
+    <Section.Container style={tw`gap-1 py-0`}>
+      <Text style={textStyle}>{marketStats.offersWithinRange.length} competing sell offers</Text>
+      <Text style={textStyle}>premium of completed trades: {pastOfferData?.avgPremium}%</Text>
     </Section.Container>
   )
 }
@@ -124,12 +156,23 @@ function AmountSelectorContainer ({ slider, inputs }: { slider?: JSX.Element; in
 
 const replaceAllCommasWithDots = (value: string) => value.replace(/,/gu, '.')
 const removeAllButOneDot = (value: string) => value.replace(/\.(?=.*\.)/gu, '')
+const MIN_PREMIUM_INCREMENT = 0.01
 function Premium () {
+  const preferences = useOfferPreferences(
+    (state) => ({
+      maxPremium: state.premium - MIN_PREMIUM_INCREMENT,
+      meansOfPayment: state.meansOfPayment,
+    }),
+    shallow,
+  )
+  const { data } = useFilteredMarketStats({ type: 'ask', ...preferences })
   return (
     <View style={tw`self-stretch gap-1`}>
       <PremiumInputComponent />
       <CurrentPrice />
-      <Text style={tw`text-center body-s text-primary-dark-2`}>x competing sell offers below this premium</Text>
+      <Text style={tw`text-center text-primary-main subtitle-2`}>
+        {data.offersWithinRange.length} competing sell offers below this premium
+      </Text>
     </View>
   )
 }
@@ -201,20 +244,20 @@ export const textStyle = 'text-center subtitle-1 leading-relaxed py-1px'
 function SatsInput () {
   const [amount, setAmount] = useOfferPreferences((state) => [state.sellAmount, state.setSellAmount])
   const inputRef = useRef<TextInput>(null)
-  const [inputValue, setInputValue] = useState(amount.toString())
+  const [inputValue, setInputValue] = useState(String(amount))
   const restrictAmount = useRestrictSatsAmount('sell')
 
-  const onFocus = () => setInputValue(amount.toString())
+  const onFocus = () => setInputValue(String(amount))
 
   const onChangeText = (value: string) => setInputValue(enforceDigitFormat(value))
 
   const onEndEditing = ({ nativeEvent: { text } }: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
     const newAmount = restrictAmount(Number(enforceDigitFormat(text)))
     setAmount(newAmount)
-    setInputValue(newAmount.toString())
+    setInputValue(String(newAmount))
   }
 
-  const displayValue = inputRef.current?.isFocused() ? inputValue : amount.toString()
+  const displayValue = inputRef.current?.isFocused() ? inputValue : String(amount)
 
   return (
     <SatsInputComponent
@@ -273,7 +316,7 @@ function FiatInput () {
 
 function FundMultipleOffersContainer () {
   return (
-    <Section.Container style={tw`items-start`}>
+    <Section.Container style={tw`items-start bg-primary-background-dark`}>
       <FundMultipleOffers />
     </Section.Container>
   )
@@ -389,14 +432,19 @@ function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWa
 }
 
 function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boolean }) {
-  const { data } = useMarketPrices()
-  const amountRange = getTradingAmountLimits(data?.CHF || 0, 'sell')
+  const amountRange = useTradingAmountLimits('sell')
   const [sellAmount, instantTrade] = useOfferPreferences((state) => [state.sellAmount, state.instantTrade], shallow)
   const limits = useTradingLimits()
   const priceWithPremium = useCurrentOfferPrice()
   const [isPublishing, setIsPublishing] = useState(false)
 
   const sellAmountIsValid = sellAmount >= amountRange[0] && sellAmount <= amountRange[1]
+  const restrictAmount = useRestrictSatsAmount('sell')
+  const setSellAmount = useOfferPreferences((state) => state.setSellAmount)
+  if (!sellAmountIsValid) {
+    setSellAmount(restrictAmount(sellAmount))
+  }
+
   const priceIsWithinLimits
     = priceWithPremium + limits.dailyAmount <= limits.daily && priceWithPremium + limits.yearlyAmount <= limits.yearly
   const paymentMethodsAreValid = true

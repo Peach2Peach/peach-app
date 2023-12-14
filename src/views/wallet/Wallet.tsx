@@ -1,5 +1,6 @@
 import { RefreshControl, View } from 'react-native'
 import { PeachScrollView, Screen } from '../../components'
+import { BackupReminderIcon } from '../../components/BackupReminderIcon'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -11,17 +12,17 @@ import { useLastUnusedAddress, useUTXOs, useWalletAddress, useWalletSetup } from
 
 export const Wallet = () => {
   const { balance, isRefreshing, walletLoading, refresh } = useWalletSetup({ peachWallet, syncOnLoad: true })
-
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (
     <Screen header={<WalletHeader />}>
       <PeachScrollView
         contentContainerStyle={tw`grow`}
-        contentStyle={tw`justify-center grow`}
+        contentStyle={tw`justify-center py-16 grow`}
         refreshControl={<RefreshControl refreshing={false} onRefresh={refresh} />}
       >
         <TotalBalance amount={balance} isRefreshing={isRefreshing} />
+        <BackupReminderIcon />
       </PeachScrollView>
       <WalletButtons />
     </Screen>

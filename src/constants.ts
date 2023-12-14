@@ -5,6 +5,8 @@ import { sha256 } from './utils/crypto/sha256'
 export const THOUSANDS_GROUP = 3
 export const CENT = 100
 export const SATSINBTC = 100000000
+export const TOTAL_BITCOIN = 21000000
+export const TOTAL_SATS = TOTAL_BITCOIN * SATSINBTC
 export const MSINASECOND = 1000
 const SECONDS_IN_A_MINUTE = 60
 export const MSINAMINUTE = MSINASECOND * SECONDS_IN_A_MINUTE

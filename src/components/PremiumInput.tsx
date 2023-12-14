@@ -34,7 +34,7 @@ export const PremiumInput = ({ premium, setPremium, incrementBy = defaultIncreme
         <Icon id="minusCircle" size={24} color={tw.color('primary-main')} />
       </TouchableOpacity>
       <View style={tw`flex-row items-center justify-center gap-2 grow`}>
-        <Text style={[tw`text-center body-l`, textColor]}>{i18n(premium >= 0 ? 'sell.premium' : 'sell.discount')}:</Text>
+        <Text style={[tw`text-center`, textColor]}>{i18n(premium >= 0 ? 'sell.premium' : 'sell.discount')}:</Text>
         <PremiumTextInput premium={premium} setPremium={setPremium} />
       </View>
       <TouchableOpacity onPress={onPlusPress} accessibilityHint={i18n('number.increase')}>

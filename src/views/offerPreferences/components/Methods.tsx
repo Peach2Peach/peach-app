@@ -13,19 +13,19 @@ export function Methods ({ type, meansOfPayment }: { type: 'buy' | 'sell'; means
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment)
 
   const backgroundColor = type === 'buy' ? tw.color('success-mild-1') : tw.color('primary-background-dark')
-  const color = type === 'buy' ? tw.color('success-main') : tw.color('primary-main')
+  const color = tw.color('black-1')
   return (
     <>
       {hasSelectedMethods ? (
         <Section.Container style={[tw`flex-row items-start`, { backgroundColor }]}>
           <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`flex-1`} />
-          <TouchableIcon id="plusCircle" onPress={onPress} iconColor={color} style={tw`pt-1`} />
+          <TouchableIcon id="plusCircle" iconSize={24} onPress={onPress} iconColor={color} style={tw`pt-1`} />
         </Section.Container>
       ) : (
         <Section.Container style={{ backgroundColor }}>
           <TouchableOpacity style={tw`flex-row items-center gap-10px`} onPress={onPress}>
-            <Icon size={16} id="plusCircle" color={color} />
-            <Text style={[tw`subtitle-2`, { color }]}>{i18n.break('paymentMethod.select.button.remote')}</Text>
+            <Icon size={24} id="plusCircle" color={color} />
+            <Text style={[tw`subtitle-1`, { color }]}>{i18n.break('paymentMethod.select.button.remote')}</Text>
           </TouchableOpacity>
         </Section.Container>
       )}

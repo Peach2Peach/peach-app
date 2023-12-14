@@ -35,10 +35,6 @@ exports[`PremiumInput should render the PremiumInput view with 0 premium 1`] = `
       style={
         [
           {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 28,
             "textAlign": "center",
           },
           {
@@ -103,10 +99,6 @@ exports[`PremiumInput should render the PremiumInput view with discount 1`] = `
       style={
         [
           {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 28,
             "textAlign": "center",
           },
           {
@@ -171,10 +163,6 @@ exports[`PremiumInput should render the PremiumInput view with premium 1`] = `
       style={
         [
           {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 28,
             "textAlign": "center",
           },
           {

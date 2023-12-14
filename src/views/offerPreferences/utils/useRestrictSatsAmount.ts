@@ -1,10 +1,8 @@
-import { useCallback, useMemo } from 'react'
-import { useMarketPrices } from '../../../hooks'
-import { getTradingAmountLimits } from '../../../utils/market/getTradingAmountLimits'
+import { useCallback } from 'react'
+import { useTradingAmountLimits } from './useTradingAmountLimits'
 
 export const useRestrictSatsAmount = (type: 'sell' | 'buy') => {
-  const { data } = useMarketPrices()
-  const [minAmount, maxAmount] = useMemo(() => getTradingAmountLimits(data?.CHF || 0, type), [data?.CHF, type])
+  const [minAmount, maxAmount] = useTradingAmountLimits(type)
 
   const restrictAmount = useCallback(
     (amount: number) => {

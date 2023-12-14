@@ -15,7 +15,7 @@ export const FundMultipleOffers = () => {
   return (
     <View style={tw`gap-3`}>
       <Checkbox checked={!!multi} text={i18n('offer.fundMultiple')} onPress={toggleFundMultiple} />
-      <NumberStepper style={!multi && tw`opacity-0`} value={multi || 3} onChange={setMulti} min={3} max={10} />
+      {!!multi && <NumberStepper value={multi} onChange={setMulti} min={FUND_MULTI_MIN} max={10} />}
     </View>
   )
 }

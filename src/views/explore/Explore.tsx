@@ -6,10 +6,12 @@ import { PeachyBackground } from '../../components/PeachyBackground'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Badges } from '../../components/matches/components/Badges'
 import { useBitcoinPrices, useCancelOffer, useNavigation } from '../../hooks'
+import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
+import { isSellOffer } from '../../utils/offer/isSellOffer'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { BuyBitcoinHeader } from '../offerPreferences/components/BuyBitcoinHeader'
 import { MarketInfo } from '../offerPreferences/components/MarketInfo'
@@ -26,16 +28,35 @@ export function Explore () {
     <Screen header={<ExploreHeader />}>
       {hasMatches ? (
         <PeachScrollView contentStyle={tw`gap-10px`}>
-          <MarketInfo type="sellOffers" />
+          <BuyOfferMarketInfo />
           <OfferSummaryCards />
         </PeachScrollView>
       ) : (
         <View style={tw`items-center justify-center flex-1 gap-4`}>
-          <MarketInfo type="sellOffers" />
+          <BuyOfferMarketInfo />
           <Text style={tw`text-center subtitle-2`}>{i18n('search.weWillNotifyYou')}</Text>
         </View>
       )}
     </Screen>
+  )
+}
+
+function BuyOfferMarketInfo () {
+  const { offerId } = useRoute<'explore'>().params
+  const { offer } = useOfferDetails(offerId)
+
+  if (offer && isSellOffer(offer)) {
+    throw new Error('Offer should be a buy offer')
+  }
+
+  return (
+    <MarketInfo
+      type={'sellOffers'}
+      meansOfPayment={offer?.meansOfPayment}
+      maxPremium={offer?.maxPremium || undefined}
+      minReputation={offer?.minReputation || undefined}
+      buyAmountRange={offer?.amount}
+    />
   )
 }
 
@@ -82,10 +103,10 @@ function ExploreCard ({ match }: { match: Match }) {
         <View style={tw`flex-row items-center justify-between`}>
           <Badges id={user.id} unlockedBadges={user.medals} />
           <Text style={tw`text-center`}>
-            <PriceFormat style={tw`tooltip`} currency={displayCurrency} amount={fiatPrice} />
+            <PriceFormat style={tw`tooltip`} currency={displayCurrency} amount={fiatPrice * (1 + premium / 100)} />
             <Text style={tw`text-black-2`}>
               {' '}
-              ({premium >= 0 ? '+' : '-'}
+              ({premium >= 0 ? '+' : ''}
               {premium}%)
             </Text>
           </Text>
