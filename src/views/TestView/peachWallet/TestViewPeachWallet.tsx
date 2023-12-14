@@ -1,6 +1,7 @@
 import { NETWORK } from '@env'
 import { useState } from 'react'
 import { View } from 'react-native'
+import Share from 'react-native-share'
 import { Divider, Loading, PeachScrollView, Text } from '../../../components'
 import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
 import { Button } from '../../../components/buttons/Button'
@@ -10,6 +11,7 @@ import tw from '../../../styles/tailwind'
 import { getMessageToSignForAddress } from '../../../utils/account/getMessageToSignForAddress'
 import { showTransaction } from '../../../utils/bitcoin/showTransaction'
 import i18n from '../../../utils/i18n'
+import { log } from '../../../utils/log'
 import { fundAddress } from '../../../utils/regtest/fundAddress'
 import { thousands } from '../../../utils/string/thousands'
 import { peachWallet } from '../../../utils/wallet/setWallet'
@@ -109,6 +111,10 @@ function SignMessage () {
     setSignature(sig)
   }
 
+  const shareSignature = () => {
+    Share.open({ message: signature }).catch((e) => log(e))
+  }
+
   return (
     <View>
       <Text>sign message</Text>
@@ -117,7 +123,9 @@ function SignMessage () {
       <Input onChangeText={setUserId} value={userId} />
       <Button onPress={onPress}>sign</Button>
       <Text>signature</Text>
-      <Text>{signature}</Text>
+      <Text selectable onLongPress={shareSignature}>
+        {signature}
+      </Text>
     </View>
   )
 }
