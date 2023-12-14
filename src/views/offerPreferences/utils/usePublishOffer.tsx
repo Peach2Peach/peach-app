@@ -10,9 +10,15 @@ import { useAccountStore } from '../../../utils/account/account'
 import { getMessageToSignForAddress } from '../../../utils/account/getMessageToSignForAddress'
 import i18n from '../../../utils/i18n'
 import { peachAPI } from '../../../utils/peachAPI'
+import { isPaymentMethod } from '../../../utils/validation/isPaymentMethod'
 import { isValidBitcoinSignature } from '../../../utils/validation/isValidBitcoinSignature'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { isForbiddenPaymentMethodError } from '../../buy/helpers/isForbiddenPaymentMethodError'
+
+const isForbiddenPaymentMethodError = (
+  errorMessage: string | null,
+  errorDetails: unknown,
+): errorDetails is PaymentMethod[] =>
+  errorMessage === 'FORBIDDEN' && Array.isArray(errorDetails) && errorDetails.every(isPaymentMethod)
 
 export function usePublishOffer (offerDraft: BuyOfferDraft) {
   const navigation = useNavigation()
