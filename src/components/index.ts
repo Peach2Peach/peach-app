@@ -1,4 +1,4 @@
-export { Fade, Loading } from './animation'
+export { Loading } from './animation'
 export { BitcoinAddress } from './bitcoin'
 export { OptionButton } from './buttons'
 export { Drawer } from './drawer'

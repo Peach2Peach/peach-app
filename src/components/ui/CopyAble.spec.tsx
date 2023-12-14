@@ -1,9 +1,8 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-
-import { create, act } from 'react-test-renderer'
-import { CopyAble, CopyRef } from './CopyAble'
 import { Pressable, View } from 'react-native'
-import { Fade } from '../animation'
+import { act, create } from 'react-test-renderer'
+import { Fade } from '../animation/Fade'
+import { CopyAble, CopyRef } from './CopyAble'
 
 jest.useFakeTimers()
 
@@ -33,7 +32,7 @@ describe('CopyAble', () => {
     })
     expect(testInstance.findByType(Fade).props.show).toBeFalsy()
   })
-  it('should not copy if there\'s no value', () => {
+  it("should not copy if there's no value", () => {
     const testInstance = create(<CopyAble />).root
     act(() => {
       testInstance.findByType(Pressable).props.onPress()

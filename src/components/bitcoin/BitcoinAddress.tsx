@@ -6,7 +6,7 @@ import { useIsMediumScreen } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Icon } from '../Icon'
-import { Fade } from '../animation'
+import { Fade } from '../animation/Fade'
 import { PeachText } from '../text/Text'
 import { BitcoinAddressProps, useBitcoinAddressSetup } from './hooks/useBitcoinAddressSetup'
 
