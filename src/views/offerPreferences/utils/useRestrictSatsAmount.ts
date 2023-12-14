@@ -4,7 +4,7 @@ import { getTradingAmountLimits } from '../../../utils/market/getTradingAmountLi
 
 export const useRestrictSatsAmount = (type: 'sell' | 'buy') => {
   const { data } = useMarketPrices()
-  const [minAmount, maxAmount] = useMemo(() => getTradingAmountLimits(data?.CHF || 0, type), [data?.CHF, type])
+  const [minAmount, maxAmount] = useMemo(() => getTradingAmountLimits(data?.CHF || 1, type), [data?.CHF, type])
 
   const restrictAmount = useCallback(
     (amount: number) => {
