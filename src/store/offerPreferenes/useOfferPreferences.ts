@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 import { MatchFilter } from '../../../peach-api/src/@types/api/offerAPI'
+import { TOTAL_SATS } from '../../constants'
 import { getSelectedPaymentDataIds } from '../../utils/account/getSelectedPaymentDataIds'
 import { createStorage } from '../../utils/storage'
 import { createPersistStorage } from '../createPersistStorage'
@@ -33,8 +34,8 @@ type OfferPreferences = {
 }
 
 export const defaultPreferences: OfferPreferences = {
-  buyAmountRange: [0, Infinity],
-  sellAmount: 0,
+  buyAmountRange: [1, TOTAL_SATS],
+  sellAmount: 1,
   premium: 1.5,
   meansOfPayment: {},
   paymentData: {},
