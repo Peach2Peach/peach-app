@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { EscrowButton, Icon, Text, Timer } from '../../components'
+import { Icon, Text, Timer } from '../../components'
+import { EscrowButton } from '../../components/EscrowButton'
 import { ConfirmSlider } from '../../components/inputs'
 import { UnlockedSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'

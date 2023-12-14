@@ -1,4 +1,3 @@
-export { EscrowButton } from './EscrowButton'
 export { Flag } from './Flag'
 export { Header } from './Header'
 export { Icon } from './Icon'
