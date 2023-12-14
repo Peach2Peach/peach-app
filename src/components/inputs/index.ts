@@ -1,6 +1,5 @@
 export { CurrencyItem } from './CurrencyItem'
 export { EmailInput } from './EmailInput'
-export { FileInput } from './FileInput'
 export { Input } from './Input'
 export { NumberInput } from './NumberInput'
 export { NumberStepper } from './NumberStepper'

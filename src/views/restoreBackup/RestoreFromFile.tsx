@@ -1,8 +1,8 @@
 import { View } from 'react-native'
-import tw from '../../styles/tailwind'
-
-import { FileInput, Input, Text } from '../../components'
+import { Input, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
+import { FileInput } from '../../components/inputs/FileInput'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { RestoreBackupError } from './RestoreBackupError'
 import { RestoreBackupLoading } from './RestoreBackupLoading'
