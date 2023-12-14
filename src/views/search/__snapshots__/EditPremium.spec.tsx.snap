@@ -230,6 +230,99 @@ exports[`EditPremium should render correctly 1`] = `
       >
         <View
           style={
+            [
+              {
+                "alignItems": "center",
+                "borderRadius": 16,
+                "width": "100%",
+              },
+              {
+                "gap": 10,
+                "padding": 12,
+              },
+              {
+                "gap": 0,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "gap": -13,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Bold",
+                        "fontSize": 24,
+                        "letterSpacing": 0.24,
+                        "lineHeight": 32,
+                      },
+                      {
+                        "color": "#65A519",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+                 
+                buy offers
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 22,
+                      },
+                      {
+                        "color": "#65A519",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                for your preferences
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
             {
               "alignItems": "center",
               "flexGrow": 1,
@@ -944,10 +1037,6 @@ exports[`EditPremium should render correctly 1`] = `
                       },
                       [
                         {
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 20,
-                          "letterSpacing": 0.2,
-                          "lineHeight": 28,
                           "textAlign": "center",
                         },
                         {

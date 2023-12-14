@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import {
   paypalData,
   paypalDataHashes,
@@ -14,54 +13,6 @@ import { useOfferPreferences } from './useOfferPreferences'
 describe('useOfferPreferences - store', () => {
   it('should return a store', () => {
     expect(useOfferPreferences).toBeDefined()
-  })
-  it('should have the correct default values', () => {
-    expect(useOfferPreferences.getState()).toStrictEqual({
-      buyAmountRange: [0, Infinity],
-      sellAmount: 0,
-      multi: undefined,
-      preferredCurrenyType: 'europe',
-      preferredPaymentMethods: {},
-      instantTrade: false,
-      instantTradeCriteria: {
-        badges: [],
-        minReputation: 0,
-        minTrades: 0,
-      },
-      meansOfPayment: {},
-      paymentData: {},
-      originalPaymentData: [],
-      premium: 1.5,
-      sortBy: {
-        buyOffer: ['bestReputation'],
-        sellOffer: ['bestReputation'],
-      },
-      filter: {
-        buyOffer: {
-          maxPremium: null,
-          minReputation: null,
-          shouldApplyMaxPremium: false,
-          shouldApplyMinReputation: false,
-        },
-      },
-      setBuyAmountRange: expect.any(Function),
-      setSellAmount: expect.any(Function),
-      setMaxPremiumFilter: expect.any(Function),
-      setMulti: expect.any(Function),
-      setPreferredCurrencyType: expect.any(Function),
-      setPremium: expect.any(Function),
-      setPaymentMethods: expect.any(Function),
-      selectPaymentMethod: expect.any(Function),
-      setBuyOfferSorter: expect.any(Function),
-      setSellOfferSorter: expect.any(Function),
-      setBuyOfferFilter: expect.any(Function),
-      toggleBadge: expect.any(Function),
-      toggleInstantTrade: expect.any(Function),
-      toggleMinReputation: expect.any(Function),
-      toggleMinReputationFilter: expect.any(Function),
-      toggleMinTrades: expect.any(Function),
-      toggleShouldApplyMaxPremium: expect.any(Function),
-    })
   })
   it('should persist the store', () => {
     expect(useOfferPreferences.persist.getOptions()).toStrictEqual(

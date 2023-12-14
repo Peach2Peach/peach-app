@@ -6,7 +6,7 @@ exports[`BackupReminderIcon renders correctly 1`] = `
     {
       "busy": undefined,
       "checked": undefined,
-      "disabled": undefined,
+      "disabled": true,
       "expanded": undefined,
       "selected": undefined,
     }
@@ -31,7 +31,8 @@ exports[`BackupReminderIcon renders correctly 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     {
-      "opacity": 1,
+      "alignSelf": "center",
+      "opacity": 0,
     }
   }
 >
@@ -40,8 +41,8 @@ exports[`BackupReminderIcon renders correctly 1`] = `
     style={
       [
         {
-          "height": 32,
-          "width": 32,
+          "height": 64,
+          "width": 64,
         },
         undefined,
       ]

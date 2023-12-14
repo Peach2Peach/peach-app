@@ -14,6 +14,8 @@ exports[`Wallet should render correctly 1`] = `
       {
         "flexGrow": 1,
         "justifyContent": "center",
+        "paddingBottom": 64,
+        "paddingTop": 64,
       }
     }
     refreshControl={
@@ -26,6 +28,7 @@ exports[`Wallet should render correctly 1`] = `
       amount={21}
       isRefreshing={false}
     />
+    <BackupReminderIcon />
   </ForwardRef>
   <WalletButtons />
 </Screen>

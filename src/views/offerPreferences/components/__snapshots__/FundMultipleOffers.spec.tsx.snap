@@ -13,17 +13,6 @@ exports[`FundMultipleOffers renders correctly when disabled 1`] = `
     onPress={[Function]}
     text="fund multiple offers"
   />
-  <NumberStepper
-    max={10}
-    min={3}
-    onChange={[Function]}
-    style={
-      {
-        "opacity": 0,
-      }
-    }
-    value={3}
-  />
 </View>
 `;
 
@@ -44,7 +33,6 @@ exports[`FundMultipleOffers renders correctly when enabled 1`] = `
     max={10}
     min={3}
     onChange={[Function]}
-    style={false}
     value={4}
   />
 </View>
