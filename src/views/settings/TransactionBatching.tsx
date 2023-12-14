@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { ParsedPeachText, Screen, Text } from '../../components'
+import { ParsedPeachText, Text } from '../../components'
+import { Screen } from '../../components/Screen'
 import { Toggle } from '../../components/inputs'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'

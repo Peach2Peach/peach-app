@@ -1,5 +1,5 @@
 import { View, ViewStyle } from 'react-native'
-import { Screen } from '../../components'
+import { Screen } from '../../components/Screen'
 import { TouchableRedText } from '../../components/text/TouchableRedText'
 import { useRoute } from '../../hooks'
 import { useUser } from '../../hooks/query/useUserQuery'

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { View } from 'react-native'
-import { Screen, Text } from '../../components'
+import { Text } from '../../components'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { MSINASECOND } from '../../constants'
 import tw from '../../styles/tailwind'

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
-import { Screen } from '../../components'
+import { Screen } from '../../components/Screen'
 import { Match } from '../../components/matches/Match'
 import { useMatchStore } from '../../components/matches/store'
 import { useRoute } from '../../hooks'

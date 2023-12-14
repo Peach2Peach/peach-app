@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { Screen, Text } from '../../components'
+import { Text } from '../../components'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { THOUSANDS_GROUP } from '../../constants'
 import { useWriteCSV } from '../../hooks'

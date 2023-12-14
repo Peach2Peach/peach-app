@@ -2,7 +2,8 @@ import { View } from 'react-native'
 
 import tw from '../../../styles/tailwind'
 
-import { OptionButton, Screen } from '../../../components'
+import { OptionButton } from '../../../components'
+import { Screen } from '../../../components/Screen'
 import { DISCORD, INSTAGRAM, NOSTR, TELEGRAM, TWITCH, TWITTER, YOUTUBE } from '../../../constants'
 import i18n from '../../../utils/i18n'
 import { openURL } from '../../../utils/web/openURL'

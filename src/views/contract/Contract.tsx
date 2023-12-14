@@ -1,4 +1,4 @@
-import { Screen } from '../../components'
+import { Screen } from '../../components/Screen'
 import tw from '../../styles/tailwind'
 
 import { useMemo } from 'react'

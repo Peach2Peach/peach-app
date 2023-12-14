@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { OptionButton, Screen } from '../../components'
+import { OptionButton } from '../../components'
+import { Screen } from '../../components/Screen'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 

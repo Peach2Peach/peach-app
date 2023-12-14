@@ -2,7 +2,7 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useMemo, useState } from 'react'
 import { FlatList, View } from 'react-native'
-import { Screen } from '../../../components'
+import { Screen } from '../../../components/Screen'
 import { Button } from '../../../components/buttons/Button'
 import { TabbedNavigation } from '../../../components/navigation/TabbedNavigation'
 import { useMessageHandler } from '../../../hooks/notifications/useMessageHandler'

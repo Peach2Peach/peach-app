@@ -1,7 +1,7 @@
 import { RefreshControl, View } from 'react-native'
-import { Screen } from '../../components'
 import { BackupReminderIcon } from '../../components/BackupReminderIcon'
 import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'

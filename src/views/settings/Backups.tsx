@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Screen } from '../../components'
 import { Header } from '../../components/Header'
+import { Screen } from '../../components/Screen'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 import { useShowHelp, useToggleBoolean } from '../../hooks'
 import i18n from '../../utils/i18n'

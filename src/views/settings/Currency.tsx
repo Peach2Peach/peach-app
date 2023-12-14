@@ -1,6 +1,7 @@
 import { shallow } from 'zustand/shallow'
-import { RadioButtons, Screen } from '../../components'
+import { RadioButtons } from '../../components'
 import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import { CURRENCIES } from '../../paymentMethods'

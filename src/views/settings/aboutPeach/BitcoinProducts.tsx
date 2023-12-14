@@ -1,6 +1,6 @@
 import { TouchableOpacity, View } from 'react-native'
-import { Screen } from '../../../components'
 import { Icon } from '../../../components/Icon'
+import { Screen } from '../../../components/Screen'
 import { PeachText } from '../../../components/text/Text'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'

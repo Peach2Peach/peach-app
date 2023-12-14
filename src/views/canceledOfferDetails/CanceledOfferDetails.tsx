@@ -1,4 +1,5 @@
-import { Screen, Text } from '../../components'
+import { Text } from '../../components'
+import { Screen } from '../../components/Screen'
 import tw from '../../styles/tailwind'
 import { isSellOffer } from '../../utils/offer/isSellOffer'
 

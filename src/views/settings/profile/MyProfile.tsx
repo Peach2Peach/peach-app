@@ -1,7 +1,7 @@
 import { View } from 'react-native'
-import { Screen } from '../../../components'
 import { Header } from '../../../components/Header'
 import { PeachScrollView } from '../../../components/PeachScrollView'
+import { Screen } from '../../../components/Screen'
 import { TouchableRedText } from '../../../components/text/TouchableRedText'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useShowHelp } from '../../../hooks/useShowHelp'

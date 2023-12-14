@@ -1,4 +1,5 @@
-import { Screen, Text } from '../../../components'
+import { Text } from '../../../components'
+import { Screen } from '../../../components/Screen'
 import { BulletPoint } from '../../../components/text'
 import { useConfigStore } from '../../../store/configStore/configStore'
 import tw from '../../../styles/tailwind'

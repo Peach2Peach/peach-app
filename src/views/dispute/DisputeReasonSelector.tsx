@@ -1,8 +1,9 @@
 import tw from '../../styles/tailwind'
 
 import { Contract } from '../../../peach-api/src/@types/contract'
-import { OptionButton, Screen, Text } from '../../components'
+import { OptionButton, Text } from '../../components'
 import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { useRoute } from '../../hooks'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
 import { contractIdToHex } from '../../utils/contract/contractIdToHex'

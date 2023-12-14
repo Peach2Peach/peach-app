@@ -1,6 +1,6 @@
 import { RefreshControl } from 'react-native'
-import { Screen } from '../../components'
 import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
