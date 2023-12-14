@@ -85,7 +85,7 @@ function ExploreCard ({ match }: { match: Match }) {
             <PriceFormat style={tw`tooltip`} currency={displayCurrency} amount={fiatPrice} />
             <Text style={tw`text-black-2`}>
               {' '}
-              ({premium >= 0 ? '+' : '-'}
+              ({premium >= 0 ? '+' : ''}
               {premium}%)
             </Text>
           </Text>
