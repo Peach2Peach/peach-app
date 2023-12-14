@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { Button } from '../../components/buttons/Button'
-import { useMarketPrices } from '../../hooks'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { getTradingAmountLimits } from '../../utils/market/getTradingAmountLimits'
 import { interpolate } from '../../utils/math/interpolate'
 import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
@@ -17,6 +15,8 @@ import { ReputationFilterComponent } from './components/MinReputationFilter'
 import { PreferenceMethods } from './components/PreferenceMethods'
 import { PreferenceScreen } from './components/PreferenceScreen'
 import { usePublishOffer } from './utils/usePublishOffer'
+import { useRestrictSatsAmount } from './utils/useRestrictSatsAmount'
+import { useTradingAmountLimits } from './utils/useTradingAmountLimits'
 
 export function BuyOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
@@ -110,12 +110,14 @@ function ShowOffersButton () {
 
   const originalPaymentData = useOfferPreferences((state) => state.originalPaymentData)
   const methodsAreValid = originalPaymentData.every(isValidPaymentData)
-  const { data } = useMarketPrices()
-  const [minAmount, maxAmount] = getTradingAmountLimits(data?.CHF || 0, 'buy')
-  const rangeIsValid
-    = offerDraft.amount[0] >= minAmount
-    && offerDraft.amount[1] <= maxAmount
-    && offerDraft.amount[0] <= offerDraft.amount[1]
+  const [minAmount, maxAmount] = useTradingAmountLimits('buy')
+  const restrictAmount = useRestrictSatsAmount('buy')
+  const setBuyAmountRange = useOfferPreferences((state) => state.setBuyAmountRange)
+  const rangeIsWithinLimits = buyOfferPreferences.amount[0] >= minAmount && buyOfferPreferences.amount[1] <= maxAmount
+  if (!rangeIsWithinLimits) {
+    setBuyAmountRange([restrictAmount(buyOfferPreferences.amount[0]), restrictAmount(buyOfferPreferences.amount[1])])
+  }
+  const rangeIsValid = rangeIsWithinLimits && offerDraft.amount[0] <= offerDraft.amount[1]
   const formValid = methodsAreValid && rangeIsValid
   const { mutate: publishOffer, isLoading: isPublishing } = usePublishOffer(offerDraft)
 
