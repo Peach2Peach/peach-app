@@ -98,14 +98,14 @@ function MarketStats () {
     refetchInterval: MSINAMINUTE,
   })
   return (
-    <View style={tw`items-center justify-center pb-4 gap-10px grow`}>
-      <View style={tw`items-center gap-1`}>
-        <Text style={tw`subtitle-0 text-success-main`}>{i18n('home.openBuyOffers', String(data?.buy.open))}</Text>
+    <View style={tw`items-center justify-center gap-5 pb-4 grow`}>
+      <Text style={tw`subtitle-0 text-success-main`}>{i18n('home.openBuyOffers', String(data?.buy.open))}</Text>
+      <View style={tw`items-center -gap-2`}>
         <Text style={tw`subtitle-0 text-primary-main`}>{i18n('home.openSellOffers', String(data?.sell.open))}</Text>
+        <Text style={tw`subtitle-1 text-primary-main`}>
+          {i18n('home.averagePremium')}: {data?.sell.avgPremium}%
+        </Text>
       </View>
-      <Text style={tw`subtitle-1`}>
-        {i18n('home.averagePremium')}:<Text style={tw`text-error-main subtitle-1`}> {data?.sell.avgPremium}%</Text>
-      </Text>
     </View>
   )
 }
