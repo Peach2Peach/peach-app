@@ -1,2 +1,2 @@
-export { ParsedPeachText, PriceFormat, Text, Timer } from './text'
+export { ParsedPeachText, PriceFormat, Text } from './text'
 export { CopyAble, HorizontalLine, InfoFrame, Progress } from './ui'
