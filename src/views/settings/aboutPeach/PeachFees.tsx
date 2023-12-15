@@ -1,6 +1,6 @@
 import { Text } from '../../../components'
 import { Screen } from '../../../components/Screen'
-import { BulletPoint } from '../../../components/text'
+import { BulletPoint } from '../../../components/text/BulletPoint'
 import { useConfigStore } from '../../../store/configStore/configStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
