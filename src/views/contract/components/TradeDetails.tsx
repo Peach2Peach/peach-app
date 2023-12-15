@@ -149,13 +149,15 @@ function ChangePayoutWallet () {
       )}
       {(!paidToPeachWallet || contract.paymentMade) && (
         <SummaryItem
-          label="payout address"
+          label="payout wallet"
           value={
             <SummaryItem.Text
               value={
                 payoutAddress === contract.releaseAddress
                   ? payoutAddressLabel || cutOffAddress(payoutAddress)
-                  : cutOffAddress(contract.releaseAddress)
+                  : paidToPeachWallet
+                    ? i18n('peachWallet')
+                    : cutOffAddress(contract.releaseAddress)
               }
               onPress={editCustomPayoutAddress}
               copyValue={contract.releaseAddress}
