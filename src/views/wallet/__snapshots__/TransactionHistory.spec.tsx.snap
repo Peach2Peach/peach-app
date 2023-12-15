@@ -53,6 +53,7 @@ exports[`TransactionHistory should render correctly when empty 1`] = `
           },
           {
             "paddingTop": 0,
+            "zIndex": 1,
           },
           {
             "backgroundColor": "#FFF9F6",
@@ -337,6 +338,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
           },
           {
             "paddingTop": 0,
+            "zIndex": 1,
           },
           {
             "backgroundColor": "#FFF9F6",

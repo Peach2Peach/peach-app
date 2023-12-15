@@ -53,6 +53,7 @@ exports[`Referrals renders correctly 1`] = `
           },
           {
             "paddingTop": 0,
+            "zIndex": 1,
           },
           {
             "backgroundColor": "#FFF9F6",
