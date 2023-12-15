@@ -97,8 +97,8 @@ function OfferMarketInfo () {
     <MarketInfo
       type={'sellOffers'}
       meansOfPayment={meansOfPayment}
-      maxPremium={maxPremium || undefined}
-      minReputation={minReputation || undefined}
+      maxPremium={maxPremium ?? undefined}
+      minReputation={minReputation ?? undefined}
       buyAmountRange={amount}
     />
   )
@@ -120,8 +120,7 @@ function OfferMethods () {
 }
 
 function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) => void }) {
-  const [offer, dispatch] = usePreferenceContext()
-  const offerRange = offer?.amount || ([0, 0] satisfies [number, number])
+  const [{ amount }, dispatch] = usePreferenceContext()
 
   function handleAmountChange (newAmount: [number, number]) {
     dispatch({
@@ -130,7 +129,7 @@ function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) 
     })
   }
 
-  return <AmountSelectorComponent setIsSliding={setIsSliding} range={offerRange} setRange={handleAmountChange} />
+  return <AmountSelectorComponent setIsSliding={setIsSliding} range={amount} setRange={handleAmountChange} />
 }
 
 function Filters () {
@@ -159,8 +158,7 @@ function ReputationFilter () {
 }
 
 function MaxPremiumFilter () {
-  const [offer, dispatch] = usePreferenceContext()
-  const maxPremium = offer?.maxPremium ?? null
+  const [{ maxPremium }, dispatch] = usePreferenceContext()
 
   function handlePremiumChange (newPremium: number) {
     dispatch({
