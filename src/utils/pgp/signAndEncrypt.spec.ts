@@ -18,8 +18,8 @@ describe('signAndEncrypt', () => {
     jest.spyOn(OpenPGP, 'encrypt').mockResolvedValueOnce('encrypted')
 
     const result = await signAndEncrypt('message', 'publicKey')
-    const { publicKey, privateKey } = useAccountStore.getState().account.pgp
-    expect(OpenPGP.sign).toHaveBeenCalledWith('message', publicKey, privateKey)
+    const { privateKey } = useAccountStore.getState().account.pgp
+    expect(OpenPGP.sign).toHaveBeenCalledWith('message', privateKey, '')
     expect(OpenPGP.encrypt).toHaveBeenCalledWith('message', 'publicKey')
     expect(result).toEqual({
       signature: 'signature',
