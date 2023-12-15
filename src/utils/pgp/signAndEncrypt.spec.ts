@@ -19,7 +19,7 @@ describe('signAndEncrypt', () => {
 
     const result = await signAndEncrypt('message', 'publicKey')
     const { publicKey, privateKey } = useAccountStore.getState().account.pgp
-    expect(OpenPGP.sign).toHaveBeenCalledWith('message', publicKey, privateKey, '')
+    expect(OpenPGP.sign).toHaveBeenCalledWith('message', publicKey, privateKey)
     expect(OpenPGP.encrypt).toHaveBeenCalledWith('message', 'publicKey')
     expect(result).toEqual({
       signature: 'signature',

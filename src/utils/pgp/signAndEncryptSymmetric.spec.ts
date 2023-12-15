@@ -19,7 +19,7 @@ describe('signAndEncryptSymmetric', () => {
 
     const result = await signAndEncryptSymmetric('message', 'password')
     const account = useAccountStore.getState().account
-    expect(OpenPGP.sign).toHaveBeenCalledWith('message', account.pgp.publicKey, account.pgp.privateKey, '')
+    expect(OpenPGP.sign).toHaveBeenCalledWith('message', account.pgp.publicKey, account.pgp.privateKey)
     expect(OpenPGP.encryptSymmetric).toHaveBeenCalledWith('message', 'password', undefined, { cipher: 2 })
     expect(result).toEqual({
       signature: 'signature',
