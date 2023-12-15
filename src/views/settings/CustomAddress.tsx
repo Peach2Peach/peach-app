@@ -21,7 +21,7 @@ import { headerIcons } from '../../utils/layout/headerIcons'
 const addressRules = { bitcoinAddress: true, blockTaprootAddress: true, required: true }
 const labelRules = { required: true }
 
-export const PayoutAddress = () => {
+export const CustomAddress = () => {
   const { type } = useRoute<'payoutAddress'>().params || {}
   const navigation = useNavigation()
 

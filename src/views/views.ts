@@ -37,10 +37,10 @@ import { OfferPublished } from './search/OfferPublished'
 import { Search } from './search/Search'
 import { Backups } from './settings/Backups'
 import { Currency } from './settings/Currency'
+import { CustomAddress } from './settings/CustomAddress'
 import { Language } from './settings/Language'
 import { NetworkFees } from './settings/NetworkFees'
 import { NodeSetup } from './settings/NodeSetup'
-import { PayoutAddress } from './settings/PayoutAddress'
 import { TransactionBatching } from './settings/TransactionBatching'
 import { AboutPeach } from './settings/aboutPeach/AboutPeach'
 import { BitcoinProducts } from './settings/aboutPeach/BitcoinProducts'
@@ -91,20 +91,17 @@ const wallet: ViewType[] = [
 const buyFlow: ViewType[] = [
   { name: 'buyOfferPreferences', component: BuyOfferPreferences },
   { name: 'signMessage', component: SignMessage },
+  { name: 'explore', component: Explore },
+  { name: 'editBuyPreferences', component: EditBuyPreferences },
+  { name: 'matchDetails', component: MatchDetails },
 ]
 
 const sellFlow: ViewType[] = [
   { name: 'sellOfferPreferences', component: SellOfferPreferences },
   { name: 'fundEscrow', component: FundEscrow },
   { name: 'wrongFundingAmount', component: WrongFundingAmount },
-]
-
-const search: ViewType[] = [
-  { name: 'explore', component: Explore },
-  { name: 'matchDetails', component: MatchDetails },
   { name: 'search', component: Search },
   { name: 'editPremium', component: EditPremium },
-  { name: 'editBuyPreferences', component: EditBuyPreferences },
 ]
 
 const trade: ViewType[] = [
@@ -154,7 +151,7 @@ const settings: ViewType[] = [
   { name: 'backups', component: Backups },
   { name: 'backupCreated', component: BackupCreated, animationEnabled: false },
   { name: 'nodeSetup', component: NodeSetup },
-  { name: 'payoutAddress', component: PayoutAddress },
+  { name: 'payoutAddress', component: CustomAddress },
   { name: 'paymentMethods', component: PaymentMethods },
   { name: 'peachFees', component: PeachFees },
   { name: 'networkFees', component: NetworkFees },
@@ -173,7 +170,6 @@ export const views = [
   ...buyFlow,
   ...sellFlow,
   ...wallet,
-  ...search,
   ...trade,
   ...tradeHistory,
   ...publicProfile,

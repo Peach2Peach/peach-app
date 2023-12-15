@@ -5,13 +5,14 @@ import { Header } from '../../components/Header'
 import { Screen } from '../../components/Screen'
 import { Loading } from '../../components/animation/Loading'
 import { NotificationBubble } from '../../components/bubble/NotificationBubble'
-import { useNavigation, useRoute } from '../../hooks'
+import { useNavigation } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { parseError } from '../../utils/result/parseError'
+import { useHomeScreenRoute } from '../home/useHomeScreenRoute'
 import { SectionHeader } from './components/SectionHeader'
 import { TradePlaceholders } from './components/TradePlaceholders'
 import { TradeItem } from './components/tradeItem'
@@ -32,7 +33,7 @@ const tabbedNavigationScreenOptions = {
 
 export const YourTrades = () => {
   const { tradeSummaries, isLoading, error, refetch } = useTradeSummaries()
-  const { params } = useRoute<'yourTrades'>()
+  const { params } = useHomeScreenRoute<'yourTrades'>()
   const showErrorBanner = useShowErrorBanner()
 
   useEffect(() => {

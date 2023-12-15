@@ -20,138 +20,144 @@ type TestViews = {
   testViewPNs: undefined
 }
 
-type RootStackParamList = Onboarding & {
-  homeScreen: { screen: 'wallet' | 'home' | 'yourTrades' | 'settings'; params?: { tab?: string } }
-  newBadge: {
-    badges: string
-  }
+type HomeTabParamList = {
+  home: undefined
   wallet: undefined
-  nodeSetup: undefined
-  sendBitcoin: undefined
-  receiveBitcoin: undefined
-  addressChecker: undefined
-  coinSelection: undefined
-  transactionHistory: undefined
-  exportTransactionHistory: undefined
-  transactionDetails: {
-    txId: string
-  }
-  bumpNetworkFees: {
-    txId: string
-  }
+  yourTrades: { tab?: TradeTab }
+  settings: undefined
+}
+
+type Home = {
+  homeScreen: { screen: keyof HomeTabParamList; params?: HomeTabParamList[keyof HomeTabParamList] }
+}
+
+type BuyFlow = {
   buyOfferPreferences: undefined
-  editBuyPreferences: { offerId: string }
-  sellOfferPreferences: undefined
-  buyPreferences: undefined
-  selectCurrency: {
-    origin: keyof RootStackParamList
-  }
-  selectPaymentMethod: {
-    selectedCurrency: Currency
-    origin: keyof RootStackParamList
-  }
-  selectCountry: {
-    selectedCurrency: Currency
-    origin: keyof RootStackParamList
-  }
-  paymentMethodForm: {
-    paymentData: Partial<PaymentData> & {
-      type: PaymentMethod
-      currencies: Currency[]
-    }
-    origin: keyof RootStackParamList
-  }
   signMessage: undefined
+  explore: { offerId: string }
+  editBuyPreferences: { offerId: string }
+  matchDetails: { offerId: string; matchId: string }
+}
+
+type SellFlow = {
+  sellOfferPreferences: undefined
   fundEscrow: {
     offerId: string
   }
   wrongFundingAmount: {
     offerId: string
   }
-  selectWallet: {
-    type: 'refund' | 'payout'
-  }
-  setRefundWallet: {
-    offerId: string
-  }
-  offerPublished: {
-    offerId: string
-    shouldGoBack?: boolean
-  }
   search: { offerId: string }
-  explore: { offerId: string }
-  matchDetails: { offerId: string; matchId: string }
   editPremium: { offerId: string }
-  contract: {
-    contractId: Contract['id']
-    contract?: Contract
-  }
-  contractChat: {
-    contractId: Contract['id']
-  }
-  paymentMade: {
-    contractId: Contract['id']
-  }
-  disputeReasonSelector: {
-    contractId: Contract['id']
-  }
-  disputeForm: {
-    contractId: Contract['id']
-    reason: DisputeReason
-  }
-  tradeComplete: {
-    contractId: Contract['id']
-  }
-  yourTrades:
-    | {
-        tab?: TradeTab
+}
+
+type RootStackParamList = Onboarding &
+  Home &
+  BuyFlow &
+  SellFlow & {
+    newBadge: {
+      badges: string
+    }
+    nodeSetup: undefined
+    sendBitcoin: undefined
+    receiveBitcoin: undefined
+    addressChecker: undefined
+    coinSelection: undefined
+    transactionHistory: undefined
+    exportTransactionHistory: undefined
+    transactionDetails: {
+      txId: string
+    }
+    bumpNetworkFees: {
+      txId: string
+    }
+    selectCurrency: {
+      origin: keyof RootStackParamList
+    }
+    selectPaymentMethod: {
+      selectedCurrency: Currency
+      origin: keyof RootStackParamList
+    }
+    selectCountry: {
+      selectedCurrency: Currency
+      origin: keyof RootStackParamList
+    }
+    paymentMethodForm: {
+      paymentData: Partial<PaymentData> & {
+        type: PaymentMethod
+        currencies: Currency[]
       }
-    | undefined
-  exportTradeHistory: undefined
-  offer: {
-    offerId: string
-  }
-  settings: undefined
-  contact: undefined
-  report: {
-    reason: ContactReason
-    topic?: string
-    message?: string
-    shareDeviceID?: boolean
-  }
-  language: undefined
-  currency: undefined
-  publicProfile: {
-    userId: string
-  }
-  referrals: undefined
-  backupTime: {
-    nextScreen?: keyof RootStackParamList
-    [key: string]: unknown
-  }
-  backups: undefined
-  backupCreated: undefined
-  seedWords: undefined
-  payoutAddress:
-    | {
-        type: 'refund' | 'payout'
-      }
-    | undefined
-  paymentMethods: undefined
-  meetupScreen: {
-    eventId: string
-    deletable?: boolean
-    origin: keyof RootStackParamList
-  }
-  deleteAccount: undefined
-  peachFees: undefined
-  networkFees: undefined
-  aboutPeach: undefined
-  bitcoinProducts: undefined
-  socials: undefined
-  myProfile: undefined
-  transactionBatching: undefined
-  groupHugAnnouncement: {
-    offerId: string
-  }
-} & TestViews
+      origin: keyof RootStackParamList
+    }
+    offerPublished: {
+      offerId: string
+      shouldGoBack?: boolean
+    }
+    contract: {
+      contractId: Contract['id']
+      contract?: Contract
+    }
+    contractChat: {
+      contractId: Contract['id']
+    }
+    paymentMade: {
+      contractId: Contract['id']
+    }
+    disputeReasonSelector: {
+      contractId: Contract['id']
+    }
+    disputeForm: {
+      contractId: Contract['id']
+      reason: DisputeReason
+    }
+    tradeComplete: {
+      contractId: Contract['id']
+    }
+    exportTradeHistory: undefined
+    offer: {
+      offerId: string
+    }
+    settings: undefined
+    contact: undefined
+    report: {
+      reason: ContactReason
+      topic?: string
+      message?: string
+      shareDeviceID?: boolean
+    }
+    language: undefined
+    currency: undefined
+    publicProfile: {
+      userId: string
+    }
+    referrals: undefined
+    backupTime: {
+      nextScreen?: keyof RootStackParamList
+      [key: string]: unknown
+    }
+    backups: undefined
+    backupCreated: undefined
+    seedWords: undefined
+    payoutAddress:
+      | {
+          type: 'refund' | 'payout'
+        }
+      | undefined
+    paymentMethods: undefined
+    meetupScreen: {
+      eventId: string
+      deletable?: boolean
+      origin: keyof RootStackParamList
+    }
+    deleteAccount: undefined
+    peachFees: undefined
+    networkFees: undefined
+    aboutPeach: undefined
+    bitcoinProducts: undefined
+    socials: undefined
+    myProfile: undefined
+    transactionBatching: undefined
+    groupHugAnnouncement: {
+      offerId: string
+    }
+  } & TestViews
