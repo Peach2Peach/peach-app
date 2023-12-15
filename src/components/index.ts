@@ -1,4 +1,3 @@
-export { RadioButtons } from './inputs'
 export { Matches } from './matches'
 export { Message } from './message'
 export { PaymentLogo } from './payment/PaymentLogo'

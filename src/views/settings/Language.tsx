@@ -1,7 +1,7 @@
-import { RadioButtons } from '../../components'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
+import { RadioButtons } from '../../components/inputs/RadioButtons'
 import { useNavigation } from '../../hooks'
 import { useLanguage } from '../../hooks/useLanguage'
 import tw from '../../styles/tailwind'
