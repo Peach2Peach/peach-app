@@ -53,6 +53,7 @@ exports[`CoinSelection renders correctly 1`] = `
           },
           {
             "paddingTop": 0,
+            "zIndex": 1,
           },
           {
             "backgroundColor": "#FFF9F6",
@@ -1079,7 +1080,7 @@ exports[`CoinSelection selects coins 1`] = `
 - First value
 + Second value
 
-@@ -905,11 +905,11 @@
+@@ -906,11 +906,11 @@
                       }
                     }
                     testID="checkbox"

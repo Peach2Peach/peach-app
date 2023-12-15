@@ -53,6 +53,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
           },
           {
             "paddingTop": 0,
+            "zIndex": 1,
           },
           {
             "backgroundColor": "#FFF9F6",

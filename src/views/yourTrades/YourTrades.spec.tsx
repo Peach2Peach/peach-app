@@ -5,8 +5,8 @@ import { YourTrades } from './YourTrades'
 
 jest.useFakeTimers()
 
-jest.mock('../../hooks/useRoute', () => ({
-  useRoute: jest.fn(() => ({
+jest.mock('../home/useHomeScreenRoute', () => ({
+  useHomeScreenRoute: jest.fn(() => ({
     params: {
       tab: 'yourTrades.buy',
     },

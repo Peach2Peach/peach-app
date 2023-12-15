@@ -23,8 +23,10 @@ import checkCircle from './checkCircle.svg'
 import checkCircleInverted from './checkCircleInverted.svg'
 import checkSquare from './checkSquare.svg'
 import checkboxMark from './checkboxMark.svg'
+import chevronDown from './chevronDown.svg'
 import chevronLeft from './chevronLeft.svg'
 import chevronRight from './chevronRight.svg'
+import chevronUp from './chevronUp.svg'
 import chevronsDown from './chevronsDown.svg'
 import chevronsLeft from './chevronsLeft.svg'
 import chevronsRight from './chevronsRight.svg'
@@ -152,8 +154,10 @@ export const Icons = {
   checkCircle,
   checkCircleInverted,
   checkSquare,
+  chevronDown,
   chevronLeft,
   chevronRight,
+  chevronUp,
   chevronsDown,
   chevronsLeft,
   chevronsRight,
