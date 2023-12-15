@@ -1,4 +1,3 @@
-export { Message } from './message'
 export { PaymentLogo } from './payment/PaymentLogo'
 export { Popup } from './popup'
 export { StatusCard } from './statusCard'
