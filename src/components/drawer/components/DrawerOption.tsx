@@ -3,7 +3,8 @@ import tw from '../../../styles/tailwind'
 import { Flag } from '../../Flag'
 import { Icon } from '../../Icon'
 import { PaymentLogo } from '../../payment/PaymentLogo'
-import { FixedHeightText, Text } from '../../text'
+import { Text } from '../../text'
+import { FixedHeightText } from '../../text/FixedHeightText'
 
 export const DrawerOption = ({
   logoID,

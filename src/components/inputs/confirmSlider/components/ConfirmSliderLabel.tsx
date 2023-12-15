@@ -1,7 +1,7 @@
 import { Animated } from 'react-native'
 import { useIsMediumScreen } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
-import { FixedHeightText } from '../../../text'
+import { FixedHeightText } from '../../../text/FixedHeightText'
 
 type Props = ComponentProps & {
   width: number

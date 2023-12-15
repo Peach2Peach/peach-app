@@ -4,7 +4,8 @@ import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { useUserStatus } from '../views/publicProfile/useUserStatus'
 import { Icon } from './Icon'
-import { FixedHeightText, Text } from './text'
+import { Text } from './text'
+import { FixedHeightText } from './text/FixedHeightText'
 
 type Props = {
   badgeName: Medal
