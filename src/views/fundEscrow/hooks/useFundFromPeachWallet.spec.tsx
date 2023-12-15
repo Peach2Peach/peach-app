@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable max-lines */
 import { TxBuilder } from 'bdk-rn'
 import { act } from 'react-test-renderer'
@@ -43,7 +44,7 @@ describe('useFundFromPeachWallet', () => {
     usePopupStore.setState(defaultPopupState)
   })
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
   })
   it('should return default values', () => {

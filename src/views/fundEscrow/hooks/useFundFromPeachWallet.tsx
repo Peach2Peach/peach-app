@@ -12,6 +12,7 @@ import { parseError } from '../../../utils/result/parseError'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { buildTransaction, setMultipleRecipients } from '../../../utils/wallet/transaction'
 import { useWalletState } from '../../../utils/wallet/walletStore'
+import { useSyncWallet } from '../../wallet/hooks/useSyncWallet'
 import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
 import { ConfirmFundingWithInsufficientFunds } from '../components/ConfirmFundingWithInsufficientFunds'
 import { ConfirmTransactionPopup } from './ConfirmTransactionPopup'
@@ -47,6 +48,8 @@ export const useFundFromPeachWallet = () => {
   const openAmountTooLowPopup = useOpenAmountTooLowPopup()
   const handleTransactionError = useHandleTransactionError()
   const optimisticTxHistoryUpdate = useOptimisticTxHistoryUpdate()
+  const { refresh: syncPeachWallet } = useSyncWallet()
+
   const feeRate = useFeeRate()
   const [setFundedFromPeachWallet, unregisterFundMultiple] = useWalletState(
     (state) => [state.setFundedFromPeachWallet, state.unregisterFundMultiple],
@@ -67,7 +70,7 @@ export const useFundFromPeachWallet = () => {
   const fundFromPeachWallet = useCallback(
     async ({ offerId, amount, fundingStatus = 'NULL', address, addresses = [] }: FundFromWalletParams) => {
       if (!address || !amount || fundingStatus !== 'NULL') return undefined
-      await peachWallet.syncWallet()
+      await syncPeachWallet()
       if (peachWallet.balance < (addresses.length || 1) * minTradingAmount) {
         return openAmountTooLowPopup(peachWallet.balance, (addresses.length || 1) * minTradingAmount)
       }
