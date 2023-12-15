@@ -3,7 +3,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { ShortBitcoinAddress } from '../bitcoin/ShortBitcoinAddress'
 import { Text } from '../text'
-import { CopyAble } from '../ui'
+import { CopyAble } from '../ui/CopyAble'
 import { SummaryItem, SummaryItemProps } from './SummaryItem'
 
 type Props = SummaryItemProps & {

@@ -1,5 +1,6 @@
 import { TextProps, View } from 'react-native'
-import { CopyAble, Text } from '../../../components'
+import { Text } from '../../../components'
+import { CopyAble } from '../../../components/ui/CopyAble'
 import tw from '../../../styles/tailwind'
 
 type Props = {

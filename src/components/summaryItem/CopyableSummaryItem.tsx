@@ -1,7 +1,7 @@
 import { TouchableOpacity } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Text } from '../text'
-import { CopyAble } from '../ui'
+import { CopyAble } from '../ui/CopyAble'
 import { SummaryItem, SummaryItemProps } from './SummaryItem'
 
 type Props = SummaryItemProps & {
