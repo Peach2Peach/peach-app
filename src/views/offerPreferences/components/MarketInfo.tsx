@@ -11,7 +11,6 @@ export function MarketInfo ({
 }: {
   type: 'buyOffers' | 'sellOffers'
   meansOfPayment?: MeansOfPayment
-  premium?: number
   maxPremium?: number
   minReputation?: number
   buyAmountRange?: [number, number]

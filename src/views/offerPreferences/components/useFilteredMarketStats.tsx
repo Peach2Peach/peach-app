@@ -9,7 +9,6 @@ import { isDefined } from '../../../utils/validation/isDefined'
 type Params = {
   type: 'bid' | 'ask'
   meansOfPayment?: MeansOfPayment
-  premium?: number
   maxPremium?: number
   minReputation?: number
   buyAmountRange?: [number, number]
@@ -19,14 +18,13 @@ type Params = {
 export function useFilteredMarketStats ({
   type,
   meansOfPayment,
-  premium,
   maxPremium,
   minReputation,
   buyAmountRange,
   sellAmount,
 }: Params) {
   const queryData = useQuery({
-    queryKey: ['offer', 'search', 'summary', { type, meansOfPayment, maxPremium, minReputation, premium }] as const,
+    queryKey: ['offer', 'search', 'summary', { type, meansOfPayment, maxPremium, minReputation }] as const,
     queryFn: async ({ queryKey }) => {
       const [, , , requestBody] = queryKey
       const { result } = await peachAPI.private.offer.searchOfferSummaries(requestBody)

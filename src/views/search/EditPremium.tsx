@@ -35,7 +35,7 @@ export const EditPremium = () => {
 
   return (
     <Screen header={<EditPremiumHeader />}>
-      <MarketInfo type="buyOffers" meansOfPayment={offer?.meansOfPayment} premium={displayPremium} />
+      <MarketInfo type="buyOffers" meansOfPayment={offer?.meansOfPayment} maxPremium={displayPremium} />
       <Premium
         premium={displayPremium}
         setPremium={setPremium}

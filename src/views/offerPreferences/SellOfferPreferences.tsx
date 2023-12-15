@@ -81,7 +81,7 @@ function SellPreferenceMarketInfo () {
   const preferences = useOfferPreferences(
     (state) => ({
       meansOfPayment: state.meansOfPayment,
-      premium: state.premium,
+      maxPremium: state.premium,
       sellAmount: state.sellAmount,
     }),
     shallow,
