@@ -16,6 +16,7 @@ import { useAccountStore } from '../utils/account/account'
 import i18n from '../utils/i18n'
 import { screenTransition } from '../utils/layout/screenTransition'
 import { isIOS } from '../utils/system/isIOS'
+import { peachWallet } from '../utils/wallet/setWallet'
 import { onboardingViews, views } from './views'
 
 const Stack = createStackNavigator<RootStackParamList>()
@@ -76,6 +77,7 @@ function SplashScreenComponent ({ setIsLoading }: { setIsLoading: (isLoading: bo
       requestUserPermissions()
       setIsLoading(false)
       SplashScreen.hide()
+      peachWallet.syncWallet()
     })()
   }, [navigation, setIsLoading, setPopup, updateMessage])
 
