@@ -4,7 +4,7 @@ import { createContext, useContext, useReducer, useState } from 'react'
 import { Button } from '../../components/buttons/Button'
 import { MeansOfPayment } from '../../components/offer/MeansOfPayment'
 import { useNavigation, useRoute } from '../../hooks'
-import { usePatchOffer } from '../../hooks/offer'
+import { PatchBuyOfferData, usePatchBuyOffer } from '../../hooks/offer/usePatchOffer'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import tw from '../../styles/tailwind'
 import { interpolate } from '../../utils/math/interpolate'
@@ -111,7 +111,7 @@ function OfferMethods () {
   return (
     <Section.Container style={{ backgroundColor }}>
       {hasSelectedMethods ? (
-        <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`flex-1`} />
+        <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`self-stretch flex-1`} />
       ) : (
         <Section.Title>all payment methods</Section.Title>
       )}
@@ -197,14 +197,16 @@ function ShowOffersButton () {
   const rangeIsWithinLimits = preferences.amount[0] >= min && preferences.amount[1] <= max
 
   const rangeIsValid = preferences.amount[0] <= preferences.amount[1] && (!rangeHasChanged || rangeIsWithinLimits)
-  const amount = rangeHasChanged ? preferences.amount : undefined
   const formValid = rangeIsValid
 
-  const { mutate: patchOffer, isLoading: isPatching } = usePatchOffer()
+  const { mutate: patchOffer, isLoading: isPatching } = usePatchBuyOffer()
   const navigation = useNavigation()
   const queryClient = useQueryClient()
   const onPress = () => {
-    const newData = { maxPremium, minReputation, amount }
+    const newData: PatchBuyOfferData = { maxPremium, minReputation }
+    if (rangeHasChanged) {
+      newData.amount = preferences.amount
+    }
     patchOffer(
       { offerId, newData },
       {
