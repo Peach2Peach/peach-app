@@ -2,7 +2,8 @@ import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { Icon } from '../../Icon'
 import { Text } from '../../text'
-import { StatusCardProps, statusCardStyles } from '../StatusCard'
+import { StatusCardProps } from '../StatusCard'
+import { statusCardStyles } from '../statusCardStyles'
 
 type Props = Pick<StatusCardProps, 'labelIcon' | 'label' | 'unreadMessages' | 'color'>
 

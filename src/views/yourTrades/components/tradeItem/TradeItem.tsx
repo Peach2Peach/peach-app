@@ -1,4 +1,4 @@
-import { StatusCard } from '../../../../components'
+import { StatusCard } from '../../../../components/statusCard/StatusCard'
 import { useNavigateToOfferOrContract } from '../../../../hooks'
 import { getStatusCardProps } from './helpers'
 

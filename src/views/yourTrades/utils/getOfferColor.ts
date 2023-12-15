@@ -1,4 +1,4 @@
-import { statusCardStyles } from '../../../components/statusCard/StatusCard'
+import { statusCardStyles } from '../../../components/statusCard/statusCardStyles'
 import { isContractSummary } from './isContractSummary'
 import { isError } from './isError'
 import { isPastOffer } from './isPastOffer'

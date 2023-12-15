@@ -6,7 +6,7 @@ import { TradeItem } from './TradeItem'
 
 jest.useFakeTimers()
 
-jest.mock('../../../../components/statusCard', () => ({
+jest.mock('../../../../components/statusCard/StatusCard', () => ({
   StatusCard: 'StatusCard',
 }))
 

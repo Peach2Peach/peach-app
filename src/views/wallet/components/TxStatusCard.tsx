@@ -1,4 +1,4 @@
-import { StatusCard } from '../../../components/statusCard'
+import { StatusCard } from '../../../components/statusCard/StatusCard'
 import { useNavigation } from '../../../hooks'
 import { getShortDateFormat } from '../../../utils/date/getShortDateFormat'
 import { getTxSummaryTitle } from '../helpers/getTxSummaryTitle'
