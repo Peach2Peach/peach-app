@@ -1,6 +1,6 @@
 import { Dispatch } from 'react'
 import { TextInput, View } from 'react-native'
-import { PeachText } from '../../../../components/text/Text'
+import { PeachText } from '../../../../components/text/PeachText'
 import tw from '../../../../styles/tailwind'
 import { enforceDecimalsFormat } from '../../../../utils/format/enforceDecimalsFormat'
 import i18n from '../../../../utils/i18n'

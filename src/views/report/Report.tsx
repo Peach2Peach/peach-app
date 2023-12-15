@@ -1,12 +1,12 @@
 import { useRef } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
-import { Text } from '../../components'
 import { Icon } from '../../components/Icon'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
 import { Input } from '../../components/inputs/Input'
+import { PeachText } from '../../components/text/PeachText'
 import { useNavigation, useRoute, useToggleBoolean, useValidatedState } from '../../hooks'
 import { useShowAppPopup } from '../../hooks/useShowAppPopup'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
@@ -99,7 +99,7 @@ export const Report = () => {
                 <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
               )}
             </View>
-            <Text style={tw`pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</Text>
+            <PeachText style={tw`pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</PeachText>
           </Pressable>
         )}
         <Pressable onPress={toggleShareLogs} style={tw`flex-row items-center pl-3`}>
@@ -110,7 +110,7 @@ export const Report = () => {
               <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
             )}
           </View>
-          <Text style={tw`pl-2 subtitle-1`}>{i18n('form.shareLogs')}</Text>
+          <PeachText style={tw`pl-2 subtitle-1`}>{i18n('form.shareLogs')}</PeachText>
         </Pressable>
       </PeachScrollView>
       <Button style={tw`self-center`} onPress={submit} disabled={!(isEmailValid && isTopicValid && isMessageValid)}>

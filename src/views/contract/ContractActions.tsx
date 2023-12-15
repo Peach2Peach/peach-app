@@ -1,9 +1,9 @@
 import { View } from 'react-native'
-import { Text } from '../../components'
 import { EscrowButton } from '../../components/EscrowButton'
 import { Icon } from '../../components/Icon'
 import { ConfirmSlider } from '../../components/inputs'
 import { UnlockedSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
+import { PeachText } from '../../components/text/PeachText'
 import { Timer } from '../../components/text/Timer'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import tw from '../../styles/tailwind'
@@ -64,7 +64,7 @@ function ContractStatusInfo () {
     if (requiredAction === 'confirmPayment') {
       return (
         <View style={tw`flex-row items-center justify-center`}>
-          <Text style={tw`text-center button-medium`}>{i18n(`contract.timer.confirmPayment.${view}`)}</Text>
+          <PeachText style={tw`text-center button-medium`}>{i18n(`contract.timer.confirmPayment.${view}`)}</PeachText>
           {view === 'seller' && <Icon id="check" style={tw`w-5 h-5 ml-1 -mt-0.5`} color={tw.color('success-main')} />}
         </View>
       )

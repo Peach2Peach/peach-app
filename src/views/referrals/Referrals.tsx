@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { View } from 'react-native'
-import { Text } from '../../components'
 import { Header } from '../../components/Header'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { RadioButtonItem, RadioButtons } from '../../components/inputs/RadioButtons'
+import { PeachText } from '../../components/text/PeachText'
 import { Progress } from '../../components/ui/Progress'
 import { useShowHelp } from '../../hooks'
 import { useSelfUser } from '../../hooks/query/useSelfUser'
@@ -47,14 +47,14 @@ function ReferralRewards () {
 
   return (
     <>
-      <Text style={tw`text-center`}>
+      <PeachText style={tw`text-center`}>
         {i18n(
           !referredTradingAmount ? 'referrals.notTraded' : 'referrals.alreadyTraded',
           i18n('currency.format.sats', thousands(referredTradingAmount)),
         )}
         {'\n\n'}
         {i18n(availableRewards ? 'referrals.selectReward' : 'referrals.continueSaving')}
-      </Text>
+      </PeachText>
       <RadioButtons items={rewards} selectedValue={selectedReward} onButtonPress={setSelectedReward} />
       <RedeemButton selectedReward={selectedReward} />
     </>
@@ -91,9 +91,9 @@ function BonusPointsBar () {
         barStyle={tw`border-2 bg-primary-main border-primary-background`}
         percent={balance / BARLIMIT}
       />
-      <Text style={tw`pl-2 tooltip text-black-2`}>
-        {i18n('referrals.points')}: <Text style={tw`font-bold tooltip text-black-2`}>{balance}</Text>
-      </Text>
+      <PeachText style={tw`pl-2 tooltip text-black-2`}>
+        {i18n('referrals.points')}: <PeachText style={tw`font-bold tooltip text-black-2`}>{balance}</PeachText>
+      </PeachText>
     </View>
   )
 }

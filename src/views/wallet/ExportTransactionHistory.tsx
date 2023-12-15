@@ -1,8 +1,8 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { View } from 'react-native'
-import { Text } from '../../components'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
+import { PeachText } from '../../components/text/PeachText'
 import { useWriteCSV } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { toShortDateFormat } from '../../utils/date/toShortDateFormat'
@@ -24,13 +24,13 @@ export const ExportTransactionHistory = () => {
   return (
     <Screen header={i18n('wallet.exportHistory.title')}>
       <View style={tw`justify-center gap-8 grow`}>
-        <Text style={tw`body-l`}>
+        <PeachText style={tw`body-l`}>
           {`${i18n('wallet.exportHistory.description')}
   • ${i18n('wallet.exportHistory.description.point1')}
   • ${i18n('wallet.exportHistory.description.point2')}
   • ${i18n('wallet.exportHistory.description.point3')}
   • ${i18n('wallet.exportHistory.description.point4')}`}
-        </Text>
+        </PeachText>
       </View>
       <Button style={tw`self-center`} onPress={onPress}>
         {i18n('wallet.exportHistory.export')}

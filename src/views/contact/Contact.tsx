@@ -1,9 +1,9 @@
 import { View } from 'react-native'
-import { Text } from '../../components'
 import { Header } from '../../components/Header'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { OptionButton } from '../../components/buttons/OptionButton'
+import { PeachText } from '../../components/text/PeachText'
 import { LinedText } from '../../components/ui/LinedText'
 import { DISCORD, TELEGRAM } from '../../constants'
 import { useNavigation } from '../../hooks'
@@ -34,7 +34,7 @@ export const Contact = () => {
       <PeachScrollView contentContainerStyle={tw`justify-center grow`} contentStyle={tw`gap-12`}>
         <View style={tw`w-full gap-4`}>
           <LinedText>
-            <Text style={tw`text-black-2`}>{i18n('report.mailUs')}</Text>
+            <PeachText style={tw`text-black-2`}>{i18n('report.mailUs')}</PeachText>
           </LinedText>
           <>
             {contactReasons.map((reason) => (
@@ -44,7 +44,7 @@ export const Contact = () => {
         </View>
         <View style={tw`w-full gap-4`}>
           <LinedText>
-            <Text style={tw`text-black-2`}>{i18n('report.communityHelp')}</Text>
+            <PeachText style={tw`text-black-2`}>{i18n('report.communityHelp')}</PeachText>
           </LinedText>
           <OptionButton onPress={openTelegram}>{i18n('telegram')}</OptionButton>
           <OptionButton onPress={openDiscord}>{i18n('discord')}</OptionButton>

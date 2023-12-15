@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { View } from 'react-native'
 import { Icon } from '../../components/Icon'
-import { PeachText } from '../../components/text/Text'
+import { PeachText } from '../../components/text/PeachText'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { badges } from '../../views/settings/profile/profileOverview/components/badges'

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { msToTimer } from '../../utils/string/msToTimer'
-import { PeachText } from './Text'
+import { PeachText } from './PeachText'
 
 type Props = ComponentProps & {
   text?: string

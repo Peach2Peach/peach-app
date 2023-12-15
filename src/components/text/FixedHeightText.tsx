@@ -1,6 +1,6 @@
 import { TextProps, View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { PeachText } from './Text'
+import { PeachText } from './PeachText'
 
 export const FixedHeightText = ({ height, style, ...textProps }: { height: number } & TextProps) => (
   <View style={{ height, justifyContent: 'center' }}>

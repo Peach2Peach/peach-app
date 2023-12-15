@@ -3,7 +3,7 @@ import { IconType } from '../../assets/icons'
 import { useIsMediumScreen } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 import { BubbleBase, BubbleBaseProps } from './BubbleBase'
 import { getBackgroundColor } from './helpers/getBackgroundColor'
 import { getBorderColor } from './helpers/getBorderColor'
@@ -46,11 +46,11 @@ export function NewBubble ({ children, iconId, onPress, color, ghost }: NewBubbl
         ghost ? [tw`bg-transparent border`, { borderColor: colorStyle }] : [{ backgroundColor: colorStyle }],
       ]}
     >
-      <Text
+      <PeachText
         style={[tw`text-center button-medium`, { color: ghost ? colorStyle : tw.color('primary-background-light') }]}
       >
         {children}
-      </Text>
+      </PeachText>
       {!!iconId && <Icon id={iconId} size={12} color={ghost ? colorStyle : tw.color('primary-background-light')} />}
     </TouchableOpacity>
   )

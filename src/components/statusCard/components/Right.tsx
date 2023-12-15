@@ -3,8 +3,8 @@ import tw from '../../../styles/tailwind'
 import { groupChars } from '../../../utils/string/groupChars'
 import { priceFormat } from '../../../utils/string/priceFormat'
 import { BTCAmount } from '../../bitcoin/btcAmount/BTCAmount'
-import { Text } from '../../text'
 import { FixedHeightText } from '../../text/FixedHeightText'
+import { PeachText } from '../../text/PeachText'
 import { StatusCardProps } from '../StatusCard'
 import { getPropsWithType } from '../helpers'
 
@@ -23,7 +23,7 @@ export const Right = (propsWithoutType: Props) => {
       {type === 'range' ? (
         <View style={tw`items-center -gap-1`}>
           <BTCAmount size="small" amount={amount[0]} />
-          <Text style={tw`font-baloo-medium text-12px leading-19px text-black-3`}>~</Text>
+          <PeachText style={tw`font-baloo-medium text-12px leading-19px text-black-3`}>~</PeachText>
           <BTCAmount size="small" amount={amount[1]} />
         </View>
       ) : type === 'fiatAmount' ? (

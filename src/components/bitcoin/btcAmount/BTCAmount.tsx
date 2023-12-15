@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { Icon } from '../../Icon'
-import { PeachText } from '../../text/Text'
+import { PeachText } from '../../text/PeachText'
 import { MixedLetterSpacingText } from './components/MixedLetterSpacingText'
 
 type Props = ComponentProps & {

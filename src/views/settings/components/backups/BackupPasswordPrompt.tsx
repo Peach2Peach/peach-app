@@ -1,9 +1,9 @@
 import { useMemo, useRef, useState } from 'react'
 import { Keyboard, TextInput, View } from 'react-native'
-import { Text } from '../../../../components'
 import { PeachScrollView } from '../../../../components/PeachScrollView'
 import { Button } from '../../../../components/buttons/Button'
 import { Input } from '../../../../components/inputs/Input'
+import { PeachText } from '../../../../components/text/PeachText'
 import { useNavigation, useValidatedState } from '../../../../hooks'
 import { useSettingsStore } from '../../../../store/settingsStore'
 import tw from '../../../../styles/tailwind'
@@ -62,7 +62,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
     <>
       <PeachScrollView contentContainerStyle={tw`grow`}>
         <View style={tw`justify-center h-full`}>
-          <Text style={tw`self-center mb-4 tooltip`}>{i18n('settings.backups.createASecurePassword')}</Text>
+          <PeachText style={tw`self-center mb-4 tooltip`}>{i18n('settings.backups.createASecurePassword')}</PeachText>
           <Input
             placeholder={i18n('form.password.placeholder')}
             onChange={setPassword}

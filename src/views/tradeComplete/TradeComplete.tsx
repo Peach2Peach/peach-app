@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { TouchableOpacity, View, ViewStyle } from 'react-native'
 import { Contract } from '../../../peach-api/src/@types/contract'
 import { IconType } from '../../assets/icons'
-import { Text } from '../../components'
 import { Icon } from '../../components/Icon'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
+import { PeachText } from '../../components/text/PeachText'
 import { useRoute } from '../../hooks'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
 import tw from '../../styles/tailwind'
@@ -39,12 +39,12 @@ function TradeCompleteView ({ contract }: { contract: Contract }) {
         <View style={tw`justify-center gap-6 grow`}>
           <View style={tw`items-center`}>
             <Icon id="fullLogo" style={tw`w-311px h-127px`} />
-            <Text style={tw`text-center h5 text-primary-background-light`}>
+            <PeachText style={tw`text-center h5 text-primary-background-light`}>
               {i18n(`tradeComplete.title.${view}.default`)}
-            </Text>
+            </PeachText>
           </View>
 
-          <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('rate.subtitle')}</Text>
+          <PeachText style={tw`text-center body-l text-primary-background-light`}>{i18n('rate.subtitle')}</PeachText>
           <View style={tw`flex-row justify-center gap-12`}>
             <RateButton
               onPress={() => setVote('negative')}

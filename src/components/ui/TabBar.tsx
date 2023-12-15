@@ -3,7 +3,7 @@ import { TouchableOpacity, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { PeachScrollView } from '../PeachScrollView'
-import { PeachText } from '../text/Text'
+import { PeachText } from '../text/PeachText'
 
 export const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
   const items = state.routes

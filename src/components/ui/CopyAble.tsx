@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Icon } from '../Icon'
 import { Fade } from '../animation/Fade'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 
 export type CopyRef = {
   copy: () => void
@@ -46,7 +46,7 @@ export const CopyAble = ({ forwardRef, value, color, disabled, style, textPositi
     >
       <Icon id="copy" style={tw`w-full h-full`} color={color?.color || tw.color('primary-main')} />
       <Fade show={showCopied} duration={300} delay={0} style={textPositions[textPosition]}>
-        <Text style={[tw`tooltip`, color || tw`text-primary-main`]}>{i18n('copied')}</Text>
+        <PeachText style={[tw`tooltip`, color || tw`text-primary-main`]}>{i18n('copied')}</PeachText>
       </Fade>
     </Pressable>
   )

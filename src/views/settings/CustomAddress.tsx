@@ -1,6 +1,5 @@
 import { TouchableOpacity, View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { Text } from '../../components'
 import { Header } from '../../components/Header'
 import { Icon } from '../../components/Icon'
 import { Screen } from '../../components/Screen'
@@ -9,6 +8,7 @@ import { Button } from '../../components/buttons/Button'
 import { BitcoinAddressInput } from '../../components/inputs/BitcoinAddressInput'
 import { Input } from '../../components/inputs/Input'
 import { PopupAction } from '../../components/popup'
+import { PeachText } from '../../components/text/PeachText'
 import { useNavigation, useRoute, useShowHelp, useValidatedState } from '../../hooks'
 import { ErrorPopup } from '../../popups/ErrorPopup'
 import { ClosePopupAction } from '../../popups/actions'
@@ -59,9 +59,9 @@ export const CustomAddress = () => {
   return (
     <Screen header={<PayoutAddressHeader />}>
       <View style={tw`items-center justify-center grow`}>
-        <Text style={tw`h6`}>
+        <PeachText style={tw`h6`}>
           {i18n(type === 'refund' ? 'settings.refundAddress.title' : 'settings.payoutAddress.title')}
-        </Text>
+        </PeachText>
         <Input
           value={addressLabel}
           placeholder={i18n('form.address.label.placeholder')}
@@ -73,7 +73,7 @@ export const CustomAddress = () => {
         {isUpdated ? (
           <View style={tw`gap-2`}>
             <View style={tw`flex-row justify-center gap-1`}>
-              <Text style={tw`uppercase button-medium`}>{i18n('settings.payoutAddress.success')}</Text>
+              <PeachText style={tw`uppercase button-medium`}>{i18n('settings.payoutAddress.success')}</PeachText>
               <Icon id="check" size={20} color={tw.color('success-main')} />
             </View>
             <RemoveWalletButton setAddressInput={setAddress} setAddressLabelInput={setAddressLabel} />
@@ -115,7 +115,7 @@ function RemoveWalletButton (popupProps: PopupProps) {
 
   return (
     <TouchableOpacity onPress={openRemoveWalletPopup} style={tw`flex-row justify-center gap-1`}>
-      <Text style={tw`underline uppercase button-medium`}>{i18n('settings.payoutAddress.removeWallet')}</Text>
+      <PeachText style={tw`underline uppercase button-medium`}>{i18n('settings.payoutAddress.removeWallet')}</PeachText>
       <Icon id="trash" size={20} color={tw.color('error-main')} />
     </TouchableOpacity>
   )
@@ -138,7 +138,7 @@ function RemoveWalletPopup ({ setAddressInput, setAddressLabelInput }: PopupProp
   return (
     <ErrorPopup
       title={i18n('settings.payoutAddress.popup.title')}
-      content={<Text>{i18n('settings.payoutAddress.popup.content')}</Text>}
+      content={<PeachText>{i18n('settings.payoutAddress.popup.content')}</PeachText>}
       actions={
         <>
           <PopupAction iconId="trash" label={i18n('settings.payoutAddress.popup.remove')} onPress={removeWallet} />

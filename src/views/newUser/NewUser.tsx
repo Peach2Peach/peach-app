@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { Text } from '../../components'
 import { Header } from '../../components/Header'
 import { Icon } from '../../components/Icon'
 import { Screen } from '../../components/Screen'
 import { Loading } from '../../components/animation/Loading'
 import { Button } from '../../components/buttons/Button'
+import { PeachText } from '../../components/text/PeachText'
 import { UNIQUEID } from '../../constants'
 import { useNavigation, useRoute } from '../../hooks'
 import { userUpdate } from '../../init/userUpdate'
@@ -102,8 +102,8 @@ export const NewUser = () => {
 function CreateAccountLoading () {
   return (
     <View style={tw`items-center justify-center gap-4 grow`}>
-      <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.create')}</Text>
-      <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.oneSec')}</Text>
+      <PeachText style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.create')}</PeachText>
+      <PeachText style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.oneSec')}</PeachText>
       <Loading style={tw`w-32 h-32`} color={tw.color('primary-mild-1')} />
     </View>
   )
@@ -121,8 +121,8 @@ function CreateAccountError ({ err }: Props) {
     <View style={tw`items-center justify-between grow`}>
       <View style={tw`items-center justify-center gap-16 grow`}>
         <View>
-          <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.create')}</Text>
-          <Text style={tw`text-center body-l text-primary-background-light`}>{i18n(`${err}.text`)}</Text>
+          <PeachText style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.create')}</PeachText>
+          <PeachText style={tw`text-center body-l text-primary-background-light`}>{i18n(`${err}.text`)}</PeachText>
         </View>
         <Icon id="userX" size={128} color={tw.color('primary-background-light')} />
       </View>
@@ -143,8 +143,10 @@ function CreateAccountSuccess () {
   return (
     <View style={tw`items-center justify-center gap-16 grow`}>
       <View>
-        <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.accountCreated')}</Text>
-        <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.welcome')}</Text>
+        <PeachText style={tw`text-center h4 text-primary-background-light`}>
+          {i18n('newUser.title.accountCreated')}
+        </PeachText>
+        <PeachText style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.welcome')}</PeachText>
       </View>
       <Icon id="userCheck" size={128} color={tw.color('primary-background-light')} />
     </View>
@@ -161,8 +163,12 @@ function UserExistsForDevice () {
   return (
     <View style={tw`items-center justify-center gap-8 grow`}>
       <View>
-        <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.accountNotCreated')}</Text>
-        <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.youAlreadyHaveOne')}</Text>
+        <PeachText style={tw`text-center h4 text-primary-background-light`}>
+          {i18n('newUser.accountNotCreated')}
+        </PeachText>
+        <PeachText style={tw`text-center body-l text-primary-background-light`}>
+          {i18n('newUser.youAlreadyHaveOne')}
+        </PeachText>
       </View>
       <Icon id="userX" size={128} color={tw.color('primary-background-light')} />
       <View style={tw`items-center gap-8`}>
@@ -180,7 +186,7 @@ type MenuItemProps = ComponentProps & {
 function MenuItem ({ children, onPress }: MenuItemProps) {
   return (
     <TouchableOpacity onPress={onPress} style={tw`flex-row items-center justify-between w-60`}>
-      <Text style={tw`settings text-primary-background-light`}>{children}</Text>
+      <PeachText style={tw`settings text-primary-background-light`}>{children}</PeachText>
       <Icon id="chevronRight" style={tw`w-6 h-6`} color={tw.color('primary-background-light')} />
     </TouchableOpacity>
   )

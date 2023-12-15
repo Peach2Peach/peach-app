@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { Text } from '../../../components'
+import { PeachText } from '../../../components/text/PeachText'
 import tw from '../../../styles/tailwind'
 
 export const sectionContainerPadding = 12
@@ -21,7 +21,7 @@ function Container ({ children, style }: { children: React.ReactNode; style?: Vi
 
 const Section = {
   Container,
-  Title: ({ children }: { children: React.ReactNode }) => <Text style={tw`subtitle-1`}>{children}</Text>,
+  Title: ({ children }: { children: React.ReactNode }) => <PeachText style={tw`subtitle-1`}>{children}</PeachText>,
 }
 
 export { Section }

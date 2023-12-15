@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
-import { PeachText } from '../text/Text'
+import { PeachText } from '../text/PeachText'
 
 type Props = ComponentProps & {
   display: ReactNode

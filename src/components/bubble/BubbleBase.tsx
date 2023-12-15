@@ -3,7 +3,7 @@ import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyl
 import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 
 export type BubbleBaseProps = {
   option?: boolean
@@ -42,13 +42,13 @@ export const BubbleBase = ({
     ]}
   >
     {children && (
-      <Text
+      <PeachText
         numberOfLines={1}
         ellipsizeMode="tail"
         style={[textColor, tw`text-center button-medium`, tw`md:button-large`]}
       >
         {children}
-      </Text>
+      </PeachText>
     )}
     {!!iconId && <Icon id={iconId} size={iconSize} color={iconColor?.color} />}
   </TouchableOpacity>

@@ -1,7 +1,6 @@
 import { View } from 'react-native'
-
 import RatingPeach from '../../../../../assets/icons/ratingPeach.svg'
-import { Text } from '../../../../../components'
+import { PeachText } from '../../../../../components/text/PeachText'
 import { CENT } from '../../../../../constants'
 import tw from '../../../../../styles/tailwind'
 import i18n from '../../../../../utils/i18n'
@@ -17,7 +16,7 @@ type RatingProps = ComponentProps & {
 
 export const Rating = ({ rating, style, isNewUser }: RatingProps) =>
   isNewUser ? (
-    <Text style={tw`subtitle-2 text-black-2`}>{i18n('newUser')}</Text>
+    <PeachText style={tw`subtitle-2 text-black-2`}>{i18n('newUser')}</PeachText>
   ) : (
     <View style={[tw`flex-row items-center`, style]}>
       <View style={tw`flex-row`}>
@@ -36,6 +35,6 @@ export const Rating = ({ rating, style, isNewUser }: RatingProps) =>
         </View>
       </View>
 
-      <Text style={tw`text-black-2 button-small`}>{interpolate(rating, [-1, 1], [0, 5]).toFixed(1)}</Text>
+      <PeachText style={tw`text-black-2 button-small`}>{interpolate(rating, [-1, 1], [0, 5]).toFixed(1)}</PeachText>
     </View>
   )

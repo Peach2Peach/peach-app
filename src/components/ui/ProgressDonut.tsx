@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Animated, View } from 'react-native'
 import { Circle, G, Svg } from 'react-native-svg'
 import tw from '../../styles/tailwind'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 
 type Props = ComponentProps & {
   title: string
@@ -28,7 +28,7 @@ export const ProgressDonut = ({ title, max, value, style }: Props) => {
 
   return (
     <View style={[tw`items-center`, style]}>
-      <Text style={[tw`font-bold text-center text-primary-main text-3xs`, tw`md:text-xs`]}>{title}</Text>
+      <PeachText style={[tw`font-bold text-center text-primary-main text-3xs`, tw`md:text-xs`]}>{title}</PeachText>
       <View style={[tw`w-8 h-8`, tw`md:w-10 md:h-10`]}>
         <Svg style={tw`w-full h-full`} viewBox="0 0 32 32">
           <G rotation={-90} originX="16" originY="16">
@@ -53,7 +53,7 @@ export const ProgressDonut = ({ title, max, value, style }: Props) => {
           </G>
         </Svg>
         <View style={tw`absolute items-center justify-center w-full h-full`}>
-          <Text style={[tw`font-bold text-3xs`, tw`md:text-base`, tw`ios:mt-0.5`]}>{value}</Text>
+          <PeachText style={[tw`font-bold text-3xs`, tw`md:text-base`, tw`ios:mt-0.5`]}>{value}</PeachText>
         </View>
       </View>
     </View>

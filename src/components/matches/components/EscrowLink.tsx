@@ -4,7 +4,7 @@ import tw from '../../../styles/tailwind'
 import { showAddress } from '../../../utils/bitcoin/showAddress'
 import i18n from '../../../utils/i18n'
 import { Icon } from '../../Icon'
-import { PeachText } from '../../text/Text'
+import { PeachText } from '../../text/PeachText'
 
 export const EscrowLink = ({ address }: { address: string }) => (
   <>

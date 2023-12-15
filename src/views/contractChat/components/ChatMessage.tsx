@@ -1,7 +1,7 @@
 import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
-import { Text } from '../../../components'
 import { Icon } from '../../../components/Icon'
+import { PeachText } from '../../../components/text/PeachText'
 import { LinedText } from '../../../components/ui/LinedText'
 import tw from '../../../styles/tailwind'
 import { useAccountStore } from '../../../utils/account/account'
@@ -111,37 +111,39 @@ export const ChatMessage = ({
     <>
       {isChangeDate && (
         <LinedText style={tw`mb-5 px-sm pt-7`}>
-          <Text style={tw`body-m text-black-2`}>{toDateFormat(message.date)}</Text>
+          <PeachText style={tw`body-m text-black-2`}>{toDateFormat(message.date)}</PeachText>
         </LinedText>
       )}
       <View
         onStartShouldSetResponder={() => true}
         style={[tw`w-10/12 bg-transparent px-sm`, meta.isYou && tw`self-end`]}
       >
-        {meta.showName && !meta.isYou && <Text style={[tw`px-1 mt-4 -mb-2 subtitle-2`, text]}>{meta.name}</Text>}
+        {meta.showName && !meta.isYou && (
+          <PeachText style={[tw`px-1 mt-4 -mb-2 subtitle-2`, text]}>{meta.name}</PeachText>
+        )}
         <View style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}>
-          <Text style={tw`shrink-0`} selectable>
+          <PeachText style={tw`shrink-0`} selectable>
             {message.message || i18n('chat.decyptionFailed')}
-          </Text>
-          <Text style={tw`pt-1 ml-auto leading-5 text-right`}>
-            <Text style={tw`subtitle-2 leading-xs text-black-3`}>
+          </PeachText>
+          <PeachText style={tw`pt-1 ml-auto leading-5 text-right`}>
+            <PeachText style={tw`subtitle-2 leading-xs text-black-3`}>
               {toTimeFormat(message.date.getHours(), message.date.getMinutes())}
-            </Text>
+            </PeachText>
             {meta.isYou && (
               <View style={tw`pl-1`}>
                 <Icon id={statusIcon} style={tw`relative w-4 h-4 -bottom-1`} color={statusIconColor.color} />
               </View>
             )}
-          </Text>
+          </PeachText>
         </View>
         {message.failedToSend && (
           <TouchableOpacity
             onPress={() => resendMessage(message)}
             style={tw`flex-row justify-end items-center mt-1 pr-3 mr-0.5`}
           >
-            <Text style={tw`mr-1 text-error-main`}>
-              {i18n('chat.failedToSend')} <Text style={tw`underline text-error-main`}>{i18n('retry')}</Text>
-            </Text>
+            <PeachText style={tw`mr-1 text-error-main`}>
+              {i18n('chat.failedToSend')} <PeachText style={tw`underline text-error-main`}>{i18n('retry')}</PeachText>
+            </PeachText>
             <Icon id="refreshCcw" style={tw`w-3 h-3`} color={tw.color('error-main')} />
           </TouchableOpacity>
         )}

@@ -1,8 +1,8 @@
 import { TouchableOpacity } from 'react-native'
-import { Text } from '../'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Icon } from '../Icon'
+import { PeachText } from '../text/PeachText'
 import { useAddPaymentMethodButtonSetup } from './hooks/useAddPaymentMethodButtonSetup'
 
 type Props = ComponentProps & {
@@ -23,9 +23,9 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
       ]}
     >
       <Icon id="plusCircle" style={tw`w-7 h-7`} color={tw.color('primary-main')} />
-      <Text style={tw`h6 text-primary-main  shrink`}>
+      <PeachText style={tw`h6 text-primary-main  shrink`}>
         {i18n.break(`paymentMethod.select.button.${isCash ? 'cash' : 'remote'}`)}
-      </Text>
+      </PeachText>
     </TouchableOpacity>
   )
 }

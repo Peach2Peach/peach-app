@@ -3,7 +3,7 @@ import { IconType } from '../assets/icons'
 import tw from '../styles/tailwind'
 import { Icon } from './Icon'
 import { Screen } from './Screen'
-import { PeachText } from './text/Text'
+import { PeachText } from './text/PeachText'
 
 type Props = {
   buttons: React.ReactNode

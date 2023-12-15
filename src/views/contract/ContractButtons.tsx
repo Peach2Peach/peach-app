@@ -2,9 +2,9 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs'
+import { PeachText } from '../../components/text/PeachText'
 import { useNavigation, useRoute, useShowHelp, useValidatedState } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { WarningPopup } from '../../popups/WarningPopup'
@@ -83,11 +83,11 @@ function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: Con
       title={i18n('dispute.opened')}
       content={
         <View style={tw`gap-4`}>
-          <Text>
+          <PeachText>
             {i18n(`dispute.opened.counterparty.text.1.withEmail.${view}`, contractIdToHex(id), thousands(amount))}
-          </Text>
+          </PeachText>
 
-          <Text>{i18n('dispute.opened.counterparty.text.2.withEmail')}</Text>
+          <PeachText>{i18n('dispute.opened.counterparty.text.2.withEmail')}</PeachText>
 
           <View>
             <EmailInput

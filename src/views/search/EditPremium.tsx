@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { View } from 'react-native'
-import { Text } from '../../components'
 import { Header } from '../../components/Header'
 import { PremiumInput } from '../../components/PremiumInput'
 import { Screen } from '../../components/Screen'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Button } from '../../components/buttons/Button'
 import { PremiumSlider } from '../../components/inputs/premiumSlider/PremiumSlider'
+import { PeachText } from '../../components/text/PeachText'
 import { useMarketPrices, useNavigation, useRoute, useShowHelp } from '../../hooks'
 import { usePatchOffer } from '../../hooks/offer/usePatchOffer'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
@@ -42,9 +42,9 @@ export const EditPremium = () => {
         setPremium={setPremium}
         amount={offer?.amount ?? 0}
         offerPrice={
-          <Text style={tw`text-center text-black-2`}>
+          <PeachText style={tw`text-center text-black-2`}>
             ({i18n('sell.premium.currently', `${priceFormat(currentPrice)} ${displayCurrency}`)})
-          </Text>
+          </PeachText>
         }
       />
       <ConfirmButton offerId={offerId} newPremium={displayPremium} />
@@ -86,9 +86,9 @@ function Premium ({ premium, setPremium, amount, offerPrice }: PremiumProps) {
   return (
     <View style={tw`items-center justify-center grow gap-7`}>
       <View style={tw`items-center`}>
-        <Text style={[tw`text-center h6`, tw`md:h5`]}>{i18n('sell.premium.title')}</Text>
+        <PeachText style={[tw`text-center h6`, tw`md:h5`]}>{i18n('sell.premium.title')}</PeachText>
         <View style={tw`flex-row items-center gap-1`}>
-          <Text style={tw`text-center subtitle-1`}>{i18n('search.sellOffer')}</Text>
+          <PeachText style={tw`text-center subtitle-1`}>{i18n('search.sellOffer')}</PeachText>
           <BTCAmount size="small" amount={amount} />
         </View>
       </View>

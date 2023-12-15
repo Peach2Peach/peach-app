@@ -12,7 +12,6 @@ import {
 import { shallow } from 'zustand/shallow'
 import { MeansOfPayment } from '../../../peach-api/src/@types/payment'
 import { LogoIcons } from '../../assets/logo'
-import { Text } from '../../components'
 import { Badge } from '../../components/Badge'
 import { Header } from '../../components/Header'
 import { PremiumInput } from '../../components/PremiumInput'
@@ -21,6 +20,7 @@ import { NewBubble } from '../../components/bubble/Bubble'
 import { Button } from '../../components/buttons/Button'
 import { Toggle } from '../../components/inputs'
 import { Checkbox } from '../../components/inputs/Checkbox'
+import { PeachText } from '../../components/text/PeachText'
 import { SATSINBTC } from '../../constants'
 import { useBitcoinPrices, useMarketPrices, useNavigation, useToggleBoolean, useTradingLimits } from '../../hooks'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
@@ -114,8 +114,8 @@ function CompetingOfferStats () {
 
   return (
     <Section.Container style={tw`gap-1 py-0`}>
-      <Text style={textStyle}>{marketStats.offersWithinRange.length} competing sell offers</Text>
-      <Text style={textStyle}>premium of completed trades: {pastOfferData?.avgPremium}%</Text>
+      <PeachText style={textStyle}>{marketStats.offersWithinRange.length} competing sell offers</PeachText>
+      <PeachText style={textStyle}>premium of completed trades: {pastOfferData?.avgPremium}%</PeachText>
     </Section.Container>
   )
 }
@@ -173,9 +173,9 @@ function Premium () {
     <View style={tw`self-stretch gap-1`}>
       <PremiumInputComponent />
       <CurrentPrice />
-      <Text style={tw`text-center text-primary-main subtitle-2`}>
+      <PeachText style={tw`text-center text-primary-main subtitle-2`}>
         {data.offersWithinRange.length} competing sell offers below this premium
-      </Text>
+      </PeachText>
     </View>
   )
 }
@@ -197,9 +197,9 @@ function CurrentPrice () {
   const priceWithPremium = useCurrentOfferPrice()
 
   return (
-    <Text style={tw`text-center body-s`}>
+    <PeachText style={tw`text-center body-s`}>
       currently {priceWithPremium} {displayCurrency}
-    </Text>
+    </PeachText>
   )
 }
 
@@ -312,7 +312,7 @@ function FiatInput () {
         onEndEditing={onEndEditing}
         keyboardType="decimal-pad"
       />
-      <Text style={tw.style(textStyle)}> {i18n(displayCurrency)}</Text>
+      <PeachText style={tw.style(textStyle)}> {i18n(displayCurrency)}</PeachText>
     </View>
   )
 }
@@ -578,7 +578,7 @@ function SellHeader () {
     <Header
       titleComponent={
         <>
-          <Text style={tw`h7 md:h6 text-primary-main`}>{i18n('sell')}</Text>
+          <PeachText style={tw`h7 md:h6 text-primary-main`}>{i18n('sell')}</PeachText>
           <LogoIcons.bitcoinText style={tw`h-14px md:h-16px w-63px md:w-71px`} />
         </>
       }

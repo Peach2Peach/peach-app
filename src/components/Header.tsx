@@ -13,8 +13,8 @@ import { thousands } from '../utils/string/thousands'
 import { Icon } from './Icon'
 import { TouchableIcon } from './TouchableIcon'
 import { BTCAmount } from './bitcoin/btcAmount/BTCAmount'
+import { PeachText } from './text/PeachText'
 import { PriceFormat } from './text/PriceFormat'
-import { PeachText } from './text/Text'
 
 export type HeaderIcon = {
   id: IconType

@@ -2,7 +2,7 @@ import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
-import { PeachText } from './Text'
+import { PeachText } from './PeachText'
 
 type Props = {
   style?: StyleProp<ViewStyle>

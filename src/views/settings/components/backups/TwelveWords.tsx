@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 
-import { Text } from '../../../../components'
+import { PeachText } from '../../../../components/text/PeachText'
 import tw from '../../../../styles/tailwind'
 import { useAccountStore } from '../../../../utils/account/account'
 import i18n from '../../../../utils/i18n'
@@ -10,7 +10,7 @@ export const TwelveWords = () => {
   const mnemonic = useAccountStore((state) => state.account?.mnemonic)
   return (
     <>
-      <Text style={tw`self-center subtitle-1`}>{i18n('settings.backups.seedPhrase.yourSeedPhrase')}</Text>
+      <PeachText style={tw`self-center subtitle-1`}>{i18n('settings.backups.seedPhrase.yourSeedPhrase')}</PeachText>
       <View style={tw`flex-row gap-4 mt-4`}>
         <View style={tw`flex-1`}>
           {mnemonic

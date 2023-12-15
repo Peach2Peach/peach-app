@@ -1,11 +1,11 @@
 import { View } from 'react-native'
-import { Text } from '../../components'
 import { Divider } from '../../components/Divider'
 import { Header } from '../../components/Header'
 import { Icon } from '../../components/Icon'
 import { Screen } from '../../components/Screen'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { RefundEscrowSlider } from '../../components/offer/RefundEscrowSlider'
+import { PeachText } from '../../components/text/PeachText'
 import { useRoute } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import tw from '../../styles/tailwind'
@@ -46,10 +46,12 @@ function WrongFundingAmountSummary ({ sellOffer }: Props) {
         <LabelAndAmount label={i18n('escrow.funded')} amount={actualAmount} />
         <LabelAndAmount label={i18n('amount')} amount={fundingAmount} />
       </View>
-      <Text style={tw`body-s`}>
+      <PeachText style={tw`body-s`}>
         {i18n('escrow.wrongFundingAmount.description', thousands(actualAmount), thousands(fundingAmount))}
-      </Text>
-      <Text style={tw`body-s`}>{i18n('escrow.wrongFundingAmount.continueOrRefund', thousands(actualAmount))}</Text>
+      </PeachText>
+      <PeachText style={tw`body-s`}>
+        {i18n('escrow.wrongFundingAmount.continueOrRefund', thousands(actualAmount))}
+      </PeachText>
     </View>
   )
 }
@@ -62,7 +64,7 @@ type LabelAndAmountProps = {
 function LabelAndAmount ({ label, amount }: LabelAndAmountProps) {
   return (
     <View style={tw`flex-row`}>
-      <Text style={tw`w-20 text-black-3`}>{label}</Text>
+      <PeachText style={tw`w-20 text-black-3`}>{label}</PeachText>
       <BTCAmount amount={amount} size="small" />
     </View>
   )

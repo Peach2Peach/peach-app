@@ -1,8 +1,8 @@
 import { Contract } from '../../../peach-api/src/@types/contract'
-import { Text } from '../../components'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { OptionButton } from '../../components/buttons/OptionButton'
+import { PeachText } from '../../components/text/PeachText'
 import { useRoute } from '../../hooks'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
 import tw from '../../styles/tailwind'
@@ -23,7 +23,7 @@ function DisputeReasonScreen ({ contract }: { contract: Contract }) {
   return (
     <Screen header={i18n('dispute.disputeForTrade', contract ? contractIdToHex(contract.id) : '')}>
       <PeachScrollView contentContainerStyle={tw`items-center justify-center grow`} contentStyle={tw`gap-4`}>
-        <Text style={tw`text-center h6`}>{i18n('contact.whyAreYouContactingUs')}</Text>
+        <PeachText style={tw`text-center h6`}>{i18n('contact.whyAreYouContactingUs')}</PeachText>
         {availableReasons.map((rsn) => (
           <OptionButton key={rsn} onPress={() => setReason(rsn)} style={tw`w-64`}>
             {i18n(`dispute.reason.${rsn}`)}

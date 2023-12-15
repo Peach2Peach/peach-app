@@ -1,12 +1,12 @@
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { Text } from '../../components'
 import { Header } from '../../components/Header'
 import { Screen } from '../../components/Screen'
 import { OpenWallet } from '../../components/bitcoin/OpenWallet'
 import { Button } from '../../components/buttons/Button'
 import { BitcoinAddressInput } from '../../components/inputs/BitcoinAddressInput'
 import { Input } from '../../components/inputs/Input'
+import { PeachText } from '../../components/text/PeachText'
 import { useNavigation, useRoute, useShowHelp, useValidatedState } from '../../hooks'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
 import { useSettingsStore } from '../../store/settingsStore'
@@ -88,7 +88,7 @@ function ScreenContent ({ contract }: { contract: Contract }) {
   return (
     <Screen header={<PayoutAddressHeader />}>
       <View style={tw`items-center justify-center grow`}>
-        <Text style={tw`h6`}>{i18n('settings.payoutAddress.title')}</Text>
+        <PeachText style={tw`h6`}>{i18n('settings.payoutAddress.title')}</PeachText>
         <Input
           value={addressLabel}
           placeholder={i18n('form.address.label.placeholder')}

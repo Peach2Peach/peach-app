@@ -2,8 +2,8 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { BTCAmount } from '../bitcoin/btcAmount/BTCAmount'
-import { Text } from '../text'
 import { FixedHeightText } from '../text/FixedHeightText'
+import { PeachText } from '../text/PeachText'
 import { HorizontalLine } from '../ui/HorizontalLine'
 import { SummaryCard } from './SummaryCard'
 import { useWalletLabel } from './useWalletLabel'
@@ -17,7 +17,7 @@ export const BuyOfferSummary = ({ offer }: Props) => {
   return (
     <SummaryCard>
       <SummaryCard.Section>
-        <Text style={tw`text-center text-black-2`}>{i18n('offer.summary.youAreBuying')}</Text>
+        <PeachText style={tw`text-center text-black-2`}>{i18n('offer.summary.youAreBuying')}</PeachText>
 
         <View style={tw`gap-2`}>
           <BTCAmount size="small" amount={offer.amount[0]} />
@@ -35,8 +35,8 @@ export const BuyOfferSummary = ({ offer }: Props) => {
       <HorizontalLine />
 
       <SummaryCard.Section>
-        <Text style={tw`text-center text-black-2`}>{i18n('to')}</Text>
-        <Text style={tw`text-center subtitle-1`}>{walletLabel}</Text>
+        <PeachText style={tw`text-center text-black-2`}>{i18n('to')}</PeachText>
+        <PeachText style={tw`text-center subtitle-1`}>{walletLabel}</PeachText>
       </SummaryCard.Section>
     </SummaryCard>
   )

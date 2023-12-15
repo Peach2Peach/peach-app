@@ -5,7 +5,7 @@ import { useIsMediumScreen } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
 import { Loading } from '../animation/Loading'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 
 export type ButtonProps = {
   iconId?: IconType
@@ -40,9 +40,9 @@ export const Button = ({
         { borderColor: ghost ? textColor?.color : undefined },
       ]}
     >
-      <Text numberOfLines={1} ellipsizeMode="tail" style={[tw`button-small`, tw`md:button-large`, textColor]}>
+      <PeachText numberOfLines={1} ellipsizeMode="tail" style={[tw`button-small`, tw`md:button-large`, textColor]}>
         {children}
-      </Text>
+      </PeachText>
 
       {loading ? (
         <Loading style={[tw`h-14px w-14px`, tw`md:h-18px md:w-18px`]} color={textColor?.color} />

@@ -2,7 +2,7 @@ import { ImageStyle, Pressable, TextStyle, ViewStyle } from 'react-native'
 import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 
 type Props = {
   onPress: (() => void) | null
@@ -25,7 +25,7 @@ export const PopupAction = ({ onPress, label, iconId, color, isDisabled, reverse
     hitSlop={20}
     onPress={onPress}
   >
-    <Text style={[tw`text-base leading-relaxed subtitle-1`, color]}>{label}</Text>
+    <PeachText style={[tw`text-base leading-relaxed subtitle-1`, color]}>{label}</PeachText>
     <Icon id={iconId} color={color.color} style={tw`w-4 h-4`} />
   </Pressable>
 )

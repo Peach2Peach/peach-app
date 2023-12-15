@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 
 type CheckboxType = {
   value: string | number
@@ -26,7 +26,7 @@ export const PaymentDetailsCheckbox = ({ item, checked, onPress, style, testID, 
       style,
     ]}
   >
-    <Text style={tw`flex-1`}>{item.display}</Text>
+    <PeachText style={tw`flex-1`}>{item.display}</PeachText>
     {!item.disabled ? (
       <View style={tw`flex items-center justify-center w-5 h-5 ml-4`}>
         {editing ? (

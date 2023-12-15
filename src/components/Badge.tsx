@@ -4,8 +4,8 @@ import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { useUserStatus } from '../views/publicProfile/useUserStatus'
 import { Icon } from './Icon'
-import { Text } from './text'
 import { FixedHeightText } from './text/FixedHeightText'
+import { PeachText } from './text/PeachText'
 
 type Props = {
   badgeName: Medal
@@ -49,7 +49,7 @@ export function RepeatTraderBadge ({ id }: { id: User['id'] }) {
         { borderColor: colorTheme },
       ]}
     >
-      <Text style={[tw`subtitle-2 text-10px`, { color: colorTheme }]}>{i18n('peachBadges.repeatTrader')}</Text>
+      <PeachText style={[tw`subtitle-2 text-10px`, { color: colorTheme }]}>{i18n('peachBadges.repeatTrader')}</PeachText>
 
       <View
         style={[
@@ -60,7 +60,9 @@ export function RepeatTraderBadge ({ id }: { id: User['id'] }) {
         {hadBadExperience ? (
           <Icon id={'thumbsDown'} color={colorTheme} size={12} />
         ) : (
-          <Text style={[tw`my-[-6px] subtitle-2 text-10px`, { color: colorTheme, lineHeight: 0 }]}>{data.trades}</Text>
+          <PeachText style={[tw`my-[-6px] subtitle-2 text-10px`, { color: colorTheme, lineHeight: 0 }]}>
+            {data.trades}
+          </PeachText>
         )}
       </View>
     </View>

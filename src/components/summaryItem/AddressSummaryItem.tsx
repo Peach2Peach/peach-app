@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { ShortBitcoinAddress } from '../bitcoin/ShortBitcoinAddress'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 import { CopyAble } from '../ui/CopyAble'
 import { SummaryItem, SummaryItemProps } from './SummaryItem'
 
@@ -16,7 +16,7 @@ export const AddressSummaryItem = ({ address, ...props }: Props) => (
       {address ? (
         <ShortBitcoinAddress style={tw`subtitle-1`} address={address} />
       ) : (
-        <Text style={tw`subtitle-1`}>{i18n('loading')}</Text>
+        <PeachText style={tw`subtitle-1`}>{i18n('loading')}</PeachText>
       )}
       <CopyAble value={address} />
     </View>

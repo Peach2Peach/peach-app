@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { PeachText } from '../../components/text/Text'
+import { PeachText } from '../../components/text/PeachText'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 

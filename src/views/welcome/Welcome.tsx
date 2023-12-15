@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react'
 import { TouchableOpacity, View, useWindowDimensions } from 'react-native'
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel'
-import { Text } from '../../components'
 import { Header, HeaderIcon } from '../../components/Header'
 import { Icon } from '../../components/Icon'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { useDrawerState } from '../../components/drawer/useDrawerState'
+import { PeachText } from '../../components/text/PeachText'
 import { Progress } from '../../components/ui/Progress'
 import { useKeyboard, useNavigation } from '../../hooks'
 import { useLanguage } from '../../hooks/useLanguage'
@@ -49,7 +49,7 @@ export const Welcome = () => {
         onPress={goToEnd}
         style={[tw`flex-row items-center self-end h-8 gap-1`, endReached && tw`opacity-0`]}
       >
-        <Text style={tw`text-primary-background-light`}>{i18n('skip')}</Text>
+        <PeachText style={tw`text-primary-background-light`}>{i18n('skip')}</PeachText>
         <Icon id="skipForward" size={12} color={tw.color('primary-background-light')} />
       </TouchableOpacity>
       <View style={tw`items-center h-full shrink`}>

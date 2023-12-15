@@ -1,8 +1,8 @@
 import { View } from 'react-native'
-import { Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { FileInput } from '../../components/inputs/FileInput'
 import { Input } from '../../components/inputs/Input'
+import { PeachText } from '../../components/text/PeachText'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { RestoreBackupError } from './RestoreBackupError'
@@ -21,9 +21,9 @@ export const RestoreFromFile = () => {
   return (
     <View style={tw`justify-between shrink`}>
       <View style={tw`justify-center h-full shrink`}>
-        <Text style={tw`pb-2 text-center subtitle-1 text-primary-background-light`}>
+        <PeachText style={tw`pb-2 text-center subtitle-1 text-primary-background-light`}>
           {i18n('restoreBackup.manual.description.1')}
-        </Text>
+        </PeachText>
         <View style={tw`w-full px-2`}>
           <FileInput fileName={file.name} onChange={setFile} />
         </View>

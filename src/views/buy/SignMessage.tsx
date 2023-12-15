@@ -7,7 +7,7 @@ import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { Input } from '../../components/inputs/Input'
-import { Text } from '../../components/text'
+import { PeachText } from '../../components/text/PeachText'
 import { CopyAble } from '../../components/ui/CopyAble'
 import { useKeyboard, useNavigation, useRoute, useShowHelp, useValidatedState } from '../../hooks'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
@@ -84,7 +84,7 @@ function ScreenContent ({ contract }: { contract: Contract }) {
   return (
     <Screen header={<SignMessageHeader />}>
       <PeachScrollView style={tw`grow`} contentContainerStyle={tw`justify-center grow`}>
-        <Text style={[tw`pl-2 input-label`]}>{i18n('buy.addressSigning.yourAddress')}</Text>
+        <PeachText style={[tw`pl-2 input-label`]}>{i18n('buy.addressSigning.yourAddress')}</PeachText>
         <View
           style={[
             tw`flex-row items-center justify-between px-3 py-2 mb-5`,
@@ -92,10 +92,10 @@ function ScreenContent ({ contract }: { contract: Contract }) {
             tw`bg-primary-background-light`,
           ]}
         >
-          <Text style={tw`flex-1 input-text`}>{address}</Text>
+          <PeachText style={tw`flex-1 input-text`}>{address}</PeachText>
           <CopyAble value={address || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-1`} />
         </View>
-        <Text style={[tw`pl-2 input-label`]}>{i18n('buy.addressSigning.message')}</Text>
+        <PeachText style={[tw`pl-2 input-label`]}>{i18n('buy.addressSigning.message')}</PeachText>
         <View
           style={[
             tw`flex-row items-center justify-between px-3 py-2 mb-5`,
@@ -103,7 +103,7 @@ function ScreenContent ({ contract }: { contract: Contract }) {
             tw`bg-primary-background-light`,
           ]}
         >
-          <Text style={tw`flex-1 input-text`}>{message}</Text>
+          <PeachText style={tw`flex-1 input-text`}>{message}</PeachText>
           <CopyAble value={message || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-1`} />
         </View>
         <Input

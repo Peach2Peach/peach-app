@@ -3,11 +3,11 @@ import { networks } from 'bitcoinjs-lib'
 import { useMemo, useState } from 'react'
 import { Image, LayoutChangeEvent, TouchableOpacity, View } from 'react-native'
 import txInMempool from '../../../assets/escrow/tx-in-mempool.png'
-import { Text } from '../../../components'
 import { Header } from '../../../components/Header'
 import { Icon } from '../../../components/Icon'
 import { Screen } from '../../../components/Screen'
 import { TradeInfo } from '../../../components/offer/TradeInfo'
+import { PeachText } from '../../../components/text/PeachText'
 import { useCancelOffer, useShowHelp } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { showTransaction } from '../../../utils/bitcoin/showTransaction'
@@ -32,7 +32,7 @@ export const TransactionInMempool = ({ offerId, txId }: Props) => {
   return (
     <Screen header={<MempoolHeader {...{ offerId }} />}>
       <View style={tw`justify-center gap-3 grow shrink`}>
-        <Text>{i18n('sell.funding.mempool.description')}</Text>
+        <PeachText>{i18n('sell.funding.mempool.description')}</PeachText>
         <View {...{ onLayout }} testID="image-container">
           <Image source={txInMempool} style={{ width, height: width * ASPECT_RATIO }} resizeMode="contain" />
         </View>

@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 import { MeansOfPayment } from './MeansOfPayment'
 
 export const SummaryCard = ({ children }: ComponentProps) => (
@@ -16,7 +16,7 @@ SummaryCard.Section = SummarySection
 
 const PaymentMethods = ({ meansOfPayment }: { meansOfPayment: MeansOfPayment }) => (
   <SummaryCard.Section>
-    <Text style={tw`text-center text-black-2`}>{i18n('offer.summary.withTheseMethods')}</Text>
+    <PeachText style={tw`text-center text-black-2`}>{i18n('offer.summary.withTheseMethods')}</PeachText>
     <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`self-stretch`} />
   </SummaryCard.Section>
 )

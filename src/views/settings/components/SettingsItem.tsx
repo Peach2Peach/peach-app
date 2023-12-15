@@ -1,7 +1,7 @@
 import { TouchableOpacity, View, ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
 import { Icon } from '../../../components/Icon'
-import { PeachText } from '../../../components/text/Text'
+import { PeachText } from '../../../components/text/PeachText'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'

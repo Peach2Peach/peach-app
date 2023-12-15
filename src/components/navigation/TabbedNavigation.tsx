@@ -1,7 +1,7 @@
 import { Pressable, View, ViewStyle } from 'react-native'
-import { Text } from '../'
 import tw from '../../styles/tailwind'
 import { PulsingText } from '../matches/components/selectors/PulsingText'
+import { PeachText } from '../text/PeachText'
 
 export const themes = {
   default: {
@@ -58,7 +58,7 @@ export const TabbedNavigation = <T extends string>({
                 {item.display}
               </PulsingText>
             ) : (
-              <Text
+              <PeachText
                 style={[
                   tw`px-4 py-2 text-center input-label`,
                   item.id === selected.id ? colors.textSelected : colors.text,
@@ -66,7 +66,7 @@ export const TabbedNavigation = <T extends string>({
                 ]}
               >
                 {item.display}
-              </Text>
+              </PeachText>
             )}
           </View>
           {item.id === selected.id && <View style={[tw`w-full h-0.5 `, colors.underline]} />}

@@ -9,5 +9,3 @@ export const PeachText = ({ style, ...props }: TextProps) => (
     {...props}
   />
 )
-
-export default PeachText

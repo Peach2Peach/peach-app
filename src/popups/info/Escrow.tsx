@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { Icon } from '../../components/Icon'
 import { ParsedPeachText } from '../../components/text/ParsedPeachText'
-import { PeachText } from '../../components/text/Text'
+import { PeachText } from '../../components/text/PeachText'
 import tw from '../../styles/tailwind'
 import i18n, { languageState } from '../../utils/i18n'
 import { getLocalizedLink } from '../../utils/web/getLocalizedLink'

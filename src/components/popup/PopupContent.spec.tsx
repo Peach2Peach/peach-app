@@ -1,14 +1,14 @@
 import { Keyboard } from 'react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { fireEvent, render } from 'test-utils'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 import { PopupContent } from './PopupContent'
 expect.extend({ toMatchDiffSnapshot })
 
 describe('PopupContent', () => {
   const defaultContent = (
     <PopupContent>
-      <Text>content</Text>
+      <PeachText>content</PeachText>
     </PopupContent>
   )
   it('renders correctly', () => {
@@ -27,7 +27,7 @@ describe('PopupContent', () => {
   it('renders correctly when applying style', () => {
     const { toJSON } = render(
       <PopupContent style={{ backgroundColor: 'red' }}>
-        <Text>content</Text>
+        <PeachText>content</PeachText>
       </PopupContent>,
     )
     expect(render(defaultContent).toJSON()).toMatchDiffSnapshot(toJSON())

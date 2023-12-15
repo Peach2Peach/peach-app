@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { Text } from '../../components'
 import { Header } from '../../components/Header'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
@@ -8,6 +7,7 @@ import { ConfirmSlider } from '../../components/inputs'
 import { BTCAmountInput } from '../../components/inputs/BTCAmountInput'
 import { BitcoinAddressInput } from '../../components/inputs/BitcoinAddressInput'
 import { RadioButtons } from '../../components/inputs/RadioButtons'
+import { PeachText } from '../../components/text/PeachText'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
 import { useNavigation, useShowHelp } from '../../hooks'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
@@ -119,10 +119,10 @@ function Section ({ title, action, children }: SectionProps) {
   return (
     <View style={tw``}>
       <View style={tw`flex-row items-center justify-between px-10px`}>
-        <Text style={tw`input-title`}>{title}</Text>
+        <PeachText style={tw`input-title`}>{title}</PeachText>
         {action && (
           <TouchableOpacity onPress={action.onPress}>
-            <Text style={tw`text-primary-main`}>{action.label}</Text>
+            <PeachText style={tw`text-primary-main`}>{action.label}</PeachText>
           </TouchableOpacity>
         )}
       </View>

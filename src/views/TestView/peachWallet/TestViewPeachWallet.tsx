@@ -2,7 +2,6 @@ import { NETWORK } from '@env'
 import { useState } from 'react'
 import { View } from 'react-native'
 import Share from 'react-native-share'
-import { Text } from '../../../components'
 import { Divider } from '../../../components/Divider'
 import { PeachScrollView } from '../../../components/PeachScrollView'
 import { Loading } from '../../../components/animation/Loading'
@@ -11,6 +10,7 @@ import { Button } from '../../../components/buttons/Button'
 import { NumberInput } from '../../../components/inputs'
 import { BitcoinAddressInput } from '../../../components/inputs/BitcoinAddressInput'
 import { Input } from '../../../components/inputs/Input'
+import { PeachText } from '../../../components/text/PeachText'
 import { useValidatedState } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { getMessageToSignForAddress } from '../../../utils/account/getMessageToSignForAddress'
@@ -66,12 +66,12 @@ export const TestViewPeachWallet = () => {
   return (
     <PeachScrollView>
       <View style={tw`gap-4 p-10`}>
-        <Text style={tw`text-center button-medium`}>{i18n('wallet.totalBalance')}:</Text>
+        <PeachText style={tw`text-center button-medium`}>{i18n('wallet.totalBalance')}:</PeachText>
         <BTCAmount style={[tw`self-center`, isRefreshing ? tw`opacity-60` : {}]} amount={balance} size="extra large" />
         {(isRefreshing || walletLoading) && <Loading style={tw`absolute`} />}
 
         <View>
-          <Text style={tw`button-medium`}>{i18n('wallet.withdrawTo')}:</Text>
+          <PeachText style={tw`button-medium`}>{i18n('wallet.withdrawTo')}:</PeachText>
           <BitcoinAddressInput style={tw`mt-4`} onChange={setAddress} value={address} errorMessage={addressErrors} />
           <NumberInput onChange={setAmount} value={amount} />
         </View>
@@ -80,7 +80,7 @@ export const TestViewPeachWallet = () => {
         </Button>
         {!!txId && (
           <View>
-            <Text onPress={() => showTransaction(txId, NETWORK)}>txId: {txId}</Text>
+            <PeachText onPress={() => showTransaction(txId, NETWORK)}>txId: {txId}</PeachText>
           </View>
         )}
 
@@ -122,15 +122,15 @@ function SignMessage () {
 
   return (
     <View>
-      <Text>sign message</Text>
+      <PeachText>sign message</PeachText>
       <BitcoinAddressInput onChange={setAddress} value={address} />
-      <Text>userID</Text>
+      <PeachText>userID</PeachText>
       <Input onChangeText={setUserId} value={userId} />
       <Button onPress={onPress}>sign</Button>
-      <Text>signature</Text>
-      <Text selectable onLongPress={shareSignature}>
+      <PeachText>signature</PeachText>
+      <PeachText selectable onLongPress={shareSignature}>
         {signature}
-      </Text>
+      </PeachText>
     </View>
   )
 }

@@ -1,7 +1,6 @@
 import { networks } from 'bitcoinjs-lib'
 import { useMemo, useState } from 'react'
 import { View } from 'react-native'
-import { Text } from '../../components'
 import { Header } from '../../components/Header'
 import { Icon } from '../../components/Icon'
 import { PeachScrollView } from '../../components/PeachScrollView'
@@ -11,6 +10,7 @@ import { BitcoinAddress } from '../../components/bitcoin/BitcoinAddress'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Button } from '../../components/buttons/Button'
 import { TradeInfo } from '../../components/offer/TradeInfo'
+import { PeachText } from '../../components/text/PeachText'
 import { CopyAble } from '../../components/ui/CopyAble'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
 import { SATSINBTC } from '../../constants'
@@ -38,7 +38,7 @@ export const FundEscrow = () => {
     <Screen header={<FundEscrowHeader />}>
       <PeachScrollView contentStyle={tw`items-center gap-4`}>
         <View style={tw`flex-row items-center justify-center gap-1`}>
-          <Text style={tw`settings`}>{i18n('sell.escrow.sendSats')}</Text>
+          <PeachText style={tw`settings`}>{i18n('sell.escrow.sendSats')}</PeachText>
           <BTCAmount style={tw`-mt-0.5`} amount={fundingAmount} size="medium" />
           <CopyAble value={fundingAddress} textPosition="bottom" />
         </View>
@@ -52,7 +52,7 @@ export const FundEscrow = () => {
 
       <View style={[tw`items-center justify-center gap-4 py-4`]}>
         <View style={tw`flex-row items-center justify-center gap-2`}>
-          <Text style={tw`text-primary-main button-medium`}>{i18n('sell.escrow.checkingFundingStatus')}</Text>
+          <PeachText style={tw`text-primary-main button-medium`}>{i18n('sell.escrow.checkingFundingStatus')}</PeachText>
           <Loading style={tw`w-4 h-4`} color={tw.color('primary-main')} />
         </View>
         <HorizontalLine />

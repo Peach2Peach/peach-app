@@ -1,4 +1,4 @@
-import PeachText from '../components/text/Text'
+import { PeachText } from '../components/text/PeachText'
 import i18n from '../utils/i18n'
 
 type Props = Pick<BuyOffer | SellOffer, 'type'>

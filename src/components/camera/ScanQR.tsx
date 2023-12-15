@@ -4,7 +4,7 @@ import Svg, { Defs, Mask, Rect } from 'react-native-svg'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Icon } from '../Icon'
-import { PeachText } from '../text/Text'
+import { PeachText } from '../text/PeachText'
 import { QRCodeScanner } from './QRCodeScanner'
 
 type ScanQRProps = {

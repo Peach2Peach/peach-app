@@ -1,5 +1,5 @@
 import { TextProps, View } from 'react-native'
-import { Text } from '../../../components'
+import { PeachText } from '../../../components/text/PeachText'
 import { CopyAble } from '../../../components/ui/CopyAble'
 import tw from '../../../styles/tailwind'
 
@@ -10,7 +10,7 @@ type Props = {
 
 export const SummaryItem = ({ label, value }: Props) => (
   <View style={tw`flex-row items-center justify-between gap-3`}>
-    <Text style={[tw`text-black-2`, tw`md:body-l`]}>{label}</Text>
+    <PeachText style={[tw`text-black-2`, tw`md:body-l`]}>{label}</PeachText>
     {value}
   </View>
 )
@@ -25,9 +25,9 @@ type TextValueProps = {
 function TextValue ({ value, copyable = false, copyValue = value, onPress }: TextValueProps) {
   return (
     <View style={tw`flex-row items-center justify-end flex-1 gap-10px`}>
-      <Text style={[tw`flex-1 text-right subtitle-1`, tw`md:subtitle-0`]} onPress={onPress}>
+      <PeachText style={[tw`flex-1 text-right subtitle-1`, tw`md:subtitle-0`]} onPress={onPress}>
         {value}
-      </Text>
+      </PeachText>
       {copyable && <CopyAble value={copyValue} style={tw`md:w-5 md:h-5`} />}
     </View>
   )

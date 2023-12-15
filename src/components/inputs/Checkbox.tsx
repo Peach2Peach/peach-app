@@ -2,7 +2,7 @@ import { TouchableOpacity } from 'react-native'
 import { FillProps } from 'react-native-svg'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
-import Text from '../text/Text'
+import { PeachText } from '../text/PeachText'
 
 type Props = ComponentProps & {
   checked: boolean
@@ -18,6 +18,6 @@ export const Checkbox = ({ checked, green, iconProps, style, text, ...wrapperPro
       {...iconProps}
       color={checked ? tw.color(green ? 'success-main' : 'primary-main') : tw.color('black-3')}
     />
-    {!!text && <Text style={[tw`subtitle-1`, !checked && tw`text-black-4`]}>{text}</Text>}
+    {!!text && <PeachText style={[tw`subtitle-1`, !checked && tw`text-black-4`]}>{text}</PeachText>}
   </TouchableOpacity>
 )

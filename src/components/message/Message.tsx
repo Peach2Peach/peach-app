@@ -14,7 +14,7 @@ import { parseError } from '../../utils/result/parseError'
 import { isNetworkError } from '../../utils/system/isNetworkError'
 import { Icon } from '../Icon'
 import { Placeholder } from '../Placeholder'
-import { PeachText } from '../text/Text'
+import { PeachText } from '../text/PeachText'
 import { iconMap } from './iconMap'
 import { useMessageState } from './useMessageState'
 

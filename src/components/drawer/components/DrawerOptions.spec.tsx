@@ -1,6 +1,6 @@
 import { act, render } from 'test-utils'
 import { PeachScrollView } from '../../PeachScrollView'
-import { Text } from '../../text'
+import { PeachText } from '../../text/PeachText'
 import { defaultState, useDrawerState } from '../useDrawerState'
 import { DrawerOptions } from './DrawerOptions'
 
@@ -45,7 +45,7 @@ describe('DrawerOptions', () => {
   })
   it('renders correctly when there is content', () => {
     updateDrawer({
-      content: <Text>testContent</Text>,
+      content: <PeachText>testContent</PeachText>,
     })
     const { toJSON } = render(<DrawerOptions />)
     expect(toJSON()).toMatchSnapshot()
@@ -65,7 +65,7 @@ describe('DrawerOptions', () => {
     expect(scrollViewRef.scrollTo).toHaveBeenCalledWith({ y: 0, animated: false })
     act(() => {
       updateDrawer({
-        content: <Text>testContent</Text>,
+        content: <PeachText>testContent</PeachText>,
       })
       rerender(<DrawerOptions />)
     })

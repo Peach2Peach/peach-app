@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { View } from 'react-native'
-import { Text } from '../../components'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
+import { PeachText } from '../../components/text/PeachText'
 import { MSINASECOND } from '../../constants'
 import tw from '../../styles/tailwind'
 import { useAccountStore } from '../../utils/account/account'
@@ -28,8 +28,10 @@ export function UserSource () {
     <Screen gradientBackground>
       <View style={tw`items-center justify-center flex-1 gap-8`}>
         <View style={tw`items-center gap-2px`}>
-          <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('userSource.title')}</Text>
-          <Text style={tw`text-center text-primary-background-light body-l`}>{i18n('userSource.subtitle')}</Text>
+          <PeachText style={tw`text-center h4 text-primary-background-light`}>{i18n('userSource.title')}</PeachText>
+          <PeachText style={tw`text-center text-primary-background-light body-l`}>
+            {i18n('userSource.subtitle')}
+          </PeachText>
         </View>
         <View style={tw`items-stretch gap-10px`}>
           {possibleSources.map((source) => (

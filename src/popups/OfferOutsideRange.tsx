@@ -1,4 +1,4 @@
-import PeachText from '../components/text/Text'
+import { PeachText } from '../components/text/PeachText'
 import i18n from '../utils/i18n'
 import { offerIdToHex } from '../utils/offer/offerIdToHex'
 

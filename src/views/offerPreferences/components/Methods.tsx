@@ -1,8 +1,8 @@
 import { TouchableOpacity } from 'react-native'
-import { Text } from '../../../components'
 import { Icon } from '../../../components/Icon'
 import { TouchableIcon } from '../../../components/TouchableIcon'
 import { MeansOfPayment } from '../../../components/offer/MeansOfPayment'
+import { PeachText } from '../../../components/text/PeachText'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -27,7 +27,7 @@ export function Methods ({ type, meansOfPayment }: { type: 'buy' | 'sell'; means
         <Section.Container style={{ backgroundColor }}>
           <TouchableOpacity style={tw`flex-row items-center gap-10px`} onPress={onPress}>
             <Icon size={24} id="plusCircle" color={color} />
-            <Text style={[tw`subtitle-1`, { color }]}>{i18n.break('paymentMethod.select.button.remote')}</Text>
+            <PeachText style={[tw`subtitle-1`, { color }]}>{i18n.break('paymentMethod.select.button.remote')}</PeachText>
           </TouchableOpacity>
         </Section.Container>
       )}

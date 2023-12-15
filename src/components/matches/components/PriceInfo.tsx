@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { BTCAmount } from '../../bitcoin/btcAmount/BTCAmount'
-import { Text } from '../../text'
+import { PeachText } from '../../text/PeachText'
 import { PriceFormat } from '../../text/PriceFormat'
 import { useMatchPriceData } from '../hooks'
 import { PremiumText } from './PremiumText'
@@ -16,10 +16,10 @@ export const PriceInfo = ({ match, offer }: Props) => {
   return (
     <View style={tw`items-center gap-2`}>
       <BTCAmount amount={match.amount} size="medium" />
-      <Text style={tw`text-center`}>
+      <PeachText style={tw`text-center`}>
         <PriceFormat style={tw`body-l subtitle-1`} currency={selectedCurrency} amount={displayPrice} />
         <PremiumText premium={premium} />
-      </Text>
+      </PeachText>
     </View>
   )
 }

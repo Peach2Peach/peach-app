@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { GestureResponderEvent, NativeSyntheticEvent, TextInput, TextInputEndEditingEventData, View } from 'react-native'
-import { Text } from '../../../components'
+import { PeachText } from '../../../components/text/PeachText'
 import { useBitcoinPrices, useMarketPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { getTradingAmountLimits } from '../../../utils/market/getTradingAmountLimits'
@@ -29,7 +29,7 @@ export function AmountSelectorComponent ({ setIsSliding, range: [min, max], setR
       <Section.Title>amount to buy</Section.Title>
       <View style={tw`flex-row items-center self-stretch gap-10px`}>
         <BuyAmountInput type="min" minAmountDelta={minSliderDeltaAsAmount} range={[min, max]} setRange={setRange} />
-        <Text style={tw`subtitle-1`}>-</Text>
+        <PeachText style={tw`subtitle-1`}>-</PeachText>
         <BuyAmountInput type="max" minAmountDelta={minSliderDeltaAsAmount} range={[min, max]} setRange={setRange} />
       </View>
       <SliderTrack
@@ -146,9 +146,9 @@ function BuyAmountInput ({ minAmountDelta, type, range: [min, max], setRange }: 
         onEndEditing={onEndEditing}
         onChangeText={onChangeText}
       />
-      <Text style={tw`self-center text-black-3 body-s`}>
+      <PeachText style={tw`self-center text-black-3 body-s`}>
         {fiatPrice} {displayCurrency}
-      </Text>
+      </PeachText>
     </View>
   )
 }

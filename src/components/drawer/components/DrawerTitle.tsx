@@ -1,5 +1,5 @@
 import tw from '../../../styles/tailwind'
-import { PeachText } from '../../text/Text'
+import { PeachText } from '../../text/PeachText'
 import { useDrawerState } from '../useDrawerState'
 
 export const DrawerTitle = () => {

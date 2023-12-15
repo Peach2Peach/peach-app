@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { Text } from '../../../../components'
+import { PeachText } from '../../../../components/text/PeachText'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import { round } from '../../../../utils/math/round'
@@ -12,9 +12,9 @@ type Props = {
 
 export const FeeInfo = ({ label, fee, isError }: Props) => (
   <View>
-    <Text style={tw`text-center text-black-2`}>{label}</Text>
-    <Text style={[tw`text-center subtitle-1`, isError && tw`text-primary-main`]}>
+    <PeachText style={tw`text-center text-black-2`}>{label}</PeachText>
+    <PeachText style={[tw`text-center subtitle-1`, isError && tw`text-primary-main`]}>
       {round(fee, 2)} {i18n('satPerByte')}
-    </Text>
+    </PeachText>
   </View>
 )

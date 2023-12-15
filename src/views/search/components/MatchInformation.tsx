@@ -1,7 +1,7 @@
 import { View } from 'react-native'
-import { Text } from '../../../components'
 import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
 import { getPremiumColor } from '../../../components/matches/utils'
+import { PeachText } from '../../../components/text/PeachText'
 import { useRoute } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -14,18 +14,18 @@ export const MatchInformation = ({ offer }: { offer: SellOffer }) => {
 
   return (
     <View>
-      <Text style={tw`text-center h4 text-primary-main`}>
+      <PeachText style={tw`text-center h4 text-primary-main`}>
         {i18n(`search.youGot${matches.length === 1 ? 'AMatch' : 'Matches'}`)}
-      </Text>
-      <Text style={tw`text-center body-l text-black-2`}>{i18n('search.sellOffer')}:</Text>
+      </PeachText>
+      <PeachText style={tw`text-center body-l text-black-2`}>{i18n('search.sellOffer')}:</PeachText>
       <View style={tw`flex-row items-center justify-center`}>
         <BTCAmount amount={offer.amount} size="medium" />
         {offer.premium !== undefined && (
-          <Text style={[tw`leading-loose body-l`, color]}>
+          <PeachText style={[tw`leading-loose body-l`, color]}>
             {' '}
             ({offer.premium > 0 ? '+' : ''}
             {String(offer.premium)}%)
-          </Text>
+          </PeachText>
         )}
       </View>
     </View>

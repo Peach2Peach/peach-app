@@ -3,7 +3,7 @@ import { shallow } from 'zustand/shallow'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { Icon } from '../../Icon'
-import { Text } from '../../text'
+import { PeachText } from '../../text/PeachText'
 import { useMatchStore } from '../store'
 import { options } from './options'
 
@@ -35,7 +35,7 @@ export const MatchOfferButton = ({ matchId, matchOffer, optionName }: Props) => 
       onPress={onPress}
       disabled={optionName === 'offerMatched'}
     >
-      <Text style={tw`button-large text-primary-background-light`}>{i18n(currentOption.text)}</Text>
+      <PeachText style={tw`button-large text-primary-background-light`}>{i18n(currentOption.text)}</PeachText>
       <Icon id={currentOption.iconId} color={tw.color('primary-background-light')} size={24} />
     </TouchableOpacity>
   )

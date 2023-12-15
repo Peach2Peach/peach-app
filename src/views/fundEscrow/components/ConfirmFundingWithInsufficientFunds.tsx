@@ -1,6 +1,6 @@
 import { View } from 'react-native'
-import { Text } from '../../../components'
 import { BTCAmount, ShortBitcoinAddress } from '../../../components/bitcoin'
+import { PeachText } from '../../../components/text/PeachText'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { thousands } from '../../../utils/string/thousands'
@@ -13,12 +13,12 @@ type Props = {
 }
 export const ConfirmFundingWithInsufficientFunds = ({ amount, address, fee, feeRate }: Props) => (
   <View style={tw`gap-3`}>
-    <Text>{i18n('fundFromPeachWallet.insufficientFunds.description.1')}</Text>
+    <PeachText>{i18n('fundFromPeachWallet.insufficientFunds.description.1')}</PeachText>
     <BTCAmount amount={amount} size="medium" />
-    <Text>{i18n('fundFromPeachWallet.insufficientFunds.description.2')}</Text>
-    <Text>
+    <PeachText>{i18n('fundFromPeachWallet.insufficientFunds.description.2')}</PeachText>
+    <PeachText>
       {i18n('transaction.details.to')} <ShortBitcoinAddress address={address} />
-    </Text>
-    <Text>{i18n('transaction.details.networkFee', thousands(fee), thousands(feeRate))}</Text>
+    </PeachText>
+    <PeachText>{i18n('transaction.details.networkFee', thousands(fee), thousands(feeRate))}</PeachText>
   </View>
 )

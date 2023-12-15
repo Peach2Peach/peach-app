@@ -1,8 +1,8 @@
 import { TouchableOpacity, View } from 'react-native'
-import { Text } from '../../../components'
 import { Icon } from '../../../components/Icon'
 import { Bubble } from '../../../components/bubble'
 import { useWalletLabel } from '../../../components/offer/useWalletLabel'
+import { PeachText } from '../../../components/text/PeachText'
 import { CopyAble } from '../../../components/ui/CopyAble'
 import { APPLINKS } from '../../../paymentMethods'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
@@ -145,7 +145,7 @@ function PaymentMethodBubble ({ contract }: { contract: Contract }) {
       <Bubble color={'primary-mild'}>{paymentMethodLabel ?? paymentMethodName}</Bubble>
       {hasLink && (
         <TouchableOpacity onPress={openLink} style={tw`flex-row items-center justify-end gap-1`}>
-          <Text style={tw`underline body-s text-black-2`}>{i18n('contract.summary.openApp')}</Text>
+          <PeachText style={tw`underline body-s text-black-2`}>{i18n('contract.summary.openApp')}</PeachText>
           <Icon id="externalLink" size={16} color={tw.color('primary-main')} />
         </TouchableOpacity>
       )}
@@ -172,7 +172,7 @@ function WalletLabel ({ label, address }: { label?: string; address?: string }) 
 function YouShouldPay ({ contract }: { contract: Contract }) {
   return (
     <View style={tw`flex-row items-center justify-end gap-10px`}>
-      <Text style={[tw`subtitle-1`, tw`md:subtitle-0`]}>{getPrice(contract)}</Text>
+      <PeachText style={[tw`subtitle-1`, tw`md:subtitle-0`]}>{getPrice(contract)}</PeachText>
       <CopyAble value={String(contract.price)} style={tw`md:w-5 md:h-5`} />
     </View>
   )

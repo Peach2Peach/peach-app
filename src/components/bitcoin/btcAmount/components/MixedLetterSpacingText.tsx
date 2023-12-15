@@ -1,5 +1,5 @@
 import { TextStyle } from 'react-native'
-import { PeachText } from '../../../text/Text'
+import { PeachText } from '../../../text/PeachText'
 import { BTCAmountChar } from './BTCAmountChar'
 import { getLetterSpacing, getNewNumber } from './helpers'
 

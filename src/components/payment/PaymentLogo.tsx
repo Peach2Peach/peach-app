@@ -1,4 +1,4 @@
-import { PeachText } from '../text/Text'
+import { PeachText } from '../text/PeachText'
 import { PaymentLogos, PaymentLogoType } from './logos'
 
 type Props = ComponentProps & {

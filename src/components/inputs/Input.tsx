@@ -14,7 +14,7 @@ import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Icon } from '../Icon'
-import { PeachText } from '../text/Text'
+import { PeachText } from '../text/PeachText'
 
 const themes = {
   default: {

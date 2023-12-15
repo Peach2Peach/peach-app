@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { Icon } from '../../Icon'
-import { Text } from '../../text'
+import { PeachText } from '../../text/PeachText'
 import { StatusCardProps } from '../StatusCard'
 import { statusCardStyles } from '../statusCardStyles'
 
@@ -14,7 +14,7 @@ export const Bottom = ({ labelIcon: icon, label: text, unreadMessages: messages,
       <Icon id="messageFull" style={tw`opacity-0 w-7 h-7`} color={tw.color(statusCardStyles.text[color])} />
       <View style={tw`flex-row items-center gap-1`}>
         {icon}
-        <Text style={[tw`subtitle-1`, tw.style(statusCardStyles.text[color])]}>{text}</Text>
+        <PeachText style={[tw`subtitle-1`, tw.style(statusCardStyles.text[color])]}>{text}</PeachText>
       </View>
       <View style={[tw`items-center justify-center w-7 h-7`, !messages && tw`opacity-0`]}>
         <Icon
@@ -22,7 +22,7 @@ export const Bottom = ({ labelIcon: icon, label: text, unreadMessages: messages,
           style={tw`w-7 h-7`}
           color={tw.color(statusCardStyles.text[color !== 'primary-mild' ? color : 'primary'])}
         />
-        <Text style={tw`absolute text-center font-baloo-bold`}>{messages}</Text>
+        <PeachText style={tw`absolute text-center font-baloo-bold`}>{messages}</PeachText>
       </View>
     </View>
   )

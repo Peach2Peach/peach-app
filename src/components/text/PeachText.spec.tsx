@@ -1,5 +1,5 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { PeachText } from './Text'
+import { PeachText } from './PeachText'
 
 describe('PeachText', () => {
   const renderer = createRenderer()

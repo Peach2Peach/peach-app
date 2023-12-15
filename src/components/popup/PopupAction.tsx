@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Icon } from '../Icon'
 import { Loading } from '../animation/Loading'
-import { PeachText } from '../text/Text'
+import { PeachText } from '../text/PeachText'
 
 export type PopupActionProps = ComponentProps & {
   onPress: (() => void) | (() => Promise<void>) | undefined

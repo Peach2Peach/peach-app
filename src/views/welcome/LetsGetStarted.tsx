@@ -2,10 +2,10 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { useState } from 'react'
-import { Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { Input } from '../../components/inputs/Input'
 import { useMessageState } from '../../components/message/useMessageState'
+import { PeachText } from '../../components/text/PeachText'
 import { useNavigation, useRoute, useValidatedState } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import i18n from '../../utils/i18n'
@@ -47,12 +47,12 @@ export const LetsGetStarted = () => {
   return (
     <View style={tw`items-center flex-1 gap-4 shrink`}>
       <View style={tw`justify-center gap-4 grow`}>
-        <Text style={[tw`text-center h5 text-primary-background-light`, tw`md:h4`]}>
+        <PeachText style={[tw`text-center h5 text-primary-background-light`, tw`md:h4`]}>
           {i18n('welcome.letsGetStarted.title')}
-        </Text>
+        </PeachText>
 
         <View>
-          <Text style={tw`text-center text-primary-background-light`}>{i18n('newUser.referralCode')}</Text>
+          <PeachText style={tw`text-center text-primary-background-light`}>{i18n('newUser.referralCode')}</PeachText>
           <View style={tw`flex-row items-center justify-center gap-2`}>
             <View style={tw`h-14`}>
               <Input

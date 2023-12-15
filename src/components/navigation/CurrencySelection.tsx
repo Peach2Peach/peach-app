@@ -1,6 +1,6 @@
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { PeachText } from '../text/Text'
+import { PeachText } from '../text/PeachText'
 
 type CurrencySelectionItemProps = ComponentProps & {
   currency: Currency

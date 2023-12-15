@@ -1,12 +1,12 @@
 import { TouchableOpacity, View } from 'react-native'
 import { Match } from '../../../peach-api/src/@types/match'
-import { Text } from '../../components'
 import { horizontalBadgePadding } from '../../components/Badge'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { PeachyBackground } from '../../components/PeachyBackground'
 import { Screen } from '../../components/Screen'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Badges } from '../../components/matches/components/Badges'
+import { PeachText } from '../../components/text/PeachText'
 import { PriceFormat } from '../../components/text/PriceFormat'
 import { useBitcoinPrices, useCancelOffer, useNavigation } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
@@ -37,7 +37,7 @@ export function Explore () {
       ) : (
         <View style={tw`items-center justify-center flex-1 gap-4`}>
           <BuyOfferMarketInfo />
-          <Text style={tw`text-center subtitle-2`}>{i18n('search.weWillNotifyYou')}</Text>
+          <PeachText style={tw`text-center subtitle-2`}>{i18n('search.weWillNotifyYou')}</PeachText>
         </View>
       )}
     </Screen>
@@ -95,7 +95,7 @@ function ExploreCard ({ match }: { match: Match }) {
       {instantTrade && (
         <View style={tw`overflow-hidden rounded-md`}>
           <PeachyBackground />
-          <Text style={tw`text-center py-2px subtitle-2 text-primary-background-light`}>instant trade</Text>
+          <PeachText style={tw`text-center py-2px subtitle-2 text-primary-background-light`}>instant trade</PeachText>
         </View>
       )}
       <View style={tw`justify-center py-2 px-9px`}>
@@ -105,14 +105,14 @@ function ExploreCard ({ match }: { match: Match }) {
         </View>
         <View style={tw`flex-row items-center justify-between`}>
           <Badges id={user.id} unlockedBadges={user.medals} />
-          <Text style={tw`text-center`}>
+          <PeachText style={tw`text-center`}>
             <PriceFormat style={tw`tooltip`} currency={displayCurrency} amount={fiatPrice * (1 + premium / 100)} />
-            <Text style={tw`text-black-2`}>
+            <PeachText style={tw`text-black-2`}>
               {' '}
               ({premium >= 0 ? '+' : ''}
               {premium}%)
-            </Text>
-          </Text>
+            </PeachText>
+          </PeachText>
         </View>
       </View>
     </TouchableOpacity>

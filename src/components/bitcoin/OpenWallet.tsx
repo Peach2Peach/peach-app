@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 import { openInWallet } from '../../utils/bitcoin/openInWallet'
 import i18n from '../../utils/i18n'
 import { Icon } from '../Icon'
-import { PeachText } from '../text/Text'
+import { PeachText } from '../text/PeachText'
 
 type OpenWalletProps = ComponentProps & {
   address?: string

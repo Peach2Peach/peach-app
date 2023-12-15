@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { PeachText } from '../components/text/Text'
+import { PeachText } from '../components/text/PeachText'
 import { InfoPopup } from '../popups/InfoPopup'
 import { helpPopups } from '../popups/helpPopups'
 import { usePopupStore } from '../store/usePopupStore'

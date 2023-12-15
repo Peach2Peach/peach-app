@@ -1,6 +1,6 @@
 import { View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
-import { PeachText } from '../text/Text'
+import { PeachText } from '../text/PeachText'
 
 export function NotificationBubble ({ style, notifications = 0 }: { style?: ViewStyle; notifications?: number }) {
   return notifications === 0 ? null : (

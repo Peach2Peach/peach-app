@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { Text } from '../../../components'
+import { PeachText } from '../../../components/text/PeachText'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
@@ -25,7 +25,8 @@ export function usePublishOffer (offerDraft: BuyOfferDraft) {
   const showErrorBanner = useShowErrorBanner()
   const hasSeenGroupHugAnnouncement = useConfigStore((state) => state.hasSeenGroupHugAnnouncement)
   const setPopup = usePopupStore((state) => state.setPopup)
-  const showHelp = () => setPopup(<InfoPopup content={<Text>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</Text>} />)
+  const showHelp = () =>
+    setPopup(<InfoPopup content={<PeachText>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</PeachText>} />)
   const publicKey = useAccountStore((state) => state.account.publicKey)
 
   return useMutation({

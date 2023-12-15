@@ -1,7 +1,7 @@
 import { View } from 'react-native'
-import { Text } from '../../components'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
+import { PeachText } from '../../components/text/PeachText'
 import { THOUSANDS_GROUP } from '../../constants'
 import { useWriteCSV } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
@@ -27,7 +27,7 @@ export function ExportTradeHistory () {
   return (
     <Screen header={i18n('exportTradeHistory.title')}>
       <View style={tw`justify-center gap-8 grow`}>
-        <Text style={tw`body-l`}>
+        <PeachText style={tw`body-l`}>
           {`${i18n('exportTradeHistory.description')}
 
   • ${i18n('exportTradeHistory.date')}
@@ -35,7 +35,7 @@ export function ExportTradeHistory () {
   • ${i18n('exportTradeHistory.type')}
   • ${i18n('exportTradeHistory.amount')}
   • ${i18n('exportTradeHistory.price')}`}
-        </Text>
+        </PeachText>
       </View>
       <Button style={tw`self-center`} onPress={onPress}>
         {i18n('exportTradeHistory.export')}

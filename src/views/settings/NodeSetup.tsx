@@ -1,5 +1,4 @@
 import { View } from 'react-native'
-import { Text } from '../../components'
 import { Header } from '../../components/Header'
 import { Icon } from '../../components/Icon'
 import { PeachScrollView } from '../../components/PeachScrollView'
@@ -8,6 +7,7 @@ import { Button } from '../../components/buttons/Button'
 import { ScanQR } from '../../components/camera/ScanQR'
 import { Toggle } from '../../components/inputs'
 import { URLInput } from '../../components/inputs/URLInput'
+import { PeachText } from '../../components/text/PeachText'
 import { useShowHelp, useToggleBoolean } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -59,7 +59,7 @@ export const NodeSetup = () => {
       </PeachScrollView>
       {isConnected ? (
         <View style={tw`flex-row items-center justify-center gap-1`}>
-          <Text style={tw`uppercase button-medium`}>{i18n('wallet.settings.node.connected')}</Text>
+          <PeachText style={tw`uppercase button-medium`}>{i18n('wallet.settings.node.connected')}</PeachText>
           <Icon id="check" size={16} color={tw.color('success-main')} />
         </View>
       ) : (

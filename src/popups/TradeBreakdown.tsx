@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { BTCAmount } from '../components/bitcoin/btcAmount/BTCAmount'
-import PeachText from '../components/text/Text'
+import { PeachText } from '../components/text/PeachText'
 import { HorizontalLine } from '../components/ui/HorizontalLine'
 import tw from '../styles/tailwind'
 import { getTradeBreakdown } from '../utils/bitcoin/getTradeBreakdown'

@@ -11,7 +11,7 @@ import { getPaymentMethodInfo } from '../../utils/paymentMethod/getPaymentMethod
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
 import { Icon } from '../Icon'
-import { PeachText } from '../text/Text'
+import { PeachText } from '../text/PeachText'
 import { LinedText } from '../ui/LinedText'
 import { PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
 import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'

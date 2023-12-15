@@ -2,7 +2,7 @@ import { TouchableOpacity, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Icon } from '../Icon'
-import { PeachText } from '../text/Text'
+import { PeachText } from '../text/PeachText'
 
 type Props = ComponentProps & {
   value: number

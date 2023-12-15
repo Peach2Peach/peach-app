@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
-import { PeachText } from '../../text/Text'
+import { PeachText } from '../../text/PeachText'
 
 type Props = ComponentProps & {
   paymentData: PaymentData

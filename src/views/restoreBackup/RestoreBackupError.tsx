@@ -1,7 +1,7 @@
 import { View } from 'react-native'
-import { Text } from '../../components'
 import { Icon } from '../../components/Icon'
 import { Button } from '../../components/buttons/Button'
+import { PeachText } from '../../components/text/PeachText'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -18,8 +18,8 @@ export const RestoreBackupError = ({ err }: Props) => {
     <View style={tw`justify-between grow`}>
       <View style={tw`items-center justify-center gap-16 grow`}>
         <View>
-          <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('restoreBackup.title')}</Text>
-          <Text style={tw`text-center body-l text-primary-background-light`}>{i18n(`${err}.text`)}</Text>
+          <PeachText style={tw`text-center h4 text-primary-background-light`}>{i18n('restoreBackup.title')}</PeachText>
+          <PeachText style={tw`text-center body-l text-primary-background-light`}>{i18n(`${err}.text`)}</PeachText>
         </View>
         <Icon id="userX" size={128} color={tw.color('primary-background-light')} />
       </View>

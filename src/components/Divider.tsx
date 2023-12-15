@@ -1,6 +1,6 @@
 import { StyleProp, View, ViewStyle } from 'react-native'
 import tw from '../styles/tailwind'
-import { Text } from './text'
+import { PeachText } from './text/PeachText'
 import { HorizontalLine } from './ui/HorizontalLine'
 
 type Props =
@@ -18,7 +18,7 @@ export const Divider = ({ type = 'light', align = 'left', icon, iconAlign = 'lef
     {!!icon && iconAlign === 'left' && icon}
     {align === 'center' && <HorizontalLine style={[tw`grow`, type === 'error' && tw`bg-error-mild`]} />}
     {!!text && (
-      <Text
+      <PeachText
         style={[
           tw`mr-2 text-black-2`,
           align === 'center' && tw`mx-2`,
@@ -28,7 +28,7 @@ export const Divider = ({ type = 'light', align = 'left', icon, iconAlign = 'lef
         ]}
       >
         {text}
-      </Text>
+      </PeachText>
     )}
     <HorizontalLine style={[tw`grow`, type === 'error' && tw`bg-error-mild`]} />
     {!!icon && iconAlign === 'right' && icon}

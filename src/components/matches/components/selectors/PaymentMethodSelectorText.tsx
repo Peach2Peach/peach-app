@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import tw from '../../../../styles/tailwind'
 import { getPaymentMethodName } from '../../../../utils/paymentMethod/getPaymentMethodName'
 import { Icon } from '../../../Icon'
-import { Text } from '../../../text'
+import { PeachText } from '../../../text/PeachText'
 
 type Props = {
   isSelected: boolean
@@ -14,9 +14,9 @@ export const PaymentMethodSelectorText = ({ isSelected, isVerified, name }: Prop
   const paymentMethodName = useMemo(() => (name ? getPaymentMethodName(name) : 'undefined'), [name])
   return (
     <>
-      <Text style={[tw`self-center button-medium text-black-3`, isSelected && tw`text-primary-background-light`]}>
+      <PeachText style={[tw`self-center button-medium text-black-3`, isSelected && tw`text-primary-background-light`]}>
         {paymentMethodName}
-      </Text>
+      </PeachText>
       {isVerified && (
         <Icon
           id="userCheck"

@@ -3,8 +3,8 @@ import tw from '../../../styles/tailwind'
 import { Flag } from '../../Flag'
 import { Icon } from '../../Icon'
 import { PaymentLogo } from '../../payment/PaymentLogo'
-import { Text } from '../../text'
 import { FixedHeightText } from '../../text/FixedHeightText'
+import { PeachText } from '../../text/PeachText'
 
 export const DrawerOption = ({
   logoID,
@@ -43,7 +43,7 @@ export const DrawerOption = ({
           {title}
         </FixedHeightText>
       ) : (
-        <Text style={[tw`input-title`, highlighted && tw`text-primary-main`]}>{title}</Text>
+        <PeachText style={[tw`input-title`, highlighted && tw`text-primary-main`]}>{title}</PeachText>
       )}
 
       {subtext
@@ -52,7 +52,7 @@ export const DrawerOption = ({
             {subtext}
           </FixedHeightText>
         ) : (
-          <Text style={[tw`body-s`, highlighted && tw`text-primary-main`]}>{subtext}</Text>
+          <PeachText style={[tw`body-s`, highlighted && tw`text-primary-main`]}>{subtext}</PeachText>
         ))}
     </View>
     {(iconRightID || highlighted) && (

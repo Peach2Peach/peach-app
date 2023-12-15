@@ -1,7 +1,7 @@
 import { BlockChainNames } from 'bdk-rn/lib/lib/enums'
 import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { Text } from '../../../../components'
+import { PeachText } from '../../../../components/text/PeachText'
 import { useToggleBoolean, useValidatedState } from '../../../../hooks'
 import { useShowLoadingPopup } from '../../../../hooks/useShowLoadingPopup'
 import { SuccessPopup } from '../../../../popups/SuccessPopup'
@@ -74,7 +74,7 @@ function NodeConnectionErrorPopup ({ error }: ErrorPopupProps) {
   return (
     <WarningPopup
       title={i18n('wallet.settings.node.error.title')}
-      content={<Text selectable>{i18n('wallet.settings.node.error.text', error)}</Text>}
+      content={<PeachText selectable>{i18n('wallet.settings.node.error.text', error)}</PeachText>}
       actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-1`} />}
     />
   )
@@ -89,7 +89,7 @@ function NodeConnectionSuccessPopup ({ url, save }: SuccessPopupProps) {
   return (
     <SuccessPopup
       title={i18n('wallet.settings.node.success.title')}
-      content={<Text>{i18n('wallet.settings.node.success.text', url)}</Text>}
+      content={<PeachText>{i18n('wallet.settings.node.success.text', url)}</PeachText>}
       actions={
         <>
           <ClosePopupAction />
