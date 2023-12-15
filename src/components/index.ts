@@ -1,4 +1,3 @@
-export { PaymentLogo } from './payment/PaymentLogo'
 export { Popup } from './popup'
 export { StatusCard } from './statusCard'
 export { ParsedPeachText, PriceFormat, Text, Timer } from './text'
