@@ -1,6 +1,5 @@
 import { View } from 'react-native'
-
-import { Progress } from '../../../components'
+import { Progress } from '../../../components/ui/Progress'
 import { useTradingLimits } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'
