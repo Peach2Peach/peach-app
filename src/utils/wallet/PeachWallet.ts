@@ -91,8 +91,12 @@ export class PeachWallet extends PeachJSWallet {
   }
 
   async loadWallet (seedphrase?: string): Promise<void> {
+    info('PeachWallet - loadWallet - start')
     await waitForHydration(useNodeConfigState)
-    this.initWallet(seedphrase)
+
+    this.initWallet(seedphrase).then(() => {
+      info('PeachWallet - loadWallet - finished')
+    })
   }
 
   async setBlockchain (nodeConfig: NodeConfig) {
