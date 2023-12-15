@@ -4,7 +4,7 @@ import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { useUserStatus } from '../views/publicProfile/useUserStatus'
 import { Icon } from './Icon'
-import { FixedHeightText } from './text'
+import { FixedHeightText, Text } from './text'
 
 type Props = {
   badgeName: Medal
@@ -43,23 +43,23 @@ export function RepeatTraderBadge ({ id }: { id: User['id'] }) {
   return (
     <View
       style={[
-        tw`flex-row items-center py-1 border rounded-full bg-primary-background-light gap-2px`,
+        tw`flex-row items-center border rounded-full bg-primary-background-light gap-2px`,
         { paddingHorizontal: horizontalBadgePadding },
         { borderColor: colorTheme },
       ]}
     >
-      <FixedHeightText style={[tw`subtitle-2 text-10px`, { color: colorTheme }]} height={6}>
-        {i18n('peachBadges.repeatTrader')}
-      </FixedHeightText>
+      <Text style={[tw`subtitle-2 text-10px`, { color: colorTheme }]}>{i18n('peachBadges.repeatTrader')}</Text>
 
-      <View style={tw`items-center justify-center`}>
-        <Icon id={hadBadExperience ? 'thumbsDown' : 'refreshCcw'} color={colorTheme} size={12} />
-        {!hadBadExperience && (
-          <View style={tw`absolute items-center justify-center w-3 h-3`}>
-            <FixedHeightText style={[tw`w-1 text-center subtitle-2 text-8px`, { color: colorTheme }]} height={4}>
-              {data.trades}
-            </FixedHeightText>
-          </View>
+      <View
+        style={[
+          tw`items-center justify-center`,
+          !hadBadExperience && [tw`border rounded-full p-3px`, { borderColor: colorTheme }],
+        ]}
+      >
+        {hadBadExperience ? (
+          <Icon id={'thumbsDown'} color={colorTheme} size={12} />
+        ) : (
+          <Text style={[tw`my-[-6px] subtitle-2 text-10px`, { color: colorTheme, lineHeight: 0 }]}>{data.trades}</Text>
         )}
       </View>
     </View>
