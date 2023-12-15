@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { PriceFormat, Text } from '../../../components'
+import { Text } from '../../../components'
+import { PriceFormat } from '../../../components/text/PriceFormat'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
