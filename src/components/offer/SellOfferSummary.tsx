@@ -7,7 +7,7 @@ import { Icon } from '../Icon'
 import { BTCAmount } from '../bitcoin/btcAmount/BTCAmount'
 import { getPremiumColor } from '../matches/utils'
 import { Text } from '../text'
-import { HorizontalLine } from '../ui'
+import { HorizontalLine } from '../ui/HorizontalLine'
 import { SummaryCard } from './SummaryCard'
 
 type Props = {

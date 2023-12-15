@@ -1,4 +1,3 @@
-export { HorizontalLine } from './HorizontalLine'
 export { InfoFrame } from './InfoFrame'
 export { NewDivider } from './NewDivider'
 export { Progress } from './Progress'

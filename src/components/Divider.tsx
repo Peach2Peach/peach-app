@@ -1,7 +1,7 @@
 import { StyleProp, View, ViewStyle } from 'react-native'
 import tw from '../styles/tailwind'
 import { Text } from './text'
-import { HorizontalLine } from './ui'
+import { HorizontalLine } from './ui/HorizontalLine'
 
 type Props =
   | ComponentProps & {

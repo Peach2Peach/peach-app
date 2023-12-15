@@ -1,6 +1,6 @@
 import { View } from 'react-native'
-import { HorizontalLine } from '../../../components'
 import { Text } from '../../../components/text'
+import { HorizontalLine } from '../../../components/ui/HorizontalLine'
 import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'

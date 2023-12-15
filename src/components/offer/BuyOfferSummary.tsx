@@ -4,7 +4,7 @@ import i18n from '../../utils/i18n'
 import { BTCAmount } from '../bitcoin/btcAmount/BTCAmount'
 import { Text } from '../text'
 import { FixedHeightText } from '../text/FixedHeightText'
-import { HorizontalLine } from '../ui'
+import { HorizontalLine } from '../ui/HorizontalLine'
 import { SummaryCard } from './SummaryCard'
 import { useWalletLabel } from './useWalletLabel'
 

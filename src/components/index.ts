@@ -1,2 +1,2 @@
 export { Text } from './text'
-export { HorizontalLine, InfoFrame, Progress } from './ui'
+export { InfoFrame, Progress } from './ui'
