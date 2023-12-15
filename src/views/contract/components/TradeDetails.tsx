@@ -1,11 +1,9 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Fragment } from 'react'
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { Toggle } from '../../../components/inputs'
 import { ErrorBox, HorizontalLine } from '../../../components/ui'
 import { useNavigation } from '../../../hooks'
-import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useIsMyAddress } from '../../../hooks/wallet/useIsMyAddress'
 import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'
@@ -14,7 +12,6 @@ import { getMessageToSignForAddress } from '../../../utils/account/getMessageToS
 import { getOfferIdFromContract } from '../../../utils/contract/getOfferIdFromContract'
 import i18n from '../../../utils/i18n'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
-import { peachAPI } from '../../../utils/peachAPI'
 import { cutOffAddress } from '../../../utils/string/cutOffAddress'
 import { isValidBitcoinSignature } from '../../../utils/validation/isValidBitcoinSignature'
 import { peachWallet } from '../../../utils/wallet/setWallet'
@@ -23,6 +20,7 @@ import { isTradeInformationGetter, tradeInformationGetters } from '../helpers'
 import { tradeFields } from '../helpers/tradeInfoFields'
 import { TradeInfoField } from '../helpers/tradeInformationGetters'
 import { SummaryItem } from './SummaryItem'
+import { usePatchReleaseAddress } from './usePatchReleaseAddress'
 
 export const TradeDetails = () => {
   const { contract, paymentData, isDecryptionError, view } = useContractContext()
@@ -54,47 +52,6 @@ export const TradeDetails = () => {
   )
 }
 
-const usePatchReleaseAddress = (offerId: string, contractId: string) => {
-  const queryClient = useQueryClient()
-  const showErrorBanner = useShowErrorBanner()
-
-  return useMutation({
-    onMutate: async ({ releaseAddress }) => {
-      await queryClient.cancelQueries({ queryKey: ['offer', offerId] })
-      await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
-      const previousOfferData = queryClient.getQueryData<BuyOffer | SellOffer>(['offer', offerId])
-      const previousContractData = queryClient.getQueryData<Contract>(['contract', contractId])
-      queryClient.setQueryData(
-        ['offer', offerId],
-        (oldQueryData: BuyOffer | SellOffer | undefined) => oldQueryData && { ...oldQueryData, releaseAddress },
-      )
-      queryClient.setQueryData(
-        ['contract', contractId],
-        (oldQueryData: Contract | undefined) =>
-          oldQueryData && {
-            ...oldQueryData,
-            releaseAddress,
-          },
-      )
-
-      return { previousOfferData, previousContractData }
-    },
-    mutationFn: async (newData: { releaseAddress: string; messageSignature: string }) => {
-      const { error } = await peachAPI.private.offer.patchOffer({ offerId, ...newData })
-      if (error) throw new Error(error.error)
-    },
-    onError: (err: Error, _variables, context) => {
-      queryClient.setQueryData(['offer', offerId], context?.previousOfferData)
-      queryClient.setQueryData(['contract', contractId], context?.previousContractData)
-      showErrorBanner(err.message)
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['offer', offerId])
-      queryClient.invalidateQueries(['contract', contractId])
-    },
-  })
-}
-
 function ChangePayoutWallet () {
   const { contract } = useContractContext()
   const paidToPeachWallet = useIsMyAddress(contract.releaseAddress)
@@ -120,12 +77,12 @@ function ChangePayoutWallet () {
       mutate({ releaseAddress, messageSignature })
     } else {
       if (!payoutAddress) {
-        navigation.navigate('payoutAddress', { type: 'payout' })
+        navigation.navigate('patchPayoutAddress', { contractId: contract.id })
         return
       }
       const message = getMessageToSignForAddress(publicKey, payoutAddress)
       if (!payoutAddressSignature || !isValidBitcoinSignature(message, payoutAddress, payoutAddressSignature)) {
-        navigation.navigate('signMessage')
+        navigation.navigate('signMessage', { contractId: contract.id })
       } else {
         mutate({ releaseAddress: payoutAddress, messageSignature: payoutAddressSignature })
       }
@@ -133,10 +90,10 @@ function ChangePayoutWallet () {
   }
 
   const editCustomPayoutAddress
-    = !payoutAddress || paidToPeachWallet || contract.paymentMade
+    = paidToPeachWallet || contract.paymentMade
       ? undefined
       : () => {
-        navigation.navigate('payoutAddress', { type: 'payout' })
+        navigation.navigate('patchPayoutAddress', { contractId: contract.id })
       }
 
   return (

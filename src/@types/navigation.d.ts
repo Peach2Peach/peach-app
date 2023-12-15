@@ -33,7 +33,6 @@ type Home = {
 
 type BuyFlow = {
   buyOfferPreferences: undefined
-  signMessage: undefined
   explore: { offerId: string }
   editBuyPreferences: { offerId: string }
   matchDetails: { offerId: string; matchId: string }
@@ -51,10 +50,40 @@ type SellFlow = {
   editPremium: { offerId: string }
 }
 
+type ContractFlow = {
+  contract: {
+    contractId: Contract['id']
+    contract?: Contract
+  }
+  contractChat: {
+    contractId: Contract['id']
+  }
+  paymentMade: {
+    contractId: Contract['id']
+  }
+  disputeReasonSelector: {
+    contractId: Contract['id']
+  }
+  disputeForm: {
+    contractId: Contract['id']
+    reason: DisputeReason
+  }
+  tradeComplete: {
+    contractId: Contract['id']
+  }
+  patchPayoutAddress: {
+    contractId: Contract['id']
+  }
+  signMessage: {
+    contractId: Contract['id']
+  }
+}
+
 type RootStackParamList = Onboarding &
   Home &
   BuyFlow &
-  SellFlow & {
+  SellFlow &
+  ContractFlow & {
     newBadge: {
       badges: string
     }
@@ -93,26 +122,6 @@ type RootStackParamList = Onboarding &
       offerId: string
       shouldGoBack?: boolean
     }
-    contract: {
-      contractId: Contract['id']
-      contract?: Contract
-    }
-    contractChat: {
-      contractId: Contract['id']
-    }
-    paymentMade: {
-      contractId: Contract['id']
-    }
-    disputeReasonSelector: {
-      contractId: Contract['id']
-    }
-    disputeForm: {
-      contractId: Contract['id']
-      reason: DisputeReason
-    }
-    tradeComplete: {
-      contractId: Contract['id']
-    }
     exportTradeHistory: undefined
     offer: {
       offerId: string
@@ -138,11 +147,7 @@ type RootStackParamList = Onboarding &
     backups: undefined
     backupCreated: undefined
     seedWords: undefined
-    payoutAddress:
-      | {
-          type: 'refund' | 'payout'
-        }
-      | undefined
+    payoutAddress: { type: 'refund' } | undefined
     paymentMethods: undefined
     meetupScreen: {
       eventId: string

@@ -12,6 +12,7 @@ import { SignMessage } from './buy/SignMessage'
 import { CanceledOfferDetails } from './canceledOfferDetails/CanceledOfferDetails'
 import { Contact } from './contact/Contact'
 import { Contract } from './contract/Contract'
+import { PatchPayoutAddress } from './contract/PatchPayoutAddress'
 import { PaymentMade } from './contract/PaymentMade'
 import { ContractChat } from './contractChat/ContractChat'
 import { DisputeForm } from './dispute/DisputeForm'
@@ -90,7 +91,6 @@ const wallet: ViewType[] = [
 ]
 const buyFlow: ViewType[] = [
   { name: 'buyOfferPreferences', component: BuyOfferPreferences },
-  { name: 'signMessage', component: SignMessage },
   { name: 'explore', component: Explore },
   { name: 'editBuyPreferences', component: EditBuyPreferences },
   { name: 'matchDetails', component: MatchDetails },
@@ -108,6 +108,8 @@ const trade: ViewType[] = [
   { name: 'contract', component: Contract },
   { name: 'contractChat', component: ContractChat },
   { name: 'paymentMade', component: PaymentMade, animationEnabled: false },
+  { name: 'patchPayoutAddress', component: PatchPayoutAddress },
+  { name: 'signMessage', component: SignMessage },
   {
     name: 'tradeComplete',
     component: TradeComplete,

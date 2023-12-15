@@ -9,21 +9,37 @@ import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { Input } from '../../components/inputs/Input'
 import { Text } from '../../components/text'
-import { useKeyboard, useNavigation, useShowHelp, useValidatedState } from '../../hooks'
+import { useKeyboard, useNavigation, useRoute, useShowHelp, useValidatedState } from '../../hooks'
+import { useContractDetails } from '../../hooks/query/useContractDetails'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import { useAccountStore } from '../../utils/account/account'
 import { getMessageToSignForAddress } from '../../utils/account/getMessageToSignForAddress'
+import { getOfferIdFromContract } from '../../utils/contract/getOfferIdFromContract'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { getMessages } from '../../utils/validation/getMessages'
 import { isValidBitcoinSignature } from '../../utils/validation/isValidBitcoinSignature'
+import { usePatchReleaseAddress } from '../contract/components/usePatchReleaseAddress'
+import { NewLoadingScreen } from '../loading/LoadingScreen'
 import { parseSignature } from './helpers/parseSignature'
 
 const signatureRules = {
   required: true,
 }
 export const SignMessage = () => {
+  const { contractId } = useRoute<'signMessage'>().params
+  const { contract } = useContractDetails(contractId)
+
+  if (!contract) return <NewLoadingScreen />
+
+  return <ScreenContent contract={contract} />
+}
+
+function ScreenContent ({ contract }: { contract: Contract }) {
+  const { contractId } = useRoute<'signMessage'>().params
+  const { mutate: patchPayoutAddress } = usePatchReleaseAddress(getOfferIdFromContract(contract), contractId)
+
   const navigation = useNavigation()
   const [address, setPayoutAddressSignature] = useSettingsStore(
     (state) => [state.payoutAddress, state.setPayoutAddressSignature],
@@ -51,12 +67,12 @@ export const SignMessage = () => {
 
   const parseAndSetSignature = (sig: string) => setSignature(parseSignature(sig))
 
-  const submit = (sig: string) => {
-    setPayoutAddressSignature(sig)
+  const submitSignature = () => {
+    if (!address || !signatureValid) return
+    setPayoutAddressSignature(signature)
+    patchPayoutAddress({ messageSignature: signature, releaseAddress: address })
     navigation.goBack()
   }
-
-  const submitSignature = () => submit(signature)
 
   const pasteSignature = async () => {
     const clipboard = await Clipboard.getString()

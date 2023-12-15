@@ -49,7 +49,6 @@ export const CustomAddress = () => {
       setPayoutAddress(address)
       setPayoutAddressLabel(addressLabel)
 
-      if (type === 'payout' && addressChanged) navigation.replace('signMessage')
       if (type === 'refund' && addressChanged) {
         setPeachWalletActive(false)
         navigation.goBack()
@@ -71,7 +70,7 @@ export const CustomAddress = () => {
           errorMessage={addressLabelErrors}
         />
         <BitcoinAddressInput onChange={setAddress} value={address} errorMessage={addressErrors} />
-        {isUpdated && type !== 'payout' ? (
+        {isUpdated ? (
           <View style={tw`gap-2`}>
             <View style={tw`flex-row justify-center gap-1`}>
               <Text style={tw`uppercase button-medium`}>{i18n('settings.payoutAddress.success')}</Text>
