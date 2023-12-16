@@ -850,7 +850,7 @@ SPEC CHECKSUMS:
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-cookies: f54fcded06bb0cda05c11d86788020b43528a26c
   react-native-document-picker: 2b8f18667caee73a96708a82b284a4f40b30a156
-  react-native-fast-openpgp: 20284e6115fb95cbdd7c2a1e4e219a8b780514e0
+  react-native-fast-openpgp: b33b84e5ec82bfc9cac153b39677006c48a2f772
   react-native-mmkv-storage: cfb6854594cfdc5f7383a9e464bb025417d1721c
   react-native-netinfo: fefd4e98d75cbdd6e85fc530f7111a8afdf2b0c5
   react-native-notification-badge: 7d458ff810ed02431eb46de253ecfc6a81148ba1
