@@ -1,5 +1,7 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { PopupAction } from '../../../components/popup/PopupAction'
+import { PopupComponent } from '../../../components/popup/PopupComponent'
 import { useNavigation } from '../../../hooks'
 import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
@@ -32,21 +34,23 @@ export const useOpenWithdrawalConfirmationPopup = () => {
         }
         const fee = await psbt.feeAmount()
 
-        setPopup({
-          title: i18n('wallet.confirmWithdraw.title'),
-          content: <WithdrawalConfirmation {...{ ...buildTxParams, fee }} />,
-          action2: {
-            callback: closePopup,
-            label: i18n('cancel'),
-            icon: 'xCircle',
-          },
-          action1: {
-            callback: confirm,
-            label: i18n('wallet.confirmWithdraw.confirm'),
-            icon: 'arrowRightCircle',
-          },
-          level: 'APP',
-        })
+        setPopup(
+          <PopupComponent
+            title={i18n('wallet.confirmWithdraw.title')}
+            content={<WithdrawalConfirmation {...{ ...buildTxParams, fee }} />}
+            actions={
+              <>
+                <PopupAction label={i18n('cancel')} iconId="xCircle" onPress={closePopup} />
+                <PopupAction
+                  label={i18n('wallet.confirmWithdraw.confirm')}
+                  iconId="arrowRightCircle"
+                  onPress={confirm}
+                  reverseOrder
+                />
+              </>
+            }
+          />,
+        )
       } catch (e) {
         handleTransactionError(e)
       }

@@ -1,6 +1,8 @@
 import { NETWORK } from '@env'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { PopupAction } from '../components/popup'
+import { PopupComponent } from '../components/popup/PopupComponent'
 import { FIFTEEN_SECONDS } from '../constants'
 import { Refund } from '../popups/Refund'
 import { useSettingsStore } from '../store/settingsStore'
@@ -55,43 +57,47 @@ export const useRefundEscrow = () => {
       const signedTx = signAndFinalizePSBT(psbt, getEscrowWalletForOffer(sellOffer)).extractTransaction()
       const [tx, txId] = [signedTx.toHex(), signedTx.getId()]
 
-      setPopup({
-        title: i18n('refund.title'),
-        content: <Refund isPeachWallet={isPeachWallet} />,
-        visible: true,
-        requireUserAction: true,
-        action1: {
-          label: i18n('close'),
-          icon: 'xSquare',
-          callback: () => {
-            closePopup()
-            if (shouldShowBackupOverlay && isPeachWallet) {
-              navigation.navigate('backupTime', { nextScreen: 'homeScreen', screen: 'yourTrades' })
-            } else {
-              navigation.navigate('homeScreen', { screen: 'yourTrades', params: { tab: 'yourTrades.history' } })
-            }
-          },
-        },
-        action2: {
-          label: i18n(isPeachWallet ? 'goToWallet' : 'showTx'),
-          icon: isPeachWallet ? 'wallet' : 'externalLink',
-          callback: () => {
-            if (isPeachWallet) {
-              goToWallet(txId)
-            } else {
-              closePopup()
-              navigation.navigate('backupTime', {
-                nextScreen: 'homeScreen',
-                screen: 'yourTrades',
-                params: { tab: 'yourTrades.sell' },
-              })
+      setPopup(
+        <PopupComponent
+          title={i18n('refund.title')}
+          content={<Refund isPeachWallet={isPeachWallet} />}
+          actions={
+            <>
+              <PopupAction
+                label={i18n(isPeachWallet ? 'goToWallet' : 'showTx')}
+                iconId={isPeachWallet ? 'wallet' : 'externalLink'}
+                onPress={() => {
+                  if (isPeachWallet) {
+                    goToWallet(txId)
+                  } else {
+                    closePopup()
+                    navigation.navigate('backupTime', {
+                      nextScreen: 'homeScreen',
+                      screen: 'yourTrades',
+                      params: { tab: 'yourTrades.sell' },
+                    })
 
-              showTransaction(txId, NETWORK)
-            }
-          },
-        },
-        level: 'APP',
-      })
+                    showTransaction(txId, NETWORK)
+                  }
+                }}
+              />
+              <PopupAction
+                label={i18n('close')}
+                iconId="xSquare"
+                onPress={() => {
+                  closePopup()
+                  if (shouldShowBackupOverlay && isPeachWallet) {
+                    navigation.navigate('backupTime', { nextScreen: 'homeScreen', screen: 'yourTrades' })
+                  } else {
+                    navigation.navigate('homeScreen', { screen: 'yourTrades', params: { tab: 'yourTrades.history' } })
+                  }
+                }}
+                reverseOrder
+              />
+            </>
+          }
+        />,
+      )
 
       const { error: postTXError } = await peachAPI.private.offer.refundSellOffer({
         offerId: sellOffer.id,

@@ -5,9 +5,12 @@ import { UnmatchPopup } from '../../../popups/UnmatchPopup'
 import tw from '../../../styles/tailwind'
 
 import { shallow } from 'zustand/shallow'
+import { WarningPopup } from '../../../popups/WarningPopup'
+import { ClosePopupAction } from '../../../popups/actions'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { Button } from '../../buttons/Button'
+import { PopupAction } from '../../popup'
 import { useUnmatchOffer } from '../hooks'
 import { UndoButton } from './UndoButton'
 
@@ -25,26 +28,38 @@ export const UnmatchButton = ({ match, offer, interruptMatching, showUnmatchedCa
   const [showUnmatch, toggle] = useToggleBoolean(match.matched)
 
   const showUnmatchPopup = useCallback(() => {
-    setPopup({
-      title: i18n('search.popups.unmatch.title'),
-      content: <UnmatchPopup />,
-      visible: true,
-      level: 'WARN',
-      action1: {
-        label: i18n('search.popups.unmatch.neverMind'),
-        icon: 'xSquare',
-        callback: closePopup,
-      },
-      action2: {
-        label: i18n('search.popups.unmatch.confirm'),
-        icon: 'minusCircle',
-        callback: () => {
-          setPopup({ title: i18n('search.popups.unmatched'), level: 'WARN', visible: true })
-          showUnmatchedCard()
-          unmatch()
-        },
-      },
-    })
+    setPopup(
+      <WarningPopup
+        title={i18n('search.popups.unmatch.title')}
+        content={<UnmatchPopup />}
+        actions={
+          <>
+            <PopupAction
+              label={i18n('search.popups.unmatch.confirm')}
+              iconId="minusCircle"
+              textStyle={tw`text-black-1`}
+              onPress={() => {
+                setPopup(
+                  <WarningPopup
+                    title={i18n('search.popups.unmatched')}
+                    actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-1`} />}
+                  />,
+                )
+                showUnmatchedCard()
+                unmatch()
+              }}
+            />
+            <PopupAction
+              label={i18n('search.popups.unmatch.neverMind')}
+              textStyle={tw`text-black-1`}
+              iconId="xSquare"
+              onPress={closePopup}
+              reverseOrder
+            />
+          </>
+        }
+      />,
+    )
   }, [closePopup, setPopup, showUnmatchedCard, unmatch])
 
   const showMatchUndonePopup = useShowAppPopup('matchUndone')

@@ -1,6 +1,8 @@
-import { act, renderHook, responseUtils } from 'test-utils'
+import { act, fireEvent, render, renderHook, responseUtils } from 'test-utils'
 import { sellOffer } from '../../tests/unit/data/offerData'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
+import { Popup, PopupAction } from '../components/popup'
+import { PopupComponent } from '../components/popup/PopupComponent'
 import { Refund } from '../popups/Refund'
 import { useSettingsStore } from '../store/settingsStore'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
@@ -75,24 +77,19 @@ describe('useRefundEscrow', () => {
     })
     expect(checkRefundPSBTMock).toHaveBeenCalledWith('psbt', sellOffer)
     expect(signAndFinalizePSBTMock).toHaveBeenCalledWith('checkedPsbt', 'escrowWallet')
-    expect(usePopupStore.getState()).toStrictEqual({
-      ...usePopupStore.getState(),
-      title: 'escrow refunded',
-      content: <Refund isPeachWallet={false} />,
-      visible: true,
-      level: 'APP',
-      requireUserAction: true,
-      action1: {
-        label: 'close',
-        icon: 'xSquare',
-        callback: expect.any(Function),
-      },
-      action2: {
-        label: 'show tx',
-        icon: 'externalLink',
-        callback: expect.any(Function),
-      },
-    })
+    expect(usePopupStore.getState().visible).toEqual(true)
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <PopupComponent
+        title="escrow refunded"
+        content={<Refund isPeachWallet={false} />}
+        actions={
+          <>
+            <PopupAction label="show tx" iconId="externalLink" onPress={expect.any(Function)} />
+            <PopupAction label="close" iconId="xSquare" onPress={expect.any(Function)} reverseOrder />
+          </>
+        }
+      />,
+    )
     expect(saveOfferMock).toHaveBeenCalledWith({
       ...sellOffer,
       tx: 'hex',
@@ -135,9 +132,8 @@ describe('useRefundEscrow', () => {
     await act(async () => {
       await result.current(sellOffer, psbt)
     })
-    act(() => {
-      usePopupStore.getState().action1?.callback()
-    })
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('close'))
     expect(usePopupStore.getState().visible).toEqual(false)
     expect(navigateMock).toHaveBeenCalledWith('homeScreen', {
       screen: 'yourTrades',
@@ -153,9 +149,8 @@ describe('useRefundEscrow', () => {
     await act(async () => {
       await result.current(sellOffer, psbt)
     })
-    act(() => {
-      usePopupStore.getState().action1?.callback()
-    })
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('close'))
     expect(usePopupStore.getState().visible).toEqual(false)
     expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'homeScreen', screen: 'yourTrades' })
   })
@@ -167,24 +162,19 @@ describe('useRefundEscrow', () => {
     await act(async () => {
       await result.current(sellOffer, psbt)
     })
-    expect(usePopupStore.getState()).toStrictEqual({
-      ...usePopupStore.getState(),
-      title: 'escrow refunded',
-      content: <Refund isPeachWallet={true} />,
-      visible: true,
-      level: 'APP',
-      requireUserAction: true,
-      action1: {
-        label: 'close',
-        icon: 'xSquare',
-        callback: expect.any(Function),
-      },
-      action2: {
-        label: 'go to wallet',
-        icon: 'wallet',
-        callback: expect.any(Function),
-      },
-    })
+    expect(usePopupStore.getState().visible).toEqual(true)
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <PopupComponent
+        title="escrow refunded"
+        content={<Refund isPeachWallet={true} />}
+        actions={
+          <>
+            <PopupAction label="go to wallet" iconId="wallet" onPress={expect.any(Function)} />
+            <PopupAction label="close" iconId="xSquare" onPress={expect.any(Function)} reverseOrder />
+          </>
+        }
+      />,
+    )
   })
 
   it('should go to peach wallet if peach wallet is active', async () => {
@@ -194,9 +184,8 @@ describe('useRefundEscrow', () => {
     await act(async () => {
       await result.current(sellOffer, psbt)
     })
-    act(() => {
-      usePopupStore.getState().action2?.callback()
-    })
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('go to wallet'))
     expect(usePopupStore.getState().visible).toEqual(false)
     expect(navigateMock).toHaveBeenCalledWith('transactionDetails', { txId: 'id' })
   })
@@ -209,9 +198,8 @@ describe('useRefundEscrow', () => {
     await act(async () => {
       await result.current(sellOffer, psbt)
     })
-    act(() => {
-      usePopupStore.getState().action2?.callback()
-    })
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('go to wallet'))
     expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'transactionDetails', txId: 'id' })
   })
 
@@ -222,9 +210,8 @@ describe('useRefundEscrow', () => {
     await act(async () => {
       await result.current(sellOffer, psbt)
     })
-    act(() => {
-      usePopupStore.getState().action2?.callback()
-    })
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('show tx'))
     expect(usePopupStore.getState().visible).toEqual(false)
     expect(showTransactionMock).toHaveBeenCalledWith('id', 'regtest')
   })

@@ -1,7 +1,10 @@
-import { act, renderHook, responseUtils, waitFor } from 'test-utils'
+import { act, fireEvent, render, renderHook, responseUtils, waitFor } from 'test-utils'
 import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
 import { defaultUser } from '../../../../tests/unit/data/userData'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { Popup } from '../../../components/popup'
+import { PopupAction } from '../../../components/popup/PopupAction'
+import { PopupComponent } from '../../../components/popup/PopupComponent'
 import { TurnOffBatching } from '../../../popups/app/TurnOffBatching'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { usePopupStore } from '../../../store/usePopupStore'
@@ -74,26 +77,29 @@ describe('useTransactionBatchingSetup', () => {
     )
     result.current.toggleBatching()
 
-    expect(usePopupStore.getState()).toStrictEqual({
-      ...usePopupStore.getState(),
-      title: 'turn off batching',
-      content: <TurnOffBatching />,
-      visible: true,
-      level: 'APP',
-      action2: {
-        callback: expect.any(Function),
-        icon: 'xCircle',
-        label: 'no, wait',
-      },
-      action1: {
-        callback: expect.any(Function),
-        icon: 'arrowRightCircle',
-        label: 'yes, I want it faster',
-      },
-    })
+    expect(usePopupStore.getState().visible).toBeTruthy()
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <PopupComponent
+        title={'turn off batching'}
+        content={<TurnOffBatching />}
+        actions={
+          <>
+            <PopupAction label={'no, wait'} iconId={'xCircle'} onPress={expect.any(Function)} />
+            <PopupAction
+              label={'yes, I want it faster'}
+              iconId={'arrowRightCircle'}
+              onPress={expect.any(Function)}
+              reverseOrder
+            />
+          </>
+        }
+      />,
+    )
     await waitFor(() => expect(setBatchingMock).not.toHaveBeenCalled())
 
-    usePopupStore.getState().action1?.callback()
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('yes, I want it faster'))
+
     await waitFor(() => expect(setBatchingMock).toHaveBeenCalledWith({ enableBatching: false }))
     act(() => useTradeSummaryStore.getState().reset())
   })

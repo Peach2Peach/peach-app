@@ -1,5 +1,7 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { PopupAction } from '../../../components/popup/PopupAction'
+import { PopupComponent } from '../../../components/popup/PopupComponent'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { OfferRepublished } from '../../../popups/tradeCancelation'
@@ -35,23 +37,18 @@ export const useRepublishOffer = () => {
         closePopup()
       }
 
-      setPopup({
-        title: i18n('contract.cancel.offerRepublished.title'),
-        content: <OfferRepublished />,
-        visible: true,
-        level: 'APP',
-        requireUserAction: true,
-        action1: {
-          label: i18n('goToOffer'),
-          icon: 'arrowRightCircle',
-          callback: goToOfferAction,
-        },
-        action2: {
-          label: i18n('close'),
-          icon: 'xSquare',
-          callback: closeAction,
-        },
-      })
+      setPopup(
+        <PopupComponent
+          title={i18n('contract.cancel.offerRepublished.title')}
+          content={<OfferRepublished />}
+          actions={
+            <>
+              <PopupAction label={i18n('close')} iconId="xSquare" onPress={closeAction} />
+              <PopupAction label={i18n('goToOffer')} iconId="arrowRightCircle" onPress={goToOfferAction} reverseOrder />
+            </>
+          }
+        />,
+      )
     },
     [closePopup, navigation, setPopup, showErrorBanner],
   )

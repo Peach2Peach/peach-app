@@ -8,6 +8,8 @@ import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Popup } from '../../../components/popup/Popup'
+import { PopupComponent } from '../../../components/popup/PopupComponent'
+import { ClosePopupAction } from '../../../popups/actions'
 import { useConfigStore } from '../../../store/configStore/configStore'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
@@ -65,7 +67,9 @@ describe('useFundFromPeachWallet', () => {
     })
     const { result } = renderHook(useFundFromPeachWallet)
 
-    await result.current(initialProps)
+    await act(async () => {
+      await result.current(initialProps)
+    })
     expect(showErrorBannerMock).toHaveBeenCalledWith('UNAUTHORIZED')
   })
   it('should open confirmation popup', async () => {
@@ -73,7 +77,9 @@ describe('useFundFromPeachWallet', () => {
     peachWallet.finishTransaction = jest.fn().mockResolvedValue(getTransactionDetails(amount, feeRate))
 
     const { result } = renderHook(useFundFromPeachWallet)
-    await result.current(initialProps)
+    await act(async () => {
+      await result.current(initialProps)
+    })
 
     expect(render(<Popup />)).toMatchSnapshot()
   })
@@ -83,7 +89,9 @@ describe('useFundFromPeachWallet', () => {
     const addresses = ['a', 'b']
     const { result } = renderHook(useFundFromPeachWallet)
 
-    await result.current({ ...initialProps, addresses })
+    await act(async () => {
+      await result.current({ ...initialProps, addresses })
+    })
     expect(setMultipleRecipientsMock).toHaveBeenCalledWith(expect.any(TxBuilder), initialProps.amount, addresses)
   })
   it('should broadcast transaction on confirm', async () => {
@@ -94,7 +102,9 @@ describe('useFundFromPeachWallet', () => {
 
     const { result } = renderHook(useFundFromPeachWallet)
 
-    await result.current(initialProps)
+    await act(async () => {
+      await result.current(initialProps)
+    })
     const { getByText } = render(<Popup />)
 
     await act(async () => {
@@ -112,7 +122,9 @@ describe('useFundFromPeachWallet', () => {
 
     const { result } = renderHook(useFundFromPeachWallet)
 
-    await result.current(initialProps)
+    await act(async () => {
+      await result.current(initialProps)
+    })
     const { getByText } = render(<Popup />)
     await act(async () => {
       await fireEvent.press(getByText('confirm & send'))
@@ -133,7 +145,9 @@ describe('useFundFromPeachWallet', () => {
 
     const { result } = renderHook(useFundFromPeachWallet)
 
-    await result.current(initialProps)
+    await act(async () => {
+      await result.current(initialProps)
+    })
 
     expect(render(<Popup />)).toMatchSnapshot()
   })
@@ -146,7 +160,9 @@ describe('useFundFromPeachWallet', () => {
 
     const { result } = renderHook(useFundFromPeachWallet)
 
-    await result.current(initialProps)
+    await act(async () => {
+      await result.current(initialProps)
+    })
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
   })
   it('should open handle other errors for building drain wallet transactions', async () => {
@@ -161,7 +177,9 @@ describe('useFundFromPeachWallet', () => {
 
     const { result } = renderHook(useFundFromPeachWallet)
 
-    await result.current(initialProps)
+    await act(async () => {
+      await result.current(initialProps)
+    })
     expect(showErrorBannerMock).toHaveBeenCalledWith('UNKNOWN', [])
   })
 
@@ -176,7 +194,9 @@ describe('useFundFromPeachWallet', () => {
     const addresses = ['a', 'b']
     const { result } = renderHook(useFundFromPeachWallet)
 
-    await result.current({ ...initialProps, addresses })
+    await act(async () => {
+      await result.current({ ...initialProps, addresses })
+    })
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', [615000, '1089000'])
   })
 
@@ -193,7 +213,9 @@ describe('useFundFromPeachWallet', () => {
 
     const { result } = renderHook(useFundFromPeachWallet)
 
-    await result.current(initialProps)
+    await act(async () => {
+      await result.current(initialProps)
+    })
 
     const { getByText } = render(<Popup />)
     await act(async () => {
@@ -208,25 +230,34 @@ describe('useFundFromPeachWallet', () => {
     peachWallet.balance = 0
     const { result } = renderHook(useFundFromPeachWallet)
 
-    await result.current(initialProps)
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: 'amount too low',
-      level: 'APP',
-      content: <AmountTooLow available={0} needed={minTradingAmount} />,
+    await act(async () => {
+      await result.current(initialProps)
     })
+    expect(usePopupStore.getState().visible).toBeTruthy()
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <PopupComponent
+        title="amount too low"
+        content={<AmountTooLow available={0} needed={minTradingAmount} />}
+        actions={<ClosePopupAction style={{ justifyContent: 'center' }} />}
+      />,
+    )
   })
   it('should open amount too low popup when funding multiple', async () => {
     peachWallet.balance = 0
     const addresses = ['a', 'b', 'c']
     const { result } = renderHook(useFundFromPeachWallet)
 
-    await result.current({ ...initialProps, addresses })
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: 'amount too low',
-      level: 'APP',
-      content: <AmountTooLow available={0} needed={minTradingAmount * 3} />,
+    await act(async () => {
+      await result.current({ ...initialProps, addresses })
     })
+
+    expect(usePopupStore.getState().visible).toBeTruthy()
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <PopupComponent
+        title="amount too low"
+        content={<AmountTooLow available={0} needed={150000} />}
+        actions={<ClosePopupAction style={{ justifyContent: 'center' }} />}
+      />,
+    )
   })
 })

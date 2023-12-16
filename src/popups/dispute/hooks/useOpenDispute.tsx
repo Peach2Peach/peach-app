@@ -1,8 +1,12 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { PopupAction } from '../../../components/popup/PopupAction'
 import { useNavigation } from '../../../hooks'
 import { usePopupStore } from '../../../store/usePopupStore'
+import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { WarningPopup } from '../../WarningPopup'
+import { ClosePopupAction } from '../../actions'
 import { OpenDispute } from '../components/OpenDispute'
 
 export const useOpenDispute = (contractId: string) => {
@@ -15,23 +19,24 @@ export const useOpenDispute = (contractId: string) => {
   }, [closePopup, contractId, navigation])
 
   const showOpenDisputePopup = useCallback(() => {
-    setPopup({
-      title: i18n('dispute.openDispute'),
-      level: 'WARN',
-      content: <OpenDispute />,
-      visible: true,
-      action1: {
-        label: i18n('close'),
-        icon: 'xSquare',
-        callback: closePopup,
-      },
-      action2: {
-        label: i18n('dispute.openDispute'),
-        icon: 'alertOctagon',
-        callback: ok,
-      },
-    })
-  }, [setPopup, closePopup, ok])
+    setPopup(
+      <WarningPopup
+        title={i18n('dispute.openDispute')}
+        content={<OpenDispute />}
+        actions={
+          <>
+            <PopupAction
+              label={i18n('dispute.openDispute')}
+              iconId="alertOctagon"
+              onPress={ok}
+              textStyle={tw`text-black-1`}
+            />
+            <ClosePopupAction reverseOrder textStyle={tw`text-black-1`} />
+          </>
+        }
+      />,
+    )
+  }, [setPopup, ok])
 
   return showOpenDisputePopup
 }

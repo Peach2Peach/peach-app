@@ -1,7 +1,10 @@
-import { act, renderHook } from 'test-utils'
+import { act, fireEvent, render, renderHook } from 'test-utils'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
+import { Popup, PopupAction } from '../components/popup'
+import { PopupComponent } from '../components/popup/PopupComponent'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { OfferOutsideRange } from './OfferOutsideRange'
+import { ClosePopupAction } from './actions'
 import { useOfferOutsideRangePopup } from './useOfferOutsideRangePopup'
 
 describe('useOfferOutsideRangePopup', () => {
@@ -16,31 +19,27 @@ describe('useOfferOutsideRangePopup', () => {
       result.current(offerId)
     })
 
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: 'bitcoin pumped!',
-      content: <OfferOutsideRange {...{ offerId }} />,
-      visible: true,
-      level: 'APP',
-      action2: {
-        label: 'close',
-        icon: 'xSquare',
-        callback: expect.any(Function),
-      },
-      action1: {
-        label: 'go to offer',
-        icon: 'arrowLeftCircle',
-        callback: expect.any(Function),
-      },
-    })
+    expect(usePopupStore.getState().visible).toBeTruthy()
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <PopupComponent
+        title="bitcoin pumped!"
+        content={<OfferOutsideRange {...{ offerId }} />}
+        actions={
+          <>
+            <ClosePopupAction />
+            <PopupAction label="go to offer" iconId="arrowLeftCircle" onPress={expect.any(Function)} reverseOrder />
+          </>
+        }
+      />,
+    )
   })
   it('closes popup', () => {
     const { result } = renderHook(useOfferOutsideRangePopup)
     act(() => {
       result.current(offerId)
     })
-
-    usePopupStore.getState().action2?.callback()
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('close'))
 
     expect(usePopupStore.getState().visible).toBeFalsy()
   })
@@ -49,7 +48,8 @@ describe('useOfferOutsideRangePopup', () => {
     act(() => {
       result.current(offerId)
     })
-    usePopupStore.getState().action1?.callback()
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('go to offer'))
 
     expect(usePopupStore.getState().visible).toBeFalsy()
     expect(navigateMock).toHaveBeenCalledWith('offer', { offerId })

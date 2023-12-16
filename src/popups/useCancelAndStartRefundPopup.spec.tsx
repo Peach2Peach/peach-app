@@ -1,6 +1,8 @@
 import { renderHook } from 'test-utils'
 import { sellOffer } from '../../tests/unit/data/offerData'
 import { PopupLoadingSpinner } from '../../tests/unit/helpers/PopupLoadingSpinner'
+import { PopupAction } from '../components/popup'
+import { PopupComponent } from '../components/popup/PopupComponent'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { useCancelAndStartRefundPopup } from './useCancelAndStartRefundPopup'
 
@@ -26,19 +28,14 @@ describe('useCancelAndStartRefundPopup', () => {
   it('should show the loading popup and start refund', async () => {
     const { result } = renderHook(useCancelAndStartRefundPopup)
     await result.current(sellOffer)
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: 'refunding escrow',
-      content: PopupLoadingSpinner,
-      visible: true,
-      level: 'APP',
-      requireUserAction: true,
-      action1: {
-        label: 'loading...',
-        icon: 'clock',
-        callback: expect.any(Function),
-      },
-    })
+    expect(usePopupStore.getState().visible).toBe(true)
+    expect(usePopupStore.getState().popupComponent).toEqual(
+      <PopupComponent
+        title="refunding escrow"
+        content={PopupLoadingSpinner}
+        actions={<PopupAction label="loading..." iconId="clock" onPress={expect.any(Function)} />}
+      />,
+    )
     expect(refundEscrowMock).toHaveBeenCalledWith(sellOffer, 'psbt')
   })
 })

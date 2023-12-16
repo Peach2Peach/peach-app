@@ -1,9 +1,12 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { PopupAction } from '../components/popup/PopupAction'
+import { PopupComponent } from '../components/popup/PopupComponent'
 import { useNavigation } from '../hooks'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { BuyOfferExpired } from './BuyOfferExpired'
+import { ClosePopupAction } from './actions/ClosePopupAction'
 
 export const useBuyOfferExpiredPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
@@ -15,24 +18,20 @@ export const useBuyOfferExpiredPopup = () => {
 
   const buyOfferExpiredPopup = useCallback(
     (offerId: string, days: string) => {
-      setPopup({
-        title: i18n('notification.offer.buyOfferExpired.title'),
-        content: <BuyOfferExpired {...{ offerId, days }} />,
-        visible: true,
-        level: 'APP',
-        action1: {
-          label: 'close',
-          icon: 'xSquare',
-          callback: closePopup,
-        },
-        action2: {
-          label: i18n('help'),
-          icon: 'helpCircle',
-          callback: goToContact,
-        },
-      })
+      setPopup(
+        <PopupComponent
+          title={i18n('notification.offer.buyOfferExpired.title')}
+          content={<BuyOfferExpired {...{ offerId, days }} />}
+          actions={
+            <>
+              <PopupAction label={i18n('help')} iconId="helpCircle" onPress={goToContact} />
+              <ClosePopupAction reverseOrder />
+            </>
+          }
+        />,
+      )
     },
-    [closePopup, goToContact, setPopup],
+    [goToContact, setPopup],
   )
   return buyOfferExpiredPopup
 }

@@ -1,6 +1,8 @@
 import { BlockChainNames } from 'bdk-rn/lib/lib/enums'
 import { act, fireEvent, render, renderHook } from 'test-utils'
 import { PopupLoadingSpinner } from '../../../../../tests/unit/helpers/PopupLoadingSpinner'
+import { PopupAction } from '../../../../components/popup'
+import { PopupComponent } from '../../../../components/popup/PopupComponent'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { getError } from '../../../../utils/result/getError'
 import { getResult } from '../../../../utils/result/getResult'
@@ -89,19 +91,13 @@ describe('useNodeSetup', () => {
     })
 
     expect(checkNodeConnectionMock).toHaveBeenCalledWith(url, false)
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      action1: {
-        callback: expect.any(Function),
-        icon: 'clock',
-        label: 'loading...',
-      },
-      closePopup: usePopupStore.getState().closePopup,
-      content: PopupLoadingSpinner,
-      level: 'APP',
-      title: 'checking connection',
-      visible: true,
-    })
+    expect(usePopupStore.getState().popupComponent).toEqual(
+      <PopupComponent
+        title="checking connection"
+        content={PopupLoadingSpinner}
+        actions={<PopupAction label="loading..." iconId="clock" onPress={expect.any(Function)} />}
+      />,
+    )
     await act(async () => {
       await promise
     })

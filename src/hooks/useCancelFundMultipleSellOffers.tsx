@@ -1,8 +1,9 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { PopupAction } from '../components/popup'
-import { PopupComponent } from '../components/popup/PopupComponent'
 import { CancelOffer } from '../popups/CancelOffer'
+import { GrayPopup } from '../popups/GrayPopup'
+import { ClosePopupAction } from '../popups/actions'
 import { LoadingPopupAction } from '../popups/actions/LoadingPopupAction'
 import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
@@ -27,7 +28,9 @@ export const useCancelFundMultipleSellOffers = ({ fundMultiple }: Props) => {
     shallow,
   )
   const showOfferCanceled = useCallback(() => {
-    setPopup({ title: i18n('offer.canceled.popup.title'), level: 'DEFAULT' })
+    setPopup(
+      <GrayPopup title={i18n('offer.canceled.popup.title')} actions={<ClosePopupAction style={tw`justify-center`} />} />,
+    )
   }, [setPopup])
 
   const confirmCancelOffer = useCallback(async () => {
@@ -61,11 +64,9 @@ export const useCancelFundMultipleSellOffers = ({ fundMultiple }: Props) => {
 
   const showCancelSellOffersPopup = useCallback(() => {
     setPopup(
-      <PopupComponent
+      <GrayPopup
         title={i18n('offer.cancel.popup.title')}
         content={<CancelOffer type="ask" />}
-        actionBgColor={tw`bg-black-3`}
-        bgColor={tw`bg-primary-background-light`}
         actions={
           <>
             <PopupAction label={i18n('neverMind')} iconId="arrowLeftCircle" onPress={closePopup} />

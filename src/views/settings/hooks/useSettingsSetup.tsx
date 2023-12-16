@@ -2,9 +2,12 @@ import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useMemo, useState } from 'react'
 import { AppState } from 'react-native'
 import { shallow } from 'zustand/shallow'
+import { PopupAction } from '../../../components/popup'
+import { WarningPopup } from '../../../popups/WarningPopup'
 import { useShowAnalyticsPopup } from '../../../popups/useShowAnalyticsPopup'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
+import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { checkNotificationStatus } from '../../../utils/system/checkNotificationStatus'
 import { isProduction } from '../../../utils/system/isProduction'
@@ -41,25 +44,32 @@ export const useSettingsSetup = () => {
 
   const notificationClick = useCallback(() => {
     if (notificationsOn) {
-      setPopup({
-        title: i18n('settings.notifications.popup.title'),
-        content: <NotificationPopup />,
-        visible: true,
-        level: 'WARN',
-        action2: {
-          callback: closePopup,
-          label: i18n('settings.notifications.popup.neverMind'),
-          icon: 'arrowLeftCircle',
-        },
-        action1: {
-          callback: () => {
-            closePopup()
-            toggleNotifications()
-          },
-          label: i18n('settings.notifications.popup.yes'),
-          icon: 'slash',
-        },
-      })
+      setPopup(
+        <WarningPopup
+          title={i18n('settings.notifications.popup.title')}
+          content={<NotificationPopup />}
+          actions={
+            <>
+              <PopupAction
+                label={i18n('settings.notifications.popup.neverMind')}
+                textStyle={tw`text-black-1`}
+                iconId="arrowLeftCircle"
+                onPress={closePopup}
+              />
+              <PopupAction
+                label={i18n('settings.notifications.popup.yes')}
+                textStyle={tw`text-black-1`}
+                iconId="slash"
+                onPress={() => {
+                  closePopup()
+                  toggleNotifications()
+                }}
+                reverseOrder
+              />
+            </>
+          }
+        />,
+      )
     } else {
       toggleNotifications()
     }
