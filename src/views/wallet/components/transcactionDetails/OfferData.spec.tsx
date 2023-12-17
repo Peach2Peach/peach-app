@@ -28,7 +28,7 @@ describe('OfferData', () => {
     )
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should render correctly without  price, currency and address', () => {
+  it('should render correctly without price, currency and address', () => {
     const { toJSON } = render(<OfferData amount={100000} transaction={pendingTransactionSummary} type="WITHDRAWAL" />)
     expect(toJSON()).toMatchSnapshot()
   })

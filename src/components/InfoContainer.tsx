@@ -11,7 +11,14 @@ type InfoContainerProps = {
   enabled?: boolean
 }
 export const horizontalBadgePadding = 6
-export function InfoContainer ({ text, icon, color, textColor, backgroundColor, enabled = true }: InfoContainerProps) {
+export function InfoContainer ({
+  text,
+  icon,
+  color,
+  textColor,
+  backgroundColor = tw.color('primary-background-light'),
+  enabled = true,
+}: InfoContainerProps) {
   const colorStyle = color ?? tw.color(enabled ? 'primary-main' : 'primary-mild-1')
   const textStyle = textColor ?? colorStyle
   return (

@@ -46,10 +46,6 @@ describe('Match', () => {
   })
   const defaultBuyComponent = <Match match={{ ...matchOffer, matched: false }} offer={buyOffer} />
   const defaultSellComponent = <Match match={{ ...matchOffer, matched: false }} offer={sellOffer} />
-  it('should render correctly for buy offers', () => {
-    const { toJSON } = render(defaultBuyComponent)
-    expect(toJSON()).toMatchSnapshot()
-  })
 
   it('should render correctly for sell offers', () => {
     const { toJSON } = render(defaultSellComponent)

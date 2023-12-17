@@ -38,7 +38,7 @@ function YourCode ({ referralCode }: Props) {
       <PeachText style={tw`text-center body-m text-black-2`}>{i18n('referrals.yourCode')}</PeachText>
       <View style={tw`flex-row justify-center`}>
         <PeachText style={tw`mr-1 text-center h4`}>{referralCode}</PeachText>
-        <CopyAble value={referralCode} style={tw`w-7 h-7`} />
+        <CopyAble value={referralCode} style={tw`w-7 h-7`} textPosition="bottom" />
       </View>
     </View>
   )

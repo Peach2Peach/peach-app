@@ -98,9 +98,7 @@ exports[`SummaryItem should render correctly for really long IBANs 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -108,17 +106,16 @@ exports[`SummaryItem should render correctly for really long IBANs 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        [
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "flexShrink": 1,
-            "height": 16,
-            "justifyContent": "center",
-            "width": 16,
-          },
-          {},
-        ]
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "flexShrink": 1,
+          "height": 16,
+          "justifyContent": "center",
+          "opacity": 1,
+          "overflow": "visible",
+          "width": 16,
+        }
       }
     >
       <test-file-stub
