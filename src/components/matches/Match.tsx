@@ -6,12 +6,12 @@ import { isLimitReached } from '../../utils/match/isLimitReached'
 import { isBuyOffer } from '../../utils/offer/isBuyOffer'
 import { GradientBorder } from '../GradientBorder'
 import { PeachyGradient } from '../PeachyGradient'
+import { ProfileInfo } from '../ProfileInfo'
 import { HorizontalLine } from '../ui/HorizontalLine'
 import { MatchPaymentDetails } from './MatchPaymentDetails'
 import { MatchOfferButton, UnmatchButton } from './buttons'
 import { options } from './buttons/options'
 import { EscrowLink } from './components/EscrowLink'
-import { MatchCardCounterparty } from './components/MatchCardCounterparty'
 import { PriceInfo } from './components/PriceInfo'
 import { PaymentMethodSelector } from './components/selectors/PaymentMethodSelector'
 import { useInterruptibleFunction, useMatchOffer } from './hooks'
@@ -66,7 +66,7 @@ export const Match = ({ match, offer }: MatchProps) => {
       >
         <View style={tw`bg-primary-background-light rounded-t-xl`}>
           <View style={tw`gap-4 p-4`}>
-            <MatchCardCounterparty user={match.user} />
+            <ProfileInfo user={match.user} isOnMatchCard />
             <HorizontalLine />
             <PriceInfo {...{ match, offer }} />
             <HorizontalLine />

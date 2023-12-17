@@ -1,6 +1,6 @@
 import { TouchableOpacity, View } from 'react-native'
 import { Match } from '../../../peach-api/src/@types/match'
-import { horizontalBadgePadding } from '../../components/Badge'
+import { horizontalBadgePadding } from '../../components/InfoContainer'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { PeachyBackground } from '../../components/PeachyBackground'
 import { Screen } from '../../components/Screen'

@@ -1,4 +1,5 @@
 import { View, ViewStyle } from 'react-native'
+import { ProfileInfo } from '../../components/ProfileInfo'
 import { Screen } from '../../components/Screen'
 import { TouchableRedText } from '../../components/text/TouchableRedText'
 import { useRoute } from '../../hooks'
@@ -6,7 +7,6 @@ import { useUser } from '../../hooks/query/useUserQuery'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { AccountInfo } from '../settings/profile/accountInfo/AccountInfo'
-import { ProfileOverview } from './components'
 import { useBlockUser } from './useBlockUser'
 import { useUnblockUser } from './useUnblockUser'
 import { useUserStatus } from './useUserStatus'
@@ -19,7 +19,7 @@ export const PublicProfile = () => {
   return (
     <Screen header={i18n('profile.user.title')}>
       <View style={tw`gap-12 grow`}>
-        <ProfileOverview user={user} />
+        <ProfileInfo user={user} />
         <AccountInfo user={user} />
       </View>
       <BlockUser style={tw`self-center`} />

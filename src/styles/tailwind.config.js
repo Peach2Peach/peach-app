@@ -218,6 +218,7 @@ module.exports = {
         'subtitle-0': {
           fontFamily: 'Baloo2-SemiBold',
           fontSize: 20,
+          lineHeight: 28,
           letterSpacing: 0.2,
         },
         'subtitle-1': {

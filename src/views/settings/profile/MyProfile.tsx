@@ -1,6 +1,7 @@
 import { View } from 'react-native'
 import { Header } from '../../../components/Header'
 import { PeachScrollView } from '../../../components/PeachScrollView'
+import { ProfileInfo } from '../../../components/ProfileInfo'
 import { Screen } from '../../../components/Screen'
 import { TouchableRedText } from '../../../components/text/TouchableRedText'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
@@ -8,7 +9,6 @@ import { useShowHelp } from '../../../hooks/useShowHelp'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
-import { ProfileOverview } from '../../publicProfile/components'
 import { TradingLimits } from './TradingLimits'
 import { AccountInfo } from './accountInfo/AccountInfo'
 import { useDeleteAccountPopups } from './deleteAccount/useDeleteAccountPopups'
@@ -27,7 +27,7 @@ export const MyProfile = () => {
       <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`justify-between grow gap-7`}>
         <View style={tw`gap-12`}>
           <View style={tw`gap-6`}>
-            <ProfileOverview user={user} />
+            <ProfileInfo user={user} />
             <TradingLimits />
           </View>
           <AccountInfo user={user} />
