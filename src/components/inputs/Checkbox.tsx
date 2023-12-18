@@ -18,6 +18,6 @@ export const Checkbox = ({ checked, green, iconProps, style, text, ...wrapperPro
       {...iconProps}
       color={checked ? tw.color(green ? 'success-main' : 'primary-main') : tw.color('black-3')}
     />
-    {!!text && <PeachText style={[tw`subtitle-1`, !checked && tw`text-black-4`]}>{text}</PeachText>}
+    {!!text && <PeachText style={[tw`subtitle-1 shrink`, !checked && tw`text-black-4`]}>{text}</PeachText>}
   </TouchableOpacity>
 )

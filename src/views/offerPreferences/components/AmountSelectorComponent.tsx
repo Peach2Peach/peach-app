@@ -27,7 +27,7 @@ export function AmountSelectorComponent ({ setIsSliding, range: [min, max], setR
   return (
     <Section.Container style={tw`bg-success-mild-1`}>
       <Section.Title>amount to buy</Section.Title>
-      <View style={tw`flex-row items-center self-stretch gap-10px`}>
+      <View style={tw`flex-row items-center gap-10px`}>
         <BuyAmountInput type="min" minAmountDelta={minSliderDeltaAsAmount} range={[min, max]} setRange={setRange} />
         <PeachText style={tw`subtitle-1`}>-</PeachText>
         <BuyAmountInput type="max" minAmountDelta={minSliderDeltaAsAmount} range={[min, max]} setRange={setRange} />
