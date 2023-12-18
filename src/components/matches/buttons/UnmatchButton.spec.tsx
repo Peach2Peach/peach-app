@@ -19,7 +19,7 @@ const unmatchOfferMock = jest.spyOn(peachAPI.private.offer, 'unmatchOffer')
 
 describe('UnmatchButton', () => {
   const interruptMatching = jest.fn()
-  const showUnmatchedCard = jest.fn()
+  const setShowMatchedCard = jest.fn()
   const defaultProps = {
     match: {
       matched: true,
@@ -42,21 +42,12 @@ describe('UnmatchButton', () => {
       tradeStatus: 'searchingForPeer',
     } satisfies BuyOffer | SellOffer,
     interruptMatching,
-    showUnmatchedCard,
+    setShowMatchedCard,
   }
 
   beforeEach(() => {
-    queryClient.setQueryData(['matches', 'offerId'], {
-      pages: [
-        {
-          matches: [
-            {
-              matched: true,
-              offerId: 'offerId',
-            },
-          ],
-        },
-      ],
+    queryClient.setQueryData(['matchDetails', 'offerId', 'offerId'], {
+      matched: true,
     })
     usePopupStore.getState().setPopup(defaultPopupState.popupComponent)
   })
@@ -96,7 +87,7 @@ describe('UnmatchButton', () => {
     })
 
     expect(usePopupStore.getState().visible).toBeFalsy()
-    expect(showUnmatchedCard).not.toHaveBeenCalled()
+    expect(setShowMatchedCard).not.toHaveBeenCalled()
   })
   it('should unmatch and show confirmation popup when action2 is pressed', async () => {
     const { getByText } = render(<UnmatchButton {...defaultProps} />)
@@ -118,32 +109,13 @@ describe('UnmatchButton', () => {
       />,
     )
 
-    expect(showUnmatchedCard).toHaveBeenCalled()
+    expect(setShowMatchedCard).toHaveBeenCalled()
     expect(unmatchOfferMock).toHaveBeenCalledWith({ offerId: 'offerId', matchingOfferId: 'offerId' })
-    expect(queryClient.getQueryData(['matches', 'offerId'])).toStrictEqual({
-      pages: [
-        {
-          matches: [
-            {
-              matched: false,
-              offerId: 'offerId',
-            },
-          ],
-        },
-      ],
+    expect(queryClient.getQueryData(['matchDetails', 'offerId', 'offerId'])).toStrictEqual({
+      matched: false,
     })
   })
-  it('should call showUnmatchedCard when undo is pressed', async () => {
-    const { getAllByText } = render(
-      <UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />,
-    )
 
-    await act(() => {
-      fireEvent.press(getAllByText(i18n('search.undo'))[0])
-    })
-
-    expect(showUnmatchedCard).toHaveBeenCalled()
-  })
   it('should call interruptMatching when undo is pressed', async () => {
     const { getAllByText } = render(
       <UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />,

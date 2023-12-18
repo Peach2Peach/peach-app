@@ -1,5 +1,4 @@
 import { act, renderHook, responseUtils, waitFor } from 'test-utils'
-import { useMatchStore } from '../../../components/matches/store'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useOfferMatches } from './useOfferMatches'
 
@@ -84,9 +83,6 @@ describe('useOfferMatches', () => {
       expect(result.current.allMatches).toEqual([...firstPage, ...secondPage])
     })
 
-    act(() => {
-      useMatchStore.setState({ currentPage: 1 })
-    })
     await waitFor(() => {
       jest.advanceTimersByTime(1000 * 15)
     })
