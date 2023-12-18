@@ -84,6 +84,8 @@ function ExploreCard ({ match }: { match: Match }) {
     navigation.navigate('matchDetails', { matchId: match.offerId, offerId })
   }
 
+  const isNewUser = user.trades < 3
+
   return (
     <TouchableOpacity
       style={[
@@ -100,11 +102,11 @@ function ExploreCard ({ match }: { match: Match }) {
       )}
       <View style={tw`justify-center py-2 px-9px`}>
         <View style={[tw`flex-row items-center justify-between`, { paddingLeft: horizontalBadgePadding }]}>
-          <Rating rating={user.rating} />
+          <Rating rating={user.rating} isNewUser={isNewUser} />
           <BTCAmount amount={amount} size="small" />
         </View>
-        <View style={tw`flex-row items-center justify-between`}>
-          <Badges id={user.id} unlockedBadges={user.medals} />
+        <View style={[tw`flex-row items-center justify-between`, isNewUser && tw`justify-end`]}>
+          {!isNewUser && <Badges id={user.id} unlockedBadges={user.medals} />}
           <PeachText style={tw`text-center`}>
             <PriceFormat style={tw`tooltip`} currency={displayCurrency} amount={fiatPrice * (1 + premium / 100)} />
             <PeachText style={tw`text-black-2`}>
