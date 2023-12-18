@@ -55,5 +55,6 @@
   "offer.summary.withTheseMethods" : "avec ces méthodes de paiement :",
   "offer.summary.youAreBuying" : "vous souhaitez acheter entre",
   "offer.summary.youAreSelling" : "vous vendez",
-  "offer.summary.youWereSelling" : "vous vendiez"
+  "offer.summary.youWereSelling" : "vous vendiez",
+  "yourTrades.unknown" : "inconnu"
 }

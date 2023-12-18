@@ -56,5 +56,6 @@
   "offer.summary.withTheseMethods" : "met deze betalingsmogelijkheden:",
   "offer.summary.youAreBuying" : "je wil kopen tussen",
   "offer.summary.youAreSelling" : "je verkoopt",
-  "offer.summary.youWereSelling" : "jij was aan het verkopen"
+  "offer.summary.youWereSelling" : "jij was aan het verkopen",
+  "yourTrades.unknown" : "onbekend"
 }

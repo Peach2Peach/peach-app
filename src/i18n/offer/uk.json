@@ -56,5 +56,6 @@
   "offer.summary.withTheseMethods" : "слідуючими методами для оплати",
   "offer.summary.youAreBuying" : "ви бажаєте купити між",
   "offer.summary.youAreSelling" : "ви продаєте",
-  "offer.summary.youWereSelling" : "ви продавали"
+  "offer.summary.youWereSelling" : "ви продавали",
+  "yourTrades.unknown" : "невідомо"
 }

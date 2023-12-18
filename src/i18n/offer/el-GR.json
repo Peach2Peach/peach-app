@@ -55,5 +55,6 @@
   "offer.summary.withTheseMethods" : "με αυτές τις μεθόδους πληρωμής:",
   "offer.summary.youAreBuying" : "θέλετε να αγοράσετε ανάμεσα σε",
   "offer.summary.youAreSelling" : "πωλείτε",
-  "offer.summary.youWereSelling" : "πωλούσατε"
+  "offer.summary.youWereSelling" : "πωλούσατε",
+  "yourTrades.unknown" : "άγνωστο"
 }

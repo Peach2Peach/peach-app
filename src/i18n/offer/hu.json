@@ -56,5 +56,6 @@
   "offer.summary.withTheseMethods" : "ezekkel a fizetési módokkal:",
   "offer.summary.youAreBuying" : "ezek között szeretnél vásárolni",
   "offer.summary.youAreSelling" : "eladsz",
-  "offer.summary.youWereSelling" : "eladtál"
+  "offer.summary.youWereSelling" : "eladtál",
+  "yourTrades.unknown" : "ismeretlen"
 }

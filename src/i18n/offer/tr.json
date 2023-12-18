@@ -55,5 +55,6 @@
   "offer.summary.withTheseMethods" : "şu ödeme yöntemleri ile:",
   "offer.summary.youAreBuying" : "arasında satın almak istiyorsunuz",
   "offer.summary.youAreSelling" : "satıyorsunuz",
-  "offer.summary.youWereSelling" : "satıyordunuz"
+  "offer.summary.youWereSelling" : "satıyordunuz",
+  "yourTrades.unknown" : "bilinmeyen"
 }

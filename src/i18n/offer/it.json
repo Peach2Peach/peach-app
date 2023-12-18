@@ -55,5 +55,6 @@
   "offer.summary.withTheseMethods" : "Con questi metodi e valute:",
   "offer.summary.youAreBuying" : "Vuoi acquistare tra:",
   "offer.summary.youAreSelling" : "Stai vendendo:",
-  "offer.summary.youWereSelling" : "Stavi vendendo"
+  "offer.summary.youWereSelling" : "Stavi vendendo",
+  "yourTrades.unknown" : "sconosciuto"
 }
