@@ -6,7 +6,6 @@ exports[`Badge should render correctly 1`] = `
     [
       {
         "alignItems": "center",
-        "backgroundColor": "#FFFCFA",
         "borderRadius": 9999,
         "borderWidth": 1,
         "flexDirection": "row",
@@ -15,10 +14,9 @@ exports[`Badge should render correctly 1`] = `
         "paddingTop": 4,
       },
       {
-        "paddingHorizontal": 6,
-      },
-      {
+        "backgroundColor": "#FFFCFA",
         "borderColor": "#FCCCB6",
+        "paddingHorizontal": 6,
       },
     ]
   }
@@ -87,7 +85,6 @@ exports[`Badge should render correctly if badge is unlocked 1`] = `
     [
       {
         "alignItems": "center",
-        "backgroundColor": "#FFFCFA",
         "borderRadius": 9999,
         "borderWidth": 1,
         "flexDirection": "row",
@@ -96,10 +93,9 @@ exports[`Badge should render correctly if badge is unlocked 1`] = `
         "paddingTop": 4,
       },
       {
-        "paddingHorizontal": 6,
-      },
-      {
+        "backgroundColor": "#FFFCFA",
         "borderColor": "#F56522",
+        "paddingHorizontal": 6,
       },
     ]
   }

@@ -1,7 +1,6 @@
-import { TouchableOpacity, View } from 'react-native'
+import { FlatList, TouchableOpacity, View } from 'react-native'
 import { Match } from '../../../peach-api/src/@types/match'
-import { horizontalBadgePadding } from '../../components/Badge'
-import { PeachScrollView } from '../../components/PeachScrollView'
+import { horizontalBadgePadding } from '../../components/InfoContainer'
 import { PeachyBackground } from '../../components/PeachyBackground'
 import { Screen } from '../../components/Screen'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
@@ -24,16 +23,25 @@ import { Rating } from '../settings/profile/profileOverview/components'
 
 export function Explore () {
   const { offerId } = useRoute<'explore'>().params
-  const { allMatches: matches, isLoading } = useOfferMatches(offerId)
+  const { allMatches: matches, isLoading, fetchNextPage, refetch, isRefetching } = useOfferMatches(offerId)
   const hasMatches = matches.length > 0
   if (isLoading) return <LoadingScreen />
   return (
     <Screen header={<ExploreHeader />}>
       {hasMatches ? (
-        <PeachScrollView contentStyle={tw`gap-10px`}>
-          <BuyOfferMarketInfo />
-          <OfferSummaryCards />
-        </PeachScrollView>
+        <>
+          <FlatList
+            ListHeaderComponent={<BuyOfferMarketInfo />}
+            onRefresh={() => refetch()}
+            refreshing={isRefetching}
+            data={matches}
+            keyExtractor={(item) => item.offerId}
+            renderItem={({ item }) => <ExploreCard match={item} />}
+            onEndReachedThreshold={0.5}
+            onEndReached={() => fetchNextPage()}
+            contentContainerStyle={tw`gap-10px`}
+          />
+        </>
       ) : (
         <View style={tw`items-center justify-center flex-1 gap-4`}>
           <BuyOfferMarketInfo />
@@ -63,18 +71,6 @@ function BuyOfferMarketInfo () {
   )
 }
 
-function OfferSummaryCards () {
-  const { offerId } = useRoute<'explore'>().params
-  const { allMatches: matches } = useOfferMatches(offerId)
-  return (
-    <>
-      {matches.map((match, index) => (
-        <ExploreCard key={match.offerId} match={matches[index]} />
-      ))}
-    </>
-  )
-}
-
 function ExploreCard ({ match }: { match: Match }) {
   const { matched, amount, user, premium, instantTrade } = match
   const { fiatPrice, displayCurrency } = useBitcoinPrices(amount)
@@ -83,6 +79,8 @@ function ExploreCard ({ match }: { match: Match }) {
   const onPress = () => {
     navigation.navigate('matchDetails', { matchId: match.offerId, offerId })
   }
+
+  const isNewUser = user.trades < 3
 
   return (
     <TouchableOpacity
@@ -100,11 +98,11 @@ function ExploreCard ({ match }: { match: Match }) {
       )}
       <View style={tw`justify-center py-2 px-9px`}>
         <View style={[tw`flex-row items-center justify-between`, { paddingLeft: horizontalBadgePadding }]}>
-          <Rating rating={user.rating} />
+          <Rating rating={user.rating} isNewUser={isNewUser} />
           <BTCAmount amount={amount} size="small" />
         </View>
-        <View style={tw`flex-row items-center justify-between`}>
-          <Badges id={user.id} unlockedBadges={user.medals} />
+        <View style={[tw`flex-row items-center justify-between`, isNewUser && tw`justify-end`]}>
+          {!isNewUser && <Badges id={user.id} unlockedBadges={user.medals} />}
           <PeachText style={tw`text-center`}>
             <PriceFormat style={tw`tooltip`} currency={displayCurrency} amount={fiatPrice * (1 + premium / 100)} />
             <PeachText style={tw`text-black-2`}>

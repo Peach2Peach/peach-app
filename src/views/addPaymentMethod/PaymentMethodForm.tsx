@@ -16,6 +16,7 @@ import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
+import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
 import { FormInput } from './FormInput'
 import { LabelInput } from './LabelInput'
 import { TabbedFormNavigation } from './TabbedFormNavigation'
@@ -52,9 +53,12 @@ export const PaymentMethodForm = () => {
       country,
     } satisfies PaymentData
 
-    addPaymentData(test)
-    selectPaymentMethod(test.id)
-    goBackTo(origin)
+    const dataIsValid = isValidPaymentData(test)
+    if (dataIsValid) {
+      addPaymentData(test)
+      selectPaymentMethod(test.id)
+      goBackTo(origin)
+    }
   }
 
   return (

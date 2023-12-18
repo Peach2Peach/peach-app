@@ -1,11 +1,37 @@
+/* eslint-disable max-lines */
 import { useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
-import { shallow } from 'zustand/shallow'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Animated, View } from 'react-native'
+import { Match as MatchType } from '../../../peach-api/src/@types/match'
+import { GradientBorder } from '../../components/GradientBorder'
+import { Header } from '../../components/Header'
+import { PeachyGradient } from '../../components/PeachyGradient'
+import { ProfileInfo } from '../../components/ProfileInfo'
 import { Screen } from '../../components/Screen'
-import { Match } from '../../components/matches/Match'
-import { useMatchStore } from '../../components/matches/store'
-import { useRoute } from '../../hooks'
+import { Button } from '../../components/buttons/Button'
+import { ConfirmSlider } from '../../components/inputs'
+import { UnlockedSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
+import { UnmatchButton } from '../../components/matches/buttons/UnmatchButton'
+import { options } from '../../components/matches/buttons/options'
+import { EscrowLink } from '../../components/matches/components/EscrowLink'
+import { PaymentMethodSelector } from '../../components/matches/components/PaymentMethodSelector'
+import { PriceInfo } from '../../components/matches/components/PriceInfo'
+import { useInterruptibleFunction } from '../../components/matches/hooks/useInterruptibleFunction'
+import { useMatchAsBuyer } from '../../components/matches/hooks/useMatchAsBuyer'
+import { getMatchPrice } from '../../components/matches/utils/getMatchPrice'
+import { PeachText } from '../../components/text/PeachText'
+import { HorizontalLine } from '../../components/ui/HorizontalLine'
+import { SATSINBTC } from '../../constants'
+import { useMarketPrices, useRoute } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
+import tw from '../../styles/tailwind'
+import { isLimitReached } from '../../utils/match/isLimitReached'
+import { round } from '../../utils/math/round'
+import { keys } from '../../utils/object/keys'
+import { isBuyOffer } from '../../utils/offer/isBuyOffer'
+import { getPaymentMethods } from '../../utils/paymentMethod/getPaymentMethods'
+import { paymentMethodAllowedForCurrency } from '../../utils/paymentMethod/paymentMethodAllowedForCurrency'
 import { peachAPI } from '../../utils/peachAPI'
 import { LoadingScreen } from '../loading/LoadingScreen'
 
@@ -15,24 +41,16 @@ export function MatchDetails () {
   const { data: match } = useMatchDetails({ offerId, matchId })
   const { offer } = useOfferDetails(offerId)
 
-  const [addMatchSelectors, resetStore] = useMatchStore((state) => [state.addMatchSelectors, state.resetStore], shallow)
-
-  useEffect(() => {
-    if (offer?.meansOfPayment) addMatchSelectors(match ? [match] : [], offer.meansOfPayment)
-  }, [addMatchSelectors, match, offer?.meansOfPayment])
-
-  useEffect(
-    () => () => {
-      resetStore()
-    },
-    [resetStore],
-  )
-  if (!offer || !match) return <LoadingScreen />
+  if (!offer || !isBuyOffer(offer) || !match) return <LoadingScreen />
   return (
-    <Screen showTradingLimit>
+    <Screen showTradingLimit header={<MatchDetailsHeader />}>
       <Match match={match} offer={offer} />
     </Screen>
   )
+}
+
+function MatchDetailsHeader () {
+  return <Header title="match details" />
 }
 
 function useMatchDetails ({ offerId, matchId }: { offerId: string; matchId: string }) {
@@ -45,4 +63,253 @@ function useMatchDetails ({ offerId, matchId }: { offerId: string; matchId: stri
       return result
     },
   })
+}
+
+const MATCH_DELAY = 5000
+function Match ({ match, offer }: { match: MatchType; offer: BuyOffer }) {
+  const { mutate } = useMatchAsBuyer(offer, match)
+  const { meansOfPayment } = match
+
+  const availableCurrencies = keys(meansOfPayment)
+  const allPaymentMethods = getPaymentMethods(meansOfPayment)
+  const [selectedCurrency, setSelectedCurrency] = useState(availableCurrencies[0])
+
+  const allMethodsForCurrency = allPaymentMethods.filter((p) => paymentMethodAllowedForCurrency(p, selectedCurrency))
+  const paymentData = usePaymentDataStore((state) => state.getPaymentDataArray())
+  const dataForCurrency = paymentData.filter((d) => allMethodsForCurrency.includes(d.type))
+  const defaultData = dataForCurrency.length === 1 ? dataForCurrency[0] : undefined
+  const [selectedPaymentData, setSelectedPaymentData] = useState(defaultData)
+
+  const [showMatchedCard, setShowMatchedCard] = useState(match.matched)
+  const isMatched = match.matched || showMatchedCard
+
+  const matchOffer = () =>
+    mutate({ selectedCurrency, paymentData: selectedPaymentData }, { onError: () => setShowMatchedCard(false) })
+  const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } = useInterruptibleFunction(() => {
+    matchOffer()
+  }, MATCH_DELAY)
+  const onInterruptMatch = () => {
+    interruptMatchFunction()
+    setShowMatchedCard(false)
+  }
+
+  const onMatchPress = () => {
+    setShowMatchedCard(true)
+    matchFunction()
+  }
+
+  const [showPaymentMethodPulse, setShowPaymentMethodPulse] = useState(false)
+
+  const tradingLimitReached = isLimitReached(match.unavailable.exceedsLimit || [], selectedPaymentData?.type)
+
+  const currentOptionName = useMemo(
+    () =>
+      isMatched
+        ? 'offerMatched'
+        : tradingLimitReached
+          ? 'tradingLimitReached'
+          : !selectedPaymentData
+            ? 'missingSelection'
+            : 'matchOffer',
+    [isMatched, selectedPaymentData, tradingLimitReached],
+  )
+  return (
+    <>
+      <View style={tw`justify-center flex-1`}>
+        <GradientBorder
+          gradientBorderWidth={4}
+          showBorder={isMatched}
+          style={[tw`overflow-hidden rounded-2xl`, options[currentOptionName].backgroundColor]}
+          onStartShouldSetResponder={() => true}
+        >
+          <View style={tw`bg-primary-background-light rounded-xl`}>
+            <View style={tw`gap-4 p-4`}>
+              <ProfileInfo user={match.user} isOnMatchCard />
+
+              <HorizontalLine />
+
+              <BuyerPriceInfo
+                match={match}
+                selectedCurrency={selectedCurrency}
+                selectedPaymentMethod={selectedPaymentData?.type || allMethodsForCurrency[0]}
+              />
+
+              <HorizontalLine />
+
+              <PaymentMethodSelector
+                match={match}
+                disabled={currentOptionName === 'tradingLimitReached'}
+                selectedCurrency={selectedCurrency}
+                setSelectedCurrency={setSelectedCurrency}
+                selectedPaymentData={selectedPaymentData}
+                setSelectedPaymentData={setSelectedPaymentData}
+                showPaymentMethodPulse={showPaymentMethodPulse}
+              />
+
+              <HorizontalLine />
+
+              <EscrowLink address={match.escrow || ''} />
+            </View>
+            {isMatched && (
+              <>
+                <View
+                  style={tw`absolute top-0 left-0 w-full h-full overflow-hidden opacity-75 rounded-t-xl`}
+                  pointerEvents="none"
+                >
+                  <PeachyGradient />
+                </View>
+                <View
+                  style={tw`absolute top-0 left-0 items-center justify-center w-full h-full`}
+                  pointerEvents="box-none"
+                >
+                  <UnmatchButton
+                    {...{ match, offer }}
+                    interruptMatching={onInterruptMatch}
+                    setShowMatchedCard={setShowMatchedCard}
+                  />
+                </View>
+              </>
+            )}
+          </View>
+        </GradientBorder>
+      </View>
+      {match.instantTrade ? (
+        <InstantTradeSlider matchOffer={matchOffer} optionName={currentOptionName} />
+      ) : (
+        <MatchOfferButton
+          matchOffer={onMatchPress}
+          optionName={currentOptionName}
+          setShowPaymentMethodPulse={setShowPaymentMethodPulse}
+        />
+      )}
+    </>
+  )
+}
+
+type Props = {
+  matchOffer: () => void
+  optionName: keyof typeof options
+  setShowPaymentMethodPulse: (showPulse: boolean) => void
+}
+
+function InstantTradeSlider ({ matchOffer, optionName }: { matchOffer: () => void; optionName: keyof typeof options }) {
+  const label
+    = optionName === 'missingSelection'
+      ? 'select payment method'
+      : optionName === 'tradingLimitReached'
+        ? 'trading limit reached'
+        : 'instant trade'
+
+  const [showUnlockedSlider, setShowUnlockedSlider] = useState(false)
+
+  const onConfirm = () => {
+    setShowUnlockedSlider(true)
+    matchOffer()
+  }
+
+  if (optionName === 'offerMatched' && showUnlockedSlider) return <UnlockedSlider label={label} />
+
+  return <ConfirmSlider label1={label} onConfirm={onConfirm} enabled={optionName === 'matchOffer'} />
+}
+
+function MatchOfferButton ({ matchOffer, optionName, setShowPaymentMethodPulse }: Props) {
+  const onPress = () => {
+    if (optionName === 'matchOffer') {
+      matchOffer()
+    } else if (optionName === 'missingSelection') {
+      setShowPaymentMethodPulse(true)
+    }
+  }
+
+  if (optionName === 'offerMatched') return <WaitingForSeller />
+
+  return (
+    <Button
+      style={[
+        tw`flex-row items-center self-center justify-center py-2 gap-10px`,
+        tw`bg-success-main`,
+        optionName === 'missingSelection' && tw`bg-success-mild-2`,
+        optionName === 'tradingLimitReached' && tw`bg-black-3`,
+      ]}
+      onPress={onPress}
+    >
+      {optionName === 'tradingLimitReached' ? 'trading limit reached' : 'request trade'}
+    </Button>
+  )
+}
+
+function WaitingForSeller () {
+  return (
+    <View style={tw`items-center self-center`}>
+      <PeachText style={tw`text-primary-main subtitle-1`}>trade requested</PeachText>
+      <View style={tw`flex-row items-center justify-center`}>
+        <PeachText style={tw`text-primary-main subtitle-1`}>waiting for seller</PeachText>
+        <AnimatedButtons />
+      </View>
+    </View>
+  )
+}
+
+const DOT_DELAY = 200
+const NUMBER_OF_DOTS = 3
+const inputRange = [0, 1 / 3, 2 / 3, 1]
+function AnimatedButtons () {
+  const opacity = useRef(new Animated.Value(0)).current
+
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(opacity, {
+          toValue: 1,
+          duration: DOT_DELAY * NUMBER_OF_DOTS,
+          useNativeDriver: true,
+        }),
+        Animated.delay(DOT_DELAY),
+        Animated.timing(opacity, {
+          toValue: 0,
+          duration: 0,
+          useNativeDriver: true,
+        }),
+      ]),
+    )
+    loop.start()
+    return () => loop.stop()
+  }, [opacity])
+
+  const dots = Array.from({ length: NUMBER_OF_DOTS }, (_, index) => (
+    <Animated.View
+      key={index}
+      style={{
+        opacity: opacity.interpolate({
+          inputRange,
+          outputRange: Array.from({ length: NUMBER_OF_DOTS + 1 }, (_e, i) => (i > index ? 1 : 0)),
+        }),
+      }}
+    >
+      <PeachText style={tw`text-primary-main subtitle-1`}>.</PeachText>
+    </Animated.View>
+  ))
+
+  return <View style={tw`flex-row items-center justify-center`}>{dots}</View>
+}
+
+type PriceInfoProps = {
+  match: Match
+  selectedCurrency: Currency
+  selectedPaymentMethod: PaymentMethod
+}
+
+function BuyerPriceInfo ({ match, selectedCurrency, selectedPaymentMethod }: PriceInfoProps) {
+  const { data: priceBook, isSuccess } = useMarketPrices()
+
+  const amountInBTC = match.amount / SATSINBTC
+  const displayPrice = getMatchPrice(match, selectedPaymentMethod, selectedCurrency)
+
+  const bitcoinPrice = priceBook?.[selectedCurrency] ?? amountInBTC / displayPrice
+
+  const marketPrice = amountInBTC * bitcoinPrice
+
+  const premium = match.matched ? (isSuccess ? round((displayPrice / marketPrice - 1) * 100, 2) : 0) : match.premium
+
+  return <PriceInfo amount={match.amount} price={displayPrice} currency={selectedCurrency} premium={premium} />
 }

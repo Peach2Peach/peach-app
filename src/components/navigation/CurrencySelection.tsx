@@ -5,10 +5,10 @@ import { PeachText } from '../text/PeachText'
 type CurrencySelectionItemProps = ComponentProps & {
   currency: Currency
   isSelected: boolean
-  onPress: (currency: Currency) => void
+  onPress?: (currency: Currency) => void
 }
 const CurrencySelectionItem = ({ currency, isSelected, onPress, style }: CurrencySelectionItemProps) => (
-  <Pressable style={style} onPress={() => onPress(currency)}>
+  <Pressable style={style} onPress={onPress ? () => onPress(currency) : undefined}>
     <PeachText numberOfLines={1} style={[tw`text-center button-large text-black-2`, isSelected && tw`text-black-1`]}>
       {currency}
     </PeachText>
@@ -21,7 +21,7 @@ const ItemSeparator = ({ style }: ComponentProps) => <View style={[tw`w-px h-4 b
 type Props = ComponentProps & {
   currencies: Currency[]
   selected: Currency
-  select: (currency: Currency) => void
+  select?: (currency: Currency) => void
 }
 
 export const CurrencySelection = ({ currencies, selected, select, style }: Props) => (

@@ -20,7 +20,13 @@ const isForbiddenPaymentMethodError = (
 ): errorDetails is PaymentMethod[] =>
   errorMessage === 'FORBIDDEN' && Array.isArray(errorDetails) && errorDetails.every(isPaymentMethod)
 
-export function usePublishOffer (offerDraft: BuyOfferDraft) {
+export function usePublishBuyOffer ({
+  amount,
+  meansOfPayment,
+  paymentData,
+  maxPremium,
+  minReputation,
+}: Pick<BuyOfferDraft, 'amount' | 'meansOfPayment' | 'paymentData' | 'maxPremium' | 'minReputation'>) {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
   const hasSeenGroupHugAnnouncement = useConfigStore((state) => state.hasSeenGroupHugAnnouncement)
@@ -37,7 +43,17 @@ export function usePublishOffer (offerDraft: BuyOfferDraft) {
       const messageSignature = peachWallet.signMessage(message, releaseAddress, index)
 
       if (!isValidBitcoinSignature(message, releaseAddress, messageSignature)) throw new Error('INAVLID_SIGNATURE')
-      const finalizedOfferDraft = { ...offerDraft, releaseAddress, message, messageSignature }
+      const finalizedOfferDraft = {
+        type: 'bid' as const,
+        amount,
+        meansOfPayment,
+        paymentData,
+        maxPremium,
+        minReputation,
+        releaseAddress,
+        message,
+        messageSignature,
+      }
 
       let { result, error: err } = await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft)
 

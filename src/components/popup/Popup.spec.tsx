@@ -1,7 +1,7 @@
-import { createRenderer } from 'react-test-renderer/shallow'
-import { Popup } from './Popup'
-import { usePopupStore } from '../../store/usePopupStore'
 import { Text } from 'react-native'
+import { createRenderer } from 'react-test-renderer/shallow'
+import { usePopupStore } from '../../store/usePopupStore'
+import { Popup } from './Popup'
 
 describe('Popup', () => {
   const renderer = createRenderer()

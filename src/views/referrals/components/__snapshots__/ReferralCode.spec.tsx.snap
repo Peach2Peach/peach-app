@@ -88,9 +88,7 @@ exports[`ReferralCode should render component correctly 1`] = `
         accessible={true}
         collapsable={false}
         focusable={true}
-        onBlur={[Function]}
         onClick={[Function]}
-        onFocus={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
         onResponderRelease={[Function]}
@@ -98,20 +96,16 @@ exports[`ReferralCode should render component correctly 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          [
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "flexShrink": 1,
-              "height": 16,
-              "justifyContent": "center",
-              "width": 16,
-            },
-            {
-              "height": 28,
-              "width": 28,
-            },
-          ]
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "flexShrink": 1,
+            "height": 28,
+            "justifyContent": "center",
+            "opacity": 1,
+            "overflow": "visible",
+            "width": 28,
+          }
         }
       >
         <test-file-stub
@@ -133,10 +127,10 @@ exports[`ReferralCode should render component correctly 1`] = `
           collapsable={false}
           style={
             {
-              "bottom": "100%",
-              "marginBottom": 4,
+              "marginTop": 4,
               "opacity": 0,
               "position": "absolute",
+              "top": "100%",
             }
           }
         >
@@ -255,9 +249,7 @@ exports[`ReferralCode should render component correctly 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -265,20 +257,16 @@ exports[`ReferralCode should render component correctly 1`] = `
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
       style={
-        [
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "flexShrink": 1,
-            "height": 16,
-            "justifyContent": "center",
-            "width": 16,
-          },
-          {
-            "height": 28,
-            "width": 28,
-          },
-        ]
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "flexShrink": 1,
+          "height": 28,
+          "justifyContent": "center",
+          "opacity": 1,
+          "overflow": "visible",
+          "width": 28,
+        }
       }
     >
       <test-file-stub

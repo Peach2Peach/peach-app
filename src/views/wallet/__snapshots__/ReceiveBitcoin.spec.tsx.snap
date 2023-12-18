@@ -652,9 +652,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                 accessible={true}
                 collapsable={false}
                 focusable={true}
-                onBlur={[Function]}
                 onClick={[Function]}
-                onFocus={[Function]}
                 onResponderGrant={[Function]}
                 onResponderMove={[Function]}
                 onResponderRelease={[Function]}
@@ -662,20 +660,16 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                 onResponderTerminationRequest={[Function]}
                 onStartShouldSetResponder={[Function]}
                 style={
-                  [
-                    {
-                      "alignItems": "center",
-                      "flexDirection": "row",
-                      "flexShrink": 1,
-                      "height": 16,
-                      "justifyContent": "center",
-                      "width": 16,
-                    },
-                    {
-                      "height": 24,
-                      "width": 24,
-                    },
-                  ]
+                  {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "flexShrink": 1,
+                    "height": 24,
+                    "justifyContent": "center",
+                    "opacity": 1,
+                    "overflow": "visible",
+                    "width": 24,
+                  }
                 }
               >
                 <test-file-stub

@@ -1,7 +1,10 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook, waitFor } from 'test-utils'
+import { PopupAction } from '../../../components/popup'
+import { WarningPopup } from '../../../popups/WarningPopup'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
+import tw from '../../../styles/tailwind'
 import { NotificationPopup } from '../components/NotificationPopup'
 import { useSettingsSetup } from './useSettingsSetup'
 
@@ -93,22 +96,29 @@ describe('useSettingsSetup', () => {
       = typeof notificationItem !== 'string' && 'onPress' in notificationItem ? notificationItem.onPress : () => null
 
     act(notificationClick)
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: 'turn off notifications?',
-      content: <NotificationPopup />,
-      visible: true,
-      level: 'WARN',
-      action2: {
-        callback: expect.any(Function),
-        label: 'no, keep them on',
-        icon: 'arrowLeftCircle',
-      },
-      action1: {
-        callback: expect.any(Function),
-        label: 'yes, turn off',
-        icon: 'slash',
-      },
-    })
+    expect(usePopupStore.getState().visible).toBe(true)
+    expect(usePopupStore.getState().popupComponent).toEqual(
+      <WarningPopup
+        title="turn off notifications?"
+        content={<NotificationPopup />}
+        actions={
+          <>
+            <PopupAction
+              label="no, keep them on"
+              iconId="arrowLeftCircle"
+              onPress={expect.any(Function)}
+              textStyle={tw`text-black-1`}
+            />
+            <PopupAction
+              label="yes, turn off"
+              iconId="slash"
+              onPress={expect.any(Function)}
+              textStyle={tw`text-black-1`}
+              reverseOrder
+            />
+          </>
+        }
+      />,
+    )
   })
 })

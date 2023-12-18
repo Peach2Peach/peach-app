@@ -36,6 +36,7 @@ import { round } from '../../utils/math/round'
 import { keys } from '../../utils/object/keys'
 import { defaultFundingStatus } from '../../utils/offer/constants'
 import { cleanPaymentData } from '../../utils/paymentMethod/cleanPaymentData'
+import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
 import { peachAPI } from '../../utils/peachAPI'
 import { signAndEncrypt } from '../../utils/pgp/signAndEncrypt'
 import { priceFormat } from '../../utils/string/priceFormat'
@@ -450,7 +451,6 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
 
   const priceIsWithinLimits
     = priceWithPremium + limits.dailyAmount <= limits.daily && priceWithPremium + limits.yearlyAmount <= limits.yearly
-  const paymentMethodsAreValid = true
 
   const [peachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
     (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel],
@@ -469,6 +469,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
     }),
     shallow,
   )
+  const paymentMethodsAreValid = sellPreferences.originalPaymentData.every(isValidPaymentData)
   const formValid
     = sellAmountIsValid && priceIsWithinLimits && paymentMethodsAreValid && !!sellPreferences.originalPaymentData.length
   const navigation = useNavigation()
@@ -508,6 +509,22 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
 
   const onPress = async () => {
     if (isPublishing) return
+    if (!formValid) {
+      let errorMessage
+      if (!sellAmountIsValid) {
+        errorMessage = `Amount must be between ${amountRange[0]} and ${amountRange[1]} sats`
+      } else if (!priceIsWithinLimits) {
+        errorMessage = 'Amount exceeds your trading limits'
+      } else if (!paymentMethodsAreValid) {
+        errorMessage = 'Please add a valid payment method'
+      } else if (!sellPreferences.originalPaymentData.length) {
+        errorMessage = 'Please add a payment method'
+      } else {
+        errorMessage = 'Something went wrong'
+      }
+      showErrorBanner(errorMessage)
+      return
+    }
     setIsPublishing(true)
     const { address } = peachWalletActive ? await peachWallet.getAddress() : { address: payoutAddress }
     if (!address) {
@@ -567,7 +584,11 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
   }
 
   return (
-    <Button style={tw`self-center px-5 py-3 min-w-166px`} onPress={onPress} disabled={!formValid} loading={isPublishing}>
+    <Button
+      style={[tw`self-center px-5 py-3 min-w-166px`, !formValid && tw`bg-primary-mild-1`]}
+      onPress={onPress}
+      loading={isPublishing}
+    >
       Fund Escrow
     </Button>
   )

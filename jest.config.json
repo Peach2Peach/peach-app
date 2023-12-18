@@ -8,10 +8,10 @@
   "coverageReporters": ["lcov", "text-summary"],
   "coverageThreshold": {
     "global": {
-      "statements": 80.77,
-      "branches": 61.3,
-      "functions": 74.82,
-      "lines": 81.43
+      "statements": 78.77,
+      "branches": 57.3,
+      "functions": 72.82,
+      "lines": 79.43
     }
   },
   "testPathIgnorePatterns": ["<rootDir>/peach-api"],

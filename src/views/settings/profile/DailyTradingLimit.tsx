@@ -11,7 +11,7 @@ export const DailyTradingLimit = () => {
 
   return (
     <View>
-      <TradingLimitAmount {...{ amount, limit, displayCurrency }} style={tw`self-center mt-1`} type="daily" />
+      <TradingLimitAmount {...{ amount, limit, displayCurrency }} style={tw`self-center`} type="daily" />
       <Progress
         style={tw`h-1 rounded-none`}
         percent={amount / limit}

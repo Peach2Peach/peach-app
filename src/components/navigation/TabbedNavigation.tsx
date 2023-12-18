@@ -1,6 +1,6 @@
 import { Pressable, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
-import { PulsingText } from '../matches/components/selectors/PulsingText'
+import { PulsingText } from '../matches/components/PulsingText'
 import { PeachText } from '../text/PeachText'
 
 export const themes = {

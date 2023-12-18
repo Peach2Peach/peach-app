@@ -1,23 +1,23 @@
 import { View } from 'react-native'
+import { Currency } from '../../../../peach-api/src/@types/global'
 import tw from '../../../styles/tailwind'
 import { BTCAmount } from '../../bitcoin/btcAmount/BTCAmount'
 import { PeachText } from '../../text/PeachText'
 import { PriceFormat } from '../../text/PriceFormat'
-import { useMatchPriceData } from '../hooks'
 import { PremiumText } from './PremiumText'
 
 type Props = {
-  match: Match
-  offer: BuyOffer | SellOffer
+  amount: number
+  price: number
+  currency: Currency
+  premium: number
 }
-
-export const PriceInfo = ({ match, offer }: Props) => {
-  const { premium, displayPrice, selectedCurrency } = useMatchPriceData(match, offer)
+export function PriceInfo ({ amount, price, currency, premium }: Props) {
   return (
     <View style={tw`items-center gap-2`}>
-      <BTCAmount amount={match.amount} size="medium" />
+      <BTCAmount amount={amount} size="medium" />
       <PeachText style={tw`text-center`}>
-        <PriceFormat style={tw`body-l subtitle-1`} currency={selectedCurrency} amount={displayPrice} />
+        <PriceFormat style={tw`subtitle-1`} currency={currency} amount={price} />
         <PremiumText premium={premium} />
       </PeachText>
     </View>
