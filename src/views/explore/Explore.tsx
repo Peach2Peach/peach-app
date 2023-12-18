@@ -23,7 +23,7 @@ import { Rating } from '../settings/profile/profileOverview/components'
 
 export function Explore () {
   const { offerId } = useRoute<'explore'>().params
-  const { allMatches: matches, isLoading, fetchNextPage, refetch, isRefetching } = useOfferMatches(offerId)
+  const { allMatches: matches, isLoading, fetchNextPage } = useOfferMatches(offerId)
   const hasMatches = matches.length > 0
   if (isLoading) return <LoadingScreen />
   return (
@@ -32,8 +32,6 @@ export function Explore () {
         <>
           <FlatList
             ListHeaderComponent={<BuyOfferMarketInfo />}
-            onRefresh={() => refetch()}
-            refreshing={isRefetching}
             data={matches}
             keyExtractor={(item) => item.offerId}
             renderItem={({ item }) => <ExploreCard match={item} />}
