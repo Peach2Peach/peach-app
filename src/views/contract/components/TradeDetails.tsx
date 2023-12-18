@@ -1,10 +1,13 @@
 import { Fragment } from 'react'
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
+import { TouchableIcon } from '../../../components/TouchableIcon'
 import { Toggle } from '../../../components/inputs'
+import { PeachText } from '../../../components/text/PeachText'
 import { ErrorBox } from '../../../components/ui/ErrorBox'
 import { HorizontalLine } from '../../../components/ui/HorizontalLine'
 import { useNavigation } from '../../../hooks'
+import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useIsMyAddress } from '../../../hooks/wallet/useIsMyAddress'
 import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'
@@ -44,6 +47,7 @@ export const TradeDetails = () => {
         <>
           <HorizontalLine />
           <ChangePayoutWallet />
+          {!contract.paymentConfirmed && <NetworkFee />}
         </>
       )}
       {!paymentData && isDecryptionError && (
@@ -125,6 +129,31 @@ function ChangePayoutWallet () {
         />
       )}
     </>
+  )
+}
+
+function NetworkFee () {
+  const navigation = useNavigation()
+  const { estimatedFees } = useFeeEstimate()
+  const feeRate = useSettingsStore((state) => state.feeRate)
+  const onPress = () => {
+    navigation.navigate('networkFees')
+  }
+
+  const displayFeeRate = String(typeof feeRate === 'number' ? feeRate : estimatedFees[feeRate])
+
+  return (
+    <SummaryItem
+      label={'network fees'}
+      value={
+        <View style={tw`flex-row items-center justify-end flex-1 gap-10px`}>
+          <PeachText style={[tw`flex-1 text-right subtitle-1`, tw`md:subtitle-0`]}>
+            {i18n('settings.networkFees.xSatsPerByte', displayFeeRate)}
+          </PeachText>
+          <TouchableIcon id="bitcoin" onPress={onPress} iconColor={tw.color('primary-main')} />
+        </View>
+      }
+    />
   )
 }
 
