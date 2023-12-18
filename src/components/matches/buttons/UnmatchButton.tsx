@@ -11,7 +11,7 @@ import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { Button } from '../../buttons/Button'
 import { PopupAction } from '../../popup'
-import { useUnmatchOffer } from '../hooks'
+import { useUnmatchOffer } from '../hooks/useUnmatchOffer'
 import { UndoButton } from './UndoButton'
 
 type Props = {

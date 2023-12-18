@@ -14,7 +14,7 @@ export const useUnmatchOffer = (offer: BuyOffer | SellOffer, matchingOfferId: st
       await queryClient.cancelQueries({ queryKey: ['matches', offer.id] })
       const previousData = queryClient.getQueryData<GetMatchesResponseBody>(['matches', offer.id])
       queryClient.setQueryData(['matches', offer.id], (oldQueryData: InfiniteData<GetMatchesResponseBody> | undefined) =>
-        updateMatchedStatus(false, oldQueryData, matchingOfferId, offer, currentPage),
+        updateMatchedStatus(false, oldQueryData, matchingOfferId, currentPage),
       )
       return { previousData }
     },

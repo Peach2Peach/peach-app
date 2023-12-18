@@ -5,7 +5,6 @@ export const updateMatchedStatus = (
   isMatched: boolean,
   oldQueryData: InfiniteData<GetMatchesResponseBody> | undefined,
   matchingOfferId: string,
-  offer: BuyOffer | SellOffer,
   currentPage: number,
   // eslint-disable-next-line max-params
 ) => {

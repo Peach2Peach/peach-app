@@ -2,19 +2,16 @@ import { useEffect } from 'react'
 import { View, useWindowDimensions } from 'react-native'
 import Carousel from 'react-native-reanimated-carousel'
 import { useIsMediumScreen, useRoute } from '../../hooks'
-import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import tw from '../../styles/tailwind'
-import { isSellOffer } from '../../utils/offer/isSellOffer'
 import { MatchInformation } from '../../views/search/components/MatchInformation'
 import { useOfferMatches } from '../../views/search/hooks'
 import { Match } from './Match'
 import { useMatchStore } from './store'
 
-export const Matches = () => {
+export const Matches = ({ offer }: { offer: SellOffer }) => {
   const { width } = useWindowDimensions()
   const isMediumScreen = useIsMediumScreen()
   const { offerId } = useRoute<'search'>().params
-  const { offer } = useOfferDetails(offerId)
   const { allMatches: matches, fetchNextPage, hasNextPage } = useOfferMatches(offerId)
 
   const setCurrentPage = useMatchStore((state) => state.setCurrentPage)
@@ -29,11 +26,10 @@ export const Matches = () => {
     setCurrentPage(Math.floor(newIndex / 10))
     if (newIndex === matches.length - 1 && hasNextPage) fetchNextPage()
   }
-  if (!offer) return <></>
 
   return (
     <View style={tw`h-full`}>
-      {isSellOffer(offer) && <MatchInformation offer={offer} />}
+      <MatchInformation offer={offer} />
       <View style={tw`shrink`}>
         <Carousel
           {...{ width, onSnapToItem }}

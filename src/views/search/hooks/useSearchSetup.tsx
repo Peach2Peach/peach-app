@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { shallow } from 'zustand/shallow'
 import { useMatchStore } from '../../../components/matches/store'
 import { useMessageState } from '../../../components/message/useMessageState'
 import { useNavigation, useRoute } from '../../../hooks'
@@ -17,11 +16,7 @@ export const useSearchSetup = () => {
   const updateMessage = useMessageState((state) => state.updateMessage)
   const { offer } = useOfferDetails(offerId)
 
-  const [addMatchSelectors, resetStore] = useMatchStore((state) => [state.addMatchSelectors, state.resetStore], shallow)
-
-  useEffect(() => {
-    if (offer?.meansOfPayment) addMatchSelectors(matches, offer.meansOfPayment)
-  }, [addMatchSelectors, matches, offer?.meansOfPayment])
+  const resetStore = useMatchStore((state) => state.resetStore)
 
   useEffect(
     () => () => {
