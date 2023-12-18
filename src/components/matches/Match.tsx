@@ -15,6 +15,7 @@ import { round } from '../../utils/math/round'
 import { saveOffer } from '../../utils/offer/saveOffer'
 import { cleanPaymentData } from '../../utils/paymentMethod/cleanPaymentData'
 import { encryptPaymentData } from '../../utils/paymentMethod/encryptPaymentData'
+import { getPaymentMethodName } from '../../utils/paymentMethod/getPaymentMethodName'
 import { peachAPI } from '../../utils/peachAPI'
 import { parseError } from '../../utils/result/parseError'
 import { decryptSymmetricKey } from '../../views/contract/helpers/decryptSymmetricKey'
@@ -68,7 +69,12 @@ export const Match = ({ match, offer, currentPage }: { match: Match; offer: Sell
 
           <View style={tw`gap-4`}>
             <PaymentDetail label={i18n('match.selectedCurrency')} value={selectedCurrency} />
-            <PaymentDetail label={i18n('match.selectedPaymentMethod')} value={selectedPaymentMethod} />
+            {selectedPaymentMethod && (
+              <PaymentDetail
+                label={i18n('match.selectedPaymentMethod')}
+                value={getPaymentMethodName(selectedPaymentMethod)}
+              />
+            )}
           </View>
         </View>
         <MatchOfferButton offer={offer} match={match} optionName={currentOptionName} currentPage={currentPage} />
