@@ -676,7 +676,7 @@ function InstantTradePopup () {
         <PeachText>
           {
             // eslint-disable-next-line max-len
-            'Allow a buyer who matches your sell offer to automatically get in a trade with you!\n\nTo enable this, Peach will receive your selected payment data to instantly share them with a buyer that matches all of your criteria.\n\nThis data is encrypted and cannot be read by other third parties.'
+            'Allow a buyer who matches your sell offer to automatically get in a trade with you!\n\nTo enable this, Peach will receive your selected payment data to instantly share them with a buyer that matches all of your criteria.\n\nThis data is encrypted and cannot be read by third parties other than Peach.'
           }
         </PeachText>
       }
