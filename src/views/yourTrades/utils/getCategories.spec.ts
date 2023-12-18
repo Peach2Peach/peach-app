@@ -10,6 +10,8 @@ describe('getCategories', () => {
       { ...contractSummary, type: 'bid', tradeStatus: 'searchingForPeer', unreadMessages: 2 },
       { ...contractSummary, type: 'ask', tradeStatus: 'tradeCanceled', unreadMessages: 3 },
       { ...contractSummary, type: 'bid', tradeStatus: 'tradeCompleted', unreadMessages: 0 },
+      // @ts-expect-error explicitly testing unknown status
+      { ...contractSummary, type: 'bid', tradeStatus: 'totallyNewStatus', unreadMessages: 0 },
     ]
 
     const result = getCategories(trades)
@@ -34,6 +36,10 @@ describe('getCategories', () => {
       {
         title: 'history',
         data: [{ ...contractSummary, type: 'bid', tradeStatus: 'tradeCompleted', unreadMessages: 0 }],
+      },
+      {
+        title: 'unknown',
+        data: [{ ...contractSummary, type: 'bid', tradeStatus: 'totallyNewStatus', unreadMessages: 0 }],
       },
     ])
   })
