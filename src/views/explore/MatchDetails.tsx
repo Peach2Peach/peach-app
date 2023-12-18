@@ -1,6 +1,7 @@
+/* eslint-disable max-lines */
 import { useQuery } from '@tanstack/react-query'
-import { useMemo, useState } from 'react'
-import { View } from 'react-native'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Animated, View } from 'react-native'
 import { Match as MatchType } from '../../../peach-api/src/@types/match'
 import { GradientBorder } from '../../components/GradientBorder'
 import { Header } from '../../components/Header'
@@ -8,6 +9,8 @@ import { PeachyGradient } from '../../components/PeachyGradient'
 import { ProfileInfo } from '../../components/ProfileInfo'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
+import { ConfirmSlider } from '../../components/inputs'
+import { UnlockedSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
 import { UnmatchButton } from '../../components/matches/buttons/UnmatchButton'
 import { options } from '../../components/matches/buttons/options'
 import { EscrowLink } from '../../components/matches/components/EscrowLink'
@@ -16,6 +19,7 @@ import { PaymentMethodSelector } from '../../components/matches/components/selec
 import { useInterruptibleFunction } from '../../components/matches/hooks/useInterruptibleFunction'
 import { useMatchAsBuyer } from '../../components/matches/hooks/useMatchAsBuyer'
 import { getMatchPrice } from '../../components/matches/utils/getMatchPrice'
+import { PeachText } from '../../components/text/PeachText'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
 import { SATSINBTC } from '../../constants'
 import { useMarketPrices, useRoute } from '../../hooks'
@@ -79,8 +83,10 @@ function Match ({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   const [showMatchedCard, setShowMatchedCard] = useState(match.matched)
   const isMatched = match.matched || showMatchedCard
 
-  const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } = useInterruptibleFunction(() => {
+  const matchOffer = () =>
     mutate({ selectedCurrency, paymentData: selectedPaymentData }, { onError: () => setShowMatchedCard(false) })
+  const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } = useInterruptibleFunction(() => {
+    matchOffer()
   }, MATCH_DELAY)
   const onInterruptMatch = () => {
     interruptMatchFunction()
@@ -167,11 +173,15 @@ function Match ({ match, offer }: { match: MatchType; offer: BuyOffer }) {
           </View>
         </GradientBorder>
       </View>
-      <MatchOfferButton
-        matchOffer={onMatchPress}
-        optionName={currentOptionName}
-        setShowPaymentMethodPulse={setShowPaymentMethodPulse}
-      />
+      {match.instantTrade ? (
+        <InstantTradeSlider matchOffer={matchOffer} optionName={currentOptionName} />
+      ) : (
+        <MatchOfferButton
+          matchOffer={onMatchPress}
+          optionName={currentOptionName}
+          setShowPaymentMethodPulse={setShowPaymentMethodPulse}
+        />
+      )}
     </>
   )
 }
@@ -180,6 +190,26 @@ type Props = {
   matchOffer: () => void
   optionName: keyof typeof options
   setShowPaymentMethodPulse: (showPulse: boolean) => void
+}
+
+function InstantTradeSlider ({ matchOffer, optionName }: { matchOffer: () => void; optionName: keyof typeof options }) {
+  const label
+    = optionName === 'missingSelection'
+      ? 'select payment method'
+      : optionName === 'tradingLimitReached'
+        ? 'trading limit reached'
+        : 'instant trade'
+
+  const [showUnlockedSlider, setShowUnlockedSlider] = useState(false)
+
+  const onConfirm = () => {
+    setShowUnlockedSlider(true)
+    matchOffer()
+  }
+
+  if (optionName === 'offerMatched' && showUnlockedSlider) return <UnlockedSlider label={label} />
+
+  return <ConfirmSlider label1={label} onConfirm={onConfirm} enabled={optionName === 'matchOffer'} />
 }
 
 function MatchOfferButton ({ matchOffer, optionName, setShowPaymentMethodPulse }: Props) {
@@ -191,19 +221,76 @@ function MatchOfferButton ({ matchOffer, optionName, setShowPaymentMethodPulse }
     }
   }
 
+  if (optionName === 'offerMatched') return <WaitingForSeller />
+
   return (
     <Button
       style={[
         tw`flex-row items-center self-center justify-center py-2 gap-10px`,
+        tw`bg-success-main`,
         optionName === 'missingSelection' && tw`bg-success-mild-2`,
         optionName === 'tradingLimitReached' && tw`bg-black-3`,
       ]}
       onPress={onPress}
-      disabled={optionName === 'offerMatched'}
     >
       {optionName === 'tradingLimitReached' ? 'trading limit reached' : 'request trade'}
     </Button>
   )
+}
+
+function WaitingForSeller () {
+  return (
+    <View style={tw`items-center self-center`}>
+      <PeachText style={tw`text-primary-main subtitle-1`}>trade requested</PeachText>
+      <View style={tw`flex-row items-center justify-center`}>
+        <PeachText style={tw`text-primary-main subtitle-1`}>waiting for seller</PeachText>
+        <AnimatedButtons />
+      </View>
+    </View>
+  )
+}
+
+const DOT_DELAY = 200
+const NUMBER_OF_DOTS = 3
+const inputRange = [0, 1 / 3, 2 / 3, 1]
+function AnimatedButtons () {
+  const opacity = useRef(new Animated.Value(0)).current
+
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(opacity, {
+          toValue: 1,
+          duration: DOT_DELAY * NUMBER_OF_DOTS,
+          useNativeDriver: true,
+        }),
+        Animated.delay(DOT_DELAY),
+        Animated.timing(opacity, {
+          toValue: 0,
+          duration: 0,
+          useNativeDriver: true,
+        }),
+      ]),
+    )
+    loop.start()
+    return () => loop.stop()
+  }, [opacity])
+
+  const dots = Array.from({ length: NUMBER_OF_DOTS }, (_, index) => (
+    <Animated.View
+      key={index}
+      style={{
+        opacity: opacity.interpolate({
+          inputRange,
+          outputRange: Array.from({ length: NUMBER_OF_DOTS + 1 }, (_e, i) => (i > index ? 1 : 0)),
+        }),
+      }}
+    >
+      <PeachText style={tw`text-primary-main subtitle-1`}>.</PeachText>
+    </Animated.View>
+  ))
+
+  return <View style={tw`flex-row items-center justify-center`}>{dots}</View>
 }
 
 type PriceInfoProps = {
