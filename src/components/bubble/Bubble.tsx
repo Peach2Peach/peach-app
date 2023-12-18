@@ -27,23 +27,31 @@ export const Bubble = (props: BubbleProps) => {
 }
 
 type NewBubbleProps = {
-  children: string
+  children: React.ReactNode
   iconId?: IconType
   onPress?: () => void
-  color: 'orange' | 'black' | 'gray'
+  color: 'orange' | 'black' | 'gray' | 'primary-mild'
   ghost?: boolean
 }
 
 export function NewBubble ({ children, iconId, onPress, color, ghost }: NewBubbleProps) {
-  const colorStyle
-    = color === 'orange' ? tw.color('primary-main') : color === 'gray' ? tw.color('black-3') : tw.color('black-1')
+  const colorStyle = tw.color(
+    color === 'orange'
+      ? 'primary-main'
+      : color === 'primary-mild'
+        ? 'primary-mild-1'
+        : color === 'gray'
+          ? 'black-3'
+          : 'black-1',
+  )
 
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[
         tw`flex-row items-center justify-center gap-1 px-2 rounded-lg py-2px`,
-        ghost ? [tw`bg-transparent border`, { borderColor: colorStyle }] : [{ backgroundColor: colorStyle }],
+        [tw`border`, { borderColor: colorStyle }],
+        ghost ? tw`bg-transparent` : { backgroundColor: colorStyle },
       ]}
     >
       <PeachText
