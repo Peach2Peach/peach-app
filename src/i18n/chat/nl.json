@@ -1,6 +1,7 @@
 {
   "chat" : "chat",
   "chat.decyptionFailed" : "kon het bericht niet ontcijferen...",
+  "chat.disabled" : "chat is uitgeschakeld",
   "chat.disputeDisclaimer.1" : "Dit is jouw privé transactie chat.",
   "chat.disputeDisclaimer.2" : "Als de andere partij voorstelt om buiten Peach om te handelen, neem dan in overweging dat je",
   "chat.disputeDisclaimer.3" : "niet langer beschermd",

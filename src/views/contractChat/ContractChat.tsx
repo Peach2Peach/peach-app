@@ -6,9 +6,10 @@ import { Contract } from '../../../peach-api/src/@types/contract'
 import { Header } from '../../components/Header'
 import { Screen } from '../../components/Screen'
 import { MessageInput } from '../../components/inputs/MessageInput'
-import { useRoute } from '../../hooks'
+import { PeachText } from '../../components/text/PeachText'
 import { useChatMessages } from '../../hooks/query/useChatMessages'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
+import { useRoute } from '../../hooks/useRoute'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useOpenDispute } from '../../popups/dispute/hooks/useOpenDispute'
 import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
@@ -21,6 +22,7 @@ import { canCancelContract } from '../../utils/contract/canCancelContract'
 import { contractIdToHex } from '../../utils/contract/contractIdToHex'
 import { getContractViewer } from '../../utils/contract/getContractViewer'
 import { getTradingPartner } from '../../utils/contract/getTradingPartner'
+import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { error } from '../../utils/log'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
@@ -201,7 +203,7 @@ function ChatScreen ({ contract }: { contract: Contract }) {
           resendMessage={resendMessage}
         />
       </View>
-      {contract.isChatActive && (
+      {contract.isChatActive ? (
         <View style={tw`w-full`}>
           <MessageInput
             onChangeText={setNewMessage}
@@ -211,6 +213,8 @@ function ChatScreen ({ contract }: { contract: Contract }) {
             value={newMessage}
           />
         </View>
+      ) : (
+        <PeachText style={tw`text-center text-black-3 p-4`}>{i18n('chat.disabled')}</PeachText>
       )}
     </Screen>
   )

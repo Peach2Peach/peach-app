@@ -1,6 +1,7 @@
 {
   "chat" : "Chat",
   "chat.decyptionFailed" : "Konnte die Nachricht nicht entschlüsseln...",
+  "chat.disabled" : "der Chat wurde deaktiviert",
   "chat.disputeDisclaimer.1" : "Dies ist dein privater Handelschat.",
   "chat.disputeDisclaimer.2" : "Wenn dein Handelspartner vorschlägt, außerhalb von Peach zu handeln, bedenke, dass du",
   "chat.disputeDisclaimer.3" : "nicht länger geschützt bist",

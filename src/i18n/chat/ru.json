@@ -1,6 +1,7 @@
 {
   "chat" : "чат",
   "chat.decyptionFailed" : "не смогли расшифровать сообщение...",
+  "chat.disabled" : "чат отключен",
   "chat.disputeDisclaimer.1" : "Это ваш личный чат по сделке.",
   "chat.disputeDisclaimer.2" : "Если ваш контрагент предлагает совершить сделку вне Peach, примите во внимание, что вы ",
   "chat.disputeDisclaimer.3" : "не будете защищены",

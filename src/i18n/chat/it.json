@@ -1,6 +1,7 @@
 {
   "chat" : "chat",
   "chat.decyptionFailed" : "impossibile decrittare il messaggio...",
+  "chat.disabled" : "la chat è stata disattivata",
   "chat.disputeDisclaimer.1" : "Questa è la chat privata del tuo scambio.",
   "chat.disputeDisclaimer.2" : "Se la controparte suggerisce di effettuare lo scambio al di fuori di Peach, ricorda che sarai",
   "chat.disputeDisclaimer.3" : "protetto",
