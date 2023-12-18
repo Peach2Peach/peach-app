@@ -33,6 +33,7 @@
   "offer.requiredAction.releaseEscrow" : "отпустите деньги из эскроу",
   "offer.requiredAction.releaseEscrow.dispute" : "спор проигран: отпустите эскроу",
   "offer.requiredAction.searchingForPeer" : "ищем партнёров",
+  "offer.requiredAction.unknown" : "неизвестно - обновите свое приложение!",
   "offer.requiredAction.waiting" : "ждём $0",
   "offer.requiredAction.waiting.buyer" : "ждём платежа",
   "offer.requiredAction.waiting.seller" : "ждём продавца",

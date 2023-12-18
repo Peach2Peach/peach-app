@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 /* eslint-disable max-statements */
 import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
 import { getOfferColor } from './getOfferColor'
@@ -67,6 +68,10 @@ describe('getOfferColor', () => {
   })
   it('should return "black" when tradeStatus is "tradeCanceled" and is a contract summary', () => {
     expect(getOfferColor({ ...contractSummary, tradeStatus: 'tradeCanceled' })).toBe('black')
+  })
+  it('should return "info" when unknown trade status', () => {
+    // @ts-expect-error explicitely checking unknown status
+    expect(getOfferColor({ ...contractSummary, tradeStatus: 'unknownStatusNotYetConsidered' })).toBe('info')
   })
   it('should return "primary" when none of the above', () => {
     expect(getOfferColor({ ...contractSummary, tradeStatus: 'rateUser' })).toBe('primary')

@@ -86,4 +86,24 @@ describe('getActionLabel', () => {
     expect(getActionLabel({ ...tradeSummary, type: 'bid' }, false)).toEqual('seller wants to cancel')
     expect(getActionLabel({ ...tradeSummary, type: 'ask' }, false)).toEqual('cancel request sent')
   })
+  it('should return unknown label for offers with unknown trade status', () => {
+    const tradeSummary: TradeSummary = {
+      type: 'ask',
+      amount: 40000,
+      creationDate: new Date('2020-11-11'),
+      currency: 'EUR',
+      disputeOutcomeAcknowledged: false,
+      id: '816-826',
+      isChatActive: true,
+      lastModified: new Date('2020-11-11'),
+      offerId: '816',
+      paymentConfirmed: undefined,
+      paymentMade: undefined,
+      price: 10.45,
+      // @ts-expect-error explicitely testing unknown status
+      tradeStatus: 'someNewTradeStatusNotYetConsidered',
+      unreadMessages: 0,
+    }
+    expect(getActionLabel(tradeSummary, false)).toEqual('unknown - update your app!')
+  })
 })

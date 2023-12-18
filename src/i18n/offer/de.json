@@ -33,6 +33,7 @@
   "offer.requiredAction.releaseEscrow" : "Escrow freigeben",
   "offer.requiredAction.releaseEscrow.dispute" : "Streitfall verloren: Escrow-Guthaben freigeben",
   "offer.requiredAction.searchingForPeer" : "Suche nach Match",
+  "offer.requiredAction.unknown" : "unbekannt - aktualisiere deine App!",
   "offer.requiredAction.waiting" : "warten auf $0",
   "offer.requiredAction.waiting.buyer" : "warten auf Zahlung",
   "offer.requiredAction.waiting.seller" : "warten auf Verkäufer",

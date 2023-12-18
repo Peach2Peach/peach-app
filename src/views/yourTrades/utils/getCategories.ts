@@ -2,6 +2,7 @@ import { isError } from './isError'
 import { isOpenAction } from './isOpenAction'
 import { isPastOffer } from './isPastOffer'
 import { isPrioritary } from './isPrioritary'
+import { isTradeStatus } from './isTradeStatus'
 import { isWaiting } from './isWaiting'
 
 export const getCategories = (trades: TradeSummary[]) =>
@@ -21,4 +22,5 @@ export const getCategories = (trades: TradeSummary[]) =>
         .filter(({ tradeStatus }) => isPastOffer(tradeStatus))
         .filter(({ unreadMessages }) => !unreadMessages || unreadMessages === 0),
     },
+    { title: 'unknown', data: trades.filter(({ tradeStatus }) => !isTradeStatus(tradeStatus)) },
   ].filter(({ data }) => data.length > 0)

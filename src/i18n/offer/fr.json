@@ -33,6 +33,7 @@
   "offer.requiredAction.releaseEscrow" : "libérer le coffre",
   "offer.requiredAction.releaseEscrow.dispute" : "dispute perdue: libérer les sats du coffre",
   "offer.requiredAction.searchingForPeer" : "recherche d'un match",
+  "offer.requiredAction.unknown" : "inconnu - mettez à jour votre application !",
   "offer.requiredAction.waiting" : "en attente de $0",
   "offer.requiredAction.waiting.buyer" : "en attente du paiement",
   "offer.requiredAction.waiting.seller" : "en attente du vendeur",
