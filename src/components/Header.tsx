@@ -156,7 +156,7 @@ function HeaderNavigation ({
   )
 }
 
-const colStyle = [tw`flex-row items-center flex-1 gap-2`, tw`md:flex-col md:gap-0`]
+const colStyle = [tw`flex-row flex-1 gap-2`, tw`md:flex-col md:gap-0`]
 const leftColStyle = [...colStyle, tw`justify-start md:items-start`]
 const rightColStyle = [...colStyle, tw`justify-end md:items-end`]
 const unitStyle = tw`subtitle-1`
