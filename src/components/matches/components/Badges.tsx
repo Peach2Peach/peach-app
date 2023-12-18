@@ -8,7 +8,7 @@ export function Badges ({ unlockedBadges, id }: { unlockedBadges: User['medals']
   const openPeachBadgesPopup = useShowHelp('myBadges')
 
   return (
-    <TouchableOpacity style={tw`flex-row flex-wrap gap-1 max-w-50`} onPress={openPeachBadgesPopup}>
+    <TouchableOpacity style={tw`flex-row flex-wrap gap-1 max-w-45`} onPress={openPeachBadgesPopup}>
       {badges.map(([iconId, badgeName]) => (
         <Badge
           key={`profileOverviewIcon-${iconId}`}
