@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useRef } from 'react'
 import { Animated, StyleProp, TextStyle } from 'react-native'
-import tw from '../../../../styles/tailwind'
+import tw from '../../../styles/tailwind'
 
 const pulseAnimation = (color: Animated.Value, fontSize: Animated.Value) =>
   Animated.parallel([
