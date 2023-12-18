@@ -395,19 +395,17 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
               </View>
               <View
                 style={
-                  [
-                    {
-                      "alignItems": "center",
-                      "flexDirection": "row",
-                    },
-                    undefined,
-                  ]
+                  {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                  }
                 }
               >
                 <View
                   style={
                     {
                       "flexDirection": "row",
+                      "gap": 4,
                     }
                   }
                 >
@@ -415,7 +413,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                     style={
                       {
                         "height": 12,
-                        "marginRight": 4,
                         "opacity": 0.5,
                         "width": 12,
                       }
@@ -425,7 +422,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                     style={
                       {
                         "height": 12,
-                        "marginRight": 4,
                         "opacity": 0.5,
                         "width": 12,
                       }
@@ -435,7 +431,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                     style={
                       {
                         "height": 12,
-                        "marginRight": 4,
                         "opacity": 0.5,
                         "width": 12,
                       }
@@ -445,7 +440,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                     style={
                       {
                         "height": 12,
-                        "marginRight": 4,
                         "opacity": 0.5,
                         "width": 12,
                       }
@@ -455,7 +449,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                     style={
                       {
                         "height": 12,
-                        "marginRight": 4,
                         "opacity": 0.5,
                         "width": 12,
                       }
@@ -467,6 +460,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                         {
                           "alignSelf": "center",
                           "flexDirection": "row",
+                          "gap": 4,
                           "overflow": "hidden",
                           "position": "absolute",
                         },
@@ -480,7 +474,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                       style={
                         {
                           "height": 12,
-                          "marginRight": 4,
                           "width": 12,
                         }
                       }
@@ -489,7 +482,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                       style={
                         {
                           "height": 12,
-                          "marginRight": 4,
                           "width": 12,
                         }
                       }
@@ -498,7 +490,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                       style={
                         {
                           "height": 12,
-                          "marginRight": 4,
                           "width": 12,
                         }
                       }
@@ -507,7 +498,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                       style={
                         {
                           "height": 12,
-                          "marginRight": 4,
                           "width": 12,
                         }
                       }
@@ -516,7 +506,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                       style={
                         {
                           "height": 12,
-                          "marginRight": 4,
                           "width": 12,
                         }
                       }

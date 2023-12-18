@@ -215,19 +215,17 @@ exports[`ProfileInfo renders correctly 1`] = `
     </View>
     <View
       style={
-        [
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-          },
-          undefined,
-        ]
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+        }
       }
     >
       <View
         style={
           {
             "flexDirection": "row",
+            "gap": 4,
           }
         }
       >
@@ -235,7 +233,6 @@ exports[`ProfileInfo renders correctly 1`] = `
           style={
             {
               "height": 12,
-              "marginRight": 4,
               "opacity": 0.5,
               "width": 12,
             }
@@ -245,7 +242,6 @@ exports[`ProfileInfo renders correctly 1`] = `
           style={
             {
               "height": 12,
-              "marginRight": 4,
               "opacity": 0.5,
               "width": 12,
             }
@@ -255,7 +251,6 @@ exports[`ProfileInfo renders correctly 1`] = `
           style={
             {
               "height": 12,
-              "marginRight": 4,
               "opacity": 0.5,
               "width": 12,
             }
@@ -265,7 +260,6 @@ exports[`ProfileInfo renders correctly 1`] = `
           style={
             {
               "height": 12,
-              "marginRight": 4,
               "opacity": 0.5,
               "width": 12,
             }
@@ -275,7 +269,6 @@ exports[`ProfileInfo renders correctly 1`] = `
           style={
             {
               "height": 12,
-              "marginRight": 4,
               "opacity": 0.5,
               "width": 12,
             }
@@ -287,6 +280,7 @@ exports[`ProfileInfo renders correctly 1`] = `
               {
                 "alignSelf": "center",
                 "flexDirection": "row",
+                "gap": 4,
                 "overflow": "hidden",
                 "position": "absolute",
               },
@@ -300,7 +294,6 @@ exports[`ProfileInfo renders correctly 1`] = `
             style={
               {
                 "height": 12,
-                "marginRight": 4,
                 "width": 12,
               }
             }
@@ -309,7 +302,6 @@ exports[`ProfileInfo renders correctly 1`] = `
             style={
               {
                 "height": 12,
-                "marginRight": 4,
                 "width": 12,
               }
             }
@@ -318,7 +310,6 @@ exports[`ProfileInfo renders correctly 1`] = `
             style={
               {
                 "height": 12,
-                "marginRight": 4,
                 "width": 12,
               }
             }
@@ -327,7 +318,6 @@ exports[`ProfileInfo renders correctly 1`] = `
             style={
               {
                 "height": 12,
-                "marginRight": 4,
                 "width": 12,
               }
             }
@@ -336,7 +326,6 @@ exports[`ProfileInfo renders correctly 1`] = `
             style={
               {
                 "height": 12,
-                "marginRight": 4,
                 "width": 12,
               }
             }
@@ -645,7 +634,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 - First value
 + Second value
 
-@@ -208,140 +208,10 @@
+@@ -208,129 +208,10 @@
               </Text>
             </View>
           </View>
@@ -653,19 +642,17 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
       </View>
 -     <View
 -       style={
--         Array [
--           Object {
--             "alignItems": "center",
--             "flexDirection": "row",
--           },
--           undefined,
--         ]
+-         Object {
+-           "alignItems": "center",
+-           "flexDirection": "row",
+-         }
 -       }
 -     >
 -       <View
 -         style={
 -           Object {
 -             "flexDirection": "row",
+-             "gap": 4,
 -           }
 -         }
 -       >
@@ -673,7 +660,6 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -           style={
 -             Object {
 -               "height": 12,
--               "marginRight": 4,
 -               "opacity": 0.5,
 -               "width": 12,
 -             }
@@ -683,7 +669,6 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -           style={
 -             Object {
 -               "height": 12,
--               "marginRight": 4,
 -               "opacity": 0.5,
 -               "width": 12,
 -             }
@@ -693,7 +678,6 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -           style={
 -             Object {
 -               "height": 12,
--               "marginRight": 4,
 -               "opacity": 0.5,
 -               "width": 12,
 -             }
@@ -703,7 +687,6 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -           style={
 -             Object {
 -               "height": 12,
--               "marginRight": 4,
 -               "opacity": 0.5,
 -               "width": 12,
 -             }
@@ -713,7 +696,6 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -           style={
 -             Object {
 -               "height": 12,
--               "marginRight": 4,
 -               "opacity": 0.5,
 -               "width": 12,
 -             }
@@ -725,6 +707,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -               Object {
 -                 "alignSelf": "center",
 -                 "flexDirection": "row",
+-                 "gap": 4,
 -                 "overflow": "hidden",
 -                 "position": "absolute",
 -               },
@@ -738,7 +721,6 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -             style={
 -               Object {
 -                 "height": 12,
--                 "marginRight": 4,
 -                 "width": 12,
 -               }
 -             }
@@ -747,7 +729,6 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -             style={
 -               Object {
 -                 "height": 12,
--                 "marginRight": 4,
 -                 "width": 12,
 -               }
 -             }
@@ -756,7 +737,6 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -             style={
 -               Object {
 -                 "height": 12,
--                 "marginRight": 4,
 -                 "width": 12,
 -               }
 -             }
@@ -765,7 +745,6 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -             style={
 -               Object {
 -                 "height": 12,
--                 "marginRight": 4,
 -                 "width": 12,
 -               }
 -             }
@@ -774,7 +753,6 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -             style={
 -               Object {
 -                 "height": 12,
--                 "marginRight": 4,
 -                 "width": 12,
 -               }
 -             }
@@ -786,7 +764,7 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
         style={
           Array [
             Object {
-@@ -352,286 +222,17 @@
+@@ -341,286 +222,17 @@
               "lineHeight": 24,
             },
             Object {
@@ -887,8 +865,9 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                   Object {
 -                     "fontFamily": "Baloo2-SemiBold",
 -                     "fontSize": 10,
--                     "letterSpacing": 0.14,
--                     "lineHeight": 22,
++             "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22,
 -                   },
 -                   Object {
 -                     "color": "#FCCCB6",
@@ -897,12 +876,12 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                 Object {
 -                   "marginBottom": -40,
 -                   "marginTop": -40,
--                 },
+            },
 -               ],
--               false,
--             ]
--           }
--         >
+            false,
+          ]
+        }
+      >
 -           supertrader
 -         </Text>
 -       </View>
@@ -1039,10 +1018,9 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                   Object {
 -                     "fontFamily": "Baloo2-SemiBold",
 -                     "fontSize": 10,
-+             "fontSize": 14,
-              "letterSpacing": 0.14,
-              "lineHeight": 22,
-            },
+-                     "letterSpacing": 0.14,
+-                     "lineHeight": 22,
+-                   },
 -                   Object {
 -                     "color": "#F56522",
 -                   },
@@ -1052,10 +1030,10 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
 -                   "marginTop": -40,
 -                 },
 -               ],
-            false,
-          ]
-        }
-      >
+-               false,
+-             ]
+-           }
+-         >
 -           early adopter
 +       new user
       </Text>
