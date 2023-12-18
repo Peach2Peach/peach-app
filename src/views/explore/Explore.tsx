@@ -1,7 +1,6 @@
-import { TouchableOpacity, View } from 'react-native'
+import { FlatList, TouchableOpacity, View } from 'react-native'
 import { Match } from '../../../peach-api/src/@types/match'
 import { horizontalBadgePadding } from '../../components/InfoContainer'
-import { PeachScrollView } from '../../components/PeachScrollView'
 import { PeachyBackground } from '../../components/PeachyBackground'
 import { Screen } from '../../components/Screen'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
@@ -24,16 +23,23 @@ import { Rating } from '../settings/profile/profileOverview/components'
 
 export function Explore () {
   const { offerId } = useRoute<'explore'>().params
-  const { allMatches: matches, isLoading } = useOfferMatches(offerId)
+  const { allMatches: matches, isLoading, fetchNextPage } = useOfferMatches(offerId)
   const hasMatches = matches.length > 0
   if (isLoading) return <LoadingScreen />
   return (
     <Screen header={<ExploreHeader />}>
       {hasMatches ? (
-        <PeachScrollView contentStyle={tw`gap-10px`}>
-          <BuyOfferMarketInfo />
-          <OfferSummaryCards />
-        </PeachScrollView>
+        <>
+          <FlatList
+            ListHeaderComponent={<BuyOfferMarketInfo />}
+            data={matches}
+            keyExtractor={(item) => item.offerId}
+            renderItem={({ item }) => <ExploreCard match={item} />}
+            onEndReachedThreshold={0.5}
+            onEndReached={() => fetchNextPage()}
+            contentContainerStyle={tw`gap-10px`}
+          />
+        </>
       ) : (
         <View style={tw`items-center justify-center flex-1 gap-4`}>
           <BuyOfferMarketInfo />
@@ -60,18 +66,6 @@ function BuyOfferMarketInfo () {
       minReputation={offer?.minReputation || undefined}
       buyAmountRange={offer?.amount}
     />
-  )
-}
-
-function OfferSummaryCards () {
-  const { offerId } = useRoute<'explore'>().params
-  const { allMatches: matches } = useOfferMatches(offerId)
-  return (
-    <>
-      {matches.map((match, index) => (
-        <ExploreCard key={match.offerId} match={matches[index]} />
-      ))}
-    </>
   )
 }
 

@@ -25,13 +25,12 @@ import { PeachText } from '../text/PeachText'
 import { HorizontalLine } from '../ui/HorizontalLine'
 import { options } from './buttons/options'
 import { PriceInfo } from './components/PriceInfo'
-import { useMatchStore } from './store'
-import { createRefundTx, handleMissingPaymentData } from './utils'
+import { createRefundTx } from './utils/createRefundTx'
 import { getPaymentDataFromOffer } from './utils/getPaymentDataFromOffer'
-import { updateMatchedStatus } from './utils/updateMatchedStatus'
+import { handleMissingPaymentData } from './utils/handleMissingPaymentData'
 import { useHandleError } from './utils/useHandleError'
 
-export const Match = ({ match, offer }: { match: Match; offer: SellOffer }) => {
+export const Match = ({ match, offer, currentPage }: { match: Match; offer: SellOffer; currentPage: number }) => {
   const { selectedPaymentMethod, matched, user, unavailable, amount, matchedPrice, selectedCurrency } = match
 
   const tradingLimitReached = isLimitReached(unavailable.exceedsLimit || [], selectedPaymentMethod)
@@ -72,7 +71,7 @@ export const Match = ({ match, offer }: { match: Match; offer: SellOffer }) => {
             <PaymentDetail label={i18n('match.selectedPaymentMethod')} value={selectedPaymentMethod} />
           </View>
         </View>
-        <MatchOfferButton offer={offer} match={match} optionName={currentOptionName} />
+        <MatchOfferButton offer={offer} match={match} optionName={currentOptionName} currentPage={currentPage} />
       </View>
     </View>
   )
@@ -91,10 +90,11 @@ type MatchButtonProps = {
   offer: SellOffer
   match: Match
   optionName: keyof typeof options
+  currentPage: number
 }
-function MatchOfferButton ({ offer, match, optionName }: MatchButtonProps) {
+function MatchOfferButton ({ offer, match, optionName, currentPage }: MatchButtonProps) {
   const currentOption = options[optionName]
-  const { mutate } = useMatchAsSeller(offer, match)
+  const { mutate } = useMatchAsSeller(offer, match, currentPage)
 
   const onPress = () => {
     if (['acceptMatch'].includes(optionName)) {
@@ -114,9 +114,8 @@ function MatchOfferButton ({ offer, match, optionName }: MatchButtonProps) {
   )
 }
 
-function useMatchAsSeller (offer: SellOffer, match: Match) {
+function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) {
   const { selectedCurrency, selectedPaymentMethod, offerId } = match
-  const currentPage = useMatchStore((state) => state.currentPage)
   const queryClient = useQueryClient()
   const navigation = useNavigation()
   const updateMessage = useMessageState((state) => state.updateMessage)
@@ -129,7 +128,7 @@ function useMatchAsSeller (offer: SellOffer, match: Match) {
       await queryClient.cancelQueries({ queryKey: ['matches', offer.id] })
       const previousData = queryClient.getQueryData<GetMatchesResponseBody>(['matches', offer.id])
       queryClient.setQueryData(['matches', offer.id], (oldQueryData: InfiniteData<GetMatchesResponseBody> | undefined) =>
-        updateMatchedStatus(true, oldQueryData, offerId, currentPage),
+        updateMatchedStatus(oldQueryData, offerId, currentPage),
       )
 
       return { previousData }
@@ -247,4 +246,23 @@ function SellerPriceInfo ({ amount, price, currency }: PriceInfoProps) {
   const premium = round((delta / bitcoinPrice) * 100, 2)
 
   return <PriceInfo amount={amount} price={price} currency={currency} premium={premium} />
+}
+
+function updateMatchedStatus (
+  oldQueryData: InfiniteData<GetMatchesResponseBody> | undefined,
+  matchingOfferId: string,
+  currentPage: number,
+) {
+  if (!oldQueryData) return oldQueryData
+
+  const matches = oldQueryData.pages[currentPage]?.matches || []
+  const newMatches = matches.map((m) => ({
+    ...m,
+    matched: m.offerId === matchingOfferId ? true : m.matched,
+  }))
+
+  return {
+    ...oldQueryData,
+    pages: oldQueryData.pages.map((page, i) => (i === currentPage ? { ...page, matches: newMatches } : page)),
+  }
 }

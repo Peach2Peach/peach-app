@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useState } from 'react'
 import { View, useWindowDimensions } from 'react-native'
 import Carousel from 'react-native-reanimated-carousel'
 import { useIsMediumScreen, useRoute } from '../../hooks'
@@ -6,20 +6,13 @@ import tw from '../../styles/tailwind'
 import { MatchInformation } from '../../views/search/components/MatchInformation'
 import { useOfferMatches } from '../../views/search/hooks'
 import { Match } from './Match'
-import { useMatchStore } from './store'
 
 export const Matches = ({ offer }: { offer: SellOffer }) => {
   const { width } = useWindowDimensions()
   const isMediumScreen = useIsMediumScreen()
   const { offerId } = useRoute<'search'>().params
   const { allMatches: matches, fetchNextPage, hasNextPage } = useOfferMatches(offerId)
-
-  const setCurrentPage = useMatchStore((state) => state.setCurrentPage)
-
-  useEffect(() => {
-    setCurrentPage(0)
-    return () => setCurrentPage(0)
-  }, [setCurrentPage])
+  const [currentPage, setCurrentPage] = useState(0)
 
   const onSnapToItem = (index: number) => {
     const newIndex = Math.min(index, matches.length - 1)
@@ -42,7 +35,7 @@ export const Matches = ({ offer }: { offer: SellOffer }) => {
             parallaxScrollingOffset: isMediumScreen ? 48 : 40,
           }}
           data={matches}
-          renderItem={({ item: match }) => <Match {...{ match, offer }} />}
+          renderItem={({ item: match }) => <Match {...{ match, offer, currentPage }} />}
         />
       </View>
     </View>
