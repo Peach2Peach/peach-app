@@ -31,6 +31,7 @@ type OfferPreferences = {
   }
   instantTrade: boolean
   instantTradeCriteria: InstantTradeCriteria
+  hasSeenInstantTradePopup: boolean
 }
 
 export const defaultPreferences: OfferPreferences = {
@@ -61,6 +62,7 @@ export const defaultPreferences: OfferPreferences = {
     minTrades: 0,
     badges: [],
   },
+  hasSeenInstantTradePopup: false,
 }
 
 type OfferPreferencesActions = {
@@ -84,6 +86,7 @@ type OfferPreferencesActions = {
   toggleMinTrades: () => void
   toggleMinReputation: () => void
   toggleBadge: (badge: Medal) => void
+  setHasSeenInstantTradePopup: (hasSeenInstantTradePopup: boolean) => void
 }
 
 type OfferPreferencesStore = OfferPreferences & OfferPreferencesActions
@@ -174,6 +177,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
             badges.push(badge)
           }
         }),
+      setHasSeenInstantTradePopup: (hasSeenInstantTradePopup) => set({ hasSeenInstantTradePopup }),
     })),
     {
       name: 'offerPreferences',

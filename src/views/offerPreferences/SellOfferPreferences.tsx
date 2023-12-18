@@ -25,11 +25,14 @@ import { SATSINBTC } from '../../constants'
 import { useBitcoinPrices, useMarketPrices, useNavigation, useToggleBoolean, useTradingLimits } from '../../hooks'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { InfoPopup } from '../../popups/InfoPopup'
 import { useConfigStore } from '../../store/configStore/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { useSettingsStore } from '../../store/settingsStore'
+import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout/headerIcons'
 import { convertFiatToSats } from '../../utils/market/convertFiatToSats'
 import { getTradingAmountLimits } from '../../utils/market/getTradingAmountLimits'
 import { round } from '../../utils/math/round'
@@ -319,9 +322,15 @@ function FiatInput () {
 }
 
 function FundMultipleOffersContainer () {
+  const setPopup = usePopupStore((state) => state.setPopup)
   return (
-    <Section.Container style={tw`items-start bg-primary-background-dark`}>
+    <Section.Container style={tw`flex-row items-start justify-between bg-primary-background-dark`}>
       <FundMultipleOffers />
+      <TouchableIcon
+        id="helpCircle"
+        iconColor={tw.color('info-light')}
+        onPress={() => setPopup(<FundMultiplePopup />)}
+      />
     </Section.Container>
   )
 }
@@ -338,12 +347,29 @@ function InstantTrade () {
     ],
     shallow,
   )
+  const [hasSeenPopup, setHasSeenPopup] = useOfferPreferences(
+    (state) => [state.hasSeenInstantTradePopup, state.setHasSeenInstantTradePopup],
+    shallow,
+  )
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const onHelpIconPress = () => {
+    setPopup(<InstantTradePopup />)
+    setHasSeenPopup(true)
+  }
+
+  const onToggle = () => {
+    if (!hasSeenPopup) {
+      onHelpIconPress()
+    }
+    toggle()
+  }
+
   return (
     <Section.Container style={tw`bg-primary-background-dark`}>
       <View style={tw`flex-row items-center self-stretch justify-between`}>
-        <Toggle onPress={toggle} enabled={enableInstantTrade} />
+        <Toggle onPress={onToggle} enabled={enableInstantTrade} />
         <Section.Title>instant - trade</Section.Title>
-        <TouchableIcon id="helpCircle" disabled iconColor={tw.color('info-light')} style={tw`opacity-0`} />
+        <TouchableIcon id="helpCircle" iconColor={tw.color('info-light')} onPress={onHelpIconPress} />
       </View>
       {enableInstantTrade && (
         <>
@@ -595,6 +621,8 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
 }
 
 function SellHeader () {
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const onPress = () => setPopup(<SellingBitcoinPopup />)
   return (
     <Header
       titleComponent={
@@ -602,6 +630,55 @@ function SellHeader () {
           <PeachText style={tw`h7 md:h6 text-primary-main`}>{i18n('sell')}</PeachText>
           <LogoIcons.bitcoinText style={tw`h-14px md:h-16px w-63px md:w-71px`} />
         </>
+      }
+      icons={[{ ...headerIcons.help, onPress }]}
+    />
+  )
+}
+
+function SellingBitcoinPopup () {
+  return (
+    <InfoPopup
+      title="selling bitcoin"
+      content={
+        <PeachText>
+          {
+            // eslint-disable-next-line max-len
+            'Selling your sats on Peach is free of charge!\n\nTo publish a sell offer, you must send your sats to an escrow to prove to the buyer that you have the sats you want to sell!\n\nThe escrow is a Bitcoin multi-signature wallet where you own one key and Peach holds another.'
+          }
+        </PeachText>
+      }
+    />
+  )
+}
+
+function FundMultiplePopup () {
+  return (
+    <InfoPopup
+      title="fund multiple sell offers"
+      content={
+        <PeachText>
+          {
+            // eslint-disable-next-line max-len
+            'To save on network fees, you can create multiple sell offers with only one transaction!'
+          }
+        </PeachText>
+      }
+    />
+  )
+}
+
+function InstantTradePopup () {
+  return (
+    <InfoPopup
+      title="instant trade"
+      content={
+        <PeachText>
+          {
+            // eslint-disable-next-line max-len
+            'Allow a buyer who matches your sell offer to automatically get in a trade with you!\n\nTo enable this, Peach will receive your selected payment data to instantly share them with a buyer that matches all of your criteria.\n\nThis data is encrypted and cannot be read by other third parties.'
+          }
+        </PeachText>
       }
     />
   )
