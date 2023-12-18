@@ -2,9 +2,7 @@ import { useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { Button } from '../../components/buttons/Button'
 import { useOfferPreferences } from '../../store/offerPreferenes'
-import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
 import { interpolate } from '../../utils/math/interpolate'
 import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
@@ -15,7 +13,7 @@ import { MaxPremiumFilterComponent } from './components/MaxPremiumFilterComponen
 import { ReputationFilterComponent } from './components/MinReputationFilter'
 import { PreferenceMethods } from './components/PreferenceMethods'
 import { PreferenceScreen } from './components/PreferenceScreen'
-import { usePublishOffer } from './utils/usePublishOffer'
+import { usePublishBuyOffer } from './utils/usePublishBuyOffer'
 import { useRestrictSatsAmount } from './utils/useRestrictSatsAmount'
 import { useTradingAmountLimits } from './utils/useTradingAmountLimits'
 
@@ -100,44 +98,38 @@ function MaxPremiumFilter () {
 }
 
 function ShowOffersButton () {
-  const [peachWalletActive, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.payoutAddressLabel],
-    shallow,
-  )
-  const buyOfferPreferences = useOfferPreferences(
+  const { amount, meansOfPayment, paymentData, maxPremium, minReputation } = useOfferPreferences(
     (state) => ({
       amount: state.buyAmountRange,
       meansOfPayment: state.meansOfPayment,
       paymentData: state.paymentData,
-      originalPaymentData: state.originalPaymentData,
+      maxPremium: state.filter.buyOffer.shouldApplyMaxPremium ? state.filter.buyOffer.maxPremium : null,
+      minReputation: state.filter.buyOffer.shouldApplyMinReputation
+        ? interpolate(state.filter.buyOffer.minReputation || 0, [0, 5], [-1, 1])
+        : null,
     }),
     shallow,
   )
-  const filter = useOfferPreferences((state) => state.filter.buyOffer)
-  const maxPremium = filter.shouldApplyMaxPremium ? filter.maxPremium : null
-  const minReputation = filter.shouldApplyMinReputation ? interpolate(filter.minReputation || 0, [0, 5], [-1, 1]) : null
-
-  const offerDraft = {
-    type: 'bid' as const,
-    releaseAddress: '',
-    ...buyOfferPreferences,
-    maxPremium,
-    minReputation,
-    walletLabel: peachWalletActive ? i18n('peachWallet') : payoutAddressLabel,
-  }
 
   const originalPaymentData = useOfferPreferences((state) => state.originalPaymentData)
   const methodsAreValid = originalPaymentData.every(isValidPaymentData)
   const [minAmount, maxAmount] = useTradingAmountLimits('buy')
   const restrictAmount = useRestrictSatsAmount('buy')
   const setBuyAmountRange = useOfferPreferences((state) => state.setBuyAmountRange)
-  const rangeIsWithinLimits = buyOfferPreferences.amount[0] >= minAmount && buyOfferPreferences.amount[1] <= maxAmount
+  const rangeIsWithinLimits = amount[0] >= minAmount && amount[1] <= maxAmount
   if (!rangeIsWithinLimits) {
-    setBuyAmountRange([restrictAmount(buyOfferPreferences.amount[0]), restrictAmount(buyOfferPreferences.amount[1])])
+    setBuyAmountRange([restrictAmount(amount[0]), restrictAmount(amount[1])])
   }
-  const rangeIsValid = rangeIsWithinLimits && offerDraft.amount[0] <= offerDraft.amount[1]
+  const rangeIsValid = rangeIsWithinLimits && amount[0] <= amount[1]
   const formValid = methodsAreValid && rangeIsValid
-  const { mutate: publishOffer, isLoading: isPublishing } = usePublishOffer(offerDraft)
+
+  const { mutate: publishOffer, isLoading: isPublishing } = usePublishBuyOffer({
+    amount,
+    meansOfPayment,
+    paymentData,
+    maxPremium,
+    minReputation,
+  })
 
   const onPress = () => {
     publishOffer()
