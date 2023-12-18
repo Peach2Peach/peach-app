@@ -103,7 +103,7 @@ function MatchOfferButton ({ offer, match, optionName, currentPage }: MatchButto
   const { mutate } = useMatchAsSeller(offer, match, currentPage)
 
   const onPress = () => {
-    if (['acceptMatch'].includes(optionName)) {
+    if (optionName === 'acceptMatch') {
       mutate()
     }
   }
