@@ -572,7 +572,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                   "flexDirection": "row",
                   "flexWrap": "wrap",
                   "gap": 4,
-                  "maxWidth": 180,
+                  "maxWidth": 184,
                   "opacity": 1,
                 }
               }
