@@ -1,5 +1,5 @@
 import { renderHook, responseUtils, waitFor } from 'test-utils'
-import { peachAPI } from '../../utils/peachAPI'
+import { peachAPI } from '../utils/peachAPI'
 import { usePatchOffer } from './usePatchOffer'
 
 const showErrorBannerMock = jest.fn()
