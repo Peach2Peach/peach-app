@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { useIsMediumScreen } from '../../hooks'
+import { useIsMediumScreen } from '../../hooks/useIsMediumScreen'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { BTCAmount } from '../bitcoin/btcAmount/BTCAmount'

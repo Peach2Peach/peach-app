@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { TextStyle, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import { IconType } from '../../assets/icons'
-import { useIsMediumScreen } from '../../hooks'
+import { useIsMediumScreen } from '../../hooks/useIsMediumScreen'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
 import { Loading } from '../animation/Loading'

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { useIsMediumScreen } from '../../../hooks'
+import { useIsMediumScreen } from '../../../hooks/useIsMediumScreen'
 import { sectionContainerPadding } from '../components/Section'
 import { horizontalTrackPadding } from '../components/SliderTrack'
 
