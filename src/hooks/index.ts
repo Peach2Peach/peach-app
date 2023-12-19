@@ -1,4 +1,3 @@
-export { useNavigateToOfferOrContract } from './useNavigateToOfferOrContract'
 export { useNavigation } from './useNavigation'
 export { usePreviousRoute } from './usePreviousRoute'
 export { useRoute } from './useRoute'
