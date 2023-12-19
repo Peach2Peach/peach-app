@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useNavigation } from '../../../hooks'
 import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { getTransactionFeeRate } from '../../../utils/bitcoin/getTransactionFeeRate'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { buildBumpFeeTransaction } from '../../../utils/wallet/transaction/buildBumpFeeTransaction'

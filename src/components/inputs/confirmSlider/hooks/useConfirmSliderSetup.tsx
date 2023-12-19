@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder } from 'react-native'
-import { useIsMediumScreen } from '../../../../hooks'
+import { useIsMediumScreen } from '../../../../hooks/useIsMediumScreen'
 import { getNormalized } from '../../../../utils/math/getNormalized'
 
 type Props = ComponentProps & {

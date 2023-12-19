@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Keyboard } from 'react-native'
-import { useValidatedState } from '../../../hooks'
+import { useValidatedState } from '../../../hooks/useValidatedState'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { useAccountStore } from '../../../utils/account/account'

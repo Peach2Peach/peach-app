@@ -3,7 +3,7 @@ import { Icon } from '../../../../components/Icon'
 import { Screen } from '../../../../components/Screen'
 import { Button } from '../../../../components/buttons/Button'
 import { PeachText } from '../../../../components/text/PeachText'
-import { useNavigation } from '../../../../hooks'
+import { useNavigation } from '../../../../hooks/useNavigation'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 

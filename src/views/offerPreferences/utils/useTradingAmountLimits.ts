@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useMarketPrices } from '../../../hooks'
+import { useMarketPrices } from '../../../hooks/query/useMarketPrices'
 import { getTradingAmountLimits } from '../../../utils/market/getTradingAmountLimits'
 
 export const useTradingAmountLimits = (type: 'buy' | 'sell') => {

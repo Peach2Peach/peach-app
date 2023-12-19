@@ -1,4 +1,4 @@
-import { useNavigation } from '../hooks'
+import { useNavigation } from '../hooks/useNavigation'
 import { ErrorPopup } from '../popups/ErrorPopup'
 import { ClosePopupAction } from '../popups/actions'
 import { FirstBackup } from '../popups/warning/FirstBackup'

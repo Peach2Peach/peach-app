@@ -1,7 +1,7 @@
 import { FlatList } from 'react-native'
 import { Header } from '../../components/Header'
 import { Screen } from '../../components/Screen'
-import { useNavigation } from '../../hooks'
+import { useNavigation } from '../../hooks/useNavigation'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'

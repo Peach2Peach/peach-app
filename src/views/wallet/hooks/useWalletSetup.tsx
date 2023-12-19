@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { useSessionStore } from '../../../store/sessionStore'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'

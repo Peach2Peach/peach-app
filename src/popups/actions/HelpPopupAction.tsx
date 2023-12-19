@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { PopupAction } from '../../components/popup'
-import { useNavigation } from '../../hooks'
+import { useNavigation } from '../../hooks/useNavigation'
 import { usePopupStore } from '../../store/usePopupStore'
 import i18n from '../../utils/i18n'
 

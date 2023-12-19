@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { shallow } from 'zustand/shallow'
 import { Contract } from '../../../../peach-api/src/@types/contract'
-import { useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { TradeBreakdownPopup } from '../../../popups/TradeBreakdownPopup'
 import { useSettingsStore } from '../../../store/settingsStore'

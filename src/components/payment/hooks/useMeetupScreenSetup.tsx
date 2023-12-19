@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
+import { useRoute } from '../../../hooks/useRoute'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'

@@ -1,5 +1,6 @@
-import { useNavigation, useRoute } from '../../../hooks'
 import { useMeetupEvents } from '../../../hooks/query/useMeetupEvents'
+import { useNavigation } from '../../../hooks/useNavigation'
+import { useRoute } from '../../../hooks/useRoute'
 import { sortAlphabetically } from '../../../utils/array/sortAlphabetically'
 import i18n from '../../../utils/i18n'
 import { useDrawerState } from '../../drawer/useDrawerState'

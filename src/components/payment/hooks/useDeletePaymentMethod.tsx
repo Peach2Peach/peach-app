@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { ErrorPopup } from '../../../popups/ErrorPopup'
 import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { usePopupStore } from '../../../store/usePopupStore'

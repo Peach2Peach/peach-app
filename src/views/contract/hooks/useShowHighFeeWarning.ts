@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useMessageState } from '../../../components/message/useMessageState'
-import { useNavigation } from '../../../hooks'
 import { useFeeRate } from '../../../hooks/useFeeRate'
+import { useNavigation } from '../../../hooks/useNavigation'
 import i18n from '../../../utils/i18n'
 
 const ESCROW_TX_SIZE = 173

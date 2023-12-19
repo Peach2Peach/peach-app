@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback } from 'react'
 import { Input } from '../../components/inputs/Input'
-import { useValidatedState } from '../../hooks'
+import { useValidatedState } from '../../hooks/useValidatedState'
 import { bip39WordRules } from './hooks/useRestoreFromSeedSetup'
 
 type Props = ComponentProps & { index: number; setWords: Dispatch<SetStateAction<string[]>> }

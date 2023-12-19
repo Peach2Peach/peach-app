@@ -1,5 +1,5 @@
 import { TouchableOpacity } from 'react-native'
-import { useShowHelp } from '../../../hooks'
+import { useShowHelp } from '../../../hooks/useShowHelp'
 import tw from '../../../styles/tailwind'
 import { badges } from '../../../views/settings/profile/profileOverview/components/badges'
 import { Badge, RepeatTraderBadge } from '../../Badge'

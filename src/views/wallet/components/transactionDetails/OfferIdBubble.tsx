@@ -1,5 +1,5 @@
 import { Bubble } from '../../../../components/bubble'
-import { useNavigateToOfferOrContract } from '../../../../hooks'
+import { useNavigateToOfferOrContract } from '../../../../hooks/useNavigateToOfferOrContract'
 import { offerIdToHex } from '../../../../utils/offer/offerIdToHex'
 
 type Props = {

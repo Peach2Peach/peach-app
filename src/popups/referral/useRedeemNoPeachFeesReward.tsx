@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { PopupAction } from '../../components/popup'
 import { PopupComponent } from '../../components/popup/PopupComponent'
-import { useNavigation } from '../../hooks'
+import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'

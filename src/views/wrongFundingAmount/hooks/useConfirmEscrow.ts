@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
-import { useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { peachAPI } from '../../../utils/peachAPI'
 

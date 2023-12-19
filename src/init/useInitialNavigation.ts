@@ -1,6 +1,6 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useCallback, useEffect } from 'react'
-import { useNavigation } from '../hooks'
+import { useNavigation } from '../hooks/useNavigation'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation/handlePushNotification'
 import { parseError } from '../utils/result/parseError'

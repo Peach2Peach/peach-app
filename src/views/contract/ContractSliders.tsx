@@ -1,6 +1,6 @@
 import { ConfirmSlider } from '../../components/inputs'
 import { MSINANHOUR } from '../../constants'
-import { useRoute } from '../../hooks'
+import { useRoute } from '../../hooks/useRoute'
 import { cancelContractAsSeller } from '../../popups/tradeCancelation/helpers/cancelContractAsSeller'
 import { useStartRefundPopup } from '../../popups/useStartRefundPopup'
 import { getSellOfferFromContract } from '../../utils/contract/getSellOfferFromContract'

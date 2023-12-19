@@ -1,6 +1,6 @@
 import { Animated, View, ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
-import { useIsMediumScreen } from '../../../hooks'
+import { useIsMediumScreen } from '../../../hooks/useIsMediumScreen'
 import tw from '../../../styles/tailwind'
 import { Icon } from '../../Icon'
 import { ConfirmSliderLabel } from './components/ConfirmSliderLabel'

@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { IconType } from '../../../assets/icons'
-import { useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore/usePaymentDataStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'

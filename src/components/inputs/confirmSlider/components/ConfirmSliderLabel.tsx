@@ -1,5 +1,5 @@
 import { Animated } from 'react-native'
-import { useIsMediumScreen } from '../../../../hooks'
+import { useIsMediumScreen } from '../../../../hooks/useIsMediumScreen'
 import tw from '../../../../styles/tailwind'
 import { FixedHeightText } from '../../../text/FixedHeightText'
 

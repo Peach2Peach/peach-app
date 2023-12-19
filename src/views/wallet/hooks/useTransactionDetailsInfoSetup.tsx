@@ -1,7 +1,7 @@
 import { NETWORK } from '@env'
 import { useMemo } from 'react'
-import { useNavigation } from '../../../hooks'
 import { useTransactionDetails } from '../../../hooks/query/useTransactionDetails'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { isRBFEnabled } from '../../../utils/bitcoin/isRBFEnabled'
 import { showTransaction } from '../../../utils/bitcoin/showTransaction'
 import { peachWallet } from '../../../utils/wallet/setWallet'
