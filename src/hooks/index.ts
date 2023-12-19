@@ -1,4 +1,3 @@
-export { useKeyboard } from './useKeyboard'
 export { useNavigateToOfferOrContract } from './useNavigateToOfferOrContract'
 export { useNavigation } from './useNavigation'
 export { usePreviousRoute } from './usePreviousRoute'
