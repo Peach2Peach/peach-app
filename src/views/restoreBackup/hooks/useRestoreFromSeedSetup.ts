@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
 import { useMessageState } from '../../../components/message/useMessageState'
-import { useValidatedState } from '../../../hooks'
+import { useValidatedState } from '../../../hooks/useValidatedState'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { useAccountStore } from '../../../utils/account/account'
 import { createAccount } from '../../../utils/account/createAccount'

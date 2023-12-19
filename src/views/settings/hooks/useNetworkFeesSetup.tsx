@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useMessageState } from '../../../components/message/useMessageState'
-import { useValidatedState } from '../../../hooks'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
+import { useValidatedState } from '../../../hooks/useValidatedState'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { updateUser } from '../../../utils/peachAPI'
 
