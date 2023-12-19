@@ -20,8 +20,8 @@ import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { getMessages } from '../../utils/validation/getMessages'
 import { isValidBitcoinSignature } from '../../utils/validation/isValidBitcoinSignature'
-import { usePatchReleaseAddress } from '../contract/components/usePatchReleaseAddress'
 import { NewLoadingScreen } from '../loading/LoadingScreen'
+import { usePatchReleaseAddress } from './components/usePatchReleaseAddress'
 
 const signatureRules = {
   required: true,
