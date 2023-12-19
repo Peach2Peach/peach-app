@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { PeachText } from '../../../components/text/PeachText'
-import { useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
 import { InfoPopup } from '../../../popups/InfoPopup'

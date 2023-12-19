@@ -1,5 +1,5 @@
 import { Contract } from '../../../../peach-api/src/@types/contract'
-import { useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
 import { useAccountStore } from '../../../utils/account/account'

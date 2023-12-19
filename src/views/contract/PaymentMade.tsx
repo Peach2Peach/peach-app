@@ -1,8 +1,8 @@
-import tw from '../../styles/tailwind'
-
 import { Overlay } from '../../components/Overlay'
 import { Button } from '../../components/buttons/Button'
-import { useNavigation, useRoute } from '../../hooks'
+import { useNavigation } from '../../hooks/useNavigation'
+import { useRoute } from '../../hooks/useRoute'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 export const PaymentMade = () => {

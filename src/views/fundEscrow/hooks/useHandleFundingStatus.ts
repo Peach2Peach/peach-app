@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowWronglyFundedPopup } from '../../../popups/useShowWronglyFundedPopup'
 import { useStartRefundPopup } from '../../../popups/useStartRefundPopup'
 import { info } from '../../../utils/log'

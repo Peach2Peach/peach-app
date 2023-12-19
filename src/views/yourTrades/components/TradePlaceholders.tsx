@@ -2,7 +2,7 @@ import { TouchableOpacity, View } from 'react-native'
 import { Icon } from '../../../components/Icon'
 import { PeachText } from '../../../components/text/PeachText'
 import { HorizontalLine } from '../../../components/ui/HorizontalLine'
-import { useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks/useNavigation'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 type TradePlaceholdersProps = ComponentProps & {

@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { useMessageState } from '../../../components/message/useMessageState'
-import { useNavigation } from '../../../hooks'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useFeeRate } from '../../../hooks/useFeeRate'
+import { useNavigation } from '../../../hooks/useNavigation'
 import i18n from '../../../utils/i18n'
 
 type Props = {

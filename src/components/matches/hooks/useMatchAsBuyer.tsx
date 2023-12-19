@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { GetMatchesResponseBody } from '../../../../peach-api/src/@types/api/offerAPI'
 import { Match } from '../../../../peach-api/src/@types/match'
-import { useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
 import { getHashedPaymentData } from '../../../store/offerPreferenes/helpers'
 import { useAccountStore } from '../../../utils/account/account'

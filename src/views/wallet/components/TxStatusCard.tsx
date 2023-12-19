@@ -1,5 +1,5 @@
 import { StatusCard } from '../../../components/statusCard/StatusCard'
-import { useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { getShortDateFormat } from '../../../utils/date/getShortDateFormat'
 import { getTxSummaryTitle } from '../helpers/getTxSummaryTitle'
 import { TransactionIcon } from './TransactionIcon'

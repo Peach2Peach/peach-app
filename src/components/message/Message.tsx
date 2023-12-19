@@ -3,7 +3,7 @@ import { Animated, SafeAreaView, TextStyle, TouchableOpacity, View, ViewStyle, u
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { shallow } from 'zustand/shallow'
 import { IconType } from '../../assets/icons'
-import { useNavigation } from '../../hooks'
+import { useNavigation } from '../../hooks/useNavigation'
 import { VerifyYouAreAHumanPopup } from '../../popups/warning/VerifyYouAreAHumanPopup'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'

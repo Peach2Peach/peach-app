@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
 import { TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Icon } from '../../components/Icon'
 import { NotificationBubble } from '../../components/bubble/NotificationBubble'
 import { PeachText } from '../../components/text/PeachText'
-import { useNavigation, useRoute } from '../../hooks'
+import { useNavigation } from '../../hooks/useNavigation'
+import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { HomeTabName, homeTabNames, homeTabs } from './homeTabNames'

@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { PopupAction } from '../../../components/popup/PopupAction'
-import { useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'

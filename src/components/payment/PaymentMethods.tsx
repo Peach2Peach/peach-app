@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useNavigation, usePreviousRoute, useRoute, useShowHelp, useToggleBoolean } from '../../hooks'
+import { usePreviousRoute, useRoute, useShowHelp, useToggleBoolean } from '../../hooks'
+import { useNavigation } from '../../hooks/useNavigation'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'

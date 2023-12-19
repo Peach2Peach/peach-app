@@ -2,7 +2,7 @@ import ShallowRenderer from 'react-test-renderer/shallow'
 import { tradingLimit } from '../../../../tests/unit/data/tradingLimitsData'
 import { DailyTradingLimit } from './DailyTradingLimit'
 
-jest.mock('../../../hooks', () => ({
+jest.mock('../../../hooks/query/useTradingLimits', () => ({
   useTradingLimits: () => tradingLimit,
 }))
 
