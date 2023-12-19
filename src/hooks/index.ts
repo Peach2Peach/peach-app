@@ -1,5 +1,4 @@
 export { useRoute } from './useRoute'
-export { useShowHelp } from './useShowHelp'
 export { useToggleBoolean } from './useToggleBoolean'
 export { useValidatedState } from './useValidatedState'
 export { useWriteCSV } from './useWriteCSV'

@@ -1,7 +1,7 @@
 import { TextSummaryItem } from '../../../../components/summaryItem'
-import { useShowHelp } from '../../../../hooks'
 import { useFeeEstimates } from '../../../../hooks/query/useFeeEstimates'
 import { useTransactionDetails } from '../../../../hooks/query/useTransactionDetails'
+import { useShowHelp } from '../../../../hooks/useShowHelp'
 import tw from '../../../../styles/tailwind'
 import { getTransactionFeeRate } from '../../../../utils/bitcoin/getTransactionFeeRate'
 import { getETAInBlocks } from '../../../../utils/electrum/getETAInBlocks'
