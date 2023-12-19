@@ -1,4 +1,3 @@
-export { useBitcoinPrices } from './useBitcoinPrices'
 export { useCancelOffer } from './useCancelOffer'
 export { useGoToOfferOrContract } from './useGoToOfferOrContract'
 export { useInterval } from './useInterval'
