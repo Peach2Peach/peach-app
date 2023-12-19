@@ -3,7 +3,7 @@ import { peachAPI } from '../utils/peachAPI'
 import { usePatchOffer } from './usePatchOffer'
 
 const showErrorBannerMock = jest.fn()
-jest.mock('../../hooks/useShowErrorBanner', () => ({
+jest.mock('../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
 }))
 
