@@ -1,4 +1,3 @@
-export { useTradingLimits } from './query/useTradingLimits'
 export { useBitcoinPrices } from './useBitcoinPrices'
 export { useCancelOffer } from './useCancelOffer'
 export { useGoToOfferOrContract } from './useGoToOfferOrContract'
