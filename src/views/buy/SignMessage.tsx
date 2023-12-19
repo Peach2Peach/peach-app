@@ -22,7 +22,6 @@ import { getMessages } from '../../utils/validation/getMessages'
 import { isValidBitcoinSignature } from '../../utils/validation/isValidBitcoinSignature'
 import { usePatchReleaseAddress } from '../contract/components/usePatchReleaseAddress'
 import { NewLoadingScreen } from '../loading/LoadingScreen'
-import { parseSignature } from './helpers/parseSignature'
 
 const signatureRules = {
   required: true,
@@ -35,6 +34,10 @@ export const SignMessage = () => {
 
   return <ScreenContent contract={contract} />
 }
+
+const signaturePattern = /[a-zA-Z0-9/=+]{88}/u
+
+const parseSignature = (signature: string) => signature.match(signaturePattern)?.pop() || signature
 
 function ScreenContent ({ contract }: { contract: Contract }) {
   const { contractId } = useRoute<'signMessage'>().params
