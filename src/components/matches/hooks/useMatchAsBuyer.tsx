@@ -3,6 +3,7 @@ import { GetMatchesResponseBody } from '../../../../peach-api/src/@types/api/off
 import { Match } from '../../../../peach-api/src/@types/match'
 import { useNavigation } from '../../../hooks'
 import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
+import { getHashedPaymentData } from '../../../store/offerPreferenes/helpers'
 import { useAccountStore } from '../../../utils/account/account'
 import { getRandom } from '../../../utils/crypto/getRandom'
 import { error, info } from '../../../utils/log'
@@ -60,6 +61,7 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
       })
       if (!matchOfferData) throw new Error(dataError || 'UNKNOWN_ERROR')
       const { result, error: err } = await peachAPI.private.offer.matchOffer(matchOfferData)
+
       if (result) {
         return result
       }
@@ -118,7 +120,7 @@ async function generateMatchOfferData ({ offer, match, currency, paymentData }: 
 
   const encryptedPaymentData = await encryptPaymentData(cleanPaymentData(paymentData), symmetricKey)
   if (!encryptedPaymentData) return { error: 'PAYMENTDATA_ENCRYPTION_FAILED' }
-
+  const hashedPaymentData = getHashedPaymentData([paymentData])
   return {
     result: {
       offerId: offer.id,
@@ -127,6 +129,7 @@ async function generateMatchOfferData ({ offer, match, currency, paymentData }: 
       premium: match.premium,
       currency,
       paymentMethod,
+      paymentData: hashedPaymentData,
       instantTrade: match.instantTrade,
       symmetricKeyEncrypted: encrypted,
       symmetricKeySignature: signature,
