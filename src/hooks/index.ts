@@ -1,5 +1,3 @@
-export { useGetPNActionHandler } from './notifications/useGetPNActionHandler'
-export { useMarketPrices } from './query/useMarketPrices'
 export { useTradingLimits } from './query/useTradingLimits'
 export { useBitcoinPrices } from './useBitcoinPrices'
 export { useCancelOffer } from './useCancelOffer'

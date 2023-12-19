@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import { useMarketPrices } from '../../../hooks'
+import { useMarketPrices } from '../../../hooks/query/useMarketPrices'
 import { getTradingAmountLimits } from '../../../utils/market/getTradingAmountLimits'
 import { sectionContainerPadding } from '../components/Section'
 import { sliderWidth } from '../components/Slider'
