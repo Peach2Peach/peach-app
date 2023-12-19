@@ -1,7 +1,7 @@
 import { BlockTime, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { useMemo } from 'react'
-import { useRoute } from '../../../hooks'
 import { useTransactionDetails } from '../../../hooks/query/useTransactionDetails'
+import { useRoute } from '../../../hooks/useRoute'
 import { useAreMyAddresses } from '../../../hooks/wallet/useIsMyAddress'
 import { sum } from '../../../utils/math/sum'
 import { isDefined } from '../../../utils/validation/isDefined'
