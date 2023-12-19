@@ -1,5 +1,4 @@
 import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
-import i18n from '../../../utils/i18n'
 import { info } from '../../../utils/log'
 import { isSellOffer } from '../../../utils/offer/isSellOffer'
 import { saveOffer } from '../../../utils/offer/saveOffer'
@@ -33,10 +32,12 @@ export const publishSellOffer = async (offerDraft: SellOfferDraft) => {
       return handleMultipleOffersPublished(result, offerDraft)
     }
   }
+
   return {
     isPublished: false,
     navigationParams: null,
-    errorMessage: i18n(err?.error || 'POST_OFFER_ERROR', (err?.details || []).join(', ')),
+    errorMessage: err?.error || 'POST_OFFER_ERROR',
+    errorDetails: err?.details,
   } as const
 }
 
@@ -52,5 +53,10 @@ async function handleMultipleOffersPublished (result: SellOffer[], offerDraft: S
     result.map((offer) => offer.id),
   )
 
-  return { isPublished: true, navigationParams: { offerId: result[0].id }, errorMessage: null } as const
+  return {
+    isPublished: true,
+    navigationParams: { offerId: result[0].id },
+    errorMessage: null,
+    errorDetails: undefined,
+  } as const
 }

@@ -558,7 +558,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
       return
     }
     const paymentData = await getPaymentData()
-    const { isPublished, navigationParams, errorMessage } = await publishSellOffer({
+    const { isPublished, navigationParams, errorMessage, errorDetails } = await publishSellOffer({
       ...sellPreferences,
       paymentData,
       type: 'ask',
@@ -602,7 +602,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
         },
       })
     } else if (errorMessage) {
-      showErrorBanner(errorMessage)
+      showErrorBanner(errorMessage, errorDetails)
       setIsPublishing(false)
     } else {
       setIsPublishing(false)

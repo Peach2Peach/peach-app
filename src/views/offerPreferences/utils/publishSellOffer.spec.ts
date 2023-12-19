@@ -1,7 +1,6 @@
 import { responseUtils } from 'test-utils'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
-import i18n from '../../../utils/i18n'
 import { peachAPI } from '../../../utils/peachAPI'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -63,7 +62,7 @@ describe('publishSellOffer', () => {
 
     expect(result).toBeFalsy()
     expect(offer).toBeNull()
-    expect(error).toBe(i18n('INTERNAL_SERVER_ERROR'))
+    expect(error).toBe('INTERNAL_SERVER_ERROR')
   })
 
   it('should handle single offer being published', async () => {
