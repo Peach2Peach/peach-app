@@ -10,30 +10,8 @@ export const useSortAndFilterPopup = (offerId: string) => {
 
   const showPopup = useCallback(() => {
     if (!offer) return
-    setPopup(<OfferSortAndFilterPopup offer={offer} />)
+    setPopup(isBuyOffer(offer) ? <BuyFilterAndSort offer={offer} /> : <SellSorters />)
   }, [offer, setPopup])
 
   return showPopup
-}
-
-type Props = {
-  offer: BuyOffer | SellOffer
-}
-
-function OfferSortAndFilterPopup ({ offer }: Props) {
-  return isBuyOffer(offer) ? <BuyFilterAndSort offer={offer} /> : <SellSorters />
-}
-
-export const useGlobalSortAndFilterPopup = (type: 'buy' | 'sell') => {
-  const setPopup = usePopupStore((state) => state.setPopup)
-
-  const showPopup = useCallback(() => {
-    setPopup(<GlobalSortAndFilterPopup type={type} />)
-  }, [setPopup, type])
-
-  return showPopup
-}
-
-function GlobalSortAndFilterPopup ({ type }: { type: 'buy' | 'sell' }) {
-  return type === 'buy' ? <BuyFilterAndSort /> : <SellSorters />
 }
