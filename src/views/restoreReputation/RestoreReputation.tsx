@@ -21,20 +21,17 @@ export const RestoreReputation = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [account, setIsLoggedIn] = useAccountStore((state) => [state.account, state.setIsLoggedIn], shallow)
 
-  const restoreReputation = () => {
+  const restoreReputation = async () => {
     setIsLoading(true)
-    // prevent render blocking
-    setTimeout(async () => {
-      updateAccount(account, true)
-      await userUpdate(route.params.referralCode)
+    updateAccount(account, true)
+    await userUpdate(route.params.referralCode)
 
-      storeAccount(account)
-      setIsRestored(true)
+    storeAccount(account)
+    setIsRestored(true)
 
-      setTimeout(() => {
-        setIsLoggedIn(true)
-      }, 1500)
-    })
+    setTimeout(() => {
+      setIsLoggedIn(true)
+    }, 1500)
   }
 
   return (
