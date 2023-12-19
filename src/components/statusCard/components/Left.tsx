@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { useGoToOfferOrContract } from '../../../hooks'
+import { useGoToOfferOrContract } from '../../../hooks/useGoToOfferOrContract'
 import tw from '../../../styles/tailwind'
 import { contractIdFromHex } from '../../../utils/contract/contractIdFromHex'
 import { isDisplayContractId } from '../../../utils/contract/isDisplayContractId'

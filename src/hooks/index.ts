@@ -1,4 +1,3 @@
-export { useGoToOfferOrContract } from './useGoToOfferOrContract'
 export { useInterval } from './useInterval'
 export { useIsMediumScreen } from './useIsMediumScreen'
 export { useKeyboard } from './useKeyboard'
