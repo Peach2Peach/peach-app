@@ -1,4 +1,3 @@
-export { useInterval } from './useInterval'
 export { useIsMediumScreen } from './useIsMediumScreen'
 export { useKeyboard } from './useKeyboard'
 export { useNavigateToOfferOrContract } from './useNavigateToOfferOrContract'
