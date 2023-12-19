@@ -10,6 +10,8 @@ import { PriceFormat } from '../../components/text/PriceFormat'
 import { useBitcoinPrices, useCancelOffer, useNavigation } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useRoute } from '../../hooks/useRoute'
+import { BuySorters } from '../../popups/sorting/BuySorters'
+import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -18,7 +20,6 @@ import { LoadingScreen } from '../loading/LoadingScreen'
 import { BuyBitcoinHeader } from '../offerPreferences/components/BuyBitcoinHeader'
 import { MarketInfo } from '../offerPreferences/components/MarketInfo'
 import { useOfferMatches } from '../search/hooks'
-import { useSortAndFilterPopup } from '../search/hooks/useSortAndFilterPopup'
 import { Rating } from '../settings/profile/profileOverview/components'
 
 export function Explore () {
@@ -117,7 +118,10 @@ function ExploreCard ({ match }: { match: Match }) {
 
 function ExploreHeader () {
   const { offerId } = useRoute<'explore'>().params
-  const showSortAndFilterPopup = useSortAndFilterPopup(offerId)
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const showSortAndFilterPopup = () => {
+    setPopup(<BuySorters />)
+  }
   const navigation = useNavigation()
   const goToPreferences = () => {
     navigation.navigate('editBuyPreferences', { offerId })

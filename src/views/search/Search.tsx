@@ -8,6 +8,8 @@ import { SellOfferSummary } from '../../components/offer/SellOfferSummary'
 import { WalletLabel } from '../../components/offer/WalletLabel'
 import { PeachText } from '../../components/text/PeachText'
 import { useCancelOffer, useNavigation, useRoute, useShowHelp } from '../../hooks'
+import { SellSorters } from '../../popups/sorting/SellSorters'
+import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -16,7 +18,6 @@ import { isSellOffer } from '../../utils/offer/isSellOffer'
 import { offerIdToHex } from '../../utils/offer/offerIdToHex'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { useOfferMatches, useSearchSetup } from './hooks'
-import { useSortAndFilterPopup } from './hooks/useSortAndFilterPopup'
 
 export const Search = () => {
   const { hasMatches, offer } = useSearchSetup()
@@ -50,7 +51,8 @@ function SearchHeader ({ offer }: { offer: SellOffer }) {
   const navigation = useNavigation()
   const showMatchPopup = useShowHelp('matchmatchmatch')
   const showAcceptMatchPopup = useShowHelp('acceptMatch')
-  const showSortAndFilterPopup = useSortAndFilterPopup(offerId)
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const showSortAndFilterPopup = useCallback(() => setPopup(<SellSorters />), [setPopup])
   const cancelOffer = useCancelOffer(offerId)
 
   const goToEditPremium = useCallback(() => navigation.navigate('editPremium', { offerId }), [navigation, offerId])
