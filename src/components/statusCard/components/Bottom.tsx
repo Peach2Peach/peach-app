@@ -17,11 +17,7 @@ export const Bottom = ({ labelIcon: icon, label: text, unreadMessages: messages,
         <PeachText style={[tw`subtitle-1`, tw.style(statusCardStyles.text[color])]}>{text}</PeachText>
       </View>
       <View style={[tw`items-center justify-center w-7 h-7`, !messages && tw`opacity-0`]}>
-        <Icon
-          id="messageFull"
-          style={tw`w-7 h-7`}
-          color={tw.color(statusCardStyles.text[color !== 'primary-mild' ? color : 'primary'])}
-        />
+        <Icon id="messageFull" style={tw`w-7 h-7`} color={tw.color('primary-background-light')} />
         <PeachText style={tw`absolute text-center font-baloo-bold`}>{messages}</PeachText>
       </View>
     </View>
