@@ -52,8 +52,8 @@ function RepeatTraderIcon ({ positive, numberOfTrades }: { positive: boolean; nu
     return (
       <View
         style={[
-          tw`items-center justify-center border rounded-full`,
-          { borderColor: colorTheme, height: BADGE_SIZE, width: BADGE_SIZE },
+          tw`items-center justify-center border rounded-full px-2px`,
+          { borderColor: colorTheme, height: BADGE_SIZE, minWidth: BADGE_SIZE },
         ]}
       >
         <FixedHeightText height={6} style={[tw`pt-px text-center subtitle-2 text-10px`, { color: colorTheme }]}>

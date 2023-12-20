@@ -4,9 +4,14 @@ import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useRoute } from '../../../hooks/useRoute'
 import { parseError } from '../../../utils/result/parseError'
-import { shouldGoToContract } from '../helpers/shouldGoToContract'
 import { useOfferMatches } from './useOfferMatches'
 import { useRefetchOnNotification } from './useRefetchOnNotification'
+
+const shouldGoToContract = (error: APIError): error is APIError & { details: { contractId: string } } =>
+  !!error.details
+  && typeof error.details === 'object'
+  && 'contractId' in error.details
+  && typeof error.details.contractId === 'string'
 
 export const useSearchSetup = () => {
   const navigation = useNavigation()

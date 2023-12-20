@@ -10,13 +10,13 @@ export type RadioButtonItem<T> = {
   data?: any
 }
 
-type Props<T> = ComponentProps & {
+export type RadioButtonProps<T> = ComponentProps & {
   items: RadioButtonItem<T>[]
   selectedValue?: T
   onButtonPress: (value: T) => void
 }
 
-export const RadioButtons = <T, >({ items, selectedValue, onButtonPress, style }: Props<T>) => (
+export const RadioButtons = <T, >({ items, selectedValue, onButtonPress, style }: RadioButtonProps<T>) => (
   <View style={[tw`gap-2`, style]}>
     {items.map(({ display, disabled, value }, i) => (
       <RadioButtonItem

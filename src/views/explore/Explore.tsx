@@ -5,13 +5,17 @@ import { PeachyBackground } from '../../components/PeachyBackground'
 import { Screen } from '../../components/Screen'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Badges } from '../../components/matches/components/Badges'
+import { getPremiumOfMatchedOffer } from '../../components/matches/getPremiumOfMatchedOffer'
 import { PeachText } from '../../components/text/PeachText'
 import { PriceFormat } from '../../components/text/PriceFormat'
+import { useMarketPrices } from '../../hooks/query/useMarketPrices'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useBitcoinPrices } from '../../hooks/useBitcoinPrices'
 import { useCancelOffer } from '../../hooks/useCancelOffer'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
+import { BuySorters } from '../../popups/sorting/BuySorters'
+import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -20,7 +24,6 @@ import { LoadingScreen } from '../loading/LoadingScreen'
 import { BuyBitcoinHeader } from '../offerPreferences/components/BuyBitcoinHeader'
 import { MarketInfo } from '../offerPreferences/components/MarketInfo'
 import { useOfferMatches } from '../search/hooks'
-import { useSortAndFilterPopup } from '../search/hooks/useSortAndFilterPopup'
 import { Rating } from '../settings/profile/profileOverview/components'
 
 export function Explore () {
@@ -72,7 +75,12 @@ function BuyOfferMarketInfo () {
 }
 
 function ExploreCard ({ match }: { match: Match }) {
-  const { matched, amount, user, premium, instantTrade } = match
+  const { matched, amount, user, instantTrade, matchedPrice, selectedCurrency } = match
+  const { data: priceBook } = useMarketPrices()
+  const premium
+    = matched && matchedPrice && selectedCurrency
+      ? getPremiumOfMatchedOffer({ amount, price: matchedPrice, currency: selectedCurrency }, priceBook)
+      : match.premium
   const { fiatPrice, displayCurrency } = useBitcoinPrices(amount)
   const { offerId } = useRoute<'explore'>().params
   const navigation = useNavigation()
@@ -104,7 +112,11 @@ function ExploreCard ({ match }: { match: Match }) {
         <View style={[tw`flex-row items-center justify-between`, isNewUser && tw`justify-end`]}>
           {!isNewUser && <Badges id={user.id} unlockedBadges={user.medals} />}
           <PeachText style={tw`text-center`}>
-            <PriceFormat style={tw`tooltip`} currency={displayCurrency} amount={fiatPrice * (1 + premium / 100)} />
+            <PriceFormat
+              style={tw`tooltip`}
+              currency={match.selectedCurrency ?? displayCurrency}
+              amount={match.matchedPrice ?? fiatPrice * (1 + premium / 100)}
+            />
             <PeachText style={tw`text-black-2`}>
               {' '}
               ({premium >= 0 ? '+' : ''}
@@ -119,7 +131,10 @@ function ExploreCard ({ match }: { match: Match }) {
 
 function ExploreHeader () {
   const { offerId } = useRoute<'explore'>().params
-  const showSortAndFilterPopup = useSortAndFilterPopup(offerId)
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const showSortAndFilterPopup = () => {
+    setPopup(<BuySorters />)
+  }
   const navigation = useNavigation()
   const goToPreferences = () => {
     navigation.navigate('editBuyPreferences', { offerId })

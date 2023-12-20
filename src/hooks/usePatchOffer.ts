@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { MatchFilter } from '../../../peach-api/src/@types/api/offerAPI'
-import { peachAPI } from '../../utils/peachAPI'
-import { useShowErrorBanner } from '../useShowErrorBanner'
+import { MatchFilter } from '../../peach-api/src/@types/api/offerAPI'
+import { peachAPI } from '../utils/peachAPI'
+import { useShowErrorBanner } from './useShowErrorBanner'
 
 export type PatchOfferData = {
   refundAddress?: string
