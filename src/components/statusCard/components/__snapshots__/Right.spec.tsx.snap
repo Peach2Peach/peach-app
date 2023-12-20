@@ -31,7 +31,9 @@ exports[`Right should render correctly with amount 1`] = `
         "paddingTop": 4,
         "width": 141,
       },
-      false,
+      {
+        "gap": 6,
+      },
       false,
     ]
   }

@@ -8,15 +8,15 @@ import { PeachText } from '../../text/PeachText'
 import { StatusCardProps } from '../StatusCard'
 import { getPropsWithType } from '../helpers'
 
-export type Props = Pick<StatusCardProps, 'amount' | 'price' | 'currency' | 'replaced'>
+export type Props = Pick<StatusCardProps, 'amount' | 'price' | 'currency' | 'replaced' | 'premium'>
 
 export const Right = (propsWithoutType: Props) => {
-  const { type, amount, price, currency } = getPropsWithType(propsWithoutType)
+  const { type, amount, price, currency, premium } = getPropsWithType(propsWithoutType)
   return (
     <View
       style={[
         tw`items-end pt-4px pb-1px w-141px h-40px`,
-        type === 'fiatAmount' && tw` gap-6px`,
+        ['amount', 'fiatAmount'].includes(type) && tw`gap-6px`,
         type === 'empty' && tw`w-px`,
       ]}
     >
@@ -34,7 +34,16 @@ export const Right = (propsWithoutType: Props) => {
           </FixedHeightText>
         </>
       ) : (
-        type === 'amount' && <BTCAmount amount={amount} size="small" />
+        type === 'amount' && (
+          <>
+            <BTCAmount size="small" amount={amount} />
+            {premium !== undefined && (
+              <FixedHeightText style={tw`body-m text-black-2`} height={17}>
+                {premium}% premium
+              </FixedHeightText>
+            )}
+          </>
+        )
       )}
     </View>
   )
