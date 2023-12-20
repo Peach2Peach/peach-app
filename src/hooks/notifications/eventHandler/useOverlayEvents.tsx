@@ -1,6 +1,7 @@
 import { useAtom } from 'jotai'
 import { useMemo } from 'react'
 import { overlayAtom } from '../../../Overlay'
+import { PaymentMade } from '../../../views/contract/PaymentMade'
 import { NewBadge } from '../../../views/overlays/NewBadge'
 import { useNavigation } from '../../useNavigation'
 
@@ -23,7 +24,7 @@ export const useOverlayEvents = () => {
         offerId ? navigation.navigate('offerPublished', { offerId, shouldGoBack: true }) : undefined,
       // PN-S11
       'contract.paymentMade': ({ contractId }: PNData) =>
-        contractId ? navigation.navigate('paymentMade', { contractId }) : undefined,
+        contractId ? setOverlayContent(<PaymentMade contractId={contractId} />) : undefined,
     }),
     [navigation, setOverlayContent],
   )

@@ -12,7 +12,6 @@ import { CanceledOfferDetails } from './canceledOfferDetails/CanceledOfferDetail
 import { Contact } from './contact/Contact'
 import { Contract } from './contract/Contract'
 import { PatchPayoutAddress } from './contract/PatchPayoutAddress'
-import { PaymentMade } from './contract/PaymentMade'
 import { SignMessage } from './contract/SignMessage'
 import { ContractChat } from './contractChat/ContractChat'
 import { DisputeForm } from './dispute/DisputeForm'
@@ -106,7 +105,6 @@ const sellFlow: ViewType[] = [
 const trade: ViewType[] = [
   { name: 'contract', component: Contract },
   { name: 'contractChat', component: ContractChat },
-  { name: 'paymentMade', component: PaymentMade, animationEnabled: false },
   { name: 'patchPayoutAddress', component: PatchPayoutAddress },
   { name: 'signMessage', component: SignMessage },
   {
