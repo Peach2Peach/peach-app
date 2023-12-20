@@ -37,7 +37,7 @@
   "help.referral.description.1" : "Minden olyan Peach tranzakció után, amelyben az ajánlottjaid 10 000 satoshit kereskednek, egy ajánlási pontot kapsz.",
   "help.referral.description.2" : "Gyűjtsd a pontjaidat, hogy klassz jutalmakat kapj!",
   "help.referral.title" : "Peach ajánlói pontok",
-  "help.sellingBitcoin.description" : "A Peach platformon a satoshik eladása díjmentes!",
+  "help.sellingBitcoin.description" : "A saját sats-el való kereskedelem Peachen ingyenes!\n\nEgy eladási ajánlat közzététele érdekében el kell küldened a sats-eidet egy escrow-nak, hogy bebizonyítsd a vásárlónak, hogy megvan a sats, amit el akarsz adni!\n\nAz escrow egy Bitcoin több aláírású pénztárca, ahol te birtokolsz egy kulcsot, és a Peach egy másikat tart.",
   "help.sellingBitcoin.title" : "bitcoin eladás",
   "help.tradingLimit.description" : "A Peach-nek a svájci törvényeket be kell tartania, és ezért kereskedelmi korlátozásokat kell bevezetnie. Három kereskedelmi korlátozás van:\n\nMinden nap a Peach-en 1000 CHF értékű bitcoint vásárolhatsz vagy eladhatsz\n\nA Peach-en készpénzzel vagy online ajándékutalványokkal (azaz névtelen fizetési módokkal) havi 1000 CHF értékű bitcoint vásárolhatsz vagy eladhatsz\n\nA Peach-en évente 100 000 CHF értékű bitcoint vásárolhatsz vagy eladhatsz.",
   "help.tradingLimit.title" : "kereskedelmi korlátozások"

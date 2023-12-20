@@ -8,8 +8,10 @@ import error from './error/tr.json'
 import form from './form/tr.json'
 import global from './global/tr.json'
 import help from './help/tr.json'
+import match from './match/tr.json'
 import notification from './notification/tr.json'
 import offer from './offer/tr.json'
+import offerPreferences from './offerPreferences/tr.json'
 import paymentMethod from './paymentMethod/tr.json'
 import profile from './profile/tr.json'
 import referral from './referral/tr.json'
@@ -31,6 +33,8 @@ const tr: Record<string, string> = {
   ...error,
   ...form,
   ...help,
+  ...offerPreferences,
+  ...match,
   ...notification,
   ...offer,
   ...paymentMethod,

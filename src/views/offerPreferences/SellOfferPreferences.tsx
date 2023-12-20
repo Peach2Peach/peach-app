@@ -122,8 +122,12 @@ function CompetingOfferStats () {
 
   return (
     <Section.Container style={tw`gap-1 py-0`}>
-      <PeachText style={textStyle}>{marketStats.offersWithinRange.length} competing sell offers</PeachText>
-      <PeachText style={textStyle}>premium of completed trades: {pastOfferData?.avgPremium}%</PeachText>
+      <PeachText style={textStyle}>
+        {i18n('offerPreferences.competingSellOffers', String(marketStats.offersWithinRange.length))}
+      </PeachText>
+      <PeachText style={textStyle}>
+        {i18n('offerPreferences.premiumOfCompletedTrades', String(pastOfferData?.avgPremium))}
+      </PeachText>
     </Section.Container>
   )
 }
@@ -153,7 +157,7 @@ function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) 
 function AmountSelectorContainer ({ slider, inputs }: { slider?: JSX.Element; inputs?: JSX.Element }) {
   return (
     <Section.Container style={tw`bg-primary-background-dark`}>
-      <Section.Title>amount to sell</Section.Title>
+      <Section.Title>{i18n('offerPreferences.amountToSell')}</Section.Title>
       <View style={tw`gap-5`}>
         <View style={tw`gap-2`}>
           <View style={tw`flex-row gap-10px`}>{inputs}</View>
@@ -182,7 +186,7 @@ function Premium () {
       <PremiumInputComponent />
       <CurrentPrice />
       <PeachText style={tw`text-center text-primary-main subtitle-2`}>
-        {data.offersWithinRange.length} competing sell offers below this premium
+        {i18n('offerPreferences.competingSellOffersBelowThisPremium', String(data.offersWithinRange.length))}
       </PeachText>
     </View>
   )
@@ -206,7 +210,7 @@ function CurrentPrice () {
 
   return (
     <PeachText style={tw`text-center body-s`}>
-      currently {priceWithPremium} {displayCurrency}
+      {(i18n('offerPreferences.currentPrice'), `${priceWithPremium} ${displayCurrency}`)}
     </PeachText>
   )
 }
@@ -372,7 +376,7 @@ function InstantTrade () {
     <Section.Container style={tw`bg-primary-background-dark`}>
       <View style={tw`flex-row items-center self-stretch justify-between`}>
         <Toggle onPress={onToggle} enabled={enableInstantTrade} />
-        <Section.Title>instant - trade</Section.Title>
+        <Section.Title>{i18n('offerPreferences.feature.instantTrade')}</Section.Title>
         <TouchableIcon id="helpCircle" iconColor={tw.color('info-light')} onPress={onHelpIconPress} />
       </View>
       {enableInstantTrade && (
@@ -380,13 +384,13 @@ function InstantTrade () {
           <Checkbox
             checked={criteria.minTrades !== 0}
             style={tw`self-stretch`}
-            text="no new users"
+            text={i18n('offerPreferences.filters.noNewUsers')}
             onPress={toggleMinTrades}
           />
           <Checkbox
             checked={criteria.minReputation !== 0}
             style={tw`self-stretch`}
-            text="minimum reputation: 4.5"
+            text={i18n('offerPreferences.filters.minReputation', '4.5')}
             onPress={toggleMinReputation}
           />
           <View style={tw`flex-row items-start self-stretch gap-10px`}>
@@ -418,10 +422,10 @@ function RefundWallet () {
   }
   return (
     <Section.Container style={tw`bg-primary-background-dark`}>
-      <Section.Title>refund to:</Section.Title>
+      <Section.Title>{i18n('offerPreferences.refundTo')}</Section.Title>
       <View style={tw`flex-row items-center gap-10px`}>
         <NewBubble color="orange" ghost={!peachWalletActive} onPress={() => setPeachWalletActive(true)}>
-          peach wallet
+          {i18n('peachWallet')}
         </NewBubble>
         <NewBubble
           color="orange"
@@ -456,7 +460,7 @@ function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWa
     <Section.Container style={tw`flex-row justify-between`}>
       <Checkbox
         checked={fundWithPeachWallet}
-        text={`fund with Peach wallet (${estimatedFeeRate} sats/vb)`}
+        text={i18n('offerPreferences.fundWithPeachWallet', String(estimatedFeeRate))}
         onPress={toggle}
         style={tw`flex-1`}
       />
@@ -619,7 +623,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
       onPress={onPress}
       loading={isPublishing}
     >
-      Fund Escrow
+      {i18n('offerPreferences.fundEscrow')}
     </Button>
   )
 }
@@ -643,15 +647,8 @@ function SellHeader () {
 function SellingBitcoinPopup () {
   return (
     <InfoPopup
-      title="selling bitcoin"
-      content={
-        <PeachText>
-          {
-            // eslint-disable-next-line max-len
-            'Selling your sats on Peach is free of charge!\n\nTo publish a sell offer, you must send your sats to an escrow to prove to the buyer that you have the sats you want to sell!\n\nThe escrow is a Bitcoin multi-signature wallet where you own one key and Peach holds another.'
-          }
-        </PeachText>
-      }
+      title={i18n('help.sellingBitcoin.title')}
+      content={<PeachText>{i18n('help.sellingBitcoin.description')}</PeachText>}
     />
   )
 }
@@ -659,15 +656,8 @@ function SellingBitcoinPopup () {
 function FundMultiplePopup () {
   return (
     <InfoPopup
-      title="fund multiple sell offers"
-      content={
-        <PeachText>
-          {
-            // eslint-disable-next-line max-len
-            'To save on network fees, you can create multiple sell offers with only one transaction!'
-          }
-        </PeachText>
-      }
+      title={i18n('help.fundMultiple.title')}
+      content={<PeachText>{i18n('help.fundMultiple.text')}</PeachText>}
     />
   )
 }
@@ -675,15 +665,8 @@ function FundMultiplePopup () {
 function InstantTradePopup () {
   return (
     <InfoPopup
-      title="instant trade"
-      content={
-        <PeachText>
-          {
-            // eslint-disable-next-line max-len
-            'Allow a buyer who matches your sell offer to automatically get in a trade with you!\n\nTo enable this, Peach will receive your selected payment data to instantly share them with a buyer that matches all of your criteria.\n\nThis data is encrypted and cannot be read by third parties other than Peach.'
-          }
-        </PeachText>
-      }
+      title={i18n('help.instantTrade.title')}
+      content={<PeachText>{i18n('help.instantTrade.text')}</PeachText>}
     />
   )
 }

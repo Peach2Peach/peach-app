@@ -37,7 +37,7 @@
   "help.referral.description.1" : "Pour chaque tranche de 10 000 sats que vos filleuls échangent sur Peach, vous obtenez un point de parrainage.",
   "help.referral.description.2" : "Économisez vos points pour obtenir des récompenses intéressantes !",
   "help.referral.title" : "Points de parrainage Peach",
-  "help.sellingBitcoin.description" : "Vendre vos sats sur Peach est gratuit !",
+  "help.sellingBitcoin.description" : "Vendre vos sats sur Peach est gratuit !\n\nPour publier une offre de vente, vous devez envoyer vos sats à un compte de séquestre pour prouver à l'acheteur que vous avez les sats que vous souhaitez vendre !\n\nLe séquestre est un portefeuille Bitcoin à signatures multiples où vous possédez une clé et Peach en détient une autre.",
   "help.sellingBitcoin.title" : "vente de bitcoin",
   "help.tradingLimit.description" : "Peach doit respecter des limites de trading pour se conformer à la législation suisse. Il existe trois limites de trading :\n\nVous pouvez acheter ou vendre jusqu'à 1000 CHF de bitcoin sur Peach chaque jour.\n\nVous pouvez acheter ou vendre jusqu'à 1000 CHF de bitcoin en espèces ou en cartes-cadeaux en ligne (méthodes de paiement considérées comme anonymes) chaque mois.\n\nVous pouvez acheter ou vendre jusqu'à  100 000 CHF de bitcoin par an.",
   "help.tradingLimit.title" : "limites de trading"

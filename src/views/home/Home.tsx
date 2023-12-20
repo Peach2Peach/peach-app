@@ -110,7 +110,7 @@ function MarketStats () {
           {i18n('home.openSellOffers', String(data?.sell.open))}
         </PeachText>
         <PeachText style={tw`subtitle-1 text-primary-main`}>
-          {i18n('home.averagePremium')}: {data?.sell.avgPremium}%
+          {i18n('home.averagePremium', String(data?.sell.avgPremium))}
         </PeachText>
       </View>
     </View>
