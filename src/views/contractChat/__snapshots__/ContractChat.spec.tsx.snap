@@ -276,10 +276,10 @@ exports[`ContractChat should render chat disabled message when disabled 1`] = `
             refreshControl={
               <RefreshControlMock
                 onRefresh={[Function]}
-                refreshing={true}
+                refreshing={false}
               />
             }
-            refreshing={true}
+            refreshing={false}
             removeClippedSubviews={false}
             renderItem={[Function]}
             scrollEventThrottle={50}
@@ -616,10 +616,10 @@ exports[`ContractChat should render correct when chat enabled 1`] = `
             refreshControl={
               <RefreshControlMock
                 onRefresh={[Function]}
-                refreshing={true}
+                refreshing={false}
               />
             }
-            refreshing={true}
+            refreshing={false}
             removeClippedSubviews={false}
             renderItem={[Function]}
             scrollEventThrottle={50}
