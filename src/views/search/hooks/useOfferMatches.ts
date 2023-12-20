@@ -2,7 +2,6 @@ import { useIsFocused } from '@react-navigation/native'
 import { QueryFunctionContext, useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { GetMatchesResponseBody } from '../../../../peach-api/src/@types/api/offerAPI'
-import { FIFTEEN_SECONDS } from '../../../constants'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { getAbortWithTimeout } from '../../../utils/getAbortWithTimeout'
@@ -18,7 +17,7 @@ export const matchesKeys = {
     [...matchesKeys.matchesByOfferId(offerId), sortBy] as const,
 }
 
-export const useOfferMatches = (offerId: string, enabled = true) => {
+export const useOfferMatches = (offerId: string, refetchInterval?: number, enabled = true) => {
   const { offer } = useOfferDetails(offerId)
   const isFocused = useIsFocused()
   const sortBy: Sorter[] = useOfferPreferences((state) =>
@@ -33,7 +32,7 @@ export const useOfferMatches = (offerId: string, enabled = true) => {
   >({
     queryKey: matchesKeys.sortedMatchesByOfferId(offerId, sortBy),
     queryFn: getMatchesFn,
-    refetchInterval: FIFTEEN_SECONDS,
+    refetchInterval,
     enabled: enabled && isFocused && !!offer?.id && !offer.doubleMatched,
     getNextPageParam: (lastPage) => lastPage?.nextPage,
     keepPreviousData: true,

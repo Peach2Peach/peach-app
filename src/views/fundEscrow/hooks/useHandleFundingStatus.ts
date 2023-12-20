@@ -17,7 +17,7 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
   const showWronglyFundedPopup = useShowWronglyFundedPopup()
 
   const startRefund = useStartRefundPopup()
-  const { refetch: fetchMatches } = useOfferMatches(offerId, fundingStatus.status === 'FUNDED')
+  const { refetch: fetchMatches } = useOfferMatches(offerId, undefined, fundingStatus.status === 'FUNDED')
 
   useEffect(() => {
     if (!sellOffer) return
