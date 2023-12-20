@@ -22,6 +22,7 @@
     <string name="notification.body.contract.seller.disputeWon">Abbiamo deciso a tuo favore nella disputa per lo scambio %1$s. Per favore, verifica il messaggio del mediatore nella chat dello scambio per ulteriori istruzioni.</string>
     <string name="notification.body.contract.seller.paymentTimerHasRunOut">Il pagamento per lo scambio %1$s non è stato effettuato in tempo. Per favore, apri l\'app per concedere più tempo all\'acquirente o annullare lo scambio.</string>
     <string name="notification.body.contract.tradeCompleted">I sats per lo scambio %1$s sono nella tua wallet \uD83C\uDF89</string>
+    <string name="notification.body.contract.seller.instantTrade">Hai avviato un commercio istantaneo con un acquirente!</string>
     <string name="notification.body.offer.buyOfferExpired">La tua offerta di acquisto %1$s non ha trovato match da %2$s giorni ed è stata rimossa.</string>
     <string name="notification.body.offer.escrowFunded">Il deposito è stato ricevuto e la tua offerta è stata pubblicata.</string>
     <string name="notification.body.offer.fundingAmountDifferent">Il deposito è stato effettuato per un importo diverso. Vuoi continuare con la tua offerta o richiedere un rimborso?</string>

@@ -22,6 +22,7 @@
   "notification.contract.seller.disputeLost.text" : "Ми винесли рішення на користь покупця в суперечці за 0 доларів США. Будь ласка, перевірте повідомлення від вашого посередника в торговому чаті, щоб дізнатися, що буде далі.",
   "notification.contract.seller.disputeRaised.text" : "Покупець почав спір для торгівлі $0 за $1 сат.",
   "notification.contract.seller.disputeWon.text" : "Ми вирішили на  вашу користь у суперечці щодо обміну 0 доларів США. Будь ласка, перевірте повідомлення від вашого посередника в торговому чаті, щоб дізнатися, що буде далі.",
+  "notification.contract.seller.instantTrade.body" : "Ви ввійшли в миттєву угоду з покупцем!",
   "notification.contract.seller.paymentTimerHasRunOut.text" : "Платіж за торгівлю $0 не було здійснено вчасно. Дайте покупцеві більше часу або скасуйте угоду.",
   "notification.contract.tradeCompleted.text" : "Щиро вітаю! Сат за торги $0 у вашому гаманці \uD83C\uDF89",
   "notification.contract.tradeCompleted.title" : "торги завершено",

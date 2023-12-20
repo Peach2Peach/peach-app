@@ -22,6 +22,7 @@
   "notification.contract.seller.disputeLost.text" : "Tumetoa uamuzi kwa niaba ya mnunuzi katika mzozo wa biashara $0. Tafadhali angalia ujumbe kutoka kwa msuluhishi wako kwenye mazungumzo ya biashara kuona kinachofuata.",
   "notification.contract.seller.disputeRaised.text" : "Mnunuzi ameanzisha mzozo kwa biashara $0 kwa $1 sats.",
   "notification.contract.seller.disputeWon.text" : "Tumetoa uamuzi kwa niaba yako katika mzozo wa biashara $0. Tafadhali angalia ujumbe kutoka kwa msuluhishi wako kwenye mazungumzo ya biashara kuona kinachofuata.",
+  "notification.contract.seller.instantTrade.body" : "Umeingia kwenye biashara ya papo hapo na mnunuzi!",
   "notification.contract.seller.paymentTimerHasRunOut.text" : "Malipo kwa biashara $0 hayakufanywa kwa wakati. Toa mnunuzi muda zaidi au kufuta biashara.",
   "notification.contract.tradeCompleted.text" : "Hongera! Sats za biashara $0 zipo kwenye pochi yako \uD83C\uDF89",
   "notification.contract.tradeCompleted.title" : "Biashara Imekamilika!",

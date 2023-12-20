@@ -20,6 +20,7 @@
 "notification.body.contract.seller.disputeWon" = "Hemos decidido a tu favor en la disputa para el trade %1$@. Por favor, revisa el mensaje de tu mediador en el chat del trade para ver qué sigue.";
 "notification.body.contract.seller.paymentTimerHasRunOut" = "El pago por el trade %1$@ no se hizo a tiempo. Por favor, abre la aplicación para darle más tiempo al comprador o cancelar el trade.";
 "notification.body.contract.tradeCompleted" = "Los sats por el trade %1$@ están en tu cartera 🎉";
+"notification.body.contract.seller.instantTrade" = "¡Has iniciado un intercambio instantáneo con un comprador!";
 "notification.body.offer.buyOfferExpired" = "Tu oferta de compra %1$@ no ha recibido una match después de %2$@ días y ha sido eliminada.";
 "notification.body.offer.escrowFunded" = "El depósito se ha recibido y tu oferta está publicada.";
 "notification.body.offer.fundingAmountDifferent" = "El depósito ha recibido una cantidad diferente. ¿Deseas continuar con tu oferta o recibir un reembolso?";

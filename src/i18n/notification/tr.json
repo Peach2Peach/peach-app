@@ -22,6 +22,7 @@
   "notification.contract.seller.disputeLost.text" : "Anlaşmazlık ticaret $0 için alıcı lehine sonuçlandı. Devam etmek için ticaret sohbetindeki arabulucunuzun mesajını kontrol edin.",
   "notification.contract.seller.disputeRaised.text" : "Alıcı, ticaret $0 için $1 sats'lık bir anlaşmazlık başlattı.",
   "notification.contract.seller.disputeWon.text" : "Anlaşmazlık ticaret $0 için sizin lehinize sonuçlandı. Devam etmek için ticaret sohbetindeki arabulucunuzun mesajını kontrol edin.",
+  "notification.contract.seller.instantTrade.body" : "Bir alıcı ile anında ticarete başladın!",
   "notification.contract.seller.paymentTimerHasRunOut.text" : "Ticaret $0 için ödeme zamanında yapılmadı. Alıcıya daha fazla zaman verin veya ticareti iptal edin.",
   "notification.contract.tradeCompleted.text" : "Tebrikler! Ticaret $0 için sats'lar cüzdanınızda \uD83C\uDF89",
   "notification.contract.tradeCompleted.title" : "Ticaret tamamlandı!",

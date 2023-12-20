@@ -22,6 +22,7 @@
     <string name="notification.body.contract.seller.disputeWon">Hemos decidido a tu favor en la disputa para el trade %1$s. Por favor, revisa el mensaje de tu mediador en el chat del trade para ver qué sigue.</string>
     <string name="notification.body.contract.seller.paymentTimerHasRunOut">El pago por el trade %1$s no se hizo a tiempo. Por favor, abre la aplicación para darle más tiempo al comprador o cancelar el trade.</string>
     <string name="notification.body.contract.tradeCompleted">Los sats por el trade %1$s están en tu cartera \uD83C\uDF89</string>
+    <string name="notification.body.contract.seller.instantTrade">¡Has iniciado un intercambio instantáneo con un comprador!</string>
     <string name="notification.body.offer.buyOfferExpired">Tu oferta de compra %1$s no ha recibido una match después de %2$s días y ha sido eliminada.</string>
     <string name="notification.body.offer.escrowFunded">El depósito se ha recibido y tu oferta está publicada.</string>
     <string name="notification.body.offer.fundingAmountDifferent">El depósito ha recibido una cantidad diferente. ¿Deseas continuar con tu oferta o recibir un reembolso?</string>
