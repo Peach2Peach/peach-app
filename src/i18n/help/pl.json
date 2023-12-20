@@ -37,7 +37,7 @@
   "help.referral.description.1" : "Za każdy obrót o wartości 10 000 sats dokonany przez osoby, które poleciłeś na platformie Peach, zdobywasz punkt w ramach programu poleceń.",
   "help.referral.description.2" : "Oszczędzaj zgromadzone punkty, aby zdobyć atrakcyjne nagrody!",
   "help.referral.title" : "Punkty poleceń Peach",
-  "help.sellingBitcoin.description" : "Sprzedawanie twoich satsów na Peach jest darmowe!",
+  "help.sellingBitcoin.description" : "Sprzedaż twoich satsów na Peach jest darmowa!\n\nAby opublikować ofertę sprzedaży, musisz wysłać swoje satsy na zastaw, aby udowodnić kupującemu, że masz satsy, które chcesz sprzedać!\n\nZastaw to portfel wielokrotnego podpisu Bitcoin, w którym posiadasz jedno klucz, a Peach trzyma drugi.",
   "help.sellingBitcoin.title" : "sprzedaj bitcoin",
   "help.tradingLimit.description" : "Peach musi egzekwować limity transakcyjne, aby przestrzegać prawa szwajcarskiego. Istnieją trzy limity transakcyjne: Możesz kupić lub sprzedać bitcoiny o wartości 1000 CHF na Peach każdego dnia. Możesz kupić lub sprzedać bitcoiny o wartości 1000 CHF za gotówkę lub karty podarunkowe online (znane również jako anonimowe metody płatności) każdego miesiąca. Możesz kupić lub sprzedać bitcoiny o wartości 100 000 CHF rocznie.",
   "help.tradingLimit.title" : "limity transakcyjne"

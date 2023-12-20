@@ -186,7 +186,7 @@ function Premium () {
       <PremiumInputComponent />
       <CurrentPrice />
       <PeachText style={tw`text-center text-primary-main subtitle-2`}>
-        {data.offersWithinRange.length} competing sell offers below this premium
+        {i18n('offerPreferences.competingSellOffersBelowThisPremium', String(data.offersWithinRange.length))}
       </PeachText>
     </View>
   )
@@ -647,15 +647,8 @@ function SellHeader () {
 function SellingBitcoinPopup () {
   return (
     <InfoPopup
-      title="selling bitcoin"
-      content={
-        <PeachText>
-          {
-            // eslint-disable-next-line max-len
-            'Selling your sats on Peach is free of charge!\n\nTo publish a sell offer, you must send your sats to an escrow to prove to the buyer that you have the sats you want to sell!\n\nThe escrow is a Bitcoin multi-signature wallet where you own one key and Peach holds another.'
-          }
-        </PeachText>
-      }
+      title={i18n('help.sellingBitcoin.title')}
+      content={<PeachText>{i18n('help.sellingBitcoin.description')}</PeachText>}
     />
   )
 }

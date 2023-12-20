@@ -37,7 +37,7 @@
   "help.referral.description.1" : "Für jede 10.000 Sats, die deine Empfehlungen auf Peach handeln, erhältst du einen Empfehlungspunkt.",
   "help.referral.description.2" : "Sammle Punkte, um coole Belohnungen zu erhalten!",
   "help.referral.title" : "Peach Empfehlungspunkte",
-  "help.sellingBitcoin.description" : "Den Verkauf deiner Sats auf Peach berechnen wir dir keine Gebühren!",
+  "help.sellingBitcoin.description" : "Das Verkaufen deiner Sats auf Peach ist kostenlos!\n\nUm ein Verkaufsangebot zu veröffentlichen, musst du deine Sats an ein Treuhandkonto senden, um dem Käufer zu beweisen, dass du die Sats, die du verkaufen möchtest, besitzt!\n\nDas Treuhandkonto ist eine Bitcoin-Mehrparteienbrieftasche, bei der du einen Schlüssel besitzt und Peach einen anderen hält.",
   "help.sellingBitcoin.title" : "Bitcoin verkaufen",
   "help.tradingLimit.description" : "Peach muss Handelsbeschränkungen einhalten, um die schweizerischen Gesetze einzuhalten. Es gibt drei Handelsbeschränkungen:\n\nDu kannst jeden Tag Bitcoin im Wert von 1000 CHF auf Peach kaufen oder verkaufen.\n\nDu kannst jeden Monat Bitcoin im Wert von 1000 CHF mit Bargeld oder Online-Geschenkkarten (anonyme Zahlungsmethoden) kaufen oder verkaufen.\n\nDu kannst jedes Jahr Bitcoin im Wert von 100.000 CHF kaufen oder verkaufen.",
   "help.tradingLimit.title" : "Handelsbeschränkungen"

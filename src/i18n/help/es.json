@@ -37,7 +37,7 @@
   "help.referral.description.1" : "Por cada 10.000 sats que tus referidos intercambien en Peach, obtienes un punto de referido.",
   "help.referral.description.2" : "¡Ahorra tus puntos para obtener recompensas geniales!",
   "help.referral.title" : "Puntos de referido de Peach",
-  "help.sellingBitcoin.description" : "No hay ningún costo por vender tus sats en Peach",
+  "help.sellingBitcoin.description" : "¡Vender tus sats en Peach es gratis!\n\nPara publicar una oferta de venta, debes enviar tus sats a un depósito en garantía para demostrar al comprador que tienes los sats que deseas vender.\n\nEl depósito en garantía es una billetera de Bitcoin con múltiples firmas donde posees una clave y Peach tiene otra.",
   "help.sellingBitcoin.title" : "vender Bitcoin",
   "help.tradingLimit.description" : "Peach tiene que cumplir con los límites de intercambio para cumplir con la ley suiza. Hay tres límites de intercambio:\n\nPuedes comprar o vender 1000 CHF en bitcoin en Peach todos los días\n\nPuedes comprar o vender 1000 CHF en bitcoin con efectivo o tarjetas de regalo en línea (también conocidos como métodos de pago anónimos) todos los meses\n\nPuedes comprar o vender 100 000 CHF en bitcoin por año.",
   "help.tradingLimit.title" : "límites de intercambio"

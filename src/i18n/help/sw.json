@@ -37,7 +37,7 @@
   "help.referral.description.1" : "Kwa kila sats 10,000 ambazo rufaa zako hufanya biashara kwenye Peach, unapata pointi ya rufaa.",
   "help.referral.description.2" : "Hifadhi pointi zako kupata zawadi nzuri!",
   "help.referral.title" : "Pointi za Rufaa za Peach",
-  "help.sellingBitcoin.description" : "Kuuzwa kwa sats zako kwenye Peach ni bure!",
+  "help.sellingBitcoin.description" : "Kuuza sats zako kwenye Peach ni bure!\n\nKuchapisha ombi la kuuza, lazima utume sats zako kwa escrow kuthibitisha kwa mnunuzi kuwa una sats unazotaka kuuza!\n\nEscrow ni mkoba wa Bitcoin wenye vielelezo vingi ambapo unamiliki funguo moja na Peach inashikilia nyingine.",
   "help.sellingBitcoin.title" : "kuuza bitcoin",
   "help.tradingLimit.description" : "Peach lazima itekeleze mipaka ya biashara kufuata sheria za Uswisi. Kuna mipaka mitatu ya biashara:\n\nUnaweza kununua au kuuza bitcoin yenye thamani ya CHF 1000 kwenye Peach kila siku\n\nUnaweza kununua au kuuza bitcoin yenye thamani ya CHF 1000 kwa pesa au kadi za zawadi mtandaoni (yaani njia za malipo isiyo na utambulisho) kila mwezi\n\nUnaweza kununua au kuuza bitcoin yenye thamani ya CHF 100,000 kwa mwaka.",
   "help.tradingLimit.title" : "mipaka ya biashara"
