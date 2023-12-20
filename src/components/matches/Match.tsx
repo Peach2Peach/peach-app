@@ -3,7 +3,6 @@ import { TouchableOpacity, View } from 'react-native'
 
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { GetMatchesResponseBody } from '../../../peach-api/src/@types/api/offerAPI'
-import { SATSINBTC } from '../../constants'
 import { useMarketPrices } from '../../hooks/query/useMarketPrices'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowAppPopup } from '../../hooks/useShowAppPopup'
@@ -11,7 +10,6 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log/error'
 import { isLimitReached } from '../../utils/match/isLimitReached'
-import { round } from '../../utils/math/round'
 import { saveOffer } from '../../utils/offer/saveOffer'
 import { cleanPaymentData } from '../../utils/paymentMethod/cleanPaymentData'
 import { encryptPaymentData } from '../../utils/paymentMethod/encryptPaymentData'
@@ -26,6 +24,7 @@ import { PeachText } from '../text/PeachText'
 import { HorizontalLine } from '../ui/HorizontalLine'
 import { options } from './buttons/options'
 import { PriceInfo } from './components/PriceInfo'
+import { getPremiumOfMatchedOffer } from './getPremiumOfMatchedOffer'
 import { createRefundTx } from './utils/createRefundTx'
 import { getPaymentDataFromOffer } from './utils/getPaymentDataFromOffer'
 import { handleMissingPaymentData } from './utils/handleMissingPaymentData'
@@ -245,11 +244,7 @@ function SellerPriceInfo ({ amount, price, currency }: PriceInfoProps) {
   const { data: priceBook } = useMarketPrices()
   if (!price || !currency) return null
 
-  const bitcoinPriceWhenMatched = (price / amount) * SATSINBTC
-  const bitcoinPrice = priceBook?.[currency] ?? bitcoinPriceWhenMatched
-  const delta = bitcoinPrice - bitcoinPriceWhenMatched
-
-  const premium = round((delta / bitcoinPrice) * 100, 2)
+  const premium = getPremiumOfMatchedOffer({ amount, price, currency }, priceBook)
 
   return <PriceInfo amount={amount} price={price} currency={currency} premium={premium} />
 }
