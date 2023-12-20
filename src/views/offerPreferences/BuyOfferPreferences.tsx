@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { Button } from '../../components/buttons/Button'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import tw from '../../styles/tailwind'
+import { headerIcons } from '../../utils/layout/headerIcons'
 import { interpolate } from '../../utils/math/interpolate'
 import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
@@ -21,13 +23,18 @@ export function BuyOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
 
   return (
-    <PreferenceScreen isSliding={isSliding} header={<BuyBitcoinHeader />} button={<ShowOffersButton />}>
+    <PreferenceScreen isSliding={isSliding} header={<PreferenceHeader />} button={<ShowOffersButton />}>
       <PreferenceMarketInfo />
       <PreferenceMethods type="buy" />
       <AmountSelector setIsSliding={setIsSliding} />
       <Filters />
     </PreferenceScreen>
   )
+}
+
+function PreferenceHeader () {
+  const showHelp = useShowHelp('buyingBitcoin')
+  return <BuyBitcoinHeader icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }
 
 function PreferenceMarketInfo () {
