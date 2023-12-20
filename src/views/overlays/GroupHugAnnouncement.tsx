@@ -1,4 +1,4 @@
-import { Overlay } from '../../components/Overlay'
+import { OverlayComponent } from '../../components/OverlayComponent'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
@@ -24,7 +24,7 @@ export const GroupHugAnnouncement = () => {
   }
 
   return (
-    <Overlay
+    <OverlayComponent
       title={i18n('grouphug.announcement.title')}
       text={i18n('grouphug.announcement.text')}
       buttons={

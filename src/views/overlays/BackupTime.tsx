@@ -1,4 +1,4 @@
-import { Overlay } from '../../components/Overlay'
+import { OverlayComponent } from '../../components/OverlayComponent'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
@@ -14,7 +14,7 @@ export const BackupTime = () => {
     nextScreen ? navigation.replace(nextScreen, params) : navigation.replace('homeScreen', { screen: 'home' })
 
   return (
-    <Overlay
+    <OverlayComponent
       title={i18n('backupTime.title')}
       text={i18n('backupTime.description.mandatory')}
       iconId="saveCircleInverted"

@@ -1,4 +1,4 @@
-import { Overlay } from '../../components/Overlay'
+import { OverlayComponent } from '../../components/OverlayComponent'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
@@ -13,7 +13,7 @@ export const OfferPublished = () => {
   const goBack = () => navigation.goBack()
 
   return (
-    <Overlay
+    <OverlayComponent
       title={i18n('offer.published.title')}
       text={i18n('offer.published.description')}
       iconId="checkCircleInverted"

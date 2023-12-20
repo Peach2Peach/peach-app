@@ -1,20 +1,21 @@
 /* eslint-disable max-lines-per-function */
-import { act, renderHook } from 'test-utils'
+import { act, render, renderHook } from 'test-utils'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { Overlay } from '../../../Overlay'
 import { useOverlayEvents } from './useOverlayEvents'
 
 describe('useOverlayEvents', () => {
-  it('should navigate to newBadge screen on "user.badge.unlocked" event', () => {
+  it('should show the newBadge overlay on "user.badge.unlocked" event', () => {
     const { result } = renderHook(useOverlayEvents)
 
     const badges = 'fastTrader,superTrader'
     const data = { badges } as PNData
     act(() => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       result.current['user.badge.unlocked']!(data)
     })
 
-    expect(navigateMock).toHaveBeenCalledWith('newBadge', { badges })
+    const { getByText } = render(<Overlay />)
+    expect(getByText('Congrats, you unlocked the fast trader badge on your profile!')).toBeTruthy()
   })
   it('should not navigate to newBadge screen on "user.badge.unlocked" event if no badges are provided', () => {
     const { result } = renderHook(useOverlayEvents)

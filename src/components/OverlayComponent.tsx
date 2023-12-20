@@ -11,7 +11,7 @@ type Props = {
   iconId?: IconType
 }
 
-export function Overlay ({ buttons, title, text, iconId }: Props) {
+export function OverlayComponent ({ buttons, title, text, iconId }: Props) {
   return (
     <>
       <View style={tw`justify-center gap-8 grow`}>

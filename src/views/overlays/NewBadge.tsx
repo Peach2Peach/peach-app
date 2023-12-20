@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai'
-import { overlayAtom } from '../../App'
+import { overlayAtom } from '../../Overlay'
 import { IconType } from '../../assets/icons'
-import { Overlay } from '../../components/Overlay'
+import { OverlayComponent } from '../../components/OverlayComponent'
 import { Button } from '../../components/buttons/Button'
 import { badgeIconMap } from '../../constants'
 import { useNavigation } from '../../hooks/useNavigation'
@@ -23,7 +23,7 @@ export const NewBadge = ({ badges }: { badges: Medal[] }) => {
   }
 
   return (
-    <Overlay
+    <OverlayComponent
       title={i18n('notification.user.badge.unlocked.title')}
       text={i18n('notification.user.badge.unlocked.text', i18n(`peachBadges.${badge}`))}
       iconId={icon}

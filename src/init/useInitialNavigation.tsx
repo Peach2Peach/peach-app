@@ -1,7 +1,7 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useAtom } from 'jotai'
 import { useCallback, useEffect } from 'react'
-import { overlayAtom } from '../App'
+import { overlayAtom } from '../Overlay'
 import { useNavigation } from '../hooks/useNavigation'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation/handlePushNotification'

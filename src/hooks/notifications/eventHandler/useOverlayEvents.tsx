@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai'
 import { useMemo } from 'react'
-import { overlayAtom } from '../../../App'
+import { overlayAtom } from '../../../Overlay'
 import { NewBadge } from '../../../views/overlays/NewBadge'
 import { useNavigation } from '../../useNavigation'
 
