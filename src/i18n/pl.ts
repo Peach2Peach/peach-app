@@ -8,6 +8,8 @@ import error from './error/pl.json'
 import form from './form/pl.json'
 import global from './global/pl.json'
 import help from './help/pl.json'
+import home from './home/pl.json'
+
 import notification from './notification/pl.json'
 import offer from './offer/pl.json'
 import paymentMethod from './paymentMethod/pl.json'
@@ -31,6 +33,7 @@ const pl: Record<string, string> = {
   ...error,
   ...form,
   ...help,
+  ...home,
   ...notification,
   ...offer,
   ...paymentMethod,

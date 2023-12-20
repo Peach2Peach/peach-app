@@ -8,6 +8,8 @@ import error from './error/ru.json'
 import form from './form/ru.json'
 import global from './global/ru.json'
 import help from './help/ru.json'
+import home from './home/ru.json'
+
 import notification from './notification/ru.json'
 import offer from './offer/ru.json'
 import paymentMethod from './paymentMethod/ru.json'
@@ -31,6 +33,7 @@ const ru: Record<string, string> = {
   ...error,
   ...form,
   ...help,
+  ...home,
   ...notification,
   ...offer,
   ...paymentMethod,

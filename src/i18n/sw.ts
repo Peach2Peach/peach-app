@@ -8,6 +8,8 @@ import error from './error/sw.json'
 import form from './form/sw.json'
 import global from './global/sw.json'
 import help from './help/sw.json'
+import home from './home/sw.json'
+
 import notification from './notification/sw.json'
 import offer from './offer/sw.json'
 import paymentMethod from './paymentMethod/sw.json'
@@ -31,6 +33,7 @@ const es: Record<string, string> = {
   ...error,
   ...form,
   ...help,
+  ...home,
   ...notification,
   ...offer,
   ...paymentMethod,

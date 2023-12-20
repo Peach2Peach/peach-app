@@ -2,6 +2,7 @@ import { View } from 'react-native'
 import { MeansOfPayment } from '../../../../peach-api/src/@types/payment'
 import { PeachText } from '../../../components/text/PeachText'
 import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 import { Section } from './Section'
 import { useFilteredMarketStats } from './useFilteredMarketStats'
 
@@ -47,7 +48,7 @@ function AveragePremium ({
 }) {
   return (
     <PeachText style={[tw`body-s text-primary-main`, offersWithinRange.length === 0 && tw`opacity-0`]}>
-      average premium: {averagePremium}%
+      {i18n('home.averagePremium', String(averagePremium))}
     </PeachText>
   )
 }

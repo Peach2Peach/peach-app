@@ -8,6 +8,8 @@ import error from './error/pt-BR.json'
 import form from './form/pt-BR.json'
 import global from './global/pt-BR.json'
 import help from './help/pt-BR.json'
+import home from './home/pt-BR.json'
+
 import notification from './notification/pt-BR.json'
 import offer from './offer/pt-BR.json'
 import paymentMethod from './paymentMethod/pt-BR.json'
@@ -31,6 +33,7 @@ const ptBR: Record<string, string> = {
   ...error,
   ...form,
   ...help,
+  ...home,
   ...notification,
   ...offer,
   ...paymentMethod,
