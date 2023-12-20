@@ -27,7 +27,6 @@ import { EditBuyPreferences } from './offerPreferences/EditBuyPreferences'
 import { SellOfferPreferences } from './offerPreferences/SellOfferPreferences'
 import { BackupTime } from './overlays/BackupTime'
 import { GroupHugAnnouncement } from './overlays/GroupHugAnnouncement'
-import { NewBadge } from './overlays/NewBadge'
 import { PublicProfile } from './publicProfile/PublicProfile'
 import { Referrals } from './referrals/Referrals'
 import { Report } from './report/Report'
@@ -134,7 +133,6 @@ const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicPro
 const overlays: ViewType[] = [
   { name: 'offerPublished', component: OfferPublished, animationEnabled: false },
   { name: 'groupHugAnnouncement', component: GroupHugAnnouncement, animationEnabled: false },
-  { name: 'newBadge', component: NewBadge, animationEnabled: false },
 ]
 
 const settings: ViewType[] = [

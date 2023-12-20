@@ -1,27 +1,26 @@
+import { useAtom } from 'jotai'
+import { overlayAtom } from '../../App'
 import { IconType } from '../../assets/icons'
 import { Overlay } from '../../components/Overlay'
 import { Button } from '../../components/buttons/Button'
 import { badgeIconMap } from '../../constants'
 import { useNavigation } from '../../hooks/useNavigation'
-import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-export const NewBadge = () => {
+export const NewBadge = ({ badges }: { badges: Medal[] }) => {
   const navigation = useNavigation()
-  const badges = useRoute<'newBadge'>().params.badges.split(',') as Medal[]
+  const [, setOverlayContent] = useAtom(overlayAtom)
   const badge = badges[0]
   const icon = `${badgeIconMap[badge]}CircleInverted` as IconType
   const remainingBadges = badges.slice(1, badges.length)
 
-  const close = () => {
-    if (remainingBadges.length > 0) {
-      navigation.setParams({ badges: remainingBadges.join(',') })
-    } else {
-      navigation.goBack()
-    }
+  const close = () => setOverlayContent(remainingBadges.length > 0 ? <NewBadge badges={remainingBadges} /> : undefined)
+
+  const goToProfile = () => {
+    navigation.navigate('myProfile')
+    setOverlayContent(undefined)
   }
-  const goToProfile = () => navigation.replace('myProfile')
 
   return (
     <Overlay

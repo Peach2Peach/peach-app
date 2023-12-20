@@ -83,9 +83,6 @@ type RootStackParamList = Onboarding &
   BuyFlow &
   SellFlow &
   ContractFlow & {
-    newBadge: {
-      badges: string
-    }
     nodeSetup: undefined
     sendBitcoin: undefined
     receiveBitcoin: undefined

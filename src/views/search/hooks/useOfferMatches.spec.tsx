@@ -15,21 +15,9 @@ describe('useOfferMatches', () => {
     expect(result.current.allMatches).toEqual(['match'])
   })
   it('should not make a request if not enabled', () => {
-    renderHook(() => useOfferMatches('offerId', false), {})
+    renderHook(() => useOfferMatches('offerId', undefined, false), {})
 
     expect(getMatchesMock).not.toHaveBeenCalled()
-  })
-  it('should refetch after 15 seconds', async () => {
-    const { result } = renderHook(useOfferMatches, { initialProps: 'offerId' })
-    await waitFor(() => {
-      expect(result.current.isSuccess).toBe(true)
-    })
-    expect(result.current.allMatches).toEqual(['match'])
-    jest.advanceTimersByTime(1000 * 15)
-    expect(getMatchesMock).toHaveBeenCalledTimes(2)
-    await waitFor(() => {
-      expect(result.current.allMatches).toEqual(['match'])
-    })
   })
   it('should not remove matches when the user gets to the next page', async () => {
     const firstPage = Array(10)

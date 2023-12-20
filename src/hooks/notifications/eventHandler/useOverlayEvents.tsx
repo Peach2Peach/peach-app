@@ -1,15 +1,23 @@
+import { useAtom } from 'jotai'
 import { useMemo } from 'react'
+import { overlayAtom } from '../../../App'
+import { NewBadge } from '../../../views/overlays/NewBadge'
 import { useNavigation } from '../../useNavigation'
 
 type PNEventHandlers = Partial<Record<NotificationType, (data: PNData) => void>>
 
 export const useOverlayEvents = () => {
   const navigation = useNavigation()
+  const [, setOverlayContent] = useAtom(overlayAtom)
 
   const overlayEvents: PNEventHandlers = useMemo(
     () => ({
       // PN-U01
-      'user.badge.unlocked': ({ badges }: PNData) => (badges ? navigation.navigate('newBadge', { badges }) : undefined),
+      'user.badge.unlocked': ({ badges }: PNData) => {
+        if (badges) {
+          setOverlayContent(<NewBadge badges={badges.split(',') as Medal[]} />)
+        }
+      },
       // PN-S03
       'offer.escrowFunded': ({ offerId }: PNData) =>
         offerId ? navigation.navigate('offerPublished', { offerId, shouldGoBack: true }) : undefined,
@@ -17,7 +25,7 @@ export const useOverlayEvents = () => {
       'contract.paymentMade': ({ contractId }: PNData) =>
         contractId ? navigation.navigate('paymentMade', { contractId }) : undefined,
     }),
-    [navigation],
+    [navigation, setOverlayContent],
   )
   return overlayEvents
 }
