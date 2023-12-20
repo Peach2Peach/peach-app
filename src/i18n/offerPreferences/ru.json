@@ -11,6 +11,7 @@
   "offerPreferences.amountToSell" : "сумма к продаже",
   "offerPreferences.buyOffers" : "$0 открытых предложений на покупку",
   "offerPreferences.competingSellOffers" : "$0 конкурирующих предложений на продажу",
+  "offerPreferences.competingSellOffersBelowThisPremium" : "$0 конкурирующих предложений на продажу ниже этой премии",
   "offerPreferences.currentPrice" : "в настоящее время $0",
   "offerPreferences.feature.instantTrade" : "мгновенная - торговля",
   "offerPreferences.filters" : "фильтры",

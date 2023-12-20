@@ -11,6 +11,7 @@
   "offerPreferences.amountToSell" : "bedrag om te verkopen",
   "offerPreferences.buyOffers" : "$0 openstaande koopaanbiedingen",
   "offerPreferences.competingSellOffers" : "$0 concurrerende verkoopaanbiedingen",
+  "offerPreferences.competingSellOffersBelowThisPremium" : "$0 concurrerende verkoopaanbiedingen onder deze premie",
   "offerPreferences.currentPrice" : "momenteel $0",
   "offerPreferences.feature.instantTrade" : "direct - handel",
   "offerPreferences.filters" : "filters",

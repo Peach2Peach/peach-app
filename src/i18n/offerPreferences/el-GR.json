@@ -11,6 +11,7 @@
   "offerPreferences.amountToSell" : "ποσό για πώληση",
   "offerPreferences.buyOffers" : "$0 προσφορές αγοράς",
   "offerPreferences.competingSellOffers" : "$0 ανταγωνιστικές προσφορές πώλησης",
+  "offerPreferences.competingSellOffersBelowThisPremium" : "$0 ανταγωνιστικές προσφορές πώλησης κάτω από αυτήν την προμήθεια",
   "offerPreferences.currentPrice" : "αυτή τη στιγμή $0",
   "offerPreferences.feature.instantTrade" : "άμεση - συναλλαγή",
   "offerPreferences.filters" : "φίλτρα",

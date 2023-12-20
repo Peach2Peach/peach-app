@@ -11,6 +11,7 @@
   "offerPreferences.amountToSell" : "satılacak miktar",
   "offerPreferences.buyOffers" : "$0 açık alım teklifi",
   "offerPreferences.competingSellOffers" : "$0 rekabetçi satış teklifi",
+  "offerPreferences.competingSellOffersBelowThisPremium" : "Bu primin altındaki $0 rekabetçi satış teklifleri",
   "offerPreferences.currentPrice" : "şu anda $0",
   "offerPreferences.feature.instantTrade" : "anlık - ticaret",
   "offerPreferences.filters" : "filtreler",

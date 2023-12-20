@@ -11,6 +11,7 @@
   "offerPreferences.amountToSell" : "kwota do sprzedaży",
   "offerPreferences.buyOffers" : "$0 otwartych ofert zakupu",
   "offerPreferences.competingSellOffers" : "$0 konkurujących ofert sprzedaży",
+  "offerPreferences.competingSellOffersBelowThisPremium" : "$0 konkurencyjne oferty sprzedaży poniżej tej premii",
   "offerPreferences.currentPrice" : "obecnie $0",
   "offerPreferences.feature.instantTrade" : "natychmiastowe - handel",
   "offerPreferences.filters" : "filtry",

@@ -11,6 +11,7 @@
   "offerPreferences.amountToSell" : "Menge zum Verkauf",
   "offerPreferences.buyOffers" : "$0 Kaufangebote",
   "offerPreferences.competingSellOffers" : "$0 konkurrierende Verkaufsangebote",
+  "offerPreferences.competingSellOffersBelowThisPremium" : "$0 konkurrierende Verkaufsangebote unter diesem Aufschlag",
   "offerPreferences.currentPrice" : "aktuell $0",
   "offerPreferences.feature.instantTrade" : "sofort - Handel",
   "offerPreferences.filters" : "Filter",

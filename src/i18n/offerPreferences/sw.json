@@ -11,6 +11,7 @@
   "offerPreferences.amountToSell" : "kiasi cha kuuza",
   "offerPreferences.buyOffers" : "$0 maombi ya kununua yaliyofunguliwa",
   "offerPreferences.competingSellOffers" : "$0 mauzo yanayoshindana",
+  "offerPreferences.competingSellOffersBelowThisPremium" : "$0 inatoa za kuuza zinazoshindana chini ya malipo haya ya ziada",
   "offerPreferences.currentPrice" : "kwa sasa $0",
   "offerPreferences.feature.instantTrade" : "papo hapo - biashara",
   "offerPreferences.filters" : "vichujio",

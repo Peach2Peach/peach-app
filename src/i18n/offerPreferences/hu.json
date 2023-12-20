@@ -11,6 +11,7 @@
   "offerPreferences.amountToSell" : "eladandó összeg",
   "offerPreferences.buyOffers" : "$0 vásárlási ajánlat",
   "offerPreferences.competingSellOffers" : "$0 versenyeztető eladási ajánlat",
+  "offerPreferences.competingSellOffersBelowThisPremium" : "$0 versenyképes eladási ajánlat ezen a prémium alatt",
   "offerPreferences.currentPrice" : "jelenleg $0",
   "offerPreferences.feature.instantTrade" : "azonnali - kereskedelem",
   "offerPreferences.filters" : "szűrők",
