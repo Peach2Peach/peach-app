@@ -53,7 +53,6 @@ type SellFlow = {
 type ContractFlow = {
   contract: {
     contractId: Contract['id']
-    contract?: Contract
   }
   contractChat: {
     contractId: Contract['id']

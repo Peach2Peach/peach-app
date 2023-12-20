@@ -27,17 +27,8 @@ export const handlePushNotification = async (
   }
 
   if (shouldGoToContract(data)) {
-    const { contractId, sentTime } = data
-    const { result: contract } = await peachAPI.private.contract.getContract({ contractId })
-    navigationRef.navigate('contract', {
-      contract: contract
-        ? {
-          ...contract,
-          paymentMade: sentTime ? new Date(sentTime) : new Date(),
-        }
-        : undefined,
-      contractId,
-    })
+    const { contractId } = data
+    navigationRef.navigate('contract', { contractId })
   } else if (shouldGoToContractChat(data)) {
     const { contractId } = data
     navigationRef.navigate('contractChat', { contractId })
