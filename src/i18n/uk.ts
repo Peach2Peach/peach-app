@@ -9,9 +9,10 @@ import form from './form/uk.json'
 import global from './global/uk.json'
 import help from './help/uk.json'
 import home from './home/uk.json'
-
+import match from './match/uk.json'
 import notification from './notification/uk.json'
 import offer from './offer/uk.json'
+import offerPreferences from './offerPreferences/uk.json'
 import paymentMethod from './paymentMethod/uk.json'
 import profile from './profile/uk.json'
 import referral from './referral/uk.json'
@@ -33,7 +34,9 @@ const uk: Record<string, string> = {
   ...error,
   ...form,
   ...help,
+  ...offerPreferences,
   ...home,
+  ...match,
   ...notification,
   ...offer,
   ...paymentMethod,

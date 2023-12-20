@@ -9,9 +9,10 @@ import form from './form/pl.json'
 import global from './global/pl.json'
 import help from './help/pl.json'
 import home from './home/pl.json'
-
+import match from './match/pl.json'
 import notification from './notification/pl.json'
 import offer from './offer/pl.json'
+import offerPreferences from './offerPreferences/pl.json'
 import paymentMethod from './paymentMethod/pl.json'
 import profile from './profile/pl.json'
 import referral from './referral/pl.json'
@@ -33,7 +34,9 @@ const pl: Record<string, string> = {
   ...error,
   ...form,
   ...help,
+  ...offerPreferences,
   ...home,
+  ...match,
   ...notification,
   ...offer,
   ...paymentMethod,

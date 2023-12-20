@@ -8,10 +8,10 @@ import error from './error/pt.json'
 import form from './form/pt.json'
 import global from './global/pt.json'
 import help from './help/pt.json'
-import home from './home/pt.json'
-
+import match from './match/pt.json'
 import notification from './notification/pt.json'
 import offer from './offer/pt.json'
+import offerPreferences from './offerPreferences/pt.json'
 import paymentMethod from './paymentMethod/pt.json'
 import profile from './profile/pt.json'
 import referral from './referral/pt.json'
@@ -33,7 +33,8 @@ const pt: Record<string, string> = {
   ...error,
   ...form,
   ...help,
-  ...home,
+  ...offerPreferences,
+  ...match,
   ...notification,
   ...offer,
   ...paymentMethod,

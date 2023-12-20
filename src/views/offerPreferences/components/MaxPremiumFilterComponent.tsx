@@ -4,6 +4,7 @@ import { PremiumTextInput } from '../../../components/PremiumTextInput'
 import { TouchableIcon } from '../../../components/TouchableIcon'
 import { Checkbox } from '../../../components/inputs/Checkbox'
 import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 import { round } from '../../../utils/math/round'
 
 const defaultMaxPremium = 0
@@ -37,7 +38,12 @@ export function MaxPremiumFilterComponent ({
 
   return (
     <View style={tw`flex-row items-center self-stretch justify-between`}>
-      <Checkbox green checked={shouldApplyFilter} onPress={onCheckboxPress} text="max premium" />
+      <Checkbox
+        green
+        checked={shouldApplyFilter}
+        onPress={onCheckboxPress}
+        text={i18n('offerPreferences.filters.maxPremium')}
+      />
       <View style={tw`flex-row items-center gap-10px`}>
         <TouchableIcon id="minusCircle" iconColor={iconColor} onPress={onMinusCirclePress} />
         <PremiumTextInput premium={maxPremium || defaultMaxPremium} setPremium={setMaxPremium} />

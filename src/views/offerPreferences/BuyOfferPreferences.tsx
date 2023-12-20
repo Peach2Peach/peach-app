@@ -4,6 +4,7 @@ import { Button } from '../../components/buttons/Button'
 import { useShowHelp } from '../../hooks/useShowHelp'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { interpolate } from '../../utils/math/interpolate'
 import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
@@ -148,7 +149,7 @@ function ShowOffersButton () {
       disabled={!formValid}
       loading={isPublishing}
     >
-      Show Offers
+      {i18n('offerPreferences.showOffers')}
     </Button>
   )
 }

@@ -27,6 +27,7 @@ import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useRoute } from '../../hooks/useRoute'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 import { isLimitReached } from '../../utils/match/isLimitReached'
 import { round } from '../../utils/math/round'
 import { keys } from '../../utils/object/keys'
@@ -196,10 +197,10 @@ type Props = {
 function InstantTradeSlider ({ matchOffer, optionName }: { matchOffer: () => void; optionName: keyof typeof options }) {
   const label
     = optionName === 'missingSelection'
-      ? 'select payment method'
+      ? i18n('intantTradeSlider.action.missingSelection')
       : optionName === 'tradingLimitReached'
-        ? 'trading limit reached'
-        : 'instant trade'
+        ? i18n('intantTradeSlider.action.tradingLimitReached')
+        : i18n('intantTradeSlider.action.instantTrade')
 
   const [showUnlockedSlider, setShowUnlockedSlider] = useState(false)
 
@@ -242,9 +243,11 @@ function MatchOfferButton ({ matchOffer, optionName, setShowPaymentMethodPulse }
 function WaitingForSeller () {
   return (
     <View style={tw`items-center self-center`}>
-      <PeachText style={tw`text-primary-main subtitle-1`}>trade requested</PeachText>
+      <PeachText style={tw`text-primary-main subtitle-1`}>{i18n('match.tradeRequested')}trade requested</PeachText>
       <View style={tw`flex-row items-center justify-center`}>
-        <PeachText style={tw`text-primary-main subtitle-1`}>waiting for seller</PeachText>
+        <PeachText style={tw`text-primary-main subtitle-1`}>
+          {i18n('match.waitingForSeller')}waiting for seller
+        </PeachText>
         <AnimatedButtons />
       </View>
     </View>

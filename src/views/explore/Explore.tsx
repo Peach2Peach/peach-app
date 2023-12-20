@@ -102,7 +102,9 @@ function ExploreCard ({ match }: { match: Match }) {
       {instantTrade && (
         <View style={tw`overflow-hidden rounded-md`}>
           <PeachyBackground />
-          <PeachText style={tw`text-center py-2px subtitle-2 text-primary-background-light`}>instant trade</PeachText>
+          <PeachText style={tw`text-center py-2px subtitle-2 text-primary-background-light`}>
+            {i18n('offerPreferences.instantTrade')}
+          </PeachText>
         </View>
       )}
       <View style={tw`justify-center py-2 px-9px`}>
