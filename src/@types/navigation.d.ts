@@ -64,9 +64,6 @@ type ContractFlow = {
     contractId: Contract['id']
     reason: DisputeReason
   }
-  tradeComplete: {
-    contractId: Contract['id']
-  }
   patchPayoutAddress: {
     contractId: Contract['id']
   }

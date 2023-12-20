@@ -2,6 +2,7 @@ import { useIsFocused } from '@react-navigation/native'
 import { useQueryClient } from '@tanstack/react-query'
 import { useCallback, useEffect } from 'react'
 import { z } from 'zod'
+import { useSetOverlay } from '../../../Overlay'
 import { FIFTEEN_SECONDS } from '../../../constants'
 import { useHandleNotifications } from '../../../hooks/notifications/useHandleNotifications'
 import { useContractDetails } from '../../../hooks/query/useContractDetails'
@@ -10,6 +11,7 @@ import { useRoute } from '../../../hooks/useRoute'
 import { useAccountStore } from '../../../utils/account/account'
 import { getContractViewer } from '../../../utils/contract/getContractViewer'
 import { useWebsocketContext } from '../../../utils/peachAPI/websocket'
+import { TradeComplete } from '../../tradeComplete/TradeComplete'
 import { useShowHighFeeWarning } from './useShowHighFeeWarning'
 import { useShowLowFeeWarning } from './useShowLowFeeWarning'
 
@@ -34,12 +36,12 @@ export const useContractSetup = () => {
   useShowHighFeeWarning({ enabled: shouldShowFeeWarning, amount: contract?.amount })
   useShowLowFeeWarning({ enabled: shouldShowFeeWarning })
 
+  const setOverlay = useSetOverlay()
   useEffect(() => {
-    if (!isFocused) return
-    if (contract?.tradeStatus === 'rateUser') {
-      navigation.navigate('tradeComplete', { contractId })
+    if (isFocused && contract?.tradeStatus === 'rateUser') {
+      setOverlay(<TradeComplete contractId={contractId} />)
     }
-  }, [contract?.tradeStatus, contractId, isFocused, navigation])
+  }, [contract?.tradeStatus, contractId, isFocused, navigation, setOverlay])
 
   useChatMessageHandler()
   useContractUpdateHandler()

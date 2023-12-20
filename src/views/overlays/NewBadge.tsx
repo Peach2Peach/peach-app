@@ -1,5 +1,4 @@
-import { useAtom } from 'jotai'
-import { overlayAtom } from '../../Overlay'
+import { useSetOverlay } from '../../Overlay'
 import { IconType } from '../../assets/icons'
 import { OverlayComponent } from '../../components/OverlayComponent'
 import { Button } from '../../components/buttons/Button'
@@ -10,7 +9,7 @@ import i18n from '../../utils/i18n'
 
 export const NewBadge = ({ badges }: { badges: Medal[] }) => {
   const navigation = useNavigation()
-  const [, setOverlayContent] = useAtom(overlayAtom)
+  const setOverlayContent = useSetOverlay()
   const badge = badges[0]
   const icon = `${badgeIconMap[badge]}CircleInverted` as IconType
   const remainingBadges = badges.slice(1, badges.length)

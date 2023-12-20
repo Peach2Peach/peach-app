@@ -1,5 +1,4 @@
-import { useAtom } from 'jotai'
-import { overlayAtom } from '../../Overlay'
+import { useSetOverlay } from '../../Overlay'
 import { OverlayComponent } from '../../components/OverlayComponent'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks/useNavigation'
@@ -8,7 +7,7 @@ import i18n from '../../utils/i18n'
 
 export const PaymentMade = ({ contractId }: { contractId: string }) => {
   const navigation = useNavigation()
-  const [, setOverlayContent] = useAtom(overlayAtom)
+  const setOverlayContent = useSetOverlay()
 
   const close = () => setOverlayContent(undefined)
 

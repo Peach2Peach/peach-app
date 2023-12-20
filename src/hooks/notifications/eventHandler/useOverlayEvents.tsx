@@ -1,6 +1,5 @@
-import { useAtom } from 'jotai'
 import { useMemo } from 'react'
-import { overlayAtom } from '../../../Overlay'
+import { useSetOverlay } from '../../../Overlay'
 import { PaymentMade } from '../../../views/contract/PaymentMade'
 import { NewBadge } from '../../../views/overlays/NewBadge'
 import { useNavigation } from '../../useNavigation'
@@ -9,7 +8,7 @@ type PNEventHandlers = Partial<Record<NotificationType, (data: PNData) => void>>
 
 export const useOverlayEvents = () => {
   const navigation = useNavigation()
-  const [, setOverlayContent] = useAtom(overlayAtom)
+  const setOverlayContent = useSetOverlay()
 
   const overlayEvents: PNEventHandlers = useMemo(
     () => ({

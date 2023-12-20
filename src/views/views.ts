@@ -1,4 +1,3 @@
-import { Platform } from 'react-native'
 import { MeetupScreen } from '../components/payment/MeetupScreen'
 import { PaymentMethods } from '../components/payment/PaymentMethods'
 import { TestView } from './TestView/TestView'
@@ -47,7 +46,6 @@ import { PeachFees } from './settings/aboutPeach/PeachFees'
 import { Socials } from './settings/aboutPeach/Socials'
 import { BackupCreated } from './settings/components/backups/BackupCreated'
 import { MyProfile } from './settings/profile/MyProfile'
-import { TradeComplete } from './tradeComplete/TradeComplete'
 import { UserSource } from './userSource/UserSource'
 import { AddressChecker } from './wallet/AddressChecker'
 import { BumpNetworkFees } from './wallet/BumpNetworkFees'
@@ -107,11 +105,6 @@ const trade: ViewType[] = [
   { name: 'contractChat', component: ContractChat },
   { name: 'patchPayoutAddress', component: PatchPayoutAddress },
   { name: 'signMessage', component: SignMessage },
-  {
-    name: 'tradeComplete',
-    component: TradeComplete,
-    animationEnabled: Platform.OS === 'android',
-  },
 ]
 
 const tradeHistory: ViewType[] = [

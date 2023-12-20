@@ -1,11 +1,13 @@
-import { atom, useAtom } from 'jotai'
+import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { Modal, View } from 'react-native'
 import { PeachyBackground } from './components/PeachyBackground'
 import tw from './styles/tailwind'
 
-export const overlayAtom = atom<React.ReactNode>(undefined)
+const overlayAtom = atom<React.ReactNode>(undefined)
+export const useSetOverlay = () => useSetAtom(overlayAtom)
+
 export function Overlay () {
-  const [content] = useAtom(overlayAtom)
+  const content = useAtomValue(overlayAtom)
   return (
     <Modal visible={content !== undefined}>
       <PeachyBackground />

@@ -1,7 +1,6 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { useAtom } from 'jotai'
 import { useCallback, useEffect } from 'react'
-import { overlayAtom } from '../Overlay'
+import { useSetOverlay } from '../Overlay'
 import { useNavigation } from '../hooks/useNavigation'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation/handlePushNotification'
@@ -19,7 +18,7 @@ const dataIsDefined = (
 
 export const useInitialNavigation = () => {
   const navigation = useNavigation()
-  const [, setOverlay] = useAtom(overlayAtom)
+  const setOverlay = useSetOverlay()
   const initialNavigation = useCallback(async () => {
     let initialNotification: FirebaseMessagingTypes.RemoteMessage | null = null
     try {
