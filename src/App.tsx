@@ -6,11 +6,14 @@ import { enableScreens } from 'react-native-screens'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
 import { QueryClientProvider } from '@tanstack/react-query'
+import { atom, useAtom } from 'jotai'
+import { Modal, View } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { useDeviceContext } from 'twrnc'
 import { Drawer } from './components/drawer/Drawer'
 import { Message } from './components/message/Message'
 import { useMessageState } from './components/message/useMessageState'
+import { PeachyBackground } from './components/PeachyBackground'
 import { Popup } from './components/popup/Popup'
 import { initWebSocket } from './init/websocket'
 import { queryClient } from './queryClient'
@@ -57,10 +60,22 @@ export const App = () => {
             <Screens />
             <Drawer />
             <Popup />
+            <Overlay />
             <Message />
           </NavigationContainer>
         </SafeAreaProvider>
       </PeachWSContext.Provider>
     </QueryClientProvider>
+  )
+}
+
+export const overlayAtom = atom<React.ReactNode>(undefined)
+function Overlay () {
+  const [content] = useAtom(overlayAtom)
+  return (
+    <Modal visible={content !== undefined}>
+      <PeachyBackground />
+      <View style={[tw`flex-1 p-sm`, tw`md:p-md`]}>{content}</View>
+    </Modal>
   )
 }
