@@ -152,7 +152,4 @@ type RootStackParamList = Onboarding &
     socials: undefined
     myProfile: undefined
     transactionBatching: undefined
-    groupHugAnnouncement: {
-      offerId: string
-    }
   } & TestViews

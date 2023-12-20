@@ -24,7 +24,6 @@ import { BuyOfferPreferences } from './offerPreferences/BuyOfferPreferences'
 import { EditBuyPreferences } from './offerPreferences/EditBuyPreferences'
 import { SellOfferPreferences } from './offerPreferences/SellOfferPreferences'
 import { BackupTime } from './overlays/BackupTime'
-import { GroupHugAnnouncement } from './overlays/GroupHugAnnouncement'
 import { PublicProfile } from './publicProfile/PublicProfile'
 import { Referrals } from './referrals/Referrals'
 import { Report } from './report/Report'
@@ -121,10 +120,7 @@ const contact: ViewType[] = [
 
 const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile }]
 
-const overlays: ViewType[] = [
-  { name: 'offerPublished', component: OfferPublished, animationEnabled: false },
-  { name: 'groupHugAnnouncement', component: GroupHugAnnouncement, animationEnabled: false },
-]
+const overlays: ViewType[] = [{ name: 'offerPublished', component: OfferPublished, animationEnabled: false }]
 
 const settings: ViewType[] = [
   { name: 'aboutPeach', component: AboutPeach },

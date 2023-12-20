@@ -1,18 +1,19 @@
+import { useSetOverlay } from '../../Overlay'
 import { OverlayComponent } from '../../components/OverlayComponent'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks/useNavigation'
-import { useRoute } from '../../hooks/useRoute'
 import { useConfigStore } from '../../store/configStore/configStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-export const GroupHugAnnouncement = () => {
-  const { offerId } = useRoute<'groupHugAnnouncement'>().params
+export const GroupHugAnnouncement = ({ offerId }: { offerId: string }) => {
   const navigation = useNavigation()
   const setHasSeenGroupHugAnnouncement = useConfigStore((state) => state.setHasSeenGroupHugAnnouncement)
+  const setOverlay = useSetOverlay()
 
   const goToSettings = () => {
     setHasSeenGroupHugAnnouncement(true)
+    setOverlay(undefined)
     navigation.reset({
       index: 1,
       routes: [{ name: 'homeScreen', params: { screen: 'settings' } }, { name: 'transactionBatching' }],
@@ -20,7 +21,8 @@ export const GroupHugAnnouncement = () => {
   }
   const close = () => {
     setHasSeenGroupHugAnnouncement(true)
-    navigation.replace('explore', { offerId })
+    setOverlay(undefined)
+    navigation.navigate('explore', { offerId })
   }
 
   return (
