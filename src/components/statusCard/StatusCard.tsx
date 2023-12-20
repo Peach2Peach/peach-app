@@ -10,6 +10,7 @@ export type StatusCardProps = {
   subtext: string
   amount?: number | [number, number]
   price?: number
+  premium?: number
   currency?: Currency
   label?: string
   labelIcon?: JSX.Element
