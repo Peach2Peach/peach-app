@@ -114,7 +114,7 @@ function ExploreCard ({ match }: { match: Match }) {
           <PeachText style={tw`text-center`}>
             <PriceFormat
               style={tw`tooltip`}
-              currency={displayCurrency}
+              currency={match.selectedCurrency ?? displayCurrency}
               amount={match.matchedPrice ?? fiatPrice * (1 + premium / 100)}
             />
             <PeachText style={tw`text-black-2`}>
