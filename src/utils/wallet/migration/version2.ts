@@ -1,6 +1,6 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { info } from '../../log'
-import { omit } from '../../object'
+import { omit } from '../../object/omit'
 import { WalletState } from '../walletStore'
 
 export type ConfirmedTransaction = {
