@@ -1,35 +1,70 @@
-import { Pressable, TouchableOpacity, View } from 'react-native'
+import Clipboard from '@react-native-clipboard/clipboard'
+import { useRef } from 'react'
+import { Animated, Pressable, TouchableOpacity, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import 'react-native-url-polyfill/auto'
 import { IconType } from '../../assets/icons'
 import { useIsMediumScreen } from '../../hooks/useIsMediumScreen'
 import tw from '../../styles/tailwind'
+import { getBitcoinAddressParts } from '../../utils/bitcoin/getBitcoinAddressParts'
+import { openInWallet } from '../../utils/bitcoin/openInWallet'
 import i18n from '../../utils/i18n'
 import { Icon } from '../Icon'
-import { Fade } from '../animation/Fade'
 import { PeachText } from '../text/PeachText'
-import { BitcoinAddressProps, useBitcoinAddressSetup } from './hooks/useBitcoinAddressSetup'
+import { BitcoinAddressProps } from './hooks/useBitcoinAddressSetup'
+
+function requestTextAnimation (opacity: Animated.Value) {
+  Animated.sequence([
+    Animated.timing(opacity, { toValue: 1, duration: 300, useNativeDriver: true }),
+    Animated.delay(1500),
+    Animated.timing(opacity, { toValue: 0, duration: 300, useNativeDriver: true }),
+  ]).start()
+}
+
+function addressTextAnimation (opacity: Animated.Value) {
+  Animated.sequence([
+    Animated.timing(opacity, { toValue: 1, duration: 200, useNativeDriver: true }),
+    Animated.delay(1500),
+    Animated.timing(opacity, { toValue: 0, duration: 200, useNativeDriver: true }),
+  ]).start()
+}
 
 export const BitcoinAddress = ({ address, amount, label }: BitcoinAddressProps) => {
   const isMediumScreen = useIsMediumScreen()
   const width = isMediumScreen ? 327 : 242
-  const {
-    addressParts,
-    openInWalletOrCopyPaymentRequest,
-    copyPaymentRequest,
-    copyAddress,
-    showAddressCopied,
-    showPaymentRequestCopied,
-    urn,
-  } = useBitcoinAddressSetup({ address, amount, label })
+
+  const requestTextOpacity = useRef(new Animated.Value(0)).current
+  const addressTextOpacity = useRef(new Animated.Value(0)).current
+
+  const urn = new URL(`bitcoin:${address}`)
+
+  if (amount) urn.searchParams.set('amount', String(amount))
+  if (label) urn.searchParams.set('message', label)
+
+  const addressParts = getBitcoinAddressParts(address)
+
+  const copyAddress = () => {
+    Clipboard.setString(address)
+    addressTextAnimation(addressTextOpacity)
+  }
+
+  const copyPaymentRequest = () => {
+    Clipboard.setString(urn.toString())
+    requestTextAnimation(requestTextOpacity)
+  }
+
+  const openInWalletOrCopyPaymentRequest = async () => {
+    if (!(await openInWallet(urn.toString()))) copyPaymentRequest()
+  }
+
   return (
     <>
       <Pressable onPress={openInWalletOrCopyPaymentRequest} onLongPress={copyPaymentRequest}>
-        <Fade show={showPaymentRequestCopied} duration={300} delay={0}>
+        <Animated.View style={{ opacity: requestTextOpacity }}>
           <PeachText style={[tw`text-center subtitle-2`, tw`absolute w-20 -ml-10 bottom-full left-1/2`]}>
             {i18n('copied')}
           </PeachText>
-        </Fade>
+        </Animated.View>
         <QRCode size={width} value={urn.toString()} backgroundColor={String(tw`text-primary-background`.color)} />
       </Pressable>
 
@@ -41,14 +76,14 @@ export const BitcoinAddress = ({ address, amount, label }: BitcoinAddressProps) 
             {addressParts.three}
             <PeachText style={tw`text-black-1`}>{addressParts.four}</PeachText>
           </PeachText>
-          <Fade
-            style={tw`absolute items-center justify-center w-full h-full bg-primary-background-light`}
-            show={showAddressCopied}
-            duration={200}
-            delay={0}
+          <Animated.View
+            style={[
+              tw`absolute items-center justify-center w-full h-full bg-primary-background-light`,
+              { opacity: addressTextOpacity },
+            ]}
           >
             <PeachText style={tw`text-center subtitle-1`}>{i18n('copied')}</PeachText>
-          </Fade>
+          </Animated.View>
         </View>
 
         <View style={tw`justify-center gap-2`}>
