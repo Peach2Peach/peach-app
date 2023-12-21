@@ -21,6 +21,7 @@ jest.useFakeTimers()
 
 describe('AddPaymentMethodButton', () => {
   beforeEach(() => {
+    queryClient.invalidateQueries(['meetupEvents'])
     useMeetupEventsStore.getState().setMeetupEvents([])
   })
   afterEach(() => {
