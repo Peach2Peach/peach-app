@@ -245,6 +245,7 @@ function SellAmountSlider ({ trackWidth, setIsSliding }: SellAmountSliderProps) 
       setIsSliding={setIsSliding}
       onDrag={onDrag}
       type="sell"
+      iconId="chevronsUp"
       transform={[{ translateX }]}
     />
   )
