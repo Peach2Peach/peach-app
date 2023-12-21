@@ -100,7 +100,7 @@ function OfferMarketInfo () {
       type={'sellOffers'}
       meansOfPayment={meansOfPayment}
       maxPremium={maxPremium ?? undefined}
-      minReputation={minReputation ?? undefined}
+      minReputation={typeof minReputation === 'number' ? interpolate(minReputation, [0, 5], [-1, 1]) : undefined}
       buyAmountRange={amount}
     />
   )

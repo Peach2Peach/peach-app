@@ -1,9 +1,9 @@
-import { fireEvent, render, responseUtils, waitFor } from 'test-utils'
+import { fireEvent, render } from 'test-utils'
 import { balticHoneyBadger, belgianBTCEmbassy, breizhBitcoin, decouvreBTC } from '../../../tests/unit/data/eventData'
 import { navigateMock, pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { useMeetupEvents } from '../../hooks/query/useMeetupEvents'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
-import { peachAPI } from '../../utils/peachAPI'
 import { defaultState, useDrawerState } from '../drawer/useDrawerState'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 
@@ -13,9 +13,12 @@ jest.mock('../../hooks/useRoute', () => ({
 
 const mockEvents: MeetupEvent[] = [belgianBTCEmbassy, decouvreBTC]
 
-const getMeetupEventsMock = jest
-  .spyOn(peachAPI.public.events, 'getEvents')
-  .mockResolvedValue({ result: mockEvents, ...responseUtils })
+const useMeetupEventsMock = jest.fn(
+  (): ReturnType<typeof useMeetupEvents> => ({ meetupEvents: mockEvents, isLoading: false, error: undefined }),
+)
+jest.mock('../../hooks/query/useMeetupEvents', () => ({
+  useMeetupEvents: () => useMeetupEventsMock(),
+}))
 
 jest.useFakeTimers()
 
@@ -27,46 +30,36 @@ describe('AddPaymentMethodButton', () => {
     queryClient.clear()
   })
 
-  it('should render correctly', async () => {
+  it('should render correctly', () => {
     const { toJSON } = render(<AddPaymentMethodButton isCash={false} />)
-    await waitFor(() => {
-      expect(useMeetupEventsStore.getState().meetupEvents).toEqual(mockEvents)
-    })
     expect(toJSON()).toMatchSnapshot()
   })
 
-  it('should render correctly with isCash', async () => {
-    const { toJSON } = render(<AddPaymentMethodButton isCash />)
-    await waitFor(() => {
-      expect(useMeetupEventsStore.getState().meetupEvents).toEqual(mockEvents)
-      jest.advanceTimersByTime(1000)
-    })
-    expect(toJSON()).toMatchSnapshot()
-  })
-
-  it('should render correctly with isCash while still loading', async () => {
+  it('should render correctly with isCash', () => {
     const { toJSON } = render(<AddPaymentMethodButton isCash />)
     expect(toJSON()).toMatchSnapshot()
-    await waitFor(() => {
-      expect(queryClient.getQueryState(['meetupEvents'])?.status).toBe('success')
-    })
   })
 
-  it('should not update the drawer if meetupEvents are undefined', async () => {
-    getMeetupEventsMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
+  it('should render correctly with isCash while still loading', () => {
+    // @ts-ignore there is something weird with useMeetupEvents due to initialData
+    useMeetupEventsMock.mockReturnValueOnce({ meetupEvents: [], isLoading: true, error: undefined })
+    const { toJSON } = render(<AddPaymentMethodButton isCash />)
+    expect(toJSON()).toMatchSnapshot()
+  })
+
+  it('should not update the drawer if meetupEvents are undefined', () => {
+    useMeetupEventsMock.mockReturnValueOnce({
+      meetupEvents: undefined,
+      isLoading: false,
+      error: { error: 'UNAUTHORIZED' },
+    })
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
-    await waitFor(() => {
-      expect(queryClient.getQueryState(['meetupEvents'])?.status).toBe('error')
-    })
     fireEvent.press(getByText('add new cash option'))
     expect(useDrawerState.getState()).toStrictEqual(expect.objectContaining(defaultState))
   })
 
-  it('should update the drawer with the right parameters for cash trades', async () => {
+  it('should update the drawer with the right parameters for cash trades', () => {
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
-    await waitFor(() => {
-      expect(queryClient.getQueryState(['meetupEvents'])?.status).toBe('success')
-    })
     fireEvent.press(getByText('add new cash option'))
     expect(useDrawerState.getState()).toStrictEqual(
       expect.objectContaining({
@@ -80,11 +73,8 @@ describe('AddPaymentMethodButton', () => {
     )
   })
 
-  it('should show the meetup select drawer after selecting a country', async () => {
+  it('should show the meetup select drawer after selecting a country', () => {
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
-    await waitFor(() => {
-      expect(queryClient.getQueryState(['meetupEvents'])?.status).toBe('success')
-    })
     fireEvent.press(getByText('add new cash option'))
     const onPress = useDrawerState.getState().options.find((e) => e.title === 'Belgium')?.onPress
     onPress?.()
@@ -113,11 +103,8 @@ describe('AddPaymentMethodButton', () => {
     )
   })
 
-  it('should navigate to the meetupScreen with the right parameters', async () => {
+  it('should navigate to the meetupScreen with the right parameters', () => {
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
-    await waitFor(() => {
-      expect(queryClient.getQueryState(['meetupEvents'])?.status).toBe('success')
-    })
     fireEvent.press(getByText('add new cash option'))
     const onBelgiumPress = useDrawerState.getState().options.find((e) => e.title === 'Belgium')?.onPress
     onBelgiumPress?.()
@@ -140,12 +127,13 @@ describe('AddPaymentMethodButton', () => {
       origin: 'paymentMethods',
     })
   })
-  it('should sort the countries alphabetically and keep super featured events on top', async () => {
-    getMeetupEventsMock.mockResolvedValueOnce({ result: [...mockEvents, balticHoneyBadger], ...responseUtils })
-    const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
-    await waitFor(() => {
-      expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([...mockEvents, balticHoneyBadger])
+  it('should sort the countries alphabetically and keep super featured events on top', () => {
+    useMeetupEventsMock.mockReturnValueOnce({
+      meetupEvents: [...mockEvents, balticHoneyBadger],
+      isLoading: false,
+      error: undefined,
     })
+    const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
     fireEvent.press(getByText('add new cash option'))
     expect(useDrawerState.getState().options).toStrictEqual([
       {
@@ -159,13 +147,14 @@ describe('AddPaymentMethodButton', () => {
       { flagID: 'LV', onPress: expect.any(Function), title: 'Latvia' },
     ])
   })
-  it('should sort the meetups by their city alphabetically', async () => {
-    getMeetupEventsMock.mockResolvedValueOnce({ result: [breizhBitcoin, ...mockEvents], ...responseUtils })
+  it('should sort the meetups by their city alphabetically', () => {
+    useMeetupEventsMock.mockReturnValueOnce({
+      meetupEvents: [breizhBitcoin, ...mockEvents],
+      isLoading: false,
+      error: undefined,
+    })
 
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
-    await waitFor(() => {
-      expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([breizhBitcoin, ...mockEvents])
-    })
     fireEvent.press(getByText('add new cash option'))
 
     const onPress = useDrawerState.getState().options.find((e) => e.title === 'France')?.onPress
@@ -177,17 +166,18 @@ describe('AddPaymentMethodButton', () => {
     ])
   })
 
-  it('should show the featured meetups at the top of the list', async () => {
+  it('should show the featured meetups at the top of the list', () => {
     const featuredEvent: MeetupEvent = {
       ...breizhBitcoin,
       featured: true,
     }
-    getMeetupEventsMock.mockResolvedValueOnce({ result: [decouvreBTC, featuredEvent], ...responseUtils })
+    useMeetupEventsMock.mockReturnValueOnce({
+      meetupEvents: [decouvreBTC, featuredEvent],
+      isLoading: false,
+      error: undefined,
+    })
     expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([])
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />)
-    await waitFor(() => {
-      expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([decouvreBTC, featuredEvent])
-    })
     fireEvent.press(getByText('add new cash option'))
 
     const onPress = useDrawerState.getState().options.find((e) => e.title === 'France')?.onPress

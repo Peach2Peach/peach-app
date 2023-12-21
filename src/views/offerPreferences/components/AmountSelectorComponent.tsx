@@ -90,6 +90,7 @@ function AmountSliders ({ setIsSliding, trackWidth, range: [min, max], setRange 
         hitSlop={{ bottom: sectionContainerGap, left: trackWidth, right: sliderDelta / 2 + sliderWidth }}
         type="buy"
         transform={[{ translateX: minTranslateX }]}
+        iconId="chevronsLeft"
       />
       <Slider
         trackWidth={trackWidth}
@@ -98,6 +99,7 @@ function AmountSliders ({ setIsSliding, trackWidth, range: [min, max], setRange 
         hitSlop={{ bottom: sectionContainerGap, left: sliderDelta / 2 - sliderWidth, right: trackWidth }}
         type="buy"
         transform={[{ translateX: maxTranslateX }]}
+        iconId="chevronsRight"
       />
     </>
   )

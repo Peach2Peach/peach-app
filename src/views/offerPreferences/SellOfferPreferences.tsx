@@ -245,13 +245,14 @@ function SellAmountSlider ({ trackWidth, setIsSliding }: SellAmountSliderProps) 
       setIsSliding={setIsSliding}
       onDrag={onDrag}
       type="sell"
+      iconId="chevronsUp"
       transform={[{ translateX }]}
     />
   )
 }
 
 export const inputContainerStyle = [
-  'items-center justify-center flex-1 bg-primary-background-light flex-row',
+  'items-center justify-center flex-1 bg-primary-background-light flex-row h-7',
   'border rounded-lg border-black-4',
 ]
 
