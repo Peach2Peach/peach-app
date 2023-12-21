@@ -243,11 +243,9 @@ function MatchOfferButton ({ matchOffer, optionName, setShowPaymentMethodPulse }
 function WaitingForSeller () {
   return (
     <View style={tw`items-center self-center`}>
-      <PeachText style={tw`text-primary-main subtitle-1`}>{i18n('match.tradeRequested')}trade requested</PeachText>
+      <PeachText style={tw`text-primary-main subtitle-1`}>{i18n('match.tradeRequested')}</PeachText>
       <View style={tw`flex-row items-center justify-center`}>
-        <PeachText style={tw`text-primary-main subtitle-1`}>
-          {i18n('match.waitingForSeller')}waiting for seller
-        </PeachText>
+        <PeachText style={tw`text-primary-main subtitle-1`}>{i18n('match.waitingForSeller')}</PeachText>
         <AnimatedButtons />
       </View>
     </View>
