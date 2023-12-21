@@ -7,9 +7,9 @@ import i18n from '../../utils/i18n'
 
 export const PaymentMade = ({ contractId }: { contractId: string }) => {
   const navigation = useNavigation()
-  const setOverlayContent = useSetOverlay()
+  const setOverlay = useSetOverlay()
 
-  const close = () => setOverlayContent(undefined)
+  const close = () => setOverlay(undefined)
 
   const goToTrade = () => {
     close()
