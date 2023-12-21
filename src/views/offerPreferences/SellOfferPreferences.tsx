@@ -114,7 +114,7 @@ function usePastOffersStats ({ meansOfPayment }: { meansOfPayment: MeansOfPaymen
 }
 
 function CompetingOfferStats () {
-  const textStyle = tw`text-center text-primary-main subtitle-2`
+  const text = tw`text-center text-primary-main subtitle-2`
 
   const meansOfPayment = useOfferPreferences((state) => state.meansOfPayment)
   const { data: pastOfferData } = usePastOffersStats({ meansOfPayment })
@@ -122,10 +122,10 @@ function CompetingOfferStats () {
 
   return (
     <Section.Container style={tw`gap-1 py-0`}>
-      <PeachText style={textStyle}>
+      <PeachText style={text}>
         {i18n('offerPreferences.competingSellOffers', String(marketStats.offersWithinRange.length))}
       </PeachText>
-      <PeachText style={textStyle}>
+      <PeachText style={text}>
         {i18n('offerPreferences.premiumOfCompletedTrades', String(pastOfferData?.avgPremium))}
       </PeachText>
     </Section.Container>
