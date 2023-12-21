@@ -66,7 +66,7 @@ function useChatMessageHandler () {
   const publicKey = useAccountStore((state) => state.account.publicKey)
 
   useEffect(() => {
-    const messageHandler = (message: unknown) => {
+    const contractMessageHandler = (message: unknown) => {
       if (!contract) return
       const messageParsed = messageSchema.safeParse(message)
       if (!messageParsed.success) return
@@ -85,12 +85,12 @@ function useChatMessageHandler () {
     }
 
     const unsubscribe = () => {
-      ws.off('message', messageHandler)
+      ws.off('message', contractMessageHandler)
     }
 
     if (!ws.connected) return unsubscribe
 
-    ws.on('message', messageHandler)
+    ws.on('message', contractMessageHandler)
 
     return unsubscribe
   }, [contract, contractId, publicKey, queryClient, ws])

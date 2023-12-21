@@ -8,6 +8,7 @@ import { Badges } from '../../components/matches/components/Badges'
 import { getPremiumOfMatchedOffer } from '../../components/matches/getPremiumOfMatchedOffer'
 import { PeachText } from '../../components/text/PeachText'
 import { PriceFormat } from '../../components/text/PriceFormat'
+import { CENT, NEW_USER_THRESHOLD } from '../../constants'
 import { useMarketPrices } from '../../hooks/query/useMarketPrices'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useBitcoinPrices } from '../../hooks/useBitcoinPrices'
@@ -90,7 +91,7 @@ function ExploreCard ({ match }: { match: Match }) {
     navigation.navigate('matchDetails', { matchId: match.offerId, offerId })
   }
 
-  const isNewUser = user.trades < 3
+  const isNewUser = user.openedTrades < NEW_USER_THRESHOLD
 
   return (
     <TouchableOpacity
@@ -103,7 +104,9 @@ function ExploreCard ({ match }: { match: Match }) {
       {instantTrade && (
         <View style={tw`overflow-hidden rounded-md`}>
           <PeachyBackground />
-          <PeachText style={tw`text-center py-2px subtitle-2 text-primary-background-light`}>instant trade</PeachText>
+          <PeachText style={tw`text-center py-2px subtitle-2 text-primary-background-light`}>
+            {i18n('offerPreferences.instantTrade')}
+          </PeachText>
         </View>
       )}
       <View style={tw`justify-center py-2 px-9px`}>
@@ -117,7 +120,7 @@ function ExploreCard ({ match }: { match: Match }) {
             <PriceFormat
               style={tw`tooltip`}
               currency={match.selectedCurrency ?? displayCurrency}
-              amount={match.matchedPrice ?? fiatPrice * (1 + premium / 100)}
+              amount={match.matchedPrice ?? fiatPrice * (1 + premium / CENT)}
             />
             <PeachText style={tw`text-black-2`}>
               {' '}

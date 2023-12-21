@@ -22,6 +22,7 @@
     <string name="notification.body.contract.seller.disputeWon">Wir haben im Streitfall %1$s zu deinen gunsten entschieden. Bitte überprüfe die Nachricht deines Vermittlers im Handelschatchat, um zu erfahren, wie es weiter geht.</string>
     <string name="notification.body.contract.seller.paymentTimerHasRunOut">Die Zahlung für den trade %1$s wurde nicht rechtzeitig durchgeführt. Bitte öffne die App, um dem Käufer mehr Zeit zu geben oder den Handel abzubrechen.</string>
     <string name="notification.body.contract.tradeCompleted">Die Sats für den Trade %1$s befinden sich in deiner Wallet \uD83C\uDF89</string>
+    <string name="notification.body.contract.seller.instantTrade">Du hast gerade einen Sofortkauf mit einem Käufer gestartet!</string>
     <string name="notification.body.offer.buyOfferExpired">Dein Kaufangebot %1$s hat seit %2$s Tagen kein Match erzielt und wurde entfernt.</string>
     <string name="notification.body.offer.escrowFunded">Die Escrow wurde aufgeladen und dein Angebot wurde veröffentlicht.</string>
     <string name="notification.body.offer.fundingAmountDifferent">Die Escrow wurde mit einem abweichenden Betrag aufgeladen. Möchtest du mit diesem Angebot fortfahren oder eine Rückerstattung erhalten?</string>

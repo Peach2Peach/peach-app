@@ -4,6 +4,7 @@ import { PeachText } from '../../../components/text/PeachText'
 import { useMarketPrices } from '../../../hooks/query/useMarketPrices'
 import { useBitcoinPrices } from '../../../hooks/useBitcoinPrices'
 import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 import { getTradingAmountLimits } from '../../../utils/market/getTradingAmountLimits'
 import { trackMin } from '../utils/constants'
 import { enforceDigitFormat } from '../utils/enforceDigitFormat'
@@ -27,7 +28,7 @@ export function AmountSelectorComponent ({ setIsSliding, range: [min, max], setR
 
   return (
     <Section.Container style={tw`bg-success-mild-1`}>
-      <Section.Title>amount to buy</Section.Title>
+      <Section.Title>{i18n('offerPreferences.amountToBuy')}</Section.Title>
       <View style={tw`flex-row items-center gap-10px`}>
         <BuyAmountInput type="min" minAmountDelta={minSliderDeltaAsAmount} range={[min, max]} setRange={setRange} />
         <PeachText style={tw`subtitle-1`}>-</PeachText>

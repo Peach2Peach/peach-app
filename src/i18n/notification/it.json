@@ -22,6 +22,7 @@
   "notification.contract.seller.disputeLost.text" : "Abbiamo deciso a favore del compratore nella disputa per lo scambio $0. Controlla il messaggio del tuo mediatore nella chat della transazione per vedere come procedere.",
   "notification.contract.seller.disputeRaised.text" : "Il compratore ha avviato una disputa per lo scambio $0 di $1 sats.",
   "notification.contract.seller.disputeWon.text" : "Abbiamo deciso a tuo favore nella disputa per lo scambio $0. Controlla il messaggio del tuo mediatore nella chat della transazione per vedere come procedere.",
+  "notification.contract.seller.instantTrade.body" : "Hai avviato un commercio istantaneo con un acquirente!",
   "notification.contract.seller.paymentTimerHasRunOut.text" : "Il pagamento per lo scambio $0 non è stato effettuato in tempo. Dai al compratore più tempo o annulla lo scambio.",
   "notification.contract.tradeCompleted.text" : "Congratulazioni! I sats per lo scambio $0 sono nel tuo wallet \uD83C\uDF89",
   "notification.contract.tradeCompleted.title" : "Scambio completato!",

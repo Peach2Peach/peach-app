@@ -8,6 +8,7 @@ import { useNavigation } from '../../hooks/useNavigation'
 import { PatchBuyOfferData, usePatchBuyOffer } from '../../hooks/usePatchOffer'
 import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 import { interpolate } from '../../utils/math/interpolate'
 import { hasMopsConfigured } from '../../utils/offer/hasMopsConfigured'
 import { isBuyOffer } from '../../utils/offer/isBuyOffer'
@@ -114,7 +115,7 @@ function OfferMethods () {
       {hasSelectedMethods ? (
         <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`self-stretch flex-1`} />
       ) : (
-        <Section.Title>all payment methods</Section.Title>
+        <Section.Title>{i18n('offerPreferences.allPaymentMethods')}</Section.Title>
       )}
     </Section.Container>
   )
@@ -223,7 +224,7 @@ function ShowOffersButton () {
       disabled={!formValid}
       loading={isPatching}
     >
-      Show Offers
+      {i18n('offerPreferences.showOffers')}
     </Button>
   )
 }
