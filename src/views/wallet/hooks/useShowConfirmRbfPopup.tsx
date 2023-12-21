@@ -8,7 +8,6 @@ import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { useWalletState } from '../../../utils/wallet/walletStore'
 import { ConfirmRbf } from '../components/ConfirmRbf'
 
 type Props = {
@@ -24,7 +23,6 @@ export const useShowConfirmRbfPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const showLoadingPopup = useShowLoadingPopup()
   const handleTransactionError = useHandleTransactionError()
-  const removePendingTransaction = useWalletState((state) => state.removePendingTransaction)
 
   const confirmAndSend = useCallback(
     async (rbfTransaction: PartiallySignedTransaction, onSuccess: Props['onSuccess']) => {
@@ -32,7 +30,6 @@ export const useShowConfirmRbfPopup = () => {
       try {
         const [txId] = await Promise.all([rbfTransaction.txid(), peachWallet.signAndBroadcastPSBT(rbfTransaction)])
 
-        removePendingTransaction(txId)
         onSuccess(txId)
       } catch (e) {
         handleTransactionError(e)
@@ -40,7 +37,7 @@ export const useShowConfirmRbfPopup = () => {
         closePopup()
       }
     },
-    [closePopup, handleTransactionError, removePendingTransaction, showLoadingPopup],
+    [closePopup, handleTransactionError, showLoadingPopup],
   )
 
   const showConfirmRbfPopup = useCallback(

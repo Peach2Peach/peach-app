@@ -1,6 +1,6 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { info } from '../../log'
-import { WalletStore } from '../walletStore'
+import { WalletStateVersion1 } from './version1'
 
 export type ConfirmedTransaction = {
   txid: string
@@ -26,6 +26,12 @@ export type WalletStateVersion0 = {
   transactions: TransactionsResponse
   pendingTransactions: Record<string, string>
   txOfferMap: Record<string, string>
+  fundedFromPeachWallet: string[]
+  addressLabelMap: Record<string, string>
+  fundMultipleMap: Record<string, string[]>
+  showBalance: boolean
+  selectedUTXOIds: string[]
+  isSynced: boolean
 }
 
 const convertLegacyTxConfirmed = (tx: ConfirmedTransaction) => ({
@@ -40,7 +46,7 @@ const convertLegacyTxConfirmed = (tx: ConfirmedTransaction) => ({
 })
 const convertLegacyTxPending = (tx: PendingTransaction): TransactionDetails => tx
 
-export const version0 = (persistedState: unknown) => {
+export const version0 = (persistedState: unknown): WalletStateVersion1 => {
   info('WalletStore - migrating from version 0')
 
   const version0State = persistedState as WalletStateVersion0
@@ -49,5 +55,5 @@ export const version0 = (persistedState: unknown) => {
   return {
     ...version0State,
     transactions: [...confirmed.map(convertLegacyTxConfirmed), ...pending.map(convertLegacyTxPending)],
-  } as unknown as WalletStore
+  }
 }
