@@ -4,7 +4,7 @@ import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
 import tw from '../../../styles/tailwind'
 import { inputContainerStyle } from '../SellOfferPreferences'
 
-export const textStyle = 'text-center subtitle-1 leading-relaxed py-1px text-black-1'
+export const textStyle = 'text-center subtitle-1 leading-relaxed py-1px text-black-1 android:h-7'
 
 export const SatsInputComponent = forwardRef<TextInput, TextInputProps>((props, ref) => (
   <View style={[tw.style(inputContainerStyle), tw`py-2`]}>
