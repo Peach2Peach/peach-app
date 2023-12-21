@@ -9,16 +9,16 @@ import i18n from '../../utils/i18n'
 
 export const NewBadge = ({ badges }: { badges: Medal[] }) => {
   const navigation = useNavigation()
-  const setOverlayContent = useSetOverlay()
+  const setOverlay = useSetOverlay()
   const badge = badges[0]
   const icon = `${badgeIconMap[badge]}CircleInverted` as IconType
   const remainingBadges = badges.slice(1, badges.length)
 
-  const close = () => setOverlayContent(remainingBadges.length > 0 ? <NewBadge badges={remainingBadges} /> : undefined)
+  const close = () => setOverlay(remainingBadges.length > 0 ? <NewBadge badges={remainingBadges} /> : undefined)
 
   const goToProfile = () => {
     navigation.navigate('myProfile')
-    setOverlayContent(undefined)
+    setOverlay(undefined)
   }
 
   return (

@@ -6,7 +6,6 @@ import { Contract } from '../../../peach-api/src/@types/contract'
 import { useSetOverlay } from '../../Overlay'
 import { IconType } from '../../assets/icons'
 import { Icon } from '../../components/Icon'
-import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { PeachText } from '../../components/text/PeachText'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
@@ -41,35 +40,33 @@ function TradeCompleteView ({ contract }: { contract: Contract }) {
   }, [])
 
   return (
-    <Screen gradientBackground>
-      <View style={tw`items-center justify-center grow`}>
-        <View style={tw`justify-center gap-6 grow`}>
-          <View style={tw`items-center`}>
-            <Icon id="fullLogo" style={tw`w-311px h-127px`} />
-            <PeachText style={tw`text-center h5 text-primary-background-light`}>
-              {i18n(`tradeComplete.title.${view}.default`)}
-            </PeachText>
-          </View>
-
-          <PeachText style={tw`text-center body-l text-primary-background-light`}>{i18n('rate.subtitle')}</PeachText>
-          <View style={tw`flex-row justify-center gap-12`}>
-            <RateButton
-              onPress={() => setVote('negative')}
-              iconId="thumbsDown"
-              isSelected={vote === 'negative'}
-              style={tw`pb-[13px] pt-[19px]`}
-            />
-            <RateButton
-              onPress={() => setVote('positive')}
-              iconId="thumbsUp"
-              isSelected={vote === 'positive'}
-              style={tw`pt-[13px] pb-[19px]`}
-            />
-          </View>
+    <>
+      <View style={tw`justify-center gap-6 grow`}>
+        <View style={tw`items-center`}>
+          <Icon id="fullLogo" style={tw`w-311px h-127px`} />
+          <PeachText style={tw`text-center h5 text-primary-background-light`}>
+            {i18n(`tradeComplete.title.${view}.default`)}
+          </PeachText>
         </View>
-        <Rate {...{ contract, view, vote }} />
+
+        <PeachText style={tw`text-center body-l text-primary-background-light`}>{i18n('rate.subtitle')}</PeachText>
+        <View style={tw`flex-row justify-center gap-12`}>
+          <RateButton
+            onPress={() => setVote('negative')}
+            iconId="thumbsDown"
+            isSelected={vote === 'negative'}
+            style={tw`pb-[13px] pt-[19px]`}
+          />
+          <RateButton
+            onPress={() => setVote('positive')}
+            iconId="thumbsUp"
+            isSelected={vote === 'positive'}
+            style={tw`pt-[13px] pb-[19px]`}
+          />
+        </View>
       </View>
-    </Screen>
+      <Rate {...{ contract, view, vote }} />
+    </>
   )
 }
 
@@ -146,7 +143,7 @@ function Rate ({ contract, view, vote }: RateProps) {
   const showTradeBreakdown = () => setPopup(<TradeBreakdownPopup contract={contract} />)
 
   return (
-    <View style={tw`gap-3`}>
+    <View style={tw`self-center gap-3`}>
       <Button onPress={rate} style={tw`bg-primary-background-light`} disabled={!vote} textColor={tw`text-primary-main`}>
         {i18n('rate.rateAndFinish')}
       </Button>
