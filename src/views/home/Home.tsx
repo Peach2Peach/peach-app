@@ -16,6 +16,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { info } from '../../utils/log'
 import { peachAPI } from '../../utils/peachAPI'
+import { openURL } from '../../utils/web/openURL'
 
 export function Home () {
   return (
@@ -62,7 +63,7 @@ function DailyMessage () {
   })
   if (!message) return null
 
-  const onPress = () => {
+  const onSharePress = () => {
     Share.open({
       message: message.text,
       url: message.url,
@@ -70,12 +71,19 @@ function DailyMessage () {
       info('User did not share', e)
     })
   }
+
+  const onTextPress = () => {
+    openURL(message.url)
+  }
+
   return (
     <View style={tw`overflow-hidden rounded-2xl`}>
       <PeachyGradient style={tw`absolute w-full h-full`} />
       <View style={tw`flex-row items-center self-stretch justify-center p-4 gap-10px`}>
-        <PeachText style={tw`flex-1 text-center subtitle-1 text-primary-background-light`}>{message.text}</PeachText>
-        <TouchableIcon onPress={onPress} id="share" iconColor={tw.color('primary-background-light')} />
+        <PeachText onPress={onTextPress} style={tw`flex-1 text-center subtitle-1 text-primary-background-light`}>
+          {message.text}
+        </PeachText>
+        <TouchableIcon onPress={onSharePress} id="share" iconColor={tw.color('primary-background-light')} />
       </View>
     </View>
   )
