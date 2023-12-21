@@ -20,7 +20,7 @@ export const useMeetupEvents = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['meetupEvents'],
     queryFn: getMeetupEventsQuery,
-    initialData: meetupEvents.length ? meetupEvents : undefined,
+    placeholderData: meetupEvents.length ? meetupEvents : undefined,
     initialDataUpdatedAt: getLastModified().getTime(),
     staleTime: MSINANHOUR,
     onSuccess: (result) => {
