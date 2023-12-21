@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useMessageState } from '../../../components/message/useMessageState'
+import { FIFTEEN_SECONDS } from '../../../constants'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useRoute } from '../../../hooks/useRoute'
@@ -16,7 +17,7 @@ const shouldGoToContract = (error: APIError): error is APIError & { details: { c
 export const useSearchSetup = () => {
   const navigation = useNavigation()
   const { offerId } = useRoute<'search'>().params
-  const { allMatches: matches, error, refetch } = useOfferMatches(offerId)
+  const { allMatches: matches, error, refetch } = useOfferMatches(offerId, FIFTEEN_SECONDS)
 
   const updateMessage = useMessageState((state) => state.updateMessage)
   const { offer } = useOfferDetails(offerId)

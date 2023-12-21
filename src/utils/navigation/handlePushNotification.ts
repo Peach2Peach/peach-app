@@ -13,31 +13,10 @@ import { shouldGoToYourTradesSell } from './shouldGoToYourTradesSell'
 export type StackNavigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 export type Navigation = NavigationContainerRefWithCurrent<RootStackParamList> | StackNavigation
 
-// eslint-disable-next-line max-statements
-export const handlePushNotification = async (
-  navigationRef: Navigation,
-  { data }: { data: PNData },
-): Promise<boolean> => {
-  if (isDefined(data.badges)) {
-    navigationRef.navigate('newBadge', {
-      badges: data.badges,
-    })
-
-    return true
-  }
-
+export const handlePushNotification = async (navigationRef: Navigation, { data }: { data: PNData }) => {
   if (shouldGoToContract(data)) {
-    const { contractId, sentTime } = data
-    const { result: contract } = await peachAPI.private.contract.getContract({ contractId })
-    navigationRef.navigate('contract', {
-      contract: contract
-        ? {
-          ...contract,
-          paymentMade: sentTime ? new Date(sentTime) : new Date(),
-        }
-        : undefined,
-      contractId,
-    })
+    const { contractId } = data
+    navigationRef.navigate('contract', { contractId })
   } else if (shouldGoToContractChat(data)) {
     const { contractId } = data
     navigationRef.navigate('contractChat', { contractId })
@@ -56,8 +35,6 @@ export const handlePushNotification = async (
       } else {
         navigationRef.navigate('search', { offerId })
       }
-    } else if (data.type === 'offer.escrowFunded') {
-      navigationRef.navigate('offerPublished', { offerId, shouldGoBack: true })
     } else {
       navigationRef.navigate('offer', { offerId })
     }

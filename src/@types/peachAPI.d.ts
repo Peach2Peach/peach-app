@@ -16,14 +16,6 @@ type PeachWS = {
   onmessage?: WebSocket['onmessage'] | (() => {})
 }
 
-type ContractUpdate = {
-  contractId: Contract['id']
-  event: 'paymentMade' | 'paymentConfirmed'
-  data: {
-    date: number
-  }
-}
-
 type AccessToken = {
   expiry: number
   accessToken: string

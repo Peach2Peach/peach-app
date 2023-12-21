@@ -1,15 +1,16 @@
 import { useMemo, useRef, useState } from 'react'
 import { Keyboard, TextInput, View } from 'react-native'
+import { useSetOverlay } from '../../../../Overlay'
 import { PeachScrollView } from '../../../../components/PeachScrollView'
 import { Button } from '../../../../components/buttons/Button'
 import { Input } from '../../../../components/inputs/Input'
 import { PeachText } from '../../../../components/text/PeachText'
-import { useNavigation } from '../../../../hooks/useNavigation'
 import { useValidatedState } from '../../../../hooks/useValidatedState'
 import { useSettingsStore } from '../../../../store/settingsStore'
 import tw from '../../../../styles/tailwind'
 import { backupAccount } from '../../../../utils/account/backupAccount'
 import i18n from '../../../../utils/i18n'
+import { BackupCreated } from './BackupCreated'
 
 type Props = {
   toggle: () => void
@@ -18,8 +19,6 @@ type Props = {
 const passwordRules = { required: true, password: true }
 
 export const BackupPasswordPrompt = ({ toggle }: Props) => {
-  const navigation = useNavigation()
-
   const updateFileBackupDate = useSettingsStore((state) => state.updateFileBackupDate)
 
   const [password, setPassword, passwordIsValid, passwordError] = useValidatedState<string>('', passwordRules)
@@ -33,6 +32,8 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
   const passwordsMatch = useMemo(() => password === passwordRepeat, [password, passwordRepeat])
   const validate = () => !!password && !!passwordRepeat && passwordIsValid && passwordsMatch
 
+  const setOverlay = useSetOverlay()
+
   const startAccountBackup = () => {
     if (isBackingUp || !validate()) return
 
@@ -45,7 +46,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
       onSuccess: () => {
         setIsBackingUp(false)
         toggle()
-        navigation.navigate('backupCreated')
+        setOverlay(<BackupCreated />)
       },
       onCancel: () => {
         setIsBackingUp(false)

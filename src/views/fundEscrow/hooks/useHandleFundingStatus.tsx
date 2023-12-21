@@ -1,9 +1,11 @@
 import { useEffect } from 'react'
+import { useSetOverlay } from '../../../Overlay'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowWronglyFundedPopup } from '../../../popups/useShowWronglyFundedPopup'
 import { useStartRefundPopup } from '../../../popups/useStartRefundPopup'
 import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer/saveOffer'
+import { OfferPublished } from '../../search/OfferPublished'
 import { useOfferMatches } from '../../search/hooks'
 
 type Props = {
@@ -15,9 +17,10 @@ type Props = {
 export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, userConfirmationRequired }: Props) => {
   const navigation = useNavigation()
   const showWronglyFundedPopup = useShowWronglyFundedPopup()
+  const setOverlay = useSetOverlay()
 
   const startRefund = useStartRefundPopup()
-  const { refetch: fetchMatches } = useOfferMatches(offerId, fundingStatus.status === 'FUNDED')
+  const { refetch: fetchMatches } = useOfferMatches(offerId, undefined, fundingStatus.status === 'FUNDED')
 
   useEffect(() => {
     if (!sellOffer) return
@@ -49,7 +52,7 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
         if (hasMatches) {
           navigation.replace('search', { offerId })
         } else {
-          navigation.replace('offerPublished', { offerId })
+          setOverlay(<OfferPublished offerId={offerId} shouldGoBack={false} />)
         }
       })
     }
@@ -59,6 +62,7 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
     navigation,
     offerId,
     sellOffer,
+    setOverlay,
     showWronglyFundedPopup,
     startRefund,
     userConfirmationRequired,

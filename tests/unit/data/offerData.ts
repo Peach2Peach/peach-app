@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable max-lines */
 
+import { BuyOffer, SellOffer } from '../../../peach-api/src/@types/offer'
 import { twintDataHashes, validSEPAData, validSEPADataHashes } from './paymentData'
 import { defaultUser } from './userData'
 
@@ -29,6 +30,7 @@ export const buyOffer: BuyOffer = {
   user: defaultUser,
   escrowFee: 0.0001,
   freeTrade: false,
+  message: '',
 }
 
 export const sellOffer: SellOffer = {

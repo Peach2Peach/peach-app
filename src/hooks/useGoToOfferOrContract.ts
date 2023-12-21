@@ -1,5 +1,4 @@
 import { useCallback } from 'react'
-import { getNavigationDestinationForContract } from '../utils/contract/getNavigationDestinationForContract'
 import { isContractId } from '../utils/contract/isContractId'
 import { peachAPI } from '../utils/peachAPI'
 import { getNavigationDestinationForOffer } from '../views/yourTrades/utils'
@@ -11,10 +10,7 @@ export const useGoToOfferOrContract = () => {
   const goToOfferOrContract = useCallback(
     async (id: string) => {
       if (isContractId(id)) {
-        const { result: newContract } = await peachAPI.private.contract.getContract({ contractId: id })
-        if (!newContract) return
-        const destination = await getNavigationDestinationForContract(newContract)
-        navigation.navigate(...destination)
+        navigation.navigate('contract', { contractId: id })
       } else {
         const { result: newOffer } = await peachAPI.private.offer.getOfferDetails({ offerId: id })
         if (!newOffer) return

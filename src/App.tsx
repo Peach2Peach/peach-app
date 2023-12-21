@@ -13,6 +13,7 @@ import { Message } from './components/message/Message'
 import { useMessageState } from './components/message/useMessageState'
 import { Popup } from './components/popup/Popup'
 import { initWebSocket } from './init/websocket'
+import { Overlay } from './Overlay'
 import { queryClient } from './queryClient'
 import tw from './styles/tailwind'
 import { usePartialAppSetup } from './usePartialAppSetup'
@@ -57,6 +58,7 @@ export const App = () => {
             <Screens />
             <Drawer />
             <Popup />
+            <Overlay />
             <Message />
           </NavigationContainer>
         </SafeAreaProvider>

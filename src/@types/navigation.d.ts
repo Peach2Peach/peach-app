@@ -53,12 +53,8 @@ type SellFlow = {
 type ContractFlow = {
   contract: {
     contractId: Contract['id']
-    contract?: Contract
   }
   contractChat: {
-    contractId: Contract['id']
-  }
-  paymentMade: {
     contractId: Contract['id']
   }
   disputeReasonSelector: {
@@ -67,9 +63,6 @@ type ContractFlow = {
   disputeForm: {
     contractId: Contract['id']
     reason: DisputeReason
-  }
-  tradeComplete: {
-    contractId: Contract['id']
   }
   patchPayoutAddress: {
     contractId: Contract['id']
@@ -84,9 +77,6 @@ type RootStackParamList = Onboarding &
   BuyFlow &
   SellFlow &
   ContractFlow & {
-    newBadge: {
-      badges: string
-    }
     nodeSetup: undefined
     sendBitcoin: undefined
     receiveBitcoin: undefined
@@ -118,10 +108,6 @@ type RootStackParamList = Onboarding &
       }
       origin: keyof RootStackParamList
     }
-    offerPublished: {
-      offerId: string
-      shouldGoBack?: boolean
-    }
     exportTradeHistory: undefined
     offer: {
       offerId: string
@@ -140,12 +126,7 @@ type RootStackParamList = Onboarding &
       userId: string
     }
     referrals: undefined
-    backupTime: {
-      nextScreen?: keyof RootStackParamList
-      [key: string]: unknown
-    }
     backups: undefined
-    backupCreated: undefined
     seedWords: undefined
     payoutAddress: { type: 'refund' } | undefined
     paymentMethods: undefined
@@ -162,7 +143,4 @@ type RootStackParamList = Onboarding &
     socials: undefined
     myProfile: undefined
     transactionBatching: undefined
-    groupHugAnnouncement: {
-      offerId: string
-    }
   } & TestViews

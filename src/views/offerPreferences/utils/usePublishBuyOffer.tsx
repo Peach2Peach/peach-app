@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { useSetOverlay } from '../../../Overlay'
 import { PeachText } from '../../../components/text/PeachText'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -13,6 +14,7 @@ import { peachAPI } from '../../../utils/peachAPI'
 import { isPaymentMethod } from '../../../utils/validation/isPaymentMethod'
 import { isValidBitcoinSignature } from '../../../utils/validation/isValidBitcoinSignature'
 import { peachWallet } from '../../../utils/wallet/setWallet'
+import { GroupHugAnnouncement } from '../../overlays/GroupHugAnnouncement'
 
 const isForbiddenPaymentMethodError = (
   errorMessage: string | null,
@@ -34,6 +36,7 @@ export function usePublishBuyOffer ({
   const showHelp = () =>
     setPopup(<InfoPopup content={<PeachText>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</PeachText>} />)
   const publicKey = useAccountStore((state) => state.account.publicKey)
+  const setOverlay = useSetOverlay()
 
   return useMutation({
     mutationFn: async () => {
@@ -77,11 +80,12 @@ export function usePublishBuyOffer ({
       }
     },
     onSuccess: (offerId) => {
+      if (!hasSeenGroupHugAnnouncement) setOverlay(<GroupHugAnnouncement offerId={offerId} />)
       navigation.reset({
         index: 1,
         routes: [
           { name: 'homeScreen', params: { screen: 'yourTrades' } },
-          { name: !hasSeenGroupHugAnnouncement ? 'groupHugAnnouncement' : 'explore', params: { offerId } },
+          { name: 'explore', params: { offerId } },
         ],
       })
     },
