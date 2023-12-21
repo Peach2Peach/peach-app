@@ -21,7 +21,6 @@ export const ChatBox = ({ chat, setAndSaveChat, page, fetchNextPage, isLoading, 
   const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
 
   useEffect(() => {
-    console.log(page)
     if (visibleChatMessages.length === 0 || page > 0) return
     setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 300)
   }, [chat.messages.length, page, visibleChatMessages.length])
