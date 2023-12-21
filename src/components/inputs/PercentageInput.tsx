@@ -21,7 +21,7 @@ export const PercentageInput = forwardRef(({ onChange, ...props }: Props, ref: L
       style={tw`grow py-0 text-center h-38px input-text text-black-1`}
       keyboardType={'decimal-pad'}
       placeholder={'20.00'}
-      placeholderTextColor={tw.color('black-5')}
+      placeholderTextColor={tw.color('black-10')}
       {...props}
     />
     <View style={tw`pb-1px`}>

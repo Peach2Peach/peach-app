@@ -63,7 +63,7 @@ const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling 
       ? tw`bg-primary-mild-1`
       : meta.isYou
         ? tw`bg-info-background`
-        : tw`bg-black-6`
+        : tw`bg-black-5`
   const statusIcon
     = message.readBy?.length === 0
       ? !meta.online

@@ -16,7 +16,7 @@ const CurrencySelectionItem = ({ currency, isSelected, onPress, style }: Currenc
   </Pressable>
 )
 
-const ItemSeparator = ({ style }: ComponentProps) => <View style={[tw`w-px h-4 bg-black-6 rounded-1px`, style]} />
+const ItemSeparator = ({ style }: ComponentProps) => <View style={[tw`w-px h-4 bg-black-5 rounded-1px`, style]} />
 
 type Props = ComponentProps & {
   currencies: Currency[]

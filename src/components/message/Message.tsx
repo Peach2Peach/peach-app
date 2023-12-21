@@ -29,7 +29,7 @@ const levelColorMap: LevelColorMap = {
     WARN: tw`bg-warning-background`,
     ERROR: tw`bg-error-main`,
     INFO: tw`bg-info-background`,
-    DEFAULT: tw`bg-black-6`,
+    DEFAULT: tw`bg-black-5`,
   },
   text: {
     APP: tw`text-primary-background`,

@@ -72,7 +72,7 @@ const newThemes = {
     backButtonColor: tw.color('primary-background-light'),
   },
   cancel: {
-    bg: tw`bg-black-5`,
+    bg: tw`bg-black-10`,
     title: tw`text-black-1`,
     subtitle: tw`text-black-1`,
     border: tw`border-black-4`,

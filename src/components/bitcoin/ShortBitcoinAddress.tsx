@@ -17,7 +17,7 @@ export const ShortBitcoinAddress = ({ address, style }: ShortBitcoinAddressProps
   const addressParts = getAddressParts(address)
 
   return (
-    <PeachText style={[tw`text-black-5`, style]}>
+    <PeachText style={[tw`text-black-10`, style]}>
       {addressParts.one}
       <PeachText style={[tw`text-black-1`, style]}>{addressParts.two}</PeachText>
       {addressParts.three}

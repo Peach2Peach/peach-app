@@ -5,7 +5,7 @@ import { PeachText } from '../text/PeachText'
 import { MeansOfPayment } from './MeansOfPayment'
 
 export const SummaryCard = ({ children }: ComponentProps) => (
-  <View style={tw`items-center gap-4 px-5 border border-black-5 rounded-2xl py-7 bg-primary-background-light`}>
+  <View style={tw`items-center gap-4 px-5 border border-black-10 rounded-2xl py-7 bg-primary-background-light`}>
     {children}
   </View>
 )
