@@ -13,22 +13,6 @@ import { Icon } from '../Icon'
 import { PeachText } from '../text/PeachText'
 import { BitcoinAddressProps } from './hooks/useBitcoinAddressSetup'
 
-function requestTextAnimation (opacity: Animated.Value) {
-  Animated.sequence([
-    Animated.timing(opacity, { toValue: 1, duration: 300, useNativeDriver: true }),
-    Animated.delay(1500),
-    Animated.timing(opacity, { toValue: 0, duration: 300, useNativeDriver: true }),
-  ]).start()
-}
-
-function addressTextAnimation (opacity: Animated.Value) {
-  Animated.sequence([
-    Animated.timing(opacity, { toValue: 1, duration: 200, useNativeDriver: true }),
-    Animated.delay(1500),
-    Animated.timing(opacity, { toValue: 0, duration: 200, useNativeDriver: true }),
-  ]).start()
-}
-
 export const BitcoinAddress = ({ address, amount, label }: BitcoinAddressProps) => {
   const isMediumScreen = useIsMediumScreen()
   const width = isMediumScreen ? 327 : 242
@@ -45,12 +29,12 @@ export const BitcoinAddress = ({ address, amount, label }: BitcoinAddressProps) 
 
   const copyAddress = () => {
     Clipboard.setString(address)
-    addressTextAnimation(addressTextOpacity)
+    textAnimation(addressTextOpacity, 200)
   }
 
   const copyPaymentRequest = () => {
     Clipboard.setString(urn.toString())
-    requestTextAnimation(requestTextOpacity)
+    textAnimation(requestTextOpacity, 300)
   }
 
   const openInWalletOrCopyPaymentRequest = async () => {
@@ -101,4 +85,12 @@ function IconButton ({ onPress, iconId }: { onPress: () => void; iconId: IconTyp
       <Icon id={iconId} size={24} color={tw.color('primary-background-light')} />
     </TouchableOpacity>
   )
+}
+
+function textAnimation (opacity: Animated.Value, duration: number) {
+  Animated.sequence([
+    Animated.timing(opacity, { toValue: 1, duration, useNativeDriver: true }),
+    Animated.delay(1500),
+    Animated.timing(opacity, { toValue: 0, duration, useNativeDriver: true }),
+  ]).start()
 }
