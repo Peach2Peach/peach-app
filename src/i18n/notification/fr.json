@@ -22,7 +22,7 @@
   "notification.contract.seller.disputeLost.text" : "Nous avons statué en faveur de l'acheteur dans la dispute pour l'échange $0. Veuillez vérifier le message de votre médiateur dans la discussion de l'échange pour savoir ce qui se passe ensuite.",
   "notification.contract.seller.disputeRaised.text" : "L'acheteur a ouvert une dispute pour l'échange $0 d'une valeur de $1 sats.",
   "notification.contract.seller.disputeWon.text" : "Nous avons statué en votre faveur dans la dispute pour l'échange $0. Veuillez vérifier le message de votre médiateur dans la discussion de l'échange pour savoir ce qui se passe ensuite.",
-  "notification.contract.seller.instantTrade.body" : "Tu viens de démarrer un échange instantané avec un acheteur !",
+  "notification.contract.seller.instantTrade.text" : "Tu viens de démarrer un échange instantané avec un acheteur !",
   "notification.contract.seller.paymentTimerHasRunOut.text" : "Le paiement pour l'échange $0 n'a pas été effectué à temps. Accordez plus de temps à l'acheteur ou annulez l'échange.",
   "notification.contract.tradeCompleted.text" : "Félicitations ! Les sats pour l'échange $0 sont dans votre portefeuille \uD83C\uDF89",
   "notification.contract.tradeCompleted.title" : "Échange terminé !",

@@ -104,7 +104,7 @@ const useFakePNs = () => {
     },
     {
       data: {
-        type: 'contract.seller.instantTrade.body',
+        type: 'contract.seller.instantTrade',
         contractId,
       },
     },
