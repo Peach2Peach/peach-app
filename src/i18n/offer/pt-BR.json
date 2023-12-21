@@ -34,7 +34,7 @@
   "offer.requiredAction.releaseEscrow" : "liberar depósito de garantia",
   "offer.requiredAction.releaseEscrow.dispute" : "disputa perdida: liberar depósito de garantia",
   "offer.requiredAction.searchingForPeer" : "procurando correspondência",
-  "offer.requiredAction.unknown" : "desconhecido - atualize seu app!",
+  "offer.requiredAction.unknown" : "desconhecido - atualize seu aplicativo!",
   "offer.requiredAction.waiting" : "aguardando por $0",
   "offer.requiredAction.waiting.buyer" : "aguardando pagamento",
   "offer.requiredAction.waiting.seller" : "aguardando vendedor",

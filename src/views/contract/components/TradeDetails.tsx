@@ -105,13 +105,13 @@ function ChangePayoutWallet () {
     <>
       {!contract.paymentMade && (
         <SummaryItem
-          label="pay out to peach wallet"
+          label={i18n('contract.summary.payoutToPeachWallet')}
           value={<Toggle enabled={!!paidToPeachWallet} onPress={onPress} />}
         />
       )}
       {(!paidToPeachWallet || contract.paymentMade) && (
         <SummaryItem
-          label="payout wallet"
+          label={i18n('payout.wallet')}
           value={
             <SummaryItem.Text
               value={
@@ -144,7 +144,7 @@ function NetworkFee () {
 
   return (
     <SummaryItem
-      label={'network fees'}
+      label={i18n('settings.networkFees')}
       value={
         <View style={tw`flex-row items-center justify-end flex-1 gap-10px`}>
           <PeachText style={[tw`flex-1 text-right subtitle-1`, tw`md:subtitle-0`]}>

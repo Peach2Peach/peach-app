@@ -118,6 +118,7 @@
   "contract.summary.paidWithMethod" : "paid with",
   "contract.summary.paymentConfirmed" : "on",
   "contract.summary.paymentTooLate" : "payment too late",
+  "contract.summary.payoutToPeachWallet" : "pay out to peach wallet",
   "contract.summary.phone" : "phone #",
   "contract.summary.pixAlias" : "pix alias",
   "contract.summary.postePayNumber" : "postePay number",

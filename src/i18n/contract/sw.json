@@ -118,6 +118,7 @@
   "contract.summary.paidWithMethod" : "kulipwa kwa",
   "contract.summary.paymentConfirmed" : "washa",
   "contract.summary.paymentTooLate" : "malipo yamechelewa sana",
+  "contract.summary.payoutToPeachWallet" : "malipo kwa mkoba wa peach",
   "contract.summary.phone" : "namba ya simu",
   "contract.summary.pixAlias" : "lakabu ya pix",
   "contract.summary.postePayNumber" : "nambari ya postePay",

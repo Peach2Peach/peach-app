@@ -118,6 +118,7 @@
   "contract.summary.paidWithMethod" : "pago com",
   "contract.summary.paymentConfirmed" : "em",
   "contract.summary.paymentTooLate" : "pagamento atrasado demais",
+  "contract.summary.payoutToPeachWallet" : "pagar para a carteira peach",
   "contract.summary.phone" : "número de telefone",
   "contract.summary.pixAlias" : "alias pix",
   "contract.summary.postePayNumber" : "número PostePay",

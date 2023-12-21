@@ -52,7 +52,7 @@ export function MatchDetails () {
 }
 
 function MatchDetailsHeader () {
-  return <Header title="match details" />
+  return <Header title={i18n('matchDetails.title')} />
 }
 
 function useMatchDetails ({ offerId, matchId }: { offerId: string; matchId: string }) {
@@ -197,10 +197,10 @@ type Props = {
 function InstantTradeSlider ({ matchOffer, optionName }: { matchOffer: () => void; optionName: keyof typeof options }) {
   const label
     = optionName === 'missingSelection'
-      ? i18n('intantTradeSlider.action.missingSelection')
+      ? i18n('matchDetails.action.missingSelection')
       : optionName === 'tradingLimitReached'
-        ? i18n('intantTradeSlider.action.tradingLimitReached')
-        : i18n('intantTradeSlider.action.instantTrade')
+        ? i18n('matchDetails.action.tradingLimitReached')
+        : i18n('matchDetails.action.instantTrade')
 
   const [showUnlockedSlider, setShowUnlockedSlider] = useState(false)
 
@@ -235,7 +235,11 @@ function MatchOfferButton ({ matchOffer, optionName, setShowPaymentMethodPulse }
       ]}
       onPress={onPress}
     >
-      {optionName === 'tradingLimitReached' ? 'trading limit reached' : 'request trade'}
+      {i18n(
+        optionName === 'tradingLimitReached'
+          ? 'matchDetails.action.tradingLimitReached'
+          : 'matchDetails.action.requestTrade',
+      )}
     </Button>
   )
 }
@@ -254,7 +258,8 @@ function WaitingForSeller () {
 
 const DOT_DELAY = 200
 const NUMBER_OF_DOTS = 3
-const inputRange = [0, 1 / 3, 2 / 3, 1]
+const inputRange = new Array(NUMBER_OF_DOTS + 1).fill(0)
+  .map((_, i) => i / NUMBER_OF_DOTS)
 function AnimatedButtons () {
   const opacity = useRef(new Animated.Value(0)).current
 

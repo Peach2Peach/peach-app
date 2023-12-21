@@ -112,6 +112,7 @@
   "contract.summary.paidWithMethod" : "bezahlt mit",
   "contract.summary.paymentConfirmed" : "an",
   "contract.summary.paymentTooLate" : "Zahlung zu spät",
+  "contract.summary.payoutToPeachWallet" : "auszahlung an peach wallet",
   "contract.summary.phone" : "Telefonnr.",
   "contract.summary.pixAlias" : "pix alias",
   "contract.summary.price" : "Preis",
