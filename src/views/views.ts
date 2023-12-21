@@ -23,14 +23,12 @@ import { NewUser } from './newUser/NewUser'
 import { BuyOfferPreferences } from './offerPreferences/BuyOfferPreferences'
 import { EditBuyPreferences } from './offerPreferences/EditBuyPreferences'
 import { SellOfferPreferences } from './offerPreferences/SellOfferPreferences'
-import { BackupTime } from './overlays/BackupTime'
 import { PublicProfile } from './publicProfile/PublicProfile'
 import { Referrals } from './referrals/Referrals'
 import { Report } from './report/Report'
 import { RestoreBackup } from './restoreBackup/RestoreBackup'
 import { RestoreReputation } from './restoreReputation/RestoreReputation'
 import { EditPremium } from './search/EditPremium'
-import { OfferPublished } from './search/OfferPublished'
 import { Search } from './search/Search'
 import { Backups } from './settings/Backups'
 import { Currency } from './settings/Currency'
@@ -43,7 +41,6 @@ import { AboutPeach } from './settings/aboutPeach/AboutPeach'
 import { BitcoinProducts } from './settings/aboutPeach/BitcoinProducts'
 import { PeachFees } from './settings/aboutPeach/PeachFees'
 import { Socials } from './settings/aboutPeach/Socials'
-import { BackupCreated } from './settings/components/backups/BackupCreated'
 import { MyProfile } from './settings/profile/MyProfile'
 import { UserSource } from './userSource/UserSource'
 import { AddressChecker } from './wallet/AddressChecker'
@@ -120,8 +117,6 @@ const contact: ViewType[] = [
 
 const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile }]
 
-const overlays: ViewType[] = [{ name: 'offerPublished', component: OfferPublished, animationEnabled: false }]
-
 const settings: ViewType[] = [
   { name: 'aboutPeach', component: AboutPeach },
   { name: 'myProfile', component: MyProfile },
@@ -134,9 +129,7 @@ const settings: ViewType[] = [
   { name: 'currency', component: Currency },
   { name: 'language', component: Language },
   { name: 'referrals', component: Referrals },
-  { name: 'backupTime', component: BackupTime, animationEnabled: false },
   { name: 'backups', component: Backups },
-  { name: 'backupCreated', component: BackupCreated, animationEnabled: false },
   { name: 'nodeSetup', component: NodeSetup },
   { name: 'payoutAddress', component: CustomAddress },
   { name: 'paymentMethods', component: PaymentMethods },
@@ -162,7 +155,6 @@ export const views = [
   ...publicProfile,
   ...contact,
   ...settings,
-  ...overlays,
   ...testViews,
 ]
 

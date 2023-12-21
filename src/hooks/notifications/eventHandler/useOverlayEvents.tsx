@@ -2,12 +2,11 @@ import { useMemo } from 'react'
 import { useSetOverlay } from '../../../Overlay'
 import { PaymentMade } from '../../../views/contract/PaymentMade'
 import { NewBadge } from '../../../views/overlays/NewBadge'
-import { useNavigation } from '../../useNavigation'
+import { OfferPublished } from '../../../views/search/OfferPublished'
 
 type PNEventHandlers = Partial<Record<NotificationType, (data: PNData) => void>>
 
 export const useOverlayEvents = () => {
-  const navigation = useNavigation()
   const setOverlayContent = useSetOverlay()
 
   const overlayEvents: PNEventHandlers = useMemo(
@@ -20,12 +19,12 @@ export const useOverlayEvents = () => {
       },
       // PN-S03
       'offer.escrowFunded': ({ offerId }: PNData) =>
-        offerId ? navigation.navigate('offerPublished', { offerId, shouldGoBack: true }) : undefined,
+        offerId ? setOverlayContent(<OfferPublished offerId={offerId} shouldGoBack />) : undefined,
       // PN-S11
       'contract.paymentMade': ({ contractId }: PNData) =>
         contractId ? setOverlayContent(<PaymentMade contractId={contractId} />) : undefined,
     }),
-    [navigation, setOverlayContent],
+    [setOverlayContent],
   )
   return overlayEvents
 }

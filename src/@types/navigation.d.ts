@@ -108,10 +108,6 @@ type RootStackParamList = Onboarding &
       }
       origin: keyof RootStackParamList
     }
-    offerPublished: {
-      offerId: string
-      shouldGoBack?: boolean
-    }
     exportTradeHistory: undefined
     offer: {
       offerId: string
@@ -130,12 +126,7 @@ type RootStackParamList = Onboarding &
       userId: string
     }
     referrals: undefined
-    backupTime: {
-      nextScreen?: keyof RootStackParamList
-      [key: string]: unknown
-    }
     backups: undefined
-    backupCreated: undefined
     seedWords: undefined
     payoutAddress: { type: 'refund' } | undefined
     paymentMethods: undefined

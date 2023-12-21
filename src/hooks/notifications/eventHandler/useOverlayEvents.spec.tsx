@@ -38,7 +38,8 @@ describe('useOverlayEvents', () => {
       result.current['offer.escrowFunded']!(data)
     })
 
-    expect(navigateMock).toHaveBeenCalledWith('offerPublished', { offerId, shouldGoBack: true })
+    const { getByText } = render(<Overlay />)
+    expect(getByText('offer published!')).toBeTruthy()
   })
 
   it('should not navigate to offerPublished screen on "offer.escrowFunded" event if offerId is not provided', () => {
@@ -62,7 +63,8 @@ describe('useOverlayEvents', () => {
       result.current['contract.paymentMade']!(data)
     })
 
-    expect(navigateMock).toHaveBeenCalledWith('paymentMade', { contractId })
+    const { getByText } = render(<Overlay />)
+    expect(getByText('payment made!')).toBeTruthy()
   })
 
   it('should not navigate to offerPublished screen on "contract.paymentMade" event if offerId is not provided', () => {

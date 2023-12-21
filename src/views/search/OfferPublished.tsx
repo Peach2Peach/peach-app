@@ -1,16 +1,22 @@
+import { useSetOverlay } from '../../Overlay'
 import { OverlayComponent } from '../../components/OverlayComponent'
 import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks/useNavigation'
-import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-export const OfferPublished = () => {
-  const { shouldGoBack, offerId } = useRoute<'offerPublished'>().params
+export const OfferPublished = ({ shouldGoBack, offerId }: { shouldGoBack: boolean; offerId: string }) => {
   const navigation = useNavigation()
-  const goBackHome = () => navigation.replace('homeScreen', { screen: 'home' })
-  const goToOffer = () => navigation.replace('search', { offerId })
-  const goBack = () => navigation.goBack()
+  const setOverlay = useSetOverlay()
+  const closeOverlay = () => setOverlay(undefined)
+  const goBackHome = () => {
+    closeOverlay()
+    navigation.navigate('homeScreen', { screen: 'home' })
+  }
+  const goToOffer = () => {
+    closeOverlay()
+    navigation.navigate('search', { offerId })
+  }
 
   return (
     <OverlayComponent
@@ -22,7 +28,7 @@ export const OfferPublished = () => {
           <Button style={tw`bg-primary-background-light`} textColor={tw`text-primary-main`} onPress={goToOffer}>
             {i18n('showOffer')}
           </Button>
-          <Button ghost onPress={shouldGoBack ? goBack : goBackHome}>
+          <Button ghost onPress={shouldGoBack ? closeOverlay : goBackHome}>
             {i18n('close')}
           </Button>
         </>

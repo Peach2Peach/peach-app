@@ -1,6 +1,6 @@
 import { View } from 'react-native'
+import { useSetOverlay } from '../../../../Overlay'
 import { Icon } from '../../../../components/Icon'
-import { Screen } from '../../../../components/Screen'
 import { Button } from '../../../../components/buttons/Button'
 import { PeachText } from '../../../../components/text/PeachText'
 import { useNavigation } from '../../../../hooks/useNavigation'
@@ -9,9 +9,13 @@ import i18n from '../../../../utils/i18n'
 
 export const BackupCreated = () => {
   const navigation = useNavigation()
-  const goToFileBackup = () => navigation.navigate('backups')
+  const setOverlay = useSetOverlay()
+  const goToFileBackup = () => {
+    setOverlay(undefined)
+    navigation.navigate('backups')
+  }
   return (
-    <Screen gradientBackground>
+    <>
       <View style={tw`items-center justify-center grow`}>
         <PeachText style={tw`h4 text-primary-background-light`}>{i18n('settings.backups.fileBackup.created')}</PeachText>
         <PeachText style={tw`body-l text-primary-background-light`}>
@@ -26,6 +30,6 @@ export const BackupCreated = () => {
       >
         {i18n('back')}
       </Button>
-    </Screen>
+    </>
   )
 }

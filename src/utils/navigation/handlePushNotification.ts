@@ -35,8 +35,6 @@ export const handlePushNotification = async (navigationRef: Navigation, { data }
       } else {
         navigationRef.navigate('search', { offerId })
       }
-    } else if (data.type === 'offer.escrowFunded') {
-      navigationRef.navigate('offerPublished', { offerId, shouldGoBack: true })
     } else {
       navigationRef.navigate('offer', { offerId })
     }

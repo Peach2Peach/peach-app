@@ -10,7 +10,6 @@ import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { PeachText } from '../../components/text/PeachText'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
-import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { TradeBreakdownPopup } from '../../popups/TradeBreakdownPopup'
 import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
@@ -23,6 +22,7 @@ import { getContractViewer } from '../../utils/contract/getContractViewer'
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
 import { LoadingScreen } from '../loading/LoadingScreen'
+import { BackupTime } from '../overlays/BackupTime'
 
 export const TradeComplete = ({ contractId }: { contractId: string }) => {
   const { contract } = useContractDetails(contractId)
@@ -103,7 +103,6 @@ type RateProps = ComponentProps & {
 }
 
 function Rate ({ contract, view, vote }: RateProps) {
-  const navigation = useNavigation()
   const queryClient = useQueryClient()
   const setPopup = usePopupStore((state) => state.setPopup)
   const showError = useShowErrorBanner()
@@ -116,7 +115,7 @@ function Rate ({ contract, view, vote }: RateProps) {
   const navigateAfterRating = () => {
     if (shouldShowBackupOverlay && isPeachWalletActive && view === 'buyer') {
       setShowBackupReminder(true)
-      navigation.navigate('backupTime', { nextScreen: 'contract', contractId: contract.id })
+      setOverlayContent(<BackupTime navigationParams={[{ name: 'contract', params: { contractId: contract.id } }]} />)
     }
     setOverlayContent(undefined)
   }

@@ -1,6 +1,5 @@
 /* eslint-disable max-lines-per-function */
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { contract } from '../../../peach-api/src/testData/contract'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { responseUtils } from '../../../tests/unit/helpers/test-utils'
 import { peachAPI } from '../peachAPI'
@@ -28,10 +27,6 @@ describe('handlePushNotification', () => {
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
-      contract: {
-        ...contract,
-        paymentMade: new Date(timestamp),
-      },
       contractId: '1',
     })
   })
@@ -65,7 +60,6 @@ describe('handlePushNotification', () => {
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
-      contract: { ...contract, paymentMade: expect.any(Date) },
       contractId: '1',
     })
   })
@@ -136,22 +130,6 @@ describe('handlePushNotification', () => {
     expect(navigationRef.navigate).toHaveBeenCalledWith('search', { offerId: sellOffer.id })
   })
 
-  it('navigates to offerPublished when shouldGoToOfferPublished is true and offerId is defined', async () => {
-    const remoteMessage = {
-      data: {
-        type: 'offer.escrowFunded',
-        offerId: sellOffer.id,
-      },
-    } as MessageWithData
-
-    await handlePushNotification(navigationRef, remoteMessage)
-
-    expect(navigationRef.navigate).toHaveBeenCalledWith('offerPublished', {
-      offerId: sellOffer.id,
-      shouldGoBack: true,
-    })
-  })
-
   it('navigates to offer when offerId is defined', async () => {
     const remoteMessage = {
       data: {
@@ -172,20 +150,5 @@ describe('handlePushNotification', () => {
 
     const result = await handlePushNotification(navigationRef, remoteMessage)
     expect(result).toEqual(false)
-  })
-  it('navigates to newBadges when badges are defined on the PN', async () => {
-    const badges = 'fastTrader'
-
-    const remoteMessage = {
-      data: {
-        type: 'contract.paymentMade',
-        badges,
-        sentTime: timestamp,
-      },
-    } as MessageWithData
-
-    await handlePushNotification(navigationRef, remoteMessage)
-
-    expect(navigationRef.navigate).toHaveBeenCalledWith('newBadge', { badges })
   })
 })

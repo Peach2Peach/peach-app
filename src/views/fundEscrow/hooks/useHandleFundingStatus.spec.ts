@@ -46,9 +46,6 @@ const searchWithMatches = {
     ],
   },
 }
-const searchWithNoPages = {
-  data: {},
-}
 const fetchMatchesMock = jest.fn().mockResolvedValue(searchWithNoMatches)
 const useOfferMatchesMock = jest.fn().mockReturnValue({
   refetch: fetchMatchesMock,
@@ -133,23 +130,11 @@ describe('useHandleFundingStatus', () => {
     renderHook(useHandleFundingStatus, { initialProps })
     expect(replaceMock).toHaveBeenCalledWith('wrongFundingAmount', { offerId: sellOffer.id })
   })
-  it('should go to offerPublished if funding status is FUNDED but no matches yet', async () => {
-    renderHook(useHandleFundingStatus, { initialProps: fundedProps })
-    await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
-    expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId: sellOffer.id })
-  })
   it('should go to search if funding status is FUNDED with matches already', async () => {
     fetchMatchesMock.mockResolvedValueOnce(searchWithMatches)
 
     renderHook(useHandleFundingStatus, { initialProps: fundedProps })
     await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
     expect(replaceMock).toHaveBeenCalledWith('search', { offerId: sellOffer.id })
-  })
-  it('should go to offerPublished if funding status is FUNDED but no search response', async () => {
-    fetchMatchesMock.mockResolvedValueOnce(searchWithNoPages)
-
-    renderHook(useHandleFundingStatus, { initialProps: fundedProps })
-    await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
-    expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId: sellOffer.id })
   })
 })

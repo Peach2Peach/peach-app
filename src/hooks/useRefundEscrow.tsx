@@ -1,6 +1,7 @@
 import { NETWORK } from '@env'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { useSetOverlay } from '../Overlay'
 import { PopupAction } from '../components/popup'
 import { PopupComponent } from '../components/popup/PopupComponent'
 import { FIFTEEN_SECONDS } from '../constants'
@@ -17,6 +18,7 @@ import { info } from '../utils/log'
 import { saveOffer } from '../utils/offer/saveOffer'
 import { peachAPI } from '../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../utils/wallet/getEscrowWalletForOffer'
+import { BackupTime } from '../views/overlays/BackupTime'
 import { useTradeSummaries } from './query/useTradeSummaries'
 import { useNavigation } from './useNavigation'
 import { useShowErrorBanner } from './useShowErrorBanner'
@@ -31,16 +33,17 @@ export const useRefundEscrow = () => {
     state.shouldShowBackupOverlay,
   ])
   const { refetch: refetchTradeSummaries } = useTradeSummaries(false)
+  const setOverlay = useSetOverlay()
   const goToWallet = useCallback(
     (txId: string) => {
       closePopup()
       if (shouldShowBackupOverlay && isPeachWallet) {
-        navigation.navigate('backupTime', { nextScreen: 'transactionDetails', txId })
+        setOverlay(<BackupTime navigationParams={[{ name: 'transactionDetails', params: { txId } }]} />)
       } else {
         navigation.navigate('transactionDetails', { txId })
       }
     },
-    [closePopup, isPeachWallet, navigation, shouldShowBackupOverlay],
+    [closePopup, isPeachWallet, navigation, setOverlay, shouldShowBackupOverlay],
   )
   const setOffer = useTradeSummaryStore((state) => state.setOffer)
 
@@ -71,12 +74,16 @@ export const useRefundEscrow = () => {
                     goToWallet(txId)
                   } else {
                     closePopup()
-                    navigation.navigate('backupTime', {
-                      nextScreen: 'homeScreen',
-                      screen: 'yourTrades',
-                      params: { tab: 'yourTrades.sell' },
-                    })
-
+                    setOverlay(
+                      <BackupTime
+                        navigationParams={[
+                          {
+                            name: 'homeScreen',
+                            params: { screen: 'yourTrades', params: { tab: 'yourTrades.sell' } },
+                          },
+                        ]}
+                      />,
+                    )
                     showTransaction(txId, NETWORK)
                   }
                 }}
@@ -87,7 +94,9 @@ export const useRefundEscrow = () => {
                 onPress={() => {
                   closePopup()
                   if (shouldShowBackupOverlay && isPeachWallet) {
-                    navigation.navigate('backupTime', { nextScreen: 'homeScreen', screen: 'yourTrades' })
+                    setOverlay(
+                      <BackupTime navigationParams={[{ name: 'homeScreen', params: { screen: 'yourTrades' } }]} />,
+                    )
                   } else {
                     navigation.navigate('homeScreen', { screen: 'yourTrades', params: { tab: 'yourTrades.history' } })
                   }
@@ -128,6 +137,7 @@ export const useRefundEscrow = () => {
       navigation,
       refetchTradeSummaries,
       setOffer,
+      setOverlay,
       setPopup,
       setShowBackupReminder,
       shouldShowBackupOverlay,

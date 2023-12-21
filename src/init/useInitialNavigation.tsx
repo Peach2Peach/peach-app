@@ -7,6 +7,7 @@ import { handlePushNotification } from '../utils/navigation/handlePushNotificati
 import { parseError } from '../utils/result/parseError'
 import { isDefined } from '../utils/validation/isDefined'
 import { NewBadge } from '../views/overlays/NewBadge'
+import { OfferPublished } from '../views/search/OfferPublished'
 
 const dataIsDefined = (
   remoteMessage: FirebaseMessagingTypes.RemoteMessage,
@@ -35,6 +36,10 @@ export const useInitialNavigation = () => {
           setOverlay(<NewBadge badges={initialNotification.data.badges.split(',') as Medal[]} />)
           return
         }
+        if (initialNotification.data.type === 'offer.escrowFunded') {
+          setOverlay(<OfferPublished offerId={initialNotification.data.offerId} shouldGoBack />)
+          return
+        }
         await handlePushNotification(navigation, initialNotification)
       }
     }
@@ -45,6 +50,10 @@ export const useInitialNavigation = () => {
       if (dataIsDefined(remoteMessage)) {
         if (isDefined(remoteMessage.data.badges)) {
           setOverlay(<NewBadge badges={remoteMessage.data.badges.split(',') as Medal[]} />)
+          return
+        }
+        if (remoteMessage.data.type === 'offer.escrowFunded') {
+          setOverlay(<OfferPublished offerId={remoteMessage.data.offerId} shouldGoBack />)
           return
         }
         handlePushNotification(navigation, remoteMessage)

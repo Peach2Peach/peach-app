@@ -1,6 +1,7 @@
 import { act, fireEvent, render, renderHook, responseUtils } from 'test-utils'
 import { sellOffer } from '../../tests/unit/data/offerData'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
+import { Overlay } from '../Overlay'
 import { Popup, PopupAction } from '../components/popup'
 import { PopupComponent } from '../components/popup/PopupComponent'
 import { Refund } from '../popups/Refund'
@@ -152,7 +153,8 @@ describe('useRefundEscrow', () => {
     const { getByText } = render(<Popup />)
     fireEvent.press(getByText('close'))
     expect(usePopupStore.getState().visible).toEqual(false)
-    expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'homeScreen', screen: 'yourTrades' })
+    const { getByText: getByOverlayText } = render(<Overlay />)
+    expect(getByOverlayText('backup time!')).toBeTruthy()
   })
 
   it('should show the right success popup when peach wallet is active', async () => {
@@ -200,7 +202,8 @@ describe('useRefundEscrow', () => {
     })
     const { getByText } = render(<Popup />)
     fireEvent.press(getByText('go to wallet'))
-    expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'transactionDetails', txId: 'id' })
+    const { getByText: getByOverlayText } = render(<Overlay />)
+    expect(getByOverlayText('backup time!')).toBeTruthy()
   })
 
   it('should call showTransaction if peach wallet is not active', async () => {
