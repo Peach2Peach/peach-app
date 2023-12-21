@@ -20,7 +20,6 @@ import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
-import { interpolate } from '../../utils/math/interpolate'
 import { isSellOffer } from '../../utils/offer/isSellOffer'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { BuyBitcoinHeader } from '../offerPreferences/components/BuyBitcoinHeader'
@@ -72,9 +71,7 @@ function BuyOfferMarketInfo () {
       type={'sellOffers'}
       meansOfPayment={offer?.meansOfPayment}
       maxPremium={offer?.maxPremium || undefined}
-      minReputation={
-        typeof offer?.minReputation === 'number' ? interpolate(offer.minReputation || 0, [0, 5], [-1, 1]) : undefined
-      }
+      minReputation={offer?.minReputation || undefined}
       buyAmountRange={offer?.amount}
     />
   )
