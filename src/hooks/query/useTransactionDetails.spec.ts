@@ -7,7 +7,7 @@ import { useTransactionDetails } from './useTransactionDetails'
 jest.useFakeTimers()
 
 const getTransactionDetailsMock = jest.fn().mockResolvedValue([bitcoinTransaction])
-jest.mock('../../utils/electrum', () => ({
+jest.mock('../../utils/electrum/getTransactionDetails', () => ({
   getTransactionDetails: () => getTransactionDetailsMock(),
 }))
 

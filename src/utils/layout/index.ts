@@ -1,6 +1,0 @@
-export { getHeaderStyles } from './getHeaderStyles'
-export { getTranslateX } from './getTranslateX'
-export { getTranslateY } from './getTranslateY'
-export { headerIcons } from './headerIcons'
-export { peachyGradient } from './peachyGradient'
-export { screenTransition } from './screenTransition'

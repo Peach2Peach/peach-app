@@ -42,12 +42,7 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -171,9 +166,7 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
           accessible={true}
           collapsable={false}
           focusable={true}
-          onBlur={[Function]}
           onClick={[Function]}
-          onFocus={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -181,17 +174,16 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            [
-              {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "flexShrink": 1,
-                "height": 16,
-                "justifyContent": "center",
-                "width": 16,
-              },
-              undefined,
-            ]
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "flexShrink": 1,
+              "height": 16,
+              "justifyContent": "center",
+              "opacity": 1,
+              "overflow": "visible",
+              "width": 16,
+            }
           }
         >
           <test-file-stub
@@ -285,12 +277,7 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -407,12 +394,7 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -530,12 +512,7 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -659,9 +636,7 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
           accessible={true}
           collapsable={false}
           focusable={true}
-          onBlur={[Function]}
           onClick={[Function]}
-          onFocus={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -669,17 +644,16 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            [
-              {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "flexShrink": 1,
-                "height": 16,
-                "justifyContent": "center",
-                "width": 16,
-              },
-              undefined,
-            ]
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "flexShrink": 1,
+              "height": 16,
+              "justifyContent": "center",
+              "opacity": 1,
+              "overflow": "visible",
+              "width": 16,
+            }
           }
         >
           <test-file-stub
@@ -773,12 +747,7 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -895,12 +864,7 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]

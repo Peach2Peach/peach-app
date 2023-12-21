@@ -11,6 +11,8 @@ type BatchInfo = {
   txId?: string
 }
 
+type EncryptionMethod = 'aes256' | 'asymmetric'
+
 type Contract = {
   creationDate: Date
   lastModified: Date
@@ -81,6 +83,7 @@ type Contract = {
   isEmailRequired: boolean
   unreadMessages: number
   isChatActive: boolean
+  paymentDataEncryptionMethod: EncryptionMethod
 }
 
 type LocalContract = {

@@ -22,6 +22,7 @@
   "notification.contract.seller.disputeLost.text" : "We've ruled in favor of the buyer in the dispute for trade $0. Please check the message from your mediator in the trade chat to see what's next.",
   "notification.contract.seller.disputeRaised.text" : "The buyer has started a dispute for trade $0 for $1 sats.",
   "notification.contract.seller.disputeWon.text" : "We've ruled your in favor in the dispute for trade $0. Please check the message from your mediator in the trade chat to see what's next.",
+  "notification.contract.seller.instantTrade.text" : "You’ve entered an instant trade with a buyer!",
   "notification.contract.seller.paymentTimerHasRunOut.text" : "The payment for trade $0 wasn't made on time. Give the buyer more time or cancel the trade.",
   "notification.contract.tradeCompleted.text" : "Congratulations! The sats for trade $0 are in your wallet \uD83C\uDF89",
   "notification.contract.tradeCompleted.title" : "Trade completed!",

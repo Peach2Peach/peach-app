@@ -2,20 +2,22 @@ import { useCallback } from 'react'
 import { Control, useController, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { PaymentMethodField } from '../../../peach-api/src/@types/payment'
-import { Header, Screen } from '../../components'
-import { HeaderIcon } from '../../components/Header'
+import { Header, HeaderIcon } from '../../components/Header'
 import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { CurrencySelection } from '../../components/inputs/paymentForms/components'
 import { useDeletePaymentMethod } from '../../components/payment/hooks/useDeletePaymentMethod'
-import { useRoute, useShowHelp } from '../../hooks'
 import { useGoToOrigin } from '../../hooks/useGoToOrigin'
+import { useRoute } from '../../hooks/useRoute'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import { PAYMENTMETHODINFOS } from '../../paymentMethods'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
+import { headerIcons } from '../../utils/layout/headerIcons'
+import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
 import { FormInput } from './FormInput'
 import { LabelInput } from './LabelInput'
 import { TabbedFormNavigation } from './TabbedFormNavigation'
@@ -52,9 +54,12 @@ export const PaymentMethodForm = () => {
       country,
     } satisfies PaymentData
 
-    addPaymentData(test)
-    selectPaymentMethod(test.id)
-    goBackTo(origin)
+    const dataIsValid = isValidPaymentData(test)
+    if (dataIsValid) {
+      addPaymentData(test)
+      selectPaymentMethod(test.id)
+      goBackTo(origin)
+    }
   }
 
   return (

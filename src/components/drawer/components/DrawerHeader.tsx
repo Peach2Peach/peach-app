@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { GestureResponderEvent, View } from 'react-native'
-import { HorizontalLine } from '../..'
 import tw from '../../../styles/tailwind'
+import { HorizontalLine } from '../../ui/HorizontalLine'
 import { useDrawerState } from '../useDrawerState'
 import { CloseIcon } from './CloseIcon'
 import { DrawerTitle } from './DrawerTitle'

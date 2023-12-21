@@ -1,18 +1,23 @@
 import { View } from 'react-native'
-import { Divider, Header, Icon, Screen, Text } from '../../components'
-import { BTCAmount } from '../../components/bitcoin'
-import { RefundEscrowSlider } from '../../components/offer'
-import { useRoute } from '../../hooks'
+import { Divider } from '../../components/Divider'
+import { Header } from '../../components/Header'
+import { Icon } from '../../components/Icon'
+import { Screen } from '../../components/Screen'
+import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
+import { RefundEscrowSlider } from '../../components/offer/RefundEscrowSlider'
+import { PeachText } from '../../components/text/PeachText'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
+import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { sum } from '../../utils/math'
-import { isSellOffer, offerIdToHex } from '../../utils/offer'
-import { thousands } from '../../utils/string'
+import { sum } from '../../utils/math/sum'
+import { isSellOffer } from '../../utils/offer/isSellOffer'
+import { offerIdToHex } from '../../utils/offer/offerIdToHex'
+import { thousands } from '../../utils/string/thousands'
 import { ContinueTradeSlider } from './components/ContinueTradeSlider'
 
 export const WrongFundingAmount = () => {
-  const { offerId } = useRoute<'fundEscrow'>().params
+  const { offerId } = useRoute<'wrongFundingAmount'>().params
   const { offer } = useOfferDetails(offerId)
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined
 
@@ -41,10 +46,12 @@ function WrongFundingAmountSummary ({ sellOffer }: Props) {
         <LabelAndAmount label={i18n('escrow.funded')} amount={actualAmount} />
         <LabelAndAmount label={i18n('amount')} amount={fundingAmount} />
       </View>
-      <Text style={tw`body-s`}>
+      <PeachText style={tw`body-s`}>
         {i18n('escrow.wrongFundingAmount.description', thousands(actualAmount), thousands(fundingAmount))}
-      </Text>
-      <Text style={tw`body-s`}>{i18n('escrow.wrongFundingAmount.continueOrRefund', thousands(actualAmount))}</Text>
+      </PeachText>
+      <PeachText style={tw`body-s`}>
+        {i18n('escrow.wrongFundingAmount.continueOrRefund', thousands(actualAmount))}
+      </PeachText>
     </View>
   )
 }
@@ -57,7 +64,7 @@ type LabelAndAmountProps = {
 function LabelAndAmount ({ label, amount }: LabelAndAmountProps) {
   return (
     <View style={tw`flex-row`}>
-      <Text style={tw`w-20 text-black-3`}>{label}</Text>
+      <PeachText style={tw`w-20 text-black-3`}>{label}</PeachText>
       <BTCAmount amount={amount} size="small" />
     </View>
   )

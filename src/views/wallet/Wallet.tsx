@@ -1,7 +1,9 @@
 import { RefreshControl, View } from 'react-native'
-import { PeachScrollView, Screen } from '../../components'
+import { BackupReminderIcon } from '../../components/BackupReminderIcon'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
-import { useNavigation } from '../../hooks'
+import { useNavigation } from '../../hooks/useNavigation'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { peachWallet } from '../../utils/wallet/setWallet'
@@ -11,17 +13,17 @@ import { useLastUnusedAddress, useUTXOs, useWalletAddress, useWalletSetup } from
 
 export const Wallet = () => {
   const { balance, isRefreshing, walletLoading, refresh } = useWalletSetup({ peachWallet, syncOnLoad: true })
-
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (
-    <Screen header={<WalletHeader />} showFooter>
+    <Screen header={<WalletHeader />}>
       <PeachScrollView
         contentContainerStyle={tw`grow`}
-        contentStyle={tw`justify-center grow`}
+        contentStyle={tw`justify-center py-16 grow`}
         refreshControl={<RefreshControl refreshing={false} onRefresh={refresh} />}
       >
         <TotalBalance amount={balance} isRefreshing={isRefreshing} />
+        <BackupReminderIcon />
       </PeachScrollView>
       <WalletButtons />
     </Screen>
@@ -47,7 +49,7 @@ function WalletButtons () {
     navigation.navigate('receiveBitcoin')
   }
   return (
-    <View style={[tw`flex-row items-center justify-center gap-2`, tw.md`gap-4`]}>
+    <View style={[tw`flex-row items-center justify-center gap-2`, tw`md:gap-4`]}>
       <Button style={tw`flex-1 bg-success-main`} onPress={goToReceive}>
         {i18n('wallet.receive')}
       </Button>

@@ -1,5 +1,5 @@
 import crashlytics from '@react-native-firebase/crashlytics'
-import { isProduction } from '../system'
+import { isProduction } from '../system/isProduction'
 import { error } from './error'
 
 jest.mock('../system/isProduction', () => ({

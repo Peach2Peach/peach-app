@@ -1,8 +1,8 @@
 import { Animated, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { getTranslateX } from '../../../utils/layout'
-import { round } from '../../../utils/math'
+import { getTranslateX } from '../../../utils/layout/getTranslateX'
+import { round } from '../../../utils/math/round'
 import { Icon } from '../../Icon'
 import { SliderLabel } from './SliderLabel'
 import { SliderMarkers } from './SliderMarkers'
@@ -39,7 +39,7 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
               getTranslateX(pan, [0, trackWidth]),
             ]}
           >
-            <Icon id="chevronsDown" style={tw`w-4`} color={tw`text-primary-background-light`.color} />
+            <Icon id="chevronsDown" style={tw`w-4`} color={tw.color('primary-background-light')} />
           </Animated.View>
         </View>
       </View>

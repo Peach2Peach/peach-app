@@ -112,6 +112,7 @@
   "contract.summary.paidWithMethod" : "πληρώθηκε με",
   "contract.summary.paymentConfirmed" : "ενεργοποιημένο",
   "contract.summary.paymentTooLate" : "η πληρωμή καθυστέρησε πολύ",
+  "contract.summary.payoutToPeachWallet" : "πληρωμή στο πορτοφόλι peach",
   "contract.summary.phone" : "τηλέφωνο #",
   "contract.summary.price" : "τιμή",
   "contract.summary.receiveAddress" : "διεύθυνση ",

@@ -2,9 +2,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Keyboard } from 'react-native'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { usePopupStore } from '../../../store/usePopupStore'
-import { isEmailRequiredForDispute } from '../../../utils/dispute'
+import { isEmailRequiredForDispute } from '../../../utils/dispute/isEmailRequiredForDispute'
 import { peachAPI } from '../../../utils/peachAPI'
-import { isEmail } from '../../../utils/validation'
+import { isEmail } from '../../../utils/validation/isEmail'
 
 export const useSubmitDisputeAcknowledgement = () => {
   const closePopup = usePopupStore((state) => state.closePopup)

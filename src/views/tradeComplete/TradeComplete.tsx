@@ -1,20 +1,30 @@
+import { useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { TouchableOpacity, View, ViewStyle } from 'react-native'
+import { shallow } from 'zustand/shallow'
+import { Contract } from '../../../peach-api/src/@types/contract'
+import { useSetOverlay } from '../../Overlay'
 import { IconType } from '../../assets/icons'
-import { Icon, Screen, Text } from '../../components'
+import { Icon } from '../../components/Icon'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
-import { useRoute } from '../../hooks'
+import { PeachText } from '../../components/text/PeachText'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { TradeBreakdownPopup } from '../../popups/TradeBreakdownPopup'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
+import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { useAccountStore } from '../../utils/account/account'
-import { logTradeCompleted } from '../../utils/analytics'
-import { getContractViewer } from '../../utils/contract'
+import { logTradeCompleted } from '../../utils/analytics/logTradeCompleted'
+import { createUserRating } from '../../utils/contract/createUserRating'
+import { getContractViewer } from '../../utils/contract/getContractViewer'
 import i18n from '../../utils/i18n'
+import { peachAPI } from '../../utils/peachAPI'
 import { LoadingScreen } from '../loading/LoadingScreen'
-import { useRateSetup } from './hooks/useRateSetup'
+import { BackupTime } from '../overlays/BackupTime'
 
-export const TradeComplete = () => {
-  const { contractId } = useRoute<'tradeComplete'>().params
+export const TradeComplete = ({ contractId }: { contractId: string }) => {
   const { contract } = useContractDetails(contractId)
   if (!contract) return <LoadingScreen />
 
@@ -24,7 +34,7 @@ export const TradeComplete = () => {
 function TradeCompleteView ({ contract }: { contract: Contract }) {
   const [vote, setVote] = useState<'positive' | 'negative'>()
   const account = useAccountStore((state) => state.account)
-  const view = getContractViewer(contract, account)
+  const view = getContractViewer(contract.seller.id, account)
 
   useEffect(() => {
     logTradeCompleted(contract)
@@ -36,12 +46,12 @@ function TradeCompleteView ({ contract }: { contract: Contract }) {
         <View style={tw`justify-center gap-6 grow`}>
           <View style={tw`items-center`}>
             <Icon id="fullLogo" style={tw`w-311px h-127px`} />
-            <Text style={tw`text-center h5 text-primary-background-light`}>
+            <PeachText style={tw`text-center h5 text-primary-background-light`}>
               {i18n(`tradeComplete.title.${view}.default`)}
-            </Text>
+            </PeachText>
           </View>
 
-          <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('rate.subtitle')}</Text>
+          <PeachText style={tw`text-center body-l text-primary-background-light`}>{i18n('rate.subtitle')}</PeachText>
           <View style={tw`flex-row justify-center gap-12`}>
             <RateButton
               onPress={() => setVote('negative')}
@@ -81,11 +91,7 @@ function RateButton ({ isSelected, onPress, iconId, style }: RateButtonProps) {
         style,
       ]}
     >
-      <Icon
-        id={iconId}
-        size={32}
-        color={isSelected ? tw`text-primary-main`.color : tw`text-primary-background-light`.color}
-      />
+      <Icon id={iconId} size={32} color={isSelected ? tw.color('primary-main') : tw.color('primary-background-light')} />
     </TouchableOpacity>
   )
 }
@@ -97,7 +103,47 @@ type RateProps = ComponentProps & {
 }
 
 function Rate ({ contract, view, vote }: RateProps) {
-  const { rate, showTradeBreakdown } = useRateSetup({ contract, view, vote })
+  const queryClient = useQueryClient()
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const showError = useShowErrorBanner()
+  const [shouldShowBackupOverlay, setShowBackupReminder, isPeachWalletActive] = useSettingsStore(
+    (state) => [state.shouldShowBackupOverlay, state.setShowBackupReminder, state.peachWalletActive],
+    shallow,
+  )
+  const setOverlayContent = useSetOverlay()
+
+  const navigateAfterRating = () => {
+    if (shouldShowBackupOverlay && isPeachWalletActive && view === 'buyer') {
+      setShowBackupReminder(true)
+      setOverlayContent(<BackupTime navigationParams={[{ name: 'contract', params: { contractId: contract.id } }]} />)
+    }
+    setOverlayContent(undefined)
+  }
+
+  const rate = async () => {
+    if (!vote) return
+
+    const { rating, signature } = createUserRating(
+      view === 'seller' ? contract.buyer.id : contract.seller.id,
+      vote === 'positive' ? 1 : -1,
+    )
+
+    const { error: err } = await peachAPI.private.contract.rateUser({
+      contractId: contract.id,
+      rating,
+      signature,
+    })
+
+    if (err) {
+      showError(err.error)
+      return
+    }
+    await queryClient.invalidateQueries(['contract', contract.id])
+    await queryClient.invalidateQueries(['contractSummaries'])
+    navigateAfterRating()
+  }
+
+  const showTradeBreakdown = () => setPopup(<TradeBreakdownPopup contract={contract} />)
 
   return (
     <View style={tw`gap-3`}>

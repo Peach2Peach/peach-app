@@ -1,9 +1,8 @@
 import { act } from 'react-test-renderer'
 import { renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
-import { MSINANHOUR } from '../../../constants'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
+import { peachAPI } from '../../../utils/peachAPI'
 import { useRestoreFromFileSetup } from './useRestoreFromFileSetup'
 
 jest.useFakeTimers()
@@ -20,16 +19,6 @@ jest.mock('../../../utils/account/recoverAccount', () => ({
 const storeAccountMock = jest.fn()
 jest.mock('../../../utils/account/storeAccount', () => ({
   storeAccount: (...args: unknown[]) => storeAccountMock(...args),
-}))
-
-const apiSuccess = {
-  expiry: Date.now() + MSINANHOUR,
-  accessToken: 'accessToken',
-}
-const authMock = jest.fn().mockResolvedValue([apiSuccess, null])
-jest.mock('../../../utils/peachAPI', () => ({
-  peachAPI: jest.requireActual('../../../utils/peachAPI').peachAPI,
-  auth: (...args: unknown[]) => authMock(...args),
 }))
 
 describe('useRestoreFromFileSetup', () => {
@@ -56,7 +45,7 @@ describe('useRestoreFromFileSetup', () => {
     })
     expect(recoverAccountMock).toHaveBeenCalledWith(account1)
     expect(storeAccountMock).toHaveBeenCalledWith(account1)
-    expect(getPeachAccount()?.privateKey?.toString('hex')).toBe(
+    expect(peachAPI.apiOptions.peachAccount?.privateKey?.toString('hex')).toBe(
       '62233e988e4ca00c3b346b4753c7dc316f6ce39280410072ddab298f36a7fe64',
     )
   })

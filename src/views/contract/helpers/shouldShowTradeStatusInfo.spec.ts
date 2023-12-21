@@ -1,4 +1,4 @@
-import { contract } from '../../../../tests/unit/data/contractData'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { shouldShowTradeStatusInfo } from './shouldShowTradeStatusInfo'
 
 const isPaymentTooLateMock = jest.fn((..._args: unknown[]) => false)

@@ -1,51 +1,38 @@
 import { networks } from 'bitcoinjs-lib'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { View } from 'react-native'
-import {
-  BitcoinAddress,
-  CopyAble,
-  Header,
-  HorizontalLine,
-  Icon,
-  Loading,
-  PeachScrollView,
-  Screen,
-  Text,
-} from '../../components'
-import { BTCAmount } from '../../components/bitcoin'
+import { Header } from '../../components/Header'
+import { Icon } from '../../components/Icon'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
+import { Loading } from '../../components/animation/Loading'
+import { BitcoinAddress } from '../../components/bitcoin/BitcoinAddress'
+import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Button } from '../../components/buttons/Button'
-import { TradeInfo } from '../../components/offer'
+import { TradeInfo } from '../../components/offer/TradeInfo'
+import { PeachText } from '../../components/text/PeachText'
+import { CopyAble } from '../../components/ui/CopyAble'
+import { HorizontalLine } from '../../components/ui/HorizontalLine'
 import { SATSINBTC } from '../../constants'
-import { useCancelOffer, useRoute, useShowHelp } from '../../hooks'
-import { useMultipleOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useCancelFundMultipleSellOffers } from '../../hooks/useCancelFundMultipleSellOffers'
+import { useCancelOffer } from '../../hooks/useCancelOffer'
+import { useRoute } from '../../hooks/useRoute'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
-import { isSellOffer, offerIdToHex } from '../../utils/offer'
-import { generateBlock } from '../../utils/regtest'
-import { getNetwork } from '../../utils/wallet'
+import { headerIcons } from '../../utils/layout/headerIcons'
+import { offerIdToHex } from '../../utils/offer/offerIdToHex'
+import { generateBlock } from '../../utils/regtest/generateBlock'
+import { getNetwork } from '../../utils/wallet/getNetwork'
 import { useWalletState } from '../../utils/wallet/walletStore'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
-import { NoEscrowFound } from './components/NoEscrowFound'
 import { TransactionInMempool } from './components/TransactionInMempool'
 import { useFundEscrowSetup } from './hooks/useFundEscrowSetup'
 import { useFundFromPeachWallet } from './hooks/useFundFromPeachWallet'
 
 export const FundEscrow = () => {
-  const { offerId, isLoading, fundingAddress, fundingAddresses, createEscrowError, fundingStatus, fundingAmount }
-    = useFundEscrowSetup()
-
-  const { fundFromPeachWallet, fundedFromPeachWallet } = useFundFromPeachWallet({
-    offerId,
-    address: fundingAddress,
-    addresses: fundingAddresses,
-    amount: fundingAmount,
-    fundingStatus,
-  })
-
-  if (createEscrowError) return <NoEscrowFound />
-  if (isLoading || !fundingAddress) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
+  const { offerId, fundingAddress, fundingAddresses, fundingStatus, fundingAmount } = useFundEscrowSetup()
+  if (!fundingAddress) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
 
   if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool offerId={offerId} txId={fundingStatus.txIds[0]} />
 
@@ -53,7 +40,7 @@ export const FundEscrow = () => {
     <Screen header={<FundEscrowHeader />}>
       <PeachScrollView contentStyle={tw`items-center gap-4`}>
         <View style={tw`flex-row items-center justify-center gap-1`}>
-          <Text style={tw`settings`}>{i18n('sell.escrow.sendSats')}</Text>
+          <PeachText style={tw`settings`}>{i18n('sell.escrow.sendSats')}</PeachText>
           <BTCAmount style={tw`-mt-0.5`} amount={fundingAmount} size="medium" />
           <CopyAble value={fundingAddress} textPosition="bottom" />
         </View>
@@ -67,20 +54,16 @@ export const FundEscrow = () => {
 
       <View style={[tw`items-center justify-center gap-4 py-4`]}>
         <View style={tw`flex-row items-center justify-center gap-2`}>
-          <Text style={tw`text-primary-main button-medium`}>{i18n('sell.escrow.checkingFundingStatus')}</Text>
-          <Loading style={tw`w-4 h-4`} color={tw`text-primary-main`.color} />
+          <PeachText style={tw`text-primary-main button-medium`}>{i18n('sell.escrow.checkingFundingStatus')}</PeachText>
+          <Loading style={tw`w-4 h-4`} color={tw.color('primary-main')} />
         </View>
         <HorizontalLine />
-        {fundedFromPeachWallet ? (
-          <TradeInfo
-            text={i18n('fundFromPeachWallet.funded')}
-            IconComponent={<Icon id="checkCircle" size={16} color={tw`text-success-main`.color} />}
-          />
-        ) : (
-          <Button ghost textColor={tw`text-primary-main`} iconId="sell" onPress={fundFromPeachWallet}>
-            {i18n('fundFromPeachWallet.button')}
-          </Button>
-        )}
+        <FundFromPeachWalletButton
+          address={fundingAddress}
+          addresses={fundingAddresses}
+          amount={fundingAmount}
+          fundingStatus={fundingStatus}
+        />
       </View>
     </Screen>
   )
@@ -89,11 +72,8 @@ export const FundEscrow = () => {
 function FundEscrowHeader () {
   const { offerId } = useRoute<'fundEscrow'>().params
   const fundMultiple = useWalletState((state) => state.getFundMultipleByOfferId(offerId))
-  const { offers } = useMultipleOfferDetails(fundMultiple?.offerIds || [offerId])
-  const offer = offers[0]
-  const sellOffer = offer && isSellOffer(offer) ? offer : undefined
   const showHelp = useShowHelp('escrow')
-  const cancelOffer = useCancelOffer(sellOffer)
+  const cancelOffer = useCancelOffer(offerId)
   const cancelFundMultipleOffers = useCancelFundMultipleSellOffers({ fundMultiple })
 
   const memoizedHeaderIcons = useMemo(() => {
@@ -108,4 +88,44 @@ function FundEscrowHeader () {
   }, [cancelFundMultipleOffers, cancelOffer, fundMultiple, showHelp])
 
   return <Header title={i18n('sell.escrow.title')} icons={memoizedHeaderIcons} />
+}
+
+type Props = {
+  address: string
+  addresses: string[]
+  amount: number
+  fundingStatus: FundingStatus
+}
+
+function FundFromPeachWalletButton (props: Props) {
+  const { offerId } = useRoute<'fundEscrow'>().params
+  const fundFromPeachWallet = useFundFromPeachWallet()
+  const fundedFromPeachWallet = useWalletState((state) => state.isFundedFromPeachWallet(props.address))
+  const [isFunding, setIsFunding] = useState(false)
+
+  const onButtonPress = () => {
+    setIsFunding(true)
+    fundFromPeachWallet({
+      offerId,
+      amount: props.amount,
+      fundingStatus: props.fundingStatus.status,
+      address: props.address,
+      addresses: props.addresses,
+    }).then(() => setIsFunding(false))
+  }
+
+  return (
+    <>
+      {fundedFromPeachWallet ? (
+        <TradeInfo
+          text={i18n('fundFromPeachWallet.funded')}
+          IconComponent={<Icon id="checkCircle" size={16} color={tw.color('success-main')} />}
+        />
+      ) : (
+        <Button ghost textColor={tw`text-primary-main`} iconId="sell" onPress={onButtonPress} loading={isFunding}>
+          {i18n('fundFromPeachWallet.button')}
+        </Button>
+      )}
+    </>
+  )
 }

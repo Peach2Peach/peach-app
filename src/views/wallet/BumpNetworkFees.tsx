@@ -1,14 +1,19 @@
 import { useMemo, useState } from 'react'
-import { Divider, Header, PeachScrollView, Screen } from '../../components'
+import { Divider } from '../../components/Divider'
+import { Header } from '../../components/Header'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
-import { useRoute, useShowHelp } from '../../hooks'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useTransactionDetails } from '../../hooks/query/useTransactionDetails'
+import { useRoute } from '../../hooks/useRoute'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
-import { getTransactionFeeRate } from '../../utils/bitcoin'
+import { getTransactionFeeRate } from '../../utils/bitcoin/getTransactionFeeRate'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
-import { getErrorsInField, getMessages } from '../../utils/validation'
+import { headerIcons } from '../../utils/layout/headerIcons'
+import { getErrorsInField } from '../../utils/validation/getErrorsInField'
+import { getMessages } from '../../utils/validation/getMessages'
 import { useWalletState } from '../../utils/wallet/walletStore'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { CurrentFee } from './components/bumpNetworkFees/CurrentFee'
@@ -51,7 +56,7 @@ export const BumpNetworkFees = () => {
       <PeachScrollView
         style={tw`flex-1 w-full h-full`}
         contentContainerStyle={tw`justify-center flex-1`}
-        contentStyle={[tw`gap-3`, tw.md`gap-5`]}
+        contentStyle={[tw`gap-3`, tw`md:gap-5`]}
       >
         <CurrentFee fee={currentFeeRate} />
         <Divider />

@@ -3,13 +3,17 @@ import { useMemo, useState } from 'react'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { PeachScrollView, RadioButtons, Screen } from '../../components'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { useDrawerState } from '../../components/drawer/useDrawerState'
 import { FlagType } from '../../components/flags'
-import { useNavigation, useRoute } from '../../hooks'
+import { RadioButtons } from '../../components/inputs/RadioButtons'
+import { useNavigation } from '../../hooks/useNavigation'
+import { useRoute } from '../../hooks/useRoute'
 import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../paymentMethods'
-import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
+import { getApplicablePaymentCategories } from '../../utils/paymentMethod/getApplicablePaymentCategories'
+import { paymentMethodAllowedForCurrency } from '../../utils/paymentMethod/paymentMethodAllowedForCurrency'
 import { usePaymentMethodLabel } from './hooks'
 import { getCurrencyTypeFilter } from './utils'
 
@@ -120,7 +124,7 @@ export const SelectPaymentMethod = () => {
 
   return (
     <Screen header={i18n('selectPaymentMethod.title')}>
-      <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
+      <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw`md:py-8`]}>
         <RadioButtons
           items={paymentCategories}
           selectedValue={selectedPaymentCategory}

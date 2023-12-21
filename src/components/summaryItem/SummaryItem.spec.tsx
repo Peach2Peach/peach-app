@@ -1,6 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 import { SummaryItem } from './SummaryItem'
 
 describe('SummaryItem', () => {
@@ -8,7 +8,7 @@ describe('SummaryItem', () => {
   it('renders correctly', () => {
     renderer.render(
       <SummaryItem title="rating">
-        <Text>children</Text>
+        <PeachText>children</PeachText>
       </SummaryItem>,
     )
     expect(renderer.getRenderOutput()).toMatchSnapshot()
@@ -18,7 +18,7 @@ describe('SummaryItem', () => {
 
     renderer.render(
       <SummaryItem title="rating">
-        <Text>children</Text>
+        <PeachText>children</PeachText>
       </SummaryItem>,
     )
     expect(renderer.getRenderOutput()).toMatchSnapshot()

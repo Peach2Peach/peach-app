@@ -1,14 +1,19 @@
 import { TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Fragment, useState } from 'react'
 import { View } from 'react-native'
-import { Checkbox, Header, HorizontalLine, PeachScrollView, Screen } from '../../components'
-import { BTCAmount } from '../../components/bitcoin'
+import { Header } from '../../components/Header'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
+import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Button } from '../../components/buttons/Button'
-import { useNavigation, useShowHelp } from '../../hooks'
+import { Checkbox } from '../../components/inputs/Checkbox'
+import { HorizontalLine } from '../../components/ui/HorizontalLine'
+import { useNavigation } from '../../hooks/useNavigation'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
-import { getUTXOId } from '../../utils/wallet'
+import { headerIcons } from '../../utils/layout/headerIcons'
+import { getUTXOId } from '../../utils/wallet/getUTXOId'
 import { useWalletState } from '../../utils/wallet/walletStore'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { UTXOAddress } from './components'
@@ -59,7 +64,7 @@ function UTXOList ({ selectedUTXOs, toggleSelection }: UTXOListProps) {
   const { data: utxos } = useUTXOs()
 
   return (
-    <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw.md`py-md`]} contentStyle={tw`gap-4 grow`}>
+    <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw`md:py-md`]} contentStyle={tw`gap-4 grow`}>
       {utxos
         && utxos?.map((utxo, index) => (
           <Fragment key={utxo.txout.script.id}>

@@ -1,7 +1,7 @@
 import { act, fireEvent, render, renderHook } from 'test-utils'
 import { wronglyFundedSellOffer } from '../../tests/unit/data/offerData'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
-import { Popup } from '../components'
+import { Popup } from '../components/popup/Popup'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { useShowFundingAmountDifferentPopup } from './useShowFundingAmountDifferentPopup'
 

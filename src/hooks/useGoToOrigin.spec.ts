@@ -5,7 +5,7 @@ import { useNavigation } from './useNavigation'
 jest.mock('./useNavigation', () => ({
   useNavigation: jest.fn().mockReturnValue({
     getState: jest.fn().mockReturnValue({
-      routes: [{ name: 'buy' }, { name: 'buyPreferences' }, { name: 'paymentDetails' }],
+      routes: [{ name: 'buyOfferPreferences' }, { name: 'sellOfferPreferences' }, { name: 'paymentDetails' }],
     }),
     goBack: jest.fn(),
   }),
@@ -18,7 +18,7 @@ describe('useGoToOrigin', () => {
   it('goes back to origin and stops when found', () => {
     const { result } = renderHook(() => useGoToOrigin())
     act(() => {
-      result.current('buy')
+      result.current('buyOfferPreferences')
     })
 
     expect(useNavigation().goBack).toHaveBeenCalledTimes(2)
@@ -27,7 +27,7 @@ describe('useGoToOrigin', () => {
   it('goes back to second origin and stops when found', () => {
     const { result } = renderHook(() => useGoToOrigin())
     act(() => {
-      result.current('buyPreferences')
+      result.current('sellOfferPreferences')
     })
 
     expect(useNavigation().goBack).toHaveBeenCalledTimes(1)

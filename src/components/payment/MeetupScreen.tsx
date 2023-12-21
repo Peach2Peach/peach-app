@@ -1,15 +1,18 @@
 import { API_URL } from '@env'
 import { useMemo } from 'react'
 import { Image, View } from 'react-native'
-import { Header, Screen, Text } from '../../components'
-import { useRoute, useShowHelp } from '../../hooks'
+import { useRoute } from '../../hooks/useRoute'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
+import { headerIcons } from '../../utils/layout/headerIcons'
+import { Header } from '../Header'
 import { PeachScrollView } from '../PeachScrollView'
+import { Screen } from '../Screen'
 import { Button } from '../buttons/Button'
 import { CurrencySelection } from '../inputs/paymentForms/components'
+import { PeachText } from '../text/PeachText'
 import { Link } from './components/Link'
 import { useDeletePaymentMethod } from './hooks/useDeletePaymentMethod'
 import { useMeetupScreenSetup } from './hooks/useMeetupScreenSetup'
@@ -25,14 +28,14 @@ export const MeetupScreen = () => {
           <Image source={{ uri: API_URL + event.logo }} style={tw`w-full mb-5 h-30`} resizeMode={'contain'} />
         )}
         <View style={tw`gap-8`}>
-          <Text style={tw`body-l text-black-1`}>{i18n('meetup.description', event.longName)}</Text>
+          <PeachText style={tw`body-l text-black-1`}>{i18n('meetup.description', event.longName)}</PeachText>
           {!!event.frequency && (
             <View style={tw`gap-4`}>
-              <Text style={tw`body-l`}>
+              <PeachText style={tw`body-l`}>
                 {`${i18n('meetup.date')}: `}
-                <Text style={tw`h6`}>{event.frequency}</Text>
-              </Text>
-              {!!event.address && <Text style={tw`body-l text-black-1`}>{event.address}</Text>}
+                <PeachText style={tw`h6`}>{event.frequency}</PeachText>
+              </PeachText>
+              {!!event.address && <PeachText style={tw`body-l text-black-1`}>{event.address}</PeachText>}
             </View>
           )}
           <View style={tw`gap-4`}>

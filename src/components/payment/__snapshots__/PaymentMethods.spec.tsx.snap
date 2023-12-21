@@ -16,9 +16,7 @@ exports[`PaymentMethods should render correctly 1`] = `
           "flexGrow": 1,
           "paddingBottom": 40,
         },
-        {
-          "paddingBottom": 64,
-        },
+        {},
       ]
     }
     style={
@@ -84,6 +82,5 @@ exports[`PaymentMethods should render correctly 1`] = `
       />
     </ForwardRef>
   </ForwardRef>
-  <NextButton />
 </Screen>
 `;

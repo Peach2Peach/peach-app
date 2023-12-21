@@ -1,5 +1,4 @@
-import { apiSuccess } from '../../../../tests/unit/data/peachAPIData'
-import { sendErrors } from '../../../utils/analytics'
+import { sendErrors } from '../../../utils/analytics/sendErrors'
 import { peachAPI } from '../../../utils/peachAPI'
 import { buildReportMessage } from './buildReportMessage'
 import { submitReport } from './submitReport'
@@ -7,7 +6,7 @@ import { submitReport } from './submitReport'
 jest.mock('./buildReportMessage', () => ({
   buildReportMessage: jest.fn().mockReturnValue('reportMessage'),
 }))
-jest.mock('../../../utils/analytics', () => ({
+jest.mock('../../../utils/analytics/sendErrors', () => ({
   sendErrors: jest.fn(),
 }))
 const sendReportSpy = jest.spyOn(peachAPI.public.contact, 'sendReport')
@@ -27,7 +26,7 @@ describe('submitReport', () => {
       topic,
       message: 'reportMessage',
     })
-    expect(result.result).toEqual(apiSuccess)
+    expect(result.result?.success).toBe(true)
   })
   it('does not send error report if logs are not intended to be shared', async () => {
     await submitReport({ email, reason, topic, message, shareDeviceID: false, shareLogs: false })

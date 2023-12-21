@@ -1,46 +1,72 @@
-import tw from '../../styles/tailwind'
-
 import { useCallback, useMemo } from 'react'
-import { Header, Matches, PeachScrollView, Screen } from '../../components'
-import { useCancelOffer, useNavigation, useRoute, useShowHelp } from '../../hooks'
-import { useOfferDetails } from '../../hooks/query/useOfferDetails'
-import { headerIcons } from '../../utils/layout'
-import { isBuyOffer, isSellOffer, offerIdToHex } from '../../utils/offer'
-import { NoMatchesYet } from './components'
-import { useSearchSetup } from './hooks'
-import { useSortAndFilterPopup } from './hooks/useSortAndFilterPopup'
+import { View } from 'react-native'
+import { Header } from '../../components/Header'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
+import { Matches } from '../../components/matches/Matches'
+import { SellOfferSummary } from '../../components/offer/SellOfferSummary'
+import { WalletLabel } from '../../components/offer/WalletLabel'
+import { PeachText } from '../../components/text/PeachText'
+import { useCancelOffer } from '../../hooks/useCancelOffer'
+import { useNavigation } from '../../hooks/useNavigation'
+import { useRoute } from '../../hooks/useRoute'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import { SellSorters } from '../../popups/sorting/SellSorters'
+import { usePopupStore } from '../../store/usePopupStore'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout/headerIcons'
+import { isBuyOffer } from '../../utils/offer/isBuyOffer'
+import { isSellOffer } from '../../utils/offer/isSellOffer'
+import { offerIdToHex } from '../../utils/offer/offerIdToHex'
+import { LoadingScreen } from '../loading/LoadingScreen'
+import { useOfferMatches, useSearchSetup } from './hooks'
 
 export const Search = () => {
   const { hasMatches, offer } = useSearchSetup()
-  if (!offer) return <></>
+  if (!offer || !isSellOffer(offer)) return <LoadingScreen />
   return (
-    <Screen style={hasMatches && tw`px-0`} header={<SearchHeader />} showTradingLimit>
+    <Screen style={hasMatches && tw`px-0`} header={<SearchHeader offer={offer} />} showTradingLimit>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`} bounces={false}>
-        {hasMatches ? <Matches /> : <NoMatchesYet offer={offer} />}
+        {hasMatches ? <Matches offer={offer} /> : <NoMatchesYet offer={offer} />}
       </PeachScrollView>
     </Screen>
   )
 }
 
-function SearchHeader () {
+function NoMatchesYet ({ offer }: { offer: SellOffer }) {
+  const { isLoading } = useOfferMatches(offer.id)
+  if (isLoading) return <></>
+  return (
+    <View style={tw`gap-8`}>
+      <PeachText style={tw`text-center subtitle-1`}>{i18n('search.weWillNotifyYou')}</PeachText>
+
+      <SellOfferSummary
+        offer={offer}
+        walletLabel={<WalletLabel label={offer.walletLabel} address={offer.returnAddress} />}
+      />
+    </View>
+  )
+}
+
+function SearchHeader ({ offer }: { offer: SellOffer }) {
   const { offerId } = useRoute<'search'>().params
-  const { offer } = useOfferDetails(offerId)
   const navigation = useNavigation()
   const showMatchPopup = useShowHelp('matchmatchmatch')
   const showAcceptMatchPopup = useShowHelp('acceptMatch')
-  const showSortAndFilterPopup = useSortAndFilterPopup(offerId)
-  const cancelOffer = useCancelOffer(offer)
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const showSortAndFilterPopup = useCallback(() => setPopup(<SellSorters />), [setPopup])
+  const cancelOffer = useCancelOffer(offerId)
 
   const goToEditPremium = useCallback(() => navigation.navigate('editPremium', { offerId }), [navigation, offerId])
 
   const memoizedHeaderIcons = useMemo(() => {
     if (!offer) return undefined
-    const filterIcon = isBuyOffer(offer) ? headerIcons.buyFilter : headerIcons.sellFilter
-    const icons = [{ ...filterIcon, onPress: showSortAndFilterPopup }]
-
-    if (isSellOffer(offer)) icons.push({ ...headerIcons.percent, onPress: goToEditPremium })
-
-    icons.push({ ...headerIcons.cancel, onPress: cancelOffer })
+    const icons = [
+      { ...headerIcons.sellFilter, onPress: showSortAndFilterPopup },
+      { ...headerIcons.percent, onPress: goToEditPremium },
+      { ...headerIcons.cancel, onPress: cancelOffer },
+    ]
 
     if (offer.matches.length > 0) {
       icons.push({ ...headerIcons.help, onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup })

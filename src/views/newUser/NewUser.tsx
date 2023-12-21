@@ -1,16 +1,26 @@
 import { useCallback, useEffect, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { Header, Icon, Loading, Screen, Text } from '../../components'
+import { Header } from '../../components/Header'
+import { Icon } from '../../components/Icon'
+import { Screen } from '../../components/Screen'
+import { Loading } from '../../components/animation/Loading'
 import { Button } from '../../components/buttons/Button'
-import { useNavigation, useRoute } from '../../hooks'
+import { PeachText } from '../../components/text/PeachText'
+import { UNIQUEID } from '../../constants'
+import { useNavigation } from '../../hooks/useNavigation'
+import { useRoute } from '../../hooks/useRoute'
 import { userUpdate } from '../../init/userUpdate'
 import tw from '../../styles/tailwind'
-import { createAccount, deleteAccount, signMessageWithAccount, storeAccount, updateAccount } from '../../utils/account'
 import { useAccountStore } from '../../utils/account/account'
+import { createAccount } from '../../utils/account/createAccount'
+import { deleteAccount } from '../../utils/account/deleteAccount'
+import { signMessageWithAccount } from '../../utils/account/signMessageWithAccount'
+import { storeAccount } from '../../utils/account/storeAccount'
+import { updateAccount } from '../../utils/account/updateAccount'
 import i18n from '../../utils/i18n'
-import { register } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 import { getAuthenticationChallenge } from '../../utils/peachAPI/getAuthenticationChallenge'
-import { parseError } from '../../utils/result'
+import { parseError } from '../../utils/result/parseError'
 
 export const NewUser = () => {
   const route = useRoute<'newUser'>()
@@ -31,10 +41,11 @@ export const NewUser = () => {
     async (account: Account & { mnemonic: string; base58: string }) => {
       const message = getAuthenticationChallenge()
 
-      const [result, authError] = await register({
+      const { result, error: authError } = await peachAPI.private.user.register({
         publicKey: account.publicKey,
         message,
         signature: signMessageWithAccount(message, account),
+        uniqueId: UNIQUEID,
       })
 
       if (!result || authError) {
@@ -92,9 +103,9 @@ export const NewUser = () => {
 function CreateAccountLoading () {
   return (
     <View style={tw`items-center justify-center gap-4 grow`}>
-      <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.create')}</Text>
-      <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.oneSec')}</Text>
-      <Loading style={tw`w-32 h-32`} color={tw`text-primary-mild-1`.color} />
+      <PeachText style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.create')}</PeachText>
+      <PeachText style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.oneSec')}</PeachText>
+      <Loading style={tw`w-32 h-32`} color={tw.color('primary-mild-1')} />
     </View>
   )
 }
@@ -111,10 +122,10 @@ function CreateAccountError ({ err }: Props) {
     <View style={tw`items-center justify-between grow`}>
       <View style={tw`items-center justify-center gap-16 grow`}>
         <View>
-          <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.create')}</Text>
-          <Text style={tw`text-center body-l text-primary-background-light`}>{i18n(`${err}.text`)}</Text>
+          <PeachText style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.create')}</PeachText>
+          <PeachText style={tw`text-center body-l text-primary-background-light`}>{i18n(`${err}.text`)}</PeachText>
         </View>
-        <Icon id="userX" size={128} color={tw`text-primary-background-light`.color} />
+        <Icon id="userX" size={128} color={tw.color('primary-background-light')} />
       </View>
 
       <View style={tw`gap-2`}>
@@ -133,10 +144,12 @@ function CreateAccountSuccess () {
   return (
     <View style={tw`items-center justify-center gap-16 grow`}>
       <View>
-        <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.title.accountCreated')}</Text>
-        <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.welcome')}</Text>
+        <PeachText style={tw`text-center h4 text-primary-background-light`}>
+          {i18n('newUser.title.accountCreated')}
+        </PeachText>
+        <PeachText style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.welcome')}</PeachText>
       </View>
-      <Icon id="userCheck" size={128} color={tw`text-primary-background-light`.color} />
+      <Icon id="userCheck" size={128} color={tw.color('primary-background-light')} />
     </View>
   )
 }
@@ -151,10 +164,14 @@ function UserExistsForDevice () {
   return (
     <View style={tw`items-center justify-center gap-8 grow`}>
       <View>
-        <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.accountNotCreated')}</Text>
-        <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.youAlreadyHaveOne')}</Text>
+        <PeachText style={tw`text-center h4 text-primary-background-light`}>
+          {i18n('newUser.accountNotCreated')}
+        </PeachText>
+        <PeachText style={tw`text-center body-l text-primary-background-light`}>
+          {i18n('newUser.youAlreadyHaveOne')}
+        </PeachText>
       </View>
-      <Icon id="userX" size={128} color={tw`text-primary-background-light`.color} />
+      <Icon id="userX" size={128} color={tw.color('primary-background-light')} />
       <View style={tw`items-center gap-8`}>
         <MenuItem onPress={goToRestoreFromFile}>{i18n('restoreBackup.restoreFromFile')}</MenuItem>
         <MenuItem onPress={goToRestoreFromSeed}>{i18n('restoreBackup.restoreFromSeed')}</MenuItem>
@@ -170,8 +187,8 @@ type MenuItemProps = ComponentProps & {
 function MenuItem ({ children, onPress }: MenuItemProps) {
   return (
     <TouchableOpacity onPress={onPress} style={tw`flex-row items-center justify-between w-60`}>
-      <Text style={tw`settings text-primary-background-light`}>{children}</Text>
-      <Icon id="chevronRight" style={tw`w-6 h-6`} color={tw`text-primary-background-light`.color} />
+      <PeachText style={tw`settings text-primary-background-light`}>{children}</PeachText>
+      <Icon id="chevronRight" style={tw`w-6 h-6`} color={tw.color('primary-background-light')} />
     </TouchableOpacity>
   )
 }

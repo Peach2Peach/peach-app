@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { useMessageState } from '../../../components/message/useMessageState'
-import { useNavigation } from '../../../hooks'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useFeeRate } from '../../../hooks/useFeeRate'
+import { useNavigation } from '../../../hooks/useNavigation'
 import i18n from '../../../utils/i18n'
 
 type Props = {
@@ -28,7 +28,7 @@ export const useShowLowFeeWarning = ({ enabled }: Props) => {
           updateMessage({ msgKey: undefined, level: 'WARN' })
         },
         label: i18n('contract.warning.lowFee.changeFee'),
-        icon: 'settingsGear',
+        icon: 'settings',
       },
     })
   }, [updateMessage, feeRate, navigation, enabled, estimatedFees.minimumFee])

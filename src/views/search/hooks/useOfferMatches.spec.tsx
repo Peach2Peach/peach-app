@@ -1,15 +1,8 @@
 import { act, renderHook, responseUtils, waitFor } from 'test-utils'
-import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
-import { useMatchStore } from '../../../components/matches/store'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useOfferMatches } from './useOfferMatches'
 
 const getMatchesMock = jest.spyOn(peachAPI.private.offer, 'getMatches')
-const getOfferDetailsMock = jest.fn().mockResolvedValue([buyOffer, null])
-jest.mock('../../../utils/peachAPI', () => ({
-  peachAPI: jest.requireActual('../../../utils/peachAPI').peachAPI,
-  getOfferDetails: () => getOfferDetailsMock(),
-}))
 
 jest.useFakeTimers()
 
@@ -22,21 +15,9 @@ describe('useOfferMatches', () => {
     expect(result.current.allMatches).toEqual(['match'])
   })
   it('should not make a request if not enabled', () => {
-    renderHook(() => useOfferMatches('offerId', false), {})
+    renderHook(() => useOfferMatches('offerId', undefined, false), {})
 
     expect(getMatchesMock).not.toHaveBeenCalled()
-  })
-  it('should refetch after 15 seconds', async () => {
-    const { result } = renderHook(useOfferMatches, { initialProps: 'offerId' })
-    await waitFor(() => {
-      expect(result.current.isSuccess).toBe(true)
-    })
-    expect(result.current.allMatches).toEqual(['match'])
-    jest.advanceTimersByTime(1000 * 15)
-    expect(getMatchesMock).toHaveBeenCalledTimes(2)
-    await waitFor(() => {
-      expect(result.current.allMatches).toEqual(['match'])
-    })
   })
   it('should not remove matches when the user gets to the next page', async () => {
     const firstPage = Array(10)
@@ -90,9 +71,6 @@ describe('useOfferMatches', () => {
       expect(result.current.allMatches).toEqual([...firstPage, ...secondPage])
     })
 
-    act(() => {
-      useMatchStore.setState({ currentPage: 1 })
-    })
     await waitFor(() => {
       jest.advanceTimersByTime(1000 * 15)
     })
@@ -105,13 +83,6 @@ describe('useOfferMatches', () => {
     getMatchesMock.mockImplementation((..._args) =>
       Promise.resolve({ result: { matches: ['match'], remainingMatches: 0 }, ...responseUtils }),
     )
-    getOfferDetailsMock.mockResolvedValueOnce([
-      {
-        ...sellOffer,
-        funding: { status: 'FUNDED' },
-      },
-      null,
-    ])
     const { result } = renderHook(useOfferMatches, { initialProps: 'thirdOfferId' })
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)

@@ -1,8 +1,8 @@
 import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
-import { useBitcoinStore } from '../../../store/bitcoinStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
-import { saveOffer } from '../../../utils/offer'
+import { saveOffer } from '../../../utils/offer/saveOffer'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getTxSummary } from './getTxSummary'
 
@@ -53,9 +53,8 @@ const buyOfferWithContractData = {
 
 describe('getTxSummary', () => {
   beforeEach(() => {
-    useBitcoinStore.setState({
-      currency: 'USD',
-      satsPerUnit: 100000000,
+    useSettingsStore.setState({
+      displayCurrency: 'USD',
     })
     useWalletState.getState().updateTxOfferMap(txId, [buyOffer.id])
     saveOffer(buyOffer)

@@ -1,10 +1,10 @@
 import { TextSummaryItem } from '../../../../components/summaryItem'
-import { useShowHelp } from '../../../../hooks'
 import { useFeeEstimates } from '../../../../hooks/query/useFeeEstimates'
 import { useTransactionDetails } from '../../../../hooks/query/useTransactionDetails'
+import { useShowHelp } from '../../../../hooks/useShowHelp'
 import tw from '../../../../styles/tailwind'
-import { getTransactionFeeRate } from '../../../../utils/bitcoin'
-import { getETAInBlocks } from '../../../../utils/electrum'
+import { getTransactionFeeRate } from '../../../../utils/bitcoin/getTransactionFeeRate'
+import { getETAInBlocks } from '../../../../utils/electrum/getETAInBlocks'
 import i18n from '../../../../utils/i18n'
 
 type Props = {
@@ -22,7 +22,7 @@ export const TransactionETASummaryItem = ({ txId }: Props) => {
       title={i18n('time')}
       text={i18n(`transaction.eta.${etaInBlocks === 1 ? 'in1Block' : 'inXBlocks'}`, String(etaInBlocks))}
       iconId="helpCircle"
-      iconColor={tw`text-info-main`.color}
+      iconColor={tw.color('info-main')}
       onPress={showHelp}
     />
   )

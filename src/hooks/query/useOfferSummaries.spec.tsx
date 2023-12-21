@@ -1,6 +1,5 @@
 import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { offerSummary } from '../../../tests/unit/data/offerSummaryData'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultTradeSummaryState, useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { peachAPI } from '../../utils/peachAPI'
@@ -69,6 +68,6 @@ describe('useOfferSummaries', () => {
 
     expect(result.current.offers).toEqual([])
     expect(result.current.isLoading).toBeFalsy()
-    expect(result.current.error).toEqual(new Error(unauthorizedError.error))
+    expect(result.current.error).toEqual(new Error('UNAUTHORIZED'))
   })
 })

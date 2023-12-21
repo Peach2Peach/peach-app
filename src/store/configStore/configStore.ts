@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { APPVERSION } from '../../constants'
 import { createStorage } from '../../utils/storage'
 import { createPersistStorage } from '../createPersistStorage'
-import { defaultConfig } from './defaultConfig'
 
 type ConfigStore = Config & {
   reset: () => void
@@ -13,13 +13,24 @@ type ConfigStore = Config & {
   setLatestAppVersion: (ver: string) => void
   setMinTradingAmount: (minTradingAmount: number) => void
   setMaxTradingAmount: (maxTradingAmount: number) => void
-  setMaxSellTradingAmount: (maxSellTradingAmount: number) => void
   setSeenDisputeDisclaimer: (seenDisputeDisclaimer: boolean) => void
   setHasSeenGroupHugAnnouncement: (hasSeenGroupHugAnnouncement: boolean) => void
 }
 
 export const configStorage = createStorage('config')
 const storage = createPersistStorage<ConfigStore>(configStorage)
+
+export const defaultConfig: Config = {
+  paymentMethods: [],
+  peachPGPPublicKey: '',
+  peachFee: 0.02,
+  minAppVersion: APPVERSION,
+  latestAppVersion: APPVERSION,
+  minTradingAmount: 0,
+  maxTradingAmount: Infinity,
+  seenDisputeDisclaimer: false,
+  hasSeenGroupHugAnnouncement: false,
+}
 
 export const useConfigStore = create(
   persist<ConfigStore>(
@@ -33,7 +44,6 @@ export const useConfigStore = create(
       setLatestAppVersion: (latestAppVersion) => set({ latestAppVersion }),
       setMinTradingAmount: (minTradingAmount) => set({ minTradingAmount }),
       setMaxTradingAmount: (maxTradingAmount) => set({ maxTradingAmount }),
-      setMaxSellTradingAmount: (maxSellTradingAmount) => set({ maxSellTradingAmount }),
       setSeenDisputeDisclaimer: (seenDisputeDisclaimer) => set({ seenDisputeDisclaimer }),
       setHasSeenGroupHugAnnouncement: (hasSeenGroupHugAnnouncement) => set({ hasSeenGroupHugAnnouncement }),
     }),

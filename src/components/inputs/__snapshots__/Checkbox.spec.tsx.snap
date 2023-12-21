@@ -22,6 +22,7 @@ exports[`Checkbox renders correctly when checked 1`] = `
     style={
       [
         {
+          "flexShrink": 1,
           "fontFamily": "Baloo2-SemiBold",
           "fontSize": 16,
           "letterSpacing": 0.16,
@@ -58,6 +59,7 @@ exports[`Checkbox renders correctly when unchecked 1`] = `
     style={
       [
         {
+          "flexShrink": 1,
           "fontFamily": "Baloo2-SemiBold",
           "fontSize": 16,
           "letterSpacing": 0.16,

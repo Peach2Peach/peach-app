@@ -4,14 +4,14 @@ import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
 import { dataMigrationAfterLoadingWallet } from '../../init/dataMigration/dataMigrationAfterLoadingWallet'
 import { useSettingsStore } from '../../store/settingsStore'
 import i18n from '../i18n'
-import { getPeachAccount } from '../peachAPI/peachAccount'
-import { getWallet } from '../wallet'
+import { peachAPI } from '../peachAPI'
+import { getWallet } from '../wallet/getWallet'
 import { PeachWallet } from '../wallet/PeachWallet'
 import { defaultAccount, useAccountStore } from './account'
 import { updateAccount } from './updateAccount'
 
 const getDeviceLocaleMock = jest.fn((): string | undefined => 'en')
-jest.mock('../system', () => ({
+jest.mock('../system/getDeviceLocale', () => ({
   getDeviceLocale: () => getDeviceLocaleMock(),
 }))
 
@@ -33,7 +33,7 @@ describe('updateAccount', () => {
     const account = useAccountStore.getState().account
     expect(account).toEqual(account1)
     expect(getWallet()).toBeDefined()
-    expect(getPeachAccount()).toBeDefined()
+    expect(peachAPI.apiOptions.peachAccount).toBeDefined()
   })
   it('overwrites an account', () => {
     updateAccount({ ...account1, tradingLimit }, true)
@@ -63,7 +63,7 @@ describe('updateAccount', () => {
   it('loads peach account', async () => {
     await updateAccount(account1)
 
-    expect(getPeachAccount()?.privateKey?.toString('hex')).toBe(
+    expect(peachAPI.apiOptions.peachAccount?.privateKey?.toString('hex')).toBe(
       '62233e988e4ca00c3b346b4753c7dc316f6ce39280410072ddab298f36a7fe64',
     )
   })

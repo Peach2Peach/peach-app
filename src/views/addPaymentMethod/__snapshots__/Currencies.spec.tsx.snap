@@ -7,13 +7,10 @@ exports[`Currencies should render correctly for type "africa" 1`] = `
       {
         "flexGrow": 1,
         "justifyContent": "center",
-        "paddingBottom": 16,
-        "paddingTop": 16,
+        "paddingBottom": 8,
+        "paddingTop": 8,
       },
-      {
-        "paddingBottom": 32,
-        "paddingTop": 32,
-      },
+      {},
     ]
   }
 >
@@ -51,13 +48,10 @@ exports[`Currencies should render correctly for type "europe" 1`] = `
       {
         "flexGrow": 1,
         "justifyContent": "center",
-        "paddingBottom": 16,
-        "paddingTop": 16,
+        "paddingBottom": 8,
+        "paddingTop": 8,
       },
-      {
-        "paddingBottom": 32,
-        "paddingTop": 32,
-      },
+      {},
     ]
   }
 >
@@ -131,13 +125,10 @@ exports[`Currencies should render correctly for type "latinAmerica" 1`] = `
       {
         "flexGrow": 1,
         "justifyContent": "center",
-        "paddingBottom": 16,
-        "paddingTop": 16,
+        "paddingBottom": 8,
+        "paddingTop": 8,
       },
-      {
-        "paddingBottom": 32,
-        "paddingTop": 32,
-      },
+      {},
     ]
   }
 >
@@ -195,13 +186,10 @@ exports[`Currencies should render correctly for type "other" 1`] = `
       {
         "flexGrow": 1,
         "justifyContent": "center",
-        "paddingBottom": 16,
-        "paddingTop": 16,
+        "paddingBottom": 8,
+        "paddingTop": 8,
       },
-      {
-        "paddingBottom": 32,
-        "paddingTop": 32,
-      },
+      {},
     ]
   }
 >

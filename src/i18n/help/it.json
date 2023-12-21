@@ -37,7 +37,7 @@
   "help.referral.description.1" : "Per ogni 10.000 sats che i tuoi affiliati scambiano su Peach, ottieni un punto di affiliazione.",
   "help.referral.description.2" : "Risparmia i tuoi punti per ottenere fantastiche ricompense!",
   "help.referral.title" : "Punti affiliazione Peach",
-  "help.sellingBitcoin.description" : "La vendita dei tuoi sats su Peach è gratuita!",
+  "help.sellingBitcoin.description" : "Vendere i tuoi sats su Peach è gratuito!\n\nPer pubblicare un'offerta di vendita, devi inviare i tuoi sats a un deposito cauzionale per dimostrare all'acquirente che hai i sats che vuoi vendere!\n\nIl deposito cauzionale è un portafoglio Bitcoin con firma multipla in cui possiedi una chiave e Peach ne detiene un'altra.",
   "help.sellingBitcoin.title" : "Vendi bitcoin",
   "help.tradingLimit.description" : "Peach deve rispettare i limiti di scambio per conformarsi alle leggi svizzere. Ci sono tre limiti di scambio:\n\nPuoi comprare o vendere bitcoin per un valore di 1000 CHF al giorno su Peach.\n\nPuoi comprare o vendere bitcoin per un valore di 1000 CHF in contanti o con carte regalo online (metodi di pagamento anonimi) ogni mese su Peach.\n\nPuoi comprare o vendere bitcoin per un valore di 100.000 CHF all'anno su Peach.",
   "help.tradingLimit.title" : "Limiti di scambio"

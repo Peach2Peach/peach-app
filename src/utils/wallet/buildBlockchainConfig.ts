@@ -6,7 +6,7 @@ import {
   BlockchainRpcConfig,
   Network,
 } from 'bdk-rn/lib/lib/enums'
-import { addProtocol } from '../web'
+import { addProtocol } from '../web/addProtocol'
 import { NodeConfig } from './nodeConfigStore'
 
 const DEFAULT_GAP_LIMIT = 25

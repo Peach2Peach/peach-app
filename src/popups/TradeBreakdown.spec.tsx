@@ -1,7 +1,7 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { TradeBreakdown } from './TradeBreakdown'
 
-jest.mock('../utils/bitcoin', () => ({
+jest.mock('../utils/bitcoin/getTradeBreakdown', () => ({
   getTradeBreakdown: () => ({
     totalAmount: 210000,
     peachFee: 21000,

@@ -112,6 +112,7 @@
   "contract.summary.paidWithMethod" : "ile ödendi",
   "contract.summary.paymentConfirmed" : "açık",
   "contract.summary.paymentTooLate" : "ödeme zamanında yapılmadı",
+  "contract.summary.payoutToPeachWallet" : "peach cüzdanına ödeme",
   "contract.summary.phone" : "telefon #",
   "contract.summary.pixAlias" : "pix alias",
   "contract.summary.price" : "fiyat",

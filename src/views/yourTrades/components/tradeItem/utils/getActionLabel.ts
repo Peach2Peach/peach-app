@@ -1,12 +1,15 @@
 import i18n from '../../../../../utils/i18n'
 import { useWalletState } from '../../../../../utils/wallet/walletStore'
 import { isContractSummary, isPastOffer } from '../../../utils'
+import { isTradeStatus } from '../../../utils/isTradeStatus'
 
 type PartialTradeSummary = Pick<TradeSummary, 'tradeStatus' | 'unreadMessages' | 'type'> & Partial<TradeSummary>
 
 export const getActionLabel = (tradeSummary: PartialTradeSummary, isWaiting: boolean) => {
   const { tradeStatus } = tradeSummary
   const translationStatusKey = isWaiting ? 'waiting' : tradeStatus
+
+  if (!isTradeStatus(tradeSummary.tradeStatus)) return i18n('offer.requiredAction.unknown')
 
   if (isContractSummary(tradeSummary)) {
     const { unreadMessages, type, disputeWinner } = tradeSummary
@@ -40,5 +43,6 @@ export const getActionLabel = (tradeSummary: PartialTradeSummary, isWaiting: boo
   ) {
     return i18n('offer.requiredAction.fundMultipleEscrow')
   }
+
   return i18n(`offer.requiredAction.${tradeStatus}`)
 }

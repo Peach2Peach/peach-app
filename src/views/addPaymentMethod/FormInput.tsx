@@ -1,11 +1,10 @@
 import { useMemo } from 'react'
 import { Control, useController } from 'react-hook-form'
 import { PaymentMethodField } from '../../../peach-api/src/@types/payment'
-import { Input } from '../../components/inputs'
-import { InputProps } from '../../components/inputs/Input'
+import { Input, InputProps } from '../../components/inputs/Input'
 import i18n from '../../utils/i18n'
-import { getMessages } from '../../utils/validation'
 import { Formatter, formatters } from '../../utils/validation/formatters'
+import { getMessages } from '../../utils/validation/getMessages'
 import { getValidators } from '../../utils/validation/validators'
 import { FormType } from './PaymentMethodForm'
 

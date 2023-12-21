@@ -1,9 +1,10 @@
 import { API_URL } from '@env'
-import { info } from '../../log'
-import { ws, peachWS, setPeachWS, setWS } from '.'
-import { onCloseHandler } from './onCloseHandler'
-import { onMessageHandler } from './onMessageHandler'
-import { onOpenHandler } from './onOpenHandler'
+import { crypto } from 'bitcoinjs-lib'
+import { error, info } from '../../log'
+import { dateTimeReviver } from '../../system/dateTimeReviver'
+import { getAuthenticationChallenge } from '../getAuthenticationChallenge'
+import { peachAPI } from '../peachAPI'
+import { peachWS, setPeachWS, setWS, ws } from './index'
 
 export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
   if (ws) {
@@ -48,4 +49,53 @@ export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
   ws.addEventListener('message', onMessageHandler)
   ws.addEventListener('close', onCloseHandler)
   return peachWS
+}
+
+function onCloseHandler () {
+  info('Peach WS API - connection closed.')
+  peachWS.connected = false
+  peachWS.listeners.close.forEach((listener) => listener())
+  peachWS.listeners.close = []
+  ws.removeEventListener('message', onMessageHandler)
+}
+
+function onOpenHandler () {
+  peachWS.connected = true
+  authWS(ws)
+
+  // if a queue built up while offline, now send what has queued up
+  peachWS.queue = peachWS.queue.filter((callback) => !callback())
+}
+
+function onMessageHandler (msg: WebSocketMessageEvent) {
+  const message = JSON.parse(msg.data, dateTimeReviver)
+
+  if (!peachWS.authenticated && message.accessToken) {
+    info('Peach WS API - authenticated')
+    peachWS.authenticated = true
+    return
+  }
+  if (!peachWS.authenticated) return
+
+  peachWS.listeners.message.forEach((listener) => listener(message))
+}
+
+function authWS (websocket: WebSocket) {
+  const peachAccount = peachAPI.apiOptions.peachAccount
+  const message = getAuthenticationChallenge()
+
+  if (!peachAccount) {
+    const authError = new Error('Peach Account not set')
+    error(authError)
+    throw authError
+  }
+
+  websocket.send(
+    JSON.stringify({
+      path: '/v1/user/auth',
+      publicKey: peachAccount.publicKey.toString('hex'),
+      message,
+      signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex'),
+    }),
+  )
 }

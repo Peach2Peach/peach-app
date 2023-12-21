@@ -1,7 +1,7 @@
 import { Animated } from 'react-native'
-import { useIsMediumScreen } from '../../../../hooks'
+import { useIsMediumScreen } from '../../../../hooks/useIsMediumScreen'
 import tw from '../../../../styles/tailwind'
-import { FixedHeightText } from '../../../text'
+import { FixedHeightText } from '../../../text/FixedHeightText'
 
 type Props = ComponentProps & {
   width: number
@@ -14,7 +14,7 @@ export const ConfirmSliderLabel = ({ children, width, opacity, style }: Props) =
     <Animated.View style={[style, tw`pt-1px`, { width, opacity }]}>
       <FixedHeightText
         height={isMediumScreen ? 9 : 8}
-        style={[tw`text-center button-medium`, tw.md`button-large`]}
+        style={[tw`text-center button-medium`, tw`md:button-large`]}
         numberOfLines={1}
       >
         {children}

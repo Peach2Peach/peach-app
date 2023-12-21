@@ -49,7 +49,10 @@ describe('useConfirmEscrow', () => {
     })
     expect(resetMock).toHaveBeenCalledWith({
       index: 1,
-      routes: [{ name: 'yourTrades' }, { name: 'search', params: { offerId: sellOffer.id } }],
+      routes: [
+        { name: 'homeScreen', params: { screen: 'yourTrades' } },
+        { name: 'search', params: { offerId: sellOffer.id } },
+      ],
     })
   })
   it('confirms escrow and navigates to fundEscrow if sell offer is not yet funded', async () => {
@@ -61,7 +64,10 @@ describe('useConfirmEscrow', () => {
     })
     expect(resetMock).toHaveBeenCalledWith({
       index: 1,
-      routes: [{ name: 'yourTrades' }, { name: 'fundEscrow', params: { offerId: sellOffer.id } }],
+      routes: [
+        { name: 'homeScreen', params: { screen: 'yourTrades' } },
+        { name: 'fundEscrow', params: { offerId: sellOffer.id } },
+      ],
     })
   })
 })

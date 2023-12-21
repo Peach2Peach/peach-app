@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { parseError } from '../../utils/result'
+import { parseError } from '../../utils/result/parseError'
 import { InsufficientFundsError } from '../../utils/wallet/types'
 import { parseTransactionError } from '../../views/wallet/helpers/parseTransactionError'
 import { useShowErrorBanner } from '../useShowErrorBanner'

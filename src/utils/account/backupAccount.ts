@@ -3,9 +3,9 @@ import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
 import { useSettingsStore } from '../../store/settingsStore'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
-import { writeFile } from '../file'
+import { writeFile } from '../file/writeFile'
 import { error, info } from '../log'
-import { parseError } from '../result'
+import { parseError } from '../result/parseError'
 import { useAccountStore } from './account'
 
 type BackupAccountProps = {

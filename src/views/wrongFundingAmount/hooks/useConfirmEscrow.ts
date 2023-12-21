@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
-import { useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { peachAPI } from '../../../utils/peachAPI'
 
@@ -31,7 +31,10 @@ export const useConfirmEscrow = () => {
 
       navigation.reset({
         index: 1,
-        routes: [{ name: 'yourTrades' }, { name: destination, params: { offerId: sellOffer.id } }],
+        routes: [
+          { name: 'homeScreen', params: { screen: 'yourTrades' } },
+          { name: destination, params: { offerId: sellOffer.id } },
+        ],
       })
     },
     [navigation, queryClient, showErrorBanner],

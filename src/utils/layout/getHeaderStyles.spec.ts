@@ -1,4 +1,5 @@
 import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
+import tw from '../../styles/tailwind'
 import { getHeaderStyles } from './getHeaderStyles'
 
 describe('getHeaderStyles', () => {
@@ -14,6 +15,7 @@ describe('getHeaderStyles', () => {
   })
   it('returns header styles for medium viewports', () => {
     mockDimensions({ width: 600, height: 840 })
+    tw.setWindowDimensions({ width: 600, height: 840 })
 
     const result = getHeaderStyles()
 

@@ -1,16 +1,18 @@
-import { SectionList, View } from 'react-native'
-import { Header, Loading, Screen } from '../../components'
-
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { useEffect, useMemo } from 'react'
+import { SectionList, View } from 'react-native'
+import { Header } from '../../components/Header'
+import { Screen } from '../../components/Screen'
+import { Loading } from '../../components/animation/Loading'
 import { NotificationBubble } from '../../components/bubble/NotificationBubble'
-import { useNavigation, useRoute } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
+import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
-import { parseError } from '../../utils/result'
+import { headerIcons } from '../../utils/layout/headerIcons'
+import { parseError } from '../../utils/result/parseError'
+import { useHomeScreenRoute } from '../home/useHomeScreenRoute'
 import { SectionHeader } from './components/SectionHeader'
 import { TradePlaceholders } from './components/TradePlaceholders'
 import { TradeItem } from './components/tradeItem'
@@ -22,7 +24,7 @@ const tabs = ['yourTrades.buy', 'yourTrades.sell', 'yourTrades.history'] as cons
 
 const tabbedNavigationScreenOptions = {
   tabBarLabelStyle: tw`lowercase input-title`,
-  tabBarStyle: [tw`bg-transparent mx-sm`, tw.md`mx-md`],
+  tabBarStyle: [tw`bg-transparent mx-sm`, tw`md:mx-md`],
   tabBarContentContainerStyle: tw`bg-transparent`,
   tabBarIndicatorStyle: tw`bg-black-1`,
   tabBarItemStyle: tw`p-0`,
@@ -31,7 +33,7 @@ const tabbedNavigationScreenOptions = {
 
 export const YourTrades = () => {
   const { tradeSummaries, isLoading, error, refetch } = useTradeSummaries()
-  const { params } = useRoute<'yourTrades'>()
+  const { params } = useHomeScreenRoute<'yourTrades'>()
   const showErrorBanner = useShowErrorBanner()
 
   useEffect(() => {
@@ -52,11 +54,11 @@ export const YourTrades = () => {
   )
 
   return (
-    <Screen style={tw`px-0`} header={<YourTradesHeader />} showFooter>
+    <Screen style={tw`px-0`} header={<YourTradesHeader />}>
       <YourTradesTab.Navigator
         initialRouteName={params?.tab || 'yourTrades.buy'}
         screenOptions={tabbedNavigationScreenOptions}
-        sceneContainerStyle={[tw`px-sm`, tw.md`px-md`]}
+        sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
       >
         {tabs.map((tab) => (
           <YourTradesTab.Screen

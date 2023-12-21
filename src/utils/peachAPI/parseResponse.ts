@@ -1,7 +1,6 @@
 import { error } from '../log'
-import { parseError } from '../result'
-import { dateTimeReviver } from '../system'
-import { getResponseError } from './getResponseError'
+import { parseError } from '../result/parseError'
+import { dateTimeReviver } from '../system/dateTimeReviver'
 
 export const parseResponse = async <T>(
   response: Response,
@@ -38,4 +37,18 @@ export const parseResponse = async <T>(
 
     return [null, { error: 'INTERNAL_SERVER_ERROR' }]
   }
+}
+
+const isCloudflareChallenge = (response: Response) => response.headers.get('cf-mitigated') === 'challenge'
+
+function getResponseError (response: Response) {
+  if (response.statusText === 'Aborted') return 'ABORTED'
+
+  if (isCloudflareChallenge(response)) return 'HUMAN_VERIFICATION_REQUIRED'
+  if (response.status === 0) return 'EMPTY_RESPONSE'
+  if (response.status === 500) return 'INTERNAL_SERVER_ERROR'
+  if (response.status === 503) return 'SERVICE_UNAVAILABLE'
+  if (response.status === 429) return 'TOO_MANY_REQUESTS'
+  if (!response.status) return 'NETWORK_ERROR'
+  return null
 }

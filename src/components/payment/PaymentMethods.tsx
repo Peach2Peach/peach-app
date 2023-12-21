@@ -1,20 +1,22 @@
 import { useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { Header, HorizontalLine, PeachScrollView, Screen, Text } from '..'
-import { useNavigation, usePreviousRouteName, useRoute, useShowHelp, useToggleBoolean } from '../../hooks'
-import { useUserPaymentMethodInfo } from '../../hooks/query/useUserPaymentMethodInfo'
-import { InfoPopup } from '../../popups/InfoPopup'
+import { useNavigation } from '../../hooks/useNavigation'
+import { usePreviousRoute } from '../../hooks/usePreviousRoute'
+import { useRoute } from '../../hooks/useRoute'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import { useToggleBoolean } from '../../hooks/useToggleBoolean'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
-import { getSelectedPaymentDataIds } from '../../utils/account'
-import { intersect } from '../../utils/array'
+import { getSelectedPaymentDataIds } from '../../utils/account/getSelectedPaymentDataIds'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
-import { isCashTrade } from '../../utils/paymentMethod'
-import { Button } from '../buttons/Button'
+import { headerIcons } from '../../utils/layout/headerIcons'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
+import { Header } from '../Header'
+import { PeachScrollView } from '../PeachScrollView'
+import { Screen } from '../Screen'
 import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavigation'
+import { HorizontalLine } from '../ui/HorizontalLine'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 import { MeetupPaymentMethods } from './MeetupPaymentMethods'
 import { RemotePaymentMethods } from './RemotePaymentMethods'
@@ -44,8 +46,9 @@ export const PaymentMethods = () => {
   }
 
   const isSelected = (itm: { value: string }) => selectedPaymentDataIds.includes(itm.value)
-  const origin = usePreviousRouteName()
-  const [isEditing, toggleIsEditing] = useToggleBoolean(origin === 'settings')
+  const { name: origin, params } = usePreviousRoute()
+  const isComingFromSettings = origin === 'homeScreen' && params && 'screen' in params && params?.screen === 'settings'
+  const [isEditing, toggleIsEditing] = useToggleBoolean(isComingFromSettings)
   const tabs: TabbedNavigationItem<'online' | 'meetups'>[] = [
     { id: 'online', display: i18n('paymentSection.online') },
     { id: 'meetups', display: i18n('paymentSection.meetups') },
@@ -54,7 +57,7 @@ export const PaymentMethods = () => {
 
   return (
     <Screen header={<PaymentMethodsHeader isEditing={isEditing} toggleIsEditing={toggleIsEditing} />}>
-      <PeachScrollView style={tw`h-full mb-4`} contentContainerStyle={[tw`pb-10 grow`, tw.md`pb-16`]}>
+      <PeachScrollView style={tw`h-full mb-4`} contentContainerStyle={[tw`pb-10 grow`, tw`md:pb-16`]}>
         <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
         <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`justify-center pt-6 grow`}>
           {currentTab.id === 'online' ? (
@@ -66,7 +69,6 @@ export const PaymentMethods = () => {
           <AddPaymentMethodButton isCash={currentTab.id === 'meetups'} />
         </PeachScrollView>
       </PeachScrollView>
-      {origin !== 'settings' && <NextButton />}
     </Screen>
   )
 }
@@ -92,34 +94,5 @@ function PaymentMethodsHeader ({ isEditing, toggleIsEditing }: Props) {
           : [{ ...headerIcons.help, onPress: showHelp }]
       }
     />
-  )
-}
-
-function NextButton () {
-  const navigation = useNavigation()
-  const setPopup = usePopupStore((state) => state.setPopup)
-  const showHelp = () => setPopup(<InfoPopup content={<Text>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</Text>} />)
-  const origin = usePreviousRouteName()
-  const [isStepValid, paymentMethods] = useOfferPreferences(
-    (state) => [state.canContinue.paymentMethods, Object.values(state.meansOfPayment).flat()],
-    shallow,
-  )
-  const { data: paymentMethodInfo } = useUserPaymentMethodInfo()
-
-  const goToSummary = () => {
-    const flow = origin === 'premium' ? 'sell' : 'buy'
-    const forbiddenPaymentMethdos = intersect(paymentMethodInfo.forbidden[flow], paymentMethods)
-    if (forbiddenPaymentMethdos.length) {
-      const paymentMethod = forbiddenPaymentMethdos.pop()
-      if (paymentMethod === 'paypal') showHelp()
-      return
-    }
-    navigation.navigate(flow === 'sell' ? 'sellSummary' : 'buySummary')
-  }
-
-  return (
-    <Button style={tw`self-center`} disabled={!isStepValid} onPress={goToSummary}>
-      {i18n('next')}
-    </Button>
   )
 }

@@ -22,6 +22,7 @@
   "notification.contract.seller.disputeLost.text" : "We hebben in het geschil voor de transactie $0 in het voordeel van de koper beslist. Controleer het bericht van je bemiddelaar in de transactie-chat om te zien wat hierna gebeurt.",
   "notification.contract.seller.disputeRaised.text" : "De koper heeft een geschil gestart voor transactie $0 van $1 sats.",
   "notification.contract.seller.disputeWon.text" : "We hebben jou in het voordeel gesteld in het geschil voor transactie $0. Controleer het bericht van je bemiddelaar in de transactie-chat om te zien wat er hierna gebeurt.",
+  "notification.contract.seller.instantTrade.text" : "Je bent net een directe transactie gestart met een koper!",
   "notification.contract.seller.paymentTimerHasRunOut.text" : "De betaling voor transactie $0 is niet op tijd gedaan. Geef de koper meer tijd, of annuleer de transactie.",
   "notification.contract.tradeCompleted.text" : "Gefeliciteerd! De sats voor transactie $0 zijn beschikbaar in je wallet \uD83C\uDF89",
   "notification.contract.tradeCompleted.title" : "Transactie voltooid!",

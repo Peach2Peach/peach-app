@@ -1,17 +1,21 @@
 import { useNavigation } from '@react-navigation/native'
-import { ColorValue, SafeAreaView, TouchableOpacity, View, ViewProps } from 'react-native'
+import { ColorValue, ScrollView, TouchableOpacity, View, ViewProps } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { shallow } from 'zustand/shallow'
 import { IconType } from '../assets/icons'
-import { useBitcoinStore } from '../store/bitcoinStore'
+import { useBitcoinPrices } from '../hooks/useBitcoinPrices'
+import { useToggleBoolean } from '../hooks/useToggleBoolean'
+import { CURRENCIES } from '../paymentMethods'
+import { useSettingsStore } from '../store/settingsStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { getHeaderStyles } from '../utils/layout'
-import { round } from '../utils/math'
-import { thousands } from '../utils/string'
+import { getHeaderStyles } from '../utils/layout/getHeaderStyles'
+import { thousands } from '../utils/string/thousands'
 import { Icon } from './Icon'
-import { BTCAmount } from './bitcoin'
+import { TouchableIcon } from './TouchableIcon'
+import { BTCAmount } from './bitcoin/btcAmount/BTCAmount'
+import { PeachText } from './text/PeachText'
 import { PriceFormat } from './text/PriceFormat'
-import { PeachText } from './text/Text'
 
 export type HeaderIcon = {
   id: IconType
@@ -44,68 +48,71 @@ const newThemes = {
     title: tw`text-black-1`,
     subtitle: tw`text-success-main`,
     border: tw`border-success-mild-1`,
-    backButton: tw`text-black-2`,
+    backButtonColor: tw.color('black-2'),
   },
   seller: {
     bg: tw`bg-primary-background-dark`,
     title: tw`text-black-1`,
     subtitle: tw`text-primary-main`,
     border: tw`border-primary-mild-1`,
-    backButton: tw`text-black-2`,
+    backButtonColor: tw.color('black-2'),
   },
   paymentTooLate: {
     bg: tw`bg-warning-mild-1`,
     title: tw`text-black-1`,
     subtitle: tw`text-black-1`,
     border: tw`border-warning-mild-2`,
-    backButton: tw`text-black-2`,
+    backButtonColor: tw.color('black-2'),
   },
   dispute: {
     bg: tw`bg-error-main`,
     title: tw`text-primary-background-light`,
     subtitle: tw`text-primary-background-light`,
     border: tw`border-error-dark`,
-    backButton: tw`text-primary-background-light`,
+    backButtonColor: tw.color('primary-background-light'),
   },
   cancel: {
     bg: tw`bg-black-5`,
     title: tw`text-black-1`,
     subtitle: tw`text-black-1`,
     border: tw`border-black-4`,
-    backButton: tw`text-black-2`,
+    backButtonColor: tw.color('black-2'),
   },
   default: {
     bg: tw`bg-primary-background`,
     title: tw`text-black-1`,
     subtitle: tw`text-black-1`,
     border: tw`border-primary-background-dark`,
-    backButton: tw`text-black-2`,
+    backButtonColor: tw.color('black-2'),
   },
   transparent: {
     bg: tw`bg-transparent`,
     title: tw`text-primary-background-light`,
     subtitle: tw`text-primary-background-light`,
     border: tw`border-transparent`,
-    backButton: tw`text-primary-background-light`,
+    backButtonColor: tw.color('primary-background-light'),
   },
 }
-export const Header = ({
-  showPriceStats,
-  subtitle,
-  ...props
-}: Omit<HeaderConfig, 'theme' | 'style'> & { theme?: keyof typeof newThemes }) => (
-  <SafeAreaView
-    style={[
-      tw`border-b rounded-b-lg`,
-      newThemes[props.theme || 'default'].bg,
-      newThemes[props.theme || 'default'].border,
-    ]}
-  >
-    <HeaderNavigation {...props} />
-    {showPriceStats && <Tickers />}
-    {!!subtitle && subtitle}
-  </SafeAreaView>
-)
+
+export type HeaderProps = Omit<HeaderConfig, 'theme' | 'style'> & { theme?: keyof typeof newThemes }
+
+export const Header = ({ showPriceStats, subtitle, ...props }: HeaderProps) => {
+  const { top } = useSafeAreaInsets()
+  return (
+    <View
+      style={[
+        tw`border-b rounded-b-lg`,
+        { paddingTop: top, zIndex: 1 },
+        newThemes[props.theme || 'default'].bg,
+        newThemes[props.theme || 'default'].border,
+      ]}
+    >
+      {showPriceStats && <Tickers />}
+      {(props.title || props.titleComponent) && <HeaderNavigation {...props} />}
+      {!!subtitle && subtitle}
+    </View>
+  )
+}
 
 function HeaderNavigation ({
   title,
@@ -122,14 +129,14 @@ function HeaderNavigation ({
     <View
       style={[
         tw`flex-row items-center gap-2 py-6px px-sm`,
-        tw.md`px-md`,
-        shouldShowBackButton && [tw`pl-2`, tw.md`pl-26px`],
+        tw`md:px-md`,
+        shouldShowBackButton && [tw`pl-0`, tw`md:pl-10px`],
       ]}
     >
       <View style={tw`flex-row items-center flex-1 gap-1`}>
         {shouldShowBackButton && (
           <TouchableOpacity onPress={goBack}>
-            <Icon id="chevronLeft" style={24} color={newThemes[theme].backButton.color} />
+            <Icon id="chevronLeft" style={24} color={newThemes[theme].backButtonColor} />
           </TouchableOpacity>
         )}
         {titleComponent || (
@@ -142,11 +149,7 @@ function HeaderNavigation ({
       <View style={tw`flex-row items-center justify-end gap-10px`}>
         {icons?.map(({ id, accessibilityHint, color, onPress }, i) => (
           <TouchableOpacity key={`${i}-${id}`} style={tw`p-2px`} {...{ accessibilityHint, onPress }}>
-            <Icon
-              id={id}
-              color={theme !== 'dispute' ? color : tw`text-primary-background-light`.color}
-              style={iconSize}
-            />
+            <Icon id={id} color={theme !== 'dispute' ? color : tw.color('primary-background-light')} style={iconSize} />
           </TouchableOpacity>
         ))}
       </View>
@@ -154,7 +157,9 @@ function HeaderNavigation ({
   )
 }
 
-const colStyle = [tw`flex-row items-center gap-2`, tw.md`flex-col items-start gap-0`]
+const colStyle = [tw`flex-row flex-1 gap-2`, tw`md:flex-col md:gap-0`]
+const leftColStyle = [...colStyle, tw`justify-start md:items-start`]
+const rightColStyle = [...colStyle, tw`justify-end md:items-end`]
 const unitStyle = tw`subtitle-1`
 
 type TickerProps = {
@@ -162,25 +167,68 @@ type TickerProps = {
 }
 
 function Tickers ({ type = 'sell' }: TickerProps) {
-  const [currency, satsPerUnit, price] = useBitcoinStore(
-    (state) => [state.currency, state.satsPerUnit, state.price],
-    shallow,
-  )
-  const valueStyle = [tw`leading-xl`, type === 'sell' ? tw`text-primary-main` : tw`text-success-main`, tw.md`body-l`]
-
+  const { bitcoinPrice, moscowTime, displayCurrency } = useBitcoinPrices()
+  const valueStyle = [tw`leading-xl`, type === 'sell' ? tw`text-primary-main` : tw`text-success-main`, tw`md:body-l`]
   return (
-    <View style={[tw`flex-row items-center justify-between py-1 px-sm`, tw.md`px-md py-2px`]}>
-      <View style={colStyle}>
+    <View style={[tw`flex-row items-center justify-between py-1 px-sm`, tw`md:px-md md:py-2px`]}>
+      <View style={leftColStyle}>
         <PeachText style={unitStyle}>{`1 ${i18n('btc')}`}</PeachText>
-        <PriceFormat style={valueStyle} currency={currency} amount={price} round />
+        <PriceFormat style={valueStyle} currency={displayCurrency} amount={bitcoinPrice} round />
       </View>
-      <View style={[...colStyle, tw.md`items-end`]}>
-        <PeachText style={[unitStyle, tw`text-right`]}>{`1 ${currency}`}</PeachText>
+      <View style={rightColStyle}>
+        <CurrencyScrollView />
+
         <PeachText style={[...valueStyle, tw`text-right`]}>
-          {i18n('currency.format.sats', thousands(round(satsPerUnit)))}
+          {i18n('currency.format.sats', thousands(moscowTime))}
         </PeachText>
       </View>
     </View>
+  )
+}
+
+function CurrencyScrollView () {
+  const [showCurrencies, toggle] = useToggleBoolean()
+  const [displayCurrency, setDisplayCurrency] = useSettingsStore(
+    (state) => [state.displayCurrency, state.setDisplayCurrency],
+    shallow,
+  )
+  const borderWidth = 1
+
+  return (
+    <TouchableOpacity onPress={toggle} style={[tw`items-end flex-1 w-full grow`, { zIndex: 1 }]}>
+      <ScrollView
+        style={tw`absolute bg-primary-background max-h-40`}
+        contentContainerStyle={[
+          tw`items-end self-end justify-end`,
+          !showCurrencies && { padding: borderWidth },
+          showCurrencies && tw`pl-2 border rounded-lg border-black-4`,
+        ]}
+        scrollEnabled={showCurrencies}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={tw`items-start`} onStartShouldSetResponder={() => showCurrencies}>
+          <View style={tw`flex-row items-center gap-1`}>
+            <PeachText style={unitStyle}>{`1 ${displayCurrency}`}</PeachText>
+            <TouchableIcon
+              id={showCurrencies ? 'chevronUp' : 'chevronDown'}
+              onPress={toggle}
+              iconColor={tw.color('black-1')}
+            />
+          </View>
+          {showCurrencies
+            && CURRENCIES.filter((c) => c !== displayCurrency).map((c) => (
+              <PeachText
+                onPress={() => {
+                  setDisplayCurrency(c)
+                  toggle()
+                }}
+                key={c}
+                style={unitStyle}
+              >{`1 ${c}`}</PeachText>
+            ))}
+        </View>
+      </ScrollView>
+    </TouchableOpacity>
   )
 }
 
@@ -193,8 +241,8 @@ type HeaderSubtitleProps = {
 }
 function HeaderSubtitle ({ theme = 'default', amount, premium, viewer, text }: HeaderSubtitleProps) {
   return (
-    <View style={[tw`flex-row items-center justify-between py-2px px-sm`, tw.md`px-md py-2`]}>
-      <PeachText style={[tw`subtitle-1`, newThemes[theme].subtitle, tw.md`subtitle-0`]}>
+    <View style={[tw`flex-row items-center justify-between py-2px px-sm`, tw`md:px-md md:py-2`]}>
+      <PeachText style={[tw`subtitle-1`, newThemes[theme].subtitle, tw`md:subtitle-0`]}>
         {text ?? i18n(viewer === 'buyer' ? 'buy.subtitle.highlight' : 'sell.subtitle.highlight')}
       </PeachText>
       <BTCAmount amount={amount} style={tw`pb-2px`} white={theme === 'dispute'} size="medium" />

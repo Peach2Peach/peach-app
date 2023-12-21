@@ -1,7 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultFundingStatus } from '../../utils/offer/constants'
 import { peachAPI } from '../../utils/peachAPI'
@@ -61,7 +60,7 @@ describe('useFundingStatus', () => {
       fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
       isLoading: false,
-      error: new Error(unauthorizedError.error),
+      error: new Error('UNAUTHORIZED'),
     })
   })
 })

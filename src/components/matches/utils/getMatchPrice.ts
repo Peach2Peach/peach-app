@@ -1,4 +1,4 @@
-import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
+import { getPaymentMethodInfo } from '../../../utils/paymentMethod/getPaymentMethodInfo'
 
 export const getMatchPrice = (
   match: Match,

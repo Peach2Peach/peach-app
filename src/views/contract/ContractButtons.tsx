@@ -2,11 +2,14 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs'
-import { useNavigation, useRoute, useShowHelp, useValidatedState } from '../../hooks'
+import { PeachText } from '../../components/text/PeachText'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
+import { useNavigation } from '../../hooks/useNavigation'
+import { useRoute } from '../../hooks/useRoute'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import { useValidatedState } from '../../hooks/useValidatedState'
 import { WarningPopup } from '../../popups/WarningPopup'
 import { ClosePopupAction } from '../../popups/actions'
 import { LoadingPopupAction } from '../../popups/actions/LoadingPopupAction'
@@ -14,10 +17,11 @@ import { useSubmitDisputeAcknowledgement } from '../../popups/dispute/hooks/useS
 import { useConfigStore } from '../../store/configStore/configStore'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
-import { contractIdToHex, getNavigationDestinationForContract, getOfferIdFromContract } from '../../utils/contract'
+import { contractIdToHex } from '../../utils/contract/contractIdToHex'
+import { getOfferIdFromContract } from '../../utils/contract/getOfferIdFromContract'
 import i18n from '../../utils/i18n'
-import { getOfferDetails, peachAPI } from '../../utils/peachAPI'
-import { thousands } from '../../utils/string'
+import { peachAPI } from '../../utils/peachAPI'
+import { thousands } from '../../utils/string/thousands'
 import { getNavigationDestinationForOffer } from '../yourTrades/utils'
 import { useContractContext } from './context'
 
@@ -28,15 +32,13 @@ export function NewOfferButton () {
   const newOfferId = !!offer && 'newOfferId' in offer ? offer?.newOfferId : undefined
   const goToNewOffer = useCallback(async () => {
     if (!newOfferId) return
-    const [newOffer] = await getOfferDetails({ offerId: newOfferId })
+    const { result: newOffer } = await peachAPI.private.offer.getOfferDetails({ offerId: newOfferId })
     if (!newOffer) return
     if (newOffer?.contractId) {
-      const { result: newContract } = await peachAPI.private.contract.getContract({ contractId: newOffer.contractId })
-      if (!newContract) return
-      const [screen, params] = await getNavigationDestinationForContract(newContract)
-      navigation.replace(screen, params)
+      navigation.replace('contract', { contractId: newOffer?.contractId })
     } else {
-      navigation.replace(...getNavigationDestinationForOffer(newOffer))
+      const [screen, params] = getNavigationDestinationForOffer(newOffer)
+      navigation.replace(screen, params)
     }
   }, [newOfferId, navigation])
 
@@ -80,11 +82,11 @@ function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: Con
       title={i18n('dispute.opened')}
       content={
         <View style={tw`gap-4`}>
-          <Text>
+          <PeachText>
             {i18n(`dispute.opened.counterparty.text.1.withEmail.${view}`, contractIdToHex(id), thousands(amount))}
-          </Text>
+          </PeachText>
 
-          <Text>{i18n('dispute.opened.counterparty.text.2.withEmail')}</Text>
+          <PeachText>{i18n('dispute.opened.counterparty.text.2.withEmail')}</PeachText>
 
           <View>
             <EmailInput

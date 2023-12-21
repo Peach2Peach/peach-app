@@ -1,10 +1,11 @@
 import { useState } from 'react'
-
-import { Header, Screen } from '../../components'
+import { Header } from '../../components/Header'
+import { Screen } from '../../components/Screen'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
-import { useShowHelp, useToggleBoolean } from '../../hooks'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import { useToggleBoolean } from '../../hooks/useToggleBoolean'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
+import { headerIcons } from '../../utils/layout/headerIcons'
 import { FileBackup } from './components/backups/FileBackup'
 import { SeedPhrase } from './components/backups/SeedPhrase'
 

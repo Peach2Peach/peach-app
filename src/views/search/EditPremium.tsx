@@ -1,15 +1,26 @@
 import { useState } from 'react'
-import { Header, Screen, Text } from '../../components'
+import { View } from 'react-native'
+import { Header } from '../../components/Header'
+import { PremiumInput } from '../../components/PremiumInput'
+import { Screen } from '../../components/Screen'
+import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Button } from '../../components/buttons/Button'
-import { useMarketPrices, useNavigation, useRoute, useShowHelp } from '../../hooks'
-import { usePatchOffer } from '../../hooks/offer'
+import { PremiumSlider } from '../../components/inputs/premiumSlider/PremiumSlider'
+import { PeachText } from '../../components/text/PeachText'
+import { useMarketPrices } from '../../hooks/query/useMarketPrices'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
+import { useNavigation } from '../../hooks/useNavigation'
+import { usePatchOffer } from '../../hooks/usePatchOffer'
+import { useRoute } from '../../hooks/useRoute'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
-import { getOfferPrice, isSellOffer, offerIdToHex } from '../../utils/offer'
-import { priceFormat } from '../../utils/string'
-import { Premium } from '../sell/Premium'
+import { headerIcons } from '../../utils/layout/headerIcons'
+import { getOfferPrice } from '../../utils/offer/getOfferPrice'
+import { isSellOffer } from '../../utils/offer/isSellOffer'
+import { offerIdToHex } from '../../utils/offer/offerIdToHex'
+import { priceFormat } from '../../utils/string/priceFormat'
+import { MarketInfo } from '../offerPreferences/components/MarketInfo'
 
 export const EditPremium = () => {
   const { offerId } = useRoute<'editPremium'>().params
@@ -28,17 +39,18 @@ export const EditPremium = () => {
 
   return (
     <Screen header={<EditPremiumHeader />}>
+      <MarketInfo type="buyOffers" meansOfPayment={offer?.meansOfPayment} maxPremium={displayPremium} />
       <Premium
         premium={displayPremium}
         setPremium={setPremium}
         amount={offer?.amount ?? 0}
         offerPrice={
-          <Text style={tw`text-center text-black-2`}>
+          <PeachText style={tw`text-center text-black-2`}>
             ({i18n('sell.premium.currently', `${priceFormat(currentPrice)} ${displayCurrency}`)})
-          </Text>
+          </PeachText>
         }
-        confirmButton={<ConfirmButton offerId={offerId} newPremium={displayPremium} />}
       />
+      <ConfirmButton offerId={offerId} newPremium={displayPremium} />
     </Screen>
   )
 }
@@ -46,7 +58,7 @@ export const EditPremium = () => {
 function EditPremiumHeader () {
   const { offerId } = useRoute<'editPremium'>().params
   const showHelp = useShowHelp('premium')
-  return <Header title={offerIdToHex(offerId)} icons={[{ ...headerIcons.help, onPress: showHelp }]} showPriceStats />
+  return <Header title={offerIdToHex(offerId)} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }
 
 type Props = {
@@ -54,11 +66,40 @@ type Props = {
   newPremium: number
 }
 function ConfirmButton ({ offerId, newPremium }: Props) {
-  const { mutate: confirmPremium } = usePatchOffer(offerId, { premium: newPremium })
+  const { mutate: confirmPremium } = usePatchOffer()
   const navigation = useNavigation()
   return (
-    <Button onPress={() => confirmPremium(undefined, { onSuccess: navigation.goBack })} style={tw`self-center`}>
+    <Button
+      onPress={() => confirmPremium({ offerId, newData: { premium: newPremium } }, { onSuccess: navigation.goBack })}
+      style={tw`self-center`}
+    >
       {i18n('confirm')}
     </Button>
+  )
+}
+
+type PremiumProps = {
+  premium: number
+  setPremium: (newPremium: number, isValid?: boolean | undefined) => void
+  amount: number
+  offerPrice: React.ReactNode
+}
+
+function Premium ({ premium, setPremium, amount, offerPrice }: PremiumProps) {
+  return (
+    <View style={tw`items-center justify-center grow gap-7`}>
+      <View style={tw`items-center`}>
+        <PeachText style={[tw`text-center h6`, tw`md:h5`]}>{i18n('sell.premium.title')}</PeachText>
+        <View style={tw`flex-row items-center gap-1`}>
+          <PeachText style={tw`text-center subtitle-1`}>{i18n('search.sellOffer')}</PeachText>
+          <BTCAmount size="small" amount={amount} />
+        </View>
+      </View>
+      <View style={tw`items-center gap-1`}>
+        <PremiumInput premium={premium} setPremium={setPremium} />
+        {offerPrice}
+      </View>
+      <PremiumSlider style={tw`items-center self-stretch gap-6px`} premium={premium} setPremium={setPremium} />
+    </View>
   )
 }

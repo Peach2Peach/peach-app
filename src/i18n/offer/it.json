@@ -33,6 +33,7 @@
   "offer.requiredAction.releaseEscrow" : "rilascia deposito",
   "offer.requiredAction.releaseEscrow.dispute" : "disputa persa: rilasciare il deposito",
   "offer.requiredAction.searchingForPeer" : "in cerca di match",
+  "offer.requiredAction.unknown" : "sconosciuto - aggiorna la tua app!",
   "offer.requiredAction.waiting" : "in attesa di $0",
   "offer.requiredAction.waiting.buyer" : "in attesa di pagamento",
   "offer.requiredAction.waiting.seller" : "in attesa del venditore",
@@ -54,5 +55,6 @@
   "offer.summary.withTheseMethods" : "Con questi metodi e valute:",
   "offer.summary.youAreBuying" : "Vuoi acquistare tra:",
   "offer.summary.youAreSelling" : "Stai vendendo:",
-  "offer.summary.youWereSelling" : "Stavi vendendo"
+  "offer.summary.youWereSelling" : "Stavi vendendo",
+  "yourTrades.unknown" : "sconosciuto"
 }

@@ -1,7 +1,8 @@
 import crashlytics from '@react-native-firebase/crashlytics'
 import { Alert } from 'react-native'
-import { openCrashReportPrompt } from '../analytics'
-import { isNetworkError, isProduction } from '../system'
+import { openCrashReportPrompt } from '../analytics/openCrashReportPrompt'
+import { isNetworkError } from '../system/isNetworkError'
+import { isProduction } from '../system/isProduction'
 
 export const error = (...args: any[]) => {
   const message = [new Date(), 'ERROR', ...args].join(' - ')

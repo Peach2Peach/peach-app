@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { PeachText } from './Text'
+import { PeachText } from './PeachText'
 
 type Props = { text: string }
 

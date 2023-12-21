@@ -1,7 +1,8 @@
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
-import { sha256 } from '../../../utils/crypto'
-import { omit } from '../../../utils/object'
-import { cleanPaymentData, isCashTrade } from '../../../utils/paymentMethod'
+import { sha256 } from '../../../utils/crypto/sha256'
+import { omit } from '../../../utils/object/omit'
+import { cleanPaymentData } from '../../../utils/paymentMethod/cleanPaymentData'
+import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 import { addPaymentDetailInfoByHash } from './addPaymentDetailInfoByHash'
 
 const findPaymentDataByLegacyHash = (hash: string) => {

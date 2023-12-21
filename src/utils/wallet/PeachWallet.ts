@@ -7,9 +7,9 @@ import { BIP32Interface } from 'bip32'
 import RNFS from 'react-native-fs'
 import { waitForHydration } from '../../store/waitForHydration'
 import { error, info } from '../log'
-import { parseError } from '../result'
-import { isIOS } from '../system'
-import { callWhenInternet } from '../web'
+import { parseError } from '../result/parseError'
+import { isIOS } from '../system/isIOS'
+import { callWhenInternet } from '../web/callWhenInternet'
 import { PeachJSWallet } from './PeachJSWallet'
 import { buildBlockchainConfig } from './buildBlockchainConfig'
 import { handleTransactionError } from './error/handleTransactionError'
@@ -86,8 +86,12 @@ export class PeachWallet extends PeachJSWallet {
   }
 
   async loadWallet (seedphrase?: string): Promise<void> {
+    info('PeachWallet - loadWallet - start')
     await waitForHydration(useNodeConfigState)
-    this.initWallet(seedphrase)
+
+    this.initWallet(seedphrase).then(() => {
+      info('PeachWallet - loadWallet - finished')
+    })
   }
 
   async setBlockchain (nodeConfig: NodeConfig) {

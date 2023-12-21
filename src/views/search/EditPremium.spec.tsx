@@ -19,25 +19,6 @@ jest.spyOn(peachAPI.public.market, 'marketPrices').mockResolvedValue({
   ...responseUtils,
 })
 
-jest.mock('../../utils/peachAPI', () => ({
-  peachAPI: jest.requireActual('../../utils/peachAPI').peachAPI,
-  getOfferDetails: jest.fn(() =>
-    Promise.resolve([
-      {
-        type: 'ask',
-        amount: 21000000,
-        premium: 1.5,
-        meansOfPayment: {
-          EUR: {
-            name: 'SEPA',
-            id: '123',
-          },
-        },
-      },
-    ]),
-  ),
-}))
-
 describe('EditPremium', () => {
   it('should render correctly', async () => {
     const { toJSON } = render(<EditPremium />)

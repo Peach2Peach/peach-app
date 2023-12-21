@@ -1,6 +1,6 @@
 import { Alert } from 'react-native'
 import i18n, { languageState } from '../i18n'
-import { getLocalizedLink } from '../web'
+import { getLocalizedLink } from '../web/getLocalizedLink'
 import { openURL } from '../web/openURL'
 import { deleteUnsentReports } from './deleteUnsentReports'
 import { sendErrors } from './sendErrors'

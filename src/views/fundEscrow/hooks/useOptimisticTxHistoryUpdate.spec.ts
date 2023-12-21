@@ -1,7 +1,7 @@
 import { renderHook } from 'test-utils'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
-import { saveOffer } from '../../../utils/offer'
+import { saveOffer } from '../../../utils/offer/saveOffer'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useOptimisticTxHistoryUpdate } from './useOptimisticTxHistoryUpdate'
 

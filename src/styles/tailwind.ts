@@ -1,21 +1,4 @@
-import { NETWORK } from '@env'
-import { Dimensions, ImageStyle, TextStyle, ViewStyle } from 'react-native'
 import { create } from 'twrnc'
-interface Tailwind {
-  (classes: TemplateStringsArray): ViewStyle & TextStyle & ImageStyle
-  md: (classes: TemplateStringsArray) => ViewStyle & TextStyle & ImageStyle
-  lg: (classes: TemplateStringsArray) => ViewStyle & TextStyle & ImageStyle
-}
-const tailwind = create(require(NETWORK === 'testnet' ? './tailwind.testnet.config' : './tailwind.config'))
 
-const tw: Tailwind = (cls) => tailwind(cls)
-tw.md = (cls) => {
-  const { width, height } = Dimensions.get('window')
-  return (width || 0) >= 375 && (height || 0) >= 690 ? tailwind(cls) : {}
-}
-tw.lg = (cls) => {
-  const { width } = Dimensions.get('window')
-  return (width || 0) >= 1200 ? tailwind(cls) : {}
-}
-
+const tw = create(require('./tailwind.config'))
 export default tw

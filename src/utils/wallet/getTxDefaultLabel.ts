@@ -1,8 +1,8 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
-import { contractIdToHex } from '../contract'
-import { offerIdToHex } from '../offer'
-import { isDefined } from '../validation'
+import { contractIdToHex } from '../contract/contractIdToHex'
+import { offerIdToHex } from '../offer/offerIdToHex'
+import { isDefined } from '../validation/isDefined'
 import { useWalletState } from './walletStore'
 
 export const getTxDefaultLabel = (tx: TransactionDetails) => {

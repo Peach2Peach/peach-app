@@ -1,6 +1,5 @@
 import { View } from 'react-native'
-import tw from '../styles/tailwind'
-import { PeachyGradient } from './PeachyGradient'
+import { PeachyBackground } from './PeachyBackground'
 
 type Props = {
   gradientBorderWidth: number
@@ -9,7 +8,7 @@ type Props = {
 
 export const GradientBorder = ({ gradientBorderWidth, showBorder = true, children, ...viewProps }: Props) => (
   <View {...viewProps}>
-    {showBorder && <PeachyGradient style={tw`absolute`} />}
+    {showBorder && <PeachyBackground />}
     <View style={{ margin: gradientBorderWidth }}>{children}</View>
   </View>
 )

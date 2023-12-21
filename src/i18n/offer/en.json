@@ -34,6 +34,7 @@
   "offer.requiredAction.releaseEscrow" : "release escrow",
   "offer.requiredAction.releaseEscrow.dispute" : "dispute lost: release escrow",
   "offer.requiredAction.searchingForPeer" : "looking for match",
+  "offer.requiredAction.unknown" : "unknown - update your app!",
   "offer.requiredAction.waiting" : "waiting for $0",
   "offer.requiredAction.waiting.buyer" : "waiting for payment",
   "offer.requiredAction.waiting.seller" : "waiting for seller",
@@ -55,5 +56,6 @@
   "offer.summary.withTheseMethods" : "with these payment methods:",
   "offer.summary.youAreBuying" : "you want to buy between",
   "offer.summary.youAreSelling" : "you're selling",
-  "offer.summary.youWereSelling" : "you were selling"
+  "offer.summary.youWereSelling" : "you were selling",
+  "yourTrades.unknown" : "unknown"
 }

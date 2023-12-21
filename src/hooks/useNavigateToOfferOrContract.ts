@@ -1,9 +1,8 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
 import { useStartRefundPopup } from '../popups/useStartRefundPopup'
-import { getNavigationDestinationForContract } from '../utils/contract'
-import { isSellOffer } from '../utils/offer'
-import { getOfferDetails } from '../utils/peachAPI'
+import { isSellOffer } from '../utils/offer/isSellOffer'
+import { peachAPI } from '../utils/peachAPI'
 import { getNavigationDestinationForOffer, isContractSummary } from '../views/yourTrades/utils'
 import { useNavigation } from './useNavigation'
 
@@ -14,11 +13,11 @@ export const useNavigateToOfferOrContract = (item: TradeSummary) => {
 
   const navigateToOfferOrContract = useCallback(async () => {
     const destination = isContractSummary(item)
-      ? getNavigationDestinationForContract(item)
+      ? (['contract', { contractId: item.id }] as const)
       : getNavigationDestinationForOffer(item)
     if (item.tradeStatus === 'refundTxSignatureRequired') {
       const offerId = isContractSummary(item) ? item.offerId : item.id
-      const [sellOffer] = await getOfferDetails({ offerId })
+      const { result: sellOffer } = await peachAPI.private.offer.getOfferDetails({ offerId })
       if (sellOffer && isSellOffer(sellOffer)) {
         queryClient.setQueryData(['offer', sellOffer.id], sellOffer)
         showStartRefundPopup(sellOffer)

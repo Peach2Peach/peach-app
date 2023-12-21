@@ -16,10 +16,6 @@ jest.mock('./eventHandler/offer/useOfferPopupEvents', () => ({
   useOfferPopupEvents: () => offerPopupEvents,
 }))
 
-jest.mock('../../utils/contract', () => ({
-  getContract: jest.fn(),
-}))
-
 const stateUpdateEventHandlerMock = jest.fn()
 const stateUpdateEvents = { stateUpdateEvent: stateUpdateEventHandlerMock }
 jest.mock('./eventHandler/useStateUpdateEvents', () => ({

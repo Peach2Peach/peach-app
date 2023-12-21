@@ -1,6 +1,5 @@
 import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { estimatedFees } from '../../../tests/unit/data/bitcoinNetworkData'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { peachAPI } from '../../utils/peachAPI'
 import { placeholderFees, useFeeEstimate } from './useFeeEstimate'
@@ -41,7 +40,7 @@ describe('useFeeEstimate', () => {
     expect(result.current).toEqual({
       estimatedFees: placeholderFees,
       isLoading: false,
-      error: new Error(unauthorizedError.error),
+      error: new Error('UNAUTHORIZED'),
     })
   })
 })

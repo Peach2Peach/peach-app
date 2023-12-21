@@ -1,12 +1,15 @@
-import { statusCardStyles } from '../../../components/statusCard/StatusCard'
+import { statusCardStyles } from '../../../components/statusCard/statusCardStyles'
 import { isContractSummary } from './isContractSummary'
 import { isError } from './isError'
 import { isPastOffer } from './isPastOffer'
 import { isPrioritary } from './isPrioritary'
+import { isTradeStatus } from './isTradeStatus'
 import { isWaiting } from './isWaiting'
 
 export const getOfferColor = (trade: TradeSummary): keyof typeof statusCardStyles.bg => {
   const { tradeStatus, type } = trade
+
+  if (!isTradeStatus(trade.tradeStatus)) return 'info'
   if (tradeStatus === 'paymentTooLate') return 'warning'
   if (isPastOffer(tradeStatus)) {
     if (tradeStatus === 'tradeCompleted') return type === 'ask' ? 'primary' : 'success'

@@ -4,24 +4,36 @@ import { shallow } from 'zustand/shallow'
 import { PopupAction } from '../components/popup'
 import { PopupComponent } from '../components/popup/PopupComponent'
 import { CancelOffer } from '../popups/CancelOffer'
+import { GrayPopup } from '../popups/GrayPopup'
+import { ClosePopupAction } from '../popups/actions'
 import { LoadingPopupAction } from '../popups/actions/LoadingPopupAction'
 import { useStartRefundPopup } from '../popups/useStartRefundPopup'
 import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { cancelAndSaveOffer, isBuyOffer } from '../utils/offer'
+import { cancelAndSaveOffer } from '../utils/offer/cancelAndSaveOffer'
+import { isBuyOffer } from '../utils/offer/isBuyOffer'
+import { useOfferDetails } from './query/useOfferDetails'
 import { useNavigation } from './useNavigation'
 import { useShowErrorBanner } from './useShowErrorBanner'
 
-export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) => {
+export const useCancelOffer = (offerId: undefined | string) => {
+  const setPopup = usePopupStore((state) => state.setPopup)
+
+  const cancelOffer = useCallback(() => {
+    if (!offerId) return
+    setPopup(<CancelOfferPopup offerId={offerId} />)
+  }, [offerId, setPopup])
+
+  return cancelOffer
+}
+
+function CancelOfferPopup ({ offerId }: { offerId: string }) {
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const queryClient = useQueryClient()
-
-  const showOfferCanceled = useCallback(() => {
-    setPopup({ title: i18n('offer.canceled.popup.title'), level: 'DEFAULT' })
-  }, [setPopup])
+  const { offer } = useOfferDetails(offerId)
 
   const startRefund = useStartRefundPopup()
 
@@ -35,31 +47,32 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
     }
 
     if (isBuyOffer(offer) || offer.funding.status === 'NULL' || offer.funding.txIds.length === 0) {
-      showOfferCanceled()
-      navigation.replace(isBuyOffer(offer) ? 'buy' : 'sell')
+      setPopup(
+        <GrayPopup
+          title={i18n('offer.canceled.popup.title')}
+          actions={<ClosePopupAction style={tw`justify-center`} />}
+        />,
+      )
+      navigation.navigate('homeScreen', { screen: 'home' })
     } else {
       startRefund(offer)
     }
     queryClient.refetchQueries({ queryKey: ['offerSummaries'] })
-  }, [navigation, offer, queryClient, showError, showOfferCanceled, startRefund])
+  }, [navigation, offer, queryClient, setPopup, showError, startRefund])
 
-  const cancelOffer = useCallback(() => {
-    if (!offer) return
-    setPopup(
-      <PopupComponent
-        title={i18n('offer.cancel.popup.title')}
-        content={<CancelOffer type={offer.type} />}
-        actionBgColor={tw`bg-black-3`}
-        bgColor={tw`bg-primary-background-light`}
-        actions={
-          <>
-            <PopupAction label={i18n('neverMind')} iconId="arrowLeftCircle" onPress={closePopup} />
-            <LoadingPopupAction label={i18n('cancelOffer')} iconId="xCircle" onPress={confirmCancelOffer} reverseOrder />
-          </>
-        }
-      />,
-    )
-  }, [closePopup, confirmCancelOffer, offer, setPopup])
-
-  return cancelOffer
+  if (!offer) return null
+  return (
+    <PopupComponent
+      title={i18n('offer.cancel.popup.title')}
+      content={<CancelOffer type={offer.type} />}
+      actionBgColor={tw`bg-black-3`}
+      bgColor={tw`bg-primary-background-light`}
+      actions={
+        <>
+          <PopupAction label={i18n('neverMind')} iconId="arrowLeftCircle" onPress={closePopup} />
+          <LoadingPopupAction label={i18n('cancelOffer')} iconId="xCircle" onPress={confirmCancelOffer} reverseOrder />
+        </>
+      }
+    />
+  )
 }

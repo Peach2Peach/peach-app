@@ -1,4 +1,4 @@
-import { getEscrowWalletForOffer } from '../wallet'
+import { getEscrowWalletForOffer } from '../wallet/getEscrowWalletForOffer'
 import { getSellOfferFromContract } from './getSellOfferFromContract'
 import { verifyAndSignReleaseTx } from './verifyAndSignReleaseTx'
 

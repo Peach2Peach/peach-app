@@ -37,12 +37,13 @@ exports[`NewButton should render correctly 1`] = `
       "borderRadius": 9999,
       "flexDirection": "row",
       "gap": 8,
-      "height": 40,
       "justifyContent": "center",
-      "minWidth": 128,
+      "minWidth": 104,
       "opacity": 1,
-      "paddingLeft": 32,
-      "paddingRight": 32,
+      "paddingBottom": 3,
+      "paddingLeft": 24,
+      "paddingRight": 24,
+      "paddingTop": 3,
     }
   }
 >
@@ -67,13 +68,7 @@ exports[`NewButton should render correctly 1`] = `
             "lineHeight": 22,
             "textTransform": "uppercase",
           },
-          {
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 15,
-            "letterSpacing": 0.54,
-            "lineHeight": 26,
-            "textTransform": "uppercase",
-          },
+          {},
           {
             "color": "#FFFCFA",
           },
@@ -105,19 +100,19 @@ exports[`NewButton should render correctly when disabled 1`] = `
       }
     }
     accessibilityValue={
-@@ -35,11 +35,11 @@
+@@ -34,11 +34,11 @@
+        "borderRadius": 9999,
         "flexDirection": "row",
         "gap": 8,
-        "height": 40,
         "justifyContent": "center",
-        "minWidth": 128,
+        "minWidth": 104,
 -       "opacity": 1,
 +       "opacity": 0.33,
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      }
-    }
-  >"
+        "paddingBottom": 3,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+        "paddingTop": 3,
+      }"
 `;
 
 exports[`NewButton should render correctly when ghost is true 1`] = `
@@ -139,9 +134,9 @@ exports[`NewButton should render correctly when ghost is true 1`] = `
 +       "borderWidth": 2,
         "flexDirection": "row",
         "gap": 8,
-        "height": 40,
         "justifyContent": "center",
-        "minWidth": 128,"
+        "minWidth": 104,
+        "opacity": 1,"
 `;
 
 exports[`NewButton should render correctly with icon 1`] = `
@@ -149,7 +144,7 @@ exports[`NewButton should render correctly with icon 1`] = `
 - First value
 + Second value
 
-@@ -79,6 +79,18 @@
+@@ -74,6 +74,18 @@
         ]
       }
     >

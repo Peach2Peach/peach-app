@@ -1,13 +1,18 @@
 import { View } from 'react-native'
-import { Header, Icon, PeachScrollView, Screen, Text } from '../../components'
+import { Header } from '../../components/Header'
+import { Icon } from '../../components/Icon'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { ScanQR } from '../../components/camera/ScanQR'
 import { Toggle } from '../../components/inputs'
 import { URLInput } from '../../components/inputs/URLInput'
-import { useShowHelp, useToggleBoolean } from '../../hooks'
+import { PeachText } from '../../components/text/PeachText'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import { useToggleBoolean } from '../../hooks/useToggleBoolean'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
+import { headerIcons } from '../../utils/layout/headerIcons'
 import { useNodeSetup } from './hooks/nodeSetup/useNodeSetup'
 
 export const NodeSetup = () => {
@@ -55,8 +60,8 @@ export const NodeSetup = () => {
       </PeachScrollView>
       {isConnected ? (
         <View style={tw`flex-row items-center justify-center gap-1`}>
-          <Text style={tw`uppercase button-medium`}>{i18n('wallet.settings.node.connected')}</Text>
-          <Icon id="check" size={16} color={tw`text-success-main`.color} />
+          <PeachText style={tw`uppercase button-medium`}>{i18n('wallet.settings.node.connected')}</PeachText>
+          <Icon id="check" size={16} color={tw.color('success-main')} />
         </View>
       ) : (
         <Button disabled={!canCheckConnection} style={tw`self-center`} iconId="share2" onPress={checkConnection}>

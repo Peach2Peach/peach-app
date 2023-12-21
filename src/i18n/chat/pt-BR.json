@@ -1,10 +1,11 @@
 {
   "chat" : "chat",
   "chat.decyptionFailed" : "não foi possível descriptografar a mensagem...",
+  "chat.disabled" : "o chat foi desativado",
   "chat.disputeDisclaimer.1" : "Essa é a sua conversa privada de negociação.",
   "chat.disputeDisclaimer.2" : "Se a outra parte sugerir uma negociação fora do Peach, lembre-se de que você",
   "chat.disputeDisclaimer.3" : "não estará mais protegido",
-  "chat.disputeDisclaimer.4" : " pelo serviço de Depósitos de Garantia do Peach!",
+  "chat.disputeDisclaimer.4" : " pelo serviço de Depósitos de Garantia da Peach!",
   "chat.disputeDisclaimer.5" : "Se achar que algo está indo mal, você pode abrir uma disputa no canto superior direito.",
   "chat.failedToSend" : "não foi possível enviar a mensagem.",
   "chat.mediator" : "mediador Peach",

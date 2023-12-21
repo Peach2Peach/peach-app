@@ -1,7 +1,7 @@
 import { validateMnemonic, wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
-import { getNetwork } from '../wallet'
-import { addProtocol } from '../web'
+import { getNetwork } from '../wallet/getNetwork'
+import { addProtocol } from '../web/addProtocol'
 import { isEmail } from './isEmail'
 
 export const rules = {

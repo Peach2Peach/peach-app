@@ -26,8 +26,4 @@ describe('configStore', () => {
     useConfigStore.getState().setMaxTradingAmount(100)
     expect(useConfigStore.getState().maxTradingAmount).toBe(100)
   })
-  it('should set maximum sell trading amount', () => {
-    useConfigStore.getState().setMaxSellTradingAmount(80)
-    expect(useConfigStore.getState().maxSellTradingAmount).toBe(80)
-  })
 })

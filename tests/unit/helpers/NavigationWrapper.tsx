@@ -25,7 +25,7 @@ export const getStateMock = jest.fn(
     ],
     index: 1,
     key: 'key',
-    routeNames: ['home'],
+    routeNames: ['homeScreen'],
     type: 'stack',
     stale: false,
   }),

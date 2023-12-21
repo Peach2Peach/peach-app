@@ -1,10 +1,14 @@
-import tw from '../../styles/tailwind'
-
-import { Header, HorizontalLine, PeachScrollView, RadioButtons, Screen, Text } from '../../components'
+import { Header } from '../../components/Header'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
-import { useShowHelp } from '../../hooks'
+import { RadioButtons } from '../../components/inputs/RadioButtons'
+import { PeachText } from '../../components/text/PeachText'
+import { HorizontalLine } from '../../components/ui/HorizontalLine'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
+import { headerIcons } from '../../utils/layout/headerIcons'
 import { CustomFeeItem } from './components/networkFees/CustomFeeItem'
 import { EstimatedFeeItem } from './components/networkFees/EstimatedFeeItem'
 import { useNetworkFeesSetup } from './hooks/useNetworkFeesSetup'
@@ -38,10 +42,10 @@ export const NetworkFees = () => {
       <PeachScrollView contentContainerStyle={tw`justify-center flex-1`}>
         <RadioButtons items={options} selectedValue={selectedFeeRate} onButtonPress={setSelectedFeeRate} />
         <HorizontalLine style={tw`mt-8`} />
-        <Text style={tw`mt-4 text-center text-black-2`}>{i18n('settings.networkFees.averageFees')}</Text>
-        <Text style={tw`text-center subtitle-1`}>
+        <PeachText style={tw`mt-4 text-center text-black-2`}>{i18n('settings.networkFees.averageFees')}</PeachText>
+        <PeachText style={tw`text-center subtitle-1`}>
           {i18n('settings.networkFees.xSatsPerByte', estimatedFees.economyFee.toString())}
-        </Text>
+        </PeachText>
       </PeachScrollView>
       <Button onPress={submit} disabled={!isValid || feeRateSet} style={tw`self-center min-w-52`}>
         {i18n(feeRateSet ? 'settings.networkFees.feeRateSet' : 'confirm')}

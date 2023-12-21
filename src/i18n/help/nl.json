@@ -37,7 +37,7 @@
   "help.referral.description.1" : "Voor iedere 10.000 sats die je referenties verhandelen op Peach, krijg jij een referentie punt.",
   "help.referral.description.2" : "Spaar je punten op om toffe beloningen te krijgen!",
   "help.referral.title" : "Peach referentie punten",
-  "help.sellingBitcoin.description" : "Je sats verkopen op Peach is gratis!",
+  "help.sellingBitcoin.description" : "Het verkopen van je sats op Peach is gratis!\n\nOm een verkoopaanbieding te publiceren, moet je je sats naar een escrow sturen om aan de koper te bewijzen dat je de sats hebt die je wilt verkopen!\n\nDe escrow is een Bitcoin multi-handtekeningen portemonnee waarbij je één sleutel bezit en Peach een andere vasthoudt.",
   "help.sellingBitcoin.title" : "bitcoin verkopen",
   "help.tradingLimit.description" : "Peach moet handelslimieten stellen om aan de Zwitserse wet te voldoen. Er zijn drie handelslimieten: \nJe kunt elke dag tot 1000 CHF aan bitcoin kopen of verkopen op Peach. \nJe kunt elke maand tot 1000 CHF aan bitcoin kopen of verkopen met contant geld of online cadeaubonnen (ook wel anonieme betaalmethoden genoemd). \nJe kunt tot 100 000 CHF aan bitcoin kopen of verkopen per jaar.",
   "help.tradingLimit.title" : "handelslimieten"

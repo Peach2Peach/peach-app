@@ -3,7 +3,8 @@ import { Animated, BackHandler, Easing, Pressable, View, useWindowDimensions } f
 
 import { shallow } from 'zustand/shallow'
 import tw from '../../styles/tailwind'
-import { DrawerHeader, DrawerOptions } from './components'
+import { DrawerHeader } from './components/DrawerHeader'
+import { DrawerOptions } from './components/DrawerOptions'
 import { useDrawerState } from './useDrawerState'
 
 const animConfig = {

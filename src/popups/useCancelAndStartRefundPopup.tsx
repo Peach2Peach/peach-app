@@ -5,8 +5,9 @@ import { useRefundEscrow } from '../hooks/useRefundEscrow'
 import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
 import { useShowLoadingPopup } from '../hooks/useShowLoadingPopup'
 import { usePopupStore } from '../store/usePopupStore'
+import { getAbortWithTimeout } from '../utils/getAbortWithTimeout'
 import i18n from '../utils/i18n'
-import { cancelOffer } from '../utils/peachAPI'
+import { peachAPI } from '../utils/peachAPI'
 
 export const useCancelAndStartRefundPopup = () => {
   const refundEscrow = useRefundEscrow()
@@ -18,8 +19,11 @@ export const useCancelAndStartRefundPopup = () => {
     async (sellOffer: SellOffer) => {
       showLoadingPopup({ title: i18n('refund.loading.title') })
 
-      const [refundPsbtResult, refundPsbtError] = await cancelOffer({ offerId: sellOffer.id, timeout: FIFTEEN_SECONDS })
-      if (refundPsbtResult) {
+      const { result: refundPsbtResult, error: refundPsbtError } = await peachAPI.private.offer.cancelOffer({
+        offerId: sellOffer.id,
+        signal: getAbortWithTimeout(FIFTEEN_SECONDS).signal,
+      })
+      if (refundPsbtResult && 'psbt' in refundPsbtResult) {
         await refundEscrow(sellOffer, refundPsbtResult.psbt)
       } else {
         showError(refundPsbtError?.error)

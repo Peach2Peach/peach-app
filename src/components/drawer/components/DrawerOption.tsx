@@ -3,7 +3,8 @@ import tw from '../../../styles/tailwind'
 import { Flag } from '../../Flag'
 import { Icon } from '../../Icon'
 import { PaymentLogo } from '../../payment/PaymentLogo'
-import { Text, FixedHeightText } from '../../text'
+import { FixedHeightText } from '../../text/FixedHeightText'
+import { PeachText } from '../../text/PeachText'
 
 export const DrawerOption = ({
   logoID,
@@ -36,13 +37,13 @@ export const DrawerOption = ({
     )}
     {flagID && <Flag id={flagID} style={tw`w-8 h-6`} />}
 
-    <View style={[tw`justify-center flex-grow`, flagID && tw`gap-2px`]}>
+    <View style={[tw`justify-center grow`, flagID && tw`gap-2px`]}>
       {flagID || logoID || !subtext ? (
         <FixedHeightText height={flagID && subtext ? 17 : 22} style={tw`input-title`}>
           {title}
         </FixedHeightText>
       ) : (
-        <Text style={[tw`input-title`, highlighted && tw`text-primary-main`]}>{title}</Text>
+        <PeachText style={[tw`input-title`, highlighted && tw`text-primary-main`]}>{title}</PeachText>
       )}
 
       {subtext
@@ -51,11 +52,11 @@ export const DrawerOption = ({
             {subtext}
           </FixedHeightText>
         ) : (
-          <Text style={[tw`body-s`, highlighted && tw`text-primary-main`]}>{subtext}</Text>
+          <PeachText style={[tw`body-s`, highlighted && tw`text-primary-main`]}>{subtext}</PeachText>
         ))}
     </View>
     {(iconRightID || highlighted) && (
-      <Icon id={iconRightID ? iconRightID : 'star'} style={tw`w-6 h-6`} color={tw`text-primary-main`.color} />
+      <Icon id={iconRightID ? iconRightID : 'star'} style={tw`w-6 h-6`} color={tw.color('primary-main')} />
     )}
   </TouchableOpacity>
 )

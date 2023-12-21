@@ -1,11 +1,6 @@
-import { View } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { pendingTransactionSummary } from '../../../../../tests/unit/data/transactionDetailData'
 import { OutputInfo } from './OutputInfo'
-
-jest.mock('../../../../components/animation/Fade', () => ({
-  Fade: (_props: { show: boolean }) => <View />,
-}))
 
 jest.useFakeTimers()
 

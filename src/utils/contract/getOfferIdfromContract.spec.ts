@@ -1,7 +1,7 @@
 import { strictEqual } from 'assert'
+import * as contractData from '../../../peach-api/src/testData/contract'
 import * as accountData from '../../../tests/unit/data/accountData'
-import * as contractData from '../../../tests/unit/data/contractData'
-import { setAccount } from '../account'
+import { setAccount } from '../account/account'
 import { getOfferIdFromContract } from './getOfferIdFromContract'
 
 describe('getOfferIdFromContract', () => {

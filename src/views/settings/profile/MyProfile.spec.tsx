@@ -1,13 +1,7 @@
 import { render, waitFor } from 'test-utils'
-import { apiSuccess } from '../../../../tests/unit/data/peachAPIData'
 import { defaultUser } from '../../../../tests/unit/data/userData'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { MyProfile } from './MyProfile'
-
-const authMock = jest.fn().mockResolvedValue([apiSuccess, null])
-jest.mock('../../../utils/peachAPI/private/user', () => ({
-  auth: (...args: unknown[]) => authMock(...args),
-}))
 
 jest.useFakeTimers()
 const DATE_TO_USE = new Date('2009-09-01')

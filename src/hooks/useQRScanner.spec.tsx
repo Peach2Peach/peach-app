@@ -4,7 +4,7 @@ import { usePopupStore } from '../store/usePopupStore'
 import { useQRScanner } from './useQRScanner'
 
 const isIOSMock = jest.fn().mockReturnValue(true)
-jest.mock('../utils/system', () => ({
+jest.mock('../utils/system/isIOS', () => ({
   isIOS: () => isIOSMock(),
 }))
 describe('useQRScanner', () => {

@@ -1,12 +1,14 @@
-import { Header, Screen, Text } from '../../components'
+import { Screen } from '../../components/Screen'
+import { PeachText } from '../../components/text/PeachText'
 import tw from '../../styles/tailwind'
-import { isSellOffer } from '../../utils/offer'
+import { isSellOffer } from '../../utils/offer/isSellOffer'
 
 import { View } from 'react-native'
 import { EscrowButton } from '../../components/EscrowButton'
+import { Header } from '../../components/Header'
 import { useWalletLabel } from '../../components/offer/useWalletLabel'
-import { useRoute } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
+import { useRoute } from '../../hooks/useRoute'
 import i18n from '../../utils/i18n'
 import { LoadingScreen } from '../loading/LoadingScreen'
 
@@ -36,7 +38,7 @@ function OfferDetailsScreen ({ offer }: { offer: SellOffer }) {
   return (
     <Screen header={<OfferDetailsHeader {...offer} />}>
       <View style={tw`justify-center grow`}>
-        <Text style={tw.md`body-l`}>{i18n('contract.seller.refunded', walletLabel)}</Text>
+        <PeachText style={tw`md:body-l`}>{i18n('contract.seller.refunded', walletLabel)}</PeachText>
       </View>
 
       <View style={tw`h-10`}>{!!offer.escrow && <EscrowButton style={tw`self-center`} escrow={offer.escrow} />}</View>

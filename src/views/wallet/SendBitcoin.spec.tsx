@@ -10,10 +10,14 @@ import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { swipeRight } from '../../../tests/unit/helpers/fireSwipeEvent'
 import { walletListUnspentMock } from '../../../tests/unit/mocks/bdkRN'
+import { PopupAction } from '../../components/popup'
+import { PopupComponent } from '../../components/popup/PopupComponent'
 import { WithdrawalConfirmation } from '../../popups/WithdrawalConfirmation'
 import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
-import { createWalletFromBase58, getNetwork, getUTXOId } from '../../utils/wallet'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
+import { createWalletFromBase58 } from '../../utils/wallet/createWalletFromBase58'
+import { getNetwork } from '../../utils/wallet/getNetwork'
+import { getUTXOId } from '../../utils/wallet/getUTXOId'
 import { peachWallet, setPeachWallet } from '../../utils/wallet/setWallet'
 import { defaultWalletState, useWalletState } from '../../utils/wallet/walletStore'
 import { SendBitcoin } from './SendBitcoin'
@@ -113,11 +117,11 @@ describe('SendBitcoin', () => {
     swipeRight(slider)
 
     await waitFor(() => {
-      expect(usePopupStore.getState()).toStrictEqual(
-        expect.objectContaining({
-          visible: true,
-          title: 'sending funds',
-          content: (
+      expect(usePopupStore.getState().visible).toBe(true)
+      expect(usePopupStore.getState().popupComponent).toStrictEqual(
+        <PopupComponent
+          title="sending funds"
+          content={
             <WithdrawalConfirmation
               feeRate={6}
               address="bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0"
@@ -125,19 +129,19 @@ describe('SendBitcoin', () => {
               fee={1000}
               {...{ shouldDrainWallet: false, utxos: [] }}
             />
-          ),
-          action1: {
-            callback: expect.any(Function),
-            label: 'confirm & send',
-            icon: 'arrowRightCircle',
-          },
-          action2: {
-            callback: expect.any(Function),
-            label: 'cancel',
-            icon: 'xCircle',
-          },
-          level: 'APP',
-        }),
+          }
+          actions={
+            <>
+              <PopupAction label="cancel" iconId="xCircle" onPress={expect.any(Function)} />
+              <PopupAction
+                label="confirm & send"
+                iconId="arrowRightCircle"
+                onPress={expect.any(Function)}
+                reverseOrder
+              />
+            </>
+          }
+        />,
       )
     })
   })
@@ -175,11 +179,11 @@ describe('SendBitcoin', () => {
     swipeRight(getByTestId('confirmSlider'))
 
     await waitFor(() => {
-      expect(usePopupStore.getState()).toStrictEqual(
-        expect.objectContaining({
-          visible: true,
-          title: 'sending funds',
-          content: (
+      expect(usePopupStore.getState().visible).toBe(true)
+      expect(usePopupStore.getState().popupComponent).toStrictEqual(
+        <PopupComponent
+          title="sending funds"
+          content={
             <WithdrawalConfirmation
               feeRate={4}
               address="bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0"
@@ -187,19 +191,19 @@ describe('SendBitcoin', () => {
               fee={1000}
               {...{ shouldDrainWallet: false, utxos: [] }}
             />
-          ),
-          action1: {
-            callback: expect.any(Function),
-            label: 'confirm & send',
-            icon: 'arrowRightCircle',
-          },
-          action2: {
-            callback: expect.any(Function),
-            label: 'cancel',
-            icon: 'xCircle',
-          },
-          level: 'APP',
-        }),
+          }
+          actions={
+            <>
+              <PopupAction label="cancel" iconId="xCircle" onPress={expect.any(Function)} />
+              <PopupAction
+                label="confirm & send"
+                iconId="arrowRightCircle"
+                onPress={expect.any(Function)}
+                reverseOrder
+              />
+            </>
+          }
+        />,
       )
     })
   })

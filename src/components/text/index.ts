@@ -1,6 +1,0 @@
-export { BulletPoint } from './BulletPoint'
-export { FixedHeightText } from './FixedHeightText'
-export { ParsedPeachText } from './ParsedPeachText'
-export { PriceFormat } from './PriceFormat'
-export { PeachText as Text } from './Text'
-export { SimpleTimer, Timer } from './Timer'

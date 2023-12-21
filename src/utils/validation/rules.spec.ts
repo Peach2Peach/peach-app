@@ -33,7 +33,7 @@ const invalidAddresses = {
 }
 
 const getNetworkMock = jest.fn().mockReturnValue(networks.regtest)
-jest.mock('../wallet', () => ({
+jest.mock('../wallet/getNetwork', () => ({
   getNetwork: () => getNetworkMock(),
 }))
 

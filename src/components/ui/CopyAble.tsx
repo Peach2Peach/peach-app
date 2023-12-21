@@ -1,11 +1,10 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-import { useCallback, useImperativeHandle, useState } from 'react'
-import { Pressable, TextStyle } from 'react-native'
+import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
+import { Animated, TextStyle, TouchableOpacity } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { Fade } from '../animation'
 import { Icon } from '../Icon'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 
 export type CopyRef = {
   copy: () => void
@@ -24,30 +23,52 @@ type Props = ComponentProps & {
   textPosition?: keyof typeof textPositions
 }
 
-export const CopyAble = ({ forwardRef, value, color, disabled, style, textPosition = 'top' }: Props) => {
-  const [showCopied, setShowCopied] = useState(false)
-
-  const copy = useCallback(() => {
-    if (!value) return
-    Clipboard.setString(value)
-    setShowCopied(true)
-    setTimeout(() => setShowCopied(false), 500)
-  }, [value])
-
-  useImperativeHandle(forwardRef, () => ({
-    copy,
-  }))
-
-  return (
-    <Pressable
-      onPress={copy}
-      disabled={!value || disabled}
-      style={[tw`flex-row items-center justify-center flex-shrink w-4 h-4`, style]}
-    >
-      <Icon id="copy" style={tw`w-full h-full`} color={color?.color || tw`text-primary-main`.color} />
-      <Fade show={showCopied} duration={300} delay={0} style={textPositions[textPosition]}>
-        <Text style={[tw`tooltip`, color || tw`text-primary-main`]}>{i18n('copied')}</Text>
-      </Fade>
-    </Pressable>
-  )
+export type CopyAbleRef = {
+  copy: () => void
 }
+
+function fadeAnimation (opacity: Animated.Value) {
+  Animated.sequence([
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }),
+    Animated.timing(opacity, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+      delay: 500,
+    }),
+  ]).start()
+}
+
+export const CopyAble = forwardRef<CopyAbleRef, Props>(
+  ({ value, color, disabled, style, textPosition = 'top' }, ref) => {
+    const opacity = useRef(new Animated.Value(0)).current
+
+    const copy = useCallback(() => {
+      if (!value) return
+      Clipboard.setString(value)
+      fadeAnimation(opacity)
+    }, [opacity, value])
+
+    useImperativeHandle(ref, () => ({
+      copy,
+    }))
+
+    return (
+      <TouchableOpacity
+        onPress={copy}
+        disabled={!value || disabled}
+        style={[tw`flex-row items-center justify-center w-4 h-4 shrink`, style, { overflow: 'visible' }]}
+      >
+        <Icon id="copy" style={tw`w-full h-full`} color={color?.color || tw.color('primary-main')} />
+
+        <Animated.View style={[tw`absolute`, textPositions[textPosition], { opacity }]}>
+          <PeachText style={[tw`tooltip`, color || tw`text-primary-main`]}>{i18n('copied')}</PeachText>
+        </Animated.View>
+      </TouchableOpacity>
+    )
+  },
+)

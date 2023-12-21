@@ -2,7 +2,6 @@ import analytics from '@react-native-firebase/analytics'
 import { responseUtils } from 'test-utils'
 import { recoveredAccount } from '../../../tests/unit/data/accountData'
 import { buyOffer, sellOffer } from '../../../tests/unit/data/offerData'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { useSettingsStore } from '../../store/settingsStore'
 import { error } from '../log'
 import { peachAPI } from '../peachAPI'
@@ -43,6 +42,6 @@ describe('recoverAccount', () => {
     getOffersMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
 
     await recoverAccount(recoveredAccount)
-    expect(error).toHaveBeenCalledWith('Error', unauthorizedError)
+    expect(error).toHaveBeenCalledWith('Error', { error: 'UNAUTHORIZED' })
   })
 })

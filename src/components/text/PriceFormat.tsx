@@ -1,5 +1,6 @@
-import { groupChars, priceFormat } from '../../utils/string'
-import { PeachText } from './Text'
+import { groupChars } from '../../utils/string/groupChars'
+import { priceFormat } from '../../utils/string/priceFormat'
+import { PeachText } from './PeachText'
 
 type Props = ComponentProps & {
   amount: number

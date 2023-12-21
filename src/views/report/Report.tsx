@@ -1,11 +1,18 @@
 import { useRef } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
-import { Icon, Input, PeachScrollView, Screen, Text } from '../../components'
+import { Icon } from '../../components/Icon'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
-import { useNavigation, useRoute, useToggleBoolean, useValidatedState } from '../../hooks'
+import { Input } from '../../components/inputs/Input'
+import { PeachText } from '../../components/text/PeachText'
+import { useNavigation } from '../../hooks/useNavigation'
+import { useRoute } from '../../hooks/useRoute'
 import { useShowAppPopup } from '../../hooks/useShowAppPopup'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useToggleBoolean } from '../../hooks/useToggleBoolean'
+import { useValidatedState } from '../../hooks/useValidatedState'
 import tw from '../../styles/tailwind'
 import { useAccountStore } from '../../utils/account/account'
 import i18n from '../../utils/i18n'
@@ -43,7 +50,7 @@ export const Report = () => {
 
     if (result) {
       if (publicKey) {
-        navigation.navigate('settings')
+        navigation.navigate('homeScreen', { screen: 'settings' })
       } else {
         navigation.navigate('welcome')
       }
@@ -90,23 +97,23 @@ export const Report = () => {
           <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row items-center pl-3`}>
             <View style={tw`items-center justify-center w-5 h-5`}>
               {shareDeviceID ? (
-                <Icon id="checkboxMark" size={20} color={tw`text-primary-main`.color} />
+                <Icon id="checkboxMark" size={20} color={tw.color('primary-main')} />
               ) : (
                 <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
               )}
             </View>
-            <Text style={tw`pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</Text>
+            <PeachText style={tw`pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</PeachText>
           </Pressable>
         )}
         <Pressable onPress={toggleShareLogs} style={tw`flex-row items-center pl-3`}>
           <View style={tw`flex items-center justify-center w-5 h-5`}>
             {shareLogs ? (
-              <Icon id="checkboxMark" size={20} color={tw`text-primary-main`.color} />
+              <Icon id="checkboxMark" size={20} color={tw.color('primary-main')} />
             ) : (
               <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
             )}
           </View>
-          <Text style={tw`pl-2 subtitle-1`}>{i18n('form.shareLogs')}</Text>
+          <PeachText style={tw`pl-2 subtitle-1`}>{i18n('form.shareLogs')}</PeachText>
         </Pressable>
       </PeachScrollView>
       <Button style={tw`self-center`} onPress={submit} disabled={!(isEmailValid && isTopicValid && isMessageValid)}>

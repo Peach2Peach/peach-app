@@ -1,6 +1,5 @@
 import { Control, useController } from 'react-hook-form'
-import { Input } from '../../components/inputs'
-import { InputProps } from '../../components/inputs/Input'
+import { Input, InputProps } from '../../components/inputs/Input'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import i18n from '../../utils/i18n'
 import { FormType } from './PaymentMethodForm'

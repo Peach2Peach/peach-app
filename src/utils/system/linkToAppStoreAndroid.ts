@@ -1,6 +1,6 @@
 import { getBundleId, getInstallerPackageNameSync } from 'react-native-device-info'
 import { languageState } from '../i18n'
-import { getLocalizedLink } from '../web'
+import { getLocalizedLink } from '../web/getLocalizedLink'
 import { openURL } from '../web/openURL'
 
 export const linkToAppStoreAndroid = () => {

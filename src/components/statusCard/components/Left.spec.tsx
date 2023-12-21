@@ -1,17 +1,17 @@
-import { fireEvent, render, waitFor } from 'test-utils'
-import { contract } from '../../../../tests/unit/data/contractData'
+import { fireEvent, render, responseUtils, waitFor } from 'test-utils'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import tw from '../../../styles/tailwind'
-import { contractIdToHex } from '../../../utils/contract'
-import { offerIdToHex } from '../../../utils/offer'
+import { contractIdToHex } from '../../../utils/contract/contractIdToHex'
+import { offerIdToHex } from '../../../utils/offer/offerIdToHex'
+import { peachAPI } from '../../../utils/peachAPI'
 import { Icon } from '../../Icon'
 import { Left } from './Left'
 
-const getOfferDetailsMock = jest.fn(() => Promise.resolve([{ ...sellOffer, tradeStatus: 'searchingForPeer' }, null]))
-jest.mock('../../../utils/peachAPI/private/offer/getOfferDetails', () => ({
-  getOfferDetails: () => getOfferDetailsMock(),
-}))
+jest
+  .spyOn(peachAPI.private.offer, 'getOfferDetails')
+  .mockResolvedValue({ result: { ...sellOffer, tradeStatus: 'searchingForPeer' }, ...responseUtils })
 
 describe('Left', () => {
   it('should render correctly with a title and date', () => {

@@ -1,5 +1,5 @@
 import { UseMutationOptions, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useRoute } from '../../../hooks'
+import { useRoute } from '../../../hooks/useRoute'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 
 export function useContractMutation (optimisticContract: Partial<Contract>, options: UseMutationOptions) {

@@ -1,8 +1,9 @@
 import { Fragment, useEffect, useRef } from 'react'
 import { ScrollView } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { HorizontalLine, PeachScrollView } from '../..'
 import tw from '../../../styles/tailwind'
+import { PeachScrollView } from '../../PeachScrollView'
+import { HorizontalLine } from '../../ui/HorizontalLine'
 import { useDrawerState } from '../useDrawerState'
 import { DrawerOption } from './DrawerOption'
 

@@ -1,6 +1,6 @@
 import { View } from 'react-native'
-import { HorizontalLine } from '../../../components'
-import { Text } from '../../../components/text'
+import { PeachText } from '../../../components/text/PeachText'
+import { HorizontalLine } from '../../../components/ui/HorizontalLine'
 import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -20,7 +20,7 @@ export const TradeStatusInfo = () => {
         value={tradeInformationGetters[view === 'buyer' ? 'seller' : 'buyer'](contract)}
       />
       <HorizontalLine />
-      <Text style={[tw.md`body-l`]}>{getTradeActionStatusText(contract, view, isPeachWalletActive)}</Text>
+      <PeachText style={[tw`md:body-l`]}>{getTradeActionStatusText(contract, view, isPeachWalletActive)}</PeachText>
     </View>
   )
 }

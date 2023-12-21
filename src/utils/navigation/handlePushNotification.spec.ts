@@ -1,6 +1,5 @@
 /* eslint-disable max-lines-per-function */
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { responseUtils } from '../../../tests/unit/helpers/test-utils'
 import { peachAPI } from '../peachAPI'
@@ -9,10 +8,7 @@ import { Navigation, handlePushNotification } from './handlePushNotification'
 type MessageWithData = FirebaseMessagingTypes.RemoteMessage & { data: object }
 
 const getContractMock = jest.spyOn(peachAPI.private.contract, 'getContract')
-const getOfferDetailsMock = jest.fn()
-jest.mock('../peachAPI/private/offer/getOfferDetails', () => ({
-  getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
-}))
+const getOfferDetailsMock = jest.spyOn(peachAPI.private.offer, 'getOfferDetails')
 
 const timestamp = 1231006505000
 describe('handlePushNotification', () => {
@@ -31,10 +27,6 @@ describe('handlePushNotification', () => {
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
-      contract: {
-        ...contract,
-        paymentMade: new Date(timestamp),
-      },
       contractId: '1',
     })
   })
@@ -68,7 +60,6 @@ describe('handlePushNotification', () => {
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
-      contract: { ...contract, paymentMade: expect.any(Date) },
       contractId: '1',
     })
   })
@@ -94,7 +85,10 @@ describe('handlePushNotification', () => {
 
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('yourTrades', { tab: 'yourTrades.sell' })
+    expect(navigationRef.navigate).toHaveBeenCalledWith('homeScreen', {
+      screen: 'yourTrades',
+      params: { tab: 'yourTrades.sell' },
+    })
   })
 
   it('navigates to yourTrades buy when shouldGoToYourTradesBuy is true', async () => {
@@ -104,7 +98,10 @@ describe('handlePushNotification', () => {
 
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('yourTrades', { tab: 'yourTrades.buy' })
+    expect(navigationRef.navigate).toHaveBeenCalledWith('homeScreen', {
+      screen: 'yourTrades',
+      params: { tab: 'yourTrades.buy' },
+    })
   })
 
   it('navigates to sell when shouldGoToSell is true', async () => {
@@ -113,11 +110,13 @@ describe('handlePushNotification', () => {
     } as MessageWithData
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('sell')
+    expect(navigationRef.navigate).toHaveBeenCalledWith('homeScreen', {
+      screen: 'home',
+    })
   })
 
   it('navigates to search when shouldGoToSearch is true and offer is defined', async () => {
-    getOfferDetailsMock.mockResolvedValue([{ ...sellOffer, matches: ['2'] }, null])
+    getOfferDetailsMock.mockResolvedValueOnce({ result: { ...sellOffer, matches: ['2'] }, ...responseUtils })
 
     const remoteMessage = {
       data: {
@@ -131,26 +130,7 @@ describe('handlePushNotification', () => {
     expect(navigationRef.navigate).toHaveBeenCalledWith('search', { offerId: sellOffer.id })
   })
 
-  it('navigates to offerPublished when shouldGoToOfferPublished is true and offerId is defined', async () => {
-    getOfferDetailsMock.mockResolvedValue([sellOffer, null])
-    const remoteMessage = {
-      data: {
-        type: 'offer.escrowFunded',
-        offerId: sellOffer.id,
-      },
-    } as MessageWithData
-
-    await handlePushNotification(navigationRef, remoteMessage)
-
-    expect(navigationRef.navigate).toHaveBeenCalledWith('offerPublished', {
-      offerId: sellOffer.id,
-      isSellOffer: true,
-      shouldGoBack: true,
-    })
-  })
-
   it('navigates to offer when offerId is defined', async () => {
-    getOfferDetailsMock.mockResolvedValue([sellOffer, null])
     const remoteMessage = {
       data: {
         type: 'offer.canceled',
@@ -164,27 +144,11 @@ describe('handlePushNotification', () => {
   })
 
   it('should do nothing and return false in unknown other case', async () => {
-    getOfferDetailsMock.mockResolvedValue([sellOffer, null])
     const remoteMessage = {
       data: { type: 'unhandled.messageType' },
     } as MessageWithData
 
     const result = await handlePushNotification(navigationRef, remoteMessage)
     expect(result).toEqual(false)
-  })
-  it('navigates to newBadges when badges are defined on the PN', async () => {
-    const badges = 'fastTrader'
-
-    const remoteMessage = {
-      data: {
-        type: 'contract.paymentMade',
-        badges,
-        sentTime: timestamp,
-      },
-    } as MessageWithData
-
-    await handlePushNotification(navigationRef, remoteMessage)
-
-    expect(navigationRef.navigate).toHaveBeenCalledWith('newBadge', { badges })
   })
 })

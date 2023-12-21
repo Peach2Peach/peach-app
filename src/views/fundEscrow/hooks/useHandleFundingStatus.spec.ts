@@ -3,8 +3,7 @@ import { renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { setAccount } from '../../../utils/account'
-import { useAccountStore } from '../../../utils/account/account'
+import { setAccount, useAccountStore } from '../../../utils/account/account'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useHandleFundingStatus } from './useHandleFundingStatus'
 
@@ -46,9 +45,6 @@ const searchWithMatches = {
       },
     ],
   },
-}
-const searchWithNoPages = {
-  data: {},
 }
 const fetchMatchesMock = jest.fn().mockResolvedValue(searchWithNoMatches)
 const useOfferMatchesMock = jest.fn().mockReturnValue({
@@ -134,23 +130,11 @@ describe('useHandleFundingStatus', () => {
     renderHook(useHandleFundingStatus, { initialProps })
     expect(replaceMock).toHaveBeenCalledWith('wrongFundingAmount', { offerId: sellOffer.id })
   })
-  it('should go to offerPublished if funding status is FUNDED but no matches yet', async () => {
-    renderHook(useHandleFundingStatus, { initialProps: fundedProps })
-    await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
-    expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId: sellOffer.id, isSellOffer: true })
-  })
   it('should go to search if funding status is FUNDED with matches already', async () => {
     fetchMatchesMock.mockResolvedValueOnce(searchWithMatches)
 
     renderHook(useHandleFundingStatus, { initialProps: fundedProps })
     await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
     expect(replaceMock).toHaveBeenCalledWith('search', { offerId: sellOffer.id })
-  })
-  it('should go to offerPublished if funding status is FUNDED but no search response', async () => {
-    fetchMatchesMock.mockResolvedValueOnce(searchWithNoPages)
-
-    renderHook(useHandleFundingStatus, { initialProps: fundedProps })
-    await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
-    expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId: sellOffer.id, isSellOffer: true })
   })
 })

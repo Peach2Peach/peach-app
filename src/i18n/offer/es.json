@@ -34,6 +34,7 @@
   "offer.requiredAction.releaseEscrow" : "liberar fondos",
   "offer.requiredAction.releaseEscrow.dispute" : "disputa perdida: liberar fondos",
   "offer.requiredAction.searchingForPeer" : "buscando match",
+  "offer.requiredAction.unknown" : "desconocido - ¡actualiza tu aplicación!",
   "offer.requiredAction.waiting" : "esperando por $0",
   "offer.requiredAction.waiting.buyer" : "esperando el pago",
   "offer.requiredAction.waiting.seller" : "esperando al vendedor",
@@ -55,5 +56,6 @@
   "offer.summary.withTheseMethods" : "con estos métodos de pago:",
   "offer.summary.youAreBuying" : "quieres comprar entre",
   "offer.summary.youAreSelling" : "estás vendiendo",
-  "offer.summary.youWereSelling" : "vendiste"
+  "offer.summary.youWereSelling" : "vendiste",
+  "yourTrades.unknown" : "desconocido"
 }

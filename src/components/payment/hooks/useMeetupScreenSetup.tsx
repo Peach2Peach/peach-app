@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
+import { useRoute } from '../../../hooks/useRoute'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { useAccountStore } from '../../../utils/account/account'
-import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
+import { getPaymentMethodInfo } from '../../../utils/paymentMethod/getPaymentMethodInfo'
 import { toggleCurrency } from '../../inputs/paymentForms/utils'
 
 export const useMeetupScreenSetup = () => {

@@ -1,6 +1,7 @@
 {
   "chat" : "discussion",
   "chat.decyptionFailed" : "impossible de déchiffrer le message...",
+  "chat.disabled" : "le chat a été désactivé",
   "chat.disputeDisclaimer.1" : "Ceci est votre discussion privée d'échange.",
   "chat.disputeDisclaimer.2" : "Si votre contrepartie propose de trader en dehors de Peach, gardez à l'esprit que vous",
   "chat.disputeDisclaimer.3" : "plus protégé",

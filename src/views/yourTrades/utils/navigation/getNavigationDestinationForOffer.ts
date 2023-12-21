@@ -2,24 +2,21 @@ import { shouldGoToFundEscrow } from './shouldGoToFundEscrow'
 import { shouldGoToSearch } from './shouldGoToSearch'
 import { shouldGoToWrongFundingAmount } from './shouldGoToWrongFundingAmount'
 
-type Destination =
-  | ['offer' | 'fundEscrow' | 'search' | 'wrongFundingAmount', { offerId: string }]
-  | ['yourTrades', undefined]
-
 export const getNavigationDestinationForOffer = ({
   tradeStatus,
   id: offerId,
-}: {
-  tradeStatus: OfferSummary['tradeStatus']
-  id: OfferSummary['id']
-}): Destination => {
+  type,
+}: Pick<OfferSummary, 'tradeStatus' | 'id' | 'type'>) => {
   if (tradeStatus === 'offerCanceled') {
-    return ['offer', { offerId }]
+    return ['offer', { offerId }] as const
   }
 
-  if (shouldGoToFundEscrow(tradeStatus)) return ['fundEscrow', { offerId }]
-  if (shouldGoToSearch(tradeStatus)) return ['search', { offerId }]
-  if (shouldGoToWrongFundingAmount(tradeStatus)) return ['wrongFundingAmount', { offerId }]
+  if (shouldGoToFundEscrow(tradeStatus)) return ['fundEscrow', { offerId }] as const
+  if (shouldGoToSearch(tradeStatus)) {
+    if (type === 'bid') return ['explore', { offerId }] as const
+    return ['search', { offerId }] as const
+  }
+  if (shouldGoToWrongFundingAmount(tradeStatus)) return ['wrongFundingAmount', { offerId }] as const
 
-  return ['yourTrades', undefined]
+  return ['homeScreen', { screen: 'yourTrades' }] as const
 }

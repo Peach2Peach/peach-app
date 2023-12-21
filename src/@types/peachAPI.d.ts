@@ -16,14 +16,6 @@ type PeachWS = {
   onmessage?: WebSocket['onmessage'] | (() => {})
 }
 
-type ContractUpdate = {
-  contractId: Contract['id']
-  event: 'paymentMade' | 'paymentConfirmed'
-  data: {
-    date: number
-  }
-}
-
 type AccessToken = {
   expiry: number
   accessToken: string
@@ -65,6 +57,7 @@ type User = {
   recentRating: number
   referralCode?: string
   referredTradingAmount: number
+  openedTrades: number
   trades: number
   uniqueId: string
   usedReferralCode?: string
@@ -251,7 +244,10 @@ type TradeStatus =
   | 'tradeCompleted'
 
 type OfferPaymentData = Partial<
-  Record<PaymentMethod, { hashes: string[]; hash?: string; country?: PaymentMethodCountry }>
+  Record<
+    PaymentMethod,
+    { hashes: string[]; hash?: string; country?: PaymentMethodCountry; encrypted?: string; signature?: string }
+  >
 >
 type PostedOffer = BuyOffer | SellOffer
 type PostOfferResponseBody = PostedOffer | PostedOffer[]
@@ -303,13 +299,9 @@ type Match = {
   symmetricKeySignature: string
   matched: boolean
   unavailable: MatchUnavailableReasons
+  instantTrade: boolean
 }
-type GetMatchesResponse = {
-  offerId: string
-  matches: Match[]
-  totalMatches: number
-  nextPage: number
-}
+
 type MatchResponse =
   | {
       success: true
@@ -473,14 +465,10 @@ type SellSorter = 'highestPrice' | 'bestReputation'
 
 type Sorter = BuySorter | SellSorter
 
-type MatchFilter = {
-  maxPremium: number | null
-}
-
-declare type GetUserPaymentMethodInfoRequestParams = {}
-declare type GetUserPaymentMethodInfoRequestQuery = {}
-declare type GetUserPaymentMethodInfoRequestBody = {}
-declare type GetUserPaymentMethodInfoResponseBody = {
+type GetUserPaymentMethodInfoRequestParams = {}
+type GetUserPaymentMethodInfoRequestQuery = {}
+type GetUserPaymentMethodInfoRequestBody = {}
+type GetUserPaymentMethodInfoResponseBody = {
   forbidden: {
     buy: PaymentMethod[]
     sell: PaymentMethod[]

@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable max-lines */
 
+import { BuyOffer, SellOffer } from '../../../peach-api/src/@types/offer'
 import { twintDataHashes, validSEPAData, validSEPADataHashes } from './paymentData'
 import { defaultUser } from './userData'
 
@@ -25,9 +26,11 @@ export const buyOffer: BuyOffer = {
   releaseAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
   tradeStatus: 'searchingForPeer',
   maxPremium: null,
+  minReputation: null,
   user: defaultUser,
   escrowFee: 0.0001,
   freeTrade: false,
+  message: '',
 }
 
 export const sellOffer: SellOffer = {
@@ -85,6 +88,7 @@ export const buyOfferUnpublished: BuyOfferDraft = {
   tradeStatus: 'offerHidden',
   releaseAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
   maxPremium: null,
+  minReputation: null,
 }
 
 export const matchOffer: Match = {
@@ -113,4 +117,5 @@ export const matchOffer: Match = {
   unavailable: {
     exceedsLimit: [],
   },
+  instantTrade: false,
 }

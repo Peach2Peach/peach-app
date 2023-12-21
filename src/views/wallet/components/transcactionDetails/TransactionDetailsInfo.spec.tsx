@@ -1,4 +1,3 @@
-import { View } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { fireEvent, render } from 'test-utils'
 import {
@@ -6,10 +5,6 @@ import {
   pendingTransactionSummary,
 } from '../../../../../tests/unit/data/transactionDetailData'
 import { TransactionDetailsInfo } from './TransactionDetailsInfo'
-
-jest.mock('../../../../components/animation/Fade', () => ({
-  Fade: (_props: { show: boolean }) => <View />,
-}))
 
 const receivingAddress = 'receivingAddress'
 const goToBumpNetworkFeesMock = jest.fn()

@@ -1,5 +1,5 @@
 import { responseUtils } from 'test-utils'
-import { contract } from '../../../../tests/unit/data/contractData'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { peachAPI } from '../../../utils/peachAPI'
 import { submitRaiseDispute } from './submitRaiseDispute'
 

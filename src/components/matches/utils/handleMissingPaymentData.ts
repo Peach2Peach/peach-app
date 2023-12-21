@@ -2,6 +2,7 @@ import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import i18n from '../../../utils/i18n'
 import { error } from '../../../utils/log'
 import { StackNavigation } from '../../../utils/navigation/handlePushNotification'
+import { isBuyOffer } from '../../../utils/offer/isBuyOffer'
 
 export const handleMissingPaymentData = (
   offer: BuyOffer | SellOffer,
@@ -24,7 +25,7 @@ export const handleMissingPaymentData = (
         currencies: [currency],
         country: /giftCard/u.test(paymentMethod) ? (paymentMethod.split('.').pop() as PaymentMethodCountry) : undefined,
       },
-      origin: 'search',
+      origin: isBuyOffer(offer) ? 'matchDetails' : 'search',
     })
   }
 

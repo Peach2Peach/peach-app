@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useSettingsStore } from '../../store/settingsStore'
 import i18n from '../../utils/i18n'
-import { getWalletLabel } from '../../utils/offer'
+import { getWalletLabel } from '../../utils/offer/getWalletLabel'
 
 type Props = ComponentProps & {
   label?: string

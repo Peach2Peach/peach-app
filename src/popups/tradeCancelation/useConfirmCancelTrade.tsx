@@ -2,18 +2,21 @@ import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { PopupAction } from '../../components/popup'
 import { PopupComponent } from '../../components/popup/PopupComponent'
-import { useNavigation } from '../../hooks'
+import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../store/settingsStore'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { useAccountStore } from '../../utils/account/account'
-import { getSellOfferFromContract } from '../../utils/contract'
+import { getSellOfferFromContract } from '../../utils/contract/getSellOfferFromContract'
 import { getWalletLabelFromContract } from '../../utils/contract/getWalletLabelFromContract'
 import i18n from '../../utils/i18n'
-import { getOfferExpiry, saveOffer } from '../../utils/offer'
+import { getOfferExpiry } from '../../utils/offer/getOfferExpiry'
+import { saveOffer } from '../../utils/offer/saveOffer'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { peachAPI } from '../../utils/peachAPI'
+import { GrayPopup } from '../GrayPopup'
+import { ClosePopupAction } from '../actions'
 import { LoadingPopupAction } from '../actions/LoadingPopupAction'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
 import { SellerCanceledContent } from './SellerCanceledContent'
@@ -32,7 +35,9 @@ export const useConfirmCancelTrade = () => {
 
   const cancelBuyer = useCallback(
     async (contractId: string) => {
-      setPopup({ title: i18n('contract.cancel.success'), visible: true, level: 'DEFAULT' })
+      setPopup(
+        <GrayPopup title={i18n('contract.cancel.success')} actions={<ClosePopupAction style={tw`justify-center`} />} />,
+      )
       const { error } = await peachAPI.private.contract.cancelContract({ contractId })
 
       if (error?.error) {
@@ -54,12 +59,13 @@ export const useConfirmCancelTrade = () => {
         customPayoutAddressLabel,
         isPeachWalletActive,
       })
-      setPopup({
-        title: getSellerCanceledTitle(contract.paymentMethod),
-        visible: true,
-        level: 'DEFAULT',
-        content: <SellerCanceledContent {...{ isCash, canRepublish, tradeID: contract.id, walletName }} />,
-      })
+      setPopup(
+        <GrayPopup
+          title={getSellerCanceledTitle(contract.paymentMethod)}
+          content={<SellerCanceledContent {...{ isCash, canRepublish, tradeID: contract.id, walletName }} />}
+          actions={<ClosePopupAction style={tw`justify-center`} />}
+        />,
+      )
 
       const { result, error } = await cancelContractAsSeller(contract)
 

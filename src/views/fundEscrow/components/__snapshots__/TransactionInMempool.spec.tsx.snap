@@ -2,292 +2,39 @@
 
 exports[`TransactionInMempool shoud render correctly with different width 1`] = `
 <View
+  onLayout={[Function]}
   style={
-    {
-      "flexBasis": "0%",
-      "flexGrow": 1,
-      "flexShrink": 1,
-    }
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      {
+        "paddingBottom": 0,
+      },
+    ]
   }
 >
-  <RCTSafeAreaView
-    style={
-      [
-        {
-          "borderBottomLeftRadius": 8,
-          "borderBottomRightRadius": 8,
-          "borderBottomWidth": 1,
-        },
-        {
-          "backgroundColor": "#FFF9F6",
-        },
-        {
-          "borderColor": "#FEEDE5",
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "gap": 8,
-            "paddingBottom": 6,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 6,
-          },
-          {
-            "paddingLeft": 32,
-            "paddingRight": 32,
-          },
-          undefined,
-        ]
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
       }
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexBasis": "0%",
-            "flexDirection": "row",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "gap": 4,
-          }
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          numberOfLines={1}
-          style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 26,
-                },
-                {
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 20,
-                  "letterSpacing": 0.2,
-                  "lineHeight": 32,
-                },
-                {
-                  "color": "#2B1911",
-                },
-                {
-                  "flexBasis": "0%",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                },
-              ],
-              false,
-            ]
-          }
-        >
-          transaction pending
-        </Text>
-      </View>
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "gap": 10,
-            "justifyContent": "flex-end",
-          }
-        }
-      >
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            {
-              "opacity": 1,
-              "paddingBottom": 2,
-              "paddingLeft": 2,
-              "paddingRight": 2,
-              "paddingTop": 2,
-            }
-          }
-        >
-          <test-file-stub
-            fill="#F5CE22"
-            style={
-              [
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-                {
-                  "height": 20,
-                  "width": 20,
-                },
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-              ]
-            }
-          />
-        </View>
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            {
-              "opacity": 1,
-              "paddingBottom": 2,
-              "paddingLeft": 2,
-              "paddingRight": 2,
-              "paddingTop": 2,
-            }
-          }
-        >
-          <test-file-stub
-            fill="#099DE2"
-            style={
-              [
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-                {
-                  "height": 20,
-                  "width": 20,
-                },
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-              ]
-            }
-          />
-        </View>
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            {
-              "opacity": 1,
-              "paddingBottom": 2,
-              "paddingLeft": 2,
-              "paddingRight": 2,
-              "paddingTop": 2,
-            }
-          }
-        >
-          <test-file-stub
-            fill="#9F8C82"
-            style={
-              [
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-                {
-                  "height": 20,
-                  "width": 20,
-                },
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-              ]
-            }
-          />
-        </View>
-      </View>
-    </View>
-  </RCTSafeAreaView>
-  <RCTSafeAreaView
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       {
         "flexBasis": "0%",
@@ -300,154 +47,138 @@ exports[`TransactionInMempool shoud render correctly with different width 1`] = 
       style={
         [
           {
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 16,
+            "borderBottomLeftRadius": 8,
+            "borderBottomRightRadius": 8,
+            "borderBottomWidth": 1,
           },
           {
-            "paddingBottom": 32,
-            "paddingLeft": 32,
-            "paddingRight": 32,
-            "paddingTop": 32,
+            "paddingTop": 0,
+            "zIndex": 1,
           },
-          undefined,
+          {
+            "backgroundColor": "#FFF9F6",
+          },
+          {
+            "borderColor": "#FEEDE5",
+          },
         ]
       }
     >
       <View
         style={
-          {
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "gap": 12,
-            "justifyContent": "center",
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 8,
+              "paddingBottom": 6,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 6,
+            },
+            {},
+            undefined,
+          ]
         }
       >
-        <Text
-          allowFontScaling={false}
+        <View
           style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              undefined,
-              false,
-            ]
+            {
+              "alignItems": "center",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "gap": 4,
+            }
           }
         >
-          Your bitcoin transaction is pending...
-
-You can go do something else, we'll automatically publish your offer as soon as it's finished!
-        </Text>
-        <View
-          onLayout={[Function]}
-          testID="image-container"
-        >
-          <Image
-            resizeMode="contain"
-            source={
-              {
-                "testUri": "../../../src/assets/escrow/tx-in-mempool.png",
-              }
-            }
+          <Text
+            allowFontScaling={false}
+            numberOfLines={1}
             style={
-              {
-                "height": 70,
-                "width": 100,
-              }
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 26,
+                  },
+                  {},
+                  {
+                    "color": "#2B1911",
+                  },
+                  {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                  },
+                ],
+                false,
+              ]
             }
-          />
+          >
+            transaction pending
+          </Text>
         </View>
         <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
             {
-              "opacity": 1,
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 10,
+              "justifyContent": "flex-end",
             }
           }
         >
           <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              [
-                {
-                  "alignItems": "center",
-                  "alignSelf": "stretch",
-                  "flexDirection": "row",
-                  "gap": 4,
-                  "justifyContent": "center",
-                },
-                {
-                  "alignSelf": "center",
-                },
-              ]
+              {
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 2,
+                "paddingRight": 2,
+                "paddingTop": 2,
+              }
             }
           >
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    {
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 14,
-                      "letterSpacing": 0.5,
-                      "lineHeight": 24,
-                      "textTransform": "uppercase",
-                    },
-                    {
-                      "textDecorationLine": "underline",
-                    },
-                  ],
-                  false,
-                ]
-              }
-            >
-              show in explorer
-            </Text>
             <test-file-stub
-              fill="#F56522"
+              fill="#F5CE22"
               style={
                 [
                   {
@@ -458,6 +189,117 @@ You can go do something else, we'll automatically publish your offer as soon as 
                     "height": 20,
                     "width": 20,
                   },
+                  {},
+                ]
+              }
+            />
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 2,
+                "paddingRight": 2,
+                "paddingTop": 2,
+              }
+            }
+          >
+            <test-file-stub
+              fill="#099DE2"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 20,
+                    "width": 20,
+                  },
+                  {},
+                ]
+              }
+            />
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 2,
+                "paddingRight": 2,
+                "paddingTop": 2,
+              }
+            }
+          >
+            <test-file-stub
+              fill="#9F8C82"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 20,
+                    "width": 20,
+                  },
+                  {},
                 ]
               }
             />
@@ -465,298 +307,225 @@ You can go do something else, we'll automatically publish your offer as soon as 
         </View>
       </View>
     </View>
-  </RCTSafeAreaView>
+    <View
+      style={
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          },
+          false,
+          {
+            "paddingBottom": 0,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {},
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "gap": 12,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                undefined,
+                false,
+              ]
+            }
+          >
+            Your bitcoin transaction is pending...
+
+You can go do something else, we'll automatically publish your offer as soon as it's finished!
+          </Text>
+          <View
+            onLayout={[Function]}
+            testID="image-container"
+          >
+            <Image
+              resizeMode="contain"
+              source={
+                {
+                  "testUri": "../../../src/assets/escrow/tx-in-mempool.png",
+                }
+              }
+              style={
+                {
+                  "height": 70,
+                  "width": 100,
+                }
+              }
+            />
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "alignSelf": "stretch",
+                    "flexDirection": "row",
+                    "gap": 4,
+                    "justifyContent": "center",
+                  },
+                  {
+                    "alignSelf": "center",
+                  },
+                ]
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 14,
+                        "letterSpacing": 0.5,
+                        "lineHeight": 24,
+                        "textTransform": "uppercase",
+                      },
+                      {
+                        "textDecorationLine": "underline",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                show in explorer
+              </Text>
+              <test-file-stub
+                fill="#F56522"
+                style={
+                  [
+                    {
+                      "height": 24,
+                      "width": 24,
+                    },
+                    {
+                      "height": 20,
+                      "width": 20,
+                    },
+                  ]
+                }
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
 </View>
 `;
 
 exports[`TransactionInMempool should render correctly 1`] = `
 <View
+  onLayout={[Function]}
   style={
-    {
-      "flexBasis": "0%",
-      "flexGrow": 1,
-      "flexShrink": 1,
-    }
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      {
+        "paddingBottom": 0,
+      },
+    ]
   }
 >
-  <RCTSafeAreaView
-    style={
-      [
-        {
-          "borderBottomLeftRadius": 8,
-          "borderBottomRightRadius": 8,
-          "borderBottomWidth": 1,
-        },
-        {
-          "backgroundColor": "#FFF9F6",
-        },
-        {
-          "borderColor": "#FEEDE5",
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "gap": 8,
-            "paddingBottom": 6,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 6,
-          },
-          {
-            "paddingLeft": 32,
-            "paddingRight": 32,
-          },
-          undefined,
-        ]
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
       }
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexBasis": "0%",
-            "flexDirection": "row",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "gap": 4,
-          }
-        }
-      >
-        <Text
-          allowFontScaling={false}
-          numberOfLines={1}
-          style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 26,
-                },
-                {
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 20,
-                  "letterSpacing": 0.2,
-                  "lineHeight": 32,
-                },
-                {
-                  "color": "#2B1911",
-                },
-                {
-                  "flexBasis": "0%",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                },
-              ],
-              false,
-            ]
-          }
-        >
-          transaction pending
-        </Text>
-      </View>
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "gap": 10,
-            "justifyContent": "flex-end",
-          }
-        }
-      >
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            {
-              "opacity": 1,
-              "paddingBottom": 2,
-              "paddingLeft": 2,
-              "paddingRight": 2,
-              "paddingTop": 2,
-            }
-          }
-        >
-          <test-file-stub
-            fill="#F5CE22"
-            style={
-              [
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-                {
-                  "height": 20,
-                  "width": 20,
-                },
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-              ]
-            }
-          />
-        </View>
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            {
-              "opacity": 1,
-              "paddingBottom": 2,
-              "paddingLeft": 2,
-              "paddingRight": 2,
-              "paddingTop": 2,
-            }
-          }
-        >
-          <test-file-stub
-            fill="#099DE2"
-            style={
-              [
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-                {
-                  "height": 20,
-                  "width": 20,
-                },
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-              ]
-            }
-          />
-        </View>
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            {
-              "opacity": 1,
-              "paddingBottom": 2,
-              "paddingLeft": 2,
-              "paddingRight": 2,
-              "paddingTop": 2,
-            }
-          }
-        >
-          <test-file-stub
-            fill="#9F8C82"
-            style={
-              [
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-                {
-                  "height": 20,
-                  "width": 20,
-                },
-                {
-                  "height": 24,
-                  "width": 24,
-                },
-              ]
-            }
-          />
-        </View>
-      </View>
-    </View>
-  </RCTSafeAreaView>
-  <RCTSafeAreaView
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       {
         "flexBasis": "0%",
@@ -769,154 +538,138 @@ exports[`TransactionInMempool should render correctly 1`] = `
       style={
         [
           {
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 16,
+            "borderBottomLeftRadius": 8,
+            "borderBottomRightRadius": 8,
+            "borderBottomWidth": 1,
           },
           {
-            "paddingBottom": 32,
-            "paddingLeft": 32,
-            "paddingRight": 32,
-            "paddingTop": 32,
+            "paddingTop": 0,
+            "zIndex": 1,
           },
-          undefined,
+          {
+            "backgroundColor": "#FFF9F6",
+          },
+          {
+            "borderColor": "#FEEDE5",
+          },
         ]
       }
     >
       <View
         style={
-          {
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "gap": 12,
-            "justifyContent": "center",
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 8,
+              "paddingBottom": 6,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 6,
+            },
+            {},
+            undefined,
+          ]
         }
       >
-        <Text
-          allowFontScaling={false}
+        <View
           style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              undefined,
-              false,
-            ]
+            {
+              "alignItems": "center",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "gap": 4,
+            }
           }
         >
-          Your bitcoin transaction is pending...
-
-You can go do something else, we'll automatically publish your offer as soon as it's finished!
-        </Text>
-        <View
-          onLayout={[Function]}
-          testID="image-container"
-        >
-          <Image
-            resizeMode="contain"
-            source={
-              {
-                "testUri": "../../../src/assets/escrow/tx-in-mempool.png",
-              }
-            }
+          <Text
+            allowFontScaling={false}
+            numberOfLines={1}
             style={
-              {
-                "height": 210,
-                "width": 300,
-              }
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 26,
+                  },
+                  {},
+                  {
+                    "color": "#2B1911",
+                  },
+                  {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                  },
+                ],
+                false,
+              ]
             }
-          />
+          >
+            transaction pending
+          </Text>
         </View>
         <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
             {
-              "opacity": 1,
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 10,
+              "justifyContent": "flex-end",
             }
           }
         >
           <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              [
-                {
-                  "alignItems": "center",
-                  "alignSelf": "stretch",
-                  "flexDirection": "row",
-                  "gap": 4,
-                  "justifyContent": "center",
-                },
-                {
-                  "alignSelf": "center",
-                },
-              ]
+              {
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 2,
+                "paddingRight": 2,
+                "paddingTop": 2,
+              }
             }
           >
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    {
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 14,
-                      "letterSpacing": 0.5,
-                      "lineHeight": 24,
-                      "textTransform": "uppercase",
-                    },
-                    {
-                      "textDecorationLine": "underline",
-                    },
-                  ],
-                  false,
-                ]
-              }
-            >
-              show in explorer
-            </Text>
             <test-file-stub
-              fill="#F56522"
+              fill="#F5CE22"
               style={
                 [
                   {
@@ -927,6 +680,117 @@ You can go do something else, we'll automatically publish your offer as soon as 
                     "height": 20,
                     "width": 20,
                   },
+                  {},
+                ]
+              }
+            />
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 2,
+                "paddingRight": 2,
+                "paddingTop": 2,
+              }
+            }
+          >
+            <test-file-stub
+              fill="#099DE2"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 20,
+                    "width": 20,
+                  },
+                  {},
+                ]
+              }
+            />
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 2,
+                "paddingRight": 2,
+                "paddingTop": 2,
+              }
+            }
+          >
+            <test-file-stub
+              fill="#9F8C82"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 20,
+                    "width": 20,
+                  },
+                  {},
                 ]
               }
             />
@@ -934,6 +798,186 @@ You can go do something else, we'll automatically publish your offer as soon as 
         </View>
       </View>
     </View>
-  </RCTSafeAreaView>
+    <View
+      style={
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          },
+          false,
+          {
+            "paddingBottom": 0,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {},
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "gap": 12,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                undefined,
+                false,
+              ]
+            }
+          >
+            Your bitcoin transaction is pending...
+
+You can go do something else, we'll automatically publish your offer as soon as it's finished!
+          </Text>
+          <View
+            onLayout={[Function]}
+            testID="image-container"
+          >
+            <Image
+              resizeMode="contain"
+              source={
+                {
+                  "testUri": "../../../src/assets/escrow/tx-in-mempool.png",
+                }
+              }
+              style={
+                {
+                  "height": 210,
+                  "width": 300,
+                }
+              }
+            />
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "alignSelf": "stretch",
+                    "flexDirection": "row",
+                    "gap": 4,
+                    "justifyContent": "center",
+                  },
+                  {
+                    "alignSelf": "center",
+                  },
+                ]
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 14,
+                        "letterSpacing": 0.5,
+                        "lineHeight": 24,
+                        "textTransform": "uppercase",
+                      },
+                      {
+                        "textDecorationLine": "underline",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                show in explorer
+              </Text>
+              <test-file-stub
+                fill="#F56522"
+                style={
+                  [
+                    {
+                      "height": 24,
+                      "width": 24,
+                    },
+                    {
+                      "height": 20,
+                      "width": 20,
+                    },
+                  ]
+                }
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
 </View>
 `;

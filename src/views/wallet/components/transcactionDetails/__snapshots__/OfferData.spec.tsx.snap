@@ -40,12 +40,7 @@ exports[`OfferData should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -634,9 +629,7 @@ exports[`OfferData should render correctly 1`] = `
           accessible={true}
           collapsable={false}
           focusable={true}
-          onBlur={[Function]}
           onClick={[Function]}
-          onFocus={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -644,17 +637,16 @@ exports[`OfferData should render correctly 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            [
-              {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "flexShrink": 1,
-                "height": 16,
-                "justifyContent": "center",
-                "width": 16,
-              },
-              undefined,
-            ]
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "flexShrink": 1,
+              "height": 16,
+              "justifyContent": "center",
+              "opacity": 1,
+              "overflow": "visible",
+              "width": 16,
+            }
           }
         >
           <test-file-stub
@@ -672,7 +664,46 @@ exports[`OfferData should render correctly 1`] = `
               ]
             }
           />
-          <View />
+          <View
+            collapsable={false}
+            style={
+              {
+                "bottom": "100%",
+                "marginBottom": 4,
+                "opacity": 0,
+                "position": "absolute",
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                    },
+                    {
+                      "color": "#F56522",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              copied!
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -709,12 +740,7 @@ exports[`OfferData should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -805,9 +831,7 @@ exports[`OfferData should render correctly 1`] = `
           accessible={true}
           collapsable={false}
           focusable={true}
-          onBlur={[Function]}
           onClick={[Function]}
-          onFocus={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -815,17 +839,16 @@ exports[`OfferData should render correctly 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            [
-              {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "flexShrink": 1,
-                "height": 16,
-                "justifyContent": "center",
-                "width": 16,
-              },
-              undefined,
-            ]
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "flexShrink": 1,
+              "height": 16,
+              "justifyContent": "center",
+              "opacity": 1,
+              "overflow": "visible",
+              "width": 16,
+            }
           }
         >
           <test-file-stub
@@ -843,7 +866,46 @@ exports[`OfferData should render correctly 1`] = `
               ]
             }
           />
-          <View />
+          <View
+            collapsable={false}
+            style={
+              {
+                "bottom": "100%",
+                "marginBottom": 4,
+                "opacity": 0,
+                "position": "absolute",
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                    },
+                    {
+                      "color": "#F56522",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              copied!
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -880,12 +942,7 @@ exports[`OfferData should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -1009,9 +1066,7 @@ exports[`OfferData should render correctly 1`] = `
           accessible={true}
           collapsable={false}
           focusable={true}
-          onBlur={[Function]}
           onClick={[Function]}
-          onFocus={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -1019,17 +1074,16 @@ exports[`OfferData should render correctly 1`] = `
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            [
-              {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "flexShrink": 1,
-                "height": 16,
-                "justifyContent": "center",
-                "width": 16,
-              },
-              undefined,
-            ]
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "flexShrink": 1,
+              "height": 16,
+              "justifyContent": "center",
+              "opacity": 1,
+              "overflow": "visible",
+              "width": 16,
+            }
           }
         >
           <test-file-stub
@@ -1047,7 +1101,46 @@ exports[`OfferData should render correctly 1`] = `
               ]
             }
           />
-          <View />
+          <View
+            collapsable={false}
+            style={
+              {
+                "bottom": "100%",
+                "marginBottom": 4,
+                "opacity": 0,
+                "position": "absolute",
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                    },
+                    {
+                      "color": "#F56522",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              copied!
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -1055,7 +1148,7 @@ exports[`OfferData should render correctly 1`] = `
 </View>
 `;
 
-exports[`OfferData should render correctly without  price, currency and address 1`] = `
+exports[`OfferData should render correctly without price, currency and address 1`] = `
 <View
   style={
     {
@@ -1095,12 +1188,7 @@ exports[`OfferData should render correctly without  price, currency and address 
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -1689,9 +1777,7 @@ exports[`OfferData should render correctly without  price, currency and address 
           accessible={true}
           collapsable={false}
           focusable={true}
-          onBlur={[Function]}
           onClick={[Function]}
-          onFocus={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -1699,17 +1785,16 @@ exports[`OfferData should render correctly without  price, currency and address 
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            [
-              {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "flexShrink": 1,
-                "height": 16,
-                "justifyContent": "center",
-                "width": 16,
-              },
-              undefined,
-            ]
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "flexShrink": 1,
+              "height": 16,
+              "justifyContent": "center",
+              "opacity": 1,
+              "overflow": "visible",
+              "width": 16,
+            }
           }
         >
           <test-file-stub
@@ -1727,7 +1812,46 @@ exports[`OfferData should render correctly without  price, currency and address 
               ]
             }
           />
-          <View />
+          <View
+            collapsable={false}
+            style={
+              {
+                "bottom": "100%",
+                "marginBottom": 4,
+                "opacity": 0,
+                "position": "absolute",
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                    },
+                    {
+                      "color": "#F56522",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              copied!
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -1764,12 +1888,7 @@ exports[`OfferData should render correctly without  price, currency and address 
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 28,
-            },
+            {},
           ],
           false,
         ]
@@ -1831,9 +1950,7 @@ exports[`OfferData should render correctly without  price, currency and address 
           accessible={true}
           collapsable={false}
           focusable={true}
-          onBlur={[Function]}
           onClick={[Function]}
-          onFocus={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -1841,17 +1958,16 @@ exports[`OfferData should render correctly without  price, currency and address 
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
           style={
-            [
-              {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "flexShrink": 1,
-                "height": 16,
-                "justifyContent": "center",
-                "width": 16,
-              },
-              undefined,
-            ]
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "flexShrink": 1,
+              "height": 16,
+              "justifyContent": "center",
+              "opacity": 1,
+              "overflow": "visible",
+              "width": 16,
+            }
           }
         >
           <test-file-stub
@@ -1869,7 +1985,46 @@ exports[`OfferData should render correctly without  price, currency and address 
               ]
             }
           />
-          <View />
+          <View
+            collapsable={false}
+            style={
+              {
+                "bottom": "100%",
+                "marginBottom": 4,
+                "opacity": 0,
+                "position": "absolute",
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                    },
+                    {
+                      "color": "#F56522",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              copied!
+            </Text>
+          </View>
         </View>
       </View>
     </View>

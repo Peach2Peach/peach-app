@@ -1,6 +1,7 @@
 import { View } from 'react-native'
-import { OptionButton, Screen } from '../../components'
-import { useNavigation } from '../../hooks'
+import { Screen } from '../../components/Screen'
+import { OptionButton } from '../../components/buttons/OptionButton'
+import { useNavigation } from '../../hooks/useNavigation'
 import tw from '../../styles/tailwind'
 
 export const TestView = () => {

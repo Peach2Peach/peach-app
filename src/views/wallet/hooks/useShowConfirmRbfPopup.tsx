@@ -1,6 +1,8 @@
 import { PartiallySignedTransaction } from 'bdk-rn'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { PopupAction } from '../../../components/popup'
+import { PopupComponent } from '../../../components/popup/PopupComponent'
 import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
 import { usePopupStore } from '../../../store/usePopupStore'
@@ -24,10 +26,7 @@ export const useShowConfirmRbfPopup = () => {
 
   const confirmAndSend = useCallback(
     async (rbfTransaction: PartiallySignedTransaction, onSuccess: Props['onSuccess']) => {
-      showLoadingPopup({
-        title: i18n('wallet.bumpNetworkFees.confirmRbf.title'),
-        level: 'APP',
-      })
+      showLoadingPopup({ title: i18n('wallet.bumpNetworkFees.confirmRbf.title') })
       try {
         const [txId] = await Promise.all([rbfTransaction.txid(), peachWallet.signAndBroadcastPSBT(rbfTransaction)])
 
@@ -43,29 +42,31 @@ export const useShowConfirmRbfPopup = () => {
 
   const showConfirmRbfPopup = useCallback(
     ({ currentFeeRate, newFeeRate, transaction, sendingAmount, finishedTransaction, onSuccess }: Props) => {
-      setPopup({
-        title: i18n('wallet.bumpNetworkFees.confirmRbf.title'),
-        level: 'APP',
-        content: (
-          <ConfirmRbf
-            oldFeeRate={currentFeeRate}
-            newFeeRate={newFeeRate}
-            bytes={transaction.size}
-            sendingAmount={sendingAmount}
-            hasNoChange={transaction.vout.length === 1}
-          />
-        ),
-        action1: {
-          label: i18n('fundFromPeachWallet.confirm.confirmAndSend'),
-          icon: 'arrowRightCircle',
-          callback: () => confirmAndSend(finishedTransaction, onSuccess),
-        },
-        action2: {
-          label: i18n('cancel'),
-          icon: 'xCircle',
-          callback: closePopup,
-        },
-      })
+      setPopup(
+        <PopupComponent
+          title={i18n('wallet.bumpNetworkFees.confirmRbf.title')}
+          content={
+            <ConfirmRbf
+              oldFeeRate={currentFeeRate}
+              newFeeRate={newFeeRate}
+              bytes={transaction.size}
+              sendingAmount={sendingAmount}
+              hasNoChange={transaction.vout.length === 1}
+            />
+          }
+          actions={
+            <>
+              <PopupAction label={i18n('cancel')} iconId="xCircle" onPress={closePopup} />
+              <PopupAction
+                label={i18n('fundFromPeachWallet.confirm.confirmAndSend')}
+                iconId="arrowRightCircle"
+                onPress={() => confirmAndSend(finishedTransaction, onSuccess)}
+                reverseOrder
+              />
+            </>
+          }
+        />,
+      )
     },
     [closePopup, confirmAndSend, setPopup],
   )

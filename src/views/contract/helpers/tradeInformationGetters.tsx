@@ -1,16 +1,21 @@
 import { TouchableOpacity, View } from 'react-native'
-import { CopyAble, Icon, Text } from '../../../components'
+import { Icon } from '../../../components/Icon'
 import { Bubble } from '../../../components/bubble'
 import { useWalletLabel } from '../../../components/offer/useWalletLabel'
+import { PeachText } from '../../../components/text/PeachText'
+import { CopyAble } from '../../../components/ui/CopyAble'
 import { APPLINKS } from '../../../paymentMethods'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import tw from '../../../styles/tailwind'
-import { contractIdToHex, getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../../utils/contract'
-import { toShortDateFormat } from '../../../utils/date'
+import { contractIdToHex } from '../../../utils/contract/contractIdToHex'
+import { getBitcoinPriceFromContract } from '../../../utils/contract/getBitcoinPriceFromContract'
+import { getBuyOfferFromContract } from '../../../utils/contract/getBuyOfferFromContract'
+import { toShortDateFormat } from '../../../utils/date/toShortDateFormat'
 import i18n from '../../../utils/i18n'
-import { getPaymentMethodName } from '../../../utils/paymentMethod'
-import { groupChars, priceFormat } from '../../../utils/string'
-import { openAppLink } from '../../../utils/web'
+import { getPaymentMethodName } from '../../../utils/paymentMethod/getPaymentMethodName'
+import { groupChars } from '../../../utils/string/groupChars'
+import { priceFormat } from '../../../utils/string/priceFormat'
+import { openAppLink } from '../../../utils/web/openAppLink'
 import { UserId } from '../../settings/profile/profileOverview/components'
 import { TradeBreakdownBubble } from '../components/TradeBreakdownBubble'
 import { useContractContext } from '../context'
@@ -140,8 +145,8 @@ function PaymentMethodBubble ({ contract }: { contract: Contract }) {
       <Bubble color={'primary-mild'}>{paymentMethodLabel ?? paymentMethodName}</Bubble>
       {hasLink && (
         <TouchableOpacity onPress={openLink} style={tw`flex-row items-center justify-end gap-1`}>
-          <Text style={tw`underline body-s text-black-2`}>{i18n('contract.summary.openApp')}</Text>
-          <Icon id="externalLink" size={16} color={tw`text-primary-main`.color} />
+          <PeachText style={tw`underline body-s text-black-2`}>{i18n('contract.summary.openApp')}</PeachText>
+          <Icon id="externalLink" size={16} color={tw.color('primary-main')} />
         </TouchableOpacity>
       )}
     </View>
@@ -167,8 +172,8 @@ function WalletLabel ({ label, address }: { label?: string; address?: string }) 
 function YouShouldPay ({ contract }: { contract: Contract }) {
   return (
     <View style={tw`flex-row items-center justify-end gap-10px`}>
-      <Text style={[tw`subtitle-1`, tw.md`subtitle-0`]}>{getPrice(contract)}</Text>
-      <CopyAble value={String(contract.price)} style={tw.md`w-5 h-5`} />
+      <PeachText style={[tw`subtitle-1`, tw`md:subtitle-0`]}>{getPrice(contract)}</PeachText>
+      <CopyAble value={String(contract.price)} style={tw`md:w-5 md:h-5`} />
     </View>
   )
 }

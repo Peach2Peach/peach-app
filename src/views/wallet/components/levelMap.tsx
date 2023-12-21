@@ -1,4 +1,4 @@
-import { statusCardStyles } from '../../../components/statusCard/StatusCard'
+import { statusCardStyles } from '../../../components/statusCard/statusCardStyles'
 
 export const levelMap: Record<TransactionType, keyof typeof statusCardStyles.bg> = {
   TRADE: 'success',

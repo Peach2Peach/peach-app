@@ -1,10 +1,10 @@
 import NotificationBadge from '@msml/react-native-notification-badge'
 import { useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useNotificationStore } from '../components/footer/notificationsStore'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { info } from '../utils/log'
-import { isIOS } from '../utils/system'
+import { isIOS } from '../utils/system/isIOS'
+import { useNotificationStore } from '../views/home/notificationsStore'
 
 export const statusWithRequiredAction: TradeStatus[] = [
   'fundEscrow',

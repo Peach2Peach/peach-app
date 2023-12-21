@@ -3,6 +3,9 @@ import { useAccountStore } from '../utils/account/account'
 import { info } from '../utils/log'
 import { createWebsocket } from '../utils/peachAPI/websocket/createWebsocket'
 
+const RETRY_INTERVAL = 3000
+const INIT_RETRY_INTERVAL = 10000
+
 export const initWebSocket
   = (updatePeachWS: Function, updateMessage: Dispatch<MessageState>): EffectCallback =>
     () => {
@@ -10,7 +13,7 @@ export const initWebSocket
       if (!publicKey) {
         setTimeout(() => {
           initWebSocket(updatePeachWS, updateMessage)()
-        }, 10000)
+        }, INIT_RETRY_INTERVAL)
         return () => {}
       }
 
@@ -30,7 +33,7 @@ export const initWebSocket
         info('CLOSE')
         setTimeout(() => {
           initWebSocket(updatePeachWS, updateMessage)()
-        }, 3000)
+        }, RETRY_INTERVAL)
       }
 
       if (!ws.listeners.message.some((cllbck) => cllbck.toString() === onMessageHandler.toString())) {
@@ -41,10 +44,7 @@ export const initWebSocket
       }
 
       return () => {
-        ws.listeners = {
-          message: [],
-          close: [],
-        }
+        ws.listeners = { message: [], close: [] }
         ws.close()
       }
     }

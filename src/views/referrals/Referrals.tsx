@@ -1,16 +1,20 @@
 import { useState } from 'react'
 import { View } from 'react-native'
-import { Header, PeachScrollView, Progress, Screen, Text } from '../../components'
+import { Header } from '../../components/Header'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { RadioButtonItem, RadioButtons } from '../../components/inputs/RadioButtons'
-import { useShowHelp } from '../../hooks'
+import { PeachText } from '../../components/text/PeachText'
+import { Progress } from '../../components/ui/Progress'
 import { useSelfUser } from '../../hooks/query/useSelfUser'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import { useRedeemNoPeachFeesReward } from '../../popups/referral/useRedeemNoPeachFeesReward'
 import { useSetCustomReferralCodePopup } from '../../popups/referral/useSetCustomReferralCodePopup'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
-import { thousands } from '../../utils/string'
+import { headerIcons } from '../../utils/layout/headerIcons'
+import { thousands } from '../../utils/string/thousands'
 import { ReferralCode } from './components/ReferralCode'
 import { REWARDINFO } from './constants'
 import { isRewardAvailable } from './helpers/isRewardAvailable'
@@ -43,14 +47,14 @@ function ReferralRewards () {
 
   return (
     <>
-      <Text style={tw`text-center`}>
+      <PeachText style={tw`text-center`}>
         {i18n(
           !referredTradingAmount ? 'referrals.notTraded' : 'referrals.alreadyTraded',
           i18n('currency.format.sats', thousands(referredTradingAmount)),
         )}
         {'\n\n'}
         {i18n(availableRewards ? 'referrals.selectReward' : 'referrals.continueSaving')}
-      </Text>
+      </PeachText>
       <RadioButtons items={rewards} selectedValue={selectedReward} onButtonPress={setSelectedReward} />
       <RedeemButton selectedReward={selectedReward} />
     </>
@@ -87,9 +91,9 @@ function BonusPointsBar () {
         barStyle={tw`border-2 bg-primary-main border-primary-background`}
         percent={balance / BARLIMIT}
       />
-      <Text style={tw`pl-2 tooltip text-black-2`}>
-        {i18n('referrals.points')}: <Text style={tw`font-bold tooltip text-black-2`}>{balance}</Text>
-      </Text>
+      <PeachText style={tw`pl-2 tooltip text-black-2`}>
+        {i18n('referrals.points')}: <PeachText style={tw`font-bold tooltip text-black-2`}>{balance}</PeachText>
+      </PeachText>
     </View>
   )
 }

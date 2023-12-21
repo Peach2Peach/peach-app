@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder } from 'react-native'
-import { useIsMediumScreen } from '../../../../hooks'
-import { getNormalized } from '../../../../utils/math'
+import { useIsMediumScreen } from '../../../../hooks/useIsMediumScreen'
+import { getNormalized } from '../../../../utils/math/getNormalized'
 
 type Props = ComponentProps & {
   onConfirm: () => void

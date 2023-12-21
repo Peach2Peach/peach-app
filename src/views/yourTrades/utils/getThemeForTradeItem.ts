@@ -1,5 +1,5 @@
 import { IconType } from '../../../assets/icons'
-import { statusCardStyles } from '../../../components/statusCard/StatusCard'
+import { statusCardStyles } from '../../../components/statusCard/statusCardStyles'
 import { getDisputeResultTheme } from './getDisputeResultTheme'
 import { getOfferColor } from './getOfferColor'
 import { isContractSummary } from './isContractSummary'

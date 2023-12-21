@@ -1,12 +1,12 @@
 import { render } from 'test-utils'
 import { account1 } from '../../../../../tests/unit/data/accountData'
 import { contractSummary } from '../../../../../tests/unit/data/contractSummaryData'
-import { updateAccount } from '../../../../utils/account'
+import { updateAccount } from '../../../../utils/account/updateAccount'
 import { TradeItem } from './TradeItem'
 
 jest.useFakeTimers()
 
-jest.mock('../../../../components/statusCard', () => ({
+jest.mock('../../../../components/statusCard/StatusCard', () => ({
   StatusCard: 'StatusCard',
 }))
 

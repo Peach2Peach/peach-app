@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { act } from 'react-test-renderer'
 import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { chat1 } from '../../../tests/unit/data/chatData'
@@ -6,7 +7,7 @@ import { peachAPI } from '../../utils/peachAPI'
 import { useChatMessages } from './useChatMessages'
 
 const decryptSymmetricMock = jest.fn().mockImplementation((str) => str)
-jest.mock('../../utils/pgp', () => ({
+jest.mock('../../utils/pgp/decryptSymmetric', () => ({
   decryptSymmetric: (...args: unknown[]) => decryptSymmetricMock(...args),
 }))
 
@@ -34,6 +35,7 @@ describe('useChatMessages', () => {
       messages: chat1.messages.slice(0, 22),
       page: 0,
       isLoading: false,
+      isFetching: false,
       hasNextPage: true,
       fetchNextPage: expect.any(Function),
       refetch: expect.any(Function),
@@ -100,6 +102,7 @@ describe('useChatMessages', () => {
       messages: chat1.messages,
       page: 1,
       isLoading: false,
+      isFetching: false,
       hasNextPage: false,
       fetchNextPage: expect.any(Function),
       refetch: expect.any(Function),

@@ -28,13 +28,7 @@ exports[`ConfirmSliderLabel renders correctly 1`] = `
           "textAlign": "center",
           "textTransform": "uppercase",
         },
-        {
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 15,
-          "letterSpacing": 0.54,
-          "lineHeight": 26,
-          "textTransform": "uppercase",
-        },
+        {},
       ]
     }
   >

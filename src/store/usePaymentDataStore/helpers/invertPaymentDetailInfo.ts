@@ -1,4 +1,5 @@
-import { invert, keys } from '../../../utils/object'
+import { invert } from '../../../utils/object/invert'
+import { keys } from '../../../utils/object/keys'
 import { PaymentDetailInfo } from '../types'
 
 export const invertPaymentDetailInfo = (info: PaymentDetailInfo) => {

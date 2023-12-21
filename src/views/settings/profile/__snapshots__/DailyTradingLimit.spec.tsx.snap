@@ -9,7 +9,6 @@ exports[`DailyTradingLimit should render correctly 1`] = `
     style={
       {
         "alignSelf": "center",
-        "marginTop": 4,
       }
     }
     type="daily"

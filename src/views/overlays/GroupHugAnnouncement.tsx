@@ -1,29 +1,32 @@
-import { Overlay } from '../../components/Overlay'
+import { useSetOverlay } from '../../Overlay'
+import { OverlayComponent } from '../../components/OverlayComponent'
 import { Button } from '../../components/buttons/Button'
-import { useNavigation, useRoute } from '../../hooks'
+import { useNavigation } from '../../hooks/useNavigation'
 import { useConfigStore } from '../../store/configStore/configStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-export const GroupHugAnnouncement = () => {
-  const { offerId } = useRoute<'groupHugAnnouncement'>().params
+export const GroupHugAnnouncement = ({ offerId }: { offerId: string }) => {
   const navigation = useNavigation()
   const setHasSeenGroupHugAnnouncement = useConfigStore((state) => state.setHasSeenGroupHugAnnouncement)
+  const setOverlay = useSetOverlay()
 
   const goToSettings = () => {
     setHasSeenGroupHugAnnouncement(true)
+    setOverlay(undefined)
     navigation.reset({
       index: 1,
-      routes: [{ name: 'settings' }, { name: 'transactionBatching' }],
+      routes: [{ name: 'homeScreen', params: { screen: 'settings' } }, { name: 'transactionBatching' }],
     })
   }
   const close = () => {
     setHasSeenGroupHugAnnouncement(true)
-    navigation.replace('offerPublished', { offerId, isSellOffer: false, shouldGoBack: true })
+    setOverlay(undefined)
+    navigation.navigate('explore', { offerId })
   }
 
   return (
-    <Overlay
+    <OverlayComponent
       title={i18n('grouphug.announcement.title')}
       text={i18n('grouphug.announcement.text')}
       buttons={

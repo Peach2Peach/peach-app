@@ -1,5 +1,5 @@
 import { act, renderHook } from 'test-utils'
-import { contract } from '../../../../tests/unit/data/contractData'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useDisputeFormSetup } from './useDisputeFormSetup'

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Address } from 'bdk-rn'
 import { Script } from 'bdk-rn/lib/classes/Script'
-import { Text } from '../../../components'
+import { PeachText } from '../../../components/text/PeachText'
 import tw from '../../../styles/tailwind'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
@@ -28,9 +28,9 @@ export function UTXOAddress ({ script }: Props) {
   const addressLabel = useWalletState((state) => (address ? state.addressLabelMap[address] : ''))
 
   return (
-    <Text style={tw`body-s text-black-2`}>
-      <Text style={tw`body-s`}>{addressLabel ? `${addressLabel} ‑ ` : ''}</Text>
+    <PeachText style={tw`body-s text-black-2`}>
+      <PeachText style={tw`body-s`}>{addressLabel ? `${addressLabel} ‑ ` : ''}</PeachText>
       {address}
-    </Text>
+    </PeachText>
   )
 }

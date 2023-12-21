@@ -8,7 +8,7 @@ jest.mock('./getSellOfferFromContract', () => ({
 jest.mock('./verifyAndSignReleaseTx', () => ({
   verifyAndSignReleaseTx: jest.fn(() => ['tx', null]),
 }))
-jest.mock('../wallet', () => ({
+jest.mock('../wallet/getEscrowWalletForOffer', () => ({
   getEscrowWalletForOffer: jest.fn((...args: unknown[]) => getEscrowWalletForOfferMock(...args)),
 }))
 

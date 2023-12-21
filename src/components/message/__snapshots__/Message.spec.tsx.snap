@@ -219,7 +219,6 @@ exports[`Message renders correctly 1`] = `
               ]
             }
           >
-             
             testLabel
           </Text>
         </View>
@@ -777,7 +776,6 @@ exports[`Message should use default values for missing translations 1`] = `
               ]
             }
           >
-             
             testLabel
           </Text>
         </View>

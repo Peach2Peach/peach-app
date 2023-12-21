@@ -3,7 +3,7 @@ import { renderHook } from 'test-utils'
 import { defaultState, useMessageState } from '../components/message/useMessageState'
 import { APPVERSION } from '../constants'
 import { useConfigStore } from '../store/configStore/configStore'
-import { linkToAppStore } from '../utils/system'
+import { linkToAppStore } from '../utils/system/linkToAppStore'
 import { useShowUpdateAvailable } from './useShowUpdateAvailable'
 
 describe('useShowUpdateAvailable', () => {

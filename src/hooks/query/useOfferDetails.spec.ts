@@ -1,18 +1,15 @@
 /* eslint-disable max-lines-per-function */
-import { renderHook, waitFor } from 'test-utils'
-import { sellOffer } from '../../../tests/unit/data/offerData'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
+import { renderHook, responseUtils, waitFor } from 'test-utils'
+import { sellOffer } from '../../../peach-api/src/testData/offers'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { peachAPI } from '../../utils/peachAPI'
 import { useMultipleOfferDetails, useOfferDetails } from './useOfferDetails'
 
 const getStoredOfferMock = jest.fn()
 jest.mock('../../utils/offer/getOffer', () => ({
   getOffer: () => getStoredOfferMock(),
 }))
-const getOfferDetailsMock = jest.fn().mockResolvedValue([sellOffer])
-jest.mock('../../utils/peachAPI', () => ({
-  getOfferDetails: () => getOfferDetailsMock(),
-}))
+const getOfferDetailsMock = jest.spyOn(peachAPI.private.offer, 'getOfferDetails')
 
 describe('useOfferDetails', () => {
   const localOffer = { ...sellOffer, refundTx: '1' }
@@ -55,7 +52,7 @@ describe('useOfferDetails', () => {
     expect(result.current.offer).toEqual(localOfferUpToDate)
   })
   it('returns local offer if given and server did not return result', async () => {
-    getOfferDetailsMock.mockResolvedValueOnce([null])
+    getOfferDetailsMock.mockResolvedValueOnce(responseUtils)
     getStoredOfferMock.mockReturnValueOnce(localOffer)
     const { result } = renderHook(useOfferDetails, { initialProps: sellOffer.id })
     expect(result.current).toEqual({
@@ -71,7 +68,7 @@ describe('useOfferDetails', () => {
   })
   it('returns error if server did not return result and no local offers exists', async () => {
     getStoredOfferMock.mockReturnValueOnce(undefined)
-    getOfferDetailsMock.mockResolvedValueOnce([null, unauthorizedError])
+    getOfferDetailsMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const { result } = renderHook(useOfferDetails, { initialProps: sellOffer.id })
 
     expect(result.current).toEqual({
@@ -87,13 +84,13 @@ describe('useOfferDetails', () => {
       offer: undefined,
       isLoading: false,
       isFetching: false,
-      error: new Error(unauthorizedError.error),
+      error: new Error('UNAUTHORIZED'),
     })
   })
   it('returns correct error if no local offers exists and server did not return result or error', async () => {
     const expectedError = new Error('NOT_FOUND')
     getStoredOfferMock.mockReturnValueOnce(undefined)
-    getOfferDetailsMock.mockResolvedValueOnce([null])
+    getOfferDetailsMock.mockResolvedValueOnce(responseUtils)
     const { result } = renderHook(useOfferDetails, { initialProps: sellOffer.id })
 
     expect(result.current).toEqual({
@@ -159,7 +156,7 @@ describe('useMultipleOfferDetails', () => {
     expect(result.current.offers).toEqual([localOfferUpToDate])
   })
   it('returns local offers if given and server did not return result', async () => {
-    getOfferDetailsMock.mockResolvedValueOnce([null])
+    getOfferDetailsMock.mockResolvedValueOnce(responseUtils)
     getStoredOfferMock.mockReturnValueOnce(localOffer)
     const { result } = renderHook(useMultipleOfferDetails, {
       initialProps: [sellOffer.id],
@@ -177,7 +174,7 @@ describe('useMultipleOfferDetails', () => {
   })
   it('returns errors if server did not return result and no local offers exist', async () => {
     getStoredOfferMock.mockReturnValueOnce(undefined)
-    getOfferDetailsMock.mockResolvedValueOnce([null, unauthorizedError])
+    getOfferDetailsMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const { result } = renderHook(useMultipleOfferDetails, {
       initialProps: [sellOffer.id],
     })
@@ -195,13 +192,13 @@ describe('useMultipleOfferDetails', () => {
       offers: [undefined],
       isLoading: false,
       isFetching: false,
-      errors: [new Error(unauthorizedError.error)],
+      errors: [new Error('UNAUTHORIZED')],
     })
   })
   it('returns correct errors if no local offers exist and server did not return result or error', async () => {
     const expectedError = new Error('NOT_FOUND')
     getStoredOfferMock.mockReturnValueOnce(undefined)
-    getOfferDetailsMock.mockResolvedValueOnce([null])
+    getOfferDetailsMock.mockResolvedValueOnce(responseUtils)
     const { result } = renderHook(useMultipleOfferDetails, {
       initialProps: [sellOffer.id],
     })

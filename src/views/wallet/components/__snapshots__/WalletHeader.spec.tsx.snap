@@ -1,13 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WalletHeader should render correctly 1`] = `
-<RCTSafeAreaView
+<View
   style={
     [
       {
         "borderBottomLeftRadius": 8,
         "borderBottomRightRadius": 8,
         "borderBottomWidth": 1,
+      },
+      {
+        "paddingTop": 0,
+        "zIndex": 1,
       },
       {
         "backgroundColor": "#FFF9F6",
@@ -26,14 +30,11 @@ exports[`WalletHeader should render correctly 1`] = `
           "flexDirection": "row",
           "gap": 8,
           "paddingBottom": 6,
-          "paddingLeft": 16,
-          "paddingRight": 16,
+          "paddingLeft": 8,
+          "paddingRight": 8,
           "paddingTop": 6,
         },
-        {
-          "paddingLeft": 32,
-          "paddingRight": 32,
-        },
+        {},
         false,
       ]
     }
@@ -69,12 +70,7 @@ exports[`WalletHeader should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 26,
               },
-              {
-                "fontFamily": "Baloo2-Bold",
-                "fontSize": 20,
-                "letterSpacing": 0.2,
-                "lineHeight": 32,
-              },
+              {},
               {
                 "color": "#2B1911",
               },
@@ -152,10 +148,7 @@ exports[`WalletHeader should render correctly 1`] = `
                 "height": 20,
                 "width": 20,
               },
-              {
-                "height": 24,
-                "width": 24,
-              },
+              {},
             ]
           }
         />
@@ -211,15 +204,12 @@ exports[`WalletHeader should render correctly 1`] = `
                 "height": 20,
                 "width": 20,
               },
-              {
-                "height": 24,
-                "width": 24,
-              },
+              {},
             ]
           }
         />
       </View>
     </View>
   </View>
-</RCTSafeAreaView>
+</View>
 `;

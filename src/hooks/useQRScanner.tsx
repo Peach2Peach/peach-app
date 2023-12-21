@@ -2,14 +2,14 @@ import { useState } from 'react'
 import { Linking } from 'react-native'
 import { BarCodeReadEvent } from 'react-native-camera'
 import { PERMISSIONS, RESULTS, request as requestPermission } from 'react-native-permissions'
-import { Text } from '../components'
 import { PopupAction } from '../components/popup'
+import { PeachText } from '../components/text/PeachText'
 import { WarningPopup } from '../popups/WarningPopup'
 import { ClosePopupAction } from '../popups/actions'
 import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { isIOS } from '../utils/system'
+import { isIOS } from '../utils/system/isIOS'
 
 type Props = {
   onSuccess: (data: string) => void
@@ -44,7 +44,7 @@ function MissingPermissionsPopup () {
   return (
     <WarningPopup
       title={i18n('settings.missingPermissions')}
-      content={<Text>{i18n('settings.missingPermissions.text')}</Text>}
+      content={<PeachText>{i18n('settings.missingPermissions.text')}</PeachText>}
       actions={
         <>
           <ClosePopupAction textStyle={tw`text-black-1`} />
@@ -61,7 +61,7 @@ function OpenSettingsAction () {
       label={i18n('settings.openSettings')}
       textStyle={tw`text-black-1`}
       onPress={Linking.openSettings}
-      iconId={'settingsGear'}
+      iconId={'settings'}
       reverseOrder
     />
   )

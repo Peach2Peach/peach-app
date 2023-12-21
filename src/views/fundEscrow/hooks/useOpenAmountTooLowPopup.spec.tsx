@@ -1,4 +1,6 @@
 import { renderHook } from 'test-utils'
+import { PopupComponent } from '../../../components/popup/PopupComponent'
+import { ClosePopupAction } from '../../../popups/actions'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { AmountTooLow } from '../components/AmountTooLow'
 import { useOpenAmountTooLowPopup } from './useOpenAmountTooLowPopup'
@@ -11,11 +13,13 @@ describe('useOpenAmountTooLowPopup', () => {
     const { result } = renderHook(useOpenAmountTooLowPopup)
 
     result.current(available, needed)
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: 'amount too low',
-      level: 'APP',
-      content: <AmountTooLow available={available} needed={needed} />,
-    })
+    expect(usePopupStore.getState().visible).toBe(true)
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <PopupComponent
+        title="amount too low"
+        content={<AmountTooLow available={available} needed={needed} />}
+        actions={<ClosePopupAction style={{ justifyContent: 'center' }} />}
+      />,
+    )
   })
 })

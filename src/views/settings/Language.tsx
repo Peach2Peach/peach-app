@@ -1,9 +1,11 @@
-import { PeachScrollView, RadioButtons, Screen } from '../../components'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
-import { useNavigation } from '../../hooks'
+import { RadioButtons } from '../../components/inputs/RadioButtons'
 import { useLanguage } from '../../hooks/useLanguage'
+import { useNavigation } from '../../hooks/useNavigation'
 import tw from '../../styles/tailwind'
-import { sortAlphabetically } from '../../utils/array'
+import { sortAlphabetically } from '../../utils/array/sortAlphabetically'
 import i18n from '../../utils/i18n'
 
 export const Language = () => {

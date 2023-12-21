@@ -1,6 +1,6 @@
 import { TextStyle } from 'react-native'
-import { Text } from '../../..'
 import tw from '../../../../styles/tailwind'
+import { PeachText } from '../../../text/PeachText'
 
 type Props = {
   letterSpacing: number
@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const BTCAmountChar = ({ style, letterSpacing, reduceOpacity, white, char }: Props) => (
-  <Text
+  <PeachText
     style={[
       style,
       {
@@ -23,5 +23,5 @@ export const BTCAmountChar = ({ style, letterSpacing, reduceOpacity, white, char
     ]}
   >
     {char}
-  </Text>
+  </PeachText>
 )

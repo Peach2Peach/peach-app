@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { Text } from '../../../../components'
-import { useIsMediumScreen } from '../../../../hooks'
+import { PeachText } from '../../../../components/text/PeachText'
+import { useIsMediumScreen } from '../../../../hooks/useIsMediumScreen'
 import { useTradeSummaryStore } from '../../../../store/tradeSummaryStore'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { isDefined } from '../../../../utils/validation'
+import { isDefined } from '../../../../utils/validation/isDefined'
 import { TransactionIcon } from '../TransactionIcon'
 import { OfferIdBubble } from './OfferIdBubble'
 import { TradeIdBubble } from './TradeIdBubble'
@@ -34,8 +34,8 @@ export const TransactionHeader = ({ type, offerData, style }: Props) => {
   return (
     <View style={[tw`flex-row items-center gap-4`, hasIdBubbles && tw`items-end`, style]}>
       <TransactionIcon type={type} size={isMediumScreen ? MEDIUM_SIZE : SMALL_SIZE} />
-      <View style={tw`items-start flex-shrink`}>
-        <Text style={[tw`h6`, tw.md`h5`]}>{i18n(`wallet.transactionDetails.type.${type}`)}</Text>
+      <View style={tw`items-start shrink`}>
+        <PeachText style={[tw`h6`, tw`md:h5`]}>{i18n(`wallet.transactionDetails.type.${type}`)}</PeachText>
         <View style={tw`flex-row flex-wrap gap-1`}>
           {offerSummaries.map((offer) => (
             <OfferIdBubble key={`offer-id-bubble-${offer.id}`} offer={offer} />

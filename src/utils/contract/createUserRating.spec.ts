@@ -1,15 +1,11 @@
 import { account1 } from '../../../tests/unit/data/accountData'
-import { setAccount } from '../account'
+import { setAccount } from '../account/account'
 import { createUserRating } from './createUserRating'
 
 const signMock = jest.fn().mockReturnValue(Buffer.from('abc'))
 const keyPairMock = {
   sign: signMock,
 }
-
-const getPeachAccountMock = jest
-  .spyOn(jest.requireMock('../peachAPI/peachAccount'), 'getPeachAccount')
-  .mockReturnValue(keyPairMock)
 
 jest.mock('../wallet/getWallet', () => ({
   getWallet: jest.fn(),
@@ -42,7 +38,6 @@ describe('createUserRating', () => {
   })
 
   it('creates a rating with correct signature by using main address', () => {
-    getPeachAccountMock.mockReturnValueOnce(undefined)
     const ratingObj = createUserRating(userId, rating)
     expect(ratingObj.creationDate).toBeInstanceOf(Date)
     expect(ratingObj.rating).toBe(rating)

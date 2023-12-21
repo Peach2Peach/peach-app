@@ -1,12 +1,12 @@
 import { NETWORK } from '@env'
 import { crypto } from 'bitcoinjs-lib'
-import { getMainAccount } from '../account'
 import { useAccountStore } from '../account/account'
-import { getPeachAccount } from '../peachAPI/peachAccount'
-import { getWallet } from '../wallet'
+import { getMainAccount } from '../account/getMainAccount'
+import { peachAPI } from '../peachAPI'
+import { getWallet } from '../wallet/getWallet'
 
 export const createUserRating = (userId: User['id'], rating: Rating['rating']): Rating => {
-  const keyPair = getPeachAccount() || getMainAccount(getWallet(), NETWORK)
+  const keyPair = peachAPI.apiOptions.peachAccount || getMainAccount(getWallet(), NETWORK)
 
   const signature = keyPair.sign(crypto.sha256(Buffer.from(userId))).toString('hex')
 

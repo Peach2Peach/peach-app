@@ -1,7 +1,6 @@
 import { deepStrictEqual, strictEqual } from 'assert'
 import * as offerData from '../../../tests/unit/data/offerData'
-import { defaultAccount, setAccount } from '../account'
-import { useAccountStore } from '../account/account'
+import { defaultAccount, setAccount, useAccountStore } from '../account/account'
 import { saveOffer } from './saveOffer'
 
 describe('saveOffer', () => {

@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
-import { Icon } from '..'
 import tw from '../../styles/tailwind'
-import { Text } from '../text'
+import { Icon } from '../Icon'
+import { PeachText } from '../text/PeachText'
 
 type CheckboxType = {
   value: string | number
@@ -26,13 +26,13 @@ export const PaymentDetailsCheckbox = ({ item, checked, onPress, style, testID, 
       style,
     ]}
   >
-    <Text style={tw`flex-1`}>{item.display}</Text>
+    <PeachText style={tw`flex-1`}>{item.display}</PeachText>
     {!item.disabled ? (
       <View style={tw`flex items-center justify-center w-5 h-5 ml-4`}>
         {editing ? (
-          <Icon id={'edit3'} color={tw`text-primary-main`.color} />
+          <Icon id={'edit3'} color={tw.color('primary-main')} />
         ) : checked ? (
-          <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
+          <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw.color('primary-main')} />
         ) : (
           <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
         )}

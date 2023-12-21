@@ -33,6 +33,7 @@
   "offer.requiredAction.releaseEscrow" : "escrow'u serbest bırak",
   "offer.requiredAction.releaseEscrow.dispute" : "anlaşmazlık kaybedildi: escrow'u serbest bırak",
   "offer.requiredAction.searchingForPeer" : "eşleşme aranıyor",
+  "offer.requiredAction.unknown" : "bilinmeyen - uygulamanı güncelle!",
   "offer.requiredAction.waiting" : "$0 bekleniyor",
   "offer.requiredAction.waiting.buyer" : "ödeme bekleniyor",
   "offer.requiredAction.waiting.seller" : "satıcı bekleniyor",
@@ -54,5 +55,6 @@
   "offer.summary.withTheseMethods" : "şu ödeme yöntemleri ile:",
   "offer.summary.youAreBuying" : "arasında satın almak istiyorsunuz",
   "offer.summary.youAreSelling" : "satıyorsunuz",
-  "offer.summary.youWereSelling" : "satıyordunuz"
+  "offer.summary.youWereSelling" : "satıyordunuz",
+  "yourTrades.unknown" : "bilinmeyen"
 }

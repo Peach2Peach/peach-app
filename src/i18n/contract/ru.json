@@ -117,6 +117,7 @@
   "contract.summary.paidWithMethod" : "оплачено с помощью",
   "contract.summary.paymentConfirmed" : "на",
   "contract.summary.paymentTooLate" : "оплата слишком поздно",
+  "contract.summary.payoutToPeachWallet" : "выплата на кошелек peach",
   "contract.summary.phone" : "телефон #",
   "contract.summary.pixAlias" : "pix alias",
   "contract.summary.postePayNumber" : "номер postePay",

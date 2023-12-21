@@ -1,5 +1,5 @@
 import { fireEvent, render } from 'test-utils'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 import { RadioButtonItem } from './RadioButtonItem'
 
 describe('RadioButtonItem', () => {
@@ -16,7 +16,9 @@ describe('RadioButtonItem', () => {
     expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when display is not a string', () => {
-    const { toJSON } = render(<RadioButtonItem display={<Text>GBP</Text>} isSelected={false} onPress={jest.fn()} />)
+    const { toJSON } = render(
+      <RadioButtonItem display={<PeachText>GBP</PeachText>} isSelected={false} onPress={jest.fn()} />,
+    )
     expect(toJSON()).toMatchSnapshot()
   })
   it('calls onPress when pressed', () => {

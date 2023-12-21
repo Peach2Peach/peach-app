@@ -1,6 +1,6 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import { fireEvent, render } from 'test-utils'
-import { contract } from '../../../../../tests/unit/data/contractData'
+import { contract } from '../../../../../peach-api/src/testData/contract'
 import { PublicKey } from './PublicKey'
 
 describe('PublicKey', () => {
