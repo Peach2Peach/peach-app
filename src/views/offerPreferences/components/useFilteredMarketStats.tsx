@@ -26,7 +26,7 @@ export function useFilteredMarketStats ({
   const queryData = useQuery({
     queryKey: ['offer', 'search', 'summary', { type, meansOfPayment, maxPremium, minReputation }] as const,
     queryFn: async ({ queryKey }) => {
-      const [, , , requestBody] = queryKey
+      const requestBody = queryKey[3]
       const { result } = await peachAPI.private.offer.searchOfferSummaries(requestBody)
       return result
     },

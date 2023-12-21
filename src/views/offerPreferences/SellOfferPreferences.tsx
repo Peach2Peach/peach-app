@@ -57,7 +57,7 @@ import { FundMultipleOffers } from './components/FundMultipleOffers'
 import { MarketInfo } from './components/MarketInfo'
 import { PreferenceMethods } from './components/PreferenceMethods'
 import { PreferenceScreen } from './components/PreferenceScreen'
-import { SatsInputComponent } from './components/SatsInputComponent'
+import { SatsInputComponent, textStyle } from './components/SatsInputComponent'
 import { Section } from './components/Section'
 import { Slider, sliderWidth } from './components/Slider'
 import { SliderTrack } from './components/SliderTrack'
@@ -254,7 +254,6 @@ export const inputContainerStyle = [
   'items-center justify-center flex-1 bg-primary-background-light flex-row',
   'border rounded-lg border-black-4',
 ]
-export const textStyle = 'text-center subtitle-1 leading-relaxed py-1px'
 
 function SatsInput () {
   const [amount, setAmount] = useOfferPreferences((state) => [state.sellAmount, state.setSellAmount])

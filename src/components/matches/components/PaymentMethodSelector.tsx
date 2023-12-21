@@ -146,9 +146,9 @@ function PayementMethodBubble ({
       if (hasPaymentData) {
         if (hasMultiplePaymentData) {
           updateDrawer({
-            title: 'select payment method',
+            title: i18n('selectPaymentMethod.title'),
             options: paymentDataForType.map((p, index) => ({
-              title: p.label,
+              title: getPaymentMethodName(p.type),
               onPress: () => {
                 onPress(paymentDataForType[index])
                 updateDrawer({ show: false })

@@ -1,5 +1,6 @@
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 import { groupChars } from '../../../utils/string/groupChars'
 import { priceFormat } from '../../../utils/string/priceFormat'
 import { BTCAmount } from '../../bitcoin/btcAmount/BTCAmount'
@@ -39,7 +40,7 @@ export const Right = (propsWithoutType: Props) => {
             <BTCAmount size="small" amount={amount} />
             {premium !== undefined && (
               <FixedHeightText style={tw`body-m text-black-2`} height={17}>
-                {premium}% premium
+                {premium}% {i18n('offer.summary.premium')}
               </FixedHeightText>
             )}
           </>

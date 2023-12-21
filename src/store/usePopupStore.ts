@@ -20,7 +20,6 @@ export const usePopupStore = create<PopupStore>((set) => ({
     set(() => ({
       visible: true,
       popupComponent: params,
-      requireUserAction: false,
     }))
   },
   closePopup: () => {

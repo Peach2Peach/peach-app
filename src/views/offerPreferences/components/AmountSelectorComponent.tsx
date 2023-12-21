@@ -11,6 +11,7 @@ import { enforceDigitFormat } from '../utils/enforceDigitFormat'
 import { useAmountInBounds } from '../utils/useAmountInBounds'
 import { useRestrictSatsAmount } from '../utils/useRestrictSatsAmount'
 import { useTrackWidth } from '../utils/useTrackWidth'
+import { useTradingAmountLimits } from '../utils/useTradingAmountLimits'
 import { SatsInputComponent } from './SatsInputComponent'
 import { Section, sectionContainerGap } from './Section'
 import { Slider, sliderWidth } from './Slider'
@@ -156,8 +157,7 @@ function BuyAmountInput ({ minAmountDelta, type, range: [min, max], setRange }: 
 }
 
 function useMinSliderDeltaAsAmount (trackWidth: number) {
-  const { data } = useMarketPrices()
-  const [minLimit, maxLimit] = getTradingAmountLimits(data?.CHF || 0, 'buy')
+  const [minLimit, maxLimit] = useTradingAmountLimits('buy')
 
   const trackDelta = trackWidth - sliderWidth - trackMin
   const minSliderDeltaAsAmount = (sliderWidth / trackDelta) * (maxLimit - minLimit)

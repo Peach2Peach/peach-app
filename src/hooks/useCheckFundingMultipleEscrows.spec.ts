@@ -81,9 +81,7 @@ describe('useCheckFundingMultipleEscrows', () => {
       useTradeSummaryStore.getState().setOffers(sellOfferSummaries.map((offer) => ({ ...offer, fundingTxId: '1' })))
     })
     act(() => {
-      act(() => {
-        jest.advanceTimersByTime(MSINAMINUTE)
-      })
+      jest.advanceTimersByTime(MSINAMINUTE)
     })
     expect(useWalletState.getState().fundMultipleMap).toEqual({})
   })
