@@ -21,7 +21,6 @@ jest.useFakeTimers()
 
 describe('AddPaymentMethodButton', () => {
   beforeEach(() => {
-    queryClient.invalidateQueries(['meetupEvents'])
     useMeetupEventsStore.getState().setMeetupEvents([])
   })
   afterEach(() => {
@@ -40,8 +39,9 @@ describe('AddPaymentMethodButton', () => {
     const { toJSON } = render(<AddPaymentMethodButton isCash />)
     await waitFor(() => {
       expect(useMeetupEventsStore.getState().meetupEvents).toEqual(mockEvents)
-      jest.advanceTimersByTime(1000)
+      jest.runAllTimers()
     })
+
     expect(toJSON()).toMatchSnapshot()
   })
 
