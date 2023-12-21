@@ -1,13 +1,9 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-import { TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { act, create } from 'react-test-renderer'
 import { CopyAble, CopyRef } from './CopyAble'
 
 jest.useFakeTimers()
-
-jest.mock('../animation/Fade', () => ({
-  Fade: (_props: { show: boolean }) => <View />,
-}))
 
 describe('CopyAble', () => {
   const value = 'value'

@@ -6,10 +6,12 @@ exports[`BitcoinAddress should render correctly 1`] = `
     onLongPress={[Function]}
     onPress={[Function]}
   >
-    <Fade
-      delay={0}
-      duration={300}
-      show={false}
+    <ForwardRef(AnimatedComponentWrapper)
+      style={
+        {
+          "opacity": 0,
+        }
+      }
     >
       <PeachText
         style={
@@ -33,7 +35,7 @@ exports[`BitcoinAddress should render correctly 1`] = `
       >
         copied!
       </PeachText>
-    </Fade>
+    </ForwardRef(AnimatedComponentWrapper)>
     <QRCode
       backgroundColor="#FFF9F6"
       size={327}
@@ -94,19 +96,21 @@ exports[`BitcoinAddress should render correctly 1`] = `
           c0fuh
         </PeachText>
       </PeachText>
-      <Fade
-        delay={0}
-        duration={200}
-        show={false}
+      <ForwardRef(AnimatedComponentWrapper)
         style={
-          {
-            "alignItems": "center",
-            "backgroundColor": "#FFFCFA",
-            "height": "100%",
-            "justifyContent": "center",
-            "position": "absolute",
-            "width": "100%",
-          }
+          [
+            {
+              "alignItems": "center",
+              "backgroundColor": "#FFFCFA",
+              "height": "100%",
+              "justifyContent": "center",
+              "position": "absolute",
+              "width": "100%",
+            },
+            {
+              "opacity": 0,
+            },
+          ]
         }
       >
         <PeachText
@@ -122,7 +126,7 @@ exports[`BitcoinAddress should render correctly 1`] = `
         >
           copied!
         </PeachText>
-      </Fade>
+      </ForwardRef(AnimatedComponentWrapper)>
     </View>
     <View
       style={
@@ -151,10 +155,12 @@ exports[`BitcoinAddress should render correctly for small screens 1`] = `
     onLongPress={[Function]}
     onPress={[Function]}
   >
-    <Fade
-      delay={0}
-      duration={300}
-      show={false}
+    <ForwardRef(AnimatedComponentWrapper)
+      style={
+        {
+          "opacity": undefined,
+        }
+      }
     >
       <PeachText
         style={
@@ -178,7 +184,7 @@ exports[`BitcoinAddress should render correctly for small screens 1`] = `
       >
         copied!
       </PeachText>
-    </Fade>
+    </ForwardRef(AnimatedComponentWrapper)>
     <QRCode
       backgroundColor="#FFF9F6"
       size={242}
@@ -239,26 +245,21 @@ exports[`BitcoinAddress should render correctly for small screens 1`] = `
           c0fuh
         </PeachText>
       </PeachText>
-      <Fade
-        delay={0}
-        duration={200}
-        show={
-          {
-            "fontScale": 2,
-            "height": 1334,
-            "scale": 2,
-            "width": 750,
-          }
-        }
+      <ForwardRef(AnimatedComponentWrapper)
         style={
-          {
-            "alignItems": "center",
-            "backgroundColor": "#FFFCFA",
-            "height": "100%",
-            "justifyContent": "center",
-            "position": "absolute",
-            "width": "100%",
-          }
+          [
+            {
+              "alignItems": "center",
+              "backgroundColor": "#FFFCFA",
+              "height": "100%",
+              "justifyContent": "center",
+              "position": "absolute",
+              "width": "100%",
+            },
+            {
+              "opacity": 0,
+            },
+          ]
         }
       >
         <PeachText
@@ -274,7 +275,7 @@ exports[`BitcoinAddress should render correctly for small screens 1`] = `
         >
           copied!
         </PeachText>
-      </Fade>
+      </ForwardRef(AnimatedComponentWrapper)>
     </View>
     <View
       style={
