@@ -24,7 +24,11 @@ export const Contact = () => {
 
   const showHelp = useShowHelp('contactEncryption', false)
   const goToReport = (reason: ContactReason) => {
-    navigation.navigate('report', { reason, shareDeviceID: reason === 'accountLost' })
+    navigation.navigate('report', {
+      reason,
+      shareDeviceID: reason === 'accountLost',
+      topic: i18n(`contact.reason.${reason}`),
+    })
   }
   const publicKey = useAccountStore((state) => state.account.publicKey)
   const contactReasons = publicKey ? contactReasonsWithAccount : contactReasonsNoAccount
