@@ -5,9 +5,9 @@ import { PeachText } from '../text/PeachText'
 
 export const themes = {
   default: {
-    text: tw`text-black-2`,
-    textSelected: tw`text-black-1`,
-    underline: tw`bg-black-1`,
+    text: tw`text-black-65`,
+    textSelected: tw`text-black-100`,
+    underline: tw`bg-black-100`,
   },
   inverted: {
     text: tw`text-primary-mild-1`,

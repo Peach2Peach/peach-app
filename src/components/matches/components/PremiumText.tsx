@@ -7,7 +7,7 @@ type Props = {
 }
 
 export const PremiumText = ({ premium }: Props) => (
-  <PeachText style={tw`text-black-2`}>
+  <PeachText style={tw`text-black-65`}>
     {' '}
     {premium === 0
       ? i18n('match.atMarketPrice')

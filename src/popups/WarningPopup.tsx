@@ -2,5 +2,5 @@ import { PopupComponent, PopupComponentProps } from '../components/popup/PopupCo
 import tw from '../styles/tailwind'
 
 export function WarningPopup (props: Omit<PopupComponentProps, 'bgColor' | 'actionBgColor'>) {
-  return <PopupComponent {...props} bgColor={tw`bg-warning-background`} actionBgColor={tw`bg-warning-main`} />
+  return <PopupComponent {...props} bgColor={tw`bg-warning-mild-1`} actionBgColor={tw`bg-warning-main`} />
 }

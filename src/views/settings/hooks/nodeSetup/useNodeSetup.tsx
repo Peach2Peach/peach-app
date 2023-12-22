@@ -76,7 +76,7 @@ function NodeConnectionErrorPopup ({ error }: ErrorPopupProps) {
     <WarningPopup
       title={i18n('wallet.settings.node.error.title')}
       content={<PeachText selectable>{i18n('wallet.settings.node.error.text', error)}</PeachText>}
-      actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-1`} />}
+      actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-100`} />}
     />
   )
 }

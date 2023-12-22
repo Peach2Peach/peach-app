@@ -151,7 +151,7 @@ function BuyAmountInput ({ minAmountDelta, type, range: [min, max], setRange }: 
         onEndEditing={onEndEditing}
         onChangeText={onChangeText}
       />
-      <PeachText style={tw`self-center text-black-3 body-s`}>
+      <PeachText style={tw`self-center text-black-50 body-s`}>
         {fiatPrice} {displayCurrency}
       </PeachText>
     </View>

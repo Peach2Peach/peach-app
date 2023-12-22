@@ -31,7 +31,7 @@ export function PeachID ({ id, copyable = false }: Props) {
       <InfoContainer
         text={peachId}
         backgroundColor={tw.color('primary-background-dark')}
-        textColor={tw.color('black-1')}
+        textColor={tw.color('black-100')}
         icon={icon}
       />
     </TouchableOpacity>

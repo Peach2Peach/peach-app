@@ -6,7 +6,7 @@ export type Props = ComponentProps & ParsedTextProps
 
 export const ParsedPeachText = ({ style, ...props }: Props) => (
   <ParsedText
-    style={[tw`body-m text-black-1`, style, shouldNormalCase(style) && tw`normal-case`]}
+    style={[tw`body-m text-black-100`, style, shouldNormalCase(style) && tw`normal-case`]}
     allowFontScaling={false}
     {...props}
   />

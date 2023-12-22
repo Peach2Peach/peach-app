@@ -14,9 +14,9 @@ export const PublicKey = ({ publicKey, style }: { publicKey: string } & Componen
   }
   return (
     <View style={style}>
-      <PeachText style={tw`body-m text-black-2 lowercase`}>{i18n('profile.publicKey')}:</PeachText>
+      <PeachText style={tw`body-m text-black-65 lowercase`}>{i18n('profile.publicKey')}:</PeachText>
       <View style={tw`flex-row items-center`}>
-        <PeachText style={tw`text-black-1 subtitle-2 uppercase shrink`}>
+        <PeachText style={tw`text-black-100 subtitle-2 uppercase shrink`}>
           <PeachText style={tw`text-primary-main subtitle-2`}>{publicKey.slice(0, 8)}</PeachText>
           {publicKey.slice(8)}
         </PeachText>

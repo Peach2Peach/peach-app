@@ -40,12 +40,12 @@ export const UnmatchButton = ({ match, offer, interruptMatching, setShowMatchedC
             <PopupAction
               label={i18n('search.popups.unmatch.confirm')}
               iconId="minusCircle"
-              textStyle={tw`text-black-1`}
+              textStyle={tw`text-black-100`}
               onPress={() => {
                 setPopup(
                   <WarningPopup
                     title={i18n('search.popups.unmatched')}
-                    actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-1`} />}
+                    actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-100`} />}
                   />,
                 )
                 unmatch(undefined, {
@@ -57,7 +57,7 @@ export const UnmatchButton = ({ match, offer, interruptMatching, setShowMatchedC
             />
             <PopupAction
               label={i18n('search.popups.unmatch.neverMind')}
-              textStyle={tw`text-black-1`}
+              textStyle={tw`text-black-100`}
               iconId="xSquare"
               onPress={closePopup}
               reverseOrder

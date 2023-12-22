@@ -20,7 +20,7 @@ export const SliderKnob = ({ enabled = true, pan, iconId }: Props) => {
   return (
     <Animated.View
       style={[
-        enabled ? { backgroundColor: getBackgroundColor(pan) } : tw`bg-black-4`,
+        enabled ? { backgroundColor: getBackgroundColor(pan) } : tw`bg-black-25`,
         tw`flex-row items-center justify-center py-1 rounded-2xl gap-2px px-6px`,
         tw`md:px-8px md:py-6px md:gap-1`,
       ]}

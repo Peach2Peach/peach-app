@@ -10,14 +10,14 @@ type ItemProps = ComponentProps & {
 }
 export const CurrencyItem = ({ label, isSelected, onPress, style }: ItemProps) => {
   const bgColor = isSelected ? tw`bg-primary-main` : {}
-  const borderColor = isSelected ? tw`border-primary-main` : tw`border-black-3`
-  const textColor = tw.color(isSelected ? 'primary-background-light' : 'black-3')
+  const borderColor = isSelected ? tw`border-primary-main` : tw`border-black-50`
+  const textColor = tw.color(isSelected ? 'primary-background-light' : 'black-50')
 
   return (
     <Pressable
       onPress={onPress}
       style={[
-        tw`flex-row items-center justify-between px-2 border rounded-lg w-15 border-black-3`,
+        tw`flex-row items-center justify-between px-2 border rounded-lg w-15 border-black-50`,
         bgColor,
         borderColor,
         style,

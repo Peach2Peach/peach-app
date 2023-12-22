@@ -10,9 +10,9 @@ export const PaymentDataKeyFacts = ({ paymentData, style }: Props) => (
     {(paymentData.currencies || []).map((currency) => (
       <View
         key={`paymentData-${paymentData.id}-currency-${currency}`}
-        style={[tw`justify-center px-1 mx-1 border rounded-lg border-black-1`, style]}
+        style={[tw`justify-center px-1 mx-1 border rounded-lg border-black-100`, style]}
       >
-        <PeachText style={[tw`button-medium text-black-1`]}>{currency}</PeachText>
+        <PeachText style={[tw`button-medium text-black-100`]}>{currency}</PeachText>
       </View>
     ))}
   </View>

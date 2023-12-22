@@ -25,7 +25,7 @@ export const Screen = ({ children, header, showTradingLimit = false, gradientBac
     useCallback(() => {
       StatusBar.setBarStyle(gradientBackground ? 'light-content' : 'dark-content', true)
       if (isAndroid()) StatusBar.setBackgroundColor(
-        gradientBackground ? peachyGradient[2].color : String(tw`text-primary-background`.color),
+        gradientBackground ? peachyGradient[2].color : String(tw`text-primary-background-main`.color),
         true,
       )
     }, [gradientBackground]),

@@ -90,7 +90,7 @@ function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: Con
 
           <View>
             <EmailInput
-              style={tw`bg-warning-background`}
+              style={tw`bg-warning-mild-1`}
               onChange={setEmail}
               onSubmit={submit}
               value={email}
@@ -101,13 +101,13 @@ function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: Con
       }
       actions={
         <>
-          <ClosePopupAction textStyle={tw`text-black-1`} />
+          <ClosePopupAction textStyle={tw`text-black-100`} />
           <LoadingPopupAction
             label={i18n('send')}
             iconId="arrowRightCircle"
             onPress={submit}
             reverseOrder
-            textStyle={tw`text-black-1`}
+            textStyle={tw`text-black-100`}
           />
         </>
       }

@@ -35,11 +35,11 @@ export type SettingsItemProps = (
 export const SettingsItem = ({ onPress: pressAction, title, iconId, warning, enabled, iconSize }: SettingsItemProps) => {
   const navigation = useNavigation()
   const onPress = pressAction ? pressAction : () => navigation.navigate(title)
-  const iconColor = warning ? tw.color('error-main') : enabled ? tw.color('primary-main') : tw.color('black-3')
+  const iconColor = warning ? tw.color('error-main') : enabled ? tw.color('primary-main') : tw.color('black-50')
 
   return (
     <TouchableOpacity style={tw`my-3 mx-[6px] justify-between items-center flex-row`} onPress={onPress}>
-      <PeachText style={[tw`settings text-black-2`, warning && tw`text-error-main`]}>
+      <PeachText style={[tw`settings text-black-65`, warning && tw`text-error-main`]}>
         {i18n(`settings.${title}`)}
       </PeachText>
       <View style={tw`flex items-center w-8 h-8`}>

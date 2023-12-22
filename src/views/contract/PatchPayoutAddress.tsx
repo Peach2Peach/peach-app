@@ -95,7 +95,7 @@ function ScreenContent ({ contract }: { contract: Contract }) {
         <Input
           value={addressLabel}
           placeholder={i18n('form.address.label.placeholder')}
-          placeholderTextColor={tw.color('black-5')}
+          placeholderTextColor={tw.color('black-10')}
           onChange={setAddressLabel}
           errorMessage={addressLabelErrors}
         />

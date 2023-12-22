@@ -37,11 +37,11 @@ export const useShowWronglyFundedPopup = () => {
           content={content}
           actions={
             <>
-              <ClosePopupAction textStyle={tw`text-black-1`} />
+              <ClosePopupAction textStyle={tw`text-black-100`} />
               <PopupAction
                 label={i18n('refundEscrow')}
                 iconId="arrowRightCircle"
-                textStyle={tw`text-black-1`}
+                textStyle={tw`text-black-100`}
                 onPress={() => {
                   cancelAndStartRefundPopup(sellOffer)
                 }}

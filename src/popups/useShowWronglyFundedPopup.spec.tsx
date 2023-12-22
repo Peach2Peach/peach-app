@@ -45,11 +45,11 @@ describe('useShowWronglyFundedPopup', () => {
         content={<WrongFundingAmount actualAmount={actualAmount} amount={amount} maxAmount={maxTradingAmount} />}
         actions={
           <>
-            <ClosePopupAction textStyle={tw`text-black-1`} />
+            <ClosePopupAction textStyle={tw`text-black-100`} />
             <PopupAction
               label="refund escrow"
               iconId="arrowRightCircle"
-              textStyle={tw`text-black-1`}
+              textStyle={tw`text-black-100`}
               onPress={expect.any(Function)}
               reverseOrder
             />
@@ -75,11 +75,11 @@ describe('useShowWronglyFundedPopup', () => {
         content={<IncorrectFunding utxos={2} />}
         actions={
           <>
-            <ClosePopupAction textStyle={tw`text-black-1`} />
+            <ClosePopupAction textStyle={tw`text-black-100`} />
             <PopupAction
               label="refund escrow"
               iconId="arrowRightCircle"
-              textStyle={tw`text-black-1`}
+              textStyle={tw`text-black-100`}
               onPress={expect.any(Function)}
               reverseOrder
             />

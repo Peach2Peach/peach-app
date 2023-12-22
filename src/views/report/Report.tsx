@@ -99,7 +99,7 @@ export const Report = () => {
               {shareDeviceID ? (
                 <Icon id="checkboxMark" size={20} color={tw.color('primary-main')} />
               ) : (
-                <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
+                <View style={tw`w-4 h-4 border-2 rounded-sm border-black-50`} />
               )}
             </View>
             <PeachText style={tw`pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</PeachText>
@@ -110,7 +110,7 @@ export const Report = () => {
             {shareLogs ? (
               <Icon id="checkboxMark" size={20} color={tw.color('primary-main')} />
             ) : (
-              <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
+              <View style={tw`w-4 h-4 border-2 rounded-sm border-black-50`} />
             )}
           </View>
           <PeachText style={tw`pl-2 subtitle-1`}>{i18n('form.shareLogs')}</PeachText>

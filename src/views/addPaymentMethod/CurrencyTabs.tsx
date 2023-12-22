@@ -36,7 +36,7 @@ export const CurrencyTabs = (props: Props) => {
         tabBarLabelStyle: tw`capitalize input-title`,
         tabBarStyle: tw`bg-transparent`,
         tabBarContentContainerStyle: tw`bg-transparent`,
-        tabBarIndicatorStyle: tw`bg-black-1`,
+        tabBarIndicatorStyle: tw`bg-black-100`,
         tabBarItemStyle: tw`px-0`,
         tabBarPressColor: 'transparent',
         tabBarScrollEnabled: true,

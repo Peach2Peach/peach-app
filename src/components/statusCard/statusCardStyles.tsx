@@ -8,7 +8,7 @@ export const statusCardStyles = {
     'primary-mild': tw`bg-primary-mild-1`,
     warning: tw`bg-warning-main`,
     info: tw`bg-info-mild`,
-    black: tw`bg-black-3`,
+    black: tw`bg-black-50`,
   },
   border: {
     primary: 'border-primary-main',
@@ -17,15 +17,15 @@ export const statusCardStyles = {
     'primary-mild': 'border-primary-mild-1',
     warning: 'border-warning-main',
     info: 'border-info-mild',
-    black: 'border-black-3',
+    black: 'border-black-50',
   },
   text: {
     primary: 'text-primary-background-light',
     error: 'text-primary-background-light',
     success: 'text-primary-background-light',
-    'primary-mild': 'text-black-2',
-    warning: 'text-black-1',
-    info: 'text-black-1',
+    'primary-mild': 'text-black-65',
+    warning: 'text-black-100',
+    info: 'text-black-100',
     black: 'text-primary-background-light',
   },
 }

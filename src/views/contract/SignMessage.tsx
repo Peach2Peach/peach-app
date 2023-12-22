@@ -100,7 +100,7 @@ function ScreenContent ({ contract }: { contract: Contract }) {
           ]}
         >
           <PeachText style={tw`flex-1 input-text`}>{address}</PeachText>
-          <CopyAble value={address || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-1`} />
+          <CopyAble value={address || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-100`} />
         </View>
         <PeachText style={[tw`pl-2 input-label`]}>{i18n('buy.addressSigning.message')}</PeachText>
         <View
@@ -111,7 +111,7 @@ function ScreenContent ({ contract }: { contract: Contract }) {
           ]}
         >
           <PeachText style={tw`flex-1 input-text`}>{message}</PeachText>
-          <CopyAble value={message || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-1`} />
+          <CopyAble value={message || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-100`} />
         </View>
         <Input
           value={signature}

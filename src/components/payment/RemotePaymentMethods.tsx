@@ -52,7 +52,7 @@ export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }
     setRandom(Math.random())
   }
   return paymentData.filter((item) => !isCashTrade(item.type)).length === 0 ? (
-    <PeachText style={tw`text-center h6 text-black-3`}>{i18n('paymentMethod.empty')}</PeachText>
+    <PeachText style={tw`text-center h6 text-black-50`}>{i18n('paymentMethod.empty')}</PeachText>
   ) : (
     <View testID={'checkboxes-buy-mops'}>
       {keys(PAYMENTCATEGORIES)
@@ -70,9 +70,9 @@ export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }
         .map(({ category, checkboxes }, i) => (
           <View key={category} style={i > 0 ? tw`mt-8` : {}}>
             <LinedText style={tw`pb-3`}>
-              <PeachText style={tw`mr-1 h6 text-black-2`}>{i18n(`paymentCategory.${category}`)}</PeachText>
+              <PeachText style={tw`mr-1 h6 text-black-65`}>{i18n(`paymentCategory.${category}`)}</PeachText>
               {paymentCategoryIcons[category] !== '' && (
-                <Icon color={tw.color('black-2')} id={paymentCategoryIcons[category] as IconType} />
+                <Icon color={tw.color('black-65')} id={paymentCategoryIcons[category] as IconType} />
               )}
             </LinedText>
             {checkboxes.map((item, j) => (
@@ -92,7 +92,7 @@ export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }
                   <View style={tw`flex flex-row justify-between`}>
                     <PeachText style={tw`font-baloo text-error-main`}>{item.data.label}</PeachText>
                     <Pressable onPress={() => deletePaymentData(item.data)} style={tw`w-6 h-6`}>
-                      <Icon id="trash" style={tw`w-6 h-6`} color={tw.color('black-2')} />
+                      <Icon id="trash" style={tw`w-6 h-6`} color={tw.color('black-65')} />
                     </Pressable>
                   </View>
                 )}

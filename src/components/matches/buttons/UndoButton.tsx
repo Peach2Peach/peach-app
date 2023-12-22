@@ -39,7 +39,7 @@ export const UndoButton = ({ onPress, onTimerFinished }: Props) => {
   const sharedProps = {
     onPress,
     iconId: 'rotateCounterClockwise',
-    textColor: tw`text-black-1`,
+    textColor: tw`text-black-100`,
   } as const
 
   return (

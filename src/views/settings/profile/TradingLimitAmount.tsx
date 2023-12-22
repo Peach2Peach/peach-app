@@ -14,11 +14,11 @@ type Props = ComponentProps & {
 }
 export const TradingLimitAmount = ({ amount, limit, displayCurrency, style, type }: Props) => (
   <View style={style}>
-    <PeachText style={tw`tooltip text-black-2`}>
+    <PeachText style={tw`tooltip text-black-65`}>
       {i18n(`profile.tradingLimits.${type}`)}
       {'  '}
       <PriceFormat style={[textStyle, tw`text-primary-main`]} currency={displayCurrency} amount={amount} round />
-      <PeachText style={[textStyle, tw`text-black-2`]}> / </PeachText>
+      <PeachText style={[textStyle, tw`text-black-65`]}> / </PeachText>
       <PriceFormat style={[textStyle, tw`text-primary-mild-1`]} currency={displayCurrency} amount={limit} round />
     </PeachText>
   </View>

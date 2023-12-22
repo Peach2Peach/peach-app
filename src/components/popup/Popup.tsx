@@ -8,7 +8,7 @@ export const Popup = () => {
   return (
     <Modal transparent visible={visible} onRequestClose={closePopup}>
       <View style={tw`justify-center flex-1`}>
-        <Pressable style={tw`absolute w-full h-full bg-black-1 opacity-40`} onPress={closePopup} />
+        <Pressable style={tw`absolute w-full h-full bg-black-100 opacity-40`} onPress={closePopup} />
         {popupComponent}
       </View>
     </Modal>

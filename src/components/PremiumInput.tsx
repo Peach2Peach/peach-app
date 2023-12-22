@@ -26,7 +26,7 @@ export const PremiumInput = ({ premium, setPremium, incrementBy = defaultIncreme
     setPremium(newPremium)
   }
 
-  const textColor = premium === 0 ? tw`text-black-1` : premium > 0 ? tw`text-success-main` : tw`text-primary-main`
+  const textColor = premium === 0 ? tw`text-black-100` : premium > 0 ? tw`text-success-main` : tw`text-primary-main`
 
   return (
     <View style={tw`flex-row items-center justify-between`}>

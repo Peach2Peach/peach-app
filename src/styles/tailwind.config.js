@@ -19,12 +19,14 @@ module.exports = {
         current: 'currentColor',
         bitcoin: '#F7931A',
         black: {
-          1: '#2B1911',
-          2: '#7D675E',
-          3: '#9F8C82',
-          4: '#BAADA7',
-          5: '#EAE3DF',
-          6: '#F4EEEB',
+          100: '#2B1911',
+          90: '#46332B',
+          75: '#624D44',
+          65: '#7D675E',
+          50: '#9F8C82',
+          25: '#BAADA7',
+          10: '#EAE3DF',
+          5: '#F4EEEB',
         },
         primary: {
           dark: {
@@ -36,9 +38,11 @@ module.exports = {
             2: '#FFA171',
             1: '#FCCCB6',
           },
-          'background-dark': '#FEEDE5',
-          background: '#FFF9F6',
-          'background-light': '#FFFCFA',
+          background: {
+            dark: '#FEEDE5',
+            main: '#FFF9F6',
+            light: '#FFFCFA',
+          },
         },
         success: {
           dark: {
@@ -50,10 +54,11 @@ module.exports = {
             2: '#AFDA73',
             1: '#DDEFC3',
           },
-          'background-dark': '#F2F9E7',
-          'background-main': '#FCFEF6',
-          'background-light': '#FEFEFB',
-          background: '#C9FFE5',
+          background: {
+            dark: '#F2F9E7',
+            main: '#FCFEF6',
+            light: '#FEFEFB',
+          },
         },
         warning: {
           dark: {
@@ -65,10 +70,11 @@ module.exports = {
             2: '#F9E96C',
             1: '#FDF6C0',
           },
-          background: '#FDF6C0',
-          backgroundDark: '#FEFCE5',
-          backgroundMain: '#FFFEF5',
-          backgroundLight: '#FFFEFA',
+          background: {
+            dark: '#FEFCE5',
+            main: '#FFFEF5',
+            light: '#FFFEFA',
+          },
         },
         error: {
           dark: '#B01807',

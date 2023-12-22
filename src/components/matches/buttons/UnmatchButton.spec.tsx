@@ -105,7 +105,7 @@ describe('UnmatchButton', () => {
     expect(usePopupStore.getState().popupComponent).toStrictEqual(
       <WarningPopup
         title={i18n('search.popups.unmatched')}
-        actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-1`} />}
+        actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-100`} />}
       />,
     )
 

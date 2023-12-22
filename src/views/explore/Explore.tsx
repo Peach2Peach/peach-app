@@ -122,7 +122,7 @@ function ExploreCard ({ match }: { match: Match }) {
               currency={match.selectedCurrency ?? displayCurrency}
               amount={match.matchedPrice ?? fiatPrice * (1 + premium / CENT)}
             />
-            <PeachText style={tw`text-black-2`}>
+            <PeachText style={tw`text-black-65`}>
               {' '}
               ({premium >= 0 ? '+' : ''}
               {premium}%)

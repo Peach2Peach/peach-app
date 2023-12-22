@@ -30,7 +30,7 @@ export function Screens () {
       screenOptions={{
         gestureEnabled: isIOS(),
         headerShown: false,
-        cardStyle: tw`flex-1 bg-primary-background`,
+        cardStyle: tw`flex-1 bg-primary-background-main`,
       }}
     >
       {(isLoggedIn ? views : onboardingViews).map(({ name, component, animationEnabled }) => (

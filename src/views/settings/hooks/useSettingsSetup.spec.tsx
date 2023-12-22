@@ -107,13 +107,13 @@ describe('useSettingsSetup', () => {
               label="no, keep them on"
               iconId="arrowLeftCircle"
               onPress={expect.any(Function)}
-              textStyle={tw`text-black-1`}
+              textStyle={tw`text-black-100`}
             />
             <PopupAction
               label="yes, turn off"
               iconId="slash"
               onPress={expect.any(Function)}
-              textStyle={tw`text-black-1`}
+              textStyle={tw`text-black-100`}
               reverseOrder
             />
           </>

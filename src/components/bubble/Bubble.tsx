@@ -41,8 +41,8 @@ export function NewBubble ({ children, iconId, onPress, color, ghost }: NewBubbl
       : color === 'primary-mild'
         ? 'primary-mild-1'
         : color === 'gray'
-          ? 'black-3'
-          : 'black-1',
+          ? 'black-50'
+          : 'black-100',
   )
 
   return (
