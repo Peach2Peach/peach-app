@@ -65,7 +65,7 @@ function DailyMessage () {
 
   const onSharePress = () => {
     Share.open({
-      message: message.shareText ?? message.text,
+      message: message.shareText || message.text,
       url: message.url,
     }).catch((e) => {
       info('User did not share', e)
