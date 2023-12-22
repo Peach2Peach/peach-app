@@ -1,11 +1,11 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { PopupAction } from '../../components/popup'
+import { useClosePopup, useSetPopup } from '../../components/popup/Popup'
 import { PopupComponent } from '../../components/popup/PopupComponent'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../store/settingsStore'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { useAccountStore } from '../../utils/account/account'
 import { getSellOfferFromContract } from '../../utils/contract/getSellOfferFromContract'
@@ -24,7 +24,8 @@ import { getSellerCanceledTitle } from './getSellerCanceledTitle'
 import { cancelContractAsSeller } from './helpers/cancelContractAsSeller'
 
 export const useConfirmCancelTrade = () => {
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setPopup = useSetPopup()
+  const closePopup = useClosePopup()
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const [customPayoutAddress, customPayoutAddressLabel, isPeachWalletActive] = useSettingsStore(

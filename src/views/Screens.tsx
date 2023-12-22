@@ -5,11 +5,11 @@ import SplashScreen from 'react-native-splash-screen'
 import { LogoIcons } from '../assets/logo'
 import { PeachyGradient } from '../components/PeachyGradient'
 import { useMessageState } from '../components/message/useMessageState'
+import { useSetPopup } from '../components/popup/Popup'
 import { useNavigation } from '../hooks/useNavigation'
 import { initApp } from '../init/initApp'
 import { requestUserPermissions } from '../init/requestUserPermissions'
 import { VerifyYouAreAHumanPopup } from '../popups/warning/VerifyYouAreAHumanPopup'
-import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import { useGlobalHandlers } from '../useGlobalHandlers'
 import { useAccountStore } from '../utils/account/account'
@@ -53,7 +53,7 @@ export function Screens () {
 function SplashScreenComponent ({ setIsLoading }: { setIsLoading: (isLoading: boolean) => void }) {
   const updateMessage = useMessageState((state) => state.updateMessage)
   const navigation = useNavigation()
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   useEffect(() => {
     (async () => {
       const statusResponse = await initApp()

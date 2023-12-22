@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { PopupAction } from '../components/popup'
+import { useSetPopup } from '../components/popup/Popup'
 import { useConfigStore } from '../store/configStore/configStore'
-import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { sum } from '../utils/math/sum'
@@ -12,7 +12,7 @@ import { IncorrectFunding } from './warning/IncorrectFunding'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
 
 export const useShowWronglyFundedPopup = () => {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const maxTradingAmount = useConfigStore((state) => state.maxTradingAmount)
   const cancelAndStartRefundPopup = useCancelAndStartRefundPopup()
 

@@ -7,8 +7,10 @@ import { ConfirmSlider } from '../../components/inputs'
 import { BTCAmountInput } from '../../components/inputs/BTCAmountInput'
 import { BitcoinAddressInput } from '../../components/inputs/BitcoinAddressInput'
 import { RadioButtons } from '../../components/inputs/RadioButtons'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
+import { useHandleTransactionError } from '../../hooks/error/useHandleTransactionError'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowHelp } from '../../hooks/useShowHelp'
@@ -22,8 +24,8 @@ import { useWalletState } from '../../utils/wallet/walletStore'
 import { CustomFeeItem } from '../settings/components/networkFees/CustomFeeItem'
 import { EstimatedFeeItem } from '../settings/components/networkFees/EstimatedFeeItem'
 import { UTXOAddress } from './components'
+import { WithdrawalConfirmationPopup } from './components/WithdrawalConfirmationPopup'
 import { useUTXOs } from './hooks'
-import { useOpenWithdrawalConfirmationPopup } from './hooks/useOpenWithdrawalConfirmationPopup'
 
 export const SendBitcoin = () => {
   const [address, setAddress] = useState('')
@@ -31,7 +33,8 @@ export const SendBitcoin = () => {
   const [shouldDrainWallet, setShouldDrainWallet] = useState(false)
   const { estimatedFees } = useFeeEstimate()
   const [feeRate, setFee] = useState<number | undefined>(estimatedFees.fastestFee)
-  const openConfirmationPopup = useOpenWithdrawalConfirmationPopup()
+  const handleTransactionError = useHandleTransactionError()
+  const setPopup = useSetPopup()
 
   const { selectedUTXOs } = useUTXOs()
 
@@ -46,15 +49,22 @@ export const SendBitcoin = () => {
     setAmount(newValue)
   }
 
-  const sendTrasaction = () => {
+  const sendTrasaction = async () => {
     if (!feeRate) return
-    openConfirmationPopup({
-      address,
-      amount,
-      feeRate,
-      shouldDrainWallet,
-      utxos: selectedUTXOs,
-    })
+    try {
+      const { psbt } = await peachWallet.buildFinishedTransaction({
+        address,
+        amount,
+        feeRate,
+        shouldDrainWallet,
+        utxos: selectedUTXOs,
+      })
+      const fee = await psbt.feeAmount()
+
+      setPopup(<WithdrawalConfirmationPopup {...{ address, amount, psbt, fee, feeRate }} />)
+    } catch (e) {
+      handleTransactionError(e)
+    }
   }
 
   const isFormValid = useMemo(

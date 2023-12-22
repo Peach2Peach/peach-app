@@ -5,12 +5,13 @@ import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { RadioButtonItem, RadioButtons } from '../../components/inputs/RadioButtons'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { Progress } from '../../components/ui/Progress'
 import { useSelfUser } from '../../hooks/query/useSelfUser'
 import { useShowHelp } from '../../hooks/useShowHelp'
-import { useRedeemNoPeachFeesReward } from '../../popups/referral/useRedeemNoPeachFeesReward'
-import { useSetCustomReferralCodePopup } from '../../popups/referral/useSetCustomReferralCodePopup'
+import { CustomReferralCodePopup } from '../../popups/referral/CustomReferralCodePopup'
+import { RedeemNoPeachFeesPopup } from '../../popups/referral/RedeemNoPeachFeesPopup'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -62,13 +63,12 @@ function ReferralRewards () {
 }
 
 function RedeemButton ({ selectedReward }: { selectedReward: RewardType | undefined }) {
-  const showCustomReferralCodePopup = useSetCustomReferralCodePopup()
-  const redeemNoPeachFeesReward = useRedeemNoPeachFeesReward()
+  const setPopup = useSetPopup()
   const redeem = () => {
     if (selectedReward === 'customReferralCode') {
-      showCustomReferralCodePopup()
+      setPopup(<CustomReferralCodePopup />)
     } else if (selectedReward === 'noPeachFees') {
-      redeemNoPeachFeesReward()
+      setPopup(<RedeemNoPeachFeesPopup />)
     }
   }
   return (

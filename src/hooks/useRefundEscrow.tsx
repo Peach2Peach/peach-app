@@ -1,14 +1,13 @@
 import { NETWORK } from '@env'
 import { useCallback } from 'react'
-import { shallow } from 'zustand/shallow'
 import { useSetOverlay } from '../Overlay'
 import { PopupAction } from '../components/popup'
+import { useClosePopup, useSetPopup } from '../components/popup/Popup'
 import { PopupComponent } from '../components/popup/PopupComponent'
 import { FIFTEEN_SECONDS } from '../constants'
 import { Refund } from '../popups/Refund'
 import { useSettingsStore } from '../store/settingsStore'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
-import { usePopupStore } from '../store/usePopupStore'
 import { checkRefundPSBT } from '../utils/bitcoin/checkRefundPSBT'
 import { showTransaction } from '../utils/bitcoin/showTransaction'
 import { signAndFinalizePSBT } from '../utils/bitcoin/signAndFinalizePSBT'
@@ -24,7 +23,8 @@ import { useNavigation } from './useNavigation'
 import { useShowErrorBanner } from './useShowErrorBanner'
 
 export const useRefundEscrow = () => {
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setPopup = useSetPopup()
+  const closePopup = useClosePopup()
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
   const isPeachWallet = useSettingsStore((state) => state.peachWalletActive)

@@ -6,10 +6,11 @@ import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
 import { Input } from '../../components/inputs/Input'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
+import { AppPopup } from '../../hooks/AppPopup'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowAppPopup } from '../../hooks/useShowAppPopup'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
 import { useValidatedState } from '../../hooks/useValidatedState'
@@ -24,7 +25,7 @@ const required = { required: true }
 export const Report = () => {
   const route = useRoute<'report'>()
   const navigation = useNavigation()
-  const showReportSuccess = useShowAppPopup('reportSuccess')
+  const setPopup = useSetPopup()
   const [email, setEmail, isEmailValid, emailErrors] = useValidatedState<string>('', emailRules)
   const [topic, setTopic, isTopicValid, topicErrors] = useValidatedState(route.params.topic || '', required)
   const [message, setMessage, isMessageValid, messageErrors] = useValidatedState(route.params.message || '', required)
@@ -54,7 +55,7 @@ export const Report = () => {
       } else {
         navigation.navigate('welcome')
       }
-      showReportSuccess()
+      setPopup(<AppPopup id="reportSuccess" />)
       return
     }
 

@@ -1,12 +1,13 @@
 import { useCallback } from 'react'
+import { useSetPopup } from '../components/popup/Popup'
 import { PeachText } from '../components/text/PeachText'
 import { InfoPopup } from '../popups/InfoPopup'
 import { helpPopups } from '../popups/helpPopups'
-import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 
+// TODO: remove
 export const useShowHelp = (id: string, showTitle = true) => {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
 
   const showHelp = useCallback(() => {
     setPopup(<HelpPopup id={id} showTitle={showTitle} />)
@@ -20,7 +21,7 @@ type Props = {
   showTitle?: boolean
 }
 
-function HelpPopup ({ id, showTitle }: Props) {
+export function HelpPopup ({ id, showTitle }: Props) {
   const Content = helpPopups[id]?.content
   return (
     <InfoPopup

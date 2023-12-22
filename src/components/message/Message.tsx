@@ -5,7 +5,6 @@ import { shallow } from 'zustand/shallow'
 import { IconType } from '../../assets/icons'
 import { useNavigation } from '../../hooks/useNavigation'
 import { VerifyYouAreAHumanPopup } from '../../popups/warning/VerifyYouAreAHumanPopup'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { messageShadow } from '../../utils/layout/shadows'
@@ -14,6 +13,7 @@ import { parseError } from '../../utils/result/parseError'
 import { isNetworkError } from '../../utils/system/isNetworkError'
 import { Icon } from '../Icon'
 import { Placeholder } from '../Placeholder'
+import { useSetPopup } from '../popup/Popup'
 import { PeachText } from '../text/PeachText'
 import { iconMap } from './iconMap'
 import { useMessageState } from './useMessageState'
@@ -42,7 +42,7 @@ const levelColorMap: LevelColorMap = {
 }
 
 export const Message = () => {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const [{ level, msgKey, bodyArgs = [], action, onClose, time, keepAlive }, updateMessage] = useMessageState(
     (state) => [
       {

@@ -6,6 +6,7 @@ import { Screen } from '../../components/Screen'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Badges } from '../../components/matches/components/Badges'
 import { getPremiumOfMatchedOffer } from '../../components/matches/getPremiumOfMatchedOffer'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { PriceFormat } from '../../components/text/PriceFormat'
 import { CENT, NEW_USER_THRESHOLD } from '../../constants'
@@ -16,7 +17,6 @@ import { useCancelOffer } from '../../hooks/useCancelOffer'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
 import { BuySorters } from '../../popups/sorting/BuySorters'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -136,7 +136,7 @@ function ExploreCard ({ match }: { match: Match }) {
 
 function ExploreHeader () {
   const { offerId } = useRoute<'explore'>().params
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const showSortAndFilterPopup = () => {
     setPopup(<BuySorters />)
   }

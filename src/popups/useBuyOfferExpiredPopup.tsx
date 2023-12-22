@@ -1,15 +1,15 @@
 import { useCallback } from 'react'
-import { shallow } from 'zustand/shallow'
+import { useClosePopup, useSetPopup } from '../components/popup/Popup'
 import { PopupAction } from '../components/popup/PopupAction'
 import { PopupComponent } from '../components/popup/PopupComponent'
 import { useNavigation } from '../hooks/useNavigation'
-import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { BuyOfferExpired } from './BuyOfferExpired'
 import { ClosePopupAction } from './actions/ClosePopupAction'
 
 export const useBuyOfferExpiredPopup = () => {
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setPopup = useSetPopup()
+  const closePopup = useClosePopup()
   const navigation = useNavigation()
   const goToContact = useCallback(() => {
     closePopup()

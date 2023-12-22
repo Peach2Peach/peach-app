@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { usePopupStore } from '../../../store/usePopupStore'
+import { useSetPopup } from '../../../components/popup/Popup'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { ErrorPopup } from '../../ErrorPopup'
@@ -7,7 +7,7 @@ import { ClosePopupAction } from '../../actions/ClosePopupAction'
 import { DisputeRaisedSuccess } from '../components/DisputeRaisedSuccess'
 
 export const useDisputeRaisedSuccess = () => {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
 
   const showDisputeRaisedSuccess = useCallback(
     (view: ContractViewer) => {

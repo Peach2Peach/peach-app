@@ -1,8 +1,7 @@
 import { useCallback } from 'react'
-import { shallow } from 'zustand/shallow'
 import { PopupAction } from '../components/popup'
+import { useClosePopup, useSetPopup } from '../components/popup/Popup'
 import { useNavigation } from '../hooks/useNavigation'
-import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { sum } from '../utils/math/sum'
@@ -11,7 +10,8 @@ import { FundingAmountDifferent } from './warning/FundingAmountDifferent'
 
 export const useShowFundingAmountDifferentPopup = () => {
   const navigation = useNavigation()
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setPopup = useSetPopup()
+  const closePopup = useClosePopup()
 
   const showFundingAmountDifferentPopup = useCallback(
     (sellOffer: SellOffer) =>

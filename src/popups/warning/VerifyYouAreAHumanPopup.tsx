@@ -2,18 +2,18 @@ import { API_URL } from '@env'
 import { View } from 'react-native'
 import { WebView, WebViewMessageEvent } from 'react-native-webview'
 import { PopupAction } from '../../components/popup'
+import { useClosePopup, useSetPopup } from '../../components/popup/Popup'
 import { PopupComponent } from '../../components/popup/PopupComponent'
 import { PeachText } from '../../components/text/PeachText'
 import { initApp } from '../../init/initApp'
 import { useSettingsStore } from '../../store/settingsStore'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { WarningPopup } from '../WarningPopup'
 import { ClosePopupAction } from '../actions/ClosePopupAction'
 
 export const VerifyYouAreAHuman = () => {
-  const closePopup = usePopupStore((state) => state.closePopup)
+  const closePopup = useClosePopup()
   const setCloudflareChallenge = useSettingsStore((state) => state.setCloudflareChallenge)
 
   const handleMessage = async (event: WebViewMessageEvent) => {
@@ -52,7 +52,7 @@ export function VerifyYouAreAHumanPopup () {
 }
 
 function GoToChallengeAction () {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
 
   return (
     <PopupAction

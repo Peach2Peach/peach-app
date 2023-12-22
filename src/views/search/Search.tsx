@@ -6,13 +6,13 @@ import { Screen } from '../../components/Screen'
 import { Matches } from '../../components/matches/Matches'
 import { SellOfferSummary } from '../../components/offer/SellOfferSummary'
 import { WalletLabel } from '../../components/offer/WalletLabel'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { useCancelOffer } from '../../hooks/useCancelOffer'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
 import { useShowHelp } from '../../hooks/useShowHelp'
 import { SellSorters } from '../../popups/sorting/SellSorters'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -54,7 +54,7 @@ function SearchHeader ({ offer }: { offer: SellOffer }) {
   const navigation = useNavigation()
   const showMatchPopup = useShowHelp('matchmatchmatch')
   const showAcceptMatchPopup = useShowHelp('acceptMatch')
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const showSortAndFilterPopup = useCallback(() => setPopup(<SellSorters />), [setPopup])
   const cancelOffer = useCancelOffer(offerId)
 

@@ -1,12 +1,13 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { useSetPopup } from '../../../components/popup/Popup'
 import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { getTransactionFeeRate } from '../../../utils/bitcoin/getTransactionFeeRate'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { buildBumpFeeTransaction } from '../../../utils/wallet/transaction/buildBumpFeeTransaction'
 import { useWalletState } from '../../../utils/wallet/walletStore'
-import { useShowConfirmRbfPopup } from './useShowConfirmRbfPopup'
+import { ConfirmRbfPopup } from '../components/ConfirmRbfPopup'
 
 const useRemoveTxFromPeachWallet = () => {
   const [removeTransaction] = useWalletState((state) => [state.removeTransaction], shallow)
@@ -29,7 +30,7 @@ type Props = {
   sendingAmount: number
 }
 export const useBumpFees = ({ transaction, newFeeRate, sendingAmount }: Props) => {
-  const showConfirmRbfPopup = useShowConfirmRbfPopup()
+  const setPopup = useSetPopup()
   const handleTransactionError = useHandleTransactionError()
   const removeTxFromPeachWallet = useRemoveTxFromPeachWallet()
   const navigation = useNavigation()
@@ -53,19 +54,20 @@ export const useBumpFees = ({ transaction, newFeeRate, sendingAmount }: Props) =
         transaction.vout.length === 1 ? transaction.vout[0].scriptpubkey_address : undefined,
       )
       const finishedTransaction = await peachWallet.finishTransaction(bumpFeeTransaction)
-
-      showConfirmRbfPopup({
-        currentFeeRate: getTransactionFeeRate(transaction),
-        newFeeRate,
-        transaction,
-        sendingAmount,
-        finishedTransaction,
-        onSuccess,
-      })
+      setPopup(
+        <ConfirmRbfPopup
+          currentFeeRate={getTransactionFeeRate(transaction)}
+          newFeeRate={newFeeRate}
+          transaction={transaction}
+          sendingAmount={sendingAmount}
+          finishedTransaction={finishedTransaction}
+          onSuccess={onSuccess}
+        />,
+      )
     } catch (e) {
       handleTransactionError(e)
     }
-  }, [handleTransactionError, newFeeRate, onSuccess, sendingAmount, showConfirmRbfPopup, transaction])
+  }, [handleTransactionError, newFeeRate, onSuccess, sendingAmount, setPopup, transaction])
 
   return bumpFees
 }

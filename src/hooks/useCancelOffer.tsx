@@ -1,14 +1,13 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
-import { shallow } from 'zustand/shallow'
 import { PopupAction } from '../components/popup'
+import { useClosePopup, useSetPopup } from '../components/popup/Popup'
 import { PopupComponent } from '../components/popup/PopupComponent'
 import { CancelOffer } from '../popups/CancelOffer'
 import { GrayPopup } from '../popups/GrayPopup'
 import { ClosePopupAction } from '../popups/actions/ClosePopupAction'
 import { LoadingPopupAction } from '../popups/actions/LoadingPopupAction'
 import { useStartRefundPopup } from '../popups/useStartRefundPopup'
-import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { cancelAndSaveOffer } from '../utils/offer/cancelAndSaveOffer'
@@ -18,7 +17,7 @@ import { useNavigation } from './useNavigation'
 import { useShowErrorBanner } from './useShowErrorBanner'
 
 export const useCancelOffer = (offerId: undefined | string) => {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
 
   const cancelOffer = useCallback(() => {
     if (!offerId) return
@@ -31,7 +30,8 @@ export const useCancelOffer = (offerId: undefined | string) => {
 function CancelOfferPopup ({ offerId }: { offerId: string }) {
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setPopup = useSetPopup()
+  const closePopup = useClosePopup()
   const queryClient = useQueryClient()
   const { offer } = useOfferDetails(offerId)
 

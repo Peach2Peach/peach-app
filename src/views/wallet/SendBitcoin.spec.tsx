@@ -2,6 +2,7 @@ import { Wallet } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { KeychainKind } from 'bdk-rn/lib/lib/enums'
+import { Provider } from 'jotai'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { act, fireEvent, render, waitFor } from 'test-utils'
 import { account1 } from '../../../tests/unit/data/accountData'
@@ -10,10 +11,7 @@ import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { swipeRight } from '../../../tests/unit/helpers/fireSwipeEvent'
 import { walletListUnspentMock } from '../../../tests/unit/mocks/bdkRN'
-import { PopupAction } from '../../components/popup'
-import { PopupComponent } from '../../components/popup/PopupComponent'
-import { WithdrawalConfirmation } from '../../popups/WithdrawalConfirmation'
-import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
+import { Popup } from '../../components/popup'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { createWalletFromBase58 } from '../../utils/wallet/createWalletFromBase58'
 import { getNetwork } from '../../utils/wallet/getNetwork'
@@ -32,7 +30,6 @@ describe('SendBitcoin', () => {
   })
 
   beforeEach(() => {
-    usePopupStore.setState(defaultPopupState)
     useWalletState.setState(defaultWalletState)
   })
 
@@ -73,12 +70,18 @@ describe('SendBitcoin', () => {
     fireEvent.press(mediumFeeButton)
     expect(render(<SendBitcoin />).toJSON()).toMatchDiffSnapshot(toJSON())
   })
-  it('should should the help popup when clicking on the questionmark in the header', () => {
-    const { getByAccessibilityHint } = render(<SendBitcoin />)
+  it('should should the help popup when clicking on the questionmark in the header', async () => {
+    const { getByAccessibilityHint, queryByText } = render(
+      <>
+        <SendBitcoin />
+        <Popup />
+      </>,
+    )
+
     const helpButton = getByAccessibilityHint('help')
     fireEvent.press(helpButton)
-    const popupComponent = usePopupStore.getState().popupComponent ?? <></>
-    expect(render(popupComponent).toJSON()).toMatchSnapshot()
+
+    expect(queryByText('help')).toBeTruthy()
   })
   it('should disable the slider while the wallet is not synced', () => {
     useWalletState.setState({ isSynced: false })
@@ -102,7 +105,12 @@ describe('SendBitcoin', () => {
 
   it('should open the confirmation popup when swiping the slider', async () => {
     useWalletState.setState({ isSynced: true })
-    const { getByTestId, getByText, getByPlaceholderText } = render(<SendBitcoin />)
+    const { getByTestId, getByText, getByPlaceholderText, queryByText } = render(
+      <>
+        <SendBitcoin />
+        <Popup />
+      </>,
+    )
 
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
@@ -117,42 +125,27 @@ describe('SendBitcoin', () => {
     swipeRight(slider)
 
     await waitFor(() => {
-      expect(usePopupStore.getState().visible).toBe(true)
-      expect(usePopupStore.getState().popupComponent).toStrictEqual(
-        <PopupComponent
-          title="sending funds"
-          content={
-            <WithdrawalConfirmation
-              feeRate={6}
-              address="bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0"
-              amount={1234}
-              fee={1000}
-              {...{ shouldDrainWallet: false, utxos: [] }}
-            />
-          }
-          actions={
-            <>
-              <PopupAction label="cancel" iconId="xCircle" onPress={expect.any(Function)} />
-              <PopupAction
-                label="confirm & send"
-                iconId="arrowRightCircle"
-                onPress={expect.any(Function)}
-                reverseOrder
-              />
-            </>
-          }
-        />,
-      )
+      expect(queryByText('sending funds')).toBeTruthy()
     })
   })
   it('should disable the slider while the form is invalid', () => {
-    const { getByTestId } = render(<SendBitcoin />)
+    const { getByTestId, queryByText } = render(
+      <Provider>
+        <SendBitcoin />
+        <Popup />
+      </Provider>,
+    )
     const slider = getByTestId('confirmSlider')
     swipeRight(slider)
-    expect(usePopupStore.getState().visible).toBe(false)
+    expect(queryByText('sending funds')).toBeFalsy()
   })
   it('should set the fee rate to undefined when selecting "custom"', () => {
-    const { getByText, getByPlaceholderText, getByTestId } = render(<SendBitcoin />)
+    const { getByText, getByPlaceholderText, getByTestId, queryByText } = render(
+      <Provider>
+        <SendBitcoin />
+        <Popup />
+      </Provider>,
+    )
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
     const amountInput = getByTestId('btc-amount-input')
@@ -161,11 +154,16 @@ describe('SendBitcoin', () => {
     fireEvent.press(customFeeButton)
 
     swipeRight(getByTestId('confirmSlider'))
-    expect(usePopupStore.getState().visible).toBe(false)
+    expect(queryByText('sending funds')).toBeFalsy()
   })
   it('should update the custom fee rate on change', async () => {
     useWalletState.setState({ isSynced: true })
-    const { getByText, getByPlaceholderText, getByTestId } = render(<SendBitcoin />)
+    const { getByText, getByPlaceholderText, getByTestId, queryByText } = render(
+      <>
+        <SendBitcoin />
+        <Popup />
+      </>,
+    )
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
     const amountInput = getByTestId('btc-amount-input')
@@ -179,32 +177,8 @@ describe('SendBitcoin', () => {
     swipeRight(getByTestId('confirmSlider'))
 
     await waitFor(() => {
-      expect(usePopupStore.getState().visible).toBe(true)
-      expect(usePopupStore.getState().popupComponent).toStrictEqual(
-        <PopupComponent
-          title="sending funds"
-          content={
-            <WithdrawalConfirmation
-              feeRate={4}
-              address="bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0"
-              amount={1234}
-              fee={1000}
-              {...{ shouldDrainWallet: false, utxos: [] }}
-            />
-          }
-          actions={
-            <>
-              <PopupAction label="cancel" iconId="xCircle" onPress={expect.any(Function)} />
-              <PopupAction
-                label="confirm & send"
-                iconId="arrowRightCircle"
-                onPress={expect.any(Function)}
-                reverseOrder
-              />
-            </>
-          }
-        />,
-      )
+      expect(queryByText('sending funds')).toBeTruthy()
+      expect(queryByText('network fee: 1 000 sats (4 sat/vB)')).toBeTruthy()
     })
   })
   it('should navigate to "coinSelection" when clicking the list icon in the header', () => {

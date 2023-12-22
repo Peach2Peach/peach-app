@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { GetMatchesResponseBody } from '../../../../peach-api/src/@types/api/offerAPI'
 import { Match } from '../../../../peach-api/src/@types/match'
+import { AppPopup } from '../../../hooks/AppPopup'
 import { useNavigation } from '../../../hooks/useNavigation'
-import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
 import { getHashedPaymentData } from '../../../store/offerPreferenes/helpers'
 import { useAccountStore } from '../../../utils/account/account'
 import { getRandom } from '../../../utils/crypto/getRandom'
@@ -13,6 +13,7 @@ import { peachAPI } from '../../../utils/peachAPI'
 import { signAndEncrypt } from '../../../utils/pgp/signAndEncrypt'
 import { parseError } from '../../../utils/result/parseError'
 import { useMessageState } from '../../message/useMessageState'
+import { useSetPopup } from '../../popup/Popup'
 import { getMatchPrice } from '../utils/getMatchPrice'
 import { handleMissingPaymentData } from '../utils/handleMissingPaymentData'
 import { useHandleError } from '../utils/useHandleError'
@@ -23,8 +24,7 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
   const navigation = useNavigation()
   const updateMessage = useMessageState((state) => state.updateMessage)
   const handleError = useHandleError()
-
-  const showPopup = useShowAppPopup('offerTaken')
+  const setPopup = useSetPopup()
 
   return useMutation({
     onMutate: async ({ selectedCurrency, paymentData }) => {
@@ -75,7 +75,7 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
       if (errorMsg === 'MISSING_PAYMENTDATA' && selectedPaymentMethod) {
         handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation)
       } else if (errorMsg === 'OFFER_TAKEN') {
-        showPopup()
+        setPopup(<AppPopup id="offerTaken" />)
       } else {
         if (errorMsg === 'MISSING_VALUES') error(
           'Match data missing values.',

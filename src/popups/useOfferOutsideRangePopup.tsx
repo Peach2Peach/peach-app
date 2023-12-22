@@ -1,15 +1,15 @@
 import { useCallback } from 'react'
-import { shallow } from 'zustand/shallow'
 import { PopupAction } from '../components/popup'
+import { useClosePopup, useSetPopup } from '../components/popup/Popup'
 import { PopupComponent } from '../components/popup/PopupComponent'
 import { useNavigation } from '../hooks/useNavigation'
-import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { OfferOutsideRange } from './OfferOutsideRange'
 import { ClosePopupAction } from './actions/ClosePopupAction'
 
 export const useOfferOutsideRangePopup = () => {
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setPopup = useSetPopup()
+  const closePopup = useClosePopup()
   const navigation = useNavigation()
   const goToOffer = useCallback(
     (offerId: string) => {

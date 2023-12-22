@@ -8,6 +8,7 @@ import { Button } from '../../components/buttons/Button'
 import { BitcoinAddressInput } from '../../components/inputs/BitcoinAddressInput'
 import { Input } from '../../components/inputs/Input'
 import { PopupAction } from '../../components/popup'
+import { useClosePopup, useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
@@ -16,7 +17,6 @@ import { useValidatedState } from '../../hooks/useValidatedState'
 import { ErrorPopup } from '../../popups/ErrorPopup'
 import { ClosePopupAction } from '../../popups/actions/ClosePopupAction'
 import { useSettingsStore } from '../../store/settingsStore'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -111,7 +111,7 @@ type PopupProps = {
 }
 
 function RemoveWalletButton (popupProps: PopupProps) {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const openRemoveWalletPopup = () => {
     setPopup(<RemoveWalletPopup {...popupProps} />)
   }
@@ -129,7 +129,7 @@ function RemoveWalletPopup ({ setAddressInput, setAddressLabelInput }: PopupProp
     (state) => [state.setPayoutAddress, state.setPayoutAddressLabel, state.setPeachWalletActive],
     shallow,
   )
-  const closePopup = usePopupStore((state) => state.closePopup)
+  const closePopup = useClosePopup()
   const removeWallet = () => {
     setPayoutAddress(undefined)
     setPayoutAddressLabel(undefined)

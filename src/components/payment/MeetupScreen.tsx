@@ -1,5 +1,5 @@
 import { API_URL } from '@env'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Image, View } from 'react-native'
 import { useRoute } from '../../hooks/useRoute'
 import { useShowHelp } from '../../hooks/useShowHelp'
@@ -12,9 +12,10 @@ import { PeachScrollView } from '../PeachScrollView'
 import { Screen } from '../Screen'
 import { Button } from '../buttons/Button'
 import { CurrencySelection } from '../inputs/paymentForms/components'
+import { useSetPopup } from '../popup/Popup'
 import { PeachText } from '../text/PeachText'
+import { DeletePaymentMethodPopup } from './components/DeletePaymentMethodPopup'
 import { Link } from './components/Link'
-import { useDeletePaymentMethod } from './hooks/useDeletePaymentMethod'
 import { useMeetupScreenSetup } from './hooks/useMeetupScreenSetup'
 
 export const MeetupScreen = () => {
@@ -63,7 +64,12 @@ function MeetupScreenHeader () {
   const { eventId } = route.params
   const deletable = route.params.deletable ?? false
   const showHelp = useShowHelp('cashTrades')
-  const deletePaymentMethod = useDeletePaymentMethod(`cash.${eventId}`)
+  const setPopup = useSetPopup()
+  const deletePaymentMethod = useCallback(
+    () => setPopup(<DeletePaymentMethodPopup id={`cash.${eventId}`} />),
+    [eventId, setPopup],
+  )
+
   const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
 
   const icons = useMemo(() => {

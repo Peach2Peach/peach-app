@@ -20,6 +20,7 @@ import { NewBubble } from '../../components/bubble/Bubble'
 import { Button } from '../../components/buttons/Button'
 import { Toggle } from '../../components/inputs'
 import { Checkbox } from '../../components/inputs/Checkbox'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { SATSINBTC } from '../../constants'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
@@ -33,7 +34,6 @@ import { InfoPopup } from '../../popups/InfoPopup'
 import { useConfigStore } from '../../store/configStore/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { useSettingsStore } from '../../store/settingsStore'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -330,7 +330,7 @@ function FiatInput () {
 }
 
 function FundMultipleOffersContainer () {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   return (
     <Section.Container style={tw`flex-row items-start justify-between bg-primary-background-dark`}>
       <FundMultipleOffers />
@@ -359,7 +359,7 @@ function InstantTrade () {
     (state) => [state.hasSeenInstantTradePopup, state.setHasSeenInstantTradePopup],
     shallow,
   )
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const onHelpIconPress = () => {
     setPopup(<InstantTradePopup />)
     setHasSeenPopup(true)
@@ -629,7 +629,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
 }
 
 function SellHeader () {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const onPress = () => setPopup(<SellingBitcoinPopup />)
   return (
     <Header
