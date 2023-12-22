@@ -44,7 +44,7 @@
   "wallet.help.confirmationTime.title" : "confirmation time",
   "wallet.hideBalance" : "hide wallet balance",
   "wallet.loading" : "wallet loading,\none sec...",
-  "wallet.openWalletApp" : "open wallet app",
+  "wallet.openWalletApp" : "open external wallet app",
   "wallet.receive" : "receive",
   "wallet.receiveBitcoin.title" : "receive bitcoin",
   "wallet.send" : "send",
