@@ -7,7 +7,9 @@ export function NotificationBubble ({ style, notifications = 0 }: { style?: View
     <View style={[tw`items-center justify-center w-5 h-5 rounded-full bg-primary-background-main`, style]}>
       <View style={tw`items-center justify-center w-4 h-4 rounded-full bg-primary-main`}>
         <View style={tw`-my-3`}>
-          <PeachText style={tw`text-primary-background notification`}>{String(Math.min(99, notifications))}</PeachText>
+          <PeachText style={tw`text-primary-background-main notification`}>
+            {String(Math.min(99, notifications))}
+          </PeachText>
         </View>
       </View>
     </View>
