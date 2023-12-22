@@ -48,7 +48,7 @@ export const SeedPhrase = ({ style }: ComponentProps) => {
   const CurrentView = screens[currentScreenIndex].view
 
   return (
-    <View style={[tw`h-full`, style]}>
+    <View style={[tw`flex-1`, style]}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <CurrentView {...{ goBackToStart }} />
       </PeachScrollView>

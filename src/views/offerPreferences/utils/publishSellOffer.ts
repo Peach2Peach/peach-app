@@ -1,5 +1,6 @@
 import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
 import { info } from '../../../utils/log'
+import { interpolate } from '../../../utils/math/interpolate'
 import { isSellOffer } from '../../../utils/offer/isSellOffer'
 import { saveOffer } from '../../../utils/offer/saveOffer'
 import { peachAPI } from '../../../utils/peachAPI'
@@ -8,7 +9,13 @@ import { useWalletState } from '../../../utils/wallet/walletStore'
 
 export const publishSellOffer = async (offerDraft: SellOfferDraft) => {
   info('Posting sell offer')
-  const { type, amount, premium, meansOfPayment, paymentData, returnAddress, multi, instantTradeCriteria } = offerDraft
+  const { type, amount, premium, meansOfPayment, paymentData, returnAddress, multi } = offerDraft
+  const instantTradeCriteria = offerDraft.instantTradeCriteria
+    ? {
+      ...offerDraft.instantTradeCriteria,
+      minReputation: interpolate(offerDraft.instantTradeCriteria.minReputation, [0, 5], [-1, 1]),
+    }
+    : undefined
 
   const payload = { type, amount, premium, meansOfPayment, paymentData, returnAddress, multi, instantTradeCriteria }
 
