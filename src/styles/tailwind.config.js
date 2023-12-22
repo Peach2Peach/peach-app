@@ -39,7 +39,7 @@ module.exports = {
             1: '#FCCCB6',
           },
           'background-dark': '#FEEDE5',
-          background: '#FFF9F6',
+          'background-main': '#FFF9F6',
           'background-light': '#FFFCFA',
         },
         success: {

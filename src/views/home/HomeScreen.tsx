@@ -36,7 +36,7 @@ function Footer () {
   return (
     <View
       style={[
-        tw`flex-row items-center self-stretch justify-between pt-2 bg-primary-background`,
+        tw`flex-row items-center self-stretch justify-between pt-2 bg-primary-background-main`,
         tw`md:pt-4`,
         { paddingBottom: bottom },
       ]}

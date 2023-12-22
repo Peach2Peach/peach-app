@@ -87,8 +87,8 @@ function BonusPointsBar () {
     <View>
       <Progress
         style={tw`h-3 rounded`}
-        backgroundStyle={tw`border-2 bg-primary-mild-1 border-primary-background`}
-        barStyle={tw`border-2 bg-primary-main border-primary-background`}
+        backgroundStyle={tw`border-2 bg-primary-mild-1 border-primary-background-main`}
+        barStyle={tw`border-2 bg-primary-main border-primary-background-main`}
         percent={balance / BARLIMIT}
       />
       <PeachText style={tw`pl-2 tooltip text-black-65`}>

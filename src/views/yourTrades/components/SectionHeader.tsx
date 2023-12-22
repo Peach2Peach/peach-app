@@ -9,7 +9,7 @@ type SectionHeaderProps = {
 }
 export const SectionHeader = ({ section: { title, data } }: SectionHeaderProps) =>
   data.length !== 0 && title !== 'priority' ? (
-    <LinedText style={tw`pb-7 bg-primary-background`}>
+    <LinedText style={tw`pb-7 bg-primary-background-main`}>
       <PeachText style={tw`text-black-65`}>{i18n(`yourTrades.${title}`)}</PeachText>
     </LinedText>
   ) : null

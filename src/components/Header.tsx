@@ -79,7 +79,7 @@ const newThemes = {
     backButtonColor: tw.color('black-65'),
   },
   default: {
-    bg: tw`bg-primary-background`,
+    bg: tw`bg-primary-background-main`,
     title: tw`text-black-100`,
     subtitle: tw`text-black-100`,
     border: tw`border-primary-background-dark`,
@@ -197,7 +197,7 @@ function CurrencyScrollView () {
   return (
     <TouchableOpacity onPress={toggle} style={[tw`items-end flex-1 w-full grow`, { zIndex: 1 }]}>
       <ScrollView
-        style={tw`absolute bg-primary-background max-h-40`}
+        style={tw`absolute bg-primary-background-main max-h-40`}
         contentContainerStyle={[
           tw`items-end self-end justify-end`,
           !showCurrencies && { padding: borderWidth },

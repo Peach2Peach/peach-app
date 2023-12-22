@@ -49,7 +49,7 @@ export const BitcoinAddress = ({ address, amount, label }: BitcoinAddressProps) 
             {i18n('copied')}
           </PeachText>
         </Animated.View>
-        <QRCode size={width} value={urn.toString()} backgroundColor={String(tw`text-primary-background`.color)} />
+        <QRCode size={width} value={urn.toString()} backgroundColor={String(tw`text-primary-background-main`.color)} />
       </Pressable>
 
       <View style={tw`flex-row items-stretch w-full gap-2`}>

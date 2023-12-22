@@ -32,7 +32,7 @@ const levelColorMap: LevelColorMap = {
     DEFAULT: tw`bg-black-5`,
   },
   text: {
-    APP: tw`text-primary-background`,
+    APP: tw`text-primary-background-main`,
     SUCCESS: tw`text-black-100`,
     WARN: tw`text-black-100`,
     ERROR: tw`text-primary-background-light`,
