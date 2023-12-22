@@ -26,7 +26,6 @@ type OfferPreferences = {
   filter: {
     buyOffer: Required<MatchFilter> & {
       shouldApplyMaxPremium: boolean
-      shouldApplyMinReputation: boolean
     }
   }
   instantTrade: boolean
@@ -53,7 +52,6 @@ export const defaultPreferences: OfferPreferences = {
       maxPremium: null,
       minReputation: null,
       shouldApplyMaxPremium: false,
-      shouldApplyMinReputation: false,
     },
   },
   instantTrade: false,
@@ -78,10 +76,8 @@ type OfferPreferencesActions = {
   setBuyOfferFilter: (filter: MatchFilter) => void
   setMaxPremiumFilter: (maxPremium: number | null) => void
   toggleShouldApplyMaxPremium: () => void
-  setShouldApplyMaxPremium: (shouldApplyMaxPremium: boolean) => void
   toggleMinReputationFilter: () => void
   setMinReputationFilter: (minReputation: number | null) => void
-  setShouldApplyMinReputation: (shouldApplyMinReputation: boolean) => void
   toggleInstantTrade: () => void
   toggleMinTrades: () => void
   toggleMinReputation: () => void
@@ -152,10 +148,6 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         set((state) => {
           state.filter.buyOffer.shouldApplyMaxPremium = !state.filter.buyOffer.shouldApplyMaxPremium
         }),
-      setShouldApplyMaxPremium: (shouldApplyMaxPremium) =>
-        set((state) => {
-          state.filter.buyOffer.shouldApplyMaxPremium = shouldApplyMaxPremium
-        }),
       toggleMinReputationFilter: () =>
         set((state) => {
           state.filter.buyOffer.minReputation = state.filter.buyOffer.minReputation === null ? 4.5 : null
@@ -163,10 +155,6 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       setMinReputationFilter: (minReputation) =>
         set((state) => {
           state.filter.buyOffer.minReputation = minReputation
-        }),
-      setShouldApplyMinReputation: (shouldApplyMinReputation) =>
-        set((state) => {
-          state.filter.buyOffer.shouldApplyMinReputation = shouldApplyMinReputation
         }),
       toggleBadge: (badge: Medal) =>
         set((state) => {
