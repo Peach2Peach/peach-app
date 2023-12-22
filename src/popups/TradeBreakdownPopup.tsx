@@ -5,7 +5,7 @@ import { showAddress } from '../utils/bitcoin/showAddress'
 import { showTransaction } from '../utils/bitcoin/showTransaction'
 import i18n from '../utils/i18n'
 import { TradeBreakdown } from './TradeBreakdown'
-import { ClosePopupAction } from './actions'
+import { ClosePopupAction } from './actions/ClosePopupAction'
 
 export function TradeBreakdownPopup ({ contract }: { contract: Contract }) {
   const viewInExplorer = () =>

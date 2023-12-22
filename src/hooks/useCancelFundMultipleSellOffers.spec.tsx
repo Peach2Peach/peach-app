@@ -2,7 +2,7 @@ import { act, fireEvent, render, renderHook, responseUtils, waitFor } from 'test
 import { Popup, PopupAction } from '../components/popup'
 import { CancelOffer } from '../popups/CancelOffer'
 import { GrayPopup } from '../popups/GrayPopup'
-import { ClosePopupAction } from '../popups/actions'
+import { ClosePopupAction } from '../popups/actions/ClosePopupAction'
 import { LoadingPopupAction } from '../popups/actions/LoadingPopupAction'
 import { usePopupStore } from '../store/usePopupStore'
 import { peachAPI } from '../utils/peachAPI'

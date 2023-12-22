@@ -12,7 +12,7 @@ import { getResult } from '../../utils/result/getResult'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../utils/wallet/setWallet'
 import { GrayPopup } from '../GrayPopup'
-import { ClosePopupAction } from '../actions'
+import { ClosePopupAction } from '../actions/ClosePopupAction'
 import { SellerCanceledContent } from './SellerCanceledContent'
 import { useConfirmCancelTrade } from './useConfirmCancelTrade'
 

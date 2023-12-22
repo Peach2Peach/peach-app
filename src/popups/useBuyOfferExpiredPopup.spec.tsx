@@ -4,7 +4,7 @@ import { Popup, PopupAction } from '../components/popup'
 import { PopupComponent } from '../components/popup/PopupComponent'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { BuyOfferExpired } from './BuyOfferExpired'
-import { ClosePopupAction } from './actions'
+import { ClosePopupAction } from './actions/ClosePopupAction'
 import { useBuyOfferExpiredPopup } from './useBuyOfferExpiredPopup'
 
 describe('useBuyOfferExpiredPopup', () => {

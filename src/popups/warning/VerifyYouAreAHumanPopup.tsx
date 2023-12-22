@@ -10,7 +10,7 @@ import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { WarningPopup } from '../WarningPopup'
-import { ClosePopupAction } from '../actions'
+import { ClosePopupAction } from '../actions/ClosePopupAction'
 
 export const VerifyYouAreAHuman = () => {
   const closePopup = usePopupStore((state) => state.closePopup)

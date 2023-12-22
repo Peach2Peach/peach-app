@@ -5,7 +5,7 @@ import { Popup, PopupAction } from '../../../components/popup'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
 import { WarningPopup } from '../../WarningPopup'
-import { ClosePopupAction } from '../../actions'
+import { ClosePopupAction } from '../../actions/ClosePopupAction'
 import { OpenDispute } from '../components/OpenDispute'
 import { useOpenDispute } from './useOpenDispute'
 

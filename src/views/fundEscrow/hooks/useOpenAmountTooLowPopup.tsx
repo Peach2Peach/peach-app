@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { PopupComponent } from '../../../components/popup/PopupComponent'
-import { ClosePopupAction } from '../../../popups/actions'
+import { ClosePopupAction } from '../../../popups/actions/ClosePopupAction'
 import { usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
