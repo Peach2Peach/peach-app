@@ -29,9 +29,9 @@ export const useOpenDispute = (contractId: string) => {
               label={i18n('dispute.openDispute')}
               iconId="alertOctagon"
               onPress={ok}
-              textStyle={tw`text-black-1`}
+              textStyle={tw`text-black-100`}
             />
-            <ClosePopupAction reverseOrder textStyle={tw`text-black-1`} />
+            <ClosePopupAction reverseOrder textStyle={tw`text-black-100`} />
           </>
         }
       />,

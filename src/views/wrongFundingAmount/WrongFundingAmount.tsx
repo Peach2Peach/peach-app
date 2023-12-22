@@ -64,7 +64,7 @@ type LabelAndAmountProps = {
 function LabelAndAmount ({ label, amount }: LabelAndAmountProps) {
   return (
     <View style={tw`flex-row`}>
-      <PeachText style={tw`w-20 text-black-3`}>{label}</PeachText>
+      <PeachText style={tw`w-20 text-black-50`}>{label}</PeachText>
       <BTCAmount amount={amount} size="small" />
     </View>
   )

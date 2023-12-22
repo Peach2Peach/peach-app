@@ -101,7 +101,7 @@ export const useConfirmCancelTrade = () => {
               />
             </>
           }
-          actionBgColor={tw`bg-black-3`}
+          actionBgColor={tw`bg-black-50`}
           bgColor={tw`bg-primary-background-light`}
         />,
       )

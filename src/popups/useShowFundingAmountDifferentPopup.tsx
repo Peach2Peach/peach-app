@@ -26,7 +26,7 @@ export const useShowFundingAmountDifferentPopup = () => {
               style={tw`justify-center`}
               label={i18n('goToTrade')}
               iconId="arrowRightCircle"
-              textStyle={tw`text-black-1`}
+              textStyle={tw`text-black-100`}
               reverseOrder
               onPress={() => {
                 closePopup()

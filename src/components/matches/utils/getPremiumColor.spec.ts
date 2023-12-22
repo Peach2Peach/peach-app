@@ -3,7 +3,7 @@ import { getPremiumColor } from './getPremiumColor'
 
 describe('getPremiumColor', () => {
   const green = tw`text-success-main`
-  const grey = tw`text-black-4`
+  const grey = tw`text-black-25`
   const red = tw`text-primary-main`
   it('should return correct color for buy offer', () => {
     expect(getPremiumColor(-1, true)).toEqual(green)

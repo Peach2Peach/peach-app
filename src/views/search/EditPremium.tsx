@@ -45,7 +45,7 @@ export const EditPremium = () => {
         setPremium={setPremium}
         amount={offer?.amount ?? 0}
         offerPrice={
-          <PeachText style={tw`text-center text-black-2`}>
+          <PeachText style={tw`text-center text-black-65`}>
             ({i18n('sell.premium.currently', `${priceFormat(currentPrice)} ${displayCurrency}`)})
           </PeachText>
         }

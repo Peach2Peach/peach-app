@@ -52,13 +52,13 @@ export const useSettingsSetup = () => {
             <>
               <PopupAction
                 label={i18n('settings.notifications.popup.neverMind')}
-                textStyle={tw`text-black-1`}
+                textStyle={tw`text-black-100`}
                 iconId="arrowLeftCircle"
                 onPress={closePopup}
               />
               <PopupAction
                 label={i18n('settings.notifications.popup.yes')}
-                textStyle={tw`text-black-1`}
+                textStyle={tw`text-black-100`}
                 iconId="slash"
                 onPress={() => {
                   closePopup()

@@ -28,14 +28,14 @@ export const MeetupScreen = () => {
           <Image source={{ uri: API_URL + event.logo }} style={tw`w-full mb-5 h-30`} resizeMode={'contain'} />
         )}
         <View style={tw`gap-8`}>
-          <PeachText style={tw`body-l text-black-1`}>{i18n('meetup.description', event.longName)}</PeachText>
+          <PeachText style={tw`body-l text-black-100`}>{i18n('meetup.description', event.longName)}</PeachText>
           {!!event.frequency && (
             <View style={tw`gap-4`}>
               <PeachText style={tw`body-l`}>
                 {`${i18n('meetup.date')}: `}
                 <PeachText style={tw`h6`}>{event.frequency}</PeachText>
               </PeachText>
-              {!!event.address && <PeachText style={tw`body-l text-black-1`}>{event.address}</PeachText>}
+              {!!event.address && <PeachText style={tw`body-l text-black-100`}>{event.address}</PeachText>}
             </View>
           )}
           <View style={tw`gap-4`}>

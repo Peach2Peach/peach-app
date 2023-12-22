@@ -20,11 +20,11 @@ export const Divider = ({ type = 'light', align = 'left', icon, iconAlign = 'lef
     {!!text && (
       <PeachText
         style={[
-          tw`mr-2 text-black-2`,
+          tw`mr-2 text-black-65`,
           align === 'center' && tw`mx-2`,
           tw`md:body-l md:leading-normal`,
           type === 'error' && tw`text-error-main`,
-          type === 'heavy' && [tw`h7 text-black-1`, tw`md:h6`],
+          type === 'heavy' && [tw`h7 text-black-100`, tw`md:h6`],
         ]}
       >
         {text}

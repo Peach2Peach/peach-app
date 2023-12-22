@@ -56,7 +56,7 @@ type MessageStyling = {
   statusIconColor: TextStyle
 }
 const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling => {
-  const text = meta.isMediator || meta.isSystemMessage ? tw`text-primary-main` : tw`text-black-2`
+  const text = meta.isMediator || meta.isSystemMessage ? tw`text-primary-main` : tw`text-black-65`
   const bgColor = !message.message
     ? tw`bg-error-background`
     : meta.isMediator || meta.isSystemMessage
@@ -72,7 +72,7 @@ const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling 
       : meta.readByCounterParty
         ? 'chatDoubleCheck'
         : 'check'
-  const statusIconColor = statusIcon === 'chatDoubleCheck' ? tw`text-info-main` : tw`text-black-3`
+  const statusIconColor = statusIcon === 'chatDoubleCheck' ? tw`text-info-main` : tw`text-black-50`
   return {
     text,
     bgColor,
@@ -111,7 +111,7 @@ export const ChatMessage = ({
     <>
       {isChangeDate && (
         <LinedText style={tw`mb-5 px-sm pt-7`}>
-          <PeachText style={tw`body-m text-black-2`}>{toDateFormat(message.date)}</PeachText>
+          <PeachText style={tw`body-m text-black-65`}>{toDateFormat(message.date)}</PeachText>
         </LinedText>
       )}
       <View
@@ -126,7 +126,7 @@ export const ChatMessage = ({
             {message.message || i18n('chat.decyptionFailed')}
           </PeachText>
           <PeachText style={tw`pt-1 ml-auto leading-5 text-right`}>
-            <PeachText style={tw`subtitle-2 leading-xs text-black-3`}>
+            <PeachText style={tw`subtitle-2 leading-xs text-black-50`}>
               {toTimeFormat(message.date.getHours(), message.date.getMinutes())}
             </PeachText>
             {meta.isYou && (

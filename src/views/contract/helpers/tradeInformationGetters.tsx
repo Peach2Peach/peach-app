@@ -145,7 +145,7 @@ function PaymentMethodBubble ({ contract }: { contract: Contract }) {
       <Bubble color={'primary-mild'}>{paymentMethodLabel ?? paymentMethodName}</Bubble>
       {hasLink && (
         <TouchableOpacity onPress={openLink} style={tw`flex-row items-center justify-end gap-1`}>
-          <PeachText style={tw`underline body-s text-black-2`}>{i18n('contract.summary.openApp')}</PeachText>
+          <PeachText style={tw`underline body-s text-black-65`}>{i18n('contract.summary.openApp')}</PeachText>
           <Icon id="externalLink" size={16} color={tw.color('primary-main')} />
         </TouchableOpacity>
       )}

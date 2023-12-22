@@ -47,7 +47,7 @@ function AddressQRCode ({ index }: { index: number }) {
       <QRCode
         value={data?.address}
         size={isMediumScreen ? MEDIUM_SIZE : SMALL_SIZE}
-        color={String(tw.color('black-1'))}
+        color={String(tw.color('black-100'))}
       />
       {data?.used && (
         <PeachText
@@ -71,7 +71,7 @@ function BitcoinAddress ({ index }: { index: number }) {
   const addressParts = getBitcoinAddressParts(address)
   return (
     <View style={tw`flex-row items-center self-stretch gap-3 px-1`}>
-      <PeachText style={tw`shrink text-black-3 body-l`}>
+      <PeachText style={tw`shrink text-black-50 body-l`}>
         {addressParts.one}
         <PeachText style={tw`body-l`}>{addressParts.two}</PeachText>
         {addressParts.three}

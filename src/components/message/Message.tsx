@@ -33,11 +33,11 @@ const levelColorMap: LevelColorMap = {
   },
   text: {
     APP: tw`text-primary-background`,
-    SUCCESS: tw`text-black-1`,
-    WARN: tw`text-black-1`,
+    SUCCESS: tw`text-black-100`,
+    WARN: tw`text-black-100`,
     ERROR: tw`text-primary-background-light`,
-    INFO: tw`text-black-1`,
-    DEFAULT: tw`text-black-1`,
+    INFO: tw`text-black-100`,
+    DEFAULT: tw`text-black-100`,
   },
 }
 

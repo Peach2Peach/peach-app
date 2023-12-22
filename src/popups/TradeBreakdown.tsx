@@ -15,39 +15,31 @@ export const TradeBreakdown = ({ releaseTransaction, releaseAddress, amount }: P
     inputAmount: amount,
   })
 
+  const textStyle = tw`subtitle-1 text-black-65 shrink`
+
   return (
     <View>
       <View style={tw`flex-row items-center justify-between mt-3`}>
-        <PeachText style={tw`subtitle-1 text-black-2 shrink`}>
-          {i18n('tradeComplete.popup.tradeBreakdown.sellerAmount')}
-        </PeachText>
+        <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.sellerAmount')}</PeachText>
         <BTCAmount amount={amount} size="x small" />
       </View>
       <View style={tw`flex-row items-center justify-between mt-3`}>
-        <PeachText style={tw`subtitle-1 text-black-2 shrink`}>
-          {i18n('tradeComplete.popup.tradeBreakdown.peachFees')}
-        </PeachText>
+        <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.peachFees')}</PeachText>
         <BTCAmount amount={peachFee} size="x small" />
       </View>
-      <HorizontalLine style={tw`self-end my-4 bg-black-2 w-45`} />
+      <HorizontalLine style={tw`self-end my-4 bg-black-65 w-45`} />
 
       <View style={tw`flex-row items-center justify-between`}>
-        <PeachText style={tw`subtitle-1 text-black-2 shrink`}>
-          {i18n('tradeComplete.popup.tradeBreakdown.tradeAmount')}
-        </PeachText>
+        <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.tradeAmount')}</PeachText>
         <BTCAmount amount={totalAmount - peachFee} size="x small" />
       </View>
       <View style={tw`flex-row items-center justify-between mt-3`}>
-        <PeachText style={tw`subtitle-1 text-black-2 shrink`}>
-          {i18n('tradeComplete.popup.tradeBreakdown.networkFees')}
-        </PeachText>
+        <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.networkFees')}</PeachText>
         <BTCAmount amount={networkFee} size="x small" />
       </View>
-      <HorizontalLine style={tw`self-end my-4 bg-black-2 w-45`} />
+      <HorizontalLine style={tw`self-end my-4 bg-black-65 w-45`} />
       <View style={tw`flex-row items-center justify-between`}>
-        <PeachText style={tw`subtitle-1 text-black-2 shrink`}>
-          {i18n('tradeComplete.popup.tradeBreakdown.youGet')}
-        </PeachText>
+        <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.youGet')}</PeachText>
         <BTCAmount amount={amountReceived} size="x small" />
       </View>
     </View>

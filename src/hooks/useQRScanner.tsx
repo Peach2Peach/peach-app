@@ -47,7 +47,7 @@ function MissingPermissionsPopup () {
       content={<PeachText>{i18n('settings.missingPermissions.text')}</PeachText>}
       actions={
         <>
-          <ClosePopupAction textStyle={tw`text-black-1`} />
+          <ClosePopupAction textStyle={tw`text-black-100`} />
           <OpenSettingsAction />
         </>
       }
@@ -59,7 +59,7 @@ function OpenSettingsAction () {
   return (
     <PopupAction
       label={i18n('settings.openSettings')}
-      textStyle={tw`text-black-1`}
+      textStyle={tw`text-black-100`}
       onPress={Linking.openSettings}
       iconId={'settings'}
       reverseOrder

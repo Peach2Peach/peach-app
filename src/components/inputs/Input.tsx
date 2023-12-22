@@ -18,18 +18,18 @@ import { PeachText } from '../text/PeachText'
 
 const themes = {
   default: {
-    label: tw`text-black-1`,
-    text: 'text-black-1',
-    textError: 'text-black-1',
-    border: tw`border-black-1`,
+    label: tw`text-black-100`,
+    text: 'text-black-100',
+    textError: 'text-black-100',
+    border: tw`border-black-100`,
     borderError: tw`border-error-main`,
-    borderDisabled: tw`text-black-2`,
+    borderDisabled: tw`text-black-65`,
     bg: tw`bg-primary-background-light`,
     bgError: tw`bg-primary-background-light`,
     bgDisabled: tw`bg-transparent`,
     error: tw`text-error-main`,
-    placeholder: 'text-black-4',
-    optional: tw`text-black-4`,
+    placeholder: 'text-black-25',
+    optional: tw`text-black-25`,
   },
   inverted: {
     label: tw`text-primary-background-light`,
@@ -43,7 +43,7 @@ const themes = {
     bgDisabled: tw`bg-transparent`,
     error: tw`text-primary-background-light`,
     placeholder: 'text-primary-mild-1',
-    optional: tw`text-black-4`,
+    optional: tw`text-black-25`,
   },
 }
 

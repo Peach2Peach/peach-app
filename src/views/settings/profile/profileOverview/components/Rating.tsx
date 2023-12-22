@@ -16,7 +16,7 @@ type RatingProps = {
 
 export const Rating = ({ rating, isNewUser }: RatingProps) =>
   isNewUser ? (
-    <PeachText style={tw`subtitle-2 text-black-2`}>{i18n('newUser')}</PeachText>
+    <PeachText style={tw`subtitle-2 text-black-65`}>{i18n('newUser')}</PeachText>
   ) : (
     <View style={tw`flex-row items-center`}>
       <View style={tw`flex-row gap-1`}>
@@ -35,6 +35,6 @@ export const Rating = ({ rating, isNewUser }: RatingProps) =>
         </View>
       </View>
 
-      <PeachText style={tw`text-black-2 button-small`}>{interpolate(rating, [-1, 1], [0, 5]).toFixed(1)}</PeachText>
+      <PeachText style={tw`text-black-65 button-small`}>{interpolate(rating, [-1, 1], [0, 5]).toFixed(1)}</PeachText>
     </View>
   )

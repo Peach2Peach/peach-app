@@ -34,13 +34,13 @@ export const NodeSetup = () => {
   return (
     <Screen header={<NodeSetupHeader />}>
       <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`justify-center gap-3 grow`}>
-        <Toggle style={tw`justify-between px-6`} textStyle={tw`text-black-2`} {...{ enabled }} onPress={toggleEnabled}>
+        <Toggle style={tw`justify-between px-6`} textStyle={tw`text-black-65`} {...{ enabled }} onPress={toggleEnabled}>
           {i18n('wallet.settings.node.title')}
         </Toggle>
         <Toggle
           style={tw`justify-between px-6`}
           enabled={ssl}
-          textStyle={tw`text-black-2`}
+          textStyle={tw`text-black-65`}
           disabled={!enabled || isConnected}
           onPress={toggleSSL}
         >

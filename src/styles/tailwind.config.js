@@ -19,10 +19,6 @@ module.exports = {
         current: 'currentColor',
         bitcoin: '#F7931A',
         black: {
-          1: '#2B1911',
-          2: '#7D675E',
-          3: '#9F8C82',
-          4: '#BAADA7',
           100: '#2B1911',
           90: '#46332B',
           75: '#624D44',

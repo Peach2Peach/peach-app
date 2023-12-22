@@ -85,8 +85,8 @@ export const Match = ({ match, offer, currentPage }: { match: Match; offer: Sell
 function PaymentDetail ({ label, value }: { label: string; value?: string }) {
   return (
     <View style={tw`flex-row justify-between`}>
-      <PeachText style={tw`text-black-2`}>{label}</PeachText>
-      <PeachText style={tw`px-2 border rounded-lg border-black-1 button-medium`}>{value}</PeachText>
+      <PeachText style={tw`text-black-65`}>{label}</PeachText>
+      <PeachText style={tw`px-2 border rounded-lg border-black-100 button-medium`}>{value}</PeachText>
     </View>
   )
 }

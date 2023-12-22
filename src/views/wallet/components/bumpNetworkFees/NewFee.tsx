@@ -27,7 +27,7 @@ export const NewFee = ({ newFeeRate, setNewFeeRate, overpayingBy = 0 }: Props) =
           required={true}
         />
       </View>
-      <PeachText style={tw`text-center text-black-3`}>{i18n('satPerByte')}</PeachText>
+      <PeachText style={tw`text-center text-black-50`}>{i18n('satPerByte')}</PeachText>
     </View>
     <PeachText style={[tw`text-center text-primary-main`, overpayingBy < 1 && tw`opacity-0`]}>
       {i18n('wallet.bumpNetworkFees.overPayingBy', String(round(overpayingBy * CENT)))}

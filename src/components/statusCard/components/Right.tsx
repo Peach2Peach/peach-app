@@ -24,13 +24,13 @@ export const Right = (propsWithoutType: Props) => {
       {type === 'range' ? (
         <View style={tw`items-center -gap-1`}>
           <BTCAmount size="small" amount={amount[0]} />
-          <PeachText style={tw`font-baloo-medium text-12px leading-19px text-black-3`}>~</PeachText>
+          <PeachText style={tw`font-baloo-medium text-12px leading-19px text-black-50`}>~</PeachText>
           <BTCAmount size="small" amount={amount[1]} />
         </View>
       ) : type === 'fiatAmount' ? (
         <>
           <BTCAmount size="small" amount={amount} />
-          <FixedHeightText style={tw`body-m text-black-2`} height={17}>
+          <FixedHeightText style={tw`body-m text-black-65`} height={17}>
             {currency === 'SAT' ? groupChars(String(price), 3) : priceFormat(price)} {currency}
           </FixedHeightText>
         </>
@@ -39,7 +39,7 @@ export const Right = (propsWithoutType: Props) => {
           <>
             <BTCAmount size="small" amount={amount} />
             {premium !== undefined && (
-              <FixedHeightText style={tw`body-m text-black-2`} height={17}>
+              <FixedHeightText style={tw`body-m text-black-65`} height={17}>
                 {premium}% {i18n('offer.summary.premium')}
               </FixedHeightText>
             )}

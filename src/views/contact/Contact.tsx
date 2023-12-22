@@ -34,7 +34,7 @@ export const Contact = () => {
       <PeachScrollView contentContainerStyle={tw`justify-center grow`} contentStyle={tw`gap-12`}>
         <View style={tw`w-full gap-4`}>
           <LinedText>
-            <PeachText style={tw`text-black-2`}>{i18n('report.mailUs')}</PeachText>
+            <PeachText style={tw`text-black-65`}>{i18n('report.mailUs')}</PeachText>
           </LinedText>
           <>
             {contactReasons.map((reason) => (
@@ -44,7 +44,7 @@ export const Contact = () => {
         </View>
         <View style={tw`w-full gap-4`}>
           <LinedText>
-            <PeachText style={tw`text-black-2`}>{i18n('report.communityHelp')}</PeachText>
+            <PeachText style={tw`text-black-65`}>{i18n('report.communityHelp')}</PeachText>
           </LinedText>
           <OptionButton onPress={openTelegram}>{i18n('telegram')}</OptionButton>
           <OptionButton onPress={openDiscord}>{i18n('discord')}</OptionButton>

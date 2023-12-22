@@ -26,7 +26,7 @@ const tabbedNavigationScreenOptions = {
   tabBarLabelStyle: tw`lowercase input-title`,
   tabBarStyle: [tw`bg-transparent mx-sm`, tw`md:mx-md`],
   tabBarContentContainerStyle: tw`bg-transparent`,
-  tabBarIndicatorStyle: tw`bg-black-1`,
+  tabBarIndicatorStyle: tw`bg-black-100`,
   tabBarItemStyle: tw`p-0`,
   tabBarPressColor: 'transparent',
 }

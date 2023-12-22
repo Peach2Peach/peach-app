@@ -8,6 +8,6 @@ export const EmptyTransactionHistory = () => (
   <View style={tw`items-center justify-center h-full gap-8`}>
     <Image source={loadingAnimation} style={tw`w-118px h-130px`} resizeMode="cover" />
 
-    <PeachText style={tw`subtitle-1 text-black-2`}>{i18n('wallet.transactionHistory.empty')}</PeachText>
+    <PeachText style={tw`subtitle-1 text-black-65`}>{i18n('wallet.transactionHistory.empty')}</PeachText>
   </View>
 )

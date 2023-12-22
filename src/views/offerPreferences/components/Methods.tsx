@@ -15,7 +15,7 @@ export function Methods ({ type, meansOfPayment }: { type: 'buy' | 'sell'; means
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment)
 
   const backgroundColor = type === 'buy' ? tw.color('success-mild-1') : tw.color('primary-background-dark')
-  const color = tw.color('black-1')
+  const color = tw.color('black-100')
   return (
     <>
       {hasSelectedMethods ? (

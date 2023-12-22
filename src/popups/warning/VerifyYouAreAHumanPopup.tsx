@@ -31,7 +31,7 @@ export const VerifyYouAreAHuman = () => {
           <WebView contentMode="mobile" onMessage={handleMessage} source={{ uri: `${API_URL}/v1/human/verify` }} />
         </View>
       }
-      actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-1`} />}
+      actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-100`} />}
     />
   )
 }
@@ -43,7 +43,7 @@ export function VerifyYouAreAHumanPopup () {
       content={<PeachText>{i18n('HUMAN_VERIFICATION_REQUIRED.text')}</PeachText>}
       actions={
         <>
-          <ClosePopupAction textStyle={tw`text-black-1`} />
+          <ClosePopupAction textStyle={tw`text-black-100`} />
           <GoToChallengeAction />
         </>
       }
@@ -57,7 +57,7 @@ function GoToChallengeAction () {
   return (
     <PopupAction
       label={i18n('HUMAN_VERIFICATION_REQUIRED.start')}
-      textStyle={tw`text-black-1`}
+      textStyle={tw`text-black-100`}
       onPress={() => setPopup(<VerifyYouAreAHuman />)}
       iconId={'user'}
       reverseOrder

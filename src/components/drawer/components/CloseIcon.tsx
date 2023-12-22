@@ -8,6 +8,6 @@ type Props = {
 
 export const CloseIcon = ({ closeDrawer }: Props) => (
   <TouchableOpacity onPress={closeDrawer}>
-    <Icon id="xSquare" style={tw`w-6 h-6`} color={tw.color('black-3')} />
+    <Icon id="xSquare" style={tw`w-6 h-6`} color={tw.color('black-50')} />
   </TouchableOpacity>
 )

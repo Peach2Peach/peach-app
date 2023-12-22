@@ -10,7 +10,7 @@ describe('BubbleBase', () => {
   })
   it('should render background and border color', () => {
     shallowRenderer.render(
-      <BubbleBase textColor={tw`text-primary-main`} color={tw`bg-transparent`} borderColor={tw`border-black-1`}>
+      <BubbleBase textColor={tw`text-primary-main`} color={tw`bg-transparent`} borderColor={tw`border-black-100`}>
         Text
       </BubbleBase>,
     )
@@ -26,7 +26,7 @@ describe('BubbleBase', () => {
   })
   it('should render correctly with icon and specific color', () => {
     shallowRenderer.render(
-      <BubbleBase textColor={tw`text-primary-main`} iconColor={tw`text-black-1`} iconId="chevronsUp">
+      <BubbleBase textColor={tw`text-primary-main`} iconColor={tw`text-black-100`} iconId="chevronsUp">
         Text
       </BubbleBase>,
     )

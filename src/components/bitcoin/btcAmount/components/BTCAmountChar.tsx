@@ -16,7 +16,7 @@ export const BTCAmountChar = ({ style, letterSpacing, reduceOpacity, white, char
       style,
       {
         letterSpacing,
-        color: `${(white ? tw`text-primary-background-light` : tw`text-black-1`).color?.toString()}${
+        color: `${(white ? tw`text-primary-background-light` : tw`text-black-100`).color?.toString()}${
           reduceOpacity ? '1A' : ''
         }`,
       },

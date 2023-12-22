@@ -231,7 +231,7 @@ function MatchOfferButton ({ matchOffer, optionName, setShowPaymentMethodPulse }
         tw`flex-row items-center self-center justify-center py-2 gap-10px`,
         tw`bg-success-main`,
         optionName === 'missingSelection' && tw`bg-success-mild-2`,
-        optionName === 'tradingLimitReached' && tw`bg-black-3`,
+        optionName === 'tradingLimitReached' && tw`bg-black-50`,
       ]}
       onPress={onPress}
     >

@@ -10,9 +10,9 @@ export const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
   const selected = items[state.index].name
   const select = navigation.navigate
   const colors = {
-    text: tw`text-black-2`,
-    textSelected: tw`text-black-1`,
-    underline: tw`bg-black-1`,
+    text: tw`text-black-65`,
+    textSelected: tw`text-black-100`,
+    underline: tw`bg-black-100`,
   }
 
   return (

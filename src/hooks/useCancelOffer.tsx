@@ -65,7 +65,7 @@ function CancelOfferPopup ({ offerId }: { offerId: string }) {
     <PopupComponent
       title={i18n('offer.cancel.popup.title')}
       content={<CancelOffer type={offer.type} />}
-      actionBgColor={tw`bg-black-3`}
+      actionBgColor={tw`bg-black-50`}
       bgColor={tw`bg-primary-background-light`}
       actions={
         <>

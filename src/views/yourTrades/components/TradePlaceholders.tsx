@@ -27,7 +27,7 @@ const GoTradeButton = ({ tab }: { tab: 'yourTrades.buy' | 'yourTrades.sell' }) =
 }
 export const TradePlaceholders = ({ tab }: TradePlaceholdersProps) => (
   <View style={tw`items-center justify-center flex-1`}>
-    <PeachText style={tw`h6 text-black-3`}>{i18n('yourTrades.empty')}</PeachText>
+    <PeachText style={tw`h6 text-black-50`}>{i18n('yourTrades.empty')}</PeachText>
     {(tab === 'yourTrades.buy' || tab === 'yourTrades.sell') && (
       <>
         <HorizontalLine style={tw`w-full my-8 bg-black-5`} />

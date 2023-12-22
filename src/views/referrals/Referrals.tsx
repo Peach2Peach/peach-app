@@ -91,8 +91,8 @@ function BonusPointsBar () {
         barStyle={tw`border-2 bg-primary-main border-primary-background`}
         percent={balance / BARLIMIT}
       />
-      <PeachText style={tw`pl-2 tooltip text-black-2`}>
-        {i18n('referrals.points')}: <PeachText style={tw`font-bold tooltip text-black-2`}>{balance}</PeachText>
+      <PeachText style={tw`pl-2 tooltip text-black-65`}>
+        {i18n('referrals.points')}: <PeachText style={tw`font-bold tooltip text-black-65`}>{balance}</PeachText>
       </PeachText>
     </View>
   )

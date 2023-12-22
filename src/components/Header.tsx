@@ -45,24 +45,24 @@ type HeaderConfig = {
 const newThemes = {
   buyer: {
     bg: tw`bg-success-background-dark`,
-    title: tw`text-black-1`,
+    title: tw`text-black-100`,
     subtitle: tw`text-success-main`,
     border: tw`border-success-mild-1`,
-    backButtonColor: tw.color('black-2'),
+    backButtonColor: tw.color('black-65'),
   },
   seller: {
     bg: tw`bg-primary-background-dark`,
-    title: tw`text-black-1`,
+    title: tw`text-black-100`,
     subtitle: tw`text-primary-main`,
     border: tw`border-primary-mild-1`,
-    backButtonColor: tw.color('black-2'),
+    backButtonColor: tw.color('black-65'),
   },
   paymentTooLate: {
     bg: tw`bg-warning-mild-1`,
-    title: tw`text-black-1`,
-    subtitle: tw`text-black-1`,
+    title: tw`text-black-100`,
+    subtitle: tw`text-black-100`,
     border: tw`border-warning-mild-2`,
-    backButtonColor: tw.color('black-2'),
+    backButtonColor: tw.color('black-65'),
   },
   dispute: {
     bg: tw`bg-error-main`,
@@ -73,17 +73,17 @@ const newThemes = {
   },
   cancel: {
     bg: tw`bg-black-10`,
-    title: tw`text-black-1`,
-    subtitle: tw`text-black-1`,
-    border: tw`border-black-4`,
-    backButtonColor: tw.color('black-2'),
+    title: tw`text-black-100`,
+    subtitle: tw`text-black-100`,
+    border: tw`border-black-25`,
+    backButtonColor: tw.color('black-65'),
   },
   default: {
     bg: tw`bg-primary-background`,
-    title: tw`text-black-1`,
-    subtitle: tw`text-black-1`,
+    title: tw`text-black-100`,
+    subtitle: tw`text-black-100`,
     border: tw`border-primary-background-dark`,
-    backButtonColor: tw.color('black-2'),
+    backButtonColor: tw.color('black-65'),
   },
   transparent: {
     bg: tw`bg-transparent`,
@@ -201,7 +201,7 @@ function CurrencyScrollView () {
         contentContainerStyle={[
           tw`items-end self-end justify-end`,
           !showCurrencies && { padding: borderWidth },
-          showCurrencies && tw`pl-2 border rounded-lg border-black-4`,
+          showCurrencies && tw`pl-2 border rounded-lg border-black-25`,
         ]}
         scrollEnabled={showCurrencies}
         showsVerticalScrollIndicator={false}
@@ -212,7 +212,7 @@ function CurrencyScrollView () {
             <TouchableIcon
               id={showCurrencies ? 'chevronUp' : 'chevronDown'}
               onPress={toggle}
-              iconColor={tw.color('black-1')}
+              iconColor={tw.color('black-100')}
             />
           </View>
           {showCurrencies

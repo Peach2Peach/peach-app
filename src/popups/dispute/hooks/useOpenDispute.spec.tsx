@@ -25,12 +25,12 @@ describe('useOpenDispute', () => {
         actions={
           <>
             <PopupAction
-              textStyle={tw`text-black-1`}
+              textStyle={tw`text-black-100`}
               label="open dispute"
               iconId="alertOctagon"
               onPress={expect.any(Function)}
             />
-            <ClosePopupAction textStyle={tw`text-black-1`} reverseOrder />
+            <ClosePopupAction textStyle={tw`text-black-100`} reverseOrder />
           </>
         }
       />,

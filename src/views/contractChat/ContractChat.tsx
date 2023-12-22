@@ -223,7 +223,7 @@ function ChatScreen ({ contract }: { contract: Contract }) {
           />
         </View>
       ) : (
-        <PeachText style={tw`text-center text-black-3 p-4`}>{i18n('chat.disabled')}</PeachText>
+        <PeachText style={tw`text-center text-black-50 p-4`}>{i18n('chat.disabled')}</PeachText>
       )}
     </Screen>
   )
