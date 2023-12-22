@@ -90,7 +90,7 @@ function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: Con
 
           <View>
             <EmailInput
-              style={tw`bg-warning-background`}
+              style={tw`bg-warning-mild-1`}
               onChange={setEmail}
               onSubmit={submit}
               value={email}

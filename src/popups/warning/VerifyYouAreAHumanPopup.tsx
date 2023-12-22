@@ -24,7 +24,7 @@ export const VerifyYouAreAHuman = () => {
   }
   return (
     <PopupComponent
-      bgColor={tw`p-0 bg-warning-background`}
+      bgColor={tw`p-0 bg-warning-mild-1`}
       actionBgColor={tw`bg-warning-main`}
       content={
         <View style={tw`h-[450px]`}>

@@ -38,9 +38,11 @@ module.exports = {
             2: '#FFA171',
             1: '#FCCCB6',
           },
-          'background-dark': '#FEEDE5',
-          'background-main': '#FFF9F6',
-          'background-light': '#FFFCFA',
+          background: {
+            dark: '#FEEDE5',
+            main: '#FFF9F6',
+            light: '#FFFCFA',
+          },
         },
         success: {
           dark: {
@@ -52,10 +54,11 @@ module.exports = {
             2: '#AFDA73',
             1: '#DDEFC3',
           },
-          'background-dark': '#F2F9E7',
-          'background-main': '#FCFEF6',
-          'background-light': '#FEFEFB',
-          background: '#C9FFE5',
+          background: {
+            dark: '#F2F9E7',
+            main: '#FCFEF6',
+            light: '#FEFEFB',
+          },
         },
         warning: {
           dark: {
@@ -67,10 +70,11 @@ module.exports = {
             2: '#F9E96C',
             1: '#FDF6C0',
           },
-          background: '#FDF6C0',
-          backgroundDark: '#FEFCE5',
-          backgroundMain: '#FFFEF5',
-          backgroundLight: '#FFFEFA',
+          background: {
+            dark: '#FEFCE5',
+            main: '#FFFEF5',
+            light: '#FFFEFA',
+          },
         },
         error: {
           dark: '#B01807',
