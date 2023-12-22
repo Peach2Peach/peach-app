@@ -7,7 +7,7 @@ import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
-import { ClosePopupAction } from '../actions'
+import { ClosePopupAction } from '../actions/ClosePopupAction'
 import { NoPeachFees } from './NoPeachFees'
 import { NoPeachFeesSuccess } from './NoPeachFeesSuccess'
 

@@ -3,7 +3,7 @@ import { Popup } from '../../../components/popup'
 import { usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
 import { ErrorPopup } from '../../ErrorPopup'
-import { ClosePopupAction } from '../../actions'
+import { ClosePopupAction } from '../../actions/ClosePopupAction'
 import { DisputeRaisedSuccess } from '../components/DisputeRaisedSuccess'
 import { useDisputeRaisedSuccess } from './useDisputeRaisedSuccess'
 

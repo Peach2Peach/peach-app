@@ -1,6 +1,6 @@
 import { renderHook } from 'test-utils'
 import { PopupComponent } from '../../../components/popup/PopupComponent'
-import { ClosePopupAction } from '../../../popups/actions'
+import { ClosePopupAction } from '../../../popups/actions/ClosePopupAction'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { AmountTooLow } from '../components/AmountTooLow'
 import { useOpenAmountTooLowPopup } from './useOpenAmountTooLowPopup'

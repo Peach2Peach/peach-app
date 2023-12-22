@@ -1,6 +1,6 @@
 import { useNavigation } from '../hooks/useNavigation'
 import { ErrorPopup } from '../popups/ErrorPopup'
-import { ClosePopupAction } from '../popups/actions'
+import { ClosePopupAction } from '../popups/actions/ClosePopupAction'
 import { FirstBackup } from '../popups/warning/FirstBackup'
 import { useSettingsStore } from '../store/settingsStore'
 import { usePopupStore } from '../store/usePopupStore'

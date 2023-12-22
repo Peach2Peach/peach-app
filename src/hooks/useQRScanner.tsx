@@ -5,7 +5,7 @@ import { PERMISSIONS, RESULTS, request as requestPermission } from 'react-native
 import { PopupAction } from '../components/popup'
 import { PeachText } from '../components/text/PeachText'
 import { WarningPopup } from '../popups/WarningPopup'
-import { ClosePopupAction } from '../popups/actions'
+import { ClosePopupAction } from '../popups/actions/ClosePopupAction'
 import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'

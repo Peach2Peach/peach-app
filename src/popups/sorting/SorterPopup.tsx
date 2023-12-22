@@ -4,7 +4,7 @@ import { PopupComponent } from '../../components/popup/PopupComponent'
 import { NewDivider } from '../../components/ui/NewDivider'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { ClosePopupAction } from '../actions'
+import { ClosePopupAction } from '../actions/ClosePopupAction'
 
 type Props<T> = {
   radioButtonProps: RadioButtonProps<T>

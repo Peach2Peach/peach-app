@@ -5,7 +5,7 @@ import { useNavigation } from '../hooks/useNavigation'
 import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { ClosePopupAction } from './actions'
+import { ClosePopupAction } from './actions/ClosePopupAction'
 
 export function InfoPopup (props: Pick<PopupComponentProps, 'title' | 'content'>) {
   return (

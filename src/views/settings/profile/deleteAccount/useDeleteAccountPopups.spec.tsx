@@ -1,7 +1,7 @@
 import { act, fireEvent, render, renderHook } from 'test-utils'
 import { Popup, PopupAction } from '../../../../components/popup'
 import { ErrorPopup } from '../../../../popups/ErrorPopup'
-import { ClosePopupAction } from '../../../../popups/actions'
+import { ClosePopupAction } from '../../../../popups/actions/ClosePopupAction'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { useAccountStore } from '../../../../utils/account/account'
 import { deleteAccount } from '../../../../utils/account/deleteAccount'

@@ -6,7 +6,7 @@ import { usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { WarningPopup } from '../../WarningPopup'
-import { ClosePopupAction } from '../../actions'
+import { ClosePopupAction } from '../../actions/ClosePopupAction'
 import { OpenDispute } from '../components/OpenDispute'
 
 export const useOpenDispute = (contractId: string) => {

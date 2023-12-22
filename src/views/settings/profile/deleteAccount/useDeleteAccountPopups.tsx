@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { PopupAction } from '../../../../components/popup'
 import { ErrorPopup } from '../../../../popups/ErrorPopup'
-import { ClosePopupAction } from '../../../../popups/actions'
+import { ClosePopupAction } from '../../../../popups/actions/ClosePopupAction'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import tw from '../../../../styles/tailwind'
 import { useAccountStore } from '../../../../utils/account/account'
