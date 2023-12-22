@@ -1,5 +1,6 @@
 import { fireEvent, render, renderHook } from 'test-utils'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
+import { Popup } from '../components/popup'
 import { usePopupStore } from '../store/usePopupStore'
 import { useShowHelp } from './useShowHelp'
 
@@ -14,12 +15,11 @@ describe('useShowHelp', () => {
     const popupComponent = usePopupStore.getState().popupComponent || <></>
     expect(render(popupComponent).toJSON()).toMatchSnapshot()
   })
-  it('should navigate to contact', () => {
+  it('should navigate to report', () => {
     const { result } = renderHook(useShowHelp, { initialProps: 'acceptMatch' })
     result.current()
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
-    fireEvent.press(render(popupComponent).getByText('help'))
-    expect(navigateMock).toHaveBeenCalledWith('contact')
+    fireEvent.press(render(<Popup />).getByText('help'))
+    expect(navigateMock).toHaveBeenCalledWith('report', { topic: 'accept match = start trade', reason: 'other' })
     expect(usePopupStore.getState().visible).toEqual(false)
   })
 })
