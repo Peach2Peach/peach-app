@@ -129,13 +129,9 @@ export const Input = ({
   return (
     <View>
       {!!label && (
-        <PeachText style={[tw`pl-2 input-label`, tw.style(styles.text)]}>
+        <PeachText style={[tw`pl-2 input-title`, tw.style(styles.text)]}>
           {label}
-          {!required && (
-            <PeachText style={[tw`font-medium input-label`, tw.style(styles.placeholder)]}>{` (${i18n(
-              'form.optional',
-            )})`}</PeachText>
-          )}
+          {!required && <PeachText style={tw.style(styles.placeholder)}>{` (${i18n('form.optional')})`}</PeachText>}
         </PeachText>
       )}
       <View
@@ -152,7 +148,7 @@ export const Input = ({
       >
         <TextInput
           style={[
-            tw`shrink w-full h-10 py-0 input-text`,
+            tw`w-full h-10 py-0 shrink input-text`,
             tw.style(value ? styles.text : styles.placeholder),
             showError && tw.style(styles.textError),
             !showError && tw`border border-transparent`,
