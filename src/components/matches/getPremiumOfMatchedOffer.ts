@@ -7,7 +7,7 @@ export const getPremiumOfMatchedOffer = (
 ) => {
   const bitcoinPriceWhenMatched = (price / amount) * SATSINBTC
   const bitcoinPrice = priceBook?.[currency] ?? bitcoinPriceWhenMatched
-  const delta = bitcoinPrice - bitcoinPriceWhenMatched
+  const delta = bitcoinPriceWhenMatched - bitcoinPrice
 
   const premium = round((delta / bitcoinPrice) * 100, 2)
   return premium
