@@ -4,9 +4,10 @@ import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { RadioButtons } from '../../components/inputs/RadioButtons'
+import { useSetPopup } from '../../components/popup/Popup'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -18,6 +19,7 @@ export const SelectCountry = () => {
   const { origin, selectedCurrency } = useRoute<'selectCountry'>().params
   const navigation = useNavigation()
   const [selectedCountry, setCountry] = useState<PaymentMethodCountry>()
+  const setPopup = useSetPopup()
 
   const countries = useMemo(
     () =>
@@ -48,7 +50,7 @@ export const SelectCountry = () => {
     })
   }
 
-  const showHelp = useShowHelp('giftCards')
+  const showHelp = () => setPopup(<HelpPopup id="giftCards" />)
 
   return (
     <Screen

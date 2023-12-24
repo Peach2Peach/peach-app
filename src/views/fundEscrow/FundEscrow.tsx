@@ -1,5 +1,5 @@
 import { networks } from 'bitcoinjs-lib'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import { Header } from '../../components/Header'
 import { Icon } from '../../components/Icon'
@@ -10,14 +10,15 @@ import { BitcoinAddress } from '../../components/bitcoin/BitcoinAddress'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Button } from '../../components/buttons/Button'
 import { TradeInfo } from '../../components/offer/TradeInfo'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { CopyAble } from '../../components/ui/CopyAble'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
 import { SATSINBTC } from '../../constants'
+import { CancelOfferPopup } from '../../hooks/CancelOfferPopup'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useCancelFundMultipleSellOffers } from '../../hooks/useCancelFundMultipleSellOffers'
-import { useCancelOffer } from '../../hooks/useCancelOffer'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -72,8 +73,10 @@ export const FundEscrow = () => {
 function FundEscrowHeader () {
   const { offerId } = useRoute<'fundEscrow'>().params
   const fundMultiple = useWalletState((state) => state.getFundMultipleByOfferId(offerId))
-  const showHelp = useShowHelp('escrow')
-  const cancelOffer = useCancelOffer(offerId)
+  const setPopup = useSetPopup()
+  const showHelp = useCallback(() => setPopup(<HelpPopup id="fundEscrow" />), [setPopup])
+  const cancelOffer = useCallback(() => setPopup(<CancelOfferPopup offerId={offerId} />), [offerId, setPopup])
+
   const cancelFundMultipleOffers = useCancelFundMultipleSellOffers({ fundMultiple })
 
   const memoizedHeaderIcons = useMemo(() => {

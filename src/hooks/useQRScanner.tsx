@@ -3,10 +3,10 @@ import { Linking } from 'react-native'
 import { BarCodeReadEvent } from 'react-native-camera'
 import { PERMISSIONS, RESULTS, request as requestPermission } from 'react-native-permissions'
 import { PopupAction } from '../components/popup'
+import { useSetPopup } from '../components/popup/Popup'
 import { PeachText } from '../components/text/PeachText'
 import { WarningPopup } from '../popups/WarningPopup'
 import { ClosePopupAction } from '../popups/actions/ClosePopupAction'
-import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { isIOS } from '../utils/system/isIOS'
@@ -15,7 +15,7 @@ type Props = {
   onSuccess: (data: string) => void
 }
 export const useQRScanner = ({ onSuccess }: Props) => {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const [showQRScanner, setShowQRScanner] = useState(false)
 
   const showQR = () => {

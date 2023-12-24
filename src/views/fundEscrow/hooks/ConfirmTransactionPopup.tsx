@@ -1,10 +1,10 @@
 import { PartiallySignedTransaction } from 'bdk-rn'
 import { useCallback } from 'react'
 import { PopupAction } from '../../../components/popup'
+import { useClosePopup } from '../../../components/popup/Popup'
 import { PopupComponent } from '../../../components/popup/PopupComponent'
 import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { LoadingPopupAction } from '../../../popups/actions/LoadingPopupAction'
-import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 
@@ -16,7 +16,7 @@ type Props = {
 }
 
 export function ConfirmTransactionPopup ({ title, content, psbt, onSuccess }: Props) {
-  const closePopup = usePopupStore((state) => state.closePopup)
+  const closePopup = useClosePopup()
   const handleTransactionError = useHandleTransactionError()
   const confirmAndSend = useCallback(async () => {
     try {

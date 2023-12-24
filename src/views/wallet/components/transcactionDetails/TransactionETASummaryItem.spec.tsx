@@ -1,8 +1,8 @@
 import { fireEvent, render } from 'test-utils'
 import { feeEstimates } from '../../../../../tests/unit/data/electrumData'
 import { bitcoinTransaction, pendingTransactionSummary } from '../../../../../tests/unit/data/transactionDetailData'
+import { Popup } from '../../../../components/popup'
 import { placeholderFeeEstimates } from '../../../../hooks/query/useFeeEstimates'
-import { usePopupStore } from '../../../../store/usePopupStore'
 import { TransactionETASummaryItem } from './TransactionETASummaryItem'
 
 const useTransactionDetailsMock = jest.fn().mockReturnValue({
@@ -30,9 +30,13 @@ describe('TransactionETA', () => {
     expect(toJSON()).toMatchSnapshot()
   })
   it('should open help popup', () => {
-    const { getByText } = render(<TransactionETASummaryItem txId={pendingTransactionSummary.id} />)
+    const { getByText } = render(
+      <>
+        <TransactionETASummaryItem txId={pendingTransactionSummary.id} />
+        <Popup />
+      </>,
+    )
     fireEvent.press(getByText('in 1 block'))
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
-    expect(render(popupComponent).toJSON()).toMatchSnapshot()
+    expect(getByText('confirmation time')).toBeTruthy()
   })
 })

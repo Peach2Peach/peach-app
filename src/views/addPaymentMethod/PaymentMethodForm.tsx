@@ -7,10 +7,11 @@ import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { CurrencySelection } from '../../components/inputs/paymentForms/components'
-import { useDeletePaymentMethod } from '../../components/payment/hooks/useDeletePaymentMethod'
+import { DeletePaymentMethodPopup } from '../../components/payment/components/DeletePaymentMethodPopup'
+import { useSetPopup } from '../../components/popup/Popup'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useGoToOrigin } from '../../hooks/useGoToOrigin'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { PAYMENTMETHODINFOS } from '../../paymentMethods'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
@@ -155,9 +156,10 @@ function PaymentMethodFormHeader () {
   const {
     paymentData: { type: paymentMethod, id },
   } = useRoute<'paymentMethodForm'>().params
-  const showHelp = useShowHelp('currencies')
-  const showLNURLHelp = useShowHelp('lnurl')
-  const deletePaymentMethod = useDeletePaymentMethod(id ?? '')
+  const setPopup = useSetPopup()
+  const showHelp = useCallback(() => setPopup(<HelpPopup id="currencies" />), [setPopup])
+  const showLNURLHelp = useCallback(() => setPopup(<HelpPopup id="lnurl" />), [setPopup])
+  const deletePaymentMethod = useCallback(() => setPopup(<DeletePaymentMethodPopup id={id ?? ''} />), [id, setPopup])
 
   const getHeaderIcons = useCallback(() => {
     const icons: HeaderIcon[] = []

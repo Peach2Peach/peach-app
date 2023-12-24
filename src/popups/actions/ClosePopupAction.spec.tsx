@@ -1,13 +1,15 @@
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { fireEvent, render } from 'test-utils'
-import { usePopupStore } from '../../store/usePopupStore'
 import { ClosePopupAction } from './ClosePopupAction'
 expect.extend({ toMatchDiffSnapshot })
 
+const closePopupMock = jest.fn()
+jest.mock('../../components/popup/Popup', () => ({
+  useClosePopup: () => closePopupMock,
+}))
+
 describe('ClosePopupAction', () => {
   it('should call closePopup when pressed', () => {
-    const closePopupMock = jest.fn()
-    usePopupStore.setState({ closePopup: closePopupMock })
     const { getByText } = render(<ClosePopupAction />)
     fireEvent.press(getByText('close'))
     expect(closePopupMock).toHaveBeenCalled()

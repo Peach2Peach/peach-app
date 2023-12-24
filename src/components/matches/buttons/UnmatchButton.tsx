@@ -1,20 +1,19 @@
 import { useCallback } from 'react'
-import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
+import { AppPopup } from '../../../hooks/AppPopup'
 import { useToggleBoolean } from '../../../hooks/useToggleBoolean'
 import { UnmatchPopup } from '../../../popups/UnmatchPopup'
 import tw from '../../../styles/tailwind'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { shallow } from 'zustand/shallow'
 import { WarningPopup } from '../../../popups/WarningPopup'
 import { ClosePopupAction } from '../../../popups/actions/ClosePopupAction'
-import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { error } from '../../../utils/log/error'
 import { peachAPI } from '../../../utils/peachAPI'
 import { Button } from '../../buttons/Button'
 import { useMessageState } from '../../message/useMessageState'
 import { PopupAction } from '../../popup'
+import { useClosePopup, useSetPopup } from '../../popup/Popup'
 import { UndoButton } from './UndoButton'
 
 type Props = {
@@ -25,7 +24,8 @@ type Props = {
 }
 
 export const UnmatchButton = ({ match, offer, interruptMatching, setShowMatchedCard }: Props) => {
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setPopup = useSetPopup()
+  const closePopup = useClosePopup()
   const { mutate: unmatch } = useUnmatchOffer(offer, match.offerId)
 
   const [showUnmatch, toggle] = useToggleBoolean(match.matched)
@@ -68,11 +68,9 @@ export const UnmatchButton = ({ match, offer, interruptMatching, setShowMatchedC
     )
   }, [closePopup, setPopup, setShowMatchedCard, unmatch])
 
-  const showMatchUndonePopup = useShowAppPopup('matchUndone')
-
   const onUndoPress = () => {
     interruptMatching()
-    showMatchUndonePopup()
+    setPopup(<AppPopup id="matchUndone" />)
   }
 
   return showUnmatch ? (

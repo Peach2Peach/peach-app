@@ -4,18 +4,18 @@ import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { useValidatedState } from '../../hooks/useValidatedState'
 import { WarningPopup } from '../../popups/WarningPopup'
 import { ClosePopupAction } from '../../popups/actions/ClosePopupAction'
 import { LoadingPopupAction } from '../../popups/actions/LoadingPopupAction'
 import { useSubmitDisputeAcknowledgement } from '../../popups/dispute/hooks/useSubmitDisputeAcknowledgement'
 import { useConfigStore } from '../../store/configStore/configStore'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { contractIdToHex } from '../../utils/contract/contractIdToHex'
 import { getOfferIdFromContract } from '../../utils/contract/getOfferIdFromContract'
@@ -55,7 +55,7 @@ export function PayoutPendingButton () {
   )
 }
 export function ProvideEmailButton () {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const { contract, view } = useContractContext()
   const onPress = () => setPopup(<DisputeRaisedPopup contract={contract} view={view} />)
 
@@ -120,7 +120,8 @@ export function ChatButton () {
     contract: { unreadMessages, id },
   } = useContractContext()
   const navigation = useNavigation()
-  const showHelp = useShowHelp('disputeDisclaimer')
+  const setPopup = useSetPopup()
+  const showHelp = useCallback(() => setPopup(<HelpPopup id="disputeDisclaimer" />), [setPopup])
   const [seenDisputeDisclaimer, setSeenDisputeDisclaimer] = useConfigStore(
     (state) => [state.seenDisputeDisclaimer, state.setSeenDisputeDisclaimer],
     shallow,

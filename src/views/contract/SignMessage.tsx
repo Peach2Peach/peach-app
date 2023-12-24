@@ -7,13 +7,14 @@ import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { Input } from '../../components/inputs/Input'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { CopyAble } from '../../components/ui/CopyAble'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
 import { useKeyboard } from '../../hooks/useKeyboard'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { useValidatedState } from '../../hooks/useValidatedState'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
@@ -133,6 +134,7 @@ function ScreenContent ({ contract }: { contract: Contract }) {
 }
 
 function SignMessageHeader () {
-  const showHelp = useShowHelp('addressSigning')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="addressSigning" />)
   return <Header title={i18n('buy.addressSigning.title')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }

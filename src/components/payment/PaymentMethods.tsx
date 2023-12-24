@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { shallow } from 'zustand/shallow'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useNavigation } from '../../hooks/useNavigation'
 import { usePreviousRoute } from '../../hooks/usePreviousRoute'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
@@ -16,6 +16,7 @@ import { Header } from '../Header'
 import { PeachScrollView } from '../PeachScrollView'
 import { Screen } from '../Screen'
 import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavigation'
+import { useSetPopup } from '../popup/Popup'
 import { HorizontalLine } from '../ui/HorizontalLine'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 import { MeetupPaymentMethods } from './MeetupPaymentMethods'
@@ -79,7 +80,8 @@ type Props = {
 }
 
 function PaymentMethodsHeader ({ isEditing, toggleIsEditing }: Props) {
-  const showHelp = useShowHelp('paymentMethods')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="paymentMethods" />)
   const hasPaymentMethods = usePaymentDataStore((state) => state.getPaymentDataArray().length !== 0)
 
   return (

@@ -1,11 +1,11 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { PopupAction } from '../components/popup'
+import { useClosePopup, useSetPopup } from '../components/popup/Popup'
 import { CancelOffer } from '../popups/CancelOffer'
 import { GrayPopup } from '../popups/GrayPopup'
 import { ClosePopupAction } from '../popups/actions/ClosePopupAction'
 import { LoadingPopupAction } from '../popups/actions/LoadingPopupAction'
-import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { peachAPI } from '../utils/peachAPI'
@@ -22,7 +22,8 @@ type Props = {
 export const useCancelFundMultipleSellOffers = ({ fundMultiple }: Props) => {
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setPopup = useSetPopup()
+  const closePopup = useClosePopup()
   const [registerFundMultiple, unregisterFundMultiple] = useWalletState(
     (state) => [state.registerFundMultiple, state.unregisterFundMultiple],
     shallow,

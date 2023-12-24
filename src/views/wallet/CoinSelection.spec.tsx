@@ -6,7 +6,7 @@ import { fireEvent, render, waitFor } from 'test-utils'
 import { confirmed1 } from '../../../tests/unit/data/transactionDetailData'
 import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { usePopupStore } from '../../store/usePopupStore'
+import { Popup } from '../../components/popup/Popup'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { getUTXOId } from '../../utils/wallet/getUTXOId'
 import { peachWallet, setPeachWallet } from '../../utils/wallet/setWallet'
@@ -43,7 +43,12 @@ describe('CoinSelection', () => {
   })
 
   it('should open the help popup when the help icon is pressed', async () => {
-    const { getByAccessibilityHint } = render(<CoinSelection />)
+    const { getByAccessibilityHint, queryByText } = render(
+      <>
+        <CoinSelection />
+        <Popup />
+      </>,
+    )
 
     await waitFor(() => {
       expect(queryClient.getQueryData(['utxos'])).toStrictEqual([utxo])
@@ -51,8 +56,7 @@ describe('CoinSelection', () => {
     const helpIcon = getByAccessibilityHint('help')
 
     fireEvent.press(helpIcon)
-    const popupComponent = usePopupStore.getState().popupComponent ?? <></>
-    expect(render(popupComponent).toJSON()).toMatchSnapshot()
+    expect(queryByText('coin control')).toBeTruthy()
   })
   it('renders correctly while loading', () => {
     const { toJSON } = render(<CoinSelection />)

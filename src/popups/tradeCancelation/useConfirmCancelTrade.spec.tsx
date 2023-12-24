@@ -3,23 +3,14 @@ import { contract } from '../../../peach-api/src/testData/contract'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { Popup } from '../../components/popup'
-import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
-import tw from '../../styles/tailwind'
 import { setAccount } from '../../utils/account/account'
 import { getSellOfferIdFromContract } from '../../utils/contract/getSellOfferIdFromContract'
+import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
 import { getResult } from '../../utils/result/getResult'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../utils/wallet/setWallet'
-import { GrayPopup } from '../GrayPopup'
-import { ClosePopupAction } from '../actions/ClosePopupAction'
-import { SellerCanceledContent } from './SellerCanceledContent'
 import { useConfirmCancelTrade } from './useConfirmCancelTrade'
-
-const showLoadingpopupMock = jest.fn()
-jest.mock('../../hooks/useShowLoadingPopup', () => ({
-  useShowLoadingPopup: () => showLoadingpopupMock,
-}))
 
 const saveOfferMock = jest.fn()
 jest.mock('../../utils/offer/saveOffer', () => ({
@@ -50,18 +41,14 @@ describe('useConfirmCancelTrade', () => {
     // @ts-ignore
     setPeachWallet(new PeachWallet())
   })
-  beforeEach(() => {
-    usePopupStore.setState(defaultPopupState)
-  })
 
   it('should show confirm cancelation popup for buyer', async () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
     const { result } = renderHook(useConfirmCancelTrade)
     result.current(contract)
+    const { getByText, getAllByText } = render(<Popup />)
 
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { toJSON, getAllByText } = render(popupComponent)
-    expect(toJSON()).toMatchSnapshot()
+    expect(getByText(i18n('contract.cancel.buyer'))).toBeTruthy()
     await act(async () => {
       await fireEvent.press(getAllByText('cancel trade')[1])
     })
@@ -75,10 +62,8 @@ describe('useConfirmCancelTrade', () => {
     })
     const { result } = renderHook(useConfirmCancelTrade)
     result.current(contract)
-
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { toJSON, getAllByText } = render(popupComponent)
-    expect(toJSON()).toMatchSnapshot()
+    const { getByText, getAllByText } = render(<Popup />)
+    expect(getByText(i18n('contract.cancel.seller'))).toBeTruthy()
     await act(async () => {
       await fireEvent.press(getAllByText('cancel trade')[1])
     })
@@ -87,25 +72,20 @@ describe('useConfirmCancelTrade', () => {
   it('should show the correct popup for cash trades of the seller', () => {
     const { result } = renderHook(useConfirmCancelTrade)
     result.current({ ...contract, paymentMethod: 'cash.someMeetup' })
-
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { toJSON } = render(popupComponent)
-    expect(toJSON()).toMatchSnapshot()
+    const { getByText } = render(<Popup />)
+    expect(getByText(i18n('contract.cancel.cash.text'))).toBeTruthy()
   })
   it('should show the correct confirmation popup for canceled trade as buyer', async () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
 
     const { result } = renderHook(useConfirmCancelTrade)
     result.current(contract)
-    const { getAllByText } = render(<Popup />)
+    const { getAllByText, queryByText } = render(<Popup />)
     await act(async () => {
       await fireEvent.press(getAllByText('cancel trade')[1])
     })
-
-    expect(usePopupStore.getState().visible).toBeTruthy()
-    expect(usePopupStore.getState().popupComponent).toStrictEqual(
-      <GrayPopup title="trade canceled!" actions={<ClosePopupAction style={tw`justify-center`} />} />,
-    )
+    expect(queryByText('cancel trade')).toBeFalsy()
+    expect(queryByText('trade canceled!')).toBeTruthy()
   })
   it('should show the correct confirmation popup for canceled trade as seller', async () => {
     setAccount({
@@ -117,27 +97,15 @@ describe('useConfirmCancelTrade', () => {
     const { result } = renderHook(useConfirmCancelTrade)
     result.current(contract)
 
-    const { getAllByText } = render(<Popup />)
+    const { getAllByText, queryByText } = render(<Popup />)
 
     await act(async () => {
       await fireEvent.press(getAllByText('cancel trade')[1])
     })
 
-    expect(usePopupStore.getState().visible).toBeTruthy()
-    expect(usePopupStore.getState().popupComponent).toStrictEqual(
-      <GrayPopup
-        title="request sent"
-        content={
-          <SellerCanceledContent
-            isCash={false}
-            canRepublish={false}
-            tradeID={contract.id}
-            walletName={'custom payout address'}
-          />
-        }
-        actions={<ClosePopupAction style={tw`justify-center`} />}
-      />,
-    )
+    expect(queryByText('cancel trade')).toBeFalsy()
+    expect(queryByText('request sent')).toBeTruthy()
+    expect(queryByText(i18n('contract.cancel.requestSent.text'))).toBeTruthy()
   })
   it('shows the correct confirmation popup for canceled cash trade as seller with republish available', async () => {
     setAccount({
@@ -149,23 +117,15 @@ describe('useConfirmCancelTrade', () => {
     const { result } = renderHook(useConfirmCancelTrade)
     result.current({ ...contract, paymentMethod: 'cash.someMeetup' })
 
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { getByText } = render(popupComponent)
+    const { getByText, queryByText } = render(<Popup />)
 
     await act(async () => {
       await fireEvent.press(getByText('cancel trade'))
     })
 
-    expect(usePopupStore.getState().visible).toBeTruthy()
-    expect(usePopupStore.getState().popupComponent).toStrictEqual(
-      <GrayPopup
-        title="trade canceled"
-        content={
-          <SellerCanceledContent isCash canRepublish tradeID={contract.id} walletName={'custom payout address'} />
-        }
-        actions={<ClosePopupAction style={tw`justify-center`} />}
-      />,
-    )
+    expect(queryByText('cancel trade')).toBeFalsy()
+    expect(queryByText('trade canceled')).toBeTruthy()
+    expect(queryByText(i18n('contract.cancel.cash.refundOrRepublish.text'))).toBeTruthy()
   })
   it('shows the correct confirmation popup for canceled cash trade as seller with republish unavailable', async () => {
     setAccount({
@@ -177,26 +137,16 @@ describe('useConfirmCancelTrade', () => {
     const { result } = renderHook(useConfirmCancelTrade)
     result.current({ ...contract, paymentMethod: 'cash.someMeetup' })
 
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { getByText } = render(popupComponent)
+    const { getByText, queryByText } = render(<Popup />)
 
     await act(async () => {
       await fireEvent.press(getByText('cancel trade'))
     })
-    expect(usePopupStore.getState().visible).toBeTruthy()
-    expect(usePopupStore.getState().popupComponent).toStrictEqual(
-      <GrayPopup
-        title="trade canceled"
-        content={
-          <SellerCanceledContent
-            isCash
-            canRepublish={false}
-            tradeID={contract.id}
-            walletName={'custom payout address'}
-          />
-        }
-        actions={<ClosePopupAction style={tw`justify-center`} />}
-      />,
-    )
+
+    expect(queryByText('cancel trade')).toBeFalsy()
+    expect(queryByText('trade canceled')).toBeTruthy()
+    expect(
+      queryByText(i18n('contract.cancel.cash.tradeCanceled.text', contract.id, 'custom payout address')),
+    ).toBeTruthy()
   })
 })

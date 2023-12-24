@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Keyboard } from 'react-native'
+import { useClosePopup } from '../../../components/popup/Popup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { usePopupStore } from '../../../store/usePopupStore'
 import { isEmailRequiredForDispute } from '../../../utils/dispute/isEmailRequiredForDispute'
 import { peachAPI } from '../../../utils/peachAPI'
 import { isEmail } from '../../../utils/validation/isEmail'
 
 export const useSubmitDisputeAcknowledgement = () => {
-  const closePopup = usePopupStore((state) => state.closePopup)
+  const closePopup = useClosePopup()
   const queryClient = useQueryClient()
   const showError = useShowErrorBanner()
   const { mutate: submitDisputeAcknowledgement } = useMutation({

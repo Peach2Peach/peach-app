@@ -1,8 +1,9 @@
 import { useCallback, useEffect } from 'react'
+import { useSetPopup } from '../../../components/popup/Popup'
 import { MSINAMINUTE } from '../../../constants'
+import { CancelOfferPopup } from '../../../hooks/CancelOfferPopup'
 import { useFundingStatus } from '../../../hooks/query/useFundingStatus'
 import { useMultipleOfferDetails } from '../../../hooks/query/useOfferDetails'
-import { useCancelOffer } from '../../../hooks/useCancelOffer'
 import { useInterval } from '../../../hooks/useInterval'
 import { useRoute } from '../../../hooks/useRoute'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -19,6 +20,7 @@ const shouldGetFundingStatus = (offer: SellOffer) =>
 
 export const useFundEscrowSetup = () => {
   const { offerId } = useRoute<'fundEscrow'>().params
+  const setPopup = useSetPopup()
 
   const showErrorBanner = useShowErrorBanner()
   const { refresh } = useSyncWallet()
@@ -39,7 +41,7 @@ export const useFundEscrowSetup = () => {
     .map((offr) => offr.escrow)
     .filter(isDefined)
   const fundingAmount = getFundingAmount(fundMultiple, sellOffer?.amount)
-  const cancelOffer = useCancelOffer(sellOffer?.id)
+  const cancelOffer = () => setPopup(<CancelOfferPopup offerId={offerId} />)
 
   useHandleFundingStatus({
     offerId,

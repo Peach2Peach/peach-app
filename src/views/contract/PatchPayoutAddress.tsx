@@ -6,11 +6,12 @@ import { OpenWallet } from '../../components/bitcoin/OpenWallet'
 import { Button } from '../../components/buttons/Button'
 import { BitcoinAddressInput } from '../../components/inputs/BitcoinAddressInput'
 import { Input } from '../../components/inputs/Input'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { useValidatedState } from '../../hooks/useValidatedState'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
@@ -114,6 +115,7 @@ function ScreenContent ({ contract }: { contract: Contract }) {
 }
 
 function PayoutAddressHeader () {
-  const showHelp = useShowHelp('payoutAddress')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="payoutAddress" />)
   return <Header title={i18n('settings.payoutAddress')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }

@@ -1,5 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Settings should highlight backups if backup reminder is shown 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -748,13 +748,11 @@
+                              "fontSize": 20,
+                              "letterSpacing": 0.2,
+                              "lineHeight": 32,
+                              "textTransform": "lowercase",
+                            },
+-                           Object {
+-                             "color": "#DF321F",
+-                           },
++                           false,
+                          ],
+                          false,
+                        ]
+                      }
+                    >
+@@ -769,11 +767,11 @@
+                          "width": 32,
+                        }
+                      }
+                    >
+                      <test-file-stub
+-                       fill="#DF321F"
++                       fill="#9F8C82"
+                        style={
+                          Array [
+                            Object {
+                              "height": 24,
+                              "width": 24,"
+`;
+
 exports[`Settings should render correctly 1`] = `
 <View
   onLayout={[Function]}
