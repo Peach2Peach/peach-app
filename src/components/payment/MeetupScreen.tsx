@@ -1,8 +1,8 @@
 import { API_URL } from '@env'
 import { useCallback, useMemo } from 'react'
 import { Image, View } from 'react-native'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -63,8 +63,8 @@ function MeetupScreenHeader () {
   const route = useRoute<'meetupScreen'>()
   const { eventId } = route.params
   const deletable = route.params.deletable ?? false
-  const showHelp = useShowHelp('cashTrades')
   const setPopup = useSetPopup()
+  const showHelp = useCallback(() => setPopup(<HelpPopup id="cashTrades" />), [setPopup])
   const deletePaymentMethod = useCallback(
     () => setPopup(<DeletePaymentMethodPopup id={`cash.${eventId}`} />),
     [eventId, setPopup],

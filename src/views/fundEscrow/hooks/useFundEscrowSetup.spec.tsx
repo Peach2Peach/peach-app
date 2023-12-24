@@ -23,11 +23,6 @@ jest.mock('../../../hooks/useRoute', () => ({
   useRoute: () => useRouteMock(),
 }))
 
-const showHelpMock = jest.fn()
-jest.mock('../../../hooks/useShowHelp', () => ({
-  useShowHelp: () => showHelpMock,
-}))
-
 const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
@@ -49,11 +44,6 @@ const getOfferDetailsMock = jest
   .mockResolvedValue({ result: sellOfferWithEscrow, ...responseUtils })
 jest.mock('./useHandleFundingStatus', () => ({
   useHandleFundingStatus: () => jest.fn(),
-}))
-
-const cancelOfferMock = jest.fn()
-jest.mock('../../../hooks/useCancelOffer', () => ({
-  useCancelOffer: () => cancelOfferMock,
 }))
 
 describe('useFundEscrowSetup', () => {

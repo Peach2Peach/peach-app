@@ -3,18 +3,12 @@ import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { bitcoinTransaction, pending1 } from '../../../../tests/unit/data/transactionDetailData'
 import { goBackMock, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { PopupLoadingSpinner } from '../../../../tests/unit/helpers/PopupLoadingSpinner'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Popup } from '../../../components/popup'
-import { PopupAction } from '../../../components/popup/PopupAction'
-import { PopupComponent } from '../../../components/popup/PopupComponent'
-import { usePopupStore } from '../../../store/usePopupStore'
-import { getTransactionFeeRate } from '../../../utils/bitcoin/getTransactionFeeRate'
 import i18n from '../../../utils/i18n'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
-import { ConfirmRbf } from '../components/ConfirmRbf'
 import { useBumpFees } from './useBumpFees'
 
 const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees })
@@ -28,7 +22,6 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 }))
 
 describe('useBumpFees', () => {
-  const currentFeeRate = getTransactionFeeRate(bitcoinTransaction)
   const newFeeRate = 10
   const initialProps = {
     transaction: bitcoinTransaction,
@@ -53,39 +46,16 @@ describe('useBumpFees', () => {
 
     await result.current()
 
-    expect(usePopupStore.getState().visible).toBeFalsy()
+    const { queryByText } = render(<Popup />)
+    expect(queryByText(i18n('wallet.bumpNetworkFees.confirmRbf.title'))).toBeFalsy()
   })
   it('should show bump fee confirmation popup', async () => {
     const { result } = renderHook(useBumpFees, { initialProps })
 
     await result.current()
 
-    expect(usePopupStore.getState().visible).toBeTruthy()
-    expect(usePopupStore.getState().popupComponent).toStrictEqual(
-      <PopupComponent
-        title={i18n('wallet.bumpNetworkFees.confirmRbf.title')}
-        content={
-          <ConfirmRbf
-            oldFeeRate={currentFeeRate}
-            newFeeRate={newFeeRate}
-            bytes={bitcoinTransaction.size}
-            sendingAmount={223667}
-            hasNoChange={false}
-          />
-        }
-        actions={
-          <>
-            <PopupAction label={i18n('cancel')} iconId="xCircle" onPress={expect.any(Function)} />
-            <PopupAction
-              label={i18n('fundFromPeachWallet.confirm.confirmAndSend')}
-              iconId="arrowRightCircle"
-              onPress={expect.any(Function)}
-              reverseOrder
-            />
-          </>
-        }
-      />,
-    )
+    const { queryByText } = render(<Popup />)
+    expect(queryByText(i18n('wallet.bumpNetworkFees.confirmRbf.title'))).toBeTruthy()
   })
 
   it('should broadcast bump fee transaction', async () => {
@@ -96,20 +66,13 @@ describe('useBumpFees', () => {
 
     await result.current()
 
-    const { getByText } = render(<Popup />)
+    const { getByText, queryByText } = render(<Popup />)
     fireEvent.press(getByText('confirm & send'))
-
-    expect(usePopupStore.getState().popupComponent).toEqual(
-      <PopupComponent
-        title="increasing fees"
-        actions={<PopupAction iconId="clock" label="loading..." onPress={expect.any(Function)} />}
-        content={PopupLoadingSpinner}
-      />,
-    )
+    expect(queryByText('increasing fees')).toBeTruthy()
 
     await waitFor(() => {
       expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(txDetails.psbt)
-      expect(usePopupStore.getState().visible).toBeFalsy()
+      expect(queryByText('increasing fees')).toBeFalsy()
       expect(peachWallet.transactions).toHaveLength(0)
       expect(useWalletState.getState().transactions).toHaveLength(0)
       expect(goBackMock).toHaveBeenCalled()
@@ -125,7 +88,6 @@ describe('useBumpFees', () => {
 
     await result.current()
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
-    expect(usePopupStore.getState().visible).toBeFalsy()
     expect(peachWallet.transactions).toHaveLength(1)
     expect(useWalletState.getState().transactions).toHaveLength(1)
   })
@@ -139,12 +101,12 @@ describe('useBumpFees', () => {
     const { result } = renderHook(useBumpFees, { initialProps })
 
     await result.current()
-    const { getByText } = render(<Popup />)
+    const { getByText, queryByText } = render(<Popup />)
     fireEvent.press(getByText('confirm & send'))
 
     await waitFor(() => {
       expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
-      expect(usePopupStore.getState().visible).toBeFalsy()
+      expect(queryByText('increasing fees')).toBeFalsy()
       expect(peachWallet.transactions).toHaveLength(1)
       expect(useWalletState.getState().transactions).toHaveLength(1)
     })

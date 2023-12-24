@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { Header } from '../../components/Header'
 import { Screen } from '../../components/Screen'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
-import { useShowHelp } from '../../hooks/useShowHelp'
+import { useSetPopup } from '../../components/popup/Popup'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -30,9 +31,10 @@ export const Backups = () => {
 }
 
 function BackupHeader ({ tab, showPasswordPrompt }: { tab: 'fileBackup' | 'seedPhrase'; showPasswordPrompt?: boolean }) {
-  const showSeedPhrasePopup = useShowHelp('seedPhrase')
-  const showFileBackupPopup = useShowHelp('fileBackup')
-  const showYourPasswordPopup = useShowHelp('yourPassword')
+  const setPopup = useSetPopup()
+  const showSeedPhrasePopup = () => setPopup(<HelpPopup id="seedPhrase" />)
+  const showFileBackupPopup = () => setPopup(<HelpPopup id="fileBackup" />)
+  const showYourPasswordPopup = () => setPopup(<HelpPopup id="yourPassword" />)
 
   return (
     <Header

@@ -11,8 +11,8 @@ import { Toggle } from '../../components/inputs'
 import { URLInput } from '../../components/inputs/URLInput'
 import { useClosePopup, useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { LoadingPopup } from '../../hooks/LoadingPopup'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
 import { useValidatedState } from '../../hooks/useValidatedState'
 import { SuccessPopup } from '../../popups/SuccessPopup'
@@ -105,7 +105,8 @@ export const NodeSetup = () => {
 }
 
 function NodeSetupHeader () {
-  const showHelp = useShowHelp('useYourOwnNode')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="useYourOwnNode" />)
   return (
     <Header
       title={i18n('wallet.settings.node.title')}

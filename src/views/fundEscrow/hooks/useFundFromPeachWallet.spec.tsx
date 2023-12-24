@@ -8,14 +8,10 @@ import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Popup } from '../../../components/popup/Popup'
-import { PopupComponent } from '../../../components/popup/PopupComponent'
-import { ClosePopupAction } from '../../../popups/actions/ClosePopupAction'
 import { useConfigStore } from '../../../store/configStore/configStore'
-import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
-import { AmountTooLow } from '../components/AmountTooLow'
 import { useFundFromPeachWallet } from './useFundFromPeachWallet'
 
 const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees })
@@ -43,7 +39,6 @@ describe('useFundFromPeachWallet', () => {
 
   beforeAll(() => {
     useConfigStore.getState().setMinTradingAmount(minTradingAmount)
-    usePopupStore.setState(defaultPopupState)
   })
   beforeEach(() => {
     // @ts-expect-error mock doesn't need args
@@ -105,14 +100,14 @@ describe('useFundFromPeachWallet', () => {
     await act(async () => {
       await result.current(initialProps)
     })
-    const { getByText } = render(<Popup />)
+    const { getByText, queryByText } = render(<Popup />)
 
     await act(async () => {
       await fireEvent.press(getByText('confirm & send'))
     })
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(txDetails.psbt)
-    expect(usePopupStore.getState().visible).toBeFalsy()
+    expect(queryByText('confirm & send')).toBeFalsy()
   })
   it('should handle broadcast errors', async () => {
     peachWallet.balance = amount
@@ -125,13 +120,13 @@ describe('useFundFromPeachWallet', () => {
     await act(async () => {
       await result.current(initialProps)
     })
-    const { getByText } = render(<Popup />)
+    const { getByText, queryByText } = render(<Popup />)
     await act(async () => {
       await fireEvent.press(getByText('confirm & send'))
     })
 
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
-    expect(usePopupStore.getState().visible).toBeFalsy()
+    expect(queryByText('confirm & send')).toBeFalsy()
   })
 
   it('should open insufficient funds popup', async () => {
@@ -217,13 +212,13 @@ describe('useFundFromPeachWallet', () => {
       await result.current(initialProps)
     })
 
-    const { getByText } = render(<Popup />)
+    const { getByText, queryByText } = render(<Popup />)
     await act(async () => {
       await fireEvent.press(getByText('confirm & send'))
     })
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(txDetails.psbt)
-    expect(usePopupStore.getState().visible).toBeFalsy()
+    expect(queryByText('confirm & send')).toBeFalsy()
   })
 
   it('should open amount too low popup', async () => {
@@ -233,14 +228,8 @@ describe('useFundFromPeachWallet', () => {
     await act(async () => {
       await result.current(initialProps)
     })
-    expect(usePopupStore.getState().visible).toBeTruthy()
-    expect(usePopupStore.getState().popupComponent).toStrictEqual(
-      <PopupComponent
-        title="amount too low"
-        content={<AmountTooLow available={0} needed={minTradingAmount} />}
-        actions={<ClosePopupAction style={{ justifyContent: 'center' }} />}
-      />,
-    )
+    const { getByText } = render(<Popup />)
+    expect(getByText('amount too low')).toBeTruthy()
   })
   it('should open amount too low popup when funding multiple', async () => {
     peachWallet.balance = 0
@@ -251,13 +240,7 @@ describe('useFundFromPeachWallet', () => {
       await result.current({ ...initialProps, addresses })
     })
 
-    expect(usePopupStore.getState().visible).toBeTruthy()
-    expect(usePopupStore.getState().popupComponent).toStrictEqual(
-      <PopupComponent
-        title="amount too low"
-        content={<AmountTooLow available={0} needed={150000} />}
-        actions={<ClosePopupAction style={{ justifyContent: 'center' }} />}
-      />,
-    )
+    const { getByText } = render(<Popup />)
+    expect(getByText('amount too low')).toBeTruthy()
   })
 })

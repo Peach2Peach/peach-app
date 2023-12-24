@@ -41,12 +41,14 @@ describe('useQRScanner', () => {
     act(() => result.current.showQR())
     expect(result.current.showQRScanner).toBeFalsy()
   })
-  it('opens the warning popup when permissions have been denied', () => {
+  it('opens the warning popup when permissions have been denied', async () => {
     requestSpy.mockImplementationOnce(() => Promise.resolve(RESULTS.DENIED))
     const { result } = renderHook(useQRScanner, { initialProps })
-    act(() => result.current.showQR())
-    expect(result.current.showQRScanner).toBeFalsy()
     const { queryByText } = render(<Popup />)
+    await act(async () => {
+      await result.current.showQR()
+    })
+    expect(result.current.showQRScanner).toBeFalsy()
     expect(queryByText('Missing permissions')).toBeTruthy()
   })
   it('should show and closeQR', async () => {

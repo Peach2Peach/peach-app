@@ -1,15 +1,16 @@
 import { NETWORK } from '@env'
 import { networks } from 'bitcoinjs-lib'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Image, LayoutChangeEvent, TouchableOpacity, View } from 'react-native'
 import txInMempool from '../../../assets/escrow/tx-in-mempool.png'
 import { Header } from '../../../components/Header'
 import { Icon } from '../../../components/Icon'
 import { Screen } from '../../../components/Screen'
 import { TradeInfo } from '../../../components/offer/TradeInfo'
+import { useSetPopup } from '../../../components/popup/Popup'
 import { PeachText } from '../../../components/text/PeachText'
-import { useCancelOffer } from '../../../hooks/useCancelOffer'
-import { useShowHelp } from '../../../hooks/useShowHelp'
+import { CancelOfferPopup } from '../../../hooks/CancelOfferPopup'
+import { HelpPopup } from '../../../hooks/HelpPopup'
 import tw from '../../../styles/tailwind'
 import { showTransaction } from '../../../utils/bitcoin/showTransaction'
 import i18n from '../../../utils/i18n'
@@ -51,8 +52,9 @@ export const TransactionInMempool = ({ offerId, txId }: Props) => {
 }
 
 function MempoolHeader ({ offerId }: { offerId: string }) {
-  const showHelp = useShowHelp('mempool')
-  const cancelOffer = useCancelOffer(offerId)
+  const setPopup = useSetPopup()
+  const showHelp = useCallback(() => setPopup(<HelpPopup id="mempool" />), [setPopup])
+  const cancelOffer = useCallback(() => setPopup(<CancelOfferPopup offerId={offerId} />), [offerId, setPopup])
 
   const memoizedHeaderIcons = useMemo(() => {
     const icons = [

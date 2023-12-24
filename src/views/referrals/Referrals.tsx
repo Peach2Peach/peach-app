@@ -8,8 +8,8 @@ import { RadioButtonItem, RadioButtons } from '../../components/inputs/RadioButt
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { Progress } from '../../components/ui/Progress'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useSelfUser } from '../../hooks/query/useSelfUser'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { CustomReferralCodePopup } from '../../popups/referral/CustomReferralCodePopup'
 import { RedeemNoPeachFeesPopup } from '../../popups/referral/RedeemNoPeachFeesPopup'
 import tw from '../../styles/tailwind'
@@ -32,7 +32,8 @@ export const Referrals = () => (
 )
 
 function ReferralsHeader () {
-  const showHelp = useShowHelp('referrals')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="referrals" />)
   return <Header title={i18n('settings.referrals')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }
 

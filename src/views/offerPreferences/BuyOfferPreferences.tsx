@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { Button } from '../../components/buttons/Button'
-import { useShowHelp } from '../../hooks/useShowHelp'
+import { useSetPopup } from '../../components/popup/Popup'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -34,7 +35,8 @@ export function BuyOfferPreferences () {
 }
 
 function PreferenceHeader () {
-  const showHelp = useShowHelp('buyingBitcoin')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="buyingBitcoin" />)
   return <BuyBitcoinHeader icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }
 

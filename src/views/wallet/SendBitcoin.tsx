@@ -10,10 +10,10 @@ import { RadioButtons } from '../../components/inputs/RadioButtons'
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useHandleTransactionError } from '../../hooks/error/useHandleTransactionError'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useNavigation } from '../../hooks/useNavigation'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
 import { removeNonDigits } from '../../utils/format/removeNonDigits'
 import i18n from '../../utils/i18n'
@@ -181,7 +181,8 @@ function Fees ({ updateFee }: { updateFee: (fee: number | undefined) => void }) 
 }
 
 function SendBitcoinHeader () {
-  const openPopup = useShowHelp('withdrawingFunds')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="withdrawingFunds" />)
   const navigation = useNavigation()
   return (
     <Header
@@ -194,7 +195,7 @@ function SendBitcoinHeader () {
         },
         {
           ...headerIcons.help,
-          onPress: openPopup,
+          onPress: showHelp,
           accessibilityHint: i18n('help'),
         },
       ]}

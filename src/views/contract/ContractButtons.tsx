@@ -6,10 +6,10 @@ import { Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs'
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { useValidatedState } from '../../hooks/useValidatedState'
 import { WarningPopup } from '../../popups/WarningPopup'
 import { ClosePopupAction } from '../../popups/actions/ClosePopupAction'
@@ -120,7 +120,8 @@ export function ChatButton () {
     contract: { unreadMessages, id },
   } = useContractContext()
   const navigation = useNavigation()
-  const showHelp = useShowHelp('disputeDisclaimer')
+  const setPopup = useSetPopup()
+  const showHelp = useCallback(() => setPopup(<HelpPopup id="disputeDisclaimer" />), [setPopup])
   const [seenDisputeDisclaimer, setSeenDisputeDisclaimer] = useConfigStore(
     (state) => [state.seenDisputeDisclaimer, state.setSeenDisputeDisclaimer],
     shallow,

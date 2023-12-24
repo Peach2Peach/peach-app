@@ -4,10 +4,11 @@ import { Header } from '../../components/Header'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
+import { useSetPopup } from '../../components/popup/Popup'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useTransactionDetails } from '../../hooks/query/useTransactionDetails'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
 import { getTransactionFeeRate } from '../../utils/bitcoin/getTransactionFeeRate'
 import i18n from '../../utils/i18n'
@@ -70,7 +71,8 @@ export const BumpNetworkFees = () => {
 }
 
 function BumpNetworkFeesHeader () {
-  const showHelp = useShowHelp('rbf')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="rbf" />)
   return <Header title={i18n('wallet.bumpNetworkFees.title')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }
 

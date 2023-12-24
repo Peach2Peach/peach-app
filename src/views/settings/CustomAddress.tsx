@@ -10,9 +10,9 @@ import { Input } from '../../components/inputs/Input'
 import { PopupAction } from '../../components/popup'
 import { useClosePopup, useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { useValidatedState } from '../../hooks/useValidatedState'
 import { ErrorPopup } from '../../popups/ErrorPopup'
 import { ClosePopupAction } from '../../popups/actions/ClosePopupAction'
@@ -98,7 +98,8 @@ export const CustomAddress = () => {
 
 function PayoutAddressHeader () {
   const { type } = useRoute<'payoutAddress'>().params || {}
-  const showHelp = useShowHelp('payoutAddress')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="payoutAddress" />)
   const title = {
     refund: 'settings.refundAddress',
     payout: 'settings.payoutAddress',
