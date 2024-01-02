@@ -1,31 +1,61 @@
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { useState } from 'react'
+import z from 'zod'
 import { Header } from '../../components/Header'
 import { Screen } from '../../components/Screen'
-import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 import { useSetPopup } from '../../components/popup/Popup'
+import { fullScreenTabNavigationScreenOptions } from '../../constants'
 import { HelpPopup } from '../../hooks/HelpPopup'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
-import { FileBackup } from './components/backups/FileBackup'
+import { BackupPasswordPrompt } from './components/backups/BackupPasswordPrompt'
+import { FileBackupOverview } from './components/backups/FileBackupOverview'
 import { SeedPhrase } from './components/backups/SeedPhrase'
 
+const BackupTab = createMaterialTopTabNavigator()
+const tabs = ['fileBackup', 'seedPhrase'] as const
+const TabType = z.enum(tabs)
+type TabType = z.infer<typeof TabType>
+const tabbedNavigationScreenOptions = {
+  ...fullScreenTabNavigationScreenOptions,
+  tabBarLabelStyle: tw`lowercase input-title`,
+}
+
 export const Backups = () => {
-  const tabs: TabbedNavigationItem<'fileBackup' | 'seedPhrase'>[] = [
-    { id: 'fileBackup', display: i18n('settings.backups.fileBackup') },
-    { id: 'seedPhrase', display: i18n('settings.backups.seedPhrase') },
-  ]
-  const [currentTab, setCurrentTab] = useState(tabs[0])
+  const [currentTab, setCurrentTab] = useState<TabType>(tabs[0])
   const [showPasswordPrompt, toggle] = useToggleBoolean()
 
   return (
-    <Screen header={<BackupHeader tab={currentTab.id} showPasswordPrompt={showPasswordPrompt} />}>
-      <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
-      {currentTab.id === 'fileBackup' ? (
-        <FileBackup showPasswordPrompt={showPasswordPrompt} toggle={toggle} />
-      ) : (
-        <SeedPhrase />
-      )}
+    <Screen style={tw`px-0`} header={<BackupHeader tab={currentTab} showPasswordPrompt={showPasswordPrompt} />}>
+      <BackupTab.Navigator
+        screenOptions={tabbedNavigationScreenOptions}
+        sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
+        screenListeners={{
+          focus: (e) => setCurrentTab(TabType.parse(e.target?.split('-')[0])),
+        }}
+      >
+        <>
+          {tabs.map((tab) => (
+            <BackupTab.Screen key={tab} name={tab} options={{ title: `${i18n(`settings.backups.${tab}`)}` }}>
+              {() => (
+                <>
+                  {tab === 'fileBackup' ? (
+                    showPasswordPrompt ? (
+                      <BackupPasswordPrompt toggle={toggle} />
+                    ) : (
+                      <FileBackupOverview next={toggle} />
+                    )
+                  ) : (
+                    <SeedPhrase />
+                  )}
+                </>
+              )}
+            </BackupTab.Screen>
+          ))}
+        </>
+      </BackupTab.Navigator>
     </Screen>
   )
 }
