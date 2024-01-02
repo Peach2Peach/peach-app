@@ -19,7 +19,6 @@ exports[`Message renders correctly 1`] = `
           {
             "alignItems": "center",
             "borderRadius": 16,
-            "display": "flex",
             "justifyContent": "center",
             "marginBottom": 24,
             "marginLeft": 24,
@@ -148,7 +147,6 @@ exports[`Message renders correctly 1`] = `
         style={
           {
             "alignItems": "center",
-            "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
             "marginTop": 4,
@@ -187,7 +185,6 @@ exports[`Message renders correctly 1`] = `
           style={
             {
               "alignItems": "center",
-              "display": "flex",
               "flexDirection": "row",
               "opacity": 1,
             }
@@ -253,7 +250,6 @@ exports[`Message renders correctly 1`] = `
           style={
             {
               "alignItems": "center",
-              "display": "flex",
               "flexDirection": "row",
               "opacity": 1,
               "textAlign": "right",
@@ -330,7 +326,6 @@ exports[`Message renders correctly with no action 1`] = `
           {
             "alignItems": "center",
             "borderRadius": 16,
-            "display": "flex",
             "justifyContent": "center",
             "marginBottom": 24,
             "marginLeft": 24,
@@ -459,7 +454,6 @@ exports[`Message renders correctly with no action 1`] = `
         style={
           {
             "alignItems": "center",
-            "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
             "marginTop": 4,
@@ -499,7 +493,6 @@ exports[`Message renders correctly with no action 1`] = `
           style={
             {
               "alignItems": "center",
-              "display": "flex",
               "flexDirection": "row",
               "opacity": 1,
               "textAlign": "right",
@@ -576,7 +569,6 @@ exports[`Message should use default values for missing translations 1`] = `
           {
             "alignItems": "center",
             "borderRadius": 16,
-            "display": "flex",
             "justifyContent": "center",
             "marginBottom": 24,
             "marginLeft": 24,
@@ -705,7 +697,6 @@ exports[`Message should use default values for missing translations 1`] = `
         style={
           {
             "alignItems": "center",
-            "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
             "marginTop": 4,
@@ -744,7 +735,6 @@ exports[`Message should use default values for missing translations 1`] = `
           style={
             {
               "alignItems": "center",
-              "display": "flex",
               "flexDirection": "row",
               "opacity": 1,
             }
@@ -810,7 +800,6 @@ exports[`Message should use default values for missing translations 1`] = `
           style={
             {
               "alignItems": "center",
-              "display": "flex",
               "flexDirection": "row",
               "opacity": 1,
               "textAlign": "right",

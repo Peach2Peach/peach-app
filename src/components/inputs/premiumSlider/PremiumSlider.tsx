@@ -35,7 +35,7 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
           <Animated.View
             style={[
               { width: knobWidth },
-              tw`z-10 flex items-center justify-center h-full rounded-full bg-primary-main`,
+              tw`z-10 items-center justify-center h-full rounded-full bg-primary-main`,
               getTranslateX(pan, [0, trackWidth]),
             ]}
           >

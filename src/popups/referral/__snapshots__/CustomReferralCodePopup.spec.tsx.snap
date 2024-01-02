@@ -5,7 +5,7 @@ exports[`useSetCustomReferralCodePopup handles referral code exists error 1`] = 
 - First value
 + Second value
 
-@@ -130,15 +130,18 @@
+@@ -129,15 +129,18 @@
                   "backgroundColor": "#FFFCFA",
                 },
                 Object {
@@ -28,7 +28,7 @@ exports[`useSetCustomReferralCodePopup handles referral code exists error 1`] = 
                   "backgroundColor": "#FEEDE5",
                 },
               ]
-@@ -173,17 +176,16 @@
+@@ -172,17 +175,16 @@
                     "width": "100%",
                   },
                   Object {
@@ -48,7 +48,7 @@ exports[`useSetCustomReferralCodePopup handles referral code exists error 1`] = 
               textAlignVertical="center"
               value="HODL"
             />
-@@ -222,11 +224,11 @@
+@@ -221,11 +223,11 @@
                 ],
                 false,
               ]
@@ -61,7 +61,7 @@ exports[`useSetCustomReferralCodePopup handles referral code exists error 1`] = 
       </View>
     </View>
     <View
-@@ -328,11 +330,11 @@
+@@ -327,11 +329,11 @@
       <View
         accessibilityState={
           Object {
@@ -81,7 +81,7 @@ exports[`useSetCustomReferralCodePopup updates referral code state 1`] = `
 - First value
 + Second value
 
-@@ -171,11 +171,11 @@
+@@ -170,11 +170,11 @@
                     "paddingBottom": 0,
                     "paddingTop": 0,
                     "width": "100%",
@@ -94,7 +94,7 @@ exports[`useSetCustomReferralCodePopup updates referral code state 1`] = `
                   Object {
                     "borderColor": "transparent",
                     "borderWidth": 1,
-@@ -183,11 +183,11 @@
+@@ -182,11 +182,11 @@
                   false,
                   false,
                 ]
@@ -107,7 +107,7 @@ exports[`useSetCustomReferralCodePopup updates referral code state 1`] = `
               style={
                 Object {
                   "flexDirection": "row",
-@@ -328,11 +328,11 @@
+@@ -327,11 +327,11 @@
       <View
         accessibilityState={
           Object {

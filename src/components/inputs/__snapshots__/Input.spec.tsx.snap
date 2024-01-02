@@ -7,7 +7,6 @@ exports[`Input renders correctly 1`] = `
       [
         {
           "alignItems": "center",
-          "display": "flex",
           "flexDirection": "row",
           "gap": 4,
           "justifyContent": "space-between",
@@ -115,7 +114,6 @@ exports[`Input renders correctly with icon 1`] = `
       [
         {
           "alignItems": "center",
-          "display": "flex",
           "flexDirection": "row",
           "gap": 4,
           "justifyContent": "space-between",
@@ -231,7 +229,6 @@ exports[`Input renders correctly with placeholder 1`] = `
       [
         {
           "alignItems": "center",
-          "display": "flex",
           "flexDirection": "row",
           "gap": 4,
           "justifyContent": "space-between",
@@ -340,7 +337,6 @@ exports[`Input renders correctly with value 1`] = `
       [
         {
           "alignItems": "center",
-          "display": "flex",
           "flexDirection": "row",
           "gap": 4,
           "justifyContent": "space-between",

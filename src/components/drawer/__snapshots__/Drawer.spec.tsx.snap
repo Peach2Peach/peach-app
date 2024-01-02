@@ -5,7 +5,6 @@ exports[`Drawer renders correctly 1`] = `
   style={
     [
       {
-        "display": "flex",
         "height": "100%",
         "left": 0,
         "position": "absolute",
@@ -71,7 +70,6 @@ exports[`Drawer renders correctly with options 1`] = `
   style={
     [
       {
-        "display": "flex",
         "height": "100%",
         "left": 0,
         "position": "absolute",
@@ -137,7 +135,6 @@ exports[`Drawer renders correctly with previous drawer 1`] = `
   style={
     [
       {
-        "display": "flex",
         "height": "100%",
         "left": 0,
         "position": "absolute",

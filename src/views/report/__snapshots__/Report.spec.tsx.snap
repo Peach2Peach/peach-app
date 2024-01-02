@@ -193,7 +193,6 @@ exports[`Report should render correctly 1`] = `
                     [
                       {
                         "alignItems": "center",
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 4,
                         "justifyContent": "space-between",
@@ -312,7 +311,6 @@ exports[`Report should render correctly 1`] = `
                     [
                       {
                         "alignItems": "center",
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 4,
                         "justifyContent": "space-between",
@@ -430,7 +428,6 @@ exports[`Report should render correctly 1`] = `
                     [
                       {
                         "alignItems": "center",
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 4,
                         "justifyContent": "space-between",
@@ -498,7 +495,6 @@ exports[`Report should render correctly 1`] = `
                           "borderWidth": 1,
                         },
                         {
-                          "display": "flex",
                           "height": "100%",
                           "justifyContent": "flex-start",
                           "paddingTop": 8,

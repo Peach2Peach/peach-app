@@ -602,7 +602,6 @@ exports[`RestoreBackup should render correctly 1`] = `
                     [
                       {
                         "alignItems": "center",
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 4,
                         "justifyContent": "space-between",
@@ -778,7 +777,6 @@ exports[`RestoreBackup should render correctly 1`] = `
                     [
                       {
                         "alignItems": "center",
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 4,
                         "justifyContent": "space-between",

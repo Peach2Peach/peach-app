@@ -249,7 +249,6 @@ exports[`AddressChecker should render correctly 1`] = `
                 [
                   {
                     "alignItems": "center",
-                    "display": "flex",
                     "flexDirection": "row",
                     "gap": 4,
                     "justifyContent": "space-between",
@@ -477,7 +476,7 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
 - First value
 + Second value
 
-@@ -302,11 +302,11 @@
+@@ -301,11 +301,11 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -490,7 +489,7 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
                       Object {
                         "borderColor": "transparent",
                         "borderWidth": 1,
-@@ -314,11 +314,11 @@
+@@ -313,11 +313,11 @@
                       false,
                       false,
                     ]
@@ -503,7 +502,7 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
                   style={
                     Object {
                       "flexDirection": "row",
-@@ -453,16 +453,63 @@
+@@ -452,16 +452,63 @@
                  
               </Text>
             </View>
@@ -575,7 +574,7 @@ exports[`AddressChecker should render correctly when address does not belong to 
 - First value
 + Second value
 
-@@ -302,11 +302,11 @@
+@@ -301,11 +301,11 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -588,7 +587,7 @@ exports[`AddressChecker should render correctly when address does not belong to 
                       Object {
                         "borderColor": "transparent",
                         "borderWidth": 1,
-@@ -314,11 +314,11 @@
+@@ -313,11 +313,11 @@
                       false,
                       false,
                     ]
@@ -601,7 +600,7 @@ exports[`AddressChecker should render correctly when address does not belong to 
                   style={
                     Object {
                       "flexDirection": "row",
-@@ -453,16 +453,63 @@
+@@ -452,16 +452,63 @@
                  
               </Text>
             </View>
@@ -673,7 +672,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
 - First value
 + Second value
 
-@@ -263,15 +263,18 @@
+@@ -262,15 +262,18 @@
                       "backgroundColor": "#FFFCFA",
                     },
                     Object {
@@ -696,7 +695,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
                   ]
                 }
               >
-@@ -302,23 +305,22 @@
+@@ -301,23 +304,22 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -724,7 +723,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
                   style={
                     Object {
                       "flexDirection": "row",
-@@ -448,11 +450,11 @@
+@@ -447,11 +449,11 @@
                     ],
                     false,
                   ]
@@ -744,7 +743,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
 - First value
 + Second value
 
-@@ -302,11 +302,11 @@
+@@ -301,11 +301,11 @@
                         "paddingBottom": 0,
                         "paddingTop": 0,
                         "width": "100%",
@@ -757,7 +756,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
                       Object {
                         "borderColor": "transparent",
                         "borderWidth": 1,
-@@ -314,11 +314,11 @@
+@@ -313,11 +313,11 @@
                       false,
                       false,
                     ]
@@ -770,7 +769,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
                   style={
                     Object {
                       "flexDirection": "row",
-@@ -452,16 +452,43 @@
+@@ -451,16 +451,43 @@
               >
                  
               </Text>

@@ -143,7 +143,7 @@ export const Message = () => {
       <SafeAreaView>
         <View
           style={[
-            tw`flex items-center justify-center px-4 pt-4 pb-2 m-6 rounded-2xl`,
+            tw`items-center justify-center px-4 pt-4 pb-2 m-6 rounded-2xl`,
             messageShadow,
             levelColorMap.bg[level],
           ]}
@@ -159,16 +159,16 @@ export const Message = () => {
               </PeachText>
             )}
           </View>
-          <View style={tw`flex flex-row items-center justify-between w-full mt-1`}>
+          <View style={tw`flex-row items-center justify-between w-full mt-1`}>
             {action ? (
-              <TouchableOpacity onPress={action.callback} style={tw`flex flex-row items-center`}>
+              <TouchableOpacity onPress={action.callback} style={tw`flex-row items-center`}>
                 {!!action.icon && <Icon id={action.icon} style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />}
                 <PeachText style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}>{action.label}</PeachText>
               </TouchableOpacity>
             ) : (
               <Placeholder />
             )}
-            <TouchableOpacity onPress={closeMessage} style={tw`flex flex-row items-center text-right`}>
+            <TouchableOpacity onPress={closeMessage} style={tw`flex-row items-center text-right`}>
               <PeachText style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}>{i18n('close')} </PeachText>
               <Icon id="xSquare" style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />
             </TouchableOpacity>

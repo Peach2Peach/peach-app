@@ -135,7 +135,7 @@ export const Input = ({
       )}
       <View
         style={[
-          tw`flex flex-row items-center justify-between w-full gap-1 px-3`,
+          tw`flex-row items-center justify-between w-full gap-1 px-3`,
           tw`overflow-hidden border rounded-xl`,
           disabled ? styles.bgDisabled : styles.bg,
           disabled ? styles.borderDisabled : styles.border,
@@ -151,7 +151,7 @@ export const Input = ({
             tw.style(value ? styles.text : styles.placeholder),
             showError && tw.style(styles.textError),
             !showError && tw`border border-transparent`,
-            multiline && tw`flex justify-start h-full pt-2`,
+            multiline && tw`justify-start h-full pt-2`,
             !!inputStyle && inputStyle,
           ]}
           value={value}
