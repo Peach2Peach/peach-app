@@ -1,13 +1,12 @@
 import { useRef } from 'react'
-import { Pressable, TextInput, View } from 'react-native'
-import { Icon } from '../../components/Icon'
+import { TextInput } from 'react-native'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
+import { Checkbox } from '../../components/inputs/Checkbox'
 import { EmailInput } from '../../components/inputs/EmailInput'
 import { Input } from '../../components/inputs/Input'
 import { useSetPopup } from '../../components/popup/Popup'
-import { PeachText } from '../../components/text/PeachText'
 import { AppPopup } from '../../hooks/AppPopup'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
@@ -95,27 +94,13 @@ export const Report = () => {
           errorMessage={messageErrors}
         />
         {!publicKey && (
-          <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row items-center pl-3`}>
-            <View style={tw`items-center justify-center w-5 h-5`}>
-              {shareDeviceID ? (
-                <Icon id="checkboxMark" size={20} color={tw.color('primary-main')} />
-              ) : (
-                <View style={tw`w-4 h-4 border-2 rounded-sm border-black-50`} />
-              )}
-            </View>
-            <PeachText style={tw`pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</PeachText>
-          </Pressable>
+          <Checkbox onPress={toggleDeviceIDSharing} checked={shareDeviceID}>
+            {i18n('form.includeDeviceIDHash')}
+          </Checkbox>
         )}
-        <Pressable onPress={toggleShareLogs} style={tw`flex-row items-center pl-3`}>
-          <View style={tw`flex items-center justify-center w-5 h-5`}>
-            {shareLogs ? (
-              <Icon id="checkboxMark" size={20} color={tw.color('primary-main')} />
-            ) : (
-              <View style={tw`w-4 h-4 border-2 rounded-sm border-black-50`} />
-            )}
-          </View>
-          <PeachText style={tw`pl-2 subtitle-1`}>{i18n('form.shareLogs')}</PeachText>
-        </Pressable>
+        <Checkbox onPress={toggleShareLogs} checked={shareLogs}>
+          {i18n('form.shareLogs')}
+        </Checkbox>
       </PeachScrollView>
       <Button style={tw`self-center`} onPress={submit} disabled={!(isEmailValid && isTopicValid && isMessageValid)}>
         {i18n('report.sendReport')}
