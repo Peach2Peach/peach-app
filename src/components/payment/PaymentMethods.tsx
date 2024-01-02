@@ -24,10 +24,6 @@ import { RemotePaymentMethods } from './RemotePaymentMethods'
 
 const PaymentMethodsTab = createMaterialTopTabNavigator()
 const tabs = ['online', 'meetups'] as const
-const tabbedNavigationScreenOptions = {
-  ...fullScreenTabNavigationScreenOptions,
-  tabBarLabelStyle: tw`lowercase input-title`,
-}
 
 export const PaymentMethods = () => {
   const navigation = useNavigation()
@@ -61,7 +57,7 @@ export const PaymentMethods = () => {
   return (
     <Screen style={tw`px-0`} header={<PaymentMethodsHeader isEditing={isEditing} toggleIsEditing={toggleIsEditing} />}>
       <PaymentMethodsTab.Navigator
-        screenOptions={tabbedNavigationScreenOptions}
+        screenOptions={fullScreenTabNavigationScreenOptions}
         sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
       >
         {tabs.map((tab) => (

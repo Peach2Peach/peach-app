@@ -48,4 +48,5 @@ export const fullScreenTabNavigationScreenOptions = {
   tabBarIndicatorStyle: tw`bg-black-100`,
   tabBarItemStyle: tw`p-0`,
   tabBarPressColor: 'transparent',
+  tabBarLabelStyle: tw`lowercase input-title`,
 }

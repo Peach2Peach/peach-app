@@ -23,11 +23,6 @@ import { getCategories } from './utils/getCategories'
 const YourTradesTab = createMaterialTopTabNavigator()
 const tabs = ['yourTrades.buy', 'yourTrades.sell', 'yourTrades.history'] as const
 
-const tabbedNavigationScreenOptions = {
-  ...fullScreenTabNavigationScreenOptions,
-  tabBarLabelStyle: tw`lowercase input-title`,
-}
-
 export const YourTrades = () => {
   const { tradeSummaries, isLoading, error, refetch } = useTradeSummaries()
   const { params } = useHomeScreenRoute<'yourTrades'>()
@@ -54,7 +49,7 @@ export const YourTrades = () => {
     <Screen style={tw`px-0`} header={<YourTradesHeader />}>
       <YourTradesTab.Navigator
         initialRouteName={params?.tab || 'yourTrades.buy'}
-        screenOptions={tabbedNavigationScreenOptions}
+        screenOptions={fullScreenTabNavigationScreenOptions}
         sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
       >
         {tabs.map((tab) => (

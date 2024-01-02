@@ -18,10 +18,6 @@ const BackupTab = createMaterialTopTabNavigator()
 const tabs = ['fileBackup', 'seedPhrase'] as const
 const TabType = z.enum(tabs)
 type TabType = z.infer<typeof TabType>
-const tabbedNavigationScreenOptions = {
-  ...fullScreenTabNavigationScreenOptions,
-  tabBarLabelStyle: tw`lowercase input-title`,
-}
 
 export const Backups = () => {
   const [currentTab, setCurrentTab] = useState<TabType>(tabs[0])
@@ -30,7 +26,7 @@ export const Backups = () => {
   return (
     <Screen style={tw`px-0`} header={<BackupHeader tab={currentTab} showPasswordPrompt={showPasswordPrompt} />}>
       <BackupTab.Navigator
-        screenOptions={tabbedNavigationScreenOptions}
+        screenOptions={fullScreenTabNavigationScreenOptions}
         sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
         screenListeners={{
           focus: (e) => setCurrentTab(TabType.parse(e.target?.split('-')[0])),
