@@ -5,6 +5,7 @@ import { Header } from '../../components/Header'
 import { Screen } from '../../components/Screen'
 import { Loading } from '../../components/animation/Loading'
 import { NotificationBubble } from '../../components/bubble/NotificationBubble'
+import { fullScreenTabNavigationScreenOptions } from '../../constants'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
@@ -23,12 +24,8 @@ const YourTradesTab = createMaterialTopTabNavigator()
 const tabs = ['yourTrades.buy', 'yourTrades.sell', 'yourTrades.history'] as const
 
 const tabbedNavigationScreenOptions = {
+  ...fullScreenTabNavigationScreenOptions,
   tabBarLabelStyle: tw`lowercase input-title`,
-  tabBarStyle: [tw`bg-transparent mx-sm`, tw`md:mx-md`],
-  tabBarContentContainerStyle: tw`bg-transparent`,
-  tabBarIndicatorStyle: tw`bg-black-100`,
-  tabBarItemStyle: tw`p-0`,
-  tabBarPressColor: 'transparent',
 }
 
 export const YourTrades = () => {
