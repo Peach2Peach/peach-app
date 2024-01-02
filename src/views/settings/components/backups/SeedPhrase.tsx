@@ -3,13 +3,13 @@ import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { PeachScrollView } from '../../../../components/PeachScrollView'
 import { Button } from '../../../../components/buttons/Button'
+import { Checkbox } from '../../../../components/inputs/Checkbox'
 import { useToggleBoolean } from '../../../../hooks/useToggleBoolean'
 import { useSettingsStore } from '../../../../store/settingsStore'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import { KeepPhraseSecure } from './KeepPhraseSecure'
 import { LastSeedBackup } from './LastSeedBackup'
-import { ReadAndUnderstood } from './ReadAndUnderstood'
 import { SecurityInfo } from './SecurityInfo'
 import { TwelveWords } from './TwelveWords'
 
@@ -54,7 +54,9 @@ export const SeedPhrase = ({ style }: ComponentProps) => {
       </PeachScrollView>
       <View>
         {currentScreenIndex === 1 && (
-          <ReadAndUnderstood style={tw`self-center mb-10`} checkBoxProps={{ checked, onPress: toggleChecked }} />
+          <Checkbox style={tw`self-center mb-10`} checked={checked} onPress={toggleChecked}>
+            {i18n('settings.backups.seedPhrase.readAndUnderstood')}
+          </Checkbox>
         )}
         {currentScreenIndex !== 0 && (
           <Button onPress={showNextScreen} style={tw`self-center`} disabled={!checked}>

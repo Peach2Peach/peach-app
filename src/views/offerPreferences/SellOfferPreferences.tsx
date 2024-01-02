@@ -381,18 +381,12 @@ function InstantTrade () {
       </View>
       {enableInstantTrade && (
         <>
-          <Checkbox
-            checked={criteria.minTrades !== 0}
-            style={tw`self-stretch`}
-            text={i18n('offerPreferences.filters.noNewUsers')}
-            onPress={toggleMinTrades}
-          />
-          <Checkbox
-            checked={criteria.minReputation !== 0}
-            style={tw`self-stretch`}
-            text={i18n('offerPreferences.filters.minReputation', '4.5')}
-            onPress={toggleMinReputation}
-          />
+          <Checkbox checked={criteria.minTrades !== 0} style={tw`self-stretch`} onPress={toggleMinTrades}>
+            {i18n('offerPreferences.filters.noNewUsers')}
+          </Checkbox>
+          <Checkbox checked={criteria.minReputation !== 0} style={tw`self-stretch`} onPress={toggleMinReputation}>
+            {i18n('offerPreferences.filters.minReputation', '4.5')}
+          </Checkbox>
           <View style={tw`flex-row items-start self-stretch gap-10px`}>
             <TouchableOpacity onPress={() => toggleBadge('fastTrader')}>
               <Badge badgeName="fastTrader" isUnlocked={criteria.badges.includes('fastTrader')} />
@@ -458,12 +452,9 @@ function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWa
   const onPress = () => navigation.navigate('networkFees')
   return (
     <Section.Container style={tw`flex-row justify-between`}>
-      <Checkbox
-        checked={fundWithPeachWallet}
-        text={i18n('offerPreferences.fundWithPeachWallet', String(estimatedFeeRate))}
-        onPress={toggle}
-        style={tw`flex-1`}
-      />
+      <Checkbox checked={fundWithPeachWallet} onPress={toggle} style={tw`flex-1`}>
+        {i18n('offerPreferences.fundWithPeachWallet', String(estimatedFeeRate))}
+      </Checkbox>
       <TouchableIcon id="bitcoin" onPress={onPress} />
     </Section.Container>
   )
