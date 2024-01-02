@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Pressable, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { IconType } from '../../assets/icons'
 import { PAYMENTCATEGORIES } from '../../paymentMethods'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
@@ -80,7 +80,6 @@ export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }
                 {item.isValid ? (
                   <View>
                     <PaymentDetailsCheckbox
-                      testID={`buy-mops-checkbox-${item.value}`}
                       onPress={() => (isEditing ? editItem(item.data) : select(item.value))}
                       item={item}
                       checked={isSelected(item)}
@@ -89,12 +88,10 @@ export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }
                     <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
                   </View>
                 ) : (
-                  <View style={tw`flex flex-row justify-between`}>
-                    <PeachText style={tw`font-baloo text-error-main`}>{item.data.label}</PeachText>
-                    <Pressable onPress={() => deletePaymentData(item.data)} style={tw`w-6 h-6`}>
-                      <Icon id="trash" style={tw`w-6 h-6`} color={tw.color('black-65')} />
-                    </Pressable>
-                  </View>
+                  <TouchableOpacity onPress={() => deletePaymentData(item.data)} style={tw`flex-row justify-between`}>
+                    <PeachText style={tw`text-error-main`}>{item.data.label}</PeachText>
+                    <Icon id="trash" color={tw.color('black-65')} />
+                  </TouchableOpacity>
                 )}
               </View>
             ))}

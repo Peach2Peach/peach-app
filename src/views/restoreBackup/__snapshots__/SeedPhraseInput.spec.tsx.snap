@@ -7,7 +7,6 @@ exports[`SeedPhraseInput should render correctly 1`] = `
       [
         {
           "alignItems": "center",
-          "display": "flex",
           "flexDirection": "row",
           "gap": 4,
           "justifyContent": "space-between",
@@ -82,7 +81,6 @@ exports[`SeedPhraseInput should render correctly 1`] = `
     <View
       style={
         {
-          "display": "flex",
           "flexDirection": "row",
           "gap": 16,
         }

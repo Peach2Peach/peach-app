@@ -71,7 +71,6 @@ exports[`RemotePaymentMethods should render correctly with methods 1`] = `
             }
           }
           onPress={[Function]}
-          testID="buy-mops-checkbox-sepa-1669721660451"
         />
         <PaymentDataKeyFacts
           paymentData={

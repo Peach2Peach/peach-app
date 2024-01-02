@@ -42,7 +42,6 @@ export const MeetupPaymentMethods = ({ isEditing, editItem, select, isSelected }
         .map((item, i) => (
           <View key={item.data.id} style={i > 0 ? tw`mt-4` : {}}>
             <PaymentDetailsCheckbox
-              testID="payment-details-checkbox"
               onPress={() => (isEditing ? editItem(item.data) : select(item.value))}
               item={item}
               checked={isSelected(item)}

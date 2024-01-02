@@ -389,9 +389,7 @@ exports[`RestoreBackup should render correctly 1`] = `
             accessible={true}
             collapsable={false}
             focusable={true}
-            onBlur={[Function]}
             onClick={[Function]}
-            onFocus={[Function]}
             onResponderGrant={[Function]}
             onResponderMove={[Function]}
             onResponderRelease={[Function]}
@@ -399,15 +397,12 @@ exports[`RestoreBackup should render correctly 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              [
-                {
-                  "flexShrink": 1,
-                  "paddingLeft": 8,
-                  "paddingRight": 8,
-                },
-                undefined,
-                false,
-              ]
+              {
+                "flexShrink": 1,
+                "opacity": 1,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+              }
             }
           >
             <View
@@ -488,9 +483,7 @@ exports[`RestoreBackup should render correctly 1`] = `
             accessible={true}
             collapsable={false}
             focusable={true}
-            onBlur={[Function]}
             onClick={[Function]}
-            onFocus={[Function]}
             onResponderGrant={[Function]}
             onResponderMove={[Function]}
             onResponderRelease={[Function]}
@@ -498,15 +491,12 @@ exports[`RestoreBackup should render correctly 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              [
-                {
-                  "flexShrink": 1,
-                  "paddingLeft": 8,
-                  "paddingRight": 8,
-                },
-                undefined,
-                false,
-              ]
+              {
+                "flexShrink": 1,
+                "opacity": 1,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+              }
             }
           >
             <View
@@ -612,7 +602,6 @@ exports[`RestoreBackup should render correctly 1`] = `
                     [
                       {
                         "alignItems": "center",
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 4,
                         "justifyContent": "space-between",
@@ -688,7 +677,6 @@ exports[`RestoreBackup should render correctly 1`] = `
                   <View
                     style={
                       {
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 16,
                       }
@@ -715,28 +703,28 @@ exports[`RestoreBackup should render correctly 1`] = `
                       accessible={true}
                       collapsable={false}
                       focusable={true}
-                      onBlur={[Function]}
                       onClick={[Function]}
-                      onFocus={[Function]}
                       onResponderGrant={[Function]}
                       onResponderMove={[Function]}
                       onResponderRelease={[Function]}
                       onResponderTerminate={[Function]}
                       onResponderTerminationRequest={[Function]}
                       onStartShouldSetResponder={[Function]}
+                      style={
+                        {
+                          "opacity": 1,
+                        }
+                      }
                     >
                       <test-file-stub
                         fill="#FFFCFA"
                         style={
                           [
                             {
-                              "height": 24,
-                              "width": 24,
-                            },
-                            {
                               "height": 20,
                               "width": 20,
                             },
+                            undefined,
                           ]
                         }
                       />
@@ -789,7 +777,6 @@ exports[`RestoreBackup should render correctly 1`] = `
                     [
                       {
                         "alignItems": "center",
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 4,
                         "justifyContent": "space-between",
@@ -865,7 +852,6 @@ exports[`RestoreBackup should render correctly 1`] = `
                   <View
                     style={
                       {
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 16,
                       }
@@ -892,28 +878,28 @@ exports[`RestoreBackup should render correctly 1`] = `
                       accessible={true}
                       collapsable={false}
                       focusable={true}
-                      onBlur={[Function]}
                       onClick={[Function]}
-                      onFocus={[Function]}
                       onResponderGrant={[Function]}
                       onResponderMove={[Function]}
                       onResponderRelease={[Function]}
                       onResponderTerminate={[Function]}
                       onResponderTerminationRequest={[Function]}
                       onStartShouldSetResponder={[Function]}
+                      style={
+                        {
+                          "opacity": 1,
+                        }
+                      }
                     >
                       <test-file-stub
                         fill="#FFFCFA"
                         style={
                           [
                             {
-                              "height": 24,
-                              "width": 24,
-                            },
-                            {
                               "height": 20,
                               "width": 20,
                             },
+                            undefined,
                           ]
                         }
                       />

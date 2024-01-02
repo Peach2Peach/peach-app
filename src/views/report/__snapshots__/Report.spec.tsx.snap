@@ -193,7 +193,6 @@ exports[`Report should render correctly 1`] = `
                     [
                       {
                         "alignItems": "center",
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 4,
                         "justifyContent": "space-between",
@@ -269,7 +268,6 @@ exports[`Report should render correctly 1`] = `
                   <View
                     style={
                       {
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 16,
                       }
@@ -313,7 +311,6 @@ exports[`Report should render correctly 1`] = `
                     [
                       {
                         "alignItems": "center",
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 4,
                         "justifyContent": "space-between",
@@ -388,7 +385,6 @@ exports[`Report should render correctly 1`] = `
                   <View
                     style={
                       {
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 16,
                       }
@@ -432,7 +428,6 @@ exports[`Report should render correctly 1`] = `
                     [
                       {
                         "alignItems": "center",
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 4,
                         "justifyContent": "space-between",
@@ -500,7 +495,6 @@ exports[`Report should render correctly 1`] = `
                           "borderWidth": 1,
                         },
                         {
-                          "display": "flex",
                           "height": "100%",
                           "justifyContent": "flex-start",
                           "paddingTop": 8,
@@ -514,7 +508,6 @@ exports[`Report should render correctly 1`] = `
                   <View
                     style={
                       {
-                        "display": "flex",
                         "flexDirection": "row",
                         "gap": 16,
                       }
@@ -573,9 +566,7 @@ exports[`Report should render correctly 1`] = `
                 accessible={true}
                 collapsable={false}
                 focusable={true}
-                onBlur={[Function]}
                 onClick={[Function]}
-                onFocus={[Function]}
                 onResponderGrant={[Function]}
                 onResponderMove={[Function]}
                 onResponderRelease={[Function]}
@@ -586,33 +577,23 @@ exports[`Report should render correctly 1`] = `
                   {
                     "alignItems": "center",
                     "flexDirection": "row",
-                    "paddingLeft": 12,
+                    "gap": 4,
+                    "opacity": 1,
                   }
                 }
               >
-                <View
+                <test-file-stub
+                  fill="#F56522"
                   style={
-                    {
-                      "alignItems": "center",
-                      "height": 20,
-                      "justifyContent": "center",
-                      "width": 20,
-                    }
+                    [
+                      {
+                        "height": 24,
+                        "width": 24,
+                      },
+                      undefined,
+                    ]
                   }
-                >
-                  <test-file-stub
-                    fill="#F56522"
-                    style={
-                      [
-                        {
-                          "height": 20,
-                          "width": 20,
-                        },
-                        undefined,
-                      ]
-                    }
-                  />
-                </View>
+                />
                 <Text
                   allowFontScaling={false}
                   style={
@@ -624,13 +605,16 @@ exports[`Report should render correctly 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
-                      {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                        "paddingLeft": 8,
-                      },
+                      [
+                        {
+                          "flexShrink": 1,
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 28,
+                        },
+                        false,
+                      ],
                       false,
                     ]
                   }
@@ -659,9 +643,7 @@ exports[`Report should render correctly 1`] = `
                 accessible={true}
                 collapsable={false}
                 focusable={true}
-                onBlur={[Function]}
                 onClick={[Function]}
-                onFocus={[Function]}
                 onResponderGrant={[Function]}
                 onResponderMove={[Function]}
                 onResponderRelease={[Function]}
@@ -672,33 +654,23 @@ exports[`Report should render correctly 1`] = `
                   {
                     "alignItems": "center",
                     "flexDirection": "row",
-                    "paddingLeft": 12,
+                    "gap": 4,
+                    "opacity": 1,
                   }
                 }
               >
-                <View
+                <test-file-stub
+                  fill="#9F8C82"
                   style={
-                    {
-                      "alignItems": "center",
-                      "display": "flex",
-                      "height": 20,
-                      "justifyContent": "center",
-                      "width": 20,
-                    }
-                  }
-                >
-                  <View
-                    style={
+                    [
                       {
-                        "borderColor": "#9F8C82",
-                        "borderRadius": 2,
-                        "borderWidth": 2,
-                        "height": 16,
-                        "width": 16,
-                      }
-                    }
-                  />
-                </View>
+                        "height": 24,
+                        "width": 24,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
                 <Text
                   allowFontScaling={false}
                   style={
@@ -710,13 +682,18 @@ exports[`Report should render correctly 1`] = `
                         "letterSpacing": 0.16,
                         "lineHeight": 24,
                       },
-                      {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                        "paddingLeft": 8,
-                      },
+                      [
+                        {
+                          "flexShrink": 1,
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 28,
+                        },
+                        {
+                          "color": "#BAADA7",
+                        },
+                      ],
                       false,
                     ]
                   }

@@ -2,7 +2,6 @@ import { Ref, useEffect, useMemo, useState } from 'react'
 import {
   ColorValue,
   NativeSyntheticEvent,
-  Pressable,
   TextInput,
   TextInputEndEditingEventData,
   TextInputProps,
@@ -13,7 +12,7 @@ import {
 import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { Icon } from '../Icon'
+import { TouchableIcon } from '../TouchableIcon'
 import { PeachText } from '../text/PeachText'
 
 const themes = {
@@ -136,7 +135,7 @@ export const Input = ({
       )}
       <View
         style={[
-          tw`flex flex-row items-center justify-between w-full gap-1 px-3`,
+          tw`flex-row items-center justify-between w-full gap-1 px-3`,
           tw`overflow-hidden border rounded-xl`,
           disabled ? styles.bgDisabled : styles.bg,
           disabled ? styles.borderDisabled : styles.border,
@@ -152,7 +151,7 @@ export const Input = ({
             tw.style(value ? styles.text : styles.placeholder),
             showError && tw.style(styles.textError),
             !showError && tw`border border-transparent`,
-            multiline && tw`flex justify-start h-full pt-2`,
+            multiline && tw`justify-start h-full pt-2`,
             !!inputStyle && inputStyle,
           ]}
           value={value}
@@ -175,15 +174,15 @@ export const Input = ({
           autoCorrect={autoCorrect}
           {...inputProps}
         />
-        <View style={tw`flex flex-row gap-4`}>
+        <View style={tw`flex-row gap-4`}>
           {inputIcons.map(([icon, action], index) => (
-            <Pressable onPress={action} key={`inputIcon-${icon}-${index}`}>
-              <Icon
-                id={icon}
-                style={tw`w-5 h-5`}
-                color={iconColor ? iconColor : tw.color(showError ? styles.textError : styles.text)}
-              />
-            </Pressable>
+            <TouchableIcon
+              onPress={action}
+              key={`inputIcon-${icon}-${index}`}
+              id={icon}
+              iconColor={iconColor ? iconColor : tw.color(showError ? styles.textError : styles.text)}
+              iconSize={20}
+            />
           ))}
         </View>
       </View>

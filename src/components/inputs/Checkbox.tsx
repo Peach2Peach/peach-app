@@ -7,17 +7,16 @@ import { PeachText } from '../text/PeachText'
 type Props = ComponentProps & {
   checked: boolean
   onPress: () => void
-  text?: string
   iconProps?: ComponentProps & { color: FillProps['fill'] }
   green?: boolean
 }
-export const Checkbox = ({ checked, green, iconProps, style, text, ...wrapperProps }: Props) => (
+export const Checkbox = ({ checked, green, iconProps, style, children, ...wrapperProps }: Props) => (
   <TouchableOpacity {...wrapperProps} style={[style, tw`flex-row items-center gap-1`]}>
     <Icon
       id={checked ? 'checkboxMark' : 'square'}
       {...iconProps}
       color={checked ? tw.color(green ? 'success-main' : 'primary-main') : tw.color('black-50')}
     />
-    {!!text && <PeachText style={[tw`subtitle-1 shrink`, !checked && tw`text-black-25`]}>{text}</PeachText>}
+    {!!children && <PeachText style={[tw`subtitle-1 shrink`, !checked && tw`text-black-25`]}>{children}</PeachText>}
   </TouchableOpacity>
 )

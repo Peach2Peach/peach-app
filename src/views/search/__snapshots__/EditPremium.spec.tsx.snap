@@ -1377,7 +1377,6 @@ exports[`EditPremium should render correctly 1`] = `
                       "alignItems": "center",
                       "backgroundColor": "#F56522",
                       "borderRadius": 9999,
-                      "display": "flex",
                       "height": "100%",
                       "justifyContent": "center",
                       "transform": [

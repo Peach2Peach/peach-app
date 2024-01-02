@@ -1,8 +1,7 @@
-import { View, ViewStyle } from 'react-native'
+import { Keyboard, Pressable, StyleProp, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { PeachText } from '../text/PeachText'
 import { PopupActions } from './PopupActions'
-import { PopupContent } from './PopupContent'
 
 export type PopupComponentProps = {
   content?: React.ReactNode
@@ -24,4 +23,16 @@ export const PopupComponent = ({ content, actions, title, bgColor, actionBgColor
 
 function PopupTitle ({ text }: { text: string }) {
   return <PeachText style={tw`w-full h5`}>{text}</PeachText>
+}
+
+type ContentProps = {
+  children: React.ReactNode
+  style?: StyleProp<ViewStyle>
+}
+function PopupContent ({ children, style }: ContentProps) {
+  return (
+    <Pressable style={[tw`items-stretch gap-3 p-6 pt-4 bg-primary-background-dark`, style]} onPress={Keyboard.dismiss}>
+      {children}
+    </Pressable>
+  )
 }

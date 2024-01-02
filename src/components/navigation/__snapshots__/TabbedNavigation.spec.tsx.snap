@@ -12,7 +12,7 @@ exports[`TabbedNavigation should render correctly 1`] = `
     ]
   }
 >
-  <Memo(Pressable)
+  <TouchableOpacity
     onPress={[Function]}
     style={
       [
@@ -71,8 +71,8 @@ exports[`TabbedNavigation should render correctly 1`] = `
         ]
       }
     />
-  </Memo(Pressable)>
-  <Memo(Pressable)
+  </TouchableOpacity>
+  <TouchableOpacity
     onPress={[Function]}
     style={
       [
@@ -118,8 +118,8 @@ exports[`TabbedNavigation should render correctly 1`] = `
         display2
       </PeachText>
     </View>
-  </Memo(Pressable)>
-  <Memo(Pressable)
+  </TouchableOpacity>
+  <TouchableOpacity
     onPress={[Function]}
     style={
       [
@@ -165,6 +165,6 @@ exports[`TabbedNavigation should render correctly 1`] = `
         display3
       </PeachText>
     </View>
-  </Memo(Pressable)>
+  </TouchableOpacity>
 </View>
 `;

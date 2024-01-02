@@ -38,12 +38,9 @@ export function MaxPremiumFilterComponent ({
 
   return (
     <View style={tw`flex-row items-center self-stretch justify-between`}>
-      <Checkbox
-        green
-        checked={shouldApplyFilter}
-        onPress={onCheckboxPress}
-        text={i18n('offerPreferences.filters.maxPremium')}
-      />
+      <Checkbox green checked={shouldApplyFilter} onPress={onCheckboxPress}>
+        {i18n('offerPreferences.filters.maxPremium')}
+      </Checkbox>
       <View style={tw`flex-row items-center gap-10px`}>
         <TouchableIcon id="minusCircle" iconColor={iconColor} onPress={onMinusCirclePress} />
         <PremiumTextInput premium={maxPremium || defaultMaxPremium} setPremium={setMaxPremium} />

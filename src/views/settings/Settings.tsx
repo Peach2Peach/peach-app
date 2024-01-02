@@ -148,10 +148,14 @@ export const Settings = () => {
                 {i18n(`settings.${headline}`)}
               </PeachText>
             )}
-            {items.map((item, i) => {
-              const props = typeof item === 'string' ? { title: item } : item
-              return <SettingsItem key={`${headline}-${typeof item === 'string' ? item : item.title}-${i}`} {...props} />
-            })}
+            <View style={tw`gap-6 py-3 px-6px`}>
+              {items.map((item, i) => {
+                const props = typeof item === 'string' ? { title: item } : item
+                return (
+                  <SettingsItem key={`${headline}-${typeof item === 'string' ? item : item.title}-${i}`} {...props} />
+                )
+              })}
+            </View>
           </View>
         ))}
         <VersionInfo style={tw`mb-10 text-center mt-9`} />
