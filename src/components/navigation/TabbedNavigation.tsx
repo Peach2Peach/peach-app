@@ -1,4 +1,4 @@
-import { Pressable, View, ViewStyle } from 'react-native'
+import { TouchableOpacity, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { PulsingText } from '../matches/components/PulsingText'
 import { PeachText } from '../text/PeachText'
@@ -43,9 +43,9 @@ export const TabbedNavigation = <T extends string>({
   return (
     <View style={[tw`flex-row justify-center`, style]}>
       {items.map((item) => (
-        <Pressable
+        <TouchableOpacity
           style={[
-            tw`shrink px-2`,
+            tw`px-2 shrink`,
             buttonStyle,
             !!tabHasError.length && !tabHasError.includes(item.id) && tw`opacity-10`,
           ]}
@@ -70,7 +70,7 @@ export const TabbedNavigation = <T extends string>({
             )}
           </View>
           {item.id === selected.id && <View style={[tw`w-full h-0.5 `, colors.underline]} />}
-        </Pressable>
+        </TouchableOpacity>
       ))}
     </View>
   )

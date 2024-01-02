@@ -1,4 +1,4 @@
-import { Pressable, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { PeachText } from '../text/PeachText'
 
@@ -8,12 +8,12 @@ type CurrencySelectionItemProps = ComponentProps & {
   onPress?: (currency: Currency) => void
 }
 const CurrencySelectionItem = ({ currency, isSelected, onPress, style }: CurrencySelectionItemProps) => (
-  <Pressable style={style} onPress={onPress ? () => onPress(currency) : undefined}>
+  <TouchableOpacity style={style} onPress={onPress ? () => onPress(currency) : undefined}>
     <PeachText numberOfLines={1} style={[tw`text-center button-large text-black-65`, isSelected && tw`text-black-100`]}>
       {currency}
     </PeachText>
     {isSelected && <View style={[tw`w-full h-0.5 -mt-0.5 bg-black-100 rounded-1px`]} />}
-  </Pressable>
+  </TouchableOpacity>
 )
 
 const ItemSeparator = ({ style }: ComponentProps) => <View style={[tw`w-px h-4 bg-black-5 rounded-1px`, style]} />
