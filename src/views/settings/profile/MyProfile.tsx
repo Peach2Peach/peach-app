@@ -76,7 +76,7 @@ function DeleteAccountButton ({ style }: ComponentProps) {
   )
 
   return (
-    <TouchableRedText onPress={showPopup} style={style} iconId="trash">
+    <TouchableRedText onPress={() => showPopup()} style={style} iconId="trash">
       {i18n('settings.deleteAccount')}
     </TouchableRedText>
   )
