@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
 import { PeachText } from '../text/PeachText'
@@ -10,7 +10,8 @@ type CheckboxType = {
   display: ReactNode
 }
 
-type CheckboxProps = ComponentProps & {
+type CheckboxProps = {
+  style?: StyleProp<ViewStyle>
   onPress: () => void
   item: CheckboxType
   checked: boolean

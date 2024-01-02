@@ -613,9 +613,7 @@ exports[`ContractChat should render correct when chat enabled 1`] = `
               accessible={true}
               collapsable={false}
               focusable={true}
-              onBlur={[Function]}
               onClick={[Function]}
-              onFocus={[Function]}
               onResponderGrant={[Function]}
               onResponderMove={[Function]}
               onResponderRelease={[Function]}
@@ -624,6 +622,7 @@ exports[`ContractChat should render correct when chat enabled 1`] = `
               onStartShouldSetResponder={[Function]}
               style={
                 {
+                  "opacity": 1,
                   "paddingBottom": 12,
                   "paddingLeft": 8,
                   "paddingRight": 8,

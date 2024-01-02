@@ -82,7 +82,6 @@ exports[`SeedPhraseInput should render correctly 1`] = `
     <View
       style={
         {
-          "display": "flex",
           "flexDirection": "row",
           "gap": 16,
         }

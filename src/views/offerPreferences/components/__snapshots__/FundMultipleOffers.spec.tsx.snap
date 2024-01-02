@@ -11,8 +11,9 @@ exports[`FundMultipleOffers renders correctly when disabled 1`] = `
   <Checkbox
     checked={false}
     onPress={[Function]}
-    text="fund multiple offers"
-  />
+  >
+    fund multiple offers
+  </Checkbox>
 </View>
 `;
 
@@ -27,8 +28,9 @@ exports[`FundMultipleOffers renders correctly when enabled 1`] = `
   <Checkbox
     checked={true}
     onPress={[Function]}
-    text="fund multiple offers"
-  />
+  >
+    fund multiple offers
+  </Checkbox>
   <NumberStepper
     max={10}
     min={3}

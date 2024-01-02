@@ -30,8 +30,8 @@ exports[`NodeSetup should change address 1`] = `
                       <View
                         style={
                           Object {
-                            "display": "flex",
-@@ -664,11 +664,11 @@
+                            "flexDirection": "row",
+@@ -663,11 +663,11 @@
           <View
             accessibilityState={
               Object {

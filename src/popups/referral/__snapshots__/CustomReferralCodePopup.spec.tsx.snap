@@ -48,7 +48,7 @@ exports[`useSetCustomReferralCodePopup handles referral code exists error 1`] = 
               textAlignVertical="center"
               value="HODL"
             />
-@@ -223,11 +225,11 @@
+@@ -222,11 +224,11 @@
                 ],
                 false,
               ]
@@ -61,7 +61,7 @@ exports[`useSetCustomReferralCodePopup handles referral code exists error 1`] = 
       </View>
     </View>
     <View
-@@ -329,11 +331,11 @@
+@@ -328,11 +330,11 @@
       <View
         accessibilityState={
           Object {
@@ -106,8 +106,8 @@ exports[`useSetCustomReferralCodePopup updates referral code state 1`] = `
             <View
               style={
                 Object {
-                  "display": "flex",
-@@ -329,11 +329,11 @@
+                  "flexDirection": "row",
+@@ -328,11 +328,11 @@
       <View
         accessibilityState={
           Object {

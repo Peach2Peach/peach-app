@@ -5,7 +5,7 @@ exports[`SendBitcoin - With selected coins should not allow entering an amount h
 - First value
 + Second value
 
-@@ -1029,19 +1029,19 @@
+@@ -1028,19 +1028,19 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -27,7 +27,7 @@ exports[`SendBitcoin - With selected coins should not allow entering an amount h
                                   allowFontScaling={false}
                                   style={
                                     Array [
-@@ -1063,11 +1063,11 @@
+@@ -1062,11 +1062,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -40,7 +40,7 @@ exports[`SendBitcoin - With selected coins should not allow entering an amount h
                                       ],
                                       false,
                                     ]
-@@ -1097,11 +1097,11 @@
+@@ -1096,11 +1096,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -53,7 +53,7 @@ exports[`SendBitcoin - With selected coins should not allow entering an amount h
                                       ],
                                       false,
                                     ]
-@@ -1131,11 +1131,11 @@
+@@ -1130,11 +1130,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -66,7 +66,7 @@ exports[`SendBitcoin - With selected coins should not allow entering an amount h
                                       ],
                                       false,
                                     ]
-@@ -1165,11 +1165,11 @@
+@@ -1164,11 +1164,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -79,7 +79,7 @@ exports[`SendBitcoin - With selected coins should not allow entering an amount h
                                       ],
                                       false,
                                     ]
-@@ -1268,11 +1268,11 @@
+@@ -1267,11 +1267,11 @@
                               "position": "absolute",
                               "width": "100%",
                             }
@@ -99,7 +99,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
 - First value
 + Second value
 
-@@ -1875,10 +1875,122 @@
+@@ -1874,10 +1874,122 @@
                           />
                         </View>
                       </View>
@@ -229,7 +229,7 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
 - First value
 + Second value
 
-@@ -1029,19 +1029,19 @@
+@@ -1028,19 +1028,19 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -251,7 +251,7 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
                                   allowFontScaling={false}
                                   style={
                                     Array [
-@@ -1063,11 +1063,11 @@
+@@ -1062,11 +1062,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -264,7 +264,7 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
                                       ],
                                       false,
                                     ]
-@@ -1097,11 +1097,11 @@
+@@ -1096,11 +1096,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -277,7 +277,7 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
                                       ],
                                       false,
                                     ]
-@@ -1131,11 +1131,11 @@
+@@ -1130,11 +1130,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -290,7 +290,7 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
                                       ],
                                       false,
                                     ]
-@@ -1165,11 +1165,11 @@
+@@ -1164,11 +1164,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -303,7 +303,7 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
                                       ],
                                       false,
                                     ]
-@@ -1268,11 +1268,11 @@
+@@ -1267,11 +1267,11 @@
                               "position": "absolute",
                               "width": "100%",
                             }
@@ -323,7 +323,7 @@ exports[`SendBitcoin should disable the slider while the wallet is not synced 1`
 - First value
 + Second value
 
-@@ -1986,11 +1986,11 @@
+@@ -1985,11 +1985,11 @@
                     <View
                       collapsable={false}
                       style={
@@ -343,7 +343,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
 - First value
 + Second value
 
-@@ -893,19 +893,19 @@
+@@ -892,19 +892,19 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -365,7 +365,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
                                   allowFontScaling={false}
                                   style={
                                     Array [
-@@ -927,19 +927,19 @@
+@@ -926,19 +926,19 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -387,7 +387,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
                                   allowFontScaling={false}
                                   style={
                                     Array [
-@@ -961,11 +961,11 @@
+@@ -960,11 +960,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -400,7 +400,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
                                       ],
                                       false,
                                     ]
-@@ -995,11 +995,11 @@
+@@ -994,11 +994,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -413,7 +413,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
                                       ],
                                       false,
                                     ]
-@@ -1029,11 +1029,11 @@
+@@ -1028,11 +1028,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -426,7 +426,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
                                       ],
                                       false,
                                     ]
-@@ -1063,11 +1063,11 @@
+@@ -1062,11 +1062,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -439,7 +439,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
                                       ],
                                       false,
                                     ]
-@@ -1097,11 +1097,11 @@
+@@ -1096,11 +1096,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -452,7 +452,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
                                       ],
                                       false,
                                     ]
-@@ -1131,11 +1131,11 @@
+@@ -1130,11 +1130,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -465,7 +465,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
                                       ],
                                       false,
                                     ]
-@@ -1165,11 +1165,11 @@
+@@ -1164,11 +1164,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -478,7 +478,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
                                       ],
                                       false,
                                     ]
-@@ -1268,11 +1268,11 @@
+@@ -1267,11 +1267,11 @@
                               "position": "absolute",
                               "width": "100%",
                             }
@@ -930,7 +930,6 @@ exports[`SendBitcoin should render correctly 1`] = `
                         <View
                           style={
                             {
-                              "display": "flex",
                               "flexDirection": "row",
                               "gap": 16,
                             }
@@ -957,28 +956,28 @@ exports[`SendBitcoin should render correctly 1`] = `
                             accessible={true}
                             collapsable={false}
                             focusable={true}
-                            onBlur={[Function]}
                             onClick={[Function]}
-                            onFocus={[Function]}
                             onResponderGrant={[Function]}
                             onResponderMove={[Function]}
                             onResponderRelease={[Function]}
                             onResponderTerminate={[Function]}
                             onResponderTerminationRequest={[Function]}
                             onStartShouldSetResponder={[Function]}
+                            style={
+                              {
+                                "opacity": 1,
+                              }
+                            }
                           >
                             <test-file-stub
                               fill="#2B1911"
                               style={
                                 [
                                   {
-                                    "height": 24,
-                                    "width": 24,
-                                  },
-                                  {
                                     "height": 20,
                                     "width": 20,
                                   },
+                                  undefined,
                                 ]
                               }
                             />
@@ -1004,28 +1003,28 @@ exports[`SendBitcoin should render correctly 1`] = `
                             accessible={true}
                             collapsable={false}
                             focusable={true}
-                            onBlur={[Function]}
                             onClick={[Function]}
-                            onFocus={[Function]}
                             onResponderGrant={[Function]}
                             onResponderMove={[Function]}
                             onResponderRelease={[Function]}
                             onResponderTerminate={[Function]}
                             onResponderTerminationRequest={[Function]}
                             onStartShouldSetResponder={[Function]}
+                            style={
+                              {
+                                "opacity": 1,
+                              }
+                            }
                           >
                             <test-file-stub
                               fill="#2B1911"
                               style={
                                 [
                                   {
-                                    "height": 24,
-                                    "width": 24,
-                                  },
-                                  {
                                     "height": 20,
                                     "width": 20,
                                   },
+                                  undefined,
                                 ]
                               }
                             />
@@ -2592,7 +2591,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
 - First value
 + Second value
 
-@@ -893,19 +893,19 @@
+@@ -892,19 +892,19 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -2614,7 +2613,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
                                   allowFontScaling={false}
                                   style={
                                     Array [
-@@ -927,19 +927,19 @@
+@@ -926,19 +926,19 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -2636,7 +2635,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
                                   allowFontScaling={false}
                                   style={
                                     Array [
-@@ -961,11 +961,11 @@
+@@ -960,11 +960,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -2649,7 +2648,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
                                       ],
                                       false,
                                     ]
-@@ -995,11 +995,11 @@
+@@ -994,11 +994,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -2662,7 +2661,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
                                       ],
                                       false,
                                     ]
-@@ -1029,11 +1029,11 @@
+@@ -1028,11 +1028,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -2675,7 +2674,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
                                       ],
                                       false,
                                     ]
-@@ -1063,11 +1063,11 @@
+@@ -1062,11 +1062,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -2688,7 +2687,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
                                       ],
                                       false,
                                     ]
-@@ -1097,11 +1097,11 @@
+@@ -1096,11 +1096,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -2701,7 +2700,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
                                       ],
                                       false,
                                     ]
-@@ -1131,11 +1131,11 @@
+@@ -1130,11 +1130,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -2714,7 +2713,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
                                       ],
                                       false,
                                     ]
-@@ -1165,11 +1165,11 @@
+@@ -1164,11 +1164,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -2727,7 +2726,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
                                       ],
                                       false,
                                     ]
-@@ -1268,11 +1268,11 @@
+@@ -1267,11 +1267,11 @@
                               "position": "absolute",
                               "width": "100%",
                             }
@@ -2772,7 +2771,7 @@ exports[`SendBitcoin should update the address on change 1`] = `
                           <View
                             style={
                               Object {
-                                "display": "flex","
+                                "flexDirection": "row","
 `;
 
 exports[`SendBitcoin should update the amount on change 1`] = `
@@ -2780,7 +2779,7 @@ exports[`SendBitcoin should update the amount on change 1`] = `
 - First value
 + Second value
 
-@@ -1063,19 +1063,19 @@
+@@ -1062,19 +1062,19 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -2802,7 +2801,7 @@ exports[`SendBitcoin should update the amount on change 1`] = `
                                   allowFontScaling={false}
                                   style={
                                     Array [
-@@ -1097,11 +1097,11 @@
+@@ -1096,11 +1096,11 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -2815,7 +2814,7 @@ exports[`SendBitcoin should update the amount on change 1`] = `
                                       ],
                                       false,
                                     ]
-@@ -1131,19 +1131,19 @@
+@@ -1130,19 +1130,19 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -2837,7 +2836,7 @@ exports[`SendBitcoin should update the amount on change 1`] = `
                                   allowFontScaling={false}
                                   style={
                                     Array [
-@@ -1165,19 +1165,19 @@
+@@ -1164,19 +1164,19 @@
                                             "fontSize": 22,
                                             "lineHeight": 29,
                                           },
@@ -2859,7 +2858,7 @@ exports[`SendBitcoin should update the amount on change 1`] = `
                                   allowFontScaling={false}
                                   style={
                                     Array [
-@@ -1207,11 +1207,11 @@
+@@ -1206,11 +1206,11 @@
                                       ],
                                       false,
                                     ]
@@ -2872,7 +2871,7 @@ exports[`SendBitcoin should update the amount on change 1`] = `
                               <View
                                 style={
                                   Object {
-@@ -1268,11 +1268,11 @@
+@@ -1267,11 +1267,11 @@
                               "position": "absolute",
                               "width": "100%",
                             }
@@ -2892,7 +2891,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
 - First value
 + Second value
 
-@@ -1369,11 +1369,11 @@
+@@ -1368,11 +1368,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -2905,7 +2904,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "justifyContent": "space-between",
                               "opacity": 1,
-@@ -1444,11 +1444,11 @@
+@@ -1443,11 +1443,11 @@
                                 </Text>
                               </Text>
                             </View>
@@ -2918,7 +2917,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                                 Object {
                                   "height": 24,
                                   "width": 24,
-@@ -1491,11 +1491,11 @@
+@@ -1490,11 +1490,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -2931,7 +2930,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "justifyContent": "space-between",
                               "opacity": 1,
-@@ -1566,11 +1566,11 @@
+@@ -1565,11 +1565,11 @@
                                 </Text>
                               </Text>
                             </View>

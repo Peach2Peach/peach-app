@@ -2,46 +2,46 @@
 
 exports[`BitcoinAddress should render correctly 1`] = `
 <React.Fragment>
-  <Memo(Pressable)
-    onLongPress={[Function]}
-    onPress={[Function]}
-  >
+  <View>
     <ForwardRef(AnimatedComponentWrapper)
       style={
-        {
-          "opacity": 0,
-        }
+        [
+          {
+            "alignSelf": "center",
+            "bottom": "100%",
+            "position": "absolute",
+          },
+          {
+            "opacity": 0,
+          },
+        ]
       }
     >
       <PeachText
         style={
-          [
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 14,
-              "letterSpacing": 0.14,
-              "lineHeight": 22,
-              "textAlign": "center",
-            },
-            {
-              "bottom": "100%",
-              "left": "50%",
-              "marginLeft": -40,
-              "position": "absolute",
-              "width": 80,
-            },
-          ]
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.14,
+            "lineHeight": 22,
+            "textAlign": "center",
+          }
         }
       >
         copied!
       </PeachText>
     </ForwardRef(AnimatedComponentWrapper)>
-    <QRCode
-      backgroundColor="#FFF9F6"
-      size={327}
-      value="bitcoin:bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-    />
-  </Memo(Pressable)>
+    <TouchableOpacity
+      onLongPress={[Function]}
+      onPress={[Function]}
+    >
+      <QRCode
+        backgroundColor="#FFF9F6"
+        size={327}
+        value="bitcoin:bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+      />
+    </TouchableOpacity>
+  </View>
   <View
     style={
       {
@@ -151,46 +151,46 @@ exports[`BitcoinAddress should render correctly 1`] = `
 
 exports[`BitcoinAddress should render correctly for small screens 1`] = `
 <React.Fragment>
-  <Memo(Pressable)
-    onLongPress={[Function]}
-    onPress={[Function]}
-  >
+  <View>
     <ForwardRef(AnimatedComponentWrapper)
       style={
-        {
-          "opacity": undefined,
-        }
+        [
+          {
+            "alignSelf": "center",
+            "bottom": "100%",
+            "position": "absolute",
+          },
+          {
+            "opacity": undefined,
+          },
+        ]
       }
     >
       <PeachText
         style={
-          [
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 14,
-              "letterSpacing": 0.14,
-              "lineHeight": 22,
-              "textAlign": "center",
-            },
-            {
-              "bottom": "100%",
-              "left": "50%",
-              "marginLeft": -40,
-              "position": "absolute",
-              "width": 80,
-            },
-          ]
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.14,
+            "lineHeight": 22,
+            "textAlign": "center",
+          }
         }
       >
         copied!
       </PeachText>
     </ForwardRef(AnimatedComponentWrapper)>
-    <QRCode
-      backgroundColor="#FFF9F6"
-      size={242}
-      value="bitcoin:bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-    />
-  </Memo(Pressable)>
+    <TouchableOpacity
+      onLongPress={[Function]}
+      onPress={[Function]}
+    >
+      <QRCode
+        backgroundColor="#FFF9F6"
+        size={242}
+        value="bitcoin:bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+      />
+    </TouchableOpacity>
+  </View>
   <View
     style={
       {

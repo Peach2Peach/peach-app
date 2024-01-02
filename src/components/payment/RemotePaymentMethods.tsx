@@ -80,7 +80,6 @@ export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }
                 {item.isValid ? (
                   <View>
                     <PaymentDetailsCheckbox
-                      testID={`buy-mops-checkbox-${item.value}`}
                       onPress={() => (isEditing ? editItem(item.data) : select(item.value))}
                       item={item}
                       checked={isSelected(item)}
