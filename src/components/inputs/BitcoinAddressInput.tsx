@@ -8,16 +8,16 @@ import { cutOffAddress } from '../../utils/string/cutOffAddress'
 import { ScanQR } from '../camera/ScanQR'
 import { Input, InputProps } from './Input'
 
-export const BitcoinAddressInput = ({ value, onChange, ...props }: InputProps & { value: string }) => {
+export const BitcoinAddressInput = ({ value, onChangeText, ...props }: InputProps & { value: string }) => {
   const [isFocused, setFocused] = useState(false)
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString()
     const request = parseBitcoinRequest(clipboard)
-    if (onChange) onChange(request.address || clipboard)
+    if (onChangeText) onChangeText(request.address || clipboard)
   }
   const onSuccess = (data: string) => {
     const request = parseBitcoinRequest(data)
-    if (onChange) onChange(request.address || data)
+    if (onChangeText) onChangeText(request.address || data)
   }
   const { showQRScanner, showQR, closeQR, onRead } = useQRScanner({ onSuccess })
 
@@ -29,7 +29,7 @@ export const BitcoinAddressInput = ({ value, onChange, ...props }: InputProps & 
         ['clipboard', pasteAddress],
         ['camera', showQR],
       ]}
-      onChange={onChange}
+      onChangeText={onChangeText}
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
       value={isFocused ? value : cutOffAddress(value)}

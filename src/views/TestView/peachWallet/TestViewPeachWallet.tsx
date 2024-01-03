@@ -7,9 +7,9 @@ import { PeachScrollView } from '../../../components/PeachScrollView'
 import { Loading } from '../../../components/animation/Loading'
 import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
 import { Button } from '../../../components/buttons/Button'
-import { NumberInput } from '../../../components/inputs'
 import { BitcoinAddressInput } from '../../../components/inputs/BitcoinAddressInput'
 import { Input } from '../../../components/inputs/Input'
+import { NumberInput } from '../../../components/inputs/NumberInput'
 import { PeachText } from '../../../components/text/PeachText'
 import { useValidatedState } from '../../../hooks/useValidatedState'
 import tw from '../../../styles/tailwind'
@@ -72,8 +72,8 @@ export const TestViewPeachWallet = () => {
 
         <View>
           <PeachText style={tw`button-medium`}>{i18n('wallet.withdrawTo')}:</PeachText>
-          <BitcoinAddressInput style={tw`mt-4`} onChange={setAddress} value={address} errorMessage={addressErrors} />
-          <NumberInput onChange={setAmount} value={amount} />
+          <BitcoinAddressInput style={tw`mt-4`} onChangeText={setAddress} value={address} errorMessage={addressErrors} />
+          <NumberInput onChangeText={setAmount} value={amount} />
         </View>
         <Button onPress={send} iconId="upload">
           send {thousands(Number(amount))} sats
@@ -123,7 +123,7 @@ function SignMessage () {
   return (
     <View>
       <PeachText>sign message</PeachText>
-      <BitcoinAddressInput onChange={setAddress} value={address} />
+      <BitcoinAddressInput onChangeText={setAddress} value={address} />
       <PeachText>userID</PeachText>
       <Input onChangeText={setUserId} value={userId} />
       <Button onPress={onPress}>sign</Button>

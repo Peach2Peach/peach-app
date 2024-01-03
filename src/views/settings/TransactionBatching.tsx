@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { Screen } from '../../components/Screen'
-import { Toggle } from '../../components/inputs'
+import { Toggle } from '../../components/inputs/Toggle'
 import { useClosePopup, useSetPopup } from '../../components/popup/Popup'
 import { PopupAction } from '../../components/popup/PopupAction'
 import { PopupComponent } from '../../components/popup/PopupComponent'

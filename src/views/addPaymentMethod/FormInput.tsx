@@ -42,10 +42,9 @@ export function FormInput ({ control, name, optional = false, defaultValue = '',
       errorMessage={error?.message ? [error.message] : undefined}
       onChangeText={field.onChange}
       keyboardType={name === 'phone' ? 'phone-pad' : name === 'email' ? 'email-address' : undefined}
-      onEndEditing={(val) => field.onChange(inputFormatter(val))}
-      onSubmit={(val) => field.onChange(inputFormatter(val))}
+      onEndEditing={(e) => field.onChange(inputFormatter(e.nativeEvent.text))}
+      onSubmitEditing={(e) => field.onChange(inputFormatter(e.nativeEvent.text))}
       required={!optional}
-      autoCorrect={false}
       {...inputProps}
     />
   )

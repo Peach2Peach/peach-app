@@ -42,10 +42,7 @@ exports[`SeedPhraseInput should render correctly 1`] = `
       blurOnSubmit={false}
       editable={true}
       multiline={false}
-      onBlur={[Function]}
       onChangeText={[Function]}
-      onEndEditing={[Function]}
-      onFocus={[Function]}
       onSubmitEditing={[Function]}
       placeholder="1."
       placeholderTextColor="#FCCCB6"
@@ -71,7 +68,6 @@ exports[`SeedPhraseInput should render correctly 1`] = `
             "borderColor": "transparent",
             "borderWidth": 1,
           },
-          false,
           false,
         ]
       }

@@ -42,11 +42,6 @@ exports[`Input renders correctly 1`] = `
       blurOnSubmit={false}
       editable={true}
       multiline={false}
-      onBlur={[Function]}
-      onChangeText={[Function]}
-      onEndEditing={[Function]}
-      onFocus={[Function]}
-      onSubmitEditing={[Function]}
       placeholderTextColor="#BAADA7"
       removeClippedSubviews={false}
       style={
@@ -70,7 +65,6 @@ exports[`Input renders correctly 1`] = `
             "borderColor": "transparent",
             "borderWidth": 1,
           },
-          false,
           false,
         ]
       }
@@ -149,11 +143,6 @@ exports[`Input renders correctly with icon 1`] = `
       blurOnSubmit={false}
       editable={true}
       multiline={false}
-      onBlur={[Function]}
-      onChangeText={[Function]}
-      onEndEditing={[Function]}
-      onFocus={[Function]}
-      onSubmitEditing={[Function]}
       placeholderTextColor="#BAADA7"
       removeClippedSubviews={false}
       style={
@@ -177,7 +166,6 @@ exports[`Input renders correctly with icon 1`] = `
             "borderColor": "transparent",
             "borderWidth": 1,
           },
-          false,
           false,
         ]
       }
@@ -264,11 +252,6 @@ exports[`Input renders correctly with placeholder 1`] = `
       blurOnSubmit={false}
       editable={true}
       multiline={false}
-      onBlur={[Function]}
-      onChangeText={[Function]}
-      onEndEditing={[Function]}
-      onFocus={[Function]}
-      onSubmitEditing={[Function]}
       placeholder="placeholder"
       placeholderTextColor="#BAADA7"
       removeClippedSubviews={false}
@@ -293,7 +276,6 @@ exports[`Input renders correctly with placeholder 1`] = `
             "borderColor": "transparent",
             "borderWidth": 1,
           },
-          false,
           false,
         ]
       }
@@ -372,11 +354,10 @@ exports[`Input renders correctly with value 1`] = `
       blurOnSubmit={false}
       editable={true}
       multiline={false}
-      onBlur={[Function]}
-      onChangeText={[Function]}
-      onEndEditing={[Function]}
-      onFocus={[Function]}
-      onSubmitEditing={[Function]}
+      onBlur={[MockFunction]}
+      onChange={[MockFunction]}
+      onEndEditing={[MockFunction]}
+      onSubmit={[MockFunction]}
       placeholderTextColor="#BAADA7"
       removeClippedSubviews={false}
       style={
@@ -400,7 +381,6 @@ exports[`Input renders correctly with value 1`] = `
             "borderColor": "transparent",
             "borderWidth": 1,
           },
-          false,
           false,
         ]
       }

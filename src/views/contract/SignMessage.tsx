@@ -116,10 +116,9 @@ function ScreenContent ({ contract }: { contract: Contract }) {
         </View>
         <Input
           value={signature}
-          onChange={setSignature}
+          onChangeText={setSignature}
           label={i18n('buy.addressSigning.signature')}
           placeholder={i18n('buy.addressSigning.signature')}
-          autoCorrect={false}
           errorMessage={signatureError}
           icons={[['clipboard', pasteSignature]]}
         />

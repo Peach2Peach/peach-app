@@ -97,10 +97,10 @@ function ScreenContent ({ contract }: { contract: Contract }) {
           value={addressLabel}
           placeholder={i18n('form.address.label.placeholder')}
           placeholderTextColor={tw.color('black-10')}
-          onChange={setAddressLabel}
+          onChangeText={setAddressLabel}
           errorMessage={addressLabelErrors}
         />
-        <BitcoinAddressInput onChange={setAddress} value={address} errorMessage={addressErrors} />
+        <BitcoinAddressInput onChangeText={setAddress} value={address} errorMessage={addressErrors} />
         <OpenWallet address={address} />
       </View>
       <Button

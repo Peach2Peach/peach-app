@@ -229,10 +229,8 @@ exports[`Report should render correctly 1`] = `
                     editable={true}
                     keyboardType="email-address"
                     multiline={false}
-                    onBlur={[Function]}
                     onChangeText={[Function]}
                     onEndEditing={[Function]}
-                    onFocus={[Function]}
                     onSubmitEditing={[Function]}
                     placeholder="user@email.com"
                     placeholderTextColor="#BAADA7"
@@ -258,7 +256,6 @@ exports[`Report should render correctly 1`] = `
                           "borderColor": "transparent",
                           "borderWidth": 1,
                         },
-                        false,
                         false,
                       ]
                     }
@@ -346,10 +343,7 @@ exports[`Report should render correctly 1`] = `
                     blurOnSubmit={false}
                     editable={true}
                     multiline={false}
-                    onBlur={[Function]}
                     onChangeText={[Function]}
-                    onEndEditing={[Function]}
-                    onFocus={[Function]}
                     onSubmitEditing={[Function]}
                     placeholder="topic"
                     placeholderTextColor="#BAADA7"
@@ -375,7 +369,6 @@ exports[`Report should render correctly 1`] = `
                           "borderColor": "transparent",
                           "borderWidth": 1,
                         },
-                        false,
                         false,
                       ]
                     }
@@ -465,11 +458,7 @@ exports[`Report should render correctly 1`] = `
                     blurOnSubmit={false}
                     editable={true}
                     multiline={true}
-                    onBlur={[Function]}
                     onChangeText={[Function]}
-                    onEndEditing={[Function]}
-                    onFocus={[Function]}
-                    onSubmitEditing={[Function]}
                     placeholder="your message..."
                     placeholderTextColor="#BAADA7"
                     removeClippedSubviews={false}
@@ -499,7 +488,6 @@ exports[`Report should render correctly 1`] = `
                           "justifyContent": "flex-start",
                           "paddingTop": 8,
                         },
-                        false,
                       ]
                     }
                     textAlignVertical="top"

@@ -16,7 +16,7 @@ describe('NewFee', () => {
   it('sets new fee', () => {
     const newFee = '2'
     const { getByPlaceholderText } = render(<NewFee newFeeRate="1" setNewFeeRate={setNewFeeRateMock} />)
-    fireEvent(getByPlaceholderText(''), 'onChange', newFee)
+    fireEvent(getByPlaceholderText(''), 'onChangeText', newFee)
     expect(setNewFeeRateMock).toHaveBeenCalledWith(newFee)
   })
 })

@@ -23,7 +23,7 @@ export const AddressChecker = () => {
     <Screen header={i18n('wallet.addressChecker')}>
       <View style={tw`items-center justify-center gap-16 grow`}>
         <InfoFrame text={i18n('wallet.addressChecker.hint')} />
-        <BitcoinAddressInput value={address} onChange={setAddress} errorMessage={errorMessage} />
+        <BitcoinAddressInput value={address} onChangeText={setAddress} errorMessage={errorMessage} />
         <AddressInfo address={address} />
       </View>
     </Screen>

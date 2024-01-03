@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { premiumBounds } from './PremiumInput'
-import { PercentageInput } from './inputs'
+import { PercentageInput } from './inputs/PercentageInput'
 
 type Props = {
   premium: number

@@ -5,7 +5,7 @@ exports[`NodeSetup should change address 1`] = `
 - First value
 + Second value
 
-@@ -504,11 +504,11 @@
+@@ -500,22 +500,22 @@
                               "paddingBottom": 0,
                               "paddingTop": 0,
                               "width": "100%",
@@ -18,8 +18,7 @@ exports[`NodeSetup should change address 1`] = `
                             Object {
                               "borderColor": "transparent",
                               "borderWidth": 1,
-@@ -516,11 +516,11 @@
-                            false,
+                            },
                             false,
                           ]
                         }
@@ -31,7 +30,7 @@ exports[`NodeSetup should change address 1`] = `
                         style={
                           Object {
                             "flexDirection": "row",
-@@ -662,11 +662,11 @@
+@@ -657,11 +657,11 @@
           <View
             accessibilityState={
               Object {
@@ -120,10 +119,10 @@ exports[`NodeSetup should toggle enabled 1`] = `
 -                       editable={true}
 +                       editable={false}
                         multiline={false}
-                        onBlur={[Function onBlurHandler]}
-                        onChangeText={[Function onChangeText]}
-                        onEndEditing={[Function anonymous]}
-                        onFocus={[Function onFocusHandler]}"
+                        onChangeText={[Function bound dispatchSetState]}
+                        placeholder="192.168.0.1:50001"
+                        placeholderTextColor="#BAADA7"
+                        removeClippedSubviews={false}"
 `;
 
 exports[`NodeSetup should toggle ssl 1`] = `

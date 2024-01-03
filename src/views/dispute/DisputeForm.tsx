@@ -78,8 +78,8 @@ function DisputeFormScreen ({ contract }: { contract: Contract }) {
       <PeachScrollView contentContainerStyle={tw`items-center justify-center grow`}>
         <View style={tw`justify-center h-full max-w-full`}>
           <EmailInput
-            onChange={setEmail}
-            onSubmit={() => $message?.focus()}
+            onChangeText={setEmail}
+            onSubmitEditing={() => $message?.focus()}
             value={email}
             placeholder={i18n('form.userEmail.placeholder')}
             errorMessage={emailErrors}
@@ -88,11 +88,10 @@ function DisputeFormScreen ({ contract }: { contract: Contract }) {
           <Input
             style={tw`h-40`}
             reference={(el) => ($message = el)}
-            onChange={setMessage}
+            onChangeText={setMessage}
             value={message}
             multiline={true}
             placeholder={i18n('form.message.placeholder')}
-            autoCorrect={false}
             errorMessage={messageErrors}
           />
         </View>

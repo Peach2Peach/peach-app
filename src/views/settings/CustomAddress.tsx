@@ -69,10 +69,10 @@ export const CustomAddress = () => {
           value={addressLabel}
           placeholder={i18n('form.address.label.placeholder')}
           placeholderTextColor={tw.color('black-10')}
-          onChange={setAddressLabel}
+          onChangeText={setAddressLabel}
           errorMessage={addressLabelErrors}
         />
-        <BitcoinAddressInput onChange={setAddress} value={address} errorMessage={addressErrors} />
+        <BitcoinAddressInput onChangeText={setAddress} value={address} errorMessage={addressErrors} />
         {isUpdated ? (
           <View style={tw`gap-2`}>
             <View style={tw`flex-row justify-center gap-1`}>

@@ -1,4 +1,4 @@
-import { ConfirmSlider } from '../../../components/inputs'
+import { ConfirmSlider } from '../../../components/inputs/confirmSlider/ConfirmSlider'
 import i18n from '../../../utils/i18n'
 import { useConfirmEscrow } from '../hooks/useConfirmEscrow'
 

@@ -1,14 +1,5 @@
-import { Ref, useEffect, useMemo, useState } from 'react'
-import {
-  ColorValue,
-  NativeSyntheticEvent,
-  TextInput,
-  TextInputEndEditingEventData,
-  TextInputProps,
-  TextInputSubmitEditingEventData,
-  View,
-  ViewStyle,
-} from 'react-native'
+import { Ref, useMemo } from 'react'
+import { ColorValue, StyleProp, TextInput, TextInputProps, View, ViewStyle } from 'react-native'
 import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -47,25 +38,18 @@ const themes = {
 }
 
 type IconActionPair = [IconType, () => void]
-export type InputProps = ComponentProps &
-  Omit<TextInputProps, 'onChange' | 'onEndEditing' | 'onSubmit' | 'onFocus' | 'onBlur'> & {
-    theme?: 'default' | 'inverted'
-    label?: string
-    icons?: IconActionPair[]
-    iconColor?: ColorValue
-    inputStyle?: ViewStyle | ViewStyle[]
-    required?: boolean
-    disabled?: boolean
-    errorMessage?: string[]
-    onChange?: (val: string) => void
-    onEndEditing?: (val: string) => void
-    onSubmit?: (val: string) => void
-    onFocus?: () => void
-    onBlur?: (val: string | undefined) => void
-    reference?: Ref<TextInput>
-  }
+export type InputProps = TextInputProps & {
+  theme?: 'default' | 'inverted'
+  label?: string
+  icons?: IconActionPair[]
+  iconColor?: ColorValue
+  required?: boolean
+  disabled?: boolean
+  errorMessage?: string[]
+  reference?: Ref<TextInput>
+  style?: StyleProp<ViewStyle>
+}
 
-// eslint-disable-next-line max-lines-per-function, complexity
 export const Input = ({
   value,
   label,
@@ -75,72 +59,34 @@ export const Input = ({
   multiline = false,
   disabled = false,
   errorMessage = [],
-  onChange,
-  onSubmit,
-  onFocus,
-  onBlur,
-  onEndEditing,
-  onPressIn,
-  secureTextEntry,
-  autoCapitalize,
-  autoCorrect = false,
+  autoCapitalize = 'none',
   style,
-  inputStyle,
   theme = 'default',
   reference,
   ...inputProps
 }: InputProps) => {
-  const styles = useMemo(() => themes[theme], [theme])
-  const [touched, setTouched] = useState(false)
-  const [showSecret, setShowSecret] = useState(false)
-  const showError = errorMessage.length > 0 && !disabled && touched
-  const toggleShowSecret = () => setShowSecret((b) => !b)
-  const inputIcons: IconActionPair[] = useMemo(
-    () => (secureTextEntry ? [...icons, [showSecret ? 'eyeOff' : 'eye', toggleShowSecret]] : icons),
-    [icons, secureTextEntry, showSecret],
+  const { bgDisabled, bg, borderDisabled, border, bgError, borderError, text, placeholder, textError, error } = useMemo(
+    () => themes[theme],
+    [theme],
   )
-
-  useEffect(() => {
-    if (value) setTouched(true)
-  }, [value])
-
-  const onChangeText = (val: string) => {
-    if (onChange) onChange(val)
-  }
-  const onEndEditingHandler = onEndEditing
-    ? (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
-      onEndEditing(e.nativeEvent.text?.trim())
-      setTouched(true)
-    }
-    : () => null
-  const onSubmitEditing = onSubmit
-    ? (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
-      onSubmit(e.nativeEvent.text?.trim())
-      setTouched(true)
-    }
-    : () => null
-  const onFocusHandler = () => (onFocus ? onFocus() : null)
-  const onBlurHandler = () => {
-    if (onChange && value) onChange(value.trim())
-    if (onBlur) onBlur(value)
-  }
+  const showError = errorMessage.length > 0 && !disabled && !!value
 
   return (
     <View>
       {!!label && (
-        <PeachText style={[tw`pl-2 input-title`, tw.style(styles.text)]}>
+        <PeachText style={[tw`pl-2 input-title`, tw.style(text)]}>
           {label}
-          {!required && <PeachText style={tw.style(styles.placeholder)}>{` (${i18n('form.optional')})`}</PeachText>}
+          {!required && <PeachText style={tw.style(placeholder)}>{` (${i18n('form.optional')})`}</PeachText>}
         </PeachText>
       )}
       <View
         style={[
           tw`flex-row items-center justify-between w-full gap-1 px-3`,
           tw`overflow-hidden border rounded-xl`,
-          disabled ? styles.bgDisabled : styles.bg,
-          disabled ? styles.borderDisabled : styles.border,
-          showError && styles.bgError,
-          showError && styles.borderError,
+          disabled ? bgDisabled : bg,
+          disabled ? borderDisabled : border,
+          showError && bgError,
+          showError && borderError,
           showError ? tw`border-2` : tw`my-px`,
           style,
         ]}
@@ -148,45 +94,37 @@ export const Input = ({
         <TextInput
           style={[
             tw`w-full h-10 py-0 shrink input-text`,
-            tw.style(value ? styles.text : styles.placeholder),
-            showError && tw.style(styles.textError),
+            tw.style(value ? text : placeholder),
+            showError && tw.style(textError),
             !showError && tw`border border-transparent`,
             multiline && tw`justify-start h-full pt-2`,
-            !!inputStyle && inputStyle,
           ]}
           value={value}
           ref={reference ? reference : null}
-          placeholderTextColor={tw.color(styles.placeholder)}
+          placeholderTextColor={tw.color(placeholder)}
           allowFontScaling={false}
           removeClippedSubviews={false}
           editable={!disabled}
-          onChangeText={onChangeText}
           multiline={multiline}
           textAlignVertical={multiline ? 'top' : 'center'}
-          onEndEditing={onEndEditingHandler}
-          onSubmitEditing={onSubmitEditing}
+          autoCapitalize={autoCapitalize}
           blurOnSubmit={false}
-          onFocus={onFocusHandler}
-          onBlur={onBlurHandler}
-          onPressIn={onPressIn}
-          secureTextEntry={secureTextEntry && !showSecret}
-          autoCapitalize={autoCapitalize || 'none'}
-          autoCorrect={autoCorrect}
+          autoCorrect={false}
           {...inputProps}
         />
         <View style={tw`flex-row gap-4`}>
-          {inputIcons.map(([icon, action], index) => (
+          {icons.map(([icon, action], index) => (
             <TouchableIcon
               onPress={action}
               key={`inputIcon-${icon}-${index}`}
               id={icon}
-              iconColor={iconColor ? iconColor : tw.color(showError ? styles.textError : styles.text)}
+              iconColor={iconColor ? iconColor : tw.color(showError ? textError : text)}
               iconSize={20}
             />
           ))}
         </View>
       </View>
-      <PeachText style={[tw`mt-1 ml-3 tooltip`, styles.error]}>{showError ? errorMessage[0] : ' '}</PeachText>
+      <PeachText style={[tw`mt-1 ml-3 tooltip`, error]}>{showError ? errorMessage[0] : ' '}</PeachText>
     </View>
   )
 }
