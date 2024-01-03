@@ -44,7 +44,7 @@ exports[`useSetCustomReferralCodePopup handles referral code exists error 1`] = 
 +                 false,
                 ]
               }
-              textAlignVertical="top"
+              textAlignVertical="center"
               value="HODL"
             />
 @@ -216,11 +218,11 @@
@@ -97,7 +97,7 @@ exports[`useSetCustomReferralCodePopup updates referral code state 1`] = `
                   false,
                 ]
               }
-              textAlignVertical="top"
+              textAlignVertical="center"
 -             value=""
 +             value="HODL"
             />

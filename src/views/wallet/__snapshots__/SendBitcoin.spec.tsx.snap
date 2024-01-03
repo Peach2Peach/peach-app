@@ -920,7 +920,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                               false,
                             ]
                           }
-                          textAlignVertical="top"
+                          textAlignVertical="center"
                           value=""
                         />
                         <View
@@ -2759,7 +2759,7 @@ exports[`SendBitcoin should update the address on change 1`] = `
                                 false,
                               ]
                             }
-                            textAlignVertical="top"
+                            textAlignVertical="center"
 -                           value=""
 +                           value="test"
                           />
