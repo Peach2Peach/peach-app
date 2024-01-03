@@ -31,9 +31,9 @@ export const SelectCurrency = () => {
   }
 
   return (
-    <Screen header={i18n('selectCurrency.title')}>
+    <Screen style={tw`px-0`} header={i18n('selectCurrency.title')}>
       <CurrencyTabs currency={selectedCurrency} setCurrency={setSelectedCurrency} />
-      <Button style={tw`self-center mt-2`} onPress={next}>
+      <Button style={tw`self-center`} onPress={next}>
         {i18n('next')}
       </Button>
     </Screen>

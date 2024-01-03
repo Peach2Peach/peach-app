@@ -1,5 +1,6 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { shallow } from 'zustand/shallow'
+import { fullScreenTabNavigationScreenOptions } from '../../constants'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { CurrencyType } from '../../store/offerPreferenes/types'
 import tw from '../../styles/tailwind'
@@ -32,13 +33,10 @@ export const CurrencyTabs = (props: Props) => {
           props.setCurrency(defaultCurrencies[currencyType])
         },
       }}
+      sceneContainerStyle={[tw`pb-2 px-sm`, tw`md:px-md`]}
       screenOptions={{
+        ...fullScreenTabNavigationScreenOptions,
         tabBarLabelStyle: tw`capitalize input-title`,
-        tabBarStyle: tw`bg-transparent`,
-        tabBarContentContainerStyle: tw`bg-transparent`,
-        tabBarIndicatorStyle: tw`bg-black-100`,
-        tabBarItemStyle: tw`px-0`,
-        tabBarPressColor: 'transparent',
         tabBarScrollEnabled: true,
       }}
     >

@@ -20,7 +20,7 @@ export const screens = [
   { id: 'keepPhraseSecure', view: KeepPhraseSecure, buttonText: 'finish' },
 ]
 
-export const SeedPhrase = ({ style }: ComponentProps) => {
+export const SeedPhrase = () => {
   const [updateSeedBackupDate, lastSeedBackupDate] = useSettingsStore(
     (state) => [state.updateSeedBackupDate, state.lastSeedBackupDate],
     shallow,
@@ -48,9 +48,9 @@ export const SeedPhrase = ({ style }: ComponentProps) => {
   const CurrentView = screens[currentScreenIndex].view
 
   return (
-    <View style={[tw`flex-1`, style]}>
+    <View style={tw`flex-1`}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
-        <CurrentView {...{ goBackToStart }} />
+        <CurrentView goBackToStart={goBackToStart} />
       </PeachScrollView>
       <View>
         {currentScreenIndex === 1 && (

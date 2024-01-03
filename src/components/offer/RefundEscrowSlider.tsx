@@ -1,6 +1,6 @@
 import { useCancelAndStartRefundPopup } from '../../popups/useCancelAndStartRefundPopup'
 import i18n from '../../utils/i18n'
-import { ConfirmSlider } from '../inputs'
+import { ConfirmSlider } from '../inputs/confirmSlider/ConfirmSlider'
 
 type Props = {
   sellOffer?: SellOffer

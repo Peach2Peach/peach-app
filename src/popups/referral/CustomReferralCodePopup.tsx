@@ -82,7 +82,7 @@ export function CustomReferralCodePopup () {
             style={tw`bg-primary-background-dark`}
             placeholder={i18n('form.referral.placeholder')}
             value={referralCode}
-            onChange={updateReferralCode}
+            onChangeText={updateReferralCode}
             autoCapitalize="characters"
             errorMessage={referralCodeErrors}
           />

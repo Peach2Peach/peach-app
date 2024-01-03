@@ -1,4 +1,4 @@
-import { ConfirmSlider } from '../../components/inputs'
+import { ConfirmSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
 import { MSINANHOUR } from '../../constants'
 import { useRoute } from '../../hooks/useRoute'
 import { cancelContractAsSeller } from '../../popups/tradeCancelation/helpers/cancelContractAsSeller'

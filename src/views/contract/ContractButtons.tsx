@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { Button } from '../../components/buttons/Button'
-import { EmailInput } from '../../components/inputs'
+import { EmailInput } from '../../components/inputs/EmailInput'
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { HelpPopup } from '../../hooks/HelpPopup'
@@ -91,8 +91,8 @@ function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: Con
           <View>
             <EmailInput
               style={tw`bg-warning-mild-1`}
-              onChange={setEmail}
-              onSubmit={submit}
+              onChangeText={setEmail}
+              onSubmitEditing={submit}
               value={email}
               errorMessage={emailErrors}
             />

@@ -21,11 +21,10 @@ export const SeedPhraseInput = ({ style, index, setWords }: Props) => {
   return (
     <Input
       theme="inverted"
-      onChange={onChange}
-      onSubmit={onChange}
+      onChangeText={onChange}
+      onSubmitEditing={(e) => onChange(e.nativeEvent.text)}
       errorMessage={errorMessage}
       placeholder={`${index + 1}.`}
-      autoCorrect={false}
       value={word}
       style={style}
     />

@@ -7,7 +7,7 @@ import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { ScanQR } from '../../components/camera/ScanQR'
-import { Toggle } from '../../components/inputs'
+import { Toggle } from '../../components/inputs/Toggle'
 import { URLInput } from '../../components/inputs/URLInput'
 import { useClosePopup, useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
@@ -83,7 +83,7 @@ export const NodeSetup = () => {
             disabled={!enabled || isConnected}
             label={i18n('wallet.settings.node.address')}
             placeholder={i18n('wallet.settings.node.address.placeholder')}
-            onChange={setURL}
+            onChangeText={setURL}
             errorMessage={urlErrors}
             icons={isConnected ? [['edit3', editConfig]] : undefined}
           />

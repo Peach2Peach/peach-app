@@ -68,29 +68,27 @@ export const Report = () => {
     <Screen header={i18n('contact.title')}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <EmailInput
-          onChange={setEmail}
-          onSubmit={() => $topic?.focus()}
+          onChangeText={setEmail}
+          onSubmitEditing={() => $topic?.focus()}
           value={email}
           placeholder={i18n('form.userEmail.placeholder')}
           errorMessage={emailErrors}
         />
         <Input
-          onChange={setTopic}
-          onSubmit={() => $message?.focus()}
+          onChangeText={setTopic}
+          onSubmitEditing={() => $message?.focus()}
           reference={(el) => ($topic = el)}
           value={topic}
           placeholder={i18n('form.topic.placeholder')}
-          autoCorrect={false}
           errorMessage={topicErrors}
         />
         <Input
           style={tw`h-40`}
-          onChange={setMessage}
+          onChangeText={setMessage}
           reference={(el) => ($message = el)}
           value={message}
           multiline={true}
           placeholder={i18n('form.message.placeholder')}
-          autoCorrect={false}
           errorMessage={messageErrors}
         />
         {!publicKey && (

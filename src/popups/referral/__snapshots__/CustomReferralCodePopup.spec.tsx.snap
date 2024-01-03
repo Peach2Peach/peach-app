@@ -28,7 +28,7 @@ exports[`useSetCustomReferralCodePopup handles referral code exists error 1`] = 
                   "backgroundColor": "#FEEDE5",
                 },
               ]
-@@ -172,17 +175,16 @@
+@@ -168,16 +171,15 @@
                     "width": "100%",
                   },
                   Object {
@@ -41,14 +41,13 @@ exports[`useSetCustomReferralCodePopup handles referral code exists error 1`] = 
 +                   "color": "#2B1911",
                   },
                   false,
-                  false,
 +                 false,
                 ]
               }
-              textAlignVertical="center"
+              textAlignVertical="top"
               value="HODL"
             />
-@@ -221,11 +223,11 @@
+@@ -216,11 +218,11 @@
                 ],
                 false,
               ]
@@ -61,7 +60,7 @@ exports[`useSetCustomReferralCodePopup handles referral code exists error 1`] = 
       </View>
     </View>
     <View
-@@ -327,11 +329,11 @@
+@@ -322,11 +324,11 @@
       <View
         accessibilityState={
           Object {
@@ -81,7 +80,7 @@ exports[`useSetCustomReferralCodePopup updates referral code state 1`] = `
 - First value
 + Second value
 
-@@ -170,11 +170,11 @@
+@@ -166,22 +166,22 @@
                     "paddingBottom": 0,
                     "paddingTop": 0,
                     "width": "100%",
@@ -94,12 +93,11 @@ exports[`useSetCustomReferralCodePopup updates referral code state 1`] = `
                   Object {
                     "borderColor": "transparent",
                     "borderWidth": 1,
-@@ -182,11 +182,11 @@
-                  false,
+                  },
                   false,
                 ]
               }
-              textAlignVertical="center"
+              textAlignVertical="top"
 -             value=""
 +             value="HODL"
             />
@@ -107,7 +105,7 @@ exports[`useSetCustomReferralCodePopup updates referral code state 1`] = `
               style={
                 Object {
                   "flexDirection": "row",
-@@ -327,11 +327,11 @@
+@@ -322,11 +322,11 @@
       <View
         accessibilityState={
           Object {

@@ -1,4 +1,4 @@
-import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
+import { StyleProp, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native'
 import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
@@ -8,7 +8,7 @@ type Props = {
   style?: StyleProp<ViewStyle>
   children: string
   iconId: IconType
-  onPress: () => void
+  onPress: TouchableOpacityProps['onPress']
 }
 export function TouchableRedText ({ style, children, iconId, onPress }: Props) {
   return (

@@ -49,7 +49,7 @@ describe('NodeSetup', () => {
     useNodeConfigState.setState({ enabled: true })
     const { getByPlaceholderText, toJSON } = render(<NodeSetup />)
     const beforeInput = toJSON()
-    fireEvent(getByPlaceholderText('192.168.0.1:50001'), 'onChange', url)
+    fireEvent(getByPlaceholderText('192.168.0.1:50001'), 'onChangeText', url)
     const afterInput = toJSON()
 
     expect(afterInput).toMatchDiffSnapshot(beforeInput)

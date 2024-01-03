@@ -3,10 +3,10 @@ import { TouchableOpacity, View } from 'react-native'
 import { Header } from '../../components/Header'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
-import { ConfirmSlider } from '../../components/inputs'
 import { BTCAmountInput } from '../../components/inputs/BTCAmountInput'
 import { BitcoinAddressInput } from '../../components/inputs/BitcoinAddressInput'
 import { RadioButtons } from '../../components/inputs/RadioButtons'
+import { ConfirmSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
@@ -77,7 +77,7 @@ export const SendBitcoin = () => {
       <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw`md:py-md`]}>
         <View style={[tw`pb-11 gap-4`, tw`md:pb-14`]}>
           <Section title={i18n('wallet.sendBitcoin.to')}>
-            <BitcoinAddressInput value={address} onChange={setAddress} />
+            <BitcoinAddressInput value={address} onChangeText={setAddress} />
           </Section>
 
           <HorizontalLine />

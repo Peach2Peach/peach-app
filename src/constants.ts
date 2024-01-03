@@ -1,5 +1,6 @@
 import { getBuildNumber, getUniqueIdSync, getVersion } from 'react-native-device-info'
 import { IconType } from './assets/icons'
+import tw from './styles/tailwind'
 import { sha256 } from './utils/crypto/sha256'
 
 export const THOUSANDS_GROUP = 3
@@ -39,4 +40,13 @@ export const badgeIconMap: Record<Medal, IconType> = {
   superTrader: 'star',
   fastTrader: 'zap',
   ambassador: 'award',
+}
+
+export const fullScreenTabNavigationScreenOptions = {
+  tabBarStyle: [tw`bg-transparent mx-sm`, tw`md:mx-md`],
+  tabBarContentContainerStyle: tw`bg-transparent`,
+  tabBarIndicatorStyle: tw`bg-black-100`,
+  tabBarItemStyle: tw`p-0`,
+  tabBarPressColor: 'transparent',
+  tabBarLabelStyle: tw`lowercase input-title`,
 }
