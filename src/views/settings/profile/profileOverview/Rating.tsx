@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import RatingPeach from '../../../../../assets/icons/ratingPeach.svg'
+import RatingPeach from '../../../../assets/icons/ratingPeach.svg'
 import { PeachText } from '../../../../components/text/PeachText'
 import { CENT } from '../../../../constants'
 import tw from '../../../../styles/tailwind'
