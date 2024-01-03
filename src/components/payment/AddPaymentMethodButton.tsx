@@ -1,7 +1,6 @@
 import { TouchableOpacity } from 'react-native'
 import { useMeetupEvents } from '../../hooks/query/useMeetupEvents'
 import { useNavigation } from '../../hooks/useNavigation'
-import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import { sortAlphabetically } from '../../utils/array/sortAlphabetically'
 import i18n from '../../utils/i18n'
@@ -17,16 +16,15 @@ type Props = ComponentProps & {
 
 export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
   const navigation = useNavigation()
-  const currentRoute = useRoute().name
   const updateDrawer = useDrawerState((state) => state.updateDrawer)
   const { meetupEvents, isLoading } = useMeetupEvents()
   const addPaymentMethods = () => {
-    navigation.navigate('selectCurrency', { origin: currentRoute })
+    navigation.navigate('selectCurrency', { origin: 'paymentMethods' })
   }
 
   const goToEventDetails = (eventID: MeetupEvent['id']) => {
     updateDrawer({ show: false })
-    navigation.push('meetupScreen', { eventId: eventID.replace('cash.', ''), origin: currentRoute })
+    navigation.push('meetupScreen', { eventId: eventID.replace('cash.', ''), origin: 'paymentMethods' })
   }
 
   const selectCountry = (eventsByCountry: CountryEventsMap, selected: Country) => {

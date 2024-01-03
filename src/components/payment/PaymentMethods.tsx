@@ -4,7 +4,6 @@ import { fullScreenTabNavigationScreenOptions } from '../../constants'
 import { HelpPopup } from '../../hooks/HelpPopup'
 import { useNavigation } from '../../hooks/useNavigation'
 import { usePreviousRoute } from '../../hooks/usePreviousRoute'
-import { useRoute } from '../../hooks/useRoute'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
@@ -27,7 +26,6 @@ const tabs = ['online', 'meetups'] as const
 
 export const PaymentMethods = () => {
   const navigation = useNavigation()
-  const currentRouteName = useRoute().name
   const [preferredPaymentMethods, select] = useOfferPreferences(
     (state) => [state.preferredPaymentMethods, state.selectPaymentMethod],
     shallow,
@@ -39,12 +37,12 @@ export const PaymentMethods = () => {
       navigation.navigate('meetupScreen', {
         eventId: data.id.replace('cash.', ''),
         deletable: true,
-        origin: currentRouteName,
+        origin: 'paymentMethods',
       })
     } else {
       navigation.navigate('paymentMethodForm', {
         paymentData: data,
-        origin: currentRouteName,
+        origin: 'paymentMethods',
       })
     }
   }
