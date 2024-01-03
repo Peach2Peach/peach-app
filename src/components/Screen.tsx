@@ -6,6 +6,7 @@ import { useNavigation } from '../hooks/useNavigation'
 import tw from '../styles/tailwind'
 import { peachyGradient } from '../utils/layout/peachyGradient'
 import { isAndroid } from '../utils/system/isAndroid'
+import { isIOS } from '../utils/system/isIOS'
 import { DailyTradingLimit } from '../views/settings/profile/DailyTradingLimit'
 import { Header } from './Header'
 import { PeachyBackground } from './PeachyBackground'
@@ -31,7 +32,7 @@ export const Screen = ({ children, header, showTradingLimit = false, gradientBac
     }, [gradientBackground]),
   )
   return (
-    <KeyboardAvoidingView style={tw`flex-1`} behavior="padding">
+    <KeyboardAvoidingView style={tw`flex-1`} behavior={isIOS() ? 'padding' : undefined}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={tw`flex-1`}>
           {gradientBackground && <PeachyBackground />}
