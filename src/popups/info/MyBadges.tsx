@@ -4,7 +4,7 @@ import { Icon } from '../../components/Icon'
 import { PeachText } from '../../components/text/PeachText'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { badges } from '../../views/settings/profile/profileOverview/components/badges'
+import { badges } from '../../views/settings/profile/profileOverview/badges'
 
 export const MyBadges = () => (
   <>
