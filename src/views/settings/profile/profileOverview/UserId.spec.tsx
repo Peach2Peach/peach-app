@@ -1,6 +1,6 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import { fireEvent, render } from 'test-utils'
-import { navigateMock } from '../../../../../../tests/unit/helpers/NavigationWrapper'
+import { navigateMock } from '../../../../../tests/unit/helpers/NavigationWrapper'
 import { UserId } from './UserId'
 
 describe('UserId', () => {

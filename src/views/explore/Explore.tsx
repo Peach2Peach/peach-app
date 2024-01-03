@@ -25,7 +25,7 @@ import { LoadingScreen } from '../loading/LoadingScreen'
 import { BuyBitcoinHeader } from '../offerPreferences/components/BuyBitcoinHeader'
 import { MarketInfo } from '../offerPreferences/components/MarketInfo'
 import { useOfferMatches } from '../search/hooks'
-import { Rating } from '../settings/profile/profileOverview/components'
+import { Rating } from '../settings/profile/profileOverview/Rating'
 
 export function Explore () {
   const { offerId } = useRoute<'explore'>().params

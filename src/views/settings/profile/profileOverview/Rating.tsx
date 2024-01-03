@@ -1,10 +1,10 @@
 import { View } from 'react-native'
 import RatingPeach from '../../../../../assets/icons/ratingPeach.svg'
-import { PeachText } from '../../../../../components/text/PeachText'
-import { CENT } from '../../../../../constants'
-import tw from '../../../../../styles/tailwind'
-import i18n from '../../../../../utils/i18n'
-import { interpolate } from '../../../../../utils/math/interpolate'
+import { PeachText } from '../../../../components/text/PeachText'
+import { CENT } from '../../../../constants'
+import tw from '../../../../styles/tailwind'
+import i18n from '../../../../utils/i18n'
+import { interpolate } from '../../../../utils/math/interpolate'
 
 // eslint-disable-next-line no-magic-numbers
 const PEACHES = [1, 2, 3, 4, 5]

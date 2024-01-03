@@ -1,7 +1,7 @@
 import { TouchableOpacity } from 'react-native'
 import { HelpPopup } from '../../../hooks/HelpPopup'
 import tw from '../../../styles/tailwind'
-import { badges } from '../../../views/settings/profile/profileOverview/components/badges'
+import { badges } from '../../../views/settings/profile/profileOverview/badges'
 import { Badge, RepeatTraderBadge } from '../../Badge'
 import { useSetPopup } from '../../popup/Popup'
 

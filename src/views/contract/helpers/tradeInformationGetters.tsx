@@ -16,7 +16,7 @@ import { getPaymentMethodName } from '../../../utils/paymentMethod/getPaymentMet
 import { groupChars } from '../../../utils/string/groupChars'
 import { priceFormat } from '../../../utils/string/priceFormat'
 import { openAppLink } from '../../../utils/web/openAppLink'
-import { UserId } from '../../settings/profile/profileOverview/components'
+import { UserId } from '../../settings/profile/profileOverview/UserId'
 import { TradeBreakdownBubble } from '../components/TradeBreakdownBubble'
 import { useContractContext } from '../context'
 
