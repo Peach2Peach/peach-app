@@ -23,7 +23,10 @@ export const BitcoinAddress = ({ address, amount, label }: BitcoinAddressProps) 
   const urn = new URL(`bitcoin:${address}`)
 
   if (amount) urn.searchParams.set('amount', String(amount))
-  if (label) urn.searchParams.set('message', label)
+  if (label) {
+    urn.searchParams.set('message', label)
+    urn.searchParams.set('label', label)
+  }
 
   const addressParts = getBitcoinAddressParts(address)
 
