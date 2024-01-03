@@ -314,7 +314,7 @@ exports[`AddressChecker should render correctly 1`] = `
                     false,
                   ]
                 }
-                textAlignVertical="center"
+                textAlignVertical="top"
                 value=""
               />
               <View
@@ -490,7 +490,7 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
                       false,
                     ]
                   }
-                  textAlignVertical="center"
+                  textAlignVertical="top"
 -                 value=""
 +                 value="bcrt1qm5 ... jhfgd0"
                 />
@@ -587,7 +587,7 @@ exports[`AddressChecker should render correctly when address does not belong to 
                       false,
                     ]
                   }
-                  textAlignVertical="center"
+                  textAlignVertical="top"
 -                 value=""
 +                 value="bcrt1qm5 ... jhfgd0"
                 />
@@ -709,7 +709,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
                       false,
                     ]
                   }
-                  textAlignVertical="center"
+                  textAlignVertical="top"
 -                 value=""
 +                 value="invalidAddress"
                 />
@@ -754,7 +754,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
                       false,
                     ]
                   }
-                  textAlignVertical="center"
+                  textAlignVertical="top"
 -                 value=""
 +                 value="bcrt1qm5 ... jhfgd0"
                 />

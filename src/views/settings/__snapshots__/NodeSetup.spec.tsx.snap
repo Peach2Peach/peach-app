@@ -22,7 +22,7 @@ exports[`NodeSetup should change address 1`] = `
                             false,
                           ]
                         }
-                        textAlignVertical="center"
+                        textAlignVertical="top"
 -                       value="blockstream.info"
 +                       value=""
                       />

@@ -68,7 +68,7 @@ exports[`Input renders correctly 1`] = `
           false,
         ]
       }
-      textAlignVertical="center"
+      textAlignVertical="top"
     />
     <View
       style={
@@ -169,7 +169,7 @@ exports[`Input renders correctly with icon 1`] = `
           false,
         ]
       }
-      textAlignVertical="center"
+      textAlignVertical="top"
       value="value"
     />
     <View
@@ -279,7 +279,7 @@ exports[`Input renders correctly with placeholder 1`] = `
           false,
         ]
       }
-      textAlignVertical="center"
+      textAlignVertical="top"
     />
     <View
       style={
@@ -384,7 +384,7 @@ exports[`Input renders correctly with value 1`] = `
           false,
         ]
       }
-      textAlignVertical="center"
+      textAlignVertical="top"
       value="value"
     />
     <View

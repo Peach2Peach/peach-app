@@ -71,7 +71,7 @@ exports[`SeedPhraseInput should render correctly 1`] = `
           false,
         ]
       }
-      textAlignVertical="center"
+      textAlignVertical="top"
       value=""
     />
     <View
