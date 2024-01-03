@@ -2,7 +2,10 @@ import { UseMutationOptions, useMutation, useQueryClient } from '@tanstack/react
 import { useRoute } from '../../../hooks/useRoute'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 
-export function useContractMutation (optimisticContract: Partial<Contract>, options: UseMutationOptions) {
+export function useContractMutation<TData = unknown, TVariables = void> (
+  optimisticContract: Partial<Contract>,
+  options: UseMutationOptions<TData, Error, TVariables>,
+) {
   const { contractId } = useRoute<'contract'>().params
   const queryClient = useQueryClient()
   const showError = useShowErrorBanner()
@@ -23,7 +26,7 @@ export function useContractMutation (optimisticContract: Partial<Contract>, opti
 
       return { previousData }
     },
-    onError: (err: Error, _variables: void, context: { previousData: Contract | undefined } | undefined) => {
+    onError: (err, _variables, context) => {
       queryClient.setQueryData(['contract', contractId], context?.previousData)
       showError(err.message)
     },
