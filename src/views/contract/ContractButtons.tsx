@@ -11,7 +11,7 @@ import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
 import { useValidatedState } from '../../hooks/useValidatedState'
-import { WarningPopup } from '../../popups/WarningPopup'
+import { ErrorPopup } from '../../popups/ErrorPopup'
 import { ClosePopupAction } from '../../popups/actions/ClosePopupAction'
 import { LoadingPopupAction } from '../../popups/actions/LoadingPopupAction'
 import { useSubmitDisputeAcknowledgement } from '../../popups/dispute/hooks/useSubmitDisputeAcknowledgement'
@@ -78,7 +78,7 @@ function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: Con
     })
   }
   return (
-    <WarningPopup
+    <ErrorPopup
       title={i18n('dispute.opened')}
       content={
         <View style={tw`gap-4`}>
@@ -90,7 +90,7 @@ function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: Con
 
           <View>
             <EmailInput
-              style={tw`bg-warning-mild-1`}
+              style={tw`bg-error-background`}
               onChangeText={setEmail}
               onSubmitEditing={submit}
               value={email}
@@ -101,13 +101,13 @@ function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: Con
       }
       actions={
         <>
-          <ClosePopupAction textStyle={tw`text-black-100`} />
+          <ClosePopupAction />
           <LoadingPopupAction
             label={i18n('send')}
             iconId="arrowRightCircle"
+            disabled={emailErrors.length > 0}
             onPress={submit}
             reverseOrder
-            textStyle={tw`text-black-100`}
           />
         </>
       }

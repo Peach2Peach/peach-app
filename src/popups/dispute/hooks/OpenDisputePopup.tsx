@@ -3,7 +3,7 @@ import { useClosePopup } from '../../../components/popup/Popup'
 import { PopupAction } from '../../../components/popup/PopupAction'
 import { useNavigation } from '../../../hooks/useNavigation'
 import i18n from '../../../utils/i18n'
-import { WarningPopup } from '../../WarningPopup'
+import { ErrorPopup } from '../../ErrorPopup'
 import { ClosePopupAction } from '../../actions/ClosePopupAction'
 import { OpenDispute } from '../components/OpenDispute'
 
@@ -17,7 +17,7 @@ export function OpenDisputePopup ({ contractId }: { contractId: string }) {
   }, [closePopup, contractId, navigation])
 
   return (
-    <WarningPopup
+    <ErrorPopup
       title={i18n('dispute.openDispute')}
       content={<OpenDispute />}
       actions={
