@@ -2,6 +2,7 @@ import { act, renderHook, responseUtils } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
+import { setRouteMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { MSINAMINUTE } from '../../../constants'
 import { setAccount } from '../../../utils/account/account'
@@ -15,13 +16,6 @@ import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
 
 jest.useFakeTimers()
-
-const useRouteMock = jest.fn().mockReturnValue({
-  params: { offerId: sellOffer.id },
-})
-jest.mock('../../../hooks/useRoute', () => ({
-  useRoute: () => useRouteMock(),
-}))
 
 const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
@@ -47,6 +41,9 @@ jest.mock('./useHandleFundingStatus', () => ({
 }))
 
 describe('useFundEscrowSetup', () => {
+  beforeAll(() => {
+    setRouteMock({ name: 'fundEscrow', key: 'fundEscrow', params: { offerId: sellOffer.id } })
+  })
   beforeEach(() => {
     updateAccount({ ...account1, offers: [] }, true)
     useWalletState.getState().reset()

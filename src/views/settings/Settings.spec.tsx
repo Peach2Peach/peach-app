@@ -1,5 +1,6 @@
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { act, fireEvent, render, waitFor } from 'test-utils'
+import { setRouteMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { Popup } from '../../components/popup'
 import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import { Settings } from './Settings'
@@ -13,15 +14,12 @@ jest.mock('../../utils/system/checkNotificationStatus', () => ({
   checkNotificationStatus: () => checkNotificationStatusMock(),
 }))
 
-jest.mock('../../hooks/useRoute', () => ({
-  useRoute: () => ({
-    name: 'settings',
-  }),
-}))
-
 jest.useFakeTimers()
 
 describe('Settings', () => {
+  beforeAll(() => {
+    setRouteMock({ name: 'settings', key: 'settings' })
+  })
   beforeEach(() => {
     useSettingsStore.getState().reset()
   })

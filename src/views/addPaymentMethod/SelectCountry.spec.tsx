@@ -1,18 +1,9 @@
 import { fireEvent, render } from 'test-utils'
-import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { navigateMock, setRouteMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { Button } from '../../components/buttons/Button'
 import { setPaymentMethods } from '../../paymentMethods'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { SelectCountry } from './SelectCountry'
-
-jest.mock('../../hooks/useRoute', () => ({
-  useRoute: jest.fn(() => ({
-    params: {
-      origin: 'paymentMethod',
-      selectedCurrency: 'EUR',
-    },
-  })),
-}))
 
 describe('SelectCountry', () => {
   beforeAll(() => {
@@ -24,6 +15,14 @@ describe('SelectCountry', () => {
         anonymous: true,
       },
     ])
+    setRouteMock({
+      name: 'selectCountry',
+      key: 'selectCountry',
+      params: {
+        origin: 'paymentMethods',
+        selectedCurrency: 'EUR',
+      },
+    })
   })
 
   it('should render correctly', () => {
@@ -37,7 +36,7 @@ describe('SelectCountry', () => {
     fireEvent.press(getByText('next'))
 
     expect(navigateMock).toHaveBeenCalledWith('paymentMethodForm', {
-      origin: 'paymentMethod',
+      origin: 'paymentMethods',
       paymentData: {
         type: 'giftCard.amazon.DE',
         label: 'Amazon Gift Card (DE)',
@@ -60,7 +59,7 @@ describe('SelectCountry', () => {
     fireEvent.press(getByText('next'))
 
     expect(navigateMock).toHaveBeenCalledWith('paymentMethodForm', {
-      origin: 'paymentMethod',
+      origin: 'paymentMethods',
       paymentData: {
         type: 'giftCard.amazon.DE',
         label: 'Amazon Gift Card (DE) #2',

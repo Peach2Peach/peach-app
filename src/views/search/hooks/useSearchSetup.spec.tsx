@@ -1,16 +1,9 @@
 import { act, renderHook, responseUtils, waitFor } from 'test-utils'
 import { buyOffer } from '../../../../peach-api/src/testData/offers'
+import { setRouteMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useSearchSetup } from './useSearchSetup'
-
-jest.mock('../../../hooks/useRoute', () => ({
-  useRoute: () => ({
-    params: {
-      offerId: buyOffer.id,
-    },
-  }),
-}))
 
 const match: Partial<Match> = {
   offerId: '904',
@@ -31,6 +24,9 @@ jest.spyOn(peachAPI.private.offer, 'getOfferDetails').mockResolvedValue({ result
 jest.useFakeTimers()
 
 describe('useSearchSetup', () => {
+  beforeAll(() => {
+    setRouteMock({ name: 'search', key: 'search', params: { offerId: buyOffer.id } })
+  })
   beforeEach(() => {
     queryClient.clear()
   })

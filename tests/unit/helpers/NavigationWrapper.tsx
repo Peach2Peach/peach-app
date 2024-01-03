@@ -12,11 +12,11 @@ const unsubscribeMock = jest.fn()
 const addListenerMock = jest.fn(() => unsubscribeMock)
 const setOptionsMock = jest.fn()
 export const getStateMock = jest.fn(
-  (): NavigationState => ({
+  (): NavigationState<RootStackParamList> => ({
     routes: [
       {
-        key: 'origin',
-        name: 'origin',
+        key: 'homeScreen',
+        name: 'homeScreen',
       },
       {
         key: 'meetupScreen',
