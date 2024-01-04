@@ -7,7 +7,7 @@ import { placeholderFeeEstimates, useFeeEstimates } from './useFeeEstimates'
 jest.useFakeTimers()
 
 const getFeeEstimatesMock = jest.fn().mockResolvedValue([feeEstimates])
-jest.mock('../../utils/electrum', () => ({
+jest.mock('../../utils/electrum/getFeeEstimates', () => ({
   getFeeEstimates: () => getFeeEstimatesMock(),
 }))
 

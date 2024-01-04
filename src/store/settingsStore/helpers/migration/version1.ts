@@ -1,4 +1,4 @@
-import { getSelectedPaymentDataIds } from '../../../../utils/account'
+import { getSelectedPaymentDataIds } from '../../../../utils/account/getSelectedPaymentDataIds'
 import { info } from '../../../../utils/log'
 import { useOfferPreferences } from '../../../offerPreferenes'
 import { SettingsVersion2 } from './version2'
@@ -48,8 +48,8 @@ export const version1 = (migratedState: SettingsVersion1): SettingsVersion2 => {
   info('settingsStore - migrating from version 1')
   setPaymentMethods(getSelectedPaymentDataIds(migratedState.preferredPaymentMethods))
   setPremium(migratedState.premium)
-  setBuyAmountRange([migratedState.minBuyAmount, migratedState.maxBuyAmount], { min: 0, max: 0 })
-  setSellAmount(migratedState.sellAmount, { min: 0, max: 0 })
+  setBuyAmountRange([migratedState.minBuyAmount, migratedState.maxBuyAmount])
+  setSellAmount(migratedState.sellAmount)
   useOfferPreferences.getState().setPaymentMethods(getSelectedPaymentDataIds(migratedState.preferredPaymentMethods))
   return {
     appVersion: migratedState.appVersion,

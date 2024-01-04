@@ -1,7 +1,8 @@
 import { NETWORK } from '@env'
 import { StyleProp, ViewStyle } from 'react-native'
 import tw from '../styles/tailwind'
-import { showAddress, showTransaction } from '../utils/bitcoin'
+import { showAddress } from '../utils/bitcoin/showAddress'
+import { showTransaction } from '../utils/bitcoin/showTransaction'
 import i18n from '../utils/i18n'
 import { Button } from './buttons/Button'
 

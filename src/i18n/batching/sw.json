@@ -16,7 +16,7 @@
   "settings.batching.turnOff.description" : "Una malipo yanayosubiri. Kuzima kusanyiko hivi sasa kutalipa escrow hii mara moja, kwa ada kubwa zaidi.\n\nUna uhakika?",
   "settings.batching.turnOff.no" : "hapana, subiri",
   "settings.batching.turnOff.title" : "zima kusanyiko",
-  "settings.batching.turnOff.yes" : "ndiyo, lipa",
+  "settings.batching.turnOff.yes" : "ndio, naitaka haraka",
   "settings.batching.youPay" : "Unalipa hadi 30% zaidi",
   "settings.batching.youPay.highlight" : "30% zaidi",
   "settings.batching.youSave" : "Unaweza kuokoa hadi 23% kwenye ada za mtandao",

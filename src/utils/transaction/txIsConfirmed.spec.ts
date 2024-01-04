@@ -1,4 +1,4 @@
-import { txIsConfirmed } from '.'
+import { txIsConfirmed } from './txIsConfirmed'
 
 describe('txIsConfirmed', () => {
   it('should return true for a ConfirmedTransaction', () => {

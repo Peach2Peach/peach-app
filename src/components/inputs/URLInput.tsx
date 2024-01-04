@@ -1,9 +1,8 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-import { Input } from '.'
 import { useQRScanner } from '../../hooks/useQRScanner'
 import i18n from '../../utils/i18n'
 import { ScanQR } from '../camera/ScanQR'
-import { InputProps } from './Input'
+import { Input, InputProps } from './Input'
 
 export const URLInput = (props: InputProps) => {
   const pasteAddress = async () => {

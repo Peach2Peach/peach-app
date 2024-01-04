@@ -1,15 +1,13 @@
 /* eslint-disable max-lines-per-function */
-import { removePaymentData } from '.'
 import { twintData, validSEPAData, validSEPAData2, validSEPADataHashes } from '../../../tests/unit/data/paymentData'
-import { apiSuccess } from '../../../tests/unit/data/peachAPIData'
 import { NoErrorThrownError, getError } from '../../../tests/unit/helpers/getError'
+import { responseUtils } from '../../../tests/unit/helpers/test-utils'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
+import { peachAPI } from '../peachAPI'
+import { removePaymentData } from './removePaymentData'
 
-const deletePaymentHashMock = jest.fn().mockResolvedValue([apiSuccess])
-jest.mock('../peachAPI', () => ({
-  deletePaymentHash: (...args: unknown[]) => deletePaymentHashMock(...args),
-}))
+const deletePaymentHashMock = jest.spyOn(peachAPI.private.user, 'deletePaymentHash')
 
 describe('removePaymentData', () => {
   beforeEach(() => {
@@ -50,13 +48,14 @@ describe('removePaymentData', () => {
   })
 
   it('does not remove payment data if there is an unexpected error from server request', async () => {
-    deletePaymentHashMock.mockResolvedValueOnce([null, { error: 'UNEXPECTED' }])
+    // @ts-expect-error testing unexpected error
+    deletePaymentHashMock.mockResolvedValueOnce({ error: { error: 'UNEXPECTED' }, ...responseUtils })
     const error = await getError<Error>(() => removePaymentData(validSEPAData.id))
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error.message).toBe('NETWORK_ERROR')
     expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)).toEqual(validSEPAData)
 
-    deletePaymentHashMock.mockResolvedValueOnce([null, null])
+    deletePaymentHashMock.mockResolvedValueOnce(responseUtils)
     const error2 = await getError<Error>(() => removePaymentData(validSEPAData.id))
     expect(error2).not.toBeInstanceOf(NoErrorThrownError)
     expect(error2.message).toBe('NETWORK_ERROR')
@@ -64,14 +63,9 @@ describe('removePaymentData', () => {
   })
 
   it('removes payment data from account if server error is expected', async () => {
-    deletePaymentHashMock.mockResolvedValueOnce([null, { error: 'UNAUTHORIZED' }])
+    deletePaymentHashMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)).not.toBeUndefined()
     await removePaymentData(validSEPAData.id)
     expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)).toBeUndefined()
-
-    deletePaymentHashMock.mockResolvedValueOnce([null, { error: 'AUTHENTICATION_FAILED' }])
-    expect(usePaymentDataStore.getState().getPaymentData(validSEPAData2.id)).not.toBeUndefined()
-    await removePaymentData(validSEPAData2.id)
-    expect(usePaymentDataStore.getState().getPaymentData(validSEPAData2.id)).toBeUndefined()
   })
 })

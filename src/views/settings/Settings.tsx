@@ -1,8 +1,9 @@
 import { View } from 'react-native'
-
+import { Header } from '../../components/Header'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
+import { PeachText } from '../../components/text/PeachText'
 import tw from '../../styles/tailwind'
-
-import { PeachScrollView, Screen, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { SettingsItem } from './components/SettingsItem'
 import { VersionInfo } from './components/VersionInfo'
@@ -12,12 +13,14 @@ export const Settings = () => {
   const settings = useSettingsSetup()
 
   return (
-    <Screen header={i18n('settings.title')} showFooter>
+    <Screen header={<Header title={i18n('settings.title')} hideGoBackButton />}>
       <PeachScrollView>
         {settings.map(({ headline, items }) => (
           <View key={`settings-${headline}`}>
             {headline && (
-              <Text style={tw`mb-3 text-left lowercase h6 text-primary-main mt-9`}>{i18n(`settings.${headline}`)}</Text>
+              <PeachText style={tw`mb-3 text-left lowercase h6 text-primary-main mt-9`}>
+                {i18n(`settings.${headline}`)}
+              </PeachText>
             )}
             {items.map((item, i) => {
               const props = typeof item === 'string' ? { title: item } : item

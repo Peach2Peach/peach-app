@@ -7,20 +7,17 @@ import { BIP32Interface } from 'bip32'
 import RNFS from 'react-native-fs'
 import { waitForHydration } from '../../store/waitForHydration'
 import { error, info } from '../log'
-import { parseError } from '../result'
-import { isIOS } from '../system'
-import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
-import { callWhenInternet } from '../web'
+import { parseError } from '../result/parseError'
+import { isIOS } from '../system/isIOS'
+import { callWhenInternet } from '../web/callWhenInternet'
 import { PeachJSWallet } from './PeachJSWallet'
 import { buildBlockchainConfig } from './buildBlockchainConfig'
 import { handleTransactionError } from './error/handleTransactionError'
-import { storePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorsBySeedphrase } from './getDescriptorsBySeedphrase'
 import { getUTXOAddress } from './getUTXOAddress'
 import { labelAddressByTransaction } from './labelAddressByTransaction'
 import { mapTransactionToOffer } from './mapTransactionToOffer'
 import { NodeConfig, useNodeConfigState } from './nodeConfigStore'
-import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { BuildTxParams, buildTransaction } from './transaction'
 import { transactionHasBeenMappedToOffers } from './transactionHasBeenMappedToOffers'
 import { useWalletState } from './walletStore'
@@ -89,8 +86,12 @@ export class PeachWallet extends PeachJSWallet {
   }
 
   async loadWallet (seedphrase?: string): Promise<void> {
+    info('PeachWallet - loadWallet - start')
     await waitForHydration(useNodeConfigState)
-    this.initWallet(seedphrase)
+
+    this.initWallet(seedphrase).then(() => {
+      info('PeachWallet - loadWallet - finished')
+    })
   }
 
   async setBlockchain (nodeConfig: NodeConfig) {
@@ -150,18 +151,7 @@ export class PeachWallet extends PeachJSWallet {
   async getTransactions (): Promise<TransactionDetails[]> {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
 
-    const transactions = await this.wallet.listTransactions(true)
-    this.transactions = mergeTransactionList(this.transactions, transactions)
-    const toRebroadcast = findTransactionsToRebroadcast(this.transactions, transactions)
-
-    const pending = this.transactions.filter(isPending)
-    await Promise.all(pending.map(storePendingTransactionHex))
-
-    await rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
-    this.transactions = this.transactions.filter(
-      (tx) => tx.confirmationTime?.height || useWalletState.getState().pendingTransactions[tx.txid],
-    )
-
+    this.transactions = await this.wallet.listTransactions(true)
     this.updateStore()
 
     return this.transactions
@@ -181,14 +171,9 @@ export class PeachWallet extends PeachJSWallet {
     return this.lastUnusedAddress
   }
 
-  getLastUnusedAddress () {
-    if (!this.lastUnusedAddress) return this.fetchLastUnusedAddress()
-    return this.lastUnusedAddress
-  }
-
-  async getNewInternalAddress () {
+  async getAddress (index: AddressIndex | number = AddressIndex.New) {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
-    const addressInfo = await this.wallet.getInternalAddress(AddressIndex.New)
+    const addressInfo = await this.wallet.getAddress(index)
     return {
       ...addressInfo,
       address: await addressInfo.address.asString(),
@@ -197,17 +182,22 @@ export class PeachWallet extends PeachJSWallet {
 
   async getAddressByIndex (index: number) {
     const { index: lastUnusedIndex } = await this.getLastUnusedAddress()
-    const address = this.getAddress(index)
+    const address = await this.getAddress(index)
     return {
       index,
       used: index < lastUnusedIndex,
-      address,
+      address: address.address,
     }
   }
 
-  async getReceivingAddress () {
+  getLastUnusedAddress () {
+    if (!this.lastUnusedAddress) return this.fetchLastUnusedAddress()
+    return this.lastUnusedAddress
+  }
+
+  async getInternalAddress (index: AddressIndex | number = AddressIndex.New) {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
-    const addressInfo = await this.wallet.getAddress(AddressIndex.New)
+    const addressInfo = await this.wallet.getInternalAddress(index)
     return {
       ...addressInfo,
       address: await addressInfo.address.asString(),

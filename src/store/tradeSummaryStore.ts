@@ -93,7 +93,6 @@ export const useTradeSummaryStore = create(
             creationDate: new Date(contract.creationDate),
             lastModified: new Date(contract.lastModified),
             paymentMade: contract.paymentMade ? new Date(contract.paymentMade) : undefined,
-            paymentConfirmed: contract.paymentConfirmed ? new Date(contract.paymentConfirmed) : undefined,
           })),
         )
       },

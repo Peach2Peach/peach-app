@@ -118,6 +118,7 @@
   "contract.summary.paidWithMethod" : "betaald met",
   "contract.summary.paymentConfirmed" : "op",
   "contract.summary.paymentTooLate" : "betaling te laat",
+  "contract.summary.payoutToPeachWallet" : "uitbetalen aan peach wallet",
   "contract.summary.phone" : "telefoon #",
   "contract.summary.pixAlias" : "pix alias",
   "contract.summary.postePayNumber" : "postePay nummer",

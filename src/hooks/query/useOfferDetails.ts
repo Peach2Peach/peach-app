@@ -1,12 +1,13 @@
 import { QueryFunction, useQueries, useQuery } from '@tanstack/react-query'
 import { MSINAMINUTE } from '../../constants'
 import { error } from '../../utils/log'
-import { getOffer, saveOffer } from '../../utils/offer'
-import { getOfferDetails } from '../../utils/peachAPI'
+import { getOffer } from '../../utils/offer/getOffer'
+import { saveOffer } from '../../utils/offer/saveOffer'
+import { peachAPI } from '../../utils/peachAPI'
 
 const getOfferQuery: QueryFunction<BuyOffer | SellOffer> = async ({ queryKey }) => {
   const [, offerId] = queryKey as string[]
-  const [offer, err] = await getOfferDetails({ offerId })
+  const { result: offer, error: err } = await peachAPI.private.offer.getOfferDetails({ offerId })
 
   if (err) {
     error('Could not fetch offer information for offer', offerId, err.error)

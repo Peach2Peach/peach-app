@@ -1,4 +1,4 @@
-import { canCancelContract } from '.'
+import { canCancelContract } from './canCancelContract'
 
 describe('canCancelContract', () => {
   it('returns false if contract is in dispute', () => {

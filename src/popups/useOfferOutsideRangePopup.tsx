@@ -1,9 +1,12 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useNavigation } from '../hooks'
+import { PopupAction } from '../components/popup'
+import { PopupComponent } from '../components/popup/PopupComponent'
+import { useNavigation } from '../hooks/useNavigation'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { OfferOutsideRange } from './OfferOutsideRange'
+import { ClosePopupAction } from './actions'
 
 export const useOfferOutsideRangePopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
@@ -18,24 +21,25 @@ export const useOfferOutsideRangePopup = () => {
 
   const buyOfferExpiredPopup = useCallback(
     (offerId: string) => {
-      setPopup({
-        title: i18n('notification.offer.outsideRange.title'),
-        content: <OfferOutsideRange {...{ offerId }} />,
-        visible: true,
-        level: 'APP',
-        action1: {
-          label: i18n('goToOffer'),
-          icon: 'arrowLeftCircle',
-          callback: () => goToOffer(offerId),
-        },
-        action2: {
-          label: 'close',
-          icon: 'xSquare',
-          callback: closePopup,
-        },
-      })
+      setPopup(
+        <PopupComponent
+          title={i18n('notification.offer.outsideRange.title')}
+          content={<OfferOutsideRange {...{ offerId }} />}
+          actions={
+            <>
+              <ClosePopupAction />
+              <PopupAction
+                label={i18n('goToOffer')}
+                iconId="arrowLeftCircle"
+                onPress={() => goToOffer(offerId)}
+                reverseOrder
+              />
+            </>
+          }
+        />,
+      )
     },
-    [closePopup, goToOffer, setPopup],
+    [goToOffer, setPopup],
   )
   return buyOfferExpiredPopup
 }

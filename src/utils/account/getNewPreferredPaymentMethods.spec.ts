@@ -1,5 +1,5 @@
-import { getNewPreferredPaymentMethods } from '.'
 import { paypalData, validSEPAData } from '../../../tests/unit/data/paymentData'
+import { getNewPreferredPaymentMethods } from './getNewPreferredPaymentMethods'
 
 const paymentData: PaymentData[] = [validSEPAData, { ...paypalData, hidden: true }]
 

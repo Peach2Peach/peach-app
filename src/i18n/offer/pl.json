@@ -34,6 +34,7 @@
   "offer.requiredAction.releaseEscrow" : "uwolnij depozyt",
   "offer.requiredAction.releaseEscrow.dispute" : "spór przegrany: uwolnij depozyt",
   "offer.requiredAction.searchingForPeer" : "szukam dopasowania",
+  "offer.requiredAction.unknown" : "nieznane - zaktualizuj swoją aplikację!",
   "offer.requiredAction.waiting" : "czekam na $0",
   "offer.requiredAction.waiting.buyer" : "czekam na płatność",
   "offer.requiredAction.waiting.seller" : "czekam na sprzedawcę",
@@ -55,5 +56,6 @@
   "offer.summary.withTheseMethods" : "za pomocą tych metod płatności:",
   "offer.summary.youAreBuying" : "chcesz kupić od",
   "offer.summary.youAreSelling" : "sprzedajesz",
-  "offer.summary.youWereSelling" : "sprzedawałeś"
+  "offer.summary.youWereSelling" : "sprzedawałeś",
+  "yourTrades.unknown" : "nieznane"
 }

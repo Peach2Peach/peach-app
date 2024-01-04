@@ -1,6 +1,6 @@
 import { ok } from 'assert'
-import { getMessages } from '.'
 import i18n, { languageState } from '../i18n'
+import { getMessages } from './getMessages'
 
 describe('getMessages', () => {
   it('has all messages defined', () => {

@@ -1,6 +1,6 @@
 import OpenPGP from 'react-native-fast-openpgp'
-import { defaultAccount, setAccount } from '../account'
-import { decryptSymmetric } from '.'
+import { defaultAccount, setAccount } from '../account/account'
+import { decryptSymmetric } from './decryptSymmetric'
 
 describe('decrypt', () => {
   beforeEach(() => {

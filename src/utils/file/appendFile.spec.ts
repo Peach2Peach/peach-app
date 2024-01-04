@@ -1,5 +1,5 @@
 import RNFS from 'react-native-fs'
-import { appendFile } from '.'
+import { appendFile } from './appendFile'
 
 describe('appendFile', () => {
   it('should append content to a file', async () => {

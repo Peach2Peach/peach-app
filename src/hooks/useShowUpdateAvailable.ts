@@ -4,7 +4,8 @@ import { useMessageState } from '../components/message/useMessageState'
 import { APPVERSION, BUILDNUMBER } from '../constants'
 import { useConfigStore } from '../store/configStore/configStore'
 import i18n from '../utils/i18n'
-import { compatibilityCheck, linkToAppStore } from '../utils/system'
+import { compatibilityCheck } from '../utils/system/compatibilityCheck'
+import { linkToAppStore } from '../utils/system/linkToAppStore'
 
 export const useShowUpdateAvailable = () => {
   const updateMessage = useMessageState((state) => state.updateMessage)

@@ -1,12 +1,16 @@
 import { View } from 'react-native'
-import { Icon, InfoFrame, Loading, Placeholder, Screen } from '../../components'
-import { BitcoinAddressInput } from '../../components/inputs'
-import { TradeInfo } from '../../components/offer'
-import { useValidatedState } from '../../hooks'
+import { Icon } from '../../components/Icon'
+import { Placeholder } from '../../components/Placeholder'
+import { Screen } from '../../components/Screen'
+import { Loading } from '../../components/animation/Loading'
+import { BitcoinAddressInput } from '../../components/inputs/BitcoinAddressInput'
+import { TradeInfo } from '../../components/offer/TradeInfo'
+import { InfoFrame } from '../../components/ui/InfoFrame'
+import { useValidatedState } from '../../hooks/useValidatedState'
 import { useIsMyAddress } from '../../hooks/wallet/useIsMyAddress'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { rules } from '../../utils/validation'
+import { rules } from '../../utils/validation/rules'
 
 const addressRules = {
   bitcoinAddress: true,
@@ -32,7 +36,7 @@ function AddressInfo ({ address }: { address: string }) {
   return (
     <View>
       {isMine === undefined ? (
-        rules.bitcoinAddress(true, address) ? (
+        rules.bitcoinAddress(address) ? (
           <Loading style={tw`w-6 h-6`} />
         ) : (
           <Placeholder style={tw`h-24px`} />
@@ -44,7 +48,7 @@ function AddressInfo ({ address }: { address: string }) {
             <Icon
               size={20}
               id={isMine ? 'checkSquare' : 'xSquare'}
-              color={(isMine ? tw`text-success-main` : tw`text-error-main`).color}
+              color={tw.color(isMine ? 'success-main' : 'error-main')}
             />
           }
         />

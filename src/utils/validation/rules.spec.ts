@@ -1,70 +1,141 @@
-/* eslint-disable max-lines-per-function */
 import { ok } from 'assert'
 import { networks } from 'bitcoinjs-lib'
-import { rules } from '.'
-import paymentData from '../../../tests/unit/data/paymentData.json'
-import { getNetwork } from '../wallet/getNetwork'
-
-jest.mock('../wallet/getNetwork', () => ({
-  getNetwork: jest.fn(),
-}))
+import { rules } from './rules'
 
 describe('rules', () => {
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
   it('validates required fields correctly', () => {
-    ok(rules.required(true, 'hello'))
-    ok(rules.required(true, 21000))
+    ok(rules.required('hello'))
+    ok(!rules.required(''))
+  })
+})
 
-    ok(!rules.required(true, ''))
-    ok(!rules.required(true, null))
+const addresses = {
+  bitcoin: ['bc1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3gkp6jxdd0vjcsdyspfxcv6', '12dRugNcdxK39288NjcDV4GX7rMsKCGn6B'],
+  testnet: [
+    'tb1pwq9p5dj5577xr36e5xwc5gh93qw0qultf5vvqdkdr7q5umunesaque098t',
+    'tb1qmqvdm66kfx8fnc7cqytsj6yp92ms6kames8lz4',
+  ],
+  regtest: [
+    'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0',
+    'bcrt1pvsl0uj3m2wew9fngpzqyga2jdsfngjkwcj5rg8qwpf9y6graadeqr7k9yu',
+  ],
+}
+const invalidAddresses = {
+  bitcoin: ['bc1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3kp6jxdd0vjcsdyspfxcv6', '12dRugNcdxK39288NjcDV4G7rMsKCGn6B'],
+  testnet: [
+    'tb1pwq9p5dj5577xr36e5xwc5gh9qw0qultf5vvqdkdr7q5umunesaque098t',
+    'tb1qmqvdm66kfx8fnc7cqyts6yp92ms6kames8lz4',
+  ],
+  regtest: [
+    'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd',
+    'bcrt1pvsl0uj3m2wew9fngpzqyga2jdsfngkwcj5rg8qwpf9y6graadeqr7k9yu',
+  ],
+}
+
+const getNetworkMock = jest.fn().mockReturnValue(networks.regtest)
+jest.mock('../wallet/getNetwork', () => ({
+  getNetwork: () => getNetworkMock(),
+}))
+
+describe('bitcoinAddress', () => {
+  it('should return true if address is valid', () => {
+    getNetworkMock.mockReturnValue(networks.bitcoin)
+    addresses.bitcoin.forEach((address) => expect(rules.bitcoinAddress(address)).toBeTruthy())
+    getNetworkMock.mockReturnValue(networks.testnet)
+    addresses.testnet.forEach((address) => expect(rules.bitcoinAddress(address)).toBeTruthy())
+    getNetworkMock.mockReturnValue(networks.regtest)
+    addresses.regtest.forEach((address) => expect(rules.bitcoinAddress(address)).toBeTruthy())
+  })
+  it('should return false if address is for different network', () => {
+    getNetworkMock.mockReturnValue(networks.bitcoin)
+    addresses.regtest.forEach((address) => expect(rules.bitcoinAddress(address)).toBeFalsy())
+    addresses.testnet.forEach((address) => expect(rules.bitcoinAddress(address)).toBeFalsy())
+
+    getNetworkMock.mockReturnValue(networks.testnet)
+    addresses.bitcoin.forEach((address) => expect(rules.bitcoinAddress(address)).toBeFalsy())
+    addresses.regtest.forEach((address) => expect(rules.bitcoinAddress(address)).toBeFalsy())
+
+    getNetworkMock.mockReturnValue(networks.regtest)
+    addresses.bitcoin.forEach((address) => expect(rules.bitcoinAddress(address)).toBeFalsy())
+    addresses.testnet.forEach((address) => expect(rules.bitcoinAddress(address)).toBeFalsy())
+  })
+  it('should return false if address is invalid', () => {
+    getNetworkMock.mockReturnValue(networks.bitcoin)
+    invalidAddresses.bitcoin.forEach((address) => expect(rules.bitcoinAddress(address)).toBeFalsy())
+    getNetworkMock.mockReturnValue(networks.testnet)
+    invalidAddresses.testnet.forEach((address) => expect(rules.bitcoinAddress(address)).toBeFalsy())
+    getNetworkMock.mockReturnValue(networks.regtest)
+    invalidAddresses.regtest.forEach((address) => expect(rules.bitcoinAddress(address)).toBeFalsy())
+  })
+})
+
+describe('isURL', () => {
+  it('should return true for a valid URL', () => {
+    expect(rules.url('https://www.example.com')).toBe(true)
+    expect(rules.url('https://www.example.com:8333')).toBe(true)
+    expect(rules.url('https://www.example.com/?query=param')).toBe(true)
+    expect(rules.url('https://www.example.com/#anchor')).toBe(true)
+    expect(rules.url('http://example.com')).toBe(true)
+    expect(rules.url('ssl://example.com')).toBe(true)
+    expect(rules.url('ftp://example.com')).toBe(true)
+    expect(rules.url('example.com')).toBe(true)
+  })
+  it('should return true for a valid IP', () => {
+    expect(rules.url('192.168.1.21')).toBe(true)
+    expect(rules.url('192.168.1.21:8333')).toBe(true)
   })
 
-  it('validates btc addresses correctly for mainnet', () => {
-    (<jest.Mock>getNetwork).mockReturnValue(networks.bitcoin)
-    for (const address of paymentData.bitcoin.base58Check.valid) {
-      ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
-    }
-    for (const address of paymentData.bitcoin.base58Check.invalid) {
-      ok(!rules.bitcoinAddress(true, address), `Could not invalidate ${address}`)
-    }
-    for (const address of paymentData.bitcoin.bech32.valid) {
-      ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
-    }
-    for (const address of paymentData.bitcoin.bech32.invalid) {
-      ok(!rules.bitcoinAddress(true, address), `Could not invalidate ${address}`)
-    }
-
-    // general invalid input
-    ok(!rules.bitcoinAddress(true, 'invalid'))
+  it('should return false for an invalid URL', () => {
+    expect(rules.url('https://')).toBe(false)
   })
 
-  it('validates btc addresses correctly for testnet', () => {
-    (<jest.Mock>getNetwork).mockReturnValue(networks.testnet)
-    for (const address of paymentData.bitcoinTestnet.base58Check.valid) {
-      ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
-    }
-    for (const address of paymentData.bitcoinTestnet.base58Check.invalid) {
-      ok(!rules.bitcoinAddress(true, address), `Could not invalidate ${address}`)
-    }
-    for (const address of paymentData.bitcoinTestnet.bech32.valid) {
-      ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
-    }
-    for (const address of paymentData.bitcoinTestnet.bech32.invalid) {
-      ok(!rules.bitcoinAddress(true, address), `Could not invalidate ${address}`)
-    }
+  it('should return false for an empty string', () => {
+    expect(rules.url('')).toBe(false)
+  })
+})
 
-    // general invalid input
-    ok(!rules.bitcoinAddress(true, 'invalid'))
+describe('isTaproot', () => {
+  it('should return false if address is taproot address', () => {
+    expect(rules.blockTaprootAddress('tb1p')).toBe(false)
+    expect(rules.blockTaprootAddress('bcrt1p')).toBe(false)
+    expect(rules.blockTaprootAddress('bc1p')).toBe(false)
+  })
+  it('should return true if address is not taproot address', () => {
+    expect(rules.blockTaprootAddress('tb1q')).toBe(true)
+    expect(rules.blockTaprootAddress('bcrt1q')).toBe(true)
+    expect(rules.blockTaprootAddress('bc1q')).toBe(true)
+  })
+})
+
+describe('isReferralCode', () => {
+  it('should return true for a valid referral code', () => {
+    expect(rules.referralCode('PR0043')).toBe(true)
+    expect(rules.referralCode('SATOSHI')).toBe(true)
   })
 
-  it('validates password correctly', () => {
-    ok(rules.password(true, 'strongPassword1!'), 'Could not validate strongPassword1!')
-    ok(rules.password(true, '12345678'), 'Could not validate weak')
-    ok(!rules.password(true, '1234567'), 'Could not validate weak')
-    ok(!rules.password(true, 'weak'), 'Could not validate weak')
-    ok(!rules.password(true, ''), 'Could not validate weak')
+  it('should return false for an empty referral code', () => {
+    expect(rules.referralCode('')).toBe(false)
+  })
+  it('should return false for an invalid referral code', () => {
+    expect(rules.referralCode('ABCDEFGHIJKLMNOPQ')).toBe(false)
+    expect(rules.referralCode('@CRAIGWRONG')).toBe(false)
+  })
+})
+
+describe('isValidFeeRate', () => {
+  it('should return true a valid fee rate', () => {
+    expect(rules.feeRate('123')).toBe(true)
+    expect(rules.feeRate('1')).toBe(true)
+    expect(rules.feeRate('1.4')).toBe(true)
+  })
+  it('should return false a fee rate below 1', () => {
+    expect(rules.feeRate('0.8')).toBe(false)
+    expect(rules.feeRate('0')).toBe(false)
+    expect(rules.feeRate('-1')).toBe(false)
+    expect(rules.feeRate('-1.5')).toBe(false)
+  })
+  it('should return false not a number', () => {
+    expect(rules.feeRate('a')).toBe(false)
+    expect(rules.feeRate('.')).toBe(false)
   })
 })

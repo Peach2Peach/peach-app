@@ -1,16 +1,16 @@
-import { View, ViewStyle } from 'react-native'
+import { View } from 'react-native'
 
+import tw from '../../../../styles/tailwind'
 import { BackupPasswordPrompt } from './BackupPasswordPrompt'
 import { FileBackupOverview } from './FileBackupOverview'
 
 type Props = {
-  style?: ViewStyle
   showPasswordPrompt: boolean
   toggle: () => void
 }
 
-export const FileBackup = ({ style, showPasswordPrompt, toggle }: Props) => (
-  <View style={style}>
+export const FileBackup = ({ showPasswordPrompt, toggle }: Props) => (
+  <View style={tw`grow`}>
     {showPasswordPrompt ? <BackupPasswordPrompt toggle={toggle} /> : <FileBackupOverview next={toggle} />}
   </View>
 )

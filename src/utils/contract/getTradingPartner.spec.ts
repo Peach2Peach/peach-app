@@ -1,4 +1,4 @@
-import { getTradingPartner } from '.'
+import { getTradingPartner } from './getTradingPartner'
 
 describe('getTradingPartner', () => {
   it('returns seller if user is buyer', () => {

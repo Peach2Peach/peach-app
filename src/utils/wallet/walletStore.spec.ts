@@ -11,7 +11,6 @@ describe('walletStore', () => {
       ...useWalletState.getState(),
       addresses: [],
       balance: 0,
-      pendingTransactions: {},
       transactions: [],
       txOfferMap: {},
       addressLabelMap: {},
@@ -33,15 +32,6 @@ describe('walletStore', () => {
     useWalletState.getState().setTransactions([pending1])
     useWalletState.getState().removeTransaction(pending1.txid)
     expect(useWalletState.getState().transactions).toEqual([])
-  })
-  it('adds pending transactions', () => {
-    useWalletState.getState().addPendingTransactionHex('txId', 'txHex')
-    expect(useWalletState.getState().pendingTransactions).toEqual({ txId: 'txHex' })
-  })
-  it('removes pending transactions', () => {
-    useWalletState.getState().addPendingTransactionHex('txId', 'txHex')
-    useWalletState.getState().removePendingTransaction('txId')
-    expect(useWalletState.getState().pendingTransactions).toEqual({})
   })
   it('adds a label to an address', () => {
     useWalletState.getState().labelAddress('address1', 'label')

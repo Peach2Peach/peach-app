@@ -1,13 +1,17 @@
 import { View } from 'react-native'
-import { Screen, Text } from '../../components'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
-import { useWriteCSV } from '../../hooks'
+import { PeachText } from '../../components/text/PeachText'
+import { THOUSANDS_GROUP } from '../../constants'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
+import { useWriteCSV } from '../../hooks/useWriteCSV'
 import tw from '../../styles/tailwind'
-import { toShortDateFormat } from '../../utils/date'
-import { createCSV } from '../../utils/file'
+import { sortByKey } from '../../utils/array/sortByKey'
+import { toShortDateFormat } from '../../utils/date/toShortDateFormat'
+import { createCSV } from '../../utils/file/createCSV'
 import i18n from '../../utils/i18n'
-import { groupChars, priceFormat } from '../../utils/string'
+import { groupChars } from '../../utils/string/groupChars'
+import { priceFormat } from '../../utils/string/priceFormat'
 import { getStatusCardProps } from './components/tradeItem/helpers'
 import { getPastOffers, getThemeForTradeItem } from './utils'
 
@@ -16,14 +20,14 @@ export function ExportTradeHistory () {
   const openShareMenu = useWriteCSV()
 
   const onPress = async () => {
-    const csvValue = createCSVValue(getPastOffers(tradeSummaries))
+    const csvValue = createCSVValue(getPastOffers(tradeSummaries).sort(sortByKey('creationDate')))
     await openShareMenu(csvValue, 'trade-history.csv')
   }
 
   return (
     <Screen header={i18n('exportTradeHistory.title')}>
       <View style={tw`justify-center gap-8 grow`}>
-        <Text style={tw`body-l`}>
+        <PeachText style={tw`body-l`}>
           {`${i18n('exportTradeHistory.description')}
 
   • ${i18n('exportTradeHistory.date')}
@@ -31,7 +35,7 @@ export function ExportTradeHistory () {
   • ${i18n('exportTradeHistory.type')}
   • ${i18n('exportTradeHistory.amount')}
   • ${i18n('exportTradeHistory.price')}`}
-        </Text>
+        </PeachText>
       </View>
       <Button style={tw`self-center`} onPress={onPress}>
         {i18n('exportTradeHistory.export')}
@@ -41,21 +45,23 @@ export function ExportTradeHistory () {
 }
 
 function createCSVValue (tradeSummaries: (OfferSummary | ContractSummary)[]) {
-  const headers = ['Date', 'Trade ID', 'Type', 'Amount', 'Price']
+  const headers = ['Date', 'Trade ID', 'Type', 'Amount', 'Price', 'Currency']
   const fields = {
     Date: (d: OfferSummary | ContractSummary) => toShortDateFormat(d.creationDate),
     'Trade ID': (d: OfferSummary | ContractSummary) => getStatusCardProps(d).title.replaceAll('‑', '-'),
     Type: getTradeSummaryType,
     Amount: (d: OfferSummary | ContractSummary) => {
       const { amount } = d
-      return groupChars(String(amount), 3)
+      return String(amount)
     },
     Price: (d: OfferSummary | ContractSummary) => {
       const tradePrice
-        = 'price' in d ? (d.currency === 'SAT' ? groupChars(String(d.price), 3) : priceFormat(d.price)) : ''
-      const price = 'price' in d ? `${tradePrice} ${d.currency}` : ''
+        // eslint-disable-next-line max-len
+        = 'price' in d ? (d.currency === 'SAT' ? groupChars(String(d.price), THOUSANDS_GROUP) : priceFormat(d.price)) : ''
+      const price = 'price' in d ? `${tradePrice}` : ''
       return price
     },
+    Currency: (d: OfferSummary | ContractSummary) => ('currency' in d ? d.currency : ''),
   }
 
   return createCSV(tradeSummaries, headers, fields)

@@ -7,7 +7,7 @@ import { PublicKey } from './PublicKey'
 import { Trades } from './Trades'
 
 type Props = {
-  user: User
+  user: User | PublicUser
 }
 
 export const AccountInfo = ({ user }: Props) => (

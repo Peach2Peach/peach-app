@@ -2,12 +2,15 @@ import { useRef } from 'react'
 import { TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Input, PeachScrollView, Screen } from '../../components'
+import { Contract } from '../../../peach-api/src/@types/contract'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
-import { useRoute } from '../../hooks'
+import { Input } from '../../components/inputs/Input'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
-import { contractIdToHex } from '../../utils/contract'
+import { useRoute } from '../../hooks/useRoute'
+import { contractIdToHex } from '../../utils/contract/contractIdToHex'
 import i18n from '../../utils/i18n'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { useDisputeFormSetup } from './hooks/useDisputeFormSetup'
@@ -27,7 +30,7 @@ function DisputeFormScreen ({ contract }: { contract: Contract }) {
   let $message = useRef<TextInput>(null).current
   return (
     <Screen header={i18n('dispute.disputeForTrade', contractIdToHex(contractId))}>
-      <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
+      <PeachScrollView contentContainerStyle={tw`items-center justify-center grow`}>
         <View style={tw`justify-center h-full max-w-full`}>
           <EmailInput
             onChange={setEmail}

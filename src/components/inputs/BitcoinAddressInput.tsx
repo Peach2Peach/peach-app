@@ -2,9 +2,9 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import { useState } from 'react'
 import { useQRScanner } from '../../hooks/useQRScanner'
 import tw from '../../styles/tailwind'
-import { parseBitcoinRequest } from '../../utils/bitcoin'
+import { parseBitcoinRequest } from '../../utils/bitcoin/parseBitcoinRequest'
 import i18n from '../../utils/i18n'
-import { cutOffAddress } from '../../utils/string'
+import { cutOffAddress } from '../../utils/string/cutOffAddress'
 import { ScanQR } from '../camera/ScanQR'
 import { Input, InputProps } from './Input'
 
@@ -24,7 +24,7 @@ export const BitcoinAddressInput = ({ value, onChange, ...props }: InputProps & 
   return !showQRScanner ? (
     <Input
       placeholder={i18n('form.address.btc.placeholder')}
-      placeholderTextColor={tw`text-black-5`.color}
+      placeholderTextColor={tw.color('black-5')}
       icons={[
         ['clipboard', pasteAddress],
         ['camera', showQR],

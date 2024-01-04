@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { FlatList, Keyboard, View, ViewToken } from 'react-native'
+import { PAGE_SIZE } from '../../../hooks/query/useChatMessages'
 import tw from '../../../styles/tailwind'
-import { getChat } from '../../../utils/chat'
+import { getChat } from '../../../utils/chat/getChat'
 import { ChatMessage } from './ChatMessage'
-
-const PAGE_SIZE = 22
 
 type Props = {
   chat: Chat
@@ -22,9 +21,9 @@ export const ChatBox = ({ chat, setAndSaveChat, page, fetchNextPage, isLoading, 
   const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
 
   useEffect(() => {
-    if (visibleChatMessages.length === 0) return
+    if (visibleChatMessages.length === 0 || page > 0) return
     setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 300)
-  }, [visibleChatMessages.length])
+  }, [chat.messages.length, page, visibleChatMessages.length])
 
   useEffect(() => {
     Keyboard.addListener('keyboardDidShow', () => () => scroll.current?.scrollToEnd({ animated: false }))

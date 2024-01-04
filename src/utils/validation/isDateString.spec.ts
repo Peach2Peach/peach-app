@@ -1,4 +1,4 @@
-import { isDateString } from '.'
+import { isDateString } from './isDateString'
 
 describe('isDateString', () => {
   it('should return true for a valid date string', () => {

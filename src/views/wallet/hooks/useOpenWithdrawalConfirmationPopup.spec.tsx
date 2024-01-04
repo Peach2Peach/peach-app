@@ -1,10 +1,12 @@
 import { act } from 'react-test-renderer'
-import { renderHook } from 'test-utils'
+import { fireEvent, render, renderHook, waitFor } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
+import { Popup, PopupAction } from '../../../components/popup'
+import { PopupComponent } from '../../../components/popup/PopupComponent'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
@@ -20,10 +22,12 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 const amount = sellOffer.amount
 const address = 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'
 const feeRate = estimatedFees.halfHourFee
-const fee = feeRate * 110
+const TX_SIZE = 110
+const fee = feeRate * TX_SIZE
 const transaction = getTransactionDetails(amount, feeRate)
 const transactionWithChange = getTransactionDetails(amount, feeRate)
-transactionWithChange.txDetails.sent = sellOffer.amount + 5000
+const changeAmount = 5000
+transactionWithChange.txDetails.sent = sellOffer.amount + changeAmount
 
 const props = {
   address,
@@ -48,22 +52,18 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
     const { result } = renderHook(useOpenWithdrawalConfirmationPopup)
 
     await result.current(props)
-    expect(usePopupStore.getState()).toEqual(
-      expect.objectContaining({
-        title: 'sending funds',
-        level: 'APP',
-        content: <WithdrawalConfirmation {...{ ...props, fee }} />,
-        action1: {
-          label: 'confirm & send',
-          icon: 'arrowRightCircle',
-          callback: expect.any(Function),
-        },
-        action2: {
-          label: 'cancel',
-          icon: 'xCircle',
-          callback: usePopupStore.getState().closePopup,
-        },
-      }),
+    expect(usePopupStore.getState().visible).toBe(true)
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <PopupComponent
+        title="sending funds"
+        content={<WithdrawalConfirmation {...{ ...props, fee }} />}
+        actions={
+          <>
+            <PopupAction label="cancel" iconId="xCircle" onPress={usePopupStore.getState().closePopup} />
+            <PopupAction label="confirm & send" iconId="arrowRightCircle" onPress={expect.any(Function)} reverseOrder />
+          </>
+        }
+      />,
     )
   })
 
@@ -76,16 +76,15 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
     await act(async () => {
       await result.current(props)
     })
-    const promise = usePopupStore.getState().action1?.callback()
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('confirm & send'))
 
-    await act(async () => {
-      await promise
+    await waitFor(() => {
+      expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
+      expect(usePopupStore.getState().visible).toBe(false)
+      expect(useWalletState.getState().selectedUTXOIds).toEqual([])
+      expect(navigateMock).toHaveBeenCalledWith('homeScreen', { screen: 'wallet' })
     })
-
-    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
-    expect(usePopupStore.getState().visible).toBe(false)
-    expect(useWalletState.getState().selectedUTXOIds).toEqual([])
-    expect(navigateMock).toHaveBeenCalledWith('wallet')
   })
 
   it('should be able to send all funds', async () => {
@@ -97,20 +96,20 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
     await act(async () => {
       await result.current({ ...props, shouldDrainWallet: true })
     })
-    const promise = usePopupStore.getState().action1?.callback()
 
-    await act(async () => {
-      await promise
-    })
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('confirm & send'))
 
-    expect(peachWallet.buildFinishedTransaction).toHaveBeenCalledWith({
-      address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
-      amount: 250000,
-      feeRate: 6,
-      shouldDrainWallet: true,
-      utxos: undefined,
+    await waitFor(() => {
+      expect(peachWallet.buildFinishedTransaction).toHaveBeenCalledWith({
+        address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+        amount: 250000,
+        feeRate: 6,
+        shouldDrainWallet: true,
+        utxos: undefined,
+      })
+      expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
     })
-    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
   })
 
   it('should close popup on cancel', async () => {
@@ -120,7 +119,9 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
     await act(async () => {
       await result.current(props)
     })
-    usePopupStore.getState().action2?.callback()
+
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('cancel'))
 
     expect(usePopupStore.getState().visible).toBe(false)
   })
@@ -148,12 +149,13 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
     await act(async () => {
       await result.current(props)
     })
-    const promise = usePopupStore.getState().action1?.callback()
 
-    await act(async () => {
-      await promise
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('confirm & send'))
+
+    await waitFor(() => {
+      expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
+      expect(usePopupStore.getState().visible).toBeFalsy()
     })
-    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
-    expect(usePopupStore.getState().visible).toBeFalsy()
   })
 })

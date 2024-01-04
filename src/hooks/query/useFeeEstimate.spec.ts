@@ -1,15 +1,12 @@
-import { renderHook, waitFor } from 'test-utils'
+import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { estimatedFees } from '../../../tests/unit/data/bitcoinNetworkData'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { peachAPI } from '../../utils/peachAPI'
 import { placeholderFees, useFeeEstimate } from './useFeeEstimate'
 
-jest.useFakeTimers()
+const getFeeEstimateMock = jest.spyOn(peachAPI.public.bitcoin, 'getFeeEstimate')
 
-const getFeeEstimateMock = jest.fn().mockResolvedValue([estimatedFees])
-jest.mock('../../utils/peachAPI', () => ({
-  getFeeEstimate: () => getFeeEstimateMock(),
-}))
+jest.useFakeTimers()
 
 describe('useFeeEstimate', () => {
   afterEach(() => {
@@ -31,7 +28,7 @@ describe('useFeeEstimate', () => {
     })
   })
   it('returns error if server did not return result', async () => {
-    getFeeEstimateMock.mockResolvedValueOnce([null, unauthorizedError])
+    getFeeEstimateMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const { result } = renderHook(useFeeEstimate)
     expect(result.current).toEqual({
       estimatedFees: placeholderFees,
@@ -43,7 +40,7 @@ describe('useFeeEstimate', () => {
     expect(result.current).toEqual({
       estimatedFees: placeholderFees,
       isLoading: false,
-      error: new Error(unauthorizedError.error),
+      error: new Error('UNAUTHORIZED'),
     })
   })
 })

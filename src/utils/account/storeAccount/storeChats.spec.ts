@@ -1,7 +1,7 @@
-import { defaultAccount, setAccount } from '..'
-import { chatStorage } from '../chatStorage'
-import { storeChats } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
+import { defaultAccount, setAccount } from '../account'
+import { chatStorage } from '../chatStorage'
+import { storeChats } from './storeChats'
 
 describe('storeChats', () => {
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import { API_URL } from '@env'
-import { parseResponse } from '../peachAPI/parseResponse'
-import { getPublicHeaders } from '../peachAPI/public/getPublicHeaders'
 import fetch from '../fetch'
+import { getPublicHeaders } from '../peachAPI/getPublicHeaders'
+import { parseResponse } from '../peachAPI/parseResponse'
 
 type Props = {
   address: string

@@ -1,9 +1,10 @@
 import { FlatList } from 'react-native'
-import { Header, Screen } from '../../components'
-import { useNavigation } from '../../hooks'
+import { Header } from '../../components/Header'
+import { Screen } from '../../components/Screen'
+import { useNavigation } from '../../hooks/useNavigation'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
+import { headerIcons } from '../../utils/layout/headerIcons'
 import { EmptyTransactionHistory, TxStatusCard } from './components'
 import { useTransactionHistorySetup } from './hooks'
 
@@ -18,7 +19,7 @@ export const TransactionHistory = () => {
         <FlatList
           initialNumToRender={10}
           maxToRenderPerBatch={20}
-          contentContainerStyle={[tw`gap-4 py-sm`, tw.md`py-md`]}
+          contentContainerStyle={[tw`gap-4 py-sm`, tw`md:py-md`]}
           data={transactions}
           renderItem={(props) => <TxStatusCard {...props} />}
           keyExtractor={(item) => item.id}

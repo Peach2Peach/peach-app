@@ -1,16 +1,8 @@
-import { act, renderHook, waitFor } from 'test-utils'
-import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
-import { useMatchStore } from '../../../components/matches/store'
+import { act, renderHook, responseUtils, waitFor } from 'test-utils'
+import { peachAPI } from '../../../utils/peachAPI'
 import { useOfferMatches } from './useOfferMatches'
 
-const getMatchesMock = jest
-  .fn()
-  .mockImplementation((..._args) => Promise.resolve([{ matches: ['match'], nextPage: undefined }, null]))
-const getOfferDetailsMock = jest.fn().mockResolvedValue([buyOffer, null])
-jest.mock('../../../utils/peachAPI', () => ({
-  getOfferDetails: () => getOfferDetailsMock(),
-  getMatches: (...args: unknown[]) => getMatchesMock(...args),
-}))
+const getMatchesMock = jest.spyOn(peachAPI.private.offer, 'getMatches')
 
 jest.useFakeTimers()
 
@@ -23,35 +15,24 @@ describe('useOfferMatches', () => {
     expect(result.current.allMatches).toEqual(['match'])
   })
   it('should not make a request if not enabled', () => {
-    renderHook(() => useOfferMatches('offerId', false), {})
+    renderHook(() => useOfferMatches('offerId', undefined, false), {})
 
     expect(getMatchesMock).not.toHaveBeenCalled()
-  })
-  it('should refetch after 15 seconds', async () => {
-    const { result } = renderHook(useOfferMatches, { initialProps: 'offerId' })
-    await waitFor(() => {
-      expect(result.current.isSuccess).toBe(true)
-    })
-    expect(result.current.allMatches).toEqual(['match'])
-    jest.advanceTimersByTime(1000 * 15)
-    expect(getMatchesMock).toHaveBeenCalledTimes(2)
-    await waitFor(() => {
-      expect(result.current.allMatches).toEqual(['match'])
-    })
   })
   it('should not remove matches when the user gets to the next page', async () => {
     const firstPage = Array(10)
       .fill('match')
       .map((match, index) => `${match}${index}`)
     const secondPage = ['match10']
-    getMatchesMock.mockImplementation(({ page }: { page: number }) => {
+    // @ts-ignore this should be replaced with better match data
+    getMatchesMock.mockImplementation(({ page }: { page?: number }) => {
       if (page === 0) {
-        return Promise.resolve([{ matches: firstPage, nextPage: 1 }, null])
+        return Promise.resolve({ result: { matches: firstPage, nextPage: 1 }, ...responseUtils })
       }
       if (page === 1) {
-        return Promise.resolve([{ matches: secondPage, nextPage: undefined }, null])
+        return Promise.resolve({ result: { matches: secondPage, nextPage: undefined }, ...responseUtils })
       }
-      return Promise.resolve([{ matches: [], nextPage: undefined }, null])
+      return Promise.resolve({ result: { matches: [], nextPage: undefined }, ...responseUtils })
     })
 
     const { result } = renderHook(useOfferMatches, { initialProps: 'newOfferId' })
@@ -90,9 +71,6 @@ describe('useOfferMatches', () => {
       expect(result.current.allMatches).toEqual([...firstPage, ...secondPage])
     })
 
-    act(() => {
-      useMatchStore.setState({ currentPage: 1 })
-    })
     await waitFor(() => {
       jest.advanceTimersByTime(1000 * 15)
     })
@@ -101,14 +79,10 @@ describe('useOfferMatches', () => {
   })
 
   it('should return matches for a funded sell offer', async () => {
-    getMatchesMock.mockImplementation((..._args) => Promise.resolve([{ matches: ['match'], remainingMatches: 0 }, null]))
-    getOfferDetailsMock.mockResolvedValueOnce([
-      {
-        ...sellOffer,
-        funding: { status: 'FUNDED' },
-      },
-      null,
-    ])
+    // @ts-ignore this should be replaced with better match data
+    getMatchesMock.mockImplementation((..._args) =>
+      Promise.resolve({ result: { matches: ['match'], remainingMatches: 0 }, ...responseUtils }),
+    )
     const { result } = renderHook(useOfferMatches, { initialProps: 'thirdOfferId' })
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)

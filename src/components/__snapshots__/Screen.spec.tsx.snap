@@ -2,15 +2,39 @@
 
 exports[`Screen renders correctly 1`] = `
 <View
+  onLayout={[Function]}
   style={
-    {
-      "flexBasis": "0%",
-      "flexGrow": 1,
-      "flexShrink": 1,
-    }
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      {
+        "paddingBottom": 0,
+      },
+    ]
   }
 >
-  <RCTSafeAreaView
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       {
         "flexBasis": "0%",
@@ -26,38 +50,75 @@ exports[`Screen renders correctly 1`] = `
             "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 16,
           },
           {
-            "paddingBottom": 32,
-            "paddingLeft": 32,
-            "paddingRight": 32,
-            "paddingTop": 32,
+            "paddingTop": 0,
           },
-          undefined,
+          {
+            "paddingBottom": 0,
+          },
         ]
       }
     >
-      <View />
+      <View
+        style={
+          [
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {},
+            undefined,
+          ]
+        }
+      >
+        <View />
+      </View>
     </View>
-  </RCTSafeAreaView>
+  </View>
 </View>
 `;
 
 exports[`Screen renders correctly on small screens 1`] = `
 <View
+  onLayout={[Function]}
   style={
-    {
-      "flexBasis": "0%",
-      "flexGrow": 1,
-      "flexShrink": 1,
-    }
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      {
+        "paddingBottom": 0,
+      },
+    ]
   }
 >
-  <RCTSafeAreaView
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       {
         "flexBasis": "0%",
@@ -73,18 +134,36 @@ exports[`Screen renders correctly on small screens 1`] = `
             "flexBasis": "0%",
             "flexGrow": 1,
             "flexShrink": 1,
-            "paddingBottom": 16,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-            "paddingTop": 16,
           },
-          {},
-          undefined,
+          {
+            "paddingTop": 0,
+          },
+          {
+            "paddingBottom": 0,
+          },
         ]
       }
     >
-      <View />
+      <View
+        style={
+          [
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {},
+            undefined,
+          ]
+        }
+      >
+        <View />
+      </View>
     </View>
-  </RCTSafeAreaView>
+  </View>
 </View>
 `;

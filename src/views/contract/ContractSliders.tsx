@@ -1,18 +1,14 @@
 import { ConfirmSlider } from '../../components/inputs'
 import { MSINANHOUR } from '../../constants'
-import { useRoute } from '../../hooks'
+import { useRoute } from '../../hooks/useRoute'
 import { cancelContractAsSeller } from '../../popups/tradeCancelation/helpers/cancelContractAsSeller'
 import { useStartRefundPopup } from '../../popups/useStartRefundPopup'
-import { getSellOfferFromContract, verifyAndSignReleaseTx } from '../../utils/contract'
+import { getSellOfferFromContract } from '../../utils/contract/getSellOfferFromContract'
 import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
+import { verifyAndSignReleaseTx } from '../../utils/contract/verifyAndSignReleaseTx'
 import i18n from '../../utils/i18n'
-import {
-  confirmContractCancelation,
-  confirmPayment,
-  extendPaymentTimer,
-  rejectContractCancelation,
-} from '../../utils/peachAPI'
-import { getEscrowWalletForOffer } from '../../utils/wallet'
+import { peachAPI } from '../../utils/peachAPI'
+import { getEscrowWalletForOffer } from '../../utils/wallet/getEscrowWalletForOffer'
 import { useContractContext } from './context'
 import { useContractMutation } from './hooks/useContractMutation'
 import { useReleaseEscrow } from './hooks/useReleaseEscrow'
@@ -43,7 +39,7 @@ export function PaymentMadeSlider () {
     { paymentMade: new Date(), tradeStatus: 'confirmPaymentRequired' },
     {
       mutationFn: async () => {
-        const [, err] = await confirmPayment({ contractId })
+        const { error: err } = await peachAPI.private.contract.confirmPaymentBuyer({ contractId })
         if (err) throw new Error(err.error)
       },
     },
@@ -76,7 +72,7 @@ export function PaymentReceivedSlider () {
           throw new Error(errorMsg)
         }
 
-        const [, err] = await confirmPayment({
+        const { error: err } = await peachAPI.private.contract.confirmPaymentSeller({
           contractId: contract.id,
           releaseTransaction,
           batchReleasePsbt,
@@ -121,7 +117,7 @@ export function ExtendTimerSlider () {
     { paymentExpectedBy: new Date(Date.now() + MSINANHOUR * 12) },
     {
       mutationFn: async () => {
-        const [result, err] = await extendPaymentTimer({ contractId })
+        const { result, error: err } = await peachAPI.private.contract.extendPaymentTimer({ contractId })
         if (!result || err) throw new Error(err?.error || 'Error extending payment timer')
       },
     },
@@ -138,7 +134,7 @@ export function ResolveCancelRequestSliders () {
     { cancelationRequested: false },
     {
       mutationFn: async () => {
-        const [, err] = await rejectContractCancelation({ contractId })
+        const { error: err } = await peachAPI.private.contract.rejectContractCancelation({ contractId })
         if (err) throw new Error(err.error)
       },
     },
@@ -148,7 +144,7 @@ export function ResolveCancelRequestSliders () {
     { canceled: true, cancelationRequested: false },
     {
       mutationFn: async () => {
-        const [, err] = await confirmContractCancelation({ contractId })
+        const { error: err } = await peachAPI.private.contract.confirmContractCancelation({ contractId })
         if (err) throw new Error(err.error)
       },
     },

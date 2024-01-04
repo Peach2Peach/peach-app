@@ -1,4 +1,4 @@
-import { Text } from '../components'
+import { PeachText } from '../components/text/PeachText'
 import i18n from '../utils/i18n'
 
 type Props = {
@@ -7,5 +7,5 @@ type Props = {
 }
 
 export const BuyOfferExpired = ({ offerId, days }: Props) => (
-  <Text>{i18n('notification.offer.buyOfferExpired.text', offerId, days)}</Text>
+  <PeachText>{i18n('notification.offer.buyOfferExpired.text', offerId, days)}</PeachText>
 )

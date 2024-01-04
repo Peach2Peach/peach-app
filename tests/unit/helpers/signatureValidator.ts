@@ -1,5 +1,5 @@
 import { ECPairFactory } from 'ecpair'
-import { getNetwork } from '../../../src/utils/wallet'
+import { getNetwork } from '../../../src/utils/wallet/getNetwork'
 const ecc = require('tiny-secp256k1')
 const ECPair = ECPairFactory(ecc)
 

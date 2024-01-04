@@ -1,14 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
+import { MSINASECOND } from '../../constants'
 import { error } from '../../utils/log'
 import { defaultFundingStatus } from '../../utils/offer/constants'
-import { getFundingStatus } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 
-const TWENTYSECONDS = 20 * 1000
+const TWENTYSECONDS = 20 * MSINASECOND
 
 const getFundingStatusQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
   const [, offerId] = queryKey
 
-  const [fundingStatus, err] = await getFundingStatus({ offerId })
+  const { result: fundingStatus, error: err } = await peachAPI.private.offer.getFundingStatus({ offerId })
   if (!fundingStatus || err) {
     error('Could not fetch funding status for offer', offerId, err?.error)
     throw new Error(err?.error)

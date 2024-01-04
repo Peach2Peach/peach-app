@@ -1,5 +1,5 @@
-import { Header } from '../../../components'
-import { useNavigation } from '../../../hooks'
+import { Header } from '../../../components/Header'
+import { useNavigation } from '../../../hooks/useNavigation'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 

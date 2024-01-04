@@ -1,15 +1,12 @@
 import { View } from 'react-native'
-
-import { Progress } from '../../../components'
-import { useTradingLimits } from '../../../hooks'
+import { Progress } from '../../../components/ui/Progress'
+import { useTradingLimits } from '../../../hooks/query/useTradingLimits'
 import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'
 import { TradingLimitAmount } from './TradingLimitAmount'
 
 export const TradingLimits = () => {
-  const {
-    limits: { dailyAmount, daily, monthlyAnonymous, monthlyAnonymousAmount, yearlyAmount, yearly },
-  } = useTradingLimits()
+  const { dailyAmount, daily, monthlyAnonymous, monthlyAnonymousAmount, yearlyAmount, yearly } = useTradingLimits()
   const limits = [
     [dailyAmount, daily],
     [monthlyAnonymousAmount, monthlyAnonymous],

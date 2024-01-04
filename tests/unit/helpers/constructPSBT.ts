@@ -1,8 +1,9 @@
+/* eslint-disable no-magic-numbers */
 import { PsbtInput, PsbtOutput } from 'bip174/src/lib/interfaces'
 import { BIP32Interface } from 'bip32'
 import { Psbt, payments } from 'bitcoinjs-lib'
 import { sha256 } from 'bitcoinjs-lib/src/crypto'
-import { getNetwork } from '../../../src/utils/wallet'
+import { getNetwork } from '../../../src/utils/wallet/getNetwork'
 import { getScript } from './getScript'
 
 interface PsbtOutputExtendedAddress extends PsbtOutput {

@@ -2,14 +2,23 @@ import { getBuildNumber, getUniqueIdSync, getVersion } from 'react-native-device
 import { IconType } from './assets/icons'
 import { sha256 } from './utils/crypto/sha256'
 
+export const THOUSANDS_GROUP = 3
+export const CENT = 100
 export const SATSINBTC = 100000000
+export const TOTAL_BITCOIN = 21000000
+export const TOTAL_SATS = TOTAL_BITCOIN * SATSINBTC
 export const MSINASECOND = 1000
-export const MSINAMINUTE = MSINASECOND * 60
-export const MSINANHOUR = MSINAMINUTE * 60
-export const MSINADAY = MSINANHOUR * 24
-export const MSINAMONTH = MSINADAY * 30
-
+const SECONDS_IN_A_MINUTE = 60
+export const MSINAMINUTE = MSINASECOND * SECONDS_IN_A_MINUTE
+const MINUTES_IN_AN_HOUR = 60
+export const MSINANHOUR = MSINAMINUTE * MINUTES_IN_AN_HOUR
+const HOURS_IN_A_DAY = 24
+export const MSINADAY = MSINANHOUR * HOURS_IN_A_DAY
+const DAYS_IN_A_MONTH = MSINADAY * 30
+export const MSINAMONTH = DAYS_IN_A_MONTH
 export const FIFTEEN_SECONDS = 15 * MSINASECOND
+
+export const NEW_USER_THRESHOLD = 3
 
 export const APPVERSION = getVersion()
 export const BUILDNUMBER = getBuildNumber()

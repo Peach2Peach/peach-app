@@ -20,6 +20,7 @@
 "notification.body.contract.seller.disputeWon" = "Nous avons décidé en votre faveur dans le litige pour l'échange %1$@. Veuillez consulter le message de votre médiateur dans le chat de l'échange pour connaître la suite.";
 "notification.body.contract.seller.paymentTimerHasRunOut" = "Le paiement pour l'échange %1$@ n'a pas été effectué à temps. Veuillez ouvrir l'application pour accorder plus de temps à l'acheteur ou annuler l'échange.";
 "notification.body.contract.tradeCompleted" = "Les sats pour l'échange %1$@ sont dans votre portefeuille 🎉";
+"notification.body.contract.seller.instantTrade" = "Tu viens de démarrer un échange instantané avec un acheteur !";
 "notification.body.offer.buyOfferExpired" = "Votre offre d'achat %1$@ n'a reçu aucune correspondance depuis %2$@ jours et a été supprimée.";
 "notification.body.offer.escrowFunded" = "Le dépôt a été reçu et votre offre est publiée.";
 "notification.body.offer.fundingAmountDifferent" = "Le dépôt a été effectué pour un montant différent. Souhaitez-vous continuer avec votre offre ou obtenir un remboursement ?";

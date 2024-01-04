@@ -1,7 +1,6 @@
 import OpenPGP from 'react-native-fast-openpgp'
-import { signAndEncryptSymmetric } from '.'
-import { defaultAccount, setAccount } from '../account'
-import { useAccountStore } from '../account/account'
+import { defaultAccount, setAccount, useAccountStore } from '../account/account'
+import { signAndEncryptSymmetric } from './signAndEncryptSymmetric'
 
 describe('signAndEncryptSymmetric', () => {
   beforeEach(() => {
@@ -12,9 +11,6 @@ describe('signAndEncryptSymmetric', () => {
         privateKey: 'privateKey',
       },
     })
-  })
-  afterEach(() => {
-    jest.resetAllMocks()
   })
 
   it('signs and encrypts the message', async () => {

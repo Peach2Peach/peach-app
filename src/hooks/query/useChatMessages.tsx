@@ -2,10 +2,10 @@ import { useIsFocused } from '@react-navigation/native'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import i18n from '../../utils/i18n'
-import { getChat } from '../../utils/peachAPI'
-import { decryptSymmetric } from '../../utils/pgp'
+import { peachAPI } from '../../utils/peachAPI'
+import { decryptSymmetric } from '../../utils/pgp/decryptSymmetric'
 
-const PAGE_SIZE = 22
+export const PAGE_SIZE = 22
 
 type GetChatQueryProps = {
   queryKey: [string, string]
@@ -13,10 +13,17 @@ type GetChatQueryProps = {
 }
 const getChatQuery = async ({ queryKey, pageParam = 0 }: GetChatQueryProps) => {
   const [, contractId] = queryKey
-  const [messages, error] = await getChat({
+  const { result, error } = await peachAPI.private.contract.getChat({
     contractId,
     page: pageParam,
   })
+  let messages
+  if (result) {
+    messages = result.map((message) => ({
+      ...message,
+      date: new Date(message.date),
+    }))
+  }
 
   if (!messages || error) throw new Error(error?.error)
 
@@ -57,12 +64,11 @@ const getDecryptedChat
 
 export const useChatMessages = ({ id, symmetricKey }: { id: string; symmetricKey?: string }) => {
   const isFocused = useIsFocused()
-  const { data, isLoading, error, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
+  const { data, isLoading, isFetching, error, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
     queryKey: ['contract-chat', id],
     queryFn: symmetricKey ? getDecryptedChat(symmetricKey) : () => [],
     keepPreviousData: true,
     enabled: !!symmetricKey && isFocused,
-    refetchInterval: 1000,
     getNextPageParam: (lastPage, allPages) => (lastPage.length === PAGE_SIZE ? allPages.length : null),
   })
 
@@ -71,6 +77,7 @@ export const useChatMessages = ({ id, symmetricKey }: { id: string; symmetricKey
   return {
     messages,
     isLoading,
+    isFetching,
     error,
     page: (data?.pages.length || 1) - 1,
     fetchNextPage,

@@ -1,5 +1,5 @@
 import { networks } from 'bitcoinjs-lib'
-import { createWalletFromBase58 } from '../wallet'
+import { createWalletFromBase58 } from '../wallet/createWalletFromBase58'
 import { getMainAccount } from './getMainAccount'
 
 describe('getMainAccount', () => {

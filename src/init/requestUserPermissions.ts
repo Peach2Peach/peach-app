@@ -1,9 +1,11 @@
 import messaging from '@react-native-firebase/messaging'
 import { isAirplaneModeSync } from 'react-native-device-info'
-import { openCrashReportPrompt } from '../utils/analytics'
-import { deleteFile, exists, readFile } from '../utils/file'
+import { openCrashReportPrompt } from '../utils/analytics/openCrashReportPrompt'
+import { deleteFile } from '../utils/file/deleteFile'
+import { exists } from '../utils/file/exists'
+import { readFile } from '../utils/file/readFile'
 import { error, info } from '../utils/log'
-import { parseError } from '../utils/result'
+import { parseError } from '../utils/result/parseError'
 
 export const requestUserPermissions = async () => {
   info('Requesting notification permissions')

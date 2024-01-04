@@ -1,5 +1,5 @@
 import { Linking } from 'react-native'
-import { linkToAppStoreAndroid } from '.'
+import { linkToAppStoreAndroid } from './linkToAppStoreAndroid'
 
 const bundleId = 'com.example.bundleId'
 const getInstallerPackageNameSyncMock = jest.fn()
@@ -14,10 +14,6 @@ describe('linkToAppStoreAndroid', () => {
   beforeEach(() => {
     openURLSpy.mockResolvedValue(undefined)
     jest.spyOn(Linking, 'canOpenURL').mockResolvedValue(true)
-  })
-
-  afterEach(() => {
-    jest.resetAllMocks()
   })
 
   it('opens the correct URL when installed from Google Play', async () => {

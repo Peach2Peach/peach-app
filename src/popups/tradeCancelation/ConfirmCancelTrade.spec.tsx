@@ -1,5 +1,5 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { contract } from '../../../tests/unit/data/contractData'
+import { contract } from '../../../peach-api/src/testData/contract'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
 
 describe('ConfirmCancelTrade', () => {

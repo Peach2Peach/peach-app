@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { ok } from 'assert'
-import { isDefined } from '../utils/validation'
+import { isDefined } from '../utils/validation/isDefined'
 import de from './de'
 import elGR from './el-GR'
 import en from './en'

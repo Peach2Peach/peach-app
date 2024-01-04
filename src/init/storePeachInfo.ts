@@ -1,6 +1,6 @@
 import { PAYMENTCATEGORIES, setPaymentMethods } from '../paymentMethods'
 import { useConfigStore } from '../store/configStore/configStore'
-import { shouldUsePaymentMethod } from '../utils/paymentMethod'
+import { shouldUsePaymentMethod } from '../utils/paymentMethod/shouldUsePaymentMethod'
 
 export const storePeachInfo = (peachInfo: GetInfoResponse) => {
   const {

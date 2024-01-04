@@ -1,27 +1,23 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useNavigation } from '../../../hooks'
 import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
-import { getTransactionFeeRate } from '../../../utils/bitcoin'
+import { useNavigation } from '../../../hooks/useNavigation'
+import { getTransactionFeeRate } from '../../../utils/bitcoin/getTransactionFeeRate'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { buildBumpFeeTransaction } from '../../../utils/wallet/transaction'
+import { buildBumpFeeTransaction } from '../../../utils/wallet/transaction/buildBumpFeeTransaction'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useShowConfirmRbfPopup } from './useShowConfirmRbfPopup'
 
 const useRemoveTxFromPeachWallet = () => {
-  const [removeTransaction, removePendingTransaction] = useWalletState(
-    (state) => [state.removeTransaction, state.removePendingTransaction],
-    shallow,
-  )
+  const [removeTransaction] = useWalletState((state) => [state.removeTransaction], shallow)
 
   const removeTxFromPeachWallet = useCallback(
     (transaction: Transaction) => {
       if (!transaction) return
       removeTransaction(transaction.txid)
-      removePendingTransaction(transaction.txid)
       peachWallet.transactions = peachWallet.transactions.filter((tx) => tx.txid !== transaction.txid)
     },
-    [removePendingTransaction, removeTransaction],
+    [removeTransaction],
   )
 
   return removeTxFromPeachWallet

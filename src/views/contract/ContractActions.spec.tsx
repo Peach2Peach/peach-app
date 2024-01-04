@@ -1,5 +1,5 @@
 import { render } from 'test-utils'
-import { contract } from '../../../tests/unit/data/contractData'
+import { contract } from '../../../peach-api/src/testData/contract'
 import { ContractActions } from './ContractActions'
 
 const useContractContextMock = jest.fn().mockReturnValue({ contract })

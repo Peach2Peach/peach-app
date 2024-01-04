@@ -1,4 +1,4 @@
-import { getCountryCodeByPhone } from '.'
+import { getCountryCodeByPhone } from './getCountryCodeByPhone'
 
 jest.mock('./countryMap', () => ({
   countryMap: {

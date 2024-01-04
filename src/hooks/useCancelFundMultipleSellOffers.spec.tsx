@@ -1,6 +1,11 @@
-import { act, fireEvent, render, renderHook, waitFor } from 'test-utils'
-import { unauthorizedError } from '../../tests/unit/data/peachAPIData'
+import { act, fireEvent, render, renderHook, responseUtils, waitFor } from 'test-utils'
+import { Popup, PopupAction } from '../components/popup'
+import { CancelOffer } from '../popups/CancelOffer'
+import { GrayPopup } from '../popups/GrayPopup'
+import { ClosePopupAction } from '../popups/actions'
+import { LoadingPopupAction } from '../popups/actions/LoadingPopupAction'
 import { usePopupStore } from '../store/usePopupStore'
+import { peachAPI } from '../utils/peachAPI'
 import { useWalletState } from '../utils/wallet/walletStore'
 import { useCancelFundMultipleSellOffers } from './useCancelFundMultipleSellOffers'
 
@@ -9,10 +14,7 @@ jest.mock('../utils/offer/saveOffer', () => ({
   saveOffer: (...args: unknown[]) => saveOfferMock(...args),
 }))
 
-const cancelOfferMock = jest.fn().mockResolvedValue([{}, null])
-jest.mock('../utils/peachAPI', () => ({
-  cancelOffer: (...args: unknown[]) => cancelOfferMock(...args),
-}))
+const cancelOfferMock = jest.spyOn(peachAPI.private.offer, 'cancelOffer')
 
 describe('useCancelFundMultipleSellOffers', () => {
   const fundMultiple = {
@@ -26,9 +28,19 @@ describe('useCancelFundMultipleSellOffers', () => {
     const { result } = renderHook(useCancelFundMultipleSellOffers, { initialProps: { fundMultiple } })
     result.current()
 
-    const popupComponent = usePopupStore.getState().content || <></>
-    const { toJSON } = render(popupComponent)
-    expect(toJSON()).toMatchSnapshot()
+    expect(usePopupStore.getState().visible).toEqual(true)
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <GrayPopup
+        title="cancel offer"
+        content={<CancelOffer type="ask" />}
+        actions={
+          <>
+            <PopupAction label="never mind" iconId="arrowLeftCircle" onPress={expect.any(Function)} />
+            <LoadingPopupAction label="cancel offer" iconId="xCircle" onPress={expect.any(Function)} reverseOrder />
+          </>
+        }
+      />,
+    )
   })
 
   it('should show cancel offer confirmation popup', async () => {
@@ -42,11 +54,10 @@ describe('useCancelFundMultipleSellOffers', () => {
     fireEvent.press(getAllByText('cancel offer')[1])
 
     await waitFor(() => {
-      expect(usePopupStore.getState()).toEqual({
-        ...usePopupStore.getState(),
-        title: 'offer canceled!',
-        level: 'DEFAULT',
-      })
+      expect(usePopupStore.getState().visible).toEqual(true)
+      expect(usePopupStore.getState().popupComponent).toStrictEqual(
+        <GrayPopup title="offer canceled!" actions={<ClosePopupAction style={{ justifyContent: 'center' }} />} />,
+      )
     })
 
     expect(cancelOfferMock).toHaveBeenCalledWith({ offerId: fundMultiple.offerIds[0] })
@@ -69,24 +80,22 @@ describe('useCancelFundMultipleSellOffers', () => {
     expect(cancelOfferMock).not.toHaveBeenCalled()
   })
   it('should handle cancelation errors', async () => {
-    cancelOfferMock.mockResolvedValueOnce([null, unauthorizedError])
-    cancelOfferMock.mockResolvedValueOnce([null, null])
+    cancelOfferMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
+    cancelOfferMock.mockResolvedValueOnce(responseUtils)
 
     const { result } = renderHook(useCancelFundMultipleSellOffers, {
       initialProps: { fundMultiple },
     })
     result.current()
 
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { getAllByText } = render(popupComponent)
+    const { getAllByText } = render(<Popup />)
     fireEvent.press(getAllByText('cancel offer')[1])
 
     await waitFor(() => {
-      expect(usePopupStore.getState()).toEqual({
-        ...usePopupStore.getState(),
-        title: 'offer canceled!',
-        level: 'DEFAULT',
-      })
+      expect(usePopupStore.getState().visible).toEqual(true)
+      expect(usePopupStore.getState().popupComponent).toStrictEqual(
+        <GrayPopup title="offer canceled!" actions={<ClosePopupAction style={{ justifyContent: 'center' }} />} />,
+      )
     })
     expect(useWalletState.getState().fundMultipleMap).toEqual({ [fundMultiple.address]: ['1', '2'] })
   })

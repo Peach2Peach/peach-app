@@ -1,4 +1,5 @@
-import { getDateSuffix } from '.'
+/* eslint-disable no-magic-numbers */
+import { getDateSuffix } from './getDateSuffix'
 
 describe('getDateSuffix', () => {
   it('should return the correct suffix for a given date', () => {

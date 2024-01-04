@@ -1,7 +1,7 @@
 import { sortAlphabetically } from '../../../utils/array/sortAlphabetically'
-import { structureEventsByCountry } from '../../../utils/events'
+import { structureEventsByCountry } from '../../../utils/events/structureEventsByCountry'
 import i18n from '../../../utils/i18n'
-import { keys } from '../../../utils/object'
+import { keys } from '../../../utils/object/keys'
 import { mapCountryToDrawerOption } from './mapCountryToDrawerOption'
 import { mapEventToDrawerOption } from './mapEventToDrawerOption'
 

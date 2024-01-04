@@ -1,6 +1,7 @@
 import { View } from 'react-native'
-import { PeachScrollView, Text } from '../../components'
+import { PeachScrollView } from '../../components/PeachScrollView'
 import { Button } from '../../components/buttons/Button'
+import { PeachText } from '../../components/text/PeachText'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { RestoreBackupError } from './RestoreBackupError'
@@ -18,12 +19,12 @@ export const RestoreFromSeed = () => {
   return (
     <View style={tw`flex-1 gap-4`}>
       <PeachScrollView contentContainerStyle={tw`py-4`} contentStyle={tw`gap-4`}>
-        <Text style={tw`text-center text-primary-background-light`}>
+        <PeachText style={tw`text-center text-primary-background-light`}>
           {i18n('restoreBackup.seedPhrase.useBackupFile')}
-        </Text>
-        <Text style={tw`text-center subtitle-1 text-primary-background-light`}>
+        </PeachText>
+        <PeachText style={tw`text-center subtitle-1 text-primary-background-light`}>
           {i18n('restoreBackup.seedPhrase.enter')}
-        </Text>
+        </PeachText>
         <View style={tw`flex-row gap-4`}>
           <View style={tw`flex-1`}>
             {[0, 1, 2, 3, 4, 5].map((index) => (
@@ -37,7 +38,9 @@ export const RestoreFromSeed = () => {
           </View>
         </View>
         {allWordsAreSet && !isMnemonicValid && (
-          <Text style={[tw`text-center tooltip text-primary-background-light`]}>{i18n('form.bip39.error')}</Text>
+          <PeachText style={[tw`text-center tooltip text-primary-background-light`]}>
+            {i18n('form.bip39.error')}
+          </PeachText>
         )}
       </PeachScrollView>
       <Button

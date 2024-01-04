@@ -1,14 +1,19 @@
 import { useMemo, useState } from 'react'
-import { Divider, Header, PeachScrollView, Screen } from '../../components'
+import { Divider } from '../../components/Divider'
+import { Header } from '../../components/Header'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
-import { useRoute, useShowHelp } from '../../hooks'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useTransactionDetails } from '../../hooks/query/useTransactionDetails'
+import { useRoute } from '../../hooks/useRoute'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
-import { getTransactionFeeRate } from '../../utils/bitcoin'
+import { getTransactionFeeRate } from '../../utils/bitcoin/getTransactionFeeRate'
 import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout'
-import { getErrorsInField } from '../../utils/validation'
+import { headerIcons } from '../../utils/layout/headerIcons'
+import { getErrorsInField } from '../../utils/validation/getErrorsInField'
+import { getMessages } from '../../utils/validation/getMessages'
 import { useWalletState } from '../../utils/wallet/walletStore'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { CurrentFee } from './components/bumpNetworkFees/CurrentFee'
@@ -16,6 +21,12 @@ import { FeeEstimates } from './components/bumpNetworkFees/FeeEstimates'
 import { NewFee } from './components/bumpNetworkFees/NewFee'
 import { useBumpFees } from './hooks/useBumpFees'
 
+const newFeeRateRules = {
+  required: true,
+  feeRate: true,
+}
+
+const MIN_EXTRA_FEE_RATE = 1.01
 export const BumpNetworkFees = () => {
   const { txId } = useRoute<'bumpNetworkFees'>().params
 
@@ -24,10 +35,16 @@ export const BumpNetworkFees = () => {
   const { estimatedFees } = useFeeEstimate()
   const currentFeeRate = transaction ? getTransactionFeeRate(transaction) : 1
   const [feeRate, setNewFeeRate] = useState<string>()
-  const newFeeRate = feeRate ?? (currentFeeRate + 1.01).toFixed(2)
+  const newFeeRate = feeRate ?? (currentFeeRate + MIN_EXTRA_FEE_RATE).toFixed(2)
 
-  const newFeeRateRules = useMemo(() => ({ min: currentFeeRate + 1, required: true, feeRate: true }), [currentFeeRate])
-  const newFeeRateErrors = useMemo(() => getErrorsInField(newFeeRate, newFeeRateRules), [newFeeRate, newFeeRateRules])
+  const newFeeRateErrors = useMemo(() => {
+    const errs = getErrorsInField(newFeeRate, newFeeRateRules)
+    if (Number(newFeeRate) < currentFeeRate + 1) {
+      errs.push(getMessages().min)
+    }
+    return errs
+  }, [currentFeeRate, newFeeRate])
+
   const newFeeRateIsValid = newFeeRate && newFeeRateErrors.length === 0
   const overpayingBy = Number(newFeeRate) / estimatedFees.fastestFee - 1
   const sendingAmount = localTransaction ? localTransaction.sent - localTransaction.received : 0
@@ -39,7 +56,7 @@ export const BumpNetworkFees = () => {
       <PeachScrollView
         style={tw`flex-1 w-full h-full`}
         contentContainerStyle={tw`justify-center flex-1`}
-        contentStyle={[tw`gap-3`, tw.md`gap-5`]}
+        contentStyle={[tw`gap-3`, tw`md:gap-5`]}
       >
         <CurrentFee fee={currentFeeRate} />
         <Divider />

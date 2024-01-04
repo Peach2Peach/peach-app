@@ -1,9 +1,9 @@
 import { View } from 'react-native'
-import { Text } from '../../components'
-import { BTCAmount } from '../../components/bitcoin'
+import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
+import { PeachText } from '../../components/text/PeachText'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { thousands } from '../../utils/string'
+import { thousands } from '../../utils/string/thousands'
 
 type Props = {
   amount: number
@@ -13,10 +13,10 @@ type Props = {
 
 export const WrongFundingAmount = ({ amount, actualAmount, maxAmount }: Props) => (
   <View style={tw`gap-4`}>
-    <Text>{i18n('warning.fundingAmountDifferent.description.1')}</Text>
+    <PeachText>{i18n('warning.fundingAmountDifferent.description.1')}</PeachText>
     <BTCAmount amount={actualAmount} size="medium" />
-    <Text>{i18n('warning.fundingAmountDifferent.description.2')}</Text>
+    <PeachText>{i18n('warning.fundingAmountDifferent.description.2')}</PeachText>
     <BTCAmount amount={amount} size="medium" />
-    <Text>{i18n('warning.wrongFundingAmount.description', thousands(maxAmount))}</Text>
+    <PeachText>{i18n('warning.wrongFundingAmount.description', thousands(maxAmount))}</PeachText>
   </View>
 )

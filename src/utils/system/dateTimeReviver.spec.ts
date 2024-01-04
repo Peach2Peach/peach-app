@@ -1,4 +1,4 @@
-import { dateTimeReviver } from '.'
+import { dateTimeReviver } from './dateTimeReviver'
 
 describe('dateTimeReviver', () => {
   it('returns null if passed null', () => {

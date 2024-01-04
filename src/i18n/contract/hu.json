@@ -118,6 +118,7 @@
   "contract.summary.paidWithMethod" : "fizetve a(z)",
   "contract.summary.paymentConfirmed" : "a",
   "contract.summary.paymentTooLate" : "késői fizetés",
+  "contract.summary.payoutToPeachWallet" : "kifizetés a peach pénztárcába",
   "contract.summary.phone" : "telefonszám",
   "contract.summary.pixAlias" : "pix alias",
   "contract.summary.postePayNumber" : "postePay szám",

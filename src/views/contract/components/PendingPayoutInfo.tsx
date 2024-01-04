@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { AddressSummaryItem, TextSummaryItem, TimerSummaryItem } from '../../../components/summaryItem'
-import { useShowHelp } from '../../../hooks'
+import { useShowHelp } from '../../../hooks/useShowHelp'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useContractContext } from '../context'
@@ -11,7 +11,7 @@ export const PendingPayoutInfo = () => {
   const etaProps = {
     title: i18n('batching.eta'),
     iconId: 'helpCircle' as const,
-    iconColor: tw`text-info-main`.color,
+    iconColor: tw.color('info-main'),
     onPress: showHelp,
   }
   if (!batchInfo) return <></>

@@ -22,6 +22,7 @@
   "notification.contract.seller.disputeLost.text" : "Wir haben im Streitfall für den Handel $0 zugunsten des Käufers entschieden. Bitte überprüfe die Nachricht von deinem Vermittler im Chat, um zu sehen, wie es weitergeht.",
   "notification.contract.seller.disputeRaised.text" : "Der Käufer hat einen Streitfall für den Handel $0 über $1 Sats eröffnet.",
   "notification.contract.seller.disputeWon.text" : "Wir haben im Streitfall für den Handel $0 zugunsten von dir entschieden. Bitte überprüfe die Nachricht von deinem Vermittler im Chat, um zu sehen, wie es weitergeht.",
+  "notification.contract.seller.instantTrade.text" : "Du hast gerade einen Sofortkauf mit einem Käufer gestartet!",
   "notification.contract.seller.paymentTimerHasRunOut.text" : "Die Zahlung für den Handel $0 wurde nicht rechtzeitig geleistet. Gib dem Käufer mehr Zeit oder storniere den Handel.",
   "notification.contract.tradeCompleted.text" : "Glückwunsch! Die Sats für den Handel $0 befinden sich in deiner Wallet \uD83C\uDF89",
   "notification.contract.tradeCompleted.title" : "Handel abgeschlossen!",

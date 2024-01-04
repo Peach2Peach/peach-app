@@ -1,4 +1,4 @@
-import { isHighRiskCountry } from '.'
+import { isHighRiskCountry } from './isHighRiskCountry'
 
 jest.mock('./countryMap', () => ({
   countryMap: {

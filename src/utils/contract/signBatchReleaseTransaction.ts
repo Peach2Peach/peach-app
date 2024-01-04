@@ -1,7 +1,7 @@
 import { BIP32Interface } from 'bip32'
 import { Psbt } from 'bitcoinjs-lib'
 import { isPSBTForBatch, verifyPSBT } from '../../views/contract/helpers'
-import { signPSBT } from '../wallet'
+import { signPSBT } from '../wallet/signPSBT'
 
 type Props = {
   psbt: Psbt

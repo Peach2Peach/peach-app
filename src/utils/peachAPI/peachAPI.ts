@@ -1,10 +1,9 @@
 import { API_URL } from '@env'
-import { PeachAPI } from '../../../peach-api'
+import { peachAPI as peachAPIFactory } from '../../../peach-api'
 import { UNIQUEID } from '../../constants'
-import { getPeachAccount } from './peachAccount'
 
-export const peachAPI = new PeachAPI({
+export const peachAPI = peachAPIFactory({
   url: API_URL,
-  peachAccount: getPeachAccount(),
+  peachAccount: null,
   uniqueId: UNIQUEID,
 })

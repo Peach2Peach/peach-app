@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import {
   paypalData,
   paypalDataHashes,
@@ -15,44 +14,6 @@ describe('useOfferPreferences - store', () => {
   it('should return a store', () => {
     expect(useOfferPreferences).toBeDefined()
   })
-  it('should have the correct default values', () => {
-    expect(useOfferPreferences.getState()).toStrictEqual({
-      buyAmountRange: [0, Infinity],
-      sellAmount: 0,
-      multi: undefined,
-      preferredCurrenyType: 'europe',
-      preferredPaymentMethods: {},
-      meansOfPayment: {},
-      paymentData: {},
-      originalPaymentData: [],
-      premium: 1.5,
-      canContinue: {
-        buyAmountRange: false,
-        paymentMethods: false,
-        premium: false,
-        sellAmount: false,
-      },
-      sortBy: {
-        buyOffer: ['bestReputation'],
-        sellOffer: ['bestReputation'],
-      },
-      filter: {
-        buyOffer: {
-          maxPremium: null,
-        },
-      },
-      setBuyAmountRange: expect.any(Function),
-      setSellAmount: expect.any(Function),
-      setMulti: expect.any(Function),
-      setPreferredCurrencyType: expect.any(Function),
-      setPremium: expect.any(Function),
-      setPaymentMethods: expect.any(Function),
-      selectPaymentMethod: expect.any(Function),
-      setBuyOfferSorter: expect.any(Function),
-      setSellOfferSorter: expect.any(Function),
-      setBuyOfferFilter: expect.any(Function),
-    })
-  })
   it('should persist the store', () => {
     expect(useOfferPreferences.persist.getOptions()).toStrictEqual(
       expect.objectContaining({
@@ -67,36 +28,16 @@ describe('useOfferPreferences - store', () => {
 describe('useOfferPreferences - actions - setBuyAmountRange', () => {
   it('should update the buy amount range', () => {
     const newRange: [number, number] = [50000, 3200000]
-    useOfferPreferences.getState().setBuyAmountRange(newRange, { min: 0, max: Infinity })
+    useOfferPreferences.getState().setBuyAmountRange(newRange)
     expect(useOfferPreferences.getState().buyAmountRange).toStrictEqual(newRange)
-  })
-  it('should set can continue to false if the range is not valid', () => {
-    const newRange: [number, number] = [50000, 3200000]
-    useOfferPreferences.getState().setBuyAmountRange(newRange, { min: 0, max: 1000 })
-    expect(useOfferPreferences.getState().canContinue.buyAmountRange).toBe(false)
-  })
-  it('should set can continue to true if the range is valid', () => {
-    const newRange: [number, number] = [50000, 3200000]
-    useOfferPreferences.getState().setBuyAmountRange(newRange, { min: 0, max: Infinity })
-    expect(useOfferPreferences.getState().canContinue.buyAmountRange).toBe(true)
   })
 })
 
 describe('useOfferPreferences - actions - setSellAmount', () => {
   it('should update the sell amount', () => {
     const newSellAmount = 50000
-    useOfferPreferences.getState().setSellAmount(newSellAmount, { min: 0, max: Infinity })
+    useOfferPreferences.getState().setSellAmount(newSellAmount)
     expect(useOfferPreferences.getState().sellAmount).toBe(newSellAmount)
-  })
-  it('should set can continue to false if the sell amount is not valid', () => {
-    const newSellAmount = 50000
-    useOfferPreferences.getState().setSellAmount(newSellAmount, { min: 0, max: 1000 })
-    expect(useOfferPreferences.getState().canContinue.sellAmount).toBe(false)
-  })
-  it('should set can continue to true if the sell amount is valid', () => {
-    const newSellAmount = 50000
-    useOfferPreferences.getState().setSellAmount(newSellAmount, { min: 0, max: Infinity })
-    expect(useOfferPreferences.getState().canContinue.sellAmount).toBe(true)
   })
 })
 
@@ -118,27 +59,6 @@ describe('useOfferPreferences - actions - setPremium', () => {
     const newPremium = 21
     useOfferPreferences.getState().setPremium(newPremium)
     expect(useOfferPreferences.getState().premium).toBe(newPremium)
-  })
-  it('should set can continue to false if the premium is not valid', () => {
-    const newPremium = 21
-    useOfferPreferences.getState().setPremium(newPremium, false)
-    expect(useOfferPreferences.getState().canContinue.premium).toBe(false)
-  })
-  it('should set can continue to true if the premium is valid', () => {
-    const newPremium = 21
-    useOfferPreferences.getState().setPremium(newPremium, true)
-    expect(useOfferPreferences.getState().canContinue.premium).toBe(true)
-  })
-  it('should not overwrite canContinue if no isValid is passed', () => {
-    const newPremium = 21
-    useOfferPreferences.getState().setPremium(newPremium, false)
-    expect(useOfferPreferences.getState().canContinue.premium).toBe(false)
-    useOfferPreferences.getState().setPremium(newPremium)
-    expect(useOfferPreferences.getState().canContinue.premium).toBe(false)
-    useOfferPreferences.getState().setPremium(newPremium, true)
-    expect(useOfferPreferences.getState().canContinue.premium).toBe(true)
-    useOfferPreferences.getState().setPremium(newPremium)
-    expect(useOfferPreferences.getState().canContinue.premium).toBe(true)
   })
 })
 
@@ -190,12 +110,6 @@ describe('useOfferPreferences - actions - setPaymentMethods', () => {
     useOfferPreferences.getState().setPaymentMethods(ids)
     const expected = [validSEPAData, paypalData, revolutData]
     expect(useOfferPreferences.getState().originalPaymentData).toStrictEqual(expected)
-  })
-  it('should set can continue to false if the payment methods are not valid', () => {
-    useOfferPreferences.getState().setPaymentMethods([])
-    expect(useOfferPreferences.getState().canContinue.paymentMethods).toBe(false)
-    useOfferPreferences.getState().setPaymentMethods([validSEPAData.id])
-    expect(useOfferPreferences.getState().canContinue.paymentMethods).toBe(true)
   })
 })
 
@@ -258,15 +172,6 @@ describe('useOfferPreferences - actions - selectPaymentMethod', () => {
     const expected: PaymentData[] = []
     expect(useOfferPreferences.getState().originalPaymentData).toStrictEqual(expected)
   })
-  it('should set can continue to true if the payment methods are valid', () => {
-    useOfferPreferences.getState().selectPaymentMethod(id)
-    expect(useOfferPreferences.getState().canContinue.paymentMethods).toBe(true)
-  })
-  it('should set can continue to false if the payment methods are not valid', () => {
-    useOfferPreferences.getState().selectPaymentMethod(id)
-    useOfferPreferences.getState().selectPaymentMethod(id)
-    expect(useOfferPreferences.getState().canContinue.paymentMethods).toBe(false)
-  })
 })
 
 describe('useOfferPreferences - actions - setPrefferedCurrencyType', () => {
@@ -297,6 +202,6 @@ describe('useOfferPreferences - actions - setBuyOfferFilter', () => {
   it('should update the buy offer filter', () => {
     const filter = { maxPremium: 1.5 }
     useOfferPreferences.getState().setBuyOfferFilter(filter)
-    expect(useOfferPreferences.getState().filter.buyOffer).toStrictEqual(filter)
+    expect(useOfferPreferences.getState().filter.buyOffer.maxPremium).toStrictEqual(filter.maxPremium)
   })
 })

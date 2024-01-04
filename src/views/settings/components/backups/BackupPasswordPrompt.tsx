@@ -1,13 +1,16 @@
 import { useMemo, useRef, useState } from 'react'
 import { Keyboard, TextInput, View } from 'react-native'
-
-import { Input, PeachScrollView, Text } from '../../../../components'
+import { useSetOverlay } from '../../../../Overlay'
+import { PeachScrollView } from '../../../../components/PeachScrollView'
 import { Button } from '../../../../components/buttons/Button'
-import { useNavigation, useValidatedState } from '../../../../hooks'
+import { Input } from '../../../../components/inputs/Input'
+import { PeachText } from '../../../../components/text/PeachText'
+import { useValidatedState } from '../../../../hooks/useValidatedState'
 import { useSettingsStore } from '../../../../store/settingsStore'
 import tw from '../../../../styles/tailwind'
-import { backupAccount } from '../../../../utils/account'
+import { backupAccount } from '../../../../utils/account/backupAccount'
 import i18n from '../../../../utils/i18n'
+import { BackupCreated } from './BackupCreated'
 
 type Props = {
   toggle: () => void
@@ -16,8 +19,6 @@ type Props = {
 const passwordRules = { required: true, password: true }
 
 export const BackupPasswordPrompt = ({ toggle }: Props) => {
-  const navigation = useNavigation()
-
   const updateFileBackupDate = useSettingsStore((state) => state.updateFileBackupDate)
 
   const [password, setPassword, passwordIsValid, passwordError] = useValidatedState<string>('', passwordRules)
@@ -31,6 +32,8 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
   const passwordsMatch = useMemo(() => password === passwordRepeat, [password, passwordRepeat])
   const validate = () => !!password && !!passwordRepeat && passwordIsValid && passwordsMatch
 
+  const setOverlay = useSetOverlay()
+
   const startAccountBackup = () => {
     if (isBackingUp || !validate()) return
 
@@ -43,7 +46,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
       onSuccess: () => {
         setIsBackingUp(false)
         toggle()
-        navigation.navigate('backupCreated')
+        setOverlay(<BackupCreated />)
       },
       onCancel: () => {
         setIsBackingUp(false)
@@ -59,9 +62,9 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
 
   return (
     <>
-      <PeachScrollView contentContainerStyle={tw`h-full`}>
+      <PeachScrollView contentContainerStyle={tw`grow`}>
         <View style={tw`justify-center h-full`}>
-          <Text style={tw`self-center mb-4 tooltip`}>{i18n('settings.backups.createASecurePassword')}</Text>
+          <PeachText style={tw`self-center mb-4 tooltip`}>{i18n('settings.backups.createASecurePassword')}</PeachText>
           <Input
             placeholder={i18n('form.password.placeholder')}
             onChange={setPassword}
@@ -70,7 +73,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
             value={password}
             errorMessage={passwordError}
             style={passwordIsValid && tw`border-black-2`}
-            iconColor={tw`text-black-2`.color}
+            iconColor={tw.color('black-2')}
           />
           <Input
             placeholder={i18n('form.repeatpassword.placeholder')}
@@ -81,7 +84,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
             value={passwordRepeat}
             errorMessage={passwordRepeatError}
             style={passwordRepeatIsValid && tw`border-black-2`}
-            iconColor={tw`text-black-2`.color}
+            iconColor={tw.color('black-2')}
           />
         </View>
       </PeachScrollView>

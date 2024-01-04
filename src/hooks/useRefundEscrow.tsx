@@ -1,19 +1,26 @@
 import { NETWORK } from '@env'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useNavigation } from '.'
+import { useSetOverlay } from '../Overlay'
+import { PopupAction } from '../components/popup'
+import { PopupComponent } from '../components/popup/PopupComponent'
 import { FIFTEEN_SECONDS } from '../constants'
 import { Refund } from '../popups/Refund'
 import { useSettingsStore } from '../store/settingsStore'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { usePopupStore } from '../store/usePopupStore'
-import { checkRefundPSBT, showTransaction, signAndFinalizePSBT } from '../utils/bitcoin'
+import { checkRefundPSBT } from '../utils/bitcoin/checkRefundPSBT'
+import { showTransaction } from '../utils/bitcoin/showTransaction'
+import { signAndFinalizePSBT } from '../utils/bitcoin/signAndFinalizePSBT'
+import { getAbortWithTimeout } from '../utils/getAbortWithTimeout'
 import i18n from '../utils/i18n'
 import { info } from '../utils/log'
-import { saveOffer } from '../utils/offer'
-import { refundSellOffer } from '../utils/peachAPI'
-import { getEscrowWalletForOffer } from '../utils/wallet'
+import { saveOffer } from '../utils/offer/saveOffer'
+import { peachAPI } from '../utils/peachAPI'
+import { getEscrowWalletForOffer } from '../utils/wallet/getEscrowWalletForOffer'
+import { BackupTime } from '../views/overlays/BackupTime'
 import { useTradeSummaries } from './query/useTradeSummaries'
+import { useNavigation } from './useNavigation'
 import { useShowErrorBanner } from './useShowErrorBanner'
 
 export const useRefundEscrow = () => {
@@ -26,16 +33,17 @@ export const useRefundEscrow = () => {
     state.shouldShowBackupOverlay,
   ])
   const { refetch: refetchTradeSummaries } = useTradeSummaries(false)
+  const setOverlay = useSetOverlay()
   const goToWallet = useCallback(
     (txId: string) => {
       closePopup()
       if (shouldShowBackupOverlay && isPeachWallet) {
-        navigation.navigate('backupTime', { nextScreen: 'transactionDetails', txId })
+        setOverlay(<BackupTime navigationParams={[{ name: 'transactionDetails', params: { txId } }]} />)
       } else {
         navigation.navigate('transactionDetails', { txId })
       }
     },
-    [closePopup, isPeachWallet, navigation, shouldShowBackupOverlay],
+    [closePopup, isPeachWallet, navigation, setOverlay, shouldShowBackupOverlay],
   )
   const setOffer = useTradeSummaryStore((state) => state.setOffer)
 
@@ -52,41 +60,59 @@ export const useRefundEscrow = () => {
       const signedTx = signAndFinalizePSBT(psbt, getEscrowWalletForOffer(sellOffer)).extractTransaction()
       const [tx, txId] = [signedTx.toHex(), signedTx.getId()]
 
-      setPopup({
-        title: i18n('refund.title'),
-        content: <Refund isPeachWallet={isPeachWallet} />,
-        visible: true,
-        requireUserAction: true,
-        action1: {
-          label: i18n('close'),
-          icon: 'xSquare',
-          callback: () => {
-            closePopup()
-            if (shouldShowBackupOverlay && isPeachWallet) {
-              navigation.navigate('backupTime', { nextScreen: 'yourTrades' })
-            } else {
-              navigation.navigate('yourTrades', { tab: 'yourTrades.history' })
-            }
-          },
-        },
-        action2: {
-          label: i18n(isPeachWallet ? 'goToWallet' : 'showTx'),
-          icon: isPeachWallet ? 'wallet' : 'externalLink',
-          callback: () => {
-            if (isPeachWallet) {
-              goToWallet(txId)
-            } else {
-              closePopup()
-              navigation.navigate('backupTime', { nextScreen: 'yourTrades', tab: 'yourTrades.sell' })
+      setPopup(
+        <PopupComponent
+          title={i18n('refund.title')}
+          content={<Refund isPeachWallet={isPeachWallet} />}
+          actions={
+            <>
+              <PopupAction
+                label={i18n(isPeachWallet ? 'goToWallet' : 'showTx')}
+                iconId={isPeachWallet ? 'wallet' : 'externalLink'}
+                onPress={() => {
+                  if (isPeachWallet) {
+                    goToWallet(txId)
+                  } else {
+                    closePopup()
+                    setOverlay(
+                      <BackupTime
+                        navigationParams={[
+                          {
+                            name: 'homeScreen',
+                            params: { screen: 'yourTrades', params: { tab: 'yourTrades.sell' } },
+                          },
+                        ]}
+                      />,
+                    )
+                    showTransaction(txId, NETWORK)
+                  }
+                }}
+              />
+              <PopupAction
+                label={i18n('close')}
+                iconId="xSquare"
+                onPress={() => {
+                  closePopup()
+                  if (shouldShowBackupOverlay && isPeachWallet) {
+                    setOverlay(
+                      <BackupTime navigationParams={[{ name: 'homeScreen', params: { screen: 'yourTrades' } }]} />,
+                    )
+                  } else {
+                    navigation.navigate('homeScreen', { screen: 'yourTrades', params: { tab: 'yourTrades.history' } })
+                  }
+                }}
+                reverseOrder
+              />
+            </>
+          }
+        />,
+      )
 
-              showTransaction(txId, NETWORK)
-            }
-          },
-        },
-        level: 'APP',
+      const { error: postTXError } = await peachAPI.private.offer.refundSellOffer({
+        offerId: sellOffer.id,
+        tx,
+        signal: getAbortWithTimeout(FIFTEEN_SECONDS).signal,
       })
-
-      const [, postTXError] = await refundSellOffer({ offerId: sellOffer.id, tx, timeout: FIFTEEN_SECONDS })
       if (postTXError) {
         showError(postTXError.error)
         closePopup()
@@ -111,6 +137,7 @@ export const useRefundEscrow = () => {
       navigation,
       refetchTradeSummaries,
       setOffer,
+      setOverlay,
       setPopup,
       setShowBackupReminder,
       shouldShowBackupOverlay,

@@ -1,10 +1,11 @@
 import { SATSINBTC } from '../../constants'
-import { ceil, floor } from '../math'
+import { ceil } from '../math/ceil'
+import { floor } from '../math/floor'
 
 const rangeSellInCHF = [10, 800]
 const rangeBuyInCHF = [10, 1000]
 
-export const getTradingAmountLimits = (price: number, type: 'buy' | 'sell') => {
+export const getTradingAmountLimits = (btcPriceCHF: number, type: 'buy' | 'sell') => {
   const range = type === 'buy' ? rangeBuyInCHF : rangeSellInCHF
-  return [ceil((range[0] / price) * SATSINBTC, -4), floor((range[1] / price) * SATSINBTC, -4)]
+  return [ceil((range[0] / btcPriceCHF) * SATSINBTC, -4), floor((range[1] / btcPriceCHF) * SATSINBTC, -4)] as const
 }

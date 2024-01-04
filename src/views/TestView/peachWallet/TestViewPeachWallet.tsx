@@ -1,16 +1,24 @@
 import { NETWORK } from '@env'
 import { useState } from 'react'
 import { View } from 'react-native'
-import { Divider, Loading, PeachScrollView, Text } from '../../../components'
-import { BTCAmount } from '../../../components/bitcoin'
+import Share from 'react-native-share'
+import { Divider } from '../../../components/Divider'
+import { PeachScrollView } from '../../../components/PeachScrollView'
+import { Loading } from '../../../components/animation/Loading'
+import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
 import { Button } from '../../../components/buttons/Button'
-import { BitcoinAddressInput, NumberInput } from '../../../components/inputs'
-import { useValidatedState } from '../../../hooks'
+import { NumberInput } from '../../../components/inputs'
+import { BitcoinAddressInput } from '../../../components/inputs/BitcoinAddressInput'
+import { Input } from '../../../components/inputs/Input'
+import { PeachText } from '../../../components/text/PeachText'
+import { useValidatedState } from '../../../hooks/useValidatedState'
 import tw from '../../../styles/tailwind'
-import { showTransaction } from '../../../utils/bitcoin'
+import { getMessageToSignForAddress } from '../../../utils/account/getMessageToSignForAddress'
+import { showTransaction } from '../../../utils/bitcoin/showTransaction'
 import i18n from '../../../utils/i18n'
-import { fundAddress } from '../../../utils/regtest'
-import { thousands } from '../../../utils/string'
+import { log } from '../../../utils/log'
+import { fundAddress } from '../../../utils/regtest/fundAddress'
+import { thousands } from '../../../utils/string/thousands'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useSyncWallet } from '../../wallet/hooks/useSyncWallet'
 import { useWalletSetup } from '../../wallet/hooks/useWalletSetup'
@@ -38,11 +46,11 @@ export const TestViewPeachWallet = () => {
   const [amount, setAmount] = useState('0')
   const [txId, setTxId] = useState('')
   const getNewAddress = async () => {
-    const newAddress = await peachWallet.getReceivingAddress()
+    const newAddress = await peachWallet.getAddress()
     setAddress(newAddress.address)
   }
   const getNewInternalAddress = async () => {
-    const newAddress = await peachWallet.getNewInternalAddress()
+    const newAddress = await peachWallet.getInternalAddress()
     setAddress(newAddress.address)
   }
   const send = async () => {
@@ -51,19 +59,19 @@ export const TestViewPeachWallet = () => {
     setTxId(await result.txid())
   }
   const refill = async () => {
-    const { address: newAddress } = await peachWallet.getReceivingAddress()
+    const { address: newAddress } = await peachWallet.getAddress()
     fundAddress({ address: newAddress, amount: 1000000 })
   }
 
   return (
     <PeachScrollView>
       <View style={tw`gap-4 p-10`}>
-        <Text style={tw`text-center button-medium`}>{i18n('wallet.totalBalance')}:</Text>
+        <PeachText style={tw`text-center button-medium`}>{i18n('wallet.totalBalance')}:</PeachText>
         <BTCAmount style={[tw`self-center`, isRefreshing ? tw`opacity-60` : {}]} amount={balance} size="extra large" />
         {(isRefreshing || walletLoading) && <Loading style={tw`absolute`} />}
 
         <View>
-          <Text style={tw`button-medium`}>{i18n('wallet.withdrawTo')}:</Text>
+          <PeachText style={tw`button-medium`}>{i18n('wallet.withdrawTo')}:</PeachText>
           <BitcoinAddressInput style={tw`mt-4`} onChange={setAddress} value={address} errorMessage={addressErrors} />
           <NumberInput onChange={setAmount} value={amount} />
         </View>
@@ -72,7 +80,7 @@ export const TestViewPeachWallet = () => {
         </Button>
         {!!txId && (
           <View>
-            <Text onPress={() => showTransaction(txId, NETWORK)}>txId: {txId}</Text>
+            <PeachText onPress={() => showTransaction(txId, NETWORK)}>txId: {txId}</PeachText>
           </View>
         )}
 
@@ -91,7 +99,38 @@ export const TestViewPeachWallet = () => {
         <Button onPress={() => refresh()} iconId="refreshCcw">
           sync wallet
         </Button>
+
+        <SignMessage />
       </View>
     </PeachScrollView>
+  )
+}
+
+function SignMessage () {
+  const [userId, setUserId] = useState('')
+  const [address, setAddress] = useState('')
+  const [signature, setSignature] = useState('')
+  const onPress = async () => {
+    const message = getMessageToSignForAddress(userId, address)
+    const sig = await peachWallet.signMessage(message, address)
+    setSignature(sig)
+  }
+
+  const shareSignature = () => {
+    Share.open({ message: signature }).catch((e) => log(e))
+  }
+
+  return (
+    <View>
+      <PeachText>sign message</PeachText>
+      <BitcoinAddressInput onChange={setAddress} value={address} />
+      <PeachText>userID</PeachText>
+      <Input onChangeText={setUserId} value={userId} />
+      <Button onPress={onPress}>sign</Button>
+      <PeachText>signature</PeachText>
+      <PeachText selectable onLongPress={shareSignature}>
+        {signature}
+      </PeachText>
+    </View>
   )
 }

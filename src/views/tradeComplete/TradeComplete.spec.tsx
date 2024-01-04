@@ -1,34 +1,22 @@
 import { render, waitFor } from 'test-utils'
-import { contract } from '../../../tests/unit/data/contractData'
+import { contract } from '../../../peach-api/src/testData/contract'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { TradeComplete } from './TradeComplete'
 
-const useRouteMock = jest.fn().mockReturnValue({
-  params: { contract },
-})
-jest.mock('../../hooks/useRoute', () => ({
-  useRoute: () => useRouteMock(),
-}))
-
 const logTradeCompletedMock = jest.fn()
-jest.mock('../../utils/analytics', () => ({
+jest.mock('../../utils/analytics/logTradeCompleted', () => ({
   logTradeCompleted: (...args: unknown[]) => logTradeCompletedMock(...args),
-}))
-
-const getContractMock = jest.fn().mockResolvedValue([contract, null])
-jest.mock('../../utils/peachAPI', () => ({
-  getContract: (...args: unknown[]) => getContractMock(...args),
 }))
 
 jest.useFakeTimers()
 
 describe('TradeComplete', () => {
   it('logs trade completed analytics once', async () => {
-    const { rerender } = render(<TradeComplete />)
+    const { rerender } = render(<TradeComplete contractId={contract.id} />)
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0)
     })
-    rerender(<TradeComplete />)
+    rerender(<TradeComplete contractId={contract.id} />)
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0)
     })

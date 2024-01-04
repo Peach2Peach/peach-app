@@ -1,4 +1,5 @@
-import { getTradingAmountLimits } from '.'
+/* eslint-disable no-magic-numbers */
+import { getTradingAmountLimits } from './getTradingAmountLimits'
 
 describe('getTradingAmountLimits', () => {
   it('calculates the trading amount limits based on the given price for selling', () => {

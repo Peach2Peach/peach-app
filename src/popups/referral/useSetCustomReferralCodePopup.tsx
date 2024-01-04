@@ -1,14 +1,17 @@
 import { useCallback, useMemo, useState } from 'react'
 import { View } from 'react-native'
-import { Input, Text } from '../../components'
+import { Input } from '../../components/inputs/Input'
 import { PopupAction } from '../../components/popup'
 import { PopupComponent } from '../../components/popup/PopupComponent'
-import { useNavigation, useValidatedState } from '../../hooks'
+import { PeachText } from '../../components/text/PeachText'
+import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useValidatedState } from '../../hooks/useValidatedState'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { redeemReferralCode } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
+import { getMessages } from '../../utils/validation/getMessages'
 import { ClosePopupAction } from '../actions'
 import { SetCustomReferralCodeSuccess } from './SetCustomReferralCodeSuccess'
 
@@ -22,21 +25,33 @@ export const useSetCustomReferralCodePopup = () => {
   return showCustomReferralCodePopup
 }
 
+const referralCodeRules = {
+  required: true,
+  referralCode: true,
+}
 function CustomReferralCodePopup () {
   const setPopup = usePopupStore((state) => state.setPopup)
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
   const [referralCodeTaken, setReferralCodeTaken] = useState(false)
-  const referralCodeRules = useMemo(
-    () => ({ required: true, referralCode: true, referralCodeTaken }),
-    [referralCodeTaken],
-  )
 
-  const [referralCode, setReferralCode, referralCodeValid, referralCodeErrors] = useValidatedState<string>(
+  const [referralCode, setReferralCode, isValidReferralCode, inputErrors] = useValidatedState<string>(
     '',
     referralCodeRules,
   )
+
+  const referralCodeValid = useMemo(
+    () => isValidReferralCode && !referralCodeTaken,
+    [isValidReferralCode, referralCodeTaken],
+  )
+  const referralCodeErrors = useMemo(() => {
+    let errs = inputErrors
+    if (referralCodeTaken) {
+      errs = [...errs, getMessages().referralCodeTaken]
+    }
+    return errs
+  }, [inputErrors, referralCodeTaken])
 
   const updateReferralCode = useCallback(
     (code: string) => {
@@ -47,7 +62,7 @@ function CustomReferralCodePopup () {
   )
 
   const submitCustomReferralCode = useCallback(async () => {
-    const [, redeemError] = await redeemReferralCode({ code: referralCode })
+    const { error: redeemError } = await peachAPI.private.user.redeemReferralCode({ code: referralCode })
 
     if (redeemError?.error === 'ALREADY_TAKEN') {
       setReferralCodeTaken(true)
@@ -72,7 +87,7 @@ function CustomReferralCodePopup () {
       title={i18n('settings.referrals.customReferralCode.popup.title')}
       content={
         <View style={tw`gap-3`}>
-          <Text>{i18n('settings.referrals.customReferralCode.popup.text')}</Text>
+          <PeachText>{i18n('settings.referrals.customReferralCode.popup.text')}</PeachText>
           <Input
             style={tw`bg-primary-background-dark`}
             placeholder={i18n('form.referral.placeholder')}

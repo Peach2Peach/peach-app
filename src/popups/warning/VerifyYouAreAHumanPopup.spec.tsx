@@ -28,7 +28,6 @@ describe('VerifyYouAreAHumanPopup', () => {
       ...usePopupStore.getState(),
       visible: true,
       popupComponent: <VerifyYouAreAHuman />,
-      requireUserAction: false,
     })
   })
 })

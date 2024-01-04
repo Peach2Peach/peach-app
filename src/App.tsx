@@ -1,23 +1,23 @@
 import analytics from '@react-native-firebase/analytics'
 import { DefaultTheme, NavigationContainer, NavigationState } from '@react-navigation/native'
 import { useEffect, useReducer } from 'react'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { enableScreens } from 'react-native-screens'
-
-import { Drawer, Message, Popup } from './components'
 
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
 import { QueryClientProvider } from '@tanstack/react-query'
-import { Keyboard, KeyboardAvoidingView, Pressable } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { useDeviceContext } from 'twrnc'
+import { Drawer } from './components/drawer/Drawer'
+import { Message } from './components/message/Message'
 import { useMessageState } from './components/message/useMessageState'
-import { GlobalHandlers } from './GlobalHandlers'
+import { Popup } from './components/popup/Popup'
 import { initWebSocket } from './init/websocket'
+import { Overlay } from './Overlay'
 import { queryClient } from './queryClient'
 import tw from './styles/tailwind'
 import { usePartialAppSetup } from './usePartialAppSetup'
 import { info } from './utils/log'
-import { isIOS } from './utils/system'
 import { Screens } from './views/Screens'
 
 enableScreens()
@@ -31,6 +31,7 @@ const navTheme = {
 }
 
 export const App = () => {
+  useDeviceContext(tw)
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
 
   const updateMessage = useMessageState((state) => state.updateMessage)
@@ -50,23 +51,18 @@ export const App = () => {
   }
 
   return (
-    <GestureHandlerRootView>
-      <KeyboardAvoidingView behavior={isIOS() ? 'padding' : undefined}>
-        <Pressable style={tw`h-full`} onPress={Keyboard.dismiss}>
-          <QueryClientProvider client={queryClient}>
-            <PeachWSContext.Provider value={peachWS}>
-              <NavigationContainer theme={navTheme} onStateChange={onNavStateChange}>
-                <GlobalHandlers />
-                <Drawer />
-                <Popup />
-                <Message />
-
-                <Screens />
-              </NavigationContainer>
-            </PeachWSContext.Provider>
-          </QueryClientProvider>
-        </Pressable>
-      </KeyboardAvoidingView>
-    </GestureHandlerRootView>
+    <QueryClientProvider client={queryClient}>
+      <PeachWSContext.Provider value={peachWS}>
+        <SafeAreaProvider>
+          <NavigationContainer theme={navTheme} onStateChange={onNavStateChange}>
+            <Screens />
+            <Drawer />
+            <Popup />
+            <Overlay />
+            <Message />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </PeachWSContext.Provider>
+    </QueryClientProvider>
   )
 }

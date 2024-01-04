@@ -26,7 +26,19 @@ export const fireSwipeEvent = ({ element, x = 0, y = 0 }: Props) => {
 
   fireEvent(element, 'onMoveShouldSetResponder')
   fireEvent(element, 'onResponderMove', moveEvent)
-  fireEvent(element, 'onResponderRelease')
+  fireEvent(element, 'onResponderRelease', {
+    nativeEvent: {
+      changedTouches: [endTouch],
+      identifier: 1,
+      locationX: x,
+      locationY: y,
+      pageX: x,
+      pageY: y,
+      target: 1,
+      timestamp: 1,
+      touches: [endTouch],
+    },
+  })
 }
 
 export const swipeRight = (element: Props['element']) => {

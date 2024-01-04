@@ -1,2 +1,2 @@
-export const getContractViewer = (contract: Contract, account: Account): ContractViewer =>
-  account.publicKey === contract.seller.id ? 'seller' : 'buyer'
+export const getContractViewer = (sellerId: string, { publicKey }: Pick<Account, 'publicKey'>): ContractViewer =>
+  publicKey === sellerId ? 'seller' : 'buyer'

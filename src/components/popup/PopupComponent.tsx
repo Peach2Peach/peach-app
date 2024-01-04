@@ -1,6 +1,6 @@
 import { View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
-import { Text } from '../text'
+import { PeachText } from '../text/PeachText'
 import { PopupActions } from './PopupActions'
 import { PopupContent } from './PopupContent'
 
@@ -23,5 +23,5 @@ export const PopupComponent = ({ content, actions, title, bgColor, actionBgColor
 )
 
 function PopupTitle ({ text }: { text: string }) {
-  return <Text style={tw`w-full h5`}>{text}</Text>
+  return <PeachText style={tw`w-full h5`}>{text}</PeachText>
 }

@@ -1,15 +1,15 @@
 import { View, ViewStyle } from 'react-native'
-import { Screen } from '../../components'
+import { ProfileInfo } from '../../components/ProfileInfo'
+import { Screen } from '../../components/Screen'
 import { TouchableRedText } from '../../components/text/TouchableRedText'
-import { useRoute } from '../../hooks'
 import { useUser } from '../../hooks/query/useUserQuery'
+import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useBlockUser } from '../../utils/peachAPI/private/user/blockUser'
-import { useUserStatus } from '../../utils/peachAPI/private/user/getUserStatus'
-import { useUnblockUser } from '../../utils/peachAPI/private/user/unblockUser'
 import { AccountInfo } from '../settings/profile/accountInfo/AccountInfo'
-import { ProfileOverview } from './components'
+import { useBlockUser } from './useBlockUser'
+import { useUnblockUser } from './useUnblockUser'
+import { useUserStatus } from './useUserStatus'
 
 export const PublicProfile = () => {
   const { userId } = useRoute<'publicProfile'>().params
@@ -19,7 +19,7 @@ export const PublicProfile = () => {
   return (
     <Screen header={i18n('profile.user.title')}>
       <View style={tw`gap-12 grow`}>
-        <ProfileOverview user={user} />
+        <ProfileInfo user={user} />
         <AccountInfo user={user} />
       </View>
       <BlockUser style={tw`self-center`} />

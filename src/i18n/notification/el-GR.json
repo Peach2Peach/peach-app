@@ -22,6 +22,7 @@
   "notification.contract.seller.disputeLost.text" : "Αποφασίσαμε υπερ του αγοραστή στη διένεξη για τη συναλλαγή $0. Παρακαλούμε ελέγξτε το μήνυμα του μεσολαβητή σας στη συνομιλία της συναλλαγής για να δείτε τι ακολουθεί.",
   "notification.contract.seller.disputeRaised.text" : "Ο αγοραστής ξεκίνησε μια διένεξη για τη συναλλαγή $0 για $1 sats.",
   "notification.contract.seller.disputeWon.text" : "Αποφασίσαμε υπέρ σας στη διένεξη για τη συναλλαγή $0. Παρακαλούμε ελέγξτε το μήνυμα του μεσολαβητή σας στη συνομιλία της συναλλαγής για να δείτε τι ακολουθεί.",
+  "notification.contract.seller.instantTrade.text" : "Μπήκες σε μια άμεση συναλλαγή με έναν αγοραστή!",
   "notification.contract.seller.paymentTimerHasRunOut.text" : "Η πληρωμή για τη συναλλαγή $0 δεν πραγματοποιήθηκε εγκαίρως. Δώστε στον αγοραστή επιπλέον χρόνο ή ακυρώστε τη συναλλαγή.",
   "notification.contract.tradeCompleted.text" : "Συγχαρητήρια! Τα sats για τη συναλλαγή $0 βρίσκονται στο πορτοφόλι σας \uD83C\uDF89",
   "notification.contract.tradeCompleted.title" : "Η συναλλαγή ολοκληρώθηκε!",

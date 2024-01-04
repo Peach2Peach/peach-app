@@ -1,6 +1,6 @@
 import { Image, View } from 'react-native'
 import bitcoinAnimation from '../../assets/animated/bitcoin.gif'
-import { Text } from '../../components'
+import { PeachText } from '../../components/text/PeachText'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
@@ -12,6 +12,6 @@ export const BitcoinLoading = ({ text }: Props) => (
     <View style={tw`pr-6px`}>
       <Image source={bitcoinAnimation} style={tw`w-32 h-32`} resizeMode="cover" />
     </View>
-    <Text style={tw`text-center subtitle-1`}>{text || i18n('loading')}</Text>
+    <PeachText style={tw`text-center subtitle-1`}>{text || i18n('loading')}</PeachText>
   </View>
 )

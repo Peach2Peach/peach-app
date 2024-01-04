@@ -1,7 +1,8 @@
 import { View } from 'react-native'
 import Share from 'react-native-share'
-import { CopyAble, Text } from '../../../components'
 import { Button } from '../../../components/buttons/Button'
+import { PeachText } from '../../../components/text/PeachText'
+import { CopyAble } from '../../../components/ui/CopyAble'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -34,10 +35,10 @@ export const ReferralCode = () => {
 function YourCode ({ referralCode }: Props) {
   return (
     <View>
-      <Text style={tw`text-center body-m text-black-2`}>{i18n('referrals.yourCode')}</Text>
+      <PeachText style={tw`text-center body-m text-black-2`}>{i18n('referrals.yourCode')}</PeachText>
       <View style={tw`flex-row justify-center`}>
-        <Text style={tw`mr-1 text-center h4`}>{referralCode}</Text>
-        <CopyAble value={referralCode} style={tw`w-7 h-7`} />
+        <PeachText style={tw`mr-1 text-center h4`}>{referralCode}</PeachText>
+        <CopyAble value={referralCode} style={tw`w-7 h-7`} textPosition="bottom" />
       </View>
     </View>
   )
@@ -47,8 +48,8 @@ function InviteLink ({ inviteLink }: { inviteLink: string }) {
   return (
     <View style={tw`flex-row items-center justify-between p-4 border rounded-lg border-primary-main`}>
       <View>
-        <Text style={tw` body-m text-black-2`}>{i18n('referrals.inviteLink')}</Text>
-        <Text style={tw`text-3xs`}>{inviteLink.replace('https://', '')}</Text>
+        <PeachText style={tw` body-m text-black-2`}>{i18n('referrals.inviteLink')}</PeachText>
+        <PeachText style={tw`text-3xs`}>{inviteLink.replace('https://', '')}</PeachText>
       </View>
       <CopyAble value={inviteLink} style={tw`w-7 h-7`} />
     </View>

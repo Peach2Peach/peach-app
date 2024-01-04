@@ -1,11 +1,14 @@
 import { useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
-import { useNavigation, useRoute, useValidatedState } from '../../../hooks'
+import { Contract } from '../../../../peach-api/src/@types/contract'
+import { useNavigation } from '../../../hooks/useNavigation'
+import { useRoute } from '../../../hooks/useRoute'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { useValidatedState } from '../../../hooks/useValidatedState'
 import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
 import { useAccountStore } from '../../../utils/account/account'
-import { getContractViewer } from '../../../utils/contract'
-import { isEmailRequiredForDispute } from '../../../utils/dispute'
+import { getContractViewer } from '../../../utils/contract/getContractViewer'
+import { isEmailRequiredForDispute } from '../../../utils/dispute/isEmailRequiredForDispute'
 import { useDecryptedContractData } from '../../contractChat/useDecryptedContractData'
 import { submitRaiseDispute } from '../utils/submitRaiseDispute'
 
@@ -45,7 +48,7 @@ export const useDisputeFormSetup = (contract: Contract) => {
     })
     if (disputeRaised) {
       navigation.navigate('contractChat', { contractId })
-      disputeRaisedPopup(getContractViewer(contract, account))
+      disputeRaisedPopup(getContractViewer(contract.seller.id, account))
     } else {
       showErrorBanner(disputeRaisedError?.error)
     }

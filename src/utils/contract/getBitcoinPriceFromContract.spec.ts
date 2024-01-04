@@ -1,4 +1,4 @@
-import { getBitcoinPriceFromContract } from '.'
+import { getBitcoinPriceFromContract } from './getBitcoinPriceFromContract'
 
 describe('getBitcoinPriceFromContract', () => {
   it('returns the correct price', () => {

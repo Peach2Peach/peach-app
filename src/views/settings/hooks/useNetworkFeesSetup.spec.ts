@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
-import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
+import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { useMessageState } from '../../../components/message/useMessageState'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
@@ -12,7 +12,7 @@ jest.mock('../../../hooks/query/useFeeEstimate', () => ({
   }),
 }))
 
-const updateUserMock = jest.fn().mockResolvedValue([apiSuccess])
+const updateUserMock = jest.fn().mockResolvedValue([{ success: true }])
 jest.mock('../../../utils/peachAPI', () => ({
   updateUser: (...args: unknown[]) => updateUserMock(...args),
 }))
@@ -27,7 +27,7 @@ describe('useNetworkFeesSetup', () => {
       estimatedFees,
       selectedFeeRate: 'halfHourFee',
       setSelectedFeeRate: expect.any(Function),
-      customFeeRate: undefined,
+      customFeeRate: '',
       setCustomFeeRate: expect.any(Function),
       submit: expect.any(Function),
       isValid: true,
@@ -49,12 +49,12 @@ describe('useNetworkFeesSetup', () => {
       result.current.setSelectedFeeRate('custom')
       result.current.setCustomFeeRate('0')
     })
-    expect(result.current.customFeeRate).toBeUndefined()
+    expect(result.current.customFeeRate).toBe('')
     expect(result.current.isValid).toBeFalsy()
     act(() => {
       result.current.setCustomFeeRate('abc')
     })
-    expect(result.current.customFeeRate).toBeUndefined()
+    expect(result.current.customFeeRate).toBe('')
     expect(result.current.isValid).toBeFalsy()
   })
   it('returns info whether a new fee rate has been set', () => {

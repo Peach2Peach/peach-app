@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { CopyAble, HorizontalLine, Screen, Text } from '../../components'
-import { useIsMediumScreen } from '../../hooks'
+import { Screen } from '../../components/Screen'
+import { PeachText } from '../../components/text/PeachText'
+import { CopyAble } from '../../components/ui/CopyAble'
+import { HorizontalLine } from '../../components/ui/HorizontalLine'
+import { useIsMediumScreen } from '../../hooks/useIsMediumScreen'
 import tw from '../../styles/tailwind'
-import { getBitcoinAddressParts } from '../../utils/bitcoin'
+import { getBitcoinAddressParts } from '../../utils/bitcoin/getBitcoinAddressParts'
 import i18n from '../../utils/i18n'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { AddressNavigation } from './components'
@@ -20,7 +23,7 @@ export const ReceiveBitcoin = () => {
 
   return (
     <Screen header={i18n('wallet.receiveBitcoin.title')}>
-      <View style={[tw`items-center flex-1 gap-2 py-1`, tw.md`gap-8 py-6`]}>
+      <View style={[tw`items-center flex-1 gap-2 py-1`, tw`md:gap-8 md:py-6`]}>
         <AddressNavigation setIndex={setIndex} index={displayIndex} />
 
         <HorizontalLine />
@@ -34,22 +37,28 @@ export const ReceiveBitcoin = () => {
   )
 }
 
+const MEDIUM_SIZE = 327
+const SMALL_SIZE = 275
 function AddressQRCode ({ index }: { index: number }) {
   const { data } = useWalletAddress(index)
   const isMediumScreen = useIsMediumScreen()
   return (
     <>
-      <QRCode value={data?.address} size={isMediumScreen ? 327 : 275} color={String(tw`text-black-1`.color)} />
+      <QRCode
+        value={data?.address}
+        size={isMediumScreen ? MEDIUM_SIZE : SMALL_SIZE}
+        color={String(tw.color('black-1'))}
+      />
       {data?.used && (
-        <Text
+        <PeachText
           style={[
             tw`text-center h3 text-error-main`,
             tw`absolute self-center p-1 overflow-hidden rounded-xl bg-opacity-65 top-110px bg-primary-background-light`,
-            tw.md`top-135px bg-opacity-85`,
+            tw`md:top-135px md:bg-opacity-85`,
           ]}
         >
           {i18n('wallet.address.used')}
-        </Text>
+        </PeachText>
       )}
     </>
   )
@@ -62,12 +71,12 @@ function BitcoinAddress ({ index }: { index: number }) {
   const addressParts = getBitcoinAddressParts(address)
   return (
     <View style={tw`flex-row items-center self-stretch gap-3 px-1`}>
-      <Text style={tw`shrink text-black-3 body-l`}>
+      <PeachText style={tw`shrink text-black-3 body-l`}>
         {addressParts.one}
-        <Text style={tw`body-l`}>{addressParts.two}</Text>
+        <PeachText style={tw`body-l`}>{addressParts.two}</PeachText>
         {addressParts.three}
-        <Text style={tw`body-l`}>{addressParts.four}</Text>
-      </Text>
+        <PeachText style={tw`body-l`}>{addressParts.four}</PeachText>
+      </PeachText>
       <CopyAble value={address} style={tw`w-6 h-6`} color={isUsed ? tw`text-primary-mild-1` : tw`text-primary-main`} />
     </View>
   )

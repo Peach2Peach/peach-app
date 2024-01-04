@@ -23,7 +23,7 @@ const addresses = [
 
 describe('useWalletAddress', () => {
   beforeAll(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
   })
 

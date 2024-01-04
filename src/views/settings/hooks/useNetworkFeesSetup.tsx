@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useMessageState } from '../../../components/message/useMessageState'
-import { useValidatedState } from '../../../hooks'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
+import { useValidatedState } from '../../../hooks/useValidatedState'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { updateUser } from '../../../utils/peachAPI'
 
@@ -20,7 +20,7 @@ export const useNetworkFeesSetup = () => {
     typeof feeRate === 'number' ? 'custom' : feeRate,
   )
   const [customFeeRate, setCustomFeeRate, isValidCustomFeeRate] = useValidatedState(
-    typeof feeRate === 'number' ? feeRate.toString() : undefined,
+    typeof feeRate === 'number' ? feeRate.toString() : '',
     customFeeRules,
   )
   const [feeRateSet, setFeeRateSet] = useState(true)
@@ -33,7 +33,7 @@ export const useNetworkFeesSetup = () => {
     if (result) {
       setFeeRate(finalFeeRate)
       setFeeRateSet(true)
-    } else if (err) {
+    } else if (err && 'error' in err) {
       updateMessage({
         msgKey: err.error,
         level: 'ERROR',
@@ -42,7 +42,7 @@ export const useNetworkFeesSetup = () => {
   }
 
   useEffect(() => {
-    if (!customFeeRate || isNaN(Number(customFeeRate)) || customFeeRate === '0') setCustomFeeRate(undefined)
+    if (!customFeeRate || isNaN(Number(customFeeRate)) || customFeeRate === '0') setCustomFeeRate('')
   }, [customFeeRate, selectedFeeRate, setCustomFeeRate])
 
   useEffect(() => {

@@ -1,5 +1,5 @@
-import { readChunkOfFile } from '.'
 import RNFS from 'react-native-fs'
+import { readChunkOfFile } from './readChunkOfFile'
 
 describe('readChunkOfFile', () => {
   it('should return the file content', async () => {

@@ -1,4 +1,4 @@
-import { getMessageToSignForAddress } from '.'
+import { getMessageToSignForAddress } from './getMessageToSignForAddress'
 
 describe('getMessageToSignForAddress', () => {
   it('creates a message to sign for compliance', () => {

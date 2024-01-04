@@ -1,12 +1,10 @@
-import { renderHook, waitFor } from 'test-utils'
-import { contract } from '../../../tests/unit/data/contractData'
+import { renderHook, responseUtils, waitFor } from 'test-utils'
+import { contract } from '../../../peach-api/src/testData/contract'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { peachAPI } from '../../utils/peachAPI'
 import { useContractDetails } from './useContractDetails'
 
-const getContractMock = jest.fn().mockResolvedValue([contract])
-jest.mock('../../utils/peachAPI', () => ({
-  getContract: () => getContractMock(),
-}))
+const getContractMock = jest.spyOn(peachAPI.private.contract, 'getContract')
 
 describe('useContractDetails', () => {
   afterEach(() => {
@@ -26,7 +24,7 @@ describe('useContractDetails', () => {
     expect(result.current.error).toBeFalsy()
   })
   it('returns error if server did not return result and no local contract exists', async () => {
-    getContractMock.mockResolvedValueOnce([null])
+    getContractMock.mockResolvedValueOnce(responseUtils)
     const { result } = renderHook(useContractDetails, { initialProps: contract.id })
 
     expect(result.current.contract).toBeUndefined()

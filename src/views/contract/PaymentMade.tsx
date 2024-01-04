@@ -1,22 +1,29 @@
-import tw from '../../styles/tailwind'
-
-import { Overlay } from '../../components/Overlay'
+import { useSetOverlay } from '../../Overlay'
+import { OverlayComponent } from '../../components/OverlayComponent'
 import { Button } from '../../components/buttons/Button'
-import { useNavigation, useRoute } from '../../hooks'
+import { useNavigation } from '../../hooks/useNavigation'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-export const PaymentMade = () => {
-  const { contractId } = useRoute<'paymentMade'>().params
+export const PaymentMade = ({ contractId }: { contractId: string }) => {
   const navigation = useNavigation()
-  const goToTrade = () =>
+  const setOverlay = useSetOverlay()
+
+  const close = () => setOverlay(undefined)
+
+  const goToTrade = () => {
+    close()
     navigation.reset({
       index: 1,
-      routes: [{ name: 'yourTrades' }, { name: 'contract', params: { contractId } }],
+      routes: [
+        { name: 'homeScreen', params: { screen: 'yourTrades' } },
+        { name: 'contract', params: { contractId } },
+      ],
     })
-  const close = () => (navigation.canGoBack() ? navigation.goBack() : navigation.navigate('buy'))
+  }
 
   return (
-    <Overlay
+    <OverlayComponent
       title={i18n('contract.paymentMade.title')}
       text={i18n('contract.paymentMade.description')}
       iconId="dollarSignCircleInverted"

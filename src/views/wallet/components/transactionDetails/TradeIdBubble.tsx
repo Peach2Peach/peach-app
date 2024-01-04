@@ -1,6 +1,6 @@
 import { Bubble } from '../../../../components/bubble'
-import { useNavigateToOfferOrContract } from '../../../../hooks'
-import { contractIdToHex } from '../../../../utils/contract'
+import { useNavigateToOfferOrContract } from '../../../../hooks/useNavigateToOfferOrContract'
+import { contractIdToHex } from '../../../../utils/contract/contractIdToHex'
 
 type Props = {
   trade: ContractSummary

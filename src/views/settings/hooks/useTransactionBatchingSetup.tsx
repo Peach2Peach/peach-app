@@ -1,4 +1,6 @@
 import { shallow } from 'zustand/shallow'
+import { PopupAction } from '../../../components/popup/PopupAction'
+import { PopupComponent } from '../../../components/popup/PopupComponent'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useToggleBatching } from '../../../hooks/user'
 import { TurnOffBatching } from '../../../popups/app/TurnOffBatching'
@@ -14,24 +16,26 @@ export const useTransactionBatchingSetup = () => {
   const toggleBatching = () => {
     const hasPendingPayouts = contracts.some((contract) => contract.tradeStatus === 'payoutPending')
     if (user?.isBatchingEnabled && hasPendingPayouts) {
-      setPopup({
-        title: i18n('settings.batching.turnOff.title'),
-        content: <TurnOffBatching />,
-        level: 'APP',
-        action2: {
-          callback: closePopup,
-          icon: 'xCircle',
-          label: i18n('settings.batching.turnOff.no'),
-        },
-        action1: {
-          callback: () => {
-            mutate()
-            closePopup()
-          },
-          icon: 'arrowRightCircle',
-          label: i18n('settings.batching.turnOff.yes'),
-        },
-      })
+      setPopup(
+        <PopupComponent
+          title={i18n('settings.batching.turnOff.title')}
+          content={<TurnOffBatching />}
+          actions={
+            <>
+              <PopupAction label={i18n('settings.batching.turnOff.no')} iconId="xCircle" onPress={closePopup} />
+              <PopupAction
+                label={i18n('settings.batching.turnOff.yes')}
+                iconId="arrowRightCircle"
+                onPress={() => {
+                  mutate()
+                  closePopup()
+                }}
+                reverseOrder
+              />
+            </>
+          }
+        />,
+      )
     } else {
       mutate()
     }

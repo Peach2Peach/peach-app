@@ -1,24 +1,35 @@
-import { View } from 'react-native'
-import tw from '../../styles/tailwind'
-
+import { InfiniteData, useQueryClient } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Header, Screen } from '../../components'
+import { View } from 'react-native'
+import { Contract } from '../../../peach-api/src/@types/contract'
+import { Header } from '../../components/Header'
+import { Screen } from '../../components/Screen'
 import { MessageInput } from '../../components/inputs/MessageInput'
-import { useRoute } from '../../hooks'
-import { useChatMessages } from '../../hooks/query/useChatMessages'
+import { PeachText } from '../../components/text/PeachText'
+import { PAGE_SIZE, useChatMessages } from '../../hooks/query/useChatMessages'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
+import { useRoute } from '../../hooks/useRoute'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useOpenDispute } from '../../popups/dispute/hooks/useOpenDispute'
 import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
+import tw from '../../styles/tailwind'
 import { useAccountStore } from '../../utils/account/account'
-import { deleteMessage, getChat, getUnsentMessages, saveChat } from '../../utils/chat'
-import { canCancelContract, contractIdToHex, getContractViewer, getTradingPartner } from '../../utils/contract'
-import { headerIcons } from '../../utils/layout'
+import { deleteMessage } from '../../utils/chat/deleteMessage'
+import { getChat } from '../../utils/chat/getChat'
+import { getUnsentMessages } from '../../utils/chat/getUnsentMessages'
+import { saveChat } from '../../utils/chat/saveChat'
+import { canCancelContract } from '../../utils/contract/canCancelContract'
+import { contractIdToHex } from '../../utils/contract/contractIdToHex'
+import { getContractViewer } from '../../utils/contract/getContractViewer'
+import { getTradingPartner } from '../../utils/contract/getTradingPartner'
+import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout/headerIcons'
 import { error } from '../../utils/log'
-import { isCashTrade } from '../../utils/paymentMethod'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { useWebsocketContext } from '../../utils/peachAPI/websocket'
-import { decryptSymmetric, signAndEncryptSymmetric } from '../../utils/pgp'
-import { parseError } from '../../utils/result'
+import { decryptSymmetric } from '../../utils/pgp/decryptSymmetric'
+import { signAndEncryptSymmetric } from '../../utils/pgp/signAndEncryptSymmetric'
+import { parseError } from '../../utils/result/parseError'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { ChatBox } from './components/ChatBox'
 import { useDecryptedContractData } from './useDecryptedContractData'
@@ -31,13 +42,14 @@ export const ContractChat = () => {
 }
 
 function ChatScreen ({ contract }: { contract: Contract }) {
+  const queryClient = useQueryClient()
   const { data: decryptedData } = useDecryptedContractData(contract)
   const { contractId } = useRoute<'contractChat'>().params
 
   const { connected, send, off, on } = useWebsocketContext()
   const {
     messages,
-    isLoading,
+    isFetching,
     error: messagesError,
     page,
     fetchNextPage,
@@ -128,7 +140,7 @@ function ChatScreen ({ contract }: { contract: Contract }) {
   }, [contractId, chat.messages])
 
   useEffect(() => {
-    const messageHandler = async (message?: Message) => {
+    const chatMessageHandler = async (message?: Message) => {
       if (!message) return
       if (!contract || !decryptedData?.symmetricKey) return
       if (!message.message || message.roomId !== `contract-${contract.id}`) return
@@ -147,6 +159,14 @@ function ChatScreen ({ contract }: { contract: Contract }) {
       setAndSaveChat(contractId, {
         messages: [decryptedMessage],
       })
+      queryClient.setQueryData(['contract-chat', contractId], (oldQueryData: InfiniteData<Message[]> | undefined) => {
+        if (!oldQueryData) {
+          return { pageParams: [], pages: [[decryptedMessage]] }
+        }
+        if (oldQueryData.pages.length > PAGE_SIZE) oldQueryData.pages[0].shift()
+        oldQueryData.pages[0] = [decryptedMessage, ...oldQueryData.pages[0]]
+        return oldQueryData
+      })
       if (!message.readBy.includes(account.publicKey)) {
         send(
           JSON.stringify({
@@ -159,13 +179,13 @@ function ChatScreen ({ contract }: { contract: Contract }) {
       }
     }
     const unsubscribe = () => {
-      off('message', messageHandler)
+      off('message', chatMessageHandler)
     }
 
     if (!connected) return unsubscribe
-    on('message', messageHandler)
+    on('message', chatMessageHandler)
     return unsubscribe
-  }, [contract, contractId, connected, on, send, off, decryptedData?.symmetricKey, account.publicKey])
+  }, [contract, contractId, connected, on, send, off, decryptedData?.symmetricKey, account.publicKey, queryClient])
 
   useEffect(() => {
     if (messages) setAndSaveChat(contractId, { messages })
@@ -188,11 +208,11 @@ function ChatScreen ({ contract }: { contract: Contract }) {
           setAndSaveChat={setAndSaveChat}
           page={page}
           fetchNextPage={fetchNextPage}
-          isLoading={isLoading}
+          isLoading={isFetching}
           resendMessage={resendMessage}
         />
       </View>
-      {contract.isChatActive && (
+      {contract.isChatActive ? (
         <View style={tw`w-full`}>
           <MessageInput
             onChangeText={setNewMessage}
@@ -202,6 +222,8 @@ function ChatScreen ({ contract }: { contract: Contract }) {
             value={newMessage}
           />
         </View>
+      ) : (
+        <PeachText style={tw`text-center text-black-3 p-4`}>{i18n('chat.disabled')}</PeachText>
       )}
     </Screen>
   )
@@ -214,7 +236,7 @@ type Props = {
 
 function ContractChatHeader ({ contract, symmetricKey }: Props) {
   const account = useAccountStore((state) => state.account)
-  const view = getContractViewer(contract, account)
+  const view = getContractViewer(contract.seller.id, account)
   const { contractId } = useRoute<'contractChat'>().params
 
   const showConfirmPopup = useConfirmCancelTrade()

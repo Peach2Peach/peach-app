@@ -1,16 +1,14 @@
 import { Psbt } from 'bitcoinjs-lib'
-import { contract } from '../../../../tests/unit/data/contractData'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 
-import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
+import { responseUtils } from 'test-utils'
 import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
-import { setWallet } from '../../../utils/wallet'
+import { peachAPI } from '../../../utils/peachAPI'
+import { setWallet } from '../../../utils/wallet/setWallet'
 import { patchSellOfferWithRefundTx } from './patchSellOfferWithRefundTx'
 
-const patchOfferMock = jest.fn().mockResolvedValue([apiSuccess, null])
-jest.mock('../../../utils/peachAPI', () => ({
-  patchOffer: (...args: unknown[]) => patchOfferMock(...args),
-}))
+const patchOfferMock = jest.spyOn(peachAPI.private.offer, 'patchOffer')
 const getSellOfferFromContractMock = jest.fn().mockReturnValue(sellOffer)
 jest.mock('../../../utils/contract/getSellOfferFromContract', () => ({
   getSellOfferFromContract: (...args: unknown[]) => getSellOfferFromContractMock(...args),
@@ -45,13 +43,14 @@ describe('patchSellOfferWithRefundTx', () => {
     expect(result.result).toEqual({ sellOffer })
   })
   it('returns error result offer could not be patched', async () => {
-    patchOfferMock.mockResolvedValueOnce([null, unauthorizedError])
+    patchOfferMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const result = await patchSellOfferWithRefundTx(contract, refundPSBT)
-    expect(result.error).toBe(unauthorizedError.error)
+    expect(result.error).toBe('UNAUTHORIZED')
     expect(result.result).toEqual({ sellOffer })
   })
   it('returns unknown error result offer could not be patched with no reason', async () => {
-    patchOfferMock.mockResolvedValueOnce([null, { error: undefined }])
+    // @ts-expect-error testing with invalid response
+    patchOfferMock.mockResolvedValueOnce({ error: { error: undefined }, ...responseUtils })
     const result = await patchSellOfferWithRefundTx(contract, refundPSBT)
     expect(result.error).toBe('UNKNOWN_ERROR')
     expect(result.result).toEqual({ sellOffer })

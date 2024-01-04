@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FundMultipleOffers renders correctly when disabled 1`] = `
+<View
+  style={
+    {
+      "gap": 12,
+    }
+  }
+>
+  <Checkbox
+    checked={false}
+    onPress={[Function]}
+    text="fund multiple offers"
+  />
+</View>
+`;
+
+exports[`FundMultipleOffers renders correctly when enabled 1`] = `
+<View
+  style={
+    {
+      "gap": 12,
+    }
+  }
+>
+  <Checkbox
+    checked={true}
+    onPress={[Function]}
+    text="fund multiple offers"
+  />
+  <NumberStepper
+    max={10}
+    min={3}
+    onChange={[Function]}
+    value={4}
+  />
+</View>
+`;

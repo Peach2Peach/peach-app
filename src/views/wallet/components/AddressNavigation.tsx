@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { View } from 'react-native'
-import { TouchableIcon } from '../../../components'
+import { TouchableIcon } from '../../../components/TouchableIcon'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'
@@ -72,7 +72,5 @@ function ArrowWrapper ({ children }: { children: React.ReactNode }) {
 }
 
 function ArrowLeftCircle ({ onPress, index }: { onPress: () => void; index: number }) {
-  return (
-    <TouchableIcon id="arrowLeftCircle" iconColor={tw`text-black-2`.color} onPress={onPress} disabled={index === 0} />
-  )
+  return <TouchableIcon id="arrowLeftCircle" iconColor={tw.color('black-2')} onPress={onPress} disabled={index === 0} />
 }

@@ -2,7 +2,8 @@ import { PsbtInput } from 'bip174/src/lib/interfaces'
 import { Psbt } from 'bitcoinjs-lib'
 import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
 import { SIGHASH } from '../bitcoin/constants'
-import { getEscrowWalletForOffer, setWallet } from '../wallet'
+import { getEscrowWalletForOffer } from '../wallet/getEscrowWalletForOffer'
+import { setWallet } from '../wallet/setWallet'
 import { signBatchReleaseTransaction } from './signBatchReleaseTransaction'
 
 const verifyReleasePSBTMock = jest.fn()

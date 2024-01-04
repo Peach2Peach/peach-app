@@ -1,4 +1,4 @@
-import { getDisputeResultTheme } from '.'
+import { getDisputeResultTheme } from './getDisputeResultTheme'
 
 describe('getDisputeResultTheme', () => {
   const wonAsBuyer = {

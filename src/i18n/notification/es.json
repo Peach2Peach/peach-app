@@ -22,6 +22,7 @@
   "notification.contract.seller.disputeLost.text" : "Hemos decidido a favor del comprador en la disputa por el intercambio $0. Por favor, verifica el mensaje de tu mediador en el chat del intercambio para ver qué sigue.",
   "notification.contract.seller.disputeRaised.text" : "El comprador ha iniciado una disputa por el intercambio $0 por $1 sats.",
   "notification.contract.seller.disputeWon.text" : "Hemos decidido a tu favor en la disputa por el intercambio $0. Por favor, verifica el mensaje de tu mediador en el chat del intercambio para ver qué sigue.",
+  "notification.contract.seller.instantTrade.text" : "¡Has iniciado un intercambio instantáneo con un comprador!",
   "notification.contract.seller.paymentTimerHasRunOut.text" : "El pago del intercambio $0 no se realizó a tiempo. Dale más tiempo al comprador o cancela el intercambio.",
   "notification.contract.tradeCompleted.text" : "¡Felicidades! Los sats del intercambio $0 están en tu cartera \uD83C\uDF89",
   "notification.contract.tradeCompleted.title" : "¡Intercambio completado!",

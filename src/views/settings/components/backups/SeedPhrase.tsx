@@ -1,10 +1,9 @@
-import { View } from 'react-native'
-
 import { useCallback, useState } from 'react'
+import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { PeachScrollView } from '../../../../components'
+import { PeachScrollView } from '../../../../components/PeachScrollView'
 import { Button } from '../../../../components/buttons/Button'
-import { useToggleBoolean } from '../../../../hooks'
+import { useToggleBoolean } from '../../../../hooks/useToggleBoolean'
 import { useSettingsStore } from '../../../../store/settingsStore'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
@@ -49,7 +48,7 @@ export const SeedPhrase = ({ style }: ComponentProps) => {
   const CurrentView = screens[currentScreenIndex].view
 
   return (
-    <View style={[tw`h-full`, style]}>
+    <View style={[tw`flex-1`, style]}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <CurrentView {...{ goBackToStart }} />
       </PeachScrollView>

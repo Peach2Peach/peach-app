@@ -1,5 +1,5 @@
-import { sendErrors } from '../../../utils/analytics'
-import { sendReport } from '../../../utils/peachAPI'
+import { sendErrors } from '../../../utils/analytics/sendErrors'
+import { peachAPI } from '../../../utils/peachAPI'
 import { buildReportMessage } from './buildReportMessage'
 
 type Props = {
@@ -17,7 +17,7 @@ export const submitReport = ({ email, reason, topic, message, shareDeviceID, sha
     sendErrors([new Error(`user shared app logs: ${topic} - ${messageToSend}`)])
   }
 
-  return sendReport({
+  return peachAPI.public.contact.sendReport({
     email,
     reason,
     topic,

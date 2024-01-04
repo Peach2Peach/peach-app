@@ -1,8 +1,7 @@
-import { OfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
-import { keys } from '../object'
+import { keys } from '../object/keys'
 
 export const getNewPreferredPaymentMethods = (
-  preferredPaymentMethods: OfferPreferences['preferredPaymentMethods'],
+  preferredPaymentMethods: Partial<Record<PaymentMethod, string>>,
   updateDatedPaymentData: PaymentData[],
 ) =>
   keys(preferredPaymentMethods).reduce((obj, method) => {
@@ -11,4 +10,4 @@ export const getNewPreferredPaymentMethods = (
     let newObj = { ...obj }
     if (data && !data.hidden) newObj = { ...newObj, [method]: id }
     return newObj
-  }, {} satisfies OfferPreferences['preferredPaymentMethods'])
+  }, {} satisfies Partial<Record<PaymentMethod, string>>)

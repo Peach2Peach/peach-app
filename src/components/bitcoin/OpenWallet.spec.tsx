@@ -1,5 +1,5 @@
 import { fireEvent, render } from 'test-utils'
-import { openInWallet } from '../../utils/bitcoin'
+import { openInWallet } from '../../utils/bitcoin/openInWallet'
 import { OpenWallet } from './OpenWallet'
 
 jest.mock('../../utils/bitcoin/openInWallet', () => ({

@@ -1,14 +1,19 @@
 import { View } from 'react-native'
-import { EscrowButton, Icon, Text, Timer } from '../../components'
+import { EscrowButton } from '../../components/EscrowButton'
+import { Icon } from '../../components/Icon'
 import { ConfirmSlider } from '../../components/inputs'
 import { UnlockedSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
+import { PeachText } from '../../components/text/PeachText'
+import { Timer } from '../../components/text/Timer'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import tw from '../../styles/tailwind'
-import { getOfferIdFromContract, getPaymentExpectedBy, getRequiredAction } from '../../utils/contract'
+import { getOfferIdFromContract } from '../../utils/contract/getOfferIdFromContract'
+import { getPaymentExpectedBy } from '../../utils/contract/getPaymentExpectedBy'
+import { getRequiredAction } from '../../utils/contract/getRequiredAction'
 import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../utils/i18n'
-import { isSellOffer } from '../../utils/offer'
-import { isCashTrade } from '../../utils/paymentMethod'
+import { isSellOffer } from '../../utils/offer/isSellOffer'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { ChatButton, NewOfferButton, PayoutPendingButton, ProvideEmailButton } from './ContractButtons'
 import {
   CancelTradeSlider,
@@ -59,8 +64,8 @@ function ContractStatusInfo () {
     if (requiredAction === 'confirmPayment') {
       return (
         <View style={tw`flex-row items-center justify-center`}>
-          <Text style={tw`text-center button-medium`}>{i18n(`contract.timer.confirmPayment.${view}`)}</Text>
-          {view === 'seller' && <Icon id="check" style={tw`w-5 h-5 ml-1 -mt-0.5`} color={tw`text-success-main`.color} />}
+          <PeachText style={tw`text-center button-medium`}>{i18n(`contract.timer.confirmPayment.${view}`)}</PeachText>
+          {view === 'seller' && <Icon id="check" style={tw`w-5 h-5 ml-1 -mt-0.5`} color={tw.color('success-main')} />}
         </View>
       )
     }

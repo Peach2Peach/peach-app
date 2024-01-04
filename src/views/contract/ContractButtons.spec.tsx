@@ -1,5 +1,5 @@
 import { fireEvent, render } from 'test-utils'
-import { contract } from '../../../tests/unit/data/contractData'
+import { contract } from '../../../peach-api/src/testData/contract'
 import { usePopupStore } from '../../store/usePopupStore'
 import { ProvideEmailButton } from './ContractButtons'
 import { ContractContext } from './context'

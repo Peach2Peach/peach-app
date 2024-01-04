@@ -1,7 +1,7 @@
 import { BIP32Interface } from 'bip32'
 import { Psbt } from 'bitcoinjs-lib'
-import { parseError } from '../result'
-import { getNetwork } from '../wallet'
+import { parseError } from '../result/parseError'
+import { getNetwork } from '../wallet/getNetwork'
 import { signBatchReleaseTransaction } from './signBatchReleaseTransaction'
 import { signReleaseTransaction } from './signReleaseTransaction'
 

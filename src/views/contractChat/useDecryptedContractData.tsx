@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import { info } from '../../utils/log'
-import { decryptSymmetric, verify } from '../../utils/pgp'
+import OpenPGP from 'react-native-fast-openpgp'
+import { useConfigStore } from '../../store/configStore/configStore'
+import { decrypt } from '../../utils/pgp/decrypt'
+import { decryptSymmetric } from '../../utils/pgp/decryptSymmetric'
 import { decryptSymmetricKey } from '../contract/helpers'
 
 export const useDecryptedContractData = (contract?: Contract) =>
@@ -9,7 +11,6 @@ export const useDecryptedContractData = (contract?: Contract) =>
     queryFn: async () => {
       if (!contract) throw new Error('No contract provided')
       const { symmetricKey, paymentData } = await decryptContractData(contract)
-
       if (!symmetricKey || !paymentData) throw new Error('Could not decrypt contract data')
 
       return { symmetricKey, paymentData }
@@ -18,28 +19,13 @@ export const useDecryptedContractData = (contract?: Contract) =>
   })
 
 async function decryptContractData (contract: Contract) {
-  info('decryptContractData - decrypting symmetric key')
-
-  const [symmetricKey, err] = await decryptSymmetricKey(
+  const symmetricKey = await decryptSymmetricKey(
     contract.symmetricKeyEncrypted,
     contract.symmetricKeySignature,
     contract.buyer.pgpPublicKey,
   )
 
-  if (!symmetricKey || err) {
-    return {
-      symmetricKey,
-      paymentData: null,
-    }
-  }
-  info('Symmetric decryption success')
-  info('decryptContractData - decrypting payment data')
-
-  const [paymentData] = await getPaymentData(contract, symmetricKey)
-
-  if (paymentData) {
-    info('Payment data decryption, success')
-  }
+  const paymentData = await decryptPaymentData(contract, symmetricKey)
 
   return {
     symmetricKey,
@@ -47,8 +33,22 @@ async function decryptContractData (contract: Contract) {
   }
 }
 
-async function getPaymentData ({ paymentDataEncrypted, paymentDataSignature, seller }: Contract, symmetricKey: string) {
-  if (!paymentDataEncrypted || !paymentDataSignature) return [null, new Error('MISSING_PAYMENTDATA')] as const
+async function decryptPaymentData (
+  { paymentDataEncrypted, paymentDataSignature, seller, paymentDataEncryptionMethod }: Contract,
+  symmetricKey: string | null,
+) {
+  if (!paymentDataEncrypted || !paymentDataSignature) return null
+  if (paymentDataEncryptionMethod === 'asymmetric') {
+    const peachPGPPublicKey = useConfigStore.getState().peachPGPPublicKey
+    if (!peachPGPPublicKey) return null
+    try {
+      const decryptedPaymentData = JSON.parse(await decrypt(paymentDataEncrypted)) as PaymentData
+      return decryptedPaymentData
+    } catch (e) {
+      return null
+    }
+  }
+  if (!symmetricKey) return null
 
   let decryptedPaymentData: PaymentData | null = null
   let decryptedPaymentDataString
@@ -56,15 +56,15 @@ async function getPaymentData ({ paymentDataEncrypted, paymentDataSignature, sel
     decryptedPaymentDataString = await decryptSymmetric(paymentDataEncrypted, symmetricKey)
     decryptedPaymentData = JSON.parse(decryptedPaymentDataString)
   } catch (e) {
-    return [decryptedPaymentData, new Error('INVALID_PAYMENTDATA')] as const
+    return decryptedPaymentData
   }
   try {
-    if (!(await verify(paymentDataSignature, decryptedPaymentDataString, seller.pgpPublicKey))) {
-      return [decryptedPaymentData, new Error('INVALID_SIGNATURE')] as const
+    if (!(await OpenPGP.verify(paymentDataSignature, decryptedPaymentDataString, seller.pgpPublicKey))) {
+      return decryptedPaymentData
     }
   } catch (err) {
-    return [decryptedPaymentData, new Error('INVALID_SIGNATURE')] as const
+    return decryptedPaymentData
   }
 
-  return [decryptedPaymentData, null] as const
+  return decryptedPaymentData
 }

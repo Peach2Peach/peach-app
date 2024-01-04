@@ -118,6 +118,7 @@
   "contract.summary.paidWithMethod" : "payé avec",
   "contract.summary.paymentConfirmed" : "activé",
   "contract.summary.paymentTooLate" : "délai de paiement dépassé",
+  "contract.summary.payoutToPeachWallet" : "payer à la bourse peach",
   "contract.summary.phone" : "n° de téléphone",
   "contract.summary.pixAlias" : "pix alias",
   "contract.summary.price" : "prix",

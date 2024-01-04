@@ -1,5 +1,7 @@
 /* eslint-disable max-statements */
-import { contractIdToHex, getSellOfferFromContract, getWalletLabelFromContract } from '../../../utils/contract'
+import { contractIdToHex } from '../../../utils/contract/contractIdToHex'
+import { getSellOfferFromContract } from '../../../utils/contract/getSellOfferFromContract'
+import { getWalletLabelFromContract } from '../../../utils/contract/getWalletLabelFromContract'
 import { isPaymentTooLate } from '../../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../../utils/i18n'
 import { getSellerDisputeStatusText } from './getSellerDisputeStatusText'

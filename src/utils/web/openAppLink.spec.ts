@@ -1,11 +1,7 @@
 import { Linking } from 'react-native'
-import { openAppLink } from '.'
+import { openAppLink } from './openAppLink'
 
 describe('openAppLink', () => {
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
   it('should open the app link if it is available', async () => {
     const appLink = 'app://'
     const fallbackUrl = 'http://fallback.com'

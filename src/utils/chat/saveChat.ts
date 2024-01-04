@@ -1,6 +1,6 @@
 import { useAccountStore } from '../account/account'
 import { storeChat } from '../account/storeAccount'
-import { unique } from '../array'
+import { unique } from '../array/unique'
 import { getChat } from './getChat'
 
 export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => {

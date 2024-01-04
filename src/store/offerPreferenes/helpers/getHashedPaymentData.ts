@@ -1,4 +1,4 @@
-import { hashPaymentData } from '../../../utils/paymentMethod'
+import { hashPaymentData } from '../../../utils/paymentMethod/hashPaymentData'
 
 export const getHashedPaymentData = (paymentData: PaymentData[]): OfferPaymentData =>
   paymentData.reduce(

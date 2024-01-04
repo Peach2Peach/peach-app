@@ -34,6 +34,7 @@
   "offer.requiredAction.releaseEscrow" : "achilia escrow",
   "offer.requiredAction.releaseEscrow.dispute" : "mzozo umezinduliwa: achilia escrow",
   "offer.requiredAction.searchingForPeer" : "inatafuta vilingana",
+  "offer.requiredAction.unknown" : "isiyojulikana - sasaisha programu yako!",
   "offer.requiredAction.waiting" : "inangojea $0",
   "offer.requiredAction.waiting.buyer" : "inangojea malipo",
   "offer.requiredAction.waiting.seller" : "inangojea muuzaji",
@@ -55,5 +56,6 @@
   "offer.summary.withTheseMethods" : "na njia hizi za malipo:",
   "offer.summary.youAreBuying" : "unataka kununua kati ya",
   "offer.summary.youAreSelling" : "unauza",
-  "offer.summary.youWereSelling" : "ulikuwa unauza"
+  "offer.summary.youWereSelling" : "ulikuwa unauza",
+  "yourTrades.unknown" : "isiyojulikana"
 }

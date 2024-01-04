@@ -1,9 +1,9 @@
 import { renderHook } from 'test-utils'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { account1 } from '../../../../tests/unit/data/accountData'
-import { contract } from '../../../../tests/unit/data/contractData'
-import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
+import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { setAccount } from '../../../utils/account'
+import { setAccount } from '../../../utils/account/account'
 import { disputeReasons } from './disputeReasons'
 import { useDisputeReasonSelectorSetup } from './useDisputeReasonSelectorSetup'
 
@@ -16,7 +16,7 @@ jest.mock('../../../hooks/useRoute', () => ({
   useRoute: () => useRouteMock(),
 }))
 
-const submitRaiseDisputeMock = jest.fn().mockResolvedValue([apiSuccess, null])
+const submitRaiseDisputeMock = jest.fn().mockResolvedValue([true, null])
 jest.mock('../utils/submitRaiseDispute', () => ({
   submitRaiseDispute: (...args: unknown[]) => submitRaiseDisputeMock(...args),
 }))

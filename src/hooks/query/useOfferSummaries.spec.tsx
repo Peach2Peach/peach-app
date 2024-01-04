@@ -1,15 +1,11 @@
-import { renderHook, waitFor } from 'test-utils'
+import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { offerSummary } from '../../../tests/unit/data/offerSummaryData'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultTradeSummaryState, useTradeSummaryStore } from '../../store/tradeSummaryStore'
+import { peachAPI } from '../../utils/peachAPI'
 import { useOfferSummaries } from './useOfferSummaries'
 
-const getOfferSummariesMock = jest.fn().mockResolvedValue([[offerSummary]])
-jest.mock('../../utils/peachAPI', () => ({
-  getOfferSummaries: () => getOfferSummariesMock(),
-}))
-
+const getOfferSummariesMock = jest.spyOn(peachAPI.private.offer, 'getOfferSummaries')
 jest.useFakeTimers()
 
 describe('useOfferSummaries', () => {
@@ -51,7 +47,7 @@ describe('useOfferSummaries', () => {
   })
   it('returns local offer summary if given and server did not return result', async () => {
     useTradeSummaryStore.setState({ offers: [localOfferSummary], lastModified: new Date() })
-    getOfferSummariesMock.mockResolvedValueOnce([null])
+    getOfferSummariesMock.mockResolvedValueOnce(responseUtils)
 
     const { result } = renderHook(useOfferSummaries)
 
@@ -62,7 +58,7 @@ describe('useOfferSummaries', () => {
     expect(result.current.offers).toEqual([localOfferSummary])
   })
   it('returns error if server did return error and no local offer summaries exists', async () => {
-    getOfferSummariesMock.mockResolvedValueOnce([null, unauthorizedError])
+    getOfferSummariesMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const { result } = renderHook(useOfferSummaries)
 
     expect(result.current.offers).toEqual([])
@@ -72,6 +68,6 @@ describe('useOfferSummaries', () => {
 
     expect(result.current.offers).toEqual([])
     expect(result.current.isLoading).toBeFalsy()
-    expect(result.current.error).toEqual(new Error(unauthorizedError.error))
+    expect(result.current.error).toEqual(new Error('UNAUTHORIZED'))
   })
 })

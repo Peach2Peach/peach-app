@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder } from 'react-native'
 import tw from '../../../styles/tailwind'
-import { round } from '../../../utils/math'
+import { round } from '../../../utils/math/round'
 
 const MIN = -21
 const MAX = 21

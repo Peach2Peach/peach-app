@@ -1,8 +1,8 @@
-import { useCallback } from 'react'
-import { useNavigation } from '../../../hooks'
-import { confirmEscrow } from '../../../utils/peachAPI'
-import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useQueryClient } from '@tanstack/react-query'
+import { useCallback } from 'react'
+import { useNavigation } from '../../../hooks/useNavigation'
+import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { peachAPI } from '../../../utils/peachAPI'
 
 export const useConfirmEscrow = () => {
   const navigation = useNavigation()
@@ -11,7 +11,9 @@ export const useConfirmEscrow = () => {
 
   const confirm = useCallback(
     async (sellOffer: SellOffer) => {
-      const [confirmEscrowResult, confirmEscrowErr] = await confirmEscrow({ offerId: sellOffer.id })
+      const { result: confirmEscrowResult, error: confirmEscrowErr } = await peachAPI.private.offer.confirmEscrow({
+        offerId: sellOffer.id,
+      })
 
       if (!confirmEscrowResult || confirmEscrowErr) {
         showErrorBanner(confirmEscrowErr?.error)
@@ -29,7 +31,10 @@ export const useConfirmEscrow = () => {
 
       navigation.reset({
         index: 1,
-        routes: [{ name: 'yourTrades' }, { name: destination, params: { offerId: sellOffer.id } }],
+        routes: [
+          { name: 'homeScreen', params: { screen: 'yourTrades' } },
+          { name: destination, params: { offerId: sellOffer.id } },
+        ],
       })
     },
     [navigation, queryClient, showErrorBanner],

@@ -1,8 +1,7 @@
 import 'react-native-url-polyfill/auto'
-
-import { Text } from '..'
 import tw from '../../styles/tailwind'
-import { getBitcoinAddressParts } from '../../utils/bitcoin'
+import { getBitcoinAddressParts } from '../../utils/bitcoin/getBitcoinAddressParts'
+import { PeachText } from '../text/PeachText'
 
 const getAddressParts = (address: string) => {
   const addressParts = getBitcoinAddressParts(address)
@@ -18,11 +17,11 @@ export const ShortBitcoinAddress = ({ address, style }: ShortBitcoinAddressProps
   const addressParts = getAddressParts(address)
 
   return (
-    <Text style={[tw`text-black-5`, style]}>
+    <PeachText style={[tw`text-black-5`, style]}>
       {addressParts.one}
-      <Text style={[tw`text-black-1`, style]}>{addressParts.two}</Text>
+      <PeachText style={[tw`text-black-1`, style]}>{addressParts.two}</PeachText>
       {addressParts.three}
-      <Text style={[tw`text-black-1`, style]}>{addressParts.four}</Text>
-    </Text>
+      <PeachText style={[tw`text-black-1`, style]}>{addressParts.four}</PeachText>
+    </PeachText>
   )
 }

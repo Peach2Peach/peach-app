@@ -1,5 +1,5 @@
 import { Psbt } from 'bitcoinjs-lib'
-import { ceil } from '../../../utils/math'
+import { ceil } from '../../../utils/math/ceil'
 import { isPSBTForBatch } from './isPSBTForBatch'
 
 /**

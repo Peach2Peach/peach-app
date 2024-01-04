@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useNavigation } from '../../../hooks'
+import { useSetOverlay } from '../../../Overlay'
 import { useSessionStore } from '../../../store/sessionStore'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
+import { BackupTime } from '../../overlays/BackupTime'
 import { useSyncWallet } from './useSyncWallet'
 
 type Props = {
@@ -14,7 +15,6 @@ type Props = {
 export const useWalletSetup = ({ peachWallet, syncOnLoad }: Props) => {
   const balance = useWalletState((state) => state.balance)
 
-  const navigation = useNavigation()
   const { refresh, isRefreshing } = useSyncWallet()
   const [walletSynced, setWalletSynced] = useSessionStore(
     (state) => [state.walletSynced, state.setWalletSynced],
@@ -27,9 +27,10 @@ export const useWalletSetup = ({ peachWallet, syncOnLoad }: Props) => {
     state.setShowBackupReminder,
   ])
 
+  const setOverlay = useSetOverlay()
   if (!showBackupReminder && balance > 0 && shouldShowBackupOverlay) {
     setShowBackupReminder(true)
-    navigation.navigate('backupTime', { nextScreen: 'wallet' })
+    setOverlay(<BackupTime navigationParams={[{ name: 'homeScreen', params: { screen: 'wallet' } }]} />)
   }
 
   const syncWalletOnLoad = useCallback(async () => {

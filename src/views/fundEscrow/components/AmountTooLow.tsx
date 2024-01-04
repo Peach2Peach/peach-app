@@ -1,6 +1,6 @@
 import { View } from 'react-native'
-import { Text } from '../../../components'
-import { BTCAmount } from '../../../components/bitcoin'
+import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
+import { PeachText } from '../../../components/text/PeachText'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
@@ -11,9 +11,9 @@ type Props = {
 
 export const AmountTooLow = ({ available, needed }: Props) => (
   <View style={tw`gap-3`}>
-    <Text>{i18n('fundFromPeachWallet.amountTooLow.description.1')}</Text>
+    <PeachText>{i18n('fundFromPeachWallet.amountTooLow.description.1')}</PeachText>
     <BTCAmount amount={available} size="medium" />
-    <Text>{i18n('fundFromPeachWallet.amountTooLow.description.2')}</Text>
+    <PeachText>{i18n('fundFromPeachWallet.amountTooLow.description.2')}</PeachText>
     <BTCAmount amount={needed} size="medium" />
   </View>
 )

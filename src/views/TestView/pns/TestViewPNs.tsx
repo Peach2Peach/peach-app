@@ -2,13 +2,14 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useMemo, useState } from 'react'
 import { FlatList, View } from 'react-native'
-import { Screen } from '../../../components'
+import { Screen } from '../../../components/Screen'
 import { Button } from '../../../components/buttons/Button'
 import { TabbedNavigation } from '../../../components/navigation/TabbedNavigation'
 import { useMessageHandler } from '../../../hooks/notifications/useMessageHandler'
 import tw from '../../../styles/tailwind'
 import { useAccountStore } from '../../../utils/account/account'
-import { isBuyOffer, isSellOffer } from '../../../utils/offer'
+import { isBuyOffer } from '../../../utils/offer/isBuyOffer'
+import { isSellOffer } from '../../../utils/offer/isSellOffer'
 
 const useFakePNs = () => {
   const account = useAccountStore((state) => state.account)
@@ -98,6 +99,12 @@ const useFakePNs = () => {
       data: {
         type: 'contract.contractCreated',
         offerId: buyOfferId,
+        contractId,
+      },
+    },
+    {
+      data: {
+        type: 'contract.seller.instantTrade',
         contractId,
       },
     },

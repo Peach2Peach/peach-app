@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { TextInput, TouchableOpacity, View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { Icon } from '../../../components'
+import { Icon } from '../../../components/Icon'
 import tw from '../../../styles/tailwind'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 
@@ -42,7 +42,7 @@ export function AddressLabelInput ({ address, fallback }: Props) {
         style={tw`overflow-hidden leading-relaxed text-center body-l text-black-1`}
       />
       <TouchableOpacity onPress={onIconPress}>
-        <Icon id={isEditing ? 'checkSquare' : 'edit3'} color={tw`text-primary-main`.color} size={16} />
+        <Icon id={isEditing ? 'checkSquare' : 'edit3'} color={tw.color('primary-main')} size={16} />
       </TouchableOpacity>
     </View>
   )

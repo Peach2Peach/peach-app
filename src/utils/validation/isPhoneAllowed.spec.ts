@@ -1,4 +1,4 @@
-import { isPhoneAllowed } from '.'
+import { isPhoneAllowed } from './isPhoneAllowed'
 
 jest.mock('../country/countryMap', () => ({
   countryMap: {

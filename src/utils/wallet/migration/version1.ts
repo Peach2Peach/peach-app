@@ -1,6 +1,6 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { info } from '../../log'
-import { WalletStore } from '../walletStore'
+import { WalletStateVersion2 } from './version2'
 
 export type ConfirmedTransaction = {
   txid: string
@@ -31,9 +31,10 @@ export type WalletStateVersion1 = {
   fundMultipleMap: Record<string, string[]>
   showBalance: boolean
   selectedUTXOIds: string[]
+  isSynced: boolean
 }
 
-export const version1 = (persistedState: unknown): WalletStore => {
+export const version1 = (persistedState: unknown): WalletStateVersion2 => {
   info('WalletStore - migrating from version 1')
 
   const version1State = persistedState as WalletStateVersion1
@@ -41,5 +42,5 @@ export const version1 = (persistedState: unknown): WalletStore => {
   return {
     ...version1State,
     txOfferMap: {},
-  } as WalletStore
+  }
 }

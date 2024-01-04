@@ -1,8 +1,7 @@
-import { OfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
-import { keys } from '../object'
-import { getPaymentMethodInfo } from '../paymentMethod'
+import { keys } from '../object/keys'
+import { getPaymentMethodInfo } from '../paymentMethod/getPaymentMethodInfo'
 
-export const getSelectedPaymentDataIds = (preferredPaymentMethods: OfferPreferences['preferredPaymentMethods']) =>
+export const getSelectedPaymentDataIds = (preferredPaymentMethods: Partial<Record<PaymentMethod, string>>) =>
   keys(preferredPaymentMethods)
     .filter(getPaymentMethodInfo)
     .reduce((arr: string[], type: PaymentMethod) => {

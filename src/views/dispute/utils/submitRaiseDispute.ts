@@ -1,7 +1,7 @@
 import { useConfigStore } from '../../../store/configStore/configStore'
 import { error } from '../../../utils/log'
-import { raiseDispute } from '../../../utils/peachAPI'
-import { signAndEncrypt } from '../../../utils/pgp'
+import { peachAPI } from '../../../utils/peachAPI'
+import { signAndEncrypt } from '../../../utils/pgp/signAndEncrypt'
 
 type Props = {
   contract: Contract | undefined
@@ -11,31 +11,24 @@ type Props = {
   message?: string
 }
 
-export const submitRaiseDispute = async ({
-  contract,
-  symmetricKey,
-  reason,
-  email,
-  message,
-}: Props): Promise<[boolean, APIError | null]> => {
-  if (!contract || !symmetricKey) return [false, null]
+export const submitRaiseDispute = async ({ contract, symmetricKey, reason, email, message }: Props) => {
+  if (!contract || !symmetricKey) return [false, null] as const
   const { encrypted: symmetricKeyEncrypted } = await signAndEncrypt(
     symmetricKey,
     useConfigStore.getState().peachPGPPublicKey,
   )
-  const [result, err] = await raiseDispute({
+  const { result, error: err } = await peachAPI.private.contract.raiseDispute({
     contractId: contract.id,
     email,
     reason,
     message,
     symmetricKeyEncrypted,
   })
-  if (result) {
-    return [true, null]
-  }
+
+  if (result) return [true, null] as const
   if (err) {
     error('Error', err)
-    return [false, err]
+    return [false, err] as const
   }
-  return [false, null]
+  return [false, null] as const
 }

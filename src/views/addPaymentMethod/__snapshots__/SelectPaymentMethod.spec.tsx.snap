@@ -13,10 +13,7 @@ exports[`SelectPaymentMethod should render correctly 1`] = `
           "paddingBottom": 16,
           "paddingTop": 16,
         },
-        {
-          "paddingBottom": 32,
-          "paddingTop": 32,
-        },
+        {},
       ]
     }
   >

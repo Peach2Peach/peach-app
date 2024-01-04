@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { PriceFormat, Text } from '../../../components'
+import { PeachText } from '../../../components/text/PeachText'
+import { PriceFormat } from '../../../components/text/PriceFormat'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
@@ -13,12 +14,12 @@ type Props = ComponentProps & {
 }
 export const TradingLimitAmount = ({ amount, limit, displayCurrency, style, type }: Props) => (
   <View style={style}>
-    <Text style={tw`tooltip text-black-2`}>
+    <PeachText style={tw`tooltip text-black-2`}>
       {i18n(`profile.tradingLimits.${type}`)}
       {'  '}
       <PriceFormat style={[textStyle, tw`text-primary-main`]} currency={displayCurrency} amount={amount} round />
-      <Text style={[textStyle, tw`text-black-2`]}> / </Text>
+      <PeachText style={[textStyle, tw`text-black-2`]}> / </PeachText>
       <PriceFormat style={[textStyle, tw`text-primary-mild-1`]} currency={displayCurrency} amount={limit} round />
-    </Text>
+    </PeachText>
   </View>
 )

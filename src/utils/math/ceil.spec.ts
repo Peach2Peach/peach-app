@@ -1,6 +1,7 @@
+/* eslint-disable no-magic-numbers */
 import { strictEqual } from 'assert'
 import { SATSINBTC } from '../../constants'
-import { ceil } from '.'
+import { ceil } from './ceil'
 
 describe('ceil', () => {
   it('ceils values to integers', () => {

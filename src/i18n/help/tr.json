@@ -37,7 +37,7 @@
   "help.referral.description.1" : "Yönlendirmelerinizin Peach'te işlem yapması durumunda, her 10.000 sats için bir yönlendirme puanı alırsınız.",
   "help.referral.description.2" : "Puanlarınızı biriktirip harika ödüller alabilirsiniz!",
   "help.referral.title" : "Peach yönlendirme puanları",
-  "help.sellingBitcoin.description" : "Peach üzerinde sats'larınızı satmak ücretsizdir!",
+  "help.sellingBitcoin.description" : "Peach'te sats'lerinizi satmak ücretsizdir!\n\nBir satış teklifi yayınlamak için sats'lerinizi bir escrow'a göndermelisiniz, böylece alıcıya satmak istediğiniz sats'lere sahip olduğunuzu kanıtlayabilirsiniz!\n\nEscrow, sahip olduğunuz bir anahtara ve Peach'in başka bir anahtara sahip olduğu Bitcoin çoklu imza cüzdanıdır.",
   "help.sellingBitcoin.title" : "bitcoin satma",
   "help.tradingLimit.description" : "Peach, İsviçre yasalarına uymak için işlem limitlerini uygulamak zorundadır. Üç işlem limiti bulunmaktadır:\n\nGünlük olarak Peach'te 1000 CHF değerinde bitcoin alıp satabilirsiniz\n\nNakit veya çevrimdışı hediye kartları (anonim ödeme yöntemleri) ile ayda 1000 CHF değerinde bitcoin alıp satabilirsiniz\n\nYıllık olarak 100.000 CHF değerinde bitcoin alıp satabilirsiniz.",
   "help.tradingLimit.title" : "işlem limitleri"

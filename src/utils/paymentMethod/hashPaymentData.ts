@@ -1,4 +1,4 @@
-import { sha256 } from '../crypto'
+import { sha256 } from '../crypto/sha256'
 import { getPaymentDataInfoFields } from './getPaymentDataInfoFields'
 
 const doNotHash: PaymentDataField[] = ['beneficiary', 'bic', 'name', 'reference', 'ukSortCode']

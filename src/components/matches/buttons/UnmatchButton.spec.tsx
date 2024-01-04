@@ -1,31 +1,25 @@
 import { act, fireEvent, render } from 'test-utils'
 import { buyOffer } from '../../../../tests/unit/data/offerData'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { UnmatchPopup } from '../../../popups/UnmatchPopup'
+import { WarningPopup } from '../../../popups/WarningPopup'
+import { ClosePopupAction } from '../../../popups/actions'
 import { MatchUndone } from '../../../popups/app/MatchUndone'
 import { appPopups } from '../../../popups/appPopups'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
+import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { peachAPI } from '../../../utils/peachAPI'
+import { Popup } from '../../popup'
+import { PopupComponent } from '../../popup/PopupComponent'
 import { UnmatchButton } from './UnmatchButton'
 
 jest.useFakeTimers()
 
-const unmatchOfferMock = jest.fn((..._args: unknown[]) =>
-  Promise.resolve([
-    {
-      success: true,
-    },
-    null,
-  ]),
-)
-
-jest.mock('../../../utils/peachAPI', () => ({
-  unmatchOffer: (...args: unknown[]) => unmatchOfferMock(...args),
-}))
+const unmatchOfferMock = jest.spyOn(peachAPI.private.offer, 'unmatchOffer')
 
 describe('UnmatchButton', () => {
   const interruptMatching = jest.fn()
-  const showUnmatchedCard = jest.fn()
+  const setShowMatchedCard = jest.fn()
   const defaultProps = {
     match: {
       matched: true,
@@ -48,23 +42,14 @@ describe('UnmatchButton', () => {
       tradeStatus: 'searchingForPeer',
     } satisfies BuyOffer | SellOffer,
     interruptMatching,
-    showUnmatchedCard,
+    setShowMatchedCard,
   }
 
   beforeEach(() => {
-    queryClient.setQueryData(['matches', 'offerId'], {
-      pages: [
-        {
-          matches: [
-            {
-              matched: true,
-              offerId: 'offerId',
-            },
-          ],
-        },
-      ],
+    queryClient.setQueryData(['matchDetails', 'offerId', 'offerId'], {
+      matched: true,
     })
-    usePopupStore.getState().setPopup(defaultPopupState)
+    usePopupStore.getState().setPopup(defaultPopupState.popupComponent)
   })
   it('renders correctly', () => {
     const { toJSON } = render(<UnmatchButton {...defaultProps} />)
@@ -84,29 +69,10 @@ describe('UnmatchButton', () => {
   it('should show the unmatch popup when unmatch is pressed', async () => {
     const { getByText } = render(<UnmatchButton {...defaultProps} />)
 
-    const expectedPopup = {
-      ...usePopupStore.getState(),
-      title: i18n('search.popups.unmatch.title'),
-      content: <UnmatchPopup />,
-      visible: true,
-      level: 'WARN',
-      action1: {
-        label: i18n('search.popups.unmatch.neverMind'),
-        icon: 'xSquare',
-        callback: expect.any(Function),
-      },
-      action2: {
-        label: i18n('search.popups.unmatch.confirm'),
-        icon: 'minusCircle',
-        callback: expect.any(Function),
-      },
-    }
-
     await act(() => {
       fireEvent.press(getByText(i18n('search.unmatch')))
     })
-
-    expect(usePopupStore.getState()).toStrictEqual(expectedPopup)
+    expect(usePopupStore.getState().visible).toBeTruthy()
   })
   it('should close the popup when action1 is pressed', async () => {
     const { getByText } = render(<UnmatchButton {...defaultProps} />)
@@ -115,12 +81,13 @@ describe('UnmatchButton', () => {
       fireEvent.press(getByText(i18n('search.unmatch')))
     })
 
+    const { getByText: getByTextInPopup } = render(<Popup />)
     await act(() => {
-      usePopupStore.getState().action1?.callback()
+      fireEvent.press(getByTextInPopup(i18n('search.popups.unmatch.neverMind')))
     })
 
     expect(usePopupStore.getState().visible).toBeFalsy()
-    expect(showUnmatchedCard).not.toHaveBeenCalled()
+    expect(setShowMatchedCard).not.toHaveBeenCalled()
   })
   it('should unmatch and show confirmation popup when action2 is pressed', async () => {
     const { getByText } = render(<UnmatchButton {...defaultProps} />)
@@ -129,42 +96,26 @@ describe('UnmatchButton', () => {
       fireEvent.press(getByText(i18n('search.unmatch')))
     })
 
+    const { getByText: getByTextInPopup } = render(<Popup />)
     await act(() => {
-      usePopupStore.getState().action2?.callback()
+      fireEvent.press(getByTextInPopup(i18n('search.popups.unmatch.confirm')))
     })
 
-    expect(usePopupStore.getState()).toStrictEqual({
-      ...usePopupStore.getState(),
-      title: 'unmatched!',
-      level: 'WARN',
-      visible: true,
-    })
-    expect(showUnmatchedCard).toHaveBeenCalled()
-    expect(unmatchOfferMock).toHaveBeenCalledWith({ offerId: 'offerId', matchingOfferId: 'offerId' })
-    expect(queryClient.getQueryData(['matches', 'offerId'])).toStrictEqual({
-      pages: [
-        {
-          matches: [
-            {
-              matched: false,
-              offerId: 'offerId',
-            },
-          ],
-        },
-      ],
-    })
-  })
-  it('should call showUnmatchedCard when undo is pressed', async () => {
-    const { getAllByText } = render(
-      <UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />,
+    expect(usePopupStore.getState().visible).toBeTruthy()
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <WarningPopup
+        title={i18n('search.popups.unmatched')}
+        actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-1`} />}
+      />,
     )
 
-    await act(() => {
-      fireEvent.press(getAllByText(i18n('search.undo'))[0])
+    expect(setShowMatchedCard).toHaveBeenCalled()
+    expect(unmatchOfferMock).toHaveBeenCalledWith({ offerId: 'offerId', matchingOfferId: 'offerId' })
+    expect(queryClient.getQueryData(['matchDetails', 'offerId', 'offerId'])).toStrictEqual({
+      matched: false,
     })
-
-    expect(showUnmatchedCard).toHaveBeenCalled()
   })
+
   it('should call interruptMatching when undo is pressed', async () => {
     const { getAllByText } = render(
       <UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />,
@@ -184,12 +135,13 @@ describe('UnmatchButton', () => {
     await act(() => {
       fireEvent.press(getAllByText('undo')[0])
     })
-    expect(usePopupStore.getState()).toStrictEqual({
-      ...usePopupStore.getState(),
-      title: appPopups.matchUndone.title,
-      content: <MatchUndone />,
-      visible: true,
-      level: 'APP',
-    })
+    expect(usePopupStore.getState().visible).toBeTruthy()
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <PopupComponent
+        title={appPopups.matchUndone.title}
+        content={<MatchUndone />}
+        actions={<ClosePopupAction style={tw`justify-center`} />}
+      />,
+    )
   })
 })

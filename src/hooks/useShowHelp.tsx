@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { Text } from '../components'
+import { PeachText } from '../components/text/PeachText'
 import { InfoPopup } from '../popups/InfoPopup'
 import { helpPopups } from '../popups/helpPopups'
 import { usePopupStore } from '../store/usePopupStore'
@@ -25,7 +25,7 @@ function HelpPopup ({ id, showTitle }: Props) {
   return (
     <InfoPopup
       title={showTitle ? helpPopups[id]?.title ?? i18n(`help.${id}.title`) : undefined}
-      content={Content !== undefined ? <Content /> : <Text>{i18n(`help.${id}.description`)}</Text>}
+      content={Content !== undefined ? <Content /> : <PeachText>{i18n(`help.${id}.description`)}</PeachText>}
     />
   )
 }

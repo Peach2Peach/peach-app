@@ -1,12 +1,16 @@
 import { useRef, useState } from 'react'
 import { TouchableOpacity, View, useWindowDimensions } from 'react-native'
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel'
-import { Header, Icon, Progress, Screen, Text } from '../../components'
-import { HeaderIcon } from '../../components/Header'
+import { Header, HeaderIcon } from '../../components/Header'
+import { Icon } from '../../components/Icon'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { useDrawerState } from '../../components/drawer/useDrawerState'
-import { useKeyboard, useNavigation } from '../../hooks'
+import { PeachText } from '../../components/text/PeachText'
+import { Progress } from '../../components/ui/Progress'
+import { useKeyboard } from '../../hooks/useKeyboard'
 import { useLanguage } from '../../hooks/useLanguage'
+import { useNavigation } from '../../hooks/useNavigation'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { AWalletYouControl } from './AWalletYouControl'
@@ -46,8 +50,8 @@ export const Welcome = () => {
         onPress={goToEnd}
         style={[tw`flex-row items-center self-end h-8 gap-1`, endReached && tw`opacity-0`]}
       >
-        <Text style={tw`text-primary-background-light`}>{i18n('skip')}</Text>
-        <Icon id="skipForward" size={12} color={tw`text-primary-background-light`.color} />
+        <PeachText style={tw`text-primary-background-light`}>{i18n('skip')}</PeachText>
+        <Icon id="skipForward" size={12} color={tw.color('primary-background-light')} />
       </TouchableOpacity>
       <View style={tw`items-center h-full shrink`}>
         <Carousel
@@ -98,8 +102,8 @@ function OnboardingHeader () {
     })
   }
   const headerIcons: HeaderIcon[] = [
-    { id: 'mail', color: tw`text-primary-background-light`.color, onPress: () => navigation.navigate('contact') },
-    { id: 'globe', color: tw`text-primary-background-light`.color, onPress: openLanguageDrawer },
+    { id: 'mail', color: tw.color('primary-background-light'), onPress: () => navigation.navigate('contact') },
+    { id: 'globe', color: tw.color('primary-background-light'), onPress: openLanguageDrawer },
   ]
   return <Header title={i18n('welcome.welcomeToPeach.title')} icons={headerIcons} theme="transparent" hideGoBackButton />
 }

@@ -1,10 +1,11 @@
 import { address, Transaction } from 'bitcoinjs-lib'
 import { log } from '../log'
-import { getNetwork } from '../wallet'
+import { getNetwork } from '../wallet/getNetwork'
 
-type Props = { releaseTransaction: string; releaseAddress: string; inputAmount: number; discount?: number }
+type Props = { releaseTransaction?: string; releaseAddress: string; inputAmount: number; discount?: number }
 export const getTradeBreakdown = ({ releaseTransaction, releaseAddress, inputAmount }: Props) => {
   try {
+    if (!releaseTransaction) throw new Error('No release transaction provided')
     const transaction = Transaction.fromHex(releaseTransaction)
     const outputs = transaction.outs
     const releaseOutput = outputs.find(

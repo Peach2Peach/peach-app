@@ -32,31 +32,10 @@ describe('FundEscrow', () => {
     renderer.render(<FundEscrow />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
-
-  it('should show Loading, while escrow creation is pending', () => {
-    useFundEscrowSetupMock.mockReturnValueOnce({
-      ...defaultReturnValue,
-      isLoading: true,
-    })
-    renderer.render(<FundEscrow />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
   it('should show Loading, while escrow is not defined', () => {
     useFundEscrowSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
-      loading: false,
       fundingAddress: undefined,
-    })
-    renderer.render(<FundEscrow />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
-
-  it('should show NoEscrowFound, if no there is an error while creating escrow', () => {
-    useFundEscrowSetupMock.mockReturnValueOnce({
-      ...defaultReturnValue,
-      escrow: '',
-      isLoading: false,
-      createEscrowError: new Error('UNAUTHORIZED'),
     })
     renderer.render(<FundEscrow />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
@@ -74,7 +53,6 @@ describe('FundEscrow', () => {
   it('should show TransactionInMempool, if fundingStatus is MEMPOOL', () => {
     useFundEscrowSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
-      isLoading: false,
       fundingStatus: {
         ...defaultFundingStatus,
         status: 'MEMPOOL',

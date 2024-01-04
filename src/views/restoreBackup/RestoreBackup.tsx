@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Screen } from '../../components'
 import { Header, HeaderIcon } from '../../components/Header'
+import { Screen } from '../../components/Screen'
 import { useDrawerState } from '../../components/drawer/useDrawerState'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
-import { useNavigation, useRoute } from '../../hooks'
 import { useLanguage } from '../../hooks/useLanguage'
+import { useNavigation } from '../../hooks/useNavigation'
+import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { RestoreFromFile } from './RestoreFromFile'
@@ -55,8 +56,8 @@ function OnboardingHeader () {
     })
   }
   const headerIcons: HeaderIcon[] = [
-    { id: 'mail', color: tw`text-primary-background-light`.color, onPress: () => navigation.navigate('contact') },
-    { id: 'globe', color: tw`text-primary-background-light`.color, onPress: openLanguageDrawer },
+    { id: 'mail', color: tw.color('primary-background-light'), onPress: () => navigation.navigate('contact') },
+    { id: 'globe', color: tw.color('primary-background-light'), onPress: openLanguageDrawer },
   ]
   return <Header title={i18n('restoreBackup.title')} icons={headerIcons} theme="transparent" />
 }

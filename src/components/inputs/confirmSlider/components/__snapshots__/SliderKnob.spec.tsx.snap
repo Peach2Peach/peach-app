@@ -18,13 +18,7 @@ exports[`SliderKnob renders correctly 1`] = `
         "paddingRight": 6,
         "paddingTop": 4,
       },
-      {
-        "gap": 4,
-        "paddingBottom": 6,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 6,
-      },
+      {},
     ]
   }
 >
@@ -59,13 +53,7 @@ exports[`SliderKnob renders when disabled 1`] = `
         "paddingRight": 6,
         "paddingTop": 4,
       },
-      {
-        "gap": 4,
-        "paddingBottom": 6,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 6,
-      },
+      {},
     ]
   }
 >
@@ -100,13 +88,7 @@ exports[`SliderKnob renders when slided to 80% 1`] = `
         "paddingRight": 6,
         "paddingTop": 4,
       },
-      {
-        "gap": 4,
-        "paddingBottom": 6,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 6,
-      },
+      {},
     ]
   }
 >
@@ -141,13 +123,7 @@ exports[`SliderKnob renders when slided to the end 1`] = `
         "paddingRight": 6,
         "paddingTop": 4,
       },
-      {
-        "gap": 4,
-        "paddingBottom": 6,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 6,
-      },
+      {},
     ]
   }
 >

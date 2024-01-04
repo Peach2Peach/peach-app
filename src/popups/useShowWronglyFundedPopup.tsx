@@ -1,8 +1,12 @@
 import { useCallback } from 'react'
+import { PopupAction } from '../components/popup'
 import { useConfigStore } from '../store/configStore/configStore'
 import { usePopupStore } from '../store/usePopupStore'
+import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { sum } from '../utils/math'
+import { sum } from '../utils/math/sum'
+import { WarningPopup } from './WarningPopup'
+import { ClosePopupAction } from './actions'
 import { useCancelAndStartRefundPopup } from './useCancelAndStartRefundPopup'
 import { IncorrectFunding } from './warning/IncorrectFunding'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
@@ -27,19 +31,26 @@ export const useShowWronglyFundedPopup = () => {
           <IncorrectFunding {...{ utxos }} />
         )
 
-      setPopup({
-        title,
-        content,
-        visible: true,
-        level: 'WARN',
-        action1: {
-          label: i18n('refundEscrow'),
-          icon: 'arrowRightCircle',
-          callback: () => {
-            cancelAndStartRefundPopup(sellOffer)
-          },
-        },
-      })
+      setPopup(
+        <WarningPopup
+          title={title}
+          content={content}
+          actions={
+            <>
+              <ClosePopupAction textStyle={tw`text-black-1`} />
+              <PopupAction
+                label={i18n('refundEscrow')}
+                iconId="arrowRightCircle"
+                textStyle={tw`text-black-1`}
+                onPress={() => {
+                  cancelAndStartRefundPopup(sellOffer)
+                }}
+                reverseOrder
+              />
+            </>
+          }
+        />,
+      )
     },
     [maxTradingAmount, setPopup, cancelAndStartRefundPopup],
   )

@@ -1,4 +1,4 @@
-import { toDateFormat } from '.'
+import { toDateFormat } from './toDateFormat'
 
 describe('toDateFormat', () => {
   it('should format the date as "month day, year" if it is not today or yesterday', () => {

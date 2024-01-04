@@ -1,4 +1,4 @@
-import { Checkbox } from '../../../../components'
+import { Checkbox } from '../../../../components/inputs/Checkbox'
 import i18n from '../../../../utils/i18n'
 
 type Props = ComponentProps & { checkBoxProps: { checked: boolean; onPress: () => void } }

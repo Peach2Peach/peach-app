@@ -1,6 +1,6 @@
 import { strictEqual } from 'assert'
-import { getPublicKeyForEscrow } from '.'
 import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
+import { getPublicKeyForEscrow } from './getPublicKeyForEscrow'
 
 describe('getPublicKeyForEscrow', () => {
   it('returns wallet for escrow depending on offer id', () => {

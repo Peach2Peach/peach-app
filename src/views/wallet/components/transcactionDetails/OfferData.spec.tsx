@@ -1,4 +1,3 @@
-import { View } from 'react-native'
 import { render } from 'test-utils'
 import { pendingTransactionSummary, transactionWithRBF1 } from '../../../../../tests/unit/data/transactionDetailData'
 import { OfferData } from './OfferData'
@@ -6,10 +5,6 @@ import { OfferData } from './OfferData'
 const useTransactionDetailsMock = jest.fn().mockReturnValue({ transaction: transactionWithRBF1 })
 jest.mock('../../../../hooks/query/useTransactionDetails', () => ({
   useTransactionDetails: () => useTransactionDetailsMock(),
-}))
-
-jest.mock('../../../../components/animation/Fade', () => ({
-  Fade: (_props: { show: boolean }) => <View />,
 }))
 
 jest.useFakeTimers()
@@ -28,7 +23,7 @@ describe('OfferData', () => {
     )
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should render correctly without  price, currency and address', () => {
+  it('should render correctly without price, currency and address', () => {
     const { toJSON } = render(<OfferData amount={100000} transaction={pendingTransactionSummary} type="WITHDRAWAL" />)
     expect(toJSON()).toMatchSnapshot()
   })

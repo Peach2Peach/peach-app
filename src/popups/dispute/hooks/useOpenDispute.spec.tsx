@@ -1,7 +1,11 @@
-import { renderHook } from 'test-utils'
-import { contract } from '../../../../tests/unit/data/contractData'
+import { fireEvent, render, renderHook } from 'test-utils'
+import { contract } from '../../../../peach-api/src/testData/contract'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { Popup, PopupAction } from '../../../components/popup'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
+import tw from '../../../styles/tailwind'
+import { WarningPopup } from '../../WarningPopup'
+import { ClosePopupAction } from '../../actions'
 import { OpenDispute } from '../components/OpenDispute'
 import { useOpenDispute } from './useOpenDispute'
 
@@ -13,33 +17,37 @@ describe('useOpenDispute', () => {
   it('should show open dispute popup', () => {
     const { result } = renderHook(useOpenDispute, { initialProps: contract.id })
     result.current()
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      level: 'WARN',
-      content: <OpenDispute />,
-      visible: true,
-      action2: {
-        label: 'open dispute',
-        icon: 'alertOctagon',
-        callback: expect.any(Function),
-      },
-      action1: {
-        label: 'close',
-        icon: 'xSquare',
-        callback: expect.any(Function),
-      },
-    })
+    expect(usePopupStore.getState().visible).toEqual(true)
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <WarningPopup
+        title="open dispute"
+        content={<OpenDispute />}
+        actions={
+          <>
+            <PopupAction
+              textStyle={tw`text-black-1`}
+              label="open dispute"
+              iconId="alertOctagon"
+              onPress={expect.any(Function)}
+            />
+            <ClosePopupAction textStyle={tw`text-black-1`} reverseOrder />
+          </>
+        }
+      />,
+    )
   })
   it('should close popup', () => {
     const { result } = renderHook(useOpenDispute, { initialProps: contract.id })
     result.current()
-    usePopupStore.getState().action1?.callback()
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('close'))
     expect(usePopupStore.getState().visible).toEqual(false)
   })
   it('should navigate to disputeReasonSelector', () => {
     const { result } = renderHook(useOpenDispute, { initialProps: contract.id })
     result.current()
-    usePopupStore.getState().action2?.callback()
+    const { getAllByText } = render(<Popup />)
+    fireEvent.press(getAllByText('open dispute')[1])
     expect(navigateMock).toHaveBeenCalledWith('disputeReasonSelector', { contractId: contract.id })
     expect(usePopupStore.getState().visible).toEqual(false)
   })

@@ -118,6 +118,7 @@
   "contract.summary.paidWithMethod" : "zapłacone z",
   "contract.summary.paymentConfirmed" : "w dniu",
   "contract.summary.paymentTooLate" : "opóźniona zapłata",
+  "contract.summary.payoutToPeachWallet" : "wypłata na portfel peach",
   "contract.summary.phone" : "numer telefonu",
   "contract.summary.pixAlias" : "alias pix",
   "contract.summary.postePayNumber" : "numer postePay",

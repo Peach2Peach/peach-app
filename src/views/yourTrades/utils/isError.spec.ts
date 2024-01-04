@@ -1,4 +1,4 @@
-import { isError } from '.'
+import { isError } from './isError'
 
 describe('isError', () => {
   it('should return true for error status', () => {

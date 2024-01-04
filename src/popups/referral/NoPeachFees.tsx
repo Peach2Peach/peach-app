@@ -1,4 +1,4 @@
-import { Text } from '../../components'
+import { PeachText } from '../../components/text/PeachText'
 import i18n from '../../utils/i18n'
 
-export const NoPeachFees = () => <Text>{i18n('settings.referrals.noPeachFees.popup.text')}</Text>
+export const NoPeachFees = () => <PeachText>{i18n('settings.referrals.noPeachFees.popup.text')}</PeachText>

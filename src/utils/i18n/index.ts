@@ -14,7 +14,7 @@ import ru from '../../i18n/ru'
 import sw from '../../i18n/sw'
 import tr from '../../i18n/tr'
 import uk from '../../i18n/uk'
-import { keys } from '../object'
+import { keys } from '../object/keys'
 import { getLocaleLanguage } from './getLocaleLanguage'
 
 const localeMapping: Record<string, Record<string, string>> = {
@@ -28,6 +28,8 @@ const localeMapping: Record<string, Record<string, string>> = {
   tr,
   sw,
   hu,
+  pt,
+  'pt-BR': ptBR,
 }
 
 export type Locale = keyof typeof localeMapping
@@ -40,8 +42,6 @@ export const languageState: LanguageState = {
 }
 if (NETWORK !== 'bitcoin') {
   localeMapping.pl = pl
-  localeMapping.pt = pt
-  localeMapping['pt-BR'] = ptBR
   localeMapping.ru = ru
   localeMapping.uk = uk
   localeMapping.raw = {}

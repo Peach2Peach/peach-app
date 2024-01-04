@@ -1,5 +1,5 @@
 import { useSettingsStore } from '../../store/settingsStore'
-import { decrypt } from '../crypto'
+import { decrypt } from '../crypto/decrypt'
 import { info } from '../log'
 
 interface DecryptAccountProps {

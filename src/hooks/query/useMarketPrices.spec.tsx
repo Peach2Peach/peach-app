@@ -1,16 +1,8 @@
-import { renderHook, waitFor } from 'test-utils'
+import { renderHook, responseUtils, waitFor } from 'test-utils'
+import { peachAPI } from '../../utils/peachAPI'
 import { useMarketPrices } from './useMarketPrices'
 
-const marketPricesMock = jest.fn().mockResolvedValue([
-  {
-    EUR: 21000,
-    CHF: 21000,
-  },
-  null,
-])
-jest.mock('../../utils/peachAPI/public/market', () => ({
-  marketPrices: () => marketPricesMock(),
-}))
+const marketPricesMock = jest.spyOn(peachAPI.public.market, 'marketPrices')
 jest.useFakeTimers()
 describe('useMarketPrices', () => {
   it('should return marketPrices', async () => {
@@ -23,7 +15,7 @@ describe('useMarketPrices', () => {
     })
   })
   it('should handle errors', async () => {
-    marketPricesMock.mockResolvedValueOnce([null, null])
+    marketPricesMock.mockResolvedValueOnce(responseUtils)
     const { result } = renderHook(useMarketPrices)
     await waitFor(() => {
       expect(result.current.error).toEqual(Error('Error fetching market prices'))
@@ -31,20 +23,20 @@ describe('useMarketPrices', () => {
   })
   it('should refetch every 15 seconds', async () => {
     marketPricesMock
-      .mockResolvedValueOnce([
-        {
+      .mockResolvedValueOnce({
+        result: {
           EUR: 21000,
           CHF: 21000,
         },
-        null,
-      ])
-      .mockResolvedValueOnce([
-        {
+        ...responseUtils,
+      })
+      .mockResolvedValueOnce({
+        result: {
           EUR: 100000,
           CHF: 100000,
         },
-        null,
-      ])
+        ...responseUtils,
+      })
 
     const { result } = renderHook(useMarketPrices)
     await waitFor(() => {
@@ -63,14 +55,14 @@ describe('useMarketPrices', () => {
   })
   it('should preserve the existing data on error', async () => {
     marketPricesMock
-      .mockResolvedValueOnce([
-        {
+      .mockResolvedValueOnce({
+        result: {
           EUR: 21000,
           CHF: 21000,
         },
-        null,
-      ])
-      .mockResolvedValueOnce([null, null])
+        ...responseUtils,
+      })
+      .mockResolvedValueOnce(responseUtils)
 
     const { result } = renderHook(useMarketPrices)
     await waitFor(() => {

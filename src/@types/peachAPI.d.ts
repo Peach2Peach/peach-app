@@ -16,14 +16,6 @@ type PeachWS = {
   onmessage?: WebSocket['onmessage'] | (() => {})
 }
 
-type ContractUpdate = {
-  contractId: Contract['id']
-  event: 'paymentMade' | 'paymentConfirmed'
-  data: {
-    date: number
-  }
-}
-
 type AccessToken = {
   expiry: number
   accessToken: string
@@ -65,6 +57,7 @@ type User = {
   recentRating: number
   referralCode?: string
   referredTradingAmount: number
+  openedTrades: number
   trades: number
   uniqueId: string
   usedReferralCode?: string
@@ -251,7 +244,10 @@ type TradeStatus =
   | 'tradeCompleted'
 
 type OfferPaymentData = Partial<
-  Record<PaymentMethod, { hashes: string[]; hash?: string; country?: PaymentMethodCountry }>
+  Record<
+    PaymentMethod,
+    { hashes: string[]; hash?: string; country?: PaymentMethodCountry; encrypted?: string; signature?: string }
+  >
 >
 type PostedOffer = BuyOffer | SellOffer
 type PostOfferResponseBody = PostedOffer | PostedOffer[]
@@ -288,7 +284,7 @@ type MatchUnavailableReasons = {
 }
 
 type Match = {
-  user: User
+  user: PublicUser
   offerId: string
   amount: number
   escrow?: string
@@ -296,39 +292,36 @@ type Match = {
   matchedPrice: number | null
   premium: number
   meansOfPayment: MeansOfPayment
-  paymentData: OfferPaymentData
+  paymentData?: OfferPaymentData
   selectedCurrency?: Currency
   selectedPaymentMethod?: PaymentMethod
   symmetricKeyEncrypted: string
   symmetricKeySignature: string
   matched: boolean
   unavailable: MatchUnavailableReasons
+  instantTrade: boolean
 }
-type GetMatchesResponse = {
-  offerId: string
-  matches: Match[]
-  totalMatches: number
-  nextPage: number
 
-  /** @deprecated */
-  remainingMatches: number
-}
-type MatchResponse = {
-  success: true
-  matchedPrice?: number
-  contractId?: string
-  refundTx?: string
-}
+type MatchResponse =
+  | {
+      success: true
+      contractId: string
+      refundTx: string
+    }
+  | {
+      matchedPrice: number
+    }
 
 type OfferSummary = {
   id: string
   type: 'bid' | 'ask'
-  creationDate: Date
+  contractId?: string
   lastModified: Date
+  creationDate: Date
   amount: number | [number, number]
   matches: string[]
+  prices?: Pricebook
   tradeStatus: TradeStatus
-  contractId?: string
   txId?: string
   fundingTxId?: string
 }
@@ -344,14 +337,14 @@ type ContractSummary = {
   creationDate: Date
   lastModified: Date
   paymentMade?: Date
-  paymentConfirmed?: Date
   tradeStatus: TradeStatus
+  disputeWinner?: Contract['disputeWinner']
+  unreadMessages: number
   amount: number
   price: number
   currency: Currency
-  disputeWinner?: Contract['disputeWinner']
-  unreadMessages: number
   releaseTxId?: string
+  isChatActive: boolean
 }
 type GetContractsResponse = Contract[]
 type GetContractSummariesResponse = ContractSummary[]
@@ -472,14 +465,10 @@ type SellSorter = 'highestPrice' | 'bestReputation'
 
 type Sorter = BuySorter | SellSorter
 
-type MatchFilter = {
-  maxPremium: number | null
-}
-
-declare type GetUserPaymentMethodInfoRequestParams = {}
-declare type GetUserPaymentMethodInfoRequestQuery = {}
-declare type GetUserPaymentMethodInfoRequestBody = {}
-declare type GetUserPaymentMethodInfoResponseBody = {
+type GetUserPaymentMethodInfoRequestParams = {}
+type GetUserPaymentMethodInfoRequestQuery = {}
+type GetUserPaymentMethodInfoRequestBody = {}
+type GetUserPaymentMethodInfoResponseBody = {
   forbidden: {
     buy: PaymentMethod[]
     sell: PaymentMethod[]

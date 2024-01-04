@@ -1,5 +1,5 @@
 import { useSettingsStore } from '../store/settingsStore'
-import { isNumber } from '../utils/validation'
+import { isNumber } from '../utils/validation/isNumber'
 import { useFeeEstimate } from './query/useFeeEstimate'
 
 export const useFeeRate = () => {

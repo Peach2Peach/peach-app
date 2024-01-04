@@ -193,7 +193,9 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            false,
+            {
+              "gap": 6,
+            },
             false,
           ]
         }
@@ -945,7 +947,9 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            false,
+            {
+              "gap": 6,
+            },
             false,
           ]
         }
@@ -1697,7 +1701,9 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            false,
+            {
+              "gap": 6,
+            },
             false,
           ]
         }
@@ -2449,7 +2455,9 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            false,
+            {
+              "gap": 6,
+            },
             false,
           ]
         }
@@ -3201,7 +3209,9 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            false,
+            {
+              "gap": 6,
+            },
             false,
           ]
         }

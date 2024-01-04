@@ -1,9 +1,13 @@
 import { useCallback } from 'react'
+import { PopupAction } from '../../../../components/popup'
+import { ErrorPopup } from '../../../../popups/ErrorPopup'
+import { ClosePopupAction } from '../../../../popups/actions'
 import { usePopupStore } from '../../../../store/usePopupStore'
-import { deleteAccount } from '../../../../utils/account'
+import tw from '../../../../styles/tailwind'
 import { useAccountStore } from '../../../../utils/account/account'
+import { deleteAccount } from '../../../../utils/account/deleteAccount'
 import i18n from '../../../../utils/i18n'
-import { logoutUser } from '../../../../utils/peachAPI'
+import { peachAPI } from '../../../../utils/peachAPI'
 import { DeleteAccountPopup } from './DeleteAccountPopup'
 
 export const useDeleteAccountPopups = () => {
@@ -12,26 +16,26 @@ export const useDeleteAccountPopups = () => {
 
   const showPopup = useCallback(
     (content: JSX.Element, callback?: () => void, isSuccess = false) =>
-      setPopup({
-        visible: true,
-        title: i18n(`settings.deleteAccount.${isSuccess ? 'success' : 'popup'}.title`),
-        content,
-        level: 'ERROR',
-        action2:
-          !isSuccess && callback
-            ? {
-              label: i18n('settings.deleteAccount'),
-              icon: 'trash',
-              callback,
-            }
-            : undefined,
-      }),
+      setPopup(
+        <ErrorPopup
+          title={i18n(`settings.deleteAccount.${isSuccess ? 'success' : 'popup'}.title`)}
+          content={content}
+          actions={
+            <>
+              {!isSuccess && callback && (
+                <PopupAction label={i18n('settings.deleteAccount')} iconId="trash" onPress={callback} />
+              )}
+              <ClosePopupAction reverseOrder style={!(!isSuccess && callback) && tw`justify-center`} />
+            </>
+          }
+        />,
+      ),
     [setPopup],
   )
 
   const deleteAccountClicked = () => {
     deleteAccount()
-    logoutUser({})
+    peachAPI.private.user.logoutUser()
     setIsLoggedIn(false)
     showPopup(<DeleteAccountPopup title={'success'} />, undefined, true)
   }

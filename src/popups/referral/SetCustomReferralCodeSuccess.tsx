@@ -1,4 +1,4 @@
-import { ParsedPeachText } from '../../components'
+import { ParsedPeachText } from '../../components/text/ParsedPeachText'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 

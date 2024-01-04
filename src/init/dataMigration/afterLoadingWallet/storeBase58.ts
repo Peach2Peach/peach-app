@@ -1,5 +1,5 @@
 import { BIP32Interface } from 'bip32'
-import { storeIdentity } from '../../../utils/account'
+import { storeIdentity } from '../../../utils/account/storeAccount'
 
 export const storeBase58 = (wallet: BIP32Interface, account: Account) => {
   storeIdentity({

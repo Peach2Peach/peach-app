@@ -1,28 +1,28 @@
 /* eslint-disable max-lines-per-function */
-import { renderHook, waitFor } from 'test-utils'
+import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultFundingStatus } from '../../utils/offer/constants'
+import { peachAPI } from '../../utils/peachAPI'
 import { useFundingStatus } from './useFundingStatus'
 
 const defaultFundingStatusResponse = { funding: defaultFundingStatus, userConfirmationRequired: false }
 const inMempool = {
-  funding: { ...defaultFundingStatusResponse, status: 'MEMPOOL' },
+  funding: { ...defaultFundingStatusResponse.funding, status: 'MEMPOOL' as const },
   userConfirmationRequired: true,
+  returnAddress: '',
+  escrow: '',
+  offerId: '',
 }
 
-const getFundingStatusMock = jest.fn().mockResolvedValue([defaultFundingStatusResponse])
-jest.mock('../../utils/peachAPI', () => ({
-  getFundingStatus: () => getFundingStatusMock(),
-}))
+const getFundingStatusMock = jest.spyOn(peachAPI.private.offer, 'getFundingStatus')
 
 describe('useFundingStatus', () => {
   afterEach(() => {
     queryClient.clear()
   })
   it('fetches funding status from API', async () => {
-    getFundingStatusMock.mockResolvedValueOnce([inMempool])
+    getFundingStatusMock.mockResolvedValueOnce({ result: inMempool, ...responseUtils })
 
     const { result } = renderHook(useFundingStatus, { initialProps: sellOffer.id })
 
@@ -43,7 +43,7 @@ describe('useFundingStatus', () => {
     })
   })
   it('returns default funding status if API does not return one', async () => {
-    getFundingStatusMock.mockResolvedValueOnce([null, unauthorizedError])
+    getFundingStatusMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
 
     const { result } = renderHook(useFundingStatus, { initialProps: sellOffer.id })
 
@@ -60,7 +60,7 @@ describe('useFundingStatus', () => {
       fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
       isLoading: false,
-      error: new Error(unauthorizedError.error),
+      error: new Error('UNAUTHORIZED'),
     })
   })
 })

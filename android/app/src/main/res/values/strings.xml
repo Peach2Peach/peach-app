@@ -22,6 +22,7 @@
     <string name="notification.body.contract.seller.disputeWon">We\'ve ruled your in favor in the dispute for trade %1$s. Please check the message from your mediator in the trade chat to see what\'s next.</string>
     <string name="notification.body.contract.seller.paymentTimerHasRunOut">The payment for trade %1$s wasn\'t made on time. Please open the app to give the buyer more time or cancel the trade.</string>
     <string name="notification.body.contract.tradeCompleted">The sats for trade %1$s are in your wallet \uD83C\uDF89</string>
+    <string name="notification.body.contract.seller.instantTrade">You’ve entered an instant trade with a buyer!</string>
     <string name="notification.body.offer.buyOfferExpired">Your buy offer %1$s hasn\'t received a match after %2$s days and has been removed.</string>
     <string name="notification.body.offer.escrowFunded">The escrow has been funded and your offer is published.</string>
     <string name="notification.body.offer.fundingAmountDifferent">The escrow has been funded with a different amount. Continue with your offer or get refunded!</string>

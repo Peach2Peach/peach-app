@@ -1,15 +1,11 @@
-import { renderHook, waitFor } from 'test-utils'
+import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { contractSummary } from '../../../tests/unit/data/contractSummaryData'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultTradeSummaryState, useTradeSummaryStore } from '../../store/tradeSummaryStore'
+import { peachAPI } from '../../utils/peachAPI'
 import { useContractSummaries } from './useContractSummaries'
 
-const getContractSummariesMock = jest.fn().mockResolvedValue([[contractSummary]])
-jest.mock('../../utils/peachAPI', () => ({
-  getContractSummaries: () => getContractSummariesMock(),
-}))
-
+const getContractSummariesMock = jest.spyOn(peachAPI.private.contract, 'getContractSummaries')
 jest.useFakeTimers()
 
 describe('useContractSummaries', () => {
@@ -50,7 +46,7 @@ describe('useContractSummaries', () => {
   })
   it('returns local contract if given and server did not return result', async () => {
     useTradeSummaryStore.setState({ contracts: [localContractSumary], lastModified: new Date() })
-    getContractSummariesMock.mockResolvedValueOnce([null])
+    getContractSummariesMock.mockResolvedValueOnce(responseUtils)
 
     const { result } = renderHook(useContractSummaries)
 
@@ -61,7 +57,7 @@ describe('useContractSummaries', () => {
     expect(result.current.contracts).toEqual([localContractSumary])
   })
   it('returns error if server did return error and no local contract summaries exists', async () => {
-    getContractSummariesMock.mockResolvedValueOnce([null, unauthorizedError])
+    getContractSummariesMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const { result } = renderHook(useContractSummaries)
 
     expect(result.current.contracts).toEqual([])
@@ -71,6 +67,6 @@ describe('useContractSummaries', () => {
 
     expect(result.current.contracts).toEqual([])
     expect(result.current.isLoading).toBeFalsy()
-    expect(result.current.error).toEqual(new Error(unauthorizedError.error))
+    expect(result.current.error).toEqual(new Error('UNAUTHORIZED'))
   })
 })

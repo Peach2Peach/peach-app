@@ -1,5 +1,5 @@
 import { SATSINBTC } from '../../constants'
-import { round } from '../math'
+import { round } from '../math/round'
 
 // eslint-disable-next-line max-params
 export const getOfferPrice = (amount: number, premium: number, prices: Pricebook, currency: Currency): number => {

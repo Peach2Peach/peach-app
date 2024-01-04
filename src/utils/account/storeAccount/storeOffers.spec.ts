@@ -1,8 +1,8 @@
-import { defaultAccount, setAccount } from '..'
-import { offerStorage } from '../offerStorage'
-import { storeOffers } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
 import * as offerData from '../../../../tests/unit/data/offerData'
+import { defaultAccount, setAccount } from '../account'
+import { offerStorage } from '../offerStorage'
+import { storeOffers } from './storeOffers'
 
 describe('storeOffers', () => {
   beforeEach(async () => {

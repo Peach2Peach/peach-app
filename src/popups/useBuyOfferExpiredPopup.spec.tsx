@@ -1,15 +1,17 @@
-import { act, renderHook } from 'test-utils'
+import { act, fireEvent, render, renderHook } from 'test-utils'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
+import { Popup, PopupAction } from '../components/popup'
+import { PopupComponent } from '../components/popup/PopupComponent'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { BuyOfferExpired } from './BuyOfferExpired'
+import { ClosePopupAction } from './actions'
 import { useBuyOfferExpiredPopup } from './useBuyOfferExpiredPopup'
 
 describe('useBuyOfferExpiredPopup', () => {
   const offerId = '37'
   const days = '30'
-  afterEach(() => {
+  beforeEach(() => {
     usePopupStore.setState(defaultPopupState)
-    jest.resetAllMocks()
   })
 
   it('opens BuyOfferExpired popup', () => {
@@ -18,31 +20,27 @@ describe('useBuyOfferExpiredPopup', () => {
       result.current(offerId, days)
     })
 
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: 'Buy offer removed',
-      content: <BuyOfferExpired {...{ offerId, days }} />,
-      visible: true,
-      level: 'APP',
-      action1: {
-        label: 'close',
-        icon: 'xSquare',
-        callback: expect.any(Function),
-      },
-      action2: {
-        label: 'help',
-        icon: 'helpCircle',
-        callback: expect.any(Function),
-      },
-    })
+    expect(usePopupStore.getState().visible).toBeTruthy()
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <PopupComponent
+        title="Buy offer removed"
+        content={<BuyOfferExpired {...{ offerId, days }} />}
+        actions={
+          <>
+            <PopupAction label="help" iconId="helpCircle" onPress={expect.any(Function)} />
+            <ClosePopupAction reverseOrder />
+          </>
+        }
+      />,
+    )
   })
   it('closes popup', () => {
     const { result } = renderHook(useBuyOfferExpiredPopup)
     act(() => {
       result.current(offerId, days)
     })
-
-    usePopupStore.getState().action1?.callback()
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('close'))
 
     expect(usePopupStore.getState().visible).toBeFalsy()
   })
@@ -51,7 +49,8 @@ describe('useBuyOfferExpiredPopup', () => {
     act(() => {
       result.current(offerId, days)
     })
-    usePopupStore.getState().action2?.callback()
+    const { getByText } = render(<Popup />)
+    fireEvent.press(getByText('help'))
 
     expect(usePopupStore.getState().visible).toBeFalsy()
     expect(navigateMock).toHaveBeenCalledWith('contact')

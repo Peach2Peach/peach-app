@@ -16,7 +16,7 @@
   "settings.batching.turnOff.description" : "Você tem um pagamento pendente. Desligar o agrupamento agora pagará esse depósito de garantia imediatamente, com taxas mais altas.\n\nTem certeza?",
   "settings.batching.turnOff.no" : "não, espere",
   "settings.batching.turnOff.title" : "desligar agrupamento",
-  "settings.batching.turnOff.yes" : "sim, pagar agora",
+  "settings.batching.turnOff.yes" : "sim, pagar no imediato",
   "settings.batching.youPay" : "Você está pagando até 30% a mais",
   "settings.batching.youPay.highlight" : "30% a mais",
   "settings.batching.youSave" : "Você economiza até 23% em taxas de rede",

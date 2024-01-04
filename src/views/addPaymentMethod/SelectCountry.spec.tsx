@@ -39,7 +39,7 @@ describe('SelectCountry', () => {
     expect(navigateMock).toHaveBeenCalledWith('paymentMethodForm', {
       origin: 'paymentMethod',
       paymentData: {
-        type: 'giftCard.amazon',
+        type: 'giftCard.amazon.DE',
         label: 'Amazon Gift Card (DE)',
         currencies: ['EUR'],
         country: 'DE',
@@ -62,7 +62,7 @@ describe('SelectCountry', () => {
     expect(navigateMock).toHaveBeenCalledWith('paymentMethodForm', {
       origin: 'paymentMethod',
       paymentData: {
-        type: 'giftCard.amazon',
+        type: 'giftCard.amazon.DE',
         label: 'Amazon Gift Card (DE) #2',
         currencies: ['EUR'],
         country: 'DE',

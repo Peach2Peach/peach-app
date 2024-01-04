@@ -34,6 +34,7 @@
   "offer.requiredAction.releaseEscrow" : "letét feloldása",
   "offer.requiredAction.releaseEscrow.dispute" : "a vitát elvesztetted: letét feloldása",
   "offer.requiredAction.searchingForPeer" : "partner keresése",
+  "offer.requiredAction.unknown" : "ismeretlen - frissítsd az appot!",
   "offer.requiredAction.waiting" : "$0 várakozás",
   "offer.requiredAction.waiting.buyer" : "fizetésre várakozás",
   "offer.requiredAction.waiting.seller" : "eladóra várakozás",
@@ -55,5 +56,6 @@
   "offer.summary.withTheseMethods" : "ezekkel a fizetési módokkal:",
   "offer.summary.youAreBuying" : "ezek között szeretnél vásárolni",
   "offer.summary.youAreSelling" : "eladsz",
-  "offer.summary.youWereSelling" : "eladtál"
+  "offer.summary.youWereSelling" : "eladtál",
+  "yourTrades.unknown" : "ismeretlen"
 }

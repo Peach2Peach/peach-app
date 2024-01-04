@@ -22,7 +22,7 @@ describe('useShowHighFeeWarning', () => {
       expect.objectContaining({
         action: {
           callback: expect.any(Function),
-          icon: 'settingsGear',
+          icon: 'settings',
           label: 'change fee',
         },
         bodyArgs: ['100', '10.0'],

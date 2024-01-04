@@ -82,7 +82,6 @@ const PaymentMethodFields: {
   paylib: wrapInSharedFields(template3Fields),
   lydia: wrapInSharedFields(template3Fields),
   iris: wrapInSharedFields(template3Fields),
-  'giftCard.amazon': wrapInSharedFields(template4Fields),
   papara: wrapInSharedFields(template3Fields),
   liquid: wrapInSharedFields(template10Fields),
   lnurl: wrapInSharedFields(template11Fields),

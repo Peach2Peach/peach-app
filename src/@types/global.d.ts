@@ -142,7 +142,6 @@ type Config = {
   latestAppVersion: string
   minTradingAmount: number
   maxTradingAmount: number
-  maxSellTradingAmount: number
   seenDisputeDisclaimer: boolean
   hasSeenGroupHugAnnouncement: boolean
 }

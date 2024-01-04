@@ -22,7 +22,7 @@ export const OutputInfo = ({ transaction, receivingAddress }: OutputInfoProps) =
   }
   if (offerData.length > 1) return (
     <Tab.Navigator
-      style={[tw`flex-shrink h-40`, { height: tabsHeight }]}
+      style={[tw`shrink h-40`, { height: tabsHeight }]}
       sceneContainerStyle={tw`mt-4`}
       initialRouteName={getOfferDataId(offerData[0])}
       tabBar={TabBar}

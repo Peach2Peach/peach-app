@@ -2,11 +2,14 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { useState } from 'react'
-import { Input, Text } from '../../components'
 import { Button } from '../../components/buttons/Button'
+import { Input } from '../../components/inputs/Input'
 import { useMessageState } from '../../components/message/useMessageState'
-import { useNavigation, useRoute, useValidatedState } from '../../hooks'
+import { PeachText } from '../../components/text/PeachText'
+import { useNavigation } from '../../hooks/useNavigation'
+import { useRoute } from '../../hooks/useRoute'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useValidatedState } from '../../hooks/useValidatedState'
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
 
@@ -46,12 +49,12 @@ export const LetsGetStarted = () => {
   return (
     <View style={tw`items-center flex-1 gap-4 shrink`}>
       <View style={tw`justify-center gap-4 grow`}>
-        <Text style={[tw`text-center h5 text-primary-background-light`, tw.md`h4`]}>
+        <PeachText style={[tw`text-center h5 text-primary-background-light`, tw`md:h4`]}>
           {i18n('welcome.letsGetStarted.title')}
-        </Text>
+        </PeachText>
 
         <View>
-          <Text style={tw`text-center text-primary-background-light`}>{i18n('newUser.referralCode')}</Text>
+          <PeachText style={tw`text-center text-primary-background-light`}>{i18n('newUser.referralCode')}</PeachText>
           <View style={tw`flex-row items-center justify-center gap-2`}>
             <View style={tw`h-14`}>
               <Input

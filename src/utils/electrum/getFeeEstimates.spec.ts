@@ -5,7 +5,7 @@ jest.mock('../fetch')
 
 describe('getFeeEstimates', () => {
   it('calls endpoint to fetch tx hex', async () => {
-    await getFeeEstimates({})
+    await getFeeEstimates()
     expect(fetch).toHaveBeenCalledWith('https://localhost:3000/fee-estimates', {
       headers: {
         Accept: 'application/json',

@@ -8,8 +8,11 @@ import error from './error/el-GR.json'
 import form from './form/el-GR.json'
 import global from './global/el-GR.json'
 import help from './help/el-GR.json'
+import home from './home/el-GR.json'
+import match from './match/el-GR.json'
 import notification from './notification/el-GR.json'
 import offer from './offer/el-GR.json'
+import offerPreferences from './offerPreferences/el-GR.json'
 import paymentMethod from './paymentMethod/el-GR.json'
 import profile from './profile/el-GR.json'
 import referral from './referral/el-GR.json'
@@ -31,6 +34,9 @@ const el: Record<string, string> = {
   ...error,
   ...form,
   ...help,
+  ...offerPreferences,
+  ...home,
+  ...match,
   ...notification,
   ...offer,
   ...paymentMethod,

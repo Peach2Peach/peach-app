@@ -10,10 +10,14 @@ import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { swipeRight } from '../../../tests/unit/helpers/fireSwipeEvent'
 import { walletListUnspentMock } from '../../../tests/unit/mocks/bdkRN'
+import { PopupAction } from '../../components/popup'
+import { PopupComponent } from '../../components/popup/PopupComponent'
 import { WithdrawalConfirmation } from '../../popups/WithdrawalConfirmation'
 import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
-import { createWalletFromBase58, getNetwork, getUTXOId } from '../../utils/wallet'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
+import { createWalletFromBase58 } from '../../utils/wallet/createWalletFromBase58'
+import { getNetwork } from '../../utils/wallet/getNetwork'
+import { getUTXOId } from '../../utils/wallet/getUTXOId'
 import { peachWallet, setPeachWallet } from '../../utils/wallet/setWallet'
 import { defaultWalletState, useWalletState } from '../../utils/wallet/walletStore'
 import { SendBitcoin } from './SendBitcoin'
@@ -65,7 +69,7 @@ describe('SendBitcoin', () => {
   })
   it('should update the fee rate on change', () => {
     const { toJSON, getByText } = render(<SendBitcoin />)
-    const mediumFeeButton = getByText('~ 30 minutes  (1 sat/vB)')
+    const mediumFeeButton = getByText('~ 30 minutes  (6 sat/vB)')
     fireEvent.press(mediumFeeButton)
     expect(render(<SendBitcoin />).toJSON()).toMatchDiffSnapshot(toJSON())
   })
@@ -73,7 +77,7 @@ describe('SendBitcoin', () => {
     const { getByAccessibilityHint } = render(<SendBitcoin />)
     const helpButton = getByAccessibilityHint('help')
     fireEvent.press(helpButton)
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    const popupComponent = usePopupStore.getState().popupComponent ?? <></>
     expect(render(popupComponent).toJSON()).toMatchSnapshot()
   })
   it('should disable the slider while the wallet is not synced', () => {
@@ -84,7 +88,7 @@ describe('SendBitcoin', () => {
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
     const amountInput = getByTestId('btc-amount-input')
     fireEvent.changeText(amountInput, '1234')
-    const mediumFeeButton = getByText('~ 30 minutes  (1 sat/vB)')
+    const mediumFeeButton = getByText('~ 30 minutes  (6 sat/vB)')
     fireEvent.press(mediumFeeButton)
 
     const withSyncingWallet = toJSON()
@@ -104,39 +108,40 @@ describe('SendBitcoin', () => {
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
     const amountInput = getByTestId('btc-amount-input')
     fireEvent.changeText(amountInput, '1234')
-    const mediumFeeButton = getByText('~ 30 minutes  (1 sat/vB)')
+    const mediumFeeButton = getByText('~ 30 minutes  (6 sat/vB)')
     fireEvent.press(mediumFeeButton)
 
     const slider = getByTestId('confirmSlider')
-    peachWallet.buildFinishedTransaction = jest.fn().mockResolvedValue({ psbt: { feeAmount: () => 1000 } })
+    const feeAmount = 1000
+    peachWallet.buildFinishedTransaction = jest.fn().mockResolvedValue({ psbt: { feeAmount: () => feeAmount } })
     swipeRight(slider)
 
     await waitFor(() => {
-      expect(usePopupStore.getState()).toStrictEqual(
-        expect.objectContaining({
-          visible: true,
-          title: 'sending funds',
-          content: (
+      expect(usePopupStore.getState().visible).toBe(true)
+      expect(usePopupStore.getState().popupComponent).toStrictEqual(
+        <PopupComponent
+          title="sending funds"
+          content={
             <WithdrawalConfirmation
-              feeRate={1}
+              feeRate={6}
               address="bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0"
               amount={1234}
               fee={1000}
               {...{ shouldDrainWallet: false, utxos: [] }}
             />
-          ),
-          action1: {
-            callback: expect.any(Function),
-            label: 'confirm & send',
-            icon: 'arrowRightCircle',
-          },
-          action2: {
-            callback: expect.any(Function),
-            label: 'cancel',
-            icon: 'xCircle',
-          },
-          level: 'APP',
-        }),
+          }
+          actions={
+            <>
+              <PopupAction label="cancel" iconId="xCircle" onPress={expect.any(Function)} />
+              <PopupAction
+                label="confirm & send"
+                iconId="arrowRightCircle"
+                onPress={expect.any(Function)}
+                reverseOrder
+              />
+            </>
+          }
+        />,
       )
     })
   })
@@ -174,11 +179,11 @@ describe('SendBitcoin', () => {
     swipeRight(getByTestId('confirmSlider'))
 
     await waitFor(() => {
-      expect(usePopupStore.getState()).toStrictEqual(
-        expect.objectContaining({
-          visible: true,
-          title: 'sending funds',
-          content: (
+      expect(usePopupStore.getState().visible).toBe(true)
+      expect(usePopupStore.getState().popupComponent).toStrictEqual(
+        <PopupComponent
+          title="sending funds"
+          content={
             <WithdrawalConfirmation
               feeRate={4}
               address="bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0"
@@ -186,19 +191,19 @@ describe('SendBitcoin', () => {
               fee={1000}
               {...{ shouldDrainWallet: false, utxos: [] }}
             />
-          ),
-          action1: {
-            callback: expect.any(Function),
-            label: 'confirm & send',
-            icon: 'arrowRightCircle',
-          },
-          action2: {
-            callback: expect.any(Function),
-            label: 'cancel',
-            icon: 'xCircle',
-          },
-          level: 'APP',
-        }),
+          }
+          actions={
+            <>
+              <PopupAction label="cancel" iconId="xCircle" onPress={expect.any(Function)} />
+              <PopupAction
+                label="confirm & send"
+                iconId="arrowRightCircle"
+                onPress={expect.any(Function)}
+                reverseOrder
+              />
+            </>
+          }
+        />,
       )
     })
   })
@@ -212,7 +217,8 @@ describe('SendBitcoin', () => {
 
 describe('SendBitcoin - With selected coins', () => {
   const outpoint = new OutPoint(confirmed1.txid, 0)
-  const txOut = new TxOut(10000, new Script('address'))
+  const amount = 10000
+  const txOut = new TxOut(amount, new Script('address'))
   const utxo = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
 
   beforeAll(() => {

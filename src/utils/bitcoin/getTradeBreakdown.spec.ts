@@ -13,7 +13,7 @@ jest.mock('bitcoinjs-lib', () => ({
 }))
 
 const getNetworkMock = jest.fn().mockReturnValue('regtest')
-jest.mock('../wallet', () => ({
+jest.mock('../wallet/getNetwork', () => ({
   getNetwork: () => getNetworkMock(),
 }))
 

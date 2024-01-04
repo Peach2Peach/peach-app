@@ -1,7 +1,8 @@
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { waitForHydration } from '../../../store/waitForHydration'
-import { getNewPreferredPaymentMethods, getSelectedPaymentDataIds } from '../../../utils/account'
+import { getNewPreferredPaymentMethods } from '../../../utils/account/getNewPreferredPaymentMethods'
+import { getSelectedPaymentDataIds } from '../../../utils/account/getSelectedPaymentDataIds'
 
 export const checkSupportedPaymentMethods = async (paymentInfo: PaymentMethodInfo[]) => {
   await waitForHydration(usePaymentDataStore)

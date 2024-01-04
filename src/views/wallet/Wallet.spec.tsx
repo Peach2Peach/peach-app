@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { LocalUtxo, OutPoint, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { KeychainKind } from 'bdk-rn/lib/lib/enums'
@@ -54,7 +55,8 @@ const addresses = {
 jest.useFakeTimers()
 
 const outpoint = new OutPoint(confirmed1.txid, 0)
-const txOut = new TxOut(10000, new Script('address'))
+const amount = 10000
+const txOut = new TxOut(amount, new Script('address'))
 const utxo = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
 const listUnspentMock = jest.fn().mockResolvedValue([utxo])
 jest.mock('../../utils/wallet/setWallet', () => ({

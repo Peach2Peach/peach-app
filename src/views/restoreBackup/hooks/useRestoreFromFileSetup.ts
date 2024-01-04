@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { Keyboard } from 'react-native'
-import { useValidatedState } from '../../../hooks'
+import { useValidatedState } from '../../../hooks/useValidatedState'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
-import { deleteAccount, recoverAccount } from '../../../utils/account'
 import { useAccountStore } from '../../../utils/account/account'
 import { decryptAccount } from '../../../utils/account/decryptAccount'
+import { deleteAccount } from '../../../utils/account/deleteAccount'
+import { recoverAccount } from '../../../utils/account/recoverAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
-import { parseError } from '../../../utils/result'
+import { parseError } from '../../../utils/result/parseError'
 import { setupPeachAccount } from './setupPeachAccount'
 
 const passwordRules = { password: true, required: true }

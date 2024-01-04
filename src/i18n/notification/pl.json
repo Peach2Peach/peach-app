@@ -22,6 +22,7 @@
   "notification.contract.seller.disputeLost.text" : "Orzekliśmy na korzyść kupującego w sporze dotyczącym transakcji $0. Sprawdź wiadomość od swojego mediatora w czacie transakcyjnym, aby dowiedzieć się, co robić dalej.",
   "notification.contract.seller.disputeRaised.text" : "Kupujący wszczął spór w związku z transakcją $0 na kwotę $1 sats.",
   "notification.contract.seller.disputeWon.text" : "Orzekliśmy na twoją korzyść w sporze dotyczącym transakcji $0. Sprawdź wiadomość od swojego mediatora w czacie transakcyjnym, aby dowiedzieć się, co robić dalej.",
+  "notification.contract.seller.instantTrade.text" : "Rozpocząłeś natychmiastową transakcję z kupującym!",
   "notification.contract.seller.paymentTimerHasRunOut.text" : "Płatność za transakcję $0 nie została dokonana na czas. Daj kupującemu więcej czasu lub anuluj transakcję.",
   "notification.contract.tradeCompleted.text" : "Gratulacje! Satsy z transakcji o wartości $0 są już w twoim portfelu \uD83C\uDF89",
   "notification.contract.tradeCompleted.title" : "Transakcja zakończona!",

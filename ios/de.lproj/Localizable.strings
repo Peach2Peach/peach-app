@@ -20,6 +20,7 @@
 "notification.body.contract.seller.disputeWon" = "Wir haben im Streitfall %1$@ zu deinen gunsten entschieden. Bitte überprüfe die Nachricht deines Vermittlers im Handelschatchat, um zu erfahren, wie es weiter geht.";
 "notification.body.contract.seller.paymentTimerHasRunOut" = "Die Zahlung für den trade %1$@ wurde nicht rechtzeitig durchgeführt. Bitte öffne die App, um dem Käufer mehr Zeit zu geben oder den Handel abzubrechen.";
 "notification.body.contract.tradeCompleted" = "Die Sats für den Trade %1$@ befinden sich in deiner Wallet 🎉";
+"notification.body.contract.seller.instantTrade" = "Du hast gerade einen Sofortkauf mit einem Käufer gestartet!";
 "notification.body.offer.buyOfferExpired" = "Dein Kaufangebot %1$@ hat seit %2$@ Tagen kein Match erzielt und wurde entfernt.";
 "notification.body.offer.escrowFunded" = "Die Escrow wurde aufgeladen und dein Angebot wurde veröffentlicht.";
 "notification.body.offer.fundingAmountDifferent" = "Die Escrow wurde mit einem abweichenden Betrag aufgeladen. Möchtest du mit diesem Angebot fortfahren oder eine Rückerstattung erhalten?";

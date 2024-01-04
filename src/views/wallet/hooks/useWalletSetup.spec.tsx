@@ -1,5 +1,6 @@
-import { renderHook, waitFor } from 'test-utils'
+import { render, renderHook, waitFor } from 'test-utils'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { Overlay } from '../../../Overlay'
 import { useSessionStore } from '../../../store/sessionStore'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
@@ -13,7 +14,7 @@ jest.mock('./useSyncWallet', () => ({
 }))
 jest.useFakeTimers()
 
-// @ts-ignore
+// @ts-expect-error mock doesn't need args
 const peachWallet = new PeachWallet()
 peachWallet.initialized = true
 const initialProps = { peachWallet, syncOnLoad: true }
@@ -66,7 +67,8 @@ describe('useWalletSetup', () => {
     })
     const { result } = renderHook(useWalletSetup, { initialProps })
 
-    expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'wallet' })
+    const { getByText } = render(<Overlay />)
+    expect(getByText('backup time!')).toBeTruthy()
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
   it('should not navigate to backupTime if balance is bigger than 0 & showBackupReminder is already true', async () => {

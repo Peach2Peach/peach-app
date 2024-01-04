@@ -155,7 +155,14 @@ module.exports = {
     'no-lonely-if': 'error',
     'no-loop-func': 'error',
     'no-loss-of-precision': 'error',
-    'no-magic-numbers': 'warn',
+    'no-magic-numbers': [
+      'warn',
+      {
+        ignoreArrayIndexes: true,
+        ignoreClassFieldInitialValues: true,
+        ignore: [-1, 0, 1, 2],
+      },
+    ],
     'no-mixed-operators': 'off',
     'no-multi-assign': 'error',
     'no-multi-spaces': 'error',
@@ -175,7 +182,21 @@ module.exports = {
     'no-proto': 'error',
     'no-restricted-exports': 'error',
     'no-restricted-globals': 'error',
-    'no-restricted-imports': 'error',
+    'no-restricted-imports': [
+      'warn',
+      {
+        paths: [
+          {
+            name: '.',
+            message: 'Avoid imports from the index file on the same level.',
+          },
+          {
+            name: '..',
+            message: 'Avoid imports from the index file on the same level.',
+          },
+        ],
+      },
+    ],
     'no-restricted-properties': 'error',
     'no-restricted-syntax': 'error',
     'no-return-assign': 'off',

@@ -1,14 +1,17 @@
-import tw from '../../styles/tailwind'
-
-import { Header, PeachScrollView, RadioButtons, Screen } from '../../components'
-import { useNavigation, useRoute, useShowHelp } from '../../hooks'
-import i18n from '../../utils/i18n'
-
 import { useMemo, useState } from 'react'
-
+import { Header } from '../../components/Header'
+import { PeachScrollView } from '../../components/PeachScrollView'
+import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
-import { headerIcons } from '../../utils/layout'
-import { countrySupportsCurrency, getPaymentMethodInfo } from '../../utils/paymentMethod'
+import { RadioButtons } from '../../components/inputs/RadioButtons'
+import { useNavigation } from '../../hooks/useNavigation'
+import { useRoute } from '../../hooks/useRoute'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout/headerIcons'
+import { countrySupportsCurrency } from '../../utils/paymentMethod/countrySupportsCurrency'
+import { getPaymentMethodInfo } from '../../utils/paymentMethod/getPaymentMethodInfo'
 import { usePaymentMethodLabel } from './hooks'
 
 export const SelectCountry = () => {
@@ -31,11 +34,16 @@ export const SelectCountry = () => {
 
   const goToPaymentMethodForm = () => {
     if (!selectedCountry) return
-    const methodType = `giftCard.amazon.${selectedCountry}` satisfies PaymentMethod
-    const label = getPaymentMethodLabel(methodType)
+    const type = `giftCard.amazon.${selectedCountry}` satisfies PaymentMethod
+    const label = getPaymentMethodLabel(type)
 
     navigation.navigate('paymentMethodForm', {
-      paymentData: { type: 'giftCard.amazon', label, currencies: [selectedCurrency], country: selectedCountry },
+      paymentData: {
+        type,
+        label,
+        currencies: [selectedCurrency],
+        country: selectedCountry,
+      },
       origin,
     })
   }
@@ -51,7 +59,7 @@ export const SelectCountry = () => {
         />
       }
     >
-      <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
+      <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw`md:py-8`]}>
         {!!countries && <RadioButtons items={countries} selectedValue={selectedCountry} onButtonPress={setCountry} />}
       </PeachScrollView>
       <Button style={tw`self-center mt-2`} disabled={!selectedCountry} onPress={goToPaymentMethodForm}>

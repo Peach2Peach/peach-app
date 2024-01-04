@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { act, renderHook } from 'test-utils'
+import { sellOffer } from '../../../../../peach-api/src/testData/offers'
 import { useOfferPopupEvents } from './useOfferPopupEvents'
-
-const getOfferDetailsMock = jest.fn()
-jest.mock('../../../../utils/peachAPI', () => ({
-  getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
-}))
 
 const showFundingAmountDifferentPopupMock = jest.fn()
 jest.mock('../../../../popups/useShowFundingAmountDifferentPopup', () => ({
@@ -26,11 +22,9 @@ jest.mock('../../../../popups/useBuyOfferExpiredPopup', () => ({
 
 describe('useOfferPopupEvents', () => {
   const offerId = '123'
-  const sellOffer = { id: offerId, type: 'ask' }
 
   it('should show confirm escrow popup on offer.fundingAmountDifferent', async () => {
     const { result } = renderHook(() => useOfferPopupEvents())
-    getOfferDetailsMock.mockResolvedValueOnce([sellOffer])
     const eventData = { offerId: sellOffer.id } as PNData
     await act(() => {
       result.current['offer.fundingAmountDifferent']!(eventData)
@@ -41,7 +35,6 @@ describe('useOfferPopupEvents', () => {
   it('should show wrongly funded popup on offer.wrongFundingAmount', async () => {
     const { result } = renderHook(() => useOfferPopupEvents())
 
-    getOfferDetailsMock.mockResolvedValueOnce([sellOffer])
     const eventData = { offerId: sellOffer.id } as PNData
     await act(() => {
       result.current['offer.wrongFundingAmount']!(eventData)

@@ -1,1 +1,0 @@
-export { PaymentMethodSelector } from './PaymentMethodSelector'

@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { Text } from '../../../../components'
+import { PeachText } from '../../../../components/text/PeachText'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 
@@ -9,11 +9,11 @@ type Props = {
 }
 export const EstimatedFeeItem = ({ feeRate, estimatedFees }: Props) => (
   <View>
-    <Text style={tw`py-1 subtitle-1 leading-base`}>
+    <PeachText style={tw`py-1 subtitle-1 leading-base`}>
       {i18n(`settings.networkFees.estimatedTime.${feeRate}`)}
-      <Text style={tw`text-black-2 ml-0.5`}>
+      <PeachText style={tw`text-black-2 ml-0.5`}>
          ({i18n('settings.networkFees.xSatsPerByte', estimatedFees.toString())})
-      </Text>
-    </Text>
+      </PeachText>
+    </PeachText>
   </View>
 )

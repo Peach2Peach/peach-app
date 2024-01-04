@@ -1,13 +1,17 @@
 import { useQuery } from '@tanstack/react-query'
 import { shallow } from 'zustand/shallow'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
-import { getOfferSummaries } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 
 const getOfferSummariesQuery = async () => {
-  const [offers, error] = await getOfferSummaries({})
+  const { result: offers, error } = await peachAPI.private.offer.getOfferSummaries()
 
-  if (error || !offers) throw new Error(error?.error)
-  return offers
+  if (error?.error || !offers) throw new Error(error?.error || 'Unable to fetch offers')
+  return offers.map((offer) => ({
+    ...offer,
+    creationDate: new Date(offer.creationDate),
+    lastModified: new Date(offer.lastModified),
+  }))
 }
 
 export const useOfferSummaries = (enabled = true) => {

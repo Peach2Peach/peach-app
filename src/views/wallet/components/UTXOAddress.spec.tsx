@@ -1,4 +1,5 @@
 import { Script } from 'bdk-rn/lib/classes/Script'
+import { Network } from 'bdk-rn/lib/lib/enums'
 import { render, waitFor } from 'test-utils'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
@@ -11,10 +12,9 @@ jest.useFakeTimers()
 describe('UTXOAddress', () => {
   const script = new Script('address')
   beforeAll(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
-    // @ts-ignore
-    peachWallet.network = 'testnet'
+    peachWallet.network = Network.Testnet
   })
   it('should render correctly', async () => {
     useWalletState.setState({ addressLabelMap: { address: 'addressLabel' } })

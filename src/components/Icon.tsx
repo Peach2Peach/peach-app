@@ -1,11 +1,11 @@
 import { FillProps } from 'react-native-svg'
 import { Icons, IconType } from '../assets/icons'
 import tw from '../styles/tailwind'
-import { PeachText } from './text/Text'
+import { PeachText } from './text/PeachText'
 
 type Props = ComponentProps & {
   id: IconType
-  color?: FillProps['fill']
+  color?: FillProps['fill'] | ReturnType<typeof tw.color>
   size?: number
 }
 const defaultSize = tw`w-6`.width

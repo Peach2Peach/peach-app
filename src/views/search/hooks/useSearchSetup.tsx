@@ -1,34 +1,26 @@
 import { useEffect } from 'react'
-import { shallow } from 'zustand/shallow'
-import { useMatchStore } from '../../../components/matches/store'
 import { useMessageState } from '../../../components/message/useMessageState'
-import { useNavigation, useRoute } from '../../../hooks'
+import { FIFTEEN_SECONDS } from '../../../constants'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
-import { parseError } from '../../../utils/result'
-import { shouldGoToContract } from '../helpers/shouldGoToContract'
+import { useNavigation } from '../../../hooks/useNavigation'
+import { useRoute } from '../../../hooks/useRoute'
+import { parseError } from '../../../utils/result/parseError'
 import { useOfferMatches } from './useOfferMatches'
 import { useRefetchOnNotification } from './useRefetchOnNotification'
+
+const shouldGoToContract = (error: APIError): error is APIError & { details: { contractId: string } } =>
+  !!error.details
+  && typeof error.details === 'object'
+  && 'contractId' in error.details
+  && typeof error.details.contractId === 'string'
 
 export const useSearchSetup = () => {
   const navigation = useNavigation()
   const { offerId } = useRoute<'search'>().params
-  const { allMatches: matches, error, refetch } = useOfferMatches(offerId)
+  const { allMatches: matches, error, refetch } = useOfferMatches(offerId, FIFTEEN_SECONDS)
 
   const updateMessage = useMessageState((state) => state.updateMessage)
   const { offer } = useOfferDetails(offerId)
-
-  const [addMatchSelectors, resetStore] = useMatchStore((state) => [state.addMatchSelectors, state.resetStore], shallow)
-
-  useEffect(() => {
-    if (offer?.meansOfPayment) addMatchSelectors(matches, offer.meansOfPayment)
-  }, [addMatchSelectors, matches, offer?.meansOfPayment])
-
-  useEffect(
-    () => () => {
-      resetStore()
-    },
-    [resetStore],
-  )
 
   useEffect(() => {
     if (error) {

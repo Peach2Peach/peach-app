@@ -1,72 +1,74 @@
-import { act, renderHook } from 'test-utils'
+import { act, fireEvent, render, renderHook } from 'test-utils'
+import { Popup, PopupAction } from '../../../../components/popup'
+import { ErrorPopup } from '../../../../popups/ErrorPopup'
+import { ClosePopupAction } from '../../../../popups/actions'
 import { usePopupStore } from '../../../../store/usePopupStore'
-import { deleteAccount } from '../../../../utils/account'
 import { useAccountStore } from '../../../../utils/account/account'
+import { deleteAccount } from '../../../../utils/account/deleteAccount'
 import i18n from '../../../../utils/i18n'
-import { logoutUser } from '../../../../utils/peachAPI'
+import { peachAPI } from '../../../../utils/peachAPI'
 import { DeleteAccountPopup } from './DeleteAccountPopup'
 import { useDeleteAccountPopups } from './useDeleteAccountPopups'
 
-jest.mock('../../../../utils/account', () => ({
+jest.mock('../../../../utils/account/deleteAccount', () => ({
   deleteAccount: jest.fn(),
 }))
 
-jest.mock('../../../../utils/peachAPI', () => ({
-  logoutUser: jest.fn(),
-}))
+const logoutUser = jest.spyOn(peachAPI.private.user, 'logoutUser')
 
 describe('useDeleteAccountPopups', () => {
   const logout = async () => {
+    const { getByText } = render(<Popup />)
     await act(() => {
-      usePopupStore.getState().action2?.callback()
+      fireEvent.press(getByText(i18n('settings.deleteAccount')))
     })
     await act(() => {
-      usePopupStore.getState().action2?.callback()
+      fireEvent.press(getByText(i18n('settings.deleteAccount')))
     })
   }
-  it('should show deleteAccount ovelay', async () => {
+  it('should show deleteAccount popup', async () => {
     const { result } = renderHook(useDeleteAccountPopups)
     await act(() => {
       result.current()
     })
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      visible: true,
-      title: i18n('settings.deleteAccount.popup.title'),
-      content: <DeleteAccountPopup title={'popup'} />,
-      level: 'ERROR',
-      requireUserAction: false,
-      action1: undefined,
-      action2: {
-        label: i18n('settings.deleteAccount'),
-        icon: 'trash',
-        callback: expect.any(Function),
-      },
-    })
+
+    expect(usePopupStore.getState().visible).toBeTruthy()
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <ErrorPopup
+        title={i18n('settings.deleteAccount.popup.title')}
+        content={<DeleteAccountPopup title={'popup'} />}
+        actions={
+          <>
+            <PopupAction label={i18n('settings.deleteAccount')} iconId="trash" onPress={expect.any(Function)} />
+            <ClosePopupAction reverseOrder style={false} />
+          </>
+        }
+      />,
+    )
   })
 
-  it('should show forRealsies ovelay', async () => {
+  it('should show forRealsies popup', async () => {
     const { result } = renderHook(useDeleteAccountPopups)
     await act(() => {
       result.current()
     })
+    const { getByText } = render(<Popup />)
     await act(() => {
-      usePopupStore.getState().action2?.callback()
+      fireEvent.press(getByText(i18n('settings.deleteAccount')))
     })
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      visible: true,
-      title: i18n('settings.deleteAccount.popup.title'),
-      content: <DeleteAccountPopup title={'forRealsies'} />,
-      level: 'ERROR',
-      requireUserAction: false,
-      action1: undefined,
-      action2: {
-        label: i18n('settings.deleteAccount'),
-        icon: 'trash',
-        callback: expect.any(Function),
-      },
-    })
+    expect(usePopupStore.getState().visible).toBeTruthy()
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <ErrorPopup
+        title={i18n('settings.deleteAccount.popup.title')}
+        content={<DeleteAccountPopup title={'forRealsies'} />}
+        actions={
+          <>
+            <PopupAction label={i18n('settings.deleteAccount')} iconId="trash" onPress={expect.any(Function)} />
+            <ClosePopupAction reverseOrder style={false} />
+          </>
+        }
+      />,
+    )
   })
 
   it('should delete the account', async () => {
@@ -104,15 +106,23 @@ describe('useDeleteAccountPopups', () => {
     })
     await logout()
 
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      visible: true,
-      title: i18n('settings.deleteAccount.success.title'),
-      content: <DeleteAccountPopup title={'success'} />,
-      level: 'ERROR',
-      requireUserAction: false,
-      action1: undefined,
-      action2: undefined,
-    })
+    expect(usePopupStore.getState().visible).toBeTruthy()
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(
+      <ErrorPopup
+        title={i18n('settings.deleteAccount.success.title')}
+        content={<DeleteAccountPopup title="success" />}
+        actions={
+          <>
+            {false}
+            <ClosePopupAction
+              reverseOrder={true}
+              style={{
+                justifyContent: 'center',
+              }}
+            />
+          </>
+        }
+      />,
+    )
   })
 })

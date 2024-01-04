@@ -1,31 +1,26 @@
 import { useFocusEffect } from '@react-navigation/native'
 import { useCallback } from 'react'
-import { SafeAreaView, StatusBar, View, ViewProps } from 'react-native'
+import { Keyboard, KeyboardAvoidingView, StatusBar, TouchableWithoutFeedback, View, ViewProps } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useNavigation } from '../hooks/useNavigation'
 import tw from '../styles/tailwind'
-import { peachyGradient } from '../utils/layout'
-import { isAndroid } from '../utils/system'
+import { peachyGradient } from '../utils/layout/peachyGradient'
+import { isAndroid } from '../utils/system/isAndroid'
 import { DailyTradingLimit } from '../views/settings/profile/DailyTradingLimit'
 import { Header } from './Header'
 import { PeachyBackground } from './PeachyBackground'
-import { Footer } from './footer'
 
 type Props = {
   style?: ViewProps['style']
   header?: React.ReactNode | string
-  showFooter?: boolean
   showTradingLimit?: boolean
   gradientBackground?: boolean
   children: React.ReactNode
 }
 
-export const Screen = ({
-  children,
-  header,
-  showFooter = false,
-  showTradingLimit = false,
-  gradientBackground = false,
-  style,
-}: Props) => {
+export const Screen = ({ children, header, showTradingLimit = false, gradientBackground = false, style }: Props) => {
+  const insets = useSafeAreaInsets()
+  const hasFooter = useNavigation().getId() === 'homeNavigator'
   useFocusEffect(
     useCallback(() => {
       StatusBar.setBarStyle(gradientBackground ? 'light-content' : 'dark-content', true)
@@ -36,14 +31,23 @@ export const Screen = ({
     }, [gradientBackground]),
   )
   return (
-    <View style={tw`flex-1`}>
-      {gradientBackground && <PeachyBackground />}
-      {typeof header === 'string' ? <Header title={header} /> : header}
-      <SafeAreaView style={tw`flex-1`}>
-        <View style={[tw`flex-1 p-sm`, tw.md`p-md`, style]}>{children}</View>
-        {showTradingLimit && <DailyTradingLimit />}
-        {showFooter && <Footer />}
-      </SafeAreaView>
-    </View>
+    <KeyboardAvoidingView style={tw`flex-1`} behavior="padding">
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={tw`flex-1`}>
+          {gradientBackground && <PeachyBackground />}
+          {typeof header === 'string' ? <Header title={header} /> : header}
+          <View
+            style={[
+              tw`flex-1`,
+              header === undefined && { paddingTop: insets.top },
+              !hasFooter && { paddingBottom: insets.bottom },
+            ]}
+          >
+            <View style={[tw`flex-1 p-sm`, tw`md:p-md`, style]}>{children}</View>
+            {showTradingLimit && <DailyTradingLimit />}
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   )
 }

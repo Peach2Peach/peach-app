@@ -1,9 +1,7 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { AppState } from 'react-native'
 import { act, renderHook } from 'test-utils'
-import { contract } from '../../../tests/unit/data/contractData'
 import { defaultState, useMessageState } from '../../components/message/useMessageState'
-import { getContract as getContractAPI } from '../../utils/peachAPI'
 import { useMessageHandler } from './useMessageHandler'
 
 const overlayEventHanderMock = jest.fn()
@@ -16,13 +14,6 @@ const offerPopupEventHandlerMock = jest.fn()
 const offerPopupEvents = { offerPopupEvent: offerPopupEventHandlerMock }
 jest.mock('./eventHandler/offer/useOfferPopupEvents', () => ({
   useOfferPopupEvents: () => offerPopupEvents,
-}))
-
-jest.mock('../../utils/contract', () => ({
-  getContract: jest.fn(),
-}))
-jest.mock('../../utils/peachAPI', () => ({
-  getContract: jest.fn(),
 }))
 
 const stateUpdateEventHandlerMock = jest.fn()
@@ -44,8 +35,6 @@ jest.mock('./useGetPNActionHandler', () => ({
 // eslint-disable-next-line max-lines-per-function
 describe('useMessageHandler', () => {
   beforeEach(() => {
-    (getContractAPI as jest.Mock).mockResolvedValue([contract])
-    ;(getContractAPI as jest.Mock).mockResolvedValue([contract])
     useMessageState.setState(defaultState)
   })
   it('should call updateMessage when type is not found', async () => {

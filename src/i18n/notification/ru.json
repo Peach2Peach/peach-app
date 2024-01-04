@@ -22,6 +22,7 @@
   "notification.contract.seller.disputeLost.text" : "Мы вынесли решение в пользу покупателя в споре о торговле $0.  Пожалуйста, проверьте сообщение вашего посредника в торговом чате, чтобы узнать, что будет дальше.",
   "notification.contract.seller.disputeRaised.text" : "Покупатель открыл спор о сделке $0 за $1 сатоши.",
   "notification.contract.seller.disputeWon.text" : "Мы вынесли решение в Вашу пользу в споре о торговле $0.  Пожалуйста, проверьте сообщение вашего посредника в торговом чате, чтобы узнать, что будет дальше.",
+  "notification.contract.seller.instantTrade.text" : "Вы вступили в мгновенную сделку с покупателем!",
   "notification.contract.seller.paymentTimerHasRunOut.text" : "Платеж по сделке $0 не был произведен вовремя.  Дайте покупателю больше времени или отмените сделку.",
   "notification.contract.tradeCompleted.text" : "Поздравляем! Сатоши по сделке $0 в вашем кошельке \uD83C\uDF89",
   "notification.contract.tradeCompleted.title" : "Сделка завершена!",

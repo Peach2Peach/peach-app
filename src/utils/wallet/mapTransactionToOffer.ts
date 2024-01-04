@@ -1,6 +1,6 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
-import { getBuyOfferIdFromContract } from '../contract'
+import { getBuyOfferIdFromContract } from '../contract/getBuyOfferIdFromContract'
 import { useWalletState } from './walletStore'
 
 export const mapTransactionToOffer = ({ txid }: TransactionDetails): void | null => {
