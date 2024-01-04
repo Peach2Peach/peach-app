@@ -19,12 +19,10 @@ import { getChat } from '../../utils/chat/getChat'
 import { getUnsentMessages } from '../../utils/chat/getUnsentMessages'
 import { saveChat } from '../../utils/chat/saveChat'
 import { contractIdToHex } from '../../utils/contract/contractIdToHex'
-import { getContractViewer } from '../../utils/contract/getContractViewer'
 import { getTradingPartner } from '../../utils/contract/getTradingPartner'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { error } from '../../utils/log'
-import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { useWebsocketContext } from '../../utils/peachAPI/websocket'
 import { decryptSymmetric } from '../../utils/pgp/decryptSymmetric'
 import { signAndEncryptSymmetric } from '../../utils/pgp/signAndEncryptSymmetric'
@@ -234,8 +232,6 @@ type Props = {
 }
 
 function ContractChatHeader ({ contract, symmetricKey }: Props) {
-  const account = useAccountStore((state) => state.account)
-  const view = getContractViewer(contract.seller.id, account)
   const { contractId } = useRoute<'contractChat'>().params
 
   const setPopup = useSetPopup()
@@ -243,25 +239,15 @@ function ContractChatHeader ({ contract, symmetricKey }: Props) {
   const memoizedIcons = useMemo(() => {
     if (contract?.disputeActive) return []
 
-    const canDispute = canOpenDispute(contract, view, symmetricKey)
-
     const icons = []
-    if (canDispute) {
+    if (!!symmetricKey && !contract.disputeActive) {
       icons.push({
         ...headerIcons.warning,
         onPress: () => setPopup(<OpenDisputePopup contractId={contractId} />),
       })
     }
     return icons
-  }, [contract, contractId, setPopup, symmetricKey, view])
+  }, [contract, contractId, setPopup, symmetricKey])
 
   return <Header title={contractIdToHex(contractId)} icons={memoizedIcons} />
-}
-
-function canOpenDispute (contract: Contract, view: ContractViewer, symmetricKey?: string) {
-  return (
-    !!symmetricKey
-    && ((!contract.disputeActive && !isCashTrade(contract.paymentMethod))
-      || (view === 'seller' && contract.cancelationRequested))
-  )
 }
