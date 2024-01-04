@@ -137,13 +137,10 @@ function ShowOffersButton () {
     minReputation,
   })
 
-  const onPress = () => {
-    publishOffer()
-  }
   return (
     <Button
       style={tw`self-center px-5 py-3 bg-success-main min-w-166px`}
-      onPress={onPress}
+      onPress={() => publishOffer()}
       disabled={!formValid}
       loading={isPublishing}
     >
