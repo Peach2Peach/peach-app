@@ -31,7 +31,7 @@ const disputeReasons: Record<ContractViewer, DisputeReason[]> = {
 }
 
 function DisputeReasonScreen ({ contract }: { contract: Contract }) {
-  const { data: decrptedData } = useDecryptedContractData(contract)
+  const { data: decryptedData } = useDecryptedContractData(contract)
   const account = useAccountStore((state) => state.account)
   const view = getContractViewer(contract.seller.id, account)
   const availableReasons = view === 'seller' ? disputeReasons.seller : disputeReasons.buyer
@@ -41,9 +41,14 @@ function DisputeReasonScreen ({ contract }: { contract: Contract }) {
   const setPopup = useSetPopup()
 
   const setAndSubmit = async (reason: DisputeReason) => {
-    const [success, error] = await submitRaiseDispute({ contract, reason, symmetricKey: decrptedData?.symmetricKey })
+    const [success, error] = await submitRaiseDispute({
+      contract,
+      reason,
+      symmetricKey: decryptedData?.symmetricKey,
+      paymentData: decryptedData?.paymentData,
+    })
     if (!success || error) {
-      showErrorBanner(error?.error)
+      showErrorBanner(error?.error, [error?.details])
       return
     }
     if (view) setPopup(<DisputeRaisedSuccess view={view} />)

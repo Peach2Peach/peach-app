@@ -35,7 +35,7 @@ const required = { required: true }
 function DisputeFormScreen ({ contract }: { contract: Contract }) {
   const navigation = useNavigation()
   const { reason, contractId } = useRoute<'disputeForm'>().params
-  const { data: decrptedData } = useDecryptedContractData(contract)
+  const { data: decryptedData } = useDecryptedContractData(contract)
 
   const emailRules = useMemo(
     () => ({ email: isEmailRequiredForDispute(reason), required: isEmailRequiredForDispute(reason) }),
@@ -54,20 +54,21 @@ function DisputeFormScreen ({ contract }: { contract: Contract }) {
   const submit = async () => {
     Keyboard.dismiss()
 
-    if (!decrptedData?.symmetricKey || !isFormValid) return
+    if (!decryptedData?.symmetricKey || !isFormValid) return
     setLoading(true)
     const [disputeRaised, disputeRaisedError] = await submitRaiseDispute({
       contract,
       reason,
       email,
       message,
-      symmetricKey: decrptedData.symmetricKey,
+      symmetricKey: decryptedData.symmetricKey,
+      paymentData: decryptedData?.paymentData,
     })
     if (disputeRaised) {
       navigation.navigate('contractChat', { contractId })
       setPopup(<DisputeRaisedSuccess view={getContractViewer(contract.seller.id, account)} />)
     } else {
-      showErrorBanner(disputeRaisedError?.error)
+      showErrorBanner(disputeRaisedError?.error, [disputeRaisedError?.details])
     }
     setLoading(false)
   }

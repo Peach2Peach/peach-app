@@ -25,16 +25,26 @@ async function decryptContractData (contract: Contract) {
     contract.buyer.pgpPublicKey,
   )
 
-  const paymentData = await decryptPaymentData(contract, symmetricKey)
-
-  return {
+  const paymentData = await decryptPaymentData(
+    {
+      paymentDataEncrypted: contract.paymentDataEncrypted,
+      paymentDataSignature: contract.paymentDataSignature,
+      user: contract.seller,
+      paymentDataEncryptionMethod: contract.paymentDataEncryptionMethod,
+    },
     symmetricKey,
-    paymentData,
-  }
+  )
+
+  return { symmetricKey, paymentData }
 }
 
+type DecryptPaymentDataProps = Pick<Contract, 'paymentDataEncryptionMethod'> & {
+  paymentDataEncrypted: string
+  paymentDataSignature: string
+  user: PublicUser
+}
 async function decryptPaymentData (
-  { paymentDataEncrypted, paymentDataSignature, seller, paymentDataEncryptionMethod }: Contract,
+  { paymentDataEncrypted, paymentDataSignature, user, paymentDataEncryptionMethod }: DecryptPaymentDataProps,
   symmetricKey: string | null,
 ) {
   if (!paymentDataEncrypted || !paymentDataSignature) return null
@@ -59,7 +69,7 @@ async function decryptPaymentData (
     return decryptedPaymentData
   }
   try {
-    if (!(await OpenPGP.verify(paymentDataSignature, decryptedPaymentDataString, seller.pgpPublicKey))) {
+    if (!(await OpenPGP.verify(paymentDataSignature, decryptedPaymentDataString, user.pgpPublicKey))) {
       return decryptedPaymentData
     }
   } catch (err) {
