@@ -10,7 +10,7 @@ type Props = {
 
 export const SummaryItem = ({ label, value }: Props) => (
   <View style={tw`flex-row items-center justify-between gap-3`}>
-    <PeachText style={[tw`text-black-2`, tw`md:body-l`]}>{label}</PeachText>
+    <PeachText style={[tw`text-black-65`, tw`md:body-l`]}>{label}</PeachText>
     {value}
   </View>
 )

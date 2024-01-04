@@ -22,7 +22,7 @@ export const TradingLimits = () => {
             percent={amount / limit >= 0.03 ? amount / limit : 0}
             style={tw`h-[6px]`}
             backgroundStyle={tw`bg-primary-mild-1`}
-            barStyle={tw`h-[10px] -mt-[2px] border-2 bg-primary-main border-primary-background`}
+            barStyle={tw`h-[10px] -mt-[2px] border-2 bg-primary-main border-primary-background-main`}
           />
           <TradingLimitAmount
             style={tw`pl-2 mt-1`}

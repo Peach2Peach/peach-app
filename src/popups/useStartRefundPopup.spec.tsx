@@ -1,9 +1,6 @@
-import { renderHook } from 'test-utils'
+import { render, renderHook } from 'test-utils'
 import { sellOffer } from '../../tests/unit/data/offerData'
-import { PopupLoadingSpinner } from '../../tests/unit/helpers/PopupLoadingSpinner'
-import { PopupAction } from '../components/popup'
-import { PopupComponent } from '../components/popup/PopupComponent'
-import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
+import { Popup } from '../components/popup/Popup'
 import { useStartRefundPopup } from './useStartRefundPopup'
 
 const refundEscrowMock = jest.fn()
@@ -21,9 +18,6 @@ jest.mock('../hooks/useShowErrorBanner', () => ({
 jest.useFakeTimers()
 
 describe('useStartRefundPopup', () => {
-  beforeEach(() => {
-    usePopupStore.setState(defaultPopupState)
-  })
   it('should return a function', () => {
     const { result } = renderHook(useStartRefundPopup)
     expect(result.current).toBeInstanceOf(Function)
@@ -32,14 +26,8 @@ describe('useStartRefundPopup', () => {
   it('should show the loading popup and start refund', async () => {
     const { result } = renderHook(useStartRefundPopup)
     await result.current(sellOffer)
-    expect(usePopupStore.getState().visible).toBe(true)
-    expect(usePopupStore.getState().popupComponent).toEqual(
-      <PopupComponent
-        title="refunding escrow"
-        content={PopupLoadingSpinner}
-        actions={<PopupAction label="loading..." iconId="clock" onPress={expect.any(Function)} />}
-      />,
-    )
+    const { queryByText } = render(<Popup />)
+    expect(queryByText('refunding escrow')).toBeTruthy()
     expect(refundEscrowMock).toHaveBeenCalledWith(sellOffer, psbt)
   })
 })

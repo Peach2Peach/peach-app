@@ -8,15 +8,15 @@ import { Button } from '../../components/buttons/Button'
 import { BitcoinAddressInput } from '../../components/inputs/BitcoinAddressInput'
 import { Input } from '../../components/inputs/Input'
 import { PopupAction } from '../../components/popup'
+import { useClosePopup, useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { useValidatedState } from '../../hooks/useValidatedState'
 import { ErrorPopup } from '../../popups/ErrorPopup'
-import { ClosePopupAction } from '../../popups/actions'
+import { ClosePopupAction } from '../../popups/actions/ClosePopupAction'
 import { useSettingsStore } from '../../store/settingsStore'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -68,11 +68,11 @@ export const CustomAddress = () => {
         <Input
           value={addressLabel}
           placeholder={i18n('form.address.label.placeholder')}
-          placeholderTextColor={tw.color('black-5')}
-          onChange={setAddressLabel}
+          placeholderTextColor={tw.color('black-10')}
+          onChangeText={setAddressLabel}
           errorMessage={addressLabelErrors}
         />
-        <BitcoinAddressInput onChange={setAddress} value={address} errorMessage={addressErrors} />
+        <BitcoinAddressInput onChangeText={setAddress} value={address} errorMessage={addressErrors} />
         {isUpdated ? (
           <View style={tw`gap-2`}>
             <View style={tw`flex-row justify-center gap-1`}>
@@ -98,7 +98,8 @@ export const CustomAddress = () => {
 
 function PayoutAddressHeader () {
   const { type } = useRoute<'payoutAddress'>().params || {}
-  const showHelp = useShowHelp('payoutAddress')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="payoutAddress" />)
   const title = {
     refund: 'settings.refundAddress',
     payout: 'settings.payoutAddress',
@@ -111,7 +112,7 @@ type PopupProps = {
 }
 
 function RemoveWalletButton (popupProps: PopupProps) {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const openRemoveWalletPopup = () => {
     setPopup(<RemoveWalletPopup {...popupProps} />)
   }
@@ -129,7 +130,7 @@ function RemoveWalletPopup ({ setAddressInput, setAddressLabelInput }: PopupProp
     (state) => [state.setPayoutAddress, state.setPayoutAddressLabel, state.setPeachWalletActive],
     shallow,
   )
-  const closePopup = usePopupStore((state) => state.closePopup)
+  const closePopup = useClosePopup()
   const removeWallet = () => {
     setPayoutAddress(undefined)
     setPayoutAddressLabel(undefined)

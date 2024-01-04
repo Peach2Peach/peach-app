@@ -1,6 +1,6 @@
 import { fireEvent, render } from 'test-utils'
 import { contract } from '../../../peach-api/src/testData/contract'
-import { usePopupStore } from '../../store/usePopupStore'
+import { Popup } from '../../components/popup'
 import { ProvideEmailButton } from './ContractButtons'
 import { ContractContext } from './context'
 
@@ -16,12 +16,12 @@ describe('ContractButtons - ProvideEmailButton', () => {
           toggleShowBatchInfo: jest.fn(),
         }}
       >
+        <Popup />
         <ProvideEmailButton />
       </ContractContext.Provider>,
     )
     fireEvent.press(getByText('provide email'))
 
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
-    expect(render(popupComponent).toJSON()).toMatchSnapshot()
+    expect(getByText('dispute opened')).toBeTruthy()
   })
 })

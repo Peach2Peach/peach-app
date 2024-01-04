@@ -72,8 +72,11 @@ export const Drawer = () => {
   }, [closeDrawer, previousDrawer, show, updateDrawer])
 
   return (
-    <View style={[tw`absolute top-0 left-0 z-20 flex w-full h-full`, !show && tw`hidden`]}>
-      <AnimatedPressable onPress={closeDrawer} style={[tw`absolute w-full h-full bg-black-1`, { opacity: fadeAnim }]} />
+    <View style={[tw`absolute top-0 left-0 z-20 w-full h-full`, !show && tw`hidden`]}>
+      <AnimatedPressable
+        onPress={closeDrawer}
+        style={[tw`absolute w-full h-full bg-black-100`, { opacity: fadeAnim }]}
+      />
       <Animated.View style={[tw`px-4 py-6 mt-auto bg-primary-background-light rounded-t-3xl`, { maxHeight: slideAnim }]}>
         <DrawerHeader closeDrawer={closeDrawer} />
         <DrawerOptions style={tw`pt-6`} />

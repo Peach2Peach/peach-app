@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Pressable, View } from 'react-native'
+import { StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
 import { PeachText } from '../text/PeachText'
@@ -10,35 +10,30 @@ type CheckboxType = {
   display: ReactNode
 }
 
-type CheckboxProps = ComponentProps & {
+type CheckboxProps = {
+  style?: StyleProp<ViewStyle>
   onPress: () => void
   item: CheckboxType
   checked: boolean
   editing: boolean
 }
-export const PaymentDetailsCheckbox = ({ item, checked, onPress, style, testID, editing }: CheckboxProps) => (
-  <Pressable
-    testID={testID}
+export const PaymentDetailsCheckbox = ({ item, checked, onPress, style, editing }: CheckboxProps) => (
+  <TouchableOpacity
     onPress={onPress}
     style={[
-      tw`flex-row items-center justify-between w-full px-3 py-2 border-2 bg-primary-background-dark rounded-xl`,
+      tw`flex-row items-center justify-between w-full gap-4 px-3 py-2 border-2 bg-primary-background-dark rounded-xl`,
       checked && !item.disabled && !editing ? tw`border-primary-main` : tw`border-transparent`,
       style,
     ]}
   >
     <PeachText style={tw`flex-1`}>{item.display}</PeachText>
     {!item.disabled ? (
-      <View style={tw`flex items-center justify-center w-5 h-5 ml-4`}>
-        {editing ? (
-          <Icon id={'edit3'} color={tw.color('primary-main')} />
-        ) : checked ? (
-          <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw.color('primary-main')} />
-        ) : (
-          <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
-        )}
-      </View>
+      <Icon
+        id={editing ? 'edit3' : checked ? 'checkboxMark' : 'square'}
+        color={tw.color(editing || checked ? 'primary-main' : 'black-50')}
+      />
     ) : (
       <View style={tw`w-5 h-5 ml-4`} />
     )}
-  </Pressable>
+  </TouchableOpacity>
 )

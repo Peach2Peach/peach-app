@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { Vibration, Animated, Easing } from 'react-native'
+import { Animated, Easing, Vibration } from 'react-native'
 
 import { BarCodeReadEvent, RNCamera } from 'react-native-camera'
 import tw from '../../styles/tailwind'
@@ -30,7 +30,7 @@ export const QRCodeScanner = ({ customMarker, onRead }: Props) => {
   }
 
   return (
-    <Animated.View style={[tw`w-full h-full bg-black-1`, { opacity: fadeInOpacity }]}>
+    <Animated.View style={[tw`w-full h-full bg-black-100`, { opacity: fadeInOpacity }]}>
       <RNCamera
         androidCameraPermissionOptions={{
           title: 'Info',

@@ -1,18 +1,19 @@
 import { render } from 'test-utils'
 import { contract } from '../../../peach-api/src/testData/contract'
+import { setRouteMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { ContractActions } from './ContractActions'
 
 const useContractContextMock = jest.fn().mockReturnValue({ contract })
 jest.mock('./context/useContractContext', () => ({
   useContractContext: () => useContractContextMock(),
 }))
-jest.mock('../../hooks/useRoute', () => ({
-  useRoute: jest.fn().mockReturnValue({ params: { contractId: 'contractId' } }),
-}))
 
 jest.useFakeTimers()
 
 describe('ContractActions', () => {
+  beforeAll(() => {
+    setRouteMock({ name: 'contract', key: 'contract', params: { contractId: 'contractId' } })
+  })
   it('should show the paymentTooLate sliders for the seller', () => {
     jest.spyOn(Date, 'now').mockImplementation(() => new Date(1).getTime())
     useContractContextMock.mockReturnValue({

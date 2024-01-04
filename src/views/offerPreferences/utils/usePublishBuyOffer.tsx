@@ -1,12 +1,12 @@
 import { useMutation } from '@tanstack/react-query'
 import { useSetOverlay } from '../../../Overlay'
+import { useSetPopup } from '../../../components/popup/Popup'
 import { PeachText } from '../../../components/text/PeachText'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
 import { InfoPopup } from '../../../popups/InfoPopup'
 import { useConfigStore } from '../../../store/configStore/configStore'
-import { usePopupStore } from '../../../store/usePopupStore'
 import { useAccountStore } from '../../../utils/account/account'
 import { getMessageToSignForAddress } from '../../../utils/account/getMessageToSignForAddress'
 import i18n from '../../../utils/i18n'
@@ -32,7 +32,7 @@ export function usePublishBuyOffer ({
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
   const hasSeenGroupHugAnnouncement = useConfigStore((state) => state.hasSeenGroupHugAnnouncement)
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const showHelp = () =>
     setPopup(<InfoPopup content={<PeachText>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</PeachText>} />)
   const publicKey = useAccountStore((state) => state.account.publicKey)

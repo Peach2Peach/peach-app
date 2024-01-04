@@ -3,9 +3,10 @@ import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { RadioButtons } from '../../components/inputs/RadioButtons'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
-import { useShowHelp } from '../../hooks/useShowHelp'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -42,7 +43,7 @@ export const NetworkFees = () => {
       <PeachScrollView contentContainerStyle={tw`justify-center flex-1`}>
         <RadioButtons items={options} selectedValue={selectedFeeRate} onButtonPress={setSelectedFeeRate} />
         <HorizontalLine style={tw`mt-8`} />
-        <PeachText style={tw`mt-4 text-center text-black-2`}>{i18n('settings.networkFees.averageFees')}</PeachText>
+        <PeachText style={tw`mt-4 text-center text-black-65`}>{i18n('settings.networkFees.averageFees')}</PeachText>
         <PeachText style={tw`text-center subtitle-1`}>
           {i18n('settings.networkFees.xSatsPerByte', estimatedFees.economyFee.toString())}
         </PeachText>
@@ -55,6 +56,7 @@ export const NetworkFees = () => {
 }
 
 function NetworkFeesHeader () {
-  const showHelp = useShowHelp('networkFees')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="networkFees" />)
   return <Header title={i18n('settings.networkFees')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }

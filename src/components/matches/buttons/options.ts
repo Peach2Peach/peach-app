@@ -9,7 +9,7 @@ export const options = {
   tradingLimitReached: {
     text: 'search.matchButton.tradingLimitReached',
     iconId: 'pauseCircle',
-    backgroundColor: tw`bg-black-3`,
+    backgroundColor: tw`bg-black-50`,
   },
   matchOffer: {
     text: 'search.matchButton.matchOffer',

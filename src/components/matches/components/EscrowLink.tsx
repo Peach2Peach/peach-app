@@ -9,7 +9,7 @@ import { PeachText } from '../../text/PeachText'
 export const EscrowLink = ({ address }: { address: string }) => (
   <>
     <TouchableOpacity style={tw`flex-row items-end self-center`} onPress={() => showAddress(address, NETWORK)}>
-      <PeachText style={tw`underline tooltip text-black-2`}>{i18n('match.viewInEscrow')}</PeachText>
+      <PeachText style={tw`underline tooltip text-black-65`}>{i18n('match.viewInEscrow')}</PeachText>
       <Icon id="externalLink" style={tw`w-[18px] h-[18px] ml-[2px] mb-[2px]`} color={tw.color('primary-main')} />
     </TouchableOpacity>
   </>

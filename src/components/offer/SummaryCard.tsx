@@ -5,7 +5,7 @@ import { PeachText } from '../text/PeachText'
 import { MeansOfPayment } from './MeansOfPayment'
 
 export const SummaryCard = ({ children }: ComponentProps) => (
-  <View style={tw`items-center gap-4 px-5 border border-black-5 rounded-2xl py-7 bg-primary-background-light`}>
+  <View style={tw`items-center gap-4 px-5 border border-black-10 rounded-2xl py-7 bg-primary-background-light`}>
     {children}
   </View>
 )
@@ -16,7 +16,7 @@ SummaryCard.Section = SummarySection
 
 const PaymentMethods = ({ meansOfPayment }: { meansOfPayment: MeansOfPayment }) => (
   <SummaryCard.Section>
-    <PeachText style={tw`text-center text-black-2`}>{i18n('offer.summary.withTheseMethods')}</PeachText>
+    <PeachText style={tw`text-center text-black-65`}>{i18n('offer.summary.withTheseMethods')}</PeachText>
     <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`self-stretch`} />
   </SummaryCard.Section>
 )

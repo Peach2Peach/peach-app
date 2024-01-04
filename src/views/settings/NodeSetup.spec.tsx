@@ -1,80 +1,68 @@
-import { createRenderer } from 'react-test-renderer/shallow'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { fireEvent, render } from 'test-utils'
-import { usePopupStore } from '../../store/usePopupStore'
+import { Popup } from '../../components/popup/Popup'
+import i18n from '../../utils/i18n'
+import { PeachWallet } from '../../utils/wallet/PeachWallet'
+import { defaultNodeConfig, useNodeConfigState } from '../../utils/wallet/nodeConfigStore'
+import { setPeachWallet } from '../../utils/wallet/setWallet'
 import { NodeSetup } from './NodeSetup'
+expect.extend({ toMatchDiffSnapshot })
+
+const checkNodeConnectionMock = jest.fn()
+jest.mock('./helpers/checkNodeConnection', () => ({
+  checkNodeConnection: (...args: unknown[]) => checkNodeConnectionMock(...args),
+}))
 
 const url = 'blockstream.info'
-const nodeSetup = {
-  enabled: false,
-  toggleEnabled: jest.fn(),
-  ssl: false,
-  toggleSSL: jest.fn(),
-  isConnected: false,
-  url: '',
-  setURL: jest.fn(),
-  urlErrors: [],
-  pasteAddress: jest.fn(),
-  openQRScanner: jest.fn(),
-  canCheckConnection: false,
-  checkConnection: jest.fn(),
-  editConfig: jest.fn(),
-}
-const useNodeSetupMock = jest.fn().mockReturnValue(nodeSetup)
-jest.mock('./hooks/nodeSetup/useNodeSetup', () => ({
-  useNodeSetup: (...args: unknown[]) => useNodeSetupMock(...args),
-}))
 describe('NodeSetup', () => {
-  const shallowRenderer = createRenderer()
-  it('should render with default settings', () => {
-    shallowRenderer.render(<NodeSetup />)
-    expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
+  beforeAll(() => {
+    // @ts-ignore
+    setPeachWallet(new PeachWallet())
   })
-  it('should render with valid node settings', () => {
-    useNodeSetupMock.mockReturnValueOnce({
-      ...nodeSetup,
-      enabled: true,
-      ssl: true,
-      isConnected: true,
-      address: url,
-      urlErrors: [],
-      canCheckConnection: true,
-    })
-    shallowRenderer.render(<NodeSetup />)
-    expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
+  beforeEach(() => {
+    useNodeConfigState.setState(defaultNodeConfig)
   })
   it('should toggle enabled', () => {
-    const { queryAllByText } = render(<NodeSetup />)
-    fireEvent.press(queryAllByText('use your own node')[1])
-    expect(nodeSetup.toggleEnabled).toHaveBeenCalled()
+    const { getAllByText, toJSON } = render(<NodeSetup />)
+    const beforeToggle = toJSON()
+    fireEvent.press(getAllByText('use your own node')[1])
+    const afterToggle = toJSON()
+    expect(afterToggle).toMatchDiffSnapshot(beforeToggle)
   })
   it('should not be able to toggle ssl if disabled', () => {
-    useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: false })
-    const { getByText } = render(<NodeSetup />)
+    useNodeConfigState.setState({ enabled: false })
+    const { getByText, toJSON } = render(<NodeSetup />)
+    const beforeToggle = toJSON()
     fireEvent.press(getByText('use SSL'))
-    expect(nodeSetup.toggleSSL).not.toHaveBeenCalled()
+    const afterToggle = toJSON()
+    expect(beforeToggle).toStrictEqual(afterToggle)
   })
   it('should toggle ssl', () => {
-    useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true })
-    const { getByText } = render(<NodeSetup />)
+    useNodeConfigState.setState({ enabled: true })
+    const { getByText, toJSON } = render(<NodeSetup />)
+    const beforeToggle = toJSON()
     fireEvent.press(getByText('use SSL'))
-    expect(nodeSetup.toggleSSL).toHaveBeenCalled()
+    const afterToggle = toJSON()
+    expect(afterToggle).toMatchDiffSnapshot(beforeToggle)
   })
   it('should change address', () => {
-    useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true })
-    const { getByPlaceholderText } = render(<NodeSetup />)
-    fireEvent(getByPlaceholderText('192.168.0.1:50001'), 'onChange', url)
-    expect(nodeSetup.setURL).toHaveBeenCalledWith(url)
-  })
-  it('should open call checkConnection', () => {
-    useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true, address: url, canCheckConnection: true })
-    const { getByText } = render(<NodeSetup />)
-    fireEvent.press(getByText('check connection'))
-    expect(nodeSetup.checkConnection).toHaveBeenCalled()
+    useNodeConfigState.setState({ enabled: true })
+    const { getByPlaceholderText, toJSON } = render(<NodeSetup />)
+    const beforeInput = toJSON()
+    fireEvent(getByPlaceholderText('192.168.0.1:50001'), 'onChangeText', url)
+    const afterInput = toJSON()
+
+    expect(afterInput).toMatchDiffSnapshot(beforeInput)
   })
   it('should open help popup', () => {
-    const { getByAccessibilityHint } = render(<NodeSetup />)
+    const { getByAccessibilityHint, queryByText } = render(
+      <>
+        <NodeSetup />
+        <Popup />
+      </>,
+    )
 
     fireEvent.press(getByAccessibilityHint('help use your own node'))
-    expect(render(usePopupStore.getState().popupComponent || <></>)).toMatchSnapshot()
+    expect(queryByText(i18n('wallet.settings.node.help.text'))).toBeTruthy()
   })
 })

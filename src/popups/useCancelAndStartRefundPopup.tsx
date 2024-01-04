@@ -1,23 +1,22 @@
 import { useCallback } from 'react'
-import { shallow } from 'zustand/shallow'
+import { useClosePopup, useSetPopup } from '../components/popup/Popup'
 import { FIFTEEN_SECONDS } from '../constants'
+import { LoadingPopup } from '../hooks/LoadingPopup'
 import { useRefundEscrow } from '../hooks/useRefundEscrow'
 import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
-import { useShowLoadingPopup } from '../hooks/useShowLoadingPopup'
-import { usePopupStore } from '../store/usePopupStore'
 import { getAbortWithTimeout } from '../utils/getAbortWithTimeout'
 import i18n from '../utils/i18n'
 import { peachAPI } from '../utils/peachAPI'
 
 export const useCancelAndStartRefundPopup = () => {
   const refundEscrow = useRefundEscrow()
-  const [closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-  const showLoadingPopup = useShowLoadingPopup()
+  const closePopup = useClosePopup()
+  const setPopup = useSetPopup()
   const showError = useShowErrorBanner()
 
   const cancelAndStartRefundPopup = useCallback(
     async (sellOffer: SellOffer) => {
-      showLoadingPopup({ title: i18n('refund.loading.title') })
+      setPopup(<LoadingPopup title={i18n('refund.loading.title')} />)
 
       const { result: refundPsbtResult, error: refundPsbtError } = await peachAPI.private.offer.cancelOffer({
         offerId: sellOffer.id,
@@ -30,7 +29,7 @@ export const useCancelAndStartRefundPopup = () => {
         closePopup()
       }
     },
-    [closePopup, refundEscrow, showError, showLoadingPopup],
+    [closePopup, refundEscrow, setPopup, showError],
   )
 
   return cancelAndStartRefundPopup

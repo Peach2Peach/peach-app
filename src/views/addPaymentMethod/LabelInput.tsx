@@ -38,7 +38,6 @@ export function LabelInput ({ control, name, id, optional = false, defaultValue 
       errorMessage={error?.message ? [error.message] : undefined}
       onChangeText={field.onChange}
       required={!optional}
-      autoCorrect={false}
       {...inputProps}
     />
   )

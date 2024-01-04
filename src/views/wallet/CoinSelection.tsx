@@ -7,9 +7,10 @@ import { Screen } from '../../components/Screen'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Button } from '../../components/buttons/Button'
 import { Checkbox } from '../../components/inputs/Checkbox'
+import { useSetPopup } from '../../components/popup/Popup'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useNavigation } from '../../hooks/useNavigation'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -51,11 +52,12 @@ type UTXOListProps = {
 }
 
 function CoinSelectionHeader () {
-  const openPopup = useShowHelp('coinControl')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="coinControl" />)
   return (
     <Header
       title={i18n('wallet.coinControl.title')}
-      icons={[{ ...headerIcons.help, onPress: openPopup, accessibilityHint: i18n('help') }]}
+      icons={[{ ...headerIcons.help, onPress: showHelp, accessibilityHint: i18n('help') }]}
     />
   )
 }

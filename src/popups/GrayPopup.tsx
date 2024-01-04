@@ -2,5 +2,5 @@ import { PopupComponent, PopupComponentProps } from '../components/popup/PopupCo
 import tw from '../styles/tailwind'
 
 export function GrayPopup (props: Omit<PopupComponentProps, 'bgColor' | 'actionBgColor'>) {
-  return <PopupComponent {...props} bgColor={tw`bg-primary-background`} actionBgColor={tw`bg-black-3`} />
+  return <PopupComponent {...props} bgColor={tw`bg-primary-background-main`} actionBgColor={tw`bg-black-50`} />
 }

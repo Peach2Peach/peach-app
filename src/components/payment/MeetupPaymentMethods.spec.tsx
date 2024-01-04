@@ -39,8 +39,8 @@ describe('MeetupPaymentMethods', () => {
   })
   it('should call select when clicked', () => {
     usePaymentDataStore.getState().addPaymentData(cashPaymentData)
-    const { getByTestId } = render(<MeetupPaymentMethods {...defaultProps} />)
-    fireEvent.press(getByTestId('payment-details-checkbox'))
+    const { getByText } = render(<MeetupPaymentMethods {...defaultProps} />)
+    fireEvent.press(getByText(cashPaymentData.label))
     expect(selectMock).toHaveBeenCalled()
   })
 
@@ -52,8 +52,8 @@ describe('MeetupPaymentMethods', () => {
   })
   it('should call editItem when clicked and isEditing', () => {
     usePaymentDataStore.getState().addPaymentData(cashPaymentData)
-    const { getByTestId } = render(<MeetupPaymentMethods {...defaultProps} isEditing />)
-    fireEvent.press(getByTestId('payment-details-checkbox'))
+    const { getByText } = render(<MeetupPaymentMethods {...defaultProps} isEditing />)
+    fireEvent.press(getByText(cashPaymentData.label))
     expect(editItemMock).toHaveBeenCalled()
   })
 })

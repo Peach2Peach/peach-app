@@ -18,8 +18,9 @@ import { PremiumInput } from '../../components/PremiumInput'
 import { TouchableIcon } from '../../components/TouchableIcon'
 import { NewBubble } from '../../components/bubble/Bubble'
 import { Button } from '../../components/buttons/Button'
-import { Toggle } from '../../components/inputs'
 import { Checkbox } from '../../components/inputs/Checkbox'
+import { Toggle } from '../../components/inputs/Toggle'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { SATSINBTC } from '../../constants'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
@@ -33,7 +34,6 @@ import { InfoPopup } from '../../popups/InfoPopup'
 import { useConfigStore } from '../../store/configStore/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { useSettingsStore } from '../../store/settingsStore'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -253,7 +253,7 @@ function SellAmountSlider ({ trackWidth, setIsSliding }: SellAmountSliderProps) 
 
 export const inputContainerStyle = [
   'items-center justify-center flex-1 bg-primary-background-light flex-row h-7',
-  'border rounded-lg border-black-4',
+  'border rounded-lg border-black-25',
 ]
 
 function SatsInput () {
@@ -330,7 +330,7 @@ function FiatInput () {
 }
 
 function FundMultipleOffersContainer () {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   return (
     <Section.Container style={tw`flex-row items-start justify-between bg-primary-background-dark`}>
       <FundMultipleOffers />
@@ -359,7 +359,7 @@ function InstantTrade () {
     (state) => [state.hasSeenInstantTradePopup, state.setHasSeenInstantTradePopup],
     shallow,
   )
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const onHelpIconPress = () => {
     setPopup(<InstantTradePopup />)
     setHasSeenPopup(true)
@@ -381,18 +381,12 @@ function InstantTrade () {
       </View>
       {enableInstantTrade && (
         <>
-          <Checkbox
-            checked={criteria.minTrades !== 0}
-            style={tw`self-stretch`}
-            text={i18n('offerPreferences.filters.noNewUsers')}
-            onPress={toggleMinTrades}
-          />
-          <Checkbox
-            checked={criteria.minReputation !== 0}
-            style={tw`self-stretch`}
-            text={i18n('offerPreferences.filters.minReputation', '4.5')}
-            onPress={toggleMinReputation}
-          />
+          <Checkbox checked={criteria.minTrades !== 0} style={tw`self-stretch`} onPress={toggleMinTrades}>
+            {i18n('offerPreferences.filters.noNewUsers')}
+          </Checkbox>
+          <Checkbox checked={criteria.minReputation !== 0} style={tw`self-stretch`} onPress={toggleMinReputation}>
+            {i18n('offerPreferences.filters.minReputation', '4.5')}
+          </Checkbox>
           <View style={tw`flex-row items-start self-stretch gap-10px`}>
             <TouchableOpacity onPress={() => toggleBadge('fastTrader')}>
               <Badge badgeName="fastTrader" isUnlocked={criteria.badges.includes('fastTrader')} />
@@ -458,12 +452,9 @@ function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWa
   const onPress = () => navigation.navigate('networkFees')
   return (
     <Section.Container style={tw`flex-row justify-between`}>
-      <Checkbox
-        checked={fundWithPeachWallet}
-        text={i18n('offerPreferences.fundWithPeachWallet', String(estimatedFeeRate))}
-        onPress={toggle}
-        style={tw`flex-1`}
-      />
+      <Checkbox checked={fundWithPeachWallet} onPress={toggle} style={tw`flex-1`}>
+        {i18n('offerPreferences.fundWithPeachWallet', String(estimatedFeeRate))}
+      </Checkbox>
       <TouchableIcon id="bitcoin" onPress={onPress} />
     </Section.Container>
   )
@@ -629,7 +620,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
 }
 
 function SellHeader () {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const onPress = () => setPopup(<SellingBitcoinPopup />)
   return (
     <Header

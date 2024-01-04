@@ -3,9 +3,9 @@ import { TouchableOpacity, View } from 'react-native'
 
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 import { GetMatchesResponseBody } from '../../../peach-api/src/@types/api/offerAPI'
+import { AppPopup } from '../../hooks/AppPopup'
 import { useMarketPrices } from '../../hooks/query/useMarketPrices'
 import { useNavigation } from '../../hooks/useNavigation'
-import { useShowAppPopup } from '../../hooks/useShowAppPopup'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { error } from '../../utils/log/error'
@@ -20,6 +20,7 @@ import { decryptSymmetricKey } from '../../views/contract/helpers/decryptSymmetr
 import { Icon } from '../Icon'
 import { ProfileInfo } from '../ProfileInfo'
 import { useMessageState } from '../message/useMessageState'
+import { useSetPopup } from '../popup/Popup'
 import { PeachText } from '../text/PeachText'
 import { HorizontalLine } from '../ui/HorizontalLine'
 import { options } from './buttons/options'
@@ -85,8 +86,8 @@ export const Match = ({ match, offer, currentPage }: { match: Match; offer: Sell
 function PaymentDetail ({ label, value }: { label: string; value?: string }) {
   return (
     <View style={tw`flex-row justify-between`}>
-      <PeachText style={tw`text-black-2`}>{label}</PeachText>
-      <PeachText style={tw`px-2 border rounded-lg border-black-1 button-medium`}>{value}</PeachText>
+      <PeachText style={tw`text-black-65`}>{label}</PeachText>
+      <PeachText style={tw`px-2 border rounded-lg border-black-100 button-medium`}>{value}</PeachText>
     </View>
   )
 }
@@ -125,8 +126,7 @@ function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) 
   const navigation = useNavigation()
   const updateMessage = useMessageState((state) => state.updateMessage)
   const handleError = useHandleError()
-
-  const showPopup = useShowAppPopup('offerTaken')
+  const setPopup = useSetPopup()
 
   return useMutation({
     onMutate: async () => {
@@ -163,7 +163,7 @@ function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) 
       if (errorMsg === 'MISSING_PAYMENTDATA' && selectedCurrency && selectedPaymentMethod) {
         handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation)
       } else if (errorMsg === 'OFFER_TAKEN') {
-        showPopup()
+        setPopup(<AppPopup id="offerTaken" />)
       } else {
         if (errorMsg === 'MISSING_VALUES') error(
           'Match data missing values.',

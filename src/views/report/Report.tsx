@@ -1,15 +1,15 @@
 import { useRef } from 'react'
-import { Pressable, TextInput, View } from 'react-native'
-import { Icon } from '../../components/Icon'
+import { TextInput } from 'react-native'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
+import { Checkbox } from '../../components/inputs/Checkbox'
 import { EmailInput } from '../../components/inputs/EmailInput'
 import { Input } from '../../components/inputs/Input'
-import { PeachText } from '../../components/text/PeachText'
+import { useSetPopup } from '../../components/popup/Popup'
+import { AppPopup } from '../../hooks/AppPopup'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowAppPopup } from '../../hooks/useShowAppPopup'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
 import { useValidatedState } from '../../hooks/useValidatedState'
@@ -24,7 +24,7 @@ const required = { required: true }
 export const Report = () => {
   const route = useRoute<'report'>()
   const navigation = useNavigation()
-  const showReportSuccess = useShowAppPopup('reportSuccess')
+  const setPopup = useSetPopup()
   const [email, setEmail, isEmailValid, emailErrors] = useValidatedState<string>('', emailRules)
   const [topic, setTopic, isTopicValid, topicErrors] = useValidatedState(route.params.topic || '', required)
   const [message, setMessage, isMessageValid, messageErrors] = useValidatedState(route.params.message || '', required)
@@ -54,7 +54,7 @@ export const Report = () => {
       } else {
         navigation.navigate('welcome')
       }
-      showReportSuccess()
+      setPopup(<AppPopup id="reportSuccess" />)
       return
     }
 
@@ -68,53 +68,37 @@ export const Report = () => {
     <Screen header={i18n('contact.title')}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <EmailInput
-          onChange={setEmail}
-          onSubmit={() => $topic?.focus()}
+          onChangeText={setEmail}
+          onSubmitEditing={() => $topic?.focus()}
           value={email}
           placeholder={i18n('form.userEmail.placeholder')}
           errorMessage={emailErrors}
         />
         <Input
-          onChange={setTopic}
-          onSubmit={() => $message?.focus()}
+          onChangeText={setTopic}
+          onSubmitEditing={() => $message?.focus()}
           reference={(el) => ($topic = el)}
           value={topic}
           placeholder={i18n('form.topic.placeholder')}
-          autoCorrect={false}
           errorMessage={topicErrors}
         />
         <Input
           style={tw`h-40`}
-          onChange={setMessage}
+          onChangeText={setMessage}
           reference={(el) => ($message = el)}
           value={message}
           multiline={true}
           placeholder={i18n('form.message.placeholder')}
-          autoCorrect={false}
           errorMessage={messageErrors}
         />
         {!publicKey && (
-          <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row items-center pl-3`}>
-            <View style={tw`items-center justify-center w-5 h-5`}>
-              {shareDeviceID ? (
-                <Icon id="checkboxMark" size={20} color={tw.color('primary-main')} />
-              ) : (
-                <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
-              )}
-            </View>
-            <PeachText style={tw`pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</PeachText>
-          </Pressable>
+          <Checkbox onPress={toggleDeviceIDSharing} checked={shareDeviceID}>
+            {i18n('form.includeDeviceIDHash')}
+          </Checkbox>
         )}
-        <Pressable onPress={toggleShareLogs} style={tw`flex-row items-center pl-3`}>
-          <View style={tw`flex items-center justify-center w-5 h-5`}>
-            {shareLogs ? (
-              <Icon id="checkboxMark" size={20} color={tw.color('primary-main')} />
-            ) : (
-              <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
-            )}
-          </View>
-          <PeachText style={tw`pl-2 subtitle-1`}>{i18n('form.shareLogs')}</PeachText>
-        </Pressable>
+        <Checkbox onPress={toggleShareLogs} checked={shareLogs}>
+          {i18n('form.shareLogs')}
+        </Checkbox>
       </PeachScrollView>
       <Button style={tw`self-center`} onPress={submit} disabled={!(isEmailValid && isTopicValid && isMessageValid)}>
         {i18n('report.sendReport')}

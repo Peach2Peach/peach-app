@@ -2,7 +2,6 @@
 
 exports[`EmailInput renders correctly 1`] = `
 <Input
-  autoCorrect={false}
   keyboardType="email-address"
   placeholder="example@provider.com"
 />

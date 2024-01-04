@@ -10,7 +10,7 @@ import { openURL } from '../../utils/web/openURL'
 const goToEscrowInfo = () => openURL(getLocalizedLink('terms-and-conditions', languageState.locale))
 
 export const Escrow = () => (
-  <>
+  <View style={tw`gap-4`}>
     <ParsedPeachText
       parse={[
         {
@@ -22,9 +22,16 @@ export const Escrow = () => (
     >
       {i18n('help.escrow.description')}
     </ParsedPeachText>
-    <View style={tw`flex-row gap-3 items-center  mt-4`}>
-      <Icon id="info" style={tw`w-8 h-8`} color={tw.color('black-1')} />
-      <PeachText style={tw`shrink`}>{i18n('help.escrow.description.proTip')}</PeachText>
-    </View>
-  </>
+    <InfoText>{i18n('help.escrow.description.proTip')}</InfoText>
+    <InfoText>{i18n('help.escrow.description.proTip.2')}</InfoText>
+  </View>
 )
+
+function InfoText ({ children }: { children: string }) {
+  return (
+    <View style={tw`flex-row items-center gap-3`}>
+      <Icon id="info" size={32} color={tw.color('black-100')} />
+      <PeachText style={tw`shrink`}>{children}</PeachText>
+    </View>
+  )
+}

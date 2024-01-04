@@ -10,12 +10,8 @@ type Props = {
 export function ReputationFilterComponent ({ minReputation, toggle }: Props) {
   const checked = minReputation === 4.5
   return (
-    <Checkbox
-      green
-      checked={checked}
-      onPress={toggle}
-      text={i18n('offerPreferences.filters.minReputation', '4.5')}
-      style={tw`self-stretch`}
-    />
+    <Checkbox green checked={checked} onPress={toggle} style={tw`self-stretch`}>
+      {i18n('offerPreferences.filters.minReputation', '4.5')}
+    </Checkbox>
   )
 }

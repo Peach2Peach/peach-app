@@ -1,11 +1,7 @@
 import { render } from 'test-utils'
 import { contract } from '../../../peach-api/src/testData/contract'
+import { setRouteMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { ContractChat } from './ContractChat'
-
-const useRouteMock = jest.fn(() => ({ params: { contractId: '1-2' } }))
-jest.mock('../../hooks/useRoute', () => ({
-  useRoute: () => useRouteMock(),
-}))
 
 const useContractDetailsMock = jest.fn().mockReturnValue({ contract })
 jest.mock('../../hooks/query/useContractDetails', () => ({
@@ -13,6 +9,9 @@ jest.mock('../../hooks/query/useContractDetails', () => ({
 }))
 
 describe('ContractChat', () => {
+  beforeAll(() => {
+    setRouteMock({ name: 'contractChat', key: 'contractChat', params: { contractId: '1-2' } })
+  })
   it('should render correct when chat enabled', () => {
     const { toJSON } = render(<ContractChat />)
     expect(toJSON()).toMatchSnapshot()

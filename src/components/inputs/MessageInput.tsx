@@ -1,4 +1,4 @@
-import { NativeSyntheticEvent, Pressable, TextInput, TextInputEndEditingEventData, View } from 'react-native'
+import { NativeSyntheticEvent, TextInput, TextInputEndEditingEventData, TouchableOpacity, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Icon } from '../Icon'
@@ -21,7 +21,7 @@ export const MessageInput = ({ value, disabled, disableSubmit, onChangeText, onS
   return (
     <View style={[tw`flex-row items-end px-2 rounded bg-info-background max-h-40`, disabled && tw`opacity-50`]}>
       <TextInput
-        style={tw`shrink w-full p-0 py-3 pl-1 leading-normal body-m text-black-1`}
+        style={tw`w-full p-0 py-3 pl-1 leading-normal shrink body-m text-black-100`}
         placeholderTextColor={tw.color('info-mild')}
         allowFontScaling={false}
         removeClippedSubviews={false}
@@ -35,9 +35,9 @@ export const MessageInput = ({ value, disabled, disableSubmit, onChangeText, onS
         placeholder={i18n('chat.yourMessage')}
         {...{ value, onChangeText, onEndEditing }}
       />
-      <Pressable style={tw`px-2 py-3`} onPress={onSubmitHandler}>
+      <TouchableOpacity style={tw`px-2 py-3`} onPress={onSubmitHandler}>
         <Icon id="arrowRightCircle" size={24} color={tw.color('info-light')} />
-      </Pressable>
+      </TouchableOpacity>
     </View>
   )
 }

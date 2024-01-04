@@ -13,7 +13,7 @@ const iconMap: Record<TransactionType, TxIcon> = {
   ESCROWFUNDED: { id: 'sell', color: tw.color('primary-main') },
   WITHDRAWAL: { id: 'arrowUpCircle', color: tw.color('primary-main') },
   DEPOSIT: { id: 'arrowDownCircle', color: tw.color('success-main') },
-  REFUND: { id: 'rotateCounterClockwise', color: tw.color('black-3') },
+  REFUND: { id: 'rotateCounterClockwise', color: tw.color('black-50') },
 }
 
 type Props = {

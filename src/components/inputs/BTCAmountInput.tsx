@@ -13,7 +13,7 @@ export function BTCAmountInput ({ amount, onChangeText, style }: Props) {
     <View
       style={[
         tw`self-stretch justify-center px-2 py-3 overflow-hidden h-38px rounded-xl`,
-        tw`border bg-primary-background-light border-black-2`,
+        tw`border bg-primary-background-light border-black-65`,
         style,
       ]}
     >

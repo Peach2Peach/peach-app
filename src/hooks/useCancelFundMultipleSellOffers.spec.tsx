@@ -1,10 +1,6 @@
 import { act, fireEvent, render, renderHook, responseUtils, waitFor } from 'test-utils'
-import { Popup, PopupAction } from '../components/popup'
-import { CancelOffer } from '../popups/CancelOffer'
-import { GrayPopup } from '../popups/GrayPopup'
-import { ClosePopupAction } from '../popups/actions'
-import { LoadingPopupAction } from '../popups/actions/LoadingPopupAction'
-import { usePopupStore } from '../store/usePopupStore'
+import { Popup } from '../components/popup'
+import i18n from '../utils/i18n'
 import { peachAPI } from '../utils/peachAPI'
 import { useWalletState } from '../utils/wallet/walletStore'
 import { useCancelFundMultipleSellOffers } from './useCancelFundMultipleSellOffers'
@@ -28,19 +24,8 @@ describe('useCancelFundMultipleSellOffers', () => {
     const { result } = renderHook(useCancelFundMultipleSellOffers, { initialProps: { fundMultiple } })
     result.current()
 
-    expect(usePopupStore.getState().visible).toEqual(true)
-    expect(usePopupStore.getState().popupComponent).toStrictEqual(
-      <GrayPopup
-        title="cancel offer"
-        content={<CancelOffer type="ask" />}
-        actions={
-          <>
-            <PopupAction label="never mind" iconId="arrowLeftCircle" onPress={expect.any(Function)} />
-            <LoadingPopupAction label="cancel offer" iconId="xCircle" onPress={expect.any(Function)} reverseOrder />
-          </>
-        }
-      />,
-    )
+    const { queryByText } = render(<Popup />)
+    expect(queryByText(i18n('offer.cancel.popup.description'))).not.toBeNull()
   })
 
   it('should show cancel offer confirmation popup', async () => {
@@ -49,15 +34,11 @@ describe('useCancelFundMultipleSellOffers', () => {
     })
     result.current()
 
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { getAllByText } = render(popupComponent)
+    const { getAllByText, queryByText } = render(<Popup />)
     fireEvent.press(getAllByText('cancel offer')[1])
 
     await waitFor(() => {
-      expect(usePopupStore.getState().visible).toEqual(true)
-      expect(usePopupStore.getState().popupComponent).toStrictEqual(
-        <GrayPopup title="offer canceled!" actions={<ClosePopupAction style={{ justifyContent: 'center' }} />} />,
-      )
+      expect(queryByText('offer canceled!')).toBeTruthy()
     })
 
     expect(cancelOfferMock).toHaveBeenCalledWith({ offerId: fundMultiple.offerIds[0] })
@@ -71,8 +52,7 @@ describe('useCancelFundMultipleSellOffers', () => {
     })
     result.current()
 
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
-    const { getAllByText } = render(popupComponent)
+    const { getAllByText } = render(<Popup />)
     await act(async () => {
       await fireEvent.press(getAllByText('cancel offer')[1])
     })
@@ -88,14 +68,11 @@ describe('useCancelFundMultipleSellOffers', () => {
     })
     result.current()
 
-    const { getAllByText } = render(<Popup />)
+    const { getAllByText, queryByText } = render(<Popup />)
     fireEvent.press(getAllByText('cancel offer')[1])
 
     await waitFor(() => {
-      expect(usePopupStore.getState().visible).toEqual(true)
-      expect(usePopupStore.getState().popupComponent).toStrictEqual(
-        <GrayPopup title="offer canceled!" actions={<ClosePopupAction style={{ justifyContent: 'center' }} />} />,
-      )
+      expect(queryByText('offer canceled!')).not.toBeNull()
     })
     expect(useWalletState.getState().fundMultipleMap).toEqual({ [fundMultiple.address]: ['1', '2'] })
   })

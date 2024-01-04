@@ -5,20 +5,19 @@ import { Contract } from '../../../peach-api/src/@types/contract'
 import { Header } from '../../components/Header'
 import { Screen } from '../../components/Screen'
 import { MessageInput } from '../../components/inputs/MessageInput'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { PAGE_SIZE, useChatMessages } from '../../hooks/query/useChatMessages'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
 import { useRoute } from '../../hooks/useRoute'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { useOpenDispute } from '../../popups/dispute/hooks/useOpenDispute'
-import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
+import { OpenDisputePopup } from '../../popups/dispute/hooks/OpenDisputePopup'
 import tw from '../../styles/tailwind'
 import { useAccountStore } from '../../utils/account/account'
 import { deleteMessage } from '../../utils/chat/deleteMessage'
 import { getChat } from '../../utils/chat/getChat'
 import { getUnsentMessages } from '../../utils/chat/getUnsentMessages'
 import { saveChat } from '../../utils/chat/saveChat'
-import { canCancelContract } from '../../utils/contract/canCancelContract'
 import { contractIdToHex } from '../../utils/contract/contractIdToHex'
 import { getContractViewer } from '../../utils/contract/getContractViewer'
 import { getTradingPartner } from '../../utils/contract/getTradingPartner'
@@ -223,7 +222,7 @@ function ChatScreen ({ contract }: { contract: Contract }) {
           />
         </View>
       ) : (
-        <PeachText style={tw`text-center text-black-3 p-4`}>{i18n('chat.disabled')}</PeachText>
+        <PeachText style={tw`p-4 text-center text-black-50`}>{i18n('chat.disabled')}</PeachText>
       )}
     </Screen>
   )
@@ -239,30 +238,22 @@ function ContractChatHeader ({ contract, symmetricKey }: Props) {
   const view = getContractViewer(contract.seller.id, account)
   const { contractId } = useRoute<'contractChat'>().params
 
-  const showConfirmPopup = useConfirmCancelTrade()
-  const openDisputePopup = useOpenDispute(contractId)
+  const setPopup = useSetPopup()
 
   const memoizedIcons = useMemo(() => {
     if (contract?.disputeActive) return []
 
-    const canCancel = canCancelContract(contract, view)
     const canDispute = canOpenDispute(contract, view, symmetricKey)
 
     const icons = []
-    if (canCancel) {
-      icons.push({
-        ...headerIcons.cancel,
-        onPress: () => showConfirmPopup(contract),
-      })
-    }
     if (canDispute) {
       icons.push({
         ...headerIcons.warning,
-        onPress: openDisputePopup,
+        onPress: () => setPopup(<OpenDisputePopup contractId={contractId} />),
       })
     }
     return icons
-  }, [contract, openDisputePopup, showConfirmPopup, symmetricKey, view])
+  }, [contract, contractId, setPopup, symmetricKey, view])
 
   return <Header title={contractIdToHex(contractId)} icons={memoizedIcons} />
 }

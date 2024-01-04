@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Escrow renders correctly 1`] = `
-<React.Fragment>
+<View
+  style={
+    {
+      "gap": 16,
+    }
+  }
+>
   <ParsedPeachText
     parse={
       [
@@ -19,35 +25,11 @@ exports[`Escrow renders correctly 1`] = `
 
 Your offer will be published after one network confirmation. You can close the app while waiting for this.
   </ParsedPeachText>
-  <View
-    style={
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-        "gap": 12,
-        "marginTop": 16,
-      }
-    }
-  >
-    <Icon
-      color="#2B1911"
-      id="info"
-      style={
-        {
-          "height": 32,
-          "width": 32,
-        }
-      }
-    />
-    <PeachText
-      style={
-        {
-          "flexShrink": 1,
-        }
-      }
-    >
-      You can long press the QR code to copy the full payment request.
-    </PeachText>
-  </View>
-</React.Fragment>
+  <InfoText>
+    You can long press the QR code to copy the full payment request.
+  </InfoText>
+  <InfoText>
+    If the escrow is not funded after 7 days, the offer will be deleted.
+  </InfoText>
+</View>
 `;

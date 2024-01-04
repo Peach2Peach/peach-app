@@ -16,7 +16,7 @@ import { getPaymentMethodName } from '../../../utils/paymentMethod/getPaymentMet
 import { groupChars } from '../../../utils/string/groupChars'
 import { priceFormat } from '../../../utils/string/priceFormat'
 import { openAppLink } from '../../../utils/web/openAppLink'
-import { UserId } from '../../settings/profile/profileOverview/components'
+import { UserId } from '../../settings/profile/profileOverview/UserId'
 import { TradeBreakdownBubble } from '../components/TradeBreakdownBubble'
 import { useContractContext } from '../context'
 
@@ -145,7 +145,7 @@ function PaymentMethodBubble ({ contract }: { contract: Contract }) {
       <Bubble color={'primary-mild'}>{paymentMethodLabel ?? paymentMethodName}</Bubble>
       {hasLink && (
         <TouchableOpacity onPress={openLink} style={tw`flex-row items-center justify-end gap-1`}>
-          <PeachText style={tw`underline body-s text-black-2`}>{i18n('contract.summary.openApp')}</PeachText>
+          <PeachText style={tw`underline body-s text-black-65`}>{i18n('contract.summary.openApp')}</PeachText>
           <Icon id="externalLink" size={16} color={tw.color('primary-main')} />
         </TouchableOpacity>
       )}

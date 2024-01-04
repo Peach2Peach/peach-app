@@ -45,9 +45,7 @@ exports[`CurrencySelection renders correctly for 1 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -57,6 +55,7 @@ exports[`CurrencySelection renders correctly for 1 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -155,9 +154,7 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -167,6 +164,7 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -250,9 +248,7 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -262,6 +258,7 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -360,9 +357,7 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -372,6 +367,7 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -455,9 +451,7 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -467,6 +461,7 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -550,9 +545,7 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -562,6 +555,7 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -660,9 +654,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -672,6 +664,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -755,9 +748,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -767,6 +758,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -850,9 +842,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -862,6 +852,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -945,9 +936,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -957,6 +946,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -1055,9 +1045,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -1067,6 +1055,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -1150,9 +1139,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -1162,6 +1149,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -1245,9 +1233,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -1257,6 +1243,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -1340,9 +1327,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -1352,6 +1337,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -1435,9 +1421,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -1447,6 +1431,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -1545,9 +1530,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -1557,6 +1540,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -1640,9 +1624,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -1652,6 +1634,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -1735,9 +1718,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -1747,6 +1728,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -1830,9 +1812,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -1842,6 +1822,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -1925,9 +1906,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -1937,6 +1916,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -2020,9 +2000,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -2032,6 +2010,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -2130,9 +2109,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -2142,6 +2119,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -2225,9 +2203,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -2237,6 +2213,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -2320,9 +2297,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -2332,6 +2307,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -2415,9 +2391,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -2427,6 +2401,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -2510,9 +2485,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -2522,6 +2495,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -2605,9 +2579,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -2617,6 +2589,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -2700,9 +2673,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -2712,6 +2683,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -2810,9 +2782,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -2822,6 +2792,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -2905,9 +2876,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -2917,6 +2886,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -3000,9 +2970,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -3012,6 +2980,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -3095,9 +3064,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -3107,6 +3074,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -3190,9 +3158,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -3202,6 +3168,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -3285,9 +3252,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -3297,6 +3262,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -3380,9 +3346,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -3392,6 +3356,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -3475,9 +3440,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -3487,6 +3450,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -3585,9 +3549,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -3597,6 +3559,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -3680,9 +3643,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -3692,6 +3653,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -3775,9 +3737,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -3787,6 +3747,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -3870,9 +3831,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -3882,6 +3841,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -3965,9 +3925,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -3977,6 +3935,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -4060,9 +4019,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -4072,6 +4029,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -4155,9 +4113,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -4167,6 +4123,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -4250,9 +4207,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -4262,6 +4217,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >
@@ -4345,9 +4301,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       accessible={true}
       collapsable={false}
       focusable={true}
-      onBlur={[Function]}
       onClick={[Function]}
-      onFocus={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -4357,6 +4311,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       style={
         {
           "flexGrow": 1,
+          "opacity": 1,
         }
       }
     >

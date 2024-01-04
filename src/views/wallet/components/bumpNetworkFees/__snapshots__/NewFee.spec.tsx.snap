@@ -42,7 +42,7 @@ exports[`NewFee renders correctly 1`] = `
     >
       <NumberInput
         decimals={2}
-        onChange={[MockFunction]}
+        onChangeText={[MockFunction]}
         placeholder=""
         required={true}
         style={
@@ -125,7 +125,7 @@ exports[`NewFee renders correctly when overpaying 1`] = `
     >
       <NumberInput
         decimals={2}
-        onChange={[MockFunction]}
+        onChangeText={[MockFunction]}
         placeholder=""
         required={true}
         style={

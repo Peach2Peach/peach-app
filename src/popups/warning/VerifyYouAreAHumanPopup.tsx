@@ -2,18 +2,18 @@ import { API_URL } from '@env'
 import { View } from 'react-native'
 import { WebView, WebViewMessageEvent } from 'react-native-webview'
 import { PopupAction } from '../../components/popup'
+import { useClosePopup, useSetPopup } from '../../components/popup/Popup'
 import { PopupComponent } from '../../components/popup/PopupComponent'
 import { PeachText } from '../../components/text/PeachText'
 import { initApp } from '../../init/initApp'
 import { useSettingsStore } from '../../store/settingsStore'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { WarningPopup } from '../WarningPopup'
-import { ClosePopupAction } from '../actions'
+import { ClosePopupAction } from '../actions/ClosePopupAction'
 
 export const VerifyYouAreAHuman = () => {
-  const closePopup = usePopupStore((state) => state.closePopup)
+  const closePopup = useClosePopup()
   const setCloudflareChallenge = useSettingsStore((state) => state.setCloudflareChallenge)
 
   const handleMessage = async (event: WebViewMessageEvent) => {
@@ -24,14 +24,14 @@ export const VerifyYouAreAHuman = () => {
   }
   return (
     <PopupComponent
-      bgColor={tw`p-0 bg-warning-background`}
+      bgColor={tw`p-0 bg-warning-mild-1`}
       actionBgColor={tw`bg-warning-main`}
       content={
         <View style={tw`h-[450px]`}>
           <WebView contentMode="mobile" onMessage={handleMessage} source={{ uri: `${API_URL}/v1/human/verify` }} />
         </View>
       }
-      actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-1`} />}
+      actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-100`} />}
     />
   )
 }
@@ -43,7 +43,7 @@ export function VerifyYouAreAHumanPopup () {
       content={<PeachText>{i18n('HUMAN_VERIFICATION_REQUIRED.text')}</PeachText>}
       actions={
         <>
-          <ClosePopupAction textStyle={tw`text-black-1`} />
+          <ClosePopupAction textStyle={tw`text-black-100`} />
           <GoToChallengeAction />
         </>
       }
@@ -52,12 +52,12 @@ export function VerifyYouAreAHumanPopup () {
 }
 
 function GoToChallengeAction () {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
 
   return (
     <PopupAction
       label={i18n('HUMAN_VERIFICATION_REQUIRED.start')}
-      textStyle={tw`text-black-1`}
+      textStyle={tw`text-black-100`}
       onPress={() => setPopup(<VerifyYouAreAHuman />)}
       iconId={'user'}
       reverseOrder

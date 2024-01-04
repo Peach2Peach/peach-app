@@ -9,7 +9,7 @@ import { round } from '../../../utils/math/round'
 
 const NoChangeWarning = () => (
   <View style={tw`flex-row gap-4 items-center`}>
-    <Icon id="alertTriangle" size={32} color={tw.color('black-1')} />
+    <Icon id="alertTriangle" size={32} color={tw.color('black-100')} />
     <PeachText>{i18n('wallet.bumpNetworkFees.confirmRbf.noChange')}</PeachText>
   </View>
 )

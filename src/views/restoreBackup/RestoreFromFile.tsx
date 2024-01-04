@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { Button } from '../../components/buttons/Button'
 import { FileInput } from '../../components/inputs/FileInput'
-import { Input } from '../../components/inputs/Input'
+import { PasswordInput } from '../../components/inputs/PasswordInput'
 import { PeachText } from '../../components/text/PeachText'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -28,14 +28,13 @@ export const RestoreFromFile = () => {
           <FileInput fileName={file.name} onChange={setFile} />
         </View>
         <View style={tw`px-2`}>
-          <Input
+          <PasswordInput
             theme="inverted"
-            onChange={setPassword}
-            onSubmit={(val: string) => {
-              setPassword(val)
+            onChangeText={setPassword}
+            onSubmitEditing={(e) => {
+              setPassword(e.nativeEvent.text)
               if (file.name) submit()
             }}
-            secureTextEntry={true}
             placeholder={i18n('restoreBackup.decrypt.password')}
             value={password}
             errorMessage={passwordError}

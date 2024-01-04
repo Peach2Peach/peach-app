@@ -17,18 +17,18 @@ export const CustomFeeItem = ({ customFeeRate, setCustomFeeRate, disabled }: Pro
     <View
       style={[
         tw`flex-row items-center w-16 h-8 py-3 overflow-hidden rounded-xl`,
-        tw`border bg-primary-background-light border-black-2`,
+        tw`border bg-primary-background-light border-black-65`,
       ]}
     >
       <TextInput
         value={customFeeRate}
         onChangeText={(text) => setCustomFeeRate(enforceDecimalsFormat(text, 2))}
-        style={tw`h-8 py-0 text-center grow input-text text-black-1`}
+        style={tw`h-8 py-0 text-center grow input-text text-black-100`}
         keyboardType={'decimal-pad'}
         editable={!disabled}
         testID="input-custom-fees"
       />
     </View>
-    <PeachText style={tw`text-black-2`}>{i18n('satsPerByte')}</PeachText>
+    <PeachText style={tw`text-black-65`}>{i18n('satsPerByte')}</PeachText>
   </View>
 )

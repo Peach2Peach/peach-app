@@ -5,6 +5,7 @@ import { Header } from '../../components/Header'
 import { Screen } from '../../components/Screen'
 import { Loading } from '../../components/animation/Loading'
 import { NotificationBubble } from '../../components/bubble/NotificationBubble'
+import { fullScreenTabNavigationScreenOptions } from '../../constants'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
@@ -21,15 +22,6 @@ import { getCategories } from './utils/getCategories'
 
 const YourTradesTab = createMaterialTopTabNavigator()
 const tabs = ['yourTrades.buy', 'yourTrades.sell', 'yourTrades.history'] as const
-
-const tabbedNavigationScreenOptions = {
-  tabBarLabelStyle: tw`lowercase input-title`,
-  tabBarStyle: [tw`bg-transparent mx-sm`, tw`md:mx-md`],
-  tabBarContentContainerStyle: tw`bg-transparent`,
-  tabBarIndicatorStyle: tw`bg-black-1`,
-  tabBarItemStyle: tw`p-0`,
-  tabBarPressColor: 'transparent',
-}
 
 export const YourTrades = () => {
   const { tradeSummaries, isLoading, error, refetch } = useTradeSummaries()
@@ -57,7 +49,7 @@ export const YourTrades = () => {
     <Screen style={tw`px-0`} header={<YourTradesHeader />}>
       <YourTradesTab.Navigator
         initialRouteName={params?.tab || 'yourTrades.buy'}
-        screenOptions={tabbedNavigationScreenOptions}
+        screenOptions={fullScreenTabNavigationScreenOptions}
         sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
       >
         {tabs.map((tab) => (

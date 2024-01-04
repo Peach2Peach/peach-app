@@ -7,13 +7,14 @@ import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { Input } from '../../components/inputs/Input'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { CopyAble } from '../../components/ui/CopyAble'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
 import { useKeyboard } from '../../hooks/useKeyboard'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { useValidatedState } from '../../hooks/useValidatedState'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
@@ -100,7 +101,7 @@ function ScreenContent ({ contract }: { contract: Contract }) {
           ]}
         >
           <PeachText style={tw`flex-1 input-text`}>{address}</PeachText>
-          <CopyAble value={address || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-1`} />
+          <CopyAble value={address || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-100`} />
         </View>
         <PeachText style={[tw`pl-2 input-label`]}>{i18n('buy.addressSigning.message')}</PeachText>
         <View
@@ -111,14 +112,13 @@ function ScreenContent ({ contract }: { contract: Contract }) {
           ]}
         >
           <PeachText style={tw`flex-1 input-text`}>{message}</PeachText>
-          <CopyAble value={message || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-1`} />
+          <CopyAble value={message || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-100`} />
         </View>
         <Input
           value={signature}
-          onChange={setSignature}
+          onChangeText={setSignature}
           label={i18n('buy.addressSigning.signature')}
           placeholder={i18n('buy.addressSigning.signature')}
-          autoCorrect={false}
           errorMessage={signatureError}
           icons={[['clipboard', pasteSignature]]}
         />
@@ -133,6 +133,7 @@ function ScreenContent ({ contract }: { contract: Contract }) {
 }
 
 function SignMessageHeader () {
-  const showHelp = useShowHelp('addressSigning')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="addressSigning" />)
   return <Header title={i18n('buy.addressSigning.title')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }

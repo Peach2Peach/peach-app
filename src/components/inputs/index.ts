@@ -1,7 +1,0 @@
-export { CurrencyItem } from './CurrencyItem'
-export { EmailInput } from './EmailInput'
-export { NumberInput } from './NumberInput'
-export { NumberStepper } from './NumberStepper'
-export { PercentageInput } from './PercentageInput'
-export { Toggle } from './Toggle'
-export { ConfirmSlider } from './confirmSlider'

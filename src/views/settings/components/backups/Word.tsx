@@ -7,7 +7,7 @@ type Props = ComponentProps & {
 }
 
 export const Word = ({ word, index, style }: Props) => (
-  <PeachText style={[tw`px-4 py-3 mb-2 border border-black-2 rounded-xl`, style]}>
+  <PeachText style={[tw`px-4 py-3 mb-2 border border-black-65 rounded-xl`, style]}>
     {index}. {word}
   </PeachText>
 )

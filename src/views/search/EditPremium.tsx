@@ -6,13 +6,14 @@ import { Screen } from '../../components/Screen'
 import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
 import { Button } from '../../components/buttons/Button'
 import { PremiumSlider } from '../../components/inputs/premiumSlider/PremiumSlider'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useMarketPrices } from '../../hooks/query/useMarketPrices'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useNavigation } from '../../hooks/useNavigation'
 import { usePatchOffer } from '../../hooks/usePatchOffer'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -45,7 +46,7 @@ export const EditPremium = () => {
         setPremium={setPremium}
         amount={offer?.amount ?? 0}
         offerPrice={
-          <PeachText style={tw`text-center text-black-2`}>
+          <PeachText style={tw`text-center text-black-65`}>
             ({i18n('sell.premium.currently', `${priceFormat(currentPrice)} ${displayCurrency}`)})
           </PeachText>
         }
@@ -57,7 +58,8 @@ export const EditPremium = () => {
 
 function EditPremiumHeader () {
   const { offerId } = useRoute<'editPremium'>().params
-  const showHelp = useShowHelp('premium')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="premium" />)
   return <Header title={offerIdToHex(offerId)} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }
 

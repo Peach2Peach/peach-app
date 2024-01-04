@@ -1,8 +1,8 @@
 import { Keyboard } from 'react-native'
-import { renderHook, waitFor } from 'test-utils'
+import { render, renderHook, waitFor } from 'test-utils'
 import { contract } from '../../../../peach-api/src/testData/contract'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { usePopupStore } from '../../../store/usePopupStore'
+import { Popup } from '../../../components/popup/Popup'
 import { defaultAccount, setAccount } from '../../../utils/account/account'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useSubmitDisputeAcknowledgement } from './useSubmitDisputeAcknowledgement'
@@ -13,10 +13,6 @@ jest.useFakeTimers({ now })
 const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
-}))
-const showLoadingPopupMock = jest.fn()
-jest.mock('../../../hooks/useShowLoadingPopup', () => ({
-  useShowLoadingPopup: () => showLoadingPopupMock,
 }))
 
 describe('useSubmitDisputeAcknowledgement', () => {
@@ -46,7 +42,6 @@ describe('useSubmitDisputeAcknowledgement', () => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
 
-    expect(showLoadingPopupMock).not.toHaveBeenCalled()
     expect(acknowledgeDisputeMock).not.toHaveBeenCalled()
   })
 
@@ -74,7 +69,8 @@ describe('useSubmitDisputeAcknowledgement', () => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
 
-    expect(usePopupStore.getState().visible).toEqual(false)
+    const { queryByText } = render(<Popup />)
+    expect(queryByText('dispute opened')).toBeFalsy()
   })
   it('closes keyboard when successful and email was required', async () => {
     const keyboardSpy = jest.spyOn(Keyboard, 'dismiss')

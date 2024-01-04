@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { shallow } from 'zustand/shallow'
+import { fullScreenTabNavigationScreenOptions } from '../../constants'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useNavigation } from '../../hooks/useNavigation'
 import { usePreviousRoute } from '../../hooks/usePreviousRoute'
-import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
@@ -15,15 +15,17 @@ import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { Header } from '../Header'
 import { PeachScrollView } from '../PeachScrollView'
 import { Screen } from '../Screen'
-import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavigation'
+import { useSetPopup } from '../popup/Popup'
 import { HorizontalLine } from '../ui/HorizontalLine'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 import { MeetupPaymentMethods } from './MeetupPaymentMethods'
 import { RemotePaymentMethods } from './RemotePaymentMethods'
 
+const PaymentMethodsTab = createMaterialTopTabNavigator()
+const tabs = ['online', 'meetups'] as const
+
 export const PaymentMethods = () => {
   const navigation = useNavigation()
-  const currentRouteName = useRoute().name
   const [preferredPaymentMethods, select] = useOfferPreferences(
     (state) => [state.preferredPaymentMethods, state.selectPaymentMethod],
     shallow,
@@ -32,15 +34,15 @@ export const PaymentMethods = () => {
 
   const editItem = (data: PaymentData) => {
     if (isCashTrade(data.type)) {
-      navigation.push('meetupScreen', {
+      navigation.navigate('meetupScreen', {
         eventId: data.id.replace('cash.', ''),
         deletable: true,
-        origin: currentRouteName,
+        origin: 'paymentMethods',
       })
     } else {
-      navigation.push('paymentMethodForm', {
+      navigation.navigate('paymentMethodForm', {
         paymentData: data,
-        origin: currentRouteName,
+        origin: 'paymentMethods',
       })
     }
   }
@@ -49,26 +51,32 @@ export const PaymentMethods = () => {
   const { name: origin, params } = usePreviousRoute()
   const isComingFromSettings = origin === 'homeScreen' && params && 'screen' in params && params?.screen === 'settings'
   const [isEditing, toggleIsEditing] = useToggleBoolean(isComingFromSettings)
-  const tabs: TabbedNavigationItem<'online' | 'meetups'>[] = [
-    { id: 'online', display: i18n('paymentSection.online') },
-    { id: 'meetups', display: i18n('paymentSection.meetups') },
-  ]
-  const [currentTab, setCurrentTab] = useState(tabs[0])
 
   return (
-    <Screen header={<PaymentMethodsHeader isEditing={isEditing} toggleIsEditing={toggleIsEditing} />}>
-      <PeachScrollView style={tw`h-full mb-4`} contentContainerStyle={[tw`pb-10 grow`, tw`md:pb-16`]}>
-        <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
-        <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`justify-center pt-6 grow`}>
-          {currentTab.id === 'online' ? (
-            <RemotePaymentMethods {...{ isEditing, editItem, select, isSelected }} />
-          ) : (
-            <MeetupPaymentMethods {...{ isEditing, editItem, select, isSelected }} />
-          )}
-          <HorizontalLine style={tw`m-5`} />
-          <AddPaymentMethodButton isCash={currentTab.id === 'meetups'} />
-        </PeachScrollView>
-      </PeachScrollView>
+    <Screen style={tw`px-0`} header={<PaymentMethodsHeader isEditing={isEditing} toggleIsEditing={toggleIsEditing} />}>
+      <PaymentMethodsTab.Navigator
+        screenOptions={fullScreenTabNavigationScreenOptions}
+        sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
+      >
+        {tabs.map((tab) => (
+          <PaymentMethodsTab.Screen key={tab} name={tab} options={{ title: `${i18n(`paymentSection.${tab}`)}` }}>
+            {() => (
+              <PeachScrollView
+                style={tw`h-full mb-4`}
+                contentContainerStyle={[tw`justify-center pb-10 grow`, tw`md:pb-16`]}
+              >
+                {tab === 'online' ? (
+                  <RemotePaymentMethods {...{ isEditing, editItem, select, isSelected }} />
+                ) : (
+                  <MeetupPaymentMethods {...{ isEditing, editItem, select, isSelected }} />
+                )}
+                <HorizontalLine style={tw`m-5`} />
+                <AddPaymentMethodButton isCash={tab === 'meetups'} />
+              </PeachScrollView>
+            )}
+          </PaymentMethodsTab.Screen>
+        ))}
+      </PaymentMethodsTab.Navigator>
     </Screen>
   )
 }
@@ -79,7 +87,8 @@ type Props = {
 }
 
 function PaymentMethodsHeader ({ isEditing, toggleIsEditing }: Props) {
-  const showHelp = useShowHelp('paymentMethods')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="paymentMethods" />)
   const hasPaymentMethods = usePaymentDataStore((state) => state.getPaymentDataArray().length !== 0)
 
   return (

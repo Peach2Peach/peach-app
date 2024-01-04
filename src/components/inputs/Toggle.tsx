@@ -19,7 +19,7 @@ export const Toggle = ({ enabled, disabled, onPress, children, style, textStyle 
     {enabled ? (
       <Icon id="toggleRight" size={32} color={tw.color('primary-main')} />
     ) : (
-      <Icon id="toggleLeft" size={32} color={tw.color('black-3')} />
+      <Icon id="toggleLeft" size={32} color={tw.color('black-50')} />
     )}
   </TouchableOpacity>
 )

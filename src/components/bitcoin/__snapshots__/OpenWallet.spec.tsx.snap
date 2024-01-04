@@ -62,7 +62,7 @@ exports[`OpenWallet should render correctly 1`] = `
       ]
     }
   >
-    open wallet app
+    open external wallet app
   </Text>
   <test-file-stub
     fill="#F56522"
