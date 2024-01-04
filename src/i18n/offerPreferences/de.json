@@ -1,7 +1,7 @@
 {
-  "help.fundMultiple.text" : "Um Netzwerkgebühren zu sparen, kannst du mehrere Verkaufsangebote mit nur einer Transaktion erstellen!",
+  "help.fundMultiple.description" : "Um Netzwerkgebühren zu sparen, kannst du mehrere Verkaufsangebote mit nur einer Transaktion erstellen!",
   "help.fundMultiple.title" : "mehrere Verkaufsangebote finanzieren",
-  "help.instantTrade.text" : "Erlaube einem Käufer, der zu deinem Verkaufsangebot passt, automatisch einen Handel mit dir zu beginnen!\n\nUm dies zu ermöglichen, wird Peach deine ausgewählten Zahlungsdaten erhalten, um sie sofort mit einem Käufer zu teilen, der alle deine Kriterien erfüllt.\n\nDiese Daten sind verschlüsselt und können von Dritten außer Peach nicht gelesen werden.",
+  "help.instantTrade.description" : "Erlaube einem Käufer, der zu deinem Verkaufsangebot passt, automatisch einen Handel mit dir zu beginnen!\n\nUm dies zu ermöglichen, wird Peach deine ausgewählten Zahlungsdaten erhalten, um sie sofort mit einem Käufer zu teilen, der alle deine Kriterien erfüllt.\n\nDiese Daten sind verschlüsselt und können von Dritten außer Peach nicht gelesen werden.",
   "help.instantTrade.title" : "sofortiger Handel",
   "matchDetails.action.instantTrade" : "sofortiger Handel",
   "matchDetails.action.missingSelection" : "Zahlungsmethode auswählen",

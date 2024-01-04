@@ -23,6 +23,7 @@ import { Toggle } from '../../components/inputs/Toggle'
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { SATSINBTC } from '../../constants'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useMarketPrices } from '../../hooks/query/useMarketPrices'
 import { useTradingLimits } from '../../hooks/query/useTradingLimits'
@@ -30,7 +31,6 @@ import { useBitcoinPrices } from '../../hooks/useBitcoinPrices'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
-import { InfoPopup } from '../../popups/InfoPopup'
 import { useConfigStore } from '../../store/configStore/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { useSettingsStore } from '../../store/settingsStore'
@@ -337,7 +337,7 @@ function FundMultipleOffersContainer () {
       <TouchableIcon
         id="helpCircle"
         iconColor={tw.color('info-light')}
-        onPress={() => setPopup(<FundMultiplePopup />)}
+        onPress={() => setPopup(<HelpPopup id="fundMultiple" />)}
       />
     </Section.Container>
   )
@@ -361,7 +361,7 @@ function InstantTrade () {
   )
   const setPopup = useSetPopup()
   const onHelpIconPress = () => {
-    setPopup(<InstantTradePopup />)
+    setPopup(<HelpPopup id="instantTrade" />)
     setHasSeenPopup(true)
   }
 
@@ -621,7 +621,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
 
 function SellHeader () {
   const setPopup = useSetPopup()
-  const onPress = () => setPopup(<SellingBitcoinPopup />)
+  const onPress = () => setPopup(<HelpPopup id="sellingBitcoin" />)
   return (
     <Header
       titleComponent={
@@ -631,33 +631,6 @@ function SellHeader () {
         </>
       }
       icons={[{ ...headerIcons.help, onPress }]}
-    />
-  )
-}
-
-function SellingBitcoinPopup () {
-  return (
-    <InfoPopup
-      title={i18n('help.sellingBitcoin.title')}
-      content={<PeachText>{i18n('help.sellingBitcoin.description')}</PeachText>}
-    />
-  )
-}
-
-function FundMultiplePopup () {
-  return (
-    <InfoPopup
-      title={i18n('help.fundMultiple.title')}
-      content={<PeachText>{i18n('help.fundMultiple.text')}</PeachText>}
-    />
-  )
-}
-
-function InstantTradePopup () {
-  return (
-    <InfoPopup
-      title={i18n('help.instantTrade.title')}
-      content={<PeachText>{i18n('help.instantTrade.text')}</PeachText>}
     />
   )
 }
