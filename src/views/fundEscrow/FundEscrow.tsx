@@ -74,7 +74,7 @@ function FundEscrowHeader () {
   const { offerId } = useRoute<'fundEscrow'>().params
   const fundMultiple = useWalletState((state) => state.getFundMultipleByOfferId(offerId))
   const setPopup = useSetPopup()
-  const showHelp = useCallback(() => setPopup(<HelpPopup id="fundEscrow" />), [setPopup])
+  const showHelp = useCallback(() => setPopup(<HelpPopup id="escrow" />), [setPopup])
   const cancelOffer = useCallback(() => setPopup(<CancelOfferPopup offerId={offerId} />), [offerId, setPopup])
 
   const cancelFundMultipleOffers = useCancelFundMultipleSellOffers({ fundMultiple })
