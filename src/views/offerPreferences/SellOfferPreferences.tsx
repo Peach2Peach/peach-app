@@ -23,14 +23,13 @@ import { Toggle } from '../../components/inputs/Toggle'
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { SATSINBTC } from '../../constants'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useMarketPrices } from '../../hooks/query/useMarketPrices'
-import { useTradingLimits } from '../../hooks/query/useTradingLimits'
 import { useBitcoinPrices } from '../../hooks/useBitcoinPrices'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
-import { InfoPopup } from '../../popups/InfoPopup'
 import { useConfigStore } from '../../store/configStore/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { useSettingsStore } from '../../store/settingsStore'
@@ -197,16 +196,11 @@ function PremiumInputComponent () {
   return <PremiumInput premium={premium} setPremium={setPremium} incrementBy={1} />
 }
 
-function useCurrentOfferPrice () {
+function CurrentPrice () {
+  const displayCurrency = useSettingsStore((state) => state.displayCurrency)
   const [amount, premium] = useOfferPreferences((state) => [state.sellAmount, state.premium], shallow)
   const { fiatPrice } = useBitcoinPrices(amount)
   const priceWithPremium = useMemo(() => round(fiatPrice * (1 + premium / 100), 2), [fiatPrice, premium])
-  return priceWithPremium
-}
-
-function CurrentPrice () {
-  const displayCurrency = useSettingsStore((state) => state.displayCurrency)
-  const priceWithPremium = useCurrentOfferPrice()
 
   return (
     <PeachText style={tw`text-center body-s`}>
@@ -337,7 +331,7 @@ function FundMultipleOffersContainer () {
       <TouchableIcon
         id="helpCircle"
         iconColor={tw.color('info-light')}
-        onPress={() => setPopup(<FundMultiplePopup />)}
+        onPress={() => setPopup(<HelpPopup id="fundMultiple" />)}
       />
     </Section.Container>
   )
@@ -361,7 +355,7 @@ function InstantTrade () {
   )
   const setPopup = useSetPopup()
   const onHelpIconPress = () => {
-    setPopup(<InstantTradePopup />)
+    setPopup(<HelpPopup id="instantTrade" />)
     setHasSeenPopup(true)
   }
 
@@ -463,8 +457,6 @@ function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWa
 function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boolean }) {
   const amountRange = useTradingAmountLimits('sell')
   const [sellAmount, instantTrade] = useOfferPreferences((state) => [state.sellAmount, state.instantTrade], shallow)
-  const limits = useTradingLimits()
-  const priceWithPremium = useCurrentOfferPrice()
   const [isPublishing, setIsPublishing] = useState(false)
 
   const sellAmountIsValid = sellAmount >= amountRange[0] && sellAmount <= amountRange[1]
@@ -473,9 +465,6 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
   if (!sellAmountIsValid) {
     setSellAmount(restrictAmount(sellAmount))
   }
-
-  const priceIsWithinLimits
-    = priceWithPremium + limits.dailyAmount <= limits.daily && priceWithPremium + limits.yearlyAmount <= limits.yearly
 
   const [peachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
     (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel],
@@ -495,8 +484,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
     shallow,
   )
   const paymentMethodsAreValid = sellPreferences.originalPaymentData.every(isValidPaymentData)
-  const formValid
-    = sellAmountIsValid && priceIsWithinLimits && paymentMethodsAreValid && !!sellPreferences.originalPaymentData.length
+  const formValid = sellAmountIsValid && paymentMethodsAreValid && !!sellPreferences.originalPaymentData.length
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
@@ -538,8 +526,6 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
       let errorMessage
       if (!sellAmountIsValid) {
         errorMessage = `Amount must be between ${amountRange[0]} and ${amountRange[1]} sats`
-      } else if (!priceIsWithinLimits) {
-        errorMessage = 'Amount exceeds your trading limits'
       } else if (!paymentMethodsAreValid) {
         errorMessage = 'Please add a valid payment method'
       } else if (!sellPreferences.originalPaymentData.length) {
@@ -621,7 +607,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
 
 function SellHeader () {
   const setPopup = useSetPopup()
-  const onPress = () => setPopup(<SellingBitcoinPopup />)
+  const onPress = () => setPopup(<HelpPopup id="sellingBitcoin" />)
   return (
     <Header
       titleComponent={
@@ -631,33 +617,6 @@ function SellHeader () {
         </>
       }
       icons={[{ ...headerIcons.help, onPress }]}
-    />
-  )
-}
-
-function SellingBitcoinPopup () {
-  return (
-    <InfoPopup
-      title={i18n('help.sellingBitcoin.title')}
-      content={<PeachText>{i18n('help.sellingBitcoin.description')}</PeachText>}
-    />
-  )
-}
-
-function FundMultiplePopup () {
-  return (
-    <InfoPopup
-      title={i18n('help.fundMultiple.title')}
-      content={<PeachText>{i18n('help.fundMultiple.text')}</PeachText>}
-    />
-  )
-}
-
-function InstantTradePopup () {
-  return (
-    <InfoPopup
-      title={i18n('help.instantTrade.title')}
-      content={<PeachText>{i18n('help.instantTrade.text')}</PeachText>}
     />
   )
 }

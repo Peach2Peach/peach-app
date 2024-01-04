@@ -1,7 +1,7 @@
 {
-  "help.fundMultiple.text" : "Per risparmiare sulle commissioni di rete, puoi creare offerte di vendita multiple con una sola transazione!",
+  "help.fundMultiple.description" : "Per risparmiare sulle commissioni di rete, puoi creare offerte di vendita multiple con una sola transazione!",
   "help.fundMultiple.title" : "finanziamento di offerte di vendita multiple",
-  "help.instantTrade.text" : "Permetti a un acquirente che corrisponde alla tua offerta di vendita di entrare automaticamente in una transazione con te!\n\nPer abilitare questa funzionalità, Peach riceverà i tuoi dati di pagamento selezionati per condividerli immediatamente con un acquirente che soddisfa tutti i tuoi criteri.\n\nQuesti dati sono criptati e non possono essere letti da terze parti diverse da Peach.",
+  "help.instantTrade.description" : "Permetti a un acquirente che corrisponde alla tua offerta di vendita di entrare automaticamente in una transazione con te!\n\nPer abilitare questa funzionalità, Peach riceverà i tuoi dati di pagamento selezionati per condividerli immediatamente con un acquirente che soddisfa tutti i tuoi criteri.\n\nQuesti dati sono criptati e non possono essere letti da terze parti diverse da Peach.",
   "help.instantTrade.title" : "commercio istantaneo",
   "matchDetails.action.instantTrade" : "commercio istantaneo",
   "matchDetails.action.missingSelection" : "seleziona il metodo di pagamento",

@@ -1,7 +1,7 @@
 {
-  "help.fundMultiple.text" : "To save on network fees, you can create multiple sell offers with only one transaction!",
+  "help.fundMultiple.description" : "To save on network fees, you can create multiple sell offers with only one transaction!",
   "help.fundMultiple.title" : "fund multiple sell offers",
-  "help.instantTrade.text" : "Allow a buyer who matches your sell offer to automatically get in a trade with you!\n\nTo enable this, Peach will receive your selected payment data to instantly share them with a buyer that matches all of your criteria.\n\nThis data is encrypted and cannot be read by third parties other than Peach.",
+  "help.instantTrade.description" : "Allow a buyer who matches your sell offer to automatically get in a trade with you!\n\nTo enable this, Peach will receive your selected payment data to instantly share them with a buyer that matches all of your criteria.\n\nThis data is encrypted and cannot be read by third parties other than Peach.",
   "help.instantTrade.title" : "instant trade",
   "matchDetails.action.instantTrade" : "instant trade",
   "matchDetails.action.missingSelection" : "select payment method",
