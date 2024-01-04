@@ -7,11 +7,10 @@ import { BTCAmount } from '../../bitcoin/btcAmount/BTCAmount'
 import { FixedHeightText } from '../../text/FixedHeightText'
 import { PeachText } from '../../text/PeachText'
 import { StatusCardProps } from '../StatusCard'
-import { getPropsWithType } from '../helpers'
 
 export type Props = Pick<StatusCardProps, 'amount' | 'price' | 'currency' | 'replaced' | 'premium'>
 
-export const Right = (propsWithoutType: Props) => {
+export function Right (propsWithoutType: Props) {
   const { type, amount, price, currency, premium } = getPropsWithType(propsWithoutType)
   return (
     <View
@@ -48,4 +47,36 @@ export const Right = (propsWithoutType: Props) => {
       )}
     </View>
   )
+}
+
+type Empty = {
+  type: 'empty'
+} & Partial<Props>
+
+type Amount = {
+  type: 'amount'
+  amount: number
+} & Partial<Props>
+const isAmount = (props: Props): props is Omit<Amount, 'type'> => typeof props.amount === 'number'
+
+type FiatAmount = {
+  type: 'fiatAmount'
+  amount: number
+} & Required<Props>
+const isFiatAmount = (props: Props): props is Omit<FiatAmount, 'type'> =>
+  typeof props.amount === 'number' && props.price !== undefined && props.currency !== undefined
+
+type Range = {
+  type: 'range'
+  amount: [number, number]
+} & Partial<Props>
+
+const isRange = (props: Props): props is Omit<Range, 'type'> => Array.isArray(props.amount)
+
+function getPropsWithType (props: Props): Empty | FiatAmount | Range | Amount {
+  if (props.replaced) return { ...props, type: 'empty' }
+  if (isRange(props)) return { ...props, type: 'range' }
+  if (isFiatAmount(props)) return { ...props, type: 'fiatAmount' }
+  if (isAmount(props)) return { ...props, type: 'amount' }
+  return { ...props, type: 'empty' }
 }
