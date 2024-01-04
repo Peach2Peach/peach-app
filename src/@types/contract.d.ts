@@ -29,8 +29,8 @@ type Contract = {
   priceCHF: number
   premium: number
   paymentMethod: PaymentMethod
-  paymentDataEncrypted?: string
-  paymentDataSignature?: string
+  paymentDataEncrypted: string
+  paymentDataSignature: string
   paymentData?: PaymentData
   buyerPaymentDataEncrypted: string
   buyerPaymentDataSignature: string
