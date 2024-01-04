@@ -48,9 +48,7 @@ function PreferenceMarketInfo () {
       maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
         ? state.filter.buyOffer.maxPremium || undefined
         : undefined,
-      minReputation: state.filter.buyOffer.shouldApplyMinReputation
-        ? interpolate(state.filter.buyOffer.minReputation || 0, [0, 5], [-1, 1])
-        : undefined,
+      minReputation: interpolate(state.filter.buyOffer.minReputation || 0, [0, 5], [-1, 1]),
     }),
     shallow,
   )
@@ -114,9 +112,7 @@ function ShowOffersButton () {
       meansOfPayment: state.meansOfPayment,
       paymentData: state.paymentData,
       maxPremium: state.filter.buyOffer.shouldApplyMaxPremium ? state.filter.buyOffer.maxPremium : null,
-      minReputation: state.filter.buyOffer.shouldApplyMinReputation
-        ? interpolate(state.filter.buyOffer.minReputation || 0, [0, 5], [-1, 1])
-        : null,
+      minReputation: interpolate(state.filter.buyOffer.minReputation || 0, [0, 5], [-1, 1]),
     }),
     shallow,
   )
