@@ -3,6 +3,7 @@ import { ContractSummary } from '../../../../peach-api/src/@types/contract'
 import { OfferSummary } from '../../../../peach-api/src/@types/offer'
 import { IconType } from '../../../assets/icons'
 import { Icon } from '../../../components/Icon'
+import { InfoComponent } from '../../../components/statusCard/InfoComponent'
 import { StatusCard } from '../../../components/statusCard/StatusCard'
 import { statusCardStyles } from '../../../components/statusCard/statusCardStyles'
 import { PeachText } from '../../../components/text/PeachText'
@@ -28,7 +29,6 @@ export function TradeItem ({ item }: Props) {
   const { color, iconId } = getThemeForTradeItem(item)
   return (
     <StatusCard
-      {...item}
       title={getTitle(item)}
       icon={
         isPastOffer(item.tradeStatus) ? (
@@ -36,10 +36,11 @@ export function TradeItem ({ item }: Props) {
         ) : undefined
       }
       subtext={getSubtext(item)}
+      onPress={onPress}
       color={color}
       replaced={'newTradeId' in item && !!item.newTradeId}
-      onPress={onPress}
       label={<TradeLabel item={item} color={color} />}
+      info={<InfoComponent {...item} />}
     />
   )
 }
