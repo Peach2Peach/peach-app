@@ -1,6 +1,7 @@
 {
   "offer.cancel.popup.description" : "Una uhakika?\n\nIkiwa tayari umesafirisha bitcoin yako kwa escrow, utarudishiwa, kwa ada za mtandao wa bitcoin.",
   "offer.cancel.popup.title" : "kufuta ombi",
+  "offer.canceled" : "imefutwa",
   "offer.canceled.popup.title" : "ombi limefutwa!",
   "offer.filter" : "chuja",
   "offer.filter.maxPremium" : "malipo ya juu zaidi",

@@ -1,6 +1,7 @@
 {
   "offer.cancel.popup.description" : "Biztos vagy benne?\n\nHa a bitcoindat a letétbe már elküldted, csak a díjak levonása után kapod vissza.",
   "offer.cancel.popup.title" : "ajánlat törlése",
+  "offer.canceled" : "törölve",
   "offer.canceled.popup.title" : "ajánlat törölve!",
   "offer.filter" : "szűrés",
   "offer.filter.maxPremium" : "max. prémium",

@@ -1,6 +1,7 @@
 {
   "offer.cancel.popup.description" : "Êtes-vous sûr?\n\nSi vous avez déjà envoyé vos bitcoins dans le coffre, vous serez remboursé, déduction faite des frais du réseau Bitcoin.",
   "offer.cancel.popup.title" : "annuler l'offre",
+  "offer.canceled" : "annulé",
   "offer.canceled.popup.title" : "offre annulée !",
   "offer.filter" : "filtrer",
   "offer.filter.maxPremium" : "prix max",

@@ -12,13 +12,21 @@ import { useWalletState } from '../../../../utils/wallet/walletStore'
 import { getThemeForTradeItem, isContractSummary, isPastOffer, statusIcons } from '../../utils'
 import { isTradeStatus } from '../../utils/isTradeStatus'
 
+const getTitle = (item: OfferSummary | ContractSummary) => {
+  const title = isContractSummary(item) ? contractIdToHex(item.id) : offerIdToHex(item.id)
+  if ('newTradeId' in item && !!item.newTradeId) {
+    return `${title} (${i18n('offer.canceled')})`
+  }
+  return title
+}
+
 export const getStatusCardProps = (item: OfferSummary | ContractSummary) => {
-  const { tradeStatus, creationDate, id } = item
+  const { tradeStatus, creationDate } = item
   const isContract = isContractSummary(item)
 
   const { color, iconId } = getThemeForTradeItem(item)
 
-  const title = isContract ? contractIdToHex(id) : offerIdToHex(id)
+  const title = getTitle(item)
 
   const date = new Date('paymentMade' in item ? item.paymentMade || creationDate : creationDate)
   const subtext = 'newTradeId' in item && !!item.newTradeId ? offerIdToHex(item.newTradeId) : getShortDateFormat(date)

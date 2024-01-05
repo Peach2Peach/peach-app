@@ -1,6 +1,7 @@
 {
   "offer.cancel.popup.description" : "Tem certeza?\n\nSe você já enviou seus bitcoins para o depósito de garantia, você será reembolsado, descontando as taxas da rede Bitcoin.",
   "offer.cancel.popup.title" : "cancelar oferta",
+  "offer.canceled" : "cancelado",
   "offer.canceled.popup.title" : "oferta cancelada!",
   "offer.filter" : "filtro",
   "offer.filter.maxPremium" : "prêmio máximo",

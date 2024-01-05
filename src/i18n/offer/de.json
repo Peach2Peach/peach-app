@@ -1,6 +1,7 @@
 {
   "offer.cancel.popup.description" : "Bist du sicher?\n\nWenn du bereits deine Bitcoin an die Escrow gesendet hast, wird dir der Betrag abzüglich der Bitcoin-Netzwerkgebühren erstattet.",
   "offer.cancel.popup.title" : "Angebot stornieren",
+  "offer.canceled" : "storniert",
   "offer.canceled.popup.title" : "Angebot storniert!",
   "offer.filter" : "Filter",
   "offer.filter.maxPremium" : "max. Aufpreis",
