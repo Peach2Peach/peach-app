@@ -7,29 +7,17 @@ import tw from '../../../../styles/tailwind'
 import { contractIdToHex } from '../../../../utils/contract/contractIdToHex'
 import { getShortDateFormat } from '../../../../utils/date/getShortDateFormat'
 import i18n from '../../../../utils/i18n'
+import { getOffer } from '../../../../utils/offer/getOffer'
 import { offerIdToHex } from '../../../../utils/offer/offerIdToHex'
 import { useWalletState } from '../../../../utils/wallet/walletStore'
 import { getThemeForTradeItem, isContractSummary, isPastOffer, statusIcons } from '../../utils'
 import { isTradeStatus } from '../../utils/isTradeStatus'
 
-const getTitle = (item: OfferSummary | ContractSummary) => {
-  const title = isContractSummary(item) ? contractIdToHex(item.id) : offerIdToHex(item.id)
-  if ('newTradeId' in item && !!item.newTradeId) {
-    return `${title} (${i18n('offer.canceled')})`
-  }
-  return title
-}
-
 export const getStatusCardProps = (item: OfferSummary | ContractSummary) => {
-  const { tradeStatus, creationDate } = item
+  const { tradeStatus } = item
   const isContract = isContractSummary(item)
 
   const { color, iconId } = getThemeForTradeItem(item)
-
-  const title = getTitle(item)
-
-  const date = new Date('paymentMade' in item ? item.paymentMade || creationDate : creationDate)
-  const subtext = 'newTradeId' in item && !!item.newTradeId ? offerIdToHex(item.newTradeId) : getShortDateFormat(date)
 
   const isWaiting = color === 'primary-mild' && isContract
   const label = getActionLabel(item, isWaiting)
@@ -41,9 +29,9 @@ export const getStatusCardProps = (item: OfferSummary | ContractSummary) => {
   ) : undefined
   const replaced = 'newTradeId' in item && !!item.newTradeId
   return {
-    title,
+    title: getTitle(item),
     icon,
-    subtext,
+    subtext: getSubtext(item),
     label,
     labelIcon,
     color,
@@ -110,4 +98,21 @@ function getActionIcon (
   if (!isTradeStatus(tradeSummary.tradeStatus)) return 'refreshCw'
 
   return statusIcons[isWaiting ? 'waiting' : tradeSummary.tradeStatus]
+}
+
+function getTitle (item: OfferSummary | ContractSummary) {
+  const title = isContractSummary(item) ? contractIdToHex(item.id) : offerIdToHex(item.id)
+  if ('newTradeId' in item && !!item.newTradeId) {
+    return `${title} (${i18n('offer.canceled')})`
+  }
+  return title
+}
+
+function getSubtext (item: OfferSummary | ContractSummary) {
+  const date = new Date('paymentMade' in item ? item.paymentMade || item.creationDate : item.creationDate)
+  const newOfferId = 'newTradeId' in item && !!item.newTradeId ? item.newTradeId : undefined
+  const newContractId = newOfferId ? getOffer(newOfferId)?.contractId : undefined
+  const newTradeId = newContractId ? contractIdToHex(newContractId) : newOfferId ? offerIdToHex(newOfferId) : undefined
+
+  return newTradeId || getShortDateFormat(date)
 }
