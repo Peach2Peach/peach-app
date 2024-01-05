@@ -3,17 +3,27 @@ import { ContractSummary } from '../../../../peach-api/src/@types/contract'
 import { OfferSummary } from '../../../../peach-api/src/@types/offer'
 import { IconType } from '../../../assets/icons'
 import { Icon } from '../../../components/Icon'
-import { InfoComponent } from '../../../components/statusCard/InfoComponent'
+import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
+import { BitcoinAmountInfo } from '../../../components/statusCard/BitcoinAmountInfo'
 import { StatusCard } from '../../../components/statusCard/StatusCard'
+import { StatusInfo } from '../../../components/statusCard/StatusInfo'
+import { infoContainerStyle } from '../../../components/statusCard/infoContainerStyle'
 import { statusCardStyles } from '../../../components/statusCard/statusCardStyles'
+import { FixedHeightText } from '../../../components/text/FixedHeightText'
 import { PeachText } from '../../../components/text/PeachText'
+import { useGoToOfferOrContract } from '../../../hooks/useGoToOfferOrContract'
 import { useNavigateToOfferOrContract } from '../../../hooks/useNavigateToOfferOrContract'
 import tw from '../../../styles/tailwind'
+import { contractIdFromHex } from '../../../utils/contract/contractIdFromHex'
 import { contractIdToHex } from '../../../utils/contract/contractIdToHex'
+import { isDisplayContractId } from '../../../utils/contract/isDisplayContractId'
 import { getShortDateFormat } from '../../../utils/date/getShortDateFormat'
 import i18n from '../../../utils/i18n'
 import { getOffer } from '../../../utils/offer/getOffer'
+import { offerIdFromHex } from '../../../utils/offer/offerIdFromHex'
 import { offerIdToHex } from '../../../utils/offer/offerIdToHex'
+import { groupChars } from '../../../utils/string/groupChars'
+import { priceFormat } from '../../../utils/string/priceFormat'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getThemeForTradeItem, isContractSummary, isPastOffer, statusIcons } from '../utils'
 import { TradeTheme } from '../utils/getThemeForTradeItem'
@@ -29,23 +39,133 @@ export function TradeItem ({ item }: Props) {
   const { color, iconId } = getThemeForTradeItem(item)
   return (
     <StatusCard
-      title={getTitle(item)}
+      onPress={onPress}
+      color={color}
+      statusInfo={<TradeStatusInfo item={item} iconId={iconId} color={color} />}
+      amountInfo={<AmountInfo item={item} />}
+      label={<Label item={item} color={color} />}
+    />
+  )
+}
+
+function TradeStatusInfo ({ item, iconId, color }: Props & TradeTheme) {
+  const subtext = getSubtext(item)
+  const replaced = 'newTradeId' in item && !!item.newTradeId
+  const title = getTitle(item)
+
+  if (replaced) {
+    return <ReplacedTradeStatusInfo title={title} subtext={subtext} />
+  }
+
+  return (
+    <StatusInfo
       icon={
         isPastOffer(item.tradeStatus) ? (
           <Icon id={iconId} size={16} color={tw.color(statusCardStyles.border[color])} />
         ) : undefined
       }
-      subtext={getSubtext(item)}
-      onPress={onPress}
-      color={color}
-      replaced={'newTradeId' in item && !!item.newTradeId}
-      label={<TradeLabel item={item} color={color} />}
-      info={<InfoComponent {...item} />}
+      title={title}
+      subtext={subtext}
     />
   )
 }
 
-function TradeLabel ({ item, color }: Props & { color: TradeTheme['color'] }) {
+function ReplacedTradeStatusInfo ({ title, subtext }: { title: string; subtext: string }) {
+  const goToNewOffer = useGoToOfferOrContract()
+  const onPress = async () => {
+    const newOfferOrContractID = isDisplayContractId(subtext) ? contractIdFromHex(subtext) : offerIdFromHex(subtext)
+    await goToNewOffer(newOfferOrContractID)
+  }
+  return (
+    <StatusInfo
+      icon={<Icon id="cornerDownRight" color={tw.color('black-100')} size={17} />}
+      title={title}
+      titleStyle={tw`text-black-50`}
+      subtext={subtext}
+      subtextStyle={tw`underline subtitle-2 text-black-100`}
+      onPress={onPress}
+    />
+  )
+}
+
+function AmountInfo ({ item }: Props) {
+  const { type, amount, currency, premium, price } = getInfoPropsWithType({
+    amount: item.amount,
+    currency: 'currency' in item ? item.currency : undefined,
+    premium: 'premium' in item && typeof item.premium === 'number' ? item.premium : undefined,
+    price: 'price' in item ? item.price : undefined,
+    replaced: 'newTradeId' in item && !!item.newTradeId,
+  })
+  return (
+    <>
+      {type === 'range' ? (
+        <RangeInfo amount={amount} />
+      ) : type === 'fiatAmount' ? (
+        <FiatAmountInfo amount={amount} currency={currency} price={price} />
+      ) : type === 'amount' ? (
+        <BitcoinAmountInfo amount={amount} premium={premium} />
+      ) : undefined}
+    </>
+  )
+}
+
+function RangeInfo ({ amount }: { amount: [number, number] }) {
+  return (
+    <View style={tw`items-center -gap-1`}>
+      <BTCAmount size="small" amount={amount[0]} />
+      <PeachText style={tw`font-baloo-medium text-12px leading-19px text-black-50`}>~</PeachText>
+      <BTCAmount size="small" amount={amount[1]} />
+    </View>
+  )
+}
+function FiatAmountInfo ({ amount, currency, price }: { amount: number; currency: Currency; price: number }) {
+  return (
+    <View style={[infoContainerStyle, tw`gap-6px`]}>
+      <BTCAmount size="small" amount={amount} />
+      <FixedHeightText style={tw`body-m text-black-65`} height={17}>
+        {currency === 'SAT' ? groupChars(String(price), 3) : priceFormat(price)} {currency}
+      </FixedHeightText>
+    </View>
+  )
+}
+
+type InfoProps = {
+  amount?: number | [number, number]
+  price?: number
+  premium?: number
+  currency?: Currency
+  replaced?: boolean
+}
+
+type Empty = {
+  type: 'empty'
+} & Partial<InfoProps>
+type Amount = {
+  type: 'amount'
+  amount: number
+} & Partial<InfoProps>
+const isAmount = (props: InfoProps): props is Omit<Amount, 'type'> => typeof props.amount === 'number'
+type FiatAmount = {
+  type: 'fiatAmount'
+  amount: number
+} & Required<InfoProps>
+const isFiatAmount = (props: InfoProps): props is Omit<FiatAmount, 'type'> =>
+  typeof props.amount === 'number' && props.price !== undefined && props.currency !== undefined
+type Range = {
+  type: 'range'
+  amount: [number, number]
+} & Partial<InfoProps>
+const isRange = (props: InfoProps): props is Omit<Range, 'type'> => Array.isArray(props.amount)
+
+function getInfoPropsWithType (props: InfoProps): Empty | FiatAmount | Range | Amount {
+  if (props.replaced) return { ...props, type: 'empty' }
+  if (isRange(props)) return { ...props, type: 'range' }
+  if (isFiatAmount(props)) return { ...props, type: 'fiatAmount' }
+  if (isAmount(props)) return { ...props, type: 'amount' }
+  return { ...props, type: 'empty' }
+}
+
+function Label ({ item, color }: Props & { color: TradeTheme['color'] }) {
   const isContract = isContractSummary(item)
   const isWaiting = color === 'primary-mild' && isContract
   const labelIconId = getActionIcon(item, isWaiting)

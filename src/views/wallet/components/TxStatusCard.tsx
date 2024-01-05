@@ -1,5 +1,6 @@
-import { InfoComponent } from '../../../components/statusCard/InfoComponent'
+import { BitcoinAmountInfo } from '../../../components/statusCard/BitcoinAmountInfo'
 import { StatusCard } from '../../../components/statusCard/StatusCard'
+import { StatusInfo } from '../../../components/statusCard/StatusInfo'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { getShortDateFormat } from '../../../utils/date/getShortDateFormat'
 import { getTxSummaryTitle } from '../helpers/getTxSummaryTitle'
@@ -15,14 +16,18 @@ export const TxStatusCard = ({ item: { type, amount, date, id } }: Props) => {
 
   return (
     <StatusCard
-      title={getTxSummaryTitle(type)}
-      icon={<TransactionIcon type={type} size={17} />}
-      subtext={getShortDateFormat(date)}
       onPress={() => {
         navigation.navigate('transactionDetails', { txId: id })
       }}
       color={levelMap[type]}
-      info={<InfoComponent amount={amount} />}
+      statusInfo={
+        <StatusInfo
+          title={getTxSummaryTitle(type)}
+          icon={<TransactionIcon type={type} size={17} />}
+          subtext={getShortDateFormat(date)}
+        />
+      }
+      amountInfo={<BitcoinAmountInfo amount={amount} />}
     />
   )
 }
