@@ -14,28 +14,22 @@ import { getThemeForTradeItem, isContractSummary, isPastOffer, statusIcons } fro
 import { isTradeStatus } from '../../utils/isTradeStatus'
 
 export const getStatusCardProps = (item: OfferSummary | ContractSummary) => {
-  const { tradeStatus } = item
   const isContract = isContractSummary(item)
 
   const { color, iconId } = getThemeForTradeItem(item)
-
   const isWaiting = color === 'primary-mild' && isContract
-  const label = getActionLabel(item, isWaiting)
   const labelIconId = getActionIcon(item, isWaiting)
-  const labelIcon = labelIconId && <Icon id={labelIconId} size={17} color={tw.color(statusCardStyles.text[color])} />
 
-  const icon = isPastOffer(tradeStatus) ? (
-    <Icon id={iconId} size={16} color={tw.color(statusCardStyles.border[color])} />
-  ) : undefined
-  const replaced = 'newTradeId' in item && !!item.newTradeId
   return {
     title: getTitle(item),
-    icon,
+    icon: isPastOffer(item.tradeStatus) ? (
+      <Icon id={iconId} size={16} color={tw.color(statusCardStyles.border[color])} />
+    ) : undefined,
     subtext: getSubtext(item),
-    label,
-    labelIcon,
+    label: getActionLabel(item, isWaiting),
+    labelIcon: labelIconId && <Icon id={labelIconId} size={17} color={tw.color(statusCardStyles.text[color])} />,
     color,
-    replaced,
+    replaced: 'newTradeId' in item && !!item.newTradeId,
   }
 }
 
