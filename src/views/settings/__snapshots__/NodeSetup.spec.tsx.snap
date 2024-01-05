@@ -5,7 +5,7 @@ exports[`NodeSetup should change address 1`] = `
 - First value
 + Second value
 
-@@ -500,22 +500,22 @@
+@@ -501,22 +501,22 @@
                               "paddingBottom": 0,
                               "paddingTop": 0,
                               "width": "100%",
@@ -30,7 +30,7 @@ exports[`NodeSetup should change address 1`] = `
                         style={
                           Object {
                             "flexDirection": "row",
-@@ -657,11 +657,11 @@
+@@ -658,11 +658,11 @@
           <View
             accessibilityState={
               Object {
@@ -93,7 +93,7 @@ exports[`NodeSetup should toggle enabled 1`] = `
                     <Text
                       allowFontScaling={false}
                       style={
-@@ -460,14 +464,14 @@
+@@ -461,14 +465,14 @@
                             "borderRadius": 12,
                             "borderWidth": 1,
                             "overflow": "hidden",
@@ -110,7 +110,7 @@ exports[`NodeSetup should toggle enabled 1`] = `
                           false,
                           Object {
                             "marginBottom": 1,
-@@ -480,11 +484,11 @@
+@@ -481,11 +485,11 @@
                       <TextInput
                         allowFontScaling={false}
                         autoCapitalize="none"
