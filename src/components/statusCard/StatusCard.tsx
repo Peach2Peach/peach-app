@@ -21,28 +21,24 @@ type StatusCardProps = {
   price?: number
   premium?: number
   currency?: Currency
-  label?: string
-  labelIcon?: JSX.Element
   onPress: () => void
-  unreadMessages?: number
   color: keyof typeof statusCardStyles.bg
   replaced?: boolean
+  label?: JSX.Element
 }
 
 export const StatusCard = ({
-  icon,
   title,
+  icon,
   subtext,
+  color,
   replaced,
+  onPress,
   amount,
   price,
   premium,
   currency,
-  color,
-  onPress,
   label,
-  labelIcon,
-  unreadMessages,
 }: StatusCardProps) => (
   <TouchableOpacity
     style={[tw`overflow-hidden border rounded-xl bg-primary-background-light`, tw.style(statusCardStyles.border[color])]}
@@ -52,20 +48,7 @@ export const StatusCard = ({
       <Left icon={icon} title={title} subtext={subtext} replaced={replaced} />
       <Right amount={amount} price={price} currency={currency} premium={premium} replaced={replaced} />
     </View>
-
-    {label !== undefined && (
-      <View style={[tw`flex-row items-center justify-between gap-1 px-4 py-6px`, statusCardStyles.bg[color]]}>
-        <Icon id="messageFull" size={24} style={tw`opacity-0`} color={tw.color(statusCardStyles.text[color])} />
-        <View style={tw`flex-row items-center gap-1`}>
-          {labelIcon}
-          <PeachText style={[tw`subtitle-1`, tw.style(statusCardStyles.text[color])]}>{label}</PeachText>
-        </View>
-        <View style={[tw`items-center justify-center w-7 h-7`, !unreadMessages && tw`opacity-0`]}>
-          <Icon id="messageFull" size={24} color={tw.color('primary-background-light')} />
-          <PeachText style={tw`absolute text-center font-baloo-bold`}>{unreadMessages}</PeachText>
-        </View>
-      </View>
-    )}
+    {label}
   </TouchableOpacity>
 )
 

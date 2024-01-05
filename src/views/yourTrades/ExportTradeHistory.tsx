@@ -9,13 +9,14 @@ import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import { useWriteCSV } from '../../hooks/useWriteCSV'
 import tw from '../../styles/tailwind'
 import { sortByKey } from '../../utils/array/sortByKey'
+import { contractIdToHex } from '../../utils/contract/contractIdToHex'
 import { toShortDateFormat } from '../../utils/date/toShortDateFormat'
 import { createCSV } from '../../utils/file/createCSV'
 import i18n from '../../utils/i18n'
+import { offerIdToHex } from '../../utils/offer/offerIdToHex'
 import { groupChars } from '../../utils/string/groupChars'
 import { priceFormat } from '../../utils/string/priceFormat'
-import { getStatusCardProps } from './components/tradeItem/getStatusCardProps'
-import { getPastOffers, getThemeForTradeItem } from './utils'
+import { getPastOffers, getThemeForTradeItem, isContractSummary } from './utils'
 
 export function ExportTradeHistory () {
   const { tradeSummaries } = useTradeSummaries()
@@ -50,7 +51,8 @@ function createCSVValue (tradeSummaries: (OfferSummary | ContractSummary)[]) {
   const headers = ['Date', 'Trade ID', 'Type', 'Amount', 'Price', 'Currency']
   const fields = {
     Date: (d: OfferSummary | ContractSummary) => toShortDateFormat(d.creationDate),
-    'Trade ID': (d: OfferSummary | ContractSummary) => getStatusCardProps(d).title.replaceAll('‑', '-'),
+    'Trade ID': (d: OfferSummary | ContractSummary) =>
+      (isContractSummary(d) ? contractIdToHex(d.id) : offerIdToHex(d.id)).replaceAll('‑', '-'),
     Type: getTradeSummaryType,
     Amount: (d: OfferSummary | ContractSummary) => {
       const { amount } = d
