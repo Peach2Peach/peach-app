@@ -688,7 +688,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                                   "letterSpacing": 0.16,
                                   "lineHeight": 28,
                                 },
-                                false,
+                                undefined,
                               ],
                               {
                                 "marginBottom": -40,
@@ -751,7 +751,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                                     "letterSpacing": 0.14,
                                     "lineHeight": 20,
                                   },
-                                  false,
+                                  undefined,
                                   {
                                     "width": 100,
                                   },
@@ -784,7 +784,6 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                         {
                           "gap": 6,
                         },
-                        false,
                       ]
                     }
                   >
@@ -1434,7 +1433,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                                   "letterSpacing": 0.16,
                                   "lineHeight": 28,
                                 },
-                                false,
+                                undefined,
                               ],
                               {
                                 "marginBottom": -40,
@@ -1497,7 +1496,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                                     "letterSpacing": 0.14,
                                     "lineHeight": 20,
                                   },
-                                  false,
+                                  undefined,
                                   {
                                     "width": 100,
                                   },
@@ -1530,7 +1529,6 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                         {
                           "gap": 6,
                         },
-                        false,
                       ]
                     }
                   >

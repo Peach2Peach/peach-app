@@ -2,148 +2,338 @@
 
 exports[`ContractItem should render correctly 1`] = `
 <StatusCard
-  amount={21000}
-  color="primary"
-  creationDate={2021-01-01T00:00:00.000Z}
-  currency="EUR"
-  disputeOutcomeAcknowledged={false}
-  id="123-456"
-  isChatActive={false}
-  label="make payment"
-  labelIcon={
-    <Icon
-      color="#FFFCFA"
-      id="dollarSign"
-      size={17}
+  amountInfo={
+    <AmountInfo
+      item={
+        {
+          "amount": 21000,
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "currency": "EUR",
+          "disputeOutcomeAcknowledged": false,
+          "id": "123-456",
+          "isChatActive": false,
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "offerId": "offerId",
+          "price": 21,
+          "tradeStatus": "paymentRequired",
+          "type": "bid",
+          "unreadMessages": 0,
+        }
+      }
     />
   }
-  lastModified={2021-01-01T00:00:00.000Z}
-  offerId="offerId"
+  color="primary"
+  label={
+    <Label
+      color="primary"
+      item={
+        {
+          "amount": 21000,
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "currency": "EUR",
+          "disputeOutcomeAcknowledged": false,
+          "id": "123-456",
+          "isChatActive": false,
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "offerId": "offerId",
+          "price": 21,
+          "tradeStatus": "paymentRequired",
+          "type": "bid",
+          "unreadMessages": 0,
+        }
+      }
+    />
+  }
   onPress={[Function]}
-  price={21}
-  replaced={false}
-  subtext="01 / 01 / 21"
-  title="PC‑7B‑1C8"
-  tradeStatus="paymentRequired"
-  type="bid"
-  unreadMessages={0}
+  statusInfo={
+    <TradeStatusInfo
+      color="primary"
+      iconId="buy"
+      item={
+        {
+          "amount": 21000,
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "currency": "EUR",
+          "disputeOutcomeAcknowledged": false,
+          "id": "123-456",
+          "isChatActive": false,
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "offerId": "offerId",
+          "price": 21,
+          "tradeStatus": "paymentRequired",
+          "type": "bid",
+          "unreadMessages": 0,
+        }
+      }
+    />
+  }
 />
 `;
 
 exports[`ContractItem should render correctly with past contract 1`] = `
 <StatusCard
-  amount={21000}
-  color="success"
-  creationDate={2021-01-01T00:00:00.000Z}
-  currency="EUR"
-  disputeOutcomeAcknowledged={false}
-  icon={
-    <Icon
-      color="#65A519"
-      id="buy"
-      size={16}
+  amountInfo={
+    <AmountInfo
+      item={
+        {
+          "amount": 21000,
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "currency": "EUR",
+          "disputeOutcomeAcknowledged": false,
+          "id": "123-456",
+          "isChatActive": false,
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "offerId": "offerId",
+          "price": 21,
+          "tradeStatus": "tradeCompleted",
+          "type": "bid",
+          "unreadMessages": 0,
+        }
+      }
     />
   }
-  id="123-456"
-  isChatActive={false}
-  lastModified={2021-01-01T00:00:00.000Z}
-  offerId="offerId"
+  color="success"
+  label={
+    <Label
+      color="success"
+      item={
+        {
+          "amount": 21000,
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "currency": "EUR",
+          "disputeOutcomeAcknowledged": false,
+          "id": "123-456",
+          "isChatActive": false,
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "offerId": "offerId",
+          "price": 21,
+          "tradeStatus": "tradeCompleted",
+          "type": "bid",
+          "unreadMessages": 0,
+        }
+      }
+    />
+  }
   onPress={[Function]}
-  price={21}
-  replaced={false}
-  subtext="01 / 01 / 21"
-  title="PC‑7B‑1C8"
-  tradeStatus="tradeCompleted"
-  type="bid"
-  unreadMessages={0}
+  statusInfo={
+    <TradeStatusInfo
+      color="success"
+      iconId="buy"
+      item={
+        {
+          "amount": 21000,
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "currency": "EUR",
+          "disputeOutcomeAcknowledged": false,
+          "id": "123-456",
+          "isChatActive": false,
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "offerId": "offerId",
+          "price": 21,
+          "tradeStatus": "tradeCompleted",
+          "type": "bid",
+          "unreadMessages": 0,
+        }
+      }
+    />
+  }
 />
 `;
 
 exports[`ContractItem should render correctly with unread messages 1`] = `
 <StatusCard
-  amount={21000}
-  color="primary"
-  creationDate={2021-01-01T00:00:00.000Z}
-  currency="EUR"
-  disputeOutcomeAcknowledged={false}
-  id="123-456"
-  isChatActive={false}
-  label="make payment"
-  labelIcon={
-    <Icon
-      color="#FFFCFA"
-      id="dollarSign"
-      size={17}
+  amountInfo={
+    <AmountInfo
+      item={
+        {
+          "amount": 21000,
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "currency": "EUR",
+          "disputeOutcomeAcknowledged": false,
+          "id": "123-456",
+          "isChatActive": false,
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "offerId": "offerId",
+          "price": 21,
+          "tradeStatus": "paymentRequired",
+          "type": "bid",
+          "unreadMessages": 1,
+        }
+      }
     />
   }
-  lastModified={2021-01-01T00:00:00.000Z}
-  offerId="offerId"
+  color="primary"
+  label={
+    <Label
+      color="primary"
+      item={
+        {
+          "amount": 21000,
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "currency": "EUR",
+          "disputeOutcomeAcknowledged": false,
+          "id": "123-456",
+          "isChatActive": false,
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "offerId": "offerId",
+          "price": 21,
+          "tradeStatus": "paymentRequired",
+          "type": "bid",
+          "unreadMessages": 1,
+        }
+      }
+    />
+  }
   onPress={[Function]}
-  price={21}
-  replaced={false}
-  subtext="01 / 01 / 21"
-  title="PC‑7B‑1C8"
-  tradeStatus="paymentRequired"
-  type="bid"
-  unreadMessages={1}
+  statusInfo={
+    <TradeStatusInfo
+      color="primary"
+      iconId="buy"
+      item={
+        {
+          "amount": 21000,
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "currency": "EUR",
+          "disputeOutcomeAcknowledged": false,
+          "id": "123-456",
+          "isChatActive": false,
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "offerId": "offerId",
+          "price": 21,
+          "tradeStatus": "paymentRequired",
+          "type": "bid",
+          "unreadMessages": 1,
+        }
+      }
+    />
+  }
 />
 `;
 
 exports[`OfferItem should render correctly 1`] = `
 <StatusCard
-  amount={
-    [
-      21000,
-      210000,
-    ]
-  }
-  color="primary-mild"
-  creationDate={2021-01-01T00:00:00.000Z}
-  id="id"
-  label="looking for match"
-  labelIcon={
-    <Icon
-      color="#7D675E"
-      id="search"
-      size={17}
+  amountInfo={
+    <AmountInfo
+      item={
+        {
+          "amount": [
+            21000,
+            210000,
+          ],
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "id": "id",
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "matches": [],
+          "tradeStatus": "searchingForPeer",
+          "type": "bid",
+        }
+      }
     />
   }
-  lastModified={2021-01-01T00:00:00.000Z}
-  matches={[]}
+  color="primary-mild"
+  label={
+    <Label
+      color="primary-mild"
+      item={
+        {
+          "amount": [
+            21000,
+            210000,
+          ],
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "id": "id",
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "matches": [],
+          "tradeStatus": "searchingForPeer",
+          "type": "bid",
+        }
+      }
+    />
+  }
   onPress={[Function]}
-  replaced={false}
-  subtext="01 / 01 / 21"
-  title="P‑NAN"
-  tradeStatus="searchingForPeer"
-  type="bid"
+  statusInfo={
+    <TradeStatusInfo
+      color="primary-mild"
+      iconId="xCircle"
+      item={
+        {
+          "amount": [
+            21000,
+            210000,
+          ],
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "id": "id",
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "matches": [],
+          "tradeStatus": "searchingForPeer",
+          "type": "bid",
+        }
+      }
+    />
+  }
 />
 `;
 
 exports[`OfferItem should render correctly if it's a past offer 1`] = `
 <StatusCard
-  amount={
-    [
-      21000,
-      210000,
-    ]
-  }
-  color="success"
-  creationDate={2021-01-01T00:00:00.000Z}
-  icon={
-    <Icon
-      color="#65A519"
-      id="xCircle"
-      size={16}
+  amountInfo={
+    <AmountInfo
+      item={
+        {
+          "amount": [
+            21000,
+            210000,
+          ],
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "id": "id",
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "matches": [],
+          "tradeStatus": "tradeCompleted",
+          "type": "bid",
+        }
+      }
     />
   }
-  id="id"
-  lastModified={2021-01-01T00:00:00.000Z}
-  matches={[]}
+  color="success"
+  label={
+    <Label
+      color="success"
+      item={
+        {
+          "amount": [
+            21000,
+            210000,
+          ],
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "id": "id",
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "matches": [],
+          "tradeStatus": "tradeCompleted",
+          "type": "bid",
+        }
+      }
+    />
+  }
   onPress={[Function]}
-  replaced={false}
-  subtext="01 / 01 / 21"
-  title="P‑NAN"
-  tradeStatus="tradeCompleted"
-  type="bid"
+  statusInfo={
+    <TradeStatusInfo
+      color="success"
+      iconId="xCircle"
+      item={
+        {
+          "amount": [
+            21000,
+            210000,
+          ],
+          "creationDate": 2021-01-01T00:00:00.000Z,
+          "id": "id",
+          "lastModified": 2021-01-01T00:00:00.000Z,
+          "matches": [],
+          "tradeStatus": "tradeCompleted",
+          "type": "bid",
+        }
+      }
+    />
+  }
 />
 `;

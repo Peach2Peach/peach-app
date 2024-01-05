@@ -90,7 +90,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
-                  false,
+                  undefined,
                 ],
                 {
                   "marginBottom": -40,
@@ -153,7 +153,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                       "letterSpacing": 0.14,
                       "lineHeight": 20,
                     },
-                    false,
+                    undefined,
                     {
                       "width": 100,
                     },
@@ -186,7 +186,6 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
           {
             "gap": 6,
           },
-          false,
         ]
       }
     >
@@ -833,7 +832,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
-                  false,
+                  undefined,
                 ],
                 {
                   "marginBottom": -40,
@@ -896,7 +895,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                       "letterSpacing": 0.14,
                       "lineHeight": 20,
                     },
-                    false,
+                    undefined,
                     {
                       "width": 100,
                     },
@@ -929,7 +928,6 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
           {
             "gap": 6,
           },
-          false,
         ]
       }
     >
@@ -1576,7 +1574,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
-                  false,
+                  undefined,
                 ],
                 {
                   "marginBottom": -40,
@@ -1639,7 +1637,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                       "letterSpacing": 0.14,
                       "lineHeight": 20,
                     },
-                    false,
+                    undefined,
                     {
                       "width": 100,
                     },
@@ -1672,7 +1670,6 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
           {
             "gap": 6,
           },
-          false,
         ]
       }
     >
@@ -2319,7 +2316,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
-                  false,
+                  undefined,
                 ],
                 {
                   "marginBottom": -40,
@@ -2382,7 +2379,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                       "letterSpacing": 0.14,
                       "lineHeight": 20,
                     },
-                    false,
+                    undefined,
                     {
                       "width": 100,
                     },
@@ -2415,7 +2412,6 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
           {
             "gap": 6,
           },
-          false,
         ]
       }
     >
@@ -3062,7 +3058,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
-                  false,
+                  undefined,
                 ],
                 {
                   "marginBottom": -40,
@@ -3125,7 +3121,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                       "letterSpacing": 0.14,
                       "lineHeight": 20,
                     },
-                    false,
+                    undefined,
                     {
                       "width": 100,
                     },
@@ -3158,7 +3154,6 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
           {
             "gap": 6,
           },
-          false,
         ]
       }
     >
