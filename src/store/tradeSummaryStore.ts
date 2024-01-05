@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { ContractSummary } from '../../peach-api/src/@types/contract'
 import { createStorage } from '../utils/storage'
 import { createPersistStorage } from './createPersistStorage'
 

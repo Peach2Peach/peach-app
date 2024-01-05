@@ -5,7 +5,7 @@ import { tradeSummary } from '../../../tests/unit/data/tradeSummaryData'
 import { MSINAMONTH } from '../../constants'
 import { ExportTradeHistory } from './ExportTradeHistory'
 
-const useTradeSummariesMock = jest.fn((): { tradeSummaries: (OfferSummary | ContractSummary)[] } => ({
+const useTradeSummariesMock = jest.fn((): { tradeSummaries: TradeSummary[] } => ({
   tradeSummaries: [],
 }))
 

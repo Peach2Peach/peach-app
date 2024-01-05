@@ -1,4 +1,3 @@
-export { getDisputeResultTheme } from './getDisputeResultTheme'
 export { getOfferColor } from './getOfferColor'
 export { getPastOffers } from './getPastOffers'
 export { getThemeForTradeItem } from './getThemeForTradeItem'

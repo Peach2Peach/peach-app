@@ -1,3 +1,4 @@
+import { ContractSummary } from '../../../../peach-api/src/@types/contract'
 import { getThemeForTradeItem } from './getThemeForTradeItem'
 
 const completedTradeSeller: Partial<ContractSummary> = {

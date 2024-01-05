@@ -14,13 +14,13 @@ export const getCategories = (trades: TradeSummary[]) =>
       title: 'newMessages',
       data: trades
         .filter(({ tradeStatus }) => isPastOffer(tradeStatus))
-        .filter(({ unreadMessages }) => unreadMessages && unreadMessages > 0),
+        .filter((trade) => 'unreadMessages' in trade && trade.unreadMessages > 0),
     },
     {
       title: 'history',
       data: trades
         .filter(({ tradeStatus }) => isPastOffer(tradeStatus))
-        .filter(({ unreadMessages }) => !unreadMessages || unreadMessages === 0),
+        .filter((trade) => !('unreadMessages' in trade) || trade.unreadMessages === 0),
     },
     { title: 'unknown', data: trades.filter(({ tradeStatus }) => !isTradeStatus(tradeStatus)) },
   ].filter(({ data }) => data.length > 0)

@@ -1,6 +1,8 @@
+import { ContractSummary } from '../../../peach-api/src/@types/contract'
+
 export const sortSummariesByDate = (
-  a: Pick<TradeSummary, 'paymentMade' | 'creationDate'>,
-  b: Pick<TradeSummary, 'paymentMade' | 'creationDate'>,
+  a: Pick<TradeSummary, 'creationDate'> & Pick<ContractSummary, 'paymentMade'>,
+  b: Pick<TradeSummary, 'creationDate'> & Pick<ContractSummary, 'paymentMade'>,
 ) => {
   const dateA = a.paymentMade || a.creationDate
   const dateB = b.paymentMade || b.creationDate

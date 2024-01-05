@@ -1,6 +1,6 @@
 import { StatusCard } from '../../../../components/statusCard/StatusCard'
 import { useNavigateToOfferOrContract } from '../../../../hooks/useNavigateToOfferOrContract'
-import { getStatusCardProps } from './helpers'
+import { getStatusCardProps } from './getStatusCardProps'
 
 type Props = {
   item: TradeSummary

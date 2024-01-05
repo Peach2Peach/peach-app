@@ -1,5 +1,5 @@
-import { getBackgroundColor } from './getBackgroundColor'
 import tw from '../../../styles/tailwind'
+import { getBackgroundColor } from './getBackgroundColor'
 
 describe('getBackgroundColor', () => {
   it('should return the correct background color for primary bubble', () => {

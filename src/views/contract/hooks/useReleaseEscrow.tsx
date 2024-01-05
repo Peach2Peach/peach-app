@@ -10,8 +10,8 @@ export const useReleaseEscrow = (contract: Contract) => {
   return useMutation({
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['contract', contract.id] })
-      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contract.id])
-      queryClient.setQueryData(['contract', contract.id], (old: GetContractResponse | undefined) => {
+      const previousData = queryClient.getQueryData<Contract>(['contract', contract.id])
+      queryClient.setQueryData(['contract', contract.id], (old: Contract | undefined) => {
         if (!old) return old
         return {
           ...old,

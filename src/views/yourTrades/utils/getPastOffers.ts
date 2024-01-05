@@ -1,6 +1,6 @@
 import { isPastOffer } from './isPastOffer'
 
-export const getPastOffers = (trades: (OfferSummary | ContractSummary)[]) =>
+export const getPastOffers = (trades: TradeSummary[]) =>
   trades.filter(
     (item) =>
       isPastOffer(item.tradeStatus)

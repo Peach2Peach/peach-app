@@ -1,4 +1,4 @@
-export const tradeSummary: OfferSummary | ContractSummary = {
+export const tradeSummary: TradeSummary = {
   amount: 50000,
   creationDate: new Date('2023-01-01'),
   fundingTxId: '30e98ba6e9eb62fe20df2ccca990b0fdcd7be03b8d6b1061e5d357e3bc68c087',

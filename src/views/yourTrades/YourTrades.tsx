@@ -1,10 +1,12 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { useEffect, useMemo } from 'react'
-import { SectionList, View } from 'react-native'
+import { SectionList, SectionListData, View } from 'react-native'
 import { Header } from '../../components/Header'
 import { Screen } from '../../components/Screen'
 import { Loading } from '../../components/animation/Loading'
 import { NotificationBubble } from '../../components/bubble/NotificationBubble'
+import { PeachText } from '../../components/text/PeachText'
+import { LinedText } from '../../components/ui/LinedText'
 import { fullScreenTabNavigationScreenOptions } from '../../constants'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import { useNavigation } from '../../hooks/useNavigation'
@@ -14,9 +16,8 @@ import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { parseError } from '../../utils/result/parseError'
 import { useHomeScreenRoute } from '../home/useHomeScreenRoute'
-import { SectionHeader } from './components/SectionHeader'
 import { TradePlaceholders } from './components/TradePlaceholders'
-import { TradeItem } from './components/tradeItem'
+import { TradeItem } from './components/tradeItem/TradeItem'
 import { getPastOffers, isOpenOffer } from './utils'
 import { getCategories } from './utils/getCategories'
 
@@ -123,4 +124,15 @@ function YourTradesHeader () {
       hideGoBackButton
     />
   )
+}
+
+type SectionHeaderProps = {
+  section: SectionListData<TradeSummary, { title: string; data: TradeSummary[] }>
+}
+export function SectionHeader ({ section: { title, data } }: SectionHeaderProps) {
+  return data.length !== 0 && title !== 'priority' ? (
+    <LinedText style={tw`pb-7 bg-primary-background-main`}>
+      <PeachText style={tw`text-black-65`}>{i18n(`yourTrades.${title}`)}</PeachText>
+    </LinedText>
+  ) : null
 }

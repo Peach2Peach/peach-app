@@ -12,7 +12,7 @@ import { createCSV } from '../../utils/file/createCSV'
 import i18n from '../../utils/i18n'
 import { groupChars } from '../../utils/string/groupChars'
 import { priceFormat } from '../../utils/string/priceFormat'
-import { getStatusCardProps } from './components/tradeItem/helpers'
+import { getStatusCardProps } from './components/tradeItem/getStatusCardProps'
 import { getPastOffers, getThemeForTradeItem } from './utils'
 
 export function ExportTradeHistory () {
@@ -44,30 +44,30 @@ export function ExportTradeHistory () {
   )
 }
 
-function createCSVValue (tradeSummaries: (OfferSummary | ContractSummary)[]) {
+function createCSVValue (tradeSummaries: TradeSummary[]) {
   const headers = ['Date', 'Trade ID', 'Type', 'Amount', 'Price', 'Currency']
   const fields = {
-    Date: (d: OfferSummary | ContractSummary) => toShortDateFormat(d.creationDate),
-    'Trade ID': (d: OfferSummary | ContractSummary) => getStatusCardProps(d).title.replaceAll('‑', '-'),
+    Date: (d: TradeSummary) => toShortDateFormat(d.creationDate),
+    'Trade ID': (d: TradeSummary) => getStatusCardProps(d).title.replaceAll('‑', '-'),
     Type: getTradeSummaryType,
-    Amount: (d: OfferSummary | ContractSummary) => {
+    Amount: (d: TradeSummary) => {
       const { amount } = d
       return String(amount)
     },
-    Price: (d: OfferSummary | ContractSummary) => {
+    Price: (d: TradeSummary) => {
       const tradePrice
         // eslint-disable-next-line max-len
         = 'price' in d ? (d.currency === 'SAT' ? groupChars(String(d.price), THOUSANDS_GROUP) : priceFormat(d.price)) : ''
       const price = 'price' in d ? `${tradePrice}` : ''
       return price
     },
-    Currency: (d: OfferSummary | ContractSummary) => ('currency' in d ? d.currency : ''),
+    Currency: (d: TradeSummary) => ('currency' in d ? d.currency : ''),
   }
 
   return createCSV(tradeSummaries, headers, fields)
 }
 
-function getTradeSummaryType (tradeSummary: OfferSummary | ContractSummary) {
+function getTradeSummaryType (tradeSummary: TradeSummary) {
   const { iconId } = getThemeForTradeItem(tradeSummary)
   const sellerLostDispute
     = iconId === 'alertOctagon' && 'disputeWinner' in tradeSummary && tradeSummary.disputeWinner === 'buyer'

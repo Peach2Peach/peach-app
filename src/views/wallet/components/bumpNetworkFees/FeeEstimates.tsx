@@ -5,7 +5,7 @@ import i18n from '../../../../utils/i18n'
 import { FeeInfo } from './FeeInfo'
 
 type Props = {
-  estimatedFees: GetFeeEstimateResponse
+  estimatedFees: FeeRecommendation
   setFeeRate: Dispatch<string>
   isOverpaying?: boolean
 }

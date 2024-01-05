@@ -129,7 +129,7 @@ export function ChatButton () {
   const { contractId } = useRoute<'contract'>().params
   const queryClient = useQueryClient()
   const goToChat = () => {
-    queryClient.setQueryData(['contract', contractId], (oldQueryData: GetContractResponse | undefined) => {
+    queryClient.setQueryData(['contract', contractId], (oldQueryData: Contract | undefined) => {
       if (!oldQueryData) return oldQueryData
       return {
         ...oldQueryData,

@@ -1,3 +1,5 @@
+import { ContractSummary } from '../../../peach-api/src/@types/contract'
+
 export const contractSummary: ContractSummary = {
   id: '123-456',
   offerId: 'offerId',
@@ -10,4 +12,5 @@ export const contractSummary: ContractSummary = {
   currency: 'EUR',
   unreadMessages: 0,
   isChatActive: false,
+  disputeOutcomeAcknowledged: false,
 }
