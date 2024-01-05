@@ -1,3 +1,5 @@
+import { ContractSummary } from '../../../../peach-api/src/@types/contract'
+import { OfferSummary } from '../../../../peach-api/src/@types/offer'
 import { IconType } from '../../../assets/icons'
 import { statusCardStyles } from '../../../components/statusCard/statusCardStyles'
 import { getDisputeResultTheme } from './getDisputeResultTheme'
@@ -9,7 +11,7 @@ export type TradeTheme = {
   color: keyof typeof statusCardStyles.bg
 }
 
-export const getThemeForTradeItem = (trade: TradeSummary): TradeTheme => {
+export const getThemeForTradeItem = (trade: OfferSummary | ContractSummary): TradeTheme => {
   const color = getOfferColor(trade)
 
   if (isContractSummary(trade)) {
@@ -22,6 +24,7 @@ export const getThemeForTradeItem = (trade: TradeSummary): TradeTheme => {
       }
     }
   }
+  if (trade.refunded) return { iconId: 'rotateCounterClockwise', color }
 
   return {
     iconId: 'xCircle',

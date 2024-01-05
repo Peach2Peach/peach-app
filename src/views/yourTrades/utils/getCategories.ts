@@ -1,3 +1,5 @@
+import { ContractSummary } from '../../../../peach-api/src/@types/contract'
+import { OfferSummary } from '../../../../peach-api/src/@types/offer'
 import { isError } from './isError'
 import { isOpenAction } from './isOpenAction'
 import { isPastOffer } from './isPastOffer'
@@ -5,7 +7,7 @@ import { isPrioritary } from './isPrioritary'
 import { isTradeStatus } from './isTradeStatus'
 import { isWaiting } from './isWaiting'
 
-export const getCategories = (trades: TradeSummary[]) =>
+export const getCategories = (trades: (OfferSummary | ContractSummary)[]) =>
   [
     { title: 'priority', data: trades.filter(({ tradeStatus }) => isPrioritary(tradeStatus) || isError(tradeStatus)) },
     { title: 'openActions', data: trades.filter(({ type, tradeStatus }) => isOpenAction(type, tradeStatus)) },

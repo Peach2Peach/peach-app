@@ -1,3 +1,4 @@
+import { OfferSummary } from '../../../../../peach-api/src/@types/offer'
 import { shouldGoToFundEscrow } from './shouldGoToFundEscrow'
 import { shouldGoToSearch } from './shouldGoToSearch'
 import { shouldGoToWrongFundingAmount } from './shouldGoToWrongFundingAmount'

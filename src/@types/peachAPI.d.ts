@@ -274,40 +274,6 @@ type MatchResponse =
       matchedPrice: number
     }
 
-type OfferSummary = {
-  id: string
-  type: 'bid' | 'ask'
-  contractId?: string
-  lastModified: Date
-  creationDate: Date
-  amount: number | [number, number]
-  matches: string[]
-  prices?: Pricebook
-  tradeStatus: TradeStatus
-  txId?: string
-  fundingTxId?: string
-}
-
-type ContractSummary = {
-  id: string
-  offerId: string
-  newTradeId?: string
-  type: 'bid' | 'ask'
-  creationDate: Date
-  lastModified: Date
-  paymentMade?: Date
-  tradeStatus: TradeStatus
-  amount: number
-  price: number
-  currency: Currency
-  disputeWinner?: Contract['disputeWinner']
-  disputeOutcomeAcknowledged: boolean
-  unreadMessages: number
-  releaseTxId?: string
-  isChatActive: boolean
-  refunded?: boolean
-}
-
 type GenerateBlockResponse = {
   txId: string
 }
@@ -319,7 +285,6 @@ type FeeRecommendation = {
   economyFee: number
   minimumFee: number
 }
-type TradeSummary = OfferSummary | ContractSummary
 
 type NotificationType =
   | 'user.badge.unlocked' // PN-U01

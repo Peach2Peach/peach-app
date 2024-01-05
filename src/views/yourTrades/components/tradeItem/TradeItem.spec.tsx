@@ -1,4 +1,5 @@
 import { render } from 'test-utils'
+import { OfferSummary } from '../../../../../peach-api/src/@types/offer'
 import { account1 } from '../../../../../tests/unit/data/accountData'
 import { contractSummary } from '../../../../../tests/unit/data/contractSummaryData'
 import { updateAccount } from '../../../../utils/account/updateAccount'

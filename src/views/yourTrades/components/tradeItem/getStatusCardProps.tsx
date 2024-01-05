@@ -1,3 +1,5 @@
+import { ContractSummary } from '../../../../../peach-api/src/@types/contract'
+import { OfferSummary } from '../../../../../peach-api/src/@types/offer'
 import { IconType } from '../../../../assets/icons'
 import { Icon } from '../../../../components/Icon'
 import { statusCardStyles } from '../../../../components/statusCard/statusCardStyles'
@@ -10,7 +12,7 @@ import { useWalletState } from '../../../../utils/wallet/walletStore'
 import { getThemeForTradeItem, isContractSummary, isPastOffer, statusIcons } from '../../utils'
 import { isTradeStatus } from '../../utils/isTradeStatus'
 
-export const getStatusCardProps = (item: TradeSummary) => {
+export const getStatusCardProps = (item: OfferSummary | ContractSummary) => {
   const { tradeStatus, creationDate, id } = item
   const isContract = isContractSummary(item)
 
@@ -41,7 +43,7 @@ export const getStatusCardProps = (item: TradeSummary) => {
   }
 }
 
-function getActionLabel (tradeSummary: TradeSummary, isWaiting: boolean) {
+function getActionLabel (tradeSummary: OfferSummary | ContractSummary, isWaiting: boolean) {
   const { tradeStatus } = tradeSummary
   const translationStatusKey = isWaiting ? 'waiting' : tradeStatus
 
@@ -83,7 +85,10 @@ function getActionLabel (tradeSummary: TradeSummary, isWaiting: boolean) {
   return i18n(`offer.requiredAction.${tradeStatus}`)
 }
 
-function getActionIcon (tradeSummary: Pick<TradeSummary, 'tradeStatus'>, isWaiting: boolean): IconType | undefined {
+function getActionIcon (
+  tradeSummary: Pick<OfferSummary | ContractSummary, 'tradeStatus'>,
+  isWaiting: boolean,
+): IconType | undefined {
   if (isPastOffer(tradeSummary.tradeStatus)) {
     return undefined
   }

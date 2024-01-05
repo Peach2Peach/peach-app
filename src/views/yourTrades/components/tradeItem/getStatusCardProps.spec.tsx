@@ -1,6 +1,8 @@
+import { ContractSummary } from '../../../../../peach-api/src/@types/contract'
+import { OfferSummary } from '../../../../../peach-api/src/@types/offer'
 import { getStatusCardProps } from './getStatusCardProps'
 
-const mockItem: TradeSummary = {
+const mockItem: OfferSummary | ContractSummary = {
   amount: 21,
   creationDate: new Date('2021-08-01'),
   currency: 'EUR',

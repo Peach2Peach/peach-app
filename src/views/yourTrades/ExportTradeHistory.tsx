@@ -1,4 +1,6 @@
 import { View } from 'react-native'
+import { ContractSummary } from '../../../peach-api/src/@types/contract'
+import { OfferSummary } from '../../../peach-api/src/@types/offer'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { PeachText } from '../../components/text/PeachText'
@@ -44,30 +46,30 @@ export function ExportTradeHistory () {
   )
 }
 
-function createCSVValue (tradeSummaries: TradeSummary[]) {
+function createCSVValue (tradeSummaries: (OfferSummary | ContractSummary)[]) {
   const headers = ['Date', 'Trade ID', 'Type', 'Amount', 'Price', 'Currency']
   const fields = {
-    Date: (d: TradeSummary) => toShortDateFormat(d.creationDate),
-    'Trade ID': (d: TradeSummary) => getStatusCardProps(d).title.replaceAll('‑', '-'),
+    Date: (d: OfferSummary | ContractSummary) => toShortDateFormat(d.creationDate),
+    'Trade ID': (d: OfferSummary | ContractSummary) => getStatusCardProps(d).title.replaceAll('‑', '-'),
     Type: getTradeSummaryType,
-    Amount: (d: TradeSummary) => {
+    Amount: (d: OfferSummary | ContractSummary) => {
       const { amount } = d
       return String(amount)
     },
-    Price: (d: TradeSummary) => {
+    Price: (d: OfferSummary | ContractSummary) => {
       const tradePrice
         // eslint-disable-next-line max-len
         = 'price' in d ? (d.currency === 'SAT' ? groupChars(String(d.price), THOUSANDS_GROUP) : priceFormat(d.price)) : ''
       const price = 'price' in d ? `${tradePrice}` : ''
       return price
     },
-    Currency: (d: TradeSummary) => ('currency' in d ? d.currency : ''),
+    Currency: (d: OfferSummary | ContractSummary) => ('currency' in d ? d.currency : ''),
   }
 
   return createCSV(tradeSummaries, headers, fields)
 }
 
-function getTradeSummaryType (tradeSummary: TradeSummary) {
+function getTradeSummaryType (tradeSummary: OfferSummary | ContractSummary) {
   const { iconId } = getThemeForTradeItem(tradeSummary)
   const sellerLostDispute
     = iconId === 'alertOctagon' && 'disputeWinner' in tradeSummary && tradeSummary.disputeWinner === 'buyer'

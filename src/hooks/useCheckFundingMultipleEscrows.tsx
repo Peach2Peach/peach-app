@@ -1,6 +1,7 @@
 import { LocalUtxo } from 'bdk-rn/lib/classes/Bindings'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { OfferSummary } from '../../peach-api/src/@types/offer'
 import { MSINAMINUTE } from '../constants'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { estimateTransactionSize } from '../utils/bitcoin/estimateTransactionSize'

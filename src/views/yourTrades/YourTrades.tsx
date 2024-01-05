@@ -1,6 +1,8 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { useEffect, useMemo } from 'react'
 import { SectionList, SectionListData, View } from 'react-native'
+import { ContractSummary } from '../../../peach-api/src/@types/contract'
+import { OfferSummary } from '../../../peach-api/src/@types/offer'
 import { Header } from '../../components/Header'
 import { Screen } from '../../components/Screen'
 import { Loading } from '../../components/animation/Loading'
@@ -92,7 +94,7 @@ export const YourTrades = () => {
   )
 }
 
-function TabBarBadge ({ summaries }: { summaries: TradeSummary[] }) {
+function TabBarBadge ({ summaries }: { summaries: (OfferSummary | ContractSummary)[] }) {
   const notifications = useMemo(
     () =>
       summaries.reduce((acc, curr) => {
@@ -127,7 +129,7 @@ function YourTradesHeader () {
 }
 
 type SectionHeaderProps = {
-  section: SectionListData<TradeSummary, { title: string; data: TradeSummary[] }>
+  section: SectionListData<OfferSummary | ContractSummary, { title: string; data: (OfferSummary | ContractSummary)[] }>
 }
 export function SectionHeader ({ section: { title, data } }: SectionHeaderProps) {
   return data.length !== 0 && title !== 'priority' ? (

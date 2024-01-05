@@ -1,3 +1,5 @@
+import { OfferSummary } from '../../../peach-api/src/@types/offer'
+
 export const offerSummary: OfferSummary = {
   id: '456',
   type: 'bid',

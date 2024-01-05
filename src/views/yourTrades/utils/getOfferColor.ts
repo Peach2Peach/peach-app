@@ -1,3 +1,5 @@
+import { ContractSummary } from '../../../../peach-api/src/@types/contract'
+import { OfferSummary } from '../../../../peach-api/src/@types/offer'
 import { statusCardStyles } from '../../../components/statusCard/statusCardStyles'
 import { isContractSummary } from './isContractSummary'
 import { isError } from './isError'
@@ -6,7 +8,7 @@ import { isPrioritary } from './isPrioritary'
 import { isTradeStatus } from './isTradeStatus'
 import { isWaiting } from './isWaiting'
 
-export const getOfferColor = (trade: TradeSummary): keyof typeof statusCardStyles.bg => {
+export const getOfferColor = (trade: OfferSummary | ContractSummary): keyof typeof statusCardStyles.bg => {
   const { tradeStatus, type } = trade
 
   if (!isTradeStatus(trade.tradeStatus)) return 'info'

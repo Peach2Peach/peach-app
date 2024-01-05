@@ -1,9 +1,11 @@
+import { ContractSummary } from '../../../../../peach-api/src/@types/contract'
+import { OfferSummary } from '../../../../../peach-api/src/@types/offer'
 import { StatusCard } from '../../../../components/statusCard/StatusCard'
 import { useNavigateToOfferOrContract } from '../../../../hooks/useNavigateToOfferOrContract'
 import { getStatusCardProps } from './getStatusCardProps'
 
 type Props = {
-  item: TradeSummary
+  item: OfferSummary | ContractSummary
 }
 
 export const TradeItem = ({ item }: Props) => {
