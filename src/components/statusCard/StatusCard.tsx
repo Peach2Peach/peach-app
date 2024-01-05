@@ -13,7 +13,7 @@ import { FixedHeightText } from '../text/FixedHeightText'
 import { PeachText } from '../text/PeachText'
 import { statusCardStyles } from './statusCardStyles'
 
-export type StatusCardProps = {
+type StatusCardProps = {
   title: string
   icon?: JSX.Element
   subtext: string

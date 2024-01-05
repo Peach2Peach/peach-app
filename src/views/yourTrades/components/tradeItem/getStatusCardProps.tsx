@@ -19,7 +19,7 @@ export const getStatusCardProps = (item: TradeSummary) => {
   const title = isContract ? contractIdToHex(id) : offerIdToHex(id)
 
   const date = new Date('paymentMade' in item ? item.paymentMade || creationDate : creationDate)
-  const subtext = getShortDateFormat(date)
+  const subtext = 'newTradeId' in item && !!item.newTradeId ? offerIdToHex(item.newTradeId) : getShortDateFormat(date)
 
   const isWaiting = color === 'primary-mild' && isContract
   const label = getActionLabel(item, isWaiting)
@@ -29,7 +29,7 @@ export const getStatusCardProps = (item: TradeSummary) => {
   const icon = isPastOffer(tradeStatus) ? (
     <Icon id={iconId} size={16} color={tw.color(statusCardStyles.border[color])} />
   ) : undefined
-
+  const replaced = 'newTradeId' in item && !!item.newTradeId
   return {
     title,
     icon,
@@ -37,6 +37,7 @@ export const getStatusCardProps = (item: TradeSummary) => {
     label,
     labelIcon,
     color,
+    replaced,
   }
 }
 
