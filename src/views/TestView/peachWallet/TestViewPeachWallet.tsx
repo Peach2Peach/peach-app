@@ -67,7 +67,7 @@ export const TestViewPeachWallet = () => {
     <PeachScrollView>
       <View style={tw`gap-4 p-10`}>
         <PeachText style={tw`text-center button-medium`}>{i18n('wallet.totalBalance')}:</PeachText>
-        <BTCAmount style={[tw`self-center`, isRefreshing ? tw`opacity-60` : {}]} amount={balance} size="extra large" />
+        <BTCAmount style={[tw`self-center`, isRefreshing ? tw`opacity-60` : {}]} amount={balance} size="large" />
         {(isRefreshing || walletLoading) && <Loading style={tw`absolute`} />}
 
         <View>

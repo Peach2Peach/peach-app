@@ -28,7 +28,7 @@ exports[`TradeBreakdown should render correctly 1`] = `
     </PeachText>
     <BTCAmount
       amount={210000}
-      size="x small"
+      size="small"
     />
   </View>
   <View
@@ -57,7 +57,7 @@ exports[`TradeBreakdown should render correctly 1`] = `
     </PeachText>
     <BTCAmount
       amount={21000}
-      size="x small"
+      size="small"
     />
   </View>
   <HorizontalLine
@@ -96,7 +96,7 @@ exports[`TradeBreakdown should render correctly 1`] = `
     </PeachText>
     <BTCAmount
       amount={189000}
-      size="x small"
+      size="small"
     />
   </View>
   <View
@@ -125,7 +125,7 @@ exports[`TradeBreakdown should render correctly 1`] = `
     </PeachText>
     <BTCAmount
       amount={1000}
-      size="x small"
+      size="small"
     />
   </View>
   <HorizontalLine
@@ -164,7 +164,7 @@ exports[`TradeBreakdown should render correctly 1`] = `
     </PeachText>
     <BTCAmount
       amount={188000}
-      size="x small"
+      size="small"
     />
   </View>
 </View>

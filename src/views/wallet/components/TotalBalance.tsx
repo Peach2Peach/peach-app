@@ -32,7 +32,7 @@ export const TotalBalance = ({ amount, isRefreshing }: Props) => {
         </TouchableOpacity>
       </View>
       {isRefreshing && <Loading style={tw`absolute w-16 h-16`} />}
-      <BTCAmount amount={amount} size="extra large" showAmount={showBalance} style={isRefreshing && tw`opacity-50`} />
+      <BTCAmount amount={amount} size="large" showAmount={showBalance} style={isRefreshing && tw`opacity-50`} />
     </View>
   )
 }

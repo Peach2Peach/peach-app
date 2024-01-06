@@ -21,26 +21,26 @@ export const TradeBreakdown = ({ releaseTransaction, releaseAddress, amount }: P
     <View>
       <View style={tw`flex-row items-center justify-between mt-3`}>
         <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.sellerAmount')}</PeachText>
-        <BTCAmount amount={amount} size="x small" />
+        <BTCAmount amount={amount} size="small" />
       </View>
       <View style={tw`flex-row items-center justify-between mt-3`}>
         <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.peachFees')}</PeachText>
-        <BTCAmount amount={peachFee} size="x small" />
+        <BTCAmount amount={peachFee} size="small" />
       </View>
       <HorizontalLine style={tw`self-end my-4 bg-black-65 w-45`} />
 
       <View style={tw`flex-row items-center justify-between`}>
         <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.tradeAmount')}</PeachText>
-        <BTCAmount amount={totalAmount - peachFee} size="x small" />
+        <BTCAmount amount={totalAmount - peachFee} size="small" />
       </View>
       <View style={tw`flex-row items-center justify-between mt-3`}>
         <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.networkFees')}</PeachText>
-        <BTCAmount amount={networkFee} size="x small" />
+        <BTCAmount amount={networkFee} size="small" />
       </View>
       <HorizontalLine style={tw`self-end my-4 bg-black-65 w-45`} />
       <View style={tw`flex-row items-center justify-between`}>
         <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.youGet')}</PeachText>
-        <BTCAmount amount={amountReceived} size="x small" />
+        <BTCAmount amount={amountReceived} size="small" />
       </View>
     </View>
   )
