@@ -33,11 +33,11 @@ export class PeachJSWallet {
     this.derivationPath = `m/84'/${network === 'bitcoin' ? '0' : '1'}'/0'`
   }
 
-  getKeyPair (index: number): BIP32Interface {
+  getKeyPair (index: number) {
     return this.jsWallet.derivePath(`${this.derivationPath}/0/${index}`)
   }
 
-  _getAddress (index: number): string | undefined {
+  _getAddress (index: number) {
     info('PeachWallet - getAddress', index)
 
     if (this.addresses[index]) return this.addresses[index]
@@ -53,7 +53,7 @@ export class PeachJSWallet {
     return p2wpkh.address
   }
 
-  findKeyPairByAddress (address: string): BIP32Interface | null {
+  findKeyPairByAddress (address: string) {
     info('PeachWallet - findKeyPairByAddress - start')
 
     const limit = this.addresses.length + this.gapLimit
@@ -71,7 +71,7 @@ export class PeachJSWallet {
     return null
   }
 
-  signMessage (message: string, address: string, index?: number): string {
+  signMessage (message: string, address: string, index?: number) {
     info('PeachWallet - signMessage - start')
 
     const keyPair = index !== undefined ? this.getKeyPair(index) : this.findKeyPairByAddress(address)

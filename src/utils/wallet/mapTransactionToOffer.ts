@@ -3,16 +3,20 @@ import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract/getBuyOfferIdFromContract'
 import { useWalletState } from './walletStore'
 
-export const mapTransactionToOffer = ({ txid }: TransactionDetails): void | null => {
+export const mapTransactionToOffer = ({ txid }: TransactionDetails) => {
   const sellOffers = useTradeSummaryStore
     .getState()
     .offers.filter((offer) => offer.txId === txid || offer.fundingTxId === txid)
-  if (sellOffers.length) return useWalletState.getState().updateTxOfferMap(
-    txid,
-    sellOffers.map(({ id }) => id),
-  )
+  if (sellOffers.length) {
+    useWalletState.getState().updateTxOfferMap(
+      txid,
+      sellOffers.map(({ id }) => id),
+    )
+    return
+  }
 
   const contracts = useTradeSummaryStore.getState().contracts.filter((cntrct) => cntrct.releaseTxId === txid)
-  if (contracts.length) return useWalletState.getState().updateTxOfferMap(txid, contracts.map(getBuyOfferIdFromContract))
-  return null
+  if (contracts.length) {
+    useWalletState.getState().updateTxOfferMap(txid, contracts.map(getBuyOfferIdFromContract))
+  }
 }
