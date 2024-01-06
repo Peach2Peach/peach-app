@@ -1,5 +1,5 @@
 import { act, fireEvent, render, renderHook, responseUtils, waitFor } from 'test-utils'
-import { Popup } from '../components/popup'
+import { Popup } from '../components/popup/Popup'
 import i18n from '../utils/i18n'
 import { peachAPI } from '../utils/peachAPI'
 import { useWalletState } from '../utils/wallet/walletStore'

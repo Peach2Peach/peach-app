@@ -1,5 +1,5 @@
-import { PopupAction } from '../components/popup'
 import { useClosePopup } from '../components/popup/Popup'
+import { PopupAction } from '../components/popup/PopupAction'
 import { PopupComponent } from '../components/popup/PopupComponent'
 import { useNavigation } from '../hooks/useNavigation'
 import i18n from '../utils/i18n'

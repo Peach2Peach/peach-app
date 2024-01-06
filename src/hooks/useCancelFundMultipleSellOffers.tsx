@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { PopupAction } from '../components/popup'
 import { useClosePopup, useSetPopup } from '../components/popup/Popup'
+import { PopupAction } from '../components/popup/PopupAction'
 import { CancelOffer } from '../popups/CancelOffer'
 import { GrayPopup } from '../popups/GrayPopup'
 import { ClosePopupAction } from '../popups/actions/ClosePopupAction'

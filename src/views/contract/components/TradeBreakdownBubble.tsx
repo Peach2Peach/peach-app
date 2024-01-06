@@ -1,4 +1,4 @@
-import { Bubble } from '../../../components/bubble'
+import { Bubble } from '../../../components/bubble/Bubble'
 import { useSetPopup } from '../../../components/popup/Popup'
 import { TradeBreakdownPopup } from '../../../popups/TradeBreakdownPopup'
 import i18n from '../../../utils/i18n'

@@ -1,7 +1,7 @@
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { act, fireEvent, render, waitFor } from 'test-utils'
 import { setRouteMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import { Popup } from '../../components/popup'
+import { Popup } from '../../components/popup/Popup'
 import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import { Settings } from './Settings'
 

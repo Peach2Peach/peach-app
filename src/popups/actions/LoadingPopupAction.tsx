@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { PopupAction } from '../../components/popup'
-import { PopupActionProps } from '../../components/popup/PopupAction'
+import { PopupAction, PopupActionProps } from '../../components/popup/PopupAction'
 
 export function LoadingPopupAction (props: PopupActionProps) {
   const [isLoading, setLoading] = useState(false)

@@ -1,6 +1,6 @@
 import { fireEvent, render, renderHook, responseUtils } from 'test-utils'
 import { replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { Popup } from '../../../components/popup'
+import { Popup } from '../../../components/popup/Popup'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useRepublishOffer } from './useRepublishOffer'
 

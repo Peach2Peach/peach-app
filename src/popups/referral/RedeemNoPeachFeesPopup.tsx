@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
-import { PopupAction } from '../../components/popup'
 import { useSetPopup } from '../../components/popup/Popup'
+import { PopupAction } from '../../components/popup/PopupAction'
 import { PopupComponent } from '../../components/popup/PopupComponent'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'

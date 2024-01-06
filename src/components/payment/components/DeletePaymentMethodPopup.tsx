@@ -3,8 +3,8 @@ import { ErrorPopup } from '../../../popups/ErrorPopup'
 import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { removePaymentData } from '../../../utils/account/removePaymentData'
 import i18n from '../../../utils/i18n'
-import { PopupAction } from '../../popup'
 import { useClosePopup } from '../../popup/Popup'
+import { PopupAction } from '../../popup/PopupAction'
 
 export function DeletePaymentMethodPopup ({ id }: { id: string }) {
   const navigation = useNavigation()

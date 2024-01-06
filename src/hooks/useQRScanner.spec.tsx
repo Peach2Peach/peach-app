@@ -1,6 +1,6 @@
 import permissions, { RESULTS } from 'react-native-permissions'
 import { act, render, renderHook, waitFor } from 'test-utils'
-import { Popup } from '../components/popup'
+import { Popup } from '../components/popup/Popup'
 import { useQRScanner } from './useQRScanner'
 
 const isIOSMock = jest.fn().mockReturnValue(true)

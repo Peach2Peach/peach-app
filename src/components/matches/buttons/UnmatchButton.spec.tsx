@@ -3,7 +3,7 @@ import { buyOffer } from '../../../../tests/unit/data/offerData'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import i18n from '../../../utils/i18n'
 import { peachAPI } from '../../../utils/peachAPI'
-import { Popup } from '../../popup'
+import { Popup } from '../../popup/Popup'
 import { UnmatchButton } from './UnmatchButton'
 
 jest.useFakeTimers()

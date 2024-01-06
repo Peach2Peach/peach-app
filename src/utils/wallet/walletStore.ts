@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware'
 import { createPersistStorage } from '../../store/createPersistStorage'
 import { keys } from '../object/keys'
 import { omit } from '../object/omit'
-import { createStorage } from '../storage'
+import { createStorage } from '../storage/createStorage'
 import { migrateWalletStore } from './migration/migrateWalletStore'
 
 export type WalletState = {

@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { createPersistStorage } from '../../store/createPersistStorage'
-import { createStorage } from '../../utils/storage'
+import { createStorage } from '../../utils/storage/createStorage'
 
 export type NotificationsConfig = {
   notifications: number

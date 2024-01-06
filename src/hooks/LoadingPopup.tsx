@@ -1,5 +1,5 @@
 import { Loading } from '../components/animation/Loading'
-import { PopupAction } from '../components/popup'
+import { PopupAction } from '../components/popup/PopupAction'
 import { PopupComponent, PopupComponentProps } from '../components/popup/PopupComponent'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'

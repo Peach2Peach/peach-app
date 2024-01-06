@@ -10,7 +10,7 @@ import { offerStorage } from '../utils/account/offerStorage'
 import { updateAccount } from '../utils/account/updateAccount'
 import { error } from '../utils/log/error'
 import { info } from '../utils/log/info'
-import { getIndexedMap } from '../utils/storage'
+import { getIndexedMap } from '../utils/storage/getIndexedMap'
 import { getPeachInfo } from './getPeachInfo'
 
 export const initApp = async () => {

@@ -6,8 +6,8 @@ import { useSettingsStore } from '../store/settingsStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { TouchableIcon } from './TouchableIcon'
-import { PopupAction } from './popup'
 import { useClosePopup, useSetPopup } from './popup/Popup'
+import { PopupAction } from './popup/PopupAction'
 
 export function BackupReminderIcon () {
   const setPopup = useSetPopup()

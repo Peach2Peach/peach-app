@@ -1,5 +1,5 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-import { Bubble } from '../../../../components/bubble'
+import { Bubble } from '../../../../components/bubble/Bubble'
 import { useNavigation } from '../../../../hooks/useNavigation'
 
 type Props = { id: string; showInfo?: boolean } & ComponentProps

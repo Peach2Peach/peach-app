@@ -1,5 +1,5 @@
 import { NETWORK } from '@env'
-import { PopupAction } from '../components/popup'
+import { PopupAction } from '../components/popup/PopupAction'
 import { PopupComponent } from '../components/popup/PopupComponent'
 import { showAddress } from '../utils/bitcoin/showAddress'
 import { showTransaction } from '../utils/bitcoin/showTransaction'

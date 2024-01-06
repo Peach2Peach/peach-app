@@ -24,7 +24,7 @@ import { isSellOffer } from '../../utils/offer/isSellOffer'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { BuyBitcoinHeader } from '../offerPreferences/components/BuyBitcoinHeader'
 import { MarketInfo } from '../offerPreferences/components/MarketInfo'
-import { useOfferMatches } from '../search/hooks'
+import { useOfferMatches } from '../search/hooks/useOfferMatches'
 import { Rating } from '../settings/profile/profileOverview/Rating'
 
 export function Explore () {

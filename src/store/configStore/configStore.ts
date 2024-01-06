@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { APPVERSION } from '../../constants'
-import { createStorage } from '../../utils/storage'
+import { createStorage } from '../../utils/storage/createStorage'
 import { createPersistStorage } from '../createPersistStorage'
 
 type ConfigStore = Config & {
