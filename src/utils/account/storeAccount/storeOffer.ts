@@ -1,4 +1,5 @@
-import { error, info } from '../../log'
+import { error } from '../../log/error'
+import { info } from '../../log/info'
 import { offerStorage } from '../offerStorage'
 
 export const storeOffer = (offer: SellOffer | BuyOffer) => {

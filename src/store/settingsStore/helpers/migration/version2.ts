@@ -1,4 +1,4 @@
-import { info } from '../../../../utils/log'
+import { info } from '../../../../utils/log/info'
 import { SettingsVersion3 } from './migrateSettings'
 
 export type SettingsVersion2 = {

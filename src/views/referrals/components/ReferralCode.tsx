@@ -6,7 +6,7 @@ import { CopyAble } from '../../../components/ui/CopyAble'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { info } from '../../../utils/log'
+import { info } from '../../../utils/log/info'
 import { getInviteLink } from '../helpers/getInviteLink'
 
 type Props = {

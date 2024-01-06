@@ -3,7 +3,7 @@ import { Network } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
 import { payments } from 'bitcoinjs-lib'
 import { sign } from 'bitcoinjs-message'
-import { info } from '../log'
+import { info } from '../log/info'
 import { getNetwork } from './getNetwork'
 import { useWalletState } from './walletStore'
 

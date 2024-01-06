@@ -1,4 +1,5 @@
-import { error, info } from './log'
+import { error } from './log/error'
+import { info } from './log/info'
 import { parseError } from './result/parseError'
 
 export default (url: RequestInfo, init?: RequestInit): Promise<Response> =>

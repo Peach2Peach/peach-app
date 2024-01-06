@@ -1,5 +1,5 @@
 import OpenPGP from 'react-native-fast-openpgp'
-import { error } from '../../../utils/log'
+import { error } from '../../../utils/log/error'
 import { decrypt } from '../../../utils/pgp/decrypt'
 
 export const decryptSymmetricKey = async (

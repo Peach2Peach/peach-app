@@ -1,4 +1,4 @@
-import { info } from '../../log'
+import { info } from '../../log/info'
 import { accountStorage } from '../accountStorage'
 
 export const storeTradingLimit = (tradingLimit: Account['tradingLimit']) => {

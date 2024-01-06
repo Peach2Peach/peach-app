@@ -1,5 +1,5 @@
 import messaging from '@react-native-firebase/messaging'
-import { error } from '../log'
+import { error } from '../log/error'
 import { parseError } from '../result/parseError'
 
 /**

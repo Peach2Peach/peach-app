@@ -17,7 +17,7 @@ import { Overlay } from './Overlay'
 import { queryClient } from './queryClient'
 import tw from './styles/tailwind'
 import { usePartialAppSetup } from './usePartialAppSetup'
-import { info } from './utils/log'
+import { info } from './utils/log/info'
 import { Screens } from './views/Screens'
 
 enableScreens()

@@ -1,6 +1,6 @@
 import { useSettingsStore } from '../../store/settingsStore'
 import { decrypt } from '../crypto/decrypt'
-import { info } from '../log'
+import { info } from '../log/info'
 
 interface DecryptAccountProps {
   encryptedAccount: string

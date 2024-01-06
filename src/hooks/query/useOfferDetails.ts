@@ -1,6 +1,6 @@
 import { QueryFunction, useQueries, useQuery } from '@tanstack/react-query'
 import { MSINAMINUTE } from '../../constants'
-import { error } from '../../utils/log'
+import { error } from '../../utils/log/error'
 import { getOffer } from '../../utils/offer/getOffer'
 import { saveOffer } from '../../utils/offer/saveOffer'
 import { peachAPI } from '../../utils/peachAPI'

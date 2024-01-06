@@ -25,7 +25,7 @@ import {
   walletSyncMock,
 } from '../../../tests/unit/mocks/bdkRN'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
-import { error as logError } from '../log'
+import { error as logError } from '../log/error'
 import { PeachWallet } from './PeachWallet'
 import { createWalletFromBase58 } from './createWalletFromBase58'
 import { getNetwork } from './getNetwork'

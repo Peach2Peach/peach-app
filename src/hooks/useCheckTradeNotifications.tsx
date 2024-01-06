@@ -4,7 +4,7 @@ import { shallow } from 'zustand/shallow'
 import { ContractSummary } from '../../peach-api/src/@types/contract'
 import { OfferSummary } from '../../peach-api/src/@types/offer'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
-import { info } from '../utils/log'
+import { info } from '../utils/log/info'
 import { isIOS } from '../utils/system/isIOS'
 import { useNotificationStore } from '../views/home/notificationsStore'
 

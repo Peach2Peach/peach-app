@@ -1,4 +1,4 @@
-import { error } from '../log'
+import { error } from '../log/error'
 import { parseError } from '../result/parseError'
 import { dateTimeReviver } from '../system/dateTimeReviver'
 

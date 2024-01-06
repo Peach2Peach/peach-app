@@ -1,6 +1,7 @@
 import { API_URL } from '@env'
 import { crypto } from 'bitcoinjs-lib'
-import { error, info } from '../../log'
+import { error } from '../../../utils/log/error'
+import { info } from '../../../utils/log/info'
 import { dateTimeReviver } from '../../system/dateTimeReviver'
 import { getAuthenticationChallenge } from '../getAuthenticationChallenge'
 import { peachAPI } from '../peachAPI'

@@ -1,6 +1,6 @@
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import i18n from '../../../utils/i18n'
-import { error } from '../../../utils/log'
+import { error } from '../../../utils/log/error'
 import { StackNavigation } from '../../../utils/navigation/handlePushNotification'
 import { isBuyOffer } from '../../../utils/offer/isBuyOffer'
 

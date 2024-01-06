@@ -1,6 +1,7 @@
 import { useSettingsStore } from '../store/settingsStore'
 import { useAccountStore } from '../utils/account/account'
-import { error, info } from '../utils/log'
+import { error } from '../utils/log/error'
+import { info } from '../utils/log/info'
 import { updateUser } from '../utils/peachAPI'
 
 export const publishPGPPublicKey = async () => {

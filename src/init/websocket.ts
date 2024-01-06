@@ -1,6 +1,6 @@
 import { Dispatch, EffectCallback } from 'react'
 import { useAccountStore } from '../utils/account/account'
-import { info } from '../utils/log'
+import { info } from '../utils/log/info'
 import { createWebsocket } from '../utils/peachAPI/websocket/createWebsocket'
 
 const RETRY_INTERVAL = 3000

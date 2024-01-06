@@ -14,7 +14,7 @@ jest.mock('../../../init/publishPGPPublicKey', () => ({
 }))
 
 const infoMock = jest.fn()
-jest.mock('../../../utils/log', () => ({
+jest.mock('../../../utils/log/info', () => ({
   info: (...args: unknown[]) => infoMock(...args),
 }))
 

@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import i18n from '../../../utils/i18n'
-import { error } from '../../../utils/log'
+import { error } from '../../../utils/log/error'
 import { useMessageState } from '../../message/useMessageState'
 
 const Levels: Record<string, Level> = {

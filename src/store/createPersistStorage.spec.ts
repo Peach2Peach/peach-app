@@ -1,5 +1,5 @@
 import { offerStorage } from '../utils/account/offerStorage'
-import { error } from '../utils/log'
+import { error } from '../utils/log/error'
 import { createPersistStorage } from './createPersistStorage'
 
 describe('createPersistStorage', () => {

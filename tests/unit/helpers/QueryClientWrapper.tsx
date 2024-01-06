@@ -1,5 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { error, info, log } from '../../../src/utils/log'
+import { error } from '../../../src/utils/log/error'
+import { info } from '../../../src/utils/log/info'
+import { log } from '../../../src/utils/log/log'
 
 export const queryClient = new QueryClient({
   defaultOptions: {

@@ -14,7 +14,7 @@ import { useSelfUser } from '../../hooks/query/useSelfUser'
 import { useNavigation } from '../../hooks/useNavigation'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { info } from '../../utils/log'
+import { info } from '../../utils/log/info'
 import { peachAPI } from '../../utils/peachAPI'
 import { openURL } from '../../utils/web/openURL'
 
