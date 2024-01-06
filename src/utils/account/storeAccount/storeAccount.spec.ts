@@ -1,6 +1,6 @@
 import { deepStrictEqual } from 'assert'
 import * as accountData from '../../../../tests/unit/data/accountData'
-import { getIndexedMap } from '../../storage'
+import { getIndexedMap } from '../../storage/getIndexedMap'
 import { defaultAccount, setAccount } from '../account'
 import { accountStorage } from '../accountStorage'
 import { chatStorage } from '../chatStorage'

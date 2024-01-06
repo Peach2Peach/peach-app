@@ -1,6 +1,6 @@
 import { render, renderHook } from 'test-utils'
 import { sellOffer } from '../../tests/unit/data/offerData'
-import { Popup } from '../components/popup'
+import { Popup } from '../components/popup/Popup'
 import { useCancelAndStartRefundPopup } from './useCancelAndStartRefundPopup'
 
 const refundEscrowMock = jest.fn()

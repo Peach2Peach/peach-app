@@ -1,12 +1,12 @@
 import crashlytics from '@react-native-firebase/crashlytics'
 import { isProduction } from '../system/isProduction'
-import { info } from './info'
 
 jest.mock('../system/isProduction', () => ({
   isProduction: jest.fn(),
 }))
 
 describe('info', () => {
+  const info = jest.requireActual('./info').info
   const infoSpy = jest.spyOn(console, 'info')
 
   it('is logging info to console for dev environment', () => {

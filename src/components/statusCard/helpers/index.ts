@@ -1,1 +1,0 @@
-export { getPropsWithType } from './getPropsWithType'

@@ -8,7 +8,7 @@ import { VerifyYouAreAHumanPopup } from '../../popups/warning/VerifyYouAreAHuman
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { messageShadow } from '../../utils/layout/shadows'
-import { error } from '../../utils/log'
+import { error } from '../../utils/log/error'
 import { parseError } from '../../utils/result/parseError'
 import { isNetworkError } from '../../utils/system/isNetworkError'
 import { Icon } from '../Icon'

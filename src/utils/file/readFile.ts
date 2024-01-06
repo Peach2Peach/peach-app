@@ -1,6 +1,7 @@
 import RNFS from 'react-native-fs'
 import { decrypt } from '../crypto/decrypt'
-import { error, info } from '../log'
+import { error } from '../log/error'
+import { info } from '../log/info'
 import { parseError } from '../result/parseError'
 
 export const readFile = async (path: string, password?: string): Promise<string> => {

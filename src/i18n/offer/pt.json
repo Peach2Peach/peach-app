@@ -1,6 +1,7 @@
 {
   "offer.cancel.popup.description" : "Tem a certeza?\n\nSe já enviou seus bitcoins para o depósito de caução um reembolso será gerado, retirando-se as taxas da rede Bitcoin.",
   "offer.cancel.popup.title" : "cancelar oferta",
+  "offer.canceled" : "cancelado",
   "offer.canceled.popup.title" : "oferta cancelada!",
   "offer.filter" : "filtro",
   "offer.filter.maxPremium" : "premium máximo",

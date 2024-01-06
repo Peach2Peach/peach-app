@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { Divider } from '../../../../components/Divider'
-import { Bubble } from '../../../../components/bubble'
+import { Bubble } from '../../../../components/bubble/Bubble'
 import { CopyableSummaryItem } from '../../../../components/summaryItem'
 import { ConfirmationSummaryItem } from '../../../../components/summaryItem/ConfirmationSummaryItem'
 import tw from '../../../../styles/tailwind'

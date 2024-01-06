@@ -1,5 +1,5 @@
-/* eslint-disable max-lines-per-function */
 import { act, renderHook, waitFor } from 'test-utils'
+import { OfferSummary } from '../../peach-api/src/@types/offer'
 import { account1 } from '../../tests/unit/data/accountData'
 import { sellOffer } from '../../tests/unit/data/offerData'
 import { offerSummary } from '../../tests/unit/data/offerSummaryData'
@@ -15,6 +15,7 @@ import { useCheckFundingMultipleEscrows } from './useCheckFundingMultipleEscrows
 
 jest.useFakeTimers()
 
+// eslint-disable-next-line max-lines-per-function
 describe('useCheckFundingMultipleEscrows', () => {
   const sellOffer1 = sellOffer
   const sellOffer2 = { ...sellOffer, id: '39', escrow: 'escrow2' }

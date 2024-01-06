@@ -1,7 +1,7 @@
 import { fireEvent, render } from 'test-utils'
 import { feeEstimates } from '../../../../../tests/unit/data/electrumData'
 import { bitcoinTransaction, pendingTransactionSummary } from '../../../../../tests/unit/data/transactionDetailData'
-import { Popup } from '../../../../components/popup'
+import { Popup } from '../../../../components/popup/Popup'
 import { placeholderFeeEstimates } from '../../../../hooks/query/useFeeEstimates'
 import { TransactionETASummaryItem } from './TransactionETASummaryItem'
 

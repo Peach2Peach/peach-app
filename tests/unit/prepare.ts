@@ -13,7 +13,9 @@ jest.mock('../../src/utils/peachAPI', () => ({
 }))
 jest.mock('../../peach-api/src/peachAPI')
 jest.mock('../../src/utils/wallet/PeachWallet')
-jest.mock('../../src/utils/log')
+jest.mock('../../src/utils/log/error')
+jest.mock('../../src/utils/log/info')
+jest.mock('../../src/utils/log/log')
 
 jest.mock('../../src/utils/system/getDeviceLocale', () => ({
   getDeviceLocale: () => 'en',

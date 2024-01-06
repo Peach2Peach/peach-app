@@ -629,47 +629,100 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                 onStartShouldSetResponder={[Function]}
                 style={
                   {
+                    "backgroundColor": "#FFFCFA",
+                    "borderColor": "#65A519",
+                    "borderRadius": 12,
+                    "borderWidth": 1,
                     "opacity": 1,
+                    "overflow": "hidden",
                   }
                 }
               >
                 <View
                   style={
-                    [
-                      {
-                        "backgroundColor": "#FFFCFA",
-                        "borderRadius": 12,
-                        "borderWidth": 1,
-                        "overflow": "hidden",
-                      },
-                      {
-                        "borderColor": "#65A519",
-                      },
-                    ]
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 8,
+                      "justifyContent": "space-between",
+                      "paddingBottom": 12,
+                      "paddingLeft": 16,
+                      "paddingRight": 16,
+                      "paddingTop": 12,
+                    }
                   }
                 >
                   <View
                     style={
                       {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                        "gap": 8,
-                        "justifyContent": "space-between",
-                        "paddingBottom": 12,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
-                        "paddingTop": 12,
+                        "flexShrink": 1,
+                        "gap": 4,
                       }
                     }
                   >
                     <View
                       style={
                         {
-                          "flexShrink": 1,
-                          "gap": 4,
+                          "height": 17,
+                          "justifyContent": "center",
                         }
                       }
                     >
+                      <Text
+                        allowFontScaling={false}
+                        numberOfLines={1}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              [
+                                {
+                                  "fontFamily": "Baloo2-SemiBold",
+                                  "fontSize": 16,
+                                  "letterSpacing": 0.16,
+                                  "lineHeight": 28,
+                                },
+                                undefined,
+                              ],
+                              {
+                                "marginBottom": -40,
+                                "marginTop": -40,
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        bought
+                      </Text>
+                    </View>
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "flexDirection": "row",
+                          "gap": 6,
+                        }
+                      }
+                    >
+                      <test-file-stub
+                        fill="#65A519"
+                        style={
+                          [
+                            {
+                              "height": 17,
+                              "width": 17,
+                            },
+                            undefined,
+                          ]
+                        }
+                      />
                       <View
                         style={
                           {
@@ -680,7 +733,6 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                       >
                         <Text
                           allowFontScaling={false}
-                          numberOfLines={1}
                           style={
                             [
                               {
@@ -693,12 +745,16 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                               [
                                 [
                                   {
-                                    "fontFamily": "Baloo2-SemiBold",
-                                    "fontSize": 16,
-                                    "letterSpacing": 0.16,
-                                    "lineHeight": 28,
+                                    "color": "#7D675E",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 14,
+                                    "letterSpacing": 0.14,
+                                    "lineHeight": 20,
                                   },
-                                  false,
+                                  undefined,
+                                  {
+                                    "width": 100,
+                                  },
                                 ],
                                 {
                                   "marginBottom": -40,
@@ -708,37 +764,101 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                               false,
                             ]
                           }
+                          suppressHighlighting={true}
                         >
-                          bought
+                          09 / 14 / 22
                         </Text>
                       </View>
+                    </View>
+                  </View>
+                  <View
+                    style={
+                      [
+                        {
+                          "alignItems": "flex-end",
+                          "height": 40,
+                          "paddingBottom": 1,
+                          "paddingTop": 4,
+                          "width": 141,
+                        },
+                        {
+                          "gap": 6,
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        [
+                          undefined,
+                          {
+                            "justifyContent": "center",
+                          },
+                          {
+                            "height": 10,
+                            "width": 135,
+                          },
+                        ]
+                      }
+                    >
                       <View
                         style={
-                          {
-                            "alignItems": "center",
-                            "flexDirection": "row",
-                            "gap": 6,
-                          }
+                          [
+                            {
+                              "alignItems": "center",
+                              "flexDirection": "row",
+                              "justifyContent": "flex-end",
+                              "marginBottom": -40,
+                              "marginTop": -40,
+                            },
+                            undefined,
+                          ]
                         }
                       >
-                        <test-file-stub
-                          fill="#65A519"
+                        <View
                           style={
                             [
                               {
-                                "height": 17,
-                                "width": 17,
+                                "alignItems": "center",
+                                "justifyContent": "center",
                               },
-                              undefined,
+                              {
+                                "height": 16,
+                                "width": 16,
+                              },
                             ]
                           }
-                        />
+                        >
+                          <test-file-stub
+                            fill="#888"
+                            style={
+                              [
+                                {
+                                  "height": 24,
+                                  "width": 24,
+                                },
+                                {
+                                  "height": 12,
+                                  "width": 12,
+                                },
+                              ]
+                            }
+                          />
+                        </View>
                         <View
                           style={
-                            {
-                              "height": 17,
-                              "justifyContent": "center",
-                            }
+                            [
+                              {
+                                "flexDirection": "row",
+                              },
+                              {
+                                "alignItems": "baseline",
+                              },
+                              {
+                                "gap": 2,
+                                "paddingTop": 3,
+                              },
+                            ]
                           }
                         >
                           <Text
@@ -753,122 +873,17 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                                   "lineHeight": 24,
                                 },
                                 [
-                                  [
-                                    {
-                                      "color": "#7D675E",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 14,
-                                      "letterSpacing": 0.14,
-                                      "lineHeight": 20,
-                                    },
-                                    false,
-                                    {
-                                      "width": 100,
-                                    },
-                                  ],
                                   {
-                                    "marginBottom": -40,
-                                    "marginTop": -40,
+                                    "alignItems": "center",
+                                    "fontFamily": "CourierPrime-Bold",
+                                    "textAlign": "center",
+                                  },
+                                  {
+                                    "fontSize": 17,
+                                    "lineHeight": 23,
                                   },
                                 ],
                                 false,
-                              ]
-                            }
-                            suppressHighlighting={true}
-                          >
-                            09 / 14 / 22
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-                    <View
-                      style={
-                        [
-                          {
-                            "alignItems": "flex-end",
-                            "height": 40,
-                            "paddingBottom": 1,
-                            "paddingTop": 4,
-                            "width": 141,
-                          },
-                          {
-                            "gap": 6,
-                          },
-                          false,
-                        ]
-                      }
-                    >
-                      <View
-                        style={
-                          [
-                            undefined,
-                            {
-                              "justifyContent": "center",
-                            },
-                            {
-                              "height": 10,
-                              "width": 135,
-                            },
-                          ]
-                        }
-                      >
-                        <View
-                          style={
-                            [
-                              {
-                                "alignItems": "center",
-                                "flexDirection": "row",
-                                "justifyContent": "flex-end",
-                                "marginBottom": -40,
-                                "marginTop": -40,
-                              },
-                              undefined,
-                            ]
-                          }
-                        >
-                          <View
-                            style={
-                              [
-                                {
-                                  "alignItems": "center",
-                                  "justifyContent": "center",
-                                },
-                                {
-                                  "height": 16,
-                                  "width": 16,
-                                },
-                              ]
-                            }
-                          >
-                            <test-file-stub
-                              fill="#888"
-                              style={
-                                [
-                                  {
-                                    "height": 24,
-                                    "width": 24,
-                                  },
-                                  {
-                                    "height": 12,
-                                    "width": 12,
-                                  },
-                                ]
-                              }
-                            />
-                          </View>
-                          <View
-                            style={
-                              [
-                                {
-                                  "flexDirection": "row",
-                                },
-                                {
-                                  "alignItems": "baseline",
-                                },
-                                {
-                                  "gap": 2,
-                                  "paddingTop": 3,
-                                },
                               ]
                             }
                           >
@@ -884,465 +899,438 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                                     "lineHeight": 24,
                                   },
                                   [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
                                     {
-                                      "alignItems": "center",
-                                      "fontFamily": "CourierPrime-Bold",
-                                      "textAlign": "center",
-                                    },
-                                    {
-                                      "fontSize": 17,
-                                      "lineHeight": 23,
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -1.275,
                                     },
                                   ],
                                   false,
                                 ]
                               }
                             >
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -3.57,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                .
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -5.949999999999999,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                 
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -5.949999999999999,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                 
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B1911",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                9
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B1911",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B1911",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
+                              0
                             </Text>
-                            <View
+                            <Text
+                              allowFontScaling={false}
                               style={
-                                {
-                                  "justifyContent": "center",
-                                }
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -3.57,
+                                    },
+                                  ],
+                                  false,
+                                ]
                               }
                             >
-                              <Text
-                                allowFontScaling={false}
-                                style={
+                              .
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
                                   [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
                                     [
                                       {
-                                        "fontFamily": "Baloo2-Medium",
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
                                       },
-                                      false,
                                       {
-                                        "fontSize": 12,
-                                        "lineHeight": 18,
-                                        "paddingBottom": 2,
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
                                       },
                                     ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -5.949999999999999,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                               
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -5.949999999999999,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                               
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B1911",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              9
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B1911",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B1911",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                          </Text>
+                          <View
+                            style={
+                              {
+                                "justifyContent": "center",
+                              }
+                            }
+                          >
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    {
+                                      "fontFamily": "Baloo2-Medium",
+                                    },
                                     false,
-                                  ]
-                                }
-                              >
-                                sats
-                              </Text>
-                            </View>
+                                    {
+                                      "fontSize": 12,
+                                      "lineHeight": 18,
+                                      "paddingBottom": 2,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              sats
+                            </Text>
                           </View>
                         </View>
                       </View>
@@ -1386,47 +1374,100 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                 onStartShouldSetResponder={[Function]}
                 style={
                   {
+                    "backgroundColor": "#FFFCFA",
+                    "borderColor": "#65A519",
+                    "borderRadius": 12,
+                    "borderWidth": 1,
                     "opacity": 1,
+                    "overflow": "hidden",
                   }
                 }
               >
                 <View
                   style={
-                    [
-                      {
-                        "backgroundColor": "#FFFCFA",
-                        "borderRadius": 12,
-                        "borderWidth": 1,
-                        "overflow": "hidden",
-                      },
-                      {
-                        "borderColor": "#65A519",
-                      },
-                    ]
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 8,
+                      "justifyContent": "space-between",
+                      "paddingBottom": 12,
+                      "paddingLeft": 16,
+                      "paddingRight": 16,
+                      "paddingTop": 12,
+                    }
                   }
                 >
                   <View
                     style={
                       {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                        "gap": 8,
-                        "justifyContent": "space-between",
-                        "paddingBottom": 12,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
-                        "paddingTop": 12,
+                        "flexShrink": 1,
+                        "gap": 4,
                       }
                     }
                   >
                     <View
                       style={
                         {
-                          "flexShrink": 1,
-                          "gap": 4,
+                          "height": 17,
+                          "justifyContent": "center",
                         }
                       }
                     >
+                      <Text
+                        allowFontScaling={false}
+                        numberOfLines={1}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              [
+                                {
+                                  "fontFamily": "Baloo2-SemiBold",
+                                  "fontSize": 16,
+                                  "letterSpacing": 0.16,
+                                  "lineHeight": 28,
+                                },
+                                undefined,
+                              ],
+                              {
+                                "marginBottom": -40,
+                                "marginTop": -40,
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        bought
+                      </Text>
+                    </View>
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "flexDirection": "row",
+                          "gap": 6,
+                        }
+                      }
+                    >
+                      <test-file-stub
+                        fill="#65A519"
+                        style={
+                          [
+                            {
+                              "height": 17,
+                              "width": 17,
+                            },
+                            undefined,
+                          ]
+                        }
+                      />
                       <View
                         style={
                           {
@@ -1437,7 +1478,6 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                       >
                         <Text
                           allowFontScaling={false}
-                          numberOfLines={1}
                           style={
                             [
                               {
@@ -1450,12 +1490,16 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                               [
                                 [
                                   {
-                                    "fontFamily": "Baloo2-SemiBold",
-                                    "fontSize": 16,
-                                    "letterSpacing": 0.16,
-                                    "lineHeight": 28,
+                                    "color": "#7D675E",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 14,
+                                    "letterSpacing": 0.14,
+                                    "lineHeight": 20,
                                   },
-                                  false,
+                                  undefined,
+                                  {
+                                    "width": 100,
+                                  },
                                 ],
                                 {
                                   "marginBottom": -40,
@@ -1465,37 +1509,101 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                               false,
                             ]
                           }
+                          suppressHighlighting={true}
                         >
-                          bought
+                          09 / 14 / 22
                         </Text>
                       </View>
+                    </View>
+                  </View>
+                  <View
+                    style={
+                      [
+                        {
+                          "alignItems": "flex-end",
+                          "height": 40,
+                          "paddingBottom": 1,
+                          "paddingTop": 4,
+                          "width": 141,
+                        },
+                        {
+                          "gap": 6,
+                        },
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        [
+                          undefined,
+                          {
+                            "justifyContent": "center",
+                          },
+                          {
+                            "height": 10,
+                            "width": 135,
+                          },
+                        ]
+                      }
+                    >
                       <View
                         style={
-                          {
-                            "alignItems": "center",
-                            "flexDirection": "row",
-                            "gap": 6,
-                          }
+                          [
+                            {
+                              "alignItems": "center",
+                              "flexDirection": "row",
+                              "justifyContent": "flex-end",
+                              "marginBottom": -40,
+                              "marginTop": -40,
+                            },
+                            undefined,
+                          ]
                         }
                       >
-                        <test-file-stub
-                          fill="#65A519"
+                        <View
                           style={
                             [
                               {
-                                "height": 17,
-                                "width": 17,
+                                "alignItems": "center",
+                                "justifyContent": "center",
                               },
-                              undefined,
+                              {
+                                "height": 16,
+                                "width": 16,
+                              },
                             ]
                           }
-                        />
+                        >
+                          <test-file-stub
+                            fill="#888"
+                            style={
+                              [
+                                {
+                                  "height": 24,
+                                  "width": 24,
+                                },
+                                {
+                                  "height": 12,
+                                  "width": 12,
+                                },
+                              ]
+                            }
+                          />
+                        </View>
                         <View
                           style={
-                            {
-                              "height": 17,
-                              "justifyContent": "center",
-                            }
+                            [
+                              {
+                                "flexDirection": "row",
+                              },
+                              {
+                                "alignItems": "baseline",
+                              },
+                              {
+                                "gap": 2,
+                                "paddingTop": 3,
+                              },
+                            ]
                           }
                         >
                           <Text
@@ -1510,122 +1618,17 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                                   "lineHeight": 24,
                                 },
                                 [
-                                  [
-                                    {
-                                      "color": "#7D675E",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 14,
-                                      "letterSpacing": 0.14,
-                                      "lineHeight": 20,
-                                    },
-                                    false,
-                                    {
-                                      "width": 100,
-                                    },
-                                  ],
                                   {
-                                    "marginBottom": -40,
-                                    "marginTop": -40,
+                                    "alignItems": "center",
+                                    "fontFamily": "CourierPrime-Bold",
+                                    "textAlign": "center",
+                                  },
+                                  {
+                                    "fontSize": 17,
+                                    "lineHeight": 23,
                                   },
                                 ],
                                 false,
-                              ]
-                            }
-                            suppressHighlighting={true}
-                          >
-                            09 / 14 / 22
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-                    <View
-                      style={
-                        [
-                          {
-                            "alignItems": "flex-end",
-                            "height": 40,
-                            "paddingBottom": 1,
-                            "paddingTop": 4,
-                            "width": 141,
-                          },
-                          {
-                            "gap": 6,
-                          },
-                          false,
-                        ]
-                      }
-                    >
-                      <View
-                        style={
-                          [
-                            undefined,
-                            {
-                              "justifyContent": "center",
-                            },
-                            {
-                              "height": 10,
-                              "width": 135,
-                            },
-                          ]
-                        }
-                      >
-                        <View
-                          style={
-                            [
-                              {
-                                "alignItems": "center",
-                                "flexDirection": "row",
-                                "justifyContent": "flex-end",
-                                "marginBottom": -40,
-                                "marginTop": -40,
-                              },
-                              undefined,
-                            ]
-                          }
-                        >
-                          <View
-                            style={
-                              [
-                                {
-                                  "alignItems": "center",
-                                  "justifyContent": "center",
-                                },
-                                {
-                                  "height": 16,
-                                  "width": 16,
-                                },
-                              ]
-                            }
-                          >
-                            <test-file-stub
-                              fill="#888"
-                              style={
-                                [
-                                  {
-                                    "height": 24,
-                                    "width": 24,
-                                  },
-                                  {
-                                    "height": 12,
-                                    "width": 12,
-                                  },
-                                ]
-                              }
-                            />
-                          </View>
-                          <View
-                            style={
-                              [
-                                {
-                                  "flexDirection": "row",
-                                },
-                                {
-                                  "alignItems": "baseline",
-                                },
-                                {
-                                  "gap": 2,
-                                  "paddingTop": 3,
-                                },
                               ]
                             }
                           >
@@ -1641,465 +1644,438 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                                     "lineHeight": 24,
                                   },
                                   [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
                                     {
-                                      "alignItems": "center",
-                                      "fontFamily": "CourierPrime-Bold",
-                                      "textAlign": "center",
-                                    },
-                                    {
-                                      "fontSize": 17,
-                                      "lineHeight": 23,
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -1.275,
                                     },
                                   ],
                                   false,
                                 ]
                               }
                             >
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -3.57,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                .
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -5.949999999999999,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                 
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -5.949999999999999,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                 
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B1911",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                9
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B1911",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 17,
-                                          "lineHeight": 23,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B1911",
-                                        "letterSpacing": -1.275,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
+                              0
                             </Text>
-                            <View
+                            <Text
+                              allowFontScaling={false}
                               style={
-                                {
-                                  "justifyContent": "center",
-                                }
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -3.57,
+                                    },
+                                  ],
+                                  false,
+                                ]
                               }
                             >
-                              <Text
-                                allowFontScaling={false}
-                                style={
+                              .
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
                                   [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
                                     [
                                       {
-                                        "fontFamily": "Baloo2-Medium",
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
                                       },
-                                      false,
                                       {
-                                        "fontSize": 12,
-                                        "lineHeight": 18,
-                                        "paddingBottom": 2,
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
                                       },
                                     ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -5.949999999999999,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                               
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B19111A",
+                                      "letterSpacing": -5.949999999999999,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                               
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B1911",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              9
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B1911",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    [
+                                      {
+                                        "alignItems": "center",
+                                        "fontFamily": "CourierPrime-Bold",
+                                        "textAlign": "center",
+                                      },
+                                      {
+                                        "fontSize": 17,
+                                        "lineHeight": 23,
+                                      },
+                                    ],
+                                    {
+                                      "color": "#2B1911",
+                                      "letterSpacing": -1.275,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                          </Text>
+                          <View
+                            style={
+                              {
+                                "justifyContent": "center",
+                              }
+                            }
+                          >
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    {
+                                      "fontFamily": "Baloo2-Medium",
+                                    },
                                     false,
-                                  ]
-                                }
-                              >
-                                sats
-                              </Text>
-                            </View>
+                                    {
+                                      "fontSize": 12,
+                                      "lineHeight": 18,
+                                      "paddingBottom": 2,
+                                    },
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              sats
+                            </Text>
                           </View>
                         </View>
                       </View>

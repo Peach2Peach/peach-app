@@ -12,8 +12,8 @@ import { error } from '../../../utils/log/error'
 import { peachAPI } from '../../../utils/peachAPI'
 import { Button } from '../../buttons/Button'
 import { useMessageState } from '../../message/useMessageState'
-import { PopupAction } from '../../popup'
 import { useClosePopup, useSetPopup } from '../../popup/Popup'
+import { PopupAction } from '../../popup/PopupAction'
 import { UndoButton } from './UndoButton'
 
 type Props = {

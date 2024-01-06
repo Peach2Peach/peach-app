@@ -1,5 +1,5 @@
 import { useConfigStore } from '../../../store/configStore/configStore'
-import { error } from '../../../utils/log'
+import { error } from '../../../utils/log/error'
 import { peachAPI } from '../../../utils/peachAPI'
 import { signAndEncrypt } from '../../../utils/pgp/signAndEncrypt'
 

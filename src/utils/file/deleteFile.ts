@@ -1,5 +1,5 @@
 import RNFS from 'react-native-fs'
-import { error } from '../log'
+import { error } from '../log/error'
 
 export const deleteFile = async (path: string): Promise<boolean> => {
   try {

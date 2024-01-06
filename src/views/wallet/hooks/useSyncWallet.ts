@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { error } from '../../../utils/log'
+import { error } from '../../../utils/log/error'
 import { parseError } from '../../../utils/result/parseError'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 

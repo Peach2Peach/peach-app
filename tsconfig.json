@@ -19,6 +19,6 @@
       "test-utils": ["./tests/unit/helpers/test-utils"]
     }
   },
-  "include": ["src", "@types", "tests"],
+  "include": ["src", "@types", "tests", "tailwind.config.js"],
   "exclude": ["node_modules"]
 }

@@ -1,4 +1,5 @@
 import { act, renderHook } from 'test-utils'
+import { OfferSummary } from '../../peach-api/src/@types/offer'
 import { sellOffer } from '../../peach-api/src/testData/offers'
 import { contractSummary } from '../../tests/unit/data/contractSummaryData'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'

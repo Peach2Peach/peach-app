@@ -1,6 +1,7 @@
 {
   "offer.cancel.popup.description" : "Ти впевнений? Якщо ви вже надіслали свій біткойн на умовне депонування, вам буде повернено кошти за мінусом комісій мережі біткойн.",
   "offer.cancel.popup.title" : "видалити пропозицію",
+  "offer.canceled" : "скасовано",
   "offer.canceled.popup.title" : "пропозицію скасовано!",
   "offer.filter" : "фільтрувати",
   "offer.filter.maxPremium" : "max premium",

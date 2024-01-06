@@ -1,6 +1,6 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
 import { fireEvent, render } from 'test-utils'
-import { Popup } from '../../components/popup'
+import { Popup } from '../../components/popup/Popup'
 import { useSettingsStore } from '../../store/settingsStore'
 import { VerifyYouAreAHuman, VerifyYouAreAHumanPopup } from './VerifyYouAreAHumanPopup'
 

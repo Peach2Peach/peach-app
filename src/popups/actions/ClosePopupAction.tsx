@@ -1,6 +1,5 @@
-import { PopupAction } from '../../components/popup'
 import { useClosePopup } from '../../components/popup/Popup'
-import { PopupActionProps } from '../../components/popup/PopupAction'
+import { PopupAction, PopupActionProps } from '../../components/popup/PopupAction'
 import i18n from '../../utils/i18n'
 
 type Props = Pick<PopupActionProps, 'textStyle' | 'reverseOrder' | 'style'>

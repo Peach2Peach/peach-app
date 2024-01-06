@@ -1,4 +1,4 @@
-import { info } from '../../../../utils/log'
+import { info } from '../../../../utils/log/info'
 import { SettingsVersion1 } from './version1'
 
 export type SettingsVersion0 = SettingsVersion1

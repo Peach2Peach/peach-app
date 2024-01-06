@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { MSINASECOND } from '../../constants'
-import { error } from '../../utils/log'
+import { error } from '../../utils/log/error'
 import { defaultFundingStatus } from '../../utils/offer/constants'
 import { peachAPI } from '../../utils/peachAPI'
 

@@ -1,6 +1,8 @@
 import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
 import { fireEvent, render, waitFor } from 'test-utils'
+import { ContractSummary } from '../../../peach-api/src/@types/contract'
+import { OfferSummary } from '../../../peach-api/src/@types/offer'
 import { tradeSummary } from '../../../tests/unit/data/tradeSummaryData'
 import { MSINAMONTH } from '../../constants'
 import { ExportTradeHistory } from './ExportTradeHistory'

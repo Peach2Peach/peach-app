@@ -2,7 +2,7 @@ import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { Modal, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { PeachyBackground } from './components/PeachyBackground'
-import { Popup } from './components/popup'
+import { Popup } from './components/popup/Popup'
 import tw from './styles/tailwind'
 
 const overlayAtom = atom<React.ReactNode>(undefined)

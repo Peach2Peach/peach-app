@@ -1,5 +1,5 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { info } from '../../log'
+import { info } from '../../log/info'
 import { omit } from '../../object/omit'
 import { WalletState } from '../walletStore'
 

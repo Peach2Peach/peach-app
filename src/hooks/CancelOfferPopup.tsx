@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
-import { PopupAction } from '../components/popup'
 import { useClosePopup, useSetPopup } from '../components/popup/Popup'
+import { PopupAction } from '../components/popup/PopupAction'
 import { PopupComponent } from '../components/popup/PopupComponent'
 import { CancelOffer } from '../popups/CancelOffer'
 import { GrayPopup } from '../popups/GrayPopup'

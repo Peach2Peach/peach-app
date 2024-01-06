@@ -5,7 +5,7 @@ import { GetMatchesResponseBody } from '../../../../peach-api/src/@types/api/off
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { getAbortWithTimeout } from '../../../utils/getAbortWithTimeout'
-import { info } from '../../../utils/log'
+import { info } from '../../../utils/log/info'
 import { isBuyOffer } from '../../../utils/offer/isBuyOffer'
 import { peachAPI } from '../../../utils/peachAPI'
 

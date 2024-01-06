@@ -1,6 +1,7 @@
 {
   "offer.cancel.popup.description" : "Είσατε σίγουροι;\n\nΕάν έχετε ήδη αποστείλει τα Bitcoin σας στην εγγύηση, θα σας επιστραφούν μείον τα τέλη του δικτύου Bitcoin.",
   "offer.cancel.popup.title" : "ακύρωση προσφοράς",
+  "offer.canceled" : "ακυρωμένο",
   "offer.canceled.popup.title" : "η προσφορά ακυρώθηκε!",
   "offer.filter" : "φίλτρο",
   "offer.filter.maxPremium" : "μέγιστο ασφάλιστρο",

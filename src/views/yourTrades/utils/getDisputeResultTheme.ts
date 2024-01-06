@@ -1,8 +1,11 @@
+import { ContractSummary } from '../../../../peach-api/src/@types/contract'
 import { TradeTheme } from './getThemeForTradeItem'
-import { wonDisputeForTrade } from './wonDisputeForTrade'
 
-export const getDisputeResultTheme = (trade: Pick<ContractSummary, 'disputeWinner' | 'type'>): TradeTheme => {
-  const isWonDispute = wonDisputeForTrade(trade)
+export const getDisputeResultTheme = ({
+  disputeWinner,
+  type,
+}: Pick<ContractSummary, 'disputeWinner' | 'type'>): TradeTheme => {
+  const isWonDispute = (disputeWinner === 'seller' && type === 'ask') || (disputeWinner === 'buyer' && type === 'bid')
   return {
     iconId: 'alertOctagon',
     color: isWonDispute ? 'success' : 'error',

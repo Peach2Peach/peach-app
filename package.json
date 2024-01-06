@@ -108,7 +108,7 @@
     "rn-nodeify": "^10.3.0",
     "stream-browserify": "^3.0.0",
     "tiny-secp256k1": "^1.1.6",
-    "twrnc": "^3.6.0",
+    "twrnc": "^3.6.7",
     "util": "^0.12.5",
     "varuint-bitcoin": "^1.1.2",
     "zod": "^3.21.4",

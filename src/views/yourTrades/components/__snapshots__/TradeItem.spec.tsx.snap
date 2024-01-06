@@ -1,0 +1,5637 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContractItem should render correctly 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "backgroundColor": "#FFFCFA",
+      "borderColor": "#F56522",
+      "borderRadius": 12,
+      "borderWidth": 1,
+      "opacity": 1,
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 8,
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 12,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flexShrink": 1,
+          "gap": 4,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "height": 17,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          numberOfLines={1}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                  },
+                  undefined,
+                ],
+                {
+                  "marginBottom": -40,
+                  "marginTop": -40,
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          PC‑7B‑1C8
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 6,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "height": 17,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "color": "#7D675E",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                    },
+                    undefined,
+                    false,
+                  ],
+                  {
+                    "marginBottom": -40,
+                    "marginTop": -40,
+                  },
+                ],
+                false,
+              ]
+            }
+            suppressHighlighting={true}
+          >
+            01 / 01 / 21
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "flex-end",
+            "height": 40,
+            "paddingBottom": 1,
+            "paddingTop": 4,
+            "width": 141,
+          },
+          {
+            "gap": 6,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            undefined,
+            {
+              "justifyContent": "center",
+            },
+            {
+              "height": 10,
+              "width": 135,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                },
+                {
+                  "height": 16,
+                  "width": 16,
+                },
+              ]
+            }
+          >
+            <test-file-stub
+              fill="#888"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                ]
+              }
+            />
+          </View>
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                },
+                {
+                  "alignItems": "baseline",
+                },
+                {
+                  "gap": 2,
+                  "paddingTop": 3,
+                },
+              ]
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -3.57,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                .
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                2
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                1
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+            </Text>
+            <View
+              style={
+                {
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                      },
+                      false,
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 18,
+                        "paddingBottom": 2,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                sats
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "height": 17,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "color": "#7D675E",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                {
+                  "marginBottom": -40,
+                  "marginTop": -40,
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          21.00
+           
+          EUR
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "space-between",
+          "paddingBottom": 6,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 6,
+        },
+        {
+          "backgroundColor": "#F56522",
+        },
+      ]
+    }
+  >
+    <test-file-stub
+      fill="#FFFCFA"
+      style={
+        [
+          {
+            "height": 24,
+            "width": 24,
+          },
+          {
+            "opacity": 0,
+          },
+        ]
+      }
+    />
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 4,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 17,
+              "width": 17,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              {
+                "color": "#FFFCFA",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        make payment
+      </Text>
+    </View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "height": 28,
+            "justifyContent": "center",
+            "width": 28,
+          },
+          {
+            "opacity": 0,
+          },
+        ]
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 24,
+              "width": 24,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "fontFamily": "Baloo2-Bold",
+              "position": "absolute",
+              "textAlign": "center",
+            },
+            false,
+          ]
+        }
+      >
+        0
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`ContractItem should render correctly when republished 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "backgroundColor": "#FFFCFA",
+      "borderColor": "#DF321F",
+      "borderRadius": 12,
+      "borderWidth": 1,
+      "opacity": 1,
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 8,
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 12,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flexShrink": 1,
+          "gap": 4,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "height": 17,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          numberOfLines={1}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                  },
+                  {
+                    "color": "#9F8C82",
+                  },
+                ],
+                {
+                  "marginBottom": -40,
+                  "marginTop": -40,
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          PC‑7B‑1C8 (canceled)
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 6,
+          }
+        }
+      >
+        <test-file-stub
+          fill="#2B1911"
+          style={
+            [
+              {
+                "height": 17,
+                "width": 17,
+              },
+              undefined,
+            ]
+          }
+        />
+        <View
+          style={
+            {
+              "height": 17,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            onPress={[Function]}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "color": "#7D675E",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                    },
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 22,
+                      "textDecorationLine": "underline",
+                    },
+                    {
+                      "width": 100,
+                    },
+                  ],
+                  {
+                    "marginBottom": -40,
+                    "marginTop": -40,
+                  },
+                ],
+                false,
+              ]
+            }
+            suppressHighlighting={false}
+          >
+            P‑7B
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "space-between",
+          "paddingBottom": 6,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 6,
+        },
+        {
+          "backgroundColor": "#DF321F",
+        },
+      ]
+    }
+  >
+    <test-file-stub
+      fill="#FFFCFA"
+      style={
+        [
+          {
+            "height": 24,
+            "width": 24,
+          },
+          {
+            "opacity": 0,
+          },
+        ]
+      }
+    />
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 4,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 17,
+              "width": 17,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              {
+                "color": "#FFFCFA",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        dispute started
+      </Text>
+    </View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "height": 28,
+            "justifyContent": "center",
+            "width": 28,
+          },
+          {
+            "opacity": 0,
+          },
+        ]
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 24,
+              "width": 24,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "fontFamily": "Baloo2-Bold",
+              "position": "absolute",
+              "textAlign": "center",
+            },
+            false,
+          ]
+        }
+      >
+        0
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`ContractItem should render correctly with past contract 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "backgroundColor": "#FFFCFA",
+      "borderColor": "#65A519",
+      "borderRadius": 12,
+      "borderWidth": 1,
+      "opacity": 1,
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 8,
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 12,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flexShrink": 1,
+          "gap": 4,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "height": 17,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          numberOfLines={1}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                  },
+                  undefined,
+                ],
+                {
+                  "marginBottom": -40,
+                  "marginTop": -40,
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          PC‑7B‑1C8
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 6,
+          }
+        }
+      >
+        <test-file-stub
+          fill="#65A519"
+          style={
+            [
+              {
+                "height": 16,
+                "width": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <View
+          style={
+            {
+              "height": 17,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "color": "#7D675E",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                    },
+                    undefined,
+                    {
+                      "width": 100,
+                    },
+                  ],
+                  {
+                    "marginBottom": -40,
+                    "marginTop": -40,
+                  },
+                ],
+                false,
+              ]
+            }
+            suppressHighlighting={true}
+          >
+            01 / 01 / 21
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "flex-end",
+            "height": 40,
+            "paddingBottom": 1,
+            "paddingTop": 4,
+            "width": 141,
+          },
+          {
+            "gap": 6,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            undefined,
+            {
+              "justifyContent": "center",
+            },
+            {
+              "height": 10,
+              "width": 135,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                },
+                {
+                  "height": 16,
+                  "width": 16,
+                },
+              ]
+            }
+          >
+            <test-file-stub
+              fill="#888"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                ]
+              }
+            />
+          </View>
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                },
+                {
+                  "alignItems": "baseline",
+                },
+                {
+                  "gap": 2,
+                  "paddingTop": 3,
+                },
+              ]
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -3.57,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                .
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                2
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                1
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+            </Text>
+            <View
+              style={
+                {
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                      },
+                      false,
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 18,
+                        "paddingBottom": 2,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                sats
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "height": 17,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "color": "#7D675E",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                {
+                  "marginBottom": -40,
+                  "marginTop": -40,
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          21.00
+           
+          EUR
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`ContractItem should render correctly with unread messages 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "backgroundColor": "#FFFCFA",
+      "borderColor": "#F56522",
+      "borderRadius": 12,
+      "borderWidth": 1,
+      "opacity": 1,
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 8,
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 12,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flexShrink": 1,
+          "gap": 4,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "height": 17,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          numberOfLines={1}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                  },
+                  undefined,
+                ],
+                {
+                  "marginBottom": -40,
+                  "marginTop": -40,
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          PC‑7B‑1C8
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 6,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "height": 17,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "color": "#7D675E",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                    },
+                    undefined,
+                    false,
+                  ],
+                  {
+                    "marginBottom": -40,
+                    "marginTop": -40,
+                  },
+                ],
+                false,
+              ]
+            }
+            suppressHighlighting={true}
+          >
+            01 / 01 / 21
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "flex-end",
+            "height": 40,
+            "paddingBottom": 1,
+            "paddingTop": 4,
+            "width": 141,
+          },
+          {
+            "gap": 6,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            undefined,
+            {
+              "justifyContent": "center",
+            },
+            {
+              "height": 10,
+              "width": 135,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                },
+                {
+                  "height": 16,
+                  "width": 16,
+                },
+              ]
+            }
+          >
+            <test-file-stub
+              fill="#888"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                ]
+              }
+            />
+          </View>
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                },
+                {
+                  "alignItems": "baseline",
+                },
+                {
+                  "gap": 2,
+                  "paddingTop": 3,
+                },
+              ]
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -3.57,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                .
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                2
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                1
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+            </Text>
+            <View
+              style={
+                {
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                      },
+                      false,
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 18,
+                        "paddingBottom": 2,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                sats
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "height": 17,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "color": "#7D675E",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                {
+                  "marginBottom": -40,
+                  "marginTop": -40,
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          21.00
+           
+          EUR
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "space-between",
+          "paddingBottom": 6,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 6,
+        },
+        {
+          "backgroundColor": "#F56522",
+        },
+      ]
+    }
+  >
+    <test-file-stub
+      fill="#FFFCFA"
+      style={
+        [
+          {
+            "height": 24,
+            "width": 24,
+          },
+          {
+            "opacity": 0,
+          },
+        ]
+      }
+    />
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 4,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 17,
+              "width": 17,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              {
+                "color": "#FFFCFA",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        make payment
+      </Text>
+    </View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "height": 28,
+            "justifyContent": "center",
+            "width": 28,
+          },
+          false,
+        ]
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 24,
+              "width": 24,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "fontFamily": "Baloo2-Bold",
+              "position": "absolute",
+              "textAlign": "center",
+            },
+            false,
+          ]
+        }
+      >
+        1
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`OfferItem should render correctly 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "backgroundColor": "#FFFCFA",
+      "borderColor": "#FCCCB6",
+      "borderRadius": 12,
+      "borderWidth": 1,
+      "opacity": 1,
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 8,
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 12,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flexShrink": 1,
+          "gap": 4,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "height": 17,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          numberOfLines={1}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                  },
+                  undefined,
+                ],
+                {
+                  "marginBottom": -40,
+                  "marginTop": -40,
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          P‑NAN
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 6,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "height": 17,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "color": "#7D675E",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                    },
+                    undefined,
+                    false,
+                  ],
+                  {
+                    "marginBottom": -40,
+                    "marginTop": -40,
+                  },
+                ],
+                false,
+              ]
+            }
+            suppressHighlighting={true}
+          >
+            01 / 01 / 21
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "gap": -4,
+        }
+      }
+    >
+      <View
+        style={
+          [
+            undefined,
+            {
+              "justifyContent": "center",
+            },
+            {
+              "height": 10,
+              "width": 135,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                },
+                {
+                  "height": 16,
+                  "width": 16,
+                },
+              ]
+            }
+          >
+            <test-file-stub
+              fill="#888"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                ]
+              }
+            />
+          </View>
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                },
+                {
+                  "alignItems": "baseline",
+                },
+                {
+                  "gap": 2,
+                  "paddingTop": 3,
+                },
+              ]
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -3.57,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                .
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                2
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                1
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+            </Text>
+            <View
+              style={
+                {
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                      },
+                      false,
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 18,
+                        "paddingBottom": 2,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                sats
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "color": "#9F8C82",
+              "fontFamily": "Baloo2-Medium",
+              "fontSize": 12,
+              "lineHeight": 19,
+            },
+            false,
+          ]
+        }
+      >
+        ~
+      </Text>
+      <View
+        style={
+          [
+            undefined,
+            {
+              "justifyContent": "center",
+            },
+            {
+              "height": 10,
+              "width": 135,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                },
+                {
+                  "height": 16,
+                  "width": 16,
+                },
+              ]
+            }
+          >
+            <test-file-stub
+              fill="#888"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                ]
+              }
+            />
+          </View>
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                },
+                {
+                  "alignItems": "baseline",
+                },
+                {
+                  "gap": 2,
+                  "paddingTop": 3,
+                },
+              ]
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -3.57,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                .
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                2
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                1
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+            </Text>
+            <View
+              style={
+                {
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                      },
+                      false,
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 18,
+                        "paddingBottom": 2,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                sats
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "space-between",
+          "paddingBottom": 6,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 6,
+        },
+        {
+          "backgroundColor": "#FCCCB6",
+        },
+      ]
+    }
+  >
+    <test-file-stub
+      fill="#7D675E"
+      style={
+        [
+          {
+            "height": 24,
+            "width": 24,
+          },
+          {
+            "opacity": 0,
+          },
+        ]
+      }
+    />
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 4,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#7D675E"
+        style={
+          [
+            {
+              "height": 17,
+              "width": 17,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              {
+                "color": "#7D675E",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        looking for match
+      </Text>
+    </View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "height": 28,
+            "justifyContent": "center",
+            "width": 28,
+          },
+          {
+            "opacity": 0,
+          },
+        ]
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 24,
+              "width": 24,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "fontFamily": "Baloo2-Bold",
+              "position": "absolute",
+              "textAlign": "center",
+            },
+            false,
+          ]
+        }
+      />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`OfferItem should render correctly if it's a past offer 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "backgroundColor": "#FFFCFA",
+      "borderColor": "#65A519",
+      "borderRadius": 12,
+      "borderWidth": 1,
+      "opacity": 1,
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 8,
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 12,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flexShrink": 1,
+          "gap": 4,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "height": 17,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          numberOfLines={1}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                  },
+                  undefined,
+                ],
+                {
+                  "marginBottom": -40,
+                  "marginTop": -40,
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          P‑NAN
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 6,
+          }
+        }
+      >
+        <test-file-stub
+          fill="#65A519"
+          style={
+            [
+              {
+                "height": 16,
+                "width": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <View
+          style={
+            {
+              "height": 17,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "color": "#7D675E",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                    },
+                    undefined,
+                    {
+                      "width": 100,
+                    },
+                  ],
+                  {
+                    "marginBottom": -40,
+                    "marginTop": -40,
+                  },
+                ],
+                false,
+              ]
+            }
+            suppressHighlighting={true}
+          >
+            01 / 01 / 21
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "gap": -4,
+        }
+      }
+    >
+      <View
+        style={
+          [
+            undefined,
+            {
+              "justifyContent": "center",
+            },
+            {
+              "height": 10,
+              "width": 135,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                },
+                {
+                  "height": 16,
+                  "width": 16,
+                },
+              ]
+            }
+          >
+            <test-file-stub
+              fill="#888"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                ]
+              }
+            />
+          </View>
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                },
+                {
+                  "alignItems": "baseline",
+                },
+                {
+                  "gap": 2,
+                  "paddingTop": 3,
+                },
+              ]
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -3.57,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                .
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                2
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                1
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+            </Text>
+            <View
+              style={
+                {
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                      },
+                      false,
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 18,
+                        "paddingBottom": 2,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                sats
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "color": "#9F8C82",
+              "fontFamily": "Baloo2-Medium",
+              "fontSize": 12,
+              "lineHeight": 19,
+            },
+            false,
+          ]
+        }
+      >
+        ~
+      </Text>
+      <View
+        style={
+          [
+            undefined,
+            {
+              "justifyContent": "center",
+            },
+            {
+              "height": 10,
+              "width": 135,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                },
+                {
+                  "height": 16,
+                  "width": 16,
+                },
+              ]
+            }
+          >
+            <test-file-stub
+              fill="#888"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                ]
+              }
+            />
+          </View>
+          <View
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                },
+                {
+                  "alignItems": "baseline",
+                },
+                {
+                  "gap": 2,
+                  "paddingTop": 3,
+                },
+              ]
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -3.57,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                .
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B19111A",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                2
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                1
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -5.949999999999999,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      [
+                        {
+                          "alignItems": "center",
+                          "fontFamily": "CourierPrime-Bold",
+                          "textAlign": "center",
+                        },
+                        {
+                          "fontSize": 17,
+                          "lineHeight": 23,
+                        },
+                      ],
+                      {
+                        "color": "#2B1911",
+                        "letterSpacing": -1.275,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                0
+              </Text>
+            </Text>
+            <View
+              style={
+                {
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                      },
+                      false,
+                      {
+                        "fontSize": 12,
+                        "lineHeight": 18,
+                        "paddingBottom": 2,
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                sats
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

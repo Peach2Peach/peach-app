@@ -14,8 +14,8 @@ export function useContractMutation<TData = unknown, TVariables = void> (
     ...options,
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
-      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contractId])
-      queryClient.setQueryData(['contract', contractId], (oldQueryData: GetContractResponse | undefined) => {
+      const previousData = queryClient.getQueryData<Contract>(['contract', contractId])
+      queryClient.setQueryData(['contract', contractId], (oldQueryData: Contract | undefined) => {
         if (!oldQueryData) return oldQueryData
         return {
           ...oldQueryData,

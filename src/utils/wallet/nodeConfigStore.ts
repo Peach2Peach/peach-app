@@ -2,7 +2,7 @@ import { BlockChainNames } from 'bdk-rn/lib/lib/enums'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { createPersistStorage } from '../../store/createPersistStorage'
-import { createStorage } from '../storage'
+import { createStorage } from '../storage/createStorage'
 
 export type NodeConfig = {
   enabled: boolean

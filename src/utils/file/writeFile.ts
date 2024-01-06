@@ -1,6 +1,7 @@
 import RNFS from 'react-native-fs'
 import { encrypt } from '../crypto/encrypt'
-import { error, info } from '../log'
+import { error } from '../log/error'
+import { info } from '../log/info'
 
 export const writeFile = async (path: string, content: string, password?: string): Promise<boolean> => {
   info(password ? 'Writing encrypted file' : 'Writing file', path)

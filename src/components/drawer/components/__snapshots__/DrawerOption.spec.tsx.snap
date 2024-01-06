@@ -64,8 +64,9 @@ exports[`DrawerOption should render correctly when highlighted 1`] = `
           },
           [
             {
-              "fontFamily": "Baloo2-Bold",
+              "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
+              "fontWeight": "bold",
               "letterSpacing": 0.16,
               "lineHeight": 23,
             },
@@ -200,8 +201,9 @@ exports[`DrawerOption should render correctly with only title 1`] = `
             },
             [
               {
-                "fontFamily": "Baloo2-Bold",
+                "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
+                "fontWeight": "bold",
                 "letterSpacing": 0.16,
                 "lineHeight": 23,
               },
@@ -305,8 +307,9 @@ exports[`DrawerOption should render correctly with title and flagID 1`] = `
             },
             [
               {
-                "fontFamily": "Baloo2-Bold",
+                "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
+                "fontWeight": "bold",
                 "letterSpacing": 0.16,
                 "lineHeight": 23,
               },
@@ -400,8 +403,9 @@ exports[`DrawerOption should render correctly with title and iconRightID 1`] = `
             },
             [
               {
-                "fontFamily": "Baloo2-Bold",
+                "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
+                "fontWeight": "bold",
                 "letterSpacing": 0.16,
                 "lineHeight": 23,
               },
@@ -533,8 +537,9 @@ exports[`DrawerOption should render correctly with title and logoID 1`] = `
             },
             [
               {
-                "fontFamily": "Baloo2-Bold",
+                "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
+                "fontWeight": "bold",
                 "letterSpacing": 0.16,
                 "lineHeight": 23,
               },
@@ -618,8 +623,9 @@ exports[`DrawerOption should render correctly with title and subtext 1`] = `
           },
           [
             {
-              "fontFamily": "Baloo2-Bold",
+              "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
+              "fontWeight": "bold",
               "letterSpacing": 0.16,
               "lineHeight": 23,
             },
@@ -745,8 +751,9 @@ exports[`DrawerOption should render correctly with title, flagID and iconRightID
             },
             [
               {
-                "fontFamily": "Baloo2-Bold",
+                "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
+                "fontWeight": "bold",
                 "letterSpacing": 0.16,
                 "lineHeight": 23,
               },
@@ -878,8 +885,9 @@ exports[`DrawerOption should render correctly with title, logoID and iconRightID
             },
             [
               {
-                "fontFamily": "Baloo2-Bold",
+                "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
+                "fontWeight": "bold",
                 "letterSpacing": 0.16,
                 "lineHeight": 23,
               },
@@ -998,8 +1006,9 @@ exports[`DrawerOption should render correctly with title, subtext and flagID 1`]
             },
             [
               {
-                "fontFamily": "Baloo2-Bold",
+                "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
+                "fontWeight": "bold",
                 "letterSpacing": 0.16,
                 "lineHeight": 23,
               },
@@ -1121,8 +1130,9 @@ exports[`DrawerOption should render correctly with title, subtext and iconRightI
           },
           [
             {
-              "fontFamily": "Baloo2-Bold",
+              "fontFamily": "Baloo2-Regular",
               "fontSize": 16,
+              "fontWeight": "bold",
               "letterSpacing": 0.16,
               "lineHeight": 23,
             },
@@ -1263,8 +1273,9 @@ exports[`DrawerOption should render correctly with title, subtext, flagID and ic
             },
             [
               {
-                "fontFamily": "Baloo2-Bold",
+                "fontFamily": "Baloo2-Regular",
                 "fontSize": 16,
+                "fontWeight": "bold",
                 "letterSpacing": 0.16,
                 "lineHeight": 23,
               },

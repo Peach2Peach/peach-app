@@ -16,15 +16,6 @@ type PeachWS = {
   onmessage?: WebSocket['onmessage'] | (() => {})
 }
 
-type AccessToken = {
-  expiry: number
-  accessToken: string
-}
-
-type APISuccess = {
-  success: true
-}
-
 type APIError = {
   error: string
   details?: unknown
@@ -207,17 +198,7 @@ type GetInfoResponse = {
   latestAppVersion: string
   minAppVersion: string
 }
-type PeachInfo = GetInfoResponse
 
-type GetTxResponse = Transaction
-type PostTxResponse = {
-  txId: string
-}
-
-type PeachPairInfo = {
-  pair: TradingPair
-  price: number
-}
 type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 
 type TradeStatus =
@@ -249,15 +230,7 @@ type OfferPaymentData = Partial<
     { hashes: string[]; hash?: string; country?: PaymentMethodCountry; encrypted?: string; signature?: string }
   >
 >
-type PostedOffer = BuyOffer | SellOffer
-type PostOfferResponseBody = PostedOffer | PostedOffer[]
-type OfferType = 'ask' | 'bid'
 
-type CreateEscrowResponse = {
-  offerId: string
-  escrow: string
-  funding: FundingStatus
-}
 type FundingError = '' | 'NOT_FOUND' | 'UNAUTHORIZED'
 type FundingStatusResponse = {
   offerId: string
@@ -266,17 +239,6 @@ type FundingStatusResponse = {
   error?: FundingError
   returnAddress: string
   userConfirmationRequired: boolean
-}
-
-type CancelOfferRequest = {
-  satsPerByte?: number
-}
-type CancelOfferResponse = {
-  psbt: string
-  returnAddress: string
-  amount: number
-  fees: number
-  satsPerByte: number
 }
 
 type MatchUnavailableReasons = {
@@ -312,65 +274,6 @@ type MatchResponse =
       matchedPrice: number
     }
 
-type OfferSummary = {
-  id: string
-  type: 'bid' | 'ask'
-  contractId?: string
-  lastModified: Date
-  creationDate: Date
-  amount: number | [number, number]
-  matches: string[]
-  prices?: Pricebook
-  tradeStatus: TradeStatus
-  txId?: string
-  fundingTxId?: string
-}
-type GetOffersResponse = (BuyOffer | SellOffer)[]
-type GetOfferSummariesResponse = OfferSummary[]
-
-type GetContractResponse = Contract
-
-type ContractSummary = {
-  id: string
-  offerId: string
-  type: 'bid' | 'ask'
-  creationDate: Date
-  lastModified: Date
-  paymentMade?: Date
-  tradeStatus: TradeStatus
-  disputeWinner?: Contract['disputeWinner']
-  unreadMessages: number
-  amount: number
-  price: number
-  currency: Currency
-  releaseTxId?: string
-  isChatActive: boolean
-}
-type GetContractsResponse = Contract[]
-type GetContractSummariesResponse = ContractSummary[]
-
-type ConfirmPaymentResponse = {
-  success: true
-  txId?: string
-}
-
-type GetChatResponse = Message[]
-
-type PostChatProps = {
-  contractId: Contract['id']
-  message: string
-  signature: string
-}
-
-type CancelContractResponse = {
-  success: true
-  psbt?: string
-}
-
-type FundEscrowResponse = {
-  txId: string
-}
-
 type GenerateBlockResponse = {
   txId: string
 }
@@ -382,17 +285,6 @@ type FeeRecommendation = {
   economyFee: number
   minimumFee: number
 }
-type GetFeeEstimateResponse = FeeRecommendation
-type TradeSummary = (OfferSummary | ContractSummary) & {
-  paymentMade?: Date
-  unreadMessages?: number
-}
-
-type ReviveSellOfferResponseBody = {
-  newOfferId: Offer['id']
-}
-
-type ExtendPaymentTimerResponseBody = APISuccess
 
 type NotificationType =
   | 'user.badge.unlocked' // PN-U01
@@ -441,36 +333,7 @@ type PNNotification = {
   bodyLocArgs?: string[]
 }
 
-type RefundSellOfferResponse = APISuccess
-
-type CheckReferralCodeResponse = {
-  valid: boolean
-}
-
-type RedeemReferralCodeResponseBody = APISuccess & { bonusPoints: User['bonusPoints'] }
-type RegisterResponseBody = AccessToken & { restored: boolean }
-
-type GetRefundPSBTResponseBody =
-  | {
-      psbt: string
-      returnAddress: string
-      amount: number
-      fees: number
-      satsPerByte: number
-    }
-  | APIError<'UNAUTHORIZED' | 'TRANSACTION_INVALID' | 'NOT_FOUND'>
-
 type BuySorter = 'highestAmount' | 'lowestPremium' | 'bestReputation'
 type SellSorter = 'highestPrice' | 'bestReputation'
 
 type Sorter = BuySorter | SellSorter
-
-type GetUserPaymentMethodInfoRequestParams = {}
-type GetUserPaymentMethodInfoRequestQuery = {}
-type GetUserPaymentMethodInfoRequestBody = {}
-type GetUserPaymentMethodInfoResponseBody = {
-  forbidden: {
-    buy: PaymentMethod[]
-    sell: PaymentMethod[]
-  }
-}

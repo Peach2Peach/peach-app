@@ -3,7 +3,7 @@ import { responseUtils } from 'test-utils'
 import { recoveredAccount } from '../../../tests/unit/data/accountData'
 import { buyOffer, sellOffer } from '../../../tests/unit/data/offerData'
 import { useSettingsStore } from '../../store/settingsStore'
-import { error } from '../log'
+import { error } from '../log/error'
 import { peachAPI } from '../peachAPI'
 import { recoverAccount } from './recoverAccount'
 

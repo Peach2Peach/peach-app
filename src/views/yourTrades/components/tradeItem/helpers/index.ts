@@ -1,1 +1,0 @@
-export { getStatusCardProps } from './getStatusCardProps'

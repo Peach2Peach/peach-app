@@ -1,4 +1,4 @@
-import { info } from '../../log'
+import { info } from '../../log/info'
 import { storeChats } from './storeChats'
 import { storeIdentity } from './storeIdentity'
 import { storeOffers } from './storeOffers'

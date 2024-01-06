@@ -8,8 +8,9 @@ import { accountStorage } from '../utils/account/accountStorage'
 import { chatStorage } from '../utils/account/chatStorage'
 import { offerStorage } from '../utils/account/offerStorage'
 import { updateAccount } from '../utils/account/updateAccount'
-import { error, info } from '../utils/log'
-import { getIndexedMap } from '../utils/storage'
+import { error } from '../utils/log/error'
+import { info } from '../utils/log/info'
+import { getIndexedMap } from '../utils/storage/getIndexedMap'
 import { getPeachInfo } from './getPeachInfo'
 
 export const initApp = async () => {

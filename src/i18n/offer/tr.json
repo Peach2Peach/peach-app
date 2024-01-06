@@ -1,6 +1,7 @@
 {
   "offer.cancel.popup.description" : "Emin misiniz?\n\nEğer bitcoininizi escrow'a göndermişseniz, bitcoin ağ ücretleri düşülerek iade edilecektir.",
   "offer.cancel.popup.title" : "teklifi iptal et",
+  "offer.canceled" : "iptal edildi",
   "offer.canceled.popup.title" : "teklif iptal edildi!",
   "offer.filter" : "filtrele",
   "offer.filter.maxPremium" : "maksimum prim",

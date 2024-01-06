@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { createStorage } from '../utils/storage'
+import { ContractSummary } from '../../peach-api/src/@types/contract'
+import { OfferSummary } from '../../peach-api/src/@types/offer'
+import { createStorage } from '../utils/storage/createStorage'
 import { createPersistStorage } from './createPersistStorage'
 
 export type TradeSummaryState = {

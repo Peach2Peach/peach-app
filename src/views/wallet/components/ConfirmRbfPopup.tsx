@@ -1,7 +1,7 @@
 import { PartiallySignedTransaction } from 'bdk-rn'
 import { useCallback } from 'react'
-import { PopupAction } from '../../../components/popup'
 import { useClosePopup } from '../../../components/popup/Popup'
+import { PopupAction } from '../../../components/popup/PopupAction'
 import { PopupComponent } from '../../../components/popup/PopupComponent'
 import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { LoadingPopupAction } from '../../../popups/actions/LoadingPopupAction'

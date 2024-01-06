@@ -1,6 +1,7 @@
 {
   "offer.cancel.popup.description" : "Вы уверены? Если вы уже отправили биткойн на эскроу-счёт, деньги будут возвращены за вычетом комиссии блокчейна.",
   "offer.cancel.popup.title" : "отменить предложение",
+  "offer.canceled" : "отменено",
   "offer.canceled.popup.title" : "предложение отменено!",
   "offer.filter" : "фильтр",
   "offer.filter.maxPremium" : "макс. наценка",

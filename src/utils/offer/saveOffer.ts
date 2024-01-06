@@ -1,7 +1,8 @@
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { useAccountStore } from '../account/account'
 import { storeOffer } from '../account/storeAccount'
-import { error, info } from '../log'
+import { error } from '../log/error'
+import { info } from '../log/info'
 import { getSummaryFromOffer } from './getSummaryFromOffer'
 import { offerExists } from './offerExists'
 

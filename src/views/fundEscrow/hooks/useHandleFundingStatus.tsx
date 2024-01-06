@@ -4,10 +4,10 @@ import { useSetPopup } from '../../../components/popup/Popup'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { WronglyFundedPopup } from '../../../popups/WronglyFundedPopup'
 import { useStartRefundPopup } from '../../../popups/useStartRefundPopup'
-import { info } from '../../../utils/log'
+import { info } from '../../../utils/log/info'
 import { saveOffer } from '../../../utils/offer/saveOffer'
 import { OfferPublished } from '../../search/OfferPublished'
-import { useOfferMatches } from '../../search/hooks'
+import { useOfferMatches } from '../../search/hooks/useOfferMatches'
 
 type Props = {
   offerId: string

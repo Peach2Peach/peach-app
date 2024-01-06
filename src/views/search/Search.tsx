@@ -20,7 +20,8 @@ import { isBuyOffer } from '../../utils/offer/isBuyOffer'
 import { isSellOffer } from '../../utils/offer/isSellOffer'
 import { offerIdToHex } from '../../utils/offer/offerIdToHex'
 import { LoadingScreen } from '../loading/LoadingScreen'
-import { useOfferMatches, useSearchSetup } from './hooks'
+import { useOfferMatches } from './hooks/useOfferMatches'
+import { useSearchSetup } from './hooks/useSearchSetup'
 
 export const Search = () => {
   const { hasMatches, offer } = useSearchSetup()

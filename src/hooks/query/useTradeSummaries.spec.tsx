@@ -1,5 +1,5 @@
 import { renderHook, waitFor } from 'test-utils'
-import { contractSummary } from '../../../tests/unit/data/contractSummaryData'
+import { contractSummary } from '../../../peach-api/src/testData/contractSummary'
 import { offerSummary } from '../../../tests/unit/data/offerSummaryData'
 import { useTradeSummaries } from './useTradeSummaries'
 
