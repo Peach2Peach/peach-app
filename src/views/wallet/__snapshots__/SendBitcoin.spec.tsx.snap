@@ -5,81 +5,33 @@ exports[`SendBitcoin - With selected coins should not allow entering an amount h
 - First value
 + Second value
 
-@@ -1026,19 +1026,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 1
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -1060,11 +1060,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1094,11 +1094,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1128,11 +1128,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1162,11 +1162,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1265,11 +1265,11 @@
+@@ -800,11 +800,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0.00 000 00
++                               0.00 0
+                              </Text>
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  Array [
+@@ -833,11 +833,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0
++                               10 000
+                              </Text>
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+@@ -885,11 +885,11 @@
                               "position": "absolute",
                               "width": "100%",
                             }
@@ -99,7 +51,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
 - First value
 + Second value
 
-@@ -1873,10 +1873,123 @@
+@@ -1493,10 +1493,123 @@
                           />
                         </View>
                       </View>
@@ -230,81 +182,33 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
 - First value
 + Second value
 
-@@ -1026,19 +1026,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 1
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -1060,11 +1060,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1094,11 +1094,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1128,11 +1128,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1162,11 +1162,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1265,11 +1265,11 @@
+@@ -800,11 +800,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0.00 000 00
++                               0.00 0
+                              </Text>
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  Array [
+@@ -833,11 +833,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0
++                               10 000
+                              </Text>
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+@@ -885,11 +885,11 @@
                               "position": "absolute",
                               "width": "100%",
                             }
@@ -324,7 +228,7 @@ exports[`SendBitcoin should disable the slider while the wallet is not synced 1`
 - First value
 + Second value
 
-@@ -1984,11 +1984,11 @@
+@@ -1604,11 +1604,11 @@
                     <View
                       collapsable={false}
                       style={
@@ -344,142 +248,33 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
 - First value
 + Second value
 
-@@ -890,19 +890,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 2
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -924,19 +924,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 1
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -958,11 +958,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -992,11 +992,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1026,11 +1026,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1060,11 +1060,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1094,11 +1094,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1128,11 +1128,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1162,11 +1162,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1265,11 +1265,11 @@
+@@ -800,11 +800,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0.00 000 00
++                               0.
+                              </Text>
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  Array [
+@@ -833,11 +833,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0
++                               21 000 000
+                              </Text>
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+@@ -885,11 +885,11 @@
                               "position": "absolute",
                               "width": "100%",
                             }
@@ -1200,11 +995,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                           [
                             undefined,
                             {
-                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "flexDirection": "row",
+                              "justifyContent": "space-between",
                             },
                             {
                               "height": 13,
-                              "width": 179,
+                              "width": 152,
                             },
                           ]
                         }
@@ -1213,62 +1010,56 @@ exports[`SendBitcoin should render correctly 1`] = `
                           style={
                             [
                               {
-                                "alignItems": "center",
-                                "flexDirection": "row",
-                                "justifyContent": "flex-end",
-                                "marginBottom": -40,
-                                "marginTop": -40,
+                                "flexShrink": 0,
                               },
                               {
-                                "gap": 2,
+                                "paddingBottom": 2.5,
+                                "paddingLeft": 2.5,
+                                "paddingRight": 2.5,
+                                "paddingTop": 2.5,
+                              },
+                            ]
+                          }
+                        >
+                          <test-file-stub
+                            fill="#888"
+                            style={
+                              [
+                                {
+                                  "height": 15,
+                                  "width": 15,
+                                },
+                                undefined,
+                              ]
+                            }
+                          />
+                        </View>
+                        <View
+                          style={
+                            [
+                              {
+                                "alignItems": "center",
+                                "flexBasis": "0%",
+                                "flexDirection": "row",
+                                "flexGrow": 1,
+                                "flexShrink": 1,
+                              },
+                              {
+                                "gap": 5,
                               },
                             ]
                           }
                         >
                           <View
                             style={
-                              [
-                                {
-                                  "alignItems": "center",
-                                  "justifyContent": "center",
-                                },
-                                {
-                                  "height": 20,
-                                  "width": 20,
-                                },
-                              ]
-                            }
-                          >
-                            <test-file-stub
-                              fill="#888"
-                              style={
-                                [
-                                  {
-                                    "height": 24,
-                                    "width": 24,
-                                  },
-                                  {
-                                    "height": 15,
-                                    "width": 15,
-                                  },
-                                ]
+                              {
+                                "alignItems": "center",
+                                "flexBasis": "0%",
+                                "flexDirection": "row",
+                                "flexGrow": 1,
+                                "flexShrink": 1,
+                                "justifyContent": "flex-end",
                               }
-                            />
-                          </View>
-                          <View
-                            style={
-                              [
-                                {
-                                  "flexDirection": "row",
-                                },
-                                {
-                                  "alignItems": "baseline",
-                                },
-                                {
-                                  "gap": 3,
-                                  "paddingTop": 4,
-                                },
-                              ]
                             }
                           >
                             <Text
@@ -1284,465 +1075,89 @@ exports[`SendBitcoin should render correctly 1`] = `
                                   },
                                   [
                                     {
-                                      "alignItems": "center",
-                                      "fontFamily": "CourierPrime-Bold",
-                                      "textAlign": "center",
+                                      "opacity": 0.1,
+                                      "textAlign": "right",
                                     },
-                                    {
-                                      "fontSize": 22,
-                                      "lineHeight": 29,
-                                    },
+                                    [
+                                      {
+                                        "fontFamily": "Baloo2-SemiBold",
+                                        "fontSize": 16,
+                                        "letterSpacing": 0.16,
+                                        "lineHeight": 28,
+                                        "marginBottom": -13,
+                                        "marginTop": -13,
+                                      },
+                                      false,
+                                    ],
                                   ],
                                   false,
                                 ]
                               }
                             >
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -4.62,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                .
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -7.699999999999999,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                 
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -7.699999999999999,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                 
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B1911",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
+                              0.00 000 00
                             </Text>
-                            <View
+                            <Text
+                              allowFontScaling={false}
                               style={
-                                {
-                                  "justifyContent": "center",
-                                }
-                              }
-                            >
-                              <Text
-                                allowFontScaling={false}
-                                style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
                                   [
                                     {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
+                                      "textAlign": "right",
                                     },
                                     [
                                       {
-                                        "fontFamily": "Baloo2-Medium",
+                                        "fontFamily": "Baloo2-SemiBold",
+                                        "fontSize": 16,
+                                        "letterSpacing": 0.16,
+                                        "lineHeight": 28,
+                                        "marginBottom": -13,
+                                        "marginTop": -13,
                                       },
                                       false,
-                                      {
-                                        "fontSize": 16,
-                                        "lineHeight": 24,
-                                        "paddingBottom": 2,
-                                      },
                                     ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                sats
-                              </Text>
-                            </View>
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
                           </View>
+                          <Text
+                            allowFontScaling={false}
+                            style={
+                              [
+                                {
+                                  "color": "#2B1911",
+                                  "fontFamily": "Baloo2-Regular",
+                                  "fontSize": 16,
+                                  "letterSpacing": 0.16,
+                                  "lineHeight": 24,
+                                },
+                                [
+                                  {
+                                    "fontFamily": "Baloo2-SemiBold",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 28,
+                                    "marginBottom": -13,
+                                    "marginTop": -13,
+                                  },
+                                  false,
+                                ],
+                                false,
+                              ]
+                            }
+                          >
+                            sats
+                          </Text>
                         </View>
                       </View>
                       <TextInput
@@ -2591,142 +2006,33 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
 - First value
 + Second value
 
-@@ -890,19 +890,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 2
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -924,19 +924,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 1
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -958,11 +958,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -992,11 +992,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1026,11 +1026,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1060,11 +1060,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1094,11 +1094,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1128,11 +1128,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1162,11 +1162,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1265,11 +1265,11 @@
+@@ -800,11 +800,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0.00 000 00
++                               0.
+                              </Text>
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  Array [
+@@ -833,11 +833,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0
++                               21 000 000
+                              </Text>
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+@@ -885,11 +885,11 @@
                               "position": "absolute",
                               "width": "100%",
                             }
@@ -2778,99 +2084,33 @@ exports[`SendBitcoin should update the amount on change 1`] = `
 - First value
 + Second value
 
-@@ -1060,19 +1060,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 1
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -1094,11 +1094,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1128,19 +1128,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 2
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -1162,19 +1162,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 3
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -1204,11 +1204,11 @@
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 4
-                                </Text>
+@@ -800,11 +800,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0.00 000 00
++                               0.00 00
                               </Text>
-                              <View
+                              <Text
+                                allowFontScaling={false}
                                 style={
-                                  Object {
-@@ -1265,11 +1265,11 @@
+                                  Array [
+@@ -833,11 +833,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0
++                               1 234
+                              </Text>
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+@@ -885,11 +885,11 @@
                               "position": "absolute",
                               "width": "100%",
                             }
@@ -2890,7 +2130,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
 - First value
 + Second value
 
-@@ -1367,11 +1367,11 @@
+@@ -987,11 +987,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -2903,7 +2143,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "justifyContent": "space-between",
                               "opacity": 1,
-@@ -1442,11 +1442,11 @@
+@@ -1062,11 +1062,11 @@
                                 </Text>
                               </Text>
                             </View>
@@ -2916,7 +2156,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                                 Object {
                                   "height": 24,
                                   "width": 24,
-@@ -1489,11 +1489,11 @@
+@@ -1109,11 +1109,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -2929,7 +2169,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "justifyContent": "space-between",
                               "opacity": 1,
-@@ -1564,11 +1564,11 @@
+@@ -1184,11 +1184,11 @@
                                 </Text>
                               </Text>
                             </View>
