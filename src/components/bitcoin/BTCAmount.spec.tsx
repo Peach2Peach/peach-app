@@ -30,4 +30,9 @@ describe('BTCAmount', () => {
     const { toJSON } = render(<BTCAmount amount={amount} size="large" showAmount={false} />)
     expect(render(defaultBTCAmount).toJSON()).toMatchDiffSnapshot(toJSON())
   })
+  it('should render correctly when the amount has 6 digits', () => {
+    // trailing whitespaces get removed if they are in the first text node so we add it to the second one
+    const { toJSON } = render(<BTCAmount amount={123456} size="large" />)
+    expect(toJSON()).toMatchSnapshot()
+  })
 })

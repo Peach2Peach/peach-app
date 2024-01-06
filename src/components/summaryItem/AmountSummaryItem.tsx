@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import { useIsMediumScreen } from '../../hooks/useIsMediumScreen'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { BTCAmount } from '../bitcoin/btcAmount/BTCAmount'
+import { BTCAmount } from '../bitcoin/BTCAmount'
 import { CopyAble } from '../ui/CopyAble'
 import { SummaryItem, SummaryItemProps } from './SummaryItem'
 

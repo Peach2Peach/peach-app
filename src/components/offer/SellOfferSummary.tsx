@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { BTCAmount } from '../bitcoin/btcAmount/BTCAmount'
+import { BTCAmount } from '../bitcoin/BTCAmount'
 import { EscrowLink } from '../matches/components/EscrowLink'
 import { getPremiumColor } from '../matches/utils/getPremiumColor'
 import { PeachText } from '../text/PeachText'
