@@ -1,254 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BTCAmount should render correctly for extra large size 1`] = `
-<View
-  style={
-    [
-      undefined,
-      {
-        "justifyContent": "center",
-      },
-      {
-        "height": 18,
-        "width": 242,
-      },
-    ]
-  }
->
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "flex-end",
-          "marginBottom": -40,
-          "marginTop": -40,
-        },
-        {
-          "gap": 2,
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "alignItems": "center",
-            "justifyContent": "center",
-          },
-          {
-            "height": 32,
-            "width": 32,
-          },
-        ]
-      }
-    >
-      <Icon
-        id="bitcoinLogo"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-          ]
-        }
-      />
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "alignItems": "baseline",
-          },
-          {
-            "gap": 4,
-            "paddingTop": 4,
-          },
-        ]
-      }
-    >
-      <MixedLetterSpacingText
-        style={
-          [
-            {
-              "alignItems": "center",
-              "fontFamily": "CourierPrime-Bold",
-              "textAlign": "center",
-            },
-            {
-              "fontSize": 30,
-              "lineHeight": 40,
-            },
-          ]
-        }
-        value={21000}
-        white={false}
-      />
-      <View
-        style={
-          {
-            "justifyContent": "center",
-          }
-        }
-      >
-        <PeachText
-          style={
-            [
-              {
-                "fontFamily": "Baloo2-Medium",
-              },
-              false,
-              {
-                "fontSize": 20,
-                "lineHeight": 30,
-                "paddingBottom": 3,
-              },
-            ]
-          }
-        >
-          sats
-        </PeachText>
-      </View>
-    </View>
-  </View>
-</View>
-`;
-
-exports[`BTCAmount should render correctly for extra small size 1`] = `
-<View
-  style={
-    [
-      undefined,
-      {
-        "justifyContent": "center",
-      },
-      {
-        "height": 9,
-        "width": 120,
-      },
-    ]
-  }
->
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "flex-end",
-          "marginBottom": -40,
-          "marginTop": -40,
-        },
-        undefined,
-      ]
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "alignItems": "center",
-            "justifyContent": "center",
-          },
-          {
-            "height": 14,
-            "width": 14,
-          },
-        ]
-      }
-    >
-      <Icon
-        id="bitcoinLogo"
-        style={
-          [
-            {
-              "height": 10.5,
-              "width": 10.5,
-            },
-          ]
-        }
-      />
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "alignItems": "baseline",
-          },
-          {
-            "gap": 2,
-            "paddingTop": 3,
-          },
-        ]
-      }
-    >
-      <MixedLetterSpacingText
-        style={
-          [
-            {
-              "alignItems": "center",
-              "fontFamily": "CourierPrime-Bold",
-              "textAlign": "center",
-            },
-            {
-              "fontSize": 15,
-              "lineHeight": 20,
-            },
-          ]
-        }
-        value={21000}
-        white={false}
-      />
-      <View
-        style={
-          {
-            "justifyContent": "center",
-          }
-        }
-      >
-        <PeachText
-          style={
-            [
-              {
-                "fontFamily": "Baloo2-Medium",
-              },
-              false,
-              {
-                "fontSize": 10,
-                "lineHeight": 15,
-                "paddingBottom": 2,
-              },
-            ]
-          }
-        >
-          sats
-        </PeachText>
-      </View>
-    </View>
-  </View>
-</View>
-`;
-
 exports[`BTCAmount should render correctly for large size 1`] = `
 <View
   style={
     [
       undefined,
       {
-        "justifyContent": "center",
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
       },
       {
-        "height": 16,
-        "width": 211,
+        "height": 18,
+        "width": 196,
       },
     ]
   }
@@ -257,496 +21,545 @@ exports[`BTCAmount should render correctly for large size 1`] = `
     style={
       [
         {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "flex-end",
-          "marginBottom": -40,
-          "marginTop": -40,
+          "flexShrink": 0,
         },
         {
-          "gap": 2,
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+          "paddingTop": 4,
+        },
+      ]
+    }
+  >
+    <test-file-stub
+      fill="#888"
+      style={
+        [
+          {
+            "height": 24,
+            "width": 24,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+        },
+        {
+          "gap": 5,
         },
       ]
     }
   >
     <View
       style={
-        [
-          {
-            "alignItems": "center",
-            "justifyContent": "center",
-          },
-          {
-            "height": 26,
-            "width": 26,
-          },
-        ]
+        {
+          "alignItems": "center",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "flex-end",
+        }
       }
     >
-      <Icon
-        id="bitcoinLogo"
+      <Text
+        allowFontScaling={false}
         style={
           [
             {
-              "height": 19.5,
-              "width": 19.5,
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
             },
+            [
+              {
+                "opacity": 0.1,
+                "textAlign": "right",
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                },
+                false,
+              ],
+            ],
+            false,
           ]
         }
-      />
+      >
+        0.00 0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "textAlign": "right",
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                },
+                false,
+              ],
+            ],
+            false,
+          ]
+        }
+      >
+        21 000
+      </Text>
     </View>
-    <View
+    <Text
+      allowFontScaling={false}
       style={
         [
           {
-            "flexDirection": "row",
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
           },
-          {
-            "alignItems": "baseline",
-          },
-          {
-            "gap": 4,
-            "paddingTop": 4,
-          },
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+            },
+            false,
+          ],
+          false,
         ]
       }
     >
-      <MixedLetterSpacingText
-        style={
-          [
-            {
-              "alignItems": "center",
-              "fontFamily": "CourierPrime-Bold",
-              "textAlign": "center",
-            },
-            {
-              "fontSize": 26,
-              "lineHeight": 35,
-            },
-          ]
-        }
-        value={21000}
-        white={false}
-      />
-      <View
-        style={
-          {
-            "justifyContent": "center",
-          }
-        }
-      >
-        <PeachText
-          style={
-            [
-              {
-                "fontFamily": "Baloo2-Medium",
-              },
-              false,
-              {
-                "fontSize": 18,
-                "lineHeight": 27,
-                "paddingBottom": 3,
-              },
-            ]
-          }
-        >
-          sats
-        </PeachText>
-      </View>
-    </View>
+      sats
+    </Text>
   </View>
 </View>
 `;
 
 exports[`BTCAmount should render correctly for medium size 1`] = `
-<View
-  style={
-    [
-      undefined,
-      {
-        "justifyContent": "center",
-      },
-      {
-        "height": 13,
-        "width": 179,
-      },
-    ]
-  }
->
-  <View
-    style={
-      [
-        {
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -6,12 +6,12 @@
           "alignItems": "center",
           "flexDirection": "row",
-          "justifyContent": "flex-end",
-          "marginBottom": -40,
-          "marginTop": -40,
+          "justifyContent": "space-between",
         },
-        {
-          "gap": 2,
+        Object {
+-         "height": 18,
+-         "width": 196,
++         "height": 13,
++         "width": 152,
         },
       ]
     }
   >
     <View
-      style={
-        [
-          {
-            "alignItems": "center",
-            "justifyContent": "center",
+@@ -19,25 +19,25 @@
+        Array [
+          Object {
+            "flexShrink": 0,
           },
-          {
-            "height": 20,
-            "width": 20,
-          },
-        ]
-      }
-    >
-      <Icon
-        id="bitcoinLogo"
-        style={
-          [
-            {
-              "height": 15,
-              "width": 15,
-            },
-          ]
-        }
-      />
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "alignItems": "baseline",
-          },
-          {
-            "gap": 3,
-            "paddingTop": 4,
+          Object {
+-           "paddingBottom": 4,
+-           "paddingLeft": 4,
+-           "paddingRight": 4,
+-           "paddingTop": 4,
++           "paddingBottom": 2.5,
++           "paddingLeft": 2.5,
++           "paddingRight": 2.5,
++           "paddingTop": 2.5,
           },
         ]
       }
     >
-      <MixedLetterSpacingText
+      <test-file-stub
+        fill="#888"
         style={
-          [
-            {
-              "alignItems": "center",
-              "fontFamily": "CourierPrime-Bold",
-              "textAlign": "center",
+          Array [
+            Object {
+-             "height": 24,
+-             "width": 24,
++             "height": 15,
++             "width": 15,
             },
-            {
-              "fontSize": 22,
-              "lineHeight": 29,
-            },
+            undefined,
           ]
         }
-        value={21000}
-        white={false}
       />
-      <View
-        style={
-          {
-            "justifyContent": "center",
-          }
-        }
-      >
-        <PeachText
-          style={
-            [
-              {
-                "fontFamily": "Baloo2-Medium",
+@@ -87,12 +87,15 @@
+                  "textAlign": "right",
+                },
+                Array [
+                  Object {
+                    "fontFamily": "Baloo2-SemiBold",
+-                   "fontSize": 20,
+-                   "letterSpacing": 0.2,
++                   "fontSize": 16,
++                   "letterSpacing": 0.16,
++                   "lineHeight": 28,
++                   "marginBottom": -13,
++                   "marginTop": -13,
+                  },
+                  false,
+                ],
+              ],
+              false,
+@@ -117,12 +120,15 @@
+                  "textAlign": "right",
+                },
+                Array [
+                  Object {
+                    "fontFamily": "Baloo2-SemiBold",
+-                   "fontSize": 20,
+-                   "letterSpacing": 0.2,
++                   "fontSize": 16,
++                   "letterSpacing": 0.16,
++                   "lineHeight": 28,
++                   "marginBottom": -13,
++                   "marginTop": -13,
+                  },
+                  false,
+                ],
+              ],
+              false,
+@@ -144,12 +150,15 @@
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "Baloo2-SemiBold",
+-               "fontSize": 20,
+-               "letterSpacing": 0.2,
++               "fontSize": 16,
++               "letterSpacing": 0.16,
++               "lineHeight": 28,
++               "marginBottom": -13,
++               "marginTop": -13,
               },
               false,
-              {
-                "fontSize": 16,
-                "lineHeight": 24,
-                "paddingBottom": 2,
-              },
-            ]
-          }
-        >
-          sats
-        </PeachText>
-      </View>
-    </View>
-  </View>
-</View>
+            ],
+            false,
+          ]"
 `;
 
 exports[`BTCAmount should render correctly for small size 1`] = `
-<View
-  style={
-    [
-      undefined,
-      {
-        "justifyContent": "center",
-      },
-      {
-        "height": 10,
-        "width": 135,
-      },
-    ]
-  }
->
-  <View
-    style={
-      [
-        {
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -6,12 +6,12 @@
           "alignItems": "center",
           "flexDirection": "row",
-          "justifyContent": "flex-end",
-          "marginBottom": -40,
-          "marginTop": -40,
+          "justifyContent": "space-between",
         },
-        undefined,
+        Object {
+-         "height": 18,
+-         "width": 196,
++         "height": 10,
++         "width": 130,
+        },
       ]
     }
   >
     <View
-      style={
-        [
-          {
-            "alignItems": "center",
-            "justifyContent": "center",
+@@ -19,25 +19,25 @@
+        Array [
+          Object {
+            "flexShrink": 0,
           },
-          {
-            "height": 16,
-            "width": 16,
+          Object {
+-           "paddingBottom": 4,
+-           "paddingLeft": 4,
+-           "paddingRight": 4,
+-           "paddingTop": 4,
++           "paddingBottom": 2,
++           "paddingLeft": 2,
++           "paddingRight": 2,
++           "paddingTop": 2,
           },
         ]
       }
     >
-      <Icon
-        id="bitcoinLogo"
+      <test-file-stub
+        fill="#888"
         style={
-          [
-            {
-              "height": 12,
-              "width": 12,
+          Array [
+            Object {
+-             "height": 24,
+-             "width": 24,
++             "height": 12,
++             "width": 12,
             },
+            undefined,
           ]
         }
       />
-    </View>
-    <View
-      style={
-        [
-          {
+@@ -51,11 +51,11 @@
             "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
           },
-          {
-            "alignItems": "baseline",
-          },
-          {
-            "gap": 2,
-            "paddingTop": 3,
+          Object {
+-           "gap": 5,
++           "gap": 2,
           },
         ]
       }
     >
-      <MixedLetterSpacingText
-        style={
-          [
-            {
-              "alignItems": "center",
-              "fontFamily": "CourierPrime-Bold",
-              "textAlign": "center",
-            },
-            {
-              "fontSize": 17,
-              "lineHeight": 23,
-            },
-          ]
-        }
-        value={21000}
-        white={false}
-      />
       <View
-        style={
-          {
-            "justifyContent": "center",
-          }
-        }
-      >
-        <PeachText
-          style={
-            [
-              {
-                "fontFamily": "Baloo2-Medium",
+@@ -87,12 +87,15 @@
+                  "textAlign": "right",
+                },
+                Array [
+                  Object {
+                    "fontFamily": "Baloo2-SemiBold",
+-                   "fontSize": 20,
+-                   "letterSpacing": 0.2,
++                   "fontSize": 14,
++                   "letterSpacing": 0.14,
++                   "lineHeight": 22,
++                   "marginBottom": -10,
++                   "marginTop": -10,
+                  },
+                  false,
+                ],
+              ],
+              false,
+@@ -117,12 +120,15 @@
+                  "textAlign": "right",
+                },
+                Array [
+                  Object {
+                    "fontFamily": "Baloo2-SemiBold",
+-                   "fontSize": 20,
+-                   "letterSpacing": 0.2,
++                   "fontSize": 14,
++                   "letterSpacing": 0.14,
++                   "lineHeight": 22,
++                   "marginBottom": -10,
++                   "marginTop": -10,
+                  },
+                  false,
+                ],
+              ],
+              false,
+@@ -144,12 +150,15 @@
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "Baloo2-SemiBold",
+-               "fontSize": 20,
+-               "letterSpacing": 0.2,
++               "fontSize": 14,
++               "letterSpacing": 0.14,
++               "lineHeight": 22,
++               "marginBottom": -10,
++               "marginTop": -10,
               },
               false,
-              {
-                "fontSize": 12,
-                "lineHeight": 18,
-                "paddingBottom": 2,
-              },
-            ]
-          }
-        >
-          sats
-        </PeachText>
-      </View>
-    </View>
-  </View>
-</View>
+            ],
+            false,
+          ]"
 `;
 
 exports[`BTCAmount should render correctly when showAmount is false 1`] = `
-<View
-  style={
-    [
-      undefined,
-      {
-        "justifyContent": "center",
-      },
-      {
-        "height": 18,
-        "width": 242,
-      },
-    ]
-  }
->
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "flex-end",
-          "marginBottom": -40,
-          "marginTop": -40,
-        },
-        {
-          "gap": 2,
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        [
-          {
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -64,75 +64,123 @@
             "alignItems": "center",
-            "justifyContent": "center",
-          },
-          {
-            "height": 32,
-            "width": 32,
-          },
-        ]
-      }
-    >
-      <Icon
-        id="bitcoinLogo"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-          ]
-        }
-      />
-    </View>
-    <View
-      style={
-        [
-          {
+            "flexBasis": "0%",
             "flexDirection": "row",
-          },
-          {
-            "alignItems": "flex-end",
-          },
-          {
-            "gap": 4,
-            "paddingTop": 4,
-          },
-        ]
-      }
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "height": 40,
-            "justifyContent": "space-between",
-            "paddingLeft": 2,
-            "paddingRight": 2,
-            "width": 168.5,
+            "flexGrow": 1,
+            "flexShrink": 1,
+-           "justifyContent": "flex-end",
++           "justifyContent": "space-between",
++           "paddingLeft": 1,
           }
         }
       >
-        <Icon
-          id="ellipse"
-          size={8}
-        />
-        <Icon
-          id="ellipse"
-          size={8}
-        />
-        <Icon
-          id="ellipse"
-          size={8}
-        />
-        <Icon
-          id="ellipse"
-          size={8}
-        />
-        <Icon
-          id="ellipse"
-          size={8}
-        />
-        <Icon
-          id="ellipse"
-          size={8}
-        />
-        <Icon
-          id="ellipse"
-          size={8}
-        />
-        <Icon
-          id="ellipse"
-          size={8}
-        />
-        <Icon
-          id="ellipse"
-          size={8}
-        />
-      </View>
-      <View
-        style={
-          {
-            "justifyContent": "center",
-          }
-        }
-      >
-        <PeachText
+-       <Text
+-         allowFontScaling={false}
++       <test-file-stub
++         fill="#888"
           style={
-            [
-              {
-                "fontFamily": "Baloo2-Medium",
+            Array [
+              Object {
+-               "color": "#2B1911",
+-               "fontFamily": "Baloo2-Regular",
+-               "fontSize": 16,
+-               "letterSpacing": 0.16,
+-               "lineHeight": 24,
++               "height": 8,
++               "width": 8,
               },
-              false,
-              {
-                "fontSize": 20,
-                "lineHeight": 30,
-                "paddingBottom": 3,
++             undefined,
++           ]
++         }
++       />
++       <test-file-stub
++         fill="#888"
++         style={
+            Array [
+              Object {
+-                 "opacity": 0.1,
+-                 "textAlign": "right",
++               "height": 8,
++               "width": 8,
               },
++             undefined,
++           ]
++         }
++       />
++       <test-file-stub
++         fill="#888"
++         style={
+            Array [
+              Object {
+-                   "fontFamily": "Baloo2-SemiBold",
+-                   "fontSize": 20,
+-                   "letterSpacing": 0.2,
++               "height": 8,
++               "width": 8,
+              },
+-                 false,
+-               ],
+-             ],
+-             false,
++             undefined,
             ]
           }
-        >
-          sats
-        </PeachText>
+-       >
+-         0.00 0
+-       </Text>
+-       <Text
+-         allowFontScaling={false}
++       />
++       <test-file-stub
++         fill="#888"
+          style={
+            Array [
+              Object {
+-               "color": "#2B1911",
+-               "fontFamily": "Baloo2-Regular",
+-               "fontSize": 16,
+-               "letterSpacing": 0.16,
+-               "lineHeight": 24,
++               "height": 8,
++               "width": 8,
++             },
++             undefined,
++           ]
++         }
++       />
++       <test-file-stub
++         fill="#888"
++         style={
++           Array [
++             Object {
++               "height": 8,
++               "width": 8,
++             },
++             undefined,
++           ]
++         }
++       />
++       <test-file-stub
++         fill="#888"
++         style={
++           Array [
++             Object {
++               "height": 8,
++               "width": 8,
+              },
++             undefined,
++           ]
++         }
++       />
++       <test-file-stub
++         fill="#888"
++         style={
+            Array [
+              Object {
+-                 "textAlign": "right",
++               "height": 8,
++               "width": 8,
++             },
++             undefined,
++           ]
++         }
++       />
++       <test-file-stub
++         fill="#888"
++         style={
++           Array [
++             Object {
++               "height": 8,
++               "width": 8,
+              },
++             undefined,
++           ]
++         }
++       />
++       <test-file-stub
++         fill="#888"
++         style={
+            Array [
+              Object {
+-                   "fontFamily": "Baloo2-SemiBold",
+-                   "fontSize": 20,
+-                   "letterSpacing": 0.2,
++               "height": 8,
++               "width": 8,
+              },
+-                 false,
+-               ],
+-             ],
+-             false,
++             undefined,
+            ]
+          }
+-       >
+-         21 000
+-       </Text>
++       />
       </View>
-    </View>
-  </View>
-</View>
+      <Text
+        allowFontScaling={false}
+        style={
+          Array ["
 `;
 
 exports[`BTCAmount should render correctly when the value is 0 1`] = `
@@ -755,11 +568,13 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
     [
       undefined,
       {
-        "justifyContent": "center",
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
       },
       {
         "height": 18,
-        "width": 242,
+        "width": 196,
       },
     ]
   }
@@ -768,225 +583,197 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
     style={
       [
         {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "flex-end",
-          "marginBottom": -40,
-          "marginTop": -40,
+          "flexShrink": 0,
         },
         {
-          "gap": 2,
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+          "paddingTop": 4,
+        },
+      ]
+    }
+  >
+    <test-file-stub
+      fill="#888"
+      style={
+        [
+          {
+            "height": 24,
+            "width": 24,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+        },
+        {
+          "gap": 5,
         },
       ]
     }
   >
     <View
       style={
-        [
-          {
-            "alignItems": "center",
-            "justifyContent": "center",
-          },
-          {
-            "height": 32,
-            "width": 32,
-          },
-        ]
+        {
+          "alignItems": "center",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "flex-end",
+        }
       }
     >
-      <Icon
-        id="bitcoinLogo"
+      <Text
+        allowFontScaling={false}
         style={
           [
             {
-              "height": 24,
-              "width": 24,
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
             },
+            [
+              {
+                "opacity": 0.1,
+                "textAlign": "right",
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                },
+                false,
+              ],
+            ],
+            false,
           ]
         }
-      />
+      >
+        0.00 000 00
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "textAlign": "right",
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                },
+                false,
+              ],
+            ],
+            false,
+          ]
+        }
+      >
+        0
+      </Text>
     </View>
-    <View
+    <Text
+      allowFontScaling={false}
       style={
         [
           {
-            "flexDirection": "row",
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
           },
-          {
-            "alignItems": "baseline",
-          },
-          {
-            "gap": 4,
-            "paddingTop": 4,
-          },
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+            },
+            false,
+          ],
+          false,
         ]
       }
     >
-      <MixedLetterSpacingText
-        style={
-          [
-            {
-              "alignItems": "center",
-              "fontFamily": "CourierPrime-Bold",
-              "textAlign": "center",
-            },
-            {
-              "fontSize": 30,
-              "lineHeight": 40,
-            },
-          ]
-        }
-        value={0}
-        white={false}
-      />
-      <View
-        style={
-          {
-            "justifyContent": "center",
-          }
-        }
-      >
-        <PeachText
-          style={
-            [
-              {
-                "fontFamily": "Baloo2-Medium",
-              },
-              false,
-              {
-                "fontSize": 20,
-                "lineHeight": 30,
-                "paddingBottom": 3,
-              },
-            ]
-          }
-        >
-          sats
-        </PeachText>
-      </View>
-    </View>
+      sats
+    </Text>
   </View>
 </View>
 `;
 
 exports[`BTCAmount should render correctly with white 1`] = `
-<View
-  style={
-    [
-      undefined,
-      {
-        "justifyContent": "center",
-      },
-      {
-        "height": 18,
-        "width": 242,
-      },
-    ]
-  }
->
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "flex-end",
-          "marginBottom": -40,
-          "marginTop": -40,
-        },
-        {
-          "gap": 2,
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "alignItems": "center",
-            "justifyContent": "center",
-          },
-          {
-            "height": 32,
-            "width": 32,
-          },
-        ]
-      }
-    >
-      <Icon
-        id="bitcoinTransparent"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-          ]
-        }
-      />
-    </View>
-    <View
-      style={
-        [
-          {
-            "flexDirection": "row",
-          },
-          {
-            "alignItems": "baseline",
-          },
-          {
-            "gap": 4,
-            "paddingTop": 4,
-          },
-        ]
-      }
-    >
-      <MixedLetterSpacingText
-        style={
-          [
-            {
-              "alignItems": "center",
-              "fontFamily": "CourierPrime-Bold",
-              "textAlign": "center",
-            },
-            {
-              "fontSize": 30,
-              "lineHeight": 40,
-            },
-          ]
-        }
-        value={21000}
-        white={true}
-      />
-      <View
-        style={
-          {
-            "justifyContent": "center",
-          }
-        }
-      >
-        <PeachText
-          style={
-            [
-              {
-                "fontFamily": "Baloo2-Medium",
-              },
-              {
-                "color": "#FFFCFA",
-              },
-              {
-                "fontSize": 20,
-                "lineHeight": 30,
-                "paddingBottom": 3,
-              },
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -90,11 +90,13 @@
+                  Object {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                  },
+-                 false,
++                 Object {
++                   "color": "#FFFCFA",
++                 },
+                ],
+              ],
+              false,
             ]
           }
-        >
-          sats
-        </PeachText>
-      </View>
-    </View>
-  </View>
-</View>
+@@ -120,11 +122,13 @@
+                  Object {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                  },
+-                 false,
++                 Object {
++                   "color": "#FFFCFA",
++                 },
+                ],
+              ],
+              false,
+            ]
+          }
+@@ -147,11 +151,13 @@
+              Object {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 20,
+                "letterSpacing": 0.2,
+              },
+-             false,
++             Object {
++               "color": "#FFFCFA",
++             },
+            ],
+            false,
+          ]
+        }
+      >"
 `;
