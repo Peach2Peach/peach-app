@@ -20,8 +20,9 @@ import { parseError } from '../../utils/result/parseError'
 import { useHomeScreenRoute } from '../home/useHomeScreenRoute'
 import { TradeItem } from './components/TradeItem'
 import { TradePlaceholders } from './components/TradePlaceholders'
-import { getPastOffers, isOpenOffer } from './utils'
 import { getCategories } from './utils/getCategories'
+import { getPastOffers } from './utils/getPastOffers'
+import { isOpenOffer } from './utils/isOpenOffer'
 
 const YourTradesTab = createMaterialTopTabNavigator()
 const tabs = ['yourTrades.buy', 'yourTrades.sell', 'yourTrades.history'] as const

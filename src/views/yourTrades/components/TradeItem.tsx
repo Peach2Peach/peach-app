@@ -25,9 +25,11 @@ import { offerIdToHex } from '../../../utils/offer/offerIdToHex'
 import { groupChars } from '../../../utils/string/groupChars'
 import { priceFormat } from '../../../utils/string/priceFormat'
 import { useWalletState } from '../../../utils/wallet/walletStore'
-import { getThemeForTradeItem, isContractSummary, isPastOffer, statusIcons } from '../utils'
-import { TradeTheme } from '../utils/getThemeForTradeItem'
+import { TradeTheme, getThemeForTradeItem } from '../utils/getThemeForTradeItem'
+import { isContractSummary } from '../utils/isContractSummary'
+import { isPastOffer } from '../utils/isPastOffer'
 import { isTradeStatus } from '../utils/isTradeStatus'
+import { statusIcons } from '../utils/statusIcons'
 
 type Props = {
   item: OfferSummary | ContractSummary

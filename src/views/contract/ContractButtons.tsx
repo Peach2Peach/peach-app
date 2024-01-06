@@ -22,7 +22,7 @@ import { getOfferIdFromContract } from '../../utils/contract/getOfferIdFromContr
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
 import { thousands } from '../../utils/string/thousands'
-import { getNavigationDestinationForOffer } from '../yourTrades/utils'
+import { getNavigationDestinationForOffer } from '../yourTrades/utils/navigation/getNavigationDestinationForOffer'
 import { useContractContext } from './context'
 
 export function NewOfferButton () {

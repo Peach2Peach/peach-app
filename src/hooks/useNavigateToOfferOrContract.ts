@@ -5,7 +5,8 @@ import { OfferSummary } from '../../peach-api/src/@types/offer'
 import { useStartRefundPopup } from '../popups/useStartRefundPopup'
 import { isSellOffer } from '../utils/offer/isSellOffer'
 import { peachAPI } from '../utils/peachAPI'
-import { getNavigationDestinationForOffer, isContractSummary } from '../views/yourTrades/utils'
+import { isContractSummary } from '../views/yourTrades/utils/isContractSummary'
+import { getNavigationDestinationForOffer } from '../views/yourTrades/utils/navigation/getNavigationDestinationForOffer'
 import { useNavigation } from './useNavigation'
 
 export const useNavigateToOfferOrContract = (item: OfferSummary | ContractSummary) => {
