@@ -296,7 +296,6 @@ module.exports = {
     'no-prototype-builtins': 'warn',
     'no-async-promise-executor': 'warn',
     'jest/expect-expect': 'off',
-    'jest/no-large-snapshots': 'warn',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react-native/no-inline-styles': 'off',
