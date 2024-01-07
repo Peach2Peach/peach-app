@@ -6,7 +6,7 @@ import { groupChars } from '../../utils/string/groupChars'
 import { Icon } from '../Icon'
 import { PeachText } from '../text/PeachText'
 
-type Props = {
+export type BTCAmountProps = {
   amount: number
   size: 'large' | 'medium' | 'small'
   showAmount?: boolean
@@ -41,7 +41,7 @@ const styles = {
   },
 }
 
-export function BTCAmount ({ amount, size, white = false, showAmount = true, style }: Props) {
+export function BTCAmount ({ amount, size, white = false, showAmount = true, style }: BTCAmountProps) {
   const [greyText, blackText] = getDisplayAmount(amount)
   const textStyle = [styles[size].amount, white && tw`text-primary-background-light`]
   return (
