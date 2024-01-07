@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { Currency } from '../../../../peach-api/src/@types/global'
 import tw from '../../../styles/tailwind'
-import { BTCAmount } from '../../bitcoin/btcAmount/BTCAmount'
+import { BTCAmount } from '../../bitcoin/BTCAmount'
 import { PeachText } from '../../text/PeachText'
 import { PriceFormat } from '../../text/PriceFormat'
 import { PremiumText } from './PremiumText'

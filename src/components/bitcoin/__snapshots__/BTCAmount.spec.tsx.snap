@@ -562,6 +562,170 @@ exports[`BTCAmount should render correctly when showAmount is false 1`] = `
           Array ["
 `;
 
+exports[`BTCAmount should render correctly when the amount has 6 digits 1`] = `
+<View
+  style={
+    [
+      undefined,
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      },
+      {
+        "height": 18,
+        "width": 196,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      [
+        {
+          "flexShrink": 0,
+        },
+        {
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+          "paddingTop": 4,
+        },
+      ]
+    }
+  >
+    <test-file-stub
+      fill="#888"
+      style={
+        [
+          {
+            "height": 24,
+            "width": 24,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+        },
+        {
+          "gap": 5,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "flex-end",
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "opacity": 0.1,
+                "textAlign": "right",
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                },
+                false,
+              ],
+            ],
+            false,
+          ]
+        }
+      >
+        0.00
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "textAlign": "right",
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                },
+                false,
+              ],
+            ],
+            false,
+          ]
+        }
+      >
+         123 456
+      </Text>
+    </View>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+            },
+            false,
+          ],
+          false,
+        ]
+      }
+    >
+      sats
+    </Text>
+  </View>
+</View>
+`;
+
 exports[`BTCAmount should render correctly when the value is 0 1`] = `
 <View
   style={

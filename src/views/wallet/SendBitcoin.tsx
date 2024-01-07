@@ -92,7 +92,16 @@ export const SendBitcoin = () => {
               },
             }}
           >
-            <BTCAmountInput amount={amount} onChangeText={onAmountChange} />
+            <BTCAmountInput
+              value={amount.toString()}
+              onChangeText={onAmountChange}
+              size="medium"
+              textStyle={tw`absolute w-full py-0 opacity-0 grow h-38px input-text`}
+              containerStyle={[
+                tw`self-stretch justify-center px-2 py-3 overflow-hidden h-38px rounded-xl`,
+                tw`border bg-primary-background-light border-black-65`,
+              ]}
+            />
           </Section>
 
           <HorizontalLine />

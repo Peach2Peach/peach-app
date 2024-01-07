@@ -11,7 +11,12 @@ import { openInWallet } from '../../utils/bitcoin/openInWallet'
 import i18n from '../../utils/i18n'
 import { Icon } from '../Icon'
 import { PeachText } from '../text/PeachText'
-import { BitcoinAddressProps } from './hooks/useBitcoinAddressSetup'
+
+type BitcoinAddressProps = {
+  address: string
+  amount?: number
+  label?: string
+}
 
 export const BitcoinAddress = ({ address, amount, label }: BitcoinAddressProps) => {
   const isMediumScreen = useIsMediumScreen()

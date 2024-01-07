@@ -13,7 +13,7 @@ import { getHeaderStyles } from '../utils/layout/getHeaderStyles'
 import { thousands } from '../utils/string/thousands'
 import { Icon } from './Icon'
 import { TouchableIcon } from './TouchableIcon'
-import { BTCAmount } from './bitcoin/btcAmount/BTCAmount'
+import { BTCAmount } from './bitcoin/BTCAmount'
 import { PeachText } from './text/PeachText'
 import { PriceFormat } from './text/PriceFormat'
 

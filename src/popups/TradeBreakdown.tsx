@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { BTCAmount } from '../components/bitcoin/btcAmount/BTCAmount'
+import { BTCAmount } from '../components/bitcoin/BTCAmount'
 import { PeachText } from '../components/text/PeachText'
 import { HorizontalLine } from '../components/ui/HorizontalLine'
 import tw from '../styles/tailwind'
@@ -15,33 +15,33 @@ export const TradeBreakdown = ({ releaseTransaction, releaseAddress, amount }: P
     inputAmount: amount,
   })
 
-  const textStyle = tw`subtitle-1 text-black-65 shrink`
+  const data = [
+    [
+      { text: i18n('tradeComplete.popup.tradeBreakdown.sellerAmount'), amount },
+      { text: i18n('tradeComplete.popup.tradeBreakdown.peachFees'), amount: peachFee },
+    ],
+    [
+      { text: i18n('tradeComplete.popup.tradeBreakdown.tradeAmount'), amount: totalAmount - peachFee },
+      { text: i18n('tradeComplete.popup.tradeBreakdown.networkFees'), amount: networkFee },
+    ],
+    [{ text: i18n('tradeComplete.popup.tradeBreakdown.youGet'), amount: amountReceived }],
+  ]
 
   return (
-    <View>
-      <View style={tw`flex-row items-center justify-between mt-3`}>
-        <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.sellerAmount')}</PeachText>
-        <BTCAmount amount={amount} size="small" />
-      </View>
-      <View style={tw`flex-row items-center justify-between mt-3`}>
-        <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.peachFees')}</PeachText>
-        <BTCAmount amount={peachFee} size="small" />
-      </View>
-      <HorizontalLine style={tw`self-end my-4 bg-black-65 w-45`} />
-
-      <View style={tw`flex-row items-center justify-between`}>
-        <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.tradeAmount')}</PeachText>
-        <BTCAmount amount={totalAmount - peachFee} size="small" />
-      </View>
-      <View style={tw`flex-row items-center justify-between mt-3`}>
-        <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.networkFees')}</PeachText>
-        <BTCAmount amount={networkFee} size="small" />
-      </View>
-      <HorizontalLine style={tw`self-end my-4 bg-black-65 w-45`} />
-      <View style={tw`flex-row items-center justify-between`}>
-        <PeachText style={textStyle}>{i18n('tradeComplete.popup.tradeBreakdown.youGet')}</PeachText>
-        <BTCAmount amount={amountReceived} size="small" />
-      </View>
+    <View style={tw`gap-4`}>
+      {data.map((sectionData, index) => (
+        <>
+          <View style={tw`gap-3`}>
+            {sectionData.map((item) => (
+              <View style={tw`flex-row items-center justify-between`}>
+                <PeachText style={tw`subtitle-1 text-black-65 shrink`}>{item.text}</PeachText>
+                <BTCAmount amount={item.amount} size="small" />
+              </View>
+            ))}
+          </View>
+          {index !== data.length - 1 && <HorizontalLine style={tw`self-end bg-black-65 w-45`} />}
+        </>
+      ))}
     </View>
   )
 }

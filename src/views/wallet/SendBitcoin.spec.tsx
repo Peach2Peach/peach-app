@@ -45,8 +45,8 @@ describe('SendBitcoin', () => {
   })
   it('should update the amount on change', () => {
     peachWallet.balance = 21000000
-    const { toJSON, getByTestId } = render(<SendBitcoin />)
-    const amountInput = getByTestId('btc-amount-input')
+    const { toJSON, getByText } = render(<SendBitcoin />)
+    const amountInput = getByText('0')
     fireEvent.changeText(amountInput, '1234')
     expect(render(<SendBitcoin />).toJSON()).toMatchDiffSnapshot(toJSON())
   })
@@ -59,8 +59,8 @@ describe('SendBitcoin', () => {
   })
   it('should not allow entering an amount higher than the available balance', () => {
     peachWallet.balance = 21000000
-    const { toJSON, getByTestId } = render(<SendBitcoin />)
-    const amountInput = getByTestId('btc-amount-input')
+    const { toJSON, getByText } = render(<SendBitcoin />)
+    const amountInput = getByText('0')
     fireEvent.changeText(amountInput, '123456789')
     expect(render(<SendBitcoin />).toJSON()).toMatchDiffSnapshot(toJSON())
   })
@@ -85,11 +85,11 @@ describe('SendBitcoin', () => {
   })
   it('should disable the slider while the wallet is not synced', () => {
     useWalletState.setState({ isSynced: false })
-    const { getByTestId, getByText, getByPlaceholderText, toJSON } = render(<SendBitcoin />)
+    const { getByText, getByPlaceholderText, toJSON } = render(<SendBitcoin />)
 
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
-    const amountInput = getByTestId('btc-amount-input')
+    const amountInput = getByText('0')
     fireEvent.changeText(amountInput, '1234')
     const mediumFeeButton = getByText('~ 30 minutes  (6 sat/vB)')
     fireEvent.press(mediumFeeButton)
@@ -114,7 +114,7 @@ describe('SendBitcoin', () => {
 
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
-    const amountInput = getByTestId('btc-amount-input')
+    const amountInput = getByText('0')
     fireEvent.changeText(amountInput, '1234')
     const mediumFeeButton = getByText('~ 30 minutes  (6 sat/vB)')
     fireEvent.press(mediumFeeButton)
@@ -148,7 +148,7 @@ describe('SendBitcoin', () => {
     )
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
-    const amountInput = getByTestId('btc-amount-input')
+    const amountInput = getByText('0')
     fireEvent.changeText(amountInput, '1234')
     const customFeeButton = getByText('custom: ')
     fireEvent.press(customFeeButton)
@@ -166,7 +166,7 @@ describe('SendBitcoin', () => {
     )
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
-    const amountInput = getByTestId('btc-amount-input')
+    const amountInput = getByText('0')
     fireEvent.changeText(amountInput, '1234')
     const customFeeButton = getByText('custom: ')
     fireEvent.press(customFeeButton)
@@ -237,13 +237,13 @@ describe('SendBitcoin - With selected coins', () => {
     expect(noAmount).toMatchDiffSnapshot(maxAmount)
   })
   it('should not allow entering an amount higher than the sum of all selected coins', async () => {
-    const { toJSON, getByTestId } = render(<SendBitcoin />)
+    const { toJSON, getByText } = render(<SendBitcoin />)
 
     await waitFor(() => {
       expect(queryClient.getQueryData(['utxos'])).toStrictEqual([utxo])
     })
 
-    const amountInput = getByTestId('btc-amount-input')
+    const amountInput = getByText('0')
     fireEvent.changeText(amountInput, '123456789')
     expect(render(<SendBitcoin />).toJSON()).toMatchDiffSnapshot(toJSON())
   })

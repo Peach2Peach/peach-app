@@ -3,7 +3,7 @@ import { fireEvent, render } from 'test-utils'
 import { TotalBalance } from './TotalBalance'
 expect.extend({ toMatchDiffSnapshot })
 
-jest.mock('../../../components/bitcoin/btcAmount/BTCAmount', () => ({
+jest.mock('../../../components/bitcoin/BTCAmount', () => ({
   BTCAmount: 'BTCAmount',
 }))
 

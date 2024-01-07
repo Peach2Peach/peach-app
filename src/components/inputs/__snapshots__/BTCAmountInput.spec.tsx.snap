@@ -4,23 +4,25 @@ exports[`BTCAmountInput renders correctly 1`] = `
 <View
   style={
     [
-      {
-        "alignSelf": "stretch",
-        "borderRadius": 12,
-        "height": 38,
-        "justifyContent": "center",
-        "overflow": "hidden",
-        "paddingBottom": 12,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 12,
-      },
-      {
-        "backgroundColor": "#FFFCFA",
-        "borderColor": "#7D675E",
-        "borderWidth": 1,
-      },
-      undefined,
+      [
+        {
+          "alignSelf": "stretch",
+          "borderRadius": 12,
+          "height": 38,
+          "justifyContent": "center",
+          "overflow": "hidden",
+          "paddingBottom": 12,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 12,
+        },
+        {
+          "backgroundColor": "#FFFCFA",
+          "borderColor": "#7D675E",
+          "borderWidth": 1,
+        },
+      ],
+      false,
     ]
   }
 >
@@ -196,7 +198,9 @@ exports[`BTCAmountInput renders correctly 1`] = `
   </View>
   <TextInput
     keyboardType="number-pad"
+    onBlur={[Function]}
     onChangeText={[MockFunction]}
+    onFocus={[Function]}
     style={
       {
         "flexGrow": 1,
@@ -212,7 +216,6 @@ exports[`BTCAmountInput renders correctly 1`] = `
         "width": "100%",
       }
     }
-    testID="btc-amount-input"
     value="0"
   />
 </View>
