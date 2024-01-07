@@ -59,7 +59,7 @@ export const Match = ({ match, offer, currentPage }: { match: Match; offer: Sell
         ]}
         onStartShouldSetResponder={() => true}
       >
-        <View style={tw`gap-4 p-4 bg-primary-background-light rounded-t-xl`}>
+        <View style={tw`gap-4 p-4 bg-primary-background-light`}>
           <ProfileInfo user={user} isOnMatchCard />
 
           <HorizontalLine />
