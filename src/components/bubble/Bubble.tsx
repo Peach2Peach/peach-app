@@ -1,4 +1,4 @@
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import { IconType } from '../../assets/icons'
 import { useIsMediumScreen } from '../../hooks/useIsMediumScreen'
 import tw from '../../styles/tailwind'
@@ -15,6 +15,9 @@ export type BubbleProps = Partial<BubbleBaseProps> & {
   ghost?: boolean
 }
 
+/**
+ * @deprecated use NewBubble instead
+ */
 export const Bubble = (props: BubbleProps) => {
   const isMediumScreen = useIsMediumScreen()
   const color = getBackgroundColor(props)
@@ -29,12 +32,11 @@ export const Bubble = (props: BubbleProps) => {
 type NewBubbleProps = {
   children: React.ReactNode
   iconId?: IconType
-  onPress?: () => void
   color: 'orange' | 'black' | 'gray' | 'primary-mild'
   ghost?: boolean
-}
+} & TouchableOpacityProps
 
-export function NewBubble ({ children, iconId, onPress, color, ghost }: NewBubbleProps) {
+export function NewBubble ({ children, iconId, color, ghost, ...touchableOpacityProps }: NewBubbleProps) {
   const colorStyle = tw.color(
     color === 'orange'
       ? 'primary-main'
@@ -47,12 +49,12 @@ export function NewBubble ({ children, iconId, onPress, color, ghost }: NewBubbl
 
   return (
     <TouchableOpacity
-      onPress={onPress}
       style={[
         tw`flex-row items-center justify-center gap-1 px-2 rounded-lg py-2px`,
         [tw`border`, { borderColor: colorStyle }],
         ghost ? tw`bg-transparent` : { backgroundColor: colorStyle },
       ]}
+      {...touchableOpacityProps}
     >
       <PeachText
         style={[tw`text-center button-medium`, { color: ghost ? colorStyle : tw.color('primary-background-light') }]}

@@ -19,6 +19,7 @@ import { parseError } from '../../utils/result/parseError'
 import { decryptSymmetricKey } from '../../views/contract/helpers/decryptSymmetricKey'
 import { Icon } from '../Icon'
 import { ProfileInfo } from '../ProfileInfo'
+import { NewBubble as Bubble } from '../bubble/Bubble'
 import { useMessageState } from '../message/useMessageState'
 import { useSetPopup } from '../popup/Popup'
 import { PeachText } from '../text/PeachText'
@@ -87,7 +88,9 @@ function PaymentDetail ({ label, value }: { label: string; value?: string }) {
   return (
     <View style={tw`flex-row justify-between`}>
       <PeachText style={tw`text-black-65`}>{label}</PeachText>
-      <PeachText style={tw`px-2 border rounded-lg border-black-100 button-medium`}>{value}</PeachText>
+      <Bubble disabled color="black" ghost>
+        {value}
+      </Bubble>
     </View>
   )
 }
