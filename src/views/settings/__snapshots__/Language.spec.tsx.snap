@@ -1059,7 +1059,7 @@ exports[`Language renders correctly 1`] = `
                       ]
                     }
                   >
-                    Portuguesa
+                    Português
                   </Text>
                   <test-file-stub
                     fill="#9F8C82"
@@ -1147,7 +1147,7 @@ exports[`Language renders correctly 1`] = `
                       ]
                     }
                   >
-                    Portuguesa (Brasil)
+                    Português (Brasil)
                   </Text>
                   <test-file-stub
                     fill="#9F8C82"
