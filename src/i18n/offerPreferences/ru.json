@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "финансировать сейф",
   "offerPreferences.fundWithPeachWallet" : "финансировать с помощью кошелька Peach ($0 сат/вб)",
   "offerPreferences.instantTrade" : "мгновенная сделка",
+  "offerPreferences.payoutTo" : "выплатить на:",
   "offerPreferences.premiumOfCompletedTrades" : "премия завершенных сделок: $0%",
   "offerPreferences.refundTo" : "возврат на:",
   "offerPreferences.sellOffers" : "$0 открытых предложений на продажу",

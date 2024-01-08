@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "emanet fon",
   "offerPreferences.fundWithPeachWallet" : "Peach cüzdanı ile finanse et ($0 sats/vb)",
   "offerPreferences.instantTrade" : "anlık ticaret",
+  "offerPreferences.payoutTo" : "ödeme yap:",
   "offerPreferences.premiumOfCompletedTrades" : "tamamlanan işlemlerin primi: $0%",
   "offerPreferences.refundTo" : "iade için:",
   "offerPreferences.sellOffers" : "$0 açık satış teklifi",

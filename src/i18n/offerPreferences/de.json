@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "Treuhandservice finanzieren",
   "offerPreferences.fundWithPeachWallet" : "Finanzieren mit Peach Wallet ($0 sats/vb)",
   "offerPreferences.instantTrade" : "sofortiger Handel",
+  "offerPreferences.payoutTo" : "auszahlen an:",
   "offerPreferences.premiumOfCompletedTrades" : "Prämie abgeschlossener Trades: $0%",
   "offerPreferences.refundTo" : "Rückerstattung an:",
   "offerPreferences.sellOffers" : "$0 Verkaufsangebote",

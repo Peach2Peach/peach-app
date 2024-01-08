@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "fedha za kuhifadhi",
   "offerPreferences.fundWithPeachWallet" : "fedha za kuhifadhi na mkoba wa Peach ($0 sats/vb)",
   "offerPreferences.instantTrade" : "biashara ya papo hapo",
+  "offerPreferences.payoutTo" : "malipo kwa:",
   "offerPreferences.premiumOfCompletedTrades" : "malipo ya biashara zilizokamilika: $0%",
   "offerPreferences.refundTo" : "marejesho kwa:",
   "offerPreferences.sellOffers" : "$0 maombi ya mauzo yaliyofunguliwa",

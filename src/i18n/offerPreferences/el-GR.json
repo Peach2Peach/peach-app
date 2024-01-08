@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "χρηματοδότηση κατάθεσης",
   "offerPreferences.fundWithPeachWallet" : "χρηματοδότηση με το Peach Wallet ($0 sats/vb)",
   "offerPreferences.instantTrade" : "άμεση συναλλαγή",
+  "offerPreferences.payoutTo" : "πληρωμή σε:",
   "offerPreferences.premiumOfCompletedTrades" : "προσφορά τελειωμένων συναλλαγών: $0%",
   "offerPreferences.refundTo" : "επιστροφή προς:",
   "offerPreferences.sellOffers" : "$0 προσφορές πώλησης",
