@@ -1,13 +1,16 @@
 import { PartiallySignedTransaction } from 'bdk-rn'
 import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 import { useCallback } from 'react'
+import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
+import { BTCAmount } from '../../../components/bitcoin/BTCAmount'
 import { useSetPopup } from '../../../components/popup/Popup'
 import { PopupComponent } from '../../../components/popup/PopupComponent'
+import { ClosePopupAction } from '../../../components/popup/actions/ClosePopupAction'
+import { PeachText } from '../../../components/text/PeachText'
 import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { useFeeRate } from '../../../hooks/useFeeRate'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { ClosePopupAction } from '../../../popups/actions/ClosePopupAction'
 import { useConfigStore } from '../../../store/configStore/configStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -16,10 +19,8 @@ import { peachWallet } from '../../../utils/wallet/setWallet'
 import { buildTransaction, setMultipleRecipients } from '../../../utils/wallet/transaction'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useSyncWallet } from '../../wallet/hooks/useSyncWallet'
-import { AmountTooLow } from '../components/AmountTooLow'
-import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
-import { ConfirmFundingWithInsufficientFunds } from '../components/ConfirmFundingWithInsufficientFunds'
 import { ConfirmTransactionPopup } from './ConfirmTransactionPopup'
+import { ConfirmTxPopup } from './ConfirmTxPopup'
 import { useOptimisticTxHistoryUpdate } from './useOptimisticTxHistoryUpdate'
 
 const getPropsFromFinishedTransaction = async (
@@ -102,7 +103,14 @@ export const useFundFromPeachWallet = () => {
           return setPopup(
             <ConfirmTransactionPopup
               title={i18n('fundFromPeachWallet.insufficientFunds.title')}
-              content={<ConfirmFundingWithInsufficientFunds amount={amountToConfirm} {...{ address, feeRate, fee }} />}
+              content={
+                <ConfirmTxPopup
+                  amount={amountToConfirm}
+                  {...{ address, fee, feeRate }}
+                  text={i18n('fundFromPeachWallet.insufficientFunds.description.1')}
+                  secondText={i18n('fundFromPeachWallet.insufficientFunds.description.2')}
+                />
+              }
               psbt={psbt}
               onSuccess={() => onSuccess({ txDetails, offerId, address, addresses })}
             />,
@@ -117,7 +125,13 @@ export const useFundFromPeachWallet = () => {
       return setPopup(
         <ConfirmTransactionPopup
           title={i18n('fundFromPeachWallet.confirm.title')}
-          content={<ConfirmFundingFromPeachWallet amount={amountToConfirm} {...{ address, feeRate, fee }} />}
+          content={
+            <ConfirmTxPopup
+              text={i18n('fundFromPeachWallet.confirm.description')}
+              amount={amountToConfirm}
+              {...{ address, feeRate, fee }}
+            />
+          }
           psbt={psbt}
           onSuccess={() => onSuccess({ txDetails, offerId, address, addresses })}
         />,
@@ -129,11 +143,18 @@ export const useFundFromPeachWallet = () => {
   return fundFromPeachWallet
 }
 
-function AmountTooLowPopup (contentProps: { available: number; needed: number }) {
+function AmountTooLowPopup ({ available, needed }: { available: number; needed: number }) {
   return (
     <PopupComponent
       title={i18n('fundFromPeachWallet.amountTooLow.title')}
-      content={<AmountTooLow {...contentProps} />}
+      content={
+        <View style={tw`gap-3`}>
+          <PeachText>{i18n('fundFromPeachWallet.amountTooLow.description.1')}</PeachText>
+          <BTCAmount amount={available} size="medium" />
+          <PeachText>{i18n('fundFromPeachWallet.amountTooLow.description.2')}</PeachText>
+          <BTCAmount amount={needed} size="medium" />
+        </View>
+      }
       actions={<ClosePopupAction style={tw`justify-center`} />}
     />
   )

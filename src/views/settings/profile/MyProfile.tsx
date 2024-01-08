@@ -6,12 +6,11 @@ import { ProfileInfo } from '../../../components/ProfileInfo'
 import { Screen } from '../../../components/Screen'
 import { useSetPopup } from '../../../components/popup/Popup'
 import { PopupAction } from '../../../components/popup/PopupAction'
-import { PeachText } from '../../../components/text/PeachText'
+import { ClosePopupAction } from '../../../components/popup/actions/ClosePopupAction'
 import { TouchableRedText } from '../../../components/text/TouchableRedText'
 import { HelpPopup } from '../../../hooks/HelpPopup'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { ErrorPopup } from '../../../popups/ErrorPopup'
-import { ClosePopupAction } from '../../../popups/actions/ClosePopupAction'
 import tw from '../../../styles/tailwind'
 import { useAccountStore } from '../../../utils/account/account'
 import { deleteAccount } from '../../../utils/account/deleteAccount'
@@ -62,7 +61,7 @@ function DeleteAccountButton ({ style }: ComponentProps) {
       setPopup(
         <ErrorPopup
           title={i18n(`settings.deleteAccount.${isSuccess ? 'success' : 'popup'}.title`)}
-          content={<PeachText>{i18n(`settings.deleteAccount.${title}`)}</PeachText>}
+          content={i18n(`settings.deleteAccount.${title}`)}
           actions={
             <>
               {!isSuccess && <PopupAction label={i18n('settings.deleteAccount')} iconId="trash" onPress={onPress} />}

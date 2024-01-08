@@ -1,12 +1,10 @@
 import { useCallback } from 'react'
 import { AppPopup } from '../../../hooks/AppPopup'
 import { useToggleBoolean } from '../../../hooks/useToggleBoolean'
-import { UnmatchPopup } from '../../../popups/UnmatchPopup'
 import tw from '../../../styles/tailwind'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { WarningPopup } from '../../../popups/WarningPopup'
-import { ClosePopupAction } from '../../../popups/actions/ClosePopupAction'
 import i18n from '../../../utils/i18n'
 import { error } from '../../../utils/log/error'
 import { peachAPI } from '../../../utils/peachAPI'
@@ -14,6 +12,7 @@ import { Button } from '../../buttons/Button'
 import { useMessageState } from '../../message/useMessageState'
 import { useClosePopup, useSetPopup } from '../../popup/Popup'
 import { PopupAction } from '../../popup/PopupAction'
+import { ClosePopupAction } from '../../popup/actions/ClosePopupAction'
 import { UndoButton } from './UndoButton'
 
 type Props = {
@@ -34,7 +33,7 @@ export const UnmatchButton = ({ match, offer, interruptMatching, setShowMatchedC
     setPopup(
       <WarningPopup
         title={i18n('search.popups.unmatch.title')}
-        content={<UnmatchPopup />}
+        content={i18n('search.popups.unmatch.text')}
         actions={
           <>
             <PopupAction

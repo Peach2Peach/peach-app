@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`TurnOffBatching should render correctly 1`] = `
-<PeachText>
-  You have a pending payout. Turning off batching right now will pay out this escrow right away, at higher fees.
-
-Are you sure?
-</PeachText>
-`;

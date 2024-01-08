@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { useSetOverlay } from '../../../Overlay'
 import { useSetPopup } from '../../../components/popup/Popup'
-import { PeachText } from '../../../components/text/PeachText'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
@@ -33,8 +32,7 @@ export function usePublishBuyOffer ({
   const showErrorBanner = useShowErrorBanner()
   const hasSeenGroupHugAnnouncement = useConfigStore((state) => state.hasSeenGroupHugAnnouncement)
   const setPopup = useSetPopup()
-  const showHelp = () =>
-    setPopup(<InfoPopup content={<PeachText>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</PeachText>} />)
+  const showHelp = () => setPopup(<InfoPopup content={i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')} />)
   const publicKey = useAccountStore((state) => state.account.publicKey)
   const setOverlay = useSetOverlay()
 

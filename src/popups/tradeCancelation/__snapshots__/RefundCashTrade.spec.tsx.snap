@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`RefundCashTrade renders correctly 1`] = `
-<PeachText>
-  Trade tradeID has been canceled.
-
-The escrow will be refunded to your walletName wallet.
-</PeachText>
-`;

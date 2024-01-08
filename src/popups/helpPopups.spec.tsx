@@ -1,14 +1,10 @@
+import { render } from 'test-utils'
+import i18n from '../utils/i18n'
 import { helpPopups } from './helpPopups'
-import { AcceptMatchPopup } from './info/AcceptMatchPopup'
-import { CashTrades } from './info/CashTrades'
-import { CurrenciesHelp } from './info/CurrenciesHelp'
 import { Escrow } from './info/Escrow'
-import { FileBackupPopup } from './info/FileBackupPopup'
-import { MatchMatchMatch } from './info/MatchMatchMatch'
 import { MyBadges } from './info/MyBadges'
 import { NetworkFees } from './info/NetworkFees'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
-import { PayoutAddressPopup } from './info/PayoutAddressPopup'
 import { ReferralsHelp } from './info/ReferralsHelp'
 import { SeedPhrasePopup } from './info/SeedPhrasePopup'
 import { WithdrawingFundsHelp } from './info/WithdrawingFundsHelp'
@@ -17,17 +13,19 @@ import { YourPassword } from './info/YourPassword'
 describe('helpPopups', () => {
   it('should have the correct accept match help popup', () => {
     expect(helpPopups.acceptMatch.title).toBe('accept match = start trade')
-    expect(helpPopups.acceptMatch.content).toBe(AcceptMatchPopup)
+    expect(helpPopups.acceptMatch.content).toBe(i18n('search.popups.acceptMatch.text'))
   })
 
   it('should have the correct cash trades help popup', () => {
+    const CashTrades = helpPopups.cashTrades.content
     expect(helpPopups.cashTrades.title).toBe('trading cash')
-    expect(helpPopups.cashTrades.content).toBe(CashTrades)
+    const { queryByText } = render(<CashTrades />)
+    expect(queryByText(i18n('tradingCash.text'))).toBeTruthy()
   })
 
   it('should have the correct currencies help popup', () => {
     expect(helpPopups.currencies.title).toBe('accepted currencies')
-    expect(helpPopups.currencies.content).toBe(CurrenciesHelp)
+    expect(helpPopups.currencies.content).toBe(i18n('help.currency.description'))
   })
 
   it('should have the correct escrow help popup', () => {
@@ -37,12 +35,12 @@ describe('helpPopups', () => {
 
   it('should have the correct file backup help popup', () => {
     expect(helpPopups.fileBackup.title).toBe('making a backup')
-    expect(helpPopups.fileBackup.content).toBe(FileBackupPopup)
+    expect(helpPopups.fileBackup.content).toBe(i18n('settings.backups.fileBackup.popup.content'))
   })
 
   it('should have the correct match match match help popup', () => {
     expect(helpPopups.matchmatchmatch.title).toBe('match, match & match again')
-    expect(helpPopups.matchmatchmatch.content).toBe(MatchMatchMatch)
+    expect(helpPopups.matchmatchmatch.content).toBe(i18n('search.popups.matchmatchmatch.text'))
   })
 
   it('should have the correct my badges help popup', () => {
@@ -62,7 +60,7 @@ describe('helpPopups', () => {
 
   it('should have the correct payout address help popup', () => {
     expect(helpPopups.payoutAddress.title).toBe('custom payout wallet')
-    expect(helpPopups.payoutAddress.content).toBe(PayoutAddressPopup)
+    expect(helpPopups.payoutAddress.content).toBe(i18n('settings.payoutAddress.popup'))
   })
 
   it('should have the correct referrals help popup', () => {

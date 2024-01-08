@@ -66,11 +66,7 @@ exports[`VerifyYouAreAHumanPopup renders correctly 1`] = `
       <GoToChallengeAction />
     </React.Fragment>
   }
-  content={
-    <PeachText>
-      Our security systems would like to make sure you're human. Before you continue, please complete a quick verification test.
-    </PeachText>
-  }
+  content="Our security systems would like to make sure you're human. Before you continue, please complete a quick verification test."
   title="Please verify you are human"
 />
 `;

@@ -4,10 +4,10 @@ import { PopupAction } from '../../../components/popup/PopupAction'
 import { PopupComponent } from '../../../components/popup/PopupComponent'
 import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { useNavigation } from '../../../hooks/useNavigation'
-import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
+import { ConfirmTxPopup } from '../../fundEscrow/hooks/ConfirmTxPopup'
 
 type Props = {
   amount: number
@@ -37,7 +37,7 @@ export function WithdrawalConfirmationPopup ({ amount, address, psbt, fee, feeRa
   return (
     <PopupComponent
       title={i18n('wallet.confirmWithdraw.title')}
-      content={<WithdrawalConfirmation {...{ amount, address, fee, feeRate }} />}
+      content={<ConfirmTxPopup {...{ amount, address, fee, feeRate }} text={i18n('wallet.sendBitcoin.youreSending')} />}
       actions={
         <>
           <PopupAction label={i18n('cancel')} iconId="xCircle" onPress={closePopup} />

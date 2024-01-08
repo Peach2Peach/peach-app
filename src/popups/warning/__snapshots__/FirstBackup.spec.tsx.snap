@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`FirstBackup renders correctly 1`] = `
-<PeachText>
-  Now that you've used the Peach Wallet, you should really make a backup before continuing.
-
-If you don't, you'll lose your Peach account and any funds stored in the Peach wallet if you lose your phone.
-</PeachText>
-`;

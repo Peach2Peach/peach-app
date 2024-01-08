@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`DeletePaymentMethodConfirm renders correctly 1`] = `
-<PeachText>
-  This can not be undone
-</PeachText>
-`;

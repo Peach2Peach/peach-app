@@ -4,7 +4,7 @@ import { PeachText } from '../text/PeachText'
 import { PopupActions } from './PopupActions'
 
 export type PopupComponentProps = {
-  content?: React.ReactNode
+  content?: JSX.Element | string
   actions: React.ReactNode
   title?: string
   bgColor?: ViewStyle
@@ -15,7 +15,7 @@ export const PopupComponent = ({ content, actions, title, bgColor, actionBgColor
   <View style={tw`mx-3 overflow-hidden rounded-2xl`}>
     <PopupContent style={[bgColor, tw`items-stretch`]}>
       {!!title && <PopupTitle text={title} />}
-      {content}
+      {typeof content === 'string' ? <PeachText>{content}</PeachText> : content}
     </PopupContent>
     <PopupActions style={actionBgColor}>{actions}</PopupActions>
   </View>

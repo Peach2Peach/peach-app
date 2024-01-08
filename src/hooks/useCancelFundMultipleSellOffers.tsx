@@ -2,10 +2,9 @@ import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useClosePopup, useSetPopup } from '../components/popup/Popup'
 import { PopupAction } from '../components/popup/PopupAction'
-import { CancelOffer } from '../popups/CancelOffer'
+import { ClosePopupAction } from '../components/popup/actions/ClosePopupAction'
+import { LoadingPopupAction } from '../components/popup/actions/LoadingPopupAction'
 import { GrayPopup } from '../popups/GrayPopup'
-import { ClosePopupAction } from '../popups/actions/ClosePopupAction'
-import { LoadingPopupAction } from '../popups/actions/LoadingPopupAction'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { peachAPI } from '../utils/peachAPI'
@@ -67,7 +66,7 @@ export const useCancelFundMultipleSellOffers = ({ fundMultiple }: Props) => {
     setPopup(
       <GrayPopup
         title={i18n('offer.cancel.popup.title')}
-        content={<CancelOffer type="ask" />}
+        content={i18n('offer.cancel.popup.description')}
         actions={
           <>
             <PopupAction label={i18n('neverMind')} iconId="arrowLeftCircle" onPress={closePopup} />

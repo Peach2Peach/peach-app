@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`MatchUndone should render correctly 1`] = `
-<PeachText>
-  Your reputation has not been affected, and you can always re-match.
-
-When you unmatch after the timer runs out, your reputation will be negatively affected.
-</PeachText>
-`;

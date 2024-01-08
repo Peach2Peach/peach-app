@@ -2,10 +2,10 @@ import { useCallback } from 'react'
 import { useClosePopup } from '../components/popup/Popup'
 import { PopupAction } from '../components/popup/PopupAction'
 import { PopupComponent, PopupComponentProps } from '../components/popup/PopupComponent'
+import { ClosePopupAction } from '../components/popup/actions/ClosePopupAction'
 import { useNavigation } from '../hooks/useNavigation'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { ClosePopupAction } from './actions/ClosePopupAction'
 
 export function InfoPopup (props: Pick<PopupComponentProps, 'title' | 'content'>) {
   return (
