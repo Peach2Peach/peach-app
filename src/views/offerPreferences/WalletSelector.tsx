@@ -56,7 +56,7 @@ export function WalletSelector ({ isPayout = false, offerId }: { isPayout?: bool
   const backgroundColor = isPayout ? tw.color('success-mild-1') : tw.color('primary-background-dark')
   const bubbleColor = isPayout ? 'green' : 'orange'
 
-  if (!peachWalletActive && requiresMessageSigning) {
+  if (!peachWalletActive && !!offerId && requiresMessageSigning) {
     setPeachWalletActive(true)
   }
 
