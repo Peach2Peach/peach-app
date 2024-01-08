@@ -9,13 +9,13 @@ import { BitcoinAddressInput } from '../../components/inputs/BitcoinAddressInput
 import { Input } from '../../components/inputs/Input'
 import { useClosePopup, useSetPopup } from '../../components/popup/Popup'
 import { PopupAction } from '../../components/popup/PopupAction'
+import { ClosePopupAction } from '../../components/popup/actions/ClosePopupAction'
 import { PeachText } from '../../components/text/PeachText'
 import { HelpPopup } from '../../hooks/HelpPopup'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
 import { useValidatedState } from '../../hooks/useValidatedState'
 import { ErrorPopup } from '../../popups/ErrorPopup'
-import { ClosePopupAction } from '../../popups/actions/ClosePopupAction'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -142,7 +142,7 @@ function RemoveWalletPopup ({ setAddressInput, setAddressLabelInput }: PopupProp
   return (
     <ErrorPopup
       title={i18n('settings.payoutAddress.popup.title')}
-      content={<PeachText>{i18n('settings.payoutAddress.popup.content')}</PeachText>}
+      content={i18n('settings.payoutAddress.popup.content')}
       actions={
         <>
           <PopupAction iconId="trash" label={i18n('settings.payoutAddress.popup.remove')} onPress={removeWallet} />

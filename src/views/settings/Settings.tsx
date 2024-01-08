@@ -17,7 +17,6 @@ import { checkNotificationStatus } from '../../utils/system/checkNotificationSta
 import { isProduction } from '../../utils/system/isProduction'
 import { toggleNotifications } from '../../utils/system/toggleNotifications'
 import { isDefined } from '../../utils/validation/isDefined'
-import { NotificationPopup } from './components/NotificationPopup'
 import { SettingsItem } from './components/SettingsItem'
 import { VersionInfo } from './components/VersionInfo'
 
@@ -54,7 +53,7 @@ export const Settings = () => {
       setPopup(
         <WarningPopup
           title={i18n('settings.notifications.popup.title')}
-          content={<NotificationPopup />}
+          content={i18n('settings.notifications.popup')}
           actions={
             <>
               <PopupAction

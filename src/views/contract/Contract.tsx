@@ -7,7 +7,7 @@ import { PeachScrollView } from '../../components/PeachScrollView'
 import { useSetPopup } from '../../components/popup/Popup'
 import { HelpPopup } from '../../hooks/HelpPopup'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
-import { useConfirmCancelTrade } from '../../popups/tradeCancelation/useConfirmCancelTrade'
+import { ConfirmTradeCancelationPopup } from '../../popups/tradeCancelation/ConfirmTradeCancelationPopup'
 import { canCancelContract } from '../../utils/contract/canCancelContract'
 import { contractIdToHex } from '../../utils/contract/contractIdToHex'
 import { getRequiredAction } from '../../utils/contract/getRequiredAction'
@@ -54,8 +54,11 @@ function ContractHeader () {
   const { contract, view } = useContractContext()
   const { tradeStatus, disputeActive, canceled, disputeWinner, releaseTxId, batchInfo, amount, premium } = contract
   const requiredAction = getRequiredAction(contract)
-  const showConfirmPopup = useConfirmCancelTrade()
   const setPopup = useSetPopup()
+  const showConfirmPopup = useCallback(
+    () => setPopup(<ConfirmTradeCancelationPopup contract={contract} />),
+    [contract, setPopup],
+  )
   const showMakePaymentHelp = useCallback(() => setPopup(<HelpPopup id="makePayment" />), [setPopup])
   const showConfirmPaymentHelp = useCallback(() => setPopup(<HelpPopup id="confirmPayment" />), [setPopup])
 
@@ -65,7 +68,7 @@ function ContractHeader () {
 
     if (canCancelContract(contract, view)) icons.push({
       ...headerIcons.cancel,
-      onPress: () => showConfirmPopup(contract),
+      onPress: showConfirmPopup,
     })
     if (view === 'buyer' && requiredAction === 'sendPayment') icons.push({
       ...headerIcons.help,

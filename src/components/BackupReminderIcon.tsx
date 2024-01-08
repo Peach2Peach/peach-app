@@ -1,13 +1,12 @@
 import { useNavigation } from '../hooks/useNavigation'
 import { ErrorPopup } from '../popups/ErrorPopup'
-import { ClosePopupAction } from '../popups/actions/ClosePopupAction'
-import { FirstBackup } from '../popups/warning/FirstBackup'
 import { useSettingsStore } from '../store/settingsStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { TouchableIcon } from './TouchableIcon'
 import { useClosePopup, useSetPopup } from './popup/Popup'
 import { PopupAction } from './popup/PopupAction'
+import { ClosePopupAction } from './popup/actions/ClosePopupAction'
 
 export function BackupReminderIcon () {
   const setPopup = useSetPopup()
@@ -32,7 +31,7 @@ function BackupReminderPopup () {
   return (
     <ErrorPopup
       title={i18n('error.firstBackup.title')}
-      content={<FirstBackup />}
+      content={i18n('error.firstBackup.description')}
       actions={
         <>
           <ClosePopupAction />

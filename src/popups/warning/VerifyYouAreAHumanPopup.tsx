@@ -4,13 +4,12 @@ import { WebView, WebViewMessageEvent } from 'react-native-webview'
 import { useClosePopup, useSetPopup } from '../../components/popup/Popup'
 import { PopupAction } from '../../components/popup/PopupAction'
 import { PopupComponent } from '../../components/popup/PopupComponent'
-import { PeachText } from '../../components/text/PeachText'
+import { ClosePopupAction } from '../../components/popup/actions/ClosePopupAction'
 import { initApp } from '../../init/initApp'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { WarningPopup } from '../WarningPopup'
-import { ClosePopupAction } from '../actions/ClosePopupAction'
 
 export const VerifyYouAreAHuman = () => {
   const closePopup = useClosePopup()
@@ -40,7 +39,7 @@ export function VerifyYouAreAHumanPopup () {
   return (
     <WarningPopup
       title={i18n('HUMAN_VERIFICATION_REQUIRED.title')}
-      content={<PeachText>{i18n('HUMAN_VERIFICATION_REQUIRED.text')}</PeachText>}
+      content={i18n('HUMAN_VERIFICATION_REQUIRED.text')}
       actions={
         <>
           <ClosePopupAction textStyle={tw`text-black-100`} />

@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`PayoutAddressPopup renders correctly 1`] = `
-<PeachText>
-  By default, any trade payouts are sent to your Peach wallet.
-
-If you want to have them sent somewhere else, you can enter a custom address here.
-</PeachText>
-`;

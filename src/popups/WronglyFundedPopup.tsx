@@ -1,13 +1,15 @@
+import { View } from 'react-native'
+import { BTCAmount } from '../components/bitcoin/BTCAmount'
 import { PopupAction } from '../components/popup/PopupAction'
+import { ClosePopupAction } from '../components/popup/actions/ClosePopupAction'
+import { PeachText } from '../components/text/PeachText'
 import { useConfigStore } from '../store/configStore/configStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { sum } from '../utils/math/sum'
+import { thousands } from '../utils/string/thousands'
 import { WarningPopup } from './WarningPopup'
-import { ClosePopupAction } from './actions/ClosePopupAction'
 import { useCancelAndStartRefundPopup } from './useCancelAndStartRefundPopup'
-import { IncorrectFunding } from './warning/IncorrectFunding'
-import { WrongFundingAmount } from './warning/WrongFundingAmount'
 
 export function WronglyFundedPopup ({ sellOffer }: { sellOffer: SellOffer }) {
   const maxTradingAmount = useConfigStore((state) => state.maxTradingAmount)
@@ -17,13 +19,15 @@ export function WronglyFundedPopup ({ sellOffer }: { sellOffer: SellOffer }) {
   const title = i18n(utxos === 1 ? 'warning.wrongFundingAmount.title' : 'warning.incorrectFunding.title')
   const content
     = utxos === 1 ? (
-      <WrongFundingAmount
-        amount={sellOffer.amount}
-        actualAmount={sellOffer.funding.amounts.reduce(sum, 0)}
-        maxAmount={maxTradingAmount}
-      />
+      <View style={tw`gap-4`}>
+        <PeachText>{i18n('warning.fundingAmountDifferent.description.1')}</PeachText>
+        <BTCAmount amount={sellOffer.funding.amounts.reduce(sum, 0)} size="medium" />
+        <PeachText>{i18n('warning.fundingAmountDifferent.description.2')}</PeachText>
+        <BTCAmount amount={sellOffer.amount} size="medium" />
+        <PeachText>{i18n('warning.wrongFundingAmount.description', thousands(maxTradingAmount))}</PeachText>
+      </View>
     ) : (
-      <IncorrectFunding utxos={utxos} />
+      i18n('warning.incorrectFunding.description', String(utxos))
     )
 
   return (

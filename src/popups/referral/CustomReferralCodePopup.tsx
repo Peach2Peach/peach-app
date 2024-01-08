@@ -4,6 +4,8 @@ import { Input } from '../../components/inputs/Input'
 import { useSetPopup } from '../../components/popup/Popup'
 import { PopupAction } from '../../components/popup/PopupAction'
 import { PopupComponent } from '../../components/popup/PopupComponent'
+import { ClosePopupAction } from '../../components/popup/actions/ClosePopupAction'
+import { ParsedPeachText } from '../../components/text/ParsedPeachText'
 import { PeachText } from '../../components/text/PeachText'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
@@ -12,8 +14,6 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
 import { getMessages } from '../../utils/validation/getMessages'
-import { ClosePopupAction } from '../actions/ClosePopupAction'
-import { SetCustomReferralCodeSuccess } from './SetCustomReferralCodeSuccess'
 
 const referralCodeRules = {
   required: true,
@@ -65,7 +65,11 @@ export function CustomReferralCodePopup () {
     setPopup(
       <PopupComponent
         title={i18n('settings.referrals.customReferralCode.popup.title')}
-        content={<SetCustomReferralCodeSuccess {...{ referralCode }} />}
+        content={
+          <ParsedPeachText parse={[{ pattern: new RegExp(referralCode, 'u'), style: tw`text-primary-main` }]}>
+            {i18n('settings.referrals.customReferralCode.popup.success', referralCode)}
+          </ParsedPeachText>
+        }
         actions={<ClosePopupAction style={tw`justify-center`} />}
       />,
     )

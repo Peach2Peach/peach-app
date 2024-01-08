@@ -10,6 +10,8 @@ import { ScanQR } from '../../components/camera/ScanQR'
 import { Toggle } from '../../components/inputs/Toggle'
 import { URLInput } from '../../components/inputs/URLInput'
 import { useClosePopup, useSetPopup } from '../../components/popup/Popup'
+import { ClosePopupAction } from '../../components/popup/actions/ClosePopupAction'
+import { LoadingPopupAction } from '../../components/popup/actions/LoadingPopupAction'
 import { PeachText } from '../../components/text/PeachText'
 import { HelpPopup } from '../../hooks/HelpPopup'
 import { LoadingPopup } from '../../hooks/LoadingPopup'
@@ -17,8 +19,6 @@ import { useToggleBoolean } from '../../hooks/useToggleBoolean'
 import { useValidatedState } from '../../hooks/useValidatedState'
 import { SuccessPopup } from '../../popups/SuccessPopup'
 import { WarningPopup } from '../../popups/WarningPopup'
-import { ClosePopupAction } from '../../popups/actions/ClosePopupAction'
-import { LoadingPopupAction } from '../../popups/actions/LoadingPopupAction'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -144,7 +144,7 @@ function NodeConnectionSuccessPopup ({ url, save }: SuccessPopupProps) {
   return (
     <SuccessPopup
       title={i18n('wallet.settings.node.success.title')}
-      content={<PeachText>{i18n('wallet.settings.node.success.text', url)}</PeachText>}
+      content={i18n('wallet.settings.node.success.text', url)}
       actions={
         <>
           <ClosePopupAction />

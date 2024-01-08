@@ -1,6 +1,5 @@
 import { useNavigation } from '../../../hooks/useNavigation'
 import { ErrorPopup } from '../../../popups/ErrorPopup'
-import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { removePaymentData } from '../../../utils/account/removePaymentData'
 import i18n from '../../../utils/i18n'
 import { useClosePopup } from '../../popup/Popup'
@@ -13,7 +12,7 @@ export function DeletePaymentMethodPopup ({ id }: { id: string }) {
   return (
     <ErrorPopup
       title={i18n('help.paymentMethodDelete.title')}
-      content={<DeletePaymentMethodConfirm />}
+      content={i18n('help.paymentMethodDelete.description')}
       actions={
         <>
           <PopupAction

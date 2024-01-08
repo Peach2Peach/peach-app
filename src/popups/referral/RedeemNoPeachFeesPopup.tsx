@@ -2,14 +2,12 @@ import { useCallback } from 'react'
 import { useSetPopup } from '../../components/popup/Popup'
 import { PopupAction } from '../../components/popup/PopupAction'
 import { PopupComponent } from '../../components/popup/PopupComponent'
+import { ClosePopupAction } from '../../components/popup/actions/ClosePopupAction'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
-import { ClosePopupAction } from '../actions/ClosePopupAction'
-import { NoPeachFees } from './NoPeachFees'
-import { NoPeachFeesSuccess } from './NoPeachFeesSuccess'
 
 export function RedeemNoPeachFeesPopup () {
   const setPopup = useSetPopup()
@@ -26,7 +24,7 @@ export function RedeemNoPeachFeesPopup () {
     setPopup(
       <PopupComponent
         title={i18n('settings.referrals.noPeachFees.popup.title')}
-        content={<NoPeachFeesSuccess />}
+        content={i18n('settings.referrals.noPeachFees.popup.success')}
         actions={<ClosePopupAction style={tw`justify-center`} />}
       />,
     )
@@ -36,7 +34,7 @@ export function RedeemNoPeachFeesPopup () {
   return (
     <PopupComponent
       title={i18n('settings.referrals.noPeachFees.popup.title')}
-      content={<NoPeachFees />}
+      content={i18n('settings.referrals.noPeachFees.popup.text')}
       actions={
         <>
           <ClosePopupAction />

@@ -8,7 +8,6 @@ import { ParsedPeachText } from '../../components/text/ParsedPeachText'
 import { PeachText } from '../../components/text/PeachText'
 import { useSelfUser } from '../../hooks/query/useSelfUser'
 import { useToggleBatching } from '../../hooks/user/useToggleBatching'
-import { TurnOffBatching } from '../../popups/app/TurnOffBatching'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -26,7 +25,7 @@ export const TransactionBatching = () => {
       setPopup(
         <PopupComponent
           title={i18n('settings.batching.turnOff.title')}
-          content={<TurnOffBatching />}
+          content={i18n('settings.batching.turnOff.description')}
           actions={
             <>
               <PopupAction label={i18n('settings.batching.turnOff.no')} iconId="xCircle" onPress={closePopup} />

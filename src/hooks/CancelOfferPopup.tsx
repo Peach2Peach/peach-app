@@ -3,10 +3,9 @@ import { useCallback } from 'react'
 import { useClosePopup, useSetPopup } from '../components/popup/Popup'
 import { PopupAction } from '../components/popup/PopupAction'
 import { PopupComponent } from '../components/popup/PopupComponent'
-import { CancelOffer } from '../popups/CancelOffer'
+import { ClosePopupAction } from '../components/popup/actions/ClosePopupAction'
+import { LoadingPopupAction } from '../components/popup/actions/LoadingPopupAction'
 import { GrayPopup } from '../popups/GrayPopup'
-import { ClosePopupAction } from '../popups/actions/ClosePopupAction'
-import { LoadingPopupAction } from '../popups/actions/LoadingPopupAction'
 import { useStartRefundPopup } from '../popups/useStartRefundPopup'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
@@ -53,7 +52,7 @@ export function CancelOfferPopup ({ offerId }: { offerId: string }) {
   return (
     <PopupComponent
       title={i18n('offer.cancel.popup.title')}
-      content={<CancelOffer type={offer.type} />}
+      content={i18n(offer.type === 'bid' ? 'search.popups.cancelOffer.text.buy' : 'offer.cancel.popup.description')}
       actionBgColor={tw`bg-black-50`}
       bgColor={tw`bg-primary-background-light`}
       actions={

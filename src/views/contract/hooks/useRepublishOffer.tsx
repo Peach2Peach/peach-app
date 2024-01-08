@@ -4,7 +4,6 @@ import { PopupAction } from '../../../components/popup/PopupAction'
 import { PopupComponent } from '../../../components/popup/PopupComponent'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { OfferRepublished } from '../../../popups/tradeCancelation'
 import { getSellOfferFromContract } from '../../../utils/contract/getSellOfferFromContract'
 import i18n from '../../../utils/i18n'
 import { peachAPI } from '../../../utils/peachAPI'
@@ -40,7 +39,7 @@ export const useRepublishOffer = () => {
       setPopup(
         <PopupComponent
           title={i18n('contract.cancel.offerRepublished.title')}
-          content={<OfferRepublished />}
+          content={i18n('contract.cancel.offerRepublished.text')}
           actions={
             <>
               <PopupAction label={i18n('close')} iconId="xSquare" onPress={closeAction} />
