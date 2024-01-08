@@ -67,9 +67,12 @@ type ContractFlow = {
   patchPayoutAddress: {
     contractId: Contract['id']
   }
-  signMessage: {
-    contractId: Contract['id']
-  }
+  signMessage:
+    | {
+        contractId: Contract['id']
+      }
+    | { offerId: string }
+    | undefined
 }
 
 type RootStackParamList = Onboarding &
@@ -128,7 +131,7 @@ type RootStackParamList = Onboarding &
     referrals: undefined
     backups: undefined
     seedWords: undefined
-    payoutAddress: { type: 'refund' } | undefined
+    payoutAddress: { type: 'refund' | 'payout' } | undefined
     paymentMethods: undefined
     meetupScreen: {
       eventId: string

@@ -16,7 +16,6 @@ import { Badge } from '../../components/Badge'
 import { Header } from '../../components/Header'
 import { PremiumInput } from '../../components/PremiumInput'
 import { TouchableIcon } from '../../components/TouchableIcon'
-import { NewBubble } from '../../components/bubble/Bubble'
 import { Button } from '../../components/buttons/Button'
 import { Checkbox } from '../../components/inputs/Checkbox'
 import { Toggle } from '../../components/inputs/Toggle'
@@ -52,6 +51,7 @@ import { useWalletState } from '../../utils/wallet/walletStore'
 import { getFundingAmount } from '../fundEscrow/helpers/getFundingAmount'
 import { useCreateEscrow } from '../fundEscrow/hooks/useCreateEscrow'
 import { useFundFromPeachWallet } from '../fundEscrow/hooks/useFundFromPeachWallet'
+import { WalletSelector } from './WalletSelector'
 import { FundMultipleOffers } from './components/FundMultipleOffers'
 import { MarketInfo } from './components/MarketInfo'
 import { PreferenceMethods } from './components/PreferenceMethods'
@@ -79,7 +79,7 @@ export function SellOfferPreferences () {
       <AmountSelector setIsSliding={setIsSliding} />
       <FundMultipleOffersContainer />
       <InstantTrade />
-      <RefundWallet />
+      <WalletSelector />
     </PreferenceScreen>
   )
 }
@@ -391,39 +391,6 @@ function InstantTrade () {
           </View>
         </>
       )}
-    </Section.Container>
-  )
-}
-
-function RefundWallet () {
-  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressLabel],
-    shallow,
-  )
-  const navigation = useNavigation()
-  const onExternalWalletPress = () => {
-    if (payoutAddress) {
-      setPeachWalletActive(false)
-    } else {
-      navigation.navigate('payoutAddress', { type: 'refund' })
-    }
-  }
-  return (
-    <Section.Container style={tw`bg-primary-background-dark`}>
-      <Section.Title>{i18n('offerPreferences.refundTo')}</Section.Title>
-      <View style={tw`flex-row items-center gap-10px`}>
-        <NewBubble color="orange" ghost={!peachWalletActive} onPress={() => setPeachWalletActive(true)}>
-          {i18n('peachWallet')}
-        </NewBubble>
-        <NewBubble
-          color="orange"
-          ghost={peachWalletActive}
-          iconId={!payoutAddress ? 'plusCircle' : undefined}
-          onPress={onExternalWalletPress}
-        >
-          {payoutAddressLabel || i18n('externalWallet')}
-        </NewBubble>
-      </View>
     </Section.Container>
   )
 }

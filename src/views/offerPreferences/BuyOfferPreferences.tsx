@@ -9,6 +9,7 @@ import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { interpolate } from '../../utils/math/interpolate'
 import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
+import { WalletSelector } from './WalletSelector'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
 import { BuyBitcoinHeader } from './components/BuyBitcoinHeader'
 import { FilterContainer } from './components/FilterContainer'
@@ -30,6 +31,7 @@ export function BuyOfferPreferences () {
       <PreferenceMethods type="buy" />
       <AmountSelector setIsSliding={setIsSliding} />
       <Filters />
+      <WalletSelector isPayout />
     </PreferenceScreen>
   )
 }

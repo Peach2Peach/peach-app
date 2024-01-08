@@ -52,9 +52,14 @@ export const CustomAddress = () => {
       setPayoutAddress(address)
       setPayoutAddressLabel(addressLabel)
 
-      if (type === 'refund' && addressChanged) {
-        setPeachWalletActive(false)
-        navigation.goBack()
+      if (addressChanged) {
+        if (type === 'refund') {
+          setPeachWalletActive(false)
+          navigation.goBack()
+        }
+        if (type === 'payout') {
+          navigation.replace('signMessage')
+        }
       }
     }
   }

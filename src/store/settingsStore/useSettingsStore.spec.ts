@@ -88,16 +88,6 @@ describe('settingsStore - setPayoutAddressSignature', () => {
   })
 })
 
-describe('settingsStore - togglePeachWallet', () => {
-  it('should toggle peach wallet', () => {
-    useSettingsStore.getState().setPeachWalletActive(true)
-    useSettingsStore.getState().togglePeachWallet()
-    expect(useSettingsStore.getState().peachWalletActive).toBeFalsy()
-    useSettingsStore.getState().togglePeachWallet()
-    expect(useSettingsStore.getState().peachWalletActive).toBeTruthy()
-  })
-})
-
 describe('settingsStore - setCloudflareChallenge', () => {
   it('should set cloudflare challenge solution', () => {
     const cloudflareChallenge = {

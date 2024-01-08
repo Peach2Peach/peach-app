@@ -130,7 +130,7 @@ describe('useRefundEscrow', () => {
   })
   it('should close popup and go to backup time on close of success popup if backup is needed', async () => {
     mockSuccess()
-    useSettingsStore.getState().setPeachWalletActive(true)
+    useSettingsStore.setState({ peachWalletActive: true })
     useSettingsStore.getState().setShowBackupReminder(true)
 
     const { result } = renderHook(useRefundEscrow)
@@ -169,7 +169,7 @@ describe('useRefundEscrow', () => {
   })
   it('should go to backup time if backup is needed when going to wallet', async () => {
     mockSuccess()
-    useSettingsStore.getState().setPeachWalletActive(true)
+    useSettingsStore.setState({ peachWalletActive: true })
     useSettingsStore.getState().setShowBackupReminder(true)
 
     const { result } = renderHook(useRefundEscrow)

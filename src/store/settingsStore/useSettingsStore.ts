@@ -29,7 +29,6 @@ export type SettingsStore = Settings & {
   updateFileBackupDate: () => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
   setPeachWalletActive: (peachWalletActive: boolean) => void
-  togglePeachWallet: () => void
   setFeeRate: (feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee') => void
   setUsedReferralCode: (usedReferralCode: boolean) => void
   setPGPPublished: (pgpPublished: boolean) => void
@@ -75,7 +74,6 @@ export const useSettingsStore = create(
       setShowBackupReminder: (showBackupReminder) =>
         set({ showBackupReminder, shouldShowBackupOverlay: showBackupReminder }),
       setPeachWalletActive: (peachWalletActive) => set({ peachWalletActive }),
-      togglePeachWallet: () => get().setPeachWalletActive(!get().peachWalletActive),
       setFeeRate: (feeRate) => set({ feeRate }),
       setUsedReferralCode: (usedReferralCode) => set({ usedReferralCode }),
       setPGPPublished: (pgpPublished) => set({ pgpPublished }),
