@@ -10,6 +10,7 @@ import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { HelpPopup } from '../../hooks/HelpPopup'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
+import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
 import { useValidatedState } from '../../hooks/useValidatedState'
@@ -28,17 +29,46 @@ const addressRules = { bitcoinAddress: true, blockTaprootAddress: true, required
 const labelRules = { required: true }
 
 export const PatchPayoutAddress = () => {
-  const { contractId } = useRoute<'patchPayoutAddress'>().params
+  const { params } = useRoute<'patchPayoutAddress'>()
+
+  if ('contractId' in params) {
+    return <ContractSuspense contractId={params.contractId} />
+  }
+
+  return <OfferSuspense offerId={params.offerId} />
+}
+
+function OfferSuspense ({ offerId }: { offerId: string }) {
+  const { offer } = useOfferDetails(offerId)
+
+  if (!offer) return <NewLoadingScreen />
+  if (offer.type === 'ask') throw new Error('Cannot patch payout address for sell offers')
+
+  return <ScreenContent defaultAddress={offer.releaseAddress} offerId={offerId} />
+}
+
+function ContractSuspense ({ contractId }: { contractId: string }) {
   const { contract } = useContractDetails(contractId)
 
   if (!contract) return <NewLoadingScreen />
 
-  return <ScreenContent contract={contract} />
+  return (
+    <ScreenContent
+      defaultAddress={contract.releaseAddress}
+      offerId={getOfferIdFromContract(contract)}
+      contractId={contractId}
+    />
+  )
 }
 
-function ScreenContent ({ contract }: { contract: Contract }) {
+type ScreenContentProps = {
+  defaultAddress: string
+  offerId: string
+  contractId?: string
+}
+
+function ScreenContent ({ defaultAddress, offerId, contractId }: ScreenContentProps) {
   const navigation = useNavigation()
-  const { contractId } = useRoute<'patchPayoutAddress'>().params
 
   const [payoutAddress, setPayoutAddress, payoutAddressLabel, setPayoutAddressLabel, messageSignature]
     = useSettingsStore(
@@ -52,7 +82,6 @@ function ScreenContent ({ contract }: { contract: Contract }) {
       shallow,
     )
 
-  const defaultAddress = contract.releaseAddress
   const [address, setAddress, addressValid, addressErrors] = useValidatedState(defaultAddress, addressRules)
 
   const defaultLabel = payoutAddress === defaultAddress ? payoutAddressLabel || '' : ''
@@ -64,7 +93,7 @@ function ScreenContent ({ contract }: { contract: Contract }) {
   const isUpdated = address === payoutAddress && addressLabel === payoutAddressLabel
   const publicKey = useAccountStore((state) => state.account.publicKey)
 
-  const { mutate: patchPayoutAddress } = usePatchReleaseAddress(getOfferIdFromContract(contract), contractId)
+  const { mutate: patchPayoutAddress } = usePatchReleaseAddress(offerId, contractId)
 
   const save = () => {
     if (addressValid && addressLabelValid) {
@@ -75,7 +104,7 @@ function ScreenContent ({ contract }: { contract: Contract }) {
       const signatureRequired = !messageSignature || !isValidBitcoinSignature(message, address, messageSignature)
 
       if (signatureRequired) {
-        navigation.replace('signMessage', { contractId })
+        navigation.replace('signMessage', contractId ? { contractId } : { offerId })
       } else {
         patchPayoutAddress(
           { releaseAddress: address, messageSignature },

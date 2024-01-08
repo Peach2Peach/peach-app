@@ -48,6 +48,8 @@ export function WalletSelector ({ isPayout = false, offerId }: { isPayout?: bool
       setPeachWalletActive(false)
     } else if (!offerId) {
       navigation.navigate('payoutAddress', { type: isPayout ? 'payout' : 'refund' })
+    } else {
+      navigation.navigate('patchPayoutAddress', { offerId })
     }
   }
 

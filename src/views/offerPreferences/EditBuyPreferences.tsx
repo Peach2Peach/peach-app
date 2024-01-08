@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { useQueryClient } from '@tanstack/react-query'
 import { createContext, useContext, useReducer, useState } from 'react'
 import { Button } from '../../components/buttons/Button'
@@ -14,6 +13,7 @@ import { hasMopsConfigured } from '../../utils/offer/hasMopsConfigured'
 import { isBuyOffer } from '../../utils/offer/isBuyOffer'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { matchesKeys } from '../search/hooks/useOfferMatches'
+import { WalletSelector } from './WalletSelector'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
 import { BuyBitcoinHeader } from './components/BuyBitcoinHeader'
 import { FilterContainer } from './components/FilterContainer'
@@ -88,6 +88,7 @@ function ScreenContent ({ offer }: { offer: BuyOffer }) {
         <OfferMethods />
         <AmountSelector setIsSliding={setIsSliding} />
         <Filters />
+        <WalletSelector isPayout offerId={offer.id} />
       </PreferenceScreen>
     </PreferenceContext.Provider>
   )

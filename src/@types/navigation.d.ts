@@ -64,9 +64,6 @@ type ContractFlow = {
     contractId: Contract['id']
     reason: DisputeReason
   }
-  patchPayoutAddress: {
-    contractId: Contract['id']
-  }
   signMessage:
     | {
         contractId: Contract['id']
@@ -146,4 +143,10 @@ type RootStackParamList = Onboarding &
     socials: undefined
     myProfile: undefined
     transactionBatching: undefined
+
+    patchPayoutAddress:
+      | {
+          contractId: Contract['id']
+        }
+      | { offerId: string }
   } & TestViews
