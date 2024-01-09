@@ -37,7 +37,7 @@ const themes = {
   },
 }
 
-type IconActionPair = [IconType, () => void]
+export type IconActionPair = [IconType, () => void]
 export type InputProps = TextInputProps & {
   theme?: 'default' | 'inverted'
   label?: string
@@ -71,6 +71,7 @@ export const Input = ({
   )
   const showError = errorMessage.length > 0 && !disabled && !!value
 
+  console.log(icons)
   return (
     <View>
       {!!label && (
