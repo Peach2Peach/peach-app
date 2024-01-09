@@ -71,7 +71,6 @@ export const Input = ({
   )
   const showError = errorMessage.length > 0 && !disabled && !!value
 
-  console.log(icons)
   return (
     <View>
       {!!label && (
