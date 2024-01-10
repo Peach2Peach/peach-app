@@ -6,7 +6,6 @@ import { ClosePopupAction } from '../../components/popup/actions/ClosePopupActio
 import { LoadingPopupAction } from '../../components/popup/actions/LoadingPopupAction'
 import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import tw from '../../styles/tailwind'
-import { useAccountStore } from '../../utils/account/account'
 import { getSellOfferFromContract } from '../../utils/contract/getSellOfferFromContract'
 import { getWalletLabelFromContract } from '../../utils/contract/getWalletLabelFromContract'
 import i18n from '../../utils/i18n'
@@ -18,10 +17,9 @@ import { useContractMutation } from '../../views/contract/hooks/useContractMutat
 import { GrayPopup } from '../GrayPopup'
 import { cancelContractAsSeller } from './cancelContractAsSeller'
 
-export function ConfirmTradeCancelationPopup ({ contract }: { contract: Contract }) {
+export function ConfirmTradeCancelationPopup ({ contract, view }: { contract: Contract; view: ContractViewer }) {
   const setPopup = useSetPopup()
   const closePopup = useClosePopup()
-  const publicKey = useAccountStore((state) => state.account.publicKey)
   const { mutate: cancelSeller } = useContractMutation(
     {},
     {
@@ -54,7 +52,6 @@ export function ConfirmTradeCancelationPopup ({ contract }: { contract: Contract
       },
     },
   )
-  const view = publicKey === contract?.seller.id ? 'seller' : 'buyer'
   const cancelAction = () => (view === 'seller' ? cancelSeller() : cancelBuyer())
   const title = i18n(isCashTrade(contract.paymentMethod) ? 'contract.cancel.cash.title' : 'contract.cancel.title')
   const isCash = isCashTrade(contract.paymentMethod)

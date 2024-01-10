@@ -10,6 +10,7 @@ import { toTimeFormat } from '../../../utils/date/toTimeFormat'
 import i18n from '../../../utils/i18n'
 
 type GetMessageMetaProps = {
+  publicKey: string
   message: Message
   previous: Message
   tradingPartner: string
@@ -26,8 +27,7 @@ type MessageMeta = {
   readByCounterParty: boolean
 }
 
-const getMessageMeta = ({ message, previous, tradingPartner, online }: GetMessageMetaProps): MessageMeta => {
-  const publicKey = useAccountStore.getState().account.publicKey
+const getMessageMeta = ({ message, previous, tradingPartner, online, publicKey }: GetMessageMetaProps): MessageMeta => {
   const isYou = message.from === publicKey
   const isTradingPartner = message.from === tradingPartner
   const isMediator = !isYou && !isTradingPartner
@@ -97,11 +97,13 @@ export const ChatMessage = ({
   online,
   resendMessage,
 }: ChatMessageProps) => {
+  const publicKey = useAccountStore((state) => state.account.publicKey)
   const meta = getMessageMeta({
     message,
     previous: chatMessages[index - 1],
     tradingPartner,
     online,
+    publicKey,
   })
   const { statusIcon, statusIconColor, text, bgColor } = getMessageStyling(message, meta)
 
