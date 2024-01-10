@@ -1,5 +1,5 @@
 import messaging from '@react-native-firebase/messaging'
-import { useSettingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import { useAccountStore } from '../utils/account/account'
 import { error } from '../utils/log/error'
 import { info } from '../utils/log/info'

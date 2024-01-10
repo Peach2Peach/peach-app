@@ -5,7 +5,7 @@ import { Button } from '../../components/buttons/Button'
 import { RadioButtons } from '../../components/inputs/RadioButtons'
 import { useNavigation } from '../../hooks/useNavigation'
 import { CURRENCIES } from '../../paymentMethods'
-import { useSettingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 

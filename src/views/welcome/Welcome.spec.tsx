@@ -1,5 +1,5 @@
 import { render } from 'test-utils'
-import { useSettingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import { Welcome } from './Welcome'
 
 describe('Welcome', () => {

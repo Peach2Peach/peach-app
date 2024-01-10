@@ -1,7 +1,7 @@
 import { act } from 'react-test-renderer'
 import { renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useRestoreFromFileSetup } from './useRestoreFromFileSetup'
 

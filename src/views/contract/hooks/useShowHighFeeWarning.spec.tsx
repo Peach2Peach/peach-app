@@ -1,7 +1,7 @@
 import { renderHook } from 'test-utils'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { defaultState, useMessageState } from '../../../components/message/useMessageState'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import { useShowHighFeeWarning } from './useShowHighFeeWarning'
 
 jest.useFakeTimers()

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useSettingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import i18n from '../../utils/i18n'
 import { getWalletLabel } from '../../utils/offer/getWalletLabel'
 

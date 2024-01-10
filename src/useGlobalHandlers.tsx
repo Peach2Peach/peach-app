@@ -7,7 +7,7 @@ import { useShouldShowBackupReminder } from './hooks/useShouldShowBackupReminder
 import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
 import { useInitialNavigation } from './init/useInitialNavigation'
 import { AnalyticsPopup } from './popups/AnalyticsPopup'
-import { useSettingsStore } from './store/settingsStore'
+import { useSettingsStore } from './store/settingsStore/useSettingsStore'
 
 export const useGlobalHandlers = () => {
   const messageHandler = useMessageHandler()

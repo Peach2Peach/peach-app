@@ -1,7 +1,7 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
 import { fireEvent, render } from 'test-utils'
 import { Popup } from '../../components/popup/Popup'
-import { useSettingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import { VerifyYouAreAHuman, VerifyYouAreAHumanPopup } from './VerifyYouAreAHumanPopup'
 
 const renderer = ShallowRenderer.createRenderer()

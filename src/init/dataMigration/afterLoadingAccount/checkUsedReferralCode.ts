@@ -1,4 +1,4 @@
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import { waitForHydration } from '../../../store/waitForHydration'
 import { peachAPI } from './../../../utils/peachAPI'
 

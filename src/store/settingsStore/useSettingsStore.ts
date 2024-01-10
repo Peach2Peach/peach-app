@@ -6,7 +6,7 @@ import { Locale } from '../../utils/i18n'
 import { createPersistStorage } from '../createPersistStorage'
 import { defaultSettings } from './defaultSettings'
 import { getPureSettingsState } from './helpers/getPureSettingsState'
-import { migrateSettings } from './helpers/migration'
+import { migrateSettings } from './helpers/migration/migrateSettings'
 import { settingsStorage } from './settingsStorage'
 
 export type SettingsStore = Settings & {

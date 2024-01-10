@@ -1,6 +1,6 @@
 import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { saveOffer } from '../../../utils/offer/saveOffer'
 import { useWalletState } from '../../../utils/wallet/walletStore'

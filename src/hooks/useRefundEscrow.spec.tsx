@@ -3,7 +3,7 @@ import { sellOffer } from '../../tests/unit/data/offerData'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
 import { Overlay } from '../Overlay'
 import { Popup } from '../components/popup/Popup'
-import { useSettingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import { peachAPI } from '../utils/peachAPI'
 import { useRefundEscrow } from './useRefundEscrow'
 

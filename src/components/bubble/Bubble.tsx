@@ -29,7 +29,7 @@ export const Bubble = (props: BubbleProps) => {
   return <BubbleBase {...{ ...props, color, textColor, iconColor, iconSize, borderColor }} />
 }
 
-type NewBubbleProps = {
+export type NewBubbleProps = {
   children: React.ReactNode
   iconId?: IconType
   color: 'orange' | 'black' | 'gray' | 'primary-mild' | 'green'

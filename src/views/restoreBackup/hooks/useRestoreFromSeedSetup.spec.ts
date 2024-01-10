@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import { useRestoreFromSeedSetup } from './useRestoreFromSeedSetup'
 
 jest.useFakeTimers()
