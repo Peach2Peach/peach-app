@@ -55,7 +55,7 @@ export const tradeInformationGetters: Record<
   paidToMethod: getPaymentMethodBubble,
   paidToWallet: (contract: Contract) => {
     const buyOffer = getBuyOfferFromContract(contract)
-    return <WalletLabel label={buyOffer.walletLabel} address={buyOffer.releaseAddress} />
+    return <PaidToWallet label={buyOffer.walletLabel} address={buyOffer.releaseAddress} />
   },
   paymentConfirmed: (contract: Contract) => toShortDateFormat(contract.paymentConfirmed || new Date(), true),
   bitcoinAmount: (contract: Contract) => contract.amount,
@@ -163,8 +163,8 @@ function getPaymentMethod (contract: Contract) {
   return getPaymentMethodName(contract.paymentMethod)
 }
 
-function WalletLabel ({ label, address }: { label?: string; address?: string }) {
-  const walletLabel = useWalletLabel({ label, address })
+function PaidToWallet ({ label, address }: { label?: string; address?: string }) {
+  const walletLabel = useWalletLabel({ label, address, isPayoutWallet: true })
 
   return <>{walletLabel}</>
 }

@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "Alapértelmezés szerint a kereskedéseid kifizetései a Peach tárcádba lesznek küldve.\n\nHa máshova szeretnéd őket küldeni, itt megadhatod az egyedi címet.",
+  "help.payoutAddress.title" : "egyedi kifizetési tárca",
+  "help.refundAddress.description" : "Alapértelmezés szerint a visszatérítések a Peach pénztárcájába kerülnek.\n\nHa szeretnéd, hogy máshova küldjük őket, itt adhatsz meg egyéni címet.",
+  "help.refundAddress.title" : "egyedi visszatérítési cím",
   "settings" : "beállítások",
   "settings.aboutPeach" : "Peach névjegy",
   "settings.analytics" : "Diagnosztika",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "fizetési módszerek",
   "settings.payoutAddress" : "egyedi kifizetési tárca",
   "settings.payoutAddress.confirm" : "megerősítés",
-  "settings.payoutAddress.popup" : "Alapértelmezés szerint a kereskedéseid kifizetései a Peach tárcádba lesznek küldve.\n\nHa máshova szeretnéd őket küldeni, itt megadhatod az egyedi címet.",
   "settings.payoutAddress.popup.content" : "Eltávolítod ezt az egyéni pénztárcát?",
   "settings.payoutAddress.popup.remove" : "eltávolítás",
   "settings.payoutAddress.popup.title" : "tárca eltávolítása?",

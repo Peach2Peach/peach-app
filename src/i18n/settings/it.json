@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "Per impostazione predefinita, tutti i pagamenti delle transazioni vengono inviati al tuo wallet Peach.\n\nSe desideri inviarli altrove, puoi inserire qui un indirizzo personalizzato.",
+  "help.payoutAddress.title" : "Wallet esterno",
+  "help.refundAddress.description" : "Per impostazione predefinita, i rimborsi vengono inviati al tuo portafoglio Peach.\n\nSe desideri che vengano inviati altrove, puoi inserire un indirizzo personalizzato qui.",
+  "help.refundAddress.title" : "Indirizzo di rimborso esterno",
   "settings" : "impostazioni",
   "settings.aboutPeach" : "Riguardo Peach",
   "settings.analytics" : "Diagnostica",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "Metodi di pagamento",
   "settings.payoutAddress" : "Wallet esterno",
   "settings.payoutAddress.confirm" : "conferma",
-  "settings.payoutAddress.popup" : "Per impostazione predefinita, tutti i pagamenti delle transazioni vengono inviati al tuo wallet Peach.\n\nSe desideri inviarli altrove, puoi inserire qui un indirizzo personalizzato.",
   "settings.payoutAddress.success" : "indirizzo impostato",
   "settings.payoutAddress.title" : "Imposta indirizzo esterno",
   "settings.peachApp" : "Peach Bitcoin v",

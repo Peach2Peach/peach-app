@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "Por padrão, todos os pagamentos de negociação são enviados para sua carteira Peach.\n\nSe você deseja que eles sejam enviados para outro lugar, pode inserir um endereço personalizado aqui.",
+  "help.payoutAddress.title" : "carteira de pagamento personalizada",
+  "help.refundAddress.description" : "Por padrão, qualquer reembolso é enviado para sua carteira Peach.\n\nSe você quiser enviá-los para outro lugar, pode inserir um endereço personalizado aqui.",
+  "help.refundAddress.title" : "endereço de reembolso personalizado",
   "settings" : "configurações",
   "settings.aboutPeach" : "sobre a Peach",
   "settings.analytics" : "diagnósticos",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "métodos de pagamento",
   "settings.payoutAddress" : "carteira de pagamento personalizada",
   "settings.payoutAddress.confirm" : "confirmar",
-  "settings.payoutAddress.popup" : "Por padrão, todos os pagamentos de negociação são enviados para sua carteira Peach.\n\nSe você deseja que eles sejam enviados para outro lugar, pode inserir um endereço personalizado aqui.",
   "settings.payoutAddress.popup.content" : "Você quer remover esta carteira?",
   "settings.payoutAddress.popup.remove" : "remover",
   "settings.payoutAddress.popup.title" : "remover carteira?",

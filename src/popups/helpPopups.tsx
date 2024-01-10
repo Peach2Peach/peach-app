@@ -34,7 +34,6 @@ export const helpPopups: Record<string, { title: string; content: (() => JSX.Ele
   myBadges: { title: i18n('peachBadges'), content: MyBadges },
   networkFees: { title: i18n('help.networkFees.title'), content: NetworkFees },
   paymentMethods: { title: i18n('settings.paymentMethods'), content: PaymentMethodsHelp },
-  payoutAddress: { title: i18n('settings.payoutAddress'), content: i18n('settings.payoutAddress.popup') },
   rbf: { title: i18n('wallet.bumpNetworkFees.help.title'), content: i18n('wallet.bumpNetworkFees.description') },
   referrals: { title: i18n('help.referral.title'), content: ReferralsHelp },
   seedPhrase: { title: i18n('settings.backups.seedPhrase.popup.title'), content: SeedPhrasePopup },

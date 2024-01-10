@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "By default, any trade payouts are sent to your Peach wallet.\n\nIf you want to have them sent somewhere else, you can enter a custom address here.",
+  "help.payoutAddress.title" : "custom payout wallet",
+  "help.refundAddress.description" : "By default, any refunds are sent to your Peach wallet.\n\nIf you want to have them sent somewhere else, you can enter a custom address here.",
+  "help.refundAddress.title" : "custom refund address",
   "settings" : "settings",
   "settings.aboutPeach" : "about Peach",
   "settings.analytics" : "Diagnostics",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "payment methods",
   "settings.payoutAddress" : "custom payout wallet",
   "settings.payoutAddress.confirm" : "confirm",
-  "settings.payoutAddress.popup" : "By default, any trade payouts are sent to your Peach wallet.\n\nIf you want to have them sent somewhere else, you can enter a custom address here.",
   "settings.payoutAddress.popup.content" : "Do you want to remove this custom wallet?",
   "settings.payoutAddress.popup.remove" : "remove",
   "settings.payoutAddress.popup.title" : "remove wallet?",

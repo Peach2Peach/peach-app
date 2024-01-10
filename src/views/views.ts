@@ -32,10 +32,11 @@ import { EditPremium } from './search/EditPremium'
 import { Search } from './search/Search'
 import { Backups } from './settings/Backups'
 import { Currency } from './settings/Currency'
-import { CustomAddress } from './settings/CustomAddress'
 import { Language } from './settings/Language'
 import { NetworkFees } from './settings/NetworkFees'
 import { NodeSetup } from './settings/NodeSetup'
+import { PayoutAddress } from './settings/PayoutAddress'
+import { RefundAddress } from './settings/RefundAddress'
 import { TransactionBatching } from './settings/TransactionBatching'
 import { AboutPeach } from './settings/aboutPeach/AboutPeach'
 import { BitcoinProducts } from './settings/aboutPeach/BitcoinProducts'
@@ -131,7 +132,8 @@ const settings: ViewType[] = [
   { name: 'referrals', component: Referrals },
   { name: 'backups', component: Backups },
   { name: 'nodeSetup', component: NodeSetup },
-  { name: 'payoutAddress', component: CustomAddress },
+  { name: 'refundAddress', component: RefundAddress },
+  { name: 'payoutAddress', component: PayoutAddress },
   { name: 'paymentMethods', component: PaymentMethods },
   { name: 'peachFees', component: PeachFees },
   { name: 'networkFees', component: NetworkFees },

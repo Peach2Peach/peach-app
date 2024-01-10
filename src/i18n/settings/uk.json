@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "За замовчуванням будь-які торгові виплати надсилаються на ваш гаманець Peach. Якщо ви хочете, щоб вони були надіслані в інше місце, ви можете ввести спеціальну адресу тут.",
+  "help.payoutAddress.title" : "індивідуальний гаманець для виплат",
+  "help.refundAddress.description" : "За замовчуванням всі повернення надсилаються на ваш гаманець Peach.\n\nЯкщо хочете, щоб вони були відправлені куди-небудь інше, ви можете ввести свою адресу тут.",
+  "help.refundAddress.title" : "індивідуальна адреса повернення коштів",
   "settings" : "налаштування",
   "settings.aboutPeach" : " про Peach",
   "settings.analytics" : "Диагностіка",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "методи оплати",
   "settings.payoutAddress" : "індивідуальний гаманець для виплат",
   "settings.payoutAddress.confirm" : "підтвердити",
-  "settings.payoutAddress.popup" : "За замовчуванням будь-які торгові виплати надсилаються на ваш гаманець Peach. Якщо ви хочете, щоб вони були надіслані в інше місце, ви можете ввести спеціальну адресу тут.",
   "settings.payoutAddress.success" : "задати адресу",
   "settings.payoutAddress.title" : "задати індивідуальну адресу",
   "settings.peachApp" : "Peach Bitcoin v",

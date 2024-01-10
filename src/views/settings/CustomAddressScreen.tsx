@@ -18,43 +18,41 @@ import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
-import { addressRules, labelRules } from './CustomAddress'
 
 type Props = {
-  type?: 'refund' | 'payout'
+  isPayout?: boolean
   onSave: (address: string, addressLabel: string) => void
-  defaultAddress: string
-  defaultAddressLabel: string
+  defaultAddress?: string
+  defaultAddressLabel?: string
   showRemoveWallet?: boolean
 }
 
+const addressRules = { bitcoinAddress: true, blockTaprootAddress: true, required: true }
+const labelRules = { required: true }
+
 export function CustomAddressScreen ({
-  type,
+  isPayout = false,
   onSave,
   defaultAddress,
   defaultAddressLabel,
   showRemoveWallet = false,
 }: Props) {
-  const [payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.payoutAddress, state.payoutAddressLabel],
-    shallow,
-  )
-  const [address, setAddress, addressValid, addressErrors] = useValidatedState(defaultAddress, addressRules)
+  const [address, setAddress, addressValid, addressErrors] = useValidatedState(defaultAddress || '', addressRules)
   const [addressLabel, setAddressLabel, addressLabelValid, addressLabelErrors] = useValidatedState(
-    defaultAddressLabel,
+    defaultAddressLabel || '',
     labelRules,
   )
-  const isUpdated = address === payoutAddress && addressLabel === payoutAddressLabel
+  const isUpdated = address === defaultAddress && addressLabel === defaultAddressLabel
   const save = () => {
     if (addressValid && addressLabelValid) {
       onSave(address, addressLabel)
     }
   }
   return (
-    <Screen header={<PayoutAddressHeader type={type} />}>
+    <Screen header={<PayoutAddressHeader isPayout={isPayout} />}>
       <View style={tw`items-center justify-center grow`}>
         <PeachText style={tw`h6`}>
-          {i18n(type === 'refund' ? 'settings.refundAddress.title' : 'settings.payoutAddress.title')}
+          {i18n(isPayout ? 'settings.payoutAddress.title' : 'settings.refundAddress.title')}
         </PeachText>
         <Input
           value={addressLabel}
@@ -70,7 +68,11 @@ export function CustomAddressScreen ({
               <PeachText style={tw`uppercase button-medium`}>{i18n('settings.payoutAddress.success')}</PeachText>
               <Icon id="check" size={20} color={tw.color('success-main')} />
             </View>
-            <RemoveWalletButton setAddressInput={setAddress} setAddressLabelInput={setAddressLabel} />
+            <RemoveWalletButton
+              isPayout={isPayout}
+              setAddressInput={setAddress}
+              setAddressLabelInput={setAddressLabel}
+            />
           </View>
         ) : (
           <OpenWallet address={address} />
@@ -81,17 +83,17 @@ export function CustomAddressScreen ({
         onPress={save}
         disabled={!address || !addressLabel || !addressValid || !addressLabelValid || isUpdated}
       >
-        {i18n(type === 'refund' ? 'settings.refundAddress.confirm' : 'settings.payoutAddress.confirm')}
+        {i18n(isPayout ? 'settings.payoutAddress.confirm' : 'settings.refundAddress.confirm')}
       </Button>
     </Screen>
   )
 }
-function PayoutAddressHeader ({ type }: { type?: 'refund' | 'payout' }) {
+function PayoutAddressHeader ({ isPayout }: { isPayout: boolean }) {
   const setPopup = useSetPopup()
-  const showHelp = () => setPopup(<HelpPopup id="payoutAddress" />)
+  const showHelp = () => setPopup(<HelpPopup id={isPayout ? 'payoutAddress' : 'refundAddress'} />)
   return (
     <Header
-      title={i18n(type === 'refund' ? 'settings.refundAddress' : 'settings.payoutAddress')}
+      title={i18n(isPayout ? 'settings.payoutAddress' : 'settings.refundAddress')}
       icons={[{ ...headerIcons.help, onPress: showHelp }]}
     />
   )
@@ -99,6 +101,7 @@ function PayoutAddressHeader ({ type }: { type?: 'refund' | 'payout' }) {
 type PopupProps = {
   setAddressInput: (address: string) => void
   setAddressLabelInput: (label: string) => void
+  isPayout: boolean
 }
 function RemoveWalletButton (popupProps: PopupProps) {
   const setPopup = useSetPopup()
@@ -113,15 +116,18 @@ function RemoveWalletButton (popupProps: PopupProps) {
     </TouchableOpacity>
   )
 }
-function RemoveWalletPopup ({ setAddressInput, setAddressLabelInput }: PopupProps) {
-  const [setPayoutAddress, setPayoutAddressLabel, setPeachWalletActive] = useSettingsStore(
-    (state) => [state.setPayoutAddress, state.setPayoutAddressLabel, state.setPeachWalletActive],
+function RemoveWalletPopup ({ setAddressInput, setAddressLabelInput, isPayout }: PopupProps) {
+  const [setCustomAddress, setCustomAddressLabel, setPeachWalletActive] = useSettingsStore(
+    (state) =>
+      isPayout
+        ? [state.setPayoutAddress, state.setPayoutAddressLabel, state.setPayoutToPeachWallet]
+        : [state.setRefundAddress, state.setRefundAddressLabel, state.setRefundToPeachWallet],
     shallow,
   )
   const closePopup = useClosePopup()
   const removeWallet = () => {
-    setPayoutAddress(undefined)
-    setPayoutAddressLabel(undefined)
+    setCustomAddress(undefined)
+    setCustomAddressLabel(undefined)
     setAddressInput('')
     setAddressLabelInput('')
     setPeachWalletActive(true)

@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "Por defecto, todos los pagos de transacciones se envían a tu cartera Peach.\n\nSi deseas que se envíen a otra cartera, puedes ingresar una dirección externa aquí.",
+  "help.payoutAddress.title" : "dirección de pago",
+  "help.refundAddress.description" : "Por defecto, cualquier reembolso se envía a tu billetera Peach.\n\nSi quieres que se envíen a otro lugar, puedes ingresar una dirección personalizada aquí.",
+  "help.refundAddress.title" : "dirección de reembolso personalizada",
   "settings" : "ajustes",
   "settings.aboutPeach" : "sobre Peach",
   "settings.analytics" : "Diagnósticos",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "métodos de pago",
   "settings.payoutAddress" : "dirección de pago",
   "settings.payoutAddress.confirm" : "confirmar",
-  "settings.payoutAddress.popup" : "Por defecto, todos los pagos de transacciones se envían a tu cartera Peach.\n\nSi deseas que se envíen a otra cartera, puedes ingresar una dirección externa aquí.",
   "settings.payoutAddress.success" : "dirección establecida",
   "settings.payoutAddress.title" : "establecer dirección personalizada",
   "settings.peachApp" : "Peach Bitcoin v",

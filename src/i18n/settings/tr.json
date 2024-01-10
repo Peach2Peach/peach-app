@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "Varsayılan olarak, tüm işlem ödemeleriniz Peach cüzdanınıza gönderilir.\n\nBaşka bir yere göndermek isterseniz, burada özel bir adres girebilirsiniz.",
+  "help.payoutAddress.title" : "özel çıkış cüzdanı",
+  "help.refundAddress.description" : "Varsayılan olarak, herhangi bir iade Peach cüzdanına gönderilir.\n\nEğer başka bir yere göndermek istiyorsan, buraya özel bir adres girebilirsin.",
+  "help.refundAddress.title" : "özel iade adresi",
   "settings" : "ayarlar",
   "settings.aboutPeach" : "Peach hakkında",
   "settings.analytics" : "Tanı hizmetleri",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "ödeme yöntemleri",
   "settings.payoutAddress" : "özel çıkış cüzdanı",
   "settings.payoutAddress.confirm" : "onayla",
-  "settings.payoutAddress.popup" : "Varsayılan olarak, tüm işlem ödemeleriniz Peach cüzdanınıza gönderilir.\n\nBaşka bir yere göndermek isterseniz, burada özel bir adres girebilirsiniz.",
   "settings.payoutAddress.success" : "adres ayarlandı",
   "settings.payoutAddress.title" : "özel adresi ayarla",
   "settings.peachApp" : "Peach Bitcoin v",

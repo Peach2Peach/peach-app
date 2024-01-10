@@ -12,7 +12,9 @@ import { SummaryItem } from './SummaryItem'
 
 export const TradeStatusInfo = () => {
   const { contract, view } = useContractContext()
-  const isPeachWalletActive = useSettingsStore((state) => state.peachWalletActive)
+  const isPeachWalletActive = useSettingsStore((state) =>
+    view === 'buyer' ? state.payoutToPeachWallet : state.refundToPeachWallet,
+  )
   return (
     <View style={tw`justify-center gap-5 grow`}>
       <SummaryItem

@@ -79,7 +79,7 @@ export function SellOfferPreferences () {
       <AmountSelector setIsSliding={setIsSliding} />
       <FundMultipleOffersContainer />
       <InstantTrade />
-      <WalletSelector />
+      <RefundWalletSelector />
     </PreferenceScreen>
   )
 }
@@ -433,8 +433,8 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
     setSellAmount(restrictAmount(sellAmount))
   }
 
-  const [peachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel],
+  const [refundToPeachWallet, refundAddress, refundAddressLabel] = useSettingsStore(
+    (state) => [state.refundToPeachWallet, state.refundAddress, state.refundAddressLabel],
     shallow,
   )
 
@@ -504,7 +504,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
       return
     }
     setIsPublishing(true)
-    const { address } = peachWalletActive ? await peachWallet.getAddress() : { address: payoutAddress }
+    const address = refundToPeachWallet ? (await peachWallet.getAddress()).address : refundAddress
     if (!address) {
       setIsPublishing(false)
       return
@@ -515,7 +515,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
       paymentData,
       type: 'ask',
       funding: defaultFundingStatus,
-      walletLabel: peachWalletActive ? i18n('peachWallet') : payoutAddressLabel,
+      walletLabel: refundToPeachWallet ? i18n('peachWallet') : refundAddressLabel,
       returnAddress: address,
     })
     if (isPublished) {
@@ -569,6 +569,37 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
     >
       {i18n('offerPreferences.fundEscrow')}
     </Button>
+  )
+}
+
+function RefundWalletSelector () {
+  const [refundToPeachWallet, refundAddress, refundAddressLabel, setRefundToPeachWallet] = useSettingsStore(
+    (state) => [state.refundToPeachWallet, state.refundAddress, state.refundAddressLabel, state.setRefundToPeachWallet],
+    shallow,
+  )
+  const navigation = useNavigation()
+
+  const onExternalWalletPress = () => {
+    if (refundAddress) {
+      setRefundToPeachWallet(false)
+    } else {
+      navigation.navigate('refundAddress')
+    }
+  }
+
+  const onPeachWalletPress = () => setRefundToPeachWallet(true)
+
+  return (
+    <WalletSelector
+      title={i18n('offerPreferences.refundTo')}
+      backgroundColor={tw.color('primary-background-dark')}
+      bubbleColor="orange"
+      peachWalletActive={refundToPeachWallet}
+      address={refundAddress}
+      addressLabel={refundAddressLabel}
+      onPeachWalletPress={onPeachWalletPress}
+      onExternalWalletPress={onExternalWalletPress}
+    />
   )
 }
 

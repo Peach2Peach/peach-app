@@ -4,14 +4,19 @@ import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import i18n from '../../utils/i18n'
 import { getWalletLabel } from '../../utils/offer/getWalletLabel'
 
-type Props = ComponentProps & {
+type Props = {
   label?: string
   address?: string
+  isPayoutWallet?: boolean
 }
 
-export const useWalletLabel = ({ label, address }: Props) => {
-  const [payoutAddress, payoutAddressLabel, isPeachWalletActive] = useSettingsStore(
-    (state) => [state.payoutAddress, state.payoutAddressLabel, state.peachWalletActive],
+export const useWalletLabel = ({ label, address, isPayoutWallet = false }: Props) => {
+  const [customAddress, customAddressLabel, isPeachWalletActive] = useSettingsStore(
+    (state) => [
+      isPayoutWallet ? state.payoutAddress : state.refundAddress,
+      isPayoutWallet ? state.payoutAddressLabel : state.refundAddressLabel,
+      isPayoutWallet ? state.payoutToPeachWallet : state.refundToPeachWallet,
+    ],
     shallow,
   )
   const [fallbackLabel, setFallbackLabel] = useState(i18n('loading'))
@@ -24,13 +29,13 @@ export const useWalletLabel = ({ label, address }: Props) => {
       setFallbackLabel(
         getWalletLabel({
           address,
-          customPayoutAddress: payoutAddress,
-          customPayoutAddressLabel: payoutAddressLabel,
+          customAddress,
+          customAddressLabel,
           isPeachWalletActive,
         }),
       )
     })
-  }, [address, label, payoutAddress, payoutAddressLabel, isPeachWalletActive])
+  }, [address, label, customAddress, customAddressLabel, isPeachWalletActive])
 
   return label || fallbackLabel
 }

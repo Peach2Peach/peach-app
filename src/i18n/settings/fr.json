@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "Par défaut, tous les achats de sats sont envoyés à votre portefeuille Peach.\n\nSi vous souhaitez les faire envoyer ailleurs, vous pouvez entrer une adresse personnalisée ici.",
+  "help.payoutAddress.title" : "adresse de paiement",
+  "help.refundAddress.description" : "Par défaut, tout remboursement est envoyé à votre portefeuille Peach.\n\nSi vous souhaitez les faire envoyer ailleurs, vous pouvez entrer une adresse personnalisée ici.",
+  "help.refundAddress.title" : "adresse de remboursement manuelle",
   "settings" : "réglages",
   "settings.aboutPeach" : "à propos de Peach",
   "settings.analytics" : "Diagnostics",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "méthodes de paiement",
   "settings.payoutAddress" : "adresse de paiement",
   "settings.payoutAddress.confirm" : "confirmer",
-  "settings.payoutAddress.popup" : "Par défaut, tous les achats de sats sont envoyés à votre portefeuille Peach.\n\nSi vous souhaitez les faire envoyer ailleurs, vous pouvez entrer une adresse personnalisée ici.",
   "settings.payoutAddress.success" : "adresse définie",
   "settings.payoutAddress.title" : "définir une adresse personnalisée",
   "settings.peachApp" : "Peach Bitcoin v",

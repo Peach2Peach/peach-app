@@ -58,11 +58,6 @@ describe('helpPopups', () => {
     expect(helpPopups.paymentMethods.content).toBe(PaymentMethodsHelp)
   })
 
-  it('should have the correct payout address help popup', () => {
-    expect(helpPopups.payoutAddress.title).toBe('custom payout wallet')
-    expect(helpPopups.payoutAddress.content).toBe(i18n('settings.payoutAddress.popup'))
-  })
-
   it('should have the correct referrals help popup', () => {
     expect(helpPopups.referrals.title).toBe('Peach referral points')
     expect(helpPopups.referrals.content).toBe(ReferralsHelp)

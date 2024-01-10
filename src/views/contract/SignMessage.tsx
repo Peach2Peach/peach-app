@@ -33,18 +33,20 @@ const signatureRules = {
 }
 export const SignMessage = () => {
   const { params } = useRoute<'signMessage'>()
-  if (!params) return <SignMessageForGlobalPreference />
 
   return 'offerId' in params ? (
     <SignMessageForPatch offerId={params.offerId} />
-  ) : (
+  ) : 'contractId' in params ? (
     <ContractSuspense contractId={params.contractId} />
+  ) : (
+    <SignMessageForGlobalPreference />
   )
 }
 
 function SignMessageForGlobalPreference () {
-  const setPeachWalletActive = useSettingsStore((state) => state.setPeachWalletActive)
-  const onSubmit = () => setPeachWalletActive(false)
+  const setPayoutToPeachWallet = useSettingsStore((state) => state.setPayoutToPeachWallet)
+  const onSubmit = () => setPayoutToPeachWallet(false)
+
   return <ScreenContent onSubmit={onSubmit} />
 }
 
@@ -72,25 +74,23 @@ type ScreenContentProps = {
 
 function ScreenContent ({ onSubmit }: ScreenContentProps) {
   const navigation = useNavigation()
-  const [address, setPayoutAddressSignature] = useSettingsStore(
-    (state) => [state.payoutAddress, state.setPayoutAddressSignature],
+  const { address, addressLabel } = useRoute<'signMessage'>().params
+  const [setPayoutAddress, setPayoutAddressLabel, setPayoutAddressSignature] = useSettingsStore(
+    (state) => [state.setPayoutAddress, state.setPayoutAddressLabel, state.setPayoutAddressSignature],
     shallow,
   )
   const publicKey = useAccountStore((state) => state.account.publicKey)
-  const message = useMemo(
-    () => (address ? getMessageToSignForAddress(publicKey, address) : undefined),
-    [address, publicKey],
-  )
+  const message = useMemo(() => getMessageToSignForAddress(publicKey, address), [address, publicKey])
   const [signature, setSignature, signatureExists, requiredErrors] = useValidatedState<string>('', signatureRules)
 
   const signatureValid = useMemo(() => {
     if (!signatureExists) return false
-    return isValidBitcoinSignature(message || '', address || '', signature)
+    return isValidBitcoinSignature(message, address, signature)
   }, [signatureExists, message, address, signature])
 
   const signatureError = useMemo(() => {
     let errs = requiredErrors
-    if (!isValidBitcoinSignature(message || '', address || '', signature)) {
+    if (!isValidBitcoinSignature(message, address, signature)) {
       errs = [...errs, getMessages().signature]
     }
     return errs
@@ -99,7 +99,9 @@ function ScreenContent ({ onSubmit }: ScreenContentProps) {
   const parseAndSetSignature = (sig: string) => setSignature(parseSignature(sig))
 
   const submitSignature = () => {
-    if (!address || !signatureValid) return
+    if (!signatureValid) return
+    setPayoutAddress(address)
+    setPayoutAddressLabel(addressLabel)
     setPayoutAddressSignature(signature)
     onSubmit({ messageSignature: signature, releaseAddress: address })
     navigation.goBack()

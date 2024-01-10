@@ -104,7 +104,11 @@ function Rate ({ contract, view, vote }: RateProps) {
   const setPopup = useSetPopup()
   const showError = useShowErrorBanner()
   const [shouldShowBackupOverlay, setShowBackupReminder, isPeachWalletActive] = useSettingsStore(
-    (state) => [state.shouldShowBackupOverlay, state.setShowBackupReminder, state.peachWalletActive],
+    (state) => [
+      state.shouldShowBackupOverlay,
+      state.setShowBackupReminder,
+      view === 'buyer' ? state.payoutToPeachWallet : state.refundToPeachWallet,
+    ],
     shallow,
   )
   const setOverlayContent = useSetOverlay()

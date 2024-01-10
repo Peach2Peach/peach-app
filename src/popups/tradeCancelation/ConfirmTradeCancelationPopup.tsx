@@ -24,7 +24,7 @@ export function ConfirmTradeCancelationPopup ({ contract, view }: { contract: Co
     {},
     {
       mutationFn: async () => {
-        setPopup(<CancelPopup contract={contract} />)
+        setPopup(<CancelPopup contract={contract} view={view} />)
 
         const { result, error } = await cancelContractAsSeller(contract)
 
@@ -77,9 +77,12 @@ export function ConfirmTradeCancelationPopup ({ contract, view }: { contract: Co
   )
 }
 
-function CancelPopup ({ contract }: { contract: Contract }) {
-  const [customPayoutAddress, customPayoutAddressLabel, isPeachWalletActive] = useSettingsStore(
-    (state) => [state.payoutAddress, state.payoutAddressLabel, state.peachWalletActive],
+function CancelPopup ({ contract, view }: { contract: Contract; view: ContractViewer }) {
+  const [customAddress, customAddressLabel, isPeachWalletActive] = useSettingsStore(
+    (state) =>
+      view === 'buyer'
+        ? [state.payoutAddress, state.payoutAddressLabel, state.payoutToPeachWallet]
+        : [state.refundAddress, state.refundAddressLabel, state.refundToPeachWallet],
     shallow,
   )
   const { paymentMethod, id } = contract
@@ -87,8 +90,8 @@ function CancelPopup ({ contract }: { contract: Contract }) {
   const canRepublish = !getOfferExpiry(getSellOfferFromContract(contract)).isExpired
   const walletName = getWalletLabelFromContract({
     contract,
-    customPayoutAddress,
-    customPayoutAddressLabel,
+    customAddress,
+    customAddressLabel,
     isPeachWalletActive,
   })
   return (

@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "Domyślnie wszystkie wypłaty transakcji są wysyłane na Twój portfel Peach.\n\nJeśli chcesz, aby były wysyłane gdzie indziej, możesz wprowadzić tutaj niestandardowy adres.",
+  "help.payoutAddress.title" : "niestandardowy portfel wypłat",
+  "help.refundAddress.description" : "Domyślnie wszelkie zwroty są wysyłane na twój portfel Peach.\n\nJeśli chcesz, aby były wysyłane gdzie indziej, możesz tutaj wprowadzić niestandardowy adres.",
+  "help.refundAddress.title" : "niestandardowy adres zwrotu",
   "settings" : "ustawienia",
   "settings.aboutPeach" : "o Peach",
   "settings.analytics" : "Diagnostyka",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "metody płatności",
   "settings.payoutAddress" : "niestandardowy portfel wypłat",
   "settings.payoutAddress.confirm" : "potwierdź",
-  "settings.payoutAddress.popup" : "Domyślnie wszystkie wypłaty transakcji są wysyłane na Twój portfel Peach.\n\nJeśli chcesz, aby były wysyłane gdzie indziej, możesz wprowadzić tutaj niestandardowy adres.",
   "settings.payoutAddress.success" : "adres ustawiony",
   "settings.payoutAddress.title" : "ustaw niestandardowy adres",
   "settings.peachApp" : "Peach Bitcoin v",

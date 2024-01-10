@@ -64,12 +64,6 @@ type ContractFlow = {
     contractId: Contract['id']
     reason: DisputeReason
   }
-  signMessage:
-    | {
-        contractId: Contract['id']
-      }
-    | { offerId: string }
-    | undefined
 }
 
 type RootStackParamList = Onboarding &
@@ -128,7 +122,8 @@ type RootStackParamList = Onboarding &
     referrals: undefined
     backups: undefined
     seedWords: undefined
-    payoutAddress: { type: 'refund' | 'payout' } | undefined
+    refundAddress: undefined
+    payoutAddress: undefined
     paymentMethods: undefined
     meetupScreen: {
       eventId: string
@@ -149,4 +144,8 @@ type RootStackParamList = Onboarding &
           contractId: Contract['id']
         }
       | { offerId: string }
+    signMessage:
+      | { address: string; addressLabel: string }
+      | { contractId: Contract['id']; address: string; addressLabel: string }
+      | { offerId: string; address: string; addressLabel: string }
   } & TestViews

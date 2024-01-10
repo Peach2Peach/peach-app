@@ -54,17 +54,10 @@ type ScreenContentProps = {
 function PatchOfferAddress ({ defaultAddress, offerId, contractId }: ScreenContentProps) {
   const navigation = useNavigation()
 
-  const [payoutAddress, setPayoutAddress, payoutAddressLabel, setPayoutAddressLabel, messageSignature]
-    = useSettingsStore(
-      (state) => [
-        state.payoutAddress,
-        state.setPayoutAddress,
-        state.payoutAddressLabel,
-        state.setPayoutAddressLabel,
-        state.payoutAddressSignature,
-      ],
-      shallow,
-    )
+  const [payoutAddress, payoutAddressLabel, messageSignature] = useSettingsStore(
+    (state) => [state.payoutAddress, state.payoutAddressLabel, state.payoutAddressSignature],
+    shallow,
+  )
 
   const defaultLabel = payoutAddress === defaultAddress ? payoutAddressLabel || '' : ''
 
@@ -73,14 +66,13 @@ function PatchOfferAddress ({ defaultAddress, offerId, contractId }: ScreenConte
   const { mutate: patchPayoutAddress } = usePatchReleaseAddress(offerId, contractId)
 
   const onSave = (address: string, addressLabel: string) => {
-    setPayoutAddress(address)
-    setPayoutAddressLabel(addressLabel)
-
     const message = getMessageToSignForAddress(publicKey, address)
     const signatureRequired = !messageSignature || !isValidBitcoinSignature(message, address, messageSignature)
 
     if (signatureRequired) {
-      navigation.replace('signMessage', contractId ? { contractId } : { offerId })
+      const commonProps = { address, addressLabel }
+      const uniqueProps = contractId ? { contractId } : { offerId }
+      navigation.replace('signMessage', { ...commonProps, ...uniqueProps })
     } else {
       patchPayoutAddress(
         { releaseAddress: address, messageSignature },
@@ -94,11 +86,6 @@ function PatchOfferAddress ({ defaultAddress, offerId, contractId }: ScreenConte
   }
 
   return (
-    <CustomAddressScreen
-      type="payout"
-      onSave={onSave}
-      defaultAddress={defaultAddress}
-      defaultAddressLabel={defaultLabel}
-    />
+    <CustomAddressScreen isPayout onSave={onSave} defaultAddress={defaultAddress} defaultAddressLabel={defaultLabel} />
   )
 }

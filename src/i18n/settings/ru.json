@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "По умолчанию любые торговые выплаты отправляются на ваш кошелек Peach.  Если вы хотите, чтобы они были отправлены куда-то еще, вы можете ввести здесь собственный адрес.",
+  "help.payoutAddress.title" : "индивидуальный кошелек для выплат",
+  "help.refundAddress.description" : "По умолчанию все возвраты отправляются на ваш кошелек Peach.\n\nЕсли вы хотите, чтобы они были отправлены куда-то еще, вы можете ввести свой адрес.",
+  "help.refundAddress.title" : "собственный адрес для возврата",
   "settings" : "настройки",
   "settings.aboutPeach" : "О Peach",
   "settings.analytics" : "Диагностика",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "способы оплаты",
   "settings.payoutAddress" : "индивидуальный кошелек для выплат",
   "settings.payoutAddress.confirm" : "подтвердить",
-  "settings.payoutAddress.popup" : "По умолчанию любые торговые выплаты отправляются на ваш кошелек Peach.  Если вы хотите, чтобы они были отправлены куда-то еще, вы можете ввести здесь собственный адрес.",
   "settings.payoutAddress.success" : "адрес установлен",
   "settings.payoutAddress.title" : "установить собственный адрес",
   "settings.peachApp" : "Peach Bitcoin v",

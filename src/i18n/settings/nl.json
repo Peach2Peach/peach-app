@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "Standaard worden alle uitbetalingen van transacties naar je Peach wallet verstuurd. \nAls je ze ergens anders naartoe wilt laten sturen, kun je hier een aangepast adres invullen.",
+  "help.payoutAddress.title" : "Eigen wallet voor uitbetaling",
+  "help.refundAddress.description" : "Standaard worden eventuele terugbetalingen naar je Peach-portemonnee gestuurd.\n\nAls je wilt dat ze ergens anders naartoe worden gestuurd, kun je hier een aangepast adres invoeren.",
+  "help.refundAddress.title" : "aangepast terugbetaal adres",
   "settings" : "Instellingen",
   "settings.aboutPeach" : "Over Peach",
   "settings.analytics" : "Diagnostiek",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "Betaalmogelijkheden",
   "settings.payoutAddress" : "Eigen wallet voor uitbetaling",
   "settings.payoutAddress.confirm" : "Bevestigen",
-  "settings.payoutAddress.popup" : "Standaard worden alle uitbetalingen van transacties naar je Peach wallet verstuurd. \nAls je ze ergens anders naartoe wilt laten sturen, kun je hier een aangepast adres invullen.",
   "settings.payoutAddress.success" : "Adres ingesteld",
   "settings.payoutAddress.title" : "Stel eigen adres in",
   "settings.peachApp" : "Peach Bitcoin v",

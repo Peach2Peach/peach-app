@@ -81,13 +81,17 @@ function ChangePayoutWallet () {
 
       mutate({ releaseAddress, messageSignature })
     } else {
-      if (!payoutAddress) {
+      if (!payoutAddress || !payoutAddressLabel) {
         navigation.navigate('patchPayoutAddress', { contractId: contract.id })
         return
       }
       const message = getMessageToSignForAddress(publicKey, payoutAddress)
       if (!payoutAddressSignature || !isValidBitcoinSignature(message, payoutAddress, payoutAddressSignature)) {
-        navigation.navigate('signMessage', { contractId: contract.id })
+        navigation.navigate('signMessage', {
+          contractId: contract.id,
+          address: payoutAddress,
+          addressLabel: payoutAddressLabel,
+        })
       } else {
         mutate({ releaseAddress: payoutAddress, messageSignature: payoutAddressSignature })
       }

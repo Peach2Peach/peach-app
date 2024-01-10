@@ -13,7 +13,7 @@ import { hasMopsConfigured } from '../../utils/offer/hasMopsConfigured'
 import { isBuyOffer } from '../../utils/offer/isBuyOffer'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { matchesKeys } from '../search/hooks/useOfferMatches'
-import { WalletSelector } from './WalletSelector'
+import { PayoutWalletSelector } from './PayoutWalletSelector'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
 import { BuyBitcoinHeader } from './components/BuyBitcoinHeader'
 import { FilterContainer } from './components/FilterContainer'
@@ -88,7 +88,7 @@ function ScreenContent ({ offer }: { offer: BuyOffer }) {
         <OfferMethods />
         <AmountSelector setIsSliding={setIsSliding} />
         <Filters />
-        <WalletSelector isPayout offerId={offer.id} />
+        <PayoutWalletSelector offerId={offer.id} />
       </PreferenceScreen>
     </PreferenceContext.Provider>
   )

@@ -10,25 +10,24 @@ import { migrateSettings } from './helpers/migration/migrateSettings'
 import { settingsStorage } from './settingsStorage'
 
 export type SettingsStore = Settings & {
-  migrated?: boolean
   reset: () => void
   updateSettings: (settings: Settings) => void
   getPureState: () => Settings
-  setMigrated: () => void
   setEnableAnalytics: (enableAnalytics: boolean) => void
   toggleAnalytics: () => void
   setAnalyticsPopupSeen: (analyticsPopupSeen: boolean) => void
+  setRefundAddress: (refundAddress: string | undefined) => void
+  setRefundAddressLabel: (refundAddressLabel: string | undefined) => void
   setPayoutAddress: (payoutAddress: string | undefined) => void
   setPayoutAddressLabel: (payoutAddressLabel: string | undefined) => void
   setPayoutAddressSignature: (payoutAddressSignature: string) => void
   setLocale: (locale: Locale) => void
   setDisplayCurrency: (displayCurrency: Currency) => void
-  setLastSeedBackupDate: (lastSeedBackupDate: number) => void
   updateSeedBackupDate: () => void
-  setLastFileBackupDate: (lastFileBackupDate: number) => void
   updateFileBackupDate: () => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
-  setPeachWalletActive: (peachWalletActive: boolean) => void
+  setRefundToPeachWallet: (refundToPeachWallet: boolean) => void
+  setPayoutToPeachWallet: (payoutToPeachWallet: boolean) => void
   setFeeRate: (feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee') => void
   setUsedReferralCode: (usedReferralCode: boolean) => void
   setPGPPublished: (pgpPublished: boolean) => void
@@ -45,11 +44,9 @@ export const useSettingsStore = create(
       reset: () =>
         set((state) => ({
           ...defaultSettings,
-          migrated: false,
           analyticsPopupSeen: state.analyticsPopupSeen,
           locale: state.locale,
         })),
-      setMigrated: () => set({ migrated: true }),
       getPureState: () => getPureSettingsState(get()),
       updateSettings: (settings) => set({ ...settings }),
       setEnableAnalytics: (enableAnalytics) => {
@@ -60,20 +57,21 @@ export const useSettingsStore = create(
       },
       toggleAnalytics: () => get().setEnableAnalytics(!get().enableAnalytics),
       setAnalyticsPopupSeen: (analyticsPopupSeen) => set({ analyticsPopupSeen }),
+      setRefundAddress: (refundAddress) => set({ refundAddress }),
+      setRefundAddressLabel: (refundAddressLabel) => set({ refundAddressLabel }),
       setPayoutAddress: (payoutAddress) => set({ payoutAddress }),
       setPayoutAddressLabel: (payoutAddressLabel) => set({ payoutAddressLabel }),
       setPayoutAddressSignature: (payoutAddressSignature) => set({ payoutAddressSignature }),
       setLocale: (locale) => set({ locale }),
       setDisplayCurrency: (displayCurrency) => set({ displayCurrency }),
-      setLastFileBackupDate: (lastFileBackupDate) => set({ lastFileBackupDate }),
       updateFileBackupDate: () =>
         set({ lastFileBackupDate: Date.now(), shouldShowBackupOverlay: false, showBackupReminder: false }),
-      setLastSeedBackupDate: (lastSeedBackupDate) => set({ lastSeedBackupDate }),
       updateSeedBackupDate: () =>
         set({ lastSeedBackupDate: Date.now(), shouldShowBackupOverlay: false, showBackupReminder: false }),
       setShowBackupReminder: (showBackupReminder) =>
         set({ showBackupReminder, shouldShowBackupOverlay: showBackupReminder }),
-      setPeachWalletActive: (peachWalletActive) => set({ peachWalletActive }),
+      setRefundToPeachWallet: (refundToPeachWallet) => set({ refundToPeachWallet }),
+      setPayoutToPeachWallet: (payoutToPeachWallet) => set({ payoutToPeachWallet }),
       setFeeRate: (feeRate) => set({ feeRate }),
       setUsedReferralCode: (usedReferralCode) => set({ usedReferralCode }),
       setPGPPublished: (pgpPublished) => set({ pgpPublished }),
@@ -82,7 +80,7 @@ export const useSettingsStore = create(
     }),
     {
       name: 'settings',
-      version: 3,
+      version: 4,
       migrate: migrateSettings,
       storage,
     },

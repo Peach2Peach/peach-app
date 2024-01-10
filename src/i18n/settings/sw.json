@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "Kwa kawaida, malipo yote ya biashara hufanywa kwa pochi yako ya Peach.\n\nIkiwa unataka kuyapeleka mahali pengine, unaweza kuingiza anwani ya desturi hapa.",
+  "help.payoutAddress.title" : "pochi ya malipo ya desturi",
+  "help.refundAddress.description" : "Kwa chaguo-msingi, marejesho yoyote yanatumwa kwa mkoba wako wa Peach.\n\nIkiwa unataka yatume mahali pengine, unaweza kuingiza anwani ya desturi hapa.",
+  "help.refundAddress.title" : "anwani ya kurudishiwa desturi",
   "settings" : "mipangilio",
   "settings.aboutPeach" : "kuhusu Peach",
   "settings.analytics" : "Diagnostics",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "njia za malipo",
   "settings.payoutAddress" : "pochi ya malipo ya desturi",
   "settings.payoutAddress.confirm" : "thibitisha",
-  "settings.payoutAddress.popup" : "Kwa kawaida, malipo yote ya biashara hufanywa kwa pochi yako ya Peach.\n\nIkiwa unataka kuyapeleka mahali pengine, unaweza kuingiza anwani ya desturi hapa.",
   "settings.payoutAddress.popup.content" : "Je, ungependa kuondoa pochi hii maalum?",
   "settings.payoutAddress.popup.remove" : "ondoa",
   "settings.payoutAddress.popup.title" : "ondoa pochi",

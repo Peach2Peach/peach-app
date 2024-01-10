@@ -1,5 +1,5 @@
 import { info } from '../../../../utils/log/info'
-import { SettingsVersion3 } from './migrateSettings'
+import { SettingsVersion3 } from './version3'
 
 export type SettingsVersion2 = {
   appVersion: string

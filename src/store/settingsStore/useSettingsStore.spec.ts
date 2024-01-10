@@ -23,8 +23,8 @@ describe('settingsStore', () => {
     useSettingsStore.getState().reset()
     expect(useSettingsStore.getState().locale).toBe('es')
   })
-  it('should be on version 3', () => {
-    expect(useSettingsStore.persist.getOptions().version).toBe(3)
+  it('should be on version 4', () => {
+    expect(useSettingsStore.persist.getOptions().version).toBe(4)
   })
 })
 
@@ -69,14 +69,6 @@ describe('settingsStore - toggleAnalytics', () => {
     expect(useSettingsStore.getState().enableAnalytics).toBeFalsy()
     useSettingsStore.getState().toggleAnalytics()
     expect(useSettingsStore.getState().enableAnalytics).toBeTruthy()
-  })
-})
-
-describe('settingsStore - setLastFileBackupDate', () => {
-  it('should set lastFileBackupDate', () => {
-    const now = 1234567890
-    useSettingsStore.getState().setLastFileBackupDate(now)
-    expect(useSettingsStore.getState().lastFileBackupDate).toBe(now)
   })
 })
 

@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "Standardmäßig werden alle Auszahlungen an deine Peach-Wallet gesendet.\n\nWenn du möchtest, dass sie an eine andere Adresse gesendet werden, kannst du hier eine benutzerdefinierte Adresse eingeben.",
+  "help.payoutAddress.title" : "benutzerdefinierte Auszahlungsadresse",
+  "help.refundAddress.description" : "Standardmäßig werden Rückerstattungen automatisch an dein Peach Wallet gesendet.\n\nWenn du möchtest, dass sie woanders hin geschickt werden, kannst du hier eine benutzerdefinierte Adresse eingeben.",
+  "help.refundAddress.title" : "benutzerdefinierte Rückerstattungsadresse",
   "settings" : "Einstellungen",
   "settings.aboutPeach" : "Über Peach",
   "settings.analytics" : "Diagnose",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "Zahlungsmethoden",
   "settings.payoutAddress" : "benutzerdefinierte Auszahlungsadresse",
   "settings.payoutAddress.confirm" : "bestätigen",
-  "settings.payoutAddress.popup" : "Standardmäßig werden alle Auszahlungen an deine Peach-Wallet gesendet.\n\nWenn du möchtest, dass sie an eine andere Adresse gesendet werden, kannst du hier eine benutzerdefinierte Adresse eingeben.",
   "settings.payoutAddress.removeWallet" : "Wallet entfernen",
   "settings.payoutAddress.success" : "Adresse festgelegt",
   "settings.payoutAddress.title" : "benutzerdefinierte Adresse festlegen",

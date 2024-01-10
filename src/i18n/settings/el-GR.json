@@ -1,4 +1,8 @@
 {
+  "help.payoutAddress.description" : "Από προεπιλογή, οι πληρωμές των συναλλαγών αποστέλλονται στο Peach πορτοφόλι σας.\n\nΑν θέλετε να τις στείλετε κάπου αλλού, μπορείτε να εισαγάγετε μια προσαρμοσμένη διεύθυνση εδώ.",
+  "help.payoutAddress.title" : "προσαρμοσμένο πορτοφόλι πληρωμής",
+  "help.refundAddress.description" : "Από προεπιλογή, όλες οι επιστροφές στέλνονται απευθείας στο πορτοφόλι Peach.\n\nΑν θέλεις να τις στείλεις κάπου αλλού, μπορείς να εισάγεις μια προσαρμοσμένη διεύθυνση εδώ.",
+  "help.refundAddress.title" : "προσαρμοσμένη διεύθυνση επιστροφής",
   "settings" : "ρυθμίσεις",
   "settings.aboutPeach" : "σχετικά με τη Peach",
   "settings.analytics" : "Διαγνωστικά",
@@ -90,7 +94,6 @@
   "settings.paymentMethods.subtitle" : "μέθοδοι πληρωμής",
   "settings.payoutAddress" : "προσαρμοσμένο πορτοφόλι πληρωμής",
   "settings.payoutAddress.confirm" : "επιβεβαίωση",
-  "settings.payoutAddress.popup" : "Από προεπιλογή, οι πληρωμές των συναλλαγών αποστέλλονται στο Peach πορτοφόλι σας.\n\nΑν θέλετε να τις στείλετε κάπου αλλού, μπορείτε να εισαγάγετε μια προσαρμοσμένη διεύθυνση εδώ.",
   "settings.payoutAddress.success" : "διεύθυνση ορίστηκε",
   "settings.payoutAddress.title" : "ορισμός προσαρμοσμένης διεύθυνσης",
   "settings.peachApp" : "Peach Bitcoin v",
