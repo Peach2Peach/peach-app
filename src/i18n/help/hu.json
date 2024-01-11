@@ -1,5 +1,7 @@
 {
   "help" : "segítség",
+  "help.acceptMatch.description" : "Egy ajánlattal csak egy vásárlót lehet összepárosítani. Miután elfogadtad az ajánlatot, a kereskedés megkezdődik.\n\nMiután elindult, a vásárlóddal csak együttműködő visszavonást hajthatsz végre, vagy a hírneved károsodik.",
+  "help.acceptMatch.title" : "ajánlat elfogadása = kereskedés elindítása",
   "help.addressSigning.description" : "A svájci jogszabályok miatt, annak igazolásához, hogy a kereskedés során kifizetett cím a tiéd alá kell írnod. Ha nem tudod, ez hogyan működik, javasoljuk, hogy a Peach tárcát használd, ahol ezen a lépésen nem kell manuálisan végig menned.",
   "help.addressSigning.title" : "cím aláírása",
   "help.buyingBitcoin.description" : "Amikor a Peach platformon bitcoint vásárolsz, először kiválasztod, hogy mennyit szeretnél vásárolni. Miután kiválasztottad, az összes eladási ajánlat megjelenik amelyek ebbe az általad megadott tartományba esnek. A tranzakció összegének 2%-a a Peach jutaléka.",
@@ -8,8 +10,8 @@
   "help.confirmPayment.description" : "Amint elhúzod a \"fizetés megérkezett\" csúszkát, a bitcoint a vásárlónak elküldik. Győződj meg arról, hogy minden helyes, mert ezt visszavonni nem lehet!",
   "help.confirmPayment.title" : "fizetés megérkezett?",
   "help.contactEncryption.description" : "Egy harmadik fél jegyrendszerével dolgozunk, amit Zammad-nek hívnak, hogy a beérkező kérelmeket kezelje.\n\nHa inkább a titkosított kommunikációt részesíted előnyben, kérjük, küldj nekünk egy e-mailt a support@peachbitcoin.com címre.",
-  "help.currency.description" : "Ha az online tárcád többféle valutát képes fogadni és átváltani, itt azokat a valutákat tudod kiválasztani, amelyeket fogadni tudsz.",
-  "help.currency.title" : "elfogadott valuták",
+  "help.currencies.description" : "Ha az online tárcád többféle valutát képes fogadni és átváltani, itt azokat a valutákat tudod kiválasztani, amelyeket fogadni tudsz.",
+  "help.currencies.title" : "elfogadott valuták",
   "help.escrow.description" : "A Peach platformon történő kereskedéskor a letéti számlát előre finanszírozod. Ez védelmet nyújt mind neked, mind a vásárlónak. További információkat a letéti számláról itt találsz.\n\nAz ajánlatodat egy hálózati megerősítés után közzéteszik. Az alkalmazást várakozás közben bezárhatod.",
   "help.escrow.description.link" : "itt",
   "help.escrow.description.proTip" : "A QR-kódot hosszan nyomva tartva a teljes fizetési kérelmet kimásolhatod.",
@@ -37,7 +39,7 @@
   "help.referral.description.1" : "Minden olyan Peach tranzakció után, amelyben az ajánlottjaid 10 000 satoshit kereskednek, egy ajánlási pontot kapsz.",
   "help.referral.description.2" : "Gyűjtsd a pontjaidat, hogy klassz jutalmakat kapj!",
   "help.referral.title" : "Peach ajánlói pontok",
-  "help.sellingBitcoin.description" : "A saját sats-el való kereskedelem Peachen ingyenes!\n\nEgy eladási ajánlat közzététele érdekében el kell küldened a sats-eidet egy escrow-nak, hogy bebizonyítsd a vásárlónak, hogy megvan a sats, amit el akarsz adni!\n\nAz escrow egy Bitcoin több aláírású pénztárca, ahol te birtokolsz egy kulcsot, és a Peach egy másikat tart.",
+  "help.sellingBitcoin.description" : "Saját satoshik Peachen eladása ingyenes!\n\nEgy eladási ajánlat közzététele érdekében el kell küldened egy escrow-nak a satoshijaidat, hogy a vásárlónak bebizonyítsd, hogy bírtoklod az adott satoshi mennyiséget, amit el akarsz adni!\n\nAz escrow egy több aláírású Bitcoin pénztárca, ahol te egy kulcsot, és a Peach egy másikat birtokol.",
   "help.sellingBitcoin.title" : "bitcoin eladás",
   "help.tradingLimit.description" : "A Peach-nek a svájci törvényeket be kell tartania, és ezért kereskedelmi korlátozásokat kell bevezetnie. Három kereskedelmi korlátozás van:\n\nMinden nap a Peach-en 1000 CHF értékű bitcoint vásárolhatsz vagy eladhatsz\n\nA Peach-en készpénzzel vagy online ajándékutalványokkal (azaz névtelen fizetési módokkal) havi 1000 CHF értékű bitcoint vásárolhatsz vagy eladhatsz\n\nA Peach-en évente 100 000 CHF értékű bitcoint vásárolhatsz vagy eladhatsz.",
   "help.tradingLimit.title" : "kereskedelmi korlátozások"

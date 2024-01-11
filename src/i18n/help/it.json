@@ -1,5 +1,7 @@
 {
   "help" : "aiuto",
+  "help.acceptMatch.description" : "Puoi accettare solo un compratore per offerta. Una volta accettato il match, lo scambio viene avviato.\n\nUna volta avviato, puoi annullare solo in accordo con il compratore, e la tua reputazione verrà influenzata negativamente.",
+  "help.acceptMatch.title" : "accetta = avvia scambio",
   "help.addressSigning.description" : "A causa delle leggi svizzere, dovrai firmare per verificare di essere il proprietario dell'indirizzo a cui verrà pagata la transazione.\n\nSe non sai come funziona, ti consigliamo di utilizzare il wallet Peach, dove non è necessario eseguire manualmente questa operazione.",
   "help.addressSigning.title" : "firma dell'indirizzo",
   "help.buyingBitcoin.description" : "Quando acquisti bitcoin su Peach, dovrai prima selezionare un intervallo dell'importo che vuoi acquistare.\n\nDopo averlo selezionato, ti verranno mostrate tutte le offerte di vendita che rientrano in quell'intervallo.\n\nLe commissioni di Peach sono pari al 2% dell'importo di negoziazione.",
@@ -8,8 +10,8 @@
   "help.confirmPayment.description" : "Appena trascini il cursore 'pagamento ricevuto', i bitcoin verranno inviati all'acquirente.\n\nAssicurati che tutto sia corretto, poiché questa transazione è irreversibile!",
   "help.confirmPayment.title" : "pagamento ricevuto?",
   "help.contactEncryption.description" : "Stiamo utilizzando un sistema di biglietteria di terze parti chiamato Zammad per gestire le richieste in arrivo.\n\nSe preferisci utilizzare una comunicazione crittografata, ti preghiamo di inviarci un'e-mail a support@peachbitcoin.com.",
-  "help.currency.description" : "Se il tuo wallet online può ricevere più valute e fare la conversione per te, puoi selezionare qui le valute che puoi ricevere.",
-  "help.currency.title" : "valute accettate",
+  "help.currencies.description" : "Se il tuo wallet online può ricevere più valute e fare la conversione per te, puoi selezionare qui le valute che puoi ricevere.",
+  "help.currencies.title" : "valute accettate",
   "help.escrow.description" : "Prima di effettuare uno scambio su Peach, prefinanzi il deposito di garanzia. Questo protegge sia te che il compratore. Puoi leggere ulteriori informazioni sul deposito di garanzia qui. La tua offerta sarà pubblicata dopo una conferma di rete. Puoi chiudere l'app e attendere durante questo periodo.",
   "help.escrow.description.link" : "qui",
   "help.escrow.description.proTip" : "Puoi premere a lungo sul codice QR per copiare l'intera richiesta di pagamento.",

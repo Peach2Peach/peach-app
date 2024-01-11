@@ -1,5 +1,7 @@
 {
   "help" : "ajuda",
+  "help.acceptMatch.description" : "Só pode corresponder com um comprador por oferta. Depois de aceitar uma correspondência, a negociação é iniciada.\n\nDepois de iniciada, só pode fazer um cancelamento colaborativo com o seu comprador, ou a sua reputação será prejudicada.",
+  "help.acceptMatch.title" : "aceitar correspondência = iniciar negociação",
   "help.addressSigning.description" : "Devido à lei suíça, precisará assinar para verificar que é o proprietário do endereço para o qual a negociação será paga.\n\nSe não sabe como isso funciona, recomendamos usar a carteira Peach, onde não precisa passar manualmente esta etapa.",
   "help.addressSigning.title" : "assinatura de endereço",
   "help.buyingBitcoin.description" : "Ao comprar bitcoin na Peach, primeiro selecionará um intervalo de quanto deseja comprar.\n\nDepois de selecionar, serão mostradas todas as ofertas de venda que se encaixam nesse intervalo.\n\nAs taxas da Peach são 2% do valor da negociação.",
@@ -8,8 +10,8 @@
   "help.confirmPayment.description" : "Assim que deslizar o botão \"pagamento recebido\", o bitcoin será enviado para o comprador.\n\nCertifique-se de que tudo está correto, porque isso não pode ser desfeito!",
   "help.confirmPayment.title" : "pagamento recebido?",
   "help.contactEncryption.description" : "Estamos a utilizar um sistema de ticketing, gerido por um terceiro, chamado Zammad para gerir os pedidos recebidos. Se preferir utilizar uma comunicação encriptada, envie-nos um email para support@peachbitcoin.com",
-  "help.currency.description" : "Se a sua carteira online puder receber várias moedas e fizer a conversão para si, pode selecionar aqui quaisquer moedas que poderá receber.",
-  "help.currency.title" : "moedas aceites",
+  "help.currencies.description" : "Se a sua carteira online puder receber várias moedas e fizer a conversão para si, pode selecionar aqui quaisquer moedas que poderá receber.",
+  "help.currencies.title" : "moedas aceites",
   "help.escrow.description" : "Pré-financia o depósito de caução ao fazer uma negociação na Peach. Isso protege-o a si e ao comprador.  Pode ler mais sobre o depósito de caução aqui.\n\nA sua oferta será publicada após uma confirmação na rede. Pode fechar a aplicação enquanto aguarda.",
   "help.escrow.description.link" : "aqui",
   "help.escrow.description.proTip" : "Pode pressionar e segurar o código QR para copiar a solicitação de pagamento completa.",
@@ -37,7 +39,7 @@
   "help.referral.description.1" : "A cada 10.000 sats que seus referenciados negociarem na Peach, ganhará um ponto de referência.",
   "help.referral.description.2" : "Economize seus pontos para obter recompensas incríveis!",
   "help.referral.title" : "pontos de referência Peach",
-  "help.sellingBitcoin.description" : "Vender seus sats na Peach é gratuito!\n\nPara publicar uma oferta de venda, você deve enviar seus sats para uma custódia para provar ao comprador que você possui os sats que deseja vender!\n\nA custódia é uma carteira de Bitcoin com várias assinaturas, onde você possui uma chave e a Peach possui outra.",
+  "help.sellingBitcoin.description" : "A venda de seus sats na Peach é gratuita!\n\nPara publicar uma oferta de venda, deve enviar seus sats para a custódia, comprovando ao comprador que você possui os sats que deseja vender!\n\nA 'custódia' é uma carteira de Bitcoin com várias assinaturas, onde você possui uma chave e a Peach possui a outra.",
   "help.sellingBitcoin.title" : "vendendo bitcoin",
   "help.tradingLimit.description" : "A Peach deve obedecer às leis suíças ao impor limites de negociação. Existem três limites de negociação:\n\nPode comprar ou vender 1.000 CHF em bitcoin na Peach todos os dias.\n\nPode comprar ou vender 1.000 CHF em bitcoin com dinheiro ou cartões-presente online (ou seja, métodos de pagamento anónimos) todos os meses.\n\nPode comprar ou vender 100.000 CHF em bitcoin por ano.",
   "help.tradingLimit.title" : "limites de negociação"

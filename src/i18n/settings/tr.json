@@ -1,4 +1,6 @@
 {
+  "help.fileBackup.description" : "Bir dosya yedeklemesi, Peach hesabınızın (biz yapmadığımız için!) ve cüzdanınızın tüm önemli bilgilerini kaydeder.\n\nBu yedeklemeyi geri yüklemek için oluşturduğunuz şifreye de sahip olmanız gerekiyor!\n\nSeed ifadesi yalnızca cüzdan fonlarına erişimi geri yükler, bu yüzden gerektiğinde kullanışlıdır.",
+  "help.fileBackup.title" : "yedekleme yapılıyor",
   "help.payoutAddress.description" : "Varsayılan olarak, tüm işlem ödemeleriniz Peach cüzdanınıza gönderilir.\n\nBaşka bir yere göndermek isterseniz, burada özel bir adres girebilirsiniz.",
   "help.payoutAddress.title" : "özel çıkış cüzdanı",
   "help.refundAddress.description" : "Varsayılan olarak, herhangi bir iade Peach cüzdanına gönderilir.\n\nEğer başka bir yere göndermek istiyorsan, buraya özel bir adres girebilirsin.",
@@ -13,8 +15,6 @@
   "settings.backups.fileBackup.createNew" : "yeni yedekleme oluştur",
   "settings.backups.fileBackup.created" : "yedekleme oluşturuldu",
   "settings.backups.fileBackup.lastBackup" : "son dosya yedeklemesi:",
-  "settings.backups.fileBackup.popup.content" : "Bir dosya yedeklemesi, Peach hesabınızın (biz yapmadığımız için!) ve cüzdanınızın tüm önemli bilgilerini kaydeder.\n\nBu yedeklemeyi geri yüklemek için oluşturduğunuz şifreye de sahip olmanız gerekiyor!\n\nSeed ifadesi yalnızca cüzdan fonlarına erişimi geri yükler, bu yüzden gerektiğinde kullanışlıdır.",
-  "settings.backups.fileBackup.popup.title" : "yedekleme yapılıyor",
   "settings.backups.fileBackup.popup2.content.1" : "Bu şifrenin güvende olması önemlidir, çünkü verilerinizi ve fonlarınızı korur.",
   "settings.backups.fileBackup.popup2.content.2" : "İyi bir şifre:",
   "settings.backups.fileBackup.popup2.content.3" : "1. Yalnızca bir kez kullanılır",

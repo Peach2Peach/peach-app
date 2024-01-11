@@ -1,5 +1,7 @@
 {
   "help" : "hulp",
+  "help.acceptMatch.description" : "Je kunt slechts één koper per aanbieding matchen. Zodra je een match hebt geaccepteerd, wordt de transactie gestart. Eenmaal gestart, kun je alleen in samenspraak met de koper annuleren, waardoor uw reputatie wordt geschaad.",
+  "help.acceptMatch.title" : "match accepteren = transactie starten",
   "help.addressSigning.description" : "Vanwege de Zwitserse wet moet je tekenen om te verifiëren dat je eigenaar bent van het adres waarop de transactie wordt uitbetaald. Als je niet weet hoe dit werkt, raden wij je aan de Peach wallet te gebruiken, waarbij je deze stap niet handmatig hoeft te doorlopen.",
   "help.addressSigning.title" : "adres ondertekening",
   "help.buyingBitcoin.description" : "Wanneer je bitcoin op Peach koopt, selecteer je eerst een bereik van hoeveel je wilt kopen. Nadat je de keuze hebt gemaakt, krijg je alle verkoop-aanboden te zien die binnen dat bereik passen. Peach-kosten bedragen 2% van het handelsbedrag.",
@@ -8,8 +10,8 @@
   "help.confirmPayment.description" : "Zodra je over de slider ‘betaling ontvangen’ swipet, wordt de bitcoin naar de koper verzonden. Zorg ervoor dat alles klopt, want dit kan niet ongedaan worden gemaakt!",
   "help.confirmPayment.title" : "betaling ontvangen?",
   "help.contactEncryption.description" : "We gebruiken een ticketingsysteem van een derde partij genaamd Zammad om de binnenkomende verzoeken te beheren. Als je de voorkeur geeft aan versleutelde communicatie, stuur ons dan een e-mail via support@peachbitcoin.com.",
-  "help.currency.description" : "Als jouw online portemonnee meerdere valuta's kan ontvangen en de conversie voor je kan uitvoeren, kun je hier de valuta's selecteren die je kunt ontvangen.",
-  "help.currency.title" : "geaccepteerde valuta",
+  "help.currencies.description" : "Als jouw online portemonnee meerdere valuta's kan ontvangen en de conversie voor je kan uitvoeren, kun je hier de valuta's selecteren die je kunt ontvangen.",
+  "help.currencies.title" : "geaccepteerde valuta",
   "help.escrow.description" : "Je financiert de borg vooraf als je op Peach handelt. Dit beschermt zowel jou als de koper. Meer over de borg kun je hier lezen. Jouw aanbieding wordt na één netwerkbevestiging gepubliceerd. Terwijl je hierop wacht, kun je de app sluiten.",
   "help.escrow.description.link" : "hier",
   "help.escrow.description.proTip" : "Je kunt de QR-code lang indrukken om het volledige betaalverzoek te kopiëren.",

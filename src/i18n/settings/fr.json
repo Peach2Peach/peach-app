@@ -1,4 +1,6 @@
 {
+  "help.fileBackup.description" : "Le fichier de récupération (.json) enregistre toutes les informations importantes de votre compte Peach (puisque nous ne le faisons pas !) et de votre portefeuille.\n\nVous ne pouvez restaurer votre compte que si vous disposez également du mot de passe que vous avez créé pour votre fichier de récupération. \n\nLa phrase de récupération restaure également l'accès à vos fonds sur votre portefeuille, elle est donc utile si vous perdez votre mot de passe et/ou votre fichier de récupération. ",
+  "help.fileBackup.title" : "création d'une sauvegarde",
   "help.payoutAddress.description" : "Par défaut, tous les achats de sats sont envoyés à votre portefeuille Peach.\n\nSi vous souhaitez les faire envoyer ailleurs, vous pouvez entrer une adresse personnalisée ici.",
   "help.payoutAddress.title" : "adresse de paiement",
   "help.refundAddress.description" : "Par défaut, tout remboursement est envoyé à votre portefeuille Peach.\n\nSi vous souhaitez les faire envoyer ailleurs, vous pouvez entrer une adresse personnalisée ici.",
@@ -13,8 +15,6 @@
   "settings.backups.fileBackup.createNew" : "créer une nouvelle sauvegarde",
   "settings.backups.fileBackup.created" : "sauvegarde créée",
   "settings.backups.fileBackup.lastBackup" : "dernière sauvegarde du fichier effectuée :",
-  "settings.backups.fileBackup.popup.content" : "Le fichier de récupération (.json) enregistre toutes les informations importantes de votre compte Peach (puisque nous ne le faisons pas !) et de votre portefeuille.\n\nVous ne pouvez restaurer votre compte que si vous disposez également du mot de passe que vous avez créé pour votre fichier de récupération. \n\nLa phrase de récupération restaure également l'accès à vos fonds sur votre portefeuille, elle est donc utile si vous perdez votre mot de passe et/ou votre fichier de récupération. ",
-  "settings.backups.fileBackup.popup.title" : "création d'une sauvegarde",
   "settings.backups.fileBackup.popup2.content.1" : "Il est important que ce mot de passe soit sécurisé, car il protège vos données et vos fonds.",
   "settings.backups.fileBackup.popup2.content.2" : "Un bon mot de passe est :",
   "settings.backups.fileBackup.popup2.content.3" : "1. Utilisé une seule fois",

@@ -1,5 +1,7 @@
 {
   "help" : "Hilfe",
+  "help.acceptMatch.description" : "Du kannst nur einen Käufer pro Angebot matchen. Sobald du ein Match annimmst, wird der Handel gestartet.\n\nNach dem Start kannst du nur noch gemeinsam mit dem Käufer stornieren, und dein Ruf wird beeinträchtigt.",
+  "help.acceptMatch.title" : "Match annehmen = Handel starten",
   "help.addressSigning.description" : "Aufgrund schweizer Gesetze musst du eine Signatur abgeben, um zu bestätigen, dass du im Besitz der Adresse bist, an die der Handel ausgezahlt wird.\n\nWenn du nicht weißt, wie das funktioniert, empfehlen wir dir das Peach Wallet zu verwenden. Dann musst du diesen Schritt nicht manuell durchführen.",
   "help.addressSigning.title" : "Adresssignierung",
   "help.buyingBitcoin.description" : "Wenn du Bitcoin auf Peach kaufst, wählst du zunächst einen Bereich aus, wie viel du kaufen möchtest.\n\nAnschließend werden dir alle Verkaufsangebote angezeigt, die in diesen Bereich passen.\n\nDie Gebühren bei Peach betragen 2% des Handelsbetrags.",
@@ -8,8 +10,8 @@
   "help.confirmPayment.description" : "Sobald du den Schieberegler für \"Zahlung erhalten\" betätigst, wird der Bitcoin an den Käufer gesendet.\n\nStelle sicher, dass alles korrekt ist, denn dies kann nicht rückgängig gemacht werden!",
   "help.confirmPayment.title" : "Zahlung erhalten?",
   "help.contactEncryption.description" : "Wir verwenden ein Drittanbieter-Ticketingsystem namens Zammad, um die eingehenden Anfragen zu verwalten.\n\nWenn Sie lieber verschlüsselte Kommunikation verwenden möchten, senden Sie uns bitte eine E-Mail an support@peachbitcoin.com.",
-  "help.currency.description" : "Wenn dein Online-Wallet mehrere Währungen empfangen und den Umtausch automatisch durchführen kann, kannst du hier alle Währungen auswählen, die du empfangen kannst.",
-  "help.currency.title" : "Akzeptierte Währungen",
+  "help.currencies.description" : "Wenn dein Online-Wallet mehrere Währungen empfangen und den Umtausch automatisch durchführen kann, kannst du hier alle Währungen auswählen, die du empfangen kannst.",
+  "help.currencies.title" : "Akzeptierte Währungen",
   "help.escrow.description" : "Du füllst bei einem Handel auf Peach die Escrow vorab auf. Dies schützt sowohl dich als auch den Käufer. Weitere Informationen zur Escrow findest du hier.\n\nDein Angebot wird nach einer Bestätigung des Netzwerks veröffentlicht. Du kannst die App währenddessen schließen.",
   "help.escrow.description.link" : "hier",
   "help.escrow.description.proTip" : "Du kannst den QR-Code lange drücken, um die vollständige Zahlungsanforderung zu kopieren.",

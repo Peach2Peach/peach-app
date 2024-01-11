@@ -1,4 +1,6 @@
 {
+  "help.fileBackup.description" : "A fájlmentés a Peach fiókodról, valamint a pénztárcádról (mivel mi ezt nem tesszük!) minden fontos információját menti.\n\nA fájlmentést csak akkor tudod visszaállítani, ha a hozzá tartozó jelszavad megvan!\n\nA \"seed\" csak a tárcádhoz való hozzáférést állítja vissza, így az is hasznos lehet, ha a jelszavad elveszíted.",
+  "help.fileBackup.title" : "mentés készítése",
   "help.payoutAddress.description" : "Alapértelmezés szerint a kereskedéseid kifizetései a Peach tárcádba lesznek küldve.\n\nHa máshova szeretnéd őket küldeni, itt megadhatod az egyedi címet.",
   "help.payoutAddress.title" : "egyedi kifizetési tárca",
   "help.refundAddress.description" : "Alapértelmezés szerint a visszatérítések a Peach pénztárcájába kerülnek.\n\nHa szeretnéd, hogy máshova küldjük őket, itt adhatsz meg egyéni címet.",
@@ -13,8 +15,6 @@
   "settings.backups.fileBackup.createNew" : "új mentés készítése",
   "settings.backups.fileBackup.created" : "mentés létrehozva",
   "settings.backups.fileBackup.lastBackup" : "fájlmentés utoljára készítve:",
-  "settings.backups.fileBackup.popup.content" : "A fájlmentés a Peach fiókodról, valamint a pénztárcádról (mivel mi ezt nem tesszük!) minden fontos információját menti.\n\nA fájlmentést csak akkor tudod visszaállítani, ha a hozzá tartozó jelszavad megvan!\n\nA \"seed\" csak a tárcádhoz való hozzáférést állítja vissza, így az is hasznos lehet, ha a jelszavad elveszíted.",
-  "settings.backups.fileBackup.popup.title" : "mentés készítése",
   "settings.backups.fileBackup.popup2.content.1" : "Fontos, hogy ez a jelszó biztonságos legyen, mivel az adataidat és a tárcád pénzét ez védi.",
   "settings.backups.fileBackup.popup2.content.2" : "Egy jó jelszó:",
   "settings.backups.fileBackup.popup2.content.3" : "1. Csak egyszer használatos",
