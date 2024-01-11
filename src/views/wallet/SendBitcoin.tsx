@@ -8,12 +8,13 @@ import { BitcoinAddressInput } from '../../components/inputs/BitcoinAddressInput
 import { RadioButtons } from '../../components/inputs/RadioButtons'
 import { ConfirmSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
 import { useSetPopup } from '../../components/popup/Popup'
+import { ParsedPeachText } from '../../components/text/ParsedPeachText'
 import { PeachText } from '../../components/text/PeachText'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
-import { HelpPopup } from '../../hooks/HelpPopup'
 import { useHandleTransactionError } from '../../hooks/error/useHandleTransactionError'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useNavigation } from '../../hooks/useNavigation'
+import { InfoPopup } from '../../popups/InfoPopup'
 import tw from '../../styles/tailwind'
 import { removeNonDigits } from '../../utils/format/removeNonDigits'
 import i18n from '../../utils/i18n'
@@ -21,6 +22,7 @@ import { headerIcons } from '../../utils/layout/headerIcons'
 import { rules } from '../../utils/validation/rules'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { useWalletState } from '../../utils/wallet/walletStore'
+import { goToShiftCrypto } from '../../utils/web/goToShiftCrypto'
 import { CustomFeeItem } from '../settings/components/networkFees/CustomFeeItem'
 import { EstimatedFeeItem } from '../settings/components/networkFees/EstimatedFeeItem'
 import { UTXOAddress } from './components'
@@ -191,7 +193,7 @@ function Fees ({ updateFee }: { updateFee: (fee: number | undefined) => void }) 
 
 function SendBitcoinHeader () {
   const setPopup = useSetPopup()
-  const showHelp = () => setPopup(<HelpPopup id="withdrawingFunds" />)
+  const showHelp = () => setPopup(<WithdrawingFundsPopup />)
   const navigation = useNavigation()
   return (
     <Header
@@ -208,6 +210,27 @@ function SendBitcoinHeader () {
           accessibilityHint: i18n('help'),
         },
       ]}
+    />
+  )
+}
+
+function WithdrawingFundsPopup () {
+  return (
+    <InfoPopup
+      title={i18n('wallet.withdraw.help.title')}
+      content={
+        <ParsedPeachText
+          parse={[
+            {
+              pattern: new RegExp(i18n('wallet.withdraw.help.text.link'), 'u'),
+              style: tw`underline`,
+              onPress: goToShiftCrypto,
+            },
+          ]}
+        >
+          {i18n('wallet.withdraw.help.text')}
+        </ParsedPeachText>
+      }
     />
   )
 }

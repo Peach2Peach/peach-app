@@ -9,10 +9,12 @@ import { Button } from '../../components/buttons/Button'
 import { CurrencySelection } from '../../components/inputs/paymentForms/components'
 import { DeletePaymentMethodPopup } from '../../components/payment/components/DeletePaymentMethodPopup'
 import { useSetPopup } from '../../components/popup/Popup'
+import { ParsedPeachText } from '../../components/text/ParsedPeachText'
 import { HelpPopup } from '../../hooks/HelpPopup'
 import { useGoToOrigin } from '../../hooks/useGoToOrigin'
 import { useRoute } from '../../hooks/useRoute'
 import { PAYMENTMETHODINFOS } from '../../paymentMethods'
+import { InfoPopup } from '../../popups/InfoPopup'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
@@ -158,7 +160,7 @@ function PaymentMethodFormHeader () {
   } = useRoute<'paymentMethodForm'>().params
   const setPopup = useSetPopup()
   const showHelp = useCallback(() => setPopup(<HelpPopup id="currencies" />), [setPopup])
-  const showLNURLHelp = useCallback(() => setPopup(<HelpPopup id="lnurl" />), [setPopup])
+  const showLNURLHelp = useCallback(() => setPopup(<LNURLSwapsPopup />), [setPopup])
   const deletePaymentMethod = useCallback(() => setPopup(<DeletePaymentMethodPopup id={id ?? ''} />), [id, setPopup])
 
   const getHeaderIcons = useCallback(() => {
@@ -182,6 +184,26 @@ function PaymentMethodFormHeader () {
         i18n(`paymentMethod.${paymentMethod}`),
       )}
       icons={getHeaderIcons()}
+    />
+  )
+}
+
+function LNURLSwapsPopup () {
+  return (
+    <InfoPopup
+      title={i18n('help.lnurl.title')}
+      content={
+        <ParsedPeachText
+          parse={[
+            {
+              pattern: new RegExp(i18n.break('help.lnurl.description.bold'), 'u'),
+              style: tw`font-baloo-bold`,
+            },
+          ]}
+        >
+          {i18n('help.lnurl.description')}
+        </ParsedPeachText>
+      }
     />
   )
 }

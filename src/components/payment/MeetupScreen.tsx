@@ -1,8 +1,8 @@
 import { API_URL } from '@env'
 import { useCallback, useMemo } from 'react'
 import { Image, View } from 'react-native'
-import { HelpPopup } from '../../hooks/HelpPopup'
 import { useRoute } from '../../hooks/useRoute'
+import { InfoPopup } from '../../popups/InfoPopup'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -13,6 +13,7 @@ import { Screen } from '../Screen'
 import { Button } from '../buttons/Button'
 import { CurrencySelection } from '../inputs/paymentForms/components'
 import { useSetPopup } from '../popup/Popup'
+import { BulletPoint } from '../text/BulletPoint'
 import { PeachText } from '../text/PeachText'
 import { DeletePaymentMethodPopup } from './components/DeletePaymentMethodPopup'
 import { Link } from './components/Link'
@@ -64,7 +65,7 @@ function MeetupScreenHeader () {
   const { eventId } = route.params
   const deletable = route.params.deletable ?? false
   const setPopup = useSetPopup()
-  const showHelp = useCallback(() => setPopup(<HelpPopup id="cashTrades" />), [setPopup])
+  const showHelp = useCallback(() => setPopup(<CashTradesPopup />), [setPopup])
   const deletePaymentMethod = useCallback(
     () => setPopup(<DeletePaymentMethodPopup id={`cash.${eventId}`} />),
     [eventId, setPopup],
@@ -81,4 +82,21 @@ function MeetupScreenHeader () {
   }, [deletable, deletePaymentMethod, showHelp])
 
   return <Header title={getMeetupEvent(eventId)?.shortName} icons={icons} />
+}
+
+function CashTradesPopup () {
+  const bulletPoints = []
+  for (let i = 1; i < 5; i++) bulletPoints.push(<BulletPoint key={i} text={i18n(`tradingCash.point.${i}`)} />)
+
+  return (
+    <InfoPopup
+      title={i18n('tradingCash')}
+      content={
+        <>
+          <PeachText style={tw`mb-3`}>{i18n('tradingCash.text')}</PeachText>
+          {bulletPoints}
+        </>
+      }
+    />
+  )
 }

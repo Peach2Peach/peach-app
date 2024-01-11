@@ -1,3 +1,4 @@
+import { View } from 'react-native'
 import { Header } from '../../components/Header'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
@@ -6,7 +7,7 @@ import { RadioButtons } from '../../components/inputs/RadioButtons'
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
-import { HelpPopup } from '../../hooks/HelpPopup'
+import { InfoPopup } from '../../popups/InfoPopup'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -57,6 +58,20 @@ export const NetworkFees = () => {
 
 function NetworkFeesHeader () {
   const setPopup = useSetPopup()
-  const showHelp = () => setPopup(<HelpPopup id="networkFees" />)
+  const showHelp = () => setPopup(<NetworkFeesPopup />)
   return <Header title={i18n('settings.networkFees')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
+}
+
+function NetworkFeesPopup () {
+  return (
+    <InfoPopup
+      title={i18n('help.networkFees.title')}
+      content={
+        <View style={tw`gap-2`}>
+          <PeachText>{i18n('help.networkFees.description.1')}</PeachText>
+          <PeachText>{i18n('help.networkFees.description.2')}</PeachText>
+        </View>
+      }
+    />
+  )
 }
