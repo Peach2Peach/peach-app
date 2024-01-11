@@ -11,11 +11,12 @@ type Props = {
 
 export function ShowOffersButton ({ onPress, disabled, loading }: Props) {
   const keyboardIsOpen = useKeyboard()
+  if (keyboardIsOpen) return null
   return (
     <Button
       style={tw`self-center px-5 py-3 bg-success-main min-w-166px`}
       onPress={onPress}
-      disabled={disabled || keyboardIsOpen}
+      disabled={disabled}
       loading={loading}
     >
       {i18n('offerPreferences.showOffers')}

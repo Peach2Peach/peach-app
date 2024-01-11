@@ -569,13 +569,13 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
   }
 
   const keyboardIsOpen = useKeyboard()
+  if (keyboardIsOpen) return null
 
   return (
     <Button
       style={[tw`self-center px-5 py-3 min-w-166px`, !formValid && tw`bg-primary-mild-1`]}
       onPress={onPress}
       loading={isPublishing}
-      disabled={keyboardIsOpen}
     >
       {i18n('offerPreferences.fundEscrow')}
     </Button>
