@@ -63,6 +63,6 @@ describe('NodeSetup', () => {
     )
 
     fireEvent.press(getByAccessibilityHint('help use your own node'))
-    expect(queryByText(i18n('wallet.settings.node.help.text'))).toBeTruthy()
+    expect(queryByText(i18n('help.useYourOwnNode.description'))).toBeTruthy()
   })
 })
