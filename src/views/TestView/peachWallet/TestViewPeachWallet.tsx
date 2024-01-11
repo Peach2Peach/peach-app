@@ -4,6 +4,7 @@ import { View } from 'react-native'
 import Share from 'react-native-share'
 import { Divider } from '../../../components/Divider'
 import { PeachScrollView } from '../../../components/PeachScrollView'
+import { Screen } from '../../../components/Screen'
 import { Loading } from '../../../components/animation/Loading'
 import { BTCAmount } from '../../../components/bitcoin/BTCAmount'
 import { Button } from '../../../components/buttons/Button'
@@ -11,8 +12,10 @@ import { BitcoinAddressInput } from '../../../components/inputs/BitcoinAddressIn
 import { Input } from '../../../components/inputs/Input'
 import { NumberInput } from '../../../components/inputs/NumberInput'
 import { PeachText } from '../../../components/text/PeachText'
+import { CopyAble } from '../../../components/ui/CopyAble'
 import { useValidatedState } from '../../../hooks/useValidatedState'
 import tw from '../../../styles/tailwind'
+import { useAccountStore } from '../../../utils/account/account'
 import { getMessageToSignForAddress } from '../../../utils/account/getMessageToSignForAddress'
 import { showTransaction } from '../../../utils/bitcoin/showTransaction'
 import i18n from '../../../utils/i18n'
@@ -64,50 +67,58 @@ export const TestViewPeachWallet = () => {
   }
 
   return (
-    <PeachScrollView>
-      <View style={tw`gap-4 p-10`}>
-        <PeachText style={tw`text-center button-medium`}>{i18n('wallet.totalBalance')}:</PeachText>
-        <BTCAmount style={[tw`self-center`, isRefreshing ? tw`opacity-60` : {}]} amount={balance} size="large" />
-        {(isRefreshing || walletLoading) && <Loading style={tw`absolute`} />}
+    <Screen>
+      <PeachScrollView>
+        <View style={tw`gap-4`}>
+          <PeachText style={tw`text-center button-medium`}>{i18n('wallet.totalBalance')}:</PeachText>
+          <BTCAmount style={[tw`self-center`, isRefreshing ? tw`opacity-60` : {}]} amount={balance} size="large" />
+          {(isRefreshing || walletLoading) && <Loading style={tw`absolute`} />}
 
-        <View>
-          <PeachText style={tw`button-medium`}>{i18n('wallet.withdrawTo')}:</PeachText>
-          <BitcoinAddressInput style={tw`mt-4`} onChangeText={setAddress} value={address} errorMessage={addressErrors} />
-          <NumberInput onChangeText={setAmount} value={amount} />
-        </View>
-        <Button onPress={send} iconId="upload">
-          send {thousands(Number(amount))} sats
-        </Button>
-        {!!txId && (
           <View>
-            <PeachText onPress={() => showTransaction(txId, NETWORK)}>txId: {txId}</PeachText>
+            <PeachText style={tw`button-medium`}>{i18n('wallet.withdrawTo')}:</PeachText>
+            <BitcoinAddressInput
+              style={tw`mt-4`}
+              onChangeText={setAddress}
+              value={address}
+              errorMessage={addressErrors}
+            />
+            <NumberInput onChangeText={setAmount} value={amount} />
           </View>
-        )}
+          <Button onPress={send} iconId="upload">
+            send {thousands(Number(amount))} sats
+          </Button>
+          {!!txId && (
+            <View>
+              <PeachText onPress={() => showTransaction(txId, NETWORK)}>txId: {txId}</PeachText>
+            </View>
+          )}
 
-        <Divider />
-        <Button onPress={getNewAddress} iconId="refreshCcw">
-          get new address
-        </Button>
-        <Button onPress={getNewInternalAddress} iconId="refreshCcw">
-          get new internal address
-        </Button>
-        <Button onPress={refill} iconId="star">
-          1M sats refill
-        </Button>
+          <Divider />
+          <Button onPress={getNewAddress} iconId="refreshCcw">
+            get new address
+          </Button>
+          <Button onPress={getNewInternalAddress} iconId="refreshCcw">
+            get new internal address
+          </Button>
+          <Button onPress={refill} iconId="star">
+            1M sats refill
+          </Button>
 
-        <Divider />
-        <Button onPress={() => refresh()} iconId="refreshCcw">
-          sync wallet
-        </Button>
+          <Divider />
+          <Button onPress={() => refresh()} iconId="refreshCcw">
+            sync wallet
+          </Button>
 
-        <SignMessage />
-      </View>
-    </PeachScrollView>
+          <SignMessage />
+        </View>
+      </PeachScrollView>
+    </Screen>
   )
 }
 
 function SignMessage () {
-  const [userId, setUserId] = useState('')
+  const defaultUserId = useAccountStore((state) => state.account.publicKey)
+  const [userId, setUserId] = useState(defaultUserId)
   const [address, setAddress] = useState('')
   const [signature, setSignature] = useState('')
   const onPress = async () => {
@@ -122,15 +133,16 @@ function SignMessage () {
 
   return (
     <View>
-      <PeachText>sign message</PeachText>
-      <BitcoinAddressInput onChangeText={setAddress} value={address} />
-      <PeachText>userID</PeachText>
-      <Input onChangeText={setUserId} value={userId} />
+      <BitcoinAddressInput label="address" onChangeText={setAddress} value={address} />
+      <Input label="userID" required={false} onChangeText={setUserId} value={userId} />
       <Button onPress={onPress}>sign</Button>
       <PeachText>signature</PeachText>
-      <PeachText selectable onLongPress={shareSignature}>
-        {signature}
-      </PeachText>
+      <View style={tw`flex-row items-center flex-1 gap-4 px-4`}>
+        <PeachText style={tw`shrink`} selectable onLongPress={shareSignature}>
+          {signature}
+        </PeachText>
+        {!!signature && <CopyAble value={signature} />}
+      </View>
     </View>
   )
 }

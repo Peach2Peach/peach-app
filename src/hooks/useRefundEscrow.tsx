@@ -5,7 +5,7 @@ import { useClosePopup, useSetPopup } from '../components/popup/Popup'
 import { PopupAction } from '../components/popup/PopupAction'
 import { PopupComponent } from '../components/popup/PopupComponent'
 import { FIFTEEN_SECONDS } from '../constants'
-import { useSettingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { checkRefundPSBT } from '../utils/bitcoin/checkRefundPSBT'
 import { showTransaction } from '../utils/bitcoin/showTransaction'
@@ -25,7 +25,7 @@ export const useRefundEscrow = () => {
   const setPopup = useSetPopup()
   const closePopup = useClosePopup()
   const showError = useShowErrorBanner()
-  const isPeachWallet = useSettingsStore((state) => state.peachWalletActive)
+  const isPeachWallet = useSettingsStore((state) => state.refundToPeachWallet)
   const [setShowBackupReminder, shouldShowBackupOverlay] = useSettingsStore((state) => [
     state.setShowBackupReminder,
     state.shouldShowBackupOverlay,
@@ -87,7 +87,7 @@ export const useRefundEscrow = () => {
 }
 
 function RefundEscrowPopup ({ txId }: { txId: string }) {
-  const isPeachWallet = useSettingsStore((state) => state.peachWalletActive)
+  const isPeachWallet = useSettingsStore((state) => state.refundToPeachWallet)
 
   return (
     <PopupComponent
@@ -135,7 +135,7 @@ function GoToWalletAction ({ txId }: { txId: string }) {
 function CloseAction () {
   const closePopup = useClosePopup()
   const navigation = useNavigation()
-  const isPeachWallet = useSettingsStore((state) => state.peachWalletActive)
+  const isPeachWallet = useSettingsStore((state) => state.refundToPeachWallet)
   const shouldShowBackupOverlay = useSettingsStore((state) => state.shouldShowBackupOverlay)
   const setOverlay = useSetOverlay()
 

@@ -45,7 +45,7 @@ describe('ConfirmTradeCancelationPopup', () => {
 
   it('should cancel a trade as a buyer', async () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
-    const { getByText, getAllByText } = render(<ConfirmTradeCancelationPopup contract={contract} />)
+    const { getByText, getAllByText } = render(<ConfirmTradeCancelationPopup view="buyer" contract={contract} />)
 
     expect(getByText(i18n('contract.cancel.buyer'))).toBeTruthy()
     await act(async () => {
@@ -59,7 +59,7 @@ describe('ConfirmTradeCancelationPopup', () => {
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
       publicKey: contract.seller.id,
     })
-    const { getByText, getAllByText } = render(<ConfirmTradeCancelationPopup contract={contract} />)
+    const { getByText, getAllByText } = render(<ConfirmTradeCancelationPopup view="seller" contract={contract} />)
     expect(getByText(i18n('contract.cancel.seller'))).toBeTruthy()
     await act(async () => {
       await fireEvent.press(getAllByText('cancel trade')[1])
@@ -68,14 +68,14 @@ describe('ConfirmTradeCancelationPopup', () => {
   })
   it('should show the correct popup for cash trades of the seller', () => {
     const { getByText } = render(
-      <ConfirmTradeCancelationPopup contract={{ ...contract, paymentMethod: 'cash.someMeetup' }} />,
+      <ConfirmTradeCancelationPopup view="seller" contract={{ ...contract, paymentMethod: 'cash.someMeetup' }} />,
     )
     expect(getByText(i18n('contract.cancel.cash.text'))).toBeTruthy()
   })
   it('should show the correct confirmation popup for canceled trade as buyer', async () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
 
-    const { getAllByText } = render(<ConfirmTradeCancelationPopup contract={contract} />)
+    const { getAllByText } = render(<ConfirmTradeCancelationPopup view="buyer" contract={contract} />)
     await act(async () => {
       await fireEvent.press(getAllByText('cancel trade')[1])
     })
@@ -90,7 +90,7 @@ describe('ConfirmTradeCancelationPopup', () => {
       publicKey: contract.seller.id,
     })
 
-    const { getAllByText } = render(<ConfirmTradeCancelationPopup contract={contract} />)
+    const { getAllByText } = render(<ConfirmTradeCancelationPopup view="seller" contract={contract} />)
 
     await act(async () => {
       await fireEvent.press(getAllByText('cancel trade')[1])
@@ -109,7 +109,7 @@ describe('ConfirmTradeCancelationPopup', () => {
     })
 
     const { getByText } = render(
-      <ConfirmTradeCancelationPopup contract={{ ...contract, paymentMethod: 'cash.someMeetup' }} />,
+      <ConfirmTradeCancelationPopup view="seller" contract={{ ...contract, paymentMethod: 'cash.someMeetup' }} />,
     )
 
     await act(async () => {
@@ -129,7 +129,7 @@ describe('ConfirmTradeCancelationPopup', () => {
     })
 
     const { getByText } = render(
-      <ConfirmTradeCancelationPopup contract={{ ...contract, paymentMethod: 'cash.someMeetup' }} />,
+      <ConfirmTradeCancelationPopup view="seller" contract={{ ...contract, paymentMethod: 'cash.someMeetup' }} />,
     )
 
     await act(async () => {

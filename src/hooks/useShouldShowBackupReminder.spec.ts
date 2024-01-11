@@ -1,6 +1,6 @@
 import { renderHook } from 'test-utils'
 import { MSINAMONTH } from '../constants'
-import { useSettingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import { useShouldShowBackupReminder } from './useShouldShowBackupReminder'
 
 const now = new Date('2021-07-12T13:00:00.000Z').valueOf()

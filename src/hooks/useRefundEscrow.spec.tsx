@@ -3,7 +3,7 @@ import { sellOffer } from '../../tests/unit/data/offerData'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
 import { Overlay } from '../Overlay'
 import { Popup } from '../components/popup/Popup'
-import { useSettingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import { peachAPI } from '../utils/peachAPI'
 import { useRefundEscrow } from './useRefundEscrow'
 
@@ -67,7 +67,7 @@ describe('useRefundEscrow', () => {
 
   it('should refund the escrow when there is a cancel result', async () => {
     mockSuccess()
-    useSettingsStore.setState({ peachWalletActive: false })
+    useSettingsStore.setState({ refundToPeachWallet: false })
     const { result } = renderHook(useRefundEscrow)
     await act(async () => {
       await result.current(sellOffer, psbt)
@@ -103,7 +103,7 @@ describe('useRefundEscrow', () => {
     })
     refundSellOfferMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
-    useSettingsStore.setState({ peachWalletActive: false })
+    useSettingsStore.setState({ refundToPeachWallet: false })
     const { result } = renderHook(useRefundEscrow)
     await act(async () => {
       await result.current(sellOffer, psbt)
@@ -115,7 +115,7 @@ describe('useRefundEscrow', () => {
 
   it('should close popup and go to trades on close of success popup', async () => {
     mockSuccess()
-    useSettingsStore.setState({ peachWalletActive: false })
+    useSettingsStore.setState({ refundToPeachWallet: false })
     const { result } = renderHook(useRefundEscrow)
     await act(async () => {
       await result.current(sellOffer, psbt)
@@ -130,7 +130,7 @@ describe('useRefundEscrow', () => {
   })
   it('should close popup and go to backup time on close of success popup if backup is needed', async () => {
     mockSuccess()
-    useSettingsStore.getState().setPeachWalletActive(true)
+    useSettingsStore.setState({ refundToPeachWallet: true })
     useSettingsStore.getState().setShowBackupReminder(true)
 
     const { result } = renderHook(useRefundEscrow)
@@ -146,7 +146,7 @@ describe('useRefundEscrow', () => {
 
   it('should show the right success popup when peach wallet is active', async () => {
     mockSuccess()
-    useSettingsStore.setState({ peachWalletActive: true })
+    useSettingsStore.setState({ refundToPeachWallet: true })
     const { result } = renderHook(useRefundEscrow)
     await act(async () => {
       await result.current(sellOffer, psbt)
@@ -157,7 +157,7 @@ describe('useRefundEscrow', () => {
 
   it('should go to peach wallet if peach wallet is active', async () => {
     mockSuccess()
-    useSettingsStore.setState({ peachWalletActive: true })
+    useSettingsStore.setState({ refundToPeachWallet: true })
     const { result } = renderHook(useRefundEscrow)
     await act(async () => {
       await result.current(sellOffer, psbt)
@@ -169,7 +169,7 @@ describe('useRefundEscrow', () => {
   })
   it('should go to backup time if backup is needed when going to wallet', async () => {
     mockSuccess()
-    useSettingsStore.getState().setPeachWalletActive(true)
+    useSettingsStore.setState({ refundToPeachWallet: true })
     useSettingsStore.getState().setShowBackupReminder(true)
 
     const { result } = renderHook(useRefundEscrow)
@@ -184,7 +184,7 @@ describe('useRefundEscrow', () => {
 
   it('should call showTransaction if peach wallet is not active', async () => {
     mockSuccess()
-    useSettingsStore.setState({ peachWalletActive: false })
+    useSettingsStore.setState({ refundToPeachWallet: false })
     const { result } = renderHook(useRefundEscrow)
     await act(async () => {
       await result.current(sellOffer, psbt)

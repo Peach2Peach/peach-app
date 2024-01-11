@@ -1,6 +1,6 @@
 {
   "CANNOT_DOUBLEMATCH.text" : "Não conseguimos fazer esta correspondência. O comprador provavelmente cancelou a correspondência com você, ou outro vendedor foi mais rápido.",
-  "CANNOT_DOUBLEMATCH.title" : "correspondência falhou",
+  "CANNOT_DOUBLEMATCH.title" : "acordo falhou",
   "CREATE_ESCROW_ERROR.text" : "Ops, algo deu errado ao criar o depósito em garantia para a sua oferta! Por favor, tente novamente mais tarde ou entre em contato conosco se o erro persistir.",
   "CREATE_ESCROW_ERROR.title" : "depósito em garantia não criado",
   "CRITICAL_UPDATE_AVAILABLE.text" : "Esta atualização possui correções críticas. Você não pode continuar usando a versão atual.",

@@ -1,5 +1,5 @@
 import { fireEvent, render } from 'test-utils'
-import { useSettingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import { AnalyticsPopup } from './AnalyticsPopup'
 
 describe('AnalyticsPopup', () => {

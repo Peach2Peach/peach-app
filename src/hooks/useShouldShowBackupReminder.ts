@@ -1,6 +1,6 @@
 import { shallow } from 'zustand/shallow'
-import { useSettingsStore } from '../store/settingsStore'
 import { shouldShowBackupReminder } from '../store/settingsStore/helpers/shouldShowBackupReminder'
+import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 
 export const useShouldShowBackupReminder = () => {
   const [lastFileBackupDate, lastSeedBackupDate, showBackupReminder, setShowBackupReminder] = useSettingsStore(

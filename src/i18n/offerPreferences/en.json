@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "fund escrow",
   "offerPreferences.fundWithPeachWallet" : "fund with Peach wallet ($0 sats/vb)",
   "offerPreferences.instantTrade" : "instant trade",
+  "offerPreferences.payoutTo" : "pay out to:",
   "offerPreferences.premiumOfCompletedTrades" : "premium of completed trades: $0%",
   "offerPreferences.refundTo" : "refund to:",
   "offerPreferences.sellOffers" : "$0 sell offers",

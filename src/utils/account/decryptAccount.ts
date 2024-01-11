@@ -1,4 +1,4 @@
-import { useSettingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import { decrypt } from '../crypto/decrypt'
 import { info } from '../log/info'
 

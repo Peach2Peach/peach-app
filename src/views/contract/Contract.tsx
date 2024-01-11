@@ -56,8 +56,8 @@ function ContractHeader () {
   const requiredAction = getRequiredAction(contract)
   const setPopup = useSetPopup()
   const showConfirmPopup = useCallback(
-    () => setPopup(<ConfirmTradeCancelationPopup contract={contract} />),
-    [contract, setPopup],
+    () => setPopup(<ConfirmTradeCancelationPopup contract={contract} view={view} />),
+    [contract, setPopup, view],
   )
   const showMakePaymentHelp = useCallback(() => setPopup(<HelpPopup id="makePayment" />), [setPopup])
   const showConfirmPaymentHelp = useCallback(() => setPopup(<HelpPopup id="confirmPayment" />), [setPopup])

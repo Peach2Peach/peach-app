@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { Progress } from '../../../components/ui/Progress'
 import { useTradingLimits } from '../../../hooks/query/useTradingLimits'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import tw from '../../../styles/tailwind'
 import { TradingLimitAmount } from './TradingLimitAmount'
 

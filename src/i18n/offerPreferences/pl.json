@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "finansuj depozyt",
   "offerPreferences.fundWithPeachWallet" : "finansuj za pomocą portfela Peach ($0 sats/vb)",
   "offerPreferences.instantTrade" : "natychmiastowa transakcja",
+  "offerPreferences.payoutTo" : "wypłata na:",
   "offerPreferences.premiumOfCompletedTrades" : "premia zakończonych transakcji: $0%",
   "offerPreferences.refundTo" : "zwrot na:",
   "offerPreferences.sellOffers" : "$0 otwartych ofert sprzedaży",

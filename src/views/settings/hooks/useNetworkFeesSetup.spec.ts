@@ -3,7 +3,7 @@ import { act, renderHook } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { useMessageState } from '../../../components/message/useMessageState'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
 
 jest.mock('../../../hooks/query/useFeeEstimate', () => ({

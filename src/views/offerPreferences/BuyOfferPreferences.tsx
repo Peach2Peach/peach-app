@@ -3,12 +3,15 @@ import { shallow } from 'zustand/shallow'
 import { Button } from '../../components/buttons/Button'
 import { useSetPopup } from '../../components/popup/Popup'
 import { HelpPopup } from '../../hooks/HelpPopup'
+import { useNavigation } from '../../hooks/useNavigation'
 import { useOfferPreferences } from '../../store/offerPreferenes'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { interpolate } from '../../utils/math/interpolate'
 import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
+import { PayoutWalletSelector } from './PayoutWalletSelector'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
 import { BuyBitcoinHeader } from './components/BuyBitcoinHeader'
 import { FilterContainer } from './components/FilterContainer'
@@ -30,7 +33,35 @@ export function BuyOfferPreferences () {
       <PreferenceMethods type="buy" />
       <AmountSelector setIsSliding={setIsSliding} />
       <Filters />
+      <PreferenceWalletSelector />
     </PreferenceScreen>
+  )
+}
+
+function PreferenceWalletSelector () {
+  const [payoutToPeachWallet, payoutAddress, payoutAddressLabel, setPayoutToPeachWallet] = useSettingsStore(
+    (state) => [state.payoutToPeachWallet, state.payoutAddress, state.payoutAddressLabel, state.setPayoutToPeachWallet],
+    shallow,
+  )
+  const navigation = useNavigation()
+
+  const onExternalWalletPress = () => {
+    if (payoutAddress) {
+      setPayoutToPeachWallet(false)
+    } else {
+      navigation.navigate('payoutAddress')
+    }
+  }
+
+  const onPeachWalletPress = () => setPayoutToPeachWallet(true)
+  return (
+    <PayoutWalletSelector
+      peachWalletSelected={payoutToPeachWallet}
+      customAddress={payoutAddress}
+      customAddressLabel={payoutAddressLabel}
+      onPeachWalletPress={onPeachWalletPress}
+      onExternalWalletPress={onExternalWalletPress}
+    />
   )
 }
 

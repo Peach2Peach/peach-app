@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "financier escrow",
   "offerPreferences.fundWithPeachWallet" : "financier met Peach wallet ($0 sats/vb)",
   "offerPreferences.instantTrade" : "directe handel",
+  "offerPreferences.payoutTo" : "uitbetalen aan:",
   "offerPreferences.premiumOfCompletedTrades" : "premie van voltooide transacties: $0%",
   "offerPreferences.refundTo" : "terugbetaling naar:",
   "offerPreferences.sellOffers" : "$0 openstaande verkoopaanbiedingen",

@@ -3,10 +3,13 @@ type Settings = {
   analyticsPopupSeen?: boolean
   enableAnalytics?: boolean
   locale?: string
-  returnAddress?: string
+  refundAddress?: string
+  refundAddressLabel?: string
+  refundToPeachWallet: boolean
   payoutAddress?: string
   payoutAddressLabel?: string
   payoutAddressSignature?: string
+  payoutToPeachWallet: boolean
   derivationPath?: string
   displayCurrency: Currency
   country?: string
@@ -16,7 +19,6 @@ type Settings = {
   lastSeedBackupDate?: number
   showBackupReminder: boolean
   shouldShowBackupOverlay: boolean
-  peachWalletActive: boolean
   nodeURL: string
   feeRate: FeeRate
   usedReferralCode?: boolean

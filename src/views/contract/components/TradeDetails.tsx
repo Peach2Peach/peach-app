@@ -9,7 +9,7 @@ import { HorizontalLine } from '../../../components/ui/HorizontalLine'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useIsMyAddress } from '../../../hooks/wallet/useIsMyAddress'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import tw from '../../../styles/tailwind'
 import { useAccountStore } from '../../../utils/account/account'
 import { getMessageToSignForAddress } from '../../../utils/account/getMessageToSignForAddress'
@@ -81,13 +81,17 @@ function ChangePayoutWallet () {
 
       mutate({ releaseAddress, messageSignature })
     } else {
-      if (!payoutAddress) {
+      if (!payoutAddress || !payoutAddressLabel) {
         navigation.navigate('patchPayoutAddress', { contractId: contract.id })
         return
       }
       const message = getMessageToSignForAddress(publicKey, payoutAddress)
       if (!payoutAddressSignature || !isValidBitcoinSignature(message, payoutAddress, payoutAddressSignature)) {
-        navigation.navigate('signMessage', { contractId: contract.id })
+        navigation.navigate('signMessage', {
+          contractId: contract.id,
+          address: payoutAddress,
+          addressLabel: payoutAddressLabel,
+        })
       } else {
         mutate({ releaseAddress: payoutAddress, messageSignature: payoutAddressSignature })
       }

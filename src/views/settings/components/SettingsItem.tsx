@@ -14,6 +14,7 @@ type SettingsTitle =
   | 'transactionBatching'
   | 'paymentMethods'
   | 'nodeSetup'
+  | 'refundAddress'
   | 'payoutAddress'
   | 'currency'
   | 'language'

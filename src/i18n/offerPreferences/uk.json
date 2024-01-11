@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "фінансувати депозит",
   "offerPreferences.fundWithPeachWallet" : "фінансувати за допомогою гаманця Peach ($0 сат/вб)",
   "offerPreferences.instantTrade" : "миттєва торгівля",
+  "offerPreferences.payoutTo" : "виплата на:",
   "offerPreferences.premiumOfCompletedTrades" : "премія завершених угод: $0%",
   "offerPreferences.refundTo" : "повернення коштів на:",
   "offerPreferences.sellOffers" : "$0 відкритих пропозицій на продаж",

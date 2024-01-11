@@ -3,7 +3,7 @@ import OpenPGP from 'react-native-fast-openpgp'
 import { useConfigStore } from '../../store/configStore/configStore'
 import { decrypt } from '../../utils/pgp/decrypt'
 import { decryptSymmetric } from '../../utils/pgp/decryptSymmetric'
-import { decryptSymmetricKey } from '../contract/helpers'
+import { decryptSymmetricKey } from '../contract/helpers/decryptSymmetricKey'
 
 export const useDecryptedContractData = (contract?: Contract) =>
   useQuery({

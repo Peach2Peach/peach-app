@@ -1,6 +1,6 @@
 import { responseUtils } from 'test-utils'
 import { defaultUser } from '../../../../tests/unit/data/userData'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import { peachAPI } from '../../../utils/peachAPI'
 import { checkUsedReferralCode } from './checkUsedReferralCode'
 

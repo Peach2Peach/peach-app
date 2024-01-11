@@ -1,5 +1,5 @@
 import { renderHook } from 'test-utils'
-import { useSettingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import { useBitcoinPrices } from './useBitcoinPrices'
 
 jest.mock('./query/useMarketPrices', () => ({

@@ -11,21 +11,24 @@ import { BitcoinAddress } from '../../components/bitcoin/BitcoinAddress'
 import { Button } from '../../components/buttons/Button'
 import { TradeInfo } from '../../components/offer/TradeInfo'
 import { useSetPopup } from '../../components/popup/Popup'
+import { ParsedPeachText } from '../../components/text/ParsedPeachText'
 import { PeachText } from '../../components/text/PeachText'
 import { CopyAble } from '../../components/ui/CopyAble'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
 import { SATSINBTC } from '../../constants'
 import { CancelOfferPopup } from '../../hooks/CancelOfferPopup'
-import { HelpPopup } from '../../hooks/HelpPopup'
 import { useCancelFundMultipleSellOffers } from '../../hooks/useCancelFundMultipleSellOffers'
 import { useRoute } from '../../hooks/useRoute'
+import { InfoPopup } from '../../popups/InfoPopup'
 import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
+import i18n, { languageState } from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { offerIdToHex } from '../../utils/offer/offerIdToHex'
 import { generateBlock } from '../../utils/regtest/generateBlock'
 import { getNetwork } from '../../utils/wallet/getNetwork'
 import { useWalletState } from '../../utils/wallet/walletStore'
+import { getLocalizedLink } from '../../utils/web/getLocalizedLink'
+import { openURL } from '../../utils/web/openURL'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { TransactionInMempool } from './components/TransactionInMempool'
 import { useFundEscrowSetup } from './hooks/useFundEscrowSetup'
@@ -74,7 +77,7 @@ function FundEscrowHeader () {
   const { offerId } = useRoute<'fundEscrow'>().params
   const fundMultiple = useWalletState((state) => state.getFundMultipleByOfferId(offerId))
   const setPopup = useSetPopup()
-  const showHelp = useCallback(() => setPopup(<HelpPopup id="escrow" />), [setPopup])
+  const showHelp = useCallback(() => setPopup(<EscrowPopup />), [setPopup])
   const cancelOffer = useCallback(() => setPopup(<CancelOfferPopup offerId={offerId} />), [offerId, setPopup])
 
   const cancelFundMultipleOffers = useCancelFundMultipleSellOffers({ fundMultiple })
@@ -91,6 +94,42 @@ function FundEscrowHeader () {
   }, [cancelFundMultipleOffers, cancelOffer, fundMultiple, showHelp])
 
   return <Header title={i18n('sell.escrow.title')} icons={memoizedHeaderIcons} />
+}
+
+const goToEscrowInfo = () => openURL(getLocalizedLink('terms-and-conditions', languageState.locale))
+
+function EscrowPopup () {
+  return (
+    <InfoPopup
+      title={i18n('help.escrow.title')}
+      content={
+        <View style={tw`gap-4`}>
+          <ParsedPeachText
+            parse={[
+              {
+                pattern: new RegExp(i18n('help.escrow.description.link'), 'u'),
+                style: tw`underline`,
+                onPress: goToEscrowInfo,
+              },
+            ]}
+          >
+            {i18n('help.escrow.description')}
+          </ParsedPeachText>
+          <InfoText>{i18n('help.escrow.description.proTip')}</InfoText>
+          <InfoText>{i18n('help.escrow.description.proTip.2')}</InfoText>
+        </View>
+      }
+    />
+  )
+}
+
+function InfoText ({ children }: { children: string }) {
+  return (
+    <View style={tw`flex-row items-center gap-3`}>
+      <Icon id="info" size={32} color={tw.color('black-100')} />
+      <PeachText style={tw`shrink`}>{children}</PeachText>
+    </View>
+  )
 }
 
 type Props = {

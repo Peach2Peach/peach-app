@@ -1,10 +1,10 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { shallow } from 'zustand/shallow'
 import { fullScreenTabNavigationScreenOptions } from '../../constants'
-import { HelpPopup } from '../../hooks/HelpPopup'
 import { useNavigation } from '../../hooks/useNavigation'
 import { usePreviousRoute } from '../../hooks/usePreviousRoute'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
+import { InfoPopup } from '../../popups/InfoPopup'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
@@ -16,6 +16,7 @@ import { Header } from '../Header'
 import { PeachScrollView } from '../PeachScrollView'
 import { Screen } from '../Screen'
 import { useSetPopup } from '../popup/Popup'
+import { PeachText } from '../text/PeachText'
 import { HorizontalLine } from '../ui/HorizontalLine'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 import { MeetupPaymentMethods } from './MeetupPaymentMethods'
@@ -88,7 +89,7 @@ type Props = {
 
 function PaymentMethodsHeader ({ isEditing, toggleIsEditing }: Props) {
   const setPopup = useSetPopup()
-  const showHelp = () => setPopup(<HelpPopup id="paymentMethods" />)
+  const showHelp = () => setPopup(<PaymentMethodsPopup />)
   const hasPaymentMethods = usePaymentDataStore((state) => state.getPaymentDataArray().length !== 0)
 
   return (
@@ -101,6 +102,20 @@ function PaymentMethodsHeader ({ isEditing, toggleIsEditing }: Props) {
             { ...headerIcons.help, onPress: showHelp },
           ]
           : [{ ...headerIcons.help, onPress: showHelp }]
+      }
+    />
+  )
+}
+
+function PaymentMethodsPopup () {
+  return (
+    <InfoPopup
+      title={i18n('settings.paymentMethods')}
+      content={
+        <>
+          <PeachText>{i18n('help.paymentMethods.description.1')}</PeachText>
+          <PeachText>{i18n('help.paymentMethods.description.2')}</PeachText>
+        </>
       }
     />
   )

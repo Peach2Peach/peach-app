@@ -1,5 +1,5 @@
 import { account1 } from '../../tests/unit/data/accountData'
-import { useSettingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import { defaultAccount, setAccount } from '../utils/account/account'
 import { publishPGPPublicKey } from './publishPGPPublicKey'
 

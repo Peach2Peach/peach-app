@@ -123,6 +123,7 @@ export const Settings = () => {
             onPress: notificationClick,
           },
           'nodeSetup',
+          'refundAddress',
           'payoutAddress',
           'currency',
           'language',

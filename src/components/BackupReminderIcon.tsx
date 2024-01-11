@@ -1,6 +1,6 @@
 import { useNavigation } from '../hooks/useNavigation'
 import { ErrorPopup } from '../popups/ErrorPopup'
-import { useSettingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { TouchableIcon } from './TouchableIcon'

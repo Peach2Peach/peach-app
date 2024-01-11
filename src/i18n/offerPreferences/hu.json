@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "escrow finanszírozása",
   "offerPreferences.fundWithPeachWallet" : "finanszírozás a Peach Wallet-tel ($0 sats/vb)",
   "offerPreferences.instantTrade" : "azonnali kereskedés",
+  "offerPreferences.payoutTo" : "kifizetés ide:",
   "offerPreferences.premiumOfCompletedTrades" : "befejezett ügyletek prémiuma: $0%",
   "offerPreferences.refundTo" : "visszatérítés ide:",
   "offerPreferences.sellOffers" : "$0 eladási ajánlat",

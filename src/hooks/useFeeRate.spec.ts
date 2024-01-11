@@ -1,6 +1,6 @@
 import { act, renderHook } from 'test-utils'
 import { estimatedFees } from '../../tests/unit/data/bitcoinNetworkData'
-import { useSettingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import { useFeeRate } from './useFeeRate'
 
 const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees })

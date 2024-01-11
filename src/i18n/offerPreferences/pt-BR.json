@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "financiar custódia",
   "offerPreferences.fundWithPeachWallet" : "financiar com a carteira Peach ($0 sats/vb)",
   "offerPreferences.instantTrade" : "negociação instantânea",
+  "offerPreferences.payoutTo" : "pagar para:",
   "offerPreferences.premiumOfCompletedTrades" : "prêmio de negociações concluídas: $0%",
   "offerPreferences.refundTo" : "reembolsar para:",
   "offerPreferences.sellOffers" : "$0 ofertas de venda abertas",

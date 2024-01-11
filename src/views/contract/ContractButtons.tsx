@@ -8,12 +8,12 @@ import { useSetPopup } from '../../components/popup/Popup'
 import { ClosePopupAction } from '../../components/popup/actions/ClosePopupAction'
 import { LoadingPopupAction } from '../../components/popup/actions/LoadingPopupAction'
 import { PeachText } from '../../components/text/PeachText'
-import { HelpPopup } from '../../hooks/HelpPopup'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
 import { useValidatedState } from '../../hooks/useValidatedState'
 import { ErrorPopup } from '../../popups/ErrorPopup'
+import { InfoPopup } from '../../popups/InfoPopup'
 import { useSubmitDisputeAcknowledgement } from '../../popups/dispute/useSubmitDisputeAcknowledgement'
 import { useConfigStore } from '../../store/configStore/configStore'
 import tw from '../../styles/tailwind'
@@ -121,7 +121,7 @@ export function ChatButton () {
   } = useContractContext()
   const navigation = useNavigation()
   const setPopup = useSetPopup()
-  const showHelp = useCallback(() => setPopup(<HelpPopup id="disputeDisclaimer" />), [setPopup])
+  const showHelp = useCallback(() => setPopup(<DisputeDisclaimerPopup />), [setPopup])
   const [seenDisputeDisclaimer, setSeenDisputeDisclaimer] = useConfigStore(
     (state) => [state.seenDisputeDisclaimer, state.setSeenDisputeDisclaimer],
     shallow,
@@ -146,5 +146,26 @@ export function ChatButton () {
     <Button style={tw`flex-1`} iconId={unreadMessages === 0 ? 'messageCircle' : 'messageFull'} onPress={goToChat}>
       {unreadMessages === 0 ? i18n('chat') : `${unreadMessages} ${i18n('contract.unread')}`}
     </Button>
+  )
+}
+
+function DisputeDisclaimerPopup () {
+  return (
+    <InfoPopup
+      title={i18n('trade.chat')}
+      content={
+        <PeachText>
+          {i18n('chat.disputeDisclaimer.1')}
+          {'\n\n'}
+          {i18n('chat.disputeDisclaimer.2')}
+
+          <PeachText style={tw`underline`}>{i18n('chat.disputeDisclaimer.3')}</PeachText>
+
+          {i18n('chat.disputeDisclaimer.4')}
+          {'\n\n'}
+          {i18n('chat.disputeDisclaimer.5')}
+        </PeachText>
+      }
+    />
   )
 }

@@ -10,94 +10,57 @@ jest.mock('../wallet/setWallet', () => ({
 }))
 
 describe('getWalletLabel', () => {
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
+  const customAddress = 'customPayoutAddress'
+  const customAddressLabel = 'customPayoutAddressLabel'
   it('should return customPayoutAddressLabel if address is customPayoutAddress', () => {
-    const address = 'customPayoutAddress'
-    const customPayoutAddress = 'customPayoutAddress'
-    const customPayoutAddressLabel = 'customPayoutAddressLabel'
-
     const result = getWalletLabel({
-      address,
-      customPayoutAddress,
-      customPayoutAddressLabel,
+      address: customAddress,
+      customAddress,
+      customAddressLabel,
       isPeachWalletActive: true,
     })
+    expect(findKeyPairByAddressMock).not.toHaveBeenCalled()
 
-    expect(result).toEqual(customPayoutAddressLabel)
+    expect(result).toEqual(customAddressLabel)
   })
 
   it('should return peachWallet if address is in peachWallet', () => {
-    const address = 'address'
-    const customPayoutAddress = 'customPayoutAddress'
-    const customPayoutAddressLabel = 'customPayoutAddressLabel'
-
     findKeyPairByAddressMock.mockReturnValueOnce(true)
-
     const result = getWalletLabel({
-      address,
-      customPayoutAddress,
-      customPayoutAddressLabel,
+      address: 'address',
+      customAddress,
+      customAddressLabel,
       isPeachWalletActive: true,
     })
 
     expect(result).toEqual(i18n('peachWallet'))
   })
 
-  it('should return customPayoutAddressLabel even if address is in peachWallet', () => {
-    const address = 'customPayoutAddress'
-    const customPayoutAddress = 'customPayoutAddress'
-    const customPayoutAddressLabel = 'customPayoutAddressLabel'
-
-    findKeyPairByAddressMock.mockReturnValueOnce(true)
-
-    const result = getWalletLabel({
-      address,
-      customPayoutAddress,
-      customPayoutAddressLabel,
-      isPeachWalletActive: true,
-    })
-
-    expect(result).toEqual(customPayoutAddressLabel)
-  })
-
   it('should return "custom payout address" if address is not peachWallet or customPayoutAddress', () => {
-    const address = 'address'
-    const customPayoutAddress = 'customPayoutAddress'
-    const customPayoutAddressLabel = 'customPayoutAddressLabel'
-
     const result = getWalletLabel({
-      address,
-      customPayoutAddress,
-      customPayoutAddressLabel,
+      address: 'address',
+      customAddress,
+      customAddressLabel,
       isPeachWalletActive: true,
     })
 
     expect(result).toEqual('custom payout address')
   })
   it('should return "custom payout address" if no address is passed', () => {
-    const customPayoutAddress = 'customPayoutAddress'
-    const customPayoutAddressLabel = 'customPayoutAddressLabel'
-
     const result = getWalletLabel({
       address: undefined,
-      customPayoutAddress,
-      customPayoutAddressLabel,
+      customAddress,
+      customAddressLabel,
       isPeachWalletActive: true,
     })
 
     expect(result).toEqual('custom payout address')
   })
   it('returns "custom payout address" if no customPayoutAddressLabel but the address is the customPayoutAddress', () => {
-    const address = 'customPayoutAddress'
-    const customPayoutAddress = 'customPayoutAddress'
-
     const result = getWalletLabel({
-      address,
-      customPayoutAddress,
-      customPayoutAddressLabel: undefined,
+      address: customAddress,
+      customAddress,
+      customAddressLabel: undefined,
       isPeachWalletActive: true,
     })
 
@@ -106,8 +69,8 @@ describe('getWalletLabel', () => {
   it('returns "custom payout address" if the peach wallet is not active', () => {
     const result = getWalletLabel({
       address: 'address',
-      customPayoutAddress: undefined,
-      customPayoutAddressLabel: undefined,
+      customAddress: undefined,
+      customAddressLabel: undefined,
       isPeachWalletActive: false,
     })
 

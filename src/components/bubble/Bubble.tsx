@@ -29,10 +29,10 @@ export const Bubble = (props: BubbleProps) => {
   return <BubbleBase {...{ ...props, color, textColor, iconColor, iconSize, borderColor }} />
 }
 
-type NewBubbleProps = {
+export type NewBubbleProps = {
   children: React.ReactNode
   iconId?: IconType
-  color: 'orange' | 'black' | 'gray' | 'primary-mild'
+  color: 'orange' | 'black' | 'gray' | 'primary-mild' | 'green'
   ghost?: boolean
 } & TouchableOpacityProps
 
@@ -42,9 +42,11 @@ export function NewBubble ({ children, iconId, color, ghost, ...touchableOpacity
       ? 'primary-main'
       : color === 'primary-mild'
         ? 'primary-mild-1'
-        : color === 'gray'
-          ? 'black-50'
-          : 'black-100',
+        : color === 'green'
+          ? 'success-main'
+          : color === 'gray'
+            ? 'black-50'
+            : 'black-100',
   )
 
   return (

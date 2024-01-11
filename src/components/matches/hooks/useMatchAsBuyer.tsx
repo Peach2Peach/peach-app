@@ -26,6 +26,7 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
   const updateMessage = useMessageState((state) => state.updateMessage)
   const handleError = useHandleError()
   const setPopup = useSetPopup()
+  const publicKey = useAccountStore((state) => state.account.pgp.publicKey)
 
   return useMutation({
     onMutate: async ({ selectedCurrency, paymentData }) => {
@@ -59,6 +60,7 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
         match,
         currency: selectedCurrency,
         paymentData,
+        publicKey,
       })
       if (!matchOfferData) throw new Error(dataError || 'UNKNOWN_ERROR')
       const { result, error: err } = await peachAPI.private.offer.matchOffer(matchOfferData)
@@ -107,17 +109,14 @@ type Params = {
   match: Match
   currency: Currency
   paymentData: PaymentData
+  publicKey: string
 }
 
-async function generateMatchOfferData ({ offer, match, currency, paymentData }: Params) {
+async function generateMatchOfferData ({ offer, match, currency, paymentData, publicKey }: Params) {
   const paymentMethod = paymentData.type
 
   const symmetricKey = (await getRandom(256)).toString('hex')
-  const accountPubKey = useAccountStore.getState().account.pgp.publicKey
-  const { encrypted, signature } = await signAndEncrypt(
-    symmetricKey,
-    [accountPubKey, match.user.pgpPublicKey].join('\n'),
-  )
+  const { encrypted, signature } = await signAndEncrypt(symmetricKey, [publicKey, match.user.pgpPublicKey].join('\n'))
 
   const encryptedPaymentData = await encryptPaymentData(cleanPaymentData(paymentData), symmetricKey)
   if (!encryptedPaymentData) return { error: 'PAYMENTDATA_ENCRYPTION_FAILED' }

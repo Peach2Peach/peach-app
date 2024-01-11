@@ -8,8 +8,8 @@ import { RadioButtonItem, RadioButtons } from '../../components/inputs/RadioButt
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { Progress } from '../../components/ui/Progress'
-import { HelpPopup } from '../../hooks/HelpPopup'
 import { useSelfUser } from '../../hooks/query/useSelfUser'
+import { InfoPopup } from '../../popups/InfoPopup'
 import { CustomReferralCodePopup } from '../../popups/referral/CustomReferralCodePopup'
 import { RedeemNoPeachFeesPopup } from '../../popups/referral/RedeemNoPeachFeesPopup'
 import tw from '../../styles/tailwind'
@@ -33,8 +33,22 @@ export const Referrals = () => (
 
 function ReferralsHeader () {
   const setPopup = useSetPopup()
-  const showHelp = () => setPopup(<HelpPopup id="referrals" />)
+  const showHelp = () => setPopup(<ReferralsPopup />)
   return <Header title={i18n('settings.referrals')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
+}
+
+function ReferralsPopup () {
+  return (
+    <InfoPopup
+      title={i18n('help.referral.title')}
+      content={
+        <>
+          <PeachText style={tw`mb-2`}>{i18n('help.referral.description.1')}</PeachText>
+          <PeachText>{i18n('help.referral.description.2')}</PeachText>
+        </>
+      }
+    />
+  )
 }
 
 function ReferralRewards () {

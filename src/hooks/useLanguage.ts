@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useSettingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import i18n, { Locale } from '../utils/i18n'
 
 export const useLanguage = () => {

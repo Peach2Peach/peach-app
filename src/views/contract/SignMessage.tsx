@@ -16,7 +16,7 @@ import { useKeyboard } from '../../hooks/useKeyboard'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
 import { useValidatedState } from '../../hooks/useValidatedState'
-import { useSettingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import tw from '../../styles/tailwind'
 import { useAccountStore } from '../../utils/account/account'
 import { getMessageToSignForAddress } from '../../utils/account/getMessageToSignForAddress'
@@ -32,42 +32,65 @@ const signatureRules = {
   required: true,
 }
 export const SignMessage = () => {
-  const { contractId } = useRoute<'signMessage'>().params
+  const { params } = useRoute<'signMessage'>()
+
+  return 'offerId' in params ? (
+    <SignMessageForPatch offerId={params.offerId} />
+  ) : 'contractId' in params ? (
+    <ContractSuspense contractId={params.contractId} />
+  ) : (
+    <SignMessageForGlobalPreference />
+  )
+}
+
+function SignMessageForGlobalPreference () {
+  const setPayoutToPeachWallet = useSettingsStore((state) => state.setPayoutToPeachWallet)
+  const onSubmit = () => setPayoutToPeachWallet(false)
+
+  return <ScreenContent onSubmit={onSubmit} />
+}
+
+function ContractSuspense ({ contractId }: { contractId: string }) {
   const { contract } = useContractDetails(contractId)
 
   if (!contract) return <NewLoadingScreen />
 
-  return <ScreenContent contract={contract} />
+  return <SignMessageForPatch offerId={getOfferIdFromContract(contract)} contractId={contractId} />
+}
+
+function SignMessageForPatch ({ offerId, contractId }: { offerId: string; contractId?: string }) {
+  const { mutate: patchPayoutAddress } = usePatchReleaseAddress(offerId, contractId)
+
+  return <ScreenContent onSubmit={patchPayoutAddress} />
 }
 
 const signaturePattern = /[a-zA-Z0-9/=+]{88}/u
 
 const parseSignature = (signature: string) => signature.match(signaturePattern)?.pop() || signature
 
-function ScreenContent ({ contract }: { contract: Contract }) {
-  const { contractId } = useRoute<'signMessage'>().params
-  const { mutate: patchPayoutAddress } = usePatchReleaseAddress(getOfferIdFromContract(contract), contractId)
+type ScreenContentProps = {
+  onSubmit: ({ messageSignature, releaseAddress }: { messageSignature: string; releaseAddress: string }) => void
+}
 
+function ScreenContent ({ onSubmit }: ScreenContentProps) {
   const navigation = useNavigation()
-  const [address, setPayoutAddressSignature] = useSettingsStore(
-    (state) => [state.payoutAddress, state.setPayoutAddressSignature],
+  const { address, addressLabel } = useRoute<'signMessage'>().params
+  const [setPayoutAddress, setPayoutAddressLabel, setPayoutAddressSignature] = useSettingsStore(
+    (state) => [state.setPayoutAddress, state.setPayoutAddressLabel, state.setPayoutAddressSignature],
     shallow,
   )
   const publicKey = useAccountStore((state) => state.account.publicKey)
-  const message = useMemo(
-    () => (address ? getMessageToSignForAddress(publicKey, address) : undefined),
-    [address, publicKey],
-  )
+  const message = useMemo(() => getMessageToSignForAddress(publicKey, address), [address, publicKey])
   const [signature, setSignature, signatureExists, requiredErrors] = useValidatedState<string>('', signatureRules)
 
   const signatureValid = useMemo(() => {
     if (!signatureExists) return false
-    return isValidBitcoinSignature(message || '', address || '', signature)
+    return isValidBitcoinSignature(message, address, signature)
   }, [signatureExists, message, address, signature])
 
   const signatureError = useMemo(() => {
     let errs = requiredErrors
-    if (!isValidBitcoinSignature(message || '', address || '', signature)) {
+    if (!isValidBitcoinSignature(message, address, signature)) {
       errs = [...errs, getMessages().signature]
     }
     return errs
@@ -76,9 +99,11 @@ function ScreenContent ({ contract }: { contract: Contract }) {
   const parseAndSetSignature = (sig: string) => setSignature(parseSignature(sig))
 
   const submitSignature = () => {
-    if (!address || !signatureValid) return
+    if (!signatureValid) return
+    setPayoutAddress(address)
+    setPayoutAddressLabel(addressLabel)
     setPayoutAddressSignature(signature)
-    patchPayoutAddress({ messageSignature: signature, releaseAddress: address })
+    onSubmit({ messageSignature: signature, releaseAddress: address })
     navigation.goBack()
   }
 
@@ -91,29 +116,11 @@ function ScreenContent ({ contract }: { contract: Contract }) {
 
   return (
     <Screen header={<SignMessageHeader />}>
-      <PeachScrollView style={tw`grow`} contentContainerStyle={tw`justify-center grow`}>
-        <PeachText style={[tw`pl-2 input-label`]}>{i18n('buy.addressSigning.yourAddress')}</PeachText>
-        <View
-          style={[
-            tw`flex-row items-center justify-between px-3 py-2 mb-5`,
-            tw`border rounded-xl`,
-            tw`bg-primary-background-light`,
-          ]}
-        >
-          <PeachText style={tw`flex-1 input-text`}>{address}</PeachText>
-          <CopyAble value={address || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-100`} />
-        </View>
-        <PeachText style={[tw`pl-2 input-label`]}>{i18n('buy.addressSigning.message')}</PeachText>
-        <View
-          style={[
-            tw`flex-row items-center justify-between px-3 py-2 mb-5`,
-            tw`border rounded-xl`,
-            tw`bg-primary-background-light`,
-          ]}
-        >
-          <PeachText style={tw`flex-1 input-text`}>{message}</PeachText>
-          <CopyAble value={message || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-100`} />
-        </View>
+      <PeachScrollView style={tw`grow`} contentContainerStyle={tw`justify-center grow`} contentStyle={tw`gap-5`}>
+        <TextContainer label={i18n('buy.addressSigning.yourAddress')} value={address} />
+
+        <TextContainer label={i18n('buy.addressSigning.message')} value={message} />
+
         <Input
           value={signature}
           onChangeText={setSignature}
@@ -129,6 +136,24 @@ function ScreenContent ({ contract }: { contract: Contract }) {
         </Button>
       )}
     </Screen>
+  )
+}
+
+function TextContainer ({ label, value }: { label: React.ReactNode; value: string | undefined }) {
+  return (
+    <View>
+      <PeachText style={tw`pl-2 input-label`}>{label}</PeachText>
+      <View
+        style={[
+          tw`flex-row items-center justify-between gap-2 px-3 py-2`,
+          tw`border rounded-xl`,
+          tw`bg-primary-background-light`,
+        ]}
+      >
+        <PeachText style={tw`flex-1 input-text`}>{value}</PeachText>
+        <CopyAble value={value || ''} style={tw`w-5 h-5`} color={tw`text-black-100`} />
+      </View>
+    </View>
   )
 }
 

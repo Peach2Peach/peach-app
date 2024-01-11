@@ -1,5 +1,5 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
-import { useSettingsStore } from '../../../../store/settingsStore'
+import { useSettingsStore } from '../../../../store/settingsStore/useSettingsStore'
 import { LastSeedBackup } from './LastSeedBackup'
 
 describe('LastSeedBackup', () => {
@@ -14,7 +14,7 @@ describe('LastSeedBackup', () => {
     expect(renderOutput).toMatchSnapshot()
   })
   it('should render correctly with seedbackup date', () => {
-    useSettingsStore.getState().setLastSeedBackupDate(now)
+    useSettingsStore.setState({ lastSeedBackupDate: now })
     renderer.render(<LastSeedBackup goBackToStart={goBackToStartMock} />)
 
     const renderOutput = renderer.getRenderOutput()

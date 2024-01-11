@@ -1,12 +1,15 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { useState } from 'react'
+import { View } from 'react-native'
 import z from 'zod'
 import { Header } from '../../components/Header'
 import { Screen } from '../../components/Screen'
 import { useSetPopup } from '../../components/popup/Popup'
+import { PeachText } from '../../components/text/PeachText'
 import { fullScreenTabNavigationScreenOptions } from '../../constants'
 import { HelpPopup } from '../../hooks/HelpPopup'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
+import { InfoPopup } from '../../popups/InfoPopup'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -58,9 +61,9 @@ export const Backups = () => {
 
 function BackupHeader ({ tab, showPasswordPrompt }: { tab: 'fileBackup' | 'seedPhrase'; showPasswordPrompt?: boolean }) {
   const setPopup = useSetPopup()
-  const showSeedPhrasePopup = () => setPopup(<HelpPopup id="seedPhrase" />)
+  const showSeedPhrasePopup = () => setPopup(<SeedPhrasePopup />)
   const showFileBackupPopup = () => setPopup(<HelpPopup id="fileBackup" />)
-  const showYourPasswordPopup = () => setPopup(<HelpPopup id="yourPassword" />)
+  const showYourPasswordPopup = () => setPopup(<YourPasswordPopup />)
 
   return (
     <Header
@@ -76,6 +79,44 @@ function BackupHeader ({ tab, showPasswordPrompt }: { tab: 'fileBackup' | 'seedP
               : showSeedPhrasePopup,
         },
       ]}
+    />
+  )
+}
+
+function SeedPhrasePopup () {
+  return (
+    <InfoPopup
+      title={i18n('settings.backups.seedPhrase.popup.title')}
+      content={
+        <PeachText style={tw`body-m`}>
+          {i18n('settings.backups.seedPhrase.popup.text.1')}
+          {'\n\n'}
+          <PeachText style={tw`font-bold`}>{i18n('settings.backups.seedPhrase.popup.text.2')}</PeachText>
+        </PeachText>
+      }
+    />
+  )
+}
+
+function YourPasswordPopup () {
+  return (
+    <InfoPopup
+      title={i18n('settings.backups.fileBackup.popup2.title')}
+      content={
+        <>
+          <PeachText>{i18n('settings.backups.fileBackup.popup2.content.1')}</PeachText>
+
+          <PeachText style={tw`mt-3`}>{i18n('settings.backups.fileBackup.popup2.content.2')}</PeachText>
+
+          <View style={tw`pl-1 my-3`}>
+            <PeachText>{i18n('settings.backups.fileBackup.popup2.content.3')}</PeachText>
+            <PeachText>{i18n('settings.backups.fileBackup.popup2.content.4')}</PeachText>
+            <PeachText>{i18n('settings.backups.fileBackup.popup2.content.5')}</PeachText>
+          </View>
+
+          <PeachText style={tw`font-bold`}>{i18n('settings.backups.fileBackup.popup2.content.6')}</PeachText>
+        </>
+      }
     />
   )
 }

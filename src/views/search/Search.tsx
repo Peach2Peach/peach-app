@@ -5,7 +5,7 @@ import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Matches } from '../../components/matches/Matches'
 import { SellOfferSummary } from '../../components/offer/SellOfferSummary'
-import { WalletLabel } from '../../components/offer/WalletLabel'
+import { useWalletLabel } from '../../components/offer/useWalletLabel'
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { CancelOfferPopup } from '../../hooks/CancelOfferPopup'
@@ -48,6 +48,11 @@ function NoMatchesYet ({ offer }: { offer: SellOffer }) {
       />
     </View>
   )
+}
+
+function WalletLabel ({ label, address }: { label: string | undefined; address: string }) {
+  const walletLabel = useWalletLabel({ label, address })
+  return <PeachText style={tw`text-center subtitle-1`}>{walletLabel}</PeachText>
 }
 
 function SearchHeader ({ offer }: { offer: SellOffer }) {

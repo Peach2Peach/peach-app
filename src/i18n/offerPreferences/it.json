@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "finanzia l'escrow",
   "offerPreferences.fundWithPeachWallet" : "finanzia con il portafoglio Peach ($0 sats/vb)",
   "offerPreferences.instantTrade" : "commercio istantaneo",
+  "offerPreferences.payoutTo" : "paga a:",
   "offerPreferences.premiumOfCompletedTrades" : "premium delle transazioni completate: $0%",
   "offerPreferences.refundTo" : "rimborso a:",
   "offerPreferences.sellOffers" : "$0 offerte di vendita",

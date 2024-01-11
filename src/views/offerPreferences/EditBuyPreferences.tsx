@@ -1,19 +1,28 @@
-/* eslint-disable max-lines */
 import { useQueryClient } from '@tanstack/react-query'
 import { createContext, useContext, useReducer, useState } from 'react'
+import { shallow } from 'zustand/shallow'
 import { Button } from '../../components/buttons/Button'
 import { MeansOfPayment } from '../../components/offer/MeansOfPayment'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useNavigation } from '../../hooks/useNavigation'
 import { PatchBuyOfferData, usePatchBuyOffer } from '../../hooks/usePatchOffer'
 import { useRoute } from '../../hooks/useRoute'
+import { useIsMyAddress } from '../../hooks/wallet/useIsMyAddress'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import tw from '../../styles/tailwind'
+import { useAccountStore } from '../../utils/account/account'
+import { getMessageToSignForAddress } from '../../utils/account/getMessageToSignForAddress'
 import i18n from '../../utils/i18n'
 import { interpolate } from '../../utils/math/interpolate'
 import { hasMopsConfigured } from '../../utils/offer/hasMopsConfigured'
 import { isBuyOffer } from '../../utils/offer/isBuyOffer'
+import { cutOffAddress } from '../../utils/string/cutOffAddress'
+import { isValidBitcoinSignature } from '../../utils/validation/isValidBitcoinSignature'
+import { peachWallet } from '../../utils/wallet/setWallet'
+import { usePatchReleaseAddress } from '../contract/components/usePatchReleaseAddress'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { matchesKeys } from '../search/hooks/useOfferMatches'
+import { PayoutWalletSelector } from './PayoutWalletSelector'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
 import { BuyBitcoinHeader } from './components/BuyBitcoinHeader'
 import { FilterContainer } from './components/FilterContainer'
@@ -88,8 +97,72 @@ function ScreenContent ({ offer }: { offer: BuyOffer }) {
         <OfferMethods />
         <AmountSelector setIsSliding={setIsSliding} />
         <Filters />
+        <OfferWalletSelector offerId={offer.id} releaseAddress={offer.releaseAddress} />
       </PreferenceScreen>
     </PreferenceContext.Provider>
+  )
+}
+
+function OfferWalletSelector ({ offerId, releaseAddress }: { offerId: string; releaseAddress: string }) {
+  const navigation = useNavigation()
+  const [payoutAddress, payoutAddressLabel, messageSignature, setPayoutToPeachWallet] = useSettingsStore(
+    (state) => [
+      state.payoutAddress,
+      state.payoutAddressLabel,
+      state.payoutAddressSignature,
+      state.setPayoutToPeachWallet,
+    ],
+    shallow,
+  )
+  const addressIsInPeachWallet = useIsMyAddress(releaseAddress)
+  const { mutate: patchPayoutAddress } = usePatchReleaseAddress(offerId)
+
+  const customAddress = addressIsInPeachWallet === false ? releaseAddress : payoutAddress
+  const customAddressLabel
+    = releaseAddress === payoutAddress
+      ? payoutAddressLabel
+      : addressIsInPeachWallet === false
+        ? cutOffAddress(releaseAddress)
+        : ''
+
+  const publicKey = useAccountStore((state) => state.account.publicKey)
+  const onPeachWalletPress = async () => {
+    if (addressIsInPeachWallet) return
+    const { address: peachWalletAddress, index } = await peachWallet.getAddress()
+    const message = getMessageToSignForAddress(publicKey, peachWalletAddress)
+    const signature = peachWallet.signMessage(message, peachWalletAddress, index)
+    patchPayoutAddress(
+      { releaseAddress: peachWalletAddress, messageSignature: signature },
+      { onSuccess: () => setPayoutToPeachWallet(true) },
+    )
+  }
+
+  const onExternalWalletPress = () => {
+    if (!addressIsInPeachWallet) return
+    if (!payoutAddress || !payoutAddressLabel) {
+      navigation.navigate('patchPayoutAddress', { offerId })
+      return
+    }
+    const message = getMessageToSignForAddress(publicKey, payoutAddress)
+    if (!messageSignature || !isValidBitcoinSignature(message, payoutAddress, messageSignature)) {
+      navigation.navigate('signMessage', {
+        address: payoutAddress,
+        addressLabel: payoutAddressLabel,
+        offerId,
+      })
+    } else {
+      patchPayoutAddress({ releaseAddress: payoutAddress, messageSignature })
+    }
+  }
+
+  return (
+    <PayoutWalletSelector
+      peachWalletSelected={!!addressIsInPeachWallet}
+      customAddress={customAddress}
+      customAddressLabel={customAddressLabel}
+      onPeachWalletPress={onPeachWalletPress}
+      onExternalWalletPress={onExternalWalletPress}
+    />
   )
 }
 
@@ -123,13 +196,7 @@ function OfferMethods () {
 
 function AmountSelector ({ setIsSliding }: { setIsSliding: (isSliding: boolean) => void }) {
   const [{ amount }, dispatch] = usePreferenceContext()
-
-  function handleAmountChange (newAmount: [number, number]) {
-    dispatch({
-      type: 'amount_changed',
-      amount: newAmount,
-    })
-  }
+  const handleAmountChange = (newAmount: [number, number]) => dispatch({ type: 'amount_changed', amount: newAmount })
 
   return <AmountSelectorComponent setIsSliding={setIsSliding} range={amount} setRange={handleAmountChange} />
 }
@@ -149,12 +216,7 @@ function Filters () {
 
 function ReputationFilter () {
   const [{ minReputation }, dispatch] = usePreferenceContext()
-
-  function handleToggle () {
-    dispatch({
-      type: 'reputation_toggled',
-    })
-  }
+  const handleToggle = () => dispatch({ type: 'reputation_toggled' })
 
   return <ReputationFilterComponent minReputation={minReputation} toggle={handleToggle} />
 }

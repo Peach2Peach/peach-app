@@ -1,5 +1,7 @@
 {
   "help" : "ajuda",
+  "help.acceptMatch.description" : "Você só pode dar match com um comprador por oferta. Depois de aceitar um match a negociação será iniciada.\n\nDepois de iniciada, você só pode fazer um cancelamento colaborativo com seu comprador, caso contrário sua reputação será prejudicada.",
+  "help.acceptMatch.title" : "aceitar match = iniciar negociação",
   "help.addressSigning.description" : "Devido à lei suíça, você precisará assinar para verificar que é o proprietário do endereço para o qual a negociação será paga.\n\nSe você não sabe como isso funciona, recomendamos usar a carteira Peach, onde você não precisa passar por essa etapa manualmente.",
   "help.addressSigning.title" : "assinatura de endereço",
   "help.buyingBitcoin.description" : "Ao comprar bitcoin na Peach, você primeiro selecionará uma faixa de quanto deseja comprar.\n\nDepois de selecionar, você verá todas as ofertas de venda que se encaixam nessa faixa.\n\nAs taxas da Peach são de 2% do valor da negociação.",
@@ -8,8 +10,8 @@
   "help.confirmPayment.description" : "Assim que você deslizar o controle para \"pagamento recebido\", o bitcoin será enviado ao comprador.\n\nCertifique-se de que tudo esteja correto, pois isso não pode ser desfeito!",
   "help.confirmPayment.title" : "pagamento recebido?",
   "help.contactEncryption.description" : "Estamos usando um sistema terceirizado de ticket chamado Zammad para gerenciar solicitações recebidas. Se você preferir usar uma comunicação encriptada, por favor nos envie um e-mail para support@peachbitcoin.com",
-  "help.currency.description" : "Se sua carteira online puder receber várias moedas e fazer a conversão para você, você pode selecionar qualquer moeda que puder receber aqui.",
-  "help.currency.title" : "moedas aceitas",
+  "help.currencies.description" : "Se sua carteira online puder receber várias moedas e fazer a conversão para você, você pode selecionar qualquer moeda que puder receber aqui.",
+  "help.currencies.title" : "moedas aceitas",
   "help.escrow.description" : "Você pré-financia o depósito em garantia ao fazer uma negociação na Peach. Isso protege tanto você quanto o comprador. Você pode ler mais sobre o depósito em garantia aqui.\n\nSua oferta será publicada após uma confirmação na rede. Você pode fechar o aplicativo enquanto espera por isso.",
   "help.escrow.description.link" : "aqui",
   "help.escrow.description.proTip" : "Você pode pressionar e segurar o código QR para copiar a solicitação de pagamento completa.",

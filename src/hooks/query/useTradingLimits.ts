@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useSettingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import { defaultLimits } from '../../utils/account/account'
 import { peachAPI } from '../../utils/peachAPI'
 import { useMarketPrices } from '../query/useMarketPrices'
