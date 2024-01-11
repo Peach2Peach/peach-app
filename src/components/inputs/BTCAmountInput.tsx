@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react'
+import { forwardRef } from 'react'
 import { StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { BTCAmount, BTCAmountProps } from '../bitcoin/BTCAmount'
@@ -10,27 +10,12 @@ type Props = {
 } & TextInputProps
 
 export const BTCAmountInput = forwardRef<TextInput, Props>(
-  ({ containerStyle, textStyle, size = 'small', ...props }, ref) => {
-    const [isFocused, setIsFocused] = useState(false)
-
-    return (
-      <View style={[containerStyle, isFocused && tw`border-2 border-primary-main`]}>
-        <BTCAmount size={size} amount={Number(props.value)} />
-        <TextInput
-          {...props}
-          ref={ref}
-          style={textStyle}
-          onFocus={(e) => {
-            setIsFocused(true)
-            props.onFocus?.(e)
-          }}
-          onBlur={(e) => {
-            setIsFocused(false)
-            props.onBlur?.(e)
-          }}
-          keyboardType="number-pad"
-        />
-      </View>
-    )
-  },
+  ({ containerStyle, textStyle, size = 'small', ...props }, ref) => (
+    <View
+      style={[containerStyle, ref && 'current' in ref && ref.current?.isFocused() && tw`border-2 border-primary-main`]}
+    >
+      <BTCAmount size={size} amount={Number(props.value)} />
+      <TextInput {...props} ref={ref} style={textStyle} keyboardType="number-pad" />
+    </View>
+  ),
 )
