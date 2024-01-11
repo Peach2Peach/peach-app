@@ -11,6 +11,7 @@ jest.mock('../utils/offer/saveOffer', () => ({
 }))
 
 const cancelOfferMock = jest.spyOn(peachAPI.private.offer, 'cancelOffer')
+jest.useFakeTimers()
 
 describe('useCancelFundMultipleSellOffers', () => {
   const fundMultiple = {

@@ -5,6 +5,7 @@ import { peachAPI } from '../../utils/peachAPI'
 import { useContractDetails } from './useContractDetails'
 
 const getContractMock = jest.spyOn(peachAPI.private.contract, 'getContract')
+jest.useFakeTimers()
 
 describe('useContractDetails', () => {
   afterEach(() => {

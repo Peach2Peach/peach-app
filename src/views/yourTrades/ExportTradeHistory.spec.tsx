@@ -14,6 +14,7 @@ const useTradeSummariesMock = jest.fn((): { tradeSummaries: (OfferSummary | Cont
 jest.mock('../../hooks/query/useTradeSummaries', () => ({
   useTradeSummaries: () => useTradeSummariesMock(),
 }))
+jest.useFakeTimers()
 
 describe('ExportTradeHistory', () => {
   const firstCSVRow = 'Date, Trade ID, Type, Amount, Price, Currency\n'

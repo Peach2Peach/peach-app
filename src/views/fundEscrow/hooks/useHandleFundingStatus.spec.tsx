@@ -17,6 +17,7 @@ const useTradeSummariesMock = jest.fn().mockReturnValue({
 jest.mock('../../../hooks/query/useTradeSummaries', () => ({
   useTradeSummaries: () => useTradeSummariesMock(),
 }))
+jest.useFakeTimers()
 
 const searchWithNoMatches = {
   data: {

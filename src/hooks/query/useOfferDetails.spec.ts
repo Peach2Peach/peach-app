@@ -10,6 +10,7 @@ jest.mock('../../utils/offer/getOffer', () => ({
   getOffer: () => getStoredOfferMock(),
 }))
 const getOfferDetailsMock = jest.spyOn(peachAPI.private.offer, 'getOfferDetails')
+jest.useFakeTimers()
 
 describe('useOfferDetails', () => {
   const localOffer = { ...sellOffer, refundTx: '1' }

@@ -9,6 +9,7 @@ expect.extend({ toMatchDiffSnapshot })
 jest.mock('../camera/ScanQR', () => ({
   ScanQR: 'ScanQR',
 }))
+jest.useFakeTimers()
 
 describe('URLInput', () => {
   const address = 'blockstream.info'

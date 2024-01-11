@@ -3,9 +3,11 @@ import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useLastUnusedAddress } from './useLastUnusedAddress'
 
+jest.useFakeTimers()
+
 describe('useLastUnusedAddress', () => {
   beforeAll(() => {
-    // @ts-expect-error mock doesn't need args
+    // @ts-ignore
     setPeachWallet(new PeachWallet())
   })
   const getLastUnusedAddressMock = jest.fn().mockResolvedValue({

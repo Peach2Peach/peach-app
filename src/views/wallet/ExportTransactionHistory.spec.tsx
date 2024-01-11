@@ -8,6 +8,7 @@ const toShortDateFormatMock = jest.fn()
 jest.mock('../../utils/date/toShortDateFormat', () => ({
   toShortDateFormat: (...args: unknown[]) => toShortDateFormatMock(...args),
 }))
+jest.useFakeTimers()
 describe('ExportTransactionHistory', () => {
   const firstCSVRow = 'Date, Type, Amount, Transaction ID\n'
   it('should render correctly', () => {

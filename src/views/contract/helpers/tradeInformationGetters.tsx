@@ -3,7 +3,6 @@ import { Icon } from '../../../components/Icon'
 import { Bubble } from '../../../components/bubble/Bubble'
 import { useWalletLabel } from '../../../components/offer/useWalletLabel'
 import { PeachText } from '../../../components/text/PeachText'
-import { CopyAble } from '../../../components/ui/CopyAble'
 import { APPLINKS } from '../../../paymentMethods'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import tw from '../../../styles/tailwind'
@@ -17,6 +16,7 @@ import { groupChars } from '../../../utils/string/groupChars'
 import { priceFormat } from '../../../utils/string/priceFormat'
 import { openAppLink } from '../../../utils/web/openAppLink'
 import { UserId } from '../../settings/profile/profileOverview/UserId'
+import { SummaryItem } from '../components/SummaryItem'
 import { TradeBreakdownBubble } from '../components/TradeBreakdownBubble'
 import { useContractContext } from '../context'
 
@@ -170,10 +170,5 @@ function PaidToWallet ({ label, address }: { label?: string; address?: string })
 }
 
 function YouShouldPay ({ contract }: { contract: Contract }) {
-  return (
-    <View style={tw`flex-row items-center justify-end gap-10px`}>
-      <PeachText style={[tw`subtitle-1`, tw`md:subtitle-0`]}>{getPrice(contract)}</PeachText>
-      <CopyAble value={String(contract.price)} style={tw`md:w-5 md:h-5`} />
-    </View>
-  )
+  return <SummaryItem.Text value={getPrice(contract)} copyable={true} copyValue={String(contract.price)} />
 }

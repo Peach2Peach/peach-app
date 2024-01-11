@@ -7,6 +7,8 @@ const isIOSMock = jest.fn().mockReturnValue(true)
 jest.mock('../utils/system/isIOS', () => ({
   isIOS: () => isIOSMock(),
 }))
+jest.useFakeTimers()
+
 describe('useQRScanner', () => {
   const requestSpy = jest.spyOn(permissions, 'request')
   const initialProps = {

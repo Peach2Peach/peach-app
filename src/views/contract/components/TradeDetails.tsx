@@ -177,7 +177,7 @@ function TradeDetailField ({ fieldName }: { fieldName: TradeInfoField }) {
         typeof information === 'string' || typeof information === 'number' ? (
           <SummaryItem.Text
             value={String(information)}
-            copyable={view === 'buyer' && !contract.releaseTxId && fieldName !== 'location'}
+            copyable={(view === 'buyer' && !contract.releaseTxId && fieldName !== 'location') || fieldName === 'tradeId'}
           />
         ) : (
           information
