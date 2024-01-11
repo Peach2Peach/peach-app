@@ -20,6 +20,7 @@ const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
 }))
+jest.useFakeTimers()
 
 describe('useBumpFees', () => {
   const newFeeRate = 10

@@ -10,6 +10,7 @@ expect.extend({ toMatchDiffSnapshot })
 jest.mock('../camera/ScanQR', () => ({
   ScanQR: 'ScanQR',
 }))
+jest.useFakeTimers()
 
 describe('BitcoinAddressInput', () => {
   const fullAddress = 'bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7z'

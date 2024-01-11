@@ -3,6 +3,7 @@ import Share from 'react-native-share'
 import { renderHook, waitFor } from 'test-utils'
 import { useWriteCSV } from './useWriteCSV'
 
+jest.useFakeTimers()
 describe('useWriteCSV', () => {
   const csvValue = 'header 1, header 2\nvalue 1, value 2\n'
   const destinationFileName = 'test.csv'

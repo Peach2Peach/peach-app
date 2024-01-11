@@ -31,6 +31,7 @@ const props = {
 jest.mock('../../../utils/wallet/transaction/buildTransaction', () => ({
   buildTransaction: jest.fn(() => transaction),
 }))
+jest.useFakeTimers()
 
 describe('useOpenWithdrawalConfirmationPopup', () => {
   beforeEach(() => {

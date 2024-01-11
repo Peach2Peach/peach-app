@@ -9,6 +9,7 @@ const closePopup = jest.fn()
 jest.mock('../../components/popup/Popup', () => ({
   useClosePopup: () => closePopup,
 }))
+jest.useFakeTimers()
 describe('ApplyBuyFilterAction', () => {
   beforeEach(() => {
     queryClient.resetQueries()

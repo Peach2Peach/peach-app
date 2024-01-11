@@ -9,6 +9,7 @@ jest.mock('../../hooks/useShowErrorBanner', () => ({
 }))
 
 const redeemNoPeachFeesMock = jest.spyOn(peachAPI.private.user, 'redeemNoPeachFees')
+jest.useFakeTimers()
 
 describe('useRedeemNoPeachFeesReward', () => {
   it('redeems reward successfully', async () => {

@@ -3,6 +3,8 @@ import { setRouteMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { WrongFundingAmount } from './WrongFundingAmount'
 
+jest.useFakeTimers()
+
 describe('WrongFundingAmount', () => {
   beforeAll(() => {
     setRouteMock({ name: 'wrongFundingAmount', key: 'wrongFundingAmount', params: { offerId: '0x123' } })

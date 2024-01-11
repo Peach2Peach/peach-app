@@ -5,6 +5,8 @@ import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { Popup } from '../../popup/Popup'
 import { DeletePaymentMethodPopup } from './DeletePaymentMethodPopup'
 
+jest.useFakeTimers()
+
 describe('useDeletePaymentMethod', () => {
   beforeEach(() => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData)

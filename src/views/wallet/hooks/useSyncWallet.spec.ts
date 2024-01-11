@@ -11,6 +11,7 @@ jest.mock('../../../utils/wallet/setWallet', () => ({
     syncWallet: () => mockSyncWallet(),
   },
 }))
+jest.useFakeTimers()
 
 describe('useSyncWallet', () => {
   it('should return correct default values', () => {

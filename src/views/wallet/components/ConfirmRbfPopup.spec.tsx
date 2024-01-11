@@ -12,6 +12,7 @@ const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
 }))
+jest.useFakeTimers()
 
 describe('ConfirmRbfPopup', () => {
   const currentFeeRate = getTransactionFeeRate(bitcoinTransaction)
