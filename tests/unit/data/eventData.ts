@@ -1,7 +1,6 @@
 export const balticHoneyBadger: MeetupEvent = {
   id: 'lv.riga.baltic-honeybadger',
   featured: true,
-  superFeatured: true,
   currencies: ['EUR'],
   country: 'LV',
   city: 'Riga',
@@ -15,7 +14,6 @@ export const balticHoneyBadger: MeetupEvent = {
 export const belgianBTCEmbassy: MeetupEvent = {
   id: 'be.antwerp.belgian-btc-embassy',
   featured: false,
-  superFeatured: false,
   currencies: ['EUR'],
   country: 'BE',
   city: 'Antwerp',
@@ -30,7 +28,6 @@ export const belgianBTCEmbassy: MeetupEvent = {
 export const decouvreBTC: MeetupEvent = {
   id: 'fr.lyon.decouvre-btc-lyon',
   featured: false,
-  superFeatured: false,
   currencies: ['EUR'],
   country: 'FR',
   city: 'Lyon',
@@ -43,7 +40,6 @@ export const decouvreBTC: MeetupEvent = {
 export const breizhBitcoin: MeetupEvent = {
   id: 'fr.rennes.breizh-bitcoin',
   featured: false,
-  superFeatured: false,
   currencies: ['EUR'],
   country: 'FR',
   city: 'Rennes',
