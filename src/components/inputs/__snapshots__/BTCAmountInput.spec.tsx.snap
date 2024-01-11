@@ -22,7 +22,7 @@ exports[`BTCAmountInput renders correctly 1`] = `
           "borderWidth": 1,
         },
       ],
-      false,
+      null,
     ]
   }
 >
@@ -198,9 +198,7 @@ exports[`BTCAmountInput renders correctly 1`] = `
   </View>
   <TextInput
     keyboardType="number-pad"
-    onBlur={[Function]}
     onChangeText={[MockFunction]}
-    onFocus={[Function]}
     style={
       {
         "flexGrow": 1,
