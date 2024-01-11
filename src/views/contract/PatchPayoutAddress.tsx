@@ -1,6 +1,5 @@
 import { shallow } from 'zustand/shallow'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
-import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
 import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
@@ -19,16 +18,7 @@ export const PatchPayoutAddress = () => {
     return <ContractSuspense contractId={params.contractId} />
   }
 
-  return <OfferSuspense offerId={params.offerId} />
-}
-
-function OfferSuspense ({ offerId }: { offerId: string }) {
-  const { offer } = useOfferDetails(offerId)
-
-  if (!offer) return <NewLoadingScreen />
-  if (offer.type === 'ask') throw new Error('Cannot patch payout address for sell offers')
-
-  return <PatchOfferAddress defaultAddress={offer.releaseAddress} offerId={offerId} />
+  return <PatchOfferAddress offerId={params.offerId} />
 }
 
 function ContractSuspense ({ contractId }: { contractId: string }) {
@@ -46,7 +36,7 @@ function ContractSuspense ({ contractId }: { contractId: string }) {
 }
 
 type ScreenContentProps = {
-  defaultAddress: string
+  defaultAddress?: string
   offerId: string
   contractId?: string
 }

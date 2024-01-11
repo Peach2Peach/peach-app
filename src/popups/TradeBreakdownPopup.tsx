@@ -1,4 +1,5 @@
 import { NETWORK } from '@env'
+import { Fragment } from 'react'
 import { View } from 'react-native'
 import { BTCAmount } from '../components/bitcoin/BTCAmount'
 import { PopupAction } from '../components/popup/PopupAction'
@@ -56,17 +57,17 @@ function TradeBreakdown ({ releaseTransaction, releaseAddress, amount }: Contrac
   return (
     <View style={tw`gap-4`}>
       {data.map((sectionData, index) => (
-        <>
+        <Fragment key={`tradeBreakdownSection-${index}`}>
           <View style={tw`gap-3`}>
             {sectionData.map((item) => (
-              <View style={tw`flex-row items-center justify-between`}>
+              <View style={tw`flex-row items-center justify-between`} key={item.text}>
                 <PeachText style={tw`subtitle-1 text-black-65 shrink`}>{item.text}</PeachText>
                 <BTCAmount amount={item.amount} size="small" />
               </View>
             ))}
           </View>
           {index !== data.length - 1 && <HorizontalLine style={tw`self-end bg-black-65 w-45`} />}
-        </>
+        </Fragment>
       ))}
     </View>
   )

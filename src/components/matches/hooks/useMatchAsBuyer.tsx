@@ -26,7 +26,7 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
   const updateMessage = useMessageState((state) => state.updateMessage)
   const handleError = useHandleError()
   const setPopup = useSetPopup()
-  const publicKey = useAccountStore((state) => state.account.publicKey)
+  const publicKey = useAccountStore((state) => state.account.pgp.publicKey)
 
   return useMutation({
     onMutate: async ({ selectedCurrency, paymentData }) => {

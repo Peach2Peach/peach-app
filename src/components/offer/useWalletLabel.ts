@@ -12,11 +12,10 @@ type Props = {
 
 export const useWalletLabel = ({ label, address, isPayoutWallet = false }: Props) => {
   const [customAddress, customAddressLabel, isPeachWalletActive] = useSettingsStore(
-    (state) => [
-      isPayoutWallet ? state.payoutAddress : state.refundAddress,
-      isPayoutWallet ? state.payoutAddressLabel : state.refundAddressLabel,
-      isPayoutWallet ? state.payoutToPeachWallet : state.refundToPeachWallet,
-    ],
+    (state) =>
+      isPayoutWallet
+        ? [state.payoutAddress, state.payoutAddressLabel, state.payoutToPeachWallet]
+        : [state.refundAddress, state.refundAddressLabel, state.refundToPeachWallet],
     shallow,
   )
   const [fallbackLabel, setFallbackLabel] = useState(i18n('loading'))

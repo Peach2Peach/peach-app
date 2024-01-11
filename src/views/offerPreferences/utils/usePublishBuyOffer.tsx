@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { shallow } from 'zustand/shallow'
 import { useSetOverlay } from '../../../Overlay'
 import { useSetPopup } from '../../../components/popup/Popup'
 import { useNavigation } from '../../../hooks/useNavigation'
@@ -6,6 +7,7 @@ import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
 import { InfoPopup } from '../../../popups/InfoPopup'
 import { useConfigStore } from '../../../store/configStore/configStore'
+import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import { useAccountStore } from '../../../utils/account/account'
 import { getMessageToSignForAddress } from '../../../utils/account/getMessageToSignForAddress'
 import i18n from '../../../utils/i18n'
@@ -35,15 +37,26 @@ export function usePublishBuyOffer ({
   const showHelp = () => setPopup(<InfoPopup content={i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')} />)
   const publicKey = useAccountStore((state) => state.account.publicKey)
   const setOverlay = useSetOverlay()
+  const [payoutAddress, payoutToPeachWallet, payoutAddressSignature] = useSettingsStore(
+    (state) => [state.payoutAddress, state.payoutToPeachWallet, state.payoutAddressSignature],
+    shallow,
+  )
 
   return useMutation({
     mutationFn: async () => {
-      const { address: releaseAddress, index } = await peachWallet.getAddress()
+      const { address: releaseAddress, index } = payoutToPeachWallet
+        ? await peachWallet.getAddress()
+        : { address: payoutAddress, index: undefined }
+      if (!releaseAddress) throw new Error('MISSING_RELEASE_ADDRESS')
 
       const message = getMessageToSignForAddress(publicKey, releaseAddress)
-      const messageSignature = peachWallet.signMessage(message, releaseAddress, index)
+      const messageSignature = payoutToPeachWallet
+        ? peachWallet.signMessage(message, releaseAddress, index)
+        : payoutAddressSignature
 
-      if (!isValidBitcoinSignature(message, releaseAddress, messageSignature)) throw new Error('INAVLID_SIGNATURE')
+      if (!messageSignature || !isValidBitcoinSignature(message, releaseAddress, messageSignature)) {
+        throw new Error('INAVLID_SIGNATURE')
+      }
       const finalizedOfferDraft = {
         type: 'bid' as const,
         amount,
