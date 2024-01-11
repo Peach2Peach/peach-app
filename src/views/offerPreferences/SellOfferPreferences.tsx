@@ -487,20 +487,26 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
     return Promise.resolve(paymentData)
   }
 
+  const showPublishingError = () => {
+    let errorMessage
+    let errorArgs: string[] = []
+    if (!sellAmountIsValid) {
+      errorMessage = 'INVALID_AMOUNT_RANGE'
+      errorArgs = amountRange.map(String)
+    } else if (!paymentMethodsAreValid) {
+      errorMessage = 'VALID_PAYMENT_DATA_MISSING'
+    } else if (!sellPreferences.originalPaymentData.length) {
+      errorMessage = 'PAYMENT_METHOD_MISSING'
+    } else {
+      errorMessage = 'GENERAL_ERROR'
+    }
+    showErrorBanner(errorMessage, errorArgs)
+  }
+
   const onPress = async () => {
     if (isPublishing) return
     if (!formValid) {
-      let errorMessage
-      if (!sellAmountIsValid) {
-        errorMessage = `Amount must be between ${amountRange[0]} and ${amountRange[1]} sats`
-      } else if (!paymentMethodsAreValid) {
-        errorMessage = 'Please add a valid payment method'
-      } else if (!sellPreferences.originalPaymentData.length) {
-        errorMessage = 'Please add a payment method'
-      } else {
-        errorMessage = 'Something went wrong'
-      }
-      showErrorBanner(errorMessage)
+      showPublishingError()
       return
     }
     setIsPublishing(true)
