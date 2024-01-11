@@ -63,7 +63,7 @@ export function BTCAmount ({ amount, size, white = false, showAmount = true, sty
             <PeachText style={[tw`text-right`, textStyle]}>{blackText}</PeachText>
           </View>
         )}
-        <PeachText style={textStyle}>{`${i18n('currency.SATS')}`}</PeachText>
+        <PeachText style={textStyle}>{i18n('currency.SATS')}</PeachText>
       </View>
     </View>
   )

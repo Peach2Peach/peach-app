@@ -1,7 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { createContext, useContext, useReducer, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { Button } from '../../components/buttons/Button'
 import { MeansOfPayment } from '../../components/offer/MeansOfPayment'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useNavigation } from '../../hooks/useNavigation'
@@ -23,6 +22,7 @@ import { usePatchReleaseAddress } from '../contract/components/usePatchReleaseAd
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { matchesKeys } from '../search/hooks/useOfferMatches'
 import { PayoutWalletSelector } from './PayoutWalletSelector'
+import { ShowOffersButton } from './ShowOffersButton'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
 import { BuyBitcoinHeader } from './components/BuyBitcoinHeader'
 import { FilterContainer } from './components/FilterContainer'
@@ -92,7 +92,7 @@ function ScreenContent ({ offer }: { offer: BuyOffer }) {
   const reducer = useReducer(offerReducer, offer, initializer)
   return (
     <PreferenceContext.Provider value={reducer}>
-      <PreferenceScreen header={<BuyBitcoinHeader />} isSliding={isSliding} button={<ShowOffersButton />}>
+      <PreferenceScreen header={<BuyBitcoinHeader />} isSliding={isSliding} button={<PatchOfferButton />}>
         <OfferMarketInfo />
         <OfferMethods />
         <AmountSelector setIsSliding={setIsSliding} />
@@ -247,7 +247,7 @@ function MaxPremiumFilter () {
   )
 }
 
-function ShowOffersButton () {
+function PatchOfferButton () {
   const [preferences] = usePreferenceContext()
   const { maxPremium } = preferences
   const minReputation = interpolate(preferences.minReputation || 0, [0, 5], [-1, 1])
@@ -279,14 +279,5 @@ function ShowOffersButton () {
       },
     )
   }
-  return (
-    <Button
-      style={tw`self-center px-5 py-3 bg-success-main min-w-166px`}
-      onPress={onPress}
-      disabled={!formValid}
-      loading={isPatching}
-    >
-      {i18n('offerPreferences.showOffers')}
-    </Button>
-  )
+  return <ShowOffersButton onPress={onPress} disabled={!formValid} loading={isPatching} />
 }

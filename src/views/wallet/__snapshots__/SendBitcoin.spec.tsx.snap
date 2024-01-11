@@ -31,7 +31,7 @@ exports[`SendBitcoin - With selected coins should not allow entering an amount h
                             <Text
                               allowFontScaling={false}
                               style={
-@@ -888,11 +888,11 @@
+@@ -886,11 +886,11 @@
                               "paddingTop": 0,
                               "position": "absolute",
                               "width": "100%",
@@ -51,7 +51,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
 - First value
 + Second value
 
-@@ -1496,10 +1496,123 @@
+@@ -1494,10 +1494,123 @@
                           />
                         </View>
                       </View>
@@ -208,7 +208,7 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
                             <Text
                               allowFontScaling={false}
                               style={
-@@ -888,11 +888,11 @@
+@@ -886,11 +886,11 @@
                               "paddingTop": 0,
                               "position": "absolute",
                               "width": "100%",
@@ -228,7 +228,7 @@ exports[`SendBitcoin should disable the slider while the wallet is not synced 1`
 - First value
 + Second value
 
-@@ -1607,11 +1607,11 @@
+@@ -1605,11 +1605,11 @@
                     <View
                       collapsable={false}
                       style={
@@ -274,7 +274,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
                             <Text
                               allowFontScaling={false}
                               style={
-@@ -888,11 +888,11 @@
+@@ -886,11 +886,11 @@
                               "paddingTop": 0,
                               "position": "absolute",
                               "width": "100%",
@@ -988,7 +988,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                               "borderWidth": 1,
                             },
                           ],
-                          false,
+                          null,
                         ]
                       }
                     >
@@ -1164,9 +1164,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                       </View>
                       <TextInput
                         keyboardType="number-pad"
-                        onBlur={[Function]}
                         onChangeText={[Function]}
-                        onFocus={[Function]}
                         style={
                           {
                             "flexGrow": 1,
@@ -2035,7 +2033,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
                             <Text
                               allowFontScaling={false}
                               style={
-@@ -888,11 +888,11 @@
+@@ -886,11 +886,11 @@
                               "paddingTop": 0,
                               "position": "absolute",
                               "width": "100%",
@@ -2113,7 +2111,7 @@ exports[`SendBitcoin should update the amount on change 1`] = `
                             <Text
                               allowFontScaling={false}
                               style={
-@@ -888,11 +888,11 @@
+@@ -886,11 +886,11 @@
                               "paddingTop": 0,
                               "position": "absolute",
                               "width": "100%",
@@ -2133,7 +2131,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
 - First value
 + Second value
 
-@@ -990,11 +990,11 @@
+@@ -988,11 +988,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -2146,7 +2144,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "justifyContent": "space-between",
                               "opacity": 1,
-@@ -1065,11 +1065,11 @@
+@@ -1063,11 +1063,11 @@
                                 </Text>
                               </Text>
                             </View>
@@ -2159,7 +2157,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                                 Object {
                                   "height": 24,
                                   "width": 24,
-@@ -1112,11 +1112,11 @@
+@@ -1110,11 +1110,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -2172,7 +2170,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "justifyContent": "space-between",
                               "opacity": 1,
-@@ -1187,11 +1187,11 @@
+@@ -1185,11 +1185,11 @@
                                 </Text>
                               </Text>
                             </View>

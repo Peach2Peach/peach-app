@@ -1,17 +1,15 @@
 import { useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { Button } from '../../components/buttons/Button'
 import { useSetPopup } from '../../components/popup/Popup'
 import { HelpPopup } from '../../hooks/HelpPopup'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { interpolate } from '../../utils/math/interpolate'
 import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
 import { PayoutWalletSelector } from './PayoutWalletSelector'
+import { ShowOffersButton } from './ShowOffersButton'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
 import { BuyBitcoinHeader } from './components/BuyBitcoinHeader'
 import { FilterContainer } from './components/FilterContainer'
@@ -28,7 +26,7 @@ export function BuyOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
 
   return (
-    <PreferenceScreen isSliding={isSliding} header={<PreferenceHeader />} button={<ShowOffersButton />}>
+    <PreferenceScreen isSliding={isSliding} header={<PreferenceHeader />} button={<PublishOfferButton />}>
       <PreferenceMarketInfo />
       <PreferenceMethods type="buy" />
       <AmountSelector setIsSliding={setIsSliding} />
@@ -136,7 +134,7 @@ function MaxPremiumFilter () {
   )
 }
 
-function ShowOffersButton () {
+function PublishOfferButton () {
   const { amount, meansOfPayment, paymentData, maxPremium, minReputation } = useOfferPreferences(
     (state) => ({
       amount: state.buyAmountRange,
@@ -168,14 +166,5 @@ function ShowOffersButton () {
     minReputation,
   })
 
-  return (
-    <Button
-      style={tw`self-center px-5 py-3 bg-success-main min-w-166px`}
-      onPress={() => publishOffer()}
-      disabled={!formValid}
-      loading={isPublishing}
-    >
-      {i18n('offerPreferences.showOffers')}
-    </Button>
-  )
+  return <ShowOffersButton onPress={() => publishOffer()} disabled={!formValid} loading={isPublishing} />
 }

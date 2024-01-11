@@ -26,6 +26,7 @@ import { HelpPopup } from '../../hooks/HelpPopup'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useMarketPrices } from '../../hooks/query/useMarketPrices'
 import { useBitcoinPrices } from '../../hooks/useBitcoinPrices'
+import { useKeyboard } from '../../hooks/useKeyboard'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
@@ -566,6 +567,9 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
       setIsPublishing(false)
     }
   }
+
+  const keyboardIsOpen = useKeyboard()
+  if (keyboardIsOpen) return null
 
   return (
     <Button
