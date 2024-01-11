@@ -38,7 +38,6 @@ const defaultEvent: MeetupEvent = {
   shortName: 'shortName',
   longName: 'longName',
   featured: false,
-  superFeatured: false,
 }
 
 describe('useMeetupScreenSetup', () => {
@@ -61,7 +60,6 @@ describe('useMeetupScreenSetup', () => {
         longName: '',
         shortName: '',
         featured: false,
-        superFeatured: false,
       },
       deletable: true,
       addToPaymentMethods: expect.any(Function),

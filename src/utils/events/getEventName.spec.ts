@@ -12,7 +12,6 @@ describe('getEventName', () => {
         longName: '',
         currencies: ['EUR'],
         featured: false,
-        superFeatured: false,
       },
       {
         id: '2',
@@ -22,7 +21,6 @@ describe('getEventName', () => {
         longName: '',
         currencies: ['EUR'],
         featured: false,
-        superFeatured: false,
       },
     ],
   })

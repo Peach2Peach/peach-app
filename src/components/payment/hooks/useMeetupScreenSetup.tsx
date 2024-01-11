@@ -23,7 +23,6 @@ export const useMeetupScreenSetup = () => {
     country: 'DE',
     city: '',
     featured: false,
-    superFeatured: false,
   }
 
   const [selectedCurrencies, setSelectedCurrencies] = useState(event.currencies)

@@ -160,7 +160,6 @@ type MeetupEvent = {
   frequency?: string
   logo?: string
   featured: boolean
-  superFeatured: boolean
 }
 type CountryEventsMap = Record<Country, MeetupEvent[]>
 

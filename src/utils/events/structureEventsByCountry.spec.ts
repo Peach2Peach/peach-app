@@ -9,7 +9,6 @@ const events: MeetupEvent[] = [
     longName: 'Long Meetup 1',
     featured: false,
     currencies: ['EUR'],
-    superFeatured: false,
   },
   {
     id: 'meetup.DE.2',
@@ -19,7 +18,6 @@ const events: MeetupEvent[] = [
     longName: 'Long Meetup 2',
     featured: false,
     currencies: ['EUR'],
-    superFeatured: false,
   },
   {
     id: 'meetup.FR.3',
@@ -29,7 +27,6 @@ const events: MeetupEvent[] = [
     longName: 'Long Meetup 3',
     featured: false,
     currencies: ['EUR'],
-    superFeatured: false,
   },
   {
     id: 'meetup.FR.4',
@@ -39,7 +36,6 @@ const events: MeetupEvent[] = [
     longName: 'Long Meetup 4',
     featured: false,
     currencies: ['EUR'],
-    superFeatured: false,
   },
   {
     id: 'meetup.DE.5',
@@ -49,7 +45,6 @@ const events: MeetupEvent[] = [
     longName: 'Long Meetup 5',
     featured: false,
     currencies: ['EUR'],
-    superFeatured: false,
   },
 ]
 const expectedResult = {
@@ -62,7 +57,6 @@ const expectedResult = {
       longName: 'Long Meetup 2',
       featured: false,
       currencies: ['EUR'],
-      superFeatured: false,
     },
     {
       id: 'meetup.DE.5',
@@ -72,7 +66,6 @@ const expectedResult = {
       longName: 'Long Meetup 5',
       featured: false,
       currencies: ['EUR'],
-      superFeatured: false,
     },
   ],
   ES: [
@@ -84,7 +77,6 @@ const expectedResult = {
       longName: 'Long Meetup 1',
       featured: false,
       currencies: ['EUR'],
-      superFeatured: false,
     },
   ],
   FR: [
@@ -96,7 +88,6 @@ const expectedResult = {
       longName: 'Long Meetup 3',
       featured: false,
       currencies: ['EUR'],
-      superFeatured: false,
     },
     {
       id: 'meetup.FR.4',
@@ -106,7 +97,6 @@ const expectedResult = {
       longName: 'Long Meetup 4',
       featured: false,
       currencies: ['EUR'],
-      superFeatured: false,
     },
   ],
 }
