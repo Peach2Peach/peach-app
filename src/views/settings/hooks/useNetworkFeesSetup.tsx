@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
-import { shallow } from 'zustand/shallow'
 import { useMessageState } from '../../../components/message/useMessageState'
-import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
+import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useValidatedState } from '../../../hooks/useValidatedState'
-import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
-import { updateUser } from '../../../utils/peachAPI'
+import { updateUser } from '../../../utils/peachAPI/updateUser'
 
 const customFeeRules = {
   required: true,
@@ -12,26 +10,24 @@ const customFeeRules = {
 }
 export const useNetworkFeesSetup = () => {
   const updateMessage = useMessageState((state) => state.updateMessage)
-  const { estimatedFees } = useFeeEstimate()
 
-  const [feeRate, setFeeRate] = useSettingsStore((state) => [state.feeRate, state.setFeeRate], shallow)
+  const { user } = useSelfUser()
+  const feeRate = user?.feeRate
 
-  const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate | 'custom'>(
-    typeof feeRate === 'number' ? 'custom' : feeRate,
-  )
-  const [customFeeRate, setCustomFeeRate, isValidCustomFeeRate] = useValidatedState(
-    typeof feeRate === 'number' ? feeRate.toString() : '',
-    customFeeRules,
-  )
+  const defaultFeeRate = feeRate ? (typeof feeRate === 'number' ? 'custom' : feeRate) : 'halfHourFee'
+  const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate | 'custom'>()
+  const displayRate = selectedFeeRate ?? defaultFeeRate
+  const defaultCustom = typeof feeRate === 'number' ? feeRate.toString() : ''
+  const [customFeeRate, setCustomFeeRate, isValidCustomFeeRate] = useValidatedState(defaultCustom, customFeeRules)
+  const displayCustomRate = customFeeRate ?? defaultCustom
   const [feeRateSet, setFeeRateSet] = useState(true)
 
   const submit = async () => {
-    const finalFeeRate = selectedFeeRate !== 'custom' ? selectedFeeRate : Number(customFeeRate)
+    const finalFeeRate = displayRate !== 'custom' ? displayRate : Number(displayCustomRate)
     const [result, err] = await updateUser({
       feeRate: finalFeeRate,
     })
     if (result) {
-      setFeeRate(finalFeeRate)
       setFeeRateSet(true)
     } else if (err && 'error' in err) {
       updateMessage({
@@ -42,22 +38,21 @@ export const useNetworkFeesSetup = () => {
   }
 
   useEffect(() => {
-    if (!customFeeRate || isNaN(Number(customFeeRate)) || customFeeRate === '0') setCustomFeeRate('')
-  }, [customFeeRate, selectedFeeRate, setCustomFeeRate])
+    if (!displayCustomRate || isNaN(Number(displayCustomRate)) || displayCustomRate === '0') setCustomFeeRate('')
+  }, [displayCustomRate, setCustomFeeRate])
 
   useEffect(() => {
-    if (selectedFeeRate === 'custom') {
-      setFeeRateSet(feeRate === Number(customFeeRate))
+    if (displayRate === 'custom') {
+      setFeeRateSet(feeRate === Number(displayCustomRate))
     } else {
-      setFeeRateSet(feeRate === selectedFeeRate)
+      setFeeRateSet(feeRate === displayRate)
     }
-  }, [customFeeRate, feeRate, selectedFeeRate, setCustomFeeRate])
+  }, [displayCustomRate, displayRate, feeRate])
 
   return {
-    estimatedFees,
-    selectedFeeRate,
+    selectedFeeRate: displayRate,
     setSelectedFeeRate,
-    customFeeRate,
+    customFeeRate: displayCustomRate,
     setCustomFeeRate,
     submit,
     isValid: selectedFeeRate !== 'custom' || isValidCustomFeeRate,

@@ -28,7 +28,6 @@ export type SettingsStore = Settings & {
   setShowBackupReminder: (showBackupReminder: boolean) => void
   setRefundToPeachWallet: (refundToPeachWallet: boolean) => void
   setPayoutToPeachWallet: (payoutToPeachWallet: boolean) => void
-  setFeeRate: (feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee') => void
   setUsedReferralCode: (usedReferralCode: boolean) => void
   setPGPPublished: (pgpPublished: boolean) => void
   setFCMToken: (fcmToken: string) => void
@@ -72,7 +71,6 @@ export const useSettingsStore = create(
         set({ showBackupReminder, shouldShowBackupOverlay: showBackupReminder }),
       setRefundToPeachWallet: (refundToPeachWallet) => set({ refundToPeachWallet }),
       setPayoutToPeachWallet: (payoutToPeachWallet) => set({ payoutToPeachWallet }),
-      setFeeRate: (feeRate) => set({ feeRate }),
       setUsedReferralCode: (usedReferralCode) => set({ usedReferralCode }),
       setPGPPublished: (pgpPublished) => set({ pgpPublished }),
       setFCMToken: (fcmToken) => set({ fcmToken }),

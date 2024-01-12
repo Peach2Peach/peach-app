@@ -2,7 +2,7 @@ import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import { useAccountStore } from '../utils/account/account'
 import { error } from '../utils/log/error'
 import { info } from '../utils/log/info'
-import { updateUser } from '../utils/peachAPI'
+import { updateUser } from '../utils/peachAPI/updateUser'
 
 export const publishPGPPublicKey = async () => {
   const account = useAccountStore.getState().account

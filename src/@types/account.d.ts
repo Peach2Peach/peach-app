@@ -20,7 +20,6 @@ type Settings = {
   showBackupReminder: boolean
   shouldShowBackupOverlay: boolean
   nodeURL: string
-  feeRate: FeeRate
   usedReferralCode?: boolean
   cloudflareChallenge?: {
     cfClearance: string
