@@ -117,9 +117,11 @@ describe('useNetworkFeesSetup', () => {
     updateUserMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useNetworkFeesSetup)
 
-    await result.current.submit()
-    expect(useMessageState.getState()).toEqual(
-      expect.objectContaining({ msgKey: unauthorizedError.error, level: 'ERROR' }),
-    )
+    result.current.submit()
+    await waitFor(() => {
+      expect(useMessageState.getState()).toEqual(
+        expect.objectContaining({ msgKey: unauthorizedError.error, level: 'ERROR' }),
+      )
+    })
   })
 })

@@ -27,7 +27,7 @@ export type UpdateUserProps = {
 
 export const updateUser = async ({ pgp, fcmToken, referralCode, feeRate }: UpdateUserProps) => {
   const peachAccount = peachAPI.apiOptions.peachAccount
-  if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
+  if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }] as const
   const { result, error } = await peachAPI.private.user.updateUser({
     ...(await getPGPUpdatePayload(pgp)),
     fcmToken,
@@ -35,5 +35,5 @@ export const updateUser = async ({ pgp, fcmToken, referralCode, feeRate }: Updat
     feeRate,
   })
 
-  return [result, error]
+  return [result, error] as const
 }
