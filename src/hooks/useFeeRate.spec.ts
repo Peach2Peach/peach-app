@@ -10,6 +10,7 @@ jest.mock('./query/useFeeEstimate', () => ({
   useFeeEstimate: () => useFeeEstimateMock(),
 }))
 const getUserMock = jest.spyOn(peachAPI.private.user, 'getSelfUser')
+jest.useFakeTimers()
 
 describe('useFeeRate', () => {
   it('should return custom fee rate if set', async () => {
