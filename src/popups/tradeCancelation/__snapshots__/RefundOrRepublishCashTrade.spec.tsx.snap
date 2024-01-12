@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`RefundOrRepublishCashTrade renders correctly 1`] = `
-<PeachText>
-  You can choose to have your sats refunded, or to re-publish this offer.
-</PeachText>
-`;

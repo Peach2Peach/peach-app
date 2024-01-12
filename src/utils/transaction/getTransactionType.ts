@@ -1,4 +1,5 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import { OfferSummary } from '../../../peach-api/src/@types/offer'
 
 export const getTransactionType = (
   { received, sent }: Pick<TransactionDetails, 'received' | 'sent'>,

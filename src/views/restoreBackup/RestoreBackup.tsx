@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { Header, HeaderIcon } from '../../components/Header'
 import { Screen } from '../../components/Screen'
 import { useDrawerState } from '../../components/drawer/useDrawerState'
-import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
+import { fullScreenTabNavigationScreenOptions } from '../../constants'
 import { useLanguage } from '../../hooks/useLanguage'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
@@ -11,27 +11,33 @@ import i18n from '../../utils/i18n'
 import { RestoreFromFile } from './RestoreFromFile'
 import { RestoreFromSeed } from './RestoreFromSeed'
 
-const tabContent: Record<string, () => JSX.Element> = {
-  fileBackup: RestoreFromFile,
-  seedPhrase: RestoreFromSeed,
-}
-
-const tabs: TabbedNavigationItem<'fileBackup' | 'seedPhrase'>[] = [
-  { id: 'fileBackup', display: i18n('settings.backups.fileBackup') },
-  { id: 'seedPhrase', display: i18n('settings.backups.seedPhrase') },
-]
-
-const getTabById = <T extends string>(items: TabbedNavigationItem<T>[], id: T) => items.find((t) => t.id === id)
+const RestoreBackupTab = createMaterialTopTabNavigator()
+const tabs = ['fileBackup', 'seedPhrase'] as const
 
 export const RestoreBackup = () => {
-  const { tab = 'fileBackup' } = useRoute<'restoreBackup'>().params || {}
-  const [currentTab, setCurrentTab] = useState(getTabById(tabs, tab) || tabs[0])
-  const CurrentView = tabContent[currentTab.id]
+  const { tab: initialRouteName = 'fileBackup' } = useRoute<'restoreBackup'>().params || {}
 
   return (
-    <Screen header={<OnboardingHeader />} gradientBackground>
-      <TabbedNavigation theme="inverted" items={tabs} selected={currentTab} select={setCurrentTab} />
-      <CurrentView />
+    <Screen style={tw`px-0`} header={<OnboardingHeader />} gradientBackground>
+      <RestoreBackupTab.Navigator
+        initialRouteName={initialRouteName}
+        sceneContainerStyle={[tw`pb-2 px-sm`, tw`md:px-md`]}
+        screenOptions={{
+          ...fullScreenTabNavigationScreenOptions,
+          tabBarIndicatorStyle: tw`bg-primary-background-light`,
+          tabBarActiveTintColor: tw.color('primary-background-light'),
+          tabBarInactiveTintColor: tw.color('primary-mild-1'),
+        }}
+      >
+        {tabs.map((tab) => (
+          <RestoreBackupTab.Screen
+            key={tab}
+            name={tab}
+            options={{ title: `${i18n(`settings.backups.${tab}`)}` }}
+            component={tab === 'fileBackup' ? RestoreFromFile : RestoreFromSeed}
+          />
+        ))}
+      </RestoreBackupTab.Navigator>
     </Screen>
   )
 }

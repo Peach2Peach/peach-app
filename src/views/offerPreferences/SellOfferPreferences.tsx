@@ -16,24 +16,23 @@ import { Badge } from '../../components/Badge'
 import { Header } from '../../components/Header'
 import { PremiumInput } from '../../components/PremiumInput'
 import { TouchableIcon } from '../../components/TouchableIcon'
-import { NewBubble } from '../../components/bubble/Bubble'
 import { Button } from '../../components/buttons/Button'
-import { Toggle } from '../../components/inputs'
 import { Checkbox } from '../../components/inputs/Checkbox'
+import { Toggle } from '../../components/inputs/Toggle'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { SATSINBTC } from '../../constants'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useMarketPrices } from '../../hooks/query/useMarketPrices'
-import { useTradingLimits } from '../../hooks/query/useTradingLimits'
 import { useBitcoinPrices } from '../../hooks/useBitcoinPrices'
+import { useKeyboard } from '../../hooks/useKeyboard'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
-import { InfoPopup } from '../../popups/InfoPopup'
 import { useConfigStore } from '../../store/configStore/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
-import { useSettingsStore } from '../../store/settingsStore'
-import { usePopupStore } from '../../store/usePopupStore'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -53,6 +52,7 @@ import { useWalletState } from '../../utils/wallet/walletStore'
 import { getFundingAmount } from '../fundEscrow/helpers/getFundingAmount'
 import { useCreateEscrow } from '../fundEscrow/hooks/useCreateEscrow'
 import { useFundFromPeachWallet } from '../fundEscrow/hooks/useFundFromPeachWallet'
+import { WalletSelector } from './WalletSelector'
 import { FundMultipleOffers } from './components/FundMultipleOffers'
 import { MarketInfo } from './components/MarketInfo'
 import { PreferenceMethods } from './components/PreferenceMethods'
@@ -80,7 +80,7 @@ export function SellOfferPreferences () {
       <AmountSelector setIsSliding={setIsSliding} />
       <FundMultipleOffersContainer />
       <InstantTrade />
-      <RefundWallet />
+      <RefundWalletSelector />
     </PreferenceScreen>
   )
 }
@@ -197,16 +197,11 @@ function PremiumInputComponent () {
   return <PremiumInput premium={premium} setPremium={setPremium} incrementBy={1} />
 }
 
-function useCurrentOfferPrice () {
+function CurrentPrice () {
+  const displayCurrency = useSettingsStore((state) => state.displayCurrency)
   const [amount, premium] = useOfferPreferences((state) => [state.sellAmount, state.premium], shallow)
   const { fiatPrice } = useBitcoinPrices(amount)
   const priceWithPremium = useMemo(() => round(fiatPrice * (1 + premium / 100), 2), [fiatPrice, premium])
-  return priceWithPremium
-}
-
-function CurrentPrice () {
-  const displayCurrency = useSettingsStore((state) => state.displayCurrency)
-  const priceWithPremium = useCurrentOfferPrice()
 
   return (
     <PeachText style={tw`text-center body-s`}>
@@ -253,7 +248,7 @@ function SellAmountSlider ({ trackWidth, setIsSliding }: SellAmountSliderProps) 
 
 export const inputContainerStyle = [
   'items-center justify-center flex-1 bg-primary-background-light flex-row h-7',
-  'border rounded-lg border-black-4',
+  'border rounded-lg border-black-25',
 ]
 
 function SatsInput () {
@@ -330,14 +325,14 @@ function FiatInput () {
 }
 
 function FundMultipleOffersContainer () {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   return (
     <Section.Container style={tw`flex-row items-start justify-between bg-primary-background-dark`}>
       <FundMultipleOffers />
       <TouchableIcon
         id="helpCircle"
         iconColor={tw.color('info-light')}
-        onPress={() => setPopup(<FundMultiplePopup />)}
+        onPress={() => setPopup(<HelpPopup id="fundMultiple" />)}
       />
     </Section.Container>
   )
@@ -359,9 +354,9 @@ function InstantTrade () {
     (state) => [state.hasSeenInstantTradePopup, state.setHasSeenInstantTradePopup],
     shallow,
   )
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const onHelpIconPress = () => {
-    setPopup(<InstantTradePopup />)
+    setPopup(<HelpPopup id="instantTrade" />)
     setHasSeenPopup(true)
   }
 
@@ -381,18 +376,12 @@ function InstantTrade () {
       </View>
       {enableInstantTrade && (
         <>
-          <Checkbox
-            checked={criteria.minTrades !== 0}
-            style={tw`self-stretch`}
-            text={i18n('offerPreferences.filters.noNewUsers')}
-            onPress={toggleMinTrades}
-          />
-          <Checkbox
-            checked={criteria.minReputation !== 0}
-            style={tw`self-stretch`}
-            text={i18n('offerPreferences.filters.minReputation', '4.5')}
-            onPress={toggleMinReputation}
-          />
+          <Checkbox checked={criteria.minTrades !== 0} style={tw`self-stretch`} onPress={toggleMinTrades}>
+            {i18n('offerPreferences.filters.noNewUsers')}
+          </Checkbox>
+          <Checkbox checked={criteria.minReputation !== 0} style={tw`self-stretch`} onPress={toggleMinReputation}>
+            {i18n('offerPreferences.filters.minReputation', '4.5')}
+          </Checkbox>
           <View style={tw`flex-row items-start self-stretch gap-10px`}>
             <TouchableOpacity onPress={() => toggleBadge('fastTrader')}>
               <Badge badgeName="fastTrader" isUnlocked={criteria.badges.includes('fastTrader')} />
@@ -403,39 +392,6 @@ function InstantTrade () {
           </View>
         </>
       )}
-    </Section.Container>
-  )
-}
-
-function RefundWallet () {
-  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressLabel],
-    shallow,
-  )
-  const navigation = useNavigation()
-  const onExternalWalletPress = () => {
-    if (payoutAddress) {
-      setPeachWalletActive(false)
-    } else {
-      navigation.navigate('payoutAddress', { type: 'refund' })
-    }
-  }
-  return (
-    <Section.Container style={tw`bg-primary-background-dark`}>
-      <Section.Title>{i18n('offerPreferences.refundTo')}</Section.Title>
-      <View style={tw`flex-row items-center gap-10px`}>
-        <NewBubble color="orange" ghost={!peachWalletActive} onPress={() => setPeachWalletActive(true)}>
-          {i18n('peachWallet')}
-        </NewBubble>
-        <NewBubble
-          color="orange"
-          ghost={peachWalletActive}
-          iconId={!payoutAddress ? 'plusCircle' : undefined}
-          onPress={onExternalWalletPress}
-        >
-          {payoutAddressLabel || i18n('externalWallet')}
-        </NewBubble>
-      </View>
     </Section.Container>
   )
 }
@@ -458,12 +414,9 @@ function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWa
   const onPress = () => navigation.navigate('networkFees')
   return (
     <Section.Container style={tw`flex-row justify-between`}>
-      <Checkbox
-        checked={fundWithPeachWallet}
-        text={i18n('offerPreferences.fundWithPeachWallet', String(estimatedFeeRate))}
-        onPress={toggle}
-        style={tw`flex-1`}
-      />
+      <Checkbox checked={fundWithPeachWallet} onPress={toggle} style={tw`flex-1`}>
+        {i18n('offerPreferences.fundWithPeachWallet', String(estimatedFeeRate))}
+      </Checkbox>
       <TouchableIcon id="bitcoin" onPress={onPress} />
     </Section.Container>
   )
@@ -472,8 +425,6 @@ function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWa
 function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boolean }) {
   const amountRange = useTradingAmountLimits('sell')
   const [sellAmount, instantTrade] = useOfferPreferences((state) => [state.sellAmount, state.instantTrade], shallow)
-  const limits = useTradingLimits()
-  const priceWithPremium = useCurrentOfferPrice()
   const [isPublishing, setIsPublishing] = useState(false)
 
   const sellAmountIsValid = sellAmount >= amountRange[0] && sellAmount <= amountRange[1]
@@ -483,11 +434,8 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
     setSellAmount(restrictAmount(sellAmount))
   }
 
-  const priceIsWithinLimits
-    = priceWithPremium + limits.dailyAmount <= limits.daily && priceWithPremium + limits.yearlyAmount <= limits.yearly
-
-  const [peachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel],
+  const [refundToPeachWallet, refundAddress, refundAddressLabel] = useSettingsStore(
+    (state) => [state.refundToPeachWallet, state.refundAddress, state.refundAddressLabel],
     shallow,
   )
 
@@ -504,8 +452,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
     shallow,
   )
   const paymentMethodsAreValid = sellPreferences.originalPaymentData.every(isValidPaymentData)
-  const formValid
-    = sellAmountIsValid && priceIsWithinLimits && paymentMethodsAreValid && !!sellPreferences.originalPaymentData.length
+  const formValid = sellAmountIsValid && paymentMethodsAreValid && !!sellPreferences.originalPaymentData.length
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
@@ -541,26 +488,30 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
     return Promise.resolve(paymentData)
   }
 
+  const showPublishingError = () => {
+    let errorMessage
+    let errorArgs: string[] = []
+    if (!sellAmountIsValid) {
+      errorMessage = 'INVALID_AMOUNT_RANGE'
+      errorArgs = amountRange.map(String)
+    } else if (!paymentMethodsAreValid) {
+      errorMessage = 'VALID_PAYMENT_DATA_MISSING'
+    } else if (!sellPreferences.originalPaymentData.length) {
+      errorMessage = 'PAYMENT_METHOD_MISSING'
+    } else {
+      errorMessage = 'GENERAL_ERROR'
+    }
+    showErrorBanner(errorMessage, errorArgs)
+  }
+
   const onPress = async () => {
     if (isPublishing) return
     if (!formValid) {
-      let errorMessage
-      if (!sellAmountIsValid) {
-        errorMessage = `Amount must be between ${amountRange[0]} and ${amountRange[1]} sats`
-      } else if (!priceIsWithinLimits) {
-        errorMessage = 'Amount exceeds your trading limits'
-      } else if (!paymentMethodsAreValid) {
-        errorMessage = 'Please add a valid payment method'
-      } else if (!sellPreferences.originalPaymentData.length) {
-        errorMessage = 'Please add a payment method'
-      } else {
-        errorMessage = 'Something went wrong'
-      }
-      showErrorBanner(errorMessage)
+      showPublishingError()
       return
     }
     setIsPublishing(true)
-    const { address } = peachWalletActive ? await peachWallet.getAddress() : { address: payoutAddress }
+    const address = refundToPeachWallet ? (await peachWallet.getAddress()).address : refundAddress
     if (!address) {
       setIsPublishing(false)
       return
@@ -571,7 +522,7 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
       paymentData,
       type: 'ask',
       funding: defaultFundingStatus,
-      walletLabel: peachWalletActive ? i18n('peachWallet') : payoutAddressLabel,
+      walletLabel: refundToPeachWallet ? i18n('peachWallet') : refundAddressLabel,
       returnAddress: address,
     })
     if (isPublished) {
@@ -617,6 +568,9 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
     }
   }
 
+  const keyboardIsOpen = useKeyboard()
+  if (keyboardIsOpen) return null
+
   return (
     <Button
       style={[tw`self-center px-5 py-3 min-w-166px`, !formValid && tw`bg-primary-mild-1`]}
@@ -628,9 +582,40 @@ function FundEscrowButton ({ fundWithPeachWallet }: { fundWithPeachWallet: boole
   )
 }
 
+function RefundWalletSelector () {
+  const [refundToPeachWallet, refundAddress, refundAddressLabel, setRefundToPeachWallet] = useSettingsStore(
+    (state) => [state.refundToPeachWallet, state.refundAddress, state.refundAddressLabel, state.setRefundToPeachWallet],
+    shallow,
+  )
+  const navigation = useNavigation()
+
+  const onExternalWalletPress = () => {
+    if (refundAddress) {
+      setRefundToPeachWallet(false)
+    } else {
+      navigation.navigate('refundAddress')
+    }
+  }
+
+  const onPeachWalletPress = () => setRefundToPeachWallet(true)
+
+  return (
+    <WalletSelector
+      title={i18n('offerPreferences.refundTo')}
+      backgroundColor={tw.color('primary-background-dark')}
+      bubbleColor="orange"
+      peachWalletActive={refundToPeachWallet}
+      address={refundAddress}
+      addressLabel={refundAddressLabel}
+      onPeachWalletPress={onPeachWalletPress}
+      onExternalWalletPress={onExternalWalletPress}
+    />
+  )
+}
+
 function SellHeader () {
-  const setPopup = usePopupStore((state) => state.setPopup)
-  const onPress = () => setPopup(<SellingBitcoinPopup />)
+  const setPopup = useSetPopup()
+  const onPress = () => setPopup(<HelpPopup id="sellingBitcoin" />)
   return (
     <Header
       titleComponent={
@@ -640,33 +625,6 @@ function SellHeader () {
         </>
       }
       icons={[{ ...headerIcons.help, onPress }]}
-    />
-  )
-}
-
-function SellingBitcoinPopup () {
-  return (
-    <InfoPopup
-      title={i18n('help.sellingBitcoin.title')}
-      content={<PeachText>{i18n('help.sellingBitcoin.description')}</PeachText>}
-    />
-  )
-}
-
-function FundMultiplePopup () {
-  return (
-    <InfoPopup
-      title={i18n('help.fundMultiple.title')}
-      content={<PeachText>{i18n('help.fundMultiple.text')}</PeachText>}
-    />
-  )
-}
-
-function InstantTradePopup () {
-  return (
-    <InfoPopup
-      title={i18n('help.instantTrade.title')}
-      content={<PeachText>{i18n('help.instantTrade.text')}</PeachText>}
     />
   )
 }

@@ -1,7 +1,7 @@
 {
-  "help.fundMultiple.text" : "¡Para ahorrar en tarifas de red, puedes crear múltiples ofertas de venta con una sola transacción!",
+  "help.fundMultiple.description" : "¡Para ahorrar en tarifas de red, puedes crear múltiples ofertas de venta con una sola transacción!",
   "help.fundMultiple.title" : "financia múltiples ofertas de venta",
-  "help.instantTrade.text" : "Permite que un comprador que coincida con tu oferta de venta entre automáticamente en una transacción contigo.\n\nPara habilitar esto, Peach recibirá tus datos de pago seleccionados para compartirlos al instante con un comprador que cumpla con todos tus criterios.\n\nEstos datos están cifrados y no pueden ser leídos por terceros, excepto Peach.",
+  "help.instantTrade.description" : "Permite que un comprador que coincida con tu oferta de venta entre automáticamente en una transacción contigo.\n\nPara habilitar esto, Peach recibirá tus datos de pago seleccionados para compartirlos al instante con un comprador que cumpla con todos tus criterios.\n\nEstos datos están cifrados y no pueden ser leídos por terceros, excepto Peach.",
   "help.instantTrade.title" : "comercio instantáneo",
   "matchDetails.action.instantTrade" : "comercio instantáneo",
   "matchDetails.action.missingSelection" : "seleccionar método de pago",
@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "financiar depósito en garantía",
   "offerPreferences.fundWithPeachWallet" : "financiar con la billetera Peach ($0 sats/vb)",
   "offerPreferences.instantTrade" : "comercio instantáneo",
+  "offerPreferences.payoutTo" : "pagar a:",
   "offerPreferences.premiumOfCompletedTrades" : "prima de transacciones completadas: $0%",
   "offerPreferences.refundTo" : "reembolsar a:",
   "offerPreferences.sellOffers" : "$0 ofertas de venta",

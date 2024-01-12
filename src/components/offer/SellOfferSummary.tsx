@@ -1,10 +1,8 @@
-import { NETWORK } from '@env'
-import { TouchableOpacity, View } from 'react-native'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { showAddress } from '../../utils/bitcoin/showAddress'
 import i18n from '../../utils/i18n'
-import { Icon } from '../Icon'
-import { BTCAmount } from '../bitcoin/btcAmount/BTCAmount'
+import { BTCAmount } from '../bitcoin/BTCAmount'
+import { EscrowLink } from '../matches/components/EscrowLink'
 import { getPremiumColor } from '../matches/utils/getPremiumColor'
 import { PeachText } from '../text/PeachText'
 import { HorizontalLine } from '../ui/HorizontalLine'
@@ -29,7 +27,7 @@ export const SellOfferSummary = ({ offer, numberOfOffers, walletLabel }: Props) 
   return (
     <SummaryCard>
       <SummaryCard.Section>
-        <PeachText style={tw`text-center text-black-2`}>
+        <PeachText style={tw`text-center text-black-65`}>
           {i18n(`offer.summary.${tradeStatus !== 'offerCanceled' ? 'youAreSelling' : 'youWereSelling'}`)}
         </PeachText>
         <View style={tw`flex-row items-center justify-center gap-2`}>
@@ -41,7 +39,7 @@ export const SellOfferSummary = ({ offer, numberOfOffers, walletLabel }: Props) 
       <HorizontalLine />
 
       <SummaryCard.Section>
-        <PeachText style={tw`text-center text-black-2`}>{i18n('offer.summary.withA')}</PeachText>
+        <PeachText style={tw`text-center text-black-65`}>{i18n('offer.summary.withA')}</PeachText>
         <PeachText style={[tw`text-center subtitle-1`, getPremiumColor(offer.premium, false)]}>
           <PeachText style={tw`subtitle-1`}>{Math.abs(premium)}% </PeachText>
           {i18n(premium >= 0 ? 'offer.summary.premium' : 'offer.summary.discount')}
@@ -55,7 +53,7 @@ export const SellOfferSummary = ({ offer, numberOfOffers, walletLabel }: Props) 
       <HorizontalLine />
 
       <SummaryCard.Section>
-        <PeachText style={tw`text-center text-black-2`}>{i18n('offer.summary.refundWallet')}</PeachText>
+        <PeachText style={tw`text-center text-black-65`}>{i18n('offer.summary.refundWallet')}</PeachText>
         {walletLabel}
       </SummaryCard.Section>
 
@@ -64,10 +62,7 @@ export const SellOfferSummary = ({ offer, numberOfOffers, walletLabel }: Props) 
           <HorizontalLine />
 
           <SummaryCard.Section>
-            <TouchableOpacity style={tw`flex-row items-center gap-1`} onPress={() => showAddress(offer.escrow, NETWORK)}>
-              <PeachText style={tw`underline tooltip text-black-2`}>{i18n('escrow.viewInExplorer')}</PeachText>
-              <Icon id="externalLink" size={18} color={tw.color('primary-main')} />
-            </TouchableOpacity>
+            <EscrowLink address={offer.escrow} />
           </SummaryCard.Section>
         </>
       )}

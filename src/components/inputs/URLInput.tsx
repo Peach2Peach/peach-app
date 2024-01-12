@@ -7,10 +7,10 @@ import { Input, InputProps } from './Input'
 export const URLInput = (props: InputProps) => {
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString()
-    if (props.onChange) props.onChange(clipboard)
+    if (props.onChangeText) props.onChangeText(clipboard)
   }
   const onSuccess = (address: string) => {
-    if (props.onChange) props.onChange(address)
+    if (props.onChangeText) props.onChangeText(address)
   }
   const { showQRScanner, showQR, closeQR, onRead } = useQRScanner({ onSuccess })
 

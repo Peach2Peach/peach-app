@@ -1,5 +1,5 @@
 import { dataMigrationAfterLoadingWallet } from '../../init/dataMigration/dataMigrationAfterLoadingWallet'
-import { useSettingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import i18n from '../i18n'
 import { getDeviceLocale } from '../system/getDeviceLocale'
 import { defaultAccount, useAccountStore } from './account'

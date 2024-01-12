@@ -1,10 +1,15 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { useEffect, useMemo } from 'react'
-import { SectionList, View } from 'react-native'
+import { SectionList, SectionListData, View } from 'react-native'
+import { ContractSummary } from '../../../peach-api/src/@types/contract'
+import { OfferSummary } from '../../../peach-api/src/@types/offer'
 import { Header } from '../../components/Header'
 import { Screen } from '../../components/Screen'
 import { Loading } from '../../components/animation/Loading'
 import { NotificationBubble } from '../../components/bubble/NotificationBubble'
+import { PeachText } from '../../components/text/PeachText'
+import { LinedText } from '../../components/ui/LinedText'
+import { fullScreenTabNavigationScreenOptions } from '../../constants'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
@@ -13,23 +18,14 @@ import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { parseError } from '../../utils/result/parseError'
 import { useHomeScreenRoute } from '../home/useHomeScreenRoute'
-import { SectionHeader } from './components/SectionHeader'
+import { TradeItem } from './components/TradeItem'
 import { TradePlaceholders } from './components/TradePlaceholders'
-import { TradeItem } from './components/tradeItem'
-import { getPastOffers, isOpenOffer } from './utils'
 import { getCategories } from './utils/getCategories'
+import { getPastOffers } from './utils/getPastOffers'
+import { isOpenOffer } from './utils/isOpenOffer'
 
 const YourTradesTab = createMaterialTopTabNavigator()
 const tabs = ['yourTrades.buy', 'yourTrades.sell', 'yourTrades.history'] as const
-
-const tabbedNavigationScreenOptions = {
-  tabBarLabelStyle: tw`lowercase input-title`,
-  tabBarStyle: [tw`bg-transparent mx-sm`, tw`md:mx-md`],
-  tabBarContentContainerStyle: tw`bg-transparent`,
-  tabBarIndicatorStyle: tw`bg-black-1`,
-  tabBarItemStyle: tw`p-0`,
-  tabBarPressColor: 'transparent',
-}
 
 export const YourTrades = () => {
   const { tradeSummaries, isLoading, error, refetch } = useTradeSummaries()
@@ -57,7 +53,7 @@ export const YourTrades = () => {
     <Screen style={tw`px-0`} header={<YourTradesHeader />}>
       <YourTradesTab.Navigator
         initialRouteName={params?.tab || 'yourTrades.buy'}
-        screenOptions={tabbedNavigationScreenOptions}
+        screenOptions={fullScreenTabNavigationScreenOptions}
         sceneContainerStyle={[tw`px-sm`, tw`md:px-md`]}
       >
         {tabs.map((tab) => (
@@ -99,7 +95,7 @@ export const YourTrades = () => {
   )
 }
 
-function TabBarBadge ({ summaries }: { summaries: TradeSummary[] }) {
+function TabBarBadge ({ summaries }: { summaries: (OfferSummary | ContractSummary)[] }) {
   const notifications = useMemo(
     () =>
       summaries.reduce((acc, curr) => {
@@ -131,4 +127,15 @@ function YourTradesHeader () {
       hideGoBackButton
     />
   )
+}
+
+type SectionHeaderProps = {
+  section: SectionListData<OfferSummary | ContractSummary, { title: string; data: (OfferSummary | ContractSummary)[] }>
+}
+export function SectionHeader ({ section: { title, data } }: SectionHeaderProps) {
+  return data.length !== 0 && title !== 'priority' ? (
+    <LinedText style={tw`pb-7 bg-primary-background-main`}>
+      <PeachText style={tw`text-black-65`}>{i18n(`yourTrades.${title}`)}</PeachText>
+    </LinedText>
+  ) : null
 }

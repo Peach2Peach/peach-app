@@ -1,7 +1,7 @@
 {
-  "help.fundMultiple.text" : "Ağ ücretlerinden tasarruf etmek için tek bir işlemle birden çok satış teklifi oluşturabilirsiniz!",
+  "help.fundMultiple.description" : "Ağ ücretlerinden tasarruf etmek için tek bir işlemle birden çok satış teklifi oluşturabilirsiniz!",
   "help.fundMultiple.title" : "çoklu satış tekliflerini finanse etmek",
-  "help.instantTrade.text" : "Satış teklifinize uyan bir alıcıya, otomatik olarak bir işlem yapma izni verin!\n\nBunu etkinleştirmek için Peach, seçtiğiniz ödeme bilgilerinizi alacak ve bunları tüm kriterlerinize uyan bir alıcıyla hemen paylaşmak üzere şifreleyecektir.\n\nBu veriler üçüncü taraflar tarafından Peach dışında okunamaz.",
+  "help.instantTrade.description" : "Satış teklifinize uyan bir alıcıya, otomatik olarak bir işlem yapma izni verin!\n\nBunu etkinleştirmek için Peach, seçtiğiniz ödeme bilgilerinizi alacak ve bunları tüm kriterlerinize uyan bir alıcıyla hemen paylaşmak üzere şifreleyecektir.\n\nBu veriler üçüncü taraflar tarafından Peach dışında okunamaz.",
   "help.instantTrade.title" : "anlık ticaret",
   "matchDetails.action.instantTrade" : "anlık ticaret",
   "matchDetails.action.missingSelection" : "ödeme yöntemini seçin",
@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "emanet fon",
   "offerPreferences.fundWithPeachWallet" : "Peach cüzdanı ile finanse et ($0 sats/vb)",
   "offerPreferences.instantTrade" : "anlık ticaret",
+  "offerPreferences.payoutTo" : "ödeme yap:",
   "offerPreferences.premiumOfCompletedTrades" : "tamamlanan işlemlerin primi: $0%",
   "offerPreferences.refundTo" : "iade için:",
   "offerPreferences.sellOffers" : "$0 açık satış teklifi",

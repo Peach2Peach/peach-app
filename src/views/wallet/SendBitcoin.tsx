@@ -3,15 +3,18 @@ import { TouchableOpacity, View } from 'react-native'
 import { Header } from '../../components/Header'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
-import { ConfirmSlider } from '../../components/inputs'
 import { BTCAmountInput } from '../../components/inputs/BTCAmountInput'
 import { BitcoinAddressInput } from '../../components/inputs/BitcoinAddressInput'
 import { RadioButtons } from '../../components/inputs/RadioButtons'
+import { ConfirmSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
+import { useSetPopup } from '../../components/popup/Popup'
+import { ParsedPeachText } from '../../components/text/ParsedPeachText'
 import { PeachText } from '../../components/text/PeachText'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
+import { useHandleTransactionError } from '../../hooks/error/useHandleTransactionError'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useNavigation } from '../../hooks/useNavigation'
-import { useShowHelp } from '../../hooks/useShowHelp'
+import { InfoPopup } from '../../popups/InfoPopup'
 import tw from '../../styles/tailwind'
 import { removeNonDigits } from '../../utils/format/removeNonDigits'
 import i18n from '../../utils/i18n'
@@ -19,11 +22,12 @@ import { headerIcons } from '../../utils/layout/headerIcons'
 import { rules } from '../../utils/validation/rules'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { useWalletState } from '../../utils/wallet/walletStore'
+import { goToShiftCrypto } from '../../utils/web/goToShiftCrypto'
 import { CustomFeeItem } from '../settings/components/networkFees/CustomFeeItem'
 import { EstimatedFeeItem } from '../settings/components/networkFees/EstimatedFeeItem'
 import { UTXOAddress } from './components'
+import { WithdrawalConfirmationPopup } from './components/WithdrawalConfirmationPopup'
 import { useUTXOs } from './hooks'
-import { useOpenWithdrawalConfirmationPopup } from './hooks/useOpenWithdrawalConfirmationPopup'
 
 export const SendBitcoin = () => {
   const [address, setAddress] = useState('')
@@ -31,7 +35,8 @@ export const SendBitcoin = () => {
   const [shouldDrainWallet, setShouldDrainWallet] = useState(false)
   const { estimatedFees } = useFeeEstimate()
   const [feeRate, setFee] = useState<number | undefined>(estimatedFees.fastestFee)
-  const openConfirmationPopup = useOpenWithdrawalConfirmationPopup()
+  const handleTransactionError = useHandleTransactionError()
+  const setPopup = useSetPopup()
 
   const { selectedUTXOs } = useUTXOs()
 
@@ -46,15 +51,22 @@ export const SendBitcoin = () => {
     setAmount(newValue)
   }
 
-  const sendTrasaction = () => {
+  const sendTrasaction = async () => {
     if (!feeRate) return
-    openConfirmationPopup({
-      address,
-      amount,
-      feeRate,
-      shouldDrainWallet,
-      utxos: selectedUTXOs,
-    })
+    try {
+      const { psbt } = await peachWallet.buildFinishedTransaction({
+        address,
+        amount,
+        feeRate,
+        shouldDrainWallet,
+        utxos: selectedUTXOs,
+      })
+      const fee = await psbt.feeAmount()
+
+      setPopup(<WithdrawalConfirmationPopup {...{ address, amount, psbt, fee, feeRate }} />)
+    } catch (e) {
+      handleTransactionError(e)
+    }
   }
 
   const isFormValid = useMemo(
@@ -67,7 +79,7 @@ export const SendBitcoin = () => {
       <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw`md:py-md`]}>
         <View style={[tw`pb-11 gap-4`, tw`md:pb-14`]}>
           <Section title={i18n('wallet.sendBitcoin.to')}>
-            <BitcoinAddressInput value={address} onChange={setAddress} />
+            <BitcoinAddressInput value={address} onChangeText={setAddress} />
           </Section>
 
           <HorizontalLine />
@@ -82,7 +94,16 @@ export const SendBitcoin = () => {
               },
             }}
           >
-            <BTCAmountInput amount={amount} onChangeText={onAmountChange} />
+            <BTCAmountInput
+              value={amount.toString()}
+              onChangeText={onAmountChange}
+              size="medium"
+              textStyle={tw`absolute w-full py-0 opacity-0 grow h-38px input-text`}
+              containerStyle={[
+                tw`self-stretch justify-center px-2 py-3 overflow-hidden h-38px rounded-xl`,
+                tw`border bg-primary-background-light border-black-65`,
+              ]}
+            />
           </Section>
 
           <HorizontalLine />
@@ -171,7 +192,8 @@ function Fees ({ updateFee }: { updateFee: (fee: number | undefined) => void }) 
 }
 
 function SendBitcoinHeader () {
-  const openPopup = useShowHelp('withdrawingFunds')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<WithdrawingFundsPopup />)
   const navigation = useNavigation()
   return (
     <Header
@@ -184,10 +206,31 @@ function SendBitcoinHeader () {
         },
         {
           ...headerIcons.help,
-          onPress: openPopup,
+          onPress: showHelp,
           accessibilityHint: i18n('help'),
         },
       ]}
+    />
+  )
+}
+
+function WithdrawingFundsPopup () {
+  return (
+    <InfoPopup
+      title={i18n('wallet.withdraw.help.title')}
+      content={
+        <ParsedPeachText
+          parse={[
+            {
+              pattern: new RegExp(i18n('wallet.withdraw.help.text.link'), 'u'),
+              style: tw`underline`,
+              onPress: goToShiftCrypto,
+            },
+          ]}
+        >
+          {i18n('wallet.withdraw.help.text')}
+        </ParsedPeachText>
+      }
     />
   )
 }

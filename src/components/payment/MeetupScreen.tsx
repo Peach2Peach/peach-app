@@ -1,8 +1,8 @@
 import { API_URL } from '@env'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Image, View } from 'react-native'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
+import { InfoPopup } from '../../popups/InfoPopup'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -12,9 +12,11 @@ import { PeachScrollView } from '../PeachScrollView'
 import { Screen } from '../Screen'
 import { Button } from '../buttons/Button'
 import { CurrencySelection } from '../inputs/paymentForms/components'
+import { useSetPopup } from '../popup/Popup'
+import { BulletPoint } from '../text/BulletPoint'
 import { PeachText } from '../text/PeachText'
+import { DeletePaymentMethodPopup } from './components/DeletePaymentMethodPopup'
 import { Link } from './components/Link'
-import { useDeletePaymentMethod } from './hooks/useDeletePaymentMethod'
 import { useMeetupScreenSetup } from './hooks/useMeetupScreenSetup'
 
 export const MeetupScreen = () => {
@@ -28,14 +30,14 @@ export const MeetupScreen = () => {
           <Image source={{ uri: API_URL + event.logo }} style={tw`w-full mb-5 h-30`} resizeMode={'contain'} />
         )}
         <View style={tw`gap-8`}>
-          <PeachText style={tw`body-l text-black-1`}>{i18n('meetup.description', event.longName)}</PeachText>
+          <PeachText style={tw`body-l text-black-100`}>{i18n('meetup.description', event.longName)}</PeachText>
           {!!event.frequency && (
             <View style={tw`gap-4`}>
               <PeachText style={tw`body-l`}>
                 {`${i18n('meetup.date')}: `}
                 <PeachText style={tw`h6`}>{event.frequency}</PeachText>
               </PeachText>
-              {!!event.address && <PeachText style={tw`body-l text-black-1`}>{event.address}</PeachText>}
+              {!!event.address && <PeachText style={tw`body-l text-black-100`}>{event.address}</PeachText>}
             </View>
           )}
           <View style={tw`gap-4`}>
@@ -62,8 +64,13 @@ function MeetupScreenHeader () {
   const route = useRoute<'meetupScreen'>()
   const { eventId } = route.params
   const deletable = route.params.deletable ?? false
-  const showHelp = useShowHelp('cashTrades')
-  const deletePaymentMethod = useDeletePaymentMethod(`cash.${eventId}`)
+  const setPopup = useSetPopup()
+  const showHelp = useCallback(() => setPopup(<CashTradesPopup />), [setPopup])
+  const deletePaymentMethod = useCallback(
+    () => setPopup(<DeletePaymentMethodPopup id={`cash.${eventId}`} />),
+    [eventId, setPopup],
+  )
+
   const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
 
   const icons = useMemo(() => {
@@ -75,4 +82,21 @@ function MeetupScreenHeader () {
   }, [deletable, deletePaymentMethod, showHelp])
 
   return <Header title={getMeetupEvent(eventId)?.shortName} icons={icons} />
+}
+
+function CashTradesPopup () {
+  const bulletPoints = []
+  for (let i = 1; i < 5; i++) bulletPoints.push(<BulletPoint key={i} text={i18n(`tradingCash.point.${i}`)} />)
+
+  return (
+    <InfoPopup
+      title={i18n('tradingCash')}
+      content={
+        <>
+          <PeachText style={tw`mb-3`}>{i18n('tradingCash.text')}</PeachText>
+          {bulletPoints}
+        </>
+      }
+    />
+  )
 }

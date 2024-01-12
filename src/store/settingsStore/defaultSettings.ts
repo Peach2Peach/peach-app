@@ -18,11 +18,13 @@ export const defaultSettings: Settings = {
 
   nodeURL: BLOCKEXPLORER,
 
-  returnAddress: undefined,
+  refundAddress: undefined,
+  refundAddressLabel: undefined,
+  refundToPeachWallet: true,
   payoutAddress: undefined,
   payoutAddressLabel: undefined,
   payoutAddressSignature: undefined,
-  peachWalletActive: true,
+  payoutToPeachWallet: true,
   derivationPath: undefined,
   feeRate: 'halfHourFee',
 

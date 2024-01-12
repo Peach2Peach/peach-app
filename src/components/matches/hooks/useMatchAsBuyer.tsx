@@ -1,18 +1,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { GetMatchesResponseBody } from '../../../../peach-api/src/@types/api/offerAPI'
 import { Match } from '../../../../peach-api/src/@types/match'
+import { AppPopup } from '../../../hooks/AppPopup'
 import { useNavigation } from '../../../hooks/useNavigation'
-import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
 import { getHashedPaymentData } from '../../../store/offerPreferenes/helpers'
 import { useAccountStore } from '../../../utils/account/account'
 import { getRandom } from '../../../utils/crypto/getRandom'
-import { error, info } from '../../../utils/log'
+import { error } from '../../../utils/log/error'
+import { info } from '../../../utils/log/info'
 import { cleanPaymentData } from '../../../utils/paymentMethod/cleanPaymentData'
 import { encryptPaymentData } from '../../../utils/paymentMethod/encryptPaymentData'
 import { peachAPI } from '../../../utils/peachAPI'
 import { signAndEncrypt } from '../../../utils/pgp/signAndEncrypt'
 import { parseError } from '../../../utils/result/parseError'
 import { useMessageState } from '../../message/useMessageState'
+import { useSetPopup } from '../../popup/Popup'
 import { getMatchPrice } from '../utils/getMatchPrice'
 import { handleMissingPaymentData } from '../utils/handleMissingPaymentData'
 import { useHandleError } from '../utils/useHandleError'
@@ -23,8 +25,8 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
   const navigation = useNavigation()
   const updateMessage = useMessageState((state) => state.updateMessage)
   const handleError = useHandleError()
-
-  const showPopup = useShowAppPopup('offerTaken')
+  const setPopup = useSetPopup()
+  const publicKey = useAccountStore((state) => state.account.pgp.publicKey)
 
   return useMutation({
     onMutate: async ({ selectedCurrency, paymentData }) => {
@@ -58,6 +60,7 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
         match,
         currency: selectedCurrency,
         paymentData,
+        publicKey,
       })
       if (!matchOfferData) throw new Error(dataError || 'UNKNOWN_ERROR')
       const { result, error: err } = await peachAPI.private.offer.matchOffer(matchOfferData)
@@ -75,7 +78,7 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
       if (errorMsg === 'MISSING_PAYMENTDATA' && selectedPaymentMethod) {
         handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation)
       } else if (errorMsg === 'OFFER_TAKEN') {
-        showPopup()
+        setPopup(<AppPopup id="offerTaken" />)
       } else {
         if (errorMsg === 'MISSING_VALUES') error(
           'Match data missing values.',
@@ -106,17 +109,14 @@ type Params = {
   match: Match
   currency: Currency
   paymentData: PaymentData
+  publicKey: string
 }
 
-async function generateMatchOfferData ({ offer, match, currency, paymentData }: Params) {
+async function generateMatchOfferData ({ offer, match, currency, paymentData, publicKey }: Params) {
   const paymentMethod = paymentData.type
 
   const symmetricKey = (await getRandom(256)).toString('hex')
-  const accountPubKey = useAccountStore.getState().account.pgp.publicKey
-  const { encrypted, signature } = await signAndEncrypt(
-    symmetricKey,
-    [accountPubKey, match.user.pgpPublicKey].join('\n'),
-  )
+  const { encrypted, signature } = await signAndEncrypt(symmetricKey, [publicKey, match.user.pgpPublicKey].join('\n'))
 
   const encryptedPaymentData = await encryptPaymentData(cleanPaymentData(paymentData), symmetricKey)
   if (!encryptedPaymentData) return { error: 'PAYMENTDATA_ENCRYPTION_FAILED' }

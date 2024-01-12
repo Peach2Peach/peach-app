@@ -5,86 +5,38 @@ exports[`SendBitcoin - With selected coins should not allow entering an amount h
 - First value
 + Second value
 
-@@ -1029,19 +1029,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 1
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -1063,11 +1063,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1097,11 +1097,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1131,11 +1131,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1165,11 +1165,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1268,11 +1268,11 @@
+@@ -802,11 +802,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0.00 000 00
++                               0.00 0
+                              </Text>
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  Array [
+@@ -835,11 +835,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0
++                               10 000
+                              </Text>
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+@@ -886,11 +886,11 @@
+                              "paddingTop": 0,
                               "position": "absolute",
                               "width": "100%",
                             }
                           }
-                          testID="btc-amount-input"
 -                         value="0"
 +                         value="10000"
                         />
@@ -99,7 +51,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
 - First value
 + Second value
 
-@@ -1875,10 +1875,122 @@
+@@ -1494,10 +1494,123 @@
                           />
                         </View>
                       </View>
@@ -144,8 +96,9 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
 +                             "lineHeight": 24,
 +                           },
 +                           Object {
-+                             "fontFamily": "Baloo2-Bold",
++                             "fontFamily": "Baloo2-Regular",
 +                             "fontSize": 16,
++                             "fontWeight": "bold",
 +                             "letterSpacing": 0.16,
 +                             "lineHeight": 23,
 +                           },
@@ -229,86 +182,38 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
 - First value
 + Second value
 
-@@ -1029,19 +1029,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 1
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -1063,11 +1063,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1097,11 +1097,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1131,11 +1131,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1165,11 +1165,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1268,11 +1268,11 @@
+@@ -802,11 +802,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0.00 000 00
++                               0.00 0
+                              </Text>
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  Array [
+@@ -835,11 +835,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0
++                               10 000
+                              </Text>
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+@@ -886,11 +886,11 @@
+                              "paddingTop": 0,
                               "position": "absolute",
                               "width": "100%",
                             }
                           }
-                          testID="btc-amount-input"
 -                         value="0"
 +                         value="10000"
                         />
@@ -323,7 +228,7 @@ exports[`SendBitcoin should disable the slider while the wallet is not synced 1`
 - First value
 + Second value
 
-@@ -1986,11 +1986,11 @@
+@@ -1605,11 +1605,11 @@
                     <View
                       collapsable={false}
                       style={
@@ -343,147 +248,38 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
 - First value
 + Second value
 
-@@ -893,19 +893,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 2
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -927,19 +927,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 1
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -961,11 +961,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -995,11 +995,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1029,11 +1029,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1063,11 +1063,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1097,11 +1097,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1131,11 +1131,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1165,11 +1165,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1268,11 +1268,11 @@
+@@ -802,11 +802,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0.00 000 00
++                               0.
+                              </Text>
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  Array [
+@@ -835,11 +835,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0
++                               21 000 000
+                              </Text>
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+@@ -886,11 +886,11 @@
+                              "paddingTop": 0,
                               "position": "absolute",
                               "width": "100%",
                             }
                           }
-                          testID="btc-amount-input"
 -                         value="0"
 +                         value="21000000"
                         />
@@ -834,8 +630,9 @@ exports[`SendBitcoin should render correctly 1`] = `
                             "lineHeight": 24,
                           },
                           {
-                            "fontFamily": "Baloo2-Bold",
+                            "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
+                            "fontWeight": "bold",
                             "letterSpacing": 0.16,
                             "lineHeight": 23,
                           },
@@ -855,7 +652,6 @@ exports[`SendBitcoin should render correctly 1`] = `
                           [
                             {
                               "alignItems": "center",
-                              "display": "flex",
                               "flexDirection": "row",
                               "gap": 4,
                               "justifyContent": "space-between",
@@ -893,9 +689,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                           multiline={false}
                           onBlur={[Function]}
                           onChangeText={[Function]}
-                          onEndEditing={[Function]}
                           onFocus={[Function]}
-                          onSubmitEditing={[Function]}
                           placeholder="bc1q ..."
                           placeholderTextColor="#EAE3DF"
                           removeClippedSubviews={false}
@@ -921,7 +715,6 @@ exports[`SendBitcoin should render correctly 1`] = `
                                 "borderWidth": 1,
                               },
                               false,
-                              false,
                             ]
                           }
                           textAlignVertical="center"
@@ -930,7 +723,6 @@ exports[`SendBitcoin should render correctly 1`] = `
                         <View
                           style={
                             {
-                              "display": "flex",
                               "flexDirection": "row",
                               "gap": 16,
                             }
@@ -957,28 +749,28 @@ exports[`SendBitcoin should render correctly 1`] = `
                             accessible={true}
                             collapsable={false}
                             focusable={true}
-                            onBlur={[Function]}
                             onClick={[Function]}
-                            onFocus={[Function]}
                             onResponderGrant={[Function]}
                             onResponderMove={[Function]}
                             onResponderRelease={[Function]}
                             onResponderTerminate={[Function]}
                             onResponderTerminationRequest={[Function]}
                             onStartShouldSetResponder={[Function]}
+                            style={
+                              {
+                                "opacity": 1,
+                              }
+                            }
                           >
                             <test-file-stub
                               fill="#2B1911"
                               style={
                                 [
                                   {
-                                    "height": 24,
-                                    "width": 24,
-                                  },
-                                  {
                                     "height": 20,
                                     "width": 20,
                                   },
+                                  undefined,
                                 ]
                               }
                             />
@@ -1004,28 +796,28 @@ exports[`SendBitcoin should render correctly 1`] = `
                             accessible={true}
                             collapsable={false}
                             focusable={true}
-                            onBlur={[Function]}
                             onClick={[Function]}
-                            onFocus={[Function]}
                             onResponderGrant={[Function]}
                             onResponderMove={[Function]}
                             onResponderRelease={[Function]}
                             onResponderTerminate={[Function]}
                             onResponderTerminationRequest={[Function]}
                             onStartShouldSetResponder={[Function]}
+                            style={
+                              {
+                                "opacity": 1,
+                              }
+                            }
                           >
                             <test-file-stub
                               fill="#2B1911"
                               style={
                                 [
                                   {
-                                    "height": 24,
-                                    "width": 24,
-                                  },
-                                  {
                                     "height": 20,
                                     "width": 20,
                                   },
+                                  undefined,
                                 ]
                               }
                             />
@@ -1104,8 +896,9 @@ exports[`SendBitcoin should render correctly 1`] = `
                             "lineHeight": 24,
                           },
                           {
-                            "fontFamily": "Baloo2-Bold",
+                            "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
+                            "fontWeight": "bold",
                             "letterSpacing": 0.16,
                             "lineHeight": 23,
                           },
@@ -1177,23 +970,25 @@ exports[`SendBitcoin should render correctly 1`] = `
                     <View
                       style={
                         [
-                          {
-                            "alignSelf": "stretch",
-                            "borderRadius": 12,
-                            "height": 38,
-                            "justifyContent": "center",
-                            "overflow": "hidden",
-                            "paddingBottom": 12,
-                            "paddingLeft": 8,
-                            "paddingRight": 8,
-                            "paddingTop": 12,
-                          },
-                          {
-                            "backgroundColor": "#FFFCFA",
-                            "borderColor": "#7D675E",
-                            "borderWidth": 1,
-                          },
-                          undefined,
+                          [
+                            {
+                              "alignSelf": "stretch",
+                              "borderRadius": 12,
+                              "height": 38,
+                              "justifyContent": "center",
+                              "overflow": "hidden",
+                              "paddingBottom": 12,
+                              "paddingLeft": 8,
+                              "paddingRight": 8,
+                              "paddingTop": 12,
+                            },
+                            {
+                              "backgroundColor": "#FFFCFA",
+                              "borderColor": "#7D675E",
+                              "borderWidth": 1,
+                            },
+                          ],
+                          null,
                         ]
                       }
                     >
@@ -1202,11 +997,13 @@ exports[`SendBitcoin should render correctly 1`] = `
                           [
                             undefined,
                             {
-                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "flexDirection": "row",
+                              "justifyContent": "space-between",
                             },
                             {
                               "height": 13,
-                              "width": 179,
+                              "width": 152,
                             },
                           ]
                         }
@@ -1215,62 +1012,56 @@ exports[`SendBitcoin should render correctly 1`] = `
                           style={
                             [
                               {
-                                "alignItems": "center",
-                                "flexDirection": "row",
-                                "justifyContent": "flex-end",
-                                "marginBottom": -40,
-                                "marginTop": -40,
+                                "flexShrink": 0,
                               },
                               {
-                                "gap": 2,
+                                "paddingBottom": 2.5,
+                                "paddingLeft": 2.5,
+                                "paddingRight": 2.5,
+                                "paddingTop": 2.5,
+                              },
+                            ]
+                          }
+                        >
+                          <test-file-stub
+                            fill="#888"
+                            style={
+                              [
+                                {
+                                  "height": 15,
+                                  "width": 15,
+                                },
+                                undefined,
+                              ]
+                            }
+                          />
+                        </View>
+                        <View
+                          style={
+                            [
+                              {
+                                "alignItems": "center",
+                                "flexBasis": "0%",
+                                "flexDirection": "row",
+                                "flexGrow": 1,
+                                "flexShrink": 1,
+                              },
+                              {
+                                "gap": 5,
                               },
                             ]
                           }
                         >
                           <View
                             style={
-                              [
-                                {
-                                  "alignItems": "center",
-                                  "justifyContent": "center",
-                                },
-                                {
-                                  "height": 20,
-                                  "width": 20,
-                                },
-                              ]
-                            }
-                          >
-                            <test-file-stub
-                              fill="#888"
-                              style={
-                                [
-                                  {
-                                    "height": 24,
-                                    "width": 24,
-                                  },
-                                  {
-                                    "height": 15,
-                                    "width": 15,
-                                  },
-                                ]
+                              {
+                                "alignItems": "center",
+                                "flexBasis": "0%",
+                                "flexDirection": "row",
+                                "flexGrow": 1,
+                                "flexShrink": 1,
+                                "justifyContent": "flex-end",
                               }
-                            />
-                          </View>
-                          <View
-                            style={
-                              [
-                                {
-                                  "flexDirection": "row",
-                                },
-                                {
-                                  "alignItems": "baseline",
-                                },
-                                {
-                                  "gap": 3,
-                                  "paddingTop": 4,
-                                },
-                              ]
                             }
                           >
                             <Text
@@ -1286,465 +1077,89 @@ exports[`SendBitcoin should render correctly 1`] = `
                                   },
                                   [
                                     {
-                                      "alignItems": "center",
-                                      "fontFamily": "CourierPrime-Bold",
-                                      "textAlign": "center",
+                                      "opacity": 0.1,
+                                      "textAlign": "right",
                                     },
-                                    {
-                                      "fontSize": 22,
-                                      "lineHeight": 29,
-                                    },
+                                    [
+                                      {
+                                        "fontFamily": "Baloo2-SemiBold",
+                                        "fontSize": 16,
+                                        "letterSpacing": 0.16,
+                                        "lineHeight": 28,
+                                        "marginBottom": -13,
+                                        "marginTop": -13,
+                                      },
+                                      false,
+                                    ],
                                   ],
                                   false,
                                 ]
                               }
                             >
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -4.62,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                .
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -7.699999999999999,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                 
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -7.699999999999999,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                 
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B19111A",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
-                              <Text
-                                allowFontScaling={false}
-                                style={
-                                  [
-                                    {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
-                                    },
-                                    [
-                                      [
-                                        {
-                                          "alignItems": "center",
-                                          "fontFamily": "CourierPrime-Bold",
-                                          "textAlign": "center",
-                                        },
-                                        {
-                                          "fontSize": 22,
-                                          "lineHeight": 29,
-                                        },
-                                      ],
-                                      {
-                                        "color": "#2B1911",
-                                        "letterSpacing": -1.65,
-                                      },
-                                    ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                0
-                              </Text>
+                              0.00 000 00
                             </Text>
-                            <View
+                            <Text
+                              allowFontScaling={false}
                               style={
-                                {
-                                  "justifyContent": "center",
-                                }
-                              }
-                            >
-                              <Text
-                                allowFontScaling={false}
-                                style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
                                   [
                                     {
-                                      "color": "#2B1911",
-                                      "fontFamily": "Baloo2-Regular",
-                                      "fontSize": 16,
-                                      "letterSpacing": 0.16,
-                                      "lineHeight": 24,
+                                      "textAlign": "right",
                                     },
                                     [
                                       {
-                                        "fontFamily": "Baloo2-Medium",
+                                        "fontFamily": "Baloo2-SemiBold",
+                                        "fontSize": 16,
+                                        "letterSpacing": 0.16,
+                                        "lineHeight": 28,
+                                        "marginBottom": -13,
+                                        "marginTop": -13,
                                       },
                                       false,
-                                      {
-                                        "fontSize": 16,
-                                        "lineHeight": 24,
-                                        "paddingBottom": 2,
-                                      },
                                     ],
-                                    false,
-                                  ]
-                                }
-                              >
-                                sats
-                              </Text>
-                            </View>
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
                           </View>
+                          <Text
+                            allowFontScaling={false}
+                            style={
+                              [
+                                {
+                                  "color": "#2B1911",
+                                  "fontFamily": "Baloo2-Regular",
+                                  "fontSize": 16,
+                                  "letterSpacing": 0.16,
+                                  "lineHeight": 24,
+                                },
+                                [
+                                  {
+                                    "fontFamily": "Baloo2-SemiBold",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 28,
+                                    "marginBottom": -13,
+                                    "marginTop": -13,
+                                  },
+                                  false,
+                                ],
+                                false,
+                              ]
+                            }
+                          >
+                            sats
+                          </Text>
                         </View>
                       </View>
                       <TextInput
@@ -1765,7 +1180,6 @@ exports[`SendBitcoin should render correctly 1`] = `
                             "width": "100%",
                           }
                         }
-                        testID="btc-amount-input"
                         value="0"
                       />
                     </View>
@@ -1810,8 +1224,9 @@ exports[`SendBitcoin should render correctly 1`] = `
                             "lineHeight": 24,
                           },
                           {
-                            "fontFamily": "Baloo2-Bold",
+                            "fontFamily": "Baloo2-Regular",
                             "fontSize": 16,
+                            "fontWeight": "bold",
                             "letterSpacing": 0.16,
                             "lineHeight": 23,
                           },
@@ -2592,147 +2007,38 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
 - First value
 + Second value
 
-@@ -893,19 +893,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 2
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -927,19 +927,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 1
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -961,11 +961,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -995,11 +995,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1029,11 +1029,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1063,11 +1063,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1097,11 +1097,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1131,11 +1131,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1165,11 +1165,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1268,11 +1268,11 @@
+@@ -802,11 +802,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0.00 000 00
++                               0.
+                              </Text>
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  Array [
+@@ -835,11 +835,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0
++                               21 000 000
+                              </Text>
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+@@ -886,11 +886,11 @@
+                              "paddingTop": 0,
                               "position": "absolute",
                               "width": "100%",
                             }
                           }
-                          testID="btc-amount-input"
 -                         value="0"
 +                         value="21000000"
                         />
@@ -2742,366 +2048,12 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
                   <View"
 `;
 
-exports[`SendBitcoin should should the help popup when clicking on the questionmark in the header 1`] = `
-<View
-  style={
-    {
-      "borderRadius": 16,
-      "marginLeft": 12,
-      "marginRight": 12,
-      "overflow": "hidden",
-    }
-  }
->
-  <View
-    accessibilityState={
-      {
-        "busy": undefined,
-        "checked": undefined,
-        "disabled": undefined,
-        "expanded": undefined,
-        "selected": undefined,
-      }
-    }
-    accessibilityValue={
-      {
-        "max": undefined,
-        "min": undefined,
-        "now": undefined,
-        "text": undefined,
-      }
-    }
-    accessible={true}
-    collapsable={false}
-    focusable={true}
-    onBlur={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      [
-        {
-          "alignItems": "stretch",
-          "backgroundColor": "#FEEDE5",
-          "gap": 12,
-          "paddingBottom": 24,
-          "paddingLeft": 24,
-          "paddingRight": 24,
-          "paddingTop": 16,
-        },
-        [
-          {
-            "backgroundColor": "#D7F2FE",
-          },
-          {
-            "alignItems": "stretch",
-          },
-        ],
-      ]
-    }
-  >
-    <Text
-      allowFontScaling={false}
-      style={
-        [
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
-          },
-          {
-            "fontFamily": "Baloo2-Bold",
-            "fontSize": 24,
-            "letterSpacing": 0.24,
-            "lineHeight": 32,
-            "width": "100%",
-          },
-          false,
-        ]
-      }
-    >
-      sending funds
-    </Text>
-    <Text
-      allowFontScaling={false}
-      style={
-        [
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
-          },
-          undefined,
-          false,
-        ]
-      }
-    >
-      <Text
-        style={
-          [
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              undefined,
-              false,
-            ],
-            undefined,
-          ]
-        }
-      >
-        Here you can send the contents of your Peach wallet to another wallet of your choosing, for example a hardware wallet for extra security.
-
-Peach recommends the 
-      </Text>
-      <Text
-        onPress={[Function]}
-        style={
-          [
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              undefined,
-              false,
-            ],
-            {
-              "textDecorationLine": "underline",
-            },
-          ]
-        }
-      >
-        BitBox hardware wallet
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              undefined,
-              false,
-            ],
-            undefined,
-          ]
-        }
-      >
-         for secure storage.
-      </Text>
-    </Text>
-  </View>
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "alignSelf": "stretch",
-          "backgroundColor": "#F56522",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        },
-        {
-          "backgroundColor": "#099DE2",
-        },
-      ]
-    }
-  >
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "gap": 4,
-          "opacity": 1,
-          "paddingBottom": 8,
-          "paddingLeft": 24,
-          "paddingRight": 24,
-          "paddingTop": 8,
-        }
-      }
-    >
-      <test-file-stub
-        fill="#FFFCFA"
-        style={
-          [
-            {
-              "height": 16,
-              "width": 16,
-            },
-            undefined,
-          ]
-        }
-      />
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            [
-              {
-                "color": "#FFFCFA",
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 28,
-              },
-              undefined,
-            ],
-            false,
-          ]
-        }
-      >
-        help
-      </Text>
-    </View>
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row-reverse",
-          "flexGrow": 1,
-          "gap": 4,
-          "opacity": 1,
-          "paddingBottom": 8,
-          "paddingLeft": 24,
-          "paddingRight": 24,
-          "paddingTop": 8,
-        }
-      }
-    >
-      <test-file-stub
-        fill="#FFFCFA"
-        style={
-          [
-            {
-              "height": 16,
-              "width": 16,
-            },
-            undefined,
-          ]
-        }
-      />
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            [
-              {
-                "color": "#FFFCFA",
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 28,
-              },
-              undefined,
-            ],
-            false,
-          ]
-        }
-      >
-        close
-      </Text>
-    </View>
-  </View>
-</View>
-`;
-
 exports[`SendBitcoin should update the address on change 1`] = `
 "Snapshot Diff:
 - First value
 + Second value
 
-@@ -415,11 +415,11 @@
+@@ -413,22 +413,22 @@
                                   "paddingBottom": 0,
                                   "paddingTop": 0,
                                   "width": "100%",
@@ -3114,8 +2066,7 @@ exports[`SendBitcoin should update the address on change 1`] = `
                                 Object {
                                   "borderColor": "transparent",
                                   "borderWidth": 1,
-@@ -427,11 +427,11 @@
-                                false,
+                                },
                                 false,
                               ]
                             }
@@ -3126,7 +2077,7 @@ exports[`SendBitcoin should update the address on change 1`] = `
                           <View
                             style={
                               Object {
-                                "display": "flex","
+                                "flexDirection": "row","
 `;
 
 exports[`SendBitcoin should update the amount on change 1`] = `
@@ -3134,104 +2085,38 @@ exports[`SendBitcoin should update the amount on change 1`] = `
 - First value
 + Second value
 
-@@ -1063,19 +1063,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 1
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -1097,11 +1097,11 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -7.699999999999999,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-@@ -1131,19 +1131,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 2
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -1165,19 +1165,19 @@
-                                            "fontSize": 22,
-                                            "lineHeight": 29,
-                                          },
-                                        ],
-                                        Object {
--                                         "color": "#2B19111A",
-+                                         "color": "#2B1911",
-                                          "letterSpacing": -1.65,
-                                        },
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 3
-                                </Text>
-                                <Text
-                                  allowFontScaling={false}
-                                  style={
-                                    Array [
-@@ -1207,11 +1207,11 @@
-                                      ],
-                                      false,
-                                    ]
-                                  }
-                                >
--                                 0
-+                                 4
-                                </Text>
+@@ -802,11 +802,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0.00 000 00
++                               0.00 00
                               </Text>
-                              <View
+                              <Text
+                                allowFontScaling={false}
                                 style={
-                                  Object {
-@@ -1268,11 +1268,11 @@
+                                  Array [
+@@ -835,11 +835,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0
++                               1 234
+                              </Text>
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+@@ -886,11 +886,11 @@
+                              "paddingTop": 0,
                               "position": "absolute",
                               "width": "100%",
                             }
                           }
-                          testID="btc-amount-input"
 -                         value="0"
 +                         value="1234"
                         />
@@ -3246,7 +2131,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
 - First value
 + Second value
 
-@@ -1369,11 +1369,11 @@
+@@ -988,11 +988,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -3259,7 +2144,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "justifyContent": "space-between",
                               "opacity": 1,
-@@ -1444,11 +1444,11 @@
+@@ -1063,11 +1063,11 @@
                                 </Text>
                               </Text>
                             </View>
@@ -3272,7 +2157,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                                 Object {
                                   "height": 24,
                                   "width": 24,
-@@ -1491,11 +1491,11 @@
+@@ -1110,11 +1110,11 @@
                           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                           style={
                             Object {
@@ -3285,7 +2170,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                               "flexDirection": "row",
                               "justifyContent": "space-between",
                               "opacity": 1,
-@@ -1566,11 +1566,11 @@
+@@ -1185,11 +1185,11 @@
                                 </Text>
                               </Text>
                             </View>

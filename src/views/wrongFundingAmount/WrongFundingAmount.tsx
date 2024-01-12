@@ -3,7 +3,7 @@ import { Divider } from '../../components/Divider'
 import { Header } from '../../components/Header'
 import { Icon } from '../../components/Icon'
 import { Screen } from '../../components/Screen'
-import { BTCAmount } from '../../components/bitcoin/btcAmount/BTCAmount'
+import { BTCAmount } from '../../components/bitcoin/BTCAmount'
 import { RefundEscrowSlider } from '../../components/offer/RefundEscrowSlider'
 import { PeachText } from '../../components/text/PeachText'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
@@ -64,7 +64,7 @@ type LabelAndAmountProps = {
 function LabelAndAmount ({ label, amount }: LabelAndAmountProps) {
   return (
     <View style={tw`flex-row`}>
-      <PeachText style={tw`w-20 text-black-3`}>{label}</PeachText>
+      <PeachText style={tw`w-20 text-black-50`}>{label}</PeachText>
       <BTCAmount amount={amount} size="small" />
     </View>
   )

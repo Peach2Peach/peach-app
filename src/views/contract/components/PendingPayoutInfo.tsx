@@ -1,13 +1,15 @@
 import { View } from 'react-native'
+import { useSetPopup } from '../../../components/popup/Popup'
 import { AddressSummaryItem, TextSummaryItem, TimerSummaryItem } from '../../../components/summaryItem'
-import { useShowHelp } from '../../../hooks/useShowHelp'
+import { HelpPopup } from '../../../hooks/HelpPopup'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useContractContext } from '../context'
 
 export const PendingPayoutInfo = () => {
   const { releaseAddress, batchInfo } = useContractContext().contract
-  const showHelp = useShowHelp('payoutPending')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="payoutPending" />)
   const etaProps = {
     title: i18n('batching.eta'),
     iconId: 'helpCircle' as const,

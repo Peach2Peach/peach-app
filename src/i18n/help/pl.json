@@ -1,5 +1,7 @@
 {
   "help" : "pomoc",
+  "help.acceptMatch.description" : "Możesz dopasować tylko jednego kupującego do jednej oferty. Po zaakceptowaniu dopasowania, handel się rozpoczyna. Po rozpoczęciu możesz jedynie wspólnie z kupującym anulować transakcję, w przeciwnym razie Twoja reputacja ucierpi.",
+  "help.acceptMatch.title" : "zaakceptuj dopasowanie = rozpocznij tramsakcję",
   "help.addressSigning.description" : "Szwajcarskie prawo wymaga wygenerowania podpisu potwierdzającego, że jesteś właścicielem adresu, na który zostanie przelana transakcja. Jeżeli nie wiesz jak to zrobić, polecamy użyć portfela Peach, który nie wymaga wykonywania tego kroku ręcznie.",
   "help.addressSigning.title" : "podpisywanie adresu",
   "help.buyingBitcoin.description" : "Kupując bitcoiny na Peach, najpierw wybierzesz zakres, ile chcesz kupić. Po wyborze zostaną Ci pokazane wszystkie oferty sprzedaży, które mieszczą się w tym zakresie. Opłaty Peach wynoszą 2% od kwoty transakcji.",
@@ -8,8 +10,8 @@
   "help.confirmPayment.description" : "Gdy przesuniesz suwak \"płatność otrzymana\", bitcoin zostanie wysłany do kupującego. Upewnij się, że wszystko jest w porządku, ponieważ tej operacji nie można cofnąć!",
   "help.confirmPayment.title" : "płatność otrzymana?",
   "help.contactEncryption.description" : "W celu zarządzania przychodzącymi prośbami używamy systemu zgłoszeń o nazwie Zammad. Jeśli wolisz korzystać z zaszyfrowanej komunikacji, proszę wyślij do nas e-mail pod adres support@peachbitcoin.com.",
-  "help.currency.description" : "Jeśli twój portfel internetowy może przyjmować wiele walut i dokonywać dla ciebie konwersji, możesz tutaj wybrać dowolne waluty, które możesz otrzymać.",
-  "help.currency.title" : "akceptowane waluty",
+  "help.currencies.description" : "Jeśli twój portfel internetowy może przyjmować wiele walut i dokonywać dla ciebie konwersji, możesz tutaj wybrać dowolne waluty, które możesz otrzymać.",
+  "help.currencies.title" : "akceptowane waluty",
   "help.escrow.description" : "Kiedy dokonujesz transakcji na Peach, z góry finansujesz depozyt. To zabezpiecza zarówno ciebie, jak i kupującego. Możesz przeczytać więcej o depozycie tutaj. Twoja oferta zostanie opublikowana po jednym potwierdzeniu sieci. W oczekiwaniu na to, możesz zamknąć aplikację.",
   "help.escrow.description.link" : "tutaj",
   "help.escrow.description.proTip" : "Możesz nacisnąć i przytrzymać kod QR, aby skopiować pełne żądanie zapłaty.",

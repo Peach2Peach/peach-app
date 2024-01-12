@@ -8,9 +8,8 @@ describe('storeIdentity', () => {
     setAccount(defaultAccount)
   })
 
-  it('would store identity', async () => {
+  it('should store identity', async () => {
     await storeIdentity(account1)
-    expect(accountStorage.setStringAsync).toHaveBeenCalledWith('publicKey', account1.publicKey)
     expect(accountStorage.setMapAsync).toHaveBeenCalledWith('identity', {
       publicKey: account1.publicKey,
       privKey: account1.privKey,

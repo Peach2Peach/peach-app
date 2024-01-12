@@ -5,8 +5,8 @@ import { useIsMediumScreen } from '../../hooks/useIsMediumScreen'
 import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useOfferMatches } from '../../views/search/hooks'
-import { BTCAmount } from '../bitcoin/btcAmount/BTCAmount'
+import { useOfferMatches } from '../../views/search/hooks/useOfferMatches'
+import { BTCAmount } from '../bitcoin/BTCAmount'
 import { PeachText } from '../text/PeachText'
 import { Match } from './Match'
 import { getPremiumColor } from './utils/getPremiumColor'
@@ -56,7 +56,7 @@ function MatchInformation ({ offer }: { offer: SellOffer }) {
       <PeachText style={tw`text-center h4 text-primary-main`}>
         {i18n(`search.youGot${matches.length === 1 ? 'AMatch' : 'Matches'}`)}
       </PeachText>
-      <PeachText style={tw`text-center body-l text-black-2`}>{i18n('search.sellOffer')}:</PeachText>
+      <PeachText style={tw`text-center body-l text-black-65`}>{i18n('search.sellOffer')}:</PeachText>
       <View style={tw`flex-row items-center justify-center`}>
         <BTCAmount amount={offer.amount} size="medium" />
         {offer.premium !== undefined && (

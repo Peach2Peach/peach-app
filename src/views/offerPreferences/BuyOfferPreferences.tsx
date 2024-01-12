@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { Button } from '../../components/buttons/Button'
-import { useShowHelp } from '../../hooks/useShowHelp'
+import { useSetPopup } from '../../components/popup/Popup'
+import { HelpPopup } from '../../hooks/HelpPopup'
+import { useNavigation } from '../../hooks/useNavigation'
 import { useOfferPreferences } from '../../store/offerPreferenes'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { interpolate } from '../../utils/math/interpolate'
 import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
+import { PayoutWalletSelector } from './PayoutWalletSelector'
+import { ShowOffersButton } from './ShowOffersButton'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
 import { BuyBitcoinHeader } from './components/BuyBitcoinHeader'
 import { FilterContainer } from './components/FilterContainer'
@@ -24,17 +26,46 @@ export function BuyOfferPreferences () {
   const [isSliding, setIsSliding] = useState(false)
 
   return (
-    <PreferenceScreen isSliding={isSliding} header={<PreferenceHeader />} button={<ShowOffersButton />}>
+    <PreferenceScreen isSliding={isSliding} header={<PreferenceHeader />} button={<PublishOfferButton />}>
       <PreferenceMarketInfo />
       <PreferenceMethods type="buy" />
       <AmountSelector setIsSliding={setIsSliding} />
       <Filters />
+      <PreferenceWalletSelector />
     </PreferenceScreen>
   )
 }
 
+function PreferenceWalletSelector () {
+  const [payoutToPeachWallet, payoutAddress, payoutAddressLabel, setPayoutToPeachWallet] = useSettingsStore(
+    (state) => [state.payoutToPeachWallet, state.payoutAddress, state.payoutAddressLabel, state.setPayoutToPeachWallet],
+    shallow,
+  )
+  const navigation = useNavigation()
+
+  const onExternalWalletPress = () => {
+    if (payoutAddress) {
+      setPayoutToPeachWallet(false)
+    } else {
+      navigation.navigate('payoutAddress')
+    }
+  }
+
+  const onPeachWalletPress = () => setPayoutToPeachWallet(true)
+  return (
+    <PayoutWalletSelector
+      peachWalletSelected={payoutToPeachWallet}
+      customAddress={payoutAddress}
+      customAddressLabel={payoutAddressLabel}
+      onPeachWalletPress={onPeachWalletPress}
+      onExternalWalletPress={onExternalWalletPress}
+    />
+  )
+}
+
 function PreferenceHeader () {
-  const showHelp = useShowHelp('buyingBitcoin')
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="buyingBitcoin" />)
   return <BuyBitcoinHeader icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }
 
@@ -103,7 +134,7 @@ function MaxPremiumFilter () {
   )
 }
 
-function ShowOffersButton () {
+function PublishOfferButton () {
   const { amount, meansOfPayment, paymentData, maxPremium, minReputation } = useOfferPreferences(
     (state) => ({
       amount: state.buyAmountRange,
@@ -135,17 +166,5 @@ function ShowOffersButton () {
     minReputation,
   })
 
-  const onPress = () => {
-    publishOffer()
-  }
-  return (
-    <Button
-      style={tw`self-center px-5 py-3 bg-success-main min-w-166px`}
-      onPress={onPress}
-      disabled={!formValid}
-      loading={isPublishing}
-    >
-      {i18n('offerPreferences.showOffers')}
-    </Button>
-  )
+  return <ShowOffersButton onPress={() => publishOffer()} disabled={!formValid} loading={isPublishing} />
 }

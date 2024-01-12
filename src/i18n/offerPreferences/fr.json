@@ -1,7 +1,7 @@
 {
-  "help.fundMultiple.text" : "Pour économiser sur les frais de réseau, vous pouvez créer plusieurs offres de vente avec une seule transaction !",
+  "help.fundMultiple.description" : "Pour économiser sur les frais de réseau, vous pouvez créer plusieurs offres de vente avec une seule transaction !",
   "help.fundMultiple.title" : "financer plusieurs offres de vente",
-  "help.instantTrade.text" : "Autorisez un acheteur correspondant à votre offre de vente à entrer automatiquement dans une transaction avec vous !\n\nPour activer cette fonctionnalité, Peach recevra vos données de paiement sélectionnées pour les partager instantanément avec un acheteur qui correspond à tous vos critères.\n\nCes données sont cryptées et ne peuvent pas être lues par des tiers autres que Peach.",
+  "help.instantTrade.description" : "Autorisez un acheteur correspondant à votre offre de vente à entrer automatiquement dans une transaction avec vous !\n\nPour activer cette fonctionnalité, Peach recevra vos données de paiement sélectionnées pour les partager instantanément avec un acheteur qui correspond à tous vos critères.\n\nCes données sont cryptées et ne peuvent pas être lues par des tiers autres que Peach.",
   "help.instantTrade.title" : "commerce instantané",
   "matchDetails.action.instantTrade" : "commerce instantané",
   "matchDetails.action.missingSelection" : "sélectionner le moyen de paiement",
@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "financer l'entiercement",
   "offerPreferences.fundWithPeachWallet" : "financer avec le portefeuille Peach ($0 sats/vb)",
   "offerPreferences.instantTrade" : "commerce instantané",
+  "offerPreferences.payoutTo" : "payer à :",
   "offerPreferences.premiumOfCompletedTrades" : "prime des transactions achevées : $0%",
   "offerPreferences.refundTo" : "remboursement à :",
   "offerPreferences.sellOffers" : "$0 offres de vente",

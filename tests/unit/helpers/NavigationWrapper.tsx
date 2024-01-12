@@ -1,4 +1,4 @@
-import { NavigationContext, NavigationState } from '@react-navigation/native'
+import { NavigationContext, NavigationRouteContext, NavigationState } from '@react-navigation/native'
 
 export const navigateMock = jest.fn()
 export const replaceMock = jest.fn()
@@ -12,11 +12,11 @@ const unsubscribeMock = jest.fn()
 const addListenerMock = jest.fn(() => unsubscribeMock)
 const setOptionsMock = jest.fn()
 export const getStateMock = jest.fn(
-  (): NavigationState => ({
+  (): NavigationState<RootStackParamList> => ({
     routes: [
       {
-        key: 'origin',
-        name: 'origin',
+        key: 'homeScreen',
+        name: 'homeScreen',
       },
       {
         key: 'meetupScreen',
@@ -52,6 +52,41 @@ export const navigationMock = {
   getParent: getParentMock,
   removeListener: removeListenerMock,
 }
+
+type RouteMock<T extends keyof RootStackParamList = 'homeScreen'> = {
+  key: string
+  name: T
+  path?: string
+} & (undefined extends RootStackParamList[T]
+  ? {
+      params?: RootStackParamList[T]
+    }
+  : {
+      params: RootStackParamList[T]
+    })
+
+export let routeMock: RouteMock<keyof RootStackParamList> = {
+  key: 'homeScreen',
+  name: 'homeScreen',
+  params: {
+    screen: 'home',
+  },
+}
+export const setRouteMock = <T extends keyof RootStackParamList = 'homeScreen'>(route: RouteMock<T>) => {
+  routeMock = route
+}
+
 export const NavigationWrapper = ({ children }: { children: React.ReactNode }) => (
-  <NavigationContext.Provider value={navigationMock}>{children}</NavigationContext.Provider>
+  <NavigationContext.Provider value={navigationMock}>
+    <NavigationRouteContext.Provider value={routeMock}>{children}</NavigationRouteContext.Provider>
+  </NavigationContext.Provider>
 )
+
+export const meetupScreenRoute: RouteMock<'meetupScreen'> = {
+  key: 'meetupScreen',
+  name: 'meetupScreen',
+  params: {
+    eventId: 'pt.porto.portugal-norte-bitcoin',
+    origin: 'matchDetails',
+  },
+}

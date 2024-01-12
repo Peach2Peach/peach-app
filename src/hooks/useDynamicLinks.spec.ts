@@ -15,6 +15,7 @@ jest.spyOn(Linking, 'addEventListener').mockImplementation((type, cb) => {
 
 const dynamicLink = 'https://peachbitcoin.page.link/?link=https%3A%2F%2Fpeachbitcoin.com%2Freferral%3Fcode%3DSATOSHI'
 const getInitialURLSpy = jest.spyOn(Linking, 'getInitialURL').mockResolvedValue(dynamicLink)
+jest.useFakeTimers()
 
 describe('useDynamicLinks', () => {
   beforeEach(() => {

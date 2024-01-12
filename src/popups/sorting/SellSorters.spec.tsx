@@ -2,10 +2,14 @@ import { fireEvent, render, waitFor } from 'test-utils'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useOfferPreferences } from '../../store/offerPreferenes'
-import { usePopupStore } from '../../store/usePopupStore'
 import { SellSorters } from './SellSorters'
 
 jest.useFakeTimers()
+
+const closePopup = jest.fn()
+jest.mock('../../components/popup/Popup', () => ({
+  useClosePopup: () => closePopup,
+}))
 
 describe('SellSorters', () => {
   it('should render correctly', () => {
@@ -48,6 +52,6 @@ describe('ApplySellSorterAction', () => {
     const applyButton = getByText('apply')
 
     fireEvent.press(applyButton)
-    expect(usePopupStore.getState().visible).toBe(false)
+    expect(closePopup).toHaveBeenCalled()
   })
 })

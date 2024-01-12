@@ -1,7 +1,8 @@
 import analytics from '@react-native-firebase/analytics'
 import { userUpdate } from '../../init/userUpdate'
-import { useSettingsStore } from '../../store/settingsStore'
-import { error, info } from '../log'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
+import { error } from '../log/error'
+import { info } from '../log/info'
 import { peachAPI } from '../peachAPI'
 import { updateAccount } from './updateAccount'
 

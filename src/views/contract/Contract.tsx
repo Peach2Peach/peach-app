@@ -1,12 +1,13 @@
 import { Screen } from '../../components/Screen'
 import tw from '../../styles/tailwind'
 
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Header, HeaderIcon } from '../../components/Header'
 import { PeachScrollView } from '../../components/PeachScrollView'
-import { useShowHelp } from '../../hooks/useShowHelp'
+import { useSetPopup } from '../../components/popup/Popup'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useToggleBoolean } from '../../hooks/useToggleBoolean'
-import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
+import { ConfirmTradeCancelationPopup } from '../../popups/tradeCancelation/ConfirmTradeCancelationPopup'
 import { canCancelContract } from '../../utils/contract/canCancelContract'
 import { contractIdToHex } from '../../utils/contract/contractIdToHex'
 import { getRequiredAction } from '../../utils/contract/getRequiredAction'
@@ -53,9 +54,13 @@ function ContractHeader () {
   const { contract, view } = useContractContext()
   const { tradeStatus, disputeActive, canceled, disputeWinner, releaseTxId, batchInfo, amount, premium } = contract
   const requiredAction = getRequiredAction(contract)
-  const showConfirmPopup = useConfirmCancelTrade()
-  const showMakePaymentHelp = useShowHelp('makePayment')
-  const showConfirmPaymentHelp = useShowHelp('confirmPayment')
+  const setPopup = useSetPopup()
+  const showConfirmPopup = useCallback(
+    () => setPopup(<ConfirmTradeCancelationPopup contract={contract} view={view} />),
+    [contract, setPopup, view],
+  )
+  const showMakePaymentHelp = useCallback(() => setPopup(<HelpPopup id="makePayment" />), [setPopup])
+  const showConfirmPaymentHelp = useCallback(() => setPopup(<HelpPopup id="confirmPayment" />), [setPopup])
 
   const memoizedIcons = useMemo(() => {
     const icons: HeaderIcon[] = []
@@ -63,7 +68,7 @@ function ContractHeader () {
 
     if (canCancelContract(contract, view)) icons.push({
       ...headerIcons.cancel,
-      onPress: () => showConfirmPopup(contract),
+      onPress: showConfirmPopup,
     })
     if (view === 'buyer' && requiredAction === 'sendPayment') icons.push({
       ...headerIcons.help,

@@ -3,11 +3,12 @@ import { Header } from '../../components/Header'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { OptionButton } from '../../components/buttons/OptionButton'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { LinedText } from '../../components/ui/LinedText'
 import { DISCORD, TELEGRAM } from '../../constants'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useNavigation } from '../../hooks/useNavigation'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
 import { useAccountStore } from '../../utils/account/account'
 import i18n from '../../utils/i18n'
@@ -21,10 +22,15 @@ const openDiscord = () => openURL(DISCORD)
 
 export const Contact = () => {
   const navigation = useNavigation()
+  const setPopup = useSetPopup()
+  const showHelp = () => setPopup(<HelpPopup id="contactEncryption" showTitle={false} />)
 
-  const showHelp = useShowHelp('contactEncryption', false)
   const goToReport = (reason: ContactReason) => {
-    navigation.navigate('report', { reason, shareDeviceID: reason === 'accountLost' })
+    navigation.navigate('report', {
+      reason,
+      shareDeviceID: reason === 'accountLost',
+      topic: i18n(`contact.reason.${reason}`),
+    })
   }
   const publicKey = useAccountStore((state) => state.account.publicKey)
   const contactReasons = publicKey ? contactReasonsWithAccount : contactReasonsNoAccount
@@ -34,7 +40,7 @@ export const Contact = () => {
       <PeachScrollView contentContainerStyle={tw`justify-center grow`} contentStyle={tw`gap-12`}>
         <View style={tw`w-full gap-4`}>
           <LinedText>
-            <PeachText style={tw`text-black-2`}>{i18n('report.mailUs')}</PeachText>
+            <PeachText style={tw`text-black-65`}>{i18n('report.mailUs')}</PeachText>
           </LinedText>
           <>
             {contactReasons.map((reason) => (
@@ -44,7 +50,7 @@ export const Contact = () => {
         </View>
         <View style={tw`w-full gap-4`}>
           <LinedText>
-            <PeachText style={tw`text-black-2`}>{i18n('report.communityHelp')}</PeachText>
+            <PeachText style={tw`text-black-65`}>{i18n('report.communityHelp')}</PeachText>
           </LinedText>
           <OptionButton onPress={openTelegram}>{i18n('telegram')}</OptionButton>
           <OptionButton onPress={openDiscord}>{i18n('discord')}</OptionButton>

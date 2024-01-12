@@ -62,8 +62,8 @@ export const LetsGetStarted = () => {
                 theme="inverted"
                 maxLength={16}
                 placeholder={i18n('form.optional').toUpperCase()}
-                onChange={updateReferralCode}
-                onSubmit={updateReferralCode}
+                onChangeText={updateReferralCode}
+                onSubmitEditing={(e) => updateReferralCode(e.nativeEvent.text)}
                 value={referralCode}
                 autoCapitalize="characters"
               />

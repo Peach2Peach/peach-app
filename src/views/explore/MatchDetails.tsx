@@ -9,8 +9,7 @@ import { PeachyGradient } from '../../components/PeachyGradient'
 import { ProfileInfo } from '../../components/ProfileInfo'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
-import { ConfirmSlider } from '../../components/inputs'
-import { UnlockedSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
+import { ConfirmSlider, UnlockedSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
 import { UnmatchButton } from '../../components/matches/buttons/UnmatchButton'
 import { options } from '../../components/matches/buttons/options'
 import { EscrowLink } from '../../components/matches/components/EscrowLink'
@@ -125,7 +124,7 @@ function Match ({ match, offer }: { match: MatchType; offer: BuyOffer }) {
           onStartShouldSetResponder={() => true}
         >
           <View style={tw`bg-primary-background-light rounded-xl`}>
-            <View style={tw`gap-4 p-4`}>
+            <View style={tw`gap-2 p-4 md:gap-4`}>
               <ProfileInfo user={match.user} isOnMatchCard />
 
               <HorizontalLine />
@@ -231,7 +230,7 @@ function MatchOfferButton ({ matchOffer, optionName, setShowPaymentMethodPulse }
         tw`flex-row items-center self-center justify-center py-2 gap-10px`,
         tw`bg-success-main`,
         optionName === 'missingSelection' && tw`bg-success-mild-2`,
-        optionName === 'tradingLimitReached' && tw`bg-black-3`,
+        optionName === 'tradingLimitReached' && tw`bg-black-50`,
       ]}
       onPress={onPress}
     >

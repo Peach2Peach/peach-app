@@ -1,6 +1,7 @@
 import { LocalUtxo } from 'bdk-rn/lib/classes/Bindings'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { OfferSummary } from '../../peach-api/src/@types/offer'
 import { MSINAMINUTE } from '../constants'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { estimateTransactionSize } from '../utils/bitcoin/estimateTransactionSize'
@@ -29,12 +30,8 @@ const getSellOffersByAddress = (fundMultipleMap: Record<string, string[]>, addre
 
   return sellOffers
 }
-const canFundSellOffers = (sellOffers: SellOffer[], offers: OfferSummary[]) => {
-  const sellOfferIds = sellOffers.map((offer) => offer.id)
-  if (sellOfferIds.length === 0) return false
-
-  return offers.every((offer) => !offer.fundingTxId)
-}
+const canFundSellOffers = (sellOffers: SellOffer[], offers: OfferSummary[]) =>
+  offers.every((offer) => !offer.fundingTxId)
 
 const getEscrowAddresses = (sellOffers: SellOffer[]) => sellOffers.map((offr) => offr.escrow).filter(isDefined)
 
@@ -51,6 +48,8 @@ export const useCheckFundingMultipleEscrows = () => {
   const checkAddress = useCallback(
     async (address: string) => {
       const sellOffers = getSellOffersByAddress(fundMultipleMap, address)
+
+      if (sellOffers.length === 0) return
 
       if (!canFundSellOffers(sellOffers, offerSummaries)) {
         unregisterFundMultiple(address)

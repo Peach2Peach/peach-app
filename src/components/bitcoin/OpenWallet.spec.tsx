@@ -11,13 +11,13 @@ describe('OpenWallet', () => {
 
   it('should call openInWallet with address', () => {
     const { getByText } = render(<OpenWallet {...{ address }} />)
-    const textElement = getByText('open wallet app')
+    const textElement = getByText('open external wallet app')
     fireEvent.press(textElement)
     expect(openInWallet).toHaveBeenCalledWith(`bitcoin:${address}`)
   })
   it('should call openInWallet without address', () => {
     const { getByText } = render(<OpenWallet />)
-    const textElement = getByText('open wallet app')
+    const textElement = getByText('open external wallet app')
     fireEvent.press(textElement)
     expect(openInWallet).toHaveBeenCalledWith('bitcoin:')
   })

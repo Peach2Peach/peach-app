@@ -1,5 +1,7 @@
 {
   "help" : "msaada",
+  "help.acceptMatch.description" : "Unaweza kulinganisha mnunuzi mmoja tu kwa kila ofa. Mara tu unapokubali kulinganisha, biashara inaanza.\n\nMara baada ya kuanza, unaweza kufuta kwa kushirikiana na mnunuzi wako tu, na sifa yako itaathirika vibaya.",
+  "help.acceptMatch.title" : "kubali kulinganisha = anzisha biashara",
   "help.addressSigning.description" : "Kwa sababu ya sheria za Uswisi, utahitaji kusaini ili kuthibitisha kuwa una umiliki wa anwani ambayo biashara italipwa.\n\nIkiwa hujui jinsi hii inavyofanya kazi, tunapendekeza kutumia mkoba wa Peach, ambapo hauitaji kwenda kwa hatua hii kwa mkono.",
   "help.addressSigning.title" : "kusaini anwani",
   "help.buyingBitcoin.description" : "Unaponunua bitcoin kwenye Peach, kwanza utachagua kiasi cha bitcoin unachotaka kununua.\n\nBaada ya kuchagua, utaonyeshwa ofa zote za kuuza ambazo zinafaa kwenye kipimo hicho.\n\nAda za Peach ni 2% ya kiasi cha biashara.",
@@ -8,8 +10,8 @@
   "help.confirmPayment.description" : "Mara tu unapowasha kitufe cha \"malipo yamepokelewa\", bitcoin itatumwa kwa mnunuzi.\n\nHakikisha kila kitu kiko sahihi, kwa sababu hii haiwezi kufutwa!",
   "help.confirmPayment.title" : "malipo yamepokelewa?",
   "help.contactEncryption.description" : "Tunatumia mfumo wa tiketi wa mtu wa tatu unaoitwa Zammad kusimamia maombi yanayoingia. Ikiwa unapendelea kutumia mawasiliano yaliyosimbwa kwa njia fiche, tafadhali tutumie barua pepe kwa support@peachbitcoin.com",
-  "help.currency.description" : "Ikiwa mkoba wako wa mtandaoni unaweza kupokea sarafu nyingi na kufanya ubadilishaji kwa niaba yako, unaweza kuchagua sarafu yoyote unayoweza kupokea hapa.",
-  "help.currency.title" : "sarafu zinazokubalika",
+  "help.currencies.description" : "Ikiwa mkoba wako wa mtandaoni unaweza kupokea sarafu nyingi na kufanya ubadilishaji kwa niaba yako, unaweza kuchagua sarafu yoyote unayoweza kupokea hapa.",
+  "help.currencies.title" : "sarafu zinazokubalika",
   "help.escrow.description" : "Unaweza kufadhili kabla escrow unapofanya biashara kwenye Peach. Hii inalinda wewe na mnunuzi. Unaweza kusoma zaidi kuhusu escrow hapa.\n\nOmbi lako litachapishwa baada ya uthibitisho wa mtandao mmoja. Unaweza kufunga programu wakati unasubiri hii.",
   "help.escrow.description.link" : "hapa",
   "help.escrow.description.proTip" : "Unaweza kubofya muda mrefu kwenye nambari ya QR ili kunakili ombi la malipo kamili.",

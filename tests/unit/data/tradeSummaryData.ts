@@ -1,3 +1,6 @@
+import { ContractSummary } from '../../../peach-api/src/@types/contract'
+import { OfferSummary } from '../../../peach-api/src/@types/offer'
+
 export const tradeSummary: OfferSummary | ContractSummary = {
   amount: 50000,
   creationDate: new Date('2023-01-01'),

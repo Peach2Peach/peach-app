@@ -3,6 +3,16 @@
 exports[`CurrencyTabs should render correctly 1`] = `
 <MaterialTopTabNavigator
   initialRouteName="europe"
+  sceneContainerStyle={
+    [
+      {
+        "paddingBottom": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+      },
+      {},
+    ]
+  }
   screenListeners={
     {
       "focus": [Function],
@@ -17,21 +27,29 @@ exports[`CurrencyTabs should render correctly 1`] = `
         "backgroundColor": "#2B1911",
       },
       "tabBarItemStyle": {
+        "paddingBottom": 0,
         "paddingLeft": 0,
         "paddingRight": 0,
+        "paddingTop": 0,
       },
       "tabBarLabelStyle": {
-        "fontFamily": "Baloo2-Bold",
+        "fontFamily": "Baloo2-Regular",
         "fontSize": 16,
+        "fontWeight": "bold",
         "letterSpacing": 0.16,
         "lineHeight": 23,
         "textTransform": "capitalize",
       },
       "tabBarPressColor": "transparent",
       "tabBarScrollEnabled": true,
-      "tabBarStyle": {
-        "backgroundColor": "transparent",
-      },
+      "tabBarStyle": [
+        {
+          "backgroundColor": "transparent",
+          "marginLeft": 8,
+          "marginRight": 8,
+        },
+        {},
+      ],
     }
   }
 >

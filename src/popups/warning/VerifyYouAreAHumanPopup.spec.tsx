@@ -1,7 +1,7 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import ShallowRenderer from 'react-test-renderer/shallow'
-import { useSettingsStore } from '../../store/settingsStore'
-import { usePopupStore } from '../../store/usePopupStore'
+import { fireEvent, render } from 'test-utils'
+import { Popup } from '../../components/popup/Popup'
+import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import { VerifyYouAreAHuman, VerifyYouAreAHumanPopup } from './VerifyYouAreAHumanPopup'
 
 const renderer = ShallowRenderer.createRenderer()
@@ -22,13 +22,16 @@ describe('VerifyYouAreAHumanPopup', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('shows challenge popup', () => {
-    const { getByText } = render(<VerifyYouAreAHumanPopup />)
+    const { getByText, UNSAFE_queryByType } = render(
+      <>
+        <VerifyYouAreAHumanPopup />
+        <Popup />
+      </>,
+    )
+
     fireEvent.press(getByText('verify'))
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      visible: true,
-      popupComponent: <VerifyYouAreAHuman />,
-    })
+
+    expect(UNSAFE_queryByType(VerifyYouAreAHuman)).toBeTruthy()
   })
 })
 describe('VerifyYouAreAHuman', () => {

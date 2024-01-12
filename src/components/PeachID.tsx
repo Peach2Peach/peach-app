@@ -18,7 +18,7 @@ export function PeachID ({ id, copyable = false }: Props) {
   const copyRef = useRef<CopyAbleRef>(null)
 
   const icon = copyable ? (
-    <CopyAble value={id} ref={copyRef} style={tw`w-3 h-3`} textPosition="right" />
+    <CopyAble value={peachId} ref={copyRef} style={tw`w-3 h-3`} textPosition="right" />
   ) : (
     <Icon id="info" size={12} color={tw.color('primary-main')} />
   )
@@ -31,7 +31,7 @@ export function PeachID ({ id, copyable = false }: Props) {
       <InfoContainer
         text={peachId}
         backgroundColor={tw.color('primary-background-dark')}
-        textColor={tw.color('black-1')}
+        textColor={tw.color('black-100')}
         icon={icon}
       />
     </TouchableOpacity>

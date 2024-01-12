@@ -1,6 +1,10 @@
-/* eslint-disable max-lines */
 import { act, renderHook } from 'test-utils'
-import { getStateMock, goBackMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import {
+  getStateMock,
+  goBackMock,
+  meetupScreenRoute,
+  setRouteMock,
+} from '../../../../tests/unit/helpers/NavigationWrapper'
 import { setPaymentMethods } from '../../../paymentMethods'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
@@ -8,22 +12,11 @@ import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { defaultPaymentDataStore } from '../../../store/usePaymentDataStore/usePaymentDataStore'
 import { useMeetupScreenSetup } from './useMeetupScreenSetup'
 
-const useRouteMock = jest.fn(() => ({
-  params: {
-    eventId: '123',
-    deletable: true,
-    origin: 'origin',
-  },
-}))
-jest.mock('../../../hooks/useRoute', () => ({
-  useRoute: () => useRouteMock(),
-}))
-
 getStateMock.mockReturnValue({
   routes: [
     {
-      name: 'origin',
-      key: 'origin',
+      name: 'matchDetails',
+      key: 'matchDetails',
     },
     {
       key: 'meetupScreen',
@@ -32,7 +25,7 @@ getStateMock.mockReturnValue({
   ],
   index: 1,
   key: 'key',
-  routeNames: ['origin', 'meetupScreen'],
+  routeNames: ['matchDetails', 'meetupScreen'],
   type: 'stack',
   stale: false,
 })
@@ -49,6 +42,9 @@ const defaultEvent: MeetupEvent = {
 }
 
 describe('useMeetupScreenSetup', () => {
+  beforeAll(() => {
+    setRouteMock({ ...meetupScreenRoute, params: { eventId: '123', deletable: true, origin: 'matchDetails' } })
+  })
   beforeEach(() => {
     setPaymentMethods([])
     usePaymentDataStore.setState(defaultPaymentDataStore)
@@ -92,13 +88,7 @@ describe('useMeetupScreenSetup', () => {
     expect(goBackMock).toHaveBeenCalled()
   })
   it('should not add a meetup to the payment methods if the meetupInfo isnt available', () => {
-    useRouteMock.mockReturnValueOnce({
-      params: {
-        eventId: 'someUnknownId',
-        deletable: true,
-        origin: 'origin',
-      },
-    })
+    setRouteMock({ ...meetupScreenRoute, params: { eventId: 'someUnknownId', deletable: true, origin: 'matchDetails' } })
     useMeetupEventsStore.getState().setMeetupEvents([])
 
     const { result } = renderHook(useMeetupScreenSetup)
@@ -106,6 +96,7 @@ describe('useMeetupScreenSetup', () => {
     result.current.addToPaymentMethods()
     expect(usePaymentDataStore.getState().paymentData).toStrictEqual(defaultPaymentDataStore.paymentData)
     expect(goBackMock).not.toHaveBeenCalled()
+    setRouteMock({ ...meetupScreenRoute, params: { eventId: '123', deletable: true, origin: 'matchDetails' } })
   })
   it('should automatically add the meetup to the selected methods', () => {
     useOfferPreferences.getState().setPaymentMethods([])

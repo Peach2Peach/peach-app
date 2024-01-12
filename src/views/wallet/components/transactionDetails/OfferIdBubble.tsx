@@ -1,4 +1,5 @@
-import { Bubble } from '../../../../components/bubble'
+import { OfferSummary } from '../../../../../peach-api/src/@types/offer'
+import { Bubble } from '../../../../components/bubble/Bubble'
 import { useNavigateToOfferOrContract } from '../../../../hooks/useNavigateToOfferOrContract'
 import { offerIdToHex } from '../../../../utils/offer/offerIdToHex'
 

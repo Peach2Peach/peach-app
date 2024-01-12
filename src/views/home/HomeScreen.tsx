@@ -36,7 +36,7 @@ function Footer () {
   return (
     <View
       style={[
-        tw`flex-row items-center self-stretch justify-between pt-2 bg-primary-background`,
+        tw`flex-row items-center self-stretch justify-between pt-2 bg-primary-background-main`,
         tw`md:pt-4`,
         { paddingBottom: bottom },
       ]}
@@ -56,7 +56,7 @@ function FooterItem ({ id }: { id: HomeTabName }) {
   }
 
   const active = currentPage === id
-  const colorTheme = tw.color(active ? 'black-1' : 'black-2')
+  const colorTheme = tw.color(active ? 'black-100' : 'black-65')
   const size = tw`w-6 h-6`
   const notifications = useNotificationStore((state) => state.notifications)
   return (

@@ -1,12 +1,14 @@
 import permissions, { RESULTS } from 'react-native-permissions'
 import { act, render, renderHook, waitFor } from 'test-utils'
-import { usePopupStore } from '../store/usePopupStore'
+import { Popup } from '../components/popup/Popup'
 import { useQRScanner } from './useQRScanner'
 
 const isIOSMock = jest.fn().mockReturnValue(true)
 jest.mock('../utils/system/isIOS', () => ({
   isIOS: () => isIOSMock(),
 }))
+jest.useFakeTimers()
+
 describe('useQRScanner', () => {
   const requestSpy = jest.spyOn(permissions, 'request')
   const initialProps = {
@@ -41,13 +43,15 @@ describe('useQRScanner', () => {
     act(() => result.current.showQR())
     expect(result.current.showQRScanner).toBeFalsy()
   })
-  it('opens the warning popup when permissions have been denied', () => {
+  it('opens the warning popup when permissions have been denied', async () => {
     requestSpy.mockImplementationOnce(() => Promise.resolve(RESULTS.DENIED))
     const { result } = renderHook(useQRScanner, { initialProps })
-    act(() => result.current.showQR())
+    const { queryByText } = render(<Popup />)
+    await act(async () => {
+      await result.current.showQR()
+    })
     expect(result.current.showQRScanner).toBeFalsy()
-    const popup = usePopupStore.getState().popupComponent || <></>
-    expect(render(popup).toJSON()).toMatchSnapshot()
+    expect(queryByText('Missing permissions')).toBeTruthy()
   })
   it('should show and closeQR', async () => {
     requestSpy.mockImplementationOnce(() => Promise.resolve(RESULTS.GRANTED))

@@ -1,6 +1,7 @@
 import { Linking } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { fireEvent, render } from 'test-utils'
+import { meetupScreenRoute, setRouteMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { setPaymentMethods } from '../../paymentMethods'
 import { MeetupScreen } from './MeetupScreen'
 
@@ -24,15 +25,6 @@ jest.mock('./hooks/useMeetupScreenSetup', () => ({
   useMeetupScreenSetup: () => useMeetupScreenSetupMock(),
 }))
 
-jest.mock('../../hooks/useRoute', () => ({
-  useRoute: () => ({
-    params: {
-      eventId: 'pt.porto.portugal-norte-bitcoin',
-      origin: 'origin',
-    },
-  }),
-}))
-
 describe('MeetupScreen', () => {
   const openURLSpy = jest.spyOn(Linking, 'openURL')
   const renderer = createRenderer()
@@ -43,22 +35,25 @@ describe('MeetupScreen', () => {
     address: 'Prague',
     url: 'https://peachbitcoin.com/',
   }
-  setPaymentMethods([
-    {
-      id: 'cash.pt.porto.portugal-norte-bitcoin',
-      currencies: ['EUR'],
-      countries: ['PT'],
-      rounded: true,
-      anonymous: true,
-    },
-    {
-      id: 'cash.cz.prague.btc-prague',
-      currencies: ['CZK', 'EUR'],
-      countries: ['CZ'],
-      rounded: true,
-      anonymous: true,
-    },
-  ])
+  beforeAll(() => {
+    setPaymentMethods([
+      {
+        id: 'cash.pt.porto.portugal-norte-bitcoin',
+        currencies: ['EUR'],
+        countries: ['PT'],
+        rounded: true,
+        anonymous: true,
+      },
+      {
+        id: 'cash.cz.prague.btc-prague',
+        currencies: ['CZK', 'EUR'],
+        countries: ['CZ'],
+        rounded: true,
+        anonymous: true,
+      },
+    ])
+    setRouteMock(meetupScreenRoute)
+  })
   it('should render correctly', () => {
     renderer.render(<MeetupScreen />)
     const result = renderer.getRenderOutput()

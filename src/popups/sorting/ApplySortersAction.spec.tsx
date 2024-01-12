@@ -1,14 +1,17 @@
 import { fireEvent, render, waitFor } from 'test-utils'
 import { buyOffer } from '../../../tests/unit/data/offerData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { usePopupStore } from '../../store/usePopupStore'
 import { ApplySortersAction } from './ApplySortersAction'
 
 const setSorterAction = jest.fn()
 const defaultComponent = <ApplySortersAction setSorterAction={setSorterAction} />
+const closePopup = jest.fn()
+jest.mock('../../components/popup/Popup', () => ({
+  useClosePopup: () => closePopup,
+}))
+jest.useFakeTimers()
 describe('ApplyBuyFilterAction', () => {
   beforeEach(() => {
-    usePopupStore.setState({ visible: true })
     queryClient.resetQueries()
   })
 
@@ -41,6 +44,6 @@ describe('ApplyBuyFilterAction', () => {
     const applyButton = getByText('apply')
 
     fireEvent.press(applyButton)
-    await waitFor(() => expect(usePopupStore.getState().visible).toBe(false))
+    await waitFor(() => expect(closePopup).toHaveBeenCalled())
   })
 })

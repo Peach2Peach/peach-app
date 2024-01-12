@@ -1,6 +1,7 @@
 {
   "offer.cancel.popup.description" : "Are you sure?\n\nIf you have already sent your bitcoin to the escrow, you will be refunded, minus the bitcoin network fees.",
   "offer.cancel.popup.title" : "cancel offer",
+  "offer.canceled" : "canceled",
   "offer.canceled.popup.title" : "offer canceled!",
   "offer.filter" : "filter",
   "offer.filter.maxPremium" : "max premium",

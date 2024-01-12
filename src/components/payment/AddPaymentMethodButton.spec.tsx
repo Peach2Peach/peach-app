@@ -1,15 +1,11 @@
 import { fireEvent, render } from 'test-utils'
 import { balticHoneyBadger, belgianBTCEmbassy, breizhBitcoin, decouvreBTC } from '../../../tests/unit/data/eventData'
-import { navigateMock, pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { navigateMock, pushMock, setRouteMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useMeetupEvents } from '../../hooks/query/useMeetupEvents'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import { defaultState, useDrawerState } from '../drawer/useDrawerState'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
-
-jest.mock('../../hooks/useRoute', () => ({
-  useRoute: jest.fn(() => ({ name: 'paymentMethods' })),
-}))
 
 const mockEvents: MeetupEvent[] = [belgianBTCEmbassy, decouvreBTC]
 
@@ -23,6 +19,9 @@ jest.mock('../../hooks/query/useMeetupEvents', () => ({
 jest.useFakeTimers()
 
 describe('AddPaymentMethodButton', () => {
+  beforeAll(() => {
+    setRouteMock({ name: 'paymentMethods', key: 'paymentMethods' })
+  })
   beforeEach(() => {
     useMeetupEventsStore.getState().setMeetupEvents([])
   })

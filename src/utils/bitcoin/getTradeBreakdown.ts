@@ -1,5 +1,5 @@
 import { address, Transaction } from 'bitcoinjs-lib'
-import { log } from '../log'
+import { log } from '../log/log'
 import { getNetwork } from '../wallet/getNetwork'
 
 type Props = { releaseTransaction?: string; releaseAddress: string; inputAmount: number; discount?: number }

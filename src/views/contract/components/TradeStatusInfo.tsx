@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { PeachText } from '../../../components/text/PeachText'
 import { HorizontalLine } from '../../../components/ui/HorizontalLine'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useContractContext } from '../context'
@@ -12,7 +12,9 @@ import { SummaryItem } from './SummaryItem'
 
 export const TradeStatusInfo = () => {
   const { contract, view } = useContractContext()
-  const isPeachWalletActive = useSettingsStore((state) => state.peachWalletActive)
+  const isPeachWalletActive = useSettingsStore((state) =>
+    view === 'buyer' ? state.payoutToPeachWallet : state.refundToPeachWallet,
+  )
   return (
     <View style={tw`justify-center gap-5 grow`}>
       <SummaryItem

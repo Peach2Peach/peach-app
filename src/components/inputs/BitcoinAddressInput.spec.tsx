@@ -10,6 +10,7 @@ expect.extend({ toMatchDiffSnapshot })
 jest.mock('../camera/ScanQR', () => ({
   ScanQR: 'ScanQR',
 }))
+jest.useFakeTimers()
 
 describe('BitcoinAddressInput', () => {
   const fullAddress = 'bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7z'
@@ -37,7 +38,7 @@ describe('BitcoinAddressInput', () => {
   it('pastes address from clipboard', async () => {
     const onChangeMock = jest.fn()
     Clipboard.setString(fullAddress)
-    const { UNSAFE_getByProps } = render(<BitcoinAddressInput value={''} onChange={onChangeMock} />)
+    const { UNSAFE_getByProps } = render(<BitcoinAddressInput value={''} onChangeText={onChangeMock} />)
     const clipboardIcon = UNSAFE_getByProps({ id: 'clipboard' })
 
     await act(() => {
@@ -48,7 +49,7 @@ describe('BitcoinAddressInput', () => {
   it('pastes clipboard value if it is not a valid bitcoin address', async () => {
     const onChangeMock = jest.fn()
     Clipboard.setString('https://peachbitcoin.com')
-    const { UNSAFE_getByProps } = render(<BitcoinAddressInput value={''} onChange={onChangeMock} />)
+    const { UNSAFE_getByProps } = render(<BitcoinAddressInput value={''} onChangeText={onChangeMock} />)
     const clipboardIcon = UNSAFE_getByProps({ id: 'clipboard' })
 
     await act(() => {
@@ -79,7 +80,7 @@ describe('BitcoinAddressInput', () => {
   it('sets address when QR scanner is successful', async () => {
     const onChangeMock = jest.fn()
     const { UNSAFE_getByProps, UNSAFE_getByType } = render(
-      <BitcoinAddressInput value={fullAddress} onChange={onChangeMock} />,
+      <BitcoinAddressInput value={fullAddress} onChangeText={onChangeMock} />,
     )
     const cameraIcon = UNSAFE_getByProps({ id: 'camera' })
 
@@ -92,7 +93,7 @@ describe('BitcoinAddressInput', () => {
   it('sets address when QR scanner is successful and it is not a valid bitcoin address', async () => {
     const onChangeMock = jest.fn()
     const { UNSAFE_getByProps, UNSAFE_getByType } = render(
-      <BitcoinAddressInput value={fullAddress} onChange={onChangeMock} />,
+      <BitcoinAddressInput value={fullAddress} onChangeText={onChangeMock} />,
     )
     const cameraIcon = UNSAFE_getByProps({ id: 'camera' })
     await waitFor(() => {

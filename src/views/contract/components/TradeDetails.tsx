@@ -2,14 +2,14 @@ import { Fragment } from 'react'
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { TouchableIcon } from '../../../components/TouchableIcon'
-import { Toggle } from '../../../components/inputs'
+import { Toggle } from '../../../components/inputs/Toggle'
 import { PeachText } from '../../../components/text/PeachText'
 import { ErrorBox } from '../../../components/ui/ErrorBox'
 import { HorizontalLine } from '../../../components/ui/HorizontalLine'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useIsMyAddress } from '../../../hooks/wallet/useIsMyAddress'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import tw from '../../../styles/tailwind'
 import { useAccountStore } from '../../../utils/account/account'
 import { getMessageToSignForAddress } from '../../../utils/account/getMessageToSignForAddress'
@@ -81,13 +81,17 @@ function ChangePayoutWallet () {
 
       mutate({ releaseAddress, messageSignature })
     } else {
-      if (!payoutAddress) {
+      if (!payoutAddress || !payoutAddressLabel) {
         navigation.navigate('patchPayoutAddress', { contractId: contract.id })
         return
       }
       const message = getMessageToSignForAddress(publicKey, payoutAddress)
       if (!payoutAddressSignature || !isValidBitcoinSignature(message, payoutAddress, payoutAddressSignature)) {
-        navigation.navigate('signMessage', { contractId: contract.id })
+        navigation.navigate('signMessage', {
+          contractId: contract.id,
+          address: payoutAddress,
+          addressLabel: payoutAddressLabel,
+        })
       } else {
         mutate({ releaseAddress: payoutAddress, messageSignature: payoutAddressSignature })
       }
@@ -173,7 +177,7 @@ function TradeDetailField ({ fieldName }: { fieldName: TradeInfoField }) {
         typeof information === 'string' || typeof information === 'number' ? (
           <SummaryItem.Text
             value={String(information)}
-            copyable={view === 'buyer' && !contract.releaseTxId && fieldName !== 'location'}
+            copyable={(view === 'buyer' && !contract.releaseTxId && fieldName !== 'location') || fieldName === 'tradeId'}
           />
         ) : (
           information

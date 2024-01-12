@@ -1,12 +1,12 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
-import { PopupAction } from '../../components/popup'
-import { usePopupStore } from '../../store/usePopupStore'
+import { useClosePopup } from '../../components/popup/Popup'
+import { PopupAction } from '../../components/popup/PopupAction'
 import i18n from '../../utils/i18n'
 
 export function ApplySortersAction ({ setSorterAction }: { setSorterAction: () => void }) {
   const queryClient = useQueryClient()
-  const closePopup = usePopupStore((state) => state.closePopup)
+  const closePopup = useClosePopup()
 
   const applySorters = useCallback(() => {
     setSorterAction()

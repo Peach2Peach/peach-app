@@ -1,17 +1,11 @@
 import { render, responseUtils, waitFor } from 'test-utils'
+import { setRouteMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { peachAPI } from '../../utils/peachAPI'
 import { EditPremium } from './EditPremium'
 
 jest.useFakeTimers()
 
-jest.mock('../../hooks/useRoute', () => ({
-  useRoute: () => ({
-    params: {
-      offerId: '123',
-    },
-  }),
-}))
 jest.spyOn(peachAPI.public.market, 'marketPrices').mockResolvedValue({
   result: {
     EUR: 100000,
@@ -20,6 +14,9 @@ jest.spyOn(peachAPI.public.market, 'marketPrices').mockResolvedValue({
 })
 
 describe('EditPremium', () => {
+  beforeAll(() => {
+    setRouteMock({ name: 'editPremium', key: 'editPremium', params: { offerId: '123' } })
+  })
   it('should render correctly', async () => {
     const { toJSON } = render(<EditPremium />)
     await waitFor(() => {

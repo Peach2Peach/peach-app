@@ -7,12 +7,12 @@ import { useSetOverlay } from '../../Overlay'
 import { IconType } from '../../assets/icons'
 import { Icon } from '../../components/Icon'
 import { Button } from '../../components/buttons/Button'
+import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { TradeBreakdownPopup } from '../../popups/TradeBreakdownPopup'
 import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { useAccountStore } from '../../utils/account/account'
 import { logTradeCompleted } from '../../utils/analytics/logTradeCompleted'
@@ -101,10 +101,14 @@ type RateProps = ComponentProps & {
 
 function Rate ({ contract, view, vote }: RateProps) {
   const queryClient = useQueryClient()
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const showError = useShowErrorBanner()
   const [shouldShowBackupOverlay, setShowBackupReminder, isPeachWalletActive] = useSettingsStore(
-    (state) => [state.shouldShowBackupOverlay, state.setShowBackupReminder, state.peachWalletActive],
+    (state) => [
+      state.shouldShowBackupOverlay,
+      state.setShowBackupReminder,
+      view === 'buyer' ? state.payoutToPeachWallet : state.refundToPeachWallet,
+    ],
     shallow,
   )
   const setOverlayContent = useSetOverlay()

@@ -11,7 +11,7 @@ export const EstimatedFeeItem = ({ feeRate, estimatedFees }: Props) => (
   <View>
     <PeachText style={tw`py-1 subtitle-1 leading-base`}>
       {i18n(`settings.networkFees.estimatedTime.${feeRate}`)}
-      <PeachText style={tw`text-black-2 ml-0.5`}>
+      <PeachText style={tw`text-black-65 ml-0.5`}>
          ({i18n('settings.networkFees.xSatsPerByte', estimatedFees.toString())})
       </PeachText>
     </PeachText>

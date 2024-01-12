@@ -1,4 +1,4 @@
-import { info } from '../../log'
+import { info } from '../../log/info'
 import { offerStorage } from '../offerStorage'
 
 export const storeOffers = async (offers: Account['offers']) => {

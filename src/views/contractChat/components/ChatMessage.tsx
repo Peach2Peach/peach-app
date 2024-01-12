@@ -10,6 +10,7 @@ import { toTimeFormat } from '../../../utils/date/toTimeFormat'
 import i18n from '../../../utils/i18n'
 
 type GetMessageMetaProps = {
+  publicKey: string
   message: Message
   previous: Message
   tradingPartner: string
@@ -26,8 +27,7 @@ type MessageMeta = {
   readByCounterParty: boolean
 }
 
-const getMessageMeta = ({ message, previous, tradingPartner, online }: GetMessageMetaProps): MessageMeta => {
-  const publicKey = useAccountStore.getState().account.publicKey
+const getMessageMeta = ({ message, previous, tradingPartner, online, publicKey }: GetMessageMetaProps): MessageMeta => {
   const isYou = message.from === publicKey
   const isTradingPartner = message.from === tradingPartner
   const isMediator = !isYou && !isTradingPartner
@@ -56,14 +56,14 @@ type MessageStyling = {
   statusIconColor: TextStyle
 }
 const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling => {
-  const text = meta.isMediator || meta.isSystemMessage ? tw`text-primary-main` : tw`text-black-2`
+  const text = meta.isMediator || meta.isSystemMessage ? tw`text-primary-main` : tw`text-black-65`
   const bgColor = !message.message
     ? tw`bg-error-background`
     : meta.isMediator || meta.isSystemMessage
       ? tw`bg-primary-mild-1`
       : meta.isYou
         ? tw`bg-info-background`
-        : tw`bg-black-6`
+        : tw`bg-black-5`
   const statusIcon
     = message.readBy?.length === 0
       ? !meta.online
@@ -72,7 +72,7 @@ const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling 
       : meta.readByCounterParty
         ? 'chatDoubleCheck'
         : 'check'
-  const statusIconColor = statusIcon === 'chatDoubleCheck' ? tw`text-info-main` : tw`text-black-3`
+  const statusIconColor = statusIcon === 'chatDoubleCheck' ? tw`text-info-main` : tw`text-black-50`
   return {
     text,
     bgColor,
@@ -97,11 +97,13 @@ export const ChatMessage = ({
   online,
   resendMessage,
 }: ChatMessageProps) => {
+  const publicKey = useAccountStore((state) => state.account.publicKey)
   const meta = getMessageMeta({
     message,
     previous: chatMessages[index - 1],
     tradingPartner,
     online,
+    publicKey,
   })
   const { statusIcon, statusIconColor, text, bgColor } = getMessageStyling(message, meta)
 
@@ -111,7 +113,7 @@ export const ChatMessage = ({
     <>
       {isChangeDate && (
         <LinedText style={tw`mb-5 px-sm pt-7`}>
-          <PeachText style={tw`body-m text-black-2`}>{toDateFormat(message.date)}</PeachText>
+          <PeachText style={tw`body-m text-black-65`}>{toDateFormat(message.date)}</PeachText>
         </LinedText>
       )}
       <View
@@ -126,7 +128,7 @@ export const ChatMessage = ({
             {message.message || i18n('chat.decyptionFailed')}
           </PeachText>
           <PeachText style={tw`pt-1 ml-auto leading-5 text-right`}>
-            <PeachText style={tw`subtitle-2 leading-xs text-black-3`}>
+            <PeachText style={tw`subtitle-2 leading-xs text-black-50`}>
               {toTimeFormat(message.date.getHours(), message.date.getMinutes())}
             </PeachText>
             {meta.isYou && (

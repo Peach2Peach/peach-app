@@ -22,8 +22,8 @@ describe('getWalletLabelFromContract', () => {
     expect(
       getWalletLabelFromContract({
         contract,
-        customPayoutAddress: undefined,
-        customPayoutAddressLabel: undefined,
+        customAddress: undefined,
+        customAddressLabel: undefined,
         isPeachWalletActive: true,
       }),
     ).toBe('custom payout address')
@@ -37,8 +37,8 @@ describe('getWalletLabelFromContract', () => {
     expect(
       getWalletLabelFromContract({
         contract,
-        customPayoutAddress: undefined,
-        customPayoutAddressLabel: undefined,
+        customAddress: undefined,
+        customAddressLabel: undefined,
         isPeachWalletActive: true,
       }),
     ).toBe('walletLabel')

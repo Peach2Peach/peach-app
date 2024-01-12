@@ -1,4 +1,3 @@
-export { decryptSymmetricKey } from './decryptSymmetricKey'
 export { isPSBTForBatch } from './isPSBTForBatch'
 export { shouldShowTradeStatusInfo } from './shouldShowTradeStatusInfo'
 export { isTradeInformationGetter, tradeInformationGetters } from './tradeInformationGetters'

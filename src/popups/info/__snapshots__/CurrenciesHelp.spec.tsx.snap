@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`CurrenciesHelp renders correctly 1`] = `
-<PeachText>
-  If your online wallet can receive multiple currencies and do the conversion for you, you can select any currencies you can receive here.
-</PeachText>
-`;

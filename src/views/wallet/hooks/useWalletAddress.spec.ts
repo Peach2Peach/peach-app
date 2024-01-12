@@ -20,6 +20,7 @@ const addresses = [
     used: false,
   },
 ]
+jest.useFakeTimers()
 
 describe('useWalletAddress', () => {
   beforeAll(() => {

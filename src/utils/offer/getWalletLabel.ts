@@ -3,21 +3,21 @@ import { peachWallet } from '../wallet/setWallet'
 
 type Params = {
   address?: string
-  customPayoutAddress: string | undefined
-  customPayoutAddressLabel: string | undefined
+  customAddress: string | undefined
+  customAddressLabel: string | undefined
   isPeachWalletActive: boolean
 }
 
 export const getWalletLabel = ({
   address,
-  customPayoutAddress,
-  customPayoutAddressLabel,
+  customAddress,
+  customAddressLabel,
   isPeachWalletActive,
 }: Params) => {
   if (!address) return i18n('offer.summary.customPayoutAddress')
 
-  if (customPayoutAddress === address) {
-    return customPayoutAddressLabel || i18n('offer.summary.customPayoutAddress')
+  if (customAddress === address) {
+    return customAddressLabel || i18n('offer.summary.customPayoutAddress')
   }
   if (!isPeachWalletActive) {
     return i18n('offer.summary.customPayoutAddress')

@@ -22,7 +22,7 @@
   "notification.contract.seller.disputeLost.text" : "A(z) $0 kereskedésben a vitát a vásárló javára döntöttük el. Kérjük, a kereskedési chaten a közvetítő által küldött üzenetet ellenőrizd, hogy megtudd, mi a következő lépés.",
   "notification.contract.seller.disputeRaised.text" : "A vásárló a(z) $0 kereskedésért $1 satoshival vitát kezdeményezett.",
   "notification.contract.seller.disputeWon.text" : "A(z) $0 kereskedés vitájában a te javadra döntöttünk. Kérjük, a kereskedési chaten a közvetítő által küldött üzenetet ellenőrizd, hogy megtudd, mi a következő lépés.",
-  "notification.contract.seller.instantTrade.text" : "Egy vevővel épp most léptél be egy azonnali kereskedésbe!",
+  "notification.contract.seller.instantTrade.text" : "Egy vevővel épp most beléptél egy azonnali kereskedésbe!",
   "notification.contract.seller.paymentTimerHasRunOut.text" : "A(z) $0 kereskedés fizetését nem lett időben elvégezve. Adj a vásárlónak több időt, vagy szakítsd meg a kereskedést vele.",
   "notification.contract.tradeCompleted.text" : "Gratulálunk! A(z) $0 kereskedés satoshijai már a pénztárcádban vannak \uD83C\uDF89",
   "notification.contract.tradeCompleted.title" : "Kereskedés befejezve!",

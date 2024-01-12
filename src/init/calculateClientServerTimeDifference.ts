@@ -1,6 +1,6 @@
 import { setClientServerTimeDifference } from '../constants'
 import { getAbortWithTimeout } from '../utils/getAbortWithTimeout'
-import { error } from '../utils/log'
+import { error } from '../utils/log/error'
 import { peachAPI } from '../utils/peachAPI'
 
 /**

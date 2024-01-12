@@ -1,7 +1,11 @@
-import { TextProps, View } from 'react-native'
+import Clipboard from '@react-native-clipboard/clipboard'
+import { useRef } from 'react'
+import { Animated, TextProps, View } from 'react-native'
+import { TouchableIcon } from '../../../components/TouchableIcon'
 import { PeachText } from '../../../components/text/PeachText'
-import { CopyAble } from '../../../components/ui/CopyAble'
+import { useIsMediumScreen } from '../../../hooks/useIsMediumScreen'
 import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 
 type Props = {
   label: string
@@ -10,7 +14,7 @@ type Props = {
 
 export const SummaryItem = ({ label, value }: Props) => (
   <View style={tw`flex-row items-center justify-between gap-3`}>
-    <PeachText style={[tw`text-black-2`, tw`md:body-l`]}>{label}</PeachText>
+    <PeachText style={[tw`text-black-65`, tw`md:body-l`]}>{label}</PeachText>
     {value}
   </View>
 )
@@ -25,11 +29,50 @@ type TextValueProps = {
 function TextValue ({ value, copyable = false, copyValue = value, onPress }: TextValueProps) {
   return (
     <View style={tw`flex-row items-center justify-end flex-1 gap-10px`}>
-      <PeachText style={[tw`flex-1 text-right subtitle-1`, tw`md:subtitle-0`]} onPress={onPress}>
-        {value}
-      </PeachText>
-      {copyable && <CopyAble value={copyValue} style={tw`md:w-5 md:h-5`} />}
+      {copyable ? (
+        <CopyableSummaryText value={value} copyValue={copyValue} onPress={onPress} />
+      ) : (
+        <SummaryText value={value} onPress={onPress} />
+      )}
     </View>
+  )
+}
+const summaryTextStyle = tw`text-right subtitle-1 md:subtitle-0`
+function SummaryText ({ value, onPress }: TextValueProps) {
+  return (
+    <PeachText style={[tw`flex-1`, summaryTextStyle]} onPress={onPress}>
+      {value}
+    </PeachText>
+  )
+}
+
+function CopyableSummaryText ({ value, copyValue = value, onPress }: TextValueProps) {
+  const copiedTextOpacity = useRef(new Animated.Value(0)).current
+  const onCopy = () => {
+    Clipboard.setString(copyValue)
+    Animated.sequence([
+      Animated.timing(copiedTextOpacity, { toValue: 1, duration: 200, useNativeDriver: true }),
+      Animated.delay(1500),
+      Animated.timing(copiedTextOpacity, { toValue: 0, duration: 200, useNativeDriver: true }),
+    ]).start()
+  }
+  const isMediumScreen = useIsMediumScreen()
+
+  return (
+    <>
+      <View style={tw`flex-1`}>
+        <SummaryText value={value} onPress={onPress} />
+        <Animated.View
+          style={[
+            tw`absolute items-end justify-center w-full h-full bg-primary-background-light`,
+            { opacity: copiedTextOpacity },
+          ]}
+        >
+          <PeachText style={[summaryTextStyle, tw`text-primary-main`]}>{i18n('copied')}</PeachText>
+        </Animated.View>
+      </View>
+      <TouchableIcon onPress={onCopy} id="copy" iconSize={isMediumScreen ? 20 : 16} />
+    </>
   )
 }
 

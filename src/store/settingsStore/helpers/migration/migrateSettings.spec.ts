@@ -22,7 +22,29 @@ describe('migrateSettings', () => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData)
     const migratedState = migrateSettings(persistedState, 0)
     expect(migratedState).toEqual({
+      analyticsPopupSeen: undefined,
+      appVersion: undefined,
+      country: undefined,
+      derivationPath: undefined,
+      displayCurrency: undefined,
+      enableAnalytics: undefined,
+      fcmToken: undefined,
+      feeRate: undefined,
       lastFileBackupDate: '2021-07-12T13:00:00.000Z',
+      lastSeedBackupDate: undefined,
+      locale: undefined,
+      nodeURL: undefined,
+      payoutAddress: undefined,
+      payoutAddressLabel: undefined,
+      payoutAddressSignature: undefined,
+      payoutToPeachWallet: true,
+      peachWalletActive: undefined,
+      pgpPublished: undefined,
+      refundToPeachWallet: true,
+      returnAddress: undefined,
+      shouldShowBackupOverlay: undefined,
+      showBackupReminder: undefined,
+      usedReferralCode: undefined,
     })
     expect(useOfferPreferences.getState()).toEqual(
       expect.objectContaining({
@@ -60,7 +82,29 @@ describe('migrateSettings', () => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData)
     const migratedState = migrateSettings(persistedState, 1)
     expect(migratedState).toEqual({
+      analyticsPopupSeen: undefined,
+      appVersion: undefined,
+      country: undefined,
+      derivationPath: undefined,
+      displayCurrency: undefined,
+      enableAnalytics: undefined,
+      fcmToken: undefined,
+      feeRate: undefined,
       lastFileBackupDate: undefined,
+      lastSeedBackupDate: undefined,
+      locale: undefined,
+      nodeURL: undefined,
+      payoutAddress: undefined,
+      payoutAddressLabel: undefined,
+      payoutAddressSignature: undefined,
+      payoutToPeachWallet: true,
+      peachWalletActive: undefined,
+      pgpPublished: undefined,
+      refundToPeachWallet: true,
+      returnAddress: undefined,
+      shouldShowBackupOverlay: undefined,
+      showBackupReminder: undefined,
+      usedReferralCode: undefined,
     })
     expect(useOfferPreferences.getState()).toEqual(
       expect.objectContaining({
@@ -116,6 +160,15 @@ describe('migrateSettings', () => {
     const migratedState = migrateSettings(persistedState, 2)
     expect(migratedState).toEqual({
       ...persistedState,
+      payoutAddress: undefined,
+      payoutAddressLabel: undefined,
+      payoutAddressSignature: undefined,
+      payoutToPeachWallet: false,
+      peachWalletActive: true,
+      pgpPublished: true,
+      refundAddress: '0x123456789',
+      refundAddressLabel: 'My address',
+      refundToPeachWallet: true,
       shouldShowBackupOverlay: true,
     })
     expect(migratedState).not.toHaveProperty('lastBackupDate')

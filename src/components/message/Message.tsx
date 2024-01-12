@@ -5,15 +5,15 @@ import { shallow } from 'zustand/shallow'
 import { IconType } from '../../assets/icons'
 import { useNavigation } from '../../hooks/useNavigation'
 import { VerifyYouAreAHumanPopup } from '../../popups/warning/VerifyYouAreAHumanPopup'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { messageShadow } from '../../utils/layout/shadows'
-import { error } from '../../utils/log'
+import { error } from '../../utils/log/error'
 import { parseError } from '../../utils/result/parseError'
 import { isNetworkError } from '../../utils/system/isNetworkError'
 import { Icon } from '../Icon'
 import { Placeholder } from '../Placeholder'
+import { useSetPopup } from '../popup/Popup'
 import { PeachText } from '../text/PeachText'
 import { iconMap } from './iconMap'
 import { useMessageState } from './useMessageState'
@@ -26,23 +26,23 @@ const levelColorMap: LevelColorMap = {
   bg: {
     APP: tw`bg-primary-main`,
     SUCCESS: tw`bg-success-background-main`,
-    WARN: tw`bg-warning-background`,
+    WARN: tw`bg-warning-mild-1`,
     ERROR: tw`bg-error-main`,
     INFO: tw`bg-info-background`,
-    DEFAULT: tw`bg-black-6`,
+    DEFAULT: tw`bg-black-5`,
   },
   text: {
-    APP: tw`text-primary-background`,
-    SUCCESS: tw`text-black-1`,
-    WARN: tw`text-black-1`,
+    APP: tw`text-primary-background-main`,
+    SUCCESS: tw`text-black-100`,
+    WARN: tw`text-black-100`,
     ERROR: tw`text-primary-background-light`,
-    INFO: tw`text-black-1`,
-    DEFAULT: tw`text-black-1`,
+    INFO: tw`text-black-100`,
+    DEFAULT: tw`text-black-100`,
   },
 }
 
 export const Message = () => {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const [{ level, msgKey, bodyArgs = [], action, onClose, time, keepAlive }, updateMessage] = useMessageState(
     (state) => [
       {
@@ -143,7 +143,7 @@ export const Message = () => {
       <SafeAreaView>
         <View
           style={[
-            tw`flex items-center justify-center px-4 pt-4 pb-2 m-6 rounded-2xl`,
+            tw`items-center justify-center px-4 pt-4 pb-2 m-6 rounded-2xl`,
             messageShadow,
             levelColorMap.bg[level],
           ]}
@@ -159,16 +159,16 @@ export const Message = () => {
               </PeachText>
             )}
           </View>
-          <View style={tw`flex flex-row items-center justify-between w-full mt-1`}>
+          <View style={tw`flex-row items-center justify-between w-full mt-1`}>
             {action ? (
-              <TouchableOpacity onPress={action.callback} style={tw`flex flex-row items-center`}>
+              <TouchableOpacity onPress={action.callback} style={tw`flex-row items-center`}>
                 {!!action.icon && <Icon id={action.icon} style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />}
                 <PeachText style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}>{action.label}</PeachText>
               </TouchableOpacity>
             ) : (
               <Placeholder />
             )}
-            <TouchableOpacity onPress={closeMessage} style={tw`flex flex-row items-center text-right`}>
+            <TouchableOpacity onPress={closeMessage} style={tw`flex-row items-center text-right`}>
               <PeachText style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}>{i18n('close')} </PeachText>
               <Icon id="xSquare" style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />
             </TouchableOpacity>

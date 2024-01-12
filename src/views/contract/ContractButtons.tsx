@@ -3,26 +3,26 @@ import { useCallback } from 'react'
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { Button } from '../../components/buttons/Button'
-import { EmailInput } from '../../components/inputs'
+import { EmailInput } from '../../components/inputs/EmailInput'
+import { useSetPopup } from '../../components/popup/Popup'
+import { ClosePopupAction } from '../../components/popup/actions/ClosePopupAction'
+import { LoadingPopupAction } from '../../components/popup/actions/LoadingPopupAction'
 import { PeachText } from '../../components/text/PeachText'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { useValidatedState } from '../../hooks/useValidatedState'
-import { WarningPopup } from '../../popups/WarningPopup'
-import { ClosePopupAction } from '../../popups/actions'
-import { LoadingPopupAction } from '../../popups/actions/LoadingPopupAction'
-import { useSubmitDisputeAcknowledgement } from '../../popups/dispute/hooks/useSubmitDisputeAcknowledgement'
+import { ErrorPopup } from '../../popups/ErrorPopup'
+import { InfoPopup } from '../../popups/InfoPopup'
+import { useSubmitDisputeAcknowledgement } from '../../popups/dispute/useSubmitDisputeAcknowledgement'
 import { useConfigStore } from '../../store/configStore/configStore'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { contractIdToHex } from '../../utils/contract/contractIdToHex'
 import { getOfferIdFromContract } from '../../utils/contract/getOfferIdFromContract'
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
 import { thousands } from '../../utils/string/thousands'
-import { getNavigationDestinationForOffer } from '../yourTrades/utils'
+import { getNavigationDestinationForOffer } from '../yourTrades/utils/navigation/getNavigationDestinationForOffer'
 import { useContractContext } from './context'
 
 export function NewOfferButton () {
@@ -55,7 +55,7 @@ export function PayoutPendingButton () {
   )
 }
 export function ProvideEmailButton () {
-  const setPopup = usePopupStore((state) => state.setPopup)
+  const setPopup = useSetPopup()
   const { contract, view } = useContractContext()
   const onPress = () => setPopup(<DisputeRaisedPopup contract={contract} view={view} />)
 
@@ -78,7 +78,7 @@ function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: Con
     })
   }
   return (
-    <WarningPopup
+    <ErrorPopup
       title={i18n('dispute.opened')}
       content={
         <View style={tw`gap-4`}>
@@ -90,9 +90,9 @@ function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: Con
 
           <View>
             <EmailInput
-              style={tw`bg-warning-background`}
-              onChange={setEmail}
-              onSubmit={submit}
+              style={tw`bg-error-background`}
+              onChangeText={setEmail}
+              onSubmitEditing={submit}
               value={email}
               errorMessage={emailErrors}
             />
@@ -101,13 +101,13 @@ function DisputeRaisedPopup ({ contract, view }: { contract: Contract; view: Con
       }
       actions={
         <>
-          <ClosePopupAction textStyle={tw`text-black-1`} />
+          <ClosePopupAction />
           <LoadingPopupAction
             label={i18n('send')}
             iconId="arrowRightCircle"
+            disabled={emailErrors.length > 0}
             onPress={submit}
             reverseOrder
-            textStyle={tw`text-black-1`}
           />
         </>
       }
@@ -120,7 +120,8 @@ export function ChatButton () {
     contract: { unreadMessages, id },
   } = useContractContext()
   const navigation = useNavigation()
-  const showHelp = useShowHelp('disputeDisclaimer')
+  const setPopup = useSetPopup()
+  const showHelp = useCallback(() => setPopup(<DisputeDisclaimerPopup />), [setPopup])
   const [seenDisputeDisclaimer, setSeenDisputeDisclaimer] = useConfigStore(
     (state) => [state.seenDisputeDisclaimer, state.setSeenDisputeDisclaimer],
     shallow,
@@ -128,7 +129,7 @@ export function ChatButton () {
   const { contractId } = useRoute<'contract'>().params
   const queryClient = useQueryClient()
   const goToChat = () => {
-    queryClient.setQueryData(['contract', contractId], (oldQueryData: GetContractResponse | undefined) => {
+    queryClient.setQueryData(['contract', contractId], (oldQueryData: Contract | undefined) => {
       if (!oldQueryData) return oldQueryData
       return {
         ...oldQueryData,
@@ -145,5 +146,26 @@ export function ChatButton () {
     <Button style={tw`flex-1`} iconId={unreadMessages === 0 ? 'messageCircle' : 'messageFull'} onPress={goToChat}>
       {unreadMessages === 0 ? i18n('chat') : `${unreadMessages} ${i18n('contract.unread')}`}
     </Button>
+  )
+}
+
+function DisputeDisclaimerPopup () {
+  return (
+    <InfoPopup
+      title={i18n('trade.chat')}
+      content={
+        <PeachText>
+          {i18n('chat.disputeDisclaimer.1')}
+          {'\n\n'}
+          {i18n('chat.disputeDisclaimer.2')}
+
+          <PeachText style={tw`underline`}>{i18n('chat.disputeDisclaimer.3')}</PeachText>
+
+          {i18n('chat.disputeDisclaimer.4')}
+          {'\n\n'}
+          {i18n('chat.disputeDisclaimer.5')}
+        </PeachText>
+      }
+    />
   )
 }

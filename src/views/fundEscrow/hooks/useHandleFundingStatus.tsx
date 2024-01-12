@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 import { useSetOverlay } from '../../../Overlay'
+import { useSetPopup } from '../../../components/popup/Popup'
 import { useNavigation } from '../../../hooks/useNavigation'
-import { useShowWronglyFundedPopup } from '../../../popups/useShowWronglyFundedPopup'
+import { WronglyFundedPopup } from '../../../popups/WronglyFundedPopup'
 import { useStartRefundPopup } from '../../../popups/useStartRefundPopup'
-import { info } from '../../../utils/log'
+import { info } from '../../../utils/log/info'
 import { saveOffer } from '../../../utils/offer/saveOffer'
 import { OfferPublished } from '../../search/OfferPublished'
-import { useOfferMatches } from '../../search/hooks'
+import { useOfferMatches } from '../../search/hooks/useOfferMatches'
 
 type Props = {
   offerId: string
@@ -16,7 +17,8 @@ type Props = {
 }
 export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, userConfirmationRequired }: Props) => {
   const navigation = useNavigation()
-  const showWronglyFundedPopup = useShowWronglyFundedPopup()
+  const setPopup = useSetPopup()
+
   const setOverlay = useSetOverlay()
 
   const startRefund = useStartRefundPopup()
@@ -38,7 +40,7 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
       return
     }
     if (fundingStatus.status === 'WRONG_FUNDING_AMOUNT') {
-      showWronglyFundedPopup(updatedOffer)
+      setPopup(<WronglyFundedPopup sellOffer={sellOffer} />)
       return
     }
     if (userConfirmationRequired) {
@@ -63,7 +65,7 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
     offerId,
     sellOffer,
     setOverlay,
-    showWronglyFundedPopup,
+    setPopup,
     startRefund,
     userConfirmationRequired,
   ])

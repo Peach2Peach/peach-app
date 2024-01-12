@@ -1,17 +1,16 @@
 import { useCallback } from 'react'
-import { shallow } from 'zustand/shallow'
+import { useClosePopup, useSetPopup } from '../../../components/popup/Popup'
 import { PopupAction } from '../../../components/popup/PopupAction'
 import { PopupComponent } from '../../../components/popup/PopupComponent'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { OfferRepublished } from '../../../popups/tradeCancelation'
-import { usePopupStore } from '../../../store/usePopupStore'
 import { getSellOfferFromContract } from '../../../utils/contract/getSellOfferFromContract'
 import i18n from '../../../utils/i18n'
 import { peachAPI } from '../../../utils/peachAPI'
 
 export const useRepublishOffer = () => {
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setPopup = useSetPopup()
+  const closePopup = useClosePopup()
   const showErrorBanner = useShowErrorBanner()
   const navigation = useNavigation()
 
@@ -40,7 +39,7 @@ export const useRepublishOffer = () => {
       setPopup(
         <PopupComponent
           title={i18n('contract.cancel.offerRepublished.title')}
-          content={<OfferRepublished />}
+          content={i18n('contract.cancel.offerRepublished.text')}
           actions={
             <>
               <PopupAction label={i18n('close')} iconId="xSquare" onPress={closeAction} />

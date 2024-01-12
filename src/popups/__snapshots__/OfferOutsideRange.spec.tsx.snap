@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`OfferOutsideRange should render correctly 1`] = `
-<PeachText>
-  Offer P‑7B is now outside of the trading range and will not be shown to buyers.
-
-You can choose to cancel the offer and make a new one, or leave it as is.
-</PeachText>
-`;

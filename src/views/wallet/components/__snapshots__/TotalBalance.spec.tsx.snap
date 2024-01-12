@@ -26,7 +26,7 @@ exports[`TotalBalance hide balance when the eye icon is pressed 1`] = `
       amount={100000}
 -     showAmount={false}
 +     showAmount={true}
-      size="extra large"
+      size="large"
     />
   </View>"
 `;
@@ -143,7 +143,7 @@ exports[`TotalBalance renders correctly 1`] = `
   <BTCAmount
     amount={100000}
     showAmount={true}
-    size="extra large"
+    size="large"
   />
 </View>
 `;
@@ -212,7 +212,7 @@ exports[`TotalBalance renders correctly when isRefreshing is true 1`] = `
     <BTCAmount
       amount={100000}
       showAmount={true}
-      size="extra large"
+      size="large"
 +     style={
 +       Object {
 +         "opacity": 0.5,

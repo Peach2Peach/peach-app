@@ -7,11 +7,14 @@ import { PeachScrollView } from '../../components/PeachScrollView'
 import { Screen } from '../../components/Screen'
 import { Button } from '../../components/buttons/Button'
 import { CurrencySelection } from '../../components/inputs/paymentForms/components'
-import { useDeletePaymentMethod } from '../../components/payment/hooks/useDeletePaymentMethod'
+import { DeletePaymentMethodPopup } from '../../components/payment/components/DeletePaymentMethodPopup'
+import { useSetPopup } from '../../components/popup/Popup'
+import { ParsedPeachText } from '../../components/text/ParsedPeachText'
+import { HelpPopup } from '../../hooks/HelpPopup'
 import { useGoToOrigin } from '../../hooks/useGoToOrigin'
 import { useRoute } from '../../hooks/useRoute'
-import { useShowHelp } from '../../hooks/useShowHelp'
 import { PAYMENTMETHODINFOS } from '../../paymentMethods'
+import { InfoPopup } from '../../popups/InfoPopup'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
@@ -155,9 +158,10 @@ function PaymentMethodFormHeader () {
   const {
     paymentData: { type: paymentMethod, id },
   } = useRoute<'paymentMethodForm'>().params
-  const showHelp = useShowHelp('currencies')
-  const showLNURLHelp = useShowHelp('lnurl')
-  const deletePaymentMethod = useDeletePaymentMethod(id ?? '')
+  const setPopup = useSetPopup()
+  const showHelp = useCallback(() => setPopup(<HelpPopup id="currencies" />), [setPopup])
+  const showLNURLHelp = useCallback(() => setPopup(<LNURLSwapsPopup />), [setPopup])
+  const deletePaymentMethod = useCallback(() => setPopup(<DeletePaymentMethodPopup id={id ?? ''} />), [id, setPopup])
 
   const getHeaderIcons = useCallback(() => {
     const icons: HeaderIcon[] = []
@@ -180,6 +184,26 @@ function PaymentMethodFormHeader () {
         i18n(`paymentMethod.${paymentMethod}`),
       )}
       icons={getHeaderIcons()}
+    />
+  )
+}
+
+function LNURLSwapsPopup () {
+  return (
+    <InfoPopup
+      title={i18n('help.lnurl.title')}
+      content={
+        <ParsedPeachText
+          parse={[
+            {
+              pattern: new RegExp(i18n.break('help.lnurl.description.bold'), 'u'),
+              style: tw`font-baloo-bold`,
+            },
+          ]}
+        >
+          {i18n('help.lnurl.description')}
+        </ParsedPeachText>
+      }
     />
   )
 }

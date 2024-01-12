@@ -1,7 +1,7 @@
 {
-  "help.fundMultiple.text" : "Om kosten voor netwerktransacties te besparen, kun je meerdere verkoopaanbiedingen maken met slechts één transactie!",
+  "help.fundMultiple.description" : "Om kosten voor netwerktransacties te besparen, kun je meerdere verkoopaanbiedingen maken met slechts één transactie!",
   "help.fundMultiple.title" : "meerdere verkoopaanbiedingen financieren",
-  "help.instantTrade.text" : "Laat een koper die overeenkomt met je verkoopaanbieding automatisch een transactie met je aangaan!\n\nOm dit mogelijk te maken, ontvangt Peach je geselecteerde betalingsgegevens om deze onmiddellijk te delen met een koper die aan al je criteria voldoet.\n\nDeze gegevens zijn versleuteld en kunnen niet worden gelezen door derden, behalve Peach.",
+  "help.instantTrade.description" : "Laat een koper die overeenkomt met je verkoopaanbieding automatisch een transactie met je aangaan!\n\nOm dit mogelijk te maken, ontvangt Peach je geselecteerde betalingsgegevens om deze onmiddellijk te delen met een koper die aan al je criteria voldoet.\n\nDeze gegevens zijn versleuteld en kunnen niet worden gelezen door derden, behalve Peach.",
   "help.instantTrade.title" : "directe handel",
   "matchDetails.action.instantTrade" : "directe handel",
   "matchDetails.action.missingSelection" : "selecteer betaalmethode",
@@ -24,6 +24,7 @@
   "offerPreferences.fundEscrow" : "financier escrow",
   "offerPreferences.fundWithPeachWallet" : "financier met Peach wallet ($0 sats/vb)",
   "offerPreferences.instantTrade" : "directe handel",
+  "offerPreferences.payoutTo" : "uitbetalen aan:",
   "offerPreferences.premiumOfCompletedTrades" : "premie van voltooide transacties: $0%",
   "offerPreferences.refundTo" : "terugbetaling naar:",
   "offerPreferences.sellOffers" : "$0 openstaande verkoopaanbiedingen",

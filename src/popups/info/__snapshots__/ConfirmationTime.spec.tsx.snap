@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ConfirmationTime renders correctly 1`] = `
-<PeachText>
-  It's hard to predict how long a bitcoin transaction will take, so this is only an estimate.
-
-One bitcoin block takes, on average, ten minutes.
-</PeachText>
-`;

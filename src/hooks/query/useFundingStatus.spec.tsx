@@ -16,6 +16,7 @@ const inMempool = {
 }
 
 const getFundingStatusMock = jest.spyOn(peachAPI.private.offer, 'getFundingStatus')
+jest.useFakeTimers()
 
 describe('useFundingStatus', () => {
   afterEach(() => {

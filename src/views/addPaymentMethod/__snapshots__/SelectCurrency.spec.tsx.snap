@@ -3,6 +3,12 @@
 exports[`SelectCurrency should render correctly 1`] = `
 <Screen
   header="select currency"
+  style={
+    {
+      "paddingLeft": 0,
+      "paddingRight": 0,
+    }
+  }
 >
   <CurrencyTabs
     currency="EUR"
@@ -13,7 +19,6 @@ exports[`SelectCurrency should render correctly 1`] = `
     style={
       {
         "alignSelf": "center",
-        "marginTop": 8,
       }
     }
   >

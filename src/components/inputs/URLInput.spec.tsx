@@ -9,6 +9,7 @@ expect.extend({ toMatchDiffSnapshot })
 jest.mock('../camera/ScanQR', () => ({
   ScanQR: 'ScanQR',
 }))
+jest.useFakeTimers()
 
 describe('URLInput', () => {
   const address = 'blockstream.info'
@@ -26,7 +27,7 @@ describe('URLInput', () => {
   it('pastes address from clipboard', async () => {
     const onChangeMock = jest.fn()
     Clipboard.setString(address)
-    const { UNSAFE_getByProps } = render(<URLInput value={''} onChange={onChangeMock} />)
+    const { UNSAFE_getByProps } = render(<URLInput value={''} onChangeText={onChangeMock} />)
     const clipboardIcon = UNSAFE_getByProps({ id: 'clipboard' })
 
     await act(() => {
@@ -37,7 +38,7 @@ describe('URLInput', () => {
   it('pastes clipboard value if it is not a valid bitcoin address', async () => {
     const onChangeMock = jest.fn()
     Clipboard.setString(address)
-    const { UNSAFE_getByProps } = render(<URLInput value={''} onChange={onChangeMock} />)
+    const { UNSAFE_getByProps } = render(<URLInput value={''} onChangeText={onChangeMock} />)
     const clipboardIcon = UNSAFE_getByProps({ id: 'clipboard' })
 
     await act(() => {
@@ -67,7 +68,7 @@ describe('URLInput', () => {
   })
   it('sets address when QR scanner is successful', async () => {
     const onChangeMock = jest.fn()
-    const { UNSAFE_getByProps, UNSAFE_getByType } = render(<URLInput value={address} onChange={onChangeMock} />)
+    const { UNSAFE_getByProps, UNSAFE_getByType } = render(<URLInput value={address} onChangeText={onChangeMock} />)
     const cameraIcon = UNSAFE_getByProps({ id: 'camera' })
 
     await waitFor(() => {
@@ -78,7 +79,7 @@ describe('URLInput', () => {
   })
   it('sets address when QR scanner is successful and it is not a valid bitcoin address', async () => {
     const onChangeMock = jest.fn()
-    const { UNSAFE_getByProps, UNSAFE_getByType } = render(<URLInput value={address} onChange={onChangeMock} />)
+    const { UNSAFE_getByProps, UNSAFE_getByType } = render(<URLInput value={address} onChangeText={onChangeMock} />)
     const cameraIcon = UNSAFE_getByProps({ id: 'camera' })
     await waitFor(() => {
       fireEvent.press(cameraIcon)

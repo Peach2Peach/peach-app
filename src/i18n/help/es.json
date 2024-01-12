@@ -1,5 +1,7 @@
 {
   "help" : "ayuda",
+  "help.acceptMatch.description" : "Solo puedes hacer match con un comprador por oferta. Una vez que aceptes un match, se iniciará el trade.\n\nUna vez iniciado, solo puedes hacer una cancelación colaborativa con tu comprador y tu reputación se verá afectada.",
+  "help.acceptMatch.title" : "aceptar match = comenzar intercambio",
   "help.addressSigning.description" : "Debido a la ley suiza, deberás firmar para verificar que eres el propietario de la dirección a la que se pagará el bitcoin.\n\nSi no sabes cómo funciona esto, te recomendamos usar la cartera Peach, donde no necesitas realizar este paso manualmente.",
   "help.addressSigning.title" : "firma de dirección",
   "help.buyingBitcoin.description" : "Al comprar bitcoin en Peach, primero seleccionarás un rango de cuánto quieres comprar.\n\nDespués de seleccionar, se te mostrarán todas las ofertas de venta que se ajusten a ese rango.\n\nLas comisiones de Peach son del 2% del monto de la transacción.",
@@ -8,8 +10,8 @@
   "help.confirmPayment.description" : "Tan pronto como deslizes \"pago recibido\", el bitcoin se enviará al comprador.\n\nAsegúrate de que esto es correcto porque no lo podrás deshacer",
   "help.confirmPayment.title" : "¿recibiste el pago?",
   "help.contactEncryption.description" : "Estamos utilizando un sistema de tickets de terceros llamado Zammad para gestionar las solicitudes entrantes.\n\nSi prefiere utilizar una comunicación encriptada, por favor envíenos un correo electrónico a support@peachbitcoin.com.",
-  "help.currency.description" : "Si tu cartera en línea puede recibir múltiples monedas y hacer la conversión por ti, puedes seleccionar cualquier moneda que puedas recibir aquí.",
-  "help.currency.title" : "monedas aceptadas",
+  "help.currencies.description" : "Si tu cartera en línea puede recibir múltiples monedas y hacer la conversión por ti, puedes seleccionar cualquier moneda que puedas recibir aquí.",
+  "help.currencies.title" : "monedas aceptadas",
   "help.escrow.description" : "Prefinancias el escrow al realizar un intercambio en Peach. Esto protege tanto al comprador como a ti. Puedes leer más sobre el escrow",
   "help.escrow.description.link" : "aquí",
   "help.escrow.description.proTip" : "Si mantienes pulsado el QR se va a copiar toda la factura de pago.",

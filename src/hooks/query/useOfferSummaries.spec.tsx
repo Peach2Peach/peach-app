@@ -1,4 +1,5 @@
 import { renderHook, responseUtils, waitFor } from 'test-utils'
+import { OfferSummary } from '../../../peach-api/src/@types/offer'
 import { offerSummary } from '../../../tests/unit/data/offerSummaryData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultTradeSummaryState, useTradeSummaryStore } from '../../store/tradeSummaryStore'

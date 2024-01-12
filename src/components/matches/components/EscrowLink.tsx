@@ -7,10 +7,8 @@ import { Icon } from '../../Icon'
 import { PeachText } from '../../text/PeachText'
 
 export const EscrowLink = ({ address }: { address: string }) => (
-  <>
-    <TouchableOpacity style={tw`flex-row items-end self-center`} onPress={() => showAddress(address, NETWORK)}>
-      <PeachText style={tw`underline tooltip text-black-2`}>{i18n('match.viewInEscrow')}</PeachText>
-      <Icon id="externalLink" style={tw`w-[18px] h-[18px] ml-[2px] mb-[2px]`} color={tw.color('primary-main')} />
-    </TouchableOpacity>
-  </>
+  <TouchableOpacity style={tw`flex-row items-center justify-center gap-1`} onPress={() => showAddress(address, NETWORK)}>
+    <PeachText style={tw`underline tooltip text-black-65`}>{i18n('escrow.viewInExplorer')}</PeachText>
+    <Icon id="externalLink" size={18} color={tw.color('primary-main')} />
+  </TouchableOpacity>
 )

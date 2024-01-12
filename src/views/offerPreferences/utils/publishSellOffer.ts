@@ -1,5 +1,5 @@
 import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
-import { info } from '../../../utils/log'
+import { info } from '../../../utils/log/info'
 import { interpolate } from '../../../utils/math/interpolate'
 import { isSellOffer } from '../../../utils/offer/isSellOffer'
 import { saveOffer } from '../../../utils/offer/saveOffer'

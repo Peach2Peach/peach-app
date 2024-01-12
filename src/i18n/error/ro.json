@@ -2,5 +2,8 @@
   "HUMAN_VERIFICATION_REQUIRED.start" : "verificare",
   "HUMAN_VERIFICATION_REQUIRED.text" : "Sistemele noastre de securitate doresc să se asigure că ești om. Înainte de a continua, te rog să completezi un test de verificare rapid.",
   "HUMAN_VERIFICATION_REQUIRED.title" : "Te rog să confirmi că ești om",
+  "INVALID_AMOUNT_RANGE.text" : "Suma trebuie să fie între $0 și $1 sats",
+  "PAYMENT_METHOD_MISSING.text" : "Vă rugăm să adăugați o metodă de plată",
+  "VALID_PAYMENT_DATA_MISSING.text" : "Vă rugăm să adăugați o metodă de plată validă",
   "WALLET_SYNC_ERROR.text" : "Oho! Ceva nu a mers bine în timpul sincronizării portofelului tău Bitcoin. Se pare că există o problemă de conexiune. Te rog să încerci din nou mai târziu."
 }

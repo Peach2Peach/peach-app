@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { NEW_USER_THRESHOLD } from '../constants'
 import tw from '../styles/tailwind'
-import { Rating } from '../views/settings/profile/profileOverview/components/Rating'
+import { Rating } from '../views/settings/profile/profileOverview/Rating'
 import { PeachID } from './PeachID'
 import { Badges } from './matches/components/Badges'
 

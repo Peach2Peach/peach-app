@@ -1,35 +1,29 @@
 import { TouchableOpacity, View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { Bottom } from './components/Bottom'
-import { Top } from './components/Top'
 import { statusCardStyles } from './statusCardStyles'
 
-export type StatusCardProps = {
-  title: string
-  icon?: JSX.Element
-  subtext: string
-  amount?: number | [number, number]
-  price?: number
-  premium?: number
-  currency?: Currency
-  label?: string
-  labelIcon?: JSX.Element
+type Props = {
   onPress: () => void
-  unreadMessages?: number
   color: keyof typeof statusCardStyles.bg
-  replaced?: boolean
+  statusInfo?: JSX.Element
+  amountInfo?: JSX.Element
+  label?: JSX.Element
 }
 
-export const StatusCard = (props: StatusCardProps) => (
-  <TouchableOpacity onPress={props.onPress}>
-    <View
+export function StatusCard ({ color, onPress, statusInfo, amountInfo, label }: Props) {
+  return (
+    <TouchableOpacity
       style={[
         tw`overflow-hidden border rounded-xl bg-primary-background-light`,
-        tw.style(statusCardStyles.border[props.color]),
+        tw.style(statusCardStyles.border[color]),
       ]}
+      onPress={onPress}
     >
-      <Top {...props} />
-      <Bottom {...props} />
-    </View>
-  </TouchableOpacity>
-)
+      <View style={tw`flex-row items-center justify-between gap-2 px-4 py-3`}>
+        {statusInfo}
+        {amountInfo}
+      </View>
+      {label}
+    </TouchableOpacity>
+  )
+}

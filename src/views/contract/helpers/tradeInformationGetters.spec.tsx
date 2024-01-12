@@ -2,6 +2,7 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import { fireEvent, render } from 'test-utils'
 import { contract } from '../../../../peach-api/src/testData/contract'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
+import { Icon } from '../../../components/Icon'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { isTradeInformationGetter, tradeInformationGetters } from './tradeInformationGetters'
 
@@ -33,8 +34,8 @@ describe('tradeInformationGetters', () => {
   })
   it('should only copy the amount and not the currency for "you should pay" field', () => {
     const element = tradeInformationGetters.youShouldPay({ ...contract, price: 89.04, currency: 'EUR' })
-    const { getByText } = render(element)
-    fireEvent.press(getByText('copied!'))
+    const { UNSAFE_getByType } = render(element)
+    fireEvent.press(UNSAFE_getByType(Icon))
     expect(Clipboard.setString).toHaveBeenCalledWith('89.04')
   })
   it('should return the correct value for the paidToMethod field', () => {

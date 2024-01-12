@@ -1,5 +1,7 @@
 {
   "help" : "yardım",
+  "help.acceptMatch.description" : "Bir teklif için yalnızca bir alıcı eşleşebilir. Bir eşleşmeyi kabul ettikten sonra işlem başlatılır.\n\nBaşladıktan sonra, alıcı ile işbirliği yaparak işlemi iptal edebilirsiniz ve itibarınız zarar görebilir.",
+  "help.acceptMatch.title" : "eşleşmeyi kabul et = alışverişe başla",
   "help.addressSigning.description" : "İsviçre yasaları gereği, işlem ödeneceğiniz adresi doğrulamak için imza atmanız gerekecek.\n\nBu işlemin nasıl çalıştığını bilmiyorsanız, manuel olarak bu adıma geçmeniz gerekmez. Peach cüzdanını kullanmanızı öneririz.",
   "help.addressSigning.title" : "adres onayı",
   "help.buyingBitcoin.description" : "Peach üzerinden bitcoin satın aldığınızda, önce ne kadarlık bir miktar almak istediğinizi seçeceksiniz.\n\nSeçtikten sonra, bu aralığa uygun tüm satış teklifleri görüntülenir.\n\nPeach ücretleri işlem miktarının %2'sidir.",
@@ -8,8 +10,8 @@
   "help.confirmPayment.description" : "\"Ödeme alındı\" kaydırıcısını kaydırdığınız anda, bitcoin alıcıya gönderilir.\n\nHer şeyin doğru olduğundan emin olun, çünkü bu geri alınamaz!",
   "help.confirmPayment.title" : "ödeme alındı mı?",
   "help.contactEncryption.description" : "Gelen talepleri yönetmek için Zammad adlı üçüncü taraf bir bilet sistemini kullanıyoruz.\n\nŞifreli iletişim kullanmayı tercih ederseniz, lütfen bize support@peachbitcoin.com adresine bir e-posta gönderin.",
-  "help.currency.description" : "Çevrimiçi cüzdanınız birden fazla para birimi alabilir ve dönüştürebilirse, burada alabileceğiniz tüm para birimlerini seçebilirsiniz.",
-  "help.currency.title" : "kabul edilen para birimleri",
+  "help.currencies.description" : "Çevrimiçi cüzdanınız birden fazla para birimi alabilir ve dönüştürebilirse, burada alabileceğiniz tüm para birimlerini seçebilirsiniz.",
+  "help.currencies.title" : "kabul edilen para birimleri",
   "help.escrow.description" : "Peach'te işlem yaparken, işlemi korumak için önceden escrow'u finanse edersiniz. Bu hem sizi hem de alıcıyı korur. Escrow teklifiniz bir ağ onayından sonra yayınlanır. Bu süreçte uygulamayı kapatmanız mümkündür.",
   "help.escrow.description.link" : "burada",
   "help.escrow.description.proTip" : "QR kodunu uzun süre basılı tutarak tam ödeme talebini kopyalayabilirsiniz.",

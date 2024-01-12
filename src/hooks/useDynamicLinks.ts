@@ -6,7 +6,7 @@ import { useNavigation } from './useNavigation'
 
 export const useDynamicLinks = () => {
   const navigation = useNavigation()
-  const account = useAccountStore((state) => state.account)
+  const publicKey = useAccountStore((state) => state.account.publicKey)
 
   const handleReferralCode = useCallback(
     ({ url: initialURL }: { url: string | null }) => {
@@ -19,14 +19,14 @@ export const useDynamicLinks = () => {
       if (!url.includes('/referral')) return
 
       const referralCode = new URL(url).searchParams.get('code')
-      if (referralCode && !account.publicKey) {
+      if (referralCode && !publicKey) {
         navigation.reset({
           index: 0,
           routes: [{ name: 'welcome', params: { referralCode } }],
         })
       }
     },
-    [account.publicKey, navigation],
+    [publicKey, navigation],
   )
 
   useEffect(() => {

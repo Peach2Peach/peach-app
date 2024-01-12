@@ -1,10 +1,12 @@
+import { ContractSummary } from '../../../../peach-api/src/@types/contract'
+import { OfferSummary } from '../../../../peach-api/src/@types/offer'
 import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
 import { getCategories } from './getCategories'
 
 // eslint-disable-next-line max-lines-per-function
 describe('getCategories', () => {
   it('returns the correct categories with non-empty data', () => {
-    const trades: TradeSummary[] = [
+    const trades: (OfferSummary | ContractSummary)[] = [
       { ...contractSummary, type: 'bid', tradeStatus: 'rateUser', unreadMessages: 1 },
       { ...contractSummary, type: 'ask', tradeStatus: 'dispute', unreadMessages: 0 },
       { ...contractSummary, type: 'bid', tradeStatus: 'searchingForPeer', unreadMessages: 2 },
@@ -45,7 +47,7 @@ describe('getCategories', () => {
   })
 
   it('returns category only if data is not empty', () => {
-    const trades: TradeSummary[] = [
+    const trades: (OfferSummary | ContractSummary)[] = [
       { ...contractSummary, type: 'bid', tradeStatus: 'rateUser', unreadMessages: 1 },
       { ...contractSummary, type: 'ask', tradeStatus: 'dispute', unreadMessages: 0 },
       { ...contractSummary, type: 'bid', tradeStatus: 'searchingForPeer', unreadMessages: 2 },
@@ -70,7 +72,7 @@ describe('getCategories', () => {
   })
 
   it('should return data for trades that have an error status', () => {
-    const trades: TradeSummary[] = [
+    const trades: (OfferSummary | ContractSummary)[] = [
       {
         ...contractSummary,
         type: 'ask',

@@ -1,20 +1,18 @@
 import { useCallback } from 'react'
-import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
+import { AppPopup } from '../../../hooks/AppPopup'
 import { useToggleBoolean } from '../../../hooks/useToggleBoolean'
-import { UnmatchPopup } from '../../../popups/UnmatchPopup'
 import tw from '../../../styles/tailwind'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { shallow } from 'zustand/shallow'
 import { WarningPopup } from '../../../popups/WarningPopup'
-import { ClosePopupAction } from '../../../popups/actions'
-import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { error } from '../../../utils/log/error'
 import { peachAPI } from '../../../utils/peachAPI'
 import { Button } from '../../buttons/Button'
 import { useMessageState } from '../../message/useMessageState'
-import { PopupAction } from '../../popup'
+import { useClosePopup, useSetPopup } from '../../popup/Popup'
+import { PopupAction } from '../../popup/PopupAction'
+import { ClosePopupAction } from '../../popup/actions/ClosePopupAction'
 import { UndoButton } from './UndoButton'
 
 type Props = {
@@ -25,7 +23,8 @@ type Props = {
 }
 
 export const UnmatchButton = ({ match, offer, interruptMatching, setShowMatchedCard }: Props) => {
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setPopup = useSetPopup()
+  const closePopup = useClosePopup()
   const { mutate: unmatch } = useUnmatchOffer(offer, match.offerId)
 
   const [showUnmatch, toggle] = useToggleBoolean(match.matched)
@@ -34,18 +33,18 @@ export const UnmatchButton = ({ match, offer, interruptMatching, setShowMatchedC
     setPopup(
       <WarningPopup
         title={i18n('search.popups.unmatch.title')}
-        content={<UnmatchPopup />}
+        content={i18n('search.popups.unmatch.text')}
         actions={
           <>
             <PopupAction
               label={i18n('search.popups.unmatch.confirm')}
               iconId="minusCircle"
-              textStyle={tw`text-black-1`}
+              textStyle={tw`text-black-100`}
               onPress={() => {
                 setPopup(
                   <WarningPopup
                     title={i18n('search.popups.unmatched')}
-                    actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-1`} />}
+                    actions={<ClosePopupAction style={tw`justify-center`} textStyle={tw`text-black-100`} />}
                   />,
                 )
                 unmatch(undefined, {
@@ -57,7 +56,7 @@ export const UnmatchButton = ({ match, offer, interruptMatching, setShowMatchedC
             />
             <PopupAction
               label={i18n('search.popups.unmatch.neverMind')}
-              textStyle={tw`text-black-1`}
+              textStyle={tw`text-black-100`}
               iconId="xSquare"
               onPress={closePopup}
               reverseOrder
@@ -68,11 +67,9 @@ export const UnmatchButton = ({ match, offer, interruptMatching, setShowMatchedC
     )
   }, [closePopup, setPopup, setShowMatchedCard, unmatch])
 
-  const showMatchUndonePopup = useShowAppPopup('matchUndone')
-
   const onUndoPress = () => {
     interruptMatching()
-    showMatchUndonePopup()
+    setPopup(<AppPopup id="matchUndone" />)
   }
 
   return showUnmatch ? (

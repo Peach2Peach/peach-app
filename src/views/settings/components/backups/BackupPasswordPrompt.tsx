@@ -3,10 +3,10 @@ import { Keyboard, TextInput, View } from 'react-native'
 import { useSetOverlay } from '../../../../Overlay'
 import { PeachScrollView } from '../../../../components/PeachScrollView'
 import { Button } from '../../../../components/buttons/Button'
-import { Input } from '../../../../components/inputs/Input'
+import { PasswordInput } from '../../../../components/inputs/PasswordInput'
 import { PeachText } from '../../../../components/text/PeachText'
 import { useValidatedState } from '../../../../hooks/useValidatedState'
-import { useSettingsStore } from '../../../../store/settingsStore'
+import { useSettingsStore } from '../../../../store/settingsStore/useSettingsStore'
 import tw from '../../../../styles/tailwind'
 import { backupAccount } from '../../../../utils/account/backupAccount'
 import i18n from '../../../../utils/i18n'
@@ -65,26 +65,24 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
       <PeachScrollView contentContainerStyle={tw`grow`}>
         <View style={tw`justify-center h-full`}>
           <PeachText style={tw`self-center mb-4 tooltip`}>{i18n('settings.backups.createASecurePassword')}</PeachText>
-          <Input
+          <PasswordInput
             placeholder={i18n('form.password.placeholder')}
-            onChange={setPassword}
-            onSubmit={focusToPasswordRepeat}
-            secureTextEntry={true}
+            onChangeText={setPassword}
+            onSubmitEditing={focusToPasswordRepeat}
             value={password}
             errorMessage={passwordError}
-            style={passwordIsValid && tw`border-black-2`}
-            iconColor={tw.color('black-2')}
+            style={passwordIsValid && tw`border-black-65`}
+            iconColor={tw.color('black-65')}
           />
-          <Input
+          <PasswordInput
             placeholder={i18n('form.repeatpassword.placeholder')}
             reference={(el) => ($passwordRepeat = el)}
-            onChange={setPasswordRepeat}
-            onSubmit={setPasswordRepeat}
-            secureTextEntry={true}
+            onChangeText={setPasswordRepeat}
+            onSubmitEditing={(e) => setPasswordRepeat(e.nativeEvent.text)}
             value={passwordRepeat}
             errorMessage={passwordRepeatError}
-            style={passwordRepeatIsValid && tw`border-black-2`}
-            iconColor={tw.color('black-2')}
+            style={passwordRepeatIsValid && tw`border-black-65`}
+            iconColor={tw.color('black-65')}
           />
         </View>
       </PeachScrollView>

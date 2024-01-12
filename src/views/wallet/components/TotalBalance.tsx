@@ -3,7 +3,7 @@ import { shallow } from 'zustand/shallow'
 import { Icon } from '../../../components/Icon'
 import { Placeholder } from '../../../components/Placeholder'
 import { Loading } from '../../../components/animation/Loading'
-import { BTCAmount } from '../../../components/bitcoin/btcAmount/BTCAmount'
+import { BTCAmount } from '../../../components/bitcoin/BTCAmount'
 import { PeachText } from '../../../components/text/PeachText'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -28,11 +28,11 @@ export const TotalBalance = ({ amount, isRefreshing }: Props) => {
           accessibilityHint={i18n(showBalance ? 'wallet.hideBalance' : 'wallet.showBalance')}
           onPress={toggleShowBalance}
         >
-          <Icon id={showBalance ? 'eyeOff' : 'eye'} size={20} color={tw.color('black-3')} />
+          <Icon id={showBalance ? 'eyeOff' : 'eye'} size={20} color={tw.color('black-50')} />
         </TouchableOpacity>
       </View>
       {isRefreshing && <Loading style={tw`absolute w-16 h-16`} />}
-      <BTCAmount amount={amount} size="extra large" showAmount={showBalance} style={isRefreshing && tw`opacity-50`} />
+      <BTCAmount amount={amount} size="large" showAmount={showBalance} style={isRefreshing && tw`opacity-50`} />
     </View>
   )
 }

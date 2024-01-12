@@ -1,1 +1,0 @@
-export { migrateSettings } from './migrateSettings'

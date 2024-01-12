@@ -1,5 +1,5 @@
 import { act, renderHook } from 'test-utils'
-import { useSettingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import { languageState } from '../utils/i18n'
 import { useLanguage } from './useLanguage'
 

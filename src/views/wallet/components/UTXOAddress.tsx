@@ -28,7 +28,7 @@ export function UTXOAddress ({ script }: Props) {
   const addressLabel = useWalletState((state) => (address ? state.addressLabelMap[address] : ''))
 
   return (
-    <PeachText style={tw`body-s text-black-2`}>
+    <PeachText style={tw`body-s text-black-65`}>
       <PeachText style={tw`body-s`}>{addressLabel ? `${addressLabel} ‑ ` : ''}</PeachText>
       {address}
     </PeachText>

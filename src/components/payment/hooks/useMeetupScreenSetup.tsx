@@ -14,7 +14,7 @@ export const useMeetupScreenSetup = () => {
   const deletable = route.params.deletable ?? false
   const goToOrigin = useGoToOrigin()
   const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
-  const account = useAccountStore((state) => state.account)
+  const publicKey = useAccountStore((state) => state.account.publicKey)
   const event: MeetupEvent = getMeetupEvent(eventId) || {
     id: eventId,
     longName: '',
@@ -42,7 +42,7 @@ export const useMeetupScreenSetup = () => {
       id: meetupInfo.id,
       label: event.shortName,
       type: meetupInfo.id,
-      userId: account.publicKey,
+      userId: publicKey,
       currencies: selectedCurrencies,
       country: event.country,
     }

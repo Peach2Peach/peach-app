@@ -3,7 +3,7 @@ import { shallow } from 'zustand/shallow'
 import { useMessageState } from '../../../components/message/useMessageState'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useValidatedState } from '../../../hooks/useValidatedState'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import { updateUser } from '../../../utils/peachAPI'
 
 const customFeeRules = {

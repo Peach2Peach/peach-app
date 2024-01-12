@@ -1,4 +1,4 @@
-import { info } from '../../log'
+import { info } from '../../log/info'
 import { chatStorage } from '../chatStorage'
 
 export const storeChats = async (chats: Account['chats']) => {

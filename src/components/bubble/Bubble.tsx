@@ -1,4 +1,4 @@
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import { IconType } from '../../assets/icons'
 import { useIsMediumScreen } from '../../hooks/useIsMediumScreen'
 import tw from '../../styles/tailwind'
@@ -15,6 +15,9 @@ export type BubbleProps = Partial<BubbleBaseProps> & {
   ghost?: boolean
 }
 
+/**
+ * @deprecated use NewBubble instead
+ */
 export const Bubble = (props: BubbleProps) => {
   const isMediumScreen = useIsMediumScreen()
   const color = getBackgroundColor(props)
@@ -26,33 +29,34 @@ export const Bubble = (props: BubbleProps) => {
   return <BubbleBase {...{ ...props, color, textColor, iconColor, iconSize, borderColor }} />
 }
 
-type NewBubbleProps = {
+export type NewBubbleProps = {
   children: React.ReactNode
   iconId?: IconType
-  onPress?: () => void
-  color: 'orange' | 'black' | 'gray' | 'primary-mild'
+  color: 'orange' | 'black' | 'gray' | 'primary-mild' | 'green'
   ghost?: boolean
-}
+} & TouchableOpacityProps
 
-export function NewBubble ({ children, iconId, onPress, color, ghost }: NewBubbleProps) {
+export function NewBubble ({ children, iconId, color, ghost, ...touchableOpacityProps }: NewBubbleProps) {
   const colorStyle = tw.color(
     color === 'orange'
       ? 'primary-main'
       : color === 'primary-mild'
         ? 'primary-mild-1'
-        : color === 'gray'
-          ? 'black-3'
-          : 'black-1',
+        : color === 'green'
+          ? 'success-main'
+          : color === 'gray'
+            ? 'black-50'
+            : 'black-100',
   )
 
   return (
     <TouchableOpacity
-      onPress={onPress}
       style={[
         tw`flex-row items-center justify-center gap-1 px-2 rounded-lg py-2px`,
         [tw`border`, { borderColor: colorStyle }],
         ghost ? tw`bg-transparent` : { backgroundColor: colorStyle },
       ]}
+      {...touchableOpacityProps}
     >
       <PeachText
         style={[tw`text-center button-medium`, { color: ghost ? colorStyle : tw.color('primary-background-light') }]}

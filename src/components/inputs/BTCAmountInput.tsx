@@ -1,30 +1,21 @@
-import { TextInput, TextInputProps, View, ViewStyle } from 'react-native'
+import { forwardRef } from 'react'
+import { StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
-import { BTCAmount } from '../bitcoin/btcAmount/BTCAmount'
+import { BTCAmount, BTCAmountProps } from '../bitcoin/BTCAmount'
 
 type Props = {
-  amount: number
-  onChangeText: TextInputProps['onChangeText']
-  style?: ViewStyle
-}
+  containerStyle?: StyleProp<ViewStyle>
+  textStyle?: StyleProp<TextStyle>
+  size?: BTCAmountProps['size']
+} & TextInputProps
 
-export function BTCAmountInput ({ amount, onChangeText, style }: Props) {
-  return (
+export const BTCAmountInput = forwardRef<TextInput, Props>(
+  ({ containerStyle, textStyle, size = 'small', ...props }, ref) => (
     <View
-      style={[
-        tw`self-stretch justify-center px-2 py-3 overflow-hidden h-38px rounded-xl`,
-        tw`border bg-primary-background-light border-black-2`,
-        style,
-      ]}
+      style={[containerStyle, ref && 'current' in ref && ref.current?.isFocused() && tw`border-2 border-primary-main`]}
     >
-      <BTCAmount size="medium" amount={amount} />
-      <TextInput
-        style={tw`absolute grow w-full py-0 opacity-0 h-38px input-text`}
-        keyboardType="number-pad"
-        value={amount.toString()}
-        onChangeText={onChangeText}
-        testID="btc-amount-input"
-      />
+      <BTCAmount size={size} amount={Number(props.value)} />
+      <TextInput {...props} ref={ref} style={textStyle} keyboardType="number-pad" />
     </View>
-  )
-}
+  ),
+)

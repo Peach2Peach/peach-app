@@ -1,10 +1,6 @@
 import { fireEvent, render, renderHook, responseUtils } from 'test-utils'
 import { replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { Popup } from '../../../components/popup'
-import { PopupAction } from '../../../components/popup/PopupAction'
-import { PopupComponent } from '../../../components/popup/PopupComponent'
-import { OfferRepublished } from '../../../popups/tradeCancelation'
-import { usePopupStore } from '../../../store/usePopupStore'
+import { Popup } from '../../../components/popup/Popup'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useRepublishOffer } from './useRepublishOffer'
 
@@ -43,7 +39,8 @@ describe('useRepublishOffer', () => {
     const { result } = renderHook(useRepublishOffer)
     await result.current(contract)
     expect(showErrorBannerMock).toHaveBeenCalledWith('UNAUTHORIZED')
-    expect(usePopupStore.getState().visible).toBe(false)
+    const { queryByText } = render(<Popup />)
+    expect(queryByText('offer re-published')).toBeFalsy()
   })
 
   it('should show the offer republished popup', async () => {
@@ -51,28 +48,17 @@ describe('useRepublishOffer', () => {
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
     await result.current(contract)
 
-    expect(usePopupStore.getState().visible).toBe(true)
-    expect(usePopupStore.getState().popupComponent).toStrictEqual(
-      <PopupComponent
-        title={'offer re-published'}
-        content={<OfferRepublished />}
-        actions={
-          <>
-            <PopupAction label={'close'} iconId={'xSquare'} onPress={expect.any(Function)} />
-            <PopupAction label={'go to offer'} iconId={'arrowRightCircle'} onPress={expect.any(Function)} reverseOrder />
-          </>
-        }
-      />,
-    )
+    const { queryByText } = render(<Popup />)
+    expect(queryByText('offer re-published')).toBeTruthy()
   })
 
   it('should close the popup, save the contract and navigate to contract when the close is pressed', async () => {
     const { result } = renderHook(useRepublishOffer)
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
     await result.current(contract)
-    const { getByText } = render(<Popup />)
+    const { getByText, queryByText } = render(<Popup />)
     fireEvent.press(getByText('close'))
-    expect(usePopupStore.getState().visible).toBe(false)
+    expect(queryByText('offer re-published')).toBeFalsy()
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
 
@@ -80,9 +66,9 @@ describe('useRepublishOffer', () => {
     const { result } = renderHook(useRepublishOffer)
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
     await result.current(contract)
-    const { getByText } = render(<Popup />)
+    const { getByText, queryByText } = render(<Popup />)
     fireEvent.press(getByText('go to offer'))
-    expect(usePopupStore.getState().visible).toBe(false)
+    expect(queryByText('offer re-published')).toBeFalsy()
     expect(replaceMock).toHaveBeenCalledWith('search', { offerId: 'newOfferId' })
   })
 })

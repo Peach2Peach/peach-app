@@ -1,5 +1,7 @@
 {
   "help" : "help",
+  "help.acceptMatch.description" : "You can only match one buyer per offer. Once you've accepted a match, the trade is started.\n\nOnce started, you can only do a collaborative cancel with your buyer, or your reputation will be harmed.",
+  "help.acceptMatch.title" : "accept match = start trade",
   "help.addressSigning.description" : "Because of Swiss law, you'll need to sign to verify that you own the address the trade will be paid out to.\n\nIf you don't know how this works, we recommend using the Peach wallet, where you don't need to go manually through this step.",
   "help.addressSigning.title" : "address signing",
   "help.buyingBitcoin.description" : "When buying bitcoin on Peach, you'll first select a range of how much you want to buy.\n\nAfter you've selected, you'll be shown all the sell offers that fit in that range.\n\nPeach fees are 2% of the trading amount.",
@@ -8,8 +10,8 @@
   "help.confirmPayment.description" : "As soon as you swipe the \"payment received\" slider, the bitcoin will be sent to the buyer.\n\nMake sure everything's correct, because this cannot be undone!",
   "help.confirmPayment.title" : "payment received?",
   "help.contactEncryption.description" : "We are using a third party ticketing system called Zammad to manage the incoming requests.\n\nIf you prefer to use an encrypted communication, please send us an email to support@peachbitcoin.com",
-  "help.currency.description" : "If your online wallet can receive multiple currencies and do the conversion for you, you can select any currencies you can receive here.",
-  "help.currency.title" : "accepted currencies",
+  "help.currencies.description" : "If your online wallet can receive multiple currencies and do the conversion for you, you can select any currencies you can receive here.",
+  "help.currencies.title" : "accepted currencies",
   "help.escrow.description" : "You pre-fund the escrow when making a trade on Peach. This protects both you and the buyer. You can read more about the escrow here.\n\nYour offer will be published after one network confirmation. You can close the app while waiting for this.",
   "help.escrow.description.link" : "here",
   "help.escrow.description.proTip" : "You can long press the QR code to copy the full payment request.",

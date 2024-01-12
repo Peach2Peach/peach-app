@@ -15,6 +15,6 @@ type Props = {
 export const RewardItem = ({ reward }: Props) => (
   <View style={tw`flex-row items-center justify-between py-1`}>
     <PeachText style={tw`subtitle-1`}>{i18n(`referrals.reward.${reward.id}`)}</PeachText>
-    <PeachText style={tw`mr-2 body-m text-black-2`}>({pointsRepresentation[reward.id]})</PeachText>
+    <PeachText style={tw`mr-2 body-m text-black-65`}>({pointsRepresentation[reward.id]})</PeachText>
   </View>
 )

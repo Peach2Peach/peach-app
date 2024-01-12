@@ -5,17 +5,11 @@ import {
   pendingTransactionSummary,
   transactionWithRBF1,
 } from '../../../../tests/unit/data/transactionDetailData'
+import { setRouteMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { MSINASECOND } from '../../../constants'
 import { saveOffer } from '../../../utils/offer/saveOffer'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useTransactionDetailsSetup } from './useTransactionDetailsSetup'
-
-const useRouteMock = jest.fn(() => ({
-  params: { txId: transactionWithRBF1.txid },
-}))
-jest.mock('../../../hooks/useRoute', () => ({
-  useRoute: () => useRouteMock(),
-}))
 
 const useTransactionDetailsMock = jest.fn().mockReturnValue({ transaction: null })
 jest.mock('../../../hooks/query/useTransactionDetails', () => ({
@@ -32,6 +26,7 @@ describe('useTransactionDetailsSetup', () => {
   beforeAll(() => {
     useWalletState.getState().updateTxOfferMap(transactionWithRBF1.txid, ['123'])
     saveOffer({ ...buyOffer, amount: [minAmount, maxAmount], id: '123' })
+    setRouteMock({ name: 'transactionDetails', key: 'transactionDetails', params: { txId: transactionWithRBF1.txid } })
   })
   beforeEach(() => {
     useWalletState.getState().setTransactions([])

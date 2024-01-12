@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`BuyOfferExpired should render correctly 1`] = `
-<PeachText>
-  Your buy offer P‑7B hasn't received a match after 30 days and has been removed.
-</PeachText>
-`;
