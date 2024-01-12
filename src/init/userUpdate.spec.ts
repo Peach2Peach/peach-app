@@ -9,7 +9,7 @@ jest.mock('@react-native-firebase/messaging', () => () => ({
 }))
 
 const updateUserMock = jest.fn().mockResolvedValue([{ success: true }, null])
-jest.mock('../utils/peachAPI', () => ({
+jest.mock('../utils/peachAPI/updateUser', () => ({
   updateUser: (...args: unknown[]) => updateUserMock(...args),
 }))
 describe('userUpdate', () => {

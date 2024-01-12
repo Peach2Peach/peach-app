@@ -1,14 +1,9 @@
-import { render } from 'test-utils'
+import { render, responseUtils, waitFor } from 'test-utils'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { peachAPI } from '../../utils/peachAPI'
 import { NetworkFees } from './NetworkFees'
 
 const useNetworkFeesSetupMock = jest.fn().mockReturnValue({
-  estimatedFees: {
-    fastestFee: 5,
-    halfHourFee: 4,
-    hourFee: 3,
-    economyFee: 2,
-    minimumFee: 1,
-  },
   selectedFeeRate: 'fastestFee',
   setSelectedFeeRate: jest.fn(),
   customFeeRate: '5',
@@ -21,9 +16,27 @@ jest.mock('./hooks/useNetworkFeesSetup', () => ({
   useNetworkFeesSetup: () => useNetworkFeesSetupMock(),
 }))
 
+const estimatedFees = {
+  fastestFee: 5,
+  halfHourFee: 4,
+  hourFee: 3,
+  economyFee: 2,
+  minimumFee: 1,
+}
+
+jest.spyOn(peachAPI.public.bitcoin, 'getFeeEstimate').mockResolvedValue({
+  ...responseUtils,
+  result: estimatedFees,
+})
+
+jest.useFakeTimers()
+
 describe('NetworkFees', () => {
-  it('should render correctly', () => {
+  it('should render correctly', async () => {
     const { toJSON } = render(<NetworkFees />)
+    await waitFor(() => {
+      expect(queryClient.getQueryData(['feeEstimate'])).toStrictEqual(estimatedFees)
+    })
     expect(toJSON()).toMatchSnapshot()
   })
 })

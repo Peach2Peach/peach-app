@@ -25,6 +25,7 @@ import { SATSINBTC } from '../../constants'
 import { HelpPopup } from '../../hooks/HelpPopup'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useMarketPrices } from '../../hooks/query/useMarketPrices'
+import { useSelfUser } from '../../hooks/query/useSelfUser'
 import { useBitcoinPrices } from '../../hooks/useBitcoinPrices'
 import { useKeyboard } from '../../hooks/useKeyboard'
 import { useNavigation } from '../../hooks/useNavigation'
@@ -407,7 +408,8 @@ function SellAction () {
 }
 
 function FundWithPeachWallet ({ fundWithPeachWallet, toggle }: { fundWithPeachWallet: boolean; toggle: () => void }) {
-  const feeRate = useSettingsStore((state) => state.feeRate)
+  const { user } = useSelfUser()
+  const feeRate = user?.feeRate || 'halfHourFee'
   const feeEstimate = useFeeEstimate()
   const estimatedFeeRate = typeof feeRate === 'number' ? feeRate : feeEstimate.estimatedFees[feeRate]
   const navigation = useNavigation()

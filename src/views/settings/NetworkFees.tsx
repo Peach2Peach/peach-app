@@ -7,6 +7,7 @@ import { RadioButtons } from '../../components/inputs/RadioButtons'
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
+import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { InfoPopup } from '../../popups/InfoPopup'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -18,16 +19,9 @@ import { useNetworkFeesSetup } from './hooks/useNetworkFeesSetup'
 const estimatedFeeRates = ['fastestFee', 'halfHourFee', 'hourFee', 'custom'] as const
 
 export const NetworkFees = () => {
-  const {
-    estimatedFees,
-    selectedFeeRate,
-    setSelectedFeeRate,
-    customFeeRate,
-    setCustomFeeRate,
-    submit,
-    isValid,
-    feeRateSet,
-  } = useNetworkFeesSetup()
+  const { estimatedFees } = useFeeEstimate()
+  const { selectedFeeRate, setSelectedFeeRate, customFeeRate, setCustomFeeRate, submit, isValid, feeRateSet }
+    = useNetworkFeesSetup()
 
   const options = estimatedFeeRates.map((rate) => ({
     value: rate,

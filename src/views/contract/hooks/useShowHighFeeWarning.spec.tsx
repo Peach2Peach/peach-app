@@ -1,10 +1,15 @@
-import { renderHook } from 'test-utils'
+import { renderHook, responseUtils, waitFor } from 'test-utils'
+import { defaultUser } from '../../../../peach-api/src/testData/user'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { defaultState, useMessageState } from '../../../components/message/useMessageState'
-import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
+import { peachAPI } from '../../../utils/peachAPI'
 import { useShowHighFeeWarning } from './useShowHighFeeWarning'
 
 jest.useFakeTimers()
+
+jest
+  .spyOn(peachAPI.private.user, 'getSelfUser')
+  .mockResolvedValue({ result: { ...defaultUser, feeRate: 100 }, ...responseUtils })
 
 describe('useShowHighFeeWarning', () => {
   const initialProps = {
@@ -14,22 +19,23 @@ describe('useShowHighFeeWarning', () => {
 
   beforeEach(() => {
     useMessageState.setState(defaultState)
-    useSettingsStore.getState().setFeeRate(100)
   })
-  it('should show high fee warning banner if fees are bigger than 10%', () => {
+  it('should show high fee warning banner if fees are bigger than 10%', async () => {
     renderHook(useShowHighFeeWarning, { initialProps })
-    expect(useMessageState.getState()).toEqual(
-      expect.objectContaining({
-        action: {
-          callback: expect.any(Function),
-          icon: 'settings',
-          label: 'change fee',
-        },
-        bodyArgs: ['100', '10.0'],
-        level: 'WARN',
-        msgKey: 'contract.warning.highFee',
-      }),
-    )
+    await waitFor(() => {
+      expect(useMessageState.getState()).toEqual(
+        expect.objectContaining({
+          action: {
+            callback: expect.any(Function),
+            icon: 'settings',
+            label: 'change fee',
+          },
+          bodyArgs: ['100', '10.0'],
+          level: 'WARN',
+          msgKey: 'contract.warning.highFee',
+        }),
+      )
+    })
   })
   it('should navigate to fee settings', () => {
     renderHook(useShowHighFeeWarning, { initialProps })

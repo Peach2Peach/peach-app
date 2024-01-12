@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import { useMessageState } from '../../../components/message/useMessageState'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
-import { useFeeRate } from '../../../hooks/useFeeRate'
+import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useNavigation } from '../../../hooks/useNavigation'
 import i18n from '../../../utils/i18n'
+import { isNumber } from '../../../utils/validation/isNumber'
 
 type Props = {
   enabled: boolean
@@ -11,12 +12,14 @@ type Props = {
 export const useShowLowFeeWarning = ({ enabled }: Props) => {
   const navigation = useNavigation()
   const updateMessage = useMessageState((state) => state.updateMessage)
-  const feeRate = useFeeRate()
+  const { user } = useSelfUser()
+  const feeRate = user?.feeRate
   const { estimatedFees } = useFeeEstimate()
 
   useEffect(() => {
-    if (!enabled) return
-    if (feeRate >= estimatedFees.minimumFee) return
+    if (!enabled || !feeRate) return
+    const rate = isNumber(feeRate) ? feeRate : estimatedFees[feeRate]
+    if (rate >= estimatedFees.minimumFee) return
 
     updateMessage({
       msgKey: 'contract.warning.lowFee',
@@ -31,5 +34,5 @@ export const useShowLowFeeWarning = ({ enabled }: Props) => {
         icon: 'settings',
       },
     })
-  }, [updateMessage, feeRate, navigation, enabled, estimatedFees.minimumFee])
+  }, [updateMessage, feeRate, navigation, enabled, estimatedFees.minimumFee, estimatedFees])
 }

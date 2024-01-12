@@ -7,6 +7,7 @@ import { PeachText } from '../../../components/text/PeachText'
 import { ErrorBox } from '../../../components/ui/ErrorBox'
 import { HorizontalLine } from '../../../components/ui/HorizontalLine'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
+import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useIsMyAddress } from '../../../hooks/wallet/useIsMyAddress'
 import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
@@ -139,7 +140,8 @@ function ChangePayoutWallet () {
 function NetworkFee () {
   const navigation = useNavigation()
   const { estimatedFees } = useFeeEstimate()
-  const feeRate = useSettingsStore((state) => state.feeRate)
+  const { user } = useSelfUser()
+  const feeRate = user?.feeRate || 'halfHourFee'
   const onPress = () => {
     navigation.navigate('networkFees')
   }
