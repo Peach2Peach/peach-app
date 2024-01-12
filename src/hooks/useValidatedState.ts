@@ -6,9 +6,9 @@ export const useValidatedState = <S extends string | undefined>(
   input: S,
   rulesToCheck: Partial<Record<Rule, boolean>>,
 ) => {
-  const [value, setValue] = useState<S>(input)
+  const [value, setValue] = useState(input || '')
 
-  const errorMessage = useMemo(() => getErrorsInField(value || '', rulesToCheck), [value, rulesToCheck])
+  const errorMessage = useMemo(() => getErrorsInField(value, rulesToCheck), [value, rulesToCheck])
   const isValid = useMemo(() => errorMessage.length === 0, [errorMessage])
 
   return [value, setValue, isValid, errorMessage] as const
