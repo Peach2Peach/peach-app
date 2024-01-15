@@ -40,7 +40,7 @@ const toastAtom = atom<MessageState>({ level: 'DEFAULT', keepAlive: false })
 
 export const useSetToast = () => useSetAtom(toastAtom)
 
-export const Message = () => {
+export const Toast = () => {
   const setPopup = useSetPopup()
   const { level, msgKey, bodyArgs = [], action, onClose, keepAlive } = useAtomValue(toastAtom)
   const navigation = useNavigation()

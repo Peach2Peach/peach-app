@@ -10,7 +10,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { useDeviceContext } from 'twrnc'
 import { Drawer } from './components/drawer/Drawer'
 import { Popup } from './components/popup/Popup'
-import { Message, useSetToast } from './components/toast/Toast'
+import { Toast, useSetToast } from './components/toast/Toast'
 import { initWebSocket } from './init/websocket'
 import { Overlay } from './Overlay'
 import { queryClient } from './queryClient'
@@ -57,7 +57,7 @@ export const App = () => {
             <Drawer />
             <Popup />
             <Overlay />
-            <Message />
+            <Toast />
           </NavigationContainer>
         </SafeAreaProvider>
       </PeachWSContext.Provider>
