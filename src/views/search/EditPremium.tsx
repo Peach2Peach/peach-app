@@ -68,12 +68,13 @@ type Props = {
   newPremium: number
 }
 function ConfirmButton ({ offerId, newPremium }: Props) {
-  const { mutate: confirmPremium } = usePatchOffer()
+  const { mutate: confirmPremium, isLoading } = usePatchOffer()
   const navigation = useNavigation()
   return (
     <Button
       onPress={() => confirmPremium({ offerId, newData: { premium: newPremium } }, { onSuccess: navigation.goBack })}
       style={tw`self-center`}
+      loading={isLoading}
     >
       {i18n('confirm')}
     </Button>
