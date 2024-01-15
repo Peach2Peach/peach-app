@@ -12,7 +12,10 @@ import { cleanPaymentData } from '../../../utils/paymentMethod/cleanPaymentData'
 import { encryptPaymentData } from '../../../utils/paymentMethod/encryptPaymentData'
 import { peachAPI } from '../../../utils/peachAPI'
 import { signAndEncrypt } from '../../../utils/pgp/signAndEncrypt'
+import { getError } from '../../../utils/result/getError'
+import { getResult } from '../../../utils/result/getResult'
 import { parseError } from '../../../utils/result/parseError'
+import { Result } from '../../../utils/result/types'
 import { useMessageState } from '../../message/useMessageState'
 import { useSetPopup } from '../../popup/Popup'
 import { getMatchPrice } from '../utils/getMatchPrice'
@@ -62,7 +65,7 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
         paymentData,
         publicKey,
       })
-      if (!matchOfferData) throw new Error(dataError || 'UNKNOWN_ERROR')
+      if (!matchOfferData) throw new Error(dataError?.error || 'UNKNOWN_ERROR')
       const { result, error: err } = await peachAPI.private.offer.matchOffer(matchOfferData)
 
       if (result) {
@@ -111,30 +114,49 @@ type Params = {
   paymentData: PaymentData
   publicKey: string
 }
+type MatchOfferData = {
+  offerId: string
+  matchingOfferId: string
+  price: number
+  premium: number
+  currency: Currency
+  paymentMethod: PaymentMethod
+  paymentData: OfferPaymentData
+  instantTrade: boolean
+  symmetricKeyEncrypted: string
+  symmetricKeySignature: string
+  paymentDataEncrypted: string
+  paymentDataSignature: string
+}
 
-async function generateMatchOfferData ({ offer, match, currency, paymentData, publicKey }: Params) {
+const SYMMETRIC_KEY_BYTES = 32
+export async function generateMatchOfferData ({
+  offer,
+  match,
+  currency,
+  paymentData,
+  publicKey,
+}: Params): Promise<Result<MatchOfferData, APIError | undefined>> {
   const paymentMethod = paymentData.type
 
-  const symmetricKey = (await getRandom(256)).toString('hex')
+  const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString('hex')
   const { encrypted, signature } = await signAndEncrypt(symmetricKey, [publicKey, match.user.pgpPublicKey].join('\n'))
-
   const encryptedPaymentData = await encryptPaymentData(cleanPaymentData(paymentData), symmetricKey)
-  if (!encryptedPaymentData) return { error: 'PAYMENTDATA_ENCRYPTION_FAILED' }
+
+  if (!encryptedPaymentData) return getError({ error: 'PAYMENTDATA_ENCRYPTION_FAILED' })
   const hashedPaymentData = getHashedPaymentData([paymentData])
-  return {
-    result: {
-      offerId: offer.id,
-      matchingOfferId: match.offerId,
-      price: getMatchPrice(match, paymentMethod, currency),
-      premium: match.premium,
-      currency,
-      paymentMethod,
-      paymentData: hashedPaymentData,
-      instantTrade: match.instantTrade,
-      symmetricKeyEncrypted: encrypted,
-      symmetricKeySignature: signature,
-      paymentDataEncrypted: encryptedPaymentData.encrypted,
-      paymentDataSignature: encryptedPaymentData.signature,
-    },
-  }
+  return getResult({
+    offerId: offer.id,
+    matchingOfferId: match.offerId,
+    price: getMatchPrice(match, paymentMethod, currency),
+    premium: match.premium,
+    currency,
+    paymentMethod,
+    paymentData: hashedPaymentData,
+    instantTrade: match.instantTrade,
+    symmetricKeyEncrypted: encrypted,
+    symmetricKeySignature: signature,
+    paymentDataEncrypted: encryptedPaymentData.encrypted,
+    paymentDataSignature: encryptedPaymentData.signature,
+  })
 }
