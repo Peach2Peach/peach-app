@@ -7,7 +7,7 @@ export const shouldShowTradeStatusInfo = (
   >,
   view: ContractViewer,
 ) =>
-  isPaymentTooLate(contract)
+  (isPaymentTooLate(contract) && (contract.tradeStatus === 'paymentTooLate' || view === 'buyer'))
   || contract.canceled
   || (contract.disputeWinner === 'buyer' && ['releaseEscrow', 'confirmPaymentRequired'].includes(contract.tradeStatus))
   || (contract.cancelationRequested && view === 'buyer')

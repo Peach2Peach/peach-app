@@ -27,9 +27,13 @@ describe('shouldShowTradeStatusInfo', () => {
   it('should return true if the contract is canceled', () => {
     expect(shouldShowTradeStatusInfo({ ...mockContract, canceled: true }, 'seller')).toEqual(true)
   })
-  it('should return true if the payment is too late and view is seller', () => {
+  it('should return true if the payment is too late and view is seller and the status is "paymentTooLate"', () => {
     isPaymentTooLateMock.mockReturnValueOnce(true)
-    expect(shouldShowTradeStatusInfo(mockContract, 'seller')).toEqual(true)
+    expect(shouldShowTradeStatusInfo({ ...mockContract, tradeStatus: 'paymentTooLate' }, 'seller')).toEqual(true)
+  })
+  it('should return true if the payment is too late and view is seller but a dispute is ongoing', () => {
+    isPaymentTooLateMock.mockReturnValueOnce(true)
+    expect(shouldShowTradeStatusInfo({ ...mockContract, tradeStatus: 'dispute' }, 'seller')).toEqual(false)
   })
   it('should return true if the payment is too late and view is buyer', () => {
     isPaymentTooLateMock.mockReturnValueOnce(true)
