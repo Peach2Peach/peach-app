@@ -1,7 +1,7 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { AppState } from 'react-native'
 import { act, renderHook } from 'test-utils'
-import { defaultState, useMessageState } from '../../components/message/useMessageState'
+import { defaultState, useMessageState } from '../../components/toast/useMessageState'
 import { useMessageHandler } from './useMessageHandler'
 
 const overlayEventHanderMock = jest.fn()

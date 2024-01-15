@@ -9,7 +9,7 @@ const exploreEvents = ['offer.matchBuyer']
 export const useGetPNActionHandler = () => {
   const navigation = useNavigation()
   const getPNActionHandler = useCallback(
-    ({ type, contractId, isChat, offerId }: PNData): Action | undefined => {
+    ({ type, contractId, isChat, offerId }: PNData) => {
       if (contractId && isChat) return {
         label: i18n('goToChat'),
         icon: 'arrowLeftCircle',

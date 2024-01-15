@@ -9,10 +9,10 @@ import i18n from '../../../utils/i18n'
 import { error } from '../../../utils/log/error'
 import { peachAPI } from '../../../utils/peachAPI'
 import { Button } from '../../buttons/Button'
-import { useMessageState } from '../../message/useMessageState'
 import { useClosePopup, useSetPopup } from '../../popup/Popup'
 import { PopupAction } from '../../popup/PopupAction'
 import { ClosePopupAction } from '../../popup/actions/ClosePopupAction'
+import { useSetToast } from '../../toast/Toast'
 import { UndoButton } from './UndoButton'
 
 type Props = {
@@ -88,7 +88,7 @@ export const UnmatchButton = ({ match, offer, interruptMatching, setShowMatchedC
 
 function useUnmatchOffer (offer: BuyOffer, matchingOfferId: string) {
   const queryClient = useQueryClient()
-  const updateMessage = useMessageState((state) => state.updateMessage)
+  const setToast = useSetToast()
 
   return useMutation({
     onMutate: async () => {
@@ -110,7 +110,7 @@ function useUnmatchOffer (offer: BuyOffer, matchingOfferId: string) {
         return result
       }
       error('Error', err)
-      updateMessage({
+      setToast({
         msgKey: err?.error || 'error.general',
         level: 'ERROR',
       })

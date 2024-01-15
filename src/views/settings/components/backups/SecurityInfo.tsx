@@ -16,7 +16,7 @@ export const SecurityInfo = () => (
     {items.map(({ id, text, color }) => (
       <View key={id} style={tw`flex-row items-center mt-6`}>
         <Icon id={id} style={tw`w-11 h-11`} color={color} />
-        <PeachText style={tw`flex-1 pl-4 body-m`}>{i18n(`settings.backups.seedPhrase.${text}`)}</PeachText>
+        <PeachText style={tw`flex-1 pl-4`}>{i18n(`settings.backups.seedPhrase.${text}`)}</PeachText>
       </View>
     ))}
   </View>

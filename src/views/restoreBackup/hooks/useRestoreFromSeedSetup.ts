@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
-import { useMessageState } from '../../../components/message/useMessageState'
+import { useSetToast } from '../../../components/toast/Toast'
 import { useValidatedState } from '../../../hooks/useValidatedState'
 import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import { useAccountStore } from '../../../utils/account/account'
@@ -20,7 +20,7 @@ const bip39Rules = {
 }
 
 export const useRestoreFromSeedSetup = () => {
-  const updateMessage = useMessageState((state) => state.updateMessage)
+  const setToast = useSetToast()
   const updateSeedBackupDate = useSettingsStore((state) => state.updateSeedBackupDate)
 
   const [words, setWords] = useState<string[]>(new Array(12).fill(''))
@@ -42,14 +42,14 @@ export const useRestoreFromSeedSetup = () => {
     (errorMsg = 'UNKNOWN_ERROR') => {
       setError(errorMsg)
       if (errorMsg !== 'REGISTRATION_DENIED') {
-        updateMessage({
+        setToast({
           msgKey: errorMsg,
           level: 'ERROR',
         })
       }
       deleteAccount()
     },
-    [updateMessage],
+    [setToast],
   )
 
   const createAndRecover = async () => {

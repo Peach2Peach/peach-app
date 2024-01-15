@@ -35,7 +35,7 @@ export const ReferralCode = () => {
 function YourCode ({ referralCode }: Props) {
   return (
     <View>
-      <PeachText style={tw`text-center body-m text-black-65`}>{i18n('referrals.yourCode')}</PeachText>
+      <PeachText style={tw`text-center text-black-65`}>{i18n('referrals.yourCode')}</PeachText>
       <View style={tw`flex-row justify-center`}>
         <PeachText style={tw`mr-1 text-center h4`}>{referralCode}</PeachText>
         <CopyAble value={referralCode} style={tw`w-7 h-7`} textPosition="bottom" />
@@ -48,7 +48,7 @@ function InviteLink ({ inviteLink }: { inviteLink: string }) {
   return (
     <View style={tw`flex-row items-center justify-between p-4 border rounded-lg border-primary-main`}>
       <View>
-        <PeachText style={tw` body-m text-black-65`}>{i18n('referrals.inviteLink')}</PeachText>
+        <PeachText style={tw`text-black-65`}>{i18n('referrals.inviteLink')}</PeachText>
         <PeachText style={tw`text-3xs`}>{inviteLink.replace('https://', '')}</PeachText>
       </View>
       <CopyAble value={inviteLink} style={tw`w-7 h-7`} />

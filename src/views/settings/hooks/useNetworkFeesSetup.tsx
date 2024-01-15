@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { User } from '../../../../peach-api/src/@types/user'
-import { useMessageState } from '../../../components/message/useMessageState'
+import { useSetToast } from '../../../components/toast/Toast'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useValidatedState } from '../../../hooks/useValidatedState'
 import { updateUser } from '../../../utils/peachAPI/updateUser'
@@ -11,7 +11,7 @@ const customFeeRules = {
   feeRate: true,
 }
 export const useNetworkFeesSetup = () => {
-  const updateMessage = useMessageState((state) => state.updateMessage)
+  const setToast = useSetToast()
 
   const { user } = useSelfUser()
   const feeRate = user?.feeRate
@@ -48,7 +48,7 @@ export const useNetworkFeesSetup = () => {
     },
     onError: (err: Error, variables, context) => {
       queryClient.setQueryData(['user', 'self'], context?.previousData)
-      updateMessage({
+      setToast({
         msgKey: err.message,
         level: 'ERROR',
       })

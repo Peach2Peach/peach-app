@@ -57,21 +57,19 @@ type AppState = {
 
 type Action = {
   callback: () => void
-  label?: string
-  icon?: IconType
-  disabled?: boolean
+  label: string
+  icon: IconType
 }
 
 type Level = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
 type SummaryItemLevel = Level | 'WAITING'
 
 type MessageState = {
-  level: Level
+  level: Exclude<Level, 'APP' | 'INFO' | 'SUCCESS'>
   msgKey?: string
   bodyArgs?: string[]
   action?: Action
   onClose?: Function
-  time?: number
   keepAlive?: boolean
 }
 

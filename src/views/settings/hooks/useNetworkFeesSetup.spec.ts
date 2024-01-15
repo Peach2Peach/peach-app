@@ -3,7 +3,7 @@ import { act, renderHook, responseUtils, waitFor } from 'test-utils'
 import { defaultUser } from '../../../../peach-api/src/testData/user'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { useMessageState } from '../../../components/message/useMessageState'
+import { useMessageState } from '../../../components/toast/useMessageState'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
 

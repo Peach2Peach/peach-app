@@ -1,6 +1,6 @@
 import { act } from 'react-test-renderer'
 import { renderHook } from 'test-utils'
-import { defaultState, useMessageState } from '../components/message/useMessageState'
+import { defaultState, useMessageState } from '../components/toast/useMessageState'
 import { APPVERSION } from '../constants'
 import { useConfigStore } from '../store/configStore/configStore'
 import { linkToAppStore } from '../utils/system/linkToAppStore'

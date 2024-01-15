@@ -10,7 +10,7 @@ type Props = ComponentProps & {
 
 export const AccountCreated = ({ creationDate, style }: Props) => (
   <View style={style}>
-    <PeachText style={tw`lowercase body-m text-black-65`}>{i18n('profile.accountCreated')}:</PeachText>
+    <PeachText style={tw`lowercase text-black-65`}>{i18n('profile.accountCreated')}:</PeachText>
     <PeachText style={tw`subtitle-1`}>{getDateToDisplay(creationDate)}</PeachText>
   </View>
 )

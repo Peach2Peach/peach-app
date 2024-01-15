@@ -1,7 +1,7 @@
 import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { defaultUser } from '../../../../peach-api/src/testData/user'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { defaultState, useMessageState } from '../../../components/message/useMessageState'
+import { defaultState, useMessageState } from '../../../components/toast/useMessageState'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useShowHighFeeWarning } from './useShowHighFeeWarning'
 

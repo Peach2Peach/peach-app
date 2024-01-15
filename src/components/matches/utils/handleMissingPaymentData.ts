@@ -35,6 +35,7 @@ export const handleMissingPaymentData = (
     action: {
       callback: openAddPaymentMethodDialog,
       label: i18n('PAYMENT_DATA_MISSING.action'),
+      icon: 'edit3',
     },
     keepAlive: true,
   })

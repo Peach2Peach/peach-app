@@ -9,9 +9,8 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { useDeviceContext } from 'twrnc'
 import { Drawer } from './components/drawer/Drawer'
-import { Message } from './components/message/Message'
-import { useMessageState } from './components/message/useMessageState'
 import { Popup } from './components/popup/Popup'
+import { Message, useSetToast } from './components/toast/Toast'
 import { initWebSocket } from './init/websocket'
 import { Overlay } from './Overlay'
 import { queryClient } from './queryClient'
@@ -33,9 +32,8 @@ const navTheme = {
 export const App = () => {
   useDeviceContext(tw)
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
-
-  const updateMessage = useMessageState((state) => state.updateMessage)
-  useEffect(initWebSocket(updatePeachWS, updateMessage), [])
+  const setToast = useSetToast()
+  useEffect(initWebSocket(updatePeachWS, setToast), [])
   usePartialAppSetup()
 
   useEffect(() => {

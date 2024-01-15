@@ -1,6 +1,6 @@
 import { fireEvent, render } from 'test-utils'
 import i18n from '../../utils/i18n'
-import { Message } from './Message'
+import { Message } from './Toast'
 import { useMessageState } from './useMessageState'
 
 jest.mock('react-native-promise-rejection-utils', () => ({
