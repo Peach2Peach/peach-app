@@ -112,10 +112,11 @@ type Params = {
   publicKey: string
 }
 
+const SYMMETRIC_KEY_BYTES = 32
 async function generateMatchOfferData ({ offer, match, currency, paymentData, publicKey }: Params) {
   const paymentMethod = paymentData.type
 
-  const symmetricKey = (await getRandom(256)).toString('hex')
+  const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString('hex')
   const { encrypted, signature } = await signAndEncrypt(symmetricKey, [publicKey, match.user.pgpPublicKey].join('\n'))
 
   const encryptedPaymentData = await encryptPaymentData(cleanPaymentData(paymentData), symmetricKey)

@@ -1,10 +1,12 @@
-import { notDeepStrictEqual } from 'assert'
 import { getRandom } from './getRandom'
 
 describe('getRandom', () => {
+  const bytes = 16
   it('returns random butes', async () => {
-    const random1 = await getRandom(16)
-    const random2 = await getRandom(16)
-    notDeepStrictEqual(random1, random2)
+    const random1 = await getRandom(bytes)
+    const random2 = await getRandom(bytes)
+
+    expect(random1.byteLength).toEqual(bytes)
+    expect(random1).not.toBe(random2)
   })
 })
