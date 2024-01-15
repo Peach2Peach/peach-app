@@ -22,7 +22,7 @@ export const TradeStatusInfo = () => {
         value={tradeInformationGetters[view === 'buyer' ? 'seller' : 'buyer'](contract)}
       />
       <HorizontalLine />
-      <PeachText style={[tw`md:body-l`]}>{getTradeActionStatusText(contract, view, isPeachWalletActive)}</PeachText>
+      <PeachText style={tw`md:body-l`}>{getTradeActionStatusText(contract, view, isPeachWalletActive)}</PeachText>
     </View>
   )
 }
