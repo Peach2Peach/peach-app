@@ -28,10 +28,6 @@ exports[`TransactionETA should render correctly for 1 block ETA 1`] = `
         [
           {
             "color": "#9F8C82",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
           },
           {},
         ],
@@ -148,10 +144,6 @@ exports[`TransactionETA should render correctly for more than 1 block ETA 1`] = 
         [
           {
             "color": "#9F8C82",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
           },
           {},
         ],

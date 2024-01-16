@@ -19,10 +19,6 @@ exports[`SummaryItem renders correctly 1`] = `
       [
         {
           "color": "#9F8C82",
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 24,
         },
         {},
       ]
@@ -57,10 +53,6 @@ exports[`SummaryItem renders correctly for medium screens 1`] = `
       [
         {
           "color": "#9F8C82",
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 24,
         },
         {},
       ]

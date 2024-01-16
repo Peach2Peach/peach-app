@@ -8,13 +8,13 @@ export const handleMissingPaymentData = (
   offer: BuyOffer | SellOffer,
   currency: Currency,
   paymentMethod: PaymentMethod,
-  updateMessage: (value: MessageState) => void,
+  updateMessage: (value: MessageState | null) => void,
   navigation: StackNavigation,
   // eslint-disable-next-line max-params
 ) => {
   error('Payment data could not be found for offer', offer.id)
   const openAddPaymentMethodDialog = () => {
-    updateMessage({ msgKey: undefined, level: 'ERROR' })
+    updateMessage(null)
     const existingPaymentMethodsOfType = usePaymentDataStore.getState().getAllPaymentDataByType(paymentMethod).length + 1
     const label = `${i18n(`paymentMethod.${paymentMethod}`)} #${existingPaymentMethodsOfType}`
 
@@ -33,9 +33,9 @@ export const handleMissingPaymentData = (
     msgKey: 'PAYMENT_DATA_MISSING',
     level: 'ERROR',
     action: {
-      callback: openAddPaymentMethodDialog,
+      onPress: openAddPaymentMethodDialog,
       label: i18n('PAYMENT_DATA_MISSING.action'),
-      icon: 'edit3',
+      iconId: 'edit3',
     },
     keepAlive: true,
   })

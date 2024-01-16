@@ -417,6 +417,7 @@ exports[`Referrals renders correctly 1`] = `
                       "borderRadius": 12,
                       "borderWidth": 2,
                       "flexDirection": "row",
+                      "gap": 8,
                       "justifyContent": "space-between",
                       "opacity": 0.5,
                       "paddingBottom": 8,
@@ -483,11 +484,6 @@ exports[`Referrals renders correctly 1`] = `
                             },
                             {
                               "color": "#7D675E",
-                              "fontFamily": "Baloo2-Regular",
-                              "fontSize": 16,
-                              "letterSpacing": 0.16,
-                              "lineHeight": 24,
-                              "marginRight": 8,
                             },
                             false,
                           ]
@@ -551,6 +547,7 @@ exports[`Referrals renders correctly 1`] = `
                       "borderRadius": 12,
                       "borderWidth": 2,
                       "flexDirection": "row",
+                      "gap": 8,
                       "justifyContent": "space-between",
                       "opacity": 0.5,
                       "paddingBottom": 8,
@@ -617,11 +614,6 @@ exports[`Referrals renders correctly 1`] = `
                             },
                             {
                               "color": "#7D675E",
-                              "fontFamily": "Baloo2-Regular",
-                              "fontSize": 16,
-                              "letterSpacing": 0.16,
-                              "lineHeight": 24,
-                              "marginRight": 8,
                             },
                             false,
                           ]
@@ -685,6 +677,7 @@ exports[`Referrals renders correctly 1`] = `
                       "borderRadius": 12,
                       "borderWidth": 2,
                       "flexDirection": "row",
+                      "gap": 8,
                       "justifyContent": "space-between",
                       "opacity": 0.5,
                       "paddingBottom": 8,
@@ -751,11 +744,6 @@ exports[`Referrals renders correctly 1`] = `
                             },
                             {
                               "color": "#7D675E",
-                              "fontFamily": "Baloo2-Regular",
-                              "fontSize": 16,
-                              "letterSpacing": 0.16,
-                              "lineHeight": 24,
-                              "marginRight": 8,
                             },
                             false,
                           ]

@@ -1,45 +1,46 @@
-import { fireEvent, render } from 'test-utils'
-import i18n from '../../utils/i18n'
-import { Toast } from './Toast'
-import { useMessageState } from './useMessageState'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { act, render, renderHook } from 'test-utils'
+import { Toast, useSetToast } from './Toast'
+expect.extend({ toMatchDiffSnapshot })
 
-jest.mock('react-native-promise-rejection-utils', () => ({
-  setUnhandledPromiseRejectionTracker: jest.fn(),
-}))
+jest.useFakeTimers()
 
 describe('Toast', () => {
   const defaultProps = {
-    level: 'APP' as const,
+    level: 'DEFAULT' as const,
     msgKey: 'NETWORK_ERROR',
     bodyArgs: [],
     action: {
       label: 'testLabel',
-      callback: jest.fn(),
+      onPress: jest.fn(),
+      iconId: 'bitcoin',
     },
-    onClose: jest.fn(),
-    style: {},
   }
-  beforeEach(() => {
-    useMessageState.setState(defaultProps)
-  })
   it('renders correctly', () => {
+    const { result } = renderHook(useSetToast)
     const { toJSON } = render(<Toast />)
+    act(() => {
+      result.current(defaultProps)
+    })
     expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly with no action', () => {
-    useMessageState.setState({ ...defaultProps, action: undefined })
+    const { result } = renderHook(useSetToast)
+    act(() => {
+      result.current(defaultProps)
+    })
     const { toJSON } = render(<Toast />)
-    expect(toJSON()).toMatchSnapshot()
+    const withAction = toJSON()
+    act(() => {
+      result.current({ ...defaultProps, action: undefined })
+    })
+    const withoutAction = toJSON()
+    expect(withAction).toMatchDiffSnapshot(withoutAction)
   })
   it('should use default values for missing translations', () => {
     jest.spyOn(jest.requireMock('../../utils/i18n'), 'default').mockImplementation((key: unknown) => key)
 
     const { toJSON } = render(<Toast />)
     expect(toJSON()).toMatchSnapshot()
-  })
-  it('should call onClose when close button is pressed', () => {
-    const { getByText } = render(<Toast />)
-    fireEvent.press(getByText(i18n('close')))
-    expect(defaultProps.onClose).toHaveBeenCalled()
   })
 })

@@ -17,9 +17,9 @@ export const useShowErrorBanner = () => {
         bodyArgs,
         level: 'ERROR',
         action: {
-          callback: () => navigation.navigate('contact'),
+          onPress: () => navigation.navigate('contact'),
           label: i18n('contactUs'),
-          icon: 'mail',
+          iconId: 'mail',
         },
       })
     },

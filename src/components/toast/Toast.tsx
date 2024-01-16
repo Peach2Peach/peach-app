@@ -1,17 +1,12 @@
 import { atom, useAtomValue, useSetAtom } from 'jotai'
-import { useEffect, useRef } from 'react'
-import { Animated, StyleProp, TouchableOpacity, View, ViewStyle, useWindowDimensions } from 'react-native'
-import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
+import { useCallback, useEffect, useRef } from 'react'
+import { Animated, PanResponder, StyleProp, TouchableOpacity, View, ViewStyle, useWindowDimensions } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { IconType } from '../../assets/icons'
-import { useNavigation } from '../../hooks/useNavigation'
-import { VerifyYouAreAHumanPopup } from '../../popups/warning/VerifyYouAreAHumanPopup'
+import { MSINASECOND } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { error } from '../../utils/log/error'
-import { parseError } from '../../utils/result/parseError'
-import { isNetworkError } from '../../utils/system/isNetworkError'
 import { Icon } from '../Icon'
-import { useSetPopup } from '../popup/Popup'
 import { PeachText } from '../text/PeachText'
 import { iconMap } from './iconMap'
 
@@ -36,81 +31,61 @@ const levelColorMap: LevelColorMap = {
   },
 }
 
-const toastAtom = atom<MessageState>({ level: 'DEFAULT', keepAlive: false })
-
+const toastAtom = atom<MessageState | null>(null)
 export const useSetToast = () => useSetAtom(toastAtom)
 
+const slideAnimation = (value: Animated.Value, toValue: number) =>
+  Animated.timing(value, {
+    toValue,
+    duration: 300,
+    useNativeDriver: false,
+  })
+const DELAY = MSINASECOND * 10
+const MIN_SWIPE_DISTANCE = 70
+
 export const Toast = () => {
-  const setPopup = useSetPopup()
-  const { level, msgKey, bodyArgs = [], action, onClose, keepAlive } = useAtomValue(toastAtom)
-  const navigation = useNavigation()
+  const toastState = useAtomValue(toastAtom)
   const setToast = useSetToast()
+  const closeToast = useCallback(() => setToast(null), [setToast])
 
-  ErrorUtils.setGlobalHandler((err: Error) => {
-    error(err)
-    setToast({
-      msgKey: err.message || 'GENERAL_ERROR',
-      level: 'ERROR',
-      action: {
-        callback: () => navigation.navigate('contact'),
-        label: i18n('contactUs'),
-        icon: 'mail',
-      },
-    })
-  })
-
-  setUnhandledPromiseRejectionTracker((id, err) => {
-    error(err)
-    const errorMessage = parseError(err)
-
-    if (errorMessage === 'HUMAN_VERIFICATION_REQUIRED') {
-      setPopup(<VerifyYouAreAHumanPopup />)
-      return
-    }
-    const errorMsgKey = isNetworkError(errorMessage) ? 'NETWORK_ERROR' : errorMessage
-    setToast({
-      msgKey: errorMsgKey || 'GENERAL_ERROR',
-      level: 'ERROR',
-      action: {
-        callback: () => navigation.navigate('contact'),
-        label: i18n('contactUs'),
-        icon: 'mail',
-      },
-    })
-  })
-
-  const { width } = useWindowDimensions()
-  const top = useRef(new Animated.Value(-width)).current
+  const { height } = useWindowDimensions()
+  const top = useRef(new Animated.Value(-height)).current
 
   useEffect(() => {
-    let slideOutTimeout: NodeJS.Timer
-
-    if (msgKey) {
-      Animated.timing(top, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: false,
-      }).start()
-
-      if (!keepAlive) {
-        slideOutTimeout = setTimeout(
-          () =>
-            Animated.timing(top, {
-              toValue: -width,
-              duration: 300,
-              useNativeDriver: false,
-            }).start(),
-          1000 * 10,
-        )
-      }
+    let animation: Animated.CompositeAnimation
+    if (toastState) {
+      animation = Animated.sequence([slideAnimation(top, 0), Animated.delay(DELAY)])
+      animation.start(({ finished }) => {
+        if (finished && !toastState.keepAlive) slideAnimation(top, -height).start(closeToast)
+      })
+    } else {
+      animation = slideAnimation(top, -height)
+      animation.start()
     }
+    return () => animation.stop()
+  }, [closeToast, height, toastState, top])
 
-    return () => clearTimeout(slideOutTimeout)
-  }, [msgKey])
+  const insets = useSafeAreaInsets()
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderMove: (e, { dy }) => {
+        if (dy < 0) top.setValue(dy)
+      },
+      onPanResponderRelease: (e, { dy }) => {
+        if (-dy > MIN_SWIPE_DISTANCE) {
+          slideAnimation(top, -height).start(closeToast)
+        }
+        slideAnimation(top, 0).start()
+      },
+    }),
+  ).current
 
-  if (!msgKey) return null
+  if (!toastState) return null
+  const { level, msgKey, bodyArgs = [], action } = toastState
 
-  const icon: IconType | undefined = iconMap[msgKey]
+  const icon = iconMap[msgKey]
   let title = i18n(`${msgKey}.title`)
   let message = i18n(`${msgKey}.text`, ...bodyArgs)
 
@@ -119,15 +94,13 @@ export const Toast = () => {
     message = i18n(msgKey, ...bodyArgs)
   }
 
-  const closeMessage = () => {
-    setToast({ msgKey: undefined, level: 'ERROR' })
-    if (onClose) onClose()
-  }
-
   const { color, backgroundColor } = levelColorMap[level]
 
   return (
-    <Animated.View style={[tw`absolute z-20 w-full`, { top }]}>
+    <Animated.View
+      {...panResponder.panHandlers}
+      style={[tw`absolute w-full p-sm md:p-md z-1`, { paddingTop: insets.top, top }]}
+    >
       <View style={[tw`items-center justify-center gap-2 p-4 pb-3 rounded-2xl`, { backgroundColor }]}>
         <View style={tw`gap-1`}>
           <View style={tw`flex-row items-center justify-center gap-2`}>
@@ -137,11 +110,11 @@ export const Toast = () => {
           {!!message && <PeachText style={[tw`text-center`, { color }]}>{message}</PeachText>}
         </View>
         <View style={tw`flex-row items-center justify-between flex-1`}>
-          {action && <Action iconId={action.icon} label={action.label} onPress={action.callback} color={color} />}
+          {action && <Action {...action} color={color} />}
           <Action
             iconId="xSquare"
             label={i18n('close')}
-            onPress={closeMessage}
+            onPress={closeToast}
             color={color}
             style={tw`flex-row-reverse`}
           />

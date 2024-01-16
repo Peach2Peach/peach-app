@@ -10,12 +10,12 @@ describe('useGetPNActionHandler', () => {
     let action
     act(() => {
       action = result.current(data)
-      action?.callback()
+      action?.onPress()
     })
     expect(action).toMatchObject({
       label: expect.any(String),
-      icon: expect.any(String),
-      callback: expect.any(Function),
+      iconId: expect.any(String),
+      onPress: expect.any(Function),
     })
     expect(navigateMock).toHaveBeenCalledWith('contractChat', { contractId: data.contractId })
   })
@@ -26,12 +26,12 @@ describe('useGetPNActionHandler', () => {
     let action
     act(() => {
       action = result.current(data)
-      action?.callback()
+      action?.onPress()
     })
     expect(action).toMatchObject({
       label: expect.any(String),
-      icon: expect.any(String),
-      callback: expect.any(Function),
+      iconId: expect.any(String),
+      onPress: expect.any(Function),
     })
     expect(navigateMock).toHaveBeenCalledWith('contract', { contractId: data.contractId })
   })
@@ -42,12 +42,12 @@ describe('useGetPNActionHandler', () => {
     let action
     act(() => {
       action = result.current(data)
-      action?.callback()
+      action?.onPress()
     })
     expect(action).toMatchObject({
       label: expect.any(String),
-      icon: expect.any(String),
-      callback: expect.any(Function),
+      iconId: expect.any(String),
+      onPress: expect.any(Function),
     })
     expect(navigateMock).toHaveBeenCalledWith('offer', { offerId: data.offerId })
   })
@@ -58,12 +58,12 @@ describe('useGetPNActionHandler', () => {
     let action
     act(() => {
       action = result.current(data)
-      action?.callback()
+      action?.onPress()
     })
     expect(action).toMatchObject({
       label: expect.any(String),
-      icon: expect.any(String),
-      callback: expect.any(Function),
+      iconId: expect.any(String),
+      onPress: expect.any(Function),
     })
     expect(navigateMock).toHaveBeenCalledWith('search', { offerId: data.offerId })
   })

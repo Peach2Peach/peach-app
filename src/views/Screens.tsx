@@ -66,9 +66,9 @@ function SplashScreenComponent ({ setIsLoading }: { setIsLoading: (isLoading: bo
             msgKey: statusResponse?.error || 'NETWORK_ERROR',
             level: 'ERROR',
             action: {
-              callback: () => navigation.navigate('contact'),
+              onPress: () => navigation.navigate('contact'),
               label: i18n('contactUs'),
-              icon: 'mail',
+              iconId: 'mail',
             },
           })
         }

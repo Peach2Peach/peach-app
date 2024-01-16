@@ -22,9 +22,9 @@ export const useShowUpdateAvailable = () => {
       level: 'WARN',
       keepAlive: true,
       action: {
-        callback: linkToAppStore,
+        onPress: linkToAppStore,
         label: i18n('download'),
-        icon: 'download',
+        iconId: 'download',
       },
     })
   }, [latestAppVersion, minAppVersion, setToast])
@@ -36,9 +36,9 @@ export const useShowUpdateAvailable = () => {
       level: 'ERROR',
       keepAlive: true,
       action: {
-        callback: linkToAppStore,
+        onPress: linkToAppStore,
         label: i18n('download'),
-        icon: 'download',
+        iconId: 'download',
       },
     })
   }, [minAppVersion, setToast])
