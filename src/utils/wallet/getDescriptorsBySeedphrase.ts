@@ -12,5 +12,6 @@ export const getDescriptorsBySeedphrase = async ({ seedphrase, network }: Props)
     new Descriptor().newBip84(descriptorSecretKey, KeychainKind.External, network),
     new Descriptor().newBip84(descriptorSecretKey, KeychainKind.Internal, network),
   ])
+
   return { externalDescriptor, internalDescriptor }
 }

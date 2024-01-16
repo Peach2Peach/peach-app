@@ -6,6 +6,11 @@ import { updateUser } from '../utils/peachAPI/updateUser'
 
 export const publishPGPPublicKey = async () => {
   const account = useAccountStore.getState().account
+
+  // TODO this can be improved by getting self user and compare the pubkeys
+  // if a pubkey is new locally, send it and encrypt it with existing pubkeys
+  // if a pubkey is new remotely, try to decrypt it with existing pubkey
+  // consider showing a toast with the sync
   if (!account.pgp.publicKey) return
   try {
     const [result, err] = await updateUser({ pgp: account.pgp })

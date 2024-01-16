@@ -212,9 +212,9 @@ async function generateMatchOfferData ({ offer, match, currency, paymentMethod }
   if (!paymentData) return { error: err }
 
   const { symmetricKeyEncrypted, symmetricKeySignature, user } = match
-  const { pgpPublicKey } = user
+  const pgpPublicKeys = user.pgpPublicKeys.map((key) => key.publicKey)
 
-  const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted, symmetricKeySignature, pgpPublicKey)
+  const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted, symmetricKeySignature, pgpPublicKeys)
   if (!symmetricKey) return { error: 'SYMMETRIC_KEY_DECRYPTION_FAILED' }
 
   const encryptedPaymentData = await encryptPaymentData(cleanPaymentData(paymentData), symmetricKey)

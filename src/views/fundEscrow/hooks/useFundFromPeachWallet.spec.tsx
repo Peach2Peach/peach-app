@@ -3,7 +3,7 @@
 import { TxBuilder } from 'bdk-rn'
 import { act } from 'react-test-renderer'
 import { fireEvent, render, renderHook, responseUtils } from 'test-utils'
-import { defaultUser } from '../../../../peach-api/src/testData/user'
+import { defaultUser } from '../../../../peach-api/src/testData/userData'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'

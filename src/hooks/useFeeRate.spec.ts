@@ -1,5 +1,5 @@
 import { act, renderHook, responseUtils, waitFor } from 'test-utils'
-import { defaultUser } from '../../peach-api/src/testData/user'
+import { defaultUser } from '../../peach-api/src/testData/userData'
 import { estimatedFees } from '../../tests/unit/data/bitcoinNetworkData'
 import { queryClient } from '../../tests/unit/helpers/QueryClientWrapper'
 import { peachAPI } from '../utils/peachAPI'

@@ -1,7 +1,7 @@
 import OpenPGP from 'react-native-fast-openpgp'
 import { renderHook, waitFor } from 'test-utils'
 import { contract } from '../../../peach-api/src/testData/contract'
-import { defaultUser } from '../../../peach-api/src/testData/user'
+import { defaultUser } from '../../../peach-api/src/testData/userData'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useAccountStore } from '../../utils/account/account'
