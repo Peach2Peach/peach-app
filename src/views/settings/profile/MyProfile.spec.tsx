@@ -1,5 +1,5 @@
 import { render, waitFor } from 'test-utils'
-import { defaultUser } from '../../../../tests/unit/data/userData'
+import { defaultUser } from '../../../../peach-api/src/testData/user'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { MyProfile } from './MyProfile'
 

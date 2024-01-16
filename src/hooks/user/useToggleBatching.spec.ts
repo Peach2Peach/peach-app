@@ -1,5 +1,5 @@
 import { renderHook, responseUtils, waitFor } from 'test-utils'
-import { defaultUser } from '../../../tests/unit/data/userData'
+import { defaultUser } from '../../../peach-api/src/testData/user'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { peachAPI } from '../../utils/peachAPI'
 import { useToggleBatching } from './useToggleBatching'

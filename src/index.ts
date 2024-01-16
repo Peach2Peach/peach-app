@@ -13,7 +13,6 @@ import { useNotificationStore } from './views/home/notificationsStore'
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
-  // eslint-disable-next-line max-len
   /ViewPropTypes will be removed from React Native./u,
   /RCTBridge required dispatch_sync/u,
   /Can't perform a React state update on an unmounted component/u,

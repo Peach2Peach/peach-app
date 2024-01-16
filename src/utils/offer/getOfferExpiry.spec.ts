@@ -1,6 +1,6 @@
 import { deepStrictEqual } from 'assert'
-import { getOfferExpiry } from './getOfferExpiry'
 import * as offerData from '../../../tests/unit/data/offerData'
+import { getOfferExpiry } from './getOfferExpiry'
 
 describe('getOfferExpiry', () => {
   it('should return the offer expiry', () => {

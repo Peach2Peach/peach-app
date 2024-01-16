@@ -2,8 +2,8 @@
 /* eslint-disable max-lines */
 
 import { BuyOffer, SellOffer } from '../../../peach-api/src/@types/offer'
+import { defaultUser } from '../../../peach-api/src/testData/user'
 import { twintDataHashes, validSEPAData, validSEPADataHashes } from './paymentData'
-import { defaultUser } from './userData'
 
 export const buyOffer: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
