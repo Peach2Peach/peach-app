@@ -1,8 +1,7 @@
-/* eslint-disable max-lines-per-function */
-/* eslint-disable max-statements */
 import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
 import { getOfferColor } from './getOfferColor'
 
+// eslint-disable-next-line max-lines-per-function, max-statements
 describe('getOfferColor', () => {
   it('should return "black" when tradeStatus is "tradeCanceled"', () => {
     expect(getOfferColor({ ...contractSummary, tradeStatus: 'tradeCanceled' })).toBe('black')

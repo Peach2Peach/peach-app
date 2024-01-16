@@ -1,6 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable max-lines */
-
 import { BuyOffer, SellOffer } from '../../../peach-api/src/@types/offer'
 import { defaultUser } from '../../../peach-api/src/testData/user'
 import { twintDataHashes, validSEPAData, validSEPADataHashes } from './paymentData'

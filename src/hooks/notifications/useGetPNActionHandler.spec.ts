@@ -5,7 +5,7 @@ import { useGetPNActionHandler } from './useGetPNActionHandler'
 // eslint-disable-next-line max-lines-per-function
 describe('useGetPNActionHandler', () => {
   it('should return an action properties when contractId and isChat are truthy', () => {
-    const { result } = renderHook(() => useGetPNActionHandler())
+    const { result } = renderHook(useGetPNActionHandler)
     const data = { type: 'contract.chat', contractId: '123-456', isChat: 'true' } as PNData
     let action
     act(() => {
@@ -21,7 +21,7 @@ describe('useGetPNActionHandler', () => {
   })
 
   it('should return an action properties when contractId is truthy', () => {
-    const { result } = renderHook(() => useGetPNActionHandler())
+    const { result } = renderHook(useGetPNActionHandler)
     const data = { type: 'contract.paymentMade', contractId: '123-456' } as PNData
     let action
     act(() => {
@@ -37,7 +37,7 @@ describe('useGetPNActionHandler', () => {
   })
 
   it('should return an action properties when offerId and type are truthy and type is in offerSummaryEvents', () => {
-    const { result } = renderHook(() => useGetPNActionHandler())
+    const { result } = renderHook(useGetPNActionHandler)
     const data = { type: 'offer.notFunded', offerId: '123' } as PNData
     let action
     act(() => {
@@ -53,7 +53,7 @@ describe('useGetPNActionHandler', () => {
   })
 
   it('should return an action properties when offerId and type are truthy and type is in searchEvents', () => {
-    const { result } = renderHook(() => useGetPNActionHandler())
+    const { result } = renderHook(useGetPNActionHandler)
     const data = { type: 'offer.matchSeller', offerId: '123' } as PNData
     let action
     act(() => {
@@ -69,7 +69,7 @@ describe('useGetPNActionHandler', () => {
   })
 
   it('should return undefined if no match is found', () => {
-    const { result } = renderHook(() => useGetPNActionHandler())
+    const { result } = renderHook(useGetPNActionHandler)
     // @ts-expect-error testing invalid data
     const data = { type: 'someOtherType' } as PNData
     let action

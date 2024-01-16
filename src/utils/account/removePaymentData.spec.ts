@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { twintData, validSEPAData, validSEPAData2, validSEPADataHashes } from '../../../tests/unit/data/paymentData'
 import { NoErrorThrownError, getError } from '../../../tests/unit/helpers/getError'
 import { responseUtils } from '../../../tests/unit/helpers/test-utils'

@@ -11,7 +11,6 @@ jest.mock('../../views/contract/helpers/verifyReleasePSBT', () => ({
   verifyReleasePSBT: (...args: unknown[]) => verifyReleasePSBTMock(...args),
 }))
 
-// eslint-disable-next-line max-lines-per-function
 describe('signBatchReleaseTransaction', () => {
   const mockSellOffer = {
     id: '12',

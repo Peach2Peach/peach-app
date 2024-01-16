@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { NETWORK } from '@env'
 import { Blockchain, BumpFeeTxBuilder, DatabaseConfig, PartiallySignedTransaction, TxBuilder, Wallet } from 'bdk-rn'
 import { AddressInfo, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'

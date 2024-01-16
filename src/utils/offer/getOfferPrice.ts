@@ -1,8 +1,14 @@
 import { SATSINBTC } from '../../constants'
 import { round } from '../math/round'
 
-// eslint-disable-next-line max-params
-export const getOfferPrice = (amount: number, premium: number, prices: Pricebook, currency: Currency): number => {
+type Params = {
+  amount: number
+  premium: number
+  prices: Pricebook
+  currency: Currency
+}
+
+export const getOfferPrice = ({ amount, premium, prices, currency }: Params) => {
   const price = prices[currency]
   if (!price) return 0
 

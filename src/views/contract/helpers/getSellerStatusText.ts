@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 import { contractIdToHex } from '../../../utils/contract/contractIdToHex'
 import { getSellOfferFromContract } from '../../../utils/contract/getSellOfferFromContract'
 import { getWalletLabelFromContract } from '../../../utils/contract/getWalletLabelFromContract'
@@ -44,8 +43,9 @@ export const getSellerStatusText = (contract: Contract, isPeachWalletActive: boo
     }
     return i18n('contract.seller.refundOrRepublish.trade', getWalletLabelFromContract({ contract, isPeachWalletActive }))
   }
-  if (contract.canceledBy === 'buyer' && !contract.cancelationRequested) {
-    return i18n('contract.seller.refund.buyerCanceled')
-  }
-  return i18n('contract.seller.refund')
+  return i18n(
+    contract.canceledBy === 'buyer' && !contract.cancelationRequested
+      ? 'contract.seller.refund.buyerCanceled'
+      : 'contract.seller.refund',
+  )
 }
