@@ -21,7 +21,7 @@ describe('handleMissingPaymentData', () => {
 
     expect(message).toStrictEqual({
       msgKey: 'PAYMENT_DATA_MISSING',
-      level: 'ERROR',
+      color: 'red',
       action: {
         onPress: expect.any(Function),
         label: 're-enter your details',

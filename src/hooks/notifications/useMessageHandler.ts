@@ -36,7 +36,7 @@ export const useMessageHandler = () => {
         setToast({
           msgKey: `notification.${type}`,
           bodyArgs: remoteMessage.notification?.bodyLocArgs,
-          level: 'WARN',
+          color: 'yellow',
           action: getPNActionHandler(data),
         })
       }

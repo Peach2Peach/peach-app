@@ -42,10 +42,7 @@ export const useRestoreFromSeedSetup = () => {
     (errorMsg = 'UNKNOWN_ERROR') => {
       setError(errorMsg)
       if (errorMsg !== 'REGISTRATION_DENIED') {
-        setToast({
-          msgKey: errorMsg,
-          level: 'ERROR',
-        })
+        setToast({ msgKey: errorMsg, color: 'red' })
       }
       deleteAccount()
     },

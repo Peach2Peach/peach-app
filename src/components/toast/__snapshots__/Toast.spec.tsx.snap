@@ -42,7 +42,7 @@ exports[`Toast renders correctly 1`] = `
           "paddingTop": 16,
         },
         {
-          "backgroundColor": "#F4EEEB",
+          "backgroundColor": "#FFFCFA",
         },
       ]
     }
@@ -452,7 +452,7 @@ exports[`Toast should use default values for missing translations 1`] = `
           "paddingTop": 16,
         },
         {
-          "backgroundColor": "#F4EEEB",
+          "backgroundColor": "#FFFCFA",
         },
       ]
     }

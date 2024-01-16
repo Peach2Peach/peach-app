@@ -65,7 +65,7 @@ type Level = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
 type SummaryItemLevel = Level | 'WAITING'
 
 type MessageState = {
-  level: Exclude<Level, 'APP' | 'INFO' | 'SUCCESS'>
+  color: 'red' | 'white' | 'yellow'
   msgKey: string
   bodyArgs?: string[]
   action?: Action

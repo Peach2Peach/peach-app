@@ -31,7 +31,7 @@ export const handleMissingPaymentData = (
 
   updateMessage({
     msgKey: 'PAYMENT_DATA_MISSING',
-    level: 'ERROR',
+    color: 'red',
     action: {
       onPress: openAddPaymentMethodDialog,
       label: i18n('PAYMENT_DATA_MISSING.action'),

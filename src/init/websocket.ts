@@ -25,7 +25,7 @@ export const initWebSocket
         info('MESSAGE', JSON.stringify(message).length)
         if (message?.error) updateMessage({
           msgKey: message.error,
-          level: 'ERROR',
+          color: 'red',
         })
       }
 

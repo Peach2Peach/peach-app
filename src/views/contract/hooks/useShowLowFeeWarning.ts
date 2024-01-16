@@ -24,7 +24,7 @@ export const useShowLowFeeWarning = ({ enabled }: Props) => {
     setToast({
       msgKey: 'contract.warning.lowFee',
       bodyArgs: [String(estimatedFees.minimumFee)],
-      level: 'WARN',
+      color: 'yellow',
       action: {
         onPress: () => {
           navigation.navigate('networkFees')
