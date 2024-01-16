@@ -20,9 +20,9 @@ import { decryptSymmetricKey } from '../../views/contract/helpers/decryptSymmetr
 import { Icon } from '../Icon'
 import { ProfileInfo } from '../ProfileInfo'
 import { NewBubble as Bubble } from '../bubble/Bubble'
-import { useMessageState } from '../message/useMessageState'
 import { useSetPopup } from '../popup/Popup'
 import { PeachText } from '../text/PeachText'
+import { useSetToast } from '../toast/Toast'
 import { HorizontalLine } from '../ui/HorizontalLine'
 import { options } from './buttons/options'
 import { PriceInfo } from './components/PriceInfo'
@@ -127,7 +127,7 @@ function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) 
   const { selectedCurrency, selectedPaymentMethod, offerId } = match
   const queryClient = useQueryClient()
   const navigation = useNavigation()
-  const updateMessage = useMessageState((state) => state.updateMessage)
+  const setToast = useSetToast()
   const handleError = useHandleError()
   const setPopup = useSetPopup()
 
@@ -164,7 +164,7 @@ function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) 
       const errorMsg = parseError(err)
 
       if (errorMsg === 'MISSING_PAYMENTDATA' && selectedCurrency && selectedPaymentMethod) {
-        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation)
+        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, setToast, navigation)
       } else if (errorMsg === 'OFFER_TAKEN') {
         setPopup(<AppPopup id="offerTaken" />)
       } else {

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useMessageState } from '../../../components/message/useMessageState'
+import { useSetToast } from '../../../components/toast/Toast'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useNavigation } from '../../../hooks/useNavigation'
@@ -11,7 +11,7 @@ type Props = {
 }
 export const useShowLowFeeWarning = ({ enabled }: Props) => {
   const navigation = useNavigation()
-  const updateMessage = useMessageState((state) => state.updateMessage)
+  const setToast = useSetToast()
   const { user } = useSelfUser()
   const feeRate = user?.feeRate
   const { estimatedFees } = useFeeEstimate()
@@ -21,18 +21,18 @@ export const useShowLowFeeWarning = ({ enabled }: Props) => {
     const rate = isNumber(feeRate) ? feeRate : estimatedFees[feeRate]
     if (rate >= estimatedFees.minimumFee) return
 
-    updateMessage({
+    setToast({
       msgKey: 'contract.warning.lowFee',
       bodyArgs: [String(estimatedFees.minimumFee)],
       level: 'WARN',
       action: {
-        callback: () => {
+        onPress: () => {
           navigation.navigate('networkFees')
-          updateMessage({ msgKey: undefined, level: 'WARN' })
+          setToast(null)
         },
         label: i18n('contract.warning.lowFee.changeFee'),
-        icon: 'settings',
+        iconId: 'settings',
       },
     })
-  }, [updateMessage, feeRate, navigation, enabled, estimatedFees.minimumFee, estimatedFees])
+  }, [feeRate, navigation, enabled, estimatedFees.minimumFee, estimatedFees, setToast])
 }

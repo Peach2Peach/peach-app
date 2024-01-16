@@ -9,31 +9,43 @@ const exploreEvents = ['offer.matchBuyer']
 export const useGetPNActionHandler = () => {
   const navigation = useNavigation()
   const getPNActionHandler = useCallback(
-    ({ type, contractId, isChat, offerId }: PNData): Action | undefined => {
-      if (contractId && isChat) return {
-        label: i18n('goToChat'),
-        icon: 'arrowLeftCircle',
-        callback: () => navigation.navigate('contractChat', { contractId }),
+    ({ type, contractId, isChat, offerId }: PNData) => {
+      if (contractId) {
+        if (isChat) {
+          return {
+            label: i18n('goToChat'),
+            iconId: 'arrowLeftCircle',
+            onPress: () => navigation.navigate('contractChat', { contractId }),
+          }
+        }
+        return {
+          label: i18n('goToContract'),
+          iconId: 'arrowLeftCircle',
+          onPress: () => navigation.navigate('contract', { contractId }),
+        }
       }
-      if (contractId) return {
-        label: i18n('goToContract'),
-        icon: 'arrowLeftCircle',
-        callback: () => navigation.navigate('contract', { contractId }),
-      }
-      if (offerId && type && offerSummaryEvents.includes(type)) return {
-        label: i18n('goToOffer'),
-        icon: 'arrowLeftCircle',
-        callback: () => navigation.navigate('offer', { offerId }),
-      }
-      if (offerId && type && searchEvents.includes(type)) return {
-        label: i18n('goToOffer'),
-        icon: 'arrowLeftCircle',
-        callback: () => navigation.navigate('search', { offerId }),
-      }
-      if (offerId && type && exploreEvents.includes(type)) return {
-        label: i18n('goToOffer'),
-        icon: 'arrowLeftCircle',
-        callback: () => navigation.navigate('explore', { offerId }),
+      if (offerId && type) {
+        if (offerSummaryEvents.includes(type)) {
+          return {
+            label: i18n('goToOffer'),
+            iconId: 'arrowLeftCircle',
+            onPress: () => navigation.navigate('offer', { offerId }),
+          }
+        }
+        if (searchEvents.includes(type)) {
+          return {
+            label: i18n('goToOffer'),
+            iconId: 'arrowLeftCircle',
+            onPress: () => navigation.navigate('search', { offerId }),
+          }
+        }
+        if (exploreEvents.includes(type)) {
+          return {
+            label: i18n('goToOffer'),
+            iconId: 'arrowLeftCircle',
+            onPress: () => navigation.navigate('explore', { offerId }),
+          }
+        }
       }
       return undefined
     },

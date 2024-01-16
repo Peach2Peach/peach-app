@@ -815,7 +815,13 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
               }
             }
           >
-            <View>
+            <View
+              style={
+                {
+                  "paddingRight": 12,
+                }
+              }
+            >
               <Text
                 allowFontScaling={false}
                 style={
@@ -829,10 +835,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                     },
                     {
                       "color": "#7D675E",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
                       "textTransform": "lowercase",
                     },
                     false,
@@ -847,6 +849,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                   {
                     "alignItems": "center",
                     "flexDirection": "row",
+                    "gap": 12,
                   }
                 }
               >
@@ -901,63 +904,100 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                   09ada26c16e5c3157d86809f8fd46e602936a4e3d51cd988a42ebe19f3
                 </Text>
                 <View
+                  accessibilityState={
+                    {
+                      "busy": undefined,
+                      "checked": undefined,
+                      "disabled": undefined,
+                      "expanded": undefined,
+                      "selected": undefined,
+                    }
+                  }
+                  accessibilityValue={
+                    {
+                      "max": undefined,
+                      "min": undefined,
+                      "now": undefined,
+                      "text": undefined,
+                    }
+                  }
+                  accessible={true}
+                  collapsable={false}
+                  focusable={true}
+                  onClick={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
                   style={
                     {
                       "alignItems": "center",
-                      "marginLeft": 12,
+                      "flexDirection": "row",
+                      "flexShrink": 1,
+                      "height": 28,
+                      "justifyContent": "center",
+                      "opacity": 1,
+                      "overflow": "visible",
+                      "width": 28,
                     }
                   }
                 >
+                  <test-file-stub
+                    fill="#F56522"
+                    style={
+                      [
+                        {
+                          "height": 24,
+                          "width": 24,
+                        },
+                        {
+                          "height": "100%",
+                          "width": "100%",
+                        },
+                      ]
+                    }
+                  />
                   <View
-                    accessibilityHint="copy"
-                    accessibilityState={
-                      {
-                        "busy": undefined,
-                        "checked": undefined,
-                        "disabled": undefined,
-                        "expanded": undefined,
-                        "selected": undefined,
-                      }
-                    }
-                    accessibilityValue={
-                      {
-                        "max": undefined,
-                        "min": undefined,
-                        "now": undefined,
-                        "text": undefined,
-                      }
-                    }
-                    accessible={true}
                     collapsable={false}
-                    focusable={true}
-                    onClick={[Function]}
-                    onResponderGrant={[Function]}
-                    onResponderMove={[Function]}
-                    onResponderRelease={[Function]}
-                    onResponderTerminate={[Function]}
-                    onResponderTerminationRequest={[Function]}
-                    onStartShouldSetResponder={[Function]}
                     style={
                       {
-                        "opacity": 1,
+                        "bottom": "100%",
+                        "marginBottom": 4,
+                        "opacity": 0,
+                        "position": "absolute",
                       }
                     }
                   >
-                    <test-file-stub
-                      fill="#F56522"
+                    <Text
+                      allowFontScaling={false}
                       style={
                         [
                           {
-                            "height": 24,
-                            "width": 24,
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
                           },
-                          {
-                            "height": 24,
-                            "width": 24,
-                          },
+                          [
+                            {
+                              "fontFamily": "Baloo2-Medium",
+                              "fontSize": 14,
+                              "letterSpacing": 0.14,
+                              "lineHeight": 20,
+                            },
+                            {
+                              "color": "#F56522",
+                            },
+                          ],
+                          false,
                         ]
                       }
-                    />
+                    >
+                      copied!
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -976,10 +1016,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                     },
                     {
                       "color": "#7D675E",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
                       "textTransform": "lowercase",
                     },
                     false,
@@ -1027,10 +1063,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                     },
                     {
                       "color": "#7D675E",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
                       "textTransform": "lowercase",
                     },
                     false,
@@ -1171,10 +1203,6 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
                     },
                     {
                       "color": "#7D675E",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
                       "textTransform": "lowercase",
                     },
                     false,

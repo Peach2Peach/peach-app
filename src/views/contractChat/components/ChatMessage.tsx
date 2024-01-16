@@ -113,7 +113,7 @@ export const ChatMessage = ({
     <>
       {isChangeDate && (
         <LinedText style={tw`mb-5 px-sm pt-7`}>
-          <PeachText style={tw`body-m text-black-65`}>{toDateFormat(message.date)}</PeachText>
+          <PeachText style={tw`text-black-65`}>{toDateFormat(message.date)}</PeachText>
         </LinedText>
       )}
       <View

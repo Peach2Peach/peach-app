@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useMessageState } from '../components/message/useMessageState'
+import { useSetToast } from '../components/toast/Toast'
 import { APPVERSION, BUILDNUMBER } from '../constants'
 import { useConfigStore } from '../store/configStore/configStore'
 import i18n from '../utils/i18n'
@@ -8,7 +8,7 @@ import { compatibilityCheck } from '../utils/system/compatibilityCheck'
 import { linkToAppStore } from '../utils/system/linkToAppStore'
 
 export const useShowUpdateAvailable = () => {
-  const updateMessage = useMessageState((state) => state.updateMessage)
+  const setToast = useSetToast()
   const [minAppVersion, latestAppVersion] = useConfigStore(
     (state) => [state.minAppVersion, state.latestAppVersion],
     shallow,
@@ -17,29 +17,29 @@ export const useShowUpdateAvailable = () => {
   useEffect(() => {
     if (!compatibilityCheck(`${APPVERSION} (${BUILDNUMBER})`, minAppVersion)) return
     if (compatibilityCheck(`${APPVERSION} (${BUILDNUMBER})`, latestAppVersion)) return
-    updateMessage({
+    setToast({
       msgKey: 'UPDATE_AVAILABLE',
       level: 'WARN',
       keepAlive: true,
       action: {
-        callback: linkToAppStore,
+        onPress: linkToAppStore,
         label: i18n('download'),
-        icon: 'download',
+        iconId: 'download',
       },
     })
-  }, [latestAppVersion, minAppVersion, updateMessage])
+  }, [latestAppVersion, minAppVersion, setToast])
 
   useEffect(() => {
     if (compatibilityCheck(`${APPVERSION} (${BUILDNUMBER})`, minAppVersion)) return
-    updateMessage({
+    setToast({
       msgKey: 'CRITICAL_UPDATE_AVAILABLE',
       level: 'ERROR',
       keepAlive: true,
       action: {
-        callback: linkToAppStore,
+        onPress: linkToAppStore,
         label: i18n('download'),
-        icon: 'download',
+        iconId: 'download',
       },
     })
-  }, [minAppVersion, updateMessage])
+  }, [minAppVersion, setToast])
 }

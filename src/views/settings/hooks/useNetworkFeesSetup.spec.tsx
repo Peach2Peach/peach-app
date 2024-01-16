@@ -1,9 +1,9 @@
-/* eslint-disable max-lines-per-function */
-import { act, renderHook, responseUtils, waitFor } from 'test-utils'
+import { act, render, renderHook, responseUtils, waitFor } from 'test-utils'
 import { defaultUser } from '../../../../peach-api/src/testData/user'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { useMessageState } from '../../../components/message/useMessageState'
+import { Toast } from '../../../components/toast/Toast'
+import i18n from '../../../utils/i18n'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
 
@@ -115,13 +115,12 @@ describe('useNetworkFeesSetup', () => {
   })
   it('handles request errors', async () => {
     updateUserMock.mockResolvedValueOnce([null, unauthorizedError])
+    const { queryByText } = render(<Toast />)
     const { result } = renderHook(useNetworkFeesSetup)
 
     result.current.submit()
     await waitFor(() => {
-      expect(useMessageState.getState()).toEqual(
-        expect.objectContaining({ msgKey: unauthorizedError.error, level: 'ERROR' }),
-      )
+      expect(queryByText(i18n('UNAUTHORIZED.title'))).toBeTruthy()
     })
   })
 })

@@ -23,24 +23,22 @@ describe('handleMissingPaymentData', () => {
       msgKey: 'PAYMENT_DATA_MISSING',
       level: 'ERROR',
       action: {
-        callback: expect.any(Function),
+        onPress: expect.any(Function),
         label: 're-enter your details',
+        iconId: 'edit3',
       },
       keepAlive: true,
     })
   })
-  it('should update the message when the callback is called', () => {
+  it('should close the toast when the callback is called', () => {
     handleMissingPaymentData(offer, currency, paymentMethod, updateMessage, navigation)
-    message?.action?.callback()
+    message?.action?.onPress()
 
-    expect(message).toStrictEqual({
-      msgKey: undefined,
-      level: 'ERROR',
-    })
+    expect(message).toBeNull()
   })
   it('should call navigation.push when the callback is called', () => {
     handleMissingPaymentData(offer, currency, paymentMethod, updateMessage, navigation)
-    message?.action?.callback()
+    message?.action?.onPress()
 
     expect(navigation.push).toHaveBeenCalledWith('paymentMethodForm', {
       paymentData: {
@@ -54,7 +52,7 @@ describe('handleMissingPaymentData', () => {
   })
   it('should detect gift cards', () => {
     handleMissingPaymentData(offer, currency, 'giftCard.amazon.DE', updateMessage, navigation)
-    message?.action?.callback()
+    message?.action?.onPress()
 
     expect(navigation.push).toHaveBeenCalledWith('paymentMethodForm', {
       paymentData: {

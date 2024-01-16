@@ -1,7 +1,8 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { AppState } from 'react-native'
-import { act, renderHook } from 'test-utils'
-import { defaultState, useMessageState } from '../../components/message/useMessageState'
+import { act, render, renderHook } from 'test-utils'
+import { Toast } from '../../components/toast/Toast'
+import i18n from '../../utils/i18n'
 import { useMessageHandler } from './useMessageHandler'
 
 const overlayEventHanderMock = jest.fn()
@@ -32,11 +33,9 @@ jest.mock('./useGetPNActionHandler', () => ({
   useGetPNActionHandler: () => getPNActionHandlerMock,
 }))
 
-// eslint-disable-next-line max-lines-per-function
+jest.useFakeTimers()
+
 describe('useMessageHandler', () => {
-  beforeEach(() => {
-    useMessageState.setState(defaultState)
-  })
   it('should call updateMessage when type is not found', async () => {
     const mockRemoteMessage = {
       data: {
@@ -47,20 +46,14 @@ describe('useMessageHandler', () => {
       },
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
+    const { queryByText } = render(<Toast />)
     const { result: onMessageHandler } = renderHook(useMessageHandler)
     AppState.currentState = 'active'
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
 
-    expect(useMessageState.getState()).toEqual(
-      expect.objectContaining({
-        msgKey: 'notification.SOME_TYPE',
-        bodyArgs: ['arg1', 'arg2'],
-        level: 'WARN',
-        action: actionMock,
-      }),
-    )
+    expect(queryByText(i18n('notification.SOME_TYPE', 'arg1', 'arg2'))).toBeTruthy()
   })
   it('should not call updateMessage when type is not found and appstate is background', async () => {
     const mockRemoteMessage = {
@@ -72,6 +65,7 @@ describe('useMessageHandler', () => {
       },
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
+    const { queryByText } = render(<Toast />)
     const { result: onMessageHandler } = renderHook(useMessageHandler)
     AppState.currentState = 'background'
 
@@ -79,7 +73,7 @@ describe('useMessageHandler', () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
 
-    expect(useMessageState.getState()).toEqual(expect.objectContaining(defaultState))
+    expect(queryByText(i18n('notification.SOME_TYPE.text', 'arg1', 'arg2'))).toBeFalsy()
   })
 
   it('should call overlay event when type is found in overlayEvents', async () => {
@@ -143,6 +137,8 @@ describe('useMessageHandler', () => {
         bodyLocArgs: ['arg1', 'arg2'],
       },
     } as FirebaseMessagingTypes.RemoteMessage
+    const { toJSON } = render(<Toast />)
+    const beforeUpdate = toJSON()
     const { result: onMessageHandler } = renderHook(useMessageHandler)
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
@@ -151,7 +147,7 @@ describe('useMessageHandler', () => {
     expect(overlayEventHanderMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
     expect(offerPopupEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
     expect(stateUpdateEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
-    expect(useMessageState.getState()).toEqual(expect.objectContaining(defaultState))
+    expect(toJSON()).toEqual(beforeUpdate)
   })
 
   it('should not call anything when type is undefined', async () => {
@@ -162,6 +158,8 @@ describe('useMessageHandler', () => {
       },
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
+    const { toJSON } = render(<Toast />)
+    const beforeUpdate = toJSON()
     const { result: onMessageHandler } = renderHook(useMessageHandler)
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
@@ -170,6 +168,6 @@ describe('useMessageHandler', () => {
     expect(overlayEventHanderMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
     expect(offerPopupEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
     expect(stateUpdateEventHandlerMock).not.toHaveBeenCalledWith(mockRemoteMessage.data)
-    expect(useMessageState.getState()).toEqual(expect.objectContaining(defaultState))
+    expect(toJSON()).toEqual(beforeUpdate)
   })
 })

@@ -11,10 +11,10 @@ export type CopyRef = {
 }
 
 const textPositions = {
-  left: tw`absolute mr-3 right-full`,
-  top: tw`absolute mb-1 bottom-full`,
-  right: tw`absolute ml-3 left-full`,
-  bottom: tw`absolute mt-1 top-full`,
+  left: tw`mr-3 right-full`,
+  top: tw`mb-1 bottom-full`,
+  right: tw`ml-3 left-full`,
+  bottom: tw`mt-1 top-full`,
 }
 type Props = ComponentProps & {
   value?: string

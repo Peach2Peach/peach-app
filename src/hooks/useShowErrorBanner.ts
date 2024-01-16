@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { useMessageState } from '../components/message/useMessageState'
+import { useSetToast } from '../components/toast/Toast'
 import i18n from '../utils/i18n'
 import { error } from '../utils/log/error'
 import { parseError } from '../utils/result/parseError'
@@ -7,23 +7,23 @@ import { useNavigation } from './useNavigation'
 
 export const useShowErrorBanner = () => {
   const navigation = useNavigation()
-  const updateMessage = useMessageState((state) => state.updateMessage)
+  const setToast = useSetToast()
 
   const showErrorBanner = useCallback(
     (err?: Error | string | null, bodyArgs?: string[]) => {
       error('Error', err)
-      updateMessage({
+      setToast({
         msgKey: err ? parseError(err) : 'GENERAL_ERROR',
         bodyArgs,
         level: 'ERROR',
         action: {
-          callback: () => navigation.navigate('contact'),
+          onPress: () => navigation.navigate('contact'),
           label: i18n('contactUs'),
-          icon: 'mail',
+          iconId: 'mail',
         },
       })
     },
-    [navigation, updateMessage],
+    [navigation, setToast],
   )
 
   return showErrorBanner
