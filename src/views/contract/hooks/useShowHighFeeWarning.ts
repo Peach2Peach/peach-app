@@ -27,7 +27,7 @@ export const useShowHighFeeWarning = ({ enabled, amount }: Props) => {
     setToast({
       msgKey: 'contract.warning.highFee',
       bodyArgs: [String(feeRate), (feesInPercent * 100).toFixed(1)],
-      level: 'WARN',
+      color: 'yellow',
       action: {
         onPress: () => {
           navigation.navigate('networkFees')

@@ -11,22 +11,22 @@ import { PeachText } from '../text/PeachText'
 import { iconMap } from './iconMap'
 
 type LevelColorMap = {
-  [key in MessageState['level']]: {
+  [key in MessageState['color']]: {
     backgroundColor: string | undefined
     color: string | undefined
   }
 }
 const levelColorMap: LevelColorMap = {
-  WARN: {
+  yellow: {
     backgroundColor: tw.color('warning-mild-1'),
     color: tw.color('black-100'),
   },
-  ERROR: {
+  red: {
     backgroundColor: tw.color('error-main'),
     color: tw.color('primary-background-light'),
   },
-  DEFAULT: {
-    backgroundColor: tw.color('black-5'),
+  white: {
+    backgroundColor: tw.color('primary-background-light'),
     color: tw.color('black-100'),
   },
 }
@@ -83,7 +83,7 @@ export const Toast = () => {
   ).current
 
   if (!toastState) return null
-  const { level, msgKey, bodyArgs = [], action } = toastState
+  const { color: toastColor, msgKey, bodyArgs = [], action } = toastState
 
   const icon = iconMap[msgKey]
   let title = i18n(`${msgKey}.title`)
@@ -94,7 +94,7 @@ export const Toast = () => {
     message = i18n(msgKey, ...bodyArgs)
   }
 
-  const { color, backgroundColor } = levelColorMap[level]
+  const { color, backgroundColor } = levelColorMap[toastColor]
 
   return (
     <Animated.View

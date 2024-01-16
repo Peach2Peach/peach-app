@@ -7,7 +7,7 @@ jest.useFakeTimers()
 
 describe('Toast', () => {
   const defaultProps = {
-    level: 'DEFAULT' as const,
+    color: 'white' as const,
     msgKey: 'NETWORK_ERROR',
     bodyArgs: [],
     action: {

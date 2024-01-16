@@ -30,7 +30,7 @@ export const useSearchSetup = () => {
         return
       }
       if (errorMessage !== 'UNAUTHORIZED') {
-        setToast({ msgKey: errorMessage, level: 'ERROR' })
+        setToast({ msgKey: errorMessage, color: 'red' })
       }
     }
   }, [error, navigation, setToast])

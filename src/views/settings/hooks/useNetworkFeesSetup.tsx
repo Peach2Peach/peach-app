@@ -48,10 +48,7 @@ export const useNetworkFeesSetup = () => {
     },
     onError: (err: Error, variables, context) => {
       queryClient.setQueryData(['user', 'self'], context?.previousData)
-      setToast({
-        msgKey: err.message,
-        level: 'ERROR',
-      })
+      setToast({ msgKey: err.message, color: 'red' })
     },
     onSettled: () => {
       queryClient.invalidateQueries(['user', 'self'])

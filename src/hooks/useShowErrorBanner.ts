@@ -15,7 +15,7 @@ export const useShowErrorBanner = () => {
       setToast({
         msgKey: err ? parseError(err) : 'GENERAL_ERROR',
         bodyArgs,
-        level: 'ERROR',
+        color: 'red',
         action: {
           onPress: () => navigation.navigate('contact'),
           label: i18n('contactUs'),

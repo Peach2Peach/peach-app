@@ -110,10 +110,7 @@ function useUnmatchOffer (offer: BuyOffer, matchingOfferId: string) {
         return result
       }
       error('Error', err)
-      setToast({
-        msgKey: err?.error || 'error.general',
-        level: 'ERROR',
-      })
+      setToast({ msgKey: err?.error || 'error.general', color: 'red' })
       throw new Error()
     },
     onError: (_error, _variables, context) => {

@@ -3,9 +3,9 @@ import i18n from '../../../utils/i18n'
 import { error } from '../../../utils/log/error'
 import { useSetToast } from '../../toast/Toast'
 
-const levels: Record<string, 'WARN'> = {
-  NOT_FOUND: 'WARN',
-  CANNOT_DOUBLEMATCH: 'WARN',
+const colors: Record<string, 'yellow'> = {
+  NOT_FOUND: 'yellow',
+  CANNOT_DOUBLEMATCH: 'yellow',
 }
 
 export const useHandleError = () => {
@@ -18,7 +18,7 @@ export const useHandleError = () => {
         const msgKey = err?.error === 'NOT_FOUND' ? 'OFFER_TAKEN' : err?.error
         setToast({
           msgKey: msgKey || i18n('error.general', ((err?.details as string[]) || []).join(', ')),
-          level: levels[err?.error] || 'ERROR',
+          color: colors[err?.error] || 'red',
         })
       }
     },

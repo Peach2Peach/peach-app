@@ -64,7 +64,7 @@ function SplashScreenComponent ({ setIsLoading }: { setIsLoading: (isLoading: bo
         } else {
           setToast({
             msgKey: statusResponse?.error || 'NETWORK_ERROR',
-            level: 'ERROR',
+            color: 'red',
             action: {
               onPress: () => navigation.navigate('contact'),
               label: i18n('contactUs'),

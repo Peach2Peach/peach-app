@@ -19,7 +19,7 @@ export const useShowUpdateAvailable = () => {
     if (compatibilityCheck(`${APPVERSION} (${BUILDNUMBER})`, latestAppVersion)) return
     setToast({
       msgKey: 'UPDATE_AVAILABLE',
-      level: 'WARN',
+      color: 'yellow',
       keepAlive: true,
       action: {
         onPress: linkToAppStore,
@@ -33,7 +33,7 @@ export const useShowUpdateAvailable = () => {
     if (compatibilityCheck(`${APPVERSION} (${BUILDNUMBER})`, minAppVersion)) return
     setToast({
       msgKey: 'CRITICAL_UPDATE_AVAILABLE',
-      level: 'ERROR',
+      color: 'red',
       keepAlive: true,
       action: {
         onPress: linkToAppStore,

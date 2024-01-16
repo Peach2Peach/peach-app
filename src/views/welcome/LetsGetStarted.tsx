@@ -37,7 +37,7 @@ export const LetsGetStarted = () => {
     setWillUseReferralCode(result.valid)
     return setToast({
       msgKey: result.valid ? 'referrals.myFavoriteCode' : 'referrals.codeNotFound',
-      level: 'DEFAULT',
+      color: 'white',
     })
   }
 

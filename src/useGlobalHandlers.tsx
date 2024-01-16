@@ -37,7 +37,7 @@ export const useGlobalHandlers = () => {
     error(err)
     setToast({
       msgKey: err.message || 'GENERAL_ERROR',
-      level: 'ERROR',
+      color: 'red',
       action: {
         onPress: () => navigation.navigate('contact'),
         label: i18n('contactUs'),
@@ -57,7 +57,7 @@ export const useGlobalHandlers = () => {
     const errorMsgKey = isNetworkError(errorMessage) ? 'NETWORK_ERROR' : errorMessage
     setToast({
       msgKey: errorMsgKey || 'GENERAL_ERROR',
-      level: 'ERROR',
+      color: 'red',
       action: {
         onPress: () => navigation.navigate('contact'),
         label: i18n('contactUs'),
