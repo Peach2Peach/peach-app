@@ -72,7 +72,7 @@ export class PeachWallet extends PeachJSWallet {
 
         const dbConfig = await getDBConfig(this.network, this.nodeType)
 
-        info('PeachWallet - initWallet - createWallet', this.network, await externalDescriptor.asString())
+        info('PeachWallet - initWallet - createWallet')
 
         this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, this.network, dbConfig)
 

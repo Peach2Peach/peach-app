@@ -20,7 +20,6 @@ export const decryptSymmetricKey = async (
     const results = await Promise.all(
       pgpPublicKeys.map((publicKey) => verifyPGPSignature(symmetricKeySignature, symmetricKey, publicKey)),
     )
-    console.log(results)
     if (results.some((r) => r)) return symmetricKey
     error(new Error('SYMMETRIC_KEY_SIGNATURE_INVALID'))
   } catch (err) {
