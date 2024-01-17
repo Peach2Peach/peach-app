@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { act, render, renderHook } from 'test-utils'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { Overlay } from '../../../Overlay'
@@ -11,7 +10,7 @@ describe('useOverlayEvents', () => {
     const badges = 'fastTrader,superTrader'
     const data = { badges } as PNData
     act(() => {
-      result.current['user.badge.unlocked']!(data)
+      result.current['user.badge.unlocked']?.(data)
     })
 
     const { getByText } = render(<Overlay />)
@@ -22,8 +21,7 @@ describe('useOverlayEvents', () => {
 
     const data = {} as PNData
     act(() => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      result.current['user.badge.unlocked']!(data)
+      result.current['user.badge.unlocked']?.(data)
     })
 
     expect(navigateMock).not.toHaveBeenCalled()
@@ -34,8 +32,7 @@ describe('useOverlayEvents', () => {
     const offerId = '123'
     const data = { offerId } as PNData
     act(() => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      result.current['offer.escrowFunded']!(data)
+      result.current['offer.escrowFunded']?.(data)
     })
 
     const { getByText } = render(<Overlay />)
@@ -47,8 +44,7 @@ describe('useOverlayEvents', () => {
 
     const data = {} as PNData
     act(() => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      result.current['offer.escrowFunded']!(data)
+      result.current['offer.escrowFunded']?.(data)
     })
 
     expect(navigateMock).not.toHaveBeenCalled()
@@ -59,8 +55,7 @@ describe('useOverlayEvents', () => {
     const contractId = '123-456'
     const data = { contractId } as PNData
     act(() => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      result.current['contract.paymentMade']!(data)
+      result.current['contract.paymentMade']?.(data)
     })
 
     const { getByText } = render(<Overlay />)
@@ -72,8 +67,7 @@ describe('useOverlayEvents', () => {
 
     const data = {} as PNData
     act(() => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      result.current['contract.paymentMade']!(data)
+      result.current['contract.paymentMade']?.(data)
     })
 
     expect(navigateMock).not.toHaveBeenCalled()

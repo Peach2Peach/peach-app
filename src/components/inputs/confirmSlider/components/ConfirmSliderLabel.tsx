@@ -8,12 +8,15 @@ type Props = ComponentProps & {
   opacity: Animated.Value | Animated.AnimatedInterpolation<string | number>
 }
 
+const MEDIUM_SCREEN_HEIGHT = 9
+const SMALL_SCREEN_HEIGHT = 8
+
 export const ConfirmSliderLabel = ({ children, width, opacity, style }: Props) => {
   const isMediumScreen = useIsMediumScreen()
   return (
     <Animated.View style={[style, tw`pt-1px`, { width, opacity }]}>
       <FixedHeightText
-        height={isMediumScreen ? 9 : 8}
+        height={isMediumScreen ? MEDIUM_SCREEN_HEIGHT : SMALL_SCREEN_HEIGHT}
         style={[tw`text-center button-medium`, tw`md:button-large`]}
         numberOfLines={1}
       >

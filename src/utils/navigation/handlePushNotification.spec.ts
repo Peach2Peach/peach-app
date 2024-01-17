@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { responseUtils } from '../../../tests/unit/helpers/test-utils'
@@ -11,6 +10,7 @@ const getContractMock = jest.spyOn(peachAPI.private.contract, 'getContract')
 const getOfferDetailsMock = jest.spyOn(peachAPI.private.offer, 'getOfferDetails')
 
 const timestamp = 1231006505000
+// eslint-disable-next-line max-lines-per-function
 describe('handlePushNotification', () => {
   // @ts-expect-error mock only needs one method here
   const navigationRef: Navigation = { navigate: jest.fn() }

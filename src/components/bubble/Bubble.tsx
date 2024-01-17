@@ -15,6 +15,9 @@ export type BubbleProps = Partial<BubbleBaseProps> & {
   ghost?: boolean
 }
 
+const MEDIUM_ICON_SIZE = 16
+const SMALL_ICON_SIZE = 12
+
 /**
  * @deprecated use NewBubble instead
  */
@@ -24,7 +27,7 @@ export const Bubble = (props: BubbleProps) => {
   const textColor = getTextColor(props)
   const borderColor = getBorderColor(props)
   const iconColor = props.iconColor || getIconColor(props)
-  const iconSize = props.iconSize || isMediumScreen ? 16 : 12
+  const iconSize = props.iconSize || isMediumScreen ? MEDIUM_ICON_SIZE : SMALL_ICON_SIZE
 
   return <BubbleBase {...{ ...props, color, textColor, iconColor, iconSize, borderColor }} />
 }

@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { render, renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'

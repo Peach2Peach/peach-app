@@ -23,11 +23,12 @@ describe('NumberStepper', () => {
   })
   it('allows increasing and decreasing number', () => {
     const onChange = jest.fn()
-    const { getByAccessibilityHint } = render(<NumberStepper value={4} onChange={onChange} />)
+    const defaultValue = 4
+    const { getByAccessibilityHint } = render(<NumberStepper value={defaultValue} onChange={onChange} />)
     fireEvent.press(getByAccessibilityHint('decrease number'))
-    expect(onChange).toHaveBeenCalledWith(3)
+    expect(onChange).toHaveBeenCalledWith(defaultValue - 1)
     fireEvent.press(getByAccessibilityHint('increase number'))
-    expect(onChange).toHaveBeenCalledWith(5)
+    expect(onChange).toHaveBeenCalledWith(defaultValue + 1)
   })
   it('prevents increasing and decreasing number when min/max are reached', () => {
     const onChange = jest.fn()

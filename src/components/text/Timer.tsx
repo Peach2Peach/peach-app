@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
+import { MSINASECOND } from '../../constants'
 import tw from '../../styles/tailwind'
 import { msToTimer } from '../../utils/string/msToTimer'
 import { PeachText } from './PeachText'
@@ -17,7 +18,7 @@ export const SimpleTimer = ({ end, style }: Props) => {
       const timeLeft = end - Date.now()
 
       setTimer(timeLeft > 0 ? timeLeft : 0)
-    }, 1000)
+    }, MSINASECOND)
 
     return () => {
       clearInterval(interval)

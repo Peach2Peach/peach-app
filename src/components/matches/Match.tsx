@@ -22,15 +22,14 @@ import { ProfileInfo } from '../ProfileInfo'
 import { NewBubble as Bubble } from '../bubble/Bubble'
 import { useSetPopup } from '../popup/Popup'
 import { PeachText } from '../text/PeachText'
-import { useSetToast } from '../toast/Toast'
 import { HorizontalLine } from '../ui/HorizontalLine'
 import { options } from './buttons/options'
 import { PriceInfo } from './components/PriceInfo'
 import { getPremiumOfMatchedOffer } from './getPremiumOfMatchedOffer'
 import { createRefundTx } from './utils/createRefundTx'
 import { getPaymentDataFromOffer } from './utils/getPaymentDataFromOffer'
-import { handleMissingPaymentData } from './utils/handleMissingPaymentData'
 import { useHandleError } from './utils/useHandleError'
+import { useHandleMissingPaymentData } from './utils/useHandleMissingPaymentData'
 
 export const Match = ({ match, offer, currentPage }: { match: Match; offer: SellOffer; currentPage: number }) => {
   const { selectedPaymentMethod, matched, user, unavailable, amount, matchedPrice, selectedCurrency } = match
@@ -127,9 +126,9 @@ function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) 
   const { selectedCurrency, selectedPaymentMethod, offerId } = match
   const queryClient = useQueryClient()
   const navigation = useNavigation()
-  const setToast = useSetToast()
   const handleError = useHandleError()
   const setPopup = useSetPopup()
+  const handleMissingPaymentData = useHandleMissingPaymentData()
 
   return useMutation({
     onMutate: async () => {
@@ -164,7 +163,7 @@ function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) 
       const errorMsg = parseError(err)
 
       if (errorMsg === 'MISSING_PAYMENTDATA' && selectedCurrency && selectedPaymentMethod) {
-        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, setToast, navigation)
+        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod)
       } else if (errorMsg === 'OFFER_TAKEN') {
         setPopup(<AppPopup id="offerTaken" />)
       } else {

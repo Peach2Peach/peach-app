@@ -21,7 +21,6 @@ jest.mock('./getSellerDisputeStatusText', () => ({
   getSellerDisputeStatusText: jest.fn(() => 'disputeStatusText'),
 }))
 
-// eslint-disable-next-line max-lines-per-function
 describe('getSellerStatusText', () => {
   it('should return the correct status if the buyer canceled the trade (republish available)', () => {
     expect(

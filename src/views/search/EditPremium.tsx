@@ -36,7 +36,10 @@ export const EditPremium = () => {
   }
 
   const displayCurrency = (Object.keys(offer?.meansOfPayment ?? {})[0] as Currency) ?? 'EUR'
-  const currentPrice = offer && isSuccess ? getOfferPrice(offer?.amount, displayPremium, priceBook, displayCurrency) : 0
+  const currentPrice
+    = offer && isSuccess
+      ? getOfferPrice({ amount: offer?.amount, premium: displayPremium, prices: priceBook, currency: displayCurrency })
+      : 0
 
   return (
     <Screen header={<EditPremiumHeader />}>
