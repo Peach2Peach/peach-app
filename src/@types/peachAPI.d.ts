@@ -23,6 +23,10 @@ type APIError = {
 
 type FeeRate = 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee' | number
 
+type PGPPublicKeyProofPair = {
+  publicKey: string
+  proof: string
+}
 type User = {
   banned: boolean
   bonusPoints: number
@@ -41,8 +45,15 @@ type User = {
   maxFreeTrades?: number
   medals: Medal[]
   peachRating: number
+
+  /** @deprecated as of 0.4.2, use `pgpPublicKeys` */
   pgpPublicKey: string
+
+  /** @deprecated as of 0.4.2, use `pgpPublicKeys` */
   pgpPublicKeyProof: string
+
+  pgpPublicKeys: PGPPublicKeyProofPair[]
+
   rating: number
   ratingCount: number
   recentRating: number

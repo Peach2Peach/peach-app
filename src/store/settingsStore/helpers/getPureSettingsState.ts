@@ -15,7 +15,6 @@ export const getPureSettingsState = (state: SettingsStore): Settings => ({
   derivationPath: state.derivationPath,
   displayCurrency: state.displayCurrency,
   country: state.country,
-  pgpPublished: state.pgpPublished,
   fcmToken: state.fcmToken,
   lastFileBackupDate: state.lastFileBackupDate,
   lastSeedBackupDate: state.lastSeedBackupDate,

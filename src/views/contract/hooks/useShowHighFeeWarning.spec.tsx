@@ -1,5 +1,5 @@
 import { fireEvent, render, renderHook, responseUtils, waitFor } from 'test-utils'
-import { defaultUser } from '../../../../peach-api/src/testData/user'
+import { defaultUser } from '../../../../peach-api/src/testData/userData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { Toast } from '../../../components/toast/Toast'
 import i18n from '../../../utils/i18n'

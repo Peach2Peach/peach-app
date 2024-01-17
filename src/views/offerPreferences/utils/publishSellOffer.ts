@@ -1,4 +1,3 @@
-import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
 import { info } from '../../../utils/log/info'
 import { interpolate } from '../../../utils/math/interpolate'
 import { isSellOffer } from '../../../utils/offer/isSellOffer'
@@ -19,13 +18,7 @@ export const publishSellOffer = async (offerDraft: SellOfferDraft) => {
 
   const payload = { type, amount, premium, meansOfPayment, paymentData, returnAddress, multi, instantTradeCriteria }
 
-  let { result, error: err } = await peachAPI.private.offer.postSellOffer(payload)
-  if (err?.error === 'PGP_MISSING') {
-    await publishPGPPublicKey()
-    const response = await peachAPI.private.offer.postSellOffer(payload)
-    result = response.result
-    err = response.error
-  }
+  const { result, error: err } = await peachAPI.private.offer.postSellOffer(payload)
 
   if (result) {
     if (!Array.isArray(result)) {

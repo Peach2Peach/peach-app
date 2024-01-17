@@ -10,7 +10,6 @@ export const recoverAccount = async (account: Account): Promise<Account> => {
   info('Recovering account')
 
   useSettingsStore.getState().setFCMToken('')
-  useSettingsStore.getState().setPGPPublished(false)
 
   updateAccount(account, true)
 

@@ -43,8 +43,8 @@ export const useNetworkFeesSetup = () => {
       return { previousData }
     },
     mutationFn: async () => {
-      const [_result, err] = await updateUser({ feeRate: finalFeeRate })
-      if (err) throw new Error(err.error)
+      const { error } = await updateUser({ feeRate: finalFeeRate })
+      if (error) throw new Error(error.error)
     },
     onError: (err: Error, variables, context) => {
       queryClient.setQueryData(['user', 'self'], context?.previousData)

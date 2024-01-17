@@ -1,5 +1,5 @@
 import { BuyOffer, SellOffer } from '../../../peach-api/src/@types/offer'
-import { defaultUser } from '../../../peach-api/src/testData/user'
+import { defaultUser } from '../../../peach-api/src/testData/userData'
 import { twintDataHashes, validSEPAData, validSEPADataHashes } from './paymentData'
 
 export const buyOffer: BuyOffer = {

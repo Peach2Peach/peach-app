@@ -29,7 +29,6 @@ export type SettingsStore = Settings & {
   setRefundToPeachWallet: (refundToPeachWallet: boolean) => void
   setPayoutToPeachWallet: (payoutToPeachWallet: boolean) => void
   setUsedReferralCode: (usedReferralCode: boolean) => void
-  setPGPPublished: (pgpPublished: boolean) => void
   setFCMToken: (fcmToken: string) => void
   setCloudflareChallenge: (cloudflareChallenge: Settings['cloudflareChallenge']) => void
 }
@@ -72,7 +71,6 @@ export const useSettingsStore = create(
       setRefundToPeachWallet: (refundToPeachWallet) => set({ refundToPeachWallet }),
       setPayoutToPeachWallet: (payoutToPeachWallet) => set({ payoutToPeachWallet }),
       setUsedReferralCode: (usedReferralCode) => set({ usedReferralCode }),
-      setPGPPublished: (pgpPublished) => set({ pgpPublished }),
       setFCMToken: (fcmToken) => set({ fcmToken }),
       setCloudflareChallenge: (cloudflareChallenge) => set({ cloudflareChallenge }),
     }),

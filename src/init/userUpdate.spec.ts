@@ -27,16 +27,12 @@ describe('userUpdate', () => {
     const newToken = 'otherToken'
     setAccount(account1)
     getTokenMock.mockResolvedValueOnce(newToken)
-    useSettingsStore.setState({
-      fcmToken,
-      pgpPublished: false,
-    })
+    useSettingsStore.setState({ fcmToken })
     await userUpdate(referralCode)
     expect(getTokenMock).toHaveBeenCalled()
     expect(updateUserMock).toHaveBeenCalledWith({
       referralCode,
       fcmToken: newToken,
-      pgp: account1.pgp,
     })
   })
 })

@@ -8,11 +8,6 @@ import { publishSellOffer } from './publishSellOffer'
 
 const postSellOfferMock = jest.spyOn(peachAPI.private.offer, 'postSellOffer')
 
-const pgpMock = jest.fn().mockResolvedValue(undefined)
-jest.mock('../../../init/publishPGPPublicKey', () => ({
-  publishPGPPublicKey: () => pgpMock(),
-}))
-
 const infoMock = jest.fn()
 jest.mock('../../../utils/log/info', () => ({
   info: (...args: unknown[]) => infoMock(...args),
@@ -82,26 +77,5 @@ describe('publishSellOffer', () => {
     })
     const publishSellOfferResult = await publishSellOffer(offerDraft)
     expect(publishSellOfferResult).toEqual(multipleOffersResult)
-  })
-
-  it('should send pgp keys and retry posting buy offer if first error is PGP_MISSING', async () => {
-    postSellOfferMock
-      .mockResolvedValueOnce({
-        result: undefined,
-        error: { error: 'PGP_MISSING' },
-        ...responseUtils,
-      })
-      .mockResolvedValueOnce({
-        result: sellOffer,
-        error: undefined,
-        ...responseUtils,
-      })
-
-    const { isPublished: result, navigationParams: offer, errorMessage: error } = await publishSellOffer(offerDraft)
-
-    expect(pgpMock).toHaveBeenCalled()
-    expect(result).toBeTruthy()
-    expect(offer).toEqual({ offerId: sellOffer.id })
-    expect(error).toBeNull()
   })
 })
