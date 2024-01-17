@@ -60,20 +60,16 @@ export const useCheckFundingMultipleEscrows = () => {
       const sellOfferSummaries = getSellOfferSummariesByAddress(fundMultipleMap, address)
       const sellOffers = getSellOffersByAddress(fundMultipleMap, address)
 
-      console.log(1)
       // sell offers are not stored locally, skip
       if (sellOffers.length === 0) return
 
-      console.log(12)
       if (!canFundSellOffers(sellOfferSummaries)) {
         unregisterFundMultiple(address)
         return
       }
-      console.log(123)
 
       const escrows = getEscrowAddresses(sellOffers)
       if (escrows.length === 0) return
-      console.log(address)
 
       const localUtxo = await peachWallet.getAddressUTXO(address)
       if (localUtxo.length === 0) return
