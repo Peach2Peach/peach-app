@@ -7,11 +7,7 @@ describe('getTransform', () => {
     const width = 200
     const translateX = 40
     pan.interpolate = jest.fn().mockReturnValue(translateX)
-    expect(getTransform(pan, width)).toEqual([
-      {
-        translateX,
-      },
-    ])
+    expect(getTransform(pan, width)).toEqual([{ translateX }])
 
     expect(pan.interpolate).toHaveBeenCalledWith({
       inputRange: [0, 1],

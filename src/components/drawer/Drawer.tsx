@@ -15,6 +15,8 @@ const animConfig = {
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
+const SEVENTY_FIVE_PERCENT = 0.75
+
 export const Drawer = () => {
   const [{ content, show, onClose, options, previousDrawer }, updateDrawer] = useDrawerState(
     (state) => [state, state.updateDrawer],
@@ -27,7 +29,7 @@ export const Drawer = () => {
   useEffect(() => {
     const showAnimations = [
       Animated.timing(slideAnim, {
-        toValue: (height * 3) / 4,
+        toValue: height * SEVENTY_FIVE_PERCENT,
         delay: 50,
         ...animConfig,
       }),

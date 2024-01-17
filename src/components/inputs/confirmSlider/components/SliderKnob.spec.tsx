@@ -1,6 +1,6 @@
-import { SliderKnob } from './SliderKnob'
-import { createRenderer } from 'react-test-renderer/shallow'
 import { Animated } from 'react-native'
+import { createRenderer } from 'react-test-renderer/shallow'
+import { SliderKnob } from './SliderKnob'
 
 describe('SliderKnob', () => {
   const renderer = createRenderer()
@@ -17,7 +17,8 @@ describe('SliderKnob', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('renders when slided to 80%', () => {
-    renderer.render(<SliderKnob pan={new Animated.Value(0.8)} iconId="checkCircle" />)
+    const EIGHTY_PERCENT = 0.8
+    renderer.render(<SliderKnob pan={new Animated.Value(EIGHTY_PERCENT)} iconId="checkCircle" />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })

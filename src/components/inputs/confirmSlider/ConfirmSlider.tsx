@@ -53,7 +53,10 @@ export const ConfirmSlider = ({
 
 /**
  * This is a disgusting hack intended to be thrown out as soon as possible.
+ * (it also uses duplicate code from SliderKnob)
  */
+const MEDIUM_ICON_SIZE = 18
+const SMALL_ICON_SIZE = 16
 export function UnlockedSlider ({
   label,
   iconId = 'checkCircle',
@@ -65,9 +68,10 @@ export function UnlockedSlider ({
 }) {
   const { widthToSlide, onLayout } = useConfirmSliderSetup({ onConfirm: () => {}, enabled: false })
   const pan = new Animated.Value(1)
+  const isMediumScreen = useIsMediumScreen()
   const icon = {
     color: tw.color('primary-background-light'),
-    size: useIsMediumScreen() ? 18 : 16,
+    size: isMediumScreen ? MEDIUM_ICON_SIZE : SMALL_ICON_SIZE,
   }
   return (
     <View

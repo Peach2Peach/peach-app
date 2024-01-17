@@ -19,11 +19,13 @@ describe('configStore', () => {
     expect(useConfigStore.getState().hasSeenGroupHugAnnouncement).toBeTruthy()
   })
   it('should set minimum trading amount', () => {
-    useConfigStore.getState().setMinTradingAmount(10)
-    expect(useConfigStore.getState().minTradingAmount).toBe(10)
+    const minTradingAmount = 10
+    useConfigStore.getState().setMinTradingAmount(minTradingAmount)
+    expect(useConfigStore.getState().minTradingAmount).toBe(minTradingAmount)
   })
   it('should set maximum trading amount', () => {
-    useConfigStore.getState().setMaxTradingAmount(100)
-    expect(useConfigStore.getState().maxTradingAmount).toBe(100)
+    const maxTradingAmount = 100
+    useConfigStore.getState().setMaxTradingAmount(maxTradingAmount)
+    expect(useConfigStore.getState().maxTradingAmount).toBe(maxTradingAmount)
   })
 })

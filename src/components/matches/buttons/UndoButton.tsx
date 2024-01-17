@@ -9,10 +9,12 @@ type Props = {
   onTimerFinished: () => void
 }
 
+export const TIMER_DURATION = 5000
+
 const startTimer = (timer: Animated.Value, onTimerFinished: () => void) => {
   Animated.timing(timer, {
     toValue: 0,
-    duration: 5000,
+    duration: TIMER_DURATION,
     useNativeDriver: false,
   }).start(({ finished }) => {
     if (!finished) return

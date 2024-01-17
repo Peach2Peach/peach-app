@@ -6,14 +6,15 @@ import { round } from '../../../utils/math/round'
 const MIN = -21
 const MAX = 21
 const DELTA = MAX - MIN
-const KNOBWIDTH = tw`w-8`.width as number
+export const KNOBWIDTH = tw`w-8`.width as number
+export const DEFAULT_WIDTH = 260
 
 export const usePremiumSliderSetup = (
   premium: number,
   setPremium: (newPremium: number, isValid?: boolean | undefined) => void,
 ) => {
   const [isSliding, setIsSliding] = useState(false)
-  const [trackWidth, setTrackWidth] = useState(260)
+  const [trackWidth, setTrackWidth] = useState(DEFAULT_WIDTH)
   const labelPosition = useMemo(
     () => [
       -trackWidth / 2,

@@ -4,7 +4,8 @@ import { error } from '../../utils/log/error'
 import { defaultFundingStatus } from '../../utils/offer/constants'
 import { peachAPI } from '../../utils/peachAPI'
 
-const TWENTYSECONDS = 20 * MSINASECOND
+const TWENTY = 20
+const TWENTYSECONDS = TWENTY * MSINASECOND
 
 const getFundingStatusQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
   const [, offerId] = queryKey
