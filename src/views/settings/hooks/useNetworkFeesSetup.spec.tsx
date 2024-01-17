@@ -5,6 +5,7 @@ import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { Toast } from '../../../components/toast/Toast'
 import i18n from '../../../utils/i18n'
 import { peachAPI } from '../../../utils/peachAPI'
+import { getError } from '../../../utils/result/getError'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
 
 jest.useFakeTimers()
@@ -82,9 +83,8 @@ describe('useNetworkFeesSetup', () => {
   })
   it('submits fee preferences', async () => {
     const { result } = renderHook(useNetworkFeesSetup)
-    await act(async () => {
-      await result.current.submit()
-    })
+    await act(result.current.submit)
+
     expect(updateUserMock).toHaveBeenCalledWith({
       feeRate: 'halfHourFee',
     })
@@ -92,9 +92,8 @@ describe('useNetworkFeesSetup', () => {
     act(() => {
       result.current.setSelectedFeeRate('fastestFee')
     })
-    await act(async () => {
-      await result.current.submit()
-    })
+    await act(result.current.submit)
+
     expect(updateUserMock).toHaveBeenCalledWith({
       feeRate: 'fastestFee',
     })
@@ -106,15 +105,13 @@ describe('useNetworkFeesSetup', () => {
       result.current.setSelectedFeeRate('custom')
       result.current.setCustomFeeRate('4')
     })
-    await act(async () => {
-      await result.current.submit()
-    })
+    await act(result.current.submit)
     expect(updateUserMock).toHaveBeenCalledWith({
       feeRate: 4,
     })
   })
   it('handles request errors', async () => {
-    updateUserMock.mockResolvedValueOnce([null, unauthorizedError])
+    updateUserMock.mockResolvedValueOnce(getError(unauthorizedError))
     const { queryByText } = render(<Toast />)
     const { result } = renderHook(useNetworkFeesSetup)
 
