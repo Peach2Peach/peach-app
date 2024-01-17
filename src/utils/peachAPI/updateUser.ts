@@ -1,7 +1,9 @@
 import { crypto } from 'bitcoinjs-lib'
 import OpenPGP from 'react-native-fast-openpgp'
+import { APISuccess } from '../../../peach-api/src/@types/global'
 import { getError } from '../result/getError'
 import { getResult } from '../result/getResult'
+import { Result } from '../result/types'
 import { peachAPI } from './peachAPI'
 
 const getPGPUpdatePayload = async (pgp?: PGPKeychain) => {
@@ -27,7 +29,12 @@ export type UpdateUserProps = {
   feeRate?: FeeRate
 }
 
-export const updateUser = async ({ pgp, fcmToken, referralCode, feeRate }: UpdateUserProps) => {
+export const updateUser = async ({
+  pgp,
+  fcmToken,
+  referralCode,
+  feeRate,
+}: UpdateUserProps): Promise<Result<APISuccess, APIError | undefined>> => {
   const peachAccount = peachAPI.apiOptions.peachAccount
   if (!peachAccount) return getError({ error: 'UNAUTHORIZED' })
   const { result, error } = await peachAPI.private.user.updateUser({
