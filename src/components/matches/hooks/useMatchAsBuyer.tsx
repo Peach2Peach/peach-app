@@ -120,7 +120,7 @@ async function generateMatchOfferData ({ offer, match, currency, paymentData, pg
   const symmetricKey = (await getRandom(SYMMETRIC_KEY_BYTES)).toString('hex')
   const { encrypted, signature } = await signAndEncrypt(
     symmetricKey,
-    [...pgpPublicKeys, ...match.user.pgpPublicKeys].join('\n'),
+    [...pgpPublicKeys, ...match.user.pgpPublicKeys.map((pgp) => pgp.publicKey)].join('\n'),
   )
 
   const encryptedPaymentData = await encryptPaymentData(cleanPaymentData(paymentData), symmetricKey)
