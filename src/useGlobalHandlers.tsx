@@ -8,6 +8,7 @@ import { useDynamicLinks } from './hooks/useDynamicLinks'
 import { useNavigation } from './hooks/useNavigation'
 import { useShouldShowBackupReminder } from './hooks/useShouldShowBackupReminder'
 import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
+import { useSyncUserAccount } from './hooks/user/useSyncUserAccount'
 import { useInitialNavigation } from './init/useInitialNavigation'
 import { AnalyticsPopup } from './popups/AnalyticsPopup'
 import { VerifyYouAreAHumanPopup } from './popups/warning/VerifyYouAreAHumanPopup'
@@ -24,6 +25,7 @@ export const useGlobalHandlers = () => {
   useShouldShowBackupReminder()
   useInitialNavigation()
   useShowUpdateAvailable()
+  useSyncUserAccount()
   useDynamicLinks()
   useCheckFundingMultipleEscrows()
   useHandleNotifications(messageHandler)

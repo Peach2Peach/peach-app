@@ -27,7 +27,6 @@ export const defaultSettings: Settings = {
   payoutToPeachWallet: true,
   derivationPath: undefined,
 
-  pgpPublished: undefined,
   fcmToken: undefined,
   usedReferralCode: undefined,
 }

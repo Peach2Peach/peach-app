@@ -4,7 +4,6 @@ import { useSetOverlay } from '../../../Overlay'
 import { useSetPopup } from '../../../components/popup/Popup'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
 import { InfoPopup } from '../../../popups/InfoPopup'
 import { useConfigStore } from '../../../store/configStore/configStore'
 import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
@@ -69,17 +68,9 @@ export function usePublishBuyOffer ({
         messageSignature,
       }
 
-      let { result, error: err } = await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft)
+      const { result, error: err } = await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft)
 
-      if (err?.error === 'PGP_MISSING') {
-        await publishPGPPublicKey()
-        const response = await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft)
-        result = response.result
-        err = response.error
-      }
-      if (result) {
-        return result.id
-      }
+      if (result) return result.id
       throw new Error(err?.error || 'POST_OFFER_ERROR', { cause: err?.details })
     },
     onError: ({ message, cause }: Error) => {
