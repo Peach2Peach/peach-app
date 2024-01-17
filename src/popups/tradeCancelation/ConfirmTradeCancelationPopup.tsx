@@ -20,25 +20,22 @@ import { cancelContractAsSeller } from './cancelContractAsSeller'
 export function ConfirmTradeCancelationPopup ({ contract, view }: { contract: Contract; view: ContractViewer }) {
   const setPopup = useSetPopup()
   const closePopup = useClosePopup()
-  const { mutate: cancelSeller } = useContractMutation(
-    {},
-    {
-      mutationFn: async () => {
-        setPopup(<CancelPopup contract={contract} view={view} />)
+  const { mutate: cancelSeller } = useContractMutation(contract, {
+    mutationFn: async () => {
+      setPopup(<CancelPopup contract={contract} view={view} />)
 
-        const { result, error } = await cancelContractAsSeller(contract)
+      const { result, error } = await cancelContractAsSeller(contract)
 
-        if (error) throw new Error(error)
-        return result
-      },
-      onSuccess: (result) => {
-        const { sellOffer } = result
-        if (sellOffer) saveOffer(sellOffer)
-      },
+      if (error) throw new Error(error)
+      return result
     },
-  )
+    onSuccess: (result) => {
+      const { sellOffer } = result
+      if (sellOffer) saveOffer(sellOffer)
+    },
+  })
   const { mutate: cancelBuyer } = useContractMutation(
-    { canceled: true, tradeStatus: 'tradeCanceled' },
+    { ...contract, canceled: true, tradeStatus: 'tradeCanceled' },
     {
       mutationFn: async () => {
         setPopup(
