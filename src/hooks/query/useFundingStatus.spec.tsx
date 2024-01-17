@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'

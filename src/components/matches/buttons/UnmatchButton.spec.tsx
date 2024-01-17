@@ -4,6 +4,7 @@ import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import i18n from '../../../utils/i18n'
 import { peachAPI } from '../../../utils/peachAPI'
 import { Popup } from '../../popup/Popup'
+import { TIMER_DURATION } from './UndoButton'
 import { UnmatchButton } from './UnmatchButton'
 
 jest.useFakeTimers()
@@ -54,7 +55,7 @@ describe('UnmatchButton', () => {
   it('should show the unmatch button again after the timer is over', async () => {
     const { getByText } = render(<UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />)
     await act(() => {
-      jest.advanceTimersByTime(5000)
+      jest.advanceTimersByTime(TIMER_DURATION)
     })
     expect(getByText(i18n('search.unmatch'))).toBeTruthy()
   })

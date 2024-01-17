@@ -14,20 +14,19 @@ import { peachAPI } from '../../../utils/peachAPI'
 import { signAndEncrypt } from '../../../utils/pgp/signAndEncrypt'
 import { parseError } from '../../../utils/result/parseError'
 import { useSetPopup } from '../../popup/Popup'
-import { useSetToast } from '../../toast/Toast'
 import { getMatchPrice } from '../utils/getMatchPrice'
-import { handleMissingPaymentData } from '../utils/handleMissingPaymentData'
 import { useHandleError } from '../utils/useHandleError'
+import { useHandleMissingPaymentData } from '../utils/useHandleMissingPaymentData'
 
 export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
   const matchId = match.offerId
   const queryClient = useQueryClient()
   const navigation = useNavigation()
-  const setToast = useSetToast()
   const handleError = useHandleError()
   const setPopup = useSetPopup()
   const { user } = useSelfUser()
   const pgpPublicKeys = user?.pgpPublicKeys.map((key) => key.publicKey) ?? []
+  const handleMissingPaymentData = useHandleMissingPaymentData()
 
   return useMutation({
     onMutate: async ({ selectedCurrency, paymentData }) => {
@@ -77,7 +76,7 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
       const errorMsg = parseError(err)
 
       if (errorMsg === 'MISSING_PAYMENTDATA' && selectedPaymentMethod) {
-        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, setToast, navigation)
+        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod)
       } else if (errorMsg === 'OFFER_TAKEN') {
         setPopup(<AppPopup id="offerTaken" />)
       } else {

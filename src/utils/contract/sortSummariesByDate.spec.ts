@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { sortSummariesByDate } from './sortSummariesByDate'
 
 describe('sortSummariesByDate', () => {

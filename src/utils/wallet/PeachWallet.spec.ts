@@ -1,6 +1,4 @@
 /* eslint-disable max-lines */
-/* eslint-disable max-statements */
-/* eslint-disable max-lines-per-function */
 import { BLOCKEXPLORER } from '@env'
 import { Address, PartiallySignedTransaction, Transaction, TxBuilder } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
@@ -40,6 +38,7 @@ jest.mock('./transaction/buildTransaction', () => ({
 
 jest.useFakeTimers()
 
+// eslint-disable-next-line max-lines-per-function, max-statements
 describe('PeachWallet', () => {
   const address1 = 'address1'
   const address2 = 'address2'

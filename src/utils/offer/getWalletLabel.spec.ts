@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import i18n from '../i18n'
 import { getWalletLabel } from './getWalletLabel'
 

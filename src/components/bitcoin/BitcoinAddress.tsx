@@ -18,9 +18,13 @@ type BitcoinAddressProps = {
   label?: string
 }
 
+const MEDIUM_SCREEN_WIDTH = 327
+const SMALL_SCREEN_WIDTH = 242
+const SHORT_ANIMATION_DURATION = 200
+const LONG_ANIMATION_DURATION = 300
 export const BitcoinAddress = ({ address, amount, label }: BitcoinAddressProps) => {
   const isMediumScreen = useIsMediumScreen()
-  const width = isMediumScreen ? 327 : 242
+  const width = isMediumScreen ? MEDIUM_SCREEN_WIDTH : SMALL_SCREEN_WIDTH
 
   const requestTextOpacity = useRef(new Animated.Value(0)).current
   const addressTextOpacity = useRef(new Animated.Value(0)).current
@@ -37,12 +41,12 @@ export const BitcoinAddress = ({ address, amount, label }: BitcoinAddressProps) 
 
   const copyAddress = () => {
     Clipboard.setString(address)
-    textAnimation(addressTextOpacity, 200)
+    textAnimation(addressTextOpacity, SHORT_ANIMATION_DURATION)
   }
 
   const copyPaymentRequest = () => {
     Clipboard.setString(urn.toString())
-    textAnimation(requestTextOpacity, 300)
+    textAnimation(requestTextOpacity, LONG_ANIMATION_DURATION)
   }
 
   const openInWalletOrCopyPaymentRequest = async () => {
@@ -95,10 +99,11 @@ function IconButton ({ onPress, iconId }: { onPress: () => void; iconId: IconTyp
   )
 }
 
+const DELAY = 1500
 function textAnimation (opacity: Animated.Value, duration: number) {
   Animated.sequence([
     Animated.timing(opacity, { toValue: 1, duration, useNativeDriver: true }),
-    Animated.delay(1500),
+    Animated.delay(DELAY),
     Animated.timing(opacity, { toValue: 0, duration, useNativeDriver: true }),
   ]).start()
 }

@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { LayoutChangeEvent } from 'react-native'
 import { act, renderHook, waitFor } from 'test-utils'
-import { useConfirmSliderSetup } from './useConfirmSliderSetup'
+import { defaultWidth, useConfirmSliderSetup } from './useConfirmSliderSetup'
 
 jest.useFakeTimers()
 jest.mock('../../../../hooks/useIsMediumScreen', () => ({
@@ -15,7 +15,7 @@ describe('useConfirmSliderSetup', () => {
     enabled: true,
   }
   const knobWidth = 46
-  const widthToSlide = 260 - knobWidth
+  const widthToSlide = defaultWidth - knobWidth
 
   it('should return default values', () => {
     const { result } = renderHook(useConfirmSliderSetup, { initialProps })
@@ -33,8 +33,9 @@ describe('useConfirmSliderSetup', () => {
 
   it('should update onLayout', () => {
     const { result } = renderHook(useConfirmSliderSetup, { initialProps })
-    act(() => result.current.onLayout({ nativeEvent: { layout: { width: 400 } } } as LayoutChangeEvent))
-    expect(result.current.widthToSlide).toEqual(400 - knobWidth)
+    const width = 400
+    act(() => result.current.onLayout({ nativeEvent: { layout: { width } } } as LayoutChangeEvent))
+    expect(result.current.widthToSlide).toEqual(width - knobWidth)
   })
 
   it('should not update onLayout width zero dimensions', () => {

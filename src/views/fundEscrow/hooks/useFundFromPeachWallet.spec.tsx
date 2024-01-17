@@ -1,5 +1,4 @@
 /* eslint-disable no-magic-numbers */
-/* eslint-disable max-lines */
 import { TxBuilder } from 'bdk-rn'
 import { act } from 'react-test-renderer'
 import { fireEvent, render, renderHook, responseUtils } from 'test-utils'

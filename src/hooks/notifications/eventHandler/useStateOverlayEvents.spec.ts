@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { act, renderHook } from 'test-utils'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { useStateUpdateEvents } from './useStateUpdateEvents'
@@ -17,7 +16,7 @@ describe('useStateUpdateEvents', () => {
     const { result } = renderHook(() => useStateUpdateEvents())
 
     act(() => {
-      result.current['contract.chat']!({ contractId })
+      result.current['contract.chat']?.({ contractId })
     })
 
     expect(getContract).toHaveBeenCalledWith(contractId)
@@ -32,7 +31,7 @@ describe('useStateUpdateEvents', () => {
     const { result } = renderHook(() => useStateUpdateEvents())
 
     act(() => {
-      result.current['contract.chat']!({})
+      result.current['contract.chat']?.({})
     })
 
     expect(getContract).not.toHaveBeenCalled()
@@ -48,7 +47,7 @@ describe('useStateUpdateEvents', () => {
     const { result } = renderHook(() => useStateUpdateEvents())
 
     act(() => {
-      result.current['contract.chat']!({ contractId })
+      result.current['contract.chat']?.({ contractId })
     })
 
     expect(getContract).toHaveBeenCalledWith(contractId)

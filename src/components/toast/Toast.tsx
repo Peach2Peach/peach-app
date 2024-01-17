@@ -40,7 +40,8 @@ const slideAnimation = (value: Animated.Value, toValue: number) =>
     duration: 300,
     useNativeDriver: false,
   })
-const DELAY = MSINASECOND * 10
+const TEN = 10
+const DELAY = MSINASECOND * TEN
 const MIN_SWIPE_DISTANCE = 70
 
 export const Toast = () => {

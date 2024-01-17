@@ -1,6 +1,6 @@
 import { deepStrictEqual } from 'assert'
-import { getEscrowExpiry } from './getEscrowExpiry'
 import { sellOffer } from '../../../tests/unit/data/offerData'
+import { getEscrowExpiry } from './getEscrowExpiry'
 
 describe('getEscrowExpiry', () => {
   it('should return the offer expiry', () => {

@@ -1,3 +1,4 @@
+import { Mnemonic } from 'bdk-rn'
 import { Network } from 'bdk-rn/lib/lib/enums'
 import { account1 } from '../../../tests/unit/data/accountData'
 import {
@@ -6,7 +7,6 @@ import {
   mnemonicFromStringMock,
 } from '../../../tests/unit/mocks/bdkRN'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
-import { Mnemonic } from 'bdk-rn'
 
 describe('getDescriptorSecretKey', () => {
   it('creates new random descriptor secret', async () => {

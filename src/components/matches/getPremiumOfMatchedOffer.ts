@@ -1,4 +1,4 @@
-import { SATSINBTC } from '../../constants'
+import { CENT, SATSINBTC } from '../../constants'
 import { round } from '../../utils/math/round'
 
 export const getPremiumOfMatchedOffer = (
@@ -9,6 +9,6 @@ export const getPremiumOfMatchedOffer = (
   const bitcoinPrice = priceBook?.[currency] ?? bitcoinPriceWhenMatched
   const delta = bitcoinPriceWhenMatched - bitcoinPrice
 
-  const premium = round((delta / bitcoinPrice) * 100, 2)
+  const premium = round((delta / bitcoinPrice) * CENT, 2)
   return premium
 }

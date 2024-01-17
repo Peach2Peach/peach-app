@@ -15,6 +15,9 @@ export type ButtonProps = {
   loading?: boolean
 } & TouchableOpacityProps
 
+const MEDIUM_ICON_SIZE = 18
+const SMALL_ICON_SIZE = 14
+
 export const Button = ({
   iconId,
   ghost,
@@ -47,7 +50,9 @@ export const Button = ({
       {loading ? (
         <Loading style={[tw`h-14px w-14px`, tw`md:h-18px md:w-18px`]} color={textColor?.color} />
       ) : (
-        !!iconId && <Icon id={iconId} size={isMediumScreen ? 18 : 14} color={textColor?.color} />
+        !!iconId && (
+          <Icon id={iconId} size={isMediumScreen ? MEDIUM_ICON_SIZE : SMALL_ICON_SIZE} color={textColor?.color} />
+        )
       )}
     </TouchableOpacity>
   )

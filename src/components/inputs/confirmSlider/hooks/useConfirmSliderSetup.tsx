@@ -8,7 +8,7 @@ type Props = ComponentProps & {
   enabled: boolean
 }
 
-const defaultWidth = 260
+export const defaultWidth = 260
 
 export const useConfirmSliderSetup = ({ enabled, onConfirm }: Props) => {
   const isMediumScreen = useIsMediumScreen()
