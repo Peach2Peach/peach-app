@@ -15,6 +15,22 @@ import { useCheckFundingMultipleEscrows } from './useCheckFundingMultipleEscrows
 
 jest.useFakeTimers()
 
+const refetchMock = jest.fn()
+const useOfferSummariesMock = jest.fn().mockReturnValue({
+  refetch: () => refetchMock(),
+})
+
+const refreshMock = jest.fn().mockResolvedValue(true)
+const useSyncWalletMock = jest.fn().mockReturnValue({
+  refresh: () => refreshMock(),
+})
+jest.mock('../views/wallet/hooks/useSyncWallet', () => ({
+  useSyncWallet: (...args: unknown[]) => useSyncWalletMock(...args),
+}))
+jest.mock('./query/useOfferSummaries', () => ({
+  useOfferSummaries: (...args: unknown[]) => useOfferSummariesMock(...args),
+}))
+
 // eslint-disable-next-line max-lines-per-function
 describe('useCheckFundingMultipleEscrows', () => {
   const sellOffer1 = sellOffer
@@ -41,22 +57,30 @@ describe('useCheckFundingMultipleEscrows', () => {
     setAccount({ ...account1, offers: sellOffers })
     useTradeSummaryStore.getState().reset()
     useTradeSummaryStore.getState().setOffers(sellOfferSummaries)
+    refetchMock.mockResolvedValue(sellOfferSummaries)
     useWalletState.getState().registerFundMultiple(
       'address',
       sellOffers.map((o) => o.id),
     )
   })
-  it('check each registered address for funding each minute', () => {
+  it('check each registered address for funding each minute', async () => {
+    getAddressUTXOSpy.mockResolvedValueOnce([])
     renderHook(useCheckFundingMultipleEscrows)
 
     expect(getAddressUTXOSpy).not.toHaveBeenCalled()
     act(() => {
       jest.advanceTimersByTime(MSINAMINUTE)
     })
+    await waitFor(() => expect(refreshMock).toHaveBeenCalled())
+    await waitFor(() => expect(refetchMock).toHaveBeenCalled())
     expect(getAddressUTXOSpy).toHaveBeenCalledWith('address')
+
+    getAddressUTXOSpy.mockResolvedValueOnce([])
     act(() => {
       jest.advanceTimersByTime(MSINAMINUTE)
     })
+    await waitFor(() => expect(refreshMock).toHaveBeenCalled())
+    await waitFor(() => expect(refetchMock).toHaveBeenCalled())
     expect(getAddressUTXOSpy).toHaveBeenCalledTimes(2)
   })
   it('craft batched funding transaction once funds have been detected in address', async () => {
@@ -68,15 +92,16 @@ describe('useCheckFundingMultipleEscrows', () => {
     await waitFor(() => expect(signAndBroadcastPSBTSpy).toHaveBeenCalledWith(txDetails.psbt))
   })
   it('unregisters batch funding once batched tx has been broadcasted and registered by peach server', async () => {
+    expect(useWalletState.getState().fundMultipleMap).toEqual({
+      address: ['38', '39', '40'],
+    })
     renderHook(useCheckFundingMultipleEscrows)
 
     act(() => {
       jest.advanceTimersByTime(MSINAMINUTE)
     })
     await waitFor(() => expect(signAndBroadcastPSBTSpy).toHaveBeenCalledWith(txDetails.psbt))
-    expect(useWalletState.getState().fundMultipleMap).toEqual({
-      address: ['38', '39', '40'],
-    })
+    expect(useWalletState.getState().fundMultipleMap).toEqual({})
     act(() => {
       useTradeSummaryStore.getState().reset()
       useTradeSummaryStore.getState().setOffers(sellOfferSummaries.map((offer) => ({ ...offer, fundingTxId: '1' })))
@@ -86,22 +111,26 @@ describe('useCheckFundingMultipleEscrows', () => {
     })
     expect(useWalletState.getState().fundMultipleMap).toEqual({})
   })
-  it('aborts if no escrow addresses can be found', () => {
+  it('aborts if no escrow addresses can be found', async () => {
     setAccount(defaultAccount)
     renderHook(useCheckFundingMultipleEscrows)
 
     act(() => {
       jest.advanceTimersByTime(MSINAMINUTE)
     })
+    await waitFor(() => expect(refreshMock).toHaveBeenCalled())
+    await waitFor(() => expect(refetchMock).toHaveBeenCalled())
     expect(getAddressUTXOSpy).not.toHaveBeenCalled()
   })
-  it('aborts if no local utxo can be found', () => {
+  it('aborts if no local utxo can be found', async () => {
     renderHook(useCheckFundingMultipleEscrows)
 
     getAddressUTXOSpy.mockResolvedValueOnce([])
     act(() => {
       jest.advanceTimersByTime(MSINAMINUTE)
     })
+    await waitFor(() => expect(refreshMock).toHaveBeenCalled())
+    await waitFor(() => expect(refetchMock).toHaveBeenCalled())
     expect(signAndBroadcastPSBTSpy).not.toHaveBeenCalled()
   })
 })
