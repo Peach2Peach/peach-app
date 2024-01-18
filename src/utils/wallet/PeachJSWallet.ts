@@ -11,6 +11,7 @@ type PeachJSWalletProps = {
   network?: BitcoinNetwork
   gapLimit?: number
 }
+const GAP_LIMIT = 25
 export class PeachJSWallet {
   jsWallet: BIP32Interface
 
@@ -22,7 +23,7 @@ export class PeachJSWallet {
 
   addresses: string[]
 
-  constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachJSWalletProps) {
+  constructor ({ wallet, network = NETWORK, gapLimit = GAP_LIMIT }: PeachJSWalletProps) {
     this.jsWallet = wallet
 
     this.network = network
