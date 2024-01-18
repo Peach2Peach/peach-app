@@ -13,6 +13,7 @@ import i18n from '../../../utils/i18n'
 import { peachAPI } from '../../../utils/peachAPI'
 import { isPaymentMethod } from '../../../utils/validation/isPaymentMethod'
 import { isValidBitcoinSignature } from '../../../utils/validation/isValidBitcoinSignature'
+import { getNetwork } from '../../../utils/wallet/getNetwork'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { GroupHugAnnouncement } from '../../overlays/GroupHugAnnouncement'
 
@@ -53,7 +54,15 @@ export function usePublishBuyOffer ({
         ? peachWallet.signMessage(message, releaseAddress, index)
         : payoutAddressSignature
 
-      if (!messageSignature || !isValidBitcoinSignature(message, releaseAddress, messageSignature)) {
+      if (
+        !messageSignature
+        || !isValidBitcoinSignature({
+          message,
+          address: releaseAddress,
+          signature: messageSignature,
+          network: getNetwork(),
+        })
+      ) {
         throw new Error('INAVLID_SIGNATURE')
       }
       const finalizedOfferDraft = {

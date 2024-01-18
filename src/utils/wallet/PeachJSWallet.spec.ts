@@ -1,10 +1,13 @@
+import { networks } from 'bitcoinjs-lib'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { getError } from '../../../tests/unit/helpers/getError'
+import { useAccountStore } from '../account/account'
 import { PeachJSWallet } from './PeachJSWallet'
 import { createWalletFromBase58 } from './createWalletFromBase58'
 import { getNetwork } from './getNetwork'
 import { useWalletState } from './walletStore'
 
+// eslint-disable-next-line max-lines-per-function
 describe('PeachJSWallet', () => {
   // @ts-ignore
   const wallet = createWalletFromBase58(account1.base58, getNetwork())
@@ -12,6 +15,7 @@ describe('PeachJSWallet', () => {
   let peachJSWallet: PeachJSWallet
 
   beforeEach(() => {
+    useAccountStore.getState().setAccount(account1)
     peachJSWallet = new PeachJSWallet({ wallet })
   })
   afterEach(() => {
@@ -60,6 +64,20 @@ describe('PeachJSWallet', () => {
     const signature = peachJSWallet.signMessage(message, address, 1)
     expect(findKeyPairByAddressSpy).not.toHaveBeenCalled()
     expect(signature).toBe('H1cN5gQpMeLAsid1ZnUIJxEVC5+geRao9yeT9V88rtHfe4bEvglz8hSwnWCuMjjHHYCgBGKssceWPUQKKrpThRE=')
+  })
+  it('signs an arbitrary message with P2TR index', () => {
+    peachJSWallet = new PeachJSWallet({
+      wallet: createWalletFromBase58(account1.base58, networks.regtest),
+      network: 'regtest',
+    })
+    const signature = peachJSWallet.signTaproot(0)
+    expect(signature).toEqual({
+      address: 'bcrt1pr3s2397a2wj6dzdeyu5u06gd3ykheqmk850u6r9qr45mqg77wfus7naq9n',
+      message:
+        // eslint-disable-next-line max-len
+        'I confirm that only I, peach03a9ea8d, control the address bcrt1pr3s2397a2wj6dzdeyu5u06gd3ykheqmk850u6r9qr45mqg77wfus7naq9n',
+      signature: 'AUEPTS+nuBrTWuT2504Ae7LH0Fylp9wvpkgTy1dGqnIizmsEOYbIoWZhEsjgKLs1+fGiBQAdZNLwLMEGDZYMr+dSAQ==',
+    })
   })
   it('signs an arbitrary message with index 0', () => {
     const address = 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt'
