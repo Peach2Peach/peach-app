@@ -41,10 +41,6 @@ function isURL (url: string) {
   }
 }
 
-function isTaproot (value: string) {
-  return /^(tb1p|bcrt1p|bc1p)/u.test(value)
-}
-
 function isReferralCode (code: string) {
   return code.length > 0 && /^[A-Z0-9]{1,16}$/u.test(code)
 }
