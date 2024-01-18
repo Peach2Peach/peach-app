@@ -14,6 +14,8 @@ type RatingProps = {
   isNewUser?: boolean
 }
 
+export const MAX_NUMBER_OF_PEACHES = 5
+
 export const Rating = ({ rating, isNewUser }: RatingProps) =>
   isNewUser ? (
     <PeachText style={tw`subtitle-2 text-black-65`}>{i18n('newUser')}</PeachText>
@@ -35,6 +37,8 @@ export const Rating = ({ rating, isNewUser }: RatingProps) =>
         </View>
       </View>
 
-      <PeachText style={tw`text-black-65 button-small`}>{interpolate(rating, [-1, 1], [0, 5]).toFixed(1)}</PeachText>
+      <PeachText style={tw`text-black-65 button-small`}>
+        {interpolate(rating, [-1, 1], [0, MAX_NUMBER_OF_PEACHES]).toFixed(1)}
+      </PeachText>
     </View>
   )

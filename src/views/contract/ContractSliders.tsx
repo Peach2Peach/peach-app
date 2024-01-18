@@ -111,10 +111,11 @@ export function CancelTradeSlider () {
     />
   )
 }
+const MAX_HOURS_FOR_PAYMENT = 12
 export function ExtendTimerSlider () {
   const { contractId } = useRoute<'contract'>().params
   const { mutate } = useContractMutation(
-    { id: contractId, paymentExpectedBy: new Date(Date.now() + MSINANHOUR * 12) },
+    { id: contractId, paymentExpectedBy: new Date(Date.now() + MSINANHOUR * MAX_HOURS_FOR_PAYMENT) },
     {
       mutationFn: async () => {
         const { result, error: err } = await peachAPI.private.contract.extendPaymentTimer({ contractId })

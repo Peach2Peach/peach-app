@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useSetToast } from '../../../components/toast/Toast'
+import { CENT } from '../../../constants'
 import { useFeeRate } from '../../../hooks/useFeeRate'
 import { useNavigation } from '../../../hooks/useNavigation'
 import i18n from '../../../utils/i18n'
@@ -26,7 +27,7 @@ export const useShowHighFeeWarning = ({ enabled, amount }: Props) => {
 
     setToast({
       msgKey: 'contract.warning.highFee',
-      bodyArgs: [String(feeRate), (feesInPercent * 100).toFixed(1)],
+      bodyArgs: [String(feeRate), (feesInPercent * CENT).toFixed(1)],
       color: 'yellow',
       action: {
         onPress: () => {

@@ -1,17 +1,21 @@
 import { strictEqual } from 'assert'
+import { MSINADAY, MSINAMINUTE, MSINANHOUR, MSINASECOND } from '../../constants'
 import { msToTimer } from './msToTimer'
 
 describe('msToTimer', () => {
   it('turns ms to a human readable format', () => {
-    strictEqual(msToTimer(1000), '00:00:01')
-    strictEqual(msToTimer(1000 * 45), '00:00:45')
-    strictEqual(msToTimer(1000 * 60), '00:01:00')
-    strictEqual(msToTimer(1000 * 61), '00:01:01')
-    strictEqual(msToTimer(1000 * 60 * 59), '00:59:00')
-    strictEqual(msToTimer(1000 * 60 * 61), '01:01:00')
-    strictEqual(msToTimer(1000 * 60 * 60 + 1000 * 12), '01:00:12')
-    strictEqual(msToTimer(1000 * 60 * 60 * 10), '10:00:00')
-    strictEqual(msToTimer(1000 * 60 * 60 * 12), '12:00:00')
-    strictEqual(msToTimer(1000 * 60 * 60 * 12 + 1000 * 45), '12:00:45')
+    const TEN = 10
+    const TWELVE = 12
+    const FORTYFIVE = 45
+    strictEqual(msToTimer(MSINASECOND), '00:00:01')
+    strictEqual(msToTimer(MSINASECOND * FORTYFIVE), '00:00:45')
+    strictEqual(msToTimer(MSINAMINUTE), '00:01:00')
+    strictEqual(msToTimer(MSINAMINUTE + MSINASECOND), '00:01:01')
+    strictEqual(msToTimer(MSINANHOUR - MSINAMINUTE), '00:59:00')
+    strictEqual(msToTimer(MSINANHOUR + MSINAMINUTE), '01:01:00')
+    strictEqual(msToTimer(MSINANHOUR + MSINASECOND * TWELVE), '01:00:12')
+    strictEqual(msToTimer(MSINANHOUR * TEN), '10:00:00')
+    strictEqual(msToTimer(MSINADAY / 2), '12:00:00')
+    strictEqual(msToTimer(MSINADAY / 2 + MSINASECOND * FORTYFIVE), '12:00:45')
   })
 })

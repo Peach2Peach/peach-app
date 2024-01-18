@@ -50,7 +50,8 @@ describe('useRestoreFromFileSetup', () => {
     )
   })
   it('updates the last file backup date after restoring', async () => {
-    jest.spyOn(Date, 'now').mockReturnValue(123456789)
+    const MOCK_DATE = 123456789
+    jest.spyOn(Date, 'now').mockReturnValue(MOCK_DATE)
     const { result } = renderHook(useRestoreFromFileSetup)
     act(() => {
       result.current.setFile({

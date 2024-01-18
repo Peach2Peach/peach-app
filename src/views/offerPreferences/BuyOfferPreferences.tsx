@@ -8,6 +8,7 @@ import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { interpolate } from '../../utils/math/interpolate'
 import { isValidPaymentData } from '../../utils/paymentMethod/isValidPaymentData'
+import { MAX_NUMBER_OF_PEACHES } from '../settings/profile/profileOverview/Rating'
 import { PayoutWalletSelector } from './PayoutWalletSelector'
 import { ShowOffersButton } from './ShowOffersButton'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
@@ -77,7 +78,7 @@ function PreferenceMarketInfo () {
       maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
         ? state.filter.buyOffer.maxPremium || undefined
         : undefined,
-      minReputation: interpolate(state.filter.buyOffer.minReputation || 0, [0, 5], [-1, 1]),
+      minReputation: interpolate(state.filter.buyOffer.minReputation || 0, [0, MAX_NUMBER_OF_PEACHES], [-1, 1]),
     }),
     shallow,
   )
@@ -141,7 +142,7 @@ function PublishOfferButton () {
       meansOfPayment: state.meansOfPayment,
       paymentData: state.paymentData,
       maxPremium: state.filter.buyOffer.shouldApplyMaxPremium ? state.filter.buyOffer.maxPremium : null,
-      minReputation: interpolate(state.filter.buyOffer.minReputation || 0, [0, 5], [-1, 1]),
+      minReputation: interpolate(state.filter.buyOffer.minReputation || 0, [0, MAX_NUMBER_OF_PEACHES], [-1, 1]),
     }),
     shallow,
   )

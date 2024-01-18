@@ -47,6 +47,7 @@ export const useOfferMatches = (offerId: string, refetchInterval?: number, enabl
   return { ...queryData, allMatches }
 }
 
+const THIRTY = 30
 async function getMatchesFn ({
   queryKey: [, offerId, sortBy],
   pageParam = 0,
@@ -56,7 +57,7 @@ async function getMatchesFn ({
     offerId,
     page: pageParam,
     size: PAGESIZE,
-    signal: getAbortWithTimeout(30 * MSINASECOND).signal,
+    signal: getAbortWithTimeout(THIRTY * MSINASECOND).signal,
     sortBy,
   })
 

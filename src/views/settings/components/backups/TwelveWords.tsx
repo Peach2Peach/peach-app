@@ -4,6 +4,7 @@ import { PeachText } from '../../../../components/text/PeachText'
 import tw from '../../../../styles/tailwind'
 import { useAccountStore } from '../../../../utils/account/account'
 import i18n from '../../../../utils/i18n'
+import { NUMBER_OF_WORDS } from './NUMBER_OF_WORDS'
 import { Word } from './Word'
 
 export const TwelveWords = () => {
@@ -15,7 +16,7 @@ export const TwelveWords = () => {
         <View style={tw`flex-1`}>
           {mnemonic
             ?.split(' ')
-            .slice(0, 6)
+            .slice(0, NUMBER_OF_WORDS / 2)
             .map((word, i) => (
               <Word word={word} index={i + 1} key={`seedPhraseWord${i}`} />
             ))}
@@ -23,9 +24,13 @@ export const TwelveWords = () => {
         <View style={tw`flex-1`}>
           {mnemonic
             ?.split(' ')
-            .slice(6, 12)
+            .slice(NUMBER_OF_WORDS / 2, NUMBER_OF_WORDS)
             .map((word, i) => (
-              <Word word={word} index={i + 7} key={`seedPhraseWord${i + 7}`} />
+              <Word
+                word={word}
+                index={i + NUMBER_OF_WORDS / 2 + 1}
+                key={`seedPhraseWord${i + NUMBER_OF_WORDS / 2 + 1}`}
+              />
             ))}
         </View>
       </View>

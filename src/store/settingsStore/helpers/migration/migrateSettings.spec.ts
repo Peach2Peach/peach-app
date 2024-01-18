@@ -48,7 +48,7 @@ describe('migrateSettings', () => {
     })
     expect(useOfferPreferences.getState()).toEqual(
       expect.objectContaining({
-        buyAmountRange: [100, 1000],
+        buyAmountRange: [persistedState.minBuyAmount, persistedState.maxBuyAmount],
         meansOfPayment: {
           EUR: ['sepa'],
         },
@@ -63,7 +63,7 @@ describe('migrateSettings', () => {
           sepa: validSEPAData.id,
         },
         premium: 1,
-        sellAmount: 100,
+        sellAmount: persistedState.sellAmount,
       }),
     )
   })
@@ -108,7 +108,7 @@ describe('migrateSettings', () => {
     })
     expect(useOfferPreferences.getState()).toEqual(
       expect.objectContaining({
-        buyAmountRange: [100, 1000],
+        buyAmountRange: [persistedState.minBuyAmount, persistedState.maxBuyAmount],
         meansOfPayment: {
           EUR: ['sepa'],
         },

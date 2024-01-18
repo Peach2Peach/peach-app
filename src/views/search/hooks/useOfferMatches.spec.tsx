@@ -1,6 +1,7 @@
 import { act, renderHook, responseUtils, waitFor } from 'test-utils'
+import { MSINASECOND } from '../../../constants'
 import { peachAPI } from '../../../utils/peachAPI'
-import { useOfferMatches } from './useOfferMatches'
+import { PAGESIZE, useOfferMatches } from './useOfferMatches'
 
 const getMatchesMock = jest.spyOn(peachAPI.private.offer, 'getMatches')
 
@@ -20,7 +21,7 @@ describe('useOfferMatches', () => {
     expect(getMatchesMock).not.toHaveBeenCalled()
   })
   it('should not remove matches when the user gets to the next page', async () => {
-    const firstPage = Array(10)
+    const firstPage = Array(PAGESIZE)
       .fill('match')
       .map((match, index) => `${match}${index}`)
     const secondPage = ['match10']
@@ -52,7 +53,8 @@ describe('useOfferMatches', () => {
     })
   })
   it('should not remove matches when the user stays on the second page for 15 seconds', async () => {
-    const firstPage = Array(10)
+    const FIFTEEN = 15
+    const firstPage = Array(PAGESIZE)
       .fill('match')
       .map((match, index) => `${match}${index}`)
     const secondPage = ['match10']
@@ -72,7 +74,7 @@ describe('useOfferMatches', () => {
     })
 
     await waitFor(() => {
-      jest.advanceTimersByTime(1000 * 15)
+      jest.advanceTimersByTime(MSINASECOND * FIFTEEN)
     })
 
     expect(result.current.allMatches).toEqual([...firstPage, ...secondPage])

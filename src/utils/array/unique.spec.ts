@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { deepStrictEqual } from 'assert'
 import { unique } from './unique'
 

@@ -4,7 +4,7 @@ import { renderHook } from 'test-utils'
 import { DEFAULT_WIDTH, KNOBWIDTH, usePremiumSliderSetup } from './usePremiumSliderSetup'
 
 describe('usePremiumSliderSetup', () => {
-  const labelPosition = [-130, -62, 0, 62, 130]
+  const labelPosition = [-DEFAULT_WIDTH / 2, -62, 0, 62, DEFAULT_WIDTH / 2]
   const defaultPremium = 1.5
   it('should default values', () => {
     const { result } = renderHook(() => usePremiumSliderSetup(defaultPremium, jest.fn()))
