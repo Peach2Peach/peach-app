@@ -7,7 +7,7 @@ export const publishPGPPublicKey = async (pgp: PGPKeychain) => {
     const { result, error: err } = await updateUser({ pgp })
 
     if (result) {
-      info('Set PGP for user', pgp.publicKey)
+      info('Set PGP for user')
     } else {
       error('PGP could not be set', JSON.stringify(err))
     }
