@@ -6,6 +6,9 @@ import { Script } from 'bdk-rn/lib/classes/Script'
 import { KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 
+type PeachWalletProps = {
+  network?: Network
+}
 export class PeachWallet {
   balance: number
 
@@ -13,7 +16,7 @@ export class PeachWallet {
 
   network: Network
 
-  constructor ({ network = 'bitcoin' }) {
+  constructor ({ network = Network.Bitcoin }: PeachWalletProps) {
     this.balance = 0
     this.transactions = []
     this.network = network
@@ -56,7 +59,8 @@ export class PeachWallet {
   async getAddressUTXO () {
     const outpoint = new OutPoint('txid', 0)
     const script = new Script('address')
-    const txout = new TxOut(10000, script)
+    const amount = 10000
+    const txout = new TxOut(amount, script)
     return [new LocalUtxo(outpoint, txout, false, KeychainKind.External)]
   }
 
