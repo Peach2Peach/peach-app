@@ -1,1 +1,3 @@
-export const getTimeDiffInDays = (date: Date) => Math.floor((Date.now() - new Date(date).getTime()) / (86400 * 1000))
+import { MSINADAY } from '../../constants'
+
+export const getTimeDiffInDays = (date: Date) => Math.floor((Date.now() - new Date(date).getTime()) / MSINADAY)

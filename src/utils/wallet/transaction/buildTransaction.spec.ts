@@ -22,7 +22,8 @@ describe('buildTransaction', () => {
   const scriptPubKey = 'scriptPubKey'
   const feeRate = 10
   const outpoint = new OutPoint(confirmed1.txid, 0)
-  const txOut = new TxOut(10000, new Script('address'))
+  const value = 10000
+  const txOut = new TxOut(value, new Script('address'))
   const utxo = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
 
   it('builds a transaction with an amount, fee rate, recipientAddress and rbf enabled', async () => {

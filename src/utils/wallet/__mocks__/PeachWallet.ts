@@ -53,7 +53,8 @@ export class PeachWallet {
   async getAddressUTXO () {
     const outpoint = new OutPoint('txid', 0)
     const script = new Script('address')
-    const txout = new TxOut(10000, script)
+    const value = 10000
+    const txout = new TxOut(value, script)
     return [new LocalUtxo(outpoint, txout, false, KeychainKind.External)]
   }
 

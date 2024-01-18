@@ -6,7 +6,6 @@ import { getNetwork } from './getNetwork'
 import { useWalletState } from './walletStore'
 
 describe('PeachJSWallet', () => {
-  // @ts-ignore
   const wallet = createWalletFromBase58(account1.base58, getNetwork())
   const message = 'message'
   let peachJSWallet: PeachJSWallet
@@ -36,7 +35,8 @@ describe('PeachJSWallet', () => {
   })
 
   it('finds key pair by address and stores scanned addresses', () => {
-    const address = peachJSWallet._getAddress(3)
+    const addressIndex = 3
+    const address = peachJSWallet._getAddress(addressIndex)
 
     if (!address) throw Error()
     const keyPair = peachJSWallet.findKeyPairByAddress(address)

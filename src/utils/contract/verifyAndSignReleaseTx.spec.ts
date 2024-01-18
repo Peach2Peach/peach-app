@@ -1,4 +1,3 @@
-import { PsbtInput } from 'bip174/src/lib/interfaces'
 import { Psbt, networks } from 'bitcoinjs-lib'
 import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
 import { SIGHASH } from '../bitcoin/constants'
@@ -21,10 +20,11 @@ jest.mock('../../views/contract/helpers/verifyReleasePSBT', () => ({
 
 // eslint-disable-next-line max-lines-per-function
 describe('verifyAndSignReleaseTx', () => {
+  const amount = 10000
   const mockSellOffer = {
     id: '12',
-    funding: { txIds: ['txid1'], vouts: [0], amounts: [10000] },
-    amount: 10000,
+    funding: { txIds: ['txid1'], vouts: [0], amounts: [amount] },
+    amount,
   }
   const mockContract: Partial<Contract> = {
     id: '12-13',
@@ -38,8 +38,7 @@ describe('verifyAndSignReleaseTx', () => {
   const finalizeInputMock = jest.fn()
 
   const psbt: Partial<Psbt> = {
-    // @ts-ignore
-    data: { inputs: [{ sighashType: SIGHASH.ALL }] as PsbtInput[] },
+    data: { inputs: [{ sighashType: SIGHASH.ALL }] } as Psbt['data'],
     signInput: jest.fn().mockReturnValue({ finalizeInput: finalizeInputMock }),
     extractTransaction: jest.fn().mockReturnValue({
       toHex: jest.fn().mockReturnValue('transactionAsHex'),
@@ -51,8 +50,7 @@ describe('verifyAndSignReleaseTx', () => {
     ] as Psbt['txOutputs'],
   }
   const batchPsbt: Partial<Psbt> = {
-    // @ts-ignore
-    data: { inputs: [{ sighashType: SIGHASH.SINGLE_ANYONECANPAY }] as PsbtInput[] },
+    data: { inputs: [{ sighashType: SIGHASH.SINGLE_ANYONECANPAY }] } as Psbt['data'],
     signInput: jest.fn().mockReturnValue({ finalizeInput: finalizeInputMock }),
     toBase64: jest.fn().mockReturnValue('batchTransactionAsBase64'),
     txInputs: [{}] as Psbt['txInputs'],

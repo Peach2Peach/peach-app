@@ -53,7 +53,7 @@ export function BTCAmount ({ amount, size, white = false, showAmount = true, sty
       <View style={[tw`flex-row items-center flex-1`, styles[size].textContainer]}>
         {!showAmount ? (
           <View style={tw`flex-row items-center justify-between flex-1 pl-1px`}>
-            {[...Array(SATSINBTC.toString().length)].map((_, i) => (
+            {Array(SATSINBTC.toString().length).map((_, i) => (
               <Icon key={i} id="ellipse" size={styles[size].ellipseSize} />
             ))}
           </View>

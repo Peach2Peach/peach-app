@@ -20,7 +20,7 @@ export const MSINAMONTH = DAYS_IN_A_MONTH * MSINADAY
 const FIFTEEN = 15
 export const FIFTEEN_SECONDS = FIFTEEN * MSINASECOND
 
-export const NEW_USER_THRESHOLD = 3
+export const NEW_USER_TRADE_THRESHOLD = 3
 
 export const APPVERSION = getVersion()
 export const BUILDNUMBER = getBuildNumber()

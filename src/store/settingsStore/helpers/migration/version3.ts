@@ -27,10 +27,11 @@ export type SettingsVersion3 = {
   usedReferralCode?: boolean
 }
 
+const VERSION_THRESHOLD = 4
 export const shouldMigrateToVersion4 = (
   _persistedState: unknown,
   version: number,
-): _persistedState is SettingsVersion3 => version < 4
+): _persistedState is SettingsVersion3 => version < VERSION_THRESHOLD
 
 export const version3 = (migratedState: SettingsVersion3) => {
   info('settingsStore - migrating from version 3')

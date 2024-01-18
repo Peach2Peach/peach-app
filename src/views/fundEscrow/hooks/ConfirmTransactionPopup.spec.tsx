@@ -1,6 +1,7 @@
 import { View } from 'react-native'
 import { act, fireEvent, render } from 'test-utils'
 import { transactionError } from '../../../../tests/unit/data/errors'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -14,15 +15,15 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 describe('ConfirmTransactionPopup', () => {
   const onSuccess = jest.fn()
   const amount = 100000
+  const feeRate = 10
   const props = {
     title: 'title',
     content: <View />,
-    psbt: getTransactionDetails(amount, 10, 'txid').psbt,
+    psbt: getTransactionDetails(amount, feeRate, 'txid').psbt,
     onSuccess,
   }
   beforeAll(() => {
-    // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
   })
   it('should render correctly', async () => {
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(props.psbt)

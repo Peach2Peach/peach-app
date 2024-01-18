@@ -1,6 +1,9 @@
+const END_OF_FIRST_PART = 4
+const END_OF_SECOND_PART = 9
+const END_OF_THIRD_PART = -5
 export const getBitcoinAddressParts = (address: string) => ({
-  one: address.slice(0, 4),
-  two: address.slice(4, 9),
-  three: address.slice(9, -5),
-  four: address.slice(-5),
+  one: address.slice(0, END_OF_FIRST_PART),
+  two: address.slice(END_OF_FIRST_PART, END_OF_SECOND_PART),
+  three: address.slice(END_OF_SECOND_PART, END_OF_THIRD_PART),
+  four: address.slice(END_OF_THIRD_PART),
 })

@@ -16,9 +16,9 @@ describe('setMultipleRecipients', () => {
     const transaction = await buildTransaction({ address, amount, feeRate })
     await setMultipleRecipients(transaction, amount, addresses)
     expect(txBuildSetRecipientsMock).toHaveBeenCalledWith([
-      new ScriptAmount(await getScriptPubKeyFromAddress(addresses[0]), amount / 3),
-      new ScriptAmount(await getScriptPubKeyFromAddress(addresses[1]), amount / 3),
-      new ScriptAmount(await getScriptPubKeyFromAddress(addresses[2]), amount / 3),
+      new ScriptAmount(await getScriptPubKeyFromAddress(addresses[0]), amount / addresses.length),
+      new ScriptAmount(await getScriptPubKeyFromAddress(addresses[1]), amount / addresses.length),
+      new ScriptAmount(await getScriptPubKeyFromAddress(addresses[2]), amount / addresses.length),
     ])
   })
 })

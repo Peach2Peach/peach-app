@@ -125,12 +125,6 @@ type PeachWallet = {
 
 type ContactReason = 'bug' | 'accountLost' | 'userProblem' | 'question' | 'sellMore' | 'other'
 
-type Expiry = {
-  date: Date
-  ttl: number
-  isExpired: boolean
-}
-
 type Config = {
   paymentMethods: PaymentMethodInfo[]
   peachPGPPublicKey: string

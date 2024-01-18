@@ -9,7 +9,7 @@ import { getPremiumOfMatchedOffer } from '../../components/matches/getPremiumOfM
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
 import { PriceFormat } from '../../components/text/PriceFormat'
-import { CENT, NEW_USER_THRESHOLD } from '../../constants'
+import { CENT, NEW_USER_TRADE_THRESHOLD } from '../../constants'
 import { CancelOfferPopup } from '../../hooks/CancelOfferPopup'
 import { useMarketPrices } from '../../hooks/query/useMarketPrices'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
@@ -91,7 +91,7 @@ function ExploreCard ({ match }: { match: Match }) {
     navigation.navigate('matchDetails', { matchId: match.offerId, offerId })
   }
 
-  const isNewUser = user.openedTrades < NEW_USER_THRESHOLD
+  const isNewUser = user.openedTrades < NEW_USER_TRADE_THRESHOLD
 
   return (
     <TouchableOpacity

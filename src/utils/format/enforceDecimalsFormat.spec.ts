@@ -9,7 +9,8 @@ describe('enforceDecimalsFormat', () => {
   it('enforce max number of decimals', () => {
     expect(enforceDecimalsFormat('1.1234', 2)).toBe('1.12')
     expect(enforceDecimalsFormat('203984.1', 2)).toBe('203984.1')
-    expect(enforceDecimalsFormat('-1.1234', 3)).toBe('-1.123')
+    const NUMBER_OF_DECIMALS = 3
+    expect(enforceDecimalsFormat('-1.1234', NUMBER_OF_DECIMALS)).toBe('-1.123')
   })
   it('remove decimals', () => {
     expect(enforceDecimalsFormat('1.1234', 0)).toBe('1')

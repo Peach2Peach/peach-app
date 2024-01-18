@@ -30,10 +30,11 @@ export type SettingsVersion2 = {
   lastBackupDate?: number
 }
 
+const VERSION_THRESHOLD = 3
 export const shouldMigrateToVersion3 = (
   _persistedState: unknown,
   version: number,
-): _persistedState is SettingsVersion2 => version < 3
+): _persistedState is SettingsVersion2 => version < VERSION_THRESHOLD
 
 export const version2 = (migratedState: SettingsVersion2): SettingsVersion3 => {
   info('settingsStore - migrating from version 2')

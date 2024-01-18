@@ -86,7 +86,11 @@ function MeetupScreenHeader () {
 
 function CashTradesPopup () {
   const bulletPoints = []
-  for (let i = 1; i < 5; i++) bulletPoints.push(<BulletPoint key={i} text={i18n(`tradingCash.point.${i}`)} />)
+  const start = 1
+  const numerOfBulletPoints = 4
+  for (let i = start; i < start + numerOfBulletPoints; i++) {
+    bulletPoints.push(<BulletPoint key={i} text={i18n(`tradingCash.point.${i}`)} />)
+  }
 
   return (
     <InfoPopup

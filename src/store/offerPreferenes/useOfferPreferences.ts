@@ -2,9 +2,10 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 import { MatchFilter } from '../../../peach-api/src/@types/api/offerAPI'
-import { TOTAL_SATS } from '../../constants'
+import { NEW_USER_TRADE_THRESHOLD, TOTAL_SATS } from '../../constants'
 import { getSelectedPaymentDataIds } from '../../utils/account/getSelectedPaymentDataIds'
 import { createStorage } from '../../utils/storage/createStorage'
+import { MIN_REPUTATION_FILTER } from '../../views/offerPreferences/components/MIN_REPUTATION_FILTER'
 import { createPersistStorage } from '../createPersistStorage'
 import { getHashedPaymentData, getMeansOfPayment, getOriginalPaymentData, getPreferredMethods } from './helpers'
 import { CurrencyType } from './types'
@@ -138,11 +139,13 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       toggleInstantTrade: () => set((state) => ({ instantTrade: !state.instantTrade })),
       toggleMinTrades: () =>
         set((state) => {
-          state.instantTradeCriteria.minTrades = state.instantTradeCriteria.minTrades === 0 ? 3 : 0
+          state.instantTradeCriteria.minTrades
+            = state.instantTradeCriteria.minTrades === 0 ? NEW_USER_TRADE_THRESHOLD : 0
         }),
       toggleMinReputation: () =>
         set((state) => {
-          state.instantTradeCriteria.minReputation = state.instantTradeCriteria.minReputation === 0 ? 4.5 : 0
+          state.instantTradeCriteria.minReputation
+            = state.instantTradeCriteria.minReputation === 0 ? MIN_REPUTATION_FILTER : 0
         }),
       toggleShouldApplyMaxPremium: () =>
         set((state) => {
@@ -150,7 +153,8 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         }),
       toggleMinReputationFilter: () =>
         set((state) => {
-          state.filter.buyOffer.minReputation = state.filter.buyOffer.minReputation === null ? 4.5 : null
+          state.filter.buyOffer.minReputation
+            = state.filter.buyOffer.minReputation === null ? MIN_REPUTATION_FILTER : null
         }),
       setMinReputationFilter: (minReputation) =>
         set((state) => {

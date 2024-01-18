@@ -20,6 +20,8 @@ import { SummaryItem } from '../components/SummaryItem'
 import { TradeBreakdownBubble } from '../components/TradeBreakdownBubble'
 import { useContractContext } from '../context'
 
+const SATS_GROUP_SIZE = 3
+
 export const tradeInformationGetters: Record<
   | 'bitcoinAmount'
   | 'bitcoinPrice'
@@ -61,7 +63,7 @@ export const tradeInformationGetters: Record<
   bitcoinAmount: (contract: Contract) => contract.amount,
   bitcoinPrice: (contract: Contract) => {
     const bitcoinPrice = getBitcoinPriceFromContract(contract)
-    if (contract.currency === 'SAT') return `${groupChars(String(bitcoinPrice), 3)} ${contract.currency}`
+    if (contract.currency === 'SAT') return `${groupChars(String(bitcoinPrice), SATS_GROUP_SIZE)} ${contract.currency}`
     return `${priceFormat(bitcoinPrice)} ${contract.currency}`
   },
   ratingBuyer: (contract: Contract) => getRatingBubble(contract, 'Buyer'),
@@ -117,12 +119,12 @@ const allPossibleFields = [
 export type TradeInfoField = (typeof allPossibleFields)[number]
 export const isTradeInformationGetter = (
   fieldName: keyof typeof tradeInformationGetters | TradeInfoField,
-): fieldName is keyof typeof tradeInformationGetters => tradeInformationGetters.hasOwnProperty(fieldName)
+): fieldName is keyof typeof tradeInformationGetters => fieldName in tradeInformationGetters
 
 function getPrice (contract: Contract) {
-  return `${contract.currency === 'SAT' ? groupChars(String(contract.price), 3) : priceFormat(contract.price)} ${
-    contract.currency
-  }`
+  return `${
+    contract.currency === 'SAT' ? groupChars(String(contract.price), SATS_GROUP_SIZE) : priceFormat(contract.price)
+  } ${contract.currency}`
 }
 
 function getPaymentMethodBubble (contract: Contract) {

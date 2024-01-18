@@ -2,6 +2,7 @@ import { error } from '../log/error'
 import { parseError } from '../result/parseError'
 import { dateTimeReviver } from '../system/dateTimeReviver'
 
+const OK_STATUS = 200
 export const parseResponse = async <T>(
   response: Response,
   caller: string,
@@ -14,7 +15,7 @@ export const parseResponse = async <T>(
 
     const data = !string ? JSON.parse(await response.text(), dateTimeReviver) : await response.text()
 
-    if (response.status !== 200) {
+    if (response.status !== OK_STATUS) {
       if (data.error === 'CONTRACT_EXISTS') return [null, data]
       error(
         `peachAPI - ${caller}`,
@@ -39,16 +40,25 @@ export const parseResponse = async <T>(
   }
 }
 
-const isCloudflareChallenge = (response: Response) => response.headers.get('cf-mitigated') === 'challenge'
+const isCloudflareChallenge = (headers: Response['headers']) => headers.get('cf-mitigated') === 'challenge'
 
-function getResponseError (response: Response) {
-  if (response.statusText === 'Aborted') return 'ABORTED'
+const RESPONSE_ERRORS = {
+  0: 'EMPTY_RESPONSE',
+  429: 'TOO_MANY_REQUESTS',
+  500: 'INTERNAL_SERVER_ERROR',
+  503: 'SERVICE_UNAVAILABLE',
+  ABORTED: 'ABORTED',
+  NETWORK_ERROR: 'NETWORK_ERROR',
+}
 
-  if (isCloudflareChallenge(response)) return 'HUMAN_VERIFICATION_REQUIRED'
-  if (response.status === 0) return 'EMPTY_RESPONSE'
-  if (response.status === 500) return 'INTERNAL_SERVER_ERROR'
-  if (response.status === 503) return 'SERVICE_UNAVAILABLE'
-  if (response.status === 429) return 'TOO_MANY_REQUESTS'
-  if (!response.status) return 'NETWORK_ERROR'
+const isErrorStatus = (status?: number | string | null): status is keyof typeof RESPONSE_ERRORS =>
+  typeof status !== 'undefined' && status !== null && status in RESPONSE_ERRORS
+
+function getResponseError ({ statusText, status, headers }: Response) {
+  if (statusText === 'Aborted') return RESPONSE_ERRORS.ABORTED
+
+  if (headers && isCloudflareChallenge(headers)) return 'HUMAN_VERIFICATION_REQUIRED'
+  if (isErrorStatus(status)) return RESPONSE_ERRORS[status]
+  if (!status) return RESPONSE_ERRORS.NETWORK_ERROR
   return null
 }

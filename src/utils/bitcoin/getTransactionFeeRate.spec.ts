@@ -3,6 +3,7 @@ import { getTransactionFeeRate } from './getTransactionFeeRate'
 
 describe('getTransactionFeeRate', () => {
   it('should calculate the fee rate', () => {
-    expect(getTransactionFeeRate(bitcoinTransaction)).toBe(1.31)
+    const expectedFeeRate = 1.31
+    expect(getTransactionFeeRate(bitcoinTransaction)).toBe(expectedFeeRate)
   })
 })

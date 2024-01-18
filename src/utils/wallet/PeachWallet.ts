@@ -28,6 +28,7 @@ type PeachWalletProps = {
   gapLimit?: number
 }
 
+const defaultGapLimit = 25
 export class PeachWallet extends PeachJSWallet {
   initialized: boolean
 
@@ -47,7 +48,7 @@ export class PeachWallet extends PeachJSWallet {
 
   nodeType?: BlockChainNames
 
-  constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
+  constructor ({ wallet, network = NETWORK, gapLimit = defaultGapLimit }: PeachWalletProps) {
     super({ wallet, network, gapLimit })
     this.balance = 0
     this.transactions = []

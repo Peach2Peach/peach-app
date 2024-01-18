@@ -6,8 +6,10 @@ describe('getOfferPrice', () => {
       USD: 10000,
       EUR: 12000,
     }
-    expect(getOfferPrice({ amount: 1000000, premium: 10, prices, currency: 'USD' })).toEqual(110)
-    expect(getOfferPrice({ amount: 1000000, premium: 10, prices, currency: 'EUR' })).toEqual(132)
+    const expectedUSDPrice = 110
+    const expectedEURPrice = 132
+    expect(getOfferPrice({ amount: 1000000, premium: 10, prices, currency: 'USD' })).toEqual(expectedUSDPrice)
+    expect(getOfferPrice({ amount: 1000000, premium: 10, prices, currency: 'EUR' })).toEqual(expectedEURPrice)
   })
 
   it('should return 0 if the currency is not available in the offer', () => {

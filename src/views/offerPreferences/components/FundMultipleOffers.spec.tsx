@@ -9,7 +9,8 @@ describe('FundMultipleOffers', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('renders correctly when enabled', () => {
-    useOfferPreferences.getState().setMulti(4)
+    const amountOfOffers = 4
+    useOfferPreferences.getState().setMulti(amountOfOffers)
     renderer.render(<FundMultipleOffers />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })

@@ -7,6 +7,7 @@ import { Screen } from '../../components/Screen'
 import { MessageInput } from '../../components/inputs/MessageInput'
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
+import { MSINASECOND } from '../../constants'
 import { PAGE_SIZE, useChatMessages } from '../../hooks/query/useChatMessages'
 import { useContractDetails } from '../../hooks/query/useContractDetails'
 import { useRoute } from '../../hooks/useRoute'
@@ -104,7 +105,8 @@ function ChatScreen ({ contract }: { contract: Contract }) {
   const submit = () => {
     if (!contract || !tradingPartner || !decryptedData?.symmetricKey || !newMessage) return
     setDisableSend(true)
-    setTimeout(() => setDisableSend(false), 300)
+    const enableDelay = 300
+    setTimeout(() => setDisableSend(false), enableDelay)
 
     sendMessage(newMessage)
     setNewMessage('')
@@ -124,6 +126,7 @@ function ChatScreen ({ contract }: { contract: Contract }) {
   )
 
   useEffect(() => {
+    const timeoutSeconds = 5
     const timeout = setTimeout(() => {
       const unsentMessages = getUnsentMessages(chat.messages)
       if (unsentMessages.length === 0) return
@@ -131,7 +134,7 @@ function ChatScreen ({ contract }: { contract: Contract }) {
       setAndSaveChat(contractId, {
         messages: unsentMessages.map((message) => ({ ...message, failedToSend: true })),
       })
-    }, 5000)
+    }, timeoutSeconds * MSINASECOND)
 
     return () => clearTimeout(timeout)
   }, [contractId, chat.messages])

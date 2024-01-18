@@ -18,7 +18,7 @@ describe('saveChat', () => {
     saveChat(chatData.chat1.id, chatData.chat1)
     saveChat(chatData.chat1.id, chatData.chat1)
     const account = useAccountStore.getState().account
-    strictEqual(account.chats[chatData.chat1.id].messages.length, 23)
+    strictEqual(account.chats[chatData.chat1.id].messages.length, chatData.chat1.messages.length)
   })
   it('removes duplicate messages', () => {
     const savedChat = saveChat(chatData.chatWithDuplicate.id, chatData.chatWithDuplicate)
