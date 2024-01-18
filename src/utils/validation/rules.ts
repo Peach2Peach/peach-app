@@ -9,7 +9,6 @@ export const rules = {
   email: isEmail,
   url: isURL,
   bitcoinAddress: isBitcoinAddress,
-  blockTaprootAddress: (value: string) => !isTaproot(value),
   password: (value: string) => !!value && value.length > 7,
   referralCode: isReferralCode,
   bip39: validateMnemonic,

@@ -94,19 +94,6 @@ describe('isURL', () => {
   })
 })
 
-describe('isTaproot', () => {
-  it('should return false if address is taproot address', () => {
-    expect(rules.blockTaprootAddress('tb1p')).toBe(false)
-    expect(rules.blockTaprootAddress('bcrt1p')).toBe(false)
-    expect(rules.blockTaprootAddress('bc1p')).toBe(false)
-  })
-  it('should return true if address is not taproot address', () => {
-    expect(rules.blockTaprootAddress('tb1q')).toBe(true)
-    expect(rules.blockTaprootAddress('bcrt1q')).toBe(true)
-    expect(rules.blockTaprootAddress('bc1q')).toBe(true)
-  })
-})
-
 describe('isReferralCode', () => {
   it('should return true for a valid referral code', () => {
     expect(rules.referralCode('PR0043')).toBe(true)
