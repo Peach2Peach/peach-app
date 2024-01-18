@@ -34,7 +34,7 @@ describe('useTransactionDetailsInfoSetup', () => {
     transaction: pendingTransactionSummary,
   }
   // @ts-expect-error mock doesn't need args
-  const peachWallet = new PeachWallet()
+  const peachWallet = new PeachWallet({})
 
   beforeAll(() => {
     useWalletState.getState().setTransactions([pending1])

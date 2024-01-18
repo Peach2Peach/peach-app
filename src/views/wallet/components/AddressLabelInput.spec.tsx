@@ -6,7 +6,7 @@ import { AddressLabelInput } from './AddressLabelInput'
 describe('AddressLabelInput', () => {
   beforeEach(() => {
     // @ts-expect-error mock doesn't need args
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({}))
   })
   it('should render correctly', () => {
     const { toJSON } = render(<AddressLabelInput address={'address'} />)

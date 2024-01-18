@@ -27,7 +27,7 @@ const addresses = [
 describe('ReceiveBitcoin', () => {
   beforeAll(() => {
     // @ts-expect-error mock doesn't need args
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({}))
   })
 
   it('should render correctly while loading', () => {

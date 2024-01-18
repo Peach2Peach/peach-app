@@ -36,7 +36,7 @@ jest.useFakeTimers()
 describe('useOpenWithdrawalConfirmationPopup', () => {
   beforeEach(() => {
     // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({}))
   })
 
   it('should broadcast transaction, reset state and navigate to wallet on confirm', async () => {

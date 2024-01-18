@@ -64,16 +64,16 @@ export class PeachWallet extends PeachJSWallet {
 
         const { externalDescriptor, internalDescriptor } = await getDescriptorsBySeedphrase({
           seedphrase,
-          network: this.network,
+          network: this.getNetwork(),
         })
 
         this.setBlockchain(useNodeConfigState.getState())
 
-        const dbConfig = await getDBConfig(this.network, this.nodeType)
+        const dbConfig = await getDBConfig(this.getNetwork(), this.nodeType)
 
         info('PeachWallet - initWallet - createWallet')
 
-        this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, this.network, dbConfig)
+        this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, this.getNetwork(), dbConfig)
 
         info('PeachWallet - initWallet - createdWallet')
 
@@ -208,7 +208,7 @@ export class PeachWallet extends PeachJSWallet {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
 
     const utxo = await this.wallet.listUnspent()
-    const utxoAddresses = await Promise.all(utxo.map(getUTXOAddress(this.network)))
+    const utxoAddresses = await Promise.all(utxo.map(getUTXOAddress(this.getNetwork())))
     return utxo.filter((utx, i) => utxoAddresses[i] === address)
   }
 

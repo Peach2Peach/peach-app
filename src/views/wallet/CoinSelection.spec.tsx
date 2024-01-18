@@ -26,7 +26,7 @@ describe('CoinSelection', () => {
 
   beforeAll(() => {
     // @ts-expect-error mock doesn't need args
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({}))
     // @ts-expect-error mock doesn't all methods
     peachWallet.wallet = {
       listUnspent: listUnspentMock,

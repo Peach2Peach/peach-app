@@ -22,7 +22,7 @@ describe('ConfirmTransactionPopup', () => {
   }
   beforeAll(() => {
     // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({}))
   })
   it('should render correctly', async () => {
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(props.psbt)

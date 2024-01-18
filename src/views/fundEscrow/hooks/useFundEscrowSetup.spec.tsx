@@ -126,7 +126,7 @@ describe('useFundEscrowSetup', () => {
   })
   it('should periodically sync peach wallet if funding multiple escrow', async () => {
     // @ts-ignore
-    const peachWallet = new PeachWallet()
+    const peachWallet = new PeachWallet({})
     setPeachWallet(peachWallet)
     saveOffer(sellOfferWithEscrow)
 
@@ -148,7 +148,7 @@ describe('useFundEscrowSetup', () => {
   })
   it('should not call sync peach wallet when not funding multiple escrow', () => {
     // @ts-ignore
-    const peachWallet = new PeachWallet()
+    const peachWallet = new PeachWallet({})
     setPeachWallet(peachWallet)
     saveOffer(sellOfferWithEscrow)
 
