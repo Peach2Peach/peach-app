@@ -1,5 +1,7 @@
+import ecc from '@bitcoinerlab/secp256k1'
 import { API_URL } from '@env'
 import CookieManager from '@react-native-cookies/cookies'
+import { initEccLib } from 'bitcoinjs-lib'
 import { dataMigrationAfterLoadingAccount, dataMigrationBeforeLoadingAccount } from '../init/dataMigration'
 import { userUpdate } from '../init/userUpdate'
 import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
@@ -12,6 +14,8 @@ import { error } from '../utils/log/error'
 import { info } from '../utils/log/info'
 import { getIndexedMap } from '../utils/storage/getIndexedMap'
 import { getPeachInfo } from './getPeachInfo'
+
+initEccLib(ecc)
 
 export const initApp = async () => {
   dataMigrationBeforeLoadingAccount()
