@@ -1,5 +1,5 @@
 PODS:
-  - bdk-rn (0.29.0):
+  - bdk-rn (0.30.0):
     - React
   - boost (1.76.0)
   - DoubleConversion (1.1.6)
@@ -801,7 +801,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  bdk-rn: 0b3d1975bad08b2b511fa3fb85249735d626afc6
+  bdk-rn: cfbeb2b1e0c71a5a8650fa650d0c08843e074dec
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 12ea01e587c9594e7b144e1bfc86ac4d9ac28fde
