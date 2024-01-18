@@ -20,7 +20,7 @@ const multipleOffersResult = { isPublished: true, navigationParams: { offerId: '
 describe('publishSellOffer', () => {
   beforeAll(() => {
     // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({}))
   })
   const offerDraft: SellOfferDraft = {
     ...sellOffer,

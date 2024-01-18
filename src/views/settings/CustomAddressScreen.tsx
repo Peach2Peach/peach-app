@@ -27,7 +27,7 @@ type Props = {
   showRemoveWallet?: boolean
 }
 
-const addressRules = { bitcoinAddress: true, blockTaprootAddress: true, required: true }
+const addressRules = { bitcoinAddress: true, required: true }
 const labelRules = { required: true }
 
 export function CustomAddressScreen ({

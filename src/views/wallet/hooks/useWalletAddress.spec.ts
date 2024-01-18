@@ -25,7 +25,7 @@ jest.useFakeTimers()
 describe('useWalletAddress', () => {
   beforeAll(() => {
     // @ts-expect-error mock doesn't need args
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({}))
   })
 
   it('should return the address at the given index', async () => {

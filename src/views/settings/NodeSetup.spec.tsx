@@ -17,7 +17,7 @@ const url = 'blockstream.info'
 describe('NodeSetup', () => {
   beforeAll(() => {
     // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({}))
   })
   beforeEach(() => {
     useNodeConfigState.setState(defaultNodeConfig)

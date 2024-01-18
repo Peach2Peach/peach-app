@@ -16,7 +16,7 @@ describe('getWalletLabelFromContract', () => {
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract), walletLabel: undefined }],
     })
     // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({}))
   })
   it('should return "custom payout address" by default', () => {
     expect(

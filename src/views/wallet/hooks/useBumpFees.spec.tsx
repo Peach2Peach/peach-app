@@ -30,7 +30,7 @@ describe('useBumpFees', () => {
     sendingAmount: bitcoinTransaction.value as number,
   }
   // @ts-ignore
-  const peachWallet = new PeachWallet()
+  const peachWallet = new PeachWallet({})
 
   const newTxId = 'newTxId'
   const txDetails = getTransactionDetails(bitcoinTransaction.value, newFeeRate, 'newTxId')

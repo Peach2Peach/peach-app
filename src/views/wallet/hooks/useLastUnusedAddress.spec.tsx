@@ -8,7 +8,7 @@ jest.useFakeTimers()
 describe('useLastUnusedAddress', () => {
   beforeAll(() => {
     // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({}))
   })
   const getLastUnusedAddressMock = jest.fn().mockResolvedValue({
     address: 'bcrt1qj9yqz9qzg9qz9qz9qz9qz9qz9qz9qz9qz9qz9',

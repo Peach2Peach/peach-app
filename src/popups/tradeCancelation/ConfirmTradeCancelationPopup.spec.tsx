@@ -40,7 +40,7 @@ describe('ConfirmTradeCancelationPopup', () => {
   beforeAll(() => {
     setAccount({ ...account1, offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }] })
     // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({}))
   })
 
   it('should cancel a trade as a buyer', async () => {

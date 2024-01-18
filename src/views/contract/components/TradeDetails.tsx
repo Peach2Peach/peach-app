@@ -19,6 +19,7 @@ import i18n from '../../../utils/i18n'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 import { cutOffAddress } from '../../../utils/string/cutOffAddress'
 import { isValidBitcoinSignature } from '../../../utils/validation/isValidBitcoinSignature'
+import { getNetwork } from '../../../utils/wallet/getNetwork'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useContractContext } from '../context'
 import { isTradeInformationGetter, tradeInformationGetters } from '../helpers'
@@ -87,7 +88,15 @@ function ChangePayoutWallet () {
         return
       }
       const message = getMessageToSignForAddress(publicKey, payoutAddress)
-      if (!payoutAddressSignature || !isValidBitcoinSignature(message, payoutAddress, payoutAddressSignature)) {
+      if (
+        !payoutAddressSignature
+        || !isValidBitcoinSignature({
+          message,
+          address: payoutAddress,
+          signature: payoutAddressSignature,
+          network: getNetwork(),
+        })
+      ) {
         navigation.navigate('signMessage', {
           contractId: contract.id,
           address: payoutAddress,

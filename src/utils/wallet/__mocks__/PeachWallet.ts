@@ -3,17 +3,23 @@
 import { PartiallySignedTransaction } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
-import { KeychainKind } from 'bdk-rn/lib/lib/enums'
+import { KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 
+type PeachWalletProps = {
+  network?: Network
+}
 export class PeachWallet {
   balance: number
 
   transactions: TransactionDetails[]
 
-  constructor () {
+  network: Network
+
+  constructor ({ network = Network.Bitcoin }: PeachWalletProps) {
     this.balance = 0
     this.transactions = []
+    this.network = network
   }
 
   async loadWallet () {}
@@ -53,7 +59,8 @@ export class PeachWallet {
   async getAddressUTXO () {
     const outpoint = new OutPoint('txid', 0)
     const script = new Script('address')
-    const txout = new TxOut(10000, script)
+    const amount = 10000
+    const txout = new TxOut(amount, script)
     return [new LocalUtxo(outpoint, txout, false, KeychainKind.External)]
   }
 
@@ -80,5 +87,9 @@ export class PeachWallet {
   signMessage () {
     // message: I confirm that only I, peach02d13a5d, control the address bcrt1qwype5wug33a6hwz9u2n6vz4lc0kpw0kg4xc8fq
     return 'IH9ZjMHG1af6puAITFTdV5RSYoK1MNmecZdhW0s4soh4EIAz4igtVQTec5yj4H9Iy7sB6qYReRjGpE3b4OoXSLY'
+  }
+
+  getNetwork () {
+    return this.network
   }
 }

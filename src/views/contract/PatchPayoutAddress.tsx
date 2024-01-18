@@ -7,6 +7,7 @@ import { useAccountStore } from '../../utils/account/account'
 import { getMessageToSignForAddress } from '../../utils/account/getMessageToSignForAddress'
 import { getOfferIdFromContract } from '../../utils/contract/getOfferIdFromContract'
 import { isValidBitcoinSignature } from '../../utils/validation/isValidBitcoinSignature'
+import { getNetwork } from '../../utils/wallet/getNetwork'
 import { NewLoadingScreen } from '../loading/LoadingScreen'
 import { CustomAddressScreen } from '../settings/CustomAddressScreen'
 import { usePatchReleaseAddress } from './components/usePatchReleaseAddress'
@@ -57,7 +58,14 @@ function PatchOfferAddress ({ defaultAddress, offerId, contractId }: ScreenConte
 
   const onSave = (address: string, addressLabel: string) => {
     const message = getMessageToSignForAddress(publicKey, address)
-    const signatureRequired = !messageSignature || !isValidBitcoinSignature(message, address, messageSignature)
+    const signatureRequired
+      = !messageSignature
+      || !isValidBitcoinSignature({
+        message,
+        address,
+        signature: messageSignature,
+        network: getNetwork(),
+      })
 
     if (signatureRequired) {
       const commonProps = { address, addressLabel }

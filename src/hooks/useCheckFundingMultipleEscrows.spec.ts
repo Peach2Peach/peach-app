@@ -45,7 +45,7 @@ describe('useCheckFundingMultipleEscrows', () => {
   const txDetails = getTransactionDetails(fundingAmount, 1)
 
   // @ts-ignore
-  const peachWallet = new PeachWallet()
+  const peachWallet = new PeachWallet({})
   peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails)
   const getAddressUTXOSpy = jest.spyOn(peachWallet, 'getAddressUTXO')
   const signAndBroadcastPSBTSpy = jest.spyOn(peachWallet, 'signAndBroadcastPSBT')

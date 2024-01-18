@@ -48,7 +48,7 @@ describe('useFundFromPeachWallet', () => {
   })
   beforeEach(() => {
     // @ts-expect-error mock doesn't need args
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({}))
   })
   it('should return default values', () => {
     const { result } = renderHook(useFundFromPeachWallet)
