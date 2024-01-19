@@ -9,9 +9,9 @@ import { TransactionDetailsInfo } from './components/transcactionDetails/Transac
 import { useTransactionDetailsSetup } from './hooks/useTransactionDetailsSetup'
 
 export const TransactionDetails = () => {
-  const { transaction, refresh, isRefreshing } = useTransactionDetailsSetup()
+  const { localTx, transactionDetails, transactionSummary, refresh, isRefreshing } = useTransactionDetailsSetup()
 
-  if (!transaction) return <BitcoinLoading />
+  if (!localTx || !transactionDetails || !transactionSummary) return <BitcoinLoading />
 
   return (
     <Screen header={i18n('wallet.transactionDetails')}>
@@ -20,8 +20,8 @@ export const TransactionDetails = () => {
         contentStyle={tw`gap-8`}
         refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={refresh} />}
       >
-        <TransactionHeader style={tw`self-center`} {...transaction} />
-        <TransactionDetailsInfo {...{ transaction }} />
+        <TransactionHeader style={tw`self-center`} {...transactionSummary} />
+        <TransactionDetailsInfo {...{ localTx, transactionDetails, transactionSummary }} />
       </PeachScrollView>
     </Screen>
   )

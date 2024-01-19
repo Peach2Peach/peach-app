@@ -1,7 +1,11 @@
 import { fireEvent, render, renderHook, waitFor } from 'test-utils'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
-import { bitcoinTransaction, pending1 } from '../../../../tests/unit/data/transactionDetailData'
+import {
+  bdkTransactionWithRBF1,
+  bitcoinJSTransactionWithRBF1,
+  pending1,
+} from '../../../../tests/unit/data/transactionDetailData'
 import { goBackMock, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Popup } from '../../../components/popup/Popup'
@@ -23,20 +27,22 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 jest.useFakeTimers()
 
 describe('useBumpFees', () => {
+  const currentFeeRate = 9
   const newFeeRate = 10
   const initialProps = {
-    transaction: bitcoinTransaction,
+    transaction: bitcoinJSTransactionWithRBF1,
+    currentFeeRate,
     newFeeRate,
-    sendingAmount: bitcoinTransaction.value as number,
+    sendingAmount: bdkTransactionWithRBF1.sent,
   }
   // @ts-ignore
   const peachWallet = new PeachWallet({})
 
   const newTxId = 'newTxId'
-  const txDetails = getTransactionDetails(bitcoinTransaction.value, newFeeRate, 'newTxId')
+  const txDetails = getTransactionDetails(bdkTransactionWithRBF1.sent, newFeeRate, 'newTxId')
 
   beforeEach(() => {
-    const transactions = [{ ...pending1, txid: bitcoinTransaction.txid, sent: 100000, received: 20000 }]
+    const transactions = [{ ...pending1, txid: bitcoinJSTransactionWithRBF1.getId(), sent: 100000, received: 20000 }]
     peachWallet.transactions = transactions
     setPeachWallet(peachWallet)
     useWalletState.getState().setTransactions(peachWallet.transactions)

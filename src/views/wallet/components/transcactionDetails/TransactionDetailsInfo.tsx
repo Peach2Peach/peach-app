@@ -1,3 +1,5 @@
+import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import { Transaction } from 'bitcoinjs-lib'
 import { View } from 'react-native'
 import { Divider } from '../../../../components/Divider'
 import { Bubble } from '../../../../components/bubble/Bubble'
@@ -15,19 +17,22 @@ import { OutputInfo } from './OutputInfo'
 import { TransactionETASummaryItem } from './TransactionETASummaryItem'
 
 type Props = {
-  transaction: TransactionSummary
+  localTx: TransactionDetails
+  transactionDetails: Transaction
+  transactionSummary: TransactionSummary
 }
 
-export const TransactionDetailsInfo = ({ transaction }: Props) => {
-  const { id, confirmed, height, date } = transaction
+export const TransactionDetailsInfo = ({ localTx, transactionDetails, transactionSummary }: Props) => {
+  const { confirmed, height, date } = transactionSummary
   const { receivingAddress, canBumpFees, goToBumpNetworkFees, openInExplorer } = useTransactionDetailsInfoSetup({
-    transaction,
+    transactionDetails,
+    transactionSummary,
   })
   const addressParts = receivingAddress && getBitcoinAddressParts(receivingAddress)
 
   return (
     <View style={tw`gap-4`}>
-      {transaction.type === 'DEPOSIT' && addressParts && receivingAddress && (
+      {transactionSummary.type === 'DEPOSIT' && addressParts && receivingAddress && (
         <AddressLabelInput
           address={receivingAddress}
           fallback={`${addressParts.one}${addressParts.two}...${addressParts.four}`}
@@ -35,7 +40,7 @@ export const TransactionDetailsInfo = ({ transaction }: Props) => {
       )}
       <Divider />
 
-      <OutputInfo {...{ transaction, receivingAddress }} />
+      <OutputInfo {...{ transactionDetails, transactionSummary, receivingAddress }} />
 
       <Divider />
 
@@ -46,7 +51,7 @@ export const TransactionDetailsInfo = ({ transaction }: Props) => {
           <CopyableSummaryItem title={i18n('time')} text={toShortDateFormat(date)} />
         </>
       ) : (
-        <TransactionETASummaryItem txId={id} />
+        <TransactionETASummaryItem transaction={localTx} />
       )}
 
       {canBumpFees && (
