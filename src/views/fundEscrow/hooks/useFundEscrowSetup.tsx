@@ -23,7 +23,7 @@ export const useFundEscrowSetup = () => {
   const setPopup = useSetPopup()
 
   const showErrorBanner = useShowErrorBanner()
-  const { refresh } = useSyncWallet()
+  const { refetch: refresh } = useSyncWallet()
 
   const fundMultiple = useWalletState((state) => state.getFundMultipleByOfferId(offerId))
   const { offers } = useMultipleOfferDetails(fundMultiple?.offerIds || [offerId])

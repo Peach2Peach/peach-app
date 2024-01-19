@@ -19,8 +19,6 @@ describe('useTransactionHistorySetup', () => {
   it('should return transactions, refresh and isRefreshing', () => {
     const { result } = renderHook(useTransactionHistorySetup)
     expect(result.current.transactions).toEqual([])
-    expect(result.current.refresh).toBeInstanceOf(Function)
-    expect(result.current.isRefreshing).toBe(false)
   })
   it('should return the stored transactions sorted by date and mapped to TxSummary type', () => {
     useWalletState.setState({ transactions: [confirmed4, confirmed5] })

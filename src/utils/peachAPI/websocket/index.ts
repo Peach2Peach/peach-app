@@ -1,4 +1,4 @@
-import { createContext, ReducerState, useContext } from 'react'
+import { createContext, useContext } from 'react'
 
 export let ws: WebSocket
 export let peachWS: PeachWS = {
@@ -21,7 +21,7 @@ export let peachWS: PeachWS = {
       (cllbck) => cllbck.toString() !== callback.toString(),
     ) as WSCallback[]
   },
-  close: () => {},
+  close: () => null,
 }
 export const getWebSocket = () => peachWS
 
@@ -29,7 +29,7 @@ export const PeachWSContext = createContext(peachWS)
 export const useWebsocketContext = () => useContext(PeachWSContext)
 
 export const setWS = (_ws: WebSocket) => (ws = _ws)
-export const setPeachWS = (state: ReducerState<any>, newPeachWS: PeachWS): PeachWS => {
+export const setPeachWS = (state: unknown, newPeachWS: PeachWS): PeachWS => {
   peachWS = newPeachWS
 
   return peachWS

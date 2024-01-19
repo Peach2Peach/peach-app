@@ -2,7 +2,6 @@ import analytics from '@react-native-firebase/analytics'
 import perf from '@react-native-firebase/perf'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { Locale } from '../../utils/i18n'
 import { createPersistStorage } from '../createPersistStorage'
 import { defaultSettings } from './defaultSettings'
 import { getPureSettingsState } from './helpers/getPureSettingsState'
@@ -21,7 +20,7 @@ export type SettingsStore = Settings & {
   setPayoutAddress: (payoutAddress: string | undefined) => void
   setPayoutAddressLabel: (payoutAddressLabel: string | undefined) => void
   setPayoutAddressSignature: (payoutAddressSignature: string) => void
-  setLocale: (locale: Locale) => void
+  setLocale: (locale: string) => void
   setDisplayCurrency: (displayCurrency: Currency) => void
   updateSeedBackupDate: () => void
   updateFileBackupDate: () => void

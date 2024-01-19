@@ -3,6 +3,7 @@ import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { bitcoinTransaction, pending1 } from '../../../../tests/unit/data/transactionDetailData'
 import { goBackMock, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Popup } from '../../../components/popup/Popup'
 import i18n from '../../../utils/i18n'
@@ -29,8 +30,7 @@ describe('useBumpFees', () => {
     newFeeRate,
     sendingAmount: bitcoinTransaction.value as number,
   }
-  // @ts-ignore
-  const peachWallet = new PeachWallet()
+  const peachWallet = new PeachWallet({ wallet: createTestWallet() })
 
   const newTxId = 'newTxId'
   const txDetails = getTransactionDetails(bitcoinTransaction.value, newFeeRate, 'newTxId')

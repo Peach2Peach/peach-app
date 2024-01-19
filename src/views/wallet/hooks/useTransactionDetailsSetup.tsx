@@ -7,7 +7,6 @@ import { sum } from '../../../utils/math/sum'
 import { isDefined } from '../../../utils/validation/isDefined'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getTxSummary } from '../helpers/getTxSummary'
-import { useSyncWallet } from './useSyncWallet'
 
 const useMapTransactionToTx = (transaction?: Transaction | null) => {
   const areMyReceivingAddresses = useAreMyAddresses(transaction?.vout.map((vout) => vout.scriptpubkey_address) || [])
@@ -50,7 +49,6 @@ export const useTransactionDetailsSetup = () => {
   const mappedTx = useMapTransactionToTx(transactionDetails)
   const tx = localTx || mappedTx
   const transaction = useMemo(() => (tx ? getTxSummary(tx) : undefined), [tx])
-  const { refresh, isRefreshing } = useSyncWallet()
 
-  return { transaction, refresh, isRefreshing }
+  return { transaction }
 }

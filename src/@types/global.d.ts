@@ -64,7 +64,7 @@ type Action = {
 type Level = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
 type SummaryItemLevel = Level | 'WAITING'
 
-type MessageState = {
+type ToastState = {
   color: 'red' | 'white' | 'yellow'
   msgKey: string
   bodyArgs?: string[]

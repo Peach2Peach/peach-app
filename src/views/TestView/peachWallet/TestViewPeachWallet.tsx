@@ -44,7 +44,7 @@ const useTestViewWalletSetup = () => {
 
 export const TestViewPeachWallet = () => {
   const { balance, isRefreshing, walletLoading, address, setAddress, addressErrors } = useTestViewWalletSetup()
-  const { refresh } = useSyncWallet()
+  const { refetch: refresh } = useSyncWallet()
 
   const [amount, setAmount] = useState('0')
   const [txId, setTxId] = useState('')

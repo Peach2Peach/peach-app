@@ -18,7 +18,7 @@ describe('shouldGoToSearch', () => {
   })
 
   it('should return false if messageType is not offer.matchBuyer or offer.matchSeller or offer.escrowFunded', () => {
-    // @ts-expect-error
+    // @ts-expect-error testing invalid input
     expect(shouldGoToSearch('offer.notMatch', false)).toBe(false)
   })
 })

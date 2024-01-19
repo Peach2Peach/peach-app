@@ -4,6 +4,7 @@ import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { setRouteMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { MSINAMINUTE } from '../../../constants'
 import { setAccount } from '../../../utils/account/account'
 import { updateAccount } from '../../../utils/account/updateAccount'
@@ -125,8 +126,7 @@ describe('useFundEscrowSetup', () => {
     })
   })
   it('should periodically sync peach wallet if funding multiple escrow', async () => {
-    // @ts-ignore
-    const peachWallet = new PeachWallet()
+    const peachWallet = new PeachWallet({ wallet: createTestWallet() })
     setPeachWallet(peachWallet)
     saveOffer(sellOfferWithEscrow)
 
@@ -147,8 +147,7 @@ describe('useFundEscrowSetup', () => {
     expect(syncWalletSpy).toHaveBeenCalledTimes(2)
   })
   it('should not call sync peach wallet when not funding multiple escrow', () => {
-    // @ts-ignore
-    const peachWallet = new PeachWallet()
+    const peachWallet = new PeachWallet({ wallet: createTestWallet() })
     setPeachWallet(peachWallet)
     saveOffer(sellOfferWithEscrow)
 

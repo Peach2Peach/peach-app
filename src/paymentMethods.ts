@@ -1,6 +1,6 @@
 import { FlagType } from './components/flags'
 import { CurrencyType } from './store/offerPreferenes/types'
-import { unique } from './utils/array/unique'
+import { uniqueArray } from './utils/array/uniqueArray'
 import { isCashTrade } from './utils/paymentMethod/isCashTrade'
 
 export let CURRENCIES: Currency[] = [
@@ -186,10 +186,12 @@ export const APPLINKS: Record<string, { appLink?: string; url: string; userLink?
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   PAYMENTMETHODINFOS = paymentMethodInfos
-  CURRENCIES = paymentMethodInfos.reduce((arr, info) => arr.concat(info.currencies), [] as Currency[]).filter(unique())
+  CURRENCIES = paymentMethodInfos
+    .reduce((arr, info) => arr.concat(info.currencies), [] as Currency[])
+    .filter(uniqueArray)
   GIFTCARDCOUNTRIES = paymentMethodInfos
     .reduce((arr, info) => arr.concat(info.countries || []), [] as PaymentMethodCountry[])
-    .filter(unique())
+    .filter(uniqueArray)
   PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id)
   PAYMENTCATEGORIES.cash = [...PAYMENTCATEGORIES.cash, ...paymentMethodInfos.map(({ id }) => id).filter(isCashTrade)]
 }

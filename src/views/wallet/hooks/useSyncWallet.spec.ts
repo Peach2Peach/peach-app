@@ -1,4 +1,5 @@
 import { act, renderHook, waitFor } from 'test-utils'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useSyncWallet } from './useSyncWallet'
 
 const showErrorBannerMock = jest.fn()
@@ -14,30 +15,25 @@ jest.mock('../../../utils/wallet/setWallet', () => ({
 jest.useFakeTimers()
 
 describe('useSyncWallet', () => {
-  it('should return correct default values', () => {
-    const { result } = renderHook(useSyncWallet)
-
-    expect(result.current).toStrictEqual({
-      refresh: expect.any(Function),
-      isRefreshing: false,
-    })
+  afterEach(() => {
+    queryClient.clear()
   })
-
   it('should set refreshing to true on refresh', async () => {
     const { result } = renderHook(useSyncWallet)
-
     act(() => {
-      result.current.refresh()
+      result.current.refetch()
     })
 
-    expect(result.current.isRefreshing).toBe(true)
-    await waitFor(() => expect(result.current.isRefreshing).toBe(false))
+    expect(result.current.isFetching).toBe(true)
+    await waitFor(() => expect(result.current.isFetching).toBe(false))
   })
 
   it('should call peachWallet.syncWallet on refresh', async () => {
     const { result } = renderHook(useSyncWallet)
 
-    await act(() => result.current.refresh())
+    await act(async () => {
+      await result.current.refetch()
+    })
 
     expect(mockSyncWallet).toHaveBeenCalled()
   })
@@ -46,28 +42,32 @@ describe('useSyncWallet', () => {
     const { result } = renderHook(useSyncWallet)
 
     act(() => {
-      result.current.refresh()
+      result.current.refetch()
     })
     act(() => {
-      result.current.refresh()
+      result.current.refetch()
     })
 
     expect(mockSyncWallet).toHaveBeenCalledTimes(1)
-    await waitFor(() => expect(result.current.isRefreshing).toBe(false))
+    await waitFor(() => expect(result.current.isFetching).toBe(false))
   })
 
   it('should set refreshing to false after refresh', async () => {
     const { result } = renderHook(useSyncWallet)
-    await act(() => result.current.refresh())
+    await act(async () => {
+      await result.current.refetch()
+    })
     expect(mockSyncWallet).toHaveBeenCalledTimes(1)
   })
 
   it('should handle wallet sync errors', async () => {
-    mockSyncWallet.mockImplementationOnce(() => {
+    mockSyncWallet.mockImplementation(() => {
       throw new Error('error')
     })
-    const { result } = renderHook(useSyncWallet)
-    await act(() => result.current.refresh())
-    expect(showErrorBannerMock).toHaveBeenCalledWith('WALLET_SYNC_ERROR')
+    renderHook(useSyncWallet)
+
+    await waitFor(() => {
+      expect(showErrorBannerMock).toHaveBeenCalledWith('WALLET_SYNC_ERROR')
+    })
   })
 })

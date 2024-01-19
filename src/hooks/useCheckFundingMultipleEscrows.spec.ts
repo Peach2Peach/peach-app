@@ -3,6 +3,7 @@ import { OfferSummary } from '../../peach-api/src/@types/offer'
 import { account1 } from '../../tests/unit/data/accountData'
 import { sellOffer } from '../../tests/unit/data/offerData'
 import { offerSummary } from '../../tests/unit/data/offerSummaryData'
+import { createTestWallet } from '../../tests/unit/helpers/createTestWallet'
 import { getTransactionDetails } from '../../tests/unit/helpers/getTransactionDetails'
 import { MSINAMINUTE } from '../constants'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
@@ -44,8 +45,7 @@ describe('useCheckFundingMultipleEscrows', () => {
   const fundingAmount = sellOffers.map((o) => o.amount).reduce(sum, 0)
   const txDetails = getTransactionDetails(fundingAmount, 1)
 
-  // @ts-ignore
-  const peachWallet = new PeachWallet()
+  const peachWallet = new PeachWallet({ wallet: createTestWallet() })
   peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails)
   const getAddressUTXOSpy = jest.spyOn(peachWallet, 'getAddressUTXO')
   const signAndBroadcastPSBTSpy = jest.spyOn(peachWallet, 'signAndBroadcastPSBT')

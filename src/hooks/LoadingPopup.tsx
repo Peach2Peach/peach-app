@@ -12,7 +12,7 @@ export function LoadingPopup (props: Partial<PopupComponentProps>) {
     <PopupComponent
       title={i18n('loading')}
       content={<Loading style={tw`self-center w-16 h-16`} color={tw.color('primary-main')} />}
-      actions={<PopupAction label={i18n('loading')} iconId="clock" onPress={() => {}} />}
+      actions={<PopupAction label={i18n('loading')} iconId="clock" onPress={() => null} />}
       {...props}
     />
   )

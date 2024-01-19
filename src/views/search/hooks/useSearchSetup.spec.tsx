@@ -1,11 +1,14 @@
 import { act, renderHook, responseUtils, waitFor } from 'test-utils'
+import { Match } from '../../../../peach-api/src/@types/match'
+import { match as matchMock } from '../../../../peach-api/src/testData/match'
 import { buyOffer } from '../../../../peach-api/src/testData/offers'
 import { setRouteMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { peachAPI } from '../../../utils/peachAPI'
 import { useSearchSetup } from './useSearchSetup'
 
-const match: Partial<Match> = {
+const match: Match = {
+  ...matchMock,
   offerId: '904',
   matched: false,
   matchedPrice: 0,
@@ -17,8 +20,10 @@ const match: Partial<Match> = {
 
 const getMatchesMock = jest
   .spyOn(peachAPI.private.offer, 'getMatches')
-  // @ts-ignore mock implementation is not correct
-  .mockResolvedValue({ result: { matches: [match], nextPage: undefined }, ...responseUtils })
+  .mockResolvedValue({
+    result: { matches: [match], nextPage: 1, totalMatches: 1, offerId: 'offerId' },
+    ...responseUtils,
+  })
 jest.spyOn(peachAPI.private.offer, 'getOfferDetails').mockResolvedValue({ result: buyOffer, ...responseUtils })
 
 jest.useFakeTimers()

@@ -1,5 +1,6 @@
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { fireEvent, render } from 'test-utils'
+import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
 import { Popup } from '../../components/popup/Popup'
 import i18n from '../../utils/i18n'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
@@ -16,8 +17,7 @@ jest.mock('./helpers/checkNodeConnection', () => ({
 const url = 'blockstream.info'
 describe('NodeSetup', () => {
   beforeAll(() => {
-    // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
   })
   beforeEach(() => {
     useNodeConfigState.setState(defaultNodeConfig)

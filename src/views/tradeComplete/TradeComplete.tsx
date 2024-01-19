@@ -1,5 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { TouchableOpacity, View, ViewStyle } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { Contract } from '../../../peach-api/src/@types/contract'
@@ -15,7 +15,6 @@ import { TradeBreakdownPopup } from '../../popups/TradeBreakdownPopup'
 import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import tw from '../../styles/tailwind'
 import { useAccountStore } from '../../utils/account/account'
-import { logTradeCompleted } from '../../utils/analytics/logTradeCompleted'
 import { createUserRating } from '../../utils/contract/createUserRating'
 import { getContractViewer } from '../../utils/contract/getContractViewer'
 import i18n from '../../utils/i18n'
@@ -34,10 +33,6 @@ function TradeCompleteView ({ contract }: { contract: Contract }) {
   const [vote, setVote] = useState<'positive' | 'negative'>()
   const account = useAccountStore((state) => state.account)
   const view = getContractViewer(contract.seller.id, account)
-
-  useEffect(() => {
-    logTradeCompleted(contract)
-  }, [])
 
   return (
     <>

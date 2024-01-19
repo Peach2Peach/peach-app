@@ -1,6 +1,7 @@
 import { responseUtils } from 'test-utils'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { peachAPI } from '../../../utils/peachAPI'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -19,8 +20,7 @@ const multipleOffersResult = { isPublished: true, navigationParams: { offerId: '
 // eslint-disable-next-line max-lines-per-function
 describe('publishSellOffer', () => {
   beforeAll(() => {
-    // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
   })
   const offerDraft: SellOfferDraft = {
     ...sellOffer,

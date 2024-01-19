@@ -53,7 +53,7 @@ export const useCheckFundingMultipleEscrows = () => {
   const feeRate = useFeeRate()
   const addresses = keys(fundMultipleMap)
   const { refetch: refetchOffers } = useOfferSummaries(addresses.length > 0)
-  const { refresh } = useSyncWallet()
+  const { refetch: refresh } = useSyncWallet()
 
   const checkAddress = useCallback(
     async (address: string) => {

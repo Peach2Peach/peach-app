@@ -18,43 +18,46 @@ type Props = {
 
 export const FileInput = ({ fileName, onChange }: Props) => {
   const [loading, setLoading] = useState(false)
-  const selectFile = (): Promise<FileData> =>
-    new Promise(async (resolve) => {
-      setLoading(true)
+  const selectFile = async (): Promise<FileData> => {
+    setLoading(true)
+    try {
+      const file = await DocumentPicker.pickSingle()
       try {
-        const file = await DocumentPicker.pickSingle()
-        try {
-          if (!file.uri) {
-            throw Error('File could not be read')
-          }
-
-          const uri = Platform.select({
-            android: file.uri,
-            ios: decodeURIComponent(file.uri)?.replace?.('file://', ''),
-          }) as string
-
-          const content = await readFileInChunks(uri)
-          resolve({
-            name: file.name || '',
-            content,
-          })
-          setLoading(false)
-        } catch (e) {
-          setLoading(false)
-          error('File could not be read', e)
-          resolve({
-            name: '',
-            content: '',
-          })
+        if (!file.uri) {
+          throw Error('File could not be read')
         }
-      } catch (err: unknown) {
+
+        const uri = Platform.select({
+          android: file.uri,
+          ios: decodeURIComponent(file.uri)?.replace?.('file://', ''),
+        }) as string
+
+        const content = await readFileInChunks(uri)
         setLoading(false)
-        if (!DocumentPicker.isCancel(err)) {
-          // User cancelled the picker, exit any dialogs or menus and move on
-          throw err
+        return {
+          name: file.name || '',
+          content,
+        }
+      } catch (e) {
+        setLoading(false)
+        error('File could not be read', e)
+        return {
+          name: '',
+          content: '',
         }
       }
-    })
+    } catch (err: unknown) {
+      setLoading(false)
+      if (!DocumentPicker.isCancel(err)) {
+        // User cancelled the picker, exit any dialogs or menus and move on
+        throw err
+      }
+      return {
+        name: '',
+        content: '',
+      }
+    }
+  }
 
   const onPress = async () => {
     if (loading || !onChange) return

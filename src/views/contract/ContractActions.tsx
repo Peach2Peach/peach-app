@@ -124,7 +124,11 @@ function SellerSliders () {
   }
   if (requiredAction === 'sendPayment') {
     return (
-      <ConfirmSlider enabled={false} onConfirm={() => {}} label1={i18n('offer.requiredAction.waiting', i18n('buyer'))} />
+      <ConfirmSlider
+        enabled={false}
+        onConfirm={() => null}
+        label1={i18n('offer.requiredAction.waiting', i18n('buyer'))}
+      />
     )
   }
   if (requiredAction === 'confirmPayment') return <PaymentReceivedSlider />

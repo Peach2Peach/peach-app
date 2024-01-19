@@ -34,7 +34,7 @@ export const useTradeSummaryStore = create(
     (set, get) => ({
       ...defaultTradeSummaryState,
       reset: () => set(() => defaultTradeSummaryState),
-      setOffers: (offers) => set((state) => ({ ...state, offers, lastModified: new Date() })),
+      setOffers: (offers) => set({ offers, lastModified: new Date() }),
       setOffer: (offerId, data) => {
         let itemFound = false
         const offers = get().offers.map((offer) => {
@@ -52,10 +52,10 @@ export const useTradeSummaryStore = create(
           offers.push(data as OfferSummary)
         }
 
-        return set((state) => ({ ...state, offers }))
+        return set({ offers })
       },
       getOffer: (offerId) => get().offers.find(({ id }) => id === offerId),
-      setContracts: (contracts) => set((state) => ({ ...state, contracts, lastModified: new Date() })),
+      setContracts: (contracts) => set({ contracts, lastModified: new Date() }),
       setContract: (contractId, data) => {
         let itemFound = false
         const contracts = get().contracts.map((contract) => {
@@ -72,7 +72,7 @@ export const useTradeSummaryStore = create(
           contracts.push(data as ContractSummary)
         }
 
-        return set((state) => ({ ...state, contracts }))
+        return set({ contracts })
       },
       getContract: (contractId) => get().contracts.find(({ id }) => id === contractId),
     }),

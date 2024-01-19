@@ -19,7 +19,7 @@ export const themes = {
 export type TabbedNavigationItem<T> = {
   id: T
   display: string
-  view?: (props: any) => JSX.Element
+  view?: (props: unknown) => JSX.Element
 }
 type TabbedNavigationProps<T extends string> = ComponentProps & {
   items: TabbedNavigationItem<T>[]

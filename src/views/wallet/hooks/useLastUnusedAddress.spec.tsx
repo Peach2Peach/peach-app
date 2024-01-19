@@ -1,4 +1,5 @@
 import { renderHook, waitFor } from 'test-utils'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useLastUnusedAddress } from './useLastUnusedAddress'
@@ -7,8 +8,7 @@ jest.useFakeTimers()
 
 describe('useLastUnusedAddress', () => {
   beforeAll(() => {
-    // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
   })
   const getLastUnusedAddressMock = jest.fn().mockResolvedValue({
     address: 'bcrt1qj9yqz9qzg9qz9qz9qz9qz9qz9qz9qz9qz9qz9',

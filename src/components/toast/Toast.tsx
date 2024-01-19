@@ -11,7 +11,7 @@ import { PeachText } from '../text/PeachText'
 import { iconMap } from './iconMap'
 
 type LevelColorMap = {
-  [key in MessageState['color']]: {
+  [key in ToastState['color']]: {
     backgroundColor: string | undefined
     color: string | undefined
   }
@@ -31,7 +31,7 @@ const levelColorMap: LevelColorMap = {
   },
 }
 
-const toastAtom = atom<MessageState | null>(null)
+const toastAtom = atom<ToastState | null>(null)
 export const useSetToast = () => useSetAtom(toastAtom)
 
 const slideAnimation = (value: Animated.Value, toValue: number) =>

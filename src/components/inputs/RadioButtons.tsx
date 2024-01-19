@@ -7,7 +7,6 @@ export type RadioButtonItem<T> = {
   value: T
   display: ReactNode
   disabled?: boolean
-  data?: any
 }
 
 export type RadioButtonProps<T> = ComponentProps & {

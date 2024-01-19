@@ -32,10 +32,8 @@ const localeMapping: Record<string, Record<string, string>> = {
   'pt-BR': ptBR,
 }
 
-export type Locale = keyof typeof localeMapping
-
 type LanguageState = {
-  locale: Locale
+  locale: string
 }
 export const languageState: LanguageState = {
   locale: 'en',
@@ -74,7 +72,7 @@ i18n.break = (id: string, ...args: string[]) => i18n(id, ...args).replace(/ /gu
 
 i18n.getLocales = () => locales
 
-i18n.setLocale = (newLocale: Locale) => {
+i18n.setLocale = (newLocale: string) => {
   if (!localeMapping[newLocale]) newLocale = 'en'
   languageState.locale = newLocale
 }

@@ -1,6 +1,6 @@
 import { useAccountStore } from '../account/account'
 import { storeChat } from '../account/storeAccount'
-import { unique } from '../array/unique'
+import { uniqueBy } from '../array/uniqueBy'
 import { getChat } from './getChat'
 
 export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => {
@@ -27,7 +27,7 @@ export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => 
         date: new Date(m.date),
       }))
       .filter((message) => message.roomId.includes(id))
-      .filter(unique('signature'))
+      .filter(uniqueBy('signature'))
       .sort((a, b) => a.date.getTime() - b.date.getTime()),
   })
 

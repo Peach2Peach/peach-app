@@ -1,5 +1,6 @@
 import { ECPairFactory } from 'ecpair'
 import { getNetwork } from '../../../src/utils/wallet/getNetwork'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ecc = require('tiny-secp256k1')
 const ECPair = ECPairFactory(ecc)
 

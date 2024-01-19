@@ -52,5 +52,3 @@ if (typeof document !== 'undefined') {
     navigator.serviceWorker.register('/service-worker.js')
   }
 }
-
-export default () => {}

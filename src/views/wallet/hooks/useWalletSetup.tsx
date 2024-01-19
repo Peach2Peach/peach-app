@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useSetOverlay } from '../../../Overlay'
 import { useSessionStore } from '../../../store/sessionStore'
@@ -15,12 +15,11 @@ type Props = {
 export const useWalletSetup = ({ peachWallet, syncOnLoad }: Props) => {
   const balance = useWalletState((state) => state.balance)
 
-  const { refresh, isRefreshing } = useSyncWallet()
+  const { refetch, isRefetching, isLoading } = useSyncWallet()
   const [walletSynced, setWalletSynced] = useSessionStore(
     (state) => [state.walletSynced, state.setWalletSynced],
     shallow,
   )
-  const [walletLoading, setWalletLoading] = useState(false)
   const [shouldShowBackupOverlay, showBackupReminder, setShowBackupReminder] = useSettingsStore((state) => [
     state.shouldShowBackupOverlay,
     state.showBackupReminder,
@@ -35,14 +34,9 @@ export const useWalletSetup = ({ peachWallet, syncOnLoad }: Props) => {
 
   const syncWalletOnLoad = useCallback(async () => {
     if (!peachWallet.initialized) return
-    setWalletLoading(peachWallet.transactions.length === 0)
-
-    await refresh()
-    setWalletLoading(false)
+    await refetch()
     setWalletSynced(true)
-    // adding refresh or peachWallet.transactions.length as dependencies causes an infinite loop
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [peachWallet.initialized])
+  }, [peachWallet.initialized, refetch, setWalletSynced])
 
   useEffect(() => {
     if (syncOnLoad && !walletSynced) syncWalletOnLoad()
@@ -50,8 +44,8 @@ export const useWalletSetup = ({ peachWallet, syncOnLoad }: Props) => {
 
   return {
     balance,
-    isRefreshing,
-    walletLoading,
-    refresh,
+    isRefreshing: isRefetching || isLoading,
+    walletLoading: isLoading,
+    refresh: refetch,
   }
 }
