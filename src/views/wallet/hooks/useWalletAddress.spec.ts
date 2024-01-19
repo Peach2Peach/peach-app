@@ -1,4 +1,5 @@
 import { renderHook, waitFor } from 'test-utils'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletAddress } from './useWalletAddress'
@@ -24,8 +25,10 @@ jest.useFakeTimers()
 
 describe('useWalletAddress', () => {
   beforeAll(() => {
-    // @ts-expect-error mock doesn't need args
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
+
+    peachWallet.getAddressByIndex = jest.fn().mockImplementation((index: number) => Promise.resolve(addresses[index]))
+    peachWallet.initialized = true
   })
 
   it('should return the address at the given index', async () => {

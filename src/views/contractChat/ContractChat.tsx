@@ -59,7 +59,7 @@ function ChatScreen ({ contract }: { contract: Contract }) {
   const [newMessage, setNewMessage] = useState(chat.draftMessage)
   const [disableSend, setDisableSend] = useState(false)
 
-  const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
+  const setAndSaveChat = useCallback((id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save)), [])
 
   const sendMessage = useCallback(
     async (message: string) => {
@@ -94,7 +94,7 @@ function ChatScreen ({ contract }: { contract: Contract }) {
         false,
       )
     },
-    [contractId, connected, decryptedData?.symmetricKey, send, tradingPartner, account.publicKey],
+    [tradingPartner, decryptedData?.symmetricKey, contractId, account.publicKey, connected, setAndSaveChat, send],
   )
   const resendMessage = (message: Message) => {
     if (!connected) return
@@ -117,12 +117,11 @@ function ChatScreen ({ contract }: { contract: Contract }) {
 
   useEffect(
     () => () => {
-      // save draft message if screen is unmounted
       setAndSaveChat(contractId, {
         draftMessage: newMessage,
       })
     },
-    [contractId, newMessage],
+    [contractId, newMessage, setAndSaveChat],
   )
 
   useEffect(() => {
@@ -137,7 +136,7 @@ function ChatScreen ({ contract }: { contract: Contract }) {
     }, timeoutSeconds * MSINASECOND)
 
     return () => clearTimeout(timeout)
-  }, [contractId, chat.messages])
+  }, [contractId, chat.messages, setAndSaveChat])
 
   useEffect(() => {
     const chatMessageHandler = async (message?: Message) => {
@@ -185,11 +184,22 @@ function ChatScreen ({ contract }: { contract: Contract }) {
     if (!connected) return unsubscribe
     on('message', chatMessageHandler)
     return unsubscribe
-  }, [contract, contractId, connected, on, send, off, decryptedData?.symmetricKey, account.publicKey, queryClient])
+  }, [
+    contract,
+    contractId,
+    connected,
+    on,
+    send,
+    off,
+    decryptedData?.symmetricKey,
+    account.publicKey,
+    queryClient,
+    setAndSaveChat,
+  ])
 
   useEffect(() => {
     if (messages) setAndSaveChat(contractId, { messages })
-  }, [contractId, messages])
+  }, [contractId, messages, setAndSaveChat])
 
   useEffect(() => {
     if (messagesError) showError(parseError(messagesError))

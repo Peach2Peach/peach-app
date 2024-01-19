@@ -21,7 +21,10 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
   const { pan, panResponder, onLayout, trackWidth, knobWidth, min, max } = usePremiumSliderSetup(premium, setPremium)
 
   const labelPosition = useMemo(
-    () => Array(LABEL_AMOUNT).map((_position, index) => round((index / LABEL_AMOUNT) * trackWidth) - trackWidth / 2),
+    () =>
+      [...Array(LABEL_AMOUNT)].map(
+        (_position, index) => round((index / (LABEL_AMOUNT - 1)) * trackWidth) - trackWidth / 2,
+      ),
     [trackWidth],
   )
 

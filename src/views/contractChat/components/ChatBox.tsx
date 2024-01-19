@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { FlatList, Keyboard, View, ViewToken } from 'react-native'
 import { PAGE_SIZE } from '../../../hooks/query/useChatMessages'
 import tw from '../../../styles/tailwind'
@@ -37,13 +37,16 @@ export const ChatBox = ({ chat, setAndSaveChat, page, fetchNextPage, isLoading, 
     }
   }
 
-  const onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
-    const lastItem = viewableItems.pop()?.item as Message
-    const savedChat = getChat(chat.id)
-    if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
+  const onViewableItemsChanged = useCallback(
+    ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
+      const lastItem = viewableItems.pop()?.item as Message
+      const savedChat = getChat(chat.id)
+      if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
 
-    setAndSaveChat(chat.id, { lastSeen: lastItem.date })
-  }
+      setAndSaveChat(chat.id, { lastSeen: lastItem.date })
+    },
+    [chat.id, setAndSaveChat],
+  )
 
   return (
     <FlatList

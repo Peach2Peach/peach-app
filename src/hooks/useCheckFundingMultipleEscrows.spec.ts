@@ -23,7 +23,7 @@ const useOfferSummariesMock = jest.fn().mockReturnValue({
 
 const refreshMock = jest.fn().mockResolvedValue(true)
 const useSyncWalletMock = jest.fn().mockReturnValue({
-  refresh: () => refreshMock(),
+  refetch: () => refreshMock(),
 })
 jest.mock('../views/wallet/hooks/useSyncWallet', () => ({
   useSyncWallet: (...args: unknown[]) => useSyncWalletMock(...args),

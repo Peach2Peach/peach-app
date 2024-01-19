@@ -575,13 +575,13 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
           onLayout={[Function]}
           onMomentumScrollBegin={[Function]}
           onMomentumScrollEnd={[Function]}
-          onRefresh={[MockFunction]}
+          onRefresh={[Function]}
           onScroll={[Function]}
           onScrollBeginDrag={[Function]}
           onScrollEndDrag={[Function]}
           refreshControl={
             <RefreshControlMock
-              onRefresh={[MockFunction]}
+              onRefresh={[Function]}
               refreshing={false}
             />
           }

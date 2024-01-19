@@ -11,6 +11,7 @@ export const useSyncWallet = () => {
     queryFn: async () => {
       await peachWallet.syncWallet()
     },
+    enabled: peachWallet.initialized,
   })
 
   const showErrorBanner = useShowErrorBanner()

@@ -1,5 +1,6 @@
 import { render, waitFor } from 'test-utils'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../utils/wallet/setWallet'
 import { ReceiveBitcoin } from './ReceiveBitcoin'
@@ -26,8 +27,8 @@ const addresses = [
 
 describe('ReceiveBitcoin', () => {
   beforeAll(() => {
-    // @ts-expect-error mock doesn't need args
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
+    peachWallet.initialized = true
   })
 
   it('should render correctly while loading', () => {

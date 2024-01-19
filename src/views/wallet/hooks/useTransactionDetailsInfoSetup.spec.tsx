@@ -8,6 +8,7 @@ import {
   transactionWithoutRBF1,
 } from '../../../../tests/unit/data/transactionDetailData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
@@ -33,8 +34,7 @@ describe('useTransactionDetailsInfoSetup', () => {
   const initialProps = {
     transaction: pendingTransactionSummary,
   }
-  // @ts-expect-error mock doesn't need args
-  const peachWallet = new PeachWallet()
+  const peachWallet = new PeachWallet({ wallet: createTestWallet() })
 
   beforeAll(() => {
     useWalletState.getState().setTransactions([pending1])

@@ -36,8 +36,6 @@ describe('useTransactionDetailsSetup', () => {
     const { result } = renderHook(useTransactionDetailsSetup)
     expect(result.current).toEqual({
       transaction: undefined,
-      refresh: expect.any(Function),
-      isRefreshing: false,
     })
   })
   it('should return local transaction', () => {

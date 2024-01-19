@@ -3,16 +3,15 @@ import { shallow } from 'zustand/shallow'
 import { useSetOverlay } from '../../../Overlay'
 import { useSessionStore } from '../../../store/sessionStore'
 import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
-import { PeachWallet } from '../../../utils/wallet/PeachWallet'
+import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { BackupTime } from '../../overlays/BackupTime'
 import { useSyncWallet } from './useSyncWallet'
 
 type Props = {
-  peachWallet: PeachWallet
   syncOnLoad: boolean
 }
-export const useWalletSetup = ({ peachWallet, syncOnLoad }: Props) => {
+export const useWalletSetup = ({ syncOnLoad }: Props) => {
   const balance = useWalletState((state) => state.balance)
 
   const { refetch, isRefetching, isLoading } = useSyncWallet()
@@ -36,7 +35,7 @@ export const useWalletSetup = ({ peachWallet, syncOnLoad }: Props) => {
     if (!peachWallet.initialized) return
     await refetch()
     setWalletSynced(true)
-  }, [peachWallet.initialized, refetch, setWalletSynced])
+  }, [refetch, setWalletSynced])
 
   useEffect(() => {
     if (syncOnLoad && !walletSynced) syncWalletOnLoad()

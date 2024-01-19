@@ -6,13 +6,12 @@ import { Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks/useNavigation'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { peachWallet } from '../../utils/wallet/setWallet'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { TotalBalance, WalletHeader } from './components'
 import { useLastUnusedAddress, useUTXOs, useWalletAddress, useWalletSetup } from './hooks'
 
 export const Wallet = () => {
-  const { balance, isRefreshing, walletLoading, refresh } = useWalletSetup({ peachWallet, syncOnLoad: true })
+  const { balance, isRefreshing, walletLoading, refresh } = useWalletSetup({ syncOnLoad: true })
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (

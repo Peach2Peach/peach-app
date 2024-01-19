@@ -4,17 +4,25 @@ import { PartiallySignedTransaction } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { KeychainKind } from 'bdk-rn/lib/lib/enums'
+import { BIP32Interface } from 'bip32'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 
-export class PeachWallet {
+class PeachWallet {
   balance: number
 
   transactions: TransactionDetails[]
 
-  constructor () {
+  wallet: BIP32Interface
+
+  initialized = false
+
+  constructor ({ wallet }: { wallet: BIP32Interface }) {
+    this.wallet = wallet
     this.balance = 0
     this.transactions = []
   }
+
+  async getLastUnusedAddress () {}
 
   async loadWallet () {}
 
@@ -83,3 +91,7 @@ export class PeachWallet {
     return 'IH9ZjMHG1af6puAITFTdV5RSYoK1MNmecZdhW0s4soh4EIAz4igtVQTec5yj4H9Iy7sB6qYReRjGpE3b4OoXSLY'
   }
 }
+
+PeachWallet.prototype.syncWallet = jest.fn().mockResolvedValue(undefined)
+
+export { PeachWallet }

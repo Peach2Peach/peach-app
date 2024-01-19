@@ -28,7 +28,7 @@ import { useWalletSetup } from '../../wallet/hooks/useWalletSetup'
 
 const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 const useTestViewWalletSetup = () => {
-  const { balance, isRefreshing, walletLoading } = useWalletSetup({ peachWallet, syncOnLoad: false })
+  const { balance, isRefreshing, walletLoading } = useWalletSetup({ syncOnLoad: false })
 
   const [address, setAddress, , addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
 
