@@ -1,8 +1,7 @@
 import { fireEvent, render, waitFor } from 'test-utils'
 import { transactionError } from '../../../../tests/unit/data/errors'
-import { bitcoinTransaction } from '../../../../tests/unit/data/transactionDetailData'
+import { bitcoinJSTransactionWithRBF1, bitcoinTransaction } from '../../../../tests/unit/data/transactionDetailData'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
-import { getTransactionFeeRate } from '../../../utils/bitcoin/getTransactionFeeRate'
 import i18n from '../../../utils/i18n'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -15,14 +14,14 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 jest.useFakeTimers()
 
 describe('ConfirmRbfPopup', () => {
-  const currentFeeRate = getTransactionFeeRate(bitcoinTransaction)
+  const currentFeeRate = 9
   const newFeeRate = 10
   const onSuccess = jest.fn()
   const txDetails = getTransactionDetails(bitcoinTransaction.value, newFeeRate, bitcoinTransaction.txid)
   const props = {
     currentFeeRate,
     newFeeRate,
-    transaction: bitcoinTransaction,
+    transaction: bitcoinJSTransactionWithRBF1,
     sendingAmount: 80000,
     finishedTransaction: txDetails.psbt,
     onSuccess,

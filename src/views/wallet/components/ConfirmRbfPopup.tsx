@@ -1,4 +1,5 @@
 import { PartiallySignedTransaction } from 'bdk-rn'
+import { Transaction } from 'bitcoinjs-lib'
 import { useCallback } from 'react'
 import { View } from 'react-native'
 import { Icon } from '../../../components/Icon'
@@ -57,9 +58,9 @@ export function ConfirmRbfPopup ({
         <ConfirmRbf
           oldFeeRate={currentFeeRate}
           newFeeRate={newFeeRate}
-          bytes={transaction.size}
+          bytes={transaction.virtualSize()}
           sendingAmount={sendingAmount}
-          hasNoChange={transaction.vout.length === 1}
+          hasNoChange={transaction.outs.length === 1}
         />
       }
       actions={
