@@ -35,7 +35,7 @@ export function ConfirmTradeCancelationPopup ({ contract, view }: { contract: Co
     },
   })
   const { mutate: cancelBuyer } = useContractMutation(
-    { ...contract, canceled: true, tradeStatus: 'tradeCanceled' },
+    { id: contract.id, canceled: true, tradeStatus: 'tradeCanceled' },
     {
       mutationFn: async () => {
         setPopup(

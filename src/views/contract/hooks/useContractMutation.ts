@@ -2,7 +2,7 @@ import { UseMutationOptions, useMutation, useQueryClient } from '@tanstack/react
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 
 export function useContractMutation<TData = unknown, TVariables = void> (
-  contract: Partial<Contract> & { id: string },
+  optimisticContract: Partial<Contract> & { id: string },
   options: UseMutationOptions<TData, Error, TVariables>,
 ) {
   const queryClient = useQueryClient()
@@ -11,13 +11,13 @@ export function useContractMutation<TData = unknown, TVariables = void> (
   return useMutation({
     ...options,
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['contract', contract.id] })
-      const previousData = queryClient.getQueryData<Contract>(['contract', contract.id])
-      queryClient.setQueryData(['contract', contract.id], (oldQueryData: Contract | undefined) => {
+      await queryClient.cancelQueries({ queryKey: ['contract', optimisticContract.id] })
+      const previousData = queryClient.getQueryData<Contract>(['contract', optimisticContract.id])
+      queryClient.setQueryData(['contract', optimisticContract.id], (oldQueryData: Contract | undefined) => {
         if (!oldQueryData) return oldQueryData
         return {
           ...oldQueryData,
-          ...contract,
+          ...optimisticContract,
           lastModified: new Date(),
         }
       })
@@ -25,11 +25,11 @@ export function useContractMutation<TData = unknown, TVariables = void> (
       return { previousData }
     },
     onError: (err, _variables, context) => {
-      queryClient.setQueryData(['contract', contract.id], context?.previousData)
+      queryClient.setQueryData(['contract', optimisticContract.id], context?.previousData)
       showError(err.message)
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['contract', contract.id])
+      queryClient.invalidateQueries(['contract', optimisticContract.id])
       queryClient.invalidateQueries(['contractSummaries'])
     },
   })
