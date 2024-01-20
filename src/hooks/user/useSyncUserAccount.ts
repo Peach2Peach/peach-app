@@ -4,7 +4,7 @@ import { useSelfUser } from '../query/useSelfUser'
 
 const checkPGPSyncStatus = (account: Account, user: User) => {
   const localKeys = [account.pgp]
-  const remoteKeys = user?.pgpPublicKeys
+  const remoteKeys = user?.pgpPublicKeys || []
 
   return {
     keysToPush: localKeys.filter((l) => !remoteKeys.map((r) => r.publicKey).includes(l.publicKey)),

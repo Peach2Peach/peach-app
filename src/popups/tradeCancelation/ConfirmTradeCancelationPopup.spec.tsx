@@ -37,6 +37,7 @@ jest.mock('./cancelContractAsSeller', () => ({
   cancelContractAsSeller: (...args: unknown[]) => cancelContractAsSellerMock(...args),
 }))
 const cancelContractMock = jest.spyOn(peachAPI.private.contract, 'cancelContract')
+
 describe('ConfirmTradeCancelationPopup', () => {
   beforeAll(() => {
     setAccount({ ...account1, offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }] })

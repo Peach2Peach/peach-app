@@ -15,7 +15,7 @@ const useUTXOAddress = (script: Script) =>
     queryKey: ['address', script.id],
     queryFn: async () => {
       try {
-        const address = await new Address().fromScript(script, peachWallet.network)
+        const address = await new Address().fromScript(script, peachWallet.getNetwork())
         return await address.asString()
       } catch (e) {
         throw new Error('Error getting address')

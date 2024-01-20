@@ -1,11 +1,6 @@
 import { render } from 'test-utils'
-import { pendingTransactionSummary, transactionWithRBF1 } from '../../../../../tests/unit/data/transactionDetailData'
+import { bitcoinJSTransactionWithRBF1, transactionWithRBF1 } from '../../../../../tests/unit/data/transactionDetailData'
 import { OfferData } from './OfferData'
-
-const useTransactionDetailsMock = jest.fn().mockReturnValue({ transaction: transactionWithRBF1 })
-jest.mock('../../../../hooks/query/useTransactionDetails', () => ({
-  useTransactionDetails: () => useTransactionDetailsMock(),
-}))
 
 jest.useFakeTimers()
 
@@ -17,14 +12,16 @@ describe('OfferData', () => {
         currency="EUR"
         amount={10000}
         address={transactionWithRBF1.vout[0].scriptpubkey_address}
-        transaction={pendingTransactionSummary}
+        transactionDetails={bitcoinJSTransactionWithRBF1}
         type="WITHDRAWAL"
       />,
     )
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly without price, currency and address', () => {
-    const { toJSON } = render(<OfferData amount={100000} transaction={pendingTransactionSummary} type="WITHDRAWAL" />)
+    const { toJSON } = render(
+      <OfferData amount={100000} transactionDetails={bitcoinJSTransactionWithRBF1} type="WITHDRAWAL" />,
+    )
     expect(toJSON()).toMatchSnapshot()
   })
 })

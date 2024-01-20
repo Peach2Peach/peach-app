@@ -36,7 +36,7 @@ export function PaymentMadeSlider () {
   const { contract } = useContractContext()
 
   const mutation = useContractMutation(
-    { ...contract, paymentMade: new Date(), tradeStatus: 'confirmPaymentRequired' },
+    { id: contract.id, paymentMade: new Date(), tradeStatus: 'confirmPaymentRequired' },
     {
       mutationFn: async () => {
         const { error: err } = await peachAPI.private.contract.confirmPaymentBuyer({ contractId })
@@ -58,7 +58,7 @@ export function PaymentMadeSlider () {
 export function PaymentReceivedSlider () {
   const { contract } = useContractContext()
   const mutation = useContractMutation(
-    { ...contract, paymentConfirmed: new Date(), tradeStatus: 'rateUser' },
+    { id: contract.id, paymentConfirmed: new Date(), tradeStatus: 'rateUser' },
     {
       mutationFn: async () => {
         const sellOffer = getSellOfferFromContract(contract)
@@ -94,7 +94,7 @@ export function PaymentReceivedSlider () {
 export function CancelTradeSlider () {
   const { contract } = useContractContext()
   const { mutate } = useContractMutation(
-    { ...contract, canceled: true, tradeStatus: 'refundOrReviveRequired' },
+    { id: contract.id, canceled: true, tradeStatus: 'refundOrReviveRequired' },
     {
       mutationFn: async () => {
         const { result, error } = await cancelContractAsSeller(contract)

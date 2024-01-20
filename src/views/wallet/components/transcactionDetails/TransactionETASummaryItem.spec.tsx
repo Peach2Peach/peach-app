@@ -1,16 +1,9 @@
 import { fireEvent, render } from 'test-utils'
 import { feeEstimates } from '../../../../../tests/unit/data/electrumData'
-import { bitcoinTransaction, pendingTransactionSummary } from '../../../../../tests/unit/data/transactionDetailData'
+import { pending1 } from '../../../../../tests/unit/data/transactionDetailData'
 import { Popup } from '../../../../components/popup/Popup'
 import { placeholderFeeEstimates } from '../../../../hooks/query/useFeeEstimates'
 import { TransactionETASummaryItem } from './TransactionETASummaryItem'
-
-const useTransactionDetailsMock = jest.fn().mockReturnValue({
-  transaction: bitcoinTransaction,
-})
-jest.mock('../../../../hooks/query/useTransactionDetails', () => ({
-  useTransactionDetails: (...args: unknown[]) => useTransactionDetailsMock(...args),
-}))
 
 const useFeeEstimatesMock = jest.fn().mockReturnValue({ feeEstimates: placeholderFeeEstimates })
 jest.mock('../../../../hooks/query/useFeeEstimates', () => ({
@@ -18,21 +11,26 @@ jest.mock('../../../../hooks/query/useFeeEstimates', () => ({
   useFeeEstimates: () => useFeeEstimatesMock(),
 }))
 
+const useTxFeeRateMock = jest.fn().mockReturnValue({ data: 2 })
+jest.mock('../../hooks/useTxFeeRate', () => ({
+  useTxFeeRate: (...args: unknown[]) => useTxFeeRateMock(...args),
+}))
+
 describe('TransactionETA', () => {
   it('should render correctly for 1 block ETA', () => {
-    const { toJSON } = render(<TransactionETASummaryItem txId={pendingTransactionSummary.id} />)
+    const { toJSON } = render(<TransactionETASummaryItem transaction={pending1} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for more than 1 block ETA', () => {
     useFeeEstimatesMock.mockReturnValueOnce({ feeEstimates })
 
-    const { toJSON } = render(<TransactionETASummaryItem txId={pendingTransactionSummary.id} />)
+    const { toJSON } = render(<TransactionETASummaryItem transaction={pending1} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should open help popup', () => {
     const { getByText } = render(
       <>
-        <TransactionETASummaryItem txId={pendingTransactionSummary.id} />
+        <TransactionETASummaryItem transaction={pending1} />
         <Popup />
       </>,
     )

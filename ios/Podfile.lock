@@ -1,5 +1,5 @@
 PODS:
-  - bdk-rn (0.29.0):
+  - bdk-rn (0.30.0):
     - React
   - boost (1.76.0)
   - DoubleConversion (1.1.6)
@@ -801,7 +801,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  bdk-rn: 0b3d1975bad08b2b511fa3fb85249735d626afc6
+  bdk-rn: cfbeb2b1e0c71a5a8650fa650d0c08843e074dec
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 12ea01e587c9594e7b144e1bfc86ac4d9ac28fde
@@ -849,7 +849,7 @@ SPEC CHECKSUMS:
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-cookies: f54fcded06bb0cda05c11d86788020b43528a26c
   react-native-document-picker: 2b8f18667caee73a96708a82b284a4f40b30a156
-  react-native-fast-openpgp: fb284303005e8ba22387f86fcd580fbdb204c728
+  react-native-fast-openpgp: 6536e89843b6063245ba9c0e9835c642dbb22814
   react-native-mmkv-storage: cfb6854594cfdc5f7383a9e464bb025417d1721c
   react-native-netinfo: fefd4e98d75cbdd6e85fc530f7111a8afdf2b0c5
   react-native-notification-badge: 7d458ff810ed02431eb46de253ecfc6a81148ba1

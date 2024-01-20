@@ -17,6 +17,7 @@ import { hasMopsConfigured } from '../../utils/offer/hasMopsConfigured'
 import { isBuyOffer } from '../../utils/offer/isBuyOffer'
 import { cutOffAddress } from '../../utils/string/cutOffAddress'
 import { isValidBitcoinSignature } from '../../utils/validation/isValidBitcoinSignature'
+import { getNetwork } from '../../utils/wallet/getNetwork'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { usePatchReleaseAddress } from '../contract/components/usePatchReleaseAddress'
 import { LoadingScreen } from '../loading/LoadingScreen'
@@ -148,7 +149,15 @@ function OfferWalletSelector ({ offerId, releaseAddress }: { offerId: string; re
       return
     }
     const message = getMessageToSignForAddress(publicKey, payoutAddress)
-    if (!messageSignature || !isValidBitcoinSignature(message, payoutAddress, messageSignature)) {
+    if (
+      !messageSignature
+      || !isValidBitcoinSignature({
+        message,
+        address: payoutAddress,
+        signature: messageSignature,
+        network: getNetwork(),
+      })
+    ) {
       navigation.navigate('signMessage', {
         address: payoutAddress,
         addressLabel: payoutAddressLabel,

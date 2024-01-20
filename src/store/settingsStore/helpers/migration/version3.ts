@@ -2,6 +2,7 @@ import { accountStorage } from '../../../../utils/account/accountStorage'
 import { getMessageToSignForAddress } from '../../../../utils/account/getMessageToSignForAddress'
 import { info } from '../../../../utils/log/info'
 import { isValidBitcoinSignature } from '../../../../utils/validation/isValidBitcoinSignature'
+import { getNetwork } from '../../../../utils/wallet/getNetwork'
 
 export type SettingsVersion3 = {
   appVersion: string
@@ -59,7 +60,12 @@ export const version3 = (migratedState: SettingsVersion3) => {
 
   const publicKey = (accountStorage.getMap('identity') as Identity | undefined)?.publicKey || ''
   const message = getMessageToSignForAddress(publicKey, payoutAddress)
-  const isValid = isValidBitcoinSignature(message, payoutAddress, payoutAddressSignature)
+  const isValid = isValidBitcoinSignature({
+    message,
+    address: payoutAddress,
+    signature: payoutAddressSignature,
+    network: getNetwork(),
+  })
   if (!isValid) {
     return {
       ...migratedState,

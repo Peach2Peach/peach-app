@@ -10,7 +10,6 @@ export const rules = {
   email: isEmail,
   url: isURL,
   bitcoinAddress: isBitcoinAddress,
-  blockTaprootAddress: (value: string) => !isTaproot(value),
   password: (value: string) => !!value && value.length >= MIN_PASSWORD_LENGTH,
   referralCode: isReferralCode,
   bip39: validateMnemonic,
@@ -41,10 +40,6 @@ function isURL (url: string) {
   } catch (e) {
     return false
   }
-}
-
-function isTaproot (value: string) {
-  return /^(tb1p|bcrt1p|bc1p)/u.test(value)
 }
 
 function isReferralCode (code: string) {
