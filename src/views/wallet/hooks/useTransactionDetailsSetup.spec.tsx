@@ -13,10 +13,6 @@ import { useTransactionDetailsSetup } from './useTransactionDetailsSetup'
 
 jest.useFakeTimers({ now: transactionWithRBF1Summary.date })
 
-jest.mock('../../../hooks/useRoute', () => ({
-  useRoute: jest.fn(() => ({ params: { txId: transactionWithRBF1.txid } })),
-}))
-
 const minAmount = 900
 const maxAmount = 900
 describe('useTransactionDetailsSetup', () => {
@@ -34,8 +30,6 @@ describe('useTransactionDetailsSetup', () => {
     expect(result.current).toEqual({
       transactionDetails: undefined,
       transactionSummary: undefined,
-      refresh: expect.any(Function),
-      isRefreshing: false,
     })
   })
   it('should return local transaction', async () => {

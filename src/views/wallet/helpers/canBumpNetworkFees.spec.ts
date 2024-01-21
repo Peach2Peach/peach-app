@@ -5,12 +5,12 @@ import {
   pendingReceivedTransactionSummary,
   pendingTransactionSummary,
 } from '../../../../tests/unit/data/transactionDetailData'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { canBumpNetworkFees } from './canBumpNetworkFees'
 
 describe('canBumpNetworkFees', () => {
-  // @ts-expect-error mock doesn't need args
-  const peachWallet = new PeachWallet({})
+  const peachWallet = new PeachWallet({ wallet: createTestWallet() })
   peachWallet.transactions = [pending1, pendingReceived1]
 
   it('returns true if transaction is unconfirmed and known to wallet', () => {

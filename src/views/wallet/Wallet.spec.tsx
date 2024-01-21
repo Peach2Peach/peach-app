@@ -2,26 +2,21 @@
 import { LocalUtxo, OutPoint, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { KeychainKind } from 'bdk-rn/lib/lib/enums'
-import ShallowRenderer from 'react-test-renderer/shallow'
 import { fireEvent, render, waitFor } from 'test-utils'
 import { confirmed1 } from '../../../tests/unit/data/transactionDetailData'
-import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { navigateMock, setRouteMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
+import { PeachWallet } from '../../utils/wallet/PeachWallet'
+import { peachWallet, setPeachWallet } from '../../utils/wallet/setWallet'
 import { Wallet } from './Wallet'
 
 const defaultReturnValue = {
   balance: 21,
-  isRefreshing: false,
-  walletLoading: false,
 }
-const useWalletSetupMock = jest.fn(() => defaultReturnValue)
-jest.mock('./hooks/useWalletSetup', () => ({
-  useWalletSetup: () => useWalletSetupMock(),
-}))
-jest.mock('../../hooks/useRoute', () => ({
-  useRoute: jest.fn(() => ({
-    name: 'wallet',
-  })),
+const useWalletBalanceMock = jest.fn(() => defaultReturnValue)
+jest.mock('./hooks/useWalletBalance', () => ({
+  useWalletBalance: () => useWalletBalanceMock(),
 }))
 
 const addresses = {
@@ -59,50 +54,60 @@ const amount = 10000
 const txOut = new TxOut(amount, new Script('address'))
 const utxo = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
 const listUnspentMock = jest.fn().mockResolvedValue([utxo])
-jest.mock('../../utils/wallet/setWallet', () => ({
-  peachWallet: {
-    synced: true,
-    getAddressByIndex: jest.fn((index: number) => {
+
+describe('Wallet', () => {
+  beforeAll(() => {
+    setRouteMock({ name: 'homeScreen', key: 'homeScreen', params: { screen: 'wallet' } })
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
+    peachWallet.getAddressByIndex = jest.fn((index: number) => {
       if (index === 0) return Promise.resolve(addresses.first)
       if (index === 1) return Promise.resolve(addresses.second)
       if (index === 20) return Promise.resolve(addresses.previous)
       if (index === 21) return Promise.resolve(addresses.lastUnused)
       if (index === 22) return Promise.resolve(addresses.next)
-      return Promise.resolve(undefined)
-    }),
-    getLastUnusedAddress: jest.fn(() => Promise.resolve(addresses.lastUnused)),
-    wallet: {
-      listUnspent: () => listUnspentMock(),
-    },
-  },
-}))
+      throw new Error('Invalid index')
+    })
+    peachWallet.initialized = true
+    peachWallet.getLastUnusedAddress = jest.fn(() =>
+      Promise.resolve({ ...addresses.lastUnused, keychain: KeychainKind.Internal }),
+    )
+    if (peachWallet.wallet) {
+      peachWallet.wallet.listUnspent = listUnspentMock
+    }
+  })
 
-describe('Wallet', () => {
-  const renderer = ShallowRenderer.createRenderer()
+  afterEach(() => {
+    queryClient.clear()
+  })
 
-  it('should render correctly', () => {
-    renderer.render(<Wallet />)
+  it('should render correctly', async () => {
+    const { toJSON } = render(<Wallet />)
+    await waitFor(() => {
+      expect(queryClient.isFetching()).toBe(0)
+    })
 
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    expect(toJSON()).toMatchSnapshot()
   })
 
   it('should render correctly when loading', () => {
-    useWalletSetupMock.mockReturnValueOnce({
-      ...defaultReturnValue,
-      walletLoading: true,
-    })
-    renderer.render(<Wallet />)
-
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<Wallet />)
+    expect(toJSON()).toMatchSnapshot()
   })
-  it('should navigate to send screen when send button is pressed', () => {
+  it('should navigate to send screen when send button is pressed', async () => {
     const { getByText } = render(<Wallet />)
+    await waitFor(() => {
+      expect(queryClient.isFetching()).toBe(0)
+    })
+
     fireEvent.press(getByText('send'))
 
     expect(navigateMock).toHaveBeenCalledWith('sendBitcoin')
   })
-  it('should navigate to receive screen when receive button is pressed', () => {
+  it('should navigate to receive screen when receive button is pressed', async () => {
     const { getByText } = render(<Wallet />)
+    await waitFor(() => {
+      expect(queryClient.isFetching()).toBe(0)
+    })
     fireEvent.press(getByText('receive'))
 
     expect(navigateMock).toHaveBeenCalledWith('receiveBitcoin')

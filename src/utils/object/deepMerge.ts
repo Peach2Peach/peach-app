@@ -2,7 +2,7 @@ export const deepMerge = <T>(target: T, source: Partial<T>): T => {
   const mergedObject = { ...target }
 
   for (const key in source) {
-    if (source.hasOwnProperty(key)) {
+    if (key in source) {
       const targetValue = target[key]
       const sourceValue = source[key]
 

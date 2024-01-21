@@ -33,9 +33,9 @@ export const BumpNetworkFees = () => {
   const { txId } = useRoute<'bumpNetworkFees'>().params
 
   const localTx = useWalletState((state) => state.getTransaction(txId))
-  const transaction = useMappedTransactionDetails({ localTx })
+  const { data: transaction } = useMappedTransactionDetails({ localTx })
   const { estimatedFees } = useFeeEstimate()
-  const currentFeeRate = useTxFeeRate({ transaction: localTx })
+  const { data: currentFeeRate } = useTxFeeRate({ transaction: localTx })
   const [feeRate, setNewFeeRate] = useState<string>()
   const newFeeRate = feeRate ?? (currentFeeRate + MIN_EXTRA_FEE_RATE).toFixed(2)
 

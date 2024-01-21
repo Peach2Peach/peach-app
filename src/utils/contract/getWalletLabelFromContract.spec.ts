@@ -1,6 +1,7 @@
 import { contract } from '../../../peach-api/src/testData/contract'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
+import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
 import { setAccount } from '../account/account'
 import { PeachWallet } from '../wallet/PeachWallet'
 import { setPeachWallet } from '../wallet/setWallet'
@@ -15,8 +16,7 @@ describe('getWalletLabelFromContract', () => {
       ...account1,
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract), walletLabel: undefined }],
     })
-    // @ts-ignore
-    setPeachWallet(new PeachWallet({}))
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
   })
   it('should return "custom payout address" by default', () => {
     expect(

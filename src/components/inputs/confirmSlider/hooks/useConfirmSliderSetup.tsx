@@ -9,10 +9,12 @@ type Props = ComponentProps & {
 }
 
 export const defaultWidth = 260
+const MEDIUM_KNOB_WIDTH = 56
+const SMALL_KNOB_WIDTH = 46
 
 export const useConfirmSliderSetup = ({ enabled, onConfirm }: Props) => {
   const isMediumScreen = useIsMediumScreen()
-  const knobWidth = isMediumScreen ? 56 : 46
+  const knobWidth = isMediumScreen ? MEDIUM_KNOB_WIDTH : SMALL_KNOB_WIDTH
   const [widthToSlide, setWidthToSlide] = useState(defaultWidth - knobWidth)
 
   const onLayout = (event: LayoutChangeEvent) => {

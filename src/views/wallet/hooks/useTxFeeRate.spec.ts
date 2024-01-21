@@ -13,10 +13,10 @@ describe('useTxFeeRate', () => {
   }
   it('returns tx fee rate', async () => {
     const { result } = renderHook(useTxFeeRate, { initialProps })
-    await waitFor(() => expect(result.current).toEqual(feeRate))
+    await waitFor(() => expect(result.current.data).toEqual(feeRate))
   })
   it('returns 1 as fee rate if transaction is undefined', async () => {
     const { result } = renderHook(useTxFeeRate, { initialProps: { transaction: undefined } })
-    await waitFor(() => expect(result.current).toEqual(1))
+    await waitFor(() => expect(result.current.data).toEqual(1))
   })
 })

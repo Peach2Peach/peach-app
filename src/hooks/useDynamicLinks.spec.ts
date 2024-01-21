@@ -1,4 +1,4 @@
-import { Linking } from 'react-native'
+import { EmitterSubscription, Linking } from 'react-native'
 import { renderHook, waitFor } from 'test-utils'
 import { account1 } from '../../tests/unit/data/accountData'
 import { resetMock } from '../../tests/unit/helpers/NavigationWrapper'
@@ -6,11 +6,10 @@ import { defaultAccount, setAccount } from '../utils/account/account'
 import { useDynamicLinks } from './useDynamicLinks'
 
 const removeMock = jest.fn()
-let onLinkHandlers: Function[] = []
-// @ts-ignore
-jest.spyOn(Linking, 'addEventListener').mockImplementation((type, cb) => {
+let onLinkHandlers: ((event: { url: string }) => void)[] = []
+jest.spyOn(Linking, 'addEventListener').mockImplementation((type, cb: (event: { url: string }) => void) => {
   onLinkHandlers.push(cb)
-  return { remove: removeMock }
+  return { remove: removeMock } as unknown as EmitterSubscription
 })
 
 const dynamicLink = 'https://peachbitcoin.page.link/?link=https%3A%2F%2Fpeachbitcoin.com%2Freferral%3Fcode%3DSATOSHI'

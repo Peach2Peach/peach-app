@@ -3,7 +3,6 @@ import { bdkTransactionWithoutRBF1 } from '../../../tests/unit/data/transactionD
 import { getTransactionFeeRate } from './getTransactionFeeRate'
 
 describe('getTransactionFeeRate', () => {
-  // @ts-expect-error transaction definitely exists
   jest.spyOn(bdkTransactionWithoutRBF1.transaction, 'vsize').mockResolvedValue(347.25)
   it('should calculate the fee rate', async () => {
     const expectedFeeRate = 386.01

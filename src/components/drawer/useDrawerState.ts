@@ -6,7 +6,7 @@ export const defaultState: DrawerState = {
   options: [],
   show: false,
   previousDrawer: undefined,
-  onClose: () => {},
+  onClose: () => null,
 }
 
 type DrawerActions = {
@@ -17,11 +17,11 @@ export const useDrawerState = create<DrawerState & DrawerActions>((set) => ({
   ...defaultState,
   updateDrawer: (newState) =>
     set({
-      title: newState.title || '',
-      content: newState.content ?? null,
-      options: newState.options ?? [],
-      show: newState.show ?? false,
+      title: newState.title || defaultState.title,
+      content: newState.content ?? defaultState.content,
+      options: newState.options ?? defaultState.options,
+      show: newState.show ?? defaultState.show,
       previousDrawer: newState.previousDrawer,
-      onClose: newState.onClose || (() => {}),
+      onClose: newState.onClose || defaultState.onClose,
     }),
 }))

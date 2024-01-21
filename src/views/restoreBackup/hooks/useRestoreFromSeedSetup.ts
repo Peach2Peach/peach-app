@@ -8,6 +8,8 @@ import { createAccount } from '../../../utils/account/createAccount'
 import { deleteAccount } from '../../../utils/account/deleteAccount'
 import { recoverAccount } from '../../../utils/account/recoverAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
+import { LOGIN_DELAY } from '../../restoreReputation/LOGIN_DELAY'
+import { NUMBER_OF_WORDS } from '../../settings/components/backups/NUMBER_OF_WORDS'
 import { setupPeachAccount } from './setupPeachAccount'
 
 export const bip39WordRules = {
@@ -23,7 +25,7 @@ export const useRestoreFromSeedSetup = () => {
   const setToast = useSetToast()
   const updateSeedBackupDate = useSettingsStore((state) => state.updateSeedBackupDate)
 
-  const [words, setWords] = useState<string[]>(new Array(12).fill(''))
+  const [words, setWords] = useState<string[]>(new Array(NUMBER_OF_WORDS).fill(''))
   const [mnemonic, setMnemonic, isMnemonicValid] = useValidatedState<string>('', bip39Rules)
   const allWordsAreSet = useMemo(() => {
     const allSet = words.every((word) => !!word)
@@ -68,7 +70,7 @@ export const useRestoreFromSeedSetup = () => {
 
     setTimeout(() => {
       setIsLoggedIn(true)
-    }, 1500)
+    }, LOGIN_DELAY)
   }
 
   const submit = () => {

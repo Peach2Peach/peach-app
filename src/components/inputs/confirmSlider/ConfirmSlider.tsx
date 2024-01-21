@@ -66,7 +66,7 @@ export function UnlockedSlider ({
   iconId?: IconType
   style?: ViewStyle
 }) {
-  const { widthToSlide, onLayout } = useConfirmSliderSetup({ onConfirm: () => {}, enabled: false })
+  const { widthToSlide, onLayout } = useConfirmSliderSetup({ onConfirm: () => null, enabled: false })
   const pan = new Animated.Value(1)
   const isMediumScreen = useIsMediumScreen()
   const icon = {

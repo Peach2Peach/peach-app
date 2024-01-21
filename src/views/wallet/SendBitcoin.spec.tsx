@@ -70,7 +70,7 @@ describe('SendBitcoin', () => {
     fireEvent.press(mediumFeeButton)
     expect(render(<SendBitcoin />).toJSON()).toMatchDiffSnapshot(toJSON())
   })
-  it('should should the help popup when clicking on the questionmark in the header', async () => {
+  it('should should the help popup when clicking on the questionmark in the header', () => {
     const { getByAccessibilityHint, queryByText } = render(
       <>
         <SendBitcoin />

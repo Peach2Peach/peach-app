@@ -3,7 +3,8 @@ import { getLabel1Opacity } from './getLabel1Opacity'
 
 describe('getLabel1Opacity', () => {
   it('ensures interpolated value is within range', () => {
-    const pan = new Animated.Value(0.2)
+    const panValue = 0.2
+    const pan = new Animated.Value(panValue)
     const opacity = 0.8
     pan.interpolate = jest.fn().mockReturnValue(opacity)
 

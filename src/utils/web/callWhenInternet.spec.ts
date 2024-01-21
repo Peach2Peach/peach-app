@@ -1,15 +1,15 @@
 import { callWhenInternet } from './callWhenInternet'
 
 const fetchMock = jest.fn().mockResolvedValue({ isInternetReachable: true })
-const callbacks: Function[] = []
+const callbacks: ((...args: unknown[]) => void)[] = []
 const unsubScribeMock = jest.fn()
-const addEventListenerMock = jest.fn((cb: Function) => {
+const addEventListenerMock = jest.fn((cb: (...args: unknown[]) => void) => {
   callbacks.push(cb)
   return unsubScribeMock
 })
 jest.mock('@react-native-community/netinfo', () => ({
   fetch: () => fetchMock(),
-  addEventListener: (cb: Function) => addEventListenerMock(cb),
+  addEventListener: (cb: (...args: unknown[]) => void) => addEventListenerMock(cb),
 }))
 
 describe('callWhenInternet', () => {

@@ -6,10 +6,12 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { EmptyTransactionHistory, TxStatusCard } from './components'
-import { useTransactionHistorySetup } from './hooks'
+import { useSyncWallet } from './hooks/useSyncWallet'
+import { useTransactionHistorySetup } from './hooks/useTransactionHistorySetup'
 
 export const TransactionHistory = () => {
-  const { transactions, refresh, isRefreshing } = useTransactionHistorySetup()
+  const { transactions } = useTransactionHistorySetup()
+  const { refetch, isRefetching } = useSyncWallet()
 
   return (
     <Screen header={<TransactionHistoryHeader />}>
@@ -23,8 +25,8 @@ export const TransactionHistory = () => {
           data={transactions}
           renderItem={(props) => <TxStatusCard {...props} />}
           keyExtractor={(item) => item.id}
-          onRefresh={refresh}
-          refreshing={isRefreshing}
+          onRefresh={() => refetch()}
+          refreshing={isRefetching}
         />
       )}
     </Screen>

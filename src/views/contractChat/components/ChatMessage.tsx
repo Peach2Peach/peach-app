@@ -5,7 +5,6 @@ import { PeachText } from '../../../components/text/PeachText'
 import { LinedText } from '../../../components/ui/LinedText'
 import tw from '../../../styles/tailwind'
 import { useAccountStore } from '../../../utils/account/account'
-import { toDateFormat } from '../../../utils/date/toDateFormat'
 import { toTimeFormat } from '../../../utils/date/toTimeFormat'
 import i18n from '../../../utils/i18n'
 
@@ -152,4 +151,26 @@ export const ChatMessage = ({
       </View>
     </>
   )
+}
+
+function toDateFormat (date: Date): string {
+  const day = `${date.getDate()}${getDateSuffix(date.getDate())}`
+  return `${i18n(`month.short.${date.getMonth()}`)} ${day}, ${date.getFullYear()}`
+}
+
+function getDateSuffix (date: number) {
+  const SUFFIXES = ['th', 'st', 'nd', 'rd']
+  const LAST_DIGIT_DIVISOR = 10
+  const LAST_TWO_DIGITS_DIVISOR = 100
+
+  const lastDigit = date % LAST_DIGIT_DIVISOR
+  const lastTwoDigits = date % LAST_TWO_DIGITS_DIVISOR
+
+  const SPECIAL_CASE_LOWER_BOUND = 11
+  const SPECIAL_CASE_UPPER_BOUND = 13
+  if (lastTwoDigits >= SPECIAL_CASE_LOWER_BOUND && lastTwoDigits <= SPECIAL_CASE_UPPER_BOUND) {
+    return SUFFIXES[0]
+  }
+
+  return SUFFIXES[lastDigit] || SUFFIXES[0]
 }

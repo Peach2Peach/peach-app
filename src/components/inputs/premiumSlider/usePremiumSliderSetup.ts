@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { round } from '../../../utils/math/round'
@@ -15,16 +15,6 @@ export const usePremiumSliderSetup = (
 ) => {
   const [isSliding, setIsSliding] = useState(false)
   const [trackWidth, setTrackWidth] = useState(DEFAULT_WIDTH)
-  const labelPosition = useMemo(
-    () => [
-      -trackWidth / 2,
-      round((11 / DELTA) * trackWidth) - trackWidth / 2,
-      0,
-      round((31 / DELTA) * trackWidth) - trackWidth / 2,
-      trackWidth - trackWidth / 2,
-    ],
-    [trackWidth],
-  )
 
   const pan = useRef(new Animated.Value(((premium - MIN) / DELTA) * trackWidth)).current
 
@@ -69,5 +59,5 @@ export const usePremiumSliderSetup = (
     setTrackWidth(newTrackWidth)
   }
 
-  return { pan, panResponder, onLayout, trackWidth, knobWidth: KNOBWIDTH, labelPosition, min: MIN, max: MAX }
+  return { pan, panResponder, onLayout, trackWidth, knobWidth: KNOBWIDTH, min: MIN, max: MAX }
 }

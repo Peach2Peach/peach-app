@@ -4,6 +4,7 @@ import { KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { renderHook, waitFor } from 'test-utils'
 import { confirmed1 } from '../../../../tests/unit/data/transactionDetailData'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { getUTXOId } from '../../../utils/wallet/getUTXOId'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -20,11 +21,9 @@ describe('useUTXOs', () => {
   const listUnspentMock = jest.fn().mockResolvedValue([utxo])
 
   beforeAll(() => {
-    // @ts-expect-error mock doesn't need args
-    setPeachWallet(new PeachWallet({}))
-    // @ts-expect-error mock doesn't need all methods
-    peachWallet.wallet = {
-      listUnspent: listUnspentMock,
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
+    if (peachWallet.wallet) {
+      peachWallet.wallet.listUnspent = listUnspentMock
     }
   })
 

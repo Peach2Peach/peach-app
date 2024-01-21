@@ -4,6 +4,7 @@ import { Button } from '../../components/buttons/Button'
 import { PeachText } from '../../components/text/PeachText'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { NUMBER_OF_WORDS } from '../settings/components/backups/NUMBER_OF_WORDS'
 import { RestoreBackupError } from './RestoreBackupError'
 import { RestoreBackupLoading } from './RestoreBackupLoading'
 import { RestoreSuccess } from './RestoreSuccess'
@@ -27,13 +28,17 @@ export const RestoreFromSeed = () => {
         </PeachText>
         <View style={tw`flex-row gap-4`}>
           <View style={tw`flex-1`}>
-            {[0, 1, 2, 3, 4, 5].map((index) => (
+            {Array(NUMBER_OF_WORDS / 2).map((e, index) => (
               <SeedPhraseInput key={`seedPhraseInput-${index}`} {...{ index, setWords }} />
             ))}
           </View>
           <View style={tw`flex-1`}>
-            {[6, 7, 8, 9, 10, 11].map((index) => (
-              <SeedPhraseInput key={`seedPhraseInput-${index}`} {...{ index, setWords }} />
+            {Array(NUMBER_OF_WORDS / 2).map((e, index) => (
+              <SeedPhraseInput
+                key={`seedPhraseInput-${index + NUMBER_OF_WORDS / 2}`}
+                index={index + NUMBER_OF_WORDS / 2}
+                setWords={setWords}
+              />
             ))}
           </View>
         </View>

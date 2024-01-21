@@ -1,9 +1,9 @@
-/**
- * @description Method to transform bitcoin address into short representation
- */
+const longAddressThreshold = 15
+const endOfFirstPart = 8
+const startOfSecondPart = -6
 export const cutOffAddress = (address: string) => {
-  if (address.length < 15) {
+  if (address.length < longAddressThreshold) {
     return address
   }
-  return `${address.slice(0, 8)} ... ${address.slice(-6)}`
+  return `${address.slice(0, endOfFirstPart)} ... ${address.slice(startOfSecondPart)}`
 }

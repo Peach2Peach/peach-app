@@ -6,7 +6,8 @@ describe('dateTimeReviver', () => {
   })
 
   it('returns the value unchanged if not a string', () => {
-    expect(dateTimeReviver('', 123)).toBe(123)
+    const exampleNumber = 123
+    expect(dateTimeReviver('', exampleNumber)).toBe(exampleNumber)
     expect(dateTimeReviver('', false)).toBe(false)
     expect(dateTimeReviver('', true)).toBe(true)
     expect(dateTimeReviver('', [])).toEqual([])

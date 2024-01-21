@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import { LayoutChangeEvent } from 'react-native'
+import { Animated, LayoutChangeEvent, NativeSyntheticEvent, NativeTouchEvent } from 'react-native'
 import { act, renderHook, waitFor } from 'test-utils'
 import { defaultWidth, useConfirmSliderSetup } from './useConfirmSliderSetup'
 
@@ -20,15 +20,11 @@ describe('useConfirmSliderSetup', () => {
   it('should return default values', () => {
     const { result } = renderHook(useConfirmSliderSetup, { initialProps })
     expect(result.current).toEqual({
-      pan: expect.any(Object),
+      pan: new Animated.Value(0),
       panResponder: expect.any(Object),
       widthToSlide,
       onLayout: expect.any(Function),
     })
-    // @ts-ignore
-    expect(result.current.pan._startingValue).toEqual(0)
-    // @ts-ignore
-    expect(result.current.pan._offset).toEqual(0)
   })
 
   it('should update onLayout', () => {
@@ -54,20 +50,17 @@ describe('useConfirmSliderSetup', () => {
         indexOfSingleActiveTouch: 0,
         mostRecentTimeStamp: 1,
       },
-    }
+    } as unknown as NativeSyntheticEvent<NativeTouchEvent>
 
-    // @ts-ignore
-    result.current.panResponder.panHandlers.onResponderMove(moveEvent)
-    // @ts-ignore
-    expect(result.current.pan._value).toEqual(1)
+    result.current.panResponder.panHandlers.onResponderMove?.(moveEvent)
+    result.current.pan.addListener(({ value }) => {
+      expect(value).toEqual(1)
+    })
 
-    // @ts-ignore
-    result.current.panResponder.panHandlers.onResponderRelease()
+    result.current.panResponder.panHandlers.onResponderRelease?.(moveEvent)
     expect(onConfirm).toHaveBeenCalled()
 
-    // @ts-ignore
-    await waitFor(() => expect(result.current.pan._offset).toEqual(0))
-    await waitFor(() => jest.runAllTimers())
+    await waitFor(jest.runAllTimers)
   })
   it('should not call onConfirm when sliding not completely to the end', async () => {
     const { result } = renderHook(useConfirmSliderSetup, { initialProps })
@@ -79,20 +72,17 @@ describe('useConfirmSliderSetup', () => {
         indexOfSingleActiveTouch: 0,
         mostRecentTimeStamp: 1,
       },
-    }
+    } as unknown as NativeSyntheticEvent<NativeTouchEvent>
 
-    // @ts-ignore
-    result.current.panResponder.panHandlers.onResponderMove(moveEvent)
-    // @ts-ignore
-    expect(result.current.pan._value).toEqual((widthToSlide - 1) / widthToSlide)
+    result.current.panResponder.panHandlers.onResponderMove?.(moveEvent)
+    result.current.pan.addListener(({ value }) => {
+      expect(value).toEqual((widthToSlide - 1) / widthToSlide)
+    })
 
-    // @ts-ignore
-    result.current.panResponder.panHandlers.onResponderRelease()
+    result.current.panResponder.panHandlers.onResponderRelease?.(moveEvent)
     expect(onConfirm).not.toHaveBeenCalled()
 
-    // @ts-ignore
-    await waitFor(() => expect(result.current.pan._offset).toEqual(0))
-    await waitFor(() => jest.runAllTimers())
+    await waitFor(jest.runAllTimers)
   })
   it('should not slide when disabled', async () => {
     const { result } = renderHook(useConfirmSliderSetup, { initialProps: { ...initialProps, enabled: false } })
@@ -104,20 +94,17 @@ describe('useConfirmSliderSetup', () => {
         indexOfSingleActiveTouch: 0,
         mostRecentTimeStamp: 1,
       },
-    }
+    } as unknown as NativeSyntheticEvent<NativeTouchEvent>
 
-    // @ts-ignore
-    result.current.panResponder.panHandlers.onResponderMove(moveEvent)
-    // @ts-ignore
-    expect(result.current.pan._offset).toEqual(0)
+    result.current.panResponder.panHandlers.onResponderMove?.(moveEvent)
+    result.current.pan.addListener(({ value }) => {
+      expect(value).toEqual(0)
+    })
 
-    // @ts-ignore
-    result.current.panResponder.panHandlers.onResponderRelease()
+    result.current.panResponder.panHandlers.onResponderRelease?.(moveEvent)
     expect(onConfirm).not.toHaveBeenCalled()
 
-    // @ts-ignore
-    await waitFor(() => expect(result.current.pan._offset).toEqual(0))
-    await waitFor(() => jest.runAllTimers())
+    await waitFor(jest.runAllTimers)
   })
 
   it('should not set the panResponder to be the responder when disabled', () => {
@@ -130,8 +117,7 @@ describe('useConfirmSliderSetup', () => {
         indexOfSingleActiveTouch: 0,
         mostRecentTimeStamp: 1,
       },
-    }
-    // @ts-ignore
-    expect(result.current.panResponder.panHandlers.onMoveShouldSetResponder(moveEvent)).toEqual(false)
+    } as unknown as NativeSyntheticEvent<NativeTouchEvent>
+    expect(result.current.panResponder.panHandlers.onMoveShouldSetResponder?.(moveEvent)).toEqual(false)
   })
 })

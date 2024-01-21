@@ -1,10 +1,16 @@
+import { contract } from '../../../../peach-api/src/testData/contract'
 import i18n from '../../../utils/i18n'
 import { getSellerStatusText } from './getSellerStatusText'
 
-const getSellOfferFromContractMock = jest.fn(() => ({
-  refunded: false,
-  newOfferId: undefined,
-}))
+const getSellOfferFromContractMock = jest.fn(
+  (): {
+    refunded: boolean
+    newOfferId: string | undefined
+  } => ({
+    refunded: false,
+    newOfferId: undefined,
+  }),
+)
 jest.mock('../../../utils/contract/getWalletLabelFromContract', () => ({
   getWalletLabelFromContract: jest.fn(() => 'walletLabel'),
 }))
@@ -41,17 +47,16 @@ describe('getSellerStatusText', () => {
   it('should return the correct status if the offer was republished', () => {
     getSellOfferFromContractMock.mockReturnValueOnce({
       refunded: false,
-      // @ts-ignore
       newOfferId: 'newOfferId',
     })
-    expect(getSellerStatusText({} as any, true)).toBe(i18n('contract.seller.republished'))
+    expect(getSellerStatusText(contract, true)).toBe(i18n('contract.seller.republished'))
   })
   it('should return the correct status if the offer was refunded', () => {
     getSellOfferFromContractMock.mockReturnValueOnce({
       refunded: true,
       newOfferId: undefined,
     })
-    expect(getSellerStatusText({} as any, true)).toBe(i18n('contract.seller.refunded', 'walletLabel'))
+    expect(getSellerStatusText(contract, true)).toBe(i18n('contract.seller.refunded', 'walletLabel'))
   })
   it('should return the dispute status text if there is a dispute winner', () => {
     expect(getSellerStatusText({ disputeWinner: 'buyer' } as Contract, true)).toBe('disputeStatusText')

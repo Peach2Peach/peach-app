@@ -21,7 +21,7 @@ import { Checkbox } from '../../components/inputs/Checkbox'
 import { Toggle } from '../../components/inputs/Toggle'
 import { useSetPopup } from '../../components/popup/Popup'
 import { PeachText } from '../../components/text/PeachText'
-import { SATSINBTC } from '../../constants'
+import { CENT, SATSINBTC } from '../../constants'
 import { HelpPopup } from '../../hooks/HelpPopup'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { useMarketPrices } from '../../hooks/query/useMarketPrices'
@@ -202,7 +202,7 @@ function CurrentPrice () {
   const displayCurrency = useSettingsStore((state) => state.displayCurrency)
   const [amount, premium] = useOfferPreferences((state) => [state.sellAmount, state.premium], shallow)
   const { fiatPrice } = useBitcoinPrices(amount)
-  const priceWithPremium = useMemo(() => round(fiatPrice * (1 + premium / 100), 2), [fiatPrice, premium])
+  const priceWithPremium = useMemo(() => round(fiatPrice * (1 + premium / CENT), 2), [fiatPrice, premium])
 
   return (
     <PeachText style={tw`text-center body-s`}>

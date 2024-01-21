@@ -4,10 +4,7 @@ import { useHandleTransactionError } from './useHandleTransactionError'
 
 const showErrorBannerMock = jest.fn()
 jest.mock('../useShowErrorBanner', () => ({
-  useShowErrorBanner:
-    () =>
-      (...args: any[]) =>
-        showErrorBannerMock(...args),
+  useShowErrorBanner: () => showErrorBannerMock,
 }))
 
 describe('useHandleTransactionError', () => {

@@ -9,6 +9,7 @@ import { deleteAccount } from '../../../utils/account/deleteAccount'
 import { recoverAccount } from '../../../utils/account/recoverAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
 import { parseError } from '../../../utils/result/parseError'
+import { LOGIN_DELAY } from '../../restoreReputation/LOGIN_DELAY'
 import { setupPeachAccount } from './setupPeachAccount'
 
 const passwordRules = { password: true, required: true }
@@ -62,7 +63,7 @@ export const useRestoreFromFileSetup = () => {
 
     setTimeout(() => {
       setIsLoggedIn(true)
-    }, 1500)
+    }, LOGIN_DELAY)
   }
 
   const submit = () => {

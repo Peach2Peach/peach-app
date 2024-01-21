@@ -11,7 +11,7 @@ jest.mock('../../../../hooks/query/useFeeEstimates', () => ({
   useFeeEstimates: () => useFeeEstimatesMock(),
 }))
 
-const useTxFeeRateMock = jest.fn().mockReturnValue(2)
+const useTxFeeRateMock = jest.fn().mockReturnValue({ data: 2 })
 jest.mock('../../hooks/useTxFeeRate', () => ({
   useTxFeeRate: (...args: unknown[]) => useTxFeeRateMock(...args),
 }))

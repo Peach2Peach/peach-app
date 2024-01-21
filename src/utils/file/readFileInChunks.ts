@@ -5,7 +5,7 @@ const CHUNKSIZE = 1048576
 /**
  * @description This method is more leightweight on memory when reading bigger files
  */
-export const readFileInChunks = async (uri: string): Promise<string> => {
+export const readFileInChunks = async (uri: string) => {
   let content = ''
   let chunk = ''
   let index = 0

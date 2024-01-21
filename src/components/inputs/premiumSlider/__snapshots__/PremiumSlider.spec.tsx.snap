@@ -42,9 +42,9 @@ exports[`PremiumSlider should render correctly 1`] = `
       positions={
         [
           -130,
-          -62,
+          -65,
           0,
-          62,
+          65,
           130,
         ]
       }
@@ -104,7 +104,7 @@ exports[`PremiumSlider should render correctly 1`] = `
       %
     </SliderLabel>
     <SliderLabel
-      position={-62}
+      position={-65}
     >
       -10
       %
@@ -116,7 +116,7 @@ exports[`PremiumSlider should render correctly 1`] = `
 price
     </SliderLabel>
     <SliderLabel
-      position={62}
+      position={65}
     >
       +
       10

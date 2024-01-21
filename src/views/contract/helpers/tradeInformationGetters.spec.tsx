@@ -40,14 +40,14 @@ describe('tradeInformationGetters', () => {
   })
   it('should return the correct value for the paidToMethod field', () => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData)
-    const element = tradeInformationGetters.paidToMethod({ ...contract }) as JSX.Element
+    const element = tradeInformationGetters.paidToMethod(contract) as JSX.Element
     expect(render(element).toJSON()).toMatchSnapshot()
   })
   it('should return the correct value for the paidWithMethod field', () => {
     expect(tradeInformationGetters.paidWithMethod(contract)).toEqual('SEPA')
   })
   it('should return the correct value for the bitcoinAmount field', () => {
-    expect(tradeInformationGetters.bitcoinAmount(contract)).toEqual(250000)
+    expect(tradeInformationGetters.bitcoinAmount(contract)).toEqual(contract.amount)
   })
   it('should return the correct value for the bitcoinPrice field', () => {
     expect(tradeInformationGetters.bitcoinPrice(contract)).toEqual('35 616.00 EUR')

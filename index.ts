@@ -1,15 +1,16 @@
 import NotificationBadge from '@msml/react-native-notification-badge'
 import messaging from '@react-native-firebase/messaging'
 import { AppRegistry, LogBox } from 'react-native'
-import { App } from './App'
-import { name as appName } from './app.json'
-import { error } from './utils/log/error'
-import { info } from './utils/log/info'
-import { updateUser } from './utils/peachAPI/updateUser'
-import { parseError } from './utils/result/parseError'
-import { isIOS } from './utils/system/isIOS'
-import { isProduction } from './utils/system/isProduction'
-import { useNotificationStore } from './views/home/notificationsStore'
+import './shim.js'
+import { App } from './src/App'
+import { name as appName } from './src/app.json'
+import { error } from './src/utils/log/error'
+import { info } from './src/utils/log/info'
+import { updateUser } from './src/utils/peachAPI/updateUser'
+import { parseError } from './src/utils/result/parseError'
+import { isIOS } from './src/utils/system/isIOS'
+import { isProduction } from './src/utils/system/isProduction'
+import { useNotificationStore } from './src/views/home/notificationsStore'
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -52,5 +53,3 @@ if (typeof document !== 'undefined') {
     navigator.serviceWorker.register('/service-worker.js')
   }
 }
-
-export default () => {}

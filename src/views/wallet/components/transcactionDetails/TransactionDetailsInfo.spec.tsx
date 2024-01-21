@@ -26,6 +26,8 @@ jest.mock('../../hooks/useTxFeeRate', () => ({
   useTxFeeRate: (...args: unknown[]) => useTxFeeRateMock(...args),
 }))
 
+jest.useFakeTimers()
+
 describe('TransactionDetailsInfo', () => {
   const renderer = createRenderer()
   it('should render correctly for a pending transaction', () => {

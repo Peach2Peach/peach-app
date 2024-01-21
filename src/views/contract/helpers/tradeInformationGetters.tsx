@@ -1,9 +1,10 @@
 import { TouchableOpacity, View } from 'react-native'
+import { APPLINKS } from '../../../APPLINKS'
 import { Icon } from '../../../components/Icon'
 import { Bubble } from '../../../components/bubble/Bubble'
+import { useCashPaymentMethodName } from '../../../components/matches/useCashPaymentMethodName'
 import { useWalletLabel } from '../../../components/offer/useWalletLabel'
 import { PeachText } from '../../../components/text/PeachText'
-import { APPLINKS } from '../../../paymentMethods'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import tw from '../../../styles/tailwind'
 import { contractIdToHex } from '../../../utils/contract/contractIdToHex'
@@ -11,14 +12,16 @@ import { getBitcoinPriceFromContract } from '../../../utils/contract/getBitcoinP
 import { getBuyOfferFromContract } from '../../../utils/contract/getBuyOfferFromContract'
 import { toShortDateFormat } from '../../../utils/date/toShortDateFormat'
 import i18n from '../../../utils/i18n'
-import { getPaymentMethodName } from '../../../utils/paymentMethod/getPaymentMethodName'
+import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 import { groupChars } from '../../../utils/string/groupChars'
 import { priceFormat } from '../../../utils/string/priceFormat'
-import { openAppLink } from '../../../utils/web/openAppLink'
+import { openURL } from '../../../utils/web/openURL'
 import { UserId } from '../../settings/profile/profileOverview/UserId'
 import { SummaryItem } from '../components/SummaryItem'
 import { TradeBreakdownBubble } from '../components/TradeBreakdownBubble'
 import { useContractContext } from '../context'
+
+const SATS_GROUP_SIZE = 3
 
 export const tradeInformationGetters: Record<
   | 'bitcoinAmount'
@@ -61,7 +64,7 @@ export const tradeInformationGetters: Record<
   bitcoinAmount: (contract: Contract) => contract.amount,
   bitcoinPrice: (contract: Contract) => {
     const bitcoinPrice = getBitcoinPriceFromContract(contract)
-    if (contract.currency === 'SAT') return `${groupChars(String(bitcoinPrice), 3)} ${contract.currency}`
+    if (contract.currency === 'SAT') return `${groupChars(String(bitcoinPrice), SATS_GROUP_SIZE)} ${contract.currency}`
     return `${priceFormat(bitcoinPrice)} ${contract.currency}`
   },
   ratingBuyer: (contract: Contract) => getRatingBubble(contract, 'Buyer'),
@@ -117,12 +120,12 @@ const allPossibleFields = [
 export type TradeInfoField = (typeof allPossibleFields)[number]
 export const isTradeInformationGetter = (
   fieldName: keyof typeof tradeInformationGetters | TradeInfoField,
-): fieldName is keyof typeof tradeInformationGetters => tradeInformationGetters.hasOwnProperty(fieldName)
+): fieldName is keyof typeof tradeInformationGetters => fieldName in tradeInformationGetters
 
 function getPrice (contract: Contract) {
-  return `${contract.currency === 'SAT' ? groupChars(String(contract.price), 3) : priceFormat(contract.price)} ${
-    contract.currency
-  }`
+  return `${
+    contract.currency === 'SAT' ? groupChars(String(contract.price), SATS_GROUP_SIZE) : priceFormat(contract.price)
+  } ${contract.currency}`
 }
 
 function getPaymentMethodBubble (contract: Contract) {
@@ -131,18 +134,21 @@ function getPaymentMethodBubble (contract: Contract) {
 
 function PaymentMethodBubble ({ contract }: { contract: Contract }) {
   const { paymentMethod } = contract
-  const url = APPLINKS[paymentMethod]?.url
-  const appLink = APPLINKS[paymentMethod]?.appLink
-  const hasLink = !!(url || appLink)
-  const openLink = () => (url ? openAppLink(url, appLink) : null)
+  const url = paymentMethod in APPLINKS ? APPLINKS[paymentMethod] : undefined
+  const hasLink = !!url
+  const openLink = () => (url ? openURL(url) : null)
   const { paymentData } = useContractContext()
-  const paymentMethodName = getPaymentMethodName(paymentMethod)
   const paymentMethodLabel = usePaymentDataStore((state) =>
     paymentData ? state.searchPaymentData(paymentData)[0]?.label : undefined,
   )
+
   return (
     <View style={tw`items-end gap-1`}>
-      <Bubble color={'primary-mild'}>{paymentMethodLabel ?? paymentMethodName}</Bubble>
+      {paymentMethodLabel || !isCashTrade(paymentMethod) ? (
+        <Bubble color={'primary-mild'}>{paymentMethodLabel ?? i18n(`paymentMethod.${paymentMethod}`)}</Bubble>
+      ) : (
+        <EventNameBubble paymentMethod={paymentMethod} />
+      )}
       {hasLink && (
         <TouchableOpacity onPress={openLink} style={tw`flex-row items-center justify-end gap-1`}>
           <PeachText style={tw`underline body-s text-black-65`}>{i18n('contract.summary.openApp')}</PeachText>
@@ -153,14 +159,26 @@ function PaymentMethodBubble ({ contract }: { contract: Contract }) {
   )
 }
 
+function EventNameBubble ({ paymentMethod }: { paymentMethod: `cash.${string}` }) {
+  const eventName = useCashPaymentMethodName(paymentMethod)
+  return <Bubble color={'primary-mild'}>{eventName}</Bubble>
+}
+
 function getRatingBubble (contract: Contract, userType: 'Buyer' | 'Seller') {
   return contract[`rating${userType}`] !== 0 ? (
     <Bubble iconId={contract[`rating${userType}`] === 1 ? 'thumbsUp' : 'thumbsDown'} color={'primary'} ghost />
   ) : undefined
 }
 
-function getPaymentMethod (contract: Contract) {
-  return getPaymentMethodName(contract.paymentMethod)
+function getPaymentMethod ({ paymentMethod }: Contract) {
+  if (isCashTrade(paymentMethod)) return <EventName paymentMethod={paymentMethod} />
+  return i18n(`paymentMethod.${paymentMethod}`)
+}
+
+function EventName ({ paymentMethod }: { paymentMethod: `cash.${string}` }) {
+  const { contract, view } = useContractContext()
+  const eventName = useCashPaymentMethodName(paymentMethod)
+  return <SummaryItem.Text value={String(eventName)} copyable={view === 'buyer' && !contract.releaseTxId} />
 }
 
 function PaidToWallet ({ label, address }: { label?: string; address?: string }) {

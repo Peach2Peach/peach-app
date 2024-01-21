@@ -13,7 +13,7 @@ export const useHandleNotifications = (messageHandler: (message: FirebaseMessagi
       return unsubscribe
     } catch (e) {
       error('messaging().onMessage - Push notifications not supported', parseError(e))
-      return () => {}
+      return () => null
     }
   }, [messageHandler])
 }

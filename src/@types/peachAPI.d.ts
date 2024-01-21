@@ -13,7 +13,6 @@ type PeachWS = {
   off: (listener: 'message' | 'close', callback: WSCallback) => void
   send: (data: string) => boolean
   close: WebSocket['close']
-  onmessage?: WebSocket['onmessage'] | (() => {})
 }
 
 type APIError = {

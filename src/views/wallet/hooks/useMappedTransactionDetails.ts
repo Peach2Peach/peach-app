@@ -1,22 +1,20 @@
+import { useQuery } from '@tanstack/react-query'
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { Transaction } from 'bitcoinjs-lib'
-import { useEffect, useState } from 'react'
 
 type Props = {
   localTx?: TransactionDetails
 }
-export const useMappedTransactionDetails = ({ localTx }: Props) => {
-  const [transactionDetails, setTransactionDetails] = useState<Transaction>()
 
-  useEffect(() => {
-    (async () => {
-      if (!localTx?.transaction) return
+export const useMappedTransactionDetails = ({ localTx }: Props) =>
+  useQuery({
+    queryKey: ['transaction', 'serialized', localTx?.transaction?.id],
+    queryFn: async () => {
+      if (!localTx?.transaction) throw new Error('Transaction not found')
 
       const serialized = await localTx.transaction.serialize()
       const transaction = Transaction.fromBuffer(Buffer.from(serialized))
-      setTransactionDetails(transaction)
-    })()
-  }, [localTx])
-
-  return transactionDetails
-}
+      return transaction
+    },
+    enabled: !!localTx?.transaction,
+  })

@@ -10,6 +10,7 @@ import {
   transactionWithoutRBF1Summary,
 } from '../../../../tests/unit/data/transactionDetailData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
@@ -29,8 +30,7 @@ describe('useTransactionDetailsInfoSetup', () => {
     transactionDetails: bitcoinJSTransactionWithRBF2,
     transactionSummary: transactionWithRBF2Summary,
   }
-  // @ts-expect-error mock doesn't need args
-  const peachWallet = new PeachWallet({})
+  const peachWallet = new PeachWallet({ wallet: createTestWallet() })
 
   beforeAll(() => {
     useWalletState.getState().setTransactions([bdkTransactionWithRBF2])

@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react'
 
 type Props = {
-  callback: Function
+  callback: () => void
   interval: number | null
 }
 
 export const useInterval = ({ callback, interval }: Props) => {
-  const savedCallback = useRef<Function>()
+  const savedCallback = useRef<Props['callback']>()
 
   useEffect(() => {
     savedCallback.current = callback
@@ -19,6 +19,6 @@ export const useInterval = ({ callback, interval }: Props) => {
       const intervalId = setInterval(tick, interval)
       return () => clearInterval(intervalId)
     }
-    return () => {}
+    return () => null
   }, [interval])
 }

@@ -4,14 +4,12 @@ import { renderHook } from 'test-utils'
 import { DEFAULT_WIDTH, KNOBWIDTH, usePremiumSliderSetup } from './usePremiumSliderSetup'
 
 describe('usePremiumSliderSetup', () => {
-  const labelPosition = [-130, -62, 0, 62, 130]
   const defaultPremium = 1.5
   it('should default values', () => {
     const { result } = renderHook(() => usePremiumSliderSetup(defaultPremium, jest.fn()))
     expect(result.current).toEqual({
       knobWidth: 32,
       trackWidth: 260,
-      labelPosition,
       max: 21,
       min: -21,
       onLayout: expect.any(Function),

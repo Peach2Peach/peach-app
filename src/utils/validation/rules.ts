@@ -4,12 +4,13 @@ import { getNetwork } from '../wallet/getNetwork'
 import { addProtocol } from '../web/addProtocol'
 import { isEmail } from './isEmail'
 
+const MIN_PASSWORD_LENGTH = 8
 export const rules = {
   required: (value: string) => !!value,
   email: isEmail,
   url: isURL,
   bitcoinAddress: isBitcoinAddress,
-  password: (value: string) => !!value && value.length > 7,
+  password: (value: string) => !!value && value.length >= MIN_PASSWORD_LENGTH,
   referralCode: isReferralCode,
   bip39: validateMnemonic,
   bip39Word: (value: string) => wordlists.english.includes(value),

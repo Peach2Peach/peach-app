@@ -22,9 +22,8 @@ import { isValidBitcoinSignature } from '../../../utils/validation/isValidBitcoi
 import { getNetwork } from '../../../utils/wallet/getNetwork'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useContractContext } from '../context'
-import { isTradeInformationGetter, tradeInformationGetters } from '../helpers'
 import { tradeFields } from '../helpers/tradeInfoFields'
-import { TradeInfoField } from '../helpers/tradeInformationGetters'
+import { TradeInfoField, isTradeInformationGetter, tradeInformationGetters } from '../helpers/tradeInformationGetters'
 import { SummaryItem } from './SummaryItem'
 import { usePatchReleaseAddress } from './usePatchReleaseAddress'
 

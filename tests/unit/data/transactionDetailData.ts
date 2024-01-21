@@ -15,7 +15,8 @@ export const createTransaction = ({ txid, hex = txid, received, sent, fee, confi
   const transaction = new BDKTransaction()
   const serialized = Array.from(Buffer.from(hex, 'hex'))
   transaction.serialize = jest.fn().mockResolvedValue(serialized)
-  return new TransactionDetails(txid, received, sent, fee, blockTime, transaction)
+  const txDetails = new TransactionDetails(txid, received, sent, fee, blockTime, transaction)
+  return { ...txDetails, transaction }
 }
 export const genesisTx = createTransaction({
   txid: '4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b',

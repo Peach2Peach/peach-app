@@ -760,7 +760,7 @@ exports[`TransactionDetailsInfo should render correctly for a deposit transactio
   />
   <TransactionETASummaryItem
     transaction={
-      TransactionDetails {
+      {
         "confirmationTime": BlockTime {
           "height": undefined,
           "timestamp": undefined,
@@ -1173,7 +1173,7 @@ exports[`TransactionDetailsInfo should render correctly for a pending transactio
   />
   <TransactionETASummaryItem
     transaction={
-      TransactionDetails {
+      {
         "confirmationTime": BlockTime {
           "height": undefined,
           "timestamp": undefined,

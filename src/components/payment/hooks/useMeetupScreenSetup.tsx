@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import { useMeetupEvents } from '../../../hooks/query/useMeetupEvents'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useRoute } from '../../../hooks/useRoute'
-import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { useAccountStore } from '../../../utils/account/account'
@@ -13,9 +13,9 @@ export const useMeetupScreenSetup = () => {
   const { eventId } = route.params
   const deletable = route.params.deletable ?? false
   const goToOrigin = useGoToOrigin()
-  const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
+  const { data: meetupEvents } = useMeetupEvents()
   const publicKey = useAccountStore((state) => state.account.publicKey)
-  const event: MeetupEvent = getMeetupEvent(eventId) || {
+  const event = meetupEvents?.find(({ id }) => id === eventId) || {
     id: eventId,
     longName: '',
     shortName: '',
@@ -25,9 +25,14 @@ export const useMeetupScreenSetup = () => {
     featured: false,
   }
 
-  const [selectedCurrencies, setSelectedCurrencies] = useState(event.currencies)
+  const [currencyState, setSelectedCurrencies] = useState<Currency[]>()
+  const selectedCurrencies = currencyState || event.currencies
   const onCurrencyToggle = (currency: Currency) => {
-    setSelectedCurrencies(toggleCurrency(currency))
+    setSelectedCurrencies((prev) => {
+      const getNewCurrencies = toggleCurrency(currency)
+      const newCurrencies = getNewCurrencies(prev ? prev : event.currencies)
+      return newCurrencies
+    })
   }
 
   const addPaymentData = usePaymentDataStore((state) => state.addPaymentData)

@@ -4,23 +4,32 @@ import { PartiallySignedTransaction } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
+import { BIP32Interface } from 'bip32'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 
 type PeachWalletProps = {
   network?: Network
+  wallet: BIP32Interface
 }
-export class PeachWallet {
+class PeachWallet {
   balance: number
 
   transactions: TransactionDetails[]
 
+  wallet: BIP32Interface
+
+  initialized = false
+
   network: Network
 
-  constructor ({ network = Network.Bitcoin }: PeachWalletProps) {
+  constructor ({ wallet, network = Network.Bitcoin }: PeachWalletProps) {
+    this.wallet = wallet
     this.balance = 0
     this.transactions = []
     this.network = network
   }
+
+  async getLastUnusedAddress () {}
 
   async loadWallet () {}
 
@@ -59,8 +68,8 @@ export class PeachWallet {
   async getAddressUTXO () {
     const outpoint = new OutPoint('txid', 0)
     const script = new Script('address')
-    const amount = 10000
-    const txout = new TxOut(amount, script)
+    const value = 10000
+    const txout = new TxOut(value, script)
     return [new LocalUtxo(outpoint, txout, false, KeychainKind.External)]
   }
 
@@ -93,3 +102,7 @@ export class PeachWallet {
     return this.network
   }
 }
+
+PeachWallet.prototype.syncWallet = jest.fn().mockResolvedValue(undefined)
+
+export { PeachWallet }

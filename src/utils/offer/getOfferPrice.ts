@@ -1,4 +1,4 @@
-import { SATSINBTC } from '../../constants'
+import { CENT, SATSINBTC } from '../../constants'
 import { round } from '../math/round'
 
 type Params = {
@@ -12,5 +12,5 @@ export const getOfferPrice = ({ amount, premium, prices, currency }: Params) => 
   const price = prices[currency]
   if (!price) return 0
 
-  return round((price * amount * (1 + premium / 100)) / SATSINBTC, 2)
+  return round((price * amount * (1 + premium / CENT)) / SATSINBTC, 2)
 }

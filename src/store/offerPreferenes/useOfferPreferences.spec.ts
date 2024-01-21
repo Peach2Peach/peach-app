@@ -27,7 +27,9 @@ describe('useOfferPreferences - store', () => {
 
 describe('useOfferPreferences - actions - setBuyAmountRange', () => {
   it('should update the buy amount range', () => {
-    const newRange: [number, number] = [50000, 3200000]
+    const MIN = 50000
+    const MAX = 3200000
+    const newRange: [number, number] = [MIN, MAX]
     useOfferPreferences.getState().setBuyAmountRange(newRange)
     expect(useOfferPreferences.getState().buyAmountRange).toStrictEqual(newRange)
   })

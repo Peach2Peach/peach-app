@@ -36,7 +36,8 @@ describe('useRestoreFromSeedSetup', () => {
     expect(storeAccountMock).toHaveBeenCalledWith(account1)
   })
   it('updates the last seed backup date', async () => {
-    jest.spyOn(Date, 'now').mockReturnValue(123456789)
+    const MOCK_DATE = 123456789
+    jest.spyOn(Date, 'now').mockReturnValue(MOCK_DATE)
     const { result } = renderHook(useRestoreFromSeedSetup)
     act(() => {
       result.current.setWords(account1.mnemonic.split(' '))

@@ -1,6 +1,7 @@
 import { fireEvent, render, waitFor } from 'test-utils'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { bitcoinJSTransactionWithRBF1, bitcoinTransaction } from '../../../../tests/unit/data/transactionDetailData'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import i18n from '../../../utils/i18n'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
@@ -27,8 +28,7 @@ describe('ConfirmRbfPopup', () => {
     onSuccess,
   }
   beforeEach(() => {
-    // @ts-expect-error mock doesn't need args
-    setPeachWallet(new PeachWallet({}))
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
   })
 
   it('should broadcast bump fee transaction', async () => {

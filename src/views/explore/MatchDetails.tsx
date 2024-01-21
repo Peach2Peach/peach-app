@@ -20,7 +20,7 @@ import { useMatchAsBuyer } from '../../components/matches/hooks/useMatchAsBuyer'
 import { getMatchPrice } from '../../components/matches/utils/getMatchPrice'
 import { PeachText } from '../../components/text/PeachText'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
-import { SATSINBTC } from '../../constants'
+import { CENT, SATSINBTC } from '../../constants'
 import { useMarketPrices } from '../../hooks/query/useMarketPrices'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useRoute } from '../../hooks/useRoute'
@@ -315,7 +315,7 @@ function BuyerPriceInfo ({ match, selectedCurrency, selectedPaymentMethod }: Pri
 
   const marketPrice = amountInBTC * bitcoinPrice
 
-  const premium = match.matched ? (isSuccess ? round((displayPrice / marketPrice - 1) * 100, 2) : 0) : match.premium
+  const premium = match.matched ? (isSuccess ? round((displayPrice / marketPrice - 1) * CENT, 2) : 0) : match.premium
 
   return <PriceInfo amount={match.amount} price={displayPrice} currency={selectedCurrency} premium={premium} />
 }

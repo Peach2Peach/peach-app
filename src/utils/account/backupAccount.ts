@@ -7,6 +7,7 @@ import { writeFile } from '../file/writeFile'
 import { error } from '../log/error'
 import { info } from '../log/info'
 import { parseError } from '../result/parseError'
+import { PEACH_ID_LENGTH } from './PEACH_ID_LENGTH'
 import { useAccountStore } from './account'
 
 type BackupAccountProps = {
@@ -22,8 +23,8 @@ export const backupAccount = async ({ password, onSuccess, onCancel, onError }: 
   try {
     const destinationFileName
       = NETWORK === 'bitcoin'
-        ? `peach-account-${account.publicKey.substring(0, 8)}.json`
-        : `peach-account-${NETWORK}-${account.publicKey.substring(0, 8)}.json`
+        ? `peach-account-${account.publicKey.substring(0, PEACH_ID_LENGTH)}.json`
+        : `peach-account-${NETWORK}-${account.publicKey.substring(0, PEACH_ID_LENGTH)}.json`
 
     await writeFile(
       `/${destinationFileName}`,

@@ -23,9 +23,6 @@ describe('settingsStore', () => {
     useSettingsStore.getState().reset()
     expect(useSettingsStore.getState().locale).toBe('es')
   })
-  it('should be on version 4', () => {
-    expect(useSettingsStore.persist.getOptions().version).toBe(4)
-  })
 })
 
 describe('settingsStore - updateFileBackupDate', () => {

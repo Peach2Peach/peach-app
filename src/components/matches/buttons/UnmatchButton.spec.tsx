@@ -14,6 +14,8 @@ const unmatchOfferMock = jest.spyOn(peachAPI.private.offer, 'unmatchOffer')
 describe('UnmatchButton', () => {
   const interruptMatching = jest.fn()
   const setShowMatchedCard = jest.fn()
+  const MIN_AMOUNT = 21000
+  const MAX_AMOUNT = 210000
   const defaultProps = {
     match: {
       matched: true,
@@ -23,7 +25,7 @@ describe('UnmatchButton', () => {
       ...buyOffer,
       id: 'offerId',
       type: 'bid',
-      amount: [21000, 210000],
+      amount: [MIN_AMOUNT, MAX_AMOUNT],
       creationDate: new Date('2021-01-01'),
       meansOfPayment: { EUR: ['sepa'] },
       paymentData: {

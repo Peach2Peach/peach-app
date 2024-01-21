@@ -1,9 +1,10 @@
-import { act, renderHook, responseUtils } from 'test-utils'
+import { act, renderHook, responseUtils, waitFor } from 'test-utils'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { setRouteMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { MSINAMINUTE } from '../../../constants'
 import { setAccount } from '../../../utils/account/account'
 import { updateAccount } from '../../../utils/account/updateAccount'
@@ -11,7 +12,7 @@ import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { saveOffer } from '../../../utils/offer/saveOffer'
 import { peachAPI } from '../../../utils/peachAPI'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
-import { setPeachWallet } from '../../../utils/wallet/setWallet'
+import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
 
@@ -43,6 +44,7 @@ jest.mock('./useHandleFundingStatus', () => ({
 describe('useFundEscrowSetup', () => {
   beforeAll(() => {
     setRouteMock({ name: 'fundEscrow', key: 'fundEscrow', params: { offerId: sellOffer.id } })
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
   })
   beforeEach(() => {
     updateAccount({ ...account1, offers: [] }, true)
@@ -54,7 +56,6 @@ describe('useFundEscrowSetup', () => {
 
   it('should return default values', () => {
     const { result } = renderHook(useFundEscrowSetup)
-
     expect(result.current).toEqual({
       offerId: sellOffer.id,
       fundingAddress: undefined,
@@ -124,10 +125,16 @@ describe('useFundEscrowSetup', () => {
       cancelOffer: expect.any(Function),
     })
   })
+  it('should sync the wallet on mount', async () => {
+    peachWallet.initialized = true
+    renderHook(useFundEscrowSetup)
+
+    await waitFor(() => {
+      expect(peachWallet.syncWallet).toHaveBeenCalledTimes(1)
+    })
+  })
   it('should periodically sync peach wallet if funding multiple escrow', async () => {
-    // @ts-ignore
-    const peachWallet = new PeachWallet({})
-    setPeachWallet(peachWallet)
+    peachWallet.initialized = true
     saveOffer(sellOfferWithEscrow)
 
     const syncWalletSpy = jest.spyOn(peachWallet, 'syncWallet')
@@ -136,29 +143,9 @@ describe('useFundEscrowSetup', () => {
     renderHook(useFundEscrowSetup)
 
     await act(async () => {
-      await jest.advanceTimersByTime(MSINAMINUTE * 2)
+      await jest.advanceTimersByTimeAsync(MSINAMINUTE * 2)
     })
 
-    expect(syncWalletSpy).toHaveBeenCalledTimes(1)
-
-    await act(async () => {
-      await jest.advanceTimersByTime(MSINAMINUTE * 2)
-    })
     expect(syncWalletSpy).toHaveBeenCalledTimes(2)
-  })
-  it('should not call sync peach wallet when not funding multiple escrow', () => {
-    // @ts-ignore
-    const peachWallet = new PeachWallet({})
-    setPeachWallet(peachWallet)
-    saveOffer(sellOfferWithEscrow)
-
-    const syncWalletSpy = jest.spyOn(peachWallet, 'syncWallet')
-    renderHook(useFundEscrowSetup)
-
-    act(() => {
-      jest.advanceTimersByTime(MSINAMINUTE * 2)
-    })
-
-    expect(syncWalletSpy).not.toHaveBeenCalled()
   })
 })

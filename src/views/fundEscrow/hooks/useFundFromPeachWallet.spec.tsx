@@ -6,6 +6,7 @@ import { defaultUser } from '../../../../peach-api/src/testData/userData'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Popup } from '../../../components/popup/Popup'
 import { useConfigStore } from '../../../store/configStore/configStore'
@@ -47,8 +48,7 @@ describe('useFundFromPeachWallet', () => {
     useConfigStore.getState().setMinTradingAmount(minTradingAmount)
   })
   beforeEach(() => {
-    // @ts-expect-error mock doesn't need args
-    setPeachWallet(new PeachWallet({}))
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
   })
   it('should return default values', () => {
     const { result } = renderHook(useFundFromPeachWallet)

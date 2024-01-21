@@ -28,7 +28,7 @@ describe('shouldUsePaymentMethod', () => {
   })
   it('returns false a payment method that has not been installed', () => {
     const info: PaymentMethodInfo = {
-      // @ts-expect-error
+      // @ts-expect-error - shitcoins are not supported
       id: 'etherium',
       currencies: ['EUR'],
       rounded: true,

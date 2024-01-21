@@ -5,6 +5,7 @@ import { saveOffer } from '../../../utils/offer/saveOffer'
 import { peachAPI } from '../../../utils/peachAPI'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
+import { MAX_NUMBER_OF_PEACHES } from '../../settings/profile/profileOverview/Rating'
 
 export const publishSellOffer = async (offerDraft: SellOfferDraft) => {
   info('Posting sell offer')
@@ -12,7 +13,7 @@ export const publishSellOffer = async (offerDraft: SellOfferDraft) => {
   const instantTradeCriteria = offerDraft.instantTradeCriteria
     ? {
       ...offerDraft.instantTradeCriteria,
-      minReputation: interpolate(offerDraft.instantTradeCriteria.minReputation, [0, 5], [-1, 1]),
+      minReputation: interpolate(offerDraft.instantTradeCriteria.minReputation, [0, MAX_NUMBER_OF_PEACHES], [-1, 1]),
     }
     : undefined
 
@@ -47,7 +48,8 @@ async function handleMultipleOffersPublished (result: SellOffer[], offerDraft: S
   result.forEach((offer) => saveOffer({ ...offerDraft, ...offer }))
 
   const internalAddress = await peachWallet.getInternalAddress()
-  const newInternalAddress = await peachWallet.getInternalAddress(internalAddress.index + 10)
+  const diffToNextAddress = 10
+  const newInternalAddress = await peachWallet.getInternalAddress(internalAddress.index + diffToNextAddress)
   useWalletState.getState().registerFundMultiple(
     newInternalAddress.address,
     result.map((offer) => offer.id),

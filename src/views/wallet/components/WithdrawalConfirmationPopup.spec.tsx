@@ -3,6 +3,7 @@ import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -35,8 +36,7 @@ jest.useFakeTimers()
 
 describe('useOpenWithdrawalConfirmationPopup', () => {
   beforeEach(() => {
-    // @ts-ignore
-    setPeachWallet(new PeachWallet({}))
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
   })
 
   it('should broadcast transaction, reset state and navigate to wallet on confirm', async () => {

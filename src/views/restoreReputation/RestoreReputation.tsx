@@ -14,6 +14,7 @@ import { useAccountStore } from '../../utils/account/account'
 import { storeAccount } from '../../utils/account/storeAccount'
 import { updateAccount } from '../../utils/account/updateAccount'
 import i18n from '../../utils/i18n'
+import { LOGIN_DELAY } from './LOGIN_DELAY'
 
 export const RestoreReputation = () => {
   const route = useRoute<'restoreReputation'>()
@@ -31,7 +32,7 @@ export const RestoreReputation = () => {
 
     setTimeout(() => {
       setIsLoggedIn(true)
-    }, 1500)
+    }, LOGIN_DELAY)
   }
 
   return (

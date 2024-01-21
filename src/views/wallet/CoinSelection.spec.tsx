@@ -6,6 +6,7 @@ import { fireEvent, render, waitFor } from 'test-utils'
 import { confirmed1 } from '../../../tests/unit/data/transactionDetailData'
 import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
 import { Popup } from '../../components/popup/Popup'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { getUTXOId } from '../../utils/wallet/getUTXOId'
@@ -25,11 +26,11 @@ describe('CoinSelection', () => {
   const listUnspentMock = jest.fn().mockResolvedValue([utxo])
 
   beforeAll(() => {
-    // @ts-expect-error mock doesn't need args
-    setPeachWallet(new PeachWallet({}))
-    // @ts-expect-error mock doesn't all methods
-    peachWallet.wallet = {
-      listUnspent: listUnspentMock,
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
+    if (!peachWallet.wallet) {
+      throw new Error('Wallet not initialized')
+    } else {
+      peachWallet.wallet.listUnspent = listUnspentMock
     }
   })
   beforeEach(() => {

@@ -14,7 +14,7 @@ type Props = {
 export const TransactionETASummaryItem = ({ transaction }: Props) => {
   const setPopup = useSetPopup()
   const showHelp = () => setPopup(<HelpPopup id="confirmationTime" />)
-  const currentFeeRate = useTxFeeRate({ transaction })
+  const { data: currentFeeRate } = useTxFeeRate({ transaction })
   const { feeEstimates } = useFeeEstimates()
   const etaInBlocks = getETAInBlocks(currentFeeRate, feeEstimates)
 

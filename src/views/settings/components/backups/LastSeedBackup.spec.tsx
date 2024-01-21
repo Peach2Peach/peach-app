@@ -3,7 +3,10 @@ import { useSettingsStore } from '../../../../store/settingsStore/useSettingsSto
 import { LastSeedBackup } from './LastSeedBackup'
 
 describe('LastSeedBackup', () => {
-  const now = new Date(2022, 8, 1, 0, 0).getTime()
+  const YEAR = 2022
+  const MONTH = 8
+  const DAY = 1
+  const now = new Date(YEAR, MONTH, DAY, 0, 0).getTime()
   const goBackToStartMock = jest.fn()
   const renderer = ShallowRenderer.createRenderer()
 

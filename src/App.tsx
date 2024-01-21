@@ -10,8 +10,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { useDeviceContext } from 'twrnc'
 import { Drawer } from './components/drawer/Drawer'
 import { Popup } from './components/popup/Popup'
-import { Toast, useSetToast } from './components/toast/Toast'
-import { initWebSocket } from './init/websocket'
+import { Toast } from './components/toast/Toast'
+import { useWebSocket } from './init/websocket'
 import { Overlay } from './Overlay'
 import { queryClient } from './queryClient'
 import tw from './styles/tailwind'
@@ -32,8 +32,7 @@ const navTheme = {
 export const App = () => {
   useDeviceContext(tw)
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
-  const setToast = useSetToast()
-  useEffect(initWebSocket(updatePeachWS, setToast), [])
+  useWebSocket(updatePeachWS)
   usePartialAppSetup()
 
   useEffect(() => {

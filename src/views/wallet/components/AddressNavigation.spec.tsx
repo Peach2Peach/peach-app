@@ -1,6 +1,7 @@
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { act, fireEvent, render, waitFor } from 'test-utils'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { AddressNavigation } from './AddressNavigation'
@@ -12,8 +13,8 @@ describe('AddressNavigation', () => {
   const index = 5
 
   beforeAll(() => {
-    // @ts-expect-error it's a mock, no args needed
-    setPeachWallet(new PeachWallet({}))
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
+    peachWallet.initialized = true
     queryClient.clear()
   })
 
