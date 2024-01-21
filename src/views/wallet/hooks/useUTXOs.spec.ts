@@ -22,9 +22,7 @@ describe('useUTXOs', () => {
 
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
-    if (!peachWallet.wallet) {
-      throw new Error('Wallet not initialized')
-    } else {
+    if (peachWallet.wallet) {
       peachWallet.wallet.listUnspent = listUnspentMock
     }
   })
