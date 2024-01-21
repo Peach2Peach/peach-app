@@ -1,13 +1,6 @@
 const cacheName = 'site-cache-v1'
-const assetsToCache = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/index.js',
-]
+const assetsToCache = ['/', '/index.html', '/styles.css']
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(cacheName).then((cache) => cache.addAll(assetsToCache))
-  )
+self.addEventListener('install', (event) => {
+  event.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(assetsToCache)))
 })

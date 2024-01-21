@@ -19,7 +19,6 @@ module.exports = {
   ignorePatterns: [
     'tests/unit/data/*.ts',
     '.eslintrc.js',
-    'index.js',
     'babel.config.js',
     'metro.config.js',
     'react-native.config.js',

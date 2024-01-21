@@ -2,7 +2,7 @@
 
 echo "Build android testnet"
 
-react-native bundle --reset-cache --platform android --dev true --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle
+react-native bundle --reset-cache --platform android --dev true --entry-file index.ts --bundle-output android/app/src/main/assets/index.android.bundle
 cd android
 
 echo "Clean build"
