@@ -13,7 +13,7 @@ import { isLimitReached } from '../../utils/match/isLimitReached'
 import { saveOffer } from '../../utils/offer/saveOffer'
 import { cleanPaymentData } from '../../utils/paymentMethod/cleanPaymentData'
 import { encryptPaymentData } from '../../utils/paymentMethod/encryptPaymentData'
-import { getPaymentMethodName } from '../../utils/paymentMethod/getPaymentMethodName'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { peachAPI } from '../../utils/peachAPI'
 import { parseError } from '../../utils/result/parseError'
 import { decryptSymmetricKey } from '../../views/contract/helpers/decryptSymmetricKey'
@@ -26,6 +26,7 @@ import { HorizontalLine } from '../ui/HorizontalLine'
 import { options } from './buttons/options'
 import { PriceInfo } from './components/PriceInfo'
 import { getPremiumOfMatchedOffer } from './getPremiumOfMatchedOffer'
+import { useCashPaymentMethodName } from './useCashPaymentMethodName'
 import { createRefundTx } from './utils/createRefundTx'
 import { getPaymentDataFromOffer } from './utils/getPaymentDataFromOffer'
 import { useHandleError } from './utils/useHandleError'
@@ -70,10 +71,16 @@ export const Match = ({ match, offer, currentPage }: { match: Match; offer: Sell
           <View style={tw`gap-4`}>
             <PaymentDetail label={i18n('match.selectedCurrency')} value={selectedCurrency} />
             {selectedPaymentMethod && (
-              <PaymentDetail
-                label={i18n('match.selectedPaymentMethod')}
-                value={getPaymentMethodName(selectedPaymentMethod)}
-              />
+              <>
+                {isCashTrade(selectedPaymentMethod) ? (
+                  <CashPaymentDetail method={selectedPaymentMethod} />
+                ) : (
+                  <PaymentDetail
+                    label={i18n('match.selectedPaymentMethod')}
+                    value={i18n(`paymentMethod.${selectedPaymentMethod}`)}
+                  />
+                )}
+              </>
             )}
           </View>
         </View>
@@ -81,6 +88,12 @@ export const Match = ({ match, offer, currentPage }: { match: Match; offer: Sell
       </View>
     </View>
   )
+}
+
+function CashPaymentDetail ({ method }: { method: `cash.${string}` }) {
+  const value = useCashPaymentMethodName(method)
+
+  return <PaymentDetail label={i18n('match.selectedPaymentMethod')} value={value} />
 }
 
 function PaymentDetail ({ label, value }: { label: string; value?: string }) {

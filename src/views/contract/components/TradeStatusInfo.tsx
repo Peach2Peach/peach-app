@@ -5,9 +5,9 @@ import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useContractContext } from '../context'
-import { tradeInformationGetters } from '../helpers'
 import { getBuyerStatusText } from '../helpers/getBuyerStatusText'
 import { getSellerStatusText } from '../helpers/getSellerStatusText'
+import { tradeInformationGetters } from '../helpers/tradeInformationGetters'
 import { SummaryItem } from './SummaryItem'
 
 export const TradeStatusInfo = () => {

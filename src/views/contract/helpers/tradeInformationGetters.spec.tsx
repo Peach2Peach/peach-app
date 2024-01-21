@@ -40,7 +40,7 @@ describe('tradeInformationGetters', () => {
   })
   it('should return the correct value for the paidToMethod field', () => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData)
-    const element = tradeInformationGetters.paidToMethod({ ...contract }) as JSX.Element
+    const element = tradeInformationGetters.paidToMethod(contract) as JSX.Element
     expect(render(element).toJSON()).toMatchSnapshot()
   })
   it('should return the correct value for the paidWithMethod field', () => {

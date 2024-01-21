@@ -1,7 +1,8 @@
 import { Linking } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
-import { fireEvent, render } from 'test-utils'
+import { fireEvent, render, waitFor } from 'test-utils'
 import { meetupScreenRoute, setRouteMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { setPaymentMethods } from '../../paymentMethods'
 import { MeetupScreen } from './MeetupScreen'
 
@@ -24,6 +25,8 @@ const useMeetupScreenSetupMock = jest.fn().mockReturnValue({
 jest.mock('./hooks/useMeetupScreenSetup', () => ({
   useMeetupScreenSetup: () => useMeetupScreenSetupMock(),
 }))
+
+jest.useFakeTimers()
 
 describe('MeetupScreen', () => {
   const openURLSpy = jest.spyOn(Linking, 'openURL')
@@ -80,6 +83,7 @@ describe('MeetupScreen', () => {
       selectedCurrencies: ['EUR'],
     })
     const { getByText } = render(<MeetupScreen />)
+    await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     await fireEvent(getByText('view on maps'), 'onPress')
     expect(openURLSpy).toHaveBeenCalledWith('http://maps.google.com/maps?daddr=Prague')
     await fireEvent(getByText('meetup link'), 'onPress')

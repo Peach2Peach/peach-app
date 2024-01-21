@@ -1,15 +1,15 @@
 import { View } from 'react-native'
 import { IconType } from '../../../assets/icons'
+import { useMeetupEvents } from '../../../hooks/query/useMeetupEvents'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore/usePaymentDataStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { keys } from '../../../utils/object/keys'
-import { getPaymentMethodName } from '../../../utils/paymentMethod/getPaymentMethodName'
 import { getPaymentMethods } from '../../../utils/paymentMethod/getPaymentMethods'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 import { paymentMethodAllowedForCurrency } from '../../../utils/paymentMethod/paymentMethodAllowedForCurrency'
-import { NewBubble } from '../../bubble/Bubble'
+import { NewBubble as Bubble } from '../../bubble/Bubble'
 import { useDrawerState } from '../../drawer/useDrawerState'
 import { CurrencySelection } from '../../navigation/CurrencySelection'
 import { PulsingText } from './PulsingText'
@@ -38,6 +38,15 @@ export function PaymentMethodSelector ({
 
   const allPaymentMethods = getPaymentMethods(meansOfPayment)
   const availablePaymentMethods = allPaymentMethods.filter((p) => paymentMethodAllowedForCurrency(p, selectedCurrency))
+  const { data: meetupEvents } = useMeetupEvents()
+  const getPaymentMethodName = (paymentMethod: PaymentMethod) => {
+    if (isCashTrade(paymentMethod)) {
+      const eventId = paymentMethod.replace('cash.', '')
+      const meetupEvent = meetupEvents?.find(({ id }) => id === eventId)
+      return meetupEvent?.shortName ?? eventId
+    }
+    return i18n(`paymentMethod.${paymentMethod}`)
+  }
   const items = availablePaymentMethods.map((p) => ({
     value: p,
     display: getPaymentMethodName(p),
@@ -141,6 +150,16 @@ function PayementMethodBubble ({
   const iconId: IconType = isSelected ? 'checkSquare' : hasPaymentData ? 'plusSquare' : 'edit'
   const navigation = useNavigation()
   const updateDrawer = useDrawerState((state) => state.updateDrawer)
+
+  const { data: meetupEvents } = useMeetupEvents()
+  const getPaymentMethodName = (methodType: PaymentMethod) => {
+    if (isCashTrade(methodType)) {
+      const eventId = methodType.replace('cash.', '')
+      const meetupEvent = meetupEvents?.find(({ id }) => id === eventId)
+      return meetupEvent?.shortName ?? eventId
+    }
+    return i18n(`paymentMethod.${methodType}`)
+  }
   const onPressBubble = () => {
     if (onPress) {
       if (hasPaymentData) {
@@ -161,39 +180,31 @@ function PayementMethodBubble ({
         } else {
           onPress(paymentDataForType[0])
         }
+      } else if (isCashTrade(paymentMethod)) {
+        navigation.navigate('meetupScreen', {
+          eventId: paymentMethod.replace('cash.', ''),
+          origin: 'matchDetails',
+        })
       } else {
-        const shouldNavigateToMeetupScreen = isCashTrade(paymentMethod)
-        if (shouldNavigateToMeetupScreen) {
-          navigation.navigate('meetupScreen', {
-            eventId: paymentMethod.replace('cash.', ''),
-            origin: 'matchDetails',
-          })
-        } else {
-          const country = paymentMethod.startsWith('giftCard.amazon.')
-            ? (paymentMethod.split('.')[2] as PaymentMethodCountry)
-            : undefined
-          navigation.navigate('paymentMethodForm', {
-            paymentData: {
-              type: paymentMethod,
-              label: getPaymentMethodName(paymentMethod),
-              currencies: [selectedCurrency],
-              country,
-            },
-            origin: 'matchDetails',
-          })
-        }
+        const country = paymentMethod.startsWith('giftCard.amazon.')
+          ? (paymentMethod.split('.')[2] as PaymentMethodCountry)
+          : undefined
+        navigation.navigate('paymentMethodForm', {
+          paymentData: {
+            type: paymentMethod,
+            label: i18n(`paymentMethod.${paymentMethod}`),
+            currencies: [selectedCurrency],
+            country,
+          },
+          origin: 'matchDetails',
+        })
       }
     }
   }
 
   return (
-    <NewBubble
-      onPress={onPressBubble}
-      color={isSelected ? 'orange' : 'primary-mild'}
-      ghost={!isSelected}
-      iconId={iconId}
-    >
+    <Bubble onPress={onPressBubble} color={isSelected ? 'orange' : 'primary-mild'} ghost={!isSelected} iconId={iconId}>
       {children}
-    </NewBubble>
+    </Bubble>
   )
 }
