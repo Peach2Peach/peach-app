@@ -11,11 +11,32 @@ import { FlagType } from '../../components/flags'
 import { RadioButtons } from '../../components/inputs/RadioButtons'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
-import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../paymentMethods'
+import { PAYMENTCATEGORIES } from '../../paymentMethods'
 import { getApplicablePaymentCategories } from '../../utils/paymentMethod/getApplicablePaymentCategories'
 import { paymentMethodAllowedForCurrency } from '../../utils/paymentMethod/paymentMethodAllowedForCurrency'
 import { usePaymentMethodLabel } from './hooks'
 import { getCurrencyTypeFilter } from './utils'
+
+const NATIONALOPTIONS: NationalOptions = {
+  EUR: {
+    IT: ['satispay', 'postePay'],
+    PT: ['mbWay'],
+    ES: ['bizum', 'rebellion'],
+    FI: ['mobilePay'],
+    HR: ['keksPay'],
+    FR: ['paylib', 'lydia', 'satispay'],
+    DE: ['satispay'],
+    GR: ['iris'],
+  },
+  LATAM: {
+    BR: ['pix'],
+  },
+}
+
+const NATIONALOPTIONCOUNTRIES: Record<'EUR' | 'LATAM', FlagType[]> = {
+  EUR: ['IT', 'PT', 'ES', 'FI', 'HR', 'FR', 'DE', 'GR'],
+  LATAM: ['BR'],
+}
 
 const mapCountryToDrawerOption = (onPress: (country: FlagType) => void) => (country: FlagType) => ({
   title: i18n(`country.${country}`),

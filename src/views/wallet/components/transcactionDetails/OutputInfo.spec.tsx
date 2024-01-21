@@ -27,7 +27,7 @@ describe('OutputInfo', () => {
     const offerDataWithContract = {
       ...offerData,
       contractId: '123-456',
-      currency: 'EUR' as Currency,
+      currency: 'EUR' as const,
       price: 394,
     }
     renderer.render(

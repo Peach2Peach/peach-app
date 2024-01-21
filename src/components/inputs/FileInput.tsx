@@ -30,7 +30,9 @@ export const FileInput = ({ fileName, onChange }: Props) => {
         const uri = Platform.select({
           android: file.uri,
           ios: decodeURIComponent(file.uri)?.replace?.('file://', ''),
-        }) as string
+        })
+
+        if (!uri) throw new Error('No uri found')
 
         const content = await readFileInChunks(uri)
         setLoading(false)
@@ -48,10 +50,6 @@ export const FileInput = ({ fileName, onChange }: Props) => {
       }
     } catch (err) {
       setLoading(false)
-      if (!DocumentPicker.isCancel(err)) {
-        // User cancelled the picker, exit any dialogs or menus and move on
-        throw err
-      }
       return {
         name: '',
         content: '',

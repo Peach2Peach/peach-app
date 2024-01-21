@@ -1,10 +1,10 @@
 import { TouchableOpacity, View } from 'react-native'
+import { APPLINKS } from '../../../APPLINKS'
 import { Icon } from '../../../components/Icon'
 import { Bubble } from '../../../components/bubble/Bubble'
 import { useCashPaymentMethodName } from '../../../components/matches/useCashPaymentMethodName'
 import { useWalletLabel } from '../../../components/offer/useWalletLabel'
 import { PeachText } from '../../../components/text/PeachText'
-import { APPLINKS } from '../../../paymentMethods'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import tw from '../../../styles/tailwind'
 import { contractIdToHex } from '../../../utils/contract/contractIdToHex'
@@ -15,7 +15,7 @@ import i18n from '../../../utils/i18n'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 import { groupChars } from '../../../utils/string/groupChars'
 import { priceFormat } from '../../../utils/string/priceFormat'
-import { openAppLink } from '../../../utils/web/openAppLink'
+import { openURL } from '../../../utils/web/openURL'
 import { UserId } from '../../settings/profile/profileOverview/UserId'
 import { SummaryItem } from '../components/SummaryItem'
 import { TradeBreakdownBubble } from '../components/TradeBreakdownBubble'
@@ -134,10 +134,9 @@ function getPaymentMethodBubble (contract: Contract) {
 
 function PaymentMethodBubble ({ contract }: { contract: Contract }) {
   const { paymentMethod } = contract
-  const url = APPLINKS[paymentMethod]?.url
-  const appLink = APPLINKS[paymentMethod]?.appLink
-  const hasLink = !!(url || appLink)
-  const openLink = () => (url ? openAppLink(url, appLink) : null)
+  const url = paymentMethod in APPLINKS ? APPLINKS[paymentMethod] : undefined
+  const hasLink = !!url
+  const openLink = () => (url ? openURL(url) : null)
   const { paymentData } = useContractContext()
   const paymentMethodLabel = usePaymentDataStore((state) =>
     paymentData ? state.searchPaymentData(paymentData)[0]?.label : undefined,
