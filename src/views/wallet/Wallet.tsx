@@ -8,20 +8,23 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { TotalBalance, WalletHeader } from './components'
-import { useLastUnusedAddress, useUTXOs, useWalletAddress, useWalletSetup } from './hooks'
+import { useLastUnusedAddress, useUTXOs, useWalletAddress } from './hooks'
+import { useSyncWallet } from './hooks/useSyncWallet'
+import { useWalletBalance } from './hooks/useWalletBalance'
 
 export const Wallet = () => {
-  const { balance, isRefreshing, walletLoading, refresh } = useWalletSetup({ syncOnLoad: true })
-  if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
+  const { balance } = useWalletBalance()
+  const { refetch, isRefetching, isLoading } = useSyncWallet()
+  if (isLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (
     <Screen header={<WalletHeader />}>
       <PeachScrollView
         contentContainerStyle={tw`grow`}
         contentStyle={tw`justify-center py-16 grow`}
-        refreshControl={<RefreshControl refreshing={false} onRefresh={refresh} />}
+        refreshControl={<RefreshControl refreshing={false} onRefresh={() => refetch()} />}
       >
-        <TotalBalance amount={balance} isRefreshing={isRefreshing} />
+        <TotalBalance amount={balance} isRefreshing={isRefetching} />
         <BackupReminderIcon />
       </PeachScrollView>
       <WalletButtons />

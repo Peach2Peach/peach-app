@@ -24,27 +24,14 @@ import { fundAddress } from '../../../utils/regtest/fundAddress'
 import { thousands } from '../../../utils/string/thousands'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useSyncWallet } from '../../wallet/hooks/useSyncWallet'
-import { useWalletSetup } from '../../wallet/hooks/useWalletSetup'
+import { useWalletBalance } from '../../wallet/hooks/useWalletBalance'
 
 const bitcoinAddressRules = { required: false, bitcoinAddress: true }
-const useTestViewWalletSetup = () => {
-  const { balance, isRefreshing, walletLoading } = useWalletSetup({ syncOnLoad: false })
-
-  const [address, setAddress, , addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
-
-  return {
-    balance,
-    isRefreshing,
-    walletLoading,
-    address,
-    setAddress,
-    addressErrors,
-  }
-}
 
 export const TestViewPeachWallet = () => {
-  const { balance, isRefreshing, walletLoading, address, setAddress, addressErrors } = useTestViewWalletSetup()
-  const { refetch: refresh } = useSyncWallet()
+  const { refetch, isRefetching, isLoading } = useSyncWallet()
+  const { balance } = useWalletBalance()
+  const [address, setAddress, , addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
 
   const [amount, setAmount] = useState('0')
   const [txId, setTxId] = useState('')
@@ -71,8 +58,8 @@ export const TestViewPeachWallet = () => {
       <PeachScrollView>
         <View style={tw`gap-4`}>
           <PeachText style={tw`text-center button-medium`}>{i18n('wallet.totalBalance')}:</PeachText>
-          <BTCAmount style={[tw`self-center`, isRefreshing ? tw`opacity-60` : {}]} amount={balance} size="large" />
-          {(isRefreshing || walletLoading) && <Loading style={tw`absolute`} />}
+          <BTCAmount style={[tw`self-center`, isRefetching && tw`opacity-60`]} amount={balance} size="large" />
+          {(isRefetching || isLoading) && <Loading style={tw`absolute`} />}
 
           <View>
             <PeachText style={tw`button-medium`}>{i18n('wallet.withdrawTo')}:</PeachText>
@@ -105,7 +92,7 @@ export const TestViewPeachWallet = () => {
           </Button>
 
           <Divider />
-          <Button onPress={() => refresh()} iconId="refreshCcw">
+          <Button onPress={() => refetch()} iconId="refreshCcw">
             sync wallet
           </Button>
 

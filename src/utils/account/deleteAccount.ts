@@ -1,7 +1,6 @@
 import analytics from '@react-native-firebase/analytics'
 import { useConfigStore } from '../../store/configStore/configStore'
 import { offerPreferencesStorage } from '../../store/offerPreferenes/useOfferPreferences'
-import { useSessionStore } from '../../store/sessionStore'
 import { settingsStorage } from '../../store/settingsStore/settingsStorage'
 import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
@@ -28,14 +27,9 @@ export const deleteAccount = () => {
     settingsStorage,
     notificationStorage,
   ].forEach((storage) => storage.clearStore())
-  ;[
-    useNotificationStore,
-    useConfigStore,
-    useWalletState,
-    useSettingsStore,
-    usePaymentDataStore,
-    useSessionStore,
-  ].forEach((store) => store.getState().reset())
+  ;[useNotificationStore, useConfigStore, useWalletState, useSettingsStore, usePaymentDataStore].forEach((store) =>
+    store.getState().reset(),
+  )
 
   peachAPI.setPeachAccount(null)
   analytics().logEvent('account_deleted')

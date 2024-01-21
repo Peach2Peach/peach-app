@@ -53,7 +53,7 @@ export const useCheckFundingMultipleEscrows = () => {
   const feeRate = useFeeRate()
   const addresses = keys(fundMultipleMap)
   const { refetch: refetchOffers } = useOfferSummaries(addresses.length > 0)
-  const { refetch: refresh } = useSyncWallet()
+  useSyncWallet({ refetchInterval: MSINAMINUTE })
 
   const checkAddress = useCallback(
     async (address: string) => {
@@ -90,10 +90,8 @@ export const useCheckFundingMultipleEscrows = () => {
   )
 
   const callback = useCallback(() => {
-    refresh()
-      .then(() => refetchOffers())
-      .then(() => Promise.all(addresses.map(checkAddress)))
-  }, [addresses, checkAddress, refetchOffers, refresh])
+    refetchOffers().then(() => Promise.all(addresses.map(checkAddress)))
+  }, [addresses, checkAddress, refetchOffers])
 
   useInterval({
     callback,

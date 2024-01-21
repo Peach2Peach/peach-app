@@ -1,7 +1,6 @@
 import { ok } from 'assert'
 import * as accountData from '../../../tests/unit/data/accountData'
 import { offerPreferencesStorage } from '../../store/offerPreferenes/useOfferPreferences'
-import { useSessionStore } from '../../store/sessionStore'
 import { settingsStorage } from '../../store/settingsStore/settingsStorage'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { peachAPI } from '../peachAPI'
@@ -18,7 +17,6 @@ describe('deleteAccount', () => {
 
   it('would delete account file', () => {
     const usePaymentDataStoreReset = jest.spyOn(usePaymentDataStore.getState(), 'reset')
-    const useSessionStoreReset = jest.spyOn(useSessionStore.getState(), 'reset')
     deleteAccount()
 
     expect(accountStorage.clearStore).toHaveBeenCalled()
@@ -27,7 +25,6 @@ describe('deleteAccount', () => {
     expect(settingsStorage.clearStore).toHaveBeenCalled()
     expect(offerPreferencesStorage.clearStore).toHaveBeenCalled()
     expect(usePaymentDataStoreReset).toHaveBeenCalled()
-    expect(useSessionStoreReset).toHaveBeenCalled()
     expect(peachAPI.apiOptions.peachAccount).toBeNull()
 
     ok(true)
