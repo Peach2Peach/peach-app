@@ -29,7 +29,7 @@ export const PeachWSContext = createContext(peachWS)
 export const useWebsocketContext = () => useContext(PeachWSContext)
 
 export const setWS = (_ws: WebSocket) => (ws = _ws)
-export const setPeachWS = (state: unknown, newPeachWS: PeachWS): PeachWS => {
+export const setPeachWS = (state: unknown, newPeachWS: PeachWS) => {
   peachWS = newPeachWS
 
   return peachWS

@@ -18,7 +18,7 @@ type Props = {
 
 export const FileInput = ({ fileName, onChange }: Props) => {
   const [loading, setLoading] = useState(false)
-  const selectFile = async (): Promise<FileData> => {
+  const selectFile = async () => {
     setLoading(true)
     try {
       const file = await DocumentPicker.pickSingle()
@@ -46,7 +46,7 @@ export const FileInput = ({ fileName, onChange }: Props) => {
           content: '',
         }
       }
-    } catch (err: unknown) {
+    } catch (err) {
       setLoading(false)
       if (!DocumentPicker.isCancel(err)) {
         // User cancelled the picker, exit any dialogs or menus and move on

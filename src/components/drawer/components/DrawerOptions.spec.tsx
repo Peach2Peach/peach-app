@@ -60,9 +60,8 @@ describe('DrawerOptions', () => {
       ],
     })
     const { rerender } = render(<DrawerOptions />)
-
     const scrollToSpy = jest.spyOn(ScrollView.prototype, 'scrollTo')
-
+    expect(scrollToSpy).toHaveBeenCalledWith({ y: 0, animated: false })
     act(() => {
       updateDrawer({
         content: <PeachText>testContent</PeachText>,
@@ -70,6 +69,7 @@ describe('DrawerOptions', () => {
       rerender(<DrawerOptions />)
     })
 
-    expect(scrollToSpy).toHaveBeenCalledWith({ y: 0, animated: false })
+    expect(scrollToSpy).toHaveBeenCalledTimes(2)
+    expect(scrollToSpy).toHaveBeenLastCalledWith({ y: 0, animated: false })
   })
 })

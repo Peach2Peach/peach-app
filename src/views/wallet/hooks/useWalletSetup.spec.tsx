@@ -16,7 +16,7 @@ const balance = 21000000
 describe('useWalletSetup', () => {
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
-    useWalletState.getState().setBalance(balance)
+    useWalletState.setState({ balance })
     peachWallet.initialized = true
   })
   beforeEach(() => {
@@ -39,8 +39,8 @@ describe('useWalletSetup', () => {
     const { result, rerender } = renderHook(useWalletSetup, { initialProps })
 
     expect(result.current.walletLoading).toBeTruthy()
+    await waitFor(() => expect(peachWallet.syncWallet).toHaveBeenCalled())
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
-    await waitFor(() => expect(peachWallet.syncWallet).toHaveBeenCalledTimes(1))
 
     rerender(initialProps)
     expect(peachWallet.syncWallet).toHaveBeenCalledTimes(1)

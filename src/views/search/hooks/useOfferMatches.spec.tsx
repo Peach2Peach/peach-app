@@ -59,7 +59,7 @@ describe('useOfferMatches', () => {
     })
   })
   it('should not remove matches when the user stays on the second page for 15 seconds', async () => {
-    const FIFTEEN = 15
+    const NUMBER_OF_SECONDS = 15
     const firstPage = Array(PAGESIZE).fill(match)
     const secondPage = [match]
 
@@ -78,7 +78,7 @@ describe('useOfferMatches', () => {
     })
 
     await waitFor(() => {
-      jest.advanceTimersByTime(MSINASECOND * FIFTEEN)
+      jest.advanceTimersByTime(MSINASECOND * NUMBER_OF_SECONDS)
     })
 
     expect(result.current.allMatches).toEqual([...firstPage, ...secondPage])
