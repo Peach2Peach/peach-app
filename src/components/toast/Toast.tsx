@@ -112,13 +112,7 @@ export const Toast = () => {
         </View>
         <View style={tw`flex-row items-center justify-between flex-1`}>
           {action && <Action {...action} color={color} />}
-          <Action
-            iconId="xSquare"
-            label={i18n('close')}
-            onPress={closeToast}
-            color={color}
-            style={tw`flex-row-reverse`}
-          />
+          <Action iconId="xSquare" label={i18n('close')} color={color} style={tw`flex-row-reverse`} />
         </View>
       </View>
     </Animated.View>
@@ -128,14 +122,20 @@ export const Toast = () => {
 type ActionProps = {
   iconId: IconType
   label: string
-  onPress: () => void
+  onPress?: () => void
   color: string | undefined
   style?: StyleProp<ViewStyle>
 }
 
 function Action ({ iconId, label, onPress, color, style }: ActionProps) {
+  const setToast = useSetToast()
+  const onPressHandler = () => {
+    if (onPress) onPress()
+    setToast(null)
+  }
+
   return (
-    <TouchableOpacity onPress={onPress} style={[tw`flex-row items-center flex-1 gap-1`, style]}>
+    <TouchableOpacity onPress={onPressHandler} style={[tw`flex-row items-center flex-1 gap-1`, style]}>
       <Icon id={iconId} size={16} color={color} />
       <PeachText style={[tw`subtitle-2`, { color }]}>{label}</PeachText>
     </TouchableOpacity>
