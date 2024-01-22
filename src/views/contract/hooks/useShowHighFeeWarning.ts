@@ -30,10 +30,7 @@ export const useShowHighFeeWarning = ({ enabled, amount }: Props) => {
       bodyArgs: [String(feeRate), (feesInPercent * CENT).toFixed(1)],
       color: 'yellow',
       action: {
-        onPress: () => {
-          navigation.navigate('networkFees')
-          setToast(null)
-        },
+        onPress: () => navigation.navigate('networkFees'),
         label: i18n('contract.warning.highFee.changeFee'),
         iconId: 'settings',
       },

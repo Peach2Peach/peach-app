@@ -26,10 +26,7 @@ export const useShowLowFeeWarning = ({ enabled }: Props) => {
       bodyArgs: [String(estimatedFees.minimumFee)],
       color: 'yellow',
       action: {
-        onPress: () => {
-          navigation.navigate('networkFees')
-          setToast(null)
-        },
+        onPress: () => navigation.navigate('networkFees'),
         label: i18n('contract.warning.lowFee.changeFee'),
         iconId: 'settings',
       },
