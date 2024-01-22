@@ -13,7 +13,6 @@ export const useHandleMissingPaymentData = () => {
 
   const openAddPaymentMethodDialog = useCallback(
     (offer: BuyOffer | SellOffer, currency: Currency, paymentMethod: PaymentMethod) => {
-      setToast(null)
       const existingPaymentMethodsOfType = getAllPaymentDataByType(paymentMethod).length + 1
       const label = `${i18n(`paymentMethod.${paymentMethod}`)} #${existingPaymentMethodsOfType}`
 
@@ -29,7 +28,7 @@ export const useHandleMissingPaymentData = () => {
         origin: isBuyOffer(offer) ? 'matchDetails' : 'search',
       })
     },
-    [getAllPaymentDataByType, navigation, setToast],
+    [getAllPaymentDataByType, navigation],
   )
 
   const handleMissingPaymentData = useCallback(
