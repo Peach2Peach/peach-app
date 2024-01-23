@@ -12,18 +12,6 @@ import { isIOS } from './src/utils/system/isIOS'
 import { isProduction } from './src/utils/system/isProduction'
 import { useNotificationStore } from './src/views/home/notificationsStore'
 
-LogBox.ignoreLogs([
-  'Non-serializable values were found in the navigation state',
-  /ViewPropTypes will be removed from React Native./u,
-  /RCTBridge required dispatch_sync/u,
-  /Can't perform a React state update on an unmounted component/u,
-  /Require cycle/u,
-  // Webview (shadows)
-  /Did not receive response to shouldStartLoad in time/u,
-  /startLoadWithResult invoked with invalid lockIdentifier/u,
-  /ERROR/u,
-])
-
 LogBox.ignoreAllLogs(isProduction())
 
 try {
