@@ -7,14 +7,17 @@ import { parseError } from '../../../utils/result/parseError'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 
 const MINUTES_OF_STALE_TIME = 10
-export const useSyncWallet = ({ refetchInterval }: { refetchInterval?: number } = {}) => {
+
+type Props = { refetchInterval?: number; enabled?: boolean }
+
+export const useSyncWallet = ({ refetchInterval, enabled = false }: Props = {}) => {
   const queryData = useQuery({
     queryKey: ['syncWallet'],
     queryFn: async () => {
       await peachWallet.syncWallet()
       return true
     },
-    enabled: !!peachWallet?.initialized,
+    enabled: enabled && !!peachWallet?.initialized,
     staleTime: MSINAMINUTE * MINUTES_OF_STALE_TIME,
     refetchInterval,
   })

@@ -137,7 +137,6 @@ describe('useFundEscrowSetup', () => {
     peachWallet.initialized = true
     saveOffer(sellOfferWithEscrow)
 
-    const syncWalletSpy = jest.spyOn(peachWallet, 'syncWallet')
     const internalAddress = 'internalAddress'
     useWalletState.getState().registerFundMultiple(internalAddress, [sellOfferWithEscrow.id])
     renderHook(useFundEscrowSetup)
@@ -146,6 +145,6 @@ describe('useFundEscrowSetup', () => {
       await jest.advanceTimersByTimeAsync(MSINAMINUTE * 2)
     })
 
-    expect(syncWalletSpy).toHaveBeenCalledTimes(2)
+    expect(peachWallet.syncWallet).toHaveBeenCalledTimes(2)
   })
 })
