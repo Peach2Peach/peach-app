@@ -1,28 +1,28 @@
 import { useCallback } from 'react'
 import i18n from '../../../utils/i18n'
 import { error } from '../../../utils/log/error'
-import { useMessageState } from '../../message/useMessageState'
+import { useSetToast } from '../../toast/Toast'
 
-const Levels: Record<string, Level> = {
-  NOT_FOUND: 'WARN',
-  CANNOT_DOUBLEMATCH: 'WARN',
+const colors: Record<string, 'yellow'> = {
+  NOT_FOUND: 'yellow',
+  CANNOT_DOUBLEMATCH: 'yellow',
 }
 
 export const useHandleError = () => {
-  const updateMessage = useMessageState((state) => state.updateMessage)
+  const setToast = useSetToast()
 
   const handleError = useCallback(
     (err: APIError | null) => {
       error('Error', err)
       if (err?.error) {
         const msgKey = err?.error === 'NOT_FOUND' ? 'OFFER_TAKEN' : err?.error
-        updateMessage({
+        setToast({
           msgKey: msgKey || i18n('error.general', ((err?.details as string[]) || []).join(', ')),
-          level: Levels[err?.error] || 'ERROR',
+          color: colors[err?.error] || 'red',
         })
       }
     },
-    [updateMessage],
+    [setToast],
   )
 
   return handleError

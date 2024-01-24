@@ -25,6 +25,7 @@ import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
 import { getMessages } from '../../utils/validation/getMessages'
 import { isValidBitcoinSignature } from '../../utils/validation/isValidBitcoinSignature'
+import { getNetwork } from '../../utils/wallet/getNetwork'
 import { NewLoadingScreen } from '../loading/LoadingScreen'
 import { usePatchReleaseAddress } from './components/usePatchReleaseAddress'
 
@@ -85,12 +86,12 @@ function ScreenContent ({ onSubmit }: ScreenContentProps) {
 
   const signatureValid = useMemo(() => {
     if (!signatureExists) return false
-    return isValidBitcoinSignature(message, address, signature)
+    return isValidBitcoinSignature({ message, address, signature, network: getNetwork() })
   }, [signatureExists, message, address, signature])
 
   const signatureError = useMemo(() => {
     let errs = requiredErrors
-    if (!isValidBitcoinSignature(message, address, signature)) {
+    if (!isValidBitcoinSignature({ message, address, signature, network: getNetwork() })) {
       errs = [...errs, getMessages().signature]
     }
     return errs

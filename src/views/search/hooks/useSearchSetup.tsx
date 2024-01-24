@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useMessageState } from '../../../components/message/useMessageState'
+import { useSetToast } from '../../../components/toast/Toast'
 import { FIFTEEN_SECONDS } from '../../../constants'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useNavigation } from '../../../hooks/useNavigation'
@@ -19,7 +19,7 @@ export const useSearchSetup = () => {
   const { offerId } = useRoute<'search'>().params
   const { allMatches: matches, error, refetch } = useOfferMatches(offerId, FIFTEEN_SECONDS)
 
-  const updateMessage = useMessageState((state) => state.updateMessage)
+  const setToast = useSetToast()
   const { offer } = useOfferDetails(offerId)
 
   useEffect(() => {
@@ -30,10 +30,10 @@ export const useSearchSetup = () => {
         return
       }
       if (errorMessage !== 'UNAUTHORIZED') {
-        updateMessage({ msgKey: errorMessage, level: 'ERROR' })
+        setToast({ msgKey: errorMessage, color: 'red' })
       }
     }
-  }, [error, navigation, offerId, updateMessage])
+  }, [error, navigation, setToast])
 
   useRefetchOnNotification(refetch)
 

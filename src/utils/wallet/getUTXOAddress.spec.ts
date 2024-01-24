@@ -8,7 +8,8 @@ describe('getUTXOAddress', () => {
   const address = 'address'
   const vout = 1
   const outpoint = new OutPoint(confirmed1.txid, vout)
-  const txOut = new TxOut(10000, new Script(address))
+  const value = 10000
+  const txOut = new TxOut(value, new Script(address))
   const utxo1 = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
 
   it('returns the address of a UTXO', async () => {

@@ -26,9 +26,7 @@ export const defaultSettings: Settings = {
   payoutAddressSignature: undefined,
   payoutToPeachWallet: true,
   derivationPath: undefined,
-  feeRate: 'halfHourFee',
 
-  pgpPublished: undefined,
   fcmToken: undefined,
   usedReferralCode: undefined,
 }

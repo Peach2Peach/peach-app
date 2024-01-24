@@ -1,5 +1,5 @@
+import { ScrollView } from 'react-native'
 import { act, render } from 'test-utils'
-import { PeachScrollView } from '../../PeachScrollView'
 import { PeachText } from '../../text/PeachText'
 import { defaultState, useDrawerState } from '../useDrawerState'
 import { DrawerOptions } from './DrawerOptions'
@@ -50,7 +50,7 @@ describe('DrawerOptions', () => {
     const { toJSON } = render(<DrawerOptions />)
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should scroll back to the top when either options or content changes', () => {
+  it('scrolls to top when options or content change', () => {
     updateDrawer({
       options: [
         {
@@ -59,10 +59,9 @@ describe('DrawerOptions', () => {
         },
       ],
     })
-    const { rerender, UNSAFE_getByType } = render(<DrawerOptions />)
-    // @ts-ignore
-    const scrollViewRef = UNSAFE_getByType(PeachScrollView)._fiber.ref.current
-    expect(scrollViewRef.scrollTo).toHaveBeenCalledWith({ y: 0, animated: false })
+    const { rerender } = render(<DrawerOptions />)
+    const scrollToSpy = jest.spyOn(ScrollView.prototype, 'scrollTo')
+    expect(scrollToSpy).toHaveBeenCalledWith({ y: 0, animated: false })
     act(() => {
       updateDrawer({
         content: <PeachText>testContent</PeachText>,
@@ -70,7 +69,7 @@ describe('DrawerOptions', () => {
       rerender(<DrawerOptions />)
     })
 
-    expect(scrollViewRef.scrollTo).toHaveBeenCalledTimes(2)
-    expect(scrollViewRef.scrollTo).toHaveBeenLastCalledWith({ y: 0, animated: false })
+    expect(scrollToSpy).toHaveBeenCalledTimes(2)
+    expect(scrollToSpy).toHaveBeenLastCalledWith({ y: 0, animated: false })
   })
 })

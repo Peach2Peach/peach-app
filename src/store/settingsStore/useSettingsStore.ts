@@ -2,7 +2,6 @@ import analytics from '@react-native-firebase/analytics'
 import perf from '@react-native-firebase/perf'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { Locale } from '../../utils/i18n'
 import { createPersistStorage } from '../createPersistStorage'
 import { defaultSettings } from './defaultSettings'
 import { getPureSettingsState } from './helpers/getPureSettingsState'
@@ -21,16 +20,14 @@ export type SettingsStore = Settings & {
   setPayoutAddress: (payoutAddress: string | undefined) => void
   setPayoutAddressLabel: (payoutAddressLabel: string | undefined) => void
   setPayoutAddressSignature: (payoutAddressSignature: string) => void
-  setLocale: (locale: Locale) => void
+  setLocale: (locale: string) => void
   setDisplayCurrency: (displayCurrency: Currency) => void
   updateSeedBackupDate: () => void
   updateFileBackupDate: () => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
   setRefundToPeachWallet: (refundToPeachWallet: boolean) => void
   setPayoutToPeachWallet: (payoutToPeachWallet: boolean) => void
-  setFeeRate: (feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee') => void
   setUsedReferralCode: (usedReferralCode: boolean) => void
-  setPGPPublished: (pgpPublished: boolean) => void
   setFCMToken: (fcmToken: string) => void
   setCloudflareChallenge: (cloudflareChallenge: Settings['cloudflareChallenge']) => void
 }
@@ -72,9 +69,7 @@ export const useSettingsStore = create(
         set({ showBackupReminder, shouldShowBackupOverlay: showBackupReminder }),
       setRefundToPeachWallet: (refundToPeachWallet) => set({ refundToPeachWallet }),
       setPayoutToPeachWallet: (payoutToPeachWallet) => set({ payoutToPeachWallet }),
-      setFeeRate: (feeRate) => set({ feeRate }),
       setUsedReferralCode: (usedReferralCode) => set({ usedReferralCode }),
-      setPGPPublished: (pgpPublished) => set({ pgpPublished }),
       setFCMToken: (fcmToken) => set({ fcmToken }),
       setCloudflareChallenge: (cloudflareChallenge) => set({ cloudflareChallenge }),
     }),

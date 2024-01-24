@@ -1,9 +1,9 @@
 import { API_URL } from '@env'
 import { useCallback, useMemo } from 'react'
 import { Image, View } from 'react-native'
+import { useMeetupEvents } from '../../hooks/query/useMeetupEvents'
 import { useRoute } from '../../hooks/useRoute'
 import { InfoPopup } from '../../popups/InfoPopup'
-import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout/headerIcons'
@@ -70,8 +70,8 @@ function MeetupScreenHeader () {
     () => setPopup(<DeletePaymentMethodPopup id={`cash.${eventId}`} />),
     [eventId, setPopup],
   )
-
-  const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
+  const { data: meetupEvents } = useMeetupEvents()
+  const title = meetupEvents?.find(({ id }) => id === eventId)?.shortName || eventId
 
   const icons = useMemo(() => {
     const icns = [{ ...headerIcons.help, onPress: showHelp }]
@@ -81,21 +81,25 @@ function MeetupScreenHeader () {
     return icns
   }, [deletable, deletePaymentMethod, showHelp])
 
-  return <Header title={getMeetupEvent(eventId)?.shortName} icons={icons} />
+  return <Header title={title} icons={icons} />
 }
 
 function CashTradesPopup () {
   const bulletPoints = []
-  for (let i = 1; i < 5; i++) bulletPoints.push(<BulletPoint key={i} text={i18n(`tradingCash.point.${i}`)} />)
+  const start = 1
+  const numerOfBulletPoints = 4
+  for (let i = start; i < start + numerOfBulletPoints; i++) {
+    bulletPoints.push(<BulletPoint key={i} text={i18n(`tradingCash.point.${i}`)} />)
+  }
 
   return (
     <InfoPopup
       title={i18n('tradingCash')}
       content={
-        <>
-          <PeachText style={tw`mb-3`}>{i18n('tradingCash.text')}</PeachText>
-          {bulletPoints}
-        </>
+        <View style={tw`gap-3`}>
+          <PeachText>{i18n('tradingCash.text')}</PeachText>
+          <View>{bulletPoints}</View>
+        </View>
       }
     />
   )

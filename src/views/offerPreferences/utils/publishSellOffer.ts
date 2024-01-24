@@ -1,4 +1,3 @@
-import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
 import { info } from '../../../utils/log/info'
 import { interpolate } from '../../../utils/math/interpolate'
 import { isSellOffer } from '../../../utils/offer/isSellOffer'
@@ -6,6 +5,7 @@ import { saveOffer } from '../../../utils/offer/saveOffer'
 import { peachAPI } from '../../../utils/peachAPI'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
+import { MAX_NUMBER_OF_PEACHES } from '../../settings/profile/profileOverview/Rating'
 
 export const publishSellOffer = async (offerDraft: SellOfferDraft) => {
   info('Posting sell offer')
@@ -13,19 +13,13 @@ export const publishSellOffer = async (offerDraft: SellOfferDraft) => {
   const instantTradeCriteria = offerDraft.instantTradeCriteria
     ? {
       ...offerDraft.instantTradeCriteria,
-      minReputation: interpolate(offerDraft.instantTradeCriteria.minReputation, [0, 5], [-1, 1]),
+      minReputation: interpolate(offerDraft.instantTradeCriteria.minReputation, [0, MAX_NUMBER_OF_PEACHES], [-1, 1]),
     }
     : undefined
 
   const payload = { type, amount, premium, meansOfPayment, paymentData, returnAddress, multi, instantTradeCriteria }
 
-  let { result, error: err } = await peachAPI.private.offer.postSellOffer(payload)
-  if (err?.error === 'PGP_MISSING') {
-    await publishPGPPublicKey()
-    const response = await peachAPI.private.offer.postSellOffer(payload)
-    result = response.result
-    err = response.error
-  }
+  const { result, error: err } = await peachAPI.private.offer.postSellOffer(payload)
 
   if (result) {
     if (!Array.isArray(result)) {
@@ -54,7 +48,8 @@ async function handleMultipleOffersPublished (result: SellOffer[], offerDraft: S
   result.forEach((offer) => saveOffer({ ...offerDraft, ...offer }))
 
   const internalAddress = await peachWallet.getInternalAddress()
-  const newInternalAddress = await peachWallet.getInternalAddress(internalAddress.index + 10)
+  const diffToNextAddress = 10
+  const newInternalAddress = await peachWallet.getInternalAddress(internalAddress.index + diffToNextAddress)
   useWalletState.getState().registerFundMultiple(
     newInternalAddress.address,
     result.map((offer) => offer.id),

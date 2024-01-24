@@ -4,12 +4,12 @@ import { PopupAction } from '../../components/popup/PopupAction'
 import { PopupComponent } from '../../components/popup/PopupComponent'
 import { ClosePopupAction } from '../../components/popup/actions/ClosePopupAction'
 import { LoadingPopupAction } from '../../components/popup/actions/LoadingPopupAction'
+import { MSINAMINUTE } from '../../constants'
 import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
 import tw from '../../styles/tailwind'
 import { getSellOfferFromContract } from '../../utils/contract/getSellOfferFromContract'
 import { getWalletLabelFromContract } from '../../utils/contract/getWalletLabelFromContract'
 import i18n from '../../utils/i18n'
-import { getOfferExpiry } from '../../utils/offer/getOfferExpiry'
 import { saveOffer } from '../../utils/offer/saveOffer'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { peachAPI } from '../../utils/peachAPI'
@@ -20,25 +20,22 @@ import { cancelContractAsSeller } from './cancelContractAsSeller'
 export function ConfirmTradeCancelationPopup ({ contract, view }: { contract: Contract; view: ContractViewer }) {
   const setPopup = useSetPopup()
   const closePopup = useClosePopup()
-  const { mutate: cancelSeller } = useContractMutation(
-    {},
-    {
-      mutationFn: async () => {
-        setPopup(<CancelPopup contract={contract} view={view} />)
+  const { mutate: cancelSeller } = useContractMutation(contract, {
+    mutationFn: async () => {
+      setPopup(<CancelPopup contract={contract} view={view} />)
 
-        const { result, error } = await cancelContractAsSeller(contract)
+      const { result, error } = await cancelContractAsSeller(contract)
 
-        if (error) throw new Error(error)
-        return result
-      },
-      onSuccess: (result) => {
-        const { sellOffer } = result
-        if (sellOffer) saveOffer(sellOffer)
-      },
+      if (error) throw new Error(error)
+      return result
     },
-  )
+    onSuccess: (result) => {
+      const { sellOffer } = result
+      if (sellOffer) saveOffer(sellOffer)
+    },
+  })
   const { mutate: cancelBuyer } = useContractMutation(
-    { canceled: true, tradeStatus: 'tradeCanceled' },
+    { id: contract.id, canceled: true, tradeStatus: 'tradeCanceled' },
     {
       mutationFn: async () => {
         setPopup(
@@ -87,7 +84,7 @@ function CancelPopup ({ contract, view }: { contract: Contract; view: ContractVi
   )
   const { paymentMethod, id } = contract
   const isCash = isCashTrade(paymentMethod)
-  const canRepublish = !getOfferExpiry(getSellOfferFromContract(contract)).isExpired
+  const canRepublish = !isOfferExpired(getSellOfferFromContract(contract))
   const walletName = getWalletLabelFromContract({
     contract,
     customAddress,
@@ -107,4 +104,14 @@ function CancelPopup ({ contract, view }: { contract: Contract; view: ContractVi
       actions={<ClosePopupAction style={tw`justify-center`} />}
     />
   )
+}
+
+function isOfferExpired (offer: SellOffer) {
+  const NUMBER_OF_MINUTES = 10
+  const ttl = (offer.funding.expiry * NUMBER_OF_MINUTES * MSINAMINUTE) / 2
+
+  const date = new Date(offer.publishingDate || offer.creationDate)
+  date.setMilliseconds(+ttl)
+
+  return new Date() > date
 }

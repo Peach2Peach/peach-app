@@ -17,7 +17,8 @@ export const DrawerHeader = ({ closeDrawer }: Props) => {
   const registerTouchStart = (e: GestureResponderEvent) => setTouchY(e.nativeEvent.pageY)
   const registerTouchMove = (e: GestureResponderEvent) => {
     if (touchY === undefined) return
-    if (touchY - e.nativeEvent.pageY < -20) {
+    const SCROLL_THRESHOLD = 20
+    if (touchY - e.nativeEvent.pageY < -SCROLL_THRESHOLD) {
       closeDrawer()
       setTouchY(undefined)
     }

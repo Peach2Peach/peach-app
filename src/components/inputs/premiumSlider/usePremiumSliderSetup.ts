@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { round } from '../../../utils/math/round'
@@ -6,24 +6,15 @@ import { round } from '../../../utils/math/round'
 const MIN = -21
 const MAX = 21
 const DELTA = MAX - MIN
-const KNOBWIDTH = tw`w-8`.width as number
+export const KNOBWIDTH = tw`w-8`.width as number
+export const DEFAULT_WIDTH = 260
 
 export const usePremiumSliderSetup = (
   premium: number,
   setPremium: (newPremium: number, isValid?: boolean | undefined) => void,
 ) => {
   const [isSliding, setIsSliding] = useState(false)
-  const [trackWidth, setTrackWidth] = useState(260)
-  const labelPosition = useMemo(
-    () => [
-      -trackWidth / 2,
-      round((11 / DELTA) * trackWidth) - trackWidth / 2,
-      0,
-      round((31 / DELTA) * trackWidth) - trackWidth / 2,
-      trackWidth - trackWidth / 2,
-    ],
-    [trackWidth],
-  )
+  const [trackWidth, setTrackWidth] = useState(DEFAULT_WIDTH)
 
   const pan = useRef(new Animated.Value(((premium - MIN) / DELTA) * trackWidth)).current
 
@@ -68,5 +59,5 @@ export const usePremiumSliderSetup = (
     setTrackWidth(newTrackWidth)
   }
 
-  return { pan, panResponder, onLayout, trackWidth, knobWidth: KNOBWIDTH, labelPosition, min: MIN, max: MAX }
+  return { pan, panResponder, onLayout, trackWidth, knobWidth: KNOBWIDTH, min: MIN, max: MAX }
 }

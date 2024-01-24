@@ -36,7 +36,10 @@ export const EditPremium = () => {
   }
 
   const displayCurrency = (Object.keys(offer?.meansOfPayment ?? {})[0] as Currency) ?? 'EUR'
-  const currentPrice = offer && isSuccess ? getOfferPrice(offer?.amount, displayPremium, priceBook, displayCurrency) : 0
+  const currentPrice
+    = offer && isSuccess
+      ? getOfferPrice({ amount: offer?.amount, premium: displayPremium, prices: priceBook, currency: displayCurrency })
+      : 0
 
   return (
     <Screen header={<EditPremiumHeader />}>
@@ -68,12 +71,13 @@ type Props = {
   newPremium: number
 }
 function ConfirmButton ({ offerId, newPremium }: Props) {
-  const { mutate: confirmPremium } = usePatchOffer()
+  const { mutate: confirmPremium, isLoading } = usePatchOffer()
   const navigation = useNavigation()
   return (
     <Button
       onPress={() => confirmPremium({ offerId, newData: { premium: newPremium } }, { onSuccess: navigation.goBack })}
       style={tw`self-center`}
+      loading={isLoading}
     >
       {i18n('confirm')}
     </Button>

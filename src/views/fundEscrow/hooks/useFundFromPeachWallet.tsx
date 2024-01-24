@@ -51,7 +51,7 @@ export const useFundFromPeachWallet = () => {
   const showErrorBanner = useShowErrorBanner()
   const handleTransactionError = useHandleTransactionError()
   const optimisticTxHistoryUpdate = useOptimisticTxHistoryUpdate()
-  const { refresh: syncPeachWallet } = useSyncWallet()
+  const { refetch: syncPeachWallet } = useSyncWallet()
 
   const feeRate = useFeeRate()
   const [setFundedFromPeachWallet, unregisterFundMultiple] = useWalletState(
@@ -137,7 +137,7 @@ export const useFundFromPeachWallet = () => {
         />,
       )
     },
-    [feeRate, handleTransactionError, minTradingAmount, onSuccess, setPopup, showErrorBanner],
+    [feeRate, handleTransactionError, minTradingAmount, onSuccess, setPopup, showErrorBanner, syncPeachWallet],
   )
 
   return fundFromPeachWallet

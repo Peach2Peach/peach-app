@@ -19,7 +19,7 @@ describe('getSelectedPaymentDataIds', () => {
 
     const result = getSelectedPaymentDataIds(preferredPaymentMethods)
 
-    expect(getPaymentMethodInfoMock).toHaveBeenCalledTimes(3)
+    expect(getPaymentMethodInfoMock).toHaveBeenCalledTimes(Object.keys(preferredPaymentMethods).length)
     expect(result).toEqual(['sepa-1', 'paypal-1'])
   })
 

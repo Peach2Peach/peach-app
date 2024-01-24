@@ -1,15 +1,17 @@
 /* eslint-disable no-magic-numbers */
-/* eslint-disable max-lines */
 import { TxBuilder } from 'bdk-rn'
 import { act } from 'react-test-renderer'
-import { fireEvent, render, renderHook } from 'test-utils'
+import { fireEvent, render, renderHook, responseUtils } from 'test-utils'
+import { defaultUser } from '../../../../peach-api/src/testData/userData'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Popup } from '../../../components/popup/Popup'
 import { useConfigStore } from '../../../store/configStore/configStore'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
+import { peachAPI } from '../../../utils/peachAPI'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useFundFromPeachWallet } from './useFundFromPeachWallet'
@@ -28,6 +30,11 @@ const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
 }))
+jest.useFakeTimers()
+
+jest
+  .spyOn(peachAPI.private.user, 'getSelfUser')
+  .mockResolvedValue({ result: { ...defaultUser, feeRate: estimatedFees.halfHourFee }, ...responseUtils })
 
 describe('useFundFromPeachWallet', () => {
   const offerId = sellOffer.id
@@ -41,8 +48,7 @@ describe('useFundFromPeachWallet', () => {
     useConfigStore.getState().setMinTradingAmount(minTradingAmount)
   })
   beforeEach(() => {
-    // @ts-expect-error mock doesn't need args
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
   })
   it('should return default values', () => {
     const { result } = renderHook(useFundFromPeachWallet)

@@ -6,6 +6,9 @@ import { PaymentLogo } from '../../payment/PaymentLogo'
 import { FixedHeightText } from '../../text/FixedHeightText'
 import { PeachText } from '../../text/PeachText'
 
+const flagSubtextHeight = 17
+const defaultSubtextHeight = 22
+
 export const DrawerOption = ({
   logoID,
   flagID,
@@ -39,7 +42,7 @@ export const DrawerOption = ({
 
     <View style={[tw`justify-center grow`, flagID && tw`gap-2px`]}>
       {flagID || logoID || !subtext ? (
-        <FixedHeightText height={flagID && subtext ? 17 : 22} style={tw`input-title`}>
+        <FixedHeightText height={flagID && subtext ? flagSubtextHeight : defaultSubtextHeight} style={tw`input-title`}>
           {title}
         </FixedHeightText>
       ) : (

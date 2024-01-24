@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
 import { PeachText } from '../text/PeachText'
 
-type Props = ComponentProps & {
+type Props = {
   display: ReactNode
   isSelected: boolean
   onPress: () => void
@@ -15,7 +15,7 @@ export const RadioButtonItem = ({ display, isSelected, disabled, onPress }: Prop
     onPress={onPress}
     disabled={disabled}
     style={[
-      tw`flex-row items-center justify-between w-full px-4 py-2 border-2 bg-primary-background-dark rounded-xl`,
+      tw`flex-row items-center justify-between w-full gap-2 px-4 py-2 border-2 bg-primary-background-dark rounded-xl`,
       disabled && tw`opacity-50`,
       isSelected ? tw`border-primary-main` : tw`border-transparent`,
     ]}

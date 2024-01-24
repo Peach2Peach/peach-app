@@ -9,7 +9,7 @@ jest.mock('@react-native-firebase/messaging', () => () => ({
 }))
 
 const updateUserMock = jest.fn().mockResolvedValue([{ success: true }, null])
-jest.mock('../utils/peachAPI', () => ({
+jest.mock('../utils/peachAPI/updateUser', () => ({
   updateUser: (...args: unknown[]) => updateUserMock(...args),
 }))
 describe('userUpdate', () => {
@@ -27,16 +27,12 @@ describe('userUpdate', () => {
     const newToken = 'otherToken'
     setAccount(account1)
     getTokenMock.mockResolvedValueOnce(newToken)
-    useSettingsStore.setState({
-      fcmToken,
-      pgpPublished: false,
-    })
+    useSettingsStore.setState({ fcmToken })
     await userUpdate(referralCode)
     expect(getTokenMock).toHaveBeenCalled()
     expect(updateUserMock).toHaveBeenCalledWith({
       referralCode,
       fcmToken: newToken,
-      pgp: account1.pgp,
     })
   })
 })

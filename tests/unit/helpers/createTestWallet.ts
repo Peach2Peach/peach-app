@@ -1,6 +1,6 @@
+import ecc from '@bitcoinerlab/secp256k1'
 import BIP32Factory from 'bip32'
 import { networks } from 'bitcoinjs-lib'
-const ecc = require('tiny-secp256k1')
 const bip32 = BIP32Factory(ecc)
 
 const defaultBase58

@@ -88,7 +88,7 @@ function SeedPhrasePopup () {
     <InfoPopup
       title={i18n('settings.backups.seedPhrase.popup.title')}
       content={
-        <PeachText style={tw`body-m`}>
+        <PeachText>
           {i18n('settings.backups.seedPhrase.popup.text.1')}
           {'\n\n'}
           <PeachText style={tw`font-bold`}>{i18n('settings.backups.seedPhrase.popup.text.2')}</PeachText>

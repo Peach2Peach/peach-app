@@ -893,7 +893,7 @@ exports[`EditPremium should render correctly 1`] = `
                       "width": "100%",
                     },
                     {
-                      "left": -62,
+                      "left": -65,
                     },
                   ]
                 }
@@ -947,7 +947,7 @@ exports[`EditPremium should render correctly 1`] = `
                       "width": "100%",
                     },
                     {
-                      "left": 62,
+                      "left": 65,
                     },
                   ]
                 }
@@ -1090,7 +1090,7 @@ exports[`EditPremium should render correctly 1`] = `
                       "width": "100%",
                     },
                     {
-                      "left": -62,
+                      "left": -65,
                     },
                     undefined,
                   ]
@@ -1178,7 +1178,7 @@ price
                       "width": "100%",
                     },
                     {
-                      "left": 62,
+                      "left": 65,
                     },
                     undefined,
                   ]
@@ -1267,7 +1267,7 @@ price
             {
               "busy": undefined,
               "checked": undefined,
-              "disabled": undefined,
+              "disabled": false,
               "expanded": undefined,
               "selected": undefined,
             }

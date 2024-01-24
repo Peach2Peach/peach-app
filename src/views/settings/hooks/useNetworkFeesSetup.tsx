@@ -1,66 +1,70 @@
-import { useEffect, useState } from 'react'
-import { shallow } from 'zustand/shallow'
-import { useMessageState } from '../../../components/message/useMessageState'
-import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
+import { User } from '../../../../peach-api/src/@types/user'
+import { useSetToast } from '../../../components/toast/Toast'
+import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useValidatedState } from '../../../hooks/useValidatedState'
-import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
-import { updateUser } from '../../../utils/peachAPI'
+import { updateUser } from '../../../utils/peachAPI/updateUser'
 
 const customFeeRules = {
   required: true,
   feeRate: true,
 }
 export const useNetworkFeesSetup = () => {
-  const updateMessage = useMessageState((state) => state.updateMessage)
-  const { estimatedFees } = useFeeEstimate()
+  const setToast = useSetToast()
 
-  const [feeRate, setFeeRate] = useSettingsStore((state) => [state.feeRate, state.setFeeRate], shallow)
+  const { user } = useSelfUser()
+  const feeRate = user?.feeRate
 
-  const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate | 'custom'>(
-    typeof feeRate === 'number' ? 'custom' : feeRate,
-  )
-  const [customFeeRate, setCustomFeeRate, isValidCustomFeeRate] = useValidatedState(
-    typeof feeRate === 'number' ? feeRate.toString() : '',
+  const defaultFeeRate = feeRate ? (typeof feeRate === 'number' ? 'custom' : feeRate) : 'halfHourFee'
+  const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate | 'custom'>()
+  const displayRate = selectedFeeRate ?? defaultFeeRate
+
+  const defaultCustomFeeRate = typeof feeRate === 'number' ? feeRate.toString() : ''
+  const [customFeeRate, setCustomFeeRate, isValidCustomFeeRate] = useValidatedState<string | undefined>(
+    undefined,
     customFeeRules,
   )
-  const [feeRateSet, setFeeRateSet] = useState(true)
+  const displayCustomRate = customFeeRate ?? defaultCustomFeeRate
 
-  const submit = async () => {
-    const finalFeeRate = selectedFeeRate !== 'custom' ? selectedFeeRate : Number(customFeeRate)
-    const [result, err] = await updateUser({
-      feeRate: finalFeeRate,
-    })
-    if (result) {
-      setFeeRate(finalFeeRate)
-      setFeeRateSet(true)
-    } else if (err && 'error' in err) {
-      updateMessage({
-        msgKey: err.error,
-        level: 'ERROR',
+  const queryClient = useQueryClient()
+  const finalFeeRate = displayRate === 'custom' ? Number(displayCustomRate) : displayRate
+  const { mutate } = useMutation({
+    onMutate: async () => {
+      await queryClient.cancelQueries(['user', 'self'])
+      const previousData = queryClient.getQueryData(['user', 'self'])
+      queryClient.setQueryData<User>(['user', 'self'], (old) => {
+        if (!old) return old
+        return {
+          ...old,
+          feeRate: finalFeeRate,
+        }
       })
-    }
-  }
+      return { previousData }
+    },
+    mutationFn: async () => {
+      const { error } = await updateUser({ feeRate: finalFeeRate })
+      if (error) throw new Error(error.error)
+    },
+    onError: (err: Error, variables, context) => {
+      queryClient.setQueryData(['user', 'self'], context?.previousData)
+      setToast({ msgKey: err.message, color: 'red' })
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['user', 'self'])
+    },
+  })
 
-  useEffect(() => {
-    if (!customFeeRate || isNaN(Number(customFeeRate)) || customFeeRate === '0') setCustomFeeRate('')
-  }, [customFeeRate, selectedFeeRate, setCustomFeeRate])
-
-  useEffect(() => {
-    if (selectedFeeRate === 'custom') {
-      setFeeRateSet(feeRate === Number(customFeeRate))
-    } else {
-      setFeeRateSet(feeRate === selectedFeeRate)
-    }
-  }, [customFeeRate, feeRate, selectedFeeRate, setCustomFeeRate])
+  const onChangeCustomFeeRate = (value: string) =>
+    setCustomFeeRate(!value || isNaN(Number(value)) || value === '0' ? '' : value)
 
   return {
-    estimatedFees,
-    selectedFeeRate,
+    selectedFeeRate: displayRate,
     setSelectedFeeRate,
-    customFeeRate,
-    setCustomFeeRate,
-    submit,
+    customFeeRate: displayCustomRate,
+    setCustomFeeRate: onChangeCustomFeeRate,
+    submit: () => mutate(),
     isValid: selectedFeeRate !== 'custom' || isValidCustomFeeRate,
-    feeRateSet,
+    feeRateSet: displayRate === 'custom' ? feeRate === Number(displayCustomRate) : feeRate === displayRate,
   }
 }

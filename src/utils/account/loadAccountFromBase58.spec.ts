@@ -5,8 +5,7 @@ describe('loadAccountFromBase58', () => {
   const privateKey = '80d12e8d17542fdc2377089de363ea716ebf7fd5fcad522d6a1e7bfa33e239e5'
 
   it('returns wallet', () => {
-    // @ts-ignore
-    const wallet = loadAccountFromBase58(account1.base58, account1.mnemonic)
+    const wallet = loadAccountFromBase58(account1.base58)
 
     expect(wallet.privateKey?.toString('hex')).toBe(privateKey)
   })

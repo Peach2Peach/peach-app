@@ -4,8 +4,8 @@ import tw from '../../styles/tailwind'
 import { useState } from 'react'
 import { Button } from '../../components/buttons/Button'
 import { Input } from '../../components/inputs/Input'
-import { useMessageState } from '../../components/message/useMessageState'
 import { PeachText } from '../../components/text/PeachText'
+import { useSetToast } from '../../components/toast/Toast'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useRoute } from '../../hooks/useRoute'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
@@ -18,7 +18,7 @@ export const LetsGetStarted = () => {
   const route = useRoute<'welcome'>()
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
-  const updateMessage = useMessageState((state) => state.updateMessage)
+  const setToast = useSetToast()
   const [referralCode, setReferralCode, referralCodeIsValid] = useValidatedState(
     route.params?.referralCode || '',
     referralCodeRules,
@@ -35,9 +35,9 @@ export const LetsGetStarted = () => {
     const { result, error } = await peachAPI.public.user.checkReferralCode({ code: referralCode })
     if (!result || error) return showError(error?.error)
     setWillUseReferralCode(result.valid)
-    return updateMessage({
+    return setToast({
       msgKey: result.valid ? 'referrals.myFavoriteCode' : 'referrals.codeNotFound',
-      level: 'DEFAULT',
+      color: 'white',
     })
   }
 

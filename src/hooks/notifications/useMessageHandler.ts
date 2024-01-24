@@ -2,7 +2,7 @@ import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useNavigationState } from '@react-navigation/native'
 import { useCallback } from 'react'
 import { AppState } from 'react-native'
-import { useMessageState } from '../../components/message/useMessageState'
+import { useSetToast } from '../../components/toast/Toast'
 import { info } from '../../utils/log/info'
 import { useOfferPopupEvents } from './eventHandler/offer/useOfferPopupEvents'
 import { useOverlayEvents } from './eventHandler/useOverlayEvents'
@@ -10,7 +10,7 @@ import { useStateUpdateEvents } from './eventHandler/useStateUpdateEvents'
 import { useGetPNActionHandler } from './useGetPNActionHandler'
 
 export const useMessageHandler = () => {
-  const updateMessage = useMessageState((state) => state.updateMessage)
+  const setToast = useSetToast()
   const currentPage = useNavigationState((state) => state?.routes[state.index].name)
   const getPNActionHandler = useGetPNActionHandler()
   const overlayEvents = useOverlayEvents()
@@ -33,15 +33,15 @@ export const useMessageHandler = () => {
       } else if (stateUpdateEvents[type]) {
         stateUpdateEvents[type]?.(data)
       } else if (AppState.currentState === 'active') {
-        updateMessage({
+        setToast({
           msgKey: `notification.${type}`,
           bodyArgs: remoteMessage.notification?.bodyLocArgs,
-          level: 'WARN',
+          color: 'yellow',
           action: getPNActionHandler(data),
         })
       }
     },
-    [currentPage, getPNActionHandler, offerPopupEvents, overlayEvents, stateUpdateEvents, updateMessage],
+    [currentPage, getPNActionHandler, offerPopupEvents, overlayEvents, stateUpdateEvents, setToast],
   )
   return onMessageHandler
 }

@@ -1,4 +1,5 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+import { Transaction } from 'bitcoinjs-lib'
 import { useState } from 'react'
 import { LayoutChangeEvent } from 'react-native'
 import { TabBar } from '../../../../components/ui/TabBar'
@@ -9,11 +10,12 @@ import { getOfferDataId } from './TransactionDetailsInfo'
 const Tab = createMaterialTopTabNavigator()
 
 type OutputInfoProps = {
-  transaction: TransactionSummary
+  transactionDetails: Transaction
+  transactionSummary: TransactionSummary
   receivingAddress?: string
 }
-export const OutputInfo = ({ transaction, receivingAddress }: OutputInfoProps) => {
-  const { type, offerData, amount } = transaction
+export const OutputInfo = ({ transactionDetails, transactionSummary, receivingAddress }: OutputInfoProps) => {
+  const { type, offerData, amount } = transactionSummary
   const [tabsHeight, setTabsHeight] = useState(Number(tw`h-30`.height))
   const adjustHeight = (event: LayoutChangeEvent) => {
     if (!event.nativeEvent.layout.height) return
@@ -31,13 +33,19 @@ export const OutputInfo = ({ transaction, receivingAddress }: OutputInfoProps) =
         <Tab.Screen
           key={`tab-screen-${getOfferDataId(offer)}`}
           name={getOfferDataId(offer)}
-          children={() => <OfferData onLayout={adjustHeight} {...offer} {...{ type, transaction }} />}
+          children={() => <OfferData onLayout={adjustHeight} {...offer} {...{ type, transactionDetails }} />}
         />
       ))}
     </Tab.Navigator>
   )
   if (offerData.length === 1) {
-    return <OfferData key={`tab-screen-${getOfferDataId(offerData[0])}`} {...offerData[0]} {...{ type, transaction }} />
+    return (
+      <OfferData
+        key={`tab-screen-${getOfferDataId(offerData[0])}`}
+        {...offerData[0]}
+        {...{ type, transactionDetails }}
+      />
+    )
   }
-  return <OfferData {...{ address: receivingAddress, amount, type, transaction }} />
+  return <OfferData {...{ address: receivingAddress, amount, type, transactionDetails }} />
 }

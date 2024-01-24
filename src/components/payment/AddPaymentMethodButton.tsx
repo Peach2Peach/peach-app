@@ -17,7 +17,7 @@ type Props = ComponentProps & {
 export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
   const navigation = useNavigation()
   const updateDrawer = useDrawerState((state) => state.updateDrawer)
-  const { meetupEvents, isLoading } = useMeetupEvents()
+  const { data: meetupEvents, isLoading } = useMeetupEvents()
   const addPaymentMethods = () => {
     navigation.navigate('selectCurrency', { origin: 'paymentMethods' })
   }

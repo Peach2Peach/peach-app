@@ -13,24 +13,24 @@ import { isLimitReached } from '../../utils/match/isLimitReached'
 import { saveOffer } from '../../utils/offer/saveOffer'
 import { cleanPaymentData } from '../../utils/paymentMethod/cleanPaymentData'
 import { encryptPaymentData } from '../../utils/paymentMethod/encryptPaymentData'
-import { getPaymentMethodName } from '../../utils/paymentMethod/getPaymentMethodName'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { peachAPI } from '../../utils/peachAPI'
 import { parseError } from '../../utils/result/parseError'
 import { decryptSymmetricKey } from '../../views/contract/helpers/decryptSymmetricKey'
 import { Icon } from '../Icon'
 import { ProfileInfo } from '../ProfileInfo'
 import { NewBubble as Bubble } from '../bubble/Bubble'
-import { useMessageState } from '../message/useMessageState'
 import { useSetPopup } from '../popup/Popup'
 import { PeachText } from '../text/PeachText'
 import { HorizontalLine } from '../ui/HorizontalLine'
 import { options } from './buttons/options'
 import { PriceInfo } from './components/PriceInfo'
 import { getPremiumOfMatchedOffer } from './getPremiumOfMatchedOffer'
+import { useCashPaymentMethodName } from './useCashPaymentMethodName'
 import { createRefundTx } from './utils/createRefundTx'
 import { getPaymentDataFromOffer } from './utils/getPaymentDataFromOffer'
-import { handleMissingPaymentData } from './utils/handleMissingPaymentData'
 import { useHandleError } from './utils/useHandleError'
+import { useHandleMissingPaymentData } from './utils/useHandleMissingPaymentData'
 
 export const Match = ({ match, offer, currentPage }: { match: Match; offer: SellOffer; currentPage: number }) => {
   const { selectedPaymentMethod, matched, user, unavailable, amount, matchedPrice, selectedCurrency } = match
@@ -71,10 +71,16 @@ export const Match = ({ match, offer, currentPage }: { match: Match; offer: Sell
           <View style={tw`gap-4`}>
             <PaymentDetail label={i18n('match.selectedCurrency')} value={selectedCurrency} />
             {selectedPaymentMethod && (
-              <PaymentDetail
-                label={i18n('match.selectedPaymentMethod')}
-                value={getPaymentMethodName(selectedPaymentMethod)}
-              />
+              <>
+                {isCashTrade(selectedPaymentMethod) ? (
+                  <CashPaymentDetail method={selectedPaymentMethod} />
+                ) : (
+                  <PaymentDetail
+                    label={i18n('match.selectedPaymentMethod')}
+                    value={i18n(`paymentMethod.${selectedPaymentMethod}`)}
+                  />
+                )}
+              </>
             )}
           </View>
         </View>
@@ -82,6 +88,12 @@ export const Match = ({ match, offer, currentPage }: { match: Match; offer: Sell
       </View>
     </View>
   )
+}
+
+function CashPaymentDetail ({ method }: { method: `cash.${string}` }) {
+  const value = useCashPaymentMethodName(method)
+
+  return <PaymentDetail label={i18n('match.selectedPaymentMethod')} value={value} />
 }
 
 function PaymentDetail ({ label, value }: { label: string; value?: string }) {
@@ -127,9 +139,9 @@ function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) 
   const { selectedCurrency, selectedPaymentMethod, offerId } = match
   const queryClient = useQueryClient()
   const navigation = useNavigation()
-  const updateMessage = useMessageState((state) => state.updateMessage)
   const handleError = useHandleError()
   const setPopup = useSetPopup()
+  const handleMissingPaymentData = useHandleMissingPaymentData()
 
   return useMutation({
     onMutate: async () => {
@@ -164,7 +176,7 @@ function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) 
       const errorMsg = parseError(err)
 
       if (errorMsg === 'MISSING_PAYMENTDATA' && selectedCurrency && selectedPaymentMethod) {
-        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation)
+        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod)
       } else if (errorMsg === 'OFFER_TAKEN') {
         setPopup(<AppPopup id="offerTaken" />)
       } else {
@@ -212,9 +224,9 @@ async function generateMatchOfferData ({ offer, match, currency, paymentMethod }
   if (!paymentData) return { error: err }
 
   const { symmetricKeyEncrypted, symmetricKeySignature, user } = match
-  const { pgpPublicKey } = user
+  const pgpPublicKeys = user.pgpPublicKeys.map((key) => key.publicKey)
 
-  const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted, symmetricKeySignature, pgpPublicKey)
+  const symmetricKey = await decryptSymmetricKey(symmetricKeyEncrypted, symmetricKeySignature, pgpPublicKeys)
   if (!symmetricKey) return { error: 'SYMMETRIC_KEY_DECRYPTION_FAILED' }
 
   const encryptedPaymentData = await encryptPaymentData(cleanPaymentData(paymentData), symmetricKey)

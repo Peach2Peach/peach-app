@@ -22,7 +22,8 @@ describe('getTradeBreakdown', () => {
   const releaseAddress = 'releaseAddress'
   it('should handle no release output', () => {
     const inputAmount = 100
-    fromHexMock.mockReturnValue({ virtualSize: () => 171, outs: [] })
+    const virtualSize = 171
+    fromHexMock.mockReturnValue({ virtualSize: () => virtualSize, outs: [] })
     expect(getTradeBreakdown({ releaseTransaction, releaseAddress, inputAmount })).toEqual({
       totalAmount: 0,
       peachFee: 0,
@@ -33,8 +34,9 @@ describe('getTradeBreakdown', () => {
 
   it('should handle no peach fee output', () => {
     const inputAmount = 100
+    const virtualSize = 171
     fromHexMock.mockReturnValue({
-      virtualSize: () => 171,
+      virtualSize: () => virtualSize,
       outs: [{ script: 'script', value: 100 }],
     })
     expect(getTradeBreakdown({ releaseTransaction, releaseAddress, inputAmount })).toEqual({
@@ -47,8 +49,9 @@ describe('getTradeBreakdown', () => {
 
   it('should return correct breakdown', () => {
     const inputAmount = 120
+    const virtualSize = 171
     fromHexMock.mockReturnValue({
-      virtualSize: () => 171,
+      virtualSize: () => virtualSize,
       outs: [
         { script: 'peach', value: 10 },
         { script: 'releaseAddress', value: 100 },

@@ -1,4 +1,4 @@
-import { setClientServerTimeDifference } from '../constants'
+import { MSINASECOND, setClientServerTimeDifference } from '../constants'
 import { getAbortWithTimeout } from '../utils/getAbortWithTimeout'
 import { error } from '../utils/log/error'
 import { peachAPI } from '../utils/peachAPI'
@@ -8,10 +8,11 @@ import { peachAPI } from '../utils/peachAPI'
  * by dividing the round trip time in half
  * This is only an estimation as round trips are often asymmetric
  */
+const AMOUNT_OF_SECONDS = 10
 export const calculateClientServerTimeDifference = async () => {
   const start = Date.now()
   const { result: peachStatusResponse, error: peachStatusErr } = await peachAPI.public.system.getStatus({
-    signal: getAbortWithTimeout(10000).signal,
+    signal: getAbortWithTimeout(AMOUNT_OF_SECONDS * MSINASECOND).signal,
   })
   const end = Date.now()
   const roundTrip = (end - start) / 2

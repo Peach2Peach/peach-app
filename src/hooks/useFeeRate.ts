@@ -1,9 +1,10 @@
-import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
 import { isNumber } from '../utils/validation/isNumber'
 import { useFeeEstimate } from './query/useFeeEstimate'
+import { useSelfUser } from './query/useSelfUser'
 
 export const useFeeRate = () => {
-  const feeRate = useSettingsStore((state) => state.feeRate)
+  const { user } = useSelfUser()
+  const feeRate = user?.feeRate
   const { estimatedFees } = useFeeEstimate()
 
   if (feeRate && isNumber(feeRate)) return feeRate

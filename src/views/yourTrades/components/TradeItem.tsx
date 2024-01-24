@@ -120,12 +120,14 @@ function RangeInfo ({ amount }: { amount: [number, number] }) {
     </View>
   )
 }
+
+const GROUP_SIZE = 3
 function FiatAmountInfo ({ amount, currency, price }: { amount: number; currency: Currency; price: number }) {
   return (
     <View style={[infoContainerStyle, tw`gap-6px`]}>
       <BTCAmount size="small" amount={amount} />
       <FixedHeightText style={tw`body-m text-black-65`} height={17}>
-        {currency === 'SAT' ? groupChars(String(price), 3) : priceFormat(price)} {currency}
+        {currency === 'SAT' ? groupChars(String(price), GROUP_SIZE) : priceFormat(price)} {currency}
       </FixedHeightText>
     </View>
   )

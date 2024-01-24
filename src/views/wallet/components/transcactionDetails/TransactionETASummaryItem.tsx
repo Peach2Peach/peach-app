@@ -1,21 +1,20 @@
+import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { useSetPopup } from '../../../../components/popup/Popup'
 import { TextSummaryItem } from '../../../../components/summaryItem'
 import { HelpPopup } from '../../../../hooks/HelpPopup'
 import { useFeeEstimates } from '../../../../hooks/query/useFeeEstimates'
-import { useTransactionDetails } from '../../../../hooks/query/useTransactionDetails'
 import tw from '../../../../styles/tailwind'
-import { getTransactionFeeRate } from '../../../../utils/bitcoin/getTransactionFeeRate'
 import { getETAInBlocks } from '../../../../utils/electrum/getETAInBlocks'
 import i18n from '../../../../utils/i18n'
+import { useTxFeeRate } from '../../hooks/useTxFeeRate'
 
 type Props = {
-  txId: string
+  transaction: TransactionDetails
 }
-export const TransactionETASummaryItem = ({ txId }: Props) => {
+export const TransactionETASummaryItem = ({ transaction }: Props) => {
   const setPopup = useSetPopup()
   const showHelp = () => setPopup(<HelpPopup id="confirmationTime" />)
-  const { transaction } = useTransactionDetails({ txId })
-  const currentFeeRate = transaction ? getTransactionFeeRate(transaction) : 1
+  const { data: currentFeeRate } = useTxFeeRate({ transaction })
   const { feeEstimates } = useFeeEstimates()
   const etaInBlocks = getETAInBlocks(currentFeeRate, feeEstimates)
 

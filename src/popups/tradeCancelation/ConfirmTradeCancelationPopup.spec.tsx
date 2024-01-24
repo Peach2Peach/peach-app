@@ -2,6 +2,7 @@ import { act, fireEvent, render, waitFor } from 'test-utils'
 import { contract } from '../../../peach-api/src/testData/contract'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
+import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
 import { Popup } from '../../components/popup/Popup'
 import { setAccount } from '../../utils/account/account'
 import { getSellOfferIdFromContract } from '../../utils/contract/getSellOfferIdFromContract'
@@ -36,11 +37,11 @@ jest.mock('./cancelContractAsSeller', () => ({
   cancelContractAsSeller: (...args: unknown[]) => cancelContractAsSellerMock(...args),
 }))
 const cancelContractMock = jest.spyOn(peachAPI.private.contract, 'cancelContract')
+
 describe('ConfirmTradeCancelationPopup', () => {
   beforeAll(() => {
     setAccount({ ...account1, offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }] })
-    // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
   })
 
   it('should cancel a trade as a buyer', async () => {

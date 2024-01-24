@@ -15,11 +15,12 @@ const MINUTES_IN_AN_HOUR = 60
 export const MSINANHOUR = MSINAMINUTE * MINUTES_IN_AN_HOUR
 const HOURS_IN_A_DAY = 24
 export const MSINADAY = MSINANHOUR * HOURS_IN_A_DAY
-const DAYS_IN_A_MONTH = MSINADAY * 30
-export const MSINAMONTH = DAYS_IN_A_MONTH
-export const FIFTEEN_SECONDS = 15 * MSINASECOND
+const DAYS_IN_A_MONTH = 30
+export const MSINAMONTH = DAYS_IN_A_MONTH * MSINADAY
+const FIFTEEN = 15
+export const FIFTEEN_SECONDS = FIFTEEN * MSINASECOND
 
-export const NEW_USER_THRESHOLD = 3
+export const NEW_USER_TRADE_THRESHOLD = 3
 
 export const APPVERSION = getVersion()
 export const BUILDNUMBER = getBuildNumber()

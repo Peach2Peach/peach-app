@@ -126,10 +126,9 @@ function getHeaderTitle (view: string, contract: Contract) {
     if (canceled) return i18n('contract.tradeCanceled')
   }
 
-  if (isPaymentTooLate(contract)) {
-    return i18n('contract.paymentTimerHasRunOut.title')
-  }
   if (disputeActive) return i18n('offer.requiredAction.dispute')
+  if (isPaymentTooLate(contract)) return i18n('contract.paymentTimerHasRunOut.title')
+
   if (tradeStatus === 'confirmCancelation') return i18n('offer.requiredAction.confirmCancelation.seller')
   if (tradeStatus === 'paymentRequired') return i18n('offer.requiredAction.waiting.buyer')
   if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.confirmPaymentRequired')

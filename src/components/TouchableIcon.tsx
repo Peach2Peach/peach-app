@@ -9,10 +9,11 @@ type Props = {
   iconSize?: number
 } & TouchableOpacityProps
 
+const DEFAULT_ICON_SIZE = 24
 export function TouchableIcon ({ id, iconColor = tw.color('primary-main'), iconSize, ...touchableProps }: Props) {
   return (
     <TouchableOpacity {...touchableProps}>
-      <Icon id={id} size={iconSize ?? 24} color={iconColor} />
+      <Icon id={id} size={iconSize ?? DEFAULT_ICON_SIZE} color={iconColor} />
     </TouchableOpacity>
   )
 }

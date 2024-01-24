@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Animated, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -15,10 +16,16 @@ type Props = {
   setPremium: (newPremium: number, isValid?: boolean | undefined) => void
 } & ComponentProps
 
+const LABEL_AMOUNT = 5
 export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
-  const { pan, panResponder, onLayout, trackWidth, knobWidth, labelPosition, min, max } = usePremiumSliderSetup(
-    premium,
-    setPremium,
+  const { pan, panResponder, onLayout, trackWidth, knobWidth, min, max } = usePremiumSliderSetup(premium, setPremium)
+
+  const labelPosition = useMemo(
+    () =>
+      [...Array(LABEL_AMOUNT)].map(
+        (_position, index) => round((index / (LABEL_AMOUNT - 1)) * trackWidth) - trackWidth / 2,
+      ),
+    [trackWidth],
   )
 
   return (

@@ -19,11 +19,7 @@ describe('recoverAccount', () => {
     await recoverAccount(recoveredAccount)
     expect(useSettingsStore.getState().fcmToken).toBe('')
   })
-  it('resets pgp published', async () => {
-    useSettingsStore.getState().setPGPPublished(true)
-    await recoverAccount(recoveredAccount)
-    expect(useSettingsStore.getState().pgpPublished).toBeFalsy()
-  })
+
   it('calls user update', async () => {
     await recoverAccount(recoveredAccount)
     expect(userUpdateMock).toHaveBeenCalled()

@@ -2,6 +2,7 @@ import { useIsFocused } from '@react-navigation/native'
 import { QueryFunctionContext, useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { GetMatchesResponseBody } from '../../../../peach-api/src/@types/api/offerAPI'
+import { MSINASECOND } from '../../../constants'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { getAbortWithTimeout } from '../../../utils/getAbortWithTimeout'
@@ -9,7 +10,7 @@ import { info } from '../../../utils/log/info'
 import { isBuyOffer } from '../../../utils/offer/isBuyOffer'
 import { peachAPI } from '../../../utils/peachAPI'
 
-const PAGESIZE = 10
+export const PAGESIZE = 10
 export const matchesKeys = {
   matches: ['matches'] as const,
   matchesByOfferId: (offerId: string) => [...matchesKeys.matches, offerId] as const,
@@ -46,6 +47,7 @@ export const useOfferMatches = (offerId: string, refetchInterval?: number, enabl
   return { ...queryData, allMatches }
 }
 
+const NUMBER_OF_SECONDS = 30
 async function getMatchesFn ({
   queryKey: [, offerId, sortBy],
   pageParam = 0,
@@ -55,7 +57,7 @@ async function getMatchesFn ({
     offerId,
     page: pageParam,
     size: PAGESIZE,
-    signal: getAbortWithTimeout(30 * 1000).signal,
+    signal: getAbortWithTimeout(NUMBER_OF_SECONDS * MSINASECOND).signal,
     sortBy,
   })
 

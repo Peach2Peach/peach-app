@@ -11,10 +11,14 @@ type Props = {
   iconId: IconType
 }
 
+const MEDIUM_SCREEN_ICON_SIZE = 18
+const SMALL_SCREEN_ICON_SIZE = 16
+
 export const SliderKnob = ({ enabled = true, pan, iconId }: Props) => {
+  const isMediumScreen = useIsMediumScreen()
   const icon = {
     color: tw.color('primary-background-light'),
-    size: useIsMediumScreen() ? 18 : 16,
+    size: isMediumScreen ? MEDIUM_SCREEN_ICON_SIZE : SMALL_SCREEN_ICON_SIZE,
   }
 
   return (

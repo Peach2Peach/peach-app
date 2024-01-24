@@ -1,6 +1,7 @@
 import { contract } from '../../../../peach-api/src/testData/contract'
 import { constructPSBT } from '../../../../tests/unit/helpers/constructPSBT'
 import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
+import { CENT } from '../../../constants'
 import { defaultConfig } from '../../../store/configStore/configStore'
 import { SIGHASH } from '../../../utils/bitcoin/constants'
 import { releaseTransactionHasValidOutputs } from './releaseTransactionHasValidOutputs'
@@ -24,9 +25,10 @@ describe('releaseTransactionHasValidOutputs', () => {
     { value: contract.amount - feeAmount, address: contract.releaseAddress },
   )
   const contractWithNoBuyerFee = { ...contract, buyerFee: 0 }
+  const peachFee = 2 / CENT
 
   it('should return false if peachFee output is missing', () => {
-    expect(releaseTransactionHasValidOutputs(psbt, { ...contract, buyerFee: 0.02 }, 0.02)).toBeFalsy()
+    expect(releaseTransactionHasValidOutputs(psbt, { ...contract, buyerFee: 0.02 }, peachFee)).toBeFalsy()
   })
   it('should return false if peachFee output is wrong', () => {
     const psbtWithWrongFeeOutput = constructPSBT(wallet, undefined, {
@@ -37,14 +39,18 @@ describe('releaseTransactionHasValidOutputs', () => {
       address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
       value: feeAmount / 2,
     })
-    expect(releaseTransactionHasValidOutputs(psbtWithWrongFeeOutput, { ...contract, buyerFee: 0.02 }, 0.02)).toBeFalsy()
+    expect(
+      releaseTransactionHasValidOutputs(psbtWithWrongFeeOutput, { ...contract, buyerFee: 0.02 }, peachFee),
+    ).toBeFalsy()
   })
   it('should return false if buyer output is missing', () => {
     const psbtWithoutBuyerOutput = constructPSBT(wallet, undefined, {
       address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
       value: feeAmount,
     })
-    expect(releaseTransactionHasValidOutputs(psbtWithoutBuyerOutput, { ...contract, buyerFee: 0.02 }, 0.02)).toBeFalsy()
+    expect(
+      releaseTransactionHasValidOutputs(psbtWithoutBuyerOutput, { ...contract, buyerFee: 0.02 }, peachFee),
+    ).toBeFalsy()
   })
   it('should return false if buyer output does not match release address', () => {
     const contractWithDifferentAddress = {
@@ -52,11 +58,11 @@ describe('releaseTransactionHasValidOutputs', () => {
       buyerFee: 0.02,
       releaseAddress: 'differentAddress',
     }
-    expect(releaseTransactionHasValidOutputs(psbt, contractWithDifferentAddress, 0.02)).toBeFalsy()
+    expect(releaseTransactionHasValidOutputs(psbt, contractWithDifferentAddress, peachFee)).toBeFalsy()
   })
   it('should return false if buyer output amount is wrong', () => {
     const contractWithDifferentAmount = { ...contract, buyerFee: 0.02, amount: contract.amount * 2 }
-    expect(releaseTransactionHasValidOutputs(psbtWithFeeOutput, contractWithDifferentAmount, 0.02)).toBeFalsy()
+    expect(releaseTransactionHasValidOutputs(psbtWithFeeOutput, contractWithDifferentAmount, peachFee)).toBeFalsy()
   })
   it('should return false if there are more than 2 outputs', () => {
     const psbtWith3Outputs = constructPSBT(wallet, undefined, {
@@ -71,10 +77,10 @@ describe('releaseTransactionHasValidOutputs', () => {
       address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
       value: feeAmount,
     })
-    expect(releaseTransactionHasValidOutputs(psbtWith3Outputs, { ...contract, buyerFee: 0.02 }, 0.02)).toBeFalsy()
+    expect(releaseTransactionHasValidOutputs(psbtWith3Outputs, { ...contract, buyerFee: 0.02 }, peachFee)).toBeFalsy()
   })
   it('should return false if there are more than 1 output for free trades', () => {
-    expect(releaseTransactionHasValidOutputs(psbtWithFeeOutput, contractWithNoBuyerFee, 0.02)).toBeFalsy()
+    expect(releaseTransactionHasValidOutputs(psbtWithFeeOutput, contractWithNoBuyerFee, peachFee)).toBeFalsy()
   })
   it('should return false if there are more than 1 output for batch psbts', () => {
     const invalidBatchPSBT = constructPSBT(
@@ -86,13 +92,13 @@ describe('releaseTransactionHasValidOutputs', () => {
       address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
       value: feeAmount,
     })
-    expect(releaseTransactionHasValidOutputs(invalidBatchPSBT, contractWithNoBuyerFee, 0.02)).toBeFalsy()
+    expect(releaseTransactionHasValidOutputs(invalidBatchPSBT, contractWithNoBuyerFee, peachFee)).toBeFalsy()
   })
   it('should return true for valid PSBTs outputs', () => {
-    expect(releaseTransactionHasValidOutputs(psbtWithFeeOutput, { ...contract, buyerFee: 0.02 }, 0.02)).toBeTruthy()
+    expect(releaseTransactionHasValidOutputs(psbtWithFeeOutput, { ...contract, buyerFee: 0.02 }, peachFee)).toBeTruthy()
   })
   it('should return true for valid PSBT and free trade for buyer', () => {
-    expect(releaseTransactionHasValidOutputs(psbt, contractWithNoBuyerFee, 0.02)).toBeTruthy()
+    expect(releaseTransactionHasValidOutputs(psbt, contractWithNoBuyerFee, peachFee)).toBeTruthy()
   })
   it('should return true for a contract with a large amount', () => {
     const contractWithLargeAmount = { ...contract, amount: 3020000 }
@@ -107,10 +113,10 @@ describe('releaseTransactionHasValidOutputs', () => {
     })
 
     expect(
-      releaseTransactionHasValidOutputs(largeAmountPsbt, { ...contractWithLargeAmount, buyerFee: 0.02 }, 0.02),
+      releaseTransactionHasValidOutputs(largeAmountPsbt, { ...contractWithLargeAmount, buyerFee: 0.02 }, peachFee),
     ).toBeTruthy()
   })
   it('should return true for valid PSBTs outputs for batched tx', () => {
-    expect(releaseTransactionHasValidOutputs(batchPSBT, { ...contract, buyerFee: 0.02 }, 0.02)).toBeTruthy()
+    expect(releaseTransactionHasValidOutputs(batchPSBT, { ...contract, buyerFee: 0.02 }, peachFee)).toBeTruthy()
   })
 })

@@ -25,7 +25,10 @@ const ukBankAccountValidator = (value: string) => isUKBankAccount(value) || getM
 const ukSortCodeValidator = (value: string) => isUKSortCode(value) || getMessages().ukSortCode
 const userNameValidator = (value: string) => isUsername(value) || getMessages().userName
 const isPhoneAllowedValidator = (value: string) => isPhoneAllowed(value) || getMessages().isPhoneAllowed
-const accountNumberValidator = (value: string) => isValidDigitLength(value, [10, 28]) || i18n('form.account.errors')
+const minAccountNumberLength = 10
+const maxAccountNumberLength = 28
+const accountNumberValidator = (value: string) =>
+  isValidDigitLength(value, [minAccountNumberLength, maxAccountNumberLength]) || i18n('form.account.errors')
 type NewRule = {
   [key: string]: (value: string) => true | string
 }

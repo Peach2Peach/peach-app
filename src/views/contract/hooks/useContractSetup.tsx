@@ -9,6 +9,7 @@ import { useContractDetails } from '../../../hooks/query/useContractDetails'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useRoute } from '../../../hooks/useRoute'
 import { useAccountStore } from '../../../utils/account/account'
+import { logTradeCompleted } from '../../../utils/analytics/logTradeCompleted'
 import { getContractViewer } from '../../../utils/contract/getContractViewer'
 import { useWebsocketContext } from '../../../utils/peachAPI/websocket'
 import { TradeComplete } from '../../tradeComplete/TradeComplete'
@@ -39,9 +40,10 @@ export const useContractSetup = () => {
   const setOverlay = useSetOverlay()
   useEffect(() => {
     if (isFocused && contract?.tradeStatus === 'rateUser') {
+      logTradeCompleted(contract)
       setOverlay(<TradeComplete contractId={contractId} />)
     }
-  }, [contract?.tradeStatus, contractId, isFocused, navigation, setOverlay])
+  }, [contract, contract?.tradeStatus, contractId, isFocused, navigation, setOverlay])
 
   useChatMessageHandler()
   useContractUpdateHandler()

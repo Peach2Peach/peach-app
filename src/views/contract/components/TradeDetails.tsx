@@ -7,6 +7,7 @@ import { PeachText } from '../../../components/text/PeachText'
 import { ErrorBox } from '../../../components/ui/ErrorBox'
 import { HorizontalLine } from '../../../components/ui/HorizontalLine'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
+import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useIsMyAddress } from '../../../hooks/wallet/useIsMyAddress'
 import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
@@ -18,11 +19,11 @@ import i18n from '../../../utils/i18n'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 import { cutOffAddress } from '../../../utils/string/cutOffAddress'
 import { isValidBitcoinSignature } from '../../../utils/validation/isValidBitcoinSignature'
+import { getNetwork } from '../../../utils/wallet/getNetwork'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useContractContext } from '../context'
-import { isTradeInformationGetter, tradeInformationGetters } from '../helpers'
 import { tradeFields } from '../helpers/tradeInfoFields'
-import { TradeInfoField } from '../helpers/tradeInformationGetters'
+import { TradeInfoField, isTradeInformationGetter, tradeInformationGetters } from '../helpers/tradeInformationGetters'
 import { SummaryItem } from './SummaryItem'
 import { usePatchReleaseAddress } from './usePatchReleaseAddress'
 
@@ -86,7 +87,15 @@ function ChangePayoutWallet () {
         return
       }
       const message = getMessageToSignForAddress(publicKey, payoutAddress)
-      if (!payoutAddressSignature || !isValidBitcoinSignature(message, payoutAddress, payoutAddressSignature)) {
+      if (
+        !payoutAddressSignature
+        || !isValidBitcoinSignature({
+          message,
+          address: payoutAddress,
+          signature: payoutAddressSignature,
+          network: getNetwork(),
+        })
+      ) {
         navigation.navigate('signMessage', {
           contractId: contract.id,
           address: payoutAddress,
@@ -139,7 +148,8 @@ function ChangePayoutWallet () {
 function NetworkFee () {
   const navigation = useNavigation()
   const { estimatedFees } = useFeeEstimate()
-  const feeRate = useSettingsStore((state) => state.feeRate)
+  const { user } = useSelfUser()
+  const feeRate = user?.feeRate || 'halfHourFee'
   const onPress = () => {
     navigation.navigate('networkFees')
   }

@@ -36,7 +36,7 @@ export function PaymentMadeSlider () {
   const { contract } = useContractContext()
 
   const mutation = useContractMutation(
-    { paymentMade: new Date(), tradeStatus: 'confirmPaymentRequired' },
+    { id: contract.id, paymentMade: new Date(), tradeStatus: 'confirmPaymentRequired' },
     {
       mutationFn: async () => {
         const { error: err } = await peachAPI.private.contract.confirmPaymentBuyer({ contractId })
@@ -58,7 +58,7 @@ export function PaymentMadeSlider () {
 export function PaymentReceivedSlider () {
   const { contract } = useContractContext()
   const mutation = useContractMutation(
-    { paymentConfirmed: new Date(), tradeStatus: 'rateUser' },
+    { id: contract.id, paymentConfirmed: new Date(), tradeStatus: 'rateUser' },
     {
       mutationFn: async () => {
         const sellOffer = getSellOfferFromContract(contract)
@@ -94,7 +94,7 @@ export function PaymentReceivedSlider () {
 export function CancelTradeSlider () {
   const { contract } = useContractContext()
   const { mutate } = useContractMutation(
-    { canceled: true, tradeStatus: 'refundOrReviveRequired' },
+    { id: contract.id, canceled: true, tradeStatus: 'refundOrReviveRequired' },
     {
       mutationFn: async () => {
         const { result, error } = await cancelContractAsSeller(contract)
@@ -111,10 +111,11 @@ export function CancelTradeSlider () {
     />
   )
 }
+const MAX_HOURS_FOR_PAYMENT = 12
 export function ExtendTimerSlider () {
   const { contractId } = useRoute<'contract'>().params
   const { mutate } = useContractMutation(
-    { paymentExpectedBy: new Date(Date.now() + MSINANHOUR * 12) },
+    { id: contractId, paymentExpectedBy: new Date(Date.now() + MSINANHOUR * MAX_HOURS_FOR_PAYMENT) },
     {
       mutationFn: async () => {
         const { result, error: err } = await peachAPI.private.contract.extendPaymentTimer({ contractId })
@@ -131,7 +132,7 @@ export function ResolveCancelRequestSliders () {
   const { contractId } = useRoute<'contract'>().params
 
   const { mutate: continueTrade } = useContractMutation(
-    { cancelationRequested: false },
+    { id: contractId, cancelationRequested: false },
     {
       mutationFn: async () => {
         const { error: err } = await peachAPI.private.contract.rejectContractCancelation({ contractId })
@@ -141,7 +142,7 @@ export function ResolveCancelRequestSliders () {
   )
 
   const { mutate: cancelTrade } = useContractMutation(
-    { canceled: true, cancelationRequested: false },
+    { id: contractId, canceled: true, cancelationRequested: false },
     {
       mutationFn: async () => {
         const { error: err } = await peachAPI.private.contract.confirmContractCancelation({ contractId })

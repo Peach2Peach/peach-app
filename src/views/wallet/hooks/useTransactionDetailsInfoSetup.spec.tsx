@@ -1,44 +1,40 @@
+import { networks } from 'bitcoinjs-lib'
 import { Linking } from 'react-native'
 import { renderHook } from 'test-utils'
 import {
-  confirmedTransactionSummary,
-  pending1,
-  pendingTransactionSummary,
-  transactionWithRBF1,
-  transactionWithoutRBF1,
+  bdkTransactionWithRBF2,
+  bitcoinJSTransactionWithRBF2,
+  bitcoinJSTransactionWithoutRBF1,
+  transactionWithRBF2,
+  transactionWithRBF2Summary,
+  transactionWithoutRBF1Summary,
 } from '../../../../tests/unit/data/transactionDetailData'
 import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useTransactionDetailsInfoSetup } from './useTransactionDetailsInfoSetup'
 
-const myAddress = 'bc1qtevf8qxjr2f3ku982l324rstmknffvwavecsdt'
-const notMyAddress = '1B5BPUZGErrCzDPPWc7Hs6vyHW81CmVpdN'
-const vout = [{ scriptpubkey_address: myAddress }, { scriptpubkey_address: notMyAddress }] as Transaction['vout']
-
+const getNetworkMock = jest.fn().mockReturnValue(networks.bitcoin)
+jest.mock('../../../utils/wallet/getNetwork', () => ({
+  getNetwork: (...args: unknown[]) => getNetworkMock(...args),
+}))
 const useAreMyAddressesMock = jest.fn().mockReturnValue([true, false])
 jest.mock('../../../hooks/wallet/useIsMyAddress', () => ({
   useAreMyAddresses: (...args: string[]) => useAreMyAddressesMock(...args),
 }))
 
-const useTransactionDetailsMock = jest.fn().mockReturnValue({
-  transaction: { ...transactionWithRBF1, vout },
-})
-jest.mock('../../../hooks/query/useTransactionDetails', () => ({
-  useTransactionDetails: (...args: unknown[]) => useTransactionDetailsMock(...args),
-}))
-
 describe('useTransactionDetailsInfoSetup', () => {
   const initialProps = {
-    transaction: pendingTransactionSummary,
+    transactionDetails: bitcoinJSTransactionWithRBF2,
+    transactionSummary: transactionWithRBF2Summary,
   }
-  // @ts-expect-error mock doesn't need args
-  const peachWallet = new PeachWallet()
+  const peachWallet = new PeachWallet({ wallet: createTestWallet() })
 
   beforeAll(() => {
-    useWalletState.getState().setTransactions([pending1])
-    peachWallet.transactions = [pending1]
+    useWalletState.getState().setTransactions([bdkTransactionWithRBF2])
+    peachWallet.transactions = [bdkTransactionWithRBF2]
 
     setPeachWallet(peachWallet)
   })
@@ -46,28 +42,26 @@ describe('useTransactionDetailsInfoSetup', () => {
   it('should return defaults', () => {
     const { result } = renderHook(useTransactionDetailsInfoSetup, { initialProps })
     expect(result.current).toEqual({
-      receivingAddress: myAddress,
+      receivingAddress: transactionWithRBF2.vout[1].scriptpubkey_address,
       canBumpFees: true,
       goToBumpNetworkFees: expect.any(Function),
       openInExplorer: expect.any(Function),
     })
-    expect(useTransactionDetailsMock).toHaveBeenCalledWith({ txId: pending1.txid })
   })
   it('should set canBumpFees to false if tx is confirmed', () => {
     const { result } = renderHook(useTransactionDetailsInfoSetup, {
       initialProps: {
-        transaction: confirmedTransactionSummary,
+        transactionDetails: bitcoinJSTransactionWithRBF2,
+        transactionSummary: { ...transactionWithRBF2Summary, confirmed: true },
       },
     })
     expect(result.current.canBumpFees).toBeFalsy()
   })
   it('should set canBumpFees to false if tx does not support rbf', () => {
-    useTransactionDetailsMock.mockReturnValueOnce({
-      transaction: transactionWithoutRBF1,
-    })
     const { result } = renderHook(useTransactionDetailsInfoSetup, {
       initialProps: {
-        transaction: { ...pendingTransactionSummary, id: transactionWithoutRBF1.txid },
+        transactionDetails: bitcoinJSTransactionWithoutRBF1,
+        transactionSummary: { ...transactionWithoutRBF1Summary, confirmed: true },
       },
     })
     expect(result.current.canBumpFees).toBeFalsy()
@@ -75,13 +69,13 @@ describe('useTransactionDetailsInfoSetup', () => {
   it('should go to bump network fees', () => {
     const { result } = renderHook(useTransactionDetailsInfoSetup, { initialProps })
     result.current.goToBumpNetworkFees()
-    expect(navigateMock).toHaveBeenCalledWith('bumpNetworkFees', { txId: pending1.txid })
+    expect(navigateMock).toHaveBeenCalledWith('bumpNetworkFees', { txId: transactionWithRBF2Summary.id })
   })
   it('should open transaction in explorer', async () => {
     const openURL = jest.spyOn(Linking, 'openURL')
 
     const { result } = renderHook(useTransactionDetailsInfoSetup, { initialProps })
     await result.current.openInExplorer()
-    expect(openURL).toHaveBeenCalledWith('https://localhost:3000/tx/txid1')
+    expect(openURL).toHaveBeenCalledWith(`https://localhost:3000/tx/${transactionWithRBF2Summary.id}`)
   })
 })

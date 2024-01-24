@@ -1,7 +1,7 @@
 import { NETWORK } from '@env'
 import { Network } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
-import { payments } from 'bitcoinjs-lib'
+import { Network as BitcoinJSNetwork, networks, payments } from 'bitcoinjs-lib'
 import { sign } from 'bitcoinjs-message'
 import { info } from '../log/info'
 import { getNetwork } from './getNetwork'
@@ -12,10 +12,11 @@ type PeachJSWalletProps = {
   network?: BitcoinNetwork
   gapLimit?: number
 }
+const defaultGapLimit = 25
 export class PeachJSWallet {
   jsWallet: BIP32Interface
 
-  network: Network
+  network: BitcoinNetwork
 
   derivationPath: string
 
@@ -23,10 +24,10 @@ export class PeachJSWallet {
 
   addresses: string[]
 
-  constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachJSWalletProps) {
+  constructor ({ wallet, network = NETWORK, gapLimit = defaultGapLimit }: PeachJSWalletProps) {
     this.jsWallet = wallet
 
-    this.network = network as Network
+    this.network = network
     this.gapLimit = gapLimit
     this.addresses = useWalletState.getState().addresses
 
@@ -69,6 +70,16 @@ export class PeachJSWallet {
 
     useWalletState.getState().setAddresses(this.addresses)
     return null
+  }
+
+  getNetwork<T extends Network | BitcoinNetwork> (): T {
+    return this.network as T
+  }
+
+  _getNetwork (): BitcoinJSNetwork {
+    if (this.network === 'testnet') return networks.testnet
+    if (this.network === 'regtest') return networks.regtest
+    return networks.bitcoin
   }
 
   signMessage (message: string, address: string, index?: number) {

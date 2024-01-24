@@ -46,13 +46,16 @@ function SummaryText ({ value, onPress }: TextValueProps) {
   )
 }
 
+const DELAY = 1500
+const MEDIUM_SCREEN_ICON_SIZE = 20
+const SMALL_SCREEN_ICON_SIZE = 16
 function CopyableSummaryText ({ value, copyValue = value, onPress }: TextValueProps) {
   const copiedTextOpacity = useRef(new Animated.Value(0)).current
   const onCopy = () => {
     Clipboard.setString(copyValue)
     Animated.sequence([
       Animated.timing(copiedTextOpacity, { toValue: 1, duration: 200, useNativeDriver: true }),
-      Animated.delay(1500),
+      Animated.delay(DELAY),
       Animated.timing(copiedTextOpacity, { toValue: 0, duration: 200, useNativeDriver: true }),
     ]).start()
   }
@@ -71,7 +74,11 @@ function CopyableSummaryText ({ value, copyValue = value, onPress }: TextValuePr
           <PeachText style={[summaryTextStyle, tw`text-primary-main`]}>{i18n('copied')}</PeachText>
         </Animated.View>
       </View>
-      <TouchableIcon onPress={onCopy} id="copy" iconSize={isMediumScreen ? 20 : 16} />
+      <TouchableIcon
+        onPress={onCopy}
+        id="copy"
+        iconSize={isMediumScreen ? MEDIUM_SCREEN_ICON_SIZE : SMALL_SCREEN_ICON_SIZE}
+      />
     </>
   )
 }

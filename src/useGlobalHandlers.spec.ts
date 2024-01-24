@@ -31,6 +31,9 @@ const useHandleNotificationsMock = jest.fn()
 jest.mock('./hooks/notifications/useHandleNotifications', () => ({
   useHandleNotifications: () => useHandleNotificationsMock(),
 }))
+jest.mock('react-native-promise-rejection-utils', () => ({
+  setUnhandledPromiseRejectionTracker: jest.fn(),
+}))
 
 describe('useGlobalHandlers', () => {
   it('should call useShouldShowBackupReminder', () => {

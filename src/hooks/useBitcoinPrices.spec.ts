@@ -1,42 +1,49 @@
 import { renderHook } from 'test-utils'
+import { SATSINBTC } from '../constants'
 import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
+import { round } from '../utils/math/round'
 import { useBitcoinPrices } from './useBitcoinPrices'
 
+const EUR = 20000
+const CHF = 21000
 jest.mock('./query/useMarketPrices', () => ({
   useMarketPrices: () => ({
     data: {
-      EUR: 20000,
-      CHF: 21000,
+      EUR,
+      CHF,
     },
   }),
 }))
 
 describe('useBitcoinPrices', () => {
   it('should return prices for 1 BTC', () => {
-    const { result } = renderHook(() => useBitcoinPrices(100000000))
+    const AMOUNT_OF_SATS = SATSINBTC
+    const { result } = renderHook(() => useBitcoinPrices(AMOUNT_OF_SATS))
 
     expect(result.current).toEqual({
       displayCurrency: 'EUR',
-      bitcoinPrice: 20000,
-      fiatPrice: 20000,
-      moscowTime: 5000,
+      bitcoinPrice: EUR,
+      fiatPrice: EUR * (AMOUNT_OF_SATS / SATSINBTC),
+      moscowTime: SATSINBTC / EUR,
     })
   })
   it('should return prices for any sats amount', () => {
-    const { result } = renderHook(() => useBitcoinPrices(1337420))
+    const AMOUNT_OF_SATS = 1337420
+    const { result } = renderHook(() => useBitcoinPrices(AMOUNT_OF_SATS))
 
     expect(result.current).toEqual({
       displayCurrency: 'EUR',
-      bitcoinPrice: 20000,
-      fiatPrice: 267.48,
-      moscowTime: 5000,
+      bitcoinPrice: EUR,
+      fiatPrice: round(EUR * (AMOUNT_OF_SATS / SATSINBTC), 2),
+      moscowTime: SATSINBTC / EUR,
     })
   })
   it('should return correct display price for any sats amount', () => {
     useSettingsStore.getState().setDisplayCurrency('CHF')
-    const { result } = renderHook(() => useBitcoinPrices(1337420))
+    const AMOUNT_OF_SATS = 1337420
+    const { result } = renderHook(() => useBitcoinPrices(AMOUNT_OF_SATS))
 
     expect(result.current.displayCurrency).toBe('CHF')
-    expect(result.current.bitcoinPrice).toBe(21000)
+    expect(result.current.bitcoinPrice).toBe(CHF)
   })
 })

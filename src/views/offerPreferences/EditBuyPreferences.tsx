@@ -17,15 +17,18 @@ import { hasMopsConfigured } from '../../utils/offer/hasMopsConfigured'
 import { isBuyOffer } from '../../utils/offer/isBuyOffer'
 import { cutOffAddress } from '../../utils/string/cutOffAddress'
 import { isValidBitcoinSignature } from '../../utils/validation/isValidBitcoinSignature'
+import { getNetwork } from '../../utils/wallet/getNetwork'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { usePatchReleaseAddress } from '../contract/components/usePatchReleaseAddress'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { matchesKeys } from '../search/hooks/useOfferMatches'
+import { MAX_NUMBER_OF_PEACHES } from '../settings/profile/profileOverview/Rating'
 import { PayoutWalletSelector } from './PayoutWalletSelector'
 import { ShowOffersButton } from './ShowOffersButton'
 import { AmountSelectorComponent } from './components/AmountSelectorComponent'
 import { BuyBitcoinHeader } from './components/BuyBitcoinHeader'
 import { FilterContainer } from './components/FilterContainer'
+import { MIN_REPUTATION_FILTER } from './components/MIN_REPUTATION_FILTER'
 import { MarketInfo } from './components/MarketInfo'
 import { MaxPremiumFilterComponent } from './components/MaxPremiumFilterComponent'
 import { ReputationFilterComponent } from './components/MinReputationFilter'
@@ -58,7 +61,7 @@ function offerReducer (state: Preferences, action: PreferenceAction) {
     return { ...state, maxPremium: action.premium }
   }
   case 'reputation_toggled': {
-    return { ...state, minReputation: state.minReputation === 4.5 ? null : 4.5 }
+    return { ...state, minReputation: state.minReputation === MIN_REPUTATION_FILTER ? null : MIN_REPUTATION_FILTER }
   }
   case 'max_premium_toggled': {
     return { ...state, maxPremium: state.maxPremium === null ? 0 : null }
@@ -81,7 +84,9 @@ export function EditBuyPreferences () {
 
 function initializer (offer: BuyOffer) {
   const minReputation
-    = typeof offer?.minReputation === 'number' ? interpolate(offer.minReputation, [-1, 1], [0, 5]) : null
+    = typeof offer?.minReputation === 'number'
+      ? interpolate(offer.minReputation, [-1, 1], [0, MAX_NUMBER_OF_PEACHES])
+      : null
   const maxPremium = offer?.maxPremium ?? null
   const { amount, meansOfPayment } = offer
   return { amount, meansOfPayment, minReputation, maxPremium }
@@ -144,7 +149,15 @@ function OfferWalletSelector ({ offerId, releaseAddress }: { offerId: string; re
       return
     }
     const message = getMessageToSignForAddress(publicKey, payoutAddress)
-    if (!messageSignature || !isValidBitcoinSignature(message, payoutAddress, messageSignature)) {
+    if (
+      !messageSignature
+      || !isValidBitcoinSignature({
+        message,
+        address: payoutAddress,
+        signature: messageSignature,
+        network: getNetwork(),
+      })
+    ) {
       navigation.navigate('signMessage', {
         address: payoutAddress,
         addressLabel: payoutAddressLabel,
@@ -173,7 +186,9 @@ function OfferMarketInfo () {
       type={'sellOffers'}
       meansOfPayment={meansOfPayment}
       maxPremium={maxPremium ?? undefined}
-      minReputation={typeof minReputation === 'number' ? interpolate(minReputation, [0, 5], [-1, 1]) : undefined}
+      minReputation={
+        typeof minReputation === 'number' ? interpolate(minReputation, [0, MAX_NUMBER_OF_PEACHES], [-1, 1]) : undefined
+      }
       buyAmountRange={amount}
     />
   )
@@ -250,7 +265,7 @@ function MaxPremiumFilter () {
 function PatchOfferButton () {
   const [preferences] = usePreferenceContext()
   const { maxPremium } = preferences
-  const minReputation = interpolate(preferences.minReputation || 0, [0, 5], [-1, 1])
+  const minReputation = interpolate(preferences.minReputation || 0, [0, MAX_NUMBER_OF_PEACHES], [-1, 1])
 
   const { offerId } = useRoute<'editBuyPreferences'>().params
   const { offer } = useOfferDetails(offerId)

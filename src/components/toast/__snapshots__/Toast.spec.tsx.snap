@@ -1,0 +1,641 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toast renders correctly 1`] = `
+<View
+  collapsable={false}
+  onMoveShouldSetResponder={[Function]}
+  onMoveShouldSetResponderCapture={[Function]}
+  onResponderEnd={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderReject={[Function]}
+  onResponderRelease={[Function]}
+  onResponderStart={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  onStartShouldSetResponderCapture={[Function]}
+  style={
+    {
+      "paddingBottom": 8,
+      "paddingLeft": 8,
+      "paddingRight": 8,
+      "paddingTop": 0,
+      "position": "absolute",
+      "top": -1334,
+      "width": "100%",
+      "zIndex": 1,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 16,
+          "gap": 8,
+          "justifyContent": "center",
+          "paddingBottom": 12,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 16,
+        },
+        {
+          "backgroundColor": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "gap": 4,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 8,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <test-file-stub
+          fill="#2B1911"
+          style={
+            [
+              {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                  "lineHeight": 32,
+                  "textAlign": "center",
+                },
+                {
+                  "color": "#2B1911",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          network error
+        </Text>
+      </View>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "textAlign": "center",
+              },
+              {
+                "color": "#2B1911",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        Peach was unable to connect to the Peach server. Please check your network connection or try again later.
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "gap": 4,
+            "opacity": 1,
+          }
+        }
+      >
+        <test-file-stub
+          fill="#2B1911"
+          style={
+            [
+              {
+                "height": 16,
+                "width": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 14,
+                  "letterSpacing": 0.14,
+                  "lineHeight": 22,
+                },
+                {
+                  "color": "#2B1911",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          testLabel
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexDirection": "row-reverse",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "gap": 4,
+            "opacity": 1,
+          }
+        }
+      >
+        <test-file-stub
+          fill="#2B1911"
+          style={
+            [
+              {
+                "height": 16,
+                "width": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 14,
+                  "letterSpacing": 0.14,
+                  "lineHeight": 22,
+                },
+                {
+                  "color": "#2B1911",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          close
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`Toast renders correctly with no action 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -171,91 +171,10 @@
+          onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+          style={
+            Object {
+              "alignItems": "center",
+              "flexBasis": "0%",
+-             "flexDirection": "row",
+-             "flexGrow": 1,
+-             "flexShrink": 1,
+-             "gap": 4,
+-             "opacity": 1,
+-           }
+-         }
+-       >
+-         <test-file-stub
+-           fill="#2B1911"
+-           style={
+-             Array [
+-               Object {
+-                 "height": 16,
+-                 "width": 16,
+-               },
+-               undefined,
+-             ]
+-           }
+-         />
+-         <Text
+-           allowFontScaling={false}
+-           style={
+-             Array [
+-               Object {
+-                 "color": "#2B1911",
+-                 "fontFamily": "Baloo2-Regular",
+-                 "fontSize": 16,
+-                 "letterSpacing": 0.16,
+-                 "lineHeight": 24,
+-               },
+-               Array [
+-                 Object {
+-                   "fontFamily": "Baloo2-SemiBold",
+-                   "fontSize": 14,
+-                   "letterSpacing": 0.14,
+-                   "lineHeight": 22,
+-                 },
+-                 Object {
+-                   "color": "#2B1911",
+-                 },
+-               ],
+-               false,
+-             ]
+-           }
+-         >
+-           testLabel
+-         </Text>
+-       </View>
+-       <View
+-         accessibilityState={
+-           Object {
+-             "busy": undefined,
+-             "checked": undefined,
+-             "disabled": undefined,
+-             "expanded": undefined,
+-             "selected": undefined,
+-           }
+-         }
+-         accessibilityValue={
+-           Object {
+-             "max": undefined,
+-             "min": undefined,
+-             "now": undefined,
+-             "text": undefined,
+-           }
+-         }
+-         accessible={true}
+-         collapsable={false}
+-         focusable={true}
+-         onClick={[Function onClick]}
+-         onResponderGrant={[Function onResponderGrant]}
+-         onResponderMove={[Function onResponderMove]}
+-         onResponderRelease={[Function onResponderRelease]}
+-         onResponderTerminate={[Function onResponderTerminate]}
+-         onResponderTerminationRequest={[Function onResponderTerminationRequest]}
+-         onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+-         style={
+-           Object {
+-             "alignItems": "center",
+-             "flexBasis": "0%",
+              "flexDirection": "row-reverse",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "gap": 4,
+              "opacity": 1,"
+`;
+
+exports[`Toast should use default values for missing translations 1`] = `
+<View
+  collapsable={false}
+  onMoveShouldSetResponder={[Function]}
+  onMoveShouldSetResponderCapture={[Function]}
+  onResponderEnd={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderReject={[Function]}
+  onResponderRelease={[Function]}
+  onResponderStart={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  onStartShouldSetResponderCapture={[Function]}
+  style={
+    {
+      "paddingBottom": 8,
+      "paddingLeft": 8,
+      "paddingRight": 8,
+      "paddingTop": 0,
+      "position": "absolute",
+      "top": -1334,
+      "width": "100%",
+      "zIndex": 1,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 16,
+          "gap": 8,
+          "justifyContent": "center",
+          "paddingBottom": 12,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 16,
+        },
+        {
+          "backgroundColor": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "gap": 4,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 8,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <test-file-stub
+          fill="#2B1911"
+          style={
+            [
+              {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                  "lineHeight": 32,
+                  "textAlign": "center",
+                },
+                {
+                  "color": "#2B1911",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          network error
+        </Text>
+      </View>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "textAlign": "center",
+              },
+              {
+                "color": "#2B1911",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        Peach was unable to connect to the Peach server. Please check your network connection or try again later.
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexBasis": "0%",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexDirection": "row-reverse",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "gap": 4,
+            "opacity": 1,
+          }
+        }
+      >
+        <test-file-stub
+          fill="#2B1911"
+          style={
+            [
+              {
+                "height": 16,
+                "width": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 14,
+                  "letterSpacing": 0.14,
+                  "lineHeight": 22,
+                },
+                {
+                  "color": "#2B1911",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          close
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

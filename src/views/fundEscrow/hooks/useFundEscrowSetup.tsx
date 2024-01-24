@@ -1,10 +1,9 @@
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useSetPopup } from '../../../components/popup/Popup'
 import { MSINAMINUTE } from '../../../constants'
 import { CancelOfferPopup } from '../../../hooks/CancelOfferPopup'
 import { useFundingStatus } from '../../../hooks/query/useFundingStatus'
 import { useMultipleOfferDetails } from '../../../hooks/query/useOfferDetails'
-import { useInterval } from '../../../hooks/useInterval'
 import { useRoute } from '../../../hooks/useRoute'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { isSellOffer } from '../../../utils/offer/isSellOffer'
@@ -23,9 +22,9 @@ export const useFundEscrowSetup = () => {
   const setPopup = useSetPopup()
 
   const showErrorBanner = useShowErrorBanner()
-  const { refresh } = useSyncWallet()
 
   const fundMultiple = useWalletState((state) => state.getFundMultipleByOfferId(offerId))
+  useSyncWallet({ refetchInterval: fundMultiple ? MSINAMINUTE * 2 : undefined })
   const { offers } = useMultipleOfferDetails(fundMultiple?.offerIds || [offerId])
   const offer = offers[0]
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined
@@ -54,12 +53,6 @@ export const useFundEscrowSetup = () => {
     if (!fundingStatusError) return
     showErrorBanner(parseError(fundingStatusError))
   }, [fundingStatusError, showErrorBanner])
-
-  const syncPeachWallet = useCallback(() => {
-    if (fundMultiple) refresh()
-  }, [fundMultiple, refresh])
-
-  useInterval({ callback: syncPeachWallet, interval: MSINAMINUTE * 2 })
 
   return {
     offerId,

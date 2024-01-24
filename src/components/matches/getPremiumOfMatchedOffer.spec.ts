@@ -1,4 +1,4 @@
-import { SATSINBTC } from '../../constants'
+import { CENT, SATSINBTC } from '../../constants'
 import { getPremiumOfMatchedOffer } from './getPremiumOfMatchedOffer'
 
 describe('getPremiumOfMatchedOffer', () => {
@@ -9,7 +9,7 @@ describe('getPremiumOfMatchedOffer', () => {
       EUR: 100000,
     }
     const marketPrice = (amount / SATSINBTC) * priceBook.EUR
-    const price = marketPrice + (marketPrice * expectedPremium) / 100
+    const price = marketPrice + (marketPrice * expectedPremium) / CENT
 
     const premium = getPremiumOfMatchedOffer({ amount, price, currency: 'EUR' }, priceBook)
 

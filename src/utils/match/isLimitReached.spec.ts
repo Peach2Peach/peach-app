@@ -1,4 +1,3 @@
-import { ANONYMOUS_PAYMENTCATEGORIES } from '../../paymentMethods'
 import { isLimitReached } from './isLimitReached'
 
 describe('isLimitReached', () => {
@@ -9,7 +8,7 @@ describe('isLimitReached', () => {
   })
   it('should return true if monthlyAnonymous limit is exceeded and selectedPaymentMethod is anonymous', () => {
     const exceedsLimit = ['monthlyAnonymous'] satisfies Partial<keyof TradingLimit>[]
-    const result = isLimitReached(exceedsLimit, ANONYMOUS_PAYMENTCATEGORIES[0])
+    const result = isLimitReached(exceedsLimit, 'giftCard.amazon')
     expect(result).toBe(true)
   })
   it('should return false if monthlyAnonymous limit is exceeded but selectedPaymentMethod is not anonymous', () => {

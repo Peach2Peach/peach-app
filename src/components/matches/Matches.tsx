@@ -5,11 +5,14 @@ import { useIsMediumScreen } from '../../hooks/useIsMediumScreen'
 import { useRoute } from '../../hooks/useRoute'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useOfferMatches } from '../../views/search/hooks/useOfferMatches'
+import { PAGESIZE, useOfferMatches } from '../../views/search/hooks/useOfferMatches'
 import { BTCAmount } from '../bitcoin/BTCAmount'
 import { PeachText } from '../text/PeachText'
 import { Match } from './Match'
 import { getPremiumColor } from './utils/getPremiumColor'
+
+const MEDIUM_SCREEN_OFFSET = 48
+const SMALL_SCREEN_OFFSET = 40
 
 export const Matches = ({ offer }: { offer: SellOffer }) => {
   const { width } = useWindowDimensions()
@@ -20,7 +23,7 @@ export const Matches = ({ offer }: { offer: SellOffer }) => {
 
   const onSnapToItem = (index: number) => {
     const newIndex = Math.min(index, matches.length - 1)
-    setCurrentPage(Math.floor(newIndex / 10))
+    setCurrentPage(Math.floor(newIndex / PAGESIZE))
     if (newIndex === matches.length - 1 && hasNextPage) fetchNextPage()
   }
 
@@ -36,7 +39,7 @@ export const Matches = ({ offer }: { offer: SellOffer }) => {
           style={tw`grow`}
           modeConfig={{
             parallaxScrollingScale: 0.9,
-            parallaxScrollingOffset: isMediumScreen ? 48 : 40,
+            parallaxScrollingOffset: isMediumScreen ? MEDIUM_SCREEN_OFFSET : SMALL_SCREEN_OFFSET,
           }}
           data={matches}
           renderItem={({ item: match }) => <Match {...{ match, offer, currentPage }} />}

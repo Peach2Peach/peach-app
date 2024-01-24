@@ -46,9 +46,9 @@ type Props = {
   style?: StyleProp<TextStyle>
   showPulse: boolean
 }
-
+const DEFAULT_FONT_SIZE = 16
 export const PulsingText = ({ children, style, showPulse }: Props) => {
-  const fontSize = useRef(new Animated.Value(16)).current
+  const fontSize = useRef(new Animated.Value(DEFAULT_FONT_SIZE)).current
   const color = useRef(new Animated.Value(0)).current
 
   const fontWeight = color.interpolate({

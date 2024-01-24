@@ -18,6 +18,8 @@ export type BubbleBaseProps = {
   style?: StyleProp<ViewStyle>
 } & TouchableOpacityProps
 
+const DEFAULT_ICON_SIZE = 20
+
 export const BubbleBase = ({
   children,
   iconId,
@@ -25,7 +27,7 @@ export const BubbleBase = ({
   textColor,
   iconColor = textColor,
   borderColor,
-  iconSize = 20,
+  iconSize = DEFAULT_ICON_SIZE,
   borderRadius = tw`rounded-lg`,
   ...pressableProps
 }: BubbleBaseProps) => (

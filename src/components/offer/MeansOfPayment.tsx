@@ -1,13 +1,16 @@
-import { useState } from 'react'
-import { View, ViewProps } from 'react-native'
+import { useMemo, useState } from 'react'
+import { StyleProp, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 import { getCurrencies } from '../../utils/paymentMethod/getCurrencies'
-import { PaymentMethod } from '../matches/PaymentMethod'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
+import { useCashPaymentMethodName } from '../matches/useCashPaymentMethodName'
 import { CurrencySelection } from '../navigation/CurrencySelection'
+import { PeachText } from '../text/PeachText'
 
 type Props = {
   meansOfPayment: MeansOfPayment
-  style?: ViewProps['style']
+  style?: StyleProp<ViewStyle>
 }
 
 export function MeansOfPayment ({ meansOfPayment, style }: Props) {
@@ -24,4 +27,27 @@ export function MeansOfPayment ({ meansOfPayment, style }: Props) {
       </View>
     </View>
   )
+}
+
+type PaymentMethodProps = {
+  paymentMethod: PaymentMethod
+  style: StyleProp<ViewStyle>
+}
+
+function PaymentMethod ({ paymentMethod, style }: PaymentMethodProps) {
+  const name = useMemo(() => (paymentMethod ? i18n(`paymentMethod.${paymentMethod}`) : paymentMethod), [paymentMethod])
+  return (
+    <View style={[tw`flex-row items-center px-2 border rounded-lg border-black-100 button-medium`, style]}>
+      {isCashTrade(paymentMethod) ? (
+        <CashPaymentMethodName paymentMethod={paymentMethod} />
+      ) : (
+        <PeachText style={tw`button-medium`}>{name}</PeachText>
+      )}
+    </View>
+  )
+}
+
+function CashPaymentMethodName ({ paymentMethod }: { paymentMethod: `cash.${string}` }) {
+  const value = useCashPaymentMethodName(paymentMethod)
+  return <PeachText style={tw`button-medium`}>{value}</PeachText>
 }

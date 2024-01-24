@@ -1,3 +1,4 @@
+import { MSINASECOND } from '../../constants'
 import { canCancelContract } from './canCancelContract'
 
 describe('canCancelContract', () => {
@@ -47,7 +48,7 @@ describe('canCancelContract', () => {
       paymentMade: null,
       canceled: false,
       cancelationRequested: false,
-      paymentExpectedBy: new Date(Date.now() - 1000),
+      paymentExpectedBy: new Date(Date.now() - MSINASECOND),
     }
     expect(canCancelContract(contract as Contract, 'seller')).toBe(false)
     expect(canCancelContract(contract as Contract, 'buyer')).toBe(true)

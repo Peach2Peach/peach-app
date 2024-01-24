@@ -1,10 +1,9 @@
-/* eslint-disable no-magic-numbers */
 import { act } from 'react-test-renderer'
 import { renderHook, responseUtils, waitFor } from 'test-utils'
 import { chat1 } from '../../../tests/unit/data/chatData'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { peachAPI } from '../../utils/peachAPI'
-import { useChatMessages } from './useChatMessages'
+import { PAGE_SIZE, useChatMessages } from './useChatMessages'
 
 const decryptSymmetricMock = jest.fn().mockImplementation((str) => str)
 jest.mock('../../utils/pgp/decryptSymmetric', () => ({
@@ -32,7 +31,7 @@ describe('useChatMessages', () => {
     expect(getChatMock).toHaveBeenCalledWith({ contractId: chat1.id, page: 0 })
 
     expect(result.current).toEqual({
-      messages: chat1.messages.slice(0, 22),
+      messages: chat1.messages.slice(0, PAGE_SIZE),
       page: 0,
       isLoading: false,
       isFetching: false,
@@ -96,7 +95,7 @@ describe('useChatMessages', () => {
       result.current.fetchNextPage()
     })
 
-    await waitFor(() => expect(result.current.messages.length).toBe(23))
+    await waitFor(() => expect(result.current.messages.length).toBe(chat1.messages.length))
     expect(getChatMock).toHaveBeenCalledWith({ contractId: chat1.id, page: 1 })
     expect(result.current).toEqual({
       messages: chat1.messages,

@@ -1,6 +1,4 @@
 /* eslint-disable max-lines */
-/* eslint-disable max-statements */
-/* eslint-disable max-lines-per-function */
 import { BLOCKEXPLORER } from '@env'
 import { Address, PartiallySignedTransaction, Transaction, TxBuilder } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
@@ -40,6 +38,7 @@ jest.mock('./transaction/buildTransaction', () => ({
 
 jest.useFakeTimers()
 
+// eslint-disable-next-line max-lines-per-function, max-statements
 describe('PeachWallet', () => {
   const address1 = 'address1'
   const address2 = 'address2'
@@ -99,7 +98,8 @@ describe('PeachWallet', () => {
   })
   it('waits for already running sync', async () => {
     jest.clearAllMocks()
-    const promise = new Promise((resolve) => setTimeout(resolve, 100))
+    const delay = 100
+    const promise = new Promise((resolve) => setTimeout(resolve, delay))
     walletSyncMock.mockReturnValueOnce(promise)
 
     expect(peachWallet.syncInProgress).toBeUndefined()
@@ -113,13 +113,14 @@ describe('PeachWallet', () => {
   })
   it('gets balance and transactions after sync', async () => {
     walletSyncMock.mockResolvedValueOnce(true)
+    const totalBalance = 111110
     walletGetBalanceMock.mockResolvedValueOnce({
-      total: 111110,
+      total: totalBalance,
     })
     const transactions = [confirmed1, pending2]
     walletListTransactionsMock.mockResolvedValueOnce(transactions)
     await peachWallet.syncWallet()
-    await waitFor(() => expect(peachWallet.balance).toBe(111110))
+    await waitFor(() => expect(peachWallet.balance).toBe(totalBalance))
     await waitFor(() => expect(peachWallet.transactions).toEqual(transactions))
   })
   it('sync wallet attempt throws error if wallet is not ready', async () => {
@@ -133,11 +134,12 @@ describe('PeachWallet', () => {
     expect(peachWallet.getPendingTransactions()).toEqual([pending1, pending2])
   })
   it('gets balance', async () => {
+    const totalBalance = 111110
     walletGetBalanceMock.mockResolvedValueOnce({
-      total: 111110,
+      total: totalBalance,
     })
     await peachWallet.getBalance()
-    await waitFor(() => expect(peachWallet.balance).toBe(111110))
+    await waitFor(() => expect(peachWallet.balance).toBe(totalBalance))
   })
   it('throws error when requesting balance before wallet is ready', async () => {
     peachWallet.wallet = undefined
@@ -418,9 +420,10 @@ describe('PeachWallet - buildFinishedTransaction', () => {
     peachWallet = new PeachWallet({ wallet })
     await peachWallet.initWallet()
   })
+  const value = 10000
   const utxo = new LocalUtxo(
     new OutPoint('txid', 0),
-    new TxOut(10000, new Script('address')),
+    new TxOut(value, new Script('address')),
     false,
     KeychainKind.External,
   )

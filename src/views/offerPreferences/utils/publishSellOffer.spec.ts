@@ -1,17 +1,13 @@
 import { responseUtils } from 'test-utils'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { peachAPI } from '../../../utils/peachAPI'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { publishSellOffer } from './publishSellOffer'
 
 const postSellOfferMock = jest.spyOn(peachAPI.private.offer, 'postSellOffer')
-
-const pgpMock = jest.fn().mockResolvedValue(undefined)
-jest.mock('../../../init/publishPGPPublicKey', () => ({
-  publishPGPPublicKey: () => pgpMock(),
-}))
 
 const infoMock = jest.fn()
 jest.mock('../../../utils/log/info', () => ({
@@ -24,8 +20,7 @@ const multipleOffersResult = { isPublished: true, navigationParams: { offerId: '
 // eslint-disable-next-line max-lines-per-function
 describe('publishSellOffer', () => {
   beforeAll(() => {
-    // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
   })
   const offerDraft: SellOfferDraft = {
     ...sellOffer,
@@ -82,26 +77,5 @@ describe('publishSellOffer', () => {
     })
     const publishSellOfferResult = await publishSellOffer(offerDraft)
     expect(publishSellOfferResult).toEqual(multipleOffersResult)
-  })
-
-  it('should send pgp keys and retry posting buy offer if first error is PGP_MISSING', async () => {
-    postSellOfferMock
-      .mockResolvedValueOnce({
-        result: undefined,
-        error: { error: 'PGP_MISSING' },
-        ...responseUtils,
-      })
-      .mockResolvedValueOnce({
-        result: sellOffer,
-        error: undefined,
-        ...responseUtils,
-      })
-
-    const { isPublished: result, navigationParams: offer, errorMessage: error } = await publishSellOffer(offerDraft)
-
-    expect(pgpMock).toHaveBeenCalled()
-    expect(result).toBeTruthy()
-    expect(offer).toEqual({ offerId: sellOffer.id })
-    expect(error).toBeNull()
   })
 })

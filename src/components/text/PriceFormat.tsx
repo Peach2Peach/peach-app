@@ -8,8 +8,10 @@ type Props = ComponentProps & {
   round?: boolean
 }
 
+const GROUP_SIZE = 3
+
 export const PriceFormat = ({ amount, currency, round, style }: Props) => (
   <PeachText style={style}>
-    {currency === 'SAT' ? groupChars(amount.toFixed(), 3) : priceFormat(amount, round)} {currency}
+    {currency === 'SAT' ? groupChars(amount.toFixed(), GROUP_SIZE) : priceFormat(amount, round)} {currency}
   </PeachText>
 )

@@ -13,14 +13,12 @@ type Settings = {
   derivationPath?: string
   displayCurrency: Currency
   country?: string
-  pgpPublished?: boolean
   fcmToken?: string
   lastFileBackupDate?: number
   lastSeedBackupDate?: number
   showBackupReminder: boolean
   shouldShowBackupOverlay: boolean
   nodeURL: string
-  feeRate: FeeRate
   usedReferralCode?: boolean
   cloudflareChallenge?: {
     cfClearance: string

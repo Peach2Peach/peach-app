@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { act, render, renderHook, responseUtils } from 'test-utils'
 import { sellOffer } from '../../../../../peach-api/src/testData/offers'
 import { Popup } from '../../../../components/popup/Popup'
@@ -14,7 +13,7 @@ describe('useOfferPopupEvents', () => {
     const { result } = renderHook(() => useOfferPopupEvents())
     const eventData = { offerId: sellOffer.id } as PNData
     await act(() => {
-      result.current['offer.fundingAmountDifferent']!(eventData)
+      result.current['offer.fundingAmountDifferent']?.(eventData)
     })
     const { queryByText } = render(<Popup />)
     expect(queryByText('different amounts')).toBeTruthy()
@@ -25,7 +24,7 @@ describe('useOfferPopupEvents', () => {
 
     const eventData = { offerId: sellOffer.id } as PNData
     await act(() => {
-      result.current['offer.wrongFundingAmount']!(eventData)
+      result.current['offer.wrongFundingAmount']?.(eventData)
     })
     const { queryByText } = render(<Popup />)
     expect(queryByText('Incorrect funding')).toBeTruthy()
@@ -35,7 +34,7 @@ describe('useOfferPopupEvents', () => {
 
     const eventData = { offerId } as PNData
     act(() => {
-      result.current['offer.outsideRange']!(eventData)
+      result.current['offer.outsideRange']?.(eventData)
     })
     const { queryByText } = render(<Popup />)
     expect(queryByText('bitcoin pumped!')).toBeTruthy()
@@ -45,7 +44,7 @@ describe('useOfferPopupEvents', () => {
 
     const eventData = { offerId: '1' } as PNData
     act(() => {
-      result.current['offer.buyOfferExpired']!(eventData, { bodyLocArgs: ['P-1', '30'] })
+      result.current['offer.buyOfferExpired']?.(eventData, { bodyLocArgs: ['P-1', '30'] })
     })
     const { queryByText } = render(<Popup />)
     expect(queryByText('Buy offer removed')).toBeTruthy()
@@ -56,16 +55,16 @@ describe('useOfferPopupEvents', () => {
 
     const eventData = {} as PNData
     act(() => {
-      result.current['offer.fundingAmountDifferent']!(eventData)
+      result.current['offer.fundingAmountDifferent']?.(eventData)
     })
     const { queryByText } = render(<Popup />)
     expect(queryByText('different amounts')).toBeFalsy()
     act(() => {
-      result.current['offer.wrongFundingAmount']!(eventData)
+      result.current['offer.wrongFundingAmount']?.(eventData)
     })
     expect(queryByText('Incorrect funding')).toBeFalsy()
     act(() => {
-      result.current['offer.outsideRange']!(eventData)
+      result.current['offer.outsideRange']?.(eventData)
     })
     expect(queryByText('bitcoin pumped!')).toBeFalsy()
   })

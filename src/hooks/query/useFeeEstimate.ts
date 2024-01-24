@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
+import { MSINAMINUTE } from '../../constants'
 import { peachAPI } from '../../utils/peachAPI'
 
-const ONEMINUTE = 60 * 1000
 export const placeholderFees = {
   fastestFee: 1,
   halfHourFee: 1,
@@ -19,7 +19,7 @@ export const useFeeEstimate = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['feeEstimate'],
     queryFn: getFeeEstimateQuery,
-    refetchInterval: ONEMINUTE,
+    refetchInterval: MSINAMINUTE,
   })
   const estimatedFees = data || placeholderFees
   return { estimatedFees, isLoading, error }

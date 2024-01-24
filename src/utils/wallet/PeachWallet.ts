@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { NETWORK } from '@env'
 import { Blockchain, BumpFeeTxBuilder, DatabaseConfig, PartiallySignedTransaction, TxBuilder, Wallet } from 'bdk-rn'
 import { AddressInfo, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
@@ -29,6 +28,7 @@ type PeachWalletProps = {
   gapLimit?: number
 }
 
+const defaultGapLimit = 25
 export class PeachWallet extends PeachJSWallet {
   initialized: boolean
 
@@ -48,7 +48,7 @@ export class PeachWallet extends PeachJSWallet {
 
   nodeType?: BlockChainNames
 
-  constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
+  constructor ({ wallet, network = NETWORK, gapLimit = defaultGapLimit }: PeachWalletProps) {
     super({ wallet, network, gapLimit })
     this.balance = 0
     this.transactions = []
@@ -65,16 +65,16 @@ export class PeachWallet extends PeachJSWallet {
 
         const { externalDescriptor, internalDescriptor } = await getDescriptorsBySeedphrase({
           seedphrase,
-          network: this.network,
+          network: this.getNetwork(),
         })
 
         this.setBlockchain(useNodeConfigState.getState())
 
-        const dbConfig = await getDBConfig(this.network, this.nodeType)
+        const dbConfig = await getDBConfig(this.getNetwork(), this.nodeType)
 
         info('PeachWallet - initWallet - createWallet')
 
-        this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, this.network, dbConfig)
+        this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, this.getNetwork(), dbConfig)
 
         info('PeachWallet - initWallet - createdWallet')
 
@@ -86,7 +86,7 @@ export class PeachWallet extends PeachJSWallet {
     )
   }
 
-  async loadWallet (seedphrase?: string): Promise<void> {
+  async loadWallet (seedphrase?: string) {
     info('PeachWallet - loadWallet - start')
     await waitForHydration(useNodeConfigState)
 
@@ -102,7 +102,7 @@ export class PeachWallet extends PeachJSWallet {
     this.nodeType = blockchainConfig.type
   }
 
-  syncWallet (): Promise<void> {
+  syncWallet () {
     if (this.syncInProgress) return this.syncInProgress
 
     this.syncInProgress = new Promise((resolve, reject) =>
@@ -133,13 +133,13 @@ export class PeachWallet extends PeachJSWallet {
     return this.syncInProgress
   }
 
-  updateStore (): void {
+  updateStore () {
     useWalletState.getState().setTransactions(this.transactions)
     this.transactions.filter((tx) => !transactionHasBeenMappedToOffers(tx)).forEach(mapTransactionToOffer)
     this.transactions.filter(transactionHasBeenMappedToOffers).forEach(labelAddressByTransaction)
   }
 
-  async getBalance (): Promise<number> {
+  async getBalance () {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
 
     const balance = await this.wallet.getBalance()
@@ -149,7 +149,7 @@ export class PeachWallet extends PeachJSWallet {
     return this.balance
   }
 
-  async getTransactions (): Promise<TransactionDetails[]> {
+  async getTransactions () {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
 
     this.transactions = await this.wallet.listTransactions(true)
@@ -209,7 +209,7 @@ export class PeachWallet extends PeachJSWallet {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
 
     const utxo = await this.wallet.listUnspent()
-    const utxoAddresses = await Promise.all(utxo.map(getUTXOAddress(this.network)))
+    const utxoAddresses = await Promise.all(utxo.map(getUTXOAddress(this.getNetwork())))
     return utxo.filter((utx, i) => utxoAddresses[i] === address)
   }
 
@@ -261,12 +261,12 @@ export class PeachWallet extends PeachJSWallet {
     }
   }
 
-  loadWalletStore (): void {
+  loadWalletStore () {
     this.transactions = useWalletState.getState().transactions
     this.balance = useWalletState.getState().balance
   }
 
-  async loadFromStorage (): Promise<void> {
+  async loadFromStorage () {
     await waitForHydration(useWalletState)
     this.loadWalletStore()
   }

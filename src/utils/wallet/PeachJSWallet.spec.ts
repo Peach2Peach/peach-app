@@ -1,17 +1,19 @@
 import { account1 } from '../../../tests/unit/data/accountData'
 import { getError } from '../../../tests/unit/helpers/getError'
+import { useAccountStore } from '../account/account'
 import { PeachJSWallet } from './PeachJSWallet'
 import { createWalletFromBase58 } from './createWalletFromBase58'
 import { getNetwork } from './getNetwork'
 import { useWalletState } from './walletStore'
 
+// eslint-disable-next-line max-lines-per-function
 describe('PeachJSWallet', () => {
-  // @ts-ignore
   const wallet = createWalletFromBase58(account1.base58, getNetwork())
   const message = 'message'
   let peachJSWallet: PeachJSWallet
 
   beforeEach(() => {
+    useAccountStore.getState().setAccount(account1)
     peachJSWallet = new PeachJSWallet({ wallet })
   })
   afterEach(() => {
@@ -36,7 +38,8 @@ describe('PeachJSWallet', () => {
   })
 
   it('finds key pair by address and stores scanned addresses', () => {
-    const address = peachJSWallet._getAddress(3)
+    const addressIndex = 3
+    const address = peachJSWallet._getAddress(addressIndex)
 
     if (!address) throw Error()
     const keyPair = peachJSWallet.findKeyPairByAddress(address)
@@ -61,6 +64,7 @@ describe('PeachJSWallet', () => {
     expect(findKeyPairByAddressSpy).not.toHaveBeenCalled()
     expect(signature).toBe('H1cN5gQpMeLAsid1ZnUIJxEVC5+geRao9yeT9V88rtHfe4bEvglz8hSwnWCuMjjHHYCgBGKssceWPUQKKrpThRE=')
   })
+
   it('signs an arbitrary message with index 0', () => {
     const address = 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt'
     const findKeyPairByAddressSpy = jest.spyOn(peachJSWallet, 'findKeyPairByAddress')

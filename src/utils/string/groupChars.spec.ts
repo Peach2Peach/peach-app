@@ -1,5 +1,4 @@
 /* eslint-disable no-magic-numbers */
-/* eslint-disable no-loss-of-precision */
 
 import { groupChars } from './groupChars'
 

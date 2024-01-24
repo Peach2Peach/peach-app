@@ -4,7 +4,6 @@ import { useSetOverlay } from '../../../Overlay'
 import { useSetPopup } from '../../../components/popup/Popup'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
 import { InfoPopup } from '../../../popups/InfoPopup'
 import { useConfigStore } from '../../../store/configStore/configStore'
 import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
@@ -14,6 +13,7 @@ import i18n from '../../../utils/i18n'
 import { peachAPI } from '../../../utils/peachAPI'
 import { isPaymentMethod } from '../../../utils/validation/isPaymentMethod'
 import { isValidBitcoinSignature } from '../../../utils/validation/isValidBitcoinSignature'
+import { getNetwork } from '../../../utils/wallet/getNetwork'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { GroupHugAnnouncement } from '../../overlays/GroupHugAnnouncement'
 
@@ -54,7 +54,15 @@ export function usePublishBuyOffer ({
         ? peachWallet.signMessage(message, releaseAddress, index)
         : payoutAddressSignature
 
-      if (!messageSignature || !isValidBitcoinSignature(message, releaseAddress, messageSignature)) {
+      if (
+        !messageSignature
+        || !isValidBitcoinSignature({
+          message,
+          address: releaseAddress,
+          signature: messageSignature,
+          network: getNetwork(),
+        })
+      ) {
         throw new Error('INAVLID_SIGNATURE')
       }
       const finalizedOfferDraft = {
@@ -69,17 +77,9 @@ export function usePublishBuyOffer ({
         messageSignature,
       }
 
-      let { result, error: err } = await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft)
+      const { result, error: err } = await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft)
 
-      if (err?.error === 'PGP_MISSING') {
-        await publishPGPPublicKey()
-        const response = await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft)
-        result = response.result
-        err = response.error
-      }
-      if (result) {
-        return result.id
-      }
+      if (result) return result.id
       throw new Error(err?.error || 'POST_OFFER_ERROR', { cause: err?.details })
     },
     onError: ({ message, cause }: Error) => {

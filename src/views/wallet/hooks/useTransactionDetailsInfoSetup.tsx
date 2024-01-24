@@ -1,6 +1,6 @@
 import { NETWORK } from '@env'
+import { Transaction } from 'bitcoinjs-lib'
 import { useMemo } from 'react'
-import { useTransactionDetails } from '../../../hooks/query/useTransactionDetails'
 import { useNavigation } from '../../../hooks/useNavigation'
 import { isRBFEnabled } from '../../../utils/bitcoin/isRBFEnabled'
 import { showTransaction } from '../../../utils/bitcoin/showTransaction'
@@ -11,22 +11,22 @@ import { useGetTransactionDestinationAddress } from '../helpers/useGetTransactio
 const incomingTxType: TransactionType[] = ['DEPOSIT', 'REFUND', 'TRADE']
 
 type Props = {
-  transaction: TransactionSummary
+  transactionDetails: Transaction
+  transactionSummary: TransactionSummary
 }
-export const useTransactionDetailsInfoSetup = ({ transaction }: Props) => {
+export const useTransactionDetailsInfoSetup = ({ transactionDetails, transactionSummary }: Props) => {
   const navigation = useNavigation()
-  const { transaction: transactionDetails } = useTransactionDetails({ txId: transaction.id })
   const receivingAddress = useGetTransactionDestinationAddress({
-    vout: transactionDetails?.vout || [],
-    incoming: incomingTxType.includes(transaction.type),
+    outs: transactionDetails.outs || [],
+    incoming: incomingTxType.includes(transactionSummary.type),
   })
   const rbfEnabled = transactionDetails && isRBFEnabled(transactionDetails)
   const canBumpFees = useMemo(
-    () => rbfEnabled && canBumpNetworkFees(peachWallet, transaction),
-    [rbfEnabled, transaction],
+    () => rbfEnabled && canBumpNetworkFees(peachWallet, transactionSummary),
+    [rbfEnabled, transactionSummary],
   )
-  const goToBumpNetworkFees = () => navigation.navigate('bumpNetworkFees', { txId: transaction.id })
-  const openInExplorer = () => showTransaction(transaction.id, NETWORK)
+  const goToBumpNetworkFees = () => navigation.navigate('bumpNetworkFees', { txId: transactionSummary.id })
+  const openInExplorer = () => showTransaction(transactionSummary.id, NETWORK)
 
   return {
     receivingAddress,

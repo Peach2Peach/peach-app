@@ -22,25 +22,31 @@ export const ChatBox = ({ chat, setAndSaveChat, page, fetchNextPage, isLoading, 
 
   useEffect(() => {
     if (visibleChatMessages.length === 0 || page > 0) return
-    setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 300)
+    const DELAY_BEFORE_SCROLL = 300
+    setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), DELAY_BEFORE_SCROLL)
   }, [chat.messages.length, page, visibleChatMessages.length])
 
   useEffect(() => {
     Keyboard.addListener('keyboardDidShow', () => () => scroll.current?.scrollToEnd({ animated: false }))
   }, [])
 
-  const onContentSizeChange = () =>
-    page === 0 && visibleChatMessages.length > 0
-      ? setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 50)
-      : () => {}
+  const onContentSizeChange = () => {
+    if (page === 0 && visibleChatMessages.length > 0) {
+      const DELAY_BEFORE_SCROLL = 50
+      setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), DELAY_BEFORE_SCROLL)
+    }
+  }
 
-  const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
-    const lastItem = viewableItems.pop()?.item as Message
-    const savedChat = getChat(chat.id)
-    if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
+  const onViewableItemsChanged = useCallback(
+    ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
+      const lastItem = viewableItems.pop()?.item as Message
+      const savedChat = getChat(chat.id)
+      if (!lastItem || lastItem.date.getTime() <= savedChat.lastSeen.getTime()) return
 
-    setAndSaveChat(chat.id, { lastSeen: lastItem.date })
-  }, [])
+      setAndSaveChat(chat.id, { lastSeen: lastItem.date })
+    },
+    [chat.id, setAndSaveChat],
+  )
 
   return (
     <FlatList
@@ -48,14 +54,12 @@ export const ChatBox = ({ chat, setAndSaveChat, page, fetchNextPage, isLoading, 
       data={visibleChatMessages}
       {...{ onContentSizeChange, onViewableItemsChanged }}
       onScrollToIndexFailed={() => scroll.current?.scrollToEnd()}
-      keyExtractor={(item) =>
-        item.date.getTime() + item.signature.substring(0, 16) + item.signature.substring(128, 128 + 32)
-      }
+      keyExtractor={(item) => item.date.getTime() + item.signature}
       renderItem={({ item, index }) => (
         <ChatMessage chatMessages={visibleChatMessages} {...{ item, index, ...chatMessageProps }} />
       )}
       initialNumToRender={PAGE_SIZE}
-      ListFooterComponent={<View style={tw`h-2`}></View>}
+      ListFooterComponent={<View style={tw`h-2`} />}
       removeClippedSubviews={false}
       onRefresh={fetchNextPage}
       refreshing={isLoading}

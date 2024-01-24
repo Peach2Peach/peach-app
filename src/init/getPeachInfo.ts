@@ -1,4 +1,5 @@
 import { APIError } from '../../peach-api/src/@types/global'
+import { MSINASECOND } from '../constants'
 import { PAYMENTCATEGORIES, setPaymentMethods } from '../paymentMethods'
 import { useConfigStore } from '../store/configStore/configStore'
 import { usePaymentDataStore } from '../store/usePaymentDataStore'
@@ -17,7 +18,7 @@ export const getPeachInfo = async (): Promise<
   GetStatusResponse | APIError<'HUMAN_VERIFICATION_REQUIRED'> | null | undefined
 > => {
   if (!useConfigStore.persist.hasHydrated() || !usePaymentDataStore.persist.hasHydrated()) {
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, MSINASECOND))
     return getPeachInfo()
   }
   const statusResponse = await calculateClientServerTimeDifference()
@@ -27,8 +28,9 @@ export const getPeachInfo = async (): Promise<
     return statusResponse
   }
 
+  const NUMBER_OF_SECONDS = 5
   const { result: getInfoResponse, error: getInfoError } = await peachAPI.public.system.getInfo({
-    signal: getAbortWithTimeout(5000).signal,
+    signal: getAbortWithTimeout(NUMBER_OF_SECONDS * MSINASECOND).signal,
   })
 
   if (getInfoError) {

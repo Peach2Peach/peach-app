@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import OpenPGP from 'react-native-fast-openpgp'
-import { useConfigStore } from '../../store/configStore/configStore'
+import { error } from '../../utils/log/error'
 import { decrypt } from '../../utils/pgp/decrypt'
 import { decryptSymmetric } from '../../utils/pgp/decryptSymmetric'
 import { decryptSymmetricKey } from '../contract/helpers/decryptSymmetricKey'
@@ -22,7 +22,7 @@ async function decryptContractData (contract: Contract) {
   const symmetricKey = await decryptSymmetricKey(
     contract.symmetricKeyEncrypted,
     contract.symmetricKeySignature,
-    contract.buyer.pgpPublicKey,
+    contract.buyer.pgpPublicKeys.map((key) => key.publicKey),
   )
 
   const paymentData = await decryptPaymentData(
@@ -47,34 +47,38 @@ async function decryptPaymentData (
   { paymentDataEncrypted, paymentDataSignature, user, paymentDataEncryptionMethod }: DecryptPaymentDataProps,
   symmetricKey: string | null,
 ) {
-  if (!paymentDataEncrypted || !paymentDataSignature) return null
+  if (!paymentDataEncrypted || !paymentDataSignature) {
+    return logAndThrow(new Error('MISSING_PAYMENT_DATA_SECRETS'))
+  }
   if (paymentDataEncryptionMethod === 'asymmetric') {
-    const peachPGPPublicKey = useConfigStore.getState().peachPGPPublicKey
-    if (!peachPGPPublicKey) return null
     try {
-      const decryptedPaymentData = JSON.parse(await decrypt(paymentDataEncrypted)) as PaymentData
+      const decryptedPaymentDataString = await decrypt(paymentDataEncrypted)
+      if (!(await OpenPGP.verify(paymentDataSignature, decryptedPaymentDataString, user.pgpPublicKey))) {
+        return logAndThrow(new Error('PAYMENT_DATA_SIGNATURE_INVALID'))
+      }
+      const decryptedPaymentData = JSON.parse(decryptedPaymentDataString) as PaymentData
       return decryptedPaymentData
     } catch (e) {
-      return null
+      return logAndThrow(new Error('ASYMMETRIC_PAYMENT_DATA_ENCRYPTION_FAILED'))
     }
   }
-  if (!symmetricKey) return null
-
-  let decryptedPaymentData: PaymentData | null = null
-  let decryptedPaymentDataString
-  try {
-    decryptedPaymentDataString = await decryptSymmetric(paymentDataEncrypted, symmetricKey)
-    decryptedPaymentData = JSON.parse(decryptedPaymentDataString)
-  } catch (e) {
-    return decryptedPaymentData
+  if (!symmetricKey) {
+    return logAndThrow(new Error('MISSING_SYMMETRIC_KEY'))
   }
+
   try {
+    const decryptedPaymentDataString = await decryptSymmetric(paymentDataEncrypted, symmetricKey)
     if (!(await OpenPGP.verify(paymentDataSignature, decryptedPaymentDataString, user.pgpPublicKey))) {
-      return decryptedPaymentData
+      return logAndThrow(new Error('PAYMENT_DATA_SIGNATURE_INVALID'))
     }
-  } catch (err) {
+    const decryptedPaymentData = JSON.parse(decryptedPaymentDataString) as PaymentData
     return decryptedPaymentData
+  } catch (e) {
+    return logAndThrow(new Error('SYMMETRIC_PAYMENT_DATA_ENCRYPTION_FAILED'))
   }
+}
 
-  return decryptedPaymentData
+function logAndThrow (err: Error) {
+  error(err)
+  throw err
 }

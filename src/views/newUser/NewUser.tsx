@@ -21,6 +21,7 @@ import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
 import { getAuthenticationChallenge } from '../../utils/peachAPI/getAuthenticationChallenge'
 import { parseError } from '../../utils/result/parseError'
+import { LOGIN_DELAY } from '../restoreReputation/LOGIN_DELAY'
 
 export const NewUser = () => {
   const route = useRoute<'newUser'>()
@@ -66,7 +67,7 @@ export const NewUser = () => {
 
       setTimeout(() => {
         navigation.navigate('userSource')
-      }, 1500)
+      }, LOGIN_DELAY)
     },
     [navigation, onError, route.params.referralCode, setAccount],
   )

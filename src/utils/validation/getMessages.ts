@@ -7,7 +7,6 @@ export const getMessages = () => ({
   bip39: i18n('form.bip39.error'),
   bip39Word: i18n('form.bip39Word.error'),
   bitcoinAddress: i18n('form.address.btc.error'),
-  blockTaprootAddress: i18n('form.address.taproot.error'),
   duplicate: i18n('form.duplicate.error'),
   email: i18n('form.email.error'),
   feeRate: i18n('form.feeRate.error'),

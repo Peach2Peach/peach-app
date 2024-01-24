@@ -9,6 +9,8 @@ describe('isNetworkError', () => {
   })
   it('checks whether an error is not a network error', () => {
     expect(isNetworkError('UNKNOWN')).toBe(false)
+    expect(isNetworkError(null)).toBe(false)
+    expect(isNetworkError()).toBe(false)
     expect(isNetworkError('Not found')).toBe(false)
   })
 })

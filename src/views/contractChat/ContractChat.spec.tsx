@@ -8,6 +8,8 @@ jest.mock('../../hooks/query/useContractDetails', () => ({
   useContractDetails: (...args: unknown[]) => useContractDetailsMock(...args),
 }))
 
+jest.useFakeTimers()
+
 describe('ContractChat', () => {
   beforeAll(() => {
     setRouteMock({ name: 'contractChat', key: 'contractChat', params: { contractId: '1-2' } })

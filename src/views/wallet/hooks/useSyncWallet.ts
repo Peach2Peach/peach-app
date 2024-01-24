@@ -1,27 +1,32 @@
-import { useCallback, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
+import { MSINAMINUTE } from '../../../constants'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { error } from '../../../utils/log/error'
 import { parseError } from '../../../utils/result/parseError'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 
-export const useSyncWallet = () => {
-  const [isRefreshing, setIsRefreshing] = useState(false)
-  const showErrorBanner = useShowErrorBanner()
-  const refresh = useCallback(
-    async (silent = false) => {
-      if (isRefreshing) return
-      setIsRefreshing(!silent)
-      try {
-        await peachWallet.syncWallet()
-      } catch (e) {
-        error(parseError(e))
-        showErrorBanner('WALLET_SYNC_ERROR')
-      } finally {
-        setIsRefreshing(false)
-      }
+const MINUTES_OF_STALE_TIME = 10
+export const useSyncWallet = ({ refetchInterval }: { refetchInterval?: number } = {}) => {
+  const queryData = useQuery({
+    queryKey: ['syncWallet'],
+    queryFn: async () => {
+      await peachWallet.syncWallet()
+      return true
     },
-    [isRefreshing, showErrorBanner],
-  )
+    enabled: !!peachWallet?.initialized,
+    staleTime: MSINAMINUTE * MINUTES_OF_STALE_TIME,
+    refetchInterval,
+  })
 
-  return { refresh, isRefreshing }
+  const showErrorBanner = useShowErrorBanner()
+
+  useEffect(() => {
+    if (queryData.isError) {
+      error(parseError(queryData.error))
+      showErrorBanner('WALLET_SYNC_ERROR')
+    }
+  }, [queryData.error, queryData.isError, showErrorBanner])
+
+  return queryData
 }

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { useMessageState } from '../../../components/message/useMessageState'
+import { useSetToast } from '../../../components/toast/Toast'
+import { CENT } from '../../../constants'
 import { useFeeRate } from '../../../hooks/useFeeRate'
 import { useNavigation } from '../../../hooks/useNavigation'
 import i18n from '../../../utils/i18n'
@@ -13,7 +14,7 @@ type Props = {
 }
 export const useShowHighFeeWarning = ({ enabled, amount }: Props) => {
   const navigation = useNavigation()
-  const updateMessage = useMessageState((state) => state.updateMessage)
+  const setToast = useSetToast()
   const feeRate = useFeeRate()
 
   useEffect(() => {
@@ -24,18 +25,15 @@ export const useShowHighFeeWarning = ({ enabled, amount }: Props) => {
 
     if (feesInPercent < WARNING_THRESHOLD) return
 
-    updateMessage({
+    setToast({
       msgKey: 'contract.warning.highFee',
-      bodyArgs: [String(feeRate), (feesInPercent * 100).toFixed(1)],
-      level: 'WARN',
+      bodyArgs: [String(feeRate), (feesInPercent * CENT).toFixed(1)],
+      color: 'yellow',
       action: {
-        callback: () => {
-          navigation.navigate('networkFees')
-          updateMessage({ msgKey: undefined, level: 'WARN' })
-        },
+        onPress: () => navigation.navigate('networkFees'),
         label: i18n('contract.warning.highFee.changeFee'),
-        icon: 'settings',
+        iconId: 'settings',
       },
     })
-  }, [updateMessage, amount, feeRate, navigation, enabled])
+  }, [setToast, amount, feeRate, navigation, enabled])
 }

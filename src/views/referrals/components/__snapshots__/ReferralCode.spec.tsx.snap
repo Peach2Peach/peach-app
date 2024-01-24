@@ -22,10 +22,6 @@ exports[`ReferralCode should render component correctly 1`] = `
           },
           {
             "color": "#7D675E",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
             "textAlign": "center",
           },
           false,
@@ -196,10 +192,6 @@ exports[`ReferralCode should render component correctly 1`] = `
             },
             {
               "color": "#7D675E",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
             },
             false,
           ]

@@ -11,14 +11,12 @@ export const getCountrySelectDrawerOptions = (
   selectCountry: (eventsByCountry: CountryEventsMap, selected: Country) => void,
 ) => {
   const eventsByCountry = meetupEvents.reduce(structureEventsByCountry, {} as CountryEventsMap)
-  const superFeaturedEvents = meetupEvents
-    .filter((event) => event.superFeatured)
-    .map(mapEventToDrawerOption(goToEventDetails))
+  const featuredEvents = meetupEvents.filter((event) => event.featured).map(mapEventToDrawerOption(goToEventDetails))
 
   return {
     title: i18n('country.select'),
     options: [
-      ...superFeaturedEvents,
+      ...featuredEvents,
       ...keys(eventsByCountry)
         .map(mapCountryToDrawerOption(selectCountry, eventsByCountry))
         .sort((a, b) => sortAlphabetically(a.title, b.title)),

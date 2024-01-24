@@ -4,8 +4,8 @@ import { View } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { LogoIcons } from '../assets/logo'
 import { PeachyGradient } from '../components/PeachyGradient'
-import { useMessageState } from '../components/message/useMessageState'
 import { useSetPopup } from '../components/popup/Popup'
+import { useSetToast } from '../components/toast/Toast'
 import { useNavigation } from '../hooks/useNavigation'
 import { initApp } from '../init/initApp'
 import { requestUserPermissions } from '../init/requestUserPermissions'
@@ -51,7 +51,7 @@ export function Screens () {
 }
 
 function SplashScreenComponent ({ setIsLoading }: { setIsLoading: (isLoading: boolean) => void }) {
-  const updateMessage = useMessageState((state) => state.updateMessage)
+  const setToast = useSetToast()
   const navigation = useNavigation()
   const setPopup = useSetPopup()
   useEffect(() => {
@@ -62,13 +62,13 @@ function SplashScreenComponent ({ setIsLoading }: { setIsLoading: (isLoading: bo
         if (statusResponse?.error === 'HUMAN_VERIFICATION_REQUIRED') {
           setPopup(<VerifyYouAreAHumanPopup />)
         } else {
-          updateMessage({
+          setToast({
             msgKey: statusResponse?.error || 'NETWORK_ERROR',
-            level: 'ERROR',
+            color: 'red',
             action: {
-              callback: () => navigation.navigate('contact'),
+              onPress: () => navigation.navigate('contact'),
               label: i18n('contactUs'),
-              icon: 'mail',
+              iconId: 'mail',
             },
           })
         }
@@ -77,7 +77,7 @@ function SplashScreenComponent ({ setIsLoading }: { setIsLoading: (isLoading: bo
       setIsLoading(false)
       SplashScreen.hide()
     })()
-  }, [navigation, setIsLoading, setPopup, updateMessage])
+  }, [navigation, setIsLoading, setPopup, setToast])
 
   return (
     <View>

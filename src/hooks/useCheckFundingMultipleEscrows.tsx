@@ -13,7 +13,9 @@ import { isDefined } from '../utils/validation/isDefined'
 import { peachWallet } from '../utils/wallet/setWallet'
 import { buildTransaction, setMultipleRecipients } from '../utils/wallet/transaction'
 import { useWalletState } from '../utils/wallet/walletStore'
+import { useSyncWallet } from '../views/wallet/hooks/useSyncWallet'
 import { useHandleTransactionError } from './error/useHandleTransactionError'
+import { useOfferSummaries } from './query/useOfferSummaries'
 import { useFeeRate } from './useFeeRate'
 import { useInterval } from './useInterval'
 
@@ -24,14 +26,20 @@ const getAmountAfterFees = (localUtxo: LocalUtxo[], escrows: string[], feeRate: 
   return amountAfterFees
 }
 
+const getSellOfferSummariesByAddress = (fundMultipleMap: Record<string, string[]>, address: string) => {
+  const offers = fundMultipleMap[address].map(useTradeSummaryStore.getState().getOffer)
+  const sellOffers = offers.filter(isDefined)
+
+  return sellOffers
+}
+
 const getSellOffersByAddress = (fundMultipleMap: Record<string, string[]>, address: string) => {
   const offers = fundMultipleMap[address].map(getOffer)
   const sellOffers = offers.filter(isDefined).filter(isSellOffer)
 
   return sellOffers
 }
-const canFundSellOffers = (sellOffers: SellOffer[], offers: OfferSummary[]) =>
-  offers.every((offer) => !offer.fundingTxId)
+const canFundSellOffers = (sellOffers: OfferSummary[]) => sellOffers.every((sellOffer) => !sellOffer.fundingTxId)
 
 const getEscrowAddresses = (sellOffers: SellOffer[]) => sellOffers.map((offr) => offr.escrow).filter(isDefined)
 
@@ -40,18 +48,22 @@ export const useCheckFundingMultipleEscrows = () => {
     (state) => [state.fundMultipleMap, state.unregisterFundMultiple],
     shallow,
   )
+
   const handleTransactionError = useHandleTransactionError()
-  const offerSummaries = useTradeSummaryStore((state) => state.offers)
   const feeRate = useFeeRate()
   const addresses = keys(fundMultipleMap)
+  const { refetch: refetchOffers } = useOfferSummaries(addresses.length > 0)
+  useSyncWallet({ refetchInterval: MSINAMINUTE })
 
   const checkAddress = useCallback(
     async (address: string) => {
+      const sellOfferSummaries = getSellOfferSummariesByAddress(fundMultipleMap, address)
       const sellOffers = getSellOffersByAddress(fundMultipleMap, address)
 
+      // sell offers are not stored locally, skip
       if (sellOffers.length === 0) return
 
-      if (!canFundSellOffers(sellOffers, offerSummaries)) {
+      if (!canFundSellOffers(sellOfferSummaries)) {
         unregisterFundMultiple(address)
         return
       }
@@ -69,16 +81,17 @@ export const useCheckFundingMultipleEscrows = () => {
       try {
         const finishedTransaction = await peachWallet.finishTransaction(transaction)
         await peachWallet.signAndBroadcastPSBT(finishedTransaction.psbt)
+        unregisterFundMultiple(address)
       } catch (e) {
         handleTransactionError(e)
       }
     },
-    [feeRate, fundMultipleMap, handleTransactionError, offerSummaries, unregisterFundMultiple],
+    [feeRate, fundMultipleMap, handleTransactionError, unregisterFundMultiple],
   )
 
-  const callback = useCallback(async () => {
-    await Promise.all(addresses.map(checkAddress))
-  }, [addresses, checkAddress])
+  const callback = useCallback(() => {
+    refetchOffers().then(() => Promise.all(addresses.map(checkAddress)))
+  }, [addresses, checkAddress, refetchOffers])
 
   useInterval({
     callback,
