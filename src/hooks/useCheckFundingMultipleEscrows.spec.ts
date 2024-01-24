@@ -41,6 +41,8 @@ const peachWallet = new PeachWallet({ wallet: createTestWallet() })
 peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails)
 const getAddressUTXOSpy = jest.spyOn(peachWallet, 'getAddressUTXO')
 const signAndBroadcastPSBTSpy = jest.spyOn(peachWallet, 'signAndBroadcastPSBT')
+const syncWalletSpy = jest.spyOn(peachWallet, 'syncWallet')
+
 // eslint-disable-next-line max-lines-per-function
 describe('useCheckFundingMultipleEscrows', () => {
   beforeAll(() => {
@@ -113,5 +115,15 @@ describe('useCheckFundingMultipleEscrows', () => {
     await waitFor(() => expect(peachWallet.syncWallet).toHaveBeenCalled())
     await waitFor(() => expect(refetchMock).toHaveBeenCalled())
     expect(signAndBroadcastPSBTSpy).not.toHaveBeenCalled()
+  })
+  it('should not call sync peach wallet when not funding multiple escrow', () => {
+    useWalletState.setState({ fundMultipleMap: {} })
+    renderHook(useCheckFundingMultipleEscrows)
+
+    act(() => {
+      jest.advanceTimersByTime(MSINAMINUTE * 2)
+    })
+
+    expect(syncWalletSpy).not.toHaveBeenCalled()
   })
 })
