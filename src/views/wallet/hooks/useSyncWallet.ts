@@ -8,9 +8,9 @@ import { peachWallet } from '../../../utils/wallet/setWallet'
 
 const MINUTES_OF_STALE_TIME = 10
 
-type Props = { refetchInterval?: number, enabled?: boolean }
+type Props = { refetchInterval?: number; enabled?: boolean }
 
-export const useSyncWallet = ({ refetchInterval, enabled }: Props = { enabled: true }) => {
+export const useSyncWallet = ({ refetchInterval, enabled = false }: Props = {}) => {
   const queryData = useQuery({
     queryKey: ['syncWallet'],
     queryFn: async () => {

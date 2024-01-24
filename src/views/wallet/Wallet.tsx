@@ -14,7 +14,7 @@ import { useWalletBalance } from './hooks/useWalletBalance'
 
 export const Wallet = () => {
   const { balance } = useWalletBalance()
-  const { refetch, isRefetching, isLoading } = useSyncWallet()
+  const { refetch, isRefetching, isLoading } = useSyncWallet({ enabled: true })
   if (isLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (

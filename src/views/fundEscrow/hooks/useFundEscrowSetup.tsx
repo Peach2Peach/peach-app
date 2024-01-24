@@ -24,7 +24,7 @@ export const useFundEscrowSetup = () => {
   const showErrorBanner = useShowErrorBanner()
 
   const fundMultiple = useWalletState((state) => state.getFundMultipleByOfferId(offerId))
-  useSyncWallet({ refetchInterval: fundMultiple ? MSINAMINUTE * 2 : undefined })
+  useSyncWallet({ refetchInterval: fundMultiple ? MSINAMINUTE * 2 : undefined, enabled: true })
   const { offers } = useMultipleOfferDetails(fundMultiple?.offerIds || [offerId])
   const offer = offers[0]
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined
