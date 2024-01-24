@@ -56,6 +56,12 @@ describe('useSyncWallet', () => {
     await waitFor(() => expect(result.current.isFetching).toBe(false))
     expect(mockSyncWallet).toHaveBeenCalledTimes(1)
   })
+  it('should not call peachWallet.syncWallet when enabled is set false', async () => {
+    const { result } = renderHook(useSyncWallet, { initialProps: { enabled: false } })
+
+    await waitFor(() => expect(result.current.isFetching).toBe(false))
+    expect(mockSyncWallet).toHaveBeenCalledTimes(0)
+  })
   it('should handle wallet sync errors', async () => {
     mockSyncWallet.mockImplementation(() => {
       throw new Error('error')
