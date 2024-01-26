@@ -1,6 +1,7 @@
 import { MeetupScreen } from '../components/payment/MeetupScreen'
 import { PaymentMethods } from '../components/payment/PaymentMethods'
 import { TestView } from './TestView/TestView'
+import { TestViewLiquidWallet } from './TestView/liquidWallet'
 import { TestViewPeachWallet } from './TestView/peachWallet'
 import { TestViewPNs } from './TestView/pns'
 import { PaymentMethodForm } from './addPaymentMethod/PaymentMethodForm'
@@ -144,6 +145,7 @@ const settings: ViewType[] = [
 const testViews: ViewType[] = [
   { name: 'testView', component: TestView },
   { name: 'testViewPeachWallet', component: TestViewPeachWallet },
+  { name: 'testViewLiquidWallet', component: TestViewLiquidWallet },
   { name: 'testViewPNs', component: TestViewPNs },
 ]
 

@@ -24,6 +24,7 @@ type AnyObject = {
 type TradeTab = 'yourTrades.buy' | 'yourTrades.sell' | 'yourTrades.history'
 
 type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
+type LiquidNetwork = 'liquid' | 'testnet' | 'regtest'
 
 type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'nationalOption' | 'cash' | 'other'
 type PaymentCategories = {
