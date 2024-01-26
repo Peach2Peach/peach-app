@@ -258,7 +258,7 @@ function SatsInput () {
   const [inputValue, setInputValue] = useState(String(amount))
   const restrictAmount = useRestrictSatsAmount('sell')
 
-  const onFocus = () => setInputValue(String(amount))
+  const onFocus = () => setInputValue('0')
 
   const onChangeText = (value: string) => setInputValue(enforceDigitFormat(value))
 
