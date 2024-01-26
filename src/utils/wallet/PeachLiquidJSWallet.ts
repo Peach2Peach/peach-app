@@ -33,11 +33,15 @@ export class PeachLiquidJSWallet {
   }
 
   getKeyPair (index: number) {
-    return this.jsWallet.derivePath(`${this.derivationPath}/0/${index}`)
+    const keyPair = this.jsWallet.derivePath(`${this.derivationPath}/0/${index}`)
+    keyPair.network = this.network
+    return keyPair
   }
 
   getInternalKeyPair (index: number) {
-    return this.jsWallet.derivePath(`${this.derivationPath}/1/${index}`)
+    const keyPair = this.jsWallet.derivePath(`${this.derivationPath}/1/${index}`)
+    keyPair.network = this.network
+    return keyPair
   }
 
   getAddress (index: number = this.addresses.length + 1) {

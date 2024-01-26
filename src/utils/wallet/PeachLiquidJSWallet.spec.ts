@@ -1,10 +1,11 @@
+import { networks } from 'liquidjs-lib'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { getError } from '../../../tests/unit/helpers/getError'
 import { useAccountStore } from '../account/account'
 import { PeachLiquidJSWallet } from './PeachLiquidJSWallet'
 import { createWalletFromBase58 } from './createWalletFromBase58'
 import { getNetwork } from './getNetwork'
-import { useWalletState } from './walletStore'
+import { useLiquidWalletState } from './useLiquidWalletState'
 
 // eslint-disable-next-line max-lines-per-function
 describe('PeachLiquidJSWallet', () => {
@@ -17,21 +18,21 @@ describe('PeachLiquidJSWallet', () => {
     peachJSWallet = new PeachLiquidJSWallet({ wallet })
   })
   afterEach(() => {
-    useWalletState.getState().reset()
+    useLiquidWalletState.getState().reset()
   })
 
   it('instantiates', () => {
     const addresses = ['address1', 'address2']
-    useWalletState.getState().setAddresses(addresses)
+    useLiquidWalletState.getState().setAddresses(addresses)
 
     peachJSWallet = new PeachLiquidJSWallet({ wallet })
 
     expect(peachJSWallet.jsWallet).toEqual(wallet)
-    expect(peachJSWallet.derivationPath).toEqual("m/84'/1'/0'")
+    expect(peachJSWallet.derivationPath).toEqual("m/84'/0'/0'")
     expect(peachJSWallet.addresses).toBe(addresses)
   })
   it('instantiates for mainnet', () => {
-    peachJSWallet = new PeachLiquidJSWallet({ wallet, network: 'bitcoin' })
+    peachJSWallet = new PeachLiquidJSWallet({ wallet, network: networks.liquid })
 
     expect(peachJSWallet.jsWallet).toEqual(wallet)
     expect(peachJSWallet.derivationPath).toEqual("m/84'/0'/0'")
@@ -39,39 +40,34 @@ describe('PeachLiquidJSWallet', () => {
 
   it('finds key pair by address and stores scanned addresses', () => {
     const addressIndex = 3
-    const address = peachJSWallet._getAddress(addressIndex)
+    const address = peachJSWallet.getAddress(addressIndex)
 
     if (!address) throw Error()
     const keyPair = peachJSWallet.findKeyPairByAddress(address)
-    expect(keyPair?.publicKey.toString('hex')).toBe('03f5c7061bd2ca963c20edc0f8e09c42a9a5b35df3f708d3339446f1d00656b67c')
+    expect(keyPair?.publicKey.toString('hex')).toBe('02cea67ce6aa1b6d0e7640568cc0aeb0b94a92c8b21735f8fb8d66041c449929a3')
     expect(peachJSWallet.addresses).toEqual([
-      'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt',
-      'bcrt1qgt4a6p3z8nr2a9snvlmd7vl0vqytq2l757gmn2',
-      'bcrt1qfvss2z90h0cpwyp8tvtxytqjmrhdq0ltfacxgx',
-      'bcrt1qupwsjlw68j596em27078uglyf8net95ddyr9ev',
+      'ex1qcslk785zp5xqj5kjdawegsjglm039w56xzvqsh',
+      'ex1qm6df88c6uaqrd565dcswfmuue7s9skym5g8yfq',
+      'ex1q4uan5308xusfq7aqzjmwmpyjtj85sdwv0599e6',
+      'ex1qht934aen9x48fvuq08rgrhtxs8jecklqdxmc9a',
     ])
   })
 
   it('signs an arbitrary message', () => {
-    const address = 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt'
+    const address = 'ex1qcslk785zp5xqj5kjdawegsjglm039w56xzvqsh'
     const signature = peachJSWallet.signMessage(message, address)
-    expect(signature).toBe('H/3SBIrDhI686xf6q40H1aQCI9DHF1zD4YKHuG3Efq8XK3rDDA0zYCQQ31XERBZqEq+2DUOupYYCIahvYOwbJ3s=')
+    // eslint-disable-next-line max-len
+    expect(signature).toBe('AkgwRQIhAMT8IZ7R7OOWm7mZf2xfXOatSuguIt0/inVgqwKuGhzmAiAmJ8gIbyOrmPhQu//Fv0fs0jGmd1vreQ4fmKgCx4vbXAEhAlDj2lYviHyAR0fUlMG6GqHmR9i2+n7fVSFZ7LRJ9cxJ')
   })
   it('signs an arbitrary message with index', () => {
-    const address = 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt'
-    const findKeyPairByAddressSpy = jest.spyOn(peachJSWallet, 'findKeyPairByAddress')
-    const signature = peachJSWallet.signMessage(message, address, 1)
-    expect(findKeyPairByAddressSpy).not.toHaveBeenCalled()
-    expect(signature).toBe('H1cN5gQpMeLAsid1ZnUIJxEVC5+geRao9yeT9V88rtHfe4bEvglz8hSwnWCuMjjHHYCgBGKssceWPUQKKrpThRE=')
-  })
-
-  it('signs an arbitrary message with index 0', () => {
-    const address = 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt'
+    const address = 'ex1qcslk785zp5xqj5kjdawegsjglm039w56xzvqsh'
     const findKeyPairByAddressSpy = jest.spyOn(peachJSWallet, 'findKeyPairByAddress')
     const signature = peachJSWallet.signMessage(message, address, 0)
     expect(findKeyPairByAddressSpy).not.toHaveBeenCalled()
-    expect(signature).toBe('H/3SBIrDhI686xf6q40H1aQCI9DHF1zD4YKHuG3Efq8XK3rDDA0zYCQQ31XERBZqEq+2DUOupYYCIahvYOwbJ3s=')
+    // eslint-disable-next-line max-len
+    expect(signature).toBe('AkgwRQIhAMT8IZ7R7OOWm7mZf2xfXOatSuguIt0/inVgqwKuGhzmAiAmJ8gIbyOrmPhQu//Fv0fs0jGmd1vreQ4fmKgCx4vbXAEhAlDj2lYviHyAR0fUlMG6GqHmR9i2+n7fVSFZ7LRJ9cxJ')
   })
+
   it('throws an error if address is not part of wallet', async () => {
     const address = 'bcrt1qdoesnotexist'
     const error = await getError<Error>(() => peachJSWallet.signMessage(message, address))
