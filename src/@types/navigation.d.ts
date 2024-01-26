@@ -17,6 +17,7 @@ type Onboarding = {
 type TestViews = {
   testView: undefined
   testViewPeachWallet: undefined
+  testViewLiquidWallet: undefined
   testViewPNs: undefined
 }
 

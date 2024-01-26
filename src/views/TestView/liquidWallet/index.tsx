@@ -1,0 +1,2 @@
+export { TestViewLiquidWallet } from './TestViewLiquidWallet'
+
