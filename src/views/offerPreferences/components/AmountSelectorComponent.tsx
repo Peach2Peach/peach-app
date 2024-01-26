@@ -117,7 +117,7 @@ function BuyAmountInput ({ minAmountDelta, type, range: [min, max], setRange }: 
   const [inputValue, setInputValue] = useState(String(amount))
   const restrictAmount = useRestrictSatsAmount('buy')
 
-  const onFocus = () => setInputValue(String(amount))
+  const onFocus = () => setInputValue('0')
 
   const onChangeText = (value: string) => setInputValue(enforceDigitFormat(value))
 
