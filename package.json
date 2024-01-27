@@ -57,7 +57,7 @@
     "@react-navigation/material-top-tabs": "^6.6.3",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
-    "@tanstack/react-query": "^4.32.0",
+    "@tanstack/react-query": "^5.17.19",
     "assert": "^2.0.0",
     "bdk-rn": "github:Peach2Peach/bdk-rn",
     "bip174": "^2.1.1",

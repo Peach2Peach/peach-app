@@ -1,17 +1,20 @@
 import { useIsFocused } from '@react-navigation/native'
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import i18n from '../../utils/i18n'
 import { peachAPI } from '../../utils/peachAPI'
 import { decryptSymmetric } from '../../utils/pgp/decryptSymmetric'
 
 export const PAGE_SIZE = 22
+const chatKeys = {
+  contractChat: (id: string) => ['contract-chat', id] as const,
+}
 
 type GetChatQueryProps = {
-  queryKey: [string, string]
-  pageParam?: number
+  queryKey: ReturnType<typeof chatKeys.contractChat>
+  pageParam: number
 }
-const getChatQuery = async ({ queryKey, pageParam = 0 }: GetChatQueryProps) => {
+const getChatQuery = async ({ queryKey, pageParam }: GetChatQueryProps) => {
   const [, contractId] = queryKey
   const { result, error } = await peachAPI.private.contract.getChat({
     contractId,
@@ -30,12 +33,15 @@ const getChatQuery = async ({ queryKey, pageParam = 0 }: GetChatQueryProps) => {
   return messages
 }
 
-const getDecryptedChat
-  = (symmetricKey: string) =>
-    async ({ queryKey, pageParam = 0 }: GetChatQueryProps) => {
+export const useChatMessages = ({ id, symmetricKey }: { id: string; symmetricKey?: string }) => {
+  const isFocused = useIsFocused()
+  const { data, isLoading, isFetching, error, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
+    queryKey: chatKeys.contractChat(id),
+    queryFn: async ({ queryKey, pageParam }) => {
+      if (!symmetricKey) throw new Error('No symmetric key')
       const messages = await getChatQuery({ queryKey, pageParam })
 
-      return Promise.all(
+      const decryptedMessages = await Promise.all(
         messages.map(async (message) => {
           try {
             const decrypted = await decryptSymmetric(message.message, symmetricKey)
@@ -60,15 +66,12 @@ const getDecryptedChat
           }
         }),
       )
-    }
 
-export const useChatMessages = ({ id, symmetricKey }: { id: string; symmetricKey?: string }) => {
-  const isFocused = useIsFocused()
-  const { data, isLoading, isFetching, error, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
-    queryKey: ['contract-chat', id],
-    queryFn: symmetricKey ? getDecryptedChat(symmetricKey) : () => [],
-    keepPreviousData: true,
+      return decryptedMessages
+    },
+    placeholderData: keepPreviousData,
     enabled: !!symmetricKey && isFocused,
+    initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => (lastPage.length === PAGE_SIZE ? allPages.length : null),
   })
 

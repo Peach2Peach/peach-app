@@ -29,7 +29,9 @@ class PeachWallet {
     this.network = network
   }
 
-  async getLastUnusedAddress () {}
+  async getLastUnusedAddress () {
+    return { address: 'bcrt1qwype5wug33a6hwz9u2n6vz4lc0kpw0kg4xc8fq', index: 0 }
+  }
 
   async loadWallet () {}
 
@@ -63,6 +65,11 @@ class PeachWallet {
 
   async getInternalAddress () {
     return { address: 'bcrt1qwype5wug33a6hwz9u2n6vz4lc0kpw0kg4xc8fq', index: 0 }
+  }
+
+  getAddressByIndex (index: number) {
+    if (index === 0) return { address: 'bcrt1qwype5wug33a6hwz9u2n6vz4lc0kpw0kg4xc8fq', index }
+    throw new Error('Address not found')
   }
 
   async getAddressUTXO () {

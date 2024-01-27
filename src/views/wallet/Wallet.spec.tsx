@@ -116,7 +116,7 @@ describe('Wallet', () => {
     render(<Wallet />)
 
     await waitFor(() => {
-      expect(queryClient.getQueriesData(['receiveAddress'])).toEqual([
+      expect(queryClient.getQueriesData({ queryKey: ['receiveAddress'] })).toEqual([
         [['receiveAddress', 0], addresses.first],
         [['receiveAddress', 1], addresses.second],
         [['receiveAddress', -1], undefined],

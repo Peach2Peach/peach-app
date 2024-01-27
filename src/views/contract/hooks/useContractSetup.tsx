@@ -83,7 +83,7 @@ function useChatMessageHandler () {
             unreadMessages: oldContract.unreadMessages + 1,
           },
       )
-      queryClient.refetchQueries(['contract', contractId])
+      queryClient.refetchQueries({ queryKey: ['contract', contractId] })
     }
 
     const unsubscribe = () => {
@@ -125,7 +125,7 @@ function useContractUpdateHandler () {
             [event]: new Date(data.date),
           },
       )
-      queryClient.invalidateQueries(['contract', contractId])
+      queryClient.invalidateQueries({ queryKey: ['contract', contractId] })
     }
 
     const unsubscribe = () => {

@@ -1,7 +1,7 @@
 import { useIsFocused } from '@react-navigation/native'
-import { QueryFunctionContext, useInfiniteQuery } from '@tanstack/react-query'
+import { InfiniteData, keepPreviousData, useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
-import { GetMatchesResponseBody } from '../../../../peach-api/src/@types/api/offerAPI'
+import { GetMatchesErrorResponseBody, GetMatchesResponseBody } from '../../../../peach-api/src/@types/api/offerAPI'
 import { MSINASECOND } from '../../../constants'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
@@ -17,7 +17,7 @@ export const matchesKeys = {
   sortedMatchesByOfferId: (offerId: string, sortBy: Sorter[]) =>
     [...matchesKeys.matchesByOfferId(offerId), sortBy] as const,
 }
-
+const NUMBER_OF_SECONDS = 30
 export const useOfferMatches = (offerId: string, refetchInterval?: number, enabled = true) => {
   const { offer } = useOfferDetails(offerId)
   const isFocused = useIsFocused()
@@ -27,16 +27,33 @@ export const useOfferMatches = (offerId: string, refetchInterval?: number, enabl
 
   const queryData = useInfiniteQuery<
     GetMatchesResponseBody,
-    APIError,
-    GetMatchesResponseBody,
-    ReturnType<typeof matchesKeys.sortedMatchesByOfferId>
+    GetMatchesErrorResponseBody,
+    InfiniteData<GetMatchesResponseBody, unknown>,
+    ReturnType<typeof matchesKeys.sortedMatchesByOfferId>,
+    number
   >({
     queryKey: matchesKeys.sortedMatchesByOfferId(offerId, sortBy),
-    queryFn: getMatchesFn,
+    queryFn: async ({ queryKey, pageParam }) => {
+      info('Checking matches for', queryKey[1])
+      const { result, error: err } = await peachAPI.private.offer.getMatches({
+        offerId: queryKey[1],
+        page: pageParam,
+        size: PAGESIZE,
+        signal: getAbortWithTimeout(NUMBER_OF_SECONDS * MSINASECOND).signal,
+        sortBy: queryKey[2],
+      })
+
+      if (result) {
+        info('matches: ', result.matches.length)
+        return result
+      }
+      throw err || new Error('Unknown error')
+    },
     refetchInterval,
     enabled: enabled && isFocused && !!offer?.id && !offer.doubleMatched,
+    initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage?.nextPage,
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   })
 
   const allMatches = useMemo(
@@ -45,27 +62,4 @@ export const useOfferMatches = (offerId: string, refetchInterval?: number, enabl
   )
 
   return { ...queryData, allMatches }
-}
-
-const NUMBER_OF_SECONDS = 30
-async function getMatchesFn ({
-  queryKey: [, offerId, sortBy],
-  pageParam = 0,
-}: QueryFunctionContext<ReturnType<typeof matchesKeys.sortedMatchesByOfferId>>) {
-  info('Checking matches for', offerId)
-  const { result, error: err } = await peachAPI.private.offer.getMatches({
-    offerId,
-    page: pageParam,
-    size: PAGESIZE,
-    signal: getAbortWithTimeout(NUMBER_OF_SECONDS * MSINASECOND).signal,
-    sortBy,
-  })
-
-  if (result) {
-    info('matches: ', result.matches.length)
-    return result
-  } else if (err) {
-    throw err
-  }
-  throw new Error()
 }
