@@ -3,16 +3,16 @@ import { OfferSummary } from '../../peach-api/src/@types/offer'
 import { sellOffer } from '../../peach-api/src/testData/offers'
 import { contractSummary } from '../../tests/unit/data/contractSummaryData'
 import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
-import { useNavigateToOfferOrContract } from './useNavigateToOfferOrContract'
+import { useTradeNavigation } from './useTradeNavigation'
 
 const startRefundPopupMock = jest.fn()
 jest.mock('../popups/useStartRefundPopup', () => ({
   useStartRefundPopup: () => startRefundPopupMock,
 }))
 
-describe('useNavigateToOfferOrContract - contracts', () => {
+describe('useTradeNavigation - contracts', () => {
   it('should navigate to the contract', async () => {
-    const { result } = renderHook(() => useNavigateToOfferOrContract(contractSummary))
+    const { result } = renderHook(() => useTradeNavigation(contractSummary))
     await act(async () => {
       await result.current()
     })
@@ -21,13 +21,13 @@ describe('useNavigateToOfferOrContract - contracts', () => {
   })
 })
 
-describe('useNavigateToOfferOrContract - offers', () => {
+describe('useTradeNavigation - offers', () => {
   it('should navigate to offer', async () => {
     const offerSummary: Partial<OfferSummary> = {
       id: '3',
       tradeStatus: 'offerCanceled',
     }
-    const { result } = renderHook(useNavigateToOfferOrContract, {
+    const { result } = renderHook(useTradeNavigation, {
       initialProps: offerSummary as OfferSummary,
     })
     await result.current()
@@ -38,7 +38,7 @@ describe('useNavigateToOfferOrContract - offers', () => {
       id: '3',
       tradeStatus: 'refundTxSignatureRequired',
     }
-    const { result } = renderHook(useNavigateToOfferOrContract, {
+    const { result } = renderHook(useTradeNavigation, {
       initialProps: offerSummary as OfferSummary,
     })
     await result.current()
@@ -49,7 +49,7 @@ describe('useNavigateToOfferOrContract - offers', () => {
       id: '3',
       tradeStatus: 'fundingAmountDifferent',
     }
-    const { result } = renderHook(useNavigateToOfferOrContract, {
+    const { result } = renderHook(useTradeNavigation, {
       initialProps: offerSummary as OfferSummary,
     })
     await result.current()

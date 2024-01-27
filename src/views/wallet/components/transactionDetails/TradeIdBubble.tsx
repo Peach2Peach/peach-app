@@ -1,6 +1,6 @@
 import { ContractSummary } from '../../../../../peach-api/src/@types/contract'
 import { Bubble } from '../../../../components/bubble/Bubble'
-import { useNavigateToOfferOrContract } from '../../../../hooks/useNavigateToOfferOrContract'
+import { useTradeNavigation } from '../../../../hooks/useTradeNavigation'
 import { contractIdToHex } from '../../../../utils/contract/contractIdToHex'
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 }
 
 export const TradeIdBubble = ({ trade }: Props) => {
-  const goToContract = useNavigateToOfferOrContract(trade)
+  const goToContract = useTradeNavigation(trade)
   const tradeId = contractIdToHex(trade.id)
 
   return (

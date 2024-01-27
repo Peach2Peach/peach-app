@@ -4,8 +4,8 @@ import { OfferIdBubble } from './OfferIdBubble'
 
 const goToOffer = jest.fn()
 const useNavigateToOfferOrContractMock = jest.fn().mockReturnValue(goToOffer)
-jest.mock('../../../../hooks/useNavigateToOfferOrContract', () => ({
-  useNavigateToOfferOrContract: (...args: unknown[]) => useNavigateToOfferOrContractMock(...args),
+jest.mock('../../../../hooks/useTradeNavigation', () => ({
+  useTradeNavigation: (...args: unknown[]) => useNavigateToOfferOrContractMock(...args),
 }))
 
 describe('OfferIdBubble', () => {
