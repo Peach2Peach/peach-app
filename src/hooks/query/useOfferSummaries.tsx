@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { peachAPI } from '../../utils/peachAPI'
@@ -25,8 +26,11 @@ export const useOfferSummaries = (enabled = true) => {
     enabled,
     initialData: offers.length ? offers : undefined,
     initialDataUpdatedAt: lastModified.getTime?.(),
-    onSuccess: setOffers,
   })
+
+  useEffect(() => {
+    if (data) setOffers(data)
+  }, [data, setOffers])
 
   return { offers: data || [], isLoading, error, refetch }
 }

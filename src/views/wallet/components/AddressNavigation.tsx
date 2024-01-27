@@ -30,14 +30,20 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
 
   const nextAddress = () => {
     setIndex(index + 1)
-    queryClient.prefetchQuery(['receiveAddress', index + 2], () => peachWallet.getAddressByIndex(index + 2))
+    queryClient.prefetchQuery({
+      queryKey: ['receiveAddress', index + 2],
+      queryFn: () => peachWallet.getAddressByIndex(index + 2),
+    })
   }
 
   const prevAddress = () => {
     if (index === 0) return
     setIndex(index - 1)
     if (index > 1) {
-      queryClient.prefetchQuery(['receiveAddress', index - 2], () => peachWallet.getAddressByIndex(index - 2))
+      queryClient.prefetchQuery({
+        queryKey: ['receiveAddress', index - 2],
+        queryFn: () => peachWallet.getAddressByIndex(index - 2),
+      })
     }
   }
 

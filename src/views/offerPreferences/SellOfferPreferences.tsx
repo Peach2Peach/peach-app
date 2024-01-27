@@ -107,10 +107,12 @@ function usePastOffersStats ({ meansOfPayment }: { meansOfPayment: MeansOfPaymen
       if (!result) throw new Error('no past offers stats found')
       return result
     },
-    placeholderData: {
-      avgPremium: 0,
+    placeholderData: (data) => {
+      if (data) return data
+      return {
+        avgPremium: 0,
+      }
     },
-    keepPreviousData: true,
   })
 }
 

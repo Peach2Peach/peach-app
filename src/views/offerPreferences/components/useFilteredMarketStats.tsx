@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { MeansOfPayment } from '../../../../peach-api/src/@types/payment'
 import { MSINAMINUTE } from '../../../constants'
@@ -30,7 +30,7 @@ export function useFilteredMarketStats ({
       const { result } = await peachAPI.private.offer.searchOfferSummaries(requestBody)
       return result
     },
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
     staleTime: MSINAMINUTE,
   })
 

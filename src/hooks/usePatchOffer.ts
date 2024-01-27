@@ -33,7 +33,7 @@ export const usePatchOffer = () => {
       showErrorBanner(err.message)
     },
     onSettled: (_data, _error, { offerId }) => {
-      queryClient.invalidateQueries(['offer', offerId])
+      queryClient.invalidateQueries({ queryKey: ['offer', offerId] })
     },
   })
 }
@@ -66,7 +66,7 @@ export const usePatchBuyOffer = () => {
       showErrorBanner(err.message)
     },
     onSettled: (_data, _error, { offerId }) => {
-      queryClient.invalidateQueries(['offer', offerId])
+      queryClient.invalidateQueries({ queryKey: ['offer', offerId] })
     },
   })
 }

@@ -20,7 +20,7 @@ describe('useCreateEscrow', () => {
   it('sends API request to create escrow', async () => {
     const { result } = renderHook(useCreateEscrow)
     result.current.mutate(['38'])
-    await waitFor(() => expect(result.current.isLoading).toBeFalsy())
+    await waitFor(() => expect(result.current.isPending).toBeFalsy())
     expect(createEscrowMock).toHaveBeenCalledWith({
       offerId: '38',
       publicKey: '029d3a758589d86eaeccb6bd50dd91b4846ec558bde201999c8e3dee203a892c57',
@@ -29,7 +29,7 @@ describe('useCreateEscrow', () => {
   it('sends API requests to create multiple escrows', async () => {
     const { result } = renderHook(useCreateEscrow)
     result.current.mutate(['38', '39'])
-    await waitFor(() => expect(result.current.isLoading).toBeFalsy())
+    await waitFor(() => expect(result.current.isPending).toBeFalsy())
     expect(createEscrowMock).toHaveBeenCalledWith({
       offerId: '38',
       publicKey: '029d3a758589d86eaeccb6bd50dd91b4846ec558bde201999c8e3dee203a892c57',
@@ -43,7 +43,7 @@ describe('useCreateEscrow', () => {
     createEscrowMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
     const { result } = renderHook(useCreateEscrow)
     result.current.mutate(['38'])
-    await waitFor(() => expect(result.current.isLoading).toBeFalsy())
+    await waitFor(() => expect(result.current.isPending).toBeFalsy())
     expect(showErrorBannerMock).toHaveBeenCalledWith('UNAUTHORIZED')
   })
 })

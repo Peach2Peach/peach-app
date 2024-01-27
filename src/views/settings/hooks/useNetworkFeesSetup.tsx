@@ -31,7 +31,7 @@ export const useNetworkFeesSetup = () => {
   const finalFeeRate = displayRate === 'custom' ? Number(displayCustomRate) : displayRate
   const { mutate } = useMutation({
     onMutate: async () => {
-      await queryClient.cancelQueries(['user', 'self'])
+      await queryClient.cancelQueries({ queryKey: ['user', 'self'] })
       const previousData = queryClient.getQueryData(['user', 'self'])
       queryClient.setQueryData<User>(['user', 'self'], (old) => {
         if (!old) return old
@@ -51,7 +51,7 @@ export const useNetworkFeesSetup = () => {
       setToast({ msgKey: err.message, color: 'red' })
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['user', 'self'])
+      queryClient.invalidateQueries({ queryKey: ['user', 'self'] })
     },
   })
 

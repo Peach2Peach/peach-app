@@ -28,7 +28,7 @@ export const useToggleBatching = ({ isBatchingEnabled }: Props) => {
       showErrorBanner(err.message)
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['user', 'self'])
+      queryClient.invalidateQueries({ queryKey: ['user', 'self'] })
     },
   })
 }

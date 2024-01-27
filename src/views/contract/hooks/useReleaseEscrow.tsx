@@ -42,7 +42,7 @@ export const useReleaseEscrow = (contract: Contract) => {
       showError(err)
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['contract', contract.id])
+      queryClient.invalidateQueries({ queryKey: ['contract', contract.id] })
     },
   })
 }

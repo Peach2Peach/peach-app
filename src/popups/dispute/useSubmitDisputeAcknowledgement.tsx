@@ -36,7 +36,7 @@ export const useSubmitDisputeAcknowledgement = () => {
       closePopup()
     },
     onSettled: (_data, _error, { contractId }) => {
-      queryClient.invalidateQueries(['contract', contractId])
+      queryClient.invalidateQueries({ queryKey: ['contract', contractId] })
     },
   })
 

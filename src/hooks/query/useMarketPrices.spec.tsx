@@ -1,4 +1,4 @@
-import { renderHook, responseUtils, waitFor } from 'test-utils'
+import { act, renderHook, responseUtils, waitFor } from 'test-utils'
 import { FIFTEEN_SECONDS } from '../../constants'
 import { peachAPI } from '../../utils/peachAPI'
 import { useMarketPrices } from './useMarketPrices'
@@ -46,7 +46,9 @@ describe('useMarketPrices', () => {
         CHF: 21000,
       })
     })
-    jest.advanceTimersByTime(FIFTEEN_SECONDS)
+    act(() => {
+      jest.advanceTimersByTime(FIFTEEN_SECONDS)
+    })
     await waitFor(() => {
       expect(result.current.data).toEqual({
         EUR: 100000,
@@ -72,7 +74,9 @@ describe('useMarketPrices', () => {
         CHF: 21000,
       })
     })
-    jest.advanceTimersByTime(FIFTEEN_SECONDS)
+    act(() => {
+      jest.advanceTimersByTime(FIFTEEN_SECONDS)
+    })
     await waitFor(() => {
       expect(result.current.isError).toBe(true)
       expect(result.current.data).toEqual({
