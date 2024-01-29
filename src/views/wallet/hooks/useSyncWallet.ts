@@ -14,6 +14,7 @@ export const useSyncWallet = ({ refetchInterval, enabled = false }: Props = {}) 
   const queryData = useQuery({
     queryKey: ['syncWallet'],
     queryFn: async () => {
+      if (!peachWallet.initialized) await peachWallet.initWallet()
       await peachWallet.syncWallet()
       return true
     },

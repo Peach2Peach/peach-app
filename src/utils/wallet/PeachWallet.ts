@@ -32,6 +32,8 @@ const defaultGapLimit = 25
 export class PeachWallet extends PeachJSWallet {
   initialized: boolean
 
+  seedphrase: string | undefined
+
   syncInProgress: Promise<void> | undefined
 
   balance: number
@@ -54,39 +56,46 @@ export class PeachWallet extends PeachJSWallet {
     this.transactions = []
     this.initialized = false
     this.syncInProgress = undefined
+    this.seedphrase = undefined
   }
 
-  initWallet (seedphrase?: string): Promise<void> {
+  initWallet (seedphrase = this.seedphrase): Promise<void> {
     this.loadFromStorage()
 
-    return new Promise((resolve) =>
+    return new Promise((resolve, reject) =>
       callWhenInternet(async () => {
         info('PeachWallet - initWallet - start')
 
-        const { externalDescriptor, internalDescriptor } = await getDescriptorsBySeedphrase({
-          seedphrase,
-          network: this.getNetwork(),
-        })
+        try {
+          const { externalDescriptor, internalDescriptor } = await getDescriptorsBySeedphrase({
+            seedphrase,
+            network: this.getNetwork(),
+          })
 
-        this.setBlockchain(useNodeConfigState.getState())
+          this.setBlockchain(useNodeConfigState.getState())
 
-        const dbConfig = await getDBConfig(this.getNetwork(), this.nodeType)
+          const dbConfig = await getDBConfig(this.getNetwork(), this.nodeType)
 
-        info('PeachWallet - initWallet - createWallet')
+          info('PeachWallet - initWallet - createWallet')
 
-        this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, this.getNetwork(), dbConfig)
+          this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, this.getNetwork(), dbConfig)
 
-        info('PeachWallet - initWallet - createdWallet')
+          info('PeachWallet - initWallet - createdWallet')
 
-        this.initialized = true
+          this.initialized = true
 
-        info('PeachWallet - initWallet - loaded')
-        resolve()
+          info('PeachWallet - initWallet - loaded')
+          return resolve()
+        } catch (e) {
+          error('PeachWallet - initWallet - error', parseError(e))
+          return reject(new Error('GENERAL_ERROR'))
+        }
       }),
     )
   }
 
   async loadWallet (seedphrase?: string) {
+    this.seedphrase = seedphrase
     info('PeachWallet - loadWallet - start')
     await waitForHydration(useNodeConfigState)
 

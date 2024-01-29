@@ -1,0 +1,1560 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RestoreFromSeed should render correctly 1`] = `
+<View
+  style={
+    {
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+      "gap": 16,
+    }
+  }
+>
+  <RCTScrollView
+    contentContainerStyle={
+      {
+        "paddingBottom": 16,
+        "paddingTop": 16,
+      }
+    }
+    showsHorizontalScrollIndicator={false}
+    showsVerticalScrollIndicator={false}
+  >
+    <View>
+      <View
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "gap": 16,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              {
+                "color": "#FFFCFA",
+                "textAlign": "center",
+              },
+              false,
+            ]
+          }
+        >
+          use your backup file if you have it
+        </Text>
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              {
+                "color": "#FFFCFA",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+                "textAlign": "center",
+              },
+              false,
+            ]
+          }
+        >
+          enter your seed phrase
+        </Text>
+        <View
+          style={
+            {
+              "flexDirection": "row",
+              "gap": 16,
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+              }
+            }
+          >
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={true}
+                  multiline={false}
+                  onChangeText={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="1."
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "gap": 16,
+                    }
+                  }
+                />
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={true}
+                  multiline={false}
+                  onChangeText={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="2."
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "gap": 16,
+                    }
+                  }
+                />
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={true}
+                  multiline={false}
+                  onChangeText={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="3."
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "gap": 16,
+                    }
+                  }
+                />
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={true}
+                  multiline={false}
+                  onChangeText={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="4."
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "gap": 16,
+                    }
+                  }
+                />
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={true}
+                  multiline={false}
+                  onChangeText={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="5."
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "gap": 16,
+                    }
+                  }
+                />
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={true}
+                  multiline={false}
+                  onChangeText={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="6."
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "gap": 16,
+                    }
+                  }
+                />
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              {
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+              }
+            }
+          >
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={true}
+                  multiline={false}
+                  onChangeText={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="7."
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "gap": 16,
+                    }
+                  }
+                />
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={true}
+                  multiline={false}
+                  onChangeText={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="8."
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "gap": 16,
+                    }
+                  }
+                />
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={true}
+                  multiline={false}
+                  onChangeText={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="9."
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "gap": 16,
+                    }
+                  }
+                />
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={true}
+                  multiline={false}
+                  onChangeText={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="10."
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "gap": 16,
+                    }
+                  }
+                />
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={true}
+                  multiline={false}
+                  onChangeText={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="11."
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "gap": 16,
+                    }
+                  }
+                />
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={true}
+                  multiline={false}
+                  onChangeText={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="12."
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "gap": 16,
+                    }
+                  }
+                />
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                    false,
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": true,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "backgroundColor": "#FFFCFA",
+        "borderColor": undefined,
+        "borderRadius": 9999,
+        "flexDirection": "row",
+        "gap": 8,
+        "justifyContent": "center",
+        "minWidth": 104,
+        "opacity": 0.33,
+        "paddingBottom": 3,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+        "paddingTop": 3,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      numberOfLines={1}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 13,
+              "letterSpacing": 0.47,
+              "lineHeight": 22,
+              "textTransform": "uppercase",
+            },
+            {},
+            {
+              "color": "#F56522",
+            },
+          ],
+          false,
+        ]
+      }
+    >
+      restore backup
+    </Text>
+    <test-file-stub
+      fill="#F56522"
+      style={
+        [
+          {
+            "height": 18,
+            "width": 18,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+</View>
+`;
