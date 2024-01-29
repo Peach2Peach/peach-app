@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { peachAPI } from '../../utils/peachAPI'
@@ -27,8 +28,11 @@ export const useContractSummaries = (enabled = true) => {
     enabled,
     initialData: contracts.length ? contracts : undefined,
     initialDataUpdatedAt: lastModified.getTime?.(),
-    onSuccess: setContracts,
   })
+
+  useEffect(() => {
+    if (data) setContracts(data)
+  }, [data, setContracts])
 
   return { contracts: data || [], isLoading, error, refetch }
 }

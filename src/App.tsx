@@ -5,7 +5,7 @@ import { enableScreens } from 'react-native-screens'
 
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
-import { QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { useDeviceContext } from 'twrnc'
 import { Drawer } from './components/drawer/Drawer'
@@ -13,7 +13,6 @@ import { Popup } from './components/popup/Popup'
 import { Toast } from './components/toast/Toast'
 import { useWebSocket } from './init/websocket'
 import { Overlay } from './Overlay'
-import { queryClient } from './queryClient'
 import tw from './styles/tailwind'
 import { usePartialAppSetup } from './usePartialAppSetup'
 import { info } from './utils/log/info'
@@ -28,6 +27,8 @@ const navTheme = {
     background: 'transparent',
   },
 }
+
+const queryClient = new QueryClient()
 
 export const App = () => {
   useDeviceContext(tw)

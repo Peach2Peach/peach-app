@@ -6,8 +6,8 @@ import { TransactionHeader } from './TransactionHeader'
 
 const goToOfferMock = jest.fn()
 const navigateToOfferOrContractMock = jest.fn().mockReturnValue(goToOfferMock)
-jest.mock('../../../../hooks/useNavigateToOfferOrContract', () => ({
-  useNavigateToOfferOrContract: (...args: unknown[]) => navigateToOfferOrContractMock(...args),
+jest.mock('../../../../hooks/useTradeNavigation', () => ({
+  useTradeNavigation: (...args: unknown[]) => navigateToOfferOrContractMock(...args),
 }))
 
 describe('TransactionHeader', () => {

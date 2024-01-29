@@ -39,8 +39,8 @@ export const usePatchReleaseAddress = (offerId: string, contractId?: string) => 
       showErrorBanner(err.message)
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['offer', offerId])
-      queryClient.invalidateQueries(['contract', contractId])
+      queryClient.invalidateQueries({ queryKey: ['offer', offerId] })
+      queryClient.invalidateQueries({ queryKey: ['contract', contractId] })
     },
   })
 }

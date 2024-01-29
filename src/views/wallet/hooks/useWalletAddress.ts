@@ -7,5 +7,5 @@ export const useWalletAddress = (index: number) =>
     queryKey: ['receiveAddress', index] as const,
     queryFn: ({ queryKey: [, addressIndex] }) => peachWallet.getAddressByIndex(addressIndex),
     enabled: peachWallet.initialized && index >= 0,
-    cacheTime: MSINAMINUTE,
+    gcTime: MSINAMINUTE,
   })

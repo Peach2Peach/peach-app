@@ -31,7 +31,7 @@ describe('useFeeRate', () => {
 
     getUserMock.mockResolvedValueOnce({ result: { ...defaultUser, feeRate: 'halfHourFee' }, ...responseUtils })
     act(() => {
-      queryClient.invalidateQueries(['user', 'self'])
+      queryClient.invalidateQueries({ queryKey: ['user', 'self'] })
     })
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.halfHourFee)
@@ -39,7 +39,7 @@ describe('useFeeRate', () => {
 
     getUserMock.mockResolvedValueOnce({ result: { ...defaultUser, feeRate: 'hourFee' }, ...responseUtils })
     act(() => {
-      queryClient.invalidateQueries(['user', 'self'])
+      queryClient.invalidateQueries({ queryKey: ['user', 'self'] })
     })
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.hourFee)
@@ -55,7 +55,7 @@ describe('useFeeRate', () => {
 
     getUserMock.mockResolvedValueOnce({ result: { ...defaultUser, feeRate: 0 }, ...responseUtils })
     act(() => {
-      queryClient.invalidateQueries(['user', 'self'])
+      queryClient.invalidateQueries({ queryKey: ['user', 'self'] })
     })
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.halfHourFee)
@@ -64,7 +64,7 @@ describe('useFeeRate', () => {
     // @ts-expect-error testing undefined fee rate
     getUserMock.mockResolvedValueOnce({ result: { ...defaultUser, feeRate: undefined }, ...responseUtils })
     act(() => {
-      queryClient.invalidateQueries(['user', 'self'])
+      queryClient.invalidateQueries({ queryKey: ['user', 'self'] })
     })
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.halfHourFee)

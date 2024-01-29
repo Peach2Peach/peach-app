@@ -12,7 +12,7 @@ import { statusCardStyles } from '../../../components/statusCard/statusCardStyle
 import { FixedHeightText } from '../../../components/text/FixedHeightText'
 import { PeachText } from '../../../components/text/PeachText'
 import { useGoToOfferOrContract } from '../../../hooks/useGoToOfferOrContract'
-import { useNavigateToOfferOrContract } from '../../../hooks/useNavigateToOfferOrContract'
+import { useTradeNavigation } from '../../../hooks/useTradeNavigation'
 import tw from '../../../styles/tailwind'
 import { contractIdFromHex } from '../../../utils/contract/contractIdFromHex'
 import { contractIdToHex } from '../../../utils/contract/contractIdToHex'
@@ -36,7 +36,7 @@ type Props = {
 }
 
 export function TradeItem ({ item }: Props) {
-  const onPress = useNavigateToOfferOrContract(item)
+  const onPress = useTradeNavigation(item)
 
   const { color, iconId } = getThemeForTradeItem(item)
   return (

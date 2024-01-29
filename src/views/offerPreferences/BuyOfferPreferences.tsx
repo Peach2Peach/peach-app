@@ -159,7 +159,7 @@ function PublishOfferButton () {
   const rangeIsValid = rangeIsWithinLimits && amount[0] <= amount[1]
   const formValid = methodsAreValid && rangeIsValid
 
-  const { mutate: publishOffer, isLoading: isPublishing } = usePublishBuyOffer({
+  const { mutate: publishOffer, isPending: isPublishing } = usePublishBuyOffer({
     amount,
     meansOfPayment,
     paymentData,

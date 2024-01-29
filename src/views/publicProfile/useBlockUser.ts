@@ -8,7 +8,7 @@ export const useBlockUser = (userId: string) => {
   const showError = useShowErrorBanner()
   return useMutation({
     onMutate: async () => {
-      await queryClient.cancelQueries(['user', userId, 'status'])
+      await queryClient.cancelQueries({ queryKey: ['user', userId, 'status'] })
       const previousStatus = queryClient.getQueryData<UserStatus>(['user', userId, 'status'])
       queryClient.setQueryData<UserStatus>(['user', userId, 'status'], (oldQueryData: UserStatus) => {
         if (oldQueryData) {
@@ -32,7 +32,7 @@ export const useBlockUser = (userId: string) => {
       showError(err.message)
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['user', userId, 'status'])
+      queryClient.invalidateQueries({ queryKey: ['user', userId, 'status'] })
     },
   })
 }

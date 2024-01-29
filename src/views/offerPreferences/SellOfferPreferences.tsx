@@ -107,10 +107,12 @@ function usePastOffersStats ({ meansOfPayment }: { meansOfPayment: MeansOfPaymen
       if (!result) throw new Error('no past offers stats found')
       return result
     },
-    placeholderData: {
-      avgPremium: 0,
+    placeholderData: (data) => {
+      if (data) return data
+      return {
+        avgPremium: 0,
+      }
     },
-    keepPreviousData: true,
   })
 }
 
@@ -258,7 +260,7 @@ function SatsInput () {
   const [inputValue, setInputValue] = useState(String(amount))
   const restrictAmount = useRestrictSatsAmount('sell')
 
-  const onFocus = () => setInputValue(String(amount))
+  const onFocus = () => setInputValue('0')
 
   const onChangeText = (value: string) => setInputValue(enforceDigitFormat(value))
 

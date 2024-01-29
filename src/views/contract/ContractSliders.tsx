@@ -47,7 +47,7 @@ export function PaymentMadeSlider () {
 
   return (
     <ConfirmSlider
-      enabled={!mutation.isLoading && !isPaymentTooLate(contract)}
+      enabled={!mutation.isPending && !isPaymentTooLate(contract)}
       onConfirm={() => mutation.mutate()}
       label1={i18n('contract.payment.buyer.confirm')}
       label2={i18n('contract.payment.made')}
@@ -84,7 +84,7 @@ export function PaymentReceivedSlider () {
 
   return (
     <ConfirmSlider
-      enabled={!mutation.isLoading}
+      enabled={!mutation.isPending}
       onConfirm={() => mutation.mutate()}
       label1={i18n('contract.payment.confirm')}
       label2={i18n('contract.payment.received')}

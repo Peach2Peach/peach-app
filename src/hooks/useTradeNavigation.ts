@@ -9,7 +9,7 @@ import { isContractSummary } from '../views/yourTrades/utils/isContractSummary'
 import { getNavigationDestinationForOffer } from '../views/yourTrades/utils/navigation/getNavigationDestinationForOffer'
 import { useNavigation } from './useNavigation'
 
-export const useNavigateToOfferOrContract = (item: OfferSummary | ContractSummary) => {
+export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
   const navigation = useNavigation()
   const showStartRefundPopup = useStartRefundPopup()
   const queryClient = useQueryClient()

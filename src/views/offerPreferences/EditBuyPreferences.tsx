@@ -278,7 +278,7 @@ function PatchOfferButton () {
   const rangeIsValid = preferences.amount[0] <= preferences.amount[1] && (!rangeHasChanged || rangeIsWithinLimits)
   const formValid = rangeIsValid
 
-  const { mutate: patchOffer, isLoading: isPatching } = usePatchBuyOffer()
+  const { mutate: patchOffer, isPending: isPatching } = usePatchBuyOffer()
   const navigation = useNavigation()
   const queryClient = useQueryClient()
   const onPress = () => {
