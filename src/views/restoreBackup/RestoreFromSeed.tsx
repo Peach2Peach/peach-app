@@ -28,18 +28,22 @@ export const RestoreFromSeed = () => {
         </PeachText>
         <View style={tw`flex-row gap-4`}>
           <View style={tw`flex-1`}>
-            {Array(NUMBER_OF_WORDS / 2).map((e, index) => (
-              <SeedPhraseInput key={`seedPhraseInput-${index}`} {...{ index, setWords }} />
-            ))}
+            {Array(NUMBER_OF_WORDS / 2)
+              .fill(0)
+              .map((e, index) => (
+                <SeedPhraseInput key={`seedPhraseInput-${index}`} {...{ index, setWords }} />
+              ))}
           </View>
           <View style={tw`flex-1`}>
-            {Array(NUMBER_OF_WORDS / 2).map((e, index) => (
-              <SeedPhraseInput
-                key={`seedPhraseInput-${index + NUMBER_OF_WORDS / 2}`}
-                index={index + NUMBER_OF_WORDS / 2}
-                setWords={setWords}
-              />
-            ))}
+            {Array(NUMBER_OF_WORDS / 2)
+              .fill(0)
+              .map((e, index) => (
+                <SeedPhraseInput
+                  key={`seedPhraseInput-${index + NUMBER_OF_WORDS / 2}`}
+                  index={index + NUMBER_OF_WORDS / 2}
+                  setWords={setWords}
+                />
+              ))}
           </View>
         </View>
         {allWordsAreSet && !isMnemonicValid && (
