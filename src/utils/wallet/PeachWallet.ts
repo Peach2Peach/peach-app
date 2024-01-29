@@ -62,7 +62,6 @@ export class PeachWallet extends PeachJSWallet {
   initWallet (seedphrase = this.seedphrase): Promise<void> {
     this.loadFromStorage()
 
-    console.log(seedphrase)
     return new Promise((resolve, reject) =>
       callWhenInternet(async () => {
         info('PeachWallet - initWallet - start')
