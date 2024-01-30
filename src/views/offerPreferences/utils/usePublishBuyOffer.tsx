@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { shallow } from 'zustand/shallow'
 import { useSetOverlay } from '../../../Overlay'
 import { useSetPopup } from '../../../components/popup/Popup'
@@ -30,6 +30,7 @@ export function usePublishBuyOffer ({
   maxPremium,
   minReputation,
 }: Pick<BuyOfferDraft, 'amount' | 'meansOfPayment' | 'paymentData' | 'maxPremium' | 'minReputation'>) {
+  const queryClient = useQueryClient()
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
   const hasSeenGroupHugAnnouncement = useConfigStore((state) => state.hasSeenGroupHugAnnouncement)
@@ -100,5 +101,10 @@ export function usePublishBuyOffer ({
         ],
       })
     },
+    onSettled: (offerId) =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['offerSummaries'] }),
+        queryClient.invalidateQueries({ queryKey: ['offer', offerId] }),
+      ]),
   })
 }

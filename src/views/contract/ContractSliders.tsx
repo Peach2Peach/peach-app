@@ -19,6 +19,7 @@ export function RepublishOfferSlider () {
   const republishOffer = useRepublishOffer()
   return <ConfirmSlider onConfirm={() => republishOffer(contract)} label1={i18n('republishOffer')} iconId="refreshCw" />
 }
+
 export function RefundEscrowSlider () {
   const { contract } = useContractContext()
   const startRefund = useStartRefundPopup()
@@ -35,7 +36,7 @@ export function PaymentMadeSlider () {
   const { contractId } = useRoute<'contract'>().params
   const { contract } = useContractContext()
 
-  const mutation = useContractMutation(
+  const { isPending, mutate } = useContractMutation(
     { id: contract.id, paymentMade: new Date(), tradeStatus: 'confirmPaymentRequired' },
     {
       mutationFn: async () => {
@@ -47,8 +48,8 @@ export function PaymentMadeSlider () {
 
   return (
     <ConfirmSlider
-      enabled={!mutation.isPending && !isPaymentTooLate(contract)}
-      onConfirm={() => mutation.mutate()}
+      enabled={!isPending && !isPaymentTooLate(contract)}
+      onConfirm={() => mutate()}
       label1={i18n('contract.payment.buyer.confirm')}
       label2={i18n('contract.payment.made')}
     />
@@ -91,6 +92,7 @@ export function PaymentReceivedSlider () {
     />
   )
 }
+
 export function CancelTradeSlider () {
   const { contract } = useContractContext()
   const { mutate } = useContractMutation(

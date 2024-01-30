@@ -41,8 +41,10 @@ export const useReleaseEscrow = (contract: Contract) => {
       queryClient.setQueryData(['contract', contract.id], context?.previousData)
       showError(err)
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['contract', contract.id] })
-    },
+    onSettled: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['contract', contract.id] }),
+        queryClient.invalidateQueries({ queryKey: ['contractSummaries'] }),
+      ]),
   })
 }

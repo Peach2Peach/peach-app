@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { peachAPI } from '../../utils/peachAPI'
+import { matchesKeys } from '../search/hooks/useOfferMatches'
 import { UserStatus } from './useUserStatus'
 
 export const useBlockUser = (userId: string) => {
@@ -27,12 +28,14 @@ export const useBlockUser = (userId: string) => {
       if (error) throw new Error(error.error || "Couldn't block user")
       return status
     },
-    onError: (err: Error, _variables, context) => {
+    onError: (err, _variables, context) => {
       queryClient.setQueryData(['user', userId, 'status'], context?.previousStatus)
       showError(err.message)
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['user', userId, 'status'] })
-    },
+    onSettled: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['user', userId, 'status'] }),
+        queryClient.invalidateQueries({ queryKey: matchesKeys.matches }),
+      ]),
   })
 }

@@ -23,12 +23,10 @@ export const useToggleBatching = ({ isBatchingEnabled }: Props) => {
       const { error } = await peachAPI.private.user.enableTransactionBatching({ enableBatching: !isBatchingEnabled })
       if (error) throw new Error(error.error || 'Failed to toggle batching')
     },
-    onError: (err: Error, _variables, context) => {
+    onError: (err, _variables, context) => {
       queryClient.setQueryData(['user', 'self'], context?.previousData)
       showErrorBanner(err.message)
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['user', 'self'] })
-    },
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['user', 'self'] }),
   })
 }

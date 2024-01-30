@@ -22,6 +22,6 @@ export const useCreateEscrow = () => {
 
   return useMutation({
     mutationFn: (offerIds: string[]) => Promise.all(offerIds.map(createEscrowFn)),
-    onError: (err: Error) => showErrorBanner(parseError(err)),
+    onError: (err) => showErrorBanner(parseError(err)),
   })
 }

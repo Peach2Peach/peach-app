@@ -17,6 +17,7 @@ import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { peachAPI } from '../../utils/peachAPI'
 import { parseError } from '../../utils/result/parseError'
 import { decryptSymmetricKey } from '../../views/contract/helpers/decryptSymmetricKey'
+import { matchesKeys } from '../../views/search/hooks/useOfferMatches'
 import { Icon } from '../Icon'
 import { ProfileInfo } from '../ProfileInfo'
 import { NewBubble as Bubble } from '../bubble/Bubble'
@@ -115,7 +116,7 @@ type MatchButtonProps = {
 }
 function MatchOfferButton ({ offer, match, optionName, currentPage }: MatchButtonProps) {
   const currentOption = options[optionName]
-  const { mutate } = useMatchAsSeller(offer, match, currentPage)
+  const { mutate } = useAcceptMatch(offer, match, currentPage)
 
   const onPress = () => {
     if (optionName === 'acceptMatch') {
@@ -135,7 +136,7 @@ function MatchOfferButton ({ offer, match, optionName, currentPage }: MatchButto
   )
 }
 
-function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) {
+function useAcceptMatch (offer: SellOffer, match: Match, currentPage: number) {
   const { selectedCurrency, selectedPaymentMethod, offerId } = match
   const queryClient = useQueryClient()
   const navigation = useNavigation()
@@ -145,10 +146,12 @@ function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) 
 
   return useMutation({
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['matches', offer.id] })
-      const previousData = queryClient.getQueryData<GetMatchesResponseBody>(['matches', offer.id])
-      queryClient.setQueryData(['matches', offer.id], (oldQueryData: InfiniteData<GetMatchesResponseBody> | undefined) =>
-        updateMatchedStatus(oldQueryData, offerId, currentPage),
+      await queryClient.cancelQueries({ queryKey: matchesKeys.matchesByOfferId(offer.id) })
+      const previousData = queryClient.getQueryData<GetMatchesResponseBody>(matchesKeys.matchesByOfferId(offer.id))
+      queryClient.setQueryData(
+        matchesKeys.matchesByOfferId(offer.id),
+        (oldQueryData: InfiniteData<GetMatchesResponseBody> | undefined) =>
+          updateMatchedStatus(oldQueryData, offerId, currentPage),
       )
 
       return { previousData }
@@ -172,7 +175,7 @@ function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) 
       if (err) handleError(err)
       throw new Error('OFFER_TAKEN')
     },
-    onError: (err: Error, _variables, context) => {
+    onError: (err, _variables, context) => {
       const errorMsg = parseError(err)
 
       if (errorMsg === 'MISSING_PAYMENTDATA' && selectedCurrency && selectedPaymentMethod) {
@@ -187,9 +190,9 @@ function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) 
         )
         handleError({ error: errorMsg })
       }
-      queryClient.setQueryData(['matches', offer.id], context?.previousData)
+      queryClient.setQueryData(matchesKeys.matchesByOfferId(offer.id), context?.previousData)
     },
-    onSuccess: async (result: MatchResponse) => {
+    onSuccess: async (result) => {
       if ('refundTx' in result && result.refundTx) {
         const refundTx = await createRefundTx(offer, result.refundTx)
         saveOffer({
@@ -203,11 +206,14 @@ function useMatchAsSeller (offer: SellOffer, match: Match, currentPage: number) 
         navigation.replace('contract', { contractId: result.contractId })
       }
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['matches', offer.id] })
-      queryClient.invalidateQueries({ queryKey: ['offerSummaries'] })
-      queryClient.invalidateQueries({ queryKey: ['contractSummaries'] })
-    },
+    onSettled: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['offer', offer.id] }),
+        queryClient.invalidateQueries({ queryKey: ['offerSummaries'] }),
+        queryClient.invalidateQueries({ queryKey: matchesKeys.matchesByOfferId(offer.id) }),
+        queryClient.invalidateQueries({ queryKey: ['matchDetails', offer.id, match.offerId] }),
+        queryClient.invalidateQueries({ queryKey: ['contractSummaries'] }),
+      ]),
   })
 }
 

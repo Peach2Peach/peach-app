@@ -1,6 +1,6 @@
 import { render, responseUtils, waitFor } from 'test-utils'
-import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { peachAPI } from '../../utils/peachAPI'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { peachAPI } from '../../../utils/peachAPI'
 import { NetworkFees } from './NetworkFees'
 
 const useNetworkFeesSetupMock = jest.fn().mockReturnValue({

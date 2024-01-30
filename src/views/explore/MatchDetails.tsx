@@ -16,7 +16,7 @@ import { EscrowLink } from '../../components/matches/components/EscrowLink'
 import { PaymentMethodSelector } from '../../components/matches/components/PaymentMethodSelector'
 import { PriceInfo } from '../../components/matches/components/PriceInfo'
 import { useInterruptibleFunction } from '../../components/matches/hooks/useInterruptibleFunction'
-import { useMatchAsBuyer } from '../../components/matches/hooks/useMatchAsBuyer'
+import { useMatchOffer } from '../../components/matches/hooks/useMatchOffer'
 import { getMatchPrice } from '../../components/matches/utils/getMatchPrice'
 import { PeachText } from '../../components/text/PeachText'
 import { HorizontalLine } from '../../components/ui/HorizontalLine'
@@ -68,7 +68,7 @@ function useMatchDetails ({ offerId, matchId }: { offerId: string; matchId: stri
 
 const MATCH_DELAY = 5000
 function Match ({ match, offer }: { match: MatchType; offer: BuyOffer }) {
-  const { mutate } = useMatchAsBuyer(offer, match)
+  const { mutate } = useMatchOffer(offer, match)
   const { meansOfPayment } = match
 
   const availableCurrencies = keys(meansOfPayment)

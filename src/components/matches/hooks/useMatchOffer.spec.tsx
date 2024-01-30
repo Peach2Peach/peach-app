@@ -6,11 +6,11 @@ import { buyOffer } from '../../../../tests/unit/data/offerData'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
 import { useAccountStore } from '../../../utils/account/account'
 import { peachAPI } from '../../../utils/peachAPI'
-import { useMatchAsBuyer } from './useMatchAsBuyer'
+import { useMatchOffer } from './useMatchOffer'
 
 jest.useFakeTimers()
 
-describe('useMatchAsBuyer', () => {
+describe('useMatchOffer', () => {
   const currency = 'EUR'
   const signSpy = jest.spyOn(OpenPGP, 'sign')
   const encryptSpy = jest.spyOn(OpenPGP, 'encrypt')
@@ -26,7 +26,7 @@ describe('useMatchAsBuyer', () => {
     signSpy.mockResolvedValue(signature)
     encryptSpy.mockResolvedValue(encrypted)
     encryptSymmetricSpy.mockResolvedValue(symmetricallyEncrypted)
-    const { result } = renderHook(() => useMatchAsBuyer(buyOffer, match))
+    const { result } = renderHook(() => useMatchOffer(buyOffer, match))
 
     act(() => {
       result.current.mutate({ selectedCurrency: currency, paymentData: validSEPAData })

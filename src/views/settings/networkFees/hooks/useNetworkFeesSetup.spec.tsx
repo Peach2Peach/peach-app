@@ -1,17 +1,17 @@
 import { act, render, renderHook, responseUtils, waitFor } from 'test-utils'
-import { defaultUser } from '../../../../peach-api/src/testData/userData'
-import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { Toast } from '../../../components/toast/Toast'
-import i18n from '../../../utils/i18n'
-import { peachAPI } from '../../../utils/peachAPI'
-import { getError } from '../../../utils/result/getError'
+import { defaultUser } from '../../../../../peach-api/src/testData/userData'
+import { unauthorizedError } from '../../../../../tests/unit/data/peachAPIData'
+import { queryClient } from '../../../../../tests/unit/helpers/QueryClientWrapper'
+import { Toast } from '../../../../components/toast/Toast'
+import i18n from '../../../../utils/i18n'
+import { peachAPI } from '../../../../utils/peachAPI'
+import { getError } from '../../../../utils/result/getError'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
 
 jest.useFakeTimers()
 
 const updateUserMock = jest.fn().mockResolvedValue([{ success: true }])
-jest.mock('../../../utils/peachAPI/updateUser', () => ({
+jest.mock('../../../../utils/peachAPI/updateUser', () => ({
   updateUser: (...args: unknown[]) => updateUserMock(...args),
 }))
 

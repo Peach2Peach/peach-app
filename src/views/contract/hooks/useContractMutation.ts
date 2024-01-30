@@ -28,9 +28,10 @@ export function useContractMutation<TData = unknown, TVariables = void> (
       queryClient.setQueryData(['contract', optimisticContract.id], context?.previousData)
       showError(err.message)
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['contract', optimisticContract.id] })
-      queryClient.invalidateQueries({ queryKey: ['contractSummaries'] })
-    },
+    onSettled: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['contract', optimisticContract.id] }),
+        queryClient.invalidateQueries({ queryKey: ['contractSummaries'] }),
+      ]),
   })
 }

@@ -13,12 +13,13 @@ import { encryptPaymentData } from '../../../utils/paymentMethod/encryptPaymentD
 import { peachAPI } from '../../../utils/peachAPI'
 import { signAndEncrypt } from '../../../utils/pgp/signAndEncrypt'
 import { parseError } from '../../../utils/result/parseError'
+import { matchesKeys } from '../../../views/search/hooks/useOfferMatches'
 import { useSetPopup } from '../../popup/Popup'
 import { getMatchPrice } from '../utils/getMatchPrice'
 import { useHandleError } from '../utils/useHandleError'
 import { useHandleMissingPaymentData } from '../utils/useHandleMissingPaymentData'
 
-export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
+export const useMatchOffer = (offer: BuyOffer, match: Match) => {
   const matchId = match.offerId
   const queryClient = useQueryClient()
   const navigation = useNavigation()
@@ -31,9 +32,11 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
   return useMutation({
     onMutate: async ({ selectedCurrency, paymentData }) => {
       const selectedPaymentMethod = paymentData?.type
-      await queryClient.cancelQueries({ queryKey: ['matches', offer.id] })
-      await queryClient.cancelQueries({ queryKey: ['matchDetails', offer.id, matchId] })
-      const previousData = queryClient.getQueryData<GetMatchesResponseBody>(['matches', offer.id])
+      await Promise.all([
+        queryClient.cancelQueries({ queryKey: matchesKeys.matchesByOfferId(offer.id) }),
+        queryClient.cancelQueries({ queryKey: ['matchDetails', offer.id, matchId] }),
+      ])
+      const previousData = queryClient.getQueryData<GetMatchesResponseBody>(matchesKeys.matchesByOfferId(offer.id))
       queryClient.setQueryData<Match>(['matchDetails', offer.id, matchId], (old) => {
         if (!old) return old
         return {
@@ -71,7 +74,7 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
       if (err) handleError(err)
       throw new Error('OFFER_TAKEN')
     },
-    onError: (err: Error, { selectedCurrency, paymentData }, context) => {
+    onError: (err, { selectedCurrency, paymentData }, context) => {
       const selectedPaymentMethod = paymentData?.type
       const errorMsg = parseError(err)
 
@@ -87,7 +90,7 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
         )
         handleError({ error: errorMsg })
       }
-      queryClient.setQueryData(['matches', offer.id], context?.previousData)
+      queryClient.setQueryData(matchesKeys.matchesByOfferId(offer.id), context?.previousData)
     },
     onSuccess: (result: MatchResponse) => {
       if ('contractId' in result && result.contractId) {
@@ -95,12 +98,14 @@ export const useMatchAsBuyer = (offer: BuyOffer, match: Match) => {
         navigation.replace('contract', { contractId: result.contractId })
       }
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['matches', offer.id] })
-      queryClient.invalidateQueries({ queryKey: ['matchDetails', offer.id, matchId] })
-      queryClient.invalidateQueries({ queryKey: ['offerSummaries'] })
-      queryClient.invalidateQueries({ queryKey: ['contractSummaries'] })
-    },
+    onSettled: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['offer', offer.id] }),
+        queryClient.invalidateQueries({ queryKey: ['offerSummaries'] }),
+        queryClient.invalidateQueries({ queryKey: ['contractSummaries'] }),
+        queryClient.invalidateQueries({ queryKey: matchesKeys.matchesByOfferId(offer.id) }),
+        queryClient.invalidateQueries({ queryKey: ['matchDetails', offer.id, matchId] }),
+      ]),
   })
 }
 

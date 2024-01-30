@@ -8,9 +8,9 @@ export function ApplySortersAction ({ setSorterAction }: { setSorterAction: () =
   const queryClient = useQueryClient()
   const closePopup = useClosePopup()
 
-  const applySorters = useCallback(() => {
+  const applySorters = useCallback(async () => {
     setSorterAction()
-    queryClient.invalidateQueries({ queryKey: ['matches'] })
+    await queryClient.invalidateQueries({ queryKey: ['matches'] })
     closePopup()
   }, [closePopup, queryClient, setSorterAction])
 

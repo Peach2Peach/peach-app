@@ -33,14 +33,15 @@ export const usePatchReleaseAddress = (offerId: string, contractId?: string) => 
       const { error } = await peachAPI.private.offer.patchOffer({ offerId, ...newData })
       if (error) throw new Error(error.error)
     },
-    onError: (err: Error, _variables, context) => {
+    onError: (err, _variables, context) => {
       queryClient.setQueryData(['offer', offerId], context?.previousOfferData)
       if (contractId) queryClient.setQueryData(['contract', contractId], context?.previousContractData)
       showErrorBanner(err.message)
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['offer', offerId] })
-      queryClient.invalidateQueries({ queryKey: ['contract', contractId] })
-    },
+    onSettled: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['offer', offerId] }),
+        queryClient.invalidateQueries({ queryKey: ['contract', contractId] }),
+      ]),
   })
 }

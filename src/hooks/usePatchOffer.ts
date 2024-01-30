@@ -28,13 +28,15 @@ export const usePatchOffer = () => {
       const { error } = await peachAPI.private.offer.patchOffer({ offerId, ...newData })
       if (error) throw new Error(error.error)
     },
-    onError: (err: Error, { offerId }, context) => {
+    onError: (err, { offerId }, context) => {
       queryClient.setQueryData(['offer', offerId || offerId], context?.previousData)
       showErrorBanner(err.message)
     },
-    onSettled: (_data, _error, { offerId }) => {
-      queryClient.invalidateQueries({ queryKey: ['offer', offerId] })
-    },
+    onSettled: (_data, _error, { offerId }) =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['offer', offerId] }),
+        queryClient.invalidateQueries({ queryKey: ['offerSummaries'] }),
+      ]),
   })
 }
 
@@ -61,12 +63,10 @@ export const usePatchBuyOffer = () => {
       const { error } = await peachAPI.private.offer.patchOffer({ offerId, ...newData })
       if (error) throw new Error(error.error)
     },
-    onError: (err: Error, { offerId }, context) => {
+    onError: (err, { offerId }, context) => {
       queryClient.setQueryData(['offer', offerId || offerId], context?.previousData)
       showErrorBanner(err.message)
     },
-    onSettled: (_data, _error, { offerId }) => {
-      queryClient.invalidateQueries({ queryKey: ['offer', offerId] })
-    },
+    onSettled: (_data, _error, { offerId }) => queryClient.invalidateQueries({ queryKey: ['offer', offerId] }),
   })
 }

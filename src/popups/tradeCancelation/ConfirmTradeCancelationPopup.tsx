@@ -29,8 +29,7 @@ export function ConfirmTradeCancelationPopup ({ contract, view }: { contract: Co
       if (error) throw new Error(error)
       return result
     },
-    onSuccess: (result) => {
-      const { sellOffer } = result
+    onSuccess: ({ sellOffer }) => {
       if (sellOffer) saveOffer(sellOffer)
     },
   })

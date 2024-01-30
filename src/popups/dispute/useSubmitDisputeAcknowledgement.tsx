@@ -25,7 +25,7 @@ export const useSubmitDisputeAcknowledgement = () => {
       return { previousContract }
     },
     mutationFn: acknowledgeDispute,
-    onError: (err: Error, { contractId }, context) => {
+    onError: (err, { contractId }, context) => {
       showError(err.message)
       queryClient.setQueryData(['contract', contractId], context?.previousContract)
     },
@@ -35,9 +35,7 @@ export const useSubmitDisputeAcknowledgement = () => {
       }
       closePopup()
     },
-    onSettled: (_data, _error, { contractId }) => {
-      queryClient.invalidateQueries({ queryKey: ['contract', contractId] })
-    },
+    onSettled: (_data, _error, { contractId }) => queryClient.invalidateQueries({ queryKey: ['contract', contractId] }),
   })
 
   return submitDisputeAcknowledgement
@@ -59,10 +57,8 @@ async function acknowledgeDispute ({
     contractId,
     email,
   })
-  if (result) {
-    return result
-  } else if (err) {
-    throw new Error(err.error)
-  }
-  throw new Error('UNKNOWN_ERROR')
+
+  if (result) return result
+
+  throw new Error(err?.error || 'UNKNOWN_ERROR')
 }

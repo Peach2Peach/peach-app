@@ -47,11 +47,13 @@ describe('ApplySellSorterAction', () => {
     })
   })
 
-  it('should close the popup', () => {
+  it('should close the popup', async () => {
     const { getByText } = render(<SellSorters />)
     const applyButton = getByText('apply')
 
     fireEvent.press(applyButton)
-    expect(closePopup).toHaveBeenCalled()
+    await waitFor(() => {
+      expect(closePopup).toHaveBeenCalled()
+    })
   })
 })

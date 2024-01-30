@@ -116,9 +116,12 @@ function useUnmatchOffer (offer: BuyOffer, matchingOfferId: string) {
     onError: (_error, _variables, context) => {
       queryClient.setQueryData(['matchDetails', offer.id, matchingOfferId], context?.previousData)
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['matches', offer.id] })
-      queryClient.invalidateQueries({ queryKey: ['matchDetails', offer.id, matchingOfferId] })
-    },
+    onSettled: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['offer', offer.id] }),
+        queryClient.invalidateQueries({ queryKey: ['offerSummaries'] }),
+        queryClient.invalidateQueries({ queryKey: ['matches', offer.id] }),
+        queryClient.invalidateQueries({ queryKey: ['matchDetails', offer.id, matchingOfferId] }),
+      ]),
   })
 }

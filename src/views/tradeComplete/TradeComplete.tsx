@@ -134,8 +134,10 @@ function Rate ({ contract, view, vote }: RateProps) {
       showError(err.error)
       return
     }
-    await queryClient.invalidateQueries({ queryKey: ['contract', contract.id] })
-    await queryClient.invalidateQueries({ queryKey: ['contractSummaries'] })
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: ['contract', contract.id] }),
+      queryClient.invalidateQueries({ queryKey: ['contractSummaries'] }),
+    ])
     navigateAfterRating()
   }
 
