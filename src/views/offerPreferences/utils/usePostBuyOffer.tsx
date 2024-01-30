@@ -23,7 +23,7 @@ const isForbiddenPaymentMethodError = (
 ): errorDetails is PaymentMethod[] =>
   errorMessage === 'FORBIDDEN' && Array.isArray(errorDetails) && errorDetails.every(isPaymentMethod)
 
-export function usePublishBuyOffer ({
+export function usePostBuyOffer ({
   amount,
   meansOfPayment,
   paymentData,

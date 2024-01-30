@@ -19,7 +19,7 @@ import { MaxPremiumFilterComponent } from './components/MaxPremiumFilterComponen
 import { ReputationFilterComponent } from './components/MinReputationFilter'
 import { PreferenceMethods } from './components/PreferenceMethods'
 import { PreferenceScreen } from './components/PreferenceScreen'
-import { usePublishBuyOffer } from './utils/usePublishBuyOffer'
+import { usePostBuyOffer } from './utils/usePostBuyOffer'
 import { useRestrictSatsAmount } from './utils/useRestrictSatsAmount'
 import { useTradingAmountLimits } from './utils/useTradingAmountLimits'
 
@@ -159,7 +159,7 @@ function PublishOfferButton () {
   const rangeIsValid = rangeIsWithinLimits && amount[0] <= amount[1]
   const formValid = methodsAreValid && rangeIsValid
 
-  const { mutate: publishOffer, isPending: isPublishing } = usePublishBuyOffer({
+  const { mutate: publishOffer, isPending: isPublishing } = usePostBuyOffer({
     amount,
     meansOfPayment,
     paymentData,
