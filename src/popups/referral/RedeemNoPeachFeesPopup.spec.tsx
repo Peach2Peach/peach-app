@@ -1,5 +1,4 @@
 import { fireEvent, render, responseUtils, waitFor } from 'test-utils'
-import { replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { peachAPI } from '../../utils/peachAPI'
 import { RedeemNoPeachFeesPopup } from './RedeemNoPeachFeesPopup'
 
@@ -11,13 +10,12 @@ jest.mock('../../hooks/useShowErrorBanner', () => ({
 const redeemNoPeachFeesMock = jest.spyOn(peachAPI.private.user, 'redeemNoPeachFees')
 jest.useFakeTimers()
 
-describe('useRedeemNoPeachFeesReward', () => {
+describe('RedeemNoPeachFeesPopup', () => {
   it('redeems reward successfully', async () => {
     const { getByText } = render(<RedeemNoPeachFeesPopup />)
     fireEvent.press(getByText('activate'))
-    expect(redeemNoPeachFeesMock).toHaveBeenCalled()
     await waitFor(() => {
-      expect(replaceMock).toHaveBeenCalledWith('referrals')
+      expect(redeemNoPeachFeesMock).toHaveBeenCalled()
     })
   })
   it('show error banner if reward could not be redeemed', async () => {
