@@ -1,11 +1,11 @@
-import { isContractId } from './isContractId'
+import { isContractId } from "./isContractId";
 
-describe('isContractId', () => {
+describe("isContractId", () => {
   it('should return true if the id includes a "-"', () => {
-    expect(isContractId('123-456')).toBeTruthy()
-  })
+    expect(isContractId("123-456")).toBeTruthy();
+  });
 
   it('should return false if the id does not include a "-"', () => {
-    expect(isContractId('123')).toBeFalsy()
-  })
-})
+    expect(isContractId("123")).toBeFalsy();
+  });
+});

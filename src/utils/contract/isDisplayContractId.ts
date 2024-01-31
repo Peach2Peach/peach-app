@@ -1,1 +1,1 @@
-export const isDisplayContractId = (id: string) => id.startsWith('PC‑')
+export const isDisplayContractId = (id: string) => id.startsWith("PC‑");

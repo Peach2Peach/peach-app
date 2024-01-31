@@ -1,1 +1,1 @@
-export const NUMBER_OF_WORDS = 12
+export const NUMBER_OF_WORDS = 12;

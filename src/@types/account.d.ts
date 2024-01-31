@@ -1,53 +1,53 @@
 type Settings = {
-  appVersion: string
-  analyticsPopupSeen?: boolean
-  enableAnalytics?: boolean
-  locale?: string
-  refundAddress?: string
-  refundAddressLabel?: string
-  refundToPeachWallet: boolean
-  payoutAddress?: string
-  payoutAddressLabel?: string
-  payoutAddressSignature?: string
-  payoutToPeachWallet: boolean
-  derivationPath?: string
-  displayCurrency: Currency
-  country?: string
-  fcmToken?: string
-  lastFileBackupDate?: number
-  lastSeedBackupDate?: number
-  showBackupReminder: boolean
-  shouldShowBackupOverlay: boolean
-  nodeURL: string
-  usedReferralCode?: boolean
+  appVersion: string;
+  analyticsPopupSeen?: boolean;
+  enableAnalytics?: boolean;
+  locale?: string;
+  refundAddress?: string;
+  refundAddressLabel?: string;
+  refundToPeachWallet: boolean;
+  payoutAddress?: string;
+  payoutAddressLabel?: string;
+  payoutAddressSignature?: string;
+  payoutToPeachWallet: boolean;
+  derivationPath?: string;
+  displayCurrency: Currency;
+  country?: string;
+  fcmToken?: string;
+  lastFileBackupDate?: number;
+  lastSeedBackupDate?: number;
+  showBackupReminder: boolean;
+  shouldShowBackupOverlay: boolean;
+  nodeURL: string;
+  usedReferralCode?: boolean;
   cloudflareChallenge?: {
-    cfClearance: string
-    userAgent: string
-  }
-}
+    cfClearance: string;
+    userAgent: string;
+  };
+};
 
 type PGPKeychain = {
-  privateKey: string
-  publicKey: string
-}
+  privateKey: string;
+  publicKey: string;
+};
 
 type Identity = {
-  publicKey: string
-  privKey?: string
-  mnemonic?: string
-  base58?: string
-  pgp: PGPKeychain
-}
+  publicKey: string;
+  privKey?: string;
+  mnemonic?: string;
+  base58?: string;
+  pgp: PGPKeychain;
+};
 
 type Account = Identity & {
-  tradingLimit: TradingLimit
-  offers: (SellOffer | BuyOffer)[]
+  tradingLimit: TradingLimit;
+  offers: (SellOffer | BuyOffer)[];
   chats: {
-    [key: string]: Chat
-  }
-}
+    [key: string]: Chat;
+  };
+};
 
 type AccountBackup = Account & {
-  paymentData: PaymentData[]
-  settings: Settings
-}
+  paymentData: PaymentData[];
+  settings: Settings;
+};

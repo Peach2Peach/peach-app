@@ -3,9 +3,9 @@ name: CI - auto merge release branch updates into develop
 on:
   push:
     branches:
-      - 'main'
-      - 'release/*'
-      - 'hotfix/*'
+      - "main"
+      - "release/*"
+      - "hotfix/*"
 
 jobs:
   build:
@@ -16,9 +16,9 @@ jobs:
       - name: pull-request
         uses: repo-sync/pull-request@v2
         with:
-          destination_branch: 'develop'
-          pr_title: '[Automated] Merge ${{ github.ref_name }} into develop'
-          pr_body: 'Automated Pull Request'
-          pr_reviewer: 'MManke188'
-          pr_assignee: 'MManke188'
+          destination_branch: "develop"
+          pr_title: "[Automated] Merge ${{ github.ref_name }} into develop"
+          pr_body: "Automated Pull Request"
+          pr_reviewer: "MManke188"
+          pr_assignee: "MManke188"
           github_token: ${{ secrets.GITHUB_TOKEN }}

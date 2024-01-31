@@ -1,1 +1,1 @@
-export { toggleCurrency } from './toggleCurrency'
+export { toggleCurrency } from "./toggleCurrency";

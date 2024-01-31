@@ -1,3 +1,4 @@
-const pastOfferStatus = ['tradeCompleted', 'tradeCanceled', 'offerCanceled']
+const pastOfferStatus = ["tradeCompleted", "tradeCanceled", "offerCanceled"];
 
-export const isPastOffer = (tradeStatus: TradeStatus) => pastOfferStatus.includes(tradeStatus)
+export const isPastOffer = (tradeStatus: TradeStatus) =>
+  pastOfferStatus.includes(tradeStatus);

@@ -1,3 +1,4 @@
-import { getCurrencies } from '../paymentMethod/getCurrencies'
+import { getCurrencies } from "../paymentMethod/getCurrencies";
 
-export const hasMopsConfigured = (meansOfPayment: MeansOfPayment) => getCurrencies(meansOfPayment).length > 0
+export const hasMopsConfigured = (meansOfPayment: MeansOfPayment) =>
+  getCurrencies(meansOfPayment).length > 0;

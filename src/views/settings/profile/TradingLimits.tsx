@@ -1,20 +1,27 @@
-import { View } from 'react-native'
-import { Progress } from '../../../components/ui/Progress'
-import { useTradingLimits } from '../../../hooks/query/useTradingLimits'
-import { useSettingsStore } from '../../../store/settingsStore/useSettingsStore'
-import tw from '../../../styles/tailwind'
-import { TradingLimitAmount } from './TradingLimitAmount'
+import { View } from "react-native";
+import { Progress } from "../../../components/ui/Progress";
+import { useTradingLimits } from "../../../hooks/query/useTradingLimits";
+import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
+import tw from "../../../styles/tailwind";
+import { TradingLimitAmount } from "./TradingLimitAmount";
 
 export const TradingLimits = () => {
-  const { dailyAmount, daily, monthlyAnonymous, monthlyAnonymousAmount, yearlyAmount, yearly } = useTradingLimits()
+  const {
+    dailyAmount,
+    daily,
+    monthlyAnonymous,
+    monthlyAnonymousAmount,
+    yearlyAmount,
+    yearly,
+  } = useTradingLimits();
   const limits = [
     [dailyAmount, daily],
     [monthlyAnonymousAmount, monthlyAnonymous],
     [yearlyAmount, yearly],
-  ]
-  const displayCurrency = useSettingsStore((state) => state.displayCurrency)
+  ];
+  const displayCurrency = useSettingsStore((state) => state.displayCurrency);
 
-  const THRESHOLD_AMOUNT = 0.03
+  const THRESHOLD_AMOUNT = 0.03;
   return (
     <>
       {limits.map(([amount, limit], index) => (
@@ -27,11 +34,11 @@ export const TradingLimits = () => {
           />
           <TradingLimitAmount
             style={tw`pl-2 mt-1`}
-            type={(['daily', 'monthly', 'yearly'] as const)[index]}
+            type={(["daily", "monthly", "yearly"] as const)[index]}
             {...{ amount, limit, displayCurrency }}
           />
         </View>
       ))}
     </>
-  )
-}
+  );
+};

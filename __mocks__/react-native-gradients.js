@@ -1,1 +1,1 @@
-jest.mock('react-native-gradients', () => ({}))
+jest.mock("react-native-gradients", () => ({}));

@@ -1,1 +1,2 @@
-export const shouldGoToWrongFundingAmount = (status: TradeStatus) => status === 'fundingAmountDifferent'
+export const shouldGoToWrongFundingAmount = (status: TradeStatus) =>
+  status === "fundingAmountDifferent";

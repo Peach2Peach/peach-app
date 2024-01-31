@@ -1,21 +1,26 @@
-import { View } from 'react-native'
-import tw from '../../../styles/tailwind'
+import { View } from "react-native";
+import tw from "../../../styles/tailwind";
 
 type Props = {
-  slider?: JSX.Element
-  trackWidth: number
-  type: 'sell' | 'buy'
-}
+  slider?: JSX.Element;
+  trackWidth: number;
+  type: "sell" | "buy";
+};
 
-export const horizontalTrackPadding = 22
+export const horizontalTrackPadding = 22;
 
-export function SliderTrack ({ slider, trackWidth, type }: Props) {
-  const color = type === 'sell' ? tw.color('primary-mild-2') : tw.color('success-mild-2')
+export function SliderTrack({ slider, trackWidth, type }: Props) {
+  const color =
+    type === "sell" ? tw.color("primary-mild-2") : tw.color("success-mild-2");
   return (
     <View
       style={[
         tw`flex-row items-center justify-between py-3 border rounded-2xl`,
-        { width: trackWidth, paddingHorizontal: horizontalTrackPadding, borderColor: color },
+        {
+          width: trackWidth,
+          paddingHorizontal: horizontalTrackPadding,
+          borderColor: color,
+        },
       ]}
     >
       <TrackMarker color={color} />
@@ -26,9 +31,11 @@ export function SliderTrack ({ slider, trackWidth, type }: Props) {
 
       {slider}
     </View>
-  )
+  );
 }
 
-function TrackMarker ({ color }: { color: string | undefined }) {
-  return <View style={[tw`h-1 w-2px rounded-px`, { backgroundColor: color }]} />
+function TrackMarker({ color }: { color: string | undefined }) {
+  return (
+    <View style={[tw`h-1 w-2px rounded-px`, { backgroundColor: color }]} />
+  );
 }

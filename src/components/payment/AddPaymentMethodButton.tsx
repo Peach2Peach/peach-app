@@ -1,50 +1,66 @@
-import { TouchableOpacity } from 'react-native'
-import { useMeetupEvents } from '../../hooks/query/useMeetupEvents'
-import { useNavigation } from '../../hooks/useNavigation'
-import tw from '../../styles/tailwind'
-import { sortAlphabetically } from '../../utils/array/sortAlphabetically'
-import i18n from '../../utils/i18n'
-import { Icon } from '../Icon'
-import { useDrawerState } from '../drawer/useDrawerState'
-import { PeachText } from '../text/PeachText'
-import { getCountrySelectDrawerOptions } from './helpers/getCountrySelectDrawerOptions'
-import { mapEventToDrawerOption } from './helpers/mapEventToDrawerOption'
+import { TouchableOpacity } from "react-native";
+import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
+import { useNavigation } from "../../hooks/useNavigation";
+import tw from "../../styles/tailwind";
+import { sortAlphabetically } from "../../utils/array/sortAlphabetically";
+import i18n from "../../utils/i18n";
+import { Icon } from "../Icon";
+import { useDrawerState } from "../drawer/useDrawerState";
+import { PeachText } from "../text/PeachText";
+import { getCountrySelectDrawerOptions } from "./helpers/getCountrySelectDrawerOptions";
+import { mapEventToDrawerOption } from "./helpers/mapEventToDrawerOption";
 
 type Props = ComponentProps & {
-  isCash: boolean
-}
+  isCash: boolean;
+};
 
 export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
-  const navigation = useNavigation()
-  const updateDrawer = useDrawerState((state) => state.updateDrawer)
-  const { data: meetupEvents, isLoading } = useMeetupEvents()
+  const navigation = useNavigation();
+  const updateDrawer = useDrawerState((state) => state.updateDrawer);
+  const { data: meetupEvents, isLoading } = useMeetupEvents();
   const addPaymentMethods = () => {
-    navigation.navigate('selectCurrency', { origin: 'paymentMethods' })
-  }
+    navigation.navigate("selectCurrency", { origin: "paymentMethods" });
+  };
 
-  const goToEventDetails = (eventID: MeetupEvent['id']) => {
-    updateDrawer({ show: false })
-    navigation.push('meetupScreen', { eventId: eventID.replace('cash.', ''), origin: 'paymentMethods' })
-  }
+  const goToEventDetails = (eventID: MeetupEvent["id"]) => {
+    updateDrawer({ show: false });
+    navigation.push("meetupScreen", {
+      eventId: eventID.replace("cash.", ""),
+      origin: "paymentMethods",
+    });
+  };
 
-  const selectCountry = (eventsByCountry: CountryEventsMap, selected: Country) => {
-    if (!meetupEvents) return
+  const selectCountry = (
+    eventsByCountry: CountryEventsMap,
+    selected: Country,
+  ) => {
+    if (!meetupEvents) return;
 
     updateDrawer({
-      title: i18n('meetup.select'),
+      title: i18n("meetup.select"),
       options: eventsByCountry[selected]
         .sort((a, b) => sortAlphabetically(a.city, b.city))
         .sort((a, b) => Number(b.featured) - Number(a.featured))
         .map(mapEventToDrawerOption(goToEventDetails)),
-      previousDrawer: getCountrySelectDrawerOptions(meetupEvents, goToEventDetails, selectCountry),
+      previousDrawer: getCountrySelectDrawerOptions(
+        meetupEvents,
+        goToEventDetails,
+        selectCountry,
+      ),
       show: true,
-    })
-  }
+    });
+  };
 
   const addCashPaymentMethods = () => {
-    if (!meetupEvents) return
-    updateDrawer(getCountrySelectDrawerOptions(meetupEvents, goToEventDetails, selectCountry))
-  }
+    if (!meetupEvents) return;
+    updateDrawer(
+      getCountrySelectDrawerOptions(
+        meetupEvents,
+        goToEventDetails,
+        selectCountry,
+      ),
+    );
+  };
 
   return (
     <TouchableOpacity
@@ -56,10 +72,16 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
         isCash && isLoading && tw`opacity-50`,
       ]}
     >
-      <Icon id="plusCircle" style={tw`w-7 h-7`} color={tw.color('primary-main')} />
+      <Icon
+        id="plusCircle"
+        style={tw`w-7 h-7`}
+        color={tw.color("primary-main")}
+      />
       <PeachText style={tw`h6 text-primary-main shrink`}>
-        {i18n.break(`paymentMethod.select.button.${isCash ? 'cash' : 'remote'}`)}
+        {i18n.break(
+          `paymentMethod.select.button.${isCash ? "cash" : "remote"}`,
+        )}
       </PeachText>
     </TouchableOpacity>
-  )
-}
+  );
+};

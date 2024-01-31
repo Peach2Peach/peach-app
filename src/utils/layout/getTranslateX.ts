@@ -1,13 +1,16 @@
-import { Animated } from 'react-native'
+import { Animated } from "react-native";
 
-export const getTranslateX = (pan: Animated.Value, range: [number, number]) => ({
+export const getTranslateX = (
+  pan: Animated.Value,
+  range: [number, number],
+) => ({
   transform: [
     {
       translateX: pan.interpolate({
         inputRange: range,
         outputRange: range,
-        extrapolate: 'clamp',
+        extrapolate: "clamp",
       }),
     },
   ],
-})
+});

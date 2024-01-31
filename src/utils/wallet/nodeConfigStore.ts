@@ -1,27 +1,31 @@
-import { BlockChainNames } from 'bdk-rn/lib/lib/enums'
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-import { createPersistStorage } from '../../store/createPersistStorage'
-import { createStorage } from '../storage/createStorage'
+import { BlockChainNames } from "bdk-rn/lib/lib/enums";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { createPersistStorage } from "../../store/createPersistStorage";
+import { createStorage } from "../storage/createStorage";
 
 export type NodeConfig = {
-  enabled: boolean
-  url?: string
-  ssl: boolean
-  type?: BlockChainNames
-  gapLimit?: number
-}
+  enabled: boolean;
+  url?: string;
+  ssl: boolean;
+  type?: BlockChainNames;
+  gapLimit?: number;
+};
 
 export type NodeConfigStore = NodeConfig & {
-  reset: () => void
-  setCustomNode: (nodeConfig: Partial<NodeConfig>) => void
-  toggleEnabled: () => void
-}
+  reset: () => void;
+  setCustomNode: (nodeConfig: Partial<NodeConfig>) => void;
+  toggleEnabled: () => void;
+};
 
-export const defaultNodeConfig: NodeConfig = { enabled: false, ssl: false, gapLimit: 25 }
+export const defaultNodeConfig: NodeConfig = {
+  enabled: false,
+  ssl: false,
+  gapLimit: 25,
+};
 
-export const nodeConfigStore = createStorage('nodeConfig')
-const storage = createPersistStorage(nodeConfigStore)
+export const nodeConfigStore = createStorage("nodeConfig");
+const storage = createPersistStorage(nodeConfigStore);
 
 export const useNodeConfigState = create<NodeConfigStore>()(
   persist(
@@ -32,9 +36,9 @@ export const useNodeConfigState = create<NodeConfigStore>()(
       toggleEnabled: () => set({ enabled: !get().enabled }),
     }),
     {
-      name: 'nodeConfig',
+      name: "nodeConfig",
       version: 0,
       storage,
     },
   ),
-)
+);

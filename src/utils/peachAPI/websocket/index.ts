@@ -1,6 +1,6 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext } from "react";
 
-export let ws: WebSocket
+export let ws: WebSocket;
 export let peachWS: PeachWS = {
   authenticated: false,
   connected: false,
@@ -11,26 +11,27 @@ export let peachWS: PeachWS = {
   },
   send: () => true,
   on: (listener, callback) => {
-    peachWS.listeners[listener].push(callback)
+    peachWS.listeners[listener].push(callback);
     peachWS.listeners[listener] = peachWS.listeners[listener].filter(
-      (cllbck, index, self) => self.findIndex((c) => c.toString() === cllbck.toString()) === index,
-    )
+      (cllbck, index, self) =>
+        self.findIndex((c) => c.toString() === cllbck.toString()) === index,
+    );
   },
   off: (listener, callback) => {
     peachWS.listeners[listener] = peachWS.listeners[listener].filter(
       (cllbck) => cllbck.toString() !== callback.toString(),
-    ) as WSCallback[]
+    ) as WSCallback[];
   },
   close: () => null,
-}
-export const getWebSocket = () => peachWS
+};
+export const getWebSocket = () => peachWS;
 
-export const PeachWSContext = createContext(peachWS)
-export const useWebsocketContext = () => useContext(PeachWSContext)
+export const PeachWSContext = createContext(peachWS);
+export const useWebsocketContext = () => useContext(PeachWSContext);
 
-export const setWS = (_ws: WebSocket) => (ws = _ws)
+export const setWS = (_ws: WebSocket) => (ws = _ws);
 export const setPeachWS = (state: unknown, newPeachWS: PeachWS) => {
-  peachWS = newPeachWS
+  peachWS = newPeachWS;
 
-  return peachWS
-}
+  return peachWS;
+};
