@@ -33,12 +33,10 @@ jest.mock("../../../hooks/useShowErrorBanner", () => ({
 }));
 jest.useFakeTimers();
 
-jest
-  .spyOn(peachAPI.private.user, "getSelfUser")
-  .mockResolvedValue({
-    result: { ...defaultUser, feeRate: estimatedFees.halfHourFee },
-    ...responseUtils,
-  });
+jest.spyOn(peachAPI.private.user, "getSelfUser").mockResolvedValue({
+  result: { ...defaultUser, feeRate: estimatedFees.halfHourFee },
+  ...responseUtils,
+});
 
 describe("useFundFromPeachWallet", () => {
   const offerId = sellOffer.id;
