@@ -3,7 +3,7 @@ import { error } from "../../utils/log/error";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
-import { hasValidSignature } from '../contract/helpers/hasValidSignature';
+import { hasValidSignature } from "../contract/helpers/hasValidSignature";
 
 export const useDecryptedContractData = (contract?: Contract) =>
   useQuery({
@@ -24,7 +24,7 @@ async function decryptContractData(contract: Contract) {
     contract.symmetricKeyEncrypted,
     contract.symmetricKeySignature,
     contract.buyer.pgpPublicKeys,
-  )
+  );
 
   const paymentData = await decryptPaymentData(
     {
@@ -58,13 +58,17 @@ async function decryptPaymentData(
   }
 
   const verifySignature = (decryptedString: string) =>
-    hasValidSignature({ signature: paymentDataSignature, message: decryptedString, publicKeys: user.pgpPublicKeys })
+    hasValidSignature({
+      signature: paymentDataSignature,
+      message: decryptedString,
+      publicKeys: user.pgpPublicKeys,
+    });
 
-  if (paymentDataEncryptionMethod === 'asymmetric') {
+  if (paymentDataEncryptionMethod === "asymmetric") {
     try {
-      const decryptedPaymentDataString = await decrypt(paymentDataEncrypted)
+      const decryptedPaymentDataString = await decrypt(paymentDataEncrypted);
       if (!(await verifySignature(decryptedPaymentDataString))) {
-        return logAndThrow(new Error('PAYMENT_DATA_SIGNATURE_INVALID'))
+        return logAndThrow(new Error("PAYMENT_DATA_SIGNATURE_INVALID"));
       }
       const decryptedPaymentData = JSON.parse(
         decryptedPaymentDataString,
@@ -84,9 +88,9 @@ async function decryptPaymentData(
     const decryptedPaymentDataString = await decryptSymmetric(
       paymentDataEncrypted,
       symmetricKey,
-    )
+    );
     if (!(await verifySignature(decryptedPaymentDataString))) {
-      return logAndThrow(new Error('PAYMENT_DATA_SIGNATURE_INVALID'))
+      return logAndThrow(new Error("PAYMENT_DATA_SIGNATURE_INVALID"));
     }
     const decryptedPaymentData = JSON.parse(
       decryptedPaymentDataString,

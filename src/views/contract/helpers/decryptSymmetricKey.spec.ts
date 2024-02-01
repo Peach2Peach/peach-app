@@ -14,7 +14,7 @@ const errorSpy = jest.spyOn(
 describe("decryptSymmetricKey", () => {
   const symmetricKeyEncrypted = "encrypted symmetric key";
   const symmetricKeySignature = "symmetric key signature";
-  const pgpPublicKeys = [{ publicKey: 'pgp public key' }];
+  const pgpPublicKeys = [{ publicKey: "pgp public key" }];
   const symmetricKey = "symmetric key";
   it("should return symmetric key on successful decryption", async () => {
     decryptMock.mockReturnValue(symmetricKey);
