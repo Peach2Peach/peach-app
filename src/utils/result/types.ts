@@ -1,24 +1,24 @@
 export interface Ok<R> {
-  result: R
-  error: undefined
-  getValue(): R
-  isOk(): this is Ok<R>
-  isError(): false
-  getError(): undefined
+  result: R;
+  error: undefined;
+  getValue(): R;
+  isOk(): this is Ok<R>;
+  isError(): false;
+  getError(): undefined;
 }
 export interface Err<E, R> {
-  result: R | undefined
-  error: E
-  isOk(): false
-  getValue(): R | undefined
-  isError(): this is Err<E, R>
-  getError(): E
+  result: R | undefined;
+  error: E;
+  isOk(): false;
+  getValue(): R | undefined;
+  isError(): this is Err<E, R>;
+  getError(): E;
 }
 export interface Result<R, E> {
-  result?: R
-  error?: E
-  isOk(): this is Ok<R>
-  getValue(): R | undefined
-  isError(): this is Err<E, R>
-  getError(): E | undefined
+  result?: R;
+  error?: E;
+  isOk(): this is Ok<R>;
+  getValue(): R | undefined;
+  isError(): this is Err<E, R>;
+  getError(): E | undefined;
 }

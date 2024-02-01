@@ -3,24 +3,22 @@ name: CI - auto merge release branch updates into develop
 on:
   push:
     branches:
-      - 'main'
-      - 'release/*'
-      - 'hotfix/*'
+      - "main"
+      - "release/*"
+      - "hotfix/*"
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: pull-request
-      uses: repo-sync/pull-request@v2
-      with:
-        destination_branch: "develop"
-        pr_title: "[Automated] Merge ${{ github.ref_name }} into develop"
-        pr_body: "Automated Pull Request"
-        pr_reviewer: "Czino"
-        pr_assignee: "Czino"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-
+      - uses: actions/checkout@v2
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: "develop"
+          pr_title: "[Automated] Merge ${{ github.ref_name }} into develop"
+          pr_body: "Automated Pull Request"
+          pr_reviewer: "MManke188"
+          pr_assignee: "MManke188"
+          github_token: ${{ secrets.GITHUB_TOKEN }}

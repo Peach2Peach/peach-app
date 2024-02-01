@@ -1,24 +1,30 @@
-import { ReactNode } from 'react'
-import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native'
-import { IconType } from '../../assets/icons'
-import tw from '../../styles/tailwind'
-import { Icon } from '../Icon'
-import { PeachText } from '../text/PeachText'
+import { ReactNode } from "react";
+import {
+  StyleProp,
+  TextStyle,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  ViewStyle,
+} from "react-native";
+import { IconType } from "../../assets/icons";
+import tw from "../../styles/tailwind";
+import { Icon } from "../Icon";
+import { PeachText } from "../text/PeachText";
 
 export type BubbleBaseProps = {
-  option?: boolean
-  children?: ReactNode
-  iconId?: IconType
-  iconColor?: TextStyle
-  iconSize?: number
-  borderRadius?: ViewStyle
-  color?: ViewStyle
-  textColor: TextStyle
-  borderColor?: ViewStyle
-  style?: StyleProp<ViewStyle>
-} & TouchableOpacityProps
+  option?: boolean;
+  children?: ReactNode;
+  iconId?: IconType;
+  iconColor?: TextStyle;
+  iconSize?: number;
+  borderRadius?: ViewStyle;
+  color?: ViewStyle;
+  textColor: TextStyle;
+  borderColor?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
+} & TouchableOpacityProps;
 
-const DEFAULT_ICON_SIZE = 20
+const DEFAULT_ICON_SIZE = 20;
 
 export const BubbleBase = ({
   children,
@@ -54,4 +60,4 @@ export const BubbleBase = ({
     )}
     {!!iconId && <Icon id={iconId} size={iconSize} color={iconColor?.color} />}
   </TouchableOpacity>
-)
+);

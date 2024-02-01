@@ -1,6 +1,6 @@
-import { wallet } from './setWallet'
+import { wallet } from "./setWallet";
 
 /**
  * @deprecated
  */
-export const getWallet = () => wallet
+export const getWallet = () => wallet;

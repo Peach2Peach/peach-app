@@ -1,6 +1,6 @@
-import { useNavigation } from './useNavigation'
+import { useNavigation } from "./useNavigation";
 
 export const usePreviousRoute = () => {
-  const { routes } = useNavigation().getState()
-  return routes[routes.length - 2]
-}
+  const { routes } = useNavigation().getState();
+  return routes[routes.length - 2];
+};

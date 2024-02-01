@@ -1,70 +1,97 @@
-import { Transaction, address } from 'bitcoinjs-lib'
-import { useCallback } from 'react'
-import { shallow } from 'zustand/shallow'
-import { useSetPopup } from '../../../components/popup/Popup'
-import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
-import { useNavigation } from '../../../hooks/useNavigation'
-import { getNetwork } from '../../../utils/wallet/getNetwork'
-import { peachWallet } from '../../../utils/wallet/setWallet'
-import { buildBumpFeeTransaction } from '../../../utils/wallet/transaction/buildBumpFeeTransaction'
-import { useWalletState } from '../../../utils/wallet/walletStore'
-import { ConfirmRbfPopup } from '../components/ConfirmRbfPopup'
+import { Transaction, address } from "bitcoinjs-lib";
+import { useCallback } from "react";
+import { shallow } from "zustand/shallow";
+import { useSetPopup } from "../../../components/popup/Popup";
+import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
+import { useNavigation } from "../../../hooks/useNavigation";
+import { getNetwork } from "../../../utils/wallet/getNetwork";
+import { peachWallet } from "../../../utils/wallet/setWallet";
+import { buildBumpFeeTransaction } from "../../../utils/wallet/transaction/buildBumpFeeTransaction";
+import { useWalletState } from "../../../utils/wallet/walletStore";
+import { ConfirmRbfPopup } from "../components/ConfirmRbfPopup";
 
 const useRemoveTxFromPeachWallet = () => {
-  const [removeTransaction] = useWalletState((state) => [state.removeTransaction], shallow)
+  const [removeTransaction] = useWalletState(
+    (state) => [state.removeTransaction],
+    shallow,
+  );
 
   const removeTxFromPeachWallet = useCallback(
     (txId: string) => {
-      removeTransaction(txId)
-      peachWallet.transactions = peachWallet.transactions.filter((tx) => tx.txid !== txId)
+      removeTransaction(txId);
+      peachWallet.transactions = peachWallet.transactions.filter(
+        (tx) => tx.txid !== txId,
+      );
     },
     [removeTransaction],
-  )
+  );
 
-  return removeTxFromPeachWallet
-}
+  return removeTxFromPeachWallet;
+};
 
 type Props = {
-  transaction?: Transaction | null
-  currentFeeRate: number
-  newFeeRate: number
-  sendingAmount: number
-}
-export const useBumpFees = ({ transaction, currentFeeRate, newFeeRate, sendingAmount }: Props) => {
-  const setPopup = useSetPopup()
-  const handleTransactionError = useHandleTransactionError()
-  const removeTxFromPeachWallet = useRemoveTxFromPeachWallet()
-  const navigation = useNavigation()
+  transaction?: Transaction | null;
+  currentFeeRate: number;
+  newFeeRate: number;
+  sendingAmount: number;
+};
+export const useBumpFees = ({
+  transaction,
+  currentFeeRate,
+  newFeeRate,
+  sendingAmount,
+}: Props) => {
+  const setPopup = useSetPopup();
+  const handleTransactionError = useHandleTransactionError();
+  const removeTxFromPeachWallet = useRemoveTxFromPeachWallet();
+  const navigation = useNavigation();
 
   const onSuccess = useCallback(
     (newTxId: string) => {
-      navigation.goBack()
-      if (transaction) removeTxFromPeachWallet(transaction.getId())
-      navigation.replace('transactionDetails', { txId: newTxId })
+      navigation.goBack();
+      if (transaction) removeTxFromPeachWallet(transaction.getId());
+      navigation.replace("transactionDetails", { txId: newTxId });
     },
     [navigation, removeTxFromPeachWallet, transaction],
-  )
+  );
 
   const bumpFees = useCallback(async () => {
-    if (!transaction) return
+    if (!transaction) return;
 
     try {
       const bumpFeeTransaction = await buildBumpFeeTransaction(
         transaction.getId(),
         Number(newFeeRate),
-        transaction.outs.length === 1 ? address.fromOutputScript(transaction.outs[0].script, getNetwork()) : undefined,
-      )
-      const finishedTransaction = await peachWallet.finishTransaction(bumpFeeTransaction)
+        transaction.outs.length === 1
+          ? address.fromOutputScript(transaction.outs[0].script, getNetwork())
+          : undefined,
+      );
+      const finishedTransaction =
+        await peachWallet.finishTransaction(bumpFeeTransaction);
       setPopup(
         <ConfirmRbfPopup
-          {...{ currentFeeRate, newFeeRate, transaction, sendingAmount, finishedTransaction }}
+          {...{
+            currentFeeRate,
+            newFeeRate,
+            transaction,
+            sendingAmount,
+            finishedTransaction,
+          }}
           onSuccess={onSuccess}
         />,
-      )
+      );
     } catch (e) {
-      handleTransactionError(e)
+      handleTransactionError(e);
     }
-  }, [currentFeeRate, handleTransactionError, newFeeRate, onSuccess, sendingAmount, setPopup, transaction])
+  }, [
+    currentFeeRate,
+    handleTransactionError,
+    newFeeRate,
+    onSuccess,
+    sendingAmount,
+    setPopup,
+    transaction,
+  ]);
 
-  return bumpFees
-}
+  return bumpFees;
+};

@@ -1,1 +1,1 @@
-export const MIN_REPUTATION_FILTER = 4.5
+export const MIN_REPUTATION_FILTER = 4.5;

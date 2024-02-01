@@ -1,3 +1,3 @@
-import { createStorage } from '../../utils/storage/createStorage'
+import { createStorage } from "../../utils/storage/createStorage";
 
-export const settingsStorage = createStorage('settings')
+export const settingsStorage = createStorage("settings");

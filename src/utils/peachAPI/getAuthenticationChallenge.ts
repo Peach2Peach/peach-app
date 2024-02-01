@@ -1,3 +1,4 @@
-import { CLIENTSERVERTIMEDIFFERENCE } from '../../constants'
+import { CLIENTSERVERTIMEDIFFERENCE } from "../../constants";
 
-export const getAuthenticationChallenge = () => `Peach Registration ${String(Date.now() - CLIENTSERVERTIMEDIFFERENCE)}`
+export const getAuthenticationChallenge = () =>
+  `Peach Registration ${String(Date.now() - CLIENTSERVERTIMEDIFFERENCE)}`;

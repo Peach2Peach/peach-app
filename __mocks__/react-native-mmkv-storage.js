@@ -1,17 +1,19 @@
-const storage = {}
+const storage = {};
 
 export const MMKVLoader = jest.fn(() => ({
   setAccessibleIOS: () => ({
     withEncryption: () => ({
       withInstanceID: (instanceId) => ({
         initialize: () => {
-          storage[instanceId] = {}
+          storage[instanceId] = {};
 
-          const get = jest.fn((key) => storage[instanceId][key])
-          const getAsync = jest.fn(async (key) => storage[instanceId][key])
-          const store = jest.fn((key, val) => (storage[instanceId][key] = val))
-          const storeAsync = jest.fn(async (key, val) => (storage[instanceId][key] = val))
-          const remove = jest.fn((key) => delete storage[instanceId][key])
+          const get = jest.fn((key) => storage[instanceId][key]);
+          const getAsync = jest.fn(async (key) => storage[instanceId][key]);
+          const store = jest.fn((key, val) => (storage[instanceId][key] = val));
+          const storeAsync = jest.fn(
+            async (key, val) => (storage[instanceId][key] = val),
+          );
+          const remove = jest.fn((key) => delete storage[instanceId][key]);
 
           return {
             clearStore: jest.fn(() => (storage[instanceId] = {})),
@@ -35,20 +37,20 @@ export const MMKVLoader = jest.fn(() => ({
               maps: {
                 getAll: jest.fn(async () =>
                   Object.keys(storage[instanceId]).reduce((obj, key, i) => {
-                    obj[String(i)] = [key, storage[instanceId][key]]
-                    return obj
+                    obj[String(i)] = [key, storage[instanceId][key]];
+                    return obj;
                   }, {}),
                 ),
               },
             },
             options: {
-              accessibleMode: 'AccessibleAfterFirstUnlock',
+              accessibleMode: "AccessibleAfterFirstUnlock",
             },
-          }
+          };
         },
       }),
     }),
   }),
-}))
+}));
 
-export const IOSAccessibleStates = {}
+export const IOSAccessibleStates = {};

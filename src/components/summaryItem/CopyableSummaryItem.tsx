@@ -1,12 +1,12 @@
-import { TouchableOpacity } from 'react-native'
-import tw from '../../styles/tailwind'
-import { PeachText } from '../text/PeachText'
-import { CopyAble } from '../ui/CopyAble'
-import { SummaryItem, SummaryItemProps } from './SummaryItem'
+import { TouchableOpacity } from "react-native";
+import tw from "../../styles/tailwind";
+import { PeachText } from "../text/PeachText";
+import { CopyAble } from "../ui/CopyAble";
+import { SummaryItem, SummaryItemProps } from "./SummaryItem";
 
 type Props = SummaryItemProps & {
-  text: string
-}
+  text: string;
+};
 
 export const CopyableSummaryItem = ({ text, ...props }: Props) => (
   <SummaryItem {...props}>
@@ -15,4 +15,4 @@ export const CopyableSummaryItem = ({ text, ...props }: Props) => (
       <CopyAble value={text} />
     </TouchableOpacity>
   </SummaryItem>
-)
+);

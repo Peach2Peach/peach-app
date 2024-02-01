@@ -1,24 +1,29 @@
-const suffix = process.env.NODE_ENV || process.env.APP_ENV || 'sandbox'
+const suffix = process.env.NODE_ENV || process.env.APP_ENV || "sandbox";
 
 module.exports = (api) => {
-  const path = `.env.${suffix}`
-  api.cache(suffix !== 'sandbox')
+  const path = `.env.${suffix}`;
+  api.cache(suffix !== "sandbox");
 
-  console.log('dotenv path: ', process.env.NODE_ENV, path)
+  console.log("dotenv path: ", process.env.NODE_ENV, path);
   return {
-    presets: [['module:metro-react-native-babel-preset', { useTransformReactJSXExperimmental: true }]],
+    presets: [
+      [
+        "module:metro-react-native-babel-preset",
+        { useTransformReactJSXExperimmental: true },
+      ],
+    ],
     plugins: [
       [
-        '@babel/plugin-transform-react-jsx',
+        "@babel/plugin-transform-react-jsx",
         {
-          runtime: 'automatic',
+          runtime: "automatic",
         },
       ],
       [
-        'module:react-native-dotenv',
+        "module:react-native-dotenv",
         {
-          envName: 'BUNDLE',
-          moduleName: '@env',
+          envName: "BUNDLE",
+          moduleName: "@env",
           path,
           blocklist: null,
           allowlist: null,
@@ -26,7 +31,7 @@ module.exports = (api) => {
           allowUndefined: false,
         },
       ],
-      'react-native-reanimated/plugin',
+      "react-native-reanimated/plugin",
     ],
-  }
-}
+  };
+};

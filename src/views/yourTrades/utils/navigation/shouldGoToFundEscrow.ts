@@ -1,3 +1,7 @@
-const statusThatLeadToFundEscrow = ['fundEscrow', 'escrowWaitingForConfirmation']
+const statusThatLeadToFundEscrow = [
+  "fundEscrow",
+  "escrowWaitingForConfirmation",
+];
 
-export const shouldGoToFundEscrow = (status: TradeStatus) => statusThatLeadToFundEscrow.includes(status)
+export const shouldGoToFundEscrow = (status: TradeStatus) =>
+  statusThatLeadToFundEscrow.includes(status);

@@ -1,11 +1,13 @@
-import { keys } from '../object/keys'
-import { getPaymentMethodInfo } from '../paymentMethod/getPaymentMethodInfo'
+import { keys } from "../object/keys";
+import { getPaymentMethodInfo } from "../paymentMethod/getPaymentMethodInfo";
 
-export const getSelectedPaymentDataIds = (preferredPaymentMethods: Partial<Record<PaymentMethod, string>>) =>
+export const getSelectedPaymentDataIds = (
+  preferredPaymentMethods: Partial<Record<PaymentMethod, string>>,
+) =>
   keys(preferredPaymentMethods)
     .filter(getPaymentMethodInfo)
     .reduce((arr: string[], type: PaymentMethod) => {
-      const id = preferredPaymentMethods[type]
-      if (!id) return arr
-      return arr.concat(id)
-    }, [])
+      const id = preferredPaymentMethods[type];
+      if (!id) return arr;
+      return arr.concat(id);
+    }, []);

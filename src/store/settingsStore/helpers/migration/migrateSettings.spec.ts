@@ -1,26 +1,32 @@
-import { revolutData, validSEPAData, validSEPADataHashes } from '../../../../../tests/unit/data/paymentData'
-import { useOfferPreferences } from '../../../offerPreferenes'
-import { defaultPreferences } from '../../../offerPreferenes/useOfferPreferences'
-import { usePaymentDataStore } from '../../../usePaymentDataStore'
-import { migrateSettings } from './migrateSettings'
+import {
+  revolutData,
+  validSEPAData,
+  validSEPADataHashes,
+} from "../../../../../tests/unit/data/paymentData";
+import { useOfferPreferences } from "../../../offerPreferenes";
+import { defaultPreferences } from "../../../offerPreferenes/useOfferPreferences";
+import { usePaymentDataStore } from "../../../usePaymentDataStore";
+import { migrateSettings } from "./migrateSettings";
 
-// eslint-disable-next-line max-lines-per-function
-describe('migrateSettings', () => {
+describe("migrateSettings", () => {
   beforeEach(() => {
-    useOfferPreferences.setState(defaultPreferences)
-    usePaymentDataStore.getState().reset()
-  })
-  it('should migrate from version 0', () => {
+    useOfferPreferences.setState(defaultPreferences);
+    usePaymentDataStore.getState().reset();
+  });
+  it("should migrate from version 0", () => {
     const persistedState = {
-      lastBackupDate: '2021-07-12T13:00:00.000Z',
-      preferredPaymentMethods: { sepa: validSEPAData.id, revolut: revolutData.id },
+      lastBackupDate: "2021-07-12T13:00:00.000Z",
+      preferredPaymentMethods: {
+        sepa: validSEPAData.id,
+        revolut: revolutData.id,
+      },
       premium: 1,
       minBuyAmount: 100,
       maxBuyAmount: 1000,
       sellAmount: 100,
-    }
-    usePaymentDataStore.getState().addPaymentData(validSEPAData)
-    const migratedState = migrateSettings(persistedState, 0)
+    };
+    usePaymentDataStore.getState().addPaymentData(validSEPAData);
+    const migratedState = migrateSettings(persistedState, 0);
     expect(migratedState).toEqual({
       analyticsPopupSeen: undefined,
       appVersion: undefined,
@@ -30,7 +36,7 @@ describe('migrateSettings', () => {
       enableAnalytics: undefined,
       fcmToken: undefined,
       feeRate: undefined,
-      lastFileBackupDate: '2021-07-12T13:00:00.000Z',
+      lastFileBackupDate: "2021-07-12T13:00:00.000Z",
       lastSeedBackupDate: undefined,
       locale: undefined,
       nodeURL: undefined,
@@ -45,12 +51,15 @@ describe('migrateSettings', () => {
       shouldShowBackupOverlay: undefined,
       showBackupReminder: undefined,
       usedReferralCode: undefined,
-    })
+    });
     expect(useOfferPreferences.getState()).toEqual(
       expect.objectContaining({
-        buyAmountRange: [persistedState.minBuyAmount, persistedState.maxBuyAmount],
+        buyAmountRange: [
+          persistedState.minBuyAmount,
+          persistedState.maxBuyAmount,
+        ],
         meansOfPayment: {
-          EUR: ['sepa'],
+          EUR: ["sepa"],
         },
         originalPaymentData: [validSEPAData],
         paymentData: {
@@ -65,22 +74,25 @@ describe('migrateSettings', () => {
         premium: 1,
         sellAmount: persistedState.sellAmount,
       }),
-    )
-  })
+    );
+  });
 
-  it('should migrate from version 1', () => {
+  it("should migrate from version 1", () => {
     const persistedState = {
       meansOfPayment: {
-        EUR: ['sepa'],
+        EUR: ["sepa"],
       },
-      preferredPaymentMethods: { sepa: validSEPAData.id, revolut: revolutData.id },
+      preferredPaymentMethods: {
+        sepa: validSEPAData.id,
+        revolut: revolutData.id,
+      },
       premium: 1,
       minBuyAmount: 100,
       maxBuyAmount: 1000,
       sellAmount: 100,
-    }
-    usePaymentDataStore.getState().addPaymentData(validSEPAData)
-    const migratedState = migrateSettings(persistedState, 1)
+    };
+    usePaymentDataStore.getState().addPaymentData(validSEPAData);
+    const migratedState = migrateSettings(persistedState, 1);
     expect(migratedState).toEqual({
       analyticsPopupSeen: undefined,
       appVersion: undefined,
@@ -105,12 +117,15 @@ describe('migrateSettings', () => {
       shouldShowBackupOverlay: undefined,
       showBackupReminder: undefined,
       usedReferralCode: undefined,
-    })
+    });
     expect(useOfferPreferences.getState()).toEqual(
       expect.objectContaining({
-        buyAmountRange: [persistedState.minBuyAmount, persistedState.maxBuyAmount],
+        buyAmountRange: [
+          persistedState.minBuyAmount,
+          persistedState.maxBuyAmount,
+        ],
         meansOfPayment: {
-          EUR: ['sepa'],
+          EUR: ["sepa"],
         },
         originalPaymentData: [validSEPAData],
         paymentData: {
@@ -125,24 +140,24 @@ describe('migrateSettings', () => {
         premium: 1,
         sellAmount: 100,
       }),
-    )
-  })
+    );
+  });
 
-  it('should migrate from version 2', () => {
+  it("should migrate from version 2", () => {
     const persistedState = {
-      appVersion: '1.0.0',
+      appVersion: "1.0.0",
       analyticsPopupSeen: true,
       enableAnalytics: true,
-      locale: 'en',
-      returnAddress: '0x123456789',
-      payoutAddress: '0x123456789',
-      payoutAddressLabel: 'My address',
-      payoutAddressSignature: '0x123456789',
+      locale: "en",
+      returnAddress: "0x123456789",
+      payoutAddress: "0x123456789",
+      payoutAddressLabel: "My address",
+      payoutAddressSignature: "0x123456789",
       derivationPath: "m/44'/60'/0'/0",
-      displayCurrency: 'EUR',
-      country: 'DE',
+      displayCurrency: "EUR",
+      country: "DE",
       pgpPublished: true,
-      fcmToken: '123456789',
+      fcmToken: "123456789",
       lastFileBackupDate: 123456789,
       lastSeedBackupDate: 123456789,
       showBackupReminder: true,
@@ -152,12 +167,12 @@ describe('migrateSettings', () => {
         bitcoinReceived: true,
       },
       peachWalletActive: true,
-      nodeURL: 'https://node.url',
-      feeRate: 'fastestFee',
+      nodeURL: "https://node.url",
+      feeRate: "fastestFee",
       usedReferralCode: true,
       lastBackupDate: 123456789,
-    }
-    const migratedState = migrateSettings(persistedState, 2)
+    };
+    const migratedState = migrateSettings(persistedState, 2);
     expect(migratedState).toEqual({
       ...persistedState,
       payoutAddress: undefined,
@@ -166,11 +181,11 @@ describe('migrateSettings', () => {
       payoutToPeachWallet: false,
       peachWalletActive: true,
       pgpPublished: true,
-      refundAddress: '0x123456789',
-      refundAddressLabel: 'My address',
+      refundAddress: "0x123456789",
+      refundAddressLabel: "My address",
       refundToPeachWallet: true,
       shouldShowBackupOverlay: true,
-    })
-    expect(migratedState).not.toHaveProperty('lastBackupDate')
-  })
-})
+    });
+    expect(migratedState).not.toHaveProperty("lastBackupDate");
+  });
+});

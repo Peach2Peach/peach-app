@@ -1,9 +1,14 @@
-import { shallow } from 'zustand/shallow'
-import { shouldShowBackupReminder } from '../store/settingsStore/helpers/shouldShowBackupReminder'
-import { useSettingsStore } from '../store/settingsStore/useSettingsStore'
+import { shallow } from "zustand/shallow";
+import { shouldShowBackupReminder } from "../store/settingsStore/helpers/shouldShowBackupReminder";
+import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 
 export const useShouldShowBackupReminder = () => {
-  const [lastFileBackupDate, lastSeedBackupDate, showBackupReminder, setShowBackupReminder] = useSettingsStore(
+  const [
+    lastFileBackupDate,
+    lastSeedBackupDate,
+    showBackupReminder,
+    setShowBackupReminder,
+  ] = useSettingsStore(
     (state) => [
       state.lastFileBackupDate,
       state.lastSeedBackupDate,
@@ -11,9 +16,12 @@ export const useShouldShowBackupReminder = () => {
       state.setShowBackupReminder,
     ],
     shallow,
-  )
+  );
 
-  if (!showBackupReminder && shouldShowBackupReminder(lastFileBackupDate, lastSeedBackupDate)) {
-    setShowBackupReminder(true)
+  if (
+    !showBackupReminder &&
+    shouldShowBackupReminder(lastFileBackupDate, lastSeedBackupDate)
+  ) {
+    setShowBackupReminder(true);
   }
-}
+};

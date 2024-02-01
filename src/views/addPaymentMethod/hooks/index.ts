@@ -1,1 +1,1 @@
-export { usePaymentMethodLabel } from './usePaymentMethodLabel'
+export { usePaymentMethodLabel } from "./usePaymentMethodLabel";

@@ -1,4 +1,4 @@
-import { SettingsStore } from '../useSettingsStore'
+import { SettingsStore } from "../useSettingsStore";
 
 export const getPureSettingsState = (state: SettingsStore): Settings => ({
   appVersion: state.appVersion,
@@ -23,4 +23,4 @@ export const getPureSettingsState = (state: SettingsStore): Settings => ({
   nodeURL: state.nodeURL,
   usedReferralCode: state.usedReferralCode,
   cloudflareChallenge: state.cloudflareChallenge,
-})
+});

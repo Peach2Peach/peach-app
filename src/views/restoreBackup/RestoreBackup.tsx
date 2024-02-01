@@ -1,21 +1,22 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import { Header, HeaderIcon } from '../../components/Header'
-import { Screen } from '../../components/Screen'
-import { useDrawerState } from '../../components/drawer/useDrawerState'
-import { fullScreenTabNavigationScreenOptions } from '../../constants'
-import { useLanguage } from '../../hooks/useLanguage'
-import { useNavigation } from '../../hooks/useNavigation'
-import { useRoute } from '../../hooks/useRoute'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import { RestoreFromFile } from './RestoreFromFile'
-import { RestoreFromSeed } from './RestoreFromSeed'
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { Header, HeaderIcon } from "../../components/Header";
+import { Screen } from "../../components/Screen";
+import { useDrawerState } from "../../components/drawer/useDrawerState";
+import { fullScreenTabNavigationScreenOptions } from "../../constants";
+import { useLanguage } from "../../hooks/useLanguage";
+import { useNavigation } from "../../hooks/useNavigation";
+import { useRoute } from "../../hooks/useRoute";
+import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
+import { RestoreFromFile } from "./RestoreFromFile";
+import { RestoreFromSeed } from "./RestoreFromSeed";
 
-const RestoreBackupTab = createMaterialTopTabNavigator()
-const tabs = ['fileBackup', 'seedPhrase'] as const
+const RestoreBackupTab = createMaterialTopTabNavigator();
+const tabs = ["fileBackup", "seedPhrase"] as const;
 
 export const RestoreBackup = () => {
-  const { tab: initialRouteName = 'fileBackup' } = useRoute<'restoreBackup'>().params || {}
+  const { tab: initialRouteName = "fileBackup" } =
+    useRoute<"restoreBackup">().params || {};
 
   return (
     <Screen style={tw`px-0`} header={<OnboardingHeader />} gradientBackground>
@@ -25,8 +26,8 @@ export const RestoreBackup = () => {
         screenOptions={{
           ...fullScreenTabNavigationScreenOptions,
           tabBarIndicatorStyle: tw`bg-primary-background-light`,
-          tabBarActiveTintColor: tw.color('primary-background-light'),
-          tabBarInactiveTintColor: tw.color('primary-mild-1'),
+          tabBarActiveTintColor: tw.color("primary-background-light"),
+          tabBarInactiveTintColor: tw.color("primary-mild-1"),
         }}
       >
         {tabs.map((tab) => (
@@ -34,36 +35,50 @@ export const RestoreBackup = () => {
             key={tab}
             name={tab}
             options={{ title: `${i18n(`settings.backups.${tab}`)}` }}
-            component={tab === 'fileBackup' ? RestoreFromFile : RestoreFromSeed}
+            component={tab === "fileBackup" ? RestoreFromFile : RestoreFromSeed}
           />
         ))}
       </RestoreBackupTab.Navigator>
     </Screen>
-  )
-}
+  );
+};
 
-function OnboardingHeader () {
-  const navigation = useNavigation()
-  const updateDrawer = useDrawerState((state) => state.updateDrawer)
-  const { locale, updateLocale } = useLanguage()
+function OnboardingHeader() {
+  const navigation = useNavigation();
+  const updateDrawer = useDrawerState((state) => state.updateDrawer);
+  const { locale, updateLocale } = useLanguage();
 
   const openLanguageDrawer = () => {
     updateDrawer({
-      title: i18n('language.select'),
+      title: i18n("language.select"),
       options: i18n.getLocales().map((l) => ({
         title: i18n(`languageName.${l}`),
         onPress: () => {
-          updateLocale(l)
-          updateDrawer({ show: false })
+          updateLocale(l);
+          updateDrawer({ show: false });
         },
-        iconRightID: l === locale ? 'check' : undefined,
+        iconRightID: l === locale ? "check" : undefined,
       })),
       show: true,
-    })
-  }
+    });
+  };
   const headerIcons: HeaderIcon[] = [
-    { id: 'mail', color: tw.color('primary-background-light'), onPress: () => navigation.navigate('contact') },
-    { id: 'globe', color: tw.color('primary-background-light'), onPress: openLanguageDrawer },
-  ]
-  return <Header title={i18n('restoreBackup.title')} icons={headerIcons} theme="transparent" />
+    {
+      id: "mail",
+      color: tw.color("primary-background-light"),
+      onPress: () => navigation.navigate("contact"),
+    },
+    {
+      id: "globe",
+      color: tw.color("primary-background-light"),
+      onPress: openLanguageDrawer,
+    },
+  ];
+  return (
+    <Header
+      title={i18n("restoreBackup.title")}
+      icons={headerIcons}
+      theme="transparent"
+    />
+  );
 }

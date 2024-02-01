@@ -1054,3 +1054,13 @@ exports[`ProfileInfo renders correctly for a new user 1`] = `
     </View>
   </View>"
 `;
+
+exports[`ProfileInfo renders correctly for a new user who canceled a trade 1`] = `
+"Snapshot Diff:
+Compared values have no visual difference."
+`;
+
+exports[`ProfileInfo renders correctly for a new user who lost a dispute 1`] = `
+"Snapshot Diff:
+Compared values have no visual difference."
+`;

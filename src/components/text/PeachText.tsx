@@ -1,11 +1,15 @@
-import { Text, TextProps } from 'react-native'
-import tw from '../../styles/tailwind'
-import { shouldNormalCase } from './helpers/shouldNormalCase'
+import { Text, TextProps } from "react-native";
+import tw from "../../styles/tailwind";
+import { shouldNormalCase } from "./helpers/shouldNormalCase";
 
 export const PeachText = ({ style, ...props }: TextProps) => (
   <Text
-    style={[tw`body-m text-black-100`, style, shouldNormalCase(style) && tw`normal-case`]}
+    style={[
+      tw`body-m text-black-100`,
+      style,
+      shouldNormalCase(style) && tw`normal-case`,
+    ]}
     allowFontScaling={false}
     {...props}
   />
-)
+);

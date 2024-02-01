@@ -1,1 +1,1 @@
-export const unauthorizedError: APIError = { error: 'UNAUTHORIZED' }
+export const unauthorizedError: APIError = { error: "UNAUTHORIZED" };
