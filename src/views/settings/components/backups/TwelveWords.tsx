@@ -1,21 +1,23 @@
-import { View } from 'react-native'
+import { View } from "react-native";
 
-import { PeachText } from '../../../../components/text/PeachText'
-import tw from '../../../../styles/tailwind'
-import { useAccountStore } from '../../../../utils/account/account'
-import i18n from '../../../../utils/i18n'
-import { NUMBER_OF_WORDS } from './NUMBER_OF_WORDS'
-import { Word } from './Word'
+import { PeachText } from "../../../../components/text/PeachText";
+import tw from "../../../../styles/tailwind";
+import { useAccountStore } from "../../../../utils/account/account";
+import i18n from "../../../../utils/i18n";
+import { NUMBER_OF_WORDS } from "./NUMBER_OF_WORDS";
+import { Word } from "./Word";
 
 export const TwelveWords = () => {
-  const mnemonic = useAccountStore((state) => state.account?.mnemonic)
+  const mnemonic = useAccountStore((state) => state.account?.mnemonic);
   return (
     <>
-      <PeachText style={tw`self-center subtitle-1`}>{i18n('settings.backups.seedPhrase.yourSeedPhrase')}</PeachText>
+      <PeachText style={tw`self-center subtitle-1`}>
+        {i18n("settings.backups.seedPhrase.yourSeedPhrase")}
+      </PeachText>
       <View style={tw`flex-row gap-4 mt-4`}>
         <View style={tw`flex-1`}>
           {mnemonic
-            ?.split(' ')
+            ?.split(" ")
             .slice(0, NUMBER_OF_WORDS / 2)
             .map((word, i) => (
               <Word word={word} index={i + 1} key={`seedPhraseWord${i}`} />
@@ -23,7 +25,7 @@ export const TwelveWords = () => {
         </View>
         <View style={tw`flex-1`}>
           {mnemonic
-            ?.split(' ')
+            ?.split(" ")
             .slice(NUMBER_OF_WORDS / 2, NUMBER_OF_WORDS)
             .map((word, i) => (
               <Word
@@ -35,5 +37,5 @@ export const TwelveWords = () => {
         </View>
       </View>
     </>
-  )
-}
+  );
+};

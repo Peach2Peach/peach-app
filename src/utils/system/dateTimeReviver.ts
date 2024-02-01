@@ -1,11 +1,14 @@
-import { isDateString } from '../validation/isDateString'
+import { isDateString } from "../validation/isDateString";
 
-export const dateTimeReviver = (key: string, value: string | number | boolean | object | null) => {
-  if (typeof value === 'string' && isDateString(value)) {
-    const dateCandidate = new Date(value)
+export const dateTimeReviver = (
+  key: string,
+  value: string | number | boolean | object | null,
+) => {
+  if (typeof value === "string" && isDateString(value)) {
+    const dateCandidate = new Date(value);
     if (!isNaN(dateCandidate.valueOf())) {
-      return dateCandidate
+      return dateCandidate;
     }
   }
-  return value
-}
+  return value;
+};

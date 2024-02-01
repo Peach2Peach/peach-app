@@ -1,1 +1,1 @@
-export const enableScreens = jest.fn()
+export const enableScreens = jest.fn();

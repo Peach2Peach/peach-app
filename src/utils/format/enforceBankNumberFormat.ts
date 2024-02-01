@@ -1,3 +1,3 @@
-import { removeNonDigits } from './removeNonDigits'
+import { removeNonDigits } from "./removeNonDigits";
 
-export const enforceBankNumberFormat = removeNonDigits
+export const enforceBankNumberFormat = removeNonDigits;

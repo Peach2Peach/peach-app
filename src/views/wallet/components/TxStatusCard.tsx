@@ -1,23 +1,23 @@
-import { BitcoinAmountInfo } from '../../../components/statusCard/BitcoinAmountInfo'
-import { StatusCard } from '../../../components/statusCard/StatusCard'
-import { StatusInfo } from '../../../components/statusCard/StatusInfo'
-import { useNavigation } from '../../../hooks/useNavigation'
-import { getShortDateFormat } from '../../../utils/date/getShortDateFormat'
-import { getTxSummaryTitle } from '../helpers/getTxSummaryTitle'
-import { TransactionIcon } from './TransactionIcon'
-import { levelMap } from './levelMap'
+import { BitcoinAmountInfo } from "../../../components/statusCard/BitcoinAmountInfo";
+import { StatusCard } from "../../../components/statusCard/StatusCard";
+import { StatusInfo } from "../../../components/statusCard/StatusInfo";
+import { useNavigation } from "../../../hooks/useNavigation";
+import { getShortDateFormat } from "../../../utils/date/getShortDateFormat";
+import { getTxSummaryTitle } from "../helpers/getTxSummaryTitle";
+import { TransactionIcon } from "./TransactionIcon";
+import { levelMap } from "./levelMap";
 
 type Props = {
-  item: Pick<TransactionSummary, 'amount' | 'type' | 'date' | 'id'>
-}
+  item: Pick<TransactionSummary, "amount" | "type" | "date" | "id">;
+};
 
 export const TxStatusCard = ({ item: { type, amount, date, id } }: Props) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   return (
     <StatusCard
       onPress={() => {
-        navigation.navigate('transactionDetails', { txId: id })
+        navigation.navigate("transactionDetails", { txId: id });
       }}
       color={levelMap[type]}
       statusInfo={
@@ -29,5 +29,5 @@ export const TxStatusCard = ({ item: { type, amount, date, id } }: Props) => {
       }
       amountInfo={<BitcoinAmountInfo amount={amount} />}
     />
-  )
-}
+  );
+};

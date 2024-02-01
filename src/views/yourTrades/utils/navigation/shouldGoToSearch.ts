@@ -1,8 +1,9 @@
 const statusThatLeadToSearch = [
-  'searchingForPeer',
-  'hasMatchesAvailable',
-  'offerHidden',
-  'offerHiddenWithMatchesAvailable',
-]
+  "searchingForPeer",
+  "hasMatchesAvailable",
+  "offerHidden",
+  "offerHiddenWithMatchesAvailable",
+];
 
-export const shouldGoToSearch = (status: TradeStatus) => statusThatLeadToSearch.includes(status)
+export const shouldGoToSearch = (status: TradeStatus) =>
+  statusThatLeadToSearch.includes(status);

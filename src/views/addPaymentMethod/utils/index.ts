@@ -1,1 +1,1 @@
-export { getCurrencyTypeFilter } from './getCurrencyTypeFilter'
+export { getCurrencyTypeFilter } from "./getCurrencyTypeFilter";

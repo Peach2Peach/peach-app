@@ -1,17 +1,17 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 
 export const defaultState: DrawerState = {
-  title: '',
+  title: "",
   content: null,
   options: [],
   show: false,
   previousDrawer: undefined,
   onClose: () => null,
-}
+};
 
 type DrawerActions = {
-  updateDrawer: (newState: Partial<DrawerState>) => void
-}
+  updateDrawer: (newState: Partial<DrawerState>) => void;
+};
 
 export const useDrawerState = create<DrawerState & DrawerActions>((set) => ({
   ...defaultState,
@@ -24,4 +24,4 @@ export const useDrawerState = create<DrawerState & DrawerActions>((set) => ({
       previousDrawer: newState.previousDrawer,
       onClose: newState.onClose || defaultState.onClose,
     }),
-}))
+}));

@@ -1,17 +1,26 @@
-import { Control, useController } from 'react-hook-form'
-import { Input, InputProps } from '../../components/inputs/Input'
-import { usePaymentDataStore } from '../../store/usePaymentDataStore'
-import i18n from '../../utils/i18n'
-import { FormType } from './PaymentMethodForm'
+import { Control, useController } from "react-hook-form";
+import { Input, InputProps } from "../../components/inputs/Input";
+import { usePaymentDataStore } from "../../store/usePaymentDataStore";
+import i18n from "../../utils/i18n";
+import { FormType } from "./PaymentMethodForm";
 
 type Props = {
-  control: Control<FormType>
-  name: 'paymentMethodName'
-  optional?: boolean
-} & InputProps
+  control: Control<FormType>;
+  name: "paymentMethodName";
+  optional?: boolean;
+} & InputProps;
 
-export function LabelInput ({ control, name, id, optional = false, defaultValue = '', ...inputProps }: Props) {
-  const getPaymentDataByLabel = usePaymentDataStore((state) => state.getPaymentDataByLabel)
+export function LabelInput({
+  control,
+  name,
+  id,
+  optional = false,
+  defaultValue = "",
+  ...inputProps
+}: Props) {
+  const getPaymentDataByLabel = usePaymentDataStore(
+    (state) => state.getPaymentDataByLabel,
+  );
   const {
     field,
     fieldState: { error },
@@ -20,15 +29,18 @@ export function LabelInput ({ control, name, id, optional = false, defaultValue 
     defaultValue,
     name,
     rules: {
-      required: i18n('form.required.error'),
+      required: i18n("form.required.error"),
       validate: {
         duplicate: (value: string) => {
-          const isValid = !(getPaymentDataByLabel(value) && getPaymentDataByLabel(value)?.id !== id)
-          return isValid || i18n('form.duplicate.error')
+          const isValid = !(
+            getPaymentDataByLabel(value) &&
+            getPaymentDataByLabel(value)?.id !== id
+          );
+          return isValid || i18n("form.duplicate.error");
         },
       },
     },
-  })
+  });
 
   return (
     <Input
@@ -40,5 +52,5 @@ export function LabelInput ({ control, name, id, optional = false, defaultValue 
       required={!optional}
       {...inputProps}
     />
-  )
+  );
 }

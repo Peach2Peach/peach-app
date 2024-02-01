@@ -1,1 +1,1 @@
-export const info = jest.fn()
+export const info = jest.fn();

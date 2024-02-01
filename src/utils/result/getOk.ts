@@ -1,4 +1,4 @@
-import { Ok } from './types'
+import { Ok } from "./types";
 
 export const getOk = <R>(result: R): Ok<R> => ({
   result,
@@ -7,4 +7,4 @@ export const getOk = <R>(result: R): Ok<R> => ({
   isOk: () => true,
   isError: () => false,
   getError: () => undefined,
-})
+});

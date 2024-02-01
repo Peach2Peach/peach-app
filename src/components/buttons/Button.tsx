@@ -1,22 +1,26 @@
-import { ReactNode } from 'react'
-import { TextStyle, TouchableOpacity, TouchableOpacityProps } from 'react-native'
-import { IconType } from '../../assets/icons'
-import { useIsMediumScreen } from '../../hooks/useIsMediumScreen'
-import tw from '../../styles/tailwind'
-import { Icon } from '../Icon'
-import { Loading } from '../animation/Loading'
-import { PeachText } from '../text/PeachText'
+import { ReactNode } from "react";
+import {
+  TextStyle,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from "react-native";
+import { IconType } from "../../assets/icons";
+import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
+import tw from "../../styles/tailwind";
+import { Icon } from "../Icon";
+import { Loading } from "../animation/Loading";
+import { PeachText } from "../text/PeachText";
 
 export type ButtonProps = {
-  iconId?: IconType
-  ghost?: boolean
-  textColor?: TextStyle
-  children: ReactNode
-  loading?: boolean
-} & TouchableOpacityProps
+  iconId?: IconType;
+  ghost?: boolean;
+  textColor?: TextStyle;
+  children: ReactNode;
+  loading?: boolean;
+} & TouchableOpacityProps;
 
-const MEDIUM_ICON_SIZE = 18
-const SMALL_ICON_SIZE = 14
+const MEDIUM_ICON_SIZE = 18;
+const SMALL_ICON_SIZE = 14;
 
 export const Button = ({
   iconId,
@@ -26,7 +30,7 @@ export const Button = ({
   loading,
   ...touchableOpacityProps
 }: ButtonProps) => {
-  const isMediumScreen = useIsMediumScreen()
+  const isMediumScreen = useIsMediumScreen();
 
   return (
     <TouchableOpacity
@@ -43,17 +47,28 @@ export const Button = ({
         { borderColor: ghost ? textColor?.color : undefined },
       ]}
     >
-      <PeachText numberOfLines={1} ellipsizeMode="tail" style={[tw`button-small`, tw`md:button-large`, textColor]}>
+      <PeachText
+        numberOfLines={1}
+        ellipsizeMode="tail"
+        style={[tw`button-small`, tw`md:button-large`, textColor]}
+      >
         {children}
       </PeachText>
 
       {loading ? (
-        <Loading style={[tw`h-14px w-14px`, tw`md:h-18px md:w-18px`]} color={textColor?.color} />
+        <Loading
+          style={[tw`h-14px w-14px`, tw`md:h-18px md:w-18px`]}
+          color={textColor?.color}
+        />
       ) : (
         !!iconId && (
-          <Icon id={iconId} size={isMediumScreen ? MEDIUM_ICON_SIZE : SMALL_ICON_SIZE} color={textColor?.color} />
+          <Icon
+            id={iconId}
+            size={isMediumScreen ? MEDIUM_ICON_SIZE : SMALL_ICON_SIZE}
+            color={textColor?.color}
+          />
         )
       )}
     </TouchableOpacity>
-  )
-}
+  );
+};

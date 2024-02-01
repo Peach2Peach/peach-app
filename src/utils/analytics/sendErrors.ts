@@ -1,17 +1,21 @@
-import crashlytics from '@react-native-firebase/crashlytics'
-import { isAirplaneModeSync } from 'react-native-device-info'
-import { appendFile } from '../file/appendFile'
-import { info } from '../log/info'
+import crashlytics from "@react-native-firebase/crashlytics";
+import { isAirplaneModeSync } from "react-native-device-info";
+import { appendFile } from "../file/appendFile";
+import { info } from "../log/info";
 
 export const sendErrors = async (errors: Error[]) => {
   if (isAirplaneModeSync()) {
-    await appendFile('/error.log', errors.map((e) => e.message).join('\n'), true)
-    return
+    await appendFile(
+      "/error.log",
+      errors.map((e) => e.message).join("\n"),
+      true,
+    );
+    return;
   }
 
-  info('Crashlytics is enabled, sending crash reports', errors.length)
+  info("Crashlytics is enabled, sending crash reports", errors.length);
 
   errors.forEach((err) => {
-    crashlytics().recordError(err)
-  })
-}
+    crashlytics().recordError(err);
+  });
+};

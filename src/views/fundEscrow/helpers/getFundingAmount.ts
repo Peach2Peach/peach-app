@@ -1,4 +1,6 @@
-import { FundMultipleInfo } from '../../../utils/wallet/walletStore'
+import { FundMultipleInfo } from "../../../utils/wallet/walletStore";
 
-export const getFundingAmount = (fundMultiple?: FundMultipleInfo, amount = 0) =>
-  fundMultiple ? amount * fundMultiple.offerIds.length : amount
+export const getFundingAmount = (
+  fundMultiple?: FundMultipleInfo,
+  amount = 0,
+) => (fundMultiple ? amount * fundMultiple.offerIds.length : amount);

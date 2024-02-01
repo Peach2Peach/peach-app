@@ -1,6 +1,6 @@
-import { isHighRiskCountry } from './isHighRiskCountry'
+import { isHighRiskCountry } from "./isHighRiskCountry";
 
-jest.mock('./countryMap', () => ({
+jest.mock("./countryMap", () => ({
   countryMap: {
     CH: {
       highRisk: false,
@@ -9,20 +9,20 @@ jest.mock('./countryMap', () => ({
       highRisk: true,
     },
   },
-}))
+}));
 
-describe('isHighRiskCountry', () => {
-  it('returns true if a country is of high risk', () => {
-    expect(isHighRiskCountry('CM')).toEqual(true)
-  })
-  it('returns false if a country is not of high risk', () => {
-    expect(isHighRiskCountry('CH')).toEqual(false)
-  })
-  it('returns true if a country is unknown', () => {
+describe("isHighRiskCountry", () => {
+  it("returns true if a country is of high risk", () => {
+    expect(isHighRiskCountry("CM")).toEqual(true);
+  });
+  it("returns false if a country is not of high risk", () => {
+    expect(isHighRiskCountry("CH")).toEqual(false);
+  });
+  it("returns true if a country is unknown", () => {
     // @ts-expect-error testing invalid input
-    expect(isHighRiskCountry('XX')).toEqual(true)
-  })
-  it('returns true if a country is undefined', () => {
-    expect(isHighRiskCountry(undefined)).toEqual(true)
-  })
-})
+    expect(isHighRiskCountry("XX")).toEqual(true);
+  });
+  it("returns true if a country is undefined", () => {
+    expect(isHighRiskCountry(undefined)).toEqual(true);
+  });
+});

@@ -1,4 +1,4 @@
-import * as accountData from '../tests/unit/data/accountData'
+import * as accountData from "../tests/unit/data/accountData";
 
 export default {
   decrypt: jest.fn(),
@@ -8,4 +8,4 @@ export default {
   generate: jest.fn(() => accountData.account1.pgp),
   sign: jest.fn(),
   verify: jest.fn(),
-}
+};

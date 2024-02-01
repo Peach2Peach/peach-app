@@ -1,1 +1,1 @@
-export { TestViewPNs } from './TestViewPNs'
+export { TestViewPNs } from "./TestViewPNs";

@@ -1,4 +1,4 @@
-import { Err } from './types'
+import { Err } from "./types";
 
 export const getError = <E, R>(error: E, result?: R): Err<E, R> => ({
   result,
@@ -7,4 +7,4 @@ export const getError = <E, R>(error: E, result?: R): Err<E, R> => ({
   isOk: () => false,
   isError: () => true,
   getError: () => error,
-})
+});

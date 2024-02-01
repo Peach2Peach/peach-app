@@ -1,5 +1,5 @@
-import { BLOCKEXPLORER } from '@env'
-import { APPVERSION } from '../../constants'
+import { BLOCKEXPLORER } from "@env";
+import { APPVERSION } from "../../constants";
 
 export const defaultSettings: Settings = {
   appVersion: APPVERSION,
@@ -14,7 +14,7 @@ export const defaultSettings: Settings = {
 
   country: undefined,
   locale: undefined,
-  displayCurrency: 'EUR',
+  displayCurrency: "EUR",
 
   nodeURL: BLOCKEXPLORER,
 
@@ -29,4 +29,4 @@ export const defaultSettings: Settings = {
 
   fcmToken: undefined,
   usedReferralCode: undefined,
-}
+};
