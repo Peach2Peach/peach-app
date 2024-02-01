@@ -59,6 +59,7 @@ type User = {
   referralCode?: string;
   referredTradingAmount: number;
   openedTrades: number;
+  canceledTrades: number;
   trades: number;
   uniqueId: string;
   usedReferralCode?: string;
