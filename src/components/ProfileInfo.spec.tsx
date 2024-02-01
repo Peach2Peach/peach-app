@@ -1,7 +1,7 @@
-import { toMatchDiffSnapshot } from 'snapshot-diff'
-import { render } from 'test-utils'
-import { ProfileInfo } from './ProfileInfo'
-expect.extend({ toMatchDiffSnapshot })
+import { toMatchDiffSnapshot } from "snapshot-diff";
+import { render } from "test-utils";
+import { ProfileInfo } from "./ProfileInfo";
+expect.extend({ toMatchDiffSnapshot });
 
 describe('ProfileInfo', () => {
   const user = {

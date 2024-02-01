@@ -1,21 +1,21 @@
-import { ColorValue, View } from 'react-native'
-import { NewBubble, NewBubbleProps } from '../../components/bubble/Bubble'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import { Section } from './components/Section'
+import { ColorValue, View } from "react-native";
+import { NewBubble, NewBubbleProps } from "../../components/bubble/Bubble";
+import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
+import { Section } from "./components/Section";
 
 type Props = {
-  backgroundColor: ColorValue | undefined
-  bubbleColor: NewBubbleProps['color']
-  peachWalletActive: boolean
-  address?: string
-  addressLabel?: string
-  onPeachWalletPress: NewBubbleProps['onPress']
-  onExternalWalletPress: NewBubbleProps['onPress']
-  title: string
-}
+  backgroundColor: ColorValue | undefined;
+  bubbleColor: NewBubbleProps["color"];
+  peachWalletActive: boolean;
+  address?: string;
+  addressLabel?: string;
+  onPeachWalletPress: NewBubbleProps["onPress"];
+  onExternalWalletPress: NewBubbleProps["onPress"];
+  title: string;
+};
 
-export function WalletSelector ({
+export function WalletSelector({
   backgroundColor,
   bubbleColor,
   peachWalletActive,
@@ -35,18 +35,18 @@ export function WalletSelector ({
           disabled={peachWalletActive}
           onPress={onPeachWalletPress}
         >
-          {i18n('peachWallet')}
+          {i18n("peachWallet")}
         </NewBubble>
         <NewBubble
           color={bubbleColor}
           ghost={peachWalletActive}
           disabled={!peachWalletActive}
-          iconId={!address ? 'plusCircle' : undefined}
+          iconId={!address ? "plusCircle" : undefined}
           onPress={onExternalWalletPress}
         >
-          {addressLabel || i18n('externalWallet')}
+          {addressLabel || i18n("externalWallet")}
         </NewBubble>
       </View>
     </Section.Container>
-  )
+  );
 }

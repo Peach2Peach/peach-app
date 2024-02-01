@@ -1,1 +1,1 @@
-export const enforceEmailFormat = (email: string) => email.toLowerCase()
+export const enforceEmailFormat = (email: string) => email.toLowerCase();

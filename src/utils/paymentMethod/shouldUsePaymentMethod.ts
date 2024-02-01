@@ -1,8 +1,11 @@
-import { getAllPaymentMethods } from './getAllPaymentMethods'
-import { isCashTrade } from './isCashTrade'
+import { getAllPaymentMethods } from "./getAllPaymentMethods";
+import { isCashTrade } from "./isCashTrade";
 
-export const shouldUsePaymentMethod = (paymentCategories: PaymentCategories) => {
-  const allPaymentMethods = getAllPaymentMethods(paymentCategories)
+export const shouldUsePaymentMethod = (
+  paymentCategories: PaymentCategories,
+) => {
+  const allPaymentMethods = getAllPaymentMethods(paymentCategories);
 
-  return (info: PaymentMethodInfo) => isCashTrade(info.id) || allPaymentMethods.includes(info.id)
-}
+  return (info: PaymentMethodInfo) =>
+    isCashTrade(info.id) || allPaymentMethods.includes(info.id);
+};

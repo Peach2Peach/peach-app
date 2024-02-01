@@ -1,3 +1,3 @@
-import { WelcomeInfo } from './WelcomeInfo'
+import { WelcomeInfo } from "./WelcomeInfo";
 
-export const PeachOfMind = () => <WelcomeInfo name="peachOfMind" />
+export const PeachOfMind = () => <WelcomeInfo name="peachOfMind" />;

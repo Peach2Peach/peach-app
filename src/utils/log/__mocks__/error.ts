@@ -1,1 +1,1 @@
-export const error = jest.fn()
+export const error = jest.fn();

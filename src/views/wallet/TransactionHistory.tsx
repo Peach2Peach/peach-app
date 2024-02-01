@@ -1,17 +1,17 @@
-import { FlatList } from 'react-native'
-import { Header } from '../../components/Header'
-import { Screen } from '../../components/Screen'
-import { useNavigation } from '../../hooks/useNavigation'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import { headerIcons } from '../../utils/layout/headerIcons'
-import { EmptyTransactionHistory, TxStatusCard } from './components'
-import { useSyncWallet } from './hooks/useSyncWallet'
-import { useTransactionHistorySetup } from './hooks/useTransactionHistorySetup'
+import { FlatList } from "react-native";
+import { Header } from "../../components/Header";
+import { Screen } from "../../components/Screen";
+import { useNavigation } from "../../hooks/useNavigation";
+import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
+import { headerIcons } from "../../utils/layout/headerIcons";
+import { EmptyTransactionHistory, TxStatusCard } from "./components";
+import { useSyncWallet } from "./hooks/useSyncWallet";
+import { useTransactionHistorySetup } from "./hooks/useTransactionHistorySetup";
 
 export const TransactionHistory = () => {
-  const { transactions } = useTransactionHistorySetup()
-  const { refetch, isRefetching } = useSyncWallet()
+  const { transactions } = useTransactionHistorySetup();
+  const { refetch, isRefetching } = useSyncWallet();
 
   return (
     <Screen header={<TransactionHistoryHeader />}>
@@ -30,24 +30,24 @@ export const TransactionHistory = () => {
         />
       )}
     </Screen>
-  )
-}
+  );
+};
 
-function TransactionHistoryHeader () {
-  const navigation = useNavigation()
+function TransactionHistoryHeader() {
+  const navigation = useNavigation();
   const onPress = () => {
-    navigation.navigate('exportTransactionHistory')
-  }
+    navigation.navigate("exportTransactionHistory");
+  };
   return (
     <Header
-      title={i18n('wallet.transactionHistory')}
+      title={i18n("wallet.transactionHistory")}
       icons={[
         {
           ...headerIcons.share,
           onPress,
-          accessibilityHint: `${i18n('goTo')} ${i18n('wallet.exportHistory.title')}`,
+          accessibilityHint: `${i18n("goTo")} ${i18n("wallet.exportHistory.title")}`,
         },
       ]}
     />
-  )
+  );
 }

@@ -1,20 +1,24 @@
-import { useAccountStore } from '../account/account'
-import { storeChat } from '../account/storeAccount'
-import { uniqueBy } from '../array/uniqueBy'
-import { getChat } from './getChat'
+import { useAccountStore } from "../account/account";
+import { storeChat } from "../account/storeAccount";
+import { uniqueBy } from "../array/uniqueBy";
+import { getChat } from "./getChat";
 
-export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => {
-  const account = useAccountStore.getState().account
+export const saveChat = (
+  id: string,
+  chat: Partial<Chat>,
+  save = true,
+): Chat => {
+  const account = useAccountStore.getState().account;
   if (!account.chats[id]) {
     useAccountStore.getState().setChat(id, {
       lastSeen: new Date(0),
       messages: [],
       id,
-      draftMessage: '',
+      draftMessage: "",
       ...chat,
-    })
+    });
   }
-  const savedChat = getChat(id)
+  const savedChat = getChat(id);
 
   useAccountStore.getState().setChat(id, {
     ...savedChat,
@@ -27,12 +31,12 @@ export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => 
         date: new Date(m.date),
       }))
       .filter((message) => message.roomId.includes(id))
-      .filter(uniqueBy('signature'))
+      .filter(uniqueBy("signature"))
       .sort((a, b) => a.date.getTime() - b.date.getTime()),
-  })
+  });
 
-  const updatedChat = useAccountStore.getState().account.chats[id]
-  if (save) storeChat(updatedChat)
+  const updatedChat = useAccountStore.getState().account.chats[id];
+  if (save) storeChat(updatedChat);
 
-  return updatedChat
-}
+  return updatedChat;
+};

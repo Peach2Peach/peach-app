@@ -1,15 +1,15 @@
-import { useEffect, useMemo, useRef } from 'react'
-import { Animated, View } from 'react-native'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
-import { Button } from '../../buttons/Button'
+import { useEffect, useMemo, useRef } from "react";
+import { Animated, View } from "react-native";
+import tw from "../../../styles/tailwind";
+import i18n from "../../../utils/i18n";
+import { Button } from "../../buttons/Button";
 
 type Props = {
-  onPress: () => void
-  onTimerFinished: () => void
-}
+  onPress: () => void;
+  onTimerFinished: () => void;
+};
 
-export const TIMER_DURATION = 5000
+export const TIMER_DURATION = 5000;
 
 const startTimer = (timer: Animated.Value, onTimerFinished: () => void) => {
   Animated.timing(timer, {
@@ -17,18 +17,18 @@ const startTimer = (timer: Animated.Value, onTimerFinished: () => void) => {
     duration: TIMER_DURATION,
     useNativeDriver: false,
   }).start(({ finished }) => {
-    if (!finished) return
-    onTimerFinished()
-  })
-}
-const narrow = Number(tw`w-39`.width)
+    if (!finished) return;
+    onTimerFinished();
+  });
+};
+const narrow = Number(tw`w-39`.width);
 
 export const UndoButton = ({ onPress, onTimerFinished }: Props) => {
-  const timer = useRef(new Animated.Value(1)).current
+  const timer = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    startTimer(timer, onTimerFinished)
-  }, [onTimerFinished, timer])
+    startTimer(timer, onTimerFinished);
+  }, [onTimerFinished, timer]);
 
   const width = useMemo(
     () =>
@@ -37,24 +37,27 @@ export const UndoButton = ({ onPress, onTimerFinished }: Props) => {
         outputRange: [0, narrow],
       }),
     [timer],
-  )
+  );
   const sharedProps = {
     onPress,
-    iconId: 'rotateCounterClockwise',
+    iconId: "rotateCounterClockwise",
     textColor: tw`text-black-100`,
-  } as const
+  } as const;
 
   return (
     <View style={tw`items-center justify-center min-w-39`}>
       <Animated.View style={[tw`self-start overflow-hidden`, { width }]}>
         <Button {...sharedProps} style={tw`bg-primary-background-light w-39`}>
-          {i18n('search.undo')}
+          {i18n("search.undo")}
         </Button>
       </Animated.View>
 
-      <Button {...sharedProps} style={[tw`absolute w-39`, { backgroundColor: '#FFFCFA80' }]}>
-        {i18n('search.undo')}
+      <Button
+        {...sharedProps}
+        style={[tw`absolute w-39`, { backgroundColor: "#FFFCFA80" }]}
+      >
+        {i18n("search.undo")}
       </Button>
     </View>
-  )
-}
+  );
+};

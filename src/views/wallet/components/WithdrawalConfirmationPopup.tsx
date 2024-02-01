@@ -1,48 +1,65 @@
-import { PartiallySignedTransaction } from 'bdk-rn'
-import { useClosePopup } from '../../../components/popup/Popup'
-import { PopupAction } from '../../../components/popup/PopupAction'
-import { PopupComponent } from '../../../components/popup/PopupComponent'
-import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
-import { useNavigation } from '../../../hooks/useNavigation'
-import i18n from '../../../utils/i18n'
-import { peachWallet } from '../../../utils/wallet/setWallet'
-import { useWalletState } from '../../../utils/wallet/walletStore'
-import { ConfirmTxPopup } from '../../fundEscrow/hooks/ConfirmTxPopup'
+import { PartiallySignedTransaction } from "bdk-rn";
+import { useClosePopup } from "../../../components/popup/Popup";
+import { PopupAction } from "../../../components/popup/PopupAction";
+import { PopupComponent } from "../../../components/popup/PopupComponent";
+import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
+import { useNavigation } from "../../../hooks/useNavigation";
+import i18n from "../../../utils/i18n";
+import { peachWallet } from "../../../utils/wallet/setWallet";
+import { useWalletState } from "../../../utils/wallet/walletStore";
+import { ConfirmTxPopup } from "../../fundEscrow/hooks/ConfirmTxPopup";
 
 type Props = {
-  amount: number
-  address: string
-  psbt: PartiallySignedTransaction
-  fee: number
-  feeRate: number
-}
+  amount: number;
+  address: string;
+  psbt: PartiallySignedTransaction;
+  fee: number;
+  feeRate: number;
+};
 
-export function WithdrawalConfirmationPopup ({ amount, address, psbt, fee, feeRate }: Props) {
-  const closePopup = useClosePopup()
-  const setSelectedUTXOIds = useWalletState((state) => state.setSelectedUTXOIds)
-  const navigation = useNavigation()
-  const handleTransactionError = useHandleTransactionError()
+export function WithdrawalConfirmationPopup({
+  amount,
+  address,
+  psbt,
+  fee,
+  feeRate,
+}: Props) {
+  const closePopup = useClosePopup();
+  const setSelectedUTXOIds = useWalletState(
+    (state) => state.setSelectedUTXOIds,
+  );
+  const navigation = useNavigation();
+  const handleTransactionError = useHandleTransactionError();
 
   const confirm = async () => {
     try {
-      await peachWallet.signAndBroadcastPSBT(psbt)
+      await peachWallet.signAndBroadcastPSBT(psbt);
     } catch (e) {
-      handleTransactionError(e)
+      handleTransactionError(e);
     }
-    setSelectedUTXOIds([])
-    closePopup()
-    navigation.navigate('homeScreen', { screen: 'wallet' })
-  }
+    setSelectedUTXOIds([]);
+    closePopup();
+    navigation.navigate("homeScreen", { screen: "wallet" });
+  };
 
   return (
     <PopupComponent
-      title={i18n('wallet.confirmWithdraw.title')}
-      content={<ConfirmTxPopup {...{ amount, address, fee, feeRate }} text={i18n('wallet.sendBitcoin.youreSending')} />}
+      title={i18n("wallet.confirmWithdraw.title")}
+      content={
+        <ConfirmTxPopup
+          {...{ amount, address, fee, feeRate }}
+          text={i18n("wallet.sendBitcoin.youreSending")}
+        />
+      }
       actions={
         <>
-          <PopupAction label={i18n('cancel')} iconId="xCircle" onPress={closePopup} />
           <PopupAction
-            label={i18n('wallet.confirmWithdraw.confirm')}
+            label={i18n("cancel")}
+            iconId="xCircle"
+            onPress={closePopup}
+          />
+          <PopupAction
+            label={i18n("wallet.confirmWithdraw.confirm")}
             iconId="arrowRightCircle"
             onPress={confirm}
             reverseOrder
@@ -50,5 +67,5 @@ export function WithdrawalConfirmationPopup ({ amount, address, psbt, fee, feeRa
         </>
       }
     />
-  )
+  );
 }

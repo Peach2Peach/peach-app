@@ -1,15 +1,16 @@
 @font-face {
-    font-family: "Baloo";
-    src: url("./assets/fonts/Baloo-Regular.eot");
-    src: url("./assets/fonts/Baloo-Regular.eot") format("embedded-opentype"),
-        url("./assets/fonts/Baloo-Regular.woff2") format("woff2"),
-        url("./assets/fonts/Baloo-Regular.woff") format("woff"),
-        url("./assets/fonts/Baloo-Regular.ttf") format("truetype"),
-        url("./assets/fonts/Baloo-Regular.svg") format("svg");
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Baloo";
+  src: url("./assets/fonts/Baloo-Regular.eot");
+  src:
+    url("./assets/fonts/Baloo-Regular.eot") format("embedded-opentype"),
+    url("./assets/fonts/Baloo-Regular.woff2") format("woff2"),
+    url("./assets/fonts/Baloo-Regular.woff") format("woff"),
+    url("./assets/fonts/Baloo-Regular.ttf") format("truetype"),
+    url("./assets/fonts/Baloo-Regular.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
 }
 
 body {
-    font-family: "Baloo";
+  font-family: "Baloo";
 }

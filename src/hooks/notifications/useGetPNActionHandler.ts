@@ -1,55 +1,59 @@
-import { useCallback } from 'react'
-import i18n from '../../utils/i18n'
-import { useNavigation } from '../useNavigation'
+import { useCallback } from "react";
+import i18n from "../../utils/i18n";
+import { useNavigation } from "../useNavigation";
 
-const offerSummaryEvents = ['offer.notFunded', 'offer.sellOfferExpired', 'offer.buyOfferExpired']
-const searchEvents = ['offer.matchSeller']
-const exploreEvents = ['offer.matchBuyer']
+const offerSummaryEvents = [
+  "offer.notFunded",
+  "offer.sellOfferExpired",
+  "offer.buyOfferExpired",
+];
+const searchEvents = ["offer.matchSeller"];
+const exploreEvents = ["offer.matchBuyer"];
 
 export const useGetPNActionHandler = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const getPNActionHandler = useCallback(
     ({ type, contractId, isChat, offerId }: PNData) => {
       if (contractId) {
         if (isChat) {
           return {
-            label: i18n('goToChat'),
-            iconId: 'arrowLeftCircle',
-            onPress: () => navigation.navigate('contractChat', { contractId }),
-          }
+            label: i18n("goToChat"),
+            iconId: "arrowLeftCircle",
+            onPress: () => navigation.navigate("contractChat", { contractId }),
+          };
         }
         return {
-          label: i18n('goToContract'),
-          iconId: 'arrowLeftCircle',
-          onPress: () => navigation.navigate('contract', { contractId }),
-        }
+          label: i18n("goToContract"),
+          iconId: "arrowLeftCircle",
+          onPress: () => navigation.navigate("contract", { contractId }),
+        };
       }
       if (offerId && type) {
         if (offerSummaryEvents.includes(type)) {
           return {
-            label: i18n('goToOffer'),
-            iconId: 'arrowLeftCircle',
-            onPress: () => navigation.navigate('offer', { offerId }),
-          }
+            label: i18n("goToOffer"),
+            iconId: "arrowLeftCircle",
+            onPress: () => navigation.navigate("offer", { offerId }),
+          };
         }
         if (searchEvents.includes(type)) {
           return {
-            label: i18n('goToOffer'),
-            iconId: 'arrowLeftCircle',
-            onPress: () => navigation.navigate('search', { offerId }),
-          }
+            label: i18n("goToOffer"),
+            iconId: "arrowLeftCircle",
+            onPress: () => navigation.navigate("search", { offerId }),
+          };
         }
         if (exploreEvents.includes(type)) {
           return {
-            label: i18n('goToOffer'),
-            iconId: 'arrowLeftCircle',
-            onPress: () => navigation.navigate('explore', { offerId }),
-          }
+            label: i18n("goToOffer"),
+            iconId: "arrowLeftCircle",
+            onPress: () => navigation.navigate("explore", { offerId }),
+          };
         }
       }
-      return undefined
+      return undefined;
     },
     [navigation],
-  )
-  return getPNActionHandler
-}
+  );
+  return getPNActionHandler;
+};

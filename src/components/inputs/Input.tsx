@@ -1,16 +1,23 @@
-import { Ref, useMemo } from 'react'
-import { ColorValue, StyleProp, TextInput, TextInputProps, View, ViewStyle } from 'react-native'
-import { IconType } from '../../assets/icons'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import { TouchableIcon } from '../TouchableIcon'
-import { PeachText } from '../text/PeachText'
+import { Ref, useMemo } from "react";
+import {
+  ColorValue,
+  StyleProp,
+  TextInput,
+  TextInputProps,
+  View,
+  ViewStyle,
+} from "react-native";
+import { IconType } from "../../assets/icons";
+import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
+import { TouchableIcon } from "../TouchableIcon";
+import { PeachText } from "../text/PeachText";
 
 const themes = {
   default: {
     label: tw`text-black-100`,
-    text: 'text-black-100',
-    textError: 'text-black-100',
+    text: "text-black-100",
+    textError: "text-black-100",
     border: tw`border-black-100`,
     borderError: tw`border-error-main`,
     borderDisabled: tw`text-black-65`,
@@ -18,13 +25,13 @@ const themes = {
     bgError: tw`bg-primary-background-light`,
     bgDisabled: tw`bg-transparent`,
     error: tw`text-error-main`,
-    placeholder: 'text-black-25',
+    placeholder: "text-black-25",
     optional: tw`text-black-25`,
   },
   inverted: {
     label: tw`text-primary-background-light`,
-    text: 'text-primary-background-light',
-    textError: 'text-error-main',
+    text: "text-primary-background-light",
+    textError: "text-error-main",
     border: tw`border-primary-background-light`,
     borderError: tw`border-primary-background-light`,
     borderDisabled: tw`border-primary-background-light`,
@@ -32,23 +39,23 @@ const themes = {
     bgError: tw`bg-primary-background-light`,
     bgDisabled: tw`bg-transparent`,
     error: tw`text-primary-background-light`,
-    placeholder: 'text-primary-mild-1',
+    placeholder: "text-primary-mild-1",
     optional: tw`text-black-25`,
   },
-}
+};
 
-export type IconActionPair = [IconType, () => void]
+export type IconActionPair = [IconType, () => void];
 export type InputProps = TextInputProps & {
-  theme?: 'default' | 'inverted'
-  label?: string
-  icons?: IconActionPair[]
-  iconColor?: ColorValue
-  required?: boolean
-  disabled?: boolean
-  errorMessage?: string[]
-  reference?: Ref<TextInput>
-  style?: StyleProp<ViewStyle>
-}
+  theme?: "default" | "inverted";
+  label?: string;
+  icons?: IconActionPair[];
+  iconColor?: ColorValue;
+  required?: boolean;
+  disabled?: boolean;
+  errorMessage?: string[];
+  reference?: Ref<TextInput>;
+  style?: StyleProp<ViewStyle>;
+};
 
 export const Input = ({
   value,
@@ -59,24 +66,36 @@ export const Input = ({
   multiline = false,
   disabled = false,
   errorMessage = [],
-  autoCapitalize = 'none',
+  autoCapitalize = "none",
   style,
-  theme = 'default',
+  theme = "default",
   reference,
   ...inputProps
 }: InputProps) => {
-  const { bgDisabled, bg, borderDisabled, border, bgError, borderError, text, placeholder, textError, error } = useMemo(
-    () => themes[theme],
-    [theme],
-  )
-  const showError = errorMessage.length > 0 && !disabled && !!value
+  const {
+    bgDisabled,
+    bg,
+    borderDisabled,
+    border,
+    bgError,
+    borderError,
+    text,
+    placeholder,
+    textError,
+    error,
+  } = useMemo(() => themes[theme], [theme]);
+  const showError = errorMessage.length > 0 && !disabled && !!value;
 
   return (
     <View>
       {!!label && (
         <PeachText style={[tw`pl-2 input-title`, tw.style(text)]}>
           {label}
-          {!required && <PeachText style={tw.style(placeholder)}>{` (${i18n('form.optional')})`}</PeachText>}
+          {!required && (
+            <PeachText
+              style={tw.style(placeholder)}
+            >{` (${i18n("form.optional")})`}</PeachText>
+          )}
         </PeachText>
       )}
       <View
@@ -106,7 +125,7 @@ export const Input = ({
           removeClippedSubviews={false}
           editable={!disabled}
           multiline={multiline}
-          textAlignVertical={multiline ? 'top' : 'center'}
+          textAlignVertical={multiline ? "top" : "center"}
           autoCapitalize={autoCapitalize}
           blurOnSubmit={false}
           autoCorrect={false}
@@ -118,13 +137,17 @@ export const Input = ({
               onPress={action}
               key={`inputIcon-${icon}-${index}`}
               id={icon}
-              iconColor={iconColor ? iconColor : tw.color(showError ? textError : text)}
+              iconColor={
+                iconColor ? iconColor : tw.color(showError ? textError : text)
+              }
               iconSize={20}
             />
           ))}
         </View>
       </View>
-      <PeachText style={[tw`mt-1 ml-3 tooltip`, error]}>{showError ? errorMessage[0] : ' '}</PeachText>
+      <PeachText style={[tw`mt-1 ml-3 tooltip`, error]}>
+        {showError ? errorMessage[0] : " "}
+      </PeachText>
     </View>
-  )
-}
+  );
+};

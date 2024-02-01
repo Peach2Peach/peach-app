@@ -1,1 +1,1 @@
-export { CurrencySelection } from './CurrencySelection'
+export { CurrencySelection } from "./CurrencySelection";

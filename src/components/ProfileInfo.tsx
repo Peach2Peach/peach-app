@@ -1,9 +1,9 @@
-import { View } from 'react-native'
-import { NEW_USER_TRADE_THRESHOLD } from '../constants'
-import tw from '../styles/tailwind'
-import { Rating } from '../views/settings/profile/profileOverview/Rating'
-import { PeachID } from './PeachID'
-import { Badges } from './matches/components/Badges'
+import { View } from "react-native";
+import { NEW_USER_TRADE_THRESHOLD } from "../constants";
+import tw from "../styles/tailwind";
+import { Rating } from "../views/settings/profile/profileOverview/Rating";
+import { PeachID } from "./PeachID";
+import { Badges } from "./matches/components/Badges";
 
 type Props = {
   user: Pick<User, 'openedTrades' | 'canceledTrades' |'disputes' | 'id' | 'rating' | 'medals'>
@@ -24,5 +24,5 @@ export const ProfileInfo = ({
 
       {!isNewUser && <Badges unlockedBadges={medals} id={id} />}
     </View>
-  )
-}
+  );
+};

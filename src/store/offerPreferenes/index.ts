@@ -1,1 +1,1 @@
-export { useOfferPreferences } from './useOfferPreferences'
+export { useOfferPreferences } from "./useOfferPreferences";

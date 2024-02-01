@@ -1,80 +1,87 @@
-import { createRenderer } from 'react-test-renderer/shallow'
-import { fireEvent, render } from 'test-utils'
+import { createRenderer } from "react-test-renderer/shallow";
+import { fireEvent, render } from "test-utils";
 import {
   bdkTransactionWithRBF1,
   bitcoinJSTransactionWithRBF1,
   transactionWithRBF1Summary,
-} from '../../../../../tests/unit/data/transactionDetailData'
-import { TransactionDetailsInfo } from './TransactionDetailsInfo'
+} from "../../../../../tests/unit/data/transactionDetailData";
+import { TransactionDetailsInfo } from "./TransactionDetailsInfo";
 
-const receivingAddress = 'receivingAddress'
-const goToBumpNetworkFeesMock = jest.fn()
-const openInExplorerMock = jest.fn()
+const receivingAddress = "receivingAddress";
+const goToBumpNetworkFeesMock = jest.fn();
+const openInExplorerMock = jest.fn();
 const useTransactionDetailsInfoSetupReturnValue = {
   receivingAddress,
   canBumpFees: true,
   goToBumpNetworkFees: goToBumpNetworkFeesMock,
   openInExplorer: openInExplorerMock,
-}
-const useTransactionDetailsInfoSetupMock = jest.fn().mockReturnValue(useTransactionDetailsInfoSetupReturnValue)
-jest.mock('../../hooks/useTransactionDetailsInfoSetup', () => ({
-  useTransactionDetailsInfoSetup: (...args: unknown[]) => useTransactionDetailsInfoSetupMock(...args),
-}))
+};
+const useTransactionDetailsInfoSetupMock = jest
+  .fn()
+  .mockReturnValue(useTransactionDetailsInfoSetupReturnValue);
+jest.mock("../../hooks/useTransactionDetailsInfoSetup", () => ({
+  useTransactionDetailsInfoSetup: (...args: unknown[]) =>
+    useTransactionDetailsInfoSetupMock(...args),
+}));
 
-const useTxFeeRateMock = jest.fn().mockReturnValue(2)
-jest.mock('../../hooks/useTxFeeRate', () => ({
+const useTxFeeRateMock = jest.fn().mockReturnValue(2);
+jest.mock("../../hooks/useTxFeeRate", () => ({
   useTxFeeRate: (...args: unknown[]) => useTxFeeRateMock(...args),
-}))
+}));
 
-jest.useFakeTimers()
+jest.useFakeTimers();
 
-describe('TransactionDetailsInfo', () => {
-  const renderer = createRenderer()
-  it('should render correctly for a pending transaction', () => {
+describe("TransactionDetailsInfo", () => {
+  const renderer = createRenderer();
+  it("should render correctly for a pending transaction", () => {
     renderer.render(
       <TransactionDetailsInfo
         localTx={bdkTransactionWithRBF1}
         transactionDetails={bitcoinJSTransactionWithRBF1}
         transactionSummary={{ ...transactionWithRBF1Summary, confirmed: false }}
       />,
-    )
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
-  it('should render correctly for a confirmed transaction', () => {
+    );
+    expect(renderer.getRenderOutput()).toMatchSnapshot();
+  });
+  it("should render correctly for a confirmed transaction", () => {
     useTransactionDetailsInfoSetupMock.mockReturnValueOnce({
       ...useTransactionDetailsInfoSetupReturnValue,
       canBumpFees: false,
-    })
+    });
 
     renderer.render(
       <TransactionDetailsInfo
         localTx={bdkTransactionWithRBF1}
         transactionDetails={bitcoinJSTransactionWithRBF1}
-        transactionSummary={{ ...transactionWithRBF1Summary, height: 1, confirmed: true }}
+        transactionSummary={{
+          ...transactionWithRBF1Summary,
+          height: 1,
+          confirmed: true,
+        }}
       />,
-    )
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
-  it('should render correctly for a deposit transaction', () => {
+    );
+    expect(renderer.getRenderOutput()).toMatchSnapshot();
+  });
+  it("should render correctly for a deposit transaction", () => {
     renderer.render(
       <TransactionDetailsInfo
         localTx={bdkTransactionWithRBF1}
         transactionDetails={bitcoinJSTransactionWithRBF1}
-        transactionSummary={{ ...transactionWithRBF1Summary, type: 'DEPOSIT' }}
+        transactionSummary={{ ...transactionWithRBF1Summary, type: "DEPOSIT" }}
       />,
-    )
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
+    );
+    expect(renderer.getRenderOutput()).toMatchSnapshot();
+  });
 
-  it('should go to increase network fee screen if rbf is possible', () => {
+  it("should go to increase network fee screen if rbf is possible", () => {
     const { getByText } = render(
       <TransactionDetailsInfo
         localTx={bdkTransactionWithRBF1}
         transactionDetails={bitcoinJSTransactionWithRBF1}
         transactionSummary={transactionWithRBF1Summary}
       />,
-    )
-    fireEvent(getByText('increase network fee'), 'onPress')
-    expect(goToBumpNetworkFeesMock).toHaveBeenCalled()
-  })
-})
+    );
+    fireEvent(getByText("increase network fee"), "onPress");
+    expect(goToBumpNetworkFeesMock).toHaveBeenCalled();
+  });
+});
