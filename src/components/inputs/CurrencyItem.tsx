@@ -1,17 +1,26 @@
-import { TouchableOpacity } from 'react-native'
-import tw from '../../styles/tailwind'
-import { Icon } from '../Icon'
-import { PeachText } from '../text/PeachText'
+import { TouchableOpacity } from "react-native";
+import tw from "../../styles/tailwind";
+import { Icon } from "../Icon";
+import { PeachText } from "../text/PeachText";
 
 type ItemProps = ComponentProps & {
-  label: string
-  isSelected: boolean
-  onPress: () => void
-}
-export const CurrencyItem = ({ label, isSelected, onPress, style }: ItemProps) => {
-  const bgColor = isSelected ? tw`bg-primary-main` : {}
-  const borderColor = isSelected ? tw`border-primary-main` : tw`border-black-50`
-  const textColor = tw.color(isSelected ? 'primary-background-light' : 'black-50')
+  label: string;
+  isSelected: boolean;
+  onPress: () => void;
+};
+export const CurrencyItem = ({
+  label,
+  isSelected,
+  onPress,
+  style,
+}: ItemProps) => {
+  const bgColor = isSelected ? tw`bg-primary-main` : {};
+  const borderColor = isSelected
+    ? tw`border-primary-main`
+    : tw`border-black-50`;
+  const textColor = tw.color(
+    isSelected ? "primary-background-light" : "black-50",
+  );
 
   return (
     <TouchableOpacity
@@ -23,8 +32,14 @@ export const CurrencyItem = ({ label, isSelected, onPress, style }: ItemProps) =
         style,
       ]}
     >
-      <PeachText style={[tw`button-medium`, { color: textColor }]}>{label}</PeachText>
-      <Icon id={isSelected ? 'minusCircle' : 'plusCircle'} color={textColor} style={tw`w-3 h-3`} />
+      <PeachText style={[tw`button-medium`, { color: textColor }]}>
+        {label}
+      </PeachText>
+      <Icon
+        id={isSelected ? "minusCircle" : "plusCircle"}
+        color={textColor}
+        style={tw`w-3 h-3`}
+      />
     </TouchableOpacity>
-  )
-}
+  );
+};

@@ -1,23 +1,29 @@
-import { Dispatch, SetStateAction, useCallback } from 'react'
-import { Input } from '../../components/inputs/Input'
-import { useValidatedState } from '../../hooks/useValidatedState'
-import { bip39WordRules } from './hooks/useRestoreFromSeedSetup'
+import { Dispatch, SetStateAction, useCallback } from "react";
+import { Input } from "../../components/inputs/Input";
+import { useValidatedState } from "../../hooks/useValidatedState";
+import { bip39WordRules } from "./hooks/useRestoreFromSeedSetup";
 
-type Props = ComponentProps & { index: number; setWords: Dispatch<SetStateAction<string[]>> }
+type Props = ComponentProps & {
+  index: number;
+  setWords: Dispatch<SetStateAction<string[]>>;
+};
 
 export const SeedPhraseInput = ({ style, index, setWords }: Props) => {
-  const [word, setWord, , errorMessage] = useValidatedState<string>('', bip39WordRules)
+  const [word, setWord, , errorMessage] = useValidatedState<string>(
+    "",
+    bip39WordRules,
+  );
   const onChange = useCallback(
     (value: string) => {
-      setWord(value)
+      setWord(value);
       setWords((words: string[]) => {
-        const newWords = [...words]
-        newWords[index] = value
-        return newWords
-      })
+        const newWords = [...words];
+        newWords[index] = value;
+        return newWords;
+      });
     },
     [index, setWord, setWords],
-  )
+  );
   return (
     <Input
       theme="inverted"
@@ -28,5 +34,5 @@ export const SeedPhraseInput = ({ style, index, setWords }: Props) => {
       value={word}
       style={style}
     />
-  )
-}
+  );
+};

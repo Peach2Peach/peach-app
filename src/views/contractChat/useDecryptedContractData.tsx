@@ -1,29 +1,30 @@
-import { useQuery } from '@tanstack/react-query'
-import OpenPGP from 'react-native-fast-openpgp'
-import { error } from '../../utils/log/error'
-import { decrypt } from '../../utils/pgp/decrypt'
-import { decryptSymmetric } from '../../utils/pgp/decryptSymmetric'
-import { decryptSymmetricKey } from '../contract/helpers/decryptSymmetricKey'
+import { useQuery } from "@tanstack/react-query";
+import OpenPGP from "react-native-fast-openpgp";
+import { error } from "../../utils/log/error";
+import { decrypt } from "../../utils/pgp/decrypt";
+import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
+import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 
 export const useDecryptedContractData = (contract?: Contract) =>
   useQuery({
-    queryKey: ['contract', contract?.id, 'decrytedData'],
+    queryKey: ["contract", contract?.id, "decrytedData"],
     queryFn: async () => {
-      if (!contract) throw new Error('No contract provided')
-      const { symmetricKey, paymentData } = await decryptContractData(contract)
-      if (!symmetricKey || !paymentData) throw new Error('Could not decrypt contract data')
+      if (!contract) throw new Error("No contract provided");
+      const { symmetricKey, paymentData } = await decryptContractData(contract);
+      if (!symmetricKey || !paymentData)
+        throw new Error("Could not decrypt contract data");
 
-      return { symmetricKey, paymentData }
+      return { symmetricKey, paymentData };
     },
     enabled: !!contract,
-  })
+  });
 
-async function decryptContractData (contract: Contract) {
+async function decryptContractData(contract: Contract) {
   const symmetricKey = await decryptSymmetricKey(
     contract.symmetricKeyEncrypted,
     contract.symmetricKeySignature,
     contract.buyer.pgpPublicKeys.map((key) => key.publicKey),
-  )
+  );
 
   const paymentData = await decryptPaymentData(
     {
@@ -33,52 +34,78 @@ async function decryptContractData (contract: Contract) {
       paymentDataEncryptionMethod: contract.paymentDataEncryptionMethod,
     },
     symmetricKey,
-  )
+  );
 
-  return { symmetricKey, paymentData }
+  return { symmetricKey, paymentData };
 }
 
-type DecryptPaymentDataProps = Pick<Contract, 'paymentDataEncryptionMethod'> & {
-  paymentDataEncrypted: string
-  paymentDataSignature: string
-  user: PublicUser
-}
-async function decryptPaymentData (
-  { paymentDataEncrypted, paymentDataSignature, user, paymentDataEncryptionMethod }: DecryptPaymentDataProps,
+type DecryptPaymentDataProps = Pick<Contract, "paymentDataEncryptionMethod"> & {
+  paymentDataEncrypted: string;
+  paymentDataSignature: string;
+  user: PublicUser;
+};
+async function decryptPaymentData(
+  {
+    paymentDataEncrypted,
+    paymentDataSignature,
+    user,
+    paymentDataEncryptionMethod,
+  }: DecryptPaymentDataProps,
   symmetricKey: string | null,
 ) {
   if (!paymentDataEncrypted || !paymentDataSignature) {
-    return logAndThrow(new Error('MISSING_PAYMENT_DATA_SECRETS'))
+    return logAndThrow(new Error("MISSING_PAYMENT_DATA_SECRETS"));
   }
-  if (paymentDataEncryptionMethod === 'asymmetric') {
+  if (paymentDataEncryptionMethod === "asymmetric") {
     try {
-      const decryptedPaymentDataString = await decrypt(paymentDataEncrypted)
-      if (!(await OpenPGP.verify(paymentDataSignature, decryptedPaymentDataString, user.pgpPublicKey))) {
-        return logAndThrow(new Error('PAYMENT_DATA_SIGNATURE_INVALID'))
+      const decryptedPaymentDataString = await decrypt(paymentDataEncrypted);
+      if (
+        !(await OpenPGP.verify(
+          paymentDataSignature,
+          decryptedPaymentDataString,
+          user.pgpPublicKey,
+        ))
+      ) {
+        return logAndThrow(new Error("PAYMENT_DATA_SIGNATURE_INVALID"));
       }
-      const decryptedPaymentData = JSON.parse(decryptedPaymentDataString) as PaymentData
-      return decryptedPaymentData
+      const decryptedPaymentData = JSON.parse(
+        decryptedPaymentDataString,
+      ) as PaymentData;
+      return decryptedPaymentData;
     } catch (e) {
-      return logAndThrow(new Error('ASYMMETRIC_PAYMENT_DATA_ENCRYPTION_FAILED'))
+      return logAndThrow(
+        new Error("ASYMMETRIC_PAYMENT_DATA_ENCRYPTION_FAILED"),
+      );
     }
   }
   if (!symmetricKey) {
-    return logAndThrow(new Error('MISSING_SYMMETRIC_KEY'))
+    return logAndThrow(new Error("MISSING_SYMMETRIC_KEY"));
   }
 
   try {
-    const decryptedPaymentDataString = await decryptSymmetric(paymentDataEncrypted, symmetricKey)
-    if (!(await OpenPGP.verify(paymentDataSignature, decryptedPaymentDataString, user.pgpPublicKey))) {
-      return logAndThrow(new Error('PAYMENT_DATA_SIGNATURE_INVALID'))
+    const decryptedPaymentDataString = await decryptSymmetric(
+      paymentDataEncrypted,
+      symmetricKey,
+    );
+    if (
+      !(await OpenPGP.verify(
+        paymentDataSignature,
+        decryptedPaymentDataString,
+        user.pgpPublicKey,
+      ))
+    ) {
+      return logAndThrow(new Error("PAYMENT_DATA_SIGNATURE_INVALID"));
     }
-    const decryptedPaymentData = JSON.parse(decryptedPaymentDataString) as PaymentData
-    return decryptedPaymentData
+    const decryptedPaymentData = JSON.parse(
+      decryptedPaymentDataString,
+    ) as PaymentData;
+    return decryptedPaymentData;
   } catch (e) {
-    return logAndThrow(new Error('SYMMETRIC_PAYMENT_DATA_ENCRYPTION_FAILED'))
+    return logAndThrow(new Error("SYMMETRIC_PAYMENT_DATA_ENCRYPTION_FAILED"));
   }
 }
 
-function logAndThrow (err: Error) {
-  error(err)
-  throw err
+function logAndThrow(err: Error) {
+  error(err);
+  throw err;
 }

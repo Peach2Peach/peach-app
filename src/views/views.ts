@@ -58,89 +58,95 @@ import { WrongFundingAmount } from './wrongFundingAmount/WrongFundingAmount'
 import { ExportTradeHistory } from './yourTrades/ExportTradeHistory'
 
 type ViewType = {
-  name: keyof RootStackParamList
-  component: () => JSX.Element
-  animationEnabled?: boolean
-}
+  name: keyof RootStackParamList;
+  component: () => JSX.Element;
+  animationEnabled?: boolean;
+};
 
 const onboarding: ViewType[] = [
-  { name: 'welcome', component: Welcome, animationEnabled: false },
-  { name: 'newUser', component: NewUser, animationEnabled: false },
-  { name: 'userSource', component: UserSource, animationEnabled: false },
-  { name: 'restoreBackup', component: RestoreBackup, animationEnabled: false },
-  { name: 'restoreReputation', component: RestoreReputation, animationEnabled: false },
-]
+  { name: "welcome", component: Welcome, animationEnabled: false },
+  { name: "newUser", component: NewUser, animationEnabled: false },
+  { name: "userSource", component: UserSource, animationEnabled: false },
+  { name: "restoreBackup", component: RestoreBackup, animationEnabled: false },
+  {
+    name: "restoreReputation",
+    component: RestoreReputation,
+    animationEnabled: false,
+  },
+];
 
-const home: ViewType[] = [{ name: 'homeScreen', component: HomeScreen }]
+const home: ViewType[] = [{ name: "homeScreen", component: HomeScreen }];
 
 const wallet: ViewType[] = [
-  { name: 'sendBitcoin', component: SendBitcoin },
-  { name: 'receiveBitcoin', component: ReceiveBitcoin },
-  { name: 'addressChecker', component: AddressChecker },
-  { name: 'coinSelection', component: CoinSelection },
-  { name: 'transactionHistory', component: TransactionHistory },
-  { name: 'exportTransactionHistory', component: ExportTransactionHistory },
-  { name: 'transactionDetails', component: TransactionDetails },
-  { name: 'bumpNetworkFees', component: BumpNetworkFees },
-]
+  { name: "sendBitcoin", component: SendBitcoin },
+  { name: "receiveBitcoin", component: ReceiveBitcoin },
+  { name: "addressChecker", component: AddressChecker },
+  { name: "coinSelection", component: CoinSelection },
+  { name: "transactionHistory", component: TransactionHistory },
+  { name: "exportTransactionHistory", component: ExportTransactionHistory },
+  { name: "transactionDetails", component: TransactionDetails },
+  { name: "bumpNetworkFees", component: BumpNetworkFees },
+];
 const buyFlow: ViewType[] = [
-  { name: 'buyOfferPreferences', component: BuyOfferPreferences },
-  { name: 'explore', component: Explore },
-  { name: 'editBuyPreferences', component: EditBuyPreferences },
-  { name: 'matchDetails', component: MatchDetails },
-]
+  { name: "buyOfferPreferences", component: BuyOfferPreferences },
+  { name: "explore", component: Explore },
+  { name: "editBuyPreferences", component: EditBuyPreferences },
+  { name: "matchDetails", component: MatchDetails },
+];
 
 const sellFlow: ViewType[] = [
-  { name: 'sellOfferPreferences', component: SellOfferPreferences },
-  { name: 'fundEscrow', component: FundEscrow },
-  { name: 'wrongFundingAmount', component: WrongFundingAmount },
-  { name: 'search', component: Search },
-  { name: 'editPremium', component: EditPremium },
-]
+  { name: "sellOfferPreferences", component: SellOfferPreferences },
+  { name: "fundEscrow", component: FundEscrow },
+  { name: "wrongFundingAmount", component: WrongFundingAmount },
+  { name: "search", component: Search },
+  { name: "editPremium", component: EditPremium },
+];
 
 const trade: ViewType[] = [
-  { name: 'contract', component: Contract },
-  { name: 'contractChat', component: ContractChat },
-  { name: 'patchPayoutAddress', component: PatchPayoutAddress },
-  { name: 'signMessage', component: SignMessage },
-]
+  { name: "contract", component: Contract },
+  { name: "contractChat", component: ContractChat },
+  { name: "patchPayoutAddress", component: PatchPayoutAddress },
+  { name: "signMessage", component: SignMessage },
+];
 
 const tradeHistory: ViewType[] = [
-  { name: 'offer', component: CanceledOfferDetails },
-  { name: 'exportTradeHistory', component: ExportTradeHistory },
-]
+  { name: "offer", component: CanceledOfferDetails },
+  { name: "exportTradeHistory", component: ExportTradeHistory },
+];
 
 const contact: ViewType[] = [
-  { name: 'contact', component: Contact },
-  { name: 'report', component: Report },
-  { name: 'disputeReasonSelector', component: DisputeReasonSelector },
-  { name: 'disputeForm', component: DisputeForm },
-]
+  { name: "contact", component: Contact },
+  { name: "report", component: Report },
+  { name: "disputeReasonSelector", component: DisputeReasonSelector },
+  { name: "disputeForm", component: DisputeForm },
+];
 
-const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile }]
+const publicProfile: ViewType[] = [
+  { name: "publicProfile", component: PublicProfile },
+];
 
 const settings: ViewType[] = [
-  { name: 'aboutPeach', component: AboutPeach },
-  { name: 'myProfile', component: MyProfile },
-  { name: 'bitcoinProducts', component: BitcoinProducts },
-  { name: 'selectCurrency', component: SelectCurrency },
-  { name: 'selectPaymentMethod', component: SelectPaymentMethod },
-  { name: 'selectCountry', component: SelectCountry },
-  { name: 'paymentMethodForm', component: PaymentMethodForm },
-  { name: 'meetupScreen', component: MeetupScreen },
-  { name: 'currency', component: Currency },
-  { name: 'language', component: Language },
-  { name: 'referrals', component: Referrals },
-  { name: 'backups', component: Backups },
-  { name: 'nodeSetup', component: NodeSetup },
-  { name: 'refundAddress', component: RefundAddress },
-  { name: 'payoutAddress', component: PayoutAddress },
-  { name: 'paymentMethods', component: PaymentMethods },
-  { name: 'peachFees', component: PeachFees },
-  { name: 'networkFees', component: NetworkFees },
-  { name: 'transactionBatching', component: TransactionBatching },
-  { name: 'socials', component: Socials },
-]
+  { name: "aboutPeach", component: AboutPeach },
+  { name: "myProfile", component: MyProfile },
+  { name: "bitcoinProducts", component: BitcoinProducts },
+  { name: "selectCurrency", component: SelectCurrency },
+  { name: "selectPaymentMethod", component: SelectPaymentMethod },
+  { name: "selectCountry", component: SelectCountry },
+  { name: "paymentMethodForm", component: PaymentMethodForm },
+  { name: "meetupScreen", component: MeetupScreen },
+  { name: "currency", component: Currency },
+  { name: "language", component: Language },
+  { name: "referrals", component: Referrals },
+  { name: "backups", component: Backups },
+  { name: "nodeSetup", component: NodeSetup },
+  { name: "refundAddress", component: RefundAddress },
+  { name: "payoutAddress", component: PayoutAddress },
+  { name: "paymentMethods", component: PaymentMethods },
+  { name: "peachFees", component: PeachFees },
+  { name: "networkFees", component: NetworkFees },
+  { name: "transactionBatching", component: TransactionBatching },
+  { name: "socials", component: Socials },
+];
 
 const testViews: ViewType[] = [
   { name: 'testView', component: TestView },
@@ -160,6 +166,6 @@ export const views = [
   ...contact,
   ...settings,
   ...testViews,
-]
+];
 
-export const onboardingViews = [...onboarding, ...contact]
+export const onboardingViews = [...onboarding, ...contact];

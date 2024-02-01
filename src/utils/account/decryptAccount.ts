@@ -1,23 +1,25 @@
-import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
-import { decrypt } from '../crypto/decrypt'
-import { info } from '../log/info'
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { decrypt } from "../crypto/decrypt";
+import { info } from "../log/info";
 
 interface DecryptAccountProps {
-  encryptedAccount: string
-  password: string
+  encryptedAccount: string;
+  password: string;
 }
 
 export const decryptAccount = ({
   encryptedAccount,
-  password = '',
-}: DecryptAccountProps): [AccountBackup | null, null | 'WRONG_PASSWORD'] => {
-  info('Decrypting account')
+  password = "",
+}: DecryptAccountProps): [AccountBackup | null, null | "WRONG_PASSWORD"] => {
+  info("Decrypting account");
 
   try {
-    const accountBackup = JSON.parse(decrypt(encryptedAccount, password)) as AccountBackup
-    useSettingsStore.getState().updateSettings(accountBackup.settings)
-    return [accountBackup, null]
+    const accountBackup = JSON.parse(
+      decrypt(encryptedAccount, password),
+    ) as AccountBackup;
+    useSettingsStore.getState().updateSettings(accountBackup.settings);
+    return [accountBackup, null];
   } catch (e) {
-    return [null, 'WRONG_PASSWORD']
+    return [null, "WRONG_PASSWORD"];
   }
-}
+};

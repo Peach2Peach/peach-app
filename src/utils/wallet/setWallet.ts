@@ -9,7 +9,7 @@ export let peachLiquidWallet: PeachLiquidJSWallet
 /**
  * @deprecated
  */
-export const setWallet = (wllt: BIP32Interface) => (wallet = wllt)
+export const setWallet = (wllt: BIP32Interface) => (wallet = wllt);
 
 export const setPeachWallet = (wllt: PeachWallet) => (peachWallet = wllt)
 export const setLiquidWallet = (wllt: PeachLiquidJSWallet) => (peachLiquidWallet = wllt)

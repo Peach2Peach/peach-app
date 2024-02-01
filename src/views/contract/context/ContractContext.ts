@@ -1,12 +1,14 @@
-import { createContext } from 'react'
+import { createContext } from "react";
 
 type ContractContextType = {
-  contract: Contract
-  paymentData?: PaymentData
-  isDecryptionError: boolean
-  view: ContractViewer
-  showBatchInfo: boolean
-  toggleShowBatchInfo: () => void
-}
+  contract: Contract;
+  paymentData?: PaymentData;
+  isDecryptionError: boolean;
+  view: ContractViewer;
+  showBatchInfo: boolean;
+  toggleShowBatchInfo: () => void;
+};
 
-export const ContractContext = createContext<ContractContextType | undefined>(undefined)
+export const ContractContext = createContext<ContractContextType | undefined>(
+  undefined,
+);

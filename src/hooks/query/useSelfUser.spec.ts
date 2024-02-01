@@ -1,25 +1,25 @@
-import { renderHook, waitFor } from 'test-utils'
-import { defaultUser } from '../../../peach-api/src/testData/userData'
-import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { useSelfUser } from './useSelfUser'
+import { renderHook, waitFor } from "test-utils";
+import { defaultUser } from "../../../peach-api/src/testData/userData";
+import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
+import { useSelfUser } from "./useSelfUser";
 
-jest.useFakeTimers()
+jest.useFakeTimers();
 
-describe('useSelfUser', () => {
+describe("useSelfUser", () => {
   afterEach(() => {
-    queryClient.clear()
-  })
+    queryClient.clear();
+  });
 
-  it('fetches user from API', async () => {
-    const { result } = renderHook(useSelfUser)
+  it("fetches user from API", async () => {
+    const { result } = renderHook(useSelfUser);
     expect(result.current).toEqual({
       user: undefined,
       isLoading: true,
-    })
-    await waitFor(() => expect(result.current.isLoading).toBe(false))
+    });
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(result.current).toEqual({
       user: defaultUser,
       isLoading: false,
-    })
-  })
-})
+    });
+  });
+});

@@ -1,19 +1,22 @@
-import { shallow } from 'zustand/shallow'
-import { useNavigation } from '../../hooks/useNavigation'
-import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
-import { CustomAddressScreen } from './CustomAddressScreen'
+import { shallow } from "zustand/shallow";
+import { useNavigation } from "../../hooks/useNavigation";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { CustomAddressScreen } from "./CustomAddressScreen";
 
 export const PayoutAddress = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   const [payoutAddress, payoutAddressLabel] = useSettingsStore(
     (state) => [state.payoutAddress, state.payoutAddressLabel],
     shallow,
-  )
+  );
 
   const onSave = (newAddress: string, newAddressLabel: string) => {
-    navigation.replace('signMessage', { address: newAddress, addressLabel: newAddressLabel })
-  }
+    navigation.replace("signMessage", {
+      address: newAddress,
+      addressLabel: newAddressLabel,
+    });
+  };
 
   return (
     <CustomAddressScreen
@@ -23,5 +26,5 @@ export const PayoutAddress = () => {
       isPayout
       showRemoveWallet
     />
-  )
-}
+  );
+};

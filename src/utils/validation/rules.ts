@@ -6,7 +6,7 @@ import { getNetwork } from '../wallet/getNetwork'
 import { addProtocol } from '../web/addProtocol'
 import { isEmail } from './isEmail'
 
-const MIN_PASSWORD_LENGTH = 8
+const MIN_PASSWORD_LENGTH = 8;
 export const rules = {
   required: (value: string) => !!value,
   email: isEmail,
@@ -18,21 +18,21 @@ export const rules = {
   bip39: validateMnemonic,
   bip39Word: (value: string) => wordlists.english.includes(value),
   feeRate: isValidFeeRate,
-}
+};
 
-export type Rule = keyof typeof rules
+export type Rule = keyof typeof rules;
 
-function isBitcoinAddress (value: string) {
-  const network = getNetwork()
+function isBitcoinAddress(value: string) {
+  const network = getNetwork();
   try {
-    const result = address.fromBech32(value)
-    return result.prefix === network.bech32
+    const result = address.fromBech32(value);
+    return result.prefix === network.bech32;
   } catch (e) {
     try {
-      address.toOutputScript(value, network)
-      return true
+      address.toOutputScript(value, network);
+      return true;
     } catch (e2) {
-      return false
+      return false;
     }
   }
 }
@@ -53,16 +53,16 @@ export function isLiquidAddress (value: string, network: networks.Network = netw
 
 function isURL (url: string) {
   try {
-    return !!new URL(addProtocol(url.toLowerCase(), 'https'))
+    return !!new URL(addProtocol(url.toLowerCase(), "https"));
   } catch (e) {
-    return false
+    return false;
   }
 }
 
-function isReferralCode (code: string) {
-  return code.length > 0 && /^[A-Z0-9]{1,16}$/u.test(code)
+function isReferralCode(code: string) {
+  return code.length > 0 && /^[A-Z0-9]{1,16}$/u.test(code);
 }
 
-function isValidFeeRate (feeRate: string) {
-  return /^[0-9.]*$/u.test(feeRate) && Number(feeRate) >= 1
+function isValidFeeRate(feeRate: string) {
+  return /^[0-9.]*$/u.test(feeRate) && Number(feeRate) >= 1;
 }

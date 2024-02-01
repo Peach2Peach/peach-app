@@ -6,11 +6,14 @@ import { PeachWallet } from '../wallet/PeachWallet'
 import { setLiquidWallet, setPeachWallet, setWallet } from '../wallet/setWallet'
 import { createPeachAccount } from './createPeachAccount'
 
-export const setWallets = async (wallet: BIP32Interface, seedPhrase: string) => {
-  setWallet(wallet)
-  const peachAccount = createPeachAccount(wallet)
-  peachAPI.setPeachAccount(peachAccount)
-  await peachAPI.authenticate()
+export const setWallets = async (
+  wallet: BIP32Interface,
+  seedPhrase: string,
+) => {
+  setWallet(wallet);
+  const peachAccount = createPeachAccount(wallet);
+  peachAPI.setPeachAccount(peachAccount);
+  await peachAPI.authenticate();
 
   const peachWallet = new PeachWallet({ wallet })
   const liquidWallet = new PeachLiquidJSWallet({ wallet, network: liquid.networks.regtest })

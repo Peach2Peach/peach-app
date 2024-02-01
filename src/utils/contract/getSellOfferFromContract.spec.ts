@@ -1,22 +1,22 @@
-import { getSellOfferFromContract } from './getSellOfferFromContract'
+import { getSellOfferFromContract } from "./getSellOfferFromContract";
 
-const getOfferMock = jest.fn()
-jest.mock('../offer/getOffer', () => ({
+const getOfferMock = jest.fn();
+jest.mock("../offer/getOffer", () => ({
   getOffer: (...args: unknown[]) => getOfferMock(...args),
-}))
+}));
 
-describe('getSellOfferFromContract', () => {
-  it('should return the correct sell offer', () => {
+describe("getSellOfferFromContract", () => {
+  it("should return the correct sell offer", () => {
     const contract: Partial<Contract> = {
-      id: '123-456',
-    }
+      id: "123-456",
+    };
 
     const sellOffer: Partial<SellOffer> = {
-      id: '123',
-    }
-    getOfferMock.mockReturnValue(sellOffer as SellOffer)
+      id: "123",
+    };
+    getOfferMock.mockReturnValue(sellOffer as SellOffer);
 
-    expect(getSellOfferFromContract(contract as Contract)).toEqual(sellOffer)
-    expect(getOfferMock).toHaveBeenCalledWith('123')
-  })
-})
+    expect(getSellOfferFromContract(contract as Contract)).toEqual(sellOffer);
+    expect(getOfferMock).toHaveBeenCalledWith("123");
+  });
+});

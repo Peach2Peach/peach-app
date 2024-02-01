@@ -1,3 +1,3 @@
-import { WelcomeInfo } from './WelcomeInfo'
+import { WelcomeInfo } from "./WelcomeInfo";
 
-export const PrivacyFirst = () => <WelcomeInfo name="privacyFirst" />
+export const PrivacyFirst = () => <WelcomeInfo name="privacyFirst" />;

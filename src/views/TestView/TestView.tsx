@@ -1,8 +1,8 @@
-import { View } from 'react-native'
-import { Screen } from '../../components/Screen'
-import { OptionButton } from '../../components/buttons/OptionButton'
-import { useNavigation } from '../../hooks/useNavigation'
-import tw from '../../styles/tailwind'
+import { View } from "react-native";
+import { Screen } from "../../components/Screen";
+import { OptionButton } from "../../components/buttons/OptionButton";
+import { useNavigation } from "../../hooks/useNavigation";
+import tw from "../../styles/tailwind";
 
 export const TestView = () => {
   const navigation = useNavigation()
@@ -18,5 +18,5 @@ export const TestView = () => {
         <OptionButton onPress={goToPNTesting}>Push notifications</OptionButton>
       </View>
     </Screen>
-  )
-}
+  );
+};

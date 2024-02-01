@@ -1,3 +1,3 @@
-import { createStorage } from '../storage/createStorage'
+import { createStorage } from "../storage/createStorage";
 
-export const accountStorage = createStorage('account')
+export const accountStorage = createStorage("account");

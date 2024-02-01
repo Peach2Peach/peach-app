@@ -1,27 +1,28 @@
-import { useMutation } from '@tanstack/react-query'
-import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { peachAPI } from '../../../utils/peachAPI'
-import { parseError } from '../../../utils/result/parseError'
-import { getPublicKeyForEscrow } from '../../../utils/wallet/getPublicKeyForEscrow'
-import { getWallet } from '../../../utils/wallet/getWallet'
+import { useMutation } from "@tanstack/react-query";
+import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
+import { peachAPI } from "../../../utils/peachAPI";
+import { parseError } from "../../../utils/result/parseError";
+import { getPublicKeyForEscrow } from "../../../utils/wallet/getPublicKeyForEscrow";
+import { getWallet } from "../../../utils/wallet/getWallet";
 
 const createEscrowFn = async (offerId: string) => {
-  const publicKey = getPublicKeyForEscrow(getWallet(), offerId)
+  const publicKey = getPublicKeyForEscrow(getWallet(), offerId);
 
   const { result, error: err } = await peachAPI.private.offer.createEscrow({
     offerId,
     publicKey,
-  })
+  });
 
-  if (err) throw new Error(err.error)
-  return result
-}
+  if (err) throw new Error(err.error);
+  return result;
+};
 
 export const useCreateEscrow = () => {
-  const showErrorBanner = useShowErrorBanner()
+  const showErrorBanner = useShowErrorBanner();
 
   return useMutation({
-    mutationFn: (offerIds: string[]) => Promise.all(offerIds.map(createEscrowFn)),
+    mutationFn: (offerIds: string[]) =>
+      Promise.all(offerIds.map(createEscrowFn)),
     onError: (err: Error) => showErrorBanner(parseError(err)),
-  })
-}
+  });
+};

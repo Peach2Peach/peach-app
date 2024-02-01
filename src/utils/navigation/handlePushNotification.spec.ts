@@ -1,154 +1,165 @@
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { sellOffer } from '../../../tests/unit/data/offerData'
-import { responseUtils } from '../../../tests/unit/helpers/test-utils'
-import { peachAPI } from '../peachAPI'
-import { Navigation, handlePushNotification } from './handlePushNotification'
+import { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
+import { sellOffer } from "../../../tests/unit/data/offerData";
+import { responseUtils } from "../../../tests/unit/helpers/test-utils";
+import { peachAPI } from "../peachAPI";
+import { Navigation, handlePushNotification } from "./handlePushNotification";
 
-type MessageWithData = FirebaseMessagingTypes.RemoteMessage & { data: object }
+type MessageWithData = FirebaseMessagingTypes.RemoteMessage & { data: object };
 
-const getContractMock = jest.spyOn(peachAPI.private.contract, 'getContract')
-const getOfferDetailsMock = jest.spyOn(peachAPI.private.offer, 'getOfferDetails')
+const getContractMock = jest.spyOn(peachAPI.private.contract, "getContract");
+const getOfferDetailsMock = jest.spyOn(
+  peachAPI.private.offer,
+  "getOfferDetails",
+);
 
-const timestamp = 1231006505000
-// eslint-disable-next-line max-lines-per-function
-describe('handlePushNotification', () => {
+const timestamp = 1231006505000;
+describe("handlePushNotification", () => {
   // @ts-expect-error mock only needs one method here
-  const navigationRef: Navigation = { navigate: jest.fn() }
+  const navigationRef: Navigation = { navigate: jest.fn() };
 
-  it('navigates to contract when shouldGoToContract is true', async () => {
+  it("navigates to contract when shouldGoToContract is true", async () => {
     const remoteMessage = {
       data: {
-        type: 'contract.paymentMade',
-        contractId: '1',
+        type: "contract.paymentMade",
+        contractId: "1",
         sentTime: timestamp,
       },
-    } as MessageWithData
+    } as MessageWithData;
 
-    await handlePushNotification(navigationRef, remoteMessage)
+    await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
-      contractId: '1',
-    })
-  })
+    expect(navigationRef.navigate).toHaveBeenCalledWith("contract", {
+      contractId: "1",
+    });
+  });
 
-  it('navigates to contract when shouldGoToContract is true and no contract is locally defined', async () => {
+  it("navigates to contract when shouldGoToContract is true and no contract is locally defined", async () => {
     const remoteMessage = {
       data: {
-        type: 'contract.paymentMade',
-        contractId: '1',
+        type: "contract.paymentMade",
+        contractId: "1",
         sentTime: timestamp,
       },
-    } as MessageWithData
+    } as MessageWithData;
 
-    getContractMock.mockResolvedValueOnce(responseUtils)
-    await handlePushNotification(navigationRef, remoteMessage)
+    getContractMock.mockResolvedValueOnce(responseUtils);
+    await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
+    expect(navigationRef.navigate).toHaveBeenCalledWith("contract", {
       contract: undefined,
-      contractId: '1',
-    })
-  })
+      contractId: "1",
+    });
+  });
 
-  it('navigates to contract and set payment made date to now if no sentTime is defined', async () => {
+  it("navigates to contract and set payment made date to now if no sentTime is defined", async () => {
     const remoteMessage = {
       data: {
-        type: 'contract.paymentMade',
-        contractId: '1',
+        type: "contract.paymentMade",
+        contractId: "1",
       },
-    } as MessageWithData
+    } as MessageWithData;
 
-    await handlePushNotification(navigationRef, remoteMessage)
+    await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
-      contractId: '1',
-    })
-  })
+    expect(navigationRef.navigate).toHaveBeenCalledWith("contract", {
+      contractId: "1",
+    });
+  });
 
-  it('navigates to contract chat when shouldGoToContractChat is true', async () => {
+  it("navigates to contract chat when shouldGoToContractChat is true", async () => {
     const remoteMessage = {
       data: {
-        type: 'contract.chat',
-        contractId: '1',
-        isChat: 'true',
+        type: "contract.chat",
+        contractId: "1",
+        isChat: "true",
       },
-    } as MessageWithData
+    } as MessageWithData;
 
-    await handlePushNotification(navigationRef, remoteMessage)
+    await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('contractChat', { contractId: '1' })
-  })
+    expect(navigationRef.navigate).toHaveBeenCalledWith("contractChat", {
+      contractId: "1",
+    });
+  });
 
-  it('navigates to yourTrades sell when shouldGoToYourTradesSell is true', async () => {
+  it("navigates to yourTrades sell when shouldGoToYourTradesSell is true", async () => {
     const remoteMessage = {
-      data: { offerId: sellOffer.id, type: 'offer.sellOfferExpired' },
-    } as MessageWithData
+      data: { offerId: sellOffer.id, type: "offer.sellOfferExpired" },
+    } as MessageWithData;
 
-    await handlePushNotification(navigationRef, remoteMessage)
+    await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('homeScreen', {
-      screen: 'yourTrades',
-      params: { tab: 'yourTrades.sell' },
-    })
-  })
+    expect(navigationRef.navigate).toHaveBeenCalledWith("homeScreen", {
+      screen: "yourTrades",
+      params: { tab: "yourTrades.sell" },
+    });
+  });
 
-  it('navigates to yourTrades buy when shouldGoToYourTradesBuy is true', async () => {
+  it("navigates to yourTrades buy when shouldGoToYourTradesBuy is true", async () => {
     const remoteMessage = {
-      data: { offerId: sellOffer.id, type: 'offer.buyOfferExpired' },
-    } as MessageWithData
+      data: { offerId: sellOffer.id, type: "offer.buyOfferExpired" },
+    } as MessageWithData;
 
-    await handlePushNotification(navigationRef, remoteMessage)
+    await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('homeScreen', {
-      screen: 'yourTrades',
-      params: { tab: 'yourTrades.buy' },
-    })
-  })
+    expect(navigationRef.navigate).toHaveBeenCalledWith("homeScreen", {
+      screen: "yourTrades",
+      params: { tab: "yourTrades.buy" },
+    });
+  });
 
-  it('navigates to sell when shouldGoToSell is true', async () => {
+  it("navigates to sell when shouldGoToSell is true", async () => {
     const remoteMessage = {
-      data: { offerId: sellOffer.id, type: 'offer.notFunded' },
-    } as MessageWithData
-    await handlePushNotification(navigationRef, remoteMessage)
+      data: { offerId: sellOffer.id, type: "offer.notFunded" },
+    } as MessageWithData;
+    await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('homeScreen', {
-      screen: 'home',
-    })
-  })
+    expect(navigationRef.navigate).toHaveBeenCalledWith("homeScreen", {
+      screen: "home",
+    });
+  });
 
-  it('navigates to search when shouldGoToSearch is true and offer is defined', async () => {
-    getOfferDetailsMock.mockResolvedValueOnce({ result: { ...sellOffer, matches: ['2'] }, ...responseUtils })
+  it("navigates to search when shouldGoToSearch is true and offer is defined", async () => {
+    getOfferDetailsMock.mockResolvedValueOnce({
+      result: { ...sellOffer, matches: ["2"] },
+      ...responseUtils,
+    });
 
     const remoteMessage = {
       data: {
-        type: 'offer.matchSeller',
+        type: "offer.matchSeller",
         offerId: sellOffer.id,
       },
-    } as MessageWithData
+    } as MessageWithData;
 
-    await handlePushNotification(navigationRef, remoteMessage)
+    await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('search', { offerId: sellOffer.id })
-  })
+    expect(navigationRef.navigate).toHaveBeenCalledWith("search", {
+      offerId: sellOffer.id,
+    });
+  });
 
-  it('navigates to offer when offerId is defined', async () => {
+  it("navigates to offer when offerId is defined", async () => {
     const remoteMessage = {
       data: {
-        type: 'offer.canceled',
+        type: "offer.canceled",
         offerId: sellOffer.id,
       },
-    } as MessageWithData
+    } as MessageWithData;
 
-    await handlePushNotification(navigationRef, remoteMessage)
+    await handlePushNotification(navigationRef, remoteMessage);
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('offer', { offerId: sellOffer.id })
-  })
+    expect(navigationRef.navigate).toHaveBeenCalledWith("offer", {
+      offerId: sellOffer.id,
+    });
+  });
 
-  it('should do nothing and return false in unknown other case', async () => {
+  it("should do nothing and return false in unknown other case", async () => {
     const remoteMessage = {
-      data: { type: 'unhandled.messageType' },
-    } as MessageWithData
+      data: { type: "unhandled.messageType" },
+    } as MessageWithData;
 
-    const result = await handlePushNotification(navigationRef, remoteMessage)
-    expect(result).toEqual(false)
-  })
-})
+    const result = await handlePushNotification(navigationRef, remoteMessage);
+    expect(result).toEqual(false);
+  });
+});

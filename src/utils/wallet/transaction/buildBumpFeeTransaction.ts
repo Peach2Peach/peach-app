@@ -1,10 +1,17 @@
-import { BumpFeeTxBuilder } from 'bdk-rn'
+import { BumpFeeTxBuilder } from "bdk-rn";
 
-export const buildBumpFeeTransaction = async (txId: string, newFeeRate: number, shrinkForAddress?: string) => {
-  const bumpFeeTxBuilder = await new BumpFeeTxBuilder().create(txId, newFeeRate)
-  await bumpFeeTxBuilder.enableRbf()
+export const buildBumpFeeTransaction = async (
+  txId: string,
+  newFeeRate: number,
+  shrinkForAddress?: string,
+) => {
+  const bumpFeeTxBuilder = await new BumpFeeTxBuilder().create(
+    txId,
+    newFeeRate,
+  );
+  await bumpFeeTxBuilder.enableRbf();
 
-  if (shrinkForAddress) await bumpFeeTxBuilder.allowShrinking(shrinkForAddress)
+  if (shrinkForAddress) await bumpFeeTxBuilder.allowShrinking(shrinkForAddress);
 
-  return bumpFeeTxBuilder
-}
+  return bumpFeeTxBuilder;
+};

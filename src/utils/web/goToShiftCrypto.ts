@@ -1,3 +1,4 @@
-import { openURL } from './openURL'
+import { openURL } from "./openURL";
 
-export const goToShiftCrypto = () => openURL('https://bitbox.swiss/bitbox02/?ref=DLX6l9ccCc')
+export const goToShiftCrypto = () =>
+  openURL("https://bitbox.swiss/bitbox02/?ref=DLX6l9ccCc");

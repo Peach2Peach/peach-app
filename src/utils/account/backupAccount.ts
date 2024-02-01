@@ -1,30 +1,35 @@
-import { NETWORK } from '@env'
-import RNFS from 'react-native-fs'
-import Share from 'react-native-share'
-import { useSettingsStore } from '../../store/settingsStore/useSettingsStore'
-import { usePaymentDataStore } from '../../store/usePaymentDataStore'
-import { writeFile } from '../file/writeFile'
-import { error } from '../log/error'
-import { info } from '../log/info'
-import { parseError } from '../result/parseError'
-import { PEACH_ID_LENGTH } from './PEACH_ID_LENGTH'
-import { useAccountStore } from './account'
+import { NETWORK } from "@env";
+import RNFS from "react-native-fs";
+import Share from "react-native-share";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { usePaymentDataStore } from "../../store/usePaymentDataStore";
+import { writeFile } from "../file/writeFile";
+import { error } from "../log/error";
+import { info } from "../log/info";
+import { parseError } from "../result/parseError";
+import { PEACH_ID_LENGTH } from "./PEACH_ID_LENGTH";
+import { useAccountStore } from "./account";
 
 type BackupAccountProps = {
-  password: string
-  onSuccess: () => void
-  onCancel: () => void
-  onError: () => void
-}
+  password: string;
+  onSuccess: () => void;
+  onCancel: () => void;
+  onError: () => void;
+};
 
-export const backupAccount = async ({ password, onSuccess, onCancel, onError }: BackupAccountProps) => {
-  info('Backing up account')
-  const account = useAccountStore.getState().account
+export const backupAccount = async ({
+  password,
+  onSuccess,
+  onCancel,
+  onError,
+}: BackupAccountProps) => {
+  info("Backing up account");
+  const account = useAccountStore.getState().account;
   try {
-    const destinationFileName
-      = NETWORK === 'bitcoin'
+    const destinationFileName =
+      NETWORK === "bitcoin"
         ? `peach-account-${account.publicKey.substring(0, PEACH_ID_LENGTH)}.json`
-        : `peach-account-${NETWORK}-${account.publicKey.substring(0, PEACH_ID_LENGTH)}.json`
+        : `peach-account-${NETWORK}-${account.publicKey.substring(0, PEACH_ID_LENGTH)}.json`;
 
     await writeFile(
       `/${destinationFileName}`,
@@ -36,7 +41,7 @@ export const backupAccount = async ({ password, onSuccess, onCancel, onError }: 
         chats: {},
       }),
       password,
-    )
+    );
 
     Share.open({
       title: destinationFileName,
@@ -44,29 +49,29 @@ export const backupAccount = async ({ password, onSuccess, onCancel, onError }: 
       subject: destinationFileName,
     })
       .then(({ message, success, dismissedAction }) => {
-        info('Backed up account', message, success)
+        info("Backed up account", message, success);
         if (dismissedAction) {
-          info('User dismissed share dialog')
-          onCancel()
+          info("User dismissed share dialog");
+          onCancel();
         } else if (success) {
-          info('Shared successfully', message)
-          onSuccess()
+          info("Shared successfully", message);
+          onSuccess();
         } else {
-          error(message)
-          onError()
+          error(message);
+          onError();
         }
       })
       .catch((e) => {
-        if (parseError(e) === 'User did not share') {
-          info('User dismissed share dialog')
-          onCancel()
+        if (parseError(e) === "User did not share") {
+          info("User dismissed share dialog");
+          onCancel();
         } else {
-          error(e)
-          onError()
+          error(e);
+          onError();
         }
-      })
+      });
   } catch (e) {
-    error(e)
-    onError()
+    error(e);
+    onError();
   }
-}
+};
