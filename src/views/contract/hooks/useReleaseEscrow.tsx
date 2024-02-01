@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { contractKeys } from "../../../hooks/query/useContractDetails";
+import { contractKeys } from "../../../hooks/query/useContractDetail";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { signReleaseTxOfContract } from "../../../utils/contract/signReleaseTxOfContract";
 import { peachAPI } from "../../../utils/peachAPI";

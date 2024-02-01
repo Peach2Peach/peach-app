@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import OpenPGP from "react-native-fast-openpgp";
-import { contractKeys } from "../../hooks/query/useContractDetails";
+import { contractKeys } from "../../hooks/query/useContractDetail";
 import { error } from "../../utils/log/error";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";

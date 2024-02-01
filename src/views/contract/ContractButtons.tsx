@@ -8,7 +8,7 @@ import { useSetPopup } from "../../components/popup/Popup";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { LoadingPopupAction } from "../../components/popup/actions/LoadingPopupAction";
 import { PeachText } from "../../components/text/PeachText";
-import { contractKeys } from "../../hooks/query/useContractDetails";
+import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useOfferDetails } from "../../hooks/query/useOfferDetails";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";

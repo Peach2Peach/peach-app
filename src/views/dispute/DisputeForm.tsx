@@ -9,7 +9,7 @@ import { Button } from "../../components/buttons/Button";
 import { EmailInput } from "../../components/inputs/EmailInput";
 import { Input } from "../../components/inputs/Input";
 import { useSetPopup } from "../../components/popup/Popup";
-import { useContractDetails } from "../../hooks/query/useContractDetails";
+import { useContractDetail } from "../../hooks/query/useContractDetail";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
@@ -26,7 +26,7 @@ import { submitRaiseDispute } from "./utils/submitRaiseDispute";
 
 export const DisputeForm = () => {
   const { contractId } = useRoute<"disputeForm">().params;
-  const { contract } = useContractDetails(contractId);
+  const { contract } = useContractDetail(contractId);
 
   return !contract ? (
     <LoadingScreen />

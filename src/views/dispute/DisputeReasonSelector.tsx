@@ -4,7 +4,7 @@ import { Screen } from "../../components/Screen";
 import { OptionButton } from "../../components/buttons/OptionButton";
 import { useSetPopup } from "../../components/popup/Popup";
 import { PeachText } from "../../components/text/PeachText";
-import { useContractDetails } from "../../hooks/query/useContractDetails";
+import { useContractDetail } from "../../hooks/query/useContractDetail";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
@@ -20,7 +20,7 @@ import { submitRaiseDispute } from "./utils/submitRaiseDispute";
 
 export const DisputeReasonSelector = () => {
   const { contractId } = useRoute<"disputeReasonSelector">().params;
-  const { contract } = useContractDetails(contractId);
+  const { contract } = useContractDetail(contractId);
 
   return !contract ? (
     <LoadingScreen />

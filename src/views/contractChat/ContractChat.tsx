@@ -11,8 +11,8 @@ import { MSINASECOND } from "../../constants";
 import { PAGE_SIZE, useChatMessages } from "../../hooks/query/useChatMessages";
 import {
   contractKeys,
-  useContractDetails,
-} from "../../hooks/query/useContractDetails";
+  useContractDetail,
+} from "../../hooks/query/useContractDetail";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { OpenDisputePopup } from "../../popups/dispute/OpenDisputePopup";
@@ -37,7 +37,7 @@ import { useDecryptedContractData } from "./useDecryptedContractData";
 
 export const ContractChat = () => {
   const { contractId } = useRoute<"contractChat">().params;
-  const { contract } = useContractDetails(contractId);
+  const { contract } = useContractDetail(contractId);
 
   return !contract ? <LoadingScreen /> : <ChatScreen contract={contract} />;
 };

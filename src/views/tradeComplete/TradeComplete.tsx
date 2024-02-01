@@ -11,8 +11,8 @@ import { useSetPopup } from "../../components/popup/Popup";
 import { PeachText } from "../../components/text/PeachText";
 import {
   contractKeys,
-  useContractDetails,
-} from "../../hooks/query/useContractDetails";
+  useContractDetail,
+} from "../../hooks/query/useContractDetail";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { TradeBreakdownPopup } from "../../popups/TradeBreakdownPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
@@ -26,7 +26,7 @@ import { LoadingScreen } from "../loading/LoadingScreen";
 import { BackupTime } from "../overlays/BackupTime";
 
 export const TradeComplete = ({ contractId }: { contractId: string }) => {
-  const { contract } = useContractDetails(contractId);
+  const { contract } = useContractDetail(contractId);
   if (!contract) return <LoadingScreen />;
 
   return <TradeCompleteView contract={contract} />;

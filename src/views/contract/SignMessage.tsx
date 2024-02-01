@@ -11,7 +11,7 @@ import { useSetPopup } from "../../components/popup/Popup";
 import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
 import { HelpPopup } from "../../hooks/HelpPopup";
-import { useContractDetails } from "../../hooks/query/useContractDetails";
+import { useContractDetail } from "../../hooks/query/useContractDetail";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
@@ -54,7 +54,7 @@ function SignMessageForGlobalPreference() {
 }
 
 function ContractSuspense({ contractId }: { contractId: string }) {
-  const { contract } = useContractDetails(contractId);
+  const { contract } = useContractDetail(contractId);
 
   if (!contract) return <NewLoadingScreen />;
 

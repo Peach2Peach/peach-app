@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
-import { contractKeys } from "./useContractDetails";
+import { contractKeys } from "./useContractDetail";
 
 export const PAGE_SIZE = 22;
 

@@ -7,8 +7,8 @@ import { FIFTEEN_SECONDS } from "../../../constants";
 import { useHandleNotifications } from "../../../hooks/notifications/useHandleNotifications";
 import {
   contractKeys,
-  useContractDetails,
-} from "../../../hooks/query/useContractDetails";
+  useContractDetail,
+} from "../../../hooks/query/useContractDetail";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { useRoute } from "../../../hooks/useRoute";
 import { useAccountStore } from "../../../utils/account/account";
@@ -22,7 +22,7 @@ import { useShowLowFeeWarning } from "./useShowLowFeeWarning";
 export const useContractSetup = () => {
   const { contractId } = useRoute<"contract">().params;
   const isFocused = useIsFocused();
-  const { contract, isLoading, refetch } = useContractDetails(
+  const { contract, isLoading, refetch } = useContractDetail(
     contractId,
     FIFTEEN_SECONDS,
   );
@@ -81,7 +81,7 @@ const messageSchema = z.object({
 });
 function useChatMessageHandler() {
   const { contractId } = useRoute<"contract">().params;
-  const { contract } = useContractDetails(contractId, FIFTEEN_SECONDS);
+  const { contract } = useContractDetail(contractId, FIFTEEN_SECONDS);
   const queryClient = useQueryClient();
   const ws = useWebsocketContext();
   const publicKey = useAccountStore((state) => state.account.publicKey);
@@ -133,7 +133,7 @@ const contractUpdateSchema = z.object({
 });
 function useContractUpdateHandler() {
   const { contractId } = useRoute<"contract">().params;
-  const { contract } = useContractDetails(contractId, FIFTEEN_SECONDS);
+  const { contract } = useContractDetail(contractId, FIFTEEN_SECONDS);
   const queryClient = useQueryClient();
   const ws = useWebsocketContext();
   useEffect(() => {

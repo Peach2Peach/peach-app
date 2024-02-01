@@ -1,5 +1,5 @@
 import { shallow } from "zustand/shallow";
-import { useContractDetails } from "../../hooks/query/useContractDetails";
+import { useContractDetail } from "../../hooks/query/useContractDetail";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
@@ -23,7 +23,7 @@ export const PatchPayoutAddress = () => {
 };
 
 function ContractSuspense({ contractId }: { contractId: string }) {
-  const { contract } = useContractDetails(contractId);
+  const { contract } = useContractDetail(contractId);
 
   if (!contract) return <NewLoadingScreen />;
 

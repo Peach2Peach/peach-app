@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Keyboard } from "react-native";
 import { useClosePopup } from "../../components/popup/Popup";
-import { contractKeys } from "../../hooks/query/useContractDetails";
+import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { isEmailRequiredForDispute } from "../../utils/dispute/isEmailRequiredForDispute";
 import { peachAPI } from "../../utils/peachAPI";

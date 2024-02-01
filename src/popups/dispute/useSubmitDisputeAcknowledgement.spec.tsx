@@ -3,7 +3,7 @@ import { render, renderHook, waitFor } from "test-utils";
 import { contract } from "../../../peach-api/src/testData/contract";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { Popup } from "../../components/popup/Popup";
-import { contractKeys } from "../../hooks/query/useContractDetails";
+import { contractKeys } from "../../hooks/query/useContractDetail";
 import { defaultAccount, setAccount } from "../../utils/account/account";
 import { peachAPI } from "../../utils/peachAPI";
 import { useSubmitDisputeAcknowledgement } from "./useSubmitDisputeAcknowledgement";

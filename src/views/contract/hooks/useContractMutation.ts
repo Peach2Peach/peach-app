@@ -3,7 +3,7 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { contractKeys } from "../../../hooks/query/useContractDetails";
+import { contractKeys } from "../../../hooks/query/useContractDetail";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 
 export function useContractMutation<TData = unknown, TVariables = void>(

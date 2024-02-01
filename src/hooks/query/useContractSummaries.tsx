@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { shallow } from "zustand/shallow";
 import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import { peachAPI } from "../../utils/peachAPI";
-import { contractKeys } from "./useContractDetails";
+import { contractKeys } from "./useContractDetail";
 
 const getContractSummariesQuery = async () => {
   const { result: contracts, error } =
