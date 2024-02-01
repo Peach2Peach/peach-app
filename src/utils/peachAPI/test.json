@@ -1,4 +1,5 @@
-[{
+[
+  {
     "amount": 50000,
     "id": "217",
     "type": "bid",
@@ -6,21 +7,19 @@
     "creationDate": "2022-12-27T11:10:49.755Z",
     "lastModified": "2022-12-27T11:10:49.755Z",
     "meansOfPayment": {
-      "EUR": [
-        "revolut"
-      ]
+      "EUR": ["revolut"]
     },
     "publishingDate": "2022-12-27T11:10:49.755Z",
     "premium": "0",
     "online": true,
     "paymentData": {
       "revolut": {
-        "hashes": ["64b147d0a63350aa0dc596c51d33f8f0ce6a36793e02fb104f272068137760de"]
+        "hashes": [
+          "64b147d0a63350aa0dc596c51d33f8f0ce6a36793e02fb104f272068137760de"
+        ]
       }
     },
-    "matches": [
-      "215"
-    ],
+    "matches": ["215"],
     "doubleMatched": false,
     "user": {
       "rating": 0,
@@ -60,7 +59,9 @@
     "escrow": "bcrt1q348u075ehsuk0rz9lat22zrhlpgspj4twmt3m3pf0e5jjdm98u4qpet6g7",
     "paymentData": {
       "revolut": {
-        "hashes": ["64b147d0a63350aa0dc596c51d33f8f0ce6a36793e02fb104f272068137760de"]
+        "hashes": [
+          "64b147d0a63350aa0dc596c51d33f8f0ce6a36793e02fb104f272068137760de"
+        ]
       }
     },
     "online": false,
@@ -71,9 +72,7 @@
     "publicKey": "02fba3bd2c150e1886083a28b6279bc675a7dfdfc2af9a417384f12e728960fafb",
     "escrowNotifiedUser": "true",
     "meansOfPayment": {
-      "EUR": [
-        "revolut"
-      ]
+      "EUR": ["revolut"]
     },
     "premium": 1.5,
     "funding": {
@@ -82,12 +81,8 @@
       "txIds": [
         "d93998af951d2782f8b0af08dad95910a8481ed1972fd9287d77d7ff7405caf9"
       ],
-      "vouts": [
-        1
-      ],
-      "amounts": [
-        50000
-      ],
+      "vouts": [1],
+      "amounts": [50000],
       "expiry": 576,
       "derivationPath": "m/48'/0'/0'/219'"
     },
