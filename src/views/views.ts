@@ -1,61 +1,61 @@
-import { MeetupScreen } from '../components/payment/MeetupScreen'
-import { PaymentMethods } from '../components/payment/PaymentMethods'
-import { TestView } from './TestView/TestView'
-import { TestViewLiquidWallet } from './TestView/liquidWallet'
-import { TestViewPeachWallet } from './TestView/peachWallet'
-import { TestViewPNs } from './TestView/pns'
-import { PaymentMethodForm } from './addPaymentMethod/PaymentMethodForm'
-import { SelectCountry } from './addPaymentMethod/SelectCountry'
-import { SelectCurrency } from './addPaymentMethod/SelectCurrency'
-import { SelectPaymentMethod } from './addPaymentMethod/SelectPaymentMethod'
-import { CanceledOfferDetails } from './canceledOfferDetails/CanceledOfferDetails'
-import { Contact } from './contact/Contact'
-import { Contract } from './contract/Contract'
-import { PatchPayoutAddress } from './contract/PatchPayoutAddress'
-import { SignMessage } from './contract/SignMessage'
-import { ContractChat } from './contractChat/ContractChat'
-import { DisputeForm } from './dispute/DisputeForm'
-import { DisputeReasonSelector } from './dispute/DisputeReasonSelector'
-import { Explore } from './explore/Explore'
-import { MatchDetails } from './explore/MatchDetails'
-import { FundEscrow } from './fundEscrow/FundEscrow'
-import { HomeScreen } from './home/HomeScreen'
-import { NewUser } from './newUser/NewUser'
-import { BuyOfferPreferences } from './offerPreferences/BuyOfferPreferences'
-import { EditBuyPreferences } from './offerPreferences/EditBuyPreferences'
-import { SellOfferPreferences } from './offerPreferences/SellOfferPreferences'
-import { PublicProfile } from './publicProfile/PublicProfile'
-import { Referrals } from './referrals/Referrals'
-import { Report } from './report/Report'
-import { RestoreBackup } from './restoreBackup/RestoreBackup'
-import { RestoreReputation } from './restoreReputation/RestoreReputation'
-import { EditPremium } from './search/EditPremium'
-import { Search } from './search/Search'
-import { Backups } from './settings/Backups'
-import { Currency } from './settings/Currency'
-import { Language } from './settings/Language'
-import { NetworkFees } from './settings/NetworkFees'
-import { NodeSetup } from './settings/NodeSetup'
-import { PayoutAddress } from './settings/PayoutAddress'
-import { RefundAddress } from './settings/RefundAddress'
-import { TransactionBatching } from './settings/TransactionBatching'
-import { AboutPeach } from './settings/aboutPeach/AboutPeach'
-import { BitcoinProducts } from './settings/aboutPeach/BitcoinProducts'
-import { PeachFees } from './settings/aboutPeach/PeachFees'
-import { Socials } from './settings/aboutPeach/Socials'
-import { MyProfile } from './settings/profile/MyProfile'
-import { UserSource } from './userSource/UserSource'
-import { AddressChecker } from './wallet/AddressChecker'
-import { BumpNetworkFees } from './wallet/BumpNetworkFees'
-import { CoinSelection } from './wallet/CoinSelection'
-import { ExportTransactionHistory } from './wallet/ExportTransactionHistory'
-import { ReceiveBitcoin } from './wallet/ReceiveBitcoin'
-import { SendBitcoin } from './wallet/SendBitcoin'
-import { TransactionDetails } from './wallet/TransactionDetails'
-import { TransactionHistory } from './wallet/TransactionHistory'
-import { Welcome } from './welcome/Welcome'
-import { WrongFundingAmount } from './wrongFundingAmount/WrongFundingAmount'
-import { ExportTradeHistory } from './yourTrades/ExportTradeHistory'
+import { MeetupScreen } from "../components/payment/MeetupScreen";
+import { PaymentMethods } from "../components/payment/PaymentMethods";
+import { TestView } from "./TestView/TestView";
+import { TestViewLiquidWallet } from "./TestView/liquidWallet";
+import { TestViewPeachWallet } from "./TestView/peachWallet";
+import { TestViewPNs } from "./TestView/pns";
+import { PaymentMethodForm } from "./addPaymentMethod/PaymentMethodForm";
+import { SelectCountry } from "./addPaymentMethod/SelectCountry";
+import { SelectCurrency } from "./addPaymentMethod/SelectCurrency";
+import { SelectPaymentMethod } from "./addPaymentMethod/SelectPaymentMethod";
+import { CanceledOfferDetails } from "./canceledOfferDetails/CanceledOfferDetails";
+import { Contact } from "./contact/Contact";
+import { Contract } from "./contract/Contract";
+import { PatchPayoutAddress } from "./contract/PatchPayoutAddress";
+import { SignMessage } from "./contract/SignMessage";
+import { ContractChat } from "./contractChat/ContractChat";
+import { DisputeForm } from "./dispute/DisputeForm";
+import { DisputeReasonSelector } from "./dispute/DisputeReasonSelector";
+import { Explore } from "./explore/Explore";
+import { MatchDetails } from "./explore/MatchDetails";
+import { FundEscrow } from "./fundEscrow/FundEscrow";
+import { HomeScreen } from "./home/HomeScreen";
+import { NewUser } from "./newUser/NewUser";
+import { BuyOfferPreferences } from "./offerPreferences/BuyOfferPreferences";
+import { EditBuyPreferences } from "./offerPreferences/EditBuyPreferences";
+import { SellOfferPreferences } from "./offerPreferences/SellOfferPreferences";
+import { PublicProfile } from "./publicProfile/PublicProfile";
+import { Referrals } from "./referrals/Referrals";
+import { Report } from "./report/Report";
+import { RestoreBackup } from "./restoreBackup/RestoreBackup";
+import { RestoreReputation } from "./restoreReputation/RestoreReputation";
+import { EditPremium } from "./search/EditPremium";
+import { Search } from "./search/Search";
+import { Backups } from "./settings/Backups";
+import { Currency } from "./settings/Currency";
+import { Language } from "./settings/Language";
+import { NetworkFees } from "./settings/NetworkFees";
+import { NodeSetup } from "./settings/NodeSetup";
+import { PayoutAddress } from "./settings/PayoutAddress";
+import { RefundAddress } from "./settings/RefundAddress";
+import { TransactionBatching } from "./settings/TransactionBatching";
+import { AboutPeach } from "./settings/aboutPeach/AboutPeach";
+import { BitcoinProducts } from "./settings/aboutPeach/BitcoinProducts";
+import { PeachFees } from "./settings/aboutPeach/PeachFees";
+import { Socials } from "./settings/aboutPeach/Socials";
+import { MyProfile } from "./settings/profile/MyProfile";
+import { UserSource } from "./userSource/UserSource";
+import { AddressChecker } from "./wallet/AddressChecker";
+import { BumpNetworkFees } from "./wallet/BumpNetworkFees";
+import { CoinSelection } from "./wallet/CoinSelection";
+import { ExportTransactionHistory } from "./wallet/ExportTransactionHistory";
+import { ReceiveBitcoin } from "./wallet/ReceiveBitcoin";
+import { SendBitcoin } from "./wallet/SendBitcoin";
+import { TransactionDetails } from "./wallet/TransactionDetails";
+import { TransactionHistory } from "./wallet/TransactionHistory";
+import { Welcome } from "./welcome/Welcome";
+import { WrongFundingAmount } from "./wrongFundingAmount/WrongFundingAmount";
+import { ExportTradeHistory } from "./yourTrades/ExportTradeHistory";
 
 type ViewType = {
   name: keyof RootStackParamList;
@@ -149,11 +149,11 @@ const settings: ViewType[] = [
 ];
 
 const testViews: ViewType[] = [
-  { name: 'testView', component: TestView },
-  { name: 'testViewPeachWallet', component: TestViewPeachWallet },
-  { name: 'testViewLiquidWallet', component: TestViewLiquidWallet },
-  { name: 'testViewPNs', component: TestViewPNs },
-]
+  { name: "testView", component: TestView },
+  { name: "testViewPeachWallet", component: TestViewPeachWallet },
+  { name: "testViewLiquidWallet", component: TestViewLiquidWallet },
+  { name: "testViewPNs", component: TestViewPNs },
+];
 
 export const views = [
   ...home,

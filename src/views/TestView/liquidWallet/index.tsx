@@ -1,2 +1,1 @@
-export { TestViewLiquidWallet } from './TestViewLiquidWallet'
-
+export { TestViewLiquidWallet } from "./TestViewLiquidWallet";

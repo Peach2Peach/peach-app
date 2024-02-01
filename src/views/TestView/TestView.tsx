@@ -5,16 +5,22 @@ import { useNavigation } from "../../hooks/useNavigation";
 import tw from "../../styles/tailwind";
 
 export const TestView = () => {
-  const navigation = useNavigation()
-  const goToPeachWalletTesting = () => navigation.navigate('testViewPeachWallet')
-  const goToLiquidWalletTesting = () => navigation.navigate('testViewLiquidWallet')
-  const goToPNTesting = () => navigation.navigate('testViewPNs')
+  const navigation = useNavigation();
+  const goToPeachWalletTesting = () =>
+    navigation.navigate("testViewPeachWallet");
+  const goToLiquidWalletTesting = () =>
+    navigation.navigate("testViewLiquidWallet");
+  const goToPNTesting = () => navigation.navigate("testViewPNs");
 
   return (
     <Screen>
       <View style={tw`justify-center gap-4 grow`}>
-        <OptionButton onPress={goToPeachWalletTesting}>Peach wallet</OptionButton>
-        <OptionButton onPress={goToLiquidWalletTesting}>Liquid wallet</OptionButton>
+        <OptionButton onPress={goToPeachWalletTesting}>
+          Peach wallet
+        </OptionButton>
+        <OptionButton onPress={goToLiquidWalletTesting}>
+          Liquid wallet
+        </OptionButton>
         <OptionButton onPress={goToPNTesting}>Push notifications</OptionButton>
       </View>
     </Screen>

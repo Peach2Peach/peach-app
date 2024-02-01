@@ -19,7 +19,7 @@ type TestViews = {
   testViewPeachWallet: undefined;
   testViewLiquidWallet: undefined;
   testViewPNs: undefined;
-}
+};
 
 type HomeTabParamList = {
   home: undefined;

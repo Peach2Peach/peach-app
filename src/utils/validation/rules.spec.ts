@@ -1,7 +1,7 @@
-import { ok } from 'assert';
-import { networks } from 'bitcoinjs-lib';
-import { liquidAddresses } from '../../../tests/unit/data/liquidNetworkData';
-import { rules } from './rules';
+import { ok } from "assert";
+import { networks } from "bitcoinjs-lib";
+import { liquidAddresses } from "../../../tests/unit/data/liquidNetworkData";
+import { rules } from "./rules";
 
 describe("rules", () => {
   it("validates required fields correctly", () => {
@@ -39,30 +39,29 @@ const invalidAddresses = {
   ],
 };
 
-
 const invalidLiquidAddresses = {
   liquid: [
-    'ex1qmh0un07z5gmv69yg687wglhgj2mscysh2sw6k3',
-    'QHVYYerCaH8zAXgKnw5H3YXQ3RgcCXmh9f',
-    'ex1qc0a5g32xyjm85el94l3pfsjngu887786t9m6pv5stdrzmpm6nr0stjup6x',
-    'H36FU3csPfSEZj3RyEDkmsgBWSwgDcLBAR',
+    "ex1qmh0un07z5gmv69yg687wglhgj2mscysh2sw6k3",
+    "QHVYYerCaH8zAXgKnw5H3YXQ3RgcCXmh9f",
+    "ex1qc0a5g32xyjm85el94l3pfsjngu887786t9m6pv5stdrzmpm6nr0stjup6x",
+    "H36FU3csPfSEZj3RyEDkmsgBWSwgDcLBAR",
   ],
   testnet: [
-    'tex1qfcjnukn8u7mwz0n7cxy5fjv5zpj57m8muv8094',
-    'FcHumbpUerNFJHsDdDejoqvk8kDjxqx4TB',
-    'tex1qf6gjuuu3ys47juscesy76dw6w9at4stla50tthasnfu3vzny2hqqfyq0gm',
-    '8ms2towULZV7XoUxwFs7uwwESgQnjHB4Yx',
+    "tex1qfcjnukn8u7mwz0n7cxy5fjv5zpj57m8muv8094",
+    "FcHumbpUerNFJHsDdDejoqvk8kDjxqx4TB",
+    "tex1qf6gjuuu3ys47juscesy76dw6w9at4stla50tthasnfu3vzny2hqqfyq0gm",
+    "8ms2towULZV7XoUxwFs7uwwESgQnjHB4Yx",
   ],
   regtest: [
-    'ert1q9vza2e8x573nczrlzms0wvx3gsqjx7vaunpxa0',
-    '2ddMES6Ez33LnmwN7QP2GF4buShoPtX3yP9',
-    'ert1qj99wcphdxszal0xff98mzvtfap2xl6ylx8nxxr8s53gxmv5yq4dsd5k7gt',
-    'XHWCjibZsdGvHBxFXjEoq7GyyJMCKRo4wo',
+    "ert1q9vza2e8x573nczrlzms0wvx3gsqjx7vaunpxa0",
+    "2ddMES6Ez33LnmwN7QP2GF4buShoPtX3yP9",
+    "ert1qj99wcphdxszal0xff98mzvtfap2xl6ylx8nxxr8s53gxmv5yq4dsd5k7gt",
+    "XHWCjibZsdGvHBxFXjEoq7GyyJMCKRo4wo",
   ],
-}
+};
 
-const getNetworkMock = jest.fn().mockReturnValue(networks.regtest)
-jest.mock('../wallet/getNetwork', () => ({
+const getNetworkMock = jest.fn().mockReturnValue(networks.regtest);
+jest.mock("../wallet/getNetwork", () => ({
   getNetwork: () => getNetworkMock(),
 }));
 
@@ -122,53 +121,77 @@ describe("bitcoinAddress", () => {
   });
 });
 
-describe('liquidAddress', () => {
-  it('should return true if address is valid', () => {
-    getNetworkMock.mockReturnValue(networks.bitcoin)
-    liquidAddresses.liquid.forEach((address) => expect(rules.liquidAddress(address)).toBeTruthy())
-    getNetworkMock.mockReturnValue(networks.testnet)
-    liquidAddresses.testnet.forEach((address) => expect(rules.liquidAddress(address)).toBeTruthy())
-    getNetworkMock.mockReturnValue(networks.regtest)
-    liquidAddresses.regtest.forEach((address) => expect(rules.liquidAddress(address)).toBeTruthy())
-  })
-  it('should return false if address is for different network', () => {
-    getNetworkMock.mockReturnValue(networks.bitcoin)
-    liquidAddresses.regtest.forEach((address) => expect(rules.liquidAddress(address)).toBeFalsy())
-    liquidAddresses.testnet.forEach((address) => expect(rules.liquidAddress(address)).toBeFalsy())
+describe("liquidAddress", () => {
+  it("should return true if address is valid", () => {
+    getNetworkMock.mockReturnValue(networks.bitcoin);
+    liquidAddresses.liquid.forEach((address) =>
+      expect(rules.liquidAddress(address)).toBeTruthy(),
+    );
+    getNetworkMock.mockReturnValue(networks.testnet);
+    liquidAddresses.testnet.forEach((address) =>
+      expect(rules.liquidAddress(address)).toBeTruthy(),
+    );
+    getNetworkMock.mockReturnValue(networks.regtest);
+    liquidAddresses.regtest.forEach((address) =>
+      expect(rules.liquidAddress(address)).toBeTruthy(),
+    );
+  });
+  it("should return false if address is for different network", () => {
+    getNetworkMock.mockReturnValue(networks.bitcoin);
+    liquidAddresses.regtest.forEach((address) =>
+      expect(rules.liquidAddress(address)).toBeFalsy(),
+    );
+    liquidAddresses.testnet.forEach((address) =>
+      expect(rules.liquidAddress(address)).toBeFalsy(),
+    );
 
-    getNetworkMock.mockReturnValue(networks.testnet)
-    liquidAddresses.liquid.forEach((address) => expect(rules.liquidAddress(address)).toBeFalsy())
-    liquidAddresses.regtest.forEach((address) => expect(rules.liquidAddress(address)).toBeFalsy())
+    getNetworkMock.mockReturnValue(networks.testnet);
+    liquidAddresses.liquid.forEach((address) =>
+      expect(rules.liquidAddress(address)).toBeFalsy(),
+    );
+    liquidAddresses.regtest.forEach((address) =>
+      expect(rules.liquidAddress(address)).toBeFalsy(),
+    );
 
-    getNetworkMock.mockReturnValue(networks.regtest)
-    liquidAddresses.liquid.forEach((address) => expect(rules.liquidAddress(address)).toBeFalsy())
-    liquidAddresses.testnet.forEach((address) => expect(rules.liquidAddress(address)).toBeFalsy())
-  })
-  it('should return false if address is invalid', () => {
-    getNetworkMock.mockReturnValue(networks.bitcoin)
-    invalidLiquidAddresses.liquid.forEach((address) => expect(rules.bitcoinAddress(address)).toBeFalsy())
-    getNetworkMock.mockReturnValue(networks.testnet)
-    invalidLiquidAddresses.testnet.forEach((address) => expect(rules.bitcoinAddress(address)).toBeFalsy())
-    getNetworkMock.mockReturnValue(networks.regtest)
-    invalidLiquidAddresses.regtest.forEach((address) => expect(rules.bitcoinAddress(address)).toBeFalsy())
-  })
-})
+    getNetworkMock.mockReturnValue(networks.regtest);
+    liquidAddresses.liquid.forEach((address) =>
+      expect(rules.liquidAddress(address)).toBeFalsy(),
+    );
+    liquidAddresses.testnet.forEach((address) =>
+      expect(rules.liquidAddress(address)).toBeFalsy(),
+    );
+  });
+  it("should return false if address is invalid", () => {
+    getNetworkMock.mockReturnValue(networks.bitcoin);
+    invalidLiquidAddresses.liquid.forEach((address) =>
+      expect(rules.bitcoinAddress(address)).toBeFalsy(),
+    );
+    getNetworkMock.mockReturnValue(networks.testnet);
+    invalidLiquidAddresses.testnet.forEach((address) =>
+      expect(rules.bitcoinAddress(address)).toBeFalsy(),
+    );
+    getNetworkMock.mockReturnValue(networks.regtest);
+    invalidLiquidAddresses.regtest.forEach((address) =>
+      expect(rules.bitcoinAddress(address)).toBeFalsy(),
+    );
+  });
+});
 
-describe('isURL', () => {
-  it('should return true for a valid URL', () => {
-    expect(rules.url('https://www.example.com')).toBe(true)
-    expect(rules.url('https://www.example.com:8333')).toBe(true)
-    expect(rules.url('https://www.example.com/?query=param')).toBe(true)
-    expect(rules.url('https://www.example.com/#anchor')).toBe(true)
-    expect(rules.url('http://example.com')).toBe(true)
-    expect(rules.url('ssl://example.com')).toBe(true)
-    expect(rules.url('ftp://example.com')).toBe(true)
-    expect(rules.url('example.com')).toBe(true)
-  })
-  it('should return true for a valid IP', () => {
-    expect(rules.url('192.168.1.21')).toBe(true)
-    expect(rules.url('192.168.1.21:8333')).toBe(true)
-  })
+describe("isURL", () => {
+  it("should return true for a valid URL", () => {
+    expect(rules.url("https://www.example.com")).toBe(true);
+    expect(rules.url("https://www.example.com:8333")).toBe(true);
+    expect(rules.url("https://www.example.com/?query=param")).toBe(true);
+    expect(rules.url("https://www.example.com/#anchor")).toBe(true);
+    expect(rules.url("http://example.com")).toBe(true);
+    expect(rules.url("ssl://example.com")).toBe(true);
+    expect(rules.url("ftp://example.com")).toBe(true);
+    expect(rules.url("example.com")).toBe(true);
+  });
+  it("should return true for a valid IP", () => {
+    expect(rules.url("192.168.1.21")).toBe(true);
+    expect(rules.url("192.168.1.21:8333")).toBe(true);
+  });
 
   it("should return false for an invalid URL", () => {
     expect(rules.url("https://")).toBe(false);

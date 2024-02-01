@@ -1,10 +1,10 @@
-import { validateMnemonic, wordlists } from 'bip39'
-import { address } from 'bitcoinjs-lib'
-import { address as liquidAddress, networks } from 'liquidjs-lib'
-import { getLiquidNetwork } from '../wallet/getLiquidNetwork'
-import { getNetwork } from '../wallet/getNetwork'
-import { addProtocol } from '../web/addProtocol'
-import { isEmail } from './isEmail'
+import { validateMnemonic, wordlists } from "bip39";
+import { address } from "bitcoinjs-lib";
+import { address as liquidAddress, networks } from "liquidjs-lib";
+import { getLiquidNetwork } from "../wallet/getLiquidNetwork";
+import { getNetwork } from "../wallet/getNetwork";
+import { addProtocol } from "../web/addProtocol";
+import { isEmail } from "./isEmail";
 
 const MIN_PASSWORD_LENGTH = 8;
 export const rules = {
@@ -37,21 +37,24 @@ function isBitcoinAddress(value: string) {
   }
 }
 
-export function isLiquidAddress (value: string, network: networks.Network = networks.liquid) {
+export function isLiquidAddress(
+  value: string,
+  network: networks.Network = networks.liquid,
+) {
   try {
-    const result = liquidAddress.fromBech32(value)
-    return result.prefix === network.bech32
+    const result = liquidAddress.fromBech32(value);
+    return result.prefix === network.bech32;
   } catch (e) {
     try {
-      liquidAddress.toOutputScript(value, network)
-      return true
+      liquidAddress.toOutputScript(value, network);
+      return true;
     } catch (e2) {
-      return false
+      return false;
     }
   }
 }
 
-function isURL (url: string) {
+function isURL(url: string) {
   try {
     return !!new URL(addProtocol(url.toLowerCase(), "https"));
   } catch (e) {
