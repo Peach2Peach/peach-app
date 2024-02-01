@@ -1,6 +1,7 @@
 import { render, waitFor } from "test-utils";
 import { defaultUser } from "../../../../peach-api/src/testData/userData";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
+import { userKeys } from "../../../hooks/query/useSelfUser";
 import { MyProfile } from "./MyProfile";
 
 jest.useFakeTimers();
@@ -13,7 +14,7 @@ describe("MyProfile", () => {
     const { toJSON } = render(<MyProfile />);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["user", "self"])).toEqual(defaultUser);
+      expect(queryClient.getQueryData(userKeys.self())).toEqual(defaultUser);
     });
 
     expect(toJSON()).toMatchSnapshot();

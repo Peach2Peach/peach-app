@@ -10,6 +10,7 @@ import { navigateMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { Toast } from "../../../components/toast/Toast";
 import { placeholderFees } from "../../../hooks/query/useFeeEstimate";
+import { userKeys } from "../../../hooks/query/useSelfUser";
 import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
 import { useShowLowFeeWarning } from "./useShowLowFeeWarning";
@@ -62,7 +63,7 @@ describe("useShowLowFeeWarning", () => {
     const { queryByText } = render(<Toast />);
     renderHook(useShowLowFeeWarning, { initialProps });
     await waitFor(() => {
-      expect(queryClient.getQueryData(["user", "self"])).toStrictEqual({
+      expect(queryClient.getQueryData(userKeys.self())).toStrictEqual({
         ...defaultUser,
         feeRate: 2,
       });

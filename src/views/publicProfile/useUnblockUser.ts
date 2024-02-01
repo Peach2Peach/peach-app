@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { userKeys } from "../../hooks/query/useSelfUser";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { peachAPI } from "../../utils/peachAPI";
 import { matchesKeys } from "../search/hooks/useOfferMatches";
@@ -9,14 +10,16 @@ export const useUnblockUser = (userId: string) => {
   const showError = useShowErrorBanner();
   return useMutation({
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ["user", userId, "status"] });
+      await queryClient.cancelQueries({
+        queryKey: userKeys.userStatus(userId),
+      });
       const previousStatus = queryClient.getQueryData<UserStatus>([
         "user",
         userId,
         "status",
       ]);
       queryClient.setQueryData<UserStatus>(
-        ["user", userId, "status"],
+        userKeys.userStatus(userId),
         (oldQueryData: UserStatus | undefined) => {
           if (oldQueryData) {
             return {
@@ -39,14 +42,16 @@ export const useUnblockUser = (userId: string) => {
     },
     onError: (err, _variables, context) => {
       queryClient.setQueryData(
-        ["user", userId, "status"],
+        userKeys.userStatus(userId),
         context?.previousStatus,
       );
       showError(err.message);
     },
     onSettled: () =>
       Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["user", userId, "status"] }),
+        queryClient.invalidateQueries({
+          queryKey: userKeys.userStatus(userId),
+        }),
         queryClient.invalidateQueries({ queryKey: matchesKeys.matches }),
       ]),
   });
