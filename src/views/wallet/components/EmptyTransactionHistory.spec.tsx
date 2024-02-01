@@ -1,13 +1,13 @@
-import ShallowRenderer from 'react-test-renderer/shallow'
-import { EmptyTransactionHistory } from './EmptyTransactionHistory'
+import ShallowRenderer from "react-test-renderer/shallow";
+import { EmptyTransactionHistory } from "./EmptyTransactionHistory";
 
-describe('EmptyTransactionHistory', () => {
-  const renderer = ShallowRenderer.createRenderer()
+describe("EmptyTransactionHistory", () => {
+  const renderer = ShallowRenderer.createRenderer();
 
-  it('should render correctly', () => {
-    renderer.render(<EmptyTransactionHistory />)
+  it("should render correctly", () => {
+    renderer.render(<EmptyTransactionHistory />);
 
-    const renderOutput = renderer.getRenderOutput()
-    expect(renderOutput).toMatchSnapshot()
-  })
-})
+    const renderOutput = renderer.getRenderOutput();
+    expect(renderOutput).toMatchSnapshot();
+  });
+});

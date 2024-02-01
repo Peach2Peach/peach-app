@@ -1,11 +1,11 @@
-import { ReactTestInstance } from 'react-test-renderer'
-import { fireEvent } from 'test-utils'
+import { ReactTestInstance } from "react-test-renderer";
+import { fireEvent } from "test-utils";
 
 type Props = {
-  element: ReactTestInstance
-  x?: number
-  y?: number
-}
+  element: ReactTestInstance;
+  x?: number;
+  y?: number;
+};
 export const fireSwipeEvent = ({ element, x = 0, y = 0 }: Props) => {
   const endTouch = {
     currentPageX: x,
@@ -14,7 +14,7 @@ export const fireSwipeEvent = ({ element, x = 0, y = 0 }: Props) => {
     previousPageY: 0,
     touchActive: true,
     currentTimeStamp: 1,
-  }
+  };
   const moveEvent = {
     touchHistory: {
       touchBank: [endTouch],
@@ -22,11 +22,11 @@ export const fireSwipeEvent = ({ element, x = 0, y = 0 }: Props) => {
       indexOfSingleActiveTouch: 0,
       mostRecentTimeStamp: 1,
     },
-  }
+  };
 
-  fireEvent(element, 'onMoveShouldSetResponder')
-  fireEvent(element, 'onResponderMove', moveEvent)
-  fireEvent(element, 'onResponderRelease', {
+  fireEvent(element, "onMoveShouldSetResponder");
+  fireEvent(element, "onResponderMove", moveEvent);
+  fireEvent(element, "onResponderRelease", {
     nativeEvent: {
       changedTouches: [endTouch],
       identifier: 1,
@@ -38,9 +38,9 @@ export const fireSwipeEvent = ({ element, x = 0, y = 0 }: Props) => {
       timestamp: 1,
       touches: [endTouch],
     },
-  })
-}
+  });
+};
 
-export const swipeRight = (element: Props['element']) => {
-  fireSwipeEvent({ element, x: 260 })
-}
+export const swipeRight = (element: Props["element"]) => {
+  fireSwipeEvent({ element, x: 260 });
+};

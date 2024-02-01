@@ -5,4 +5,4 @@ export const tradingLimit: TradingLimit = {
   monthlyAnonymousAmount: 1000,
   yearlyAmount: 0,
   yearly: 100000,
-}
+};

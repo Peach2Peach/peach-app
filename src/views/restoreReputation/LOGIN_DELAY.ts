@@ -1,1 +1,1 @@
-export const LOGIN_DELAY = 1500
+export const LOGIN_DELAY = 1500;

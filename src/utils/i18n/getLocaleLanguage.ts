@@ -1,1 +1,2 @@
-export const getLocaleLanguage = (locale: string) => locale.replace('_', '-').split('-')[0]
+export const getLocaleLanguage = (locale: string) =>
+  locale.replace("_", "-").split("-")[0];

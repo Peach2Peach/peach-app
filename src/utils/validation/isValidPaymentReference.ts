@@ -1,4 +1,4 @@
-const forbiddenWords = ['bitcoin', 'peach']
+const forbiddenWords = ["bitcoin", "peach"];
 
 export const isValidPaymentReference = (reference: string) =>
-  forbiddenWords.every((word) => !reference.toLowerCase().includes(word))
+  forbiddenWords.every((word) => !reference.toLowerCase().includes(word));

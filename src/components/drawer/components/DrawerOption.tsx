@@ -1,13 +1,13 @@
-import { TouchableOpacity, View } from 'react-native'
-import tw from '../../../styles/tailwind'
-import { Flag } from '../../Flag'
-import { Icon } from '../../Icon'
-import { PaymentLogo } from '../../payment/PaymentLogo'
-import { FixedHeightText } from '../../text/FixedHeightText'
-import { PeachText } from '../../text/PeachText'
+import { TouchableOpacity, View } from "react-native";
+import tw from "../../../styles/tailwind";
+import { Flag } from "../../Flag";
+import { Icon } from "../../Icon";
+import { PaymentLogo } from "../../payment/PaymentLogo";
+import { FixedHeightText } from "../../text/FixedHeightText";
+import { PeachText } from "../../text/PeachText";
 
-const flagSubtextHeight = 17
-const defaultSubtextHeight = 22
+const flagSubtextHeight = 17;
+const defaultSubtextHeight = 22;
 
 export const DrawerOption = ({
   logoID,
@@ -42,24 +42,37 @@ export const DrawerOption = ({
 
     <View style={[tw`justify-center grow`, flagID && tw`gap-2px`]}>
       {flagID || logoID || !subtext ? (
-        <FixedHeightText height={flagID && subtext ? flagSubtextHeight : defaultSubtextHeight} style={tw`input-title`}>
+        <FixedHeightText
+          height={flagID && subtext ? flagSubtextHeight : defaultSubtextHeight}
+          style={tw`input-title`}
+        >
           {title}
         </FixedHeightText>
       ) : (
-        <PeachText style={[tw`input-title`, highlighted && tw`text-primary-main`]}>{title}</PeachText>
+        <PeachText
+          style={[tw`input-title`, highlighted && tw`text-primary-main`]}
+        >
+          {title}
+        </PeachText>
       )}
 
-      {subtext
-        && (flagID ? (
+      {subtext &&
+        (flagID ? (
           <FixedHeightText height={17} style={tw`body-s`}>
             {subtext}
           </FixedHeightText>
         ) : (
-          <PeachText style={[tw`body-s`, highlighted && tw`text-primary-main`]}>{subtext}</PeachText>
+          <PeachText style={[tw`body-s`, highlighted && tw`text-primary-main`]}>
+            {subtext}
+          </PeachText>
         ))}
     </View>
     {(iconRightID || highlighted) && (
-      <Icon id={iconRightID ? iconRightID : 'star'} style={tw`w-6 h-6`} color={tw.color('primary-main')} />
+      <Icon
+        id={iconRightID ? iconRightID : "star"}
+        style={tw`w-6 h-6`}
+        color={tw.color("primary-main")}
+      />
     )}
   </TouchableOpacity>
-)
+);

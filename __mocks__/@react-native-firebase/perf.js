@@ -1,5 +1,5 @@
-const setPerformanceCollectionEnabledMock = jest.fn()
+const setPerformanceCollectionEnabledMock = jest.fn();
 
 export default () => ({
   setPerformanceCollectionEnabled: setPerformanceCollectionEnabledMock,
-})
+});

@@ -1,5 +1,6 @@
-import { checkNotificationStatusIOS } from './checkNotificationStatusIOS'
-import { checkNotificationStatusAndroid } from './checkNotificationStatusAndroid'
-import { isIOS } from './isIOS'
+import { checkNotificationStatusIOS } from "./checkNotificationStatusIOS";
+import { checkNotificationStatusAndroid } from "./checkNotificationStatusAndroid";
+import { isIOS } from "./isIOS";
 
-export const checkNotificationStatus = () => (isIOS() ? checkNotificationStatusIOS() : checkNotificationStatusAndroid())
+export const checkNotificationStatus = () =>
+  isIOS() ? checkNotificationStatusIOS() : checkNotificationStatusAndroid();

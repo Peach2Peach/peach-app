@@ -1,3 +1,3 @@
-import { WelcomeInfo } from './WelcomeInfo'
+import { WelcomeInfo } from "./WelcomeInfo";
 
-export const AWalletYouControl = () => <WelcomeInfo name="aWalletYouControl" />
+export const AWalletYouControl = () => <WelcomeInfo name="aWalletYouControl" />;

@@ -1,10 +1,12 @@
-import i18n from '../i18n'
+import i18n from "../i18n";
 
-describe('getLocales', () => {
-  it('returns all registered locales', () => {
-    expect(i18n.getLocales()[0]).toBe('en')
-    const EXPECTED_NUMBER_OF_LOCALES = 16
-    expect(i18n.getLocales()).toHaveLength(EXPECTED_NUMBER_OF_LOCALES)
-    expect(i18n.getLocales().every((locale) => typeof locale === 'string')).toBeTruthy()
-  })
-})
+describe("getLocales", () => {
+  it("returns all registered locales", () => {
+    expect(i18n.getLocales()[0]).toBe("en");
+    const EXPECTED_NUMBER_OF_LOCALES = 16;
+    expect(i18n.getLocales()).toHaveLength(EXPECTED_NUMBER_OF_LOCALES);
+    expect(
+      i18n.getLocales().every((locale) => typeof locale === "string"),
+    ).toBeTruthy();
+  });
+});

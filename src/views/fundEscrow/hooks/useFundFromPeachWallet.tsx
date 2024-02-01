@@ -1,27 +1,33 @@
-import { PartiallySignedTransaction } from 'bdk-rn'
-import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
-import { useCallback } from 'react'
-import { View } from 'react-native'
-import { shallow } from 'zustand/shallow'
-import { BTCAmount } from '../../../components/bitcoin/BTCAmount'
-import { useSetPopup } from '../../../components/popup/Popup'
-import { PopupComponent } from '../../../components/popup/PopupComponent'
-import { ClosePopupAction } from '../../../components/popup/actions/ClosePopupAction'
-import { PeachText } from '../../../components/text/PeachText'
-import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
-import { useFeeRate } from '../../../hooks/useFeeRate'
-import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useConfigStore } from '../../../store/configStore/configStore'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
-import { parseError } from '../../../utils/result/parseError'
-import { peachWallet } from '../../../utils/wallet/setWallet'
-import { buildTransaction, setMultipleRecipients } from '../../../utils/wallet/transaction'
-import { useWalletState } from '../../../utils/wallet/walletStore'
-import { useSyncWallet } from '../../wallet/hooks/useSyncWallet'
-import { ConfirmTransactionPopup } from './ConfirmTransactionPopup'
-import { ConfirmTxPopup } from './ConfirmTxPopup'
-import { useOptimisticTxHistoryUpdate } from './useOptimisticTxHistoryUpdate'
+import { PartiallySignedTransaction } from "bdk-rn";
+import {
+  TransactionDetails,
+  TxBuilderResult,
+} from "bdk-rn/lib/classes/Bindings";
+import { useCallback } from "react";
+import { View } from "react-native";
+import { shallow } from "zustand/shallow";
+import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
+import { useSetPopup } from "../../../components/popup/Popup";
+import { PopupComponent } from "../../../components/popup/PopupComponent";
+import { ClosePopupAction } from "../../../components/popup/actions/ClosePopupAction";
+import { PeachText } from "../../../components/text/PeachText";
+import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
+import { useFeeRate } from "../../../hooks/useFeeRate";
+import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
+import { useConfigStore } from "../../../store/configStore/configStore";
+import tw from "../../../styles/tailwind";
+import i18n from "../../../utils/i18n";
+import { parseError } from "../../../utils/result/parseError";
+import { peachWallet } from "../../../utils/wallet/setWallet";
+import {
+  buildTransaction,
+  setMultipleRecipients,
+} from "../../../utils/wallet/transaction";
+import { useWalletState } from "../../../utils/wallet/walletStore";
+import { useSyncWallet } from "../../wallet/hooks/useSyncWallet";
+import { ConfirmTransactionPopup } from "./ConfirmTransactionPopup";
+import { ConfirmTxPopup } from "./ConfirmTxPopup";
+import { useOptimisticTxHistoryUpdate } from "./useOptimisticTxHistoryUpdate";
 
 const getPropsFromFinishedTransaction = async (
   psbt: PartiallySignedTransaction,
@@ -29,133 +35,183 @@ const getPropsFromFinishedTransaction = async (
 ) => ({
   amountToConfirm: sent - received,
   fee: await psbt.feeAmount(),
-})
+});
 
 type FundFromWalletParams = {
-  offerId: string
-  amount: number
-  fundingStatus?: FundingStatus['status']
-  address?: string
-  addresses?: string[]
-}
+  offerId: string;
+  amount: number;
+  fundingStatus?: FundingStatus["status"];
+  address?: string;
+  addresses?: string[];
+};
 
 type OnSuccessParams = {
-  txDetails: TransactionDetails
-  offerId: string
-  address: string
-  addresses: string[]
-}
+  txDetails: TransactionDetails;
+  offerId: string;
+  address: string;
+  addresses: string[];
+};
 
 export const useFundFromPeachWallet = () => {
-  const minTradingAmount = useConfigStore((state) => state.minTradingAmount)
-  const showErrorBanner = useShowErrorBanner()
-  const handleTransactionError = useHandleTransactionError()
-  const optimisticTxHistoryUpdate = useOptimisticTxHistoryUpdate()
-  const { refetch: syncPeachWallet } = useSyncWallet()
+  const minTradingAmount = useConfigStore((state) => state.minTradingAmount);
+  const showErrorBanner = useShowErrorBanner();
+  const handleTransactionError = useHandleTransactionError();
+  const optimisticTxHistoryUpdate = useOptimisticTxHistoryUpdate();
+  const { refetch: syncPeachWallet } = useSyncWallet();
 
-  const feeRate = useFeeRate()
+  const feeRate = useFeeRate();
   const [setFundedFromPeachWallet, unregisterFundMultiple] = useWalletState(
     (state) => [state.setFundedFromPeachWallet, state.unregisterFundMultiple],
     shallow,
-  )
-  const setPopup = useSetPopup()
+  );
+  const setPopup = useSetPopup();
 
   const onSuccess = useCallback(
     ({ txDetails, offerId, address, addresses }: OnSuccessParams) => {
-      optimisticTxHistoryUpdate(txDetails, offerId)
-      unregisterFundMultiple(address)
-      setFundedFromPeachWallet(address)
-      addresses.forEach(setFundedFromPeachWallet)
+      optimisticTxHistoryUpdate(txDetails, offerId);
+      unregisterFundMultiple(address);
+      setFundedFromPeachWallet(address);
+      addresses.forEach(setFundedFromPeachWallet);
     },
-    [optimisticTxHistoryUpdate, setFundedFromPeachWallet, unregisterFundMultiple],
-  )
+    [
+      optimisticTxHistoryUpdate,
+      setFundedFromPeachWallet,
+      unregisterFundMultiple,
+    ],
+  );
 
   const fundFromPeachWallet = useCallback(
-    async ({ offerId, amount, fundingStatus = 'NULL', address, addresses = [] }: FundFromWalletParams) => {
-      if (!address || !amount || fundingStatus !== 'NULL') return undefined
-      await syncPeachWallet()
+    async ({
+      offerId,
+      amount,
+      fundingStatus = "NULL",
+      address,
+      addresses = [],
+    }: FundFromWalletParams) => {
+      if (!address || !amount || fundingStatus !== "NULL") return undefined;
+      await syncPeachWallet();
       if (peachWallet.balance < (addresses.length || 1) * minTradingAmount) {
         return setPopup(
-          <AmountTooLowPopup available={peachWallet.balance} needed={(addresses.length || 1) * minTradingAmount} />,
-        )
+          <AmountTooLowPopup
+            available={peachWallet.balance}
+            needed={(addresses.length || 1) * minTradingAmount}
+          />,
+        );
       }
 
-      let finishedTransaction: TxBuilderResult
+      let finishedTransaction: TxBuilderResult;
       try {
-        const transaction = await buildTransaction({ feeRate })
-        if (addresses.length > 0) await setMultipleRecipients(transaction, amount, addresses)
+        const transaction = await buildTransaction({ feeRate });
+        if (addresses.length > 0)
+          await setMultipleRecipients(transaction, amount, addresses);
 
-        finishedTransaction = await peachWallet.finishTransaction(transaction)
+        finishedTransaction = await peachWallet.finishTransaction(transaction);
       } catch (e) {
-        const transactionError = parseError(Array.isArray(e) ? e[0] : e)
-        if (transactionError !== 'INSUFFICIENT_FUNDS') return showErrorBanner(transactionError)
+        const transactionError = parseError(Array.isArray(e) ? e[0] : e);
+        if (transactionError !== "INSUFFICIENT_FUNDS")
+          return showErrorBanner(transactionError);
 
         if (addresses.length > 1) {
-          const { available } = Array.isArray(e) ? e[1] : { available: 0 }
-          return showErrorBanner('INSUFFICIENT_FUNDS', [amount, available])
+          const { available } = Array.isArray(e) ? e[1] : { available: 0 };
+          return showErrorBanner("INSUFFICIENT_FUNDS", [amount, available]);
         }
 
         try {
-          const transaction = await buildTransaction({ address, feeRate, shouldDrainWallet: true })
-          finishedTransaction = await peachWallet.finishTransaction(transaction)
-          const { txDetails, psbt } = finishedTransaction
-          const { amountToConfirm, fee } = await getPropsFromFinishedTransaction(psbt, txDetails)
+          const transaction = await buildTransaction({
+            address,
+            feeRate,
+            shouldDrainWallet: true,
+          });
+          finishedTransaction =
+            await peachWallet.finishTransaction(transaction);
+          const { txDetails, psbt } = finishedTransaction;
+          const { amountToConfirm, fee } =
+            await getPropsFromFinishedTransaction(psbt, txDetails);
           return setPopup(
             <ConfirmTransactionPopup
-              title={i18n('fundFromPeachWallet.insufficientFunds.title')}
+              title={i18n("fundFromPeachWallet.insufficientFunds.title")}
               content={
                 <ConfirmTxPopup
                   amount={amountToConfirm}
                   {...{ address, fee, feeRate }}
-                  text={i18n('fundFromPeachWallet.insufficientFunds.description.1')}
-                  secondText={i18n('fundFromPeachWallet.insufficientFunds.description.2')}
+                  text={i18n(
+                    "fundFromPeachWallet.insufficientFunds.description.1",
+                  )}
+                  secondText={i18n(
+                    "fundFromPeachWallet.insufficientFunds.description.2",
+                  )}
                 />
               }
               psbt={psbt}
-              onSuccess={() => onSuccess({ txDetails, offerId, address, addresses })}
+              onSuccess={() =>
+                onSuccess({ txDetails, offerId, address, addresses })
+              }
             />,
-          )
+          );
         } catch (e2) {
-          return handleTransactionError(e2)
+          return handleTransactionError(e2);
         }
       }
 
-      const { txDetails, psbt } = finishedTransaction
-      const { amountToConfirm, fee } = await getPropsFromFinishedTransaction(psbt, txDetails)
+      const { txDetails, psbt } = finishedTransaction;
+      const { amountToConfirm, fee } = await getPropsFromFinishedTransaction(
+        psbt,
+        txDetails,
+      );
       return setPopup(
         <ConfirmTransactionPopup
-          title={i18n('fundFromPeachWallet.confirm.title')}
+          title={i18n("fundFromPeachWallet.confirm.title")}
           content={
             <ConfirmTxPopup
-              text={i18n('fundFromPeachWallet.confirm.description')}
+              text={i18n("fundFromPeachWallet.confirm.description")}
               amount={amountToConfirm}
               {...{ address, feeRate, fee }}
             />
           }
           psbt={psbt}
-          onSuccess={() => onSuccess({ txDetails, offerId, address, addresses })}
+          onSuccess={() =>
+            onSuccess({ txDetails, offerId, address, addresses })
+          }
         />,
-      )
+      );
     },
-    [feeRate, handleTransactionError, minTradingAmount, onSuccess, setPopup, showErrorBanner, syncPeachWallet],
-  )
+    [
+      feeRate,
+      handleTransactionError,
+      minTradingAmount,
+      onSuccess,
+      setPopup,
+      showErrorBanner,
+      syncPeachWallet,
+    ],
+  );
 
-  return fundFromPeachWallet
-}
+  return fundFromPeachWallet;
+};
 
-function AmountTooLowPopup ({ available, needed }: { available: number; needed: number }) {
+function AmountTooLowPopup({
+  available,
+  needed,
+}: {
+  available: number;
+  needed: number;
+}) {
   return (
     <PopupComponent
-      title={i18n('fundFromPeachWallet.amountTooLow.title')}
+      title={i18n("fundFromPeachWallet.amountTooLow.title")}
       content={
         <View style={tw`gap-3`}>
-          <PeachText>{i18n('fundFromPeachWallet.amountTooLow.description.1')}</PeachText>
+          <PeachText>
+            {i18n("fundFromPeachWallet.amountTooLow.description.1")}
+          </PeachText>
           <BTCAmount amount={available} size="medium" />
-          <PeachText>{i18n('fundFromPeachWallet.amountTooLow.description.2')}</PeachText>
+          <PeachText>
+            {i18n("fundFromPeachWallet.amountTooLow.description.2")}
+          </PeachText>
           <BTCAmount amount={needed} size="medium" />
         </View>
       }
       actions={<ClosePopupAction style={tw`justify-center`} />}
     />
-  )
+  );
 }

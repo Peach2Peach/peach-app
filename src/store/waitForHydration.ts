@@ -1,10 +1,10 @@
-import { StorePersist } from './createPersistStorage'
+import { StorePersist } from "./createPersistStorage";
 
 export const waitForHydration = (store: StorePersist) =>
   new Promise((resolve) => {
     if (store.persist.hasHydrated()) {
-      resolve(true)
+      resolve(true);
     } else {
-      store.persist.onFinishHydration(() => resolve(true))
+      store.persist.onFinishHydration(() => resolve(true));
     }
-  })
+  });

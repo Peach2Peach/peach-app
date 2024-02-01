@@ -1,3 +1,4 @@
-import { crypto } from 'bitcoinjs-lib'
+import { crypto } from "bitcoinjs-lib";
 
-export const sha256 = (str: string): string => crypto.sha256(Buffer.from(str)).toString('hex')
+export const sha256 = (str: string): string =>
+  crypto.sha256(Buffer.from(str)).toString("hex");

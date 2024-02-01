@@ -1,20 +1,25 @@
-import crashlytics from '@react-native-firebase/crashlytics'
-import { Alert } from 'react-native'
-import { openCrashReportPrompt } from '../analytics/openCrashReportPrompt'
-import { isNetworkError } from '../system/isNetworkError'
-import { isProduction } from '../system/isProduction'
+import crashlytics from "@react-native-firebase/crashlytics";
+import { Alert } from "react-native";
+import { openCrashReportPrompt } from "../analytics/openCrashReportPrompt";
+import { isNetworkError } from "../system/isNetworkError";
+import { isProduction } from "../system/isProduction";
 
 export const error = (...args: unknown[]) => {
-  const message = [new Date(), 'ERROR', ...args].join(' - ')
+  const message = [new Date(), "ERROR", ...args].join(" - ");
   if (isProduction()) {
-    crashlytics().log(message)
-    const errors = args.filter((arg): arg is Error => arg instanceof Error).filter((arg) => !isNetworkError(arg.message))
+    crashlytics().log(message);
+    const errors = args
+      .filter((arg): arg is Error => arg instanceof Error)
+      .filter((arg) => !isNetworkError(arg.message));
 
-    if (errors.length) openCrashReportPrompt(errors)
+    if (errors.length) openCrashReportPrompt(errors);
   } else {
-    const errors = args.filter((arg): arg is Error => arg instanceof Error).filter((arg) => !isNetworkError(arg.message))
+    const errors = args
+      .filter((arg): arg is Error => arg instanceof Error)
+      .filter((arg) => !isNetworkError(arg.message));
 
-    if (errors.length) Alert.alert('Error', errors.map((err) => err.message).join('\n\n'))
-    console.error(message)
+    if (errors.length)
+      Alert.alert("Error", errors.map((err) => err.message).join("\n\n"));
+    console.error(message);
   }
-}
+};

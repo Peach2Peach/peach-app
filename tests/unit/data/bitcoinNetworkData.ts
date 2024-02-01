@@ -4,4 +4,4 @@ export const estimatedFees = {
   hourFee: 4,
   economyFee: 2,
   minimumFee: 2,
-}
+};
