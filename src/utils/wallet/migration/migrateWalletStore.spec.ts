@@ -8,7 +8,6 @@ import {
 import { WalletStateVersion1 } from "./version1";
 import { WalletStateVersion2 } from "./version2";
 
-// eslint-disable-next-line max-lines-per-function
 describe("migrateWalletStore", () => {
   it("should migrate from version 0", () => {
     const confirmed: ConfirmedTransaction = {

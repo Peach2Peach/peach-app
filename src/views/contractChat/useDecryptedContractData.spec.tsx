@@ -79,9 +79,9 @@ describe("useDecryptedContractData", () => {
     decryptSpy.mockResolvedValueOnce(symmetricKey);
     verifySpy.mockResolvedValueOnce(true);
     const { result } = renderHook(useDecryptedContractData, {
-      // @ts-expect-error testing undefined
       initialProps: {
         ...mockContract,
+        // @ts-expect-error testing undefined
         paymentDataEncrypted: undefined,
         paymentDataEncryptionMethod: "asymmetric",
       },

@@ -75,11 +75,8 @@ module.exports = {
     "lines-between-class-members": "error",
     "max-classes-per-file": "error",
     "max-depth": "error",
-    "max-lines": "error",
-    "max-lines-per-function": ["error", 70],
     "max-nested-callbacks": "error",
     "max-params": "error",
-    "max-statements": ["error", 21],
     "max-statements-per-line": "error",
     "multiline-comment-style": "off",
     "multiline-ternary": "off",
@@ -242,13 +239,6 @@ module.exports = {
     "react-native/no-inline-styles": "off",
   },
   overrides: [
-    {
-      files: ["*.tsx"],
-      rules: {
-        "max-lines-per-function": ["error", 300],
-        "max-statements": ["error", 25],
-      },
-    },
     {
       files: ["src/utils/log/*.ts"],
       rules: {

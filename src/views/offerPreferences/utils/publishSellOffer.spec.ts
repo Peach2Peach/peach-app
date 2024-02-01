@@ -25,7 +25,6 @@ const multipleOffersResult = {
   errorMessage: null,
 };
 
-// eslint-disable-next-line max-lines-per-function
 describe("publishSellOffer", () => {
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));

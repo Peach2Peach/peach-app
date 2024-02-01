@@ -1,7 +1,6 @@
 import { compatibilityCheck } from "./compatibilityCheck";
 
 describe("compatibilityCheck", () => {
-  // eslint-disable-next-line max-statements
   it("checks whether current version is compatible with minimum version", () => {
     expect(compatibilityCheck("0.0.1", "0.0.1")).toBeTruthy();
     expect(compatibilityCheck("0.0.1 (217)", "0.0.1 (217)")).toBeTruthy();

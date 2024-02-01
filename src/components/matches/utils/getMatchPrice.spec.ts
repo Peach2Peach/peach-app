@@ -6,7 +6,6 @@ jest.mock("../../../utils/paymentMethod/getPaymentMethodInfo", () => ({
     getPaymentMethodInfoMock(...args),
 }));
 
-// eslint-disable-next-line max-lines-per-function
 describe("getMatchPrice", () => {
   beforeEach(() => {
     getPaymentMethodInfoMock.mockClear();

@@ -70,8 +70,8 @@ describe("removePaymentData", () => {
   });
 
   it("does not remove payment data if there is an unexpected error from server request", async () => {
-    // @ts-expect-error testing unexpected error
     deletePaymentHashMock.mockResolvedValueOnce({
+      // @ts-expect-error testing unexpected error
       error: { error: "UNEXPECTED" },
       ...responseUtils,
     });

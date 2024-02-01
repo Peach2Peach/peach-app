@@ -59,7 +59,6 @@ jest.mock("./transaction/buildTransaction", () => ({
 
 jest.useFakeTimers();
 
-// eslint-disable-next-line max-lines-per-function, max-statements
 describe("PeachWallet", () => {
   const address1 = "address1";
   const address2 = "address2";
@@ -502,8 +501,8 @@ describe("PeachWallet - loadWallet", () => {
       "onFinishHydration",
     );
     hasHydratedSpy.mockReturnValueOnce(false);
-    // @ts-expect-error it's just a mock
     onFinishHydrationSpy.mockImplementationOnce((cb) =>
+      // @ts-expect-error it's just a mock
       cb(useWalletState.getState()),
     );
     useWalletState.getState().setBalance(balance);

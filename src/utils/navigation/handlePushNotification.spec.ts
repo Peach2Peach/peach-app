@@ -13,7 +13,6 @@ const getOfferDetailsMock = jest.spyOn(
 );
 
 const timestamp = 1231006505000;
-// eslint-disable-next-line max-lines-per-function
 describe("handlePushNotification", () => {
   // @ts-expect-error mock only needs one method here
   const navigationRef: Navigation = { navigate: jest.fn() };

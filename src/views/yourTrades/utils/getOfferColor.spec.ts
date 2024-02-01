@@ -1,7 +1,6 @@
 import { contractSummary } from "../../../../tests/unit/data/contractSummaryData";
 import { getOfferColor } from "./getOfferColor";
 
-// eslint-disable-next-line max-lines-per-function, max-statements
 describe("getOfferColor", () => {
   it('should return "black" when tradeStatus is "tradeCanceled"', () => {
     expect(
@@ -152,10 +151,10 @@ describe("getOfferColor", () => {
     ).toBe("black");
   });
   it('should return "info" when unknown trade status', () => {
-    // @ts-expect-error explicitely checking unknown status
     expect(
       getOfferColor({
         ...contractSummary,
+        // @ts-expect-error explicitely checking unknown status
         tradeStatus: "unknownStatusNotYetConsidered",
       }),
     ).toBe("info");

@@ -68,7 +68,6 @@ function createCSVValue(tradeSummaries: (OfferSummary | ContractSummary)[]) {
     },
     Price: (d: OfferSummary | ContractSummary) => {
       const tradePrice =
-        // eslint-disable-next-line max-len
         "price" in d
           ? d.currency === "SAT"
             ? groupChars(String(d.price), THOUSANDS_GROUP)

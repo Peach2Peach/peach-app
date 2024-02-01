@@ -98,7 +98,6 @@ const storage = createPersistStorage(offerPreferencesStorage);
 
 export const useOfferPreferences = create<OfferPreferencesStore>()(
   persist(
-    // eslint-disable-next-line max-lines-per-function
     immer((set, get) => ({
       ...defaultPreferences,
       setBuyAmountRange: (buyAmountRange) => set({ buyAmountRange }),

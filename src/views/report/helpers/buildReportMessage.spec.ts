@@ -17,7 +17,6 @@ describe("buildReportMessage", () => {
       shareLogs: true,
     });
     const expectedMessage =
-      // eslint-disable-next-line max-len
       "test\n\nDevice ID Hash: f04f9393408f65cc9cfa89aa5cf642cbcdd0a29b69ed9c099daa2c27178ed827\n\nApp version: 0.2.0 (undefined)\n\nUser shared app logs, please check crashlytics";
     expect(message).toBe(expectedMessage);
   });
