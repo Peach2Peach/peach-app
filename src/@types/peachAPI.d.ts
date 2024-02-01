@@ -53,18 +53,18 @@ type User = {
 
   pgpPublicKeys: PGPPublicKeyProofPair[];
 
-  rating: number
-  ratingCount: number
-  recentRating: number
-  referralCode?: string
-  referredTradingAmount: number
-  openedTrades: number
-  canceledTrades: number
-  trades: number
-  uniqueId: string
-  usedReferralCode?: string
-  userRating: number
-}
+  rating: number;
+  ratingCount: number;
+  recentRating: number;
+  referralCode?: string;
+  referredTradingAmount: number;
+  openedTrades: number;
+  canceledTrades: number;
+  trades: number;
+  uniqueId: string;
+  usedReferralCode?: string;
+  userRating: number;
+};
 
 type PublicUser = Omit<
   User,
