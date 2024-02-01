@@ -2,7 +2,6 @@ import { act, renderHook } from "test-utils";
 import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { useGetPNActionHandler } from "./useGetPNActionHandler";
 
-// eslint-disable-next-line max-lines-per-function
 describe("useGetPNActionHandler", () => {
   it("should return an action properties when contractId and isChat are truthy", () => {
     const { result } = renderHook(useGetPNActionHandler);

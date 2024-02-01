@@ -14,12 +14,10 @@ import { useShowHighFeeWarning } from "./useShowHighFeeWarning";
 
 jest.useFakeTimers();
 
-jest
-  .spyOn(peachAPI.private.user, "getSelfUser")
-  .mockResolvedValue({
-    result: { ...defaultUser, feeRate: 100 },
-    ...responseUtils,
-  });
+jest.spyOn(peachAPI.private.user, "getSelfUser").mockResolvedValue({
+  result: { ...defaultUser, feeRate: 100 },
+  ...responseUtils,
+});
 
 describe("useShowHighFeeWarning", () => {
   const initialProps = {

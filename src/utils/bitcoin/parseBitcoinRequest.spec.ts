@@ -1,7 +1,6 @@
 import { deepStrictEqual } from "assert";
 import { parseBitcoinRequest } from "./parseBitcoinRequest";
 
-// eslint-disable-next-line max-lines-per-function
 describe("parseBitcoinRequest", () => {
   it("parses valid bitcoin requests", () => {
     const request =
@@ -73,7 +72,6 @@ describe("parseBitcoinRequest", () => {
 
   it("should return null for lightning invoices", () => {
     const request =
-      // eslint-disable-next-line max-len
       "lnbc1u1p39dtcgpp5x4txr8dhemr6htx2ju2y7dc4v4a769qe696mp75tfgvkjwnjue5qdqlvdaxjmn08gszqar0ypqxcmn50p3x7aqsp5qt9z3r047w8em0m8c5d23mwdzdvpxemhd5l5t3cl3a86t0w02q2qxqy9gcqcqzys9qrsgqrzjqd98kxkpyw0l9tyy8r8q57k7zpy9zjmh6sez752wj6gcumqnj3yxzhdsmg6qq56utgqqqqqqqqqqqeqqjqrzjq0h9s36s2kpql0a99c6k4zfq7chcx9sjnsund8damcl96qvc4833tx69gvk26e6efsqqqqlgqqqqpjqqjqrzjqtx3k77yrrav9hye7zar2rtqlfkytl094dsp0ms5majzth6gt7ca6uhdkxl983uywgqqqqqqqqqq86qqjq9hws6jr2vvgq53k2lqm7prn2jf58wutqyhqdgerqvf4h7dtda2cknujs522v5gr2nv6r8xq3f6x7xjwtacadwe5lf3s0lkz24el5w4qq9ztru0";
     const parsedRequest = {};
     deepStrictEqual(parseBitcoinRequest(request), parsedRequest);

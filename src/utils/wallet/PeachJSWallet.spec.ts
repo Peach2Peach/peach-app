@@ -6,7 +6,6 @@ import { createWalletFromBase58 } from "./createWalletFromBase58";
 import { getNetwork } from "./getNetwork";
 import { useWalletState } from "./walletStore";
 
-// eslint-disable-next-line max-lines-per-function
 describe("PeachJSWallet", () => {
   const wallet = createWalletFromBase58(account1.base58, getNetwork());
   const message = "message";

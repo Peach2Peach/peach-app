@@ -108,7 +108,6 @@ describe("isValidBitcoinSignature", () => {
     const address =
       "tb1ps4kv5rdvrl4k8axvc06ty0tp7hper2arwz6gy7cldjj9ppx40a9s7m9l63";
     const message =
-      // eslint-disable-next-line max-len
       "I confirm that only I, peach024118ae, control the address tb1ps4kv5rdvrl4k8axvc06ty0tp7hper2arwz6gy7cldjj9ppx40a9s7m9l63";
     const signature =
       "AUFdGjkDS0GfTFaUTuyn8rNDXFlunGJu0Ljnx6vmXlFoZxoSKMUQk57ChLIphMYbzNH9Rc8Mu8qkr0PFdn/dJCdfAQ==";

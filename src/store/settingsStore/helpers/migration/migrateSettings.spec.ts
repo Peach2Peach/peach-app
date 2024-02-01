@@ -8,7 +8,6 @@ import { defaultPreferences } from "../../../offerPreferenes/useOfferPreferences
 import { usePaymentDataStore } from "../../../usePaymentDataStore";
 import { migrateSettings } from "./migrateSettings";
 
-// eslint-disable-next-line max-lines-per-function
 describe("migrateSettings", () => {
   beforeEach(() => {
     useOfferPreferences.setState(defaultPreferences);

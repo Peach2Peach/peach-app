@@ -57,7 +57,6 @@ const getAddressUTXOSpy = jest.spyOn(peachWallet, "getAddressUTXO");
 const signAndBroadcastPSBTSpy = jest.spyOn(peachWallet, "signAndBroadcastPSBT");
 const syncWalletSpy = jest.spyOn(peachWallet, "syncWallet");
 
-// eslint-disable-next-line max-lines-per-function
 describe("useCheckFundingMultipleEscrows", () => {
   beforeAll(() => {
     setPeachWallet(peachWallet);

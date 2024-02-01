@@ -25,7 +25,6 @@ export function RepublishOfferSlider() {
     />
   );
 }
-
 export function RefundEscrowSlider() {
   const { contract } = useContractContext();
   const startRefund = useStartRefundPopup();
@@ -105,7 +104,6 @@ export function PaymentReceivedSlider() {
     />
   );
 }
-
 export function CancelTradeSlider() {
   const { contract } = useContractContext();
   const { mutate } = useContractMutation(

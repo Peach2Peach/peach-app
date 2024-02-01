@@ -4,7 +4,6 @@ import {
 } from "../../../tests/unit/data/transactionDetailData";
 import { useWalletState } from "./walletStore";
 
-// eslint-disable-next-line max-lines-per-function
 describe("walletStore", () => {
   afterEach(() => {
     useWalletState.getState().reset();

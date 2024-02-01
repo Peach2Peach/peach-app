@@ -58,8 +58,8 @@ describe("useFeeRate", () => {
     });
   });
   it("should return half hour fee as fallback", async () => {
-    // @ts-expect-error testing unknown fee rate
     getUserMock.mockResolvedValueOnce({
+      // @ts-expect-error testing unknown fee rate
       result: { ...defaultUser, feeRate: "unknown" },
       ...responseUtils,
     });
@@ -79,8 +79,8 @@ describe("useFeeRate", () => {
       expect(result.current).toEqual(estimatedFees.halfHourFee);
     });
 
-    // @ts-expect-error testing undefined fee rate
     getUserMock.mockResolvedValueOnce({
+      // @ts-expect-error testing undefined fee rate
       result: { ...defaultUser, feeRate: undefined },
       ...responseUtils,
     });

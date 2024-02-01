@@ -24,6 +24,7 @@ jobs:
       - run: npm install
       - run: git submodule update --init --recursive
 
+      - run: npx prettier --check .
       - run: npm run lint
       - run: npm run tsc
       - run: npm run test:ci

@@ -6,7 +6,6 @@ import { defaultConfig } from "../../../store/configStore/configStore";
 import { SIGHASH } from "../../../utils/bitcoin/constants";
 import { releaseTransactionHasValidOutputs } from "./releaseTransactionHasValidOutputs";
 
-// eslint-disable-next-line max-lines-per-function
 describe("releaseTransactionHasValidOutputs", () => {
   const wallet = createTestWallet();
   const psbt = constructPSBT(wallet, undefined, {

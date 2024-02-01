@@ -24,7 +24,6 @@ describe("ReferralCode", () => {
     fireEvent.press(getByText("invite friends"));
     expect(openSpy).toHaveBeenCalledWith({
       message:
-        // eslint-disable-next-line max-len
         "Hey! I've been loving Peach for buying and selling Bitcoin – it's flexible, peer-to-peer, and KYC-free. Join me using my code PR0063 or simply follow this link: https://peachbitcoin.com/referral?code=PR0063",
     });
   });
