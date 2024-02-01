@@ -11,12 +11,16 @@ const errorSpy = jest.spyOn(jest.requireMock('../../../utils/log/error'), 'error
 describe('decryptSymmetricKey', () => {
   const symmetricKeyEncrypted = 'encrypted symmetric key'
   const symmetricKeySignature = 'symmetric key signature'
-  const pgpPublicKeys = ['pgp public key']
+  const pgpPublicKeys = [{ publicKey: 'pgp public key' }]
   const symmetricKey = 'symmetric key'
   it('should return symmetric key on successful decryption', async () => {
     decryptMock.mockReturnValue(symmetricKey)
     verifyMock.mockResolvedValue(true)
-    const symmetricKeyResult = await decryptSymmetricKey(symmetricKeyEncrypted, symmetricKeySignature, pgpPublicKeys)
+    const symmetricKeyResult = await decryptSymmetricKey(
+      symmetricKeyEncrypted,
+      symmetricKeySignature,
+      pgpPublicKeys,
+    )
     expect(errorSpy).not.toHaveBeenCalled()
     expect(symmetricKeyResult).toEqual(symmetricKey)
   })
@@ -24,10 +28,11 @@ describe('decryptSymmetricKey', () => {
     decryptMock.mockReturnValue(symmetricKey)
     verifyMock.mockResolvedValueOnce(false)
     verifyMock.mockResolvedValueOnce(true)
-    const symmetricKeyResult = await decryptSymmetricKey(symmetricKeyEncrypted, symmetricKeySignature, [
-      ...pgpPublicKeys,
-      ...pgpPublicKeys,
-    ])
+    const symmetricKeyResult = await decryptSymmetricKey(
+      symmetricKeyEncrypted,
+      symmetricKeySignature,
+      [...pgpPublicKeys, ...pgpPublicKeys],
+    )
     expect(errorSpy).not.toHaveBeenCalled()
     expect(symmetricKeyResult).toEqual(symmetricKey)
   })
