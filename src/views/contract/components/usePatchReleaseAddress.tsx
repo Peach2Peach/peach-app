@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { contractKeys } from "../../../hooks/query/useContractDetails";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { peachAPI } from "../../../utils/peachAPI";
 
@@ -13,7 +14,9 @@ export const usePatchReleaseAddress = (
     onMutate: async ({ releaseAddress }) => {
       await queryClient.cancelQueries({ queryKey: ["offer", offerId] });
       if (contractId)
-        await queryClient.cancelQueries({ queryKey: ["contract", contractId] });
+        await queryClient.cancelQueries({
+          queryKey: contractKeys.detail(contractId),
+        });
       const previousOfferData = queryClient.getQueryData<BuyOffer | SellOffer>([
         "offer",
         offerId,
@@ -30,7 +33,7 @@ export const usePatchReleaseAddress = (
         contractId,
       ]);
       queryClient.setQueryData(
-        ["contract", contractId],
+        contractKeys.detail(contractId),
         (oldQueryData: Contract | undefined) =>
           oldQueryData && {
             ...oldQueryData,
@@ -54,15 +57,18 @@ export const usePatchReleaseAddress = (
       queryClient.setQueryData(["offer", offerId], context?.previousOfferData);
       if (contractId)
         queryClient.setQueryData(
-          ["contract", contractId],
+          contractKeys.detail(contractId),
           context?.previousContractData,
         );
       showErrorBanner(err.message);
     },
-    onSettled: () =>
-      Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["offer", offerId] }),
-        queryClient.invalidateQueries({ queryKey: ["contract", contractId] }),
-      ]),
+    onSettled: async () => {
+      if (contractId) {
+        await queryClient.invalidateQueries({
+          queryKey: contractKeys.detail(contractId),
+        });
+      }
+      return queryClient.invalidateQueries({ queryKey: ["offer", offerId] });
+    },
   });
 };

@@ -21,7 +21,7 @@ describe("useChatMessages", () => {
   });
   it("fetches chat messages from API", async () => {
     const { result } = renderHook(useChatMessages, {
-      initialProps: { id: chat1.id, symmetricKey },
+      initialProps: { contractId: chat1.id, symmetricKey },
     });
 
     expect(result.current.messages).toEqual([]);
@@ -68,7 +68,7 @@ describe("useChatMessages", () => {
       ...responseUtils,
     });
     const { result } = renderHook(useChatMessages, {
-      initialProps: { id: chat1.id, symmetricKey },
+      initialProps: { contractId: chat1.id, symmetricKey },
     });
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
@@ -87,7 +87,7 @@ describe("useChatMessages", () => {
   });
   it("fetches next page", async () => {
     const { result } = renderHook(useChatMessages, {
-      initialProps: { id: chat1.id, symmetricKey },
+      initialProps: { contractId: chat1.id, symmetricKey },
     });
 
     expect(result.current.messages).toEqual([]);

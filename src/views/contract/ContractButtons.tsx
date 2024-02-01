@@ -8,6 +8,7 @@ import { useSetPopup } from "../../components/popup/Popup";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { LoadingPopupAction } from "../../components/popup/actions/LoadingPopupAction";
 import { PeachText } from "../../components/text/PeachText";
+import { contractKeys } from "../../hooks/query/useContractDetails";
 import { useOfferDetails } from "../../hooks/query/useOfferDetails";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
@@ -160,7 +161,7 @@ export function ChatButton() {
   const queryClient = useQueryClient();
   const goToChat = () => {
     queryClient.setQueryData(
-      ["contract", contractId],
+      contractKeys.detail(contractId),
       (oldQueryData: Contract | undefined) => {
         if (!oldQueryData) return oldQueryData;
         return {

@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { contractKeys } from "../../../hooks/query/useContractDetails";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { signReleaseTxOfContract } from "../../../utils/contract/signReleaseTxOfContract";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -9,13 +10,15 @@ export const useReleaseEscrow = (contract: Contract) => {
   const queryClient = useQueryClient();
   return useMutation({
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ["contract", contract.id] });
+      await queryClient.cancelQueries({
+        queryKey: contractKeys.detail(contract.id),
+      });
       const previousData = queryClient.getQueryData<Contract>([
         "contract",
         contract.id,
       ]);
       queryClient.setQueryData(
-        ["contract", contract.id],
+        contractKeys.detail(contract.id),
         (old: Contract | undefined) => {
           if (!old) return old;
           return {
@@ -47,15 +50,17 @@ export const useReleaseEscrow = (contract: Contract) => {
     },
     onError: (err: string | undefined, _variables, context) => {
       queryClient.setQueryData(
-        ["contract", contract.id],
+        contractKeys.detail(contract.id),
         context?.previousData,
       );
       showError(err);
     },
     onSettled: () =>
       Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["contract", contract.id] }),
-        queryClient.invalidateQueries({ queryKey: ["contractSummaries"] }),
+        queryClient.invalidateQueries({
+          queryKey: contractKeys.detail(contract.id),
+        }),
+        queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
       ]),
   });
 };

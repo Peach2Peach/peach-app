@@ -9,7 +9,10 @@ import { Icon } from "../../components/Icon";
 import { Button } from "../../components/buttons/Button";
 import { useSetPopup } from "../../components/popup/Popup";
 import { PeachText } from "../../components/text/PeachText";
-import { useContractDetails } from "../../hooks/query/useContractDetails";
+import {
+  contractKeys,
+  useContractDetails,
+} from "../../hooks/query/useContractDetails";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { TradeBreakdownPopup } from "../../popups/TradeBreakdownPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
@@ -154,8 +157,10 @@ function Rate({ contract, view, vote }: RateProps) {
       return;
     }
     await Promise.all([
-      queryClient.invalidateQueries({ queryKey: ["contract", contract.id] }),
-      queryClient.invalidateQueries({ queryKey: ["contractSummaries"] }),
+      queryClient.invalidateQueries({
+        queryKey: contractKeys.detail(contract.id),
+      }),
+      queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
     ]);
     navigateAfterRating();
   };

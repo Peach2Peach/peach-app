@@ -3,6 +3,7 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
+import { contractKeys } from "../../../hooks/query/useContractDetails";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 
 export function useContractMutation<TData = unknown, TVariables = void>(
@@ -16,14 +17,14 @@ export function useContractMutation<TData = unknown, TVariables = void>(
     ...options,
     onMutate: async () => {
       await queryClient.cancelQueries({
-        queryKey: ["contract", optimisticContract.id],
+        queryKey: contractKeys.detail(optimisticContract.id),
       });
       const previousData = queryClient.getQueryData<Contract>([
         "contract",
         optimisticContract.id,
       ]);
       queryClient.setQueryData(
-        ["contract", optimisticContract.id],
+        contractKeys.detail(optimisticContract.id),
         (oldQueryData: Contract | undefined) => {
           if (!oldQueryData) return oldQueryData;
           return {
@@ -38,7 +39,7 @@ export function useContractMutation<TData = unknown, TVariables = void>(
     },
     onError: (err, _variables, context) => {
       queryClient.setQueryData(
-        ["contract", optimisticContract.id],
+        contractKeys.detail(optimisticContract.id),
         context?.previousData,
       );
       showError(err.message);
@@ -46,9 +47,9 @@ export function useContractMutation<TData = unknown, TVariables = void>(
     onSettled: () =>
       Promise.all([
         queryClient.invalidateQueries({
-          queryKey: ["contract", optimisticContract.id],
+          queryKey: contractKeys.detail(optimisticContract.id),
         }),
-        queryClient.invalidateQueries({ queryKey: ["contractSummaries"] }),
+        queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
       ]),
   });
 }

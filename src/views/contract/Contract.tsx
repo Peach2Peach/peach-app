@@ -24,6 +24,18 @@ import { useContractSetup } from "./hooks/useContractSetup";
 
 export const Contract = () => {
   const { contract, isLoading, view } = useContractSetup();
+
+  if (!contract || !view || isLoading) return <LoadingScreen />;
+
+  return <ContractScreen contract={contract} view={view} />;
+};
+
+type ContractScreenProps = {
+  contract: Contract;
+  view: ContractViewer;
+};
+
+function ContractScreen({ contract, view }: ContractScreenProps) {
   const {
     data,
     isLoading: isLoadingPaymentData,
@@ -31,8 +43,7 @@ export const Contract = () => {
   } = useDecryptedContractData(contract);
   const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean();
 
-  if (!contract || !view || isLoading || isLoadingPaymentData)
-    return <LoadingScreen />;
+  if (isLoadingPaymentData) return <LoadingScreen />;
 
   return (
     <ContractContext.Provider
@@ -56,7 +67,7 @@ export const Contract = () => {
       </Screen>
     </ContractContext.Provider>
   );
-};
+}
 
 function ContractHeader() {
   const { contract, view } = useContractContext();

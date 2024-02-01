@@ -17,6 +17,7 @@ describe("useContractDetails", () => {
     });
 
     expect(result.current.contract).toBeUndefined();
+    expect(getContractMock).toHaveBeenCalledWith({ contractId: contract.id });
     expect(result.current.isLoading).toBeTruthy();
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));

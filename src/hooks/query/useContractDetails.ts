@@ -2,12 +2,35 @@ import { useIsFocused } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { peachAPI } from "../../utils/peachAPI";
 
-const getContractQuery = async ({
+export const contractKeys = {
+  all: ["contracts"] as const,
+  summaries: () => [...contractKeys.all, "summaries"] as const,
+  summary: (id: string) => [...contractKeys.summaries(), id] as const,
+  details: () => [...contractKeys.all, "details"] as const,
+  detail: (id: string) => [...contractKeys.details(), id] as const,
+  decryptedData: (id: string) =>
+    [...contractKeys.detail(id), "decryptedData"] as const,
+  chat: (id: string) => [...contractKeys.detail(id), "chat"] as const,
+};
+
+export const useContractDetails = (id: string, refetchInterval?: number) => {
+  const isFocused = useIsFocused();
+  const { data, isLoading, isFetching, refetch, error } = useQuery({
+    queryKey: contractKeys.detail(id),
+    queryFn: getContractQuery,
+    refetchInterval,
+    enabled: isFocused,
+  });
+
+  return { contract: data, isLoading, isFetching, refetch, error };
+};
+
+async function getContractQuery({
   queryKey,
 }: {
-  queryKey: [string, string];
-}) => {
-  const [, contractId] = queryKey;
+  queryKey: ReturnType<typeof contractKeys.detail>;
+}) {
+  const contractId = queryKey[2];
   const { result: contract } = await peachAPI.private.contract.getContract({
     contractId,
   });
@@ -17,16 +40,4 @@ const getContractQuery = async ({
   }
 
   return contract;
-};
-
-export const useContractDetails = (id: string, refetchInterval?: number) => {
-  const isFocused = useIsFocused();
-  const { data, isLoading, isFetching, refetch, error } = useQuery({
-    queryKey: ["contract", id],
-    queryFn: getContractQuery,
-    refetchInterval,
-    enabled: isFocused,
-  });
-
-  return { contract: data, isLoading, isFetching, refetch, error };
-};
+}

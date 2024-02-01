@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-query";
 import { GetMatchesResponseBody } from "../../../peach-api/src/@types/api/offerAPI";
 import { AppPopup } from "../../hooks/AppPopup";
+import { contractKeys } from "../../hooks/query/useContractDetails";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useNavigation } from "../../hooks/useNavigation";
 import tw from "../../styles/tailwind";
@@ -286,7 +287,7 @@ function useAcceptMatch(offer: SellOffer, match: Match, currentPage: number) {
         queryClient.invalidateQueries({
           queryKey: ["matchDetails", offer.id, match.offerId],
         }),
-        queryClient.invalidateQueries({ queryKey: ["contractSummaries"] }),
+        queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
       ]),
   });
 }

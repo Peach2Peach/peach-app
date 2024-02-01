@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { GetMatchesResponseBody } from "../../../../peach-api/src/@types/api/offerAPI";
 import { Match } from "../../../../peach-api/src/@types/match";
 import { AppPopup } from "../../../hooks/AppPopup";
+import { contractKeys } from "../../../hooks/query/useContractDetails";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { getHashedPaymentData } from "../../../store/offerPreferenes/helpers";
@@ -124,7 +125,7 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
       Promise.all([
         queryClient.invalidateQueries({ queryKey: ["offer", offer.id] }),
         queryClient.invalidateQueries({ queryKey: ["offerSummaries"] }),
-        queryClient.invalidateQueries({ queryKey: ["contractSummaries"] }),
+        queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
         queryClient.invalidateQueries({
           queryKey: matchesKeys.matchesByOfferId(offer.id),
         }),

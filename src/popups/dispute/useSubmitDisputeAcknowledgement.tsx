@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Keyboard } from "react-native";
 import { useClosePopup } from "../../components/popup/Popup";
+import { contractKeys } from "../../hooks/query/useContractDetails";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { isEmailRequiredForDispute } from "../../utils/dispute/isEmailRequiredForDispute";
 import { peachAPI } from "../../utils/peachAPI";
@@ -12,13 +13,15 @@ export const useSubmitDisputeAcknowledgement = () => {
   const showError = useShowErrorBanner();
   const { mutate: submitDisputeAcknowledgement } = useMutation({
     onMutate: async ({ contractId }) => {
-      await queryClient.cancelQueries({ queryKey: ["contract", contractId] });
+      await queryClient.cancelQueries({
+        queryKey: contractKeys.detail(contractId),
+      });
       const previousContract = queryClient.getQueryData<Contract>([
         "contract",
         contractId,
       ]);
       queryClient.setQueryData(
-        ["contract", contractId],
+        contractKeys.detail(contractId),
         (oldQueryData: Contract | undefined) =>
           oldQueryData && {
             ...oldQueryData,
@@ -31,7 +34,7 @@ export const useSubmitDisputeAcknowledgement = () => {
     onError: (err, { contractId }, context) => {
       showError(err.message);
       queryClient.setQueryData(
-        ["contract", contractId],
+        contractKeys.detail(contractId),
         context?.previousContract,
       );
     },
@@ -42,7 +45,9 @@ export const useSubmitDisputeAcknowledgement = () => {
       closePopup();
     },
     onSettled: (_data, _error, { contractId }) =>
-      queryClient.invalidateQueries({ queryKey: ["contract", contractId] }),
+      queryClient.invalidateQueries({
+        queryKey: contractKeys.detail(contractId),
+      }),
   });
 
   return submitDisputeAcknowledgement;

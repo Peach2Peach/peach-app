@@ -4,18 +4,16 @@ import { useMemo } from "react";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
+import { contractKeys } from "./useContractDetails";
 
 export const PAGE_SIZE = 22;
-const chatKeys = {
-  contractChat: (id: string) => ["contract-chat", id] as const,
-};
 
 type GetChatQueryProps = {
-  queryKey: ReturnType<typeof chatKeys.contractChat>;
+  queryKey: ReturnType<typeof contractKeys.chat>;
   pageParam: number;
 };
 const getChatQuery = async ({ queryKey, pageParam }: GetChatQueryProps) => {
-  const [, contractId] = queryKey;
+  const contractId = queryKey[2];
   const { result, error } = await peachAPI.private.contract.getChat({
     contractId,
     page: pageParam,
@@ -34,10 +32,10 @@ const getChatQuery = async ({ queryKey, pageParam }: GetChatQueryProps) => {
 };
 
 export const useChatMessages = ({
-  id,
+  contractId,
   symmetricKey,
 }: {
-  id: string;
+  contractId: string;
   symmetricKey?: string;
 }) => {
   const isFocused = useIsFocused();
@@ -50,7 +48,7 @@ export const useChatMessages = ({
     hasNextPage,
     refetch,
   } = useInfiniteQuery({
-    queryKey: chatKeys.contractChat(id),
+    queryKey: contractKeys.chat(contractId),
     queryFn: async ({ queryKey, pageParam }) => {
       if (!symmetricKey) throw new Error("No symmetric key");
       const messages = await getChatQuery({ queryKey, pageParam });

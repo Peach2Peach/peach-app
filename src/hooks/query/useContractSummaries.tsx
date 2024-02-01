@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { shallow } from "zustand/shallow";
 import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import { peachAPI } from "../../utils/peachAPI";
+import { contractKeys } from "./useContractDetails";
 
 const getContractSummariesQuery = async () => {
   const { result: contracts, error } =
@@ -27,7 +28,7 @@ export const useContractSummaries = (enabled = true) => {
     shallow,
   );
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["contractSummaries"],
+    queryKey: contractKeys.summaries(),
     queryFn: getContractSummariesQuery,
     enabled,
     initialData: contracts.length ? contracts : undefined,

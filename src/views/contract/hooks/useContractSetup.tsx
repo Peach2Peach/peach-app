@@ -5,7 +5,10 @@ import { z } from "zod";
 import { useSetOverlay } from "../../../Overlay";
 import { FIFTEEN_SECONDS } from "../../../constants";
 import { useHandleNotifications } from "../../../hooks/notifications/useHandleNotifications";
-import { useContractDetails } from "../../../hooks/query/useContractDetails";
+import {
+  contractKeys,
+  useContractDetails,
+} from "../../../hooks/query/useContractDetails";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { useRoute } from "../../../hooks/useRoute";
 import { useAccountStore } from "../../../utils/account/account";
@@ -97,7 +100,7 @@ function useChatMessageHandler() {
         return;
 
       queryClient.setQueryData(
-        ["contract", contractId],
+        contractKeys.detail(contractId),
         (oldContract: Contract | undefined) =>
           !oldContract
             ? oldContract
@@ -106,7 +109,7 @@ function useChatMessageHandler() {
                 unreadMessages: oldContract.unreadMessages + 1,
               },
       );
-      queryClient.refetchQueries({ queryKey: ["contract", contractId] });
+      queryClient.refetchQueries({ queryKey: contractKeys.detail(contractId) });
     };
 
     const unsubscribe = () => {
@@ -142,7 +145,7 @@ function useContractUpdateHandler() {
       if (!contract || contractUpdate.data.contractId !== contractId || !event)
         return;
       queryClient.setQueryData(
-        ["contract", contractId],
+        contractKeys.detail(contractId),
         (oldContract: Contract | undefined) =>
           !oldContract
             ? oldContract
@@ -151,7 +154,9 @@ function useContractUpdateHandler() {
                 [event]: new Date(data.date),
               },
       );
-      queryClient.invalidateQueries({ queryKey: ["contract", contractId] });
+      queryClient.invalidateQueries({
+        queryKey: contractKeys.detail(contractId),
+      });
     };
 
     const unsubscribe = () => {
