@@ -2,6 +2,7 @@ import { fireEvent, render, waitFor } from "test-utils";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { useOfferPreferences } from "../../store/offerPreferenes";
+import { matchesKeys } from "../../views/search/hooks/useOfferMatches";
 import { SellSorters } from "./SellSorters";
 
 jest.useFakeTimers();
@@ -33,11 +34,16 @@ describe("ApplySellSorterAction", () => {
   });
 
   it("should invalidate all matches queries", async () => {
-    queryClient.setQueryData(["matches"], { matches: [] });
-    queryClient.setQueryData(["matches", sellOffer.id], { matches: [] });
-    queryClient.setQueryData(["matches", sellOffer.id, "bestReputation"], {
+    queryClient.setQueryData(matchesKeys.matches, { matches: [] });
+    queryClient.setQueryData(matchesKeys.matchesByOfferId(sellOffer.id), {
       matches: [],
     });
+    queryClient.setQueryData(
+      matchesKeys.sortedMatchesByOfferId(sellOffer.id, ["bestReputation"]),
+      {
+        matches: [],
+      },
+    );
 
     const { getByText } = render(<SellSorters />);
     const applyButton = getByText("apply");
@@ -45,13 +51,17 @@ describe("ApplySellSorterAction", () => {
     fireEvent.press(applyButton);
 
     await waitFor(() => {
-      expect(queryClient.getQueryState(["matches"])?.isInvalidated).toBe(true);
       expect(
-        queryClient.getQueryState(["matches", sellOffer.id])?.isInvalidated,
+        queryClient.getQueryState(matchesKeys.matches)?.isInvalidated,
       ).toBe(true);
       expect(
-        queryClient.getQueryState(["matches", sellOffer.id, "bestReputation"])
+        queryClient.getQueryState(matchesKeys.matchesByOfferId(sellOffer.id))
           ?.isInvalidated,
+      ).toBe(true);
+      expect(
+        queryClient.getQueryState(
+          matchesKeys.sortedMatchesByOfferId(sellOffer.id, ["bestReputation"]),
+        )?.isInvalidated,
       ).toBe(true);
     });
   });

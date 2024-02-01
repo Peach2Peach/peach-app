@@ -8,6 +8,7 @@ import { WarningPopup } from "../../../popups/WarningPopup";
 import i18n from "../../../utils/i18n";
 import { error } from "../../../utils/log/error";
 import { peachAPI } from "../../../utils/peachAPI";
+import { matchesKeys } from "../../../views/search/hooks/useOfferMatches";
 import { Button } from "../../buttons/Button";
 import { useClosePopup, useSetPopup } from "../../popup/Popup";
 import { PopupAction } from "../../popup/PopupAction";
@@ -102,7 +103,9 @@ function useUnmatchOffer(offer: BuyOffer, matchingOfferId: string) {
 
   return useMutation({
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ["matches", offer.id] });
+      await queryClient.cancelQueries({
+        queryKey: matchesKeys.matchesByOfferId(offer.id),
+      });
       await queryClient.cancelQueries({
         queryKey: ["matchDetails", offer.id, matchingOfferId],
       });
@@ -145,7 +148,9 @@ function useUnmatchOffer(offer: BuyOffer, matchingOfferId: string) {
       Promise.all([
         queryClient.invalidateQueries({ queryKey: ["offer", offer.id] }),
         queryClient.invalidateQueries({ queryKey: ["offerSummaries"] }),
-        queryClient.invalidateQueries({ queryKey: ["matches", offer.id] }),
+        queryClient.invalidateQueries({
+          queryKey: matchesKeys.matchesByOfferId(offer.id),
+        }),
         queryClient.invalidateQueries({
           queryKey: ["matchDetails", offer.id, matchingOfferId],
         }),
