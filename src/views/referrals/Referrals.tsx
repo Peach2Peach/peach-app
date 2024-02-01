@@ -142,7 +142,8 @@ function BonusPointsBar() {
         percent={balance / BARLIMIT}
       />
       <PeachText style={tw`pl-2 tooltip text-black-65`}>
-        {i18n("referrals.points")}:{" "}
+        {i18n("referrals.points")}
+        {": "}
         <PeachText style={tw`font-bold tooltip text-black-65`}>
           {balance}
         </PeachText>
