@@ -28,7 +28,7 @@ describe("ApplyBuyFilterAction", () => {
 
   it("should invalidate all matches queries", async () => {
     queryClient.setQueryData(matchesKeys.matches, { matches: [] });
-    queryClient.setQueryData(matchesKeys.matchesByOfferId(buyOffer.id), {
+    queryClient.setQueryData(matchesKeys.matchesForOffer(buyOffer.id), {
       matches: [],
     });
     queryClient.setQueryData(
@@ -48,7 +48,7 @@ describe("ApplyBuyFilterAction", () => {
         queryClient.getQueryState(matchesKeys.matches)?.isInvalidated,
       ).toBe(true);
       expect(
-        queryClient.getQueryState(matchesKeys.matchesByOfferId(buyOffer.id))
+        queryClient.getQueryState(matchesKeys.matchesForOffer(buyOffer.id))
           ?.isInvalidated,
       ).toBe(true);
       expect(
