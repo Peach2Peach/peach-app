@@ -1,5 +1,5 @@
 import { useIsFocused } from "@react-navigation/native";
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { peachAPI } from "../../utils/peachAPI";
 
 export const contractKeys = {
@@ -27,9 +27,7 @@ export const useContractDetail = (id: string, refetchInterval?: number) => {
 
 async function getContractDetail({
   queryKey,
-}: {
-  queryKey: ReturnType<typeof contractKeys.detail>;
-}) {
+}: QueryFunctionContext<ReturnType<typeof contractKeys.detail>>) {
   const contractId = queryKey[2];
   const { result: contract } = await peachAPI.private.contract.getContract({
     contractId,

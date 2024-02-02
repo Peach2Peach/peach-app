@@ -18,10 +18,9 @@ export const usePatchReleaseAddress = (
         await queryClient.cancelQueries({
           queryKey: contractKeys.detail(contractId),
         });
-      const previousOfferData = queryClient.getQueryData<BuyOffer | SellOffer>([
-        "offer",
-        offerId,
-      ]);
+      const previousOfferData = queryClient.getQueryData<BuyOffer | SellOffer>(
+        offerKeys.detail(offerId),
+      );
       queryClient.setQueryData(
         offerKeys.detail(offerId),
         (oldQueryData: BuyOffer | SellOffer | undefined) =>
@@ -29,10 +28,9 @@ export const usePatchReleaseAddress = (
       );
       if (!contractId) return { previousOfferData };
 
-      const previousContractData = queryClient.getQueryData<Contract>([
-        "contract",
-        contractId,
-      ]);
+      const previousContractData = queryClient.getQueryData<Contract>(
+        contractKeys.detail(contractId),
+      );
       queryClient.setQueryData(
         contractKeys.detail(contractId),
         (oldQueryData: Contract | undefined) =>

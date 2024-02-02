@@ -17,10 +17,9 @@ export const usePatchOffer = () => {
   return useMutation({
     onMutate: async ({ offerId, newData }) => {
       await queryClient.cancelQueries({ queryKey: offerKeys.detail(offerId) });
-      const previousData = queryClient.getQueryData<BuyOffer | SellOffer>([
-        "offer",
-        offerId,
-      ]);
+      const previousData = queryClient.getQueryData<BuyOffer | SellOffer>(
+        offerKeys.detail(offerId),
+      );
       queryClient.setQueryData<BuyOffer | SellOffer>(
         offerKeys.detail(offerId),
         (oldQueryData) => oldQueryData && { ...oldQueryData, ...newData },
@@ -67,10 +66,9 @@ export const usePatchBuyOffer = () => {
   return useMutation({
     onMutate: async ({ offerId, newData }) => {
       await queryClient.cancelQueries({ queryKey: offerKeys.detail(offerId) });
-      const previousData = queryClient.getQueryData<BuyOffer>([
-        "offer",
-        offerId,
-      ]);
+      const previousData = queryClient.getQueryData<BuyOffer>(
+        offerKeys.detail(offerId),
+      );
       queryClient.setQueryData<BuyOffer>(
         offerKeys.detail(offerId),
         (oldQueryData) => oldQueryData && { ...oldQueryData, ...newData },

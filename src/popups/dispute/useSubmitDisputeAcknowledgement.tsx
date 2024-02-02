@@ -16,10 +16,9 @@ export const useSubmitDisputeAcknowledgement = () => {
       await queryClient.cancelQueries({
         queryKey: contractKeys.detail(contractId),
       });
-      const previousContract = queryClient.getQueryData<Contract>([
-        "contract",
-        contractId,
-      ]);
+      const previousContract = queryClient.getQueryData<Contract>(
+        contractKeys.detail(contractId),
+      );
       queryClient.setQueryData(
         contractKeys.detail(contractId),
         (oldQueryData: Contract | undefined) =>

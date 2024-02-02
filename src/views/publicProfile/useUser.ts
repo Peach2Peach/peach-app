@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { userKeys } from "../../hooks/query/useSelfUser";
 import { peachAPI } from "../../utils/peachAPI";
 
@@ -13,9 +13,7 @@ export const useUser = (id: string) => {
 
 async function getUserQuery({
   queryKey,
-}: {
-  queryKey: ReturnType<typeof userKeys.user>;
-}) {
+}: QueryFunctionContext<ReturnType<typeof userKeys.user>>) {
   const [, userId] = queryKey;
   const { result: user } = await peachAPI.public.user.getUser({ userId });
 

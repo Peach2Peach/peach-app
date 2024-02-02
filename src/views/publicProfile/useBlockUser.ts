@@ -13,11 +13,9 @@ export const useBlockUser = (userId: string) => {
       await queryClient.cancelQueries({
         queryKey: userKeys.userStatus(userId),
       });
-      const previousStatus = queryClient.getQueryData<UserStatus>([
-        "user",
-        userId,
-        "status",
-      ]);
+      const previousStatus = queryClient.getQueryData<UserStatus>(
+        userKeys.userStatus(userId),
+      );
       queryClient.setQueryData<UserStatus>(
         userKeys.userStatus(userId),
         (oldQueryData: UserStatus) => {

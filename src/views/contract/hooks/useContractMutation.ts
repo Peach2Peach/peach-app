@@ -19,10 +19,9 @@ export function useContractMutation<TData = unknown, TVariables = void>(
       await queryClient.cancelQueries({
         queryKey: contractKeys.detail(optimisticContract.id),
       });
-      const previousData = queryClient.getQueryData<Contract>([
-        "contract",
-        optimisticContract.id,
-      ]);
+      const previousData = queryClient.getQueryData<Contract>(
+        contractKeys.detail(optimisticContract.id),
+      );
       queryClient.setQueryData(
         contractKeys.detail(optimisticContract.id),
         (oldQueryData: Contract | undefined) => {

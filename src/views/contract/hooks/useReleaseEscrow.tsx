@@ -13,10 +13,9 @@ export const useReleaseEscrow = (contract: Contract) => {
       await queryClient.cancelQueries({
         queryKey: contractKeys.detail(contract.id),
       });
-      const previousData = queryClient.getQueryData<Contract>([
-        "contract",
-        contract.id,
-      ]);
+      const previousData = queryClient.getQueryData<Contract>(
+        contractKeys.detail(contract.id),
+      );
       queryClient.setQueryData(
         contractKeys.detail(contract.id),
         (old: Contract | undefined) => {
