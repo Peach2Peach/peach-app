@@ -11,7 +11,7 @@ import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { cancelAndSaveOffer } from "../utils/offer/cancelAndSaveOffer";
 import { isBuyOffer } from "../utils/offer/isBuyOffer";
-import { useOfferDetails } from "./query/useOfferDetails";
+import { offerKeys, useOfferDetail } from "./query/useOfferDetail";
 import { useNavigation } from "./useNavigation";
 import { useShowErrorBanner } from "./useShowErrorBanner";
 
@@ -21,7 +21,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const queryClient = useQueryClient();
-  const { offer } = useOfferDetails(offerId);
+  const { offer } = useOfferDetail(offerId);
 
   const startRefund = useStartRefundPopup();
 
@@ -49,7 +49,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
     } else {
       startRefund(offer);
     }
-    queryClient.refetchQueries({ queryKey: ["offerSummaries"] });
+    queryClient.refetchQueries({ queryKey: offerKeys.summaries() });
   }, [navigation, offer, queryClient, setPopup, showError, startRefund]);
 
   if (!offer) return null;

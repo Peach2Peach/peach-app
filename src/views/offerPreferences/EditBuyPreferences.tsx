@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { createContext, useContext, useReducer, useState } from "react";
 import { shallow } from "zustand/shallow";
 import { MeansOfPayment } from "../../components/offer/MeansOfPayment";
-import { useOfferDetails } from "../../hooks/query/useOfferDetails";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useNavigation } from "../../hooks/useNavigation";
 import { PatchBuyOfferData, usePatchBuyOffer } from "../../hooks/usePatchOffer";
 import { useRoute } from "../../hooks/useRoute";
@@ -87,7 +87,7 @@ function offerReducer(state: Preferences, action: PreferenceAction) {
 
 export function EditBuyPreferences() {
   const { offerId } = useRoute<"editBuyPreferences">().params;
-  const { offer, isLoading } = useOfferDetails(offerId);
+  const { offer, isLoading } = useOfferDetail(offerId);
 
   if (isLoading || !offer) return <LoadingScreen />;
   if (!isBuyOffer(offer)) throw new Error("Offer is not a buy offer");
@@ -333,7 +333,7 @@ function PatchOfferButton() {
   );
 
   const { offerId } = useRoute<"editBuyPreferences">().params;
-  const { offer } = useOfferDetails(offerId);
+  const { offer } = useOfferDetail(offerId);
   if (offer && !isBuyOffer(offer)) throw new Error("Offer is not a buy offer");
 
   const rangeHasChanged =

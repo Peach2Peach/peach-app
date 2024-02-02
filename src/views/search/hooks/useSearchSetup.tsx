@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSetToast } from "../../../components/toast/Toast";
 import { FIFTEEN_SECONDS } from "../../../constants";
-import { useOfferDetails } from "../../../hooks/query/useOfferDetails";
+import { useOfferDetail } from "../../../hooks/query/useOfferDetail";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { useRoute } from "../../../hooks/useRoute";
 import { parseError } from "../../../utils/result/parseError";
@@ -26,7 +26,7 @@ export const useSearchSetup = () => {
   } = useOfferMatches(offerId, FIFTEEN_SECONDS);
 
   const setToast = useSetToast();
-  const { offer } = useOfferDetails(offerId);
+  const { offer } = useOfferDetail(offerId);
 
   useEffect(() => {
     if (error) {

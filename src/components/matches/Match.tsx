@@ -10,6 +10,7 @@ import { GetMatchesResponseBody } from "../../../peach-api/src/@types/api/offerA
 import { AppPopup } from "../../hooks/AppPopup";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useNavigation } from "../../hooks/useNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -279,8 +280,8 @@ function useAcceptMatch(offer: SellOffer, match: Match, currentPage: number) {
     },
     onSettled: () =>
       Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["offer", offer.id] }),
-        queryClient.invalidateQueries({ queryKey: ["offerSummaries"] }),
+        queryClient.invalidateQueries({ queryKey: offerKeys.detail(offer.id) }),
+        queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
         queryClient.invalidateQueries({
           queryKey: matchesKeys.matchesByOfferId(offer.id),
         }),

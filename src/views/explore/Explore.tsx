@@ -12,7 +12,7 @@ import { PriceFormat } from "../../components/text/PriceFormat";
 import { CENT, NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { CancelOfferPopup } from "../../hooks/CancelOfferPopup";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
-import { useOfferDetails } from "../../hooks/query/useOfferDetails";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
@@ -68,7 +68,7 @@ export function Explore() {
 
 function BuyOfferMarketInfo() {
   const { offerId } = useRoute<"explore">().params;
-  const { offer } = useOfferDetails(offerId);
+  const { offer } = useOfferDetail(offerId);
 
   if (offer && isSellOffer(offer)) {
     throw new Error("Offer should be a buy offer");

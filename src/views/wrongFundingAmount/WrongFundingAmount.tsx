@@ -6,7 +6,7 @@ import { Screen } from "../../components/Screen";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { RefundEscrowSlider } from "../../components/offer/RefundEscrowSlider";
 import { PeachText } from "../../components/text/PeachText";
-import { useOfferDetails } from "../../hooks/query/useOfferDetails";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -18,7 +18,7 @@ import { ContinueTradeSlider } from "./components/ContinueTradeSlider";
 
 export const WrongFundingAmount = () => {
   const { offerId } = useRoute<"wrongFundingAmount">().params;
-  const { offer } = useOfferDetails(offerId);
+  const { offer } = useOfferDetail(offerId);
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined;
 
   return (

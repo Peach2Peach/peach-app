@@ -65,4 +65,6 @@ type BuyOfferDraft = OfferDraft & {
   minReputation: number | null;
 };
 
-type BuyOffer = Omit<BuyOfferDraft & Offer, "originalPaymentData">;
+type BuyOffer = Omit<BuyOfferDraft & Offer, "originalPaymentData"> & {
+  message: string;
+};

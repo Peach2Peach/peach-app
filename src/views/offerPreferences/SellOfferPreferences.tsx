@@ -25,6 +25,7 @@ import { CENT, SATSINBTC } from "../../constants";
 import { HelpPopup } from "../../hooks/HelpPopup";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
@@ -723,7 +724,7 @@ function FundEscrowButton({
             ],
           });
           offerIds.forEach((id) =>
-            queryClient.invalidateQueries({ queryKey: ["offer", id] }),
+            queryClient.invalidateQueries({ queryKey: offerKeys.detail(id) }),
           );
           return fundFromPeachWalletPromise;
         },

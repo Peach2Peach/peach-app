@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { shallow } from "zustand/shallow";
 import { useSetOverlay } from "../../../Overlay";
 import { useSetPopup } from "../../../components/popup/Popup";
+import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { InfoPopup } from "../../../popups/InfoPopup";
@@ -120,10 +121,13 @@ export function usePostBuyOffer({
         ],
       });
     },
-    onSettled: (offerId) =>
-      Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["offerSummaries"] }),
-        queryClient.invalidateQueries({ queryKey: ["offer", offerId] }),
-      ]),
+    onSettled: async (offerId) => {
+      if (offerId) {
+        await queryClient.invalidateQueries({
+          queryKey: offerKeys.detail(offerId),
+        });
+      }
+      return queryClient.invalidateQueries({ queryKey: offerKeys.summaries() });
+    },
   });
 }

@@ -10,7 +10,7 @@ import {
   GetMatchesResponseBody,
 } from "../../../../peach-api/src/@types/api/offerAPI";
 import { MSINASECOND } from "../../../constants";
-import { useOfferDetails } from "../../../hooks/query/useOfferDetails";
+import { useOfferDetail } from "../../../hooks/query/useOfferDetail";
 import { useOfferPreferences } from "../../../store/offerPreferenes";
 import { getAbortWithTimeout } from "../../../utils/getAbortWithTimeout";
 import { info } from "../../../utils/log/info";
@@ -31,7 +31,7 @@ export const useOfferMatches = (
   refetchInterval?: number,
   enabled = true,
 ) => {
-  const { offer } = useOfferDetails(offerId);
+  const { offer } = useOfferDetail(offerId);
   const isFocused = useIsFocused();
   const sortBy: Sorter[] = useOfferPreferences((state) =>
     !offer

@@ -7,7 +7,7 @@ import {
 } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { PeachText } from "../../components/text/PeachText";
 import { Timer } from "../../components/text/Timer";
-import { useOfferDetails } from "../../hooks/query/useOfferDetails";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import tw from "../../styles/tailwind";
 import { getOfferIdFromContract } from "../../utils/contract/getOfferIdFromContract";
 import { getPaymentExpectedBy } from "../../utils/contract/getPaymentExpectedBy";
@@ -102,7 +102,7 @@ function ContractStatusInfo() {
 function ContractButtons() {
   const { contract, view } = useContractContext();
   const { isEmailRequired, batchInfo, releaseTxId } = contract;
-  const { offer } = useOfferDetails(
+  const { offer } = useOfferDetail(
     contract ? getOfferIdFromContract(contract) : "",
   );
   return (

@@ -25,7 +25,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
-import { useOfferDetails } from "../../hooks/query/useOfferDetails";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
@@ -43,7 +43,7 @@ export function MatchDetails() {
   const { matchId, offerId } = useRoute<"matchDetails">().params;
 
   const { data: match } = useMatchDetails({ offerId, matchId });
-  const { offer } = useOfferDetails(offerId);
+  const { offer } = useOfferDetail(offerId);
 
   if (!offer || !isBuyOffer(offer) || !match) return <LoadingScreen />;
   return (

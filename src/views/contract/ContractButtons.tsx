@@ -9,7 +9,7 @@ import { ClosePopupAction } from "../../components/popup/actions/ClosePopupActio
 import { LoadingPopupAction } from "../../components/popup/actions/LoadingPopupAction";
 import { PeachText } from "../../components/text/PeachText";
 import { contractKeys } from "../../hooks/query/useContractDetail";
-import { useOfferDetails } from "../../hooks/query/useOfferDetails";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
 import { useValidatedState } from "../../hooks/useValidatedState";
@@ -29,7 +29,7 @@ import { useContractContext } from "./context";
 export function NewOfferButton() {
   const navigation = useNavigation();
   const { contract } = useContractContext();
-  const { offer } = useOfferDetails(
+  const { offer } = useOfferDetail(
     contract ? getOfferIdFromContract(contract) : "",
   );
   const newOfferId =

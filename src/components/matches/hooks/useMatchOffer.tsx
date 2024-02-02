@@ -3,6 +3,7 @@ import { GetMatchesResponseBody } from "../../../../peach-api/src/@types/api/off
 import { Match } from "../../../../peach-api/src/@types/match";
 import { AppPopup } from "../../../hooks/AppPopup";
 import { contractKeys } from "../../../hooks/query/useContractDetail";
+import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { getHashedPaymentData } from "../../../store/offerPreferenes/helpers";
@@ -123,8 +124,8 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
     },
     onSettled: () =>
       Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["offer", offer.id] }),
-        queryClient.invalidateQueries({ queryKey: ["offerSummaries"] }),
+        queryClient.invalidateQueries({ queryKey: offerKeys.detail(offer.id) }),
+        queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
         queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
         queryClient.invalidateQueries({
           queryKey: matchesKeys.matchesByOfferId(offer.id),

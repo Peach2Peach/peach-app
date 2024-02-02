@@ -4,6 +4,7 @@ import { useToggleBoolean } from "../../../hooks/useToggleBoolean";
 import tw from "../../../styles/tailwind";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { WarningPopup } from "../../../popups/WarningPopup";
 import i18n from "../../../utils/i18n";
 import { error } from "../../../utils/log/error";
@@ -146,8 +147,8 @@ function useUnmatchOffer(offer: BuyOffer, matchingOfferId: string) {
     },
     onSettled: () =>
       Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["offer", offer.id] }),
-        queryClient.invalidateQueries({ queryKey: ["offerSummaries"] }),
+        queryClient.invalidateQueries({ queryKey: offerKeys.detail(offer.id) }),
+        queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
         queryClient.invalidateQueries({
           queryKey: matchesKeys.matchesByOfferId(offer.id),
         }),

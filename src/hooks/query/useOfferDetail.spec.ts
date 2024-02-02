@@ -1,9 +1,8 @@
-/* eslint-disable max-lines-per-function */
 import { renderHook, responseUtils, waitFor } from "test-utils";
 import { sellOffer } from "../../../peach-api/src/testData/offers";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";
-import { useMultipleOfferDetails, useOfferDetails } from "./useOfferDetails";
+import { useMultipleOfferDetails, useOfferDetail } from "./useOfferDetail";
 
 const getStoredOfferMock = jest.fn();
 jest.mock("../../utils/offer/getOffer", () => ({
@@ -15,14 +14,14 @@ const getOfferDetailsMock = jest.spyOn(
 );
 jest.useFakeTimers();
 
-describe("useOfferDetails", () => {
+describe("useOfferDetail", () => {
   const localOffer = { ...sellOffer, refundTx: "1" };
   const localOfferUpToDate = { ...localOffer, lastModified: new Date() };
   afterEach(() => {
     queryClient.clear();
   });
-  it("fetches offer details from API", async () => {
-    const { result } = renderHook(useOfferDetails, {
+  it("fetches offer detail from API", async () => {
+    const { result } = renderHook(useOfferDetail, {
       initialProps: sellOffer.id,
     });
 
@@ -44,7 +43,7 @@ describe("useOfferDetails", () => {
   });
   it("returns local offer first if given and up to date", async () => {
     getStoredOfferMock.mockReturnValueOnce(localOfferUpToDate);
-    const { result } = renderHook(useOfferDetails, {
+    const { result } = renderHook(useOfferDetail, {
       initialProps: sellOffer.id,
     });
 
@@ -62,7 +61,7 @@ describe("useOfferDetails", () => {
   it("returns local offer if given and server did not return result", async () => {
     getOfferDetailsMock.mockResolvedValueOnce(responseUtils);
     getStoredOfferMock.mockReturnValueOnce(localOffer);
-    const { result } = renderHook(useOfferDetails, {
+    const { result } = renderHook(useOfferDetail, {
       initialProps: sellOffer.id,
     });
     expect(result.current).toEqual({
@@ -82,7 +81,7 @@ describe("useOfferDetails", () => {
       error: { error: "UNAUTHORIZED" },
       ...responseUtils,
     });
-    const { result } = renderHook(useOfferDetails, {
+    const { result } = renderHook(useOfferDetail, {
       initialProps: sellOffer.id,
     });
 
@@ -106,7 +105,7 @@ describe("useOfferDetails", () => {
     const expectedError = new Error("NOT_FOUND");
     getStoredOfferMock.mockReturnValueOnce(undefined);
     getOfferDetailsMock.mockResolvedValueOnce(responseUtils);
-    const { result } = renderHook(useOfferDetails, {
+    const { result } = renderHook(useOfferDetail, {
       initialProps: sellOffer.id,
     });
 

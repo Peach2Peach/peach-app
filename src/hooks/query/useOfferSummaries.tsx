@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { shallow } from "zustand/shallow";
 import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import { peachAPI } from "../../utils/peachAPI";
+import { offerKeys } from "./useOfferDetail";
 
 const getOfferSummariesQuery = async () => {
   const { result: offers, error } =
@@ -23,7 +24,7 @@ export const useOfferSummaries = (enabled = true) => {
     shallow,
   );
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["offerSummaries"],
+    queryKey: offerKeys.summaries(),
     queryFn: getOfferSummariesQuery,
     enabled,
     initialData: offers.length ? offers : undefined,

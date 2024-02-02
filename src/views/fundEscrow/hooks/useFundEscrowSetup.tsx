@@ -3,7 +3,7 @@ import { useSetPopup } from "../../../components/popup/Popup";
 import { MSINAMINUTE } from "../../../constants";
 import { CancelOfferPopup } from "../../../hooks/CancelOfferPopup";
 import { useFundingStatus } from "../../../hooks/query/useFundingStatus";
-import { useMultipleOfferDetails } from "../../../hooks/query/useOfferDetails";
+import { useMultipleOfferDetails } from "../../../hooks/query/useOfferDetail";
 import { useRoute } from "../../../hooks/useRoute";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { isSellOffer } from "../../../utils/offer/isSellOffer";
