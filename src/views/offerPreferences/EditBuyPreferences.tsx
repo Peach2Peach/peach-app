@@ -362,7 +362,7 @@ function PatchOfferButton() {
         onSuccess: () => navigation.goBack(),
         onSettled: () =>
           queryClient.invalidateQueries({
-            queryKey: matchesKeys.matchesByOfferId(offerId),
+            queryKey: matchesKeys.matchesForOffer(offerId),
           }),
       },
     );

@@ -32,7 +32,7 @@ describe("ApplyBuyFilterAction", () => {
       matches: [],
     });
     queryClient.setQueryData(
-      matchesKeys.sortedMatchesByOfferId(buyOffer.id, ["bestReputation"]),
+      matchesKeys.sortedMatchesForOffer(buyOffer.id, ["bestReputation"]),
       {
         matches: [],
       },
@@ -53,7 +53,7 @@ describe("ApplyBuyFilterAction", () => {
       ).toBe(true);
       expect(
         queryClient.getQueryState(
-          matchesKeys.sortedMatchesByOfferId(buyOffer.id, ["bestReputation"]),
+          matchesKeys.sortedMatchesForOffer(buyOffer.id, ["bestReputation"]),
         )?.isInvalidated,
       ).toBe(true);
     });

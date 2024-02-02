@@ -105,10 +105,10 @@ function useUnmatchOffer(offer: BuyOffer, matchingOfferId: string) {
   return useMutation({
     onMutate: async () => {
       await queryClient.cancelQueries({
-        queryKey: matchesKeys.matchesByOfferId(offer.id),
+        queryKey: matchesKeys.matchesForOffer(offer.id),
       });
       await queryClient.cancelQueries({
-        queryKey: ["matchDetails", offer.id, matchingOfferId],
+        queryKey: matchesKeys.matchDetail(offer.id, matchingOfferId),
       });
       const previousData = queryClient.getQueryData<Match>([
         "matchDetails",
@@ -116,7 +116,7 @@ function useUnmatchOffer(offer: BuyOffer, matchingOfferId: string) {
         matchingOfferId,
       ]);
       queryClient.setQueryData<Match>(
-        ["matchDetails", offer.id, matchingOfferId],
+        matchesKeys.matchDetail(offer.id, matchingOfferId),
         (old) => {
           if (!old) return old;
           return {
@@ -141,7 +141,7 @@ function useUnmatchOffer(offer: BuyOffer, matchingOfferId: string) {
     },
     onError: (_error, _variables, context) => {
       queryClient.setQueryData(
-        ["matchDetails", offer.id, matchingOfferId],
+        matchesKeys.matchDetail(offer.id, matchingOfferId),
         context?.previousData,
       );
     },
@@ -150,10 +150,10 @@ function useUnmatchOffer(offer: BuyOffer, matchingOfferId: string) {
         queryClient.invalidateQueries({ queryKey: offerKeys.detail(offer.id) }),
         queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
         queryClient.invalidateQueries({
-          queryKey: matchesKeys.matchesByOfferId(offer.id),
+          queryKey: matchesKeys.matchesForOffer(offer.id),
         }),
         queryClient.invalidateQueries({
-          queryKey: ["matchDetails", offer.id, matchingOfferId],
+          queryKey: matchesKeys.matchDetail(offer.id, matchingOfferId),
         }),
       ]),
   });

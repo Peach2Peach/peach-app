@@ -20,11 +20,14 @@ import { peachAPI } from "../../../utils/peachAPI";
 export const PAGESIZE = 10;
 export const matchesKeys = {
   matches: ["matches"] as const,
-  matchesByOfferId: (offerId: string) =>
+  matchesForOffer: (offerId: string) =>
     [...matchesKeys.matches, offerId] as const,
-  sortedMatchesByOfferId: (offerId: string, sortBy: Sorter[]) =>
-    [...matchesKeys.matchesByOfferId(offerId), sortBy] as const,
+  matchDetail: (offerId: string, matchId: string) =>
+    [...matchesKeys.matchesForOffer(offerId), matchId] as const,
+  sortedMatchesForOffer: (offerId: string, sortBy: Sorter[]) =>
+    [...matchesKeys.matchesForOffer(offerId), sortBy] as const,
 };
+
 const NUMBER_OF_SECONDS = 30;
 export const useOfferMatches = (
   offerId: string,
@@ -45,10 +48,10 @@ export const useOfferMatches = (
     GetMatchesResponseBody,
     GetMatchesErrorResponseBody,
     InfiniteData<GetMatchesResponseBody, unknown>,
-    ReturnType<typeof matchesKeys.sortedMatchesByOfferId>,
+    ReturnType<typeof matchesKeys.sortedMatchesForOffer>,
     number
   >({
-    queryKey: matchesKeys.sortedMatchesByOfferId(offerId, sortBy),
+    queryKey: matchesKeys.sortedMatchesForOffer(offerId, sortBy),
     queryFn: async ({ queryKey, pageParam }) => {
       info("Checking matches for", queryKey[1]);
       const { result, error: err } = await peachAPI.private.offer.getMatches({

@@ -36,11 +36,11 @@ describe("ApplySellSorterAction", () => {
 
   it("should invalidate all matches queries", async () => {
     queryClient.setQueryData(matchesKeys.matches, { matches: [] });
-    queryClient.setQueryData(matchesKeys.matchesByOfferId(sellOffer.id), {
+    queryClient.setQueryData(matchesKeys.matchesForOffer(sellOffer.id), {
       matches: [],
     });
     queryClient.setQueryData(
-      matchesKeys.sortedMatchesByOfferId(sellOffer.id, ["bestReputation"]),
+      matchesKeys.sortedMatchesForOffer(sellOffer.id, ["bestReputation"]),
       {
         matches: [],
       },
@@ -56,12 +56,12 @@ describe("ApplySellSorterAction", () => {
         queryClient.getQueryState(matchesKeys.matches)?.isInvalidated,
       ).toBe(true);
       expect(
-        queryClient.getQueryState(matchesKeys.matchesByOfferId(sellOffer.id))
+        queryClient.getQueryState(matchesKeys.matchesForOffer(sellOffer.id))
           ?.isInvalidated,
       ).toBe(true);
       expect(
         queryClient.getQueryState(
-          matchesKeys.sortedMatchesByOfferId(sellOffer.id, ["bestReputation"]),
+          matchesKeys.sortedMatchesForOffer(sellOffer.id, ["bestReputation"]),
         )?.isInvalidated,
       ).toBe(true);
     });

@@ -36,17 +36,17 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
       const selectedPaymentMethod = paymentData?.type;
       await Promise.all([
         queryClient.cancelQueries({
-          queryKey: matchesKeys.matchesByOfferId(offer.id),
+          queryKey: matchesKeys.matchesForOffer(offer.id),
         }),
         queryClient.cancelQueries({
-          queryKey: ["matchDetails", offer.id, matchId],
+          queryKey: matchesKeys.matchDetail(offer.id, matchId),
         }),
       ]);
       const previousData = queryClient.getQueryData<GetMatchesResponseBody>(
-        matchesKeys.matchesByOfferId(offer.id),
+        matchesKeys.matchesForOffer(offer.id),
       );
       queryClient.setQueryData<Match>(
-        ["matchDetails", offer.id, matchId],
+        matchesKeys.matchDetail(offer.id, matchId),
         (old) => {
           if (!old) return old;
           return {
@@ -109,7 +109,7 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
         handleError({ error: errorMsg });
       }
       queryClient.setQueryData(
-        matchesKeys.matchesByOfferId(offer.id),
+        matchesKeys.matchesForOffer(offer.id),
         context?.previousData,
       );
     },
@@ -128,10 +128,10 @@ export const useMatchOffer = (offer: BuyOffer, match: Match) => {
         queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
         queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
         queryClient.invalidateQueries({
-          queryKey: matchesKeys.matchesByOfferId(offer.id),
+          queryKey: matchesKeys.matchesForOffer(offer.id),
         }),
         queryClient.invalidateQueries({
-          queryKey: ["matchDetails", offer.id, matchId],
+          queryKey: matchesKeys.matchDetail(offer.id, matchId),
         }),
       ]),
   });

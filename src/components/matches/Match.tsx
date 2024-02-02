@@ -200,13 +200,13 @@ function useAcceptMatch(offer: SellOffer, match: Match, currentPage: number) {
   return useMutation({
     onMutate: async () => {
       await queryClient.cancelQueries({
-        queryKey: matchesKeys.matchesByOfferId(offer.id),
+        queryKey: matchesKeys.matchesForOffer(offer.id),
       });
       const previousData = queryClient.getQueryData<GetMatchesResponseBody>(
-        matchesKeys.matchesByOfferId(offer.id),
+        matchesKeys.matchesForOffer(offer.id),
       );
       queryClient.setQueryData(
-        matchesKeys.matchesByOfferId(offer.id),
+        matchesKeys.matchesForOffer(offer.id),
         (oldQueryData: InfiniteData<GetMatchesResponseBody> | undefined) =>
           updateMatchedStatus(oldQueryData, offerId, currentPage),
       );
@@ -260,7 +260,7 @@ function useAcceptMatch(offer: SellOffer, match: Match, currentPage: number) {
         handleError({ error: errorMsg });
       }
       queryClient.setQueryData(
-        matchesKeys.matchesByOfferId(offer.id),
+        matchesKeys.matchesForOffer(offer.id),
         context?.previousData,
       );
     },
@@ -283,10 +283,10 @@ function useAcceptMatch(offer: SellOffer, match: Match, currentPage: number) {
         queryClient.invalidateQueries({ queryKey: offerKeys.detail(offer.id) }),
         queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
         queryClient.invalidateQueries({
-          queryKey: matchesKeys.matchesByOfferId(offer.id),
+          queryKey: matchesKeys.matchesForOffer(offer.id),
         }),
         queryClient.invalidateQueries({
-          queryKey: ["matchDetails", offer.id, match.offerId],
+          queryKey: matchesKeys.matchDetail(offer.id, match.offerId),
         }),
         queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
       ]),

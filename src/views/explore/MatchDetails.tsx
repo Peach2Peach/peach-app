@@ -38,6 +38,7 @@ import { getPaymentMethods } from "../../utils/paymentMethod/getPaymentMethods";
 import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { peachAPI } from "../../utils/peachAPI";
 import { LoadingScreen } from "../loading/LoadingScreen";
+import { matchesKeys } from "../search/hooks/useOfferMatches";
 
 export function MatchDetails() {
   const { matchId, offerId } = useRoute<"matchDetails">().params;
@@ -65,11 +66,11 @@ function useMatchDetails({
   matchId: string;
 }) {
   return useQuery({
-    queryKey: ["matchDetails", offerId, matchId],
-    queryFn: async () => {
+    queryKey: matchesKeys.matchDetail(offerId, matchId),
+    queryFn: async ({ queryKey }) => {
       const { result } = await peachAPI.private.offer.getMatch({
-        offerId,
-        matchId,
+        offerId: queryKey[1],
+        matchId: queryKey[2],
       });
 
       if (!result) throw new Error("Match not found");
