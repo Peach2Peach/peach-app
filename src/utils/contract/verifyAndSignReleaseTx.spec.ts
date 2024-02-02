@@ -60,7 +60,7 @@ describe("verifyAndSignReleaseTx", () => {
     txInputs: [{}] as Psbt["txInputs"],
     txOutputs: [{ address: "address1", value: 9000 }] as Psbt["txOutputs"],
   };
-  fromBase64Mock.mockImplementation((base64) =>
+  fromBase64Mock.mockImplementation((base64: string | undefined) =>
     base64 === mockContract.releasePsbt ? psbt : batchPsbt,
   );
   setWallet(createTestWallet());
