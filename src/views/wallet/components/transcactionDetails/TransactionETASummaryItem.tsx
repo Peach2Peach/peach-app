@@ -4,8 +4,8 @@ import { TextSummaryItem } from "../../../../components/summaryItem";
 import { HelpPopup } from "../../../../hooks/HelpPopup";
 import { useFeeEstimates } from "../../../../hooks/query/useFeeEstimates";
 import tw from "../../../../styles/tailwind";
-import { getETAInBlocks } from "../../../../utils/electrum/getETAInBlocks";
 import i18n from "../../../../utils/i18n";
+import { keys } from "../../../../utils/object/keys";
 import { useTxFeeRate } from "../../hooks/useTxFeeRate";
 
 type Props = {
@@ -31,3 +31,9 @@ export const TransactionETASummaryItem = ({ transaction }: Props) => {
     />
   );
 };
+
+function getETAInBlocks(feeRate: number, feeEstimates: ConfirmationTargets) {
+  return Number(
+    keys(feeEstimates).find((eta) => feeRate > feeEstimates[eta]) || "1008",
+  );
+}

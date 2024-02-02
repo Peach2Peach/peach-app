@@ -9,18 +9,23 @@ export const placeholderFees = {
   economyFee: 1,
   minimumFee: 1,
 };
-const getFeeEstimateQuery = async () => {
-  const { result, error: err } = await peachAPI.public.bitcoin.getFeeEstimate();
-  if (err) throw new Error(err.error);
-  return result;
+
+export const bitcoinQueryKeys = {
+  feeEstimate: ["feeEstimate"],
 };
 
 export const useFeeEstimate = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["feeEstimate"],
+    queryKey: bitcoinQueryKeys.feeEstimate,
     queryFn: getFeeEstimateQuery,
     refetchInterval: MSINAMINUTE,
   });
   const estimatedFees = data || placeholderFees;
   return { estimatedFees, isLoading, error };
 };
+
+async function getFeeEstimateQuery() {
+  const { result, error: err } = await peachAPI.public.bitcoin.getFeeEstimate();
+  if (err) throw new Error(err.error);
+  return result;
+}

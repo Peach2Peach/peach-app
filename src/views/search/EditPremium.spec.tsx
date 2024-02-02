@@ -1,6 +1,7 @@
 import { render, responseUtils, waitFor } from "test-utils";
 import { setRouteMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
+import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { peachAPI } from "../../utils/peachAPI";
 import { EditPremium } from "./EditPremium";
@@ -28,7 +29,7 @@ describe("EditPremium", () => {
       expect(queryClient.getQueryState(offerKeys.detail("123"))?.status).toBe(
         "success",
       );
-      expect(queryClient.getQueryState(["marketPrices"])?.status).toBe(
+      expect(queryClient.getQueryState(marketKeys.prices())?.status).toBe(
         "success",
       );
     });

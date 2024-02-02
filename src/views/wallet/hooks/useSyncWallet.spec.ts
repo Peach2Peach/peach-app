@@ -4,6 +4,7 @@ import { createTestWallet } from "../../../../tests/unit/helpers/createTestWalle
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useSyncWallet } from "./useSyncWallet";
+import { walletKeys } from "./useUTXOs";
 
 const showErrorBannerMock = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner");
@@ -37,7 +38,7 @@ describe("useSyncWallet", () => {
       result.current.refetch();
     });
     expect(queryClient.isFetching()).toBe(1);
-    expect(queryClient.getQueryState(["syncWallet"])?.fetchStatus).toBe(
+    expect(queryClient.getQueryState(walletKeys.synced())?.fetchStatus).toBe(
       "fetching",
     );
 

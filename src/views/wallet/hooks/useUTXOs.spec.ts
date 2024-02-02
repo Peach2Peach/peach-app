@@ -9,7 +9,7 @@ import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { getUTXOId } from "../../../utils/wallet/getUTXOId";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
-import { useUTXOs } from "./useUTXOs";
+import { useUTXOs, walletKeys } from "./useUTXOs";
 
 jest.useFakeTimers();
 
@@ -60,6 +60,6 @@ describe("useUTXOs", () => {
       expect(result.current.data).toEqual([utxo]);
     });
 
-    expect(queryClient.getQueryData(["utxos"])).toEqual([utxo]);
+    expect(queryClient.getQueryData(walletKeys.utxos())).toEqual([utxo]);
   });
 });

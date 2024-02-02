@@ -5,6 +5,7 @@ import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { error } from "../../../utils/log/error";
 import { parseError } from "../../../utils/result/parseError";
 import { peachWallet } from "../../../utils/wallet/setWallet";
+import { walletKeys } from "./useUTXOs";
 
 const MINUTES_OF_STALE_TIME = 10;
 
@@ -15,7 +16,7 @@ export const useSyncWallet = ({
   enabled = false,
 }: Props = {}) => {
   const queryData = useQuery({
-    queryKey: ["syncWallet"],
+    queryKey: walletKeys.synced(),
     queryFn: async () => {
       if (!peachWallet.initialized) await peachWallet.initWallet();
       await peachWallet.syncWallet();

@@ -24,7 +24,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
 import { HelpPopup } from "../../hooks/HelpPopup";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
-import { useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { marketKeys, useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
@@ -109,7 +109,7 @@ function usePastOffersStats({
   meansOfPayment: MeansOfPayment;
 }) {
   return useQuery({
-    queryKey: ["market", "pastOffers", "stats", { meansOfPayment }] as const,
+    queryKey: marketKeys.filteredPastOfferStats(meansOfPayment),
     queryFn: async (context) => {
       const preferences = context.queryKey[3];
       const { result } =

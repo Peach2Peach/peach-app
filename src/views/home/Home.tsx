@@ -10,6 +10,7 @@ import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { ProgressDonut } from "../../components/ui/ProgressDonut";
 import { MSINAMINUTE } from "../../constants";
+import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useNavigation } from "../../hooks/useNavigation";
 import tw from "../../styles/tailwind";
@@ -17,6 +18,7 @@ import i18n from "../../utils/i18n";
 import { info } from "../../utils/log/info";
 import { peachAPI } from "../../utils/peachAPI";
 import { openURL } from "../../utils/web/openURL";
+import { systemKeys } from "../addPaymentMethod/useFormFields";
 
 export function Home() {
   return (
@@ -54,7 +56,7 @@ function FreeTradesDonut() {
 
 function DailyMessage() {
   const { data: message } = useQuery({
-    queryKey: ["info", "news"],
+    queryKey: systemKeys.news,
     queryFn: async () => {
       const { result, error } = await peachAPI.public.system.getNews();
       if (error || !result?.[0]) throw error || new Error("No message found");
@@ -100,7 +102,7 @@ function DailyMessage() {
 
 function MarketStats() {
   const { data } = useQuery({
-    queryKey: ["market", "offers", "stats"],
+    queryKey: marketKeys.offerStats(),
     queryFn: async () => {
       const { result, error } = await peachAPI.public.market.getOffersStats();
       if (error) throw error;

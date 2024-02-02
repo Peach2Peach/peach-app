@@ -4,6 +4,7 @@ import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
+import { walletKeys } from "../hooks/useUTXOs";
 import { AddressNavigation } from "./AddressNavigation";
 expect.extend({ toMatchDiffSnapshot });
 
@@ -86,7 +87,7 @@ describe("AddressNavigation", () => {
 
     await waitFor(() => {
       expect(
-        queryClient.getQueryData(["receiveAddress", nextIndex]),
+        queryClient.getQueryData(walletKeys.addressByIndex(nextIndex)),
       ).toStrictEqual({
         address: "address-3",
         index: nextIndex,
@@ -109,7 +110,9 @@ describe("AddressNavigation", () => {
     });
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["receiveAddress", 1])).toStrictEqual({
+      expect(
+        queryClient.getQueryData(walletKeys.addressByIndex(1)),
+      ).toStrictEqual({
         address: "address-1",
         index: 1,
         used: false,

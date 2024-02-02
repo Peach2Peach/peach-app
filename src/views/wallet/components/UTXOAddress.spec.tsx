@@ -6,6 +6,7 @@ import { createTestWallet } from "../../../../tests/unit/helpers/createTestWalle
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
+import { walletKeys } from "../hooks/useUTXOs";
 import { UTXOAddress } from "./UTXOAddress";
 
 jest.useFakeTimers();
@@ -23,7 +24,9 @@ describe("UTXOAddress", () => {
 
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);
-      expect(queryClient.getQueryData(["address", script.id])).toBe("address");
+      expect(queryClient.getQueryData(walletKeys.utxoAddress(script.id))).toBe(
+        "address",
+      );
     });
 
     expect(toJSON()).toMatchSnapshot();
