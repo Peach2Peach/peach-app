@@ -7,21 +7,24 @@ import { useMessageHandler } from "./useMessageHandler";
 
 const overlayEventHanderMock = jest.fn();
 const overlayEvents = { overlayEvent: overlayEventHanderMock };
-jest.mock("./eventHandler/useOverlayEvents", () => ({
-  useOverlayEvents: () => overlayEvents,
-}));
+jest.mock("./eventHandler/useOverlayEvents");
+jest
+  .requireMock("./eventHandler/useOverlayEvents")
+  .useOverlayEvents.mockReturnValue(overlayEvents);
 
 const offerPopupEventHandlerMock = jest.fn();
 const offerPopupEvents = { offerPopupEvent: offerPopupEventHandlerMock };
-jest.mock("./eventHandler/offer/useOfferPopupEvents", () => ({
-  useOfferPopupEvents: () => offerPopupEvents,
-}));
+jest.mock("./eventHandler/offer/useOfferPopupEvents");
+jest
+  .requireMock("./eventHandler/offer/useOfferPopupEvents")
+  .useOfferPopupEvents.mockReturnValue(offerPopupEvents);
 
 const stateUpdateEventHandlerMock = jest.fn();
 const stateUpdateEvents = { stateUpdateEvent: stateUpdateEventHandlerMock };
-jest.mock("./eventHandler/useStateUpdateEvents", () => ({
-  useStateUpdateEvents: () => stateUpdateEvents,
-}));
+jest.mock("./eventHandler/useStateUpdateEvents");
+jest
+  .requireMock("./eventHandler/useStateUpdateEvents")
+  .useStateUpdateEvents.mockReturnValue(stateUpdateEvents);
 
 const actionMock = {
   label: "action",
@@ -29,9 +32,10 @@ const actionMock = {
   callback: jest.fn(),
 };
 const getPNActionHandlerMock = jest.fn().mockReturnValue(actionMock);
-jest.mock("./useGetPNActionHandler", () => ({
-  useGetPNActionHandler: () => getPNActionHandlerMock,
-}));
+jest.mock("./useGetPNActionHandler");
+jest
+  .requireMock("./useGetPNActionHandler")
+  .useGetPNActionHandler.mockReturnValue(getPNActionHandlerMock);
 
 jest.useFakeTimers();
 

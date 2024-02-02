@@ -4,10 +4,10 @@ import { fireEvent, render, waitFor } from "test-utils";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { ExportTransactionHistory } from "./ExportTransactionHistory";
 
-const toShortDateFormatMock = jest.fn();
-jest.mock("../../utils/date/toShortDateFormat", () => ({
-  toShortDateFormat: (...args: unknown[]) => toShortDateFormatMock(...args),
-}));
+jest.mock("../../utils/date/toShortDateFormat");
+const toShortDateFormatMock = jest.requireMock(
+  "../../utils/date/toShortDateFormat",
+).toShortDateFormat;
 jest.useFakeTimers();
 describe("ExportTransactionHistory", () => {
   const firstCSVRow = "Date, Type, Amount, Transaction ID\n";

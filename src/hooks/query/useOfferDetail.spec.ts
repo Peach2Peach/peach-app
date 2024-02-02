@@ -4,10 +4,11 @@ import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";
 import { useMultipleOfferDetails, useOfferDetail } from "./useOfferDetail";
 
-const getStoredOfferMock = jest.fn();
-jest.mock("../../utils/offer/getOffer", () => ({
-  getOffer: () => getStoredOfferMock(),
-}));
+jest.mock("../../utils/offer/getOffer");
+const getStoredOfferMock = jest.requireMock(
+  "../../utils/offer/getOffer",
+).getOffer;
+
 const getOfferDetailsMock = jest.spyOn(
   peachAPI.private.offer,
   "getOfferDetails",

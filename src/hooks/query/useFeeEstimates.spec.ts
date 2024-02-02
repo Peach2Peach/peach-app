@@ -6,10 +6,10 @@ import { placeholderFeeEstimates, useFeeEstimates } from "./useFeeEstimates";
 
 jest.useFakeTimers();
 
-const getFeeEstimatesMock = jest.fn().mockResolvedValue([feeEstimates]);
-jest.mock("../../utils/electrum/getFeeEstimates", () => ({
-  getFeeEstimates: () => getFeeEstimatesMock(),
-}));
+jest.mock("../../utils/electrum/getFeeEstimates");
+const getFeeEstimatesMock = jest
+  .requireMock("../../utils/electrum/getFeeEstimates")
+  .getFeeEstimates.mockResolvedValue([feeEstimates]);
 
 describe("useFeeEstimates", () => {
   const initialProps = { txId: "txId" };

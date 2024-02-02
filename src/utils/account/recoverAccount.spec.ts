@@ -7,10 +7,8 @@ import { error } from "../log/error";
 import { peachAPI } from "../peachAPI";
 import { recoverAccount } from "./recoverAccount";
 
-const userUpdateMock = jest.fn();
-jest.mock("../../init/userUpdate", () => ({
-  userUpdate: () => userUpdateMock(),
-}));
+jest.mock("../../init/userUpdate");
+const userUpdateMock = jest.requireMock("../../init/userUpdate").userUpdate;
 const getOffersMock = jest.spyOn(peachAPI.private.offer, "getOffers");
 
 describe("recoverAccount", () => {

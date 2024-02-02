@@ -3,10 +3,12 @@ import { contract } from "../../../peach-api/src/testData/contract";
 import { setRouteMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { ContractActions } from "./ContractActions";
 
-const useContractContextMock = jest.fn().mockReturnValue({ contract });
-jest.mock("./context/useContractContext", () => ({
-  useContractContext: () => useContractContextMock(),
-}));
+jest.mock("./context/useContractContext");
+const useContractContextMock = jest
+  .requireMock("./context/useContractContext")
+  .useContractContext.mockReturnValue({
+    contract,
+  });
 
 jest.useFakeTimers();
 

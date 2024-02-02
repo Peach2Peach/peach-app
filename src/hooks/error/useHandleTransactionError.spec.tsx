@@ -3,9 +3,10 @@ import { transactionError } from "../../../tests/unit/data/errors";
 import { useHandleTransactionError } from "./useHandleTransactionError";
 
 const showErrorBannerMock = jest.fn();
-jest.mock("../useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
-}));
+jest.mock("../useShowErrorBanner");
+jest
+  .requireMock("../useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 
 describe("useHandleTransactionError", () => {
   it("should return a function", () => {

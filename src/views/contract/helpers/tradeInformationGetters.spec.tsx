@@ -13,12 +13,11 @@ jest.mock("../../../utils/offer/getWalletLabel", () => ({
   getWalletLabel: jest.fn(() => "walletLabel"),
 }));
 
-const getBuyOfferFromContractMock = jest.fn(() => ({
-  walletLabel: "buyOfferWalletLabel",
-  releaseAddress: "releaseAddress",
-}));
 jest.mock("../../../utils/contract/getBuyOfferFromContract", () => ({
-  getBuyOfferFromContract: () => getBuyOfferFromContractMock(),
+  getBuyOfferFromContract: jest.fn(() => ({
+    walletLabel: "buyOfferWalletLabel",
+    releaseAddress: "releaseAddress",
+  })),
 }));
 
 jest.mock("../context", () => ({

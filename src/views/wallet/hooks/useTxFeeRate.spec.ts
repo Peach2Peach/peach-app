@@ -3,11 +3,10 @@ import { bdkTransactionWithRBF1 } from "../../../../tests/unit/data/transactionD
 import { useTxFeeRate } from "./useTxFeeRate";
 
 const feeRate = 10;
-const getTransactionFeeRateMock = jest.fn().mockResolvedValue(feeRate);
-jest.mock("../../../utils/bitcoin/getTransactionFeeRate", () => ({
-  getTransactionFeeRate: (...args: unknown[]) =>
-    getTransactionFeeRateMock(...args),
-}));
+jest.mock("../../../utils/bitcoin/getTransactionFeeRate");
+jest
+  .requireMock("../../../utils/bitcoin/getTransactionFeeRate")
+  .getTransactionFeeRate.mockResolvedValue(feeRate);
 describe("useTxFeeRate", () => {
   const initialProps = {
     transaction: bdkTransactionWithRBF1,

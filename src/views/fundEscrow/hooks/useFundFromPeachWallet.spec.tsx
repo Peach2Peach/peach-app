@@ -16,21 +16,21 @@ import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useFundFromPeachWallet } from "./useFundFromPeachWallet";
 
-const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees });
-jest.mock("../../../hooks/query/useFeeEstimate", () => ({
-  useFeeEstimate: () => useFeeEstimateMock(),
-}));
+jest.mock("../../../hooks/query/useFeeEstimate");
+jest
+  .requireMock("../../../hooks/query/useFeeEstimate")
+  .useFeeEstimate.mockReturnValue({ estimatedFees });
 
-const setMultipleRecipientsMock = jest.fn();
-jest.mock("../../../utils/wallet/transaction/setMultipleRecipients", () => ({
-  setMultipleRecipients: (...args: unknown[]) =>
-    setMultipleRecipientsMock(...args),
-}));
+jest.mock("../../../utils/wallet/transaction/setMultipleRecipients");
+const setMultipleRecipientsMock = jest.requireMock(
+  "../../../utils/wallet/transaction/setMultipleRecipients",
+).setMultipleRecipients;
 
 const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
-}));
+jest.mock("../../../hooks/useShowErrorBanner");
+jest
+  .requireMock("../../../hooks/useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 jest.useFakeTimers();
 
 jest.spyOn(peachAPI.private.user, "getSelfUser").mockResolvedValue({

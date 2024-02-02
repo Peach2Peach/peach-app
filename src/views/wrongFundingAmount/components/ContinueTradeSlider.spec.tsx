@@ -5,12 +5,10 @@ import { fireSwipeEvent } from "../../../../tests/unit/helpers/fireSwipeEvent";
 import { ContinueTradeSlider } from "./ContinueTradeSlider";
 
 const confirmEscrowMock = jest.fn();
-jest.mock("../hooks/useConfirmEscrow", () => ({
-  useConfirmEscrow:
-    () =>
-    (...args: unknown[]) =>
-      confirmEscrowMock(...args),
-}));
+jest.mock("../hooks/useConfirmEscrow");
+jest
+  .requireMock("../hooks/useConfirmEscrow")
+  .useConfirmEscrow.mockReturnValue(confirmEscrowMock);
 
 describe("ContinueTradeSlider", () => {
   const renderer = createRenderer();

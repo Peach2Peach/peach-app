@@ -3,17 +3,16 @@ import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../../utils/peachAPI";
 import { NetworkFees } from "./NetworkFees";
 
-const useNetworkFeesSetupMock = jest.fn().mockReturnValue({
-  selectedFeeRate: "fastestFee",
-  setSelectedFeeRate: jest.fn(),
-  customFeeRate: "5",
-  setCustomFeeRate: jest.fn(),
-  submit: jest.fn(),
-  isValid: true,
-  feeRateSet: false,
-});
 jest.mock("./hooks/useNetworkFeesSetup", () => ({
-  useNetworkFeesSetup: () => useNetworkFeesSetupMock(),
+  useNetworkFeesSetup: jest.fn().mockReturnValue({
+    selectedFeeRate: "fastestFee",
+    setSelectedFeeRate: jest.fn(),
+    customFeeRate: "5",
+    setCustomFeeRate: jest.fn(),
+    submit: jest.fn(),
+    isValid: true,
+    feeRateSet: false,
+  }),
 }));
 
 const estimatedFees = {

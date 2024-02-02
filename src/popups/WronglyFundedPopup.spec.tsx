@@ -4,9 +4,10 @@ import { useConfigStore } from "../store/configStore/configStore";
 import { WronglyFundedPopup } from "./WronglyFundedPopup";
 
 const cancelAndStartRefundPopup = jest.fn();
-jest.mock("./useCancelAndStartRefundPopup", () => ({
-  useCancelAndStartRefundPopup: () => cancelAndStartRefundPopup,
-}));
+jest.mock("./useCancelAndStartRefundPopup");
+jest
+  .requireMock("./useCancelAndStartRefundPopup")
+  .useCancelAndStartRefundPopup.mockReturnValue(cancelAndStartRefundPopup);
 
 describe("useShowWronglyFundedPopup", () => {
   const maxTradingAmount = 2000000;

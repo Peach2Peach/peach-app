@@ -4,14 +4,14 @@ import { account1 } from "../../../tests/unit/data/accountData";
 import { useAccountStore } from "../../utils/account/account";
 import { useSyncUserAccount } from "./useSyncUserAccount";
 
-const publishPGPPublicKeyMock = jest.fn();
-jest.mock("../../init/publishPGPPublicKey", () => ({
-  publishPGPPublicKey: (...args: unknown[]) => publishPGPPublicKeyMock(...args),
-}));
-const useSelfUserMock = jest.fn().mockReturnValue({ user: undefined });
-jest.mock("../query/useSelfUser", () => ({
-  useSelfUser: (...args: unknown[]) => useSelfUserMock(...args),
-}));
+jest.mock("../../init/publishPGPPublicKey");
+const publishPGPPublicKeyMock = jest.requireMock(
+  "../../init/publishPGPPublicKey",
+).publishPGPPublicKey;
+jest.mock("../query/useSelfUser");
+const useSelfUserMock = jest
+  .requireMock("../query/useSelfUser")
+  .useSelfUser.mockReturnValue({ user: undefined });
 describe("useSyncUserAccount", () => {
   beforeAll(() => {
     useAccountStore.getState().setAccount(account1);

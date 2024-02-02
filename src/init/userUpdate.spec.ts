@@ -1,16 +1,18 @@
 import { account1 } from "../../tests/unit/data/accountData";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { defaultAccount, setAccount } from "../utils/account/account";
+import { updateUser } from "../utils/peachAPI/updateUser";
 import { userUpdate } from "./userUpdate";
 
-const getTokenMock = jest.fn();
-jest.mock("@react-native-firebase/messaging", () => () => ({
-  getToken: () => getTokenMock(),
+jest.mock("@react-native-firebase/messaging", () => ({
+  __esModule: true,
+  default: () => ({
+    getToken: jest.fn(),
+  }),
 }));
 
-const updateUserMock = jest.fn().mockResolvedValue([{ success: true }, null]);
 jest.mock("../utils/peachAPI/updateUser", () => ({
-  updateUser: (...args: unknown[]) => updateUserMock(...args),
+  updateUser: jest.fn().mockResolvedValue([{ success: true }, null]),
 }));
 describe("userUpdate", () => {
   const fcmToken = "fcmToken";
@@ -21,16 +23,21 @@ describe("userUpdate", () => {
 
   it("does not send updates to server if there is no data to send", async () => {
     await userUpdate();
-    expect(updateUserMock).not.toHaveBeenCalled();
+    expect(updateUser).not.toHaveBeenCalled();
   });
   it("does send updates to server if there is data to send", async () => {
     const newToken = "otherToken";
     setAccount(account1);
-    getTokenMock.mockResolvedValueOnce(newToken);
+    const getTokenMock = jest.fn().mockResolvedValue(newToken);
+    jest
+      .spyOn(jest.requireMock("@react-native-firebase/messaging"), "default")
+      .mockReturnValue({
+        getToken: getTokenMock,
+      });
     useSettingsStore.setState({ fcmToken });
     await userUpdate(referralCode);
     expect(getTokenMock).toHaveBeenCalled();
-    expect(updateUserMock).toHaveBeenCalledWith({
+    expect(updateUser).toHaveBeenCalledWith({
       referralCode,
       fcmToken: newToken,
     });

@@ -10,10 +10,10 @@ import { useNetworkFeesSetup } from "./useNetworkFeesSetup";
 
 jest.useFakeTimers();
 
-const updateUserMock = jest.fn().mockResolvedValue([{ success: true }]);
-jest.mock("../../../../utils/peachAPI/updateUser", () => ({
-  updateUser: (...args: unknown[]) => updateUserMock(...args),
-}));
+jest.mock("../../../../utils/peachAPI/updateUser");
+const updateUserMock = jest
+  .requireMock("../../../../utils/peachAPI/updateUser")
+  .updateUser.mockResolvedValue([{ success: true }]);
 
 const getSelfUserMock = jest
   .spyOn(peachAPI.private.user, "getSelfUser")

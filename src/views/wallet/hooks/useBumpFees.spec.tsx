@@ -19,15 +19,16 @@ import { setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { useBumpFees } from "./useBumpFees";
 
-const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees });
-jest.mock("../../../hooks/query/useFeeEstimate", () => ({
-  useFeeEstimate: () => useFeeEstimateMock(),
-}));
+jest.mock("../../../hooks/query/useFeeEstimate");
+jest
+  .requireMock("../../../hooks/query/useFeeEstimate")
+  .useFeeEstimate.mockReturnValue({ estimatedFees });
 
 const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
-}));
+jest.mock("../../../hooks/useShowErrorBanner");
+jest
+  .requireMock("../../../hooks/useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 jest.useFakeTimers();
 
 describe("useBumpFees", () => {

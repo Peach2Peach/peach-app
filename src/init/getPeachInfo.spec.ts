@@ -5,17 +5,17 @@ import { peachAPI } from "../utils/peachAPI";
 import { getPeachInfo } from "./getPeachInfo";
 import { storePeachInfo } from "./storePeachInfo";
 
-const setPaymentMethodsMock = jest.fn();
 jest.mock("../paymentMethods", () => ({
   ...jest.requireActual("../paymentMethods"),
-  setPaymentMethods: (...args: unknown[]) => setPaymentMethodsMock(...args),
+  setPaymentMethods: jest.fn(),
 }));
+const setPaymentMethodsMock =
+  jest.requireMock("../paymentMethods").setPaymentMethods;
 const getInfoMock = jest.spyOn(peachAPI.public.system, "getInfo");
-const calculateClientServerTimeDifferenceMock = jest.fn();
-jest.mock("./calculateClientServerTimeDifference", () => ({
-  calculateClientServerTimeDifference: () =>
-    calculateClientServerTimeDifferenceMock(),
-}));
+jest.mock("./calculateClientServerTimeDifference");
+const calculateClientServerTimeDifferenceMock = jest.requireMock(
+  "./calculateClientServerTimeDifference",
+).calculateClientServerTimeDifference;
 
 jest.useFakeTimers();
 jest.mock("./storePeachInfo");

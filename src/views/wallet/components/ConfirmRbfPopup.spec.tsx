@@ -12,9 +12,10 @@ import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { ConfirmRbfPopup } from "./ConfirmRbfPopup";
 
 const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
-}));
+jest.mock("../../../hooks/useShowErrorBanner");
+jest
+  .requireMock("../../../hooks/useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 jest.useFakeTimers();
 
 describe("ConfirmRbfPopup", () => {

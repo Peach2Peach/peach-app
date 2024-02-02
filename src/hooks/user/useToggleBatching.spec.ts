@@ -6,9 +6,10 @@ import { userKeys } from "../query/useSelfUser";
 import { useToggleBatching } from "./useToggleBatching";
 
 const showErrorBannerMock = jest.fn();
-jest.mock("../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
-}));
+jest.mock("../../hooks/useShowErrorBanner");
+jest
+  .requireMock("../../hooks/useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 
 const setBatchingMock = jest.spyOn(
   peachAPI.private.user,

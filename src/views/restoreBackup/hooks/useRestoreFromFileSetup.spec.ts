@@ -7,19 +7,19 @@ import { useRestoreFromFileSetup } from "./useRestoreFromFileSetup";
 
 jest.useFakeTimers();
 
-const decryptAccountMock = jest.fn().mockReturnValue([account1]);
-jest.mock("../../../utils/account/decryptAccount", () => ({
-  decryptAccount: (...args: unknown[]) => decryptAccountMock(...args),
-}));
-const recoverAccountMock = jest.fn().mockResolvedValue(account1);
-jest.mock("../../../utils/account/recoverAccount", () => ({
-  recoverAccount: (...args: unknown[]) => recoverAccountMock(...args),
-}));
+jest.mock("../../../utils/account/decryptAccount");
+const decryptAccountMock = jest
+  .requireMock("../../../utils/account/decryptAccount")
+  .decryptAccount.mockReturnValue([account1]);
+jest.mock("../../../utils/account/recoverAccount");
+const recoverAccountMock = jest
+  .requireMock("../../../utils/account/recoverAccount")
+  .recoverAccount.mockResolvedValue(account1);
 
-const storeAccountMock = jest.fn();
-jest.mock("../../../utils/account/storeAccount", () => ({
-  storeAccount: (...args: unknown[]) => storeAccountMock(...args),
-}));
+jest.mock("../../../utils/account/storeAccount");
+const storeAccountMock = jest.requireMock(
+  "../../../utils/account/storeAccount",
+).storeAccount;
 
 describe("useRestoreFromFileSetup", () => {
   const encryptedAccount = "encryptedAccount";

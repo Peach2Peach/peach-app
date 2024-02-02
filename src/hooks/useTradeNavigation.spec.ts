@@ -6,9 +6,10 @@ import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
 import { useTradeNavigation } from "./useTradeNavigation";
 
 const startRefundPopupMock = jest.fn();
-jest.mock("../popups/useStartRefundPopup", () => ({
-  useStartRefundPopup: () => startRefundPopupMock,
-}));
+jest.mock("../popups/useStartRefundPopup");
+jest
+  .requireMock("../popups/useStartRefundPopup")
+  .useStartRefundPopup.mockReturnValue(startRefundPopupMock);
 
 describe("useTradeNavigation - contracts", () => {
   it("should navigate to the contract", async () => {

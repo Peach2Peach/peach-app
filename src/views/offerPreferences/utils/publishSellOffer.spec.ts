@@ -9,10 +9,8 @@ import { publishSellOffer } from "./publishSellOffer";
 
 const postSellOfferMock = jest.spyOn(peachAPI.private.offer, "postSellOffer");
 
-const infoMock = jest.fn();
-jest.mock("../../../utils/log/info", () => ({
-  info: (...args: unknown[]) => infoMock(...args),
-}));
+jest.mock("../../../utils/log/info");
+const infoMock = jest.requireMock("../../../utils/log/info").info;
 
 const singleOfferResult = {
   isPublished: true,

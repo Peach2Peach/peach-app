@@ -6,9 +6,10 @@ import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useSyncWallet } from "./useSyncWallet";
 
 const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
-}));
+jest.mock("../../../hooks/useShowErrorBanner");
+jest
+  .requireMock("../../../hooks/useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 const mockSyncWallet = jest.fn().mockResolvedValue(undefined);
 jest.useFakeTimers();
 

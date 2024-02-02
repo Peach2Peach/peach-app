@@ -12,10 +12,7 @@ import { peachAPI } from "../utils/peachAPI";
 import { useWalletState } from "../utils/wallet/walletStore";
 import { useCancelFundMultipleSellOffers } from "./useCancelFundMultipleSellOffers";
 
-const saveOfferMock = jest.fn();
-jest.mock("../utils/offer/saveOffer", () => ({
-  saveOffer: (...args: unknown[]) => saveOfferMock(...args),
-}));
+jest.mock("../utils/offer/saveOffer");
 
 const cancelOfferMock = jest.spyOn(peachAPI.private.offer, "cancelOffer");
 jest.useFakeTimers();

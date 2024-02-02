@@ -7,9 +7,10 @@ import { userKeys } from "./query/useSelfUser";
 import { useFeeRate } from "./useFeeRate";
 
 const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees });
-jest.mock("./query/useFeeEstimate", () => ({
-  useFeeEstimate: () => useFeeEstimateMock(),
-}));
+jest.mock("./query/useFeeEstimate");
+jest
+  .requireMock("./query/useFeeEstimate")
+  .useFeeEstimate.mockImplementation(useFeeEstimateMock);
 const getUserMock = jest.spyOn(peachAPI.private.user, "getSelfUser");
 jest.useFakeTimers();
 

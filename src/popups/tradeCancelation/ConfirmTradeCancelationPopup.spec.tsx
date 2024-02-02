@@ -14,10 +14,7 @@ import { setPeachWallet } from "../../utils/wallet/setWallet";
 import { ConfirmTradeCancelationPopup } from "./ConfirmTradeCancelationPopup";
 
 jest.useFakeTimers();
-const saveOfferMock = jest.fn();
-jest.mock("../../utils/offer/saveOffer", () => ({
-  saveOffer: (...args: unknown[]) => saveOfferMock(...args),
-}));
+jest.mock("../../utils/offer/saveOffer");
 
 const contractUpdate = {
   ...contract,
@@ -27,16 +24,18 @@ const sellOfferUpdate = {
   ...sellOffer,
   refundTx: "refundTx",
 };
-const cancelContractAsSellerMock = jest.fn().mockResolvedValue(
-  getResult({
-    contract: contractUpdate,
-    sellOffer: sellOfferUpdate,
-  }),
-);
-jest.mock("./cancelContractAsSeller", () => ({
-  cancelContractAsSeller: (...args: unknown[]) =>
-    cancelContractAsSellerMock(...args),
-}));
+
+jest.mock("./cancelContractAsSeller");
+
+const cancelContractAsSellerMock = jest
+  .requireMock("./cancelContractAsSeller")
+  .cancelContractAsSeller.mockResolvedValue(
+    getResult({
+      contract: contractUpdate,
+      sellOffer: sellOfferUpdate,
+    }),
+  );
+
 const cancelContractMock = jest.spyOn(
   peachAPI.private.contract,
   "cancelContract",

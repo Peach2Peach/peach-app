@@ -13,9 +13,10 @@ const cancelContractMock = jest.spyOn(
 );
 const patchOfferMock = jest.spyOn(peachAPI.private.offer, "patchOffer");
 
-jest.mock("../../utils/contract/getSellOfferFromContract", () => ({
-  getSellOfferFromContract: jest.fn().mockReturnValue(sellOffer),
-}));
+jest.mock("../../utils/contract/getSellOfferFromContract");
+jest
+  .requireMock("../../utils/contract/getSellOfferFromContract")
+  .getSellOfferFromContract.mockReturnValue(sellOffer);
 
 jest.mock("../../utils/wallet/signPSBT", () => ({
   signPSBT: jest.fn().mockReturnValue({ toBase64: () => "psbt" }),

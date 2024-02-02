@@ -1,20 +1,16 @@
 import { signReleaseTxOfContract } from "./signReleaseTxOfContract";
-const getSellOfferFromContractMock = jest.fn();
-const getEscrowWalletForOfferMock = jest.fn();
 
-jest.mock("./getSellOfferFromContract", () => ({
-  getSellOfferFromContract: jest.fn((...args: unknown[]) =>
-    getSellOfferFromContractMock(...args),
-  ),
-}));
+jest.mock("./getSellOfferFromContract");
 jest.mock("./verifyAndSignReleaseTx", () => ({
   verifyAndSignReleaseTx: jest.fn(() => ["tx", null]),
 }));
-jest.mock("../wallet/getEscrowWalletForOffer", () => ({
-  getEscrowWalletForOffer: jest.fn((...args: unknown[]) =>
-    getEscrowWalletForOfferMock(...args),
-  ),
-}));
+jest.mock("../wallet/getEscrowWalletForOffer");
+const getSellOfferFromContractMock = jest.requireMock(
+  "./getSellOfferFromContract",
+).getSellOfferFromContract;
+const getEscrowWalletForOfferMock = jest.requireMock(
+  "../wallet/getEscrowWalletForOffer",
+).getEscrowWalletForOffer;
 
 describe("signReleaseTxOfContract", () => {
   it("should call verifyAndSignReleaseTx with the correct params", () => {

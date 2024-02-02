@@ -1,27 +1,21 @@
 import { PAYMENTMETHODINFOS } from "../../paymentMethods";
+import { checkSupportedPaymentMethods } from "./afterLoadingAccount/checkSupportedPaymentMethods";
+import { checkUsedReferralCode } from "./afterLoadingAccount/checkUsedReferralCode";
 import { dataMigrationAfterLoadingAccount } from "./dataMigrationAfterLoadingAccount";
 
-const checkSupportedPaymentMethodsMock = jest.fn();
-const checkUsedReferralCodeMock = jest.fn();
-jest.mock("./afterLoadingAccount/checkSupportedPaymentMethods", () => ({
-  checkSupportedPaymentMethods: (...args: unknown[]) =>
-    checkSupportedPaymentMethodsMock(...args),
-}));
-jest.mock("./afterLoadingAccount/checkUsedReferralCode", () => ({
-  checkUsedReferralCode: (...args: unknown[]) =>
-    checkUsedReferralCodeMock(...args),
-}));
+jest.mock("./afterLoadingAccount/checkSupportedPaymentMethods");
+jest.mock("./afterLoadingAccount/checkUsedReferralCode");
 
 describe("dataMigrationAfterLoadingAccount", () => {
   it("should call checkSupportedPaymentMethods", () => {
     dataMigrationAfterLoadingAccount();
-    expect(checkSupportedPaymentMethodsMock).toHaveBeenCalledWith(
+    expect(checkSupportedPaymentMethods).toHaveBeenCalledWith(
       PAYMENTMETHODINFOS,
     );
   });
 
   it("should call checkUsedReferralCode", () => {
     dataMigrationAfterLoadingAccount();
-    expect(checkUsedReferralCodeMock).toHaveBeenCalled();
+    expect(checkUsedReferralCode).toHaveBeenCalled();
   });
 });

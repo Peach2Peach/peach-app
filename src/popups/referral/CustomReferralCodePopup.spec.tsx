@@ -10,9 +10,10 @@ const redeemReferralCodeMock = jest.spyOn(
   "redeemReferralCode",
 );
 const showErrorBannerMock = jest.fn();
-jest.mock("../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
-}));
+jest.mock("../../hooks/useShowErrorBanner");
+jest
+  .requireMock("../../hooks/useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 
 describe("useSetCustomReferralCodePopup", () => {
   it("updates referral code state", () => {

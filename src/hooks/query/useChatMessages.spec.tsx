@@ -5,9 +5,8 @@ import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";
 import { PAGE_SIZE, useChatMessages } from "./useChatMessages";
 
-const decryptSymmetricMock = jest.fn().mockImplementation((str) => str);
 jest.mock("../../utils/pgp/decryptSymmetric", () => ({
-  decryptSymmetric: (...args: unknown[]) => decryptSymmetricMock(...args),
+  decryptSymmetric: jest.fn((str) => str),
 }));
 
 const getChatMock = jest.spyOn(peachAPI.private.contract, "getChat");

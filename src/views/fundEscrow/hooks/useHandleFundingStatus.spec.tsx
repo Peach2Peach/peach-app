@@ -7,14 +7,13 @@ import { setAccount, useAccountStore } from "../../../utils/account/account";
 import { defaultFundingStatus } from "../../../utils/offer/constants";
 import { useHandleFundingStatus } from "./useHandleFundingStatus";
 
-const useTradeSummariesMock = jest.fn().mockReturnValue({
-  offers: [],
-  contracts: [],
-  isLoading: false,
-  refetch: jest.fn(),
-});
 jest.mock("../../../hooks/query/useTradeSummaries", () => ({
-  useTradeSummaries: () => useTradeSummariesMock(),
+  useTradeSummaries: jest.fn().mockReturnValue({
+    offers: [],
+    contracts: [],
+    isLoading: false,
+    refetch: jest.fn(),
+  }),
 }));
 jest.useFakeTimers();
 
@@ -43,17 +42,18 @@ const searchWithMatches = {
   },
 };
 const fetchMatchesMock = jest.fn().mockResolvedValue(searchWithNoMatches);
-const useOfferMatchesMock = jest.fn().mockReturnValue({
-  refetch: fetchMatchesMock,
-});
-jest.mock("../../search/hooks/useOfferMatches", () => ({
-  useOfferMatches: () => useOfferMatchesMock(),
-}));
+jest.mock("../../search/hooks/useOfferMatches");
+jest
+  .requireMock("../../search/hooks/useOfferMatches")
+  .useOfferMatches.mockReturnValue({
+    refetch: fetchMatchesMock,
+  });
 
 const startRefundPopupMock = jest.fn();
-jest.mock("../../../popups/useStartRefundPopup", () => ({
-  useStartRefundPopup: () => startRefundPopupMock,
-}));
+jest.mock("../../../popups/useStartRefundPopup");
+jest
+  .requireMock("../../../popups/useStartRefundPopup")
+  .useStartRefundPopup.mockReturnValue(startRefundPopupMock);
 
 describe("useHandleFundingStatus", () => {
   const fundingStatusFunded: FundingStatus = {

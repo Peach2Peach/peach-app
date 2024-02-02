@@ -3,10 +3,13 @@ import { setAccount } from "../utils/account/account";
 import { getError } from "../utils/result/getError";
 import { publishPGPPublicKey } from "./publishPGPPublicKey";
 
-const updateUserMock = jest.fn().mockResolvedValue([{ success: true }, null]);
 jest.mock("../utils/peachAPI/updateUser", () => ({
-  updateUser: (...args: unknown[]) => updateUserMock(...args),
+  updateUser: jest.fn().mockResolvedValue([{ success: true }, null]),
 }));
+const updateUserMock = jest.requireMock(
+  "../utils/peachAPI/updateUser",
+).updateUser;
+
 describe("publishPGPPublicKey", () => {
   it("does send pgp key to server", async () => {
     await publishPGPPublicKey(account1.pgp);

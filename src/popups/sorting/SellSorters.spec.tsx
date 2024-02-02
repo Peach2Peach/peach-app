@@ -8,9 +8,10 @@ import { SellSorters } from "./SellSorters";
 jest.useFakeTimers();
 
 const closePopup = jest.fn();
-jest.mock("../../components/popup/Popup", () => ({
-  useClosePopup: () => closePopup,
-}));
+jest.mock("../../components/popup/Popup");
+jest
+  .requireMock("../../components/popup/Popup")
+  .useClosePopup.mockReturnValue(closePopup);
 
 describe("SellSorters", () => {
   it("should render correctly", () => {

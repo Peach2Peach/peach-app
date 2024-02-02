@@ -5,9 +5,10 @@ import { fireSwipeEvent } from "../../../tests/unit/helpers/fireSwipeEvent";
 import { RefundEscrowSlider } from "./RefundEscrowSlider";
 
 const cancelAndStartRefundPopup = jest.fn();
-jest.mock("../../popups/useCancelAndStartRefundPopup", () => ({
-  useCancelAndStartRefundPopup: () => cancelAndStartRefundPopup,
-}));
+jest.mock("../../popups/useCancelAndStartRefundPopup");
+jest
+  .requireMock("../../popups/useCancelAndStartRefundPopup")
+  .useCancelAndStartRefundPopup.mockReturnValue(cancelAndStartRefundPopup);
 
 describe("RefundEscrowSlider", () => {
   const renderer = createRenderer();

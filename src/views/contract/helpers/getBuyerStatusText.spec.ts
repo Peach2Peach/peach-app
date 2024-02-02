@@ -1,10 +1,10 @@
 import i18n from "../../../utils/i18n";
 import { getBuyerStatusText } from "./getBuyerStatusText";
 
-const isPaymentTooLateMock = jest.fn((..._args) => false);
-jest.mock("../../../utils/contract/status/isPaymentTooLate", () => ({
-  isPaymentTooLate: (...args: unknown[]) => isPaymentTooLateMock(...args),
-}));
+jest.mock("../../../utils/contract/status/isPaymentTooLate");
+const isPaymentTooLateMock = jest
+  .requireMock("../../../utils/contract/status/isPaymentTooLate")
+  .isPaymentTooLate.mockReturnValue(false);
 
 describe("getBuyerStatusText", () => {
   const mockContract = {

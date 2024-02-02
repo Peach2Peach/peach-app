@@ -5,10 +5,10 @@ import {
 } from "../../../../tests/unit/data/transactionDetailData";
 import { useGetTransactionDestinationAddress } from "./useGetTransactionDestinationAddress";
 
-const useAreMyAddressesMock = jest.fn().mockReturnValue([true, false]);
-jest.mock("../../../hooks/wallet/useIsMyAddress", () => ({
-  useAreMyAddresses: (...args: string[]) => useAreMyAddressesMock(...args),
-}));
+jest.mock("../../../hooks/wallet/useIsMyAddress");
+const useAreMyAddressesMock = jest
+  .requireMock("../../../hooks/wallet/useIsMyAddress")
+  .useAreMyAddresses.mockReturnValue([true, false]);
 
 describe("useGetTransactionDestinationAddress", () => {
   const { outs } = bitcoinJSTransactionWithRBF2;

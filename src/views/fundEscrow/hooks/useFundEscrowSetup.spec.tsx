@@ -19,18 +19,20 @@ import { useFundEscrowSetup } from "./useFundEscrowSetup";
 jest.useFakeTimers();
 
 const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
-}));
+jest.mock("../../../hooks/useShowErrorBanner");
+jest
+  .requireMock("../../../hooks/useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 
 const useFundingStatusMock = jest.fn().mockReturnValue({
   fundingStatus: defaultFundingStatus,
   userConfirmationRequired: false,
   isLoading: false,
 });
-jest.mock("../../../hooks/query/useFundingStatus", () => ({
-  useFundingStatus: () => useFundingStatusMock(),
-}));
+jest.mock("../../../hooks/query/useFundingStatus");
+jest
+  .requireMock("../../../hooks/query/useFundingStatus")
+  .useFundingStatus.mockImplementation(useFundingStatusMock);
 
 const sellOfferWithEscrow = { ...sellOffer, escrow: "escrow" };
 

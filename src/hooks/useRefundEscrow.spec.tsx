@@ -12,41 +12,40 @@ const refundSellOfferMock = jest.spyOn(
   "refundSellOffer",
 );
 
-const checkRefundPSBTMock = jest.fn();
-jest.mock("../utils/bitcoin/checkRefundPSBT", () => ({
-  checkRefundPSBT: (...args: unknown[]) => checkRefundPSBTMock(...args),
-}));
-const signAndFinalizePSBTMock = jest.fn();
-jest.mock("../utils/bitcoin/signAndFinalizePSBT", () => ({
-  signAndFinalizePSBT: (...args: unknown[]) => signAndFinalizePSBTMock(...args),
-}));
-const showTransactionMock = jest.fn();
-jest.mock("../utils/bitcoin/showTransaction", () => ({
-  showTransaction: (...args: unknown[]) => showTransactionMock(...args),
-}));
+jest.mock("../utils/bitcoin/checkRefundPSBT");
+const checkRefundPSBTMock = jest.requireMock(
+  "../utils/bitcoin/checkRefundPSBT",
+).checkRefundPSBT;
+jest.mock("../utils/bitcoin/signAndFinalizePSBT");
+const signAndFinalizePSBTMock = jest.requireMock(
+  "../utils/bitcoin/signAndFinalizePSBT",
+).signAndFinalizePSBT;
+jest.mock("../utils/bitcoin/showTransaction");
+const showTransactionMock = jest.requireMock(
+  "../utils/bitcoin/showTransaction",
+).showTransaction;
 
-const saveOfferMock = jest.fn();
-jest.mock("../utils/offer/saveOffer", () => ({
-  saveOffer: (...args: unknown[]) => saveOfferMock(...args),
-}));
+jest.mock("../utils/offer/saveOffer");
+const saveOfferMock = jest.requireMock("../utils/offer/saveOffer").saveOffer;
 
 const refetchTradeSummariesMock = jest.fn();
-jest.mock("../hooks/query/useTradeSummaries", () => ({
-  useTradeSummaries: jest.fn(() => ({
+jest.mock("../hooks/query/useTradeSummaries");
+jest
+  .requireMock("../hooks/query/useTradeSummaries")
+  .useTradeSummaries.mockReturnValue({
     refetch: refetchTradeSummariesMock,
-  })),
-}));
+  });
 
-const getEscrowWalletForOfferMock = jest.fn();
-jest.mock("../utils/wallet/getEscrowWalletForOffer", () => ({
-  getEscrowWalletForOffer: (...args: unknown[]) =>
-    getEscrowWalletForOfferMock(...args),
-}));
+jest.mock("../utils/wallet/getEscrowWalletForOffer");
+const getEscrowWalletForOfferMock = jest.requireMock(
+  "../utils/wallet/getEscrowWalletForOffer",
+).getEscrowWalletForOffer;
 
 const showErrorMock = jest.fn();
-jest.mock("../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorMock,
-}));
+jest.mock("../hooks/useShowErrorBanner");
+jest
+  .requireMock("../hooks/useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorMock);
 
 jest.useFakeTimers();
 

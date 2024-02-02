@@ -7,14 +7,12 @@ const keyPairMock = {
   sign: signMock,
 };
 
-jest.mock("../wallet/getWallet", () => ({
-  getWallet: jest.fn(),
-}));
+jest.mock("../wallet/getWallet");
+jest.mock("../account/getMainAccount");
 
-const getMainAccountMock = jest.fn().mockReturnValue(keyPairMock);
-jest.mock("../account/getMainAccount", () => ({
-  getMainAccount: () => getMainAccountMock(),
-}));
+jest
+  .spyOn(jest.requireMock("../account/getMainAccount"), "getMainAccount")
+  .mockReturnValue(keyPairMock);
 
 describe("createUserRating", () => {
   const userId = "123";

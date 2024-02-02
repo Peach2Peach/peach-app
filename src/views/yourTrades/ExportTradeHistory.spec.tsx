@@ -7,15 +7,15 @@ import { tradeSummary } from "../../../tests/unit/data/tradeSummaryData";
 import { MSINAMONTH } from "../../constants";
 import { ExportTradeHistory } from "./ExportTradeHistory";
 
-const useTradeSummariesMock = jest.fn(
-  (): { tradeSummaries: (OfferSummary | ContractSummary)[] } => ({
-    tradeSummaries: [],
-  }),
-);
+jest.mock("../../hooks/query/useTradeSummaries");
+const useTradeSummariesMock = jest
+  .requireMock("../../hooks/query/useTradeSummaries")
+  .useTradeSummaries.mockImplementation(
+    (): { tradeSummaries: (OfferSummary | ContractSummary)[] } => ({
+      tradeSummaries: [],
+    }),
+  );
 
-jest.mock("../../hooks/query/useTradeSummaries", () => ({
-  useTradeSummaries: () => useTradeSummariesMock(),
-}));
 jest.useFakeTimers();
 
 describe("ExportTradeHistory", () => {

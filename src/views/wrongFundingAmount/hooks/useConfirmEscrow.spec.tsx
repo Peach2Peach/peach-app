@@ -8,9 +8,10 @@ import { useConfirmEscrow } from "./useConfirmEscrow";
 const unauthorizedError = { error: "UNAUTHORIZED" } as const;
 
 const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
-}));
+jest.mock("../../../hooks/useShowErrorBanner");
+jest
+  .requireMock("../../../hooks/useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 
 const confirmEscrowMock = jest.spyOn(peachAPI.private.offer, "confirmEscrow");
 

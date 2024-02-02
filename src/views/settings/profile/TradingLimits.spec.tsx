@@ -2,10 +2,10 @@ import ShallowRenderer from "react-test-renderer/shallow";
 import { tradingLimit } from "../../../../tests/unit/data/tradingLimitsData";
 import { TradingLimits } from "./TradingLimits";
 
-const useTradingLimitsMock = jest.fn().mockReturnValue(tradingLimit);
-jest.mock("../../../hooks/query/useTradingLimits", () => ({
-  useTradingLimits: () => useTradingLimitsMock(),
-}));
+jest.mock("../../../hooks/query/useTradingLimits");
+jest
+  .requireMock("../../../hooks/query/useTradingLimits")
+  .useTradingLimits.mockReturnValue(tradingLimit);
 
 describe("TradingLimits", () => {
   const renderer = ShallowRenderer.createRenderer();

@@ -1,10 +1,10 @@
 import { contract } from "../../../../peach-api/src/testData/contract";
 import { shouldShowTradeStatusInfo } from "./shouldShowTradeStatusInfo";
 
-const isPaymentTooLateMock = jest.fn((..._args: unknown[]) => false);
-jest.mock("../../../utils/contract/status/isPaymentTooLate", () => ({
-  isPaymentTooLate: (...args: unknown[]) => isPaymentTooLateMock(...args),
-}));
+jest.mock("../../../utils/contract/status/isPaymentTooLate");
+const isPaymentTooLateMock = jest
+  .requireMock("../../../utils/contract/status/isPaymentTooLate")
+  .isPaymentTooLate.mockReturnValue(false);
 
 describe("shouldShowTradeStatusInfo", () => {
   const mockContract = {

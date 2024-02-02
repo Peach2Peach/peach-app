@@ -9,16 +9,16 @@ const reviveSellOfferMock = jest.spyOn(
   "republishSellOffer",
 );
 
-const getSellOfferFromContractMock = jest.fn();
-jest.mock("../../../utils/contract/getSellOfferFromContract", () => ({
-  getSellOfferFromContract: (contract: Contract) =>
-    getSellOfferFromContractMock(contract),
-}));
+jest.mock("../../../utils/contract/getSellOfferFromContract");
+const getSellOfferFromContractMock = jest.requireMock(
+  "../../../utils/contract/getSellOfferFromContract",
+).getSellOfferFromContract;
 
 const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
-}));
+jest.mock("../../../hooks/useShowErrorBanner");
+jest
+  .requireMock("../../../hooks/useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 
 describe("useRepublishOffer", () => {
   const contract = {

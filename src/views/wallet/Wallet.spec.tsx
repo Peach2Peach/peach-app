@@ -17,10 +17,10 @@ import { Wallet } from "./Wallet";
 const defaultReturnValue = {
   balance: 21,
 };
-const useWalletBalanceMock = jest.fn(() => defaultReturnValue);
-jest.mock("./hooks/useWalletBalance", () => ({
-  useWalletBalance: () => useWalletBalanceMock(),
-}));
+jest.mock("./hooks/useWalletBalance");
+jest
+  .requireMock("./hooks/useWalletBalance")
+  .useWalletBalance.mockReturnValue(defaultReturnValue);
 
 const addresses = {
   first: {

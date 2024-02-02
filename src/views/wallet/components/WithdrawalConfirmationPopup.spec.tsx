@@ -11,9 +11,10 @@ import { useWalletState } from "../../../utils/wallet/walletStore";
 import { WithdrawalConfirmationPopup } from "./WithdrawalConfirmationPopup";
 
 const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
-}));
+jest.mock("../../../hooks/useShowErrorBanner");
+jest
+  .requireMock("../../../hooks/useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 
 const amount = sellOffer.amount;
 const address =
@@ -30,9 +31,10 @@ const props = {
   feeRate,
   psbt: transaction.psbt,
 };
-jest.mock("../../../utils/wallet/transaction/buildTransaction", () => ({
-  buildTransaction: jest.fn(() => transaction),
-}));
+jest.mock("../../../utils/wallet/transaction/buildTransaction");
+jest
+  .requireMock("../../../utils/wallet/transaction/buildTransaction")
+  .buildTransaction.mockReturnValue(transaction);
 jest.useFakeTimers();
 
 describe("useOpenWithdrawalConfirmationPopup", () => {

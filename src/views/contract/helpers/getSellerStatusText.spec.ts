@@ -14,13 +14,13 @@ const getSellOfferFromContractMock = jest.fn(
 jest.mock("../../../utils/contract/getWalletLabelFromContract", () => ({
   getWalletLabelFromContract: jest.fn(() => "walletLabel"),
 }));
-jest.mock("../../../utils/contract/getSellOfferFromContract", () => ({
-  getSellOfferFromContract: jest.fn(() => getSellOfferFromContractMock()),
-}));
+jest.mock("../../../utils/contract/getSellOfferFromContract");
+jest
+  .requireMock("../../../utils/contract/getSellOfferFromContract")
+  .getSellOfferFromContract.mockImplementation(getSellOfferFromContractMock);
 
-const isPaymentTooLateMock = jest.fn(() => false);
 jest.mock("../../../utils/contract/status/isPaymentTooLate", () => ({
-  isPaymentTooLate: jest.fn(() => isPaymentTooLateMock()),
+  isPaymentTooLate: jest.fn(() => false),
 }));
 
 jest.mock("./getSellerDisputeStatusText", () => ({

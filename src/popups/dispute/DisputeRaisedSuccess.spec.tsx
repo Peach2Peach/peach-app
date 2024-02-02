@@ -2,9 +2,10 @@ import { fireEvent, render } from "test-utils";
 import { DisputeRaisedSuccess } from "./DisputeRaisedSuccess";
 
 const closePopupMock = jest.fn();
-jest.mock("../../components/popup/Popup", () => ({
-  useClosePopup: () => closePopupMock,
-}));
+jest.mock("../../components/popup/Popup");
+jest
+  .requireMock("../../components/popup/Popup")
+  .useClosePopup.mockReturnValue(closePopupMock);
 
 describe("DisputeRaisedSuccess", () => {
   it("opens dispute raised success popup for buyer", () => {

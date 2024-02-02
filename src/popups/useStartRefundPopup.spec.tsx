@@ -4,16 +4,14 @@ import { Popup } from "../components/popup/Popup";
 import { useStartRefundPopup } from "./useStartRefundPopup";
 
 const refundEscrowMock = jest.fn();
-jest.mock("../hooks/useRefundEscrow", () => ({
-  useRefundEscrow: () => refundEscrowMock,
-}));
+jest.mock("../hooks/useRefundEscrow");
+jest
+  .requireMock("../hooks/useRefundEscrow")
+  .useRefundEscrow.mockReturnValue(refundEscrowMock);
 
 const psbt = "psbt";
 
-const showErrorMock = jest.fn();
-jest.mock("../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorMock,
-}));
+jest.mock("../hooks/useShowErrorBanner");
 
 jest.useFakeTimers();
 

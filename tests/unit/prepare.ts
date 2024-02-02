@@ -1,13 +1,10 @@
 import { mockBDKRN } from "./mocks/bdkRN";
 
-const CookieManagerMock = jest.fn();
 jest.mock("@react-native-cookies/cookies", () => ({
-  set: (...args: unknown[]) => CookieManagerMock(...args),
+  set: jest.fn(),
 }));
-
-const WebViewMock = jest.fn();
 jest.mock("react-native-webview", () => ({
-  WebView: (...args: unknown[]) => WebViewMock(...args),
+  WebView: "WebView",
 }));
 
 jest.mock("../../src/utils/peachAPI", () => ({

@@ -8,9 +8,10 @@ import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { ConfirmTransactionPopup } from "./ConfirmTransactionPopup";
 
 const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
-}));
+jest.mock("../../../hooks/useShowErrorBanner");
+jest
+  .requireMock("../../../hooks/useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 
 describe("ConfirmTransactionPopup", () => {
   const onSuccess = jest.fn();

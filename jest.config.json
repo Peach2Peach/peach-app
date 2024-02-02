@@ -8,24 +8,12 @@
   "coverageReporters": ["lcov", "text-summary"],
   "testPathIgnorePatterns": ["<rootDir>/peach-api"],
   "transform": {
-    "\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
-    "^.+\\.(t|j)sx?$": [
-      "@swc/jest",
-      {
-        "jsc": {
-          "transform": {
-            "react": {
-              "runtime": "automatic"
-            }
-          }
-        }
-      }
-    ]
+    "\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest"
   },
   "transformIgnorePatterns": [
     "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-form-validator|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg|bdk-rn|react-native-parsed-text|react-native-reanimated|react-native-reanimated-carousel|react-native-url-polyfill|react-native-camera)/)"
   ],
-  "setupFiles": ["./tests/unit/prepare.ts"],
+  "setupFiles": ["./tests/unit/prepare.ts", "dotenv/config"],
   "moduleNameMapper": {
     "\\.(ttf|woff|woff2|eot|otf)$": "jest-transform-stub",
     "\\.(svg)$": "<rootDir>/__mocks__/fileMock.js"

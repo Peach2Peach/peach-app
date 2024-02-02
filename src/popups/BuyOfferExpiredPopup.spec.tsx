@@ -3,9 +3,10 @@ import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
 import { BuyOfferExpiredPopup } from "./BuyOfferExpiredPopup";
 
 const closePopupMock = jest.fn();
-jest.mock("../components/popup/Popup", () => ({
-  useClosePopup: () => closePopupMock,
-}));
+jest.mock("../components/popup/Popup");
+jest
+  .requireMock("../components/popup/Popup")
+  .useClosePopup.mockReturnValue(closePopupMock);
 describe("useBuyOfferExpiredPopup", () => {
   it("should navigate to contact", () => {
     const { getByText } = render(

@@ -52,10 +52,10 @@ import { useWalletState } from "./walletStore";
 
 jest.mock("./PeachWallet", () => jest.requireActual("./PeachWallet"));
 
-const buildTransactionMock = jest.fn();
-jest.mock("./transaction/buildTransaction", () => ({
-  buildTransaction: (...args: unknown[]) => buildTransactionMock(...args),
-}));
+jest.mock("./transaction/buildTransaction");
+const buildTransactionMock = jest.requireMock(
+  "./transaction/buildTransaction",
+).buildTransaction;
 
 jest.useFakeTimers();
 

@@ -2,10 +2,8 @@ import { createRenderer } from "react-test-renderer/shallow";
 import { mockDimensions } from "../../../tests/unit/helpers/mockDimensions";
 import { ProgressDonut } from "./ProgressDonut";
 
-const isIOSMock = jest.fn();
-jest.mock("../../utils/system/isIOS", () => ({
-  isIOS: () => isIOSMock(),
-}));
+jest.mock("../../utils/system/isIOS");
+const isIOSMock = jest.requireMock("../../utils/system/isIOS").isIOS;
 
 describe("ProgressDonut", () => {
   const shallowRenderer = createRenderer();

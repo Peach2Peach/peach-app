@@ -4,9 +4,10 @@ import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
 import { FundingAmountDifferentPopup } from "./FundingAmountDifferentPopup";
 
 const closePopupMock = jest.fn();
-jest.mock("../components/popup/Popup", () => ({
-  useClosePopup: () => closePopupMock,
-}));
+jest.mock("../components/popup/Popup");
+jest
+  .requireMock("../components/popup/Popup")
+  .useClosePopup.mockReturnValue(closePopupMock);
 
 describe("FundingAmountDifferentPopup", () => {
   it("navigates to wrongFundingAmount", () => {
