@@ -314,12 +314,11 @@ async function generateMatchOfferData({
   if (!paymentData) return { error: err };
 
   const { symmetricKeyEncrypted, symmetricKeySignature, user } = match;
-  const pgpPublicKeys = user.pgpPublicKeys.map((key) => key.publicKey);
 
   const symmetricKey = await decryptSymmetricKey(
     symmetricKeyEncrypted,
     symmetricKeySignature,
-    pgpPublicKeys,
+    user.pgpPublicKeys,
   );
   if (!symmetricKey) return { error: "SYMMETRIC_KEY_DECRYPTION_FAILED" };
 
