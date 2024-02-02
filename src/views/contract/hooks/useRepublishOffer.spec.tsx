@@ -9,16 +9,17 @@ const reviveSellOfferMock = jest.spyOn(
   "republishSellOffer",
 );
 
-jest.mock("../../../utils/contract/getSellOfferFromContract");
-const getSellOfferFromContractMock = jest.requireMock(
-  "../../../utils/contract/getSellOfferFromContract",
-).getSellOfferFromContract;
+const mockSellOffer = {
+  id: "offerId",
+};
+jest.mock("../../../utils/contract/getSellOfferFromContract", () => ({
+  getSellOfferFromContract: jest.fn(() => mockSellOffer),
+}));
 
-const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner");
-jest
-  .requireMock("../../../hooks/useShowErrorBanner")
-  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
+const mockShowErrorBanner = jest.fn();
+jest.mock("../../../hooks/useShowErrorBanner", () => ({
+  useShowErrorBanner: () => mockShowErrorBanner,
+}));
 
 describe("useRepublishOffer", () => {
   const contract = {
@@ -26,15 +27,13 @@ describe("useRepublishOffer", () => {
     cancelConfirmationDismissed: false,
     cancelConfirmationPending: true,
   } as unknown as Contract;
-  const sellOffer = {
-    id: "offerId",
-  };
 
   it("should revive the sell offer", async () => {
-    getSellOfferFromContractMock.mockReturnValue(sellOffer);
     const { result } = renderHook(useRepublishOffer);
     await result.current(contract);
-    expect(reviveSellOfferMock).toHaveBeenCalledWith({ offerId: sellOffer.id });
+    expect(reviveSellOfferMock).toHaveBeenCalledWith({
+      offerId: mockSellOffer.id,
+    });
   });
 
   it("should show an error banner and close the popup if the sell offer could not be revived", async () => {
@@ -42,17 +41,15 @@ describe("useRepublishOffer", () => {
       error: { error: "UNAUTHORIZED" },
       ...responseUtils,
     });
-    getSellOfferFromContractMock.mockReturnValue(sellOffer);
     const { result } = renderHook(useRepublishOffer);
     await result.current(contract);
-    expect(showErrorBannerMock).toHaveBeenCalledWith("UNAUTHORIZED");
+    expect(mockShowErrorBanner).toHaveBeenCalledWith("UNAUTHORIZED");
     const { queryByText } = render(<Popup />);
     expect(queryByText("offer re-published")).toBeFalsy();
   });
 
   it("should show the offer republished popup", async () => {
     const { result } = renderHook(useRepublishOffer);
-    getSellOfferFromContractMock.mockReturnValue(sellOffer);
     await result.current(contract);
 
     const { queryByText } = render(<Popup />);
@@ -61,7 +58,6 @@ describe("useRepublishOffer", () => {
 
   it("should close the popup, save the contract and navigate to contract when the close is pressed", async () => {
     const { result } = renderHook(useRepublishOffer);
-    getSellOfferFromContractMock.mockReturnValue(sellOffer);
     await result.current(contract);
     const { getByText, queryByText } = render(<Popup />);
     fireEvent.press(getByText("close"));
@@ -73,7 +69,6 @@ describe("useRepublishOffer", () => {
 
   it("should close the popup, save the contract and navigate to search when the go to offer is pressed", async () => {
     const { result } = renderHook(useRepublishOffer);
-    getSellOfferFromContractMock.mockReturnValue(sellOffer);
     await result.current(contract);
     const { getByText, queryByText } = render(<Popup />);
     fireEvent.press(getByText("go to offer"));

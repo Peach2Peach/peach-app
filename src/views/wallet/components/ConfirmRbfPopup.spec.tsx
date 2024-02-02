@@ -11,11 +11,10 @@ import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { ConfirmRbfPopup } from "./ConfirmRbfPopup";
 
-const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner");
-jest
-  .requireMock("../../../hooks/useShowErrorBanner")
-  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
+const mockShowErrorBanner = jest.fn();
+jest.mock("../../../hooks/useShowErrorBanner", () => ({
+  useShowErrorBanner: () => mockShowErrorBanner,
+}));
 jest.useFakeTimers();
 
 describe("ConfirmRbfPopup", () => {
@@ -69,7 +68,7 @@ describe("ConfirmRbfPopup", () => {
     );
 
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
         "78999997952",
         "1089000",
       ]);

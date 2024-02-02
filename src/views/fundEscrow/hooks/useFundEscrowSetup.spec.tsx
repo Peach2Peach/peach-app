@@ -18,21 +18,19 @@ import { useFundEscrowSetup } from "./useFundEscrowSetup";
 
 jest.useFakeTimers();
 
-const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner");
-jest
-  .requireMock("../../../hooks/useShowErrorBanner")
-  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
+const mockShowErrorBanner = jest.fn();
+jest.mock("../../../hooks/useShowErrorBanner", () => ({
+  useShowErrorBanner: () => mockShowErrorBanner,
+}));
 
-const useFundingStatusMock = jest.fn().mockReturnValue({
+const mockUseFundingStatus = jest.fn().mockReturnValue({
   fundingStatus: defaultFundingStatus,
   userConfirmationRequired: false,
   isLoading: false,
 });
-jest.mock("../../../hooks/query/useFundingStatus");
-jest
-  .requireMock("../../../hooks/query/useFundingStatus")
-  .useFundingStatus.mockImplementation(useFundingStatusMock);
+jest.mock("../../../hooks/query/useFundingStatus", () => ({
+  useFundingStatus: () => mockUseFundingStatus(),
+}));
 
 const sellOfferWithEscrow = { ...sellOffer, escrow: "escrow" };
 
@@ -40,7 +38,7 @@ const getOfferDetailsMock = jest
   .spyOn(peachAPI.private.offer, "getOfferDetails")
   .mockResolvedValue({ result: sellOfferWithEscrow, ...responseUtils });
 jest.mock("./useHandleFundingStatus", () => ({
-  useHandleFundingStatus: () => jest.fn(),
+  useHandleFundingStatus: jest.fn(),
 }));
 
 describe("useFundEscrowSetup", () => {
@@ -99,14 +97,14 @@ describe("useFundEscrowSetup", () => {
     });
   });
   it("should show error banner if there is an error with the funding status", () => {
-    useFundingStatusMock.mockReturnValueOnce({
+    mockUseFundingStatus.mockReturnValueOnce({
       fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
       isLoading: false,
       error: new Error(unauthorizedError.error),
     });
     renderHook(useFundEscrowSetup);
-    expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error);
+    expect(mockShowErrorBanner).toHaveBeenCalledWith(unauthorizedError.error);
   });
   it("should handle the case that no offer could be returned", () => {
     setAccount({ ...account1, offers: [] });

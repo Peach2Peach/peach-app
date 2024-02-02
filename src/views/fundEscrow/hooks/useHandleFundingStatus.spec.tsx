@@ -41,19 +41,17 @@ const searchWithMatches = {
     ],
   },
 };
-const fetchMatchesMock = jest.fn().mockResolvedValue(searchWithNoMatches);
-jest.mock("../../search/hooks/useOfferMatches");
-jest
-  .requireMock("../../search/hooks/useOfferMatches")
-  .useOfferMatches.mockReturnValue({
-    refetch: fetchMatchesMock,
-  });
+const mockFetchMatches = jest.fn().mockResolvedValue(searchWithNoMatches);
+jest.mock("../../search/hooks/useOfferMatches", () => ({
+  useOfferMatches: () => ({
+    refetch: mockFetchMatches,
+  }),
+}));
 
-const startRefundPopupMock = jest.fn();
-jest.mock("../../../popups/useStartRefundPopup");
-jest
-  .requireMock("../../../popups/useStartRefundPopup")
-  .useStartRefundPopup.mockReturnValue(startRefundPopupMock);
+const mockStartRefundPopup = jest.fn();
+jest.mock("../../../popups/useStartRefundPopup", () => ({
+  useStartRefundPopup: () => mockStartRefundPopup,
+}));
 
 describe("useHandleFundingStatus", () => {
   const fundingStatusFunded: FundingStatus = {
@@ -80,7 +78,7 @@ describe("useHandleFundingStatus", () => {
     };
     renderHook(useHandleFundingStatus, { initialProps });
     expect(replaceMock).not.toHaveBeenCalled();
-    expect(startRefundPopupMock).not.toHaveBeenCalled();
+    expect(mockStartRefundPopup).not.toHaveBeenCalled();
     const account = useAccountStore.getState().account;
     expect(account.offers).toEqual([]);
   });
@@ -108,7 +106,7 @@ describe("useHandleFundingStatus", () => {
       userConfirmationRequired: false,
     };
     renderHook(useHandleFundingStatus, { initialProps });
-    expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer);
+    expect(mockStartRefundPopup).toHaveBeenCalledWith(sellOffer);
   });
   it("should show showWronglyFundedPopup when WRONG_FUNDING_AMOUNT", () => {
     const fundingStatus: FundingStatus = {
@@ -142,10 +140,10 @@ describe("useHandleFundingStatus", () => {
     });
   });
   it("should go to search if funding status is FUNDED with matches already", async () => {
-    fetchMatchesMock.mockResolvedValueOnce(searchWithMatches);
+    mockFetchMatches.mockResolvedValueOnce(searchWithMatches);
 
     renderHook(useHandleFundingStatus, { initialProps: fundedProps });
-    await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled());
+    await waitFor(() => expect(mockFetchMatches).toHaveBeenCalled());
     expect(replaceMock).toHaveBeenCalledWith("search", {
       offerId: sellOffer.id,
     });

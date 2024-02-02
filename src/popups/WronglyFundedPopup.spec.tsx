@@ -3,11 +3,10 @@ import { sellOffer } from "../../tests/unit/data/offerData";
 import { useConfigStore } from "../store/configStore/configStore";
 import { WronglyFundedPopup } from "./WronglyFundedPopup";
 
-const cancelAndStartRefundPopup = jest.fn();
-jest.mock("./useCancelAndStartRefundPopup");
-jest
-  .requireMock("./useCancelAndStartRefundPopup")
-  .useCancelAndStartRefundPopup.mockReturnValue(cancelAndStartRefundPopup);
+const mockCancelAndStartRefundPopup = jest.fn();
+jest.mock("./useCancelAndStartRefundPopup", () => ({
+  useCancelAndStartRefundPopup: () => mockCancelAndStartRefundPopup,
+}));
 
 describe("useShowWronglyFundedPopup", () => {
   const maxTradingAmount = 2000000;
@@ -49,6 +48,8 @@ describe("useShowWronglyFundedPopup", () => {
       <WronglyFundedPopup sellOffer={wronglyFundedOffer} />,
     );
     fireEvent.press(getByText("refund escrow"));
-    expect(cancelAndStartRefundPopup).toHaveBeenCalledWith(wronglyFundedOffer);
+    expect(mockCancelAndStartRefundPopup).toHaveBeenCalledWith(
+      wronglyFundedOffer,
+    );
   });
 });

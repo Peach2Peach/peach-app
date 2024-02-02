@@ -3,7 +3,7 @@ import { TxBuilder } from "bdk-rn";
 import { act } from "react-test-renderer";
 import { fireEvent, render, renderHook, responseUtils } from "test-utils";
 import { defaultUser } from "../../../../peach-api/src/testData/userData";
-import { estimatedFees } from "../../../../tests/unit/data/bitcoinNetworkData";
+import { estimatedFees as mockEstimatedFees } from "../../../../tests/unit/data/bitcoinNetworkData";
 import { transactionError } from "../../../../tests/unit/data/errors";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
@@ -14,27 +14,23 @@ import { defaultFundingStatus } from "../../../utils/offer/constants";
 import { peachAPI } from "../../../utils/peachAPI";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
+import { setMultipleRecipients } from "../../../utils/wallet/transaction";
 import { useFundFromPeachWallet } from "./useFundFromPeachWallet";
 
-jest.mock("../../../hooks/query/useFeeEstimate");
-jest
-  .requireMock("../../../hooks/query/useFeeEstimate")
-  .useFeeEstimate.mockReturnValue({ estimatedFees });
+jest.mock("../../../hooks/query/useFeeEstimate", () => ({
+  useFeeEstimate: () => ({ estimatedFees: mockEstimatedFees }),
+}));
 
 jest.mock("../../../utils/wallet/transaction/setMultipleRecipients");
-const setMultipleRecipientsMock = jest.requireMock(
-  "../../../utils/wallet/transaction/setMultipleRecipients",
-).setMultipleRecipients;
 
-const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner");
-jest
-  .requireMock("../../../hooks/useShowErrorBanner")
-  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
+const mockShowErrorBanner = jest.fn();
+jest.mock("../../../hooks/useShowErrorBanner", () => ({
+  useShowErrorBanner: () => mockShowErrorBanner,
+}));
 jest.useFakeTimers();
 
 jest.spyOn(peachAPI.private.user, "getSelfUser").mockResolvedValue({
-  result: { ...defaultUser, feeRate: estimatedFees.halfHourFee },
+  result: { ...defaultUser, feeRate: mockEstimatedFees.halfHourFee },
   ...responseUtils,
 });
 
@@ -44,7 +40,7 @@ describe("useFundFromPeachWallet", () => {
   const minTradingAmount = 50000;
   const address =
     "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh";
-  const feeRate = estimatedFees.halfHourFee;
+  const feeRate = mockEstimatedFees.halfHourFee;
   const initialProps = {
     offerId,
     address,
@@ -84,7 +80,7 @@ describe("useFundFromPeachWallet", () => {
     await act(async () => {
       await result.current(initialProps);
     });
-    expect(showErrorBannerMock).toHaveBeenCalledWith("UNAUTHORIZED");
+    expect(mockShowErrorBanner).toHaveBeenCalledWith("UNAUTHORIZED");
   });
   it("should open confirmation popup", async () => {
     peachWallet.balance = amount;
@@ -110,7 +106,7 @@ describe("useFundFromPeachWallet", () => {
     await act(async () => {
       await result.current({ ...initialProps, addresses });
     });
-    expect(setMultipleRecipientsMock).toHaveBeenCalledWith(
+    expect(setMultipleRecipients).toHaveBeenCalledWith(
       expect.any(TxBuilder),
       initialProps.amount,
       addresses,
@@ -156,7 +152,7 @@ describe("useFundFromPeachWallet", () => {
       await fireEvent.press(getByText("confirm & send"));
     });
 
-    expect(showErrorBannerMock).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+    expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
       "78999997952",
       "1089000",
     ]);
@@ -192,7 +188,7 @@ describe("useFundFromPeachWallet", () => {
     await act(async () => {
       await result.current(initialProps);
     });
-    expect(showErrorBannerMock).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+    expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
       "78999997952",
       "1089000",
     ]);
@@ -212,7 +208,7 @@ describe("useFundFromPeachWallet", () => {
     await act(async () => {
       await result.current(initialProps);
     });
-    expect(showErrorBannerMock).toHaveBeenCalledWith("UNKNOWN", []);
+    expect(mockShowErrorBanner).toHaveBeenCalledWith("UNKNOWN", []);
   });
 
   it("should not show insufficient funds popup but error for multiple addresses", async () => {
@@ -229,7 +225,7 @@ describe("useFundFromPeachWallet", () => {
     await act(async () => {
       await result.current({ ...initialProps, addresses });
     });
-    expect(showErrorBannerMock).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+    expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
       615000,
       "1089000",
     ]);

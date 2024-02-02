@@ -28,24 +28,22 @@ const showTransactionMock = jest.requireMock(
 jest.mock("../utils/offer/saveOffer");
 const saveOfferMock = jest.requireMock("../utils/offer/saveOffer").saveOffer;
 
-const refetchTradeSummariesMock = jest.fn();
-jest.mock("../hooks/query/useTradeSummaries");
-jest
-  .requireMock("../hooks/query/useTradeSummaries")
-  .useTradeSummaries.mockReturnValue({
-    refetch: refetchTradeSummariesMock,
-  });
+const mockRefetchTradeSummaries = jest.fn();
+jest.mock("../hooks/query/useTradeSummaries", () => ({
+  useTradeSummaries: () => ({
+    refetch: mockRefetchTradeSummaries,
+  }),
+}));
 
 jest.mock("../utils/wallet/getEscrowWalletForOffer");
 const getEscrowWalletForOfferMock = jest.requireMock(
   "../utils/wallet/getEscrowWalletForOffer",
 ).getEscrowWalletForOffer;
 
-const showErrorMock = jest.fn();
-jest.mock("../hooks/useShowErrorBanner");
-jest
-  .requireMock("../hooks/useShowErrorBanner")
-  .useShowErrorBanner.mockReturnValue(showErrorMock);
+const mockShowError = jest.fn();
+jest.mock("../hooks/useShowErrorBanner", () => ({
+  useShowErrorBanner: () => mockShowError,
+}));
 
 jest.useFakeTimers();
 
@@ -88,7 +86,7 @@ describe("useRefundEscrow", () => {
       txId: "id",
       refunded: true,
     });
-    expect(refetchTradeSummariesMock).toHaveBeenCalled();
+    expect(mockRefetchTradeSummaries).toHaveBeenCalled();
   });
 
   it("should handle psbt errors", async () => {
@@ -100,7 +98,7 @@ describe("useRefundEscrow", () => {
     await act(async () => {
       await result.current(sellOffer, psbt);
     });
-    expect(showErrorMock).toHaveBeenCalledWith("error");
+    expect(mockShowError).toHaveBeenCalledWith("error");
     const { queryByText } = render(<Popup />);
     expect(queryByText("escrow refunded")).toBeFalsy();
   });
@@ -120,7 +118,7 @@ describe("useRefundEscrow", () => {
     await act(async () => {
       await result.current(sellOffer, psbt);
     });
-    expect(showErrorMock).toHaveBeenCalledWith("UNAUTHORIZED");
+    expect(mockShowError).toHaveBeenCalledWith("UNAUTHORIZED");
     const { queryByText } = render(<Popup />);
     expect(queryByText("escrow refunded")).toBeFalsy();
   });

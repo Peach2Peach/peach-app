@@ -11,11 +11,10 @@ import { useSubmitDisputeAcknowledgement } from "./useSubmitDisputeAcknowledgeme
 const now = new Date();
 jest.useFakeTimers({ now });
 
-const showErrorBannerMock = jest.fn();
-jest.mock("../../hooks/useShowErrorBanner");
-jest
-  .requireMock("../../hooks/useShowErrorBanner")
-  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
+const mockShowErrorBanner = jest.fn();
+jest.mock("../../hooks/useShowErrorBanner", () => ({
+  useShowErrorBanner: () => mockShowErrorBanner,
+}));
 
 describe("useSubmitDisputeAcknowledgement", () => {
   const acknowledgeDisputeMock = jest.spyOn(
@@ -151,7 +150,7 @@ describe("useSubmitDisputeAcknowledgement", () => {
         queryClient.getQueryState(contractKeys.detail(contract.id))?.status,
       ).toBe("success");
     });
-    expect(showErrorBannerMock).toHaveBeenCalledWith(error);
+    expect(mockShowErrorBanner).toHaveBeenCalledWith(error);
   });
   it("updates the isEmailRequired property on the contract", async () => {
     queryClient.setQueryData(contractKeys.detail(contract.id), {

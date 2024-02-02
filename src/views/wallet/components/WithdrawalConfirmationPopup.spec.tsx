@@ -10,11 +10,10 @@ import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { WithdrawalConfirmationPopup } from "./WithdrawalConfirmationPopup";
 
-const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner");
-jest
-  .requireMock("../../../hooks/useShowErrorBanner")
-  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
+const mockShowErrorBanner = jest.fn();
+jest.mock("../../../hooks/useShowErrorBanner", () => ({
+  useShowErrorBanner: () => mockShowErrorBanner,
+}));
 
 const amount = sellOffer.amount;
 const address =
@@ -82,7 +81,7 @@ describe("useOpenWithdrawalConfirmationPopup", () => {
     fireEvent.press(getByText("confirm & send"));
 
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
         "78999997952",
         "1089000",
       ]);

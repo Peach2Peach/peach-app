@@ -6,36 +6,31 @@ import i18n from "../../utils/i18n";
 import { useMessageHandler } from "./useMessageHandler";
 
 const overlayEventHanderMock = jest.fn();
-const overlayEvents = { overlayEvent: overlayEventHanderMock };
-jest.mock("./eventHandler/useOverlayEvents");
-jest
-  .requireMock("./eventHandler/useOverlayEvents")
-  .useOverlayEvents.mockReturnValue(overlayEvents);
+const mockOverlayEvents = { overlayEvent: overlayEventHanderMock };
+jest.mock("./eventHandler/useOverlayEvents", () => ({
+  useOverlayEvents: () => mockOverlayEvents,
+}));
 
 const offerPopupEventHandlerMock = jest.fn();
-const offerPopupEvents = { offerPopupEvent: offerPopupEventHandlerMock };
-jest.mock("./eventHandler/offer/useOfferPopupEvents");
-jest
-  .requireMock("./eventHandler/offer/useOfferPopupEvents")
-  .useOfferPopupEvents.mockReturnValue(offerPopupEvents);
+const mockOfferPopupEvents = { offerPopupEvent: offerPopupEventHandlerMock };
+jest.mock("./eventHandler/offer/useOfferPopupEvents", () => ({
+  useOfferPopupEvents: () => mockOfferPopupEvents,
+}));
 
 const stateUpdateEventHandlerMock = jest.fn();
-const stateUpdateEvents = { stateUpdateEvent: stateUpdateEventHandlerMock };
-jest.mock("./eventHandler/useStateUpdateEvents");
-jest
-  .requireMock("./eventHandler/useStateUpdateEvents")
-  .useStateUpdateEvents.mockReturnValue(stateUpdateEvents);
+const mockStateUpdateEvents = { stateUpdateEvent: stateUpdateEventHandlerMock };
+jest.mock("./eventHandler/useStateUpdateEvents", () => ({
+  useStateUpdateEvents: () => mockStateUpdateEvents,
+}));
 
-const actionMock = {
+const mockGetPNActionHandler = jest.fn().mockReturnValue({
   label: "action",
   icon: "icon",
   callback: jest.fn(),
-};
-const getPNActionHandlerMock = jest.fn().mockReturnValue(actionMock);
-jest.mock("./useGetPNActionHandler");
-jest
-  .requireMock("./useGetPNActionHandler")
-  .useGetPNActionHandler.mockReturnValue(getPNActionHandlerMock);
+});
+jest.mock("./useGetPNActionHandler", () => ({
+  useGetPNActionHandler: () => mockGetPNActionHandler,
+}));
 
 jest.useFakeTimers();
 

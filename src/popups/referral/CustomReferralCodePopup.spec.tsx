@@ -9,11 +9,10 @@ const redeemReferralCodeMock = jest.spyOn(
   peachAPI.private.user,
   "redeemReferralCode",
 );
-const showErrorBannerMock = jest.fn();
-jest.mock("../../hooks/useShowErrorBanner");
-jest
-  .requireMock("../../hooks/useShowErrorBanner")
-  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
+const mockShowErrorBanner = jest.fn();
+jest.mock("../../hooks/useShowErrorBanner", () => ({
+  useShowErrorBanner: () => mockShowErrorBanner,
+}));
 
 describe("useSetCustomReferralCodePopup", () => {
   it("updates referral code state", () => {
@@ -76,6 +75,6 @@ describe("useSetCustomReferralCodePopup", () => {
     fireEvent.changeText(getByPlaceholderText("creative thing here"), "HODL");
     await fireEvent.press(getByText("set referral"));
 
-    expect(showErrorBannerMock).toHaveBeenCalledWith("NOT_ENOUGH_POINTS");
+    expect(mockShowErrorBanner).toHaveBeenCalledWith("NOT_ENOUGH_POINTS");
   });
 });

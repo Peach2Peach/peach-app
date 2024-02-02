@@ -14,13 +14,9 @@ import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../utils/wallet/setWallet";
 import { Wallet } from "./Wallet";
 
-const defaultReturnValue = {
-  balance: 21,
-};
-jest.mock("./hooks/useWalletBalance");
-jest
-  .requireMock("./hooks/useWalletBalance")
-  .useWalletBalance.mockReturnValue(defaultReturnValue);
+jest.mock("./hooks/useWalletBalance", () => ({
+  useWalletBalance: jest.fn().mockReturnValue({ balance: 21 }),
+}));
 
 const addresses = {
   first: {
