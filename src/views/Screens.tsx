@@ -16,6 +16,7 @@ import { useAccountStore } from "../utils/account/account";
 import i18n from "../utils/i18n";
 import { screenTransition } from "../utils/layout/screenTransition";
 import { isIOS } from "../utils/system/isIOS";
+import { useWSQueryInvalidation } from "./useWSQueryInvalidation";
 import { onboardingViews, views } from "./views";
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -24,6 +25,9 @@ export function Screens() {
   const [isLoading, setIsLoading] = useState(true);
   const isLoggedIn = useAccountStore((state) => state.isLoggedIn);
   useGlobalHandlers();
+
+  useWSQueryInvalidation();
+
   if (isLoading) return <SplashScreenComponent setIsLoading={setIsLoading} />;
   return (
     <Stack.Navigator
