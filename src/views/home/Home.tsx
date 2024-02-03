@@ -56,7 +56,7 @@ function FreeTradesDonut() {
 
 function DailyMessage() {
   const { data: message } = useQuery({
-    queryKey: systemKeys.news,
+    queryKey: systemKeys.news(),
     queryFn: async () => {
       const { result, error } = await peachAPI.public.system.getNews();
       if (error || !result?.[0]) throw error || new Error("No message found");
