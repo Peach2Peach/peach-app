@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useClosePopup, useSetPopup } from "../components/popup/Popup";
 import { FIFTEEN_SECONDS } from "../constants";
-import { useRefundEscrow } from "../hooks/useRefundEscrow";
+import { useRefundSellOffer } from "../hooks/useRefundSellOffer";
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import { getAbortWithTimeout } from "../utils/getAbortWithTimeout";
 import i18n from "../utils/i18n";
@@ -9,7 +9,7 @@ import { peachAPI } from "../utils/peachAPI";
 import { LoadingPopup } from "./LoadingPopup";
 
 export const useStartRefundPopup = () => {
-  const refundEscrow = useRefundEscrow();
+  const { mutate: refundSellOffer } = useRefundSellOffer();
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const showError = useShowErrorBanner();
@@ -24,13 +24,13 @@ export const useStartRefundPopup = () => {
           signal: getAbortWithTimeout(FIFTEEN_SECONDS).signal,
         });
       if (refundPsbtResult) {
-        await refundEscrow(sellOffer, refundPsbtResult.psbt);
+        refundSellOffer({ sellOffer, rawPSBT: refundPsbtResult.psbt });
       } else {
         showError(refundPsbtError?.error);
         closePopup();
       }
     },
-    [closePopup, refundEscrow, setPopup, showError],
+    [closePopup, refundSellOffer, setPopup, showError],
   );
 
   return startRefundPopup;

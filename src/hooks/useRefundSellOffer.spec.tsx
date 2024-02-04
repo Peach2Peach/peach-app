@@ -1,11 +1,18 @@
-import { act, fireEvent, render, renderHook, responseUtils } from "test-utils";
+import {
+  act,
+  fireEvent,
+  render,
+  renderHook,
+  responseUtils,
+  waitFor,
+} from "test-utils";
 import { sellOffer } from "../../tests/unit/data/offerData";
 import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
 import { Overlay } from "../Overlay";
 import { Popup } from "../components/popup/Popup";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { peachAPI } from "../utils/peachAPI";
-import { useRefundEscrow } from "./useRefundEscrow";
+import { useRefundSellOffer } from "./useRefundSellOffer";
 
 const refundSellOfferMock = jest.spyOn(
   peachAPI.private.offer,
@@ -61,23 +68,21 @@ describe("useRefundEscrow", () => {
   beforeEach(() => {
     useSettingsStore.getState().setShowBackupReminder(false);
   });
-  it("should return a function", () => {
-    const { result } = renderHook(useRefundEscrow);
-    expect(result.current).toBeInstanceOf(Function);
-  });
 
   it("should refund the escrow when there is a cancel result", async () => {
     mockSuccess();
     useSettingsStore.setState({ refundToPeachWallet: false });
-    const { result } = renderHook(useRefundEscrow);
-    await act(async () => {
-      await result.current(sellOffer, psbt);
+    const { result } = renderHook(useRefundSellOffer);
+    act(() => {
+      result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
-    expect(checkRefundPSBTMock).toHaveBeenCalledWith("psbt", sellOffer);
-    expect(signAndFinalizePSBTMock).toHaveBeenCalledWith(
-      "checkedPsbt",
-      "escrowWallet",
-    );
+    await waitFor(() => {
+      expect(checkRefundPSBTMock).toHaveBeenCalledWith("psbt", sellOffer);
+      expect(signAndFinalizePSBTMock).toHaveBeenCalledWith(
+        "checkedPsbt",
+        "escrowWallet",
+      );
+    });
     const { queryByText } = render(<Popup />);
     expect(queryByText("escrow refunded")).toBeTruthy();
     expect(saveOfferMock).toHaveBeenCalledWith({
@@ -86,7 +91,6 @@ describe("useRefundEscrow", () => {
       txId: "id",
       refunded: true,
     });
-    expect(mockRefetchTradeSummaries).toHaveBeenCalled();
   });
 
   it("should handle psbt errors", async () => {
@@ -94,11 +98,13 @@ describe("useRefundEscrow", () => {
       psbt: "something went wrong",
       err: "error",
     });
-    const { result } = renderHook(useRefundEscrow);
-    await act(async () => {
-      await result.current(sellOffer, psbt);
+    const { result } = renderHook(useRefundSellOffer);
+    act(() => {
+      result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
-    expect(mockShowError).toHaveBeenCalledWith("error");
+    await waitFor(() => {
+      expect(mockShowError).toHaveBeenCalledWith("error");
+    });
     const { queryByText } = render(<Popup />);
     expect(queryByText("escrow refunded")).toBeFalsy();
   });
@@ -114,11 +120,13 @@ describe("useRefundEscrow", () => {
     });
     getEscrowWalletForOfferMock.mockReturnValueOnce("escrowWallet");
     useSettingsStore.setState({ refundToPeachWallet: false });
-    const { result } = renderHook(useRefundEscrow);
-    await act(async () => {
-      await result.current(sellOffer, psbt);
+    const { result } = renderHook(useRefundSellOffer);
+    act(() => {
+      result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
-    expect(mockShowError).toHaveBeenCalledWith("UNAUTHORIZED");
+    await waitFor(() => {
+      expect(mockShowError).toHaveBeenCalledWith("UNAUTHORIZED");
+    });
     const { queryByText } = render(<Popup />);
     expect(queryByText("escrow refunded")).toBeFalsy();
   });
@@ -126,11 +134,14 @@ describe("useRefundEscrow", () => {
   it("should close popup and go to trades on close of success popup", async () => {
     mockSuccess();
     useSettingsStore.setState({ refundToPeachWallet: false });
-    const { result } = renderHook(useRefundEscrow);
-    await act(async () => {
-      await result.current(sellOffer, psbt);
+    const { result } = renderHook(useRefundSellOffer);
+    act(() => {
+      result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     const { getByText, queryByText } = render(<Popup />);
+    await waitFor(() => {
+      expect(queryByText("close")).toBeTruthy();
+    });
     fireEvent.press(getByText("close"));
     expect(queryByText("escrow refunded")).toBeFalsy();
     expect(navigateMock).toHaveBeenCalledWith("homeScreen", {
@@ -143,11 +154,14 @@ describe("useRefundEscrow", () => {
     useSettingsStore.setState({ refundToPeachWallet: true });
     useSettingsStore.getState().setShowBackupReminder(true);
 
-    const { result } = renderHook(useRefundEscrow);
-    await act(async () => {
-      await result.current(sellOffer, psbt);
+    const { result } = renderHook(useRefundSellOffer);
+    act(() => {
+      result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     const { getByText, queryByText } = render(<Popup />);
+    await waitFor(() => {
+      expect(queryByText("close")).toBeTruthy();
+    });
     fireEvent.press(getByText("close"));
     expect(queryByText("escrow refunded")).toBeFalsy();
     const { getByText: getByOverlayText } = render(<Overlay />);
@@ -157,24 +171,29 @@ describe("useRefundEscrow", () => {
   it("should show the right success popup when peach wallet is active", async () => {
     mockSuccess();
     useSettingsStore.setState({ refundToPeachWallet: true });
-    const { result } = renderHook(useRefundEscrow);
-    await act(async () => {
-      await result.current(sellOffer, psbt);
+    const { result } = renderHook(useRefundSellOffer);
+    act(() => {
+      result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     const { getByText } = render(<Popup />);
-    expect(
-      getByText("The escrow has been refunded to your Peach wallet"),
-    ).toBeTruthy();
+    await waitFor(() => {
+      expect(
+        getByText("The escrow has been refunded to your Peach wallet"),
+      ).toBeTruthy();
+    });
   });
 
   it("should go to peach wallet if peach wallet is active", async () => {
     mockSuccess();
     useSettingsStore.setState({ refundToPeachWallet: true });
-    const { result } = renderHook(useRefundEscrow);
-    await act(async () => {
-      await result.current(sellOffer, psbt);
+    const { result } = renderHook(useRefundSellOffer);
+    act(() => {
+      result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     const { getByText, queryByText } = render(<Popup />);
+    await waitFor(() => {
+      expect(queryByText("go to wallet")).toBeTruthy();
+    });
     fireEvent.press(getByText("go to wallet"));
     expect(queryByText("escrow refunded")).toBeFalsy();
     expect(navigateMock).toHaveBeenCalledWith("transactionDetails", {
@@ -186,11 +205,14 @@ describe("useRefundEscrow", () => {
     useSettingsStore.setState({ refundToPeachWallet: true });
     useSettingsStore.getState().setShowBackupReminder(true);
 
-    const { result } = renderHook(useRefundEscrow);
-    await act(async () => {
-      await result.current(sellOffer, psbt);
+    const { result } = renderHook(useRefundSellOffer);
+    act(() => {
+      result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
-    const { getByText } = render(<Popup />);
+    const { getByText, queryByText } = render(<Popup />);
+    await waitFor(() => {
+      expect(queryByText("go to wallet")).toBeTruthy();
+    });
     fireEvent.press(getByText("go to wallet"));
     const { getByText: getByOverlayText } = render(<Overlay />);
     expect(getByOverlayText("backup time!")).toBeTruthy();
@@ -199,11 +221,14 @@ describe("useRefundEscrow", () => {
   it("should call showTransaction if peach wallet is not active", async () => {
     mockSuccess();
     useSettingsStore.setState({ refundToPeachWallet: false });
-    const { result } = renderHook(useRefundEscrow);
-    await act(async () => {
-      await result.current(sellOffer, psbt);
+    const { result } = renderHook(useRefundSellOffer);
+    act(() => {
+      result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
     const { getByText, queryByText } = render(<Popup />);
+    await waitFor(() => {
+      expect(queryByText("show tx")).toBeTruthy();
+    });
     fireEvent.press(getByText("show tx"));
     expect(queryByText("escrow refunded")).toBeFalsy();
     expect(showTransactionMock).toHaveBeenCalledWith("id", "regtest");

@@ -1,13 +1,13 @@
 import { useCallback } from "react";
 import { useClosePopup, useSetPopup } from "../components/popup/Popup";
-import { useRefundEscrow } from "../hooks/useRefundEscrow";
+import { useRefundSellOffer } from "../hooks/useRefundSellOffer";
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import i18n from "../utils/i18n";
 import { LoadingPopup } from "./LoadingPopup";
 import { useCancelOffer } from "./useCancelOffer";
 
 export const useCancelAndStartRefundPopup = () => {
-  const refundEscrow = useRefundEscrow();
+  const { mutate: refundSellOffer } = useRefundSellOffer();
   const closePopup = useClosePopup();
   const setPopup = useSetPopup();
   const showError = useShowErrorBanner();
@@ -24,13 +24,13 @@ export const useCancelAndStartRefundPopup = () => {
         },
         onSuccess: (result) => {
           if ("psbt" in result) {
-            return refundEscrow(sellOffer, result.psbt);
+            return refundSellOffer({ sellOffer, rawPSBT: result.psbt });
           }
           return null;
         },
       });
     },
-    [cancelOffer, closePopup, refundEscrow, setPopup, showError],
+    [cancelOffer, closePopup, refundSellOffer, setPopup, showError],
   );
 
   return cancelAndStartRefundPopup;

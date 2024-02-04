@@ -4,8 +4,10 @@ import { Popup } from "../components/popup/Popup";
 import { useStartRefundPopup } from "./useStartRefundPopup";
 
 const mockRefundEscrow = jest.fn();
-jest.mock("../hooks/useRefundEscrow", () => ({
-  useRefundEscrow: () => mockRefundEscrow,
+jest.mock("../hooks/useRefundSellOffer", () => ({
+  useRefundSellOffer: () => ({
+    mutate: mockRefundEscrow,
+  }),
 }));
 
 const psbt = "psbt";
@@ -28,6 +30,6 @@ describe("useStartRefundPopup", () => {
     await result.current(sellOffer);
     const { queryByText } = render(<Popup />);
     expect(queryByText("refunding escrow")).toBeTruthy();
-    expect(mockRefundEscrow).toHaveBeenCalledWith(sellOffer, psbt);
+    expect(mockRefundEscrow).toHaveBeenCalledWith({ sellOffer, rawPSBT: psbt });
   });
 });

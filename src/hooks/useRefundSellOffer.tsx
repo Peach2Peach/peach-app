@@ -1,47 +1,46 @@
 import { NETWORK } from "@env";
-import { useCallback } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSetOverlay } from "../Overlay";
 import { useClosePopup, useSetPopup } from "../components/popup/Popup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
-import { FIFTEEN_SECONDS } from "../constants";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { useTradeSummaryStore } from "../store/tradeSummaryStore";
 import { checkRefundPSBT } from "../utils/bitcoin/checkRefundPSBT";
 import { showTransaction } from "../utils/bitcoin/showTransaction";
 import { signAndFinalizePSBT } from "../utils/bitcoin/signAndFinalizePSBT";
-import { getAbortWithTimeout } from "../utils/getAbortWithTimeout";
 import i18n from "../utils/i18n";
-import { info } from "../utils/log/info";
 import { saveOffer } from "../utils/offer/saveOffer";
 import { peachAPI } from "../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../utils/wallet/getEscrowWalletForOffer";
 import { BackupTime } from "../views/overlays/BackupTime";
-import { useTradeSummaries } from "./query/useTradeSummaries";
+import { contractKeys } from "./query/useContractDetail";
+import { offerKeys } from "./query/useOfferDetail";
 import { useNavigation } from "./useNavigation";
 import { useShowErrorBanner } from "./useShowErrorBanner";
 
-export const useRefundEscrow = () => {
+export function useRefundSellOffer() {
   const setPopup = useSetPopup();
-  const closePopup = useClosePopup();
   const showError = useShowErrorBanner();
+  const closePopup = useClosePopup();
+  const setOffer = useTradeSummaryStore((state) => state.setOffer);
   const isPeachWallet = useSettingsStore((state) => state.refundToPeachWallet);
   const [setShowBackupReminder, shouldShowBackupOverlay] = useSettingsStore(
     (state) => [state.setShowBackupReminder, state.shouldShowBackupOverlay],
   );
-  const { refetch: refetchTradeSummaries } = useTradeSummaries(false);
+  const queryClient = useQueryClient();
 
-  const setOffer = useTradeSummaryStore((state) => state.setOffer);
-
-  const refundEscrow = useCallback(
-    async (sellOffer: SellOffer, rawPSBT: string) => {
-      info("Get refunding info", rawPSBT);
+  return useMutation({
+    mutationFn: async ({
+      sellOffer,
+      rawPSBT,
+    }: {
+      sellOffer: SellOffer;
+      rawPSBT: string;
+    }) => {
       const { psbt, err } = checkRefundPSBT(rawPSBT, sellOffer);
-
       if (!psbt || err) {
-        showError(err);
-        closePopup();
-        return;
+        throw new Error(err || "Invalid PSBT");
       }
       const signedTx = signAndFinalizePSBT(
         psbt,
@@ -49,45 +48,41 @@ export const useRefundEscrow = () => {
       ).extractTransaction();
       const [tx, txId] = [signedTx.toHex(), signedTx.getId()];
 
-      setPopup(<RefundEscrowPopup txId={txId} />);
-
       const { error: postTXError } =
         await peachAPI.private.offer.refundSellOffer({
           offerId: sellOffer.id,
           tx,
-          signal: getAbortWithTimeout(FIFTEEN_SECONDS).signal,
         });
+
       if (postTXError) {
-        showError(postTXError.error);
-        closePopup();
-      } else {
-        saveOffer({
-          ...sellOffer,
-          tx,
-          txId,
-          refunded: true,
-        });
-        setOffer(sellOffer.id, { txId });
-        refetchTradeSummaries();
-        if (shouldShowBackupOverlay && isPeachWallet) {
-          setShowBackupReminder(true);
-        }
+        throw new Error(postTXError.error);
+      }
+      return [tx, txId];
+    },
+    onError: (error) => {
+      showError(error.message);
+      closePopup();
+    },
+    onSuccess: ([tx, txId], { sellOffer }) => {
+      setPopup(<RefundEscrowPopup txId={txId} />);
+      saveOffer({
+        ...sellOffer,
+        tx,
+        txId,
+        refunded: true,
+      });
+      setOffer(sellOffer.id, { txId });
+      if (shouldShowBackupOverlay && isPeachWallet) {
+        setShowBackupReminder(true);
       }
     },
-    [
-      closePopup,
-      isPeachWallet,
-      refetchTradeSummaries,
-      setOffer,
-      setPopup,
-      setShowBackupReminder,
-      shouldShowBackupOverlay,
-      showError,
-    ],
-  );
-
-  return refundEscrow;
-};
+    onSettled: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
+        queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
+      ]),
+  });
+}
 
 function RefundEscrowPopup({ txId }: { txId: string }) {
   const isPeachWallet = useSettingsStore((state) => state.refundToPeachWallet);
