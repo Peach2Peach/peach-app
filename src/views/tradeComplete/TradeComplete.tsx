@@ -1,4 +1,4 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { TouchableOpacity, View, ViewStyle } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -101,69 +101,20 @@ function RateButton({ isSelected, onPress, iconId, style }: RateButtonProps) {
   );
 }
 
-type RateProps = ComponentProps & {
+type RateProps = {
   contract: Contract;
   view: ContractViewer;
   vote: "positive" | "negative" | undefined;
 };
 
 function Rate({ contract, view, vote }: RateProps) {
-  const queryClient = useQueryClient();
   const setPopup = useSetPopup();
-  const showError = useShowErrorBanner();
-  const [shouldShowBackupOverlay, setShowBackupReminder, isPeachWalletActive] =
-    useSettingsStore(
-      (state) => [
-        state.shouldShowBackupOverlay,
-        state.setShowBackupReminder,
-        view === "buyer"
-          ? state.payoutToPeachWallet
-          : state.refundToPeachWallet,
-      ],
-      shallow,
-    );
-  const setOverlayContent = useSetOverlay();
 
-  const navigateAfterRating = () => {
-    if (shouldShowBackupOverlay && isPeachWalletActive && view === "buyer") {
-      setShowBackupReminder(true);
-      setOverlayContent(
-        <BackupTime
-          navigationParams={[
-            { name: "contract", params: { contractId: contract.id } },
-          ]}
-        />,
-      );
-    }
-    setOverlayContent(undefined);
-  };
-
-  const rate = async () => {
-    if (!vote) return;
-
-    const { rating, signature } = createUserRating(
-      view === "seller" ? contract.buyer.id : contract.seller.id,
-      vote === "positive" ? 1 : -1,
-    );
-
-    const { error: err } = await peachAPI.private.contract.rateUser({
-      contractId: contract.id,
-      rating,
-      signature,
-    });
-
-    if (err) {
-      showError(err.error);
-      return;
-    }
-    await Promise.all([
-      queryClient.invalidateQueries({
-        queryKey: contractKeys.detail(contract.id),
-      }),
-      queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
-    ]);
-    navigateAfterRating();
-  };
+  const { mutate: rateUser } = useRateUser({
+    vote,
+    view,
+    contract,
+  });
 
   const showTradeBreakdown = () =>
     setPopup(<TradeBreakdownPopup contract={contract} />);
@@ -171,7 +122,7 @@ function Rate({ contract, view, vote }: RateProps) {
   return (
     <View style={tw`self-center gap-3`}>
       <Button
-        onPress={rate}
+        onPress={() => rateUser()}
         style={tw`bg-primary-background-light`}
         disabled={!vote}
         textColor={tw`text-primary-main`}
@@ -186,4 +137,63 @@ function Rate({ contract, view, vote }: RateProps) {
       )}
     </View>
   );
+}
+
+function useRateUser({ contract, view, vote }: RateProps) {
+  const queryClient = useQueryClient();
+  const showError = useShowErrorBanner();
+  const [shouldShowBackupOverlay, setShowBackupReminder, isPeachWalletActive] =
+    useSettingsStore(
+      (state) => [
+        state.shouldShowBackupOverlay,
+        state.setShowBackupReminder,
+        view === "buyer"
+          ? state.payoutToPeachWallet
+          : state.refundToPeachWallet,
+      ],
+      shallow,
+    );
+  const setOverlayContent = useSetOverlay();
+
+  return useMutation({
+    mutationFn: async () => {
+      if (!vote) throw new Error("No rating provided");
+
+      const { rating, signature } = createUserRating(
+        view === "seller" ? contract.buyer.id : contract.seller.id,
+        vote === "positive" ? 1 : -1,
+      );
+
+      const { error: err } = await peachAPI.private.contract.rateUser({
+        contractId: contract.id,
+        rating,
+        signature,
+      });
+
+      if (err) throw new Error(err.error);
+    },
+    onError: (error) => {
+      showError(error.message);
+    },
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: contractKeys.detail(contract.id),
+        }),
+        queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
+      ]);
+
+      if (shouldShowBackupOverlay && isPeachWalletActive && view === "buyer") {
+        setShowBackupReminder(true);
+        setOverlayContent(
+          <BackupTime
+            navigationParams={[
+              { name: "contract", params: { contractId: contract.id } },
+            ]}
+          />,
+        );
+      }
+      setOverlayContent(undefined);
+    },
+  });
 }
