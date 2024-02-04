@@ -1,4 +1,8 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import {
+  QueryFunctionContext,
+  keepPreviousData,
+  useQuery,
+} from "@tanstack/react-query";
 import { useMemo } from "react";
 import { MeansOfPayment } from "../../../../peach-api/src/@types/payment";
 import { MSINAMINUTE } from "../../../constants";
@@ -24,21 +28,11 @@ export function useFilteredMarketStats({
   buyAmountRange,
   sellAmount,
 }: Params) {
-  const queryData = useQuery({
-    queryKey: marketKeys.filteredOfferStats({
-      type,
-      meansOfPayment,
-      maxPremium,
-      minReputation,
-    }),
-    queryFn: async ({ queryKey }) => {
-      const requestBody = queryKey[3];
-      const { result } =
-        await peachAPI.private.offer.searchOfferSummaries(requestBody);
-      return result;
-    },
-    placeholderData: keepPreviousData,
-    staleTime: MSINAMINUTE,
+  const queryData = useSearchOfferSummaries({
+    type,
+    meansOfPayment,
+    maxPremium,
+    minReputation,
   });
 
   const offersWithinRange = useMemo(() => {
@@ -76,4 +70,27 @@ export function useFilteredMarketStats({
     ...queryData,
     data: { ...queryData.data, offersWithinRange, averagePremium },
   };
+}
+
+function useSearchOfferSummaries(
+  filter: Pick<
+    Params,
+    "type" | "meansOfPayment" | "maxPremium" | "minReputation"
+  >,
+) {
+  return useQuery({
+    queryKey: marketKeys.filteredOfferStats(filter),
+    queryFn: getSearchOfferSummaries,
+    placeholderData: keepPreviousData,
+    staleTime: MSINAMINUTE,
+  });
+}
+
+async function getSearchOfferSummaries({
+  queryKey,
+}: QueryFunctionContext<ReturnType<typeof marketKeys.filteredOfferStats>>) {
+  const requestBody = queryKey[3];
+  const { result } =
+    await peachAPI.private.offer.searchOfferSummaries(requestBody);
+  return result;
 }

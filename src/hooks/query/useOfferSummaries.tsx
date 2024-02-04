@@ -5,19 +5,6 @@ import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import { peachAPI } from "../../utils/peachAPI";
 import { offerKeys } from "./useOfferDetail";
 
-const getOfferSummariesQuery = async () => {
-  const { result: offers, error } =
-    await peachAPI.private.offer.getOfferSummaries();
-
-  if (error?.error || !offers)
-    throw new Error(error?.error || "Unable to fetch offers");
-  return offers.map((offer) => ({
-    ...offer,
-    creationDate: new Date(offer.creationDate),
-    lastModified: new Date(offer.lastModified),
-  }));
-};
-
 export const useOfferSummaries = (enabled = true) => {
   const [offers, setOffers, lastModified] = useTradeSummaryStore(
     (state) => [state.offers, state.setOffers, state.lastModified],
@@ -37,3 +24,16 @@ export const useOfferSummaries = (enabled = true) => {
 
   return { offers: data || [], isLoading, error, refetch };
 };
+
+async function getOfferSummariesQuery() {
+  const { result: offers, error } =
+    await peachAPI.private.offer.getOfferSummaries();
+
+  if (error?.error || !offers)
+    throw new Error(error?.error || "Unable to fetch offers");
+  return offers.map((offer) => ({
+    ...offer,
+    creationDate: new Date(offer.creationDate),
+    lastModified: new Date(offer.lastModified),
+  }));
+}

@@ -8,20 +8,6 @@ import { offerKeys } from "./useOfferDetail";
 const TWENTY = 20;
 const TWENTYSECONDS = TWENTY * MSINASECOND;
 
-const getFundingStatusQuery = async ({
-  queryKey,
-}: QueryFunctionContext<ReturnType<typeof offerKeys.fundingStatus>>) => {
-  const offerId = queryKey[2];
-
-  const { result: fundingStatus, error: err } =
-    await peachAPI.private.offer.getFundingStatus({ offerId });
-  if (!fundingStatus || err) {
-    error("Could not fetch funding status for offer", offerId, err?.error);
-    throw new Error(err?.error);
-  }
-  return fundingStatus;
-};
-
 export const useFundingStatus = (id: string, enabled = true) => {
   const {
     data,
@@ -44,3 +30,17 @@ export const useFundingStatus = (id: string, enabled = true) => {
     error: fundingStatusError,
   };
 };
+
+async function getFundingStatusQuery({
+  queryKey,
+}: QueryFunctionContext<ReturnType<typeof offerKeys.fundingStatus>>) {
+  const offerId = queryKey[2];
+
+  const { result: fundingStatus, error: err } =
+    await peachAPI.private.offer.getFundingStatus({ offerId });
+  if (!fundingStatus || err) {
+    error("Could not fetch funding status for offer", offerId, err?.error);
+    throw new Error(err?.error);
+  }
+  return fundingStatus;
+}

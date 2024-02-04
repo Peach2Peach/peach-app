@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { Match as MatchType } from "../../../peach-api/src/@types/match";
@@ -67,16 +67,20 @@ function useMatchDetails({
 }) {
   return useQuery({
     queryKey: matchesKeys.matchDetail(offerId, matchId),
-    queryFn: async ({ queryKey }) => {
-      const { result } = await peachAPI.private.offer.getMatch({
-        offerId: queryKey[1],
-        matchId: queryKey[2],
-      });
-
-      if (!result) throw new Error("Match not found");
-      return result;
-    },
+    queryFn: getMatchDetails,
   });
+}
+
+async function getMatchDetails({
+  queryKey,
+}: QueryFunctionContext<ReturnType<typeof matchesKeys.matchDetail>>) {
+  const [, offerId, matchId] = queryKey;
+  const { result } = await peachAPI.private.offer.getMatch({
+    offerId,
+    matchId,
+  });
+  if (!result) throw new Error("Match not found");
+  return result;
 }
 
 const MATCH_DELAY = 5000;
