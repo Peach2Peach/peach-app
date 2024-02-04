@@ -1,5 +1,4 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { useCallback } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
@@ -10,37 +9,62 @@ export const useConfirmEscrow = () => {
   const showErrorBanner = useShowErrorBanner();
   const queryClient = useQueryClient();
 
-  const confirm = useCallback(
-    async (sellOffer: SellOffer) => {
-      const { result: confirmEscrowResult, error: confirmEscrowErr } =
-        await peachAPI.private.offer.confirmEscrow({
-          offerId: sellOffer.id,
-        });
-
-      if (!confirmEscrowResult || confirmEscrowErr) {
-        showErrorBanner(confirmEscrowErr?.error);
-        return;
-      }
-      const destination =
-        sellOffer.funding.status === "FUNDED" ? "search" : "fundEscrow";
-      queryClient.setQueryData(
-        offerKeys.fundingStatus(sellOffer.id),
-        (oldQueryData: FundingStatusResponse | undefined) =>
-          oldQueryData && {
-            ...oldQueryData,
-            userConfirmationRequired: false,
-          },
+  return useMutation({
+    onMutate: async ({ offerId }) => {
+      await queryClient.cancelQueries({
+        queryKey: offerKeys.fundingStatus(offerId),
+      });
+      const previousData = queryClient.getQueryData<FundingStatusResponse>(
+        offerKeys.fundingStatus(offerId),
       );
-
+      if (previousData) {
+        queryClient.setQueryData(
+          offerKeys.fundingStatus(offerId),
+          (oldQueryData: FundingStatusResponse | undefined) =>
+            oldQueryData && {
+              ...oldQueryData,
+              userConfirmationRequired: false,
+            },
+        );
+      }
+      return { previousData };
+    },
+    mutationFn: confirmEscrow,
+    onError: (error, { offerId }, context) => {
+      showErrorBanner(error.message);
+      queryClient.setQueryData(
+        offerKeys.fundingStatus(offerId),
+        context?.previousData,
+      );
+    },
+    onSuccess: (_data, { offerId, funding }) => {
+      const destination = funding.status === "FUNDED" ? "search" : "fundEscrow";
       navigation.reset({
         index: 1,
         routes: [
           { name: "homeScreen", params: { screen: "yourTrades" } },
-          { name: destination, params: { offerId: sellOffer.id } },
+          { name: destination, params: { offerId } },
         ],
       });
     },
-    [navigation, queryClient, showErrorBanner],
-  );
-  return confirm;
+    onSettled: (_data, _error, { offerId }) =>
+      queryClient.invalidateQueries({
+        queryKey: offerKeys.fundingStatus(offerId),
+      }),
+  });
 };
+
+async function confirmEscrow({
+  offerId,
+}: {
+  offerId: string;
+  funding: FundingStatus;
+}) {
+  const { result, error } = await peachAPI.private.offer.confirmEscrow({
+    offerId,
+  });
+  if (!result) {
+    throw new Error(error?.error || "Failed to confirm escrow");
+  }
+  return result;
+}

@@ -1,4 +1,4 @@
-import { render, renderHook } from "test-utils";
+import { render, renderHook, waitFor } from "test-utils";
 import { sellOffer } from "../../tests/unit/data/offerData";
 import { Popup } from "../components/popup/Popup";
 import { useCancelAndStartRefundPopup } from "./useCancelAndStartRefundPopup";
@@ -18,9 +18,11 @@ describe("useCancelAndStartRefundPopup", () => {
 
   it("should show the loading popup and start refund", async () => {
     const { result } = renderHook(useCancelAndStartRefundPopup);
-    await result.current(sellOffer);
+    result.current(sellOffer);
     const { queryByText } = render(<Popup />);
-    expect(queryByText("refunding escrow")).toBeTruthy();
-    expect(mockRefundEscrow).toHaveBeenCalledWith(sellOffer, "psbt");
+    await waitFor(() => {
+      expect(queryByText("refunding escrow")).toBeTruthy();
+      expect(mockRefundEscrow).toHaveBeenCalledWith(sellOffer, "psbt");
+    });
   });
 });

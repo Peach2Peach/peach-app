@@ -4,22 +4,26 @@ import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
 import { Screen } from "../../components/Screen";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
-import { RefundEscrowSlider } from "../../components/offer/RefundEscrowSlider";
+import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { PeachText } from "../../components/text/PeachText";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
+import { useCancelAndStartRefundPopup } from "../../popups/useCancelAndStartRefundPopup";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { sum } from "../../utils/math/sum";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { thousands } from "../../utils/string/thousands";
-import { ContinueTradeSlider } from "./components/ContinueTradeSlider";
+import { LoadingScreen } from "../loading/LoadingScreen";
+import { useConfirmEscrow } from "./hooks/useConfirmEscrow";
 
 export const WrongFundingAmount = () => {
   const { offerId } = useRoute<"wrongFundingAmount">().params;
   const { offer } = useOfferDetail(offerId);
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined;
+
+  if (!sellOffer) return <LoadingScreen />;
 
   return (
     <Screen header={<Header title={offerIdToHex(offerId)} />}>
@@ -33,12 +37,12 @@ export const WrongFundingAmount = () => {
 };
 
 type Props = {
-  sellOffer?: SellOffer;
+  sellOffer: SellOffer;
 };
 
 function WrongFundingAmountSummary({ sellOffer }: Props) {
-  const actualAmount = sellOffer?.funding.amounts.reduce(sum, 0) || 0;
-  const fundingAmount = sellOffer?.amount || 0;
+  const actualAmount = sellOffer.funding.amounts.reduce(sum, 0);
+  const fundingAmount = sellOffer.amount;
   return (
     <View style={tw`gap-3 grow`}>
       <Divider
@@ -77,5 +81,34 @@ function LabelAndAmount({ label, amount }: LabelAndAmountProps) {
       <PeachText style={tw`w-20 text-black-50`}>{label}</PeachText>
       <BTCAmount amount={amount} size="small" />
     </View>
+  );
+}
+
+function RefundEscrowSlider({ sellOffer }: Props) {
+  const cancelAndStartRefundPopup = useCancelAndStartRefundPopup();
+  const refundEscrow = () => cancelAndStartRefundPopup(sellOffer);
+
+  return (
+    <ConfirmSlider
+      enabled={!!sellOffer}
+      onConfirm={refundEscrow}
+      label1={i18n("refundEscrow")}
+      iconId="download"
+    />
+  );
+}
+
+function ContinueTradeSlider({ sellOffer }: Props) {
+  const { mutate: confirmEscrow } = useConfirmEscrow();
+  const confirmEscrowWithSellOffer = () =>
+    confirmEscrow({ offerId: sellOffer.id, funding: sellOffer.funding });
+
+  return (
+    <ConfirmSlider
+      enabled={!!sellOffer}
+      onConfirm={confirmEscrowWithSellOffer}
+      label1={i18n("continueTrade")}
+      iconId="arrowRightCircle"
+    />
   );
 }
