@@ -18,7 +18,7 @@ import i18n from "../../utils/i18n";
 import { info } from "../../utils/log/info";
 import { peachAPI } from "../../utils/peachAPI";
 import { openURL } from "../../utils/web/openURL";
-import { systemKeys } from "../addPaymentMethod/useFormFields";
+import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
 
 export function Home() {
   return (

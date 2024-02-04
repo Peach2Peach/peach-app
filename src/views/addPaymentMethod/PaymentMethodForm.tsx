@@ -24,7 +24,7 @@ import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData
 import { FormInput } from "./FormInput";
 import { LabelInput } from "./LabelInput";
 import { TabbedFormNavigation } from "./TabbedFormNavigation";
-import { useFormFields } from "./useFormFields";
+import { usePaymentMethodInfo } from "./usePaymentMethodInfo";
 
 export type FormType = Record<PaymentMethodField, string> & {
   paymentMethodName: string;
@@ -41,7 +41,8 @@ export const PaymentMethodForm = () => {
 
   const { type: paymentMethod, id, country, label } = paymentData;
 
-  const fields = useFormFields(paymentMethod);
+  const queryResult = usePaymentMethodInfo(paymentMethod);
+  const fields = queryResult.data?.fields;
 
   const {
     control,

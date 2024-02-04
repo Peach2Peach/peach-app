@@ -7,8 +7,8 @@ export const systemKeys = {
   news: () => [...systemKeys.all, "news"] as const,
 };
 
-export function useFormFields(paymentMethod: PaymentMethod) {
-  const queryData = useQuery({
+export function usePaymentMethodInfo(paymentMethod: PaymentMethod) {
+  return useQuery({
     queryKey: systemKeys.paymentMethods(),
     queryFn: async () => {
       const { result, error } =
@@ -21,7 +21,4 @@ export function useFormFields(paymentMethod: PaymentMethod) {
       return result;
     },
   });
-
-  const fields = queryData.data?.fields;
-  return fields;
 }
