@@ -100,8 +100,8 @@ function DailyMessage() {
   );
 }
 
-function MarketStats() {
-  const { data } = useQuery({
+function useOfferStats() {
+  return useQuery({
     queryKey: marketKeys.offerStats(),
     queryFn: async () => {
       const { result, error } = await peachAPI.public.market.getOffersStats();
@@ -119,6 +119,10 @@ function MarketStats() {
     },
     refetchInterval: MSINAMINUTE,
   });
+}
+
+function MarketStats() {
+  const { data } = useOfferStats();
   return (
     <View style={tw`items-center justify-center gap-5 pb-4 grow`}>
       <PeachText style={tw`subtitle-0 text-success-main`}>
