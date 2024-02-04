@@ -54,8 +54,8 @@ function FreeTradesDonut() {
   );
 }
 
-function DailyMessage() {
-  const { data: message } = useQuery({
+function useNews() {
+  return useQuery({
     queryKey: systemKeys.news(),
     queryFn: async () => {
       const { result, error } = await peachAPI.public.system.getNews();
@@ -63,6 +63,10 @@ function DailyMessage() {
       return result?.[0];
     },
   });
+}
+
+function DailyMessage() {
+  const { data: message } = useNews();
   if (!message) return null;
 
   const onSharePress = () => {
