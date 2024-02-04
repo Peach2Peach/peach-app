@@ -8,29 +8,6 @@ import { contractKeys } from "./useContractDetail";
 
 export const PAGE_SIZE = 22;
 
-type GetChatQueryProps = {
-  queryKey: ReturnType<typeof contractKeys.chat>;
-  pageParam: number;
-};
-const getChatQuery = async ({ queryKey, pageParam }: GetChatQueryProps) => {
-  const contractId = queryKey[2];
-  const { result, error } = await peachAPI.private.contract.getChat({
-    contractId,
-    page: pageParam,
-  });
-  let messages;
-  if (result) {
-    messages = result.map((message) => ({
-      ...message,
-      date: new Date(message.date),
-    }));
-  }
-
-  if (!messages || error) throw new Error(error?.error);
-
-  return messages;
-};
-
 export const useChatMessages = ({
   contractId,
   symmetricKey,
@@ -104,3 +81,26 @@ export const useChatMessages = ({
     refetch,
   };
 };
+
+type GetChatQueryProps = {
+  queryKey: ReturnType<typeof contractKeys.chat>;
+  pageParam: number;
+};
+async function getChatQuery({ queryKey, pageParam }: GetChatQueryProps) {
+  const contractId = queryKey[2];
+  const { result, error } = await peachAPI.private.contract.getChat({
+    contractId,
+    page: pageParam,
+  });
+  let messages;
+  if (result) {
+    messages = result.map((message) => ({
+      ...message,
+      date: new Date(message.date),
+    }));
+  }
+
+  if (!messages || error) throw new Error(error?.error);
+
+  return messages;
+}
