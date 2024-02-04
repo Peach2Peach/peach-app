@@ -1,12 +1,12 @@
 import { useCallback } from "react";
 import { useClosePopup, useSetPopup } from "../components/popup/Popup";
 import { FIFTEEN_SECONDS } from "../constants";
-import { LoadingPopup } from "../hooks/LoadingPopup";
 import { useRefundEscrow } from "../hooks/useRefundEscrow";
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import { getAbortWithTimeout } from "../utils/getAbortWithTimeout";
 import i18n from "../utils/i18n";
 import { peachAPI } from "../utils/peachAPI";
+import { LoadingPopup } from "./LoadingPopup";
 
 export const useCancelAndStartRefundPopup = () => {
   const refundEscrow = useRefundEscrow();

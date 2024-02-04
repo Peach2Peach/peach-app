@@ -5,15 +5,19 @@ import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
 import { LoadingPopupAction } from "../components/popup/actions/LoadingPopupAction";
-import { GrayPopup } from "../popups/GrayPopup";
-import { useStartRefundPopup } from "../popups/useStartRefundPopup";
+import { offerKeys, useOfferDetail } from "../hooks/query/useOfferDetail";
+import { useNavigation } from "../hooks/useNavigation";
+import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
-import { cancelAndSaveOffer } from "../utils/offer/cancelAndSaveOffer";
+import { error } from "../utils/log/error";
+import { info } from "../utils/log/info";
 import { isBuyOffer } from "../utils/offer/isBuyOffer";
-import { offerKeys, useOfferDetail } from "./query/useOfferDetail";
-import { useNavigation } from "./useNavigation";
-import { useShowErrorBanner } from "./useShowErrorBanner";
+import { isSellOffer } from "../utils/offer/isSellOffer";
+import { saveOffer } from "../utils/offer/saveOffer";
+import { peachAPI } from "../utils/peachAPI";
+import { GrayPopup } from "./GrayPopup";
+import { useStartRefundPopup } from "./useStartRefundPopup";
 
 export function CancelOfferPopup({ offerId }: { offerId: string }) {
   const navigation = useNavigation();
@@ -80,4 +84,31 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
       }
     />
   );
+}
+
+async function cancelAndSaveOffer(offer: BuyOffer | SellOffer) {
+  if (!offer.id) return [null, { error: "GENERAL_ERROR" }] as const;
+
+  const { result, error: err } = await peachAPI.private.offer.cancelOffer({
+    offerId: offer.id,
+  });
+  if (result) {
+    info("Cancel offer: ", JSON.stringify(result));
+    if (isSellOffer(offer)) {
+      saveOffer({
+        ...offer,
+        online: false,
+        funding: {
+          ...offer.funding,
+          status: "CANCELED",
+        },
+      });
+    } else {
+      saveOffer({ ...offer, online: false });
+    }
+  } else if (err) {
+    error("Error", err);
+  }
+
+  return [result, err] as const;
 }

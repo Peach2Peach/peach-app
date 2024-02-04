@@ -1,8 +1,8 @@
 import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { useSetPopup } from "../../../../components/popup/Popup";
 import { TextSummaryItem } from "../../../../components/summaryItem";
-import { HelpPopup } from "../../../../hooks/HelpPopup";
 import { useFeeEstimates } from "../../../../hooks/query/useFeeEstimates";
+import { HelpPopup } from "../../../../popups/HelpPopup";
 import tw from "../../../../styles/tailwind";
 import i18n from "../../../../utils/i18n";
 import { keys } from "../../../../utils/object/keys";

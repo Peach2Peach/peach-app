@@ -7,11 +7,11 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { GetMatchesResponseBody } from "../../../peach-api/src/@types/api/offerAPI";
-import { AppPopup } from "../../hooks/AppPopup";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useNavigation } from "../../hooks/useNavigation";
+import { AppPopup } from "../../popups/AppPopup";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { error } from "../../utils/log/error";

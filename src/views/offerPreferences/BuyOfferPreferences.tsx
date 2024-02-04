@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { shallow } from "zustand/shallow";
 import { useSetPopup } from "../../components/popup/Popup";
-import { HelpPopup } from "../../hooks/HelpPopup";
 import { useNavigation } from "../../hooks/useNavigation";
+import { HelpPopup } from "../../popups/HelpPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { headerIcons } from "../../utils/layout/headerIcons";

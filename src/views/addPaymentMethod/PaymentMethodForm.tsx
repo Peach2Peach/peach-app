@@ -10,10 +10,10 @@ import { CurrencySelection } from "../../components/inputs/paymentForms/componen
 import { DeletePaymentMethodPopup } from "../../components/payment/components/DeletePaymentMethodPopup";
 import { useSetPopup } from "../../components/popup/Popup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
-import { HelpPopup } from "../../hooks/HelpPopup";
 import { useGoToOrigin } from "../../hooks/useGoToOrigin";
 import { useRoute } from "../../hooks/useRoute";
 import { PAYMENTMETHODINFOS } from "../../paymentMethods";
+import { HelpPopup } from "../../popups/HelpPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";

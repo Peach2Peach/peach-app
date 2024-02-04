@@ -1,5 +1,5 @@
-import { InfoPopup } from "../popups/InfoPopup";
 import i18n from "../utils/i18n";
+import { InfoPopup } from "./InfoPopup";
 
 type Props = {
   id: string;

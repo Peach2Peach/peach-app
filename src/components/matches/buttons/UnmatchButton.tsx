@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import { AppPopup } from "../../../hooks/AppPopup";
 import { useToggleBoolean } from "../../../hooks/useToggleBoolean";
+import { AppPopup } from "../../../popups/AppPopup";
 import tw from "../../../styles/tailwind";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";

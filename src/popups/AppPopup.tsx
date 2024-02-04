@@ -1,7 +1,7 @@
 import { PopupComponent } from "../components/popup/PopupComponent";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
-import { AppPopupId, appPopups } from "../popups/appPopups";
 import tw from "../styles/tailwind";
+import { AppPopupId, appPopups } from "./appPopups";
 
 export function AppPopup({ id }: { id: AppPopupId }) {
   const Content = appPopups[id].content;

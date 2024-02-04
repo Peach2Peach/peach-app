@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useSetPopup } from "../../../components/popup/Popup";
 import { MSINAMINUTE } from "../../../constants";
-import { CancelOfferPopup } from "../../../hooks/CancelOfferPopup";
 import { useFundingStatus } from "../../../hooks/query/useFundingStatus";
 import { useMultipleOfferDetails } from "../../../hooks/query/useOfferDetail";
 import { useRoute } from "../../../hooks/useRoute";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
+import { CancelOfferPopup } from "../../../popups/CancelOfferPopup";
 import { isSellOffer } from "../../../utils/offer/isSellOffer";
 import { parseError } from "../../../utils/result/parseError";
 import { isDefined } from "../../../utils/validation/isDefined";
