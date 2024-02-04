@@ -16,7 +16,7 @@ import { useRepublishOffer } from "./hooks/useRepublishOffer";
 
 export function RepublishOfferSlider() {
   const { contract } = useContractContext();
-  const republishOffer = useRepublishOffer();
+  const { mutate: republishOffer } = useRepublishOffer();
   return (
     <ConfirmSlider
       onConfirm={() => republishOffer(contract)}

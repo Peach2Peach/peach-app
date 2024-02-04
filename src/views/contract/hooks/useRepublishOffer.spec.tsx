@@ -1,4 +1,10 @@
-import { fireEvent, render, renderHook, responseUtils } from "test-utils";
+import {
+  fireEvent,
+  render,
+  renderHook,
+  responseUtils,
+  waitFor,
+} from "test-utils";
 import { replaceMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { Popup } from "../../../components/popup/Popup";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -21,6 +27,8 @@ jest.mock("../../../hooks/useShowErrorBanner", () => ({
   useShowErrorBanner: () => mockShowErrorBanner,
 }));
 
+jest.useFakeTimers();
+
 describe("useRepublishOffer", () => {
   const contract = {
     id: "contractId",
@@ -30,9 +38,11 @@ describe("useRepublishOffer", () => {
 
   it("should revive the sell offer", async () => {
     const { result } = renderHook(useRepublishOffer);
-    await result.current(contract);
-    expect(reviveSellOfferMock).toHaveBeenCalledWith({
-      offerId: mockSellOffer.id,
+    result.current.mutate(contract);
+    await waitFor(() => {
+      expect(reviveSellOfferMock).toHaveBeenCalledWith({
+        offerId: mockSellOffer.id,
+      });
     });
   });
 
@@ -42,24 +52,31 @@ describe("useRepublishOffer", () => {
       ...responseUtils,
     });
     const { result } = renderHook(useRepublishOffer);
-    await result.current(contract);
-    expect(mockShowErrorBanner).toHaveBeenCalledWith("UNAUTHORIZED");
+    result.current.mutate(contract);
+    await waitFor(() => {
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("UNAUTHORIZED");
+    });
     const { queryByText } = render(<Popup />);
     expect(queryByText("offer re-published")).toBeFalsy();
   });
 
   it("should show the offer republished popup", async () => {
     const { result } = renderHook(useRepublishOffer);
-    await result.current(contract);
+    result.current.mutate(contract);
 
     const { queryByText } = render(<Popup />);
-    expect(queryByText("offer re-published")).toBeTruthy();
+    await waitFor(() => {
+      expect(queryByText("offer re-published")).toBeTruthy();
+    });
   });
 
   it("should close the popup, save the contract and navigate to contract when the close is pressed", async () => {
     const { result } = renderHook(useRepublishOffer);
-    await result.current(contract);
+    result.current.mutate(contract);
     const { getByText, queryByText } = render(<Popup />);
+    await waitFor(() => {
+      expect(queryByText("close")).toBeTruthy();
+    });
     fireEvent.press(getByText("close"));
     expect(queryByText("offer re-published")).toBeFalsy();
     expect(replaceMock).toHaveBeenCalledWith("contract", {
@@ -69,8 +86,11 @@ describe("useRepublishOffer", () => {
 
   it("should close the popup, save the contract and navigate to search when the go to offer is pressed", async () => {
     const { result } = renderHook(useRepublishOffer);
-    await result.current(contract);
+    result.current.mutate(contract);
     const { getByText, queryByText } = render(<Popup />);
+    await waitFor(() => {
+      expect(queryByText("go to offer")).toBeTruthy();
+    });
     fireEvent.press(getByText("go to offer"));
     expect(queryByText("offer re-published")).toBeFalsy();
     expect(replaceMock).toHaveBeenCalledWith("search", {
