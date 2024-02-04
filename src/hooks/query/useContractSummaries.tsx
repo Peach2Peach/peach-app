@@ -5,23 +5,6 @@ import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import { peachAPI } from "../../utils/peachAPI";
 import { contractKeys } from "./useContractDetail";
 
-const getContractSummariesQuery = async () => {
-  const { result: contracts, error } =
-    await peachAPI.private.contract.getContractSummaries();
-
-  if (error?.error || !contracts)
-    throw new Error(error?.error || "Error fetching contract summaries");
-
-  return contracts.map((contract) => ({
-    ...contract,
-    creationDate: new Date(contract.creationDate),
-    lastModified: new Date(contract.lastModified),
-    paymentMade: contract.paymentMade
-      ? new Date(contract.paymentMade)
-      : undefined,
-  }));
-};
-
 export const useContractSummaries = (enabled = true) => {
   const [contracts, setContracts, lastModified] = useTradeSummaryStore(
     (state) => [state.contracts, state.setContracts, state.lastModified],
@@ -41,3 +24,20 @@ export const useContractSummaries = (enabled = true) => {
 
   return { contracts: data || [], isLoading, error, refetch };
 };
+
+async function getContractSummariesQuery() {
+  const { result: contracts, error } =
+    await peachAPI.private.contract.getContractSummaries();
+
+  if (error?.error || !contracts)
+    throw new Error(error?.error || "Error fetching contract summaries");
+
+  return contracts.map((contract) => ({
+    ...contract,
+    creationDate: new Date(contract.creationDate),
+    lastModified: new Date(contract.lastModified),
+    paymentMade: contract.paymentMade
+      ? new Date(contract.paymentMade)
+      : undefined,
+  }));
+}
