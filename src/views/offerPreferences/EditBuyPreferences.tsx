@@ -22,7 +22,10 @@ import { peachWallet } from "../../utils/wallet/setWallet";
 import { usePatchReleaseAddress } from "../contract/components/usePatchReleaseAddress";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { matchesKeys } from "../search/hooks/useOfferMatches";
-import { MAX_NUMBER_OF_PEACHES } from "../settings/profile/profileOverview/Rating";
+import {
+  CLIENT_RATING_RANGE,
+  SERVER_RATING_RANGE,
+} from "../settings/profile/profileOverview/Rating";
 import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
@@ -98,7 +101,11 @@ export function EditBuyPreferences() {
 function initializer(offer: BuyOffer) {
   const minReputation =
     typeof offer?.minReputation === "number"
-      ? interpolate(offer.minReputation, [-1, 1], [0, MAX_NUMBER_OF_PEACHES])
+      ? interpolate(
+          offer.minReputation,
+          SERVER_RATING_RANGE,
+          CLIENT_RATING_RANGE,
+        )
       : null;
   const maxPremium = offer?.maxPremium ?? null;
   const { amount, meansOfPayment } = offer;
@@ -226,7 +233,7 @@ function OfferMarketInfo() {
       maxPremium={maxPremium ?? undefined}
       minReputation={
         typeof minReputation === "number"
-          ? interpolate(minReputation, [0, MAX_NUMBER_OF_PEACHES], [-1, 1])
+          ? interpolate(minReputation, CLIENT_RATING_RANGE, SERVER_RATING_RANGE)
           : undefined
       }
       buyAmountRange={amount}
@@ -328,8 +335,8 @@ function PatchOfferButton() {
   const { maxPremium } = preferences;
   const minReputation = interpolate(
     preferences.minReputation || 0,
-    [0, MAX_NUMBER_OF_PEACHES],
-    [-1, 1],
+    CLIENT_RATING_RANGE,
+    SERVER_RATING_RANGE,
   );
 
   const { offerId } = useRoute<"editBuyPreferences">().params;

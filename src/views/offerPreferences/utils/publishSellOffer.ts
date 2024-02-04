@@ -5,7 +5,10 @@ import { saveOffer } from "../../../utils/offer/saveOffer";
 import { peachAPI } from "../../../utils/peachAPI";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
-import { MAX_NUMBER_OF_PEACHES } from "../../settings/profile/profileOverview/Rating";
+import {
+  CLIENT_RATING_RANGE,
+  SERVER_RATING_RANGE,
+} from "../../settings/profile/profileOverview/Rating";
 
 export const publishSellOffer = async (offerDraft: SellOfferDraft) => {
   info("Posting sell offer");
@@ -23,8 +26,8 @@ export const publishSellOffer = async (offerDraft: SellOfferDraft) => {
         ...offerDraft.instantTradeCriteria,
         minReputation: interpolate(
           offerDraft.instantTradeCriteria.minReputation,
-          [0, MAX_NUMBER_OF_PEACHES],
-          [-1, 1],
+          CLIENT_RATING_RANGE,
+          SERVER_RATING_RANGE,
         ),
       }
     : undefined;
