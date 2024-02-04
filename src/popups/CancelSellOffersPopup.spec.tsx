@@ -1,23 +1,15 @@
-import {
-  act,
-  fireEvent,
-  render,
-  renderHook,
-  responseUtils,
-  waitFor,
-} from "test-utils";
+import { act, fireEvent, render, responseUtils, waitFor } from "test-utils";
 import { Popup } from "../components/popup/Popup";
-import i18n from "../utils/i18n";
 import { peachAPI } from "../utils/peachAPI";
 import { useWalletState } from "../utils/wallet/walletStore";
-import { useCancelFundMultipleSellOffers } from "./useCancelFundMultipleSellOffers";
+import { CancelSellOffersPopup } from "./CancelSellOffersPopup";
 
 jest.mock("../utils/offer/saveOffer");
 
 const cancelOfferMock = jest.spyOn(peachAPI.private.offer, "cancelOffer");
 jest.useFakeTimers();
 
-describe("useCancelFundMultipleSellOffers", () => {
+describe("CancelSellOffersPopup", () => {
   const fundMultiple = {
     address: "address1",
     offerIds: ["1", "2", "3"],
@@ -27,25 +19,13 @@ describe("useCancelFundMultipleSellOffers", () => {
       .getState()
       .registerFundMultiple(fundMultiple.address, fundMultiple.offerIds);
   });
-  it("should show cancel offer popup", () => {
-    const { result } = renderHook(useCancelFundMultipleSellOffers, {
-      initialProps: { fundMultiple },
-    });
-    result.current();
-
-    const { queryByText } = render(<Popup />);
-    expect(queryByText(i18n("offer.cancel.popup.description"))).not.toBeNull();
-  });
 
   it("should show cancel offer confirmation popup", async () => {
-    const { result } = renderHook(useCancelFundMultipleSellOffers, {
-      initialProps: { fundMultiple },
-    });
-    result.current();
-
-    const { getAllByText, queryByText } = render(<Popup />);
+    const { getAllByText } = render(
+      <CancelSellOffersPopup fundMultiple={fundMultiple} />,
+    );
     fireEvent.press(getAllByText("cancel offer")[1]);
-
+    const { queryByText } = render(<Popup />);
     await waitFor(() => {
       expect(queryByText("offer canceled!")).toBeTruthy();
     });
@@ -62,12 +42,7 @@ describe("useCancelFundMultipleSellOffers", () => {
     expect(useWalletState.getState().fundMultipleMap).toEqual({});
   });
   it("not not cancel if no fundMultiple has been passed", async () => {
-    const { result } = renderHook(useCancelFundMultipleSellOffers, {
-      initialProps: { fundMultiple: undefined },
-    });
-    result.current();
-
-    const { getAllByText } = render(<Popup />);
+    const { getAllByText } = render(<CancelSellOffersPopup />);
     await act(async () => {
       await fireEvent.press(getAllByText("cancel offer")[1]);
     });
@@ -81,14 +56,12 @@ describe("useCancelFundMultipleSellOffers", () => {
     });
     cancelOfferMock.mockResolvedValueOnce(responseUtils);
 
-    const { result } = renderHook(useCancelFundMultipleSellOffers, {
-      initialProps: { fundMultiple },
-    });
-    result.current();
-
-    const { getAllByText, queryByText } = render(<Popup />);
+    const { getAllByText } = render(
+      <CancelSellOffersPopup fundMultiple={fundMultiple} />,
+    );
     fireEvent.press(getAllByText("cancel offer")[1]);
 
+    const { queryByText } = render(<Popup />);
     await waitFor(() => {
       expect(queryByText("offer canceled!")).not.toBeNull();
     });

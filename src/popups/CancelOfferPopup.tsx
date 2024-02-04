@@ -1,5 +1,4 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useCallback } from "react";
 import { useClosePopup, useSetPopup } from "../components/popup/Popup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
@@ -10,51 +9,66 @@ import { useNavigation } from "../hooks/useNavigation";
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
-import { error } from "../utils/log/error";
-import { info } from "../utils/log/info";
 import { isBuyOffer } from "../utils/offer/isBuyOffer";
 import { isSellOffer } from "../utils/offer/isSellOffer";
 import { saveOffer } from "../utils/offer/saveOffer";
-import { peachAPI } from "../utils/peachAPI";
 import { GrayPopup } from "./GrayPopup";
+import { useCancelOffer } from "./useCancelOffer";
 import { useStartRefundPopup } from "./useStartRefundPopup";
 
 export function CancelOfferPopup({ offerId }: { offerId: string }) {
   const navigation = useNavigation();
-  const showError = useShowErrorBanner();
+  const showErrorBanner = useShowErrorBanner();
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const queryClient = useQueryClient();
   const { offer } = useOfferDetail(offerId);
+  const { mutate: cancelOffer } = useCancelOffer();
 
   const startRefund = useStartRefundPopup();
 
-  const confirmCancelOffer = useCallback(async () => {
+  const confirmCancelOffer = () => {
     if (!offer) return;
-    const [cancelResult, cancelError] = await cancelAndSaveOffer(offer);
 
-    if (!cancelResult || cancelError) {
-      showError(cancelError?.error);
-      return;
-    }
-
-    if (
-      isBuyOffer(offer) ||
-      offer.funding.status === "NULL" ||
-      offer.funding.txIds.length === 0
-    ) {
-      setPopup(
-        <GrayPopup
-          title={i18n("offer.canceled.popup.title")}
-          actions={<ClosePopupAction style={tw`justify-center`} />}
-        />,
-      );
-      navigation.navigate("homeScreen", { screen: "home" });
-    } else {
-      startRefund(offer);
-    }
-    queryClient.refetchQueries({ queryKey: offerKeys.summaries() });
-  }, [navigation, offer, queryClient, setPopup, showError, startRefund]);
+    cancelOffer(offerId, {
+      onSuccess: (result) => {
+        if (result) {
+          if (isSellOffer(offer)) {
+            saveOffer({
+              ...offer,
+              online: false,
+              funding: {
+                ...offer.funding,
+                status: "CANCELED",
+              },
+            });
+          } else {
+            saveOffer({ ...offer, online: false });
+          }
+          if (
+            isBuyOffer(offer) ||
+            offer.funding.status === "NULL" ||
+            offer.funding.txIds.length === 0
+          ) {
+            setPopup(
+              <GrayPopup
+                title={i18n("offer.canceled.popup.title")}
+                actions={<ClosePopupAction style={tw`justify-center`} />}
+              />,
+            );
+            navigation.navigate("homeScreen", { screen: "home" });
+          } else {
+            startRefund(offer);
+          }
+        }
+      },
+      onError: (err) => {
+        showErrorBanner(err.message);
+      },
+      onSettled: () =>
+        queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
+    });
+  };
 
   if (!offer) return null;
   return (
@@ -84,31 +98,4 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
       }
     />
   );
-}
-
-async function cancelAndSaveOffer(offer: BuyOffer | SellOffer) {
-  if (!offer.id) return [null, { error: "GENERAL_ERROR" }] as const;
-
-  const { result, error: err } = await peachAPI.private.offer.cancelOffer({
-    offerId: offer.id,
-  });
-  if (result) {
-    info("Cancel offer: ", JSON.stringify(result));
-    if (isSellOffer(offer)) {
-      saveOffer({
-        ...offer,
-        online: false,
-        funding: {
-          ...offer.funding,
-          status: "CANCELED",
-        },
-      });
-    } else {
-      saveOffer({ ...offer, online: false });
-    }
-  } else if (err) {
-    error("Error", err);
-  }
-
-  return [result, err] as const;
 }
