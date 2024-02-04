@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import { Keyboard, TextInput, View } from "react-native";
 import tw from "../../styles/tailwind";
 
@@ -22,7 +22,7 @@ import { isEmailRequiredForDispute } from "../../utils/dispute/isEmailRequiredFo
 import i18n from "../../utils/i18n";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
-import { submitRaiseDispute } from "./utils/submitRaiseDispute";
+import { useRaiseDispute } from "./useRaiseDispute";
 
 export const DisputeForm = () => {
   const { contractId } = useRoute<"disputeForm">().params;
@@ -52,7 +52,6 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
     useValidatedState<string>("", emailRules);
   const [message, setMessage, messageIsValid, messageErrors] =
     useValidatedState<string>("", required);
-  const [loading, setLoading] = useState(false);
   const isFormValid = emailIsValid && messageIsValid;
 
   const account = useAccountStore((state) => state.account);
@@ -60,30 +59,36 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
   const setPopup = useSetPopup();
   const showErrorBanner = useShowErrorBanner();
 
-  const submit = async () => {
+  const { mutate: raiseDispute, isPending } = useRaiseDispute();
+
+  const submit = () => {
     Keyboard.dismiss();
 
     if (!decryptedData?.symmetricKey || !isFormValid) return;
-    setLoading(true);
-    const [disputeRaised, disputeRaisedError] = await submitRaiseDispute({
-      contract,
-      reason,
-      email,
-      message,
-      symmetricKey: decryptedData.symmetricKey,
-      paymentData: decryptedData?.paymentData,
-    });
-    if (disputeRaised) {
-      navigation.navigate("contractChat", { contractId });
-      setPopup(
-        <DisputeRaisedSuccess
-          view={getContractViewer(contract.seller.id, account)}
-        />,
-      );
-    } else {
-      showErrorBanner(disputeRaisedError?.error, [disputeRaisedError?.details]);
-    }
-    setLoading(false);
+
+    raiseDispute(
+      {
+        contract,
+        reason,
+        email,
+        message,
+        symmetricKey: decryptedData.symmetricKey,
+        paymentData: decryptedData?.paymentData,
+      },
+      {
+        onSuccess: () => {
+          navigation.navigate("contractChat", { contractId });
+          setPopup(
+            <DisputeRaisedSuccess
+              view={getContractViewer(contract.seller.id, account)}
+            />,
+          );
+        },
+        onError: (error) => {
+          showErrorBanner(error.message);
+        },
+      },
+    );
   };
 
   let $message = useRef<TextInput>(null).current;
@@ -116,7 +121,7 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
       </PeachScrollView>
       <Button
         onPress={submit}
-        disabled={loading || !isFormValid}
+        disabled={isPending || !isFormValid}
         style={tw`self-center`}
       >
         {i18n("confirm")}
