@@ -4,7 +4,6 @@ import { IconType } from "../../assets/icons";
 import { PAYMENTCATEGORIES } from "../../paymentMethods";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
-import { removePaymentData } from "../../utils/account/removePaymentData";
 import i18n from "../../utils/i18n";
 import { keys } from "../../utils/object/keys";
 import { getPaymentMethodInfo } from "../../utils/paymentMethod/getPaymentMethodInfo";
@@ -15,6 +14,7 @@ import { PeachText } from "../text/PeachText";
 import { LinedText } from "../ui/LinedText";
 import { PaymentDetailsCheckbox } from "./PaymentDetailsCheckbox";
 import { PaymentDataKeyFacts } from "./components/PaymentDataKeyFacts";
+import { useRemovePaymentData } from "./hooks/useRemovePaymentData";
 
 const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
   value: data.id,
@@ -62,9 +62,13 @@ export const RemotePaymentMethods = ({
     state.getPaymentDataArray(),
   );
   const [, setRandom] = useState(0);
+  const { mutate: removePaymentData } = useRemovePaymentData();
   const deletePaymentData = (data: PaymentData) => {
-    removePaymentData(data.id);
-    setRandom(Math.random());
+    removePaymentData(data.id, {
+      onSuccess: () => {
+        setRandom(Math.random());
+      },
+    });
   };
   return paymentData.filter((item) => !isCashTrade(item.type)).length === 0 ? (
     <PeachText style={tw`text-center h6 text-black-50`}>
