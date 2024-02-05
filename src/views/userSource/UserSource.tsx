@@ -23,7 +23,7 @@ export function UserSource() {
   const [selectedSource, setSelectedSource] =
     useState<(typeof possibleSources)[number]>();
   const { mutate: submitUserSource } = useSubmitUserSource();
-  const submitSource = async (source: (typeof possibleSources)[number]) => {
+  const submitSource = (source: (typeof possibleSources)[number]) => {
     if (selectedSource) return;
     setSelectedSource(source);
     submitUserSource(
