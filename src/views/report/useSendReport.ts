@@ -3,9 +3,9 @@ import { APPVERSION, BUILDNUMBER, UNIQUEID } from "../../constants";
 import { sendErrors } from "../../utils/analytics/sendErrors";
 import { peachAPI } from "../../utils/peachAPI";
 
-export function useSubmitReport() {
+export function useSendReport() {
   return useMutation({
-    mutationFn: submitReport,
+    mutationFn: sendReport,
   });
 }
 
@@ -17,7 +17,7 @@ type Params = {
   shareDeviceID: boolean;
   shareLogs: boolean;
 };
-async function submitReport({
+async function sendReport({
   email,
   reason,
   topic,

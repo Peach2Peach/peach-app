@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from "test-utils";
 import { sendErrors } from "../../utils/analytics/sendErrors";
 import { peachAPI } from "../../utils/peachAPI";
-import { useSubmitReport } from "./useSubmitReport";
+import { useSendReport } from "./useSendReport";
 
 jest.mock("../../utils/analytics/sendErrors", () => ({
   sendErrors: jest.fn(),
@@ -10,14 +10,14 @@ const sendReportSpy = jest.spyOn(peachAPI.public.contact, "sendReport");
 
 jest.useFakeTimers();
 
-describe("useSubmitReport", () => {
+describe("useSendReport", () => {
   const email = "adam@back.space";
   const reason = "Feature request";
   const topic = "I have an idea";
   const message = "it will blow your socks off!";
 
   it("returns a message for report", async () => {
-    const { result } = renderHook(useSubmitReport);
+    const { result } = renderHook(useSendReport);
     result.current.mutate({
       email,
       reason,
@@ -38,7 +38,7 @@ describe("useSubmitReport", () => {
     expect(result.current.isSuccess).toBe(true);
   });
   it("does not send error report if logs are not intended to be shared", async () => {
-    const { result } = renderHook(useSubmitReport);
+    const { result } = renderHook(useSendReport);
 
     result.current.mutate({
       email,
@@ -53,7 +53,7 @@ describe("useSubmitReport", () => {
     });
   });
   it("does send error report if logs are intended to be shared", async () => {
-    const { result } = renderHook(useSubmitReport);
+    const { result } = renderHook(useSendReport);
     result.current.mutate({
       email,
       reason,

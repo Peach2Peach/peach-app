@@ -16,7 +16,7 @@ import { AppPopup } from "../../popups/AppPopup";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import i18n from "../../utils/i18n";
-import { useSubmitReport } from "./useSubmitReport";
+import { useSendReport } from "./useSendReport";
 
 const emailRules = { email: true, required: true };
 const required = { required: true };
@@ -42,7 +42,7 @@ export const Report = () => {
 
   const showError = useShowErrorBanner();
 
-  const { mutate: submitReport } = useSubmitReport();
+  const { mutate: submitReport } = useSendReport();
 
   const submit = () => {
     const isFormValid = isEmailValid && isTopicValid && isMessageValid;
