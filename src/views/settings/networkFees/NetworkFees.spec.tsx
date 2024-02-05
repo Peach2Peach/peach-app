@@ -3,7 +3,7 @@ import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../../utils/peachAPI";
 import { NetworkFees } from "./NetworkFees";
 
-jest.mock("./hooks/useNetworkFeesSetup", () => ({
+jest.mock("./useNetworkFeesSetup", () => ({
   useNetworkFeesSetup: jest.fn().mockReturnValue({
     selectedFeeRate: "fastestFee",
     setSelectedFeeRate: jest.fn(),

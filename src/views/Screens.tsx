@@ -7,8 +7,8 @@ import { PeachyGradient } from "../components/PeachyGradient";
 import { useSetPopup } from "../components/popup/Popup";
 import { useSetToast } from "../components/toast/Toast";
 import { useNavigation } from "../hooks/useNavigation";
-import { initApp } from "../init/initApp";
 import { requestUserPermissions } from "../init/requestUserPermissions";
+import { useInitApp } from "../init/useInitApp";
 import { VerifyYouAreAHumanPopup } from "../popups/warning/VerifyYouAreAHumanPopup";
 import tw from "../styles/tailwind";
 import { useGlobalHandlers } from "../useGlobalHandlers";
@@ -64,6 +64,7 @@ function SplashScreenComponent({
   const setToast = useSetToast();
   const navigation = useNavigation();
   const setPopup = useSetPopup();
+  const initApp = useInitApp();
   useEffect(() => {
     (async () => {
       const statusResponse = await initApp();
@@ -87,7 +88,7 @@ function SplashScreenComponent({
       setIsLoading(false);
       SplashScreen.hide();
     })();
-  }, [navigation, setIsLoading, setPopup, setToast]);
+  }, [initApp, navigation, setIsLoading, setPopup, setToast]);
 
   return (
     <View>

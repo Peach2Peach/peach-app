@@ -34,6 +34,14 @@ jest.mock("./hooks/notifications/useHandleNotifications", () => ({
 jest.mock("react-native-promise-rejection-utils", () => ({
   setUnhandledPromiseRejectionTracker: jest.fn(),
 }));
+jest.mock("@react-native-firebase/messaging", () => ({
+  __esModule: true,
+  default: () => ({
+    onTokenRefresh: () => jest.fn(),
+  }),
+}));
+
+jest.useFakeTimers();
 
 describe("useGlobalHandlers", () => {
   it("should call useShouldShowBackupReminder", () => {

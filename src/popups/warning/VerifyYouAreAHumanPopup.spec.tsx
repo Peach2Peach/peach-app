@@ -10,8 +10,12 @@ import {
 
 const renderer = ShallowRenderer.createRenderer();
 
-jest.mock("../../init/initApp");
-const initAppMock = jest.requireMock("../../init/initApp").initApp;
+const mockInitApp = jest.fn();
+
+jest.mock("../../init/useInitApp", () => ({
+  useInitApp: () => mockInitApp,
+}));
+jest.useFakeTimers();
 
 describe("VerifyYouAreAHumanPopup", () => {
   it("renders correctly", () => {
@@ -48,6 +52,6 @@ describe("VerifyYouAreAHuman", () => {
     expect(useSettingsStore.getState().cloudflareChallenge).toEqual(
       cloudflareChallenge,
     );
-    expect(initAppMock).toHaveBeenCalled();
+    expect(mockInitApp).toHaveBeenCalled();
   });
 });

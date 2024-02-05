@@ -14,7 +14,7 @@ import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
 import { CustomFeeItem } from "../components/networkFees/CustomFeeItem";
 import { EstimatedFeeItem } from "../components/networkFees/EstimatedFeeItem";
-import { useNetworkFeesSetup } from "./hooks/useNetworkFeesSetup";
+import { useNetworkFeesSetup } from "./useNetworkFeesSetup";
 
 const estimatedFeeRates = [
   "fastestFee",

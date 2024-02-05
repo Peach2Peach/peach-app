@@ -8,7 +8,7 @@ import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
-import { userUpdate } from "../../init/userUpdate";
+import { useUserUpdate } from "../../init/useUserUpdate";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { createAccount } from "../../utils/account/createAccount";
@@ -37,6 +37,8 @@ export const NewUser = () => {
 
   const { mutate: registerUser } = useRegisterUser();
 
+  const userUpdate = useUserUpdate();
+
   const onSuccess = useCallback(
     (account: Account & { mnemonic: string; base58: string }) => {
       registerUser(account, {
@@ -59,7 +61,14 @@ export const NewUser = () => {
         },
       });
     },
-    [navigation, onError, registerUser, route.params.referralCode, setAccount],
+    [
+      navigation,
+      onError,
+      registerUser,
+      route.params.referralCode,
+      setAccount,
+      userUpdate,
+    ],
   );
 
   useEffect(() => {

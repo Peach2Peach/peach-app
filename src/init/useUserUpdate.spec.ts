@@ -1,8 +1,8 @@
+import { renderHook } from "test-utils";
 import { account1 } from "../../tests/unit/data/accountData";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { defaultAccount, setAccount } from "../utils/account/account";
-import { updateUser } from "../utils/peachAPI/updateUser";
-import { userUpdate } from "./userUpdate";
+import { useUserUpdate } from "./useUserUpdate";
 
 jest.mock("@react-native-firebase/messaging", () => ({
   __esModule: true,
@@ -11,10 +11,13 @@ jest.mock("@react-native-firebase/messaging", () => ({
   }),
 }));
 
-jest.mock("../utils/peachAPI/updateUser", () => ({
-  updateUser: jest.fn().mockResolvedValue([{ success: true }, null]),
+const mockUpdateUser = jest.fn();
+jest.mock("../utils/peachAPI/useUpdateUser", () => ({
+  useUpdateUser: () => ({ mutate: mockUpdateUser }),
 }));
-describe("userUpdate", () => {
+jest.useFakeTimers();
+
+describe("useUserUpdate", () => {
   const fcmToken = "fcmToken";
   const referralCode = "referralCode";
   afterEach(() => {
@@ -22,8 +25,9 @@ describe("userUpdate", () => {
   });
 
   it("does not send updates to server if there is no data to send", async () => {
-    await userUpdate();
-    expect(updateUser).not.toHaveBeenCalled();
+    const { result } = renderHook(useUserUpdate);
+    await result.current();
+    expect(mockUpdateUser).not.toHaveBeenCalled();
   });
   it("does send updates to server if there is data to send", async () => {
     const newToken = "otherToken";
@@ -35,11 +39,18 @@ describe("userUpdate", () => {
         getToken: getTokenMock,
       });
     useSettingsStore.setState({ fcmToken });
-    await userUpdate(referralCode);
+    const { result } = renderHook(useUserUpdate);
+    await result.current(referralCode);
     expect(getTokenMock).toHaveBeenCalled();
-    expect(updateUser).toHaveBeenCalledWith({
-      referralCode,
-      fcmToken: newToken,
-    });
+    expect(mockUpdateUser).toHaveBeenCalledWith(
+      {
+        referralCode,
+        fcmToken: newToken,
+      },
+      {
+        onError: expect.any(Function),
+        onSuccess: expect.any(Function),
+      },
+    );
   });
 });

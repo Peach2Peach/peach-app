@@ -2,11 +2,7 @@ import ecc from "@bitcoinerlab/secp256k1";
 import { API_URL } from "@env";
 import CookieManager from "@react-native-cookies/cookies";
 import { initEccLib } from "bitcoinjs-lib";
-import {
-  dataMigrationAfterLoadingAccount,
-  dataMigrationBeforeLoadingAccount,
-} from "../init/dataMigration";
-import { userUpdate } from "../init/userUpdate";
+import { useCallback } from "react";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { defaultAccount, useAccountStore } from "../utils/account/account";
 import { accountStorage } from "../utils/account/accountStorage";
@@ -16,24 +12,36 @@ import { updateAccount } from "../utils/account/updateAccount";
 import { error } from "../utils/log/error";
 import { info } from "../utils/log/info";
 import { getIndexedMap } from "../utils/storage/getIndexedMap";
+import {
+  dataMigrationAfterLoadingAccount,
+  dataMigrationBeforeLoadingAccount,
+} from "./dataMigration";
 import { getPeachInfo } from "./getPeachInfo";
+import { useUserUpdate } from "./useUserUpdate";
 
 initEccLib(ecc);
 
-export const initApp = async () => {
-  dataMigrationBeforeLoadingAccount();
+export function useInitApp() {
+  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn);
+  const userUpdate = useUserUpdate();
 
-  await setCookies();
-  const { publicKey } = await loadAccount();
-  const statusResponse = await getPeachInfo();
-  if (!statusResponse?.error && publicKey) {
-    useAccountStore.setState({ isLoggedIn: true });
-    userUpdate();
-    dataMigrationAfterLoadingAccount();
-  }
+  const initApp = useCallback(async () => {
+    dataMigrationBeforeLoadingAccount();
 
-  return statusResponse;
-};
+    await setCookies();
+    const { publicKey } = await loadAccount();
+    const statusResponse = await getPeachInfo();
+    if (!statusResponse?.error && publicKey) {
+      setIsLoggedIn(true);
+      userUpdate();
+      dataMigrationAfterLoadingAccount();
+    }
+
+    return statusResponse;
+  }, [setIsLoggedIn, userUpdate]);
+
+  return initApp;
+}
 
 async function setCookies() {
   const cfClearance =

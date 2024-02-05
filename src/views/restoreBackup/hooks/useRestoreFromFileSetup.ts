@@ -6,8 +6,8 @@ import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { useAccountStore } from "../../../utils/account/account";
 import { decryptAccount } from "../../../utils/account/decryptAccount";
 import { deleteAccount } from "../../../utils/account/deleteAccount";
-import { recoverAccount } from "../../../utils/account/recoverAccount";
 import { storeAccount } from "../../../utils/account/storeAccount";
+import { useRecoverAccount } from "../../../utils/account/useRecoverAccount";
 import { parseError } from "../../../utils/result/parseError";
 import { useRegisterUser } from "../../newUser/useRegisterUser";
 import { LOGIN_DELAY } from "../../restoreReputation/LOGIN_DELAY";
@@ -40,6 +40,7 @@ export const useRestoreFromFileSetup = () => {
   };
 
   const { mutate: register } = useRegisterUser();
+  const recoverAccount = useRecoverAccount();
 
   const decryptAndRecover = async () => {
     const [recoveredAccount, err] = decryptAccount({

@@ -1,19 +1,15 @@
-import { act, render, renderHook, responseUtils, waitFor } from "test-utils";
-import { defaultUser } from "../../../../../peach-api/src/testData/userData";
-import { unauthorizedError } from "../../../../../tests/unit/data/peachAPIData";
-import { queryClient } from "../../../../../tests/unit/helpers/QueryClientWrapper";
-import { Toast } from "../../../../components/toast/Toast";
-import i18n from "../../../../utils/i18n";
-import { peachAPI } from "../../../../utils/peachAPI";
-import { getError } from "../../../../utils/result/getError";
+import { act, renderHook, responseUtils, waitFor } from "test-utils";
+import { defaultUser } from "../../../../peach-api/src/testData/userData";
+import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
+import { peachAPI } from "../../../utils/peachAPI";
 import { useNetworkFeesSetup } from "./useNetworkFeesSetup";
 
 jest.useFakeTimers();
 
-jest.mock("../../../../utils/peachAPI/updateUser");
-const updateUserMock = jest
-  .requireMock("../../../../utils/peachAPI/updateUser")
-  .updateUser.mockResolvedValue([{ success: true }]);
+const mockUpdateUser = jest.fn().mockResolvedValue([{ success: true }]);
+jest.mock("../../../utils/peachAPI/useUpdateUser", () => ({
+  useUpdateUser: () => ({ mutate: mockUpdateUser }),
+}));
 
 const getSelfUserMock = jest
   .spyOn(peachAPI.private.user, "getSelfUser")
@@ -91,18 +87,28 @@ describe("useNetworkFeesSetup", () => {
     const { result } = renderHook(useNetworkFeesSetup);
     await act(result.current.submit);
 
-    expect(updateUserMock).toHaveBeenCalledWith({
-      feeRate: "halfHourFee",
-    });
+    expect(mockUpdateUser).toHaveBeenCalledWith(
+      {
+        feeRate: "halfHourFee",
+      },
+      {
+        onError: expect.any(Function),
+      },
+    );
 
     act(() => {
       result.current.setSelectedFeeRate("fastestFee");
     });
     await act(result.current.submit);
 
-    expect(updateUserMock).toHaveBeenCalledWith({
-      feeRate: "fastestFee",
-    });
+    expect(mockUpdateUser).toHaveBeenCalledWith(
+      {
+        feeRate: "fastestFee",
+      },
+      {
+        onError: expect.any(Function),
+      },
+    );
   });
   it("submits custom fee preferences", async () => {
     const { result } = renderHook(useNetworkFeesSetup);
@@ -112,18 +118,13 @@ describe("useNetworkFeesSetup", () => {
       result.current.setCustomFeeRate("4");
     });
     await act(result.current.submit);
-    expect(updateUserMock).toHaveBeenCalledWith({
-      feeRate: 4,
-    });
-  });
-  it("handles request errors", async () => {
-    updateUserMock.mockResolvedValueOnce(getError(unauthorizedError));
-    const { queryByText } = render(<Toast />);
-    const { result } = renderHook(useNetworkFeesSetup);
-
-    result.current.submit();
-    await waitFor(() => {
-      expect(queryByText(i18n("UNAUTHORIZED.title"))).toBeTruthy();
-    });
+    expect(mockUpdateUser).toHaveBeenCalledWith(
+      {
+        feeRate: 4,
+      },
+      {
+        onError: expect.any(Function),
+      },
+    );
   });
 });

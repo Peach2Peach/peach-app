@@ -11,10 +11,10 @@ jest.mock("../../../utils/account/decryptAccount");
 const decryptAccountMock = jest
   .requireMock("../../../utils/account/decryptAccount")
   .decryptAccount.mockReturnValue([account1]);
-jest.mock("../../../utils/account/recoverAccount");
-const recoverAccountMock = jest
-  .requireMock("../../../utils/account/recoverAccount")
-  .recoverAccount.mockResolvedValue(account1);
+const mockRecoverAccount = jest.fn().mockResolvedValue(account1);
+jest.mock("../../../utils/account/useRecoverAccount", () => ({
+  useRecoverAccount: () => mockRecoverAccount,
+}));
 
 jest.mock("../../../utils/account/storeAccount");
 const storeAccountMock = jest.requireMock(
@@ -43,7 +43,7 @@ describe("useRestoreFromFileSetup", () => {
       encryptedAccount,
       password,
     });
-    expect(recoverAccountMock).toHaveBeenCalledWith(account1);
+    expect(mockRecoverAccount).toHaveBeenCalledWith(account1);
     expect(storeAccountMock).toHaveBeenCalledWith(account1);
     expect(peachAPI.apiOptions.peachAccount?.privateKey?.toString("hex")).toBe(
       "62233e988e4ca00c3b346b4753c7dc316f6ce39280410072ddab298f36a7fe64",

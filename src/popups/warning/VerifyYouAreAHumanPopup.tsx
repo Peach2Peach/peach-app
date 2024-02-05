@@ -5,7 +5,7 @@ import { useClosePopup, useSetPopup } from "../../components/popup/Popup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
-import { initApp } from "../../init/initApp";
+import { useInitApp } from "../../init/useInitApp";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -16,6 +16,7 @@ export const VerifyYouAreAHuman = () => {
   const setCloudflareChallenge = useSettingsStore(
     (state) => state.setCloudflareChallenge,
   );
+  const initApp = useInitApp();
 
   const handleMessage = async (event: WebViewMessageEvent) => {
     const cloudflareChallenge = JSON.parse(event.nativeEvent.data);

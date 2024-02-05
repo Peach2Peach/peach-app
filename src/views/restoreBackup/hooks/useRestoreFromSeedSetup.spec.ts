@@ -10,10 +10,10 @@ const createAccountMock = jest
   .requireMock("../../../utils/account/createAccount")
   .createAccount.mockResolvedValue(account1);
 
-jest.mock("../../../utils/account/recoverAccount");
-const recoverAccountMock = jest
-  .requireMock("../../../utils/account/recoverAccount")
-  .recoverAccount.mockResolvedValue(account1);
+const mockRecoverAccount = jest.fn().mockResolvedValue(account1);
+jest.mock("../../../utils/account/useRecoverAccount", () => ({
+  useRecoverAccount: () => mockRecoverAccount,
+}));
 
 jest.mock("../../../utils/account/storeAccount");
 const storeAccountMock = jest.requireMock(
@@ -33,7 +33,7 @@ describe("useRestoreFromSeedSetup", () => {
       expect(result.current.restored).toBeTruthy();
     });
     expect(createAccountMock).toHaveBeenCalledWith(account1.mnemonic);
-    expect(recoverAccountMock).toHaveBeenCalledWith(account1);
+    expect(mockRecoverAccount).toHaveBeenCalledWith(account1);
     expect(storeAccountMock).toHaveBeenCalledWith(account1);
   });
   it("updates the last seed backup date", async () => {

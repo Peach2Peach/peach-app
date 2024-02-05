@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { useSelfUser } from "../../../../hooks/query/useSelfUser";
-import { useValidatedState } from "../../../../hooks/useValidatedState";
-import { usePatchFeeRate } from "./usePatchFeeRate";
+import { useCallback, useState } from "react";
+import { useSetToast } from "../../../components/toast/Toast";
+import { useSelfUser } from "../../../hooks/query/useSelfUser";
+import { useValidatedState } from "../../../hooks/useValidatedState";
+import { useUpdateUser } from "../../../utils/peachAPI/useUpdateUser";
 
 const customFeeRules = {
   required: true,
@@ -27,19 +28,30 @@ export const useNetworkFeesSetup = () => {
 
   const finalFeeRate =
     displayRate === "custom" ? Number(displayCustomRate) : displayRate;
-  const { mutate } = usePatchFeeRate();
+
+  const setToast = useSetToast();
+  const { mutate } = useUpdateUser();
 
   const onChangeCustomFeeRate = (value: string) =>
     setCustomFeeRate(
       !value || isNaN(Number(value)) || value === "0" ? "" : value,
     );
 
+  const submit = useCallback(() => {
+    mutate(
+      { feeRate: finalFeeRate },
+      {
+        onError: (err) => setToast({ msgKey: err.message, color: "red" }),
+      },
+    );
+  }, [finalFeeRate, mutate, setToast]);
+
   return {
     selectedFeeRate: displayRate,
     setSelectedFeeRate,
     customFeeRate: displayCustomRate,
     setCustomFeeRate: onChangeCustomFeeRate,
-    submit: () => mutate({ feeRate: finalFeeRate }),
+    submit,
     isValid: selectedFeeRate !== "custom" || isValidCustomFeeRate,
     feeRateSet:
       displayRate === "custom"
