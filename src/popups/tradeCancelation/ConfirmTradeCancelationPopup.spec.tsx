@@ -8,33 +8,13 @@ import { setAccount } from "../../utils/account/account";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
-import { getResult } from "../../utils/result/getResult";
 import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import { setPeachWallet } from "../../utils/wallet/setWallet";
 import { ConfirmTradeCancelationPopup } from "./ConfirmTradeCancelationPopup";
 
 jest.useFakeTimers();
 jest.mock("../../utils/offer/saveOffer");
-
-const contractUpdate = {
-  ...contract,
-  canceled: true,
-};
-const sellOfferUpdate = {
-  ...sellOffer,
-  refundTx: "refundTx",
-};
-
-jest.mock("./cancelContractAsSeller");
-
-const cancelContractAsSellerMock = jest
-  .requireMock("./cancelContractAsSeller")
-  .cancelContractAsSeller.mockResolvedValue(
-    getResult({
-      contract: contractUpdate,
-      sellOffer: sellOfferUpdate,
-    }),
-  );
+jest.mock("./patchSellOfferWithRefundTx");
 
 const cancelContractMock = jest.spyOn(
   peachAPI.private.contract,
@@ -57,8 +37,8 @@ describe("ConfirmTradeCancelationPopup", () => {
     );
 
     expect(getByText(i18n("contract.cancel.buyer"))).toBeTruthy();
-    await act(async () => {
-      await fireEvent.press(getAllByText("cancel trade")[1]);
+    act(() => {
+      fireEvent.press(getAllByText("cancel trade")[1]);
     });
     await waitFor(() =>
       expect(cancelContractMock).toHaveBeenCalledWith({
@@ -76,10 +56,14 @@ describe("ConfirmTradeCancelationPopup", () => {
       <ConfirmTradeCancelationPopup view="seller" contract={contract} />,
     );
     expect(getByText(i18n("contract.cancel.seller"))).toBeTruthy();
-    await act(async () => {
-      await fireEvent.press(getAllByText("cancel trade")[1]);
+    act(() => {
+      fireEvent.press(getAllByText("cancel trade")[1]);
     });
-    expect(cancelContractAsSellerMock).toHaveBeenCalledWith(contract);
+    await waitFor(() => {
+      expect(cancelContractMock).toHaveBeenCalledWith({
+        contractId: contract.id,
+      });
+    });
   });
   it("should show the correct popup for cash trades of the seller", () => {
     const { getByText } = render(

@@ -1,5 +1,5 @@
 import { APIError } from "../../peach-api/src/@types/global";
-import { MSINASECOND } from "../constants";
+import { MSINASECOND, setClientServerTimeDifference } from "../constants";
 import { PAYMENTCATEGORIES, setPaymentMethods } from "../paymentMethods";
 import { useConfigStore } from "../store/configStore/configStore";
 import { usePaymentDataStore } from "../store/usePaymentDataStore";
@@ -7,7 +7,6 @@ import { getAbortWithTimeout } from "../utils/getAbortWithTimeout";
 import { error } from "../utils/log/error";
 import { shouldUsePaymentMethod } from "../utils/paymentMethod/shouldUsePaymentMethod";
 import { peachAPI } from "../utils/peachAPI";
-import { calculateClientServerTimeDifference } from "./calculateClientServerTimeDifference";
 import { storePeachInfo } from "./storePeachInfo";
 
 const setPaymentMethodsFromStore = () => {
@@ -50,3 +49,29 @@ export const getPeachInfo = async (): Promise<
 
   return statusResponse;
 };
+
+/**
+ * Note: we estimate the time it took for the response to arrive from server to client
+ * by dividing the round trip time in half
+ * This is only an estimation as round trips are often asymmetric
+ */
+const AMOUNT_OF_SECONDS = 10;
+async function calculateClientServerTimeDifference() {
+  const start = Date.now();
+  const { result: peachStatusResponse, error: peachStatusErr } =
+    await peachAPI.public.system.getStatus({
+      signal: getAbortWithTimeout(AMOUNT_OF_SECONDS * MSINASECOND).signal,
+    });
+  const end = Date.now();
+  const roundTrip = (end - start) / 2;
+
+  if (!peachStatusResponse || peachStatusErr) {
+    error("Error peach server info", JSON.stringify(peachStatusErr));
+    return peachStatusErr;
+  }
+
+  setClientServerTimeDifference(
+    end - roundTrip - peachStatusResponse.serverTime,
+  );
+  return peachStatusResponse || peachStatusErr;
+}

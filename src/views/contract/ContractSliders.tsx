@@ -1,7 +1,8 @@
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { MSINANHOUR } from "../../constants";
 import { useRoute } from "../../hooks/useRoute";
-import { cancelContractAsSeller } from "../../popups/tradeCancelation/cancelContractAsSeller";
+import { patchSellOfferWithRefundTx } from "../../popups/tradeCancelation/patchSellOfferWithRefundTx";
+import { useCancelContract } from "../../popups/tradeCancelation/useCancelContract";
 import { useStartRefundPopup } from "../../popups/useStartRefundPopup";
 import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
@@ -106,20 +107,26 @@ export function PaymentReceivedSlider() {
 }
 export function CancelTradeSlider() {
   const { contract } = useContractContext();
-  const { mutate } = useContractMutation(
-    { id: contract.id, canceled: true, tradeStatus: "refundOrReviveRequired" },
-    {
-      mutationFn: async () => {
-        const { result, error } = await cancelContractAsSeller(contract);
-        if (!result || error) throw new Error(error);
-      },
+  const { mutate } = useCancelContract({
+    contractId: contract.id,
+    optimisticContract: {
+      canceled: true,
+      tradeStatus: "refundOrReviveRequired",
     },
-  );
+  });
+
+  const cancelContract = () => {
+    mutate(undefined, {
+      onSuccess: async ({ psbt }) => {
+        if (psbt) await patchSellOfferWithRefundTx(contract, psbt);
+      },
+    });
+  };
 
   return (
     <ConfirmSlider
       iconId="xCircle"
-      onConfirm={() => mutate()}
+      onConfirm={cancelContract}
       label1={i18n("contract.seller.paymentTimerHasRunOut.cancelTrade")}
     />
   );
