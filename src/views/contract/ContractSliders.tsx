@@ -6,13 +6,11 @@ import { useCancelContract } from "../../popups/tradeCancelation/useCancelContra
 import { useStartRefundPopup } from "../../popups/useStartRefundPopup";
 import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
-import { verifyAndSignReleaseTx } from "../../utils/contract/verifyAndSignReleaseTx";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
-import { getEscrowWalletForOffer } from "../../utils/wallet/getEscrowWalletForOffer";
 import { useContractContext } from "./context";
 import { useContractMutation } from "./hooks/useContractMutation";
-import { useReleaseEscrow } from "./hooks/useReleaseEscrow";
+import { useConfirmPaymentSeller } from "./hooks/useReleaseEscrow";
 import { useRepublishOffer } from "./hooks/useRepublishOffer";
 
 export function RepublishOfferSlider() {
@@ -69,37 +67,18 @@ export function PaymentMadeSlider() {
 
 export function PaymentReceivedSlider() {
   const { contract } = useContractContext();
-  const mutation = useContractMutation(
-    { id: contract.id, paymentConfirmed: new Date(), tradeStatus: "rateUser" },
-    {
-      mutationFn: async () => {
-        const sellOffer = getSellOfferFromContract(contract);
-        const { releaseTransaction, batchReleasePsbt, errorMsg } =
-          verifyAndSignReleaseTx(
-            contract,
-            sellOffer,
-            getEscrowWalletForOffer(sellOffer),
-          );
-
-        if (!releaseTransaction) {
-          throw new Error(errorMsg);
-        }
-
-        const { error: err } =
-          await peachAPI.private.contract.confirmPaymentSeller({
-            contractId: contract.id,
-            releaseTransaction,
-            batchReleasePsbt,
-          });
-        if (err) throw new Error(err.error);
-      },
+  const { isPending, mutate } = useConfirmPaymentSeller({
+    contract,
+    optimisticContract: {
+      paymentConfirmed: new Date(),
+      tradeStatus: "rateUser",
     },
-  );
+  });
 
   return (
     <ConfirmSlider
-      enabled={!mutation.isPending}
-      onConfirm={() => mutation.mutate()}
+      enabled={!isPending}
+      onConfirm={() => mutate()}
       label1={i18n("contract.payment.confirm")}
       label2={i18n("contract.payment.received")}
     />
@@ -205,7 +184,14 @@ export function ResolveCancelRequestSliders() {
 }
 export function ReleaseEscrowSlider() {
   const { contract } = useContractContext();
-  const { mutate } = useReleaseEscrow(contract);
+  const { mutate } = useConfirmPaymentSeller({
+    contract,
+    optimisticContract: {
+      paymentConfirmed: new Date(),
+      releaseTxId: "",
+      disputeResolvedDate: new Date(),
+    },
+  });
 
   return (
     <ConfirmSlider label1={i18n("releaseEscrow")} onConfirm={() => mutate()} />
