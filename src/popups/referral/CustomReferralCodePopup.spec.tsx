@@ -1,5 +1,5 @@
 import { toMatchDiffSnapshot } from "snapshot-diff";
-import { act, fireEvent, render, responseUtils } from "test-utils";
+import { act, fireEvent, render, responseUtils, waitFor } from "test-utils";
 import { replaceMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { peachAPI } from "../../utils/peachAPI";
 import { CustomReferralCodePopup } from "./CustomReferralCodePopup";
@@ -14,7 +14,9 @@ jest.mock("../../hooks/useShowErrorBanner", () => ({
   useShowErrorBanner: () => mockShowErrorBanner,
 }));
 
-describe("useSetCustomReferralCodePopup", () => {
+jest.useFakeTimers();
+
+describe("CustomReferralCodePopup", () => {
   it("updates referral code state", () => {
     const { getByPlaceholderText, toJSON } = render(
       <CustomReferralCodePopup />,
@@ -36,9 +38,11 @@ describe("useSetCustomReferralCodePopup", () => {
     );
 
     fireEvent.changeText(getByPlaceholderText("creative thing here"), "HODL");
-    await fireEvent.press(getByText("set referral"));
+    fireEvent.press(getByText("set referral"));
 
-    expect(redeemReferralCodeMock).toHaveBeenCalledWith({ code: "HODL" });
+    await waitFor(() => {
+      expect(redeemReferralCodeMock).toHaveBeenCalledWith({ code: "HODL" });
+    });
     expect(replaceMock).toHaveBeenCalledWith("referrals");
   });
   it("handles referral code exists error", async () => {
@@ -48,18 +52,17 @@ describe("useSetCustomReferralCodePopup", () => {
       },
       ...responseUtils,
     });
-    const { getByText, getByPlaceholderText, toJSON } = render(
+    const { getByText, getByPlaceholderText } = render(
       <CustomReferralCodePopup />,
     );
 
     fireEvent.changeText(getByPlaceholderText("creative thing here"), "HODL");
-    const withoutError = toJSON();
-    await act(async () => {
-      await fireEvent.press(getByText("set referral"));
+    act(() => {
+      fireEvent.press(getByText("set referral"));
     });
-    const withError = toJSON();
-
-    expect(withoutError).toMatchDiffSnapshot(withError);
+    await waitFor(() => {
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("ALREADY_TAKEN");
+    });
   });
   it("handles other API Errors", async () => {
     redeemReferralCodeMock.mockResolvedValueOnce({
@@ -73,8 +76,10 @@ describe("useSetCustomReferralCodePopup", () => {
     );
 
     fireEvent.changeText(getByPlaceholderText("creative thing here"), "HODL");
-    await fireEvent.press(getByText("set referral"));
+    fireEvent.press(getByText("set referral"));
 
-    expect(mockShowErrorBanner).toHaveBeenCalledWith("NOT_ENOUGH_POINTS");
+    await waitFor(() => {
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("NOT_ENOUGH_POINTS");
+    });
   });
 });

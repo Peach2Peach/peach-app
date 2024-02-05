@@ -1,5 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CustomReferralCodePopup updates referral code state 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -166,22 +166,22 @@
+                    "paddingBottom": 0,
+                    "paddingTop": 0,
+                    "width": "100%",
+                  },
+                  Object {
+-                   "color": "#BAADA7",
++                   "color": "#2B1911",
+                  },
+                  false,
+                  Object {
+                    "borderColor": "transparent",
+                    "borderWidth": 1,
+                  },
+                  false,
+                ]
+              }
+              textAlignVertical="center"
+-             value=""
++             value="HODL"
+            />
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+@@ -322,11 +322,11 @@
+      <View
+        accessibilityState={
+          Object {
+            "busy": undefined,
+            "checked": undefined,
+-           "disabled": true,
++           "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={"
+`;
+
 exports[`useSetCustomReferralCodePopup handles referral code exists error 1`] = `
 "Snapshot Diff:
 - First value
