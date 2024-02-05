@@ -6,7 +6,6 @@ import { Screen } from "../../components/Screen";
 import { Loading } from "../../components/animation/Loading";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
-import { UNIQUEID } from "../../constants";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
 import { userUpdate } from "../../init/userUpdate";
@@ -14,14 +13,12 @@ import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { createAccount } from "../../utils/account/createAccount";
 import { deleteAccount } from "../../utils/account/deleteAccount";
-import { signMessageWithAccount } from "../../utils/account/signMessageWithAccount";
 import { storeAccount } from "../../utils/account/storeAccount";
 import { updateAccount } from "../../utils/account/updateAccount";
 import i18n from "../../utils/i18n";
-import { peachAPI } from "../../utils/peachAPI";
-import { getAuthenticationChallenge } from "../../utils/peachAPI/getAuthenticationChallenge";
 import { parseError } from "../../utils/result/parseError";
 import { LOGIN_DELAY } from "../restoreReputation/LOGIN_DELAY";
+import { useRegisterUser } from "./useRegisterUser";
 
 export const NewUser = () => {
   const route = useRoute<"newUser">();
@@ -38,47 +35,38 @@ export const NewUser = () => {
     deleteAccount();
   }, []);
 
+  const { mutate: registerUser } = useRegisterUser();
+
   const onSuccess = useCallback(
-    async (account: Account & { mnemonic: string; base58: string }) => {
-      const message = getAuthenticationChallenge();
+    (account: Account & { mnemonic: string; base58: string }) => {
+      registerUser(account, {
+        onError: (err) => onError(err.message),
+        onSuccess: async ({ restored }) => {
+          if (restored) {
+            setAccount(account);
+            setUserExistsForDevice(true);
+            return;
+          }
+          await updateAccount(account, true);
+          await userUpdate(route.params.referralCode);
 
-      const { result, error: authError } = await peachAPI.private.user.register(
-        {
-          publicKey: account.publicKey,
-          message,
-          signature: signMessageWithAccount(message, account),
-          uniqueId: UNIQUEID,
+          storeAccount(account);
+          setSuccess(true);
+
+          setTimeout(() => {
+            navigation.navigate("userSource");
+          }, LOGIN_DELAY);
         },
-      );
-
-      if (!result || authError) {
-        onError(authError?.error);
-        return;
-      }
-
-      if (result.restored) {
-        setAccount(account);
-        setUserExistsForDevice(true);
-        return;
-      }
-      await updateAccount(account, true);
-      await userUpdate(route.params.referralCode);
-
-      storeAccount(account);
-      setSuccess(true);
-
-      setTimeout(() => {
-        navigation.navigate("userSource");
-      }, LOGIN_DELAY);
+      });
     },
-    [navigation, onError, route.params.referralCode, setAccount],
+    [navigation, onError, registerUser, route.params.referralCode, setAccount],
   );
 
   useEffect(() => {
     // creating an account is CPU intensive and causing iOS to show a black bg upon hiding keyboard
     setTimeout(async () => {
       try {
-        await onSuccess(await createAccount());
+        onSuccess(await createAccount());
       } catch (e) {
         onError(parseError(e));
       }
@@ -123,10 +111,10 @@ function CreateAccountLoading() {
   );
 }
 
-type Props = {
+type CreateAccountErrorProps = {
   err: string;
 };
-function CreateAccountError({ err }: Props) {
+function CreateAccountError({ err }: CreateAccountErrorProps) {
   const navigation = useNavigation();
   const goToContact = () => navigation.navigate("contact");
   const goToRestoreBackup = () => navigation.navigate("restoreBackup");

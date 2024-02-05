@@ -9,6 +9,7 @@ import { deleteAccount } from "../../../utils/account/deleteAccount";
 import { recoverAccount } from "../../../utils/account/recoverAccount";
 import { storeAccount } from "../../../utils/account/storeAccount";
 import { parseError } from "../../../utils/result/parseError";
+import { useRegisterUser } from "../../newUser/useRegisterUser";
 import { LOGIN_DELAY } from "../../restoreReputation/LOGIN_DELAY";
 import { setupPeachAccount } from "./setupPeachAccount";
 
@@ -38,40 +39,59 @@ export const useRestoreFromFileSetup = () => {
     deleteAccount();
   };
 
+  const { mutate: register } = useRegisterUser();
+
   const decryptAndRecover = async () => {
     const [recoveredAccount, err] = decryptAccount({
       encryptedAccount: file.content,
       password,
     });
+    const mnemonic = recoveredAccount?.mnemonic;
 
-    if (!recoveredAccount || !recoveredAccount.mnemonic) {
+    const handleError = (errorMsg: string) => {
       setLoading(false);
-      onError(parseError(err));
+      onError(errorMsg);
+    };
+
+    if (!mnemonic) {
+      handleError(parseError(err));
       return;
     }
 
-    const authErr = await setupPeachAccount(recoveredAccount);
+    const onSuccess = async () => {
+      const updatedAccount = await recoverAccount(recoveredAccount);
 
-    if (authErr) {
+      if (recoveredAccount.paymentData)
+        recoveredAccount.paymentData.map(
+          usePaymentDataStore.getState().addPaymentData,
+        );
+
+      await storeAccount(updatedAccount);
+      setRestored(true);
       setLoading(false);
-      onError(authErr);
-      return;
-    }
-    const updatedAccount = await recoverAccount(recoveredAccount);
+      updateFileBackupDate();
 
-    if (recoveredAccount.paymentData)
-      recoveredAccount.paymentData.map(
-        usePaymentDataStore.getState().addPaymentData,
+      setTimeout(() => {
+        setIsLoggedIn(true);
+      }, LOGIN_DELAY);
+    };
+
+    const authErr = await setupPeachAccount({ ...recoveredAccount, mnemonic });
+    if (authErr === "NOT_FOUND") {
+      register(
+        { ...recoveredAccount, mnemonic },
+        {
+          onError: ({ message }) => handleError(message),
+          onSuccess: () => onSuccess(),
+        },
       );
-
-    await storeAccount(updatedAccount);
-    setRestored(true);
-    setLoading(false);
-    updateFileBackupDate();
-
-    setTimeout(() => {
-      setIsLoggedIn(true);
-    }, LOGIN_DELAY);
+    } else {
+      if (authErr) {
+        onError(authErr);
+        return;
+      }
+      await onSuccess();
+    }
   };
 
   const submit = () => {

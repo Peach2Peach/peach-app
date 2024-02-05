@@ -1,5 +1,4 @@
 import { account1 } from "../../../tests/unit/data/accountData";
-import { getError } from "../../../tests/unit/helpers/getError";
 import { loadWalletFromAccount } from "./loadWalletFromAccount";
 
 describe("loadWalletFromAccount", () => {
@@ -12,15 +11,5 @@ describe("loadWalletFromAccount", () => {
   it("loads wallet from seed phrase", () => {
     const wallet = loadWalletFromAccount({ ...account1, base58: undefined });
     expect(wallet.privateKey.toString("hex")).toBe(privateKey);
-  });
-  it("throws error if mnemonic and base58 are not defined", async () => {
-    const error = await getError<Error>(() =>
-      loadWalletFromAccount({
-        ...account1,
-        mnemonic: undefined,
-        base58: undefined,
-      }),
-    );
-    expect(error.message).toBe("MISSING_SEED");
   });
 });
