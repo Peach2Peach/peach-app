@@ -1,6 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect } from "react";
 import { z } from "zod";
+import { info } from "../utils/log/info";
 import { useWebsocketContext } from "../utils/peachAPI/websocket";
 const queryUpdateEventSchema = z.object({
   event: z.literal("dataStale"),
@@ -19,6 +20,7 @@ export function useWSQueryInvalidation() {
       }
       const { data, event } = parsedMessage.data;
       if (event === "dataStale") {
+        info("Invalidating query", data);
         await queryClient.invalidateQueries({ queryKey: data });
       }
     },
