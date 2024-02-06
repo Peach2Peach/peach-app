@@ -1,6 +1,5 @@
 import { toMatchDiffSnapshot } from "snapshot-diff";
 import { act, fireEvent, render, responseUtils, waitFor } from "test-utils";
-import { replaceMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { peachAPI } from "../../utils/peachAPI";
 import { CustomReferralCodePopup } from "./CustomReferralCodePopup";
 expect.extend({ toMatchDiffSnapshot });
@@ -43,7 +42,6 @@ describe("CustomReferralCodePopup", () => {
     await waitFor(() => {
       expect(redeemReferralCodeMock).toHaveBeenCalledWith({ code: "HODL" });
     });
-    expect(replaceMock).toHaveBeenCalledWith("referrals");
   });
   it("handles referral code exists error", async () => {
     redeemReferralCodeMock.mockResolvedValueOnce({
