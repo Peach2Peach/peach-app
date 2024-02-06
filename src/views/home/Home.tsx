@@ -54,6 +54,7 @@ function FreeTradesDonut() {
   );
 }
 
+const NUMBER_OF_MINUTES = 5;
 function useNews() {
   return useQuery({
     queryKey: systemKeys.news(),
@@ -62,6 +63,7 @@ function useNews() {
       if (error || !result?.[0]) throw error || new Error("No message found");
       return result?.[0];
     },
+    refetchInterval: MSINAMINUTE * NUMBER_OF_MINUTES,
   });
 }
 
