@@ -1,5 +1,6 @@
 import { Verifier } from "bip322-js";
 import { Network, networks } from "bitcoinjs-lib";
+import { verify } from "bitcoinjs-message";
 
 type Props = {
   message: string;
@@ -14,8 +15,13 @@ export const isValidBitcoinSignature = ({
   network = networks.bitcoin,
 }: Props) => {
   try {
-    return Verifier.verifySignature(address, message, signature, network);
+    if (verify(message, address, signature)) return true
   } catch (e) {
-    return false;
+    // continue
+  }
+  try {
+    return Verifier.verifySignature(address, message, signature, network)
+  } catch (e2) {
+    return false
   }
 };
