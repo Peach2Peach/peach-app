@@ -97,6 +97,9 @@ export const usePatchBuyOffer = () => {
       showErrorBanner(err.message);
     },
     onSettled: (_data, _error, { offerId }) =>
-      queryClient.invalidateQueries({ queryKey: offerKeys.detail(offerId) }),
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: offerKeys.detail(offerId) }),
+        queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
+      ]),
   });
 };
