@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Keyboard } from "react-native";
 import { useClosePopup } from "../../components/popup/Popup";
 import { contractKeys } from "../../hooks/query/useContractDetail";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { isEmailRequiredForDispute } from "../../utils/dispute/isEmailRequiredForDispute";
 import { peachAPI } from "../../utils/peachAPI";
@@ -44,9 +45,13 @@ export const useSubmitDisputeAcknowledgement = () => {
       closePopup();
     },
     onSettled: (_data, _error, { contractId }) =>
-      queryClient.invalidateQueries({
-        queryKey: contractKeys.detail(contractId),
-      }),
+      Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: contractKeys.detail(contractId),
+        }),
+        queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
+        queryClient.invalidateQueries({ queryKey: offerKeys.all }),
+      ]),
   });
 
   return submitDisputeAcknowledgement;

@@ -76,10 +76,14 @@ export function useRefundSellOffer() {
         setShowBackupReminder(true);
       }
     },
-    onSettled: () =>
+    onSettled: (_data, _error, { sellOffer }) =>
       Promise.all([
         queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
+        queryClient.invalidateQueries({
+          queryKey: offerKeys.detail(sellOffer.id),
+        }),
         queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
+        queryClient.invalidateQueries({ queryKey: contractKeys.details() }),
       ]),
   });
 }
