@@ -41,6 +41,7 @@ export const useRestoreFromFileSetup = () => {
 
   const { mutate: register } = useRegisterUser();
   const recoverAccount = useRecoverAccount();
+  const addPaymentData = usePaymentDataStore((state) => state.addPaymentData);
 
   const decryptAndRecover = async () => {
     const [recoveredAccount, err] = decryptAccount({
@@ -63,9 +64,7 @@ export const useRestoreFromFileSetup = () => {
       const updatedAccount = await recoverAccount(recoveredAccount);
 
       if (recoveredAccount.paymentData)
-        recoveredAccount.paymentData.map(
-          usePaymentDataStore.getState().addPaymentData,
-        );
+        recoveredAccount.paymentData.map(addPaymentData);
 
       await storeAccount(updatedAccount);
       setRestored(true);

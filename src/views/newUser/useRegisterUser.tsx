@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UNIQUEID } from "../../constants";
 import { loadWalletFromAccount } from "../../utils/account/loadWalletFromAccount";
 import { signMessageWithWallet } from "../../utils/account/signMessageWithWallet";
@@ -6,6 +6,7 @@ import { peachAPI } from "../../utils/peachAPI";
 import { getAuthenticationChallenge } from "../../utils/peachAPI/getAuthenticationChallenge";
 
 export function useRegisterUser() {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (account: Account & { mnemonic: string }) => {
       const wallet = loadWalletFromAccount(account);
@@ -25,5 +26,6 @@ export function useRegisterUser() {
       }
       return result;
     },
+    onSettled: () => queryClient.invalidateQueries(),
   });
 }

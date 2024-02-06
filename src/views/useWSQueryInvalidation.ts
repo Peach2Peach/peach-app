@@ -4,9 +4,7 @@ import { z } from "zod";
 import { useWebsocketContext } from "../utils/peachAPI/websocket";
 const queryUpdateEventSchema = z.object({
   event: z.literal("dataStale"),
-  data: z.object({
-    entity: z.array(z.any()),
-  }),
+  data: z.array(z.any()),
 });
 
 export function useWSQueryInvalidation() {
@@ -21,7 +19,7 @@ export function useWSQueryInvalidation() {
       }
       const { data, event } = parsedMessage.data;
       if (event === "dataStale") {
-        await queryClient.invalidateQueries({ queryKey: data.entity });
+        await queryClient.invalidateQueries({ queryKey: data });
       }
     },
     [queryClient],

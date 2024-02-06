@@ -8,7 +8,6 @@ import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import tw from "../../styles/tailwind";
@@ -94,7 +93,6 @@ export function CustomReferralCodePopup() {
 
 function useRedeemReferralCode() {
   const showErrorBanner = useShowErrorBanner();
-  const navigation = useNavigation();
   const setPopup = useSetPopup();
 
   return useMutation({
@@ -108,7 +106,6 @@ function useRedeemReferralCode() {
     },
     onSuccess: (_data, code) => {
       setPopup(<ReferralCodeRedeemedPopup referralCode={code} />);
-      navigation.replace("referrals");
     },
   });
 }
