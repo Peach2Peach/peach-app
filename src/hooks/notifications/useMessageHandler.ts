@@ -6,7 +6,6 @@ import { useSetToast } from "../../components/toast/Toast";
 import { info } from "../../utils/log/info";
 import { useOfferPopupEvents } from "./eventHandler/offer/useOfferPopupEvents";
 import { useOverlayEvents } from "./eventHandler/useOverlayEvents";
-import { useStateUpdateEvents } from "./eventHandler/useStateUpdateEvents";
 import { useGetPNActionHandler } from "./useGetPNActionHandler";
 
 export const useMessageHandler = () => {
@@ -17,7 +16,6 @@ export const useMessageHandler = () => {
   const getPNActionHandler = useGetPNActionHandler();
   const overlayEvents = useOverlayEvents();
   const offerPopupEvents = useOfferPopupEvents();
-  const stateUpdateEvents = useStateUpdateEvents();
 
   const onMessageHandler = useCallback(
     (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
@@ -35,9 +33,10 @@ export const useMessageHandler = () => {
         overlayEvents[type]?.(data);
       } else if (offerPopupEvents[type]) {
         offerPopupEvents[type]?.(data, remoteMessage.notification);
-      } else if (stateUpdateEvents[type]) {
-        stateUpdateEvents[type]?.(data);
-      } else if (AppState.currentState === "active") {
+      } else if (
+        AppState.currentState === "active" &&
+        type !== "contract.chat"
+      ) {
         setToast({
           msgKey: `notification.${type}`,
           bodyArgs: remoteMessage.notification?.bodyLocArgs,
@@ -51,7 +50,6 @@ export const useMessageHandler = () => {
       getPNActionHandler,
       offerPopupEvents,
       overlayEvents,
-      stateUpdateEvents,
       setToast,
     ],
   );
