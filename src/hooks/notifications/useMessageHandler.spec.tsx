@@ -17,12 +17,6 @@ jest.mock("./eventHandler/offer/useOfferPopupEvents", () => ({
   useOfferPopupEvents: () => mockOfferPopupEvents,
 }));
 
-const stateUpdateEventHandlerMock = jest.fn();
-const mockStateUpdateEvents = { stateUpdateEvent: stateUpdateEventHandlerMock };
-jest.mock("./eventHandler/useStateUpdateEvents", () => ({
-  useStateUpdateEvents: () => mockStateUpdateEvents,
-}));
-
 const mockGetPNActionHandler = jest.fn().mockReturnValue({
   label: "action",
   icon: "icon",
@@ -107,6 +101,9 @@ describe("useMessageHandler", () => {
       },
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage;
+
+    AppState.currentState = "active";
+
     const { result: onMessageHandler } = renderHook(useMessageHandler);
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage);
@@ -118,23 +115,27 @@ describe("useMessageHandler", () => {
     );
   });
 
-  it("should call state update event when type is found in stateUpdateEvents", async () => {
+  it("should not call popup event when type is found in offerPopupEvents and appstate is background", async () => {
     const mockRemoteMessage = {
       data: {
-        type: "stateUpdateEvent",
+        type: "offerPopupEvent",
       },
       notification: {
         bodyLocArgs: ["arg1", "arg2"],
       },
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage;
+
+    AppState.currentState = "background";
+
     const { result: onMessageHandler } = renderHook(useMessageHandler);
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage);
     });
 
-    expect(stateUpdateEventHandlerMock).toHaveBeenCalledWith(
+    expect(offerPopupEventHandlerMock).not.toHaveBeenCalledWith(
       mockRemoteMessage.data,
+      mockRemoteMessage.notification,
     );
   });
 
@@ -156,9 +157,6 @@ describe("useMessageHandler", () => {
       mockRemoteMessage.data,
     );
     expect(offerPopupEventHandlerMock).not.toHaveBeenCalledWith(
-      mockRemoteMessage.data,
-    );
-    expect(stateUpdateEventHandlerMock).not.toHaveBeenCalledWith(
       mockRemoteMessage.data,
     );
     expect(toJSON()).toEqual(beforeUpdate);
@@ -183,9 +181,6 @@ describe("useMessageHandler", () => {
       mockRemoteMessage.data,
     );
     expect(offerPopupEventHandlerMock).not.toHaveBeenCalledWith(
-      mockRemoteMessage.data,
-    );
-    expect(stateUpdateEventHandlerMock).not.toHaveBeenCalledWith(
       mockRemoteMessage.data,
     );
     expect(toJSON()).toEqual(beforeUpdate);
