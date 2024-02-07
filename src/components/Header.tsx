@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import { T, useTranslate } from "@tolgee/react";
 import {
   ColorValue,
   ScrollView,
@@ -14,7 +15,6 @@ import { useToggleBoolean } from "../hooks/useToggleBoolean";
 import { CURRENCIES } from "../paymentMethods";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
 import { getHeaderStyles } from "../utils/layout/getHeaderStyles";
 import { thousands } from "../utils/string/thousands";
 import { Icon } from "./Icon";
@@ -200,6 +200,8 @@ function Tickers({ type = "sell" }: TickerProps) {
     type === "sell" ? tw`text-primary-main` : tw`text-success-main`,
     tw`md:body-l`,
   ];
+  const { t } = useTranslate("global");
+
   return (
     <View
       style={[
@@ -208,7 +210,9 @@ function Tickers({ type = "sell" }: TickerProps) {
       ]}
     >
       <View style={leftColStyle}>
-        <PeachText style={unitStyle}>{`1 ${i18n("btc")}`}</PeachText>
+        <PeachText style={unitStyle}>
+          1 <T keyName="btc" ns="global" />
+        </PeachText>
         <PriceFormat
           style={valueStyle}
           currency={displayCurrency}
@@ -220,7 +224,7 @@ function Tickers({ type = "sell" }: TickerProps) {
         <CurrencyScrollView />
 
         <PeachText style={[...valueStyle, tw`text-right`]}>
-          {i18n("currency.format.sats", thousands(moscowTime))}
+          {t("currency.format.sats", { amount: thousands(moscowTime) })}
         </PeachText>
       </View>
     </View>
@@ -293,6 +297,7 @@ function HeaderSubtitle({
   viewer,
   text,
 }: HeaderSubtitleProps) {
+  const { t } = useTranslate();
   return (
     <View
       style={[
@@ -304,11 +309,13 @@ function HeaderSubtitle({
         style={[tw`subtitle-1`, newThemes[theme].subtitle, tw`md:subtitle-0`]}
       >
         {text ??
-          i18n(
-            viewer === "buyer"
-              ? "buy.subtitle.highlight"
-              : "sell.subtitle.highlight",
-          )}
+          t({
+            key:
+              viewer === "buyer"
+                ? "buy.subtitle.highlight"
+                : "sell.subtitle.highlight",
+            ns: viewer === "buyer" ? "buy" : "sell",
+          })}
       </PeachText>
       <BTCAmount
         amount={amount}
