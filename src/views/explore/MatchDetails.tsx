@@ -26,6 +26,7 @@ import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
+import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
@@ -46,7 +47,22 @@ export function MatchDetails() {
   const { data: match } = useMatchDetails({ offerId, matchId });
   const { offer } = useOfferDetail(offerId);
 
-  if (!offer || !isBuyOffer(offer) || !match) return <LoadingScreen />;
+  const navigation = useNavigation();
+  if (offer?.contractId) {
+    navigation.reset({
+      index: 1,
+      routes: [
+        {
+          name: "homeScreen",
+          params: { screen: "yourTrades", params: { tab: "yourTrades.buy" } },
+        },
+        { name: "contract", params: { contractId: offer.contractId } },
+      ],
+    });
+  }
+
+  if (!offer || !isBuyOffer(offer) || !match || offer.contractId)
+    return <LoadingScreen />;
   return (
     <Screen showTradingLimit header={<MatchDetailsHeader />}>
       <Match match={match} offer={offer} />
@@ -65,21 +81,24 @@ function useMatchDetails({
   offerId: string;
   matchId: string;
 }) {
-  return useQuery({
+  const queryData = useQuery({
     queryKey: matchesKeys.matchDetail(offerId, matchId),
     queryFn: getMatchDetails,
+    refetchInterval: 10000,
   });
+
+  return queryData;
 }
 
 async function getMatchDetails({
   queryKey,
 }: QueryFunctionContext<ReturnType<typeof matchesKeys.matchDetail>>) {
   const [, offerId, matchId] = queryKey;
-  const { result } = await peachAPI.private.offer.getMatch({
+  const { result, error } = await peachAPI.private.offer.getMatch({
     offerId,
     matchId,
   });
-  if (!result) throw new Error("Match not found");
+  if (error || !result) throw new Error(error?.error || "Match not found");
   return result;
 }
 
