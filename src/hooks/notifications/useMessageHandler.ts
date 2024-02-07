@@ -31,18 +31,20 @@ export const useMessageHandler = () => {
 
       if (overlayEvents[type]) {
         overlayEvents[type]?.(data);
-      } else if (offerPopupEvents[type]) {
-        offerPopupEvents[type]?.(data, remoteMessage.notification);
       } else if (
         AppState.currentState === "active" &&
         type !== "contract.chat"
       ) {
-        setToast({
-          msgKey: `notification.${type}`,
-          bodyArgs: remoteMessage.notification?.bodyLocArgs,
-          color: "yellow",
-          action: getPNActionHandler(data),
-        });
+        if (offerPopupEvents[type]) {
+          offerPopupEvents[type]?.(data, remoteMessage.notification);
+        } else {
+          setToast({
+            msgKey: `notification.${type}`,
+            bodyArgs: remoteMessage.notification?.bodyLocArgs,
+            color: "yellow",
+            action: getPNActionHandler(data),
+          });
+        }
       }
     },
     [
