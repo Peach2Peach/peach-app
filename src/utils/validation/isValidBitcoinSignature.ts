@@ -15,13 +15,13 @@ export const isValidBitcoinSignature = ({
   network = networks.bitcoin,
 }: Props) => {
   try {
-    if (verify(message, address, signature)) return true
+    if (verify(message, address, signature)) return true;
   } catch (e) {
     // continue
   }
   try {
-    return Verifier.verifySignature(address, message, signature, network)
+    return Verifier.verifySignature(address, message, signature, network);
   } catch (e2) {
-    return false
+    return false;
   }
 };
