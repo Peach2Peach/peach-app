@@ -3,17 +3,16 @@ import { contract } from "../../../peach-api/src/testData/contract";
 import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { OpenDisputePopup } from "./OpenDisputePopup";
 
-const closePopupMock = jest.fn();
-jest.mock("../../components/popup/Popup");
-jest
-  .requireMock("../../components/popup/Popup")
-  .useClosePopup.mockReturnValue(closePopupMock);
+const mockClosePopup = jest.fn();
+jest.mock("../../components/popup/Popup", () => ({
+  useClosePopup: () => mockClosePopup,
+}));
 
 describe("OpenDisputePopup", () => {
   it("should close popup", () => {
     const { getByText } = render(<OpenDisputePopup contractId={contract.id} />);
     fireEvent.press(getByText("close"));
-    expect(closePopupMock).toHaveBeenCalled();
+    expect(mockClosePopup).toHaveBeenCalled();
   });
   it("should navigate to disputeReasonSelector", () => {
     const { getAllByText } = render(

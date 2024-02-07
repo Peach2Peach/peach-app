@@ -6,11 +6,10 @@ import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useSyncWallet } from "./useSyncWallet";
 import { walletKeys } from "./useUTXOs";
 
-const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner");
-jest
-  .requireMock("../../../hooks/useShowErrorBanner")
-  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
+const mockShowErrorBanner = jest.fn();
+jest.mock("../../../hooks/useShowErrorBanner", () => ({
+  useShowErrorBanner: () => mockShowErrorBanner,
+}));
 const mockSyncWallet = jest.fn().mockResolvedValue(undefined);
 jest.useFakeTimers();
 
@@ -77,7 +76,7 @@ describe("useSyncWallet", () => {
     renderHook(() => useSyncWallet({ enabled: true }));
 
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith("WALLET_SYNC_ERROR");
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("WALLET_SYNC_ERROR");
     });
   });
 });

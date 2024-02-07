@@ -9,8 +9,8 @@ import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { useContractContext } from "./context";
+import { useConfirmPaymentSeller } from "./hooks/useConfirmPaymentSeller";
 import { useContractMutation } from "./hooks/useContractMutation";
-import { useConfirmPaymentSeller } from "./hooks/useReleaseEscrow";
 import { useRepublishOffer } from "./hooks/useRepublishOffer";
 
 export function RepublishOfferSlider() {

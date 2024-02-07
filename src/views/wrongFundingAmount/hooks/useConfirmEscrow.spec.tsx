@@ -8,11 +8,10 @@ import { useConfirmEscrow } from "./useConfirmEscrow";
 
 const unauthorizedError = { error: "UNAUTHORIZED" } as const;
 
-const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner");
-jest
-  .requireMock("../../../hooks/useShowErrorBanner")
-  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
+const mockShowErrorBanner = jest.fn();
+jest.mock("../../../hooks/useShowErrorBanner", () => ({
+  useShowErrorBanner: () => mockShowErrorBanner,
+}));
 
 const confirmEscrowMock = jest.spyOn(peachAPI.private.offer, "confirmEscrow");
 
@@ -46,7 +45,7 @@ describe("useConfirmEscrow", () => {
       funding: sellOffer.funding,
     });
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error);
+      expect(mockShowErrorBanner).toHaveBeenCalledWith(unauthorizedError.error);
     });
   });
   it("shows error banner if escrow server did not return result", async () => {
@@ -57,7 +56,7 @@ describe("useConfirmEscrow", () => {
       funding: sellOffer.funding,
     });
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith(
+      expect(mockShowErrorBanner).toHaveBeenCalledWith(
         "Failed to confirm escrow",
       );
     });

@@ -25,7 +25,7 @@ try {
   });
 } catch (e) {
   error(
-    "messaging().setBackgroundMessageHandler/onTokenRefresh - Push notifications not supported",
+    "messaging().setBackgroundMessageHandler - Push notifications not supported",
     parseError(e),
   );
 }

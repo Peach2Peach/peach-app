@@ -13,24 +13,18 @@ jest.mock("./hooks/query/useMarketPrices", () => ({
   }),
 }));
 
-jest.mock("./hooks/useShouldShowBackupReminder", () => ({
-  useShouldShowBackupReminder: jest.fn(),
-}));
+jest.mock("./hooks/useShouldShowBackupReminder");
 jest.mock("./init/useInitialNavigation", () => ({
   useInitialNavigation: jest.fn(),
 }));
 jest.mock("./hooks/useShowUpdateAvailable", () => ({
   useShowUpdateAvailable: jest.fn(),
 }));
-jest.mock("./hooks/useDynamicLinks", () => ({
-  useDynamicLinks: jest.fn(),
-}));
+jest.mock("./hooks/useDynamicLinks");
 jest.mock("./hooks/useCheckFundingMultipleEscrows", () => ({
   useCheckFundingMultipleEscrows: jest.fn(),
 }));
-jest.mock("./hooks/notifications/useHandleNotifications", () => ({
-  useHandleNotifications: jest.fn(),
-}));
+jest.mock("./hooks/notifications/useHandleNotifications");
 jest.mock("react-native-promise-rejection-utils", () => ({
   setUnhandledPromiseRejectionTracker: jest.fn(),
 }));

@@ -21,7 +21,16 @@ export const OfferPublished = ({
   };
   const goToOffer = () => {
     closeOverlay();
-    navigation.navigate("search", { offerId });
+    navigation.reset({
+      index: 1,
+      routes: [
+        {
+          name: "homeScreen",
+          params: { screen: "yourTrades", params: { tab: "yourTrades.sell" } },
+        },
+        { name: "search", params: { offerId } },
+      ],
+    });
   };
 
   return (

@@ -25,7 +25,6 @@ export function Screens() {
   const [isLoading, setIsLoading] = useState(true);
   const isLoggedIn = useAccountStore((state) => state.isLoggedIn);
   useGlobalHandlers();
-
   useWSQueryInvalidation();
 
   if (isLoading) return <SplashScreenComponent setIsLoading={setIsLoading} />;
