@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import OpenPGP from "react-native-fast-openpgp";
 import { error } from "../../utils/log/error";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
+import { hasValidSignature } from "../contract/helpers/hasValidSignature";
 
 export const useDecryptedContractData = (contract?: Contract) =>
   useQuery({
@@ -23,7 +23,7 @@ async function decryptContractData(contract: Contract) {
   const symmetricKey = await decryptSymmetricKey(
     contract.symmetricKeyEncrypted,
     contract.symmetricKeySignature,
-    contract.buyer.pgpPublicKeys.map((key) => key.publicKey),
+    contract.buyer.pgpPublicKeys,
   );
 
   const paymentData = await decryptPaymentData(
@@ -56,16 +56,18 @@ async function decryptPaymentData(
   if (!paymentDataEncrypted || !paymentDataSignature) {
     return logAndThrow(new Error("MISSING_PAYMENT_DATA_SECRETS"));
   }
+
+  const verifySignature = (decryptedString: string) =>
+    hasValidSignature({
+      signature: paymentDataSignature,
+      message: decryptedString,
+      publicKeys: user.pgpPublicKeys,
+    });
+
   if (paymentDataEncryptionMethod === "asymmetric") {
     try {
       const decryptedPaymentDataString = await decrypt(paymentDataEncrypted);
-      if (
-        !(await OpenPGP.verify(
-          paymentDataSignature,
-          decryptedPaymentDataString,
-          user.pgpPublicKey,
-        ))
-      ) {
+      if (!(await verifySignature(decryptedPaymentDataString))) {
         return logAndThrow(new Error("PAYMENT_DATA_SIGNATURE_INVALID"));
       }
       const decryptedPaymentData = JSON.parse(
@@ -87,13 +89,7 @@ async function decryptPaymentData(
       paymentDataEncrypted,
       symmetricKey,
     );
-    if (
-      !(await OpenPGP.verify(
-        paymentDataSignature,
-        decryptedPaymentDataString,
-        user.pgpPublicKey,
-      ))
-    ) {
+    if (!(await verifySignature(decryptedPaymentDataString))) {
       return logAndThrow(new Error("PAYMENT_DATA_SIGNATURE_INVALID"));
     }
     const decryptedPaymentData = JSON.parse(
