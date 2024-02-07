@@ -32,7 +32,7 @@
     "postversion": "react-native-version",
     "test": "jest ./src",
     "test:coverage": "jest --coverage ./src",
-    "test:ci": "jest ---maxWorkers=100% -ci ./src",
+    "test:ci": "jest --maxWorkers=100% --ci ./src",
     "test:e2e:android:build": "detox build --configuration android",
     "test:e2e:android": "detox test --configuration android --config ./tests/e2e/jest.config.js --loglevel trace --record-logs all",
     "test:e2e:ios:build": "detox build --configuration ios",
