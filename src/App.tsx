@@ -14,6 +14,7 @@ import {
 } from "./utils/peachAPI/websocket";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { TolgeeProvider } from "@tolgee/react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useDeviceContext } from "twrnc";
 import { Drawer } from "./components/drawer/Drawer";
@@ -22,6 +23,7 @@ import { Toast } from "./components/toast/Toast";
 import { useWebSocket } from "./init/websocket";
 import { Overlay } from "./Overlay";
 import tw from "./styles/tailwind";
+import { tolgee } from "./tolgee";
 import { usePartialAppSetup } from "./usePartialAppSetup";
 import { info } from "./utils/log/info";
 import { Screens } from "./views/Screens";
@@ -57,21 +59,23 @@ export const App = () => {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <PeachWSContext.Provider value={peachWS}>
-        <SafeAreaProvider>
-          <NavigationContainer
-            theme={navTheme}
-            onStateChange={onNavStateChange}
-          >
-            <Screens />
-            <Drawer />
-            <Popup />
-            <Overlay />
-            <Toast />
-          </NavigationContainer>
-        </SafeAreaProvider>
-      </PeachWSContext.Provider>
-    </QueryClientProvider>
+    <TolgeeProvider tolgee={tolgee}>
+      <QueryClientProvider client={queryClient}>
+        <PeachWSContext.Provider value={peachWS}>
+          <SafeAreaProvider>
+            <NavigationContainer
+              theme={navTheme}
+              onStateChange={onNavStateChange}
+            >
+              <Screens />
+              <Drawer />
+              <Popup />
+              <Overlay />
+              <Toast />
+            </NavigationContainer>
+          </SafeAreaProvider>
+        </PeachWSContext.Provider>
+      </QueryClientProvider>
+    </TolgeeProvider>
   );
 };
