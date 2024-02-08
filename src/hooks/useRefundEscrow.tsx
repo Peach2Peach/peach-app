@@ -36,6 +36,7 @@ export const useRefundEscrow = () => {
   const refundEscrow = useCallback(
     async (sellOffer: SellOffer, rawPSBT: string) => {
       info("Get refunding info", rawPSBT);
+      // TODO liquify
       const { psbt, err } = checkRefundPSBT(rawPSBT, sellOffer);
 
       if (!psbt || err) {
@@ -43,6 +44,7 @@ export const useRefundEscrow = () => {
         closePopup();
         return;
       }
+      // TODO liquify
       const signedTx = signAndFinalizePSBT(
         psbt,
         getEscrowWalletForOffer(sellOffer),

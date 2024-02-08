@@ -73,6 +73,8 @@ export function PaymentReceivedSlider() {
     {
       mutationFn: async () => {
         const sellOffer = getSellOfferFromContract(contract);
+
+        // TODO liquify
         const { releaseTransaction, batchReleasePsbt, errorMsg } =
           verifyAndSignReleaseTx(
             contract,

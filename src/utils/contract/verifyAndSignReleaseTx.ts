@@ -5,6 +5,7 @@ import { getNetwork } from "../wallet/getNetwork";
 import { signBatchReleaseTransaction } from "./signBatchReleaseTransaction";
 import { signReleaseTransaction } from "./signReleaseTransaction";
 
+// TODO liquify
 export const verifyAndSignReleaseTx = (
   contract: Contract,
   sellOffer: SellOffer,

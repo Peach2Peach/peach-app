@@ -4,6 +4,7 @@ import { verifyAndSignReleaseTx } from "./verifyAndSignReleaseTx";
 
 export const signReleaseTxOfContract = (contract: Contract) => {
   const sellOffer = getSellOfferFromContract(contract);
+    // TODO liquify
   return verifyAndSignReleaseTx(
     contract,
     sellOffer,

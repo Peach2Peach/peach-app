@@ -2,6 +2,7 @@ import { Psbt } from "bitcoinjs-lib";
 import { getNetwork } from "../../utils/wallet/getNetwork";
 import { txIdPartOfPSBT } from "./txIdPartOfPSBT";
 
+// TODO liquify
 export const checkRefundPSBT = (
   psbtBase64: string,
   offer: SellOffer,
