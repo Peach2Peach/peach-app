@@ -3,17 +3,11 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { defaultLimits } from "../../utils/account/account";
 import { peachAPI } from "../../utils/peachAPI";
 import { useMarketPrices } from "../query/useMarketPrices";
+import { userKeys } from "./useSelfUser";
 
-const tradingLimitQuery = async () => {
-  const { result, error: err } = await peachAPI.private.user.getTradingLimit();
-  if (err) {
-    throw new Error(err.error || "Could not fetch trading limits");
-  }
-  return result;
-};
 export const useTradingLimits = () => {
   const { data: limits } = useQuery({
-    queryKey: ["tradingLimits"],
+    queryKey: userKeys.tradingLimits(),
     queryFn: tradingLimitQuery,
   });
   const { data: marketPrices } = useMarketPrices();
@@ -36,3 +30,11 @@ export const useTradingLimits = () => {
 
   return roundedDisplayLimits;
 };
+
+async function tradingLimitQuery() {
+  const { result, error: err } = await peachAPI.private.user.getTradingLimit();
+  if (err) {
+    throw new Error(err.error || "Could not fetch trading limits");
+  }
+  return result;
+}

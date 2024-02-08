@@ -1,9 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { peachAPI } from "../../utils/peachAPI";
 
+export const eventKeys = {
+  meetupEvents: ["meetupEvents"] as const,
+};
+
 export const useMeetupEvents = () =>
   useQuery({
-    queryKey: ["meetupEvents"],
+    queryKey: eventKeys.meetupEvents,
     queryFn: async () => {
       const { result: events, error } =
         await peachAPI.public.events.getEvents();

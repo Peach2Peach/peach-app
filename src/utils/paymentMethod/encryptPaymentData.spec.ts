@@ -3,14 +3,13 @@ import { encryptPaymentData } from "./encryptPaymentData";
 const symmetricKey = "symmetricKey";
 const signature = "signature";
 const encrypted = "encrypted";
-const signAndEncryptSymmetricMock = jest.fn().mockResolvedValue({
-  signature,
-  encrypted,
-});
-jest.mock("../pgp/signAndEncryptSymmetric", () => ({
-  signAndEncryptSymmetric: (...args: unknown[]) =>
-    signAndEncryptSymmetricMock(...args),
-}));
+jest.mock("../pgp/signAndEncryptSymmetric");
+const signAndEncryptSymmetricMock = jest
+  .requireMock("../pgp/signAndEncryptSymmetric")
+  .signAndEncryptSymmetric.mockResolvedValue({
+    signature,
+    encrypted,
+  });
 
 describe("encryptPaymentData", () => {
   const paymentDataInfo: PaymentDataInfo = {

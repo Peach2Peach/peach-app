@@ -9,7 +9,10 @@ import { useSetPopup } from "../../components/popup/Popup";
 import { PeachText } from "../../components/text/PeachText";
 import { MSINASECOND } from "../../constants";
 import { PAGE_SIZE, useChatMessages } from "../../hooks/query/useChatMessages";
-import { useContractDetails } from "../../hooks/query/useContractDetails";
+import {
+  contractKeys,
+  useContractDetail,
+} from "../../hooks/query/useContractDetail";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { OpenDisputePopup } from "../../popups/dispute/OpenDisputePopup";
@@ -34,7 +37,7 @@ import { useDecryptedContractData } from "./useDecryptedContractData";
 
 export const ContractChat = () => {
   const { contractId } = useRoute<"contractChat">().params;
-  const { contract } = useContractDetails(contractId);
+  const { contract } = useContractDetail(contractId);
 
   return !contract ? <LoadingScreen /> : <ChatScreen contract={contract} />;
 };
@@ -52,7 +55,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
     page,
     fetchNextPage,
   } = useChatMessages({
-    id: contractId,
+    contractId,
     symmetricKey: decryptedData?.symmetricKey,
   });
   const showError = useShowErrorBanner();
@@ -192,7 +195,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
         messages: [decryptedMessage],
       });
       queryClient.setQueryData(
-        ["contract-chat", contractId],
+        contractKeys.chat(contractId),
         (oldQueryData: InfiniteData<Message[]> | undefined) => {
           if (!oldQueryData) {
             return { pageParams: [], pages: [[decryptedMessage]] };

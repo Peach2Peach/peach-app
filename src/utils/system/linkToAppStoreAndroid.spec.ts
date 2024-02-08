@@ -2,12 +2,13 @@ import { Linking } from "react-native";
 import { linkToAppStoreAndroid } from "./linkToAppStoreAndroid";
 
 const bundleId = "com.example.bundleId";
-const getInstallerPackageNameSyncMock = jest.fn();
 jest.mock("react-native-device-info", () => ({
   getBundleId: () => bundleId,
-  getInstallerPackageNameSync: (...args: unknown[]) =>
-    getInstallerPackageNameSyncMock(...args),
+  getInstallerPackageNameSync: jest.fn(),
 }));
+const getInstallerPackageNameSyncMock = jest.requireMock(
+  "react-native-device-info",
+).getInstallerPackageNameSync;
 
 describe("linkToAppStoreAndroid", () => {
   const openURLSpy = jest.spyOn(Linking, "openURL");

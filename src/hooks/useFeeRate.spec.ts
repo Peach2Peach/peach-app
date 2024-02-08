@@ -3,12 +3,14 @@ import { defaultUser } from "../../peach-api/src/testData/userData";
 import { estimatedFees } from "../../tests/unit/data/bitcoinNetworkData";
 import { queryClient } from "../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../utils/peachAPI";
+import { userKeys } from "./query/useSelfUser";
 import { useFeeRate } from "./useFeeRate";
 
 const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees });
-jest.mock("./query/useFeeEstimate", () => ({
-  useFeeEstimate: () => useFeeEstimateMock(),
-}));
+jest.mock("./query/useFeeEstimate");
+jest
+  .requireMock("./query/useFeeEstimate")
+  .useFeeEstimate.mockImplementation(useFeeEstimateMock);
 const getUserMock = jest.spyOn(peachAPI.private.user, "getSelfUser");
 jest.useFakeTimers();
 
@@ -40,7 +42,7 @@ describe("useFeeRate", () => {
       ...responseUtils,
     });
     act(() => {
-      queryClient.invalidateQueries({ queryKey: ["user", "self"] });
+      queryClient.invalidateQueries({ queryKey: userKeys.self() });
     });
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.halfHourFee);
@@ -51,7 +53,7 @@ describe("useFeeRate", () => {
       ...responseUtils,
     });
     act(() => {
-      queryClient.invalidateQueries({ queryKey: ["user", "self"] });
+      queryClient.invalidateQueries({ queryKey: userKeys.self() });
     });
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.hourFee);
@@ -73,7 +75,7 @@ describe("useFeeRate", () => {
       ...responseUtils,
     });
     act(() => {
-      queryClient.invalidateQueries({ queryKey: ["user", "self"] });
+      queryClient.invalidateQueries({ queryKey: userKeys.self() });
     });
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.halfHourFee);
@@ -85,7 +87,7 @@ describe("useFeeRate", () => {
       ...responseUtils,
     });
     act(() => {
-      queryClient.invalidateQueries({ queryKey: ["user", "self"] });
+      queryClient.invalidateQueries({ queryKey: userKeys.self() });
     });
     await waitFor(() => {
       expect(result.current).toEqual(estimatedFees.halfHourFee);

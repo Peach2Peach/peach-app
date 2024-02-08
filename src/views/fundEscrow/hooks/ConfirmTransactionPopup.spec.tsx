@@ -7,9 +7,9 @@ import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { ConfirmTransactionPopup } from "./ConfirmTransactionPopup";
 
-const showErrorBannerMock = jest.fn();
+const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
+  useShowErrorBanner: () => mockShowErrorBanner,
 }));
 
 describe("ConfirmTransactionPopup", () => {
@@ -45,7 +45,7 @@ describe("ConfirmTransactionPopup", () => {
       await fireEvent.press(getByText("confirm & send"));
     });
 
-    expect(showErrorBannerMock).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+    expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
       "78999997952",
       "1089000",
     ]);

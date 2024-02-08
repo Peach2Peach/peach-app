@@ -12,10 +12,7 @@ import { setPeachWallet } from "../../utils/wallet/setWallet";
 import { NodeSetup } from "./NodeSetup";
 expect.extend({ toMatchDiffSnapshot });
 
-const checkNodeConnectionMock = jest.fn();
-jest.mock("./helpers/checkNodeConnection", () => ({
-  checkNodeConnection: (...args: unknown[]) => checkNodeConnectionMock(...args),
-}));
+jest.mock("./helpers/checkNodeConnection");
 
 const url = "blockstream.info";
 describe("NodeSetup", () => {

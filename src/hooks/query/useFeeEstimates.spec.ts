@@ -1,15 +1,14 @@
 import { renderHook, waitFor } from "test-utils";
 import { feeEstimates } from "../../../tests/unit/data/electrumData";
-import { unauthorizedError } from "../../../tests/unit/data/peachAPIData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { placeholderFeeEstimates, useFeeEstimates } from "./useFeeEstimates";
 
 jest.useFakeTimers();
 
-const getFeeEstimatesMock = jest.fn().mockResolvedValue([feeEstimates]);
-jest.mock("../../utils/electrum/getFeeEstimates", () => ({
-  getFeeEstimates: () => getFeeEstimatesMock(),
-}));
+global.fetch = jest.fn().mockResolvedValue({
+  text: jest.fn().mockResolvedValue(JSON.stringify(feeEstimates)),
+  status: 200,
+});
 
 describe("useFeeEstimates", () => {
   const initialProps = { txId: "txId" };
@@ -33,7 +32,9 @@ describe("useFeeEstimates", () => {
     });
   });
   it("returns error if server did not return result", async () => {
-    getFeeEstimatesMock.mockResolvedValueOnce([null, unauthorizedError]);
+    global.fetch = jest.fn().mockResolvedValue({
+      status: 500,
+    });
     const { result } = renderHook(useFeeEstimates, { initialProps });
     expect(result.current).toEqual({
       feeEstimates: placeholderFeeEstimates,
@@ -45,7 +46,7 @@ describe("useFeeEstimates", () => {
     expect(result.current).toEqual({
       feeEstimates: placeholderFeeEstimates,
       isFetching: false,
-      error: new Error(unauthorizedError.error),
+      error: new Error("INTERNAL_SERVER_ERROR"),
     });
   });
 });

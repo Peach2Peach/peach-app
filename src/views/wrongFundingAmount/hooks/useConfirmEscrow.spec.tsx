@@ -1,18 +1,21 @@
-import { renderHook, responseUtils } from "test-utils";
+import { renderHook, responseUtils, waitFor } from "test-utils";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { resetMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
+import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { peachAPI } from "../../../utils/peachAPI";
 import { useConfirmEscrow } from "./useConfirmEscrow";
 
 const unauthorizedError = { error: "UNAUTHORIZED" } as const;
 
-const showErrorBannerMock = jest.fn();
+const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
+  useShowErrorBanner: () => mockShowErrorBanner,
 }));
 
 const confirmEscrowMock = jest.spyOn(peachAPI.private.offer, "confirmEscrow");
+
+jest.useFakeTimers();
 
 describe("useConfirmEscrow", () => {
   const fundingStatusResponse = {
@@ -24,7 +27,7 @@ describe("useConfirmEscrow", () => {
   };
   beforeEach(() => {
     queryClient.setQueryData(
-      ["fundingStatus", sellOffer.id],
+      offerKeys.fundingStatus(sellOffer.id),
       () => fundingStatusResponse,
     );
   });
@@ -37,24 +40,40 @@ describe("useConfirmEscrow", () => {
       ...responseUtils,
     });
     const { result } = renderHook(useConfirmEscrow);
-    await result.current(sellOffer);
-    expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error);
+    result.current.mutate({
+      offerId: sellOffer.id,
+      funding: sellOffer.funding,
+    });
+    await waitFor(() => {
+      expect(mockShowErrorBanner).toHaveBeenCalledWith(unauthorizedError.error);
+    });
   });
   it("shows error banner if escrow server did not return result", async () => {
     confirmEscrowMock.mockResolvedValueOnce(responseUtils);
     const { result } = renderHook(useConfirmEscrow);
-    await result.current(sellOffer);
-    expect(showErrorBannerMock).toHaveBeenCalledWith(undefined);
+    result.current.mutate({
+      offerId: sellOffer.id,
+      funding: sellOffer.funding,
+    });
+    await waitFor(() => {
+      expect(mockShowErrorBanner).toHaveBeenCalledWith(
+        "Failed to confirm escrow",
+      );
+    });
   });
   it("confirms escrow and navigates to search if sell offer is funded", async () => {
     const { result } = renderHook(useConfirmEscrow);
-    await result.current({
-      ...sellOffer,
+    result.current.mutate({
+      offerId: sellOffer.id,
       funding: { status: "FUNDED" } as FundingStatus,
     });
-    expect(queryClient.getQueryData(["fundingStatus", sellOffer.id])).toEqual({
-      ...fundingStatusResponse,
-      userConfirmationRequired: false,
+    await waitFor(() => {
+      expect(
+        queryClient.getQueryData(offerKeys.fundingStatus(sellOffer.id)),
+      ).toEqual({
+        ...fundingStatusResponse,
+        userConfirmationRequired: false,
+      });
     });
     expect(resetMock).toHaveBeenCalledWith({
       index: 1,
@@ -66,13 +85,17 @@ describe("useConfirmEscrow", () => {
   });
   it("confirms escrow and navigates to fundEscrow if sell offer is not yet funded", async () => {
     const { result } = renderHook(useConfirmEscrow);
-    await result.current({
-      ...sellOffer,
+    result.current.mutate({
+      offerId: sellOffer.id,
       funding: { status: "MEMPOOL" } as FundingStatus,
     });
-    expect(queryClient.getQueryData(["fundingStatus", sellOffer.id])).toEqual({
-      ...fundingStatusResponse,
-      userConfirmationRequired: false,
+    await waitFor(() => {
+      expect(
+        queryClient.getQueryData(offerKeys.fundingStatus(sellOffer.id)),
+      ).toEqual({
+        ...fundingStatusResponse,
+        userConfirmationRequired: false,
+      });
     });
     expect(resetMock).toHaveBeenCalledWith({
       index: 1,

@@ -16,9 +16,9 @@ import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { SATSINBTC } from "../../constants";
-import { CancelOfferPopup } from "../../hooks/CancelOfferPopup";
-import { useCancelFundMultipleSellOffers } from "../../hooks/useCancelFundMultipleSellOffers";
 import { useRoute } from "../../hooks/useRoute";
+import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
+import { CancelSellOffersPopup } from "../../popups/CancelSellOffersPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
 import tw from "../../styles/tailwind";
 import i18n, { languageState } from "../../utils/i18n";
@@ -99,9 +99,10 @@ function FundEscrowHeader() {
     [offerId, setPopup],
   );
 
-  const cancelFundMultipleOffers = useCancelFundMultipleSellOffers({
-    fundMultiple,
-  });
+  const cancelFundMultipleOffers = useCallback(
+    () => setPopup(<CancelSellOffersPopup fundMultiple={fundMultiple} />),
+    [fundMultiple, setPopup],
+  );
 
   const memoizedHeaderIcons = useMemo(() => {
     const icons = [

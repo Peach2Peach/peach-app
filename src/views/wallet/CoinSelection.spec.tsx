@@ -13,6 +13,7 @@ import { getUTXOId } from "../../utils/wallet/getUTXOId";
 import { peachWallet, setPeachWallet } from "../../utils/wallet/setWallet";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { CoinSelection } from "./CoinSelection";
+import { walletKeys } from "./hooks/useUTXOs";
 expect.extend({ toMatchDiffSnapshot });
 
 jest.useFakeTimers();
@@ -52,7 +53,9 @@ describe("CoinSelection", () => {
     );
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["utxos"])).toStrictEqual([utxo]);
+      expect(queryClient.getQueryData(walletKeys.utxos())).toStrictEqual([
+        utxo,
+      ]);
     });
     const helpIcon = getByAccessibilityHint("help");
 
@@ -68,10 +71,12 @@ describe("CoinSelection", () => {
     const { toJSON } = render(<CoinSelection />);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["utxos"])).toStrictEqual([utxo]);
-      expect(queryClient.getQueryData(["address", script.id])).toStrictEqual(
-        "address",
-      );
+      expect(queryClient.getQueryData(walletKeys.utxos())).toStrictEqual([
+        utxo,
+      ]);
+      expect(
+        queryClient.getQueryData(walletKeys.utxoAddress(script.id)),
+      ).toStrictEqual("address");
     });
 
     expect(toJSON()).toMatchSnapshot();
@@ -80,10 +85,12 @@ describe("CoinSelection", () => {
     const { toJSON, getByTestId } = render(<CoinSelection />);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["utxos"])).toStrictEqual([utxo]);
-      expect(queryClient.getQueryData(["address", script.id])).toStrictEqual(
-        "address",
-      );
+      expect(queryClient.getQueryData(walletKeys.utxos())).toStrictEqual([
+        utxo,
+      ]);
+      expect(
+        queryClient.getQueryData(walletKeys.utxoAddress(script.id)),
+      ).toStrictEqual("address");
     });
 
     const withoutSelection = toJSON();
@@ -98,10 +105,12 @@ describe("CoinSelection", () => {
     const { getByText, getByTestId } = render(<CoinSelection />);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["utxos"])).toStrictEqual([utxo]);
-      expect(queryClient.getQueryData(["address", script.id])).toStrictEqual(
-        "address",
-      );
+      expect(queryClient.getQueryData(walletKeys.utxos())).toStrictEqual([
+        utxo,
+      ]);
+      expect(
+        queryClient.getQueryData(walletKeys.utxoAddress(script.id)),
+      ).toStrictEqual("address");
     });
 
     const checkbox = getByTestId("checkbox");

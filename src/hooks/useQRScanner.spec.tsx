@@ -3,10 +3,10 @@ import { act, render, renderHook, waitFor } from "test-utils";
 import { Popup } from "../components/popup/Popup";
 import { useQRScanner } from "./useQRScanner";
 
-const isIOSMock = jest.fn().mockReturnValue(true);
 jest.mock("../utils/system/isIOS", () => ({
-  isIOS: () => isIOSMock(),
+  isIOS: jest.fn(() => true),
 }));
+const isIOSMock = jest.requireMock("../utils/system/isIOS").isIOS;
 jest.useFakeTimers();
 
 describe("useQRScanner", () => {

@@ -1,5 +1,7 @@
+import { ESPLORA_URL } from "@env";
 import { useQuery } from "@tanstack/react-query";
-import { getFeeEstimates } from "../../utils/electrum/getFeeEstimates";
+import { getPublicHeaders } from "../../utils/peachAPI/getPublicHeaders";
+import { parseResponse } from "../../utils/peachAPI/parseResponse";
 
 export const placeholderFeeEstimates: ConfirmationTargets = {
   "1": 1,
@@ -32,16 +34,28 @@ export const placeholderFeeEstimates: ConfirmationTargets = {
   "1008": 1,
 };
 
-const getFeeEstimatesQuery = async () => {
-  const [result, err] = await getFeeEstimates();
-  if (err) throw new Error(err.error);
-  return result;
+export const esploraKeys = {
+  feeEstimates: ["feeEstimates"],
 };
 
 export const useFeeEstimates = () => {
   const { data, isFetching, error } = useQuery({
-    queryKey: ["feeEstimates"],
+    queryKey: esploraKeys.feeEstimates,
     queryFn: getFeeEstimatesQuery,
   });
   return { feeEstimates: data || placeholderFeeEstimates, isFetching, error };
 };
+
+async function getFeeEstimatesQuery() {
+  const response = await fetch(`${ESPLORA_URL}/fee-estimates`, {
+    headers: getPublicHeaders(),
+    method: "GET",
+  });
+  const [result, err] = await parseResponse<ConfirmationTargets>(
+    response,
+    "getFeeEstimates",
+    false,
+  );
+  if (!result) throw new Error(err?.error || "Could not fetch fee estimates");
+  return result;
+}

@@ -3,6 +3,7 @@ import { buyOffer } from "../../../../tests/unit/data/offerData";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
+import { matchesKeys } from "../../../views/search/hooks/useOfferMatches";
 import { Popup } from "../../popup/Popup";
 import { TIMER_DURATION } from "./UndoButton";
 import { UnmatchButton } from "./UnmatchButton";
@@ -42,7 +43,7 @@ describe("UnmatchButton", () => {
   };
 
   beforeEach(() => {
-    queryClient.setQueryData(["matchDetails", "offerId", "offerId"], {
+    queryClient.setQueryData(matchesKeys.matchDetail("offerId", "offerId"), {
       matched: true,
     });
   });
@@ -128,7 +129,7 @@ describe("UnmatchButton", () => {
       matchingOfferId: "offerId",
     });
     expect(
-      queryClient.getQueryData(["matchDetails", "offerId", "offerId"]),
+      queryClient.getQueryData(matchesKeys.matchDetail("offerId", "offerId")),
     ).toStrictEqual({
       matched: false,
     });

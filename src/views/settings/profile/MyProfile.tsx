@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { Header } from "../../../components/Header";
@@ -8,9 +9,9 @@ import { useSetPopup } from "../../../components/popup/Popup";
 import { PopupAction } from "../../../components/popup/PopupAction";
 import { ClosePopupAction } from "../../../components/popup/actions/ClosePopupAction";
 import { TouchableRedText } from "../../../components/text/TouchableRedText";
-import { HelpPopup } from "../../../hooks/HelpPopup";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { ErrorPopup } from "../../../popups/ErrorPopup";
+import { HelpPopup } from "../../../popups/HelpPopup";
 import tw from "../../../styles/tailwind";
 import { useAccountStore } from "../../../utils/account/account";
 import { deleteAccount } from "../../../utils/account/deleteAccount";
@@ -54,7 +55,7 @@ export const MyProfile = () => {
 
 function DeleteAccountButton({ style }: ComponentProps) {
   const setPopup = useSetPopup();
-  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn);
+  const { mutate: logoutUser } = useLogoutUser();
 
   const showPopup = useCallback(
     (popupChain = ["popup", "forRealsies", "success"]) => {
@@ -62,8 +63,7 @@ function DeleteAccountButton({ style }: ComponentProps) {
       const isSuccess = popupChain.length === 1;
       if (isSuccess) {
         deleteAccount();
-        peachAPI.private.user.logoutUser();
-        setIsLoggedIn(false);
+        logoutUser();
       }
 
       const onPress = () => showPopup(popupChain.slice(1));
@@ -92,7 +92,7 @@ function DeleteAccountButton({ style }: ComponentProps) {
         />,
       );
     },
-    [setIsLoggedIn, setPopup],
+    [logoutUser, setPopup],
   );
 
   return (
@@ -100,4 +100,12 @@ function DeleteAccountButton({ style }: ComponentProps) {
       {i18n("settings.deleteAccount")}
     </TouchableRedText>
   );
+}
+
+function useLogoutUser() {
+  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn);
+  return useMutation({
+    mutationFn: () => peachAPI.private.user.logoutUser(),
+    onSuccess: () => setIsLoggedIn(false),
+  });
 }

@@ -1,3 +1,5 @@
+import messaging from "@react-native-firebase/messaging";
+import { useEffect } from "react";
 import { setUnhandledPromiseRejectionTracker } from "react-native-promise-rejection-utils";
 import { useSetPopup } from "./components/popup/Popup";
 import { useSetToast } from "./components/toast/Toast";
@@ -8,13 +10,14 @@ import { useDynamicLinks } from "./hooks/useDynamicLinks";
 import { useNavigation } from "./hooks/useNavigation";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
-import { useSyncUserAccount } from "./hooks/user/useSyncUserAccount";
+import { usePublishMissingPublicKey } from "./hooks/user/usePublishMissingPublicKey";
 import { useInitialNavigation } from "./init/useInitialNavigation";
 import { AnalyticsPopup } from "./popups/AnalyticsPopup";
 import { VerifyYouAreAHumanPopup } from "./popups/warning/VerifyYouAreAHumanPopup";
 import { useSettingsStore } from "./store/settingsStore/useSettingsStore";
 import i18n from "./utils/i18n";
 import { error } from "./utils/log/error";
+import { useUpdateUser } from "./utils/peachAPI/useUpdateUser";
 import { parseError } from "./utils/result/parseError";
 import { isNetworkError } from "./utils/system/isNetworkError";
 
@@ -27,7 +30,7 @@ export const useGlobalHandlers = () => {
   useShouldShowBackupReminder();
   useInitialNavigation();
   useShowUpdateAvailable();
-  useSyncUserAccount();
+  usePublishMissingPublicKey();
   useDynamicLinks();
   useCheckFundingMultipleEscrows();
   useHandleNotifications(messageHandler);
@@ -78,4 +81,12 @@ export const useGlobalHandlers = () => {
     setPopup(<AnalyticsPopup />);
     setAnalyticsPopupSeen(true);
   }
+
+  const { mutate: updateUser } = useUpdateUser();
+  useEffect(() => {
+    const unsubscribe = messaging().onTokenRefresh((fcmToken) => {
+      updateUser({ fcmToken });
+    });
+    return () => unsubscribe();
+  }, [updateUser]);
 };

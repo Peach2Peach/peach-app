@@ -8,12 +8,10 @@ jest.mock("../context", () => ({
   }),
 }));
 
-const shouldShowTradeStatusInfoMock = jest.fn(() => true);
-jest.mock("../helpers/shouldShowTradeStatusInfo", () => ({
-  shouldShowTradeStatusInfo: jest.fn((..._args: unknown[]) =>
-    shouldShowTradeStatusInfoMock(),
-  ),
-}));
+jest.mock("../helpers/shouldShowTradeStatusInfo");
+const shouldShowTradeStatusInfoMock = jest
+  .requireMock("../helpers/shouldShowTradeStatusInfo")
+  .shouldShowTradeStatusInfo.mockReturnValue(true);
 
 describe("TradeInformation", () => {
   const renderer = createRenderer();

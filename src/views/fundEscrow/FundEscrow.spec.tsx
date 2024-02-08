@@ -3,17 +3,17 @@ import { sellOffer } from "../../../tests/unit/data/offerData";
 import { defaultFundingStatus } from "../../utils/offer/constants";
 import { FundEscrow } from "./FundEscrow";
 
-const useFundEscrowSetupMock = jest.fn();
-jest.mock("./hooks/useFundEscrowSetup", () => ({
-  useFundEscrowSetup: () => useFundEscrowSetupMock(),
-}));
-const useFundFromPeachWalletMock = jest.fn().mockReturnValue({
-  fundFromPeachWallet: jest.fn(),
-  fundedFromPeachWallet: false,
-});
-jest.mock("./hooks/useFundFromPeachWallet", () => ({
-  useFundFromPeachWallet: () => useFundFromPeachWalletMock(),
-}));
+jest.mock("./hooks/useFundEscrowSetup");
+const useFundEscrowSetupMock = jest.requireMock(
+  "./hooks/useFundEscrowSetup",
+).useFundEscrowSetup;
+jest.mock("./hooks/useFundFromPeachWallet");
+const useFundFromPeachWalletMock = jest
+  .requireMock("./hooks/useFundFromPeachWallet")
+  .useFundFromPeachWallet.mockReturnValue({
+    fundFromPeachWallet: jest.fn(),
+    fundedFromPeachWallet: false,
+  });
 
 describe("FundEscrow", () => {
   const defaultReturnValue = {

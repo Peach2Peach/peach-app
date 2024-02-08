@@ -1,6 +1,7 @@
 import { View } from "react-native";
 import tw from "../../styles/tailwind";
 
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { Button } from "../../components/buttons/Button";
 import { Input } from "../../components/inputs/Input";
@@ -30,18 +31,19 @@ export const LetsGetStarted = () => {
     setReferralCode(code);
   };
 
-  const checkReferralCode = async () => {
+  const { mutate: checkReferralCodeMutation } = useCheckReferralCode();
+
+  const checkReferralCode = () => {
     setWillUseReferralCode(false);
-    const { result, error } = await peachAPI.public.user.checkReferralCode({
-      code: referralCode,
-    });
-    if (!result || error) return showError(error?.error);
-    setWillUseReferralCode(result.valid);
-    return setToast({
-      msgKey: result.valid
-        ? "referrals.myFavoriteCode"
-        : "referrals.codeNotFound",
-      color: "white",
+    checkReferralCodeMutation(referralCode, {
+      onError: (error) => showError(error.message),
+      onSuccess: ({ valid }) => {
+        setWillUseReferralCode(valid);
+        setToast({
+          msgKey: valid ? "referrals.myFavoriteCode" : "referrals.codeNotFound",
+          color: "white",
+        });
+      },
     });
   };
 
@@ -108,3 +110,16 @@ export const LetsGetStarted = () => {
     </View>
   );
 };
+
+function useCheckReferralCode() {
+  return useMutation({
+    mutationFn: async (code: string) => {
+      const { result, error } = await peachAPI.public.user.checkReferralCode({
+        code,
+      });
+      if (!result || error)
+        throw new Error(error?.error || "Could not check referral code");
+      return result;
+    },
+  });
+}

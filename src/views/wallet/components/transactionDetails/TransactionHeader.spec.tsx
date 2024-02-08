@@ -6,10 +6,10 @@ import { TransactionHeader } from "./TransactionHeader";
 
 const goToOfferMock = jest.fn();
 const navigateToOfferOrContractMock = jest.fn().mockReturnValue(goToOfferMock);
-jest.mock("../../../../hooks/useTradeNavigation", () => ({
-  useTradeNavigation: (...args: unknown[]) =>
-    navigateToOfferOrContractMock(...args),
-}));
+jest.mock("../../../../hooks/useTradeNavigation");
+jest
+  .requireMock("../../../../hooks/useTradeNavigation")
+  .useTradeNavigation.mockImplementation(navigateToOfferOrContractMock);
 
 describe("TransactionHeader", () => {
   const buyOfferData: OfferData = {

@@ -5,6 +5,7 @@ import { PeachText } from "../../../components/text/PeachText";
 import tw from "../../../styles/tailwind";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
+import { walletKeys } from "../hooks/useUTXOs";
 
 type Props = {
   script: Script;
@@ -12,7 +13,7 @@ type Props = {
 
 const useUTXOAddress = (script: Script) =>
   useQuery({
-    queryKey: ["address", script.id],
+    queryKey: walletKeys.utxoAddress(script.id),
     queryFn: async () => {
       try {
         const address = await new Address().fromScript(

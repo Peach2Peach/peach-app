@@ -1,9 +1,9 @@
 import { fireEvent, render } from "test-utils";
 import { DisputeRaisedSuccess } from "./DisputeRaisedSuccess";
 
-const closePopupMock = jest.fn();
+const mockClosePopup = jest.fn();
 jest.mock("../../components/popup/Popup", () => ({
-  useClosePopup: () => closePopupMock,
+  useClosePopup: () => mockClosePopup,
 }));
 
 describe("DisputeRaisedSuccess", () => {
@@ -26,6 +26,6 @@ describe("DisputeRaisedSuccess", () => {
   it("closes popup", () => {
     const { getByText } = render(<DisputeRaisedSuccess view="seller" />);
     fireEvent.press(getByText("close"));
-    expect(closePopupMock).toHaveBeenCalled();
+    expect(mockClosePopup).toHaveBeenCalled();
   });
 });

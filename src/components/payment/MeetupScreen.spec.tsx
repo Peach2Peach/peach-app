@@ -15,19 +15,19 @@ const meetupScreenSetup = {
   addToPaymentMethods: jest.fn(),
   onCurrencyToggle: jest.fn(),
 };
-const useMeetupScreenSetupMock = jest.fn().mockReturnValue({
-  ...meetupScreenSetup,
-  paymentMethod: "cash.pt.porto.portugal-norte-bitcoin",
-  event: {
-    id: "pt.porto.portugal-norte-bitcoin",
-    currencies: ["EUR"],
-    countries: ["PT"],
-  },
-  selectedCurrencies: ["EUR"],
-});
-jest.mock("./hooks/useMeetupScreenSetup", () => ({
-  useMeetupScreenSetup: () => useMeetupScreenSetupMock(),
-}));
+jest.mock("./hooks/useMeetupScreenSetup");
+const useMeetupScreenSetupMock = jest
+  .requireMock("./hooks/useMeetupScreenSetup")
+  .useMeetupScreenSetup.mockReturnValue({
+    ...meetupScreenSetup,
+    paymentMethod: "cash.pt.porto.portugal-norte-bitcoin",
+    event: {
+      id: "pt.porto.portugal-norte-bitcoin",
+      currencies: ["EUR"],
+      countries: ["PT"],
+    },
+    selectedCurrencies: ["EUR"],
+  });
 
 jest.useFakeTimers();
 

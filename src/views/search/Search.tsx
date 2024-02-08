@@ -8,10 +8,12 @@ import { SellOfferSummary } from "../../components/offer/SellOfferSummary";
 import { useWalletLabel } from "../../components/offer/useWalletLabel";
 import { useSetPopup } from "../../components/popup/Popup";
 import { PeachText } from "../../components/text/PeachText";
-import { CancelOfferPopup } from "../../hooks/CancelOfferPopup";
-import { HelpPopup } from "../../hooks/HelpPopup";
+import { FIFTEEN_SECONDS } from "../../constants";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
+import { HelpPopup } from "../../popups/HelpPopup";
 import { SellSorters } from "../../popups/sorting/SellSorters";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -21,14 +23,29 @@ import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { useOfferMatches } from "./hooks/useOfferMatches";
-import { useSearchSetup } from "./hooks/useSearchSetup";
+import { useRefetchOnNotification } from "./hooks/useRefetchOnNotification";
 
 export const Search = () => {
-  const { hasMatches, offer } = useSearchSetup();
-  if (!offer || !isSellOffer(offer)) return <LoadingScreen />;
+  const navigation = useNavigation();
+  const { offerId } = useRoute<"search">().params;
+  const { allMatches: matches, refetch } = useOfferMatches(
+    offerId,
+    FIFTEEN_SECONDS,
+  );
+
+  const { offer } = useOfferDetail(offerId);
+  useRefetchOnNotification(refetch);
+
+  if (offer?.contractId)
+    navigation.replace("contract", {
+      contractId: offer.contractId,
+    });
+
+  if (!offer || !isSellOffer(offer) || offer.contractId)
+    return <LoadingScreen />;
   return (
     <Screen
-      style={hasMatches && tw`px-0`}
+      style={!!matches.length && tw`px-0`}
       header={<SearchHeader offer={offer} />}
       showTradingLimit
     >
@@ -36,7 +53,7 @@ export const Search = () => {
         contentContainerStyle={tw`justify-center grow`}
         bounces={false}
       >
-        {hasMatches ? (
+        {matches.length ? (
           <Matches offer={offer} />
         ) : (
           <NoMatchesYet offer={offer} />

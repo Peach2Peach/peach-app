@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
@@ -21,14 +22,20 @@ export function UserSource() {
   const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn);
   const [selectedSource, setSelectedSource] =
     useState<(typeof possibleSources)[number]>();
-  const submitSource = async (source: (typeof possibleSources)[number]) => {
+  const { mutate: submitUserSource } = useSubmitUserSource();
+  const submitSource = (source: (typeof possibleSources)[number]) => {
     if (selectedSource) return;
     setSelectedSource(source);
-    await peachAPI.private.user.submitUserSource({ source });
-
-    setTimeout(() => {
-      setIsLoggedIn(true);
-    }, MSINASECOND);
+    submitUserSource(
+      { source },
+      {
+        onSuccess: () => {
+          setTimeout(() => {
+            setIsLoggedIn(true);
+          }, MSINASECOND);
+        },
+      },
+    );
   };
 
   return (
@@ -64,4 +71,10 @@ export function UserSource() {
       </View>
     </Screen>
   );
+}
+
+function useSubmitUserSource() {
+  return useMutation({
+    mutationFn: peachAPI.private.user.submitUserSource,
+  });
 }

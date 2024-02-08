@@ -5,18 +5,18 @@ import { getEscrowWalletForOffer } from "../wallet/getEscrowWalletForOffer";
 import { setWallet } from "../wallet/setWallet";
 import { verifyAndSignReleaseTx } from "./verifyAndSignReleaseTx";
 
-const fromBase64Mock = jest.fn();
 jest.mock("bitcoinjs-lib", () => ({
   ...jest.requireActual("bitcoinjs-lib"),
   Psbt: {
-    fromBase64: (...args: unknown[]) => fromBase64Mock(...args),
+    fromBase64: jest.fn(),
   },
 }));
+const fromBase64Mock = jest.requireMock("bitcoinjs-lib").Psbt.fromBase64;
 
-const verifyReleasePSBTMock = jest.fn();
-jest.mock("../../views/contract/helpers/verifyReleasePSBT", () => ({
-  verifyReleasePSBT: (...args: unknown[]) => verifyReleasePSBTMock(...args),
-}));
+jest.mock("../../views/contract/helpers/verifyReleasePSBT");
+const verifyReleasePSBTMock = jest.requireMock(
+  "../../views/contract/helpers/verifyReleasePSBT",
+).verifyReleasePSBT;
 
 describe("verifyAndSignReleaseTx", () => {
   const amount = 10000;
@@ -60,7 +60,7 @@ describe("verifyAndSignReleaseTx", () => {
     txInputs: [{}] as Psbt["txInputs"],
     txOutputs: [{ address: "address1", value: 9000 }] as Psbt["txOutputs"],
   };
-  fromBase64Mock.mockImplementation((base64) =>
+  fromBase64Mock.mockImplementation((base64: string | undefined) =>
     base64 === mockContract.releasePsbt ? psbt : batchPsbt,
   );
   setWallet(createTestWallet());

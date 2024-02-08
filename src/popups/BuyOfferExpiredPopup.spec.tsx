@@ -2,9 +2,9 @@ import { fireEvent, render } from "test-utils";
 import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
 import { BuyOfferExpiredPopup } from "./BuyOfferExpiredPopup";
 
-const closePopupMock = jest.fn();
+const mockClosePopup = jest.fn();
 jest.mock("../components/popup/Popup", () => ({
-  useClosePopup: () => closePopupMock,
+  useClosePopup: () => mockClosePopup,
 }));
 describe("useBuyOfferExpiredPopup", () => {
   it("should navigate to contact", () => {
@@ -14,6 +14,6 @@ describe("useBuyOfferExpiredPopup", () => {
     fireEvent.press(getByText("help"));
 
     expect(navigateMock).toHaveBeenCalledWith("contact");
-    expect(closePopupMock).toHaveBeenCalled();
+    expect(mockClosePopup).toHaveBeenCalled();
   });
 });

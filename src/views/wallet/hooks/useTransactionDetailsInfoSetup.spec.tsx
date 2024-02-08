@@ -1,4 +1,3 @@
-import { networks } from "bitcoinjs-lib";
 import { Linking } from "react-native";
 import { renderHook } from "test-utils";
 import {
@@ -16,13 +15,14 @@ import { setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { useTransactionDetailsInfoSetup } from "./useTransactionDetailsInfoSetup";
 
-const getNetworkMock = jest.fn().mockReturnValue(networks.bitcoin);
-jest.mock("../../../utils/wallet/getNetwork", () => ({
-  getNetwork: (...args: unknown[]) => getNetworkMock(...args),
-}));
-const useAreMyAddressesMock = jest.fn().mockReturnValue([true, false]);
+jest.mock("../../../utils/wallet/getNetwork", () => {
+  const networks = jest.requireActual("bitcoinjs-lib").networks;
+  return {
+    getNetwork: jest.fn(() => networks.bitcoin),
+  };
+});
 jest.mock("../../../hooks/wallet/useIsMyAddress", () => ({
-  useAreMyAddresses: (...args: string[]) => useAreMyAddressesMock(...args),
+  useAreMyAddresses: jest.fn().mockReturnValue([true, false]),
 }));
 
 describe("useTransactionDetailsInfoSetup", () => {

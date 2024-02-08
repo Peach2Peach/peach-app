@@ -7,14 +7,13 @@ import { setAccount, useAccountStore } from "../../../utils/account/account";
 import { defaultFundingStatus } from "../../../utils/offer/constants";
 import { useHandleFundingStatus } from "./useHandleFundingStatus";
 
-const useTradeSummariesMock = jest.fn().mockReturnValue({
-  offers: [],
-  contracts: [],
-  isLoading: false,
-  refetch: jest.fn(),
-});
 jest.mock("../../../hooks/query/useTradeSummaries", () => ({
-  useTradeSummaries: () => useTradeSummariesMock(),
+  useTradeSummaries: jest.fn().mockReturnValue({
+    offers: [],
+    contracts: [],
+    isLoading: false,
+    refetch: jest.fn(),
+  }),
 }));
 jest.useFakeTimers();
 
@@ -42,17 +41,16 @@ const searchWithMatches = {
     ],
   },
 };
-const fetchMatchesMock = jest.fn().mockResolvedValue(searchWithNoMatches);
-const useOfferMatchesMock = jest.fn().mockReturnValue({
-  refetch: fetchMatchesMock,
-});
+const mockFetchMatches = jest.fn().mockResolvedValue(searchWithNoMatches);
 jest.mock("../../search/hooks/useOfferMatches", () => ({
-  useOfferMatches: () => useOfferMatchesMock(),
+  useOfferMatches: () => ({
+    refetch: mockFetchMatches,
+  }),
 }));
 
-const startRefundPopupMock = jest.fn();
+const mockStartRefundPopup = jest.fn();
 jest.mock("../../../popups/useStartRefundPopup", () => ({
-  useStartRefundPopup: () => startRefundPopupMock,
+  useStartRefundPopup: () => mockStartRefundPopup,
 }));
 
 describe("useHandleFundingStatus", () => {
@@ -80,7 +78,7 @@ describe("useHandleFundingStatus", () => {
     };
     renderHook(useHandleFundingStatus, { initialProps });
     expect(replaceMock).not.toHaveBeenCalled();
-    expect(startRefundPopupMock).not.toHaveBeenCalled();
+    expect(mockStartRefundPopup).not.toHaveBeenCalled();
     const account = useAccountStore.getState().account;
     expect(account.offers).toEqual([]);
   });
@@ -108,7 +106,7 @@ describe("useHandleFundingStatus", () => {
       userConfirmationRequired: false,
     };
     renderHook(useHandleFundingStatus, { initialProps });
-    expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer);
+    expect(mockStartRefundPopup).toHaveBeenCalledWith(sellOffer);
   });
   it("should show showWronglyFundedPopup when WRONG_FUNDING_AMOUNT", () => {
     const fundingStatus: FundingStatus = {
@@ -142,10 +140,10 @@ describe("useHandleFundingStatus", () => {
     });
   });
   it("should go to search if funding status is FUNDED with matches already", async () => {
-    fetchMatchesMock.mockResolvedValueOnce(searchWithMatches);
+    mockFetchMatches.mockResolvedValueOnce(searchWithMatches);
 
     renderHook(useHandleFundingStatus, { initialProps: fundedProps });
-    await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled());
+    await waitFor(() => expect(mockFetchMatches).toHaveBeenCalled());
     expect(replaceMock).toHaveBeenCalledWith("search", {
       offerId: sellOffer.id,
     });

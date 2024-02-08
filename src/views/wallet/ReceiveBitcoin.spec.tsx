@@ -5,6 +5,7 @@ import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../utils/wallet/setWallet";
 import { ReceiveBitcoin } from "./ReceiveBitcoin";
+import { walletKeys } from "./hooks/useUTXOs";
 
 jest.useFakeTimers();
 
@@ -49,9 +50,9 @@ describe("ReceiveBitcoin", () => {
     const { toJSON } = render(<ReceiveBitcoin />);
 
     await waitFor(() => {
-      expect(queryClient.getQueryState(["receiveAddress", 1])?.data).toEqual(
-        addresses[1],
-      );
+      expect(
+        queryClient.getQueryState(walletKeys.addressByIndex(1))?.data,
+      ).toEqual(addresses[1]);
     });
 
     expect(toJSON()).toMatchSnapshot();

@@ -16,7 +16,6 @@ export const parseResponse = async <T>(
     const data = !string
       ? JSON.parse(await response.text(), dateTimeReviver)
       : await response.text();
-
     if (response.status !== OK_STATUS) {
       if (data.error === "CONTRACT_EXISTS") return [null, data];
       error(

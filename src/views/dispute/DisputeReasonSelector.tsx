@@ -4,7 +4,7 @@ import { Screen } from "../../components/Screen";
 import { OptionButton } from "../../components/buttons/OptionButton";
 import { useSetPopup } from "../../components/popup/Popup";
 import { PeachText } from "../../components/text/PeachText";
-import { useContractDetails } from "../../hooks/query/useContractDetails";
+import { useContractDetail } from "../../hooks/query/useContractDetail";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
@@ -16,11 +16,11 @@ import { getContractViewer } from "../../utils/contract/getContractViewer";
 import i18n from "../../utils/i18n";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
-import { submitRaiseDispute } from "./utils/submitRaiseDispute";
+import { useRaiseDispute } from "./useRaiseDispute";
 
 export const DisputeReasonSelector = () => {
   const { contractId } = useRoute<"disputeReasonSelector">().params;
-  const { contract } = useContractDetails(contractId);
+  const { contract } = useContractDetail(contractId);
 
   return !contract ? (
     <LoadingScreen />
@@ -44,29 +44,29 @@ function DisputeReasonScreen({ contract }: { contract: Contract }) {
   const navigation = useNavigation();
   const showErrorBanner = useShowErrorBanner();
   const setPopup = useSetPopup();
+  const { mutate: raiseDispute } = useRaiseDispute();
 
-  const setAndSubmit = async (reason: DisputeReason) => {
-    const [success, error] = await submitRaiseDispute({
-      contract,
-      reason,
-      symmetricKey: decryptedData?.symmetricKey,
-      paymentData: decryptedData?.paymentData,
-    });
-    if (!success || error) {
-      showErrorBanner(error?.error, [error?.details]);
-      return;
-    }
-    if (view) setPopup(<DisputeRaisedSuccess view={view} />);
-    navigation.goBack();
-  };
-
-  const setReason = async (reason: DisputeReason) => {
+  const setReason = (reason: DisputeReason) => {
     if (reason === "noPayment.buyer" || reason === "noPayment.seller") {
       navigation.navigate("disputeForm", { contractId: contract.id, reason });
       return;
     }
 
-    await setAndSubmit(reason);
+    raiseDispute(
+      {
+        contract,
+        reason,
+        symmetricKey: decryptedData?.symmetricKey,
+        paymentData: decryptedData?.paymentData,
+      },
+      {
+        onSuccess: () => {
+          if (view) setPopup(<DisputeRaisedSuccess view={view} />);
+          navigation.goBack();
+        },
+        onError: (error) => showErrorBanner(error.message),
+      },
+    );
   };
 
   return (
@@ -83,13 +83,13 @@ function DisputeReasonScreen({ contract }: { contract: Contract }) {
         <PeachText style={tw`text-center h6`}>
           {i18n("contact.whyAreYouContactingUs")}
         </PeachText>
-        {availableReasons.map((rsn) => (
+        {availableReasons.map((reason) => (
           <OptionButton
-            key={rsn}
-            onPress={() => setReason(rsn)}
+            key={reason}
+            onPress={() => setReason(reason)}
             style={tw`w-64`}
           >
-            {i18n(`dispute.reason.${rsn}`)}
+            {i18n(`dispute.reason.${reason}`)}
           </OptionButton>
         ))}
       </PeachScrollView>

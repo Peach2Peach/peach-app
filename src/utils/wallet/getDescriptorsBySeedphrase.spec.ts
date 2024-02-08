@@ -3,11 +3,10 @@ import { KeychainKind, Network } from "bdk-rn/lib/lib/enums";
 import { DescriptorNewBip84Mock } from "../../../tests/unit/mocks/bdkRN";
 import { getDescriptorsBySeedphrase } from "./getDescriptorsBySeedphrase";
 
-const getDescriptorSecretKeyMock = jest.fn();
-jest.mock("./getDescriptorSecretKey", () => ({
-  getDescriptorSecretKey: (...args: unknown[]) =>
-    getDescriptorSecretKeyMock(...args),
-}));
+jest.mock("./getDescriptorSecretKey");
+const getDescriptorSecretKeyMock = jest.requireMock(
+  "./getDescriptorSecretKey",
+).getDescriptorSecretKey;
 
 describe("getDescriptorsBySeedphrase", () => {
   const seedphrase = "mom mom mom mom mom mom mom mom mom mom mom mom";

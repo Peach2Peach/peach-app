@@ -12,13 +12,12 @@ const transactionDetailsSetupReturnValue = {
   transactionDetails: bitcoinJSTransactionWithRBF1,
 };
 
+jest.mock("./hooks/useTransactionDetailsSetup");
 const useTransactionDetailsSetupMock = jest
-  .fn()
-  .mockReturnValue(transactionDetailsSetupReturnValue);
-
-jest.mock("./hooks/useTransactionDetailsSetup", () => ({
-  useTransactionDetailsSetup: () => useTransactionDetailsSetupMock(),
-}));
+  .requireMock("./hooks/useTransactionDetailsSetup")
+  .useTransactionDetailsSetup.mockReturnValue(
+    transactionDetailsSetupReturnValue,
+  );
 
 jest.mock("./hooks/useSyncWallet", () => ({
   useSyncWallet: jest.fn(() => ({ refetch: jest.fn(), isRefetching: false })),

@@ -18,13 +18,13 @@ import { useCheckFundingMultipleEscrows } from "./useCheckFundingMultipleEscrows
 jest.useFakeTimers();
 
 const refetchMock = jest.fn();
-const useOfferSummariesMock = jest.fn().mockReturnValue({
-  refetch: () => refetchMock(),
-});
 
-jest.mock("./query/useOfferSummaries", () => ({
-  useOfferSummaries: (...args: unknown[]) => useOfferSummariesMock(...args),
-}));
+jest.mock("./query/useOfferSummaries");
+jest
+  .requireMock("./query/useOfferSummaries")
+  .useOfferSummaries.mockReturnValue({
+    refetch: refetchMock,
+  });
 
 const sellOffer1 = sellOffer;
 const sellOffer2 = { ...sellOffer, id: "39", escrow: "escrow2" };

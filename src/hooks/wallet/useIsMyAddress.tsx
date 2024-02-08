@@ -2,9 +2,10 @@ import { useQueries, useQuery } from "@tanstack/react-query";
 import { rules } from "../../utils/validation/rules";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { getScriptPubKeyFromAddress } from "../../utils/wallet/transaction/getScriptPubKeyFromAddress";
+import { walletKeys } from "../../views/wallet/hooks/useUTXOs";
 
 const buildQuery = (address: string) => ({
-  queryKey: ["isMine", address],
+  queryKey: walletKeys.belongsToWallet(address),
   queryFn: async () => {
     if (!peachWallet?.wallet) throw new Error("Wallet not initialized");
     const script = await getScriptPubKeyFromAddress(address);

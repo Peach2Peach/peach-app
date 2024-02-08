@@ -38,10 +38,10 @@ const invalidAddresses = {
   ],
 };
 
-const getNetworkMock = jest.fn().mockReturnValue(networks.regtest);
-jest.mock("../wallet/getNetwork", () => ({
-  getNetwork: () => getNetworkMock(),
-}));
+jest.mock("../wallet/getNetwork");
+const getNetworkMock = jest
+  .requireMock("../wallet/getNetwork")
+  .getNetwork.mockReturnValue(networks.regtest);
 
 describe("bitcoinAddress", () => {
   it("should return true if address is valid", () => {

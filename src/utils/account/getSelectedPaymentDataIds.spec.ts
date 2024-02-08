@@ -1,9 +1,9 @@
 import { getSelectedPaymentDataIds } from "./getSelectedPaymentDataIds";
 
-const getPaymentMethodInfoMock = jest.fn();
-jest.mock("../paymentMethod/getPaymentMethodInfo", () => ({
-  getPaymentMethodInfo: () => getPaymentMethodInfoMock(),
-}));
+jest.mock("../paymentMethod/getPaymentMethodInfo");
+const getPaymentMethodInfoMock = jest.requireMock(
+  "../paymentMethod/getPaymentMethodInfo",
+).getPaymentMethodInfo;
 
 describe("getSelectedPaymentDataIds", () => {
   it("should return an array of payment data ids", () => {

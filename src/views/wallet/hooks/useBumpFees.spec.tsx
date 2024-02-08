@@ -1,5 +1,5 @@
 import { fireEvent, render, renderHook, waitFor } from "test-utils";
-import { estimatedFees } from "../../../../tests/unit/data/bitcoinNetworkData";
+import { estimatedFees as mockEstimatedFees } from "../../../../tests/unit/data/bitcoinNetworkData";
 import { transactionError } from "../../../../tests/unit/data/errors";
 import {
   bdkTransactionWithRBF1,
@@ -19,14 +19,13 @@ import { setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { useBumpFees } from "./useBumpFees";
 
-const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees });
 jest.mock("../../../hooks/query/useFeeEstimate", () => ({
-  useFeeEstimate: () => useFeeEstimateMock(),
+  useFeeEstimate: () => ({ estimatedFees: mockEstimatedFees }),
 }));
 
-const showErrorBannerMock = jest.fn();
+const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
+  useShowErrorBanner: () => mockShowErrorBanner,
 }));
 jest.useFakeTimers();
 
@@ -120,7 +119,7 @@ describe("useBumpFees", () => {
     const { result } = renderHook(useBumpFees, { initialProps });
 
     await result.current();
-    expect(showErrorBannerMock).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+    expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
       "78999997952",
       "1089000",
     ]);
@@ -141,7 +140,7 @@ describe("useBumpFees", () => {
     fireEvent.press(getByText("confirm & send"));
 
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
         "78999997952",
         "1089000",
       ]);

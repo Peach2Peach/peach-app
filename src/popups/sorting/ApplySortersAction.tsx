@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import { useClosePopup } from "../../components/popup/Popup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import i18n from "../../utils/i18n";
+import { matchesKeys } from "../../views/search/hooks/useOfferMatches";
 
 export function ApplySortersAction({
   setSorterAction,
@@ -12,9 +13,9 @@ export function ApplySortersAction({
   const queryClient = useQueryClient();
   const closePopup = useClosePopup();
 
-  const applySorters = useCallback(() => {
+  const applySorters = useCallback(async () => {
     setSorterAction();
-    queryClient.invalidateQueries({ queryKey: ["matches"] });
+    await queryClient.invalidateQueries({ queryKey: matchesKeys.matches });
     closePopup();
   }, [closePopup, queryClient, setSorterAction]);
 

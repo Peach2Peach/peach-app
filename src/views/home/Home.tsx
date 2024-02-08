@@ -10,6 +10,7 @@ import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { ProgressDonut } from "../../components/ui/ProgressDonut";
 import { MSINAMINUTE } from "../../constants";
+import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useNavigation } from "../../hooks/useNavigation";
 import tw from "../../styles/tailwind";
@@ -17,6 +18,7 @@ import i18n from "../../utils/i18n";
 import { info } from "../../utils/log/info";
 import { peachAPI } from "../../utils/peachAPI";
 import { openURL } from "../../utils/web/openURL";
+import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
 
 export function Home() {
   return (
@@ -52,15 +54,21 @@ function FreeTradesDonut() {
   );
 }
 
-function DailyMessage() {
-  const { data: message } = useQuery({
-    queryKey: ["info", "news"],
+const NUMBER_OF_MINUTES = 5;
+function useNews() {
+  return useQuery({
+    queryKey: systemKeys.news(),
     queryFn: async () => {
       const { result, error } = await peachAPI.public.system.getNews();
       if (error || !result?.[0]) throw error || new Error("No message found");
       return result?.[0];
     },
+    refetchInterval: MSINAMINUTE * NUMBER_OF_MINUTES,
   });
+}
+
+function DailyMessage() {
+  const { data: message } = useNews();
   if (!message) return null;
 
   const onSharePress = () => {
@@ -98,9 +106,9 @@ function DailyMessage() {
   );
 }
 
-function MarketStats() {
-  const { data } = useQuery({
-    queryKey: ["market", "offers", "stats"],
+function useOfferStats() {
+  return useQuery({
+    queryKey: marketKeys.offerStats(),
     queryFn: async () => {
       const { result, error } = await peachAPI.public.market.getOffersStats();
       if (error) throw error;
@@ -117,6 +125,10 @@ function MarketStats() {
     },
     refetchInterval: MSINAMINUTE,
   });
+}
+
+function MarketStats() {
+  const { data } = useOfferStats();
   return (
     <View style={tw`items-center justify-center gap-5 pb-4 grow`}>
       <PeachText style={tw`subtitle-0 text-success-main`}>

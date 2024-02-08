@@ -32,7 +32,9 @@ describe("useDeletePaymentMethod", () => {
     fireEvent.press(getByText("delete"));
     const { queryByText } = render(<Popup />);
     expect(queryByText("delete payment method?")).toBeFalsy();
-    expect(goBackMock).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(goBackMock).toHaveBeenCalled();
+    });
     await waitFor(() =>
       expect(
         usePaymentDataStore.getState().getPaymentData(validSEPAData.id),

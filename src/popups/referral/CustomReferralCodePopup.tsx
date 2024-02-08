@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import { View } from "react-native";
 import { Input } from "../../components/inputs/Input";
@@ -7,7 +8,6 @@ import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import tw from "../../styles/tailwind";
@@ -20,10 +20,6 @@ const referralCodeRules = {
   referralCode: true,
 };
 export function CustomReferralCodePopup() {
-  const setPopup = useSetPopup();
-  const navigation = useNavigation();
-  const showErrorBanner = useShowErrorBanner();
-
   const [referralCodeTaken, setReferralCodeTaken] = useState(false);
 
   const [referralCode, setReferralCode, isValidReferralCode, inputErrors] =
@@ -49,41 +45,17 @@ export function CustomReferralCodePopup() {
     [setReferralCode],
   );
 
-  const submitCustomReferralCode = useCallback(async () => {
-    const { error: redeemError } =
-      await peachAPI.private.user.redeemReferralCode({ code: referralCode });
+  const { mutate } = useRedeemReferralCode();
 
-    if (redeemError?.error === "ALREADY_TAKEN") {
-      setReferralCodeTaken(true);
-      return;
-    }
-    if (redeemError) {
-      showErrorBanner(redeemError.error);
-      return;
-    }
-    setPopup(
-      <PopupComponent
-        title={i18n("settings.referrals.customReferralCode.popup.title")}
-        content={
-          <ParsedPeachText
-            parse={[
-              {
-                pattern: new RegExp(referralCode, "u"),
-                style: tw`text-primary-main`,
-              },
-            ]}
-          >
-            {i18n(
-              "settings.referrals.customReferralCode.popup.success",
-              referralCode,
-            )}
-          </ParsedPeachText>
+  const redeemReferralCode = () => {
+    mutate(referralCode, {
+      onError: (error) => {
+        if (error.message === "ALREADY_TAKEN") {
+          setReferralCodeTaken(true);
         }
-        actions={<ClosePopupAction style={tw`justify-center`} />}
-      />,
-    );
-    navigation.replace("referrals");
-  }, [navigation, referralCode, showErrorBanner, setPopup]);
+      },
+    });
+  };
 
   return (
     <PopupComponent
@@ -109,12 +81,55 @@ export function CustomReferralCodePopup() {
           <PopupAction
             label={i18n("settings.referrals.customReferralCode.popup.redeem")}
             iconId="checkSquare"
-            onPress={submitCustomReferralCode}
+            onPress={redeemReferralCode}
             disabled={!referralCodeValid}
             reverseOrder
           />
         </>
       }
+    />
+  );
+}
+
+function useRedeemReferralCode() {
+  const showErrorBanner = useShowErrorBanner();
+  const setPopup = useSetPopup();
+
+  return useMutation({
+    mutationFn: async (code: string) => {
+      const { error: redeemError } =
+        await peachAPI.private.user.redeemReferralCode({ code });
+      if (redeemError) throw new Error(redeemError.error);
+    },
+    onError: (error) => {
+      showErrorBanner(error.message);
+    },
+    onSuccess: (_data, code) => {
+      setPopup(<ReferralCodeRedeemedPopup referralCode={code} />);
+    },
+  });
+}
+
+function ReferralCodeRedeemedPopup({ referralCode }: { referralCode: string }) {
+  return (
+    <PopupComponent
+      title={i18n("settings.referrals.customReferralCode.popup.title")}
+      content={
+        <ParsedPeachText
+          parse={[
+            {
+              pattern: new RegExp(referralCode, "u"),
+              style: tw`text-primary-main`,
+            },
+          ]}
+        >
+          {i18n(
+            "settings.referrals.customReferralCode.popup.success",
+            referralCode,
+          )}
+        </ParsedPeachText>
+      }
+      actions={<ClosePopupAction style={tw`justify-center`} />}
     />
   );
 }

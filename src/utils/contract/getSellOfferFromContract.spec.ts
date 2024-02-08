@@ -1,9 +1,7 @@
 import { getSellOfferFromContract } from "./getSellOfferFromContract";
 
-const getOfferMock = jest.fn();
-jest.mock("../offer/getOffer", () => ({
-  getOffer: (...args: unknown[]) => getOfferMock(...args),
-}));
+jest.mock("../offer/getOffer");
+const getOfferMock = jest.requireMock("../offer/getOffer").getOffer;
 
 describe("getSellOfferFromContract", () => {
   it("should return the correct sell offer", () => {

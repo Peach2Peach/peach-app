@@ -1,63 +1,65 @@
 import { renderHook } from "test-utils";
+import { useHandleNotifications } from "./hooks/notifications/useHandleNotifications";
+import { useCheckFundingMultipleEscrows } from "./hooks/useCheckFundingMultipleEscrows";
+import { useDynamicLinks } from "./hooks/useDynamicLinks";
+import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
+import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
+import { useInitialNavigation } from "./init/useInitialNavigation";
 import { useGlobalHandlers } from "./useGlobalHandlers";
 
-const useMarketPricesMock = jest.fn().mockReturnValue({
-  data: { EUR: 20000, CHF: 20000 },
-});
 jest.mock("./hooks/query/useMarketPrices", () => ({
-  useMarketPrices: () => useMarketPricesMock(),
+  useMarketPrices: () => ({
+    data: { EUR: 20000, CHF: 20000 },
+  }),
 }));
-const useShouldShowBackupReminderMock = jest.fn();
-jest.mock("./hooks/useShouldShowBackupReminder", () => ({
-  useShouldShowBackupReminder: () => useShouldShowBackupReminderMock(),
-}));
-const useInitialNavigationMock = jest.fn();
+
+jest.mock("./hooks/useShouldShowBackupReminder");
 jest.mock("./init/useInitialNavigation", () => ({
-  useInitialNavigation: () => useInitialNavigationMock(),
+  useInitialNavigation: jest.fn(),
 }));
-const useShowUpdateAvailableMock = jest.fn();
 jest.mock("./hooks/useShowUpdateAvailable", () => ({
-  useShowUpdateAvailable: () => useShowUpdateAvailableMock(),
+  useShowUpdateAvailable: jest.fn(),
 }));
-const useDynamicLinksMock = jest.fn();
-jest.mock("./hooks/useDynamicLinks", () => ({
-  useDynamicLinks: () => useDynamicLinksMock(),
-}));
-const useCheckFundingMultipleEscrowsMock = jest.fn();
+jest.mock("./hooks/useDynamicLinks");
 jest.mock("./hooks/useCheckFundingMultipleEscrows", () => ({
-  useCheckFundingMultipleEscrows: () => useCheckFundingMultipleEscrowsMock(),
+  useCheckFundingMultipleEscrows: jest.fn(),
 }));
-const useHandleNotificationsMock = jest.fn();
-jest.mock("./hooks/notifications/useHandleNotifications", () => ({
-  useHandleNotifications: () => useHandleNotificationsMock(),
-}));
+jest.mock("./hooks/notifications/useHandleNotifications");
 jest.mock("react-native-promise-rejection-utils", () => ({
   setUnhandledPromiseRejectionTracker: jest.fn(),
 }));
+jest.mock("@react-native-firebase/messaging", () => ({
+  __esModule: true,
+  default: () => ({
+    onTokenRefresh: () => jest.fn(),
+  }),
+}));
+
+jest.useFakeTimers();
 
 describe("useGlobalHandlers", () => {
   it("should call useShouldShowBackupReminder", () => {
     renderHook(useGlobalHandlers);
-    expect(useShouldShowBackupReminderMock).toHaveBeenCalled();
+    expect(useShouldShowBackupReminder).toHaveBeenCalled();
   });
   it("should call useInitialNavigation", () => {
     renderHook(useGlobalHandlers);
-    expect(useInitialNavigationMock).toHaveBeenCalled();
+    expect(useInitialNavigation).toHaveBeenCalled();
   });
   it("should call useShowUpdateAvailable", () => {
     renderHook(useGlobalHandlers);
-    expect(useShowUpdateAvailableMock).toHaveBeenCalled();
+    expect(useShowUpdateAvailable).toHaveBeenCalled();
   });
   it("should call useDynamicLinks", () => {
     renderHook(useGlobalHandlers);
-    expect(useDynamicLinksMock).toHaveBeenCalled();
+    expect(useDynamicLinks).toHaveBeenCalled();
   });
   it("should call useCheckFundingMultipleEscrows", () => {
     renderHook(useGlobalHandlers);
-    expect(useCheckFundingMultipleEscrowsMock).toHaveBeenCalled();
+    expect(useCheckFundingMultipleEscrows).toHaveBeenCalled();
   });
   it("should call useHandleNotifications", () => {
     renderHook(useGlobalHandlers);
-    expect(useHandleNotificationsMock).toHaveBeenCalled();
+    expect(useHandleNotifications).toHaveBeenCalled();
   });
 });

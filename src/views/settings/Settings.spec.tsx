@@ -9,9 +9,8 @@ expect.extend({
   toMatchDiffSnapshot,
 });
 
-const checkNotificationStatusMock = jest.fn().mockResolvedValue(true);
 jest.mock("../../utils/system/checkNotificationStatus", () => ({
-  checkNotificationStatus: () => checkNotificationStatusMock(),
+  checkNotificationStatus: jest.fn().mockResolvedValue(true),
 }));
 
 jest.useFakeTimers();

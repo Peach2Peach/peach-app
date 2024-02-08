@@ -1,13 +1,15 @@
 import { useCallback } from "react";
-import { AppPopup } from "../../../hooks/AppPopup";
 import { useToggleBoolean } from "../../../hooks/useToggleBoolean";
+import { AppPopup } from "../../../popups/AppPopup";
 import tw from "../../../styles/tailwind";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { WarningPopup } from "../../../popups/WarningPopup";
 import i18n from "../../../utils/i18n";
 import { error } from "../../../utils/log/error";
 import { peachAPI } from "../../../utils/peachAPI";
+import { matchesKeys } from "../../../views/search/hooks/useOfferMatches";
 import { Button } from "../../buttons/Button";
 import { useClosePopup, useSetPopup } from "../../popup/Popup";
 import { PopupAction } from "../../popup/PopupAction";
@@ -102,9 +104,11 @@ function useUnmatchOffer(offer: BuyOffer, matchingOfferId: string) {
 
   return useMutation({
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ["matches", offer.id] });
       await queryClient.cancelQueries({
-        queryKey: ["matchDetails", offer.id, matchingOfferId],
+        queryKey: matchesKeys.matchesForOffer(offer.id),
+      });
+      await queryClient.cancelQueries({
+        queryKey: matchesKeys.matchDetail(offer.id, matchingOfferId),
       });
       const previousData = queryClient.getQueryData<Match>([
         "matchDetails",
@@ -112,7 +116,7 @@ function useUnmatchOffer(offer: BuyOffer, matchingOfferId: string) {
         matchingOfferId,
       ]);
       queryClient.setQueryData<Match>(
-        ["matchDetails", offer.id, matchingOfferId],
+        matchesKeys.matchDetail(offer.id, matchingOfferId),
         (old) => {
           if (!old) return old;
           return {
@@ -137,15 +141,20 @@ function useUnmatchOffer(offer: BuyOffer, matchingOfferId: string) {
     },
     onError: (_error, _variables, context) => {
       queryClient.setQueryData(
-        ["matchDetails", offer.id, matchingOfferId],
+        matchesKeys.matchDetail(offer.id, matchingOfferId),
         context?.previousData,
       );
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["matches", offer.id] });
-      queryClient.invalidateQueries({
-        queryKey: ["matchDetails", offer.id, matchingOfferId],
-      });
-    },
+    onSettled: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: offerKeys.detail(offer.id) }),
+        queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
+        queryClient.invalidateQueries({
+          queryKey: matchesKeys.matchesForOffer(offer.id),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: matchesKeys.matchDetail(offer.id, matchingOfferId),
+        }),
+      ]),
   });
 }

@@ -22,6 +22,7 @@ import {
   useWalletState,
 } from "../../utils/wallet/walletStore";
 import { SendBitcoin } from "./SendBitcoin";
+import { walletKeys } from "./hooks/useUTXOs";
 expect.extend({ toMatchDiffSnapshot });
 
 jest.useFakeTimers();
@@ -232,10 +233,12 @@ describe("SendBitcoin - With selected coins", () => {
     const { toJSON } = render(<SendBitcoin />);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["utxos"])).toStrictEqual([utxo]);
-      expect(queryClient.getQueryData(["address", utxo.txout.script.id])).toBe(
-        "address",
-      );
+      expect(queryClient.getQueryData(walletKeys.utxos())).toStrictEqual([
+        utxo,
+      ]);
+      expect(
+        queryClient.getQueryData(walletKeys.utxoAddress(utxo.txout.script.id)),
+      ).toBe("address");
     });
     const withSelectedCoins = toJSON();
 
@@ -250,7 +253,9 @@ describe("SendBitcoin - With selected coins", () => {
     const { toJSON, getByText } = render(<SendBitcoin />);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["utxos"])).toStrictEqual([utxo]);
+      expect(queryClient.getQueryData(walletKeys.utxos())).toStrictEqual([
+        utxo,
+      ]);
     });
 
     const noAmount = toJSON();
@@ -265,7 +270,9 @@ describe("SendBitcoin - With selected coins", () => {
     const { toJSON, getByText } = render(<SendBitcoin />);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["utxos"])).toStrictEqual([utxo]);
+      expect(queryClient.getQueryData(walletKeys.utxos())).toStrictEqual([
+        utxo,
+      ]);
     });
 
     const amountInput = getByText("0");

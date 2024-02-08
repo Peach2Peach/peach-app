@@ -10,21 +10,21 @@ import { PeachWallet } from "../wallet/PeachWallet";
 import { defaultAccount, useAccountStore } from "./account";
 import { updateAccount } from "./updateAccount";
 
-const getDeviceLocaleMock = jest.fn((): string | undefined => "en");
 jest.mock("../system/getDeviceLocale", () => ({
-  getDeviceLocale: () => getDeviceLocaleMock(),
+  getDeviceLocale: jest.fn((): string | undefined => "en"),
 }));
+const getDeviceLocaleMock = jest.requireMock(
+  "../system/getDeviceLocale",
+).getDeviceLocale;
 
 const setLocaleQuietMock = jest.spyOn(i18n, "setLocale");
 
-jest.mock("../../init/dataMigration/dataMigrationAfterLoadingWallet", () => ({
-  dataMigrationAfterLoadingWallet: jest.fn(),
-}));
+jest.mock("../../init/dataMigration/dataMigrationAfterLoadingWallet");
 
-const loadAccountFromSeedPhraseMock = jest.fn();
-jest.mock("./loadAccountFromSeedPhrase", () => ({
-  loadAccountFromSeedPhrase: () => loadAccountFromSeedPhraseMock(),
-}));
+jest.mock("./loadAccountFromSeedPhrase");
+const loadAccountFromSeedPhraseMock = jest.requireMock(
+  "./loadAccountFromSeedPhrase",
+).loadAccountFromSeedPhrase;
 
 describe("updateAccount", () => {
   const loadWalletSpy = jest.spyOn(PeachWallet.prototype, "loadWallet");

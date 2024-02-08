@@ -49,10 +49,10 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
     Keyboard.dismiss();
 
     setIsBackingUp(true);
-    updateFileBackupDate();
     backupAccount({
       password,
       onSuccess: () => {
+        updateFileBackupDate();
         setIsBackingUp(false);
         toggle();
         setOverlay(<BackupCreated />);

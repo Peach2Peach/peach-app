@@ -1,4 +1,4 @@
-import { Attributes, ReactElement, createElement } from "react";
+import { Attributes, ReactElement } from "react";
 import { fireEvent, render } from "test-utils";
 import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { YourTrades } from "./YourTrades";
@@ -12,14 +12,16 @@ jest.mock("../home/useHomeScreenRoute", () => ({
     },
   })),
 }));
-
-jest.mock("@react-navigation/material-top-tabs", () => ({
-  createMaterialTopTabNavigator: jest.fn(() => ({
-    Navigator: (props: Attributes) => createElement("Navigator", props),
-    Screen: (props: { children: () => ReactElement }) =>
-      createElement("Screen", props, props.children()),
-  })),
-}));
+jest.mock("@react-navigation/material-top-tabs", () => {
+  const createElement = jest.requireActual("react").createElement;
+  return {
+    createMaterialTopTabNavigator: jest.fn(() => ({
+      Navigator: (props: Attributes) => createElement("Navigator", props),
+      Screen: (props: { children: () => ReactElement }) =>
+        createElement("Screen", props, props.children()),
+    })),
+  };
+});
 
 describe("YourTrades", () => {
   it('should navigate to "exportTradeHistory" when clicking on the icon in the header', () => {

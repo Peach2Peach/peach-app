@@ -1,22 +1,21 @@
 import { getTradeBreakdown } from "./getTradeBreakdown";
 
-const fromHexMock = jest.fn();
-const fromOutputScriptMock = jest.fn((script) =>
-  script === "peach" ? "peach" : "releaseAddress",
-);
 jest.mock("bitcoinjs-lib", () => ({
   ...jest.requireActual("bitcoinjs-lib"),
   Transaction: {
-    fromHex: () => fromHexMock(),
+    fromHex: jest.fn(),
   },
   address: {
-    fromOutputScript: (script: string) => fromOutputScriptMock(script),
+    fromOutputScript: jest.fn((script) =>
+      script === "peach" ? "peach" : "releaseAddress",
+    ),
   },
 }));
 
-const getNetworkMock = jest.fn().mockReturnValue("regtest");
+const fromHexMock = jest.requireMock("bitcoinjs-lib").Transaction.fromHex;
+
 jest.mock("../wallet/getNetwork", () => ({
-  getNetwork: () => getNetworkMock(),
+  getNetwork: jest.fn().mockReturnValue("regtest"),
 }));
 
 describe("getTradeBreakdown", () => {

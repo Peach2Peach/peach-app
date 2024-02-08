@@ -16,17 +16,15 @@ const useTransactionDetailsInfoSetupReturnValue = {
   goToBumpNetworkFees: goToBumpNetworkFeesMock,
   openInExplorer: openInExplorerMock,
 };
+jest.mock("../../hooks/useTransactionDetailsInfoSetup");
 const useTransactionDetailsInfoSetupMock = jest
-  .fn()
-  .mockReturnValue(useTransactionDetailsInfoSetupReturnValue);
-jest.mock("../../hooks/useTransactionDetailsInfoSetup", () => ({
-  useTransactionDetailsInfoSetup: (...args: unknown[]) =>
-    useTransactionDetailsInfoSetupMock(...args),
-}));
+  .requireMock("../../hooks/useTransactionDetailsInfoSetup")
+  .useTransactionDetailsInfoSetup.mockReturnValue(
+    useTransactionDetailsInfoSetupReturnValue,
+  );
 
-const useTxFeeRateMock = jest.fn().mockReturnValue(2);
 jest.mock("../../hooks/useTxFeeRate", () => ({
-  useTxFeeRate: (...args: unknown[]) => useTxFeeRateMock(...args),
+  useTxFeeRate: jest.fn().mockReturnValue(2),
 }));
 
 jest.useFakeTimers();

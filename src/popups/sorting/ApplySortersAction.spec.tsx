@@ -1,6 +1,7 @@
 import { fireEvent, render, waitFor } from "test-utils";
 import { buyOffer } from "../../../tests/unit/data/offerData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
+import { matchesKeys } from "../../views/search/hooks/useOfferMatches";
 import { ApplySortersAction } from "./ApplySortersAction";
 
 const setSorterAction = jest.fn();
@@ -8,9 +9,10 @@ const defaultComponent = (
   <ApplySortersAction setSorterAction={setSorterAction} />
 );
 const closePopup = jest.fn();
-jest.mock("../../components/popup/Popup", () => ({
-  useClosePopup: () => closePopup,
-}));
+jest.mock("../../components/popup/Popup");
+jest
+  .requireMock("../../components/popup/Popup")
+  .useClosePopup.mockReturnValue(closePopup);
 jest.useFakeTimers();
 describe("ApplyBuyFilterAction", () => {
   beforeEach(() => {
@@ -25,11 +27,16 @@ describe("ApplyBuyFilterAction", () => {
   });
 
   it("should invalidate all matches queries", async () => {
-    queryClient.setQueryData(["matches"], { matches: [] });
-    queryClient.setQueryData(["matches", buyOffer.id], { matches: [] });
-    queryClient.setQueryData(["matches", buyOffer.id, "bestReputation"], {
+    queryClient.setQueryData(matchesKeys.matches, { matches: [] });
+    queryClient.setQueryData(matchesKeys.matchesForOffer(buyOffer.id), {
       matches: [],
     });
+    queryClient.setQueryData(
+      matchesKeys.sortedMatchesForOffer(buyOffer.id, ["bestReputation"]),
+      {
+        matches: [],
+      },
+    );
 
     const { getByText } = render(defaultComponent);
     const applyButton = getByText("apply");
@@ -37,13 +44,17 @@ describe("ApplyBuyFilterAction", () => {
     fireEvent.press(applyButton);
 
     await waitFor(() => {
-      expect(queryClient.getQueryState(["matches"])?.isInvalidated).toBe(true);
       expect(
-        queryClient.getQueryState(["matches", buyOffer.id])?.isInvalidated,
+        queryClient.getQueryState(matchesKeys.matches)?.isInvalidated,
       ).toBe(true);
       expect(
-        queryClient.getQueryState(["matches", buyOffer.id, "bestReputation"])
+        queryClient.getQueryState(matchesKeys.matchesForOffer(buyOffer.id))
           ?.isInvalidated,
+      ).toBe(true);
+      expect(
+        queryClient.getQueryState(
+          matchesKeys.sortedMatchesForOffer(buyOffer.id, ["bestReputation"]),
+        )?.isInvalidated,
       ).toBe(true);
     });
   });

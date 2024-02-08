@@ -16,12 +16,10 @@ const transactions: TransactionSummary[] = [
 const useTransactionHistorySetupData = {
   transactions,
 };
+jest.mock("./hooks/useTransactionHistorySetup");
 const useTransactionHistorySetupMock = jest
-  .fn()
-  .mockReturnValue(useTransactionHistorySetupData);
-jest.mock("./hooks/useTransactionHistorySetup", () => ({
-  useTransactionHistorySetup: () => useTransactionHistorySetupMock(),
-}));
+  .requireMock("./hooks/useTransactionHistorySetup")
+  .useTransactionHistorySetup.mockReturnValue(useTransactionHistorySetupData);
 
 jest.useFakeTimers();
 

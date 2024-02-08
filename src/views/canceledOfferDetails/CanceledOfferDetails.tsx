@@ -7,14 +7,14 @@ import { View } from "react-native";
 import { EscrowButton } from "../../components/EscrowButton";
 import { Header } from "../../components/Header";
 import { useWalletLabel } from "../../components/offer/useWalletLabel";
-import { useOfferDetails } from "../../hooks/query/useOfferDetails";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import i18n from "../../utils/i18n";
 import { LoadingScreen } from "../loading/LoadingScreen";
 
 export const CanceledOfferDetails = () => {
   const { offerId } = useRoute<"offer">().params;
-  const { offer } = useOfferDetails(offerId);
+  const { offer } = useOfferDetail(offerId);
 
   return offer?.tradeStatus === "offerCanceled" && isSellOffer(offer) ? (
     <OfferDetailsScreen offer={offer} />

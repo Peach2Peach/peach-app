@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { shallow } from "zustand/shallow";
 import { useSetPopup } from "../../components/popup/Popup";
-import { HelpPopup } from "../../hooks/HelpPopup";
 import { useNavigation } from "../../hooks/useNavigation";
+import { HelpPopup } from "../../popups/HelpPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { interpolate } from "../../utils/math/interpolate";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
-import { MAX_NUMBER_OF_PEACHES } from "../settings/profile/profileOverview/Rating";
+import {
+  CLIENT_RATING_RANGE,
+  SERVER_RATING_RANGE,
+} from "../settings/profile/profileOverview/Rating";
 import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
@@ -19,7 +22,7 @@ import { MaxPremiumFilterComponent } from "./components/MaxPremiumFilterComponen
 import { ReputationFilterComponent } from "./components/MinReputationFilter";
 import { PreferenceMethods } from "./components/PreferenceMethods";
 import { PreferenceScreen } from "./components/PreferenceScreen";
-import { usePublishBuyOffer } from "./utils/usePublishBuyOffer";
+import { usePostBuyOffer } from "./utils/usePostBuyOffer";
 import { useRestrictSatsAmount } from "./utils/useRestrictSatsAmount";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
 
@@ -96,8 +99,8 @@ function PreferenceMarketInfo() {
         : undefined,
       minReputation: interpolate(
         state.filter.buyOffer.minReputation || 0,
-        [0, MAX_NUMBER_OF_PEACHES],
-        [-1, 1],
+        CLIENT_RATING_RANGE,
+        SERVER_RATING_RANGE,
       ),
     }),
     shallow,
@@ -185,8 +188,8 @@ function PublishOfferButton() {
           : null,
         minReputation: interpolate(
           state.filter.buyOffer.minReputation || 0,
-          [0, MAX_NUMBER_OF_PEACHES],
-          [-1, 1],
+          CLIENT_RATING_RANGE,
+          SERVER_RATING_RANGE,
         ),
       }),
       shallow,
@@ -208,7 +211,7 @@ function PublishOfferButton() {
   const rangeIsValid = rangeIsWithinLimits && amount[0] <= amount[1];
   const formValid = methodsAreValid && rangeIsValid;
 
-  const { mutate: publishOffer, isPending: isPublishing } = usePublishBuyOffer({
+  const { mutate: publishOffer, isPending: isPublishing } = usePostBuyOffer({
     amount,
     meansOfPayment,
     paymentData,

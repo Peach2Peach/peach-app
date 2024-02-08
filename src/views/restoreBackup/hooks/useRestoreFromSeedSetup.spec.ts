@@ -5,19 +5,20 @@ import { useRestoreFromSeedSetup } from "./useRestoreFromSeedSetup";
 
 jest.useFakeTimers();
 
-const createAccountMock = jest.fn().mockResolvedValue(account1);
-jest.mock("../../../utils/account/createAccount", () => ({
-  createAccount: (...args: unknown[]) => createAccountMock(...args),
-}));
-const recoverAccountMock = jest.fn().mockResolvedValue(account1);
-jest.mock("../../../utils/account/recoverAccount", () => ({
-  recoverAccount: (...args: unknown[]) => recoverAccountMock(...args),
+jest.mock("../../../utils/account/createAccount");
+const createAccountMock = jest
+  .requireMock("../../../utils/account/createAccount")
+  .createAccount.mockResolvedValue(account1);
+
+const mockRecoverAccount = jest.fn().mockResolvedValue(account1);
+jest.mock("../../../utils/account/useRecoverAccount", () => ({
+  useRecoverAccount: () => mockRecoverAccount,
 }));
 
-const storeAccountMock = jest.fn();
-jest.mock("../../../utils/account/storeAccount", () => ({
-  storeAccount: (...args: unknown[]) => storeAccountMock(...args),
-}));
+jest.mock("../../../utils/account/storeAccount");
+const storeAccountMock = jest.requireMock(
+  "../../../utils/account/storeAccount",
+).storeAccount;
 
 describe("useRestoreFromSeedSetup", () => {
   it("restores account from seed", async () => {
@@ -32,7 +33,7 @@ describe("useRestoreFromSeedSetup", () => {
       expect(result.current.restored).toBeTruthy();
     });
     expect(createAccountMock).toHaveBeenCalledWith(account1.mnemonic);
-    expect(recoverAccountMock).toHaveBeenCalledWith(account1);
+    expect(mockRecoverAccount).toHaveBeenCalledWith(account1);
     expect(storeAccountMock).toHaveBeenCalledWith(account1);
   });
   it("updates the last seed backup date", async () => {

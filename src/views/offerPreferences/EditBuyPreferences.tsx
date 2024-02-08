@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { createContext, useContext, useReducer, useState } from "react";
 import { shallow } from "zustand/shallow";
 import { MeansOfPayment } from "../../components/offer/MeansOfPayment";
-import { useOfferDetails } from "../../hooks/query/useOfferDetails";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useNavigation } from "../../hooks/useNavigation";
 import { PatchBuyOfferData, usePatchBuyOffer } from "../../hooks/usePatchOffer";
 import { useRoute } from "../../hooks/useRoute";
@@ -22,7 +22,10 @@ import { peachWallet } from "../../utils/wallet/setWallet";
 import { usePatchReleaseAddress } from "../contract/components/usePatchReleaseAddress";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { matchesKeys } from "../search/hooks/useOfferMatches";
-import { MAX_NUMBER_OF_PEACHES } from "../settings/profile/profileOverview/Rating";
+import {
+  CLIENT_RATING_RANGE,
+  SERVER_RATING_RANGE,
+} from "../settings/profile/profileOverview/Rating";
 import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
@@ -87,7 +90,7 @@ function offerReducer(state: Preferences, action: PreferenceAction) {
 
 export function EditBuyPreferences() {
   const { offerId } = useRoute<"editBuyPreferences">().params;
-  const { offer, isLoading } = useOfferDetails(offerId);
+  const { offer, isLoading } = useOfferDetail(offerId);
 
   if (isLoading || !offer) return <LoadingScreen />;
   if (!isBuyOffer(offer)) throw new Error("Offer is not a buy offer");
@@ -98,7 +101,11 @@ export function EditBuyPreferences() {
 function initializer(offer: BuyOffer) {
   const minReputation =
     typeof offer?.minReputation === "number"
-      ? interpolate(offer.minReputation, [-1, 1], [0, MAX_NUMBER_OF_PEACHES])
+      ? interpolate(
+          offer.minReputation,
+          SERVER_RATING_RANGE,
+          CLIENT_RATING_RANGE,
+        )
       : null;
   const maxPremium = offer?.maxPremium ?? null;
   const { amount, meansOfPayment } = offer;
@@ -226,7 +233,7 @@ function OfferMarketInfo() {
       maxPremium={maxPremium ?? undefined}
       minReputation={
         typeof minReputation === "number"
-          ? interpolate(minReputation, [0, MAX_NUMBER_OF_PEACHES], [-1, 1])
+          ? interpolate(minReputation, CLIENT_RATING_RANGE, SERVER_RATING_RANGE)
           : undefined
       }
       buyAmountRange={amount}
@@ -328,12 +335,12 @@ function PatchOfferButton() {
   const { maxPremium } = preferences;
   const minReputation = interpolate(
     preferences.minReputation || 0,
-    [0, MAX_NUMBER_OF_PEACHES],
-    [-1, 1],
+    CLIENT_RATING_RANGE,
+    SERVER_RATING_RANGE,
   );
 
   const { offerId } = useRoute<"editBuyPreferences">().params;
-  const { offer } = useOfferDetails(offerId);
+  const { offer } = useOfferDetail(offerId);
   if (offer && !isBuyOffer(offer)) throw new Error("Offer is not a buy offer");
 
   const rangeHasChanged =
@@ -362,7 +369,7 @@ function PatchOfferButton() {
         onSuccess: () => navigation.goBack(),
         onSettled: () =>
           queryClient.invalidateQueries({
-            queryKey: matchesKeys.matchesByOfferId(offerId),
+            queryKey: matchesKeys.matchesForOffer(offerId),
           }),
       },
     );

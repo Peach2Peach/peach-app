@@ -7,16 +7,16 @@ import { Checkbox } from "../../components/inputs/Checkbox";
 import { EmailInput } from "../../components/inputs/EmailInput";
 import { Input } from "../../components/inputs/Input";
 import { useSetPopup } from "../../components/popup/Popup";
-import { AppPopup } from "../../hooks/AppPopup";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { useValidatedState } from "../../hooks/useValidatedState";
+import { AppPopup } from "../../popups/AppPopup";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import i18n from "../../utils/i18n";
-import { submitReport } from "./helpers/submitReport";
+import { useSendReport } from "./useSendReport";
 
 const emailRules = { email: true, required: true };
 const required = { required: true };
@@ -42,30 +42,33 @@ export const Report = () => {
 
   const showError = useShowErrorBanner();
 
-  const submit = async () => {
+  const { mutate: submitReport } = useSendReport();
+
+  const submit = () => {
     const isFormValid = isEmailValid && isTopicValid && isMessageValid;
     if (!isFormValid) return;
 
-    const { result, error: err } = await submitReport({
-      email,
-      reason: i18n(`contact.reason.${reason}`),
-      topic,
-      message,
-      shareDeviceID,
-      shareLogs,
-    });
-
-    if (result) {
-      if (publicKey) {
-        navigation.navigate("homeScreen", { screen: "settings" });
-      } else {
-        navigation.navigate("welcome");
-      }
-      setPopup(<AppPopup id="reportSuccess" />);
-      return;
-    }
-
-    if (err) showError();
+    submitReport(
+      {
+        email,
+        reason: i18n(`contact.reason.${reason}`),
+        topic,
+        message,
+        shareDeviceID,
+        shareLogs,
+      },
+      {
+        onError: (err) => showError(err.message),
+        onSuccess: () => {
+          if (publicKey) {
+            navigation.navigate("homeScreen", { screen: "settings" });
+          } else {
+            navigation.navigate("welcome");
+          }
+          setPopup(<AppPopup id="reportSuccess" />);
+        },
+      },
+    );
   };
 
   let $topic = useRef<TextInput>(null).current;
