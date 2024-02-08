@@ -9,6 +9,7 @@ import { headerIcons } from "../../utils/layout/headerIcons";
 import { interpolate } from "../../utils/math/interpolate";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
 import { MAX_NUMBER_OF_PEACHES } from "../settings/profile/profileOverview/Rating";
+import { EscrowTypeSelector } from "./EscrowTypeSelector";
 import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
@@ -36,6 +37,7 @@ export function BuyOfferPreferences() {
       <PreferenceMethods type="buy" />
       <AmountSelector setIsSliding={setIsSliding} />
       <Filters />
+      <OfferType />
       <PreferenceWalletSelector />
     </PreferenceScreen>
   );
@@ -137,6 +139,12 @@ function Filters() {
   );
 }
 
+function OfferType() {
+  return (
+    <EscrowTypeSelect />
+  );
+}
+
 function ReputationFilter() {
   const [minReputation, toggle] = useOfferPreferences(
     (state) => [
@@ -173,11 +181,22 @@ function MaxPremiumFilter() {
   );
 }
 
+function EscrowTypeSelect() {
+  const [escrowType, setEscrowType] = useOfferPreferences(
+    (state) => [state.escrowType, state.setEscrowType],
+    shallow,
+  );
+  return (
+    <EscrowTypeSelector {...{escrowType, setEscrowType}}/>
+  );
+}
+
 function PublishOfferButton() {
-  const { amount, meansOfPayment, paymentData, maxPremium, minReputation } =
+  const { amount, escrowType, meansOfPayment, paymentData, maxPremium, minReputation } =
     useOfferPreferences(
       (state) => ({
         amount: state.buyAmountRange,
+        escrowType: state.escrowType,
         meansOfPayment: state.meansOfPayment,
         paymentData: state.paymentData,
         maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
@@ -210,6 +229,7 @@ function PublishOfferButton() {
 
   const { mutate: publishOffer, isPending: isPublishing } = usePublishBuyOffer({
     amount,
+    escrowType,
     meansOfPayment,
     paymentData,
     maxPremium,

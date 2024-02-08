@@ -27,13 +27,14 @@ const isForbiddenPaymentMethodError = (
 
 export function usePublishBuyOffer({
   amount,
+  escrowType,
   meansOfPayment,
   paymentData,
   maxPremium,
   minReputation,
 }: Pick<
   BuyOfferDraft,
-  "amount" | "meansOfPayment" | "paymentData" | "maxPremium" | "minReputation"
+  "amount" | "escrowType" | "meansOfPayment" | "paymentData" | "maxPremium" | "minReputation"
 >) {
   const navigation = useNavigation();
   const showErrorBanner = useShowErrorBanner();
@@ -82,6 +83,7 @@ export function usePublishBuyOffer({
       }
       const finalizedOfferDraft = {
         type: "bid" as const,
+        escrowType,
         amount,
         meansOfPayment,
         paymentData,
