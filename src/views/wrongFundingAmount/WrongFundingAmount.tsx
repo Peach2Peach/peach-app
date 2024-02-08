@@ -11,15 +11,19 @@ import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { sum } from "../../utils/math/sum";
+import { getSellOfferFunding } from "../../utils/offer/getSellOfferFunding";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { thousands } from "../../utils/string/thousands";
+import { LoadingScreen } from "../loading/LoadingScreen";
 import { ContinueTradeSlider } from "./components/ContinueTradeSlider";
 
 export const WrongFundingAmount = () => {
   const { offerId } = useRoute<"wrongFundingAmount">().params;
   const { offer } = useOfferDetails(offerId);
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined;
+
+  if (!sellOffer) return <LoadingScreen />
 
   return (
     <Screen header={<Header title={offerIdToHex(offerId)} />}>
@@ -33,11 +37,12 @@ export const WrongFundingAmount = () => {
 };
 
 type Props = {
-  sellOffer?: SellOffer;
+  sellOffer: SellOffer;
 };
 
 function WrongFundingAmountSummary({ sellOffer }: Props) {
-  const actualAmount = sellOffer?.funding.amounts.reduce(sum, 0) || 0;
+  const funding = getSellOfferFunding(sellOffer)
+  const actualAmount = funding.amounts.reduce(sum, 0) || 0;
   const fundingAmount = sellOffer?.amount || 0;
   return (
     <View style={tw`gap-3 grow`}>
