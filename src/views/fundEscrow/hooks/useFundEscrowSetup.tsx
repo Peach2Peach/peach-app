@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useSetPopup } from "../../../components/popup/Popup";
 import { MSINAMINUTE } from "../../../constants";
 import { CancelOfferPopup } from "../../../hooks/CancelOfferPopup";
@@ -14,18 +14,28 @@ import { useSyncWallet } from "../../wallet/hooks/useSyncWallet";
 import { getFundingAmount } from "../helpers/getFundingAmount";
 import { useHandleFundingStatus } from "./useHandleFundingStatus";
 
+type FundingInfo = {
+  fundingAddress?: string
+  fundingAddresses: string[]
+  fundingStatus: FundingStatus
+}
+
 const shouldGetFundingStatus = (offer: SellOffer) =>
   !!offer.escrow &&
   !offer.refunded &&
   !offer.released &&
+  // TODO liquify
   offer.funding.status !== "FUNDED";
 
+
+// TODO liquify
 export const useFundEscrowSetup = () => {
   const { offerId } = useRoute<"fundEscrow">().params;
   const setPopup = useSetPopup();
 
   const showErrorBanner = useShowErrorBanner();
 
+  // TODO liquify
   const fundMultiple = useWalletState((state) =>
     state.getFundMultipleByOfferId(offerId),
   );
@@ -33,6 +43,8 @@ export const useFundEscrowSetup = () => {
     refetchInterval: fundMultiple ? MSINAMINUTE * 2 : undefined,
     enabled: true,
   });
+
+  // TODO liquify
   const { offers } = useMultipleOfferDetails(
     fundMultiple?.offerIds || [offerId],
   );
@@ -41,21 +53,39 @@ export const useFundEscrowSetup = () => {
   const canFetchFundingStatus = !sellOffer || shouldGetFundingStatus(sellOffer);
   const {
     fundingStatus,
+    fundingStatusLiquid,
     userConfirmationRequired,
     error: fundingStatusError,
   } = useFundingStatus(offerId, canFetchFundingStatus);
-  const escrows = offers
-    .filter(isDefined)
-    .filter(isSellOffer)
-    .map((offr) => offr.escrow)
-    .filter(isDefined);
+  const sellOffers = offers
+  .filter(isDefined)
+  .filter(isSellOffer)
+  const escrows = sellOffers.map((offr) => offr.escrows.bitcoin).filter(isDefined);
+  const escrowsLiquid = sellOffers.map((offr) => offr.escrows.liquid).filter(isDefined);
   const fundingAmount = getFundingAmount(fundMultiple, sellOffer?.amount);
   const cancelOffer = () => setPopup(<CancelOfferPopup offerId={offerId} />);
+
+  const funding: Record<EscrowType, FundingInfo> = {
+    bitcoin: {
+      fundingAddress: fundMultiple?.address || sellOffer?.escrows.bitcoin,
+      fundingAddresses: escrows,
+      fundingStatus,
+    },
+    liquid: {
+      fundingAddress: fundMultiple?.address || sellOffer?.escrows.liquid,
+      fundingAddresses: escrowsLiquid,
+      fundingStatus: fundingStatusLiquid,
+    }
+  }
+  const activeFunding = useMemo(
+      ()=> fundingStatusLiquid.status !== 'NULL' ? fundingStatusLiquid : fundingStatus,
+      [fundingStatus, fundingStatusLiquid]
+    )
 
   useHandleFundingStatus({
     offerId,
     sellOffer,
-    fundingStatus,
+    funding: activeFunding,
     userConfirmationRequired,
   });
 
@@ -66,9 +96,8 @@ export const useFundEscrowSetup = () => {
 
   return {
     offerId,
-    fundingAddress: fundMultiple?.address || sellOffer?.escrow,
-    fundingAddresses: escrows,
-    fundingStatus,
+    funding,
+    activeFunding,
     fundingAmount,
     cancelOffer,
   };

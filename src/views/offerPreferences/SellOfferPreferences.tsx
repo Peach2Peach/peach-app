@@ -41,7 +41,6 @@ import { convertFiatToSats } from "../../utils/market/convertFiatToSats";
 import { getTradingAmountLimits } from "../../utils/market/getTradingAmountLimits";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
-import { defaultFundingStatus } from "../../utils/offer/constants";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
@@ -678,7 +677,6 @@ function FundEscrowButton({
         ...sellPreferences,
         paymentData,
         type: "ask",
-        funding: defaultFundingStatus,
         walletLabel: refundToPeachWallet
           ? i18n("peachWallet")
           : refundAddressLabel,

@@ -5,58 +5,51 @@ import { useNavigation } from "../../../hooks/useNavigation";
 import { WronglyFundedPopup } from "../../../popups/WronglyFundedPopup";
 import { useStartRefundPopup } from "../../../popups/useStartRefundPopup";
 import { info } from "../../../utils/log/info";
-import { saveOffer } from "../../../utils/offer/saveOffer";
 import { OfferPublished } from "../../search/OfferPublished";
 import { useOfferMatches } from "../../search/hooks/useOfferMatches";
 
 type Props = {
   offerId: string;
   sellOffer?: SellOffer;
-  fundingStatus: FundingStatus;
+  funding: FundingStatus;
   userConfirmationRequired: boolean;
 };
+
 export const useHandleFundingStatus = ({
   offerId,
   sellOffer,
-  fundingStatus,
+  funding,
   userConfirmationRequired,
 }: Props) => {
   const navigation = useNavigation();
   const setPopup = useSetPopup();
-
   const setOverlay = useSetOverlay();
-
   const startRefund = useStartRefundPopup();
+
   const { refetch: fetchMatches } = useOfferMatches(
     offerId,
     undefined,
-    fundingStatus.status === "FUNDED",
+    funding.status === "FUNDED",
   );
 
   useEffect(() => {
     if (!sellOffer) return;
 
-    info("Checked funding status", fundingStatus);
-    const updatedOffer = {
-      ...sellOffer,
-      funding: fundingStatus,
-    };
+    info("Checked funding status", funding);
 
-    saveOffer(updatedOffer);
-
-    if (fundingStatus.status === "CANCELED") {
+    if (funding.status === "CANCELED") {
       startRefund(sellOffer);
       return;
     }
-    if (fundingStatus.status === "WRONG_FUNDING_AMOUNT") {
+    if (funding.status === "WRONG_FUNDING_AMOUNT") {
       setPopup(<WronglyFundedPopup sellOffer={sellOffer} />);
       return;
     }
     if (userConfirmationRequired) {
-      navigation.replace("wrongFundingAmount", { offerId: updatedOffer.id });
+      navigation.replace("wrongFundingAmount", { offerId: sellOffer.id });
       return;
     }
-    if (fundingStatus.status === "FUNDED") {
+    if (funding.status === "FUNDED") {
       fetchMatches().then(({ data }) => {
         const allMatches = (data?.pages || []).flatMap((page) => page.matches);
         const hasMatches = allMatches.length > 0;
@@ -69,7 +62,7 @@ export const useHandleFundingStatus = ({
     }
   }, [
     fetchMatches,
-    fundingStatus,
+    funding,
     navigation,
     offerId,
     sellOffer,

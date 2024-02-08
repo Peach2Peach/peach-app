@@ -9,6 +9,7 @@ import { Loading } from "../../components/animation/Loading";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { BitcoinAddress } from "../../components/bitcoin/BitcoinAddress";
 import { Button } from "../../components/buttons/Button";
+import { TabbedNavigation } from "../../components/navigation/TabbedNavigation";
 import { TradeInfo } from "../../components/offer/TradeInfo";
 import { useSetPopup } from "../../components/popup/Popup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
@@ -25,6 +26,7 @@ import i18n, { languageState } from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { generateBlock } from "../../utils/regtest/generateBlock";
+import { generateLiquidBlock } from "../../utils/regtest/generateLiquidBlock";
 import { getNetwork } from "../../utils/wallet/getNetwork";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
@@ -34,20 +36,34 @@ import { TransactionInMempool } from "./components/TransactionInMempool";
 import { useFundEscrowSetup } from "./hooks/useFundEscrowSetup";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
 
+type FundingTab = {
+  id: EscrowType,
+  display: string
+}
+
+// TODO liquify
 export const FundEscrow = () => {
   const {
     offerId,
-    fundingAddress,
-    fundingAddresses,
-    fundingStatus,
+    funding,
+    activeFunding,
     fundingAmount,
   } = useFundEscrowSetup();
+  const tabs: FundingTab[] = [
+    { id: "bitcoin", display: i18n('escrow.bitcoin') },
+    { id: "liquid", display: i18n('escrow.liquid') },
+  ];
+  const [currentTab, setCurrentTab] = useState(tabs[0]);
+  const escrowType = currentTab.id
+  const fundingAddress = funding[escrowType].fundingAddress
+  const fundingAddresses = funding[escrowType].fundingAddresses
+
   if (!fundingAddress)
     return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
 
-  if (fundingStatus.status === "MEMPOOL")
+  if (activeFunding.status === "MEMPOOL")
     return (
-      <TransactionInMempool offerId={offerId} txId={fundingStatus.txIds[0]} />
+      <TransactionInMempool offerId={offerId} txId={activeFunding.txIds[0]} />
     );
 
   return (
@@ -61,11 +77,26 @@ export const FundEscrow = () => {
           <CopyAble value={fundingAddress} textPosition="bottom" />
         </View>
 
-        <BitcoinAddress
+        <TabbedNavigation
+          style={tw`mb-4`}
+          items={tabs}
+          selected={currentTab}
+          select={setCurrentTab}
+        />
+        {currentTab.id === "bitcoin" && (
+          <BitcoinAddress
           address={fundingAddress}
           amount={fundingAmount / SATSINBTC}
           label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
         />
+        )}
+        {currentTab.id === "liquid" && (
+          <BitcoinAddress
+          address={fundingAddress}
+          amount={fundingAmount / SATSINBTC}
+          label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
+        />
+        )}
       </PeachScrollView>
 
       <View style={[tw`items-center justify-center gap-4 py-4`]}>
@@ -80,7 +111,8 @@ export const FundEscrow = () => {
           address={fundingAddress}
           addresses={fundingAddresses}
           amount={fundingAmount}
-          fundingStatus={fundingStatus}
+          fundingStatus={activeFunding}
+          // escrowType={escrowType}
         />
       </View>
     </Screen>
@@ -113,6 +145,7 @@ function FundEscrowHeader() {
     ];
     if (getNetwork() === networks.regtest) {
       icons.unshift({ ...headerIcons.generateBlock, onPress: generateBlock });
+      icons.unshift({ ...headerIcons.generateLiquidBlock, onPress: generateLiquidBlock });
     }
     return icons;
   }, [cancelFundMultipleOffers, cancelOffer, fundMultiple, showHelp]);
@@ -166,6 +199,7 @@ type Props = {
   fundingStatus: FundingStatus;
 };
 
+// TODO liquify
 function FundFromPeachWalletButton(props: Props) {
   const { offerId } = useRoute<"fundEscrow">().params;
   const fundFromPeachWallet = useFundFromPeachWallet();

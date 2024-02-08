@@ -8,7 +8,7 @@ import { createTestWallet } from "../../../../tests/unit/helpers/createTestWalle
 import { MSINAMINUTE } from "../../../constants";
 import { setAccount } from "../../../utils/account/account";
 import { updateAccount } from "../../../utils/account/updateAccount";
-import { defaultFundingStatus } from "../../../utils/offer/constants";
+import { getDefaultFundingStatus } from "../../../utils/offer/constants";
 import { saveOffer } from "../../../utils/offer/saveOffer";
 import { peachAPI } from "../../../utils/peachAPI";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
@@ -24,7 +24,8 @@ jest.mock("../../../hooks/useShowErrorBanner", () => ({
 }));
 
 const useFundingStatusMock = jest.fn().mockReturnValue({
-  fundingStatus: defaultFundingStatus,
+  fundingStatus: getDefaultFundingStatus(sellOffer.id),
+  fundingStatusLiquid: getDefaultFundingStatus(sellOffer.id),
   userConfirmationRequired: false,
   isLoading: false,
 });
@@ -32,11 +33,9 @@ jest.mock("../../../hooks/query/useFundingStatus", () => ({
   useFundingStatus: () => useFundingStatusMock(),
 }));
 
-const sellOfferWithEscrow = { ...sellOffer, escrow: "escrow" };
-
 const getOfferDetailsMock = jest
   .spyOn(peachAPI.private.offer, "getOfferDetails")
-  .mockResolvedValue({ result: sellOfferWithEscrow, ...responseUtils });
+  .mockResolvedValue({ result: sellOffer, ...responseUtils });
 jest.mock("./useHandleFundingStatus", () => ({
   useHandleFundingStatus: () => jest.fn(),
 }));
@@ -60,45 +59,68 @@ describe("useFundEscrowSetup", () => {
 
   it("should return default values", () => {
     const { result } = renderHook(useFundEscrowSetup);
+    const activeFunding = getDefaultFundingStatus(sellOffer.id)
     expect(result.current).toEqual({
       offerId: sellOffer.id,
-      fundingAddress: undefined,
-      fundingAddresses: [],
-      fundingStatus: defaultFundingStatus,
+      funding: {
+        bitcoin: {
+          fundingAddress: undefined,
+          fundingAddresses: [],
+          fundingStatus: activeFunding,
+        },
+        liquid: {
+          fundingAddress: undefined,
+          fundingAddresses: [],
+          fundingStatus: getDefaultFundingStatus(sellOffer.id),
+        }
+      },
+      activeFunding,
       fundingAmount: 0,
       cancelOffer: expect.any(Function),
     });
   });
   it("should return registered funding address for funding multiple offers", () => {
-    saveOffer(sellOfferWithEscrow);
+    saveOffer(sellOffer);
 
     const internalAddress = "internalAddress";
     useWalletState
       .getState()
-      .registerFundMultiple(internalAddress, [sellOfferWithEscrow.id]);
+      .registerFundMultiple(internalAddress, [sellOffer.id]);
     const { result } = renderHook(useFundEscrowSetup);
 
-    expect(result.current.fundingAddress).toBe(internalAddress);
-    expect(result.current.fundingAddresses).toEqual([
-      sellOfferWithEscrow.escrow,
+    expect(result.current.funding.bitcoin.fundingAddress).toBe(internalAddress);
+    expect(result.current.funding.bitcoin.fundingAddresses).toEqual([
+      sellOffer.escrows.bitcoin,
     ]);
   });
   it("should return default values with locally stored offer", () => {
-    saveOffer(sellOfferWithEscrow);
+    saveOffer(sellOffer);
     const { result } = renderHook(useFundEscrowSetup);
+    const activeFunding = getDefaultFundingStatus(sellOffer.id)
 
     expect(result.current).toEqual({
-      offerId: sellOfferWithEscrow.id,
-      fundingAddress: sellOfferWithEscrow.escrow,
-      fundingAddresses: [sellOfferWithEscrow.escrow],
-      fundingStatus: defaultFundingStatus,
-      fundingAmount: sellOfferWithEscrow.amount,
+      offerId: sellOffer.id,
+      funding: {
+        bitcoin: {
+          fundingAddress: sellOffer.escrows.bitcoin,
+          fundingAddresses: [sellOffer.escrows.bitcoin],
+          fundingStatus: activeFunding,
+        },
+        liquid: {
+          fundingAddress: sellOffer.escrows.liquid,
+          fundingAddresses: [sellOffer.escrows.liquid],
+          fundingStatus: getDefaultFundingStatus(sellOffer.id),
+        }
+      },
+      activeFunding,
+      fundingAmount: sellOffer.amount,
       cancelOffer: expect.any(Function),
     });
   });
   it("should show error banner if there is an error with the funding status", () => {
     useFundingStatusMock.mockReturnValueOnce({
-      fundingStatus: defaultFundingStatus,
+      fundingStatus: getDefaultFundingStatus(sellOffer.id),
+      fundingStatusLiquid: getDefaultFundingStatus(sellOffer.id),
       userConfirmationRequired: false,
       isLoading: false,
       error: new Error(unauthorizedError.error),
@@ -108,6 +130,7 @@ describe("useFundEscrowSetup", () => {
   });
   it("should handle the case that no offer could be returned", () => {
     setAccount({ ...account1, offers: [] });
+    const activeFunding = getDefaultFundingStatus(sellOffer.id)
 
     getOfferDetailsMock.mockResolvedValueOnce({
       error: { error: "UNAUTHORIZED" },
@@ -116,26 +139,20 @@ describe("useFundEscrowSetup", () => {
     const { result } = renderHook(useFundEscrowSetup);
     expect(result.current).toEqual({
       offerId: sellOffer.id,
-      fundingAddress: undefined,
-      fundingAddresses: [undefined],
-      fundingStatus: defaultFundingStatus,
+      funding: {
+        bitcoin: {
+          fundingAddress: undefined,
+          fundingAddresses: [],
+          fundingStatus: activeFunding,
+        },
+        liquid: {
+          fundingAddress: undefined,
+          fundingAddresses: [],
+          fundingStatus: getDefaultFundingStatus(sellOffer.id),
+        }
+      },
+      activeFunding,
       fundingAmount: 0,
-      cancelOffer: expect.any(Function),
-    });
-  });
-  it("should handle the case that no offer could be returned but offer exists locally", () => {
-    saveOffer(sellOfferWithEscrow);
-    getOfferDetailsMock.mockResolvedValueOnce({
-      error: { error: "UNAUTHORIZED" },
-      ...responseUtils,
-    });
-    const { result } = renderHook(useFundEscrowSetup);
-    expect(result.current).toEqual({
-      offerId: sellOffer.id,
-      fundingAddress: "escrow",
-      fundingAddresses: ["escrow"],
-      fundingStatus: defaultFundingStatus,
-      fundingAmount: sellOffer.amount,
       cancelOffer: expect.any(Function),
     });
   });
@@ -149,12 +166,12 @@ describe("useFundEscrowSetup", () => {
   });
   it("should periodically sync peach wallet if funding multiple escrow", async () => {
     peachWallet.initialized = true;
-    saveOffer(sellOfferWithEscrow);
+    saveOffer(sellOffer);
 
     const internalAddress = "internalAddress";
     useWalletState
       .getState()
-      .registerFundMultiple(internalAddress, [sellOfferWithEscrow.id]);
+      .registerFundMultiple(internalAddress, [sellOffer.id]);
     renderHook(useFundEscrowSetup);
 
     await act(async () => {

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { MSINASECOND } from "../../constants";
 import { error } from "../../utils/log/error";
-import { defaultFundingStatus } from "../../utils/offer/constants";
+import { getDefaultFundingStatus } from "../../utils/offer/constants";
 import { peachAPI } from "../../utils/peachAPI";
 
 const TWENTY = 20;
@@ -35,11 +35,13 @@ export const useFundingStatus = (id: string, enabled = true) => {
     refetchInterval: TWENTYSECONDS,
   });
 
-  const fundingStatus = data?.funding || defaultFundingStatus;
+  const fundingStatus = data?.funding || getDefaultFundingStatus(id);
+  const fundingStatusLiquid = data?.fundingLiquid || getDefaultFundingStatus(id);
   const userConfirmationRequired = data?.userConfirmationRequired || false;
 
   return {
     fundingStatus,
+    fundingStatusLiquid,
     userConfirmationRequired,
     isLoading,
     error: fundingStatusError,
