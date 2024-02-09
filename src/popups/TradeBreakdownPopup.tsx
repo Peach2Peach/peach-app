@@ -12,13 +12,14 @@ import { showAddress } from "../utils/blockchain/showAddress";
 import { showTransaction } from "../utils/blockchain/showTransaction";
 import i18n from "../utils/i18n";
 import { isLiquidAddress } from "../utils/validation/rules";
+import { getLiquidNetwork } from "../utils/wallet/getLiquidNetwork";
 
 export function TradeBreakdownPopup({ contract }: { contract: Contract }) {
-  const network = isLiquidAddress(contract.releaseAddress) ? 'liquid' : 'bitcoin';
+  const network = isLiquidAddress(contract.releaseAddress, getLiquidNetwork()) ? 'liquid' : 'bitcoin';
   const viewInExplorer = () =>
     contract.releaseTxId
       ? showTransaction(contract.releaseTxId, network)
-      : showAddress(contract.escrow, network);
+      : showAddress(contract.escrow);
   return (
     <PopupComponent
       title={i18n("tradeComplete.popup.tradeBreakdown.title")}

@@ -4,6 +4,7 @@ import { showAddress } from "../utils/blockchain/showAddress";
 import { showTransaction } from "../utils/blockchain/showTransaction";
 import i18n from "../utils/i18n";
 import { isLiquidAddress } from "../utils/validation/rules";
+import { getLiquidNetwork } from "../utils/wallet/getLiquidNetwork";
 import { Button } from "./buttons/Button";
 
 type Props = {
@@ -13,11 +14,11 @@ type Props = {
 };
 
 export function EscrowButton({ releaseTxId, escrow, style }: Props) {
-  const network = isLiquidAddress(escrow) ? 'liquid' : 'bitcoin'
+  const network = isLiquidAddress(escrow, getLiquidNetwork()) ? 'liquid' : 'bitcoin'
   const openEscrow = () =>
     releaseTxId
       ? showTransaction(releaseTxId, network)
-      : showAddress(escrow, network);
+      : showAddress(escrow);
 
   return (
     <Button

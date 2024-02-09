@@ -16,6 +16,7 @@ import { saveOffer } from "../utils/offer/saveOffer";
 import { peachAPI } from "../utils/peachAPI";
 import { isLiquidAddress } from "../utils/validation/rules";
 import { getEscrowWalletForOffer } from "../utils/wallet/getEscrowWalletForOffer";
+import { getLiquidNetwork } from "../utils/wallet/getLiquidNetwork";
 import { BackupTime } from "../views/overlays/BackupTime";
 import { useTradeSummaries } from "./query/useTradeSummaries";
 import { useNavigation } from "./useNavigation";
@@ -51,7 +52,7 @@ export const useRefundEscrow = () => {
       ).extractTransaction();
       const [tx, txId] = [signedTx.toHex(), signedTx.getId()];
 
-      setPopup(<RefundEscrowPopup txId={txId} network={isLiquidAddress(sellOffer.escrow) ? 'liquid' : 'bitcoin'} />);
+      setPopup(<RefundEscrowPopup txId={txId} network={isLiquidAddress(sellOffer.escrow, getLiquidNetwork()) ? 'liquid' : 'bitcoin'} />);
 
       const { error: postTXError } =
         await peachAPI.private.offer.refundSellOffer({

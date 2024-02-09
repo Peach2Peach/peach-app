@@ -16,6 +16,7 @@ import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
 import { generateBlock } from "../../../utils/regtest/generateBlock";
 import { isLiquidAddress } from "../../../utils/validation/rules";
+import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 
 type Props = {
@@ -29,7 +30,7 @@ const ASPECT_RATIO = 0.7;
 
 export const TransactionInMempool = ({ offerId, address, txId }: Props) => {
   const [width, setWidth] = useState(DEFAULT_WIDTH);
-  const openInExplorer = () => showTransaction(txId, isLiquidAddress(address) ? 'liquid' : 'bitcoin');
+  const openInExplorer = () => showTransaction(txId, isLiquidAddress(address, getLiquidNetwork()) ? 'liquid' : 'bitcoin');
   const onLayout = (e: LayoutChangeEvent) =>
     setWidth(e.nativeEvent.layout.width);
 
