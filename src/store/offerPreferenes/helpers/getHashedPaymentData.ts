@@ -1,6 +1,8 @@
-import { hashPaymentData } from '../../../utils/paymentMethod/hashPaymentData'
+import { hashPaymentData } from "../../../utils/paymentMethod/hashPaymentData";
 
-export const getHashedPaymentData = (paymentData: PaymentData[]): OfferPaymentData =>
+export const getHashedPaymentData = (
+  paymentData: PaymentData[],
+): OfferPaymentData =>
   paymentData.reduce(
     (obj, data) => ({
       ...obj,
@@ -10,4 +12,4 @@ export const getHashedPaymentData = (paymentData: PaymentData[]): OfferPaymentDa
       },
     }),
     {},
-  )
+  );

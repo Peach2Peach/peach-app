@@ -5,12 +5,7 @@
       "hal.finney@peachbitcoin.com",
       "hal.finney+postbox@peachbitcoin.com"
     ],
-    "invalid": [
-      "rogerver",
-      "rogerver@bitcoin",
-      "rogerver@bitcoin.",
-      ""
-    ]
+    "invalid": ["rogerver", "rogerver@bitcoin", "rogerver@bitcoin.", ""]
   },
   "phone": {
     "valid": [
@@ -37,18 +32,14 @@
   },
   "bitcoin": {
     "base58Check": {
-      "valid": [
-        "12dRugNcdxK39288NjcDV4GX7rMsKCGn6B"
-      ],
+      "valid": ["12dRugNcdxK39288NjcDV4GX7rMsKCGn6B"],
       "invalid": [
         "2MsHgTuivhWjeCkFctzWsCPGnq5xVb43nJy",
         "12dRugNcdxK39288NjcDV4GX7rMsKCGn6C"
       ]
     },
     "bech32": {
-      "valid": [
-        "bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7z"
-      ],
+      "valid": ["bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7z"],
       "invalid": [
         "bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7e",
         "tb1qe9nvcaa2wpjvltxlry0tpkyvpt38f4ahw83glac3cqz0n4walqyst5sgk7"
@@ -57,9 +48,7 @@
   },
   "bitcoinTestnet": {
     "base58Check": {
-      "valid": [
-        "2MsHgTuivhWjeCkFctzWsCPGnq5xVb43nJy"
-      ],
+      "valid": ["2MsHgTuivhWjeCkFctzWsCPGnq5xVb43nJy"],
       "invalid": [
         "2MsHgTuivhWjeCkFctzWsCPGnq5xVb43n",
         "12dRugNcdxK39288NjcDV4GX7rMsKCGn6B"
@@ -132,30 +121,15 @@
     ]
   },
   "bic": {
-    "valid": [
-      "AAAA BB CC 123",
-      "AAAABBCC123"
-    ],
-    "invalid": [
-      "TODO"
-    ]
+    "valid": ["AAAA BB CC 123", "AAAABBCC123"],
+    "invalid": ["TODO"]
   },
   "ukSortCode": {
-    "valid": [
-      "60-16-13"
-    ],
-    "invalid": [
-      "TODO"
-    ]
+    "valid": ["60-16-13"],
+    "invalid": ["TODO"]
   },
   "ukBankAccount": {
-    "valid": [
-      "31926819"
-    ],
-    "invalid": [
-      "ABCDEFGH",
-      "319268",
-      "319268234"
-    ]
+    "valid": ["31926819"],
+    "invalid": ["ABCDEFGH", "319268", "319268234"]
   }
 }

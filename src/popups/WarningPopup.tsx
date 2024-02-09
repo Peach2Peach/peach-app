@@ -1,6 +1,17 @@
-import { PopupComponent, PopupComponentProps } from '../components/popup/PopupComponent'
-import tw from '../styles/tailwind'
+import {
+  PopupComponent,
+  PopupComponentProps,
+} from "../components/popup/PopupComponent";
+import tw from "../styles/tailwind";
 
-export function WarningPopup (props: Omit<PopupComponentProps, 'bgColor' | 'actionBgColor'>) {
-  return <PopupComponent {...props} bgColor={tw`bg-warning-mild-1`} actionBgColor={tw`bg-warning-main`} />
+export function WarningPopup(
+  props: Omit<PopupComponentProps, "bgColor" | "actionBgColor">,
+) {
+  return (
+    <PopupComponent
+      {...props}
+      bgColor={tw`bg-warning-mild-1`}
+      actionBgColor={tw`bg-warning-main`}
+    />
+  );
 }

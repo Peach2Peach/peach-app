@@ -1,88 +1,97 @@
-import { responseUtils } from 'test-utils'
-import { useConfigStore } from '../store/configStore/configStore'
-import { usePaymentDataStore } from '../store/usePaymentDataStore'
-import { peachAPI } from '../utils/peachAPI'
-import { getPeachInfo } from './getPeachInfo'
-import { storePeachInfo } from './storePeachInfo'
+import { responseUtils } from "test-utils";
+import { useConfigStore } from "../store/configStore/configStore";
+import { usePaymentDataStore } from "../store/usePaymentDataStore";
+import { peachAPI } from "../utils/peachAPI";
+import { getPeachInfo } from "./getPeachInfo";
+import { storePeachInfo } from "./storePeachInfo";
 
-const setPaymentMethodsMock = jest.fn()
-jest.mock('../paymentMethods', () => ({
-  ...jest.requireActual('../paymentMethods'),
-  setPaymentMethods: (...args: unknown[]) => setPaymentMethodsMock(...args),
-}))
-const getInfoMock = jest.spyOn(peachAPI.public.system, 'getInfo')
-const calculateClientServerTimeDifferenceMock = jest.fn()
-jest.mock('./calculateClientServerTimeDifference', () => ({
-  calculateClientServerTimeDifference: () => calculateClientServerTimeDifferenceMock(),
-}))
+jest.mock("../paymentMethods", () => ({
+  ...jest.requireActual("../paymentMethods"),
+  setPaymentMethods: jest.fn(),
+}));
+const setPaymentMethodsMock =
+  jest.requireMock("../paymentMethods").setPaymentMethods;
+const getInfoMock = jest.spyOn(peachAPI.public.system, "getInfo");
+const getStatusMock = jest.spyOn(peachAPI.public.system, "getStatus");
 
-jest.useFakeTimers()
-jest.mock('./storePeachInfo')
+jest.useFakeTimers();
+jest
+  .spyOn(global.Date, "now")
+  .mockReturnValue(new Date("2021-01-01").getTime());
+jest.mock("./storePeachInfo");
 
-describe('getPeachInfo', () => {
+describe("getPeachInfo", () => {
   const paymentMethods: PaymentMethodInfo[] = [
     {
-      id: 'sepa',
-      currencies: ['EUR'],
+      id: "sepa",
+      currencies: ["EUR"],
       anonymous: false,
     },
-  ]
+  ];
   beforeEach(() => {
-    const useConfigStoreHydrated = jest.spyOn(useConfigStore.persist, 'hasHydrated')
-    const usePaymentDataStoreHydrated = jest.spyOn(usePaymentDataStore.persist, 'hasHydrated')
+    const useConfigStoreHydrated = jest.spyOn(
+      useConfigStore.persist,
+      "hasHydrated",
+    );
+    const usePaymentDataStoreHydrated = jest.spyOn(
+      usePaymentDataStore.persist,
+      "hasHydrated",
+    );
 
-    useConfigStoreHydrated.mockReturnValue(true)
-    usePaymentDataStoreHydrated.mockReturnValue(true)
+    useConfigStoreHydrated.mockReturnValue(true);
+    usePaymentDataStoreHydrated.mockReturnValue(true);
 
-    useConfigStore.setState({ paymentMethods })
-  })
-  it('returns error response when server is not available', async () => {
-    calculateClientServerTimeDifferenceMock.mockResolvedValueOnce(undefined)
+    useConfigStore.setState({ paymentMethods });
+  });
+  it("returns error response when server is not available", async () => {
+    getStatusMock.mockResolvedValueOnce({
+      error: { error: "INTERNAL_SERVER_ERROR" },
+      ...responseUtils,
+    });
 
-    const response = await getPeachInfo()
+    const response = await getPeachInfo();
 
-    expect(response).toEqual(undefined)
-    expect(setPaymentMethodsMock).toHaveBeenCalledWith(paymentMethods)
-    expect(storePeachInfo).not.toHaveBeenCalled()
-  })
+    expect(response).toEqual({ error: "INTERNAL_SERVER_ERROR" });
+    expect(setPaymentMethodsMock).toHaveBeenCalledWith(paymentMethods);
+    expect(storePeachInfo).not.toHaveBeenCalled();
+  });
 
-  it('stores peach info when getInfo returns a successful response', async () => {
+  it("stores peach info when getInfo returns a successful response", async () => {
     const serverStatus = {
       error: null,
-      status: 'online',
+      status: "online" as const,
       serverTime: Date.now(),
-    }
-    calculateClientServerTimeDifferenceMock.mockResolvedValueOnce([serverStatus, null])
-    const response = await getPeachInfo()
+    };
+    getStatusMock.mockResolvedValueOnce({
+      result: serverStatus,
+      ...responseUtils,
+    });
+    const response = await getPeachInfo();
 
-    expect(response).toEqual([serverStatus, null])
-    expect(getInfoMock).toHaveBeenCalledTimes(1)
-    expect(storePeachInfo).toHaveBeenCalledWith({ info: 'info' })
-  })
+    expect(response).toEqual(serverStatus);
+    expect(getInfoMock).toHaveBeenCalledTimes(1);
+    expect(storePeachInfo).toHaveBeenCalledWith({ info: "info" });
+  });
 
-  it('returns status response when getInfo returns an error', async () => {
-    getInfoMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
-
-    const response = await getPeachInfo()
-
-    expect(response).toEqual(undefined)
-    expect(setPaymentMethodsMock).toHaveBeenCalledWith(paymentMethods)
-    expect(storePeachInfo).not.toHaveBeenCalled()
-  })
-
-  it('updates payment method from store if getInfo does not return a successful response', async () => {
+  it("updates payment method from store if getInfo does not return a successful response", async () => {
     const serverStatus = {
       error: null,
-      status: 'online',
+      status: "online" as const,
       serverTime: Date.now(),
-    }
-    calculateClientServerTimeDifferenceMock.mockResolvedValueOnce([serverStatus, null])
-    getInfoMock.mockResolvedValueOnce({ error: { error: 'UNAUTHORIZED' }, ...responseUtils })
+    };
+    getStatusMock.mockResolvedValueOnce({
+      result: serverStatus,
+      ...responseUtils,
+    });
+    getInfoMock.mockResolvedValueOnce({
+      error: { error: "UNAUTHORIZED" },
+      ...responseUtils,
+    });
 
-    const response = await getPeachInfo()
+    const response = await getPeachInfo();
 
-    expect(response).toEqual([serverStatus, null])
-    expect(setPaymentMethodsMock).toHaveBeenCalledWith(paymentMethods)
-    expect(storePeachInfo).not.toHaveBeenCalled()
-  })
-})
+    expect(response).toEqual(serverStatus);
+    expect(setPaymentMethodsMock).toHaveBeenCalledWith(paymentMethods);
+    expect(storePeachInfo).not.toHaveBeenCalled();
+  });
+});

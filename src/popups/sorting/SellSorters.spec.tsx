@@ -1,57 +1,79 @@
-import { fireEvent, render, waitFor } from 'test-utils'
-import { sellOffer } from '../../../tests/unit/data/offerData'
-import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { useOfferPreferences } from '../../store/offerPreferenes'
-import { SellSorters } from './SellSorters'
+import { fireEvent, render, waitFor } from "test-utils";
+import { sellOffer } from "../../../tests/unit/data/offerData";
+import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
+import { useOfferPreferences } from "../../store/offerPreferenes";
+import { matchesKeys } from "../../views/search/hooks/useOfferMatches";
+import { SellSorters } from "./SellSorters";
 
-jest.useFakeTimers()
+jest.useFakeTimers();
 
-const closePopup = jest.fn()
-jest.mock('../../components/popup/Popup', () => ({
-  useClosePopup: () => closePopup,
-}))
+const closePopup = jest.fn();
+jest.mock("../../components/popup/Popup");
+jest
+  .requireMock("../../components/popup/Popup")
+  .useClosePopup.mockReturnValue(closePopup);
 
-describe('SellSorters', () => {
-  it('should render correctly', () => {
-    const { toJSON } = render(<SellSorters />)
-    expect(toJSON()).toMatchSnapshot()
-  })
-})
+describe("SellSorters", () => {
+  it("should render correctly", () => {
+    const { toJSON } = render(<SellSorters />);
+    expect(toJSON()).toMatchSnapshot();
+  });
+});
 
-describe('ApplySellSorterAction', () => {
-  it('should apply the selected sorter', () => {
-    const { getByText } = render(<SellSorters />)
-    const applyButton = getByText('apply')
-    const highestPriceButton = getByText('highest price first')
+describe("ApplySellSorterAction", () => {
+  it("should apply the selected sorter", () => {
+    const { getByText } = render(<SellSorters />);
+    const applyButton = getByText("apply");
+    const highestPriceButton = getByText("highest price first");
 
-    fireEvent.press(highestPriceButton)
-    fireEvent.press(applyButton)
+    fireEvent.press(highestPriceButton);
+    fireEvent.press(applyButton);
 
-    expect(useOfferPreferences.getState().sortBy.sellOffer).toEqual(['highestPrice'])
-  })
+    expect(useOfferPreferences.getState().sortBy.sellOffer).toEqual([
+      "highestPrice",
+    ]);
+  });
 
-  it('should invalidate all matches queries', async () => {
-    queryClient.setQueryData(['matches'], { matches: [] })
-    queryClient.setQueryData(['matches', sellOffer.id], { matches: [] })
-    queryClient.setQueryData(['matches', sellOffer.id, 'bestReputation'], { matches: [] })
+  it("should invalidate all matches queries", async () => {
+    queryClient.setQueryData(matchesKeys.matches, { matches: [] });
+    queryClient.setQueryData(matchesKeys.matchesForOffer(sellOffer.id), {
+      matches: [],
+    });
+    queryClient.setQueryData(
+      matchesKeys.sortedMatchesForOffer(sellOffer.id, ["bestReputation"]),
+      {
+        matches: [],
+      },
+    );
 
-    const { getByText } = render(<SellSorters />)
-    const applyButton = getByText('apply')
+    const { getByText } = render(<SellSorters />);
+    const applyButton = getByText("apply");
 
-    fireEvent.press(applyButton)
+    fireEvent.press(applyButton);
 
     await waitFor(() => {
-      expect(queryClient.getQueryState(['matches'])?.isInvalidated).toBe(true)
-      expect(queryClient.getQueryState(['matches', sellOffer.id])?.isInvalidated).toBe(true)
-      expect(queryClient.getQueryState(['matches', sellOffer.id, 'bestReputation'])?.isInvalidated).toBe(true)
-    })
-  })
+      expect(
+        queryClient.getQueryState(matchesKeys.matches)?.isInvalidated,
+      ).toBe(true);
+      expect(
+        queryClient.getQueryState(matchesKeys.matchesForOffer(sellOffer.id))
+          ?.isInvalidated,
+      ).toBe(true);
+      expect(
+        queryClient.getQueryState(
+          matchesKeys.sortedMatchesForOffer(sellOffer.id, ["bestReputation"]),
+        )?.isInvalidated,
+      ).toBe(true);
+    });
+  });
 
-  it('should close the popup', () => {
-    const { getByText } = render(<SellSorters />)
-    const applyButton = getByText('apply')
+  it("should close the popup", async () => {
+    const { getByText } = render(<SellSorters />);
+    const applyButton = getByText("apply");
 
-    fireEvent.press(applyButton)
-    expect(closePopup).toHaveBeenCalled()
-  })
-})
+    fireEvent.press(applyButton);
+    await waitFor(() => {
+      expect(closePopup).toHaveBeenCalled();
+    });
+  });
+});

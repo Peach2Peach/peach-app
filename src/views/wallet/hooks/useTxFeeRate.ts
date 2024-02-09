@@ -1,19 +1,22 @@
-import { useQuery } from '@tanstack/react-query'
-import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { getTransactionFeeRate } from '../../../utils/bitcoin/getTransactionFeeRate'
+import { useQuery } from "@tanstack/react-query";
+import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import { getTransactionFeeRate } from "../../../utils/bitcoin/getTransactionFeeRate";
+import { walletKeys } from "./useUTXOs";
 
 type Props = {
-  transaction?: TransactionDetails
-}
+  transaction?: TransactionDetails;
+};
 
 export const useTxFeeRate = ({ transaction }: Props) =>
   useQuery({
-    queryKey: ['transaction', 'feeRate', transaction?.transaction?.id],
+    queryKey: walletKeys.transactionFeeRate(
+      transaction?.transaction?.id ?? null,
+    ),
     queryFn: async () => {
-      if (!transaction) throw new Error('Transaction not found')
-      const feeRate = await getTransactionFeeRate(transaction)
-      return feeRate
+      if (!transaction) throw new Error("Transaction not found");
+      const feeRate = await getTransactionFeeRate(transaction);
+      return feeRate;
     },
     enabled: !!transaction,
     initialData: 1,
-  })
+  });

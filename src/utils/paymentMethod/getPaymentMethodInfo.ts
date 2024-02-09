@@ -1,3 +1,4 @@
-import { PAYMENTMETHODINFOS } from '../../paymentMethods'
+import { PAYMENTMETHODINFOS } from "../../paymentMethods";
 
-export const getPaymentMethodInfo = (id: string) => PAYMENTMETHODINFOS.find((p) => p.id === id)
+export const getPaymentMethodInfo = (id: string) =>
+  PAYMENTMETHODINFOS.find((p) => p.id === id);

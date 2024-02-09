@@ -1,18 +1,23 @@
-import { Animated } from 'react-native'
-import { useIsMediumScreen } from '../../../../hooks/useIsMediumScreen'
-import tw from '../../../../styles/tailwind'
-import { FixedHeightText } from '../../../text/FixedHeightText'
+import { Animated } from "react-native";
+import { useIsMediumScreen } from "../../../../hooks/useIsMediumScreen";
+import tw from "../../../../styles/tailwind";
+import { FixedHeightText } from "../../../text/FixedHeightText";
 
 type Props = ComponentProps & {
-  width: number
-  opacity: Animated.Value | Animated.AnimatedInterpolation<string | number>
-}
+  width: number;
+  opacity: Animated.Value | Animated.AnimatedInterpolation<string | number>;
+};
 
-const MEDIUM_SCREEN_HEIGHT = 9
-const SMALL_SCREEN_HEIGHT = 8
+const MEDIUM_SCREEN_HEIGHT = 9;
+const SMALL_SCREEN_HEIGHT = 8;
 
-export const ConfirmSliderLabel = ({ children, width, opacity, style }: Props) => {
-  const isMediumScreen = useIsMediumScreen()
+export const ConfirmSliderLabel = ({
+  children,
+  width,
+  opacity,
+  style,
+}: Props) => {
+  const isMediumScreen = useIsMediumScreen();
   return (
     <Animated.View style={[style, tw`pt-1px`, { width, opacity }]}>
       <FixedHeightText
@@ -23,5 +28,5 @@ export const ConfirmSliderLabel = ({ children, width, opacity, style }: Props) =
         {children}
       </FixedHeightText>
     </Animated.View>
-  )
-}
+  );
+};

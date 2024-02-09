@@ -1,4 +1,4 @@
-import CryptoJS from 'react-native-crypto-js'
+import CryptoJS from "react-native-crypto-js";
 
 /**
  * @description Method to encrypt a string
@@ -7,4 +7,4 @@ import CryptoJS from 'react-native-crypto-js'
  * @returns encrypted string
  */
 export const encrypt = (str: string, password: string) =>
-  CryptoJS.AES.encrypt(str, password).toString()
+  CryptoJS.AES.encrypt(str, password).toString();

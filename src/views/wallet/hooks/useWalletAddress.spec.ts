@@ -1,57 +1,64 @@
-import { renderHook, waitFor } from 'test-utils'
-import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
-import { PeachWallet } from '../../../utils/wallet/PeachWallet'
-import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
-import { useWalletAddress } from './useWalletAddress'
+import { renderHook, waitFor } from "test-utils";
+import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
+import { PeachWallet } from "../../../utils/wallet/PeachWallet";
+import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
+import { useWalletAddress } from "./useWalletAddress";
 
 const addresses = [
   {
     index: 0,
-    address: 'firstAddress',
+    address: "firstAddress",
     used: true,
   },
   {
     index: 1,
-    address: 'secondAddress',
+    address: "secondAddress",
     used: false,
   },
   {
     index: 2,
-    address: 'thirdAddress',
+    address: "thirdAddress",
     used: false,
   },
-]
-jest.useFakeTimers()
+];
+jest.useFakeTimers();
 
-describe('useWalletAddress', () => {
+describe("useWalletAddress", () => {
   beforeAll(() => {
-    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }))
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
 
-    peachWallet.getAddressByIndex = jest.fn().mockImplementation((index: number) => Promise.resolve(addresses[index]))
-    peachWallet.initialized = true
-  })
+    peachWallet.getAddressByIndex = jest
+      .fn()
+      .mockImplementation((index: number) => Promise.resolve(addresses[index]));
+    peachWallet.initialized = true;
+  });
 
-  it('should return the address at the given index', async () => {
-    peachWallet.getAddressByIndex = jest.fn().mockImplementation((index: number) => Promise.resolve(addresses[index]))
-    const initialProps = 0
-    const { result, rerender } = renderHook<ReturnType<typeof useWalletAddress>, number>(useWalletAddress, {
+  it("should return the address at the given index", async () => {
+    peachWallet.getAddressByIndex = jest
+      .fn()
+      .mockImplementation((index: number) => Promise.resolve(addresses[index]));
+    const initialProps = 0;
+    const { result, rerender } = renderHook<
+      ReturnType<typeof useWalletAddress>,
+      number
+    >(useWalletAddress, {
       initialProps,
-    })
+    });
 
     await waitFor(() => {
-      expect(result.current.data).toBe(addresses[0])
-    })
+      expect(result.current.data).toBe(addresses[0]);
+    });
 
-    rerender(1)
-
-    await waitFor(() => {
-      expect(result.current.data).toBe(addresses[1])
-    })
-
-    rerender(2)
+    rerender(1);
 
     await waitFor(() => {
-      expect(result.current.data).toBe(addresses[2])
-    })
-  })
-})
+      expect(result.current.data).toBe(addresses[1]);
+    });
+
+    rerender(2);
+
+    await waitFor(() => {
+      expect(result.current.data).toBe(addresses[2]);
+    });
+  });
+});

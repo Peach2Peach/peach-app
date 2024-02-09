@@ -1,32 +1,39 @@
-import { useNavigation } from '../../../hooks/useNavigation'
-import { ErrorPopup } from '../../../popups/ErrorPopup'
-import { removePaymentData } from '../../../utils/account/removePaymentData'
-import i18n from '../../../utils/i18n'
-import { useClosePopup } from '../../popup/Popup'
-import { PopupAction } from '../../popup/PopupAction'
+import { useNavigation } from "../../../hooks/useNavigation";
+import { ErrorPopup } from "../../../popups/ErrorPopup";
+import i18n from "../../../utils/i18n";
+import { useClosePopup } from "../../popup/Popup";
+import { PopupAction } from "../../popup/PopupAction";
+import { useRemovePaymentData } from "../hooks/useRemovePaymentData";
 
-export function DeletePaymentMethodPopup ({ id }: { id: string }) {
-  const navigation = useNavigation()
-  const closePopup = useClosePopup()
+export function DeletePaymentMethodPopup({ id }: { id: string }) {
+  const navigation = useNavigation();
+  const closePopup = useClosePopup();
+  const { mutate: removePaymentData } = useRemovePaymentData();
 
   return (
     <ErrorPopup
-      title={i18n('help.paymentMethodDelete.title')}
-      content={i18n('help.paymentMethodDelete.description')}
+      title={i18n("help.paymentMethodDelete.title")}
+      content={i18n("help.paymentMethodDelete.description")}
       actions={
         <>
           <PopupAction
-            label={i18n('delete')}
+            label={i18n("delete")}
             iconId="trash"
             onPress={() => {
-              removePaymentData(id)
-              navigation.goBack()
-              closePopup()
+              removePaymentData(id, {
+                onSuccess: () => navigation.goBack(),
+                onSettled: closePopup,
+              });
             }}
           />
-          <PopupAction label={i18n('neverMind')} iconId="xSquare" onPress={closePopup} reverseOrder />
+          <PopupAction
+            label={i18n("neverMind")}
+            iconId="xSquare"
+            onPress={closePopup}
+            reverseOrder
+          />
         </>
       }
     />
-  )
+  );
 }

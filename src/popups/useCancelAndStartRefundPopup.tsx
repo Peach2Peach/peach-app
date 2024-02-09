@@ -1,36 +1,37 @@
-import { useCallback } from 'react'
-import { useClosePopup, useSetPopup } from '../components/popup/Popup'
-import { FIFTEEN_SECONDS } from '../constants'
-import { LoadingPopup } from '../hooks/LoadingPopup'
-import { useRefundEscrow } from '../hooks/useRefundEscrow'
-import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
-import { getAbortWithTimeout } from '../utils/getAbortWithTimeout'
-import i18n from '../utils/i18n'
-import { peachAPI } from '../utils/peachAPI'
+import { useCallback } from "react";
+import { useClosePopup, useSetPopup } from "../components/popup/Popup";
+import { useRefundSellOffer } from "../hooks/useRefundSellOffer";
+import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
+import i18n from "../utils/i18n";
+import { LoadingPopup } from "./LoadingPopup";
+import { useCancelOffer } from "./useCancelOffer";
 
 export const useCancelAndStartRefundPopup = () => {
-  const refundEscrow = useRefundEscrow()
-  const closePopup = useClosePopup()
-  const setPopup = useSetPopup()
-  const showError = useShowErrorBanner()
+  const { mutate: refundSellOffer } = useRefundSellOffer();
+  const closePopup = useClosePopup();
+  const setPopup = useSetPopup();
+  const showError = useShowErrorBanner();
+  const { mutate: cancelOffer } = useCancelOffer();
 
   const cancelAndStartRefundPopup = useCallback(
-    async (sellOffer: SellOffer) => {
-      setPopup(<LoadingPopup title={i18n('refund.loading.title')} />)
+    (sellOffer: SellOffer) => {
+      setPopup(<LoadingPopup title={i18n("refund.loading.title")} />);
 
-      const { result: refundPsbtResult, error: refundPsbtError } = await peachAPI.private.offer.cancelOffer({
-        offerId: sellOffer.id,
-        signal: getAbortWithTimeout(FIFTEEN_SECONDS).signal,
-      })
-      if (refundPsbtResult && 'psbt' in refundPsbtResult) {
-        await refundEscrow(sellOffer, refundPsbtResult.psbt)
-      } else {
-        showError(refundPsbtError?.error)
-        closePopup()
-      }
+      cancelOffer(sellOffer.id, {
+        onError: (error) => {
+          showError(error.message);
+          closePopup();
+        },
+        onSuccess: (result) => {
+          if ("psbt" in result) {
+            return refundSellOffer({ sellOffer, rawPSBT: result.psbt });
+          }
+          return null;
+        },
+      });
     },
-    [closePopup, refundEscrow, setPopup, showError],
-  )
+    [cancelOffer, closePopup, refundSellOffer, setPopup, showError],
+  );
 
-  return cancelAndStartRefundPopup
-}
+  return cancelAndStartRefundPopup;
+};

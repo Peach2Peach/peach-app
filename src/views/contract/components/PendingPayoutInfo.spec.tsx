@@ -1,6 +1,6 @@
-import { render } from 'test-utils'
-import { contract } from '../../../../peach-api/src/testData/contract'
-import { PendingPayoutInfo } from './PendingPayoutInfo'
+import { render } from "test-utils";
+import { contract } from "../../../../peach-api/src/testData/contract";
+import { PendingPayoutInfo } from "./PendingPayoutInfo";
 
 const useContractContextMock = jest.fn().mockReturnValue({
   contract: {
@@ -12,19 +12,20 @@ const useContractContextMock = jest.fn().mockReturnValue({
       timeRemaining: 4320,
     },
   },
-})
-jest.mock('../context', () => ({
-  useContractContext: () => useContractContextMock(),
-}))
-jest.useFakeTimers()
+});
+jest.mock("../context");
+jest
+  .requireMock("../context")
+  .useContractContext.mockImplementation(useContractContextMock);
+jest.useFakeTimers();
 
-describe('PendingPayoutInfo', () => {
-  it('should render correctly', () => {
-    const { toJSON } = render(<PendingPayoutInfo />)
+describe("PendingPayoutInfo", () => {
+  it("should render correctly", () => {
+    const { toJSON } = render(<PendingPayoutInfo />);
 
-    expect(toJSON()).toMatchSnapshot()
-  })
-  it('should render correctly when eta is not known yet', () => {
+    expect(toJSON()).toMatchSnapshot();
+  });
+  it("should render correctly when eta is not known yet", () => {
     useContractContextMock.mockReturnValue({
       contract: {
         ...contract,
@@ -35,8 +36,8 @@ describe('PendingPayoutInfo', () => {
           timeRemaining: -2,
         },
       },
-    })
-    const { toJSON } = render(<PendingPayoutInfo />)
-    expect(toJSON()).toMatchSnapshot()
-  })
-})
+    });
+    const { toJSON } = render(<PendingPayoutInfo />);
+    expect(toJSON()).toMatchSnapshot();
+  });
+});

@@ -1,10 +1,12 @@
-export const getRequiredAction = (contract: Contract | null): ContractAction => {
-  if (!contract || contract.canceled) return 'none'
+export const getRequiredAction = (
+  contract: Contract | null,
+): ContractAction => {
+  if (!contract || contract.canceled) return "none";
 
   if (!contract.paymentMade) {
-    return 'sendPayment'
+    return "sendPayment";
   } else if (contract.paymentMade && !contract.paymentConfirmed) {
-    return 'confirmPayment'
+    return "confirmPayment";
   }
-  return 'none'
-}
+  return "none";
+};

@@ -1,5 +1,5 @@
-type RewardType = 'customReferralCode' | 'noPeachFees' | 'sats'
+type RewardType = "customReferralCode" | "noPeachFees" | "sats";
 type Reward = {
-  id: RewardType
-  requiredPoints: number
-}
+  id: RewardType;
+  requiredPoints: number;
+};

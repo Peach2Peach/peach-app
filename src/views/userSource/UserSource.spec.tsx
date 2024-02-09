@@ -1,17 +1,24 @@
-import { fireEvent, render } from 'test-utils'
-import { peachAPI } from '../../utils/peachAPI'
-import { UserSource } from './UserSource'
+import { fireEvent, render, waitFor } from "test-utils";
+import { peachAPI } from "../../utils/peachAPI";
+import { UserSource } from "./UserSource";
 
-describe('UserSource', () => {
-  it('renders correctly', () => {
-    expect(render(<UserSource />)).toMatchSnapshot()
-  })
-  it('sumbits the user source on button click', () => {
-    const submitSourceSpy = jest.spyOn(peachAPI.private.user, 'submitUserSource')
-    const { getByText } = render(<UserSource />)
-    const button = getByText('Twitter')
-    fireEvent.press(button)
+jest.useFakeTimers();
 
-    expect(submitSourceSpy).toHaveBeenCalledWith({ source: 'twitter' })
-  })
-})
+describe("UserSource", () => {
+  it("renders correctly", () => {
+    expect(render(<UserSource />)).toMatchSnapshot();
+  });
+  it("submits the user source on button click", async () => {
+    const submitSourceSpy = jest.spyOn(
+      peachAPI.private.user,
+      "submitUserSource",
+    );
+    const { getByText } = render(<UserSource />);
+    const button = getByText("Twitter");
+    fireEvent.press(button);
+
+    await waitFor(() => {
+      expect(submitSourceSpy).toHaveBeenCalledWith({ source: "twitter" });
+    });
+  });
+});

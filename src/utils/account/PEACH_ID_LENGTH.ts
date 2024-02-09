@@ -1,1 +1,1 @@
-export const PEACH_ID_LENGTH = 8
+export const PEACH_ID_LENGTH = 8;

@@ -1,31 +1,31 @@
-import { PartiallySignedTransaction } from 'bdk-rn'
-import { Transaction } from 'bitcoinjs-lib'
-import { useCallback } from 'react'
-import { View } from 'react-native'
-import { Icon } from '../../../components/Icon'
-import { BTCAmount } from '../../../components/bitcoin/BTCAmount'
-import { useClosePopup } from '../../../components/popup/Popup'
-import { PopupAction } from '../../../components/popup/PopupAction'
-import { PopupComponent } from '../../../components/popup/PopupComponent'
-import { LoadingPopupAction } from '../../../components/popup/actions/LoadingPopupAction'
-import { PeachText } from '../../../components/text/PeachText'
-import { CENT } from '../../../constants'
-import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
-import { round } from '../../../utils/math/round'
-import { peachWallet } from '../../../utils/wallet/setWallet'
+import { PartiallySignedTransaction } from "bdk-rn";
+import { Transaction } from "bitcoinjs-lib";
+import { useCallback } from "react";
+import { View } from "react-native";
+import { Icon } from "../../../components/Icon";
+import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
+import { useClosePopup } from "../../../components/popup/Popup";
+import { PopupAction } from "../../../components/popup/PopupAction";
+import { PopupComponent } from "../../../components/popup/PopupComponent";
+import { LoadingPopupAction } from "../../../components/popup/actions/LoadingPopupAction";
+import { PeachText } from "../../../components/text/PeachText";
+import { CENT } from "../../../constants";
+import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
+import tw from "../../../styles/tailwind";
+import i18n from "../../../utils/i18n";
+import { round } from "../../../utils/math/round";
+import { peachWallet } from "../../../utils/wallet/setWallet";
 
 type Props = {
-  currentFeeRate: number
-  newFeeRate: number
-  transaction: Transaction
-  sendingAmount: number
-  finishedTransaction: PartiallySignedTransaction
-  onSuccess: (txId: string) => void
-}
+  currentFeeRate: number;
+  newFeeRate: number;
+  transaction: Transaction;
+  sendingAmount: number;
+  finishedTransaction: PartiallySignedTransaction;
+  onSuccess: (txId: string) => void;
+};
 
-export function ConfirmRbfPopup ({
+export function ConfirmRbfPopup({
   currentFeeRate,
   newFeeRate,
   transaction,
@@ -33,27 +33,27 @@ export function ConfirmRbfPopup ({
   finishedTransaction,
   onSuccess,
 }: Props) {
-  const closePopup = useClosePopup()
-  const handleTransactionError = useHandleTransactionError()
+  const closePopup = useClosePopup();
+  const handleTransactionError = useHandleTransactionError();
 
   const confirmAndSend = useCallback(async () => {
     try {
       const [txId] = await Promise.all([
         finishedTransaction.txid(),
         peachWallet.signAndBroadcastPSBT(finishedTransaction),
-      ])
+      ]);
 
-      onSuccess(txId)
+      onSuccess(txId);
     } catch (e) {
-      handleTransactionError(e)
+      handleTransactionError(e);
     } finally {
-      closePopup()
+      closePopup();
     }
-  }, [closePopup, finishedTransaction, handleTransactionError, onSuccess])
+  }, [closePopup, finishedTransaction, handleTransactionError, onSuccess]);
 
   return (
     <PopupComponent
-      title={i18n('wallet.bumpNetworkFees.confirmRbf.title')}
+      title={i18n("wallet.bumpNetworkFees.confirmRbf.title")}
       content={
         <ConfirmRbf
           oldFeeRate={currentFeeRate}
@@ -65,9 +65,13 @@ export function ConfirmRbfPopup ({
       }
       actions={
         <>
-          <PopupAction label={i18n('cancel')} iconId="xCircle" onPress={closePopup} />
+          <PopupAction
+            label={i18n("cancel")}
+            iconId="xCircle"
+            onPress={closePopup}
+          />
           <LoadingPopupAction
-            label={i18n('fundFromPeachWallet.confirm.confirmAndSend')}
+            label={i18n("fundFromPeachWallet.confirm.confirmAndSend")}
             iconId="arrowRightCircle"
             onPress={confirmAndSend}
             reverseOrder
@@ -75,55 +79,73 @@ export function ConfirmRbfPopup ({
         </>
       }
     />
-  )
+  );
 }
 
 type ContentProps = {
-  oldFeeRate: number
-  newFeeRate: number
-  bytes: number
-  sendingAmount: number
-  hasNoChange?: boolean
-}
+  oldFeeRate: number;
+  newFeeRate: number;
+  bytes: number;
+  sendingAmount: number;
+  hasNoChange?: boolean;
+};
 
-function ConfirmRbf ({ oldFeeRate, newFeeRate, bytes, sendingAmount, hasNoChange }: ContentProps) {
-  const oldFee = oldFeeRate * bytes
-  const newFee = newFeeRate * bytes
+function ConfirmRbf({
+  oldFeeRate,
+  newFeeRate,
+  bytes,
+  sendingAmount,
+  hasNoChange,
+}: ContentProps) {
+  const oldFee = oldFeeRate * bytes;
+  const newFee = newFeeRate * bytes;
 
   return (
     <View style={tw`gap-3`}>
       <PeachText>
-        <PeachText style={tw`font-baloo-bold`}>{i18n('wallet.bumpNetworkFees.confirmRbf.oldFee')}</PeachText>
-        {'\n\n'}
-        {oldFeeRate} {i18n('satPerByte')} * {bytes} {i18n('bytes')} =
+        <PeachText style={tw`font-baloo-bold`}>
+          {i18n("wallet.bumpNetworkFees.confirmRbf.oldFee")}
+        </PeachText>
+        {"\n\n"}
+        {oldFeeRate} {i18n("satPerByte")} * {bytes} {i18n("bytes")} =
       </PeachText>
       <View>
         <BTCAmount amount={oldFee} size="medium" />
         <PeachText style={tw`text-primary-main`}>
-          {i18n('wallet.bumpNetworkFees.confirmRbf.percentOfTx', String(round((oldFee / sendingAmount) * CENT, 1)))}
+          {i18n(
+            "wallet.bumpNetworkFees.confirmRbf.percentOfTx",
+            String(round((oldFee / sendingAmount) * CENT, 1)),
+          )}
         </PeachText>
       </View>
       <PeachText>
-        <PeachText style={tw`font-baloo-bold`}>{i18n('wallet.bumpNetworkFees.confirmRbf.newFee')}</PeachText>
-        {'\n\n'}
-        {newFeeRate} {i18n('satPerByte')} * {bytes} {i18n('bytes')} =
+        <PeachText style={tw`font-baloo-bold`}>
+          {i18n("wallet.bumpNetworkFees.confirmRbf.newFee")}
+        </PeachText>
+        {"\n\n"}
+        {newFeeRate} {i18n("satPerByte")} * {bytes} {i18n("bytes")} =
       </PeachText>
       <View>
         <BTCAmount amount={newFee} size="medium" />
         <PeachText style={tw`text-primary-main`}>
-          {i18n('wallet.bumpNetworkFees.confirmRbf.percentOfTx', String(round((newFee / sendingAmount) * CENT, 1)))}
+          {i18n(
+            "wallet.bumpNetworkFees.confirmRbf.percentOfTx",
+            String(round((newFee / sendingAmount) * CENT, 1)),
+          )}
         </PeachText>
       </View>
       {hasNoChange && <NoChangeWarning />}
     </View>
-  )
+  );
 }
 
-function NoChangeWarning () {
+function NoChangeWarning() {
   return (
     <View style={tw`flex-row items-center gap-4`}>
-      <Icon id="alertTriangle" size={32} color={tw.color('black-100')} />
-      <PeachText>{i18n('wallet.bumpNetworkFees.confirmRbf.noChange')}</PeachText>
+      <Icon id="alertTriangle" size={32} color={tw.color("black-100")} />
+      <PeachText>
+        {i18n("wallet.bumpNetworkFees.confirmRbf.noChange")}
+      </PeachText>
     </View>
-  )
+  );
 }

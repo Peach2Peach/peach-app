@@ -1,44 +1,58 @@
-import { View } from 'react-native'
-import RatingPeach from '../../../../assets/icons/ratingPeach.svg'
-import { PeachText } from '../../../../components/text/PeachText'
-import { CENT } from '../../../../constants'
-import tw from '../../../../styles/tailwind'
-import i18n from '../../../../utils/i18n'
-import { interpolate } from '../../../../utils/math/interpolate'
-
-// eslint-disable-next-line no-magic-numbers
-const PEACHES = [1, 2, 3, 4, 5]
+import { View } from "react-native";
+import RatingPeach from "../../../../assets/icons/ratingPeach.svg";
+import { PeachText } from "../../../../components/text/PeachText";
+import { CENT } from "../../../../constants";
+import tw from "../../../../styles/tailwind";
+import i18n from "../../../../utils/i18n";
+import { interpolate } from "../../../../utils/math/interpolate";
 
 type RatingProps = {
-  rating: number
-  isNewUser?: boolean
-}
+  rating: number;
+  isNewUser?: boolean;
+};
 
-export const MAX_NUMBER_OF_PEACHES = 5
+export const MAX_NUMBER_OF_PEACHES = 5;
+export const CLIENT_RATING_RANGE = [0, MAX_NUMBER_OF_PEACHES] satisfies [
+  number,
+  number,
+];
+export const SERVER_RATING_RANGE = [-1, 1] satisfies [number, number];
 
 export const Rating = ({ rating, isNewUser }: RatingProps) =>
   isNewUser ? (
-    <PeachText style={tw`subtitle-2 text-black-65`}>{i18n('newUser')}</PeachText>
+    <PeachText style={tw`subtitle-2 text-black-65`}>
+      {i18n("newUser")}
+    </PeachText>
   ) : (
     <View style={tw`flex-row items-center`}>
       <View style={tw`flex-row gap-1`}>
-        {PEACHES.map((peach) => (
-          <RatingPeach key={`rating-peach-background-${peach}`} style={tw`w-3 h-3 opacity-50`} />
+        {[...Array(MAX_NUMBER_OF_PEACHES)].map((_value, index) => (
+          <RatingPeach
+            key={`rating-peach-background-${index}`}
+            style={tw`w-3 h-3 opacity-50`}
+          />
         ))}
         <View
           style={[
             tw`absolute flex-row self-center gap-1 overflow-hidden`,
-            { width: `${interpolate(rating, [-1, 1], [0, CENT])}%` },
+            {
+              width: `${interpolate(rating, SERVER_RATING_RANGE, [0, CENT])}%`,
+            },
           ]}
         >
-          {PEACHES.map((peach) => (
-            <RatingPeach key={`rating-peach-colored-${peach}`} style={tw`w-3 h-3`} />
+          {[...Array(MAX_NUMBER_OF_PEACHES)].map((_value, peach) => (
+            <RatingPeach
+              key={`rating-peach-colored-${peach}`}
+              style={tw`w-3 h-3`}
+            />
           ))}
         </View>
       </View>
 
       <PeachText style={tw`text-black-65 button-small`}>
-        {interpolate(rating, [-1, 1], [0, MAX_NUMBER_OF_PEACHES]).toFixed(1)}
+        {interpolate(rating, SERVER_RATING_RANGE, CLIENT_RATING_RANGE).toFixed(
+          1,
+        )}
       </PeachText>
     </View>
-  )
+  );

@@ -1,9 +1,9 @@
-import { render } from 'test-utils'
-import tw from '../../styles/tailwind'
-import { BTCAmountInput } from './BTCAmountInput'
+import { render } from "test-utils";
+import tw from "../../styles/tailwind";
+import { BTCAmountInput } from "./BTCAmountInput";
 
-describe('BTCAmountInput', () => {
-  it('renders correctly', () => {
+describe("BTCAmountInput", () => {
+  it("renders correctly", () => {
     const { toJSON } = render(
       <BTCAmountInput
         value="0"
@@ -15,7 +15,7 @@ describe('BTCAmountInput', () => {
           tw`border bg-primary-background-light border-black-65`,
         ]}
       />,
-    )
-    expect(toJSON()).toMatchSnapshot()
-  })
-})
+    );
+    expect(toJSON()).toMatchSnapshot();
+  });
+});

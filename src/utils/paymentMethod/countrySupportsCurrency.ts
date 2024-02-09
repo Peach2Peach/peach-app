@@ -1,9 +1,9 @@
 const map: Record<Currency, PaymentMethodCountry[]> = {
-  EUR: ['DE', 'FR', 'IT', 'ES', 'NL'],
-  CHF: ['CH'],
-  GBP: ['GB', 'UK'],
-  SEK: ['SE'],
-  USD: ['US'],
+  EUR: ["DE", "FR", "IT", "ES", "NL"],
+  CHF: ["CH"],
+  GBP: ["GB", "UK"],
+  SEK: ["SE"],
+  USD: ["US"],
   DKK: [],
   BGN: [],
   CZK: [],
@@ -30,7 +30,8 @@ const map: Record<Currency, PaymentMethodCountry[]> = {
   ZAR: [],
   KES: [],
   GHS: [],
-}
+};
 
-export const countrySupportsCurrency = (currency: Currency) => (country: PaymentMethodCountry) =>
-  map[currency].includes(country)
+export const countrySupportsCurrency =
+  (currency: Currency) => (country: PaymentMethodCountry) =>
+    map[currency].includes(country);
