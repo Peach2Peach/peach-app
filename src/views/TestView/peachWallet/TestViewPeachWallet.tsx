@@ -48,11 +48,12 @@ export const TestViewPeachWallet = () => {
   };
   const send = async () => {
     if (!address) throw Error("Address invalid");
-    const result = await peachWallet.sendTo({
+    const { psbt } = await peachWallet.buildFinishedTransaction({
       address,
       amount: 50000,
       feeRate: 3,
     });
+    const result = await peachWallet.signAndBroadcastPSBT(psbt);
     setTxId(await result.txid());
   };
   const refill = async () => {
