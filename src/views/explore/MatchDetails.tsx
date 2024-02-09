@@ -142,6 +142,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
             : "matchOffer",
     [isMatched, selectedPaymentData, tradingLimitReached],
   );
+
   return (
     <>
       <View style={tw`justify-center flex-1`}>

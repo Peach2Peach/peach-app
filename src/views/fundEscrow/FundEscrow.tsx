@@ -63,7 +63,7 @@ export const FundEscrow = () => {
 
   if (activeFunding.status === "MEMPOOL")
     return (
-      <TransactionInMempool offerId={offerId} txId={activeFunding.txIds[0]} />
+      <TransactionInMempool {...{ offerId, address }} txId={activeFunding.txIds[0]} />
     );
 
   return (

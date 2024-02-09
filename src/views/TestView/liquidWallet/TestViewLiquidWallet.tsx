@@ -1,4 +1,3 @@
-import { NETWORK } from "@env";
 import { useState } from "react";
 import { Alert, View } from "react-native";
 import Share from "react-native-share";
@@ -21,6 +20,7 @@ import i18n from "../../../utils/i18n";
 import { showLiquidTransaction } from "../../../utils/liquid/showLiquidTransaction";
 import { log } from "../../../utils/log/log";
 import { thousands } from "../../../utils/string/thousands";
+import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 import { peachLiquidWallet } from "../../../utils/wallet/setWallet";
 
 const liquidAddressRules = { required: false, liquidAddress: true };
@@ -83,7 +83,7 @@ export const TestViewLiquidWallet = () => {
           </Button>
           {!!txId && (
             <View>
-              <PeachText onPress={() => showLiquidTransaction(txId, NETWORK)}>
+              <PeachText onPress={() => showLiquidTransaction(txId, getLiquidNetwork())}>
                 txId: {txId}
               </PeachText>
             </View>

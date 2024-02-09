@@ -1,4 +1,3 @@
-import { NETWORK } from "@env";
 import { useCallback } from "react";
 import { useSetOverlay } from "../Overlay";
 import { useClosePopup, useSetPopup } from "../components/popup/Popup";
@@ -8,13 +7,14 @@ import { FIFTEEN_SECONDS } from "../constants";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { useTradeSummaryStore } from "../store/tradeSummaryStore";
 import { checkRefundPSBT } from "../utils/bitcoin/checkRefundPSBT";
-import { showTransaction } from "../utils/bitcoin/showTransaction";
 import { signAndFinalizePSBT } from "../utils/bitcoin/signAndFinalizePSBT";
+import { showTransaction } from "../utils/blockchain/showTransaction";
 import { getAbortWithTimeout } from "../utils/getAbortWithTimeout";
 import i18n from "../utils/i18n";
 import { info } from "../utils/log/info";
 import { saveOffer } from "../utils/offer/saveOffer";
 import { peachAPI } from "../utils/peachAPI";
+import { isLiquidAddress } from "../utils/validation/rules";
 import { getEscrowWalletForOffer } from "../utils/wallet/getEscrowWalletForOffer";
 import { BackupTime } from "../views/overlays/BackupTime";
 import { useTradeSummaries } from "./query/useTradeSummaries";
@@ -51,7 +51,7 @@ export const useRefundEscrow = () => {
       ).extractTransaction();
       const [tx, txId] = [signedTx.toHex(), signedTx.getId()];
 
-      setPopup(<RefundEscrowPopup txId={txId} />);
+      setPopup(<RefundEscrowPopup txId={txId} network={isLiquidAddress(sellOffer.escrow) ? 'liquid' : 'bitcoin'} />);
 
       const { error: postTXError } =
         await peachAPI.private.offer.refundSellOffer({
@@ -91,7 +91,7 @@ export const useRefundEscrow = () => {
   return refundEscrow;
 };
 
-function RefundEscrowPopup({ txId }: { txId: string }) {
+function RefundEscrowPopup({ txId, network }: { txId: string, network: 'bitcoin' | 'liquid' }) {
   const isPeachWallet = useSettingsStore((state) => state.refundToPeachWallet);
 
   return (
@@ -107,7 +107,7 @@ function RefundEscrowPopup({ txId }: { txId: string }) {
           {isPeachWallet ? (
             <GoToWalletAction txId={txId} />
           ) : (
-            <ShowTxAction txId={txId} />
+            <ShowTxAction {...{txId, network }} />
           )}
           <CloseAction />
         </>
@@ -116,12 +116,12 @@ function RefundEscrowPopup({ txId }: { txId: string }) {
   );
 }
 
-function ShowTxAction({ txId }: { txId: string }) {
+function ShowTxAction({ txId, network }: { txId: string, network: 'bitcoin' | 'liquid' }) {
   const closePopup = useClosePopup();
 
   const showTx = () => {
     closePopup();
-    showTransaction(txId, NETWORK);
+    showTransaction(txId, network);
   };
 
   return (
