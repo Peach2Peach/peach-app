@@ -1,4 +1,6 @@
-import { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
+import messaging, {
+  FirebaseMessagingTypes,
+} from "@react-native-firebase/messaging";
 import { useNavigationState } from "@react-navigation/native";
 import { useCallback } from "react";
 import { AppState } from "react-native";
@@ -18,7 +20,7 @@ export const useMessageHandler = () => {
   const offerPopupEvents = useOfferPopupEvents();
 
   const onMessageHandler = useCallback(
-    (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
+    async (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
       info(
         `A new FCM message arrived! ${JSON.stringify(remoteMessage)}`,
         `currentPage ${currentPage}`,
@@ -35,6 +37,8 @@ export const useMessageHandler = () => {
         AppState.currentState === "active" &&
         type !== "contract.chat"
       ) {
+        const initialNotification = await messaging().getInitialNotification();
+        if (initialNotification?.messageId === remoteMessage.messageId) return;
         if (offerPopupEvents[type]) {
           offerPopupEvents[type]?.(data, remoteMessage.notification);
         } else {
