@@ -4,7 +4,7 @@ import { View } from "react-native";
 import SplashScreen from "react-native-splash-screen";
 import { LogoIcons } from "../assets/logo";
 import { PeachyGradient } from "../components/PeachyGradient";
-import { useSetPopup } from "../components/popup/Popup";
+import { useSetPopup } from "../components/popup/GlobalPopup";
 import { useSetToast } from "../components/toast/Toast";
 import { useNavigation } from "../hooks/useNavigation";
 import { requestUserPermissions } from "../init/requestUserPermissions";

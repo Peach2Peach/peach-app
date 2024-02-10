@@ -27,7 +27,7 @@ import { matchesKeys } from "../../views/search/hooks/useOfferMatches";
 import { Icon } from "../Icon";
 import { ProfileInfo } from "../ProfileInfo";
 import { NewBubble as Bubble } from "../bubble/Bubble";
-import { useSetPopup } from "../popup/Popup";
+import { useSetPopup } from "../popup/GlobalPopup";
 import { PeachText } from "../text/PeachText";
 import { HorizontalLine } from "../ui/HorizontalLine";
 import { options } from "./buttons/options";

@@ -5,7 +5,7 @@ import { Contract } from "../../../peach-api/src/@types/contract";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
 import { MessageInput } from "../../components/inputs/MessageInput";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { MSINASECOND } from "../../constants";
 import { PAGE_SIZE, useChatMessages } from "../../hooks/query/useChatMessages";

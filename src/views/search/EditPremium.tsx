@@ -6,7 +6,7 @@ import { Screen } from "../../components/Screen";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { Button } from "../../components/buttons/Button";
 import { PremiumSlider } from "../../components/inputs/premiumSlider/PremiumSlider";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";

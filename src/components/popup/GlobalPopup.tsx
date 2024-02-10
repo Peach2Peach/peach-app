@@ -11,7 +11,7 @@ export const useClosePopup = () => {
   return closePopup;
 };
 
-export const Popup = () => {
+export const GlobalPopup = () => {
   const popupComponent = useAtomValue(popupAtom);
   const closePopup = useClosePopup();
   return (

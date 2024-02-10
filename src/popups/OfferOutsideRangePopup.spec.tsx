@@ -3,7 +3,7 @@ import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
 import { OfferOutsideRangePopup } from "./OfferOutsideRangePopup";
 
 const mockClosePopup = jest.fn();
-jest.mock("../components/popup/Popup", () => ({
+jest.mock("../components/popup/GlobalPopup", () => ({
   useClosePopup: () => mockClosePopup,
 }));
 

@@ -1,7 +1,7 @@
 import { fireEvent, render } from "test-utils";
 import { feeEstimates } from "../../../../../tests/unit/data/electrumData";
 import { pending1 } from "../../../../../tests/unit/data/transactionDetailData";
-import { Popup } from "../../../../components/popup/Popup";
+import { GlobalPopup } from "../../../../components/popup/GlobalPopup";
 import { placeholderFeeEstimates } from "../../../../hooks/query/useFeeEstimates";
 import { TransactionETASummaryItem } from "./TransactionETASummaryItem";
 
@@ -36,7 +36,7 @@ describe("TransactionETA", () => {
     const { getByText } = render(
       <>
         <TransactionETASummaryItem transaction={pending1} />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
     fireEvent.press(getByText("in 1 block"));

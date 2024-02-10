@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Button } from "../../components/buttons/Button";
 import { EmailInput } from "../../components/inputs/EmailInput";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { LoadingPopupAction } from "../../components/popup/actions/LoadingPopupAction";
 import { PeachText } from "../../components/text/PeachText";

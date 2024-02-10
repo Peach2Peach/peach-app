@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
-import { useClosePopup } from "../../components/popup/Popup";
+import { useClosePopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import i18n from "../../utils/i18n";
 import { matchesKeys } from "../../views/search/hooks/useOfferMatches";

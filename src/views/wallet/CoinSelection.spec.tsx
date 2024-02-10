@@ -7,7 +7,7 @@ import { confirmed1 } from "../../../tests/unit/data/transactionDetailData";
 import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
-import { Popup } from "../../components/popup/Popup";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
 import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import { getUTXOId } from "../../utils/wallet/getUTXOId";
 import { peachWallet, setPeachWallet } from "../../utils/wallet/setWallet";
@@ -48,7 +48,7 @@ describe("CoinSelection", () => {
     const { getByAccessibilityHint, queryByText } = render(
       <>
         <CoinSelection />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 

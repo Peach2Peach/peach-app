@@ -1,7 +1,7 @@
 import messaging from "@react-native-firebase/messaging";
 import { useEffect } from "react";
 import { setUnhandledPromiseRejectionTracker } from "react-native-promise-rejection-utils";
-import { useSetPopup } from "./components/popup/Popup";
+import { useSetPopup } from "./components/popup/GlobalPopup";
 import { useSetToast } from "./components/toast/Toast";
 import { useHandleNotifications } from "./hooks/notifications/useHandleNotifications";
 import { useMessageHandler } from "./hooks/notifications/useMessageHandler";

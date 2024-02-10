@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { shallow } from "zustand/shallow";
 import { useSetOverlay } from "../../../Overlay";
-import { useSetPopup } from "../../../components/popup/Popup";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";

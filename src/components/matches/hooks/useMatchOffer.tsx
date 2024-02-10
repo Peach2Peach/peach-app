@@ -16,7 +16,7 @@ import { peachAPI } from "../../../utils/peachAPI";
 import { signAndEncrypt } from "../../../utils/pgp/signAndEncrypt";
 import { parseError } from "../../../utils/result/parseError";
 import { matchesKeys } from "../../../views/search/hooks/useOfferMatches";
-import { useSetPopup } from "../../popup/Popup";
+import { useSetPopup } from "../../popup/GlobalPopup";
 import { getMatchPrice } from "../utils/getMatchPrice";
 import { useHandleError } from "../utils/useHandleError";
 import { useHandleMissingPaymentData } from "../utils/useHandleMissingPaymentData";

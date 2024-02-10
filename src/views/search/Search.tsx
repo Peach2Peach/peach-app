@@ -6,7 +6,7 @@ import { Screen } from "../../components/Screen";
 import { Matches } from "../../components/matches/Matches";
 import { SellOfferSummary } from "../../components/offer/SellOfferSummary";
 import { useWalletLabel } from "../../components/offer/useWalletLabel";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { FIFTEEN_SECONDS } from "../../constants";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";

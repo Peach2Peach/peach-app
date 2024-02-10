@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { shallow } from "zustand/shallow";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { useNavigation } from "../../hooks/useNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";

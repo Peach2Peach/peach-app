@@ -3,7 +3,7 @@ import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { OptionButton } from "../../components/buttons/OptionButton";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { LinedText } from "../../components/ui/LinedText";
 import { DISCORD, TELEGRAM } from "../../constants";

@@ -7,7 +7,7 @@ import { BTCAmountInput } from "../../components/inputs/BTCAmountInput";
 import { BitcoinAddressInput } from "../../components/inputs/BitcoinAddressInput";
 import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";

@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { useSetPopup } from "../../../components/popup/Popup";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import {
   AddressSummaryItem,
   TextSummaryItem,

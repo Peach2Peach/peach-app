@@ -2,7 +2,7 @@ import { render, renderHook, waitFor } from "test-utils";
 import { account1 } from "../../../../tests/unit/data/accountData";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { replaceMock } from "../../../../tests/unit/helpers/NavigationWrapper";
-import { Popup } from "../../../components/popup/Popup";
+import { GlobalPopup } from "../../../components/popup/GlobalPopup";
 import { setAccount, useAccountStore } from "../../../utils/account/account";
 import { defaultFundingStatus } from "../../../utils/offer/constants";
 import { useHandleFundingStatus } from "./useHandleFundingStatus";
@@ -120,7 +120,7 @@ describe("useHandleFundingStatus", () => {
       userConfirmationRequired: false,
     };
     renderHook(useHandleFundingStatus, { initialProps });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("refund escrow")).toBeTruthy();
   });
   it("should navigate to wrongFundingAmount when user confirmation is required", () => {

@@ -3,7 +3,7 @@ import { contract } from "../../../peach-api/src/testData/contract";
 import { account1 } from "../../../tests/unit/data/accountData";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
-import { Popup } from "../../components/popup/Popup";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
 import { setAccount } from "../../utils/account/account";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../utils/i18n";
@@ -83,7 +83,7 @@ describe("ConfirmTradeCancelationPopup", () => {
     await act(async () => {
       await fireEvent.press(getAllByText("cancel trade")[1]);
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("cancel trade")).toBeFalsy();
     expect(queryByText("trade canceled!")).toBeTruthy();
   });
@@ -102,7 +102,7 @@ describe("ConfirmTradeCancelationPopup", () => {
       await fireEvent.press(getAllByText("cancel trade")[1]);
     });
 
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("cancel trade")).toBeFalsy();
     expect(queryByText("request sent")).toBeTruthy();
     expect(queryByText(i18n("contract.cancel.requestSent.text"))).toBeTruthy();
@@ -130,7 +130,7 @@ describe("ConfirmTradeCancelationPopup", () => {
     await act(async () => {
       await fireEvent.press(getByText("cancel trade"));
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
 
     expect(queryByText("cancel trade")).toBeFalsy();
     expect(queryByText("trade canceled")).toBeTruthy();
@@ -161,7 +161,7 @@ describe("ConfirmTradeCancelationPopup", () => {
     await act(async () => {
       await fireEvent.press(getByText("cancel trade"));
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
 
     expect(queryByText("cancel trade")).toBeFalsy();
     expect(queryByText("trade canceled")).toBeTruthy();

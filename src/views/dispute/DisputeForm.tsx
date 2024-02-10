@@ -8,7 +8,7 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { EmailInput } from "../../components/inputs/EmailInput";
 import { Input } from "../../components/inputs/Input";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { useContractDetail } from "../../hooks/query/useContractDetail";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";

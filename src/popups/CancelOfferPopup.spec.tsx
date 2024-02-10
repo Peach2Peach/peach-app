@@ -1,6 +1,6 @@
 import { act, fireEvent, render, responseUtils, waitFor } from "test-utils";
 import { buyOffer } from "../../tests/unit/data/offerData";
-import { Popup } from "../components/popup/Popup";
+import { GlobalPopup } from "../components/popup/GlobalPopup";
 import { peachAPI } from "../utils/peachAPI";
 import { CancelOfferPopup } from "./CancelOfferPopup";
 
@@ -18,7 +18,7 @@ describe("CancelOfferPopup", () => {
     });
     fireEvent.press(getAllByText("cancel offer")[1]);
 
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
 
     await waitFor(() => {
       expect(queryByText("offer canceled!")).toBeTruthy();

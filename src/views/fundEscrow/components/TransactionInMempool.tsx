@@ -7,7 +7,7 @@ import { Header } from "../../../components/Header";
 import { Icon } from "../../../components/Icon";
 import { Screen } from "../../../components/Screen";
 import { TradeInfo } from "../../../components/offer/TradeInfo";
-import { useSetPopup } from "../../../components/popup/Popup";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { PeachText } from "../../../components/text/PeachText";
 import { CancelOfferPopup } from "../../../popups/CancelOfferPopup";
 import { HelpPopup } from "../../../popups/HelpPopup";

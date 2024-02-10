@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { View } from "react-native";
-import { useClosePopup } from "../../components/popup/Popup";
+import { useClosePopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { PeachText } from "../../components/text/PeachText";

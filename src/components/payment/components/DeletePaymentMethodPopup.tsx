@@ -1,7 +1,7 @@
 import { useNavigation } from "../../../hooks/useNavigation";
 import { ErrorPopup } from "../../../popups/ErrorPopup";
 import i18n from "../../../utils/i18n";
-import { useClosePopup } from "../../popup/Popup";
+import { useClosePopup } from "../../popup/GlobalPopup";
 import { PopupAction } from "../../popup/PopupAction";
 import { useRemovePaymentData } from "../hooks/useRemovePaymentData";
 

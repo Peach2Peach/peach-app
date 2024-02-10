@@ -7,7 +7,7 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { Input } from "../../components/inputs/Input";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
 import { useContractDetail } from "../../hooks/query/useContractDetail";

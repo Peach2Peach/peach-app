@@ -1,7 +1,7 @@
 import { NETWORK } from "@env";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSetOverlay } from "../Overlay";
-import { useClosePopup, useSetPopup } from "../components/popup/Popup";
+import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";

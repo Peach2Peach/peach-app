@@ -6,7 +6,7 @@ import { Screen } from "../../components/Screen";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { Badges } from "../../components/matches/components/Badges";
 import { getPremiumOfMatchedOffer } from "../../components/matches/getPremiumOfMatchedOffer";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { PriceFormat } from "../../components/text/PriceFormat";
 import { CENT, NEW_USER_TRADE_THRESHOLD } from "../../constants";

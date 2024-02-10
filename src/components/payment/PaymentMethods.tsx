@@ -15,7 +15,7 @@ import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { Header } from "../Header";
 import { PeachScrollView } from "../PeachScrollView";
 import { Screen } from "../Screen";
-import { useSetPopup } from "../popup/Popup";
+import { useSetPopup } from "../popup/GlobalPopup";
 import { PeachText } from "../text/PeachText";
 import { HorizontalLine } from "../ui/HorizontalLine";
 import { AddPaymentMethodButton } from "./AddPaymentMethodButton";

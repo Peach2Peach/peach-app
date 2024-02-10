@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { shallow } from "zustand/shallow";
-import { useClosePopup, useSetPopup } from "../components/popup/Popup";
+import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
 import { LoadingPopupAction } from "../components/popup/actions/LoadingPopupAction";

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSetOverlay } from "../../../Overlay";
-import { useSetPopup } from "../../../components/popup/Popup";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { WronglyFundedPopup } from "../../../popups/WronglyFundedPopup";
 import { useStartRefundPopup } from "../../../popups/useStartRefundPopup";

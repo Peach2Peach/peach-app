@@ -19,7 +19,7 @@ import { TouchableIcon } from "../../components/TouchableIcon";
 import { Button } from "../../components/buttons/Button";
 import { Checkbox } from "../../components/inputs/Checkbox";
 import { Toggle } from "../../components/inputs/Toggle";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";

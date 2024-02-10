@@ -6,7 +6,7 @@ import { Button } from "../../components/buttons/Button";
 import { Checkbox } from "../../components/inputs/Checkbox";
 import { EmailInput } from "../../components/inputs/EmailInput";
 import { Input } from "../../components/inputs/Input";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";

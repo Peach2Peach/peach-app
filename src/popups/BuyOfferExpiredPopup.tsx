@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useClosePopup } from "../components/popup/Popup";
+import { useClosePopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";

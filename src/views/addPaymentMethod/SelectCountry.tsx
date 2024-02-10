@@ -4,7 +4,7 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { RadioButtons } from "../../components/inputs/RadioButtons";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
 import { HelpPopup } from "../../popups/HelpPopup";

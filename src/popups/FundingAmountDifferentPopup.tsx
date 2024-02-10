@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { BTCAmount } from "../components/bitcoin/BTCAmount";
-import { useClosePopup } from "../components/popup/Popup";
+import { useClosePopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PeachText } from "../components/text/PeachText";
 import { useNavigation } from "../hooks/useNavigation";

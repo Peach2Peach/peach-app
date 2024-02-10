@@ -7,7 +7,7 @@ import { Screen } from "../../components/Screen";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { Button } from "../../components/buttons/Button";
 import { Checkbox } from "../../components/inputs/Checkbox";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { useNavigation } from "../../hooks/useNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
