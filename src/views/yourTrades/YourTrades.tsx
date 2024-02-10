@@ -11,8 +11,8 @@ import { PeachText } from "../../components/text/PeachText";
 import { LinedText } from "../../components/ui/LinedText";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -131,7 +131,7 @@ function TabBarBadge({
 }
 
 function YourTradesHeader() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const onPress = () => {
     navigation.navigate("exportTradeHistory");
   };

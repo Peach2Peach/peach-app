@@ -4,7 +4,7 @@ import { View } from "react-native";
 import z from "zod";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";

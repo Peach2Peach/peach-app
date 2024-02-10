@@ -1,7 +1,7 @@
 import { FlatList } from "react-native";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -34,7 +34,7 @@ export const TransactionHistory = () => {
 };
 
 function TransactionHistoryHeader() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const onPress = () => {
     navigation.navigate("exportTransactionHistory");
   };

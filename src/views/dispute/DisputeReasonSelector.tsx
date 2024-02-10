@@ -2,12 +2,12 @@ import { Contract } from "../../../peach-api/src/@types/contract";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { OptionButton } from "../../components/buttons/OptionButton";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { useContractDetail } from "../../hooks/query/useContractDetail";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { DisputeRaisedSuccess } from "../../popups/dispute/DisputeRaisedSuccess";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
@@ -41,7 +41,7 @@ function DisputeReasonScreen({ contract }: { contract: Contract }) {
   const availableReasons =
     view === "seller" ? disputeReasons.seller : disputeReasons.buyer;
 
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const showErrorBanner = useShowErrorBanner();
   const setPopup = useSetPopup();
   const { mutate: raiseDispute } = useRaiseDispute();

@@ -1,7 +1,7 @@
 import { WebView } from "react-native-webview";
 import ShallowRenderer from "react-test-renderer/shallow";
 import { fireEvent, render } from "test-utils";
-import { Popup } from "../../components/popup/Popup";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import {
   VerifyYouAreAHuman,
@@ -26,7 +26,7 @@ describe("VerifyYouAreAHumanPopup", () => {
     const { getByText, UNSAFE_queryByType } = render(
       <>
         <VerifyYouAreAHumanPopup />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 

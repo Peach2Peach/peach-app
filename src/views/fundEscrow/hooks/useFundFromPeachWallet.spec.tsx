@@ -8,7 +8,7 @@ import { transactionError } from "../../../../tests/unit/data/errors";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { getTransactionDetails } from "../../../../tests/unit/helpers/getTransactionDetails";
-import { Popup } from "../../../components/popup/Popup";
+import { GlobalPopup } from "../../../components/popup/GlobalPopup";
 import { useConfigStore } from "../../../store/configStore/configStore";
 import { defaultFundingStatus } from "../../../utils/offer/constants";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -93,7 +93,7 @@ describe("useFundFromPeachWallet", () => {
       await result.current(initialProps);
     });
 
-    expect(render(<Popup />)).toMatchSnapshot();
+    expect(render(<GlobalPopup />)).toMatchSnapshot();
   });
   it("should set multiple recipients if addresses is passed", async () => {
     peachWallet.balance = amount;
@@ -125,7 +125,7 @@ describe("useFundFromPeachWallet", () => {
     await act(async () => {
       await result.current(initialProps);
     });
-    const { getByText, queryByText } = render(<Popup />);
+    const { getByText, queryByText } = render(<GlobalPopup />);
 
     await act(async () => {
       await fireEvent.press(getByText("confirm & send"));
@@ -147,7 +147,7 @@ describe("useFundFromPeachWallet", () => {
     await act(async () => {
       await result.current(initialProps);
     });
-    const { getByText, queryByText } = render(<Popup />);
+    const { getByText, queryByText } = render(<GlobalPopup />);
     await act(async () => {
       await fireEvent.press(getByText("confirm & send"));
     });
@@ -174,7 +174,7 @@ describe("useFundFromPeachWallet", () => {
       await result.current(initialProps);
     });
 
-    expect(render(<Popup />)).toMatchSnapshot();
+    expect(render(<GlobalPopup />)).toMatchSnapshot();
   });
 
   it("should open handle insufficient funds error for building drain wallet transactions", async () => {
@@ -250,7 +250,7 @@ describe("useFundFromPeachWallet", () => {
       await result.current(initialProps);
     });
 
-    const { getByText, queryByText } = render(<Popup />);
+    const { getByText, queryByText } = render(<GlobalPopup />);
     await act(async () => {
       await fireEvent.press(getByText("confirm & send"));
     });
@@ -268,7 +268,7 @@ describe("useFundFromPeachWallet", () => {
     await act(async () => {
       await result.current(initialProps);
     });
-    const { getByText } = render(<Popup />);
+    const { getByText } = render(<GlobalPopup />);
     expect(getByText("amount too low")).toBeTruthy();
   });
   it("should open amount too low popup when funding multiple", async () => {
@@ -280,7 +280,7 @@ describe("useFundFromPeachWallet", () => {
       await result.current({ ...initialProps, addresses });
     });
 
-    const { getByText } = render(<Popup />);
+    const { getByText } = render(<GlobalPopup />);
     expect(getByText("amount too low")).toBeTruthy();
   });
 });

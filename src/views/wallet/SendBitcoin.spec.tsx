@@ -11,7 +11,7 @@ import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { swipeRight } from "../../../tests/unit/helpers/fireSwipeEvent";
 import { walletListUnspentMock } from "../../../tests/unit/mocks/bdkRN";
-import { Popup } from "../../components/popup/Popup";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
 import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import { createWalletFromBase58 } from "../../utils/wallet/createWalletFromBase58";
 import { getNetwork } from "../../utils/wallet/getNetwork";
@@ -78,7 +78,7 @@ describe("SendBitcoin", () => {
     const { getByAccessibilityHint, queryByText } = render(
       <>
         <SendBitcoin />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 
@@ -116,7 +116,7 @@ describe("SendBitcoin", () => {
       render(
         <>
           <SendBitcoin />
-          <Popup />
+          <GlobalPopup />
         </>,
       );
 
@@ -145,7 +145,7 @@ describe("SendBitcoin", () => {
     const { getByTestId, queryByText } = render(
       <Provider>
         <SendBitcoin />
-        <Popup />
+        <GlobalPopup />
       </Provider>,
     );
     const slider = getByTestId("confirmSlider");
@@ -157,7 +157,7 @@ describe("SendBitcoin", () => {
       render(
         <Provider>
           <SendBitcoin />
-          <Popup />
+          <GlobalPopup />
         </Provider>,
       );
     const addressInput = getByPlaceholderText("bc1q ...");
@@ -179,7 +179,7 @@ describe("SendBitcoin", () => {
       render(
         <>
           <SendBitcoin />
-          <Popup />
+          <GlobalPopup />
         </>,
       );
     const addressInput = getByPlaceholderText("bc1q ...");

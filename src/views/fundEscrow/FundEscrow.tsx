@@ -10,7 +10,7 @@ import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { BitcoinAddress } from "../../components/bitcoin/BitcoinAddress";
 import { Button } from "../../components/buttons/Button";
 import { TradeInfo } from "../../components/offer/TradeInfo";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";

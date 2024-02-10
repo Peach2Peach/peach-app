@@ -6,7 +6,7 @@ import {
   waitFor,
 } from "test-utils";
 import { replaceMock } from "../../../../tests/unit/helpers/NavigationWrapper";
-import { Popup } from "../../../components/popup/Popup";
+import { GlobalPopup } from "../../../components/popup/GlobalPopup";
 import { peachAPI } from "../../../utils/peachAPI";
 import { useRepublishOffer } from "./useRepublishOffer";
 
@@ -56,7 +56,7 @@ describe("useRepublishOffer", () => {
     await waitFor(() => {
       expect(mockShowErrorBanner).toHaveBeenCalledWith("UNAUTHORIZED");
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("offer re-published")).toBeFalsy();
   });
 
@@ -64,7 +64,7 @@ describe("useRepublishOffer", () => {
     const { result } = renderHook(useRepublishOffer);
     result.current.mutate(contract);
 
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
       expect(queryByText("offer re-published")).toBeTruthy();
     });
@@ -73,7 +73,7 @@ describe("useRepublishOffer", () => {
   it("should close the popup, save the contract and navigate to contract when the close is pressed", async () => {
     const { result } = renderHook(useRepublishOffer);
     result.current.mutate(contract);
-    const { getByText, queryByText } = render(<Popup />);
+    const { getByText, queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
       expect(queryByText("close")).toBeTruthy();
     });
@@ -87,7 +87,7 @@ describe("useRepublishOffer", () => {
   it("should close the popup, save the contract and navigate to search when the go to offer is pressed", async () => {
     const { result } = renderHook(useRepublishOffer);
     result.current.mutate(contract);
-    const { getByText, queryByText } = render(<Popup />);
+    const { getByText, queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
       expect(queryByText("go to offer")).toBeTruthy();
     });

@@ -1,5 +1,5 @@
 import { act, fireEvent, render, responseUtils, waitFor } from "test-utils";
-import { Popup } from "../components/popup/Popup";
+import { GlobalPopup } from "../components/popup/GlobalPopup";
 import { peachAPI } from "../utils/peachAPI";
 import { useWalletState } from "../utils/wallet/walletStore";
 import { CancelSellOffersPopup } from "./CancelSellOffersPopup";
@@ -25,7 +25,7 @@ describe("CancelSellOffersPopup", () => {
       <CancelSellOffersPopup fundMultiple={fundMultiple} />,
     );
     fireEvent.press(getAllByText("cancel offer")[1]);
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
       expect(queryByText("offer canceled!")).toBeTruthy();
     });
@@ -61,7 +61,7 @@ describe("CancelSellOffersPopup", () => {
     );
     fireEvent.press(getAllByText("cancel offer")[1]);
 
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
       expect(queryByText("offer canceled!")).not.toBeNull();
     });

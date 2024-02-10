@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { Icon } from "../../components/Icon";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const RestoreBackupError = ({ err }: Props) => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const goToContact = () => navigation.navigate("contact");
 
   return (

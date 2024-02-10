@@ -2,7 +2,7 @@ import { TouchableOpacity, View } from "react-native";
 import { Icon } from "../../../components/Icon";
 import { PeachText } from "../../../components/text/PeachText";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
@@ -28,7 +28,7 @@ function GoTradeButton({
 }: {
   tab: Exclude<TradeTab, "yourTrades.history">;
 }) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const onPress = () => {
     const destination =

@@ -1,8 +1,8 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useNavigationState } from "@react-navigation/native";
 import { shallow } from "zustand/shallow";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
-import { useNavigation } from "../../hooks/useNavigation";
-import { usePreviousRoute } from "../../hooks/usePreviousRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { InfoPopup } from "../../popups/InfoPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
@@ -15,7 +15,7 @@ import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { Header } from "../Header";
 import { PeachScrollView } from "../PeachScrollView";
 import { Screen } from "../Screen";
-import { useSetPopup } from "../popup/Popup";
+import { useSetPopup } from "../popup/GlobalPopup";
 import { PeachText } from "../text/PeachText";
 import { HorizontalLine } from "../ui/HorizontalLine";
 import { AddPaymentMethodButton } from "./AddPaymentMethodButton";
@@ -26,7 +26,7 @@ const PaymentMethodsTab = createMaterialTopTabNavigator();
 const tabs = ["online", "meetups"] as const;
 
 export const PaymentMethods = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const [preferredPaymentMethods, select] = useOfferPreferences(
     (state) => [state.preferredPaymentMethods, state.selectPaymentMethod],
     shallow,
@@ -52,7 +52,9 @@ export const PaymentMethods = () => {
 
   const isSelected = (itm: { value: string }) =>
     selectedPaymentDataIds.includes(itm.value);
-  const { name: origin, params } = usePreviousRoute();
+  const { name: origin, params } = useNavigationState(
+    (state) => state.routes[state.index - 1],
+  );
   const isComingFromSettings =
     origin === "homeScreen" &&
     params &&

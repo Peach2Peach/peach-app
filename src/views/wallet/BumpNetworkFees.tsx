@@ -5,7 +5,7 @@ import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { useRoute } from "../../hooks/useRoute";
 import { HelpPopup } from "../../popups/HelpPopup";

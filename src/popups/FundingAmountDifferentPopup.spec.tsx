@@ -4,7 +4,7 @@ import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
 import { FundingAmountDifferentPopup } from "./FundingAmountDifferentPopup";
 
 const mockClosePopup = jest.fn();
-jest.mock("../components/popup/Popup", () => ({
+jest.mock("../components/popup/GlobalPopup", () => ({
   useClosePopup: () => mockClosePopup,
 }));
 

@@ -2,10 +2,10 @@ import { useCallback, useEffect } from "react";
 import { Linking } from "react-native";
 import "react-native-url-polyfill/auto";
 import { useAccountStore } from "../utils/account/account";
-import { useNavigation } from "./useNavigation";
+import { useStackNavigation } from "./useStackNavigation";
 
 export const useDynamicLinks = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const publicKey = useAccountStore((state) => state.account.publicKey);
 
   const handleReferralCode = useCallback(

@@ -6,13 +6,13 @@ import { Screen } from "../../components/Screen";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { Button } from "../../components/buttons/Button";
 import { PremiumSlider } from "../../components/inputs/premiumSlider/PremiumSlider";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
-import { useNavigation } from "../../hooks/useNavigation";
 import { usePatchOffer } from "../../hooks/usePatchOffer";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -93,7 +93,7 @@ type Props = {
 };
 function ConfirmButton({ offerId, newPremium }: Props) {
   const { mutate: confirmPremium, isPending } = usePatchOffer();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   return (
     <Button
       onPress={() =>

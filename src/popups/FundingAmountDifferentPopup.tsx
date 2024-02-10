@@ -1,9 +1,9 @@
 import { View } from "react-native";
 import { BTCAmount } from "../components/bitcoin/BTCAmount";
-import { useClosePopup } from "../components/popup/Popup";
+import { useClosePopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PeachText } from "../components/text/PeachText";
-import { useNavigation } from "../hooks/useNavigation";
+import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { sum } from "../utils/math/sum";
@@ -15,7 +15,7 @@ export function FundingAmountDifferentPopup({
 }: {
   sellOffer: SellOffer;
 }) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const closePopup = useClosePopup();
 
   const actualAmount = sellOffer.funding.amounts.reduce(sum, 0);

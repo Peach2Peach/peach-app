@@ -4,8 +4,10 @@ import { ClosePopupAction } from "./ClosePopupAction";
 expect.extend({ toMatchDiffSnapshot });
 
 const closePopupMock = jest.fn();
-jest.mock("../Popup");
-jest.requireMock("../Popup").useClosePopup.mockReturnValue(closePopupMock);
+jest.mock("../GlobalPopup");
+jest
+  .requireMock("../GlobalPopup")
+  .useClosePopup.mockReturnValue(closePopupMock);
 
 describe("ClosePopupAction", () => {
   it("should call closePopup when pressed", () => {

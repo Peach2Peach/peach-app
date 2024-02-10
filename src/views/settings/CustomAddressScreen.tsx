@@ -7,7 +7,7 @@ import { OpenWallet } from "../../components/bitcoin/OpenWallet";
 import { Button } from "../../components/buttons/Button";
 import { BitcoinAddressInput } from "../../components/inputs/BitcoinAddressInput";
 import { Input } from "../../components/inputs/Input";
-import { useClosePopup, useSetPopup } from "../../components/popup/Popup";
+import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { PeachText } from "../../components/text/PeachText";

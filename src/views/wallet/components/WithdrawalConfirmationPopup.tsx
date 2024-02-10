@@ -1,9 +1,9 @@
 import { PartiallySignedTransaction } from "bdk-rn";
-import { useClosePopup } from "../../../components/popup/Popup";
+import { useClosePopup } from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
 import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import i18n from "../../../utils/i18n";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
@@ -28,7 +28,7 @@ export function WithdrawalConfirmationPopup({
   const setSelectedUTXOIds = useWalletState(
     (state) => state.setSelectedUTXOIds,
   );
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const handleTransactionError = useHandleTransactionError();
 
   const confirm = async () => {

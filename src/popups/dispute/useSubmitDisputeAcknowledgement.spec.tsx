@@ -2,7 +2,7 @@ import { Keyboard } from "react-native";
 import { render, renderHook, waitFor } from "test-utils";
 import { contract } from "../../../peach-api/src/testData/contract";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
-import { Popup } from "../../components/popup/Popup";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { defaultAccount, setAccount } from "../../utils/account/account";
 import { peachAPI } from "../../utils/peachAPI";
@@ -97,7 +97,7 @@ describe("useSubmitDisputeAcknowledgement", () => {
       ).toBe("success");
     });
 
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("dispute opened")).toBeFalsy();
   });
   it("closes keyboard when successful and email was required", async () => {

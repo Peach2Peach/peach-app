@@ -12,7 +12,7 @@ import { ProgressDonut } from "../../components/ui/ProgressDonut";
 import { MSINAMINUTE } from "../../constants";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { info } from "../../utils/log/info";
@@ -149,7 +149,7 @@ function MarketStats() {
 const buttonStyle = tw`flex-1 px-5 py-3`;
 
 function BuyButton() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const goToBuyOfferPreferences = () =>
     navigation.navigate("buyOfferPreferences");
   return (
@@ -163,7 +163,7 @@ function BuyButton() {
 }
 
 function SellButton() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const goToSellOfferPreferences = () =>
     navigation.navigate("sellOfferPreferences");
   return (

@@ -1,9 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import { useClosePopup, useSetPopup } from "../../../components/popup/Popup";
+import {
+  useClosePopup,
+  useSetPopup,
+} from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
-import { useNavigation } from "../../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFromContract";
 import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -52,7 +55,7 @@ function RepublishedOfferPopup({
   newOfferId: string;
 }) {
   const closePopup = useClosePopup();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const closeAction = () => {
     navigation.replace("contract", { contractId });

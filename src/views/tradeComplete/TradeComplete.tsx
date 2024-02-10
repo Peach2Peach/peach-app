@@ -7,7 +7,7 @@ import { useSetOverlay } from "../../Overlay";
 import { IconType } from "../../assets/icons";
 import { Icon } from "../../components/Icon";
 import { Button } from "../../components/buttons/Button";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import {
   contractKeys,

@@ -1,11 +1,11 @@
 import { useCallback } from "react";
 import { shallow } from "zustand/shallow";
-import { useClosePopup, useSetPopup } from "../components/popup/Popup";
+import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
 import { LoadingPopupAction } from "../components/popup/actions/LoadingPopupAction";
-import { useNavigation } from "../hooks/useNavigation";
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { parseError } from "../utils/result/parseError";
@@ -18,7 +18,7 @@ type Props = {
 };
 
 export function CancelSellOffersPopup({ fundMultiple }: Props) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const showError = useShowErrorBanner();
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();

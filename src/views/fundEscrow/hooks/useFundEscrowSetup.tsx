@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSetPopup } from "../../../components/popup/Popup";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { MSINAMINUTE } from "../../../constants";
 import { useFundingStatus } from "../../../hooks/query/useFundingStatus";
 import { useMultipleOfferDetails } from "../../../hooks/query/useOfferDetail";

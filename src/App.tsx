@@ -17,7 +17,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useDeviceContext } from "twrnc";
 import { Drawer } from "./components/drawer/Drawer";
-import { Popup } from "./components/popup/Popup";
+import { GlobalPopup } from "./components/popup/GlobalPopup";
 import { Toast } from "./components/toast/Toast";
 import { useWebSocket } from "./init/websocket";
 import { Overlay } from "./Overlay";
@@ -66,7 +66,7 @@ export const App = () => {
           >
             <Screens />
             <Drawer />
-            <Popup />
+            <GlobalPopup />
             <Overlay />
             <Toast />
           </NavigationContainer>

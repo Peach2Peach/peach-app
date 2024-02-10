@@ -1,7 +1,7 @@
 import { toMatchDiffSnapshot } from "snapshot-diff";
 import { act, fireEvent, render, waitFor } from "test-utils";
 import { setRouteMock } from "../../../tests/unit/helpers/NavigationWrapper";
-import { Popup } from "../../components/popup/Popup";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { Settings } from "./Settings";
 
@@ -46,7 +46,7 @@ describe("Settings", () => {
     const { getByText } = render(
       <>
         <Settings />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
     await act(async () => {

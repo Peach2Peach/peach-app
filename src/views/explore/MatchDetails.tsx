@@ -26,8 +26,8 @@ import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -47,7 +47,7 @@ export function MatchDetails() {
   const { data: match } = useMatchDetails({ offerId, matchId });
   const { offer } = useOfferDetail(offerId);
 
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   if (offer?.contractId) {
     navigation.reset({
       index: 1,

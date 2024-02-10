@@ -1,7 +1,7 @@
 import { BitcoinAmountInfo } from "../../../components/statusCard/BitcoinAmountInfo";
 import { StatusCard } from "../../../components/statusCard/StatusCard";
 import { StatusInfo } from "../../../components/statusCard/StatusInfo";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { getShortDateFormat } from "../../../utils/date/getShortDateFormat";
 import { getTxSummaryTitle } from "../helpers/getTxSummaryTitle";
 import { TransactionIcon } from "./TransactionIcon";
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const TxStatusCard = ({ item: { type, amount, date, id } }: Props) => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   return (
     <StatusCard

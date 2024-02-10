@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import i18n from "../../utils/i18n";
-import { useNavigation } from "../useNavigation";
+import { useStackNavigation } from "../useStackNavigation";
 
 const offerSummaryEvents = [
   "offer.notFunded",
@@ -11,7 +11,7 @@ const searchEvents = ["offer.matchSeller"];
 const exploreEvents = ["offer.matchBuyer"];
 
 export const useGetPNActionHandler = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const getPNActionHandler = useCallback(
     ({ type, contractId, isChat, offerId }: PNData) => {
       if (contractId) {

@@ -10,7 +10,7 @@ import { GetMatchesResponseBody } from "../../../peach-api/src/@types/api/offerA
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -27,7 +27,7 @@ import { matchesKeys } from "../../views/search/hooks/useOfferMatches";
 import { Icon } from "../Icon";
 import { ProfileInfo } from "../ProfileInfo";
 import { NewBubble as Bubble } from "../bubble/Bubble";
-import { useSetPopup } from "../popup/Popup";
+import { useSetPopup } from "../popup/GlobalPopup";
 import { PeachText } from "../text/PeachText";
 import { HorizontalLine } from "../ui/HorizontalLine";
 import { options } from "./buttons/options";
@@ -192,7 +192,7 @@ function MatchOfferButton({
 function useAcceptMatch(offer: SellOffer, match: Match, currentPage: number) {
   const { selectedCurrency, selectedPaymentMethod, offerId } = match;
   const queryClient = useQueryClient();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const handleError = useHandleError();
   const setPopup = useSetPopup();
   const handleMissingPaymentData = useHandleMissingPaymentData();

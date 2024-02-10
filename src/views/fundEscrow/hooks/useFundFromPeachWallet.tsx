@@ -7,7 +7,7 @@ import { useCallback } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
-import { useSetPopup } from "../../../components/popup/Popup";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../../components/popup/actions/ClosePopupAction";
 import { PeachText } from "../../../components/text/PeachText";

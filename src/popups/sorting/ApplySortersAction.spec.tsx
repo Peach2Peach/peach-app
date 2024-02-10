@@ -9,9 +9,9 @@ const defaultComponent = (
   <ApplySortersAction setSorterAction={setSorterAction} />
 );
 const closePopup = jest.fn();
-jest.mock("../../components/popup/Popup");
+jest.mock("../../components/popup/GlobalPopup");
 jest
-  .requireMock("../../components/popup/Popup")
+  .requireMock("../../components/popup/GlobalPopup")
   .useClosePopup.mockReturnValue(closePopup);
 jest.useFakeTimers();
 describe("ApplyBuyFilterAction", () => {

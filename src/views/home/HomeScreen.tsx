@@ -4,8 +4,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Icon } from "../../components/Icon";
 import { NotificationBubble } from "../../components/bubble/NotificationBubble";
 import { PeachText } from "../../components/text/PeachText";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { HomeTabName, homeTabNames, homeTabs } from "./homeTabNames";
@@ -54,7 +54,7 @@ function Footer() {
 
 function FooterItem({ id }: { id: HomeTabName }) {
   const currentPage = useRoute<"homeScreen">().params?.screen ?? "home";
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const onPress = () => {
     navigation.navigate("homeScreen", { screen: id });
   };

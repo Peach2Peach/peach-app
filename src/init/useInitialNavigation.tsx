@@ -3,7 +3,7 @@ import messaging, {
 } from "@react-native-firebase/messaging";
 import { useCallback, useEffect } from "react";
 import { useSetOverlay } from "../Overlay";
-import { useNavigation } from "../hooks/useNavigation";
+import { useStackNavigation } from "../hooks/useStackNavigation";
 import { error } from "../utils/log/error";
 import { info } from "../utils/log/info";
 import { handlePushNotification } from "../utils/navigation/handlePushNotification";
@@ -21,7 +21,7 @@ const dataIsDefined = (
 } => !!remoteMessage.data;
 
 export const useInitialNavigation = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setOverlay = useSetOverlay();
 
   const handleOverlays = useCallback(

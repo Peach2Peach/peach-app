@@ -1,10 +1,10 @@
-import { useNavigation } from "../hooks/useNavigation";
+import { useStackNavigation } from "../hooks/useStackNavigation";
 import { ErrorPopup } from "../popups/ErrorPopup";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { TouchableIcon } from "./TouchableIcon";
-import { useClosePopup, useSetPopup } from "./popup/Popup";
+import { useClosePopup, useSetPopup } from "./popup/GlobalPopup";
 import { PopupAction } from "./popup/PopupAction";
 import { ClosePopupAction } from "./popup/actions/ClosePopupAction";
 
@@ -28,7 +28,7 @@ export function BackupReminderIcon() {
 
 function BackupReminderPopup() {
   const closePopup = useClosePopup();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   return (
     <ErrorPopup

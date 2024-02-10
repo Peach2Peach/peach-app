@@ -19,7 +19,7 @@ import { TouchableIcon } from "../../components/TouchableIcon";
 import { Button } from "../../components/buttons/Button";
 import { Checkbox } from "../../components/inputs/Checkbox";
 import { Toggle } from "../../components/inputs/Toggle";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
@@ -28,8 +28,8 @@ import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
@@ -533,7 +533,7 @@ function FundWithPeachWallet({
   const feeEstimate = useFeeEstimate();
   const estimatedFeeRate =
     typeof feeRate === "number" ? feeRate : feeEstimate.estimatedFees[feeRate];
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const onPress = () => navigation.navigate("networkFees");
   return (
     <Section.Container style={tw`flex-row justify-between`}>
@@ -659,7 +659,7 @@ function FundEscrowButton({
     shallow,
   );
   const { mutate: createEscrow } = useCreateEscrow();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const fundFromPeachWallet = useFundFromPeachWallet();
 
   const onPress = async () => {
@@ -800,7 +800,7 @@ function RefundWalletSelector() {
     ],
     shallow,
   );
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const onExternalWalletPress = () => {
     if (refundAddress) {
