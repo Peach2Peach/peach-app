@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { CurrencyTabs } from "./CurrencyTabs";
 import { usePaymentMethodLabel } from "./hooks";
 
 export const SelectCurrency = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>("EUR");
 
   const { origin } = useRoute<"selectCurrency">().params;

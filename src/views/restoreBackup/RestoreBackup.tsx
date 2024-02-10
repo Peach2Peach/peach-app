@@ -4,8 +4,8 @@ import { Screen } from "../../components/Screen";
 import { useDrawerState } from "../../components/drawer/useDrawerState";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { useLanguage } from "../../hooks/useLanguage";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { RestoreFromFile } from "./RestoreFromFile";
@@ -44,7 +44,7 @@ export const RestoreBackup = () => {
 };
 
 function OnboardingHeader() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
   const { locale, updateLocale } = useLanguage();
 

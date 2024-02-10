@@ -9,8 +9,8 @@ import {
   contractKeys,
   useContractDetail,
 } from "../../../hooks/query/useContractDetail";
-import { useNavigation } from "../../../hooks/useNavigation";
 import { useRoute } from "../../../hooks/useRoute";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { useAccountStore } from "../../../utils/account/account";
 import { logTradeCompleted } from "../../../utils/analytics/logTradeCompleted";
 import { getContractViewer } from "../../../utils/contract/getContractViewer";
@@ -30,7 +30,7 @@ export const useContractSetup = () => {
   const view = contract
     ? getContractViewer(contract.seller.id, account)
     : undefined;
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const shouldShowFeeWarning =
     view === "buyer" && !!contract?.paymentMade && !contract?.paymentConfirmed;
 

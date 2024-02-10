@@ -7,9 +7,9 @@ import { useHandleNotifications } from "./hooks/notifications/useHandleNotificat
 import { useMessageHandler } from "./hooks/notifications/useMessageHandler";
 import { useCheckFundingMultipleEscrows } from "./hooks/useCheckFundingMultipleEscrows";
 import { useDynamicLinks } from "./hooks/useDynamicLinks";
-import { useNavigation } from "./hooks/useNavigation";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
+import { useStackNavigation } from "./hooks/useStackNavigation";
 import { usePublishMissingPublicKey } from "./hooks/user/usePublishMissingPublicKey";
 import { useInitialNavigation } from "./init/useInitialNavigation";
 import { AnalyticsPopup } from "./popups/AnalyticsPopup";
@@ -40,7 +40,7 @@ export const useGlobalHandlers = () => {
     (state) => state.setAnalyticsPopupSeen,
   );
   const setToast = useSetToast();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err);

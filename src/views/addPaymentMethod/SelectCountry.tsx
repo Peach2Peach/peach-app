@@ -5,8 +5,8 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -17,7 +17,7 @@ import { usePaymentMethodLabel } from "./hooks";
 
 export const SelectCountry = () => {
   const { origin, selectedCurrency } = useRoute<"selectCountry">().params;
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const [selectedCountry, setCountry] = useState<PaymentMethodCountry>();
   const setPopup = useSetPopup();
 

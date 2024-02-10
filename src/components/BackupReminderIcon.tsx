@@ -1,4 +1,4 @@
-import { useNavigation } from "../hooks/useNavigation";
+import { useStackNavigation } from "../hooks/useStackNavigation";
 import { ErrorPopup } from "../popups/ErrorPopup";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import tw from "../styles/tailwind";
@@ -28,7 +28,7 @@ export function BackupReminderIcon() {
 
 function BackupReminderPopup() {
   const closePopup = useClosePopup();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   return (
     <ErrorPopup

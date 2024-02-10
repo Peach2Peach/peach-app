@@ -3,7 +3,7 @@ import { BackupReminderIcon } from "../../components/BackupReminderIcon";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
@@ -42,7 +42,7 @@ const useAddressPrefetch = () => {
   useWalletAddress(displayIndex - 1);
 };
 function WalletButtons() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   useAddressPrefetch();
   useUTXOs();
 

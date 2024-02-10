@@ -10,8 +10,8 @@ import { LoadingPopupAction } from "../../components/popup/actions/LoadingPopupA
 import { PeachText } from "../../components/text/PeachText";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import { ErrorPopup } from "../../popups/ErrorPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
@@ -27,7 +27,7 @@ import { getNavigationDestinationForOffer } from "../yourTrades/utils/navigation
 import { useContractContext } from "./context";
 
 export function NewOfferButton() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const { contract } = useContractContext();
   const { offer } = useOfferDetail(
     contract ? getOfferIdFromContract(contract) : "",
@@ -147,7 +147,7 @@ export function ChatButton() {
   const {
     contract: { unreadMessages, id },
   } = useContractContext();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const showHelp = useCallback(
     () => setPopup(<DisputeDisclaimerPopup />),

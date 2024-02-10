@@ -13,8 +13,8 @@ import { CENT, NEW_USER_TRADE_THRESHOLD } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { BuySorters } from "../../popups/sorting/BuySorters";
 import tw from "../../styles/tailwind";
@@ -104,7 +104,7 @@ function ExploreCard({ match }: { match: Match }) {
       : match.premium;
   const { fiatPrice, displayCurrency } = useBitcoinPrices(amount);
   const { offerId } = useRoute<"explore">().params;
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const onPress = () => {
     navigation.navigate("matchDetails", { matchId: match.offerId, offerId });
   };
@@ -165,7 +165,7 @@ function ExploreCard({ match }: { match: Match }) {
 }
 
 function ExploreHeader() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const { offerId } = useRoute<"explore">().params;
   const setPopup = useSetPopup();
 

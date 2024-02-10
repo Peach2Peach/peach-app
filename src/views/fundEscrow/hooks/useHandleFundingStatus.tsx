@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSetOverlay } from "../../../Overlay";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { WronglyFundedPopup } from "../../../popups/WronglyFundedPopup";
 import { useStartRefundPopup } from "../../../popups/useStartRefundPopup";
 import { info } from "../../../utils/log/info";
@@ -21,7 +21,7 @@ export const useHandleFundingStatus = ({
   fundingStatus,
   userConfirmationRequired,
 }: Props) => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setPopup = useSetPopup();
 
   const setOverlay = useSetOverlay();

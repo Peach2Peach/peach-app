@@ -1,11 +1,11 @@
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { OptionButton } from "../../components/buttons/OptionButton";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 
 export const TestView = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const goToPeachWalletTesting = () =>
     navigation.navigate("testViewPeachWallet");
   const goToPNTesting = () => navigation.navigate("testViewPNs");

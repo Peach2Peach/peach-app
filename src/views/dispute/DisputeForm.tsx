@@ -10,9 +10,9 @@ import { EmailInput } from "../../components/inputs/EmailInput";
 import { Input } from "../../components/inputs/Input";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { useContractDetail } from "../../hooks/query/useContractDetail";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import { DisputeRaisedSuccess } from "../../popups/dispute/DisputeRaisedSuccess";
 import { useAccountStore } from "../../utils/account/account";
@@ -37,7 +37,7 @@ export const DisputeForm = () => {
 
 const required = { required: true };
 function DisputeFormScreen({ contract }: { contract: Contract }) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const { reason, contractId } = useRoute<"disputeForm">().params;
   const { data: decryptedData } = useDecryptedContractData(contract);
 

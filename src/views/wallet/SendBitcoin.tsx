@@ -13,7 +13,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { useHandleTransactionError } from "../../hooks/error/useHandleTransactionError";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { InfoPopup } from "../../popups/InfoPopup";
 import tw from "../../styles/tailwind";
 import { removeNonDigits } from "../../utils/format/removeNonDigits";
@@ -229,7 +229,7 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
 function SendBitcoinHeader() {
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<WithdrawingFundsPopup />);
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   return (
     <Header
       title={i18n("wallet.sendBitcoin.title")}

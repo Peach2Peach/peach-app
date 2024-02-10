@@ -4,13 +4,13 @@ import { useClosePopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { PeachText } from "../../components/text/PeachText";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { ErrorPopup } from "../ErrorPopup";
 
 export function OpenDisputePopup({ contractId }: { contractId: string }) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const closePopup = useClosePopup();
 
   const ok = useCallback(() => {

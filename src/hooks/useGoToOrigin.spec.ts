@@ -1,48 +1,47 @@
 import { act, renderHook } from "test-utils";
+import {
+  getStateMock,
+  goBackMock,
+} from "../../tests/unit/helpers/NavigationWrapper";
 import { useGoToOrigin } from "./useGoToOrigin";
-import { useNavigation } from "./useNavigation";
-
-jest.mock("./useNavigation", () => ({
-  useNavigation: jest.fn().mockReturnValue({
-    getState: jest.fn().mockReturnValue({
-      routes: [
-        { name: "buyOfferPreferences" },
-        { name: "sellOfferPreferences" },
-        { name: "paymentDetails" },
-      ],
-    }),
-    goBack: jest.fn(),
-  }),
-}));
 
 describe("useGoToOrigin", () => {
-  afterEach(() => {
-    (<jest.Mock>useNavigation().goBack).mockReset();
+  getStateMock.mockReturnValue({
+    routes: [
+      { name: "buyOfferPreferences", key: "buyOfferPreferences" },
+      { name: "sellOfferPreferences", key: "sellOfferPreferences" },
+      { name: "offer", key: "offer" },
+    ],
+    index: 2,
+    key: "key",
+    routeNames: ["buyOfferPreferences", "sellOfferPreferences", "offer"],
+    type: "stack",
+    stale: false,
   });
   it("goes back to origin and stops when found", () => {
-    const { result } = renderHook(() => useGoToOrigin());
+    const { result } = renderHook(useGoToOrigin);
     act(() => {
       result.current("buyOfferPreferences");
     });
 
-    expect(useNavigation().goBack).toHaveBeenCalledTimes(2);
+    expect(goBackMock).toHaveBeenCalledTimes(2);
   });
 
   it("goes back to second origin and stops when found", () => {
-    const { result } = renderHook(() => useGoToOrigin());
+    const { result } = renderHook(useGoToOrigin);
     act(() => {
       result.current("sellOfferPreferences");
     });
 
-    expect(useNavigation().goBack).toHaveBeenCalledTimes(1);
+    expect(goBackMock).toHaveBeenCalledTimes(1);
   });
 
   it("does nothing if origin not found", () => {
-    const { result } = renderHook(() => useGoToOrigin());
+    const { result } = renderHook(useGoToOrigin);
     act(() => {
       result.current("settings");
     });
 
-    expect(useNavigation().goBack).not.toHaveBeenCalled();
+    expect(goBackMock).not.toHaveBeenCalled();
   });
 });

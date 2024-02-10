@@ -4,7 +4,7 @@ import { Match } from "../../../../peach-api/src/@types/match";
 import { contractKeys } from "../../../hooks/query/useContractDetail";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { AppPopup } from "../../../popups/AppPopup";
 import { getHashedPaymentData } from "../../../store/offerPreferenes/helpers";
 import { getRandom } from "../../../utils/crypto/getRandom";
@@ -24,7 +24,7 @@ import { useHandleMissingPaymentData } from "../utils/useHandleMissingPaymentDat
 export const useMatchOffer = (offer: BuyOffer, match: Match) => {
   const matchId = match.offerId;
   const queryClient = useQueryClient();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const handleError = useHandleError();
   const setPopup = useSetPopup();
   const { user } = useSelfUser();

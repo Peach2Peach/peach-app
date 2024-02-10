@@ -6,8 +6,8 @@ import { Screen } from "../../components/Screen";
 import { Loading } from "../../components/animation/Loading";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useUserUpdate } from "../../init/useUserUpdate";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
@@ -22,7 +22,7 @@ import { useRegisterUser } from "./useRegisterUser";
 
 export const NewUser = () => {
   const route = useRoute<"newUser">();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const [success, setSuccess] = useState(false);
   const setAccount = useAccountStore((state) => state.setAccount);
@@ -124,7 +124,7 @@ type CreateAccountErrorProps = {
   err: string;
 };
 function CreateAccountError({ err }: CreateAccountErrorProps) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const goToContact = () => navigation.navigate("contact");
   const goToRestoreBackup = () => navigation.navigate("restoreBackup");
 
@@ -186,7 +186,7 @@ function CreateAccountSuccess() {
 
 function UserExistsForDevice() {
   const route = useRoute<"newUser">();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const goToRestoreFromFile = () =>
     navigation.navigate("restoreBackup", { tab: "fileBackup" });
   const goToRestoreFromSeed = () =>

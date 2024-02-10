@@ -5,8 +5,8 @@ import { PopupComponent } from "../components/popup/PopupComponent";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
 import { LoadingPopupAction } from "../components/popup/actions/LoadingPopupAction";
 import { offerKeys, useOfferDetail } from "../hooks/query/useOfferDetail";
-import { useNavigation } from "../hooks/useNavigation";
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { isBuyOffer } from "../utils/offer/isBuyOffer";
@@ -17,7 +17,7 @@ import { useCancelOffer } from "./useCancelOffer";
 import { useStartRefundPopup } from "./useStartRefundPopup";
 
 export function CancelOfferPopup({ offerId }: { offerId: string }) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const showErrorBanner = useShowErrorBanner();
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();

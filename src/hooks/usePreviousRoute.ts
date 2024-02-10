@@ -1,6 +1,6 @@
-import { useNavigation } from "./useNavigation";
+import { useStackNavigation } from "./useStackNavigation";
 
 export const usePreviousRoute = () => {
-  const { routes } = useNavigation().getState();
+  const { routes } = useStackNavigation().getState();
   return routes[routes.length - 2];
 };

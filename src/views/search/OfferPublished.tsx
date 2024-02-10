@@ -1,7 +1,7 @@
 import { useSetOverlay } from "../../Overlay";
 import { OverlayComponent } from "../../components/OverlayComponent";
 import { Button } from "../../components/buttons/Button";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 
@@ -12,7 +12,7 @@ export const OfferPublished = ({
   shouldGoBack: boolean;
   offerId: string;
 }) => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setOverlay = useSetOverlay();
   const closeOverlay = () => setOverlay(undefined);
   const goBackHome = () => {

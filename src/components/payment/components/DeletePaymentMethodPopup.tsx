@@ -1,4 +1,4 @@
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { ErrorPopup } from "../../../popups/ErrorPopup";
 import i18n from "../../../utils/i18n";
 import { useClosePopup } from "../../popup/GlobalPopup";
@@ -6,7 +6,7 @@ import { PopupAction } from "../../popup/PopupAction";
 import { useRemovePaymentData } from "../hooks/useRemovePaymentData";
 
 export function DeletePaymentMethodPopup({ id }: { id: string }) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const closePopup = useClosePopup();
   const { mutate: removePaymentData } = useRemovePaymentData();
 

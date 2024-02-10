@@ -3,8 +3,8 @@ import { shallow } from "zustand/shallow";
 import { useSetOverlay } from "../../../Overlay";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
-import { useNavigation } from "../../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { InfoPopup } from "../../../popups/InfoPopup";
 import { useConfigStore } from "../../../store/configStore/configStore";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
@@ -37,7 +37,7 @@ export function usePostBuyOffer({
   "amount" | "meansOfPayment" | "paymentData" | "maxPremium" | "minReputation"
 >) {
   const queryClient = useQueryClient();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const showErrorBanner = useShowErrorBanner();
   const hasSeenGroupHugAnnouncement = useConfigStore(
     (state) => state.hasSeenGroupHugAnnouncement,

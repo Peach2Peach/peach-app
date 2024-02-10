@@ -10,8 +10,8 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { FIFTEEN_SECONDS } from "../../constants";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { SellSorters } from "../../popups/sorting/SellSorters";
@@ -26,7 +26,7 @@ import { useOfferMatches } from "./hooks/useOfferMatches";
 import { useRefetchOnNotification } from "./hooks/useRefetchOnNotification";
 
 export const Search = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const { offerId } = useRoute<"search">().params;
   const { allMatches: matches, refetch } = useOfferMatches(
     offerId,
@@ -100,7 +100,7 @@ function WalletLabel({
 
 function SearchHeader({ offer }: { offer: SellOffer }) {
   const { offerId } = useRoute<"search">().params;
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const showMatchPopup = useCallback(
     () => setPopup(<HelpPopup id="matchmatchmatch" />),

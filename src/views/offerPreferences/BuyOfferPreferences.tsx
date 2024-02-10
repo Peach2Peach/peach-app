@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { shallow } from "zustand/shallow";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
@@ -59,7 +59,7 @@ function PreferenceWalletSelector() {
     ],
     shallow,
   );
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const onExternalWalletPress = () => {
     if (payoutAddress) {

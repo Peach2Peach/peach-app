@@ -1,8 +1,8 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { shallow } from "zustand/shallow";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
-import { useNavigation } from "../../hooks/useNavigation";
 import { usePreviousRoute } from "../../hooks/usePreviousRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { InfoPopup } from "../../popups/InfoPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
@@ -26,7 +26,7 @@ const PaymentMethodsTab = createMaterialTopTabNavigator();
 const tabs = ["online", "meetups"] as const;
 
 export const PaymentMethods = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const [preferredPaymentMethods, select] = useOfferPreferences(
     (state) => [state.preferredPaymentMethods, state.selectPaymentMethod],
     shallow,
