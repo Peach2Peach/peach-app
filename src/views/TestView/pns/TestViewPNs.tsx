@@ -11,7 +11,8 @@ import { useAccountStore } from "../../../utils/account/account";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 import { isSellOffer } from "../../../utils/offer/isSellOffer";
 
-const useFakePNs = () => {
+export const TestViewPNs = () => {
+  const messageHandler = useMessageHandler();
   const account = useAccountStore((state) => state.account);
   const firstSellOffer = useMemo(
     () => account.offers.find(isSellOffer),
@@ -99,7 +100,7 @@ const useFakePNs = () => {
         offerId: sellOfferId,
       },
     },
-  ];
+  ].map((pn, index) => ({ ...pn, messageId: `${index}-offer` }));
   const fakeContractPNs = [
     {
       data: {
@@ -305,13 +306,7 @@ const useFakePNs = () => {
         bodyLocArgs: ["PC-123-456"],
       },
     },
-  ];
-  return { fakeOfferPNs, fakeContractPNs };
-};
-
-export const TestViewPNs = () => {
-  const messageHandler = useMessageHandler();
-  const { fakeOfferPNs, fakeContractPNs } = useFakePNs();
+  ].map((pn, index) => ({ ...pn, messageId: `${index}-contract` }));
   const tabs = [
     { id: "offer", display: "offer" },
     { id: "contract", display: "contract" },
