@@ -16,11 +16,10 @@ export const OfferPublished = ({
   const setOverlay = useSetOverlay();
   const closeOverlay = () => setOverlay(undefined);
   const goBackHome = () => {
-    closeOverlay();
     navigation.navigate("homeScreen", { screen: "home" });
+    closeOverlay();
   };
   const goToOffer = () => {
-    closeOverlay();
     navigation.reset({
       index: 1,
       routes: [
@@ -31,6 +30,7 @@ export const OfferPublished = ({
         { name: "search", params: { offerId } },
       ],
     });
+    closeOverlay();
   };
 
   return (
