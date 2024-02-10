@@ -1,7 +1,7 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useNavigationState } from "@react-navigation/native";
 import { shallow } from "zustand/shallow";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
-import { usePreviousRoute } from "../../hooks/usePreviousRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { InfoPopup } from "../../popups/InfoPopup";
@@ -52,7 +52,9 @@ export const PaymentMethods = () => {
 
   const isSelected = (itm: { value: string }) =>
     selectedPaymentDataIds.includes(itm.value);
-  const { name: origin, params } = usePreviousRoute();
+  const { name: origin, params } = useNavigationState(
+    (state) => state.routes[state.index - 1],
+  );
   const isComingFromSettings =
     origin === "homeScreen" &&
     params &&
