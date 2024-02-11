@@ -1,6 +1,6 @@
 import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import { useAccountStore } from "../account/account";
-import { storeOffer } from "../account/storeAccount";
+import { offerStorage } from "../account/offerStorage";
 import { error } from "../log/error";
 import { info } from "../log/info";
 import { getSummaryFromOffer } from "./getSummaryFromOffer";
@@ -34,7 +34,7 @@ export const saveOffer = (offer: SellOffer | BuyOffer) => {
     };
   });
 
-  storeOffer(offer);
+  offerStorage.setMap(offer.id, offer);
   info("saveOffer", offer.id);
   useTradeSummaryStore
     .getState()
