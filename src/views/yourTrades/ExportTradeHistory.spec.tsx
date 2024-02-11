@@ -11,8 +11,8 @@ jest.mock("../../hooks/query/useTradeSummaries");
 const useTradeSummariesMock = jest
   .requireMock("../../hooks/query/useTradeSummaries")
   .useTradeSummaries.mockImplementation(
-    (): { tradeSummaries: (OfferSummary | ContractSummary)[] } => ({
-      tradeSummaries: [],
+    (): { pastOffers: (OfferSummary | ContractSummary)[] } => ({
+      pastOffers: [],
     }),
   );
 
@@ -41,7 +41,7 @@ describe("ExportTradeHistory", () => {
       tradeSummary.lastModified.getTime() - MSINAMONTH,
     );
     useTradeSummariesMock.mockReturnValueOnce({
-      tradeSummaries: [
+      pastOffers: [
         tradeSummary,
         {
           ...tradeSummary,

@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Icon } from "../../components/Icon";
 import { NotificationBubble } from "../../components/bubble/NotificationBubble";
 import { PeachText } from "../../components/text/PeachText";
+import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
@@ -55,14 +56,33 @@ function Footer() {
 function FooterItem({ id }: { id: HomeTabName }) {
   const currentPage = useRoute<"homeScreen">().params?.screen ?? "home";
   const navigation = useStackNavigation();
+  const { openBuyOffers, openSellOffers, pastOffers } = useTradeSummaries(
+    id === "yourTrades",
+  );
+  const notifications = useNotificationStore((state) => state.notifications);
   const onPress = () => {
-    navigation.navigate("homeScreen", { screen: id });
+    if (id === "yourTrades") {
+      const destinationTab =
+        openBuyOffers.length === 0
+          ? openSellOffers.length === 0
+            ? pastOffers.length === 0
+              ? "yourTrades.buy"
+              : "yourTrades.history"
+            : "yourTrades.sell"
+          : "yourTrades.buy";
+
+      navigation.navigate("homeScreen", {
+        screen: id,
+        params: { tab: destinationTab },
+      });
+    } else {
+      navigation.navigate("homeScreen", { screen: id });
+    }
   };
 
   const active = currentPage === id;
   const colorTheme = tw.color(active ? "black-100" : "black-65");
   const size = tw`w-6 h-6`;
-  const notifications = useNotificationStore((state) => state.notifications);
   return (
     <TouchableOpacity onPress={onPress} style={tw`items-center flex-1 gap-2px`}>
       <View style={size}>

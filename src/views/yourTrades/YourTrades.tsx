@@ -21,8 +21,6 @@ import { useHomeScreenRoute } from "../home/useHomeScreenRoute";
 import { TradeItem } from "./components/TradeItem";
 import { TradePlaceholders } from "./components/TradePlaceholders";
 import { getCategories } from "./utils/getCategories";
-import { getPastOffers } from "./utils/getPastOffers";
-import { isOpenOffer } from "./utils/isOpenOffer";
 
 const YourTradesTab = createMaterialTopTabNavigator();
 const tabs = [
@@ -32,7 +30,14 @@ const tabs = [
 ] as const;
 
 export const YourTrades = () => {
-  const { tradeSummaries, isLoading, error, refetch } = useTradeSummaries();
+  const {
+    openBuyOffers,
+    openSellOffers,
+    pastOffers,
+    isLoading,
+    error,
+    refetch,
+  } = useTradeSummaries();
   const { params } = useHomeScreenRoute<"yourTrades">();
   const showErrorBanner = useShowErrorBanner();
 
@@ -40,18 +45,11 @@ export const YourTrades = () => {
     if (error) showErrorBanner(parseError(error));
   }, [error, showErrorBanner]);
 
-  const allOpenOffers = useMemo(
-    () => tradeSummaries.filter(({ tradeStatus }) => isOpenOffer(tradeStatus)),
-    [tradeSummaries],
-  );
-  const summaries = useMemo(
-    () => ({
-      "yourTrades.buy": allOpenOffers.filter(({ type }) => type === "bid"),
-      "yourTrades.sell": allOpenOffers.filter(({ type }) => type === "ask"),
-      "yourTrades.history": getPastOffers(tradeSummaries),
-    }),
-    [allOpenOffers, tradeSummaries],
-  );
+  const summaries = {
+    "yourTrades.buy": openBuyOffers,
+    "yourTrades.sell": openSellOffers,
+    "yourTrades.history": pastOffers,
+  };
 
   return (
     <Screen style={tw`px-0`} header={<YourTradesHeader />}>
