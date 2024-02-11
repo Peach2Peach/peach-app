@@ -1,5 +1,6 @@
 import { BuyOffer, SellOffer } from "../../../peach-api/src/@types/offer";
-import { useAccountStore } from "../account/account";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
+import { queryClient } from "../../queryClient";
 
 export const getOffer = (id: string): SellOffer | BuyOffer | undefined =>
-  useAccountStore.getState().account.offers.find((c) => c.id === id);
+  queryClient.getQueryData(offerKeys.detail(id));

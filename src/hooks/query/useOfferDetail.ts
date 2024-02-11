@@ -5,7 +5,6 @@ import {
 } from "@tanstack/react-query";
 import { MSINAMINUTE } from "../../constants";
 import { error } from "../../utils/log/error";
-import { getOffer } from "../../utils/offer/getOffer";
 import { saveOffer } from "../../utils/offer/saveOffer";
 import { peachAPI } from "../../utils/peachAPI";
 
@@ -42,13 +41,9 @@ export const useMultipleOfferDetails = (ids: string[]) => {
 };
 
 function buildQuery(id: string) {
-  const initialOffer = getOffer(id);
-
   return {
     queryKey: offerKeys.detail(id),
     queryFn: getOfferQuery,
-    initialData: initialOffer,
-    initialDataUpdatedAt: initialOffer?.lastModified?.getTime(),
     staleTime: MSINAMINUTE,
     enabled: !!id,
   };

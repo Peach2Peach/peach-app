@@ -1,6 +1,3 @@
-import { useAccountStore } from "../account/account";
+import { getOffer } from "./getOffer";
 
-export const offerExists = (id: string): boolean => {
-  const offers = useAccountStore.getState().account.offers;
-  return offers.some((o) => o.id === id);
-};
+export const offerExists = (id: string) => getOffer(id) !== undefined;
