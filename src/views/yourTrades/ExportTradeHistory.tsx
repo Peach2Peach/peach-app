@@ -16,17 +16,16 @@ import i18n from "../../utils/i18n";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { groupChars } from "../../utils/string/groupChars";
 import { priceFormat } from "../../utils/string/priceFormat";
-import { getPastOffers } from "./utils/getPastOffers";
 import { getThemeForTradeItem } from "./utils/getThemeForTradeItem";
 import { isContractSummary } from "./utils/isContractSummary";
 
 export function ExportTradeHistory() {
-  const { tradeSummaries } = useTradeSummaries();
+  const { summaries } = useTradeSummaries();
   const openShareMenu = useWriteCSV();
 
   const onPress = async () => {
     const csvValue = createCSVValue(
-      getPastOffers(tradeSummaries).sort(sortByKey("creationDate")),
+      summaries["yourTrades.history"].sort(sortByKey("creationDate")),
     );
     await openShareMenu(csvValue, "trade-history.csv");
   };
