@@ -1,9 +1,9 @@
 import { render, renderHook, waitFor } from "test-utils";
-import { account1 } from "../../../../tests/unit/data/accountData";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { replaceMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { GlobalPopup } from "../../../components/popup/GlobalPopup";
-import { setAccount, useAccountStore } from "../../../utils/account/account";
+import { offerKeys } from "../../../hooks/query/useOfferDetail";
+import { queryClient } from "../../../queryClient";
 import { defaultFundingStatus } from "../../../utils/offer/constants";
 import { useHandleFundingStatus } from "./useHandleFundingStatus";
 
@@ -65,8 +65,8 @@ describe("useHandleFundingStatus", () => {
     userConfirmationRequired: false,
   };
 
-  beforeEach(() => {
-    setAccount({ ...account1, offers: [] });
+  afterEach(() => {
+    queryClient.clear();
   });
 
   it("should do nothing if no sell offer is passed", () => {
@@ -79,8 +79,9 @@ describe("useHandleFundingStatus", () => {
     renderHook(useHandleFundingStatus, { initialProps });
     expect(replaceMock).not.toHaveBeenCalled();
     expect(mockStartRefundPopup).not.toHaveBeenCalled();
-    const account = useAccountStore.getState().account;
-    expect(account.offers).toEqual([]);
+    expect(
+      queryClient.getQueryData(offerKeys.detail(sellOffer.id)),
+    ).toBeUndefined();
   });
   it("should save offer when funding status updates", () => {
     const fundingStatus = defaultFundingStatus;
@@ -91,8 +92,10 @@ describe("useHandleFundingStatus", () => {
       userConfirmationRequired: false,
     };
     renderHook(useHandleFundingStatus, { initialProps });
-    const account = useAccountStore.getState().account;
-    expect(account.offers[0]).toEqual({ ...sellOffer, funding: fundingStatus });
+    expect(queryClient.getQueryData(offerKeys.detail(sellOffer.id))).toEqual({
+      ...sellOffer,
+      funding: fundingStatus,
+    });
   });
   it("should handle funding status when it is CANCELED", () => {
     const fundingStatus: FundingStatus = {

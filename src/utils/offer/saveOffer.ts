@@ -1,10 +1,9 @@
+import { offerKeys } from "../../hooks/query/useOfferDetail";
+import { queryClient } from "../../queryClient";
 import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
-import { useAccountStore } from "../account/account";
-import { offerStorage } from "../account/offerStorage";
 import { error } from "../log/error";
 import { info } from "../log/info";
 import { getSummaryFromOffer } from "./getSummaryFromOffer";
-import { offerExists } from "./offerExists";
 
 export const saveOffer = (offer: SellOffer | BuyOffer) => {
   if (!offer.id) {
@@ -12,29 +11,7 @@ export const saveOffer = (offer: SellOffer | BuyOffer) => {
     return;
   }
 
-  useAccountStore.setState((state) => {
-    const newOffers = offerExists(offer.id)
-      ? state.account.offers.map((o) => {
-          if (o.id !== offer.id) return o;
-
-          return {
-            ...o,
-            ...offer,
-          };
-        })
-      : state.account.offers.concat(offer);
-
-    return {
-      account: {
-        ...state.account,
-        offers: newOffers.sort((a, b) =>
-          a.id === b.id ? 0 : a.id > b.id ? 1 : -1,
-        ),
-      },
-    };
-  });
-
-  offerStorage.setMap(offer.id, offer);
+  queryClient.setQueryData(offerKeys.detail(offer.id), offer);
   info("saveOffer", offer.id);
   useTradeSummaryStore
     .getState()

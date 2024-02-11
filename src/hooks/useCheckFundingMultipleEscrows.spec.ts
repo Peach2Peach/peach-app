@@ -1,6 +1,5 @@
 import { act, renderHook, waitFor } from "test-utils";
 import { OfferSummary } from "../../peach-api/src/@types/offer";
-import { account1 } from "../../tests/unit/data/accountData";
 import { sellOffer } from "../../tests/unit/data/offerData";
 import { offerSummary } from "../../tests/unit/data/offerSummaryData";
 import { queryClient } from "../../tests/unit/helpers/QueryClientWrapper";
@@ -8,11 +7,11 @@ import { createTestWallet } from "../../tests/unit/helpers/createTestWallet";
 import { getTransactionDetails } from "../../tests/unit/helpers/getTransactionDetails";
 import { MSINAMINUTE } from "../constants";
 import { useTradeSummaryStore } from "../store/tradeSummaryStore";
-import { defaultAccount, setAccount } from "../utils/account/account";
 import { sum } from "../utils/math/sum";
 import { PeachWallet } from "../utils/wallet/PeachWallet";
 import { setPeachWallet } from "../utils/wallet/setWallet";
 import { useWalletState } from "../utils/wallet/walletStore";
+import { offerKeys } from "./query/useOfferDetail";
 import { useCheckFundingMultipleEscrows } from "./useCheckFundingMultipleEscrows";
 
 jest.useFakeTimers();
@@ -63,7 +62,9 @@ describe("useCheckFundingMultipleEscrows", () => {
     peachWallet.initialized = true;
   });
   beforeEach(() => {
-    setAccount({ ...account1, offers: sellOffers });
+    sellOffers.forEach((o) => {
+      queryClient.setQueryData(offerKeys.detail(o.id), o);
+    });
     useTradeSummaryStore.getState().reset();
     useTradeSummaryStore.getState().setOffers(sellOfferSummaries);
     refetchMock.mockResolvedValue(sellOfferSummaries);
@@ -120,7 +121,7 @@ describe("useCheckFundingMultipleEscrows", () => {
     expect(useWalletState.getState().fundMultipleMap).toEqual({});
   });
   it("aborts if no escrow addresses can be found", async () => {
-    setAccount(defaultAccount);
+    queryClient.clear();
     renderHook(useCheckFundingMultipleEscrows);
 
     act(() => jest.advanceTimersByTime(MSINAMINUTE));

@@ -1,26 +1,51 @@
-/* eslint-disable max-lines */
 import { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
+import { QueryKey, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { FlatList, View } from "react-native";
 import { Screen } from "../../../components/Screen";
 import { Button } from "../../../components/buttons/Button";
 import { TabbedNavigation } from "../../../components/navigation/TabbedNavigation";
 import { useMessageHandler } from "../../../hooks/notifications/useMessageHandler";
+import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import tw from "../../../styles/tailwind";
-import { useAccountStore } from "../../../utils/account/account";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
-import { isSellOffer } from "../../../utils/offer/isSellOffer";
 
 export const TestViewPNs = () => {
   const messageHandler = useMessageHandler();
-  const account = useAccountStore((state) => state.account);
+  const queryClient = useQueryClient();
   const firstSellOffer = useMemo(
-    () => account.offers.find(isSellOffer),
-    [account.offers],
+    () =>
+      queryClient
+        .getQueriesData<BuyOffer | SellOffer>({ queryKey: offerKeys.details() })
+        .find(([, value]: [QueryKey, BuyOffer | SellOffer | undefined]) => {
+          if (
+            value &&
+            typeof value === "object" &&
+            value !== null &&
+            "type" in value
+          ) {
+            return value.type === "ask";
+          }
+          return false;
+        })?.[1],
+    [queryClient],
   );
   const firstBuyOffer = useMemo(
-    () => account.offers.find(isBuyOffer),
-    [account.offers],
+    () =>
+      queryClient
+        .getQueriesData<BuyOffer | SellOffer>({ queryKey: offerKeys.details() })
+        .find(([, value]: [QueryKey, BuyOffer | SellOffer | undefined]) => {
+          if (
+            value &&
+            typeof value === "object" &&
+            value !== null &&
+            "type" in value
+          ) {
+            return isBuyOffer(value);
+          }
+          return false;
+        })?.[1],
+    [queryClient],
   );
   const firstContract = undefined as Contract | undefined;
   const sellOfferId = firstSellOffer?.id || "1";

@@ -1,16 +1,17 @@
 import { contract } from "../../../peach-api/src/testData/contract";
-import { account1 } from "../../../tests/unit/data/accountData";
 import { buyOffer, sellOffer } from "../../../tests/unit/data/offerData";
 import { offerSummary } from "../../../tests/unit/data/offerSummaryData";
 import { confirmed1 } from "../../../tests/unit/data/transactionDetailData";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
+import { queryClient } from "../../queryClient";
 import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
-import { setAccount } from "../account/account";
 import { labelAddressByTransaction } from "./labelAddressByTransaction";
 import { useWalletState } from "./walletStore";
 
 describe("labelAddressByTransaction", () => {
   beforeAll(() => {
-    setAccount(account1);
+    queryClient.setQueryData(offerKeys.detail(buyOffer.id), buyOffer);
+    queryClient.setQueryData(offerKeys.detail(sellOffer.id), sellOffer);
   });
   afterEach(() => {
     useWalletState.getState().reset();
