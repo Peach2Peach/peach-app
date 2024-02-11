@@ -30,26 +30,13 @@ const tabs = [
 ] as const;
 
 export const YourTrades = () => {
-  const {
-    openBuyOffers,
-    openSellOffers,
-    pastOffers,
-    isLoading,
-    error,
-    refetch,
-  } = useTradeSummaries();
+  const { summaries, isLoading, error, refetch } = useTradeSummaries();
   const { params } = useHomeScreenRoute<"yourTrades">();
   const showErrorBanner = useShowErrorBanner();
 
   useEffect(() => {
     if (error) showErrorBanner(parseError(error));
   }, [error, showErrorBanner]);
-
-  const summaries = {
-    "yourTrades.buy": openBuyOffers,
-    "yourTrades.sell": openSellOffers,
-    "yourTrades.history": pastOffers,
-  };
 
   return (
     <Screen style={tw`px-0`} header={<YourTradesHeader />}>

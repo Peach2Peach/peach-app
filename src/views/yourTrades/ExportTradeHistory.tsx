@@ -20,11 +20,13 @@ import { getThemeForTradeItem } from "./utils/getThemeForTradeItem";
 import { isContractSummary } from "./utils/isContractSummary";
 
 export function ExportTradeHistory() {
-  const { pastOffers } = useTradeSummaries();
+  const { summaries } = useTradeSummaries();
   const openShareMenu = useWriteCSV();
 
   const onPress = async () => {
-    const csvValue = createCSVValue(pastOffers.sort(sortByKey("creationDate")));
+    const csvValue = createCSVValue(
+      summaries["yourTrades.history"].sort(sortByKey("creationDate")),
+    );
     await openShareMenu(csvValue, "trade-history.csv");
   };
 

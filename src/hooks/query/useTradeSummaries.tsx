@@ -49,10 +49,7 @@ export const useTradeSummaries = (enabled = true) => {
   return {
     isLoading: offersLoading || contractsLoading,
     error: offersError || contractsError,
-    tradeSummaries,
-    openBuyOffers: summaries["yourTrades.buy"],
-    openSellOffers: summaries["yourTrades.sell"],
-    pastOffers: summaries["yourTrades.history"],
+    summaries,
     refetch,
   };
 };

@@ -56,16 +56,14 @@ function Footer() {
 function FooterItem({ id }: { id: HomeTabName }) {
   const currentPage = useRoute<"homeScreen">().params?.screen ?? "home";
   const navigation = useStackNavigation();
-  const { openBuyOffers, openSellOffers, pastOffers } = useTradeSummaries(
-    id === "yourTrades",
-  );
+  const { summaries } = useTradeSummaries(id === "yourTrades");
   const notifications = useNotificationStore((state) => state.notifications);
   const onPress = () => {
     if (id === "yourTrades") {
       const destinationTab =
-        openBuyOffers.length === 0
-          ? openSellOffers.length === 0
-            ? pastOffers.length === 0
+        summaries["yourTrades.buy"].length === 0
+          ? summaries["yourTrades.sell"].length === 0
+            ? summaries["yourTrades.history"].length === 0
               ? "yourTrades.buy"
               : "yourTrades.history"
             : "yourTrades.sell"
