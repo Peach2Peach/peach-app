@@ -10,7 +10,7 @@ import { createTestWallet } from "../../../../tests/unit/helpers/createTestWalle
 import { getTransactionDetails } from "../../../../tests/unit/helpers/getTransactionDetails";
 import { Popup } from "../../../components/popup/Popup";
 import { useConfigStore } from "../../../store/configStore/configStore";
-import { defaultFundingStatus } from "../../../utils/offer/constants";
+import { getDefaultFundingStatus } from "../../../utils/offer/constants";
 import { peachAPI } from "../../../utils/peachAPI";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
@@ -49,7 +49,7 @@ describe("useFundFromPeachWallet", () => {
     offerId,
     address,
     amount: 615000,
-    fundingStatus: defaultFundingStatus.status,
+    ...getDefaultFundingStatus(offerId),
   };
 
   beforeAll(() => {

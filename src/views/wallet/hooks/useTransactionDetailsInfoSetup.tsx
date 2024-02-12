@@ -1,9 +1,10 @@
-import { NETWORK } from "@env";
 import { Transaction } from "bitcoinjs-lib";
 import { useMemo } from "react";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { isRBFEnabled } from "../../../utils/bitcoin/isRBFEnabled";
-import { showTransaction } from "../../../utils/bitcoin/showTransaction";
+import { showTransaction } from "../../../utils/blockchain/showTransaction";
+import { isLiquidAddress } from "../../../utils/validation/rules";
+import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { canBumpNetworkFees } from "../helpers/canBumpNetworkFees";
 import { useGetTransactionDestinationAddress } from "../helpers/useGetTransactionDestinationAddress";
@@ -30,7 +31,7 @@ export const useTransactionDetailsInfoSetup = ({
   );
   const goToBumpNetworkFees = () =>
     navigation.navigate("bumpNetworkFees", { txId: transactionSummary.id });
-  const openInExplorer = () => showTransaction(transactionSummary.id, NETWORK);
+  const openInExplorer = () => showTransaction(transactionSummary.id, receivingAddress && isLiquidAddress(receivingAddress, getLiquidNetwork()) ? 'liquid' : 'bitcoin');
 
   return {
     receivingAddress,

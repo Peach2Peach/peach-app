@@ -1,9 +1,10 @@
-import { NETWORK } from "@env";
 import { StyleProp, ViewStyle } from "react-native";
 import tw from "../styles/tailwind";
-import { showAddress } from "../utils/bitcoin/showAddress";
-import { showTransaction } from "../utils/bitcoin/showTransaction";
+import { showAddress } from "../utils/blockchain/showAddress";
+import { showTransaction } from "../utils/blockchain/showTransaction";
 import i18n from "../utils/i18n";
+import { isLiquidAddress } from "../utils/validation/rules";
+import { getLiquidNetwork } from "../utils/wallet/getLiquidNetwork";
 import { Button } from "./buttons/Button";
 
 type Props = {
@@ -13,10 +14,11 @@ type Props = {
 };
 
 export function EscrowButton({ releaseTxId, escrow, style }: Props) {
+  const network = isLiquidAddress(escrow, getLiquidNetwork()) ? 'liquid' : 'bitcoin'
   const openEscrow = () =>
     releaseTxId
-      ? showTransaction(releaseTxId, NETWORK)
-      : showAddress(escrow, NETWORK);
+      ? showTransaction(releaseTxId, network)
+      : showAddress(escrow);
 
   return (
     <Button

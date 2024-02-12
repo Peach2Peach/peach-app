@@ -1,4 +1,3 @@
-import { NETWORK } from "@env";
 import { Fragment } from "react";
 import { View } from "react-native";
 import { BTCAmount } from "../components/bitcoin/BTCAmount";
@@ -9,15 +8,18 @@ import { PeachText } from "../components/text/PeachText";
 import { HorizontalLine } from "../components/ui/HorizontalLine";
 import tw from "../styles/tailwind";
 import { getTradeBreakdown } from "../utils/bitcoin/getTradeBreakdown";
-import { showAddress } from "../utils/bitcoin/showAddress";
-import { showTransaction } from "../utils/bitcoin/showTransaction";
+import { showAddress } from "../utils/blockchain/showAddress";
+import { showTransaction } from "../utils/blockchain/showTransaction";
 import i18n from "../utils/i18n";
+import { isLiquidAddress } from "../utils/validation/rules";
+import { getLiquidNetwork } from "../utils/wallet/getLiquidNetwork";
 
 export function TradeBreakdownPopup({ contract }: { contract: Contract }) {
+  const network = isLiquidAddress(contract.releaseAddress, getLiquidNetwork()) ? 'liquid' : 'bitcoin';
   const viewInExplorer = () =>
     contract.releaseTxId
-      ? showTransaction(contract.releaseTxId, NETWORK)
-      : showAddress(contract.escrow, NETWORK);
+      ? showTransaction(contract.releaseTxId, network)
+      : showAddress(contract.escrow);
   return (
     <PopupComponent
       title={i18n("tradeComplete.popup.tradeBreakdown.title")}

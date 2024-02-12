@@ -194,11 +194,12 @@ type PaymentMethodInfo = {
 
 type FundingStatus = {
   status: "NULL" | "MEMPOOL" | "FUNDED" | "WRONG_FUNDING_AMOUNT" | "CANCELED";
-  confirmations?: number;
+  confirmations: number;
   txIds: string[];
   vouts: number[];
   amounts: number[];
   expiry: number;
+  derivationPath: string
 };
 
 type GetStatusResponse = {

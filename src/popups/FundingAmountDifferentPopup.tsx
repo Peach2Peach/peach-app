@@ -7,6 +7,7 @@ import { useNavigation } from "../hooks/useNavigation";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { sum } from "../utils/math/sum";
+import { getSellOfferFunding } from "../utils/offer/getSellOfferFunding";
 import { thousands } from "../utils/string/thousands";
 import { WarningPopup } from "./WarningPopup";
 
@@ -18,7 +19,8 @@ export function FundingAmountDifferentPopup({
   const navigation = useNavigation();
   const closePopup = useClosePopup();
 
-  const actualAmount = sellOffer.funding.amounts.reduce(sum, 0);
+  const funding = getSellOfferFunding(sellOffer)
+  const actualAmount = funding.amounts.reduce(sum, 0);
   return (
     <WarningPopup
       title={i18n("warning.fundingAmountDifferent.title")}

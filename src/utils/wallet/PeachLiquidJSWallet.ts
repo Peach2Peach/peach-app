@@ -33,7 +33,7 @@ export class PeachLiquidJSWallet {
     this.gapLimit = gapLimit;
     this.addresses = useLiquidWalletState.getState().addresses;
 
-    this.derivationPath = `m/84'/${network === liquid.networks.liquid ? "0" : "1"}'/0'`;
+    this.derivationPath = `m/49'/${network === liquid.networks.liquid ? "0" : "1"}'/0'`;
   }
 
   getKeyPair(index: number) {
@@ -52,20 +52,21 @@ export class PeachLiquidJSWallet {
     return keyPair;
   }
 
-  getAddress(index: number = this.addresses.length + 1) {
+  getAddress(index: number = this.addresses.length) {
     info("PeachLiquidJSWallet - getAddress", index);
 
     if (this.addresses[index]) return this.addresses[index];
 
     const keyPair = this.getKeyPair(index);
-    const p2wpkh = liquid.payments.p2wpkh({
+    const { address } = liquid.payments.p2wpkh({
       network: this.network,
       pubkey: keyPair.publicKey,
     });
 
-    if (p2wpkh.address) this.addresses[index] = p2wpkh.address;
 
-    return p2wpkh.address;
+    if (address) this.addresses[index] = address;
+
+    return address;
   }
 
   getInternalAddress(index: number = this.addresses.length + 1) {

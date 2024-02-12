@@ -73,22 +73,23 @@ export function PaymentReceivedSlider() {
     {
       mutationFn: async () => {
         const sellOffer = getSellOfferFromContract(contract);
-        const { releaseTransaction, batchReleasePsbt, errorMsg } =
+
+        const { result, error } =
           verifyAndSignReleaseTx(
             contract,
             sellOffer,
             getEscrowWalletForOffer(sellOffer),
           );
 
-        if (!releaseTransaction) {
-          throw new Error(errorMsg);
+        if (!result?.releaseTransaction) {
+          throw new Error(error);
         }
 
         const { error: err } =
           await peachAPI.private.contract.confirmPaymentSeller({
             contractId: contract.id,
-            releaseTransaction,
-            batchReleasePsbt,
+            releaseTransaction: result.releaseTransaction,
+            batchReleasePsbt: result.batchReleasePsbt,
           });
         if (err) throw new Error(err.error);
       },

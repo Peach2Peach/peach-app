@@ -2,6 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { useNavigation } from "../../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
+import { getSellOfferFunding } from "../../../utils/offer/getSellOfferFunding";
 import { peachAPI } from "../../../utils/peachAPI";
 
 export const useConfirmEscrow = () => {
@@ -20,8 +21,9 @@ export const useConfirmEscrow = () => {
         showErrorBanner(confirmEscrowErr?.error);
         return;
       }
-      const destination =
-        sellOffer.funding.status === "FUNDED" ? "search" : "fundEscrow";
+
+      const funding = getSellOfferFunding(sellOffer)
+      const destination = funding.status === "FUNDED" ? "search" : "fundEscrow";
       queryClient.setQueryData(
         ["fundingStatus", sellOffer.id],
         (oldQueryData: FundingStatusResponse | undefined) =>

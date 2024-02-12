@@ -1,10 +1,8 @@
 import { render, renderHook, waitFor } from "test-utils";
-import { account1 } from "../../../../tests/unit/data/accountData";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { replaceMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { Popup } from "../../../components/popup/Popup";
-import { setAccount, useAccountStore } from "../../../utils/account/account";
-import { defaultFundingStatus } from "../../../utils/offer/constants";
+import { getDefaultFundingStatus } from "../../../utils/offer/constants";
 import { useHandleFundingStatus } from "./useHandleFundingStatus";
 
 const useTradeSummariesMock = jest.fn().mockReturnValue({
@@ -57,68 +55,50 @@ jest.mock("../../../popups/useStartRefundPopup", () => ({
 
 describe("useHandleFundingStatus", () => {
   const fundingStatusFunded: FundingStatus = {
-    ...defaultFundingStatus,
+    ...getDefaultFundingStatus(sellOffer.id),
     status: "FUNDED",
   };
   const fundedProps = {
     offerId: sellOffer.id,
     sellOffer,
-    fundingStatus: fundingStatusFunded,
+    funding: fundingStatusFunded,
     userConfirmationRequired: false,
   };
-
-  beforeEach(() => {
-    setAccount({ ...account1, offers: [] });
-  });
 
   it("should do nothing if no sell offer is passed", () => {
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer: undefined,
-      fundingStatus: defaultFundingStatus,
+      funding: getDefaultFundingStatus(sellOffer.id),
       userConfirmationRequired: false,
     };
     renderHook(useHandleFundingStatus, { initialProps });
     expect(replaceMock).not.toHaveBeenCalled();
     expect(startRefundPopupMock).not.toHaveBeenCalled();
-    const account = useAccountStore.getState().account;
-    expect(account.offers).toEqual([]);
-  });
-  it("should save offer when funding status updates", () => {
-    const fundingStatus = defaultFundingStatus;
-    const initialProps = {
-      offerId: sellOffer.id,
-      sellOffer,
-      fundingStatus,
-      userConfirmationRequired: false,
-    };
-    renderHook(useHandleFundingStatus, { initialProps });
-    const account = useAccountStore.getState().account;
-    expect(account.offers[0]).toEqual({ ...sellOffer, funding: fundingStatus });
   });
   it("should handle funding status when it is CANCELED", () => {
-    const fundingStatus: FundingStatus = {
-      ...defaultFundingStatus,
+    const funding: FundingStatus = {
+      ...getDefaultFundingStatus(sellOffer.id),
       status: "CANCELED",
     };
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer,
-      fundingStatus,
+      funding,
       userConfirmationRequired: false,
     };
     renderHook(useHandleFundingStatus, { initialProps });
     expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer);
   });
   it("should show showWronglyFundedPopup when WRONG_FUNDING_AMOUNT", () => {
-    const fundingStatus: FundingStatus = {
-      ...defaultFundingStatus,
+    const funding: FundingStatus = {
+      ...getDefaultFundingStatus(sellOffer.id),
       status: "WRONG_FUNDING_AMOUNT",
     };
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer,
-      fundingStatus,
+      funding,
       userConfirmationRequired: false,
     };
     renderHook(useHandleFundingStatus, { initialProps });
@@ -126,14 +106,14 @@ describe("useHandleFundingStatus", () => {
     expect(queryByText("refund escrow")).toBeTruthy();
   });
   it("should navigate to wrongFundingAmount when user confirmation is required", () => {
-    const fundingStatus: FundingStatus = {
-      ...defaultFundingStatus,
+    const funding: FundingStatus = {
+      ...getDefaultFundingStatus(sellOffer.id),
       status: "MEMPOOL",
     };
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer,
-      fundingStatus,
+      funding,
       userConfirmationRequired: true,
     };
     renderHook(useHandleFundingStatus, { initialProps });

@@ -1,21 +1,22 @@
+import { networks } from "bitcoinjs-lib";
 import { Linking } from "react-native";
-import { showTransaction } from "./showTransaction";
+import { showBitcoinTransaction } from "./showBitcoinTransaction";
 
-describe("showTransaction", () => {
+describe("showBitcoinTransaction", () => {
   const openURLSpy = jest.spyOn(Linking, "openURL");
 
   it("links to mainnet blockexplorer", async () => {
-    await showTransaction("txId", "bitcoin");
+    await showBitcoinTransaction("txId", networks.bitcoin);
     expect(openURLSpy).toHaveBeenCalledWith("https://mempool.space/tx/txId");
   });
   it("links to testnet blockexplorer", async () => {
-    await showTransaction("txId", "testnet");
+    await showBitcoinTransaction("txId", networks.testnet);
     expect(openURLSpy).toHaveBeenCalledWith(
       "https://mempool.space/testnet/tx/txId",
     );
   });
   it("links to regtest blockexplorer", async () => {
-    await showTransaction("txId", "regtest");
+    await showBitcoinTransaction("txId", networks.regtest);
     expect(openURLSpy).toHaveBeenCalledWith("https://localhost:3000/tx/txId");
   });
 });
