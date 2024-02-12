@@ -1,34 +1,36 @@
 import { PsbtInput, PsbtOutput } from "bip174/src/lib/interfaces";
 import { BIP32Interface } from "bip32";
-import { Psbt, payments } from "bitcoinjs-lib";
 import { sha256 } from "bitcoinjs-lib/src/crypto";
-import { getNetwork } from "../../../src/utils/wallet/getNetwork";
-import { getScript } from "./getScript";
+import { ElementsValue, address, payments } from "liquidjs-lib";
+import { Psbt } from "liquidjs-lib/src/psbt";
+import { getLiquidNetwork } from "../../../src/utils/wallet/getLiquidNetwork";
+import { asset, liquidAddresses } from "../data/liquidNetworkData";
+import { getLiquidScript } from "./getLiquidScript";
 
 interface PsbtOutputExtendedAddress extends PsbtOutput {
   address: string;
-  value: number;
+  value: Buffer;
 }
 interface PsbtOutputExtendedScript extends PsbtOutput {
   script: Buffer;
-  value: number;
+  value: Buffer;
 }
 type PsbtOutputExtended = PsbtOutputExtendedAddress | PsbtOutputExtendedScript;
 
-export const constructPSBT = (
+export const constructLiquidPSBT = (
   wallet: BIP32Interface,
   inputOptions: Partial<PsbtInput> = {},
   ouputOptions: Partial<PsbtOutputExtended> = {},
 ) => {
-  const network = getNetwork();
+  const network = getLiquidNetwork();
   const p2wsh = payments.p2wsh({
     network,
     redeem: {
-      output: getScript(wallet.publicKey),
+      output: getLiquidScript(wallet.publicKey),
       network,
     },
   });
-  const redeemOutput = p2wsh.redeem?.output ?? getScript(wallet.publicKey);
+  const redeemOutput = p2wsh.redeem?.output ?? getLiquidScript(wallet.publicKey);
   const psbt = new Psbt({ network });
   const inputValue = 10000000;
   const fee = 300;
@@ -38,13 +40,17 @@ export const constructPSBT = (
     witnessScript: p2wsh.redeem?.output,
     witnessUtxo: {
       script: Buffer.from(`0020${sha256(redeemOutput).toString("hex")}`, "hex"),
-      value: inputValue,
+      value: ElementsValue.fromNumber(inputValue).bytes,
+      asset: asset.regtest,
+      nonce: Buffer.from('00', 'hex'),
     },
     ...inputOptions,
   });
   psbt.addOutput({
-    address: "bcrt1q348u075ehsuk0rz9lat22zrhlpgspj4twmt3m3pf0e5jjdm98u4qpet6g7",
-    value: inputValue - fee,
+    script: address.toOutputScript(liquidAddresses.regtest[0], network),
+    value: ElementsValue.fromNumber(inputValue - fee).bytes,
+    asset: asset.regtest,
+    nonce: Buffer.from('00', 'hex'),
     ...ouputOptions,
   });
   return psbt;

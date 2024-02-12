@@ -21,7 +21,7 @@ jest.mock("../utils/bitcoin/signAndFinalizePSBT", () => ({
   signAndFinalizePSBT: (...args: unknown[]) => signAndFinalizePSBTMock(...args),
 }));
 const showTransactionMock = jest.fn();
-jest.mock("../utils/bitcoin/showTransaction", () => ({
+jest.mock("../utils/blockchain/showTransaction", () => ({
   showTransaction: (...args: unknown[]) => showTransactionMock(...args),
 }));
 
@@ -209,6 +209,6 @@ describe("useRefundEscrow", () => {
     const { getByText, queryByText } = render(<Popup />);
     fireEvent.press(getByText("show tx"));
     expect(queryByText("escrow refunded")).toBeFalsy();
-    expect(showTransactionMock).toHaveBeenCalledWith("id", "regtest");
+    expect(showTransactionMock).toHaveBeenCalledWith("id", "bitcoin");
   });
 });

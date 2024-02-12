@@ -20,7 +20,7 @@ describe("showLiquidAddress", () => {
   it("links to regtest blockexplorer", async () => {
     await showLiquidAddress("address", networks.regtest);
     expect(openURLSpy).toHaveBeenCalledWith(
-      "https://localhost:3000/address/address",
+      "https://localhost:3001/address/address",
     );
   });
 });

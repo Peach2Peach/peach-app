@@ -24,6 +24,7 @@ export const checkRefundPSBT = (
   }
 
   // refunds should only have one output and this is the expected returnAddress
+  // TODO liquify
   if (psbt.txOutputs.length > 1)
     return { isValid: false, psbt, err: "INVALID_OUTPUT" };
   if (

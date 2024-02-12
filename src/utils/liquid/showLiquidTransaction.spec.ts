@@ -17,6 +17,6 @@ describe("showLiquidTransaction", () => {
   });
   it("links to regtest blockexplorer", async () => {
     await showLiquidTransaction("txId", networks.regtest);
-    expect(openURLSpy).toHaveBeenCalledWith("https://localhost:3000/tx/txId");
+    expect(openURLSpy).toHaveBeenCalledWith("https://localhost:3001/tx/txId");
   });
 });

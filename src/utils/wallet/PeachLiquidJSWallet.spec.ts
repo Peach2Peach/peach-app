@@ -28,7 +28,7 @@ describe("PeachLiquidJSWallet", () => {
     peachJSWallet = new PeachLiquidJSWallet({ wallet });
 
     expect(peachJSWallet.jsWallet).toEqual(wallet);
-    expect(peachJSWallet.derivationPath).toEqual("m/84'/0'/0'");
+    expect(peachJSWallet.derivationPath).toEqual("m/49'/0'/0'");
     expect(peachJSWallet.addresses).toBe(addresses);
   });
   it("instantiates for mainnet", () => {
@@ -38,7 +38,7 @@ describe("PeachLiquidJSWallet", () => {
     });
 
     expect(peachJSWallet.jsWallet).toEqual(wallet);
-    expect(peachJSWallet.derivationPath).toEqual("m/84'/0'/0'");
+    expect(peachJSWallet.derivationPath).toEqual("m/49'/0'/0'");
   });
 
   it("finds key pair by address and stores scanned addresses", () => {
@@ -48,26 +48,26 @@ describe("PeachLiquidJSWallet", () => {
     if (!address) throw Error();
     const keyPair = peachJSWallet.findKeyPairByAddress(address);
     expect(keyPair?.publicKey.toString("hex")).toBe(
-      "02cea67ce6aa1b6d0e7640568cc0aeb0b94a92c8b21735f8fb8d66041c449929a3",
+      "0232e747d9af0ffde3c8343264cec29569f950620f3c263f364ba3b23e09cb045e",
     );
     expect(peachJSWallet.addresses).toEqual([
-      "ex1qcslk785zp5xqj5kjdawegsjglm039w56xzvqsh",
-      "ex1qm6df88c6uaqrd565dcswfmuue7s9skym5g8yfq",
-      "ex1q4uan5308xusfq7aqzjmwmpyjtj85sdwv0599e6",
-      "ex1qht934aen9x48fvuq08rgrhtxs8jecklqdxmc9a",
+      "ex1qtznn7c8hfzpr4us5aymcfwfwk2p53xqg87hd5e",
+      "ex1qv9463g64c2e0aslz0d5f4r0uq64pxm63s52ghw",
+      "ex1q6ylwwkn3k5e8xncks4jcdf7z0gge2wh9q4eadn",
+      "ex1qkc2val68mgnfsu2ccls9wl7z80382366pt3hya",
     ]);
   });
 
   it("signs an arbitrary message", () => {
-    const address = "ex1qcslk785zp5xqj5kjdawegsjglm039w56xzvqsh";
+    const address = "ex1qtznn7c8hfzpr4us5aymcfwfwk2p53xqg87hd5e";
     const signature = peachJSWallet.signMessage(message, address);
     // eslint-disable-next-line max-len
     expect(signature).toBe(
-      "AkgwRQIhAMT8IZ7R7OOWm7mZf2xfXOatSuguIt0/inVgqwKuGhzmAiAmJ8gIbyOrmPhQu//Fv0fs0jGmd1vreQ4fmKgCx4vbXAEhAlDj2lYviHyAR0fUlMG6GqHmR9i2+n7fVSFZ7LRJ9cxJ",
+      "AkgwRQIhANLsNrqf6mEdi9/1bP1FvzZauDKfvnrFr5ZYyLZlx1yDAiAp6KSvW1ozHKmMj6scf6S1wQw0pUOl+JG++BeE/TYViwEhA5rsQTOPc8x49uK4N6dhtU16Qb2KvXKKMoywMqJ47/YR"
     );
   });
   it("signs an arbitrary message with index", () => {
-    const address = "ex1qcslk785zp5xqj5kjdawegsjglm039w56xzvqsh";
+    const address = "ex1qtznn7c8hfzpr4us5aymcfwfwk2p53xqg87hd5e";
     const findKeyPairByAddressSpy = jest.spyOn(
       peachJSWallet,
       "findKeyPairByAddress",
@@ -76,7 +76,7 @@ describe("PeachLiquidJSWallet", () => {
     expect(findKeyPairByAddressSpy).not.toHaveBeenCalled();
     // eslint-disable-next-line max-len
     expect(signature).toBe(
-      "AkgwRQIhAMT8IZ7R7OOWm7mZf2xfXOatSuguIt0/inVgqwKuGhzmAiAmJ8gIbyOrmPhQu//Fv0fs0jGmd1vreQ4fmKgCx4vbXAEhAlDj2lYviHyAR0fUlMG6GqHmR9i2+n7fVSFZ7LRJ9cxJ",
+      "AkgwRQIhANLsNrqf6mEdi9/1bP1FvzZauDKfvnrFr5ZYyLZlx1yDAiAp6KSvW1ozHKmMj6scf6S1wQw0pUOl+JG++BeE/TYViwEhA5rsQTOPc8x49uK4N6dhtU16Qb2KvXKKMoywMqJ47/YR"
     );
   });
 
