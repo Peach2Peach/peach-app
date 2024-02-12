@@ -37,7 +37,9 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
     if (
       isBuyOffer(offer) ||
       offer.funding.status === "NULL" ||
-      offer.funding.txIds.length === 0
+      offer.funding.txIds.length === 0 ||
+      offer.fundingLiquid.status === "NULL" ||
+      offer.fundingLiquid.txIds.length === 0
     ) {
       setPopup(
         <GrayPopup

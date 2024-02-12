@@ -6,6 +6,7 @@ import { useFundingStatus } from "../../../hooks/query/useFundingStatus";
 import { useMultipleOfferDetails } from "../../../hooks/query/useOfferDetails";
 import { useRoute } from "../../../hooks/useRoute";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
+import { getSellOfferFunding } from "../../../utils/offer/getSellOfferFunding";
 import { isSellOffer } from "../../../utils/offer/isSellOffer";
 import { parseError } from "../../../utils/result/parseError";
 import { isDefined } from "../../../utils/validation/isDefined";
@@ -20,12 +21,14 @@ type FundingInfo = {
   fundingStatus: FundingStatus
 }
 
-const shouldGetFundingStatus = (offer: SellOffer) =>
-  !!offer.escrow &&
-  !offer.refunded &&
-  !offer.released &&
-  // TODO liquify
-  offer.funding.status !== "FUNDED";
+const shouldGetFundingStatus = (offer: SellOffer) => {
+  const funding = getSellOfferFunding(offer)
+
+  return !!offer.escrow &&
+    !offer.refunded &&
+    !offer.released &&
+    funding.status !== "FUNDED";
+}
 
 
 // TODO liquify

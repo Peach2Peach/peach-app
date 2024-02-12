@@ -20,6 +20,10 @@ export const cancelAndSaveOffer = async (offer: BuyOffer | SellOffer) => {
           ...offer.funding,
           status: "CANCELED" as FundingStatus['status'],
         },
+        fundingLiquid: {
+          ...offer.fundingLiquid,
+          status: "CANCELED" as FundingStatus['status'],
+        },
       });
     } else {
       saveOffer({ ...offer, online: false });
