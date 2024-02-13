@@ -37,7 +37,6 @@ export const useRefundEscrow = () => {
   const refundEscrow = useCallback(
     async (sellOffer: SellOffer, rawPSBT: string) => {
       info("Get refunding info", rawPSBT);
-      // TODO liquify
       const { psbt, err } = checkRefundPSBT(rawPSBT, sellOffer);
 
       if (!psbt || err) {
@@ -45,14 +44,19 @@ export const useRefundEscrow = () => {
         closePopup();
         return;
       }
-      // TODO liquify
       const signedTx = signAndFinalizePSBT(
         psbt,
         getEscrowWalletForOffer(sellOffer),
       ).extractTransaction();
       const [tx, txId] = [signedTx.toHex(), signedTx.getId()];
 
-      setPopup(<RefundEscrowPopup txId={txId} network={isLiquidAddress(sellOffer.escrow, getLiquidNetwork()) ? 'liquid' : 'bitcoin'} />);
+      const escrowAddress = sellOffer.escrows[sellOffer.escrowType]
+      if (!escrowAddress) {
+        showError('NOT_FOUND');
+        closePopup();
+        return;
+      }
+      setPopup(<RefundEscrowPopup txId={txId} network={isLiquidAddress(escrowAddress, getLiquidNetwork()) ? 'liquid' : 'bitcoin'} />);
 
       const { error: postTXError } =
         await peachAPI.private.offer.refundSellOffer({
