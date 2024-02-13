@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";

@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
 import { useMemo, useState } from "react";
 import { FlatList, View } from "react-native";
