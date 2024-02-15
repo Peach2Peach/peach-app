@@ -1,6 +1,8 @@
 {
   "profile.accountCreated" : "account created",
   "profile.blockUser" : "block this user",
+  "profile.oneYearAgo" : "1 year and $1 days ago",
+  "profile.yearsAgo" : "$0 years and $1 days ago",
   "profile.daysAgo" : "$0 days ago",
   "profile.disputes" : "disputes",
   "profile.disputesLost" : "lost",
