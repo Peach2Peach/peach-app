@@ -2,9 +2,6 @@ import i18n from "../i18n";
 import { getTimeDiffInDays } from "./getTimeDiffInDays";
 
 /**
- * Returns a string with the date and the number of days ago
- * @param date
- * @returns {string}
  * @example
  * getDateToDisplay(new Date('2019-01-01')) // '01/01/2019 (1 day ago)'
  */

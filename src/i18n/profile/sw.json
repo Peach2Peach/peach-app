@@ -1,6 +1,8 @@
 {
   "profile.accountCreated" : "akaunti imeundwa",
   "profile.blockUser" : "zuia mtumiaji huyu",
+  "profile.oneYearAgo" : "1 mwaka na $1 siku zilizopita",
+  "profile.yearsAgo" : "$0 miaka na $1 siku zilizopita",
   "profile.daysAgo" : "siku $0 zilizopita",
   "profile.disputes" : "mgogoro",
   "profile.disputesLost" : "imepoteza",

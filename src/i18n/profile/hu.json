@@ -1,6 +1,8 @@
 {
   "profile.accountCreated" : "Fiók létrehozva!",
   "profile.blockUser" : "felhasználó letiltása",
+  "profile.oneYearAgo" : "1 évvel és $1 nappal ezelőtt",
+  "profile.yearsAgo" : "$0 évvel és $1 nappal ezelőtt",
   "profile.daysAgo" : "$0 napja",
   "profile.disputes" : "viták",
   "profile.disputesLost" : "vesztett",
