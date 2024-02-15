@@ -8,13 +8,13 @@ import { getTimeDiffInDays } from "./getTimeDiffInDays";
 export const getDateToDisplay = (date: Date) => {
   const newDate = new Date(date);
   const dateString = newDate.toLocaleDateString("en-GB");
-  const totalDays = getTimeDiffInDays(newDate);
-
-  return `${dateString} (${
-    totalDays > 1
+  const numberOfDays = getTimeDiffInDays(newDate);
+  const daysAgo =
+    numberOfDays > 1
       ? i18n("profile.daysAgo", String(getTimeDiffInDays(newDate)))
-      : totalDays === 1
+      : numberOfDays === 1
         ? i18n("yesterday")
-        : i18n("today")
-  })`;
+        : i18n("today");
+
+  return `${dateString} (${daysAgo})`;
 };
