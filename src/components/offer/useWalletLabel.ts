@@ -5,16 +5,11 @@ import i18n from "../../utils/i18n";
 import { getWalletLabel } from "../../utils/offer/getWalletLabel";
 
 type Props = {
-  label?: string;
   address?: string;
   isPayoutWallet?: boolean;
 };
 
-export const useWalletLabel = ({
-  label,
-  address,
-  isPayoutWallet = false,
-}: Props) => {
+export const useWalletLabel = ({ address, isPayoutWallet = false }: Props) => {
   const [customAddress, customAddressLabel, isPeachWalletActive] =
     useSettingsStore(
       (state) =>
@@ -34,8 +29,6 @@ export const useWalletLabel = ({
   const [fallbackLabel, setFallbackLabel] = useState(i18n("loading"));
 
   useEffect(() => {
-    if (label) return;
-
     // this operation can be expensive, hence we delay execution
     setTimeout(() => {
       setFallbackLabel(
@@ -47,7 +40,7 @@ export const useWalletLabel = ({
         }),
       );
     });
-  }, [address, label, customAddress, customAddressLabel, isPeachWalletActive]);
+  }, [address, customAddress, customAddressLabel, isPeachWalletActive]);
 
-  return label || fallbackLabel;
+  return fallbackLabel;
 };

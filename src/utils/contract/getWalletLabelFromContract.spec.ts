@@ -32,23 +32,4 @@ describe("getWalletLabelFromContract", () => {
       }),
     ).toBe("custom payout address");
   });
-
-  it("should return the wallet label from the sell offer", () => {
-    queryClient.setQueryData(
-      offerKeys.detail(getSellOfferIdFromContract(contract)),
-      {
-        ...sellOffer,
-        walletLabel: "walletLabel",
-        id: getSellOfferIdFromContract(contract),
-      },
-    );
-    expect(
-      getWalletLabelFromContract({
-        contract,
-        customAddress: undefined,
-        customAddressLabel: undefined,
-        isPeachWalletActive: true,
-      }),
-    ).toBe("walletLabel");
-  });
 });

@@ -15,13 +15,10 @@ export const getWalletLabelFromContract = ({
   isPeachWalletActive,
 }: Params) => {
   const sellOffer = getSellOfferFromContract(contract);
-  const walletLabel =
-    sellOffer.walletLabel ||
-    getWalletLabel({
-      address: sellOffer.returnAddress,
-      customAddress,
-      customAddressLabel,
-      isPeachWalletActive,
-    });
-  return walletLabel;
+  return getWalletLabel({
+    address: sellOffer.returnAddress,
+    customAddress,
+    customAddressLabel,
+    isPeachWalletActive,
+  });
 };
