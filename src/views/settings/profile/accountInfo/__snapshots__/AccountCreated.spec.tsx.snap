@@ -23,7 +23,7 @@ exports[`AccountCreated should render correctly 1`] = `
       }
     }
   >
-    14/09/2022 (286 days ago)
+    14/09/2022 (287 days ago)
   </PeachText>
 </View>
 `;
