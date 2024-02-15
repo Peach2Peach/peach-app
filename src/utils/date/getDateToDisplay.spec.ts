@@ -13,6 +13,6 @@ describe("getDateToDisplay", () => {
     expect(getDateToDisplay(date1)).toBe("01/01/2009 (2 days ago)");
     expect(getDateToDisplay(date2)).toBe("02/01/2009 (yesterday)");
     expect(getDateToDisplay(date3)).toBe("03/01/2009 (today)");
-    expect(getDateToDisplay(date4)).toBe("01/01/2008 (1 year and 2 days ago)"); // test is ok on manual testing
+    expect(getDateToDisplay(date4)).toBe("01/01/2008 (1 year and 2 days ago)");
   });
 });
