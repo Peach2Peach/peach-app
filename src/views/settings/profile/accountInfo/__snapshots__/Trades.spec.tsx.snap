@@ -48,7 +48,9 @@ exports[`Trades should render correctly 1`] = `
           "lineHeight": 28,
         }
       }
-    />
+    >
+      1
+    </PeachText>
   </View>
 </View>
 `;

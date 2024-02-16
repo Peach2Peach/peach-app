@@ -4,7 +4,7 @@ import { Trades } from "./Trades";
 describe("Trades", () => {
   const renderer = ShallowRenderer.createRenderer();
   it("should render correctly", () => {
-    renderer.render(<Trades trades={1} />);
+    renderer.render(<Trades trades={1} canceledTrades={1} />);
     expect(renderer.getRenderOutput()).toMatchSnapshot();
   });
 });
