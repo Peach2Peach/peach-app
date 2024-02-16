@@ -10,10 +10,11 @@ describe("useTradeSummaries", () => {
     const { result } = renderHook(useTradeSummaries);
 
     await waitFor(() => {
-      expect(result.current.tradeSummaries).toEqual([
-        contractSummary,
-        offerSummary,
-      ]);
+      expect(result.current.summaries).toEqual({
+        "yourTrades.buy": [contractSummary, offerSummary],
+        "yourTrades.sell": [],
+        "yourTrades.history": [],
+      });
     });
   });
 });

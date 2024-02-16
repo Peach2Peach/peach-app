@@ -15,6 +15,16 @@ export const useRepublishOffer = () => {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const showErrorBanner = useShowErrorBanner();
+  const navigation = useStackNavigation();
+
+  const closeAction = (contractId: string) => {
+    navigation.replace("contract", { contractId });
+    closePopup();
+  };
+  const goToOfferAction = (offerId: string) => {
+    navigation.replace("search", { offerId });
+    closePopup();
+  };
 
   return useMutation({
     mutationFn: republishOffer,
@@ -25,8 +35,8 @@ export const useRepublishOffer = () => {
     onSuccess: ({ newOfferId }, { id: contractId }) => {
       setPopup(
         <RepublishedOfferPopup
-          contractId={contractId}
-          newOfferId={newOfferId}
+          closeAction={() => closeAction(contractId)}
+          goToOfferAction={() => goToOfferAction(newOfferId)}
         />,
       );
     },
@@ -48,26 +58,12 @@ async function republishOffer(contract: Contract) {
 }
 
 function RepublishedOfferPopup({
-  contractId,
-  newOfferId,
+  closeAction,
+  goToOfferAction,
 }: {
-  contractId: string;
-  newOfferId: string;
+  closeAction: () => void;
+  goToOfferAction: () => void;
 }) {
-  const closePopup = useClosePopup();
-  const navigation = useStackNavigation();
-
-  const closeAction = () => {
-    navigation.replace("contract", { contractId });
-    closePopup();
-  };
-  const goToOfferAction = () => {
-    navigation.replace("search", {
-      offerId: newOfferId,
-    });
-    closePopup();
-  };
-
   return (
     <PopupComponent
       title={i18n("contract.cancel.offerRepublished.title")}

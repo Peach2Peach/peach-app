@@ -1,5 +1,3 @@
-/* eslint-disable max-lines */
-
 export const countryMap = {
   AF: {
     name: "Afghanistan",

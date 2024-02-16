@@ -1,6 +1,8 @@
 {
   "profile.accountCreated" : "account aangemaakt",
   "profile.blockUser" : "blokkeer deze gebruiker",
+  "profile.oneYearAgo" : "1 jaar en $1 dagen geleden",
+  "profile.yearsAgo" : "$0 jaar en $1 dagen geleden",
   "profile.daysAgo" : "$0 dagen geleden",
   "profile.disputes" : "geschillen",
   "profile.disputesLost" : "verloren",

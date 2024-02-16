@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
@@ -305,8 +304,8 @@ function MatchOfferButton({
     <Button
       style={[
         tw`flex-row items-center self-center justify-center py-2 gap-10px`,
-        tw`bg-success-main`,
-        optionName === "missingSelection" && tw`bg-success-mild-2`,
+        tw`bg-primary-main`,
+        optionName === "missingSelection" && tw`bg-primary-mild-1`,
         optionName === "tradingLimitReached" && tw`bg-black-50`,
       ]}
       onPress={onPress}
