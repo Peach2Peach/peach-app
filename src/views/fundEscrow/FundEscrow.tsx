@@ -53,18 +53,19 @@ export const FundEscrow = () => {
   return (
     <Screen header={<FundEscrowHeader />}>
       <PeachScrollView contentStyle={tw`items-center gap-4`}>
-        <View style={tw`flex-row items-center justify-center gap-1`}>
-          <PeachText style={tw`settings`}>
-            {i18n("sell.escrow.sendSats")}
-          </PeachText>
-          <BTCAmount style={tw`-mt-0.5`} amount={fundingAmount} size="medium" />
-          <CopyAble value={fundingAddress} textPosition="bottom" />
-        </View>
-
-        <View style={tw`-mt-4 -mb-1`}>
-          <PeachText style={tw`text-black-100 subtitle-1`}>
-            {offerIdToHex(offerId)}
-          </PeachText>
+        <View style={tw`items-center self-stretch justify-center`}>
+          <View style={tw`flex-row items-center justify-center gap-1`}>
+            <PeachText style={tw`settings`}>
+              {i18n("sell.escrow.sendSats")}
+            </PeachText>
+            <BTCAmount
+              style={tw`-mt-0.5`}
+              amount={fundingAmount}
+              size="medium"
+            />
+            <CopyAble value={fundingAddress} textPosition="bottom" />
+          </View>
+          <PeachText style={tw`subtitle-1`}>{offerIdToHex(offerId)}</PeachText>
         </View>
 
         <BitcoinAddress
