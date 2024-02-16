@@ -10,6 +10,7 @@
   "profile.disputesResolved" : "çözüldü",
   "profile.disputesWon" : "kazanıldı",
   "profile.myAccount.title" : "hesabım",
+  "profile.canceledTrades" : "iptal edilen takaslar",
   "profile.numberOfTrades" : "yapılan işlemler",
   "profile.publicKey" : "hesap public key",
   "profile.tradingLimits" : "ticaret sınırları",
