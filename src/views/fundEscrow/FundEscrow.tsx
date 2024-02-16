@@ -61,11 +61,7 @@ export const FundEscrow = () => {
           <CopyAble value={fundingAddress} textPosition="bottom" />
         </View>
 
-        <View
-          style={{
-            marginTop: -15,
-            marginBottom: -5,
-        }}>
+        <View style={tw`-mt-4 -mb-1`}>
           <PeachText style={tw`text-black-100 subtitle-1`}>
             {offerIdToHex(offerId)}
           </PeachText>
