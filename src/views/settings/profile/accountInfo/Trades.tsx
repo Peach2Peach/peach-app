@@ -7,7 +7,7 @@ export const Trades = ({
   canceledTrades,
   trades,
   style,
-}: { trades: number, canceledTrades: number } & ComponentProps) => (
+}: { trades: number; canceledTrades: number } & ComponentProps) => (
   <View style={style}>
     <View style={style}>
       <PeachText style={tw`lowercase text-black-65`}>
