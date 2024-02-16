@@ -61,6 +61,16 @@ export const FundEscrow = () => {
           <CopyAble value={fundingAddress} textPosition="bottom" />
         </View>
 
+        <View
+          style={{
+            marginTop: -15,
+            marginBottom: -5,
+        }}>
+          <PeachText style={tw`text-black-100 subtitle-1`}>
+            {offerIdToHex(offerId)}
+          </PeachText>
+        </View>
+
         <BitcoinAddress
           address={fundingAddress}
           amount={fundingAmount / SATSINBTC}
