@@ -2,55 +2,51 @@
 
 exports[`Trades should render correctly 1`] = `
 <View>
-  <View>
-    <PeachText
-      style={
-        {
-          "color": "#7D675E",
-          "textTransform": "lowercase",
-        }
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "textTransform": "lowercase",
       }
-    >
-      number of trades
-      :
-    </PeachText>
-    <PeachText
-      style={
-        {
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 28,
-        }
+    }
+  >
+    number of trades
+    :
+  </PeachText>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
       }
-    >
-      1
-    </PeachText>
-  </View>
-  <View>
-    <PeachText
-      style={
-        {
-          "color": "#7D675E",
-          "textTransform": "lowercase",
-        }
+    }
+  >
+    1
+  </PeachText>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "textTransform": "lowercase",
       }
-    >
-      canceled trades
-      :
-    </PeachText>
-    <PeachText
-      style={
-        {
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 28,
-        }
+    }
+  >
+    canceled trades
+    :
+  </PeachText>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
       }
-    >
-      1
-    </PeachText>
-  </View>
+    }
+  >
+    1
+  </PeachText>
 </View>
 `;
