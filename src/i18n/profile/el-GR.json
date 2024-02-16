@@ -1,6 +1,8 @@
 {
   "profile.accountCreated" : "δημιουργήθηκε λογαριασμός",
   "profile.blockUser" : "Αποκλείστε αυτόν τον χρήστη",
+  "profile.oneYearAgo" : "1 χρόνο και $1 ημέρες πριν",
+  "profile.yearsAgo" : "$0 χρόνια και $1 ημέρες πριν",
   "profile.daysAgo" : "πριν από $0 ημέρες ",
   "profile.disputes" : "διενέξεις",
   "profile.disputesLost" : "χαμένες",

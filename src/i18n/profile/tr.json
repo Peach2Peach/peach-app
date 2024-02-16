@@ -1,6 +1,8 @@
 {
   "profile.accountCreated" : "hesap oluşturuldu",
   "profile.blockUser" : "Bu kullanıcıyı engelle",
+  "profile.oneYearAgo" : "1 yıl ve $1 gün önce",
+  "profile.yearsAgo" : "$0 yıl ve $1 gün önce",
   "profile.daysAgo" : "$0 gün önce",
   "profile.disputes" : "anlaşmazlıklar",
   "profile.disputesLost" : "kaybedildi",

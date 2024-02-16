@@ -1,6 +1,8 @@
 {
   "profile.accountCreated" : "учётная запись создана",
   "profile.blockUser" : "заблокировать этого пользователя",
+  "profile.oneYearAgo" : "1 год и $1 дней назад",
+  "profile.yearsAgo" : "$0 лет и $1 дней назад",
   "profile.daysAgo" : "$0 дней назад",
   "profile.disputes" : "споры",
   "profile.disputesLost" : "проиграно",
