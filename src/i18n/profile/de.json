@@ -10,6 +10,7 @@
   "profile.disputesResolved" : "gelöst",
   "profile.disputesWon" : "gewonnen",
   "profile.myAccount.title" : "mein Konto",
+  "profile.canceledTrades" : "abgebrochene Handel",
   "profile.numberOfTrades" : "Anzahl der Trades",
   "profile.publicKey" : "Kontopubkey",
   "profile.tradingLimits" : "Handelslimits",
