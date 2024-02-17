@@ -85,7 +85,7 @@ function InviteFriendsButton({
   return (
     <Button
       style={tw`self-center`}
-      textColor={tw`text-primary-main`}
+      textColor={tw.color("primary-main")}
       ghost
       onPress={inviteFriend}
     >

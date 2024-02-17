@@ -152,7 +152,7 @@ function CreateAccountError({ err }: CreateAccountErrorProps) {
         <Button
           onPress={goToContact}
           style={tw`bg-primary-background-light`}
-          textColor={tw`text-primary-main`}
+          textColor={tw.color("primary-main")}
         >
           {i18n("contactUs")}
         </Button>

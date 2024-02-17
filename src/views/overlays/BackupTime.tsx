@@ -38,7 +38,7 @@ export function BackupTime({
         <>
           <Button
             style={tw`bg-primary-background-light`}
-            textColor={tw`text-primary-main`}
+            textColor={tw.color("primary-main")}
             onPress={goToBackups}
           >
             {i18n("backupTime.makeABackup")}

@@ -198,7 +198,7 @@ function FundFromPeachWalletButton(props: Props) {
       ) : (
         <Button
           ghost
-          textColor={tw`text-primary-main`}
+          textColor={tw.color("primary-main")}
           iconId="sell"
           onPress={onButtonPress}
           loading={isFunding}

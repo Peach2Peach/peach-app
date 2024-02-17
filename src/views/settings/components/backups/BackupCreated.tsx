@@ -31,7 +31,7 @@ export const BackupCreated = () => {
       </View>
       <Button
         style={tw`self-center bg-primary-background-light`}
-        textColor={tw`text-primary-main`}
+        textColor={tw.color("primary-main")}
         onPress={goToFileBackup}
       >
         {i18n("back")}

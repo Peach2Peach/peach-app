@@ -125,7 +125,7 @@ function Rate({ contract, view, vote }: RateProps) {
         onPress={() => rateUser()}
         style={tw`bg-primary-background-light`}
         disabled={!vote}
-        textColor={tw`text-primary-main`}
+        textColor={tw.color("primary-main")}
       >
         {i18n("rate.rateAndFinish")}
       </Button>

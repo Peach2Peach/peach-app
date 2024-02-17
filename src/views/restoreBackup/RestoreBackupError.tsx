@@ -35,7 +35,7 @@ export const RestoreBackupError = ({ err }: Props) => {
       </View>
       <Button
         style={tw`self-center bg-primary-background-light`}
-        textColor={tw`text-primary-main`}
+        textColor={tw.color("primary-main")}
         onPress={goToContact}
       >
         {i18n("contactUs")}
