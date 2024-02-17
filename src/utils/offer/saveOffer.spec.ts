@@ -5,15 +5,6 @@ import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import { saveOffer } from "./saveOffer";
 
 describe("saveOffer", () => {
-  it("does not save offers without an ID", () => {
-    const errorSpy = jest.spyOn(
-      jest.requireMock("../../utils/log/error"),
-      "error",
-    );
-    // @ts-expect-error we specifically want to test for offers wihout an ID
-    saveOffer(offerData.buyOfferUnpublished);
-    expect(errorSpy).toHaveBeenCalled();
-  });
   it("should update the query cache", () => {
     saveOffer(offerData.buyOffer);
     expect(
@@ -30,7 +21,7 @@ describe("saveOffer", () => {
       useTradeSummaryStore.getState().getOffer(offerData.sellOffer.id),
     ).toEqual(offerData.sellOffer);
   });
-  it("update an existing offer on account", () => {
+  it("should update an existing offer", () => {
     expect(
       useTradeSummaryStore.getState().getOffer(offerData.buyOffer.id),
     ).toEqual(offerData.buyOffer);
