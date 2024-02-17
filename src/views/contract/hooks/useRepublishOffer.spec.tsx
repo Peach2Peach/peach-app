@@ -15,13 +15,6 @@ const reviveSellOfferMock = jest.spyOn(
   "republishSellOffer",
 );
 
-const mockSellOffer = {
-  id: "offerId",
-};
-jest.mock("../../../utils/contract/getSellOfferFromContract", () => ({
-  getSellOfferFromContract: jest.fn(() => mockSellOffer),
-}));
-
 const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
   useShowErrorBanner: () => mockShowErrorBanner,
@@ -41,7 +34,7 @@ describe("useRepublishOffer", () => {
     result.current.mutate(contract);
     await waitFor(() => {
       expect(reviveSellOfferMock).toHaveBeenCalledWith({
-        offerId: mockSellOffer.id,
+        offerId: contract.id.split("-")[0],
       });
     });
   });
