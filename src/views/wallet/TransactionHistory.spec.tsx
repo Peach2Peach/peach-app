@@ -9,17 +9,14 @@ import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../utils/wallet/setWallet";
 import { TransactionHistory } from "./TransactionHistory";
 
-const transactions: TransactionSummary[] = [
-  pendingTransactionSummary,
-  confirmedTransactionSummary,
+const transactions: { data: TransactionSummary }[] = [
+  { data: pendingTransactionSummary },
+  { data: confirmedTransactionSummary },
 ];
-const useTransactionHistorySetupData = {
-  transactions,
-};
-jest.mock("./hooks/useTransactionHistorySetup");
-const useTransactionHistorySetupMock = jest
-  .requireMock("./hooks/useTransactionHistorySetup")
-  .useTransactionHistorySetup.mockReturnValue(useTransactionHistorySetupData);
+jest.mock("./helpers/useTxSummaries");
+const mockUseTxSummaries = jest
+  .requireMock("./helpers/useTxSummaries")
+  .useTxSummaries.mockReturnValue(transactions);
 
 jest.useFakeTimers();
 
@@ -29,10 +26,7 @@ describe("TransactionHistory", () => {
     peachWallet.initialized = true;
   });
   it("should render correctly when empty", () => {
-    useTransactionHistorySetupMock.mockReturnValueOnce({
-      ...useTransactionHistorySetupData,
-      transactions: [],
-    });
+    mockUseTxSummaries.mockReturnValueOnce([]);
     const { toJSON } = render(<TransactionHistory />);
 
     expect(toJSON()).toMatchSnapshot();
@@ -42,10 +36,6 @@ describe("TransactionHistory", () => {
     expect(toJSON()).toMatchSnapshot();
   });
   it('should navigate to "exportTransactionHistory" when share icon is pressed', () => {
-    useTransactionHistorySetupMock.mockReturnValueOnce({
-      ...useTransactionHistorySetupData,
-      transactions: [],
-    });
     const { getByAccessibilityHint } = render(<TransactionHistory />);
     const shareIcon = getByAccessibilityHint(
       "go to export transaction history",

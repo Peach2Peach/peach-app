@@ -1,13 +1,18 @@
 import RNFS from "react-native-fs";
 import Share from "react-native-share";
 import { fireEvent, render, waitFor } from "test-utils";
-import { useWalletState } from "../../utils/wallet/walletStore";
 import { ExportTransactionHistory } from "./ExportTransactionHistory";
 
 jest.mock("../../utils/date/toShortDateFormat");
 const toShortDateFormatMock = jest.requireMock(
   "../../utils/date/toShortDateFormat",
 ).toShortDateFormat;
+
+const mockUseTxSummaries = jest.fn();
+jest.mock("./helpers/useTxSummaries", () => ({
+  useTxSummaries: () => mockUseTxSummaries(),
+}));
+
 jest.useFakeTimers();
 describe("ExportTransactionHistory", () => {
   const firstCSVRow = "Date, Type, Amount, Transaction ID\n";
@@ -16,6 +21,7 @@ describe("ExportTransactionHistory", () => {
     expect(toJSON()).toMatchSnapshot();
   });
   it("should create a csv with date, type, amount, and transaction ID", () => {
+    mockUseTxSummaries.mockReturnValue([]);
     const { getByText } = render(<ExportTransactionHistory />);
     const exportButton = getByText("export");
 
@@ -28,13 +34,14 @@ describe("ExportTransactionHistory", () => {
     );
   });
   it("should add a row for each transaction", () => {
-    useWalletState.setState({
-      transactions: [
-        { txid: "1", sent: 21000, received: 210000 },
-        { txid: "2", sent: 42000, received: 0 },
-      ],
-      txOfferMap: { "1": ["1"], "2": ["2"] },
-    });
+    mockUseTxSummaries.mockReturnValue([
+      {
+        data: { id: "1", date: new Date(), type: "WITHDRAWAL", amount: 189000 },
+      },
+      {
+        data: { id: "2", date: new Date(), type: "WITHDRAWAL", amount: 42000 },
+      },
+    ]);
     const { getByText } = render(<ExportTransactionHistory />);
     const exportButton = getByText("export");
     toShortDateFormatMock.mockReturnValue("18/08/2023 19:50");

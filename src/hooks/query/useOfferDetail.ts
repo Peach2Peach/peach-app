@@ -1,12 +1,6 @@
-import {
-  QueryFunctionContext,
-  useQueries,
-  useQuery,
-} from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import { MSINAMINUTE } from "../../constants";
-import { error } from "../../utils/log/error";
-import { saveOffer } from "../../utils/offer/saveOffer";
-import { peachAPI } from "../../utils/peachAPI";
+import { getOfferQuery } from "./getOfferQuery";
 
 export const offerKeys = {
   all: ["offers"] as const,
@@ -47,22 +41,4 @@ function buildQuery(id: string) {
     staleTime: MSINAMINUTE,
     enabled: !!id,
   };
-}
-
-async function getOfferQuery({
-  queryKey,
-}: QueryFunctionContext<ReturnType<typeof offerKeys.detail>>) {
-  const offerId = queryKey[2];
-  const { result: offer, error: err } =
-    await peachAPI.private.offer.getOfferDetails({ offerId });
-
-  if (err) {
-    error("Could not fetch offer information for offer", offerId, err.error);
-    throw new Error(err.error);
-  }
-  if (!offer) {
-    throw new Error("NOT_FOUND");
-  }
-  saveOffer(offer);
-  return offer;
 }

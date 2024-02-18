@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { FlatList } from "react-native";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
@@ -5,12 +6,23 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
+import { isDefined } from "../../utils/validation/isDefined";
 import { EmptyTransactionHistory, TxStatusCard } from "./components";
+import { useTxSummaries } from "./helpers/useTxSummaries";
 import { useSyncWallet } from "./hooks/useSyncWallet";
-import { useTransactionHistorySetup } from "./hooks/useTransactionHistorySetup";
 
 export const TransactionHistory = () => {
-  const { transactions } = useTransactionHistorySetup();
+  const transactionSummaries = useTxSummaries();
+
+  const transactions = useMemo(
+    () =>
+      transactionSummaries
+        .map((item) => item.data)
+        .filter(isDefined)
+        .sort((a, b) => (a.date === b.date ? 0 : a.date > b.date ? 1 : -1))
+        .reverse(),
+    [transactionSummaries],
+  );
   const { refetch, isRefetching } = useSyncWallet();
 
   return (

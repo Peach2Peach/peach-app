@@ -181,6 +181,9 @@ describe("ConfirmTradeCancelationPopup", () => {
       await fireEvent.press(getByText("cancel trade"));
     });
     const { queryByText } = render(<GlobalPopup />);
+    await waitFor(() => {
+      jest.runAllTimers();
+    });
 
     expect(queryByText("cancel trade")).toBeFalsy();
     expect(queryByText("trade canceled")).toBeTruthy();

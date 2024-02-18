@@ -1,4 +1,4 @@
-import { act, renderHook, waitFor } from "test-utils";
+import { act, renderHook, responseUtils, waitFor } from "test-utils";
 import { OfferSummary } from "../../peach-api/src/@types/offer";
 import { sellOffer } from "../../tests/unit/data/offerData";
 import { offerSummary } from "../../tests/unit/data/offerSummaryData";
@@ -8,6 +8,7 @@ import { getTransactionDetails } from "../../tests/unit/helpers/getTransactionDe
 import { MSINAMINUTE } from "../constants";
 import { useTradeSummaryStore } from "../store/tradeSummaryStore";
 import { sum } from "../utils/math/sum";
+import { peachAPI } from "../utils/peachAPI";
 import { PeachWallet } from "../utils/wallet/PeachWallet";
 import { setPeachWallet } from "../utils/wallet/setWallet";
 import { useWalletState } from "../utils/wallet/walletStore";
@@ -55,6 +56,19 @@ peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails);
 const getAddressUTXOSpy = jest.spyOn(peachWallet, "getAddressUTXO");
 const signAndBroadcastPSBTSpy = jest.spyOn(peachWallet, "signAndBroadcastPSBT");
 const syncWalletSpy = jest.spyOn(peachWallet, "syncWallet");
+const getOfferSpy = jest.spyOn(peachAPI.private.offer, "getOfferDetails");
+getOfferSpy.mockImplementation(({ offerId: id }) => {
+  switch (id) {
+    case "38":
+      return Promise.resolve({ result: sellOffer1, ...responseUtils });
+    case "39":
+      return Promise.resolve({ result: sellOffer2, ...responseUtils });
+    case "40":
+      return Promise.resolve({ result: sellOffer3, ...responseUtils });
+    default:
+      return Promise.resolve({ result: sellOffer1, ...responseUtils });
+  }
+});
 
 describe("useCheckFundingMultipleEscrows", () => {
   beforeAll(() => {
@@ -122,6 +136,12 @@ describe("useCheckFundingMultipleEscrows", () => {
   });
   it("aborts if no escrow addresses can be found", async () => {
     queryClient.clear();
+    getOfferSpy.mockImplementation(() =>
+      Promise.resolve({
+        result: { ...sellOffer1, escrow: undefined },
+        ...responseUtils,
+      }),
+    );
     renderHook(useCheckFundingMultipleEscrows);
 
     act(() => jest.advanceTimersByTime(MSINAMINUTE));
