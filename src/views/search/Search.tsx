@@ -21,7 +21,7 @@ import { headerIcons } from "../../utils/layout/headerIcons";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
-import { LoadingScreen } from "../loading/LoadingScreen";
+import { NewLoadingScreen as LoadingScreen } from "../loading/LoadingScreen";
 import { useOfferMatches } from "./hooks/useOfferMatches";
 import { useRefetchOnNotification } from "./hooks/useRefetchOnNotification";
 
@@ -64,8 +64,6 @@ export const Search = () => {
 };
 
 function NoMatchesYet({ offer }: { offer: SellOffer }) {
-  const { isLoading } = useOfferMatches(offer.id);
-  if (isLoading) return <></>;
   return (
     <View style={tw`gap-8`}>
       <PeachText style={tw`text-center subtitle-1`}>
