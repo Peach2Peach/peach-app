@@ -38,7 +38,7 @@ export const GroupHugAnnouncement = ({ offerId }: { offerId: string }) => {
         <>
           <Button
             style={tw`bg-primary-background-light`}
-            textColor={tw`text-primary-main`}
+            textColor={tw.color("primary-main")}
             onPress={goToSettings}
           >
             {i18n("grouphug.goToSettings")}

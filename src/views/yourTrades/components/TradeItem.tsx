@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import { View } from "react-native";
 import { ContractSummary } from "../../../../peach-api/src/@types/contract";
 import { OfferSummary } from "../../../../peach-api/src/@types/offer";
@@ -54,7 +55,8 @@ export function TradeItem({ item }: Props) {
 }
 
 function TradeStatusInfo({ item, iconId, color }: Props & TradeTheme) {
-  const subtext = getSubtext(item);
+  const { data } = useSubtext(item);
+  const subtext = data || getFallbackSubtext(item);
   const replaced = "newTradeId" in item && !!item.newTradeId;
   const title = getTitle(item);
 
@@ -274,16 +276,28 @@ function getTitle(item: OfferSummary | ContractSummary) {
   return title;
 }
 
-function getSubtext(item: OfferSummary | ContractSummary) {
+function useSubtext(item: OfferSummary | ContractSummary) {
+  return useQuery({
+    queryKey: ["tradeItem", "subtext", item.id],
+    queryFn: () => getSubtext(item),
+    placeholderData: getFallbackSubtext(item),
+  });
+}
+
+function getFallbackSubtext(item: OfferSummary | ContractSummary) {
   const date = new Date(
     "paymentMade" in item
       ? item.paymentMade || item.creationDate
       : item.creationDate,
   );
+  return getShortDateFormat(date);
+}
+
+async function getSubtext(item: OfferSummary | ContractSummary) {
   const newOfferId =
     "newTradeId" in item && !!item.newTradeId ? item.newTradeId : undefined;
   const newContractId = newOfferId
-    ? getOffer(newOfferId)?.contractId
+    ? (await getOffer(newOfferId))?.contractId
     : undefined;
   const newTradeId = newContractId
     ? contractIdToHex(newContractId)
@@ -291,7 +305,7 @@ function getSubtext(item: OfferSummary | ContractSummary) {
       ? offerIdToHex(newOfferId)
       : undefined;
 
-  return newTradeId || getShortDateFormat(date);
+  return newTradeId || getFallbackSubtext(item);
 }
 
 function getActionLabel(

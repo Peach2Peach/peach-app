@@ -88,7 +88,7 @@ export const UnmatchButton = ({
     <Button
       onPress={showUnmatchPopup}
       iconId="minusCircle"
-      textColor={tw`text-error-main`}
+      textColor={tw.color("error-main")}
       style={tw`bg-primary-background-light`}
     >
       {i18n("search.unmatch")}

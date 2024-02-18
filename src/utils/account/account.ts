@@ -13,7 +13,6 @@ export const defaultLimits = {
 export const defaultAccount: Account = {
   publicKey: "",
   tradingLimit: defaultLimits,
-  offers: [],
   chats: {},
   pgp: {
     privateKey: "",

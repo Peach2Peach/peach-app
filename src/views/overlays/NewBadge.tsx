@@ -38,7 +38,7 @@ export const NewBadge = ({ badges }: { badges: Medal[] }) => {
         <>
           <Button
             style={tw`bg-primary-background-light`}
-            textColor={tw`text-primary-main`}
+            textColor={tw.color("primary-main")}
             onPress={goToProfile}
           >
             {i18n("goToProfile")}

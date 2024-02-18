@@ -14,7 +14,6 @@ import { useWalletState, walletStorage } from "../wallet/walletStore";
 import { defaultAccount } from "./account";
 import { accountStorage } from "./accountStorage";
 import { chatStorage } from "./chatStorage";
-import { offerStorage } from "./offerStorage";
 import { updateAccount } from "./updateAccount";
 
 export const deleteAccount = () => {
@@ -25,7 +24,6 @@ export const deleteAccount = () => {
     accountStorage,
     walletStorage,
     offerPreferencesStorage,
-    offerStorage,
     chatStorage,
     settingsStorage,
     notificationStorage,

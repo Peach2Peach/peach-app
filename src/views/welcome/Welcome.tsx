@@ -92,7 +92,7 @@ export const Welcome = () => {
             tw`self-center bg-primary-background-light`,
             page === screens.length - 1 && tw`opacity-0`,
           ]}
-          textColor={tw`text-primary-main`}
+          textColor={tw.color("primary-main")}
           onPress={next}
           iconId="arrowRightCircle"
         >

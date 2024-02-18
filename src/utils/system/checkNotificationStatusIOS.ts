@@ -1,6 +1,6 @@
 import messaging from "@react-native-firebase/messaging";
 import { error } from "../log/error";
-import { parseError } from "../result/parseError";
+import { parseError } from "../parseError";
 
 /**
  * @description Method to check if app is allowed to receive push notifications on iOS

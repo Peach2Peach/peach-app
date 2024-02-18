@@ -568,15 +568,10 @@ function FundEscrowButton({
     setSellAmount(restrictAmount(sellAmount));
   }
 
-  const [refundToPeachWallet, refundAddress, refundAddressLabel] =
-    useSettingsStore(
-      (state) => [
-        state.refundToPeachWallet,
-        state.refundAddress,
-        state.refundAddressLabel,
-      ],
-      shallow,
-    );
+  const [refundToPeachWallet, refundAddress] = useSettingsStore(
+    (state) => [state.refundToPeachWallet, state.refundAddress],
+    shallow,
+  );
 
   const sellPreferences = useOfferPreferences(
     (state) => ({
@@ -683,9 +678,6 @@ function FundEscrowButton({
         paymentData,
         type: "ask",
         funding: defaultFundingStatus,
-        walletLabel: refundToPeachWallet
-          ? i18n("peachWallet")
-          : refundAddressLabel,
         returnAddress: address,
       },
       {

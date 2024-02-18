@@ -1,5 +1,5 @@
 import { error } from "../log/error";
-import { parseError } from "../result/parseError";
+import { parseError } from "../parseError";
 import { dateTimeReviver } from "../system/dateTimeReviver";
 
 const OK_STATUS = 200;

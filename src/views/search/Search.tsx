@@ -74,25 +74,14 @@ function NoMatchesYet({ offer }: { offer: SellOffer }) {
 
       <SellOfferSummary
         offer={offer}
-        walletLabel={
-          <WalletLabel
-            label={offer.walletLabel}
-            address={offer.returnAddress}
-          />
-        }
+        walletLabel={<WalletLabel address={offer.returnAddress} />}
       />
     </View>
   );
 }
 
-function WalletLabel({
-  label,
-  address,
-}: {
-  label: string | undefined;
-  address: string;
-}) {
-  const walletLabel = useWalletLabel({ label, address });
+function WalletLabel({ address }: { address: string }) {
+  const walletLabel = useWalletLabel({ address });
   return (
     <PeachText style={tw`text-center subtitle-1`}>{walletLabel}</PeachText>
   );

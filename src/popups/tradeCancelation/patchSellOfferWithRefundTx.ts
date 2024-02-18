@@ -9,7 +9,8 @@ export async function patchSellOfferWithRefundTx(
   contract: Contract,
   refundPSBT: string,
 ) {
-  const sellOffer = getSellOfferFromContract(contract);
+  const sellOffer = await getSellOfferFromContract(contract);
+  if (!sellOffer) throw new Error("No sell offer found for contract");
   const { isValid, psbt, err } = checkRefundPSBT(refundPSBT, sellOffer);
   if (err || !isValid || !psbt) return;
 

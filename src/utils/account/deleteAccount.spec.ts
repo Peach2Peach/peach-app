@@ -8,7 +8,6 @@ import { setAccount } from "./account";
 import { accountStorage } from "./accountStorage";
 import { chatStorage } from "./chatStorage";
 import { deleteAccount } from "./deleteAccount";
-import { offerStorage } from "./offerStorage";
 
 describe("deleteAccount", () => {
   beforeAll(() => {
@@ -23,7 +22,6 @@ describe("deleteAccount", () => {
     deleteAccount();
 
     expect(accountStorage.clearStore).toHaveBeenCalled();
-    expect(offerStorage.clearStore).toHaveBeenCalled();
     expect(chatStorage.clearStore).toHaveBeenCalled();
     expect(settingsStorage.clearStore).toHaveBeenCalled();
     expect(offerPreferencesStorage.clearStore).toHaveBeenCalled();

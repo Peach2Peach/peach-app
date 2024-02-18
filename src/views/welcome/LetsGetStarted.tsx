@@ -82,7 +82,7 @@ export const LetsGetStarted = () => {
             </View>
             <Button
               style={tw`min-w-20 bg-primary-background-light`}
-              textColor={tw`text-primary-main`}
+              textColor={tw.color("primary-main")}
               disabled={
                 willUseReferralCode || !referralCode || !referralCodeIsValid
               }
@@ -98,7 +98,7 @@ export const LetsGetStarted = () => {
         <Button
           onPress={goToNewUser}
           style={tw`bg-primary-background-light`}
-          textColor={tw`text-primary-main`}
+          textColor={tw.color("primary-main")}
           iconId="plusCircle"
         >
           {i18n("newUser")}

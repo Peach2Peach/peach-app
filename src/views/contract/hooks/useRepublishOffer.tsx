@@ -7,7 +7,7 @@ import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
-import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFromContract";
+import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
 
@@ -44,11 +44,9 @@ export const useRepublishOffer = () => {
 };
 
 async function republishOffer(contract: Contract) {
-  const sellOffer = getSellOfferFromContract(contract);
-
   const { result: reviveSellOfferResult, error: err } =
     await peachAPI.private.offer.republishSellOffer({
-      offerId: sellOffer.id,
+      offerId: getSellOfferIdFromContract(contract),
     });
 
   if (!reviveSellOfferResult || err) {

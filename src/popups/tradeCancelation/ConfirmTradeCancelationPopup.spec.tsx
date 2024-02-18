@@ -4,6 +4,8 @@ import { account1 } from "../../../tests/unit/data/accountData";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { GlobalPopup } from "../../components/popup/GlobalPopup";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
+import { queryClient } from "../../queryClient";
 import { setAccount } from "../../utils/account/account";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../utils/i18n";
@@ -23,10 +25,13 @@ const cancelContractMock = jest.spyOn(
 
 describe("ConfirmTradeCancelationPopup", () => {
   beforeAll(() => {
-    setAccount({
-      ...account1,
-      offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
-    });
+    queryClient.setQueryData(
+      offerKeys.detail(getSellOfferIdFromContract(contract)),
+      {
+        ...sellOffer,
+        id: getSellOfferIdFromContract(contract),
+      },
+    );
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
   });
 
@@ -47,9 +52,15 @@ describe("ConfirmTradeCancelationPopup", () => {
     );
   });
   it("should show confirm cancelation popup for seller", async () => {
+    queryClient.setQueryData(
+      offerKeys.detail(getSellOfferIdFromContract(contract)),
+      {
+        ...sellOffer,
+        id: getSellOfferIdFromContract(contract),
+      },
+    );
     setAccount({
       ...account1,
-      offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
       publicKey: contract.seller.id,
     });
     const { getByText, getAllByText } = render(
@@ -88,9 +99,15 @@ describe("ConfirmTradeCancelationPopup", () => {
     expect(queryByText("trade canceled!")).toBeTruthy();
   });
   it("should show the correct confirmation popup for canceled trade as seller", async () => {
+    queryClient.setQueryData(
+      offerKeys.detail(getSellOfferIdFromContract(contract)),
+      {
+        ...sellOffer,
+        id: getSellOfferIdFromContract(contract),
+      },
+    );
     setAccount({
       ...account1,
-      offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
       publicKey: contract.seller.id,
     });
 
@@ -108,15 +125,16 @@ describe("ConfirmTradeCancelationPopup", () => {
     expect(queryByText(i18n("contract.cancel.requestSent.text"))).toBeTruthy();
   });
   it("shows the correct confirmation popup for canceled cash trade as seller with republish available", async () => {
+    queryClient.setQueryData(
+      offerKeys.detail(getSellOfferIdFromContract(contract)),
+      {
+        ...sellOffer,
+        id: getSellOfferIdFromContract(contract),
+        publishingDate: new Date(),
+      },
+    );
     setAccount({
       ...account1,
-      offers: [
-        {
-          ...sellOffer,
-          id: getSellOfferIdFromContract(contract),
-          publishingDate: new Date(),
-        },
-      ],
       publicKey: contract.seller.id,
     });
 
@@ -139,15 +157,16 @@ describe("ConfirmTradeCancelationPopup", () => {
     ).toBeTruthy();
   });
   it("shows the correct confirmation popup for canceled cash trade as seller with republish unavailable", async () => {
+    queryClient.setQueryData(
+      offerKeys.detail(getSellOfferIdFromContract(contract)),
+      {
+        ...sellOffer,
+        id: getSellOfferIdFromContract(contract),
+        publishingDate: new Date(0),
+      },
+    );
     setAccount({
       ...account1,
-      offers: [
-        {
-          ...sellOffer,
-          id: getSellOfferIdFromContract(contract),
-          publishingDate: new Date(0),
-        },
-      ],
       publicKey: contract.seller.id,
     });
 
@@ -162,6 +181,9 @@ describe("ConfirmTradeCancelationPopup", () => {
       await fireEvent.press(getByText("cancel trade"));
     });
     const { queryByText } = render(<GlobalPopup />);
+    await waitFor(() => {
+      jest.runAllTimers();
+    });
 
     expect(queryByText("cancel trade")).toBeFalsy();
     expect(queryByText("trade canceled")).toBeTruthy();

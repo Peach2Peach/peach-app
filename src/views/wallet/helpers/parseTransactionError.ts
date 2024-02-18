@@ -1,4 +1,4 @@
-import { parseError } from "../../../utils/result/parseError";
+import { parseError } from "../../../utils/parseError";
 import { InsufficientFundsError } from "../../../utils/wallet/types";
 
 const isInsufficientFundsError = (

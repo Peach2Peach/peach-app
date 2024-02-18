@@ -72,7 +72,7 @@ export const RestoreFromSeed = () => {
       </PeachScrollView>
       <Button
         style={tw`self-center bg-primary-background-light`}
-        textColor={tw`text-primary-main`}
+        textColor={tw.color("primary-main")}
         disabled={!isMnemonicValid}
         iconId="save"
         onPress={submit}
