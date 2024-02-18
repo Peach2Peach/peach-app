@@ -45,7 +45,6 @@ exports[`ContractItem should render correctly 1`] = `
       {
         "alignItems": "center",
         "flexDirection": "row",
-        "gap": 8,
         "justifyContent": "space-between",
         "paddingBottom": 12,
         "paddingLeft": 16,
@@ -123,6 +122,7 @@ exports[`ContractItem should render correctly 1`] = `
         >
           <Text
             allowFontScaling={false}
+            numberOfLines={1}
             style={
               [
                 {
@@ -142,7 +142,6 @@ exports[`ContractItem should render correctly 1`] = `
                       "lineHeight": 20,
                     },
                     undefined,
-                    false,
                   ],
                   {
                     "marginBottom": -40,
@@ -570,7 +569,6 @@ exports[`ContractItem should render correctly when republished 1`] = `
       {
         "alignItems": "center",
         "flexDirection": "row",
-        "gap": 8,
         "justifyContent": "space-between",
         "paddingBottom": 12,
         "paddingLeft": 16,
@@ -662,6 +660,7 @@ exports[`ContractItem should render correctly when republished 1`] = `
         >
           <Text
             allowFontScaling={false}
+            numberOfLines={1}
             onPress={[Function]}
             style={
               [
@@ -688,9 +687,6 @@ exports[`ContractItem should render correctly when republished 1`] = `
                       "letterSpacing": 0.14,
                       "lineHeight": 22,
                       "textDecorationLine": "underline",
-                    },
-                    {
-                      "width": 100,
                     },
                   ],
                   {
@@ -891,7 +887,6 @@ exports[`ContractItem should render correctly with past contract 1`] = `
       {
         "alignItems": "center",
         "flexDirection": "row",
-        "gap": 8,
         "justifyContent": "space-between",
         "paddingBottom": 12,
         "paddingLeft": 16,
@@ -981,6 +976,7 @@ exports[`ContractItem should render correctly with past contract 1`] = `
         >
           <Text
             allowFontScaling={false}
+            numberOfLines={1}
             style={
               [
                 {
@@ -1000,9 +996,6 @@ exports[`ContractItem should render correctly with past contract 1`] = `
                       "lineHeight": 20,
                     },
                     undefined,
-                    {
-                      "width": 100,
-                    },
                   ],
                   {
                     "marginBottom": -40,
@@ -1296,7 +1289,6 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
       {
         "alignItems": "center",
         "flexDirection": "row",
-        "gap": 8,
         "justifyContent": "space-between",
         "paddingBottom": 12,
         "paddingLeft": 16,
@@ -1374,6 +1366,7 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
         >
           <Text
             allowFontScaling={false}
+            numberOfLines={1}
             style={
               [
                 {
@@ -1393,7 +1386,6 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
                       "lineHeight": 20,
                     },
                     undefined,
-                    false,
                   ],
                   {
                     "marginBottom": -40,
@@ -1819,7 +1811,6 @@ exports[`OfferItem should render correctly 1`] = `
       {
         "alignItems": "center",
         "flexDirection": "row",
-        "gap": 8,
         "justifyContent": "space-between",
         "paddingBottom": 12,
         "paddingLeft": 16,
@@ -1897,6 +1888,7 @@ exports[`OfferItem should render correctly 1`] = `
         >
           <Text
             allowFontScaling={false}
+            numberOfLines={1}
             style={
               [
                 {
@@ -1916,7 +1908,6 @@ exports[`OfferItem should render correctly 1`] = `
                       "lineHeight": 20,
                     },
                     undefined,
-                    false,
                   ],
                   {
                     "marginBottom": -40,
@@ -2486,7 +2477,6 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
       {
         "alignItems": "center",
         "flexDirection": "row",
-        "gap": 8,
         "justifyContent": "space-between",
         "paddingBottom": 12,
         "paddingLeft": 16,
@@ -2576,6 +2566,7 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
         >
           <Text
             allowFontScaling={false}
+            numberOfLines={1}
             style={
               [
                 {
@@ -2595,9 +2586,6 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
                       "lineHeight": 20,
                     },
                     undefined,
-                    {
-                      "width": 100,
-                    },
                   ],
                   {
                     "marginBottom": -40,
