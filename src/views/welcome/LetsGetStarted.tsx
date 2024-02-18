@@ -47,7 +47,7 @@ export const LetsGetStarted = () => {
 
   useEffect(() => {
     getInstallReferrer().then((ref) => {
-      if (!ref) return;
+      if (!ref || ref === "unknown") return;
       setReferralCode((prev) => prev || ref);
       setWillUseReferralCode(true);
     });
