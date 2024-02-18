@@ -10,6 +10,7 @@
   "profile.disputesResolved" : "resueltas",
   "profile.disputesWon" : "ganadas",
   "profile.myAccount.title" : "mi cuenta",
+  "profile.canceledTrades" : "operaciones canceladas",
   "profile.numberOfTrades" : "número de intercambios",
   "profile.publicKey" : "clave pública de la cuenta",
   "profile.tradingLimits" : "límites de intercambio",

@@ -18,8 +18,8 @@ import { deleteAccount } from "../../../utils/account/deleteAccount";
 import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
 import { peachAPI } from "../../../utils/peachAPI";
+import { AccountInfo } from "./AccountInfo";
 import { TradingLimits } from "./TradingLimits";
-import { AccountInfo } from "./accountInfo/AccountInfo";
 
 export const MyProfile = () => {
   const { user, isLoading } = useSelfUser();

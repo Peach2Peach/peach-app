@@ -10,6 +10,7 @@
   "profile.disputesResolved" : "opgelost",
   "profile.disputesWon" : "gewonnen",
   "profile.myAccount.title" : "mijn account",
+  "profile.canceledTrades" : "geannuleerde transacties",
   "profile.numberOfTrades" : "aantal transacties",
   "profile.publicKey" : "account pubkey",
   "profile.tradingLimits" : "handelslimieten",
