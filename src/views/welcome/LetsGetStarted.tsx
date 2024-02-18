@@ -8,7 +8,6 @@ import { Button } from "../../components/buttons/Button";
 import { Input } from "../../components/inputs/Input";
 import { PeachText } from "../../components/text/PeachText";
 import { useSetToast } from "../../components/toast/Toast";
-import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useValidatedState } from "../../hooks/useValidatedState";
@@ -17,15 +16,12 @@ import { peachAPI } from "../../utils/peachAPI";
 
 const referralCodeRules = { referralCode: true };
 export const LetsGetStarted = () => {
-  const route = useRoute<"welcome">();
   const navigation = useStackNavigation();
   const showError = useShowErrorBanner();
   const setToast = useSetToast();
   const [referralCode, setReferralCode, referralCodeIsValid] =
-    useValidatedState(route.params?.referralCode || "", referralCodeRules);
-  const [willUseReferralCode, setWillUseReferralCode] = useState(
-    !!route.params?.referralCode,
-  );
+    useValidatedState<string>("", referralCodeRules);
+  const [willUseReferralCode, setWillUseReferralCode] = useState(false);
 
   const handleRefCode = useCallback(
     ({ url }: { url: string | null }) => {
