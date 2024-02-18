@@ -8,7 +8,7 @@ import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
-import { parseError } from "../utils/result/parseError";
+import { parseError } from "../utils/parseError";
 import { FundMultipleInfo, useWalletState } from "../utils/wallet/walletStore";
 import { GrayPopup } from "./GrayPopup";
 import { useCancelOffer } from "./useCancelOffer";

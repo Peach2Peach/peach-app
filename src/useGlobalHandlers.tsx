@@ -17,8 +17,8 @@ import { VerifyYouAreAHumanPopup } from "./popups/warning/VerifyYouAreAHumanPopu
 import { useSettingsStore } from "./store/settingsStore/useSettingsStore";
 import i18n from "./utils/i18n";
 import { error } from "./utils/log/error";
+import { parseError } from "./utils/parseError";
 import { useUpdateUser } from "./utils/peachAPI/useUpdateUser";
-import { parseError } from "./utils/result/parseError";
 import { isNetworkError } from "./utils/system/isNetworkError";
 
 export const useGlobalHandlers = () => {

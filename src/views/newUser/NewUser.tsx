@@ -16,7 +16,7 @@ import { deleteAccount } from "../../utils/account/deleteAccount";
 import { storeAccount } from "../../utils/account/storeAccount";
 import { updateAccount } from "../../utils/account/updateAccount";
 import i18n from "../../utils/i18n";
-import { parseError } from "../../utils/result/parseError";
+import { parseError } from "../../utils/parseError";
 import { LOGIN_DELAY } from "../restoreReputation/LOGIN_DELAY";
 import { useRegisterUser } from "./useRegisterUser";
 

@@ -16,7 +16,7 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { parseError } from "../../utils/result/parseError";
+import { parseError } from "../../utils/parseError";
 import { useHomeScreenRoute } from "../home/useHomeScreenRoute";
 import { TradeItem } from "./components/TradeItem";
 import { TradePlaceholders } from "./components/TradePlaceholders";

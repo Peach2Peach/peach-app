@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
+import { parseError } from "../../../utils/parseError";
 import { peachAPI } from "../../../utils/peachAPI";
-import { parseError } from "../../../utils/result/parseError";
 import { getPublicKeyForEscrow } from "../../../utils/wallet/getPublicKeyForEscrow";
 import { getWallet } from "../../../utils/wallet/getWallet";
 

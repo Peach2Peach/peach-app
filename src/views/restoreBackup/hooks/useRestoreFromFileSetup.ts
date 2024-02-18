@@ -8,7 +8,7 @@ import { decryptAccount } from "../../../utils/account/decryptAccount";
 import { deleteAccount } from "../../../utils/account/deleteAccount";
 import { storeAccount } from "../../../utils/account/storeAccount";
 import { useRecoverAccount } from "../../../utils/account/useRecoverAccount";
-import { parseError } from "../../../utils/result/parseError";
+import { parseError } from "../../../utils/parseError";
 import { useRegisterUser } from "../../newUser/useRegisterUser";
 import { LOGIN_DELAY } from "../../restoreReputation/LOGIN_DELAY";
 import { setupPeachAccount } from "./setupPeachAccount";

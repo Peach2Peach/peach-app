@@ -7,7 +7,7 @@ import { useRoute } from "../../../hooks/useRoute";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { CancelOfferPopup } from "../../../popups/CancelOfferPopup";
 import { isSellOffer } from "../../../utils/offer/isSellOffer";
-import { parseError } from "../../../utils/result/parseError";
+import { parseError } from "../../../utils/parseError";
 import { isDefined } from "../../../utils/validation/isDefined";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { useSyncWallet } from "../../wallet/hooks/useSyncWallet";

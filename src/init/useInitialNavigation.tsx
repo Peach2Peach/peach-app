@@ -7,7 +7,7 @@ import { useStackNavigation } from "../hooks/useStackNavigation";
 import { error } from "../utils/log/error";
 import { info } from "../utils/log/info";
 import { handlePushNotification } from "../utils/navigation/handlePushNotification";
-import { parseError } from "../utils/result/parseError";
+import { parseError } from "../utils/parseError";
 import { isDefined } from "../utils/validation/isDefined";
 import { NewBadge } from "../views/overlays/NewBadge";
 import { OfferPublished } from "../views/search/OfferPublished";

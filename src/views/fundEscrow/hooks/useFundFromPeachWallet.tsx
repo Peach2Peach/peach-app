@@ -17,7 +17,7 @@ import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { useConfigStore } from "../../../store/configStore/configStore";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
-import { parseError } from "../../../utils/result/parseError";
+import { parseError } from "../../../utils/parseError";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import {
   buildTransaction,

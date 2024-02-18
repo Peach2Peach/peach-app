@@ -6,7 +6,7 @@ import { exists } from "../utils/file/exists";
 import { readFile } from "../utils/file/readFile";
 import { error } from "../utils/log/error";
 import { info } from "../utils/log/info";
-import { parseError } from "../utils/result/parseError";
+import { parseError } from "../utils/parseError";
 
 export const requestUserPermissions = async () => {
   info("Requesting notification permissions");

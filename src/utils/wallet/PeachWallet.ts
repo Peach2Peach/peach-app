@@ -14,7 +14,7 @@ import RNFS from "react-native-fs";
 import { waitForHydration } from "../../store/waitForHydration";
 import { error } from "../log/error";
 import { info } from "../log/info";
-import { parseError } from "../result/parseError";
+import { parseError } from "../parseError";
 import { isIOS } from "../system/isIOS";
 import { callWhenInternet } from "../web/callWhenInternet";
 import { PeachJSWallet } from "./PeachJSWallet";

@@ -6,7 +6,7 @@ import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import { writeFile } from "../file/writeFile";
 import { error } from "../log/error";
 import { info } from "../log/info";
-import { parseError } from "../result/parseError";
+import { parseError } from "../parseError";
 import { PEACH_ID_LENGTH } from "./PEACH_ID_LENGTH";
 import { useAccountStore } from "./account";
 

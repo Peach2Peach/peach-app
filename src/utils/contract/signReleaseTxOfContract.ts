@@ -1,5 +1,5 @@
 import { Psbt } from "bitcoinjs-lib";
-import { parseError } from "../result/parseError";
+import { parseError } from "../parseError";
 import { getEscrowWalletForOffer } from "../wallet/getEscrowWalletForOffer";
 import { getNetwork } from "../wallet/getNetwork";
 import { getSellOfferFromContract } from "./getSellOfferFromContract";

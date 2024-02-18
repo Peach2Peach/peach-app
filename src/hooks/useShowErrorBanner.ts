@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useSetToast } from "../components/toast/Toast";
 import i18n from "../utils/i18n";
 import { error } from "../utils/log/error";
-import { parseError } from "../utils/result/parseError";
+import { parseError } from "../utils/parseError";
 import { useStackNavigation } from "./useStackNavigation";
 
 export const useShowErrorBanner = () => {
