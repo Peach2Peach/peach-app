@@ -13,7 +13,6 @@ import { getOfferIdFromContract } from "../../utils/contract/getOfferIdFromContr
 import { getPaymentExpectedBy } from "../../utils/contract/getPaymentExpectedBy";
 import { getRequiredAction } from "../../utils/contract/getRequiredAction";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
-import i18n from "../../utils/i18n";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import {
@@ -33,6 +32,7 @@ import {
   ResolveCancelRequestSliders,
 } from "./ContractSliders";
 import { useContractContext } from "./context";
+import { useTranslate } from "@tolgee/react";
 
 export const ContractActions = () => {
   const { contract, view } = useContractContext();
@@ -55,6 +55,7 @@ function ContractStatusInfo() {
   const { contract, view } = useContractContext();
   const { disputeActive, disputeWinner, cancelationRequested, paymentMethod } =
     contract;
+  const { t } = useTranslate("contract");
 
   const shouldShowInfo = !(
     disputeActive ||
@@ -70,7 +71,7 @@ function ContractStatusInfo() {
       if (Date.now() <= paymentExpectedBy || view === "buyer") {
         return (
           <Timer
-            text={i18n(`contract.timer.${requiredAction}.${view}`)}
+            text={t(`contract.timer.${requiredAction}.${view}`)}
             end={paymentExpectedBy}
           />
         );
@@ -82,7 +83,7 @@ function ContractStatusInfo() {
       return (
         <View style={tw`flex-row items-center justify-center`}>
           <PeachText style={tw`text-center button-medium`}>
-            {i18n(`contract.timer.confirmPayment.${view}`)}
+            {t(`contract.timer.confirmPayment.${view}`)}
           </PeachText>
           {view === "seller" && (
             <Icon
@@ -129,6 +130,7 @@ function BuyerSliders() {
   const { contract } = useContractContext();
   const { tradeStatus, disputeWinner } = contract;
   const requiredAction = getRequiredAction(contract);
+  const { t } = useTranslate("contract");
 
   if (tradeStatus === "confirmCancelation") {
     return <ResolveCancelRequestSliders />;
@@ -137,7 +139,7 @@ function BuyerSliders() {
     return <PaymentMadeSlider />;
   }
   if (requiredAction === "confirmPayment" && !disputeWinner) {
-    return <UnlockedSlider label={i18n("contract.payment.made")} />;
+    return <UnlockedSlider label={t("contract.payment.made")} />;
   }
   return <></>;
 }
@@ -145,6 +147,7 @@ function BuyerSliders() {
 function SellerSliders() {
   const { contract } = useContractContext();
   const { tradeStatus, disputeWinner } = contract;
+  const { t } = useTranslate("unassigned");
   if (tradeStatus === "releaseEscrow" && !!disputeWinner) {
     return <ReleaseEscrowSlider />;
   }
@@ -163,7 +166,7 @@ function SellerSliders() {
       <ConfirmSlider
         enabled={false}
         onConfirm={() => null}
-        label1={i18n("offer.requiredAction.waiting", i18n("buyer"))}
+        label1={t("offer.requiredAction.waiting", t("buyer"))}
       />
     );
   }

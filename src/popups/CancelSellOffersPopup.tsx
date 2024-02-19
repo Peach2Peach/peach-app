@@ -7,11 +7,11 @@ import { LoadingPopupAction } from "../components/popup/actions/LoadingPopupActi
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
 import { parseError } from "../utils/parseError";
 import { FundMultipleInfo, useWalletState } from "../utils/wallet/walletStore";
 import { GrayPopup } from "./GrayPopup";
 import { useCancelOffer } from "./useCancelOffer";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   fundMultiple?: FundMultipleInfo;
@@ -26,10 +26,11 @@ export function CancelSellOffersPopup({ fundMultiple }: Props) {
     (state) => [state.registerFundMultiple, state.unregisterFundMultiple],
     shallow,
   );
+  const { t } = useTranslate("offer");
   const showOfferCanceled = useCallback(() => {
     setPopup(
       <GrayPopup
-        title={i18n("offer.canceled.popup.title")}
+        title={t("offer.canceled.popup.title")}
         actions={<ClosePopupAction style={tw`justify-center`} />}
       />,
     );
@@ -72,17 +73,17 @@ export function CancelSellOffersPopup({ fundMultiple }: Props) {
 
   return (
     <GrayPopup
-      title={i18n("offer.cancel.popup.title")}
-      content={i18n("offer.cancel.popup.description")}
+      title={t("offer.cancel.popup.title")}
+      content={t("offer.cancel.popup.description")}
       actions={
         <>
           <PopupAction
-            label={i18n("neverMind")}
+            label={t({ key: "neverMind", ns: "unassigned" })}
             iconId="arrowLeftCircle"
             onPress={closePopup}
           />
           <LoadingPopupAction
-            label={i18n("cancelOffer")}
+            label={t({ key: "cancelOffer", ns: "unassigned" })}
             iconId="xCircle"
             onPress={confirmCancelOffer}
             reverseOrder

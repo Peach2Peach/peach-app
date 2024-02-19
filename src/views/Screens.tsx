@@ -13,11 +13,11 @@ import { VerifyYouAreAHumanPopup } from "../popups/warning/VerifyYouAreAHumanPop
 import tw from "../styles/tailwind";
 import { useGlobalHandlers } from "../useGlobalHandlers";
 import { useAccountStore } from "../utils/account/account";
-import i18n from "../utils/i18n";
 import { screenTransition } from "../utils/layout/screenTransition";
 import { isIOS } from "../utils/system/isIOS";
 import { useWSQueryInvalidation } from "./useWSQueryInvalidation";
 import { onboardingViews, views } from "./views";
+import { useTranslate } from "@tolgee/react";
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
@@ -64,6 +64,7 @@ function SplashScreenComponent({
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const initApp = useInitApp();
+  const { t } = useTranslate("unassigned");
   useEffect(() => {
     (async () => {
       const statusResponse = await initApp();
@@ -77,7 +78,7 @@ function SplashScreenComponent({
             color: "red",
             action: {
               onPress: () => navigation.navigate("contact"),
-              label: i18n("contactUs"),
+              label: t("contactUs"),
               iconId: "mail",
             },
           });

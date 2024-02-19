@@ -3,9 +3,9 @@ import { shallow } from "zustand/shallow";
 import { useSetToast } from "../components/toast/Toast";
 import { APPVERSION, BUILDNUMBER } from "../constants";
 import { useConfigStore } from "../store/configStore/configStore";
-import i18n from "../utils/i18n";
 import { compatibilityCheck } from "../utils/system/compatibilityCheck";
 import { linkToAppStore } from "../utils/system/linkToAppStore";
+import { useTranslate } from "@tolgee/react";
 
 export const useShowUpdateAvailable = () => {
   const setToast = useSetToast();
@@ -13,6 +13,7 @@ export const useShowUpdateAvailable = () => {
     (state) => [state.minAppVersion, state.latestAppVersion],
     shallow,
   );
+  const { t } = useTranslate("unassigned");
 
   useEffect(() => {
     if (!compatibilityCheck(`${APPVERSION} (${BUILDNUMBER})`, minAppVersion))
@@ -25,7 +26,7 @@ export const useShowUpdateAvailable = () => {
       keepAlive: true,
       action: {
         onPress: linkToAppStore,
-        label: i18n("download"),
+        label: t("download"),
         iconId: "download",
       },
     });
@@ -40,7 +41,7 @@ export const useShowUpdateAvailable = () => {
       keepAlive: true,
       action: {
         onPress: linkToAppStore,
-        label: i18n("download"),
+        label: t("download"),
         iconId: "download",
       },
     });

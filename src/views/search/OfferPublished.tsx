@@ -3,7 +3,7 @@ import { OverlayComponent } from "../../components/OverlayComponent";
 import { Button } from "../../components/buttons/Button";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 export const OfferPublished = ({
   shouldGoBack,
@@ -19,6 +19,7 @@ export const OfferPublished = ({
     navigation.navigate("homeScreen", { screen: "home" });
     closeOverlay();
   };
+  const { t } = useTranslate("offer");
   const goToOffer = () => {
     navigation.reset({
       index: 1,
@@ -35,8 +36,8 @@ export const OfferPublished = ({
 
   return (
     <OverlayComponent
-      title={i18n("offer.published.title")}
-      text={i18n("offer.published.description")}
+      title={t("offer.published.title")}
+      text={t("offer.published.description")}
       iconId="checkCircleInverted"
       buttons={
         <>
@@ -45,10 +46,10 @@ export const OfferPublished = ({
             textColor={tw.color("primary-main")}
             onPress={goToOffer}
           >
-            {i18n("showOffer")}
+            {t({ key: "showOffer", ns: "unassigned" })}
           </Button>
           <Button ghost onPress={shouldGoBack ? closeOverlay : goBackHome}>
-            {i18n("close")}
+            {t({ key: "close", ns: "unassigned" })}
           </Button>
         </>
       }

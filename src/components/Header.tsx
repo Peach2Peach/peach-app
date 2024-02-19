@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
 import { T, useTranslate } from "@tolgee/react";
 import {
   ColorValue,

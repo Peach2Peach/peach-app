@@ -8,13 +8,13 @@ import { offerKeys, useOfferDetail } from "../hooks/query/useOfferDetail";
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
 import { isBuyOffer } from "../utils/offer/isBuyOffer";
 import { isSellOffer } from "../utils/offer/isSellOffer";
 import { saveOffer } from "../utils/offer/saveOffer";
 import { GrayPopup } from "./GrayPopup";
 import { useCancelOffer } from "./useCancelOffer";
 import { useStartRefundPopup } from "./useStartRefundPopup";
+import { useTranslate } from "@tolgee/react";
 
 export function CancelOfferPopup({ offerId }: { offerId: string }) {
   const navigation = useStackNavigation();
@@ -26,6 +26,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
   const { mutate: cancelOffer } = useCancelOffer();
 
   const startRefund = useStartRefundPopup();
+  const { t } = useTranslate("unassigned");
 
   const confirmCancelOffer = () => {
     if (!offer) return;
@@ -52,7 +53,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
           ) {
             setPopup(
               <GrayPopup
-                title={i18n("offer.canceled.popup.title")}
+                title={t({ key: "offer.canceled.popup.title", ns: "offer" })}
                 actions={<ClosePopupAction style={tw`justify-center`} />}
               />,
             );
@@ -73,23 +74,23 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
   if (!offer) return null;
   return (
     <PopupComponent
-      title={i18n("offer.cancel.popup.title")}
-      content={i18n(
+      title={t({ key: "offer.cancel.popup.title", ns: "offer" })}
+      content={t(
         offer.type === "bid"
-          ? "search.popups.cancelOffer.text.buy"
-          : "offer.cancel.popup.description",
+          ? { key: "search.popups.cancelOffer.text.buy", ns: "unassigned" }
+          : { key: "offer.cancel.popup.description", ns: "offer" },
       )}
       actionBgColor={tw`bg-black-50`}
       bgColor={tw`bg-primary-background-light`}
       actions={
         <>
           <PopupAction
-            label={i18n("neverMind")}
+            label={t("neverMind")}
             iconId="arrowLeftCircle"
             onPress={closePopup}
           />
           <LoadingPopupAction
-            label={i18n("cancelOffer")}
+            label={t("cancelOffer")}
             iconId="xCircle"
             onPress={confirmCancelOffer}
             reverseOrder

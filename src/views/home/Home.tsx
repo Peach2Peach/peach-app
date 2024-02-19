@@ -14,11 +14,11 @@ import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { info } from "../../utils/log/info";
 import { peachAPI } from "../../utils/peachAPI";
 import { openURL } from "../../utils/web/openURL";
 import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
+import { useTranslate } from "@tolgee/react";
 
 export function Home() {
   return (
@@ -43,11 +43,12 @@ function FreeTradesDonut() {
   const { user } = useSelfUser();
   const freeTrades = user?.freeTrades || 0;
   const maxFreeTrades = user?.maxFreeTrades || 0;
+  const { t } = useTranslate("settings");
   if (freeTrades === 0) return null;
   return (
     <ProgressDonut
       style={tw`py-2`}
-      title={i18n("settings.referrals.noPeachFees.freeTrades")}
+      title={t("settings.referrals.noPeachFees.freeTrades")}
       value={freeTrades}
       max={maxFreeTrades}
     />
@@ -129,17 +130,22 @@ function useOfferStats() {
 
 function MarketStats() {
   const { data } = useOfferStats();
+  const { t } = useTranslate("home");
   return (
     <View style={tw`items-center justify-center gap-5 pb-4 grow`}>
       <PeachText style={tw`subtitle-0 text-success-main`}>
-        {i18n("home.openBuyOffers", String(data?.buy.open))}
+        {t("home.openBuyOffers", { openBuyOffers: String(data?.buy.open) })}
       </PeachText>
       <View style={tw`items-center -gap-2`}>
         <PeachText style={tw`subtitle-0 text-primary-main`}>
-          {i18n("home.openSellOffers", String(data?.sell.open))}
+          {t("home.openSellOffers", {
+            openSellOffers: String(data?.sell.open),
+          })}
         </PeachText>
         <PeachText style={tw`subtitle-1 text-primary-main`}>
-          {i18n("home.averagePremium", String(data?.sell.avgPremium))}
+          {t("home.averagePremium", {
+            averagePremium: String(data?.sell.avgPremium),
+          })}
         </PeachText>
       </View>
     </View>
@@ -152,12 +158,13 @@ function BuyButton() {
   const navigation = useStackNavigation();
   const goToBuyOfferPreferences = () =>
     navigation.navigate("buyOfferPreferences");
+  const { t } = useTranslate("unassigned");
   return (
     <Button
       style={[buttonStyle, tw`bg-success-main`]}
       onPress={goToBuyOfferPreferences}
     >
-      {i18n("buy")}
+      {t("buy")}
     </Button>
   );
 }
@@ -166,9 +173,10 @@ function SellButton() {
   const navigation = useStackNavigation();
   const goToSellOfferPreferences = () =>
     navigation.navigate("sellOfferPreferences");
+  const { t } = useTranslate("unassigned");
   return (
     <Button style={[buttonStyle]} onPress={goToSellOfferPreferences}>
-      {i18n("sell")}
+      {t("sell")}
     </Button>
   );
 }

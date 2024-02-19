@@ -18,6 +18,7 @@ import { contractKeys } from "./query/useContractDetail";
 import { offerKeys } from "./query/useOfferDetail";
 import { useShowErrorBanner } from "./useShowErrorBanner";
 import { useStackNavigation } from "./useStackNavigation";
+import { useTranslate } from "@tolgee/react";
 
 export function useRefundSellOffer() {
   const setPopup = useSetPopup();
@@ -90,11 +91,12 @@ export function useRefundSellOffer() {
 
 function RefundEscrowPopup({ txId }: { txId: string }) {
   const isPeachWallet = useSettingsStore((state) => state.refundToPeachWallet);
+  const { t } = useTranslate("unassigned");
 
   return (
     <PopupComponent
-      title={i18n("refund.title")}
-      content={i18n(
+      title={t("refund.title")}
+      content={t(
         isPeachWallet
           ? "refund.text.peachWallet"
           : "refund.text.externalWallet",
@@ -115,6 +117,7 @@ function RefundEscrowPopup({ txId }: { txId: string }) {
 
 function ShowTxAction({ txId }: { txId: string }) {
   const closePopup = useClosePopup();
+  const { t } = useTranslate("unassigned");
 
   const showTx = () => {
     closePopup();
@@ -122,11 +125,7 @@ function ShowTxAction({ txId }: { txId: string }) {
   };
 
   return (
-    <PopupAction
-      label={i18n("showTx")}
-      iconId="externalLink"
-      onPress={showTx}
-    />
+    <PopupAction label={t("showTx")} iconId="externalLink" onPress={showTx} />
   );
 }
 
@@ -136,6 +135,7 @@ function GoToWalletAction({ txId }: { txId: string }) {
   const shouldShowBackupOverlay = useSettingsStore(
     (state) => state.shouldShowBackupOverlay,
   );
+  const { t } = useTranslate("global");
   const setOverlay = useSetOverlay();
 
   const goToWallet = () => {
@@ -152,11 +152,7 @@ function GoToWalletAction({ txId }: { txId: string }) {
   };
 
   return (
-    <PopupAction
-      label={i18n("goToWallet")}
-      iconId="wallet"
-      onPress={goToWallet}
-    />
+    <PopupAction label={t("goToWallet")} iconId="wallet" onPress={goToWallet} />
   );
 }
 
@@ -168,10 +164,11 @@ function CloseAction() {
     (state) => state.shouldShowBackupOverlay,
   );
   const setOverlay = useSetOverlay();
+  const { t } = useTranslate("global");
 
   return (
     <PopupAction
-      label={i18n("close")}
+      label={t("close")}
       iconId="xSquare"
       onPress={() => {
         closePopup();

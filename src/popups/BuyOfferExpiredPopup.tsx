@@ -4,7 +4,7 @@ import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
 import { useStackNavigation } from "../hooks/useStackNavigation";
-import i18n from "../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 export function BuyOfferExpiredPopup({
   offerId,
@@ -19,15 +19,20 @@ export function BuyOfferExpiredPopup({
     closePopup();
     navigation.navigate("contact");
   }, [closePopup, navigation]);
+  const { t } = useTranslate("notification");
 
   return (
     <PopupComponent
-      title={i18n("notification.offer.buyOfferExpired.title")}
-      content={i18n("notification.offer.buyOfferExpired.text", offerId, days)}
+      title={t("notification.offer.buyOfferExpired.title")}
+      content={t(
+        "notification.offer.buyOfferExpired.text",
+        { offerId },
+        { days },
+      )}
       actions={
         <>
           <PopupAction
-            label={i18n("help")}
+            label={t({ key: "help", ns: "help" })}
             iconId="helpCircle"
             onPress={goToContact}
           />

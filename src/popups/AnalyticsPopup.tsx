@@ -6,9 +6,10 @@ import { PopupComponent } from "../components/popup/PopupComponent";
 import { PeachText } from "../components/text/PeachText";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import tw from "../styles/tailwind";
-import i18n, { languageState } from "../utils/i18n";
+import { languageState } from "../utils/i18n";
 import { getLocalizedLink } from "../utils/web/getLocalizedLink";
 import { openURL } from "../utils/web/openURL";
+import { useTranslate } from "@tolgee/react";
 
 export function AnalyticsPopup() {
   const closePopup = useClosePopup();
@@ -16,6 +17,7 @@ export function AnalyticsPopup() {
     (state) => state.setEnableAnalytics,
     shallow,
   );
+  const { t } = useTranslate("analytics");
 
   const accept = useCallback(() => {
     setEnableAnalytics(true);
@@ -29,17 +31,17 @@ export function AnalyticsPopup() {
 
   return (
     <PopupComponent
-      title={i18n("analytics.request.title")}
+      title={t("analytics.request.title")}
       content={<AnalyticsPrompt />}
       actions={
         <>
           <PopupAction
-            label={i18n("analytics.request.no")}
+            label={t("analytics.request.no")}
             iconId="xSquare"
             onPress={deny}
           />
           <PopupAction
-            label={i18n("analytics.request.yes")}
+            label={t("analytics.request.yes")}
             iconId="checkSquare"
             onPress={accept}
             reverseOrder
@@ -51,21 +53,23 @@ export function AnalyticsPopup() {
 }
 
 function AnalyticsPrompt() {
+  const { t } = useTranslate("analytics");
+
   return (
     <PeachText>
-      {i18n("analytics.request.description1")}
+      {t("analytics.request.description1")}
       {"\n\n"}
-      {i18n("analytics.request.description2")}
+      {t("analytics.request.description2")}
       <PeachText
         style={tw`mt-2 text-center underline`}
         onPress={() =>
           openURL(getLocalizedLink("privacy-policy", languageState.locale))
         }
       >
-        {i18n("privacyPolicy").toLocaleLowerCase()}.
+        {t({ key: "privacyPolicy", ns: "unassigned" }).toLocaleLowerCase()}.
       </PeachText>
       {"\n\n"}
-      {i18n("analytics.request.description3")}
+      {t("analytics.request.description3")}
     </PeachText>
   );
 }

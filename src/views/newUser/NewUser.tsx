@@ -15,10 +15,10 @@ import { createAccount } from "../../utils/account/createAccount";
 import { deleteAccount } from "../../utils/account/deleteAccount";
 import { storeAccount } from "../../utils/account/storeAccount";
 import { updateAccount } from "../../utils/account/updateAccount";
-import i18n from "../../utils/i18n";
 import { parseError } from "../../utils/parseError";
 import { LOGIN_DELAY } from "../restoreReputation/LOGIN_DELAY";
 import { useRegisterUser } from "./useRegisterUser";
+import { useTranslate } from "@tolgee/react";
 
 export const NewUser = () => {
   const route = useRoute<"newUser">();
@@ -38,6 +38,7 @@ export const NewUser = () => {
   const { mutate: registerUser } = useRegisterUser();
 
   const userUpdate = useUserUpdate();
+  const { t } = useTranslate("welcome");
 
   const onSuccess = useCallback(
     (account: Account & { mnemonic: string; base58: string }) => {
@@ -86,7 +87,7 @@ export const NewUser = () => {
     <Screen
       header={
         <Header
-          title={i18n("welcome.welcomeToPeach.title")}
+          title={t("welcome.welcomeToPeach.title")}
           theme="transparent"
           hideGoBackButton
         />
@@ -107,13 +108,14 @@ export const NewUser = () => {
 };
 
 function CreateAccountLoading() {
+  const { t } = useTranslate("unassigned");
   return (
     <View style={tw`items-center justify-center gap-4 grow`}>
       <PeachText style={tw`text-center h4 text-primary-background-light`}>
-        {i18n("newUser.title.create")}
+        {t("newUser.title.create")} // unassigned
       </PeachText>
       <PeachText style={tw`text-center body-l text-primary-background-light`}>
-        {i18n("newUser.oneSec")}
+        {t("newUser.oneSec")}
       </PeachText>
       <Loading style={tw`w-32 h-32`} color={tw.color("primary-mild-1")} />
     </View>
@@ -127,18 +129,19 @@ function CreateAccountError({ err }: CreateAccountErrorProps) {
   const navigation = useStackNavigation();
   const goToContact = () => navigation.navigate("contact");
   const goToRestoreBackup = () => navigation.navigate("restoreBackup");
+  const { t } = useTranslate("unassigned");
 
   return (
     <View style={tw`items-center justify-between grow`}>
       <View style={tw`items-center justify-center gap-16 grow`}>
         <View>
           <PeachText style={tw`text-center h4 text-primary-background-light`}>
-            {i18n("newUser.title.create")}
+            {t("newUser.title.create")}
           </PeachText>
           <PeachText
             style={tw`text-center body-l text-primary-background-light`}
           >
-            {i18n(`${err}.text`)}
+            {t({ key: `${err}.text`, ns: "error" })}
           </PeachText>
         </View>
         <Icon
@@ -154,10 +157,10 @@ function CreateAccountError({ err }: CreateAccountErrorProps) {
           style={tw`bg-primary-background-light`}
           textColor={tw.color("primary-main")}
         >
-          {i18n("contactUs")}
+          {t("contactUs")}
         </Button>
         <Button onPress={goToRestoreBackup} ghost>
-          {i18n("restore")}
+          {t("restore")}
         </Button>
       </View>
     </View>
@@ -165,14 +168,16 @@ function CreateAccountError({ err }: CreateAccountErrorProps) {
 }
 
 function CreateAccountSuccess() {
+  const { t } = useTranslate("unassigned");
+
   return (
     <View style={tw`items-center justify-center gap-16 grow`}>
       <View>
         <PeachText style={tw`text-center h4 text-primary-background-light`}>
-          {i18n("newUser.title.accountCreated")}
+          {t("newUser.title.accountCreated")}
         </PeachText>
         <PeachText style={tw`text-center body-l text-primary-background-light`}>
-          {i18n("newUser.welcome")}
+          {t("newUser.welcome")}
         </PeachText>
       </View>
       <Icon
@@ -193,15 +198,16 @@ function UserExistsForDevice() {
     navigation.navigate("restoreBackup", { tab: "seedPhrase" });
   const goToRestoreReputation = () =>
     navigation.navigate("restoreReputation", route.params);
+  const { t } = useTranslate("unassigned");
 
   return (
     <View style={tw`items-center justify-center gap-8 grow`}>
       <View>
         <PeachText style={tw`text-center h4 text-primary-background-light`}>
-          {i18n("newUser.accountNotCreated")}
+          {t("newUser.accountNotCreated")}
         </PeachText>
         <PeachText style={tw`text-center body-l text-primary-background-light`}>
-          {i18n("newUser.youAlreadyHaveOne")}
+          {t("newUser.youAlreadyHaveOne")}
         </PeachText>
       </View>
       <Icon
@@ -211,13 +217,13 @@ function UserExistsForDevice() {
       />
       <View style={tw`items-center gap-8`}>
         <MenuItem onPress={goToRestoreFromFile}>
-          {i18n("restoreBackup.restoreFromFile")}
+          {t("restoreBackup.restoreFromFile")}
         </MenuItem>
         <MenuItem onPress={goToRestoreFromSeed}>
-          {i18n("restoreBackup.restoreFromSeed")}
+          {t("restoreBackup.restoreFromSeed")}
         </MenuItem>
         <MenuItem onPress={goToRestoreReputation}>
-          {i18n("restoreBackup.IdontHave")}
+          {t("restoreBackup.IdontHave")}
         </MenuItem>
       </View>
     </View>

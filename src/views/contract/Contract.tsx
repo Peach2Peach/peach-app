@@ -12,7 +12,6 @@ import { canCancelContract } from "../../utils/contract/canCancelContract";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getRequiredAction } from "../../utils/contract/getRequiredAction";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
@@ -21,6 +20,7 @@ import { PendingPayoutInfo } from "./components/PendingPayoutInfo";
 import { TradeInformation } from "./components/TradeInformation";
 import { ContractContext, useContractContext } from "./context";
 import { useContractSetup } from "./hooks/useContractSetup";
+import { useTranslate } from "@tolgee/react";
 
 export const Contract = () => {
   const { contract, isLoading, view } = useContractSetup();
@@ -82,6 +82,7 @@ function ContractHeader() {
     premium,
   } = contract;
   const requiredAction = getRequiredAction(contract);
+  const { t } = useTranslate("contract");
   const setPopup = useSetPopup();
   const showConfirmPopup = useCallback(
     () =>
@@ -152,8 +153,8 @@ function ContractHeader() {
           text={
             isTradeCompleted
               ? view === "buyer"
-                ? i18n("contract.bought")
-                : i18n("contract.sold")
+                ? t("contract.bought")
+                : t("contract.sold")
               : undefined
           }
           viewer={view}
@@ -171,36 +172,37 @@ function getHeaderTitle(view: string, contract: Contract) {
     disputeActive,
     id: contractId,
   } = contract;
+  const { t } = useTranslate("contract");
   if (view === "buyer") {
-    if (disputeWinner === "buyer") return i18n("contract.disputeWon");
-    if (disputeWinner === "seller") return i18n("contract.disputeLost");
+    if (disputeWinner === "buyer") return t("contract.disputeWon");
+    if (disputeWinner === "seller") return t("contract.disputeLost");
 
     if (tradeStatus === "paymentRequired") {
       if (isPaymentTooLate(contract))
-        return i18n("contract.paymentTimerHasRunOut.title");
-      return i18n("offer.requiredAction.paymentRequired");
+        return t("contract.paymentTimerHasRunOut.title");
+      return t("offer.requiredAction.paymentRequired");
     }
     if (tradeStatus === "confirmPaymentRequired")
-      return i18n("offer.requiredAction.waiting.seller");
+      return t("offer.requiredAction.waiting.seller");
     if (tradeStatus === "confirmCancelation")
-      return i18n("offer.requiredAction.confirmCancelation.buyer");
+      return t("offer.requiredAction.confirmCancelation.buyer");
   }
 
   if (view === "seller") {
-    if (disputeWinner === "seller") return i18n("contract.disputeWon");
-    if (disputeWinner === "buyer") return i18n("contract.disputeLost");
-    if (canceled) return i18n("contract.tradeCanceled");
+    if (disputeWinner === "seller") return t("contract.disputeWon");
+    if (disputeWinner === "buyer") return t("contract.disputeLost");
+    if (canceled) return t("contract.tradeCanceled");
   }
 
-  if (disputeActive) return i18n("offer.requiredAction.dispute");
+  if (disputeActive) return t("offer.requiredAction.dispute");
   if (isPaymentTooLate(contract))
-    return i18n("contract.paymentTimerHasRunOut.title");
+    return t("contract.paymentTimerHasRunOut.title");
 
   if (tradeStatus === "confirmCancelation")
-    return i18n("offer.requiredAction.confirmCancelation.seller");
+    return t("offer.requiredAction.confirmCancelation.seller");
   if (tradeStatus === "paymentRequired")
-    return i18n("offer.requiredAction.waiting.buyer");
+    return t("offer.requiredAction.waiting.buyer");
   if (tradeStatus === "confirmPaymentRequired")
-    return i18n("offer.requiredAction.confirmPaymentRequired");
+    return t("offer.requiredAction.confirmPaymentRequired");
   return contractIdToHex(contractId);
 }

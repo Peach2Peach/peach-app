@@ -10,6 +10,8 @@ const ReportSuccess = () => (
   </View>
 );
 
+// eslint-disable-next-line no-warning-comments
+// TODO: figure out how to integrate telgoo
 export const appPopups = {
   offerTaken: {
     title: i18n("search.popups.offerTaken.title"),

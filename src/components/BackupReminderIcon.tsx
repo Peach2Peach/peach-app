@@ -2,11 +2,11 @@ import { useStackNavigation } from "../hooks/useStackNavigation";
 import { ErrorPopup } from "../popups/ErrorPopup";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
 import { TouchableIcon } from "./TouchableIcon";
 import { useClosePopup, useSetPopup } from "./popup/GlobalPopup";
 import { PopupAction } from "./popup/PopupAction";
 import { ClosePopupAction } from "./popup/actions/ClosePopupAction";
+import { useTranslate } from "@tolgee/react";
 
 export function BackupReminderIcon() {
   const setPopup = useSetPopup();
@@ -29,17 +29,18 @@ export function BackupReminderIcon() {
 function BackupReminderPopup() {
   const closePopup = useClosePopup();
   const navigation = useStackNavigation();
+  const { t } = useTranslate("error");
 
   return (
     <ErrorPopup
-      title={i18n("error.firstBackup.title")}
-      content={i18n("error.firstBackup.description")}
+      title={t("error.firstBackup.title")}
+      content={t("error.firstBackup.description")}
       actions={
         <>
           <ClosePopupAction />
           <PopupAction
             iconId="arrowRightCircle"
-            label={i18n("error.firstBackup.action")}
+            label={t("error.firstBackup.action")}
             onPress={() => {
               navigation.navigate("backups");
               closePopup();

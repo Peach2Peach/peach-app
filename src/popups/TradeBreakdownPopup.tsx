@@ -11,22 +11,24 @@ import tw from "../styles/tailwind";
 import { getTradeBreakdown } from "../utils/bitcoin/getTradeBreakdown";
 import { showAddress } from "../utils/bitcoin/showAddress";
 import { showTransaction } from "../utils/bitcoin/showTransaction";
-import i18n from "../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 export function TradeBreakdownPopup({ contract }: { contract: Contract }) {
   const viewInExplorer = () =>
     contract.releaseTxId
       ? showTransaction(contract.releaseTxId, NETWORK)
       : showAddress(contract.escrow, NETWORK);
+  const { t } = useTranslate("unassigned");
+
   return (
     <PopupComponent
-      title={i18n("tradeComplete.popup.tradeBreakdown.title")}
+      title={t("tradeComplete.popup.tradeBreakdown.title")}
       content={<TradeBreakdown {...contract} />}
       actions={
         <>
           <ClosePopupAction />
           <PopupAction
-            label={i18n("tradeComplete.popup.tradeBreakdown.explorer")}
+            label={t("tradeComplete.popup.tradeBreakdown.explorer")}
             onPress={viewInExplorer}
             iconId="externalLink"
             reverseOrder
@@ -48,28 +50,29 @@ function TradeBreakdown({
       releaseAddress,
       inputAmount: amount,
     });
+  const { t } = useTranslate("unassigned");
 
   const data = [
     [
-      { text: i18n("tradeComplete.popup.tradeBreakdown.sellerAmount"), amount },
+      { text: t("tradeComplete.popup.tradeBreakdown.sellerAmount"), amount },
       {
-        text: i18n("tradeComplete.popup.tradeBreakdown.peachFees"),
+        text: t("tradeComplete.popup.tradeBreakdown.peachFees"),
         amount: peachFee,
       },
     ],
     [
       {
-        text: i18n("tradeComplete.popup.tradeBreakdown.tradeAmount"),
+        text: t("tradeComplete.popup.tradeBreakdown.tradeAmount"),
         amount: totalAmount - peachFee,
       },
       {
-        text: i18n("tradeComplete.popup.tradeBreakdown.networkFees"),
+        text: t("tradeComplete.popup.tradeBreakdown.networkFees"),
         amount: networkFee,
       },
     ],
     [
       {
-        text: i18n("tradeComplete.popup.tradeBreakdown.youGet"),
+        text: t("tradeComplete.popup.tradeBreakdown.youGet"),
         amount: amountReceived,
       },
     ],

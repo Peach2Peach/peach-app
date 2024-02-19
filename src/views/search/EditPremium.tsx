@@ -15,13 +15,13 @@ import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { getOfferPrice } from "../../utils/offer/getOfferPrice";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { MarketInfo } from "../offerPreferences/components/MarketInfo";
+import { useTranslate } from "@tolgee/react";
 
 export const EditPremium = () => {
   const { offerId } = useRoute<"editPremium">().params;
@@ -47,6 +47,7 @@ export const EditPremium = () => {
           currency: displayCurrency,
         })
       : 0;
+  const { t } = useTranslate("sell");
 
   return (
     <Screen header={<EditPremiumHeader />}>
@@ -62,10 +63,9 @@ export const EditPremium = () => {
         offerPrice={
           <PeachText style={tw`text-center text-black-65`}>
             (
-            {i18n(
-              "sell.premium.currently",
-              `${priceFormat(currentPrice)} ${displayCurrency}`,
-            )}
+            {t("sell.premium.currently", {
+              price: `${priceFormat(currentPrice)} ${displayCurrency}`,
+            })}
             )
           </PeachText>
         }
@@ -94,6 +94,7 @@ type Props = {
 function ConfirmButton({ offerId, newPremium }: Props) {
   const { mutate: confirmPremium, isPending } = usePatchOffer();
   const navigation = useStackNavigation();
+  const { t } = useTranslate("global");
   return (
     <Button
       onPress={() =>
@@ -105,7 +106,7 @@ function ConfirmButton({ offerId, newPremium }: Props) {
       style={tw`self-center`}
       loading={isPending}
     >
-      {i18n("confirm")}
+      {t("confirm")}
     </Button>
   );
 }
@@ -118,15 +119,17 @@ type PremiumProps = {
 };
 
 function Premium({ premium, setPremium, amount, offerPrice }: PremiumProps) {
+  const { t } = useTranslate("unassigned");
+
   return (
     <View style={tw`items-center justify-center grow gap-7`}>
       <View style={tw`items-center`}>
         <PeachText style={[tw`text-center h6`, tw`md:h5`]}>
-          {i18n("sell.premium.title")}
+          {t("sell.premium.title")}
         </PeachText>
         <View style={tw`flex-row items-center gap-1`}>
           <PeachText style={tw`text-center subtitle-1`}>
-            {i18n("search.sellOffer")}
+            {t("search.sellOffer")}
           </PeachText>
           <BTCAmount size="small" amount={amount} />
         </View>

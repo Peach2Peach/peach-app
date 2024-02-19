@@ -1,11 +1,11 @@
 import { View } from "react-native";
 import { badgeIconMap } from "../constants";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
 import { useUserStatus } from "../views/publicProfile/useUserStatus";
 import { Icon } from "./Icon";
 import { InfoContainer } from "./InfoContainer";
 import { FixedHeightText } from "./text/FixedHeightText";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   badgeName: Medal;
@@ -17,11 +17,12 @@ const BADGE_SIZE = 12;
 export function Badge({ badgeName, isUnlocked }: Props) {
   const colorStyle = isUnlocked ? "text-primary-main" : "text-primary-mild-1";
   const iconId = badgeIconMap[badgeName];
+  const { t } = useTranslate("unassigned");
 
   return (
     <InfoContainer
       enabled={!!isUnlocked}
-      text={i18n(`peachBadges.${badgeName}`)}
+      text={t(`peachBadges.${badgeName}`)}
       icon={<Icon id={iconId} color={tw.color(colorStyle)} size={BADGE_SIZE} />}
     />
   );
@@ -29,6 +30,7 @@ export function Badge({ badgeName, isUnlocked }: Props) {
 
 export function RepeatTraderBadge({ id }: { id: User["id"] }) {
   const { data } = useUserStatus(id);
+  const { t } = useTranslate("unassigned");
 
   if (!data?.trades) return null;
 
@@ -38,7 +40,7 @@ export function RepeatTraderBadge({ id }: { id: User["id"] }) {
   return (
     <InfoContainer
       enabled
-      text={i18n("peachBadges.repeatTrader")}
+      text={t("peachBadges.repeatTrader")}
       icon={
         <RepeatTraderIcon
           positive={!hadBadExperience}
