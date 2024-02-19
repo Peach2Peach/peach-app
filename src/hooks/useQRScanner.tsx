@@ -6,7 +6,7 @@ import {
   RESULTS,
   request as requestPermission,
 } from "react-native-permissions";
-import { useSetPopup } from "../components/popup/Popup";
+import { useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
 import { WarningPopup } from "../popups/WarningPopup";

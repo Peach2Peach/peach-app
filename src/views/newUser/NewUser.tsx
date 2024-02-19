@@ -6,8 +6,8 @@ import { Screen } from "../../components/Screen";
 import { Loading } from "../../components/animation/Loading";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useUserUpdate } from "../../init/useUserUpdate";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
@@ -16,13 +16,13 @@ import { deleteAccount } from "../../utils/account/deleteAccount";
 import { storeAccount } from "../../utils/account/storeAccount";
 import { updateAccount } from "../../utils/account/updateAccount";
 import i18n from "../../utils/i18n";
-import { parseError } from "../../utils/result/parseError";
+import { parseError } from "../../utils/parseError";
 import { LOGIN_DELAY } from "../restoreReputation/LOGIN_DELAY";
 import { useRegisterUser } from "./useRegisterUser";
 
 export const NewUser = () => {
   const route = useRoute<"newUser">();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const [success, setSuccess] = useState(false);
   const setAccount = useAccountStore((state) => state.setAccount);
@@ -124,7 +124,7 @@ type CreateAccountErrorProps = {
   err: string;
 };
 function CreateAccountError({ err }: CreateAccountErrorProps) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const goToContact = () => navigation.navigate("contact");
   const goToRestoreBackup = () => navigation.navigate("restoreBackup");
 
@@ -152,7 +152,7 @@ function CreateAccountError({ err }: CreateAccountErrorProps) {
         <Button
           onPress={goToContact}
           style={tw`bg-primary-background-light`}
-          textColor={tw`text-primary-main`}
+          textColor={tw.color("primary-main")}
         >
           {i18n("contactUs")}
         </Button>
@@ -186,7 +186,7 @@ function CreateAccountSuccess() {
 
 function UserExistsForDevice() {
   const route = useRoute<"newUser">();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const goToRestoreFromFile = () =>
     navigation.navigate("restoreBackup", { tab: "fileBackup" });
   const goToRestoreFromSeed = () =>

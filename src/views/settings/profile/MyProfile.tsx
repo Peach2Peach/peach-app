@@ -5,7 +5,7 @@ import { Header } from "../../../components/Header";
 import { PeachScrollView } from "../../../components/PeachScrollView";
 import { ProfileInfo } from "../../../components/ProfileInfo";
 import { Screen } from "../../../components/Screen";
-import { useSetPopup } from "../../../components/popup/Popup";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
 import { ClosePopupAction } from "../../../components/popup/actions/ClosePopupAction";
 import { TouchableRedText } from "../../../components/text/TouchableRedText";
@@ -18,8 +18,8 @@ import { deleteAccount } from "../../../utils/account/deleteAccount";
 import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
 import { peachAPI } from "../../../utils/peachAPI";
+import { AccountInfo } from "./AccountInfo";
 import { TradingLimits } from "./TradingLimits";
-import { AccountInfo } from "./accountInfo/AccountInfo";
 
 export const MyProfile = () => {
   const { user, isLoading } = useSelfUser();

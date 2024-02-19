@@ -7,7 +7,7 @@ import { useCallback } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
-import { useSetPopup } from "../../../components/popup/Popup";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../../components/popup/actions/ClosePopupAction";
 import { PeachText } from "../../../components/text/PeachText";
@@ -17,7 +17,7 @@ import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { useConfigStore } from "../../../store/configStore/configStore";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
-import { parseError } from "../../../utils/result/parseError";
+import { parseError } from "../../../utils/parseError";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import {
   buildTransaction,

@@ -1,10 +1,10 @@
 import { shallow } from "zustand/shallow";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { CustomAddressScreen } from "./CustomAddressScreen";
 
 export const PayoutAddress = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const [payoutAddress, payoutAddressLabel] = useSettingsStore(
     (state) => [state.payoutAddress, state.payoutAddressLabel],

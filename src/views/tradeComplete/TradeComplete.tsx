@@ -7,7 +7,7 @@ import { useSetOverlay } from "../../Overlay";
 import { IconType } from "../../assets/icons";
 import { Icon } from "../../components/Icon";
 import { Button } from "../../components/buttons/Button";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import {
   contractKeys,
@@ -125,7 +125,7 @@ function Rate({ contract, view, vote }: RateProps) {
         onPress={() => rateUser()}
         style={tw`bg-primary-background-light`}
         disabled={!vote}
-        textColor={tw`text-primary-main`}
+        textColor={tw.color("primary-main")}
       >
         {i18n("rate.rateAndFinish")}
       </Button>

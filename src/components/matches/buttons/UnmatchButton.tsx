@@ -11,7 +11,7 @@ import { error } from "../../../utils/log/error";
 import { peachAPI } from "../../../utils/peachAPI";
 import { matchesKeys } from "../../../views/search/hooks/useOfferMatches";
 import { Button } from "../../buttons/Button";
-import { useClosePopup, useSetPopup } from "../../popup/Popup";
+import { useClosePopup, useSetPopup } from "../../popup/GlobalPopup";
 import { PopupAction } from "../../popup/PopupAction";
 import { ClosePopupAction } from "../../popup/actions/ClosePopupAction";
 import { useSetToast } from "../../toast/Toast";
@@ -88,7 +88,7 @@ export const UnmatchButton = ({
     <Button
       onPress={showUnmatchPopup}
       iconId="minusCircle"
-      textColor={tw`text-error-main`}
+      textColor={tw.color("error-main")}
       style={tw`bg-primary-background-light`}
     >
       {i18n("search.unmatch")}

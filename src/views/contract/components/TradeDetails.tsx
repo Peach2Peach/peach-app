@@ -8,7 +8,7 @@ import { ErrorBox } from "../../../components/ui/ErrorBox";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
 import { useFeeEstimate } from "../../../hooks/query/useFeeEstimate";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { useIsMyAddress } from "../../../hooks/wallet/useIsMyAddress";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import tw from "../../../styles/tailwind";
@@ -86,7 +86,7 @@ function ChangePayoutWallet() {
 
   const { mutate } = usePatchReleaseAddress(offerId, contract.id);
 
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const onPress = async () => {
     if (paidToPeachWallet === false) {
@@ -170,7 +170,7 @@ function ChangePayoutWallet() {
 }
 
 function NetworkFee() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const { estimatedFees } = useFeeEstimate();
   const { user } = useSelfUser();
   const feeRate = user?.feeRate || "halfHourFee";

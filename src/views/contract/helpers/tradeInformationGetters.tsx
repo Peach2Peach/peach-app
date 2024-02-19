@@ -5,13 +5,15 @@ import { Bubble } from "../../../components/bubble/Bubble";
 import { useCashPaymentMethodName } from "../../../components/matches/useCashPaymentMethodName";
 import { useWalletLabel } from "../../../components/offer/useWalletLabel";
 import { PeachText } from "../../../components/text/PeachText";
+import { useOfferDetail } from "../../../hooks/query/useOfferDetail";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import tw from "../../../styles/tailwind";
 import { contractIdToHex } from "../../../utils/contract/contractIdToHex";
 import { getBitcoinPriceFromContract } from "../../../utils/contract/getBitcoinPriceFromContract";
-import { getBuyOfferFromContract } from "../../../utils/contract/getBuyOfferFromContract";
+import { getBuyOfferIdFromContract } from "../../../utils/contract/getBuyOfferIdFromContract";
 import { toShortDateFormat } from "../../../utils/date/toShortDateFormat";
 import i18n from "../../../utils/i18n";
+import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { groupChars } from "../../../utils/string/groupChars";
 import { priceFormat } from "../../../utils/string/priceFormat";
@@ -56,15 +58,7 @@ export const tradeInformationGetters: Record<
   buyer: (contract: Contract) => <UserId id={contract.buyer.id} showInfo />,
   paidWithMethod: getPaymentMethod,
   paidToMethod: getPaymentMethodBubble,
-  paidToWallet: (contract: Contract) => {
-    const buyOffer = getBuyOfferFromContract(contract);
-    return (
-      <PaidToWallet
-        label={buyOffer.walletLabel}
-        address={buyOffer.releaseAddress}
-      />
-    );
-  },
+  paidToWallet: (contract: Contract) => <PaidToWallet contract={contract} />,
   paymentConfirmed: (contract: Contract) =>
     toShortDateFormat(contract.paymentConfirmed || new Date(), true),
   bitcoinAmount: (contract: Contract) => contract.amount,
@@ -214,14 +208,10 @@ function EventName({ paymentMethod }: { paymentMethod: `cash.${string}` }) {
   );
 }
 
-function PaidToWallet({
-  label,
-  address,
-}: {
-  label?: string;
-  address?: string;
-}) {
-  const walletLabel = useWalletLabel({ label, address, isPayoutWallet: true });
+function PaidToWallet({ contract }: { contract: Contract }) {
+  const { offer } = useOfferDetail(getBuyOfferIdFromContract(contract));
+  const address = offer && isBuyOffer(offer) ? offer.releaseAddress : undefined;
+  const walletLabel = useWalletLabel({ address, isPayoutWallet: true });
 
   return <>{walletLabel}</>;
 }

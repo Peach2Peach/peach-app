@@ -85,9 +85,7 @@ async function getMatchesQuery({
     sortBy: queryKey[2],
   });
 
-  if (result) {
-    info("matches: ", result.matches.length);
-    return result;
-  }
-  throw err || new Error("Unknown error");
+  if (err || !result) throw new Error(err?.error || "Unknown error");
+
+  return result;
 }

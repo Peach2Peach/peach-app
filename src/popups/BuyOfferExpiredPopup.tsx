@@ -1,9 +1,9 @@
 import { useCallback } from "react";
-import { useClosePopup } from "../components/popup/Popup";
+import { useClosePopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
-import { useNavigation } from "../hooks/useNavigation";
+import { useStackNavigation } from "../hooks/useStackNavigation";
 import i18n from "../utils/i18n";
 
 export function BuyOfferExpiredPopup({
@@ -14,7 +14,7 @@ export function BuyOfferExpiredPopup({
   days: string;
 }) {
   const closePopup = useClosePopup();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const goToContact = useCallback(() => {
     closePopup();
     navigation.navigate("contact");

@@ -1,6 +1,8 @@
 {
   "profile.accountCreated" : "hesap oluşturuldu",
   "profile.blockUser" : "Bu kullanıcıyı engelle",
+  "profile.oneYearAgo" : "1 yıl ve $1 gün önce",
+  "profile.yearsAgo" : "$0 yıl ve $1 gün önce",
   "profile.daysAgo" : "$0 gün önce",
   "profile.disputes" : "anlaşmazlıklar",
   "profile.disputesLost" : "kaybedildi",
@@ -8,6 +10,7 @@
   "profile.disputesResolved" : "çözüldü",
   "profile.disputesWon" : "kazanıldı",
   "profile.myAccount.title" : "hesabım",
+  "profile.canceledTrades" : "iptal edilen takaslar",
   "profile.numberOfTrades" : "yapılan işlemler",
   "profile.publicKey" : "hesap public key",
   "profile.tradingLimits" : "ticaret sınırları",

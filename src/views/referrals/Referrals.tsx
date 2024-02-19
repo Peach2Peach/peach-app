@@ -8,7 +8,7 @@ import {
   RadioButtonItem,
   RadioButtons,
 } from "../../components/inputs/RadioButtons";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { Progress } from "../../components/ui/Progress";
 import { useSelfUser } from "../../hooks/query/useSelfUser";

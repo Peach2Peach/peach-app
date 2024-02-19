@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import i18n from "../../../utils/i18n";
 import { error } from "../../../utils/log/error";
@@ -7,7 +7,7 @@ import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 import { useSetToast } from "../../toast/Toast";
 
 export const useHandleMissingPaymentData = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setToast = useSetToast();
   const getAllPaymentDataByType = usePaymentDataStore(
     (state) => state.getAllPaymentDataByType,

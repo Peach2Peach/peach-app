@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useSetPopup } from "../../../../components/popup/Popup";
+import { useSetPopup } from "../../../../components/popup/GlobalPopup";
 import { BuyOfferExpiredPopup } from "../../../../popups/BuyOfferExpiredPopup";
 import { FundingAmountDifferentPopup } from "../../../../popups/FundingAmountDifferentPopup";
 import { OfferOutsideRangePopup } from "../../../../popups/OfferOutsideRangePopup";

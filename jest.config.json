@@ -3,13 +3,10 @@
   "preset": "react-native",
   "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
   "clearMocks": true,
-  "maxWorkers": "50%",
   "collectCoverage": false,
+  "coverageProvider": "v8",
   "coverageReporters": ["lcov", "text-summary"],
   "testPathIgnorePatterns": ["<rootDir>/peach-api"],
-  "transform": {
-    "\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest"
-  },
   "transformIgnorePatterns": [
     "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-form-validator|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg|bdk-rn|react-native-parsed-text|react-native-reanimated|react-native-reanimated-carousel|react-native-url-polyfill|react-native-camera)/)"
   ],

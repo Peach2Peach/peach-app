@@ -1,7 +1,7 @@
 import { NETWORK } from "@env";
 import { Transaction } from "bitcoinjs-lib";
 import { useMemo } from "react";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { isRBFEnabled } from "../../../utils/bitcoin/isRBFEnabled";
 import { showTransaction } from "../../../utils/bitcoin/showTransaction";
 import { peachWallet } from "../../../utils/wallet/setWallet";
@@ -18,7 +18,7 @@ export const useTransactionDetailsInfoSetup = ({
   transactionDetails,
   transactionSummary,
 }: Props) => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const receivingAddress = useGetTransactionDestinationAddress({
     outs: transactionDetails.outs || [],
     incoming: incomingTxType.includes(transactionSummary.type),

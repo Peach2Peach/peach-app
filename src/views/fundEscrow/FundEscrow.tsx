@@ -10,7 +10,7 @@ import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { BitcoinAddress } from "../../components/bitcoin/BitcoinAddress";
 import { Button } from "../../components/buttons/Button";
 import { TradeInfo } from "../../components/offer/TradeInfo";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
@@ -53,12 +53,19 @@ export const FundEscrow = () => {
   return (
     <Screen header={<FundEscrowHeader />}>
       <PeachScrollView contentStyle={tw`items-center gap-4`}>
-        <View style={tw`flex-row items-center justify-center gap-1`}>
-          <PeachText style={tw`settings`}>
-            {i18n("sell.escrow.sendSats")}
-          </PeachText>
-          <BTCAmount style={tw`-mt-0.5`} amount={fundingAmount} size="medium" />
-          <CopyAble value={fundingAddress} textPosition="bottom" />
+        <View style={tw`items-center self-stretch justify-center`}>
+          <View style={tw`flex-row items-center justify-center gap-1`}>
+            <PeachText style={tw`settings`}>
+              {i18n("sell.escrow.sendSats")}
+            </PeachText>
+            <BTCAmount
+              style={tw`-mt-0.5`}
+              amount={fundingAmount}
+              size="medium"
+            />
+            <CopyAble value={fundingAddress} textPosition="bottom" />
+          </View>
+          <PeachText style={tw`subtitle-1`}>{offerIdToHex(offerId)}</PeachText>
         </View>
 
         <BitcoinAddress
@@ -198,7 +205,7 @@ function FundFromPeachWalletButton(props: Props) {
       ) : (
         <Button
           ghost
-          textColor={tw`text-primary-main`}
+          textColor={tw.color("primary-main")}
           iconId="sell"
           onPress={onButtonPress}
           loading={isFunding}

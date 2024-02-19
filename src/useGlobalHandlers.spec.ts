@@ -1,7 +1,6 @@
 import { renderHook } from "test-utils";
 import { useHandleNotifications } from "./hooks/notifications/useHandleNotifications";
 import { useCheckFundingMultipleEscrows } from "./hooks/useCheckFundingMultipleEscrows";
-import { useDynamicLinks } from "./hooks/useDynamicLinks";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
 import { useInitialNavigation } from "./init/useInitialNavigation";
@@ -13,24 +12,17 @@ jest.mock("./hooks/query/useMarketPrices", () => ({
   }),
 }));
 
-jest.mock("./hooks/useShouldShowBackupReminder", () => ({
-  useShouldShowBackupReminder: jest.fn(),
-}));
+jest.mock("./hooks/useShouldShowBackupReminder");
 jest.mock("./init/useInitialNavigation", () => ({
   useInitialNavigation: jest.fn(),
 }));
 jest.mock("./hooks/useShowUpdateAvailable", () => ({
   useShowUpdateAvailable: jest.fn(),
 }));
-jest.mock("./hooks/useDynamicLinks", () => ({
-  useDynamicLinks: jest.fn(),
-}));
 jest.mock("./hooks/useCheckFundingMultipleEscrows", () => ({
   useCheckFundingMultipleEscrows: jest.fn(),
 }));
-jest.mock("./hooks/notifications/useHandleNotifications", () => ({
-  useHandleNotifications: jest.fn(),
-}));
+jest.mock("./hooks/notifications/useHandleNotifications");
 jest.mock("react-native-promise-rejection-utils", () => ({
   setUnhandledPromiseRejectionTracker: jest.fn(),
 }));
@@ -55,10 +47,6 @@ describe("useGlobalHandlers", () => {
   it("should call useShowUpdateAvailable", () => {
     renderHook(useGlobalHandlers);
     expect(useShowUpdateAvailable).toHaveBeenCalled();
-  });
-  it("should call useDynamicLinks", () => {
-    renderHook(useGlobalHandlers);
-    expect(useDynamicLinks).toHaveBeenCalled();
   });
   it("should call useCheckFundingMultipleEscrows", () => {
     renderHook(useGlobalHandlers);

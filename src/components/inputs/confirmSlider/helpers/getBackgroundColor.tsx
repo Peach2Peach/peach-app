@@ -7,8 +7,8 @@ export const getBackgroundColor = (pan: Animated.Value) =>
   pan.interpolate({
     inputRange: [0, EIGHTY_PERCENT, 1],
     outputRange: [
-      tw.color("primary-main") as string,
-      tw.color("primary-main") as string,
-      tw.color("success-main") as string,
+      tw.color("primary-main") || "#F56522",
+      tw.color("primary-main") || "#F56522",
+      tw.color("success-main") || "65A519",
     ],
   });

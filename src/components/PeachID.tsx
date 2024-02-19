@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { TouchableOpacity } from "react-native";
-import { useNavigation } from "../hooks/useNavigation";
+import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
 import { Icon } from "./Icon";
 import { InfoContainer } from "./InfoContainer";
@@ -11,7 +11,7 @@ type Props = { id: string; copyable?: boolean };
 const PEACH_ID_LENGTH = 8;
 export function PeachID({ id, copyable = false }: Props) {
   const peachId = `Peach${id.slice(0, PEACH_ID_LENGTH)}`.toUpperCase();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const goToUserProfile = () =>
     navigation.navigate("publicProfile", { userId: id });

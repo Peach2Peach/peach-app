@@ -16,6 +16,7 @@ export const useDecryptedContractData = (contract: Contract) =>
 
       return { symmetricKey, paymentData };
     },
+    retry: false,
   });
 
 async function decryptContractData(contract: Contract) {

@@ -1,6 +1,6 @@
 import { TouchableOpacity } from "react-native";
 import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import { sortAlphabetically } from "../../utils/array/sortAlphabetically";
 import i18n from "../../utils/i18n";
@@ -15,7 +15,7 @@ type Props = ComponentProps & {
 };
 
 export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
   const { data: meetupEvents, isLoading } = useMeetupEvents();
   const addPaymentMethods = () => {

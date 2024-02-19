@@ -3,14 +3,14 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { useLanguage } from "../../hooks/useLanguage";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import { sortAlphabetically } from "../../utils/array/sortAlphabetically";
 import i18n from "../../utils/i18n";
 
 export const Language = () => {
   const { locale, updateLocale } = useLanguage();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const onConfirm = () => {
     navigation.goBack();

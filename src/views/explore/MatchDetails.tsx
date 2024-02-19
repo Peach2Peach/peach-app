@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
@@ -27,6 +26,7 @@ import { CENT, SATSINBTC } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -46,7 +46,22 @@ export function MatchDetails() {
   const { data: match } = useMatchDetails({ offerId, matchId });
   const { offer } = useOfferDetail(offerId);
 
-  if (!offer || !isBuyOffer(offer) || !match) return <LoadingScreen />;
+  const navigation = useStackNavigation();
+  if (offer?.contractId) {
+    navigation.reset({
+      index: 1,
+      routes: [
+        {
+          name: "homeScreen",
+          params: { screen: "yourTrades", params: { tab: "yourTrades.buy" } },
+        },
+        { name: "contract", params: { contractId: offer.contractId } },
+      ],
+    });
+  }
+
+  if (!offer || !isBuyOffer(offer) || !match || offer.contractId)
+    return <LoadingScreen />;
   return (
     <Screen showTradingLimit header={<MatchDetailsHeader />}>
       <Match match={match} offer={offer} />
@@ -65,21 +80,24 @@ function useMatchDetails({
   offerId: string;
   matchId: string;
 }) {
-  return useQuery({
+  const queryData = useQuery({
     queryKey: matchesKeys.matchDetail(offerId, matchId),
     queryFn: getMatchDetails,
+    refetchInterval: 10000,
   });
+
+  return queryData;
 }
 
 async function getMatchDetails({
   queryKey,
 }: QueryFunctionContext<ReturnType<typeof matchesKeys.matchDetail>>) {
   const [, offerId, matchId] = queryKey;
-  const { result } = await peachAPI.private.offer.getMatch({
+  const { result, error } = await peachAPI.private.offer.getMatch({
     offerId,
     matchId,
   });
-  if (!result) throw new Error("Match not found");
+  if (error || !result) throw new Error(error?.error || "Match not found");
   return result;
 }
 
@@ -286,8 +304,8 @@ function MatchOfferButton({
     <Button
       style={[
         tw`flex-row items-center self-center justify-center py-2 gap-10px`,
-        tw`bg-success-main`,
-        optionName === "missingSelection" && tw`bg-success-mild-2`,
+        tw`bg-primary-main`,
+        optionName === "missingSelection" && tw`bg-primary-mild-1`,
         optionName === "tradingLimitReached" && tw`bg-black-50`,
       ]}
       onPress={onPress}

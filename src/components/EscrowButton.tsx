@@ -22,7 +22,7 @@ export function EscrowButton({ releaseTxId, escrow, style }: Props) {
     <Button
       iconId="externalLink"
       style={style}
-      textColor={tw`text-primary-main`}
+      textColor={tw.color("primary-main")}
       ghost
       onPress={openEscrow}
     >

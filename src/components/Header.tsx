@@ -11,6 +11,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { shallow } from "zustand/shallow";
 import { IconType } from "../assets/icons";
 import { useBitcoinPrices } from "../hooks/useBitcoinPrices";
+import { useStackNavigation } from "../hooks/useStackNavigation";
 import { useToggleBoolean } from "../hooks/useToggleBoolean";
 import { CURRENCIES } from "../paymentMethods";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
@@ -129,7 +130,7 @@ function HeaderNavigation({
   hideGoBackButton,
   theme = "default",
 }: Omit<HeaderConfig, "theme" | "style"> & { theme?: keyof typeof newThemes }) {
-  const { goBack, canGoBack } = useNavigation();
+  const { goBack, canGoBack } = useStackNavigation();
   const { iconSize, fontSize } = getHeaderStyles();
 
   const shouldShowBackButton = !hideGoBackButton && canGoBack();

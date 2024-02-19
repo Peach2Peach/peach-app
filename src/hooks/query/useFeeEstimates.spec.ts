@@ -5,7 +5,6 @@ import { placeholderFeeEstimates, useFeeEstimates } from "./useFeeEstimates";
 
 jest.useFakeTimers();
 
-// mock global fetch
 global.fetch = jest.fn().mockResolvedValue({
   text: jest.fn().mockResolvedValue(JSON.stringify(feeEstimates)),
   status: 200,

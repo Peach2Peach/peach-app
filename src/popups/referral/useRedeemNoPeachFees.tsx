@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { User } from "../../../peach-api/src/@types/user";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { userKeys } from "../../hooks/query/useSelfUser";

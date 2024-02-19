@@ -6,10 +6,10 @@ import { Button } from "../../components/buttons/Button";
 import { Checkbox } from "../../components/inputs/Checkbox";
 import { EmailInput } from "../../components/inputs/EmailInput";
 import { Input } from "../../components/inputs/Input";
-import { useSetPopup } from "../../components/popup/Popup";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import { AppPopup } from "../../popups/AppPopup";
@@ -23,7 +23,7 @@ const required = { required: true };
 
 export const Report = () => {
   const route = useRoute<"report">();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const [email, setEmail, isEmailValid, emailErrors] =
     useValidatedState<string>("", emailRules);

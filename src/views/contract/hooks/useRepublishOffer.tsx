@@ -1,10 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import { useClosePopup, useSetPopup } from "../../../components/popup/Popup";
+import {
+  useClosePopup,
+  useSetPopup,
+} from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
-import { useNavigation } from "../../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
-import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFromContract";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
+import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
 
@@ -12,6 +15,16 @@ export const useRepublishOffer = () => {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const showErrorBanner = useShowErrorBanner();
+  const navigation = useStackNavigation();
+
+  const closeAction = (contractId: string) => {
+    navigation.replace("contract", { contractId });
+    closePopup();
+  };
+  const goToOfferAction = (offerId: string) => {
+    navigation.replace("search", { offerId });
+    closePopup();
+  };
 
   return useMutation({
     mutationFn: republishOffer,
@@ -22,8 +35,8 @@ export const useRepublishOffer = () => {
     onSuccess: ({ newOfferId }, { id: contractId }) => {
       setPopup(
         <RepublishedOfferPopup
-          contractId={contractId}
-          newOfferId={newOfferId}
+          closeAction={() => closeAction(contractId)}
+          goToOfferAction={() => goToOfferAction(newOfferId)}
         />,
       );
     },
@@ -31,11 +44,9 @@ export const useRepublishOffer = () => {
 };
 
 async function republishOffer(contract: Contract) {
-  const sellOffer = getSellOfferFromContract(contract);
-
   const { result: reviveSellOfferResult, error: err } =
     await peachAPI.private.offer.republishSellOffer({
-      offerId: sellOffer.id,
+      offerId: getSellOfferIdFromContract(contract),
     });
 
   if (!reviveSellOfferResult || err) {
@@ -45,26 +56,12 @@ async function republishOffer(contract: Contract) {
 }
 
 function RepublishedOfferPopup({
-  contractId,
-  newOfferId,
+  closeAction,
+  goToOfferAction,
 }: {
-  contractId: string;
-  newOfferId: string;
+  closeAction: () => void;
+  goToOfferAction: () => void;
 }) {
-  const closePopup = useClosePopup();
-  const navigation = useNavigation();
-
-  const closeAction = () => {
-    navigation.replace("contract", { contractId });
-    closePopup();
-  };
-  const goToOfferAction = () => {
-    navigation.replace("search", {
-      offerId: newOfferId,
-    });
-    closePopup();
-  };
-
   return (
     <PopupComponent
       title={i18n("contract.cancel.offerRepublished.title")}

@@ -3,9 +3,9 @@ import { createContext, useContext, useReducer, useState } from "react";
 import { shallow } from "zustand/shallow";
 import { MeansOfPayment } from "../../components/offer/MeansOfPayment";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
-import { useNavigation } from "../../hooks/useNavigation";
 import { PatchBuyOfferData, usePatchBuyOffer } from "../../hooks/usePatchOffer";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useIsMyAddress } from "../../hooks/wallet/useIsMyAddress";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
@@ -142,7 +142,7 @@ function OfferWalletSelector({
   offerId: string;
   releaseAddress: string;
 }) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const [
     payoutAddress,
     payoutAddressLabel,
@@ -356,7 +356,7 @@ function PatchOfferButton() {
   const formValid = rangeIsValid;
 
   const { mutate: patchOffer, isPending: isPatching } = usePatchBuyOffer();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const queryClient = useQueryClient();
   const onPress = () => {
     const newData: PatchBuyOfferData = { maxPremium, minReputation };

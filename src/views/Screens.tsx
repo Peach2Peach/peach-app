@@ -4,9 +4,9 @@ import { View } from "react-native";
 import SplashScreen from "react-native-splash-screen";
 import { LogoIcons } from "../assets/logo";
 import { PeachyGradient } from "../components/PeachyGradient";
-import { useSetPopup } from "../components/popup/Popup";
+import { useSetPopup } from "../components/popup/GlobalPopup";
 import { useSetToast } from "../components/toast/Toast";
-import { useNavigation } from "../hooks/useNavigation";
+import { useStackNavigation } from "../hooks/useStackNavigation";
 import { requestUserPermissions } from "../init/requestUserPermissions";
 import { useInitApp } from "../init/useInitApp";
 import { VerifyYouAreAHumanPopup } from "../popups/warning/VerifyYouAreAHumanPopup";
@@ -19,18 +19,17 @@ import { isIOS } from "../utils/system/isIOS";
 import { useWSQueryInvalidation } from "./useWSQueryInvalidation";
 import { onboardingViews, views } from "./views";
 
-const Stack = createStackNavigator<RootStackParamList>();
+const RootStack = createStackNavigator<RootStackParamList>();
 
 export function Screens() {
   const [isLoading, setIsLoading] = useState(true);
   const isLoggedIn = useAccountStore((state) => state.isLoggedIn);
   useGlobalHandlers();
-
   useWSQueryInvalidation();
 
   if (isLoading) return <SplashScreenComponent setIsLoading={setIsLoading} />;
   return (
-    <Stack.Navigator
+    <RootStack.Navigator
       screenOptions={{
         gestureEnabled: isIOS(),
         headerShown: false,
@@ -39,7 +38,7 @@ export function Screens() {
     >
       {(isLoggedIn ? views : onboardingViews).map(
         ({ name, component, animationEnabled }) => (
-          <Stack.Screen
+          <RootStack.Screen
             {...{ name, component }}
             key={name}
             options={{
@@ -52,7 +51,7 @@ export function Screens() {
           />
         ),
       )}
-    </Stack.Navigator>
+    </RootStack.Navigator>
   );
 }
 
@@ -62,7 +61,7 @@ function SplashScreenComponent({
   setIsLoading: (isLoading: boolean) => void;
 }) {
   const setToast = useSetToast();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const initApp = useInitApp();
   useEffect(() => {

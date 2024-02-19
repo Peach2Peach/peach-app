@@ -9,8 +9,8 @@ import { Button } from "../../components/buttons/Button";
 import { useDrawerState } from "../../components/drawer/useDrawerState";
 import { FlagType } from "../../components/flags";
 import { RadioButtons } from "../../components/inputs/RadioButtons";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { PAYMENTCATEGORIES } from "../../paymentMethods";
 import { getApplicablePaymentCategories } from "../../utils/paymentMethod/getApplicablePaymentCategories";
 import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
@@ -46,7 +46,7 @@ const mapCountryToDrawerOption =
   });
 
 export const SelectPaymentMethod = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const { selectedCurrency, origin } = useRoute<"selectPaymentMethod">().params;
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
 

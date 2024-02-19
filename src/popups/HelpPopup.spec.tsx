@@ -2,11 +2,10 @@ import { fireEvent, render } from "test-utils";
 import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
 import { HelpPopup } from "./HelpPopup";
 
-const closePopupMock = jest.fn();
-jest.mock("../components/popup/Popup");
-jest
-  .requireMock("../components/popup/Popup")
-  .useClosePopup.mockReturnValue(closePopupMock);
+const mockClosePopup = jest.fn();
+jest.mock("../components/popup/GlobalPopup", () => ({
+  useClosePopup: () => mockClosePopup,
+}));
 
 describe("HelpPopup", () => {
   it("should contain help text", () => {
@@ -24,6 +23,6 @@ describe("HelpPopup", () => {
       topic: "accept match = start trade",
       reason: "other",
     });
-    expect(closePopupMock).toHaveBeenCalled();
+    expect(mockClosePopup).toHaveBeenCalled();
   });
 });

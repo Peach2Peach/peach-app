@@ -9,7 +9,7 @@ import {
 import { sellOffer } from "../../tests/unit/data/offerData";
 import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
 import { Overlay } from "../Overlay";
-import { Popup } from "../components/popup/Popup";
+import { GlobalPopup } from "../components/popup/GlobalPopup";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { peachAPI } from "../utils/peachAPI";
 import { useRefundSellOffer } from "./useRefundSellOffer";
@@ -83,7 +83,7 @@ describe("useRefundEscrow", () => {
         "escrowWallet",
       );
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("escrow refunded")).toBeTruthy();
     expect(saveOfferMock).toHaveBeenCalledWith({
       ...sellOffer,
@@ -105,7 +105,7 @@ describe("useRefundEscrow", () => {
     await waitFor(() => {
       expect(mockShowError).toHaveBeenCalledWith("error");
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("escrow refunded")).toBeFalsy();
   });
 
@@ -127,7 +127,7 @@ describe("useRefundEscrow", () => {
     await waitFor(() => {
       expect(mockShowError).toHaveBeenCalledWith("UNAUTHORIZED");
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("escrow refunded")).toBeFalsy();
   });
 
@@ -138,7 +138,7 @@ describe("useRefundEscrow", () => {
     act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
-    const { getByText, queryByText } = render(<Popup />);
+    const { getByText, queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
       expect(queryByText("close")).toBeTruthy();
     });
@@ -158,7 +158,7 @@ describe("useRefundEscrow", () => {
     act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
-    const { getByText, queryByText } = render(<Popup />);
+    const { getByText, queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
       expect(queryByText("close")).toBeTruthy();
     });
@@ -175,7 +175,7 @@ describe("useRefundEscrow", () => {
     act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
-    const { getByText } = render(<Popup />);
+    const { getByText } = render(<GlobalPopup />);
     await waitFor(() => {
       expect(
         getByText("The escrow has been refunded to your Peach wallet"),
@@ -190,7 +190,7 @@ describe("useRefundEscrow", () => {
     act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
-    const { getByText, queryByText } = render(<Popup />);
+    const { getByText, queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
       expect(queryByText("go to wallet")).toBeTruthy();
     });
@@ -209,7 +209,7 @@ describe("useRefundEscrow", () => {
     act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
-    const { getByText, queryByText } = render(<Popup />);
+    const { getByText, queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
       expect(queryByText("go to wallet")).toBeTruthy();
     });
@@ -225,7 +225,7 @@ describe("useRefundEscrow", () => {
     act(() => {
       result.current.mutate({ sellOffer, rawPSBT: psbt });
     });
-    const { getByText, queryByText } = render(<Popup />);
+    const { getByText, queryByText } = render(<GlobalPopup />);
     await waitFor(() => {
       expect(queryByText("show tx")).toBeTruthy();
     });

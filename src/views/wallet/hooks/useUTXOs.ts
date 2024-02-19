@@ -17,6 +17,8 @@ export const walletKeys = {
   transactions: () => [...walletKeys.wallet, "transactions"] as const,
   transaction: (id: string | null) =>
     [...walletKeys.transactions(), id] as const,
+  transactionSummary: (id: string) =>
+    [...walletKeys.transaction(id), "summary"] as const,
   transactionFeeRate: (id: string | null) =>
     [...walletKeys.transaction(id), "feeRate"] as const,
   serializedTransaction: (id: string | null) =>

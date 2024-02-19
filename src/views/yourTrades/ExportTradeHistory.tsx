@@ -6,7 +6,7 @@ import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { THOUSANDS_GROUP } from "../../constants";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
-import { useWriteCSV } from "../../hooks/useWriteCSV";
+import { writeCSV } from "../../hooks/writeCSV";
 import tw from "../../styles/tailwind";
 import { sortByKey } from "../../utils/array/sortByKey";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
@@ -16,19 +16,17 @@ import i18n from "../../utils/i18n";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { groupChars } from "../../utils/string/groupChars";
 import { priceFormat } from "../../utils/string/priceFormat";
-import { getPastOffers } from "./utils/getPastOffers";
 import { getThemeForTradeItem } from "./utils/getThemeForTradeItem";
 import { isContractSummary } from "./utils/isContractSummary";
 
 export function ExportTradeHistory() {
-  const { tradeSummaries } = useTradeSummaries();
-  const openShareMenu = useWriteCSV();
+  const { summaries } = useTradeSummaries();
 
   const onPress = async () => {
     const csvValue = createCSVValue(
-      getPastOffers(tradeSummaries).sort(sortByKey("creationDate")),
+      summaries["yourTrades.history"].sort(sortByKey("creationDate")),
     );
-    await openShareMenu(csvValue, "trade-history.csv");
+    await writeCSV(csvValue, "trade-history.csv");
   };
 
   return (

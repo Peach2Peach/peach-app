@@ -1,9 +1,5 @@
 import { ReactNode } from "react";
-import {
-  TextStyle,
-  TouchableOpacity,
-  TouchableOpacityProps,
-} from "react-native";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { IconType } from "../../assets/icons";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import tw from "../../styles/tailwind";
@@ -14,7 +10,7 @@ import { PeachText } from "../text/PeachText";
 export type ButtonProps = {
   iconId?: IconType;
   ghost?: boolean;
-  textColor?: TextStyle;
+  textColor?: string;
   children: ReactNode;
   loading?: boolean;
 } & TouchableOpacityProps;
@@ -25,7 +21,7 @@ const SMALL_ICON_SIZE = 14;
 export const Button = ({
   iconId,
   ghost,
-  textColor = tw`text-primary-background-light`,
+  textColor = tw.color("primary-background-light"),
   children,
   loading,
   ...touchableOpacityProps
@@ -44,13 +40,13 @@ export const Button = ({
         touchableOpacityProps.style,
         touchableOpacityProps.disabled && tw`opacity-33`,
         ghost && tw`bg-transparent border-2`,
-        { borderColor: ghost ? textColor?.color : undefined },
+        { borderColor: ghost ? textColor : undefined },
       ]}
     >
       <PeachText
         numberOfLines={1}
         ellipsizeMode="tail"
-        style={[tw`button-small`, tw`md:button-large`, textColor]}
+        style={[tw`button-small`, tw`md:button-large`, { color: textColor }]}
       >
         {children}
       </PeachText>
@@ -58,14 +54,14 @@ export const Button = ({
       {loading ? (
         <Loading
           style={[tw`h-14px w-14px`, tw`md:h-18px md:w-18px`]}
-          color={textColor?.color}
+          color={textColor}
         />
       ) : (
         !!iconId && (
           <Icon
             id={iconId}
             size={isMediumScreen ? MEDIUM_ICON_SIZE : SMALL_ICON_SIZE}
-            color={textColor?.color}
+            color={textColor}
           />
         )
       )}

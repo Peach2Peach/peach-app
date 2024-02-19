@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { IconType } from "../../../assets/icons";
 import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore/usePaymentDataStore";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
@@ -188,7 +188,7 @@ function PayementMethodBubble({
     : hasPaymentData
       ? "plusSquare"
       : "edit";
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
 
   const { data: meetupEvents } = useMeetupEvents();

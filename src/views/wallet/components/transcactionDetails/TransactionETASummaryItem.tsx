@@ -1,5 +1,5 @@
 import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
-import { useSetPopup } from "../../../../components/popup/Popup";
+import { useSetPopup } from "../../../../components/popup/GlobalPopup";
 import { TextSummaryItem } from "../../../../components/summaryItem";
 import { useFeeEstimates } from "../../../../hooks/query/useFeeEstimates";
 import { HelpPopup } from "../../../../popups/HelpPopup";

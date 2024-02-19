@@ -1,7 +1,7 @@
 import { API_URL } from "@env";
 import { View } from "react-native";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
-import { useClosePopup, useSetPopup } from "../../components/popup/Popup";
+import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";

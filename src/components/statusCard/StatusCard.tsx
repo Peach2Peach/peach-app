@@ -25,7 +25,7 @@ export function StatusCard({
       ]}
       onPress={onPress}
     >
-      <View style={tw`flex-row items-center justify-between gap-2 px-4 py-3`}>
+      <View style={tw`flex-row items-center justify-between px-4 py-3`}>
         {statusInfo}
         {amountInfo}
       </View>

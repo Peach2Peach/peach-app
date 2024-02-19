@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import { View } from "react-native";
 import { Input } from "../../components/inputs/Input";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
