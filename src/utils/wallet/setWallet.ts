@@ -9,4 +9,4 @@ export let peachWallet: PeachWallet;
  */
 export const setWallet = (wllt: BIP32Interface) => (wallet = wllt);
 
-export const setPeachWallet = (wllt: PeachWallet) => (peachWallet = wllt);
+export const setPeachWallet = (wllt?: PeachWallet) => (peachWallet = wllt);
