@@ -9,7 +9,7 @@ import { getCurrencyTypeFilter } from "./utils";
 const getDisplayName = (c: Currency) => {
   if (c === "USDT") return i18n(`currency.${c}`);
   if (c === "SAT") return i18n("paymentMethod.lnurl");
-  return i18n(`currency.${c}`);
+  return `${i18n(`currency.${c}`)} (${c})`;
 };
 
 type Props = {
