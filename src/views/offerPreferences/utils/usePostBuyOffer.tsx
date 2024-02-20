@@ -80,7 +80,7 @@ export function usePostBuyOffer({
           network: getNetwork(),
         })
       ) {
-        throw new Error("INAVLID_SIGNATURE");
+        throw new Error("INVALID_SIGNATURE");
       }
       const finalizedOfferDraft = {
         type: "bid" as const,

@@ -18,19 +18,19 @@ exports[`Currencies should render correctly for type "africa" 1`] = `
     items={
       [
         {
-          "display": "US dollar",
+          "display": "US dollar (USD)",
           "value": "USD",
         },
         {
-          "display": "West African CFA franc",
+          "display": "West African CFA franc (XOF)",
           "value": "XOF",
         },
         {
-          "display": "Naira",
+          "display": "Naira (NGN)",
           "value": "NGN",
         },
         {
-          "display": "Congolese franc",
+          "display": "Congolese franc (CDF)",
           "value": "CDF",
         },
       ]
@@ -59,55 +59,55 @@ exports[`Currencies should render correctly for type "europe" 1`] = `
     items={
       [
         {
-          "display": "Euro",
+          "display": "Euro (EUR)",
           "value": "EUR",
         },
         {
-          "display": "Swiss franc",
+          "display": "Swiss franc (CHF)",
           "value": "CHF",
         },
         {
-          "display": "British pound",
+          "display": "British pound (GBP)",
           "value": "GBP",
         },
         {
-          "display": "Swedish krona",
+          "display": "Swedish krona (SEK)",
           "value": "SEK",
         },
         {
-          "display": "Danish kroner",
+          "display": "Danish kroner (DKK)",
           "value": "DKK",
         },
         {
-          "display": "Bulgarian lev",
+          "display": "Bulgarian lev (BGN)",
           "value": "BGN",
         },
         {
-          "display": "Czech koruna",
+          "display": "Czech koruna (CZK)",
           "value": "CZK",
         },
         {
-          "display": "Hungarian forint",
+          "display": "Hungarian forint (HUF)",
           "value": "HUF",
         },
         {
-          "display": "Polish złoty",
+          "display": "Polish złoty (PLN)",
           "value": "PLN",
         },
         {
-          "display": "Romanian leu",
+          "display": "Romanian leu (RON)",
           "value": "RON",
         },
         {
-          "display": "Icelandic króna",
+          "display": "Icelandic króna (ISK)",
           "value": "ISK",
         },
         {
-          "display": "Norwegian krone",
+          "display": "Norwegian krone (NOK)",
           "value": "NOK",
         },
         {
-          "display": "Turkish lira",
+          "display": "Turkish lira (TRY)",
           "value": "TRY",
         },
       ]
@@ -136,39 +136,39 @@ exports[`Currencies should render correctly for type "latinAmerica" 1`] = `
     items={
       [
         {
-          "display": "Argentine peso",
+          "display": "Argentine peso (ARS)",
           "value": "ARS",
         },
         {
-          "display": "Colombian Peso",
+          "display": "Colombian Peso (COP)",
           "value": "COP",
         },
         {
-          "display": "Peruvian sol",
+          "display": "Peruvian sol (PEN)",
           "value": "PEN",
         },
         {
-          "display": "Mexican peso",
+          "display": "Mexican peso (MXN)",
           "value": "MXN",
         },
         {
-          "display": "Chilean peso",
+          "display": "Chilean peso (CLP)",
           "value": "CLP",
         },
         {
-          "display": "Peruvian sol",
+          "display": "Peruvian sol (PEN)",
           "value": "PEN",
         },
         {
-          "display": "Colombian Peso",
+          "display": "Colombian Peso (COP)",
           "value": "COP",
         },
         {
-          "display": "Costa Rican Colón",
+          "display": "Costa Rican Colón (CRC)",
           "value": "CRC",
         },
         {
-          "display": "Brazilian real",
+          "display": "Brazilian real (BRL)",
           "value": "BRL",
         },
       ]

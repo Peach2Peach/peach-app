@@ -23,6 +23,7 @@ export const defaultAccount: Account = {
 type AccountStore = {
   account: Account;
   isLoggedIn: boolean;
+  reset: () => void;
   setAccount: (acc: Account) => void;
   setChat: (id: string, newChat: Account["chats"][string]) => void;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
@@ -32,6 +33,7 @@ export const useAccountStore = create<AccountStore>()(
   immer((set) => ({
     account: defaultAccount,
     isLoggedIn: false,
+    reset: () => set(() => defaultAccount),
     setAccount: (acc) => set({ account: acc }),
     setChat: (id, newChat) =>
       set((state) => {
