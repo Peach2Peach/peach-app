@@ -61,7 +61,8 @@ export function PayoutPendingButton() {
       {t(
         showBatchInfo
           ? "contract.summary.tradeDetails"
-          : { key: "offer.requiredAction.payoutPending", ns: "batching" },
+          : "offer.requiredAction.payoutPending",
+        { ns: "batching" },
       )}
     </Button>
   );
@@ -69,6 +70,7 @@ export function PayoutPendingButton() {
 export function ProvideEmailButton() {
   const setPopup = useSetPopup();
   const { contract, view } = useContractContext();
+  const { t } = useTranslate("contract");
   const onPress = () =>
     setPopup(<DisputeRaisedPopup contract={contract} view={view} />);
 
@@ -106,11 +108,10 @@ function DisputeRaisedPopup({
       content={
         <View style={tw`gap-4`}>
           <PeachText>
-            {t(
-              `dispute.opened.counterparty.text.1.withEmail.${view}`,
-              { contractHexId: contractIdToHex(id) },
-              { disputeAmount: thousands(amount) },
-            )}
+            {t(`dispute.opened.counterparty.text.1.withEmail.${view}`, {
+              contractHexId: contractIdToHex(id),
+              disputeAmount: thousands(amount),
+            })}
           </PeachText>
 
           <PeachText>
