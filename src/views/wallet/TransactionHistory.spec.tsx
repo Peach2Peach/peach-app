@@ -23,6 +23,7 @@ jest.useFakeTimers();
 describe("TransactionHistory", () => {
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.initialized = true;
   });
   it("should render correctly when empty", () => {

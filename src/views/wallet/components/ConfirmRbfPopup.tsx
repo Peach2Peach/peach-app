@@ -38,6 +38,7 @@ export function ConfirmRbfPopup({
 
   const confirmAndSend = useCallback(async () => {
     try {
+      if (!peachWallet) throw new Error("PeachWallet not set");
       const [txId] = await Promise.all([
         finishedTransaction.txid(),
         peachWallet.signAndBroadcastPSBT(finishedTransaction),

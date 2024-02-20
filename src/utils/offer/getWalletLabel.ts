@@ -22,7 +22,7 @@ export const getWalletLabel = ({
   if (!isPeachWalletActive) {
     return i18n("offer.summary.customPayoutAddress");
   }
-  if (peachWallet.findKeyPairByAddress(address)) {
+  if (peachWallet?.findKeyPairByAddress(address)) {
     return i18n("peachWallet");
   }
 

@@ -33,6 +33,7 @@ const addresses = [
 describe("ReceiveBitcoin", () => {
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.initialized = true;
   });
 
@@ -41,6 +42,7 @@ describe("ReceiveBitcoin", () => {
     expect(toJSON()).toMatchSnapshot();
   });
   it("should render correctly when loaded", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     jest
       .spyOn(peachWallet, "getLastUnusedAddress")
       .mockResolvedValue(addresses[1]);

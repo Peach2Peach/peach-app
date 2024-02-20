@@ -25,6 +25,7 @@ export function ConfirmTransactionPopup({
   const handleTransactionError = useHandleTransactionError();
   const confirmAndSend = useCallback(async () => {
     try {
+      if (!peachWallet) throw new Error("PeachWallet not set");
       await peachWallet.signAndBroadcastPSBT(psbt);
       onSuccess();
     } catch (e) {

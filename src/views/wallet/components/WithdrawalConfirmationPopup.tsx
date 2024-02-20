@@ -32,6 +32,7 @@ export function WithdrawalConfirmationPopup({
   const handleTransactionError = useHandleTransactionError();
 
   const confirm = async () => {
+    if (!peachWallet) throw new Error("Peach wallet not set");
     try {
       await peachWallet.signAndBroadcastPSBT(psbt);
     } catch (e) {

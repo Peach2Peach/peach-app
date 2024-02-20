@@ -42,6 +42,7 @@ describe("useOpenWithdrawalConfirmationPopup", () => {
   });
 
   it("should broadcast transaction, reset state and navigate to wallet on confirm", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.buildFinishedTransaction = jest
       .fn()
       .mockResolvedValue(transaction);
@@ -56,6 +57,7 @@ describe("useOpenWithdrawalConfirmationPopup", () => {
     fireEvent.press(getByText("confirm & send"));
 
     await waitFor(() => {
+      if (!peachWallet) throw new Error("PeachWallet not set");
       expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(
         transaction.psbt,
       );
@@ -66,6 +68,7 @@ describe("useOpenWithdrawalConfirmationPopup", () => {
     });
   });
   it("should handle broadcast errors", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.buildFinishedTransaction = jest
       .fn()
       .mockResolvedValue(transaction);

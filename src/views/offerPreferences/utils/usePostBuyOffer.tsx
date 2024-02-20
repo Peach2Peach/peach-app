@@ -61,6 +61,7 @@ export function usePostBuyOffer({
 
   return useMutation({
     mutationFn: async () => {
+      if (!peachWallet) throw new Error("Peach wallet not defined");
       const { address: releaseAddress, index } = payoutToPeachWallet
         ? await peachWallet.getAddress()
         : { address: payoutAddress, index: undefined };

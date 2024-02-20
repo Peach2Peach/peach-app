@@ -21,6 +21,7 @@ describe("AddressChecker", () => {
   beforeAll(() => {
     const wallet = createWalletFromBase58(account1.base58, getNetwork());
     setPeachWallet(new PeachWallet({ wallet }));
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.wallet = new Wallet();
   });
 

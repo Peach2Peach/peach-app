@@ -134,14 +134,17 @@ describe("useFundEscrowSetup", () => {
     });
   });
   it("should sync the wallet on mount", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.initialized = true;
     renderHook(useFundEscrowSetup);
 
     await waitFor(() => {
+      if (!peachWallet) throw new Error("PeachWallet not set");
       expect(peachWallet.syncWallet).toHaveBeenCalledTimes(1);
     });
   });
   it("should periodically sync peach wallet if funding multiple escrow", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.initialized = true;
     saveOffer(sellOfferWithEscrow);
 
