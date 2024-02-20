@@ -131,9 +131,6 @@ function MarketStats() {
   const { data } = useOfferStats();
   return (
     <View style={tw`items-center justify-center gap-5 pb-4 grow`}>
-      <PeachText style={tw`subtitle-0 text-success-main`}>
-        {i18n("home.openBuyOffers", String(data?.buy.open))}
-      </PeachText>
       <View style={tw`items-center -gap-2`}>
         <PeachText style={tw`subtitle-0 text-primary-main`}>
           {i18n("home.openSellOffers", String(data?.sell.open))}
