@@ -34,7 +34,7 @@ export function CancelSellOffersPopup({ fundMultiple }: Props) {
         actions={<ClosePopupAction style={tw`justify-center`} />}
       />,
     );
-  }, [setPopup]);
+  }, [setPopup, t]);
 
   const { mutateAsync: cancelOffer } = useCancelOffer();
 

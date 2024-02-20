@@ -11,7 +11,6 @@ import { PopupAction } from "../components/popup/PopupAction";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
 import { WarningPopup } from "../popups/WarningPopup";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
 import { isIOS } from "../utils/system/isIOS";
 import { useTranslate } from "@tolgee/react";
 

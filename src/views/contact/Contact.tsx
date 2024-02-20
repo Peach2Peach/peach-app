@@ -11,7 +11,6 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { openURL } from "../../utils/web/openURL";
 import { useTranslate } from "@tolgee/react";
@@ -43,10 +42,7 @@ export const Contact = () => {
     navigation.navigate("report", {
       reason,
       shareDeviceID: reason === "accountLost",
-      topic: t({
-        key: `contact.reason.${reason}`,
-        ns: "contact",
-      }),
+      topic: t(`contact.reason.${reason}`, { ns: "contact" }),
     });
   };
   const publicKey = useAccountStore((state) => state.account.publicKey);

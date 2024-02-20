@@ -31,7 +31,7 @@ export const useCancelAndStartRefundPopup = () => {
         },
       });
     },
-    [cancelOffer, closePopup, refundSellOffer, setPopup, showError],
+    [cancelOffer, closePopup, refundSellOffer, setPopup, showError, t],
   );
 
   return cancelAndStartRefundPopup;

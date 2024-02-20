@@ -88,7 +88,7 @@ function SplashScreenComponent({
       setIsLoading(false);
       SplashScreen.hide();
     })();
-  }, [initApp, navigation, setIsLoading, setPopup, setToast]);
+  }, [initApp, navigation, setIsLoading, setPopup, setToast, t]);
 
   return (
     <View>

@@ -30,7 +30,7 @@ export const useShowUpdateAvailable = () => {
         iconId: "download",
       },
     });
-  }, [latestAppVersion, minAppVersion, setToast]);
+  }, [latestAppVersion, minAppVersion, setToast, t]);
 
   useEffect(() => {
     if (compatibilityCheck(`${APPVERSION} (${BUILDNUMBER})`, minAppVersion))
@@ -45,5 +45,5 @@ export const useShowUpdateAvailable = () => {
         iconId: "download",
       },
     });
-  }, [minAppVersion, setToast]);
+  }, [minAppVersion, setToast, t]);
 };

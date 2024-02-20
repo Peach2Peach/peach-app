@@ -24,11 +24,10 @@ export function BuyOfferExpiredPopup({
   return (
     <PopupComponent
       title={t("notification.offer.buyOfferExpired.title")}
-      content={t(
-        "notification.offer.buyOfferExpired.text",
-        { offerId },
-        { days },
-      )}
+      content={t("notification.offer.buyOfferExpired.text", {
+        offer: offerId,
+        date: days,
+      })}
       actions={
         <>
           <PopupAction

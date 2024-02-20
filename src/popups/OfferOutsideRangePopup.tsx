@@ -3,7 +3,6 @@ import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
 import { useStackNavigation } from "../hooks/useStackNavigation";
-import i18n from "../utils/i18n";
 import { offerIdToHex } from "../utils/offer/offerIdToHex";
 import { useTranslate } from "@tolgee/react";
 

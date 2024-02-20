@@ -52,10 +52,7 @@ export const Report = () => {
     submitReport(
       {
         email,
-        reason: t({
-          key: `contact.reason.${reason}`,
-          ns: "contract",
-        }),
+        reason: t(`contact.reason.${reason}`, { ns: "contract" }),
         topic,
         message,
         shareDeviceID,
@@ -79,12 +76,7 @@ export const Report = () => {
   let $message = useRef<TextInput>(null).current;
 
   return (
-    <Screen
-      header={t({
-        key: "contact.title",
-        ns: "contract",
-      })}
-    >
+    <Screen header={t("contact.title", { ns: "contract" })}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <EmailInput
           onChangeText={setEmail}
@@ -124,10 +116,7 @@ export const Report = () => {
         onPress={submit}
         disabled={!(isEmailValid && isTopicValid && isMessageValid)}
       >
-        {t({
-          key: "report.sendReport",
-          ns: "unassigned",
-        })}
+        {t("report.sendReport", { ns: "unassigned" })}
       </Button>
     </Screen>
   );

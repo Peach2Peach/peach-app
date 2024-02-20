@@ -112,7 +112,7 @@ function CreateAccountLoading() {
   return (
     <View style={tw`items-center justify-center gap-4 grow`}>
       <PeachText style={tw`text-center h4 text-primary-background-light`}>
-        {t("newUser.title.create")} // unassigned
+        {t("newUser.title.create")}
       </PeachText>
       <PeachText style={tw`text-center body-l text-primary-background-light`}>
         {t("newUser.oneSec")}
@@ -141,7 +141,7 @@ function CreateAccountError({ err }: CreateAccountErrorProps) {
           <PeachText
             style={tw`text-center body-l text-primary-background-light`}
           >
-            {t({ key: `${err}.text`, ns: "error" })}
+            {t(`${err}.text`, { ns: "error" })} // TODO: fix
           </PeachText>
         </View>
         <Icon

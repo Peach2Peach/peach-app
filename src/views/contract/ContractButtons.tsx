@@ -133,7 +133,7 @@ function DisputeRaisedPopup({
         <>
           <ClosePopupAction />
           <LoadingPopupAction
-            label={t({ key: "send", ns: "unassigned" })}
+            label={t("send", { ns: "unassigned" })}
             iconId="arrowRightCircle"
             disabled={emailErrors.length > 0}
             onPress={submit}

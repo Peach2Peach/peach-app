@@ -9,7 +9,6 @@ import { useTradeSummaryStore } from "../store/tradeSummaryStore";
 import { checkRefundPSBT } from "../utils/bitcoin/checkRefundPSBT";
 import { showTransaction } from "../utils/bitcoin/showTransaction";
 import { signAndFinalizePSBT } from "../utils/bitcoin/signAndFinalizePSBT";
-import i18n from "../utils/i18n";
 import { saveOffer } from "../utils/offer/saveOffer";
 import { peachAPI } from "../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../utils/wallet/getEscrowWalletForOffer";

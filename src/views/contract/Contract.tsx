@@ -20,7 +20,7 @@ import { PendingPayoutInfo } from "./components/PendingPayoutInfo";
 import { TradeInformation } from "./components/TradeInformation";
 import { ContractContext, useContractContext } from "./context";
 import { useContractSetup } from "./hooks/useContractSetup";
-import { useTranslate } from "@tolgee/react";
+import { tolgee } from "../../tolgee";
 
 export const Contract = () => {
   const { contract, isLoading, view } = useContractSetup();
@@ -82,7 +82,6 @@ function ContractHeader() {
     premium,
   } = contract;
   const requiredAction = getRequiredAction(contract);
-  const { t } = useTranslate("contract");
   const setPopup = useSetPopup();
   const showConfirmPopup = useCallback(
     () =>
@@ -153,8 +152,8 @@ function ContractHeader() {
           text={
             isTradeCompleted
               ? view === "buyer"
-                ? t("contract.bought")
-                : t("contract.sold")
+                ? tolgee.t("contract.bought", { ns: "contract" })
+                : tolgee.t("contract.sold", { ns: "contract" })
               : undefined
           }
           viewer={view}
@@ -172,37 +171,49 @@ function getHeaderTitle(view: string, contract: Contract) {
     disputeActive,
     id: contractId,
   } = contract;
-  const { t } = useTranslate("contract");
   if (view === "buyer") {
-    if (disputeWinner === "buyer") return t("contract.disputeWon");
-    if (disputeWinner === "seller") return t("contract.disputeLost");
+    if (disputeWinner === "buyer")
+      return tolgee.t("contract.disputeWon", { ns: "contract" });
+    if (disputeWinner === "seller")
+      return tolgee.t("contract.disputeLost", { ns: "contract" });
 
     if (tradeStatus === "paymentRequired") {
       if (isPaymentTooLate(contract))
-        return t("contract.paymentTimerHasRunOut.title");
-      return t("offer.requiredAction.paymentRequired");
+        return tolgee.t("contract.paymentTimerHasRunOut.title", {
+          ns: "contract",
+        });
+      return tolgee.t("offer.requiredAction.paymentRequired", { ns: "offer" });
     }
     if (tradeStatus === "confirmPaymentRequired")
-      return t("offer.requiredAction.waiting.seller");
+      return tolgee.t("offer.requiredAction.waiting.seller", { ns: "offer" });
     if (tradeStatus === "confirmCancelation")
-      return t("offer.requiredAction.confirmCancelation.buyer");
+      return tolgee.t("offer.requiredAction.confirmCancelation.buyer", {
+        ns: "offer",
+      });
   }
 
   if (view === "seller") {
-    if (disputeWinner === "seller") return t("contract.disputeWon");
-    if (disputeWinner === "buyer") return t("contract.disputeLost");
-    if (canceled) return t("contract.tradeCanceled");
+    if (disputeWinner === "seller")
+      return tolgee.t("contract.disputeWon", { ns: "contract" });
+    if (disputeWinner === "buyer")
+      return tolgee.t("contract.disputeLost", { ns: "contract" });
+    if (canceled) return tolgee.t("contract.tradeCanceled", { ns: "contract" });
   }
 
-  if (disputeActive) return t("offer.requiredAction.dispute");
+  if (disputeActive)
+    return tolgee.t("offer.requiredAction.dispute", { ns: "offer" });
   if (isPaymentTooLate(contract))
-    return t("contract.paymentTimerHasRunOut.title");
+    return tolgee.t("contract.paymentTimerHasRunOut.title", { ns: "contract" });
 
   if (tradeStatus === "confirmCancelation")
-    return t("offer.requiredAction.confirmCancelation.seller");
+    return tolgee.t("offer.requiredAction.confirmCancelation.seller", {
+      ns: "offer",
+    });
   if (tradeStatus === "paymentRequired")
-    return t("offer.requiredAction.waiting.buyer");
+    return tolgee.t("offer.requiredAction.waiting.buyer", { ns: "offer" });
   if (tradeStatus === "confirmPaymentRequired")
-    return t("offer.requiredAction.confirmPaymentRequired");
+    return tolgee.t("offer.requiredAction.confirmPaymentRequired", {
+      ns: "offer",
+    });
   return contractIdToHex(contractId);
 }
