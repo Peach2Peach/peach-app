@@ -46,9 +46,9 @@ describe("useGetPNActionHandler", () => {
     });
   });
 
-  it("should return an action properties when offerId and type are truthy and type is in offerSummaryEvents", () => {
+  it("should return an action properties when offerId and type are truthy and type is offer.sellOfferExpired", () => {
     const { result } = renderHook(useGetPNActionHandler);
-    const data = { type: "offer.notFunded", offerId: "123" } as PNData;
+    const data = { type: "offer.sellOfferExpired", offerId: "123" } as PNData;
     let action;
     act(() => {
       action = result.current(data);

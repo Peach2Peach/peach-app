@@ -2,14 +2,6 @@ import { useCallback } from "react";
 import i18n from "../../utils/i18n";
 import { useStackNavigation } from "../useStackNavigation";
 
-const offerSummaryEvents = [
-  "offer.notFunded",
-  "offer.sellOfferExpired",
-  "offer.buyOfferExpired",
-];
-const searchEvents = ["offer.matchSeller"];
-const exploreEvents = ["offer.matchBuyer"];
-
 export const useGetPNActionHandler = () => {
   const navigation = useStackNavigation();
   const getPNActionHandler = useCallback(
@@ -29,21 +21,21 @@ export const useGetPNActionHandler = () => {
         };
       }
       if (offerId && type) {
-        if (offerSummaryEvents.includes(type)) {
+        if (type === "offer.sellOfferExpired") {
           return {
             label: i18n("goToOffer"),
             iconId: "arrowLeftCircle",
             onPress: () => navigation.navigate("offer", { offerId }),
           };
         }
-        if (searchEvents.includes(type)) {
+        if (type === "offer.matchSeller") {
           return {
             label: i18n("goToOffer"),
             iconId: "arrowLeftCircle",
             onPress: () => navigation.navigate("search", { offerId }),
           };
         }
-        if (exploreEvents.includes(type)) {
+        if (type === "offer.matchBuyer") {
           return {
             label: i18n("goToOffer"),
             iconId: "arrowLeftCircle",
