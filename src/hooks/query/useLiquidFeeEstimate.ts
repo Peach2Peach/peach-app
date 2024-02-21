@@ -10,14 +10,14 @@ export const placeholderFees = {
   minimumFee: 1,
 };
 const getFeeEstimateQuery = async () => {
-  const { result, error: err } = await peachAPI.public.bitcoin.getFeeEstimate();
+  const { result, error: err } = await peachAPI.public.liquid.getFeeEstimate();
   if (err) throw new Error(err.error);
   return result;
 };
 
-export const useFeeEstimate = () => {
+export const useLiquidFeeEstimate = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["feeEstimate", "bitcoin"],
+    queryKey: ["feeEstimate", "liquid"],
     queryFn: getFeeEstimateQuery,
     refetchInterval: MSINAMINUTE,
   });

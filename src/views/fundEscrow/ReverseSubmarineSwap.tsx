@@ -6,6 +6,7 @@ import WebView from "react-native-webview";
 import { Loading } from "../../components/animation/Loading";
 import { LightningInvoice } from "../../components/bitcoin/LightningInvoice";
 import { ErrorBox } from "../../components/ui/ErrorBox";
+import { useLiquidFeeRate } from "../../hooks/useLiquidFeeRate";
 import tw from "../../styles/tailwind";
 import { ReverseResponse, SwapStatus } from "../../utils/boltz/api/types";
 import { useClaimReverseSubmarineSwap } from "../../utils/boltz/query/useClaimReverseSubmarineSwap";
@@ -57,7 +58,7 @@ type ClaimReverseSubmarineSwapProps = {
 const ClaimReverseSubmarineSwap = (
   { offerId, swapInfo, address, swapStatus, keyPairWIF, preimage }: ClaimReverseSubmarineSwapProps
 ) => {
-  const feeRate = 0.15 // TODO take user fee rate for liquid
+  const feeRate = useLiquidFeeRate()
   const { error: claimError, handleClaimMessage } = useClaimReverseSubmarineSwap({ offerId })
 
   if (claimError) return <ErrorBox>{claimError}</ErrorBox>
