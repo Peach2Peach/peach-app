@@ -1,6 +1,9 @@
 import { ElementsValue, address } from "liquidjs-lib";
 import { contract } from "../../../../peach-api/src/testData/contract";
-import { asset, liquidAddresses } from "../../../../tests/unit/data/liquidNetworkData";
+import {
+  asset,
+  liquidAddresses,
+} from "../../../../tests/unit/data/liquidNetworkData";
 import { constructLiquidPSBT } from "../../../../tests/unit/helpers/constructLiquidPSBT";
 import { constructPSBT } from "../../../../tests/unit/helpers/constructPSBT";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
@@ -12,7 +15,10 @@ import { releaseTransactionHasValidOutputs } from "./releaseTransactionHasValidO
 
 describe("releaseTransactionHasValidOutputs", () => {
   const wallet = createTestWallet();
-  const liquidContract = {...contract, releaseAddress: liquidAddresses.regtest[0]}
+  const liquidContract = {
+    ...contract,
+    releaseAddress: liquidAddresses.regtest[0],
+  };
   const psbt = constructPSBT(wallet, undefined, {
     value: contract.amount,
     address: contract.releaseAddress,
@@ -24,7 +30,10 @@ describe("releaseTransactionHasValidOutputs", () => {
   });
   const liquidPSBTWithFeeOutput = constructLiquidPSBT(wallet, undefined, {
     value: ElementsValue.fromNumber(contract.amount - feeAmount).bytes,
-    script: address.toOutputScript(liquidContract.releaseAddress, getLiquidNetwork()),
+    script: address.toOutputScript(
+      liquidContract.releaseAddress,
+      getLiquidNetwork(),
+    ),
   });
 
   psbtWithFeeOutput.addOutput({
@@ -32,10 +41,13 @@ describe("releaseTransactionHasValidOutputs", () => {
     value: feeAmount,
   });
   liquidPSBTWithFeeOutput.addOutput({
-    script: address.toOutputScript(liquidAddresses.regtest[1], getLiquidNetwork()),
+    script: address.toOutputScript(
+      liquidAddresses.regtest[1],
+      getLiquidNetwork(),
+    ),
     value: ElementsValue.fromNumber(feeAmount).bytes,
     asset: asset.regtest,
-    nonce: Buffer.from('00', 'hex'),
+    nonce: Buffer.from("00", "hex"),
   });
   const batchPSBT = constructPSBT(
     wallet,

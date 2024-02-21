@@ -29,17 +29,16 @@ export const useReleaseEscrow = (contract: Contract) => {
       return { previousData };
     },
     mutationFn: async () => {
-      const { releaseTransaction, batchReleasePsbt, errorMsg } =
-        signReleaseTxOfContract(contract);
-      if (!releaseTransaction) {
-        throw new Error(errorMsg);
+      const { result, error } = signReleaseTxOfContract(contract);
+      if (!result?.releaseTransaction) {
+        throw new Error(error);
       }
 
       const { error: err } =
         await peachAPI.private.contract.confirmPaymentSeller({
           contractId: contract.id,
-          releaseTransaction,
-          batchReleasePsbt,
+          releaseTransaction: result.releaseTransaction,
+          batchReleasePsbt: result.batchReleasePsbt,
         });
       if (err) {
         throw new Error(err.error);

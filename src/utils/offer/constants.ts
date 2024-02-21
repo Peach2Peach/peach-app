@@ -1,4 +1,4 @@
-const defaultFundingStatus: Omit<FundingStatus, 'derivationPath'> = {
+const defaultFundingStatus: Omit<FundingStatus, "derivationPath"> = {
   status: "NULL",
   confirmations: 0,
   txIds: [],
@@ -7,7 +7,7 @@ const defaultFundingStatus: Omit<FundingStatus, 'derivationPath'> = {
   expiry: 4320,
 };
 
-export const getDefaultFundingStatus =(id: string): FundingStatus => ({
+export const getDefaultFundingStatus = (id: string): FundingStatus => ({
   ...defaultFundingStatus,
-  derivationPath: `m/48'/0'/0'/0/${id}`
-})
+  derivationPath: `m/48'/0'/0'/0/${id}`,
+});

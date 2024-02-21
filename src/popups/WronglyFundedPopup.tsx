@@ -16,7 +16,7 @@ export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
   const maxTradingAmount = useConfigStore((state) => state.maxTradingAmount);
   const cancelAndStartRefundPopup = useCancelAndStartRefundPopup();
 
-  const funding = getSellOfferFunding(sellOffer)
+  const funding = getSellOfferFunding(sellOffer);
   const utxos = funding.txIds.length;
   const title = i18n(
     utxos === 1
@@ -29,10 +29,7 @@ export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
         <PeachText>
           {i18n("warning.fundingAmountDifferent.description.1")}
         </PeachText>
-        <BTCAmount
-          amount={funding.amounts.reduce(sum, 0)}
-          size="medium"
-        />
+        <BTCAmount amount={funding.amounts.reduce(sum, 0)} size="medium" />
         <PeachText>
           {i18n("warning.fundingAmountDifferent.description.2")}
         </PeachText>

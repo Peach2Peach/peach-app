@@ -15,13 +15,27 @@ jest.mock("./hooks/useFundFromPeachWallet", () => ({
   useFundFromPeachWallet: () => useFundFromPeachWalletMock(),
 }));
 
+
+jest.mock("boltz-swap-web-context", () => 'html');
+
 describe("FundEscrow", () => {
-  const defaultReturnValue = {
-    offerId: sellOffer.id,
-    offer: sellOffer,
+  const activeFunding = {
     fundingAddress: sellOffer.returnAddress,
     fundingAddresses: [],
     fundingStatus: getDefaultFundingStatus(sellOffer.id),
+  }
+  const defaultReturnValue = {
+    offerId: sellOffer.id,
+    offer: sellOffer,
+    funding: {
+      bitcoin: activeFunding,
+      liquid: {
+        fundingAddress: sellOffer.escrows.liquid,
+        fundingAddresses: [],
+        fundingStatus: getDefaultFundingStatus(sellOffer.id)
+      },
+    },
+    activeFunding,
     fundingAmount: 100000,
     createEscrowError: null,
   };

@@ -199,7 +199,7 @@ type FundingStatus = {
   vouts: number[];
   amounts: number[];
   expiry: number;
-  derivationPath: string
+  derivationPath: string;
 };
 
 type GetStatusResponse = {

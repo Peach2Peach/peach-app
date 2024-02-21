@@ -11,18 +11,26 @@ import { PeachText } from "../../components/text/PeachText";
 import { AnalyticsPopup } from "../../popups/AnalyticsPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useBoltzSwapStore } from "../../store/useBoltzSwapStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { keys } from "../../utils/object/keys";
 import { checkNotificationStatus } from "../../utils/system/checkNotificationStatus";
 import { isProduction } from "../../utils/system/isProduction";
 import { toggleNotifications } from "../../utils/system/toggleNotifications";
-import { isDefined } from "../../utils/validation/isDefined";
-import { SettingsItem } from "./components/SettingsItem";
+import { SettingsItem, SettingsItemProps } from "./components/SettingsItem";
 import { VersionInfo } from "./components/VersionInfo";
 
-const contactUs = isProduction()
-  ? (["contact", "aboutPeach"] as const)
-  : (["testView", "contact", "aboutPeach"] as const);
+type SettingsItemType = string | SettingsItemProps;
+type SettingsItemSection = {
+  headline?: string;
+  items: SettingsItemType[];
+};
+type SettingsItemMap = SettingsItemSection[];
+
+const contactUs: SettingsItemType[] = isProduction()
+  ? (["contact", "aboutPeach"])
+  : (["testView", "contact", "aboutPeach"]);
 
 export const Settings = () => {
   const setPopup = useSetPopup();
@@ -37,6 +45,7 @@ export const Settings = () => {
       ],
       shallow,
     );
+  const swaps = useBoltzSwapStore((state) => state.swaps);
 
   useFocusEffect(
     useCallback(() => {
@@ -89,7 +98,7 @@ export const Settings = () => {
     }
   }, [closePopup, notificationsOn, setPopup]);
 
-  const profileSettings = useMemo(
+  const profileSettings: SettingsItemType[] = useMemo(
     () =>
       [
         "myProfile",
@@ -102,7 +111,7 @@ export const Settings = () => {
         "networkFees",
         "transactionBatching",
         "paymentMethods",
-      ] as const,
+      ],
     [showBackupReminder],
   );
 
@@ -118,7 +127,7 @@ export const Settings = () => {
     }
   }, [enableAnalytics, setAnalyticsPopupSeen, setPopup, toggleAnalytics]);
 
-  const appSettings = useMemo(
+  const appSettings: SettingsItemType[] = useMemo(
     () =>
       (
         [
@@ -137,16 +146,22 @@ export const Settings = () => {
           "payoutAddress",
           "currency",
           "language",
-        ] as const
-      ).filter(isDefined),
+        ]
+      ),
     [onAnalyticsPress, enableAnalytics, notificationClick],
   );
 
-  const settings = [
+  const settings: SettingsItemMap = [
     { items: contactUs },
     { headline: "profileSettings", items: profileSettings },
     { headline: "appSettings", items: appSettings },
   ];
+
+  if (keys(swaps).length)
+    settings.push({
+      headline: "advanced",
+      items: ["swaps"] as SettingsItemType[],
+    });
 
   return (
     <Screen header={<Header title={i18n("settings.title")} hideGoBackButton />}>
@@ -162,7 +177,10 @@ export const Settings = () => {
             )}
             <View style={tw`gap-6 py-3 px-6px`}>
               {items.map((item, i) => {
-                const props = typeof item === "string" ? { title: item } : item;
+                const props =
+                  typeof item === "string"
+                    ? ({ title: item } as SettingsItemProps)
+                    : item;
                 return (
                   <SettingsItem
                     key={`${headline}-${typeof item === "string" ? item : item.title}-${i}`}

@@ -34,7 +34,12 @@ export function usePublishBuyOffer({
   minReputation,
 }: Pick<
   BuyOfferDraft,
-  "amount" | "escrowType" | "meansOfPayment" | "paymentData" | "maxPremium" | "minReputation"
+  | "amount"
+  | "escrowType"
+  | "meansOfPayment"
+  | "paymentData"
+  | "maxPremium"
+  | "minReputation"
 >) {
   const navigation = useNavigation();
   const showErrorBanner = useShowErrorBanner();

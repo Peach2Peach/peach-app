@@ -63,7 +63,6 @@ export class PeachLiquidJSWallet {
       pubkey: keyPair.publicKey,
     });
 
-
     if (address) this.addresses[index] = address;
 
     return address;

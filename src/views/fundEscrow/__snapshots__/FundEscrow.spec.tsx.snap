@@ -49,6 +49,36 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
       />
     </View>
+    <TabbedNavigation
+      items={
+        [
+          {
+            "display": "escrow.bitcoin",
+            "id": "bitcoin",
+          },
+          {
+            "display": "escrow.liquid",
+            "id": "liquid",
+          },
+          {
+            "display": "escrow.lightning",
+            "id": "lightning-liquid",
+          },
+        ]
+      }
+      select={[Function]}
+      selected={
+        {
+          "display": "escrow.bitcoin",
+          "id": "bitcoin",
+        }
+      }
+      style={
+        {
+          "marginBottom": 16,
+        }
+      }
+    />
     <BitcoinAddress
       address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
       amount={0.001}
@@ -109,11 +139,17 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
       amount={100000}
       fundingStatus={
         {
-          "amounts": [],
-          "expiry": 4320,
-          "status": "NULL",
-          "txIds": [],
-          "vouts": [],
+          "fundingAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+          "fundingAddresses": [],
+          "fundingStatus": {
+            "amounts": [],
+            "confirmations": 0,
+            "derivationPath": "m/48'/0'/0'/0/38",
+            "expiry": 4320,
+            "status": "NULL",
+            "txIds": [],
+            "vouts": [],
+          },
         }
       }
     />
@@ -122,17 +158,317 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
 `;
 
 exports[`FundEscrow should show Loading, while escrow is not defined 1`] = `
-<BitcoinLoading
-  text="creating escrow,
-one sec..."
-/>
+<Screen
+  header={<FundEscrowHeader />}
+>
+  <ForwardRef
+    contentStyle={
+      {
+        "alignItems": "center",
+        "gap": 16,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 32,
+            "textTransform": "lowercase",
+          }
+        }
+      >
+        send
+      </PeachText>
+      <BTCAmount
+        amount={100000}
+        size="medium"
+        style={
+          {
+            "marginTop": -2,
+          }
+        }
+      />
+      <ForwardRef
+        textPosition="bottom"
+        value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+      />
+    </View>
+    <TabbedNavigation
+      items={
+        [
+          {
+            "display": "escrow.bitcoin",
+            "id": "bitcoin",
+          },
+          {
+            "display": "escrow.liquid",
+            "id": "liquid",
+          },
+          {
+            "display": "escrow.lightning",
+            "id": "lightning-liquid",
+          },
+        ]
+      }
+      select={[Function]}
+      selected={
+        {
+          "display": "escrow.bitcoin",
+          "id": "bitcoin",
+        }
+      }
+      style={
+        {
+          "marginBottom": 16,
+        }
+      }
+    />
+    <BitcoinAddress
+      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+      amount={0.001}
+      label="Peach Escrow - offer P‑26"
+    />
+  </ForwardRef>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "gap": 16,
+          "justifyContent": "center",
+          "paddingBottom": 16,
+          "paddingTop": 16,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 8,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "color": "#F56522",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          }
+        }
+      >
+        checking funding status
+      </PeachText>
+      <Loading
+        color="#F56522"
+        style={
+          {
+            "height": 16,
+            "width": 16,
+          }
+        }
+      />
+    </View>
+    <HorizontalLine />
+    <FundFromPeachWalletButton
+      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+      addresses={[]}
+      amount={100000}
+      fundingStatus={
+        {
+          "fundingAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+          "fundingAddresses": [],
+          "fundingStatus": {
+            "amounts": [],
+            "confirmations": 0,
+            "derivationPath": "m/48'/0'/0'/0/38",
+            "expiry": 4320,
+            "status": "NULL",
+            "txIds": [],
+            "vouts": [],
+          },
+        }
+      }
+    />
+  </View>
+</Screen>
 `;
 
 exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOOL 1`] = `
-<TransactionInMempool
-  offerId="38"
-  txId="txId"
-/>
+<Screen
+  header={<FundEscrowHeader />}
+>
+  <ForwardRef
+    contentStyle={
+      {
+        "alignItems": "center",
+        "gap": 16,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 32,
+            "textTransform": "lowercase",
+          }
+        }
+      >
+        send
+      </PeachText>
+      <BTCAmount
+        amount={100000}
+        size="medium"
+        style={
+          {
+            "marginTop": -2,
+          }
+        }
+      />
+      <ForwardRef
+        textPosition="bottom"
+        value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+      />
+    </View>
+    <TabbedNavigation
+      items={
+        [
+          {
+            "display": "escrow.bitcoin",
+            "id": "bitcoin",
+          },
+          {
+            "display": "escrow.liquid",
+            "id": "liquid",
+          },
+          {
+            "display": "escrow.lightning",
+            "id": "lightning-liquid",
+          },
+        ]
+      }
+      select={[Function]}
+      selected={
+        {
+          "display": "escrow.bitcoin",
+          "id": "bitcoin",
+        }
+      }
+      style={
+        {
+          "marginBottom": 16,
+        }
+      }
+    />
+    <BitcoinAddress
+      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+      amount={0.001}
+      label="Peach Escrow - offer P‑26"
+    />
+  </ForwardRef>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "gap": 16,
+          "justifyContent": "center",
+          "paddingBottom": 16,
+          "paddingTop": 16,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 8,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "color": "#F56522",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          }
+        }
+      >
+        checking funding status
+      </PeachText>
+      <Loading
+        color="#F56522"
+        style={
+          {
+            "height": 16,
+            "width": 16,
+          }
+        }
+      />
+    </View>
+    <HorizontalLine />
+    <FundFromPeachWalletButton
+      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+      addresses={[]}
+      amount={100000}
+      fundingStatus={
+        {
+          "fundingAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+          "fundingAddresses": [],
+          "fundingStatus": {
+            "amounts": [],
+            "confirmations": 0,
+            "derivationPath": "m/48'/0'/0'/0/38",
+            "expiry": 4320,
+            "status": "NULL",
+            "txIds": [],
+            "vouts": [],
+          },
+        }
+      }
+    />
+  </View>
+</Screen>
 `;
 
 exports[`FundEscrow should show funded from peach wallet, if funded from peach wallet 1`] = `
@@ -184,6 +520,36 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
         value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
       />
     </View>
+    <TabbedNavigation
+      items={
+        [
+          {
+            "display": "escrow.bitcoin",
+            "id": "bitcoin",
+          },
+          {
+            "display": "escrow.liquid",
+            "id": "liquid",
+          },
+          {
+            "display": "escrow.lightning",
+            "id": "lightning-liquid",
+          },
+        ]
+      }
+      select={[Function]}
+      selected={
+        {
+          "display": "escrow.bitcoin",
+          "id": "bitcoin",
+        }
+      }
+      style={
+        {
+          "marginBottom": 16,
+        }
+      }
+    />
     <BitcoinAddress
       address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
       amount={0.001}
@@ -244,11 +610,17 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
       amount={100000}
       fundingStatus={
         {
-          "amounts": [],
-          "expiry": 4320,
-          "status": "NULL",
-          "txIds": [],
-          "vouts": [],
+          "fundingAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+          "fundingAddresses": [],
+          "fundingStatus": {
+            "amounts": [],
+            "confirmations": 0,
+            "derivationPath": "m/48'/0'/0'/0/38",
+            "expiry": 4320,
+            "status": "NULL",
+            "txIds": [],
+            "vouts": [],
+          },
         }
       }
     />

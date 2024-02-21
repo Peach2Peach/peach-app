@@ -10,7 +10,7 @@ export const signAndFinalizePSBT = (
 ) => {
   psbt.txInputs.forEach((input, i) => {
     if (psbt instanceof Psbt) {
-      psbt.signInput(i, wallet).finalizeInput(i, getFinalScript)
+      psbt.signInput(i, wallet).finalizeInput(i, getFinalScript);
     } else {
       psbt.signInput(i, wallet).finalizeInput(i, getFinalScriptLiquid);
     }

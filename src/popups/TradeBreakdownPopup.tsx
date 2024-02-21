@@ -15,7 +15,9 @@ import { isLiquidAddress } from "../utils/validation/rules";
 import { getLiquidNetwork } from "../utils/wallet/getLiquidNetwork";
 
 export function TradeBreakdownPopup({ contract }: { contract: Contract }) {
-  const network = isLiquidAddress(contract.releaseAddress, getLiquidNetwork()) ? 'liquid' : 'bitcoin';
+  const network = isLiquidAddress(contract.releaseAddress, getLiquidNetwork())
+    ? "liquid"
+    : "bitcoin";
   const viewInExplorer = () =>
     contract.releaseTxId
       ? showTransaction(contract.releaseTxId, network)

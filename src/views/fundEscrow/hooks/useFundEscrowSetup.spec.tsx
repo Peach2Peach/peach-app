@@ -59,7 +59,7 @@ describe("useFundEscrowSetup", () => {
 
   it("should return default values", () => {
     const { result } = renderHook(useFundEscrowSetup);
-    const activeFunding = getDefaultFundingStatus(sellOffer.id)
+    const activeFunding = getDefaultFundingStatus(sellOffer.id);
     expect(result.current).toEqual({
       offerId: sellOffer.id,
       funding: {
@@ -72,7 +72,7 @@ describe("useFundEscrowSetup", () => {
           fundingAddress: undefined,
           fundingAddresses: [],
           fundingStatus: getDefaultFundingStatus(sellOffer.id),
-        }
+        },
       },
       activeFunding,
       fundingAmount: 0,
@@ -96,7 +96,7 @@ describe("useFundEscrowSetup", () => {
   it("should return default values with locally stored offer", () => {
     saveOffer(sellOffer);
     const { result } = renderHook(useFundEscrowSetup);
-    const activeFunding = getDefaultFundingStatus(sellOffer.id)
+    const activeFunding = getDefaultFundingStatus(sellOffer.id);
 
     expect(result.current).toEqual({
       offerId: sellOffer.id,
@@ -110,7 +110,7 @@ describe("useFundEscrowSetup", () => {
           fundingAddress: sellOffer.escrows.liquid,
           fundingAddresses: [sellOffer.escrows.liquid],
           fundingStatus: getDefaultFundingStatus(sellOffer.id),
-        }
+        },
       },
       activeFunding,
       fundingAmount: sellOffer.amount,
@@ -130,7 +130,7 @@ describe("useFundEscrowSetup", () => {
   });
   it("should handle the case that no offer could be returned", () => {
     setAccount({ ...account1, offers: [] });
-    const activeFunding = getDefaultFundingStatus(sellOffer.id)
+    const activeFunding = getDefaultFundingStatus(sellOffer.id);
 
     getOfferDetailsMock.mockResolvedValueOnce({
       error: { error: "UNAUTHORIZED" },
@@ -149,7 +149,7 @@ describe("useFundEscrowSetup", () => {
           fundingAddress: undefined,
           fundingAddresses: [],
           fundingStatus: getDefaultFundingStatus(sellOffer.id),
-        }
+        },
       },
       activeFunding,
       fundingAmount: 0,

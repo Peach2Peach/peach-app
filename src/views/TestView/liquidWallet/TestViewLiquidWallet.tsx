@@ -43,13 +43,13 @@ export const TestViewLiquidWallet = () => {
     const newAddress = await peachLiquidWallet.getInternalAddress();
     if (newAddress) setAddress(newAddress);
   };
-  const send = async () => {
+  const send = () => {
     Alert.alert("TODO");
   };
-  const refill = async () => {
+  const refill = () => {
     Alert.alert("TODO");
   };
-  const refetch = async () => {
+  const refetch = () => {
     Alert.alert("TODO");
   };
 
@@ -83,7 +83,9 @@ export const TestViewLiquidWallet = () => {
           </Button>
           {!!txId && (
             <View>
-              <PeachText onPress={() => showLiquidTransaction(txId, getLiquidNetwork())}>
+              <PeachText
+                onPress={() => showLiquidTransaction(txId, getLiquidNetwork())}
+              >
                 txId: {txId}
               </PeachText>
             </View>

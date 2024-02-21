@@ -74,12 +74,11 @@ export function PaymentReceivedSlider() {
       mutationFn: async () => {
         const sellOffer = getSellOfferFromContract(contract);
 
-        const { result, error } =
-          verifyAndSignReleaseTx(
-            contract,
-            sellOffer,
-            getEscrowWalletForOffer(sellOffer),
-          );
+        const { result, error } = verifyAndSignReleaseTx(
+          contract,
+          sellOffer,
+          getEscrowWalletForOffer(sellOffer),
+        );
 
         if (!result?.releaseTransaction) {
           throw new Error(error);

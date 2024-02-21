@@ -17,7 +17,7 @@ const getFeeEstimateQuery = async () => {
 
 export const useFeeEstimate = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["feeEstimate"],
+    queryKey: ["feeEstimate", "bitcoin"],
     queryFn: getFeeEstimateQuery,
     refetchInterval: MSINAMINUTE,
   });

@@ -90,7 +90,7 @@ export const TestViewPeachWallet = () => {
           </Button>
           {!!txId && (
             <View>
-              <PeachText onPress={() => showTransaction(txId, 'bitcoin')}>
+              <PeachText onPress={() => showTransaction(txId, "bitcoin")}>
                 txId: {txId}
               </PeachText>
             </View>

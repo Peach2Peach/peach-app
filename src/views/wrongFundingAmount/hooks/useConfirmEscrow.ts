@@ -22,7 +22,7 @@ export const useConfirmEscrow = () => {
         return;
       }
 
-      const funding = getSellOfferFunding(sellOffer)
+      const funding = getSellOfferFunding(sellOffer);
       const destination = funding.status === "FUNDED" ? "search" : "fundEscrow";
       queryClient.setQueryData(
         ["fundingStatus", sellOffer.id],

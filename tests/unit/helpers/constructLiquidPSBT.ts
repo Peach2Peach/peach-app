@@ -30,7 +30,8 @@ export const constructLiquidPSBT = (
       network,
     },
   });
-  const redeemOutput = p2wsh.redeem?.output ?? getLiquidScript(wallet.publicKey);
+  const redeemOutput =
+    p2wsh.redeem?.output ?? getLiquidScript(wallet.publicKey);
   const psbt = new Psbt({ network });
   const inputValue = 10000000;
   const fee = 300;
@@ -40,9 +41,10 @@ export const constructLiquidPSBT = (
     witnessScript: p2wsh.redeem?.output,
     witnessUtxo: {
       script: Buffer.from(`0020${sha256(redeemOutput).toString("hex")}`, "hex"),
+      // @ts-ignore that's definitely a Buffer type
       value: ElementsValue.fromNumber(inputValue).bytes,
       asset: asset.regtest,
-      nonce: Buffer.from('00', 'hex'),
+      nonce: Buffer.from("00", "hex"),
     },
     ...inputOptions,
   });
@@ -50,7 +52,7 @@ export const constructLiquidPSBT = (
     script: address.toOutputScript(liquidAddresses.regtest[0], network),
     value: ElementsValue.fromNumber(inputValue - fee).bytes,
     asset: asset.regtest,
-    nonce: Buffer.from('00', 'hex'),
+    nonce: Buffer.from("00", "hex"),
     ...ouputOptions,
   });
   return psbt;

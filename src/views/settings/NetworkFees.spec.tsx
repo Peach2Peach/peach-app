@@ -35,7 +35,7 @@ describe("NetworkFees", () => {
   it("should render correctly", async () => {
     const { toJSON } = render(<NetworkFees />);
     await waitFor(() => {
-      expect(queryClient.getQueryData(["feeEstimate"])).toStrictEqual(
+      expect(queryClient.getQueryData(["feeEstimate", "bitcoin"])).toStrictEqual(
         estimatedFees,
       );
     });
