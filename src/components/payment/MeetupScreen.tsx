@@ -12,7 +12,7 @@ import { PeachScrollView } from "../PeachScrollView";
 import { Screen } from "../Screen";
 import { Button } from "../buttons/Button";
 import { CurrencySelection } from "../inputs/paymentForms/components";
-import { useSetPopup } from "../popup/Popup";
+import { useSetPopup } from "../popup/GlobalPopup";
 import { BulletPoint } from "../text/BulletPoint";
 import { PeachText } from "../text/PeachText";
 import { DeletePaymentMethodPopup } from "./components/DeletePaymentMethodPopup";

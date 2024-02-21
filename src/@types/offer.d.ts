@@ -3,7 +3,6 @@ type OfferDraft = {
   meansOfPayment: MeansOfPayment;
   paymentData: OfferPaymentData;
   originalPaymentData: PaymentData[];
-  walletLabel?: string;
   tradeStatus?: TradeStatus;
 };
 

@@ -11,7 +11,7 @@ import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { swipeRight } from "../../../tests/unit/helpers/fireSwipeEvent";
 import { walletListUnspentMock } from "../../../tests/unit/mocks/bdkRN";
-import { Popup } from "../../components/popup/Popup";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
 import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import { createWalletFromBase58 } from "../../utils/wallet/createWalletFromBase58";
 import { getNetwork } from "../../utils/wallet/getNetwork";
@@ -48,6 +48,7 @@ describe("SendBitcoin", () => {
     expect(render(<SendBitcoin />).toJSON()).toMatchDiffSnapshot(toJSON());
   });
   it("should update the amount on change", () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.balance = 21000000;
     const { toJSON, getByText } = render(<SendBitcoin />);
     const amountInput = getByText("0");
@@ -55,6 +56,7 @@ describe("SendBitcoin", () => {
     expect(render(<SendBitcoin />).toJSON()).toMatchDiffSnapshot(toJSON());
   });
   it('should set the amount to the peach wallet balance when clicking "send max"', () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.balance = 21000000;
     const { toJSON, getByText } = render(<SendBitcoin />);
     const sendMaxButton = getByText("send max");
@@ -62,6 +64,7 @@ describe("SendBitcoin", () => {
     expect(render(<SendBitcoin />).toJSON()).toMatchDiffSnapshot(toJSON());
   });
   it("should not allow entering an amount higher than the available balance", () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.balance = 21000000;
     const { toJSON, getByText } = render(<SendBitcoin />);
     const amountInput = getByText("0");
@@ -78,7 +81,7 @@ describe("SendBitcoin", () => {
     const { getByAccessibilityHint, queryByText } = render(
       <>
         <SendBitcoin />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 
@@ -111,12 +114,13 @@ describe("SendBitcoin", () => {
   });
 
   it("should open the confirmation popup when swiping the slider", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     useWalletState.setState({ isSynced: true });
     const { getByTestId, getByText, getByPlaceholderText, queryByText } =
       render(
         <>
           <SendBitcoin />
-          <Popup />
+          <GlobalPopup />
         </>,
       );
 
@@ -145,7 +149,7 @@ describe("SendBitcoin", () => {
     const { getByTestId, queryByText } = render(
       <Provider>
         <SendBitcoin />
-        <Popup />
+        <GlobalPopup />
       </Provider>,
     );
     const slider = getByTestId("confirmSlider");
@@ -157,7 +161,7 @@ describe("SendBitcoin", () => {
       render(
         <Provider>
           <SendBitcoin />
-          <Popup />
+          <GlobalPopup />
         </Provider>,
       );
     const addressInput = getByPlaceholderText("bc1q ...");
@@ -179,7 +183,7 @@ describe("SendBitcoin", () => {
       render(
         <>
           <SendBitcoin />
-          <Popup />
+          <GlobalPopup />
         </>,
       );
     const addressInput = getByPlaceholderText("bc1q ...");
@@ -219,6 +223,7 @@ describe("SendBitcoin - With selected coins", () => {
   beforeAll(() => {
     const wallet = createWalletFromBase58(account1.base58, getNetwork());
     setPeachWallet(new PeachWallet({ wallet }));
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.wallet = new Wallet();
     walletListUnspentMock.mockResolvedValue([utxo]);
   });

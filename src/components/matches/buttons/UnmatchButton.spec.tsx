@@ -4,7 +4,7 @@ import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
 import { matchesKeys } from "../../../views/search/hooks/useOfferMatches";
-import { Popup } from "../../popup/Popup";
+import { GlobalPopup } from "../../popup/GlobalPopup";
 import { TIMER_DURATION } from "./UndoButton";
 import { UnmatchButton } from "./UnmatchButton";
 
@@ -76,7 +76,7 @@ describe("UnmatchButton", () => {
     const { getByText } = render(
       <>
         <UnmatchButton {...defaultProps} />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 
@@ -90,7 +90,7 @@ describe("UnmatchButton", () => {
     const { getByText, queryByText } = render(
       <>
         <UnmatchButton {...defaultProps} />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 
@@ -110,7 +110,7 @@ describe("UnmatchButton", () => {
     const { getByText } = render(
       <>
         <UnmatchButton {...defaultProps} />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 
@@ -157,7 +157,7 @@ describe("UnmatchButton", () => {
           match={{ ...defaultProps.match, matched: false }}
         />
         ,
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 

@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Animated, LayoutChangeEvent, PanResponder } from "react-native";
-import tw from "../../../styles/tailwind";
 import { round } from "../../../utils/math/round";
 
 const MIN = -21;
 const MAX = 21;
 const DELTA = MAX - MIN;
-export const KNOBWIDTH = tw`w-8`.width as number;
+export const KNOBWIDTH = 32;
 export const DEFAULT_WIDTH = 260;
 
 export const usePremiumSliderSetup = (

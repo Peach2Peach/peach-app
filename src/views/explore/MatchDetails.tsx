@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
@@ -26,8 +25,8 @@ import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -47,7 +46,7 @@ export function MatchDetails() {
   const { data: match } = useMatchDetails({ offerId, matchId });
   const { offer } = useOfferDetail(offerId);
 
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   if (offer?.contractId) {
     navigation.reset({
       index: 1,
@@ -305,8 +304,8 @@ function MatchOfferButton({
     <Button
       style={[
         tw`flex-row items-center self-center justify-center py-2 gap-10px`,
-        tw`bg-success-main`,
-        optionName === "missingSelection" && tw`bg-success-mild-2`,
+        tw`bg-primary-main`,
+        optionName === "missingSelection" && tw`bg-primary-mild-1`,
         optionName === "tradingLimitReached" && tw`bg-black-50`,
       ]}
       onPress={onPress}

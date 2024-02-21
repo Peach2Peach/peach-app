@@ -1,10 +1,10 @@
 import { Header } from "../../../components/Header";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
 
 export const WalletHeader = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   return (
     <Header
       title={i18n("wallet.title")}

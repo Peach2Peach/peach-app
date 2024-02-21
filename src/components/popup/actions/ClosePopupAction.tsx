@@ -1,5 +1,5 @@
 import i18n from "../../../utils/i18n";
-import { useClosePopup } from "../Popup";
+import { useClosePopup } from "../GlobalPopup";
 import { PopupAction, PopupActionProps } from "../PopupAction";
 
 type Props = Pick<PopupActionProps, "textStyle" | "reverseOrder" | "style">;

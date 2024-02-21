@@ -64,7 +64,7 @@ export const RestoreReputation = () => {
 
           <Button
             style={tw`self-center bg-primary-background-light`}
-            textColor={tw`text-primary-main`}
+            textColor={tw.color("primary-main")}
             onPress={restoreReputation}
           >
             {i18n("restoreBackup.restoreReputation")}

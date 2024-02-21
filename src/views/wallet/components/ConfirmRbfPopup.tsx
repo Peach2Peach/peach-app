@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { View } from "react-native";
 import { Icon } from "../../../components/Icon";
 import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
-import { useClosePopup } from "../../../components/popup/Popup";
+import { useClosePopup } from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
 import { LoadingPopupAction } from "../../../components/popup/actions/LoadingPopupAction";
@@ -38,6 +38,7 @@ export function ConfirmRbfPopup({
 
   const confirmAndSend = useCallback(async () => {
     try {
+      if (!peachWallet) throw new Error("PeachWallet not set");
       const [txId] = await Promise.all([
         finishedTransaction.txid(),
         peachWallet.signAndBroadcastPSBT(finishedTransaction),

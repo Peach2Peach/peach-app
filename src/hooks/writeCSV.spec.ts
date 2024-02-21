@@ -1,15 +1,14 @@
 import RNFS from "react-native-fs";
 import Share from "react-native-share";
-import { renderHook, waitFor } from "test-utils";
-import { useWriteCSV } from "./useWriteCSV";
+import { waitFor } from "test-utils";
+import { writeCSV } from "./writeCSV";
 
 jest.useFakeTimers();
 describe("useWriteCSV", () => {
   const csvValue = "header 1, header 2\nvalue 1, value 2\n";
   const destinationFileName = "test.csv";
   it("should create a CSV file", async () => {
-    const { result } = renderHook(useWriteCSV);
-    result.current(csvValue, destinationFileName);
+    writeCSV(csvValue, destinationFileName);
 
     expect(RNFS.writeFile).toHaveBeenCalledWith(
       `DDirPath//${destinationFileName}`,

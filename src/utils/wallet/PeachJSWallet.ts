@@ -1,7 +1,7 @@
 import { NETWORK } from "@env";
 import { Network } from "bdk-rn/lib/lib/enums";
 import { BIP32Interface } from "bip32";
-import { Network as BitcoinJSNetwork, networks, payments } from "bitcoinjs-lib";
+import { payments } from "bitcoinjs-lib";
 import { sign } from "bitcoinjs-message";
 import { info } from "../log/info";
 import { getNetwork } from "./getNetwork";
@@ -78,12 +78,6 @@ export class PeachJSWallet {
 
   getNetwork<T extends Network | BitcoinNetwork>(): T {
     return this.network as T;
-  }
-
-  _getNetwork(): BitcoinJSNetwork {
-    if (this.network === "testnet") return networks.testnet;
-    if (this.network === "regtest") return networks.regtest;
-    return networks.bitcoin;
   }
 
   signMessage(message: string, address: string, index?: number) {

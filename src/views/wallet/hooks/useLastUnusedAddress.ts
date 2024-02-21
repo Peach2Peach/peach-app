@@ -5,6 +5,9 @@ import { walletKeys } from "./useUTXOs";
 export const useLastUnusedAddress = () =>
   useQuery({
     queryKey: walletKeys.lastUnusedAddress(),
-    queryFn: () => peachWallet.getLastUnusedAddress(),
-    enabled: peachWallet.initialized,
+    queryFn: () => {
+      if (!peachWallet) throw new Error("Peach wallet not defined");
+      return peachWallet.getLastUnusedAddress();
+    },
+    enabled: peachWallet?.initialized,
   });

@@ -1,30 +1,57 @@
-import { View } from "react-native";
+import { Linking, View } from "react-native";
 import tw from "../../styles/tailwind";
 
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { getInstallReferrer } from "react-native-device-info";
 import { Button } from "../../components/buttons/Button";
 import { Input } from "../../components/inputs/Input";
 import { PeachText } from "../../components/text/PeachText";
 import { useSetToast } from "../../components/toast/Toast";
-import { useNavigation } from "../../hooks/useNavigation";
-import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 
 const referralCodeRules = { referralCode: true };
 export const LetsGetStarted = () => {
-  const route = useRoute<"welcome">();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const showError = useShowErrorBanner();
   const setToast = useSetToast();
   const [referralCode, setReferralCode, referralCodeIsValid] =
-    useValidatedState(route.params?.referralCode || "", referralCodeRules);
-  const [willUseReferralCode, setWillUseReferralCode] = useState(
-    !!route.params?.referralCode,
+    useValidatedState<string>("", referralCodeRules);
+  const [willUseReferralCode, setWillUseReferralCode] = useState(false);
+
+  const handleRefCode = useCallback(
+    ({ url }: { url: string | null }) => {
+      if (!url) return;
+      const link = new URL(url).searchParams.get("link");
+      if (!link) return;
+      const code = new URL(link).searchParams.get("code");
+      if (!code) return;
+      setReferralCode(code);
+      setWillUseReferralCode(true);
+    },
+    [setReferralCode],
   );
+
+  useEffect(() => {
+    const listener = Linking.addEventListener("url", handleRefCode);
+    return () => listener.remove();
+  }, [handleRefCode, setReferralCode]);
+
+  useEffect(() => {
+    Linking.getInitialURL().then((url) => handleRefCode({ url }));
+  }, [handleRefCode]);
+
+  useEffect(() => {
+    getInstallReferrer().then((ref) => {
+      if (!ref || ref === "unknown") return;
+      setReferralCode((prev) => prev || ref);
+      setWillUseReferralCode(true);
+    });
+  }, [setReferralCode]);
 
   const updateReferralCode = (code: string) => {
     if (referralCode !== code) setWillUseReferralCode(false);
@@ -82,7 +109,7 @@ export const LetsGetStarted = () => {
             </View>
             <Button
               style={tw`min-w-20 bg-primary-background-light`}
-              textColor={tw`text-primary-main`}
+              textColor={tw.color("primary-main")}
               disabled={
                 willUseReferralCode || !referralCode || !referralCodeIsValid
               }
@@ -98,7 +125,7 @@ export const LetsGetStarted = () => {
         <Button
           onPress={goToNewUser}
           style={tw`bg-primary-background-light`}
-          textColor={tw`text-primary-main`}
+          textColor={tw.color("primary-main")}
           iconId="plusCircle"
         >
           {i18n("newUser")}

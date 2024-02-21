@@ -15,6 +15,10 @@ jest.mock("../../src/utils/wallet/PeachWallet");
 jest.mock("../../src/utils/log/error");
 jest.mock("../../src/utils/log/info");
 jest.mock("../../src/utils/log/log");
+jest.mock("../../src/queryClient", () => {
+  const { queryClient } = jest.requireActual("./helpers/QueryClientWrapper");
+  return { queryClient };
+});
 
 jest.mock("../../src/utils/system/getDeviceLocale", () => ({
   getDeviceLocale: () => "en",

@@ -1,15 +1,15 @@
-import { shallow } from "zustand/shallow";
-import { useClosePopup, useSetPopup } from "../../components/popup/Popup";
+import { useWalletLabel } from "../../components/offer/useWalletLabel";
+import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { LoadingPopupAction } from "../../components/popup/actions/LoadingPopupAction";
 import { MSINAMINUTE } from "../../constants";
-import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import tw from "../../styles/tailwind";
-import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
-import { getWalletLabelFromContract } from "../../utils/contract/getWalletLabelFromContract";
+import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../utils/i18n";
+import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { GrayPopup } from "../GrayPopup";
 import { patchSellOfferWithRefundTx } from "./patchSellOfferWithRefundTx";
@@ -85,24 +85,13 @@ export function ConfirmTradeCancelationPopup({
 }
 
 function CancelPopup({ contract }: { contract: Contract }) {
-  const [customAddress, customAddressLabel, isPeachWalletActive] =
-    useSettingsStore(
-      (state) => [
-        state.refundAddress,
-        state.refundAddressLabel,
-        state.refundToPeachWallet,
-      ],
-      shallow,
-    );
   const { paymentMethod, id } = contract;
   const isCash = isCashTrade(paymentMethod);
-  const canRepublish = !isOfferExpired(getSellOfferFromContract(contract));
-  const walletName = getWalletLabelFromContract({
-    contract,
-    customAddress,
-    customAddressLabel,
-    isPeachWalletActive,
-  });
+  const { offer } = useOfferDetail(getSellOfferIdFromContract(contract));
+  const sellOffer = offer && isSellOffer(offer) ? offer : null;
+  const canRepublish = sellOffer ? !isOfferExpired(sellOffer) : false;
+  const walletName = useWalletLabel({ address: sellOffer?.returnAddress });
+
   return (
     <GrayPopup
       title={i18n(

@@ -4,11 +4,11 @@ import { shallow } from "zustand/shallow";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { error } from "../utils/log/error";
 import { info } from "../utils/log/info";
+import { parseError } from "../utils/parseError";
 import {
   UpdateUserParams,
   useUpdateUser,
 } from "../utils/peachAPI/useUpdateUser";
-import { parseError } from "../utils/result/parseError";
 
 export function useUserUpdate() {
   const [storedFCMToken, setStoredFCMToken] = useSettingsStore(

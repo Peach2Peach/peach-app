@@ -1,7 +1,7 @@
 import { useSetOverlay } from "../../Overlay";
 import { OverlayComponent } from "../../components/OverlayComponent";
 import { Button } from "../../components/buttons/Button";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 
@@ -12,15 +12,14 @@ export const OfferPublished = ({
   shouldGoBack: boolean;
   offerId: string;
 }) => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setOverlay = useSetOverlay();
   const closeOverlay = () => setOverlay(undefined);
   const goBackHome = () => {
-    closeOverlay();
     navigation.navigate("homeScreen", { screen: "home" });
+    closeOverlay();
   };
   const goToOffer = () => {
-    closeOverlay();
     navigation.reset({
       index: 1,
       routes: [
@@ -31,6 +30,7 @@ export const OfferPublished = ({
         { name: "search", params: { offerId } },
       ],
     });
+    closeOverlay();
   };
 
   return (
@@ -42,7 +42,7 @@ export const OfferPublished = ({
         <>
           <Button
             style={tw`bg-primary-background-light`}
-            textColor={tw`text-primary-main`}
+            textColor={tw.color("primary-main")}
             onPress={goToOffer}
           >
             {i18n("showOffer")}

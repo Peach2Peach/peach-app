@@ -41,7 +41,6 @@ type Identity = {
 
 type Account = Identity & {
   tradingLimit: TradingLimit;
-  offers: (SellOffer | BuyOffer)[];
   chats: {
     [key: string]: Chat;
   };

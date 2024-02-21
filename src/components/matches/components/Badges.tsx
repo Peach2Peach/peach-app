@@ -6,7 +6,7 @@ import i18n from "../../../utils/i18n";
 import { badges } from "../../../views/settings/profile/profileOverview/badges";
 import { Badge, RepeatTraderBadge } from "../../Badge";
 import { Icon } from "../../Icon";
-import { useSetPopup } from "../../popup/Popup";
+import { useSetPopup } from "../../popup/GlobalPopup";
 import { PeachText } from "../../text/PeachText";
 
 export function Badges({

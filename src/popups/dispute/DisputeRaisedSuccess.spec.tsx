@@ -2,7 +2,7 @@ import { fireEvent, render } from "test-utils";
 import { DisputeRaisedSuccess } from "./DisputeRaisedSuccess";
 
 const mockClosePopup = jest.fn();
-jest.mock("../../components/popup/Popup", () => ({
+jest.mock("../../components/popup/GlobalPopup", () => ({
   useClosePopup: () => mockClosePopup,
 }));
 

@@ -10,7 +10,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { Progress } from "../../components/ui/Progress";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useLanguage } from "../../hooks/useLanguage";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { AWalletYouControl } from "./AWalletYouControl";
@@ -92,7 +92,7 @@ export const Welcome = () => {
             tw`self-center bg-primary-background-light`,
             page === screens.length - 1 && tw`opacity-0`,
           ]}
-          textColor={tw`text-primary-main`}
+          textColor={tw.color("primary-main")}
           onPress={next}
           iconId="arrowRightCircle"
         >
@@ -104,7 +104,7 @@ export const Welcome = () => {
 };
 
 function OnboardingHeader() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
   const { locale, updateLocale } = useLanguage();
 

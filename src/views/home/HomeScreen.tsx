@@ -4,8 +4,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Icon } from "../../components/Icon";
 import { NotificationBubble } from "../../components/bubble/NotificationBubble";
 import { PeachText } from "../../components/text/PeachText";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { HomeTabName, homeTabNames, homeTabs } from "./homeTabNames";
@@ -54,15 +55,32 @@ function Footer() {
 
 function FooterItem({ id }: { id: HomeTabName }) {
   const currentPage = useRoute<"homeScreen">().params?.screen ?? "home";
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
+  const { summaries } = useTradeSummaries(id === "yourTrades");
+  const notifications = useNotificationStore((state) => state.notifications);
   const onPress = () => {
-    navigation.navigate("homeScreen", { screen: id });
+    if (id === "yourTrades") {
+      const destinationTab =
+        summaries["yourTrades.buy"].length === 0
+          ? summaries["yourTrades.sell"].length === 0
+            ? summaries["yourTrades.history"].length === 0
+              ? "yourTrades.buy"
+              : "yourTrades.history"
+            : "yourTrades.sell"
+          : "yourTrades.buy";
+
+      navigation.navigate("homeScreen", {
+        screen: id,
+        params: { tab: destinationTab },
+      });
+    } else {
+      navigation.navigate("homeScreen", { screen: id });
+    }
   };
 
   const active = currentPage === id;
   const colorTheme = tw.color(active ? "black-100" : "black-65");
   const size = tw`w-6 h-6`;
-  const notifications = useNotificationStore((state) => state.notifications);
   return (
     <TouchableOpacity onPress={onPress} style={tw`items-center flex-1 gap-2px`}>
       <View style={size}>

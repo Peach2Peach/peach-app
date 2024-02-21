@@ -3,12 +3,12 @@ import { useSetOverlay } from "../../../../Overlay";
 import { Icon } from "../../../../components/Icon";
 import { Button } from "../../../../components/buttons/Button";
 import { PeachText } from "../../../../components/text/PeachText";
-import { useNavigation } from "../../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../../hooks/useStackNavigation";
 import tw from "../../../../styles/tailwind";
 import i18n from "../../../../utils/i18n";
 
 export const BackupCreated = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setOverlay = useSetOverlay();
   const goToFileBackup = () => {
     setOverlay(undefined);
@@ -31,7 +31,7 @@ export const BackupCreated = () => {
       </View>
       <Button
         style={tw`self-center bg-primary-background-light`}
-        textColor={tw`text-primary-main`}
+        textColor={tw.color("primary-main")}
         onPress={goToFileBackup}
       >
         {i18n("back")}

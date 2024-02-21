@@ -5,7 +5,7 @@ import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
-import { useClosePopup, useSetPopup } from "../../components/popup/Popup";
+import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { PeachText } from "../../components/text/PeachText";
 import { AnalyticsPopup } from "../../popups/AnalyticsPopup";

@@ -14,7 +14,7 @@ import RNFS from "react-native-fs";
 import { waitForHydration } from "../../store/waitForHydration";
 import { error } from "../log/error";
 import { info } from "../log/info";
-import { parseError } from "../result/parseError";
+import { parseError } from "../parseError";
 import { isIOS } from "../system/isIOS";
 import { callWhenInternet } from "../web/callWhenInternet";
 import { PeachJSWallet } from "./PeachJSWallet";
@@ -70,8 +70,10 @@ export class PeachWallet extends PeachJSWallet {
     this.seedphrase = undefined;
   }
 
-  initWallet(seedphrase = this.seedphrase): Promise<void> {
-    this.loadFromStorage();
+  async initWallet(seedphrase = this.seedphrase): Promise<void> {
+    await waitForHydration(useWalletState);
+    this.transactions = useWalletState.getState().transactions;
+    this.balance = useWalletState.getState().balance;
 
     return new Promise((resolve, reject) =>
       callWhenInternet(async () => {
@@ -145,8 +147,19 @@ export class PeachWallet extends PeachJSWallet {
         try {
           const success = await this.wallet.sync(this.blockchain);
           if (success) {
-            this.getBalance();
-            this.getTransactions();
+            const balance = await this.wallet.getBalance();
+            this.balance = Number(balance.total);
+            useWalletState.getState().setBalance(this.balance);
+
+            this.transactions = await this.wallet.listTransactions(true);
+            useWalletState.getState().setTransactions(this.transactions);
+            this.transactions
+              .filter((tx) => !transactionHasBeenMappedToOffers(tx))
+              .forEach(mapTransactionToOffer);
+            this.transactions
+              .filter(transactionHasBeenMappedToOffers)
+              .forEach(labelAddressByTransaction);
+
             this.lastUnusedAddress = undefined;
             useWalletState.getState().setIsSynced(true);
             info("PeachWallet - syncWallet - synced");
@@ -161,49 +174,6 @@ export class PeachWallet extends PeachJSWallet {
       }),
     );
     return this.syncInProgress;
-  }
-
-  updateStore() {
-    useWalletState.getState().setTransactions(this.transactions);
-    this.transactions
-      .filter((tx) => !transactionHasBeenMappedToOffers(tx))
-      .forEach(mapTransactionToOffer);
-    this.transactions
-      .filter(transactionHasBeenMappedToOffers)
-      .forEach(labelAddressByTransaction);
-  }
-
-  async getBalance() {
-    if (!this.wallet) throw Error("WALLET_NOT_READY");
-
-    const balance = await this.wallet.getBalance();
-
-    this.balance = Number(balance.total);
-    useWalletState.getState().setBalance(this.balance);
-    return this.balance;
-  }
-
-  async getTransactions() {
-    if (!this.wallet) throw Error("WALLET_NOT_READY");
-
-    this.transactions = await this.wallet.listTransactions(true);
-    this.updateStore();
-
-    return this.transactions;
-  }
-
-  getPendingTransactions() {
-    return this.transactions.filter((tx) => !tx.confirmationTime?.height);
-  }
-
-  async fetchLastUnusedAddress() {
-    if (!this.wallet) throw Error("WALLET_NOT_READY");
-    const addressInfo = await this.wallet.getAddress(AddressIndex.LastUnused);
-    this.lastUnusedAddress = {
-      ...addressInfo,
-      address: await addressInfo.address.asString(),
-    };
-    return this.lastUnusedAddress;
   }
 
   async getAddress(index: AddressIndex | number = AddressIndex.New) {
@@ -225,8 +195,15 @@ export class PeachWallet extends PeachJSWallet {
     };
   }
 
-  getLastUnusedAddress() {
-    if (!this.lastUnusedAddress) return this.fetchLastUnusedAddress();
+  async getLastUnusedAddress() {
+    if (!this.lastUnusedAddress) {
+      if (!this.wallet) throw Error("WALLET_NOT_READY");
+      const addressInfo = await this.wallet.getAddress(AddressIndex.LastUnused);
+      this.lastUnusedAddress = {
+        ...addressInfo,
+        address: await addressInfo.address.asString(),
+      };
+    }
     return this.lastUnusedAddress;
   }
 
@@ -256,11 +233,6 @@ export class PeachWallet extends PeachJSWallet {
     const transaction = await buildTransaction(buildParams);
 
     return this.finishTransaction(transaction);
-  }
-
-  async sendTo(buildParams: BuildTxParams) {
-    const { psbt } = await this.buildFinishedTransaction(buildParams);
-    return this.signAndBroadcastPSBT(psbt);
   }
 
   async finishTransaction<T extends TxBuilder | BumpFeeTxBuilder>(
@@ -297,16 +269,6 @@ export class PeachWallet extends PeachJSWallet {
     } catch (e) {
       throw handleTransactionError(parseError(e));
     }
-  }
-
-  loadWalletStore() {
-    this.transactions = useWalletState.getState().transactions;
-    this.balance = useWalletState.getState().balance;
-  }
-
-  async loadFromStorage() {
-    await waitForHydration(useWalletState);
-    this.loadWalletStore();
   }
 }
 

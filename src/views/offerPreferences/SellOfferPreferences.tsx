@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useRef, useState } from "react";
 import {
@@ -19,7 +18,7 @@ import { TouchableIcon } from "../../components/TouchableIcon";
 import { Button } from "../../components/buttons/Button";
 import { Checkbox } from "../../components/inputs/Checkbox";
 import { Toggle } from "../../components/inputs/Toggle";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
@@ -28,8 +27,8 @@ import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
@@ -533,7 +532,7 @@ function FundWithPeachWallet({
   const feeEstimate = useFeeEstimate();
   const estimatedFeeRate =
     typeof feeRate === "number" ? feeRate : feeEstimate.estimatedFees[feeRate];
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const onPress = () => navigation.navigate("networkFees");
   return (
     <Section.Container style={tw`flex-row justify-between`}>
@@ -569,15 +568,10 @@ function FundEscrowButton({
     setSellAmount(restrictAmount(sellAmount));
   }
 
-  const [refundToPeachWallet, refundAddress, refundAddressLabel] =
-    useSettingsStore(
-      (state) => [
-        state.refundToPeachWallet,
-        state.refundAddress,
-        state.refundAddressLabel,
-      ],
-      shallow,
-    );
+  const [refundToPeachWallet, refundAddress] = useSettingsStore(
+    (state) => [state.refundToPeachWallet, state.refundAddress],
+    shallow,
+  );
 
   const sellPreferences = useOfferPreferences(
     (state) => ({
@@ -659,11 +653,12 @@ function FundEscrowButton({
     shallow,
   );
   const { mutate: createEscrow } = useCreateEscrow();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const fundFromPeachWallet = useFundFromPeachWallet();
 
   const onPress = async () => {
     if (isPublishing) return;
+    if (!peachWallet) throw new Error("Peach wallet not defined");
     if (!formValid) {
       showPublishingError();
       return;
@@ -684,9 +679,6 @@ function FundEscrowButton({
         paymentData,
         type: "ask",
         funding: defaultFundingStatus,
-        walletLabel: refundToPeachWallet
-          ? i18n("peachWallet")
-          : refundAddressLabel,
         returnAddress: address,
       },
       {
@@ -698,6 +690,7 @@ function FundEscrowButton({
           if (!Array.isArray(result)) {
             saveOffer({ ...offerDraft, ...result });
           } else {
+            if (!peachWallet) throw new Error("Peach wallet not defined");
             result.forEach((offer) => saveOffer({ ...offerDraft, ...offer }));
 
             const internalAddress = await peachWallet.getInternalAddress();
@@ -800,7 +793,7 @@ function RefundWalletSelector() {
     ],
     shallow,
   );
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const onExternalWalletPress = () => {
     if (refundAddress) {

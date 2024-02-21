@@ -1,6 +1,6 @@
 import { act, render, renderHook, responseUtils } from "test-utils";
 import { sellOffer } from "../../../../../peach-api/src/testData/offers";
-import { Popup } from "../../../../components/popup/Popup";
+import { GlobalPopup } from "../../../../components/popup/GlobalPopup";
 import { peachAPI } from "../../../../utils/peachAPI";
 import { useOfferPopupEvents } from "./useOfferPopupEvents";
 
@@ -17,7 +17,7 @@ describe("useOfferPopupEvents", () => {
     await act(() => {
       result.current["offer.fundingAmountDifferent"]?.(eventData);
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("different amounts")).toBeTruthy();
   });
 
@@ -28,7 +28,7 @@ describe("useOfferPopupEvents", () => {
     await act(() => {
       result.current["offer.wrongFundingAmount"]?.(eventData);
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("Incorrect funding")).toBeTruthy();
   });
   it("should show offer outside range popup on offer.outsideRange", () => {
@@ -38,7 +38,7 @@ describe("useOfferPopupEvents", () => {
     act(() => {
       result.current["offer.outsideRange"]?.(eventData);
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("bitcoin pumped!")).toBeTruthy();
   });
   it("should show buy offer expired popup on offer.buyOfferExpired", () => {
@@ -50,7 +50,7 @@ describe("useOfferPopupEvents", () => {
         bodyLocArgs: ["P-1", "30"],
       });
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("Buy offer removed")).toBeTruthy();
   });
 
@@ -61,7 +61,7 @@ describe("useOfferPopupEvents", () => {
     act(() => {
       result.current["offer.fundingAmountDifferent"]?.(eventData);
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("different amounts")).toBeFalsy();
     act(() => {
       result.current["offer.wrongFundingAmount"]?.(eventData);

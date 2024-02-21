@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useClosePopup, useSetPopup } from "../components/popup/Popup";
+import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { useRefundSellOffer } from "../hooks/useRefundSellOffer";
 import { useShowErrorBanner } from "../hooks/useShowErrorBanner";
 import i18n from "../utils/i18n";

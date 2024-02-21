@@ -9,7 +9,7 @@ import { Button } from "../../components/buttons/Button";
 import { ScanQR } from "../../components/camera/ScanQR";
 import { Toggle } from "../../components/inputs/Toggle";
 import { URLInput } from "../../components/inputs/URLInput";
-import { useClosePopup, useSetPopup } from "../../components/popup/Popup";
+import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { LoadingPopupAction } from "../../components/popup/actions/LoadingPopupAction";
 import { PeachText } from "../../components/text/PeachText";
@@ -44,6 +44,7 @@ export const NodeSetup = () => {
 
   const editConfig = () => setIsConnected(false);
   const save = (blockchainType: BlockChainNames) => {
+    if (!peachWallet) throw Error("Peach wallet not defined");
     setCustomNode({ enabled, ssl, url, type: blockchainType });
     setIsConnected(true);
     peachWallet.setBlockchain({ enabled, ssl, url, type: blockchainType });
@@ -65,6 +66,7 @@ export const NodeSetup = () => {
   };
 
   useEffect(() => {
+    if (!peachWallet) return;
     peachWallet.setBlockchain(node);
   }, [node]);
   const [showQRScanner, toggleShowQRScanner] = useToggleBoolean(false);

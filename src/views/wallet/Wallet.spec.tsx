@@ -63,6 +63,7 @@ describe("Wallet", () => {
       params: { screen: "wallet" },
     });
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
+    if (!peachWallet) throw new Error("Peach wallet not set");
     peachWallet.getAddressByIndex = jest.fn((index: number) => {
       if (index === 0) return Promise.resolve(addresses.first);
       if (index === 1) return Promise.resolve(addresses.second);

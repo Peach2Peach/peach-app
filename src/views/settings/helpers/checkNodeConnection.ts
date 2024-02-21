@@ -5,7 +5,7 @@ import {
   BlockchainEsploraConfig,
 } from "bdk-rn/lib/lib/enums";
 import { info } from "../../../utils/log/info";
-import { parseError } from "../../../utils/result/parseError";
+import { parseError } from "../../../utils/parseError";
 import { addProtocol } from "../../../utils/web/addProtocol";
 
 const checkElectrumConnection = async (address: string, ssl: boolean) => {

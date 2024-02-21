@@ -1,7 +1,6 @@
 import { LocalUtxo } from "bdk-rn/lib/classes/Bindings";
 import { useCallback } from "react";
 import { shallow } from "zustand/shallow";
-import { OfferSummary } from "../../peach-api/src/@types/offer";
 import { MSINAMINUTE } from "../constants";
 import { useTradeSummaryStore } from "../store/tradeSummaryStore";
 import { estimateTransactionSize } from "../utils/bitcoin/estimateTransactionSize";
@@ -10,6 +9,7 @@ import { keys } from "../utils/object/keys";
 import { getOffer } from "../utils/offer/getOffer";
 import { isSellOffer } from "../utils/offer/isSellOffer";
 import { isDefined } from "../utils/validation/isDefined";
+import { isNotNull } from "../utils/validation/isNotNull";
 import { peachWallet } from "../utils/wallet/setWallet";
 import {
   buildTransaction,
@@ -34,36 +34,8 @@ const getAmountAfterFees = (
     localUtxo.length,
     escrows.length,
   );
-  const amountAfterFees = availableAmount - estimatedTxSize * feeRate;
-  return amountAfterFees;
+  return availableAmount - estimatedTxSize * feeRate;
 };
-
-const getSellOfferSummariesByAddress = (
-  fundMultipleMap: Record<string, string[]>,
-  address: string,
-) => {
-  const offers = fundMultipleMap[address].map(
-    useTradeSummaryStore.getState().getOffer,
-  );
-  const sellOffers = offers.filter(isDefined);
-
-  return sellOffers;
-};
-
-const getSellOffersByAddress = (
-  fundMultipleMap: Record<string, string[]>,
-  address: string,
-) => {
-  const offers = fundMultipleMap[address].map(getOffer);
-  const sellOffers = offers.filter(isDefined).filter(isSellOffer);
-
-  return sellOffers;
-};
-const canFundSellOffers = (sellOffers: OfferSummary[]) =>
-  sellOffers.every((sellOffer) => !sellOffer.fundingTxId);
-
-const getEscrowAddresses = (sellOffers: SellOffer[]) =>
-  sellOffers.map((offr) => offr.escrow).filter(isDefined);
 
 export const useCheckFundingMultipleEscrows = () => {
   const [fundMultipleMap, unregisterFundMultiple] = useWalletState(
@@ -77,26 +49,25 @@ export const useCheckFundingMultipleEscrows = () => {
   const shouldCheck = addresses.length > 0;
   const { refetch: refetchOffers } = useOfferSummaries(addresses.length > 0);
   useSyncWallet({ enabled: shouldCheck, refetchInterval: MSINAMINUTE });
+  const getOfferSummary = useTradeSummaryStore((state) => state.getOffer);
 
   const checkAddress = useCallback(
     async (address: string) => {
-      const sellOfferSummaries = getSellOfferSummariesByAddress(
-        fundMultipleMap,
-        address,
-      );
-      const sellOffers = getSellOffersByAddress(fundMultipleMap, address);
+      const offerIds = fundMultipleMap[address];
+      const offers = await Promise.all(offerIds.map(getOffer));
+      const sellOffers = offers.filter(isNotNull).filter(isSellOffer);
 
-      // sell offers are not stored locally, skip
+      const sellOfferSummaries = offerIds
+        .map(getOfferSummary)
+        .filter(isDefined);
       if (sellOffers.length === 0) return;
-
-      if (!canFundSellOffers(sellOfferSummaries)) {
+      if (sellOfferSummaries.some((summary) => summary.fundingTxId)) {
         unregisterFundMultiple(address);
         return;
       }
-
-      const escrows = getEscrowAddresses(sellOffers);
+      const escrows = sellOffers.map((offer) => offer.escrow).filter(isDefined);
       if (escrows.length === 0) return;
-
+      if (!peachWallet) throw new Error("PeachWallet not set");
       const localUtxo = await peachWallet.getAddressUTXO(address);
       if (localUtxo.length === 0) return;
 
@@ -113,7 +84,13 @@ export const useCheckFundingMultipleEscrows = () => {
         handleTransactionError(e);
       }
     },
-    [feeRate, fundMultipleMap, handleTransactionError, unregisterFundMultiple],
+    [
+      feeRate,
+      fundMultipleMap,
+      getOfferSummary,
+      handleTransactionError,
+      unregisterFundMultiple,
+    ],
   );
 
   const callback = useCallback(() => {

@@ -2,10 +2,10 @@ import { useCallback } from "react";
 import { isContractId } from "../utils/contract/isContractId";
 import { peachAPI } from "../utils/peachAPI";
 import { getNavigationDestinationForOffer } from "../views/yourTrades/utils/navigation/getNavigationDestinationForOffer";
-import { useNavigation } from "./useNavigation";
+import { useStackNavigation } from "./useStackNavigation";
 
 export const useGoToOfferOrContract = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const goToOfferOrContract = useCallback(
     async (id: string) => {

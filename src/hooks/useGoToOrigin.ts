@@ -1,8 +1,8 @@
 import { useCallback } from "react";
-import { useNavigation } from "./useNavigation";
+import { useStackNavigation } from "./useStackNavigation";
 
 export const useGoToOrigin = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const goToOrigin = useCallback(
     (origin: keyof RootStackParamList) => {
       const { routes } = navigation.getState();

@@ -32,11 +32,8 @@ export function StatusInfo({
       <View style={tw`flex-row items-center gap-6px`}>
         {icon}
         <FixedHeightText
-          style={[
-            tw`body-s text-black-65`,
-            subtextStyle,
-            !!icon && tw`w-100px`,
-          ]}
+          style={[tw`body-s text-black-65`, subtextStyle]}
+          numberOfLines={1}
           height={17}
           onPress={onPress}
           suppressHighlighting={!onPress}

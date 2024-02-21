@@ -2,7 +2,7 @@ import { TouchableOpacity, ViewStyle } from "react-native";
 import { IconType } from "../../../assets/icons";
 import { Icon } from "../../../components/Icon";
 import { PeachText } from "../../../components/text/PeachText";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
@@ -46,7 +46,7 @@ export const SettingsItem = ({
   enabled,
   iconSize,
 }: SettingsItemProps) => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const onPress = pressAction ? pressAction : () => navigation.navigate(title);
   const iconColor = warning
     ? tw.color("error-main")

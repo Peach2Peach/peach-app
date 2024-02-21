@@ -16,6 +16,7 @@ const useUTXOAddress = (script: Script) =>
     queryKey: walletKeys.utxoAddress(script.id),
     queryFn: async () => {
       try {
+        if (!peachWallet) throw new Error("Peach wallet not defined");
         const address = await new Address().fromScript(
           script,
           peachWallet.getNetwork(),
@@ -25,6 +26,7 @@ const useUTXOAddress = (script: Script) =>
         throw new Error("Error getting address");
       }
     },
+    enabled: peachWallet !== null,
   });
 
 export function UTXOAddress({ script }: Props) {

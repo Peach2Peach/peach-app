@@ -1,7 +1,6 @@
 import { renderHook } from "test-utils";
 import { useHandleNotifications } from "./hooks/notifications/useHandleNotifications";
 import { useCheckFundingMultipleEscrows } from "./hooks/useCheckFundingMultipleEscrows";
-import { useDynamicLinks } from "./hooks/useDynamicLinks";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
 import { useInitialNavigation } from "./init/useInitialNavigation";
@@ -20,7 +19,6 @@ jest.mock("./init/useInitialNavigation", () => ({
 jest.mock("./hooks/useShowUpdateAvailable", () => ({
   useShowUpdateAvailable: jest.fn(),
 }));
-jest.mock("./hooks/useDynamicLinks");
 jest.mock("./hooks/useCheckFundingMultipleEscrows", () => ({
   useCheckFundingMultipleEscrows: jest.fn(),
 }));
@@ -49,10 +47,6 @@ describe("useGlobalHandlers", () => {
   it("should call useShowUpdateAvailable", () => {
     renderHook(useGlobalHandlers);
     expect(useShowUpdateAvailable).toHaveBeenCalled();
-  });
-  it("should call useDynamicLinks", () => {
-    renderHook(useGlobalHandlers);
-    expect(useDynamicLinks).toHaveBeenCalled();
   });
   it("should call useCheckFundingMultipleEscrows", () => {
     renderHook(useGlobalHandlers);

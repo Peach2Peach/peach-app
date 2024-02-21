@@ -1,12 +1,14 @@
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { MSINANHOUR } from "../../constants";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import { patchSellOfferWithRefundTx } from "../../popups/tradeCancelation/patchSellOfferWithRefundTx";
 import { useCancelContract } from "../../popups/tradeCancelation/useCancelContract";
 import { useStartRefundPopup } from "../../popups/useStartRefundPopup";
-import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
+import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
+import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { peachAPI } from "../../utils/peachAPI";
 import { useContractContext } from "./context";
 import { useConfirmPaymentSeller } from "./hooks/useConfirmPaymentSeller";
@@ -27,9 +29,15 @@ export function RepublishOfferSlider() {
 export function RefundEscrowSlider() {
   const { contract } = useContractContext();
   const startRefund = useStartRefundPopup();
+  const { offer } = useOfferDetail(getSellOfferIdFromContract(contract));
+  const onConfirm = () => {
+    if (!offer || !isSellOffer(offer)) return;
+    startRefund(offer);
+  };
   return (
     <ConfirmSlider
-      onConfirm={() => startRefund(getSellOfferFromContract(contract))}
+      onConfirm={onConfirm}
+      enabled={!!offer}
       label1={i18n("refundEscrow")}
       iconId="rotateCounterClockwise"
     />

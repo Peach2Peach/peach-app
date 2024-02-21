@@ -1,6 +1,6 @@
 import { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
 import { AppState } from "react-native";
-import { act, render, renderHook } from "test-utils";
+import { act, render, renderHook, waitFor } from "test-utils";
 import { Toast } from "../../components/toast/Toast";
 import i18n from "../../utils/i18n";
 import { useMessageHandler } from "./useMessageHandler";
@@ -26,22 +26,35 @@ jest.mock("./useGetPNActionHandler", () => ({
   useGetPNActionHandler: () => mockGetPNActionHandler,
 }));
 
+jest.mock("@react-native-firebase/messaging", () => ({
+  __esModule: true,
+  default: jest.fn(() => ({
+    getInitialNotification: jest.fn().mockResolvedValue(null),
+  })),
+}));
+
 jest.useFakeTimers();
 
 describe("useMessageHandler", () => {
+  const notificationBase = {
+    notifcation: {
+      bodyLocArgs: ["arg1", "arg2"],
+    },
+    fcmOptions: {},
+    messageId: "messageId",
+  };
+  beforeEach(() => {
+    AppState.currentState = "active";
+  });
   it("should call updateMessage when type is not found", async () => {
     const mockRemoteMessage = {
       data: {
         type: "SOME_TYPE",
       },
-      notification: {
-        bodyLocArgs: ["arg1", "arg2"],
-      },
-      fcmOptions: {},
+      ...notificationBase,
     } as FirebaseMessagingTypes.RemoteMessage;
     const { queryByText } = render(<Toast />);
     const { result: onMessageHandler } = renderHook(useMessageHandler);
-    AppState.currentState = "active";
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage);
     });
@@ -49,16 +62,16 @@ describe("useMessageHandler", () => {
     expect(
       queryByText(i18n("notification.SOME_TYPE", "arg1", "arg2")),
     ).toBeTruthy();
+    await waitFor(() => {
+      jest.runAllTimers();
+    });
   });
   it("should not call updateMessage when type is not found and appstate is background", async () => {
     const mockRemoteMessage = {
       data: {
         type: "SOME_TYPE",
       },
-      notification: {
-        bodyLocArgs: ["arg1", "arg2"],
-      },
-      fcmOptions: {},
+      ...notificationBase,
     } as FirebaseMessagingTypes.RemoteMessage;
     const { queryByText } = render(<Toast />);
     const { result: onMessageHandler } = renderHook(useMessageHandler);
@@ -71,6 +84,35 @@ describe("useMessageHandler", () => {
     expect(
       queryByText(i18n("notification.SOME_TYPE.text", "arg1", "arg2")),
     ).toBeFalsy();
+
+    await waitFor(() => {
+      jest.runAllTimers();
+    });
+  });
+  it("should not call updateMessage when type is not found but the notification is the initial notification", async () => {
+    const mockRemoteMessage = {
+      data: {
+        type: "SOME_TYPE",
+      },
+      ...notificationBase,
+    } as FirebaseMessagingTypes.RemoteMessage;
+    const { queryByText } = render(<Toast />);
+    expect(
+      queryByText(i18n("notification.SOME_TYPE", "arg1", "arg2")),
+    ).toBeFalsy();
+    jest
+      .spyOn(jest.requireMock("@react-native-firebase/messaging"), "default")
+      .mockReturnValueOnce({
+        getInitialNotification: jest.fn().mockResolvedValue(mockRemoteMessage),
+      });
+    const { result } = renderHook(useMessageHandler);
+    await act(async () => {
+      await result.current(mockRemoteMessage);
+    });
+
+    expect(
+      queryByText(i18n("notification.SOME_TYPE", "arg1", "arg2")),
+    ).toBeFalsy();
   });
 
   it("should call overlay event when type is found in overlayEvents", async () => {
@@ -78,10 +120,7 @@ describe("useMessageHandler", () => {
       data: {
         type: "overlayEvent",
       },
-      notification: {
-        bodyLocArgs: ["arg1", "arg2"],
-      },
-      fcmOptions: {},
+      ...notificationBase,
     } as FirebaseMessagingTypes.RemoteMessage;
     const { result: onMessageHandler } = renderHook(useMessageHandler);
     await act(async () => {
@@ -96,13 +135,8 @@ describe("useMessageHandler", () => {
       data: {
         type: "offerPopupEvent",
       },
-      notification: {
-        bodyLocArgs: ["arg1", "arg2"],
-      },
-      fcmOptions: {},
+      ...notificationBase,
     } as FirebaseMessagingTypes.RemoteMessage;
-
-    AppState.currentState = "active";
 
     const { result: onMessageHandler } = renderHook(useMessageHandler);
     await act(async () => {
@@ -120,10 +154,7 @@ describe("useMessageHandler", () => {
       data: {
         type: "offerPopupEvent",
       },
-      notification: {
-        bodyLocArgs: ["arg1", "arg2"],
-      },
-      fcmOptions: {},
+      ...notificationBase,
     } as FirebaseMessagingTypes.RemoteMessage;
 
     AppState.currentState = "background";
@@ -142,9 +173,7 @@ describe("useMessageHandler", () => {
   it("should not call anything when data is undefined", async () => {
     const mockRemoteMessage = {
       data: undefined,
-      notification: {
-        bodyLocArgs: ["arg1", "arg2"],
-      },
+      ...notificationBase,
     } as FirebaseMessagingTypes.RemoteMessage;
     const { toJSON } = render(<Toast />);
     const beforeUpdate = toJSON();
@@ -165,10 +194,7 @@ describe("useMessageHandler", () => {
   it("should not call anything when type is undefined", async () => {
     const mockRemoteMessage = {
       data: { someOtherData: "someOtherData" },
-      notification: {
-        bodyLocArgs: ["arg1", "arg2"],
-      },
-      fcmOptions: {},
+      ...notificationBase,
     } as FirebaseMessagingTypes.RemoteMessage;
     const { toJSON } = render(<Toast />);
     const beforeUpdate = toJSON();

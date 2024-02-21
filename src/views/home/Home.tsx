@@ -12,7 +12,7 @@ import { ProgressDonut } from "../../components/ui/ProgressDonut";
 import { MSINAMINUTE } from "../../constants";
 import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { info } from "../../utils/log/info";
@@ -131,9 +131,6 @@ function MarketStats() {
   const { data } = useOfferStats();
   return (
     <View style={tw`items-center justify-center gap-5 pb-4 grow`}>
-      <PeachText style={tw`subtitle-0 text-success-main`}>
-        {i18n("home.openBuyOffers", String(data?.buy.open))}
-      </PeachText>
       <View style={tw`items-center -gap-2`}>
         <PeachText style={tw`subtitle-0 text-primary-main`}>
           {i18n("home.openSellOffers", String(data?.sell.open))}
@@ -149,7 +146,7 @@ function MarketStats() {
 const buttonStyle = tw`flex-1 px-5 py-3`;
 
 function BuyButton() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const goToBuyOfferPreferences = () =>
     navigation.navigate("buyOfferPreferences");
   return (
@@ -163,7 +160,7 @@ function BuyButton() {
 }
 
 function SellButton() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const goToSellOfferPreferences = () =>
     navigation.navigate("sellOfferPreferences");
   return (

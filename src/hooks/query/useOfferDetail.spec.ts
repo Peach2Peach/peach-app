@@ -16,8 +16,6 @@ const getOfferDetailsMock = jest.spyOn(
 jest.useFakeTimers();
 
 describe("useOfferDetail", () => {
-  const localOffer = { ...sellOffer, refundTx: "1" };
-  const localOfferUpToDate = { ...localOffer, lastModified: new Date() };
   afterEach(() => {
     queryClient.clear();
   });
@@ -42,41 +40,7 @@ describe("useOfferDetail", () => {
       error: null,
     });
   });
-  it("returns local offer first if given and up to date", async () => {
-    getStoredOfferMock.mockReturnValueOnce(localOfferUpToDate);
-    const { result } = renderHook(useOfferDetail, {
-      initialProps: sellOffer.id,
-    });
-
-    expect(result.current).toEqual({
-      offer: localOfferUpToDate,
-      isLoading: false,
-      isFetching: false,
-      error: null,
-    });
-
-    await waitFor(() => expect(result.current.isFetching).toBe(false));
-
-    expect(result.current.offer).toEqual(localOfferUpToDate);
-  });
-  it("returns local offer if given and server did not return result", async () => {
-    getOfferDetailsMock.mockResolvedValueOnce(responseUtils);
-    getStoredOfferMock.mockReturnValueOnce(localOffer);
-    const { result } = renderHook(useOfferDetail, {
-      initialProps: sellOffer.id,
-    });
-    expect(result.current).toEqual({
-      offer: localOffer,
-      isLoading: false,
-      isFetching: true,
-      error: null,
-    });
-
-    await waitFor(() => expect(result.current.isFetching).toBe(false));
-
-    expect(result.current.offer).toEqual(localOffer);
-  });
-  it("returns error if server did not return result and no local offers exists", async () => {
+  it("returns error if server did not return result", async () => {
     getStoredOfferMock.mockReturnValueOnce(undefined);
     getOfferDetailsMock.mockResolvedValueOnce({
       error: { error: "UNAUTHORIZED" },
@@ -102,7 +66,7 @@ describe("useOfferDetail", () => {
       error: new Error("UNAUTHORIZED"),
     });
   });
-  it("returns correct error if no local offers exists and server did not return result or error", async () => {
+  it("returns correct error if server did not return result or error", async () => {
     const expectedError = new Error("NOT_FOUND");
     getStoredOfferMock.mockReturnValueOnce(undefined);
     getOfferDetailsMock.mockResolvedValueOnce(responseUtils);
@@ -129,8 +93,6 @@ describe("useOfferDetail", () => {
 });
 
 describe("useMultipleOfferDetails", () => {
-  const localOffer = { ...sellOffer, refundTx: "1" };
-  const localOfferUpToDate = { ...localOffer, lastModified: new Date() };
   afterEach(() => {
     queryClient.clear();
   });
@@ -155,41 +117,7 @@ describe("useMultipleOfferDetails", () => {
       errors: [null],
     });
   });
-  it("returns local offers first if given and up to date", async () => {
-    getStoredOfferMock.mockReturnValueOnce(localOfferUpToDate);
-    const { result } = renderHook(useMultipleOfferDetails, {
-      initialProps: [sellOffer.id],
-    });
-
-    expect(result.current).toEqual({
-      offers: [localOfferUpToDate],
-      isLoading: false,
-      isFetching: false,
-      errors: [null],
-    });
-
-    await waitFor(() => expect(result.current.isFetching).toBe(false));
-
-    expect(result.current.offers).toEqual([localOfferUpToDate]);
-  });
-  it("returns local offers if given and server did not return result", async () => {
-    getOfferDetailsMock.mockResolvedValueOnce(responseUtils);
-    getStoredOfferMock.mockReturnValueOnce(localOffer);
-    const { result } = renderHook(useMultipleOfferDetails, {
-      initialProps: [sellOffer.id],
-    });
-    expect(result.current).toEqual({
-      offers: [localOffer],
-      isLoading: false,
-      isFetching: true,
-      errors: [null],
-    });
-
-    await waitFor(() => expect(result.current.isFetching).toBe(false));
-
-    expect(result.current.offers).toEqual([localOffer]);
-  });
-  it("returns errors if server did not return result and no local offers exist", async () => {
+  it("returns errors if server did not return result", async () => {
     getStoredOfferMock.mockReturnValueOnce(undefined);
     getOfferDetailsMock.mockResolvedValueOnce({
       error: { error: "UNAUTHORIZED" },
@@ -215,7 +143,7 @@ describe("useMultipleOfferDetails", () => {
       errors: [new Error("UNAUTHORIZED")],
     });
   });
-  it("returns correct errors if no local offers exist and server did not return result or error", async () => {
+  it("returns correct errors if server did not return result or error", async () => {
     const expectedError = new Error("NOT_FOUND");
     getStoredOfferMock.mockReturnValueOnce(undefined);
     getOfferDetailsMock.mockResolvedValueOnce(responseUtils);

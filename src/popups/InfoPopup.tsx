@@ -1,12 +1,12 @@
 import { useCallback } from "react";
-import { useClosePopup } from "../components/popup/Popup";
+import { useClosePopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import {
   PopupComponent,
   PopupComponentProps,
 } from "../components/popup/PopupComponent";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
-import { useNavigation } from "../hooks/useNavigation";
+import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 
@@ -29,7 +29,7 @@ export function InfoPopup(
 }
 
 function HelpPopupAction({ title }: { title?: string }) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const closePopup = useClosePopup();
   const goToHelp = useCallback(() => {
     closePopup();

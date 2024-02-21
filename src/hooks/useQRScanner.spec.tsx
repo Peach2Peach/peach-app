@@ -1,6 +1,6 @@
 import permissions, { RESULTS } from "react-native-permissions";
 import { act, render, renderHook, waitFor } from "test-utils";
-import { Popup } from "../components/popup/Popup";
+import { GlobalPopup } from "../components/popup/GlobalPopup";
 import { useQRScanner } from "./useQRScanner";
 
 jest.mock("../utils/system/isIOS", () => ({
@@ -46,7 +46,7 @@ describe("useQRScanner", () => {
   it("opens the warning popup when permissions have been denied", async () => {
     requestSpy.mockImplementationOnce(() => Promise.resolve(RESULTS.DENIED));
     const { result } = renderHook(useQRScanner, { initialProps });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     await act(async () => {
       await result.current.showQR();
     });

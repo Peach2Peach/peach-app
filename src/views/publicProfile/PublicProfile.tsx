@@ -5,7 +5,7 @@ import { TouchableRedText } from "../../components/text/TouchableRedText";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
-import { AccountInfo } from "../settings/profile/accountInfo/AccountInfo";
+import { AccountInfo } from "../settings/profile/AccountInfo";
 import { useBlockUser } from "./useBlockUser";
 import { useUnblockUser } from "./useUnblockUser";
 import { useUser } from "./useUser";

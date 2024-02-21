@@ -8,10 +8,10 @@ import { peachAPI } from "../utils/peachAPI";
 import { isContractSummary } from "../views/yourTrades/utils/isContractSummary";
 import { getNavigationDestinationForOffer } from "../views/yourTrades/utils/navigation/getNavigationDestinationForOffer";
 import { offerKeys } from "./query/useOfferDetail";
-import { useNavigation } from "./useNavigation";
+import { useStackNavigation } from "./useStackNavigation";
 
 export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const showStartRefundPopup = useStartRefundPopup();
   const queryClient = useQueryClient();
 

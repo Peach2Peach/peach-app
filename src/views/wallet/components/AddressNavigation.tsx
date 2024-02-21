@@ -41,7 +41,11 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
     setIndex(index + 1);
     queryClient.prefetchQuery({
       queryKey: walletKeys.addressByIndex(index + 2),
-      queryFn: () => peachWallet.getAddressByIndex(index + 2),
+      queryFn: () => {
+        if (!peachWallet)
+          return Promise.reject(new Error("Peach wallet not defined"));
+        return peachWallet.getAddressByIndex(index + 2);
+      },
     });
   };
 
@@ -51,7 +55,11 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
     if (index > 1) {
       queryClient.prefetchQuery({
         queryKey: walletKeys.addressByIndex(index - 2),
-        queryFn: () => peachWallet.getAddressByIndex(index - 2),
+        queryFn: () => {
+          if (!peachWallet)
+            return Promise.reject(new Error("Peach wallet not defined"));
+          return peachWallet.getAddressByIndex(index - 2);
+        },
       });
     }
   };

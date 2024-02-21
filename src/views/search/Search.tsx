@@ -6,12 +6,12 @@ import { Screen } from "../../components/Screen";
 import { Matches } from "../../components/matches/Matches";
 import { SellOfferSummary } from "../../components/offer/SellOfferSummary";
 import { useWalletLabel } from "../../components/offer/useWalletLabel";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { FIFTEEN_SECONDS } from "../../constants";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { SellSorters } from "../../popups/sorting/SellSorters";
@@ -21,12 +21,12 @@ import { headerIcons } from "../../utils/layout/headerIcons";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
-import { LoadingScreen } from "../loading/LoadingScreen";
+import { NewLoadingScreen as LoadingScreen } from "../loading/LoadingScreen";
 import { useOfferMatches } from "./hooks/useOfferMatches";
 import { useRefetchOnNotification } from "./hooks/useRefetchOnNotification";
 
 export const Search = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const { offerId } = useRoute<"search">().params;
   const { allMatches: matches, refetch } = useOfferMatches(
     offerId,
@@ -64,8 +64,6 @@ export const Search = () => {
 };
 
 function NoMatchesYet({ offer }: { offer: SellOffer }) {
-  const { isLoading } = useOfferMatches(offer.id);
-  if (isLoading) return <></>;
   return (
     <View style={tw`gap-8`}>
       <PeachText style={tw`text-center subtitle-1`}>
@@ -74,25 +72,14 @@ function NoMatchesYet({ offer }: { offer: SellOffer }) {
 
       <SellOfferSummary
         offer={offer}
-        walletLabel={
-          <WalletLabel
-            label={offer.walletLabel}
-            address={offer.returnAddress}
-          />
-        }
+        walletLabel={<WalletLabel address={offer.returnAddress} />}
       />
     </View>
   );
 }
 
-function WalletLabel({
-  label,
-  address,
-}: {
-  label: string | undefined;
-  address: string;
-}) {
-  const walletLabel = useWalletLabel({ label, address });
+function WalletLabel({ address }: { address: string }) {
+  const walletLabel = useWalletLabel({ address });
   return (
     <PeachText style={tw`text-center subtitle-1`}>{walletLabel}</PeachText>
   );
@@ -100,7 +87,7 @@ function WalletLabel({
 
 function SearchHeader({ offer }: { offer: SellOffer }) {
   const { offerId } = useRoute<"search">().params;
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const showMatchPopup = useCallback(
     () => setPopup(<HelpPopup id="matchmatchmatch" />),

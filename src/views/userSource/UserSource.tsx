@@ -60,7 +60,7 @@ export function UserSource() {
                 source === selectedSource && tw`bg-primary-background-light`
               }
               textColor={
-                source === selectedSource ? tw`text-primary-main` : undefined
+                source === selectedSource ? tw.color("primary-main") : undefined
               }
               onPress={() => submitSource(source)}
             >

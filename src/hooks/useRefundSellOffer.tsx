@@ -1,7 +1,7 @@
 import { NETWORK } from "@env";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSetOverlay } from "../Overlay";
-import { useClosePopup, useSetPopup } from "../components/popup/Popup";
+import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
@@ -16,8 +16,8 @@ import { getEscrowWalletForOffer } from "../utils/wallet/getEscrowWalletForOffer
 import { BackupTime } from "../views/overlays/BackupTime";
 import { contractKeys } from "./query/useContractDetail";
 import { offerKeys } from "./query/useOfferDetail";
-import { useNavigation } from "./useNavigation";
 import { useShowErrorBanner } from "./useShowErrorBanner";
+import { useStackNavigation } from "./useStackNavigation";
 
 export function useRefundSellOffer() {
   const setPopup = useSetPopup();
@@ -132,7 +132,7 @@ function ShowTxAction({ txId }: { txId: string }) {
 
 function GoToWalletAction({ txId }: { txId: string }) {
   const closePopup = useClosePopup();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const shouldShowBackupOverlay = useSettingsStore(
     (state) => state.shouldShowBackupOverlay,
   );
@@ -162,7 +162,7 @@ function GoToWalletAction({ txId }: { txId: string }) {
 
 function CloseAction() {
   const closePopup = useClosePopup();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const isPeachWallet = useSettingsStore((state) => state.refundToPeachWallet);
   const shouldShowBackupOverlay = useSettingsStore(
     (state) => state.shouldShowBackupOverlay,

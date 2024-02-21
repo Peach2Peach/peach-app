@@ -13,6 +13,7 @@ const balance = 21000000;
 describe("useWalletBalance", () => {
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
+    if (!peachWallet) throw new Error("PeachWallet not set");
     useWalletState.setState({ balance });
     peachWallet.initialized = true;
   });

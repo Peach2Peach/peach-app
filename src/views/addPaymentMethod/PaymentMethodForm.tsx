@@ -8,7 +8,7 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { CurrencySelection } from "../../components/inputs/paymentForms/components";
 import { DeletePaymentMethodPopup } from "../../components/payment/components/DeletePaymentMethodPopup";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { useGoToOrigin } from "../../hooks/useGoToOrigin";
 import { useRoute } from "../../hooks/useRoute";

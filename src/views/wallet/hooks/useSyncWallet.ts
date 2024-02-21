@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { MSINAMINUTE } from "../../../constants";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { error } from "../../../utils/log/error";
-import { parseError } from "../../../utils/result/parseError";
+import { parseError } from "../../../utils/parseError";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { walletKeys } from "./useUTXOs";
 
@@ -18,6 +18,7 @@ export const useSyncWallet = ({
   const queryData = useQuery({
     queryKey: walletKeys.synced(),
     queryFn: async () => {
+      if (!peachWallet) throw new Error("Peach wallet not defined");
       if (!peachWallet.initialized) await peachWallet.initWallet();
       await peachWallet.syncWallet();
       return true;

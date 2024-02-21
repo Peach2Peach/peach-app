@@ -530,10 +530,10 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
             [
               {
                 "amount": 900,
-                "confirmed": false,
+                "confirmed": true,
                 "date": 2022-09-14T16:14:02.835Z,
-                "height": undefined,
-                "id": "txid1",
+                "height": 1,
+                "id": "txid1_confirmed",
                 "offerData": [
                   {
                     "address": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
@@ -548,10 +548,10 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
               },
               {
                 "amount": 900,
-                "confirmed": true,
+                "confirmed": false,
                 "date": 2022-09-14T16:14:02.835Z,
-                "height": 1,
-                "id": "txid1_confirmed",
+                "height": undefined,
+                "id": "txid1",
                 "offerData": [
                   {
                     "address": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
@@ -643,7 +643,6 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                     {
                       "alignItems": "center",
                       "flexDirection": "row",
-                      "gap": 8,
                       "justifyContent": "space-between",
                       "paddingBottom": 12,
                       "paddingLeft": 16,
@@ -733,6 +732,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                       >
                         <Text
                           allowFontScaling={false}
+                          numberOfLines={1}
                           style={
                             [
                               {
@@ -752,9 +752,6 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                                     "lineHeight": 20,
                                   },
                                   undefined,
-                                  {
-                                    "width": 100,
-                                  },
                                 ],
                                 {
                                   "marginBottom": -40,
@@ -1010,7 +1007,6 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                     {
                       "alignItems": "center",
                       "flexDirection": "row",
-                      "gap": 8,
                       "justifyContent": "space-between",
                       "paddingBottom": 12,
                       "paddingLeft": 16,
@@ -1100,6 +1096,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                       >
                         <Text
                           allowFontScaling={false}
+                          numberOfLines={1}
                           style={
                             [
                               {
@@ -1119,9 +1116,6 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
                                     "lineHeight": 20,
                                   },
                                   undefined,
-                                  {
-                                    "width": 100,
-                                  },
                                 ],
                                 {
                                   "marginBottom": -40,

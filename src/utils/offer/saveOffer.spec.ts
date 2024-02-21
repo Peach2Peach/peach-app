@@ -1,42 +1,39 @@
-import { deepStrictEqual, strictEqual } from "assert";
 import * as offerData from "../../../tests/unit/data/offerData";
-import {
-  defaultAccount,
-  setAccount,
-  useAccountStore,
-} from "../account/account";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
+import { queryClient } from "../../queryClient";
+import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import { saveOffer } from "./saveOffer";
 
 describe("saveOffer", () => {
-  beforeAll(() => {
-    setAccount(defaultAccount);
+  it("should update the query cache", () => {
+    saveOffer(offerData.buyOffer);
+    expect(
+      queryClient.getQueryData(offerKeys.detail(offerData.buyOffer.id)),
+    ).toEqual(offerData.buyOffer);
   });
-
-  it("does not save offers without an ID", () => {
-    const errorSpy = jest.spyOn(
-      jest.requireMock("../../utils/log/error"),
-      "error",
-    );
-    // @ts-expect-error we specifically want to test for offers wihout an ID
-    saveOffer(offerData.buyOfferUnpublished);
-    expect(errorSpy).toHaveBeenCalled();
-    const account = useAccountStore.getState().account;
-    expect(account.offers.length).toBe(0);
-  });
-  it("add a new offer to account", () => {
+  it("should add a new offer to the storages", () => {
     saveOffer(offerData.buyOffer);
     saveOffer(offerData.sellOffer);
-    const account = useAccountStore.getState().account;
-    deepStrictEqual(account.offers[0], offerData.buyOffer);
-    deepStrictEqual(account.offers[1], offerData.sellOffer);
+    expect(
+      useTradeSummaryStore.getState().getOffer(offerData.buyOffer.id),
+    ).toEqual(offerData.buyOffer);
+    expect(
+      useTradeSummaryStore.getState().getOffer(offerData.sellOffer.id),
+    ).toEqual(offerData.sellOffer);
   });
-  it("update an existing offer on account", () => {
+  it("should update an existing offer", () => {
+    expect(
+      useTradeSummaryStore.getState().getOffer(offerData.buyOffer.id),
+    ).toEqual(offerData.buyOffer);
     saveOffer({
       ...offerData.buyOffer,
       matches: ["38"],
     });
-    const account = useAccountStore.getState().account;
-    strictEqual(account.offers.length, 2);
-    deepStrictEqual(account.offers[0].matches, ["38"]);
+    expect(
+      useTradeSummaryStore.getState().getOffer(offerData.buyOffer.id),
+    ).toEqual({
+      ...offerData.buyOffer,
+      matches: ["38"],
+    });
   });
 });

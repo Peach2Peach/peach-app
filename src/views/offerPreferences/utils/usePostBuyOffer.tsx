@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { shallow } from "zustand/shallow";
 import { useSetOverlay } from "../../../Overlay";
-import { useSetPopup } from "../../../components/popup/Popup";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
-import { useNavigation } from "../../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { InfoPopup } from "../../../popups/InfoPopup";
 import { useConfigStore } from "../../../store/configStore/configStore";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
@@ -37,7 +37,7 @@ export function usePostBuyOffer({
   "amount" | "meansOfPayment" | "paymentData" | "maxPremium" | "minReputation"
 >) {
   const queryClient = useQueryClient();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const showErrorBanner = useShowErrorBanner();
   const hasSeenGroupHugAnnouncement = useConfigStore(
     (state) => state.hasSeenGroupHugAnnouncement,
@@ -61,6 +61,7 @@ export function usePostBuyOffer({
 
   return useMutation({
     mutationFn: async () => {
+      if (!peachWallet) throw new Error("Peach wallet not defined");
       const { address: releaseAddress, index } = payoutToPeachWallet
         ? await peachWallet.getAddress()
         : { address: payoutAddress, index: undefined };
@@ -80,7 +81,7 @@ export function usePostBuyOffer({
           network: getNetwork(),
         })
       ) {
-        throw new Error("INAVLID_SIGNATURE");
+        throw new Error("INVALID_SIGNATURE");
       }
       const finalizedOfferDraft = {
         type: "bid" as const,

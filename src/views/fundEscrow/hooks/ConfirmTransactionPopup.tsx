@@ -1,6 +1,6 @@
 import { PartiallySignedTransaction } from "bdk-rn";
 import { useCallback } from "react";
-import { useClosePopup } from "../../../components/popup/Popup";
+import { useClosePopup } from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
 import { LoadingPopupAction } from "../../../components/popup/actions/LoadingPopupAction";
@@ -25,6 +25,7 @@ export function ConfirmTransactionPopup({
   const handleTransactionError = useHandleTransactionError();
   const confirmAndSend = useCallback(async () => {
     try {
+      if (!peachWallet) throw new Error("PeachWallet not set");
       await peachWallet.signAndBroadcastPSBT(psbt);
       onSuccess();
     } catch (e) {

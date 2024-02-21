@@ -7,7 +7,6 @@ import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { defaultAccount, useAccountStore } from "../utils/account/account";
 import { accountStorage } from "../utils/account/accountStorage";
 import { chatStorage } from "../utils/account/chatStorage";
-import { offerStorage } from "../utils/account/offerStorage";
 import { updateAccount } from "../utils/account/updateAccount";
 import { error } from "../utils/log/error";
 import { info } from "../utils/log/info";
@@ -68,16 +67,14 @@ async function loadAccount() {
     return defaultAccount;
   }
 
-  const [tradingLimit, offers, chats] = await Promise.all([
+  const [tradingLimit, chats] = await Promise.all([
     loadTradingLimit(),
-    loadOffers(),
     loadChats(),
   ]);
 
   const acc = {
     ...identity,
     tradingLimit,
-    offers,
     chats,
   };
 
@@ -108,12 +105,6 @@ function loadIdentity() {
 
   error("Could not load identity");
   return emptyIdentity;
-}
-
-async function loadOffers() {
-  const offers = await getIndexedMap(offerStorage);
-
-  return Object.values(offers) as Account["offers"];
 }
 
 function loadTradingLimit() {
