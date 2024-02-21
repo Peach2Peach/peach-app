@@ -18,7 +18,6 @@ import { keys } from "../../utils/object/keys";
 import { checkNotificationStatus } from "../../utils/system/checkNotificationStatus";
 import { isProduction } from "../../utils/system/isProduction";
 import { toggleNotifications } from "../../utils/system/toggleNotifications";
-import { isDefined } from "../../utils/validation/isDefined";
 import { SettingsItem, SettingsItemProps } from "./components/SettingsItem";
 import { VersionInfo } from "./components/VersionInfo";
 
@@ -30,8 +29,8 @@ type SettingsItemSection = {
 type SettingsItemMap = SettingsItemSection[];
 
 const contactUs: SettingsItemType[] = isProduction()
-  ? (["contact", "aboutPeach"] as const)
-  : (["testView", "contact", "aboutPeach"] as const);
+  ? (["contact", "aboutPeach"])
+  : (["testView", "contact", "aboutPeach"]);
 
 export const Settings = () => {
   const setPopup = useSetPopup();
@@ -112,7 +111,7 @@ export const Settings = () => {
         "networkFees",
         "transactionBatching",
         "paymentMethods",
-      ] as const,
+      ],
     [showBackupReminder],
   );
 
@@ -128,7 +127,7 @@ export const Settings = () => {
     }
   }, [enableAnalytics, setAnalyticsPopupSeen, setPopup, toggleAnalytics]);
 
-  const appSettings = useMemo(
+  const appSettings: SettingsItemType[] = useMemo(
     () =>
       (
         [
@@ -147,8 +146,8 @@ export const Settings = () => {
           "payoutAddress",
           "currency",
           "language",
-        ] as const
-      ).filter(isDefined),
+        ]
+      ),
     [onAnalyticsPress, enableAnalytics, notificationClick],
   );
 

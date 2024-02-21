@@ -33,10 +33,10 @@ export const releaseTransactionHasValidOutputs = (
   const batchMode = !isLiquid ? isPSBTForBatch(psbt) : false;
   const buyerFee = contract.buyerFee ?? peachFee;
   const buyerOutput = psbt.txOutputs.find(
-    (output) => output.address === contract.releaseAddress,
+    (output: LiquidPsbtTxOutput | PsbtTxOutput) => output.address === contract.releaseAddress,
   );
   const peachFeeOutput = psbt.txOutputs.find(
-    (output) => output.address !== contract.releaseAddress,
+    (output: LiquidPsbtTxOutput | PsbtTxOutput) => output.address !== contract.releaseAddress,
   );
 
   if (
