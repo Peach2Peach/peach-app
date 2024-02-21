@@ -8,11 +8,11 @@ import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { queryClient } from "../../queryClient";
 import { setAccount } from "../../utils/account/account";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
-import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import { setPeachWallet } from "../../utils/wallet/setWallet";
 import { ConfirmTradeCancelationPopup } from "./ConfirmTradeCancelationPopup";
+import { tolgee } from "../../tolgee";
 
 jest.useFakeTimers();
 jest.mock("../../utils/offer/saveOffer");
@@ -41,7 +41,7 @@ describe("ConfirmTradeCancelationPopup", () => {
       <ConfirmTradeCancelationPopup view="buyer" contract={contract} />,
     );
 
-    expect(getByText(i18n("contract.cancel.buyer"))).toBeTruthy();
+    expect(getByText(tolgee.t("contract.cancel.buyer"))).toBeTruthy();
     act(() => {
       fireEvent.press(getAllByText("cancel trade")[1]);
     });
@@ -66,7 +66,9 @@ describe("ConfirmTradeCancelationPopup", () => {
     const { getByText, getAllByText } = render(
       <ConfirmTradeCancelationPopup view="seller" contract={contract} />,
     );
-    expect(getByText(i18n("contract.cancel.seller"))).toBeTruthy();
+    expect(
+      getByText(tolgee.t("contract.cancel.seller", { ns: "contract" })),
+    ).toBeTruthy();
     act(() => {
       fireEvent.press(getAllByText("cancel trade")[1]);
     });
@@ -83,7 +85,9 @@ describe("ConfirmTradeCancelationPopup", () => {
         contract={{ ...contract, paymentMethod: "cash.someMeetup" }}
       />,
     );
-    expect(getByText(i18n("contract.cancel.cash.text"))).toBeTruthy();
+    expect(
+      getByText(tolgee.t("contract.cancel.cash.text", { ns: "contract" })),
+    ).toBeTruthy();
   });
   it("should show the correct confirmation popup for canceled trade as buyer", async () => {
     setAccount({ ...account1, publicKey: contract.buyer.id });
@@ -122,7 +126,11 @@ describe("ConfirmTradeCancelationPopup", () => {
     const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("cancel trade")).toBeFalsy();
     expect(queryByText("request sent")).toBeTruthy();
-    expect(queryByText(i18n("contract.cancel.requestSent.text"))).toBeTruthy();
+    expect(
+      queryByText(
+        tolgee.t("contract.cancel.requestSent.text", { ns: "contract" }),
+      ),
+    ).toBeTruthy();
   });
   it("shows the correct confirmation popup for canceled cash trade as seller with republish available", async () => {
     queryClient.setQueryData(
@@ -153,7 +161,11 @@ describe("ConfirmTradeCancelationPopup", () => {
     expect(queryByText("cancel trade")).toBeFalsy();
     expect(queryByText("trade canceled")).toBeTruthy();
     expect(
-      queryByText(i18n("contract.cancel.cash.refundOrRepublish.text")),
+      queryByText(
+        tolgee.t("contract.cancel.cash.refundOrRepublish.text", {
+          ns: "contract",
+        }),
+      ),
     ).toBeTruthy();
   });
   it("shows the correct confirmation popup for canceled cash trade as seller with republish unavailable", async () => {
@@ -189,11 +201,11 @@ describe("ConfirmTradeCancelationPopup", () => {
     expect(queryByText("trade canceled")).toBeTruthy();
     expect(
       queryByText(
-        i18n(
-          "contract.cancel.cash.tradeCanceled.text",
-          contract.id,
-          "custom payout address",
-        ),
+        tolgee.t("contract.cancel.cash.tradeCanceled.text", {
+          ns: "contract",
+          contractId: contract.id,
+          address: "custom payout address",
+        }),
       ),
     ).toBeTruthy();
   });

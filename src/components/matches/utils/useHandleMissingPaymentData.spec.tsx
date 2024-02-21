@@ -1,8 +1,8 @@
 import { act, fireEvent, render, renderHook } from "test-utils";
 import { pushMock } from "../../../../tests/unit/helpers/NavigationWrapper";
-import i18n from "../../../utils/i18n";
 import { Toast } from "../../toast/Toast";
 import { useHandleMissingPaymentData } from "./useHandleMissingPaymentData";
+import { tolgee } from "../../../tolgee";
 
 describe("handleMissingPaymentData", () => {
   const offer = { id: 1 } as unknown as BuyOffer | SellOffer;
@@ -14,7 +14,7 @@ describe("handleMissingPaymentData", () => {
     const { queryByText } = render(<Toast />);
     act(() => result.current(offer, currency, paymentMethod));
 
-    expect(queryByText(i18n("PAYMENT_DATA_MISSING.text"))).toBeTruthy();
+    expect(queryByText(tolgee.t("PAYMENT_DATA_MISSING.text"))).toBeTruthy();
     expect(queryByText("re-enter your details")).toBeTruthy();
   });
   it("should close the toast when the callback is called", () => {

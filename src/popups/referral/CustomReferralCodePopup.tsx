@@ -11,9 +11,9 @@ import { PeachText } from "../../components/text/PeachText";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { getMessages } from "../../utils/validation/getMessages";
+import { useTranslate } from "@tolgee/react";
 
 const referralCodeRules = {
   required: true,
@@ -21,6 +21,7 @@ const referralCodeRules = {
 };
 export function CustomReferralCodePopup() {
   const [referralCodeTaken, setReferralCodeTaken] = useState(false);
+  const { t } = useTranslate("settings");
 
   const [referralCode, setReferralCode, isValidReferralCode, inputErrors] =
     useValidatedState<string>("", referralCodeRules);
@@ -59,15 +60,15 @@ export function CustomReferralCodePopup() {
 
   return (
     <PopupComponent
-      title={i18n("settings.referrals.customReferralCode.popup.title")}
+      title={t("settings.referrals.customReferralCode.popup.title")}
       content={
         <View style={tw`gap-3`}>
           <PeachText>
-            {i18n("settings.referrals.customReferralCode.popup.text")}
+            {t("settings.referrals.customReferralCode.popup.text")}
           </PeachText>
           <Input
             style={tw`bg-primary-background-dark`}
-            placeholder={i18n("form.referral.placeholder")}
+            placeholder={t("form.referral.placeholder", { ns: "form" })}
             value={referralCode}
             onChangeText={updateReferralCode}
             autoCapitalize="characters"
@@ -79,7 +80,7 @@ export function CustomReferralCodePopup() {
         <>
           <ClosePopupAction />
           <PopupAction
-            label={i18n("settings.referrals.customReferralCode.popup.redeem")}
+            label={t("settings.referrals.customReferralCode.popup.redeem")}
             iconId="checkSquare"
             onPress={redeemReferralCode}
             disabled={!referralCodeValid}
@@ -111,9 +112,10 @@ function useRedeemReferralCode() {
 }
 
 function ReferralCodeRedeemedPopup({ referralCode }: { referralCode: string }) {
+  const { t } = useTranslate("settings");
   return (
     <PopupComponent
-      title={i18n("settings.referrals.customReferralCode.popup.title")}
+      title={t("settings.referrals.customReferralCode.popup.title")}
       content={
         <ParsedPeachText
           parse={[
@@ -123,7 +125,7 @@ function ReferralCodeRedeemedPopup({ referralCode }: { referralCode: string }) {
             },
           ]}
         >
-          {i18n(
+          {t(
             "settings.referrals.customReferralCode.popup.success",
             referralCode,
           )}

@@ -17,7 +17,6 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { InfoPopup } from "../../popups/InfoPopup";
 import tw from "../../styles/tailwind";
 import { removeNonDigits } from "../../utils/format/removeNonDigits";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { rules } from "../../utils/validation/rules";
 import { peachWallet } from "../../utils/wallet/setWallet";
@@ -28,6 +27,7 @@ import { EstimatedFeeItem } from "../settings/components/networkFees/EstimatedFe
 import { UTXOAddress } from "./components";
 import { WithdrawalConfirmationPopup } from "./components/WithdrawalConfirmationPopup";
 import { useUTXOs } from "./hooks";
+import { tolgee } from "../../tolgee";
 
 export const SendBitcoin = () => {
   const [address, setAddress] = useState("");
@@ -84,16 +84,16 @@ export const SendBitcoin = () => {
     <Screen header={<SendBitcoinHeader />}>
       <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw`md:py-md`]}>
         <View style={[tw`pb-11 gap-4`, tw`md:pb-14`]}>
-          <Section title={i18n("wallet.sendBitcoin.to")}>
+          <Section title={tolgee.t("wallet.sendBitcoin.to", { ns: "wallet" })}>
             <BitcoinAddressInput value={address} onChangeText={setAddress} />
           </Section>
 
           <HorizontalLine />
 
           <Section
-            title={i18n("wallet.sendBitcoin.amount")}
+            title={tolgee.t("wallet.sendBitcoin.amount", { ns: "wallet" })}
             action={{
-              label: i18n("wallet.sendBitcoin.sendMax"),
+              label: tolgee.t("wallet.sendBitcoin.sendMax", { ns: "wallet" }),
               onPress: () => {
                 setShouldDrainWallet(true);
                 setAmount(maxAmount);
@@ -114,7 +114,7 @@ export const SendBitcoin = () => {
 
           <HorizontalLine />
 
-          <Section title={i18n("wallet.sendBitcoin.fee")}>
+          <Section title={tolgee.t("wallet.sendBitcoin.fee", { ns: "wallet" })}>
             <Fees updateFee={setFee} />
           </Section>
 
@@ -141,7 +141,7 @@ function SendBitcoinSlider({
 
   return (
     <ConfirmSlider
-      label1={i18n("wallet.sendBitcoin.send")}
+      label1={tolgee.t("wallet.sendBitcoin.send", { ns: "wallet" })}
       onConfirm={onConfirm}
       enabled={isFormValid && isSynced}
     />
@@ -232,17 +232,17 @@ function SendBitcoinHeader() {
   const navigation = useStackNavigation();
   return (
     <Header
-      title={i18n("wallet.sendBitcoin.title")}
+      title={tolgee.t("wallet.sendBitcoin.title", { ns: "wallet" })}
       icons={[
         {
           ...headerIcons.listFlipped,
           onPress: () => navigation.navigate("coinSelection"),
-          accessibilityHint: `${i18n("goTo")} ${i18n("wallet.coinControl.title")}`,
+          accessibilityHint: `${tolgee.t("goTo", { ns: "global" })} ${tolgee.t("wallet.coinControl.title", { ns: "wallet" })}`,
         },
         {
           ...headerIcons.help,
           onPress: showHelp,
-          accessibilityHint: i18n("help"),
+          accessibilityHint: tolgee.t("help", { ns: "help" }),
         },
       ]}
     />
@@ -252,18 +252,21 @@ function SendBitcoinHeader() {
 function WithdrawingFundsPopup() {
   return (
     <InfoPopup
-      title={i18n("wallet.withdraw.help.title")}
+      title={tolgee.t("wallet.withdraw.help.title", { ns: "wallet" })}
       content={
         <ParsedPeachText
           parse={[
             {
-              pattern: new RegExp(i18n("wallet.withdraw.help.text.link"), "u"),
+              pattern: new RegExp(
+                tolgee.t("wallet.withdraw.help.text.link", { ns: "wallet" }),
+                "u",
+              ),
               style: tw`underline`,
               onPress: goToShiftCrypto,
             },
           ]}
         >
-          {i18n("wallet.withdraw.help.text")}
+          {tolgee.t("wallet.withdraw.help.text", { ns: "wallet" })}
         </ParsedPeachText>
       }
     />
@@ -277,7 +280,11 @@ function SelectedUTXOs() {
   return (
     <>
       <HorizontalLine />
-      <Section title={i18n("wallet.sendBitcoin.sendingFrom.coins")}>
+      <Section
+        title={tolgee.t("wallet.sendBitcoin.sendingFrom.coins", {
+          ns: "wallet",
+        })}
+      >
         <View style={tw`px-10px`}>
           {selectedUTXOs.map(({ txout: { script } }) => (
             <UTXOAddress key={script.id} script={script} />

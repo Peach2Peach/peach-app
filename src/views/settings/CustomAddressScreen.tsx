@@ -16,8 +16,8 @@ import { ErrorPopup } from "../../popups/ErrorPopup";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   isPayout?: boolean;
@@ -37,6 +37,7 @@ export function CustomAddressScreen({
   defaultAddressLabel,
   showRemoveWallet = false,
 }: Props) {
+  const { t } = useTranslate("settings");
   const [address, setAddress, addressValid, addressErrors] = useValidatedState(
     defaultAddress || "",
     addressRules,
@@ -54,7 +55,7 @@ export function CustomAddressScreen({
     <Screen header={<PayoutAddressHeader isPayout={isPayout} />}>
       <View style={tw`items-center justify-center grow`}>
         <PeachText style={tw`h6`}>
-          {i18n(
+          {t(
             isPayout
               ? "settings.payoutAddress.title"
               : "settings.refundAddress.title",
@@ -62,7 +63,7 @@ export function CustomAddressScreen({
         </PeachText>
         <Input
           value={addressLabel}
-          placeholder={i18n("form.address.label.placeholder")}
+          placeholder={t("form.address.label.placeholder", { ns: "form" })}
           placeholderTextColor={tw.color("black-10")}
           onChangeText={setAddressLabel}
           errorMessage={addressLabelErrors}
@@ -76,7 +77,7 @@ export function CustomAddressScreen({
           <View style={tw`gap-2`}>
             <View style={tw`flex-row justify-center gap-1`}>
               <PeachText style={tw`uppercase button-medium`}>
-                {i18n("settings.payoutAddress.success")}
+                {t("settings.payoutAddress.success")}
               </PeachText>
               <Icon id="check" size={20} color={tw.color("success-main")} />
             </View>
@@ -101,7 +102,7 @@ export function CustomAddressScreen({
           isUpdated
         }
       >
-        {i18n(
+        {t(
           isPayout
             ? "settings.payoutAddress.confirm"
             : "settings.refundAddress.confirm",
@@ -111,14 +112,13 @@ export function CustomAddressScreen({
   );
 }
 function PayoutAddressHeader({ isPayout }: { isPayout: boolean }) {
+  const { t } = useTranslate("settings");
   const setPopup = useSetPopup();
   const showHelp = () =>
     setPopup(<HelpPopup id={isPayout ? "payoutAddress" : "refundAddress"} />);
   return (
     <Header
-      title={i18n(
-        isPayout ? "settings.payoutAddress" : "settings.refundAddress",
-      )}
+      title={t(isPayout ? "settings.payoutAddress" : "settings.refundAddress")}
       icons={[{ ...headerIcons.help, onPress: showHelp }]}
     />
   );
@@ -129,6 +129,7 @@ type PopupProps = {
   isPayout: boolean;
 };
 function RemoveWalletButton(popupProps: PopupProps) {
+  const { t } = useTranslate("settings");
   const setPopup = useSetPopup();
   const openRemoveWalletPopup = () => {
     setPopup(<RemoveWalletPopup {...popupProps} />);
@@ -140,7 +141,7 @@ function RemoveWalletButton(popupProps: PopupProps) {
       style={tw`flex-row justify-center gap-1`}
     >
       <PeachText style={tw`underline uppercase button-medium`}>
-        {i18n("settings.payoutAddress.removeWallet")}
+        {t("settings.payoutAddress.removeWallet")}
       </PeachText>
       <Icon id="trash" size={20} color={tw.color("error-main")} />
     </TouchableOpacity>
@@ -151,6 +152,7 @@ function RemoveWalletPopup({
   setAddressLabelInput,
   isPayout,
 }: PopupProps) {
+  const { t } = useTranslate("settings");
   const [setCustomAddress, setCustomAddressLabel, setPeachWalletActive] =
     useSettingsStore(
       (state) =>
@@ -178,13 +180,13 @@ function RemoveWalletPopup({
   };
   return (
     <ErrorPopup
-      title={i18n("settings.payoutAddress.popup.title")}
-      content={i18n("settings.payoutAddress.popup.content")}
+      title={t("settings.payoutAddress.popup.title")}
+      content={t("settings.payoutAddress.popup.content")}
       actions={
         <>
           <PopupAction
             iconId="trash"
-            label={i18n("settings.payoutAddress.popup.remove")}
+            label={t("settings.payoutAddress.popup.remove")}
             onPress={removeWallet}
           />
           <ClosePopupAction reverseOrder />

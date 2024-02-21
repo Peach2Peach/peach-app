@@ -3,11 +3,12 @@ import { OverlayComponent } from "../../components/OverlayComponent";
 import { Button } from "../../components/buttons/Button";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 export const PaymentMade = ({ contractId }: { contractId: string }) => {
   const navigation = useStackNavigation();
   const setOverlay = useSetOverlay();
+  const { t } = useTranslate("contract");
 
   const close = () => setOverlay(undefined);
 
@@ -24,8 +25,8 @@ export const PaymentMade = ({ contractId }: { contractId: string }) => {
 
   return (
     <OverlayComponent
-      title={i18n("contract.paymentMade.title")}
-      text={i18n("contract.paymentMade.description")}
+      title={t("contract.paymentMade.title")}
+      text={t("contract.paymentMade.description")}
       iconId="dollarSignCircleInverted"
       buttons={
         <>
@@ -34,10 +35,10 @@ export const PaymentMade = ({ contractId }: { contractId: string }) => {
             textColor={tw.color("primary-main")}
             onPress={goToTrade}
           >
-            {i18n("goToTrade")}
+            {t("goToTrade", { ns: "global" })}
           </Button>
           <Button onPress={close} ghost>
-            {i18n("close")}
+            {t("close", { ns: "global" })}
           </Button>
         </>
       }

@@ -11,8 +11,8 @@ import { useSetToast } from "../../components/toast/Toast";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useValidatedState } from "../../hooks/useValidatedState";
-import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
+import { tolgee } from "../../tolgee";
 
 const referralCodeRules = { referralCode: true };
 export const LetsGetStarted = () => {
@@ -87,12 +87,12 @@ export const LetsGetStarted = () => {
         <PeachText
           style={[tw`text-center h5 text-primary-background-light`, tw`md:h4`]}
         >
-          {i18n("welcome.letsGetStarted.title")}
+          {tolgee.t("welcome.letsGetStarted.title", { ns: "welcome" })}
         </PeachText>
 
         <View>
           <PeachText style={tw`text-center text-primary-background-light`}>
-            {i18n("newUser.referralCode")}
+            {tolgee.t("newUser.referralCode", { ns: "unassigned" })}
           </PeachText>
           <View style={tw`flex-row items-center justify-center gap-2`}>
             <View style={tw`h-14`}>
@@ -100,7 +100,9 @@ export const LetsGetStarted = () => {
                 style={tw`w-40 mt-2`}
                 theme="inverted"
                 maxLength={16}
-                placeholder={i18n("form.optional").toUpperCase()}
+                placeholder={tolgee
+                  .t("form.optional", { ns: "form" })
+                  .toUpperCase()}
                 onChangeText={updateReferralCode}
                 onSubmitEditing={(e) => updateReferralCode(e.nativeEvent.text)}
                 value={referralCode}
@@ -115,7 +117,10 @@ export const LetsGetStarted = () => {
               }
               onPress={checkReferralCode}
             >
-              {i18n(willUseReferralCode ? "referrals.used" : "referrals.use")}
+              {tolgee.t(
+                willUseReferralCode ? "referrals.used" : "referrals.use",
+                { ns: "referral" },
+              )}
             </Button>
           </View>
         </View>
@@ -128,10 +133,10 @@ export const LetsGetStarted = () => {
           textColor={tw.color("primary-main")}
           iconId="plusCircle"
         >
-          {i18n("newUser")}
+          {tolgee.t("newUser", { ns: "unassigned" })}
         </Button>
         <Button onPress={goToRestoreBackup} iconId="save" ghost>
-          {i18n("restore")}
+          {tolgee.t("restore", { ns: "unassigned" })}
         </Button>
       </View>
     </View>

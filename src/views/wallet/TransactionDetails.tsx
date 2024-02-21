@@ -4,7 +4,6 @@ import { Screen } from "../../components/Screen";
 import { useMultipleOfferDetails } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { isDefined } from "../../utils/validation/isDefined";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
@@ -13,6 +12,7 @@ import { TransactionDetailsInfo } from "./components/transcactionDetails/Transac
 import { getTxSummary } from "./helpers/getTxSummary";
 import { useMappedTransactionDetails } from "./hooks/useMappedTransactionDetails";
 import { useSyncWallet } from "./hooks/useSyncWallet";
+import { useTranslate } from "@tolgee/react";
 
 export const TransactionDetails = () => {
   const { txId } = useRoute<"transactionDetails">().params;
@@ -20,6 +20,7 @@ export const TransactionDetails = () => {
   const { data: transactionDetails } = useMappedTransactionDetails({ localTx });
   const offerIds = useWalletState((state) => state.txOfferMap[txId]);
   const { offers } = useMultipleOfferDetails(offerIds);
+  const { t } = useTranslate("wallet");
   const transactionSummary = localTx
     ? getTxSummary({
         tx: localTx,
@@ -32,7 +33,7 @@ export const TransactionDetails = () => {
     return <BitcoinLoading />;
 
   return (
-    <Screen header={i18n("wallet.transactionDetails")}>
+    <Screen header={t("wallet.transactionDetails")}>
       <PeachScrollView
         contentContainerStyle={tw`justify-center grow`}
         contentStyle={tw`gap-8`}

@@ -2,8 +2,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { useClosePopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
-import i18n from "../../utils/i18n";
 import { matchesKeys } from "../../views/search/hooks/useOfferMatches";
+import { useTranslate } from "@tolgee/react";
 
 export function ApplySortersAction({
   setSorterAction,
@@ -12,6 +12,7 @@ export function ApplySortersAction({
 }) {
   const queryClient = useQueryClient();
   const closePopup = useClosePopup();
+  const { t } = useTranslate("global");
 
   const applySorters = useCallback(async () => {
     setSorterAction();
@@ -22,7 +23,7 @@ export function ApplySortersAction({
   return (
     <PopupAction
       onPress={applySorters}
-      label={i18n("apply")}
+      label={t("apply")}
       iconId={"checkSquare"}
       reverseOrder
     />

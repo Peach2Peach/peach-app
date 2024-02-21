@@ -2,10 +2,10 @@ import { Modal, SafeAreaView, TouchableOpacity, View } from "react-native";
 import { BarCodeReadEvent } from "react-native-camera";
 import Svg, { Defs, Mask, Rect } from "react-native-svg";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 import { QRCodeScanner } from "./QRCodeScanner";
+import { useTranslate } from "@tolgee/react";
 
 type ScanQRProps = {
   onRead: (e: BarCodeReadEvent) => void;
@@ -22,6 +22,7 @@ export const ScanQR = ({ onRead, onCancel }: ScanQRProps) => (
 );
 
 function CustomMarker({ onCancel }: Pick<ScanQRProps, "onCancel">) {
+  const { t } = useTranslate("unassigned");
   return (
     <View style={tw`w-full h-full`}>
       <CircleMask />
@@ -39,7 +40,7 @@ function CustomMarker({ onCancel }: Pick<ScanQRProps, "onCancel">) {
             style={tw`h6 text-primary-background-light`}
             numberOfLines={1}
           >
-            {i18n("scanBTCAddress")}
+            {t("scanBTCAddress")}
           </PeachText>
         </TouchableOpacity>
       </SafeAreaView>

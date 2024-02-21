@@ -8,9 +8,9 @@ import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { HomeTabName, homeTabNames, homeTabs } from "./homeTabNames";
 import { useNotificationStore } from "./notificationsStore";
+import { useTranslate } from "@tolgee/react";
 
 const Tab = createBottomTabNavigator();
 
@@ -58,6 +58,7 @@ function FooterItem({ id }: { id: HomeTabName }) {
   const navigation = useStackNavigation();
   const { summaries } = useTradeSummaries(id === "yourTrades");
   const notifications = useNotificationStore((state) => state.notifications);
+  const { t } = useTranslate("global");
   const onPress = () => {
     if (id === "yourTrades") {
       const destinationTab =
@@ -107,7 +108,7 @@ function FooterItem({ id }: { id: HomeTabName }) {
           tw`leading-relaxed text-center subtitle-1 text-9px`,
         ]}
       >
-        {i18n(`footer.${id}`)}
+        {t(`footer.${id}`)}
       </PeachText>
     </TouchableOpacity>
   );

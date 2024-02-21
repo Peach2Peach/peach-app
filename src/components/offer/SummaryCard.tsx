@@ -1,8 +1,8 @@
 import { View } from "react-native";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { PeachText } from "../text/PeachText";
 import { MeansOfPayment } from "./MeansOfPayment";
+import { tolgee } from "../../tolgee";
 
 export const SummaryCard = ({ children }: ComponentProps) => (
   <View
@@ -25,7 +25,7 @@ const PaymentMethods = ({
 }) => (
   <SummaryCard.Section>
     <PeachText style={tw`text-center text-black-65`}>
-      {i18n("offer.summary.withTheseMethods")}
+      {tolgee.t("offer.summary.withTheseMethods", { ns: "offer" })}
     </PeachText>
     <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`self-stretch`} />
   </SummaryCard.Section>

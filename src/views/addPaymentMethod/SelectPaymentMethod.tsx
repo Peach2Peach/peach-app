@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -16,6 +15,7 @@ import { getApplicablePaymentCategories } from "../../utils/paymentMethod/getApp
 import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { usePaymentMethodLabel } from "./hooks";
 import { getCurrencyTypeFilter } from "./utils";
+import { tolgee } from "../../tolgee";
 
 const NATIONALOPTIONS: NationalOptions = {
   EUR: {
@@ -40,7 +40,7 @@ const NATIONALOPTIONCOUNTRIES: Record<"EUR" | "LATAM", FlagType[]> = {
 
 const mapCountryToDrawerOption =
   (onPress: (country: FlagType) => void) => (country: FlagType) => ({
-    title: i18n(`country.${country}`),
+    title: tolgee.t(`country.${country}`, { ns: "global" }),
     flagID: country,
     onPress: () => onPress(country),
   });
@@ -56,7 +56,7 @@ export const SelectPaymentMethod = () => {
     () =>
       getApplicablePaymentCategories(selectedCurrency).map((c) => ({
         value: c,
-        display: i18n(`paymentCategory.${c}`),
+        display: tolgee.t(`paymentCategory.${c}`, { ns: "paymentMethod" }),
       })),
     [selectedCurrency],
   );
@@ -89,13 +89,13 @@ export const SelectPaymentMethod = () => {
   };
 
   const mapMethodToDrawerOption = (method: PaymentMethod) => ({
-    title: i18n(`paymentMethod.${method}`),
+    title: tolgee.t(`paymentMethod.${method}`, { ns: "paymentMethod" }),
     logoID: method,
     onPress: () => selectPaymentMethod(method),
   });
 
   const getDrawerConfig = (category: PaymentCategory) => ({
-    title: i18n(`paymentCategory.${category}`),
+    title: tolgee.t(`paymentCategory.${category}`, { ns: "paymentMethod" }),
     show: true,
     onClose: unselectCategory,
   });
@@ -118,7 +118,7 @@ export const SelectPaymentMethod = () => {
     const nationalOptions = getNationalOptions()[country];
     const nationalOptionCountries = getNationalOptionCountries();
     updateDrawer({
-      title: i18n(`country.${country}`),
+      title: tolgee.t(`country.${country}`, { ns: "global" }),
       options: nationalOptions.map(mapMethodToDrawerOption),
       previousDrawer: {
         options: nationalOptionCountries.map(
@@ -160,7 +160,9 @@ export const SelectPaymentMethod = () => {
   };
 
   return (
-    <Screen header={i18n("selectPaymentMethod.title")}>
+    <Screen
+      header={tolgee.t("selectPaymentMethod.title", { ns: "unassigned" })}
+    >
       <PeachScrollView
         contentContainerStyle={[tw`justify-center py-4 grow`, tw`md:py-8`]}
       >
@@ -171,7 +173,7 @@ export const SelectPaymentMethod = () => {
         />
       </PeachScrollView>
       <Button style={tw`self-center`} disabled={!selectedPaymentCategory}>
-        {i18n("next")}
+        {tolgee.t("next", { ns: "unassigned" })}
       </Button>
     </Screen>
   );

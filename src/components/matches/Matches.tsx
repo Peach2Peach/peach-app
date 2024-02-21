@@ -4,7 +4,6 @@ import Carousel from "react-native-reanimated-carousel";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import {
   PAGESIZE,
   useOfferMatches,
@@ -13,6 +12,7 @@ import { BTCAmount } from "../bitcoin/BTCAmount";
 import { PeachText } from "../text/PeachText";
 import { Match } from "./Match";
 import { getPremiumColor } from "./utils/getPremiumColor";
+import { useTranslate } from "@tolgee/react";
 
 const MEDIUM_SCREEN_OFFSET = 48;
 const SMALL_SCREEN_OFFSET = 40;
@@ -64,14 +64,15 @@ function MatchInformation({ offer }: { offer: SellOffer }) {
   const { offerId } = useRoute<"search">().params;
   const { allMatches: matches } = useOfferMatches(offerId);
   const color = getPremiumColor(offer.premium || 0, false);
+  const { t } = useTranslate("unassigned");
 
   return (
     <View>
       <PeachText style={tw`text-center h4 text-primary-main`}>
-        {i18n(`search.youGot${matches.length === 1 ? "AMatch" : "Matches"}`)}
+        {t(`search.youGot${matches.length === 1 ? "AMatch" : "Matches"}`)}
       </PeachText>
       <PeachText style={tw`text-center body-l text-black-65`}>
-        {i18n("search.sellOffer")}:
+        {t("search.sellOffer")}:
       </PeachText>
       <View style={tw`flex-row items-center justify-center`}>
         <BTCAmount amount={offer.amount} size="medium" />

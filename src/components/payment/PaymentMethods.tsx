@@ -9,7 +9,6 @@ import { useOfferPreferences } from "../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import { getSelectedPaymentDataIds } from "../../utils/account/getSelectedPaymentDataIds";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { Header } from "../Header";
@@ -21,11 +20,13 @@ import { HorizontalLine } from "../ui/HorizontalLine";
 import { AddPaymentMethodButton } from "./AddPaymentMethodButton";
 import { MeetupPaymentMethods } from "./MeetupPaymentMethods";
 import { RemotePaymentMethods } from "./RemotePaymentMethods";
+import { useTranslate } from "@tolgee/react";
 
 const PaymentMethodsTab = createMaterialTopTabNavigator();
 const tabs = ["online", "meetups"] as const;
 
 export const PaymentMethods = () => {
+  const { t } = useTranslate("paymentMethod");
   const navigation = useStackNavigation();
   const [preferredPaymentMethods, select] = useOfferPreferences(
     (state) => [state.preferredPaymentMethods, state.selectPaymentMethod],
@@ -80,7 +81,7 @@ export const PaymentMethods = () => {
           <PaymentMethodsTab.Screen
             key={tab}
             name={tab}
-            options={{ title: `${i18n(`paymentSection.${tab}`)}` }}
+            options={{ title: `${t(`paymentSection.${tab}`)}` }}
           >
             {() => (
               <PeachScrollView
@@ -116,6 +117,7 @@ type Props = {
 };
 
 function PaymentMethodsHeader({ isEditing, toggleIsEditing }: Props) {
+  const { t } = useTranslate("paymentMethod");
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<PaymentMethodsPopup />);
   const hasPaymentMethods = usePaymentDataStore(
@@ -124,7 +126,7 @@ function PaymentMethodsHeader({ isEditing, toggleIsEditing }: Props) {
 
   return (
     <Header
-      title={i18n(
+      title={t(
         isEditing ? "paymentMethods.edit.title" : "paymentMethods.title",
       )}
       icons={
@@ -143,13 +145,14 @@ function PaymentMethodsHeader({ isEditing, toggleIsEditing }: Props) {
 }
 
 function PaymentMethodsPopup() {
+  const { t } = useTranslate("help");
   return (
     <InfoPopup
-      title={i18n("settings.paymentMethods")}
+      title={t("settings.paymentMethods", { ns: "paymentMethod" })}
       content={
         <>
-          <PeachText>{i18n("help.paymentMethods.description.1")}</PeachText>
-          <PeachText>{i18n("help.paymentMethods.description.2")}</PeachText>
+          <PeachText>{t("help.paymentMethods.description.1")}</PeachText>
+          <PeachText>{t("help.paymentMethods.description.2")}</PeachText>
         </>
       }
     />

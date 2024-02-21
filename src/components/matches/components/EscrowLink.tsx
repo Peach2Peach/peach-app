@@ -2,9 +2,9 @@ import { NETWORK } from "@env";
 import { TouchableOpacity } from "react-native";
 import tw from "../../../styles/tailwind";
 import { showAddress } from "../../../utils/bitcoin/showAddress";
-import i18n from "../../../utils/i18n";
 import { Icon } from "../../Icon";
 import { PeachText } from "../../text/PeachText";
+import { tolgee } from "../../../tolgee";
 
 export const EscrowLink = ({ address }: { address: string }) => (
   <TouchableOpacity
@@ -12,7 +12,7 @@ export const EscrowLink = ({ address }: { address: string }) => (
     onPress={() => showAddress(address, NETWORK)}
   >
     <PeachText style={tw`underline tooltip text-black-65`}>
-      {i18n("escrow.viewInExplorer")}
+      {tolgee.t("escrow.viewInExplorer", { ns: "unassigned" })}
     </PeachText>
     <Icon id="externalLink" size={18} color={tw.color("primary-main")} />
   </TouchableOpacity>

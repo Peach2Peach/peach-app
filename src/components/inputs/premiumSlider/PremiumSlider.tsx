@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import { Animated, View } from "react-native";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { getTranslateX } from "../../../utils/layout/getTranslateX";
 import { round } from "../../../utils/math/round";
 import { Icon } from "../../Icon";
 import { SliderLabel } from "./SliderLabel";
 import { SliderMarkers } from "./SliderMarkers";
 import { usePremiumSliderSetup } from "./usePremiumSliderSetup";
+import { tolgee } from "../../../tolgee";
 
 const onStartShouldSetResponder = () => true;
 
@@ -66,7 +66,7 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
           {round(min / 2, -1)}%
         </SliderLabel>
         <SliderLabel position={labelPosition[2]}>
-          {i18n("sell.premium.marketPrice")}
+          {tolgee.t("sell.premium.marketPrice", { ns: "sell" })}
         </SliderLabel>
         <SliderLabel position={labelPosition[3]}>
           +{round(max / 2, -1)}%

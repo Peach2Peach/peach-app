@@ -1,12 +1,12 @@
 import { act, fireEvent, render } from "test-utils";
 import { buyOffer } from "../../../../tests/unit/data/offerData";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
-import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
 import { matchesKeys } from "../../../views/search/hooks/useOfferMatches";
 import { GlobalPopup } from "../../popup/GlobalPopup";
 import { TIMER_DURATION } from "./UndoButton";
 import { UnmatchButton } from "./UnmatchButton";
+import { tolgee } from "../../../tolgee";
 
 jest.useFakeTimers();
 
@@ -70,7 +70,9 @@ describe("UnmatchButton", () => {
     await act(() => {
       jest.advanceTimersByTime(TIMER_DURATION);
     });
-    expect(getByText(i18n("search.unmatch"))).toBeTruthy();
+    expect(
+      getByText(tolgee.t("search.unmatch", { ns: "unassigned" })),
+    ).toBeTruthy();
   });
   it("should show the unmatch popup when unmatch is pressed", async () => {
     const { getByText } = render(
@@ -81,10 +83,14 @@ describe("UnmatchButton", () => {
     );
 
     await act(() => {
-      fireEvent.press(getByText(i18n("search.unmatch")));
+      fireEvent.press(
+        getByText(tolgee.t("search.unmatch", { ns: "unassigned" })),
+      );
     });
 
-    expect(getByText(i18n("search.popups.unmatch.title"))).toBeTruthy();
+    expect(
+      getByText(tolgee.t("search.popups.unmatch.title", { ns: "unassigned" })),
+    ).toBeTruthy();
   });
   it("should close the popup when action1 is pressed", async () => {
     const { getByText, queryByText } = render(
@@ -95,15 +101,23 @@ describe("UnmatchButton", () => {
     );
 
     await act(() => {
-      fireEvent.press(getByText(i18n("search.unmatch")));
+      fireEvent.press(
+        getByText(tolgee.t("search.unmatch", { ns: "unassigned" })),
+      );
     });
 
     await act(() => {
-      const neverMind = getByText(i18n("search.popups.unmatch.neverMind"));
+      const neverMind = getByText(
+        tolgee.t("search.popups.unmatch.neverMind", { ns: "unassigned" }),
+      );
       fireEvent.press(neverMind);
     });
 
-    expect(queryByText(i18n("search.popups.unmatch.title"))).toBeFalsy();
+    expect(
+      queryByText(
+        tolgee.t("search.popups.unmatch.title", { ns: "unassigned" }),
+      ),
+    ).toBeFalsy();
     expect(setShowMatchedCard).not.toHaveBeenCalled();
   });
   it("should unmatch and show confirmation popup when action2 is pressed", async () => {
@@ -115,14 +129,22 @@ describe("UnmatchButton", () => {
     );
 
     await act(() => {
-      fireEvent.press(getByText(i18n("search.unmatch")));
+      fireEvent.press(
+        getByText(tolgee.t("search.unmatch", { ns: "unassigned" })),
+      );
     });
 
     await act(() => {
-      fireEvent.press(getByText(i18n("search.popups.unmatch.confirm")));
+      fireEvent.press(
+        getByText(
+          tolgee.t("search.popups.unmatch.confirm", { ns: "unassigned" }),
+        ),
+      );
     });
 
-    expect(getByText(i18n("search.popups.unmatched"))).toBeTruthy();
+    expect(
+      getByText(tolgee.t("search.popups.unmatched", { ns: "unassigned" })),
+    ).toBeTruthy();
     expect(setShowMatchedCard).toHaveBeenCalled();
     expect(unmatchOfferMock).toHaveBeenCalledWith({
       offerId: "offerId",
@@ -144,7 +166,9 @@ describe("UnmatchButton", () => {
     );
 
     await act(() => {
-      fireEvent.press(getAllByText(i18n("search.undo"))[0]);
+      fireEvent.press(
+        getAllByText(tolgee.t("search.undo", { ns: "unassigned" }))[0],
+      );
     });
 
     expect(interruptMatching).toHaveBeenCalled();

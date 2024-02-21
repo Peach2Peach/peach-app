@@ -1,9 +1,9 @@
 import { View } from "react-native";
 import tw from "../../../../styles/tailwind";
-import i18n from "../../../../utils/i18n";
 import { getPaymentMethodInfo } from "../../../../utils/paymentMethod/getPaymentMethodInfo";
 import { PeachText } from "../../../text/PeachText";
 import { CurrencyItem } from "../../CurrencyItem";
+import { tolgee } from "../../../../tolgee";
 
 type Props = ComponentProps & {
   paymentMethod: PaymentMethod;
@@ -20,7 +20,7 @@ export const CurrencySelection = ({
   <View style={style}>
     <View style={tw`flex-row items-center`}>
       <PeachText style={tw`input-label`}>
-        {i18n("form.additionalCurrencies")}
+        {tolgee.t("form.additionalCurrencies", { ns: "form" })}
       </PeachText>
     </View>
     <View style={tw`flex-row flex-wrap gap-2 mt-1`}>

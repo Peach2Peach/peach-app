@@ -3,13 +3,14 @@ import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { CURRENCIES } from "../../paymentMethods";
 import { CurrencyType } from "../../store/offerPreferenes/types";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { getCurrencyTypeFilter } from "./utils";
+import { tolgee } from "../../tolgee";
 
 const getDisplayName = (c: Currency) => {
-  if (c === "USDT") return i18n(`currency.${c}`);
-  if (c === "SAT") return i18n("paymentMethod.lnurl");
-  return i18n(`currency.${c}`);
+  if (c === "USDT") return tolgee.t(`currency.${c}`, { ns: "global" });
+  if (c === "SAT")
+    return tolgee.t("paymentMethod.lnurl", { ns: "paymentMethod" });
+  return tolgee.t(`currency.${c}`, { ns: "global" }); // TODO: figure out this problem: same case but no problem above
 };
 
 type Props = {

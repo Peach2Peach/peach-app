@@ -1,14 +1,15 @@
 import { MaterialTopTabBarProps } from "@react-navigation/material-top-tabs";
 import { TouchableOpacity, View } from "react-native";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { PeachScrollView } from "../PeachScrollView";
 import { PeachText } from "../text/PeachText";
+import { useTranslate } from "@tolgee/react";
 
 export const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
   const items = state.routes;
   const selected = items[state.index].name;
   const select = navigation.navigate;
+  const { t } = useTranslate();
   const colors = {
     text: tw`text-black-65`,
     textSelected: tw`text-black-100`,
@@ -35,7 +36,8 @@ export const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
                 item.name === selected ? colors.textSelected : colors.text,
               ]}
             >
-              {i18n(item.name)}
+              {t(item.name, { ns: item.name.split(".")[0] })} // TODO: find out
+              how to fix this
             </PeachText>
             {item.name === selected && (
               <View style={[tw`w-full h-0.5`, colors.underline]} />

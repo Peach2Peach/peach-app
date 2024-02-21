@@ -13,7 +13,6 @@ import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { AppPopup } from "../../popups/AppPopup";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { error } from "../../utils/log/error";
 import { isLimitReached } from "../../utils/match/isLimitReached";
 import { saveOffer } from "../../utils/offer/saveOffer";
@@ -38,6 +37,7 @@ import { createRefundTx } from "./utils/createRefundTx";
 import { getPaymentDataFromOffer } from "./utils/getPaymentDataFromOffer";
 import { useHandleError } from "./utils/useHandleError";
 import { useHandleMissingPaymentData } from "./utils/useHandleMissingPaymentData";
+import { useTranslate } from "@tolgee/react";
 
 export const Match = ({
   match,
@@ -62,6 +62,8 @@ export const Match = ({
     unavailable.exceedsLimit || [],
     selectedPaymentMethod,
   );
+
+  const { t } = useTranslate("unassigned");
 
   const currentOptionName = useMemo(
     () =>
@@ -103,7 +105,7 @@ export const Match = ({
 
           <View style={tw`gap-4`}>
             <PaymentDetail
-              label={i18n("match.selectedCurrency")}
+              label={t("match.selectedCurrency")}
               value={selectedCurrency}
             />
             {selectedPaymentMethod && (
@@ -112,8 +114,10 @@ export const Match = ({
                   <CashPaymentDetail method={selectedPaymentMethod} />
                 ) : (
                   <PaymentDetail
-                    label={i18n("match.selectedPaymentMethod")}
-                    value={i18n(`paymentMethod.${selectedPaymentMethod}`)}
+                    label={t("match.selectedPaymentMethod")}
+                    value={t(`paymentMethod.${selectedPaymentMethod}`, {
+                      ns: "paymentMethod",
+                    })}
                   />
                 )}
               </>
@@ -133,9 +137,10 @@ export const Match = ({
 
 function CashPaymentDetail({ method }: { method: `cash.${string}` }) {
   const value = useCashPaymentMethodName(method);
+  const { t } = useTranslate("unassigned");
 
   return (
-    <PaymentDetail label={i18n("match.selectedPaymentMethod")} value={value} />
+    <PaymentDetail label={t("match.selectedPaymentMethod")} value={value} />
   );
 }
 
@@ -164,6 +169,7 @@ function MatchOfferButton({
 }: MatchButtonProps) {
   const currentOption = options[optionName];
   const { mutate } = useAcceptMatch(offer, match, currentPage);
+  const { t } = useTranslate("unassigned");
 
   const onPress = () => {
     if (optionName === "acceptMatch") {
@@ -178,7 +184,7 @@ function MatchOfferButton({
       disabled={optionName === "offerMatched"}
     >
       <PeachText style={tw`button-large text-primary-background-light`}>
-        {i18n(currentOption.text)}
+        {t(currentOption.text)}
       </PeachText>
       <Icon
         id={currentOption.iconId}

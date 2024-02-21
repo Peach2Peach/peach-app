@@ -5,7 +5,7 @@ import { TouchableIcon } from "../../../components/TouchableIcon";
 import { PeachText } from "../../../components/text/PeachText";
 import { useIsMediumScreen } from "../../../hooks/useIsMediumScreen";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   label: string;
@@ -64,6 +64,7 @@ function CopyableSummaryText({
   onPress,
 }: TextValueProps) {
   const copiedTextOpacity = useRef(new Animated.Value(0)).current;
+  const { t } = useTranslate("global");
   const onCopy = () => {
     Clipboard.setString(copyValue);
     Animated.sequence([
@@ -93,7 +94,7 @@ function CopyableSummaryText({
           ]}
         >
           <PeachText style={[summaryTextStyle, tw`text-primary-main`]}>
-            {i18n("copied")}
+            {t("copied")}
           </PeachText>
         </Animated.View>
       </View>

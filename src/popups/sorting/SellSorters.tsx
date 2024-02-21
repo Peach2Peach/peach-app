@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { RadioButtonItem } from "../../components/inputs/RadioButtons";
 import { useOfferPreferences } from "../../store/offerPreferenes";
-import i18n from "../../utils/i18n";
 import { ApplySortersAction } from "./ApplySortersAction";
 import { SorterPopup } from "./SorterPopup";
+import { useTranslate } from "@tolgee/react";
 
 export const SellSorters = () => {
   const defaultSorter = useOfferPreferences(
     (state) => state.sortBy.sellOffer[0],
   );
   const [sortBy, setSortBy] = useState<SellSorter>(defaultSorter);
+  const { t } = useTranslate("offer");
   const items: RadioButtonItem<SellSorter>[] = [
     {
-      display: i18n("offer.sorting.bestReputation"),
+      display: t("offer.sorting.bestReputation"),
       value: "bestReputation",
     },
     {
-      display: i18n("offer.sorting.highestPrice"),
+      display: t("offer.sorting.highestPrice"),
       value: "highestPrice",
     },
   ];

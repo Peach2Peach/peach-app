@@ -5,17 +5,18 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { TotalBalance, WalletHeader } from "./components";
 import { useLastUnusedAddress, useUTXOs, useWalletAddress } from "./hooks";
 import { useSyncWallet } from "./hooks/useSyncWallet";
 import { useWalletBalance } from "./hooks/useWalletBalance";
+import { useTranslate } from "@tolgee/react";
 
 export const Wallet = () => {
   const { balance } = useWalletBalance();
+  const { t } = useTranslate("wallet");
   const { refetch, isRefetching, isLoading } = useSyncWallet({ enabled: true });
-  if (isLoading) return <BitcoinLoading text={i18n("wallet.loading")} />;
+  if (isLoading) return <BitcoinLoading text={t("wallet.loading")} />;
 
   return (
     <Screen header={<WalletHeader />}>
@@ -43,6 +44,8 @@ const useAddressPrefetch = () => {
 };
 function WalletButtons() {
   const navigation = useStackNavigation();
+  const { t } = useTranslate("wallet");
+
   useAddressPrefetch();
   useUTXOs();
 
@@ -57,10 +60,10 @@ function WalletButtons() {
       style={[tw`flex-row items-center justify-center gap-2`, tw`md:gap-4`]}
     >
       <Button style={tw`flex-1 bg-success-main`} onPress={goToReceive}>
-        {i18n("wallet.receive")}
+        {t("wallet.receive")}
       </Button>
       <Button style={tw`flex-1`} onPress={goToSend}>
-        {i18n("wallet.send")}
+        {t("wallet.send")}
       </Button>
     </View>
   );

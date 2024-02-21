@@ -9,17 +9,18 @@ import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { countrySupportsCurrency } from "../../utils/paymentMethod/countrySupportsCurrency";
 import { getPaymentMethodInfo } from "../../utils/paymentMethod/getPaymentMethodInfo";
 import { usePaymentMethodLabel } from "./hooks";
+import { useTranslate } from "@tolgee/react";
 
 export const SelectCountry = () => {
   const { origin, selectedCurrency } = useRoute<"selectCountry">().params;
   const navigation = useStackNavigation();
   const [selectedCountry, setCountry] = useState<PaymentMethodCountry>();
   const setPopup = useSetPopup();
+  const { t } = useTranslate("global");
 
   const countries = useMemo(
     () =>
@@ -27,9 +28,9 @@ export const SelectCountry = () => {
         ?.countries?.filter(countrySupportsCurrency(selectedCurrency))
         .map((c) => ({
           value: c,
-          display: i18n(`country.${c}`),
+          display: t(`country.${c}`),
         })),
-    [selectedCurrency],
+    [selectedCurrency, t],
   );
 
   const getPaymentMethodLabel = usePaymentMethodLabel();
@@ -56,7 +57,9 @@ export const SelectCountry = () => {
     <Screen
       header={
         <Header
-          title={i18n("paymentMethod.giftCard.countrySelect.title")}
+          title={t("paymentMethod.giftCard.countrySelect.title", {
+            ns: "paymentMethod",
+          })}
           icons={[{ ...headerIcons.help, onPress: showHelp }]}
         />
       }
@@ -77,7 +80,7 @@ export const SelectCountry = () => {
         disabled={!selectedCountry}
         onPress={goToPaymentMethodForm}
       >
-        {i18n("next")}
+        {t("next", { ns: "unassigned" })}
       </Button>
     </Screen>
   );

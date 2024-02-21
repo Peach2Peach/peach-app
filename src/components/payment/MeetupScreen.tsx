@@ -5,7 +5,6 @@ import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
 import { useRoute } from "../../hooks/useRoute";
 import { InfoPopup } from "../../popups/InfoPopup";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { Header } from "../Header";
 import { PeachScrollView } from "../PeachScrollView";
@@ -18,6 +17,7 @@ import { PeachText } from "../text/PeachText";
 import { DeletePaymentMethodPopup } from "./components/DeletePaymentMethodPopup";
 import { Link } from "./components/Link";
 import { useMeetupScreenSetup } from "./hooks/useMeetupScreenSetup";
+import { useTranslate } from "@tolgee/react";
 
 export const MeetupScreen = () => {
   const {
@@ -28,6 +28,7 @@ export const MeetupScreen = () => {
     selectedCurrencies,
     onCurrencyToggle,
   } = useMeetupScreenSetup();
+  const { t } = useTranslate("unassigned");
 
   return (
     <Screen header={<MeetupScreenHeader />}>
@@ -41,12 +42,12 @@ export const MeetupScreen = () => {
         )}
         <View style={tw`gap-8`}>
           <PeachText style={tw`body-l text-black-100`}>
-            {i18n("meetup.description", event.longName)}
+            {t("meetup.description", event.longName)}
           </PeachText>
           {!!event.frequency && (
             <View style={tw`gap-4`}>
               <PeachText style={tw`body-l`}>
-                {`${i18n("meetup.date")}: `}
+                {`${t("meetup.date")}: `}
                 <PeachText style={tw`h6`}>{event.frequency}</PeachText>
               </PeachText>
               {!!event.address && (
@@ -59,13 +60,11 @@ export const MeetupScreen = () => {
           <View style={tw`gap-4`}>
             {!!event.address && (
               <Link
-                text={i18n("view.maps")}
+                text={t("view.maps")}
                 url={`http://maps.google.com/maps?daddr=${event.address}`}
               />
             )}
-            {!!event.url && (
-              <Link text={i18n("meetup.website")} url={event.url} />
-            )}
+            {!!event.url && <Link text={t("meetup.website")} url={event.url} />}
           </View>
           {event.currencies.length > 1 && (
             <CurrencySelection
@@ -77,7 +76,7 @@ export const MeetupScreen = () => {
       </PeachScrollView>
       {(!deletable || event.currencies.length > 1) && (
         <Button style={tw`self-center`} onPress={addToPaymentMethods}>
-          {i18n("meetup.add")}
+          {t("meetup.add")}
         </Button>
       )}
     </Screen>
@@ -113,18 +112,19 @@ function CashTradesPopup() {
   const bulletPoints = [];
   const start = 1;
   const numerOfBulletPoints = 4;
+  const { t } = useTranslate("unassigned");
   for (let i = start; i < start + numerOfBulletPoints; i++) {
     bulletPoints.push(
-      <BulletPoint key={i} text={i18n(`tradingCash.point.${i}`)} />,
+      <BulletPoint key={i} text={t(`tradingCash.point.${i}`)} />,
     );
   }
 
   return (
     <InfoPopup
-      title={i18n("tradingCash")}
+      title={t("tradingCash")}
       content={
         <View style={tw`gap-3`}>
-          <PeachText>{i18n("tradingCash.text")}</PeachText>
+          <PeachText>{t("tradingCash.text")}</PeachText>
           <View>{bulletPoints}</View>
         </View>
       }

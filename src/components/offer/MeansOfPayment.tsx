@@ -1,12 +1,12 @@
 import { useMemo, useState } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { getCurrencies } from "../../utils/paymentMethod/getCurrencies";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { useCashPaymentMethodName } from "../matches/useCashPaymentMethodName";
 import { CurrencySelection } from "../navigation/CurrencySelection";
 import { PeachText } from "../text/PeachText";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   meansOfPayment: MeansOfPayment;
@@ -43,10 +43,10 @@ type PaymentMethodProps = {
 };
 
 function PaymentMethod({ paymentMethod, style }: PaymentMethodProps) {
+  const { t } = useTranslate("paymentMethod");
   const name = useMemo(
-    () =>
-      paymentMethod ? i18n(`paymentMethod.${paymentMethod}`) : paymentMethod,
-    [paymentMethod],
+    () => (paymentMethod ? t(`paymentMethod.${paymentMethod}`) : paymentMethod),
+    [paymentMethod, t],
   );
   return (
     <View

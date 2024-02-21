@@ -3,10 +3,10 @@ import { useState } from "react";
 import { useQRScanner } from "../../hooks/useQRScanner";
 import tw from "../../styles/tailwind";
 import { parseBitcoinRequest } from "../../utils/bitcoin/parseBitcoinRequest";
-import i18n from "../../utils/i18n";
 import { cutOffAddress } from "../../utils/string/cutOffAddress";
 import { ScanQR } from "../camera/ScanQR";
 import { Input, InputProps } from "./Input";
+import { useTranslate } from "@tolgee/react";
 
 export const BitcoinAddressInput = ({
   value,
@@ -14,6 +14,7 @@ export const BitcoinAddressInput = ({
   ...props
 }: InputProps & { value: string }) => {
   const [isFocused, setFocused] = useState(false);
+  const { t } = useTranslate("form");
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString();
     const request = parseBitcoinRequest(clipboard);
@@ -29,7 +30,7 @@ export const BitcoinAddressInput = ({
 
   return !showQRScanner ? (
     <Input
-      placeholder={i18n("form.address.btc.placeholder")}
+      placeholder={t("form.address.btc.placeholder")}
       placeholderTextColor={tw.color("black-10")}
       icons={[
         ["clipboard", pasteAddress],

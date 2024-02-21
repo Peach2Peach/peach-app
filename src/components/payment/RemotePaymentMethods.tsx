@@ -4,7 +4,6 @@ import { IconType } from "../../assets/icons";
 import { PAYMENTCATEGORIES } from "../../paymentMethods";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { keys } from "../../utils/object/keys";
 import { getPaymentMethodInfo } from "../../utils/paymentMethod/getPaymentMethodInfo";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
@@ -15,6 +14,7 @@ import { LinedText } from "../ui/LinedText";
 import { PaymentDetailsCheckbox } from "./PaymentDetailsCheckbox";
 import { PaymentDataKeyFacts } from "./components/PaymentDataKeyFacts";
 import { useRemovePaymentData } from "./hooks/useRemovePaymentData";
+import { useTranslate } from "@tolgee/react";
 
 const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
   value: data.id,
@@ -70,9 +70,10 @@ export const RemotePaymentMethods = ({
       },
     });
   };
+  const { t } = useTranslate("paymentMethod");
   return paymentData.filter((item) => !isCashTrade(item.type)).length === 0 ? (
     <PeachText style={tw`text-center h6 text-black-50`}>
-      {i18n("paymentMethod.empty")}
+      {t("paymentMethod.empty")}
     </PeachText>
   ) : (
     <View testID={"checkboxes-buy-mops"}>
@@ -92,7 +93,7 @@ export const RemotePaymentMethods = ({
           <View key={category} style={i > 0 ? tw`mt-8` : {}}>
             <LinedText style={tw`pb-3`}>
               <PeachText style={tw`mr-1 h6 text-black-65`}>
-                {i18n(`paymentCategory.${category}`)}
+                {t(`paymentCategory.${category}`)}
               </PeachText>
               {paymentCategoryIcons[category] !== "" && (
                 <Icon

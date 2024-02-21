@@ -7,22 +7,22 @@ import tw from "../../../styles/tailwind";
 import { contractIdToHex } from "../../../utils/contract/contractIdToHex";
 import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import { isPaymentTooLate } from "../../../utils/contract/status/isPaymentTooLate";
-import i18n from "../../../utils/i18n";
 import { isSellOffer } from "../../../utils/offer/isSellOffer";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { useContractContext } from "../context";
 import { getSellerDisputeStatusText } from "../helpers/getSellerDisputeStatusText";
 import { tradeInformationGetters } from "../helpers/tradeInformationGetters";
 import { SummaryItem } from "./SummaryItem";
+import { useTranslate } from "@tolgee/react";
+import { tolgee } from "../../../tolgee";
 
 export const TradeStatusInfo = () => {
   const { contract, view } = useContractContext();
+  const { t } = useTranslate("contract");
   return (
     <View style={tw`justify-center gap-5 grow`}>
       <SummaryItem
-        label={i18n(
-          `contract.summary.${view === "buyer" ? "seller" : "buyer"}`,
-        )}
+        label={t(`contract.summary.${view === "buyer" ? "seller" : "buyer"}`)}
         value={tradeInformationGetters[view === "buyer" ? "seller" : "buyer"](
           contract,
         )}
@@ -48,38 +48,42 @@ function getBuyerStatusText(contract: Contract) {
   const collaborativeTradeCancel = contract.cancelationRequested;
   const isCash = isCashTrade(contract.paymentMethod);
   if (isCash && contract.canceled) {
-    return i18n(
+    return tolgee.t(
       contract.canceledBy === "buyer"
         ? "contract.buyer.buyerCanceledCashTrade"
         : "contract.buyer.sellerCanceledCashTrade",
+      { ns: "contract" },
     );
   }
 
   const paymentWasTooLate = isPaymentTooLate(contract);
   if (buyerCanceledTrade) {
-    return i18n("contract.buyer.buyerCanceledTrade");
+    return tolgee.t("contract.buyer.buyerCanceledTrade", { ns: "contract" });
   } else if (collaborativeTradeCancel) {
     const isResolved = contract.canceled;
-    return i18n(
+    return tolgee.t(
       isResolved
         ? "contract.buyer.collaborativeCancel.resolved"
         : "contract.buyer.collaborativeCancel.notResolved",
+      { ns: "contract" },
     );
   } else if (paymentWasTooLate) {
-    return i18n(
+    return tolgee.t(
       contract.canceled
         ? "contract.buyer.paymentWasTooLate"
         : "contract.buyer.paymentWasTooLate.waitingForSeller",
+      { ns: "contract" },
     );
   }
   if (contract.disputeWinner === "seller") {
-    return i18n("contract.buyer.disputeLost");
+    return tolgee.t("contract.buyer.disputeLost", { ns: "contract" });
   }
   const isResolved = !!contract.releaseTxId;
-  return i18n(
+  return tolgee.t(
     isResolved
       ? "contract.buyer.disputeWon.paidOut"
       : "contract.buyer.disputeWon.awaitingPayout",
+    { ns: "contract" },
   );
 }
 
@@ -88,7 +92,7 @@ function SellerStatusText({ contract }: { contract: Contract }) {
   const sellOffer = offer && isSellOffer(offer) ? offer : null;
   const walletLabel = useWalletLabel({ address: sellOffer?.returnAddress });
   const text = !sellOffer
-    ? i18n("loading")
+    ? tolgee.t("loading", { ns: "unassigned" })
     : getSellerStatusText({ contract, sellOffer, walletLabel });
 
   return <PeachText style={tw`md:body-l`}>{text}</PeachText>;
@@ -110,20 +114,28 @@ function getSellerStatusText({
 
   if (paymentWasTooLate) {
     if (!contract.canceled) {
-      return i18n(
-        "contract.seller.paymentTimerHasRunOut.text",
-        contractIdToHex(contract.id),
-      );
+      return tolgee.t("contract.seller.paymentTimerHasRunOut.text", {
+        ns: "contract",
+        contractId: contractIdToHex(contract.id),
+      });
     }
-    i18n("contract.seller.refundOrRepublish.offer", walletLabel);
+    tolgee.t("contract.seller.refundOrRepublish.offer", {
+      ns: "contract",
+      wallet: walletLabel,
+    });
   }
 
   const isResolved = sellOffer?.refunded || sellOffer?.newOfferId;
   if (isResolved) {
     if (sellOffer.newOfferId) {
-      return i18n("contract.seller.republished");
+      return tolgee.t("contract.seller.republished", {
+        ns: "contract",
+      });
     }
-    return i18n("contract.seller.refunded", walletLabel);
+    return tolgee.t("contract.seller.refunded", {
+      ns: "contract",
+      wallet: walletLabel,
+    });
   }
   if (hasDisputeWinner) {
     return getSellerDisputeStatusText(contract);
@@ -134,15 +146,24 @@ function getSellerStatusText({
   if (isRepublishAvailable) {
     if (contract.canceledBy === "buyer") {
       if (!contract.cancelationRequested) {
-        return i18n("contract.seller.buyerCanceledWithoutRequest", walletLabel);
+        return tolgee.t("contract.seller.buyerCanceledWithoutRequest", {
+          ns: "contract",
+          wallet: walletLabel,
+        });
       }
-      return i18n("contract.seller.buyerAgreedToCancel");
+      return tolgee.t("contract.seller.buyerAgreedToCancel");
     }
-    return i18n("contract.seller.refundOrRepublish.trade", walletLabel);
+    return tolgee.t("contract.seller.refundOrRepublish.trade", {
+      ns: "contract",
+      wallet: walletLabel,
+    });
   }
-  return i18n(
+  return tolgee.t(
     contract.canceledBy === "buyer" && !contract.cancelationRequested
       ? "contract.seller.refund.buyerCanceled"
       : "contract.seller.refund",
+    {
+      ns: "contract",
+    },
   );
 }

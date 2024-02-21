@@ -25,6 +25,7 @@ import { FormInput } from "./FormInput";
 import { LabelInput } from "./LabelInput";
 import { TabbedFormNavigation } from "./TabbedFormNavigation";
 import { usePaymentMethodInfo } from "./usePaymentMethodInfo";
+import { useTranslate } from "@tolgee/react";
 
 export type FormType = Record<PaymentMethodField, string> & {
   paymentMethodName: string;
@@ -53,6 +54,7 @@ export const PaymentMethodForm = () => {
     setValue,
   } = useForm<FormType>({ mode: "all" });
 
+  const { t } = useTranslate("global");
   const onValid = (data: FormType) => {
     const { paymentMethodName, ...rest } = data;
     const test = {
@@ -125,7 +127,7 @@ export const PaymentMethodForm = () => {
             disabled={!isValid}
             onPress={handleSubmit(onValid)}
           >
-            {i18n("confirm")}
+            {t("confirm")}
           </Button>
         </PeachScrollView>
       )}
@@ -145,6 +147,7 @@ function CurrencySelectionController({
   control: Control<FormType>;
   setValue: (name: keyof FormType, value: Currency[]) => void;
 }) {
+  const { t } = useTranslate("form");
   const { field } = useController({
     control,
     defaultValue: currencies,
@@ -152,7 +155,7 @@ function CurrencySelectionController({
     rules: {
       validate: (value: Currency[]) => {
         const isValid = value.length > 0;
-        return isValid || i18n("form.required.error");
+        return isValid || t("form.required.error");
       },
     },
   });
@@ -183,6 +186,7 @@ function hasMultipleAvailableCurrencies(paymentMethod: PaymentMethod) {
 }
 
 function PaymentMethodFormHeader() {
+  const { t } = useTranslate("paymentMethod");
   const {
     paymentData: { type: paymentMethod, id },
   } = useRoute<"paymentMethodForm">().params;
@@ -216,9 +220,9 @@ function PaymentMethodFormHeader() {
 
   return (
     <Header
-      title={i18n(
+      title={t(
         id ? "paymentMethod.edit.title" : "paymentMethod.select.title",
-        i18n(`paymentMethod.${paymentMethod}`),
+        t(`paymentMethod.${paymentMethod}`),
       )}
       icons={getHeaderIcons()}
     />
@@ -226,9 +230,10 @@ function PaymentMethodFormHeader() {
 }
 
 function LNURLSwapsPopup() {
+  const { t } = useTranslate("help");
   return (
     <InfoPopup
-      title={i18n("help.lnurl.title")}
+      title={t("help.lnurl.title")}
       content={
         <ParsedPeachText
           parse={[
@@ -241,7 +246,7 @@ function LNURLSwapsPopup() {
             },
           ]}
         >
-          {i18n("help.lnurl.description")}
+          {t("help.lnurl.description")}
         </ParsedPeachText>
       }
     />

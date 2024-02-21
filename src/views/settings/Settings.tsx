@@ -12,19 +12,20 @@ import { AnalyticsPopup } from "../../popups/AnalyticsPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { checkNotificationStatus } from "../../utils/system/checkNotificationStatus";
 import { isProduction } from "../../utils/system/isProduction";
 import { toggleNotifications } from "../../utils/system/toggleNotifications";
 import { isDefined } from "../../utils/validation/isDefined";
 import { SettingsItem } from "./components/SettingsItem";
 import { VersionInfo } from "./components/VersionInfo";
+import { useTranslate } from "@tolgee/react";
 
 const contactUs = isProduction()
   ? (["contact", "aboutPeach"] as const)
   : (["testView", "contact", "aboutPeach"] as const);
 
 export const Settings = () => {
+  const { t } = useTranslate("settings");
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const [notificationsOn, setNotificationsOn] = useState(false);
@@ -60,18 +61,18 @@ export const Settings = () => {
     if (notificationsOn) {
       setPopup(
         <WarningPopup
-          title={i18n("settings.notifications.popup.title")}
-          content={i18n("settings.notifications.popup")}
+          title={t("settings.notifications.popup.title")}
+          content={t("settings.notifications.popup")}
           actions={
             <>
               <PopupAction
-                label={i18n("settings.notifications.popup.neverMind")}
+                label={t("settings.notifications.popup.neverMind")}
                 textStyle={tw`text-black-100`}
                 iconId="arrowLeftCircle"
                 onPress={closePopup}
               />
               <PopupAction
-                label={i18n("settings.notifications.popup.yes")}
+                label={t("settings.notifications.popup.yes")}
                 textStyle={tw`text-black-100`}
                 iconId="slash"
                 onPress={() => {
@@ -87,7 +88,7 @@ export const Settings = () => {
     } else {
       toggleNotifications();
     }
-  }, [closePopup, notificationsOn, setPopup]);
+  }, [closePopup, notificationsOn, setPopup, t]);
 
   const profileSettings = useMemo(
     () =>
@@ -149,7 +150,7 @@ export const Settings = () => {
   ];
 
   return (
-    <Screen header={<Header title={i18n("settings.title")} hideGoBackButton />}>
+    <Screen header={<Header title={t("settings.title")} hideGoBackButton />}>
       <PeachScrollView>
         {settings.map(({ headline, items }) => (
           <View key={`settings-${headline}`}>
@@ -157,7 +158,7 @@ export const Settings = () => {
               <PeachText
                 style={tw`mb-3 text-left lowercase h6 text-primary-main mt-9`}
               >
-                {i18n(`settings.${headline}`)}
+                {t(`settings.${headline}`)} //TODO: figure out how to fix this
               </PeachText>
             )}
             <View style={tw`gap-6 py-3 px-6px`}>

@@ -21,13 +21,13 @@ import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
 import { getOfferIdFromContract } from "../../utils/contract/getOfferIdFromContract";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { getMessages } from "../../utils/validation/getMessages";
 import { isValidBitcoinSignature } from "../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../utils/wallet/getNetwork";
 import { NewLoadingScreen } from "../loading/LoadingScreen";
 import { usePatchReleaseAddress } from "./components/usePatchReleaseAddress";
+import { useTranslate } from "@tolgee/react";
 
 const signatureRules = {
   required: true,
@@ -97,6 +97,7 @@ type ScreenContentProps = {
 };
 
 function ScreenContent({ onSubmit }: ScreenContentProps) {
+  const { t } = useTranslate("buy");
   const navigation = useStackNavigation();
   const { address, addressLabel } = useRoute<"signMessage">().params;
   const [setPayoutAddress, setPayoutAddressLabel, setPayoutAddressSignature] =
@@ -168,20 +169,20 @@ function ScreenContent({ onSubmit }: ScreenContentProps) {
         contentStyle={tw`gap-5`}
       >
         <TextContainer
-          label={i18n("buy.addressSigning.yourAddress")}
+          label={t("buy.addressSigning.yourAddress")}
           value={address}
         />
 
         <TextContainer
-          label={i18n("buy.addressSigning.message")}
+          label={t("buy.addressSigning.message")}
           value={message}
         />
 
         <Input
           value={signature}
           onChangeText={setSignature}
-          label={i18n("buy.addressSigning.signature")}
-          placeholder={i18n("buy.addressSigning.signature")}
+          label={t("buy.addressSigning.signature")}
+          placeholder={t("buy.addressSigning.signature")}
           errorMessage={signatureError}
           icons={[["clipboard", pasteSignature]]}
         />
@@ -192,7 +193,7 @@ function ScreenContent({ onSubmit }: ScreenContentProps) {
           disabled={!signatureValid}
           onPress={submitSignature}
         >
-          {i18n("confirm")}
+          {t("confirm", { ns: "global" })}
         </Button>
       )}
     </Screen>
@@ -228,11 +229,12 @@ function TextContainer({
 }
 
 function SignMessageHeader() {
+  const { t } = useTranslate("buy");
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<HelpPopup id="addressSigning" />);
   return (
     <Header
-      title={i18n("buy.addressSigning.title")}
+      title={t("buy.addressSigning.title")}
       icons={[{ ...headerIcons.help, onPress: showHelp }]}
     />
   );

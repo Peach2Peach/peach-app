@@ -13,10 +13,10 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { IconType } from "../../assets/icons";
 import { MSINASECOND } from "../../constants";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 import { iconMap } from "./iconMap";
+import { useTranslate } from "@tolgee/react";
 
 type LevelColorMap = {
   [key in ToastState["color"]]: {
@@ -56,6 +56,7 @@ export const Toast = () => {
   const toastState = useAtomValue(toastAtom);
   const setToast = useSetToast();
   const closeToast = useCallback(() => setToast(null), [setToast]);
+  const { t } = useTranslate("global");
 
   const { height } = useWindowDimensions();
   const top = useRef(new Animated.Value(-height)).current;
@@ -99,12 +100,12 @@ export const Toast = () => {
   const { color: toastColor, msgKey, bodyArgs = [], action } = toastState;
 
   const icon = iconMap[msgKey];
-  let title = i18n(`${msgKey}.title`);
-  let message = i18n(`${msgKey}.text`, ...bodyArgs);
+  let title = t(`${msgKey}.title`, { ns: msgKey.split(".")[0] }); // TODO: find a good way to get the ns
+  let message = t(`${msgKey}.text`, { ns: msgKey.split(".")[0], ...bodyArgs });
 
   if (title === `${msgKey}.title`) title = "";
   if (message === `${msgKey}.text`) {
-    message = i18n(msgKey, ...bodyArgs);
+    message = t(msgKey, { ns: msgKey.split(".")[0], ...bodyArgs });
   }
 
   const { color, backgroundColor } = levelColorMap[toastColor];
@@ -142,7 +143,7 @@ export const Toast = () => {
           {action && <Action {...action} color={color} />}
           <Action
             iconId="xSquare"
-            label={i18n("close")}
+            label={t("close")}
             color={color}
             style={tw`flex-row-reverse`}
           />

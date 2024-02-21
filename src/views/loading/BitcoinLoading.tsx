@@ -2,7 +2,7 @@ import { Image, View } from "react-native";
 import bitcoinAnimation from "../../assets/animated/bitcoin.gif";
 import { PeachText } from "../../components/text/PeachText";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import { tolgee } from "../../tolgee";
 
 type Props = {
   text?: string;
@@ -17,7 +17,7 @@ export const BitcoinLoading = ({ text }: Props) => (
       />
     </View>
     <PeachText style={tw`text-center subtitle-1`}>
-      {text || i18n("loading")}
+      {text || tolgee.t("loading")}
     </PeachText>
   </View>
 );

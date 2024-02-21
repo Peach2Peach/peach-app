@@ -1,10 +1,10 @@
 import { StyleProp, View, ViewStyle } from "react-native";
 import { SATSINBTC } from "../../constants";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { groupChars } from "../../utils/string/groupChars";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
+import { useTranslate } from "@tolgee/react";
 
 export type BTCAmountProps = {
   amount: number;
@@ -53,6 +53,7 @@ export function BTCAmount({
     styles[size].amount,
     white && tw`text-primary-background-light`,
   ];
+  const { t } = useTranslate("global");
   return (
     <View
       style={[
@@ -87,7 +88,7 @@ export function BTCAmount({
             </PeachText>
           </View>
         )}
-        <PeachText style={textStyle}>{i18n("currency.SATS")}</PeachText>
+        <PeachText style={textStyle}>{t("currency.SATS")}</PeachText>
       </View>
     </View>
   );

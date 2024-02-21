@@ -9,8 +9,8 @@ import { Header } from "../../components/Header";
 import { useWalletLabel } from "../../components/offer/useWalletLabel";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
-import i18n from "../../utils/i18n";
 import { LoadingScreen } from "../loading/LoadingScreen";
+import { useTranslate } from "@tolgee/react";
 
 export const CanceledOfferDetails = () => {
   const { offerId } = useRoute<"offer">().params;
@@ -30,9 +30,10 @@ function OfferDetailsHeader({
   amount: number;
   premium: number;
 }) {
+  const { t } = useTranslate("unassigned");
   return (
     <Header
-      title={i18n("yourTrades.offerCanceled.subtitle")}
+      title={t("yourTrades.offerCanceled.subtitle")}
       theme={"cancel"}
       subtitle={
         <Header.Subtitle
@@ -47,13 +48,14 @@ function OfferDetailsHeader({
 }
 
 function OfferDetailsScreen({ offer }: { offer: SellOffer }) {
+  const { t } = useTranslate("contract");
   const { returnAddress, escrow } = offer;
   const walletLabel = useWalletLabel({ address: returnAddress });
   return (
     <Screen header={<OfferDetailsHeader {...offer} />}>
       <View style={tw`justify-center grow`}>
         <PeachText style={tw`md:body-l`}>
-          {i18n("contract.seller.refunded", walletLabel)}
+          {t("contract.seller.refunded", walletLabel)}
         </PeachText>
       </View>
 

@@ -19,10 +19,10 @@ import { useAccountStore } from "../../utils/account/account";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getContractViewer } from "../../utils/contract/getContractViewer";
 import { isEmailRequiredForDispute } from "../../utils/dispute/isEmailRequiredForDispute";
-import i18n from "../../utils/i18n";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { useRaiseDispute } from "./useRaiseDispute";
+import { useTranslate } from "@tolgee/react";
 
 export const DisputeForm = () => {
   const { contractId } = useRoute<"disputeForm">().params;
@@ -61,6 +61,8 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
 
   const { mutate: raiseDispute, isPending } = useRaiseDispute();
 
+  const { t } = useTranslate("form");
+
   const submit = () => {
     Keyboard.dismiss();
 
@@ -94,7 +96,10 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
   let $message = useRef<TextInput>(null).current;
   return (
     <Screen
-      header={i18n("dispute.disputeForTrade", contractIdToHex(contractId))}
+      header={t("dispute.disputeForTrade", {
+        ns: "contract",
+        contractId: contractIdToHex(contractId),
+      })}
     >
       <PeachScrollView
         contentContainerStyle={tw`items-center justify-center grow`}
@@ -104,17 +109,20 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
             onChangeText={setEmail}
             onSubmitEditing={() => $message?.focus()}
             value={email}
-            placeholder={i18n("form.userEmail.placeholder")}
+            placeholder={t("form.userEmail.placeholder")}
             errorMessage={emailErrors}
           />
-          <Input value={i18n(`dispute.reason.${reason}`)} disabled />
+          <Input
+            value={t(`dispute.reason.${reason}`, { ns: "contract" })}
+            disabled
+          />
           <Input
             style={tw`h-40`}
             reference={(el) => ($message = el)}
             onChangeText={setMessage}
             value={message}
             multiline={true}
-            placeholder={i18n("form.message.placeholder")}
+            placeholder={t("form.message.placeholder")}
             errorMessage={messageErrors}
           />
         </View>
@@ -124,7 +132,7 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
         disabled={isPending || !isFormValid}
         style={tw`self-center`}
       >
-        {i18n("confirm")}
+        {t("confirm", { ns: "global" })}
       </Button>
     </Screen>
   );

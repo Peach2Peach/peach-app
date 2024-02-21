@@ -1,10 +1,10 @@
 import { TextStyle, TouchableOpacity } from "react-native";
 import { IconType } from "../../assets/icons";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { Icon } from "../Icon";
 import { Loading } from "../animation/Loading";
 import { PeachText } from "../text/PeachText";
+import { tolgee } from "../../tolgee";
 
 export type PopupActionProps = ComponentProps & {
   onPress: (() => void) | (() => Promise<void>) | undefined;
@@ -50,7 +50,7 @@ export const PopupAction = ({
     <PeachText
       style={[tw`subtitle-1 text-primary-background-light`, textStyle]}
     >
-      {loading ? i18n("loading") : label}
+      {loading ? tolgee.t("loading", { ns: "unassigned" }) : label}
     </PeachText>
   </TouchableOpacity>
 );

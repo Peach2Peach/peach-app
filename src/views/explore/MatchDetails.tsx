@@ -29,7 +29,6 @@ import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { isLimitReached } from "../../utils/match/isLimitReached";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
@@ -39,6 +38,7 @@ import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/payme
 import { peachAPI } from "../../utils/peachAPI";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { matchesKeys } from "../search/hooks/useOfferMatches";
+import { useTranslate } from "@tolgee/react";
 
 export function MatchDetails() {
   const { matchId, offerId } = useRoute<"matchDetails">().params;
@@ -70,7 +70,9 @@ export function MatchDetails() {
 }
 
 function MatchDetailsHeader() {
-  return <Header title={i18n("matchDetails.title")} />;
+  const { t } = useTranslate("offerPreferences");
+
+  return <Header title={t("matchDetails.title")} />;
 }
 
 function useMatchDetails({
@@ -259,12 +261,14 @@ function InstantTradeSlider({
   matchOffer: () => void;
   optionName: keyof typeof options;
 }) {
+  const { t } = useTranslate("offerPreferences");
+
   const label =
     optionName === "missingSelection"
-      ? i18n("matchDetails.action.missingSelection")
+      ? t("matchDetails.action.missingSelection")
       : optionName === "tradingLimitReached"
-        ? i18n("matchDetails.action.tradingLimitReached")
-        : i18n("matchDetails.action.instantTrade");
+        ? t("matchDetails.action.tradingLimitReached")
+        : t("matchDetails.action.instantTrade");
 
   const [showUnlockedSlider, setShowUnlockedSlider] = useState(false);
 
@@ -290,6 +294,7 @@ function MatchOfferButton({
   optionName,
   setShowPaymentMethodPulse,
 }: Props) {
+  const { t } = useTranslate("offerPreferences");
   const onPress = () => {
     if (optionName === "matchOffer") {
       matchOffer();
@@ -310,7 +315,7 @@ function MatchOfferButton({
       ]}
       onPress={onPress}
     >
-      {i18n(
+      {t(
         optionName === "tradingLimitReached"
           ? "matchDetails.action.tradingLimitReached"
           : "matchDetails.action.requestTrade",
@@ -320,14 +325,15 @@ function MatchOfferButton({
 }
 
 function WaitingForSeller() {
+  const { t } = useTranslate("match");
   return (
     <View style={tw`items-center self-center`}>
       <PeachText style={tw`text-primary-main subtitle-1`}>
-        {i18n("match.tradeRequested")}
+        {t("match.tradeRequested")}
       </PeachText>
       <View style={tw`flex-row items-center justify-center`}>
         <PeachText style={tw`text-primary-main subtitle-1`}>
-          {i18n("match.waitingForSeller")}
+          {t("match.waitingForSeller")}
         </PeachText>
         <AnimatedButtons />
       </View>
