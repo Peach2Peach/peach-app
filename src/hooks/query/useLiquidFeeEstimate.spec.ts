@@ -5,7 +5,7 @@ import { peachAPI } from "../../utils/peachAPI";
 import { placeholderFees, useLiquidFeeEstimate } from "./useLiquidFeeEstimate";
 
 const getFeeEstimateMock = jest.spyOn(
-  peachAPI.public.bitcoin,
+  peachAPI.public.liquid,
   "getFeeEstimate",
 );
 

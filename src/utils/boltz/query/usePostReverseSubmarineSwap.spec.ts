@@ -40,7 +40,8 @@ describe("usePostReverseSubmarineSwap", () => {
     await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(result.current).toEqual({
       data: {
-        ...reverseSwapResponse,
+        swapInfo: reverseSwapResponse,
+        keyPairWIF: expect.any(String),
         preimage: expect.any(String),
       },
       isLoading: false,

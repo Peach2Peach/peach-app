@@ -1,6 +1,6 @@
 /* eslint-disable no-magic-numbers */
 import { Psbt, networks } from "bitcoinjs-lib";
-import { ElementsValue } from "liquidjs-lib";
+import { ElementsValue, networks as liquidNetworks } from "liquidjs-lib";
 import { Psbt as LiquidPsbt } from "liquidjs-lib/src/psbt";
 import {
   asset,
@@ -12,20 +12,8 @@ import { getEscrowWalletForOffer } from "../wallet/getEscrowWalletForOffer";
 import { setWallet } from "../wallet/setWallet";
 import { verifyAndSignReleaseTx } from "./verifyAndSignReleaseTx";
 
-const fromBase64Mock = jest.fn();
-jest.mock("bitcoinjs-lib", () => ({
-  ...jest.requireActual("bitcoinjs-lib"),
-  Psbt: {
-    fromBase64: (...args: unknown[]) => fromBase64Mock(...args),
-  },
-}));
-const fromBase64LiquidMock = jest.fn();
-jest.mock("liquidjs-lib/src/psbt", () => ({
-  ...jest.requireActual("liquidjs-lib/src/psbt"),
-  Psbt: {
-    fromBase64: (...args: unknown[]) => fromBase64LiquidMock(...args),
-  },
-}));
+const fromBase64Mock = jest.spyOn(Psbt, 'fromBase64');
+const fromBase64LiquidMock = jest.spyOn(LiquidPsbt, 'fromBase64');
 
 const verifyReleasePSBTMock = jest.fn();
 jest.mock("../../views/contract/helpers/verifyReleasePSBT", () => ({
@@ -54,6 +42,7 @@ describe("verifyAndSignReleaseTx", () => {
   const finalizeInputMock = jest.fn();
 
   const psbt: Partial<Psbt> = {
+    ...new Psbt(),
     data: { inputs: [{ sighashType: SIGHASH.ALL }] } as Psbt["data"],
     signInput: jest.fn().mockReturnValue({ finalizeInput: finalizeInputMock }),
     extractTransaction: jest.fn().mockReturnValue({
@@ -66,6 +55,7 @@ describe("verifyAndSignReleaseTx", () => {
     ] as Psbt["txOutputs"],
   };
   const liquidPsbt: Partial<LiquidPsbt> = {
+    ...new LiquidPsbt(),
     data: { inputs: [{ sighashType: SIGHASH.ALL }] } as LiquidPsbt["data"],
     signInput: jest.fn().mockReturnValue({ finalizeInput: finalizeInputMock }),
     extractTransaction: jest.fn().mockReturnValue({
@@ -99,9 +89,9 @@ describe("verifyAndSignReleaseTx", () => {
     txOutputs: [{ address: "address1", value: 9000 }] as Psbt["txOutputs"],
   };
   fromBase64Mock.mockImplementation((base64) =>
-    base64 === mockContract.releasePsbt ? psbt : batchPsbt,
+    base64 === mockContract.releasePsbt ? psbt as Psbt: batchPsbt as Psbt,
   );
-  fromBase64LiquidMock.mockReturnValue(liquidPsbt);
+  fromBase64LiquidMock.mockReturnValue(liquidPsbt as LiquidPsbt);
   setWallet(createTestWallet());
 
   const wallet = getEscrowWalletForOffer(mockSellOffer as SellOffer);
@@ -168,13 +158,13 @@ describe("verifyAndSignReleaseTx", () => {
     expect(error).toBe(undefined);
     expect(result?.releaseTransaction).toEqual("transactionAsHex");
     expect(result?.batchReleasePsbt).toEqual(undefined);
-    expect(psbt.signInput).toHaveBeenCalled();
-    expect(fromBase64Mock).toHaveBeenCalledWith(mockContract.releasePsbt, {
-      network: networks.regtest,
+    expect(liquidPsbt.signInput).toHaveBeenCalled();
+    expect(fromBase64LiquidMock).toHaveBeenCalledWith(mockContract.releasePsbt, {
+      network: liquidNetworks.regtest,
     });
     expect(finalizeInputMock).toHaveBeenCalled();
-    expect(psbt.extractTransaction).toHaveBeenCalled();
-    expect(psbt.extractTransaction?.().toHex).toHaveBeenCalled();
+    expect(liquidPsbt.extractTransaction).toHaveBeenCalled();
+    expect(liquidPsbt.extractTransaction?.().toHex).toHaveBeenCalled();
   });
   it("should return null and error message if batch psbt is not valid", () => {
     verifyReleasePSBTMock.mockReturnValueOnce(null);
@@ -193,8 +183,8 @@ describe("verifyAndSignReleaseTx", () => {
   it("should return null and error message if batch psbt is valid but not for batching", () => {
     verifyReleasePSBTMock.mockReturnValueOnce(null);
     verifyReleasePSBTMock.mockReturnValueOnce(null);
-    fromBase64Mock.mockReturnValueOnce(psbt);
-    fromBase64Mock.mockReturnValueOnce(psbt);
+    fromBase64Mock.mockReturnValueOnce(psbt as Psbt);
+    fromBase64Mock.mockReturnValueOnce(psbt as Psbt);
 
     const { result, error } = verifyAndSignReleaseTx(
       contractWithBatching as Contract,
