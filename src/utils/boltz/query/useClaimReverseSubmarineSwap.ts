@@ -2,6 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { WebViewMessageEvent } from "react-native-webview";
 import { GetFundingStatusResponseBody } from "../../../../peach-api/src/@types/api/offerAPI";
+import { log } from "../../log/log";
 import { peachAPI } from "../../peachAPI";
 
 type Props = {
@@ -13,6 +14,8 @@ export const useClaimReverseSubmarineSwap = ({ offerId }: Props) => {
   const [error, setError] = useState<string>();
 
   const handleClaimMessage = async (event: WebViewMessageEvent) => {
+    log('useClaimReverseSubmarineSwap - handleClaimMessage')
+
     const data = JSON.parse(event.nativeEvent.data);
     if (data.error) {
       setError(data.error);
@@ -20,6 +23,7 @@ export const useClaimReverseSubmarineSwap = ({ offerId }: Props) => {
     }
 
     if (data.tx) {
+      log('useClaimReverseSubmarineSwap - handleClaimMessage ', data.tx)
       const { result, error: err } = await peachAPI.public.liquid.postTx({
         tx: data.tx,
       });
