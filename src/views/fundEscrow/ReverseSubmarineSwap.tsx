@@ -1,12 +1,14 @@
 import ecc from "@bitcoinerlab/secp256k1";
 import { BOLTZ_API, NETWORK } from "@env";
 import ECPairFactory from "ecpair";
+import { useEffect } from "react";
 import { View } from "react-native";
 import WebView from "react-native-webview";
 import { Loading } from "../../components/animation/Loading";
 import { LightningInvoice } from "../../components/bitcoin/LightningInvoice";
 import { ErrorBox } from "../../components/ui/ErrorBox";
 import { useLiquidFeeRate } from "../../hooks/useLiquidFeeRate";
+import { useBoltzSwapStore } from "../../store/useBoltzSwapStore";
 import tw from "../../styles/tailwind";
 import { ReverseResponse, SwapStatus } from "../../utils/boltz/api/types";
 import { useClaimReverseSubmarineSwap } from "../../utils/boltz/query/useClaimReverseSubmarineSwap";
@@ -83,7 +85,6 @@ export type Props = {
   amount: number
 };
 
-// TODO persist swap info
 export const ReverseSubmarineSwap = ({ offerId, address, amount }: Props) => {
   const { data, error } = usePostReverseSubmarineSwap({
     address,
@@ -91,6 +92,11 @@ export const ReverseSubmarineSwap = ({ offerId, address, amount }: Props) => {
   })
   const swapInfo = data?.swapInfo
   const { status } = useSwapStatus({ id: swapInfo?.id })
+  const saveSwap = useBoltzSwapStore(state => state.saveSwap)
+
+  useEffect(()=> {
+    if (data?.swapInfo) saveSwap(offerId, data?.swapInfo)
+  }, [data?.swapInfo, offerId, saveSwap])
 
   if (error?.message) return <ErrorBox>{error.message}</ErrorBox>
   if (!swapInfo?.invoice ) return <Loading />
