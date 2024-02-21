@@ -19,7 +19,6 @@ import { getLiquidNetwork } from "../../utils/wallet/getLiquidNetwork";
 const ECPair = ECPairFactory(ecc)
 
 
-// TODO document this workaround
 const html = require("boltz-swap-web-context");
 
 type GetClaimReverseSubmarineSwapJSProps = {
@@ -57,6 +56,13 @@ type ClaimReverseSubmarineSwapProps = {
   keyPairWIF: string
   preimage: string
 }
+
+/**
+ * @description Because react-native does not support WebAssembly but is needed to claim swaps
+ * this component includes a Webview to execute WebAssembly dependent code.
+ * We simply inject a function call with the right arguments from the react-native layer
+ * and listen for success or error messages from the web context.
+ */
 const ClaimReverseSubmarineSwap = (
   { offerId, swapInfo, address, swapStatus, keyPairWIF, preimage }: ClaimReverseSubmarineSwapProps
 ) => {

@@ -9,21 +9,15 @@ npm install
 npx react-native link
 ```
 
-**Android**
 
 ## Environment Setup
 
-### Generating Signed APK
+### Initializing the peach-api submodule
 
-https://s-pace.github.io/react-native/docs/signed-apk-android.html
+When cloning this repo you will have to run: `git submodule update --init` to initialize the peach-api submodule.
 
-**iOS**
 
-Install dependencies
-
-`cd ios && pod install`
-
-## Environment Setup
+### env files
 
 Copy template for each environment
 
@@ -35,9 +29,23 @@ cp .env.dist .env.production
 
 Then edit the variables according to your setup
 
+
+
+### iOS
+
+Install dependencies
+
+`cd ios && pod install`
+
+### Android
+
+#### Generating Signed APK
+
+https://s-pace.github.io/react-native/docs/signed-apk-android.html
+
 # Run simulator
 
-**iOS**
+## iOS
 
 `npm run ios`
 
@@ -47,17 +55,17 @@ To choose specific target
 Troubles with M1/M2 chips, run:
 `arch -x86_64 npm run ios`
 
-**Android**
+## Android
 
 `npm run android`
 
-**Web**
+## Web
 
 `npm run web`
 
-## Test
+# Test
 
-### Unit testing
+## Unit testing
 
 `npm run test`
 
@@ -66,19 +74,19 @@ Troubles with M1/M2 chips, run:
 
 `npm run test ./tests/utils/*.test.js`
 
-### E2E testing
+## E2E testing
 
 Unit testing is powered by [Detox](https://github.com/wix/Detox)
 
 Follow their guides or this is the quick setup:
 
-#### Mac OS X
+### Mac OS X
 
-##### Install `detox-cli`
+#### Install `detox-cli`
 
 `npm install -g detox-cli`
 
-##### Install `applesimutils`
+#### Install `applesimutils`
 
 ```
 brew upgrade
@@ -98,11 +106,11 @@ brew install applesimutils
    or
    `test:e2e:android`
 
-## Troubleshooting
+# Troubleshooting
 
-### Can't build Android
+## Can't build Android
 
-#### General
+### General
 
 1. Clean gradle
 
@@ -112,15 +120,15 @@ brew install applesimutils
 
 `npm run cache:clear`
 
-#### Error: Duplicate resources
+### Error: Duplicate resources
 
 1. Run `rm -rf android/app/src/main/res/drawable-*`
 2. Then open folder android in Android Studio and build project
 3. Select Build/Generate signed APK to build release
 
-### Can't build iOS
+## Can't build iOS
 
-#### After react-native updates
+### After react-native updates
 
 1. Install pods
 
@@ -129,7 +137,7 @@ npx react-native link
 cd ios && pod install
 ```
 
-### Adding fonts
+## Adding fonts
 
 1. Add fonts to assets/fonts
 2. Add font file names in `Info.plist` under `UIAppFonts`
@@ -140,6 +148,3 @@ then run
 
 before building the app
 
-### Initializing the peach-api submodule
-
-When cloning this repo you will have to run: `git submodule update --init` to initialize the peach-api submodule.
