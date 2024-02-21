@@ -15,6 +15,7 @@ import { showTransaction } from "../../../utils/blockchain/showTransaction";
 import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
 import { generateBlock } from "../../../utils/regtest/generateBlock";
+import { generateLiquidBlock } from "../../../utils/regtest/generateLiquidBlock";
 import { isLiquidAddress } from "../../../utils/validation/rules";
 import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
@@ -83,6 +84,7 @@ function MempoolHeader({ offerId }: { offerId: string }) {
 
     if (getNetwork() === networks.regtest) {
       icons.unshift({ ...headerIcons.generateBlock, onPress: generateBlock });
+      icons.unshift({ ...headerIcons.generateLiquidBlock, onPress: generateLiquidBlock });
     }
     return icons;
   }, [cancelOffer, showHelp]);

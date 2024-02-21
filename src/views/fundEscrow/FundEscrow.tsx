@@ -32,16 +32,16 @@ import { useWalletState } from "../../utils/wallet/walletStore";
 import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
 import { openURL } from "../../utils/web/openURL";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
+import { ReverseSubmarineSwap } from "./ReverseSubmarineSwap";
 import { TransactionInMempool } from "./components/TransactionInMempool";
 import { useFundEscrowSetup } from "./hooks/useFundEscrowSetup";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
 
 type FundingTab = {
-  id: EscrowType,
+  id: EscrowType | 'lightning-liquid',
   display: string
 }
 
-// TODO liquify
 export const FundEscrow = () => {
   const {
     offerId,
@@ -52,9 +52,10 @@ export const FundEscrow = () => {
   const tabs: FundingTab[] = [
     { id: "bitcoin", display: i18n('escrow.bitcoin') },
     { id: "liquid", display: i18n('escrow.liquid') },
+    { id: "lightning-liquid", display: i18n('escrow.lightning') },
   ];
   const [currentTab, setCurrentTab] = useState(tabs[0]);
-  const escrowType = currentTab.id
+  const escrowType = currentTab.id === 'lightning-liquid' ? 'liquid' : currentTab.id
   const fundingAddress = funding[escrowType].fundingAddress
   const fundingAddresses = funding[escrowType].fundingAddresses
 
@@ -63,7 +64,7 @@ export const FundEscrow = () => {
 
   if (activeFunding.status === "MEMPOOL")
     return (
-      <TransactionInMempool {...{ offerId, address }} txId={activeFunding.txIds[0]} />
+      <TransactionInMempool {...{ offerId, address: fundingAddress }} txId={activeFunding.txIds[0]} />
     );
 
   return (
@@ -95,6 +96,13 @@ export const FundEscrow = () => {
           address={fundingAddress}
           amount={fundingAmount / SATSINBTC}
           label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
+        />
+        )}
+        {currentTab.id === "lightning-liquid" && (
+          <ReverseSubmarineSwap
+          offerId={offerId}
+          address={fundingAddress}
+          amount={fundingAmount / SATSINBTC}
         />
         )}
       </PeachScrollView>
