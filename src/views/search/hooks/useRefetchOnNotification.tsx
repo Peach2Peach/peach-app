@@ -10,7 +10,10 @@ export const useRefetchOnNotification = (refetch: () => void) => {
       const unsubscribe = messaging().onMessage((remoteMessage) => {
         if (!remoteMessage.data) return;
 
-        if (updaterPNs.includes(remoteMessage.data.type)) {
+        if (
+          typeof remoteMessage.data.type === "string" &&
+          updaterPNs.includes(remoteMessage.data.type)
+        ) {
           refetch();
         }
       });

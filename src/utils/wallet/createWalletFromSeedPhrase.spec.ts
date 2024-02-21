@@ -1,4 +1,3 @@
-import { deepStrictEqual, strictEqual } from "assert";
 import { account1 } from "../../../tests/unit/data/accountData";
 import { createWalletFromSeedPhrase } from "./createWalletFromSeedPhrase";
 import { getNetwork } from "./getNetwork";
@@ -15,17 +14,11 @@ describe("createWalletFromSeedPhrase", () => {
       network,
     );
 
-    deepStrictEqual(
-      recoveredWallet.wallet.network,
-      network,
-      "Network is not correct",
-    );
-    strictEqual(
-      recoveredWallet.wallet.privateKey.toString("hex"),
+    expect(recoveredWallet.wallet.network).toStrictEqual(network);
+    expect(recoveredWallet.wallet.privateKey?.toString("hex")).toStrictEqual(
       expectedPrivateKey,
     );
-    strictEqual(
-      recoveredWallet.wallet.publicKey.toString("hex"),
+    expect(recoveredWallet.wallet.publicKey.toString("hex")).toStrictEqual(
       expectedPublicKey,
     );
   });

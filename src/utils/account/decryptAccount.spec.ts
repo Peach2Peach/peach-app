@@ -1,4 +1,3 @@
-import { deepStrictEqual, ok } from "assert";
 import CryptoJS from "react-native-crypto-js";
 import * as accountData from "../../../tests/unit/data/accountData";
 import { decryptAccount } from "./decryptAccount";
@@ -10,7 +9,7 @@ describe("decryptAccount", () => {
       encryptedAccount: JSON.stringify(accountData.recoveredAccount),
       password: "mockpassword",
     });
-    ok(!err, `Error has been thrown ${err}`);
-    deepStrictEqual(recoveredAccount, accountData.recoveredAccount);
+    expect(!err).toBe(true);
+    expect(recoveredAccount).toStrictEqual(accountData.recoveredAccount);
   });
 });

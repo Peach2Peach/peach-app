@@ -1,29 +1,28 @@
 /* eslint-disable no-magic-numbers */
-import { strictEqual } from "assert";
 import { sum } from "./sum";
 
 describe("sum", () => {
   it("sums two numbers", () => {
-    strictEqual(sum(1, 2), 3);
-    strictEqual(sum(2, 2), 4);
-    strictEqual(sum(3, 2), 5);
+    expect(sum(1, 2)).toBe(3);
+    expect(sum(2, 2)).toBe(4);
+    expect(sum(3, 2)).toBe(5);
   });
 
   it("respects commutativity", () => {
-    strictEqual(sum(1, 2), sum(2, 1));
+    expect(sum(1, 2)).toBe(sum(2, 1));
   });
 
   it("respects associativity", () => {
-    strictEqual(sum(sum(1, 2), 3), sum(1, sum(2, 3)));
+    expect(sum(sum(1, 2), 3)).toBe(sum(1, sum(2, 3)));
   });
 
   it("respects identity", () => {
-    strictEqual(sum(0, 1), 1);
-    strictEqual(sum(1, 0), 1);
+    expect(sum(0, 1)).toBe(1);
+    expect(sum(1, 0)).toBe(1);
   });
 
   it("respects inverse", () => {
-    strictEqual(sum(1, -1), 0);
-    strictEqual(sum(-1, 1), 0);
+    expect(sum(1, -1)).toBe(0);
+    expect(sum(-1, 1)).toBe(0);
   });
 });
