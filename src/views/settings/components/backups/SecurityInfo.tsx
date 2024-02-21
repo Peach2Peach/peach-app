@@ -2,7 +2,6 @@ import { View } from "react-native";
 import { Icon } from "../../../../components/Icon";
 import { PeachText } from "../../../../components/text/PeachText";
 import tw from "../../../../styles/tailwind";
-import i18n from "../../../../utils/i18n";
 import { tolgee } from "../../../../tolgee";
 const items = [
   { id: "edit", text: "writeItDown", color: tw.color("success-main") },

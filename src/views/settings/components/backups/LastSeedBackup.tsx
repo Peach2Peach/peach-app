@@ -5,7 +5,6 @@ import { PeachText } from "../../../../components/text/PeachText";
 import { useSettingsStore } from "../../../../store/settingsStore/useSettingsStore";
 import tw from "../../../../styles/tailwind";
 import { toShortDateFormat } from "../../../../utils/date/toShortDateFormat";
-import i18n from "../../../../utils/i18n";
 import { useTranslate } from "@tolgee/react";
 
 type Props = { goBackToStart: () => void };

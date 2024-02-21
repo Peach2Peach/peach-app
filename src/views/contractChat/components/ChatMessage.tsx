@@ -7,6 +7,7 @@ import tw from "../../../styles/tailwind";
 import { useAccountStore } from "../../../utils/account/account";
 import { toTimeFormat } from "../../../utils/date/toTimeFormat";
 import { useTranslate } from "@tolgee/react";
+import { tolgee } from "../../../tolgee";
 
 type GetMessageMetaProps = {
   publicKey: string;
@@ -33,14 +34,13 @@ const getMessageMeta = ({
   online,
   publicKey,
 }: GetMessageMetaProps): MessageMeta => {
-  const { t } = useTranslate("chat");
   const isYou = message.from === publicKey;
   const isTradingPartner = message.from === tradingPartner;
   const isMediator = !isYou && !isTradingPartner;
   const isSystemMessage = message.from === "system";
   const readByCounterParty = message.readBy?.includes(tradingPartner);
   const showName = !previous || previous.from !== message.from;
-  const name = t(
+  const name = tolgee.t(
     isSystemMessage
       ? "chat.systemMessage"
       : isMediator
@@ -48,6 +48,7 @@ const getMessageMeta = ({
         : isYou
           ? "chat.you"
           : "chat.tradePartner",
+    { ns: "chat" },
   );
   return {
     online,
@@ -195,9 +196,8 @@ export const ChatMessage = ({
 };
 
 function toDateFormat(date: Date): string {
-  const { t } = useTranslate("global");
   const day = `${date.getDate()}${getDateSuffix(date.getDate())}`;
-  return `${t(`month.short.${date.getMonth()}`)} ${day}, ${date.getFullYear()}`;
+  return `${tolgee.t(`month.short.${date.getMonth()}`, { ns: "global" })} ${day}, ${date.getFullYear()}`;
 }
 
 function getDateSuffix(date: number) {

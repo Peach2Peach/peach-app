@@ -10,7 +10,6 @@ import { PeachText } from "../../../components/text/PeachText";
 import { useMarketPrices } from "../../../hooks/query/useMarketPrices";
 import { useBitcoinPrices } from "../../../hooks/useBitcoinPrices";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { getTradingAmountLimits } from "../../../utils/market/getTradingAmountLimits";
 import { trackMin } from "../utils/constants";
 import { enforceDigitFormat } from "../utils/enforceDigitFormat";

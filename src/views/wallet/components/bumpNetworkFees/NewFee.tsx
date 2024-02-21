@@ -5,15 +5,13 @@ import { PeachText } from "../../../../components/text/PeachText";
 import { CENT } from "../../../../constants";
 import tw from "../../../../styles/tailwind";
 import { round } from "../../../../utils/math/round";
-import { useTranslate } from "@tolgee/react";
+import { tolgee } from "../../../../tolgee";
 
 type Props = {
   newFeeRate: string;
   setNewFeeRate: Dispatch<string>;
   overpayingBy?: number;
 };
-
-const { t } = useTranslate("wallet");
 
 export const NewFee = ({
   newFeeRate,
@@ -25,7 +23,7 @@ export const NewFee = ({
       style={tw`flex-row items-center self-stretch justify-center gap-2 pt-2`}
     >
       <PeachText style={tw`subtitle-1`}>
-        {t("wallet.bumpNetworkFees.newFee")}
+        {tolgee.t("wallet.bumpNetworkFees.newFee", { ns: "wallet" })}
       </PeachText>
       <View style={tw`h-9`}>
         <NumberInput
@@ -38,7 +36,7 @@ export const NewFee = ({
         />
       </View>
       <PeachText style={tw`text-center text-black-50`}>
-        {t("satPerByte", { ns: "global" })}
+        {tolgee.t("satPerByte", { ns: "global" })}
       </PeachText>
     </View>
     <PeachText
@@ -47,7 +45,8 @@ export const NewFee = ({
         overpayingBy < 1 && tw`opacity-0`,
       ]}
     >
-      {t("wallet.bumpNetworkFees.overPayingBy", {
+      {tolgee.t("wallet.bumpNetworkFees.overPayingBy", {
+        ns: "wallet",
         percentage: String(round(overpayingBy * CENT)),
       })}
     </PeachText>

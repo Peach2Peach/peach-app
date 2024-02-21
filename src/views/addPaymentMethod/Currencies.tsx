@@ -10,7 +10,7 @@ const getDisplayName = (c: Currency) => {
   if (c === "USDT") return tolgee.t(`currency.${c}`, { ns: "global" });
   if (c === "SAT")
     return tolgee.t("paymentMethod.lnurl", { ns: "paymentMethod" });
-  return tolgee.t(`currency.${c}`, { ns: "global" }); // TODO: figure out this problem: same case but no problem above
+  return tolgee.t(`currency.${c}`, { ns: "global" });
 };
 
 type Props = {

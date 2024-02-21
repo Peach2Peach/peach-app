@@ -115,7 +115,7 @@ function OnboardingHeader() {
     updateDrawer({
       title: t("language.select"),
       options: i18n.getLocales().map((l) => ({
-        title: t(`languageName.${l}`), // TODO: figure out how to fix this
+        title: t(`languageName.${l}`),
         onPress: () => {
           updateLocale(l);
           updateDrawer({ show: false });

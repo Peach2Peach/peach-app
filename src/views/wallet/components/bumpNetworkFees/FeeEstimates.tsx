@@ -2,15 +2,13 @@ import { Dispatch } from "react";
 import { TouchableOpacity, View } from "react-native";
 import tw from "../../../../styles/tailwind";
 import { FeeInfo } from "./FeeInfo";
-import { useTranslate } from "@tolgee/react";
+import { tolgee } from "../../../../tolgee";
 
 type Props = {
   estimatedFees: FeeRecommendation;
   setFeeRate: Dispatch<string>;
   isOverpaying?: boolean;
 };
-
-const { t } = useTranslate("wallet");
 
 export const FeeEstimates = ({
   estimatedFees,
@@ -22,7 +20,9 @@ export const FeeEstimates = ({
       onPress={() => setFeeRate(estimatedFees.fastestFee.toString())}
     >
       <FeeInfo
-        label={t("wallet.bumpNetworkFees.estimated.nextBlock")}
+        label={tolgee.t("wallet.bumpNetworkFees.estimated.nextBlock", {
+          ns: "wallet",
+        })}
         fee={estimatedFees.fastestFee}
         isError={isOverpaying}
       />
@@ -31,7 +31,9 @@ export const FeeEstimates = ({
       onPress={() => setFeeRate(estimatedFees.halfHourFee.toString())}
     >
       <FeeInfo
-        label={t("wallet.bumpNetworkFees.estimated.halfHourFee")}
+        label={tolgee.t("wallet.bumpNetworkFees.estimated.halfHourFee", {
+          ns: "wallet",
+        })}
         fee={estimatedFees.halfHourFee}
       />
     </TouchableOpacity>
@@ -39,7 +41,9 @@ export const FeeEstimates = ({
       onPress={() => setFeeRate(estimatedFees.hourFee.toString())}
     >
       <FeeInfo
-        label={t("wallet.bumpNetworkFees.estimated.hourFee")}
+        label={tolgee.t("wallet.bumpNetworkFees.estimated.hourFee", {
+          ns: "wallet",
+        })}
         fee={estimatedFees.hourFee}
       />
     </TouchableOpacity>

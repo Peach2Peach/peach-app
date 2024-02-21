@@ -2,7 +2,6 @@ import { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
 import { AppState } from "react-native";
 import { act, render, renderHook, waitFor } from "test-utils";
 import { Toast } from "../../components/toast/Toast";
-import i18n from "../../utils/i18n";
 import { useMessageHandler } from "./useMessageHandler";
 import { tolgee } from "../../tolgee";
 
@@ -61,7 +60,9 @@ describe("useMessageHandler", () => {
     });
 
     expect(
-      queryByText( tolgee.t("notification.SOME_TYPE", { "arg1", "arg2" })),
+      queryByText(
+        tolgee.t("notification.SOME_TYPE", { param1: "arg1", param2: "arg2" }),
+      ),
     ).toBeTruthy();
     await waitFor(() => {
       jest.runAllTimers();
@@ -83,7 +84,12 @@ describe("useMessageHandler", () => {
     });
 
     expect(
-      queryByText( tolgee.t("notification.SOME_TYPE.text", "arg1", "arg2")), // TODO: fix this
+      queryByText(
+        tolgee.t("notification.SOME_TYPE.text", {
+          param1: "arg1",
+          param2: "arg2",
+        }),
+      ),
     ).toBeFalsy();
 
     await waitFor(() => {
@@ -99,7 +105,9 @@ describe("useMessageHandler", () => {
     } as FirebaseMessagingTypes.RemoteMessage;
     const { queryByText } = render(<Toast />);
     expect(
-      queryByText( tolgee.t("notification.SOME_TYPE", "arg1", "arg2")),
+      queryByText(
+        tolgee.t("notification.SOME_TYPE", { param1: "arg1", param2: "arg2" }),
+      ),
     ).toBeFalsy();
     jest
       .spyOn(jest.requireMock("@react-native-firebase/messaging"), "default")
@@ -112,7 +120,9 @@ describe("useMessageHandler", () => {
     });
 
     expect(
-      queryByText( tolgee.t("notification.SOME_TYPE", "arg1", "arg2")),
+      queryByText(
+        tolgee.t("notification.SOME_TYPE", { param1: "arg1", param2: "arg2" }),
+      ),
     ).toBeFalsy();
   });
 

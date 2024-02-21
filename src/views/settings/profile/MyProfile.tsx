@@ -94,7 +94,7 @@ function DeleteAccountButton({ style }: ComponentProps) {
         />,
       );
     },
-    [logoutUser, setPopup],
+    [logoutUser, setPopup, t],
   );
 
   return (

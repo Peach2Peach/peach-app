@@ -100,7 +100,7 @@ export const Toast = () => {
   const { color: toastColor, msgKey, bodyArgs = [], action } = toastState;
 
   const icon = iconMap[msgKey];
-  let title = t(`${msgKey}.title`, { ns: msgKey.split(".")[0] }); // TODO: find a good way to get the ns
+  let title = t(`${msgKey}.title`, { ns: msgKey.split(".")[0] });
   let message = t(`${msgKey}.text`, { ns: msgKey.split(".")[0], ...bodyArgs });
 
   if (title === `${msgKey}.title`) title = "";

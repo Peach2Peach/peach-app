@@ -31,7 +31,7 @@ export function PriceInfo({ amount, price, currency, premium }: Props) {
         <PremiumText premium={premium} />
       </PeachText>
       <PeachText style={tw`subtitle-1`}>
-        {btcPrice} {t(currency)} / {t("btc")} {/* TODO: understand and fix*/}
+        {btcPrice} {t(currency)} / {t("btc")}
       </PeachText>
     </View>
   );

@@ -25,7 +25,7 @@ export const Language = () => {
           selectedValue={locale}
           items={i18n // TODO: figure out how to replace this usage
             .getLocales()
-            .map((l) => ({ value: l, display: t(`languageName.${l}`) })) // TODO: figure out how to fix this kind of false errors
+            .map((l) => ({ value: l, display: t(`languageName.${l}`) }))
             .sort((a, b) => sortAlphabetically(a.display, b.display))}
           onButtonPress={updateLocale}
         />

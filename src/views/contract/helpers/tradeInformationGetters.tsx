@@ -195,10 +195,9 @@ function getRatingBubble(contract: Contract, userType: "Buyer" | "Seller") {
 }
 
 function getPaymentMethod({ paymentMethod }: Contract) {
-  const { t } = useTranslate("paymentMethod");
   if (isCashTrade(paymentMethod))
     return <EventName paymentMethod={paymentMethod} />;
-  return t(`paymentMethod.${paymentMethod}`);
+  return tolgee.t(`paymentMethod.${paymentMethod}`, { ns: "paymentMethod" });
 }
 
 function EventName({ paymentMethod }: { paymentMethod: `cash.${string}` }) {

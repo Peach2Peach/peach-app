@@ -184,6 +184,7 @@ export const useFundFromPeachWallet = () => {
       setPopup,
       showErrorBanner,
       syncPeachWallet,
+      t,
     ],
   );
 
