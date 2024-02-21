@@ -1,7 +1,7 @@
 import { Checkbox } from "../../../components/inputs/Checkbox";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { MIN_REPUTATION_FILTER } from "./MIN_REPUTATION_FILTER";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   minReputation: number | null;
@@ -9,10 +9,11 @@ type Props = {
 };
 
 export function ReputationFilterComponent({ minReputation, toggle }: Props) {
+  const { t } = useTranslate("offerPreferences");
   const checked = minReputation === MIN_REPUTATION_FILTER;
   return (
     <Checkbox green checked={checked} onPress={toggle} style={tw`self-stretch`}>
-      {i18n("offerPreferences.filters.minReputation", "4.5")}
+      {t("offerPreferences.filters.minReputation", "4.5")}
     </Checkbox>
   );
 }

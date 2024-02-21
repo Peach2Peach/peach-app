@@ -12,7 +12,7 @@ import {
 } from "../../../../peach-api/src/@types/api/offerAPI";
 import { MSINASECOND } from "../../../constants";
 import { useOfferDetail } from "../../../hooks/query/useOfferDetail";
-import { useOfferPreferences } from "../../../store/offerPreferenes";
+import { useOfferPreferences } from "../../../store/offerPreferences";
 import { getAbortWithTimeout } from "../../../utils/getAbortWithTimeout";
 import { info } from "../../../utils/log/info";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";

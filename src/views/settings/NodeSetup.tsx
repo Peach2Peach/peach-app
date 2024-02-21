@@ -20,14 +20,15 @@ import { LoadingPopup } from "../../popups/LoadingPopup";
 import { SuccessPopup } from "../../popups/SuccessPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { useNodeConfigState } from "../../utils/wallet/nodeConfigStore";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { checkNodeConnection } from "./helpers/checkNodeConnection";
+import { useTranslate } from "@tolgee/react";
 
 const urlRules = { required: true, url: true };
 export const NodeSetup = () => {
+  const { t } = useTranslate("wallet");
   const setPopup = useSetPopup();
 
   const [node, setCustomNode, enabled, toggleEnabled] = useNodeConfigState(
@@ -52,7 +53,7 @@ export const NodeSetup = () => {
 
   const checkConnection = async () => {
     setPopup(
-      <LoadingPopup title={i18n("wallet.settings.node.checkingConnection")} />,
+      <LoadingPopup title={t("wallet.settings.node.checkingConnection")} />,
     );
 
     const { result: nodeType, error } = await checkNodeConnection(url, ssl);
@@ -81,7 +82,7 @@ export const NodeSetup = () => {
           {...{ enabled }}
           onPress={toggleEnabled}
         >
-          {i18n("wallet.settings.node.title")}
+          {t("wallet.settings.node.title")}
         </Toggle>
         <Toggle
           style={tw`justify-between px-6`}
@@ -90,14 +91,14 @@ export const NodeSetup = () => {
           disabled={!enabled || isConnected}
           onPress={toggleSSL}
         >
-          {i18n("wallet.settings.node.ssl")}
+          {t("wallet.settings.node.ssl")}
         </Toggle>
         <View style={!enabled && tw`opacity-33`}>
           <URLInput
             value={url}
             disabled={!enabled || isConnected}
-            label={i18n("wallet.settings.node.address")}
-            placeholder={i18n("wallet.settings.node.address.placeholder")}
+            label={t("wallet.settings.node.address")}
+            placeholder={t("wallet.settings.node.address.placeholder")}
             onChangeText={setURL}
             errorMessage={urlErrors}
             icons={isConnected ? [["edit3", editConfig]] : undefined}
@@ -107,7 +108,7 @@ export const NodeSetup = () => {
       {isConnected ? (
         <View style={tw`flex-row items-center justify-center gap-1`}>
           <PeachText style={tw`uppercase button-medium`}>
-            {i18n("wallet.settings.node.connected")}
+            {t("wallet.settings.node.connected")}
           </PeachText>
           <Icon id="check" size={16} color={tw.color("success-main")} />
         </View>
@@ -118,7 +119,7 @@ export const NodeSetup = () => {
           iconId="share2"
           onPress={checkConnection}
         >
-          {i18n("wallet.settings.node.checkConnection")}
+          {t("wallet.settings.node.checkConnection")}
         </Button>
       )}
       {showQRScanner && (
@@ -132,15 +133,16 @@ export const NodeSetup = () => {
 };
 
 function NodeSetupHeader() {
+  const { t } = useTranslate("wallet");
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<HelpPopup id="useYourOwnNode" />);
   return (
     <Header
-      title={i18n("wallet.settings.node.title")}
+      title={t("wallet.settings.node.title")}
       icons={[
         {
           ...headerIcons.help,
-          accessibilityHint: `${i18n("help")} ${i18n("wallet.settings.node.title")}`,
+          accessibilityHint: `${t("help", { ns: "help" })} ${t("wallet.settings.node.title")}`,
           onPress: showHelp,
         },
       ]}
@@ -153,12 +155,13 @@ type ErrorPopupProps = {
 };
 
 function NodeConnectionErrorPopup({ error }: ErrorPopupProps) {
+  const { t } = useTranslate("wallet");
   return (
     <WarningPopup
-      title={i18n("wallet.settings.node.error.title")}
+      title={t("wallet.settings.node.error.title")}
       content={
         <PeachText selectable>
-          {i18n("wallet.settings.node.error.text", error)}
+          {t("wallet.settings.node.error.text", { error })}
         </PeachText>
       }
       actions={
@@ -177,10 +180,11 @@ type SuccessPopupProps = {
 };
 
 function NodeConnectionSuccessPopup({ url, save }: SuccessPopupProps) {
+  const { t } = useTranslate("wallet");
   return (
     <SuccessPopup
-      title={i18n("wallet.settings.node.success.title")}
-      content={i18n("wallet.settings.node.success.text", url)}
+      title={t("wallet.settings.node.success.title")}
+      content={t("wallet.settings.node.success.text", url)}
       actions={
         <>
           <ClosePopupAction />
@@ -192,6 +196,7 @@ function NodeConnectionSuccessPopup({ url, save }: SuccessPopupProps) {
 }
 
 function SaveAction({ save }: Pick<SuccessPopupProps, "save">) {
+  const { t } = useTranslate("wallet");
   const closePopup = useClosePopup();
   const onPress = () => {
     save();
@@ -201,7 +206,7 @@ function SaveAction({ save }: Pick<SuccessPopupProps, "save">) {
   return (
     <LoadingPopupAction
       onPress={onPress}
-      label={i18n("wallet.settings.node.success.confirm")}
+      label={t("wallet.settings.node.success.confirm")}
       iconId={"save"}
       reverseOrder
     />

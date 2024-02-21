@@ -6,7 +6,7 @@ import { LinedText } from "../../../components/ui/LinedText";
 import tw from "../../../styles/tailwind";
 import { useAccountStore } from "../../../utils/account/account";
 import { toTimeFormat } from "../../../utils/date/toTimeFormat";
-import i18n from "../../../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 type GetMessageMetaProps = {
   publicKey: string;
@@ -33,13 +33,14 @@ const getMessageMeta = ({
   online,
   publicKey,
 }: GetMessageMetaProps): MessageMeta => {
+  const { t } = useTranslate("chat");
   const isYou = message.from === publicKey;
   const isTradingPartner = message.from === tradingPartner;
   const isMediator = !isYou && !isTradingPartner;
   const isSystemMessage = message.from === "system";
   const readByCounterParty = message.readBy?.includes(tradingPartner);
   const showName = !previous || previous.from !== message.from;
-  const name = i18n(
+  const name = t(
     isSystemMessage
       ? "chat.systemMessage"
       : isMediator
@@ -115,6 +116,7 @@ export const ChatMessage = ({
   online,
   resendMessage,
 }: ChatMessageProps) => {
+  const { t } = useTranslate("chat");
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const meta = getMessageMeta({
     message,
@@ -152,7 +154,7 @@ export const ChatMessage = ({
         )}
         <View style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}>
           <PeachText style={tw`shrink-0`} selectable>
-            {message.message || i18n("chat.decyptionFailed")}
+            {message.message || t("chat.decyptionFailed")}
           </PeachText>
           <PeachText style={tw`pt-1 ml-auto leading-5 text-right`}>
             <PeachText style={tw`subtitle-2 leading-xs text-black-50`}>
@@ -175,9 +177,9 @@ export const ChatMessage = ({
             style={tw`flex-row justify-end items-center mt-1 pr-3 mr-0.5`}
           >
             <PeachText style={tw`mr-1 text-error-main`}>
-              {i18n("chat.failedToSend")}{" "}
+              {t("chat.failedToSend")}{" "}
               <PeachText style={tw`underline text-error-main`}>
-                {i18n("retry")}
+                {t("retry", { ns: "unassigned" })}
               </PeachText>
             </PeachText>
             <Icon
@@ -193,8 +195,9 @@ export const ChatMessage = ({
 };
 
 function toDateFormat(date: Date): string {
+  const { t } = useTranslate("global");
   const day = `${date.getDate()}${getDateSuffix(date.getDate())}`;
-  return `${i18n(`month.short.${date.getMonth()}`)} ${day}, ${date.getFullYear()}`;
+  return `${t(`month.short.${date.getMonth()}`)} ${day}, ${date.getFullYear()}`;
 }
 
 function getDateSuffix(date: number) {

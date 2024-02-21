@@ -12,7 +12,6 @@ import { contractIdToHex } from "../../../utils/contract/contractIdToHex";
 import { getBitcoinPriceFromContract } from "../../../utils/contract/getBitcoinPriceFromContract";
 import { getBuyOfferIdFromContract } from "../../../utils/contract/getBuyOfferIdFromContract";
 import { toShortDateFormat } from "../../../utils/date/toShortDateFormat";
-import i18n from "../../../utils/i18n";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { groupChars } from "../../../utils/string/groupChars";
@@ -22,6 +21,8 @@ import { UserId } from "../../settings/profile/profileOverview/UserId";
 import { SummaryItem } from "../components/SummaryItem";
 import { TradeBreakdownBubble } from "../components/TradeBreakdownBubble";
 import { useContractContext } from "../context";
+import { tolgee } from "../../../tolgee";
+import { useTranslate } from "@tolgee/react";
 
 const SATS_GROUP_SIZE = 3;
 
@@ -78,7 +79,8 @@ export const tradeInformationGetters: Record<
   via: getPaymentMethodBubble,
   method: getPaymentMethod,
   meetup: getPaymentMethod,
-  location: (_contract: Contract) => i18n("contract.summary.location.text"),
+  location: (_contract: Contract) =>
+    tolgee.t("contract.summary.location.text", { ns: "contract" }),
 };
 
 const allPossibleFields = [
@@ -142,6 +144,7 @@ function PaymentMethodBubble({ contract }: { contract: Contract }) {
   const { paymentMethod } = contract;
   const url = paymentMethod in APPLINKS ? APPLINKS[paymentMethod] : undefined;
   const hasLink = !!url;
+  const { t } = useTranslate("paymentMethod");
   const openLink = () => (url ? openURL(url) : null);
   const { paymentData } = useContractContext();
   const paymentMethodLabel = usePaymentDataStore((state) =>
@@ -152,7 +155,7 @@ function PaymentMethodBubble({ contract }: { contract: Contract }) {
     <View style={tw`items-end gap-1`}>
       {paymentMethodLabel || !isCashTrade(paymentMethod) ? (
         <Bubble color={"primary-mild"}>
-          {paymentMethodLabel ?? i18n(`paymentMethod.${paymentMethod}`)}
+          {paymentMethodLabel ?? t(`paymentMethod.${paymentMethod}`)}
         </Bubble>
       ) : (
         <EventNameBubble paymentMethod={paymentMethod} />
@@ -163,7 +166,7 @@ function PaymentMethodBubble({ contract }: { contract: Contract }) {
           style={tw`flex-row items-center justify-end gap-1`}
         >
           <PeachText style={tw`underline body-s text-black-65`}>
-            {i18n("contract.summary.openApp")}
+            {t("contract.summary.openApp", { ns: "contract" })}
           </PeachText>
           <Icon id="externalLink" size={16} color={tw.color("primary-main")} />
         </TouchableOpacity>
@@ -192,9 +195,10 @@ function getRatingBubble(contract: Contract, userType: "Buyer" | "Seller") {
 }
 
 function getPaymentMethod({ paymentMethod }: Contract) {
+  const { t } = useTranslate("paymentMethod");
   if (isCashTrade(paymentMethod))
     return <EventName paymentMethod={paymentMethod} />;
-  return i18n(`paymentMethod.${paymentMethod}`);
+  return t(`paymentMethod.${paymentMethod}`);
 }
 
 function EventName({ paymentMethod }: { paymentMethod: `cash.${string}` }) {

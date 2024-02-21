@@ -4,15 +4,17 @@ import { TextSummaryItem } from "../../../../components/summaryItem";
 import { useFeeEstimates } from "../../../../hooks/query/useFeeEstimates";
 import { HelpPopup } from "../../../../popups/HelpPopup";
 import tw from "../../../../styles/tailwind";
-import i18n from "../../../../utils/i18n";
 import { keys } from "../../../../utils/object/keys";
 import { useTxFeeRate } from "../../hooks/useTxFeeRate";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   transaction: TransactionDetails;
 };
 export const TransactionETASummaryItem = ({ transaction }: Props) => {
   const setPopup = useSetPopup();
+  const { t } = useTranslate("wallet");
+
   const showHelp = () => setPopup(<HelpPopup id="confirmationTime" />);
   const { data: currentFeeRate } = useTxFeeRate({ transaction });
   const { feeEstimates } = useFeeEstimates();
@@ -20,10 +22,10 @@ export const TransactionETASummaryItem = ({ transaction }: Props) => {
 
   return (
     <TextSummaryItem
-      title={i18n("time")}
-      text={i18n(
+      title={t("time", { ns: "global" })}
+      text={t(
         `transaction.eta.${etaInBlocks === 1 ? "in1Block" : "inXBlocks"}`,
-        String(etaInBlocks),
+        { blocks: String(etaInBlocks) },
       )}
       iconId="helpCircle"
       iconColor={tw.color("info-main")}

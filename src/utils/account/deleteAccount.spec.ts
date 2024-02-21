@@ -1,6 +1,6 @@
 import { ok } from "assert";
 import * as accountData from "../../../tests/unit/data/accountData";
-import { offerPreferencesStorage } from "../../store/offerPreferenes/useOfferPreferences";
+import { offerPreferencesStorage } from "../../store/offerPreferences/useOfferPreferences";
 import { settingsStorage } from "../../store/settingsStore/settingsStorage";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import { peachAPI } from "../peachAPI";

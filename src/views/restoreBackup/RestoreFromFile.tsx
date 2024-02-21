@@ -4,13 +4,14 @@ import { FileInput } from "../../components/inputs/FileInput";
 import { PasswordInput } from "../../components/inputs/PasswordInput";
 import { PeachText } from "../../components/text/PeachText";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { RestoreBackupError } from "./RestoreBackupError";
 import { RestoreBackupLoading } from "./RestoreBackupLoading";
 import { RestoreSuccess } from "./RestoreSuccess";
 import { useRestoreFromFileSetup } from "./hooks/useRestoreFromFileSetup";
+import { useTranslate } from "@tolgee/react";
 
 export const RestoreFromFile = () => {
+  const { t } = useTranslate("unassigned");
   const {
     restored,
     error,
@@ -33,7 +34,7 @@ export const RestoreFromFile = () => {
         <PeachText
           style={tw`pb-2 text-center subtitle-1 text-primary-background-light`}
         >
-          {i18n("restoreBackup.manual.description.1")}
+          {t("restoreBackup.manual.description.1")}
         </PeachText>
         <View style={tw`w-full px-2`}>
           <FileInput fileName={file.name} onChange={setFile} />
@@ -46,7 +47,7 @@ export const RestoreFromFile = () => {
               setPassword(e.nativeEvent.text);
               if (file.name) submit();
             }}
-            placeholder={i18n("restoreBackup.decrypt.password")}
+            placeholder={t("restoreBackup.decrypt.password")}
             value={password}
             errorMessage={passwordError}
           />
@@ -60,7 +61,7 @@ export const RestoreFromFile = () => {
         iconId="save"
         onPress={submit}
       >
-        {i18n("restoreBackup")}
+        {t("restoreBackup")}
       </Button>
     </View>
   );

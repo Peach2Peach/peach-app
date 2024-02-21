@@ -10,11 +10,13 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { RestoreFromFile } from "./RestoreFromFile";
 import { RestoreFromSeed } from "./RestoreFromSeed";
+import { useTranslate } from "@tolgee/react";
 
 const RestoreBackupTab = createMaterialTopTabNavigator();
 const tabs = ["fileBackup", "seedPhrase"] as const;
 
 export const RestoreBackup = () => {
+  const { t } = useTranslate("settings");
   const { tab: initialRouteName = "fileBackup" } =
     useRoute<"restoreBackup">().params || {};
 
@@ -34,7 +36,7 @@ export const RestoreBackup = () => {
           <RestoreBackupTab.Screen
             key={tab}
             name={tab}
-            options={{ title: `${i18n(`settings.backups.${tab}`)}` }}
+            options={{ title: `${t(`settings.backups.${tab}`)}` }}
             component={tab === "fileBackup" ? RestoreFromFile : RestoreFromSeed}
           />
         ))}
@@ -44,15 +46,16 @@ export const RestoreBackup = () => {
 };
 
 function OnboardingHeader() {
+  const { t } = useTranslate("global");
   const navigation = useStackNavigation();
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
   const { locale, updateLocale } = useLanguage();
 
   const openLanguageDrawer = () => {
     updateDrawer({
-      title: i18n("language.select"),
+      title: t("language.select"),
       options: i18n.getLocales().map((l) => ({
-        title: i18n(`languageName.${l}`),
+        title: t(`languageName.${l}`),
         onPress: () => {
           updateLocale(l);
           updateDrawer({ show: false });
@@ -76,7 +79,7 @@ function OnboardingHeader() {
   ];
   return (
     <Header
-      title={i18n("restoreBackup.title")}
+      title={t("restoreBackup.title", { ns: "unassigned" })}
       icons={headerIcons}
       theme="transparent"
     />

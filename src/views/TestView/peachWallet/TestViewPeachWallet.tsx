@@ -18,17 +18,18 @@ import tw from "../../../styles/tailwind";
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
 import { showTransaction } from "../../../utils/bitcoin/showTransaction";
-import i18n from "../../../utils/i18n";
 import { log } from "../../../utils/log/log";
 import { fundAddress } from "../../../utils/regtest/fundAddress";
 import { thousands } from "../../../utils/string/thousands";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { useSyncWallet } from "../../wallet/hooks/useSyncWallet";
 import { useWalletBalance } from "../../wallet/hooks/useWalletBalance";
+import { useTranslate } from "@tolgee/react";
 
 const bitcoinAddressRules = { required: false, bitcoinAddress: true };
 
 export const TestViewPeachWallet = () => {
+  const { t } = useTranslate("wallet");
   const { refetch, isRefetching, isLoading } = useSyncWallet();
   const { balance } = useWalletBalance();
   const [address, setAddress, , addressErrors] = useValidatedState<string>(
@@ -66,7 +67,7 @@ export const TestViewPeachWallet = () => {
       <PeachScrollView>
         <View style={tw`gap-4`}>
           <PeachText style={tw`text-center button-medium`}>
-            {i18n("wallet.totalBalance")}:
+            {t("wallet.totalBalance")}:
           </PeachText>
           <BTCAmount
             style={[tw`self-center`, isRefetching && tw`opacity-60`]}
@@ -77,7 +78,7 @@ export const TestViewPeachWallet = () => {
 
           <View>
             <PeachText style={tw`button-medium`}>
-              {i18n("wallet.withdrawTo")}:
+              {t("wallet.withdrawTo")}:
             </PeachText>
             <BitcoinAddressInput
               style={tw`mt-4`}

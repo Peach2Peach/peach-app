@@ -5,9 +5,10 @@ import { Button } from "../../../../components/buttons/Button";
 import { PeachText } from "../../../../components/text/PeachText";
 import { useStackNavigation } from "../../../../hooks/useStackNavigation";
 import tw from "../../../../styles/tailwind";
-import i18n from "../../../../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 export const BackupCreated = () => {
+  const { t } = useTranslate("settings");
   const navigation = useStackNavigation();
   const setOverlay = useSetOverlay();
   const goToFileBackup = () => {
@@ -18,10 +19,10 @@ export const BackupCreated = () => {
     <>
       <View style={tw`items-center justify-center grow`}>
         <PeachText style={tw`h4 text-primary-background-light`}>
-          {i18n("settings.backups.fileBackup.created")}
+          {t("settings.backups.fileBackup.created")}
         </PeachText>
         <PeachText style={tw`body-l text-primary-background-light`}>
-          {i18n("settings.backups.fileBackup.safeNow")}
+          {t("settings.backups.fileBackup.safeNow")}
         </PeachText>
         <Icon
           id="save"
@@ -34,7 +35,7 @@ export const BackupCreated = () => {
         textColor={tw.color("primary-main")}
         onPress={goToFileBackup}
       >
-        {i18n("back")}
+        {t("back")} // TODO: back does not exists ??
       </Button>
     </>
   );

@@ -1,4 +1,4 @@
-import { CurrencyType } from "../../../store/offerPreferenes/types";
+import { CurrencyType } from "../../../store/offerPreferences/types";
 
 const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
   europe: [

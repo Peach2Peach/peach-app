@@ -3,8 +3,8 @@ import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
 import { ShortBitcoinAddress } from "../../../components/bitcoin/ShortBitcoinAddress";
 import { PeachText } from "../../../components/text/PeachText";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { thousands } from "../../../utils/string/thousands";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   amount: number;
@@ -23,21 +23,20 @@ export function ConfirmTxPopup({
   text,
   secondText,
 }: Props) {
+  const { t } = useTranslate("wallet");
   return (
     <View style={tw`gap-3`}>
       <PeachText>{text}</PeachText>
       <BTCAmount amount={amount} size="medium" />
       {!!secondText && <PeachText>{secondText}</PeachText>}
       <PeachText>
-        {i18n("transaction.details.to")}{" "}
-        <ShortBitcoinAddress address={address} />
+        {t("transaction.details.to")} <ShortBitcoinAddress address={address} />
       </PeachText>
       <PeachText>
-        {i18n(
-          "transaction.details.networkFee",
-          thousands(fee),
-          thousands(feeRate),
-        )}
+        {t("transaction.details.networkFee", {
+          fees: thousands(fee),
+          feeRate: thousands(feeRate),
+        })}
       </PeachText>
     </View>
   );

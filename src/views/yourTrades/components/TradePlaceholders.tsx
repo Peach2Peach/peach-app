@@ -4,15 +4,16 @@ import { PeachText } from "../../../components/text/PeachText";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
+import { tolgee } from "../../../tolgee";
 
 type Props = {
   tab: TradeTab;
 };
+
 export const TradePlaceholders = ({ tab }: Props) => (
   <View style={tw`items-center justify-center flex-1`}>
     <PeachText style={tw`h6 text-black-50`}>
-      {i18n("yourTrades.empty")}
+      {tolgee.t("yourTrades.empty")}
     </PeachText>
     {tab !== "yourTrades.history" && (
       <>
@@ -39,7 +40,7 @@ function GoTradeButton({
   return (
     <TouchableOpacity onPress={onPress} style={tw`flex-row items-center gap-2`}>
       <PeachText style={tw`h6 text-primary-main`}>
-        {i18n(
+        {tolgee.t(
           `yourTrades.start.${tab === "yourTrades.sell" ? "selling" : "buying"}`,
         )}
       </PeachText>

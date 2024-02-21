@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { RadioButtonItem } from "../../components/inputs/RadioButtons";
-import { useOfferPreferences } from "../../store/offerPreferenes";
+import { useOfferPreferences } from "../../store/offerPreferences";
 import { ApplySortersAction } from "./ApplySortersAction";
 import { SorterPopup } from "./SorterPopup";
 import { useTranslate } from "@tolgee/react";

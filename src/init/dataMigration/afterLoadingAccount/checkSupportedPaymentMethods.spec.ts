@@ -2,7 +2,7 @@ import {
   paypalData,
   validSEPAData,
 } from "../../../../tests/unit/data/paymentData";
-import { useOfferPreferences } from "../../../store/offerPreferenes";
+import { useOfferPreferences } from "../../../store/offerPreferences";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { checkSupportedPaymentMethods } from "./checkSupportedPaymentMethods";
 

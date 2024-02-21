@@ -5,7 +5,7 @@ import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { InfoPopup } from "../../popups/InfoPopup";
-import { useOfferPreferences } from "../../store/offerPreferenes";
+import { useOfferPreferences } from "../../store/offerPreferences";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import { getSelectedPaymentDataIds } from "../../utils/account/getSelectedPaymentDataIds";

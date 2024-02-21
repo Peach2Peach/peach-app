@@ -1,4 +1,4 @@
-import { CurrencyType } from "../../store/offerPreferenes/types";
+import { CurrencyType } from "../../store/offerPreferences/types";
 
 export const defaultCurrencies: Record<CurrencyType, Currency> = {
   europe: "EUR",

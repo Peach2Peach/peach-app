@@ -1,4 +1,4 @@
-import { useOfferPreferences } from "../../../store/offerPreferenes";
+import { useOfferPreferences } from "../../../store/offerPreferences";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { waitForHydration } from "../../../store/waitForHydration";
 import { getNewPreferredPaymentMethods } from "../../../utils/account/getNewPreferredPaymentMethods";

@@ -13,10 +13,10 @@ import { CancelOfferPopup } from "../../../popups/CancelOfferPopup";
 import { HelpPopup } from "../../../popups/HelpPopup";
 import tw from "../../../styles/tailwind";
 import { showTransaction } from "../../../utils/bitcoin/showTransaction";
-import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
 import { generateBlock } from "../../../utils/regtest/generateBlock";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   offerId: string;
@@ -27,6 +27,7 @@ const DEFAULT_WIDTH = 300;
 const ASPECT_RATIO = 0.7;
 
 export const TransactionInMempool = ({ offerId, txId }: Props) => {
+  const { t } = useTranslate("sell");
   const [width, setWidth] = useState(DEFAULT_WIDTH);
   const openInExplorer = () => showTransaction(txId, NETWORK);
   const onLayout = (e: LayoutChangeEvent) =>
@@ -35,7 +36,7 @@ export const TransactionInMempool = ({ offerId, txId }: Props) => {
   return (
     <Screen header={<MempoolHeader {...{ offerId }} />}>
       <View style={tw`justify-center gap-3 grow shrink`}>
-        <PeachText>{i18n("sell.funding.mempool.description")}</PeachText>
+        <PeachText>{t("sell.funding.mempool.description")}</PeachText>
         <View {...{ onLayout }} testID="image-container">
           <Image
             source={txInMempool}
@@ -46,7 +47,7 @@ export const TransactionInMempool = ({ offerId, txId }: Props) => {
         <TouchableOpacity onPress={openInExplorer}>
           <TradeInfo
             style={tw`self-center`}
-            text={i18n("showInExplorer")}
+            text={t("showInExplorer", { ns: "unassigned" })}
             textStyle={tw`underline`}
             IconComponent={
               <Icon
@@ -63,6 +64,7 @@ export const TransactionInMempool = ({ offerId, txId }: Props) => {
 };
 
 function MempoolHeader({ offerId }: { offerId: string }) {
+  const { t } = useTranslate("sell");
   const setPopup = useSetPopup();
   const showHelp = useCallback(
     () => setPopup(<HelpPopup id="mempool" />),
@@ -87,7 +89,7 @@ function MempoolHeader({ offerId }: { offerId: string }) {
 
   return (
     <Header
-      title={i18n("sell.funding.mempool.title")}
+      title={t("sell.funding.mempool.title")}
       icons={memoizedHeaderIcons}
     />
   );

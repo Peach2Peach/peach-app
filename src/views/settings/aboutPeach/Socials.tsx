@@ -11,8 +11,8 @@ import {
   YOUTUBE,
 } from "../../../constants";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { openURL } from "../../../utils/web/openURL";
+import { tolgee } from "../../../tolgee";
 
 const socials = [
   { name: "twitter", url: TWITTER },
@@ -25,11 +25,11 @@ const socials = [
 ];
 
 export const Socials = () => (
-  <Screen header={i18n("settings.socials.subtitle")}>
+  <Screen header={tolgee.t("settings.socials.subtitle", { ns: "settings" })}>
     <View style={tw`items-center justify-center gap-2 grow`}>
       {socials.map(({ name, url }) => (
         <OptionButton key={name} onPress={() => openURL(url)}>
-          {i18n(name)}
+          {tolgee.t(name, { ns: "unassigned" })}
         </OptionButton>
       ))}
     </View>

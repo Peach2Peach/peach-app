@@ -11,7 +11,6 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
-import i18n from "../../utils/i18n";
 import { interpolate } from "../../utils/math/interpolate";
 import { hasMopsConfigured } from "../../utils/offer/hasMopsConfigured";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
@@ -38,6 +37,7 @@ import { ReputationFilterComponent } from "./components/MinReputationFilter";
 import { PreferenceScreen } from "./components/PreferenceScreen";
 import { Section } from "./components/Section";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
+import { useTranslate } from "@tolgee/react";
 
 type Preferences = Pick<
   BuyOffer,
@@ -242,6 +242,7 @@ function OfferMarketInfo() {
 }
 
 function OfferMethods() {
+  const { t } = useTranslate("offerPreferences");
   const [{ meansOfPayment }] = usePreferenceContext();
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment);
   const backgroundColor = tw.color("success-mild-1");
@@ -253,9 +254,7 @@ function OfferMethods() {
           style={tw`self-stretch flex-1`}
         />
       ) : (
-        <Section.Title>
-          {i18n("offerPreferences.allPaymentMethods")}
-        </Section.Title>
+        <Section.Title>{t("offerPreferences.allPaymentMethods")}</Section.Title>
       )}
     </Section.Container>
   );

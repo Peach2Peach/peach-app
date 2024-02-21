@@ -15,7 +15,7 @@ import { useRoute } from "../../hooks/useRoute";
 import { PAYMENTMETHODINFOS } from "../../paymentMethods";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
-import { useOfferPreferences } from "../../store/offerPreferenes";
+import { useOfferPreferences } from "../../store/offerPreferences";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";

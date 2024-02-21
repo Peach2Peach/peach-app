@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { shallow } from "zustand/shallow";
-import { useOfferPreferences } from "../../../store/offerPreferenes";
+import { useOfferPreferences } from "../../../store/offerPreferences";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { getSelectedPaymentDataIds } from "../../../utils/account/getSelectedPaymentDataIds";
 import { hashPaymentData } from "../../../utils/paymentMethod/hashPaymentData";

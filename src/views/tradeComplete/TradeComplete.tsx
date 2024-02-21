@@ -20,10 +20,10 @@ import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { createUserRating } from "../../utils/contract/createUserRating";
 import { getContractViewer } from "../../utils/contract/getContractViewer";
-import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { BackupTime } from "../overlays/BackupTime";
+import { useTranslate } from "@tolgee/react";
 
 export const TradeComplete = ({ contractId }: { contractId: string }) => {
   const { contract } = useContractDetail(contractId);
@@ -33,6 +33,7 @@ export const TradeComplete = ({ contractId }: { contractId: string }) => {
 };
 
 function TradeCompleteView({ contract }: { contract: Contract }) {
+  const { t } = useTranslate("unassigned");
   const [vote, setVote] = useState<"positive" | "negative">();
   const account = useAccountStore((state) => state.account);
   const view = getContractViewer(contract.seller.id, account);
@@ -43,12 +44,12 @@ function TradeCompleteView({ contract }: { contract: Contract }) {
         <View style={tw`items-center`}>
           <Icon id="fullLogo" style={tw`w-311px h-127px`} />
           <PeachText style={tw`text-center h5 text-primary-background-light`}>
-            {i18n(`tradeComplete.title.${view}.default`)}
+            {t(`tradeComplete.title.${view}.default`)}
           </PeachText>
         </View>
 
         <PeachText style={tw`text-center body-l text-primary-background-light`}>
-          {i18n("rate.subtitle")}
+          {t("rate.subtitle")}
         </PeachText>
         <View style={tw`flex-row justify-center gap-12`}>
           <RateButton
@@ -108,6 +109,7 @@ type RateProps = {
 };
 
 function Rate({ contract, view, vote }: RateProps) {
+  const { t } = useTranslate("unassigned");
   const setPopup = useSetPopup();
 
   const { mutate: rateUser } = useRateUser({
@@ -127,12 +129,12 @@ function Rate({ contract, view, vote }: RateProps) {
         disabled={!vote}
         textColor={tw.color("primary-main")}
       >
-        {i18n("rate.rateAndFinish")}
+        {t("rate.rateAndFinish")}
       </Button>
 
       {view === "buyer" && (
         <Button onPress={showTradeBreakdown} ghost>
-          {i18n("rate.tradeBreakdown")}
+          {t("rate.tradeBreakdown")}
         </Button>
       )}
     </View>

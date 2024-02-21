@@ -7,7 +7,7 @@ import {
 } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { setPaymentMethods } from "../../../paymentMethods";
-import { useOfferPreferences } from "../../../store/offerPreferenes";
+import { useOfferPreferences } from "../../../store/offerPreferences";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { defaultPaymentDataStore } from "../../../store/usePaymentDataStore/usePaymentDataStore";
 import { peachAPI } from "../../../utils/peachAPI";

@@ -4,9 +4,9 @@ import { CopyableSummaryItem } from "../../../../components/summaryItem";
 import { AddressSummaryItem } from "../../../../components/summaryItem/AddressSummaryItem";
 import { AmountSummaryItem } from "../../../../components/summaryItem/AmountSummaryItem";
 import tw from "../../../../styles/tailwind";
-import i18n from "../../../../utils/i18n";
 import { priceFormat } from "../../../../utils/string/priceFormat";
 import { getNetwork } from "../../../../utils/wallet/getNetwork";
+import { useTranslate } from "@tolgee/react";
 
 type OfferDataProps = ComponentProps & {
   price?: number;
@@ -25,6 +25,7 @@ export const OfferData = ({
   transactionDetails,
   ...componentProps
 }: OfferDataProps) => {
+  const { t } = useTranslate("global");
   const amount =
     transactionDetails?.outs.find(
       (v) => Address.fromOutputScript(v.script, getNetwork()) === address,
@@ -35,11 +36,11 @@ export const OfferData = ({
 
       {price && currency && type !== "REFUND" && (
         <CopyableSummaryItem
-          title={i18n("price")}
+          title={t("price")}
           text={`${priceFormat(price)} ${currency}`}
         />
       )}
-      <AddressSummaryItem title={i18n("to")} address={address} />
+      <AddressSummaryItem title={t("to")} address={address} />
     </View>
   );
 };

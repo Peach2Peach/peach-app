@@ -16,13 +16,13 @@ import { InfoPopup } from "../../popups/InfoPopup";
 import { CustomReferralCodePopup } from "../../popups/referral/CustomReferralCodePopup";
 import { RedeemNoPeachFeesPopup } from "../../popups/referral/RedeemNoPeachFeesPopup";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { thousands } from "../../utils/string/thousands";
 import { ReferralCode } from "./components/ReferralCode";
 import { REWARDINFO } from "./constants";
 import { isRewardAvailable } from "./helpers/isRewardAvailable";
 import { mapRewardsToRadioButtonItems } from "./helpers/mapRewardsToRadioButtonItems";
+import { useTranslate } from "@tolgee/react";
 
 export const Referrals = () => (
   <Screen header={<ReferralsHeader />}>
@@ -38,26 +38,28 @@ export const Referrals = () => (
 );
 
 function ReferralsHeader() {
+  const { t } = useTranslate("settings");
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<ReferralsPopup />);
   return (
     <Header
-      title={i18n("settings.referrals")}
+      title={t("settings.referrals")}
       icons={[{ ...headerIcons.help, onPress: showHelp }]}
     />
   );
 }
 
 function ReferralsPopup() {
+  const { t } = useTranslate("help");
   return (
     <InfoPopup
-      title={i18n("help.referral.title")}
+      title={t("help.referral.title")}
       content={
         <>
           <PeachText style={tw`mb-2`}>
-            {i18n("help.referral.description.1")}
+            {t("help.referral.description.1")}
           </PeachText>
-          <PeachText>{i18n("help.referral.description.2")}</PeachText>
+          <PeachText>{t("help.referral.description.2")}</PeachText>
         </>
       }
     />
@@ -65,6 +67,7 @@ function ReferralsPopup() {
 }
 
 function ReferralRewards() {
+  const { t } = useTranslate("global");
   const { user } = useSelfUser();
   const balance = user?.bonusPoints || 0;
   const referredTradingAmount = user?.referredTradingAmount || 0;
@@ -80,14 +83,16 @@ function ReferralRewards() {
   return (
     <>
       <PeachText style={tw`text-center`}>
-        {i18n(
+        {t(
           !referredTradingAmount
             ? "referrals.notTraded"
             : "referrals.alreadyTraded",
-          i18n("currency.format.sats", thousands(referredTradingAmount)),
+          t("currency.format.sats", {
+            amount: thousands(referredTradingAmount),
+          }),
         )}
         {"\n\n"}
-        {i18n(
+        {t(
           availableRewards
             ? "referrals.selectReward"
             : "referrals.continueSaving",
@@ -108,6 +113,7 @@ function RedeemButton({
 }: {
   selectedReward: RewardType | undefined;
 }) {
+  const { t } = useTranslate("referral");
   const setPopup = useSetPopup();
   const redeem = () => {
     if (selectedReward === "customReferralCode") {
@@ -123,12 +129,13 @@ function RedeemButton({
       onPress={redeem}
       iconId={"gift"}
     >
-      {i18n("referrals.reward.select")}
+      {t("referrals.reward.select")}
     </Button>
   );
 }
 
 function BonusPointsBar() {
+  const { t } = useTranslate("referral");
   const BARLIMIT = 400;
   const { user } = useSelfUser();
   const balance = user?.bonusPoints || 0;
@@ -142,7 +149,7 @@ function BonusPointsBar() {
         percent={balance / BARLIMIT}
       />
       <PeachText style={tw`pl-2 tooltip text-black-65`}>
-        {i18n("referrals.points")}
+        {t("referrals.points")}
         {": "}
         <PeachText style={tw`font-bold tooltip text-black-65`}>
           {balance}

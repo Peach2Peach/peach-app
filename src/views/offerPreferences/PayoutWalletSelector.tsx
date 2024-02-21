@@ -1,6 +1,6 @@
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { WalletSelector } from "./WalletSelector";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   peachWalletSelected: boolean;
@@ -17,9 +17,10 @@ export function PayoutWalletSelector({
   onPeachWalletPress,
   onExternalWalletPress,
 }: Props) {
+  const { t } = useTranslate("offerPreferences");
   return (
     <WalletSelector
-      title={i18n("offerPreferences.payoutTo")}
+      title={t("offerPreferences.payoutTo")}
       backgroundColor={tw.color("success-mild-1")}
       bubbleColor="green"
       peachWalletActive={peachWalletSelected}

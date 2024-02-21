@@ -24,7 +24,6 @@ import { getUnsentMessages } from "../../utils/chat/getUnsentMessages";
 import { saveChat } from "../../utils/chat/saveChat";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getTradingPartner } from "../../utils/contract/getTradingPartner";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { error } from "../../utils/log/error";
 import { parseError } from "../../utils/parseError";
@@ -34,6 +33,7 @@ import { signAndEncryptSymmetric } from "../../utils/pgp/signAndEncryptSymmetric
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { ChatBox } from "./components/ChatBox";
 import { useDecryptedContractData } from "./useDecryptedContractData";
+import { useTranslate } from "@tolgee/react";
 
 export const ContractChat = () => {
   const { contractId } = useRoute<"contractChat">().params;
@@ -43,6 +43,7 @@ export const ContractChat = () => {
 };
 
 function ChatScreen({ contract }: { contract: Contract }) {
+  const { t } = useTranslate("chat");
   const queryClient = useQueryClient();
   const { data: decryptedData } = useDecryptedContractData(contract);
   const { contractId } = useRoute<"contractChat">().params;
@@ -281,7 +282,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
         </View>
       ) : (
         <PeachText style={tw`p-4 text-center text-black-50`}>
-          {i18n("chat.disabled")}
+          {t("chat.disabled")}
         </PeachText>
       )}
     </Screen>

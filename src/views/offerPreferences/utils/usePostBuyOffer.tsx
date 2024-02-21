@@ -10,13 +10,13 @@ import { useConfigStore } from "../../../store/configStore/configStore";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
-import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
 import { isPaymentMethod } from "../../../utils/validation/isPaymentMethod";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { GroupHugAnnouncement } from "../../overlays/GroupHugAnnouncement";
+import { useTranslate } from "@tolgee/react";
 
 const isForbiddenPaymentMethodError = (
   errorMessage: string | null,
@@ -36,6 +36,7 @@ export function usePostBuyOffer({
   BuyOfferDraft,
   "amount" | "meansOfPayment" | "paymentData" | "maxPremium" | "minReputation"
 >) {
+  const { t } = useTranslate("error");
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
   const showErrorBanner = useShowErrorBanner();
@@ -44,9 +45,7 @@ export function usePostBuyOffer({
   );
   const setPopup = useSetPopup();
   const showHelp = () =>
-    setPopup(
-      <InfoPopup content={i18n("FORBIDDEN_PAYMENT_METHOD.paypal.text")} />,
-    );
+    setPopup(<InfoPopup content={t("FORBIDDEN_PAYMENT_METHOD.paypal.text")} />);
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const setOverlay = useSetOverlay();
   const [payoutAddress, payoutToPeachWallet, payoutAddressSignature] =

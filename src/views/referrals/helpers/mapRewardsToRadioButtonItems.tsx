@@ -2,9 +2,9 @@ import { View } from "react-native";
 import { RadioButtonItem } from "../../../components/inputs/RadioButtons";
 import { PeachText } from "../../../components/text/PeachText";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { REWARDINFO } from "../constants";
 import { isRewardAvailable } from "./isRewardAvailable";
+import { useTranslate } from "@tolgee/react";
 
 export const mapRewardsToRadioButtonItems = (
   balance: number,
@@ -25,10 +25,11 @@ type Props = {
 };
 
 function RewardItem({ reward }: Props) {
+  const { t } = useTranslate("referral");
   return (
     <View style={tw`flex-row items-center justify-between py-1`}>
       <PeachText style={tw`subtitle-1`}>
-        {i18n(`referrals.reward.${reward.id}`)}
+        {t(`referrals.reward.${reward.id}`)}
       </PeachText>
       <PeachText style={tw`text-black-65`}>
         ({pointsRepresentation[reward.id]})

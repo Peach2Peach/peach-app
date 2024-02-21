@@ -21,7 +21,7 @@ import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { CancelSellOffersPopup } from "../../popups/CancelSellOffersPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
 import tw from "../../styles/tailwind";
-import i18n, { languageState } from "../../utils/i18n";
+import { languageState } from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { generateBlock } from "../../utils/regtest/generateBlock";
@@ -33,6 +33,7 @@ import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { TransactionInMempool } from "./components/TransactionInMempool";
 import { useFundEscrowSetup } from "./hooks/useFundEscrowSetup";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
+import { useTranslate } from "@tolgee/react";
 
 export const FundEscrow = () => {
   const {
@@ -42,8 +43,9 @@ export const FundEscrow = () => {
     fundingStatus,
     fundingAmount,
   } = useFundEscrowSetup();
+  const { t } = useTranslate("sell");
   if (!fundingAddress)
-    return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
+    return <BitcoinLoading text={t("sell.escrow.loading")} />;
 
   if (fundingStatus.status === "MEMPOOL")
     return (
@@ -56,7 +58,7 @@ export const FundEscrow = () => {
         <View style={tw`items-center self-stretch justify-center`}>
           <View style={tw`flex-row items-center justify-center gap-1`}>
             <PeachText style={tw`settings`}>
-              {i18n("sell.escrow.sendSats")}
+              {t("sell.escrow.sendSats")}
             </PeachText>
             <BTCAmount
               style={tw`-mt-0.5`}
@@ -71,14 +73,14 @@ export const FundEscrow = () => {
         <BitcoinAddress
           address={fundingAddress}
           amount={fundingAmount / SATSINBTC}
-          label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
+          label={`${t("settings.escrow.paymentRequest.label", { ns: "settings" })} ${offerIdToHex(offerId)}`}
         />
       </PeachScrollView>
 
       <View style={[tw`items-center justify-center gap-4 py-4`]}>
         <View style={tw`flex-row items-center justify-center gap-2`}>
           <PeachText style={tw`text-primary-main button-medium`}>
-            {i18n("sell.escrow.checkingFundingStatus")}
+            {t("sell.escrow.checkingFundingStatus")}
           </PeachText>
           <Loading style={tw`w-4 h-4`} color={tw.color("primary-main")} />
         </View>
@@ -96,6 +98,7 @@ export const FundEscrow = () => {
 
 function FundEscrowHeader() {
   const { offerId } = useRoute<"fundEscrow">().params;
+  const { t } = useTranslate("sell");
   const fundMultiple = useWalletState((state) =>
     state.getFundMultipleByOfferId(offerId),
   );
@@ -125,33 +128,32 @@ function FundEscrowHeader() {
     return icons;
   }, [cancelFundMultipleOffers, cancelOffer, fundMultiple, showHelp]);
 
-  return (
-    <Header title={i18n("sell.escrow.title")} icons={memoizedHeaderIcons} />
-  );
+  return <Header title={t("sell.escrow.title")} icons={memoizedHeaderIcons} />;
 }
 
 const goToEscrowInfo = () =>
   openURL(getLocalizedLink("terms-and-conditions", languageState.locale));
 
 function EscrowPopup() {
+  const { t } = useTranslate("help");
   return (
     <InfoPopup
-      title={i18n("help.escrow.title")}
+      title={t("help.escrow.title")}
       content={
         <View style={tw`gap-4`}>
           <ParsedPeachText
             parse={[
               {
-                pattern: new RegExp(i18n("help.escrow.description.link"), "u"),
+                pattern: new RegExp(t("help.escrow.description.link"), "u"),
                 style: tw`underline`,
                 onPress: goToEscrowInfo,
               },
             ]}
           >
-            {i18n("help.escrow.description")}
+            {t("help.escrow.description")}
           </ParsedPeachText>
-          <InfoText>{i18n("help.escrow.description.proTip")}</InfoText>
-          <InfoText>{i18n("help.escrow.description.proTip.2")}</InfoText>
+          <InfoText>{t("help.escrow.description.proTip")}</InfoText>
+          <InfoText>{t("help.escrow.description.proTip.2")}</InfoText>
         </View>
       }
     />
@@ -181,6 +183,7 @@ function FundFromPeachWalletButton(props: Props) {
     state.isFundedFromPeachWallet(props.address),
   );
   const [isFunding, setIsFunding] = useState(false);
+  const { t } = useTranslate("unassigned");
 
   const onButtonPress = () => {
     setIsFunding(true);
@@ -197,7 +200,7 @@ function FundFromPeachWalletButton(props: Props) {
     <>
       {fundedFromPeachWallet ? (
         <TradeInfo
-          text={i18n("fundFromPeachWallet.funded")}
+          text={t("fundFromPeachWallet.funded")}
           IconComponent={
             <Icon id="checkCircle" size={16} color={tw.color("success-main")} />
           }
@@ -210,7 +213,7 @@ function FundFromPeachWalletButton(props: Props) {
           onPress={onButtonPress}
           loading={isFunding}
         >
-          {i18n("fundFromPeachWallet.button")}
+          {t("fundFromPeachWallet.button")}
         </Button>
       )}
     </>

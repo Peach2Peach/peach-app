@@ -4,7 +4,7 @@ import { Icon } from "../../../components/Icon";
 import { PeachText } from "../../../components/text/PeachText";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 type SettingsTitle =
   | "myProfile"
@@ -46,6 +46,7 @@ export const SettingsItem = ({
   enabled,
   iconSize,
 }: SettingsItemProps) => {
+  const { t } = useTranslate("settings");
   const navigation = useStackNavigation();
   const onPress = pressAction ? pressAction : () => navigation.navigate(title);
   const iconColor = warning
@@ -62,7 +63,7 @@ export const SettingsItem = ({
       <PeachText
         style={[tw`settings text-black-65`, warning && tw`text-error-main`]}
       >
-        {i18n(`settings.${title}`)}
+        {t(`settings.${title}`)}
       </PeachText>
       <Icon
         id={iconId || "chevronRight"}

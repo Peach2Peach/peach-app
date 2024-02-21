@@ -4,8 +4,8 @@ import { PremiumTextInput } from "../../../components/PremiumTextInput";
 import { TouchableIcon } from "../../../components/TouchableIcon";
 import { Checkbox } from "../../../components/inputs/Checkbox";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { round } from "../../../utils/math/round";
+import { useTranslate } from "@tolgee/react";
 
 const defaultMaxPremium = 0;
 type Props = {
@@ -20,6 +20,7 @@ export function MaxPremiumFilterComponent({
   shouldApplyFilter,
   toggleShouldApplyFilter,
 }: Props) {
+  const { t } = useTranslate("offerPrefences");
   const onCheckboxPress = () => {
     toggleShouldApplyFilter();
     if (maxPremium === null) {
@@ -49,7 +50,7 @@ export function MaxPremiumFilterComponent({
   return (
     <View style={tw`flex-row items-center self-stretch justify-between`}>
       <Checkbox green checked={shouldApplyFilter} onPress={onCheckboxPress}>
-        {i18n("offerPreferences.filters.maxPremium")}
+        {t("offerPreferences.filters.maxPremium")}
       </Checkbox>
       <View style={tw`flex-row items-center gap-10px`}>
         <TouchableIcon

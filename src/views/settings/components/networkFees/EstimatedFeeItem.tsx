@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { PeachText } from "../../../../components/text/PeachText";
 import tw from "../../../../styles/tailwind";
-import i18n from "../../../../utils/i18n";
+import { tolgee } from "../../../../tolgee";
 
 type Props = {
   feeRate: FeeRate;
@@ -10,9 +10,16 @@ type Props = {
 export const EstimatedFeeItem = ({ feeRate, estimatedFees }: Props) => (
   <View>
     <PeachText style={tw`py-1 subtitle-1 leading-base`}>
-      {i18n(`settings.networkFees.estimatedTime.${feeRate}`)}
+      {tolgee.t(`settings.networkFees.estimatedTime.${feeRate}`, {
+        ns: "settings",
+      })}
       <PeachText style={tw`text-black-65 ml-0.5`}>
-         ({i18n("settings.networkFees.xSatsPerByte", estimatedFees.toString())})
+         (
+        {tolgee.t("settings.networkFees.xSatsPerByte", {
+          ns: "settings",
+          fees: estimatedFees.toString(),
+        })}
+        )
       </PeachText>
     </PeachText>
   </View>

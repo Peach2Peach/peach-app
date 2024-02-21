@@ -3,8 +3,8 @@ import RatingPeach from "../../../../assets/icons/ratingPeach.svg";
 import { PeachText } from "../../../../components/text/PeachText";
 import { CENT } from "../../../../constants";
 import tw from "../../../../styles/tailwind";
-import i18n from "../../../../utils/i18n";
 import { interpolate } from "../../../../utils/math/interpolate";
+import { tolgee } from "../../../../tolgee";
 
 type RatingProps = {
   rating: number;
@@ -21,7 +21,7 @@ export const SERVER_RATING_RANGE = [-1, 1] satisfies [number, number];
 export const Rating = ({ rating, isNewUser }: RatingProps) =>
   isNewUser ? (
     <PeachText style={tw`subtitle-2 text-black-65`}>
-      {i18n("newUser")}
+      {tolgee.t("newUser", { ns: "unassigned" })}
     </PeachText>
   ) : (
     <View style={tw`flex-row items-center`}>

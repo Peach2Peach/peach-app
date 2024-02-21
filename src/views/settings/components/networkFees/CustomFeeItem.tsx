@@ -3,7 +3,7 @@ import { TextInput, View } from "react-native";
 import { PeachText } from "../../../../components/text/PeachText";
 import tw from "../../../../styles/tailwind";
 import { enforceDecimalsFormat } from "../../../../utils/format/enforceDecimalsFormat";
-import i18n from "../../../../utils/i18n";
+import { tolgee } from "../../../../tolgee";
 
 type Props = {
   customFeeRate?: string;
@@ -18,7 +18,10 @@ export const CustomFeeItem = ({
 }: Props) => (
   <View style={tw`flex-row items-center gap-2`}>
     <PeachText style={tw`subtitle-1 leading-base`}>
-      {i18n("settings.networkFees.custom")}:
+      {tolgee.t("settings.networkFees.custom", {
+        ns: "settings",
+      })}
+      :
     </PeachText>
     <View
       style={[
@@ -37,6 +40,10 @@ export const CustomFeeItem = ({
         testID="input-custom-fees"
       />
     </View>
-    <PeachText style={tw`text-black-65`}>{i18n("satsPerByte")}</PeachText>
+    <PeachText style={tw`text-black-65`}>
+      {tolgee.t("satsPerByte", {
+        ns: "global",
+      })}
+    </PeachText>
   </View>
 );

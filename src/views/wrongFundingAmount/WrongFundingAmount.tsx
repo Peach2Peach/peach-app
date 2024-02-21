@@ -10,13 +10,13 @@ import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import { useCancelAndStartRefundPopup } from "../../popups/useCancelAndStartRefundPopup";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { sum } from "../../utils/math/sum";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { thousands } from "../../utils/string/thousands";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { useConfirmEscrow } from "./hooks/useConfirmEscrow";
+import { useTranslate } from "@tolgee/react";
 
 export const WrongFundingAmount = () => {
   const { offerId } = useRoute<"wrongFundingAmount">().params;
@@ -41,27 +41,31 @@ type Props = {
 };
 
 function WrongFundingAmountSummary({ sellOffer }: Props) {
+  const { t } = useTranslate("unassigned");
+
   const actualAmount = sellOffer.funding.amounts.reduce(sum, 0);
   const fundingAmount = sellOffer.amount;
   return (
     <View style={tw`gap-3 grow`}>
       <Divider
         icon={<Icon id="download" size={20} />}
-        text={i18n("offer.requiredAction.fundingAmountDifferent")}
+        text={t("offer.requiredAction.fundingAmountDifferent")}
       />
       <View style={tw`gap-1`}>
-        <LabelAndAmount label={i18n("escrow.funded")} amount={actualAmount} />
-        <LabelAndAmount label={i18n("amount")} amount={fundingAmount} />
+        <LabelAndAmount label={t("escrow.funded")} amount={actualAmount} />
+        <LabelAndAmount
+          label={t("amount", { ns: "global" })}
+          amount={fundingAmount}
+        />
       </View>
       <PeachText style={tw`body-s`}>
-        {i18n(
-          "escrow.wrongFundingAmount.description",
-          thousands(actualAmount),
-          thousands(fundingAmount),
-        )}
+        {t("escrow.wrongFundingAmount.description", {
+          actual: thousands(actualAmount),
+          expected: thousands(fundingAmount),
+        })}
       </PeachText>
       <PeachText style={tw`body-s`}>
-        {i18n(
+        {t(
           "escrow.wrongFundingAmount.continueOrRefund",
           thousands(actualAmount),
         )}
@@ -87,12 +91,13 @@ function LabelAndAmount({ label, amount }: LabelAndAmountProps) {
 function RefundEscrowSlider({ sellOffer }: Props) {
   const cancelAndStartRefundPopup = useCancelAndStartRefundPopup();
   const refundEscrow = () => cancelAndStartRefundPopup(sellOffer);
+  const { t } = useTranslate("unassigned");
 
   return (
     <ConfirmSlider
       enabled={!!sellOffer}
       onConfirm={refundEscrow}
-      label1={i18n("refundEscrow")}
+      label1={t("refundEscrow")}
       iconId="download"
     />
   );
@@ -100,6 +105,7 @@ function RefundEscrowSlider({ sellOffer }: Props) {
 
 function ContinueTradeSlider({ sellOffer }: Props) {
   const { mutate: confirmEscrow } = useConfirmEscrow();
+  const { t } = useTranslate("unassigned");
   const confirmEscrowWithSellOffer = () =>
     confirmEscrow({ offerId: sellOffer.id, funding: sellOffer.funding });
 
@@ -107,7 +113,7 @@ function ContinueTradeSlider({ sellOffer }: Props) {
     <ConfirmSlider
       enabled={!!sellOffer}
       onConfirm={confirmEscrowWithSellOffer}
-      label1={i18n("continueTrade")}
+      label1={t("continueTrade")}
       iconId="arrowRightCircle"
     />
   );

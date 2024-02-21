@@ -1,5 +1,5 @@
 import { createRenderer } from "react-test-renderer/shallow";
-import { useOfferPreferences } from "../../../store/offerPreferenes";
+import { useOfferPreferences } from "../../../store/offerPreferences";
 import { FundMultipleOffers } from "./FundMultipleOffers";
 
 describe("FundMultipleOffers", () => {

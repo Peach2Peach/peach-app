@@ -1,8 +1,8 @@
 import { ColorValue, View } from "react-native";
 import { NewBubble, NewBubbleProps } from "../../components/bubble/Bubble";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { Section } from "./components/Section";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   backgroundColor: ColorValue | undefined;
@@ -25,6 +25,7 @@ export function WalletSelector({
   onExternalWalletPress,
   title,
 }: Props) {
+  const { t } = useTranslate("wallet");
   return (
     <Section.Container style={{ backgroundColor }}>
       <Section.Title>{title}</Section.Title>
@@ -35,7 +36,7 @@ export function WalletSelector({
           disabled={peachWalletActive}
           onPress={onPeachWalletPress}
         >
-          {i18n("peachWallet")}
+          {t("peachWallet")}
         </NewBubble>
         <NewBubble
           color={bubbleColor}
@@ -44,7 +45,7 @@ export function WalletSelector({
           iconId={!address ? "plusCircle" : undefined}
           onPress={onExternalWalletPress}
         >
-          {addressLabel || i18n("externalWallet")}
+          {addressLabel || t("externalWallet", { ns: "unassigned" })}
         </NewBubble>
       </View>
     </Section.Container>

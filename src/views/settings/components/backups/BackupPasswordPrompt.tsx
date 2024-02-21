@@ -9,8 +9,8 @@ import { useValidatedState } from "../../../../hooks/useValidatedState";
 import { useSettingsStore } from "../../../../store/settingsStore/useSettingsStore";
 import tw from "../../../../styles/tailwind";
 import { backupAccount } from "../../../../utils/account/backupAccount";
-import i18n from "../../../../utils/i18n";
 import { BackupCreated } from "./BackupCreated";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   toggle: () => void;
@@ -19,6 +19,7 @@ type Props = {
 const passwordRules = { required: true, password: true };
 
 export const BackupPasswordPrompt = ({ toggle }: Props) => {
+  const { t } = useTranslate("settings");
   const updateFileBackupDate = useSettingsStore(
     (state) => state.updateFileBackupDate,
   );
@@ -74,10 +75,10 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
       <PeachScrollView contentContainerStyle={tw`grow`}>
         <View style={tw`justify-center h-full`}>
           <PeachText style={tw`self-center mb-4 tooltip`}>
-            {i18n("settings.backups.createASecurePassword")}
+            {t("settings.backups.createASecurePassword")}
           </PeachText>
           <PasswordInput
-            placeholder={i18n("form.password.placeholder")}
+            placeholder={t("form.password.placeholder", { ns: "form" })}
             onChangeText={setPassword}
             onSubmitEditing={focusToPasswordRepeat}
             value={password}
@@ -86,7 +87,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
             iconColor={tw.color("black-65")}
           />
           <PasswordInput
-            placeholder={i18n("form.repeatpassword.placeholder")}
+            placeholder={t("form.repeatpassword.placeholder", { ns: "form" })}
             reference={(el) => ($passwordRepeat = el)}
             onChangeText={setPasswordRepeat}
             onSubmitEditing={(e) => setPasswordRepeat(e.nativeEvent.text)}
@@ -103,7 +104,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
         onPress={startAccountBackup}
         iconId="save"
       >
-        {i18n("settings.backups.fileBackup.createNew")}
+        {t("settings.backups.fileBackup.createNew")}
       </Button>
     </>
   );

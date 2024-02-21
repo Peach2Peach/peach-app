@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { PeachText } from "../../../components/text/PeachText";
 import { PriceFormat } from "../../../components/text/PriceFormat";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
+import { tolgee } from "../../../tolgee";
 
 const textStyle = tw`font-bold tooltip`;
 
@@ -21,7 +21,7 @@ export const TradingLimitAmount = ({
 }: Props) => (
   <View style={style}>
     <PeachText style={tw`tooltip text-black-65`}>
-      {i18n(`profile.tradingLimits.${type}`)}
+      {tolgee.t(`profile.tradingLimits.${type}`, { ns: "profile" })}
       {"  "}
       <PriceFormat
         style={[textStyle, tw`text-primary-main`]}

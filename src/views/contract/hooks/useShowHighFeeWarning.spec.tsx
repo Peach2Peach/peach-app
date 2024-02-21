@@ -8,9 +8,9 @@ import {
 import { defaultUser } from "../../../../peach-api/src/testData/userData";
 import { navigateMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { Toast } from "../../../components/toast/Toast";
-import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
 import { useShowHighFeeWarning } from "./useShowHighFeeWarning";
+import { tolgee } from "../../../tolgee";
 
 jest.useFakeTimers();
 
@@ -30,7 +30,13 @@ describe("useShowHighFeeWarning", () => {
     renderHook(useShowHighFeeWarning, { initialProps });
     await waitFor(() => {
       expect(
-        queryByText(i18n("contract.warning.highFee.text", "100", "10.0")),
+        queryByText(
+          tolgee.t("contract.warning.highFee.text", {
+            ns: "contract",
+            fees: "100",
+            percent: "10.0",
+          }),
+        ),
       ).toBeTruthy();
     });
   });
@@ -49,7 +55,13 @@ describe("useShowHighFeeWarning", () => {
       },
     });
     expect(
-      queryByText(i18n("contract.warning.highFee", "100", "10.0")),
+      queryByText(
+        tolgee.t("contract.warning.highFee", {
+          ns: "contract",
+          fees: "100",
+          percent: "10.0",
+        }),
+      ),
     ).toBeFalsy();
   });
   it("should not show high fee warning banner if fees are lower than 10%", () => {
@@ -61,7 +73,13 @@ describe("useShowHighFeeWarning", () => {
       },
     });
     expect(
-      queryByText(i18n("contract.warning.highFee", "100", "10.0")),
+      queryByText(
+        tolgee.t("contract.warning.highFee", {
+          ns: "contract",
+          fees: "100",
+          percent: "10.0",
+        }),
+      ),
     ).toBeFalsy();
   });
   it("should not show high fee warning banner if no amount is passed", () => {
@@ -73,7 +91,13 @@ describe("useShowHighFeeWarning", () => {
       },
     });
     expect(
-      queryByText(i18n("contract.warning.highFee", "100", "10.0")),
+      queryByText(
+        tolgee.t("contract.warning.highFee", {
+          ns: "contract",
+          fees: "100",
+          percent: "10.0",
+        }),
+      ),
     ).toBeFalsy();
   });
 });

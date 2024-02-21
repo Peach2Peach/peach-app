@@ -1,8 +1,8 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { shallow } from "zustand/shallow";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
-import { useOfferPreferences } from "../../store/offerPreferenes";
-import { CurrencyType } from "../../store/offerPreferenes/types";
+import { useOfferPreferences } from "../../store/offerPreferences";
+import { CurrencyType } from "../../store/offerPreferences/types";
 import tw from "../../styles/tailwind";
 import { Currencies } from "./Currencies";
 import { defaultCurrencies } from "./constants";
