@@ -18,6 +18,7 @@ export const useSyncWallet = ({
   const queryData = useQuery({
     queryKey: walletKeys.synced(),
     queryFn: async () => {
+      if (!peachWallet) throw new Error("Peach wallet not defined");
       if (!peachWallet.initialized) await peachWallet.initWallet();
       await peachWallet.syncWallet();
       return true;

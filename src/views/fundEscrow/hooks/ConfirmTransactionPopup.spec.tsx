@@ -26,6 +26,7 @@ describe("ConfirmTransactionPopup", () => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
   });
   it("should render correctly", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(props.psbt);
     const { getByText } = render(<ConfirmTransactionPopup {...props} />);
     await act(async () => {
@@ -36,6 +37,7 @@ describe("ConfirmTransactionPopup", () => {
     expect(onSuccess).toHaveBeenCalled();
   });
   it("should handle broadcast errors", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.balance = amount;
     peachWallet.signAndBroadcastPSBT = jest.fn().mockImplementation(() => {
       throw transactionError;

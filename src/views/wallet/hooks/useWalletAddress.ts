@@ -6,8 +6,10 @@ import { walletKeys } from "./useUTXOs";
 export const useWalletAddress = (index: number) =>
   useQuery({
     queryKey: walletKeys.addressByIndex(index),
-    queryFn: ({ queryKey: [, , addressIndex] }) =>
-      peachWallet.getAddressByIndex(addressIndex),
-    enabled: peachWallet.initialized && index >= 0,
+    queryFn: ({ queryKey: [, , addressIndex] }) => {
+      if (!peachWallet) throw new Error("PeachWallet not set");
+      return peachWallet.getAddressByIndex(addressIndex);
+    },
+    enabled: peachWallet?.initialized && index >= 0,
     gcTime: MSINAMINUTE,
   });

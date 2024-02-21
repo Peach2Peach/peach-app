@@ -9,6 +9,7 @@ jest.useFakeTimers();
 describe("useLastUnusedAddress", () => {
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.initialized = true;
   });
   const getLastUnusedAddressMock = jest.fn().mockResolvedValue({
@@ -17,6 +18,7 @@ describe("useLastUnusedAddress", () => {
   });
 
   it("should return last unused address", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.getLastUnusedAddress = getLastUnusedAddressMock;
     const { result } = renderHook(useLastUnusedAddress);
 

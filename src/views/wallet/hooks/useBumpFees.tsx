@@ -18,6 +18,7 @@ const useRemoveTxFromPeachWallet = () => {
 
   const removeTxFromPeachWallet = useCallback(
     (txId: string) => {
+      if (!peachWallet) throw new Error("PeachWallet not set");
       removeTransaction(txId);
       peachWallet.transactions = peachWallet.transactions.filter(
         (tx) => tx.txid !== txId,
@@ -56,7 +57,7 @@ export const useBumpFees = ({
   );
 
   const bumpFees = useCallback(async () => {
-    if (!transaction) return;
+    if (!transaction || !peachWallet) return;
 
     try {
       const bumpFeeTransaction = await buildBumpFeeTransaction(

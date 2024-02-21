@@ -172,6 +172,7 @@ function OfferWalletSelector({
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const onPeachWalletPress = async () => {
     if (addressIsInPeachWallet) return;
+    if (!peachWallet) throw new Error("Peach wallet not defined");
     const { address: peachWalletAddress, index } =
       await peachWallet.getAddress();
     const message = getMessageToSignForAddress(publicKey, peachWalletAddress);

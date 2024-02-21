@@ -90,6 +90,7 @@ function ChangePayoutWallet() {
 
   const onPress = async () => {
     if (paidToPeachWallet === false) {
+      if (!peachWallet) throw new Error("PeachWallet not set");
       const { address: releaseAddress, index } = await peachWallet.getAddress();
 
       const message = getMessageToSignForAddress(publicKey, releaseAddress);

@@ -67,6 +67,7 @@ export const useCheckFundingMultipleEscrows = () => {
       }
       const escrows = sellOffers.map((offer) => offer.escrow).filter(isDefined);
       if (escrows.length === 0) return;
+      if (!peachWallet) throw new Error("PeachWallet not set");
       const localUtxo = await peachWallet.getAddressUTXO(address);
       if (localUtxo.length === 0) return;
 

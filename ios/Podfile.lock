@@ -511,7 +511,7 @@ PODS:
     - React-perflogger (= 0.71.14)
   - RNCClipboard (1.11.2):
     - React-Core
-  - RNDeviceInfo (10.6.0):
+  - RNDeviceInfo (10.12.0):
     - React-Core
   - RNFBAnalytics (18.2.0):
     - Firebase/AnalyticsWithoutAdIdSupport (= 10.12.0)
@@ -876,7 +876,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: ffe826b7b1cfbc32a35ed5b64d5886c0ff75f501
   ReactCommon: 7f3dd5e98a9ec627c6b03d26c062bf37ea9fc888
   RNCClipboard: 3f0451a8100393908bea5c5c5b16f96d45f30bfc
-  RNDeviceInfo: 475a4c447168d0ad4c807e48ef5e0963a0f4eb1b
+  RNDeviceInfo: db5c64a060e66e5db3102d041ebe3ef307a85120
   RNFBAnalytics: 74b75efda2271d9624f36a391da685c035cf6be1
   RNFBApp: 830185bbb8df42e07d6a7d6976730782040695a3
   RNFBCrashlytics: 787ba27fe6fa3ec8fab9d8f57d62c1416b76dcdd

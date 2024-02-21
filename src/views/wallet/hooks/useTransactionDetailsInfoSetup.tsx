@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { isRBFEnabled } from "../../../utils/bitcoin/isRBFEnabled";
 import { showTransaction } from "../../../utils/bitcoin/showTransaction";
-import { peachWallet } from "../../../utils/wallet/setWallet";
 import { canBumpNetworkFees } from "../helpers/canBumpNetworkFees";
 import { useGetTransactionDestinationAddress } from "../helpers/useGetTransactionDestinationAddress";
 
@@ -25,7 +24,7 @@ export const useTransactionDetailsInfoSetup = ({
   });
   const rbfEnabled = transactionDetails && isRBFEnabled(transactionDetails);
   const canBumpFees = useMemo(
-    () => rbfEnabled && canBumpNetworkFees(peachWallet, transactionSummary),
+    () => rbfEnabled && canBumpNetworkFees(transactionSummary),
     [rbfEnabled, transactionSummary],
   );
   const goToBumpNetworkFees = () =>

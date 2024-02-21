@@ -38,7 +38,7 @@ export const deleteAccount = () => {
     usePaymentDataStore,
   ].forEach((store) => store.getState().reset());
 
-  clearPeachWallet()
+  clearPeachWallet();
   peachAPI.setPeachAccount(null);
   analytics().logEvent("account_deleted");
 };
