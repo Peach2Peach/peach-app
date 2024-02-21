@@ -7,10 +7,13 @@ import { PeachLiquidJSWallet } from "../../wallet/PeachLiquidJSWallet";
 import { setLiquidWallet } from "../../wallet/setWallet";
 import { usePostReverseSubmarineSwap } from "./usePostReverseSubmarineSwap";
 
-const postReverseSubmarineSwapMock = jest.fn().mockResolvedValue(getResult(reverseSwapResponse))
+const postReverseSubmarineSwapMock = jest
+  .fn()
+  .mockResolvedValue(getResult(reverseSwapResponse));
 jest.mock("../api/postReverseSubmarineSwap", () => ({
-  postReverseSubmarineSwap: (...args: unknown[]) => postReverseSubmarineSwapMock(...args),
-}))
+  postReverseSubmarineSwap: (...args: unknown[]) =>
+    postReverseSubmarineSwapMock(...args),
+}));
 
 jest.useFakeTimers();
 
@@ -23,23 +26,25 @@ describe("usePostReverseSubmarineSwap", () => {
   });
 
   it("posts a reverse submarine swap request", async () => {
-    const { result } = renderHook(usePostReverseSubmarineSwap, { initialProps: {
-      address: 'address',
-      amount: 1000,
-    }});
+    const { result } = renderHook(usePostReverseSubmarineSwap, {
+      initialProps: {
+        address: "address",
+        amount: 1000,
+      },
+    });
     expect(result.current).toEqual({
       data: undefined,
       isLoading: true,
-      error: null
+      error: null,
     });
     await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(result.current).toEqual({
       data: {
         ...reverseSwapResponse,
-        preimage: expect.any(String)
+        preimage: expect.any(String),
       },
       isLoading: false,
-      error: null
+      error: null,
     });
   });
 });

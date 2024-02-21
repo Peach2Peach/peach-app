@@ -63,7 +63,7 @@ describe("PeachLiquidJSWallet", () => {
     const signature = peachJSWallet.signMessage(message, address);
     // eslint-disable-next-line max-len
     expect(signature).toBe(
-      "AkgwRQIhANLsNrqf6mEdi9/1bP1FvzZauDKfvnrFr5ZYyLZlx1yDAiAp6KSvW1ozHKmMj6scf6S1wQw0pUOl+JG++BeE/TYViwEhA5rsQTOPc8x49uK4N6dhtU16Qb2KvXKKMoywMqJ47/YR"
+      "AkgwRQIhANLsNrqf6mEdi9/1bP1FvzZauDKfvnrFr5ZYyLZlx1yDAiAp6KSvW1ozHKmMj6scf6S1wQw0pUOl+JG++BeE/TYViwEhA5rsQTOPc8x49uK4N6dhtU16Qb2KvXKKMoywMqJ47/YR",
     );
   });
   it("signs an arbitrary message with index", () => {
@@ -76,7 +76,7 @@ describe("PeachLiquidJSWallet", () => {
     expect(findKeyPairByAddressSpy).not.toHaveBeenCalled();
     // eslint-disable-next-line max-len
     expect(signature).toBe(
-      "AkgwRQIhANLsNrqf6mEdi9/1bP1FvzZauDKfvnrFr5ZYyLZlx1yDAiAp6KSvW1ozHKmMj6scf6S1wQw0pUOl+JG++BeE/TYViwEhA5rsQTOPc8x49uK4N6dhtU16Qb2KvXKKMoywMqJ47/YR"
+      "AkgwRQIhANLsNrqf6mEdi9/1bP1FvzZauDKfvnrFr5ZYyLZlx1yDAiAp6KSvW1ozHKmMj6scf6S1wQw0pUOl+JG++BeE/TYViwEhA5rsQTOPc8x49uK4N6dhtU16Qb2KvXKKMoywMqJ47/YR",
     );
   });
 

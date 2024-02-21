@@ -37,10 +37,7 @@ function isBitcoinAddress(value: string) {
   }
 }
 
-export function isLiquidAddress(
-  value: string,
-  network: networks.Network
-) {
+export function isLiquidAddress(value: string, network: networks.Network) {
   try {
     const result = liquidAddress.fromBech32(value);
     return result.prefix === network.bech32;

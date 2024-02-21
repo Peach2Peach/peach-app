@@ -36,7 +36,8 @@ export const useFundingStatus = (id: string, enabled = true) => {
   });
 
   const fundingStatus = data?.funding || getDefaultFundingStatus(id);
-  const fundingStatusLiquid = data?.fundingLiquid || getDefaultFundingStatus(id);
+  const fundingStatusLiquid =
+    data?.fundingLiquid || getDefaultFundingStatus(id);
   const userConfirmationRequired = data?.userConfirmationRequired || false;
 
   return {

@@ -38,33 +38,33 @@ import { useFundEscrowSetup } from "./hooks/useFundEscrowSetup";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
 
 type FundingTab = {
-  id: EscrowType | 'lightning-liquid',
-  display: string
-}
+  id: EscrowType | "lightning-liquid";
+  display: string;
+};
 
 export const FundEscrow = () => {
-  const {
-    offerId,
-    funding,
-    activeFunding,
-    fundingAmount,
-  } = useFundEscrowSetup();
+  const { offerId, funding, activeFunding, fundingAmount } =
+    useFundEscrowSetup();
   const tabs: FundingTab[] = [
-    { id: "bitcoin", display: i18n('escrow.bitcoin') },
-    { id: "liquid", display: i18n('escrow.liquid') },
-    { id: "lightning-liquid", display: i18n('escrow.lightning') },
+    { id: "bitcoin", display: i18n("escrow.bitcoin") },
+    { id: "liquid", display: i18n("escrow.liquid") },
+    { id: "lightning-liquid", display: i18n("escrow.lightning") },
   ];
   const [currentTab, setCurrentTab] = useState(tabs[0]);
-  const escrowType = currentTab.id === 'lightning-liquid' ? 'liquid' : currentTab.id
-  const fundingAddress = funding[escrowType].fundingAddress
-  const fundingAddresses = funding[escrowType].fundingAddresses
+  const escrowType =
+    currentTab.id === "lightning-liquid" ? "liquid" : currentTab.id;
+  const fundingAddress = funding[escrowType].fundingAddress;
+  const fundingAddresses = funding[escrowType].fundingAddresses;
 
   if (!fundingAddress)
     return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
 
   if (activeFunding.status === "MEMPOOL")
     return (
-      <TransactionInMempool {...{ offerId, address: fundingAddress }} txId={activeFunding.txIds[0]} />
+      <TransactionInMempool
+        {...{ offerId, address: fundingAddress }}
+        txId={activeFunding.txIds[0]}
+      />
     );
 
   return (
@@ -86,24 +86,24 @@ export const FundEscrow = () => {
         />
         {currentTab.id === "bitcoin" && (
           <BitcoinAddress
-          address={fundingAddress}
-          amount={fundingAmount / SATSINBTC}
-          label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
-        />
+            address={fundingAddress}
+            amount={fundingAmount / SATSINBTC}
+            label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
+          />
         )}
         {currentTab.id === "liquid" && (
           <BitcoinAddress
-          address={fundingAddress}
-          amount={fundingAmount / SATSINBTC}
-          label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
-        />
+            address={fundingAddress}
+            amount={fundingAmount / SATSINBTC}
+            label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
+          />
         )}
         {currentTab.id === "lightning-liquid" && (
           <ReverseSubmarineSwap
-          offerId={offerId}
-          address={fundingAddress}
-          amount={fundingAmount / SATSINBTC}
-        />
+            offerId={offerId}
+            address={fundingAddress}
+            amount={fundingAmount / SATSINBTC}
+          />
         )}
       </PeachScrollView>
 
@@ -153,7 +153,10 @@ function FundEscrowHeader() {
     ];
     if (getNetwork() === networks.regtest) {
       icons.unshift({ ...headerIcons.generateBlock, onPress: generateBlock });
-      icons.unshift({ ...headerIcons.generateLiquidBlock, onPress: generateLiquidBlock });
+      icons.unshift({
+        ...headerIcons.generateLiquidBlock,
+        onPress: generateLiquidBlock,
+      });
     }
     return icons;
   }, [cancelFundMultipleOffers, cancelOffer, fundMultiple, showHelp]);

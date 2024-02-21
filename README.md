@@ -9,13 +9,11 @@ npm install
 npx react-native link
 ```
 
-
 ## Environment Setup
 
 ### Initializing the peach-api submodule
 
 When cloning this repo you will have to run: `git submodule update --init` to initialize the peach-api submodule.
-
 
 ### env files
 
@@ -28,8 +26,6 @@ cp .env.dist .env.production
 ```
 
 Then edit the variables according to your setup
-
-
 
 ### iOS
 
@@ -147,4 +143,3 @@ then run
 3. `npx react-native-asset`
 
 before building the app
-

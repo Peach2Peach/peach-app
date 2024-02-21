@@ -17,7 +17,7 @@ import { CurrencyType } from "./types";
 
 type OfferPreferences = {
   buyAmountRange: [number, number];
-  escrowType: EscrowType,
+  escrowType: EscrowType;
   sellAmount: number;
   premium: number;
   meansOfPayment: MeansOfPayment;
@@ -42,7 +42,7 @@ type OfferPreferences = {
 
 export const defaultPreferences: OfferPreferences = {
   buyAmountRange: [1, TOTAL_SATS],
-  escrowType: 'bitcoin',
+  escrowType: "bitcoin",
   sellAmount: 1,
   premium: 1.5,
   meansOfPayment: {},

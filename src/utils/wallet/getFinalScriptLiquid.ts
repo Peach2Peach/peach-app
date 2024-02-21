@@ -1,6 +1,6 @@
-import { PsbtInput as LiquidPsbtInput } from 'bip174-liquid/src/lib/interfaces';
+import { PsbtInput as LiquidPsbtInput } from "bip174-liquid/src/lib/interfaces";
 import { opcodes, payments, script } from "liquidjs-lib";
-import { getLiquidNetwork } from './getLiquidNetwork';
+import { getLiquidNetwork } from "./getLiquidNetwork";
 import { witnessStackToScriptWitness } from "./witnessStackToScriptWitness";
 
 /**

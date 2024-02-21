@@ -1,4 +1,7 @@
-import { reverseSwapResponse, submarineSwapResponse } from "../../tests/unit/data/boltzData";
+import {
+  reverseSwapResponse,
+  submarineSwapResponse,
+} from "../../tests/unit/data/boltzData";
 import { useBoltzSwapStore } from "./useBoltzSwapStore";
 
 describe("useBoltzSwapStore", () => {
@@ -10,16 +13,16 @@ describe("useBoltzSwapStore", () => {
   });
 
   it("stores swap info", () => {
-    useBoltzSwapStore.getState().saveSwap('1', submarineSwapResponse)
-    useBoltzSwapStore.getState().saveSwap('1', reverseSwapResponse)
+    useBoltzSwapStore.getState().saveSwap("1", submarineSwapResponse);
+    useBoltzSwapStore.getState().saveSwap("1", reverseSwapResponse);
     expect(useBoltzSwapStore.getState().swaps).toEqual({
-      '1': [submarineSwapResponse, reverseSwapResponse],
+      "1": [submarineSwapResponse, reverseSwapResponse],
     });
   });
   it("removes swap info", () => {
-    useBoltzSwapStore.getState().removeSwap('1', submarineSwapResponse.id)
+    useBoltzSwapStore.getState().removeSwap("1", submarineSwapResponse.id);
     expect(useBoltzSwapStore.getState().swaps).toEqual({
-      '1': [reverseSwapResponse],
+      "1": [reverseSwapResponse],
     });
   });
 });

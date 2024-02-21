@@ -10,8 +10,10 @@ export const verifyReleasePSBT = (
   contract?: Contract,
 ) => {
   if (!sellOffer) return "MISSING_DATA";
-  const funding = psbt instanceof Psbt ? sellOffer.funding : sellOffer?.fundingLiquid
-  if (!sellOffer || funding.txIds.length === 0 || !contract) return "MISSING_DATA";
+  const funding =
+    psbt instanceof Psbt ? sellOffer.funding : sellOffer?.fundingLiquid;
+  if (!sellOffer || funding.txIds.length === 0 || !contract)
+    return "MISSING_DATA";
 
   const txIds = funding.txIds;
   if (!txIds.every((txId) => txIdPartOfPSBT(txId, psbt))) {

@@ -19,7 +19,7 @@ export function FundingAmountDifferentPopup({
   const navigation = useNavigation();
   const closePopup = useClosePopup();
 
-  const funding = getSellOfferFunding(sellOffer)
+  const funding = getSellOfferFunding(sellOffer);
   const actualAmount = funding.amounts.reduce(sum, 0);
   return (
     <WarningPopup

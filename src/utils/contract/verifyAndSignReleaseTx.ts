@@ -12,26 +12,29 @@ import { signBatchReleaseTransaction } from "./signBatchReleaseTransaction";
 import { signReleaseTransaction } from "./signReleaseTransaction";
 
 type Props = {
-  contract: Contract,
-  sellOffer: SellOffer,
-  wallet: BIP32Interface,
-}
+  contract: Contract;
+  sellOffer: SellOffer;
+  wallet: BIP32Interface;
+};
 type BitcoinProps = Props & {
-  psbt: BitcoinPsbt
-  batchPsbt?: BitcoinPsbt
-}
+  psbt: BitcoinPsbt;
+  batchPsbt?: BitcoinPsbt;
+};
 type LiquidProps = Props & {
-  psbt: LiquidPsbt
-  batchPsbt?: LiquidPsbt
-}
-type ResultType = Result<{
-  releaseTransaction: string,
-  batchReleasePsbt?: string
-}, string | undefined>
+  psbt: LiquidPsbt;
+  batchPsbt?: LiquidPsbt;
+};
+type ResultType = Result<
+  {
+    releaseTransaction: string;
+    batchReleasePsbt?: string;
+  },
+  string | undefined
+>;
 
-function verifyAndSignReleaseTxBase (props: BitcoinProps): ResultType
-function verifyAndSignReleaseTxBase (props: LiquidProps): ResultType
-function verifyAndSignReleaseTxBase ({
+function verifyAndSignReleaseTxBase(props: BitcoinProps): ResultType;
+function verifyAndSignReleaseTxBase(props: LiquidProps): ResultType;
+function verifyAndSignReleaseTxBase({
   contract,
   sellOffer,
   wallet,
@@ -62,24 +65,32 @@ function verifyAndSignReleaseTxBase ({
   } catch (e) {
     return getError(parseError(e));
   }
-};
-
+}
 
 export const verifyAndSignReleaseTx = (
   contract: Contract,
   sellOffer: SellOffer,
   wallet: BIP32Interface,
-) => isLiquidAddress(contract.releaseAddress, getLiquidNetwork())
+) =>
+  isLiquidAddress(contract.releaseAddress, getLiquidNetwork())
     ? verifyAndSignReleaseTxBase({
         contract,
         sellOffer,
         wallet,
-        psbt: LiquidPsbt.fromBase64(contract.releasePsbt, { network: getLiquidNetwork() }),
+        psbt: LiquidPsbt.fromBase64(contract.releasePsbt, {
+          network: getLiquidNetwork(),
+        }),
       })
     : verifyAndSignReleaseTxBase({
         contract,
         sellOffer,
         wallet,
-        psbt: BitcoinPsbt.fromBase64(contract.releasePsbt, { network: getNetwork() }),
-        batchPsbt: contract.batchReleasePsbt ? BitcoinPsbt.fromBase64(contract.batchReleasePsbt, { network: getNetwork() }) : undefined,
+        psbt: BitcoinPsbt.fromBase64(contract.releasePsbt, {
+          network: getNetwork(),
+        }),
+        batchPsbt: contract.batchReleasePsbt
+          ? BitcoinPsbt.fromBase64(contract.batchReleasePsbt, {
+              network: getNetwork(),
+            })
+          : undefined,
       });

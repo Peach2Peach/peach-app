@@ -31,7 +31,13 @@ export const useTransactionDetailsInfoSetup = ({
   );
   const goToBumpNetworkFees = () =>
     navigation.navigate("bumpNetworkFees", { txId: transactionSummary.id });
-  const openInExplorer = () => showTransaction(transactionSummary.id, receivingAddress && isLiquidAddress(receivingAddress, getLiquidNetwork()) ? 'liquid' : 'bitcoin');
+  const openInExplorer = () =>
+    showTransaction(
+      transactionSummary.id,
+      receivingAddress && isLiquidAddress(receivingAddress, getLiquidNetwork())
+        ? "liquid"
+        : "bitcoin",
+    );
 
   return {
     receivingAddress,

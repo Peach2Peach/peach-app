@@ -31,7 +31,11 @@ const ASPECT_RATIO = 0.7;
 
 export const TransactionInMempool = ({ offerId, address, txId }: Props) => {
   const [width, setWidth] = useState(DEFAULT_WIDTH);
-  const openInExplorer = () => showTransaction(txId, isLiquidAddress(address, getLiquidNetwork()) ? 'liquid' : 'bitcoin');
+  const openInExplorer = () =>
+    showTransaction(
+      txId,
+      isLiquidAddress(address, getLiquidNetwork()) ? "liquid" : "bitcoin",
+    );
   const onLayout = (e: LayoutChangeEvent) =>
     setWidth(e.nativeEvent.layout.width);
 
@@ -84,7 +88,10 @@ function MempoolHeader({ offerId }: { offerId: string }) {
 
     if (getNetwork() === networks.regtest) {
       icons.unshift({ ...headerIcons.generateBlock, onPress: generateBlock });
-      icons.unshift({ ...headerIcons.generateLiquidBlock, onPress: generateLiquidBlock });
+      icons.unshift({
+        ...headerIcons.generateLiquidBlock,
+        onPress: generateLiquidBlock,
+      });
     }
     return icons;
   }, [cancelOffer, showHelp]);

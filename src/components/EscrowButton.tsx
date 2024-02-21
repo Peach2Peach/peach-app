@@ -14,11 +14,11 @@ type Props = {
 };
 
 export function EscrowButton({ releaseTxId, escrow, style }: Props) {
-  const network = isLiquidAddress(escrow, getLiquidNetwork()) ? 'liquid' : 'bitcoin'
+  const network = isLiquidAddress(escrow, getLiquidNetwork())
+    ? "liquid"
+    : "bitcoin";
   const openEscrow = () =>
-    releaseTxId
-      ? showTransaction(releaseTxId, network)
-      : showAddress(escrow);
+    releaseTxId ? showTransaction(releaseTxId, network) : showAddress(escrow);
 
   return (
     <Button

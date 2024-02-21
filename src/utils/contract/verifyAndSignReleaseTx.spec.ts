@@ -2,7 +2,10 @@
 import { Psbt, networks } from "bitcoinjs-lib";
 import { ElementsValue } from "liquidjs-lib";
 import { Psbt as LiquidPsbt } from "liquidjs-lib/src/psbt";
-import { asset, liquidAddresses } from "../../../tests/unit/data/liquidNetworkData";
+import {
+  asset,
+  liquidAddresses,
+} from "../../../tests/unit/data/liquidNetworkData";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { SIGHASH } from "../bitcoin/constants";
 import { getEscrowWalletForOffer } from "../wallet/getEscrowWalletForOffer";
@@ -74,15 +77,15 @@ describe("verifyAndSignReleaseTx", () => {
         address: "address1",
         value: ElementsValue.fromNumber(9000).bytes,
         asset: asset.regtest,
-        nonce: Buffer.from('00', 'hex'),
-        script: Buffer.from('00', 'hex'),
+        nonce: Buffer.from("00", "hex"),
+        script: Buffer.from("00", "hex"),
       },
       {
         address: "address2",
         value: ElementsValue.fromNumber(1000).bytes,
         asset: asset.regtest,
-        nonce: Buffer.from('00', 'hex'),
-        script: Buffer.from('00', 'hex'),
+        nonce: Buffer.from("00", "hex"),
+        script: Buffer.from("00", "hex"),
       },
     ] as LiquidPsbt["txOutputs"],
   };
@@ -122,12 +125,11 @@ describe("verifyAndSignReleaseTx", () => {
   it("should return null and error message if psbt is not valid", () => {
     verifyReleasePSBTMock.mockReturnValueOnce("INVALID_INPUT");
 
-    const { result, error } =
-      verifyAndSignReleaseTx(
-        mockContract as Contract,
-        mockSellOffer as SellOffer,
-        wallet,
-      );
+    const { result, error } = verifyAndSignReleaseTx(
+      mockContract as Contract,
+      mockSellOffer as SellOffer,
+      wallet,
+    );
 
     expect(result?.releaseTransaction).toBe(undefined);
     expect(result?.batchReleasePsbt).toBe(undefined);
@@ -135,12 +137,11 @@ describe("verifyAndSignReleaseTx", () => {
   });
   it("should sign valid release transaction and return it", () => {
     verifyReleasePSBTMock.mockReturnValueOnce(null);
-    const { result, error } =
-      verifyAndSignReleaseTx(
-        mockContract as Contract,
-        mockSellOffer as SellOffer,
-        wallet,
-      );
+    const { result, error } = verifyAndSignReleaseTx(
+      mockContract as Contract,
+      mockSellOffer as SellOffer,
+      wallet,
+    );
 
     expect(error).toBe(undefined);
     expect(result?.releaseTransaction).toEqual("transactionAsHex");
@@ -155,12 +156,14 @@ describe("verifyAndSignReleaseTx", () => {
   });
   it("should sign valid liquid release transaction and return it", () => {
     verifyReleasePSBTMock.mockReturnValueOnce(null);
-    const { result, error } =
-      verifyAndSignReleaseTx(
-        {...mockContract, releaseAddress: liquidAddresses.regtest[0]} as Contract,
-        mockSellOffer as SellOffer,
-        wallet,
-      );
+    const { result, error } = verifyAndSignReleaseTx(
+      {
+        ...mockContract,
+        releaseAddress: liquidAddresses.regtest[0],
+      } as Contract,
+      mockSellOffer as SellOffer,
+      wallet,
+    );
 
     expect(error).toBe(undefined);
     expect(result?.releaseTransaction).toEqual("transactionAsHex");
@@ -177,12 +180,11 @@ describe("verifyAndSignReleaseTx", () => {
     verifyReleasePSBTMock.mockReturnValueOnce(null);
     verifyReleasePSBTMock.mockReturnValueOnce("INVALID_INPUT");
 
-    const { result, error } =
-      verifyAndSignReleaseTx(
-        contractWithBatching as Contract,
-        mockSellOffer as SellOffer,
-        wallet,
-      );
+    const { result, error } = verifyAndSignReleaseTx(
+      contractWithBatching as Contract,
+      mockSellOffer as SellOffer,
+      wallet,
+    );
 
     expect(result?.releaseTransaction).toBe(undefined);
     expect(result?.batchReleasePsbt).toBe(undefined);
@@ -194,12 +196,11 @@ describe("verifyAndSignReleaseTx", () => {
     fromBase64Mock.mockReturnValueOnce(psbt);
     fromBase64Mock.mockReturnValueOnce(psbt);
 
-    const { result, error } =
-      verifyAndSignReleaseTx(
-        contractWithBatching as Contract,
-        mockSellOffer as SellOffer,
-        wallet,
-      );
+    const { result, error } = verifyAndSignReleaseTx(
+      contractWithBatching as Contract,
+      mockSellOffer as SellOffer,
+      wallet,
+    );
 
     expect(result?.releaseTransaction).toBe(undefined);
     expect(result?.batchReleasePsbt).toBe(undefined);
@@ -208,12 +209,11 @@ describe("verifyAndSignReleaseTx", () => {
   it("should sign release transaction and batch release transaction", () => {
     verifyReleasePSBTMock.mockReturnValueOnce(null);
     verifyReleasePSBTMock.mockReturnValueOnce(null);
-    const { result, error } =
-      verifyAndSignReleaseTx(
-        contractWithBatching as Contract,
-        mockSellOffer as SellOffer,
-        wallet,
-      );
+    const { result, error } = verifyAndSignReleaseTx(
+      contractWithBatching as Contract,
+      mockSellOffer as SellOffer,
+      wallet,
+    );
 
     expect(error).toBe(undefined);
     expect(result?.releaseTransaction).toEqual("transactionAsHex");

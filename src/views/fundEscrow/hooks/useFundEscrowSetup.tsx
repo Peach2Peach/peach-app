@@ -16,20 +16,21 @@ import { getFundingAmount } from "../helpers/getFundingAmount";
 import { useHandleFundingStatus } from "./useHandleFundingStatus";
 
 type FundingInfo = {
-  fundingAddress?: string
-  fundingAddresses: string[]
-  fundingStatus: FundingStatus
-}
+  fundingAddress?: string;
+  fundingAddresses: string[];
+  fundingStatus: FundingStatus;
+};
 
 const shouldGetFundingStatus = (offer: SellOffer) => {
-  const funding = getSellOfferFunding(offer)
+  const funding = getSellOfferFunding(offer);
 
-  return !!offer.escrow &&
+  return (
+    !!offer.escrow &&
     !offer.refunded &&
     !offer.released &&
-    funding.status !== "FUNDED";
-}
-
+    funding.status !== "FUNDED"
+  );
+};
 
 // TODO liquify
 export const useFundEscrowSetup = () => {
@@ -60,11 +61,13 @@ export const useFundEscrowSetup = () => {
     userConfirmationRequired,
     error: fundingStatusError,
   } = useFundingStatus(offerId, canFetchFundingStatus);
-  const sellOffers = offers
-  .filter(isDefined)
-  .filter(isSellOffer)
-  const escrows = sellOffers.map((offr) => offr.escrows.bitcoin).filter(isDefined);
-  const escrowsLiquid = sellOffers.map((offr) => offr.escrows.liquid).filter(isDefined);
+  const sellOffers = offers.filter(isDefined).filter(isSellOffer);
+  const escrows = sellOffers
+    .map((offr) => offr.escrows.bitcoin)
+    .filter(isDefined);
+  const escrowsLiquid = sellOffers
+    .map((offr) => offr.escrows.liquid)
+    .filter(isDefined);
   const fundingAmount = getFundingAmount(fundMultiple, sellOffer?.amount);
   const cancelOffer = () => setPopup(<CancelOfferPopup offerId={offerId} />);
 
@@ -78,12 +81,15 @@ export const useFundEscrowSetup = () => {
       fundingAddress: fundMultiple?.address || sellOffer?.escrows.liquid,
       fundingAddresses: escrowsLiquid,
       fundingStatus: fundingStatusLiquid,
-    }
-  }
+    },
+  };
   const activeFunding = useMemo(
-      ()=> fundingStatusLiquid.status !== 'NULL' ? fundingStatusLiquid : fundingStatus,
-      [fundingStatus, fundingStatusLiquid]
-    )
+    () =>
+      fundingStatusLiquid.status !== "NULL"
+        ? fundingStatusLiquid
+        : fundingStatus,
+    [fundingStatus, fundingStatusLiquid],
+  );
 
   useHandleFundingStatus({
     offerId,

@@ -5,7 +5,7 @@ jest.mock("../../fetch");
 
 describe("getSwapStatus", () => {
   it("calls endpoint to get swap status", async () => {
-    await getSwapStatus({id: 'swapId'});
+    await getSwapStatus({ id: "swapId" });
     expect(fetch).toHaveBeenCalledWith("http://localhost:9001/v2/swap/swapId", {
       headers: {
         Accept: "application/json",

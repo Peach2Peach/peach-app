@@ -23,7 +23,7 @@ export const WrongFundingAmount = () => {
   const { offer } = useOfferDetails(offerId);
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined;
 
-  if (!sellOffer) return <LoadingScreen />
+  if (!sellOffer) return <LoadingScreen />;
 
   return (
     <Screen header={<Header title={offerIdToHex(offerId)} />}>
@@ -41,7 +41,7 @@ type Props = {
 };
 
 function WrongFundingAmountSummary({ sellOffer }: Props) {
-  const funding = getSellOfferFunding(sellOffer)
+  const funding = getSellOfferFunding(sellOffer);
   const actualAmount = funding.amounts.reduce(sum, 0) || 0;
   const fundingAmount = sellOffer?.amount || 0;
   return (

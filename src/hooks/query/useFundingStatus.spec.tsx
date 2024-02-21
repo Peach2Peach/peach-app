@@ -12,11 +12,11 @@ const defaultFundingStatusResponse = {
 const inMempool = {
   funding: {
     ...defaultFundingStatusResponse.funding,
-    status: "MEMPOOL" as FundingStatus['status'],
+    status: "MEMPOOL" as FundingStatus["status"],
   },
   fundingLiquid: {
     ...defaultFundingStatusResponse.funding,
-    status: "NULL" as FundingStatus['status'],
+    status: "NULL" as FundingStatus["status"],
   },
   userConfirmationRequired: true,
   returnAddress: "",

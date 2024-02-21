@@ -19,6 +19,7 @@ const MEDIUM_SCREEN_WIDTH = 327;
 const SMALL_SCREEN_WIDTH = 242;
 const SHORT_ANIMATION_DURATION = 200;
 const LONG_ANIMATION_DURATION = 300;
+const CUTOFF = 16;
 export const LightningInvoice = ({ invoice }: Props) => {
   const isMediumScreen = useIsMediumScreen();
   const width = isMediumScreen ? MEDIUM_SCREEN_WIDTH : SMALL_SCREEN_WIDTH;
@@ -27,7 +28,6 @@ export const LightningInvoice = ({ invoice }: Props) => {
   const addressTextOpacity = useRef(new Animated.Value(0)).current;
 
   const urn = new URL(`lightning:${invoice}`);
-
 
   const copyInvoice = () => {
     Clipboard.setString(invoice);
@@ -73,7 +73,8 @@ export const LightningInvoice = ({ invoice }: Props) => {
           style={tw`items-center justify-center px-3 py-2 border shrink border-black-25 rounded-xl`}
         >
           <PeachText style={tw`text-black-50`}>
-            {invoice.substring(0, 16)}…{invoice.substring(invoice.length - 16, invoice.length)}
+            {invoice.substring(0, CUTOFF)}…
+            {invoice.substring(invoice.length - CUTOFF, invoice.length)}
           </PeachText>
           <Animated.View
             style={[
