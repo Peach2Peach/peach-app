@@ -23,7 +23,7 @@ export const Language = () => {
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <RadioButtons
           selectedValue={locale}
-          items={i18n // TODO: figure out how to replace this usage
+          items={i18n
             .getLocales()
             .map((l) => ({ value: l, display: t(`languageName.${l}`) }))
             .sort((a, b) => sortAlphabetically(a.display, b.display))}

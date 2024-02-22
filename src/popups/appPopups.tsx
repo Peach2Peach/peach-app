@@ -15,7 +15,6 @@ const ReportSuccess = () => {
 };
 
 export const appPopups = {
-  // TODO: not sure if I replace those as well
   offerTaken: {
     title: tolgee.t("search.popups.offerTaken.title", { ns: "unassigned" }),
     content: tolgee.t("search.popups.offerTaken.text", { ns: "unassigned" }),
