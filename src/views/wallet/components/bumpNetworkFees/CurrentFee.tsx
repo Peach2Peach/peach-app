@@ -1,13 +1,16 @@
 import { FeeInfo } from "./FeeInfo";
-import { tolgee } from "../../../../tolgee";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   fee: number;
 };
 
-export const CurrentFee = ({ fee }: Props) => (
-  <FeeInfo
-    label={tolgee.t("wallet.bumpNetworkFees.currentFee", { ns: "wallet" })}
-    fee={fee}
-  />
-);
+export const CurrentFee = ({ fee }: Props) => {
+  const { t } = useTranslate("wallet");
+  return (
+    <FeeInfo
+      label={t("wallet.bumpNetworkFees.currentFee", { ns: "wallet" })}
+      fee={fee}
+    />
+  );
+};

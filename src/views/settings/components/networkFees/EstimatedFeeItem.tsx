@@ -1,26 +1,27 @@
 import { View } from "react-native";
 import { PeachText } from "../../../../components/text/PeachText";
 import tw from "../../../../styles/tailwind";
-import { tolgee } from "../../../../tolgee";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   feeRate: FeeRate;
   estimatedFees: number;
 };
-export const EstimatedFeeItem = ({ feeRate, estimatedFees }: Props) => (
-  <View>
-    <PeachText style={tw`py-1 subtitle-1 leading-base`}>
-      {tolgee.t(`settings.networkFees.estimatedTime.${feeRate}`, {
-        ns: "settings",
-      })}
-      <PeachText style={tw`text-black-65 ml-0.5`}>
-         (
-        {tolgee.t("settings.networkFees.xSatsPerByte", {
-          ns: "settings",
-          fees: estimatedFees.toString(),
-        })}
-        )
+export const EstimatedFeeItem = ({ feeRate, estimatedFees }: Props) => {
+  const { t } = useTranslate("settings");
+
+  return (
+    <View>
+      <PeachText style={tw`py-1 subtitle-1 leading-base`}>
+        {t(`settings.networkFees.estimatedTime.${feeRate}`)}
+        <PeachText style={tw`text-black-65 ml-0.5`}>
+          (
+          {t("settings.networkFees.xSatsPerByte", {
+            fees: estimatedFees.toString(),
+          })}
+          )
+        </PeachText>
       </PeachText>
-    </PeachText>
-  </View>
-);
+    </View>
+  );
+};

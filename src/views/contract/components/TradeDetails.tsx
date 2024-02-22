@@ -30,7 +30,6 @@ import {
 import { SummaryItem } from "./SummaryItem";
 import { usePatchReleaseAddress } from "./usePatchReleaseAddress";
 import { useTranslate } from "@tolgee/react";
-import { tolgee } from "../../../tolgee";
 
 export const TradeDetails = () => {
   const { contract, paymentData, isDecryptionError, view } =
@@ -139,12 +138,13 @@ function ChangePayoutWallet() {
             contractId: contract.id,
           });
         };
+  const { t } = useTranslate("wallet");
 
   return (
     <>
       {!contract.paymentMade && (
         <SummaryItem
-          label={tolgee.t("contract.summary.payoutToPeachWallet", {
+          label={t("contract.summary.payoutToPeachWallet", {
             ns: "contract",
           })}
           value={<Toggle enabled={!!paidToPeachWallet} onPress={onPress} />}
@@ -152,14 +152,14 @@ function ChangePayoutWallet() {
       )}
       {(!paidToPeachWallet || contract.paymentMade) && (
         <SummaryItem
-          label={tolgee.t("payout.wallet", { ns: "unassigned" })}
+          label={t("payout.wallet", { ns: "unassigned" })}
           value={
             <SummaryItem.Text
               value={
                 payoutAddress === contract.releaseAddress
                   ? payoutAddressLabel || cutOffAddress(payoutAddress)
                   : paidToPeachWallet
-                    ? tolgee.t("peachWallet", { ns: "wallet" })
+                    ? t("peachWallet")
                     : cutOffAddress(contract.releaseAddress)
               }
               onPress={editCustomPayoutAddress}

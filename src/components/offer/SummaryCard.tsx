@@ -2,7 +2,7 @@ import { View } from "react-native";
 import tw from "../../styles/tailwind";
 import { PeachText } from "../text/PeachText";
 import { MeansOfPayment } from "./MeansOfPayment";
-import { tolgee } from "../../tolgee";
+import { useTranslate } from "@tolgee/react";
 
 export const SummaryCard = ({ children }: ComponentProps) => (
   <View
@@ -22,13 +22,19 @@ const PaymentMethods = ({
   meansOfPayment,
 }: {
   meansOfPayment: MeansOfPayment;
-}) => (
-  <SummaryCard.Section>
-    <PeachText style={tw`text-center text-black-65`}>
-      {tolgee.t("offer.summary.withTheseMethods", { ns: "offer" })}
-    </PeachText>
-    <MeansOfPayment meansOfPayment={meansOfPayment} style={tw`self-stretch`} />
-  </SummaryCard.Section>
-);
+}) => {
+  const { t } = useTranslate("offer");
+  return (
+    <SummaryCard.Section>
+      <PeachText style={tw`text-center text-black-65`}>
+        {t("offer.summary.withTheseMethods")}
+      </PeachText>
+      <MeansOfPayment
+        meansOfPayment={meansOfPayment}
+        style={tw`self-stretch`}
+      />
+    </SummaryCard.Section>
+  );
+};
 
 SummaryCard.PaymentMethods = PaymentMethods;

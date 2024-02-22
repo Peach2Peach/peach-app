@@ -7,7 +7,7 @@ import { Icon } from "../../Icon";
 import { SliderLabel } from "./SliderLabel";
 import { SliderMarkers } from "./SliderMarkers";
 import { usePremiumSliderSetup } from "./usePremiumSliderSetup";
-import { tolgee } from "../../../tolgee";
+import { useTranslate } from "@tolgee/react";
 
 const onStartShouldSetResponder = () => true;
 
@@ -20,6 +20,7 @@ const LABEL_AMOUNT = 5;
 export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
   const { pan, panResponder, onLayout, trackWidth, knobWidth, min, max } =
     usePremiumSliderSetup(premium, setPremium);
+  const { t } = useTranslate("sell");
 
   const labelPosition = useMemo(
     () =>
@@ -66,7 +67,7 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
           {round(min / 2, -1)}%
         </SliderLabel>
         <SliderLabel position={labelPosition[2]}>
-          {tolgee.t("sell.premium.marketPrice", { ns: "sell" })}
+          {t("sell.premium.marketPrice")}
         </SliderLabel>
         <SliderLabel position={labelPosition[3]}>
           +{round(max / 2, -1)}%

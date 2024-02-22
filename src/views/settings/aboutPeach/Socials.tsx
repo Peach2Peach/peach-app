@@ -12,7 +12,7 @@ import {
 } from "../../../constants";
 import tw from "../../../styles/tailwind";
 import { openURL } from "../../../utils/web/openURL";
-import { tolgee } from "../../../tolgee";
+import { useTranslate } from "@tolgee/react";
 
 const socials = [
   { name: "twitter", url: TWITTER },
@@ -24,14 +24,18 @@ const socials = [
   { name: "nostr", url: NOSTR },
 ];
 
-export const Socials = () => (
-  <Screen header={tolgee.t("settings.socials.subtitle", { ns: "settings" })}>
-    <View style={tw`items-center justify-center gap-2 grow`}>
-      {socials.map(({ name, url }) => (
-        <OptionButton key={name} onPress={() => openURL(url)}>
-          {tolgee.t(name, { ns: "unassigned" })}
-        </OptionButton>
-      ))}
-    </View>
-  </Screen>
-);
+export const Socials = () => {
+  const { t } = useTranslate("unassigned");
+
+  return (
+    <Screen header={t("settings.socials.subtitle", { ns: "settings" })}>
+      <View style={tw`items-center justify-center gap-2 grow`}>
+        {socials.map(({ name, url }) => (
+          <OptionButton key={name} onPress={() => openURL(url)}>
+            {t(name)}
+          </OptionButton>
+        ))}
+      </View>
+    </Screen>
+  );
+};

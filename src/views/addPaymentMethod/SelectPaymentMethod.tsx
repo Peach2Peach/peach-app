@@ -16,6 +16,7 @@ import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/payme
 import { usePaymentMethodLabel } from "./hooks";
 import { getCurrencyTypeFilter } from "./utils";
 import { tolgee } from "../../tolgee";
+import { useTranslate } from "@tolgee/react";
 
 const NATIONALOPTIONS: NationalOptions = {
   EUR: {
@@ -47,6 +48,8 @@ const mapCountryToDrawerOption =
 
 export const SelectPaymentMethod = () => {
   const navigation = useStackNavigation();
+  const { t } = useTranslate("paymentMethod");
+
   const { selectedCurrency, origin } = useRoute<"selectPaymentMethod">().params;
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
 
@@ -56,9 +59,9 @@ export const SelectPaymentMethod = () => {
     () =>
       getApplicablePaymentCategories(selectedCurrency).map((c) => ({
         value: c,
-        display: tolgee.t(`paymentCategory.${c}`, { ns: "paymentMethod" }),
+        display: t(`paymentCategory.${c}`),
       })),
-    [selectedCurrency],
+    [selectedCurrency, t],
   );
 
   const getPaymentMethodLabel = usePaymentMethodLabel();
@@ -117,6 +120,7 @@ export const SelectPaymentMethod = () => {
   const selectCountry = (country: FlagType, category: PaymentCategory) => {
     const nationalOptions = getNationalOptions()[country];
     const nationalOptionCountries = getNationalOptionCountries();
+
     updateDrawer({
       title: tolgee.t(`country.${country}`, { ns: "global" }),
       options: nationalOptions.map(mapMethodToDrawerOption),
@@ -160,9 +164,7 @@ export const SelectPaymentMethod = () => {
   };
 
   return (
-    <Screen
-      header={tolgee.t("selectPaymentMethod.title", { ns: "unassigned" })}
-    >
+    <Screen header={t("selectPaymentMethod.title", { ns: "unassigned" })}>
       <PeachScrollView
         contentContainerStyle={[tw`justify-center py-4 grow`, tw`md:py-8`]}
       >
@@ -173,7 +175,7 @@ export const SelectPaymentMethod = () => {
         />
       </PeachScrollView>
       <Button style={tw`self-center`} disabled={!selectedPaymentCategory}>
-        {tolgee.t("next", { ns: "unassigned" })}
+        {t("next", { ns: "unassigned" })}
       </Button>
     </Screen>
   );

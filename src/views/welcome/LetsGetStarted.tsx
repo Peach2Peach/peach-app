@@ -13,6 +13,7 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useValidatedState } from "../../hooks/useValidatedState";
 import { peachAPI } from "../../utils/peachAPI";
 import { tolgee } from "../../tolgee";
+import { useTranslate } from "@tolgee/react";
 
 const referralCodeRules = { referralCode: true };
 export const LetsGetStarted = () => {
@@ -80,6 +81,7 @@ export const LetsGetStarted = () => {
     });
   };
   const goToRestoreBackup = () => navigation.navigate("restoreBackup");
+  const { t } = useTranslate("unassigned");
 
   return (
     <View style={tw`items-center flex-1 gap-4 shrink`}>
@@ -87,12 +89,12 @@ export const LetsGetStarted = () => {
         <PeachText
           style={[tw`text-center h5 text-primary-background-light`, tw`md:h4`]}
         >
-          {tolgee.t("welcome.letsGetStarted.title", { ns: "welcome" })}
+          {t("welcome.letsGetStarted.title", { ns: "welcome" })}
         </PeachText>
 
         <View>
           <PeachText style={tw`text-center text-primary-background-light`}>
-            {tolgee.t("newUser.referralCode", { ns: "unassigned" })}
+            {t("newUser.referralCode")}
           </PeachText>
           <View style={tw`flex-row items-center justify-center gap-2`}>
             <View style={tw`h-14`}>
@@ -117,10 +119,9 @@ export const LetsGetStarted = () => {
               }
               onPress={checkReferralCode}
             >
-              {tolgee.t(
-                willUseReferralCode ? "referrals.used" : "referrals.use",
-                { ns: "referral" },
-              )}
+              {t(willUseReferralCode ? "referrals.used" : "referrals.use", {
+                ns: "referral",
+              })}
             </Button>
           </View>
         </View>
@@ -133,10 +134,10 @@ export const LetsGetStarted = () => {
           textColor={tw.color("primary-main")}
           iconId="plusCircle"
         >
-          {tolgee.t("newUser", { ns: "unassigned" })}
+          {t("newUser")}
         </Button>
         <Button onPress={goToRestoreBackup} iconId="save" ghost>
-          {tolgee.t("restore", { ns: "unassigned" })}
+          {t("restore")}
         </Button>
       </View>
     </View>

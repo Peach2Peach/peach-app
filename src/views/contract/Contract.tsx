@@ -21,6 +21,7 @@ import { TradeInformation } from "./components/TradeInformation";
 import { ContractContext, useContractContext } from "./context";
 import { useContractSetup } from "./hooks/useContractSetup";
 import { tolgee } from "../../tolgee";
+import { useTranslate } from "@tolgee/react";
 
 export const Contract = () => {
   const { contract, isLoading, view } = useContractSetup();
@@ -142,6 +143,7 @@ function ContractHeader() {
     releaseTxId ||
     (batchInfo && batchInfo.completed) ||
     tradeStatus === "payoutPending";
+  const { t } = useTranslate("contract");
 
   return (
     <Header
@@ -152,8 +154,8 @@ function ContractHeader() {
           text={
             isTradeCompleted
               ? view === "buyer"
-                ? tolgee.t("contract.bought", { ns: "contract" })
-                : tolgee.t("contract.sold", { ns: "contract" })
+                ? t("contract.bought")
+                : t("contract.sold")
               : undefined
           }
           viewer={view}
@@ -163,6 +165,7 @@ function ContractHeader() {
     />
   );
 }
+
 function getHeaderTitle(view: string, contract: Contract) {
   const {
     tradeStatus,

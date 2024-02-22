@@ -27,7 +27,7 @@ import { EstimatedFeeItem } from "../settings/components/networkFees/EstimatedFe
 import { UTXOAddress } from "./components";
 import { WithdrawalConfirmationPopup } from "./components/WithdrawalConfirmationPopup";
 import { useUTXOs } from "./hooks";
-import { tolgee } from "../../tolgee";
+import { useTranslate } from "@tolgee/react";
 
 export const SendBitcoin = () => {
   const [address, setAddress] = useState("");
@@ -41,6 +41,7 @@ export const SendBitcoin = () => {
   const setPopup = useSetPopup();
 
   const { selectedUTXOs } = useUTXOs();
+  const { t } = useTranslate("wallet");
 
   const maxAmount = selectedUTXOs.length
     ? selectedUTXOs.reduce((acc, utxo) => acc + utxo.txout.value, 0)
@@ -84,16 +85,16 @@ export const SendBitcoin = () => {
     <Screen header={<SendBitcoinHeader />}>
       <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw`md:py-md`]}>
         <View style={[tw`pb-11 gap-4`, tw`md:pb-14`]}>
-          <Section title={tolgee.t("wallet.sendBitcoin.to", { ns: "wallet" })}>
+          <Section title={t("wallet.sendBitcoin.to")}>
             <BitcoinAddressInput value={address} onChangeText={setAddress} />
           </Section>
 
           <HorizontalLine />
 
           <Section
-            title={tolgee.t("wallet.sendBitcoin.amount", { ns: "wallet" })}
+            title={t("wallet.sendBitcoin.amount")}
             action={{
-              label: tolgee.t("wallet.sendBitcoin.sendMax", { ns: "wallet" }),
+              label: t("wallet.sendBitcoin.sendMax"),
               onPress: () => {
                 setShouldDrainWallet(true);
                 setAmount(maxAmount);
@@ -114,7 +115,7 @@ export const SendBitcoin = () => {
 
           <HorizontalLine />
 
-          <Section title={tolgee.t("wallet.sendBitcoin.fee", { ns: "wallet" })}>
+          <Section title={t("wallet.sendBitcoin.fee")}>
             <Fees updateFee={setFee} />
           </Section>
 
@@ -138,10 +139,11 @@ function SendBitcoinSlider({
   isFormValid: boolean;
 }) {
   const isSynced = useWalletState((state) => state.isSynced);
+  const { t } = useTranslate("wallet");
 
   return (
     <ConfirmSlider
-      label1={tolgee.t("wallet.sendBitcoin.send", { ns: "wallet" })}
+      label1={t("wallet.sendBitcoin.send")}
       onConfirm={onConfirm}
       enabled={isFormValid && isSynced}
     />
@@ -230,19 +232,21 @@ function SendBitcoinHeader() {
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<WithdrawingFundsPopup />);
   const navigation = useStackNavigation();
+  const { t } = useTranslate("wallet");
+
   return (
     <Header
-      title={tolgee.t("wallet.sendBitcoin.title", { ns: "wallet" })}
+      title={t("wallet.sendBitcoin.title")}
       icons={[
         {
           ...headerIcons.listFlipped,
           onPress: () => navigation.navigate("coinSelection"),
-          accessibilityHint: `${tolgee.t("goTo", { ns: "global" })} ${tolgee.t("wallet.coinControl.title", { ns: "wallet" })}`,
+          accessibilityHint: `${t("goTo", { ns: "global" })} ${t("wallet.coinControl.title")}`,
         },
         {
           ...headerIcons.help,
           onPress: showHelp,
-          accessibilityHint: tolgee.t("help", { ns: "help" }),
+          accessibilityHint: t("help", { ns: "help" }),
         },
       ]}
     />
@@ -250,23 +254,22 @@ function SendBitcoinHeader() {
 }
 
 function WithdrawingFundsPopup() {
+  const { t } = useTranslate("wallet");
+
   return (
     <InfoPopup
-      title={tolgee.t("wallet.withdraw.help.title", { ns: "wallet" })}
+      title={t("wallet.withdraw.help.title")}
       content={
         <ParsedPeachText
           parse={[
             {
-              pattern: new RegExp(
-                tolgee.t("wallet.withdraw.help.text.link", { ns: "wallet" }),
-                "u",
-              ),
+              pattern: new RegExp(t("wallet.withdraw.help.text.link"), "u"),
               style: tw`underline`,
               onPress: goToShiftCrypto,
             },
           ]}
         >
-          {tolgee.t("wallet.withdraw.help.text", { ns: "wallet" })}
+          {t("wallet.withdraw.help.text")}
         </ParsedPeachText>
       }
     />
@@ -274,6 +277,7 @@ function WithdrawingFundsPopup() {
 }
 
 function SelectedUTXOs() {
+  const { t } = useTranslate("wallet");
   const { selectedUTXOs } = useUTXOs();
   if (selectedUTXOs.length === 0) return null;
 
@@ -281,7 +285,7 @@ function SelectedUTXOs() {
     <>
       <HorizontalLine />
       <Section
-        title={tolgee.t("wallet.sendBitcoin.sendingFrom.coins", {
+        title={t("wallet.sendBitcoin.sendingFrom.coins", {
           ns: "wallet",
         })}
       >

@@ -2,18 +2,22 @@ import { View } from "react-native";
 import { Icon } from "../../components/Icon";
 import { PeachText } from "../../components/text/PeachText";
 import tw from "../../styles/tailwind";
-import { tolgee } from "../../tolgee";
+import { useTranslate } from "@tolgee/react";
 
-export const RestoreSuccess = () => (
-  <View style={tw`items-center justify-center gap-16 grow`}>
-    <View>
-      <PeachText style={tw`text-center h4 text-primary-background-light`}>
-        {tolgee.t("restoreBackup.backupRestored", { ns: "unassigned" })}
-      </PeachText>
-      <PeachText style={tw`text-center body-l text-primary-background-light`}>
-        {tolgee.t("restoreBackup.welcomeBack", { ns: "unassigned" })}
-      </PeachText>
+export const RestoreSuccess = () => {
+  const { t } = useTranslate("unassigned");
+
+  return (
+    <View style={tw`items-center justify-center gap-16 grow`}>
+      <View>
+        <PeachText style={tw`text-center h4 text-primary-background-light`}>
+          {t("restoreBackup.backupRestored")}
+        </PeachText>
+        <PeachText style={tw`text-center body-l text-primary-background-light`}>
+          {t("restoreBackup.welcomeBack")}
+        </PeachText>
+      </View>
+      <Icon id="save" size={128} color={tw.color("primary-background-light")} />
     </View>
-    <Icon id="save" size={128} color={tw.color("primary-background-light")} />
-  </View>
-);
+  );
+};
