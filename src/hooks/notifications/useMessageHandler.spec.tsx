@@ -2,8 +2,8 @@ import { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
 import { AppState } from "react-native";
 import { act, render, renderHook, waitFor } from "test-utils";
 import { Toast } from "../../components/toast/Toast";
-import { useMessageHandler } from "./useMessageHandler";
 import { tolgee } from "../../tolgee";
+import { useMessageHandler } from "./useMessageHandler";
 
 const overlayEventHanderMock = jest.fn();
 const mockOverlayEvents = { overlayEvent: overlayEventHanderMock };
@@ -61,6 +61,7 @@ describe("useMessageHandler", () => {
 
     expect(
       queryByText(
+        // @ts-ignore
         tolgee.t("notification.SOME_TYPE", { param1: "arg1", param2: "arg2" }),
       ),
     ).toBeTruthy();
@@ -85,6 +86,7 @@ describe("useMessageHandler", () => {
 
     expect(
       queryByText(
+        // @ts-ignore
         tolgee.t("notification.SOME_TYPE.text", {
           param1: "arg1",
           param2: "arg2",
@@ -106,6 +108,7 @@ describe("useMessageHandler", () => {
     const { queryByText } = render(<Toast />);
     expect(
       queryByText(
+        // @ts-ignore
         tolgee.t("notification.SOME_TYPE", { param1: "arg1", param2: "arg2" }),
       ),
     ).toBeFalsy();
@@ -121,6 +124,7 @@ describe("useMessageHandler", () => {
 
     expect(
       queryByText(
+        // @ts-ignore
         tolgee.t("notification.SOME_TYPE", { param1: "arg1", param2: "arg2" }),
       ),
     ).toBeFalsy();

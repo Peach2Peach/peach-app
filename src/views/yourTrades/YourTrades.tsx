@@ -1,4 +1,5 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useTranslate } from "@tolgee/react";
 import { useEffect, useMemo } from "react";
 import { SectionList, SectionListData, View } from "react-native";
 import { ContractSummary } from "../../../peach-api/src/@types/contract";
@@ -20,7 +21,6 @@ import { useHomeScreenRoute } from "../home/useHomeScreenRoute";
 import { TradeItem } from "./components/TradeItem";
 import { TradePlaceholders } from "./components/TradePlaceholders";
 import { getCategories } from "./utils/getCategories";
-import { useTranslate } from "@tolgee/react";
 
 const YourTradesTab = createMaterialTopTabNavigator();
 const tabs = [
@@ -30,7 +30,7 @@ const tabs = [
 ] as const;
 
 export const YourTrades = () => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const { summaries, isLoading, error, refetch } = useTradeSummaries();
   const { params } = useHomeScreenRoute<"yourTrades">();
   const showErrorBanner = useShowErrorBanner();
@@ -66,7 +66,9 @@ export const YourTrades = () => {
                     refreshing={false}
                     showsVerticalScrollIndicator={false}
                     sections={getCategories(summaries[tab])}
-                    renderSectionHeader={SectionHeader}
+                    renderSectionHeader={({ section }) => (
+                      <SectionHeader section={section} />
+                    )}
                     renderSectionFooter={() => (
                       <View style={tw`bg-transparent h-7`} />
                     )}
@@ -146,11 +148,13 @@ type SectionHeaderProps = {
 export function SectionHeader({
   section: { title, data },
 }: SectionHeaderProps) {
-  const { t } = useTranslate("buy");
+  const { t } = useTranslate("");
+
   return data.length !== 0 && title !== "priority" ? (
     <LinedText style={tw`pb-7 bg-primary-background-main`}>
       <PeachText style={tw`text-black-65`}>
-        {t(`yourTrades.${title}`)} // TODO: figure out how to fix this
+        {/** @ts-ignore  */}
+        {t(`yourTrades.${title}`)}
       </PeachText>
     </LinedText>
   ) : null;

@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useCallback, useState } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -11,7 +12,6 @@ import { KeepPhraseSecure } from "./KeepPhraseSecure";
 import { LastSeedBackup } from "./LastSeedBackup";
 import { SecurityInfo } from "./SecurityInfo";
 import { TwelveWords } from "./TwelveWords";
-import { useTranslate } from "@tolgee/react";
 
 export const screens = [
   { id: "lastSeedBackup", view: LastSeedBackup },
@@ -79,6 +79,7 @@ export const SeedPhrase = () => {
             style={tw`self-center`}
             disabled={!checked}
           >
+            {/** @ts-ignore  */}
             {t(screens[currentScreenIndex].buttonText || "next")}
           </Button>
         )}

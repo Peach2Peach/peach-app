@@ -1,9 +1,9 @@
 import { MaterialTopTabBarProps } from "@react-navigation/material-top-tabs";
+import { useTranslate } from "@tolgee/react";
 import { TouchableOpacity, View } from "react-native";
 import tw from "../../styles/tailwind";
 import { PeachScrollView } from "../PeachScrollView";
 import { PeachText } from "../text/PeachText";
-import { useTranslate } from "@tolgee/react";
 
 export const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
   const items = state.routes;
@@ -36,7 +36,8 @@ export const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
                 item.name === selected ? colors.textSelected : colors.text,
               ]}
             >
-              {t(item.name, { ns: item.name.split(".")[0] })} // TODO: find out
+              {/** @ts-ignore */}
+              {t(item.name, { ns: item.name.split(".")[0] })}
               how to fix this
             </PeachText>
             {item.name === selected && (

@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useCallback } from "react";
 import { Control, useController, useForm } from "react-hook-form";
 import { View } from "react-native";
@@ -25,7 +26,6 @@ import { FormInput } from "./FormInput";
 import { LabelInput } from "./LabelInput";
 import { TabbedFormNavigation } from "./TabbedFormNavigation";
 import { usePaymentMethodInfo } from "./usePaymentMethodInfo";
-import { useTranslate } from "@tolgee/react";
 
 export type FormType = Record<PaymentMethodField, string> & {
   paymentMethodName: string;
@@ -222,6 +222,7 @@ function PaymentMethodFormHeader() {
     <Header
       title={t(
         id ? "paymentMethod.edit.title" : "paymentMethod.select.title",
+        // @ts-ignore
         t(`paymentMethod.${paymentMethod}`),
       )}
       icons={getHeaderIcons()}

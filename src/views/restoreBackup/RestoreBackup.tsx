@@ -1,4 +1,5 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useTranslate } from "@tolgee/react";
 import { Header, HeaderIcon } from "../../components/Header";
 import { Screen } from "../../components/Screen";
 import { useDrawerState } from "../../components/drawer/useDrawerState";
@@ -10,7 +11,6 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { RestoreFromFile } from "./RestoreFromFile";
 import { RestoreFromSeed } from "./RestoreFromSeed";
-import { useTranslate } from "@tolgee/react";
 
 const RestoreBackupTab = createMaterialTopTabNavigator();
 const tabs = ["fileBackup", "seedPhrase"] as const;
@@ -55,6 +55,7 @@ function OnboardingHeader() {
     updateDrawer({
       title: t("language.select"),
       options: i18n.getLocales().map((l) => ({
+        // @ts-ignore
         title: t(`languageName.${l}`),
         onPress: () => {
           updateLocale(l);

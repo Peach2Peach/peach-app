@@ -15,6 +15,7 @@ import { PeachText } from "../../../components/text/PeachText";
 import { useGoToOfferOrContract } from "../../../hooks/useGoToOfferOrContract";
 import { useTradeNavigation } from "../../../hooks/useTradeNavigation";
 import tw from "../../../styles/tailwind";
+import { tolgee } from "../../../tolgee";
 import { contractIdFromHex } from "../../../utils/contract/contractIdFromHex";
 import { contractIdToHex } from "../../../utils/contract/contractIdToHex";
 import { isDisplayContractId } from "../../../utils/contract/isDisplayContractId";
@@ -33,7 +34,6 @@ import { isContractSummary } from "../utils/isContractSummary";
 import { isPastOffer } from "../utils/isPastOffer";
 import { isTradeStatus } from "../utils/isTradeStatus";
 import { statusIcons } from "../utils/statusIcons";
-import { tolgee } from "../../../tolgee";
 
 type Props = {
   item: OfferSummary | ContractSummary;
@@ -331,6 +331,7 @@ function getActionLabel(
     if (disputeWinner) {
       if (tradeStatus === "releaseEscrow")
         return tolgee.t("offer.requiredAction.releaseEscrow");
+      // @ts-ignore
       return tolgee.t(`offer.requiredAction.${translationStatusKey}.dispute`);
     }
 
@@ -340,8 +341,10 @@ function getActionLabel(
       return tolgee.t(`offer.requiredAction.confirmCancelation.${viewer}`);
 
     return isWaiting || tradeStatus === "rateUser"
-      ? tolgee.t(`offer.requiredAction.${translationStatusKey}.${counterparty}`)
-      : tolgee.t(`offer.requiredAction.${translationStatusKey}`);
+      ? // @ts-ignore
+        tolgee.t(`offer.requiredAction.${translationStatusKey}.${counterparty}`)
+      : // @ts-ignore
+        tolgee.t(`offer.requiredAction.${translationStatusKey}`);
   }
 
   if (isPastOffer(tradeStatus)) {
@@ -356,6 +359,7 @@ function getActionLabel(
     return tolgee.t("offer.requiredAction.fundMultipleEscrow");
   }
 
+  // @ts-ignore
   return tolgee.t(`offer.requiredAction.${tradeStatus}`);
 }
 

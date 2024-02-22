@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { TouchableOpacity, View } from "react-native";
 import { APPLINKS } from "../../../APPLINKS";
 import { Icon } from "../../../components/Icon";
@@ -8,6 +9,7 @@ import { PeachText } from "../../../components/text/PeachText";
 import { useOfferDetail } from "../../../hooks/query/useOfferDetail";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import tw from "../../../styles/tailwind";
+import { tolgee } from "../../../tolgee";
 import { contractIdToHex } from "../../../utils/contract/contractIdToHex";
 import { getBitcoinPriceFromContract } from "../../../utils/contract/getBitcoinPriceFromContract";
 import { getBuyOfferIdFromContract } from "../../../utils/contract/getBuyOfferIdFromContract";
@@ -21,8 +23,6 @@ import { UserId } from "../../settings/profile/profileOverview/UserId";
 import { SummaryItem } from "../components/SummaryItem";
 import { TradeBreakdownBubble } from "../components/TradeBreakdownBubble";
 import { useContractContext } from "../context";
-import { tolgee } from "../../../tolgee";
-import { useTranslate } from "@tolgee/react";
 
 const SATS_GROUP_SIZE = 3;
 
@@ -155,6 +155,7 @@ function PaymentMethodBubble({ contract }: { contract: Contract }) {
     <View style={tw`items-end gap-1`}>
       {paymentMethodLabel || !isCashTrade(paymentMethod) ? (
         <Bubble color={"primary-mild"}>
+          {/** @ts-ignore  */}
           {paymentMethodLabel ?? t(`paymentMethod.${paymentMethod}`)}
         </Bubble>
       ) : (
@@ -197,6 +198,7 @@ function getRatingBubble(contract: Contract, userType: "Buyer" | "Seller") {
 function getPaymentMethod({ paymentMethod }: Contract) {
   if (isCashTrade(paymentMethod))
     return <EventName paymentMethod={paymentMethod} />;
+  // @ts-ignore
   return tolgee.t(`paymentMethod.${paymentMethod}`, { ns: "paymentMethod" });
 }
 

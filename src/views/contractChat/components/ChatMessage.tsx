@@ -1,13 +1,13 @@
+import { useTranslate } from "@tolgee/react";
 import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
 import { IconType } from "../../../assets/icons";
 import { Icon } from "../../../components/Icon";
 import { PeachText } from "../../../components/text/PeachText";
 import { LinedText } from "../../../components/ui/LinedText";
 import tw from "../../../styles/tailwind";
+import { tolgee } from "../../../tolgee";
 import { useAccountStore } from "../../../utils/account/account";
 import { toTimeFormat } from "../../../utils/date/toTimeFormat";
-import { useTranslate } from "@tolgee/react";
-import { tolgee } from "../../../tolgee";
 
 type GetMessageMetaProps = {
   publicKey: string;
@@ -197,6 +197,7 @@ export const ChatMessage = ({
 
 function toDateFormat(date: Date): string {
   const day = `${date.getDate()}${getDateSuffix(date.getDate())}`;
+  // @ts-ignore
   return `${tolgee.t(`month.short.${date.getMonth()}`, { ns: "global" })} ${day}, ${date.getFullYear()}`;
 }
 

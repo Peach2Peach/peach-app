@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { useSetOverlay } from "../../../../Overlay";
 import { Icon } from "../../../../components/Icon";
@@ -5,7 +6,6 @@ import { Button } from "../../../../components/buttons/Button";
 import { PeachText } from "../../../../components/text/PeachText";
 import { useStackNavigation } from "../../../../hooks/useStackNavigation";
 import tw from "../../../../styles/tailwind";
-import { useTranslate } from "@tolgee/react";
 
 export const BackupCreated = () => {
   const { t } = useTranslate("settings");

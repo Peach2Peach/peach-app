@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useCallback, useEffect, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Header } from "../../components/Header";
@@ -18,7 +19,6 @@ import { updateAccount } from "../../utils/account/updateAccount";
 import { parseError } from "../../utils/parseError";
 import { LOGIN_DELAY } from "../restoreReputation/LOGIN_DELAY";
 import { useRegisterUser } from "./useRegisterUser";
-import { useTranslate } from "@tolgee/react";
 
 export const NewUser = () => {
   const route = useRoute<"newUser">();
@@ -141,7 +141,8 @@ function CreateAccountError({ err }: CreateAccountErrorProps) {
           <PeachText
             style={tw`text-center body-l text-primary-background-light`}
           >
-            {t(`${err}.text`, { ns: "error" })} // TODO: fix
+            {/** @ts-ignore */}
+            {t(`${err}.text`, { ns: "error" })}
           </PeachText>
         </View>
         <Icon

@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useRef, useState } from "react";
 import { TouchableOpacity, View, useWindowDimensions } from "react-native";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
@@ -18,7 +19,6 @@ import { LetsGetStarted } from "./LetsGetStarted";
 import { PeachOfMind } from "./PeachOfMind";
 import { PeerToPeer } from "./PeerToPeer";
 import { PrivacyFirst } from "./PrivacyFirst";
-import { useTranslate } from "@tolgee/react";
 
 export const screens = [
   PeerToPeer,
@@ -115,6 +115,7 @@ function OnboardingHeader() {
     updateDrawer({
       title: t("language.select"),
       options: i18n.getLocales().map((l) => ({
+        // @ts-ignore
         title: t(`languageName.${l}`),
         onPress: () => {
           updateLocale(l);

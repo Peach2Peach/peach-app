@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback, useEffect, useRef } from "react";
 import {
@@ -16,7 +17,6 @@ import tw from "../../styles/tailwind";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 import { iconMap } from "./iconMap";
-import { useTranslate } from "@tolgee/react";
 
 type LevelColorMap = {
   [key in ToastState["color"]]: {
@@ -100,11 +100,14 @@ export const Toast = () => {
   const { color: toastColor, msgKey, bodyArgs = [], action } = toastState;
 
   const icon = iconMap[msgKey];
+  // @ts-ignore
   let title = t(`${msgKey}.title`, { ns: msgKey.split(".")[0] });
+  // @ts-ignore
   let message = t(`${msgKey}.text`, { ns: msgKey.split(".")[0], ...bodyArgs });
 
   if (title === `${msgKey}.title`) title = "";
   if (message === `${msgKey}.text`) {
+    // @ts-ignore
     message = t(msgKey, { ns: msgKey.split(".")[0], ...bodyArgs });
   }
 

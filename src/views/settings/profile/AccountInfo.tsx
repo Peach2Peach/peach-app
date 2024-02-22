@@ -1,10 +1,10 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { PeachText } from "../../../components/text/PeachText";
 import { CopyAble } from "../../../components/ui/CopyAble";
 import tw from "../../../styles/tailwind";
 import { PEACH_ID_LENGTH } from "../../../utils/account/PEACH_ID_LENGTH";
 import { getDateToDisplay } from "../../../utils/date/getDateToDisplay";
-import { useTranslate } from "@tolgee/react";
 
 type Props = {
   user: User | PublicUser;
@@ -70,6 +70,7 @@ function Disputes({ opened, won, lost, resolved }: User["disputes"]) {
           >
             {value}{" "}
             {t(
+              // @ts-ignore
               `profile.disputes${["Opened", "Won", "Lost", "Resolved"][index]}`,
             )}
           </PeachText>

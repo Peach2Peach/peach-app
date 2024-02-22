@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { Screen } from "../../../components/Screen";
 import { OptionButton } from "../../../components/buttons/OptionButton";
@@ -12,7 +13,6 @@ import {
 } from "../../../constants";
 import tw from "../../../styles/tailwind";
 import { openURL } from "../../../utils/web/openURL";
-import { useTranslate } from "@tolgee/react";
 
 const socials = [
   { name: "twitter", url: TWITTER },
@@ -32,6 +32,7 @@ export const Socials = () => {
       <View style={tw`items-center justify-center gap-2 grow`}>
         {socials.map(({ name, url }) => (
           <OptionButton key={name} onPress={() => openURL(url)}>
+            {/** @ts-ignore */}
             {t(name)}
           </OptionButton>
         ))}

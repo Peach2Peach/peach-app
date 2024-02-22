@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useCallback } from "react";
 import { View } from "react-native";
 import { Header } from "../../../components/Header";
@@ -19,7 +20,6 @@ import { headerIcons } from "../../../utils/layout/headerIcons";
 import { peachAPI } from "../../../utils/peachAPI";
 import { AccountInfo } from "./AccountInfo";
 import { TradingLimits } from "./TradingLimits";
-import { useTranslate } from "@tolgee/react";
 
 export const MyProfile = () => {
   const { t } = useTranslate("settings");
@@ -75,6 +75,7 @@ function DeleteAccountButton({ style }: ComponentProps) {
           title={t(
             `settings.deleteAccount.${isSuccess ? "success" : "popup"}.title`,
           )}
+          // @ts-ignore
           content={t(`settings.deleteAccount.${title}`)}
           actions={
             <>

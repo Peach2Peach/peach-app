@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { shallow } from "zustand/shallow";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -7,7 +8,6 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CURRENCIES } from "../../paymentMethods";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
-import { useTranslate } from "@tolgee/react";
 
 export const Currency = () => {
   const { t } = useTranslate("global");
@@ -31,6 +31,7 @@ export const Currency = () => {
           selectedValue={displayCurrency}
           items={CURRENCIES.map((c) => ({
             value: c,
+            // @ts-ignore
             display: t(`currency.${c}`),
           }))}
           onButtonPress={setDisplayCurrency}

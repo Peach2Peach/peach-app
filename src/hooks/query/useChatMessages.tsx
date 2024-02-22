@@ -1,10 +1,10 @@
 import { useIsFocused } from "@react-navigation/native";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useMemo } from "react";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { contractKeys } from "./useContractDetail";
-import { useTranslate } from "@tolgee/react";
 
 export const PAGE_SIZE = 22;
 
@@ -42,6 +42,7 @@ export const useChatMessages = ({
               const [textId, ...args] = decrypted.split("::");
               return {
                 ...message,
+                // @ts-ignore
                 message: t(textId, ...args),
                 decrypted: !!decrypted,
               };

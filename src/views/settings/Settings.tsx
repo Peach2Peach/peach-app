@@ -1,4 +1,5 @@
 import { useFocusEffect } from "@react-navigation/native";
+import { useTranslate } from "@tolgee/react";
 import { useCallback, useMemo, useState } from "react";
 import { AppState, View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -18,7 +19,6 @@ import { toggleNotifications } from "../../utils/system/toggleNotifications";
 import { isDefined } from "../../utils/validation/isDefined";
 import { SettingsItem } from "./components/SettingsItem";
 import { VersionInfo } from "./components/VersionInfo";
-import { useTranslate } from "@tolgee/react";
 
 const contactUs = isProduction()
   ? (["contact", "aboutPeach"] as const)
@@ -158,7 +158,8 @@ export const Settings = () => {
               <PeachText
                 style={tw`mb-3 text-left lowercase h6 text-primary-main mt-9`}
               >
-                {t(`settings.${headline}`)} //TODO: figure out how to fix this
+                {/** @ts-ignore */}
+                {t(`settings.${headline}`)}
               </PeachText>
             )}
             <View style={tw`gap-6 py-3 px-6px`}>

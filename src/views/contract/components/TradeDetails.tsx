@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { Fragment } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -29,7 +30,6 @@ import {
 } from "../helpers/tradeInformationGetters";
 import { SummaryItem } from "./SummaryItem";
 import { usePatchReleaseAddress } from "./usePatchReleaseAddress";
-import { useTranslate } from "@tolgee/react";
 
 export const TradeDetails = () => {
   const { contract, paymentData, isDecryptionError, view } =
@@ -221,6 +221,7 @@ function TradeDetailField({ fieldName }: { fieldName: TradeInfoField }) {
 
   return (
     <SummaryItem
+      // @ts-ignore
       label={t(`contract.summary.${fieldName}`)}
       value={
         typeof information === "string" || typeof information === "number" ? (

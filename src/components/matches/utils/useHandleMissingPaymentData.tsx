@@ -1,10 +1,10 @@
+import { useTranslate } from "@tolgee/react";
 import { useCallback } from "react";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { error } from "../../../utils/log/error";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 import { useSetToast } from "../../toast/Toast";
-import { useTranslate } from "@tolgee/react";
 
 export const useHandleMissingPaymentData = () => {
   const navigation = useStackNavigation();
@@ -22,6 +22,7 @@ export const useHandleMissingPaymentData = () => {
     ) => {
       const existingPaymentMethodsOfType =
         getAllPaymentDataByType(paymentMethod).length + 1;
+      // @ts-ignore
       const label = `${t(`paymentMethod.${paymentMethod}`)} #${existingPaymentMethodsOfType}`;
 
       navigation.push("paymentMethodForm", {

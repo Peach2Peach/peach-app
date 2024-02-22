@@ -3,13 +3,14 @@ import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { CURRENCIES } from "../../paymentMethods";
 import { CurrencyType } from "../../store/offerPreferences/types";
 import tw from "../../styles/tailwind";
-import { getCurrencyTypeFilter } from "./utils";
 import { tolgee } from "../../tolgee";
+import { getCurrencyTypeFilter } from "./utils";
 
 const getDisplayName = (c: Currency) => {
   if (c === "USDT") return tolgee.t(`currency.${c}`, { ns: "global" });
   if (c === "SAT")
     return tolgee.t("paymentMethod.lnurl", { ns: "paymentMethod" });
+  // @ts-ignore
   return `${tolgee.t(`currency.${c}`, { ns: "global" })} (${c})`;
 };
 

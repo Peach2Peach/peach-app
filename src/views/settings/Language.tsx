@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
@@ -7,7 +8,6 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import { sortAlphabetically } from "../../utils/array/sortAlphabetically";
 import i18n from "../../utils/i18n";
-import { useTranslate } from "@tolgee/react";
 
 export const Language = () => {
   const { locale, updateLocale } = useLanguage();
@@ -25,6 +25,7 @@ export const Language = () => {
           selectedValue={locale}
           items={i18n
             .getLocales()
+            // @ts-ignore
             .map((l) => ({ value: l, display: t(`languageName.${l}`) }))
             .sort((a, b) => sortAlphabetically(a.display, b.display))}
           onButtonPress={updateLocale}

@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useMemo, useState } from "react";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -13,7 +14,6 @@ import { headerIcons } from "../../utils/layout/headerIcons";
 import { countrySupportsCurrency } from "../../utils/paymentMethod/countrySupportsCurrency";
 import { getPaymentMethodInfo } from "../../utils/paymentMethod/getPaymentMethodInfo";
 import { usePaymentMethodLabel } from "./hooks";
-import { useTranslate } from "@tolgee/react";
 
 export const SelectCountry = () => {
   const { origin, selectedCurrency } = useRoute<"selectCountry">().params;
@@ -28,6 +28,7 @@ export const SelectCountry = () => {
         ?.countries?.filter(countrySupportsCurrency(selectedCurrency))
         .map((c) => ({
           value: c,
+          // @ts-ignore
           display: t(`country.${c}`),
         })),
     [selectedCurrency, t],

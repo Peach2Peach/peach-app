@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { Currency } from "../../../../peach-api/src/@types/global";
 import { SATSINBTC } from "../../../constants";
@@ -6,7 +7,6 @@ import { BTCAmount } from "../../bitcoin/BTCAmount";
 import { PeachText } from "../../text/PeachText";
 import { PriceFormat } from "../../text/PriceFormat";
 import { PremiumText } from "./PremiumText";
-import { useTranslate } from "@tolgee/react";
 
 type Props = {
   amount: number;
@@ -31,6 +31,7 @@ export function PriceInfo({ amount, price, currency, premium }: Props) {
         <PremiumText premium={premium} />
       </PeachText>
       <PeachText style={tw`subtitle-1`}>
+        {/** @ts-ignore */}
         {btcPrice} {t(currency)} / {t("btc")}
       </PeachText>
     </View>

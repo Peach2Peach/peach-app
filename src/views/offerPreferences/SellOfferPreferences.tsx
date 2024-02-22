@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useMemo, useRef, useState } from "react";
 import {
   GestureResponderEvent,
@@ -70,7 +71,6 @@ import { usePostSellOffer } from "./utils/usePostSellOffer";
 import { useRestrictSatsAmount } from "./utils/useRestrictSatsAmount";
 import { useTrackWidth } from "./utils/useTrackWidth";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
-import { useTranslate } from "@tolgee/react";
 
 export function SellOfferPreferences() {
   const [isSliding, setIsSliding] = useState(false);
@@ -397,6 +397,7 @@ function FiatInput() {
         onEndEditing={onEndEditing}
         keyboardType="decimal-pad"
       />
+      {/** @ts-ignore */}
       <PeachText style={tw.style(textStyle)}> {t(displayCurrency)}</PeachText>
     </View>
   );

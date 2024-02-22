@@ -6,6 +6,7 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { GetMatchesResponseBody } from "../../../peach-api/src/@types/api/offerAPI";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
@@ -37,7 +38,6 @@ import { createRefundTx } from "./utils/createRefundTx";
 import { getPaymentDataFromOffer } from "./utils/getPaymentDataFromOffer";
 import { useHandleError } from "./utils/useHandleError";
 import { useHandleMissingPaymentData } from "./utils/useHandleMissingPaymentData";
-import { useTranslate } from "@tolgee/react";
 
 export const Match = ({
   match,
@@ -115,6 +115,7 @@ export const Match = ({
                 ) : (
                   <PaymentDetail
                     label={t("match.selectedPaymentMethod")}
+                    // @ts-ignore
                     value={t(`paymentMethod.${selectedPaymentMethod}`, {
                       ns: "paymentMethod",
                     })}

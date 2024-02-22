@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { IconType } from "../../../assets/icons";
 import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
@@ -12,7 +13,6 @@ import { NewBubble as Bubble } from "../../bubble/Bubble";
 import { useDrawerState } from "../../drawer/useDrawerState";
 import { CurrencySelection } from "../../navigation/CurrencySelection";
 import { PulsingText } from "./PulsingText";
-import { useTranslate } from "@tolgee/react";
 
 type Props = {
   match: Match;
@@ -52,6 +52,7 @@ export function PaymentMethodSelector({
       const meetupEvent = meetupEvents?.find(({ id }) => id === eventId);
       return meetupEvent?.shortName ?? eventId;
     }
+    // @ts-ignore
     return t(`paymentMethod.${paymentMethod}`);
   };
   const items = availablePaymentMethods.map((p) => ({
@@ -200,6 +201,7 @@ function PayementMethodBubble({
       const meetupEvent = meetupEvents?.find(({ id }) => id === eventId);
       return meetupEvent?.shortName ?? eventId;
     }
+    // @ts-ignore
     return t(`paymentMethod.${methodType}`);
   };
   const onPressBubble = () => {
@@ -235,6 +237,7 @@ function PayementMethodBubble({
         navigation.navigate("paymentMethodForm", {
           paymentData: {
             type: paymentMethod,
+            // @ts-ignore
             label: t(`paymentMethod.${paymentMethod}`),
             currencies: [selectedCurrency],
             country,

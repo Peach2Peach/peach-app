@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 
 import tw from "../../styles/tailwind";
 
+import { useTranslate } from "@tolgee/react";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
@@ -11,12 +12,11 @@ import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { PAYMENTCATEGORIES } from "../../paymentMethods";
+import { tolgee } from "../../tolgee";
 import { getApplicablePaymentCategories } from "../../utils/paymentMethod/getApplicablePaymentCategories";
 import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { usePaymentMethodLabel } from "./hooks";
 import { getCurrencyTypeFilter } from "./utils";
-import { tolgee } from "../../tolgee";
-import { useTranslate } from "@tolgee/react";
 
 const NATIONALOPTIONS: NationalOptions = {
   EUR: {
@@ -41,6 +41,7 @@ const NATIONALOPTIONCOUNTRIES: Record<"EUR" | "LATAM", FlagType[]> = {
 
 const mapCountryToDrawerOption =
   (onPress: (country: FlagType) => void) => (country: FlagType) => ({
+    // @ts-ignore
     title: tolgee.t(`country.${country}`, { ns: "global" }),
     flagID: country,
     onPress: () => onPress(country),
@@ -92,6 +93,7 @@ export const SelectPaymentMethod = () => {
   };
 
   const mapMethodToDrawerOption = (method: PaymentMethod) => ({
+    // @ts-ignore
     title: tolgee.t(`paymentMethod.${method}`, { ns: "paymentMethod" }),
     logoID: method,
     onPress: () => selectPaymentMethod(method),
@@ -122,6 +124,7 @@ export const SelectPaymentMethod = () => {
     const nationalOptionCountries = getNationalOptionCountries();
 
     updateDrawer({
+      // @ts-ignore
       title: tolgee.t(`country.${country}`, { ns: "global" }),
       options: nationalOptions.map(mapMethodToDrawerOption),
       previousDrawer: {

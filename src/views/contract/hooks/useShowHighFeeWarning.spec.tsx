@@ -8,9 +8,9 @@ import {
 import { defaultUser } from "../../../../peach-api/src/testData/userData";
 import { navigateMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { Toast } from "../../../components/toast/Toast";
+import { tolgee } from "../../../tolgee";
 import { peachAPI } from "../../../utils/peachAPI";
 import { useShowHighFeeWarning } from "./useShowHighFeeWarning";
-import { tolgee } from "../../../tolgee";
 
 jest.useFakeTimers();
 
@@ -56,6 +56,7 @@ describe("useShowHighFeeWarning", () => {
     });
     expect(
       queryByText(
+        // @ts-ignore
         tolgee.t("contract.warning.highFee", {
           ns: "contract",
           fees: "100",
@@ -74,6 +75,7 @@ describe("useShowHighFeeWarning", () => {
     });
     expect(
       queryByText(
+        // @ts-ignore
         tolgee.t("contract.warning.highFee", {
           ns: "contract",
           fees: "100",
@@ -92,6 +94,7 @@ describe("useShowHighFeeWarning", () => {
     });
     expect(
       queryByText(
+        // @ts-ignore
         tolgee.t("contract.warning.highFee", {
           ns: "contract",
           fees: "100",

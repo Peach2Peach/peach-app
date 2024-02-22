@@ -1,4 +1,5 @@
 import { API_URL } from "@env";
+import { useTranslate } from "@tolgee/react";
 import { useCallback, useMemo } from "react";
 import { Image, View } from "react-native";
 import { useMeetupEvents } from "../../hooks/query/useMeetupEvents";
@@ -17,7 +18,6 @@ import { PeachText } from "../text/PeachText";
 import { DeletePaymentMethodPopup } from "./components/DeletePaymentMethodPopup";
 import { Link } from "./components/Link";
 import { useMeetupScreenSetup } from "./hooks/useMeetupScreenSetup";
-import { useTranslate } from "@tolgee/react";
 
 export const MeetupScreen = () => {
   const {
@@ -115,6 +115,7 @@ function CashTradesPopup() {
   const { t } = useTranslate("unassigned");
   for (let i = start; i < start + numerOfBulletPoints; i++) {
     bulletPoints.push(
+      // @ts-ignore
       <BulletPoint key={i} text={t(`tradingCash.point.${i}`)} />,
     );
   }

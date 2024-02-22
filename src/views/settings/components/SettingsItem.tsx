@@ -1,10 +1,10 @@
+import { useTranslate } from "@tolgee/react";
 import { TouchableOpacity, ViewStyle } from "react-native";
 import { IconType } from "../../../assets/icons";
 import { Icon } from "../../../components/Icon";
 import { PeachText } from "../../../components/text/PeachText";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import tw from "../../../styles/tailwind";
-import { useTranslate } from "@tolgee/react";
 
 type SettingsTitle =
   | "myProfile"
@@ -63,6 +63,7 @@ export const SettingsItem = ({
       <PeachText
         style={[tw`settings text-black-65`, warning && tw`text-error-main`]}
       >
+        {/** @ts-ignore  */}
         {t(`settings.${title}`)}
       </PeachText>
       <Icon

@@ -1,10 +1,10 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { Icon } from "../../components/Icon";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import { useTranslate } from "@tolgee/react";
 
 type Props = {
   err: string;
@@ -25,6 +25,7 @@ export const RestoreBackupError = ({ err }: Props) => {
           <PeachText
             style={tw`text-center body-l text-primary-background-light`}
           >
+            {/** @ts-ignore */}
             {t(`${err}.text`, { ns: "error" })}
           </PeachText>
         </View>

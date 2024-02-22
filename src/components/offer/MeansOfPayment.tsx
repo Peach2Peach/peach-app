@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useMemo, useState } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import tw from "../../styles/tailwind";
@@ -6,7 +7,6 @@ import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { useCashPaymentMethodName } from "../matches/useCashPaymentMethodName";
 import { CurrencySelection } from "../navigation/CurrencySelection";
 import { PeachText } from "../text/PeachText";
-import { useTranslate } from "@tolgee/react";
 
 type Props = {
   meansOfPayment: MeansOfPayment;
@@ -45,6 +45,7 @@ type PaymentMethodProps = {
 function PaymentMethod({ paymentMethod, style }: PaymentMethodProps) {
   const { t } = useTranslate("paymentMethod");
   const name = useMemo(
+    // @ts-ignore
     () => (paymentMethod ? t(`paymentMethod.${paymentMethod}`) : paymentMethod),
     [paymentMethod, t],
   );
