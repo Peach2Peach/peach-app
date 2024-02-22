@@ -17,7 +17,7 @@ export const useLanguage = () => {
       i18n.setLocale(l);
       setLocaleStore(l);
     },
-    [setLocaleStore],
+    [setLocaleStore, tolgee],
   );
 
   return { locale: locale || "en", updateLocale };
