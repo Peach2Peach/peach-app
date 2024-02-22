@@ -1,11 +1,10 @@
 import { createRenderer } from "react-test-renderer/shallow";
 import { fireEvent, render } from "test-utils";
 import { EmailInput } from "./EmailInput";
-import { useTranslate } from "@tolgee/react";
+import { tolgee } from "../../tolgee";
 
 describe("EmailInput", () => {
   const renderer = createRenderer();
-  const { t } = useTranslate("form");
   it("renders correctly", () => {
     renderer.render(<EmailInput />);
     const result = renderer.getRenderOutput();
@@ -16,7 +15,7 @@ describe("EmailInput", () => {
     const { getByPlaceholderText } = render(
       <EmailInput onChangeText={onChangeMock} />,
     );
-    const input = getByPlaceholderText(t("form.email.placeholder"));
+    const input = getByPlaceholderText(tolgee.t("form.email.placeholder"));
     fireEvent(input, "onEndEditing", {
       nativeEvent: { text: "SaTOSHI@gmx.com" },
     });

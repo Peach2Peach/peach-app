@@ -4,7 +4,7 @@ import { toMatchDiffSnapshot } from "snapshot-diff";
 import { act, fireEvent, render, waitFor } from "test-utils";
 import { ScanQR } from "../camera/ScanQR";
 import { BitcoinAddressInput } from "./BitcoinAddressInput";
-import { useTranslate } from "@tolgee/react";
+import { tolgee } from "../../tolgee";
 expect.extend({ toMatchDiffSnapshot });
 
 jest.mock("../camera/ScanQR", () => ({
@@ -14,7 +14,6 @@ jest.useFakeTimers();
 
 describe("BitcoinAddressInput", () => {
   const fullAddress = "bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7z";
-  const { t } = useTranslate("form");
   it("renders correctly", () => {
     const renderer = createRenderer();
     renderer.render(<BitcoinAddressInput value={fullAddress} />);
@@ -24,7 +23,9 @@ describe("BitcoinAddressInput", () => {
     const { getByPlaceholderText } = render(
       <BitcoinAddressInput value={fullAddress} />,
     );
-    const input = getByPlaceholderText(t("form.address.btc.placeholder"));
+    const input = getByPlaceholderText(
+      tolgee.t("form.address.btc.placeholder"),
+    );
 
     fireEvent(input, "focus");
     expect(input.props.value).toBe(fullAddress);
@@ -33,7 +34,9 @@ describe("BitcoinAddressInput", () => {
     const { getByPlaceholderText, toJSON } = render(
       <BitcoinAddressInput value={fullAddress} />,
     );
-    const input = getByPlaceholderText(t("form.address.btc.placeholder"));
+    const input = getByPlaceholderText(
+      tolgee.t("form.address.btc.placeholder"),
+    );
     const { toJSON: toJSON2 } = render(
       <BitcoinAddressInput value={fullAddress} />,
     );
