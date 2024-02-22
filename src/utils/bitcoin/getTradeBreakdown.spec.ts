@@ -1,4 +1,4 @@
-import { getTradeBreakdown } from "./getTradeBreakdown";
+import { getTradeBreakdown } from "./getTradeBreakdown.1";
 
 const fromHexMock = jest.fn();
 const fromOutputScriptMock = jest.fn((script) =>

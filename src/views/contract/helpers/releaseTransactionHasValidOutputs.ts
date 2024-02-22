@@ -1,15 +1,11 @@
 import { Psbt, PsbtTxOutput } from "bitcoinjs-lib";
-import { ElementsValue } from "liquidjs-lib";
 import {
   Psbt as LiquidPsbt,
   PsbtTxOutput as LiquidPsbtTxOutput,
 } from "liquidjs-lib/src/psbt";
 import { ceil } from "../../../utils/math/ceil";
+import { numberConverter } from "../../../utils/math/numberConverter";
 import { isPSBTForBatch } from "./isPSBTForBatch";
-
-const isLiquidTxOutput = (
-  txOutput: PsbtTxOutput | LiquidPsbtTxOutput,
-): txOutput is LiquidPsbtTxOutput => txOutput.value instanceof Buffer;
 
 const EXPECTED_OUTPUTS = {
   BITCOIN: {
@@ -52,9 +48,7 @@ export const releaseTransactionHasValidOutputs = (
 
   if (buyerFee > 0 && !batchMode) {
     if (!peachFeeOutput) return false;
-    const outputValue = isLiquidTxOutput(peachFeeOutput)
-      ? ElementsValue.fromBytes(peachFeeOutput.value).number
-      : peachFeeOutput.value;
+    const outputValue = numberConverter(peachFeeOutput.value)
     if (
       outputValue !== ceil(contract.amount * buyerFee) ||
       buyerOutput.value === 0
