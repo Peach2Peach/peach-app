@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { UTXO } from "../../../peach-api/src/@types/electrs";
+import { UTXO } from "../../../peach-api/src/@types/electrs-liquid";
 import { createPersistStorage } from "../../store/createPersistStorage";
 import { createStorage } from "../storage/createStorage";
 

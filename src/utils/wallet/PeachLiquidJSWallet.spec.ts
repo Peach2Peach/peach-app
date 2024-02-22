@@ -1,7 +1,7 @@
 import { networks } from "liquidjs-lib";
 import { getResult } from "../../../peach-api/src/utils/result";
 import { account1 } from "../../../tests/unit/data/accountData";
-import { mempoolUTXO, utxo } from "../../../tests/unit/data/blockExplorerData";
+import { mempoolUTXO, utxo } from "../../../tests/unit/data/liquidBlockExplorerData";
 import { getError } from "../../../tests/unit/helpers/getError";
 import { useAccountStore } from "../account/account";
 import { PeachLiquidJSWallet } from "./PeachLiquidJSWallet";

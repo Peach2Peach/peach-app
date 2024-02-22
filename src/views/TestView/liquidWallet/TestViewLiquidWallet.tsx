@@ -22,16 +22,18 @@ import { log } from "../../../utils/log/log";
 import { thousands } from "../../../utils/string/thousands";
 import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 import { peachLiquidWallet } from "../../../utils/wallet/setWallet";
+import { useLiquidWalletState } from "../../../utils/wallet/useLiquidWalletState";
 
 const liquidAddressRules = { required: false, liquidAddress: true };
 
 export const TestViewLiquidWallet = () => {
-  const balance = peachLiquidWallet?.balance || 0;
   const [address, setAddress, , addressErrors] = useValidatedState<string>(
     "",
     liquidAddressRules,
   );
+  const balance = useLiquidWalletState(state => state.balance)
 
+  console.log(peachLiquidWallet?.utxos)
   const [amount, setAmount] = useState("0");
   const [txId] = useState("");
   const getNewAddress = () => {

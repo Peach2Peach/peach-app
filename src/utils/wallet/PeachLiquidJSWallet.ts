@@ -96,6 +96,8 @@ export class PeachLiquidJSWallet {
     return this.syncInProgress;
   }
 
+  // TODO values can be blinded
+  // TODO does not yet consider other assets
   getBalance() {
     const confirmed = this.utxos.filter(utxo => utxo.status.confirmed).map(utxo => utxo.value).reduce(sum, 0)
     const pending = this.utxos.filter(utxo => !utxo.status.confirmed).map(utxo => utxo.value).reduce(sum, 0)

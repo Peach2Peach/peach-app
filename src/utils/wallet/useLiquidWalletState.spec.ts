@@ -1,4 +1,4 @@
-import { mempoolUTXO, utxo } from "../../../tests/unit/data/blockExplorerData";
+import { mempoolUTXO, utxo } from "../../../tests/unit/data/liquidBlockExplorerData";
 import { useLiquidWalletState } from "./useLiquidWalletState";
 
 describe("useLiquidWalletState", () => {
