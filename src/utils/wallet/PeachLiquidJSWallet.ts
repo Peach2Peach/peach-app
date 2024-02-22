@@ -55,7 +55,10 @@ export class PeachLiquidJSWallet {
   getAddress(index: number = this.addresses.length) {
     info("PeachLiquidJSWallet - getAddress", index);
 
-    if (this.addresses[index]) return this.addresses[index];
+    if (this.addresses[index]) return {
+      address: this.addresses[index],
+      index
+    };
 
     const keyPair = this.getKeyPair(index);
     const { address } = liquid.payments.p2wpkh({
@@ -65,7 +68,7 @@ export class PeachLiquidJSWallet {
 
     if (address) this.addresses[index] = address;
 
-    return address;
+    return { address, index };
   }
 
   getInternalAddress(index: number = this.addresses.length + 1) {
@@ -91,7 +94,7 @@ export class PeachLiquidJSWallet {
     for (let i = 0; i <= limit; i++) {
       info("PeachLiquidJSWallet - findKeyPairByAddress - scanning", i);
 
-      const candidate = this.getAddress(i);
+      const { address: candidate } = this.getAddress(i);
       if (address === candidate) {
         useWalletState.getState().setAddresses(this.addresses);
         return this.getKeyPair(i);

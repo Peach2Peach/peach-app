@@ -13,8 +13,9 @@ import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
 import { isPaymentMethod } from "../../../utils/validation/isPaymentMethod";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
+import { isValidLiquidSignature } from "../../../utils/validation/isValidLiquidSignature";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
-import { peachWallet } from "../../../utils/wallet/setWallet";
+import { peachLiquidWallet, peachWallet } from "../../../utils/wallet/setWallet";
 import { GroupHugAnnouncement } from "../../overlays/GroupHugAnnouncement";
 
 const isForbiddenPaymentMethodError = (
@@ -65,27 +66,25 @@ export function usePublishBuyOffer({
 
   return useMutation({
     mutationFn: async () => {
-      const { address: releaseAddress, index } = payoutToPeachWallet
-        ? await peachWallet.getAddress()
+      const wallet = escrowType === 'bitcoin' ? peachWallet : peachLiquidWallet
+      const { address, index } = payoutToPeachWallet
+        ? await wallet.getAddress()
         : { address: payoutAddress, index: undefined };
-      if (!releaseAddress) throw new Error("MISSING_RELEASE_ADDRESS");
 
-      const message = getMessageToSignForAddress(publicKey, releaseAddress);
-      const messageSignature = payoutToPeachWallet
-        ? peachWallet.signMessage(message, releaseAddress, index)
+      if (!address) throw new Error("MISSING_RELEASE_ADDRESS");
+
+      const message = getMessageToSignForAddress(publicKey, address);
+      const signature = payoutToPeachWallet
+        ? wallet.signMessage(message, address, index)
         : payoutAddressSignature;
 
-      if (
-        !messageSignature ||
-        !isValidBitcoinSignature({
-          message,
-          address: releaseAddress,
-          signature: messageSignature,
-          network: getNetwork(),
-        })
-      ) {
-        throw new Error("INAVLID_SIGNATURE");
-      }
+      if (!signature) throw new Error("MISSING_SIGNATURE");
+
+      const isValidSignature = escrowType === 'bitcoin'
+        ? isValidBitcoinSignature({ message, address, signature, network: getNetwork() })
+        : isValidLiquidSignature({ message, address, signature })
+      if (!isValidSignature) throw new Error("INVALID_SIGNATURE");
+
       const finalizedOfferDraft = {
         type: "bid" as const,
         escrowType,
@@ -94,13 +93,12 @@ export function usePublishBuyOffer({
         paymentData,
         maxPremium,
         minReputation,
-        releaseAddress,
+        releaseAddress: address,
         message,
-        messageSignature,
+        messageSignature: signature,
       };
 
-      const { result, error: err } =
-        await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft);
+      const { result, error: err } = await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft);
 
       if (result) return result.id;
       throw new Error(err?.error || "POST_OFFER_ERROR", {

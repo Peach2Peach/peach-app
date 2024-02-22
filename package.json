@@ -63,7 +63,7 @@
     "bdk-rn": "github:Peach2Peach/bdk-rn",
     "bip174": "^2.1.1",
     "bip32": "^4.0.0",
-    "bip322-js": "github:Peach2Peach/bip322-js#bugfix/compilation-on-npm-install",
+    "bip322-js": "github:Peach2Peach/bip322-js",
     "bip322-liquid-js": "github:Peach2Peach/bip322-liquid-js",
     "bip39": "^3.1.0",
     "bitcoinjs-lib": "^6.1.5",

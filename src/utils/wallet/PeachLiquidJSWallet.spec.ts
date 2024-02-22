@@ -43,7 +43,7 @@ describe("PeachLiquidJSWallet", () => {
 
   it("finds key pair by address and stores scanned addresses", () => {
     const addressIndex = 3;
-    const address = peachJSWallet.getAddress(addressIndex);
+    const { address } = peachJSWallet.getAddress(addressIndex);
 
     if (!address) throw Error();
     const keyPair = peachJSWallet.findKeyPairByAddress(address);
