@@ -8,9 +8,8 @@ import { tolgee } from "../../tolgee";
 
 const getDisplayName = (c: Currency) => {
   if (c === "USDT") return tolgee.t(`currency.${c}`, { ns: "global" });
-  if (c === "SAT")
-    return tolgee.t("paymentMethod.lnurl", { ns: "paymentMethod" });
-  return tolgee.t(`currency.${c}`, { ns: "global" });
+  if (c === "SAT") return tolgee.t("paymentMethod.lnurl", { ns: "paymentMethod" });
+  return `${tolgee.t(`currency.${c}`, { ns: "global" })} (${c})`;
 };
 
 type Props = {

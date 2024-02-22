@@ -48,6 +48,7 @@ describe("SendBitcoin", () => {
     expect(render(<SendBitcoin />).toJSON()).toMatchDiffSnapshot(toJSON());
   });
   it("should update the amount on change", () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.balance = 21000000;
     const { toJSON, getByText } = render(<SendBitcoin />);
     const amountInput = getByText("0");
@@ -55,6 +56,7 @@ describe("SendBitcoin", () => {
     expect(render(<SendBitcoin />).toJSON()).toMatchDiffSnapshot(toJSON());
   });
   it('should set the amount to the peach wallet balance when clicking "send max"', () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.balance = 21000000;
     const { toJSON, getByText } = render(<SendBitcoin />);
     const sendMaxButton = getByText("send max");
@@ -62,6 +64,7 @@ describe("SendBitcoin", () => {
     expect(render(<SendBitcoin />).toJSON()).toMatchDiffSnapshot(toJSON());
   });
   it("should not allow entering an amount higher than the available balance", () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.balance = 21000000;
     const { toJSON, getByText } = render(<SendBitcoin />);
     const amountInput = getByText("0");
@@ -111,6 +114,7 @@ describe("SendBitcoin", () => {
   });
 
   it("should open the confirmation popup when swiping the slider", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     useWalletState.setState({ isSynced: true });
     const { getByTestId, getByText, getByPlaceholderText, queryByText } =
       render(
@@ -219,6 +223,7 @@ describe("SendBitcoin - With selected coins", () => {
   beforeAll(() => {
     const wallet = createWalletFromBase58(account1.base58, getNetwork());
     setPeachWallet(new PeachWallet({ wallet }));
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.wallet = new Wallet();
     walletListUnspentMock.mockResolvedValue([utxo]);
   });

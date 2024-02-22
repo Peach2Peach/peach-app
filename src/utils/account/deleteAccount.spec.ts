@@ -1,4 +1,3 @@
-import { ok } from "assert";
 import * as accountData from "../../../tests/unit/data/accountData";
 import { offerPreferencesStorage } from "../../store/offerPreferences/useOfferPreferences";
 import { settingsStorage } from "../../store/settingsStore/settingsStorage";
@@ -27,7 +26,5 @@ describe("deleteAccount", () => {
     expect(offerPreferencesStorage.clearStore).toHaveBeenCalled();
     expect(usePaymentDataStoreReset).toHaveBeenCalled();
     expect(peachAPI.apiOptions.peachAccount).toBeNull();
-
-    ok(true);
   });
 });

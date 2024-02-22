@@ -662,6 +662,7 @@ function FundEscrowButton({
 
   const onPress = async () => {
     if (isPublishing) return;
+    if (!peachWallet) throw new Error("Peach wallet not defined");
     if (!formValid) {
       showPublishingError();
       return;
@@ -693,6 +694,7 @@ function FundEscrowButton({
           if (!Array.isArray(result)) {
             saveOffer({ ...offerDraft, ...result });
           } else {
+            if (!peachWallet) throw new Error("Peach wallet not defined");
             result.forEach((offer) => saveOffer({ ...offerDraft, ...offer }));
 
             const internalAddress = await peachWallet.getInternalAddress();

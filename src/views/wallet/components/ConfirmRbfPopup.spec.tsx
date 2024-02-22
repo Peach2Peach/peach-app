@@ -39,6 +39,7 @@ describe("ConfirmRbfPopup", () => {
   });
 
   it("should broadcast bump fee transaction", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.signAndBroadcastPSBT = jest
       .fn()
       .mockResolvedValue(txDetails.psbt);
@@ -50,6 +51,7 @@ describe("ConfirmRbfPopup", () => {
     );
 
     await waitFor(() => {
+      if (!peachWallet) throw new Error("PeachWallet not set");
       expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(
         txDetails.psbt,
       );
@@ -57,6 +59,7 @@ describe("ConfirmRbfPopup", () => {
     });
   });
   it("should handle broadcast errors", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.signAndBroadcastPSBT = jest.fn().mockImplementation(() => {
       throw transactionError;
     });

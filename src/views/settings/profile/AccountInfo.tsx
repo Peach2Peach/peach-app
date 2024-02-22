@@ -15,7 +15,7 @@ export const AccountInfo = ({ user }: Props) => (
     <PublicKey publicKey={user.id} />
     <AccountCreated {...user} />
     <Disputes {...user.disputes} />
-    <Trades trades={user.trades} canceledTrades={user.canceledTrades} />
+    <Trades trades={user.trades} />
   </View>
 );
 
@@ -79,13 +79,7 @@ function Disputes({ opened, won, lost, resolved }: User["disputes"]) {
   );
 }
 
-function Trades({
-  canceledTrades,
-  trades,
-}: {
-  trades: number;
-  canceledTrades: number;
-}) {
+function Trades({ trades }: { trades: number }) {
   const { t } = useTranslate("profile");
   return (
     <View>
@@ -93,10 +87,6 @@ function Trades({
         {t("profile.numberOfTrades")}:
       </PeachText>
       <PeachText style={tw`subtitle-1`}>{trades}</PeachText>
-      <PeachText style={tw`lowercase text-black-65`}>
-        {t("profile.canceledTrades")}:
-      </PeachText>
-      <PeachText style={tw`subtitle-1`}>{canceledTrades}</PeachText>
     </View>
   );
 }

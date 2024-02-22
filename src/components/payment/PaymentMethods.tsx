@@ -1,5 +1,4 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { useNavigationState } from "@react-navigation/native";
 import { shallow } from "zustand/shallow";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -53,9 +52,9 @@ export const PaymentMethods = () => {
 
   const isSelected = (itm: { value: string }) =>
     selectedPaymentDataIds.includes(itm.value);
-  const { name: origin, params } = useNavigationState(
-    (state) => state.routes[state.index - 1],
-  );
+
+  const { routes } = useStackNavigation().getState();
+  const { name: origin, params } = routes[routes.length - 2];
   const isComingFromSettings =
     origin === "homeScreen" &&
     params &&

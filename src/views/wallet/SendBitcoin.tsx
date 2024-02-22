@@ -45,7 +45,7 @@ export const SendBitcoin = () => {
 
   const maxAmount = selectedUTXOs.length
     ? selectedUTXOs.reduce((acc, utxo) => acc + utxo.txout.value, 0)
-    : peachWallet.balance;
+    : peachWallet?.balance || 0;
 
   const onAmountChange = (newText: string) => {
     setShouldDrainWallet(false);
@@ -55,7 +55,7 @@ export const SendBitcoin = () => {
   };
 
   const sendTrasaction = async () => {
-    if (!feeRate) return;
+    if (!feeRate || !peachWallet) return;
     try {
       const { psbt } = await peachWallet.buildFinishedTransaction({
         address,

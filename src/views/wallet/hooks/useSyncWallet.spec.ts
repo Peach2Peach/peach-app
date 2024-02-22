@@ -16,6 +16,7 @@ jest.useFakeTimers();
 describe("useSyncWallet", () => {
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.initialized = true;
     peachWallet.syncWallet = mockSyncWallet;
   });

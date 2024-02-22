@@ -1,10 +1,12 @@
-import { PeachWallet } from "../../../utils/wallet/PeachWallet";
+import { peachWallet } from "../../../utils/wallet/setWallet";
 
-export const canBumpNetworkFees = (
-  peachWallet: PeachWallet,
-  transaction: TransactionSummary,
-) =>
-  !transaction.confirmed &&
-  peachWallet.transactions
-    .filter((tx) => !tx.confirmationTime?.height)
-    .some(({ txid, sent }) => txid === transaction.id && sent > 0);
+export const canBumpNetworkFees = (transaction: TransactionSummary) => {
+  if (!peachWallet) throw new Error("PeachWallet not set");
+
+  return (
+    !transaction.confirmed &&
+    peachWallet.transactions
+      .filter((tx) => !tx.confirmationTime?.height)
+      .some(({ txid, sent }) => txid === transaction.id && sent > 0)
+  );
+};

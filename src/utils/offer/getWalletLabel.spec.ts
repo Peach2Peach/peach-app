@@ -11,6 +11,7 @@ describe("getWalletLabel", () => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
   });
   it("should return customPayoutAddressLabel if address is customPayoutAddress", () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     const findKeyPairByAddressMock = jest.spyOn(
       peachWallet,
       "findKeyPairByAddress",
@@ -27,6 +28,7 @@ describe("getWalletLabel", () => {
   });
 
   it("should return peachWallet if address is in peachWallet", () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     jest
       .spyOn(peachWallet, "findKeyPairByAddress")
       .mockReturnValueOnce(createTestWallet());

@@ -31,7 +31,7 @@ export const useUTXOs = () => {
   const queryData = useQuery({
     queryKey: walletKeys.utxos(),
     queryFn: () => {
-      if (!peachWallet.wallet) throw new Error("Wallet not initialized");
+      if (!peachWallet?.wallet) throw new Error("Wallet not initialized");
       return peachWallet.wallet?.listUnspent();
     },
     enabled: !!peachWallet?.wallet,

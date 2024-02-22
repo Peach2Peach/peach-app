@@ -91,6 +91,7 @@ export const useFundFromPeachWallet = () => {
     }: FundFromWalletParams) => {
       if (!address || !amount || fundingStatus !== "NULL") return undefined;
       await syncPeachWallet();
+      if (!peachWallet) throw new Error("Peach wallet not defined");
       if (peachWallet.balance < (addresses.length || 1) * minTradingAmount) {
         return setPopup(
           <AmountTooLowPopup

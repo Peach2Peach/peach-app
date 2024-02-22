@@ -1822,51 +1822,6 @@ exports[`MyProfile should render correctly 1`] = `
                     >
                       11
                     </Text>
-                    <Text
-                      allowFontScaling={false}
-                      style={
-                        [
-                          {
-                            "color": "#2B1911",
-                            "fontFamily": "Baloo2-Regular",
-                            "fontSize": 16,
-                            "letterSpacing": 0.16,
-                            "lineHeight": 24,
-                          },
-                          {
-                            "color": "#7D675E",
-                            "textTransform": "lowercase",
-                          },
-                          false,
-                        ]
-                      }
-                    >
-                      canceled trades
-                      :
-                    </Text>
-                    <Text
-                      allowFontScaling={false}
-                      style={
-                        [
-                          {
-                            "color": "#2B1911",
-                            "fontFamily": "Baloo2-Regular",
-                            "fontSize": 16,
-                            "letterSpacing": 0.16,
-                            "lineHeight": 24,
-                          },
-                          {
-                            "fontFamily": "Baloo2-SemiBold",
-                            "fontSize": 16,
-                            "letterSpacing": 0.16,
-                            "lineHeight": 28,
-                          },
-                          false,
-                        ]
-                      }
-                    >
-                      0
-                    </Text>
                   </View>
                 </View>
               </View>

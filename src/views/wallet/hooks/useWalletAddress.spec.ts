@@ -26,7 +26,7 @@ jest.useFakeTimers();
 describe("useWalletAddress", () => {
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
-
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.getAddressByIndex = jest
       .fn()
       .mockImplementation((index: number) => Promise.resolve(addresses[index]));
@@ -34,6 +34,7 @@ describe("useWalletAddress", () => {
   });
 
   it("should return the address at the given index", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.getAddressByIndex = jest
       .fn()
       .mockImplementation((index: number) => Promise.resolve(addresses[index]));

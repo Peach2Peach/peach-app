@@ -28,7 +28,7 @@ describe("CoinSelection", () => {
 
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
-    if (!peachWallet.wallet) {
+    if (!peachWallet?.wallet) {
       throw new Error("Wallet not initialized");
     } else {
       peachWallet.wallet.listUnspent = listUnspentMock;

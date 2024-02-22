@@ -12,6 +12,7 @@ import {
   CLIENT_RATING_RANGE,
   SERVER_RATING_RANGE,
 } from "../settings/profile/profileOverview/Rating";
+import { useSyncWallet } from "../wallet/hooks/useSyncWallet";
 import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
@@ -210,7 +211,12 @@ function PublishOfferButton() {
   }
   const rangeIsValid = rangeIsWithinLimits && amount[0] <= amount[1];
   const formValid = methodsAreValid && rangeIsValid;
-
+  const payoutToPeachWallet = useSettingsStore(
+    (state) => state.payoutToPeachWallet,
+  );
+  const { isLoading: isSyncingWallet } = useSyncWallet({
+    enabled: payoutToPeachWallet,
+  });
   const { mutate: publishOffer, isPending: isPublishing } = usePostBuyOffer({
     amount,
     meansOfPayment,
@@ -222,8 +228,8 @@ function PublishOfferButton() {
   return (
     <ShowOffersButton
       onPress={() => publishOffer()}
-      disabled={!formValid}
-      loading={isPublishing}
+      disabled={!formValid || isSyncingWallet}
+      loading={isPublishing || isSyncingWallet}
     />
   );
 }
