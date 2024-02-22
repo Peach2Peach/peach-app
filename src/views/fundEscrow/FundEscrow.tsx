@@ -183,7 +183,7 @@ function FundFromPeachWalletButton(props: Props) {
     state.isFundedFromPeachWallet(props.address),
   );
   const [isFunding, setIsFunding] = useState(false);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const onButtonPress = () => {
     setIsFunding(true);

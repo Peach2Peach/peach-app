@@ -64,7 +64,7 @@ export const Search = () => {
 };
 
 function NoMatchesYet({ offer }: { offer: SellOffer }) {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <View style={tw`gap-8`}>

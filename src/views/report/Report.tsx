@@ -43,7 +43,7 @@ export const Report = () => {
   const showError = useShowErrorBanner();
 
   const { mutate: submitReport } = useSendReport();
-  const { t } = useTranslate("form");
+  const { t } = useTranslate();
 
   const submit = () => {
     const isFormValid = isEmailValid && isTopicValid && isMessageValid;
@@ -82,7 +82,7 @@ export const Report = () => {
           onChangeText={setEmail}
           onSubmitEditing={() => $topic?.focus()}
           value={email}
-          placeholder={t("form.userEmail.placeholder")}
+          placeholder={t("form.userEmail.placeholder", { ns: "form" })}
           errorMessage={emailErrors}
         />
         <Input
@@ -90,7 +90,7 @@ export const Report = () => {
           onSubmitEditing={() => $message?.focus()}
           reference={(el) => ($topic = el)}
           value={topic}
-          placeholder={t("form.topic.placeholder")}
+          placeholder={t("form.topic.placeholder", { ns: "form" })}
           errorMessage={topicErrors}
         />
         <Input
@@ -99,7 +99,7 @@ export const Report = () => {
           reference={(el) => ($message = el)}
           value={message}
           multiline={true}
-          placeholder={t("form.message.placeholder")}
+          placeholder={t("form.message.placeholder", { ns: "form" })}
           errorMessage={messageErrors}
         />
         {!publicKey && (
@@ -108,7 +108,7 @@ export const Report = () => {
           </Checkbox>
         )}
         <Checkbox onPress={toggleShareLogs} checked={shareLogs}>
-          {t("form.shareLogs")}
+          {t("form.shareLogs", { ns: "form" })}
         </Checkbox>
       </PeachScrollView>
       <Button
@@ -116,7 +116,7 @@ export const Report = () => {
         onPress={submit}
         disabled={!(isEmailValid && isTopicValid && isMessageValid)}
       >
-        {t("report.sendReport", { ns: "unassigned" })}
+        {t("report.sendReport")}
       </Button>
     </Screen>
   );

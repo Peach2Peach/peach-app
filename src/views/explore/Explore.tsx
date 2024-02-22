@@ -29,7 +29,7 @@ import { useTranslate } from "@tolgee/react";
 
 export function Explore() {
   const { offerId } = useRoute<"explore">().params;
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const {
     allMatches: matches,
     isLoading,

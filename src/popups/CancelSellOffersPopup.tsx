@@ -26,7 +26,7 @@ export function CancelSellOffersPopup({ fundMultiple }: Props) {
     (state) => [state.registerFundMultiple, state.unregisterFundMultiple],
     shallow,
   );
-  const { t } = useTranslate("offer");
+  const { t } = useTranslate();
   const showOfferCanceled = useCallback(() => {
     setPopup(
       <GrayPopup
@@ -73,17 +73,17 @@ export function CancelSellOffersPopup({ fundMultiple }: Props) {
 
   return (
     <GrayPopup
-      title={t("offer.cancel.popup.title")}
-      content={t("offer.cancel.popup.description")}
+      title={t("offer.cancel.popup.title", { ns: "offer" })}
+      content={t("offer.cancel.popup.description", { ns: "offer" })}
       actions={
         <>
           <PopupAction
-            label={t({ key: "neverMind", ns: "unassigned" })}
+            label={t({ key: "neverMind" })}
             iconId="arrowLeftCircle"
             onPress={closePopup}
           />
           <LoadingPopupAction
-            label={t({ key: "cancelOffer", ns: "unassigned" })}
+            label={t({ key: "cancelOffer" })}
             iconId="xCircle"
             onPress={confirmCancelOffer}
             reverseOrder

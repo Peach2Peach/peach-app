@@ -8,7 +8,7 @@ type Props = {
   text?: string;
 };
 export const BitcoinLoading = ({ text }: Props) => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <View style={tw`items-center justify-center flex-1 gap-8`}>

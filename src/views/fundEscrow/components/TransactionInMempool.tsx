@@ -27,7 +27,7 @@ const DEFAULT_WIDTH = 300;
 const ASPECT_RATIO = 0.7;
 
 export const TransactionInMempool = ({ offerId, txId }: Props) => {
-  const { t } = useTranslate("sell");
+  const { t } = useTranslate();
   const [width, setWidth] = useState(DEFAULT_WIDTH);
   const openInExplorer = () => showTransaction(txId, NETWORK);
   const onLayout = (e: LayoutChangeEvent) =>
@@ -36,7 +36,9 @@ export const TransactionInMempool = ({ offerId, txId }: Props) => {
   return (
     <Screen header={<MempoolHeader {...{ offerId }} />}>
       <View style={tw`justify-center gap-3 grow shrink`}>
-        <PeachText>{t("sell.funding.mempool.description")}</PeachText>
+        <PeachText>
+          {t("sell.funding.mempool.description", { ns: "sell" })}
+        </PeachText>
         <View {...{ onLayout }} testID="image-container">
           <Image
             source={txInMempool}
@@ -47,7 +49,7 @@ export const TransactionInMempool = ({ offerId, txId }: Props) => {
         <TouchableOpacity onPress={openInExplorer}>
           <TradeInfo
             style={tw`self-center`}
-            text={t("showInExplorer", { ns: "unassigned" })}
+            text={t("showInExplorer")}
             textStyle={tw`underline`}
             IconComponent={
               <Icon

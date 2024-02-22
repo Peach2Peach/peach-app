@@ -12,7 +12,7 @@ import { useRestoreFromSeedSetup } from "./hooks/useRestoreFromSeedSetup";
 import { useTranslate } from "@tolgee/react";
 
 export const RestoreFromSeed = () => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const {
     restored,

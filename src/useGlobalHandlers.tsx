@@ -39,7 +39,7 @@ export const useGlobalHandlers = () => {
   );
   const setToast = useSetToast();
   const navigation = useStackNavigation();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err);

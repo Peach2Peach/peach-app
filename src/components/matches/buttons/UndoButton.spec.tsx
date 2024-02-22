@@ -16,9 +16,7 @@ describe("UndoButton", () => {
     const { getAllByText } = render(
       <UndoButton onPress={onPress} onTimerFinished={jest.fn()} />,
     );
-    const button = getAllByText(
-      tolgee.t("search.undo", { ns: "unassigned" }),
-    )[0];
+    const button = getAllByText(tolgee.t("search.undo"))[0];
     fireEvent.press(button);
     expect(onPress).toHaveBeenCalled();
   });

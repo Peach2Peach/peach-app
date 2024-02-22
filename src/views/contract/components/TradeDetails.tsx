@@ -139,7 +139,7 @@ function ChangePayoutWallet() {
             contractId: contract.id,
           });
         };
-  const { t } = useTranslate("wallet");
+  const { t } = useTranslate();
 
   return (
     <>
@@ -153,14 +153,14 @@ function ChangePayoutWallet() {
       )}
       {(!paidToPeachWallet || contract.paymentMade) && (
         <SummaryItem
-          label={t("payout.wallet", { ns: "unassigned" })}
+          label={t("payout.wallet")}
           value={
             <SummaryItem.Text
               value={
                 payoutAddress === contract.releaseAddress
                   ? payoutAddressLabel || cutOffAddress(payoutAddress)
                   : paidToPeachWallet
-                    ? t("peachWallet")
+                    ? t("peachWallet", { ns: "wallet" })
                     : cutOffAddress(contract.releaseAddress)
               }
               onPress={editCustomPayoutAddress}

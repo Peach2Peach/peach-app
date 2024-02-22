@@ -13,7 +13,7 @@ export const useStartRefundPopup = () => {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const showError = useShowErrorBanner();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const startRefundPopup = useCallback(
     async (sellOffer: SellOffer) => {

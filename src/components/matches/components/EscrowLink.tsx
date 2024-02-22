@@ -7,7 +7,7 @@ import { PeachText } from "../../text/PeachText";
 import { useTranslate } from "@tolgee/react";
 
 export const EscrowLink = ({ address }: { address: string }) => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   return (
     <TouchableOpacity
       style={tw`flex-row items-center justify-center gap-1`}

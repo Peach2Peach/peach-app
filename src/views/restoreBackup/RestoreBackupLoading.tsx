@@ -5,7 +5,7 @@ import tw from "../../styles/tailwind";
 import { useTranslate } from "@tolgee/react";
 
 export const RestoreBackupLoading = () => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <View style={tw`items-center justify-center h-full`}>

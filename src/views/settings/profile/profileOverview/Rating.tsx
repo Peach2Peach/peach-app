@@ -19,13 +19,11 @@ export const CLIENT_RATING_RANGE = [0, MAX_NUMBER_OF_PEACHES] satisfies [
 export const SERVER_RATING_RANGE = [-1, 1] satisfies [number, number];
 
 export const Rating = ({ rating, isNewUser }: RatingProps) => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   if (isNewUser) {
     return (
-      <PeachText style={tw`subtitle-2 text-black-65`}>
-        {t("newUser", { ns: "unassigned" })}
-      </PeachText>
+      <PeachText style={tw`subtitle-2 text-black-65`}>{t("newUser")}</PeachText>
     );
   }
   return (

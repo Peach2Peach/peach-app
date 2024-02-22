@@ -5,7 +5,7 @@ import { tolgee } from "../tolgee";
 import { useTranslate } from "@tolgee/react";
 
 const ReportSuccess = () => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   return (
     <View>
       <PeachText style={tw`my-2`}>{t("report.success.text.1")}</PeachText>
@@ -16,15 +16,15 @@ const ReportSuccess = () => {
 
 export const appPopups = {
   offerTaken: {
-    title: tolgee.t("search.popups.offerTaken.title", { ns: "unassigned" }),
-    content: tolgee.t("search.popups.offerTaken.text", { ns: "unassigned" }),
+    title: tolgee.t("search.popups.offerTaken.title"),
+    content: tolgee.t("search.popups.offerTaken.text"),
   },
   matchUndone: {
-    title: tolgee.t("search.popups.matchUndone.title", { ns: "unassigned" }),
-    content: tolgee.t("search.popups.matchUndone.text", { ns: "unassigned" }),
+    title: tolgee.t("search.popups.matchUndone.title"),
+    content: tolgee.t("search.popups.matchUndone.text"),
   },
   reportSuccess: {
-    title: tolgee.t("report.success.title", { ns: "unassigned" }),
+    title: tolgee.t("report.success.title"),
     content: ReportSuccess,
   },
 };

@@ -37,7 +37,7 @@ export function Badges({
 }
 
 function MyBadgesPopup() {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   return (
     <InfoPopup
       title={t("peachBadges")}

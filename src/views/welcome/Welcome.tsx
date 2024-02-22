@@ -32,7 +32,7 @@ export const Welcome = () => {
   const { width } = useWindowDimensions();
   const $carousel = useRef<ICarouselInstance>(null);
   const [page, setPage] = useState(0);
-  const { t } = useTranslate("global");
+  const { t } = useTranslate();
 
   const next = () => {
     $carousel.current?.next();
@@ -62,7 +62,7 @@ export const Welcome = () => {
         ]}
       >
         <PeachText style={tw`text-primary-background-light`}>
-          {t("skip")}
+          {t("skip", { ns: "global" })}
         </PeachText>
         <Icon
           id="skipForward"
@@ -98,7 +98,7 @@ export const Welcome = () => {
           onPress={next}
           iconId="arrowRightCircle"
         >
-          {t("next", { ns: "unassigned" })}
+          {t("next")}
         </Button>
       )}
     </Screen>

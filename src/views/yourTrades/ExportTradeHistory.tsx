@@ -21,7 +21,7 @@ import { useTranslate } from "@tolgee/react";
 
 export function ExportTradeHistory() {
   const { summaries } = useTradeSummaries();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const onPress = async () => {
     const csvValue = createCSVValue(

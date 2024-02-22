@@ -88,7 +88,7 @@ function DisputeRaisedPopup({
   contract: Contract;
   view: ContractViewer;
 }) {
-  const { t } = useTranslate("contract");
+  const { t } = useTranslate();
   const { id, disputeReason, amount } = contract;
   const submitDisputeAcknowledgement = useSubmitDisputeAcknowledgement();
   const [email, setEmail, , emailErrors] = useValidatedState<string>(
@@ -104,18 +104,21 @@ function DisputeRaisedPopup({
   };
   return (
     <ErrorPopup
-      title={t("dispute.opened")}
+      title={t("dispute.opened", { ns: "contract" })}
       content={
         <View style={tw`gap-4`}>
           <PeachText>
             {t(`dispute.opened.counterparty.text.1.withEmail.${view}`, {
+              ns: "contract",
               contractHexId: contractIdToHex(id),
               disputeAmount: thousands(amount),
             })}
           </PeachText>
 
           <PeachText>
-            {t("dispute.opened.counterparty.text.2.withEmail")}
+            {t("dispute.opened.counterparty.text.2.withEmail", {
+              ns: "contract",
+            })}
           </PeachText>
 
           <View>
@@ -133,7 +136,7 @@ function DisputeRaisedPopup({
         <>
           <ClosePopupAction />
           <LoadingPopupAction
-            label={t("send", { ns: "unassigned" })}
+            label={t("send")}
             iconId="arrowRightCircle"
             disabled={emailErrors.length > 0}
             onPress={submit}

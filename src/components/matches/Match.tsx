@@ -63,7 +63,7 @@ export const Match = ({
     selectedPaymentMethod,
   );
 
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const currentOptionName = useMemo(
     () =>
@@ -138,7 +138,7 @@ export const Match = ({
 
 function CashPaymentDetail({ method }: { method: `cash.${string}` }) {
   const value = useCashPaymentMethodName(method);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <PaymentDetail label={t("match.selectedPaymentMethod")} value={value} />
@@ -170,7 +170,7 @@ function MatchOfferButton({
 }: MatchButtonProps) {
   const currentOption = options[optionName];
   const { mutate } = useAcceptMatch(offer, match, currentPage);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const onPress = () => {
     if (optionName === "acceptMatch") {

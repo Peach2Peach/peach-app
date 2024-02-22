@@ -117,7 +117,7 @@ export const ChatMessage = ({
   online,
   resendMessage,
 }: ChatMessageProps) => {
-  const { t } = useTranslate("chat");
+  const { t } = useTranslate();
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const meta = getMessageMeta({
     message,
@@ -155,7 +155,7 @@ export const ChatMessage = ({
         )}
         <View style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}>
           <PeachText style={tw`shrink-0`} selectable>
-            {message.message || t("chat.decyptionFailed")}
+            {message.message || t("chat.decyptionFailed", { ns: "chat" })}
           </PeachText>
           <PeachText style={tw`pt-1 ml-auto leading-5 text-right`}>
             <PeachText style={tw`subtitle-2 leading-xs text-black-50`}>
@@ -178,9 +178,9 @@ export const ChatMessage = ({
             style={tw`flex-row justify-end items-center mt-1 pr-3 mr-0.5`}
           >
             <PeachText style={tw`mr-1 text-error-main`}>
-              {t("chat.failedToSend")}{" "}
+              {t("chat.failedToSend", { ns: "chat" })}{" "}
               <PeachText style={tw`underline text-error-main`}>
-                {t("retry", { ns: "unassigned" })}
+                {t("retry")}
               </PeachText>
             </PeachText>
             <Icon

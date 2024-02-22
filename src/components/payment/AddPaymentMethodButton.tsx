@@ -19,7 +19,7 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
   const navigation = useStackNavigation();
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
   const { data: meetupEvents, isLoading } = useMeetupEvents();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const addPaymentMethods = () => {
     navigation.navigate("selectCurrency", { origin: "paymentMethods" });
   };

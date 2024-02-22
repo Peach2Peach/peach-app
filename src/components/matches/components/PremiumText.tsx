@@ -7,7 +7,7 @@ type Props = {
 };
 
 export const PremiumText = ({ premium }: Props) => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <PeachText style={tw`text-black-65`}>

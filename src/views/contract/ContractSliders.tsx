@@ -201,7 +201,7 @@ export function ResolveCancelRequestSliders() {
 }
 export function ReleaseEscrowSlider() {
   const { contract } = useContractContext();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const { mutate } = useConfirmPaymentSeller({
     contract,
     optimisticContract: {

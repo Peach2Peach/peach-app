@@ -25,7 +25,7 @@ const PaymentMethodsTab = createMaterialTopTabNavigator();
 const tabs = ["online", "meetups"] as const;
 
 export const PaymentMethods = () => {
-  const { t } = useTranslate("paymentMethod");
+  const { t } = useTranslate();
   const navigation = useStackNavigation();
   const [preferredPaymentMethods, select] = useOfferPreferences(
     (state) => [state.preferredPaymentMethods, state.selectPaymentMethod],
@@ -80,7 +80,9 @@ export const PaymentMethods = () => {
           <PaymentMethodsTab.Screen
             key={tab}
             name={tab}
-            options={{ title: `${t(`paymentSection.${tab}`)}` }}
+            options={{
+              title: `${t(`paymentSection.${tab}`, tab != "online" ? { ns: "paymentMethod" } : "")}`,
+            }}
           >
             {() => (
               <PeachScrollView

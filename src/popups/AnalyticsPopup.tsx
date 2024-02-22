@@ -66,7 +66,7 @@ function AnalyticsPrompt() {
           openURL(getLocalizedLink("privacy-policy", languageState.locale))
         }
       >
-        {t({ key: "privacyPolicy", ns: "unassigned" }).toLocaleLowerCase()}.
+        {t("privacyPolicy").toLocaleLowerCase()}.
       </PeachText>
       {"\n\n"}
       {t("analytics.request.description3")}

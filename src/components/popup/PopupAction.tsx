@@ -25,7 +25,7 @@ export const PopupAction = ({
   loading,
   disabled,
 }: PopupActionProps) => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <TouchableOpacity

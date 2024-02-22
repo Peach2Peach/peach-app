@@ -9,12 +9,12 @@ export function DeletePaymentMethodPopup({ id }: { id: string }) {
   const navigation = useStackNavigation();
   const closePopup = useClosePopup();
   const { mutate: removePaymentData } = useRemovePaymentData();
-  const { t } = useTranslate("help");
+  const { t } = useTranslate();
 
   return (
     <ErrorPopup
-      title={t("help.paymentMethodDelete.title")}
-      content={t("help.paymentMethodDelete.description")}
+      title={t("help.paymentMethodDelete.title", { ns: "help" })}
+      content={t("help.paymentMethodDelete.description", { ns: "help" })}
       actions={
         <>
           <PopupAction
@@ -28,7 +28,7 @@ export function DeletePaymentMethodPopup({ id }: { id: string }) {
             }}
           />
           <PopupAction
-            label={t("neverMind", { ns: "unassigned" })}
+            label={t("neverMind")}
             iconId="xSquare"
             onPress={closePopup}
             reverseOrder

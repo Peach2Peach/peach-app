@@ -36,7 +36,7 @@ export const Contact = () => {
   const setPopup = useSetPopup();
   const showHelp = () =>
     setPopup(<HelpPopup id="contactEncryption" showTitle={false} />);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const goToReport = (reason: ContactReason) => {
     navigation.navigate("report", {

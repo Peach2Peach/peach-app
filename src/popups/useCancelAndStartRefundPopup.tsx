@@ -12,7 +12,7 @@ export const useCancelAndStartRefundPopup = () => {
   const setPopup = useSetPopup();
   const showError = useShowErrorBanner();
   const { mutate: cancelOffer } = useCancelOffer();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const cancelAndStartRefundPopup = useCallback(
     (sellOffer: SellOffer) => {

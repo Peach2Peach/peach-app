@@ -28,7 +28,7 @@ export const MeetupScreen = () => {
     selectedCurrencies,
     onCurrencyToggle,
   } = useMeetupScreenSetup();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <Screen header={<MeetupScreenHeader />}>
@@ -112,7 +112,7 @@ function CashTradesPopup() {
   const bulletPoints = [];
   const start = 1;
   const numerOfBulletPoints = 4;
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   for (let i = start; i < start + numerOfBulletPoints; i++) {
     bulletPoints.push(
       // @ts-ignore

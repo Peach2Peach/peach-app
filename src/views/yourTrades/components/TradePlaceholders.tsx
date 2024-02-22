@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const TradePlaceholders = ({ tab }: Props) => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <View style={tw`items-center justify-center flex-1`}>
@@ -40,7 +40,7 @@ function GoTradeButton({
       tab === "yourTrades.buy" ? "buyOfferPreferences" : "sellOfferPreferences";
     navigation.navigate(destination);
   };
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <TouchableOpacity onPress={onPress} style={tw`flex-row items-center gap-2`}>

@@ -19,7 +19,7 @@ export function FundingAmountDifferentPopup({
   const closePopup = useClosePopup();
 
   const actualAmount = sellOffer.funding.amounts.reduce(sum, 0);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   return (
     <WarningPopup
       title={t("warning.fundingAmountDifferent.title")}

@@ -58,7 +58,7 @@ export const useFundFromPeachWallet = () => {
   const handleTransactionError = useHandleTransactionError();
   const optimisticTxHistoryUpdate = useOptimisticTxHistoryUpdate();
   const { refetch: syncPeachWallet } = useSyncWallet();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const feeRate = useFeeRate();
   const [setFundedFromPeachWallet, unregisterFundMultiple] = useWalletState(
@@ -199,7 +199,7 @@ function AmountTooLowPopup({
   available: number;
   needed: number;
 }) {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   return (
     <PopupComponent
       title={t("fundFromPeachWallet.amountTooLow.title")}

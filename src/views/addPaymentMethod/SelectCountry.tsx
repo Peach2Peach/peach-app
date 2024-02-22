@@ -20,7 +20,7 @@ export const SelectCountry = () => {
   const navigation = useStackNavigation();
   const [selectedCountry, setCountry] = useState<PaymentMethodCountry>();
   const setPopup = useSetPopup();
-  const { t } = useTranslate("global");
+  const { t } = useTranslate();
 
   const countries = useMemo(
     () =>
@@ -81,7 +81,7 @@ export const SelectCountry = () => {
         disabled={!selectedCountry}
         onPress={goToPaymentMethodForm}
       >
-        {t("next", { ns: "unassigned" })}
+        {t("next")}
       </Button>
     </Screen>
   );

@@ -25,7 +25,7 @@ export function WalletSelector({
   onExternalWalletPress,
   title,
 }: Props) {
-  const { t } = useTranslate("wallet");
+  const { t } = useTranslate();
   return (
     <Section.Container style={{ backgroundColor }}>
       <Section.Title>{title}</Section.Title>
@@ -36,7 +36,7 @@ export function WalletSelector({
           disabled={peachWalletActive}
           onPress={onPeachWalletPress}
         >
-          {t("peachWallet")}
+          {t("peachWallet", { ns: "wallet" })}
         </NewBubble>
         <NewBubble
           color={bubbleColor}
@@ -45,7 +45,7 @@ export function WalletSelector({
           iconId={!address ? "plusCircle" : undefined}
           onPress={onExternalWalletPress}
         >
-          {addressLabel || t("externalWallet", { ns: "unassigned" })}
+          {addressLabel || t("externalWallet")}
         </NewBubble>
       </View>
     </Section.Container>

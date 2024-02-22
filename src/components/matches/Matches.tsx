@@ -64,7 +64,7 @@ function MatchInformation({ offer }: { offer: SellOffer }) {
   const { offerId } = useRoute<"search">().params;
   const { allMatches: matches } = useOfferMatches(offerId);
   const color = getPremiumColor(offer.premium || 0, false);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <View>

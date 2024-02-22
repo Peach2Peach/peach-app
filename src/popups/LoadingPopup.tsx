@@ -11,7 +11,7 @@ import { useTranslate } from "@tolgee/react";
  * @deprecated use LoadingPopupAction to indicate loading state
  */
 export function LoadingPopup(props: Partial<PopupComponentProps>) {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <PopupComponent

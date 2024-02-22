@@ -19,7 +19,7 @@ const possibleSources = [
 ] as const;
 
 export function UserSource() {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn);
   const [selectedSource, setSelectedSource] =
     useState<(typeof possibleSources)[number]>();

@@ -15,7 +15,7 @@ export function BackupTime({
 }) {
   const navigation = useStackNavigation();
   const setOverlay = useSetOverlay();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const closeOverlay = () => setOverlay(undefined);
   const goToBackups = () => {
     closeOverlay();

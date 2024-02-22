@@ -25,7 +25,7 @@ const socials = [
 ];
 
 export const Socials = () => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <Screen header={t("settings.socials.subtitle", { ns: "settings" })}>

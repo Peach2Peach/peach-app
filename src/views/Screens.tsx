@@ -64,7 +64,7 @@ function SplashScreenComponent({
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const initApp = useInitApp();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   useEffect(() => {
     (async () => {
       const statusResponse = await initApp();

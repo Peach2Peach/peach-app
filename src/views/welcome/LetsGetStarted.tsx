@@ -81,7 +81,7 @@ export const LetsGetStarted = () => {
     });
   };
   const goToRestoreBackup = () => navigation.navigate("restoreBackup");
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <View style={tw`items-center flex-1 gap-4 shrink`}>

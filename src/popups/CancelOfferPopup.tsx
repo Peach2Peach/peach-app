@@ -26,7 +26,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
   const { mutate: cancelOffer } = useCancelOffer();
 
   const startRefund = useStartRefundPopup();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const confirmCancelOffer = () => {
     if (!offer) return;
@@ -77,7 +77,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
       title={t({ key: "offer.cancel.popup.title", ns: "offer" })}
       content={t(
         offer.type === "bid"
-          ? { key: "search.popups.cancelOffer.text.buy", ns: "unassigned" }
+          ? { key: "search.popups.cancelOffer.text.buy" }
           : { key: "offer.cancel.popup.description", ns: "offer" },
       )}
       actionBgColor={tw`bg-black-50`}

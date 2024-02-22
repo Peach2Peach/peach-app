@@ -17,7 +17,7 @@ import { LOGIN_DELAY } from "./LOGIN_DELAY";
 import { useTranslate } from "@tolgee/react";
 
 export const RestoreReputation = () => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const route = useRoute<"restoreReputation">();
   const [isRestored, setIsRestored] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -77,7 +77,7 @@ export const RestoreReputation = () => {
 };
 
 function RestoreReputationLoading() {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   return (
     <View style={tw`items-center justify-center grow`}>
       <PeachText style={tw`text-center h4 text-primary-background-light`}>
@@ -92,7 +92,7 @@ function RestoreReputationLoading() {
 }
 
 function ReputationRestored() {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   return (
     <View style={tw`items-center justify-center h-full`}>
       <PeachText style={tw`text-center h4 text-primary-background-light`}>

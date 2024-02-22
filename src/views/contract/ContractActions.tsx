@@ -147,7 +147,7 @@ function BuyerSliders() {
 function SellerSliders() {
   const { contract } = useContractContext();
   const { tradeStatus, disputeWinner } = contract;
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   if (tradeStatus === "releaseEscrow" && !!disputeWinner) {
     return <ReleaseEscrowSlider />;
   }

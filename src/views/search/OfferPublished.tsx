@@ -19,7 +19,7 @@ export const OfferPublished = ({
     navigation.navigate("homeScreen", { screen: "home" });
     closeOverlay();
   };
-  const { t } = useTranslate("offer");
+  const { t } = useTranslate();
   const goToOffer = () => {
     navigation.reset({
       index: 1,
@@ -36,8 +36,8 @@ export const OfferPublished = ({
 
   return (
     <OverlayComponent
-      title={t("offer.published.title")}
-      text={t("offer.published.description")}
+      title={t("offer.published.title", { ns: "offer" })}
+      text={t("offer.published.description", { ns: "offer" })}
       iconId="checkCircleInverted"
       buttons={
         <>
@@ -46,10 +46,10 @@ export const OfferPublished = ({
             textColor={tw.color("primary-main")}
             onPress={goToOffer}
           >
-            {t({ key: "showOffer", ns: "unassigned" })}
+            {t({ key: "showOffer" })}
           </Button>
           <Button ghost onPress={shouldGoBack ? closeOverlay : goBackHome}>
-            {t({ key: "close", ns: "unassigned" })}
+            {t({ key: "close" })}
           </Button>
         </>
       }

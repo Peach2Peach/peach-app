@@ -11,7 +11,7 @@ type Props = SummaryItemProps & {
 };
 
 export const AddressSummaryItem = ({ address, ...props }: Props) => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <SummaryItem {...props}>

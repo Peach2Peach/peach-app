@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const RestoreBackupError = ({ err }: Props) => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const navigation = useStackNavigation();
   const goToContact = () => navigation.navigate("contact");
 

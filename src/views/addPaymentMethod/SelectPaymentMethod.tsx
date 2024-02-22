@@ -49,7 +49,7 @@ const mapCountryToDrawerOption =
 
 export const SelectPaymentMethod = () => {
   const navigation = useStackNavigation();
-  const { t } = useTranslate("paymentMethod");
+  const { t } = useTranslate();
 
   const { selectedCurrency, origin } = useRoute<"selectPaymentMethod">().params;
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
@@ -60,7 +60,7 @@ export const SelectPaymentMethod = () => {
     () =>
       getApplicablePaymentCategories(selectedCurrency).map((c) => ({
         value: c,
-        display: t(`paymentCategory.${c}`),
+        display: t(`paymentCategory.${c}`, { ns: "paymentMethod" }),
       })),
     [selectedCurrency, t],
   );
@@ -167,7 +167,7 @@ export const SelectPaymentMethod = () => {
   };
 
   return (
-    <Screen header={t("selectPaymentMethod.title", { ns: "unassigned" })}>
+    <Screen header={t("selectPaymentMethod.title")}>
       <PeachScrollView
         contentContainerStyle={[tw`justify-center py-4 grow`, tw`md:py-8`]}
       >
@@ -178,7 +178,7 @@ export const SelectPaymentMethod = () => {
         />
       </PeachScrollView>
       <Button style={tw`self-center`} disabled={!selectedPaymentCategory}>
-        {t("next", { ns: "unassigned" })}
+        {t("next")}
       </Button>
     </Screen>
   );

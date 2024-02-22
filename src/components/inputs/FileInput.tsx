@@ -18,7 +18,7 @@ type Props = {
 
 export const FileInput = ({ fileName, onChange }: Props) => {
   const [loading, setLoading] = useState(false);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const selectFile = async () => {
     setLoading(true);
     try {

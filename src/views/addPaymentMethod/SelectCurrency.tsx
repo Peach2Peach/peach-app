@@ -15,7 +15,7 @@ export const SelectCurrency = () => {
   const { origin } = useRoute<"selectCurrency">().params;
 
   const getPaymentMethodLabel = usePaymentMethodLabel();
-  const { t } = useTranslate("global");
+  const { t } = useTranslate();
 
   const goToPaymentMethodForm = (type: PaymentMethod) => {
     const label = getPaymentMethodLabel(type);
@@ -35,7 +35,10 @@ export const SelectCurrency = () => {
   };
 
   return (
-    <Screen style={tw`px-0`} header={t("selectCurrency.title")}>
+    <Screen
+      style={tw`px-0`}
+      header={t("selectCurrency.title", { ns: "global" })}
+    >
       <CurrencyTabs
         currency={selectedCurrency}
         setCurrency={setSelectedCurrency}

@@ -30,7 +30,7 @@ function OfferDetailsHeader({
   amount: number;
   premium: number;
 }) {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   return (
     <Header
       title={t("yourTrades.offerCanceled.subtitle")}

@@ -33,7 +33,7 @@ export const UnmatchButton = ({
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const { mutate: unmatch } = useUnmatchOffer(offer, match.offerId);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const [showUnmatch, toggle] = useToggleBoolean(match.matched);
 

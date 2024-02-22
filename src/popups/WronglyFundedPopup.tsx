@@ -16,7 +16,7 @@ export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
   const cancelAndStartRefundPopup = useCancelAndStartRefundPopup();
 
   const utxos = sellOffer.funding.txIds.length;
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const title = t(
     utxos === 1
       ? "warning.wrongFundingAmount.title"

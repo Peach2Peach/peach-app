@@ -17,7 +17,7 @@ const BADGE_SIZE = 12;
 export function Badge({ badgeName, isUnlocked }: Props) {
   const colorStyle = isUnlocked ? "text-primary-main" : "text-primary-mild-1";
   const iconId = badgeIconMap[badgeName];
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <InfoContainer
@@ -30,7 +30,7 @@ export function Badge({ badgeName, isUnlocked }: Props) {
 
 export function RepeatTraderBadge({ id }: { id: User["id"] }) {
   const { data } = useUserStatus(id);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   if (!data?.trades) return null;
 

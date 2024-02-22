@@ -41,7 +41,7 @@ type Props = {
 };
 
 function WrongFundingAmountSummary({ sellOffer }: Props) {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const actualAmount = sellOffer.funding.amounts.reduce(sum, 0);
   const fundingAmount = sellOffer.amount;
@@ -91,7 +91,7 @@ function LabelAndAmount({ label, amount }: LabelAndAmountProps) {
 function RefundEscrowSlider({ sellOffer }: Props) {
   const cancelAndStartRefundPopup = useCancelAndStartRefundPopup();
   const refundEscrow = () => cancelAndStartRefundPopup(sellOffer);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <ConfirmSlider
@@ -105,7 +105,7 @@ function RefundEscrowSlider({ sellOffer }: Props) {
 
 function ContinueTradeSlider({ sellOffer }: Props) {
   const { mutate: confirmEscrow } = useConfirmEscrow();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const confirmEscrowWithSellOffer = () =>
     confirmEscrow({ offerId: sellOffer.id, funding: sellOffer.funding });
 

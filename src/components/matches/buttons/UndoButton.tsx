@@ -25,7 +25,7 @@ const narrow = Number(tw`w-39`.width);
 
 export const UndoButton = ({ onPress, onTimerFinished }: Props) => {
   const timer = useRef(new Animated.Value(1)).current;
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   useEffect(() => {
     startTimer(timer, onTimerFinished);

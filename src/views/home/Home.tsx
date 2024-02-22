@@ -43,7 +43,7 @@ function FreeTradesDonut() {
   const { user } = useSelfUser();
   const freeTrades = user?.freeTrades || 0;
   const maxFreeTrades = user?.maxFreeTrades || 0;
-  const { t } = useTranslate("settings");
+  const { t } = useTranslate();
   if (freeTrades === 0) return null;
   return (
     <ProgressDonut
@@ -155,7 +155,7 @@ function BuyButton() {
   const navigation = useStackNavigation();
   const goToBuyOfferPreferences = () =>
     navigation.navigate("buyOfferPreferences");
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   return (
     <Button
       style={[buttonStyle, tw`bg-success-main`]}
@@ -170,7 +170,7 @@ function SellButton() {
   const navigation = useStackNavigation();
   const goToSellOfferPreferences = () =>
     navigation.navigate("sellOfferPreferences");
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   return (
     <Button style={[buttonStyle]} onPress={goToSellOfferPreferences}>
       {t("sell")}

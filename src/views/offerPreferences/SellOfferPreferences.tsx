@@ -827,7 +827,7 @@ function RefundWalletSelector() {
 
 function SellHeader() {
   const setPopup = useSetPopup();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const onPress = () => setPopup(<HelpPopup id="sellingBitcoin" />);
   return (
     <Header

@@ -33,7 +33,7 @@ export const TradeComplete = ({ contractId }: { contractId: string }) => {
 };
 
 function TradeCompleteView({ contract }: { contract: Contract }) {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const [vote, setVote] = useState<"positive" | "negative">();
   const account = useAccountStore((state) => state.account);
   const view = getContractViewer(contract.seller.id, account);
@@ -109,7 +109,7 @@ type RateProps = {
 };
 
 function Rate({ contract, view, vote }: RateProps) {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const setPopup = useSetPopup();
 
   const { mutate: rateUser } = useRateUser({

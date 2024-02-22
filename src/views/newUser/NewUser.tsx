@@ -108,7 +108,7 @@ export const NewUser = () => {
 };
 
 function CreateAccountLoading() {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   return (
     <View style={tw`items-center justify-center gap-4 grow`}>
       <PeachText style={tw`text-center h4 text-primary-background-light`}>
@@ -129,7 +129,7 @@ function CreateAccountError({ err }: CreateAccountErrorProps) {
   const navigation = useStackNavigation();
   const goToContact = () => navigation.navigate("contact");
   const goToRestoreBackup = () => navigation.navigate("restoreBackup");
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <View style={tw`items-center justify-between grow`}>
@@ -169,7 +169,7 @@ function CreateAccountError({ err }: CreateAccountErrorProps) {
 }
 
 function CreateAccountSuccess() {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <View style={tw`items-center justify-center gap-16 grow`}>
@@ -199,7 +199,7 @@ function UserExistsForDevice() {
     navigation.navigate("restoreBackup", { tab: "seedPhrase" });
   const goToRestoreReputation = () =>
     navigation.navigate("restoreReputation", route.params);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <View style={tw`items-center justify-center gap-8 grow`}>

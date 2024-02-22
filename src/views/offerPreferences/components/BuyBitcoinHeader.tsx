@@ -5,7 +5,7 @@ import tw from "../../../styles/tailwind";
 import { useTranslate } from "@tolgee/react";
 
 export function BuyBitcoinHeader(props: HeaderProps) {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   return (
     <Header
       {...props}

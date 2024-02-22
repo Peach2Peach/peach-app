@@ -18,7 +18,7 @@ export function TradeBreakdownPopup({ contract }: { contract: Contract }) {
     contract.releaseTxId
       ? showTransaction(contract.releaseTxId, NETWORK)
       : showAddress(contract.escrow, NETWORK);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <PopupComponent
@@ -50,7 +50,7 @@ function TradeBreakdown({
       releaseAddress,
       inputAmount: amount,
     });
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const data = [
     [

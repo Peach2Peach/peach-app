@@ -119,7 +119,7 @@ type PremiumProps = {
 };
 
 function Premium({ premium, setPremium, amount, offerPrice }: PremiumProps) {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <View style={tw`items-center justify-center grow gap-7`}>

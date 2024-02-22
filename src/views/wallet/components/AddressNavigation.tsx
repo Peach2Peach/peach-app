@@ -14,7 +14,7 @@ function AddressLabelInputByIndex({
 }: ComponentProps & { index: number }) {
   const fallback = { address: undefined, used: false, index };
   const { data: currentAddress = fallback } = useWalletAddress(index);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <View

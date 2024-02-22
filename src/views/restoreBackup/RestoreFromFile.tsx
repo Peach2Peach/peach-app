@@ -11,7 +11,7 @@ import { useRestoreFromFileSetup } from "./hooks/useRestoreFromFileSetup";
 import { useTranslate } from "@tolgee/react";
 
 export const RestoreFromFile = () => {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   const {
     restored,
     error,

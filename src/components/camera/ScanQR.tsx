@@ -22,7 +22,7 @@ export const ScanQR = ({ onRead, onCancel }: ScanQRProps) => (
 );
 
 function CustomMarker({ onCancel }: Pick<ScanQRProps, "onCancel">) {
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
   return (
     <View style={tw`w-full h-full`}>
       <CircleMask />

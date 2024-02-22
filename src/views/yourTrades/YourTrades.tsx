@@ -120,7 +120,7 @@ function TabBarBadge({
 
 function YourTradesHeader() {
   const navigation = useStackNavigation();
-  const { t } = useTranslate("buy");
+  const { t } = useTranslate();
   const onPress = () => {
     navigation.navigate("exportTradeHistory");
   };
@@ -131,7 +131,7 @@ function YourTradesHeader() {
         {
           ...headerIcons.share,
           onPress,
-          accessibilityHint: `${t("goTo", { ns: "global" })} ${t("exportTradeHistory.title", { ns: "unassigned" })}`,
+          accessibilityHint: `${t("goTo", { ns: "global" })} ${t("exportTradeHistory.title")}`,
         },
       ]}
       hideGoBackButton

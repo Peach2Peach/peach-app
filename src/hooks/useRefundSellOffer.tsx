@@ -90,7 +90,7 @@ export function useRefundSellOffer() {
 
 function RefundEscrowPopup({ txId }: { txId: string }) {
   const isPeachWallet = useSettingsStore((state) => state.refundToPeachWallet);
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <PopupComponent
@@ -116,7 +116,7 @@ function RefundEscrowPopup({ txId }: { txId: string }) {
 
 function ShowTxAction({ txId }: { txId: string }) {
   const closePopup = useClosePopup();
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   const showTx = () => {
     closePopup();

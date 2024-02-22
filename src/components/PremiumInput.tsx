@@ -43,7 +43,7 @@ export const PremiumInput = ({
         ? tw`text-success-main`
         : tw`text-primary-main`;
 
-  const { t } = useTranslate("unassigned");
+  const { t } = useTranslate();
 
   return (
     <View style={tw`flex-row items-center justify-between`}>

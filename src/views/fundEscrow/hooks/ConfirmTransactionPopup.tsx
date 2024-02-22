@@ -21,7 +21,7 @@ export function ConfirmTransactionPopup({
   psbt,
   onSuccess,
 }: Props) {
-  const { t } = useTranslate("global");
+  const { t } = useTranslate();
   const closePopup = useClosePopup();
   const handleTransactionError = useHandleTransactionError();
   const confirmAndSend = useCallback(async () => {
@@ -43,14 +43,12 @@ export function ConfirmTransactionPopup({
       actions={
         <>
           <PopupAction
-            label={t("cancel")}
+            label={t("cancel", { ns: "global" })}
             iconId="xCircle"
             onPress={closePopup}
           />
           <LoadingPopupAction
-            label={t("fundFromPeachWallet.confirm.confirmAndSend", {
-              ns: "unassigned",
-            })}
+            label={t("fundFromPeachWallet.confirm.confirmAndSend")}
             iconId="arrowRightCircle"
             onPress={confirmAndSend}
             reverseOrder

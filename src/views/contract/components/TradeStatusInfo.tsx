@@ -92,7 +92,7 @@ function SellerStatusText({ contract }: { contract: Contract }) {
   const sellOffer = offer && isSellOffer(offer) ? offer : null;
   const walletLabel = useWalletLabel({ address: sellOffer?.returnAddress });
   const text = !sellOffer
-    ? tolgee.t("loading", { ns: "unassigned" })
+    ? tolgee.t("loading")
     : getSellerStatusText({ contract, sellOffer, walletLabel });
 
   return <PeachText style={tw`md:body-l`}>{text}</PeachText>;

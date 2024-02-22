@@ -46,17 +46,17 @@ export const RestoreBackup = () => {
 };
 
 function OnboardingHeader() {
-  const { t } = useTranslate("global");
+  const { t } = useTranslate();
   const navigation = useStackNavigation();
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
   const { locale, updateLocale } = useLanguage();
 
   const openLanguageDrawer = () => {
     updateDrawer({
-      title: t("language.select"),
+      title: t("language.select", { ns: "global" }),
       options: i18n.getLocales().map((l) => ({
         // @ts-ignore
-        title: t(`languageName.${l}`),
+        title: t(`languageName.${l}`, { ns: "global" }),
         onPress: () => {
           updateLocale(l);
           updateDrawer({ show: false });
@@ -80,7 +80,7 @@ function OnboardingHeader() {
   ];
   return (
     <Header
-      title={t("restoreBackup.title", { ns: "unassigned" })}
+      title={t("restoreBackup.title")}
       icons={headerIcons}
       theme="transparent"
     />
