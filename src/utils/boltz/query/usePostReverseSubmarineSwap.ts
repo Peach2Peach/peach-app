@@ -5,6 +5,7 @@ import { getRandom } from "../../crypto/getRandom";
 import { round } from "../../math/round";
 import { peachLiquidWallet } from "../../wallet/setWallet";
 import { postReverseSubmarineSwap } from "../api/postReverseSubmarineSwap";
+import { BOLTZ_REFERRAL_CODE } from "../constants";
 
 const PREIMAGE_BYTES = 32;
 
@@ -23,7 +24,7 @@ const queryFn = async ({
     from,
     to,
     preimageHash: sha256(preimage).toString("hex"),
-    referralId: "peach", // TODO set real ref code
+    referralId: BOLTZ_REFERRAL_CODE,
     claimAddress: address,
     claimPublicKey,
     onchainAmount: round(amount * SATSINBTC),
