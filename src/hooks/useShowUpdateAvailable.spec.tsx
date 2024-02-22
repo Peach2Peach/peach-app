@@ -4,13 +4,12 @@ import { Toast } from "../components/toast/Toast";
 import { APPVERSION } from "../constants";
 import { useConfigStore } from "../store/configStore/configStore";
 import { useShowUpdateAvailable } from "./useShowUpdateAvailable";
-import { useTranslate } from "@tolgee/react";
+import { tolgee } from "../tolgee";
 
 jest.useFakeTimers();
 
 describe("useShowUpdateAvailable", () => {
   const definitelyHigherVersion = "99.99.99";
-  const { t } = useTranslate("error");
   beforeEach(() => {
     useConfigStore.getState().setLatestAppVersion(APPVERSION);
     useConfigStore.getState().setMinAppVersion(APPVERSION);
@@ -18,14 +17,14 @@ describe("useShowUpdateAvailable", () => {
   it("does not show update available banner if app version is above min/latest", () => {
     const { queryByText } = render(<Toast />);
     renderHook(useShowUpdateAvailable);
-    expect(queryByText(t("UPDATE_AVAILABLE.text"))).toBeFalsy();
+    expect(queryByText(tolgee.t("UPDATE_AVAILABLE.text"))).toBeFalsy();
   });
   it("does show update available banner if app version is not above latest", () => {
     useConfigStore.getState().setLatestAppVersion(definitelyHigherVersion);
     const { queryByText } = render(<Toast />);
     renderHook(useShowUpdateAvailable);
 
-    expect(queryByText(t("UPDATE_AVAILABLE.text"))).toBeTruthy();
+    expect(queryByText(tolgee.t("UPDATE_AVAILABLE.text"))).toBeTruthy();
   });
   it("does show critical update available banner if app version is not above min", () => {
     useConfigStore.getState().setMinAppVersion(definitelyHigherVersion);
@@ -33,7 +32,9 @@ describe("useShowUpdateAvailable", () => {
 
     renderHook(useShowUpdateAvailable);
 
-    expect(queryByText(t("CRITICAL_UPDATE_AVAILABLE.text"))).toBeTruthy();
+    expect(
+      queryByText(tolgee.t("CRITICAL_UPDATE_AVAILABLE.text")),
+    ).toBeTruthy();
   });
   it("does still show critical update available banner if app version is not above min/latest", () => {
     useConfigStore.getState().setLatestAppVersion(definitelyHigherVersion);
@@ -43,18 +44,20 @@ describe("useShowUpdateAvailable", () => {
 
     renderHook(useShowUpdateAvailable);
 
-    expect(queryByText(t("CRITICAL_UPDATE_AVAILABLE.text"))).toBeTruthy();
+    expect(
+      queryByText(tolgee.t("CRITICAL_UPDATE_AVAILABLE.text")),
+    ).toBeTruthy();
   });
   it("shows update banner should the min/latest version change during the session", () => {
     const { queryByText } = render(<Toast />);
     renderHook(useShowUpdateAvailable);
 
-    expect(queryByText(t("UPDATE_AVAILABLE.text"))).toBeFalsy();
+    expect(queryByText(tolgee.t("UPDATE_AVAILABLE.text"))).toBeFalsy();
 
     act(() => {
       useConfigStore.getState().setLatestAppVersion(definitelyHigherVersion);
     });
 
-    expect(queryByText(t("UPDATE_AVAILABLE.text"))).toBeTruthy();
+    expect(queryByText(tolgee.t("UPDATE_AVAILABLE.text"))).toBeTruthy();
   });
 });
