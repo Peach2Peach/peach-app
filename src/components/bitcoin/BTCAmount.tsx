@@ -62,6 +62,7 @@ export function BTCAmount({
       ]}
     >
       <View style={[tw`shrink-0`, styles[size].iconContainer]}>
+        {/* TODO add liquid&lightning logo options */}
         <Icon
           id={white ? "bitcoinTransparent" : "bitcoinLogo"}
           size={styles[size].iconSize}

@@ -1,5 +1,7 @@
 import { networks } from "liquidjs-lib";
+import { getResult } from "../../../peach-api/src/utils/result";
 import { account1 } from "../../../tests/unit/data/accountData";
+import { mempoolUTXO, utxo } from "../../../tests/unit/data/blockExplorerData";
 import { getError } from "../../../tests/unit/helpers/getError";
 import { useAccountStore } from "../account/account";
 import { PeachLiquidJSWallet } from "./PeachLiquidJSWallet";
@@ -7,60 +9,133 @@ import { createWalletFromBase58 } from "./createWalletFromBase58";
 import { getNetwork } from "./getNetwork";
 import { useLiquidWalletState } from "./useLiquidWalletState";
 
-// eslint-disable-next-line max-lines-per-function
+jest.mock("../liquid/getUTXO");
+const getUTXOMock = jest.requireMock("../liquid/getUTXO").getUTXO.mockResolvedValue(getResult([utxo]))
+
 describe("PeachLiquidJSWallet", () => {
   const wallet = createWalletFromBase58(account1.base58, getNetwork());
   const message = "message";
-  let peachJSWallet: PeachLiquidJSWallet;
+  let peachLiquidJSWallet: PeachLiquidJSWallet;
 
   beforeEach(() => {
-    useAccountStore.getState().setAccount(account1);
-    peachJSWallet = new PeachLiquidJSWallet({ wallet });
-  });
-  afterEach(() => {
     useLiquidWalletState.getState().reset();
+    useAccountStore.getState().setAccount(account1);
+    peachLiquidJSWallet = new PeachLiquidJSWallet({ wallet });
   });
+  afterEach(()=> {
+    useLiquidWalletState.getState().reset();
+  })
 
   it("instantiates", () => {
     const addresses = ["address1", "address2"];
     useLiquidWalletState.getState().setAddresses(addresses);
 
-    peachJSWallet = new PeachLiquidJSWallet({ wallet });
+    peachLiquidJSWallet = new PeachLiquidJSWallet({ wallet });
 
-    expect(peachJSWallet.jsWallet).toEqual(wallet);
-    expect(peachJSWallet.derivationPath).toEqual("m/49'/0'/0'");
-    expect(peachJSWallet.addresses).toBe(addresses);
+    expect(peachLiquidJSWallet.jsWallet).toEqual(wallet);
+    expect(peachLiquidJSWallet.derivationPath).toEqual("m/49'/0'/0'");
+    expect(peachLiquidJSWallet.addresses).toBe(addresses);
   });
   it("instantiates for mainnet", () => {
-    peachJSWallet = new PeachLiquidJSWallet({
+    peachLiquidJSWallet = new PeachLiquidJSWallet({
       wallet,
       network: networks.liquid,
     });
 
-    expect(peachJSWallet.jsWallet).toEqual(wallet);
-    expect(peachJSWallet.derivationPath).toEqual("m/49'/0'/0'");
+    expect(peachLiquidJSWallet.jsWallet).toEqual(wallet);
+    expect(peachLiquidJSWallet.derivationPath).toEqual("m/49'/0'/0'");
   });
-
-  it("finds key pair by address and stores scanned addresses", () => {
+  it("syncs wallet", async () => {
+    const expectedUTXOs = 50
+    const syncInProgress = peachLiquidJSWallet.syncWallet()
+    expect(peachLiquidJSWallet.syncInProgress).toBeDefined()
+    await syncInProgress;
+    expect(peachLiquidJSWallet.syncInProgress).toBeUndefined()
+    expect(peachLiquidJSWallet.utxos).toHaveLength(expectedUTXOs)
+    expect(peachLiquidJSWallet.utxos).toEqual(new Array(expectedUTXOs).fill(utxo))
+    expect(peachLiquidJSWallet.getBalance()).toEqual({
+      "confirmed": 10000000,
+      "spendable": 10000000,
+      "total": 10000000,
+      "trustedPending": 0,
+      "untrustedPending": 0,
+    })
+  });
+  it("waits for already running sync", async () => {
+    const expectedUTXOs = 50
+    jest.clearAllMocks();
+    const delay = 100;
+    const promise = new Promise((resolve) => setTimeout(()=> resolve(getResult([utxo])), delay));
+    getUTXOMock.mockReturnValueOnce(promise);
+    expect(peachLiquidJSWallet.syncInProgress).toBeUndefined();
+    peachLiquidJSWallet.syncWallet();
+    expect(peachLiquidJSWallet.syncInProgress).not.toBeUndefined();
+    peachLiquidJSWallet.syncWallet();
+    jest.runAllTimers();
+    await peachLiquidJSWallet.syncInProgress;
+    expect(peachLiquidJSWallet.syncInProgress).toBeUndefined();
+    expect(getUTXOMock).toHaveBeenCalledTimes(expectedUTXOs);
+  });
+  it("calculates balance", () => {
+    useLiquidWalletState.getState().setUTXO([utxo, mempoolUTXO])
+    expect(peachLiquidJSWallet.getBalance()).toEqual({
+      trustedPending: 0,
+      untrustedPending: 30000,
+      confirmed: 200000,
+      spendable: 230000,
+      total: 230000,
+    });
+  });
+  it("gets a new address", () => {
+    const { address } = peachLiquidJSWallet.getAddress();
+    const { address: address2 } = peachLiquidJSWallet.getAddress();
+    const { address: address3 } = peachLiquidJSWallet.getAddress();
+    expect(address).toBe("ex1qtznn7c8hfzpr4us5aymcfwfwk2p53xqg87hd5e");
+    expect(address2).toBe("ex1qv9463g64c2e0aslz0d5f4r0uq64pxm63s52ghw");
+    expect(address3).toBe("ex1q6ylwwkn3k5e8xncks4jcdf7z0gge2wh9q4eadn");
+  });
+  it("gets an address by index", () => {
     const addressIndex = 3;
-    const { address } = peachJSWallet.getAddress(addressIndex);
+    const { address } = peachLiquidJSWallet.getAddress(addressIndex);
 
     if (!address) throw Error();
-    const keyPair = peachJSWallet.findKeyPairByAddress(address);
+    expect(address).toBe("ex1qkc2val68mgnfsu2ccls9wl7z80382366pt3hya");
+  });
+  it("finds key pair by address and stores scanned addresses", () => {
+    const addressIndex = 3;
+    const { address } = peachLiquidJSWallet.getAddress(addressIndex);
+
+    if (!address) throw Error();
+    const keyPair = peachLiquidJSWallet.findKeyPairByAddress(address);
     expect(keyPair?.publicKey.toString("hex")).toBe(
       "0232e747d9af0ffde3c8343264cec29569f950620f3c263f364ba3b23e09cb045e",
     );
-    expect(peachJSWallet.addresses).toEqual([
+    expect(peachLiquidJSWallet.addresses).toEqual([
       "ex1qtznn7c8hfzpr4us5aymcfwfwk2p53xqg87hd5e",
       "ex1qv9463g64c2e0aslz0d5f4r0uq64pxm63s52ghw",
       "ex1q6ylwwkn3k5e8xncks4jcdf7z0gge2wh9q4eadn",
       "ex1qkc2val68mgnfsu2ccls9wl7z80382366pt3hya",
     ]);
   });
+  it("gets a new internal address", () => {
+    const { address } = peachLiquidJSWallet.getInternalAddress();
+    const { address: address2 } = peachLiquidJSWallet.getInternalAddress();
+    const { address: address3 } = peachLiquidJSWallet.getInternalAddress();
+    expect(address).toBe("ex1q23fk98zwakjm5c4n0wgmyen60glhzp4eaf23wx");
+    expect(address2).toBe("ex1qyn8kqchusa6jfs6nhs88axr48cwfjz6k84mmqv");
+    expect(address3).toBe("ex1qa80hcqa0lesumd0mny76kgy356fprs3434kx22");
+  });
+  it("gets an internal address by index", () => {
+    const addressIndex = 3;
+    const { address } = peachLiquidJSWallet.getInternalAddress(addressIndex);
+
+    if (!address) throw Error();
+    expect(address).toBe("ex1qczr0spjq8ws09ptp3zwdh6kx4l3hcmyfj8vwhh");
+  });
 
   it("signs an arbitrary message", () => {
     const address = "ex1qtznn7c8hfzpr4us5aymcfwfwk2p53xqg87hd5e";
-    const signature = peachJSWallet.signMessage(message, address);
+    const signature = peachLiquidJSWallet.signMessage(message, address);
     // eslint-disable-next-line max-len
     expect(signature).toBe(
       "AkgwRQIhANLsNrqf6mEdi9/1bP1FvzZauDKfvnrFr5ZYyLZlx1yDAiAp6KSvW1ozHKmMj6scf6S1wQw0pUOl+JG++BeE/TYViwEhA5rsQTOPc8x49uK4N6dhtU16Qb2KvXKKMoywMqJ47/YR",
@@ -69,10 +144,10 @@ describe("PeachLiquidJSWallet", () => {
   it("signs an arbitrary message with index", () => {
     const address = "ex1qtznn7c8hfzpr4us5aymcfwfwk2p53xqg87hd5e";
     const findKeyPairByAddressSpy = jest.spyOn(
-      peachJSWallet,
+      peachLiquidJSWallet,
       "findKeyPairByAddress",
     );
-    const signature = peachJSWallet.signMessage(message, address, 0);
+    const signature = peachLiquidJSWallet.signMessage(message, address, 0);
     expect(findKeyPairByAddressSpy).not.toHaveBeenCalled();
     // eslint-disable-next-line max-len
     expect(signature).toBe(
@@ -83,7 +158,7 @@ describe("PeachLiquidJSWallet", () => {
   it("throws an error if address is not part of wallet", async () => {
     const address = "bcrt1qdoesnotexist";
     const error = await getError<Error>(() =>
-      peachJSWallet.signMessage(message, address),
+      peachLiquidJSWallet.signMessage(message, address),
     );
     expect(error.message).toBe("Address not part of wallet");
   });

@@ -14,9 +14,10 @@ const queryFn = async ({
 }: {
   queryKey: ["boltz", "reverse", string, string, string, number];
 }) => {
+  if (!peachLiquidWallet) throw Error('WALLET_NOT_READY')
   const [, , from, to, address, amount] = queryKey;
   const preimage = await getRandom(PREIMAGE_BYTES);
-  const keyPair = peachLiquidWallet.getInternalKeyPair(0); // TODO get unused keypair
+  const keyPair = peachLiquidWallet.getInternalKeyPair(peachLiquidWallet.internalAddresses.length + 1);
   const claimPublicKey = peachLiquidWallet
     .getInternalKeyPair(0)
     .publicKey.toString("hex");

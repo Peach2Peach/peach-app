@@ -26,7 +26,7 @@ import { peachLiquidWallet } from "../../../utils/wallet/setWallet";
 const liquidAddressRules = { required: false, liquidAddress: true };
 
 export const TestViewLiquidWallet = () => {
-  const balance = 0;
+  const balance = peachLiquidWallet?.balance || 0;
   const [address, setAddress, , addressErrors] = useValidatedState<string>(
     "",
     liquidAddressRules,
@@ -34,13 +34,15 @@ export const TestViewLiquidWallet = () => {
 
   const [amount, setAmount] = useState("0");
   const [txId] = useState("");
-  const getNewAddress = async () => {
-    const newAddress = await peachLiquidWallet.getAddress();
+  const getNewAddress = () => {
+    if (!peachLiquidWallet) return
+    const {address: newAddress} = peachLiquidWallet.getAddress();
     if (newAddress) setAddress(newAddress);
   };
   const isRefetching = false;
-  const getNewInternalAddress = async () => {
-    const newAddress = await peachLiquidWallet.getInternalAddress();
+  const getNewInternalAddress = () => {
+    if (!peachLiquidWallet) return
+    const {address: newAddress} = peachLiquidWallet.getInternalAddress();
     if (newAddress) setAddress(newAddress);
   };
   const send = () => {
@@ -50,7 +52,7 @@ export const TestViewLiquidWallet = () => {
     Alert.alert("TODO");
   };
   const refetch = () => {
-    Alert.alert("TODO");
+    peachLiquidWallet?.syncWallet()
   };
 
   return (
@@ -119,9 +121,10 @@ function SignMessage() {
   const [userId, setUserId] = useState(defaultUserId);
   const [address, setAddress] = useState("");
   const [signature, setSignature] = useState("");
-  const onPress = async () => {
+  const onPress = () => {
+    if (!peachLiquidWallet) return
     const message = getMessageToSignForAddress(userId, address);
-    const sig = await peachLiquidWallet.signMessage(message, address);
+    const sig = peachLiquidWallet.signMessage(message, address);
     setSignature(sig);
   };
 
