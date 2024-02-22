@@ -1,5 +1,5 @@
 import { fireEvent, render, renderHook, waitFor } from "test-utils";
-import { estimatedFees } from "../../../../tests/unit/data/bitcoinNetworkData";
+import { estimatedFees as mockEstimatedFees } from "../../../../tests/unit/data/bitcoinNetworkData";
 import { transactionError } from "../../../../tests/unit/data/errors";
 import {
   bdkTransactionWithRBF1,
@@ -12,21 +12,20 @@ import {
 } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { getTransactionDetails } from "../../../../tests/unit/helpers/getTransactionDetails";
-import { Popup } from "../../../components/popup/Popup";
+import { GlobalPopup } from "../../../components/popup/GlobalPopup";
 import i18n from "../../../utils/i18n";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { useBumpFees } from "./useBumpFees";
 
-const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees });
 jest.mock("../../../hooks/query/useFeeEstimate", () => ({
-  useFeeEstimate: () => useFeeEstimateMock(),
+  useFeeEstimate: () => ({ estimatedFees: mockEstimatedFees }),
 }));
 
-const showErrorBannerMock = jest.fn();
+const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
+  useShowErrorBanner: () => mockShowErrorBanner,
 }));
 jest.useFakeTimers();
 
@@ -69,7 +68,7 @@ describe("useBumpFees", () => {
 
     await result.current();
 
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(
       queryByText(i18n("wallet.bumpNetworkFees.confirmRbf.title")),
     ).toBeFalsy();
@@ -79,7 +78,7 @@ describe("useBumpFees", () => {
 
     await result.current();
 
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(
       queryByText(i18n("wallet.bumpNetworkFees.confirmRbf.title")),
     ).toBeTruthy();
@@ -95,7 +94,7 @@ describe("useBumpFees", () => {
 
     await result.current();
 
-    const { getByText, queryByText } = render(<Popup />);
+    const { getByText, queryByText } = render(<GlobalPopup />);
     fireEvent.press(getByText("confirm & send"));
     expect(queryByText("increasing fees")).toBeTruthy();
 
@@ -120,7 +119,7 @@ describe("useBumpFees", () => {
     const { result } = renderHook(useBumpFees, { initialProps });
 
     await result.current();
-    expect(showErrorBannerMock).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+    expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
       "78999997952",
       "1089000",
     ]);
@@ -137,11 +136,11 @@ describe("useBumpFees", () => {
     const { result } = renderHook(useBumpFees, { initialProps });
 
     await result.current();
-    const { getByText, queryByText } = render(<Popup />);
+    const { getByText, queryByText } = render(<GlobalPopup />);
     fireEvent.press(getByText("confirm & send"));
 
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
         "78999997952",
         "1089000",
       ]);

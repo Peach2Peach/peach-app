@@ -3,7 +3,7 @@ import { ViewStyle } from "react-native";
 import { IconType } from "../../../assets/icons";
 import { PeachScrollView } from "../../../components/PeachScrollView";
 import { Screen } from "../../../components/Screen";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import tw from "../../../styles/tailwind";
 import i18n, { languageState } from "../../../utils/i18n";
 import { getLocalizedLink } from "../../../utils/web/getLocalizedLink";
@@ -11,7 +11,7 @@ import { openURL } from "../../../utils/web/openURL";
 import { SettingsItem } from "../components/SettingsItem";
 
 export const AboutPeach = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const items: {
     title: string;

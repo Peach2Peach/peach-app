@@ -3,13 +3,10 @@ import { contractSummary } from "../../../../../tests/unit/data/contractSummaryD
 import { TradeIdBubble } from "./TradeIdBubble";
 
 const goToContract = jest.fn();
+jest.mock("../../../../hooks/useTradeNavigation");
 const useNavigateToOfferOrContractMock = jest
-  .fn()
-  .mockReturnValue(goToContract);
-jest.mock("../../../../hooks/useTradeNavigation", () => ({
-  useTradeNavigation: (...args: unknown[]) =>
-    useNavigateToOfferOrContractMock(...args),
-}));
+  .requireMock("../../../../hooks/useTradeNavigation")
+  .useTradeNavigation.mockReturnValue(goToContract);
 
 describe("TradeIdBubble", () => {
   it("renders correctly", () => {

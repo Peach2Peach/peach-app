@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useRef, useState } from "react";
 import {
@@ -19,18 +18,19 @@ import { TouchableIcon } from "../../components/TouchableIcon";
 import { Button } from "../../components/buttons/Button";
 import { Checkbox } from "../../components/inputs/Checkbox";
 import { Toggle } from "../../components/inputs/Toggle";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
-import { HelpPopup } from "../../hooks/HelpPopup";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
-import { useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { marketKeys, useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
+import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
@@ -41,6 +41,7 @@ import { convertFiatToSats } from "../../utils/market/convertFiatToSats";
 import { getTradingAmountLimits } from "../../utils/market/getTradingAmountLimits";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
+import { saveOffer } from "../../utils/offer/saveOffer";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
 import { peachAPI } from "../../utils/peachAPI";
@@ -64,8 +65,8 @@ import { SliderTrack } from "./components/SliderTrack";
 import { useFilteredMarketStats } from "./components/useFilteredMarketStats";
 import { trackMin } from "./utils/constants";
 import { enforceDigitFormat } from "./utils/enforceDigitFormat";
-import { publishSellOffer } from "./utils/publishSellOffer";
 import { useAmountInBounds } from "./utils/useAmountInBounds";
+import { usePostSellOffer } from "./utils/usePostSellOffer";
 import { useRestrictSatsAmount } from "./utils/useRestrictSatsAmount";
 import { useTrackWidth } from "./utils/useTrackWidth";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
@@ -107,7 +108,7 @@ function usePastOffersStats({
   meansOfPayment: MeansOfPayment;
 }) {
   return useQuery({
-    queryKey: ["market", "pastOffers", "stats", { meansOfPayment }] as const,
+    queryKey: marketKeys.filteredPastOfferStats(meansOfPayment),
     queryFn: async (context) => {
       const preferences = context.queryKey[3];
       const { result } =
@@ -530,7 +531,7 @@ function FundWithPeachWallet({
   const feeEstimate = useFeeEstimate();
   const estimatedFeeRate =
     typeof feeRate === "number" ? feeRate : feeEstimate.estimatedFees[feeRate];
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const onPress = () => navigation.navigate("networkFees");
   return (
     <Section.Container style={tw`flex-row justify-between`}>
@@ -566,15 +567,10 @@ function FundEscrowButton({
     setSellAmount(restrictAmount(sellAmount));
   }
 
-  const [refundToPeachWallet, refundAddress, refundAddressLabel] =
-    useSettingsStore(
-      (state) => [
-        state.refundToPeachWallet,
-        state.refundAddress,
-        state.refundAddressLabel,
-      ],
-      shallow,
-    );
+  const [refundToPeachWallet, refundAddress] = useSettingsStore(
+    (state) => [state.refundToPeachWallet, state.refundAddress],
+    shallow,
+  );
 
   const sellPreferences = useOfferPreferences(
     (state) => ({
@@ -596,16 +592,9 @@ function FundEscrowButton({
     sellAmountIsValid &&
     paymentMethodsAreValid &&
     !!sellPreferences.originalPaymentData.length;
-  const navigation = useNavigation();
   const showErrorBanner = useShowErrorBanner();
 
-  const fundFromPeachWallet = useFundFromPeachWallet();
-
-  const getFundMultipleByOfferId = useWalletState(
-    (state) => state.getFundMultipleByOfferId,
-  );
-  const { mutate: createEscrow } = useCreateEscrow();
-  const queryClient = useQueryClient();
+  const { mutate: postSellOffer } = usePostSellOffer();
 
   const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
 
@@ -657,8 +646,18 @@ function FundEscrowButton({
     showErrorBanner(errorMessage, errorArgs);
   };
 
+  const queryClient = useQueryClient();
+  const [registerFundMultiple, getFundMultipleByOfferId] = useWalletState(
+    (state) => [state.registerFundMultiple, state.getFundMultipleByOfferId],
+    shallow,
+  );
+  const { mutate: createEscrow } = useCreateEscrow();
+  const navigation = useStackNavigation();
+  const fundFromPeachWallet = useFundFromPeachWallet();
+
   const onPress = async () => {
     if (isPublishing) return;
+    if (!peachWallet) throw new Error("Peach wallet not defined");
     if (!formValid) {
       showPublishingError();
       return;
@@ -672,69 +671,92 @@ function FundEscrowButton({
       return;
     }
     const paymentData = await getPaymentData();
-    const { isPublished, navigationParams, errorMessage, errorDetails } =
-      await publishSellOffer({
+
+    postSellOffer(
+      {
         ...sellPreferences,
         paymentData,
         type: "ask",
-        walletLabel: refundToPeachWallet
-          ? i18n("peachWallet")
-          : refundAddressLabel,
         returnAddress: address,
-      });
-    if (isPublished) {
-      const fundMultiple = getFundMultipleByOfferId(navigationParams.offerId);
-      const offerIds = fundMultiple?.offerIds || [navigationParams.offerId];
-
-      createEscrow(offerIds, {
-        onSuccess: async (res) => {
-          let fundFromPeachWalletPromise;
-
-          if (fundWithPeachWallet) {
-            const amount = getFundingAmount(
-              fundMultiple,
-              sellPreferences.amount,
-            );
-            const fundingAddress =
-              fundMultiple?.address ||
-              res.find((e) => e?.offerId === navigationParams.offerId)?.escrow;
-            const fundingAddresses = res.filter(isDefined).map((e) => e.escrow);
-            fundFromPeachWalletPromise = await fundFromPeachWallet({
-              offerId: navigationParams.offerId,
-              amount,
-              address: fundingAddress,
-              addresses: fundingAddresses,
-            });
-          }
-
-          navigation.reset({
-            index: 1,
-            routes: [
-              {
-                name: "homeScreen",
-                params: {
-                  screen: "yourTrades",
-                  params: { tab: "yourTrades.sell" },
-                },
-              },
-              { name: "fundEscrow", params: navigationParams },
-            ],
-          });
-          offerIds.forEach((id) =>
-            queryClient.invalidateQueries({ queryKey: ["offer", id] }),
-          );
-          return fundFromPeachWalletPromise;
-        },
-        onError: () => {
+      },
+      {
+        onError: (error) => {
+          showErrorBanner(error.message);
           setIsPublishing(false);
         },
-      });
-    } else if (errorMessage) {
-      showErrorBanner(errorMessage, errorDetails);
-      setIsPublishing(false);
-    } else {
-      setIsPublishing(false);
-    }
+        onSuccess: async (result, offerDraft) => {
+          if (!Array.isArray(result)) {
+            saveOffer({ ...offerDraft, ...result });
+          } else {
+            if (!peachWallet) throw new Error("Peach wallet not defined");
+            result.forEach((offer) => saveOffer({ ...offerDraft, ...offer }));
+
+            const internalAddress = await peachWallet.getInternalAddress();
+            const diffToNextAddress = 10;
+            const newInternalAddress = await peachWallet.getInternalAddress(
+              internalAddress.index + diffToNextAddress,
+            );
+            registerFundMultiple(
+              newInternalAddress.address,
+              result.map((offer) => offer.id),
+            );
+          }
+          const navigationParams = {
+            offerId: Array.isArray(result) ? result[0].id : result.id,
+          };
+
+          const fundMultiple = getFundMultipleByOfferId(
+            navigationParams.offerId,
+          );
+          const offerIds = fundMultiple?.offerIds || [navigationParams.offerId];
+          createEscrow(offerIds, {
+            onSuccess: async (res) => {
+              if (fundWithPeachWallet) {
+                const amount = getFundingAmount(
+                  fundMultiple,
+                  offerDraft.amount,
+                );
+                const fundingAddress =
+                  fundMultiple?.address ||
+                  res.find((e) => e?.offerId === navigationParams.offerId)
+                    ?.escrow;
+                const fundingAddresses = res
+                  .filter(isDefined)
+                  .map((e) => e.escrow);
+                await fundFromPeachWallet({
+                  offerId: navigationParams.offerId,
+                  amount,
+                  address: fundingAddress,
+                  addresses: fundingAddresses,
+                });
+              }
+
+              navigation.reset({
+                index: 1,
+                routes: [
+                  {
+                    name: "homeScreen",
+                    params: {
+                      screen: "yourTrades",
+                      params: { tab: "yourTrades.sell" },
+                    },
+                  },
+                  { name: "fundEscrow", params: navigationParams },
+                ],
+              });
+
+              return Promise.all(
+                offerIds.map((id) =>
+                  queryClient.invalidateQueries({
+                    queryKey: offerKeys.detail(id),
+                  }),
+                ),
+              );
+            },
+          });
+        },
+      },
+    );
   };
 
   const keyboardIsOpen = useKeyboard();
@@ -769,7 +791,7 @@ function RefundWalletSelector() {
     ],
     shallow,
   );
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const onExternalWalletPress = () => {
     if (refundAddress) {

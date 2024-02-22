@@ -7,24 +7,27 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { GetMatchesResponseBody } from "../../../peach-api/src/@types/api/offerAPI";
-import { AppPopup } from "../../hooks/AppPopup";
+import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
-import { useNavigation } from "../../hooks/useNavigation";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { AppPopup } from "../../popups/AppPopup";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { error } from "../../utils/log/error";
 import { isLimitReached } from "../../utils/match/isLimitReached";
 import { saveOffer } from "../../utils/offer/saveOffer";
+import { parseError } from "../../utils/parseError";
 import { cleanPaymentData } from "../../utils/paymentMethod/cleanPaymentData";
 import { encryptPaymentData } from "../../utils/paymentMethod/encryptPaymentData";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
 import { peachAPI } from "../../utils/peachAPI";
-import { parseError } from "../../utils/result/parseError";
 import { decryptSymmetricKey } from "../../views/contract/helpers/decryptSymmetricKey";
+import { matchesKeys } from "../../views/search/hooks/useOfferMatches";
 import { Icon } from "../Icon";
 import { ProfileInfo } from "../ProfileInfo";
 import { NewBubble as Bubble } from "../bubble/Bubble";
-import { useSetPopup } from "../popup/Popup";
+import { useSetPopup } from "../popup/GlobalPopup";
 import { PeachText } from "../text/PeachText";
 import { HorizontalLine } from "../ui/HorizontalLine";
 import { options } from "./buttons/options";
@@ -160,7 +163,7 @@ function MatchOfferButton({
   currentPage,
 }: MatchButtonProps) {
   const currentOption = options[optionName];
-  const { mutate } = useMatchAsSeller(offer, match, currentPage);
+  const { mutate } = useAcceptMatch(offer, match, currentPage);
 
   const onPress = () => {
     if (optionName === "acceptMatch") {
@@ -186,23 +189,24 @@ function MatchOfferButton({
   );
 }
 
-function useMatchAsSeller(offer: SellOffer, match: Match, currentPage: number) {
+function useAcceptMatch(offer: SellOffer, match: Match, currentPage: number) {
   const { selectedCurrency, selectedPaymentMethod, offerId } = match;
   const queryClient = useQueryClient();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const handleError = useHandleError();
   const setPopup = useSetPopup();
   const handleMissingPaymentData = useHandleMissingPaymentData();
 
   return useMutation({
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ["matches", offer.id] });
-      const previousData = queryClient.getQueryData<GetMatchesResponseBody>([
-        "matches",
-        offer.id,
-      ]);
+      await queryClient.cancelQueries({
+        queryKey: matchesKeys.matchesForOffer(offer.id),
+      });
+      const previousData = queryClient.getQueryData<GetMatchesResponseBody>(
+        matchesKeys.matchesForOffer(offer.id),
+      );
       queryClient.setQueryData(
-        ["matches", offer.id],
+        matchesKeys.matchesForOffer(offer.id),
         (oldQueryData: InfiniteData<GetMatchesResponseBody> | undefined) =>
           updateMatchedStatus(oldQueryData, offerId, currentPage),
       );
@@ -231,7 +235,7 @@ function useMatchAsSeller(offer: SellOffer, match: Match, currentPage: number) {
       if (err) handleError(err);
       throw new Error("OFFER_TAKEN");
     },
-    onError: (err: Error, _variables, context) => {
+    onError: (err, _variables, context) => {
       const errorMsg = parseError(err);
 
       if (
@@ -255,9 +259,12 @@ function useMatchAsSeller(offer: SellOffer, match: Match, currentPage: number) {
           );
         handleError({ error: errorMsg });
       }
-      queryClient.setQueryData(["matches", offer.id], context?.previousData);
+      queryClient.setQueryData(
+        matchesKeys.matchesForOffer(offer.id),
+        context?.previousData,
+      );
     },
-    onSuccess: async (result: MatchResponse) => {
+    onSuccess: async (result) => {
       if ("refundTx" in result && result.refundTx) {
         const refundTx = await createRefundTx(offer, result.refundTx);
         saveOffer({
@@ -271,11 +278,18 @@ function useMatchAsSeller(offer: SellOffer, match: Match, currentPage: number) {
         navigation.replace("contract", { contractId: result.contractId });
       }
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["matches", offer.id] });
-      queryClient.invalidateQueries({ queryKey: ["offerSummaries"] });
-      queryClient.invalidateQueries({ queryKey: ["contractSummaries"] });
-    },
+    onSettled: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: offerKeys.detail(offer.id) }),
+        queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
+        queryClient.invalidateQueries({
+          queryKey: matchesKeys.matchesForOffer(offer.id),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: matchesKeys.matchDetail(offer.id, match.offerId),
+        }),
+        queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
+      ]),
   });
 }
 

@@ -1,24 +1,24 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
-import { useWriteCSV } from "../../hooks/useWriteCSV";
+import { writeCSV } from "../../hooks/writeCSV";
 import tw from "../../styles/tailwind";
 import { toShortDateFormat } from "../../utils/date/toShortDateFormat";
 import { createCSV } from "../../utils/file/createCSV";
 import i18n from "../../utils/i18n";
-import { useWalletState } from "../../utils/wallet/walletStore";
-import { getTxSummary } from "./helpers/getTxSummary";
+import { isDefined } from "../../utils/validation/isDefined";
+import { useTxSummaries } from "./helpers/useTxSummaries";
 
 export const ExportTransactionHistory = () => {
-  const transactions = useWalletState((state) => state.transactions);
-
-  const openShareMenu = useWriteCSV();
+  const queriesData = useTxSummaries();
 
   const onPress = async () => {
-    const csvValue = createCSVValue(transactions);
-    await openShareMenu(csvValue, "transaction-history.csv");
+    const transactionSummaries = queriesData
+      .map((query) => query.data)
+      .filter(isDefined);
+    const csvValue = createCSVValue(transactionSummaries);
+    await writeCSV(csvValue, "transaction-history.csv");
   };
 
   return (
@@ -39,17 +39,14 @@ export const ExportTransactionHistory = () => {
   );
 };
 
-function createCSVValue(transactions: TransactionDetails[]) {
+function createCSVValue(transactionSummaries: TransactionSummary[]) {
   const headers = ["Date", "Type", "Amount", "Transaction ID"];
   const fields = {
-    Date: (d: TransactionDetails) => {
-      const { date } = getTxSummary(d);
-      return toShortDateFormat(date, true);
-    },
-    Type: (d: TransactionDetails) => getTxSummary(d).type,
-    Amount: (d: TransactionDetails) => getTxSummary(d).amount,
-    "Transaction ID": (d: TransactionDetails) => getTxSummary(d).id,
+    Date: ({ date }: TransactionSummary) => toShortDateFormat(date, true),
+    Type: ({ type }: TransactionSummary) => type,
+    Amount: ({ amount }: TransactionSummary) => amount,
+    "Transaction ID": ({ id }: TransactionSummary) => id,
   };
 
-  return createCSV(transactions, headers, fields);
+  return createCSV(transactionSummaries, headers, fields);
 }

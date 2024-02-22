@@ -5,6 +5,7 @@ import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { useLastUnusedAddress, useWalletAddress } from "../hooks";
+import { walletKeys } from "../hooks/useUTXOs";
 import { AddressLabelInput } from "./AddressLabelInput";
 
 function AddressLabelInputByIndex({
@@ -39,8 +40,12 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
   const nextAddress = () => {
     setIndex(index + 1);
     queryClient.prefetchQuery({
-      queryKey: ["receiveAddress", index + 2],
-      queryFn: () => peachWallet.getAddressByIndex(index + 2),
+      queryKey: walletKeys.addressByIndex(index + 2),
+      queryFn: () => {
+        if (!peachWallet)
+          return Promise.reject(new Error("Peach wallet not defined"));
+        return peachWallet.getAddressByIndex(index + 2);
+      },
     });
   };
 
@@ -49,8 +54,12 @@ export const AddressNavigation = ({ setIndex, index }: Props) => {
     setIndex(index - 1);
     if (index > 1) {
       queryClient.prefetchQuery({
-        queryKey: ["receiveAddress", index - 2],
-        queryFn: () => peachWallet.getAddressByIndex(index - 2),
+        queryKey: walletKeys.addressByIndex(index - 2),
+        queryFn: () => {
+          if (!peachWallet)
+            return Promise.reject(new Error("Peach wallet not defined"));
+          return peachWallet.getAddressByIndex(index - 2);
+        },
       });
     }
   };

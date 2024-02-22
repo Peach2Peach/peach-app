@@ -8,7 +8,7 @@ import { Loading } from "../../components/animation/Loading";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { useRoute } from "../../hooks/useRoute";
-import { userUpdate } from "../../init/userUpdate";
+import { useUserUpdate } from "../../init/useUserUpdate";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { storeAccount } from "../../utils/account/storeAccount";
@@ -24,6 +24,7 @@ export const RestoreReputation = () => {
     (state) => [state.account, state.setIsLoggedIn],
     shallow,
   );
+  const userUpdate = useUserUpdate();
 
   const restoreReputation = async () => {
     setIsLoading(true);
@@ -63,7 +64,7 @@ export const RestoreReputation = () => {
 
           <Button
             style={tw`self-center bg-primary-background-light`}
-            textColor={tw`text-primary-main`}
+            textColor={tw.color("primary-main")}
             onPress={restoreReputation}
           >
             {i18n("restoreBackup.restoreReputation")}

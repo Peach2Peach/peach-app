@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { Transaction } from "bitcoinjs-lib";
+import { walletKeys } from "./useUTXOs";
 
 type Props = {
   localTx?: TransactionDetails;
@@ -8,7 +9,9 @@ type Props = {
 
 export const useMappedTransactionDetails = ({ localTx }: Props) =>
   useQuery({
-    queryKey: ["transaction", "serialized", localTx?.transaction?.id],
+    queryKey: walletKeys.serializedTransaction(
+      localTx?.transaction?.id ?? null,
+    ),
     queryFn: async () => {
       if (!localTx?.transaction) throw new Error("Transaction not found");
 

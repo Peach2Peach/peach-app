@@ -1,14 +1,14 @@
-import { useClosePopup } from "../components/popup/Popup";
+import { useClosePopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
-import { useNavigation } from "../hooks/useNavigation";
+import { useStackNavigation } from "../hooks/useStackNavigation";
 import i18n from "../utils/i18n";
 import { offerIdToHex } from "../utils/offer/offerIdToHex";
 
 export function OfferOutsideRangePopup({ offerId }: { offerId: string }) {
   const closePopup = useClosePopup();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const goToOffer = () => {
     closePopup();
     navigation.navigate("offer", { offerId });

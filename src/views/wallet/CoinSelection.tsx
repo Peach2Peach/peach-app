@@ -7,10 +7,10 @@ import { Screen } from "../../components/Screen";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { Button } from "../../components/buttons/Button";
 import { Checkbox } from "../../components/inputs/Checkbox";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
-import { HelpPopup } from "../../hooks/HelpPopup";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -127,7 +127,7 @@ function UTXOItem({
 }
 
 function ConfirmButton({ selectedUTXOIds }: { selectedUTXOIds: string[] }) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setSelectedUTXOIds = useWalletState(
     (state) => state.setSelectedUTXOIds,
   );

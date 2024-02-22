@@ -2,14 +2,16 @@ import { fireEvent, render, waitFor } from "test-utils";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { useOfferPreferences } from "../../store/offerPreferenes";
+import { matchesKeys } from "../../views/search/hooks/useOfferMatches";
 import { SellSorters } from "./SellSorters";
 
 jest.useFakeTimers();
 
 const closePopup = jest.fn();
-jest.mock("../../components/popup/Popup", () => ({
-  useClosePopup: () => closePopup,
-}));
+jest.mock("../../components/popup/GlobalPopup");
+jest
+  .requireMock("../../components/popup/GlobalPopup")
+  .useClosePopup.mockReturnValue(closePopup);
 
 describe("SellSorters", () => {
   it("should render correctly", () => {
@@ -33,11 +35,16 @@ describe("ApplySellSorterAction", () => {
   });
 
   it("should invalidate all matches queries", async () => {
-    queryClient.setQueryData(["matches"], { matches: [] });
-    queryClient.setQueryData(["matches", sellOffer.id], { matches: [] });
-    queryClient.setQueryData(["matches", sellOffer.id, "bestReputation"], {
+    queryClient.setQueryData(matchesKeys.matches, { matches: [] });
+    queryClient.setQueryData(matchesKeys.matchesForOffer(sellOffer.id), {
       matches: [],
     });
+    queryClient.setQueryData(
+      matchesKeys.sortedMatchesForOffer(sellOffer.id, ["bestReputation"]),
+      {
+        matches: [],
+      },
+    );
 
     const { getByText } = render(<SellSorters />);
     const applyButton = getByText("apply");
@@ -45,22 +52,28 @@ describe("ApplySellSorterAction", () => {
     fireEvent.press(applyButton);
 
     await waitFor(() => {
-      expect(queryClient.getQueryState(["matches"])?.isInvalidated).toBe(true);
       expect(
-        queryClient.getQueryState(["matches", sellOffer.id])?.isInvalidated,
+        queryClient.getQueryState(matchesKeys.matches)?.isInvalidated,
       ).toBe(true);
       expect(
-        queryClient.getQueryState(["matches", sellOffer.id, "bestReputation"])
+        queryClient.getQueryState(matchesKeys.matchesForOffer(sellOffer.id))
           ?.isInvalidated,
+      ).toBe(true);
+      expect(
+        queryClient.getQueryState(
+          matchesKeys.sortedMatchesForOffer(sellOffer.id, ["bestReputation"]),
+        )?.isInvalidated,
       ).toBe(true);
     });
   });
 
-  it("should close the popup", () => {
+  it("should close the popup", async () => {
     const { getByText } = render(<SellSorters />);
     const applyButton = getByText("apply");
 
     fireEvent.press(applyButton);
-    expect(closePopup).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(closePopup).toHaveBeenCalled();
+    });
   });
 });

@@ -6,8 +6,7 @@ import { App } from "./src/App";
 import { name as appName } from "./src/app.json";
 import { error } from "./src/utils/log/error";
 import { info } from "./src/utils/log/info";
-import { updateUser } from "./src/utils/peachAPI/updateUser";
-import { parseError } from "./src/utils/result/parseError";
+import { parseError } from "./src/utils/parseError";
 import { isIOS } from "./src/utils/system/isIOS";
 import { isProduction } from "./src/utils/system/isProduction";
 import { useNotificationStore } from "./src/views/home/notificationsStore";
@@ -24,10 +23,9 @@ try {
 
     info("Message handled in the background!", remoteMessage);
   });
-  messaging().onTokenRefresh((fcmToken) => updateUser({ fcmToken }));
 } catch (e) {
   error(
-    "messaging().setBackgroundMessageHandler/onTokenRefresh - Push notifications not supported",
+    "messaging().setBackgroundMessageHandler - Push notifications not supported",
     parseError(e),
   );
 }

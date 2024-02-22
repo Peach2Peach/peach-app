@@ -13,11 +13,8 @@ jest.mock("react-native", () => ({
     },
   },
 }));
-const isIOSMock = jest.fn();
-jest.mock("./isIOS", () => ({
-  isIOS: () => isIOSMock(),
-}));
-
+jest.mock("./isIOS");
+const isIOSMock = jest.requireMock("./isIOS").isIOS;
 jest.mock("./getDeviceLocale", () => ({
   ...jest.requireActual("./getDeviceLocale"),
 }));

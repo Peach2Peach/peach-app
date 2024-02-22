@@ -13,9 +13,10 @@ const useContractContextMock = jest.fn().mockReturnValue({
     },
   },
 });
-jest.mock("../context", () => ({
-  useContractContext: () => useContractContextMock(),
-}));
+jest.mock("../context");
+jest
+  .requireMock("../context")
+  .useContractContext.mockImplementation(useContractContextMock);
 jest.useFakeTimers();
 
 describe("PendingPayoutInfo", () => {

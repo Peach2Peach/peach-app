@@ -8,12 +8,12 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { CurrencySelection } from "../../components/inputs/paymentForms/components";
 import { DeletePaymentMethodPopup } from "../../components/payment/components/DeletePaymentMethodPopup";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
-import { HelpPopup } from "../../hooks/HelpPopup";
 import { useGoToOrigin } from "../../hooks/useGoToOrigin";
 import { useRoute } from "../../hooks/useRoute";
 import { PAYMENTMETHODINFOS } from "../../paymentMethods";
+import { HelpPopup } from "../../popups/HelpPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
@@ -24,7 +24,7 @@ import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData
 import { FormInput } from "./FormInput";
 import { LabelInput } from "./LabelInput";
 import { TabbedFormNavigation } from "./TabbedFormNavigation";
-import { useFormFields } from "./useFormFields";
+import { usePaymentMethodInfo } from "./usePaymentMethodInfo";
 
 export type FormType = Record<PaymentMethodField, string> & {
   paymentMethodName: string;
@@ -41,7 +41,8 @@ export const PaymentMethodForm = () => {
 
   const { type: paymentMethod, id, country, label } = paymentData;
 
-  const fields = useFormFields(paymentMethod);
+  const queryResult = usePaymentMethodInfo(paymentMethod);
+  const fields = queryResult.data?.fields;
 
   const {
     control,

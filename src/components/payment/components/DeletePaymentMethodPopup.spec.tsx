@@ -2,7 +2,7 @@ import { fireEvent, render, waitFor } from "test-utils";
 import { validSEPAData } from "../../../../tests/unit/data/paymentData";
 import { goBackMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
-import { Popup } from "../../popup/Popup";
+import { GlobalPopup } from "../../popup/GlobalPopup";
 import { DeletePaymentMethodPopup } from "./DeletePaymentMethodPopup";
 
 jest.useFakeTimers();
@@ -17,7 +17,7 @@ describe("useDeletePaymentMethod", () => {
       <DeletePaymentMethodPopup id={validSEPAData.id} />,
     );
     fireEvent.press(getByText("never mind"));
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
 
     expect(queryByText("delete payment method?")).toBeFalsy();
   });
@@ -30,9 +30,11 @@ describe("useDeletePaymentMethod", () => {
       <DeletePaymentMethodPopup id={validSEPAData.id} />,
     );
     fireEvent.press(getByText("delete"));
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("delete payment method?")).toBeFalsy();
-    expect(goBackMock).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(goBackMock).toHaveBeenCalled();
+    });
     await waitFor(() =>
       expect(
         usePaymentDataStore.getState().getPaymentData(validSEPAData.id),

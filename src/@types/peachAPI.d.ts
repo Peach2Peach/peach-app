@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 type WSCallback = (message?: Message) => Promise<void> | void;
 type PeachWS = {
   ws?: WebSocket;

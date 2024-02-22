@@ -7,15 +7,15 @@ import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { Input } from "../../components/inputs/Input";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
-import { HelpPopup } from "../../hooks/HelpPopup";
-import { useContractDetails } from "../../hooks/query/useContractDetails";
+import { useContractDetail } from "../../hooks/query/useContractDetail";
 import { useKeyboard } from "../../hooks/useKeyboard";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useValidatedState } from "../../hooks/useValidatedState";
+import { HelpPopup } from "../../popups/HelpPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
@@ -54,7 +54,7 @@ function SignMessageForGlobalPreference() {
 }
 
 function ContractSuspense({ contractId }: { contractId: string }) {
-  const { contract } = useContractDetails(contractId);
+  const { contract } = useContractDetail(contractId);
 
   if (!contract) return <NewLoadingScreen />;
 
@@ -97,7 +97,7 @@ type ScreenContentProps = {
 };
 
 function ScreenContent({ onSubmit }: ScreenContentProps) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const { address, addressLabel } = useRoute<"signMessage">().params;
   const [setPayoutAddress, setPayoutAddressLabel, setPayoutAddressSignature] =
     useSettingsStore(

@@ -7,15 +7,25 @@ import { tradeSummary } from "../../../tests/unit/data/tradeSummaryData";
 import { MSINAMONTH } from "../../constants";
 import { ExportTradeHistory } from "./ExportTradeHistory";
 
-const useTradeSummariesMock = jest.fn(
-  (): { tradeSummaries: (OfferSummary | ContractSummary)[] } => ({
-    tradeSummaries: [],
-  }),
-);
+jest.mock("../../hooks/query/useTradeSummaries");
+const useTradeSummariesMock = jest
+  .requireMock("../../hooks/query/useTradeSummaries")
+  .useTradeSummaries.mockImplementation(
+    (): {
+      summaries: {
+        "yourTrades.buy": (ContractSummary | OfferSummary)[];
+        "yourTrades.sell": (ContractSummary | OfferSummary)[];
+        "yourTrades.history": (ContractSummary | OfferSummary)[];
+      };
+    } => ({
+      summaries: {
+        "yourTrades.buy": [tradeSummary],
+        "yourTrades.sell": [],
+        "yourTrades.history": [],
+      },
+    }),
+  );
 
-jest.mock("../../hooks/query/useTradeSummaries", () => ({
-  useTradeSummaries: () => useTradeSummariesMock(),
-}));
 jest.useFakeTimers();
 
 describe("ExportTradeHistory", () => {
@@ -41,16 +51,20 @@ describe("ExportTradeHistory", () => {
       tradeSummary.lastModified.getTime() - MSINAMONTH,
     );
     useTradeSummariesMock.mockReturnValueOnce({
-      tradeSummaries: [
-        tradeSummary,
-        {
-          ...tradeSummary,
-          id: "1-2",
-          currency: "EUR",
-          price: 10,
-          creationDate: dateLastTrade,
-        },
-      ],
+      summaries: {
+        "yourTrades.buy": [],
+        "yourTrades.sell": [],
+        "yourTrades.history": [
+          tradeSummary,
+          {
+            ...tradeSummary,
+            id: "1-2",
+            currency: "EUR",
+            price: 10,
+            creationDate: dateLastTrade,
+          },
+        ],
+      },
     });
     const { getByText } = render(<ExportTradeHistory />);
     const exportButton = getByText("export");

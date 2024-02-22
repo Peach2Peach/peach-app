@@ -7,10 +7,11 @@ import { isSellOffer } from "../utils/offer/isSellOffer";
 import { peachAPI } from "../utils/peachAPI";
 import { isContractSummary } from "../views/yourTrades/utils/isContractSummary";
 import { getNavigationDestinationForOffer } from "../views/yourTrades/utils/navigation/getNavigationDestinationForOffer";
-import { useNavigation } from "./useNavigation";
+import { offerKeys } from "./query/useOfferDetail";
+import { useStackNavigation } from "./useStackNavigation";
 
 export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const showStartRefundPopup = useStartRefundPopup();
   const queryClient = useQueryClient();
 
@@ -23,7 +24,7 @@ export const useTradeNavigation = (item: OfferSummary | ContractSummary) => {
       const { result: sellOffer } =
         await peachAPI.private.offer.getOfferDetails({ offerId });
       if (sellOffer && isSellOffer(sellOffer)) {
-        queryClient.setQueryData(["offer", sellOffer.id], sellOffer);
+        queryClient.setQueryData(offerKeys.detail(sellOffer.id), sellOffer);
         showStartRefundPopup(sellOffer);
         return;
       }

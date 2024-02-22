@@ -3,8 +3,29 @@ import { useEffect } from "react";
 import { shallow } from "zustand/shallow";
 import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import { peachAPI } from "../../utils/peachAPI";
+import { contractKeys } from "./useContractDetail";
 
-const getContractSummariesQuery = async () => {
+export const useContractSummaries = (enabled = true) => {
+  const [contracts, setContracts, lastModified] = useTradeSummaryStore(
+    (state) => [state.contracts, state.setContracts, state.lastModified],
+    shallow,
+  );
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: contractKeys.summaries(),
+    queryFn: getContractSummariesQuery,
+    enabled,
+    initialData: contracts.length ? contracts : undefined,
+    initialDataUpdatedAt: lastModified.getTime?.(),
+  });
+
+  useEffect(() => {
+    if (data) setContracts(data);
+  }, [data, setContracts]);
+
+  return { contracts: data || [], isLoading, error, refetch };
+};
+
+async function getContractSummariesQuery() {
   const { result: contracts, error } =
     await peachAPI.private.contract.getContractSummaries();
 
@@ -19,24 +40,4 @@ const getContractSummariesQuery = async () => {
       ? new Date(contract.paymentMade)
       : undefined,
   }));
-};
-
-export const useContractSummaries = (enabled = true) => {
-  const [contracts, setContracts, lastModified] = useTradeSummaryStore(
-    (state) => [state.contracts, state.setContracts, state.lastModified],
-    shallow,
-  );
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["contractSummaries"],
-    queryFn: getContractSummariesQuery,
-    enabled,
-    initialData: contracts.length ? contracts : undefined,
-    initialDataUpdatedAt: lastModified.getTime?.(),
-  });
-
-  useEffect(() => {
-    if (data) setContracts(data);
-  }, [data, setContracts]);
-
-  return { contracts: data || [], isLoading, error, refetch };
-};
+}

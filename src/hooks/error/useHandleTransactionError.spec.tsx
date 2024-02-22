@@ -2,9 +2,9 @@ import { renderHook } from "test-utils";
 import { transactionError } from "../../../tests/unit/data/errors";
 import { useHandleTransactionError } from "./useHandleTransactionError";
 
-const showErrorBannerMock = jest.fn();
+const mockShowErrorBanner = jest.fn();
 jest.mock("../useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
+  useShowErrorBanner: () => mockShowErrorBanner,
 }));
 
 describe("useHandleTransactionError", () => {
@@ -17,7 +17,7 @@ describe("useHandleTransactionError", () => {
     const { result } = renderHook(useHandleTransactionError);
 
     result.current(transactionError);
-    expect(showErrorBannerMock).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+    expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
       "78999997952",
       "1089000",
     ]);

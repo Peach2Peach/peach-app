@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSetToast } from "../../../components/toast/Toast";
 import { CENT } from "../../../constants";
 import { useFeeRate } from "../../../hooks/useFeeRate";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import i18n from "../../../utils/i18n";
 
 const ESCROW_TX_SIZE = 173;
@@ -13,7 +13,7 @@ type Props = {
   amount?: number;
 };
 export const useShowHighFeeWarning = ({ enabled, amount }: Props) => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setToast = useSetToast();
   const feeRate = useFeeRate();
 

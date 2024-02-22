@@ -1,5 +1,5 @@
 import { error } from "../log/error";
-import { parseError } from "../result/parseError";
+import { parseError } from "../parseError";
 import { dateTimeReviver } from "../system/dateTimeReviver";
 
 const OK_STATUS = 200;
@@ -16,7 +16,6 @@ export const parseResponse = async <T>(
     const data = !string
       ? JSON.parse(await response.text(), dateTimeReviver)
       : await response.text();
-
     if (response.status !== OK_STATUS) {
       if (data.error === "CONTRACT_EXISTS") return [null, data];
       error(

@@ -3,40 +3,21 @@ import { contract } from "../../../peach-api/src/testData/contract";
 import { account1 } from "../../../tests/unit/data/accountData";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
-import { Popup } from "../../components/popup/Popup";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
+import { queryClient } from "../../queryClient";
 import { setAccount } from "../../utils/account/account";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
-import { getResult } from "../../utils/result/getResult";
 import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import { setPeachWallet } from "../../utils/wallet/setWallet";
 import { ConfirmTradeCancelationPopup } from "./ConfirmTradeCancelationPopup";
 
 jest.useFakeTimers();
-const saveOfferMock = jest.fn();
-jest.mock("../../utils/offer/saveOffer", () => ({
-  saveOffer: (...args: unknown[]) => saveOfferMock(...args),
-}));
+jest.mock("../../utils/offer/saveOffer");
+jest.mock("./patchSellOfferWithRefundTx");
 
-const contractUpdate = {
-  ...contract,
-  canceled: true,
-};
-const sellOfferUpdate = {
-  ...sellOffer,
-  refundTx: "refundTx",
-};
-const cancelContractAsSellerMock = jest.fn().mockResolvedValue(
-  getResult({
-    contract: contractUpdate,
-    sellOffer: sellOfferUpdate,
-  }),
-);
-jest.mock("./cancelContractAsSeller", () => ({
-  cancelContractAsSeller: (...args: unknown[]) =>
-    cancelContractAsSellerMock(...args),
-}));
 const cancelContractMock = jest.spyOn(
   peachAPI.private.contract,
   "cancelContract",
@@ -44,10 +25,13 @@ const cancelContractMock = jest.spyOn(
 
 describe("ConfirmTradeCancelationPopup", () => {
   beforeAll(() => {
-    setAccount({
-      ...account1,
-      offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
-    });
+    queryClient.setQueryData(
+      offerKeys.detail(getSellOfferIdFromContract(contract)),
+      {
+        ...sellOffer,
+        id: getSellOfferIdFromContract(contract),
+      },
+    );
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
   });
 
@@ -58,8 +42,8 @@ describe("ConfirmTradeCancelationPopup", () => {
     );
 
     expect(getByText(i18n("contract.cancel.buyer"))).toBeTruthy();
-    await act(async () => {
-      await fireEvent.press(getAllByText("cancel trade")[1]);
+    act(() => {
+      fireEvent.press(getAllByText("cancel trade")[1]);
     });
     await waitFor(() =>
       expect(cancelContractMock).toHaveBeenCalledWith({
@@ -68,19 +52,29 @@ describe("ConfirmTradeCancelationPopup", () => {
     );
   });
   it("should show confirm cancelation popup for seller", async () => {
+    queryClient.setQueryData(
+      offerKeys.detail(getSellOfferIdFromContract(contract)),
+      {
+        ...sellOffer,
+        id: getSellOfferIdFromContract(contract),
+      },
+    );
     setAccount({
       ...account1,
-      offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
       publicKey: contract.seller.id,
     });
     const { getByText, getAllByText } = render(
       <ConfirmTradeCancelationPopup view="seller" contract={contract} />,
     );
     expect(getByText(i18n("contract.cancel.seller"))).toBeTruthy();
-    await act(async () => {
-      await fireEvent.press(getAllByText("cancel trade")[1]);
+    act(() => {
+      fireEvent.press(getAllByText("cancel trade")[1]);
     });
-    expect(cancelContractAsSellerMock).toHaveBeenCalledWith(contract);
+    await waitFor(() => {
+      expect(cancelContractMock).toHaveBeenCalledWith({
+        contractId: contract.id,
+      });
+    });
   });
   it("should show the correct popup for cash trades of the seller", () => {
     const { getByText } = render(
@@ -100,14 +94,20 @@ describe("ConfirmTradeCancelationPopup", () => {
     await act(async () => {
       await fireEvent.press(getAllByText("cancel trade")[1]);
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("cancel trade")).toBeFalsy();
     expect(queryByText("trade canceled!")).toBeTruthy();
   });
   it("should show the correct confirmation popup for canceled trade as seller", async () => {
+    queryClient.setQueryData(
+      offerKeys.detail(getSellOfferIdFromContract(contract)),
+      {
+        ...sellOffer,
+        id: getSellOfferIdFromContract(contract),
+      },
+    );
     setAccount({
       ...account1,
-      offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
       publicKey: contract.seller.id,
     });
 
@@ -119,21 +119,22 @@ describe("ConfirmTradeCancelationPopup", () => {
       await fireEvent.press(getAllByText("cancel trade")[1]);
     });
 
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("cancel trade")).toBeFalsy();
     expect(queryByText("request sent")).toBeTruthy();
     expect(queryByText(i18n("contract.cancel.requestSent.text"))).toBeTruthy();
   });
   it("shows the correct confirmation popup for canceled cash trade as seller with republish available", async () => {
+    queryClient.setQueryData(
+      offerKeys.detail(getSellOfferIdFromContract(contract)),
+      {
+        ...sellOffer,
+        id: getSellOfferIdFromContract(contract),
+        publishingDate: new Date(),
+      },
+    );
     setAccount({
       ...account1,
-      offers: [
-        {
-          ...sellOffer,
-          id: getSellOfferIdFromContract(contract),
-          publishingDate: new Date(),
-        },
-      ],
       publicKey: contract.seller.id,
     });
 
@@ -147,7 +148,7 @@ describe("ConfirmTradeCancelationPopup", () => {
     await act(async () => {
       await fireEvent.press(getByText("cancel trade"));
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
 
     expect(queryByText("cancel trade")).toBeFalsy();
     expect(queryByText("trade canceled")).toBeTruthy();
@@ -156,15 +157,16 @@ describe("ConfirmTradeCancelationPopup", () => {
     ).toBeTruthy();
   });
   it("shows the correct confirmation popup for canceled cash trade as seller with republish unavailable", async () => {
+    queryClient.setQueryData(
+      offerKeys.detail(getSellOfferIdFromContract(contract)),
+      {
+        ...sellOffer,
+        id: getSellOfferIdFromContract(contract),
+        publishingDate: new Date(0),
+      },
+    );
     setAccount({
       ...account1,
-      offers: [
-        {
-          ...sellOffer,
-          id: getSellOfferIdFromContract(contract),
-          publishingDate: new Date(0),
-        },
-      ],
       publicKey: contract.seller.id,
     });
 
@@ -178,7 +180,10 @@ describe("ConfirmTradeCancelationPopup", () => {
     await act(async () => {
       await fireEvent.press(getByText("cancel trade"));
     });
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
+    await waitFor(() => {
+      jest.runAllTimers();
+    });
 
     expect(queryByText("cancel trade")).toBeFalsy();
     expect(queryByText("trade canceled")).toBeTruthy();

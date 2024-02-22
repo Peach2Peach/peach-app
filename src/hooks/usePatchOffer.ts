@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { MatchFilter } from "../../peach-api/src/@types/api/offerAPI";
 import { peachAPI } from "../utils/peachAPI";
+import { offerKeys } from "./query/useOfferDetail";
 import { useShowErrorBanner } from "./useShowErrorBanner";
 
 export type PatchOfferData = {
@@ -15,13 +16,12 @@ export const usePatchOffer = () => {
 
   return useMutation({
     onMutate: async ({ offerId, newData }) => {
-      await queryClient.cancelQueries({ queryKey: ["offer", offerId] });
-      const previousData = queryClient.getQueryData<BuyOffer | SellOffer>([
-        "offer",
-        offerId,
-      ]);
+      await queryClient.cancelQueries({ queryKey: offerKeys.detail(offerId) });
+      const previousData = queryClient.getQueryData<BuyOffer | SellOffer>(
+        offerKeys.detail(offerId),
+      );
       queryClient.setQueryData<BuyOffer | SellOffer>(
-        ["offer", offerId],
+        offerKeys.detail(offerId),
         (oldQueryData) => oldQueryData && { ...oldQueryData, ...newData },
       );
 
@@ -40,16 +40,18 @@ export const usePatchOffer = () => {
       });
       if (error) throw new Error(error.error);
     },
-    onError: (err: Error, { offerId }, context) => {
+    onError: (err, { offerId }, context) => {
       queryClient.setQueryData(
-        ["offer", offerId || offerId],
+        offerKeys.detail(offerId),
         context?.previousData,
       );
       showErrorBanner(err.message);
     },
-    onSettled: (_data, _error, { offerId }) => {
-      queryClient.invalidateQueries({ queryKey: ["offer", offerId] });
-    },
+    onSettled: (_data, _error, { offerId }) =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: offerKeys.detail(offerId) }),
+        queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
+      ]),
   });
 };
 
@@ -63,13 +65,12 @@ export const usePatchBuyOffer = () => {
 
   return useMutation({
     onMutate: async ({ offerId, newData }) => {
-      await queryClient.cancelQueries({ queryKey: ["offer", offerId] });
-      const previousData = queryClient.getQueryData<BuyOffer>([
-        "offer",
-        offerId,
-      ]);
+      await queryClient.cancelQueries({ queryKey: offerKeys.detail(offerId) });
+      const previousData = queryClient.getQueryData<BuyOffer>(
+        offerKeys.detail(offerId),
+      );
       queryClient.setQueryData<BuyOffer>(
-        ["offer", offerId],
+        offerKeys.detail(offerId),
         (oldQueryData) => oldQueryData && { ...oldQueryData, ...newData },
       );
 
@@ -88,15 +89,17 @@ export const usePatchBuyOffer = () => {
       });
       if (error) throw new Error(error.error);
     },
-    onError: (err: Error, { offerId }, context) => {
+    onError: (err, { offerId }, context) => {
       queryClient.setQueryData(
-        ["offer", offerId || offerId],
+        offerKeys.detail(offerId),
         context?.previousData,
       );
       showErrorBanner(err.message);
     },
-    onSettled: (_data, _error, { offerId }) => {
-      queryClient.invalidateQueries({ queryKey: ["offer", offerId] });
-    },
+    onSettled: (_data, _error, { offerId }) =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: offerKeys.detail(offerId) }),
+        queryClient.invalidateQueries({ queryKey: offerKeys.summaries() }),
+      ]),
   });
 };

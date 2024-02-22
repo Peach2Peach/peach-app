@@ -3,12 +3,12 @@ import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { OptionButton } from "../../components/buttons/OptionButton";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { LinedText } from "../../components/ui/LinedText";
 import { DISCORD, TELEGRAM } from "../../constants";
-import { HelpPopup } from "../../hooks/HelpPopup";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import i18n from "../../utils/i18n";
@@ -32,7 +32,7 @@ const openTelegram = () => openURL(TELEGRAM);
 const openDiscord = () => openURL(DISCORD);
 
 export const Contact = () => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const showHelp = () =>
     setPopup(<HelpPopup id="contactEncryption" showTitle={false} />);

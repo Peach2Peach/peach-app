@@ -2,14 +2,13 @@ import Lottie from "lottie-react-native";
 import {
   ActivityIndicator,
   ActivityIndicatorProps,
-  ColorValue,
   ViewProps,
 } from "react-native";
 import tw from "../../styles/tailwind";
 import loading from "../animation/lotties/loading.json";
 
 type Props = ComponentProps & {
-  color?: ColorValue;
+  color?: string;
 };
 
 export const Loading = ({ style, color }: Props) => (
@@ -18,7 +17,10 @@ export const Loading = ({ style, color }: Props) => (
     source={loading}
     autoPlay
     colorFilters={[
-      { keypath: "main", color: (color ?? tw.color("primary-main")) as string },
+      {
+        keypath: "main",
+        color: color ?? (tw.color("primary-main") || "#F56522"),
+      },
     ]}
   />
 );

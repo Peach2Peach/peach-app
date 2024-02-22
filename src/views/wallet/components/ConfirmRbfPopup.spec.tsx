@@ -11,9 +11,9 @@ import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { ConfirmRbfPopup } from "./ConfirmRbfPopup";
 
-const showErrorBannerMock = jest.fn();
+const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
+  useShowErrorBanner: () => mockShowErrorBanner,
 }));
 jest.useFakeTimers();
 
@@ -39,6 +39,7 @@ describe("ConfirmRbfPopup", () => {
   });
 
   it("should broadcast bump fee transaction", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.signAndBroadcastPSBT = jest
       .fn()
       .mockResolvedValue(txDetails.psbt);
@@ -50,6 +51,7 @@ describe("ConfirmRbfPopup", () => {
     );
 
     await waitFor(() => {
+      if (!peachWallet) throw new Error("PeachWallet not set");
       expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(
         txDetails.psbt,
       );
@@ -57,6 +59,7 @@ describe("ConfirmRbfPopup", () => {
     });
   });
   it("should handle broadcast errors", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.signAndBroadcastPSBT = jest.fn().mockImplementation(() => {
       throw transactionError;
     });
@@ -68,7 +71,7 @@ describe("ConfirmRbfPopup", () => {
     );
 
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
         "78999997952",
         "1089000",
       ]);

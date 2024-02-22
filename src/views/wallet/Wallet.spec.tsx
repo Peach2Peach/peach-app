@@ -13,13 +13,10 @@ import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../utils/wallet/setWallet";
 import { Wallet } from "./Wallet";
+import { walletKeys } from "./hooks/useUTXOs";
 
-const defaultReturnValue = {
-  balance: 21,
-};
-const useWalletBalanceMock = jest.fn(() => defaultReturnValue);
 jest.mock("./hooks/useWalletBalance", () => ({
-  useWalletBalance: () => useWalletBalanceMock(),
+  useWalletBalance: jest.fn().mockReturnValue({ balance: 21 }),
 }));
 
 const addresses = {
@@ -66,6 +63,7 @@ describe("Wallet", () => {
       params: { screen: "wallet" },
     });
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
+    if (!peachWallet) throw new Error("Peach wallet not set");
     peachWallet.getAddressByIndex = jest.fn((index: number) => {
       if (index === 0) return Promise.resolve(addresses.first);
       if (index === 1) return Promise.resolve(addresses.second);
@@ -126,23 +124,21 @@ describe("Wallet", () => {
     render(<Wallet />);
 
     await waitFor(() => {
-      expect(
-        queryClient.getQueriesData({ queryKey: ["receiveAddress"] }),
-      ).toEqual([
-        [["receiveAddress", 0], addresses.first],
-        [["receiveAddress", 1], addresses.second],
-        [["receiveAddress", -1], undefined],
-        [["receiveAddress", 21], addresses.lastUnused],
-        [["receiveAddress", 22], addresses.next],
-        [["receiveAddress", 20], addresses.previous],
-      ]);
+      const getData = (index: number) =>
+        queryClient.getQueryData(walletKeys.addressByIndex(index));
+      expect(getData(0)).toEqual(addresses.first);
+      expect(getData(1)).toEqual(addresses.second);
+      expect(getData(-1)).toBeUndefined();
+      expect(getData(21)).toEqual(addresses.lastUnused);
+      expect(getData(22)).toEqual(addresses.next);
+      expect(getData(20)).toEqual(addresses.previous);
     });
   });
   it("should prefetch utxos", async () => {
     render(<Wallet />);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["utxos"])).toEqual([utxo]);
+      expect(queryClient.getQueryData(walletKeys.utxos())).toEqual([utxo]);
     });
   });
 });

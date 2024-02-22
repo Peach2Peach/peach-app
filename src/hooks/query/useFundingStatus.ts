@@ -1,27 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { MSINASECOND } from "../../constants";
 import { error } from "../../utils/log/error";
 import { getDefaultFundingStatus } from "../../utils/offer/constants";
 import { peachAPI } from "../../utils/peachAPI";
+import { offerKeys } from "./useOfferDetail";
 
 const TWENTY = 20;
 const TWENTYSECONDS = TWENTY * MSINASECOND;
-
-const getFundingStatusQuery = async ({
-  queryKey,
-}: {
-  queryKey: [string, string];
-}) => {
-  const [, offerId] = queryKey;
-
-  const { result: fundingStatus, error: err } =
-    await peachAPI.private.offer.getFundingStatus({ offerId });
-  if (!fundingStatus || err) {
-    error("Could not fetch funding status for offer", offerId, err?.error);
-    throw new Error(err?.error);
-  }
-  return fundingStatus;
-};
 
 export const useFundingStatus = (id: string, enabled = true) => {
   const {
@@ -29,7 +14,7 @@ export const useFundingStatus = (id: string, enabled = true) => {
     isLoading,
     error: fundingStatusError,
   } = useQuery({
-    queryKey: ["fundingStatus", id],
+    queryKey: offerKeys.fundingStatus(id),
     queryFn: getFundingStatusQuery,
     enabled,
     refetchInterval: TWENTYSECONDS,
@@ -48,3 +33,17 @@ export const useFundingStatus = (id: string, enabled = true) => {
     error: fundingStatusError,
   };
 };
+
+async function getFundingStatusQuery({
+  queryKey,
+}: QueryFunctionContext<ReturnType<typeof offerKeys.fundingStatus>>) {
+  const offerId = queryKey[2];
+
+  const { result: fundingStatus, error: err } =
+    await peachAPI.private.offer.getFundingStatus({ offerId });
+  if (!fundingStatus || err) {
+    error("Could not fetch funding status for offer", offerId, err?.error);
+    throw new Error(err?.error);
+  }
+  return fundingStatus;
+}

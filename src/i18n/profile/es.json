@@ -1,6 +1,8 @@
 {
   "profile.accountCreated" : "cuenta creada",
   "profile.blockUser" : "Bloquear a este usuario",
+  "profile.oneYearAgo" : "Hace 1 año y $1 días",
+  "profile.yearsAgo" : "Hace $0 años y $1 días",
   "profile.daysAgo" : "hace $0 días",
   "profile.disputes" : "disputas",
   "profile.disputesLost" : "perdidas",
@@ -8,6 +10,7 @@
   "profile.disputesResolved" : "resueltas",
   "profile.disputesWon" : "ganadas",
   "profile.myAccount.title" : "mi cuenta",
+  "profile.canceledTrades" : "operaciones canceladas",
   "profile.numberOfTrades" : "número de intercambios",
   "profile.publicKey" : "clave pública de la cuenta",
   "profile.tradingLimits" : "límites de intercambio",

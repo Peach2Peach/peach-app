@@ -1,18 +1,21 @@
+import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import i18n from "../i18n";
+import { PeachWallet } from "../wallet/PeachWallet";
+import { peachWallet, setPeachWallet } from "../wallet/setWallet";
 import { getWalletLabel } from "./getWalletLabel";
-
-const findKeyPairByAddressMock = jest.fn().mockReturnValue(false);
-jest.mock("../wallet/setWallet", () => ({
-  peachWallet: {
-    findKeyPairByAddress: (address: string) =>
-      findKeyPairByAddressMock(address),
-  },
-}));
 
 describe("getWalletLabel", () => {
   const customAddress = "customPayoutAddress";
   const customAddressLabel = "customPayoutAddressLabel";
+  beforeAll(() => {
+    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
+  });
   it("should return customPayoutAddressLabel if address is customPayoutAddress", () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
+    const findKeyPairByAddressMock = jest.spyOn(
+      peachWallet,
+      "findKeyPairByAddress",
+    );
     const result = getWalletLabel({
       address: customAddress,
       customAddress,
@@ -25,7 +28,10 @@ describe("getWalletLabel", () => {
   });
 
   it("should return peachWallet if address is in peachWallet", () => {
-    findKeyPairByAddressMock.mockReturnValueOnce(true);
+    if (!peachWallet) throw new Error("PeachWallet not set");
+    jest
+      .spyOn(peachWallet, "findKeyPairByAddress")
+      .mockReturnValueOnce(createTestWallet());
     const result = getWalletLabel({
       address: "address",
       customAddress,

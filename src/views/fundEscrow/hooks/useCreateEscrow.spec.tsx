@@ -9,9 +9,10 @@ jest.useFakeTimers();
 const createEscrowMock = jest.spyOn(peachAPI.private.offer, "createEscrow");
 
 const showErrorBannerMock = jest.fn();
-jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
-}));
+jest.mock("../../../hooks/useShowErrorBanner");
+jest
+  .requireMock("../../../hooks/useShowErrorBanner")
+  .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 
 describe("useCreateEscrow", () => {
   beforeEach(() => {

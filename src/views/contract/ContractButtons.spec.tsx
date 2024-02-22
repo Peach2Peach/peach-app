@@ -1,6 +1,6 @@
 import { fireEvent, render } from "test-utils";
 import { contract } from "../../../peach-api/src/testData/contract";
-import { Popup } from "../../components/popup/Popup";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
 import { ProvideEmailButton } from "./ContractButtons";
 import { ContractContext } from "./context";
 
@@ -16,7 +16,7 @@ describe("ContractButtons - ProvideEmailButton", () => {
           toggleShowBatchInfo: jest.fn(),
         }}
       >
-        <Popup />
+        <GlobalPopup />
         <ProvideEmailButton />
       </ContractContext.Provider>,
     );

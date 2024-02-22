@@ -1,6 +1,7 @@
+import { WebView } from "react-native-webview";
 import ShallowRenderer from "react-test-renderer/shallow";
 import { fireEvent, render } from "test-utils";
-import { Popup } from "../../components/popup/Popup";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import {
   VerifyYouAreAHuman,
@@ -9,15 +10,12 @@ import {
 
 const renderer = ShallowRenderer.createRenderer();
 
-const WebViewMock = jest.fn();
-jest.mock("react-native-webview", () => ({
-  WebView: (...args: unknown[]) => WebViewMock(...args),
-}));
+const mockInitApp = jest.fn();
 
-const initAppMock = jest.fn();
-jest.mock("../../init/initApp", () => ({
-  initApp: (...args: unknown[]) => initAppMock(...args),
+jest.mock("../../init/useInitApp", () => ({
+  useInitApp: () => mockInitApp,
 }));
+jest.useFakeTimers();
 
 describe("VerifyYouAreAHumanPopup", () => {
   it("renders correctly", () => {
@@ -28,7 +26,7 @@ describe("VerifyYouAreAHumanPopup", () => {
     const { getByText, UNSAFE_queryByType } = render(
       <>
         <VerifyYouAreAHumanPopup />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 
@@ -42,18 +40,18 @@ describe("VerifyYouAreAHuman", () => {
     renderer.render(<VerifyYouAreAHuman />);
     expect(renderer.getRenderOutput()).toMatchSnapshot();
   });
-  it("sets cloudflare challenge from webview", async () => {
+  it("sets cloudflare challenge from webview", () => {
     const cloudflareChallenge = {
       cfClearance: "cfClearance",
       userAgent: "userAgent",
     };
-    render(<VerifyYouAreAHuman />);
-    await WebViewMock.mock.calls[0][0].onMessage({
+    const { UNSAFE_getByType } = render(<VerifyYouAreAHuman />);
+    fireEvent(UNSAFE_getByType(WebView), "onMessage", {
       nativeEvent: { data: JSON.stringify(cloudflareChallenge) },
     });
     expect(useSettingsStore.getState().cloudflareChallenge).toEqual(
       cloudflareChallenge,
     );
-    expect(initAppMock).toHaveBeenCalled();
+    expect(mockInitApp).toHaveBeenCalled();
   });
 });

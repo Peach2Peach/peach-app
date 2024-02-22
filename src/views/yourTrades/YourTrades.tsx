@@ -11,18 +11,16 @@ import { PeachText } from "../../components/text/PeachText";
 import { LinedText } from "../../components/ui/LinedText";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { parseError } from "../../utils/result/parseError";
+import { parseError } from "../../utils/parseError";
 import { useHomeScreenRoute } from "../home/useHomeScreenRoute";
 import { TradeItem } from "./components/TradeItem";
 import { TradePlaceholders } from "./components/TradePlaceholders";
 import { getCategories } from "./utils/getCategories";
-import { getPastOffers } from "./utils/getPastOffers";
-import { isOpenOffer } from "./utils/isOpenOffer";
 
 const YourTradesTab = createMaterialTopTabNavigator();
 const tabs = [
@@ -32,26 +30,13 @@ const tabs = [
 ] as const;
 
 export const YourTrades = () => {
-  const { tradeSummaries, isLoading, error, refetch } = useTradeSummaries();
+  const { summaries, isLoading, error, refetch } = useTradeSummaries();
   const { params } = useHomeScreenRoute<"yourTrades">();
   const showErrorBanner = useShowErrorBanner();
 
   useEffect(() => {
     if (error) showErrorBanner(parseError(error));
   }, [error, showErrorBanner]);
-
-  const allOpenOffers = useMemo(
-    () => tradeSummaries.filter(({ tradeStatus }) => isOpenOffer(tradeStatus)),
-    [tradeSummaries],
-  );
-  const summaries = useMemo(
-    () => ({
-      "yourTrades.buy": allOpenOffers.filter(({ type }) => type === "bid"),
-      "yourTrades.sell": allOpenOffers.filter(({ type }) => type === "ask"),
-      "yourTrades.history": getPastOffers(tradeSummaries),
-    }),
-    [allOpenOffers, tradeSummaries],
-  );
 
   return (
     <Screen style={tw`px-0`} header={<YourTradesHeader />}>
@@ -131,7 +116,7 @@ function TabBarBadge({
 }
 
 function YourTradesHeader() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const onPress = () => {
     navigation.navigate("exportTradeHistory");
   };

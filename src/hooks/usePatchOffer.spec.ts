@@ -2,9 +2,9 @@ import { renderHook, responseUtils, waitFor } from "test-utils";
 import { peachAPI } from "../utils/peachAPI";
 import { usePatchOffer } from "./usePatchOffer";
 
-const showErrorBannerMock = jest.fn();
+const mockShowErrorBanner = jest.fn();
 jest.mock("../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
+  useShowErrorBanner: () => mockShowErrorBanner,
 }));
 
 const patchOfferMock = jest.spyOn(peachAPI.private.offer, "patchOffer");
@@ -38,7 +38,7 @@ describe("usePatchOffer - update Premium", () => {
     result.current.mutate({ offerId, newData });
 
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith("UNAUTHORIZED");
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("UNAUTHORIZED");
     });
   });
 });
@@ -70,7 +70,7 @@ describe("usePatchOffer - update MaxPremium", () => {
     result.current.mutate({ offerId, newData });
 
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith("UNAUTHORIZED");
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("UNAUTHORIZED");
     });
   });
 });

@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { Match as MatchType } from "../../../peach-api/src/@types/match";
@@ -19,14 +18,15 @@ import { EscrowLink } from "../../components/matches/components/EscrowLink";
 import { PaymentMethodSelector } from "../../components/matches/components/PaymentMethodSelector";
 import { PriceInfo } from "../../components/matches/components/PriceInfo";
 import { useInterruptibleFunction } from "../../components/matches/hooks/useInterruptibleFunction";
-import { useMatchAsBuyer } from "../../components/matches/hooks/useMatchAsBuyer";
+import { useMatchOffer } from "../../components/matches/hooks/useMatchOffer";
 import { getMatchPrice } from "../../components/matches/utils/getMatchPrice";
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
-import { useOfferDetails } from "../../hooks/query/useOfferDetails";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -38,14 +38,30 @@ import { getPaymentMethods } from "../../utils/paymentMethod/getPaymentMethods";
 import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { peachAPI } from "../../utils/peachAPI";
 import { LoadingScreen } from "../loading/LoadingScreen";
+import { matchesKeys } from "../search/hooks/useOfferMatches";
 
 export function MatchDetails() {
   const { matchId, offerId } = useRoute<"matchDetails">().params;
 
   const { data: match } = useMatchDetails({ offerId, matchId });
-  const { offer } = useOfferDetails(offerId);
+  const { offer } = useOfferDetail(offerId);
 
-  if (!offer || !isBuyOffer(offer) || !match) return <LoadingScreen />;
+  const navigation = useStackNavigation();
+  if (offer?.contractId) {
+    navigation.reset({
+      index: 1,
+      routes: [
+        {
+          name: "homeScreen",
+          params: { screen: "yourTrades", params: { tab: "yourTrades.buy" } },
+        },
+        { name: "contract", params: { contractId: offer.contractId } },
+      ],
+    });
+  }
+
+  if (!offer || !isBuyOffer(offer) || !match || offer.contractId)
+    return <LoadingScreen />;
   return (
     <Screen showTradingLimit header={<MatchDetailsHeader />}>
       <Match match={match} offer={offer} />
@@ -64,23 +80,30 @@ function useMatchDetails({
   offerId: string;
   matchId: string;
 }) {
-  return useQuery({
-    queryKey: ["matchDetails", offerId, matchId],
-    queryFn: async () => {
-      const { result } = await peachAPI.private.offer.getMatch({
-        offerId,
-        matchId,
-      });
-
-      if (!result) throw new Error("Match not found");
-      return result;
-    },
+  const queryData = useQuery({
+    queryKey: matchesKeys.matchDetail(offerId, matchId),
+    queryFn: getMatchDetails,
+    refetchInterval: 10000,
   });
+
+  return queryData;
+}
+
+async function getMatchDetails({
+  queryKey,
+}: QueryFunctionContext<ReturnType<typeof matchesKeys.matchDetail>>) {
+  const [, offerId, matchId] = queryKey;
+  const { result, error } = await peachAPI.private.offer.getMatch({
+    offerId,
+    matchId,
+  });
+  if (error || !result) throw new Error(error?.error || "Match not found");
+  return result;
 }
 
 const MATCH_DELAY = 5000;
 function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
-  const { mutate } = useMatchAsBuyer(offer, match);
+  const { mutate } = useMatchOffer(offer, match);
   const { meansOfPayment } = match;
 
   const availableCurrencies = keys(meansOfPayment);
@@ -282,8 +305,8 @@ function MatchOfferButton({
     <Button
       style={[
         tw`flex-row items-center self-center justify-center py-2 gap-10px`,
-        tw`bg-success-main`,
-        optionName === "missingSelection" && tw`bg-success-mild-2`,
+        tw`bg-primary-main`,
+        optionName === "missingSelection" && tw`bg-primary-mild-1`,
         optionName === "tradingLimitReached" && tw`bg-black-50`,
       ]}
       onPress={onPress}

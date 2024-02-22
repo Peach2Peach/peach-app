@@ -9,7 +9,7 @@ import {
   ViewProps,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useNavigation } from "../hooks/useNavigation";
+import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
 import { peachyGradient } from "../utils/layout/peachyGradient";
 import { isAndroid } from "../utils/system/isAndroid";
@@ -34,7 +34,7 @@ export const Screen = ({
   style,
 }: Props) => {
   const insets = useSafeAreaInsets();
-  const hasFooter = useNavigation().getId() === "homeNavigator";
+  const hasFooter = useStackNavigation().getId() === "homeNavigator";
   useFocusEffect(
     useCallback(() => {
       StatusBar.setBarStyle(

@@ -1,21 +1,19 @@
-import { shallow } from "zustand/shallow";
-import { useClosePopup, useSetPopup } from "../../components/popup/Popup";
+import { useWalletLabel } from "../../components/offer/useWalletLabel";
+import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
 import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
 import { LoadingPopupAction } from "../../components/popup/actions/LoadingPopupAction";
 import { MSINAMINUTE } from "../../constants";
-import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import tw from "../../styles/tailwind";
-import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
-import { getWalletLabelFromContract } from "../../utils/contract/getWalletLabelFromContract";
+import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../utils/i18n";
-import { saveOffer } from "../../utils/offer/saveOffer";
+import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { isCashTrade } from "../../utils/paymentMethod/isCashTrade";
-import { peachAPI } from "../../utils/peachAPI";
-import { useContractMutation } from "../../views/contract/hooks/useContractMutation";
 import { GrayPopup } from "../GrayPopup";
-import { cancelContractAsSeller } from "./cancelContractAsSeller";
+import { patchSellOfferWithRefundTx } from "./patchSellOfferWithRefundTx";
+import { useCancelContract } from "./useCancelContract";
 
 export function ConfirmTradeCancelationPopup({
   contract,
@@ -26,39 +24,32 @@ export function ConfirmTradeCancelationPopup({
 }) {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
-  const { mutate: cancelSeller } = useContractMutation(contract, {
-    mutationFn: async () => {
-      setPopup(<CancelPopup contract={contract} view={view} />);
-
-      const { result, error } = await cancelContractAsSeller(contract);
-
-      if (error) throw new Error(error);
-      return result;
-    },
-    onSuccess: (result) => {
-      const { sellOffer } = result;
-      if (sellOffer) saveOffer(sellOffer);
-    },
+  const { mutate: cancelSeller } = useCancelContract({
+    contractId: contract.id,
   });
-  const { mutate: cancelBuyer } = useContractMutation(
-    { id: contract.id, canceled: true, tradeStatus: "tradeCanceled" },
-    {
-      mutationFn: async () => {
-        setPopup(
-          <GrayPopup
-            title={i18n("contract.cancel.success")}
-            actions={<ClosePopupAction style={tw`justify-center`} />}
-          />,
-        );
-        const { error } = await peachAPI.private.contract.cancelContract({
-          contractId: contract.id,
-        });
-        if (error?.error) throw new Error(error.error);
-      },
-    },
-  );
+
+  const { mutate: cancelBuyer } = useCancelContract({
+    contractId: contract.id,
+    optimisticContract: { canceled: true, tradeStatus: "tradeCanceled" },
+  });
+
   const cancelAction = () =>
-    view === "seller" ? cancelSeller() : cancelBuyer();
+    view === "seller"
+      ? cancelSeller(undefined, {
+          onSuccess: async ({ psbt }) => {
+            setPopup(<CancelPopup contract={contract} />);
+            if (psbt) await patchSellOfferWithRefundTx(contract, psbt);
+          },
+        })
+      : cancelBuyer(undefined, {
+          onSuccess: () =>
+            setPopup(
+              <GrayPopup
+                title={i18n("contract.cancel.success")}
+                actions={<ClosePopupAction style={tw`justify-center`} />}
+              />,
+            ),
+        });
   const title = i18n(
     isCashTrade(contract.paymentMethod)
       ? "contract.cancel.cash.title"
@@ -93,38 +84,14 @@ export function ConfirmTradeCancelationPopup({
   );
 }
 
-function CancelPopup({
-  contract,
-  view,
-}: {
-  contract: Contract;
-  view: ContractViewer;
-}) {
-  const [customAddress, customAddressLabel, isPeachWalletActive] =
-    useSettingsStore(
-      (state) =>
-        view === "buyer"
-          ? [
-              state.payoutAddress,
-              state.payoutAddressLabel,
-              state.payoutToPeachWallet,
-            ]
-          : [
-              state.refundAddress,
-              state.refundAddressLabel,
-              state.refundToPeachWallet,
-            ],
-      shallow,
-    );
+function CancelPopup({ contract }: { contract: Contract }) {
   const { paymentMethod, id } = contract;
   const isCash = isCashTrade(paymentMethod);
-  const canRepublish = !isOfferExpired(getSellOfferFromContract(contract));
-  const walletName = getWalletLabelFromContract({
-    contract,
-    customAddress,
-    customAddressLabel,
-    isPeachWalletActive,
-  });
+  const { offer } = useOfferDetail(getSellOfferIdFromContract(contract));
+  const sellOffer = offer && isSellOffer(offer) ? offer : null;
+  const canRepublish = sellOffer ? !isOfferExpired(sellOffer) : false;
+  const walletName = useWalletLabel({ address: sellOffer?.returnAddress });
+
   return (
     <GrayPopup
       title={i18n(

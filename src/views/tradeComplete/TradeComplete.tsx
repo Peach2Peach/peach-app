@@ -1,4 +1,4 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { TouchableOpacity, View, ViewStyle } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -7,9 +7,12 @@ import { useSetOverlay } from "../../Overlay";
 import { IconType } from "../../assets/icons";
 import { Icon } from "../../components/Icon";
 import { Button } from "../../components/buttons/Button";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
-import { useContractDetails } from "../../hooks/query/useContractDetails";
+import {
+  contractKeys,
+  useContractDetail,
+} from "../../hooks/query/useContractDetail";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { TradeBreakdownPopup } from "../../popups/TradeBreakdownPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
@@ -23,7 +26,7 @@ import { LoadingScreen } from "../loading/LoadingScreen";
 import { BackupTime } from "../overlays/BackupTime";
 
 export const TradeComplete = ({ contractId }: { contractId: string }) => {
-  const { contract } = useContractDetails(contractId);
+  const { contract } = useContractDetail(contractId);
   if (!contract) return <LoadingScreen />;
 
   return <TradeCompleteView contract={contract} />;
@@ -98,15 +101,46 @@ function RateButton({ isSelected, onPress, iconId, style }: RateButtonProps) {
   );
 }
 
-type RateProps = ComponentProps & {
+type RateProps = {
   contract: Contract;
   view: ContractViewer;
   vote: "positive" | "negative" | undefined;
 };
 
 function Rate({ contract, view, vote }: RateProps) {
-  const queryClient = useQueryClient();
   const setPopup = useSetPopup();
+
+  const { mutate: rateUser } = useRateUser({
+    vote,
+    view,
+    contract,
+  });
+
+  const showTradeBreakdown = () =>
+    setPopup(<TradeBreakdownPopup contract={contract} />);
+
+  return (
+    <View style={tw`self-center gap-3`}>
+      <Button
+        onPress={() => rateUser()}
+        style={tw`bg-primary-background-light`}
+        disabled={!vote}
+        textColor={tw.color("primary-main")}
+      >
+        {i18n("rate.rateAndFinish")}
+      </Button>
+
+      {view === "buyer" && (
+        <Button onPress={showTradeBreakdown} ghost>
+          {i18n("rate.tradeBreakdown")}
+        </Button>
+      )}
+    </View>
+  );
+}
+
+function useRateUser({ contract, view, vote }: RateProps) {
+  const queryClient = useQueryClient();
   const showError = useShowErrorBanner();
   const [shouldShowBackupOverlay, setShowBackupReminder, isPeachWalletActive] =
     useSettingsStore(
@@ -121,64 +155,45 @@ function Rate({ contract, view, vote }: RateProps) {
     );
   const setOverlayContent = useSetOverlay();
 
-  const navigateAfterRating = () => {
-    if (shouldShowBackupOverlay && isPeachWalletActive && view === "buyer") {
-      setShowBackupReminder(true);
-      setOverlayContent(
-        <BackupTime
-          navigationParams={[
-            { name: "contract", params: { contractId: contract.id } },
-          ]}
-        />,
+  return useMutation({
+    mutationFn: async () => {
+      if (!vote) throw new Error("No rating provided");
+
+      const { rating, signature } = createUserRating(
+        view === "seller" ? contract.buyer.id : contract.seller.id,
+        vote === "positive" ? 1 : -1,
       );
-    }
-    setOverlayContent(undefined);
-  };
 
-  const rate = async () => {
-    if (!vote) return;
+      const { error: err } = await peachAPI.private.contract.rateUser({
+        contractId: contract.id,
+        rating,
+        signature,
+      });
 
-    const { rating, signature } = createUserRating(
-      view === "seller" ? contract.buyer.id : contract.seller.id,
-      vote === "positive" ? 1 : -1,
-    );
+      if (err) throw new Error(err.error);
+    },
+    onError: (error) => {
+      showError(error.message);
+    },
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: contractKeys.detail(contract.id),
+        }),
+        queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
+      ]);
 
-    const { error: err } = await peachAPI.private.contract.rateUser({
-      contractId: contract.id,
-      rating,
-      signature,
-    });
-
-    if (err) {
-      showError(err.error);
-      return;
-    }
-    await queryClient.invalidateQueries({
-      queryKey: ["contract", contract.id],
-    });
-    await queryClient.invalidateQueries({ queryKey: ["contractSummaries"] });
-    navigateAfterRating();
-  };
-
-  const showTradeBreakdown = () =>
-    setPopup(<TradeBreakdownPopup contract={contract} />);
-
-  return (
-    <View style={tw`self-center gap-3`}>
-      <Button
-        onPress={rate}
-        style={tw`bg-primary-background-light`}
-        disabled={!vote}
-        textColor={tw`text-primary-main`}
-      >
-        {i18n("rate.rateAndFinish")}
-      </Button>
-
-      {view === "buyer" && (
-        <Button onPress={showTradeBreakdown} ghost>
-          {i18n("rate.tradeBreakdown")}
-        </Button>
-      )}
-    </View>
-  );
+      if (shouldShowBackupOverlay && isPeachWalletActive && view === "buyer") {
+        setShowBackupReminder(true);
+        setOverlayContent(
+          <BackupTime
+            navigationParams={[
+              { name: "contract", params: { contractId: contract.id } },
+            ]}
+          />,
+        );
+      }
+      setOverlayContent(undefined);
+    },
+  });
 }

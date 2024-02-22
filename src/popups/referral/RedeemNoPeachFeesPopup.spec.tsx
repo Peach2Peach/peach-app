@@ -2,9 +2,9 @@ import { fireEvent, render, responseUtils, waitFor } from "test-utils";
 import { peachAPI } from "../../utils/peachAPI";
 import { RedeemNoPeachFeesPopup } from "./RedeemNoPeachFeesPopup";
 
-const showErrorBannerMock = jest.fn();
+const mockShowErrorBanner = jest.fn();
 jest.mock("../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
+  useShowErrorBanner: () => mockShowErrorBanner,
 }));
 
 const redeemNoPeachFeesMock = jest.spyOn(
@@ -29,7 +29,7 @@ describe("RedeemNoPeachFeesPopup", () => {
     const { getByText } = render(<RedeemNoPeachFeesPopup />);
     fireEvent.press(getByText("activate"));
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith("NOT_ENOUGH_POINTS");
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("NOT_ENOUGH_POINTS");
     });
   });
 });

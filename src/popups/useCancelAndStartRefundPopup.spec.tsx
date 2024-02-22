@@ -1,17 +1,16 @@
-import { render, renderHook } from "test-utils";
+import { render, renderHook, waitFor } from "test-utils";
 import { sellOffer } from "../../tests/unit/data/offerData";
-import { Popup } from "../components/popup/Popup";
+import { GlobalPopup } from "../components/popup/GlobalPopup";
 import { useCancelAndStartRefundPopup } from "./useCancelAndStartRefundPopup";
 
-const refundEscrowMock = jest.fn();
-jest.mock("../hooks/useRefundEscrow", () => ({
-  useRefundEscrow: () => refundEscrowMock,
+const mockRefundEscrow = jest.fn();
+jest.mock("../hooks/useRefundSellOffer", () => ({
+  useRefundSellOffer: () => ({
+    mutate: mockRefundEscrow,
+  }),
 }));
 
-const showErrorMock = jest.fn();
-jest.mock("../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorMock,
-}));
+jest.useFakeTimers();
 
 describe("useCancelAndStartRefundPopup", () => {
   it("should return a function", () => {
@@ -21,9 +20,14 @@ describe("useCancelAndStartRefundPopup", () => {
 
   it("should show the loading popup and start refund", async () => {
     const { result } = renderHook(useCancelAndStartRefundPopup);
-    await result.current(sellOffer);
-    const { queryByText } = render(<Popup />);
-    expect(queryByText("refunding escrow")).toBeTruthy();
-    expect(refundEscrowMock).toHaveBeenCalledWith(sellOffer, "psbt");
+    result.current(sellOffer);
+    const { queryByText } = render(<GlobalPopup />);
+    await waitFor(() => {
+      expect(queryByText("refunding escrow")).toBeTruthy();
+      expect(mockRefundEscrow).toHaveBeenCalledWith({
+        sellOffer,
+        rawPSBT: "psbt",
+      });
+    });
   });
 });

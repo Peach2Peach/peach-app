@@ -1,22 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
+import { contractKeys } from "../../hooks/query/useContractDetail";
 import { error } from "../../utils/log/error";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
 import { hasValidSignature } from "../contract/helpers/hasValidSignature";
 
-export const useDecryptedContractData = (contract?: Contract) =>
+export const useDecryptedContractData = (contract: Contract) =>
   useQuery({
-    queryKey: ["contract", contract?.id, "decrytedData"],
+    queryKey: contractKeys.decryptedData(contract.id),
     queryFn: async () => {
-      if (!contract) throw new Error("No contract provided");
       const { symmetricKey, paymentData } = await decryptContractData(contract);
       if (!symmetricKey || !paymentData)
         throw new Error("Could not decrypt contract data");
 
       return { symmetricKey, paymentData };
     },
-    enabled: !!contract,
+    retry: false,
   });
 
 async function decryptContractData(contract: Contract) {

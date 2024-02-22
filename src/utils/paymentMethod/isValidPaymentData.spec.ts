@@ -1,4 +1,3 @@
-import { ok } from "assert";
 import {
   invalidSEPADataCurrency,
   missingSEPAData,
@@ -9,9 +8,9 @@ import { isValidPaymentData } from "./isValidPaymentData";
 
 describe("isValidPaymentData", () => {
   it("checks if at least non metadata payment data exists", () => {
-    ok(isValidPaymentData(validSEPAData));
-    ok(isValidPaymentData(validCashData));
-    ok(!isValidPaymentData(invalidSEPADataCurrency));
-    ok(!isValidPaymentData(missingSEPAData));
+    expect(isValidPaymentData(validSEPAData)).toBe(true);
+    expect(isValidPaymentData(validCashData)).toBe(true);
+    expect(isValidPaymentData(invalidSEPADataCurrency)).toBe(false);
+    expect(isValidPaymentData(missingSEPAData)).toBe(false);
   });
 });

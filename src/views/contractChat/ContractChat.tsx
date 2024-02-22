@@ -5,11 +5,14 @@ import { Contract } from "../../../peach-api/src/@types/contract";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
 import { MessageInput } from "../../components/inputs/MessageInput";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { MSINASECOND } from "../../constants";
 import { PAGE_SIZE, useChatMessages } from "../../hooks/query/useChatMessages";
-import { useContractDetails } from "../../hooks/query/useContractDetails";
+import {
+  contractKeys,
+  useContractDetail,
+} from "../../hooks/query/useContractDetail";
 import { useRoute } from "../../hooks/useRoute";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { OpenDisputePopup } from "../../popups/dispute/OpenDisputePopup";
@@ -24,17 +27,17 @@ import { getTradingPartner } from "../../utils/contract/getTradingPartner";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { error } from "../../utils/log/error";
+import { parseError } from "../../utils/parseError";
 import { useWebsocketContext } from "../../utils/peachAPI/websocket";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { signAndEncryptSymmetric } from "../../utils/pgp/signAndEncryptSymmetric";
-import { parseError } from "../../utils/result/parseError";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { ChatBox } from "./components/ChatBox";
 import { useDecryptedContractData } from "./useDecryptedContractData";
 
 export const ContractChat = () => {
   const { contractId } = useRoute<"contractChat">().params;
-  const { contract } = useContractDetails(contractId);
+  const { contract } = useContractDetail(contractId);
 
   return !contract ? <LoadingScreen /> : <ChatScreen contract={contract} />;
 };
@@ -52,7 +55,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
     page,
     fetchNextPage,
   } = useChatMessages({
-    id: contractId,
+    contractId,
     symmetricKey: decryptedData?.symmetricKey,
   });
   const showError = useShowErrorBanner();
@@ -192,7 +195,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
         messages: [decryptedMessage],
       });
       queryClient.setQueryData(
-        ["contract-chat", contractId],
+        contractKeys.chat(contractId),
         (oldQueryData: InfiniteData<Message[]> | undefined) => {
           if (!oldQueryData) {
             return { pageParams: [], pages: [[decryptedMessage]] };

@@ -1,9 +1,5 @@
 type Onboarding = {
-  welcome:
-    | {
-        referralCode?: string;
-      }
-    | undefined;
+  welcome: undefined;
   newUser: {
     referralCode?: string;
   };

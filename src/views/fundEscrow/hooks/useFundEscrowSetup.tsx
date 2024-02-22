@@ -1,14 +1,14 @@
 import { useEffect, useMemo } from "react";
-import { useSetPopup } from "../../../components/popup/Popup";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { MSINAMINUTE } from "../../../constants";
-import { CancelOfferPopup } from "../../../hooks/CancelOfferPopup";
 import { useFundingStatus } from "../../../hooks/query/useFundingStatus";
-import { useMultipleOfferDetails } from "../../../hooks/query/useOfferDetails";
+import { useMultipleOfferDetails } from "../../../hooks/query/useOfferDetail";
 import { useRoute } from "../../../hooks/useRoute";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
+import { CancelOfferPopup } from "../../../popups/CancelOfferPopup";
 import { getSellOfferFunding } from "../../../utils/offer/getSellOfferFunding";
 import { isSellOffer } from "../../../utils/offer/isSellOffer";
-import { parseError } from "../../../utils/result/parseError";
+import { parseError } from "../../../utils/parseError";
 import { isDefined } from "../../../utils/validation/isDefined";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { useSyncWallet } from "../../wallet/hooks/useSyncWallet";

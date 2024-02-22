@@ -2,7 +2,6 @@ import { contractSummary } from "../../../../tests/unit/data/contractSummaryData
 import { buyOffer, sellOffer } from "../../../../tests/unit/data/offerData";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { useTradeSummaryStore } from "../../../store/tradeSummaryStore";
-import { saveOffer } from "../../../utils/offer/saveOffer";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { getTxSummary } from "./getTxSummary";
 
@@ -55,18 +54,18 @@ const buyOfferWithContractData = {
   price: 21,
 };
 
+jest.useFakeTimers();
+
 describe("getTxSummary", () => {
   beforeEach(() => {
     useSettingsStore.setState({
       displayCurrency: "USD",
     });
     useWalletState.getState().updateTxOfferMap(txId, [buyOffer.id]);
-    saveOffer(buyOffer);
-    saveOffer(offerWithContract);
   });
 
   it("returns transaction summary with offer id", () => {
-    expect(getTxSummary(receivedTx)).toEqual({
+    expect(getTxSummary({ tx: receivedTx, offers: [buyOffer] })).toEqual({
       ...baseSummary,
       type: "TRADE",
       offerData: [buyOfferData],
@@ -77,14 +76,16 @@ describe("getTxSummary", () => {
       .getState()
       .setContract(contractSummary.id, contractSummary);
     useWalletState.getState().updateTxOfferMap(txId, [offerWithContract.id]);
-    expect(getTxSummary(receivedTx)).toEqual({
+    expect(
+      getTxSummary({ tx: receivedTx, offers: [offerWithContract] }),
+    ).toEqual({
       ...baseSummary,
       offerData: [buyOfferWithContractData],
       type: "TRADE",
     });
   });
   it("returns the correct transaction summary object for a confirmed trade", () => {
-    expect(getTxSummary(receivedTx)).toEqual({
+    expect(getTxSummary({ tx: receivedTx, offers: [buyOffer] })).toEqual({
       ...baseSummary,
       offerData: [buyOfferData],
       type: "TRADE",
@@ -92,30 +93,32 @@ describe("getTxSummary", () => {
   });
 
   it("returns the correct transaction summary object for a refund", () => {
-    // @ts-expect-error quickfix to create sell offer data we need
-    saveOffer({ ...sellOffer, ...offerWithContract, type: "ask" });
     useTradeSummaryStore
       .getState()
       .setContract(contractSummary.id, contractSummary);
     useWalletState.getState().updateTxOfferMap(txId, [offerWithContract.id]);
 
-    expect(getTxSummary(receivedTx)).toEqual({
+    expect(
+      getTxSummary({
+        tx: receivedTx,
+        offers: [{ ...sellOffer, contractId: contractSummary.id }],
+      }),
+    ).toEqual({
       ...baseSummary,
-      offerData: [buyOfferWithContractData],
+      offerData: [{ ...buyOfferWithContractData, offerId: sellOffer.id }],
       type: "REFUND",
     });
   });
   it("returns the correct transaction summary object for a deposit", () => {
-    // @ts-expect-error quickfix to create sell offer data we need
-    useWalletState.getState().updateTxOfferMap(txId, undefined);
+    useWalletState.getState().updateTxOfferMap(txId, []);
 
-    expect(getTxSummary(receivedTx)).toEqual({
+    expect(getTxSummary({ tx: receivedTx, offers: [] })).toEqual({
       ...baseSummary,
       type: "DEPOSIT",
     });
   });
   it("returns the correct transaction summary object for a withdrawal", () => {
-    expect(getTxSummary(sentTx)).toEqual({
+    expect(getTxSummary({ tx: sentTx, offers: [buyOffer] })).toEqual({
       ...baseSummary,
       offerData: [buyOfferData],
       type: "WITHDRAWAL",

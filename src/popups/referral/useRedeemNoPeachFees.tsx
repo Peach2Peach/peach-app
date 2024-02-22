@@ -1,8 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { User } from "../../../peach-api/src/@types/user";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ClosePopupAction } from "../../components/popup/actions/ClosePopupAction";
+import { userKeys } from "../../hooks/query/useSelfUser";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -18,9 +19,9 @@ export function useRedeemNoPeachFees() {
   const setPopup = useSetPopup();
   return useMutation({
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ["user", "self"] });
-      const previousData = queryClient.getQueryData(["user", "self"]);
-      queryClient.setQueryData<User>(["user", "self"], (old) => {
+      await queryClient.cancelQueries({ queryKey: userKeys.self() });
+      const previousData = queryClient.getQueryData(userKeys.self());
+      queryClient.setQueryData<User>(userKeys.self(), (old) => {
         if (!old) return old;
         return {
           ...old,
@@ -50,9 +51,9 @@ export function useRedeemNoPeachFees() {
     },
     onError: (error, _variables, previousData) => {
       showErrorBanner(error.message);
-      return queryClient.setQueryData(["user", "self"], previousData);
+      return queryClient.setQueryData(userKeys.self(), previousData);
     },
     onSettled: () =>
-      queryClient.invalidateQueries({ queryKey: ["user", "self"] }),
+      queryClient.invalidateQueries({ queryKey: userKeys.self() }),
   });
 }

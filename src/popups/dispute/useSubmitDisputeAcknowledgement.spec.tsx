@@ -2,7 +2,8 @@ import { Keyboard } from "react-native";
 import { render, renderHook, waitFor } from "test-utils";
 import { contract } from "../../../peach-api/src/testData/contract";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
-import { Popup } from "../../components/popup/Popup";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
+import { contractKeys } from "../../hooks/query/useContractDetail";
 import { defaultAccount, setAccount } from "../../utils/account/account";
 import { peachAPI } from "../../utils/peachAPI";
 import { useSubmitDisputeAcknowledgement } from "./useSubmitDisputeAcknowledgement";
@@ -10,9 +11,9 @@ import { useSubmitDisputeAcknowledgement } from "./useSubmitDisputeAcknowledgeme
 const now = new Date();
 jest.useFakeTimers({ now });
 
-const showErrorBannerMock = jest.fn();
+const mockShowErrorBanner = jest.fn();
 jest.mock("../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
+  useShowErrorBanner: () => mockShowErrorBanner,
 }));
 
 describe("useSubmitDisputeAcknowledgement", () => {
@@ -21,7 +22,7 @@ describe("useSubmitDisputeAcknowledgement", () => {
     "acknowledgeDispute",
   );
   beforeEach(() => {
-    queryClient.setQueryData(["contract", contract.id], contract);
+    queryClient.setQueryData(contractKeys.detail(contract.id), contract);
   });
 
   afterEach(() => {
@@ -46,9 +47,9 @@ describe("useSubmitDisputeAcknowledgement", () => {
       email: "",
     });
     await waitFor(() => {
-      expect(queryClient.getQueryState(["contract", contract.id])?.status).toBe(
-        "success",
-      );
+      expect(
+        queryClient.getQueryState(contractKeys.detail(contract.id))?.status,
+      ).toBe("success");
     });
 
     expect(acknowledgeDisputeMock).not.toHaveBeenCalled();
@@ -64,9 +65,9 @@ describe("useSubmitDisputeAcknowledgement", () => {
     });
 
     await waitFor(() => {
-      expect(queryClient.getQueryState(["contract", contract.id])?.status).toBe(
-        "success",
-      );
+      expect(
+        queryClient.getQueryState(contractKeys.detail(contract.id))?.status,
+      ).toBe("success");
     });
   });
   it("saves contract for buyer update when successful", async () => {
@@ -78,9 +79,9 @@ describe("useSubmitDisputeAcknowledgement", () => {
       email: "",
     });
     await waitFor(() => {
-      expect(queryClient.getQueryState(["contract", contract.id])?.status).toBe(
-        "success",
-      );
+      expect(
+        queryClient.getQueryState(contractKeys.detail(contract.id))?.status,
+      ).toBe("success");
     });
   });
   it("closes popup when successful", async () => {
@@ -91,12 +92,12 @@ describe("useSubmitDisputeAcknowledgement", () => {
       email: "seller@mail.com",
     });
     await waitFor(() => {
-      expect(queryClient.getQueryState(["contract", contract.id])?.status).toBe(
-        "success",
-      );
+      expect(
+        queryClient.getQueryState(contractKeys.detail(contract.id))?.status,
+      ).toBe("success");
     });
 
-    const { queryByText } = render(<Popup />);
+    const { queryByText } = render(<GlobalPopup />);
     expect(queryByText("dispute opened")).toBeFalsy();
   });
   it("closes keyboard when successful and email was required", async () => {
@@ -114,9 +115,9 @@ describe("useSubmitDisputeAcknowledgement", () => {
     });
     await waitFor(() => {
       expect(queryClient.isMutating()).toBe(0);
-      expect(queryClient.getQueryState(["contract", contract.id])?.status).toBe(
-        "success",
-      );
+      expect(
+        queryClient.getQueryState(contractKeys.detail(contract.id))?.status,
+      ).toBe("success");
     });
 
     expect(keyboardSpy).toHaveBeenCalled();
@@ -145,14 +146,14 @@ describe("useSubmitDisputeAcknowledgement", () => {
       email: "satoshi@bitcoin.org",
     });
     await waitFor(() => {
-      expect(queryClient.getQueryState(["contract", contract.id])?.status).toBe(
-        "success",
-      );
+      expect(
+        queryClient.getQueryState(contractKeys.detail(contract.id))?.status,
+      ).toBe("success");
     });
-    expect(showErrorBannerMock).toHaveBeenCalledWith(error);
+    expect(mockShowErrorBanner).toHaveBeenCalledWith(error);
   });
   it("updates the isEmailRequired property on the contract", async () => {
-    queryClient.setQueryData(["contract", contract.id], {
+    queryClient.setQueryData(contractKeys.detail(contract.id), {
       ...contract,
       isEmailRequired: true,
     });
@@ -168,12 +169,12 @@ describe("useSubmitDisputeAcknowledgement", () => {
 
     await waitFor(() => {
       expect(queryClient.isMutating()).toBe(0);
-      expect(queryClient.getQueryState(["contract", contract.id])?.status).toBe(
-        "success",
-      );
+      expect(
+        queryClient.getQueryState(contractKeys.detail(contract.id))?.status,
+      ).toBe("success");
     });
 
-    expect(queryClient.getQueryData(["contract", contract.id])).toEqual({
+    expect(queryClient.getQueryData(contractKeys.detail(contract.id))).toEqual({
       ...contract,
       isEmailRequired: false,
     });

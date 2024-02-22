@@ -6,14 +6,14 @@ import { Screen } from "../../components/Screen";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { Button } from "../../components/buttons/Button";
 import { PremiumSlider } from "../../components/inputs/premiumSlider/PremiumSlider";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
-import { HelpPopup } from "../../hooks/HelpPopup";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
-import { useOfferDetails } from "../../hooks/query/useOfferDetails";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { usePatchOffer } from "../../hooks/usePatchOffer";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -25,7 +25,7 @@ import { MarketInfo } from "../offerPreferences/components/MarketInfo";
 
 export const EditPremium = () => {
   const { offerId } = useRoute<"editPremium">().params;
-  const { offer } = useOfferDetails(offerId);
+  const { offer } = useOfferDetail(offerId);
   const offerPremium =
     !!offer && "premium" in offer ? offer.premium : undefined;
   const [premium, setPremium] = useState(offerPremium);
@@ -93,7 +93,7 @@ type Props = {
 };
 function ConfirmButton({ offerId, newPremium }: Props) {
   const { mutate: confirmPremium, isPending } = usePatchOffer();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   return (
     <Button
       onPress={() =>

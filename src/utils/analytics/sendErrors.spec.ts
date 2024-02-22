@@ -2,10 +2,8 @@ import crashlytics from "@react-native-firebase/crashlytics";
 import * as DeviceInfo from "react-native-device-info";
 import { sendErrors } from "./sendErrors";
 
-const appendFileMock = jest.fn();
-jest.mock("../file/appendFile", () => ({
-  appendFile: (...args: unknown[]) => appendFileMock(...args),
-}));
+jest.mock("../file/appendFile");
+const appendFileMock = jest.requireMock("../file/appendFile").appendFile;
 
 describe("sendErrors function", () => {
   const isAirplaneModeSync = jest.spyOn(DeviceInfo, "isAirplaneModeSync");

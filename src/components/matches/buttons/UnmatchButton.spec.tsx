@@ -3,7 +3,8 @@ import { buyOffer } from "../../../../tests/unit/data/offerData";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
-import { Popup } from "../../popup/Popup";
+import { matchesKeys } from "../../../views/search/hooks/useOfferMatches";
+import { GlobalPopup } from "../../popup/GlobalPopup";
 import { TIMER_DURATION } from "./UndoButton";
 import { UnmatchButton } from "./UnmatchButton";
 
@@ -42,7 +43,7 @@ describe("UnmatchButton", () => {
   };
 
   beforeEach(() => {
-    queryClient.setQueryData(["matchDetails", "offerId", "offerId"], {
+    queryClient.setQueryData(matchesKeys.matchDetail("offerId", "offerId"), {
       matched: true,
     });
   });
@@ -75,7 +76,7 @@ describe("UnmatchButton", () => {
     const { getByText } = render(
       <>
         <UnmatchButton {...defaultProps} />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 
@@ -89,7 +90,7 @@ describe("UnmatchButton", () => {
     const { getByText, queryByText } = render(
       <>
         <UnmatchButton {...defaultProps} />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 
@@ -109,7 +110,7 @@ describe("UnmatchButton", () => {
     const { getByText } = render(
       <>
         <UnmatchButton {...defaultProps} />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 
@@ -128,7 +129,7 @@ describe("UnmatchButton", () => {
       matchingOfferId: "offerId",
     });
     expect(
-      queryClient.getQueryData(["matchDetails", "offerId", "offerId"]),
+      queryClient.getQueryData(matchesKeys.matchDetail("offerId", "offerId")),
     ).toStrictEqual({
       matched: false,
     });
@@ -156,7 +157,7 @@ describe("UnmatchButton", () => {
           match={{ ...defaultProps.match, matched: false }}
         />
         ,
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 

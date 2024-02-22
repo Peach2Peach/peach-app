@@ -6,7 +6,6 @@ type OfferDraft = {
   meansOfPayment: MeansOfPayment;
   paymentData: OfferPaymentData;
   originalPaymentData: PaymentData[];
-  walletLabel?: string;
   tradeStatus?: TradeStatus;
 };
 
@@ -77,4 +76,6 @@ type BuyOfferDraft = OfferDraft & {
   minReputation: number | null;
 };
 
-type BuyOffer = Omit<BuyOfferDraft & Offer, "originalPaymentData">;
+type BuyOffer = Omit<BuyOfferDraft & Offer, "originalPaymentData"> & {
+  message: string;
+};

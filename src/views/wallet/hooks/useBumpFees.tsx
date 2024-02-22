@@ -1,9 +1,9 @@
 import { Transaction, address } from "bitcoinjs-lib";
 import { useCallback } from "react";
 import { shallow } from "zustand/shallow";
-import { useSetPopup } from "../../../components/popup/Popup";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { buildBumpFeeTransaction } from "../../../utils/wallet/transaction/buildBumpFeeTransaction";
@@ -18,6 +18,7 @@ const useRemoveTxFromPeachWallet = () => {
 
   const removeTxFromPeachWallet = useCallback(
     (txId: string) => {
+      if (!peachWallet) throw new Error("PeachWallet not set");
       removeTransaction(txId);
       peachWallet.transactions = peachWallet.transactions.filter(
         (tx) => tx.txid !== txId,
@@ -44,7 +45,7 @@ export const useBumpFees = ({
   const setPopup = useSetPopup();
   const handleTransactionError = useHandleTransactionError();
   const removeTxFromPeachWallet = useRemoveTxFromPeachWallet();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const onSuccess = useCallback(
     (newTxId: string) => {
@@ -56,7 +57,7 @@ export const useBumpFees = ({
   );
 
   const bumpFees = useCallback(async () => {
-    if (!transaction) return;
+    if (!transaction || !peachWallet) return;
 
     try {
       const bumpFeeTransaction = await buildBumpFeeTransaction(

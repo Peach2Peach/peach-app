@@ -1,22 +1,23 @@
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { MSINANHOUR } from "../../constants";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
-import { cancelContractAsSeller } from "../../popups/tradeCancelation/cancelContractAsSeller";
+import { patchSellOfferWithRefundTx } from "../../popups/tradeCancelation/patchSellOfferWithRefundTx";
+import { useCancelContract } from "../../popups/tradeCancelation/useCancelContract";
 import { useStartRefundPopup } from "../../popups/useStartRefundPopup";
-import { getSellOfferFromContract } from "../../utils/contract/getSellOfferFromContract";
+import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
-import { verifyAndSignReleaseTx } from "../../utils/contract/verifyAndSignReleaseTx";
 import i18n from "../../utils/i18n";
+import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { peachAPI } from "../../utils/peachAPI";
-import { getEscrowWalletForOffer } from "../../utils/wallet/getEscrowWalletForOffer";
 import { useContractContext } from "./context";
+import { useConfirmPaymentSeller } from "./hooks/useConfirmPaymentSeller";
 import { useContractMutation } from "./hooks/useContractMutation";
-import { useReleaseEscrow } from "./hooks/useReleaseEscrow";
 import { useRepublishOffer } from "./hooks/useRepublishOffer";
 
 export function RepublishOfferSlider() {
   const { contract } = useContractContext();
-  const republishOffer = useRepublishOffer();
+  const { mutate: republishOffer } = useRepublishOffer();
   return (
     <ConfirmSlider
       onConfirm={() => republishOffer(contract)}
@@ -28,9 +29,15 @@ export function RepublishOfferSlider() {
 export function RefundEscrowSlider() {
   const { contract } = useContractContext();
   const startRefund = useStartRefundPopup();
+  const { offer } = useOfferDetail(getSellOfferIdFromContract(contract));
+  const onConfirm = () => {
+    if (!offer || !isSellOffer(offer)) return;
+    startRefund(offer);
+  };
   return (
     <ConfirmSlider
-      onConfirm={() => startRefund(getSellOfferFromContract(contract))}
+      onConfirm={onConfirm}
+      enabled={!!offer}
       label1={i18n("refundEscrow")}
       iconId="rotateCounterClockwise"
     />
@@ -41,7 +48,7 @@ export function PaymentMadeSlider() {
   const { contractId } = useRoute<"contract">().params;
   const { contract } = useContractContext();
 
-  const mutation = useContractMutation(
+  const { isPending, mutate } = useContractMutation(
     {
       id: contract.id,
       paymentMade: new Date(),
@@ -58,8 +65,8 @@ export function PaymentMadeSlider() {
 
   return (
     <ConfirmSlider
-      enabled={!mutation.isPending && !isPaymentTooLate(contract)}
-      onConfirm={() => mutation.mutate()}
+      enabled={!isPending && !isPaymentTooLate(contract)}
+      onConfirm={() => mutate()}
       label1={i18n("contract.payment.buyer.confirm")}
       label2={i18n("contract.payment.made")}
     />
@@ -68,37 +75,18 @@ export function PaymentMadeSlider() {
 
 export function PaymentReceivedSlider() {
   const { contract } = useContractContext();
-  const mutation = useContractMutation(
-    { id: contract.id, paymentConfirmed: new Date(), tradeStatus: "rateUser" },
-    {
-      mutationFn: async () => {
-        const sellOffer = getSellOfferFromContract(contract);
-
-        const { result, error } = verifyAndSignReleaseTx(
-          contract,
-          sellOffer,
-          getEscrowWalletForOffer(sellOffer),
-        );
-
-        if (!result?.releaseTransaction) {
-          throw new Error(error);
-        }
-
-        const { error: err } =
-          await peachAPI.private.contract.confirmPaymentSeller({
-            contractId: contract.id,
-            releaseTransaction: result.releaseTransaction,
-            batchReleasePsbt: result.batchReleasePsbt,
-          });
-        if (err) throw new Error(err.error);
-      },
+  const { isPending, mutate } = useConfirmPaymentSeller({
+    contract,
+    optimisticContract: {
+      paymentConfirmed: new Date(),
+      tradeStatus: "rateUser",
     },
-  );
+  });
 
   return (
     <ConfirmSlider
-      enabled={!mutation.isPending}
-      onConfirm={() => mutation.mutate()}
+      enabled={!isPending}
+      onConfirm={() => mutate()}
       label1={i18n("contract.payment.confirm")}
       label2={i18n("contract.payment.received")}
     />
@@ -106,20 +94,26 @@ export function PaymentReceivedSlider() {
 }
 export function CancelTradeSlider() {
   const { contract } = useContractContext();
-  const { mutate } = useContractMutation(
-    { id: contract.id, canceled: true, tradeStatus: "refundOrReviveRequired" },
-    {
-      mutationFn: async () => {
-        const { result, error } = await cancelContractAsSeller(contract);
-        if (!result || error) throw new Error(error);
-      },
+  const { mutate } = useCancelContract({
+    contractId: contract.id,
+    optimisticContract: {
+      canceled: true,
+      tradeStatus: "refundOrReviveRequired",
     },
-  );
+  });
+
+  const cancelContract = () => {
+    mutate(undefined, {
+      onSuccess: async ({ psbt }) => {
+        if (psbt) await patchSellOfferWithRefundTx(contract, psbt);
+      },
+    });
+  };
 
   return (
     <ConfirmSlider
       iconId="xCircle"
-      onConfirm={() => mutate()}
+      onConfirm={cancelContract}
       label1={i18n("contract.seller.paymentTimerHasRunOut.cancelTrade")}
     />
   );
@@ -198,7 +192,14 @@ export function ResolveCancelRequestSliders() {
 }
 export function ReleaseEscrowSlider() {
   const { contract } = useContractContext();
-  const { mutate } = useReleaseEscrow(contract);
+  const { mutate } = useConfirmPaymentSeller({
+    contract,
+    optimisticContract: {
+      paymentConfirmed: new Date(),
+      releaseTxId: "",
+      disputeResolvedDate: new Date(),
+    },
+  });
 
   return (
     <ConfirmSlider label1={i18n("releaseEscrow")} onConfirm={() => mutate()} />

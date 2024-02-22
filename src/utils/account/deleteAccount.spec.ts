@@ -1,4 +1,3 @@
-import { ok } from "assert";
 import * as accountData from "../../../tests/unit/data/accountData";
 import { offerPreferencesStorage } from "../../store/offerPreferenes/useOfferPreferences";
 import { settingsStorage } from "../../store/settingsStore/settingsStorage";
@@ -8,7 +7,6 @@ import { setAccount } from "./account";
 import { accountStorage } from "./accountStorage";
 import { chatStorage } from "./chatStorage";
 import { deleteAccount } from "./deleteAccount";
-import { offerStorage } from "./offerStorage";
 
 describe("deleteAccount", () => {
   beforeAll(() => {
@@ -23,13 +21,10 @@ describe("deleteAccount", () => {
     deleteAccount();
 
     expect(accountStorage.clearStore).toHaveBeenCalled();
-    expect(offerStorage.clearStore).toHaveBeenCalled();
     expect(chatStorage.clearStore).toHaveBeenCalled();
     expect(settingsStorage.clearStore).toHaveBeenCalled();
     expect(offerPreferencesStorage.clearStore).toHaveBeenCalled();
     expect(usePaymentDataStoreReset).toHaveBeenCalled();
     expect(peachAPI.apiOptions.peachAccount).toBeNull();
-
-    ok(true);
   });
 });

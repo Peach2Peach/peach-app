@@ -38,23 +38,28 @@ export const TestViewPeachWallet = () => {
   const [amount, setAmount] = useState("0");
   const [txId, setTxId] = useState("");
   const getNewAddress = async () => {
+    if (!peachWallet) throw Error("Peach wallet not defined");
     const newAddress = await peachWallet.getAddress();
     setAddress(newAddress.address);
   };
   const getNewInternalAddress = async () => {
+    if (!peachWallet) throw Error("Peach wallet not defined");
     const newAddress = await peachWallet.getInternalAddress();
     setAddress(newAddress.address);
   };
   const send = async () => {
     if (!address) throw Error("Address invalid");
-    const result = await peachWallet.sendTo({
+    if (!peachWallet) throw Error("Peach wallet not defined");
+    const { psbt } = await peachWallet.buildFinishedTransaction({
       address,
       amount: 50000,
       feeRate: 3,
     });
+    const result = await peachWallet.signAndBroadcastPSBT(psbt);
     setTxId(await result.txid());
   };
   const refill = async () => {
+    if (!peachWallet) throw Error("Peach wallet not defined");
     const { address: newAddress } = await peachWallet.getAddress();
     fundAddress({ address: newAddress, amount: 1000000 });
   };
@@ -125,6 +130,7 @@ function SignMessage() {
   const [address, setAddress] = useState("");
   const [signature, setSignature] = useState("");
   const onPress = async () => {
+    if (!peachWallet) throw Error("Peach wallet not defined");
     const message = getMessageToSignForAddress(userId, address);
     const sig = await peachWallet.signMessage(message, address);
     setSignature(sig);

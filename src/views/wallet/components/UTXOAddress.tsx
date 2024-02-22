@@ -5,6 +5,7 @@ import { PeachText } from "../../../components/text/PeachText";
 import tw from "../../../styles/tailwind";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
+import { walletKeys } from "../hooks/useUTXOs";
 
 type Props = {
   script: Script;
@@ -12,9 +13,10 @@ type Props = {
 
 const useUTXOAddress = (script: Script) =>
   useQuery({
-    queryKey: ["address", script.id],
+    queryKey: walletKeys.utxoAddress(script.id),
     queryFn: async () => {
       try {
+        if (!peachWallet) throw new Error("Peach wallet not defined");
         const address = await new Address().fromScript(
           script,
           peachWallet.getNetwork(),
@@ -24,6 +26,7 @@ const useUTXOAddress = (script: Script) =>
         throw new Error("Error getting address");
       }
     },
+    enabled: peachWallet !== null,
   });
 
 export function UTXOAddress({ script }: Props) {

@@ -6,8 +6,8 @@ import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore"
 import { useAccountStore } from "../../../utils/account/account";
 import { createAccount } from "../../../utils/account/createAccount";
 import { deleteAccount } from "../../../utils/account/deleteAccount";
-import { recoverAccount } from "../../../utils/account/recoverAccount";
 import { storeAccount } from "../../../utils/account/storeAccount";
+import { useRecoverAccount } from "../../../utils/account/useRecoverAccount";
 import { LOGIN_DELAY } from "../../restoreReputation/LOGIN_DELAY";
 import { NUMBER_OF_WORDS } from "../../settings/components/backups/NUMBER_OF_WORDS";
 import { setupPeachAccount } from "./setupPeachAccount";
@@ -57,6 +57,8 @@ export const useRestoreFromSeedSetup = () => {
     },
     [setToast],
   );
+
+  const recoverAccount = useRecoverAccount();
 
   const createAndRecover = async () => {
     const recoveredAccount = await createAccount(mnemonic);

@@ -1,4 +1,3 @@
-import { deepStrictEqual } from "assert";
 import {
   mopsA,
   mopsB,
@@ -9,9 +8,17 @@ import { getPaymentMethods } from "./getPaymentMethods";
 
 describe("getPaymentMethods", () => {
   it("gets all payment methods defined in means of payment", () => {
-    deepStrictEqual(getPaymentMethods(mopsA), ["sepa", "paypal", "revolut"]);
-    deepStrictEqual(getPaymentMethods(mopsB), ["paypal", "wise", "revolut"]);
-    deepStrictEqual(getPaymentMethods(mopsC), ["paypal", "revolut"]);
-    deepStrictEqual(getPaymentMethods(mopsD), ["paypal"]);
+    expect(getPaymentMethods(mopsA)).toStrictEqual([
+      "sepa",
+      "paypal",
+      "revolut",
+    ]);
+    expect(getPaymentMethods(mopsB)).toStrictEqual([
+      "paypal",
+      "wise",
+      "revolut",
+    ]);
+    expect(getPaymentMethods(mopsC)).toStrictEqual(["paypal", "revolut"]);
+    expect(getPaymentMethods(mopsD)).toStrictEqual(["paypal"]);
   });
 });

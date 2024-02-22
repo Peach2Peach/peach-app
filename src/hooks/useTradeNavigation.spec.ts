@@ -5,9 +5,9 @@ import { contractSummary } from "../../tests/unit/data/contractSummaryData";
 import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
 import { useTradeNavigation } from "./useTradeNavigation";
 
-const startRefundPopupMock = jest.fn();
+const mockStartRefundPopup = jest.fn();
 jest.mock("../popups/useStartRefundPopup", () => ({
-  useStartRefundPopup: () => startRefundPopupMock,
+  useStartRefundPopup: () => mockStartRefundPopup,
 }));
 
 describe("useTradeNavigation - contracts", () => {
@@ -46,7 +46,7 @@ describe("useTradeNavigation - offers", () => {
       initialProps: offerSummary as OfferSummary,
     });
     await result.current();
-    expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer);
+    expect(mockStartRefundPopup).toHaveBeenCalledWith(sellOffer);
   });
   it("should navigate to wrongFundingAmount if status is fundingAmountDifferent", async () => {
     const offerSummary: Partial<OfferSummary> = {

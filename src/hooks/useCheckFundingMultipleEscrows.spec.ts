@@ -1,6 +1,5 @@
-import { act, renderHook, waitFor } from "test-utils";
+import { act, renderHook, responseUtils, waitFor } from "test-utils";
 import { OfferSummary } from "../../peach-api/src/@types/offer";
-import { account1 } from "../../tests/unit/data/accountData";
 import { sellOffer } from "../../tests/unit/data/offerData";
 import { offerSummary } from "../../tests/unit/data/offerSummaryData";
 import { queryClient } from "../../tests/unit/helpers/QueryClientWrapper";
@@ -8,23 +7,24 @@ import { createTestWallet } from "../../tests/unit/helpers/createTestWallet";
 import { getTransactionDetails } from "../../tests/unit/helpers/getTransactionDetails";
 import { MSINAMINUTE } from "../constants";
 import { useTradeSummaryStore } from "../store/tradeSummaryStore";
-import { defaultAccount, setAccount } from "../utils/account/account";
 import { sum } from "../utils/math/sum";
+import { peachAPI } from "../utils/peachAPI";
 import { PeachWallet } from "../utils/wallet/PeachWallet";
 import { setPeachWallet } from "../utils/wallet/setWallet";
 import { useWalletState } from "../utils/wallet/walletStore";
+import { offerKeys } from "./query/useOfferDetail";
 import { useCheckFundingMultipleEscrows } from "./useCheckFundingMultipleEscrows";
 
 jest.useFakeTimers();
 
 const refetchMock = jest.fn();
-const useOfferSummariesMock = jest.fn().mockReturnValue({
-  refetch: () => refetchMock(),
-});
 
-jest.mock("./query/useOfferSummaries", () => ({
-  useOfferSummaries: (...args: unknown[]) => useOfferSummariesMock(...args),
-}));
+jest.mock("./query/useOfferSummaries");
+jest
+  .requireMock("./query/useOfferSummaries")
+  .useOfferSummaries.mockReturnValue({
+    refetch: refetchMock,
+  });
 
 const sellOffer1 = sellOffer;
 const sellOffer2 = { ...sellOffer, id: "39", escrow: "escrow2" };
@@ -56,6 +56,19 @@ peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails);
 const getAddressUTXOSpy = jest.spyOn(peachWallet, "getAddressUTXO");
 const signAndBroadcastPSBTSpy = jest.spyOn(peachWallet, "signAndBroadcastPSBT");
 const syncWalletSpy = jest.spyOn(peachWallet, "syncWallet");
+const getOfferSpy = jest.spyOn(peachAPI.private.offer, "getOfferDetails");
+getOfferSpy.mockImplementation(({ offerId: id }) => {
+  switch (id) {
+    case "38":
+      return Promise.resolve({ result: sellOffer1, ...responseUtils });
+    case "39":
+      return Promise.resolve({ result: sellOffer2, ...responseUtils });
+    case "40":
+      return Promise.resolve({ result: sellOffer3, ...responseUtils });
+    default:
+      return Promise.resolve({ result: sellOffer1, ...responseUtils });
+  }
+});
 
 describe("useCheckFundingMultipleEscrows", () => {
   beforeAll(() => {
@@ -63,7 +76,9 @@ describe("useCheckFundingMultipleEscrows", () => {
     peachWallet.initialized = true;
   });
   beforeEach(() => {
-    setAccount({ ...account1, offers: sellOffers });
+    sellOffers.forEach((o) => {
+      queryClient.setQueryData(offerKeys.detail(o.id), o);
+    });
     useTradeSummaryStore.getState().reset();
     useTradeSummaryStore.getState().setOffers(sellOfferSummaries);
     refetchMock.mockResolvedValue(sellOfferSummaries);
@@ -120,7 +135,13 @@ describe("useCheckFundingMultipleEscrows", () => {
     expect(useWalletState.getState().fundMultipleMap).toEqual({});
   });
   it("aborts if no escrow addresses can be found", async () => {
-    setAccount(defaultAccount);
+    queryClient.clear();
+    getOfferSpy.mockImplementation(() =>
+      Promise.resolve({
+        result: { ...sellOffer1, escrow: undefined },
+        ...responseUtils,
+      }),
+    );
     renderHook(useCheckFundingMultipleEscrows);
 
     act(() => jest.advanceTimersByTime(MSINAMINUTE));

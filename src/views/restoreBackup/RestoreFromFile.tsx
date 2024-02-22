@@ -55,7 +55,7 @@ export const RestoreFromFile = () => {
 
       <Button
         style={tw`self-center bg-primary-background-light`}
-        textColor={tw`text-primary-main`}
+        textColor={tw.color("primary-main")}
         disabled={!file.content || !password}
         iconId="save"
         onPress={submit}

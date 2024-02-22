@@ -2,6 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { WebViewMessageEvent } from "react-native-webview";
 import { GetFundingStatusResponseBody } from "../../../../peach-api/src/@types/api/offerAPI";
+import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { log } from "../../log/log";
 import { peachAPI } from "../../peachAPI";
 
@@ -39,10 +40,10 @@ export const useClaimReverseSubmarineSwap = ({ offerId }: Props) => {
 
       if (result.txId) {
         const fundingStatus: GetFundingStatusResponseBody | undefined =
-          queryClient.getQueryData(["fundingStatus", offerId]);
+          queryClient.getQueryData(offerKeys.fundingStatus(offerId));
         if (!fundingStatus) return;
 
-        queryClient.setQueryData(["fundingStatus", offerId], {
+        queryClient.setQueryData(offerKeys.fundingStatus(offerId), {
           ...fundingStatus,
           fundingLiquid: {
             ...fundingStatus.fundingLiquid,

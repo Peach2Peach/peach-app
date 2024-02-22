@@ -9,6 +9,7 @@ import { createWalletFromBase58 } from "../../utils/wallet/createWalletFromBase5
 import { getNetwork } from "../../utils/wallet/getNetwork";
 import { peachWallet, setPeachWallet } from "../../utils/wallet/setWallet";
 import { AddressChecker } from "./AddressChecker";
+import { walletKeys } from "./hooks/useUTXOs";
 expect.extend({ toMatchDiffSnapshot });
 
 const validAddress = "bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0";
@@ -20,6 +21,7 @@ describe("AddressChecker", () => {
   beforeAll(() => {
     const wallet = createWalletFromBase58(account1.base58, getNetwork());
     setPeachWallet(new PeachWallet({ wallet }));
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.wallet = new Wallet();
   });
 
@@ -40,7 +42,9 @@ describe("AddressChecker", () => {
     fireEvent.changeText(addressInput, validAddress);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["isMine", validAddress])).toBe(true);
+      expect(
+        queryClient.getQueryData(walletKeys.belongsToWallet(validAddress)),
+      ).toBe(true);
     });
     const withAddress = toJSON();
     expect(withoutAddress).toMatchDiffSnapshot(withAddress);
@@ -55,7 +59,9 @@ describe("AddressChecker", () => {
     fireEvent.changeText(addressInput, validAddress);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["isMine", validAddress])).toBe(false);
+      expect(
+        queryClient.getQueryData(walletKeys.belongsToWallet(validAddress)),
+      ).toBe(false);
     });
     const withAddress = toJSON();
     expect(withoutAddress).toMatchDiffSnapshot(withAddress);
@@ -70,7 +76,9 @@ describe("AddressChecker", () => {
 
     const withAddress = toJSON();
     expect(withoutAddress).toMatchDiffSnapshot(withAddress);
-    expect(queryClient.getQueryData(["isMine", validAddress])).toBe(undefined);
+    expect(
+      queryClient.getQueryData(walletKeys.belongsToWallet(validAddress)),
+    ).toBe(undefined);
   });
   it("should render correctly when address is invalid", async () => {
     const { toJSON, getByPlaceholderText } = render(<AddressChecker />);
@@ -81,9 +89,9 @@ describe("AddressChecker", () => {
     fireEvent.changeText(addressInput, invalidAddress);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["isMine", invalidAddress])).toBe(
-        undefined,
-      );
+      expect(
+        queryClient.getQueryData(walletKeys.belongsToWallet(invalidAddress)),
+      ).toBe(undefined);
     });
     const withAddress = toJSON();
     expect(withoutAddress).toMatchDiffSnapshot(withAddress);

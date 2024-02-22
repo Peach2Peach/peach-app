@@ -7,13 +7,13 @@ import { BTCAmountInput } from "../../components/inputs/BTCAmountInput";
 import { BitcoinAddressInput } from "../../components/inputs/BitcoinAddressInput";
 import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { useHandleTransactionError } from "../../hooks/error/useHandleTransactionError";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { InfoPopup } from "../../popups/InfoPopup";
 import tw from "../../styles/tailwind";
 import { removeNonDigits } from "../../utils/format/removeNonDigits";
@@ -44,7 +44,7 @@ export const SendBitcoin = () => {
 
   const maxAmount = selectedUTXOs.length
     ? selectedUTXOs.reduce((acc, utxo) => acc + utxo.txout.value, 0)
-    : peachWallet.balance;
+    : peachWallet?.balance || 0;
 
   const onAmountChange = (newText: string) => {
     setShouldDrainWallet(false);
@@ -54,7 +54,7 @@ export const SendBitcoin = () => {
   };
 
   const sendTrasaction = async () => {
-    if (!feeRate) return;
+    if (!feeRate || !peachWallet) return;
     try {
       const { psbt } = await peachWallet.buildFinishedTransaction({
         address,
@@ -229,7 +229,7 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
 function SendBitcoinHeader() {
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<WithdrawingFundsPopup />);
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   return (
     <Header
       title={i18n("wallet.sendBitcoin.title")}

@@ -1,65 +1,64 @@
 /* eslint-disable no-magic-numbers */
-import { strictEqual } from "assert";
 import { SATSINBTC } from "../../constants";
 import { ceil } from "./ceil";
 
 describe("ceil", () => {
   it("ceils values to integers", () => {
-    strictEqual(ceil(1.348), 2);
-    strictEqual(ceil(1.5), 2);
-    strictEqual(ceil(1.501), 2);
-    strictEqual(ceil(10.348), 11);
-    strictEqual(ceil(10.501), 11);
+    expect(ceil(1.348)).toBe(2);
+    expect(ceil(1.5)).toBe(2);
+    expect(ceil(1.501)).toBe(2);
+    expect(ceil(10.348)).toBe(11);
+    expect(ceil(10.501)).toBe(11);
   });
 
   it("ceils values to one digit after the comma", () => {
-    strictEqual(ceil(1.348, 1), 1.4);
-    strictEqual(ceil(1.5, 1), 1.5);
-    strictEqual(ceil(1.501, 1), 1.6);
-    strictEqual(ceil(10.348, 1), 10.4);
-    strictEqual(ceil(10.501, 1), 10.6);
+    expect(ceil(1.348, 1)).toBe(1.4);
+    expect(ceil(1.5, 1)).toBe(1.5);
+    expect(ceil(1.501, 1)).toBe(1.6);
+    expect(ceil(10.348, 1)).toBe(10.4);
+    expect(ceil(10.501, 1)).toBe(10.6);
   });
 
   it("ceils values to two digits after the comma", () => {
-    strictEqual(ceil(1.348, 2), 1.35);
-    strictEqual(ceil(1.5, 2), 1.5);
-    strictEqual(ceil(1.501, 2), 1.51);
-    strictEqual(ceil(10.348, 2), 10.35);
-    strictEqual(ceil(10.501, 2), 10.51);
+    expect(ceil(1.348, 2)).toBe(1.35);
+    expect(ceil(1.5, 2)).toBe(1.5);
+    expect(ceil(1.501, 2)).toBe(1.51);
+    expect(ceil(10.348, 2)).toBe(10.35);
+    expect(ceil(10.501, 2)).toBe(10.51);
   });
 
   it("ceils values to three and above digits after the comma", () => {
-    strictEqual(ceil(1.348, 3), 1.348);
-    strictEqual(ceil(1.5, 3), 1.5);
-    strictEqual(ceil(1.501, 3), 1.501);
-    strictEqual(ceil(10.348, 3), 10.348);
-    strictEqual(ceil(10.501, 3), 10.501);
+    expect(ceil(1.348, 3)).toBe(1.348);
+    expect(ceil(1.5, 3)).toBe(1.5);
+    expect(ceil(1.501, 3)).toBe(1.501);
+    expect(ceil(10.348, 3)).toBe(10.348);
+    expect(ceil(10.501, 3)).toBe(10.501);
 
-    strictEqual(ceil(1.348, 4), 1.348);
-    strictEqual(ceil(1.5, 4), 1.5);
-    strictEqual(ceil(1.501, 4), 1.501);
-    strictEqual(ceil(10.348, 4), 10.3481);
-    strictEqual(ceil(10.501, 4), 10.501);
+    expect(ceil(1.348, 4)).toBe(1.348);
+    expect(ceil(1.5, 4)).toBe(1.5);
+    expect(ceil(1.501, 4)).toBe(1.501);
+    expect(ceil(10.348, 4)).toBe(10.3481);
+    expect(ceil(10.501, 4)).toBe(10.501);
 
-    strictEqual(ceil(10.501298740982, 9), 10.501298741);
-    strictEqual(ceil(0.000981077468329593 * SATSINBTC, -4), 100000);
+    expect(ceil(10.501298740982, 9)).toBe(10.501298741);
+    expect(ceil(0.000981077468329593 * SATSINBTC, -4)).toBe(100000);
   });
 
   it("ceils values to desired power of 10", () => {
-    strictEqual(ceil(1.348, -1), 10);
-    strictEqual(ceil(5, -1), 10);
-    strictEqual(ceil(10.348, -1), 20);
-    strictEqual(ceil(15.348, -1), 20);
-    strictEqual(ceil(153, -1), 160);
+    expect(ceil(1.348, -1)).toBe(10);
+    expect(ceil(5, -1)).toBe(10);
+    expect(ceil(10.348, -1)).toBe(20);
+    expect(ceil(15.348, -1)).toBe(20);
+    expect(ceil(153, -1)).toBe(160);
 
-    strictEqual(ceil(1.348, -2), 100);
-    strictEqual(ceil(5, -2), 100);
-    strictEqual(ceil(10.348, -2), 100);
-    strictEqual(ceil(15.348, -2), 100);
-    strictEqual(ceil(143, -2), 200);
-    strictEqual(ceil(153, -2), 200);
+    expect(ceil(1.348, -2)).toBe(100);
+    expect(ceil(5, -2)).toBe(100);
+    expect(ceil(10.348, -2)).toBe(100);
+    expect(ceil(15.348, -2)).toBe(100);
+    expect(ceil(143, -2)).toBe(200);
+    expect(ceil(153, -2)).toBe(200);
 
-    strictEqual(ceil(9999, -4), 10000);
-    strictEqual(ceil(15321, -4), 20000);
+    expect(ceil(9999, -4)).toBe(10000);
+    expect(ceil(15321, -4)).toBe(20000);
   });
 });

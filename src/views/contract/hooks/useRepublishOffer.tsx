@@ -1,10 +1,13 @@
-import { useCallback } from "react";
-import { useClosePopup, useSetPopup } from "../../../components/popup/Popup";
+import { useMutation } from "@tanstack/react-query";
+import {
+  useClosePopup,
+  useSetPopup,
+} from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
-import { useNavigation } from "../../../hooks/useNavigation";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
-import { getSellOfferFromContract } from "../../../utils/contract/getSellOfferFromContract";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
+import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
 import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
 
@@ -12,57 +15,72 @@ export const useRepublishOffer = () => {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
   const showErrorBanner = useShowErrorBanner();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
-  const republishOffer = useCallback(
-    async (contract: Contract) => {
-      const sellOffer = getSellOfferFromContract(contract);
+  const closeAction = (contractId: string) => {
+    navigation.replace("contract", { contractId });
+    closePopup();
+  };
+  const goToOfferAction = (offerId: string) => {
+    navigation.replace("search", { offerId });
+    closePopup();
+  };
 
-      const { result: reviveSellOfferResult, error: err } =
-        await peachAPI.private.offer.republishSellOffer({
-          offerId: sellOffer.id,
-        });
-      if (!reviveSellOfferResult || err) {
-        showErrorBanner(err?.error);
-        closePopup();
-        return;
-      }
-
-      const closeAction = () => {
-        navigation.replace("contract", { contractId: contract.id });
-        closePopup();
-      };
-      const goToOfferAction = () => {
-        navigation.replace("search", {
-          offerId: reviveSellOfferResult.newOfferId,
-        });
-        closePopup();
-      };
-
+  return useMutation({
+    mutationFn: republishOffer,
+    onError: (error) => {
+      showErrorBanner(error?.message);
+      closePopup();
+    },
+    onSuccess: ({ newOfferId }, { id: contractId }) => {
       setPopup(
-        <PopupComponent
-          title={i18n("contract.cancel.offerRepublished.title")}
-          content={i18n("contract.cancel.offerRepublished.text")}
-          actions={
-            <>
-              <PopupAction
-                label={i18n("close")}
-                iconId="xSquare"
-                onPress={closeAction}
-              />
-              <PopupAction
-                label={i18n("goToOffer")}
-                iconId="arrowRightCircle"
-                onPress={goToOfferAction}
-                reverseOrder
-              />
-            </>
-          }
+        <RepublishedOfferPopup
+          closeAction={() => closeAction(contractId)}
+          goToOfferAction={() => goToOfferAction(newOfferId)}
         />,
       );
     },
-    [closePopup, navigation, setPopup, showErrorBanner],
-  );
-
-  return republishOffer;
+  });
 };
+
+async function republishOffer(contract: Contract) {
+  const { result: reviveSellOfferResult, error: err } =
+    await peachAPI.private.offer.republishSellOffer({
+      offerId: getSellOfferIdFromContract(contract),
+    });
+
+  if (!reviveSellOfferResult || err) {
+    throw new Error(err?.error || "Could not republish offer");
+  }
+  return reviveSellOfferResult;
+}
+
+function RepublishedOfferPopup({
+  closeAction,
+  goToOfferAction,
+}: {
+  closeAction: () => void;
+  goToOfferAction: () => void;
+}) {
+  return (
+    <PopupComponent
+      title={i18n("contract.cancel.offerRepublished.title")}
+      content={i18n("contract.cancel.offerRepublished.text")}
+      actions={
+        <>
+          <PopupAction
+            label={i18n("close")}
+            iconId="xSquare"
+            onPress={closeAction}
+          />
+          <PopupAction
+            label={i18n("goToOffer")}
+            iconId="arrowRightCircle"
+            onPress={goToOfferAction}
+            reverseOrder
+          />
+        </>
+      }
+    />
+  );
+}

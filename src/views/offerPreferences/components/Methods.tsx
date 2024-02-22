@@ -3,7 +3,7 @@ import { Icon } from "../../../components/Icon";
 import { TouchableIcon } from "../../../components/TouchableIcon";
 import { MeansOfPayment } from "../../../components/offer/MeansOfPayment";
 import { PeachText } from "../../../components/text/PeachText";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { hasMopsConfigured } from "../../../utils/offer/hasMopsConfigured";
@@ -16,7 +16,7 @@ export function Methods({
   type: "buy" | "sell";
   meansOfPayment: MeansOfPayment;
 }) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const onPress = () => navigation.navigate("paymentMethods");
   const hasSelectedMethods = hasMopsConfigured(meansOfPayment);
 

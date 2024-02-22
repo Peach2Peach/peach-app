@@ -1,7 +1,7 @@
 import { TouchableOpacity } from "react-native";
 import { fireEvent, render } from "test-utils";
 import { BackupReminderIcon } from "./BackupReminderIcon";
-import { Popup } from "./popup/Popup";
+import { GlobalPopup } from "./popup/GlobalPopup";
 
 describe("BackupReminderIcon", () => {
   it("renders correctly", () => {
@@ -12,7 +12,7 @@ describe("BackupReminderIcon", () => {
     const { UNSAFE_getByType, getByText } = render(
       <>
         <BackupReminderIcon />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
     fireEvent.press(UNSAFE_getByType(TouchableOpacity));

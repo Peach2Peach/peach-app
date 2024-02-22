@@ -1,13 +1,10 @@
 import { mockBDKRN } from "./mocks/bdkRN";
 
-const CookieManagerMock = jest.fn();
 jest.mock("@react-native-cookies/cookies", () => ({
-  set: (...args: unknown[]) => CookieManagerMock(...args),
+  set: jest.fn(),
 }));
-
-const WebViewMock = jest.fn();
 jest.mock("react-native-webview", () => ({
-  WebView: (...args: unknown[]) => WebViewMock(...args),
+  WebView: "WebView",
 }));
 
 jest.mock("../../src/utils/peachAPI", () => ({
@@ -18,6 +15,10 @@ jest.mock("../../src/utils/wallet/PeachWallet");
 jest.mock("../../src/utils/log/error");
 jest.mock("../../src/utils/log/info");
 jest.mock("../../src/utils/log/log");
+jest.mock("../../src/queryClient", () => {
+  const { queryClient } = jest.requireActual("./helpers/QueryClientWrapper");
+  return { queryClient };
+});
 
 jest.mock("../../src/utils/system/getDeviceLocale", () => ({
   getDeviceLocale: () => "en",

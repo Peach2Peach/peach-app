@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { shallow } from "zustand/shallow";
-import { useSetPopup } from "../../components/popup/Popup";
-import { HelpPopup } from "../../hooks/HelpPopup";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { HelpPopup } from "../../popups/HelpPopup";
 import { useOfferPreferences } from "../../store/offerPreferenes";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { interpolate } from "../../utils/math/interpolate";
 import { isValidPaymentData } from "../../utils/paymentMethod/isValidPaymentData";
-import { MAX_NUMBER_OF_PEACHES } from "../settings/profile/profileOverview/Rating";
+import {
+  CLIENT_RATING_RANGE,
+  SERVER_RATING_RANGE,
+} from "../settings/profile/profileOverview/Rating";
+import { useSyncWallet } from "../wallet/hooks/useSyncWallet";
 import { EscrowTypeSelector } from "./EscrowTypeSelector";
 import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { ShowOffersButton } from "./ShowOffersButton";
@@ -20,7 +24,7 @@ import { MaxPremiumFilterComponent } from "./components/MaxPremiumFilterComponen
 import { ReputationFilterComponent } from "./components/MinReputationFilter";
 import { PreferenceMethods } from "./components/PreferenceMethods";
 import { PreferenceScreen } from "./components/PreferenceScreen";
-import { usePublishBuyOffer } from "./utils/usePublishBuyOffer";
+import { usePostBuyOffer } from "./utils/usePostBuyOffer";
 import { useRestrictSatsAmount } from "./utils/useRestrictSatsAmount";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
 
@@ -58,7 +62,7 @@ function PreferenceWalletSelector() {
     ],
     shallow,
   );
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const onExternalWalletPress = () => {
     if (payoutAddress) {
@@ -98,8 +102,8 @@ function PreferenceMarketInfo() {
         : undefined,
       minReputation: interpolate(
         state.filter.buyOffer.minReputation || 0,
-        [0, MAX_NUMBER_OF_PEACHES],
-        [-1, 1],
+        CLIENT_RATING_RANGE,
+        SERVER_RATING_RANGE,
       ),
     }),
     shallow,
@@ -188,30 +192,24 @@ function EscrowTypeSelect() {
 }
 
 function PublishOfferButton() {
-  const {
-    amount,
-    escrowType,
-    meansOfPayment,
-    paymentData,
-    maxPremium,
-    minReputation,
-  } = useOfferPreferences(
-    (state) => ({
-      amount: state.buyAmountRange,
-      escrowType: state.escrowType,
-      meansOfPayment: state.meansOfPayment,
-      paymentData: state.paymentData,
-      maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
-        ? state.filter.buyOffer.maxPremium
-        : null,
-      minReputation: interpolate(
-        state.filter.buyOffer.minReputation || 0,
-        [0, MAX_NUMBER_OF_PEACHES],
-        [-1, 1],
-      ),
-    }),
-    shallow,
-  );
+    const { amount, escrowType, meansOfPayment, paymentData, maxPremium, minReputation } =
+    useOfferPreferences(
+      (state) => ({
+        amount: state.buyAmountRange,
+        escrowType: state.escrowType,
+        meansOfPayment: state.meansOfPayment,
+        paymentData: state.paymentData,
+        maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
+          ? state.filter.buyOffer.maxPremium
+          : null,
+        minReputation: interpolate(
+          state.filter.buyOffer.minReputation || 0,
+          CLIENT_RATING_RANGE,
+          SERVER_RATING_RANGE,
+        ),
+      }),
+      shallow,
+    );
 
   const originalPaymentData = useOfferPreferences(
     (state) => state.originalPaymentData,
@@ -228,8 +226,13 @@ function PublishOfferButton() {
   }
   const rangeIsValid = rangeIsWithinLimits && amount[0] <= amount[1];
   const formValid = methodsAreValid && rangeIsValid;
-
-  const { mutate: publishOffer, isPending: isPublishing } = usePublishBuyOffer({
+  const payoutToPeachWallet = useSettingsStore(
+    (state) => state.payoutToPeachWallet,
+  );
+  const { isLoading: isSyncingWallet } = useSyncWallet({
+    enabled: payoutToPeachWallet,
+  });
+  const { mutate: publishOffer, isPending: isPublishing } = usePostBuyOffer({
     amount,
     escrowType,
     meansOfPayment,
@@ -241,8 +244,8 @@ function PublishOfferButton() {
   return (
     <ShowOffersButton
       onPress={() => publishOffer()}
-      disabled={!formValid}
-      loading={isPublishing}
+      disabled={!formValid || isSyncingWallet}
+      loading={isPublishing || isSyncingWallet}
     />
   );
 }

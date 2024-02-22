@@ -3,9 +3,8 @@ import { render } from "test-utils";
 import { Button } from "./Button";
 expect.extend({ toMatchDiffSnapshot });
 
-const useIsMediumScreenMock = jest.fn(() => false);
 jest.mock("../../hooks/useIsMediumScreen", () => ({
-  useIsMediumScreen: () => useIsMediumScreenMock(),
+  useIsMediumScreen: () => false,
 }));
 
 describe("NewButton", () => {

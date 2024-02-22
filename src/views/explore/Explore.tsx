@@ -6,16 +6,16 @@ import { Screen } from "../../components/Screen";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { Badges } from "../../components/matches/components/Badges";
 import { getPremiumOfMatchedOffer } from "../../components/matches/getPremiumOfMatchedOffer";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { PriceFormat } from "../../components/text/PriceFormat";
 import { CENT, NEW_USER_TRADE_THRESHOLD } from "../../constants";
-import { CancelOfferPopup } from "../../hooks/CancelOfferPopup";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
-import { useOfferDetails } from "../../hooks/query/useOfferDetails";
+import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
-import { useNavigation } from "../../hooks/useNavigation";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { BuySorters } from "../../popups/sorting/BuySorters";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -68,7 +68,7 @@ export function Explore() {
 
 function BuyOfferMarketInfo() {
   const { offerId } = useRoute<"explore">().params;
-  const { offer } = useOfferDetails(offerId);
+  const { offer } = useOfferDetail(offerId);
 
   if (offer && isSellOffer(offer)) {
     throw new Error("Offer should be a buy offer");
@@ -104,7 +104,7 @@ function ExploreCard({ match }: { match: Match }) {
       : match.premium;
   const { fiatPrice, displayCurrency } = useBitcoinPrices(amount);
   const { offerId } = useRoute<"explore">().params;
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const onPress = () => {
     navigation.navigate("matchDetails", { matchId: match.offerId, offerId });
   };
@@ -165,7 +165,7 @@ function ExploreCard({ match }: { match: Match }) {
 }
 
 function ExploreHeader() {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const { offerId } = useRoute<"explore">().params;
   const setPopup = useSetPopup();
 

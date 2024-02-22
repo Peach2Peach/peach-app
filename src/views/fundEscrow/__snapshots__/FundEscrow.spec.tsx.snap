@@ -16,38 +16,60 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
       style={
         {
           "alignItems": "center",
-          "flexDirection": "row",
-          "gap": 4,
+          "alignSelf": "stretch",
           "justifyContent": "center",
         }
       }
     >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 4,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <PeachText
+          style={
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textTransform": "lowercase",
+            }
+          }
+        >
+          send
+        </PeachText>
+        <BTCAmount
+          amount={100000}
+          size="medium"
+          style={
+            {
+              "marginTop": -2,
+            }
+          }
+        />
+        <ForwardRef
+          textPosition="bottom"
+          value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+        />
+      </View>
       <PeachText
         style={
           {
             "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 32,
-            "textTransform": "lowercase",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
           }
         }
       >
-        send
+        P‑26
       </PeachText>
-      <BTCAmount
-        amount={100000}
-        size="medium"
-        style={
-          {
-            "marginTop": -2,
-          }
-        }
-      />
-      <ForwardRef
-        textPosition="bottom"
-        value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-      />
     </View>
     <TabbedNavigation
       items={
@@ -487,38 +509,60 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
       style={
         {
           "alignItems": "center",
-          "flexDirection": "row",
-          "gap": 4,
+          "alignSelf": "stretch",
           "justifyContent": "center",
         }
       }
     >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 4,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <PeachText
+          style={
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textTransform": "lowercase",
+            }
+          }
+        >
+          send
+        </PeachText>
+        <BTCAmount
+          amount={100000}
+          size="medium"
+          style={
+            {
+              "marginTop": -2,
+            }
+          }
+        />
+        <ForwardRef
+          textPosition="bottom"
+          value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+        />
+      </View>
       <PeachText
         style={
           {
             "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 32,
-            "textTransform": "lowercase",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
           }
         }
       >
-        send
+        P‑26
       </PeachText>
-      <BTCAmount
-        amount={100000}
-        size="medium"
-        style={
-          {
-            "marginTop": -2,
-          }
-        }
-      />
-      <ForwardRef
-        textPosition="bottom"
-        value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-      />
     </View>
     <TabbedNavigation
       items={

@@ -7,12 +7,13 @@ import { confirmed1 } from "../../../tests/unit/data/transactionDetailData";
 import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
-import { Popup } from "../../components/popup/Popup";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
 import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import { getUTXOId } from "../../utils/wallet/getUTXOId";
 import { peachWallet, setPeachWallet } from "../../utils/wallet/setWallet";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { CoinSelection } from "./CoinSelection";
+import { walletKeys } from "./hooks/useUTXOs";
 expect.extend({ toMatchDiffSnapshot });
 
 jest.useFakeTimers();
@@ -27,7 +28,7 @@ describe("CoinSelection", () => {
 
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
-    if (!peachWallet.wallet) {
+    if (!peachWallet?.wallet) {
       throw new Error("Wallet not initialized");
     } else {
       peachWallet.wallet.listUnspent = listUnspentMock;
@@ -47,12 +48,14 @@ describe("CoinSelection", () => {
     const { getByAccessibilityHint, queryByText } = render(
       <>
         <CoinSelection />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["utxos"])).toStrictEqual([utxo]);
+      expect(queryClient.getQueryData(walletKeys.utxos())).toStrictEqual([
+        utxo,
+      ]);
     });
     const helpIcon = getByAccessibilityHint("help");
 
@@ -68,10 +71,12 @@ describe("CoinSelection", () => {
     const { toJSON } = render(<CoinSelection />);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["utxos"])).toStrictEqual([utxo]);
-      expect(queryClient.getQueryData(["address", script.id])).toStrictEqual(
-        "address",
-      );
+      expect(queryClient.getQueryData(walletKeys.utxos())).toStrictEqual([
+        utxo,
+      ]);
+      expect(
+        queryClient.getQueryData(walletKeys.utxoAddress(script.id)),
+      ).toStrictEqual("address");
     });
 
     expect(toJSON()).toMatchSnapshot();
@@ -80,10 +85,12 @@ describe("CoinSelection", () => {
     const { toJSON, getByTestId } = render(<CoinSelection />);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["utxos"])).toStrictEqual([utxo]);
-      expect(queryClient.getQueryData(["address", script.id])).toStrictEqual(
-        "address",
-      );
+      expect(queryClient.getQueryData(walletKeys.utxos())).toStrictEqual([
+        utxo,
+      ]);
+      expect(
+        queryClient.getQueryData(walletKeys.utxoAddress(script.id)),
+      ).toStrictEqual("address");
     });
 
     const withoutSelection = toJSON();
@@ -98,10 +105,12 @@ describe("CoinSelection", () => {
     const { getByText, getByTestId } = render(<CoinSelection />);
 
     await waitFor(() => {
-      expect(queryClient.getQueryData(["utxos"])).toStrictEqual([utxo]);
-      expect(queryClient.getQueryData(["address", script.id])).toStrictEqual(
-        "address",
-      );
+      expect(queryClient.getQueryData(walletKeys.utxos())).toStrictEqual([
+        utxo,
+      ]);
+      expect(
+        queryClient.getQueryData(walletKeys.utxoAddress(script.id)),
+      ).toStrictEqual("address");
     });
 
     const checkbox = getByTestId("checkbox");

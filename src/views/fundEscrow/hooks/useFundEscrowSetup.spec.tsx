@@ -1,13 +1,10 @@
 import { act, renderHook, responseUtils, waitFor } from "test-utils";
-import { account1 } from "../../../../tests/unit/data/accountData";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { unauthorizedError } from "../../../../tests/unit/data/peachAPIData";
 import { setRouteMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { MSINAMINUTE } from "../../../constants";
-import { setAccount } from "../../../utils/account/account";
-import { updateAccount } from "../../../utils/account/updateAccount";
 import { getDefaultFundingStatus } from "../../../utils/offer/constants";
 import { saveOffer } from "../../../utils/offer/saveOffer";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -18,9 +15,9 @@ import { useFundEscrowSetup } from "./useFundEscrowSetup";
 
 jest.useFakeTimers();
 
-const showErrorBannerMock = jest.fn();
+const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
+  useShowErrorBanner: () => mockShowErrorBanner,
 }));
 
 const useFundingStatusMock = jest.fn().mockReturnValue({
@@ -37,7 +34,7 @@ const getOfferDetailsMock = jest
   .spyOn(peachAPI.private.offer, "getOfferDetails")
   .mockResolvedValue({ result: sellOffer, ...responseUtils });
 jest.mock("./useHandleFundingStatus", () => ({
-  useHandleFundingStatus: () => jest.fn(),
+  useHandleFundingStatus: jest.fn(),
 }));
 
 describe("useFundEscrowSetup", () => {
@@ -50,7 +47,6 @@ describe("useFundEscrowSetup", () => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
   });
   beforeEach(() => {
-    updateAccount({ ...account1, offers: [] }, true);
     useWalletState.getState().reset();
   });
   afterEach(() => {
@@ -126,10 +122,9 @@ describe("useFundEscrowSetup", () => {
       error: new Error(unauthorizedError.error),
     });
     renderHook(useFundEscrowSetup);
-    expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error);
+    expect(mockShowErrorBanner).toHaveBeenCalledWith(unauthorizedError.error);
   });
   it("should handle the case that no offer could be returned", () => {
-    setAccount({ ...account1, offers: [] });
     const activeFunding = getDefaultFundingStatus(sellOffer.id);
 
     getOfferDetailsMock.mockResolvedValueOnce({
@@ -157,14 +152,17 @@ describe("useFundEscrowSetup", () => {
     });
   });
   it("should sync the wallet on mount", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.initialized = true;
     renderHook(useFundEscrowSetup);
 
     await waitFor(() => {
+      if (!peachWallet) throw new Error("PeachWallet not set");
       expect(peachWallet.syncWallet).toHaveBeenCalledTimes(1);
     });
   });
   it("should periodically sync peach wallet if funding multiple escrow", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.initialized = true;
     saveOffer(sellOffer);
 

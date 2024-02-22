@@ -5,6 +5,7 @@ import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../utils/wallet/setWallet";
 import { ReceiveBitcoin } from "./ReceiveBitcoin";
+import { walletKeys } from "./hooks/useUTXOs";
 
 jest.useFakeTimers();
 
@@ -32,6 +33,7 @@ const addresses = [
 describe("ReceiveBitcoin", () => {
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.initialized = true;
   });
 
@@ -40,6 +42,7 @@ describe("ReceiveBitcoin", () => {
     expect(toJSON()).toMatchSnapshot();
   });
   it("should render correctly when loaded", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     jest
       .spyOn(peachWallet, "getLastUnusedAddress")
       .mockResolvedValue(addresses[1]);
@@ -49,9 +52,9 @@ describe("ReceiveBitcoin", () => {
     const { toJSON } = render(<ReceiveBitcoin />);
 
     await waitFor(() => {
-      expect(queryClient.getQueryState(["receiveAddress", 1])?.data).toEqual(
-        addresses[1],
-      );
+      expect(
+        queryClient.getQueryState(walletKeys.addressByIndex(1))?.data,
+      ).toEqual(addresses[1]);
     });
 
     expect(toJSON()).toMatchSnapshot();

@@ -4,40 +4,15 @@ import { useMemo } from "react";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
+import { contractKeys } from "./useContractDetail";
 
 export const PAGE_SIZE = 22;
-const chatKeys = {
-  contractChat: (id: string) => ["contract-chat", id] as const,
-};
-
-type GetChatQueryProps = {
-  queryKey: ReturnType<typeof chatKeys.contractChat>;
-  pageParam: number;
-};
-const getChatQuery = async ({ queryKey, pageParam }: GetChatQueryProps) => {
-  const [, contractId] = queryKey;
-  const { result, error } = await peachAPI.private.contract.getChat({
-    contractId,
-    page: pageParam,
-  });
-  let messages;
-  if (result) {
-    messages = result.map((message) => ({
-      ...message,
-      date: new Date(message.date),
-    }));
-  }
-
-  if (!messages || error) throw new Error(error?.error);
-
-  return messages;
-};
 
 export const useChatMessages = ({
-  id,
+  contractId,
   symmetricKey,
 }: {
-  id: string;
+  contractId: string;
   symmetricKey?: string;
 }) => {
   const isFocused = useIsFocused();
@@ -50,7 +25,7 @@ export const useChatMessages = ({
     hasNextPage,
     refetch,
   } = useInfiniteQuery({
-    queryKey: chatKeys.contractChat(id),
+    queryKey: contractKeys.chat(contractId),
     queryFn: async ({ queryKey, pageParam }) => {
       if (!symmetricKey) throw new Error("No symmetric key");
       const messages = await getChatQuery({ queryKey, pageParam });
@@ -106,3 +81,26 @@ export const useChatMessages = ({
     refetch,
   };
 };
+
+type GetChatQueryProps = {
+  queryKey: ReturnType<typeof contractKeys.chat>;
+  pageParam: number;
+};
+async function getChatQuery({ queryKey, pageParam }: GetChatQueryProps) {
+  const contractId = queryKey[2];
+  const { result, error } = await peachAPI.private.contract.getChat({
+    contractId,
+    page: pageParam,
+  });
+  let messages;
+  if (result) {
+    messages = result.map((message) => ({
+      ...message,
+      date: new Date(message.date),
+    }));
+  }
+
+  if (!messages || error) throw new Error(error?.error);
+
+  return messages;
+}

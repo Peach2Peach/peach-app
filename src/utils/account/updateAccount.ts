@@ -20,9 +20,10 @@ export const updateAccount = async (acc: Account, overwrite?: boolean) => {
     useSettingsStore.getState().locale || getDeviceLocale() || "en",
   );
   const account = useAccountStore.getState().account;
-  if (account.mnemonic) {
-    const wallet = loadWalletFromAccount(account);
-    await setWallets(wallet, account.mnemonic);
+  const { mnemonic } = account;
+  if (mnemonic) {
+    const wallet = loadWalletFromAccount({ ...account, mnemonic });
+    await setWallets(wallet, mnemonic);
     if (!account.base58) {
       dataMigrationAfterLoadingWallet(wallet, account);
     }

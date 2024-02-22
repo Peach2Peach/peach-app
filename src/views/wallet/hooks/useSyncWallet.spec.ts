@@ -4,10 +4,11 @@ import { createTestWallet } from "../../../../tests/unit/helpers/createTestWalle
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useSyncWallet } from "./useSyncWallet";
+import { walletKeys } from "./useUTXOs";
 
-const showErrorBannerMock = jest.fn();
+const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
+  useShowErrorBanner: () => mockShowErrorBanner,
 }));
 const mockSyncWallet = jest.fn().mockResolvedValue(undefined);
 jest.useFakeTimers();
@@ -15,6 +16,7 @@ jest.useFakeTimers();
 describe("useSyncWallet", () => {
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.initialized = true;
     peachWallet.syncWallet = mockSyncWallet;
   });
@@ -36,7 +38,7 @@ describe("useSyncWallet", () => {
       result.current.refetch();
     });
     expect(queryClient.isFetching()).toBe(1);
-    expect(queryClient.getQueryState(["syncWallet"])?.fetchStatus).toBe(
+    expect(queryClient.getQueryState(walletKeys.synced())?.fetchStatus).toBe(
       "fetching",
     );
 
@@ -75,7 +77,7 @@ describe("useSyncWallet", () => {
     renderHook(() => useSyncWallet({ enabled: true }));
 
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith("WALLET_SYNC_ERROR");
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("WALLET_SYNC_ERROR");
     });
   });
 });

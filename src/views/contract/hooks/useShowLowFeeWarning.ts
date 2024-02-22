@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSetToast } from "../../../components/toast/Toast";
 import { useFeeEstimate } from "../../../hooks/query/useFeeEstimate";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
-import { useNavigation } from "../../../hooks/useNavigation";
+import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import i18n from "../../../utils/i18n";
 import { isNumber } from "../../../utils/validation/isNumber";
 
@@ -10,7 +10,7 @@ type Props = {
   enabled: boolean;
 };
 export const useShowLowFeeWarning = ({ enabled }: Props) => {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
   const setToast = useSetToast();
   const { user } = useSelfUser();
   const feeRate = user?.feeRate;

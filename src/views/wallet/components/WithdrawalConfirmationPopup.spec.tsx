@@ -10,9 +10,9 @@ import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { WithdrawalConfirmationPopup } from "./WithdrawalConfirmationPopup";
 
-const showErrorBannerMock = jest.fn();
+const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
-  useShowErrorBanner: () => showErrorBannerMock,
+  useShowErrorBanner: () => mockShowErrorBanner,
 }));
 
 const amount = sellOffer.amount;
@@ -30,9 +30,10 @@ const props = {
   feeRate,
   psbt: transaction.psbt,
 };
-jest.mock("../../../utils/wallet/transaction/buildTransaction", () => ({
-  buildTransaction: jest.fn(() => transaction),
-}));
+jest.mock("../../../utils/wallet/transaction/buildTransaction");
+jest
+  .requireMock("../../../utils/wallet/transaction/buildTransaction")
+  .buildTransaction.mockReturnValue(transaction);
 jest.useFakeTimers();
 
 describe("useOpenWithdrawalConfirmationPopup", () => {
@@ -41,6 +42,7 @@ describe("useOpenWithdrawalConfirmationPopup", () => {
   });
 
   it("should broadcast transaction, reset state and navigate to wallet on confirm", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.buildFinishedTransaction = jest
       .fn()
       .mockResolvedValue(transaction);
@@ -55,6 +57,7 @@ describe("useOpenWithdrawalConfirmationPopup", () => {
     fireEvent.press(getByText("confirm & send"));
 
     await waitFor(() => {
+      if (!peachWallet) throw new Error("PeachWallet not set");
       expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(
         transaction.psbt,
       );
@@ -65,6 +68,7 @@ describe("useOpenWithdrawalConfirmationPopup", () => {
     });
   });
   it("should handle broadcast errors", async () => {
+    if (!peachWallet) throw new Error("PeachWallet not set");
     peachWallet.buildFinishedTransaction = jest
       .fn()
       .mockResolvedValue(transaction);
@@ -80,7 +84,7 @@ describe("useOpenWithdrawalConfirmationPopup", () => {
     fireEvent.press(getByText("confirm & send"));
 
     await waitFor(() => {
-      expect(showErrorBannerMock).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
+      expect(mockShowErrorBanner).toHaveBeenCalledWith("INSUFFICIENT_FUNDS", [
         "78999997952",
         "1089000",
       ]);

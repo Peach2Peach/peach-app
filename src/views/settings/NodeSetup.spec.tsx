@@ -1,7 +1,7 @@
 import { toMatchDiffSnapshot } from "snapshot-diff";
 import { fireEvent, render } from "test-utils";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
-import { Popup } from "../../components/popup/Popup";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
 import i18n from "../../utils/i18n";
 import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import {
@@ -12,10 +12,7 @@ import { setPeachWallet } from "../../utils/wallet/setWallet";
 import { NodeSetup } from "./NodeSetup";
 expect.extend({ toMatchDiffSnapshot });
 
-const checkNodeConnectionMock = jest.fn();
-jest.mock("./helpers/checkNodeConnection", () => ({
-  checkNodeConnection: (...args: unknown[]) => checkNodeConnectionMock(...args),
-}));
+jest.mock("./helpers/checkNodeConnection");
 
 const url = "blockstream.info";
 describe("NodeSetup", () => {
@@ -61,7 +58,7 @@ describe("NodeSetup", () => {
     const { getByAccessibilityHint, queryByText } = render(
       <>
         <NodeSetup />
-        <Popup />
+        <GlobalPopup />
       </>,
     );
 

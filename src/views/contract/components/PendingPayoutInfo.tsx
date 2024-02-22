@@ -1,12 +1,12 @@
 import { View } from "react-native";
-import { useSetPopup } from "../../../components/popup/Popup";
+import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import {
   AddressSummaryItem,
   TextSummaryItem,
   TimerSummaryItem,
 } from "../../../components/summaryItem";
 import { MSINASECOND } from "../../../constants";
-import { HelpPopup } from "../../../hooks/HelpPopup";
+import { HelpPopup } from "../../../popups/HelpPopup";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { useContractContext } from "../context";

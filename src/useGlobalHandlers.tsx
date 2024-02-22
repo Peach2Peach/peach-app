@@ -1,21 +1,23 @@
+import messaging from "@react-native-firebase/messaging";
+import { useEffect } from "react";
 import { setUnhandledPromiseRejectionTracker } from "react-native-promise-rejection-utils";
-import { useSetPopup } from "./components/popup/Popup";
+import { useSetPopup } from "./components/popup/GlobalPopup";
 import { useSetToast } from "./components/toast/Toast";
 import { useHandleNotifications } from "./hooks/notifications/useHandleNotifications";
 import { useMessageHandler } from "./hooks/notifications/useMessageHandler";
 import { useCheckFundingMultipleEscrows } from "./hooks/useCheckFundingMultipleEscrows";
-import { useDynamicLinks } from "./hooks/useDynamicLinks";
-import { useNavigation } from "./hooks/useNavigation";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
-import { useSyncUserAccount } from "./hooks/user/useSyncUserAccount";
+import { useStackNavigation } from "./hooks/useStackNavigation";
+import { usePublishMissingPublicKey } from "./hooks/user/usePublishMissingPublicKey";
 import { useInitialNavigation } from "./init/useInitialNavigation";
 import { AnalyticsPopup } from "./popups/AnalyticsPopup";
 import { VerifyYouAreAHumanPopup } from "./popups/warning/VerifyYouAreAHumanPopup";
 import { useSettingsStore } from "./store/settingsStore/useSettingsStore";
 import i18n from "./utils/i18n";
 import { error } from "./utils/log/error";
-import { parseError } from "./utils/result/parseError";
+import { parseError } from "./utils/parseError";
+import { useUpdateUser } from "./utils/peachAPI/useUpdateUser";
 import { isNetworkError } from "./utils/system/isNetworkError";
 
 export const useGlobalHandlers = () => {
@@ -27,8 +29,7 @@ export const useGlobalHandlers = () => {
   useShouldShowBackupReminder();
   useInitialNavigation();
   useShowUpdateAvailable();
-  useSyncUserAccount();
-  useDynamicLinks();
+  usePublishMissingPublicKey();
   useCheckFundingMultipleEscrows();
   useHandleNotifications(messageHandler);
 
@@ -37,7 +38,7 @@ export const useGlobalHandlers = () => {
     (state) => state.setAnalyticsPopupSeen,
   );
   const setToast = useSetToast();
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err);
@@ -78,4 +79,12 @@ export const useGlobalHandlers = () => {
     setPopup(<AnalyticsPopup />);
     setAnalyticsPopupSeen(true);
   }
+
+  const { mutate: updateUser } = useUpdateUser();
+  useEffect(() => {
+    const unsubscribe = messaging().onTokenRefresh((fcmToken) => {
+      updateUser({ fcmToken });
+    });
+    return () => unsubscribe();
+  }, [updateUser]);
 };

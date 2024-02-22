@@ -7,9 +7,13 @@ import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { getUTXOId } from "../../../utils/wallet/getUTXOId";
-import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
+import {
+  clearPeachWallet,
+  peachWallet,
+  setPeachWallet,
+} from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
-import { useUTXOs } from "./useUTXOs";
+import { useUTXOs, walletKeys } from "./useUTXOs";
 
 jest.useFakeTimers();
 
@@ -22,7 +26,7 @@ describe("useUTXOs", () => {
 
   beforeAll(() => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
-    if (peachWallet.wallet) {
+    if (peachWallet?.wallet) {
       peachWallet.wallet.listUnspent = listUnspentMock;
     }
   });
@@ -45,7 +49,7 @@ describe("useUTXOs", () => {
   });
 
   it("should not get utxos if wallet is not initialized", async () => {
-    peachWallet.wallet = undefined;
+    clearPeachWallet();
     renderHook(useUTXOs);
 
     await waitFor(() => {
@@ -60,6 +64,6 @@ describe("useUTXOs", () => {
       expect(result.current.data).toEqual([utxo]);
     });
 
-    expect(queryClient.getQueryData(["utxos"])).toEqual([utxo]);
+    expect(queryClient.getQueryData(walletKeys.utxos())).toEqual([utxo]);
   });
 });

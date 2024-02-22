@@ -4,7 +4,7 @@ import messaging, {
 import { useEffect } from "react";
 import { error } from "../../utils/log/error";
 import { info } from "../../utils/log/info";
-import { parseError } from "../../utils/result/parseError";
+import { parseError } from "../../utils/parseError";
 
 export const useHandleNotifications = (
   messageHandler: (message: FirebaseMessagingTypes.RemoteMessage) => void,

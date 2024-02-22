@@ -1,7 +1,7 @@
 import { shallow } from "zustand/shallow";
-import { useContractDetails } from "../../hooks/query/useContractDetails";
-import { useNavigation } from "../../hooks/useNavigation";
+import { useContractDetail } from "../../hooks/query/useContractDetail";
 import { useRoute } from "../../hooks/useRoute";
+import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
@@ -23,7 +23,7 @@ export const PatchPayoutAddress = () => {
 };
 
 function ContractSuspense({ contractId }: { contractId: string }) {
-  const { contract } = useContractDetails(contractId);
+  const { contract } = useContractDetail(contractId);
 
   if (!contract) return <NewLoadingScreen />;
 
@@ -47,7 +47,7 @@ function PatchOfferAddress({
   offerId,
   contractId,
 }: ScreenContentProps) {
-  const navigation = useNavigation();
+  const navigation = useStackNavigation();
 
   const [payoutAddress, payoutAddressLabel, messageSignature] =
     useSettingsStore(

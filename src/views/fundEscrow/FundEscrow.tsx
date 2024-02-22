@@ -11,15 +11,15 @@ import { BitcoinAddress } from "../../components/bitcoin/BitcoinAddress";
 import { Button } from "../../components/buttons/Button";
 import { TabbedNavigation } from "../../components/navigation/TabbedNavigation";
 import { TradeInfo } from "../../components/offer/TradeInfo";
-import { useSetPopup } from "../../components/popup/Popup";
+import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { SATSINBTC } from "../../constants";
-import { CancelOfferPopup } from "../../hooks/CancelOfferPopup";
-import { useCancelFundMultipleSellOffers } from "../../hooks/useCancelFundMultipleSellOffers";
 import { useRoute } from "../../hooks/useRoute";
+import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
+import { CancelSellOffersPopup } from "../../popups/CancelSellOffersPopup";
 import { InfoPopup } from "../../popups/InfoPopup";
 import tw from "../../styles/tailwind";
 import i18n, { languageState } from "../../utils/i18n";
@@ -70,12 +70,19 @@ export const FundEscrow = () => {
   return (
     <Screen header={<FundEscrowHeader />}>
       <PeachScrollView contentStyle={tw`items-center gap-4`}>
-        <View style={tw`flex-row items-center justify-center gap-1`}>
-          <PeachText style={tw`settings`}>
-            {i18n("sell.escrow.sendSats")}
-          </PeachText>
-          <BTCAmount style={tw`-mt-0.5`} amount={fundingAmount} size="medium" />
-          <CopyAble value={fundingAddress} textPosition="bottom" />
+        <View style={tw`items-center self-stretch justify-center`}>
+          <View style={tw`flex-row items-center justify-center gap-1`}>
+            <PeachText style={tw`settings`}>
+              {i18n("sell.escrow.sendSats")}
+            </PeachText>
+            <BTCAmount
+              style={tw`-mt-0.5`}
+              amount={fundingAmount}
+              size="medium"
+            />
+            <CopyAble value={fundingAddress} textPosition="bottom" />
+          </View>
+          <PeachText style={tw`subtitle-1`}>{offerIdToHex(offerId)}</PeachText>
         </View>
 
         <TabbedNavigation
@@ -139,9 +146,10 @@ function FundEscrowHeader() {
     [offerId, setPopup],
   );
 
-  const cancelFundMultipleOffers = useCancelFundMultipleSellOffers({
-    fundMultiple,
-  });
+  const cancelFundMultipleOffers = useCallback(
+    () => setPopup(<CancelSellOffersPopup fundMultiple={fundMultiple} />),
+    [fundMultiple, setPopup],
+  );
 
   const memoizedHeaderIcons = useMemo(() => {
     const icons = [
@@ -242,7 +250,7 @@ function FundFromPeachWalletButton(props: Props) {
       ) : (
         <Button
           ghost
-          textColor={tw`text-primary-main`}
+          textColor={tw.color("primary-main")}
           iconId="sell"
           onPress={onButtonPress}
           loading={isFunding}

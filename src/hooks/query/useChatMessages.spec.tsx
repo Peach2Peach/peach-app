@@ -5,9 +5,8 @@ import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";
 import { PAGE_SIZE, useChatMessages } from "./useChatMessages";
 
-const decryptSymmetricMock = jest.fn().mockImplementation((str) => str);
 jest.mock("../../utils/pgp/decryptSymmetric", () => ({
-  decryptSymmetric: (...args: unknown[]) => decryptSymmetricMock(...args),
+  decryptSymmetric: jest.fn((str) => str),
 }));
 
 const getChatMock = jest.spyOn(peachAPI.private.contract, "getChat");
@@ -21,7 +20,7 @@ describe("useChatMessages", () => {
   });
   it("fetches chat messages from API", async () => {
     const { result } = renderHook(useChatMessages, {
-      initialProps: { id: chat1.id, symmetricKey },
+      initialProps: { contractId: chat1.id, symmetricKey },
     });
 
     expect(result.current.messages).toEqual([]);
@@ -68,7 +67,7 @@ describe("useChatMessages", () => {
       ...responseUtils,
     });
     const { result } = renderHook(useChatMessages, {
-      initialProps: { id: chat1.id, symmetricKey },
+      initialProps: { contractId: chat1.id, symmetricKey },
     });
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
@@ -87,7 +86,7 @@ describe("useChatMessages", () => {
   });
   it("fetches next page", async () => {
     const { result } = renderHook(useChatMessages, {
-      initialProps: { id: chat1.id, symmetricKey },
+      initialProps: { contractId: chat1.id, symmetricKey },
     });
 
     expect(result.current.messages).toEqual([]);
