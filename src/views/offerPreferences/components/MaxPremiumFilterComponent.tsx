@@ -20,7 +20,7 @@ export function MaxPremiumFilterComponent({
   shouldApplyFilter,
   toggleShouldApplyFilter,
 }: Props) {
-  const { t } = useTranslate("offerPrefences");
+  const { t } = useTranslate("offerPreferences");
   const onCheckboxPress = () => {
     toggleShouldApplyFilter();
     if (maxPremium === null) {
