@@ -64,7 +64,7 @@ export const EditPremium = () => {
           <PeachText style={tw`text-center text-black-65`}>
             (
             {t("sell.premium.currently", {
-              price: `${priceFormat(currentPrice)} ${displayCurrency}`,
+              premium: `${priceFormat(currentPrice)} ${displayCurrency}`,
             })}
             )
           </PeachText>

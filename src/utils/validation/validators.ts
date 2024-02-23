@@ -1,5 +1,4 @@
 import { PaymentMethodField } from "../../../peach-api/src/@types/payment";
-import i18n from "../i18n";
 import { getMessages } from "./getMessages";
 import { isAdvcashWallet } from "./isAdvcashWallet";
 import { isBIC } from "./isBIC";
@@ -13,6 +12,7 @@ import { isUKSortCode } from "./isUKSortCode";
 import { isUsername } from "./isUsername";
 import { isValidDigitLength } from "./isValidDigitLength";
 import { isValidPaymentReference } from "./isValidPaymentReference";
+import { tolgee } from "../../tolgee";
 
 const ibanValidator = (value: string) => isIBAN(value) || getMessages().iban;
 const isEUIBANValidator = (value: string) =>
@@ -36,7 +36,7 @@ const minAccountNumberLength = 10;
 const maxAccountNumberLength = 28;
 const accountNumberValidator = (value: string) =>
   isValidDigitLength(value, [minAccountNumberLength, maxAccountNumberLength]) ||
-  i18n("form.account.errors");
+  tolgee.t("form.account.errors", { ns: "form" });
 type NewRule = {
   [key: string]: (value: string) => true | string;
 };

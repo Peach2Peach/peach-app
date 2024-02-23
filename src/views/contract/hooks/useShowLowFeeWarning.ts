@@ -3,8 +3,8 @@ import { useSetToast } from "../../../components/toast/Toast";
 import { useFeeEstimate } from "../../../hooks/query/useFeeEstimate";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
-import i18n from "../../../utils/i18n";
 import { isNumber } from "../../../utils/validation/isNumber";
+import { tolgee } from "../../../tolgee";
 
 type Props = {
   enabled: boolean;
@@ -27,7 +27,9 @@ export const useShowLowFeeWarning = ({ enabled }: Props) => {
       color: "yellow",
       action: {
         onPress: () => navigation.navigate("networkFees"),
-        label: i18n("contract.warning.lowFee.changeFee"),
+        label: tolgee.t("contract.warning.lowFee.changeFee", {
+          ns: "contract",
+        }),
         iconId: "settings",
       },
     });
@@ -38,5 +40,6 @@ export const useShowLowFeeWarning = ({ enabled }: Props) => {
     estimatedFees.minimumFee,
     estimatedFees,
     setToast,
+    t,
   ]);
 };

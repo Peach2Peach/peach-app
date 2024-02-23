@@ -65,10 +65,9 @@ function WrongFundingAmountSummary({ sellOffer }: Props) {
         })}
       </PeachText>
       <PeachText style={tw`body-s`}>
-        {t(
-          "escrow.wrongFundingAmount.continueOrRefund",
-          thousands(actualAmount),
-        )}
+        {t("escrow.wrongFundingAmount.continueOrRefund", {
+          actual: thousands(actualAmount),
+        })}
       </PeachText>
     </View>
   );

@@ -44,7 +44,7 @@ export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
         </PeachText>
       </View>
     ) : (
-      t("warning.incorrectFunding.description", String(utxos))
+      t("warning.incorrectFunding.description", { utxos: String(utxos) })
     );
 
   return (

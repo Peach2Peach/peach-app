@@ -125,10 +125,9 @@ function ReferralCodeRedeemedPopup({ referralCode }: { referralCode: string }) {
             },
           ]}
         >
-          {t(
-            "settings.referrals.customReferralCode.popup.success",
-            referralCode,
-          )}
+          {t("settings.referrals.customReferralCode.popup.success", {
+            refCode: referralCode,
+          })}
         </ParsedPeachText>
       }
       actions={<ClosePopupAction style={tw`justify-center`} />}

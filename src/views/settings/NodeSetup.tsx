@@ -186,7 +186,7 @@ function NodeConnectionSuccessPopup({ url, save }: SuccessPopupProps) {
   return (
     <SuccessPopup
       title={t("wallet.settings.node.success.title")}
-      content={t("wallet.settings.node.success.text", url)}
+      content={t("wallet.settings.node.success.text", { node: url })}
       actions={
         <>
           <ClosePopupAction />

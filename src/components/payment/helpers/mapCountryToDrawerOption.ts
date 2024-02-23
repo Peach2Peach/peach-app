@@ -1,4 +1,4 @@
-import i18n from "../../../utils/i18n";
+import { tolgee } from "../../../tolgee";
 
 export const mapCountryToDrawerOption =
   (
@@ -6,7 +6,7 @@ export const mapCountryToDrawerOption =
     eventsByCountry: CountryEventsMap,
   ) =>
   (country: Country) => ({
-    title: i18n(`country.${country}`),
+    title: tolgee.t(`country.${country}`),
     flagID: country,
     onPress: () => onPress(eventsByCountry, country),
   });

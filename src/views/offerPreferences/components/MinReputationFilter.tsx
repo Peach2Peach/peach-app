@@ -13,7 +13,7 @@ export function ReputationFilterComponent({ minReputation, toggle }: Props) {
   const checked = minReputation === MIN_REPUTATION_FILTER;
   return (
     <Checkbox green checked={checked} onPress={toggle} style={tw`self-stretch`}>
-      {t("offerPreferences.filters.minReputation", "4.5")}
+      {t("offerPreferences.filters.minReputation", { reputation: "4.5" })}
     </Checkbox>
   );
 }

@@ -1,5 +1,5 @@
-import i18n from "../i18n";
 import { peachWallet } from "../wallet/setWallet";
+import { tolgee } from "../../tolgee";
 
 type Params = {
   address?: string;
@@ -14,17 +14,21 @@ export const getWalletLabel = ({
   customAddressLabel,
   isPeachWalletActive,
 }: Params) => {
-  if (!address) return i18n("offer.summary.customPayoutAddress");
+  if (!address)
+    return tolgee.t("offer.summary.customPayoutAddress", { ns: "offer" });
 
   if (customAddress === address) {
-    return customAddressLabel || i18n("offer.summary.customPayoutAddress");
+    return (
+      customAddressLabel ||
+      tolgee.t("offer.summary.customPayoutAddress", { ns: "offer" })
+    );
   }
   if (!isPeachWalletActive) {
-    return i18n("offer.summary.customPayoutAddress");
+    return tolgee.t("offer.summary.customPayoutAddress", { ns: "offer" });
   }
   if (peachWallet?.findKeyPairByAddress(address)) {
-    return i18n("peachWallet");
+    return tolgee.t("peachWallet", { ns: "wallet" });
   }
 
-  return i18n("offer.summary.customPayoutAddress");
+  return tolgee.t("offer.summary.customPayoutAddress", { ns: "offer" });
 };

@@ -81,7 +81,7 @@ export const PaymentMethods = () => {
             key={tab}
             name={tab}
             options={{
-              title: `${t(`paymentSection.${tab}`, tab !== "online" ? { ns: "paymentMethod" } : "")}`,
+              title: `${t(`paymentSection.${tab}`, tab !== "online" ? { ns: "paymentMethod" } : { nothing: "" })}`,
             }}
           >
             {() => (
