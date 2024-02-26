@@ -49,7 +49,7 @@ export const NewFee = ({
         ]}
       >
         {t("wallet.bumpNetworkFees.overPayingBy", {
-          percentage: String(round(overpayingBy * CENT)),
+          percent: String(round(overpayingBy * CENT)),
         })}
       </PeachText>
     </View>

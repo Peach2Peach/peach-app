@@ -40,6 +40,5 @@ export const useShowLowFeeWarning = ({ enabled }: Props) => {
     estimatedFees.minimumFee,
     estimatedFees,
     setToast,
-    t,
   ]);
 };

@@ -15,7 +15,7 @@ import { LoadingScreen } from "../loading/LoadingScreen";
 import { useTranslate } from "@tolgee/react";
 
 export const TransactionBatching = () => {
-  const { t } = useTranslate("settings");
+  const { t } = useTranslate("batching");
   const { user, isLoading } = useSelfUser();
   const { mutate } = useToggleBatching(user || { isBatchingEnabled: false });
   const setPopup = useSetPopup();
@@ -60,33 +60,29 @@ export const TransactionBatching = () => {
   return (
     <Screen
       style={tw`justify-center gap-8`}
-      header={t("settings.transactionBatching")}
+      header={t("settings.transactionBatching", { ns: "settings" })}
     >
       <View style={tw`gap-4`}>
         <PeachText style={tw`body-l`}>
-          {t(
-            isBatchingEnabled
-              ? "settings.batching.delayedPayouts"
-              : "settings.batching.immediatePayouts",
-          )}
+          {isBatchingEnabled
+            ? t("settings.batching.delayedPayouts")
+            : t("settings.batching.immediatePayouts")}
         </PeachText>
         <ParsedPeachText
           style={tw`body-l`}
           parse={[
             {
               pattern: new RegExp(
-                t(
-                  isBatchingEnabled
-                    ? "settings.batching.youSave.highlight"
-                    : "settings.batching.youPay.highlight",
-                ),
+                isBatchingEnabled
+                  ? t("settings.batching.youSave.highlight")
+                  : t("settings.batching.youPay.highlight"),
                 "u",
               ),
               style: tw`text-primary-main`,
             },
           ]}
         >
-          {i18n.break(
+          {t(
             isBatchingEnabled
               ? "settings.batching.youSave"
               : "settings.batching.youPay",

@@ -70,7 +70,7 @@ function AveragePremium({
         offersWithinRange.length === 0 && tw`opacity-0`,
       ]}
     >
-      {t("home.averagePremium", { averagePremium: String(averagePremium) })}
+      {t("home.averagePremium", { premium: String(averagePremium) })}
     </PeachText>
   );
 }

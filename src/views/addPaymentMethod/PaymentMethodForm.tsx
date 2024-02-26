@@ -223,7 +223,7 @@ function PaymentMethodFormHeader() {
       title={t(
         id ? "paymentMethod.edit.title" : "paymentMethod.select.title",
         // @ts-ignore
-        t(`paymentMethod.${paymentMethod}`),
+        { method: t(`paymentMethod.${paymentMethod}`) },
       )}
       icons={getHeaderIcons()}
     />

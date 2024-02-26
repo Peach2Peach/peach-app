@@ -136,12 +136,12 @@ function MarketStats() {
       <View style={tw`items-center -gap-2`}>
         <PeachText style={tw`subtitle-0 text-primary-main`}>
           {t("home.openSellOffers", {
-            openSellOffers: String(data?.sell.open),
+            offers: String(data?.sell.open),
           })}
         </PeachText>
         <PeachText style={tw`subtitle-1 text-primary-main`}>
           {t("home.averagePremium", {
-            averagePremium: String(data?.sell.avgPremium),
+            premium: String(data?.sell.avgPremium),
           })}
         </PeachText>
       </View>

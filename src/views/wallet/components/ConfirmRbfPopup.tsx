@@ -117,7 +117,7 @@ function ConfirmRbf({
         <BTCAmount amount={oldFee} size="medium" />
         <PeachText style={tw`text-primary-main`}>
           {t("wallet.bumpNetworkFees.confirmRbf.percentOfTx", {
-            fees: String(round((oldFee / sendingAmount) * CENT, 1)),
+            percent: String(round((oldFee / sendingAmount) * CENT, 1)),
           })}
         </PeachText>
       </View>
@@ -132,10 +132,9 @@ function ConfirmRbf({
       <View>
         <BTCAmount amount={newFee} size="medium" />
         <PeachText style={tw`text-primary-main`}>
-          {t(
-            "wallet.bumpNetworkFees.confirmRbf.percentOfTx",
-            String(round((newFee / sendingAmount) * CENT, 1)),
-          )}
+          {t("wallet.bumpNetworkFees.confirmRbf.percentOfTx", {
+            percent: String(round((newFee / sendingAmount) * CENT, 1)),
+          })}
         </PeachText>
       </View>
       {hasNoChange && <NoChangeWarning />}

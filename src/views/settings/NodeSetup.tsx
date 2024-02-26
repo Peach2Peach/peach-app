@@ -163,7 +163,7 @@ function NodeConnectionErrorPopup({ error }: ErrorPopupProps) {
       title={t("wallet.settings.node.error.title")}
       content={
         <PeachText selectable>
-          {t("wallet.settings.node.error.text", { error })}
+          {t("wallet.settings.node.error.text", { err: error })}
         </PeachText>
       }
       actions={

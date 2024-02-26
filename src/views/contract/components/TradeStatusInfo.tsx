@@ -116,7 +116,7 @@ function getSellerStatusText({
     if (!contract.canceled) {
       return tolgee.t("contract.seller.paymentTimerHasRunOut.text", {
         ns: "contract",
-        contractId: contractIdToHex(contract.id),
+        tradeId: contractIdToHex(contract.id),
       });
     }
     tolgee.t("contract.seller.refundOrRepublish.offer", {

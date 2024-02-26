@@ -96,6 +96,7 @@ function ReferralRewards() {
           availableRewards
             ? "referrals.selectReward"
             : "referrals.continueSaving",
+          { ns: "referral" },
         )}
       </PeachText>
       <RadioButtons

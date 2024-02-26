@@ -42,7 +42,7 @@ export const Contact = () => {
     navigation.navigate("report", {
       reason,
       shareDeviceID: reason === "accountLost",
-      topic: t(`contact.reason.${reason}`, { ns: "contact" }),
+      topic: t(`contact.reason.${reason}`, { ns: "contract" }),
     });
   };
   const publicKey = useAccountStore((state) => state.account.publicKey);
@@ -54,7 +54,7 @@ export const Contact = () => {
     <Screen
       header={
         <Header
-          title={t({ key: "contact.title", ns: "contact" })}
+          title={t({ key: "contact.title", ns: "contract" })}
           icons={[{ ...headerIcons.help, onPress: showHelp }]}
         />
       }
@@ -99,7 +99,7 @@ type Props = {
 };
 
 function ContactButton({ reason, goToReport }: Props) {
-  const { t } = useTranslate("contact");
+  const { t } = useTranslate("contract");
   return (
     <OptionButton onPress={() => goToReport(reason)}>
       {t(`contact.reason.${reason}`)}
