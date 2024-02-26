@@ -8,7 +8,7 @@ import { sum } from "../math/sum";
 import { parseError } from "../parseError";
 import { isDefined } from "../validation/isDefined";
 import { callWhenInternet } from "../web/callWhenInternet";
-import { useLiquidWalletState } from "./useLiquidWalletState";
+import { UTXOWithPath, useLiquidWalletState } from "./useLiquidWalletState";
 
 type PeachLiquidJSWalletProps = {
   wallet: BIP32Interface;
@@ -18,7 +18,7 @@ type PeachLiquidJSWalletProps = {
 };
 
 const DEFAULT = {
-  GAP_LIMIT: 25,
+  GAP_LIMIT: 15,
   CONCURRENCY: 1
 }
 export class PeachLiquidJSWallet {
@@ -68,8 +68,8 @@ export class PeachLiquidJSWallet {
         useLiquidWalletState.getState().setIsSynced(false);
 
         try {
-          const limit = this.gapLimit
-          let utxos: UTXO[] = []
+          let limit = Number(this.gapLimit)
+          let utxos: UTXOWithPath[] = []
           for (let i = 0; i < limit; i++) {
             const { address } = this.getAddress(i)
             const { address: internalAddress } = this.getInternalAddress(i)
@@ -77,8 +77,17 @@ export class PeachLiquidJSWallet {
             const [result, resultInternal] = await Promise.all([address, internalAddress]
               .filter(isDefined)
               .map(addr => getUTXO({ address: addr })))
-            if (result.result) utxos = [...utxos, ...result.result]
-            if (resultInternal.result) utxos = [...utxos, ...resultInternal.result]
+            if (result.result?.length) {
+              limit = i + this.gapLimit
+              const derivationPath = this.getExternalPath(i)
+              utxos = [...utxos, ...result.result.map(utxo => ({...utxo, derivationPath }))]
+            }
+            if (resultInternal.result?.length) {
+              limit = i + this.gapLimit
+              const derivationPath = this.getInternalPath(i)
+
+              utxos = [...utxos, ...resultInternal.result.map(utxo => ({...utxo, derivationPath }))]
+            }
           }
           const balance = this.getBalance();
           useLiquidWalletState.getState().setUTXO(utxos)
@@ -111,20 +120,26 @@ export class PeachLiquidJSWallet {
     }
   }
 
-  getKeyPair(index: number) {
-    const keyPair = this.jsWallet.derivePath(
-      `${this.derivationPath}/0/${index}`,
-    );
+  getExternalPath(index: number) {
+    return `${this.derivationPath}/0/${index}`
+  }
+
+  getInternalPath(index: number) {
+    return `${this.derivationPath}/1/${index}`
+  }
+
+  getKeyPairByPath(path: string) {
+    const keyPair = this.jsWallet.derivePath(path);
     keyPair.network = this.network;
     return keyPair;
   }
 
+  getKeyPair(index: number) {
+    return this.getKeyPairByPath(this.getExternalPath(index))
+  }
+
   getInternalKeyPair(index: number) {
-    const keyPair = this.jsWallet.derivePath(
-      `${this.derivationPath}/1/${index}`,
-    );
-    keyPair.network = this.network;
-    return keyPair;
+    return this.getKeyPairByPath(this.getInternalPath(index))
   }
 
   getAddress(index: number = this.addresses.length) {
@@ -147,6 +162,8 @@ export class PeachLiquidJSWallet {
       useLiquidWalletState.getState().setAddresses(addresses)
     }
 
+    if (!address) throw Error('ADDRESS_NOT_FOUND')
+
     return { address, index };
   }
 
@@ -159,14 +176,16 @@ export class PeachLiquidJSWallet {
     }
 
     const keyPair = this.getInternalKeyPair(index);
-    const p2wpkh = liquid.payments.p2wpkh({
+    const { address } = liquid.payments.p2wpkh({
       network: this.network,
       pubkey: keyPair.publicKey,
     });
 
-    if (p2wpkh.address) this.internalAddresses[index] = p2wpkh.address;
+    if (address) this.internalAddresses[index] = address;
 
-    return { address: p2wpkh.address, index };
+    if (!address) throw Error('ADDRESS_NOT_FOUND')
+
+    return { address: address, index };
   }
 
   findKeyPairByAddress(address: string) {

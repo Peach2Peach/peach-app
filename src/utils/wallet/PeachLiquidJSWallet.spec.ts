@@ -77,7 +77,7 @@ describe("PeachLiquidJSWallet", () => {
     expect(getUTXOMock).toHaveBeenCalledTimes(expectedUTXOs);
   });
   it("calculates balance", () => {
-    useLiquidWalletState.getState().setUTXO([utxo, mempoolUTXO])
+    useLiquidWalletState.getState().setUTXO([utxo, mempoolUTXO].map(utxo => ({...utxo, derivationPath: '1'})))
     expect(peachLiquidJSWallet.getBalance()).toEqual({
       trustedPending: 0,
       untrustedPending: 30000,

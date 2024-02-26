@@ -38,7 +38,7 @@ export const TestViewLiquidWallet = () => {
   const [txId] = useState("");
   const getNewAddress = () => {
     if (!peachLiquidWallet) return
-    const {address: newAddress} = peachLiquidWallet.getAddress();
+    const { address: newAddress } = peachLiquidWallet.getAddress();
     if (newAddress) setAddress(newAddress);
   };
   const isRefetching = false;

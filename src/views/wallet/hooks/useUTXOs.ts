@@ -23,7 +23,7 @@ export const walletKeys = {
     [...walletKeys.transaction(id), "feeRate"] as const,
   serializedTransaction: (id: string | null) =>
     [...walletKeys.transaction(id), "serialized"] as const,
-  synced: () => [...walletKeys.wallet, "synced"] as const,
+  synced: (type: 'bitcoin' | 'liquid') => [...walletKeys.wallet, "synced", type] as const,
 };
 
 export const useUTXOs = () => {
