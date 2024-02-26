@@ -1,25 +1,22 @@
-import { SubmarineResponse } from "boltz-swap-web-context/src/boltz-api/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { ReverseAPIResponse } from "../utils/boltz/api/postReverseSubmarineSwap";
+import { SubmarineAPIResponse } from "../utils/boltz/api/postSubmarineSwap";
 import { createStorage } from "../utils/storage/createStorage";
 import { createPersistStorage } from "./createPersistStorage";
 
-export type SubmarineAPIResponse = Omit<SubmarineResponse, "swapTree"> & {
-  swapTree: {
-    claimLeaf: { version: number; output: string };
-    refundLeaf: { version: number; output: string };
-  };
-};
-
+export type SwapInfo = (SubmarineAPIResponse | ReverseAPIResponse) & {
+  keyPairIndex: number,
+  preimage?: string
+}
 export type WalletState = {
-  swaps: Record<string, (SubmarineAPIResponse | ReverseAPIResponse)[]>;
+  swaps: Record<string, SwapInfo[]>;
 };
 
 export type WalletStore = WalletState & {
   saveSwap: (
     id: string,
-    swapInfo: SubmarineAPIResponse | ReverseAPIResponse,
+    swapInfo: SwapInfo,
   ) => void;
   removeSwap: (id: string, swapId: string) => void;
 };
