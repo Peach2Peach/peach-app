@@ -4,9 +4,9 @@ import { shallow } from "zustand/shallow";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
+import { buildBumpFeeTransaction } from "../../../utils/wallet/bitcoin/transaction/buildBumpFeeTransaction";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
-import { buildBumpFeeTransaction } from "../../../utils/wallet/transaction/buildBumpFeeTransaction";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { ConfirmRbfPopup } from "../components/ConfirmRbfPopup";
 

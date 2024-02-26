@@ -1,4 +1,4 @@
-import { addressScriptPubKeyMock } from "../../../../tests/unit/mocks/bdkRN";
+import { addressScriptPubKeyMock } from "../../../../../tests/unit/mocks/bdkRN";
 import { getScriptPubKeyFromAddress } from "./getScriptPubKeyFromAddress";
 
 describe("getScriptPubKeyFromAddress", () => {

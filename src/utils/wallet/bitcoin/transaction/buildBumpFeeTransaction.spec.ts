@@ -3,7 +3,7 @@ import {
   bumpFeeTxBuilderAllowShrinkingMock,
   bumpFeeTxBuilderCreateMock,
   bumpFeeTxBuilderEnableRbfMock,
-} from "../../../../tests/unit/mocks/bdkRN";
+} from "../../../../../tests/unit/mocks/bdkRN";
 import { buildBumpFeeTransaction } from "./buildBumpFeeTransaction";
 
 describe("buildBumpFeeTransaction", () => {

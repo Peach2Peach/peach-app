@@ -18,11 +18,9 @@ import { useConfigStore } from "../../../store/configStore/configStore";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { parseError } from "../../../utils/parseError";
+import { buildTransaction } from "../../../utils/wallet/bitcoin/transaction/buildTransaction";
+import { setMultipleRecipients } from "../../../utils/wallet/bitcoin/transaction/setMultipleRecipients";
 import { peachWallet } from "../../../utils/wallet/setWallet";
-import {
-  buildTransaction,
-  setMultipleRecipients,
-} from "../../../utils/wallet/transaction";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { useSyncWallet } from "../../wallet/hooks/useSyncWallet";
 import { ConfirmTransactionPopup } from "./ConfirmTransactionPopup";

@@ -2,7 +2,7 @@ import { TxBuilder } from "bdk-rn";
 import { LocalUtxo, OutPoint, TxOut } from "bdk-rn/lib/classes/Bindings";
 import { Script } from "bdk-rn/lib/classes/Script";
 import { KeychainKind } from "bdk-rn/lib/lib/enums";
-import { confirmed1 } from "../../../../tests/unit/data/transactionDetailData";
+import { confirmed1 } from "../../../../../tests/unit/data/transactionDetailData";
 import {
   addressScriptPubKeyMock,
   txBuilderAddRecipientMock,
@@ -13,7 +13,7 @@ import {
   txBuilderEnableRbfMock,
   txBuilderFeeRateMock,
   txBuilderManuallySelectedOnlyMock,
-} from "../../../../tests/unit/mocks/bdkRN";
+} from "../../../../../tests/unit/mocks/bdkRN";
 import { buildTransaction } from "./buildTransaction";
 
 describe("buildTransaction", () => {

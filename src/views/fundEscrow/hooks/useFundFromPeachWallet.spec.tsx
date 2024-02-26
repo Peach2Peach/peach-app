@@ -13,8 +13,8 @@ import { useConfigStore } from "../../../store/configStore/configStore";
 import { getDefaultFundingStatus } from "../../../utils/offer/constants";
 import { peachAPI } from "../../../utils/peachAPI";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
+import { setMultipleRecipients } from "../../../utils/wallet/bitcoin/transaction/setMultipleRecipients";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
-import { setMultipleRecipients } from "../../../utils/wallet/transaction";
 import { useFundFromPeachWallet } from "./useFundFromPeachWallet";
 
 jest.mock("../../../hooks/query/useFeeEstimate", () => ({
