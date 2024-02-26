@@ -69,6 +69,7 @@
     "bip39": "^3.1.0",
     "bitcoinjs-lib": "^6.1.5",
     "bitcoinjs-message": "^2.2.0",
+    "bolt11": "^1.4.1",
     "boltz-swap-web-context": "^1.0.4",
     "buffer": "^6.0.3",
     "ecpair": "^2.1.0",

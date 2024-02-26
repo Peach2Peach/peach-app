@@ -4,7 +4,7 @@ import { Rule } from "../utils/validation/rules";
 
 export const useValidatedState = <S extends string | undefined>(
   input: S,
-  rulesToCheck: Partial<Record<Rule, boolean>>,
+  rulesToCheck: Partial<Record<Rule, string | number | boolean | undefined>>,
 ) => {
   const [value, setValue] = useState(input);
 
