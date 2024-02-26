@@ -12,9 +12,9 @@ export type WalletState = {
   addresses: string[];
   transactions: TransactionDetails[];
   fundedFromPeachWallet: string[];
-  txOfferMap: Record<string, string[]>;
-  addressLabelMap: Record<string, string>;
-  fundMultipleMap: Record<string, string[]>;
+  txOfferMap: { [offerId: string]: string[] | undefined };
+  addressLabelMap: { [address: string]: string | undefined };
+  fundMultipleMap: { [address: string]: string[] | undefined };
   showBalance: boolean;
   selectedUTXOIds: string[];
   isSynced: boolean;
@@ -109,9 +109,9 @@ export const useWalletState = create<WalletStore>()(
         })),
       getFundMultipleByOfferId: (offerId) => {
         const map = get().fundMultipleMap;
-        const address = keys(map).find((a) => map[a].includes(offerId));
+        const address = keys(map).find((a) => map[a]?.includes(offerId));
         if (!address) return undefined;
-        const offerIds = map[address];
+        const offerIds = map[address] || [];
         return { address, offerIds };
       },
       toggleShowBalance: () =>

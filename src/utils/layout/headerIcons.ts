@@ -1,7 +1,6 @@
-import { HeaderIcon } from "../../components/Header";
 import tw from "../../styles/tailwind";
 
-export const headerIcons: Record<string, Omit<HeaderIcon, "onPress">> = {
+export const headerIcons = {
   bitcoin: { id: "bitcoin", color: tw.color("bitcoin") },
   buyFilter: { id: "filter", color: tw.color("success-main") },
   cancel: { id: "xCircle", color: tw.color("black-50") },
@@ -19,4 +18,4 @@ export const headerIcons: Record<string, Omit<HeaderIcon, "onPress">> = {
   wallet: { id: "wallet", color: tw.color("black-65") },
   warning: { id: "alertOctagon", color: tw.color("error-main") },
   buyPreferences: { id: "edit", color: tw.color("success-main") },
-};
+} as const;

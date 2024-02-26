@@ -17,10 +17,6 @@ type ComponentProps = {
   onLayout?: (event: LayoutChangeEvent) => void;
 };
 
-type AnyObject = {
-  [key: string]: unknown;
-};
-
 type TradeTab = "yourTrades.buy" | "yourTrades.sell" | "yourTrades.history";
 
 type BitcoinNetwork = "bitcoin" | "testnet" | "regtest";

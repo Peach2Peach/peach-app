@@ -53,7 +53,7 @@ export const useCheckFundingMultipleEscrows = () => {
 
   const checkAddress = useCallback(
     async (address: string) => {
-      const offerIds = fundMultipleMap[address];
+      const offerIds = fundMultipleMap[address] || [];
       const offers = await Promise.all(offerIds.map(getOffer));
       const sellOffers = offers.filter(isNotNull).filter(isSellOffer);
 

@@ -19,7 +19,7 @@ export const TransactionDetails = () => {
   const localTx = useWalletState((state) => state.getTransaction(txId));
   const { data: transactionDetails } = useMappedTransactionDetails({ localTx });
   const offerIds = useWalletState((state) => state.txOfferMap[txId]);
-  const { offers } = useMultipleOfferDetails(offerIds);
+  const { offers } = useMultipleOfferDetails(offerIds || []);
   const transactionSummary = localTx
     ? getTxSummary({
         tx: localTx,

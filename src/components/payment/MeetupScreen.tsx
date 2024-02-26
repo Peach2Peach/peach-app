@@ -98,15 +98,18 @@ function MeetupScreenHeader() {
   const title =
     meetupEvents?.find(({ id }) => id === eventId)?.shortName || eventId;
 
-  const icons = useMemo(() => {
-    const icns = [{ ...headerIcons.help, onPress: showHelp }];
+  const memoizedIcons = useMemo(() => {
+    const icons = [{ ...headerIcons.help, onPress: showHelp }];
     if (deletable) {
-      icns[1] = { ...headerIcons.delete, onPress: deletePaymentMethod };
+      return [
+        ...icons,
+        { ...headerIcons.delete, onPress: deletePaymentMethod },
+      ];
     }
-    return icns;
+    return icons;
   }, [deletable, deletePaymentMethod, showHelp]);
 
-  return <Header title={title} icons={icons} />;
+  return <Header title={title} icons={memoizedIcons} />;
 }
 
 function CashTradesPopup() {

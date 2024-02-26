@@ -80,7 +80,10 @@ function MempoolHeader({ offerId }: { offerId: string }) {
     ];
 
     if (getNetwork() === networks.regtest) {
-      icons.unshift({ ...headerIcons.generateBlock, onPress: generateBlock });
+      return [
+        { ...headerIcons.generateBlock, onPress: generateBlock },
+        ...icons,
+      ];
     }
     return icons;
   }, [cancelOffer, showHelp]);
