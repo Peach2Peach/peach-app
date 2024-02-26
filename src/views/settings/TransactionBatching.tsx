@@ -10,7 +10,6 @@ import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useToggleBatching } from "../../hooks/user/useToggleBatching";
 import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { useTranslate } from "@tolgee/react";
 
