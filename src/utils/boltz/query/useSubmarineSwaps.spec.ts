@@ -1,30 +1,28 @@
 import { renderHook, waitFor } from "test-utils";
 import { getResult } from "../../../../peach-api/src/utils/result/getResult";
-import { swapStatusCreated } from "../../../../tests/unit/data/boltzData";
+import { submarineSwapList } from "../../../../tests/unit/data/boltzData";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
-import { useSwapStatus } from "./useSwapStatus";
+import { useSubmarineSwaps } from "./useSubmarineSwaps";
 
-jest.mock("../api/getSwapStatus");
-jest.requireMock("../api/getSwapStatus").getSwapStatus.mockResolvedValue(getResult(swapStatusCreated))
+jest.mock("../api/getSubmarineSwaps");
+jest.requireMock("../api/getSubmarineSwaps").getSubmarineSwaps.mockResolvedValue(getResult(submarineSwapList))
 
 jest.useFakeTimers();
 
-describe("useSwapStatus", () => {
+describe("useSubmarineSwaps", () => {
   afterEach(() => {
     queryClient.clear();
   });
 
   it("fetches swap status from API", async () => {
-    const { result } = renderHook(useSwapStatus, {
-      initialProps: { id: "id" },
-    });
+    const { result } = renderHook(useSubmarineSwaps);
     expect(result.current).toEqual({
-      status: undefined,
+      submarineList: undefined,
       isLoading: true,
     });
     await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(result.current).toEqual({
-      status: swapStatusCreated,
+      submarineList: submarineSwapList,
       isLoading: false,
     });
   });

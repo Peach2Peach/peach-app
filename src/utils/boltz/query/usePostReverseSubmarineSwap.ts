@@ -17,7 +17,8 @@ const queryFn = async ({
   if (!peachLiquidWallet) throw Error('WALLET_NOT_READY')
   const [, , from, to, address, amount] = queryKey;
   const preimage = await getRandom(PREIMAGE_BYTES);
-  const keyPair = peachLiquidWallet.getInternalKeyPair(peachLiquidWallet.internalAddresses.length + 1);
+  const keyPairIndex = peachLiquidWallet.internalAddresses.length + 1
+  const keyPair = peachLiquidWallet.getInternalKeyPair(keyPairIndex);
   const claimPublicKey = peachLiquidWallet
     .getInternalKeyPair(0)
     .publicKey.toString("hex");
@@ -34,6 +35,7 @@ const queryFn = async ({
   if (err) throw new Error(err.error);
   return {
     swapInfo: result,
+    keyPairIndex,
     keyPairWIF: keyPair.toWIF(),
     preimage: preimage.toString("hex"),
   };
