@@ -8,8 +8,8 @@ import {
   SubmarineRequest,
   SwapStatus,
 } from "boltz-swap-web-context/src/boltz-api/types";
-import { SubmarineAPIResponse } from "../../../src/store/useBoltzSwapStore";
 import { ReverseAPIResponse } from "../../../src/utils/boltz/api/postReverseSubmarineSwap";
+import { SubmarineAPIResponse } from "../../../src/utils/boltz/api/postSubmarineSwap";
 
 export const submarineSwapList: SubmarineList = {
   BTC: {
