@@ -4,13 +4,19 @@ import { account1 } from "../../../tests/unit/data/accountData";
 import { mempoolUTXO, utxo } from "../../../tests/unit/data/liquidBlockExplorerData";
 import { getError } from "../../../tests/unit/helpers/getError";
 import { useAccountStore } from "../account/account";
+import { omit } from "../object/omit";
 import { PeachLiquidJSWallet } from "./PeachLiquidJSWallet";
 import { createWalletFromBase58 } from "./createWalletFromBase58";
 import { getNetwork } from "./getNetwork";
 import { useLiquidWalletState } from "./useLiquidWalletState";
 
 jest.mock("../liquid/getUTXO");
-const getUTXOMock = jest.requireMock("../liquid/getUTXO").getUTXO.mockResolvedValue(getResult([utxo]))
+let addressesWithCoin = 30
+const getUTXOMock = jest.requireMock("../liquid/getUTXO").getUTXO.mockImplementation(() => {
+  addressesWithCoin--
+  if (addressesWithCoin >= 0) return getResult([utxo])
+  return getResult([])
+})
 
 describe("PeachLiquidJSWallet", () => {
   const wallet = createWalletFromBase58(account1.base58, getNetwork());
@@ -24,6 +30,8 @@ describe("PeachLiquidJSWallet", () => {
   });
   afterEach(()=> {
     useLiquidWalletState.getState().reset();
+    // eslint-disable-next-line no-magic-numbers
+    addressesWithCoin = 30
   })
 
   it("instantiates", () => {
@@ -52,17 +60,20 @@ describe("PeachLiquidJSWallet", () => {
     await syncInProgress;
     expect(peachLiquidJSWallet.syncInProgress).toBeUndefined()
     expect(peachLiquidJSWallet.utxos).toHaveLength(expectedUTXOs)
-    expect(peachLiquidJSWallet.utxos).toEqual(new Array(expectedUTXOs).fill(utxo))
+    expect(peachLiquidJSWallet.utxos.map(u => omit(u, 'derivationPath'))).toEqual(new Array(expectedUTXOs).fill(utxo))
+    expect(peachLiquidJSWallet.utxos[0].derivationPath).toBe("m/49'/0'/0'/0/0")
+    expect(peachLiquidJSWallet.utxos[9].derivationPath).toBe("m/49'/0'/0'/1/4")
+    expect(peachLiquidJSWallet.utxos[17].derivationPath).toBe("m/49'/0'/0'/1/8")
     expect(peachLiquidJSWallet.getBalance()).toEqual({
-      "confirmed": 10000000,
-      "spendable": 10000000,
-      "total": 10000000,
+      "confirmed": 6000000,
+      "spendable": 6000000,
+      "total": 6000000,
       "trustedPending": 0,
       "untrustedPending": 0,
     })
   });
   it("waits for already running sync", async () => {
-    const expectedUTXOs = 50
+    const expectedUTXOs = 60
     jest.clearAllMocks();
     const delay = 100;
     const promise = new Promise((resolve) => setTimeout(()=> resolve(getResult([utxo])), delay));
@@ -121,9 +132,9 @@ describe("PeachLiquidJSWallet", () => {
     const { address } = peachLiquidJSWallet.getInternalAddress();
     const { address: address2 } = peachLiquidJSWallet.getInternalAddress();
     const { address: address3 } = peachLiquidJSWallet.getInternalAddress();
-    expect(address).toBe("ex1q23fk98zwakjm5c4n0wgmyen60glhzp4eaf23wx");
-    expect(address2).toBe("ex1qyn8kqchusa6jfs6nhs88axr48cwfjz6k84mmqv");
-    expect(address3).toBe("ex1qa80hcqa0lesumd0mny76kgy356fprs3434kx22");
+    expect(address).toBe("ex1qzql0dtxtunjhtephvfvaywum34p8eu7pmq8dk6");
+    expect(address2).toBe("ex1qsddl3lvt568gg6ppxcnynj8fnmw90galc4jw9g");
+    expect(address3).toBe("ex1q350m9uq0z2jgxgm9ymlugjj6ey79k55xj97cxx");
   });
   it("gets an internal address by index", () => {
     const addressIndex = 3;
