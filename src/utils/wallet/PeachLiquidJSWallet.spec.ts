@@ -147,9 +147,9 @@ describe("PeachLiquidJSWallet", () => {
     const { address } = peachLiquidJSWallet.getInternalAddress();
     const { address: address2 } = peachLiquidJSWallet.getInternalAddress();
     const { address: address3 } = peachLiquidJSWallet.getInternalAddress();
-    expect(address).toBe("ex1qzql0dtxtunjhtephvfvaywum34p8eu7pmq8dk6");
-    expect(address2).toBe("ex1qsddl3lvt568gg6ppxcnynj8fnmw90galc4jw9g");
-    expect(address3).toBe("ex1q350m9uq0z2jgxgm9ymlugjj6ey79k55xj97cxx");
+    expect(address).toBe("ex1qr3g0uu3xnthk7sgkjdd0flcatt0s9qdlvgt6w9");
+    expect(address2).toBe("ex1qczr0spjq8ws09ptp3zwdh6kx4l3hcmyfj8vwhh");
+    expect(address3).toBe("ex1qcuqndswjphge4fpaf2frx9txt7vc5kuy3cvhhs");
   });
   it("gets an internal address by index", () => {
     const addressIndex = 3;

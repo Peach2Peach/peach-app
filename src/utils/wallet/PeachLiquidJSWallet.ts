@@ -59,6 +59,9 @@ export class PeachLiquidJSWallet {
     return useLiquidWalletState.getState().utxos;
   }
 
+  // TODO improve the logic to load all tx on an address
+  // then determine which ones are unspent (=UTXO)
+  // increase limit by gap limit
   syncWallet() {
     if (this.syncInProgress) return this.syncInProgress;
 
@@ -75,8 +78,11 @@ export class PeachLiquidJSWallet {
           );
           let utxos: UTXOWithPath[] = [];
           for (let i = 0; i < limit; i++) {
-            const { address } = this.getAddress(i);
-            const { address: internalAddress } = this.getInternalAddress(i);
+            const { address } = this.getAddress(i, false);
+            const { address: internalAddress } = this.getInternalAddress(
+              i,
+              false,
+            );
             // eslint-disable-next-line no-await-in-loop
             const [result, resultInternal] = await Promise.all(
               [address, internalAddress]
@@ -163,7 +169,7 @@ export class PeachLiquidJSWallet {
     return this.getKeyPairByPath(this.getInternalPath(index));
   }
 
-  getAddress(index: number = this.addresses.length) {
+  getAddress(index: number = this.addresses.length, cache = true) {
     info("PeachLiquidJSWallet - getAddress", index);
 
     if (this.addresses[index])
@@ -178,7 +184,7 @@ export class PeachLiquidJSWallet {
       pubkey: keyPair.publicKey,
     });
 
-    if (address) {
+    if (address && cache) {
       const addresses = [...this.addresses];
       addresses[index] = address;
       useLiquidWalletState.getState().setAddresses(addresses);
@@ -189,7 +195,10 @@ export class PeachLiquidJSWallet {
     return { address, index };
   }
 
-  getInternalAddress(index: number = this.internalAddresses.length + 1) {
+  getInternalAddress(
+    index: number = this.internalAddresses.length + 1,
+    cache = true,
+  ) {
     info("PeachLiquidJSWallet - getAddress", index);
 
     if (this.internalAddresses[index])
@@ -204,7 +213,11 @@ export class PeachLiquidJSWallet {
       pubkey: keyPair.publicKey,
     });
 
-    if (address) this.internalAddresses[index] = address;
+    if (address && cache) {
+      const addresses = [...this.internalAddresses];
+      addresses[index] = address;
+      useLiquidWalletState.getState().setInternalAddresses(addresses);
+    }
 
     if (!address) throw Error("ADDRESS_NOT_FOUND");
 
