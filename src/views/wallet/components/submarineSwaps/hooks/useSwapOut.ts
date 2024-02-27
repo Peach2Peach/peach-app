@@ -71,7 +71,7 @@ export const useSwapOut = ({ miningFees, invoice }: UseSwapOutProps) => {
       showErrorBanner(parseError(e));
       setPostSwapInProgress(false);
     }
-  }, [invoice, miningFees, saveSwap, showErrorBanner, swap, swaps]);
+  }, [invoice, mapSwap, miningFees, saveSwap, showErrorBanner, swap, swaps]);
 
   return {
     swapOut,

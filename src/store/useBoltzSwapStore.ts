@@ -8,15 +8,29 @@ import { createStorage } from "../utils/storage/createStorage";
 import { createPersistStorage } from "./createPersistStorage";
 
 export const STATUS_MAP = {
-  COMPLETED: ["transaction.confirmed", "invoice.settled"],
-  ERROR: [
-    "transaction.lockupFailed",
-    "swap.expired",
-    "invoice.failedToPay",
-    "transaction.failed",
-    "transaction.zeroconf.rejected",
-    "invoice.expired",
-  ],
+  SUBMARINE: {
+    COMPLETED: ["transaction.claimed"],
+    CLAIM: ["transaction.claim.pending"],
+    ERROR: [
+      "transaction.lockupFailed",
+      "swap.expired",
+      "invoice.failedToPay",
+      "transaction.failed",
+      "transaction.zeroconf.rejected",
+      "invoice.expired",
+    ],
+  },
+  REVERSE: {
+    COMPLETED: ["invoice.settled"],
+    CLAIM: ["transaction.mempool", "transaction.confirmed"],
+    ERROR: [
+      "swap.expired",
+      "invoice.failedToPay",
+      "transaction.failed",
+      "transaction.zeroconf.rejected",
+      "invoice.expired",
+    ],
+  },
 };
 export type SwapInfo = (SubmarineAPIResponse | ReverseAPIResponse) & {
   status?: SwapStatus;
@@ -42,10 +56,13 @@ const defaultState: WalletState = {
 export const boltzSwapStorage = createStorage("boltzSwap");
 const storage = createPersistStorage(boltzSwapStorage);
 
+export const getSwapType = (swap: SwapInfo) =>
+  "expectedAmount" in swap ? "SUBMARINE" : "REVERSE";
+
 export const isSwapPending = (swap: SwapInfo): boolean =>
   !swap.status?.status ||
-  (!STATUS_MAP.COMPLETED.includes(swap.status.status) &&
-    !STATUS_MAP.ERROR.includes(swap.status.status));
+  (!STATUS_MAP[getSwapType(swap)].COMPLETED.includes(swap.status.status) &&
+    !STATUS_MAP[getSwapType(swap)].ERROR.includes(swap.status.status));
 
 export const useBoltzSwapStore = create<WalletStore>()(
   persist(

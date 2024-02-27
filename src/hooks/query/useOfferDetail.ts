@@ -7,12 +7,12 @@ export const offerKeys = {
   summaries: () => [...offerKeys.all, "summaries"] as const,
   summary: (id: string) => [...offerKeys.summaries(), id] as const,
   details: () => [...offerKeys.all, "details"] as const,
-  detail: (id: string) => [...offerKeys.details(), id] as const,
+  detail: (id?: string) => [...offerKeys.details(), id] as const,
   fundingStatus: (id: string) =>
     [...offerKeys.detail(id), "fundingStatus"] as const,
 };
 
-export const useOfferDetail = (id: string) => {
+export const useOfferDetail = (id?: string) => {
   const {
     data,
     isLoading,
@@ -34,7 +34,7 @@ export const useMultipleOfferDetails = (ids: string[]) => {
   return { offers, isLoading, isFetching, errors };
 };
 
-function buildQuery(id: string) {
+function buildQuery(id?: string) {
   return {
     queryKey: offerKeys.detail(id),
     queryFn: getOfferQuery,
