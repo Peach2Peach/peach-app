@@ -10,7 +10,8 @@ import { buildTransaction } from "../../../../../utils/wallet/liquid/buildTransa
 import { peachLiquidWallet } from "../../../../../utils/wallet/setWallet";
 
 const getSwapByInvoice = (invoice: string) => {
-  const swap = useBoltzSwapStore.getState().swaps[invoice][0];
+  const swapId = useBoltzSwapStore.getState().map[invoice][0];
+  const swap = useBoltzSwapStore.getState().swaps[swapId];
   if (!swap) throw Error("SWAP_NOT_FOUND");
 
   return {
@@ -29,8 +30,8 @@ type UseSwapOutProps = {
 export const useSwapOut = ({ miningFees, invoice }: UseSwapOutProps) => {
   const [postSwapInProgress, setPostSwapInProgress] = useState(false);
   const showErrorBanner = useShowErrorBanner();
-  const [swaps, saveSwap] = useBoltzSwapStore(
-    (state) => [state.swaps, state.saveSwap],
+  const [swaps, saveSwap, mapSwap] = useBoltzSwapStore(
+    (state) => [state.swaps, state.saveSwap, state.mapSwap],
     shallow,
   );
   const swap = swaps[invoice] ? getSwapByInvoice(invoice) : undefined;
@@ -47,7 +48,10 @@ export const useSwapOut = ({ miningFees, invoice }: UseSwapOutProps) => {
 
       if (!("address" in swapInfo) || !swapInfo.address)
         throw Error("NO_LOCKUP_ADDRESS");
-      if (!swaps[invoice]) saveSwap(invoice, { ...swapInfo, keyPairIndex });
+      if (!swaps[invoice]) {
+        saveSwap({ ...swapInfo, keyPairIndex });
+        mapSwap(invoice, swapInfo.id);
+      }
 
       const lockUpTransaction = buildTransaction({
         recipient: swapInfo.address,

@@ -5,7 +5,7 @@ import { getSwapStatus } from "../api/getSwapStatus";
 const queryFn = async ({
   queryKey,
 }: {
-  queryKey: ["boltz", "reverse", "status", string];
+  queryKey: ["boltz", "swap", "status", string];
 }) => {
   const [, , , id] = queryKey;
   const { result, error: err } = await getSwapStatus({ id });
@@ -16,15 +16,21 @@ const queryFn = async ({
 
 type Props = {
   id?: string;
+  enabled?: boolean;
+  refetch?: boolean;
 };
 
 const REFETCH_INTERVAL = 5;
-export const useSwapStatus = ({ id }: Props) => {
+export const useSwapStatus = ({
+  id,
+  enabled = true,
+  refetch = true,
+}: Props) => {
   const { data, isLoading } = useQuery({
-    queryKey: ["boltz", "reverse", "status", id || ""],
+    queryKey: ["boltz", "swap", "status", id || ""],
     queryFn,
-    refetchInterval: REFETCH_INTERVAL * MSINASECOND,
-    enabled: !!id,
+    refetchInterval: refetch ? REFETCH_INTERVAL * MSINASECOND : undefined,
+    enabled: enabled && !!id,
   });
   return { status: data, isLoading };
 };

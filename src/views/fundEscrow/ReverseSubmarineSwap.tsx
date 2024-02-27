@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { shallow } from "zustand/shallow";
 import { Loading } from "../../components/animation/Loading";
 import { LightningInvoice } from "../../components/bitcoin/LightningInvoice";
 import { ErrorBox } from "../../components/ui/ErrorBox";
@@ -17,16 +18,28 @@ export const ReverseSubmarineSwap = ({ offerId, address, amount }: Props) => {
   const { data, error } = usePostReverseSubmarineSwap({ address, amount });
   const swapInfo = data?.swapInfo;
   const { status } = useSwapStatus({ id: swapInfo?.id });
-  const saveSwap = useBoltzSwapStore((state) => state.saveSwap);
+  const [saveSwap, mapSwap] = useBoltzSwapStore(
+    (state) => [state.saveSwap, state.mapSwap],
+    shallow,
+  );
 
   useEffect(() => {
-    if (data?.swapInfo)
-      saveSwap(offerId, {
+    if (data?.swapInfo) {
+      saveSwap({
         ...data.swapInfo,
         keyPairIndex: data.keyPairIndex,
         preimage: data.preimage,
       });
-  }, [data?.keyPairIndex, data?.preimage, data?.swapInfo, offerId, saveSwap]);
+      mapSwap(offerId, data?.swapInfo.id);
+    }
+  }, [
+    data?.keyPairIndex,
+    data?.preimage,
+    data?.swapInfo,
+    mapSwap,
+    offerId,
+    saveSwap,
+  ]);
 
   if (error?.message) return <ErrorBox>{error.message}</ErrorBox>;
   if (!swapInfo?.invoice) return <Loading />;

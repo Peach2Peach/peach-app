@@ -16,20 +16,28 @@ describe("useBoltzSwapStore", () => {
     expect(useBoltzSwapStore.getState()).toEqual({
       ...useBoltzSwapStore.getState(),
       swaps: {},
+      map: {},
     });
   });
 
   it("stores swap info", () => {
-    useBoltzSwapStore.getState().saveSwap("1", submarineSwap);
-    useBoltzSwapStore.getState().saveSwap("1", reverseSwap);
+    useBoltzSwapStore.getState().saveSwap(submarineSwap);
+    useBoltzSwapStore.getState().saveSwap(reverseSwap);
     expect(useBoltzSwapStore.getState().swaps).toEqual({
-      "1": [submarineSwap, reverseSwap],
+      [submarineSwap.id]: submarineSwap,
+      [reverseSwap.id]: reverseSwap,
+    });
+  });
+  it("maps an arbitrary id to a swap id", () => {
+    useBoltzSwapStore.getState().mapSwap("1", submarineSwap.id);
+    expect(useBoltzSwapStore.getState().map).toEqual({
+      "1": [submarineSwap.id],
     });
   });
   it("removes swap info", () => {
-    useBoltzSwapStore.getState().removeSwap("1", submarineSwap.id);
+    useBoltzSwapStore.getState().removeSwap(submarineSwap.id);
     expect(useBoltzSwapStore.getState().swaps).toEqual({
-      "1": [reverseSwap],
+      [reverseSwap.id]: reverseSwap,
     });
   });
 });

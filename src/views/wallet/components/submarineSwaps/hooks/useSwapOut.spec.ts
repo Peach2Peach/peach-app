@@ -116,11 +116,14 @@ describe("useSwapOut", () => {
       },
     } = renderHook(useSwapOut, { initialProps });
     await swapOut();
-    expect(useBoltzSwapStore.getState().swaps[initialProps.invoice]).toEqual([
-      {
-        ...submarineSwapResponse,
-        keyPairIndex: 0,
-      },
+    expect(
+      useBoltzSwapStore.getState().swaps[submarineSwapResponse.id],
+    ).toEqual({
+      ...submarineSwapResponse,
+      keyPairIndex: 0,
+    });
+    expect(useBoltzSwapStore.getState().map[initialProps.invoice]).toEqual([
+      submarineSwapResponse.id,
     ]);
   });
   it("should build and broadcast lockup transaction and sync wallet in the end", async () => {

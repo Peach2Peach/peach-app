@@ -43,7 +43,9 @@ describe("ReverseSubmarineSwap", () => {
   });
   it("should save swap", () => {
     render(<ReverseSubmarineSwap {...props} />);
-    expect(useBoltzSwapStore.getState().swaps[props.offerId]).toBeDefined();
+    expect(
+      useBoltzSwapStore.getState().swaps[reverseSwapResponse.id],
+    ).toBeDefined();
   });
   it("should show loading when swap request is in process", () => {
     useClaimReverseSubmarineSwapMock.mockReturnValueOnce({ data: undefined });
