@@ -1,5 +1,8 @@
 import { Psbt, PsbtTxOutput } from "bitcoinjs-lib";
-import { Psbt as LiquidPsbt, PsbtTxOutput as LiquidPsbtTxOutput } from "liquidjs-lib/src/psbt";
+import {
+  Psbt as LiquidPsbt,
+  PsbtTxOutput as LiquidPsbtTxOutput,
+} from "liquidjs-lib/src/psbt";
 import { useConfigStore } from "../../../store/configStore/configStore";
 import { txIdPartOfPSBT } from "../../../utils/bitcoin/txIdPartOfPSBT";
 import { releaseTransactionHasValidOutputs } from "./releaseTransactionHasValidOutputs";
@@ -21,7 +24,10 @@ export const verifyReleasePSBT = (
   }
 
   if (
-    psbt.txOutputs.every((output: LiquidPsbtTxOutput | PsbtTxOutput) => output.address !== contract.releaseAddress)
+    psbt.txOutputs.every(
+      (output: LiquidPsbtTxOutput | PsbtTxOutput) =>
+        output.address !== contract.releaseAddress,
+    )
   ) {
     return "RETURN_ADDRESS_MISMATCH";
   }

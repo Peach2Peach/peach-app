@@ -5,8 +5,12 @@ import {
 import { useBoltzSwapStore } from "./useBoltzSwapStore";
 
 describe("useBoltzSwapStore", () => {
-  const submarineSwap = { ...submarineSwapResponse, keyPairIndex: 1 }
-  const reverseSwap = { ...reverseSwapResponse, keyPairIndex: 1, preimage: 'preimage' }
+  const submarineSwap = { ...submarineSwapResponse, keyPairIndex: 1 };
+  const reverseSwap = {
+    ...reverseSwapResponse,
+    keyPairIndex: 1,
+    preimage: "preimage",
+  };
 
   it("returns defaults", () => {
     expect(useBoltzSwapStore.getState()).toEqual({

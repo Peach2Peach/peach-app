@@ -16,7 +16,10 @@ import { isPaymentMethod } from "../../../utils/validation/isPaymentMethod";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
 import { isValidLiquidSignature } from "../../../utils/validation/isValidLiquidSignature";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
-import { peachLiquidWallet, peachWallet } from "../../../utils/wallet/setWallet";
+import {
+  peachLiquidWallet,
+  peachWallet,
+} from "../../../utils/wallet/setWallet";
 import { GroupHugAnnouncement } from "../../overlays/GroupHugAnnouncement";
 
 const isForbiddenPaymentMethodError = (
@@ -68,7 +71,7 @@ export function usePostBuyOffer({
 
   return useMutation({
     mutationFn: async () => {
-      const wallet = escrowType === 'bitcoin' ? peachWallet : peachLiquidWallet
+      const wallet = escrowType === "bitcoin" ? peachWallet : peachLiquidWallet;
       if (!wallet) throw new Error("Peach wallet not defined");
 
       const { address, index } = payoutToPeachWallet
@@ -84,9 +87,15 @@ export function usePostBuyOffer({
 
       if (!signature) throw new Error("MISSING_SIGNATURE");
 
-      const isValidSignature = escrowType === 'bitcoin'
-        ? isValidBitcoinSignature({ message, address, signature, network: getNetwork() })
-        : isValidLiquidSignature({ message, address, signature })
+      const isValidSignature =
+        escrowType === "bitcoin"
+          ? isValidBitcoinSignature({
+              message,
+              address,
+              signature,
+              network: getNetwork(),
+            })
+          : isValidLiquidSignature({ message, address, signature });
       if (!isValidSignature) throw new Error("INVALID_SIGNATURE");
 
       const finalizedOfferDraft = {
@@ -102,7 +111,8 @@ export function usePostBuyOffer({
         messageSignature: signature,
       };
 
-      const { result, error: err } = await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft);
+      const { result, error: err } =
+        await peachAPI.private.offer.postBuyOffer(finalizedOfferDraft);
 
       if (result) return result.id;
       throw new Error(err?.error || "POST_OFFER_ERROR", {

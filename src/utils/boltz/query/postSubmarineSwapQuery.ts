@@ -12,19 +12,19 @@ export const postSubmarineSwapQuery = async ({
   to = "BTC",
   invoice,
 }: Props) => {
-  if (!peachLiquidWallet) throw Error('WALLET_NOT_READY')
+  if (!peachLiquidWallet) throw Error("WALLET_NOT_READY");
 
-  const keyPairIndex = peachLiquidWallet.internalAddresses.length + 1
+  const keyPairIndex = peachLiquidWallet.internalAddresses.length + 1;
   const keyPair = peachLiquidWallet.getInternalKeyPair(keyPairIndex);
   const { result, error: err } = await postSubmarineSwap({
     from,
     to,
     invoice,
     referralId: BOLTZ_REFERRAL_CODE,
-    refundPublicKey: keyPair.publicKey.toString('hex'),
+    refundPublicKey: keyPair.publicKey.toString("hex"),
   });
 
-  if (!result || err) throw new Error(err?.error || 'GENERAL_ERROR');
+  if (!result || err) throw new Error(err?.error || "GENERAL_ERROR");
 
   return {
     swapInfo: result,

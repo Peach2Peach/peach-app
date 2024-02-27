@@ -16,7 +16,7 @@ export const useSyncLiquidWallet = ({
   enabled = false,
 }: Props = {}) => {
   const queryData = useQuery({
-    queryKey: walletKeys.synced('liquid'),
+    queryKey: walletKeys.synced("liquid"),
     queryFn: async () => {
       if (!peachLiquidWallet) throw new Error("Peach wallet not defined");
       await peachLiquidWallet.syncWallet();

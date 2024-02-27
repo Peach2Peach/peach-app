@@ -9,7 +9,7 @@ describe("postSubmarineSwap", () => {
       from: "BTC",
       to: "BTC",
       refundPublicKey: "refundPublicKey",
-      invoice: 'invoice',
+      invoice: "invoice",
     };
     await postSubmarineSwap(body);
     expect(fetch).toHaveBeenCalledWith(

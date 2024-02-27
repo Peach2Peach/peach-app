@@ -11,12 +11,14 @@ import { peachLiquidWallet } from "../../../../../utils/wallet/setWallet";
 
 const getSwapByInvoice = (invoice: string) => {
   const swap = useBoltzSwapStore.getState().swaps[invoice][0];
-  if (!swap) throw Error('SWAP_NOT_FOUND');
+  if (!swap) throw Error("SWAP_NOT_FOUND");
 
   return {
     swapInfo: swap as SubmarineAPIResponse,
     keyPairIndex: swap.keyPairIndex,
-    keyPairWIF: peachLiquidWallet?.getInternalKeyPair(swap.keyPairIndex).toWIF()
+    keyPairWIF: peachLiquidWallet
+      ?.getInternalKeyPair(swap.keyPairIndex)
+      .toWIF(),
   };
 };
 
@@ -27,19 +29,24 @@ type UseSwapOutProps = {
 export const useSwapOut = ({ miningFees, invoice }: UseSwapOutProps) => {
   const [postSwapInProgress, setPostSwapInProgress] = useState(false);
   const showErrorBanner = useShowErrorBanner();
-  const [swaps, saveSwap] = useBoltzSwapStore((state) => [state.swaps, state.saveSwap], shallow);
+  const [swaps, saveSwap] = useBoltzSwapStore(
+    (state) => [state.swaps, state.saveSwap],
+    shallow,
+  );
   const swap = swaps[invoice] ? getSwapByInvoice(invoice) : undefined;
 
   const swapOut = useCallback(async () => {
     setPostSwapInProgress(true);
 
     try {
-      if (!invoice) throw Error('INVOICE_UNDEFINED');
-      if (!peachLiquidWallet) throw Error('WALLET_NOT_READY');
+      if (!invoice) throw Error("INVOICE_UNDEFINED");
+      if (!peachLiquidWallet) throw Error("WALLET_NOT_READY");
 
-      const { swapInfo, keyPairIndex } = swap || await postSubmarineSwapQuery({ invoice });
+      const { swapInfo, keyPairIndex } =
+        swap || (await postSubmarineSwapQuery({ invoice }));
 
-      if (!('address' in swapInfo) || !swapInfo.address) throw Error('NO_LOCKUP_ADDRESS');
+      if (!("address" in swapInfo) || !swapInfo.address)
+        throw Error("NO_LOCKUP_ADDRESS");
       if (!swaps[invoice]) saveSwap(invoice, { ...swapInfo, keyPairIndex });
 
       const lockUpTransaction = buildTransaction({
@@ -49,7 +56,9 @@ export const useSwapOut = ({ miningFees, invoice }: UseSwapOutProps) => {
         inputs: peachLiquidWallet.utxos,
       });
 
-      const { error } = await peachAPI.public.liquid.postTx({ tx: lockUpTransaction.toHex() });
+      const { error } = await peachAPI.public.liquid.postTx({
+        tx: lockUpTransaction.toHex(),
+      });
 
       if (error) throw Error(error.error);
 
@@ -64,6 +73,6 @@ export const useSwapOut = ({ miningFees, invoice }: UseSwapOutProps) => {
     swapOut,
     postSwapInProgress,
     swapInfo: swap?.swapInfo,
-    keyPairWIF: swap?.keyPairWIF
+    keyPairWIF: swap?.keyPairWIF,
   };
 };

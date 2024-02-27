@@ -20,7 +20,12 @@ export const ReverseSubmarineSwap = ({ offerId, address, amount }: Props) => {
   const saveSwap = useBoltzSwapStore((state) => state.saveSwap);
 
   useEffect(() => {
-    if (data?.swapInfo) saveSwap(offerId, {...data.swapInfo, keyPairIndex: data.keyPairIndex, preimage: data.preimage});
+    if (data?.swapInfo)
+      saveSwap(offerId, {
+        ...data.swapInfo,
+        keyPairIndex: data.keyPairIndex,
+        preimage: data.preimage,
+      });
   }, [data?.keyPairIndex, data?.preimage, data?.swapInfo, offerId, saveSwap]);
 
   if (error?.message) return <ErrorBox>{error.message}</ErrorBox>;

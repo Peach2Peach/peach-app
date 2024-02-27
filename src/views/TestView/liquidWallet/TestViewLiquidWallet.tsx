@@ -31,20 +31,20 @@ export const TestViewLiquidWallet = () => {
     "",
     liquidAddressRules,
   );
-  const balance = useLiquidWalletState(state => state.balance)
+  const balance = useLiquidWalletState((state) => state.balance);
 
-  console.log(peachLiquidWallet?.utxos)
+  console.log(peachLiquidWallet?.utxos);
   const [amount, setAmount] = useState("0");
   const [txId] = useState("");
   const getNewAddress = () => {
-    if (!peachLiquidWallet) return
+    if (!peachLiquidWallet) return;
     const { address: newAddress } = peachLiquidWallet.getAddress();
     if (newAddress) setAddress(newAddress);
   };
   const isRefetching = false;
   const getNewInternalAddress = () => {
-    if (!peachLiquidWallet) return
-    const {address: newAddress} = peachLiquidWallet.getInternalAddress();
+    if (!peachLiquidWallet) return;
+    const { address: newAddress } = peachLiquidWallet.getInternalAddress();
     if (newAddress) setAddress(newAddress);
   };
   const send = () => {
@@ -54,7 +54,7 @@ export const TestViewLiquidWallet = () => {
     Alert.alert("TODO");
   };
   const refetch = () => {
-    peachLiquidWallet?.syncWallet()
+    peachLiquidWallet?.syncWallet();
   };
 
   return (
@@ -124,7 +124,7 @@ function SignMessage() {
   const [address, setAddress] = useState("");
   const [signature, setSignature] = useState("");
   const onPress = () => {
-    if (!peachLiquidWallet) return
+    if (!peachLiquidWallet) return;
     const message = getMessageToSignForAddress(userId, address);
     const sig = peachLiquidWallet.signMessage(message, address);
     setSignature(sig);

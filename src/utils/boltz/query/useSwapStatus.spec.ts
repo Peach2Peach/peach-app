@@ -5,7 +5,9 @@ import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { useSwapStatus } from "./useSwapStatus";
 
 jest.mock("../api/getSwapStatus");
-jest.requireMock("../api/getSwapStatus").getSwapStatus.mockResolvedValue(getResult(swapStatusCreated))
+jest
+  .requireMock("../api/getSwapStatus")
+  .getSwapStatus.mockResolvedValue(getResult(swapStatusCreated));
 
 jest.useFakeTimers();
 

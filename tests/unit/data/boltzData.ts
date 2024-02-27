@@ -190,13 +190,13 @@ export const swapStatusCreated: SwapStatus = {
   status: "swap.created",
 };
 export const swapStatusMempool: SwapStatus = {
-  "status": "transaction.mempool",
-  "transaction": {
-    "id": "c84b3397dadee8abfa54d753987f78a75bf58620116eede39e43f41268a8bda5",
-    "hex": "lockupTxHex",
-    "eta": 2
-  }
-}
+  status: "transaction.mempool",
+  transaction: {
+    id: "c84b3397dadee8abfa54d753987f78a75bf58620116eede39e43f41268a8bda5",
+    hex: "lockupTxHex",
+    eta: 2,
+  },
+};
 export const swapStatusTransactionClaimPending: SwapStatus = {
   status: "transaction.claim.pending",
 };

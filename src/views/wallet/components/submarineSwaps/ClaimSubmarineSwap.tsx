@@ -18,7 +18,9 @@ type GetClaimSubmarineSwapJSProps = {
   keyPairWIF: string;
 };
 const getClaimSubmarineSwapJS = ({
-  invoice, swapInfo, keyPairWIF,
+  invoice,
+  swapInfo,
+  keyPairWIF,
 }: GetClaimSubmarineSwapJSProps) => {
   const keyPair = ECPair.fromWIF(keyPairWIF, getLiquidNetwork());
 
@@ -46,10 +48,12 @@ type ClaimSubmarineSwapProps = {
  * and listen for success or error messages from the web context.
  */
 export const ClaimSubmarineSwap = ({
-  swapInfo, invoice, keyPairWIF,
+  swapInfo,
+  invoice,
+  keyPairWIF,
 }: ClaimSubmarineSwapProps) => {
   const handleClaimMessage = (event: WebViewMessageEvent) => {
-    log('ClaimSubmarineSwap - handleClaimMessage');
+    log("ClaimSubmarineSwap - handleClaimMessage");
 
     const data = JSON.parse(event.nativeEvent.data);
     if (data.error) throw Error(data.error);
@@ -67,7 +71,8 @@ export const ClaimSubmarineSwap = ({
           swapInfo,
           keyPairWIF,
         })}
-        onMessage={handleClaimMessage} />
+        onMessage={handleClaimMessage}
+      />
     </View>
   );
 };

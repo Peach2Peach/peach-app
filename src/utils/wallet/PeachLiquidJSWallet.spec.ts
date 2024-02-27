@@ -1,7 +1,10 @@
 import { networks } from "liquidjs-lib";
 import { getResult } from "../../../peach-api/src/utils/result";
 import { account1 } from "../../../tests/unit/data/accountData";
-import { mempoolUTXO, utxo } from "../../../tests/unit/data/liquidBlockExplorerData";
+import {
+  mempoolUTXO,
+  utxo,
+} from "../../../tests/unit/data/liquidBlockExplorerData";
 import { getError } from "../../../tests/unit/helpers/getError";
 import { useAccountStore } from "../account/account";
 import { omit } from "../object/omit";
@@ -11,12 +14,14 @@ import { getNetwork } from "./getNetwork";
 import { useLiquidWalletState } from "./useLiquidWalletState";
 
 jest.mock("../liquid/getUTXO");
-let addressesWithCoin = 30
-const getUTXOMock = jest.requireMock("../liquid/getUTXO").getUTXO.mockImplementation(() => {
-  addressesWithCoin--
-  if (addressesWithCoin >= 0) return getResult([utxo])
-  return getResult([])
-})
+let addressesWithCoin = 30;
+const getUTXOMock = jest
+  .requireMock("../liquid/getUTXO")
+  .getUTXO.mockImplementation(() => {
+    addressesWithCoin--;
+    if (addressesWithCoin >= 0) return getResult([utxo]);
+    return getResult([]);
+  });
 
 describe("PeachLiquidJSWallet", () => {
   const wallet = createWalletFromBase58(account1.base58, getNetwork());
@@ -28,11 +33,11 @@ describe("PeachLiquidJSWallet", () => {
     useAccountStore.getState().setAccount(account1);
     peachLiquidJSWallet = new PeachLiquidJSWallet({ wallet });
   });
-  afterEach(()=> {
+  afterEach(() => {
     useLiquidWalletState.getState().reset();
     // eslint-disable-next-line no-magic-numbers
-    addressesWithCoin = 30
-  })
+    addressesWithCoin = 30;
+  });
 
   it("instantiates", () => {
     const addresses = ["address1", "address2"];
@@ -54,29 +59,35 @@ describe("PeachLiquidJSWallet", () => {
     expect(peachLiquidJSWallet.derivationPath).toEqual("m/49'/0'/0'");
   });
   it("syncs wallet", async () => {
-    const expectedUTXOs = 30
-    const syncInProgress = peachLiquidJSWallet.syncWallet()
-    expect(peachLiquidJSWallet.syncInProgress).toBeDefined()
+    const expectedUTXOs = 30;
+    const syncInProgress = peachLiquidJSWallet.syncWallet();
+    expect(peachLiquidJSWallet.syncInProgress).toBeDefined();
     await syncInProgress;
-    expect(peachLiquidJSWallet.syncInProgress).toBeUndefined()
-    expect(peachLiquidJSWallet.utxos).toHaveLength(expectedUTXOs)
-    expect(peachLiquidJSWallet.utxos.map(u => omit(u, 'derivationPath'))).toEqual(new Array(expectedUTXOs).fill(utxo))
-    expect(peachLiquidJSWallet.utxos[0].derivationPath).toBe("m/49'/0'/0'/0/0")
-    expect(peachLiquidJSWallet.utxos[9].derivationPath).toBe("m/49'/0'/0'/1/4")
-    expect(peachLiquidJSWallet.utxos[17].derivationPath).toBe("m/49'/0'/0'/1/8")
+    expect(peachLiquidJSWallet.syncInProgress).toBeUndefined();
+    expect(peachLiquidJSWallet.utxos).toHaveLength(expectedUTXOs);
+    expect(
+      peachLiquidJSWallet.utxos.map((u) => omit(u, "derivationPath")),
+    ).toEqual(new Array(expectedUTXOs).fill(utxo));
+    expect(peachLiquidJSWallet.utxos[0].derivationPath).toBe("m/49'/0'/0'/0/0");
+    expect(peachLiquidJSWallet.utxos[9].derivationPath).toBe("m/49'/0'/0'/1/4");
+    expect(peachLiquidJSWallet.utxos[17].derivationPath).toBe(
+      "m/49'/0'/0'/1/8",
+    );
     expect(peachLiquidJSWallet.getBalance()).toEqual({
-      "confirmed": 6000000,
-      "spendable": 6000000,
-      "total": 6000000,
-      "trustedPending": 0,
-      "untrustedPending": 0,
-    })
+      confirmed: 6000000,
+      spendable: 6000000,
+      total: 6000000,
+      trustedPending: 0,
+      untrustedPending: 0,
+    });
   });
   it("waits for already running sync", async () => {
-    const expectedUTXOs = 60
+    const expectedUTXOs = 60;
     jest.clearAllMocks();
     const delay = 100;
-    const promise = new Promise((resolve) => setTimeout(()=> resolve(getResult([utxo])), delay));
+    const promise = new Promise((resolve) =>
+      setTimeout(() => resolve(getResult([utxo])), delay),
+    );
     getUTXOMock.mockReturnValueOnce(promise);
     expect(peachLiquidJSWallet.syncInProgress).toBeUndefined();
     peachLiquidJSWallet.syncWallet();
@@ -88,7 +99,11 @@ describe("PeachLiquidJSWallet", () => {
     expect(getUTXOMock).toHaveBeenCalledTimes(expectedUTXOs);
   });
   it("calculates balance", () => {
-    useLiquidWalletState.getState().setUTXO([utxo, mempoolUTXO].map(utx => ({...utx, derivationPath: '1'})))
+    useLiquidWalletState
+      .getState()
+      .setUTXO(
+        [utxo, mempoolUTXO].map((utx) => ({ ...utx, derivationPath: "1" })),
+      );
     expect(peachLiquidJSWallet.getBalance()).toEqual({
       trustedPending: 0,
       untrustedPending: 30000,

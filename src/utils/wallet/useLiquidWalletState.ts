@@ -4,7 +4,7 @@ import { UTXO } from "../../../peach-api/src/@types/electrs-liquid";
 import { createPersistStorage } from "../../store/createPersistStorage";
 import { createStorage } from "../storage/createStorage";
 
-export type UTXOWithPath = UTXO & { derivationPath: string }
+export type UTXOWithPath = UTXO & { derivationPath: string };
 export type LiquidWalletState = {
   balance: number;
   addresses: string[];

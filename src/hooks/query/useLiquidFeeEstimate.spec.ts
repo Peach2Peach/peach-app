@@ -4,10 +4,7 @@ import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../utils/peachAPI";
 import { placeholderFees, useLiquidFeeEstimate } from "./useLiquidFeeEstimate";
 
-const getFeeEstimateMock = jest.spyOn(
-  peachAPI.public.liquid,
-  "getFeeEstimate",
-);
+const getFeeEstimateMock = jest.spyOn(peachAPI.public.liquid, "getFeeEstimate");
 
 jest.useFakeTimers();
 

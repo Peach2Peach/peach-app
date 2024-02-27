@@ -26,7 +26,12 @@ type GetClaimReverseSubmarineSwapJSProps = {
   preimage: string;
 };
 const getClaimReverseSubmarineSwapJS = ({
-  address, feeRate, swapInfo, swapStatus, keyPairWIF, preimage,
+  address,
+  feeRate,
+  swapInfo,
+  swapStatus,
+  keyPairWIF,
+  preimage,
 }: GetClaimReverseSubmarineSwapJSProps) => {
   const { refundPublicKey, swapTree } = swapInfo;
   if (!refundPublicKey || !swapTree) return getError("GENERAL_ERROR");
@@ -62,10 +67,16 @@ type ClaimReverseSubmarineSwapProps = {
  * and listen for success or error messages from the web context.
  */
 export const ClaimReverseSubmarineSwap = ({
-  offerId, swapInfo, address, swapStatus, keyPairWIF, preimage,
+  offerId,
+  swapInfo,
+  address,
+  swapStatus,
+  keyPairWIF,
+  preimage,
 }: ClaimReverseSubmarineSwapProps) => {
   const feeRate = useLiquidFeeRate();
-  const { error: claimError, handleClaimMessage } = useClaimReverseSubmarineSwap({ offerId });
+  const { error: claimError, handleClaimMessage } =
+    useClaimReverseSubmarineSwap({ offerId });
 
   const injectedJavaScript = getClaimReverseSubmarineSwapJS({
     address,
@@ -74,9 +85,10 @@ export const ClaimReverseSubmarineSwap = ({
     swapStatus,
     keyPairWIF,
     preimage,
-  })
+  });
 
-  if (claimError || !injectedJavaScript.isOk()) return <ErrorBox>{claimError || injectedJavaScript.getError()}</ErrorBox>;
+  if (claimError || !injectedJavaScript.isOk())
+    return <ErrorBox>{claimError || injectedJavaScript.getError()}</ErrorBox>;
 
   return (
     <View>
@@ -86,7 +98,8 @@ export const ClaimReverseSubmarineSwap = ({
         source={html}
         originWhitelist={["*"]}
         injectedJavaScript={injectedJavaScript.getValue()}
-        onMessage={handleClaimMessage} />
+        onMessage={handleClaimMessage}
+      />
     </View>
   );
 };

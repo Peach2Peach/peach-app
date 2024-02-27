@@ -16,8 +16,7 @@ export function useConfirmPaymentSeller({
     },
     {
       mutationFn: async () => {
-        const { result, error } =
-          await signReleaseTxOfContract(contract);
+        const { result, error } = await signReleaseTxOfContract(contract);
         if (!result?.releaseTransaction) {
           throw new Error(error);
         }

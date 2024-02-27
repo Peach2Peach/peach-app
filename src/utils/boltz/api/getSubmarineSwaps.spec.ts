@@ -6,12 +6,15 @@ jest.mock("../../fetch");
 describe("getSubmarineSwaps", () => {
   it("calls endpoint to get submarine list", async () => {
     await getSubmarineSwaps();
-    expect(fetch).toHaveBeenCalledWith("http://localhost:9001/v2/swap/submarine", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+    expect(fetch).toHaveBeenCalledWith(
+      "http://localhost:9001/v2/swap/submarine",
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "GET",
       },
-      method: "GET",
-    });
+    );
   });
 });

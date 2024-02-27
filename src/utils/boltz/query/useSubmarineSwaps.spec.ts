@@ -5,7 +5,9 @@ import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { useSubmarineSwaps } from "./useSubmarineSwaps";
 
 jest.mock("../api/getSubmarineSwaps");
-jest.requireMock("../api/getSubmarineSwaps").getSubmarineSwaps.mockResolvedValue(getResult(submarineSwapList))
+jest
+  .requireMock("../api/getSubmarineSwaps")
+  .getSubmarineSwaps.mockResolvedValue(getResult(submarineSwapList));
 
 jest.useFakeTimers();
 

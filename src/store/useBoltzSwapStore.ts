@@ -6,18 +6,15 @@ import { createStorage } from "../utils/storage/createStorage";
 import { createPersistStorage } from "./createPersistStorage";
 
 export type SwapInfo = (SubmarineAPIResponse | ReverseAPIResponse) & {
-  keyPairIndex: number,
-  preimage?: string
-}
+  keyPairIndex: number;
+  preimage?: string;
+};
 export type WalletState = {
   swaps: Record<string, SwapInfo[]>;
 };
 
 export type WalletStore = WalletState & {
-  saveSwap: (
-    id: string,
-    swapInfo: SwapInfo,
-  ) => void;
+  saveSwap: (id: string, swapInfo: SwapInfo) => void;
   removeSwap: (id: string, swapId: string) => void;
 };
 

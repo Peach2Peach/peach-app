@@ -4,7 +4,10 @@ jest.mock("@react-native-cookies/cookies", () => ({
   set: jest.fn(),
 }));
 jest.mock("react-native-webview", () => "WebView");
-jest.mock("boltz-swap-web-context", () => "<html><title>boltz-swap-web-context</title></html>");
+jest.mock(
+  "boltz-swap-web-context",
+  () => "<html><title>boltz-swap-web-context</title></html>",
+);
 
 jest.mock("../../src/utils/peachAPI", () => ({
   peachAPI: jest.requireActual("../../src/utils/peachAPI/peachAPI").peachAPI,
@@ -29,5 +32,4 @@ jest.mock("react-native-safe-area-context", () => ({
 }));
 
 mockBDKRN();
-export { };
-
+export {};

@@ -8,7 +8,9 @@ import { setLiquidWallet } from "../../wallet/setWallet";
 import { usePostReverseSubmarineSwap } from "./usePostReverseSubmarineSwap";
 
 jest.mock("../api/postReverseSubmarineSwap");
-jest.requireMock("../api/postReverseSubmarineSwap").postReverseSubmarineSwap.mockResolvedValue(getResult(reverseSwapResponse))
+jest
+  .requireMock("../api/postReverseSubmarineSwap")
+  .postReverseSubmarineSwap.mockResolvedValue(getResult(reverseSwapResponse));
 
 jest.useFakeTimers();
 

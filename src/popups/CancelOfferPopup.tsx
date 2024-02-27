@@ -39,11 +39,11 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
               online: false,
               funding: {
                 ...offer.funding,
-                status: "CANCELED" as FundingStatus['status'],
+                status: "CANCELED" as FundingStatus["status"],
               },
               fundingLiquid: {
                 ...offer.fundingLiquid,
-                status: "CANCELED" as FundingStatus['status'],
+                status: "CANCELED" as FundingStatus["status"],
               },
             });
           } else {

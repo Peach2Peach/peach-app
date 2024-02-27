@@ -5,10 +5,17 @@ import { useLiquidWalletState } from "../../../../utils/wallet/useLiquidWalletSt
 import { useStartSwapOut } from "./hooks/useStartSwapOut";
 
 export const SwapButton = () => {
-  const startSwapOut = useStartSwapOut()
-  const synced = useLiquidWalletState(state => state.isSynced)
+  const startSwapOut = useStartSwapOut();
+  const synced = useLiquidWalletState((state) => state.isSynced);
 
-  return <Button style={tw`bg-info-main`} onPress={startSwapOut} iconId="shuffle" disabled={!synced}>
-    {i18n("wallet.swap")}
-  </Button>;
+  return (
+    <Button
+      style={tw`bg-info-main`}
+      onPress={startSwapOut}
+      iconId="shuffle"
+      disabled={!synced}
+    >
+      {i18n("wallet.swap")}
+    </Button>
+  );
 };

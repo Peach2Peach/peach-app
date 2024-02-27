@@ -13,7 +13,7 @@ export const useSubmarineSwaps = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["boltz", "swaps", "submarine"],
     queryFn,
-    staleTime: MSINANHOUR
+    staleTime: MSINANHOUR,
   });
   return { submarineList: data, isLoading };
 };

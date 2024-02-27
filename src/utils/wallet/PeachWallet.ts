@@ -18,7 +18,10 @@ import { parseError } from "../parseError";
 import { isIOS } from "../system/isIOS";
 import { callWhenInternet } from "../web/callWhenInternet";
 import { PeachJSWallet } from "./PeachJSWallet";
-import { BuildTxParams, buildTransaction } from "./bitcoin/transaction/buildTransaction";
+import {
+  BuildTxParams,
+  buildTransaction,
+} from "./bitcoin/transaction/buildTransaction";
 import { buildBlockchainConfig } from "./buildBlockchainConfig";
 import { handleTransactionError } from "./error/handleTransactionError";
 import { getDescriptorsBySeedphrase } from "./getDescriptorsBySeedphrase";

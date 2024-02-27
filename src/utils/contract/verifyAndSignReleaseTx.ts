@@ -1,7 +1,11 @@
 import { BIP32Interface } from "bip32";
 import { Psbt as BitcoinPsbt } from "bitcoinjs-lib";
 import { Psbt as LiquidPsbt } from "liquidjs-lib/src/psbt";
-import { getError, getResult, parseError } from "../../../peach-api/src/utils/result";
+import {
+  getError,
+  getResult,
+  parseError,
+} from "../../../peach-api/src/utils/result";
 import { Result } from "../../../peach-api/src/utils/result/types";
 import { isLiquidAddress } from "../validation/rules";
 import { getLiquidNetwork } from "../wallet/getLiquidNetwork";

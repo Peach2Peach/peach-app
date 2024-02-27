@@ -7,7 +7,9 @@ import { setLiquidWallet } from "../../wallet/setWallet";
 import { postSubmarineSwapQuery } from "./postSubmarineSwapQuery";
 
 jest.mock("../api/postSubmarineSwap");
-const postSubmarineSwapMock = jest.requireMock("../api/postSubmarineSwap").postSubmarineSwap.mockResolvedValue(getResult(submarineSwapResponse))
+const postSubmarineSwapMock = jest
+  .requireMock("../api/postSubmarineSwap")
+  .postSubmarineSwap.mockResolvedValue(getResult(submarineSwapResponse));
 
 jest.useFakeTimers();
 
@@ -22,13 +24,14 @@ describe("postSubmarineSwapQuery", () => {
   it("posts a reverse submarine swap request", async () => {
     await postSubmarineSwapQuery({
       invoice: "invoice",
-    })
+    });
     expect(postSubmarineSwapMock).toHaveBeenCalledWith({
-      from: 'L-BTC',
-      to: 'BTC',
+      from: "L-BTC",
+      to: "BTC",
       invoice: "invoice",
-      "referralId": "peach",
-      "refundPublicKey": "026844a6deb2eed7c885e1c82d70729581942a1d4a523fafd46e3950d155e24a51"
+      referralId: "peach",
+      refundPublicKey:
+        "026844a6deb2eed7c885e1c82d70729581942a1d4a523fafd46e3950d155e24a51",
     });
   });
 });

@@ -38,9 +38,9 @@ describe("useSyncWallet", () => {
       result.current.refetch();
     });
     expect(queryClient.isFetching()).toBe(1);
-    expect(queryClient.getQueryState(walletKeys.synced('bitcoin'))?.fetchStatus).toBe(
-      "fetching",
-    );
+    expect(
+      queryClient.getQueryState(walletKeys.synced("bitcoin"))?.fetchStatus,
+    ).toBe("fetching");
 
     await waitFor(() => expect(queryClient.isFetching()).toBe(0));
   });

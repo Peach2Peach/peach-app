@@ -8,7 +8,10 @@ import { addProtocol } from "../web/addProtocol";
 import { isEmail } from "./isEmail";
 
 const MIN_PASSWORD_LENGTH = 8;
-export const rules: Record<string, (value: string, param?: string | number | boolean) => boolean> = {
+export const rules: Record<
+  string,
+  (value: string, param?: string | number | boolean) => boolean
+> = {
   required: (value: string) => !!value,
   email: isEmail,
   url: isURL,
@@ -56,20 +59,23 @@ export function isLiquidAddress(value: string, network: networks.Network) {
 
 function isLightningInvoice(value: string) {
   try {
-    const invoice = bolt11.decode(value)
-    return !!invoice
-  } catch(e) {
-    return false
+    const invoice = bolt11.decode(value);
+    return !!invoice;
+  } catch (e) {
+    return false;
   }
 }
 
-function invoiceHasCorrectAmount(value: string, amount?: string | number | boolean) {
-  if (!amount || isNaN(Number(amount))) return true
+function invoiceHasCorrectAmount(
+  value: string,
+  amount?: string | number | boolean,
+) {
+  if (!amount || isNaN(Number(amount))) return true;
   try {
-    const invoice = bolt11.decode(value)
-    return invoice.satoshis === amount
-  } catch(e) {
-    return false
+    const invoice = bolt11.decode(value);
+    return invoice.satoshis === amount;
+  } catch (e) {
+    return false;
   }
 }
 

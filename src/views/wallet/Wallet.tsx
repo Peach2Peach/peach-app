@@ -17,13 +17,18 @@ import { useWalletBalance } from "./hooks/useWalletBalance";
 
 export const Wallet = () => {
   const { balance } = useWalletBalance();
-  const { refetch: refetchBitcoin, isRefetching: isRefetchingBitcoin, isLoading: isLoadingBitcoin } = useSyncWallet({ enabled: true });
-  const { refetch: refetchLiquid, isRefetching: isRefetchingLiquid } = useSyncLiquidWallet({ enabled: true });
+  const {
+    refetch: refetchBitcoin,
+    isRefetching: isRefetchingBitcoin,
+    isLoading: isLoadingBitcoin,
+  } = useSyncWallet({ enabled: true });
+  const { refetch: refetchLiquid, isRefetching: isRefetchingLiquid } =
+    useSyncLiquidWallet({ enabled: true });
 
   const refetch = () => {
-    refetchBitcoin()
-    refetchLiquid()
-  }
+    refetchBitcoin();
+    refetchLiquid();
+  };
   if (isLoadingBitcoin) return <BitcoinLoading text={i18n("wallet.loading")} />;
 
   return (
@@ -35,7 +40,10 @@ export const Wallet = () => {
           <RefreshControl refreshing={false} onRefresh={refetch} />
         }
       >
-        <TotalBalance amount={balance} isRefreshing={isRefetchingBitcoin || isRefetchingLiquid} />
+        <TotalBalance
+          amount={balance}
+          isRefreshing={isRefetchingBitcoin || isRefetchingLiquid}
+        />
         <BackupReminderIcon />
       </PeachScrollView>
       <WalletButtons />
@@ -52,7 +60,7 @@ const useAddressPrefetch = () => {
 };
 function WalletButtons() {
   const navigation = useStackNavigation();
-  const liquidBalance = useLiquidWalletState(state => state.balance)
+  const liquidBalance = useLiquidWalletState((state) => state.balance);
   useAddressPrefetch();
   useUTXOs();
 
@@ -66,7 +74,9 @@ function WalletButtons() {
   return (
     <View style={[tw`items-center justify-center gap-2`, tw`md:gap-4`]}>
       {liquidBalance > 0 && <SwapButton />}
-      <View style={[tw`flex-row items-center justify-center gap-2`, tw`md:gap-4`]}>
+      <View
+        style={[tw`flex-row items-center justify-center gap-2`, tw`md:gap-4`]}
+      >
         <Button style={tw`flex-1 bg-success-main`} onPress={goToReceive}>
           {i18n("wallet.receive")}
         </Button>

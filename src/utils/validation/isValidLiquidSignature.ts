@@ -1,4 +1,4 @@
-import { Verifier } from 'bip322-liquid-js';
+import { Verifier } from "bip322-liquid-js";
 
 type Props = {
   message: string;
@@ -11,10 +11,9 @@ export const isValidLiquidSignature = ({
   signature,
 }: Props) => {
   try {
-    return Verifier.verifySignature(address, message, signature)
+    return Verifier.verifySignature(address, message, signature);
   } catch (e) {
-    console.log(e)
-    return false
+    console.log(e);
+    return false;
   }
-
-}
+};

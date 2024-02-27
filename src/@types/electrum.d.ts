@@ -30,18 +30,16 @@ type TargetBlocks =
 
 type ConfirmationTargets = Record<TargetBlocks, number>;
 
-
-
 type TransactionStatus = {
-  confirmed: boolean
-  block_height: number
-  block_hash: string
-  block_time: number
-}
+  confirmed: boolean;
+  block_height: number;
+  block_hash: string;
+  block_time: number;
+};
 
 type UTXO = {
-  txid: string
-  vout: number
-  value: number
-  status: TransactionStatus
-}
+  txid: string;
+  vout: number;
+  value: number;
+  status: TransactionStatus;
+};

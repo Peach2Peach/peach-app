@@ -11,6 +11,8 @@ export const getErrorsInField = (value: string, rulesToCheck: RuleRecord) =>
     ? []
     : [
         ...keys(rulesToCheck)
-          .filter((key) => rulesToCheck[key] && !rules[key](value, rulesToCheck[key]))
+          .filter(
+            (key) => rulesToCheck[key] && !rules[key](value, rulesToCheck[key]),
+          )
           .map((key) => getMessages()[key]),
       ];

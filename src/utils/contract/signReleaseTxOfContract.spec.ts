@@ -4,7 +4,7 @@ import { SIGHASH } from "../bitcoin/constants";
 import { setWallet } from "../wallet/setWallet";
 import { signReleaseTxOfContract } from "./signReleaseTxOfContract";
 
-const fromBase64Mock = jest.spyOn(Psbt, 'fromBase64');
+const fromBase64Mock = jest.spyOn(Psbt, "fromBase64");
 
 jest.mock("../../views/contract/helpers/verifyReleasePSBT");
 const verifyReleasePSBTMock = jest.requireMock(
@@ -63,15 +63,13 @@ describe("signReleaseTxOfContract", () => {
   };
 
   fromBase64Mock.mockImplementation((base64: string | undefined) =>
-    base64 === mockContract.releasePsbt ? psbt as Psbt : batchPsbt as Psbt,
+    base64 === mockContract.releasePsbt ? (psbt as Psbt) : (batchPsbt as Psbt),
   );
   setWallet(createTestWallet());
 
   it("should return null and error message if sell offer id is found", async () => {
     mockGetSellOfferFromContract.mockResolvedValueOnce(null);
-    const { error } = await signReleaseTxOfContract(
-      mockContract as Contract,
-    );
+    const { error } = await signReleaseTxOfContract(mockContract as Contract);
     expect(error).toBe("SELL_OFFER_NOT_FOUND");
   });
   it("should return null and error message if sell offer funding is found", async () => {
@@ -79,15 +77,14 @@ describe("signReleaseTxOfContract", () => {
       ...mockSellOffer,
       funding: undefined,
     });
-    const { error } = await signReleaseTxOfContract(
-      mockContract as Contract,
-    );
+    const { error } = await signReleaseTxOfContract(mockContract as Contract);
     expect(error).toBe("SELL_OFFER_NOT_FOUND");
   });
   it("should return null and error message if psbt is not valid", async () => {
     verifyReleasePSBTMock.mockReturnValueOnce("INVALID_INPUT");
-    const { result, error } =
-      await signReleaseTxOfContract(mockContract as Contract);
+    const { result, error } = await signReleaseTxOfContract(
+      mockContract as Contract,
+    );
 
     expect(result?.releaseTransaction).toBe(undefined);
     expect(result?.batchReleasePsbt).toBe(undefined);
@@ -95,8 +92,9 @@ describe("signReleaseTxOfContract", () => {
   });
   it("should sign valid release transaction and return it", async () => {
     verifyReleasePSBTMock.mockReturnValueOnce(null);
-    const { result, error } =
-      await signReleaseTxOfContract(mockContract as Contract);
+    const { result, error } = await signReleaseTxOfContract(
+      mockContract as Contract,
+    );
 
     expect(error).toBe(undefined);
     expect(result?.releaseTransaction).toEqual("transactionAsHex");
@@ -113,8 +111,9 @@ describe("signReleaseTxOfContract", () => {
     verifyReleasePSBTMock.mockReturnValueOnce(null);
     verifyReleasePSBTMock.mockReturnValueOnce("INVALID_INPUT");
 
-    const { result, error } =
-      await signReleaseTxOfContract(contractWithBatching as Contract);
+    const { result, error } = await signReleaseTxOfContract(
+      contractWithBatching as Contract,
+    );
 
     expect(result?.releaseTransaction).toBe(undefined);
     expect(result?.batchReleasePsbt).toBe(undefined);
@@ -126,8 +125,9 @@ describe("signReleaseTxOfContract", () => {
     fromBase64Mock.mockReturnValueOnce(psbt as Psbt);
     fromBase64Mock.mockReturnValueOnce(psbt as Psbt);
 
-    const { result, error } =
-      await signReleaseTxOfContract(contractWithBatching as Contract);
+    const { result, error } = await signReleaseTxOfContract(
+      contractWithBatching as Contract,
+    );
 
     expect(result?.releaseTransaction).toBe(undefined);
     expect(result?.batchReleasePsbt).toBe(undefined);
@@ -136,8 +136,9 @@ describe("signReleaseTxOfContract", () => {
   it("should sign release transaction and batch release transaction", async () => {
     verifyReleasePSBTMock.mockReturnValueOnce(null);
     verifyReleasePSBTMock.mockReturnValueOnce(null);
-    const { result, error } =
-      await signReleaseTxOfContract(contractWithBatching as Contract);
+    const { result, error } = await signReleaseTxOfContract(
+      contractWithBatching as Contract,
+    );
 
     expect(error).toBe(undefined);
     expect(result?.releaseTransaction).toEqual("transactionAsHex");

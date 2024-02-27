@@ -12,12 +12,14 @@ type ResultType = Result<
   string | undefined
 >;
 
-export const signReleaseTxOfContract = async (contract: Contract): Promise<ResultType> => {
+export const signReleaseTxOfContract = async (
+  contract: Contract,
+): Promise<ResultType> => {
   const sellOffer = await getSellOfferFromContract(contract);
   const sellOfferId = sellOffer?.oldOfferId || sellOffer?.id;
   if (!sellOffer || !sellOfferId || !sellOffer?.funding)
-    return getError("SELL_OFFER_NOT_FOUND")
+    return getError("SELL_OFFER_NOT_FOUND");
 
   const wallet = getEscrowWalletForOffer(sellOffer);
-  return verifyAndSignReleaseTx(contract, sellOffer, wallet)
+  return verifyAndSignReleaseTx(contract, sellOffer, wallet);
 };

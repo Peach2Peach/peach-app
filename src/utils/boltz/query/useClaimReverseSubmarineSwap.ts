@@ -15,7 +15,7 @@ export const useClaimReverseSubmarineSwap = ({ offerId }: Props) => {
   const [error, setError] = useState<string>();
 
   const handleClaimMessage = async (event: WebViewMessageEvent) => {
-    log('useClaimReverseSubmarineSwap - handleClaimMessage')
+    log("useClaimReverseSubmarineSwap - handleClaimMessage");
 
     const data = JSON.parse(event.nativeEvent.data);
     if (data.error) {
@@ -24,7 +24,7 @@ export const useClaimReverseSubmarineSwap = ({ offerId }: Props) => {
     }
 
     if (data.tx) {
-      log('useClaimReverseSubmarineSwap - handleClaimMessage ', data.tx)
+      log("useClaimReverseSubmarineSwap - handleClaimMessage ", data.tx);
       const { result, error: err } = await peachAPI.public.liquid.postTx({
         tx: data.tx,
       });

@@ -1,7 +1,7 @@
 import { BOLTZ_API } from "@env";
 import {
   SubmarineRequest,
-  SubmarineResponse
+  SubmarineResponse,
 } from "boltz-swap-web-context/src/boltz-api/types";
 import { parseResponse } from "../../../../peach-api/src/helpers/parseResponse";
 import fetch from "../../fetch";

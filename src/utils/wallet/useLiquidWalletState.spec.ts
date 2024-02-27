@@ -1,4 +1,7 @@
-import { mempoolUTXO, utxo } from "../../../tests/unit/data/liquidBlockExplorerData";
+import {
+  mempoolUTXO,
+  utxo,
+} from "../../../tests/unit/data/liquidBlockExplorerData";
 import { useLiquidWalletState } from "./useLiquidWalletState";
 
 describe("useLiquidWalletState", () => {
@@ -22,28 +25,33 @@ describe("useLiquidWalletState", () => {
     expect(useLiquidWalletState.getState().isSynced).toBeTruthy();
   });
   it("sets addresses", () => {
-    const addresses = ['address1', 'address2']
-    expect(useLiquidWalletState.getState().addresses).toEqual([])
+    const addresses = ["address1", "address2"];
+    expect(useLiquidWalletState.getState().addresses).toEqual([]);
     useLiquidWalletState.getState().setAddresses(addresses);
-    expect(useLiquidWalletState.getState().addresses).toEqual(addresses)
+    expect(useLiquidWalletState.getState().addresses).toEqual(addresses);
   });
   it("sets internal addresses", () => {
-    const addresses = ['address1', 'address2']
-    expect(useLiquidWalletState.getState().internalAddresses).toEqual([])
+    const addresses = ["address1", "address2"];
+    expect(useLiquidWalletState.getState().internalAddresses).toEqual([]);
     useLiquidWalletState.getState().setInternalAddresses(addresses);
-    expect(useLiquidWalletState.getState().internalAddresses).toEqual(addresses)
+    expect(useLiquidWalletState.getState().internalAddresses).toEqual(
+      addresses,
+    );
   });
   it("sets utxos", () => {
-    const utxos = [utxo, mempoolUTXO].map(utx => ({...utx, derivationPath: '1'}))
-    expect(useLiquidWalletState.getState().utxos).toEqual([])
+    const utxos = [utxo, mempoolUTXO].map((utx) => ({
+      ...utx,
+      derivationPath: "1",
+    }));
+    expect(useLiquidWalletState.getState().utxos).toEqual([]);
     useLiquidWalletState.getState().setUTXO(utxos);
-    expect(useLiquidWalletState.getState().utxos).toEqual(utxos)
+    expect(useLiquidWalletState.getState().utxos).toEqual(utxos);
   });
   it("sets balance", () => {
-    const balance = 10000
-    expect(useLiquidWalletState.getState().balance).toEqual(0)
+    const balance = 10000;
+    expect(useLiquidWalletState.getState().balance).toEqual(0);
     useLiquidWalletState.getState().setBalance(balance);
-    expect(useLiquidWalletState.getState().balance).toEqual(balance)
+    expect(useLiquidWalletState.getState().balance).toEqual(balance);
   });
   it("doesn't persist isSynced", () => {
     expect(

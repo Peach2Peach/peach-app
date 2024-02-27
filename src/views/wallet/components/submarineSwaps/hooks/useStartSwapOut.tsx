@@ -17,31 +17,39 @@ import { SetInvoicePopup } from "../SetInvoicePopup";
 const TX_SIZE_BUFFER = 10;
 
 type EstimateSwapAmountProps = {
-  limits: SubmarinePair['limits'],
-  fees: SubmarinePair['fees'],
-  feeRate: number,
-  liquidBalance: number
-}
+  limits: SubmarinePair["limits"];
+  fees: SubmarinePair["fees"];
+  feeRate: number;
+  liquidBalance: number;
+};
 
 /**
  * @description estimate invoiceable amount that can be sent out after mining fees
  * by staging a transaction and after boltz fees
  */
-const estimateSwapAmount = ({ limits, fees, feeRate, liquidBalance }: EstimateSwapAmountProps) => {
-  if (!peachLiquidWallet) throw Error('WALLET_NOT_READY');
+const estimateSwapAmount = ({
+  limits,
+  fees,
+  feeRate,
+  liquidBalance,
+}: EstimateSwapAmountProps) => {
+  if (!peachLiquidWallet) throw Error("WALLET_NOT_READY");
   const stagedTx = buildTransaction({
     recipient: peachLiquidWallet.getAddress(0).address,
-    amount: peachLiquidWallet.utxos.map(utxo => utxo.value).reduce(sum, 0),
+    amount: peachLiquidWallet.utxos.map((utxo) => utxo.value).reduce(sum, 0),
     inputs: peachLiquidWallet.utxos,
   });
 
-  const miningFees = Math.ceil((stagedTx.virtualSize() + TX_SIZE_BUFFER) * feeRate);
+  const miningFees = Math.ceil(
+    (stagedTx.virtualSize() + TX_SIZE_BUFFER) * feeRate,
+  );
 
   const amountAfterLockup = Math.ceil(liquidBalance - miningFees);
-  const swappableAmount = amountAfterLockup * (1 - fees.percentage / CENT) - fees.minerFees;
+  const swappableAmount =
+    amountAfterLockup * (1 - fees.percentage / CENT) - fees.minerFees;
   return {
     swappableAmount: Math.floor(swappableAmount),
-    miningFees
+    miningFees,
   };
 };
 
@@ -51,33 +59,49 @@ export const useStartSwapOut = () => {
   const setPopup = useSetPopup();
   const handleTransactionError = useHandleTransactionError();
   const feeRate = useLiquidFeeRate();
-  const liquidBalance = useLiquidWalletState(state => state.balance);
+  const liquidBalance = useLiquidWalletState((state) => state.balance);
 
   // TODO determine if amount is above maximum > use max
   // TODO if change is available, ensure that change is sent to change address
   const startSwapOut = useCallback(() => {
-    if (!peachLiquidWallet) throw Error('WALLET_NOT_READY');
-    const pair = submarineList?.['L-BTC'].BTC;
-    if (!pair) throw Error('SWAP_NOT_AVAILABLE_FOR_PAIR');
+    if (!peachLiquidWallet) throw Error("WALLET_NOT_READY");
+    const pair = submarineList?.["L-BTC"].BTC;
+    if (!pair) throw Error("SWAP_NOT_AVAILABLE_FOR_PAIR");
 
     const { fees, limits } = pair;
-    if (!fees || !limits) throw Error('SWAP_CONDITIONS_UNKNOWN');
+    if (!fees || !limits) throw Error("SWAP_CONDITIONS_UNKNOWN");
 
     if (liquidBalance < limits.minimal) {
-      showErrorBanner("INSUFFICIENT_FUNDS", [String(limits.minimal), String(liquidBalance)]);
+      showErrorBanner("INSUFFICIENT_FUNDS", [
+        String(limits.minimal),
+        String(liquidBalance),
+      ]);
       return false;
     }
 
     try {
-      const { swappableAmount, miningFees } = estimateSwapAmount({ limits, fees, feeRate, liquidBalance });
-      setPopup(<SetInvoicePopup amount={swappableAmount} miningFees={miningFees} />);
+      const { swappableAmount, miningFees } = estimateSwapAmount({
+        limits,
+        fees,
+        feeRate,
+        liquidBalance,
+      });
+      setPopup(
+        <SetInvoicePopup amount={swappableAmount} miningFees={miningFees} />,
+      );
     } catch (e) {
       handleTransactionError(parseTransactionError(parseError(e)));
     }
 
-
     return true;
-  }, [feeRate, handleTransactionError, liquidBalance, setPopup, showErrorBanner, submarineList]);
+  }, [
+    feeRate,
+    handleTransactionError,
+    liquidBalance,
+    setPopup,
+    showErrorBanner,
+    submarineList,
+  ]);
 
   return startSwapOut;
 };

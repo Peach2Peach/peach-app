@@ -2,7 +2,10 @@ import { act, renderHook, waitFor } from "test-utils";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { PeachLiquidJSWallet } from "../../../utils/wallet/PeachLiquidJSWallet";
-import { peachLiquidWallet, setLiquidWallet } from "../../../utils/wallet/setWallet";
+import {
+  peachLiquidWallet,
+  setLiquidWallet,
+} from "../../../utils/wallet/setWallet";
 import { useSyncLiquidWallet } from "./useSyncLiquidWallet";
 import { walletKeys } from "./useUTXOs";
 
@@ -37,9 +40,9 @@ describe("useSyncLiquidWallet", () => {
       result.current.refetch();
     });
     expect(queryClient.isFetching()).toBe(1);
-    expect(queryClient.getQueryState(walletKeys.synced('liquid'))?.fetchStatus).toBe(
-      "fetching",
-    );
+    expect(
+      queryClient.getQueryState(walletKeys.synced("liquid"))?.fetchStatus,
+    ).toBe("fetching");
 
     await waitFor(() => expect(queryClient.isFetching()).toBe(0));
   });
