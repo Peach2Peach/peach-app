@@ -34,7 +34,7 @@ describe("useLiquidWalletState", () => {
     expect(useLiquidWalletState.getState().internalAddresses).toEqual(addresses)
   });
   it("sets utxos", () => {
-    const utxos = [utxo, mempoolUTXO].map(utxo => ({...utxo, derivationPath: '1'}))
+    const utxos = [utxo, mempoolUTXO].map(utx => ({...utx, derivationPath: '1'}))
     expect(useLiquidWalletState.getState().utxos).toEqual([])
     useLiquidWalletState.getState().setUTXO(utxos);
     expect(useLiquidWalletState.getState().utxos).toEqual(utxos)

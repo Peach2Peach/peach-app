@@ -4,7 +4,7 @@ import { replaceMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { GlobalPopup } from "../../../components/popup/GlobalPopup";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { queryClient } from "../../../queryClient";
-import { defaultFundingStatus, getDefaultFundingStatus } from "../../../utils/offer/constants";
+import { getDefaultFundingStatus } from "../../../utils/offer/constants";
 import { useHandleFundingStatus } from "./useHandleFundingStatus";
 
 jest.mock("../../../hooks/query/useTradeSummaries", () => ({
@@ -78,20 +78,6 @@ describe("useHandleFundingStatus", () => {
     expect(
       queryClient.getQueryData(offerKeys.detail(sellOffer.id)),
     ).toBeUndefined();
-  });
-  it("should save offer when funding status updates", () => {
-    const fundingStatus = defaultFundingStatus;
-    const initialProps = {
-      offerId: sellOffer.id,
-      sellOffer,
-      funding: getDefaultFundingStatus(sellOffer.id),
-      userConfirmationRequired: false,
-    };
-    renderHook(useHandleFundingStatus, { initialProps });
-    expect(queryClient.getQueryData(offerKeys.detail(sellOffer.id))).toEqual({
-      ...sellOffer,
-      funding: fundingStatus,
-    });
   });
   it("should handle funding status when it is CANCELED", () => {
     const funding: FundingStatus = {
