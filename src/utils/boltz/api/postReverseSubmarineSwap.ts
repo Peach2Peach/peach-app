@@ -7,7 +7,7 @@ import { parseResponse } from "../../../../peach-api/src/helpers/parseResponse";
 import fetch from "../../fetch";
 
 export type ReverseAPIResponse = Omit<ReverseResponse, "swapTree"> & {
-  swapTree: {
+  swapTree?: {
     claimLeaf: { version: number; output: string };
     refundLeaf: { version: number; output: string };
   };

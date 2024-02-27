@@ -1,0 +1,263 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClaimReverseSubmarineSwap should render correctly 1`] = `
+<View>
+  <LottieAnimationView
+    autoPlay={true}
+    cacheComposition={true}
+    colorFilters={
+      [
+        {
+          "color": 4294272290,
+          "keypath": "main",
+        },
+      ]
+    }
+    enableMergePathsAndroidForKitKatAndAbove={false}
+    loop={true}
+    onAnimationFinish={[Function]}
+    progress={0}
+    resizeMode="contain"
+    sourceJson="{"v":"5.1.15","fr":60,"ip":0,"op":141,"w":120,"h":120,"nm":"Composição 1","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":0,"ty":4,"nm":"main","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":0,"s":[0],"e":[1080]},{"t":180}],"ix":10},"p":{"a":0,"k":[60,60,0],"ix":2},"a":{"a":0,"k":[-14.604,-15.104,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[106.793,106.793],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"nm":"Caminho da elipse 1","mn":"ADBE Vector Shape - Ellipse","hd":false},{"ty":"st","c":{"a":0,"k":[1,1,1,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":11,"ix":5},"lc":2,"lj":1,"ml":4,"nm":"Traçado 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"tr","p":{"a":0,"k":[-14.604,-15.104],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Elipse 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false},{"ty":"tm","s":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":0,"s":[0],"e":[0]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":60,"s":[0],"e":[67]},{"t":119}],"ix":1},"e":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":0,"s":[3],"e":[70]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":60,"s":[70],"e":[70]},{"t":119}],"ix":2},"o":{"a":0,"k":0,"ix":3},"m":1,"ix":2,"nm":"Aparar caminhos 1","mn":"ADBE Vector Filter - Trim","hd":false}],"ip":0,"op":900,"st":0,"bm":0}],"chars":[],"markers":[]}"
+    speed={1}
+    style={
+      [
+        {
+          "height": 80,
+          "width": 80,
+        },
+        undefined,
+      ]
+    }
+    textFiltersAndroid={[]}
+    textFiltersIOS={[]}
+    useNativeLooping={false}
+  />
+  <WebView
+    injectedJavaScript="window.claimReverseSubmarineSwap({"apiUrl":"http://localhost:9001","network":"regtest","address":"ert1q9vza2e8x573nczrlzms0wvx3gsqjx7vaunpxa9","feeRate":1,"swapInfo":{"id":"8WTXIgbnQ51D","invoice":"lnbcrt304960n1pjumcc5pp5undrxtlv0g88t3ly4gr9mfqppctpwfnypcy5hdpckflxehcg6q9qdpz2djkuepqw3hjqnpdgf2yxgrpv3j8yetnwvcqz95xqyp2xqsp5wvm0a299r3maf4csaxkm9cvn9rpej704pwgspgrqdyfn0gdj4nuq9qyyssq5q0758cz7w9tejdz87x3g0eg98ssgzjsnkkczarut6ea843u6lrra2uyt4thrtfzvcnzkl3uf6ne7vpfps5au927dd7zhnghtqmhlysp7knx5k","swapTree":{"claimLeaf":{"version":196,"output":"82012088a914c2c37033985ede53ef5be0e9b60da0b96d764922882099c76a243b8559731b75193c840b506dc8caa2189c06c5b5567d93b1e8795d53ac"},"refundLeaf":{"version":196,"output":"20e4f5af7bd3c9cb32eb46044894d40f58da3aea0c23b4842af3e2833c864a368fad02a705b1"}},"blindingKey":"db11014f4d9a96fa15db99cd43beffce54bdf53a3ae8949880ac5040aa88cafb","lockupAddress":"el1pqwknrhy2glr7n7cjh9ufmewkfehn205wtu84lmkqxafd93g69g0r43mgewp9m6t8umgkz8c932utst6w99nyv688udx05gfr6qe9r59ddje92rv8r807","refundPublicKey":"02e4f5af7bd3c9cb32eb46044894d40f58da3aea0c23b4842af3e2833c864a368f","timeoutBlockHeight":1447,"onchainAmount":30143},"privateKey":"742d5032ea5f1b021d2a2c7bbdd85aea14183e343552c94a76b36d4f9b55e341","preimage":"preimage"}); void(0);"
+    onMessage={[MockFunction]}
+    originWhitelist={
+      [
+        "*",
+      ]
+    }
+    source="<html><title>boltz-swap-web-context</title></html>"
+    style={
+      {
+        "opacity": 0,
+        "position": "absolute",
+      }
+    }
+  />
+</View>
+`;
+
+exports[`ClaimReverseSubmarineSwap should render error box if no lockup tx could be found 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FE5A48",
+        "borderRadius": 12,
+        "flexDirection": "row",
+        "paddingBottom": 8,
+        "paddingLeft": 12,
+        "paddingRight": 12,
+        "paddingTop": 8,
+      },
+      undefined,
+    ]
+  }
+>
+  <test-file-stub
+    fill="#FFFCFA"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 24,
+          "width": 24,
+        },
+      ]
+    }
+  />
+  <View
+    style={
+      {
+        "flexShrink": 1,
+        "paddingLeft": 12,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#FFFCFA",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.14,
+            "lineHeight": 22,
+          },
+          false,
+        ]
+      }
+    >
+      LOCK_TRANSACTION_MISSING
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`ClaimReverseSubmarineSwap should render error box if swapInfo is imcomplete 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FE5A48",
+        "borderRadius": 12,
+        "flexDirection": "row",
+        "paddingBottom": 8,
+        "paddingLeft": 12,
+        "paddingRight": 12,
+        "paddingTop": 8,
+      },
+      undefined,
+    ]
+  }
+>
+  <test-file-stub
+    fill="#FFFCFA"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 24,
+          "width": 24,
+        },
+      ]
+    }
+  />
+  <View
+    style={
+      {
+        "flexShrink": 1,
+        "paddingLeft": 12,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#FFFCFA",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.14,
+            "lineHeight": 22,
+          },
+          false,
+        ]
+      }
+    >
+      GENERAL_ERROR
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`ClaimReverseSubmarineSwap should render error box if there is a claim error 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FE5A48",
+        "borderRadius": 12,
+        "flexDirection": "row",
+        "paddingBottom": 8,
+        "paddingLeft": 12,
+        "paddingRight": 12,
+        "paddingTop": 8,
+      },
+      undefined,
+    ]
+  }
+>
+  <test-file-stub
+    fill="#FFFCFA"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 24,
+          "width": 24,
+        },
+      ]
+    }
+  />
+  <View
+    style={
+      {
+        "flexShrink": 1,
+        "paddingLeft": 12,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#FFFCFA",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.14,
+            "lineHeight": 22,
+          },
+          false,
+        ]
+      }
+    >
+      error
+    </Text>
+  </View>
+</View>
+`;
