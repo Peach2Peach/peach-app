@@ -73,7 +73,7 @@ export const buildTransaction = ({
   });
 
   const signers: BIP32Interface[] = [];
-  inputs.forEach(({ txid: hash, value, vout: index, derivationPath }, i) => {
+  inputs.forEach(({ txid: hash, value, vout: index, derivationPath }) => {
     if (!peachLiquidWallet) throw Error("WALLET_NOT_READY");
 
     const keyPair = peachLiquidWallet.getKeyPairByPath(derivationPath);

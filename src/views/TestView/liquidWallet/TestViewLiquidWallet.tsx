@@ -33,7 +33,6 @@ export const TestViewLiquidWallet = () => {
   );
   const balance = useLiquidWalletState((state) => state.balance);
 
-  console.log(peachLiquidWallet?.utxos);
   const [amount, setAmount] = useState("0");
   const [txId] = useState("");
   const getNewAddress = () => {

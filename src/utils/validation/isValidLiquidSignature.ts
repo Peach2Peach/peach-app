@@ -13,7 +13,6 @@ export const isValidLiquidSignature = ({
   try {
     return Verifier.verifySignature(address, message, signature);
   } catch (e) {
-    console.log(e);
     return false;
   }
 };

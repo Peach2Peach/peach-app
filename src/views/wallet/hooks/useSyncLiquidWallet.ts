@@ -22,7 +22,7 @@ export const useSyncLiquidWallet = ({
       await peachLiquidWallet.syncWallet();
       return true;
     },
-    enabled: enabled,
+    enabled,
     staleTime: MSINAMINUTE * MINUTES_OF_STALE_TIME,
     refetchInterval,
   });

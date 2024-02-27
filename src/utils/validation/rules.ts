@@ -18,7 +18,7 @@ export const rules: Record<
   bitcoinAddress: isBitcoinAddress,
   liquidAddress: (value: string) => isLiquidAddress(value, getLiquidNetwork()),
   lightningInvoice: isLightningInvoice,
-  invoiceHasCorrectAmount: invoiceHasCorrectAmount,
+  invoiceHasCorrectAmount,
   password: (value: string) => !!value && value.length >= MIN_PASSWORD_LENGTH,
   referralCode: isReferralCode,
   bip39: (value: string) => validateMnemonic(value),
