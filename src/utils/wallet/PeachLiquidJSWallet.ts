@@ -68,7 +68,7 @@ export class PeachLiquidJSWallet {
         useLiquidWalletState.getState().setIsSynced(false);
 
         try {
-          let limit = Number(this.gapLimit)
+          let limit = Math.max(this.gapLimit, this.addresses.length, this.internalAddresses.length)
           let utxos: UTXOWithPath[] = []
           for (let i = 0; i < limit; i++) {
             const { address } = this.getAddress(i)
@@ -185,7 +185,7 @@ export class PeachLiquidJSWallet {
 
     if (!address) throw Error('ADDRESS_NOT_FOUND')
 
-    return { address: address, index };
+    return { address, index };
   }
 
   findKeyPairByAddress(address: string) {
