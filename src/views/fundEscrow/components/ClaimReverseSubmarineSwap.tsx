@@ -3,7 +3,7 @@ import { BOLTZ_API, NETWORK } from "@env";
 import { SwapStatus } from "boltz-swap-web-context/src/boltz-api/types";
 import ECPairFactory from "ecpair";
 import { View } from "react-native";
-import WebView from "react-native-webview";
+import { WebView } from "react-native-webview";
 import { getError } from "../../../../peach-api/src/utils/result/getError";
 import { getResult } from "../../../../peach-api/src/utils/result/getResult";
 import { Loading } from "../../../components/animation/Loading";

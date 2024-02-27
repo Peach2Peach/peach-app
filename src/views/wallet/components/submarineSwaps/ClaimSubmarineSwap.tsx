@@ -2,7 +2,7 @@ import ecc from "@bitcoinerlab/secp256k1";
 import { BOLTZ_API, NETWORK } from "@env";
 import ECPairFactory from "ecpair";
 import { View } from "react-native";
-import WebView, { WebViewMessageEvent } from "react-native-webview";
+import { WebView, WebViewMessageEvent } from "react-native-webview";
 import { Loading } from "../../../../components/animation/Loading";
 import tw from "../../../../styles/tailwind";
 import { SubmarineAPIResponse } from "../../../../utils/boltz/api/postSubmarineSwap";

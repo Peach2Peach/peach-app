@@ -5,10 +5,11 @@ import { queryClient } from "../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../utils/peachAPI";
 import { useLiquidFeeRate } from "./useLiquidFeeRate";
 
-const useLiquidFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees });
-jest.mock("./query/useLiquidFeeEstimate", () => ({
-  useLiquidFeeEstimate: () => useLiquidFeeEstimateMock(),
-}));
+jest.mock("./query/useLiquidFeeEstimate");
+jest
+  .requireMock("./query/useLiquidFeeEstimate")
+  .useLiquidFeeEstimate.mockReturnValue({ estimatedFees });
+
 const getUserMock = jest.spyOn(peachAPI.private.user, "getSelfUser");
 jest.useFakeTimers();
 

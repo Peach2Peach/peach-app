@@ -38,6 +38,7 @@ describe("usePostReverseSubmarineSwap", () => {
     expect(result.current).toEqual({
       data: {
         swapInfo: reverseSwapResponse,
+        keyPairIndex: 1,
         keyPairWIF: expect.any(String),
         preimage: expect.any(String),
       },

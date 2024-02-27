@@ -21,7 +21,7 @@ jest.mock("../../../hooks/query/useFeeEstimate", () => ({
   useFeeEstimate: () => ({ estimatedFees: mockEstimatedFees }),
 }));
 
-jest.mock("../../../utils/wallet/transaction/setMultipleRecipients");
+jest.mock("../../../utils/wallet/bitcoin/transaction/setMultipleRecipients");
 
 const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({

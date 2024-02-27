@@ -3,7 +3,9 @@ import { mockBDKRN } from "./mocks/bdkRN";
 jest.mock("@react-native-cookies/cookies", () => ({
   set: jest.fn(),
 }));
-jest.mock("react-native-webview", () => "WebView");
+jest.mock("react-native-webview", () => ({
+  WebView: "WebView",
+}));
 jest.mock(
   "boltz-swap-web-context",
   () => "<html><title>boltz-swap-web-context</title></html>",

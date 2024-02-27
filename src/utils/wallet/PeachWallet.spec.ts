@@ -48,9 +48,9 @@ import { useWalletState } from "./walletStore";
 
 jest.mock("./PeachWallet", () => jest.requireActual("./PeachWallet"));
 
-jest.mock("./transaction/buildTransaction");
+jest.mock("./bitcoin/transaction/buildTransaction");
 const buildTransactionMock = jest.requireMock(
-  "./transaction/buildTransaction",
+  "./bitcoin/transaction/buildTransaction",
 ).buildTransaction;
 
 jest.useFakeTimers();

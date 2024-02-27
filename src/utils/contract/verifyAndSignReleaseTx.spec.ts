@@ -15,10 +15,10 @@ import { verifyAndSignReleaseTx } from "./verifyAndSignReleaseTx";
 const fromBase64Mock = jest.spyOn(Psbt, "fromBase64");
 const fromBase64LiquidMock = jest.spyOn(LiquidPsbt, "fromBase64");
 
-const verifyReleasePSBTMock = jest.fn();
-jest.mock("../../views/contract/helpers/verifyReleasePSBT", () => ({
-  verifyReleasePSBT: (...args: unknown[]) => verifyReleasePSBTMock(...args),
-}));
+jest.mock("../../views/contract/helpers/verifyReleasePSBT");
+const verifyReleasePSBTMock = jest.requireMock(
+  "../../views/contract/helpers/verifyReleasePSBT",
+).verifyReleasePSBT;
 
 describe("verifyAndSignReleaseTx", () => {
   const amount = 10000;

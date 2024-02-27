@@ -109,7 +109,7 @@ describe("useStartSwapOut", () => {
     } = renderHook(useStartSwapOut);
     startSwapOut();
     expect(mockHandleTransactionError).toHaveBeenCalledWith([
-      new Error("No input #0"),
+      new Error("BELOW_DUST_LIMIT"),
       undefined,
     ]);
   });
