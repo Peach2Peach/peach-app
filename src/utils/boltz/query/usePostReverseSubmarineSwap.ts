@@ -19,9 +19,7 @@ const queryFn = async ({
   const preimage = await getRandom(PREIMAGE_BYTES);
   const keyPairIndex = peachLiquidWallet.internalAddresses.length + 1;
   const keyPair = peachLiquidWallet.getInternalKeyPair(keyPairIndex);
-  const claimPublicKey = peachLiquidWallet
-    .getInternalKeyPair(0)
-    .publicKey.toString("hex");
+  const claimPublicKey = keyPair.publicKey.toString("hex");
   const { result, error: err } = await postReverseSubmarineSwap({
     from,
     to,
