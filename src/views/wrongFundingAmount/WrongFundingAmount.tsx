@@ -103,7 +103,10 @@ function RefundEscrowSlider({ sellOffer }: Props) {
 function ContinueTradeSlider({ sellOffer }: Props) {
   const { mutate: confirmEscrow } = useConfirmEscrow();
   const confirmEscrowWithSellOffer = () =>
-    confirmEscrow({ offerId: sellOffer.id, funding: getSellOfferFunding(sellOffer) });
+    confirmEscrow({
+      offerId: sellOffer.id,
+      funding: getSellOfferFunding(sellOffer),
+    });
 
   return (
     <ConfirmSlider

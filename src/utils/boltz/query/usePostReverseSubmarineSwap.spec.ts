@@ -7,13 +7,10 @@ import { PeachLiquidJSWallet } from "../../wallet/PeachLiquidJSWallet";
 import { setLiquidWallet } from "../../wallet/setWallet";
 import { usePostReverseSubmarineSwap } from "./usePostReverseSubmarineSwap";
 
-const postReverseSubmarineSwapMock = jest
-  .fn()
-  .mockResolvedValue(getResult(reverseSwapResponse));
-jest.mock("../api/postReverseSubmarineSwap", () => ({
-  postReverseSubmarineSwap: (...args: unknown[]) =>
-    postReverseSubmarineSwapMock(...args),
-}));
+jest.mock("../api/postReverseSubmarineSwap");
+jest
+  .requireMock("../api/postReverseSubmarineSwap")
+  .postReverseSubmarineSwap.mockResolvedValue(getResult(reverseSwapResponse));
 
 jest.useFakeTimers();
 
@@ -41,6 +38,7 @@ describe("usePostReverseSubmarineSwap", () => {
     expect(result.current).toEqual({
       data: {
         swapInfo: reverseSwapResponse,
+        keyPairIndex: 1,
         keyPairWIF: expect.any(String),
         preimage: expect.any(String),
       },

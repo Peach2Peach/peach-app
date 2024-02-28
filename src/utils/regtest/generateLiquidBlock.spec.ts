@@ -1,17 +1,12 @@
+import fetch from "../fetch";
 import { generateLiquidBlock } from "./generateLiquidBlock";
 
-const fetchMock = jest.fn();
-jest.mock(
-  "../fetch",
-  () =>
-    (...args: unknown[]) =>
-      fetchMock(...args),
-);
+jest.mock("../fetch");
 
 describe("generateLiquidBlock", () => {
   it("should call correct api endpoint", async () => {
     await generateLiquidBlock();
-    expect(fetchMock).toHaveBeenCalledWith(
+    expect(fetch).toHaveBeenCalledWith(
       "https://localhost:8080/v1/regtest/liquid/generateBlock",
       {
         headers: {

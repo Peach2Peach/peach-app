@@ -12,13 +12,13 @@ import { getEscrowWalletForOffer } from "../wallet/getEscrowWalletForOffer";
 import { setWallet } from "../wallet/setWallet";
 import { verifyAndSignReleaseTx } from "./verifyAndSignReleaseTx";
 
-const fromBase64Mock = jest.spyOn(Psbt, 'fromBase64');
-const fromBase64LiquidMock = jest.spyOn(LiquidPsbt, 'fromBase64');
+const fromBase64Mock = jest.spyOn(Psbt, "fromBase64");
+const fromBase64LiquidMock = jest.spyOn(LiquidPsbt, "fromBase64");
 
-const verifyReleasePSBTMock = jest.fn();
-jest.mock("../../views/contract/helpers/verifyReleasePSBT", () => ({
-  verifyReleasePSBT: (...args: unknown[]) => verifyReleasePSBTMock(...args),
-}));
+jest.mock("../../views/contract/helpers/verifyReleasePSBT");
+const verifyReleasePSBTMock = jest.requireMock(
+  "../../views/contract/helpers/verifyReleasePSBT",
+).verifyReleasePSBT;
 
 describe("verifyAndSignReleaseTx", () => {
   const amount = 10000;
@@ -89,7 +89,7 @@ describe("verifyAndSignReleaseTx", () => {
     txOutputs: [{ address: "address1", value: 9000 }] as Psbt["txOutputs"],
   };
   fromBase64Mock.mockImplementation((base64) =>
-    base64 === mockContract.releasePsbt ? psbt as Psbt: batchPsbt as Psbt,
+    base64 === mockContract.releasePsbt ? (psbt as Psbt) : (batchPsbt as Psbt),
   );
   fromBase64LiquidMock.mockReturnValue(liquidPsbt as LiquidPsbt);
   setWallet(createTestWallet());
@@ -159,9 +159,12 @@ describe("verifyAndSignReleaseTx", () => {
     expect(result?.releaseTransaction).toEqual("transactionAsHex");
     expect(result?.batchReleasePsbt).toEqual(undefined);
     expect(liquidPsbt.signInput).toHaveBeenCalled();
-    expect(fromBase64LiquidMock).toHaveBeenCalledWith(mockContract.releasePsbt, {
-      network: liquidNetworks.regtest,
-    });
+    expect(fromBase64LiquidMock).toHaveBeenCalledWith(
+      mockContract.releasePsbt,
+      {
+        network: liquidNetworks.regtest,
+      },
+    );
     expect(finalizeInputMock).toHaveBeenCalled();
     expect(liquidPsbt.extractTransaction).toHaveBeenCalled();
     expect(liquidPsbt.extractTransaction?.().toHex).toHaveBeenCalled();

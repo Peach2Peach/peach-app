@@ -10,11 +10,9 @@ import { getOffer } from "../utils/offer/getOffer";
 import { isSellOffer } from "../utils/offer/isSellOffer";
 import { isDefined } from "../utils/validation/isDefined";
 import { isNotNull } from "../utils/validation/isNotNull";
+import { buildTransaction } from "../utils/wallet/bitcoin/transaction/buildTransaction";
+import { setMultipleRecipients } from "../utils/wallet/bitcoin/transaction/setMultipleRecipients";
 import { peachWallet } from "../utils/wallet/setWallet";
-import {
-  buildTransaction,
-  setMultipleRecipients,
-} from "../utils/wallet/transaction";
 import { useWalletState } from "../utils/wallet/walletStore";
 import { useSyncWallet } from "../views/wallet/hooks/useSyncWallet";
 import { useHandleTransactionError } from "./error/useHandleTransactionError";

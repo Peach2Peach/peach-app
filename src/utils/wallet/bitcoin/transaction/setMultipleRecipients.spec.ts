@@ -2,7 +2,7 @@ import { ScriptAmount } from "bdk-rn/lib/classes/Bindings";
 import {
   addressScriptPubKeyMock,
   txBuildSetRecipientsMock,
-} from "../../../../tests/unit/mocks/bdkRN";
+} from "../../../../../tests/unit/mocks/bdkRN";
 import { buildTransaction } from "./buildTransaction";
 import { getScriptPubKeyFromAddress } from "./getScriptPubKeyFromAddress";
 import { setMultipleRecipients } from "./setMultipleRecipients";

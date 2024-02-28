@@ -13,10 +13,12 @@ const EXPECTED_OUTPUTS = {
 
 type Props = {
   psbt: Psbt | LiquidPsbt;
+  returnAddress: string;
   sellOffer: SellOffer;
 };
 const checkRefundPSBTBase = ({
   psbt,
+  returnAddress,
   sellOffer,
 }: Props): {
   isValid: boolean;
@@ -42,8 +44,7 @@ const checkRefundPSBTBase = ({
       err: "INVALID_OUTPUT",
     };
   if (
-    psbt.txOutputs[0].address?.toLowerCase() !==
-    sellOffer.returnAddress?.toLowerCase()
+    psbt.txOutputs[0].address?.toLowerCase() !== returnAddress.toLowerCase()
   ) {
     return { isValid: false, psbt, err: "RETURN_ADDRESS_MISMATCH" };
   }
@@ -51,14 +52,16 @@ const checkRefundPSBTBase = ({
 };
 
 export const checkRefundPSBT = (psbtBase64: string, sellOffer: SellOffer) =>
-  sellOffer.escrowType === "liquid"
+  sellOffer.escrowType === "liquid" && sellOffer.returnAddressLiquid
     ? checkRefundPSBTBase({
         sellOffer,
+        returnAddress: sellOffer.returnAddressLiquid,
         psbt: LiquidPsbt.fromBase64(psbtBase64, {
           network: getLiquidNetwork(),
         }),
       })
     : checkRefundPSBTBase({
         sellOffer,
+        returnAddress: sellOffer.returnAddress,
         psbt: Psbt.fromBase64(psbtBase64, { network: getNetwork() }),
       });

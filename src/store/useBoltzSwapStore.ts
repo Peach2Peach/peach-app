@@ -1,51 +1,88 @@
-import { SubmarineResponse } from "boltz-swap-web-context/src/boltz-api/types";
+import { SwapStatus } from "boltz-swap-web-context/src/boltz-api/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { ReverseAPIResponse } from "../utils/boltz/api/postReverseSubmarineSwap";
+import { SubmarineAPIResponse } from "../utils/boltz/api/postSubmarineSwap";
+import { omit } from "../utils/object/omit";
 import { createStorage } from "../utils/storage/createStorage";
 import { createPersistStorage } from "./createPersistStorage";
 
-export type SubmarineAPIResponse = Omit<SubmarineResponse, "swapTree"> & {
-  swapTree: {
-    claimLeaf: { version: number; output: string };
-    refundLeaf: { version: number; output: string };
-  };
+export const STATUS_MAP = {
+  SUBMARINE: {
+    COMPLETED: ["transaction.claimed"],
+    CLAIM: ["transaction.claim.pending"],
+    ERROR: [
+      "transaction.lockupFailed",
+      "swap.expired",
+      "invoice.failedToPay",
+      "transaction.failed",
+      "transaction.zeroconf.rejected",
+      "invoice.expired",
+    ],
+  },
+  REVERSE: {
+    COMPLETED: ["invoice.settled"],
+    CLAIM: ["transaction.mempool", "transaction.confirmed"],
+    ERROR: [
+      "swap.expired",
+      "invoice.failedToPay",
+      "transaction.failed",
+      "transaction.zeroconf.rejected",
+      "invoice.expired",
+    ],
+  },
 };
-
+export type SwapInfo = (SubmarineAPIResponse | ReverseAPIResponse) & {
+  status?: SwapStatus;
+  keyPairIndex: number;
+  preimage?: string;
+};
 export type WalletState = {
-  swaps: Record<string, (SubmarineAPIResponse | ReverseAPIResponse)[]>;
+  swaps: Record<string, SwapInfo>;
+  map: Record<string, string[]>;
 };
 
 export type WalletStore = WalletState & {
-  saveSwap: (
-    id: string,
-    swapInfo: SubmarineAPIResponse | ReverseAPIResponse,
-  ) => void;
-  removeSwap: (id: string, swapId: string) => void;
+  saveSwap: (swapInfo: SwapInfo) => void;
+  mapSwap: (id: string, swapId: string) => void;
+  getPending: () => SwapInfo[];
+  removeSwap: (swapId: string) => void;
 };
 
 const defaultState: WalletState = {
   swaps: {},
+  map: {},
 };
 export const boltzSwapStorage = createStorage("boltzSwap");
 const storage = createPersistStorage(boltzSwapStorage);
+
+export const getSwapType = (swap: SwapInfo) =>
+  "expectedAmount" in swap ? "SUBMARINE" : "REVERSE";
+
+export const isSwapPending = (swap: SwapInfo): boolean =>
+  !swap.status?.status ||
+  (!STATUS_MAP[getSwapType(swap)].COMPLETED.includes(swap.status.status) &&
+    !STATUS_MAP[getSwapType(swap)].ERROR.includes(swap.status.status));
 
 export const useBoltzSwapStore = create<WalletStore>()(
   persist(
     (set, get) => ({
       ...defaultState,
-      saveSwap: (id, swapInfo) => {
+      saveSwap: (swapInfo) => {
         const swaps = get().swaps;
-        if (!swaps[id]) swaps[id] = [];
-        if (!swaps[id].some((swap) => swap.id === swapInfo.id))
-          swaps[id].push(swapInfo);
+        swaps[swapInfo.id] = swapInfo;
         set({ swaps });
       },
-      removeSwap: (id, swapId) => {
+      mapSwap: (id, swapId) => {
+        const map = get().map;
+        if (!map[id]) map[id] = [];
+        if (!map[id].includes(swapId)) map[id].push(swapId);
+        set({ map });
+      },
+      getPending: () => Object.values(get().swaps).filter(isSwapPending),
+      removeSwap: (swapId) => {
         const swaps = get().swaps;
-        if (!swaps[id]) return;
-        swaps[id] = swaps[id].filter((swap) => swap.id !== swapId);
-        set({ swaps });
+        set({ swaps: omit(swaps, swapId) });
       },
     }),
     {

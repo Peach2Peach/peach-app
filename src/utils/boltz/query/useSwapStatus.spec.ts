@@ -4,12 +4,10 @@ import { swapStatusCreated } from "../../../../tests/unit/data/boltzData";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { useSwapStatus } from "./useSwapStatus";
 
-const getSwapStatusMock = jest
-  .fn()
-  .mockResolvedValue(getResult(swapStatusCreated));
-jest.mock("../api/getSwapStatus", () => ({
-  getSwapStatus: (...args: unknown[]) => getSwapStatusMock(...args),
-}));
+jest.mock("../api/getSwapStatus");
+jest
+  .requireMock("../api/getSwapStatus")
+  .getSwapStatus.mockResolvedValue(getResult(swapStatusCreated));
 
 jest.useFakeTimers();
 

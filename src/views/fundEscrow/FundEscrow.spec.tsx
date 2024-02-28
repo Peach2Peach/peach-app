@@ -15,15 +15,14 @@ const useFundFromPeachWalletMock = jest
     fundedFromPeachWallet: false,
   });
 
-
-jest.mock("boltz-swap-web-context", () => 'html');
+jest.mock("boltz-swap-web-context", () => "html");
 
 describe("FundEscrow", () => {
   const activeFunding = {
     fundingAddress: sellOffer.returnAddress,
     fundingAddresses: [],
     fundingStatus: getDefaultFundingStatus(sellOffer.id),
-  }
+  };
   const defaultReturnValue = {
     offerId: sellOffer.id,
     offer: sellOffer,
@@ -32,7 +31,7 @@ describe("FundEscrow", () => {
       liquid: {
         fundingAddress: sellOffer.escrows.liquid,
         fundingAddresses: [],
-        fundingStatus: getDefaultFundingStatus(sellOffer.id)
+        fundingStatus: getDefaultFundingStatus(sellOffer.id),
       },
     },
     activeFunding,

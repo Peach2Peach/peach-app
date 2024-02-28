@@ -63,7 +63,9 @@ export function useRefundSellOffer() {
       closePopup();
     },
     onSuccess: ([tx, txId], { sellOffer }) => {
-      setPopup(<RefundEscrowPopup txId={txId} network={sellOffer.escrowType} />);
+      setPopup(
+        <RefundEscrowPopup txId={txId} network={sellOffer.escrowType} />,
+      );
       saveOffer({
         ...sellOffer,
         tx,

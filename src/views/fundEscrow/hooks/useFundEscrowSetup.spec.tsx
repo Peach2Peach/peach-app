@@ -20,15 +20,15 @@ jest.mock("../../../hooks/useShowErrorBanner", () => ({
   useShowErrorBanner: () => mockShowErrorBanner,
 }));
 
-const useFundingStatusMock = jest.fn().mockReturnValue({
-  fundingStatus: getDefaultFundingStatus(sellOffer.id),
-  fundingStatusLiquid: getDefaultFundingStatus(sellOffer.id),
-  userConfirmationRequired: false,
-  isLoading: false,
-});
-jest.mock("../../../hooks/query/useFundingStatus", () => ({
-  useFundingStatus: () => useFundingStatusMock(),
-}));
+jest.mock("../../../hooks/query/useFundingStatus");
+const useFundingStatusMock = jest
+  .requireMock("../../../hooks/query/useFundingStatus")
+  .useFundingStatus.mockReturnValue({
+    fundingStatus: getDefaultFundingStatus(sellOffer.id),
+    fundingStatusLiquid: getDefaultFundingStatus(sellOffer.id),
+    userConfirmationRequired: false,
+    isLoading: false,
+  });
 
 const getOfferDetailsMock = jest
   .spyOn(peachAPI.private.offer, "getOfferDetails")

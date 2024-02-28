@@ -1,4 +1,4 @@
-import { getTradeBreakdown } from "./getTradeBreakdown.1";
+import { getTradeBreakdown } from "./getTradeBreakdown";
 
 jest.mock("bitcoinjs-lib", () => ({
   ...jest.requireActual("bitcoinjs-lib"),

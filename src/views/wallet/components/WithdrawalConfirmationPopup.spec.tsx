@@ -30,9 +30,9 @@ const props = {
   feeRate,
   psbt: transaction.psbt,
 };
-jest.mock("../../../utils/wallet/transaction/buildTransaction");
+jest.mock("../../../utils/wallet/bitcoin/transaction/buildTransaction");
 jest
-  .requireMock("../../../utils/wallet/transaction/buildTransaction")
+  .requireMock("../../../utils/wallet/bitcoin/transaction/buildTransaction")
   .buildTransaction.mockReturnValue(transaction);
 jest.useFakeTimers();
 

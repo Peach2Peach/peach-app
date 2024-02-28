@@ -1,16 +1,26 @@
 import { BIP32Interface } from "bip32";
 import { Signer } from "bip322-liquid-js";
 import * as liquid from "liquidjs-lib";
+import { getUTXO } from "../liquid/getUTXO";
+import { error } from "../log/error";
 import { info } from "../log/info";
-import { useLiquidWalletState } from "./useLiquidWalletState";
-import { useWalletState } from "./walletStore";
+import { sum } from "../math/sum";
+import { parseError } from "../parseError";
+import { isDefined } from "../validation/isDefined";
+import { callWhenInternet } from "../web/callWhenInternet";
+import { UTXOWithPath, useLiquidWalletState } from "./useLiquidWalletState";
 
 type PeachLiquidJSWalletProps = {
   wallet: BIP32Interface;
   network?: liquid.networks.Network;
   gapLimit?: number;
+  concurrency?: number;
 };
-const defaultGapLimit = 25;
+
+const DEFAULT = {
+  GAP_LIMIT: 15,
+  CONCURRENCY: 1,
+};
 export class PeachLiquidJSWallet {
   jsWallet: BIP32Interface;
 
@@ -20,45 +30,153 @@ export class PeachLiquidJSWallet {
 
   gapLimit: number;
 
-  addresses: string[];
+  concurrency: number;
+
+  syncInProgress: Promise<void> | undefined;
 
   constructor({
     wallet,
     network = liquid.networks.liquid,
-    gapLimit = defaultGapLimit,
+    gapLimit = DEFAULT.GAP_LIMIT,
+    concurrency = DEFAULT.CONCURRENCY,
   }: PeachLiquidJSWalletProps) {
     this.jsWallet = wallet;
-
     this.network = network;
     this.gapLimit = gapLimit;
-    this.addresses = useLiquidWalletState.getState().addresses;
-
+    this.concurrency = concurrency;
     this.derivationPath = `m/49'/${network === liquid.networks.liquid ? "0" : "1"}'/0'`;
   }
 
-  getKeyPair(index: number) {
-    const keyPair = this.jsWallet.derivePath(
-      `${this.derivationPath}/0/${index}`,
+  get addresses() {
+    return useLiquidWalletState.getState().addresses;
+  }
+
+  get internalAddresses() {
+    return useLiquidWalletState.getState().internalAddresses;
+  }
+
+  get utxos() {
+    return useLiquidWalletState.getState().utxos;
+  }
+
+  // TODO improve the logic to load all tx on an address
+  // then determine which ones are unspent (=UTXO)
+  // increase limit by gap limit
+  syncWallet() {
+    if (this.syncInProgress) return this.syncInProgress;
+
+    this.syncInProgress = new Promise((resolve, reject) =>
+      callWhenInternet(async () => {
+        info("PeachLiquidJSWallet - syncWallet - start");
+        useLiquidWalletState.getState().setIsSynced(false);
+
+        try {
+          let limit = Math.max(
+            this.gapLimit,
+            this.addresses.length,
+            this.internalAddresses.length,
+          );
+          let utxos: UTXOWithPath[] = [];
+          for (let i = 0; i < limit; i++) {
+            const { address } = this.getAddress(i, false);
+            const { address: internalAddress } = this.getInternalAddress(
+              i,
+              false,
+            );
+            // eslint-disable-next-line no-await-in-loop
+            const [result, resultInternal] = await Promise.all(
+              [address, internalAddress]
+                .filter(isDefined)
+                .map((addr) => getUTXO({ address: addr })),
+            );
+            if (result.result?.length) {
+              limit = i + this.gapLimit;
+              const derivationPath = this.getExternalPath(i);
+              utxos = [
+                ...utxos,
+                ...result.result.map((utxo) => ({ ...utxo, derivationPath })),
+              ];
+            }
+            if (resultInternal.result?.length) {
+              limit = i + this.gapLimit;
+              const derivationPath = this.getInternalPath(i);
+
+              utxos = [
+                ...utxos,
+                ...resultInternal.result.map((utxo) => ({
+                  ...utxo,
+                  derivationPath,
+                })),
+              ];
+            }
+          }
+          const balance = this.getBalance();
+          useLiquidWalletState.getState().setUTXO(utxos);
+          useLiquidWalletState.getState().setBalance(balance.total);
+          useLiquidWalletState.getState().setIsSynced(true);
+
+          this.syncInProgress = undefined;
+          return resolve();
+        } catch (e) {
+          error(parseError(e));
+          return reject(new Error(parseError(e)));
+        }
+      }),
     );
+    return this.syncInProgress;
+  }
+
+  // TODO values can be blinded
+  // TODO does not yet consider other assets
+  getBalance() {
+    const confirmed = this.utxos
+      .filter((utxo) => utxo.status.confirmed)
+      .map((utxo) => utxo.value)
+      .reduce(sum, 0);
+    const pending = this.utxos
+      .filter((utxo) => !utxo.status.confirmed)
+      .map((utxo) => utxo.value)
+      .reduce(sum, 0);
+    const total = confirmed + pending;
+    return {
+      trustedPending: 0,
+      untrustedPending: pending,
+      confirmed,
+      spendable: total,
+      total,
+    };
+  }
+
+  getExternalPath(index: number) {
+    return `${this.derivationPath}/0/${index}`;
+  }
+
+  getInternalPath(index: number) {
+    return `${this.derivationPath}/1/${index}`;
+  }
+
+  getKeyPairByPath(path: string) {
+    const keyPair = this.jsWallet.derivePath(path);
     keyPair.network = this.network;
     return keyPair;
+  }
+
+  getKeyPair(index: number) {
+    return this.getKeyPairByPath(this.getExternalPath(index));
   }
 
   getInternalKeyPair(index: number) {
-    const keyPair = this.jsWallet.derivePath(
-      `${this.derivationPath}/1/${index}`,
-    );
-    keyPair.network = this.network;
-    return keyPair;
+    return this.getKeyPairByPath(this.getInternalPath(index));
   }
 
-  getAddress(index: number = this.addresses.length) {
+  getAddress(index: number = this.addresses.length, cache = true) {
     info("PeachLiquidJSWallet - getAddress", index);
 
-    if (this.addresses[index]) return {
-      address: this.addresses[index],
-      index
-    };
+    if (this.addresses[index])
+      return {
+        address: this.addresses[index],
+        index,
+      };
 
     const keyPair = this.getKeyPair(index);
     const { address } = liquid.payments.p2wpkh({
@@ -66,25 +184,44 @@ export class PeachLiquidJSWallet {
       pubkey: keyPair.publicKey,
     });
 
-    if (address) this.addresses[index] = address;
+    if (address && cache) {
+      const addresses = [...this.addresses];
+      addresses[index] = address;
+      useLiquidWalletState.getState().setAddresses(addresses);
+    }
+
+    if (!address) throw Error("ADDRESS_NOT_FOUND");
 
     return { address, index };
   }
 
-  getInternalAddress(index: number = this.addresses.length + 1) {
+  getInternalAddress(
+    index: number = this.internalAddresses.length + 1,
+    cache = true,
+  ) {
     info("PeachLiquidJSWallet - getAddress", index);
 
-    if (this.addresses[index]) return this.addresses[index];
+    if (this.internalAddresses[index])
+      return {
+        address: this.internalAddresses[index],
+        index,
+      };
 
     const keyPair = this.getInternalKeyPair(index);
-    const p2wpkh = liquid.payments.p2wpkh({
+    const { address } = liquid.payments.p2wpkh({
       network: this.network,
       pubkey: keyPair.publicKey,
     });
 
-    if (p2wpkh.address) this.addresses[index] = p2wpkh.address;
+    if (address && cache) {
+      const addresses = [...this.internalAddresses];
+      addresses[index] = address;
+      useLiquidWalletState.getState().setInternalAddresses(addresses);
+    }
 
-    return p2wpkh.address;
+    if (!address) throw Error("ADDRESS_NOT_FOUND");
+
+    return { address, index };
   }
 
   findKeyPairByAddress(address: string) {
@@ -96,12 +233,12 @@ export class PeachLiquidJSWallet {
 
       const { address: candidate } = this.getAddress(i);
       if (address === candidate) {
-        useWalletState.getState().setAddresses(this.addresses);
+        useLiquidWalletState.getState().setAddresses(this.addresses);
         return this.getKeyPair(i);
       }
     }
 
-    useWalletState.getState().setAddresses(this.addresses);
+    useLiquidWalletState.getState().setAddresses(this.addresses);
     return null;
   }
 

@@ -29,8 +29,8 @@ type SettingsItemSection = {
 type SettingsItemMap = SettingsItemSection[];
 
 const contactUs: SettingsItemType[] = isProduction()
-  ? (["contact", "aboutPeach"])
-  : (["testView", "contact", "aboutPeach"]);
+  ? ["contact", "aboutPeach"]
+  : ["testView", "contact", "aboutPeach"];
 
 export const Settings = () => {
   const setPopup = useSetPopup();
@@ -99,19 +99,18 @@ export const Settings = () => {
   }, [closePopup, notificationsOn, setPopup]);
 
   const profileSettings: SettingsItemType[] = useMemo(
-    () =>
-      [
-        "myProfile",
-        "referrals",
-        {
-          title: "backups",
-          iconId: showBackupReminder ? "alertTriangle" : undefined,
-          warning: !!showBackupReminder,
-        },
-        "networkFees",
-        "transactionBatching",
-        "paymentMethods",
-      ],
+    () => [
+      "myProfile",
+      "referrals",
+      {
+        title: "backups",
+        iconId: showBackupReminder ? "alertTriangle" : undefined,
+        warning: !!showBackupReminder,
+      },
+      "networkFees",
+      "transactionBatching",
+      "paymentMethods",
+    ],
     [showBackupReminder],
   );
 
@@ -128,26 +127,23 @@ export const Settings = () => {
   }, [enableAnalytics, setAnalyticsPopupSeen, setPopup, toggleAnalytics]);
 
   const appSettings: SettingsItemType[] = useMemo(
-    () =>
-      (
-        [
-          {
-            title: "analytics",
-            onPress: onAnalyticsPress,
-            iconId: enableAnalytics ? "toggleRight" : "toggleLeft",
-            enabled: enableAnalytics,
-          },
-          {
-            title: "notifications",
-            onPress: notificationClick,
-          },
-          "nodeSetup",
-          "refundAddress",
-          "payoutAddress",
-          "currency",
-          "language",
-        ]
-      ),
+    () => [
+      {
+        title: "analytics",
+        onPress: onAnalyticsPress,
+        iconId: enableAnalytics ? "toggleRight" : "toggleLeft",
+        enabled: enableAnalytics,
+      },
+      {
+        title: "notifications",
+        onPress: notificationClick,
+      },
+      "nodeSetup",
+      "refundAddress",
+      "payoutAddress",
+      "currency",
+      "language",
+    ],
     [onAnalyticsPress, enableAnalytics, notificationClick],
   );
 

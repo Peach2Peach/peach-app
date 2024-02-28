@@ -192,24 +192,30 @@ function EscrowTypeSelect() {
 }
 
 function PublishOfferButton() {
-    const { amount, escrowType, meansOfPayment, paymentData, maxPremium, minReputation } =
-    useOfferPreferences(
-      (state) => ({
-        amount: state.buyAmountRange,
-        escrowType: state.escrowType,
-        meansOfPayment: state.meansOfPayment,
-        paymentData: state.paymentData,
-        maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
-          ? state.filter.buyOffer.maxPremium
-          : null,
-        minReputation: interpolate(
-          state.filter.buyOffer.minReputation || 0,
-          CLIENT_RATING_RANGE,
-          SERVER_RATING_RANGE,
-        ),
-      }),
-      shallow,
-    );
+  const {
+    amount,
+    escrowType,
+    meansOfPayment,
+    paymentData,
+    maxPremium,
+    minReputation,
+  } = useOfferPreferences(
+    (state) => ({
+      amount: state.buyAmountRange,
+      escrowType: state.escrowType,
+      meansOfPayment: state.meansOfPayment,
+      paymentData: state.paymentData,
+      maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
+        ? state.filter.buyOffer.maxPremium
+        : null,
+      minReputation: interpolate(
+        state.filter.buyOffer.minReputation || 0,
+        CLIENT_RATING_RANGE,
+        SERVER_RATING_RANGE,
+      ),
+    }),
+    shallow,
+  );
 
   const originalPaymentData = useOfferPreferences(
     (state) => state.originalPaymentData,

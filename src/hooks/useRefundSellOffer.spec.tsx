@@ -19,18 +19,20 @@ const refundSellOfferMock = jest.spyOn(
   "refundSellOffer",
 );
 
-const checkRefundPSBTMock = jest.fn();
-jest.mock("../utils/bitcoin/checkRefundPSBT", () => ({
-  checkRefundPSBT: (...args: unknown[]) => checkRefundPSBTMock(...args),
-}));
-const signAndFinalizePSBTMock = jest.fn();
-jest.mock("../utils/bitcoin/signAndFinalizePSBT", () => ({
-  signAndFinalizePSBT: (...args: unknown[]) => signAndFinalizePSBTMock(...args),
-}));
-const showTransactionMock = jest.fn();
-jest.mock("../utils/blockchain/showTransaction", () => ({
-  showTransaction: (...args: unknown[]) => showTransactionMock(...args),
-}));
+jest.mock("../utils/bitcoin/checkRefundPSBT");
+const checkRefundPSBTMock = jest.requireMock(
+  "../utils/bitcoin/checkRefundPSBT",
+).checkRefundPSBT;
+
+jest.mock("../utils/bitcoin/signAndFinalizePSBT");
+const signAndFinalizePSBTMock = jest.requireMock(
+  "../utils/bitcoin/signAndFinalizePSBT",
+).signAndFinalizePSBT;
+
+jest.mock("../utils/blockchain/showTransaction");
+const showTransactionMock = jest.requireMock(
+  "../utils/blockchain/showTransaction",
+).showTransaction;
 
 jest.mock("../utils/offer/saveOffer");
 const saveOfferMock = jest.requireMock("../utils/offer/saveOffer").saveOffer;

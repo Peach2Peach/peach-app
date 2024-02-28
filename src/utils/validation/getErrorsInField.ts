@@ -3,7 +3,7 @@ import { getMessages } from "./getMessages";
 import { Rule, rules } from "./rules";
 
 type RuleRecord = {
-  [K in Rule]?: boolean;
+  [K in Rule]?: boolean | number | string;
 };
 
 export const getErrorsInField = (value: string, rulesToCheck: RuleRecord) =>
@@ -11,6 +11,8 @@ export const getErrorsInField = (value: string, rulesToCheck: RuleRecord) =>
     ? []
     : [
         ...keys(rulesToCheck)
-          .filter((key) => rulesToCheck[key] && !rules[key](value))
+          .filter(
+            (key) => rulesToCheck[key] && !rules[key](value, rulesToCheck[key]),
+          )
           .map((key) => getMessages()[key]),
       ];

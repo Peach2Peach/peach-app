@@ -45,7 +45,7 @@ module.exports = {
     "arrow-parens": "off",
     "block-scoped-var": "error",
     "capitalized-comments": "off",
-    "class-methods-use-this": "error",
+    "class-methods-use-this": "off",
     complexity: ["error", 21],
     "consistent-return": "error",
     "consistent-this": "error",
