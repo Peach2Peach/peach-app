@@ -7,14 +7,14 @@ export const usePublishMissingPublicKey = () => {
   const pgp = useAccountStore((state) => state.account.pgp);
   const { user } = useSelfUser();
   const { mutate: updateUser } = useUpdateUser();
-  const publicKeys = user?.pgpPublicKeys;
   useEffect(() => {
-    if (!publicKeys) return;
+    if (!user) return;
     if (
-      publicKeys.findIndex(({ publicKey }) => publicKey === pgp.publicKey) ===
-      -1
+      pgp.publicKey !== user.pgpPublicKey ||
+      user.pgpPublicKeys.find((key) => key.publicKey === pgp.publicKey) ===
+        undefined
     ) {
       updateUser({ pgp });
     }
-  }, [pgp, publicKeys, updateUser]);
+  }, [pgp, updateUser, user]);
 };
