@@ -19,7 +19,6 @@ type Settings = {
   showBackupReminder: boolean;
   shouldShowBackupOverlay: boolean;
   nodeURL: string;
-  usedReferralCode?: boolean;
   cloudflareChallenge?: {
     cfClearance: string;
     userAgent: string;
@@ -33,7 +32,6 @@ type PGPKeychain = {
 
 type Identity = {
   publicKey: string;
-  privKey?: string;
   mnemonic?: string;
   base58?: string;
   pgp: PGPKeychain;

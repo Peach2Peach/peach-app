@@ -21,6 +21,5 @@ export const getPureSettingsState = (state: SettingsStore): Settings => ({
   showBackupReminder: state.showBackupReminder,
   shouldShowBackupOverlay: state.shouldShowBackupOverlay,
   nodeURL: state.nodeURL,
-  usedReferralCode: state.usedReferralCode,
   cloudflareChallenge: state.cloudflareChallenge,
 });
