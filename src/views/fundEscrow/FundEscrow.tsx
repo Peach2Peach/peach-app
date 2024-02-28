@@ -160,11 +160,14 @@ function FundEscrowHeader() {
       { ...headerIcons.help, onPress: showHelp },
     ];
     if (getNetwork() === networks.regtest) {
-      icons.unshift({ ...headerIcons.generateBlock, onPress: generateBlock });
-      icons.unshift({
-        ...headerIcons.generateLiquidBlock,
-        onPress: generateLiquidBlock,
-      });
+      return [
+        {
+          ...headerIcons.generateLiquidBlock,
+          onPress: generateLiquidBlock,
+        },
+        { ...headerIcons.generateBlock, onPress: generateBlock },
+        ...icons,
+      ];
     }
     return icons;
   }, [cancelFundMultipleOffers, cancelOffer, fundMultiple, showHelp]);

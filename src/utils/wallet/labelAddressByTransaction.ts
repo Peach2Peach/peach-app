@@ -6,7 +6,7 @@ import { getTxDefaultLabel } from "./getTxDefaultLabel";
 import { useWalletState } from "./walletStore";
 
 export async function labelAddressByTransaction(tx: TransactionDetails) {
-  const offerIds = useWalletState.getState().txOfferMap[tx.txid];
+  const offerIds = useWalletState.getState().txOfferMap[tx.txid] || [];
   const offers = (await Promise.all(offerIds.map(getOffer))).filter(isNotNull);
 
   offers.forEach((offer) => {

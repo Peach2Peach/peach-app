@@ -44,7 +44,7 @@ type Props = {
 function WrongFundingAmountSummary({ sellOffer }: Props) {
   const funding = getSellOfferFunding(sellOffer);
   const actualAmount = funding.amounts.reduce(sum, 0) || 0;
-  const fundingAmount = sellOffer?.amount || 0;
+  const fundingAmount = sellOffer.amount || 0;
   return (
     <View style={tw`gap-3 grow`}>
       <Divider

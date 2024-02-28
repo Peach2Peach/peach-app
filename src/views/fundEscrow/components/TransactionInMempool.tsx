@@ -87,11 +87,14 @@ function MempoolHeader({ offerId }: { offerId: string }) {
     ];
 
     if (getNetwork() === networks.regtest) {
-      icons.unshift({ ...headerIcons.generateBlock, onPress: generateBlock });
-      icons.unshift({
-        ...headerIcons.generateLiquidBlock,
-        onPress: generateLiquidBlock,
-      });
+      return [
+        {
+          ...headerIcons.generateLiquidBlock,
+          onPress: generateLiquidBlock,
+        },
+        { ...headerIcons.generateBlock, onPress: generateBlock },
+        ...icons,
+      ];
     }
     return icons;
   }, [cancelOffer, showHelp]);

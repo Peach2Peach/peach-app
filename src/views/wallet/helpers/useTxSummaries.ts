@@ -12,7 +12,7 @@ export function useTxSummaries() {
     queries: txs.map((tx) => ({
       queryKey: walletKeys.transactionSummary(tx.txid),
       queryFn: async () => {
-        const offerIds = txOfferMap[tx.txid];
+        const offerIds = txOfferMap[tx.txid] || [];
         const offers = await Promise.all(offerIds.map(getOffer));
         return getTxSummary({ tx, offers: offers.filter(isNotNull) });
       },
