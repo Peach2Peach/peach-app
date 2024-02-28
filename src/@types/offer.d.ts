@@ -37,6 +37,7 @@ type SellOfferDraft = OfferDraft & {
   amount: number;
   premium: number;
   returnAddress: string;
+  returnAddressLiquid?: string;
   multi?: number;
   instantTradeCriteria?: InstantTradeCriteria;
 };
