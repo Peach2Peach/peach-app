@@ -151,7 +151,9 @@ function getSellerStatusText({
           wallet: walletLabel,
         });
       }
-      return tolgee.t("contract.seller.buyerAgreedToCancel");
+      return tolgee.t("contract.seller.buyerAgreedToCancel", {
+        ns: "contract",
+      });
     }
     return tolgee.t("contract.seller.refundOrRepublish.trade", {
       ns: "contract",

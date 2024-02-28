@@ -18,9 +18,10 @@ export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
   const utxos = sellOffer.funding.txIds.length;
   const { t } = useTranslate();
   const title = t(
+    // @ts-ignore
     utxos === 1
       ? "warning.wrongFundingAmount.title"
-      : "warning.incorrectFunding.title",
+      : { key: "warning.incorrectFunding.title", ns: "sell" },
   );
   const content =
     utxos === 1 ? (
@@ -37,14 +38,16 @@ export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
         </PeachText>
         <BTCAmount amount={sellOffer.amount} size="medium" />
         <PeachText>
-          {t(
-            "warning.wrongFundingAmount.description",
-            thousands(maxTradingAmount),
-          )}
+          {t("warning.wrongFundingAmount.description", {
+            amount: thousands(maxTradingAmount),
+          })}
         </PeachText>
       </View>
     ) : (
-      t("warning.incorrectFunding.description", { utxos: String(utxos) })
+      t("warning.incorrectFunding.description", {
+        ns: "sell",
+        utxos: String(utxos),
+      })
     );
 
   return (

@@ -30,10 +30,9 @@ export const NewBadge = ({ badges }: { badges: Medal[] }) => {
   return (
     <OverlayComponent
       title={t("notification.user.badge.unlocked.title")}
-      text={t(
-        "notification.user.badge.unlocked.text",
-        t(`peachBadges.${badge}`),
-      )}
+      text={t("notification.user.badge.unlocked.text", {
+        badge: t(`peachBadges.${badge}`),
+      })}
       iconId={icon}
       buttons={
         <>

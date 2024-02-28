@@ -26,7 +26,7 @@ export function BuyOfferExpiredPopup({
       title={t("notification.offer.buyOfferExpired.title")}
       content={t("notification.offer.buyOfferExpired.text", {
         offer: offerId,
-        date: days,
+        delay: days,
       })}
       actions={
         <>

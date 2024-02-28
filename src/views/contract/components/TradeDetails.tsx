@@ -196,7 +196,7 @@ function NetworkFee() {
           <PeachText
             style={[tw`flex-1 text-right subtitle-1`, tw`md:subtitle-0`]}
           >
-            {t("settings.networkFees.xSatsPerByte", displayFeeRate)}
+            {t("settings.networkFees.xSatsPerByte", { fees: displayFeeRate })}
           </PeachText>
           <TouchableIcon
             id="bitcoin"

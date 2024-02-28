@@ -486,7 +486,7 @@ function InstantTrade() {
             style={tw`self-stretch`}
             onPress={toggleMinReputation}
           >
-            {t("offerPreferences.filters.minReputation", "4.5")}
+            {t("offerPreferences.filters.minReputation", { reputation: "4.5" })}
           </Checkbox>
           <View style={tw`flex-row items-start self-stretch gap-10px`}>
             <TouchableOpacity onPress={() => toggleBadge("fastTrader")}>

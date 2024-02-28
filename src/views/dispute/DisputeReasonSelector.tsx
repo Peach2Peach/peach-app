@@ -74,9 +74,7 @@ function DisputeReasonScreen({ contract }: { contract: Contract }) {
     <Screen
       header={t(
         "dispute.disputeForTrade",
-        contract
-          ? { contractId: contractIdToHex(contract.id) }
-          : { contractId: "" },
+        contract ? { tradeId: contractIdToHex(contract.id) } : { tradeId: "" },
       )}
     >
       <PeachScrollView

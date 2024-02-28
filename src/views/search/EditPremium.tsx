@@ -125,7 +125,7 @@ function Premium({ premium, setPremium, amount, offerPrice }: PremiumProps) {
     <View style={tw`items-center justify-center grow gap-7`}>
       <View style={tw`items-center`}>
         <PeachText style={[tw`text-center h6`, tw`md:h5`]}>
-          {t("sell.premium.title")}
+          {t("sell.premium.title", { ns: "sell" })}
         </PeachText>
         <View style={tw`flex-row items-center gap-1`}>
           <PeachText style={tw`text-center subtitle-1`}>

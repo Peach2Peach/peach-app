@@ -98,7 +98,7 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
     <Screen
       header={t("dispute.disputeForTrade", {
         ns: "contract",
-        contractId: contractIdToHex(contractId),
+        tradeId: contractIdToHex(contractId),
       })}
     >
       <PeachScrollView

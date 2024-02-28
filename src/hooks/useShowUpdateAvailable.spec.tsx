@@ -17,14 +17,18 @@ describe("useShowUpdateAvailable", () => {
   it("does not show update available banner if app version is above min/latest", () => {
     const { queryByText } = render(<Toast />);
     renderHook(useShowUpdateAvailable);
-    expect(queryByText(tolgee.t("UPDATE_AVAILABLE.text"))).toBeFalsy();
+    expect(
+      queryByText(tolgee.t("UPDATE_AVAILABLE.text", { ns: "error" })),
+    ).toBeFalsy();
   });
   it("does show update available banner if app version is not above latest", () => {
     useConfigStore.getState().setLatestAppVersion(definitelyHigherVersion);
     const { queryByText } = render(<Toast />);
     renderHook(useShowUpdateAvailable);
 
-    expect(queryByText(tolgee.t("UPDATE_AVAILABLE.text"))).toBeTruthy();
+    expect(
+      queryByText(tolgee.t("UPDATE_AVAILABLE.text", { ns: "error" })),
+    ).toBeTruthy();
   });
   it("does show critical update available banner if app version is not above min", () => {
     useConfigStore.getState().setMinAppVersion(definitelyHigherVersion);
@@ -33,7 +37,7 @@ describe("useShowUpdateAvailable", () => {
     renderHook(useShowUpdateAvailable);
 
     expect(
-      queryByText(tolgee.t("CRITICAL_UPDATE_AVAILABLE.text")),
+      queryByText(tolgee.t("CRITICAL_UPDATE_AVAILABLE.text", { ns: "error" })),
     ).toBeTruthy();
   });
   it("does still show critical update available banner if app version is not above min/latest", () => {
@@ -45,19 +49,23 @@ describe("useShowUpdateAvailable", () => {
     renderHook(useShowUpdateAvailable);
 
     expect(
-      queryByText(tolgee.t("CRITICAL_UPDATE_AVAILABLE.text")),
+      queryByText(tolgee.t("CRITICAL_UPDATE_AVAILABLE.text", { ns: "error" })),
     ).toBeTruthy();
   });
   it("shows update banner should the min/latest version change during the session", () => {
     const { queryByText } = render(<Toast />);
     renderHook(useShowUpdateAvailable);
 
-    expect(queryByText(tolgee.t("UPDATE_AVAILABLE.text"))).toBeFalsy();
+    expect(
+      queryByText(tolgee.t("UPDATE_AVAILABLE.text", { ns: "error" })),
+    ).toBeFalsy();
 
     act(() => {
       useConfigStore.getState().setLatestAppVersion(definitelyHigherVersion);
     });
 
-    expect(queryByText(tolgee.t("UPDATE_AVAILABLE.text"))).toBeTruthy();
+    expect(
+      queryByText(tolgee.t("UPDATE_AVAILABLE.text", { ns: "error" })),
+    ).toBeTruthy();
   });
 });

@@ -6,7 +6,7 @@ export const mapCountryToDrawerOption =
     eventsByCountry: CountryEventsMap,
   ) =>
   (country: Country) => ({
-    title: tolgee.t(`country.${country}`),
+    title: tolgee.t(`country.${country}`, { ns: "global" }),
     flagID: country,
     onPress: () => onPress(eventsByCountry, country),
   });

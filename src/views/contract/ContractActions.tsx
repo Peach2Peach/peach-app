@@ -166,7 +166,7 @@ function SellerSliders() {
       <ConfirmSlider
         enabled={false}
         onConfirm={() => null}
-        label1={t("offer.requiredAction.waiting", t("buyer"))}
+        label1={t("offer.requiredAction.waiting", { who: t("buyer") })}
       />
     );
   }

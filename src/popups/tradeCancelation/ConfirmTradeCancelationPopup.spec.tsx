@@ -41,7 +41,9 @@ describe("ConfirmTradeCancelationPopup", () => {
       <ConfirmTradeCancelationPopup view="buyer" contract={contract} />,
     );
 
-    expect(getByText(tolgee.t("contract.cancel.buyer"))).toBeTruthy();
+    expect(
+      getByText(tolgee.t("contract.cancel.buyer", { ns: "contract" })),
+    ).toBeTruthy();
     act(() => {
       fireEvent.press(getAllByText("cancel trade")[1]);
     });

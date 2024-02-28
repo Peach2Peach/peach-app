@@ -42,7 +42,7 @@ export const MeetupScreen = () => {
         )}
         <View style={tw`gap-8`}>
           <PeachText style={tw`body-l text-black-100`}>
-            {t("meetup.description", event.longName)}
+            {t("meetup.description", { meetup: event.longName })}
           </PeachText>
           {!!event.frequency && (
             <View style={tw`gap-4`}>

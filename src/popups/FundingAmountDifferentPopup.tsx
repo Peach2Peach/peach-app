@@ -34,10 +34,9 @@ export function FundingAmountDifferentPopup({
           </PeachText>
           <BTCAmount amount={sellOffer.amount} size="medium" />
           <PeachText>
-            {t(
-              "warning.fundingAmountDifferent.description.3",
-              thousands(actualAmount),
-            )}
+            {t("warning.fundingAmountDifferent.description.3", {
+              amount: thousands(actualAmount),
+            })}
           </PeachText>
         </View>
       }

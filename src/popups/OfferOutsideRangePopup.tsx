@@ -18,7 +18,9 @@ export function OfferOutsideRangePopup({ offerId }: { offerId: string }) {
   return (
     <PopupComponent
       title={t("notification.offer.outsideRange.title")}
-      content={t("notification.offer.outsideRange.text", offerIdToHex(offerId))}
+      content={t("notification.offer.outsideRange.text", {
+        offerId: offerIdToHex(offerId),
+      })}
       actions={
         <>
           <ClosePopupAction />

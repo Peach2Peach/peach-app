@@ -145,6 +145,7 @@ type SectionHeaderProps = {
     { title: string; data: (OfferSummary | ContractSummary)[] }
   >;
 };
+
 export function SectionHeader({
   section: { title, data },
 }: SectionHeaderProps) {

@@ -24,7 +24,7 @@ describe("BitcoinAddressInput", () => {
       <BitcoinAddressInput value={fullAddress} />,
     );
     const input = getByPlaceholderText(
-      tolgee.t("form.address.btc.placeholder"),
+      tolgee.t("form.address.btc.placeholder", { ns: "form" }),
     );
 
     fireEvent(input, "focus");
@@ -35,7 +35,7 @@ describe("BitcoinAddressInput", () => {
       <BitcoinAddressInput value={fullAddress} />,
     );
     const input = getByPlaceholderText(
-      tolgee.t("form.address.btc.placeholder"),
+      tolgee.t("form.address.btc.placeholder", { ns: "form" }),
     );
     const { toJSON: toJSON2 } = render(
       <BitcoinAddressInput value={fullAddress} />,

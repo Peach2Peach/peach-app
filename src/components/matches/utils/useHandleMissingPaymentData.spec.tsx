@@ -14,7 +14,9 @@ describe("handleMissingPaymentData", () => {
     const { queryByText } = render(<Toast />);
     act(() => result.current(offer, currency, paymentMethod));
 
-    expect(queryByText(tolgee.t("PAYMENT_DATA_MISSING.text"))).toBeTruthy();
+    expect(
+      queryByText(tolgee.t("PAYMENT_DATA_MISSING.text", { ns: "error" })),
+    ).toBeTruthy();
     expect(queryByText("re-enter your details")).toBeTruthy();
   });
   it("should close the toast when the callback is called", () => {

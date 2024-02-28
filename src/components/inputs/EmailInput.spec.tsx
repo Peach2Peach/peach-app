@@ -15,7 +15,9 @@ describe("EmailInput", () => {
     const { getByPlaceholderText } = render(
       <EmailInput onChangeText={onChangeMock} />,
     );
-    const input = getByPlaceholderText(tolgee.t("form.email.placeholder"));
+    const input = getByPlaceholderText(
+      tolgee.t("form.email.placeholder", { ns: "form" }),
+    );
     fireEvent(input, "onEndEditing", {
       nativeEvent: { text: "SaTOSHI@gmx.com" },
     });

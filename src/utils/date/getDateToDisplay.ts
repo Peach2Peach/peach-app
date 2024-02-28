@@ -12,11 +12,12 @@ export const getDateToDisplay = (date: Date) => {
   const daysAgo =
     numberOfDays > 1
       ? tolgee.t("profile.daysAgo", {
+          ns: "profile",
           days: String(getTimeDiffInDays(newDate)),
         })
       : numberOfDays === 1
-        ? tolgee.t("yesterday")
-        : tolgee.t("today");
+        ? tolgee.t("yesterday", { ns: "global" })
+        : tolgee.t("today", { ns: "global" });
 
   return `${dateString} (${daysAgo})`;
 };
