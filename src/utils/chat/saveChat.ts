@@ -1,5 +1,5 @@
 import { useAccountStore } from "../account/account";
-import { storeChat } from "../account/storeAccount";
+import { storeChat } from "../account/storeAccount/storeChat";
 import { uniqueBy } from "../array/uniqueBy";
 import { getChat } from "./getChat";
 
