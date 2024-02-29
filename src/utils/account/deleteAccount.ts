@@ -11,6 +11,7 @@ import {
 import { info } from "../log/info";
 import { peachAPI } from "../peachAPI";
 import { clearPeachLiquidWallet, clearPeachWallet } from "../wallet/setWallet";
+import { useLiquidWalletState } from "../wallet/useLiquidWalletState";
 import { useWalletState, walletStorage } from "../wallet/walletStore";
 import { defaultAccount, useAccountStore } from "./account";
 import { accountStorage } from "./accountStorage";
@@ -34,6 +35,7 @@ export const deleteAccount = () => {
     useNotificationStore,
     useConfigStore,
     useWalletState,
+    useLiquidWalletState,
     useSettingsStore,
     usePaymentDataStore,
   ].forEach((store) => store.getState().reset());
