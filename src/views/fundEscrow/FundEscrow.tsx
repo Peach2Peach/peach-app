@@ -27,6 +27,7 @@ import { headerIcons } from "../../utils/layout/headerIcons";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { generateBlock } from "../../utils/regtest/generateBlock";
 import { generateLiquidBlock } from "../../utils/regtest/generateLiquidBlock";
+import { isDefined } from "../../utils/validation/isDefined";
 import { getNetwork } from "../../utils/wallet/getNetwork";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
@@ -45,11 +46,15 @@ type FundingTab = {
 export const FundEscrow = () => {
   const { offerId, funding, activeFunding, fundingAmount } =
     useFundEscrowSetup();
-  const tabs: FundingTab[] = [
+  const tabs = [
     { id: "bitcoin", display: i18n("escrow.bitcoin") },
-    { id: "liquid", display: i18n("escrow.liquid") },
-    { id: "lightning-liquid", display: i18n("escrow.lightning") },
-  ];
+    funding.liquid.fundingAddress
+      ? { id: "liquid", display: i18n("escrow.liquid") }
+      : undefined,
+    funding.liquid.fundingAddress
+      ? { id: "lightning-liquid", display: i18n("escrow.lightning") }
+      : undefined,
+  ].filter(isDefined) as FundingTab[];
   const [currentTab, setCurrentTab] = useState(tabs[0]);
   const escrowType =
     currentTab.id === "lightning-liquid" ? "liquid" : currentTab.id;
