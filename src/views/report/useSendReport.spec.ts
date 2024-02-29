@@ -6,6 +6,13 @@ import { useSendReport } from "./useSendReport";
 jest.mock("../../utils/analytics/sendErrors", () => ({
   sendErrors: jest.fn(),
 }));
+
+jest.mock("../../constants", () => ({
+  SESSION_ID: "SESSION_ID",
+  APPVERSION: "1.0.0",
+  BUILDNUMBER: "999",
+  UNIQUEID: "UNIQUEID",
+}));
 const sendReportSpy = jest.spyOn(peachAPI.public.contact, "sendReport");
 
 jest.useFakeTimers();
@@ -31,8 +38,7 @@ describe("useSendReport", () => {
         email,
         reason,
         topic,
-        message:
-          "it will blow your socks off!\n\nApp version: 0.2.0 (undefined)",
+        message: "it will blow your socks off!\n\nApp version: 1.0.0 (999)",
       });
     });
     expect(result.current.isSuccess).toBe(true);
@@ -63,9 +69,18 @@ describe("useSendReport", () => {
       shareLogs: true,
     });
     await waitFor(() => {
+      expect(sendReportSpy).toHaveBeenCalledWith({
+        email,
+        reason,
+        topic,
+        message:
+          "it will blow your socks off!\n\nApp version: 1.0.0 (999)\n\nUser shared app logs, please check crashlytics\nSession ID: SESSION_ID",
+      });
+    });
+    await waitFor(() => {
       expect(sendErrors).toHaveBeenCalledWith([
         new Error(
-          "user shared app logs: I have an idea - it will blow your socks off!\n\nApp version: 0.2.0 (undefined)\n\nUser shared app logs, please check crashlytics",
+          "user shared app logs: I have an idea - it will blow your socks off!\n\nApp version: 1.0.0 (999)\n\nUser shared app logs, please check crashlytics\nSession ID: SESSION_ID",
         ),
       ]);
     });
