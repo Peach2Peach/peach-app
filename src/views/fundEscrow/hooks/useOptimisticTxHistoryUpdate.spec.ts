@@ -1,20 +1,31 @@
-import { act, renderHook } from "test-utils";
+import { act, renderHook, responseUtils } from "test-utils";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { getTransactionDetails } from "../../../../tests/unit/helpers/getTransactionDetails";
-import { saveOffer } from "../../../utils/offer/saveOffer";
+import { queryClient } from "../../../queryClient";
+import { peachAPI } from "../../../utils/peachAPI";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { useOptimisticTxHistoryUpdate } from "./useOptimisticTxHistoryUpdate";
 
 jest.useFakeTimers();
 
+jest
+  .spyOn(peachAPI.private.offer, "getOfferDetails")
+  .mockImplementation(({ offerId }) =>
+    Promise.resolve({
+      result: { ...sellOffer, id: offerId },
+      ...responseUtils,
+    }),
+  );
+
 describe("useOptimisticTxHistoryUpdate", () => {
   const txDetails = getTransactionDetails().txDetails;
   const offerIds = [sellOffer.id, "39", "40"];
-  offerIds.map((id) => saveOffer({ ...sellOffer, id }));
-  saveOffer(sellOffer);
 
   beforeEach(() => {
     useWalletState.getState().reset();
+  });
+  afterEach(() => {
+    queryClient.clear();
   });
   it("should update the transaction history on wallet state", () => {
     const { result } = renderHook(useOptimisticTxHistoryUpdate);

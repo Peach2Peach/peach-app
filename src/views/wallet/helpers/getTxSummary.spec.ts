@@ -1,7 +1,6 @@
 import { contractSummary } from "../../../../tests/unit/data/contractSummaryData";
 import { buyOffer, sellOffer } from "../../../../tests/unit/data/offerData";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
-import { useTradeSummaryStore } from "../../../store/tradeSummaryStore";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { getTxSummary } from "./getTxSummary";
 
@@ -29,29 +28,10 @@ const sentTx = { ...baseTx, sent: 100000000 };
 const timestamp = 1234567890000;
 const baseSummary = {
   id: "123",
-  offerData: [],
   amount: 100000000,
   date: new Date(timestamp),
   height: 1,
   confirmed: true,
-};
-
-const buyOfferData = {
-  offerId: buyOffer.id,
-  amount: 50000,
-  address: "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
-  contractId: undefined,
-  currency: undefined,
-  price: undefined,
-};
-
-const buyOfferWithContractData = {
-  offerId: offerWithContract.id,
-  amount: contractSummary.amount,
-  address: "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
-  contractId: contractSummary.id,
-  currency: "EUR",
-  price: 21,
 };
 
 jest.useFakeTimers();
@@ -65,62 +45,38 @@ describe("getTxSummary", () => {
   });
 
   it("returns transaction summary with offer id", () => {
-    expect(getTxSummary({ tx: receivedTx, offers: [buyOffer] })).toEqual({
+    expect(getTxSummary({ tx: receivedTx, offer: buyOffer })).toEqual({
       ...baseSummary,
       type: "TRADE",
-      offerData: [buyOfferData],
     });
   });
   it("returns transaction summary with contract id", () => {
-    useTradeSummaryStore
-      .getState()
-      .setContract(contractSummary.id, contractSummary);
-    useWalletState.getState().updateTxOfferMap(txId, [offerWithContract.id]);
-    expect(
-      getTxSummary({ tx: receivedTx, offers: [offerWithContract] }),
-    ).toEqual({
+    expect(getTxSummary({ tx: receivedTx, offer: offerWithContract })).toEqual({
       ...baseSummary,
-      offerData: [buyOfferWithContractData],
-      type: "TRADE",
-    });
-  });
-  it("returns the correct transaction summary object for a confirmed trade", () => {
-    expect(getTxSummary({ tx: receivedTx, offers: [buyOffer] })).toEqual({
-      ...baseSummary,
-      offerData: [buyOfferData],
       type: "TRADE",
     });
   });
 
   it("returns the correct transaction summary object for a refund", () => {
-    useTradeSummaryStore
-      .getState()
-      .setContract(contractSummary.id, contractSummary);
-    useWalletState.getState().updateTxOfferMap(txId, [offerWithContract.id]);
-
     expect(
       getTxSummary({
         tx: receivedTx,
-        offers: [{ ...sellOffer, contractId: contractSummary.id }],
+        offer: { ...sellOffer, contractId: contractSummary.id },
       }),
     ).toEqual({
       ...baseSummary,
-      offerData: [{ ...buyOfferWithContractData, offerId: sellOffer.id }],
       type: "REFUND",
     });
   });
   it("returns the correct transaction summary object for a deposit", () => {
-    useWalletState.getState().updateTxOfferMap(txId, []);
-
-    expect(getTxSummary({ tx: receivedTx, offers: [] })).toEqual({
+    expect(getTxSummary({ tx: receivedTx, offer: undefined })).toEqual({
       ...baseSummary,
       type: "DEPOSIT",
     });
   });
   it("returns the correct transaction summary object for a withdrawal", () => {
-    expect(getTxSummary({ tx: sentTx, offers: [buyOffer] })).toEqual({
+    expect(getTxSummary({ tx: sentTx, offer: buyOffer })).toEqual({
       ...baseSummary,
-      offerData: [buyOfferData],
       type: "WITHDRAWAL",
     });
   });

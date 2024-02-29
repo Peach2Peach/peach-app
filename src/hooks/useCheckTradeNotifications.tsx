@@ -1,12 +1,12 @@
 import NotificationBadge from "@msml/react-native-notification-badge";
 import { useEffect } from "react";
-import { shallow } from "zustand/shallow";
 import { ContractSummary } from "../../peach-api/src/@types/contract";
 import { OfferSummary } from "../../peach-api/src/@types/offer";
-import { useTradeSummaryStore } from "../store/tradeSummaryStore";
 import { info } from "../utils/log/info";
 import { isIOS } from "../utils/system/isIOS";
 import { useNotificationStore } from "../views/home/notificationsStore";
+import { useContractSummaries } from "./query/useContractSummaries";
+import { useOfferSummaries } from "./query/useOfferSummaries";
 
 export const statusWithRequiredAction: TradeStatus[] = [
   "fundEscrow",
@@ -19,25 +19,18 @@ export const statusWithRequiredAction: TradeStatus[] = [
   "confirmCancelation",
   "refundOrReviveRequired",
 ];
-export const statusWithRequiredActionForBuyer: TradeStatus[] = [
-  "paymentRequired",
-];
-export const statusWithRequiredActionForSeller: TradeStatus[] = [
-  "confirmPaymentRequired",
-];
 
-const hasRequiredAction = (offer: OfferSummary | ContractSummary) =>
-  statusWithRequiredAction.includes(offer.tradeStatus) ||
-  (offer.type === "bid" &&
-    statusWithRequiredActionForBuyer.includes(offer.tradeStatus)) ||
-  (offer.type === "ask" &&
-    statusWithRequiredActionForSeller.includes(offer.tradeStatus));
+const hasRequiredAction = ({
+  type,
+  tradeStatus,
+}: OfferSummary | ContractSummary) =>
+  statusWithRequiredAction.includes(tradeStatus) ||
+  (type === "bid" && tradeStatus === "paymentRequired") ||
+  (type === "ask" && tradeStatus === "confirmPaymentRequired");
 
 export const useCheckTradeNotifications = () => {
-  const [offers, contracts] = useTradeSummaryStore(
-    (state) => [state.offers, state.contracts],
-    shallow,
-  );
+  const { offers } = useOfferSummaries();
+  const { contracts } = useContractSummaries();
   const setNotifications = useNotificationStore(
     (state) => state.setNotifications,
   );

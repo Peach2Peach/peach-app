@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { View } from "react-native";
-import { shallow } from "zustand/shallow";
 import { PeachText } from "../../../../components/text/PeachText";
+import { useContractSummaries } from "../../../../hooks/query/useContractSummaries";
+import { useOfferSummaries } from "../../../../hooks/query/useOfferSummaries";
 import { useIsMediumScreen } from "../../../../hooks/useIsMediumScreen";
-import { useTradeSummaryStore } from "../../../../store/tradeSummaryStore";
 import tw from "../../../../styles/tailwind";
 import i18n from "../../../../utils/i18n";
 import { isDefined } from "../../../../utils/validation/isDefined";
@@ -17,29 +17,29 @@ const MEDIUM_SIZE = 56;
 const SMALL_SIZE = 48;
 export const TransactionHeader = ({ type, offerData, style }: Props) => {
   const isMediumScreen = useIsMediumScreen();
-  const [getOffer, getContract] = useTradeSummaryStore(
-    (state) => [state.getOffer, state.getContract],
-    shallow,
-  );
+  const { offers } = useOfferSummaries();
+  const { contracts } = useContractSummaries();
   const offerSummaries = useMemo(
     () =>
       offerData
         .map((offer) =>
           !offer.contractId && offer.offerId
-            ? getOffer(offer.offerId)
+            ? offers.find((o) => o.id === offer.offerId)
             : undefined,
         )
         .filter(isDefined),
-    [getOffer, offerData],
+    [offerData, offers],
   );
   const contractSummaries = useMemo(
     () =>
       offerData
         .map((offer) =>
-          offer.contractId ? getContract(offer.contractId) : undefined,
+          offer.contractId
+            ? contracts.find((c) => c.id === offer.contractId)
+            : undefined,
         )
         .filter(isDefined),
-    [getContract, offerData],
+    [contracts, offerData],
   );
   const hasIdBubbles = offerSummaries.length + contractSummaries.length > 0;
 
