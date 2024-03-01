@@ -325,7 +325,7 @@ function getActionLabel(
 
     if (isPastOffer(tradeStatus)) {
       return unreadMessages > 0
-        ? tolgee.t("yourTrades.newMessages", { ns: "offer" })
+        ? tolgee.t("yourTrades.newMessages")
         : undefined;
     }
     if (disputeWinner) {

@@ -77,9 +77,11 @@ export const NetworkFees = () => {
         disabled={!isValid || feeRateSet}
         style={tw`self-center min-w-52`}
       >
-        {t(feeRateSet ? "settings.networkFees.feeRateSet" : "confirm", {
-          ns: "global",
-        })}
+        {t(
+          feeRateSet
+            ? { key: "settings.networkFees.feeRateSet", ns: "settings" }
+            : { key: "confirm", ns: "global" },
+        )}
       </Button>
     </Screen>
   );
