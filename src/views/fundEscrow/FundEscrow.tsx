@@ -39,7 +39,7 @@ import { useFundEscrowSetup } from "./hooks/useFundEscrowSetup";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
 
 type FundingTab = {
-  id: EscrowType | "lightning-liquid";
+  id: FundingMechanism;
   display: string;
 };
 
@@ -97,11 +97,29 @@ export const FundEscrow = () => {
           select={setCurrentTab}
         />
         {currentTab.id === "bitcoin" && (
-          <BitcoinAddress
-            address={fundingAddress}
-            amount={fundingAmount / SATSINBTC}
-            label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
-          />
+          <>
+            <BitcoinAddress
+              address={fundingAddress}
+              amount={fundingAmount / SATSINBTC}
+              label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
+            />
+            <View style={[tw`items-center justify-center gap-4 py-4`]}>
+              <View style={tw`flex-row items-center justify-center gap-2`}>
+                <PeachText style={tw`text-primary-main button-medium`}>
+                  {i18n("sell.escrow.checkingFundingStatus")}
+                </PeachText>
+                <Loading style={tw`w-4 h-4`} color={tw.color("primary-main")} />
+              </View>
+              <HorizontalLine />
+              <FundFromPeachWalletButton
+                address={fundingAddress}
+                addresses={fundingAddresses}
+                amount={fundingAmount}
+                fundingStatus={activeFunding}
+                // escrowType={escrowType}
+              />
+            </View>
+          </>
         )}
         {currentTab.id === "liquid" && (
           <BitcoinAddress
@@ -118,23 +136,6 @@ export const FundEscrow = () => {
           />
         )}
       </PeachScrollView>
-
-      <View style={[tw`items-center justify-center gap-4 py-4`]}>
-        <View style={tw`flex-row items-center justify-center gap-2`}>
-          <PeachText style={tw`text-primary-main button-medium`}>
-            {i18n("sell.escrow.checkingFundingStatus")}
-          </PeachText>
-          <Loading style={tw`w-4 h-4`} color={tw.color("primary-main")} />
-        </View>
-        <HorizontalLine />
-        <FundFromPeachWalletButton
-          address={fundingAddress}
-          addresses={fundingAddresses}
-          amount={fundingAmount}
-          fundingStatus={activeFunding}
-          // escrowType={escrowType}
-        />
-      </View>
     </Screen>
   );
 };
