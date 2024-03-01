@@ -13,6 +13,7 @@ type Props = {
   onPeachWalletPress: NewBubbleProps["onPress"];
   onExternalWalletPress: NewBubbleProps["onPress"];
   title: string;
+  showExternalWallet?: boolean;
 };
 
 export function WalletSelector({
@@ -24,6 +25,7 @@ export function WalletSelector({
   onPeachWalletPress,
   onExternalWalletPress,
   title,
+  showExternalWallet = true,
 }: Props) {
   return (
     <Section.Container style={{ backgroundColor }}>
@@ -37,15 +39,17 @@ export function WalletSelector({
         >
           {i18n("peachWallet")}
         </NewBubble>
-        <NewBubble
-          color={bubbleColor}
-          ghost={peachWalletActive}
-          disabled={!peachWalletActive}
-          iconId={!address ? "plusCircle" : undefined}
-          onPress={onExternalWalletPress}
-        >
-          {addressLabel || i18n("externalWallet")}
-        </NewBubble>
+        {showExternalWallet && (
+          <NewBubble
+            color={bubbleColor}
+            ghost={peachWalletActive}
+            disabled={!peachWalletActive}
+            iconId={!address ? "plusCircle" : undefined}
+            onPress={onExternalWalletPress}
+          >
+            {addressLabel || i18n("externalWallet")}
+          </NewBubble>
+        )}
       </View>
     </Section.Container>
   );
