@@ -1,4 +1,5 @@
 type EscrowType = "bitcoin" | "liquid";
+type FundingMechanism = EscrowType | "lightning-liquid";
 
 type OfferDraft = {
   type: "bid" | "ask";

@@ -61,7 +61,7 @@ const SetInvoicePopupContent = ({
   return (
     <>
       <PeachText selectable>
-        {i18n("currency.format.sats", String(amount))}
+        Create an invoice for {i18n("currency.format.sats", String(amount))}
       </PeachText>
       <CopyAble value={String(amount)} />
       <LightningInvoiceInput
