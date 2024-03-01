@@ -8,6 +8,7 @@ type Props = {
   customAddressLabel: string | undefined;
   onPeachWalletPress: () => void;
   onExternalWalletPress: () => void;
+  showExternalWallet?: boolean
 };
 
 export function PayoutWalletSelector({
@@ -16,6 +17,7 @@ export function PayoutWalletSelector({
   customAddressLabel,
   onPeachWalletPress,
   onExternalWalletPress,
+  showExternalWallet = true,
 }: Props) {
   return (
     <WalletSelector
@@ -27,6 +29,7 @@ export function PayoutWalletSelector({
       addressLabel={customAddressLabel}
       onPeachWalletPress={onPeachWalletPress}
       onExternalWalletPress={onExternalWalletPress}
+      showExternalWallet={showExternalWallet}
     />
   );
 }

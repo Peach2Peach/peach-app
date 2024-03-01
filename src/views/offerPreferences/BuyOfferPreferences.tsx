@@ -62,6 +62,7 @@ function PreferenceWalletSelector() {
     ],
     shallow,
   );
+  const escrowType = useOfferPreferences((state) => state.escrowType);
   const navigation = useStackNavigation();
 
   const onExternalWalletPress = () => {
@@ -80,6 +81,7 @@ function PreferenceWalletSelector() {
       customAddressLabel={payoutAddressLabel}
       onPeachWalletPress={onPeachWalletPress}
       onExternalWalletPress={onExternalWalletPress}
+      showExternalWallet={escrowType === "bitcoin"}
     />
   );
 }
@@ -188,7 +190,19 @@ function EscrowTypeSelect() {
     (state) => [state.escrowType, state.setEscrowType],
     shallow,
   );
-  return <EscrowTypeSelector {...{ escrowType, setEscrowType }} />;
+  const setPayoutToPeachWallet = useSettingsStore(
+    (state) => state.setPayoutToPeachWallet,
+  );
+  const setEscrowTypeAndUpdateWallet = (type: EscrowType) => {
+    setEscrowType(type);
+
+    if (type !== "bitcoin") setPayoutToPeachWallet(true);
+  };
+  return (
+    <EscrowTypeSelector
+      {...{ escrowType, setEscrowType: setEscrowTypeAndUpdateWallet }}
+    />
+  );
 }
 
 function PublishOfferButton() {
