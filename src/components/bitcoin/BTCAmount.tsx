@@ -54,10 +54,10 @@ export const BTCAmount = memo(
       () => getDisplayAmount(amount),
       [amount],
     );
-    const textStyle = [
-      styles[size].amount,
-      white && tw`text-primary-background-light`,
-    ];
+    const textStyle = useMemo(
+      () => [styles[size].amount, white && tw`text-primary-background-light`],
+      [size, white],
+    );
     return (
       <View
         style={[
