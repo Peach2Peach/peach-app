@@ -394,7 +394,7 @@ exports[`ContractItem should render correctly 1`] = `
           "alignItems": "center",
           "flexDirection": "row",
           "gap": 4,
-          "justifyContent": "space-between",
+          "justifyContent": "center",
           "paddingBottom": 6,
           "paddingLeft": 16,
           "paddingRight": 16,
@@ -406,26 +406,16 @@ exports[`ContractItem should render correctly 1`] = `
       ]
     }
   >
-    <test-file-stub
-      fill="#FFFCFA"
-      style={
-        [
-          {
-            "height": 24,
-            "width": 24,
-          },
-          {
-            "opacity": 0,
-          },
-        ]
-      }
-    />
     <View
       style={
         {
           "alignItems": "center",
+          "flexBasis": "0%",
           "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
           "gap": 4,
+          "justifyContent": "center",
         }
       }
     >
@@ -468,56 +458,6 @@ exports[`ContractItem should render correctly 1`] = `
         }
       >
         make payment
-      </Text>
-    </View>
-    <View
-      style={
-        [
-          {
-            "alignItems": "center",
-            "height": 28,
-            "justifyContent": "center",
-            "width": 28,
-          },
-          {
-            "opacity": 0,
-          },
-        ]
-      }
-    >
-      <test-file-stub
-        fill="#FFFCFA"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-            undefined,
-          ]
-        }
-      />
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            {
-              "fontFamily": "Baloo2-Bold",
-              "position": "absolute",
-              "textAlign": "center",
-            },
-            false,
-          ]
-        }
-      >
-        0
       </Text>
     </View>
   </View>
@@ -712,7 +652,7 @@ exports[`ContractItem should render correctly when republished 1`] = `
           "alignItems": "center",
           "flexDirection": "row",
           "gap": 4,
-          "justifyContent": "space-between",
+          "justifyContent": "center",
           "paddingBottom": 6,
           "paddingLeft": 16,
           "paddingRight": 16,
@@ -724,26 +664,16 @@ exports[`ContractItem should render correctly when republished 1`] = `
       ]
     }
   >
-    <test-file-stub
-      fill="#FFFCFA"
-      style={
-        [
-          {
-            "height": 24,
-            "width": 24,
-          },
-          {
-            "opacity": 0,
-          },
-        ]
-      }
-    />
     <View
       style={
         {
           "alignItems": "center",
+          "flexBasis": "0%",
           "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
           "gap": 4,
+          "justifyContent": "center",
         }
       }
     >
@@ -786,56 +716,6 @@ exports[`ContractItem should render correctly when republished 1`] = `
         }
       >
         dispute started
-      </Text>
-    </View>
-    <View
-      style={
-        [
-          {
-            "alignItems": "center",
-            "height": 28,
-            "justifyContent": "center",
-            "width": 28,
-          },
-          {
-            "opacity": 0,
-          },
-        ]
-      }
-    >
-      <test-file-stub
-        fill="#FFFCFA"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-            undefined,
-          ]
-        }
-      />
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            {
-              "fontFamily": "Baloo2-Bold",
-              "position": "absolute",
-              "textAlign": "center",
-            },
-            false,
-          ]
-        }
-      >
-        0
       </Text>
     </View>
   </View>
@@ -1638,7 +1518,7 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
           "alignItems": "center",
           "flexDirection": "row",
           "gap": 4,
-          "justifyContent": "space-between",
+          "justifyContent": "center",
           "paddingBottom": 6,
           "paddingLeft": 16,
           "paddingRight": 16,
@@ -1650,26 +1530,25 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
       ]
     }
   >
-    <test-file-stub
-      fill="#FFFCFA"
+    <View
       style={
-        [
-          {
-            "height": 24,
-            "width": 24,
-          },
-          {
-            "opacity": 0,
-          },
-        ]
+        {
+          "borderWidth": 1,
+          "height": 24,
+          "width": 24,
+        }
       }
     />
     <View
       style={
         {
           "alignItems": "center",
+          "flexBasis": "0%",
           "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
           "gap": 4,
+          "justifyContent": "center",
         }
       }
     >
@@ -1723,7 +1602,6 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
             "justifyContent": "center",
             "width": 28,
           },
-          false,
         ]
       }
     >
@@ -2304,7 +2182,7 @@ exports[`OfferItem should render correctly 1`] = `
           "alignItems": "center",
           "flexDirection": "row",
           "gap": 4,
-          "justifyContent": "space-between",
+          "justifyContent": "center",
           "paddingBottom": 6,
           "paddingLeft": 16,
           "paddingRight": 16,
@@ -2316,26 +2194,16 @@ exports[`OfferItem should render correctly 1`] = `
       ]
     }
   >
-    <test-file-stub
-      fill="#7D675E"
-      style={
-        [
-          {
-            "height": 24,
-            "width": 24,
-          },
-          {
-            "opacity": 0,
-          },
-        ]
-      }
-    />
     <View
       style={
         {
           "alignItems": "center",
+          "flexBasis": "0%",
           "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
           "gap": 4,
+          "justifyContent": "center",
         }
       }
     >
@@ -2379,54 +2247,6 @@ exports[`OfferItem should render correctly 1`] = `
       >
         looking for match
       </Text>
-    </View>
-    <View
-      style={
-        [
-          {
-            "alignItems": "center",
-            "height": 28,
-            "justifyContent": "center",
-            "width": 28,
-          },
-          {
-            "opacity": 0,
-          },
-        ]
-      }
-    >
-      <test-file-stub
-        fill="#FFFCFA"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-            undefined,
-          ]
-        }
-      />
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            {
-              "fontFamily": "Baloo2-Bold",
-              "position": "absolute",
-              "textAlign": "center",
-            },
-            false,
-          ]
-        }
-      />
     </View>
   </View>
 </View>
