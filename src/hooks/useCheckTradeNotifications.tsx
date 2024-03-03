@@ -1,5 +1,5 @@
 import NotificationBadge from "@msml/react-native-notification-badge";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { ContractSummary } from "../../peach-api/src/@types/contract";
 import { OfferSummary } from "../../peach-api/src/@types/offer";
 import { info } from "../utils/log/info";
@@ -34,20 +34,20 @@ export const useCheckTradeNotifications = () => {
   const setNotifications = useNotificationStore(
     (state) => state.setNotifications,
   );
-
-  useEffect(() => {
+  const notifications = useMemo(() => {
     const offersWithAction = offers
       .filter(({ contractId }) => !contractId)
       .filter((offer) => hasRequiredAction(offer)).length;
     const contractsWithAction = contracts.filter(
       (contract) => hasRequiredAction(contract) || contract.unreadMessages > 0,
     ).length;
-    const notifications = offersWithAction + contractsWithAction;
-
+    return offersWithAction + contractsWithAction;
+  }, [offers, contracts]);
+  useEffect(() => {
     info("checkTradeNotifications", notifications);
 
     if (isIOS()) NotificationBadge.setNumber(notifications);
 
     setNotifications(notifications);
-  }, [setNotifications, offers, contracts]);
+  }, [setNotifications, notifications]);
 };
