@@ -1,10 +1,12 @@
 import * as offerData from "../../../tests/unit/data/offerData";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { queryClient } from "../../queryClient";
-import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import { saveOffer } from "./saveOffer";
 
 describe("saveOffer", () => {
+  afterEach(() => {
+    queryClient.clear();
+  });
   it("should update the query cache", () => {
     saveOffer(offerData.buyOffer);
     expect(
@@ -14,26 +16,25 @@ describe("saveOffer", () => {
   it("should add a new offer to the storages", () => {
     saveOffer(offerData.buyOffer);
     saveOffer(offerData.sellOffer);
-    expect(
-      useTradeSummaryStore.getState().getOffer(offerData.buyOffer.id),
-    ).toEqual(offerData.buyOffer);
-    expect(
-      useTradeSummaryStore.getState().getOffer(offerData.sellOffer.id),
-    ).toEqual(offerData.sellOffer);
+    expect(queryClient.getQueryData(offerKeys.summaries())).toEqual([
+      offerData.buyOffer,
+      offerData.sellOffer,
+    ]);
   });
   it("should update an existing offer", () => {
-    expect(
-      useTradeSummaryStore.getState().getOffer(offerData.buyOffer.id),
-    ).toEqual(offerData.buyOffer);
+    saveOffer(offerData.buyOffer);
+    expect(queryClient.getQueryData(offerKeys.summaries())).toEqual([
+      offerData.buyOffer,
+    ]);
     saveOffer({
       ...offerData.buyOffer,
       matches: ["38"],
     });
-    expect(
-      useTradeSummaryStore.getState().getOffer(offerData.buyOffer.id),
-    ).toEqual({
-      ...offerData.buyOffer,
-      matches: ["38"],
-    });
+    expect(queryClient.getQueryData(offerKeys.summaries())).toEqual([
+      {
+        ...offerData.buyOffer,
+        matches: ["38"],
+      },
+    ]);
   });
 });

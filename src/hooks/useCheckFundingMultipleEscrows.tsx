@@ -2,7 +2,6 @@ import { LocalUtxo } from "bdk-rn/lib/classes/Bindings";
 import { useCallback } from "react";
 import { shallow } from "zustand/shallow";
 import { MSINAMINUTE } from "../constants";
-import { useTradeSummaryStore } from "../store/tradeSummaryStore";
 import { estimateTransactionSize } from "../utils/bitcoin/estimateTransactionSize";
 import { sum } from "../utils/math/sum";
 import { keys } from "../utils/object/keys";
@@ -47,9 +46,9 @@ export const useCheckFundingMultipleEscrows = () => {
   const feeRate = useFeeRate();
   const addresses = keys(fundMultipleMap);
   const shouldCheck = addresses.length > 0;
-  const { refetch: refetchOffers } = useOfferSummaries(addresses.length > 0);
+  const { refetch: refetchOffers, offers: offerSummaries } =
+    useOfferSummaries(shouldCheck);
   useSyncWallet({ enabled: shouldCheck, refetchInterval: MSINAMINUTE });
-  const getOfferSummary = useTradeSummaryStore((state) => state.getOffer);
 
   const checkAddress = useCallback(
     async (address: string) => {
@@ -57,9 +56,9 @@ export const useCheckFundingMultipleEscrows = () => {
       const offers = await Promise.all(offerIds.map(getOffer));
       const sellOffers = offers.filter(isNotNull).filter(isSellOffer);
 
-      const sellOfferSummaries = offerIds
-        .map(getOfferSummary)
-        .filter(isDefined);
+      const sellOfferSummaries = offerSummaries.filter((summary) =>
+        offerIds.includes(summary.id),
+      );
       if (sellOffers.length === 0) return;
       if (sellOfferSummaries.some((summary) => summary.fundingTxId)) {
         unregisterFundMultiple(address);
@@ -87,8 +86,8 @@ export const useCheckFundingMultipleEscrows = () => {
     [
       feeRate,
       fundMultipleMap,
-      getOfferSummary,
       handleTransactionError,
+      offerSummaries,
       unregisterFundMultiple,
     ],
   );

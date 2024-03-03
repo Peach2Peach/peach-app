@@ -6,7 +6,6 @@ import { queryClient } from "../../tests/unit/helpers/QueryClientWrapper";
 import { createTestWallet } from "../../tests/unit/helpers/createTestWallet";
 import { getTransactionDetails } from "../../tests/unit/helpers/getTransactionDetails";
 import { MSINAMINUTE } from "../constants";
-import { useTradeSummaryStore } from "../store/tradeSummaryStore";
 import { sum } from "../utils/math/sum";
 import { peachAPI } from "../utils/peachAPI";
 import { PeachWallet } from "../utils/wallet/PeachWallet";
@@ -16,15 +15,6 @@ import { offerKeys } from "./query/useOfferDetail";
 import { useCheckFundingMultipleEscrows } from "./useCheckFundingMultipleEscrows";
 
 jest.useFakeTimers();
-
-const refetchMock = jest.fn();
-
-jest.mock("./query/useOfferSummaries");
-jest
-  .requireMock("./query/useOfferSummaries")
-  .useOfferSummaries.mockReturnValue({
-    refetch: refetchMock,
-  });
 
 const sellOffer1 = sellOffer;
 const sellOffer2 = { ...sellOffer, id: "39", escrow: "escrow2" };
@@ -70,6 +60,10 @@ getOfferSpy.mockImplementation(({ offerId: id }) => {
   }
 });
 
+const getOfferSummariesSpy = jest
+  .spyOn(peachAPI.private.offer, "getOfferSummaries")
+  .mockResolvedValue({ result: sellOfferSummaries, ...responseUtils });
+
 describe("useCheckFundingMultipleEscrows", () => {
   beforeAll(() => {
     setPeachWallet(peachWallet);
@@ -79,9 +73,6 @@ describe("useCheckFundingMultipleEscrows", () => {
     sellOffers.forEach((o) => {
       queryClient.setQueryData(offerKeys.detail(o.id), o);
     });
-    useTradeSummaryStore.getState().reset();
-    useTradeSummaryStore.getState().setOffers(sellOfferSummaries);
-    refetchMock.mockResolvedValue(sellOfferSummaries);
     useWalletState.getState().registerFundMultiple(
       "address",
       sellOffers.map((o) => o.id),
@@ -95,13 +86,13 @@ describe("useCheckFundingMultipleEscrows", () => {
     expect(getAddressUTXOSpy).not.toHaveBeenCalled();
     act(() => jest.advanceTimersByTime(MSINAMINUTE));
     await waitFor(() => expect(peachWallet.syncWallet).toHaveBeenCalled());
-    await waitFor(() => expect(refetchMock).toHaveBeenCalled());
+    await waitFor(() => expect(getOfferSummariesSpy).toHaveBeenCalled());
     expect(getAddressUTXOSpy).toHaveBeenCalledWith("address");
 
     getAddressUTXOSpy.mockResolvedValueOnce([]);
     act(() => jest.advanceTimersByTime(MSINAMINUTE));
     await waitFor(() => expect(peachWallet.syncWallet).toHaveBeenCalled());
-    await waitFor(() => expect(refetchMock).toHaveBeenCalled());
+    await waitFor(() => expect(getOfferSummariesSpy).toHaveBeenCalled());
     expect(getAddressUTXOSpy).toHaveBeenCalledTimes(2);
   });
   it("craft batched funding transaction once funds have been detected in address", async () => {
@@ -124,12 +115,13 @@ describe("useCheckFundingMultipleEscrows", () => {
     );
     expect(useWalletState.getState().fundMultipleMap).toEqual({});
     act(() => {
-      useTradeSummaryStore.getState().reset();
-      useTradeSummaryStore
-        .getState()
-        .setOffers(
-          sellOfferSummaries.map((offer) => ({ ...offer, fundingTxId: "1" })),
-        );
+      getOfferSummariesSpy.mockResolvedValueOnce({
+        result: sellOfferSummaries.map((offer) => ({
+          ...offer,
+          fundingTxId: "1",
+        })),
+        ...responseUtils,
+      });
     });
     act(() => jest.advanceTimersByTime(MSINAMINUTE));
     expect(useWalletState.getState().fundMultipleMap).toEqual({});
@@ -146,7 +138,7 @@ describe("useCheckFundingMultipleEscrows", () => {
 
     act(() => jest.advanceTimersByTime(MSINAMINUTE));
     await waitFor(() => expect(peachWallet.syncWallet).toHaveBeenCalled());
-    await waitFor(() => expect(refetchMock).toHaveBeenCalled());
+    await waitFor(() => expect(getOfferSummariesSpy).toHaveBeenCalled());
     expect(getAddressUTXOSpy).not.toHaveBeenCalled();
   });
   it("aborts if no local utxo can be found", async () => {
@@ -155,7 +147,7 @@ describe("useCheckFundingMultipleEscrows", () => {
     getAddressUTXOSpy.mockResolvedValueOnce([]);
     act(() => jest.advanceTimersByTime(MSINAMINUTE));
     await waitFor(() => expect(peachWallet.syncWallet).toHaveBeenCalled());
-    await waitFor(() => expect(refetchMock).toHaveBeenCalled());
+    await waitFor(() => expect(getOfferSummariesSpy).toHaveBeenCalled());
     expect(signAndBroadcastPSBTSpy).not.toHaveBeenCalled();
   });
   it("should not call sync peach wallet when not funding multiple escrow", () => {
