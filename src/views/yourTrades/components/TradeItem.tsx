@@ -58,12 +58,12 @@ const Label = memo(
     return (
       <View
         style={[
-          tw`flex-row items-center justify-between gap-1 px-4 py-6px`,
+          tw`flex-row items-center justify-center gap-1 px-4 py-6px`,
           statusCardStyles.bg[color],
         ]}
       >
-        <Placeholder style={tw`w-6 h-6`} />
-        <View style={tw`flex-row items-center gap-1`}>
+        {!!unreadMessages && <Placeholder style={tw`w-6 h-6 border`} />}
+        <View style={tw`flex-row items-center justify-center flex-1 gap-1`}>
           {labelIcon}
           <PeachText
             style={[tw`subtitle-1`, tw.style(statusCardStyles.text[color])]}
@@ -71,21 +71,18 @@ const Label = memo(
             {label}
           </PeachText>
         </View>
-        <View
-          style={[
-            tw`items-center justify-center w-7 h-7`,
-            !unreadMessages && tw`opacity-0`,
-          ]}
-        >
-          <Icon
-            id="messageFull"
-            size={24}
-            color={tw.color("primary-background-light")}
-          />
-          <PeachText style={tw`absolute text-center font-baloo-bold`}>
-            {unreadMessages}
-          </PeachText>
-        </View>
+        {!!unreadMessages && (
+          <View style={[tw`items-center justify-center w-7 h-7`]}>
+            <Icon
+              id="messageFull"
+              size={24}
+              color={tw.color("primary-background-light")}
+            />
+            <PeachText style={tw`absolute text-center font-baloo-bold`}>
+              {unreadMessages}
+            </PeachText>
+          </View>
+        )}
       </View>
     );
   },

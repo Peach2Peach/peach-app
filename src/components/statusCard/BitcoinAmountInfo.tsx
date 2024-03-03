@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { View } from "react-native";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -5,14 +6,8 @@ import { BTCAmount } from "../bitcoin/BTCAmount";
 import { FixedHeightText } from "../text/FixedHeightText";
 import { infoContainerStyle } from "./infoContainerStyle";
 
-export function BitcoinAmountInfo({
-  amount,
-  premium,
-}: {
-  amount: number;
-  premium?: number;
-}) {
-  return (
+export const BitcoinAmountInfo = memo(
+  ({ amount, premium }: { amount: number; premium?: number }) => (
     <View style={[infoContainerStyle, tw`gap-6px`]}>
       <BTCAmount size="small" amount={amount} />
       {premium !== undefined && (
@@ -21,5 +16,5 @@ export function BitcoinAmountInfo({
         </FixedHeightText>
       )}
     </View>
-  );
-}
+  ),
+);

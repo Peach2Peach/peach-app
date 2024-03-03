@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { StyleProp, TextStyle, View } from "react-native";
 import tw from "../../styles/tailwind";
 import { FixedHeightText } from "../text/FixedHeightText";
@@ -11,15 +12,8 @@ type Props = {
   subtextStyle?: StyleProp<TextStyle>;
 };
 
-export function StatusInfo({
-  icon,
-  title,
-  subtext,
-  onPress,
-  titleStyle,
-  subtextStyle,
-}: Props) {
-  return (
+export const StatusInfo = memo(
+  ({ icon, title, subtext, onPress, titleStyle, subtextStyle }: Props) => (
     <View style={tw`gap-1 shrink`}>
       <FixedHeightText
         height={17}
@@ -42,5 +36,5 @@ export function StatusInfo({
         </FixedHeightText>
       </View>
     </View>
-  );
-}
+  ),
+);
