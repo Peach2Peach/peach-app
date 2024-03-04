@@ -257,10 +257,9 @@ function CurrentPrice() {
 
   return (
     <PeachText style={tw`text-center body-s`}>
-      {
-        (t("offerPreferences.currentPrice"),
-        `${priceWithPremium} ${displayCurrency}`)
-      }
+      {t("offerPreferences.currentPrice", {
+        price: `${priceWithPremium} ${displayCurrency}`,
+      })}
     </PeachText>
   );
 }

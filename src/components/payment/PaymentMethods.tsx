@@ -149,7 +149,7 @@ function PaymentMethodsPopup() {
   const { t } = useTranslate("help");
   return (
     <InfoPopup
-      title={t("settings.paymentMethods", { ns: "paymentMethod" })}
+      title={t("settings.paymentMethods", { ns: "settings" })}
       content={
         <>
           <PeachText>{t("help.paymentMethods.description.1")}</PeachText>
