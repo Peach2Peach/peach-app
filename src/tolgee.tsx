@@ -15,6 +15,24 @@ import sw from "./i18n/sw";
 import tr from "./i18n/tr";
 import uk from "./i18n/uk";
 
+export const tolgeeStaticData = {
+  de,
+  "el-GR": el,
+  en,
+  es,
+  fr,
+  hu,
+  it,
+  nl,
+  pl,
+  "pt-BR": ptBR,
+  pt,
+  ru,
+  sw,
+  tr,
+  uk,
+};
+
 export const tolgee = Tolgee()
   .use(DevTools())
   .use(FormatSimple())
@@ -52,23 +70,7 @@ export const tolgee = Tolgee()
     ],
 
     // for production
-    staticData: {
-      de,
-      "el-GR": el,
-      en,
-      es,
-      fr,
-      hu,
-      it,
-      nl,
-      pl,
-      "pt-BR": ptBR,
-      pt,
-      ru,
-      sw,
-      tr,
-      uk,
-    },
+    staticData: tolgeeStaticData,
   });
 
 tolgee.run();

@@ -1,6 +1,6 @@
 import { dataMigrationAfterLoadingWallet } from "../../init/dataMigration/dataMigrationAfterLoadingWallet";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
-import { tolgee } from "../../tolgee";
+import { tolgee, tolgeeStaticData } from "../../tolgee";
 import i18n from "../i18n";
 import { getDeviceLocale } from "../system/getDeviceLocale";
 import { defaultAccount, useAccountStore } from "./account";
@@ -20,7 +20,9 @@ export const updateAccount = async (acc: Account, overwrite?: boolean) => {
   const newLocale =
     useSettingsStore.getState().locale || getDeviceLocale() || "en";
   i18n.setLocale(newLocale);
-  tolgee.changeLanguage(newLocale);
+  await tolgee.changeLanguage(
+    Object.keys(tolgeeStaticData).includes(newLocale) ? newLocale : "en",
+  );
   const account = useAccountStore.getState().account;
   const { mnemonic } = account;
   if (mnemonic) {
