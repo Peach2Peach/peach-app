@@ -11,6 +11,7 @@ import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore"
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
 import i18n from "../../../utils/i18n";
+import { info } from "../../../utils/log/info";
 import { peachAPI } from "../../../utils/peachAPI";
 import { isPaymentMethod } from "../../../utils/validation/isPaymentMethod";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
@@ -68,6 +69,7 @@ export function usePostBuyOffer({
       if (!releaseAddress) throw new Error("MISSING_RELEASE_ADDRESS");
 
       const message = getMessageToSignForAddress(publicKey, releaseAddress);
+      info("Signing message: ", message);
       const messageSignature = payoutToPeachWallet
         ? peachWallet.signMessage(message, releaseAddress, index)
         : payoutAddressSignature;
@@ -83,6 +85,16 @@ export function usePostBuyOffer({
       ) {
         throw new Error("INVALID_SIGNATURE");
       }
+      info(
+        "Generated a valid signature for address ",
+        releaseAddress,
+        " of user ",
+        publicKey,
+        " with message ",
+        message,
+        ":\n",
+        messageSignature,
+      );
       const finalizedOfferDraft = {
         type: "bid" as const,
         amount,
