@@ -18,6 +18,10 @@ export const useClaimReverseSubmarineSwap = ({ offerId }: Props) => {
     log("useClaimReverseSubmarineSwap - handleClaimMessage");
 
     const data = JSON.parse(event.nativeEvent.data);
+    log(
+      "useClaimReverseSubmarineSwap - handleClaimMessage",
+      JSON.stringify(data),
+    );
     if (data.error) {
       setError(data.error);
       return;

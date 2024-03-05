@@ -1,16 +1,18 @@
 import ecc from "@bitcoinerlab/secp256k1";
 import { BOLTZ_API, NETWORK } from "@env";
 import ECPairFactory from "ecpair";
+import { useMemo } from "react";
 import { View } from "react-native";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
+import { getResult } from "../../../../../peach-api/src/utils/result/getResult";
 import { Loading } from "../../../../components/animation/Loading";
+import { ErrorBox } from "../../../../components/ui/ErrorBox";
+import { useBoltzWebcontext } from "../../../../hooks/query/useBoltzWebcontext";
 import tw from "../../../../styles/tailwind";
 import { SubmarineAPIResponse } from "../../../../utils/boltz/api/postSubmarineSwap";
 import { log } from "../../../../utils/log/log";
 import { getLiquidNetwork } from "../../../../utils/wallet/getLiquidNetwork";
 export const ECPair = ECPairFactory(ecc);
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const html = require("boltz-swap-web-context");
 
 type GetClaimSubmarineSwapJSProps = {
   invoice: string;
@@ -32,7 +34,7 @@ const getClaimSubmarineSwapJS = ({
     privateKey: keyPair.privateKey?.toString("hex"),
   });
 
-  return `window.claimSubmarineSwap(${args}); void(0);`;
+  return getResult(`window.claimSubmarineSwap(${args}); void(0);`);
 };
 
 type ClaimSubmarineSwapProps = {
@@ -52,6 +54,16 @@ export const ClaimSubmarineSwap = ({
   invoice,
   keyPairWIF,
 }: ClaimSubmarineSwapProps) => {
+  const { data: html, error: htmlError } = useBoltzWebcontext();
+  const injectedJavaScript = useMemo(
+    () =>
+      getClaimSubmarineSwapJS({
+        invoice,
+        swapInfo,
+        keyPairWIF,
+      }),
+    [invoice, keyPairWIF, swapInfo],
+  );
   const handleClaimMessage = (event: WebViewMessageEvent) => {
     log("ClaimSubmarineSwap - handleClaimMessage");
 
@@ -59,20 +71,23 @@ export const ClaimSubmarineSwap = ({
     if (data.error) throw Error(data.error);
   };
 
+  if (htmlError || !injectedJavaScript.isOk())
+    return (
+      <ErrorBox>{htmlError?.message || injectedJavaScript.getError()}</ErrorBox>
+    );
+
   return (
     <View>
       <Loading />
-      <WebView
-        style={tw`absolute opacity-0`}
-        source={html}
-        originWhitelist={["*"]}
-        injectedJavaScript={getClaimSubmarineSwapJS({
-          invoice,
-          swapInfo,
-          keyPairWIF,
-        })}
-        onMessage={handleClaimMessage}
-      />
+      {!!html && (
+        <WebView
+          style={tw`absolute opacity-0`}
+          source={{ html }}
+          originWhitelist={["*"]}
+          injectedJavaScript={injectedJavaScript.getValue()}
+          onMessage={handleClaimMessage}
+        />
+      )}
     </View>
   );
 };

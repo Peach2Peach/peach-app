@@ -101,81 +101,83 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         }
       }
     />
-    <BitcoinAddress
-      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-      amount={0.001}
-      label="Peach Escrow - offer P‑26"
-    />
-  </ForwardRef>
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "gap": 16,
-          "justifyContent": "center",
-          "paddingBottom": 16,
-          "paddingTop": 16,
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "gap": 8,
-          "justifyContent": "center",
-        }
-      }
-    >
-      <PeachText
+    <React.Fragment>
+      <BitcoinAddress
+        address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+        amount={0.001}
+        label="Peach Escrow - offer P‑26"
+      />
+      <View
         style={
-          {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 14,
-            "letterSpacing": 0.5,
-            "lineHeight": 24,
-            "textTransform": "uppercase",
-          }
+          [
+            {
+              "alignItems": "center",
+              "gap": 16,
+              "justifyContent": "center",
+              "paddingBottom": 16,
+              "paddingTop": 16,
+            },
+          ]
         }
       >
-        checking funding status
-      </PeachText>
-      <Loading
-        color="#F56522"
-        style={
-          {
-            "height": 16,
-            "width": 16,
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 8,
+              "justifyContent": "center",
+            }
           }
-        }
-      />
-    </View>
-    <HorizontalLine />
-    <FundFromPeachWalletButton
-      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-      addresses={[]}
-      amount={100000}
-      fundingStatus={
-        {
-          "fundingAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
-          "fundingAddresses": [],
-          "fundingStatus": {
-            "amounts": [],
-            "confirmations": 0,
-            "derivationPath": "m/48'/0'/0'/0/38",
-            "expiry": 4320,
-            "status": "NULL",
-            "txIds": [],
-            "vouts": [],
-          },
-        }
-      }
-    />
-  </View>
+        >
+          <PeachText
+            style={
+              {
+                "color": "#F56522",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 14,
+                "letterSpacing": 0.5,
+                "lineHeight": 24,
+                "textTransform": "uppercase",
+              }
+            }
+          >
+            checking funding status
+          </PeachText>
+          <Loading
+            color="#F56522"
+            style={
+              {
+                "height": 16,
+                "width": 16,
+              }
+            }
+          />
+        </View>
+        <HorizontalLine />
+        <FundFromPeachWalletButton
+          address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+          addresses={[]}
+          amount={100000}
+          fundingStatus={
+            {
+              "fundingAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+              "fundingAddresses": [],
+              "fundingStatus": {
+                "amounts": [],
+                "confirmations": 0,
+                "derivationPath": "m/48'/0'/0'/0/38",
+                "expiry": 4320,
+                "status": "NULL",
+                "txIds": [],
+                "vouts": [],
+              },
+            }
+          }
+        />
+      </View>
+    </React.Fragment>
+  </ForwardRef>
 </Screen>
 `;
 
@@ -280,81 +282,83 @@ exports[`FundEscrow should show Loading, while escrow is not defined 1`] = `
         }
       }
     />
-    <BitcoinAddress
-      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-      amount={0.001}
-      label="Peach Escrow - offer P‑26"
-    />
-  </ForwardRef>
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "gap": 16,
-          "justifyContent": "center",
-          "paddingBottom": 16,
-          "paddingTop": 16,
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "gap": 8,
-          "justifyContent": "center",
-        }
-      }
-    >
-      <PeachText
+    <React.Fragment>
+      <BitcoinAddress
+        address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+        amount={0.001}
+        label="Peach Escrow - offer P‑26"
+      />
+      <View
         style={
-          {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 14,
-            "letterSpacing": 0.5,
-            "lineHeight": 24,
-            "textTransform": "uppercase",
-          }
+          [
+            {
+              "alignItems": "center",
+              "gap": 16,
+              "justifyContent": "center",
+              "paddingBottom": 16,
+              "paddingTop": 16,
+            },
+          ]
         }
       >
-        checking funding status
-      </PeachText>
-      <Loading
-        color="#F56522"
-        style={
-          {
-            "height": 16,
-            "width": 16,
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 8,
+              "justifyContent": "center",
+            }
           }
-        }
-      />
-    </View>
-    <HorizontalLine />
-    <FundFromPeachWalletButton
-      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-      addresses={[]}
-      amount={100000}
-      fundingStatus={
-        {
-          "fundingAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
-          "fundingAddresses": [],
-          "fundingStatus": {
-            "amounts": [],
-            "confirmations": 0,
-            "derivationPath": "m/48'/0'/0'/0/38",
-            "expiry": 4320,
-            "status": "NULL",
-            "txIds": [],
-            "vouts": [],
-          },
-        }
-      }
-    />
-  </View>
+        >
+          <PeachText
+            style={
+              {
+                "color": "#F56522",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 14,
+                "letterSpacing": 0.5,
+                "lineHeight": 24,
+                "textTransform": "uppercase",
+              }
+            }
+          >
+            checking funding status
+          </PeachText>
+          <Loading
+            color="#F56522"
+            style={
+              {
+                "height": 16,
+                "width": 16,
+              }
+            }
+          />
+        </View>
+        <HorizontalLine />
+        <FundFromPeachWalletButton
+          address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+          addresses={[]}
+          amount={100000}
+          fundingStatus={
+            {
+              "fundingAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+              "fundingAddresses": [],
+              "fundingStatus": {
+                "amounts": [],
+                "confirmations": 0,
+                "derivationPath": "m/48'/0'/0'/0/38",
+                "expiry": 4320,
+                "status": "NULL",
+                "txIds": [],
+                "vouts": [],
+              },
+            }
+          }
+        />
+      </View>
+    </React.Fragment>
+  </ForwardRef>
 </Screen>
 `;
 
@@ -459,81 +463,83 @@ exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOO
         }
       }
     />
-    <BitcoinAddress
-      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-      amount={0.001}
-      label="Peach Escrow - offer P‑26"
-    />
-  </ForwardRef>
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "gap": 16,
-          "justifyContent": "center",
-          "paddingBottom": 16,
-          "paddingTop": 16,
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "gap": 8,
-          "justifyContent": "center",
-        }
-      }
-    >
-      <PeachText
+    <React.Fragment>
+      <BitcoinAddress
+        address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+        amount={0.001}
+        label="Peach Escrow - offer P‑26"
+      />
+      <View
         style={
-          {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 14,
-            "letterSpacing": 0.5,
-            "lineHeight": 24,
-            "textTransform": "uppercase",
-          }
+          [
+            {
+              "alignItems": "center",
+              "gap": 16,
+              "justifyContent": "center",
+              "paddingBottom": 16,
+              "paddingTop": 16,
+            },
+          ]
         }
       >
-        checking funding status
-      </PeachText>
-      <Loading
-        color="#F56522"
-        style={
-          {
-            "height": 16,
-            "width": 16,
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 8,
+              "justifyContent": "center",
+            }
           }
-        }
-      />
-    </View>
-    <HorizontalLine />
-    <FundFromPeachWalletButton
-      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-      addresses={[]}
-      amount={100000}
-      fundingStatus={
-        {
-          "fundingAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
-          "fundingAddresses": [],
-          "fundingStatus": {
-            "amounts": [],
-            "confirmations": 0,
-            "derivationPath": "m/48'/0'/0'/0/38",
-            "expiry": 4320,
-            "status": "NULL",
-            "txIds": [],
-            "vouts": [],
-          },
-        }
-      }
-    />
-  </View>
+        >
+          <PeachText
+            style={
+              {
+                "color": "#F56522",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 14,
+                "letterSpacing": 0.5,
+                "lineHeight": 24,
+                "textTransform": "uppercase",
+              }
+            }
+          >
+            checking funding status
+          </PeachText>
+          <Loading
+            color="#F56522"
+            style={
+              {
+                "height": 16,
+                "width": 16,
+              }
+            }
+          />
+        </View>
+        <HorizontalLine />
+        <FundFromPeachWalletButton
+          address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+          addresses={[]}
+          amount={100000}
+          fundingStatus={
+            {
+              "fundingAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+              "fundingAddresses": [],
+              "fundingStatus": {
+                "amounts": [],
+                "confirmations": 0,
+                "derivationPath": "m/48'/0'/0'/0/38",
+                "expiry": 4320,
+                "status": "NULL",
+                "txIds": [],
+                "vouts": [],
+              },
+            }
+          }
+        />
+      </View>
+    </React.Fragment>
+  </ForwardRef>
 </Screen>
 `;
 
@@ -638,80 +644,82 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
         }
       }
     />
-    <BitcoinAddress
-      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-      amount={0.001}
-      label="Peach Escrow - offer P‑26"
-    />
-  </ForwardRef>
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "gap": 16,
-          "justifyContent": "center",
-          "paddingBottom": 16,
-          "paddingTop": 16,
-        },
-      ]
-    }
-  >
-    <View
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "gap": 8,
-          "justifyContent": "center",
-        }
-      }
-    >
-      <PeachText
+    <React.Fragment>
+      <BitcoinAddress
+        address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+        amount={0.001}
+        label="Peach Escrow - offer P‑26"
+      />
+      <View
         style={
-          {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 14,
-            "letterSpacing": 0.5,
-            "lineHeight": 24,
-            "textTransform": "uppercase",
-          }
+          [
+            {
+              "alignItems": "center",
+              "gap": 16,
+              "justifyContent": "center",
+              "paddingBottom": 16,
+              "paddingTop": 16,
+            },
+          ]
         }
       >
-        checking funding status
-      </PeachText>
-      <Loading
-        color="#F56522"
-        style={
-          {
-            "height": 16,
-            "width": 16,
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 8,
+              "justifyContent": "center",
+            }
           }
-        }
-      />
-    </View>
-    <HorizontalLine />
-    <FundFromPeachWalletButton
-      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-      addresses={[]}
-      amount={100000}
-      fundingStatus={
-        {
-          "fundingAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
-          "fundingAddresses": [],
-          "fundingStatus": {
-            "amounts": [],
-            "confirmations": 0,
-            "derivationPath": "m/48'/0'/0'/0/38",
-            "expiry": 4320,
-            "status": "NULL",
-            "txIds": [],
-            "vouts": [],
-          },
-        }
-      }
-    />
-  </View>
+        >
+          <PeachText
+            style={
+              {
+                "color": "#F56522",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 14,
+                "letterSpacing": 0.5,
+                "lineHeight": 24,
+                "textTransform": "uppercase",
+              }
+            }
+          >
+            checking funding status
+          </PeachText>
+          <Loading
+            color="#F56522"
+            style={
+              {
+                "height": 16,
+                "width": 16,
+              }
+            }
+          />
+        </View>
+        <HorizontalLine />
+        <FundFromPeachWalletButton
+          address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+          addresses={[]}
+          amount={100000}
+          fundingStatus={
+            {
+              "fundingAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+              "fundingAddresses": [],
+              "fundingStatus": {
+                "amounts": [],
+                "confirmations": 0,
+                "derivationPath": "m/48'/0'/0'/0/38",
+                "expiry": 4320,
+                "status": "NULL",
+                "txIds": [],
+                "vouts": [],
+              },
+            }
+          }
+        />
+      </View>
+    </React.Fragment>
+  </ForwardRef>
 </Screen>
 `;

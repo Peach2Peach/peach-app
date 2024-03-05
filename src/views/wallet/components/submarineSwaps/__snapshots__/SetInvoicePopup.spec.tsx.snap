@@ -104,6 +104,7 @@ exports[`SetInvoicePopup should render correctly 1`] = `
         ]
       }
     >
+      Create an invoice for 
       12345 sats
     </Text>
     <View

@@ -11,6 +11,11 @@ jest
   .requireMock("./hooks/useStartSwapOut")
   .useStartSwapOut.mockReturnValue(startSwapOutMock);
 
+jest.mock("../../../../hooks/query/useBoltzWebcontext");
+jest
+  .requireMock("../../../../hooks/query/useBoltzWebcontext")
+  .useBoltzWebcontext.mockReturnValue({ data: "<html></html>" });
+
 const peachWallet = new PeachLiquidJSWallet({ wallet: createTestWallet() });
 setLiquidWallet(peachWallet);
 

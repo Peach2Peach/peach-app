@@ -3,6 +3,7 @@ import { useConfigStore } from "../../store/configStore/configStore";
 import { offerPreferencesStorage } from "../../store/offerPreferenes/useOfferPreferences";
 import { settingsStorage } from "../../store/settingsStore/settingsStorage";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useBoltzSwapStore } from "../../store/useBoltzSwapStore";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import {
   notificationStorage,
@@ -38,6 +39,7 @@ export const deleteAccount = () => {
     useLiquidWalletState,
     useSettingsStore,
     usePaymentDataStore,
+    useBoltzSwapStore,
   ].forEach((store) => store.getState().reset());
 
   clearPeachWallet();

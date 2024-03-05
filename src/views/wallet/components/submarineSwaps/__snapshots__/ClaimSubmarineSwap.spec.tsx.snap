@@ -41,7 +41,11 @@ exports[`ClaimSubmarineSwap should render correctly 1`] = `
         "*",
       ]
     }
-    source="<html><title>boltz-swap-web-context</title></html>"
+    source={
+      {
+        "html": "<html></html>",
+      }
+    }
     style={
       {
         "opacity": 0,

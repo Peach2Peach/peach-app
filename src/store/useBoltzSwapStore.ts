@@ -43,6 +43,7 @@ export type WalletState = {
 };
 
 export type WalletStore = WalletState & {
+  reset: () => void;
   saveSwap: (swapInfo: SwapInfo) => void;
   mapSwap: (id: string, swapId: string) => void;
   getPending: () => SwapInfo[];
@@ -68,6 +69,7 @@ export const useBoltzSwapStore = create<WalletStore>()(
   persist(
     (set, get) => ({
       ...defaultState,
+      reset: () => set(defaultState),
       saveSwap: (swapInfo) => {
         const swaps = get().swaps;
         swaps[swapInfo.id] = swapInfo;

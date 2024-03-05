@@ -8,14 +8,13 @@ import { getError } from "../../../../peach-api/src/utils/result/getError";
 import { getResult } from "../../../../peach-api/src/utils/result/getResult";
 import { Loading } from "../../../components/animation/Loading";
 import { ErrorBox } from "../../../components/ui/ErrorBox";
+import { useBoltzWebcontext } from "../../../hooks/query/useBoltzWebcontext";
 import { useLiquidFeeRate } from "../../../hooks/useLiquidFeeRate";
 import tw from "../../../styles/tailwind";
 import { ReverseAPIResponse } from "../../../utils/boltz/api/postReverseSubmarineSwap";
 import { useClaimReverseSubmarineSwap } from "../../../utils/boltz/query/useClaimReverseSubmarineSwap";
 import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 export const ECPair = ECPairFactory(ecc);
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const html = require("boltz-swap-web-context");
 
 type GetClaimReverseSubmarineSwapJSProps = {
   address: string;
@@ -78,6 +77,7 @@ export const ClaimReverseSubmarineSwap = ({
   const { error: claimError, handleClaimMessage } =
     useClaimReverseSubmarineSwap({ offerId });
 
+  const { data: html, error: htmlError } = useBoltzWebcontext();
   const injectedJavaScript = getClaimReverseSubmarineSwapJS({
     address,
     feeRate,
@@ -87,19 +87,26 @@ export const ClaimReverseSubmarineSwap = ({
     preimage,
   });
 
-  if (claimError || !injectedJavaScript.isOk())
-    return <ErrorBox>{claimError || injectedJavaScript.getError()}</ErrorBox>;
+  if (claimError || htmlError || !injectedJavaScript.isOk())
+    return (
+      <ErrorBox>
+        {claimError || htmlError?.message || injectedJavaScript.getError()}
+      </ErrorBox>
+    );
 
   return (
-    <View>
+    <View style={tw`flex-row items-center gap-4`}>
       <Loading />
-      <WebView
-        style={tw`absolute opacity-0`}
-        source={html}
-        originWhitelist={["*"]}
-        injectedJavaScript={injectedJavaScript.getValue()}
-        onMessage={handleClaimMessage}
-      />
+      {!!html && (
+        <WebView
+          style={tw`absolute opacity-0`}
+          source={{ html }}
+          originWhitelist={["*"]}
+          injectedJavaScript={injectedJavaScript.getValue()}
+          javaScriptEnabled={true}
+          onMessage={handleClaimMessage}
+        />
+      )}
     </View>
   );
 };

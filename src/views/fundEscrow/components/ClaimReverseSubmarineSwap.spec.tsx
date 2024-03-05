@@ -13,6 +13,11 @@ jest
   .requireMock("../../../hooks/useLiquidFeeRate")
   .useLiquidFeeRate.mockReturnValue(1);
 
+jest.mock("../../../hooks/query/useBoltzWebcontext");
+jest
+  .requireMock("../../../hooks/query/useBoltzWebcontext")
+  .useBoltzWebcontext.mockReturnValue({ data: "<html></html>" });
+
 jest.mock("../../../utils/boltz/query/useClaimReverseSubmarineSwap");
 const useClaimReverseSubmarineSwapMock = jest
   .requireMock("../../../utils/boltz/query/useClaimReverseSubmarineSwap")

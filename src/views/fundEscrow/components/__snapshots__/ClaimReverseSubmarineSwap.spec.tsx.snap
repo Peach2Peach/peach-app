@@ -1,7 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ClaimReverseSubmarineSwap should render correctly 1`] = `
-<View>
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 16,
+    }
+  }
+>
   <LottieAnimationView
     autoPlay={true}
     cacheComposition={true}
@@ -35,13 +43,18 @@ exports[`ClaimReverseSubmarineSwap should render correctly 1`] = `
   />
   <WebView
     injectedJavaScript="window.claimReverseSubmarineSwap({"apiUrl":"http://localhost:9001","network":"regtest","address":"ert1q9vza2e8x573nczrlzms0wvx3gsqjx7vaunpxa9","feeRate":1,"swapInfo":{"id":"8WTXIgbnQ51D","invoice":"lnbcrt304960n1pjumcc5pp5undrxtlv0g88t3ly4gr9mfqppctpwfnypcy5hdpckflxehcg6q9qdpz2djkuepqw3hjqnpdgf2yxgrpv3j8yetnwvcqz95xqyp2xqsp5wvm0a299r3maf4csaxkm9cvn9rpej704pwgspgrqdyfn0gdj4nuq9qyyssq5q0758cz7w9tejdz87x3g0eg98ssgzjsnkkczarut6ea843u6lrra2uyt4thrtfzvcnzkl3uf6ne7vpfps5au927dd7zhnghtqmhlysp7knx5k","swapTree":{"claimLeaf":{"version":196,"output":"82012088a914c2c37033985ede53ef5be0e9b60da0b96d764922882099c76a243b8559731b75193c840b506dc8caa2189c06c5b5567d93b1e8795d53ac"},"refundLeaf":{"version":196,"output":"20e4f5af7bd3c9cb32eb46044894d40f58da3aea0c23b4842af3e2833c864a368fad02a705b1"}},"blindingKey":"db11014f4d9a96fa15db99cd43beffce54bdf53a3ae8949880ac5040aa88cafb","lockupAddress":"el1pqwknrhy2glr7n7cjh9ufmewkfehn205wtu84lmkqxafd93g69g0r43mgewp9m6t8umgkz8c932utst6w99nyv688udx05gfr6qe9r59ddje92rv8r807","refundPublicKey":"02e4f5af7bd3c9cb32eb46044894d40f58da3aea0c23b4842af3e2833c864a368f","timeoutBlockHeight":1447,"onchainAmount":30143},"privateKey":"742d5032ea5f1b021d2a2c7bbdd85aea14183e343552c94a76b36d4f9b55e341","preimage":"preimage"}); void(0);"
+    javaScriptEnabled={true}
     onMessage={[MockFunction]}
     originWhitelist={
       [
         "*",
       ]
     }
-    source="<html><title>boltz-swap-web-context</title></html>"
+    source={
+      {
+        "html": "<html></html>",
+      }
+    }
     style={
       {
         "opacity": 0,
