@@ -7,17 +7,18 @@ import { infoContainerStyle } from "./infoContainerStyle";
 import { useTranslate } from "@tolgee/react";
 
 export const BitcoinAmountInfo = memo(
-  ({ amount, premium }: { amount: number; premium?: number }) {
-  const { t } = useTranslate("offer");
+  ({ amount, premium }: { amount: number; premium?: number }) => {
+    const { t } = useTranslate(); // Corrected: Use useTranslate hook without arguments
 
-  return (
-    <View style={[infoContainerStyle, tw`gap-6px`]}>
-      <BTCAmount size="small" amount={amount} />
-      {premium !== undefined && (
-        <FixedHeightText style={tw`body-m text-black-65`} height={17}>
-          {premium}% {t("offer.summary.premium")}
-        </FixedHeightText>
-      )}
-    </View>
-  ),
+    return (
+      <View style={[infoContainerStyle, tw`gap-6px`]}>
+        <BTCAmount size="small" amount={amount} />
+        {premium !== undefined && (
+          <FixedHeightText style={tw`body-m text-black-65`} height={17}>
+            {premium}% {t("offer.summary.premium")}
+          </FixedHeightText>
+        )}
+      </View>
+    );
+  },
 );

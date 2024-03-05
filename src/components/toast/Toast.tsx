@@ -103,7 +103,12 @@ export const Toast = () => {
   // @ts-ignore
   let title = t(`${msgKey}.title`, { ns: msgKey.split(".")[0] });
   // @ts-ignore
-  let message = t(`${msgKey}.text`, { ns: msgKey.split(".")[0], ...bodyArgs });
+  let message = t(`${msgKey}.text`, {
+    ns: msgKey.split(".")[0],
+    delay: bodyArgs[0],
+    tradeId: bodyArgs[0],
+    amount: bodyArgs[1],
+  });
 
   if (title === `${msgKey}.title`) title = "";
   if (message === `${msgKey}.text`) {
