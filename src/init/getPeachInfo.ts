@@ -52,8 +52,6 @@ export const getPeachInfo = async (): Promise<
 function storePeachInfo(peachInfo: GetInfoResponse) {
   const {
     setPaymentMethods: setPaymentMethodsStore,
-    setLatestAppVersion,
-    setMinAppVersion,
     setPeachFee,
     setPeachPGPPublicKey,
   } = useConfigStore.getState();
@@ -65,8 +63,6 @@ function storePeachInfo(peachInfo: GetInfoResponse) {
   setPaymentMethodsStore(paymentMethods);
   setPaymentMethods(paymentMethods);
   setPeachFee(peachInfo.fees.escrow);
-  setLatestAppVersion(peachInfo.latestAppVersion);
-  setMinAppVersion(peachInfo.minAppVersion);
 }
 
 /**

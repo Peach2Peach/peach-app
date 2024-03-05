@@ -2,16 +2,31 @@ export const compatibilityCheck = (
   currentVersion: string,
   minVersion: string,
 ) => {
-  const current = currentVersion.replace(/[^0-9.]/gu, "").split(".");
-  const minimum = minVersion.replace(/[^0-9.]/gu, "").split(".");
+  const [currentVersionNumber, currentBuildNumber] = currentVersion.split(" ");
+  const [minVersionNumber, minBuildNumber] = minVersion.split(" ");
 
-  for (let i = 0; i < current.length; i++) {
-    if (Number(current[i]) > Number(minimum[i])) {
-      return true;
-    } else if (Number(current[i]) < Number(minimum[i])) {
-      return false;
-    }
-  }
+  const currentStrings = currentVersionNumber.split(".");
+  const [currentMajor, currentMinor, currentPatch] = currentStrings.map((s) =>
+    parseInt(s, 10),
+  );
+  const minStrings = minVersionNumber.split(".");
+  const [minMajor, minMinor, minPatch] = minStrings.map((s) => parseInt(s, 10));
+
+  if (currentMajor < minMajor) return false;
+  if (currentMajor === minMajor && currentMinor < minMinor) return false;
+  if (
+    currentMajor === minMajor &&
+    currentMinor === minMinor &&
+    currentPatch < minPatch
+  )
+    return false;
+
+  if (
+    minBuildNumber &&
+    currentBuildNumber &&
+    currentBuildNumber < minBuildNumber
+  )
+    return false;
 
   return true;
 };

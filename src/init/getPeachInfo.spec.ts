@@ -93,8 +93,6 @@ describe("getPeachInfo", () => {
         paymentMethods,
         peachPGPPublicKey: "pgpPublicKey",
         peachFee: 0.02,
-        minAppVersion: "1.0.0",
-        latestAppVersion: "1.0.1",
       }),
     );
   });

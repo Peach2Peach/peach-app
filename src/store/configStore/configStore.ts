@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { APPVERSION } from "../../constants";
 import { createStorage } from "../../utils/storage/createStorage";
 import { createPersistStorage } from "../createPersistStorage";
 
@@ -9,8 +8,6 @@ type ConfigStore = Config & {
   setPaymentMethods: (paymentMethods: PaymentMethodInfo[]) => void;
   setPeachPGPPublicKey: (pgpPublicKey: string) => void;
   setPeachFee: (fee: number) => void;
-  setMinAppVersion: (ver: string) => void;
-  setLatestAppVersion: (ver: string) => void;
   setMinTradingAmount: (minTradingAmount: number) => void;
   setMaxTradingAmount: (maxTradingAmount: number) => void;
   setSeenDisputeDisclaimer: (seenDisputeDisclaimer: boolean) => void;
@@ -26,8 +23,6 @@ export const defaultConfig: Config = {
   paymentMethods: [],
   peachPGPPublicKey: "",
   peachFee: 0.02,
-  minAppVersion: APPVERSION,
-  latestAppVersion: APPVERSION,
   minTradingAmount: 0,
   maxTradingAmount: Infinity,
   seenDisputeDisclaimer: false,
@@ -42,8 +37,6 @@ export const useConfigStore = create(
       setPaymentMethods: (paymentMethods) => set({ paymentMethods }),
       setPeachPGPPublicKey: (peachPGPPublicKey) => set({ peachPGPPublicKey }),
       setPeachFee: (peachFee) => set({ peachFee }),
-      setMinAppVersion: (minAppVersion) => set({ minAppVersion }),
-      setLatestAppVersion: (latestAppVersion) => set({ latestAppVersion }),
       setMinTradingAmount: (minTradingAmount) => set({ minTradingAmount }),
       setMaxTradingAmount: (maxTradingAmount) => set({ maxTradingAmount }),
       setSeenDisputeDisclaimer: (seenDisputeDisclaimer) =>
