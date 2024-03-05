@@ -1,9 +1,12 @@
 import { responseUtils } from "test-utils";
-import { useConfigStore } from "../store/configStore/configStore";
+import { PaymentMethodInfo } from "../../peach-api/src/@types/payment";
+import {
+  defaultConfig,
+  useConfigStore,
+} from "../store/configStore/configStore";
 import { usePaymentDataStore } from "../store/usePaymentDataStore";
 import { peachAPI } from "../utils/peachAPI";
 import { getPeachInfo } from "./getPeachInfo";
-import { storePeachInfo } from "./storePeachInfo";
 
 jest.mock("../paymentMethods", () => ({
   ...jest.requireActual("../paymentMethods"),
@@ -18,12 +21,15 @@ jest.useFakeTimers();
 jest
   .spyOn(global.Date, "now")
   .mockReturnValue(new Date("2021-01-01").getTime());
-jest.mock("./storePeachInfo");
 
 describe("getPeachInfo", () => {
   const paymentMethods: PaymentMethodInfo[] = [
     {
       id: "sepa",
+      fields: {
+        mandatory: [[["beneficiary"]], [["iban"]], [["bic"]]],
+        optional: ["reference"],
+      },
       currencies: ["EUR"],
       anonymous: false,
     },
@@ -41,7 +47,7 @@ describe("getPeachInfo", () => {
     useConfigStoreHydrated.mockReturnValue(true);
     usePaymentDataStoreHydrated.mockReturnValue(true);
 
-    useConfigStore.setState({ paymentMethods });
+    useConfigStore.setState({ ...defaultConfig, paymentMethods });
   });
   it("returns error response when server is not available", async () => {
     getStatusMock.mockResolvedValueOnce({
@@ -52,11 +58,22 @@ describe("getPeachInfo", () => {
     const response = await getPeachInfo();
 
     expect(response).toEqual({ error: "INTERNAL_SERVER_ERROR" });
-    expect(setPaymentMethodsMock).toHaveBeenCalledWith(paymentMethods);
-    expect(storePeachInfo).not.toHaveBeenCalled();
+    expect(useConfigStore.getState()).toEqual(
+      expect.objectContaining({ ...defaultConfig, paymentMethods }),
+    );
   });
 
   it("stores peach info when getInfo returns a successful response", async () => {
+    getInfoMock.mockResolvedValueOnce({
+      result: {
+        paymentMethods,
+        peach: { pgpPublicKey: "pgpPublicKey" },
+        fees: { escrow: 0.02 },
+        minAppVersion: "1.0.0",
+        latestAppVersion: "1.0.1",
+      },
+      ...responseUtils,
+    });
     const serverStatus = {
       error: null,
       status: "online" as const,
@@ -70,7 +87,16 @@ describe("getPeachInfo", () => {
 
     expect(response).toEqual(serverStatus);
     expect(getInfoMock).toHaveBeenCalledTimes(1);
-    expect(storePeachInfo).toHaveBeenCalledWith({ info: "info" });
+    expect(useConfigStore.getState()).toEqual(
+      expect.objectContaining({
+        ...defaultConfig,
+        paymentMethods,
+        peachPGPPublicKey: "pgpPublicKey",
+        peachFee: 0.02,
+        minAppVersion: "1.0.0",
+        latestAppVersion: "1.0.1",
+      }),
+    );
   });
 
   it("updates payment method from store if getInfo does not return a successful response", async () => {
@@ -92,6 +118,8 @@ describe("getPeachInfo", () => {
 
     expect(response).toEqual(serverStatus);
     expect(setPaymentMethodsMock).toHaveBeenCalledWith(paymentMethods);
-    expect(storePeachInfo).not.toHaveBeenCalled();
+    expect(useConfigStore.getState()).toEqual(
+      expect.objectContaining({ ...defaultConfig, paymentMethods }),
+    );
   });
 });

@@ -7,7 +7,6 @@ import { getAbortWithTimeout } from "../utils/getAbortWithTimeout";
 import { error } from "../utils/log/error";
 import { shouldUsePaymentMethod } from "../utils/paymentMethod/shouldUsePaymentMethod";
 import { peachAPI } from "../utils/peachAPI";
-import { storePeachInfo } from "./storePeachInfo";
 
 const setPaymentMethodsFromStore = () => {
   setPaymentMethods(
@@ -49,6 +48,26 @@ export const getPeachInfo = async (): Promise<
 
   return statusResponse;
 };
+
+function storePeachInfo(peachInfo: GetInfoResponse) {
+  const {
+    setPaymentMethods: setPaymentMethodsStore,
+    setLatestAppVersion,
+    setMinAppVersion,
+    setPeachFee,
+    setPeachPGPPublicKey,
+  } = useConfigStore.getState();
+
+  const paymentMethods = peachInfo.paymentMethods.filter(
+    shouldUsePaymentMethod(PAYMENTCATEGORIES),
+  );
+  setPeachPGPPublicKey(peachInfo.peach.pgpPublicKey);
+  setPaymentMethodsStore(paymentMethods);
+  setPaymentMethods(paymentMethods);
+  setPeachFee(peachInfo.fees.escrow);
+  setLatestAppVersion(peachInfo.latestAppVersion);
+  setMinAppVersion(peachInfo.minAppVersion);
+}
 
 /**
  * Note: we estimate the time it took for the response to arrive from server to client
