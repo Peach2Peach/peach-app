@@ -20,9 +20,9 @@ export const useContractSetup = () => {
     contractId,
     FIFTEEN_SECONDS,
   );
-  const account = useAccountStore((state) => state.account);
+  const publicKey = useAccountStore((state) => state.account.publicKey);
   const view = contract
-    ? getContractViewer(contract.seller.id, account)
+    ? getContractViewer(contract.seller.id, publicKey)
     : undefined;
   const navigation = useStackNavigation();
   const shouldShowFeeWarning =

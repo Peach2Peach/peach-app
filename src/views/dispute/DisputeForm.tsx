@@ -54,7 +54,7 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
     useValidatedState<string>("", required);
   const isFormValid = emailIsValid && messageIsValid;
 
-  const account = useAccountStore((state) => state.account);
+  const publicKey = useAccountStore((state) => state.account.publicKey);
 
   const setPopup = useSetPopup();
   const showErrorBanner = useShowErrorBanner();
@@ -80,7 +80,7 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
           navigation.navigate("contractChat", { contractId });
           setPopup(
             <DisputeRaisedSuccess
-              view={getContractViewer(contract.seller.id, account)}
+              view={getContractViewer(contract.seller.id, publicKey)}
             />,
           );
         },
