@@ -33,6 +33,7 @@ export let CLIENTSERVERTIMEDIFFERENCE = 0;
 export const setClientServerTimeDifference = (diff: number) =>
   (CLIENTSERVERTIMEDIFFERENCE = diff);
 
+export const SESSION_ID = sha256(Math.random().toString());
 export const UNIQUEID = sha256(getUniqueIdSync());
 export const TWITTER = "https://twitter.com/peachbitcoin";
 export const INSTAGRAM = "https://www.instagram.com/peachbitcoin";

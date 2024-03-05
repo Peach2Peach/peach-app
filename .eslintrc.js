@@ -77,7 +77,6 @@ module.exports = {
     "max-depth": "error",
     "max-nested-callbacks": "error",
     "max-params": "error",
-    "max-statements-per-line": "error",
     "multiline-comment-style": "off",
     "multiline-ternary": "off",
     "no-alert": "error",

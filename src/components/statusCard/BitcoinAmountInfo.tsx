@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { View } from "react-native";
 import tw from "../../styles/tailwind";
 import { BTCAmount } from "../bitcoin/BTCAmount";
@@ -5,13 +6,8 @@ import { FixedHeightText } from "../text/FixedHeightText";
 import { infoContainerStyle } from "./infoContainerStyle";
 import { useTranslate } from "@tolgee/react";
 
-export function BitcoinAmountInfo({
-  amount,
-  premium,
-}: {
-  amount: number;
-  premium?: number;
-}) {
+export const BitcoinAmountInfo = memo(
+  ({ amount, premium }: { amount: number; premium?: number }) {
   const { t } = useTranslate("offer");
 
   return (
@@ -23,5 +19,5 @@ export function BitcoinAmountInfo({
         </FixedHeightText>
       )}
     </View>
-  );
-}
+  ),
+);

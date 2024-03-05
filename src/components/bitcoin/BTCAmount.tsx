@@ -1,3 +1,4 @@
+import { memo, useMemo } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { SATSINBTC } from "../../constants";
 import tw from "../../styles/tailwind";
@@ -41,19 +42,23 @@ const styles = {
   },
 };
 
-export function BTCAmount({
-  amount,
-  size,
-  white = false,
-  showAmount = true,
-  style,
-}: BTCAmountProps) {
-  const [greyText, blackText] = getDisplayAmount(amount);
-  const textStyle = [
-    styles[size].amount,
-    white && tw`text-primary-background-light`,
-  ];
-  const { t } = useTranslate("global");
+export const BTCAmount = memo(
+  ({
+    amount,
+    size,
+    white = false,
+    showAmount = true,
+    style,
+  }: BTCAmountProps) => {
+    const [greyText, blackText] = useMemo(
+      () => getDisplayAmount(amount),
+      [amount],
+    );
+    const textStyle = useMemo(
+      () => [styles[size].amount, white && tw`text-primary-background-light`],
+      [size, white],
+    );
+    const { t } = useTranslate("global");
   return (
     <View
       style={[
@@ -69,30 +74,33 @@ export function BTCAmount({
         />
       </View>
 
-      <View
-        style={[tw`flex-row items-center flex-1`, styles[size].textContainer]}
-      >
-        {!showAmount ? (
-          <View style={tw`flex-row items-center justify-between flex-1 pl-1px`}>
-            {[...Array(SATSINBTC.toString().length)].map((_, i) => (
-              <Icon key={i} id="ellipse" size={styles[size].ellipseSize} />
-            ))}
-          </View>
-        ) : (
-          <View style={tw`flex-row items-center justify-end flex-1`}>
-            <PeachText style={[tw`text-right opacity-10`, textStyle]}>
-              {greyText}
-            </PeachText>
-            <PeachText style={[tw`text-right`, textStyle]}>
-              {blackText}
-            </PeachText>
-          </View>
-        )}
-        <PeachText style={textStyle}>{t("currency.SATS")}</PeachText>
+        <View
+          style={[tw`flex-row items-center flex-1`, styles[size].textContainer]}
+        >
+          {!showAmount ? (
+            <View
+              style={tw`flex-row items-center justify-between flex-1 pl-1px`}
+            >
+              {[...Array(SATSINBTC.toString().length)].map((_, i) => (
+                <Icon key={i} id="ellipse" size={styles[size].ellipseSize} />
+              ))}
+            </View>
+          ) : (
+            <View style={tw`flex-row items-center justify-end flex-1`}>
+              <PeachText style={[tw`text-right opacity-10`, textStyle]}>
+                {greyText}
+              </PeachText>
+              <PeachText style={[tw`text-right`, textStyle]}>
+                {blackText}
+              </PeachText>
+            </View>
+          )}
+          <PeachText style={textStyle}>{t("currency.SATS")}</PeachText>
+        </View>
       </View>
-    </View>
-  );
-}
+    );
+  },
+);
 
 const GROUP_BY = 3;
 export function getDisplayAmount(amount: number) {

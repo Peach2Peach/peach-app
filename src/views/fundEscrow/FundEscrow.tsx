@@ -123,7 +123,10 @@ function FundEscrowHeader() {
       { ...headerIcons.help, onPress: showHelp },
     ];
     if (getNetwork() === networks.regtest) {
-      icons.unshift({ ...headerIcons.generateBlock, onPress: generateBlock });
+      return [
+        { ...headerIcons.generateBlock, onPress: generateBlock },
+        ...icons,
+      ];
     }
     return icons;
   }, [cancelFundMultipleOffers, cancelOffer, fundMultiple, showHelp]);

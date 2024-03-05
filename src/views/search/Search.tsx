@@ -122,10 +122,13 @@ function SearchHeader({ offer }: { offer: SellOffer }) {
     ];
 
     if (offer.matches.length > 0) {
-      icons.push({
-        ...headerIcons.help,
-        onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup,
-      });
+      return [
+        ...icons,
+        {
+          ...headerIcons.list,
+          onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup,
+        },
+      ];
     }
     return icons;
   }, [

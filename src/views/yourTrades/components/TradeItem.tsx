@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
+import { memo } from "react";
 import { View } from "react-native";
 import { ContractSummary } from "../../../../peach-api/src/@types/contract";
 import { OfferSummary } from "../../../../peach-api/src/@types/offer";
 import { IconType } from "../../../assets/icons";
 import { Icon } from "../../../components/Icon";
+import { Placeholder } from "../../../components/Placeholder";
 import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
 import { BitcoinAmountInfo } from "../../../components/statusCard/BitcoinAmountInfo";
 import { StatusCard } from "../../../components/statusCard/StatusCard";
@@ -38,23 +40,54 @@ import { statusIcons } from "../utils/statusIcons";
 type Props = {
   item: OfferSummary | ContractSummary;
 };
-
-export function TradeItem({ item }: Props) {
-  const onPress = useTradeNavigation(item);
-
-  const { color, iconId } = getThemeForTradeItem(item);
-  return (
-    <StatusCard
-      onPress={onPress}
-      color={color}
-      statusInfo={<TradeStatusInfo item={item} iconId={iconId} color={color} />}
-      amountInfo={<AmountInfo item={item} />}
-      label={<Label item={item} color={color} />}
-    />
-  );
-}
-
-function TradeStatusInfo({ item, iconId, color }: Props & TradeTheme) {
+const Label = memo(
+  ({ item, color }: Props & { color: TradeTheme["color"] }) => {
+    const isContract = isContractSummary(item);
+    const isWaiting = color === "primary-mild" && isContract;
+    const labelIconId = getActionIcon(item, isWaiting);
+    const label = getActionLabel(item, isWaiting);
+    const labelIcon = labelIconId && (
+      <Icon
+        id={labelIconId}
+        size={17}
+        color={tw.color(statusCardStyles.text[color])}
+      />
+    );
+    const unreadMessages = isContract ? item.unreadMessages : undefined;
+    if (!label) return null;
+    return (
+      <View
+        style={[
+          tw`flex-row items-center justify-center gap-1 px-4 py-6px`,
+          statusCardStyles.bg[color],
+        ]}
+      >
+        {!!unreadMessages && <Placeholder style={tw`w-6 h-6 border`} />}
+        <View style={tw`flex-row items-center justify-center flex-1 gap-1`}>
+          {labelIcon}
+          <PeachText
+            style={[tw`subtitle-1`, tw.style(statusCardStyles.text[color])]}
+          >
+            {label}
+          </PeachText>
+        </View>
+        {!!unreadMessages && (
+          <View style={[tw`items-center justify-center w-7 h-7`]}>
+            <Icon
+              id="messageFull"
+              size={24}
+              color={tw.color("primary-background-light")}
+            />
+            <PeachText style={tw`absolute text-center font-baloo-bold`}>
+              {unreadMessages}
+            </PeachText>
+          </View>
+        )}
+      </View>
+    );
+  },
+);
+const TradeStatusInfo = memo(({ item, iconId, color }: Props & TradeTheme) => {
   const { data } = useSubtext(item);
   const subtext = data || getFallbackSubtext(item);
   const replaced = "newTradeId" in item && !!item.newTradeId;
@@ -77,6 +110,44 @@ function TradeStatusInfo({ item, iconId, color }: Props & TradeTheme) {
       }
       title={title}
       subtext={subtext}
+    />
+  );
+});
+const AmountInfo = memo(({ item }: Props) => {
+  const { type, amount, currency, premium, price } = getInfoPropsWithType({
+    amount: item.amount,
+    currency: "currency" in item ? item.currency : undefined,
+    premium:
+      "premium" in item && typeof item.premium === "number"
+        ? item.premium
+        : undefined,
+    price: "price" in item ? item.price : undefined,
+    replaced: "newTradeId" in item && !!item.newTradeId,
+  });
+  return (
+    <>
+      {type === "range" ? (
+        <RangeInfo amount={amount} />
+      ) : type === "fiatAmount" ? (
+        <FiatAmountInfo amount={amount} currency={currency} price={price} />
+      ) : type === "amount" ? (
+        <BitcoinAmountInfo amount={amount} premium={premium} />
+      ) : undefined}
+    </>
+  );
+});
+
+export function TradeItem({ item }: Props) {
+  const onPress = useTradeNavigation(item);
+
+  const { color, iconId } = getThemeForTradeItem(item);
+  return (
+    <StatusCard
+      onPress={onPress}
+      color={color}
+      statusInfo={<TradeStatusInfo item={item} iconId={iconId} color={color} />}
+      amountInfo={<AmountInfo item={item} />}
+      label={<Label item={item} color={color} />}
     />
   );
 }
@@ -106,30 +177,6 @@ function ReplacedTradeStatusInfo({
       subtextStyle={tw`underline subtitle-2 text-black-100`}
       onPress={onPress}
     />
-  );
-}
-
-function AmountInfo({ item }: Props) {
-  const { type, amount, currency, premium, price } = getInfoPropsWithType({
-    amount: item.amount,
-    currency: "currency" in item ? item.currency : undefined,
-    premium:
-      "premium" in item && typeof item.premium === "number"
-        ? item.premium
-        : undefined,
-    price: "price" in item ? item.price : undefined,
-    replaced: "newTradeId" in item && !!item.newTradeId,
-  });
-  return (
-    <>
-      {type === "range" ? (
-        <RangeInfo amount={amount} />
-      ) : type === "fiatAmount" ? (
-        <FiatAmountInfo amount={amount} currency={currency} price={price} />
-      ) : type === "amount" ? (
-        <BitcoinAmountInfo amount={amount} premium={premium} />
-      ) : undefined}
-    </>
   );
 }
 
@@ -210,60 +257,6 @@ function getInfoPropsWithType(
   if (isFiatAmount(props)) return { ...props, type: "fiatAmount" };
   if (isAmount(props)) return { ...props, type: "amount" };
   return { ...props, type: "empty" };
-}
-
-function Label({ item, color }: Props & { color: TradeTheme["color"] }) {
-  const isContract = isContractSummary(item);
-  const isWaiting = color === "primary-mild" && isContract;
-  const labelIconId = getActionIcon(item, isWaiting);
-  const label = getActionLabel(item, isWaiting);
-  const labelIcon = labelIconId && (
-    <Icon
-      id={labelIconId}
-      size={17}
-      color={tw.color(statusCardStyles.text[color])}
-    />
-  );
-  const unreadMessages = isContract ? item.unreadMessages : undefined;
-  if (!label) return null;
-  return (
-    <View
-      style={[
-        tw`flex-row items-center justify-between gap-1 px-4 py-6px`,
-        statusCardStyles.bg[color],
-      ]}
-    >
-      <Icon
-        id="messageFull"
-        size={24}
-        style={tw`opacity-0`}
-        color={tw.color(statusCardStyles.text[color])}
-      />
-      <View style={tw`flex-row items-center gap-1`}>
-        {labelIcon}
-        <PeachText
-          style={[tw`subtitle-1`, tw.style(statusCardStyles.text[color])]}
-        >
-          {label}
-        </PeachText>
-      </View>
-      <View
-        style={[
-          tw`items-center justify-center w-7 h-7`,
-          !unreadMessages && tw`opacity-0`,
-        ]}
-      >
-        <Icon
-          id="messageFull"
-          size={24}
-          color={tw.color("primary-background-light")}
-        />
-        <PeachText style={tw`absolute text-center font-baloo-bold`}>
-          {unreadMessages}
-        </PeachText>
-      </View>
-    </View>
-  );
 }
 
 function getTitle(item: OfferSummary | ContractSummary) {

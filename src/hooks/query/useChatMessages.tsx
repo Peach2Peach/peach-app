@@ -29,10 +29,10 @@ export const useChatMessages = ({
     queryKey: contractKeys.chat(contractId),
     queryFn: async ({ queryKey, pageParam }) => {
       if (!symmetricKey) throw new Error("No symmetric key");
-      const messages = await getChatQuery({ queryKey, pageParam });
+      const encryptedMessages = await getChatQuery({ queryKey, pageParam });
 
       const decryptedMessages = await Promise.all(
-        messages.map(async (message) => {
+        encryptedMessages.map(async (message) => {
           try {
             const decrypted = await decryptSymmetric(
               message.message,
@@ -94,13 +94,10 @@ async function getChatQuery({ queryKey, pageParam }: GetChatQueryProps) {
     contractId,
     page: pageParam,
   });
-  let messages;
-  if (result) {
-    messages = result.map((message) => ({
-      ...message,
-      date: new Date(message.date),
-    }));
-  }
+  const messages = result?.map((message) => ({
+    ...message,
+    date: new Date(message.date),
+  }));
 
   if (!messages || error) throw new Error(error?.error);
 

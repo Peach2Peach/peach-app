@@ -18,6 +18,7 @@ import tw from "../../styles/tailwind";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { parseError } from "../../utils/parseError";
 import { useHomeScreenRoute } from "../home/useHomeScreenRoute";
+import { NewLoadingScreen } from "../loading/LoadingScreen";
 import { TradeItem } from "./components/TradeItem";
 import { TradePlaceholders } from "./components/TradePlaceholders";
 import { getCategories } from "./utils/getCategories";
@@ -53,6 +54,8 @@ export const YourTrades = () => {
             options={{
               title: `${t(tab)}`,
               tabBarBadge: () => <TabBarBadge summaries={summaries[tab]} />,
+              lazy: true,
+              lazyPlaceholder: () => <NewLoadingScreen />,
             }}
             children={() => (
               <View style={tw`grow`} onStartShouldSetResponder={() => true}>

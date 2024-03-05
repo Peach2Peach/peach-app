@@ -1,14 +1,11 @@
 import analytics from "@react-native-firebase/analytics";
 import { useCallback, useEffect } from "react";
 import { AppState } from "react-native";
-import { useCheckTradeNotifications } from "./hooks/useCheckTradeNotifications";
 import { getPeachInfo } from "./init/getPeachInfo";
 
 let appState = "active";
 
 export const usePartialAppSetup = () => {
-  useCheckTradeNotifications();
-
   const appStateCallback = useCallback((isActive: boolean) => {
     if (isActive) {
       getPeachInfo();

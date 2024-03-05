@@ -1,31 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { shallow } from "zustand/shallow";
-import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import { peachAPI } from "../../utils/peachAPI";
 import { offerKeys } from "./useOfferDetail";
 
 export const useOfferSummaries = (enabled = true) => {
-  const [offers, setOffers, lastModified] = useTradeSummaryStore(
-    (state) => [state.offers, state.setOffers, state.lastModified],
-    shallow,
-  );
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: offerKeys.summaries(),
     queryFn: getOfferSummariesQuery,
     enabled,
-    initialData: offers.length ? offers : undefined,
-    initialDataUpdatedAt: lastModified.getTime?.(),
   });
-
-  useEffect(() => {
-    if (data) setOffers(data);
-  }, [data, setOffers]);
 
   return { offers: data || [], isLoading, error, refetch };
 };
 
-async function getOfferSummariesQuery() {
+export async function getOfferSummariesQuery() {
   const { result: offers, error } =
     await peachAPI.private.offer.getOfferSummaries();
 

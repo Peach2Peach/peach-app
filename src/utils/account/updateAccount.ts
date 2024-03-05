@@ -1,4 +1,3 @@
-import { dataMigrationAfterLoadingWallet } from "../../init/dataMigration/dataMigrationAfterLoadingWallet";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { tolgee, tolgeeStaticData } from "../../tolgee";
 import i18n from "../i18n";
@@ -6,6 +5,7 @@ import { getDeviceLocale } from "../system/getDeviceLocale";
 import { defaultAccount, useAccountStore } from "./account";
 import { loadWalletFromAccount } from "./loadWalletFromAccount";
 import { setWallets } from "./setWallets";
+import { storeIdentity } from "./storeAccount/storeIdentity";
 
 export const updateAccount = async (acc: Account, overwrite?: boolean) => {
   const newAccount = overwrite
@@ -29,7 +29,10 @@ export const updateAccount = async (acc: Account, overwrite?: boolean) => {
     const wallet = loadWalletFromAccount({ ...account, mnemonic });
     await setWallets(wallet, mnemonic);
     if (!account.base58) {
-      dataMigrationAfterLoadingWallet(wallet, account);
+      storeIdentity({
+        ...account,
+        base58: wallet.toBase58(),
+      });
     }
   }
 };
