@@ -45,11 +45,22 @@ export const useLiquidWalletState = create<LiquidWalletStore>()(
     }),
     {
       name: "liquid-wallet",
-      version: 0,
+      version: 1,
       storage,
       partialize: (state) => {
         const { isSynced: _unused, ...rest } = state;
         return rest;
+      },
+      migrate: (persistedState: unknown, version: number) => {
+        let migratedState = persistedState as LiquidWalletState;
+        if (version < 1) {
+          migratedState = {
+            ...migratedState,
+            addresses: [],
+            internalAddresses: [],
+          };
+        }
+        return migratedState as LiquidWalletStore;
       },
     },
   ),
