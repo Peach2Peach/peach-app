@@ -19,8 +19,10 @@ import { getMessageToSignForAddress } from "../../../utils/account/getMessageToS
 import i18n from "../../../utils/i18n";
 import { showLiquidTransaction } from "../../../utils/liquid/showLiquidTransaction";
 import { log } from "../../../utils/log/log";
+import { peachAPI } from "../../../utils/peachAPI";
 import { thousands } from "../../../utils/string/thousands";
 import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
+import { buildTransaction } from "../../../utils/wallet/liquid/buildTransaction";
 import { peachLiquidWallet } from "../../../utils/wallet/setWallet";
 import { useLiquidWalletState } from "../../../utils/wallet/useLiquidWalletState";
 
@@ -46,8 +48,18 @@ export const TestViewLiquidWallet = () => {
     const { address: newAddress } = peachLiquidWallet.getInternalAddress();
     if (newAddress) setAddress(newAddress);
   };
-  const send = () => {
-    Alert.alert("TODO");
+  const send = async () => {
+    if (!address || !amount || !peachLiquidWallet) return;
+    const transaction = buildTransaction({
+      recipient: address,
+      amount: Number(amount),
+      miningFees: 500,
+      inputs: peachLiquidWallet?.utxos,
+    });
+    await peachAPI.public.liquid.postTx({
+      tx: transaction.toHex(),
+    });
+    peachLiquidWallet.syncWallet();
   };
   const refill = () => {
     Alert.alert("TODO");
@@ -55,7 +67,6 @@ export const TestViewLiquidWallet = () => {
   const refetch = () => {
     peachLiquidWallet?.syncWallet();
   };
-
   return (
     <Screen>
       <PeachScrollView>
