@@ -49,9 +49,6 @@ export const FundEscrow = () => {
   const tabs = [
     { id: "bitcoin", display: i18n("escrow.bitcoin") },
     funding.liquid.fundingAddress
-      ? { id: "liquid", display: i18n("escrow.liquid") }
-      : undefined,
-    funding.liquid.fundingAddress
       ? { id: "lightning-liquid", display: i18n("escrow.lightning") }
       : undefined,
   ].filter(isDefined) as FundingTab[];
@@ -120,13 +117,6 @@ export const FundEscrow = () => {
               />
             </View>
           </>
-        )}
-        {currentTab.id === "liquid" && (
-          <BitcoinAddress
-            address={fundingAddress}
-            amount={fundingAmount / SATSINBTC}
-            label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
-          />
         )}
         {currentTab.id === "lightning-liquid" && (
           <ReverseSubmarineSwap
