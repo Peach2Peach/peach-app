@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { networks } from "bitcoinjs-lib";
 import { useCallback, useMemo, useState } from "react";
 import { View } from "react-native";
@@ -16,6 +17,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { SATSINBTC } from "../../constants";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { CancelSellOffersPopup } from "../../popups/CancelSellOffersPopup";
@@ -31,18 +33,26 @@ import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
 import { openURL } from "../../utils/web/openURL";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { TransactionInMempool } from "./components/TransactionInMempool";
+import { useCreateEscrow } from "./hooks/useCreateEscrow";
 import { useFundEscrowSetup } from "./hooks/useFundEscrowSetup";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
 
 export const FundEscrow = () => {
+  const { offerId } = useRoute<"fundEscrow">().params;
   const {
-    offerId,
     fundingAddress,
     fundingAddresses,
     fundingStatus,
     fundingAmount,
+    offerIdsWithoutEscrow,
+    isLoading,
   } = useFundEscrowSetup();
-  if (!fundingAddress)
+
+  if (isLoading) return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
+  if (offerIdsWithoutEscrow.length > 0)
+    return <CreateEscrowScreen offerIds={offerIdsWithoutEscrow} />;
+
+  if (!fundingStatus || !fundingAddress || !fundingAddresses)
     return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
 
   if (fundingStatus.status === "MEMPOOL")
@@ -93,6 +103,31 @@ export const FundEscrow = () => {
     </Screen>
   );
 };
+
+function CreateEscrowScreen({ offerIds }: { offerIds: string[] }) {
+  const { mutate, isPending } = useCreateEscrow();
+  const queryClient = useQueryClient();
+
+  const createEscrow = () => {
+    mutate(offerIds, {
+      onSuccess: () =>
+        Promise.all(
+          offerIds.map((id) =>
+            queryClient.invalidateQueries({
+              queryKey: offerKeys.detail(id),
+            }),
+          ),
+        ),
+    });
+  };
+  return (
+    <Screen style={tw`items-center justify-center flex-1`}>
+      <Button onPress={createEscrow} loading={isPending}>
+        {i18n("sell.escrow.createEscrow")}
+      </Button>
+    </Screen>
+  );
+}
 
 function FundEscrowHeader() {
   const { offerId } = useRoute<"fundEscrow">().params;
