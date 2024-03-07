@@ -50,6 +50,7 @@ import { AddressChecker } from "./wallet/AddressChecker";
 import { BumpNetworkFees } from "./wallet/BumpNetworkFees";
 import { CoinSelection } from "./wallet/CoinSelection";
 import { ExportTransactionHistory } from "./wallet/ExportTransactionHistory";
+import { LightningWallet } from "./wallet/LightningWallet";
 import { ReceiveBitcoin } from "./wallet/ReceiveBitcoin";
 import { SendBitcoin } from "./wallet/SendBitcoin";
 import { TransactionDetails } from "./wallet/TransactionDetails";
@@ -87,6 +88,7 @@ const wallet: ViewType[] = [
   { name: "exportTransactionHistory", component: ExportTransactionHistory },
   { name: "transactionDetails", component: TransactionDetails },
   { name: "bumpNetworkFees", component: BumpNetworkFees },
+  { name: "lightningWallet", component: LightningWallet },
 ];
 const buyFlow: ViewType[] = [
   { name: "buyOfferPreferences", component: BuyOfferPreferences },

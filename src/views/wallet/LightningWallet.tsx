@@ -9,32 +9,19 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { useLiquidWalletState } from "../../utils/wallet/useLiquidWalletState";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
-import { TotalBalance, WalletHeader } from "./components";
+import { TotalBalance } from "./components";
+import { WalletHeaderLightning } from "./components/WalletHeaderLightning";
 import { SwapButton } from "./components/submarineSwaps/SwapButton";
-import { useLastUnusedAddress, useUTXOs, useWalletAddress } from "./hooks";
-import { useSyncLiquidWallet } from "./hooks/useSyncLiquidWallet";
-import { useSyncWallet } from "./hooks/useSyncWallet";
-import { useWalletBalance } from "./hooks/useWalletBalance";
+import { useLightningWalletBalance } from "./hooks/useLightningWalletBalance";
 
-export const Wallet = () => {
-  const { balance } = useWalletBalance();
-  const {
-    refetch: refetchBitcoin,
-    isRefetching: isRefetchingBitcoin,
-    isLoading: isLoadingBitcoin,
-  } = useSyncWallet({ enabled: true });
-  const { refetch: refetchLiquid, isRefetching: isRefetchingLiquid } =
-    useSyncLiquidWallet({ enabled: true });
+export const LightningWallet = () => {
+  const { balance, refetch, isRefetching, isLoading } =
+    useLightningWalletBalance();
 
-  const refetch = () => {
-    refetchBitcoin();
-    refetchLiquid();
-  };
-
-  if (isLoadingBitcoin) return <BitcoinLoading text={i18n("wallet.loading")} />;
+  if (isLoading) return <BitcoinLoading text={i18n("wallet.loading")} />;
 
   return (
-    <Screen header={<WalletHeader />}>
+    <Screen header={<WalletHeaderLightning />}>
       <SelectLayer />
       <PeachScrollView
         contentContainerStyle={tw`grow`}
@@ -43,10 +30,7 @@ export const Wallet = () => {
           <RefreshControl refreshing={false} onRefresh={refetch} />
         }
       >
-        <TotalBalance
-          amount={balance}
-          isRefreshing={isRefetchingBitcoin || isRefetchingLiquid}
-        />
+        <TotalBalance amount={balance.lightning} isRefreshing={isRefetching} />
         <BackupReminderIcon />
       </PeachScrollView>
       <WalletButtons />
@@ -56,34 +40,26 @@ export const Wallet = () => {
 
 function SelectLayer() {
   const navigation = useStackNavigation();
-  const goToLightningWallet = () => {
-    navigation.navigate("lightningWallet");
+  const goToBitcoinWallet = () => {
+    navigation.navigate("homeScreen", { screen: "wallet" });
   };
   return (
     <View style={tw`flex-row gap-4 justify-center p-4`}>
-      <PeachText style={tw`font-bold`}>on-chain</PeachText>
-      <PeachText onPress={goToLightningWallet}>lightning</PeachText>
+      <PeachText onPress={goToBitcoinWallet}>on-chain</PeachText>
+      <PeachText style={tw`font-bold`}>lightning</PeachText>
     </View>
   );
 }
-const useAddressPrefetch = () => {
-  const { data } = useLastUnusedAddress();
-  const displayIndex = data?.index ?? 0;
-  useWalletAddress(displayIndex);
-  useWalletAddress(displayIndex + 1);
-  useWalletAddress(displayIndex - 1);
-};
+
 function WalletButtons() {
   const navigation = useStackNavigation();
   const liquidBalance = useLiquidWalletState((state) => state.balance);
-  useAddressPrefetch();
-  useUTXOs();
 
   const goToSend = () => {
-    navigation.navigate("sendBitcoin");
+    navigation.navigate("sendBitcoinLightning");
   };
   const goToReceive = () => {
-    navigation.navigate("receiveBitcoin");
+    navigation.navigate("receiveBitcoinLightning");
   };
 
   return (

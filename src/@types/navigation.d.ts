@@ -84,6 +84,7 @@ type RootStackParamList = Onboarding &
     bumpNetworkFees: {
       txId: string;
     };
+    lightningWallet: undefined;
     selectCurrency: {
       origin: keyof RootStackParamList;
     };
