@@ -1,4 +1,6 @@
+import { BREEZ_API_KEY, BREEZ_INVITE_CODE } from "@env";
 import { BIP32Interface } from "bip32";
+import { initLightningWallet } from "../lightning/initLightningWallet";
 import { peachAPI } from "../peachAPI";
 import { PeachLiquidJSWallet } from "../wallet/PeachLiquidJSWallet";
 import { PeachWallet } from "../wallet/PeachWallet";
@@ -27,4 +29,6 @@ export const setWallets = async (
   peachWallet.loadWallet(seedPhrase);
   setPeachWallet(peachWallet);
   setLiquidWallet(liquidWallet);
+  if (seedPhrase && BREEZ_INVITE_CODE && BREEZ_API_KEY)
+    await initLightningWallet(seedPhrase, BREEZ_API_KEY, BREEZ_INVITE_CODE);
 };

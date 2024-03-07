@@ -1,8 +1,14 @@
+import { BREEZ_API_KEY, BREEZ_INVITE_CODE } from "@env";
 import { account1 } from "../../../tests/unit/data/accountData";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { peachAPI } from "../peachAPI";
 import { PeachWallet } from "../wallet/PeachWallet";
 import { setWallets } from "./setWallets";
+
+jest.mock("../lightning/initLightningWallet");
+const initLightningWalletMock = jest.requireMock(
+  "../lightning/initLightningWallet",
+).initLightningWallet;
 
 describe("setWallets", () => {
   const loadWalletSpy = jest.spyOn(PeachWallet.prototype, "loadWallet");
@@ -18,5 +24,10 @@ describe("setWallets", () => {
     await setWallets(wallet, account1.mnemonic);
 
     expect(loadWalletSpy).toHaveBeenCalledWith(account1.mnemonic);
+    expect(initLightningWalletMock).toHaveBeenCalledWith(
+      account1.mnemonic,
+      BREEZ_API_KEY,
+      BREEZ_INVITE_CODE,
+    );
   });
 });
