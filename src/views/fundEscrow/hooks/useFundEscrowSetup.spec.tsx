@@ -61,7 +61,7 @@ describe("useFundEscrowSetup", () => {
       fundingAddresses: [],
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
-      isLoading: false,
+      isLoading: true,
       offerIdsWithoutEscrow: [],
     });
   });
@@ -110,10 +110,10 @@ describe("useFundEscrowSetup", () => {
     const { result } = renderHook(useFundEscrowSetup);
     expect(result.current).toEqual({
       fundingAddress: undefined,
-      fundingAddresses: [undefined],
+      fundingAddresses: [],
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
-      isLoading: false,
+      isLoading: true,
       offerIdsWithoutEscrow: [],
     });
   });
