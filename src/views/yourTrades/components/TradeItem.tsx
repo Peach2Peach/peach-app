@@ -62,7 +62,7 @@ const Label = memo(
           statusCardStyles.bg[color],
         ]}
       >
-        {!!unreadMessages && <Placeholder style={tw`w-6 h-6 border`} />}
+        {!!unreadMessages && <Placeholder style={tw`w-6 h-6`} />}
         <View style={tw`flex-row items-center justify-center flex-1 gap-1`}>
           {labelIcon}
           <PeachText
