@@ -1,9 +1,6 @@
 /* eslint-disable no-magic-numbers */
 import { fireEvent, render, waitFor } from "test-utils";
-import {
-  navigateMock,
-  setRouteMock,
-} from "../../../tests/unit/helpers/NavigationWrapper";
+import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { LightningWallet } from "./LightningWallet";
 
@@ -21,14 +18,6 @@ const useLightningWalletBalanceMock = jest
 jest.useFakeTimers();
 
 describe("LightningWallet", () => {
-  beforeAll(() => {
-    setRouteMock({
-      name: "homeScreen",
-      key: "homeScreen",
-      params: { screen: "wallet" },
-    });
-  });
-
   afterEach(() => {
     queryClient.clear();
   });

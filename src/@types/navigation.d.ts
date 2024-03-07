@@ -85,6 +85,11 @@ type RootStackParamList = Onboarding &
       txId: string;
     };
     lightningWallet: undefined;
+    sendBitcoinLightning: undefined;
+    receiveBitcoinLightning: undefined;
+    lightningInvoice: {
+      invoice: string;
+    };
     selectCurrency: {
       origin: keyof RootStackParamList;
     };
