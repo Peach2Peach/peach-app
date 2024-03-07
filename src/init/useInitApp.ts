@@ -1,5 +1,5 @@
 import ecc from "@bitcoinerlab/secp256k1";
-import { API_URL } from "@env";
+import { API_URL, BREEZ_API_KEY, BREEZ_INVITE_CODE } from "@env";
 import CookieManager from "@react-native-cookies/cookies";
 import { initEccLib } from "bitcoinjs-lib";
 import { useCallback } from "react";
@@ -8,6 +8,7 @@ import { defaultAccount, useAccountStore } from "../utils/account/account";
 import { accountStorage } from "../utils/account/accountStorage";
 import { chatStorage } from "../utils/account/chatStorage";
 import { updateAccount } from "../utils/account/updateAccount";
+import { initLightningWallet } from "../utils/lightning/initLightningWallet";
 import { error } from "../utils/log/error";
 import { info } from "../utils/log/info";
 import { getIndexedMap } from "../utils/storage/getIndexedMap";
@@ -28,7 +29,10 @@ export function useInitApp() {
     dataMigrationBeforeLoadingAccount();
 
     await setCookies();
-    const { publicKey } = await loadAccount();
+    const { publicKey, mnemonic } = await loadAccount();
+    // TODO add to create/recover account
+    if (mnemonic && BREEZ_INVITE_CODE && BREEZ_API_KEY)
+      await initLightningWallet(mnemonic, BREEZ_API_KEY, BREEZ_INVITE_CODE);
     const statusResponse = await getPeachInfo();
     if (!statusResponse?.error && publicKey) {
       setIsLoggedIn(true);
