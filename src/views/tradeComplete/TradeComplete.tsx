@@ -34,8 +34,8 @@ export const TradeComplete = ({ contractId }: { contractId: string }) => {
 
 function TradeCompleteView({ contract }: { contract: Contract }) {
   const [vote, setVote] = useState<"positive" | "negative">();
-  const account = useAccountStore((state) => state.account);
-  const view = getContractViewer(contract.seller.id, account);
+  const publicKey = useAccountStore((state) => state.account.publicKey);
+  const view = getContractViewer(contract.seller.id, publicKey);
 
   return (
     <>

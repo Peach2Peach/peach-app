@@ -28,5 +28,4 @@ export const defaultSettings: Settings = {
   derivationPath: undefined,
 
   fcmToken: undefined,
-  usedReferralCode: undefined,
 };

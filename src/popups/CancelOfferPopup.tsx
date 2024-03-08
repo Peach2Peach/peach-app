@@ -23,7 +23,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
   const closePopup = useClosePopup();
   const queryClient = useQueryClient();
   const { offer } = useOfferDetail(offerId);
-  const { mutate: cancelOffer } = useCancelOffer();
+  const { mutate: cancelOffer, isPending } = useCancelOffer();
 
   const startRefund = useStartRefundPopup();
 
@@ -96,6 +96,7 @@ export function CancelOfferPopup({ offerId }: { offerId: string }) {
             label={i18n("cancelOffer")}
             iconId="xCircle"
             onPress={confirmCancelOffer}
+            loading={isPending}
             reverseOrder
           />
         </>

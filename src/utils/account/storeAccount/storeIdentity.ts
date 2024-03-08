@@ -7,7 +7,6 @@ export const storeIdentity = async (acc: Account) => {
   info("storeIdentity - Storing identity");
   await accountStorage.setMapAsync("identity", {
     publicKey: acc.publicKey,
-    privKey: acc.privKey,
     mnemonic: acc.mnemonic,
     pgp: acc.pgp,
     base58: acc.base58,

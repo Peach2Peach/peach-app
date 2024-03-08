@@ -138,8 +138,6 @@ type Config = {
   paymentMethods: PaymentMethodInfo[];
   peachPGPPublicKey: string;
   peachFee: number;
-  minAppVersion: string;
-  latestAppVersion: string;
   minTradingAmount: number;
   maxTradingAmount: number;
   seenDisputeDisclaimer: boolean;

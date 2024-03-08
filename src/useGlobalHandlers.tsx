@@ -6,10 +6,10 @@ import { useSetToast } from "./components/toast/Toast";
 import { useHandleNotifications } from "./hooks/notifications/useHandleNotifications";
 import { useMessageHandler } from "./hooks/notifications/useMessageHandler";
 import { useCheckFundingMultipleEscrows } from "./hooks/useCheckFundingMultipleEscrows";
+import { useCheckTradeNotifications } from "./hooks/useCheckTradeNotifications";
 import { useShouldShowBackupReminder } from "./hooks/useShouldShowBackupReminder";
 import { useShowUpdateAvailable } from "./hooks/useShowUpdateAvailable";
 import { useStackNavigation } from "./hooks/useStackNavigation";
-import { usePublishMissingPublicKey } from "./hooks/user/usePublishMissingPublicKey";
 import { useInitialNavigation } from "./init/useInitialNavigation";
 import { AnalyticsPopup } from "./popups/AnalyticsPopup";
 import { VerifyYouAreAHumanPopup } from "./popups/warning/VerifyYouAreAHumanPopup";
@@ -29,8 +29,8 @@ export const useGlobalHandlers = () => {
   useShouldShowBackupReminder();
   useInitialNavigation();
   useShowUpdateAvailable();
-  usePublishMissingPublicKey();
   useCheckFundingMultipleEscrows();
+  useCheckTradeNotifications();
   useHandleNotifications(messageHandler);
 
   const setPopup = useSetPopup();

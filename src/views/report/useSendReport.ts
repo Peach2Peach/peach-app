@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { APPVERSION, BUILDNUMBER, UNIQUEID } from "../../constants";
+import { APPVERSION, BUILDNUMBER, SESSION_ID, UNIQUEID } from "../../constants";
 import { sendErrors } from "../../utils/analytics/sendErrors";
 import { peachAPI } from "../../utils/peachAPI";
 
@@ -31,6 +31,7 @@ async function sendReport({
 
   if (shareLogs) {
     messageToSend += "\n\nUser shared app logs, please check crashlytics";
+    messageToSend += `\nSession ID: ${SESSION_ID}`;
     sendErrors([
       new Error(`user shared app logs: ${topic} - ${messageToSend}`),
     ]);

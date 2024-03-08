@@ -63,7 +63,7 @@ describe("useFundingStatus", () => {
       error: null,
     });
   });
-  it("returns default funding status if API does not return one", async () => {
+  it("returns error", async () => {
     getFundingStatusMock.mockResolvedValueOnce({
       error: { error: "UNAUTHORIZED" },
       ...responseUtils,

@@ -11,6 +11,11 @@ import { AddressInfo, TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { AddressIndex, BlockChainNames, Network } from "bdk-rn/lib/lib/enums";
 import { BIP32Interface } from "bip32";
 import RNFS from "react-native-fs";
+import { contractKeys } from "../../hooks/query/useContractDetail";
+import { getContractSummariesQuery } from "../../hooks/query/useContractSummaries";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
+import { getOfferSummariesQuery } from "../../hooks/query/useOfferSummaries";
+import { queryClient } from "../../queryClient";
 import { waitForHydration } from "../../store/waitForHydration";
 import { error } from "../log/error";
 import { info } from "../log/info";
@@ -156,9 +161,17 @@ export class PeachWallet extends PeachJSWallet {
 
             this.transactions = await this.wallet.listTransactions(true);
             useWalletState.getState().setTransactions(this.transactions);
+            const offers = await queryClient.fetchQuery({
+              queryKey: offerKeys.summaries(),
+              queryFn: getOfferSummariesQuery,
+            });
+            const contracts = await queryClient.fetchQuery({
+              queryKey: contractKeys.summaries(),
+              queryFn: getContractSummariesQuery,
+            });
             this.transactions
               .filter((tx) => !transactionHasBeenMappedToOffers(tx))
-              .forEach(mapTransactionToOffer);
+              .forEach(mapTransactionToOffer({ offers, contracts }));
             this.transactions
               .filter(transactionHasBeenMappedToOffers)
               .forEach(labelAddressByTransaction);
@@ -181,6 +194,7 @@ export class PeachWallet extends PeachJSWallet {
 
   async getAddress(index: AddressIndex | number = AddressIndex.New) {
     if (!this.wallet) throw Error("WALLET_NOT_READY");
+    info("Getting address at index ", index);
     const addressInfo = await this.wallet.getAddress(index);
     return {
       ...addressInfo,

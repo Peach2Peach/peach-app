@@ -18,7 +18,6 @@ import { RedeemNoPeachFeesPopup } from "../../popups/referral/RedeemNoPeachFeesP
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { thousands } from "../../utils/string/thousands";
 import { ReferralCode } from "./components/ReferralCode";
 import { REWARDINFO } from "./constants";
 import { isRewardAvailable } from "./helpers/isRewardAvailable";
@@ -67,7 +66,6 @@ function ReferralsPopup() {
 function ReferralRewards() {
   const { user } = useSelfUser();
   const balance = user?.bonusPoints || 0;
-  const referredTradingAmount = user?.referredTradingAmount || 0;
 
   const availableRewards = REWARDINFO.filter((reward) =>
     isRewardAvailable(reward, balance),
@@ -80,13 +78,6 @@ function ReferralRewards() {
   return (
     <>
       <PeachText style={tw`text-center`}>
-        {i18n(
-          !referredTradingAmount
-            ? "referrals.notTraded"
-            : "referrals.alreadyTraded",
-          i18n("currency.format.sats", thousands(referredTradingAmount)),
-        )}
-        {"\n\n"}
         {i18n(
           availableRewards
             ? "referrals.selectReward"
