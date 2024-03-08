@@ -2,6 +2,7 @@
 
 exports[`UnmatchButton renders correctly 1`] = `
 <View
+  accessibilityRole="button"
   accessibilityState={
     {
       "busy": undefined,
@@ -115,6 +116,7 @@ exports[`UnmatchButton should show the undo button if not yet matched 1`] = `
     }
   >
     <View
+      accessibilityRole="button"
       accessibilityState={
         {
           "busy": undefined,
@@ -208,6 +210,7 @@ exports[`UnmatchButton should show the undo button if not yet matched 1`] = `
     </View>
   </View>
   <View
+    accessibilityRole="button"
     accessibilityState={
       {
         "busy": undefined,

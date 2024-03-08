@@ -212,6 +212,7 @@ exports[`ExportTransactionHistory should render correctly 1`] = `
           </Text>
         </View>
         <View
+          accessibilityRole="button"
           accessibilityState={
             {
               "busy": undefined,

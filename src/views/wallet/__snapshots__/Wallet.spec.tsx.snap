@@ -714,6 +714,7 @@ exports[`Wallet should render correctly 1`] = `
             }
           >
             <View
+              accessibilityRole="button"
               accessibilityState={
                 {
                   "busy": undefined,
@@ -796,6 +797,7 @@ exports[`Wallet should render correctly 1`] = `
               </Text>
             </View>
             <View
+              accessibilityRole="button"
               accessibilityState={
                 {
                   "busy": undefined,

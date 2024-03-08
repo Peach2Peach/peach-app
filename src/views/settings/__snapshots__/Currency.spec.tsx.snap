@@ -2704,6 +2704,7 @@ exports[`Currency should render correctly 1`] = `
           </View>
         </RCTScrollView>
         <View
+          accessibilityRole="button"
           accessibilityState={
             {
               "busy": undefined,

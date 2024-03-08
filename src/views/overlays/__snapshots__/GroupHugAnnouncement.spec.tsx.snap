@@ -93,6 +93,7 @@ You're in control, switch anytime.
     }
   >
     <View
+      accessibilityRole="button"
       accessibilityState={
         {
           "busy": undefined,
@@ -172,6 +173,7 @@ You're in control, switch anytime.
       </Text>
     </View>
     <View
+      accessibilityRole="button"
       accessibilityState={
         {
           "busy": undefined,

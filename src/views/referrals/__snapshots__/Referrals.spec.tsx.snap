@@ -769,6 +769,7 @@ exports[`Referrals renders correctly 1`] = `
                 </View>
               </View>
               <View
+                accessibilityRole="button"
                 accessibilityState={
                   {
                     "busy": undefined,
