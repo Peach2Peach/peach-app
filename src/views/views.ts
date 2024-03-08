@@ -51,6 +51,7 @@ import { BumpNetworkFees } from "./wallet/BumpNetworkFees";
 import { CoinSelection } from "./wallet/CoinSelection";
 import { ExportTransactionHistory } from "./wallet/ExportTransactionHistory";
 import { LightningInvoiceScreen } from "./wallet/LightningInvoiceScreen";
+import { LightningTransactionHistory } from "./wallet/LightningTransactionHistory";
 import { LightningWallet } from "./wallet/LightningWallet";
 import { ReceiveBitcoin } from "./wallet/ReceiveBitcoin";
 import { ReceiveBitcoinLightning } from "./wallet/ReceiveBitcoinLightning";
@@ -95,6 +96,10 @@ const wallet: ViewType[] = [
   { name: "receiveBitcoinLightning", component: ReceiveBitcoinLightning },
   { name: "sendBitcoinLightning", component: SendBitcoinLightning },
   { name: "lightningInvoice", component: LightningInvoiceScreen },
+  {
+    name: "transactionHistoryLightning",
+    component: LightningTransactionHistory,
+  },
 ];
 const buyFlow: ViewType[] = [
   { name: "buyOfferPreferences", component: BuyOfferPreferences },

@@ -90,6 +90,7 @@ type RootStackParamList = Onboarding &
     lightningInvoice: {
       invoice: string;
     };
+    transactionHistoryLightning: undefined;
     selectCurrency: {
       origin: keyof RootStackParamList;
     };

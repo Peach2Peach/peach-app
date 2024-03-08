@@ -4,6 +4,7 @@ export const defaultConfig = jest.fn();
 export const nodeInfo = jest.fn();
 export const receivePayment = jest.fn();
 export const sendPayment = jest.fn();
+export const listPayments = jest.fn();
 
 export const EnvironmentType = {
   PRODUCTION: "production",

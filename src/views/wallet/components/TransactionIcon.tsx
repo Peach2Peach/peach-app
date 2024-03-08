@@ -3,7 +3,7 @@ import { IconType } from "../../../assets/icons";
 import { Icon } from "../../../components/Icon";
 import tw from "../../../styles/tailwind";
 
-type TxIcon = {
+export type TxIcon = {
   id: IconType;
   color: ColorValue | undefined;
 };
