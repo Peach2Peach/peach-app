@@ -1,24 +1,19 @@
 import { act, render, renderHook, waitFor } from "test-utils";
+import { nodeInfo } from "../../../../tests/unit/data/lightningNetworkData";
 import { navigateMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { Overlay } from "../../../Overlay";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import {
-  MSAT_PER_SAT,
   emptyLightningBalance,
   useLightningWalletBalance,
 } from "./useLightningWalletBalance";
 
 jest.mock("@breeztech/react-native-breez-sdk");
-
-const balance = { lightning: 21000000, onchain: 0, total: 21000000 };
 jest
   .requireMock("@breeztech/react-native-breez-sdk")
-  .nodeInfo.mockResolvedValue({
-    channelsBalanceMsat: balance.lightning * MSAT_PER_SAT,
-    onchainBalanceMsat: balance.onchain * MSAT_PER_SAT,
-  });
+  .nodeInfo.mockResolvedValue(nodeInfo);
 
 jest.useFakeTimers();
 
@@ -38,7 +33,12 @@ describe("useLightningWalletBalance", () => {
     await waitFor(() =>
       expect(result.current.balance.total).toBeGreaterThan(0),
     );
-    expect(result.current.balance).toEqual(balance);
+    expect(result.current.balance).toEqual({
+      lightning: 200000,
+      lightningMsats: 200000000,
+      onchain: 21000,
+      total: 221000,
+    });
   });
   it("should navigate to backupTime if balance is bigger than 0 & showBackupReminder is false", async () => {
     useSettingsStore.setState({

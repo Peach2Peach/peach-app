@@ -1,22 +1,23 @@
 /* eslint-disable no-magic-numbers */
 import { fireEvent, render, waitFor } from "test-utils";
+import {
+  lightningInvoice,
+  nodeInfo,
+} from "../../../tests/unit/data/lightningNetworkData";
 import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { ReceiveBitcoinLightning } from "./ReceiveBitcoinLightning";
 import { MSAT_PER_SAT } from "./hooks/useLightningWalletBalance";
 
-const invoice = "ln1pinvoice...";
 jest.mock("@breeztech/react-native-breez-sdk");
 const receivePaymentMock = jest
   .requireMock("@breeztech/react-native-breez-sdk")
   .receivePayment.mockReturnValue({
     lnInvoice: {
-      bolt11: invoice,
+      bolt11: lightningInvoice,
     },
   });
 jest.mock("./hooks/useLightningNodeInfo");
-const nodeInfo = {
-  maxReceivableMsat: 1000000000,
-};
+
 const useLightningNodeInfoMock = jest
   .requireMock("./hooks/useLightningNodeInfo")
   .useLightningNodeInfo.mockReturnValue({ data: nodeInfo });
@@ -59,7 +60,7 @@ describe("ReceiveBitcoinLightning", () => {
     );
     await waitFor(() =>
       expect(navigateMock).toHaveBeenCalledWith("lightningInvoice", {
-        invoice,
+        invoice: lightningInvoice,
       }),
     );
   });

@@ -127,6 +127,6 @@ describe("useStartSwapOut", () => {
     } = renderHook(useStartSwapOut);
     startSwapOut();
     const { queryByText } = render(<GlobalPopup />);
-    expect(queryByText("228543 sats")).toBeTruthy();
+    expect(queryByText("Create an invoice for 228543 sats")).toBeTruthy();
   });
 });

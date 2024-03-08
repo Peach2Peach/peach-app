@@ -1,19 +1,14 @@
 /* eslint-disable no-magic-numbers */
 import { fireEvent, render, waitFor } from "test-utils";
+import { nodeInfo } from "../../../tests/unit/data/lightningNetworkData";
 import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { LightningWallet } from "./LightningWallet";
 
-jest.mock("./hooks/useLightningWalletBalance");
-const lightningWalletBalance = {
-  balance: { lightning: 10, onchain: 11, total: 21 },
-  refetch: jest.fn(),
-  isRefetching: false,
-  isLoading: false,
-};
-const useLightningWalletBalanceMock = jest
-  .requireMock("./hooks/useLightningWalletBalance")
-  .useLightningWalletBalance.mockReturnValue(lightningWalletBalance);
+jest.mock("@breeztech/react-native-breez-sdk");
+jest
+  .requireMock("@breeztech/react-native-breez-sdk")
+  .nodeInfo.mockResolvedValue(nodeInfo);
 
 jest.useFakeTimers();
 
@@ -30,20 +25,12 @@ describe("LightningWallet", () => {
 
     expect(toJSON()).toMatchSnapshot();
   });
-  it("should render correctly while loading", async () => {
-    useLightningWalletBalanceMock.mockReturnValue({
-      ...lightningWalletBalance,
-      isLoading: true,
-    });
+  it("should render correctly while loading", () => {
     const { toJSON } = render(<LightningWallet />);
 
     expect(toJSON()).toMatchSnapshot();
   });
 
-  it("should render correctly when loading", () => {
-    const { toJSON } = render(<LightningWallet />);
-    expect(toJSON()).toMatchSnapshot();
-  });
   it("should navigate to bitcoin wallet screen when link is pressed", async () => {
     const { getByText } = render(<LightningWallet />);
     await waitFor(() => {

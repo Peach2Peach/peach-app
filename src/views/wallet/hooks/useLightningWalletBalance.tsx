@@ -8,6 +8,7 @@ import { BackupTime } from "../../overlays/BackupTime";
 export const MSAT_PER_SAT = 1000;
 
 export const emptyLightningBalance = {
+  lightningMsats: 0,
   lightning: 0,
   onchain: 0,
   total: 0,
@@ -26,6 +27,7 @@ export const useLightningWalletBalance = () => {
       const onchain = floor(nodeState.onchainBalanceMsat / MSAT_PER_SAT);
 
       return {
+        lightningMsats: nodeState.channelsBalanceMsat,
         lightning,
         onchain,
         total: lightning + onchain,

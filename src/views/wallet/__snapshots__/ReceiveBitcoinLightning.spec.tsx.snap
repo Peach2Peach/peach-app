@@ -206,7 +206,7 @@ exports[`ReceiveBitcoinLightning should render correctly 1`] = `
                     "borderWidth": 1,
                   },
                 ],
-                undefined,
+                null,
               ]
             }
           >

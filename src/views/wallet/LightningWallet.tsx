@@ -1,3 +1,4 @@
+import { NETWORK } from "@env";
 import { RefreshControl, View } from "react-native";
 import { BackupReminderIcon } from "../../components/BackupReminderIcon";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -30,6 +31,13 @@ export const LightningWallet = () => {
           <RefreshControl refreshing={false} onRefresh={refetch} />
         }
       >
+        {NETWORK !== "bitcoin" && (
+          <PeachText style={tw`text-error-dark font-bold text-center `}>
+            This is not testnet!{"\n"}
+            The Peach lightning wallet only works with real sats, use at your
+            own risk!
+          </PeachText>
+        )}
         <TotalBalance amount={balance.lightning} isRefreshing={isRefetching} />
         <BackupReminderIcon />
       </PeachScrollView>

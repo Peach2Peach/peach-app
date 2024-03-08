@@ -1,6 +1,6 @@
 import { receivePayment } from "@breeztech/react-native-breez-sdk";
-import { useCallback, useRef, useState } from "react";
-import { TextInput, View } from "react-native";
+import { useCallback, useState } from "react";
+import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { BTCAmountInput } from "../../components/inputs/BTCAmountInput";
@@ -46,7 +46,6 @@ const useCreateInvoice = ({
 };
 
 export const ReceiveBitcoinLightning = () => {
-  const inputRef = useRef<TextInput>(null);
   const [amount, setAmount] = useState(0);
   const amountMsat = amount * MSAT_PER_SAT;
   const [description, setDescription] = useState("");
@@ -63,7 +62,6 @@ export const ReceiveBitcoinLightning = () => {
       <View style={[tw`gap-2 py-1`, tw`md:gap-8 md:py-6`]}>
         <BTCAmountInput
           accessibilityHint={i18n("form.lightningInvoice.amount.label")}
-          ref={inputRef}
           value={String(amount)}
           onFocus={onFocus}
           onChangeText={(text) => setAmount(Number(text))}
