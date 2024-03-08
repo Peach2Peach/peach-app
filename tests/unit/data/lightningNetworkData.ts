@@ -44,3 +44,24 @@ export const lnPayment: Payment = {
     },
   },
 };
+
+export const lnPaymentFailed: Payment = {
+  id: "payment id",
+  paymentType: PaymentType.SENT,
+  paymentTime: 1,
+  amountMsat: 12345,
+  feeMsat: 12,
+  status: PaymentStatus.FAILED,
+  error: "missing route",
+  details: {
+    type: PaymentDetailsVariant.LN,
+    data: {
+      paymentHash: "paymentHash",
+      label: "label",
+      destinationPubkey: "destinationPubkey",
+      paymentPreimage: "paymentPreimage",
+      keysend: false,
+      bolt11: lightningInvoice,
+    },
+  },
+};

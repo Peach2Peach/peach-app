@@ -55,6 +55,7 @@ import { LightningWallet } from "./wallet/LightningWallet";
 import { ReceiveBitcoin } from "./wallet/ReceiveBitcoin";
 import { ReceiveBitcoinLightning } from "./wallet/ReceiveBitcoinLightning";
 import { SendBitcoin } from "./wallet/SendBitcoin";
+import { SendBitcoinLightning } from "./wallet/SendBitcoinLightning";
 import { TransactionDetails } from "./wallet/TransactionDetails";
 import { TransactionHistory } from "./wallet/TransactionHistory";
 import { Welcome } from "./welcome/Welcome";
@@ -92,6 +93,7 @@ const wallet: ViewType[] = [
   { name: "bumpNetworkFees", component: BumpNetworkFees },
   { name: "lightningWallet", component: LightningWallet },
   { name: "receiveBitcoinLightning", component: ReceiveBitcoinLightning },
+  { name: "sendBitcoinLightning", component: SendBitcoinLightning },
   { name: "lightningInvoice", component: LightningInvoiceScreen },
 ];
 const buyFlow: ViewType[] = [

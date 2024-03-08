@@ -31,6 +31,7 @@ export const Button = ({
   return (
     <TouchableOpacity
       {...touchableOpacityProps}
+      accessibilityRole="button"
       disabled={touchableOpacityProps.disabled || loading}
       style={[
         tw`bg-primary-main min-w-26`,
