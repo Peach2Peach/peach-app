@@ -12,6 +12,7 @@ export const useFundingStatus = (id: string, enabled = true) => {
     data,
     isLoading,
     error: fundingStatusError,
+    isPending,
   } = useQuery({
     queryKey: offerKeys.fundingStatus(id),
     queryFn: getFundingStatusQuery,
@@ -23,6 +24,7 @@ export const useFundingStatus = (id: string, enabled = true) => {
     fundingStatus: data?.funding,
     userConfirmationRequired: data?.userConfirmationRequired,
     isLoading,
+    isPending,
     error: fundingStatusError,
   };
 };

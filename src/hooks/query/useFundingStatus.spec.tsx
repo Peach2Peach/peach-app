@@ -44,6 +44,7 @@ describe("useFundingStatus", () => {
       fundingStatus: undefined,
       userConfirmationRequired: undefined,
       isLoading: true,
+      isPending: true,
       error: null,
     });
 
@@ -53,6 +54,7 @@ describe("useFundingStatus", () => {
       fundingStatus: inMempool.funding,
       userConfirmationRequired: inMempool.userConfirmationRequired,
       isLoading: false,
+      isPending: false,
       error: null,
     });
   });
@@ -72,6 +74,7 @@ describe("useFundingStatus", () => {
       fundingStatus: undefined,
       userConfirmationRequired: undefined,
       isLoading: false,
+      isPending: false,
       error: new Error("UNAUTHORIZED"),
     });
   });

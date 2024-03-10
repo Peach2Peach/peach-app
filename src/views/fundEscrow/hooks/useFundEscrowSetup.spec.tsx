@@ -57,11 +57,11 @@ describe("useFundEscrowSetup", () => {
   it("should return default values", () => {
     const { result } = renderHook(useFundEscrowSetup);
     expect(result.current).toEqual({
+      isPending: true,
       fundingAddress: undefined,
       fundingAddresses: [],
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
-      isLoading: true,
       offerIdsWithoutEscrow: [],
     });
   });
@@ -84,11 +84,11 @@ describe("useFundEscrowSetup", () => {
     const { result } = renderHook(useFundEscrowSetup);
 
     expect(result.current).toEqual({
+      isPending: false,
       fundingAddress: sellOfferWithEscrow.escrow,
       fundingAddresses: [sellOfferWithEscrow.escrow],
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOfferWithEscrow.amount,
-      isLoading: false,
       offerIdsWithoutEscrow: [],
     });
   });
@@ -109,11 +109,11 @@ describe("useFundEscrowSetup", () => {
     });
     const { result } = renderHook(useFundEscrowSetup);
     expect(result.current).toEqual({
+      isPending: true,
       fundingAddress: undefined,
       fundingAddresses: [],
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
-      isLoading: true,
       offerIdsWithoutEscrow: [],
     });
   });
@@ -125,11 +125,11 @@ describe("useFundEscrowSetup", () => {
     });
     const { result } = renderHook(useFundEscrowSetup);
     expect(result.current).toEqual({
+      isPending: false,
       fundingAddress: "escrow",
       fundingAddresses: ["escrow"],
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOffer.amount,
-      isLoading: false,
       offerIdsWithoutEscrow: [],
     });
   });
