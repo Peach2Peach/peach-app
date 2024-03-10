@@ -45,10 +45,10 @@ export const FundEscrow = () => {
     fundingStatus,
     fundingAmount,
     offerIdsWithoutEscrow,
-    isLoading,
+    isPending,
   } = useFundEscrowSetup();
 
-  if (isLoading) return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
+  if (isPending) return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
   if (offerIdsWithoutEscrow.length > 0)
     return <CreateEscrowScreen offerIds={offerIdsWithoutEscrow} />;
 

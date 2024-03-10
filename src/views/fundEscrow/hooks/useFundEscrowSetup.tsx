@@ -29,7 +29,7 @@ export const useFundEscrowSetup = () => {
     refetchInterval: fundMultiple ? MSINAMINUTE * 2 : undefined,
     enabled: true,
   });
-  const { offers, isLoading: isLoadingOffers } = useMultipleOfferDetails(
+  const { offers, isPending: offersArePending } = useMultipleOfferDetails(
     fundMultiple?.offerIds || [offerId],
   );
   const offer = offers[0];
@@ -40,7 +40,7 @@ export const useFundEscrowSetup = () => {
     fundingStatus,
     userConfirmationRequired,
     error: fundingStatusError,
-    isLoading: isLoadingFundingStatus,
+    isPending: fundingStatusIsPending,
   } = useFundingStatus(offerId, canFetchFundingStatus);
   const escrows = offers
     .filter(isDefined)
@@ -76,6 +76,6 @@ export const useFundEscrowSetup = () => {
     fundingStatus,
     fundingAmount,
     offerIdsWithoutEscrow,
-    isLoading: isLoadingOffers || isLoadingFundingStatus,
+    isPending: !!(offersArePending || fundingStatusIsPending),
   };
 };
