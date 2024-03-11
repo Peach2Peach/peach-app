@@ -35,13 +35,28 @@ describe("usePayInvoice", () => {
     const error = await getError<Error>(() => result.current.payInvoice());
     expect(error.message).toBe("AMOUNT_MISSING");
   });
-  it("should pay invoice", async () => {
+  it("should pay invoice that has amount", async () => {
     const { result } = renderHook(usePayInvoice, { initialProps });
     await result.current.payInvoice();
     await waitFor(() => {
       expect(sendPayment).toHaveBeenCalledWith({
-        amountMsat: 12345000,
+        amountMsat: undefined,
         bolt11: lightningInvoice,
+      });
+    });
+  });
+  it("should pay invoice that has not amount", async () => {
+    const { result } = renderHook(usePayInvoice, {
+      initialProps: {
+        paymentRequest: bolt11.decode(lightningInvoiceNoAmount),
+        amount: 1000,
+      },
+    });
+    await result.current.payInvoice();
+    await waitFor(() => {
+      expect(sendPayment).toHaveBeenCalledWith({
+        amountMsat: 1000,
+        bolt11: lightningInvoiceNoAmount,
       });
     });
   });
