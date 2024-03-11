@@ -4,7 +4,7 @@ import { useSelfUser } from "./query/useSelfUser";
 
 export const useLiquidFeeRate = () => {
   const { user } = useSelfUser();
-  const feeRate = user?.feeRate; // TODO use liquid fee rate
+  const feeRate = user?.feeRateLiquid;
   const { estimatedFees } = useLiquidFeeEstimate();
 
   if (feeRate && isNumber(feeRate)) return feeRate;

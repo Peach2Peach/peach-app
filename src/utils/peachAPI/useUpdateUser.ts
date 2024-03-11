@@ -9,6 +9,7 @@ export type UpdateUserParams = {
   fcmToken?: string;
   referralCode?: string;
   feeRate?: FeeRate;
+  feeRateLiquid?: FeeRate;
 };
 
 export function useUpdateUser() {
@@ -37,6 +38,7 @@ async function updateUser({
   fcmToken,
   referralCode,
   feeRate,
+  feeRateLiquid,
 }: UpdateUserParams) {
   const peachAccount = peachAPI.apiOptions.peachAccount;
   if (!peachAccount) throw new Error("UNAUTHORIZED");
@@ -45,6 +47,7 @@ async function updateUser({
     fcmToken,
     referralCode,
     feeRate,
+    feeRateLiquid,
   });
 
   if (error || !result) throw new Error(error?.error || "UNKNOWN_ERROR");
