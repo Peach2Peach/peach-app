@@ -5,6 +5,7 @@ export const nodeInfo = jest.fn();
 export const receivePayment = jest.fn();
 export const sendPayment = jest.fn();
 export const listPayments = jest.fn();
+export const paymentByHash = jest.fn();
 
 export const EnvironmentType = {
   PRODUCTION: "production",
