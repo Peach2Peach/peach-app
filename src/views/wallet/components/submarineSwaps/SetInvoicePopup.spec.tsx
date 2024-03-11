@@ -27,14 +27,19 @@ describe("SetInvoicePopup", () => {
     expect(toJSON()).toMatchSnapshot();
   });
   it("should show show prefilled invoice field", async () => {
-    const { toJSON, getByPlaceholderText } = render(
+    const { toJSON, getByPlaceholderText, getByTestId } = render(
       <SetInvoicePopup amount={12345} miningFees={210} />,
     );
     await waitFor(() =>
       expect(
         getByPlaceholderText("form.address.lightningInvoice.placeholder").props
-          .value,
-      ).toBeDefined(),
+          .value.length > 0,
+      ).toBeTruthy(),
+    );
+    await waitFor(() =>
+      expect(getByTestId("popup-action-swapOut").props.style.opacity).toEqual(
+        1,
+      ),
     );
     expect(toJSON()).toMatchSnapshot();
   });

@@ -1,6 +1,7 @@
 import { networks } from "liquidjs-lib";
-import { render, renderHook } from "test-utils";
+import { render, renderHook, waitFor } from "test-utils";
 import { submarineSwapList } from "../../../../../../tests/unit/data/boltzData";
+import { lightningInvoice } from "../../../../../../tests/unit/data/lightningNetworkData";
 import {
   mempoolUTXO,
   utxo,
@@ -27,6 +28,15 @@ const useSubmarineSwapsMock = jest
   .requireMock("../../../../../utils/boltz/query/useSubmarineSwaps")
   .useSubmarineSwaps.mockReturnValue({
     submarineList: submarineSwapList,
+  });
+
+jest.mock("@breeztech/react-native-breez-sdk");
+jest
+  .requireMock("@breeztech/react-native-breez-sdk")
+  .receivePayment.mockReturnValue({
+    lnInvoice: {
+      bolt11: lightningInvoice,
+    },
   });
 
 const mockShowErrorBanner = jest.fn();
@@ -113,7 +123,7 @@ describe("useStartSwapOut", () => {
       undefined,
     ]);
   });
-  it("should estimate swappable amount and open SetInvoicePopup", () => {
+  it("should estimate swappable amount and open SetInvoicePopup", async () => {
     const utxos = [utxo, mempoolUTXO].map((utx) => ({
       ...utx,
       derivationPath: "1",
@@ -127,6 +137,8 @@ describe("useStartSwapOut", () => {
     } = renderHook(useStartSwapOut);
     startSwapOut();
     const { queryByText } = render(<GlobalPopup />);
-    expect(queryByText("Create an invoice for 228543 sats")).toBeTruthy();
+    await waitFor(() =>
+      expect(queryByText("Create an invoice for 228543 sats")).toBeTruthy(),
+    );
   });
 });

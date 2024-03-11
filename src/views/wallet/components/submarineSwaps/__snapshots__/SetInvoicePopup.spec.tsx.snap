@@ -258,6 +258,7 @@ exports[`SetInvoicePopup should show loading while lightningwallet generates inv
           "paddingTop": 8,
         }
       }
+      testID="popup-action-swapOut"
     >
       <test-file-stub
         fill="#FFFCFA"
@@ -849,13 +850,14 @@ exports[`SetInvoicePopup should show show prefilled invoice field 1`] = `
           "flexDirection": "row-reverse",
           "flexGrow": 1,
           "gap": 4,
-          "opacity": 0.533856,
+          "opacity": 1,
           "paddingBottom": 8,
           "paddingLeft": 24,
           "paddingRight": 24,
           "paddingTop": 8,
         }
       }
+      testID="popup-action-swapOut"
     >
       <test-file-stub
         fill="#FFFCFA"

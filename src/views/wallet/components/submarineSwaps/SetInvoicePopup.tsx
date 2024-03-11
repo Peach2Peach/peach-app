@@ -150,6 +150,7 @@ export const SetInvoicePopup = ({
             onPress={closePopup}
           />
           <PopupAction
+            testID="popup-action-swapOut"
             label={i18n("wallet.swap")}
             iconId="checkSquare"
             onPress={swapOut}
