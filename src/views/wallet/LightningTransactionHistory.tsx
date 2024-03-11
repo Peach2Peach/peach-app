@@ -7,6 +7,7 @@ import { BitcoinAmountInfo } from "../../components/statusCard/BitcoinAmountInfo
 import { StatusCard } from "../../components/statusCard/StatusCard";
 import { StatusInfo } from "../../components/statusCard/StatusInfo";
 import { statusCardStyles } from "../../components/statusCard/statusCardStyles";
+import { MSINASECOND } from "../../constants";
 import tw from "../../styles/tailwind";
 import { getShortDateFormat } from "../../utils/date/getShortDateFormat";
 import i18n from "../../utils/i18n";
@@ -40,7 +41,9 @@ const LightningPayment = ({ payment }: { payment: Payment }) => (
             color={iconMap[payment.paymentType].color}
           />
         }
-        subtext={getShortDateFormat(new Date(payment.paymentTime))}
+        subtext={getShortDateFormat(
+          new Date(payment.paymentTime * MSINASECOND),
+        )}
       />
     }
     amountInfo={
