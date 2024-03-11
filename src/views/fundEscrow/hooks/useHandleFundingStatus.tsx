@@ -33,7 +33,7 @@ export const useHandleFundingStatus = ({
   );
 
   useEffect(() => {
-    if (!sellOffer) return;
+    if (!sellOffer || !funding.status) return;
 
     info("Checked funding status", funding);
 

@@ -6,9 +6,9 @@ import { PopupAction } from "../../components/popup/PopupAction";
 import { PopupComponent } from "../../components/popup/PopupComponent";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
+import { useContractSummaries } from "../../hooks/query/useContractSummaries";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useToggleBatching } from "../../hooks/user/useToggleBatching";
-import { useTradeSummaryStore } from "../../store/tradeSummaryStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { LoadingScreen } from "../loading/LoadingScreen";
@@ -18,7 +18,7 @@ export const TransactionBatching = () => {
   const { mutate } = useToggleBatching(user || { isBatchingEnabled: false });
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
-  const contracts = useTradeSummaryStore((state) => state.contracts);
+  const { contracts } = useContractSummaries();
   const toggleBatching = () => {
     const hasPendingPayouts = contracts.some(
       (contract) => contract.tradeStatus === "payoutPending",

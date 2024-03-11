@@ -1,13 +1,31 @@
-import { render } from "test-utils";
+import bolt11 from "bolt11";
+import { fireEvent, render } from "test-utils";
 import {
   reverseSwapResponse,
   swapStatusCreated,
   swapStatusMempool,
 } from "../../../tests/unit/data/boltzData";
+import {
+  lnPayment,
+  nodeInfo,
+} from "../../../tests/unit/data/lightningNetworkData";
 import { liquidAddresses } from "../../../tests/unit/data/liquidNetworkData";
 import { useBoltzSwapStore } from "../../store/useBoltzSwapStore";
 import { ReverseSubmarineSwap } from "./ReverseSubmarineSwap";
 
+jest.mock("@breeztech/react-native-breez-sdk");
+jest
+  .requireMock("@breeztech/react-native-breez-sdk")
+  .nodeInfo.mockResolvedValue(nodeInfo);
+
+const payInvoiceMock = jest.fn().mockResolvedValue(lnPayment);
+jest.mock("../wallet/hooks/usePayInvoice");
+const usePayInvoiceMock = jest
+  .requireMock("../wallet/hooks/usePayInvoice")
+  .usePayInvoice.mockReturnValue({
+    payInvoice: payInvoiceMock,
+    isPayingInvoice: false,
+  });
 jest.mock("../../utils/boltz/query/usePostReverseSubmarineSwap");
 const useClaimReverseSubmarineSwapMock = jest
   .requireMock("../../utils/boltz/query/usePostReverseSubmarineSwap")
@@ -58,6 +76,16 @@ describe("ReverseSubmarineSwap", () => {
     });
     const { toJSON } = render(<ReverseSubmarineSwap {...props} />);
     expect(toJSON()).toMatchSnapshot();
+  });
+
+  it("should fund from peach lightning wallet", () => {
+    const { getByText } = render(<ReverseSubmarineSwap {...props} />);
+    expect(usePayInvoiceMock).toHaveBeenCalledWith({
+      paymentRequest: bolt11.decode(reverseSwapResponse.invoice),
+      amount: 30000,
+    });
+    fireEvent.press(getByText("fund from Peach wallet"));
+    expect(payInvoiceMock).toHaveBeenCalled();
   });
   it("should render ClaimReverseSubmarineSwap if status transaction.mempool", () => {
     useSwapStatusMock.mockReturnValueOnce({ status: swapStatusMempool });

@@ -23,7 +23,6 @@ import { getChat } from "../../utils/chat/getChat";
 import { getUnsentMessages } from "../../utils/chat/getUnsentMessages";
 import { saveChat } from "../../utils/chat/saveChat";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
-import { getTradingPartner } from "../../utils/contract/getTradingPartner";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { error } from "../../utils/log/error";
@@ -59,8 +58,12 @@ function ChatScreen({ contract }: { contract: Contract }) {
     symmetricKey: decryptedData?.symmetricKey,
   });
   const showError = useShowErrorBanner();
-  const account = useAccountStore((state) => state.account);
-  const tradingPartner = contract ? getTradingPartner(contract, account) : null;
+  const publicKey = useAccountStore((state) => state.account.publicKey);
+  const tradingPartner = contract
+    ? publicKey === contract.seller.id
+      ? contract.buyer
+      : contract.seller
+    : null;
   const [chat, setChat] = useState(getChat(contractId));
   const [newMessage, setNewMessage] = useState(chat.draftMessage);
   const [disableSend, setDisableSend] = useState(false);
@@ -81,7 +84,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
       );
       const messageObject: Message = {
         roomId: `contract-${contractId}`,
-        from: account.publicKey,
+        from: publicKey,
         date: new Date(),
         readBy: [],
         message,
@@ -111,7 +114,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
       tradingPartner,
       decryptedData?.symmetricKey,
       contractId,
-      account.publicKey,
+      publicKey,
       connected,
       setAndSaveChat,
       send,
@@ -206,7 +209,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
           return oldQueryData;
         },
       );
-      if (!message.readBy.includes(account.publicKey)) {
+      if (!message.readBy.includes(publicKey)) {
         send(
           JSON.stringify({
             path: "/v1/contract/chat/received",
@@ -232,7 +235,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
     send,
     off,
     decryptedData?.symmetricKey,
-    account.publicKey,
+    publicKey,
     queryClient,
     setAndSaveChat,
   ]);

@@ -88,10 +88,13 @@ export class PeachJSWallet {
         ? this.getKeyPair(index)
         : this.findKeyPairByAddress(address);
     if (!keyPair?.privateKey) throw Error("Address not part of wallet");
-    const signature = sign(message, keyPair.privateKey, true);
+    const signature = sign(message, keyPair.privateKey, true).toString(
+      "base64",
+    );
+    info("Signed message: ", message, " with signature: ", signature);
 
     info("PeachWallet - signMessage - end");
 
-    return signature.toString("base64");
+    return signature;
   }
 }

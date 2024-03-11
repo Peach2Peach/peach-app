@@ -4,7 +4,6 @@ import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
-import { useTradeSummaryStore } from "../store/tradeSummaryStore";
 import { checkRefundPSBT } from "../utils/bitcoin/checkRefundPSBT";
 import { signAndFinalizePSBT } from "../utils/bitcoin/signAndFinalizePSBT";
 import { showTransaction } from "../utils/blockchain/showTransaction";
@@ -22,7 +21,6 @@ export function useRefundSellOffer() {
   const setPopup = useSetPopup();
   const showError = useShowErrorBanner();
   const closePopup = useClosePopup();
-  const setOffer = useTradeSummaryStore((state) => state.setOffer);
   const isPeachWallet = useSettingsStore((state) => state.refundToPeachWallet);
   const [setShowBackupReminder, shouldShowBackupOverlay] = useSettingsStore(
     (state) => [state.setShowBackupReminder, state.shouldShowBackupOverlay],
@@ -72,7 +70,6 @@ export function useRefundSellOffer() {
         txId,
         refunded: true,
       });
-      setOffer(sellOffer.id, { txId });
       if (shouldShowBackupOverlay && isPeachWallet) {
         setShowBackupReminder(true);
       }

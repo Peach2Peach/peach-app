@@ -3,11 +3,11 @@ import { BackupReminderIcon } from "../../components/BackupReminderIcon";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
+import { PeachText } from "../../components/text/PeachText";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { useLiquidWalletState } from "../../utils/wallet/useLiquidWalletState";
-import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { TotalBalance, WalletHeader } from "./components";
 import { SwapButton } from "./components/submarineSwaps/SwapButton";
 import { useLastUnusedAddress, useUTXOs, useWalletAddress } from "./hooks";
@@ -29,10 +29,10 @@ export const Wallet = () => {
     refetchBitcoin();
     refetchLiquid();
   };
-  if (isLoadingBitcoin) return <BitcoinLoading text={i18n("wallet.loading")} />;
 
   return (
     <Screen header={<WalletHeader />}>
+      <SelectLayer />
       <PeachScrollView
         contentContainerStyle={tw`grow`}
         contentStyle={tw`justify-center py-16 grow`}
@@ -42,7 +42,9 @@ export const Wallet = () => {
       >
         <TotalBalance
           amount={balance}
-          isRefreshing={isRefetchingBitcoin || isRefetchingLiquid}
+          isRefreshing={
+            isRefetchingBitcoin || isRefetchingLiquid || isLoadingBitcoin
+          }
         />
         <BackupReminderIcon />
       </PeachScrollView>
@@ -51,6 +53,18 @@ export const Wallet = () => {
   );
 };
 
+function SelectLayer() {
+  const navigation = useStackNavigation();
+  const goToLightningWallet = () => {
+    navigation.navigate("lightningWallet");
+  };
+  return (
+    <View style={tw`flex-row gap-4 justify-center p-4`}>
+      <PeachText style={tw`font-bold`}>on-chain</PeachText>
+      <PeachText onPress={goToLightningWallet}>lightning</PeachText>
+    </View>
+  );
+}
 const useAddressPrefetch = () => {
   const { data } = useLastUnusedAddress();
   const displayIndex = data?.index ?? 0;

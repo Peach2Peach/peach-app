@@ -50,8 +50,13 @@ import { AddressChecker } from "./wallet/AddressChecker";
 import { BumpNetworkFees } from "./wallet/BumpNetworkFees";
 import { CoinSelection } from "./wallet/CoinSelection";
 import { ExportTransactionHistory } from "./wallet/ExportTransactionHistory";
+import { LightningInvoiceScreen } from "./wallet/LightningInvoiceScreen";
+import { LightningTransactionHistory } from "./wallet/LightningTransactionHistory";
+import { LightningWallet } from "./wallet/LightningWallet";
 import { ReceiveBitcoin } from "./wallet/ReceiveBitcoin";
+import { ReceiveBitcoinLightning } from "./wallet/ReceiveBitcoinLightning";
 import { SendBitcoin } from "./wallet/SendBitcoin";
+import { SendBitcoinLightning } from "./wallet/SendBitcoinLightning";
 import { TransactionDetails } from "./wallet/TransactionDetails";
 import { TransactionHistory } from "./wallet/TransactionHistory";
 import { Welcome } from "./welcome/Welcome";
@@ -87,6 +92,14 @@ const wallet: ViewType[] = [
   { name: "exportTransactionHistory", component: ExportTransactionHistory },
   { name: "transactionDetails", component: TransactionDetails },
   { name: "bumpNetworkFees", component: BumpNetworkFees },
+  { name: "lightningWallet", component: LightningWallet },
+  { name: "receiveBitcoinLightning", component: ReceiveBitcoinLightning },
+  { name: "sendBitcoinLightning", component: SendBitcoinLightning },
+  { name: "lightningInvoice", component: LightningInvoiceScreen },
+  {
+    name: "transactionHistoryLightning",
+    component: LightningTransactionHistory,
+  },
 ];
 const buyFlow: ViewType[] = [
   { name: "buyOfferPreferences", component: BuyOfferPreferences },

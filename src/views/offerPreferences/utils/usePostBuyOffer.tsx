@@ -11,6 +11,7 @@ import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore"
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
 import i18n from "../../../utils/i18n";
+import { info } from "../../../utils/log/info";
 import { peachAPI } from "../../../utils/peachAPI";
 import { isPaymentMethod } from "../../../utils/validation/isPaymentMethod";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
@@ -97,7 +98,16 @@ export function usePostBuyOffer({
             })
           : isValidLiquidSignature({ message, address, signature });
       if (!isValidSignature) throw new Error("INVALID_SIGNATURE");
-
+      info(
+        "Generated a valid signature for address ",
+        address,
+        " of user ",
+        publicKey,
+        " with message ",
+        message,
+        ":\n",
+        signature,
+      );
       const finalizedOfferDraft = {
         type: "bid" as const,
         escrowType,

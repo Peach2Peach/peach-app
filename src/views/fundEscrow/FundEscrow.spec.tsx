@@ -15,8 +15,6 @@ const useFundFromPeachWalletMock = jest
     fundedFromPeachWallet: false,
   });
 
-jest.mock("boltz-swap-web-context", () => "html");
-
 describe("FundEscrow", () => {
   const activeFunding = {
     fundingAddress: sellOffer.returnAddress,
@@ -37,6 +35,7 @@ describe("FundEscrow", () => {
     activeFunding,
     fundingAmount: 100000,
     createEscrowError: null,
+    offerIdsWithoutEscrow: 0,
   };
   const renderer = createRenderer();
 

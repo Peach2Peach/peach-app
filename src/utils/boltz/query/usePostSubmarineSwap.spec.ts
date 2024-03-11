@@ -31,7 +31,7 @@ describe("postSubmarineSwapQuery", () => {
       invoice: "invoice",
       referralId: "peach",
       refundPublicKey:
-        "02a2f3cfc8519a7e5ed3eb88a753f539c1d51c8416fa0a256c5988345e7031b748",
+        "021eb94b29bc8c7172295fa1435c9c7e4f6472b458b213b38b1199f3068e7a4cd6",
     });
   });
 });

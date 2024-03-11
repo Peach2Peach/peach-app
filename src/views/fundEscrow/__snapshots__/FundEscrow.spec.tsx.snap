@@ -44,7 +44,7 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         >
           send
         </PeachText>
-        <BTCAmount
+        <Memo
           amount={100000}
           size="medium"
           style={
@@ -221,7 +221,7 @@ exports[`FundEscrow should show Loading, while escrow is not defined 1`] = `
         >
           send
         </PeachText>
-        <BTCAmount
+        <Memo
           amount={100000}
           size="medium"
           style={
@@ -398,7 +398,7 @@ exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOO
         >
           send
         </PeachText>
-        <BTCAmount
+        <Memo
           amount={100000}
           size="medium"
           style={
@@ -575,7 +575,7 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
         >
           send
         </PeachText>
-        <BTCAmount
+        <Memo
           amount={100000}
           size="medium"
           style={

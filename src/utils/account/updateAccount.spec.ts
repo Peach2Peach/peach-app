@@ -1,13 +1,13 @@
 import { account1 } from "../../../tests/unit/data/accountData";
 import { tradingLimit } from "../../../tests/unit/data/tradingLimitsData";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
-import { dataMigrationAfterLoadingWallet } from "../../init/dataMigration/dataMigrationAfterLoadingWallet";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import i18n from "../i18n";
 import { peachAPI } from "../peachAPI";
 import { getWallet } from "../wallet/getWallet";
 import { PeachWallet } from "../wallet/PeachWallet";
 import { defaultAccount, useAccountStore } from "./account";
+import { storeIdentity } from "./storeAccount/storeIdentity";
 import { updateAccount } from "./updateAccount";
 
 jest.mock("../system/getDeviceLocale", () => ({
@@ -19,7 +19,7 @@ const getDeviceLocaleMock = jest.requireMock(
 
 const setLocaleQuietMock = jest.spyOn(i18n, "setLocale");
 
-jest.mock("../../init/dataMigration/dataMigrationAfterLoadingWallet");
+jest.mock("./storeAccount/storeIdentity");
 
 jest.mock("./loadAccountFromSeedPhrase");
 const loadAccountFromSeedPhraseMock = jest.requireMock(
@@ -51,17 +51,18 @@ describe("updateAccount", () => {
     updateAccount(account1);
     expect(setLocaleQuietMock).toHaveBeenCalledWith("en");
   });
-  it("loads wallet from seed and starts migration", async () => {
+  it("loads wallet from seed and stores base58", async () => {
     const legacyAccount = { ...account1, base58: undefined };
     const wallet = createTestWallet(
       "tprv8ZgxMBicQKsPeMiDjtXBGAyFY1wEMGgomjwf54ZmiZfKTNYvVdBa6GqWUwnvtHm6NKVkQkhCKxaobd9JPxNEXgDfVgJ5RNHJ3ivogSG3V1R",
     );
     loadAccountFromSeedPhraseMock.mockReturnValueOnce(wallet);
     await updateAccount(legacyAccount);
-    expect(dataMigrationAfterLoadingWallet).toHaveBeenCalledWith(
-      wallet,
-      legacyAccount,
-    );
+    expect(storeIdentity).toHaveBeenCalledWith({
+      ...legacyAccount,
+      base58:
+        "tprv8ZgxMBicQKsPeMiDjtXBGAyFY1wEMGgomjwf54ZmiZfKTNYvVdBa6GqWUwnvtHm6NKVkQkhCKxaobd9JPxNEXgDfVgJ5RNHJ3ivogSG3V1R",
+    });
   });
   it("loads peach account", async () => {
     await updateAccount(account1);

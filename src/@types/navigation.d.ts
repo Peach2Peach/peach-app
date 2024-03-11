@@ -84,6 +84,13 @@ type RootStackParamList = Onboarding &
     bumpNetworkFees: {
       txId: string;
     };
+    lightningWallet: undefined;
+    sendBitcoinLightning: undefined;
+    receiveBitcoinLightning: undefined;
+    lightningInvoice: {
+      invoice: string;
+    };
+    transactionHistoryLightning: undefined;
     selectCurrency: {
       origin: keyof RootStackParamList;
     };

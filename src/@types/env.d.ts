@@ -14,4 +14,5 @@ module "@env" {
   export const ESPLORA_LIQUID_URL: string;
   export const NODE_TYPE: BlockChainNames;
   export const BOLTZ_API: string;
+  export const BREEZ_API_KEY: string;
 }

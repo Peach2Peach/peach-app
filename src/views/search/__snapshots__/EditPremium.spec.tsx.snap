@@ -1263,6 +1263,7 @@ price
           </View>
         </View>
         <View
+          accessibilityRole="button"
           accessibilityState={
             {
               "busy": undefined,

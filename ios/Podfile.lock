@@ -2,6 +2,12 @@ PODS:
   - bdk-rn (0.30.0):
     - React
   - boost (1.76.0)
+  - breez_sdk (0.3.1):
+    - BreezSDK (= 0.3.1)
+    - React-Core
+  - breez_sdkFFI (0.3.1)
+  - BreezSDK (0.3.1):
+    - breez_sdkFFI (= 0.3.1)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.71.14)
   - FBReactNativeSpec (0.71.14):
@@ -585,6 +591,7 @@ PODS:
 DEPENDENCIES:
   - bdk-rn (from `../node_modules/bdk-rn`)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
+  - "breez_sdk (from `../node_modules/@breeztech/react-native-breez-sdk`)"
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
@@ -651,6 +658,8 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - breez_sdkFFI
+    - BreezSDK
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -681,6 +690,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/bdk-rn"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
+  breez_sdk:
+    :path: "../node_modules/@breeztech/react-native-breez-sdk"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -807,6 +818,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   bdk-rn: cfbeb2b1e0c71a5a8650fa650d0c08843e074dec
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
+  breez_sdk: 5f3228477cb020aa746c4eb6958f5ae245b2fa2b
+  breez_sdkFFI: c58ac657d181adec5ec4b535ec8e865b18cbed18
+  BreezSDK: a12355912a20ecd1b064d72f818cab921f16ef2a
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 12ea01e587c9594e7b144e1bfc86ac4d9ac28fde
   FBReactNativeSpec: b6ae48e67aaba46442f84d6f9ba598ccfbe2ee66
@@ -854,7 +868,7 @@ SPEC CHECKSUMS:
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-cookies: f54fcded06bb0cda05c11d86788020b43528a26c
   react-native-document-picker: 3599b238843369026201d2ef466df53f77ae0452
-  react-native-fast-openpgp: c080570ed67ce592e025efc5d95733e7a41ec811
+  react-native-fast-openpgp: 6536e89843b6063245ba9c0e9835c642dbb22814
   react-native-mmkv-storage: cfb6854594cfdc5f7383a9e464bb025417d1721c
   react-native-netinfo: fefd4e98d75cbdd6e85fc530f7111a8afdf2b0c5
   react-native-notification-badge: 7d458ff810ed02431eb46de253ecfc6a81148ba1
@@ -895,4 +909,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 4c63493aac50e1f7ad8cf9b0c4943371a903aa5a
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.14.3

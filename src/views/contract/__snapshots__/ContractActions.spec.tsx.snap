@@ -22,6 +22,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
     }
   >
     <View
+      accessibilityRole="button"
       accessibilityState={
         {
           "busy": undefined,
@@ -117,6 +118,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
       />
     </View>
     <View
+      accessibilityRole="button"
       accessibilityState={
         {
           "busy": undefined,

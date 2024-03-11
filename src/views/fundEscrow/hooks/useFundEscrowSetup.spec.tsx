@@ -72,7 +72,8 @@ describe("useFundEscrowSetup", () => {
       },
       activeFunding,
       fundingAmount: 0,
-      cancelOffer: expect.any(Function),
+      isLoading: true,
+      offerIdsWithoutEscrow: [],
     });
   });
   it("should return registered funding address for funding multiple offers", () => {
@@ -110,7 +111,8 @@ describe("useFundEscrowSetup", () => {
       },
       activeFunding,
       fundingAmount: sellOffer.amount,
-      cancelOffer: expect.any(Function),
+      isLoading: false,
+      offerIdsWithoutEscrow: [],
     });
   });
   it("should show error banner if there is an error with the funding status", () => {
@@ -148,7 +150,36 @@ describe("useFundEscrowSetup", () => {
       },
       activeFunding,
       fundingAmount: 0,
-      cancelOffer: expect.any(Function),
+      isLoading: true,
+      offerIdsWithoutEscrow: [],
+    });
+  });
+  it("should handle the case that no offer could be returned but offer exists locally", () => {
+    const activeFunding = getDefaultFundingStatus(sellOffer.id);
+    saveOffer(sellOffer);
+    getOfferDetailsMock.mockResolvedValueOnce({
+      error: { error: "UNAUTHORIZED" },
+      ...responseUtils,
+    });
+    const { result } = renderHook(useFundEscrowSetup);
+    expect(result.current).toEqual({
+      offerId: sellOffer.id,
+      funding: {
+        bitcoin: {
+          fundingAddress: sellOffer.escrows.bitcoin,
+          fundingAddresses: [sellOffer.escrows.bitcoin],
+          fundingStatus: activeFunding,
+        },
+        liquid: {
+          fundingAddress: sellOffer.escrows.liquid,
+          fundingAddresses: [sellOffer.escrows.liquid],
+          fundingStatus: getDefaultFundingStatus(sellOffer.id),
+        },
+      },
+      activeFunding,
+      fundingAmount: sellOffer.amount,
+      isLoading: false,
+      offerIdsWithoutEscrow: [],
     });
   });
   it("should sync the wallet on mount", async () => {

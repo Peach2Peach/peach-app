@@ -10,7 +10,6 @@ export async function getOfferQuery({
   const offerId = queryKey[2];
   const { result: offer, error: err } =
     await peachAPI.private.offer.getOfferDetails({ offerId });
-
   if (err) {
     error("Could not fetch offer information for offer", offerId, err.error);
     throw new Error(err.error);

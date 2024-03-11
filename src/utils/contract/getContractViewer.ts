@@ -1,4 +1,4 @@
 export const getContractViewer = (
   sellerId: string,
-  { publicKey }: Pick<Account, "publicKey">,
+  publicKey: string,
 ): ContractViewer => (publicKey === sellerId ? "seller" : "buyer");
