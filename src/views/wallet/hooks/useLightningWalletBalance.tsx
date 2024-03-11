@@ -19,6 +19,7 @@ export const useLightningWalletBalance = () => {
     refetch,
     isRefetching,
     isLoading,
+    error,
   } = useQuery({
     queryKey: ["wallet", "lightning", "balance"],
     queryFn: async () => {
@@ -55,5 +56,5 @@ export const useLightningWalletBalance = () => {
     );
   }
 
-  return { balance, refetch, isRefetching, isLoading };
+  return { balance, refetch, isRefetching, isLoading, error };
 };

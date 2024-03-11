@@ -305,6 +305,7 @@ exports[`LightningWallet should render correctly 1`] = `
               style={
                 {
                   "flexGrow": 1,
+                  "gap": 16,
                   "justifyContent": "center",
                   "paddingBottom": 64,
                   "paddingTop": 64,
@@ -1161,6 +1162,7 @@ exports[`LightningWallet should render correctly while loading 1`] = `
               style={
                 {
                   "flexGrow": 1,
+                  "gap": 16,
                   "justifyContent": "center",
                   "paddingBottom": 64,
                   "paddingTop": 64,

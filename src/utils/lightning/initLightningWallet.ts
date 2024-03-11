@@ -6,7 +6,9 @@ import {
   connect,
   defaultConfig,
   mnemonicToSeed,
+  nodeInfo,
 } from "@breeztech/react-native-breez-sdk";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { log } from "../log/log";
 
 const onBreezEvent = (e: BreezEvent) => {
@@ -31,4 +33,7 @@ export const initLightningWallet = async (
   );
 
   await connect(config, seed, onBreezEvent);
+  nodeInfo().then((info) => {
+    if (info.id) useSettingsStore.getState().setBreezInviteCode(inviteCode);
+  });
 };
