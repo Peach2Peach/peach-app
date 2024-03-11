@@ -17,7 +17,7 @@ describe("useLiquidFeeRate", () => {
   it("should return custom fee rate if set", async () => {
     const customFeeRate = 123;
     getUserMock.mockResolvedValueOnce({
-      result: { ...defaultUser, feeRate: customFeeRate },
+      result: { ...defaultUser, feeRateLiquid: customFeeRate },
       ...responseUtils,
     });
     const { result } = renderHook(useLiquidFeeRate);
@@ -28,7 +28,7 @@ describe("useLiquidFeeRate", () => {
   });
   it("should return estimated fees", async () => {
     getUserMock.mockResolvedValueOnce({
-      result: { ...defaultUser, feeRate: "fastestFee" },
+      result: { ...defaultUser, feeRateLiquid: "fastestFee" },
       ...responseUtils,
     });
     const { result } = renderHook(useLiquidFeeRate);
@@ -37,7 +37,7 @@ describe("useLiquidFeeRate", () => {
     });
 
     getUserMock.mockResolvedValueOnce({
-      result: { ...defaultUser, feeRate: "halfHourFee" },
+      result: { ...defaultUser, feeRateLiquid: "halfHourFee" },
       ...responseUtils,
     });
     act(() => {
@@ -48,7 +48,7 @@ describe("useLiquidFeeRate", () => {
     });
 
     getUserMock.mockResolvedValueOnce({
-      result: { ...defaultUser, feeRate: "hourFee" },
+      result: { ...defaultUser, feeRateLiquid: "hourFee" },
       ...responseUtils,
     });
     act(() => {
@@ -61,7 +61,7 @@ describe("useLiquidFeeRate", () => {
   it("should return half hour fee as fallback", async () => {
     getUserMock.mockResolvedValueOnce({
       // @ts-expect-error testing unknown fee rate
-      result: { ...defaultUser, feeRate: "unknown" },
+      result: { ...defaultUser, feeRateLiquid: "unknown" },
       ...responseUtils,
     });
     const { result } = renderHook(useLiquidFeeRate);
@@ -70,7 +70,7 @@ describe("useLiquidFeeRate", () => {
     });
 
     getUserMock.mockResolvedValueOnce({
-      result: { ...defaultUser, feeRate: 0 },
+      result: { ...defaultUser, feeRateLiquid: 0 },
       ...responseUtils,
     });
     act(() => {
@@ -82,7 +82,7 @@ describe("useLiquidFeeRate", () => {
 
     getUserMock.mockResolvedValueOnce({
       // @ts-expect-error testing undefined fee rate
-      result: { ...defaultUser, feeRate: undefined },
+      result: { ...defaultUser, feeRateLiquid: undefined },
       ...responseUtils,
     });
     act(() => {

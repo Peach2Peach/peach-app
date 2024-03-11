@@ -1,13 +1,19 @@
+import { useState } from "react";
 import { View } from "react-native";
 import { Header } from "../../../components/Header";
 import { PeachScrollView } from "../../../components/PeachScrollView";
 import { Screen } from "../../../components/Screen";
 import { Button } from "../../../components/buttons/Button";
 import { RadioButtons } from "../../../components/inputs/RadioButtons";
+import {
+  TabbedNavigation,
+  TabbedNavigationItem,
+} from "../../../components/navigation/TabbedNavigation";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { PeachText } from "../../../components/text/PeachText";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
 import { useFeeEstimate } from "../../../hooks/query/useFeeEstimate";
+import { useLiquidFeeEstimate } from "../../../hooks/query/useLiquidFeeEstimate";
 import { InfoPopup } from "../../../popups/InfoPopup";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
@@ -24,7 +30,15 @@ const estimatedFeeRates = [
 ] as const;
 
 export const NetworkFees = () => {
-  const { estimatedFees } = useFeeEstimate();
+  const tabs: TabbedNavigationItem<"bitcoin" | "liquid">[] = [
+    { id: "bitcoin", display: "bitcoin" },
+    { id: "liquid", display: "liquid" },
+  ];
+  const [currentTab, setCurrentTab] = useState(tabs[0]);
+  const { estimatedFees: estimatedFeesBitcoin } = useFeeEstimate();
+  const { estimatedFees: estimatedFeesLiquid } = useLiquidFeeEstimate();
+  const estimatedFees =
+    currentTab.id === "bitcoin" ? estimatedFeesBitcoin : estimatedFeesLiquid;
   const {
     selectedFeeRate,
     setSelectedFeeRate,
@@ -33,7 +47,7 @@ export const NetworkFees = () => {
     submit,
     isValid,
     feeRateSet,
-  } = useNetworkFeesSetup();
+  } = useNetworkFeesSetup({ network: currentTab.id });
 
   const options = estimatedFeeRates.map((rate) => ({
     value: rate,
@@ -56,6 +70,12 @@ export const NetworkFees = () => {
   return (
     <Screen header={<NetworkFeesHeader />}>
       <PeachScrollView contentContainerStyle={tw`justify-center flex-1`}>
+        <TabbedNavigation
+          style={tw`mb-4`}
+          items={tabs}
+          selected={currentTab}
+          select={setCurrentTab}
+        />
         <RadioButtons
           items={options}
           selectedValue={selectedFeeRate}

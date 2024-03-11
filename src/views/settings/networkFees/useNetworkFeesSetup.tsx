@@ -1,6 +1,7 @@
-import { useCallback, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useCallback, useEffect, useState } from "react";
 import { useSetToast } from "../../../components/toast/Toast";
-import { useSelfUser } from "../../../hooks/query/useSelfUser";
+import { useSelfUser, userKeys } from "../../../hooks/query/useSelfUser";
 import { useValidatedState } from "../../../hooks/useValidatedState";
 import { useUpdateUser } from "../../../utils/peachAPI/useUpdateUser";
 
@@ -8,10 +9,13 @@ const customFeeRules = {
   required: true,
   feeRate: true,
 };
-export const useNetworkFeesSetup = () => {
+type Props = {
+  network: "bitcoin" | "liquid";
+};
+export const useNetworkFeesSetup = ({ network }: Props) => {
   const { user } = useSelfUser();
-  const feeRate = user?.feeRate;
-
+  const feeRate = network === "bitcoin" ? user?.feeRate : user?.feeRateLiquid;
+  const queryClient = useQueryClient();
   const defaultFeeRate = feeRate
     ? typeof feeRate === "number"
       ? "custom"
@@ -39,12 +43,19 @@ export const useNetworkFeesSetup = () => {
 
   const submit = useCallback(() => {
     mutate(
-      { feeRate: finalFeeRate },
+      { [network === "bitcoin" ? "feeRate" : "feeRateLiquid"]: finalFeeRate },
       {
+        onSuccess: () =>
+          queryClient.invalidateQueries({ queryKey: userKeys.self() }),
         onError: (err) => setToast({ msgKey: err.message, color: "red" }),
       },
     );
-  }, [finalFeeRate, mutate, setToast]);
+  }, [finalFeeRate, mutate, network, queryClient, setToast]);
+
+  useEffect(() => {
+    setSelectedFeeRate(undefined);
+    setCustomFeeRate(undefined);
+  }, [network, setSelectedFeeRate, setCustomFeeRate]);
 
   return {
     selectedFeeRate: displayRate,
