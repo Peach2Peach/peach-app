@@ -8,7 +8,6 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { useLiquidWalletState } from "../../utils/wallet/useLiquidWalletState";
-import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { TotalBalance, WalletHeader } from "./components";
 import { SwapButton } from "./components/submarineSwaps/SwapButton";
 import { useLastUnusedAddress, useUTXOs, useWalletAddress } from "./hooks";
@@ -31,8 +30,6 @@ export const Wallet = () => {
     refetchLiquid();
   };
 
-  if (isLoadingBitcoin) return <BitcoinLoading text={i18n("wallet.loading")} />;
-
   return (
     <Screen header={<WalletHeader />}>
       <SelectLayer />
@@ -45,7 +42,9 @@ export const Wallet = () => {
       >
         <TotalBalance
           amount={balance}
-          isRefreshing={isRefetchingBitcoin || isRefetchingLiquid}
+          isRefreshing={
+            isRefetchingBitcoin || isRefetchingLiquid || isLoadingBitcoin
+          }
         />
         <BackupReminderIcon />
       </PeachScrollView>
