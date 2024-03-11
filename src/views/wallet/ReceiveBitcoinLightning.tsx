@@ -1,60 +1,36 @@
-import { receivePayment } from "@breeztech/react-native-breez-sdk";
-import { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { BTCAmountInput } from "../../components/inputs/BTCAmountInput";
 import { Input } from "../../components/inputs/Input";
-import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
-import { parseError } from "../../utils/parseError";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
+import { useCreateInvoice } from "./hooks/useCreateInvoice";
 import { useLightningNodeInfo } from "./hooks/useLightningNodeInfo";
 import { MSAT_PER_SAT } from "./hooks/useLightningWalletBalance";
 
-const useCreateInvoice = ({
-  amountMsat,
-  description,
-}: {
-  amountMsat: number;
-  description: string;
-}) => {
-  const showErrorBanner = useShowErrorBanner();
-  const navigation = useStackNavigation();
-  const [isCreatingInvoice, setIsCreatingInvoice] = useState(false);
-
-  const createInvoice = useCallback(async () => {
-    setIsCreatingInvoice(true);
-    try {
-      const receivePaymentResponse = await receivePayment({
-        amountMsat,
-        description,
-      });
-      navigation.navigate("lightningInvoice", {
-        invoice: receivePaymentResponse.lnInvoice.bolt11,
-      });
-    } catch (e) {
-      showErrorBanner(parseError(e));
-    } finally {
-      setIsCreatingInvoice(false);
-    }
-  }, [amountMsat, description, navigation, showErrorBanner]);
-
-  return { createInvoice, isCreatingInvoice };
-};
-
 export const ReceiveBitcoinLightning = () => {
+  const navigation = useStackNavigation();
   const [amount, setAmount] = useState(0);
   const amountMsat = amount * MSAT_PER_SAT;
   const [description, setDescription] = useState("");
   const { data: lNNodeInfo } = useLightningNodeInfo();
-  const { createInvoice, isCreatingInvoice } = useCreateInvoice({
+  const { invoice, createInvoice, isCreatingInvoice } = useCreateInvoice({
     amountMsat,
     description,
   });
   const onFocus = () => setAmount(0);
+
+  useEffect(() => {
+    if (invoice)
+      navigation.navigate("lightningInvoice", {
+        invoice,
+      });
+  }, [invoice, navigation]);
+
   if (!lNNodeInfo) return <BitcoinLoading text={i18n("wallet.loading")} />;
 
   return (

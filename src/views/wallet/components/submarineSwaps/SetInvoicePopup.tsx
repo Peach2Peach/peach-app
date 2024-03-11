@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { View } from "react-native";
 import { Icon } from "../../../../components/Icon";
+import { Loading } from "../../../../components/animation/Loading";
 import { BitcoinAddress } from "../../../../components/bitcoin/BitcoinAddress";
 import { LightningInvoiceInput } from "../../../../components/inputs/LightningInvoiceInput";
 import { useClosePopup } from "../../../../components/popup/GlobalPopup";
@@ -13,6 +14,8 @@ import tw from "../../../../styles/tailwind";
 import { SubmarineAPIResponse } from "../../../../utils/boltz/api/postSubmarineSwap";
 import { useSwapStatus } from "../../../../utils/boltz/query/useSwapStatus";
 import i18n from "../../../../utils/i18n";
+import { useCreateInvoice } from "../../hooks/useCreateInvoice";
+import { MSAT_PER_SAT } from "../../hooks/useLightningWalletBalance";
 import { ClaimSubmarineSwap } from "./ClaimSubmarineSwap";
 import { useSwapOut } from "./hooks/useSwapOut";
 
@@ -97,6 +100,20 @@ export const SetInvoicePopup = ({
     invoice,
   });
   const { status } = useSwapStatus({ id: swapInfo?.id });
+  const {
+    invoice: createdInvoice,
+    createInvoice,
+    isCreatingInvoice,
+  } = useCreateInvoice({
+    amountMsat: amount * MSAT_PER_SAT,
+    description: "Boltz Swap out",
+  });
+  useEffect(() => {
+    createInvoice();
+  }, [createInvoice, setInvoice]);
+  useEffect(() => {
+    if (createdInvoice) setInvoice(createdInvoice);
+  }, [createdInvoice, setInvoice]);
 
   if (status?.status === "transaction.claimed") {
     setTimeout(closePopup, CLOSE_POPUP_TIMEOUT);
@@ -109,17 +126,21 @@ export const SetInvoicePopup = ({
       bgColor={tw`bg-info-background`}
       actionBgColor={tw`bg-info-light`}
       content={
-        <SetInvoicePopupContent
-          {...{
-            status: status?.status,
-            invoice,
-            setInvoice,
-            invoiceErrors,
-            swapInfo,
-            amount,
-            keyPairWIF,
-          }}
-        />
+        isCreatingInvoice ? (
+          <Loading />
+        ) : (
+          <SetInvoicePopupContent
+            {...{
+              status: status?.status,
+              invoice,
+              setInvoice,
+              invoiceErrors,
+              swapInfo,
+              amount,
+              keyPairWIF,
+            }}
+          />
+        )
       }
       actions={
         <>
