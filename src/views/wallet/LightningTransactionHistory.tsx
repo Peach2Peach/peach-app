@@ -1,30 +1,19 @@
-import {
-  listPayments,
-  Payment,
-  PaymentType,
-} from "@breeztech/react-native-breez-sdk";
-import { useQuery } from "@tanstack/react-query";
+import { Payment, PaymentType } from "@breeztech/react-native-breez-sdk";
 import { FlatList } from "react-native";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
 import { Screen } from "../../components/Screen";
 import { BitcoinAmountInfo } from "../../components/statusCard/BitcoinAmountInfo";
 import { StatusCard } from "../../components/statusCard/StatusCard";
-import { statusCardStyles } from "../../components/statusCard/statusCardStyles";
 import { StatusInfo } from "../../components/statusCard/StatusInfo";
+import { statusCardStyles } from "../../components/statusCard/statusCardStyles";
 import tw from "../../styles/tailwind";
 import { getShortDateFormat } from "../../utils/date/getShortDateFormat";
 import i18n from "../../utils/i18n";
 import { EmptyTransactionHistory } from "./components";
 import { TxIcon } from "./components/TransactionIcon";
+import { useLightningPayments } from "./hooks/useLightningPayments";
 import { MSAT_PER_SAT } from "./hooks/useLightningWalletBalance";
-
-const useLightningPayments = () =>
-  useQuery({
-    queryKey: ["wallet", "lightning", "payments"],
-    queryFn: () => listPayments({}),
-    initialData: [],
-  });
 
 const levelMap: Record<PaymentType, keyof typeof statusCardStyles.bg> = {
   sent: "primary",
