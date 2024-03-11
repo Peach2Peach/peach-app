@@ -17,13 +17,15 @@ export const usePayInvoice = ({ paymentRequest, amount }: PayInvoiceProps) => {
     if (!paymentRequest.paymentRequest) throw Error("INVOICE_MISSING");
     if (!amountMsat) throw Error("AMOUNT_MISSING");
     setIsPayingInvoice(true);
-    const response = await sendPayment({
-      bolt11: paymentRequest.paymentRequest,
-      amountMsat: paymentRequest.millisatoshis ? undefined : amount,
-    });
-    setIsPayingInvoice(false);
-
-    return response.payment;
+    try {
+      const response = await sendPayment({
+        bolt11: paymentRequest.paymentRequest,
+        amountMsat: paymentRequest.millisatoshis ? undefined : amount,
+      });
+      return response.payment;
+    } finally {
+      setIsPayingInvoice(false);
+    }
   }, [amount, paymentRequest]);
 
   return { payInvoice, isPayingInvoice };
