@@ -12,6 +12,7 @@ import { isDefined } from "../../../utils/validation/isDefined";
 
 type Params = {
   type: "bid" | "ask";
+  escrowType?: EscrowType;
   meansOfPayment?: MeansOfPayment;
   maxPremium?: number;
   minReputation?: number;
@@ -21,6 +22,7 @@ type Params = {
 
 export function useFilteredMarketStats({
   type,
+  escrowType,
   meansOfPayment,
   maxPremium,
   minReputation,
@@ -29,6 +31,7 @@ export function useFilteredMarketStats({
 }: Params) {
   const queryData = useSearchOfferSummaries({
     type,
+    escrowType,
     meansOfPayment,
     maxPremium,
     minReputation,
@@ -74,7 +77,7 @@ export function useFilteredMarketStats({
 function useSearchOfferSummaries(
   filter: Pick<
     Params,
-    "type" | "meansOfPayment" | "maxPremium" | "minReputation"
+    "type" | "escrowType" | "meansOfPayment" | "maxPremium" | "minReputation"
   >,
 ) {
   return useQuery({

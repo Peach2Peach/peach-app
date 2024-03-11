@@ -98,6 +98,7 @@ function PreferenceMarketInfo() {
   const offerPreferenes = useOfferPreferences(
     (state) => ({
       buyAmountRange: state.buyAmountRange,
+      escrowType: state.escrowType,
       meansOfPayment: state.meansOfPayment,
       maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
         ? state.filter.buyOffer.maxPremium || undefined

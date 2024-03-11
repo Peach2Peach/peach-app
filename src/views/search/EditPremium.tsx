@@ -52,6 +52,7 @@ export const EditPremium = () => {
     <Screen header={<EditPremiumHeader />}>
       <MarketInfo
         type="buyOffers"
+        escrowType={offer?.escrowType}
         meansOfPayment={offer?.meansOfPayment}
         maxPremium={displayPremium}
       />

@@ -11,6 +11,7 @@ export function MarketInfo({
   ...preferences
 }: {
   type: "buyOffers" | "sellOffers";
+  escrowType?: EscrowType;
   meansOfPayment?: MeansOfPayment;
   maxPremium?: number;
   minReputation?: number;

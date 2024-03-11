@@ -41,7 +41,7 @@ import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
 
 type Preferences = Pick<
   BuyOffer,
-  "amount" | "maxPremium" | "minReputation" | "meansOfPayment"
+  "amount" | "escrowType" | "maxPremium" | "minReputation" | "meansOfPayment"
 >;
 
 type PreferenceAction =
@@ -225,11 +225,12 @@ function OfferWalletSelector({
 }
 
 function OfferMarketInfo() {
-  const [{ amount, maxPremium, minReputation, meansOfPayment }] =
+  const [{ amount, escrowType, maxPremium, minReputation, meansOfPayment }] =
     usePreferenceContext();
   return (
     <MarketInfo
       type={"sellOffers"}
+      escrowType={escrowType}
       meansOfPayment={meansOfPayment}
       maxPremium={maxPremium ?? undefined}
       minReputation={

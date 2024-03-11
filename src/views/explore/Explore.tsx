@@ -77,6 +77,7 @@ function BuyOfferMarketInfo() {
   return (
     <MarketInfo
       type={"sellOffers"}
+      escrowType={offer?.escrowType}
       meansOfPayment={offer?.meansOfPayment}
       maxPremium={offer?.maxPremium || undefined}
       minReputation={offer?.minReputation || undefined}
