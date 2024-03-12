@@ -50,6 +50,10 @@ export class PeachLiquidJSWallet {
     return useLiquidWalletState.getState().addresses;
   }
 
+  isAddressUsed(address: string) {
+    return !!useLiquidWalletState.getState().usedAddresses[address];
+  }
+
   get internalAddresses() {
     return useLiquidWalletState.getState().internalAddresses;
   }
@@ -71,12 +75,14 @@ export class PeachLiquidJSWallet {
 
         try {
           let utxos: UTXOWithPath[] = [];
+
           let limit = Math.max(this.gapLimit, this.addresses.length);
           for (let i = 0; i < limit; i++) {
             const { address } = this.getAddress(i, false);
             // eslint-disable-next-line no-await-in-loop
             const result = await getUTXO({ address });
             if (result.result?.length) {
+              useLiquidWalletState.getState().setAddressUsed(address);
               limit = i + this.gapLimit;
               const derivationPath = this.getExternalPath(i);
 
@@ -95,6 +101,7 @@ export class PeachLiquidJSWallet {
             // eslint-disable-next-line no-await-in-loop
             const result = await getUTXO({ address });
             if (result.result?.length) {
+              useLiquidWalletState.getState().setAddressUsed(address);
               limit = i + this.gapLimit;
               const derivationPath = this.getInternalPath(i);
               utxos = [
@@ -173,7 +180,7 @@ export class PeachLiquidJSWallet {
       };
 
     const keyPair = this.getKeyPair(index);
-    const { address, output } = liquid.payments.p2wpkh({
+    const { address } = liquid.payments.p2wpkh({
       network: this.network,
       pubkey: keyPair.publicKey,
     });
@@ -227,7 +234,6 @@ export class PeachLiquidJSWallet {
 
       const { address: candidate } = this.getAddress(i);
       if (address === candidate) {
-        useLiquidWalletState.getState().setAddresses(this.addresses);
         return this.getKeyPair(i);
       }
     }

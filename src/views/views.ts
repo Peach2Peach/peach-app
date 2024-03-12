@@ -53,10 +53,13 @@ import { ExportTransactionHistory } from "./wallet/ExportTransactionHistory";
 import { LightningInvoiceScreen } from "./wallet/LightningInvoiceScreen";
 import { LightningTransactionHistory } from "./wallet/LightningTransactionHistory";
 import { LightningWallet } from "./wallet/LightningWallet";
+import { LiquidWallet } from "./wallet/LiquidWallet";
 import { ReceiveBitcoin } from "./wallet/ReceiveBitcoin";
 import { ReceiveBitcoinLightning } from "./wallet/ReceiveBitcoinLightning";
+import { ReceiveBitcoinLiquid } from "./wallet/ReceiveBitcoinLiquid";
 import { SendBitcoin } from "./wallet/SendBitcoin";
 import { SendBitcoinLightning } from "./wallet/SendBitcoinLightning";
+import { SendBitcoinLiquid } from "./wallet/SendBitcoinLiquid";
 import { TransactionDetails } from "./wallet/TransactionDetails";
 import { TransactionHistory } from "./wallet/TransactionHistory";
 import { Welcome } from "./welcome/Welcome";
@@ -92,6 +95,9 @@ const wallet: ViewType[] = [
   { name: "exportTransactionHistory", component: ExportTransactionHistory },
   { name: "transactionDetails", component: TransactionDetails },
   { name: "bumpNetworkFees", component: BumpNetworkFees },
+  { name: "liquidWallet", component: LiquidWallet },
+  { name: "sendBitcoinLiquid", component: SendBitcoinLiquid },
+  { name: "receiveBitcoinLiquid", component: ReceiveBitcoinLiquid },
   { name: "lightningWallet", component: LightningWallet },
   { name: "receiveBitcoinLightning", component: ReceiveBitcoinLightning },
   { name: "sendBitcoinLightning", component: SendBitcoinLightning },

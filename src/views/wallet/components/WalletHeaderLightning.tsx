@@ -8,7 +8,6 @@ export const WalletHeaderLightning = () => {
   return (
     <Header
       title={i18n("wallet.lightning.title")}
-      hideGoBackButton
       icons={[
         {
           ...headerIcons.list,

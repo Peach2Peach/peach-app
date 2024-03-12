@@ -3,7 +3,7 @@ import { fireEvent, render, waitFor } from "test-utils";
 import { nodeInfo } from "../../../tests/unit/data/lightningNetworkData";
 import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
-import { LightningWallet } from "./LightningWallet";
+import { LiquidWallet } from "./LiquidWallet";
 
 jest.mock("@breeztech/react-native-breez-sdk");
 jest
@@ -12,13 +12,13 @@ jest
 
 jest.useFakeTimers();
 
-describe("LightningWallet", () => {
+describe("LiquidWallet", () => {
   afterEach(() => {
     queryClient.clear();
   });
 
   it("should render correctly", async () => {
-    const { toJSON } = render(<LightningWallet />);
+    const { toJSON } = render(<LiquidWallet />);
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);
     });
@@ -26,13 +26,13 @@ describe("LightningWallet", () => {
     expect(toJSON()).toMatchSnapshot();
   });
   it("should render correctly while loading", () => {
-    const { toJSON } = render(<LightningWallet />);
+    const { toJSON } = render(<LiquidWallet />);
 
     expect(toJSON()).toMatchSnapshot();
   });
 
   it("should navigate to bitcoin wallet screen when link is pressed", async () => {
-    const { getByText } = render(<LightningWallet />);
+    const { getByText } = render(<LiquidWallet />);
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);
     });
@@ -43,33 +43,33 @@ describe("LightningWallet", () => {
       screen: "wallet",
     });
   });
-  it("should navigate to liquid wallet screen when link is pressed", async () => {
-    const { getByText } = render(<LightningWallet />);
+  it("should navigate to lightning screen when link is pressed", async () => {
+    const { getByText } = render(<LiquidWallet />);
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);
     });
 
-    fireEvent.press(getByText("liquid"));
+    fireEvent.press(getByText("lightning"));
 
-    expect(navigateMock).toHaveBeenCalledWith("liquidWallet");
+    expect(navigateMock).toHaveBeenCalledWith("lightningWallet");
   });
   it("should navigate to send screen when send button is pressed", async () => {
-    const { getByText } = render(<LightningWallet />);
+    const { getByText } = render(<LiquidWallet />);
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);
     });
 
     fireEvent.press(getByText("send"));
 
-    expect(navigateMock).toHaveBeenCalledWith("sendBitcoinLightning");
+    expect(navigateMock).toHaveBeenCalledWith("sendBitcoinLiquid");
   });
   it("should navigate to receive screen when receive button is pressed", async () => {
-    const { getByText } = render(<LightningWallet />);
+    const { getByText } = render(<LiquidWallet />);
     await waitFor(() => {
       expect(queryClient.isFetching()).toBe(0);
     });
     fireEvent.press(getByText("receive"));
 
-    expect(navigateMock).toHaveBeenCalledWith("receiveBitcoinLightning");
+    expect(navigateMock).toHaveBeenCalledWith("receiveBitcoinLiquid");
   });
 });

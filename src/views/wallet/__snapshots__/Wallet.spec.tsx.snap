@@ -336,6 +336,25 @@ exports[`Wallet should render correctly 1`] = `
               ]
             }
           >
+            liquid
+          </Text>
+          <Text
+            allowFontScaling={false}
+            onPress={[Function]}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                undefined,
+                false,
+              ]
+            }
+          >
             lightning
           </Text>
         </View>
@@ -1205,6 +1224,25 @@ exports[`Wallet should render correctly when loading 1`] = `
             }
           >
             on-chain
+          </Text>
+          <Text
+            allowFontScaling={false}
+            onPress={[Function]}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                undefined,
+                false,
+              ]
+            }
+          >
+            liquid
           </Text>
           <Text
             allowFontScaling={false}

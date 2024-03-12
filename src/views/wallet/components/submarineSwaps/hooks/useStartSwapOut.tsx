@@ -9,12 +9,10 @@ import { useSubmarineSwaps } from "../../../../../utils/boltz/query/useSubmarine
 import { sum } from "../../../../../utils/math/sum";
 import { parseError } from "../../../../../utils/parseError";
 import { handleTransactionError as parseTransactionError } from "../../../../../utils/wallet/error/handleTransactionError";
-import { buildTransaction } from "../../../../../utils/wallet/liquid/buildTransaction";
+import { estimateMiningFees } from "../../../../../utils/wallet/liquid/estimateMiningFees";
 import { peachLiquidWallet } from "../../../../../utils/wallet/setWallet";
 import { useLiquidWalletState } from "../../../../../utils/wallet/useLiquidWalletState";
 import { SetInvoicePopup } from "../SetInvoicePopup";
-
-const TX_SIZE_BUFFER = 10;
 
 type EstimateSwapAmountProps = {
   limits: SubmarinePair["limits"];
@@ -34,15 +32,12 @@ const estimateSwapAmount = ({
   liquidBalance,
 }: EstimateSwapAmountProps) => {
   if (!peachLiquidWallet) throw Error("WALLET_NOT_READY");
-  const stagedTx = buildTransaction({
-    recipient: peachLiquidWallet.getAddress(0).address,
-    amount: peachLiquidWallet.utxos.map((utxo) => utxo.value).reduce(sum, 0),
-    inputs: peachLiquidWallet.utxos,
-  });
 
-  const miningFees = Math.ceil(
-    (stagedTx.virtualSize() + TX_SIZE_BUFFER) * feeRate,
-  );
+  const { miningFees } = estimateMiningFees({
+    feeRate,
+    inputs: peachLiquidWallet.utxos,
+    amount: peachLiquidWallet.utxos.map((utxo) => utxo.value).reduce(sum, 0),
+  });
 
   const amountAfterLockup = Math.ceil(liquidBalance - miningFees);
   const swappableAmount =

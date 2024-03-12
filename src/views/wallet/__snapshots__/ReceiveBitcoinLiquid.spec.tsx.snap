@@ -1,0 +1,1476 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReceiveBitcoinLiquid should render correctly when loaded 1`] = `
+<View
+  onLayout={[Function]}
+  style={
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      {
+        "paddingBottom": 0,
+      },
+    ]
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "borderBottomLeftRadius": 8,
+            "borderBottomRightRadius": 8,
+            "borderBottomWidth": 1,
+          },
+          {
+            "paddingTop": 0,
+            "zIndex": 1,
+          },
+          {
+            "backgroundColor": "#FFF9F6",
+          },
+          {
+            "borderColor": "#FEEDE5",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 8,
+              "paddingBottom": 6,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 6,
+            },
+            {},
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "gap": 4,
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            numberOfLines={1}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 26,
+                  },
+                  {},
+                  {
+                    "color": "#2B1911",
+                  },
+                  {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            receive bitcoin
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 10,
+              "justifyContent": "flex-end",
+            }
+          }
+        />
+      </View>
+    </View>
+    <View
+      style={
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          },
+          false,
+          {
+            "paddingBottom": 0,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {},
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "gap": 8,
+                "paddingBottom": 4,
+                "paddingTop": 4,
+              },
+              {},
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "alignSelf": "stretch",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingLeft": 4,
+                "paddingRight": 4,
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "gap": 2,
+                  "justifyContent": "flex-end",
+                }
+              }
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": false,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <test-file-stub
+                  fill="#7D675E"
+                  style={
+                    [
+                      {
+                        "height": 24,
+                        "width": 24,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
+              </View>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "flexBasis": "0%",
+                    "flexDirection": "row",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "gap": 4,
+                    "justifyContent": "center",
+                  },
+                  [
+                    false,
+                    false,
+                  ],
+                ]
+              }
+            >
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "gap": 4,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <TextInput
+                  onChangeText={[Function]}
+                  style={
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 20,
+                      "letterSpacing": 0.2,
+                      "lineHeight": 32.5,
+                      "overflow": "hidden",
+                      "textAlign": "center",
+                    }
+                  }
+                  value="address #1"
+                />
+                <View
+                  accessibilityState={
+                    {
+                      "busy": undefined,
+                      "checked": undefined,
+                      "disabled": undefined,
+                      "expanded": undefined,
+                      "selected": undefined,
+                    }
+                  }
+                  accessibilityValue={
+                    {
+                      "max": undefined,
+                      "min": undefined,
+                      "now": undefined,
+                      "text": undefined,
+                    }
+                  }
+                  accessible={true}
+                  collapsable={false}
+                  focusable={true}
+                  onClick={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    {
+                      "opacity": 1,
+                    }
+                  }
+                >
+                  <test-file-stub
+                    fill="#F56522"
+                    style={
+                      [
+                        {
+                          "height": 16,
+                          "width": 16,
+                        },
+                        undefined,
+                      ]
+                    }
+                  />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "gap": 2,
+                  "justifyContent": "flex-end",
+                }
+              }
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <test-file-stub
+                  fill="#F56522"
+                  style={
+                    [
+                      {
+                        "height": 24,
+                        "width": 24,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "backgroundColor": "#EAE3DF",
+                  "flexShrink": 1,
+                  "height": 1,
+                  "width": "100%",
+                },
+                undefined,
+              ]
+            }
+          />
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "alignSelf": "stretch",
+                "gap": 16,
+                "justifyContent": "center",
+              }
+            }
+          >
+            <RNSVGSvgView
+              align="xMidYMid"
+              bbHeight="327"
+              bbWidth="327"
+              focusable={false}
+              height={327}
+              meetOrSlice={0}
+              minX={0}
+              minY={0}
+              style={
+                [
+                  {
+                    "backgroundColor": "transparent",
+                    "borderWidth": 0,
+                  },
+                  {
+                    "flex": 0,
+                    "height": 327,
+                    "width": 327,
+                  },
+                ]
+              }
+              vbHeight={327}
+              vbWidth={327}
+              width={327}
+            >
+              <RNSVGGroup
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
+              >
+                <RNSVGDefs>
+                  <RNSVGLinearGradient
+                    gradient={
+                      [
+                        0,
+                        -65536,
+                        1,
+                        -16711681,
+                      ]
+                    }
+                    gradientTransform={null}
+                    gradientUnits={0}
+                    name="grad"
+                    x1="0%"
+                    x2="100%"
+                    y1="0%"
+                    y2="100%"
+                  />
+                </RNSVGDefs>
+                <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
+                >
+                  <RNSVGRect
+                    fill={
+                      {
+                        "payload": 4294967295,
+                        "type": 0,
+                      }
+                    }
+                    height="327"
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                    width="327"
+                    x="0"
+                    y="0"
+                  />
+                </RNSVGGroup>
+                <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
+                >
+                  <RNSVGPath
+                    d="M0 7.785714285714286 L109 7.785714285714286 M124.57142857142857 7.785714285714286 L140.14285714285714 7.785714285714286 M155.71428571428572 7.785714285714286 L171.28571428571428 7.785714285714286 M218 7.785714285714286 L327 7.785714285714286 M0 23.357142857142858 L15.571428571428571 23.357142857142858 M93.42857142857143 23.357142857142858 L109 23.357142857142858 M140.14285714285714 23.357142857142858 L171.28571428571428 23.357142857142858 M218 23.357142857142858 L233.57142857142856 23.357142857142858 M311.42857142857144 23.357142857142858 L327 23.357142857142858 M0 38.92857142857143 L15.571428571428571 38.92857142857143 M31.142857142857142 38.92857142857143 L77.85714285714286 38.92857142857143 M93.42857142857143 38.92857142857143 L109 38.92857142857143 M155.71428571428572 38.92857142857143 L202.42857142857142 38.92857142857143 M218 38.92857142857143 L233.57142857142856 38.92857142857143 M249.14285714285714 38.92857142857143 L295.85714285714283 38.92857142857143 M311.42857142857144 38.92857142857143 L327 38.92857142857143 M0 54.5 L15.571428571428571 54.5 M31.142857142857142 54.5 L77.85714285714286 54.5 M93.42857142857143 54.5 L109 54.5 M124.57142857142857 54.5 L140.14285714285714 54.5 M155.71428571428572 54.5 L186.85714285714286 54.5 M218 54.5 L233.57142857142856 54.5 M249.14285714285714 54.5 L295.85714285714283 54.5 M311.42857142857144 54.5 L327 54.5 M0 70.07142857142857 L15.571428571428571 70.07142857142857 M31.142857142857142 70.07142857142857 L77.85714285714286 70.07142857142857 M93.42857142857143 70.07142857142857 L109 70.07142857142857 M124.57142857142857 70.07142857142857 L140.14285714285714 70.07142857142857 M186.85714285714286 70.07142857142857 L202.42857142857142 70.07142857142857 M218 70.07142857142857 L233.57142857142856 70.07142857142857 M249.14285714285714 70.07142857142857 L295.85714285714283 70.07142857142857 M311.42857142857144 70.07142857142857 L327 70.07142857142857 M0 85.64285714285715 L15.571428571428571 85.64285714285715 M93.42857142857143 85.64285714285715 L109 85.64285714285715 M124.57142857142857 85.64285714285715 L140.14285714285714 85.64285714285715 M171.28571428571428 85.64285714285715 L186.85714285714286 85.64285714285715 M218 85.64285714285715 L233.57142857142856 85.64285714285715 M311.42857142857144 85.64285714285715 L327 85.64285714285715 M0 101.21428571428572 L109 101.21428571428572 M124.57142857142857 101.21428571428572 L140.14285714285714 101.21428571428572 M155.71428571428572 101.21428571428572 L171.28571428571428 101.21428571428572 M186.85714285714286 101.21428571428572 L202.42857142857142 101.21428571428572 M218 101.21428571428572 L327 101.21428571428572 M124.57142857142857 116.78571428571429 L155.71428571428572 116.78571428571429 M171.28571428571428 116.78571428571429 L202.42857142857142 116.78571428571429 M0 132.35714285714286 L15.571428571428571 132.35714285714286 M62.285714285714285 132.35714285714286 L77.85714285714286 132.35714285714286 M93.42857142857143 132.35714285714286 L186.85714285714286 132.35714285714286 M202.42857142857142 132.35714285714286 L280.2857142857143 132.35714285714286 M311.42857142857144 132.35714285714286 L327 132.35714285714286 M0 147.92857142857142 L62.285714285714285 147.92857142857142 M77.85714285714286 147.92857142857142 L93.42857142857143 147.92857142857142 M186.85714285714286 147.92857142857142 L202.42857142857142 147.92857142857142 M218 147.92857142857142 L233.57142857142856 147.92857142857142 M249.14285714285714 147.92857142857142 L311.42857142857144 147.92857142857142 M31.142857142857142 163.5 L46.714285714285715 163.5 M77.85714285714286 163.5 L109 163.5 M140.14285714285714 163.5 L155.71428571428572 163.5 M171.28571428571428 163.5 L186.85714285714286 163.5 M249.14285714285714 163.5 L264.7142857142857 163.5 M295.85714285714283 163.5 L311.42857142857144 163.5 M15.571428571428571 179.07142857142856 L31.142857142857142 179.07142857142856 M46.714285714285715 179.07142857142856 L77.85714285714286 179.07142857142856 M109 179.07142857142856 L155.71428571428572 179.07142857142856 M186.85714285714286 179.07142857142856 L218 179.07142857142856 M249.14285714285714 179.07142857142856 L264.7142857142857 179.07142857142856 M295.85714285714283 179.07142857142856 L327 179.07142857142856 M0 194.64285714285714 L46.714285714285715 194.64285714285714 M77.85714285714286 194.64285714285714 L124.57142857142857 194.64285714285714 M186.85714285714286 194.64285714285714 L218 194.64285714285714 M295.85714285714283 194.64285714285714 L327 194.64285714285714 M124.57142857142857 210.2142857142857 L186.85714285714286 210.2142857142857 M218 210.2142857142857 L233.57142857142856 210.2142857142857 M280.2857142857143 210.2142857142857 L295.85714285714283 210.2142857142857 M0 225.78571428571428 L109 225.78571428571428 M124.57142857142857 225.78571428571428 L140.14285714285714 225.78571428571428 M155.71428571428572 225.78571428571428 L171.28571428571428 225.78571428571428 M249.14285714285714 225.78571428571428 L264.7142857142857 225.78571428571428 M280.2857142857143 225.78571428571428 L311.42857142857144 225.78571428571428 M0 241.35714285714283 L15.571428571428571 241.35714285714283 M93.42857142857143 241.35714285714283 L109 241.35714285714283 M186.85714285714286 241.35714285714283 L218 241.35714285714283 M233.57142857142856 241.35714285714283 L264.7142857142857 241.35714285714283 M295.85714285714283 241.35714285714283 L311.42857142857144 241.35714285714283 M0 256.92857142857144 L15.571428571428571 256.92857142857144 M31.142857142857142 256.92857142857144 L77.85714285714286 256.92857142857144 M93.42857142857143 256.92857142857144 L109 256.92857142857144 M124.57142857142857 256.92857142857144 L140.14285714285714 256.92857142857144 M186.85714285714286 256.92857142857144 L202.42857142857142 256.92857142857144 M233.57142857142856 256.92857142857144 L249.14285714285714 256.92857142857144 M0 272.5 L15.571428571428571 272.5 M31.142857142857142 272.5 L77.85714285714286 272.5 M93.42857142857143 272.5 L109 272.5 M140.14285714285714 272.5 L155.71428571428572 272.5 M171.28571428571428 272.5 L186.85714285714286 272.5 M202.42857142857142 272.5 L233.57142857142856 272.5 M249.14285714285714 272.5 L280.2857142857143 272.5 M295.85714285714283 272.5 L327 272.5 M0 288.07142857142856 L15.571428571428571 288.07142857142856 M31.142857142857142 288.07142857142856 L77.85714285714286 288.07142857142856 M93.42857142857143 288.07142857142856 L109 288.07142857142856 M155.71428571428572 288.07142857142856 L171.28571428571428 288.07142857142856 M218 288.07142857142856 L233.57142857142856 288.07142857142856 M249.14285714285714 288.07142857142856 L264.7142857142857 288.07142857142856 M280.2857142857143 288.07142857142856 L295.85714285714283 288.07142857142856 M0 303.6428571428571 L15.571428571428571 303.6428571428571 M93.42857142857143 303.6428571428571 L109 303.6428571428571 M155.71428571428572 303.6428571428571 L171.28571428571428 303.6428571428571 M202.42857142857142 303.6428571428571 L218 303.6428571428571 M233.57142857142856 303.6428571428571 L249.14285714285714 303.6428571428571 M0 319.2142857142857 L109 319.2142857142857 M124.57142857142857 319.2142857142857 L218 319.2142857142857 M233.57142857142856 319.2142857142857 L264.7142857142857 319.2142857142857 M311.42857142857144 319.2142857142857 L327 319.2142857142857 "
+                    fill={
+                      {
+                        "payload": 4278190080,
+                        "type": 0,
+                      }
+                    }
+                    propList={
+                      [
+                        "stroke",
+                        "strokeWidth",
+                        "strokeLinecap",
+                      ]
+                    }
+                    stroke={
+                      {
+                        "payload": 4281014545,
+                        "type": 0,
+                      }
+                    }
+                    strokeLinecap={0}
+                    strokeWidth="15.571428571428571"
+                  />
+                </RNSVGGroup>
+              </RNSVGGroup>
+            </RNSVGSvgView>
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "alignSelf": "stretch",
+                  "flexDirection": "row",
+                  "gap": 12,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    {
+                      "color": "#9F8C82",
+                      "flexShrink": 1,
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 20,
+                      "letterSpacing": 0.2,
+                      "lineHeight": 28,
+                    },
+                    false,
+                  ]
+                }
+              >
+                seco
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      {
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 20,
+                        "letterSpacing": 0.2,
+                        "lineHeight": 28,
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  ndAdd
+                </Text>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      {
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 20,
+                        "letterSpacing": 0.2,
+                        "lineHeight": 28,
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  dress
+                </Text>
+              </Text>
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "flexShrink": 1,
+                    "height": 24,
+                    "justifyContent": "center",
+                    "opacity": 1,
+                    "overflow": "visible",
+                    "width": 24,
+                  }
+                }
+              >
+                <test-file-stub
+                  fill="#F56522"
+                  style={
+                    [
+                      {
+                        "height": 24,
+                        "width": 24,
+                      },
+                      {
+                        "height": "100%",
+                        "width": "100%",
+                      },
+                    ]
+                  }
+                />
+                <View
+                  collapsable={false}
+                  style={
+                    {
+                      "bottom": "100%",
+                      "marginBottom": 4,
+                      "opacity": 0,
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        [
+                          {
+                            "fontFamily": "Baloo2-Medium",
+                            "fontSize": 14,
+                            "letterSpacing": 0.14,
+                            "lineHeight": 20,
+                          },
+                          {
+                            "color": "#F56522",
+                          },
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                    copied!
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`ReceiveBitcoinLiquid should render correctly while loading 1`] = `
+<View
+  onLayout={[Function]}
+  style={
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      {
+        "paddingBottom": 0,
+      },
+    ]
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "borderBottomLeftRadius": 8,
+            "borderBottomRightRadius": 8,
+            "borderBottomWidth": 1,
+          },
+          {
+            "paddingTop": 0,
+            "zIndex": 1,
+          },
+          {
+            "backgroundColor": "#FFF9F6",
+          },
+          {
+            "borderColor": "#FEEDE5",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 8,
+              "paddingBottom": 6,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 6,
+            },
+            {},
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "gap": 4,
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            numberOfLines={1}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 26,
+                  },
+                  {},
+                  {
+                    "color": "#2B1911",
+                  },
+                  {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            receive bitcoin
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 10,
+              "justifyContent": "flex-end",
+            }
+          }
+        />
+      </View>
+    </View>
+    <View
+      style={
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          },
+          false,
+          {
+            "paddingBottom": 0,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {},
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexBasis": "0%",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "gap": 8,
+                "paddingBottom": 4,
+                "paddingTop": 4,
+              },
+              {},
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "alignSelf": "stretch",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingLeft": 4,
+                "paddingRight": 4,
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "gap": 2,
+                  "justifyContent": "flex-end",
+                }
+              }
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": true,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <test-file-stub
+                  fill="#7D675E"
+                  style={
+                    [
+                      {
+                        "height": 24,
+                        "width": 24,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
+              </View>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "flexBasis": "0%",
+                    "flexDirection": "row",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "gap": 4,
+                    "justifyContent": "center",
+                  },
+                  [
+                    false,
+                    false,
+                  ],
+                ]
+              }
+            >
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "gap": 4,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <TextInput
+                  onChangeText={[Function]}
+                  style={
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 20,
+                      "letterSpacing": 0.2,
+                      "lineHeight": 32.5,
+                      "overflow": "hidden",
+                      "textAlign": "center",
+                    }
+                  }
+                  value="address #0"
+                />
+                <View
+                  accessibilityState={
+                    {
+                      "busy": undefined,
+                      "checked": undefined,
+                      "disabled": undefined,
+                      "expanded": undefined,
+                      "selected": undefined,
+                    }
+                  }
+                  accessibilityValue={
+                    {
+                      "max": undefined,
+                      "min": undefined,
+                      "now": undefined,
+                      "text": undefined,
+                    }
+                  }
+                  accessible={true}
+                  collapsable={false}
+                  focusable={true}
+                  onClick={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    {
+                      "opacity": 1,
+                    }
+                  }
+                >
+                  <test-file-stub
+                    fill="#F56522"
+                    style={
+                      [
+                        {
+                          "height": 16,
+                          "width": 16,
+                        },
+                        undefined,
+                      ]
+                    }
+                  />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "gap": 2,
+                  "justifyContent": "flex-end",
+                }
+              }
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <test-file-stub
+                  fill="#F56522"
+                  style={
+                    [
+                      {
+                        "height": 24,
+                        "width": 24,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              [
+                {
+                  "backgroundColor": "#EAE3DF",
+                  "flexShrink": 1,
+                  "height": 1,
+                  "width": "100%",
+                },
+                undefined,
+              ]
+            }
+          />
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "alignSelf": "stretch",
+                "gap": 16,
+                "justifyContent": "center",
+              }
+            }
+          >
+            <RNSVGSvgView
+              align="xMidYMid"
+              bbHeight="327"
+              bbWidth="327"
+              focusable={false}
+              height={327}
+              meetOrSlice={0}
+              minX={0}
+              minY={0}
+              style={
+                [
+                  {
+                    "backgroundColor": "transparent",
+                    "borderWidth": 0,
+                  },
+                  {
+                    "flex": 0,
+                    "height": 327,
+                    "width": 327,
+                  },
+                ]
+              }
+              vbHeight={327}
+              vbWidth={327}
+              width={327}
+            >
+              <RNSVGGroup
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
+              >
+                <RNSVGDefs>
+                  <RNSVGLinearGradient
+                    gradient={
+                      [
+                        0,
+                        -65536,
+                        1,
+                        -16711681,
+                      ]
+                    }
+                    gradientTransform={null}
+                    gradientUnits={0}
+                    name="grad"
+                    x1="0%"
+                    x2="100%"
+                    y1="0%"
+                    y2="100%"
+                  />
+                </RNSVGDefs>
+                <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
+                >
+                  <RNSVGRect
+                    fill={
+                      {
+                        "payload": 4294967295,
+                        "type": 0,
+                      }
+                    }
+                    height="327"
+                    propList={
+                      [
+                        "fill",
+                      ]
+                    }
+                    width="327"
+                    x="0"
+                    y="0"
+                  />
+                </RNSVGGroup>
+                <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
+                >
+                  <RNSVGPath
+                    d="M0 4.954545454545454 L69.36363636363636 4.954545454545454 M89.18181818181817 4.954545454545454 L99.09090909090908 4.954545454545454 M138.72727272727272 4.954545454545454 L148.63636363636363 4.954545454545454 M158.54545454545453 4.954545454545454 L168.45454545454544 4.954545454545454 M188.27272727272725 4.954545454545454 L217.99999999999997 4.954545454545454 M227.90909090909088 4.954545454545454 L237.8181818181818 4.954545454545454 M257.6363636363636 4.954545454545454 L327 4.954545454545454 M0 14.863636363636363 L9.909090909090908 14.863636363636363 M59.45454545454545 14.863636363636363 L69.36363636363636 14.863636363636363 M108.99999999999999 14.863636363636363 L118.9090909090909 14.863636363636363 M148.63636363636363 14.863636363636363 L158.54545454545453 14.863636363636363 M178.36363636363635 14.863636363636363 L188.27272727272725 14.863636363636363 M198.18181818181816 14.863636363636363 L217.99999999999997 14.863636363636363 M257.6363636363636 14.863636363636363 L267.5454545454545 14.863636363636363 M317.09090909090907 14.863636363636363 L327 14.863636363636363 M0 24.77272727272727 L9.909090909090908 24.77272727272727 M19.818181818181817 24.77272727272727 L49.54545454545454 24.77272727272727 M59.45454545454545 24.77272727272727 L69.36363636363636 24.77272727272727 M79.27272727272727 24.77272727272727 L89.18181818181817 24.77272727272727 M108.99999999999999 24.77272727272727 L118.9090909090909 24.77272727272727 M138.72727272727272 24.77272727272727 L158.54545454545453 24.77272727272727 M198.18181818181816 24.77272727272727 L227.90909090909088 24.77272727272727 M237.8181818181818 24.77272727272727 L247.72727272727272 24.77272727272727 M257.6363636363636 24.77272727272727 L267.5454545454545 24.77272727272727 M277.45454545454544 24.77272727272727 L307.18181818181813 24.77272727272727 M317.09090909090907 24.77272727272727 L327 24.77272727272727 M0 34.68181818181818 L9.909090909090908 34.68181818181818 M19.818181818181817 34.68181818181818 L49.54545454545454 34.68181818181818 M59.45454545454545 34.68181818181818 L69.36363636363636 34.68181818181818 M79.27272727272727 34.68181818181818 L108.99999999999999 34.68181818181818 M118.9090909090909 34.68181818181818 L128.8181818181818 34.68181818181818 M178.36363636363635 34.68181818181818 L188.27272727272725 34.68181818181818 M208.09090909090907 34.68181818181818 L217.99999999999997 34.68181818181818 M237.8181818181818 34.68181818181818 L247.72727272727272 34.68181818181818 M257.6363636363636 34.68181818181818 L267.5454545454545 34.68181818181818 M277.45454545454544 34.68181818181818 L307.18181818181813 34.68181818181818 M317.09090909090907 34.68181818181818 L327 34.68181818181818 M0 44.590909090909086 L9.909090909090908 44.590909090909086 M19.818181818181817 44.590909090909086 L49.54545454545454 44.590909090909086 M59.45454545454545 44.590909090909086 L69.36363636363636 44.590909090909086 M79.27272727272727 44.590909090909086 L89.18181818181817 44.590909090909086 M99.09090909090908 44.590909090909086 L108.99999999999999 44.590909090909086 M138.72727272727272 44.590909090909086 L168.45454545454544 44.590909090909086 M198.18181818181816 44.590909090909086 L227.90909090909088 44.590909090909086 M257.6363636363636 44.590909090909086 L267.5454545454545 44.590909090909086 M277.45454545454544 44.590909090909086 L307.18181818181813 44.590909090909086 M317.09090909090907 44.590909090909086 L327 44.590909090909086 M0 54.49999999999999 L9.909090909090908 54.49999999999999 M59.45454545454545 54.49999999999999 L69.36363636363636 54.49999999999999 M79.27272727272727 54.49999999999999 L108.99999999999999 54.49999999999999 M118.9090909090909 54.49999999999999 L128.8181818181818 54.49999999999999 M138.72727272727272 54.49999999999999 L148.63636363636363 54.49999999999999 M168.45454545454544 54.49999999999999 L178.36363636363635 54.49999999999999 M188.27272727272725 54.49999999999999 L198.18181818181816 54.49999999999999 M217.99999999999997 54.49999999999999 L247.72727272727272 54.49999999999999 M257.6363636363636 54.49999999999999 L267.5454545454545 54.49999999999999 M317.09090909090907 54.49999999999999 L327 54.49999999999999 M0 64.4090909090909 L69.36363636363636 64.4090909090909 M79.27272727272727 64.4090909090909 L89.18181818181817 64.4090909090909 M99.09090909090908 64.4090909090909 L108.99999999999999 64.4090909090909 M118.9090909090909 64.4090909090909 L128.8181818181818 64.4090909090909 M138.72727272727272 64.4090909090909 L148.63636363636363 64.4090909090909 M158.54545454545453 64.4090909090909 L168.45454545454544 64.4090909090909 M178.36363636363635 64.4090909090909 L188.27272727272725 64.4090909090909 M198.18181818181816 64.4090909090909 L208.09090909090907 64.4090909090909 M217.99999999999997 64.4090909090909 L227.90909090909088 64.4090909090909 M237.8181818181818 64.4090909090909 L247.72727272727272 64.4090909090909 M257.6363636363636 64.4090909090909 L327 64.4090909090909 M79.27272727272727 74.31818181818181 L89.18181818181817 74.31818181818181 M138.72727272727272 74.31818181818181 L148.63636363636363 74.31818181818181 M158.54545454545453 74.31818181818181 L168.45454545454544 74.31818181818181 M188.27272727272725 74.31818181818181 L217.99999999999997 74.31818181818181 M227.90909090909088 74.31818181818181 L237.8181818181818 74.31818181818181 M0 84.22727272727272 L9.909090909090908 84.22727272727272 M19.818181818181817 84.22727272727272 L69.36363636363636 84.22727272727272 M89.18181818181817 84.22727272727272 L148.63636363636363 84.22727272727272 M158.54545454545453 84.22727272727272 L178.36363636363635 84.22727272727272 M188.27272727272725 84.22727272727272 L198.18181818181816 84.22727272727272 M217.99999999999997 84.22727272727272 L247.72727272727272 84.22727272727272 M257.6363636363636 84.22727272727272 L307.18181818181813 84.22727272727272 M0 94.13636363636363 L19.818181818181817 94.13636363636363 M49.54545454545454 94.13636363636363 L59.45454545454545 94.13636363636363 M69.36363636363636 94.13636363636363 L89.18181818181817 94.13636363636363 M99.09090909090908 94.13636363636363 L118.9090909090909 94.13636363636363 M128.8181818181818 94.13636363636363 L138.72727272727272 94.13636363636363 M168.45454545454544 94.13636363636363 L178.36363636363635 94.13636363636363 M188.27272727272725 94.13636363636363 L208.09090909090907 94.13636363636363 M227.90909090909088 94.13636363636363 L237.8181818181818 94.13636363636363 M247.72727272727272 94.13636363636363 L277.45454545454544 94.13636363636363 M297.27272727272725 94.13636363636363 L327 94.13636363636363 M0 104.04545454545453 L29.727272727272727 104.04545454545453 M49.54545454545454 104.04545454545453 L69.36363636363636 104.04545454545453 M79.27272727272727 104.04545454545453 L89.18181818181817 104.04545454545453 M99.09090909090908 104.04545454545453 L108.99999999999999 104.04545454545453 M118.9090909090909 104.04545454545453 L158.54545454545453 104.04545454545453 M168.45454545454544 104.04545454545453 L178.36363636363635 104.04545454545453 M198.18181818181816 104.04545454545453 L208.09090909090907 104.04545454545453 M217.99999999999997 104.04545454545453 L227.90909090909088 104.04545454545453 M237.8181818181818 104.04545454545453 L247.72727272727272 104.04545454545453 M267.5454545454545 104.04545454545453 L277.45454545454544 104.04545454545453 M9.909090909090908 113.95454545454544 L19.818181818181817 113.95454545454544 M29.727272727272727 113.95454545454544 L39.63636363636363 113.95454545454544 M49.54545454545454 113.95454545454544 L59.45454545454545 113.95454545454544 M99.09090909090908 113.95454545454544 L138.72727272727272 113.95454545454544 M168.45454545454544 113.95454545454544 L188.27272727272725 113.95454545454544 M237.8181818181818 113.95454545454544 L247.72727272727272 113.95454545454544 M287.3636363636363 113.95454545454544 L307.18181818181813 113.95454545454544 M317.09090909090907 113.95454545454544 L327 113.95454545454544 M19.818181818181817 123.86363636363636 L69.36363636363636 123.86363636363636 M79.27272727272727 123.86363636363636 L108.99999999999999 123.86363636363636 M138.72727272727272 123.86363636363636 L148.63636363636363 123.86363636363636 M158.54545454545453 123.86363636363636 L168.45454545454544 123.86363636363636 M198.18181818181816 123.86363636363636 L247.72727272727272 123.86363636363636 M277.45454545454544 123.86363636363636 L297.27272727272725 123.86363636363636 M307.18181818181813 123.86363636363636 L317.09090909090907 123.86363636363636 M9.909090909090908 133.77272727272728 L19.818181818181817 133.77272727272728 M49.54545454545454 133.77272727272728 L59.45454545454545 133.77272727272728 M79.27272727272727 133.77272727272728 L99.09090909090908 133.77272727272728 M128.8181818181818 133.77272727272728 L138.72727272727272 133.77272727272728 M148.63636363636363 133.77272727272728 L158.54545454545453 133.77272727272728 M178.36363636363635 133.77272727272728 L188.27272727272725 133.77272727272728 M237.8181818181818 133.77272727272728 L267.5454545454545 133.77272727272728 M287.3636363636363 133.77272727272728 L327 133.77272727272728 M9.909090909090908 143.6818181818182 L69.36363636363636 143.6818181818182 M118.9090909090909 143.6818181818182 L188.27272727272725 143.6818181818182 M198.18181818181816 143.6818181818182 L227.90909090909088 143.6818181818182 M237.8181818181818 143.6818181818182 L257.6363636363636 143.6818181818182 M307.18181818181813 143.6818181818182 L317.09090909090907 143.6818181818182 M0 153.5909090909091 L19.818181818181817 153.5909090909091 M39.63636363636363 153.5909090909091 L59.45454545454545 153.5909090909091 M69.36363636363636 153.5909090909091 L89.18181818181817 153.5909090909091 M108.99999999999999 153.5909090909091 L118.9090909090909 153.5909090909091 M128.8181818181818 153.5909090909091 L138.72727272727272 153.5909090909091 M148.63636363636363 153.5909090909091 L158.54545454545453 153.5909090909091 M178.36363636363635 153.5909090909091 L188.27272727272725 153.5909090909091 M208.09090909090907 153.5909090909091 L217.99999999999997 153.5909090909091 M227.90909090909088 153.5909090909091 L267.5454545454545 153.5909090909091 M297.27272727272725 153.5909090909091 L317.09090909090907 153.5909090909091 M9.909090909090908 163.5 L79.27272727272727 163.5 M89.18181818181817 163.5 L99.09090909090908 163.5 M128.8181818181818 163.5 L138.72727272727272 163.5 M148.63636363636363 163.5 L158.54545454545453 163.5 M168.45454545454544 163.5 L178.36363636363635 163.5 M198.18181818181816 163.5 L208.09090909090907 163.5 M217.99999999999997 163.5 L237.8181818181818 163.5 M267.5454545454545 163.5 L297.27272727272725 163.5 M307.18181818181813 163.5 L317.09090909090907 163.5 M0 173.4090909090909 L9.909090909090908 173.4090909090909 M19.818181818181817 173.4090909090909 L39.63636363636363 173.4090909090909 M49.54545454545454 173.4090909090909 L59.45454545454545 173.4090909090909 M79.27272727272727 173.4090909090909 L89.18181818181817 173.4090909090909 M99.09090909090908 173.4090909090909 L108.99999999999999 173.4090909090909 M138.72727272727272 173.4090909090909 L148.63636363636363 173.4090909090909 M158.54545454545453 173.4090909090909 L168.45454545454544 173.4090909090909 M178.36363636363635 173.4090909090909 L237.8181818181818 173.4090909090909 M247.72727272727272 173.4090909090909 L267.5454545454545 173.4090909090909 M287.3636363636363 173.4090909090909 L307.18181818181813 173.4090909090909 M317.09090909090907 173.4090909090909 L327 173.4090909090909 M0 183.3181818181818 L19.818181818181817 183.3181818181818 M59.45454545454545 183.3181818181818 L69.36363636363636 183.3181818181818 M79.27272727272727 183.3181818181818 L99.09090909090908 183.3181818181818 M108.99999999999999 183.3181818181818 L118.9090909090909 183.3181818181818 M128.8181818181818 183.3181818181818 L168.45454545454544 183.3181818181818 M178.36363636363635 183.3181818181818 L188.27272727272725 183.3181818181818 M198.18181818181816 183.3181818181818 L217.99999999999997 183.3181818181818 M267.5454545454545 183.3181818181818 L287.3636363636363 183.3181818181818 M297.27272727272725 183.3181818181818 L317.09090909090907 183.3181818181818 M0 193.22727272727272 L29.727272727272727 193.22727272727272 M49.54545454545454 193.22727272727272 L59.45454545454545 193.22727272727272 M69.36363636363636 193.22727272727272 L89.18181818181817 193.22727272727272 M108.99999999999999 193.22727272727272 L128.8181818181818 193.22727272727272 M138.72727272727272 193.22727272727272 L168.45454545454544 193.22727272727272 M208.09090909090907 193.22727272727272 L247.72727272727272 193.22727272727272 M297.27272727272725 193.22727272727272 L307.18181818181813 193.22727272727272 M0 203.13636363636363 L9.909090909090908 203.13636363636363 M19.818181818181817 203.13636363636363 L39.63636363636363 203.13636363636363 M49.54545454545454 203.13636363636363 L69.36363636363636 203.13636363636363 M79.27272727272727 203.13636363636363 L89.18181818181817 203.13636363636363 M99.09090909090908 203.13636363636363 L118.9090909090909 203.13636363636363 M138.72727272727272 203.13636363636363 L148.63636363636363 203.13636363636363 M178.36363636363635 203.13636363636363 L198.18181818181816 203.13636363636363 M208.09090909090907 203.13636363636363 L217.99999999999997 203.13636363636363 M237.8181818181818 203.13636363636363 L257.6363636363636 203.13636363636363 M267.5454545454545 203.13636363636363 L297.27272727272725 203.13636363636363 M0 213.04545454545453 L9.909090909090908 213.04545454545453 M19.818181818181817 213.04545454545453 L29.727272727272727 213.04545454545453 M39.63636363636363 213.04545454545453 L49.54545454545454 213.04545454545453 M69.36363636363636 213.04545454545453 L99.09090909090908 213.04545454545453 M108.99999999999999 213.04545454545453 L128.8181818181818 213.04545454545453 M148.63636363636363 213.04545454545453 L168.45454545454544 213.04545454545453 M198.18181818181816 213.04545454545453 L208.09090909090907 213.04545454545453 M217.99999999999997 213.04545454545453 L237.8181818181818 213.04545454545453 M247.72727272727272 213.04545454545453 L267.5454545454545 213.04545454545453 M297.27272727272725 213.04545454545453 L307.18181818181813 213.04545454545453 M317.09090909090907 213.04545454545453 L327 213.04545454545453 M0 222.95454545454544 L9.909090909090908 222.95454545454544 M29.727272727272727 222.95454545454544 L49.54545454545454 222.95454545454544 M59.45454545454545 222.95454545454544 L99.09090909090908 222.95454545454544 M138.72727272727272 222.95454545454544 L148.63636363636363 222.95454545454544 M188.27272727272725 222.95454545454544 L198.18181818181816 222.95454545454544 M208.09090909090907 222.95454545454544 L217.99999999999997 222.95454545454544 M247.72727272727272 222.95454545454544 L257.6363636363636 222.95454545454544 M267.5454545454545 222.95454545454544 L297.27272727272725 222.95454545454544 M307.18181818181813 222.95454545454544 L317.09090909090907 222.95454545454544 M0 232.86363636363635 L9.909090909090908 232.86363636363635 M39.63636363636363 232.86363636363635 L59.45454545454545 232.86363636363635 M89.18181818181817 232.86363636363635 L148.63636363636363 232.86363636363635 M158.54545454545453 232.86363636363635 L168.45454545454544 232.86363636363635 M188.27272727272725 232.86363636363635 L227.90909090909088 232.86363636363635 M237.8181818181818 232.86363636363635 L247.72727272727272 232.86363636363635 M257.6363636363636 232.86363636363635 L267.5454545454545 232.86363636363635 M297.27272727272725 232.86363636363635 L327 232.86363636363635 M0 242.77272727272728 L9.909090909090908 242.77272727272728 M59.45454545454545 242.77272727272728 L69.36363636363636 242.77272727272728 M79.27272727272727 242.77272727272728 L108.99999999999999 242.77272727272728 M128.8181818181818 242.77272727272728 L148.63636363636363 242.77272727272728 M168.45454545454544 242.77272727272728 L178.36363636363635 242.77272727272728 M188.27272727272725 242.77272727272728 L208.09090909090907 242.77272727272728 M237.8181818181818 242.77272727272728 L297.27272727272725 242.77272727272728 M317.09090909090907 242.77272727272728 L327 242.77272727272728 M79.27272727272727 252.6818181818182 L89.18181818181817 252.6818181818182 M158.54545454545453 252.6818181818182 L178.36363636363635 252.6818181818182 M188.27272727272725 252.6818181818182 L198.18181818181816 252.6818181818182 M217.99999999999997 252.6818181818182 L227.90909090909088 252.6818181818182 M237.8181818181818 252.6818181818182 L247.72727272727272 252.6818181818182 M277.45454545454544 252.6818181818182 L287.3636363636363 252.6818181818182 M297.27272727272725 252.6818181818182 L327 252.6818181818182 M0 262.59090909090907 L69.36363636363636 262.59090909090907 M99.09090909090908 262.59090909090907 L178.36363636363635 262.59090909090907 M198.18181818181816 262.59090909090907 L208.09090909090907 262.59090909090907 M217.99999999999997 262.59090909090907 L247.72727272727272 262.59090909090907 M257.6363636363636 262.59090909090907 L267.5454545454545 262.59090909090907 M277.45454545454544 262.59090909090907 L307.18181818181813 262.59090909090907 M0 272.49999999999994 L9.909090909090908 272.49999999999994 M59.45454545454545 272.49999999999994 L69.36363636363636 272.49999999999994 M79.27272727272727 272.49999999999994 L89.18181818181817 272.49999999999994 M118.9090909090909 272.49999999999994 L158.54545454545453 272.49999999999994 M168.45454545454544 272.49999999999994 L188.27272727272725 272.49999999999994 M227.90909090909088 272.49999999999994 L247.72727272727272 272.49999999999994 M277.45454545454544 272.49999999999994 L307.18181818181813 272.49999999999994 M0 282.4090909090909 L9.909090909090908 282.4090909090909 M19.818181818181817 282.4090909090909 L49.54545454545454 282.4090909090909 M59.45454545454545 282.4090909090909 L69.36363636363636 282.4090909090909 M79.27272727272727 282.4090909090909 L89.18181818181817 282.4090909090909 M148.63636363636363 282.4090909090909 L168.45454545454544 282.4090909090909 M188.27272727272725 282.4090909090909 L227.90909090909088 282.4090909090909 M237.8181818181818 282.4090909090909 L297.27272727272725 282.4090909090909 M307.18181818181813 282.4090909090909 L317.09090909090907 282.4090909090909 M0 292.31818181818176 L9.909090909090908 292.31818181818176 M19.818181818181817 292.31818181818176 L49.54545454545454 292.31818181818176 M59.45454545454545 292.31818181818176 L69.36363636363636 292.31818181818176 M79.27272727272727 292.31818181818176 L89.18181818181817 292.31818181818176 M99.09090909090908 292.31818181818176 L118.9090909090909 292.31818181818176 M128.8181818181818 292.31818181818176 L158.54545454545453 292.31818181818176 M178.36363636363635 292.31818181818176 L188.27272727272725 292.31818181818176 M208.09090909090907 292.31818181818176 L217.99999999999997 292.31818181818176 M227.90909090909088 292.31818181818176 L257.6363636363636 292.31818181818176 M277.45454545454544 292.31818181818176 L287.3636363636363 292.31818181818176 M317.09090909090907 292.31818181818176 L327 292.31818181818176 M0 302.2272727272727 L9.909090909090908 302.2272727272727 M19.818181818181817 302.2272727272727 L49.54545454545454 302.2272727272727 M59.45454545454545 302.2272727272727 L69.36363636363636 302.2272727272727 M79.27272727272727 302.2272727272727 L108.99999999999999 302.2272727272727 M118.9090909090909 302.2272727272727 L128.8181818181818 302.2272727272727 M148.63636363636363 302.2272727272727 L188.27272727272725 302.2272727272727 M198.18181818181816 302.2272727272727 L208.09090909090907 302.2272727272727 M227.90909090909088 302.2272727272727 L267.5454545454545 302.2272727272727 M287.3636363636363 302.2272727272727 L307.18181818181813 302.2272727272727 M0 312.13636363636357 L9.909090909090908 312.13636363636357 M59.45454545454545 312.13636363636357 L69.36363636363636 312.13636363636357 M89.18181818181817 312.13636363636357 L108.99999999999999 312.13636363636357 M148.63636363636363 312.13636363636357 L158.54545454545453 312.13636363636357 M208.09090909090907 312.13636363636357 L227.90909090909088 312.13636363636357 M287.3636363636363 312.13636363636357 L307.18181818181813 312.13636363636357 M0 322.0454545454545 L69.36363636363636 322.0454545454545 M79.27272727272727 322.0454545454545 L89.18181818181817 322.0454545454545 M118.9090909090909 322.0454545454545 L128.8181818181818 322.0454545454545 M148.63636363636363 322.0454545454545 L178.36363636363635 322.0454545454545 M198.18181818181816 322.0454545454545 L208.09090909090907 322.0454545454545 M227.90909090909088 322.0454545454545 L247.72727272727272 322.0454545454545 M257.6363636363636 322.0454545454545 L277.45454545454544 322.0454545454545 M307.18181818181813 322.0454545454545 L317.09090909090907 322.0454545454545 "
+                    fill={
+                      {
+                        "payload": 4278190080,
+                        "type": 0,
+                      }
+                    }
+                    propList={
+                      [
+                        "stroke",
+                        "strokeWidth",
+                        "strokeLinecap",
+                      ]
+                    }
+                    stroke={
+                      {
+                        "payload": 4281014545,
+                        "type": 0,
+                      }
+                    }
+                    strokeLinecap={0}
+                    strokeWidth="9.909090909090908"
+                  />
+                </RNSVGGroup>
+              </RNSVGGroup>
+            </RNSVGSvgView>
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "alignSelf": "stretch",
+                  "flexDirection": "row",
+                  "gap": 12,
+                  "paddingLeft": 4,
+                  "paddingRight": 4,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    {
+                      "color": "#9F8C82",
+                      "flexShrink": 1,
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 20,
+                      "letterSpacing": 0.2,
+                      "lineHeight": 28,
+                    },
+                    false,
+                  ]
+                }
+              >
+                ert1
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      {
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 20,
+                        "letterSpacing": 0.2,
+                        "lineHeight": 28,
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  qvd76
+                </Text>
+                ucxafly399qewresqmj8ud0f639fe
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      {
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 20,
+                        "letterSpacing": 0.2,
+                        "lineHeight": 28,
+                      },
+                      false,
+                    ]
+                  }
+                >
+                  p0raj
+                </Text>
+              </Text>
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "flexShrink": 1,
+                    "height": 24,
+                    "justifyContent": "center",
+                    "opacity": 1,
+                    "overflow": "visible",
+                    "width": 24,
+                  }
+                }
+              >
+                <test-file-stub
+                  fill="#F56522"
+                  style={
+                    [
+                      {
+                        "height": 24,
+                        "width": 24,
+                      },
+                      {
+                        "height": "100%",
+                        "width": "100%",
+                      },
+                    ]
+                  }
+                />
+                <View
+                  collapsable={false}
+                  style={
+                    {
+                      "bottom": "100%",
+                      "marginBottom": 4,
+                      "opacity": 0,
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        [
+                          {
+                            "fontFamily": "Baloo2-Medium",
+                            "fontSize": 14,
+                            "letterSpacing": 0.14,
+                            "lineHeight": 20,
+                          },
+                          {
+                            "color": "#F56522",
+                          },
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                    copied!
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
