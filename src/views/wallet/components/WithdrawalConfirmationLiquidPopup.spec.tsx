@@ -9,6 +9,7 @@ import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { navigateMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { getTransactionDetails } from "../../../../tests/unit/helpers/getTransactionDetails";
+import { peachAPI } from "../../../utils/peachAPI";
 import { PeachLiquidJSWallet } from "../../../utils/wallet/PeachLiquidJSWallet";
 import { setLiquidWallet } from "../../../utils/wallet/setWallet";
 import { WithdrawalConfirmationLiquidPopup } from "./WithdrawalConfirmationLiquidPopup";
@@ -47,6 +48,7 @@ describe("WithdrawalConfirmationLiquidPopup", () => {
   });
 
   it("should broadcast transaction, reset state and navigate to wallet on confirm", async () => {
+    const postTxSpy = jest.spyOn(peachAPI.public.liquid, "postTx");
     const fee = await transaction.psbt.feeRate();
 
     const { getByText } = render(
@@ -54,6 +56,7 @@ describe("WithdrawalConfirmationLiquidPopup", () => {
     );
     fireEvent.press(getByText("confirm & send"));
 
+    expect(postTxSpy).toHaveBeenCalledWith({ tx: liquidTransactionHex });
     await waitFor(() => {
       expect(navigateMock).toHaveBeenCalledWith("liquidWallet");
     });
