@@ -84,6 +84,9 @@ type RootStackParamList = Onboarding &
     bumpNetworkFees: {
       txId: string;
     };
+    liquidWallet: undefined;
+    sendBitcoinLiquid: undefined;
+    receiveBitcoinLiquid: undefined;
     lightningWallet: undefined;
     sendBitcoinLightning: undefined;
     receiveBitcoinLightning: undefined;

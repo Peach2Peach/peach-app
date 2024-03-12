@@ -96,9 +96,13 @@ function SelectLayer() {
   const goToBitcoinWallet = () => {
     navigation.navigate("homeScreen", { screen: "wallet" });
   };
+  const goToLiquidWallet = () => {
+    navigation.navigate("liquidWallet");
+  };
   return (
     <View style={tw`flex-row gap-4 justify-center p-4`}>
       <PeachText onPress={goToBitcoinWallet}>on-chain</PeachText>
+      <PeachText onPress={goToLiquidWallet}>liquid</PeachText>
       <PeachText style={tw`font-bold`}>lightning</PeachText>
     </View>
   );

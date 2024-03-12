@@ -1,0 +1,1891 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SendBitcoinLiquid should not allow entering an amount higher than the available balance 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -746,11 +746,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0.00 000 00
++                               0.
+                              </Text>
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  Array [
+@@ -779,11 +779,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0
++                               21 000 000
+                              </Text>
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+@@ -830,11 +830,11 @@
+                              "paddingTop": 0,
+                              "position": "absolute",
+                              "width": "100%",
+                            }
+                          }
+-                         value="0"
++                         value="21000000"
+                        />
+                      </View>
+                    </View>
+                  </View>
+                  <View"
+`;
+
+exports[`SendBitcoinLiquid should render correctly 1`] = `
+<View
+  onLayout={[Function]}
+  style={
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      {
+        "paddingBottom": 0,
+      },
+    ]
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "borderBottomLeftRadius": 8,
+            "borderBottomRightRadius": 8,
+            "borderBottomWidth": 1,
+          },
+          {
+            "paddingTop": 0,
+            "zIndex": 1,
+          },
+          {
+            "backgroundColor": "#FFF9F6",
+          },
+          {
+            "borderColor": "#FEEDE5",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 8,
+              "paddingBottom": 6,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 6,
+            },
+            {},
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexBasis": "0%",
+              "flexDirection": "row",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "gap": 4,
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            numberOfLines={1}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 26,
+                  },
+                  {},
+                  {
+                    "color": "#2B1911",
+                  },
+                  {
+                    "flexBasis": "0%",
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            send bitcoin
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 10,
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <View
+            accessibilityHint="help"
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 2,
+                "paddingRight": 2,
+                "paddingTop": 2,
+              }
+            }
+          >
+            <test-file-stub
+              fill="#099DE2"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 20,
+                    "width": 20,
+                  },
+                  {},
+                ]
+              }
+            />
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          },
+          false,
+          {
+            "paddingBottom": 0,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "paddingBottom": 8,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 8,
+            },
+            {},
+            undefined,
+          ]
+        }
+      >
+        <RCTScrollView
+          contentContainerStyle={
+            [
+              {
+                "flexGrow": 1,
+                "paddingBottom": 8,
+                "paddingTop": 8,
+              },
+              {},
+            ]
+          }
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+        >
+          <View>
+            <View
+              onStartShouldSetResponder={[Function]}
+            >
+              <View
+                style={
+                  [
+                    {
+                      "gap": 16,
+                      "paddingBottom": 44,
+                    },
+                    {},
+                  ]
+                }
+              >
+                <View
+                  style={{}}
+                >
+                  <View
+                    style={
+                      {
+                        "alignItems": "center",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                        "paddingLeft": 10,
+                        "paddingRight": 10,
+                      }
+                    }
+                  >
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          {
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "fontWeight": "bold",
+                            "letterSpacing": 0.16,
+                            "lineHeight": 23,
+                          },
+                          false,
+                        ]
+                      }
+                    >
+                      send to
+                    </Text>
+                  </View>
+                  <View
+                    style={{}}
+                  >
+                    <View>
+                      <View
+                        style={
+                          [
+                            {
+                              "alignItems": "center",
+                              "flexDirection": "row",
+                              "gap": 4,
+                              "justifyContent": "space-between",
+                              "paddingLeft": 12,
+                              "paddingRight": 12,
+                              "width": "100%",
+                            },
+                            {
+                              "borderRadius": 12,
+                              "borderWidth": 1,
+                              "overflow": "hidden",
+                            },
+                            {
+                              "backgroundColor": "#FFFCFA",
+                            },
+                            {
+                              "borderColor": "#2B1911",
+                            },
+                            false,
+                            false,
+                            {
+                              "marginBottom": 1,
+                              "marginTop": 1,
+                            },
+                            undefined,
+                          ]
+                        }
+                      >
+                        <TextInput
+                          allowFontScaling={false}
+                          autoCapitalize="none"
+                          autoCorrect={false}
+                          blurOnSubmit={false}
+                          editable={true}
+                          multiline={false}
+                          onBlur={[Function]}
+                          onChangeText={[Function]}
+                          onFocus={[Function]}
+                          placeholder="form.address.liquid.placeholder"
+                          placeholderTextColor="#EAE3DF"
+                          removeClippedSubviews={false}
+                          style={
+                            [
+                              {
+                                "flexShrink": 1,
+                                "fontFamily": "Baloo2-Regular",
+                                "fontSize": 18,
+                                "height": 40,
+                                "letterSpacing": 0.18,
+                                "lineHeight": 29.25,
+                                "paddingBottom": 0,
+                                "paddingTop": 0,
+                                "width": "100%",
+                              },
+                              {
+                                "color": "#BAADA7",
+                              },
+                              false,
+                              {
+                                "borderColor": "transparent",
+                                "borderWidth": 1,
+                              },
+                              false,
+                            ]
+                          }
+                          textAlignVertical="center"
+                          value=""
+                        />
+                        <View
+                          style={
+                            {
+                              "flexDirection": "row",
+                              "gap": 16,
+                            }
+                          }
+                        >
+                          <View
+                            accessibilityState={
+                              {
+                                "busy": undefined,
+                                "checked": undefined,
+                                "disabled": undefined,
+                                "expanded": undefined,
+                                "selected": undefined,
+                              }
+                            }
+                            accessibilityValue={
+                              {
+                                "max": undefined,
+                                "min": undefined,
+                                "now": undefined,
+                                "text": undefined,
+                              }
+                            }
+                            accessible={true}
+                            collapsable={false}
+                            focusable={true}
+                            onClick={[Function]}
+                            onResponderGrant={[Function]}
+                            onResponderMove={[Function]}
+                            onResponderRelease={[Function]}
+                            onResponderTerminate={[Function]}
+                            onResponderTerminationRequest={[Function]}
+                            onStartShouldSetResponder={[Function]}
+                            style={
+                              {
+                                "opacity": 1,
+                              }
+                            }
+                          >
+                            <test-file-stub
+                              fill="#2B1911"
+                              style={
+                                [
+                                  {
+                                    "height": 20,
+                                    "width": 20,
+                                  },
+                                  undefined,
+                                ]
+                              }
+                            />
+                          </View>
+                          <View
+                            accessibilityState={
+                              {
+                                "busy": undefined,
+                                "checked": undefined,
+                                "disabled": undefined,
+                                "expanded": undefined,
+                                "selected": undefined,
+                              }
+                            }
+                            accessibilityValue={
+                              {
+                                "max": undefined,
+                                "min": undefined,
+                                "now": undefined,
+                                "text": undefined,
+                              }
+                            }
+                            accessible={true}
+                            collapsable={false}
+                            focusable={true}
+                            onClick={[Function]}
+                            onResponderGrant={[Function]}
+                            onResponderMove={[Function]}
+                            onResponderRelease={[Function]}
+                            onResponderTerminate={[Function]}
+                            onResponderTerminationRequest={[Function]}
+                            onStartShouldSetResponder={[Function]}
+                            style={
+                              {
+                                "opacity": 1,
+                              }
+                            }
+                          >
+                            <test-file-stub
+                              fill="#2B1911"
+                              style={
+                                [
+                                  {
+                                    "height": 20,
+                                    "width": 20,
+                                  },
+                                  undefined,
+                                ]
+                              }
+                            />
+                          </View>
+                        </View>
+                      </View>
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              {
+                                "fontFamily": "Baloo2-Medium",
+                                "fontSize": 14,
+                                "letterSpacing": 0.14,
+                                "lineHeight": 20,
+                                "marginLeft": 12,
+                                "marginTop": 4,
+                              },
+                              {
+                                "color": "#DF321F",
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                         
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <View
+                  style={
+                    [
+                      {
+                        "backgroundColor": "#EAE3DF",
+                        "flexShrink": 1,
+                        "height": 1,
+                        "width": "100%",
+                      },
+                      undefined,
+                    ]
+                  }
+                />
+                <View
+                  style={{}}
+                >
+                  <View
+                    style={
+                      {
+                        "alignItems": "center",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                        "paddingLeft": 10,
+                        "paddingRight": 10,
+                      }
+                    }
+                  >
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          {
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "fontWeight": "bold",
+                            "letterSpacing": 0.16,
+                            "lineHeight": 23,
+                          },
+                          false,
+                        ]
+                      }
+                    >
+                      amount
+                    </Text>
+                    <View
+                      accessibilityState={
+                        {
+                          "busy": undefined,
+                          "checked": undefined,
+                          "disabled": undefined,
+                          "expanded": undefined,
+                          "selected": undefined,
+                        }
+                      }
+                      accessibilityValue={
+                        {
+                          "max": undefined,
+                          "min": undefined,
+                          "now": undefined,
+                          "text": undefined,
+                        }
+                      }
+                      accessible={true}
+                      collapsable={false}
+                      focusable={true}
+                      onClick={[Function]}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      style={
+                        {
+                          "opacity": 1,
+                        }
+                      }
+                    >
+                      <Text
+                        allowFontScaling={false}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            {
+                              "color": "#F56522",
+                            },
+                            false,
+                          ]
+                        }
+                      >
+                        send max
+                      </Text>
+                    </View>
+                  </View>
+                  <View
+                    style={{}}
+                  >
+                    <View
+                      style={
+                        [
+                          [
+                            {
+                              "alignSelf": "stretch",
+                              "borderRadius": 12,
+                              "height": 38,
+                              "justifyContent": "center",
+                              "overflow": "hidden",
+                              "paddingBottom": 12,
+                              "paddingLeft": 8,
+                              "paddingRight": 8,
+                              "paddingTop": 12,
+                            },
+                            {
+                              "backgroundColor": "#FFFCFA",
+                              "borderColor": "#7D675E",
+                              "borderWidth": 1,
+                            },
+                          ],
+                          null,
+                        ]
+                      }
+                    >
+                      <View
+                        style={
+                          [
+                            undefined,
+                            {
+                              "alignItems": "center",
+                              "flexDirection": "row",
+                              "justifyContent": "space-between",
+                            },
+                            {
+                              "height": 13,
+                              "width": 152,
+                            },
+                          ]
+                        }
+                      >
+                        <View
+                          style={
+                            [
+                              {
+                                "flexShrink": 0,
+                              },
+                              {
+                                "paddingBottom": 2.5,
+                                "paddingLeft": 2.5,
+                                "paddingRight": 2.5,
+                                "paddingTop": 2.5,
+                              },
+                            ]
+                          }
+                        >
+                          <test-file-stub
+                            fill="#888"
+                            style={
+                              [
+                                {
+                                  "height": 15,
+                                  "width": 15,
+                                },
+                                undefined,
+                              ]
+                            }
+                          />
+                        </View>
+                        <View
+                          style={
+                            [
+                              {
+                                "alignItems": "center",
+                                "flexBasis": "0%",
+                                "flexDirection": "row",
+                                "flexGrow": 1,
+                                "flexShrink": 1,
+                              },
+                              {
+                                "gap": 5,
+                              },
+                            ]
+                          }
+                        >
+                          <View
+                            style={
+                              {
+                                "alignItems": "center",
+                                "flexBasis": "0%",
+                                "flexDirection": "row",
+                                "flexGrow": 1,
+                                "flexShrink": 1,
+                                "justifyContent": "flex-end",
+                              }
+                            }
+                          >
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    {
+                                      "opacity": 0.1,
+                                      "textAlign": "right",
+                                    },
+                                    [
+                                      {
+                                        "fontFamily": "Baloo2-SemiBold",
+                                        "fontSize": 16,
+                                        "letterSpacing": 0.16,
+                                        "lineHeight": 28,
+                                        "marginBottom": -13,
+                                        "marginTop": -13,
+                                      },
+                                      false,
+                                    ],
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0.00 000 00
+                            </Text>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  [
+                                    {
+                                      "textAlign": "right",
+                                    },
+                                    [
+                                      {
+                                        "fontFamily": "Baloo2-SemiBold",
+                                        "fontSize": 16,
+                                        "letterSpacing": 0.16,
+                                        "lineHeight": 28,
+                                        "marginBottom": -13,
+                                        "marginTop": -13,
+                                      },
+                                      false,
+                                    ],
+                                  ],
+                                  false,
+                                ]
+                              }
+                            >
+                              0
+                            </Text>
+                          </View>
+                          <Text
+                            allowFontScaling={false}
+                            style={
+                              [
+                                {
+                                  "color": "#2B1911",
+                                  "fontFamily": "Baloo2-Regular",
+                                  "fontSize": 16,
+                                  "letterSpacing": 0.16,
+                                  "lineHeight": 24,
+                                },
+                                [
+                                  {
+                                    "fontFamily": "Baloo2-SemiBold",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 28,
+                                    "marginBottom": -13,
+                                    "marginTop": -13,
+                                  },
+                                  false,
+                                ],
+                                false,
+                              ]
+                            }
+                          >
+                            sats
+                          </Text>
+                        </View>
+                      </View>
+                      <TextInput
+                        keyboardType="number-pad"
+                        onChangeText={[Function]}
+                        style={
+                          {
+                            "flexGrow": 1,
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 18,
+                            "height": 38,
+                            "letterSpacing": 0.18,
+                            "lineHeight": 29.25,
+                            "opacity": 0,
+                            "paddingBottom": 0,
+                            "paddingTop": 0,
+                            "position": "absolute",
+                            "width": "100%",
+                          }
+                        }
+                        value="0"
+                      />
+                    </View>
+                  </View>
+                </View>
+                <View
+                  style={
+                    [
+                      {
+                        "backgroundColor": "#EAE3DF",
+                        "flexShrink": 1,
+                        "height": 1,
+                        "width": "100%",
+                      },
+                      undefined,
+                    ]
+                  }
+                />
+                <View
+                  style={{}}
+                >
+                  <View
+                    style={
+                      {
+                        "alignItems": "center",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                        "paddingLeft": 10,
+                        "paddingRight": 10,
+                      }
+                    }
+                  >
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          {
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "fontWeight": "bold",
+                            "letterSpacing": 0.16,
+                            "lineHeight": 23,
+                          },
+                          false,
+                        ]
+                      }
+                    >
+                      transaction fee
+                    </Text>
+                  </View>
+                  <View
+                    style={{}}
+                  >
+                    <View
+                      style={
+                        [
+                          {
+                            "gap": 8,
+                          },
+                          undefined,
+                        ]
+                      }
+                    >
+                      <View
+                        accessibilityState={
+                          {
+                            "busy": undefined,
+                            "checked": undefined,
+                            "disabled": undefined,
+                            "expanded": undefined,
+                            "selected": undefined,
+                          }
+                        }
+                        accessibilityValue={
+                          {
+                            "max": undefined,
+                            "min": undefined,
+                            "now": undefined,
+                            "text": undefined,
+                          }
+                        }
+                        accessible={true}
+                        collapsable={false}
+                        focusable={true}
+                        onClick={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        style={
+                          {
+                            "alignItems": "center",
+                            "backgroundColor": "#FEEDE5",
+                            "borderColor": "#F56522",
+                            "borderRadius": 12,
+                            "borderWidth": 2,
+                            "flexDirection": "row",
+                            "gap": 8,
+                            "justifyContent": "space-between",
+                            "opacity": 1,
+                            "paddingBottom": 8,
+                            "paddingLeft": 16,
+                            "paddingRight": 16,
+                            "paddingTop": 8,
+                            "width": "100%",
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                            }
+                          }
+                        >
+                          <View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  {
+                                    "fontFamily": "Baloo2-SemiBold",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                    "paddingBottom": 4,
+                                    "paddingTop": 4,
+                                  },
+                                  false,
+                                ]
+                              }
+                            >
+                              ~ 10 minutes
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  [
+                                    {
+                                      "color": "#2B1911",
+                                      "fontFamily": "Baloo2-Regular",
+                                      "fontSize": 16,
+                                      "letterSpacing": 0.16,
+                                      "lineHeight": 24,
+                                    },
+                                    {
+                                      "color": "#7D675E",
+                                      "marginLeft": 2,
+                                    },
+                                    false,
+                                  ]
+                                }
+                              >
+                                 (
+                                1 sat/vB
+                                )
+                              </Text>
+                            </Text>
+                          </View>
+                        </View>
+                        <test-file-stub
+                          fill="#F56522"
+                          style={
+                            [
+                              {
+                                "height": 24,
+                                "width": 24,
+                              },
+                              {
+                                "height": 20,
+                                "width": 20,
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                      <View
+                        accessibilityState={
+                          {
+                            "busy": undefined,
+                            "checked": undefined,
+                            "disabled": undefined,
+                            "expanded": undefined,
+                            "selected": undefined,
+                          }
+                        }
+                        accessibilityValue={
+                          {
+                            "max": undefined,
+                            "min": undefined,
+                            "now": undefined,
+                            "text": undefined,
+                          }
+                        }
+                        accessible={true}
+                        collapsable={false}
+                        focusable={true}
+                        onClick={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        style={
+                          {
+                            "alignItems": "center",
+                            "backgroundColor": "#FEEDE5",
+                            "borderColor": "transparent",
+                            "borderRadius": 12,
+                            "borderWidth": 2,
+                            "flexDirection": "row",
+                            "gap": 8,
+                            "justifyContent": "space-between",
+                            "opacity": 1,
+                            "paddingBottom": 8,
+                            "paddingLeft": 16,
+                            "paddingRight": 16,
+                            "paddingTop": 8,
+                            "width": "100%",
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                            }
+                          }
+                        >
+                          <View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  {
+                                    "fontFamily": "Baloo2-SemiBold",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                    "paddingBottom": 4,
+                                    "paddingTop": 4,
+                                  },
+                                  false,
+                                ]
+                              }
+                            >
+                              ~ 30 minutes
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  [
+                                    {
+                                      "color": "#2B1911",
+                                      "fontFamily": "Baloo2-Regular",
+                                      "fontSize": 16,
+                                      "letterSpacing": 0.16,
+                                      "lineHeight": 24,
+                                    },
+                                    {
+                                      "color": "#7D675E",
+                                      "marginLeft": 2,
+                                    },
+                                    false,
+                                  ]
+                                }
+                              >
+                                 (
+                                1 sat/vB
+                                )
+                              </Text>
+                            </Text>
+                          </View>
+                        </View>
+                        <test-file-stub
+                          fill="#9F8C82"
+                          style={
+                            [
+                              {
+                                "height": 24,
+                                "width": 24,
+                              },
+                              {
+                                "height": 20,
+                                "width": 20,
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                      <View
+                        accessibilityState={
+                          {
+                            "busy": undefined,
+                            "checked": undefined,
+                            "disabled": undefined,
+                            "expanded": undefined,
+                            "selected": undefined,
+                          }
+                        }
+                        accessibilityValue={
+                          {
+                            "max": undefined,
+                            "min": undefined,
+                            "now": undefined,
+                            "text": undefined,
+                          }
+                        }
+                        accessible={true}
+                        collapsable={false}
+                        focusable={true}
+                        onClick={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        style={
+                          {
+                            "alignItems": "center",
+                            "backgroundColor": "#FEEDE5",
+                            "borderColor": "transparent",
+                            "borderRadius": 12,
+                            "borderWidth": 2,
+                            "flexDirection": "row",
+                            "gap": 8,
+                            "justifyContent": "space-between",
+                            "opacity": 1,
+                            "paddingBottom": 8,
+                            "paddingLeft": 16,
+                            "paddingRight": 16,
+                            "paddingTop": 8,
+                            "width": "100%",
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                            }
+                          }
+                        >
+                          <View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  {
+                                    "fontFamily": "Baloo2-SemiBold",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                    "paddingBottom": 4,
+                                    "paddingTop": 4,
+                                  },
+                                  false,
+                                ]
+                              }
+                            >
+                              ~ 1 hour
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  [
+                                    {
+                                      "color": "#2B1911",
+                                      "fontFamily": "Baloo2-Regular",
+                                      "fontSize": 16,
+                                      "letterSpacing": 0.16,
+                                      "lineHeight": 24,
+                                    },
+                                    {
+                                      "color": "#7D675E",
+                                      "marginLeft": 2,
+                                    },
+                                    false,
+                                  ]
+                                }
+                              >
+                                 (
+                                1 sat/vB
+                                )
+                              </Text>
+                            </Text>
+                          </View>
+                        </View>
+                        <test-file-stub
+                          fill="#9F8C82"
+                          style={
+                            [
+                              {
+                                "height": 24,
+                                "width": 24,
+                              },
+                              {
+                                "height": 20,
+                                "width": 20,
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                      <View
+                        accessibilityState={
+                          {
+                            "busy": undefined,
+                            "checked": undefined,
+                            "disabled": undefined,
+                            "expanded": undefined,
+                            "selected": undefined,
+                          }
+                        }
+                        accessibilityValue={
+                          {
+                            "max": undefined,
+                            "min": undefined,
+                            "now": undefined,
+                            "text": undefined,
+                          }
+                        }
+                        accessible={true}
+                        collapsable={false}
+                        focusable={true}
+                        onClick={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        style={
+                          {
+                            "alignItems": "center",
+                            "backgroundColor": "#FEEDE5",
+                            "borderColor": "transparent",
+                            "borderRadius": 12,
+                            "borderWidth": 2,
+                            "flexDirection": "row",
+                            "gap": 8,
+                            "justifyContent": "space-between",
+                            "opacity": 1,
+                            "paddingBottom": 8,
+                            "paddingLeft": 16,
+                            "paddingRight": 16,
+                            "paddingTop": 8,
+                            "width": "100%",
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            {
+                              "flexBasis": "0%",
+                              "flexGrow": 1,
+                              "flexShrink": 1,
+                            }
+                          }
+                        >
+                          <View
+                            style={
+                              {
+                                "alignItems": "center",
+                                "flexDirection": "row",
+                                "gap": 8,
+                              }
+                            }
+                          >
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  {
+                                    "fontFamily": "Baloo2-SemiBold",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  false,
+                                ]
+                              }
+                            >
+                              custom
+                              :
+                            </Text>
+                            <View
+                              style={
+                                [
+                                  {
+                                    "alignItems": "center",
+                                    "borderRadius": 12,
+                                    "flexDirection": "row",
+                                    "height": 32,
+                                    "overflow": "hidden",
+                                    "paddingBottom": 12,
+                                    "paddingTop": 12,
+                                    "width": 64,
+                                  },
+                                  {
+                                    "backgroundColor": "#FFFCFA",
+                                    "borderColor": "#7D675E",
+                                    "borderWidth": 1,
+                                  },
+                                ]
+                              }
+                            >
+                              <TextInput
+                                editable={false}
+                                keyboardType="decimal-pad"
+                                onChangeText={[Function]}
+                                style={
+                                  {
+                                    "color": "#2B1911",
+                                    "flexGrow": 1,
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 18,
+                                    "height": 32,
+                                    "letterSpacing": 0.18,
+                                    "lineHeight": 29.25,
+                                    "paddingBottom": 0,
+                                    "paddingTop": 0,
+                                    "textAlign": "center",
+                                  }
+                                }
+                                testID="input-custom-fees"
+                                value=""
+                              />
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+                                [
+                                  {
+                                    "color": "#2B1911",
+                                    "fontFamily": "Baloo2-Regular",
+                                    "fontSize": 16,
+                                    "letterSpacing": 0.16,
+                                    "lineHeight": 24,
+                                  },
+                                  {
+                                    "color": "#7D675E",
+                                  },
+                                  false,
+                                ]
+                              }
+                            >
+                              sat/vB
+                            </Text>
+                          </View>
+                        </View>
+                        <test-file-stub
+                          fill="#9F8C82"
+                          style={
+                            [
+                              {
+                                "height": 24,
+                                "width": 24,
+                              },
+                              {
+                                "height": 20,
+                                "width": 20,
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+              <View
+                onMoveShouldSetResponder={[Function]}
+                onMoveShouldSetResponderCapture={[Function]}
+                onResponderEnd={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderReject={[Function]}
+                onResponderRelease={[Function]}
+                onResponderStart={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                onStartShouldSetResponderCapture={[Function]}
+                style={
+                  [
+                    {
+                      "backgroundColor": "#FEEDE5",
+                      "borderColor": "#FCCCB6",
+                      "borderRadius": 20,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                      "paddingBottom": 4,
+                      "paddingLeft": 4,
+                      "paddingRight": 4,
+                      "paddingTop": 4,
+                      "width": "100%",
+                    },
+                    undefined,
+                  ]
+                }
+                testID="confirmSlider"
+              >
+                <View
+                  collapsable={false}
+                  onLayout={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "transform": [
+                        {
+                          "translateX": 0,
+                        },
+                      ],
+                    }
+                  }
+                >
+                  <View
+                    collapsable={false}
+                    style={
+                      {
+                        "opacity": 0,
+                        "paddingTop": 1,
+                        "position": "absolute",
+                        "right": "100%",
+                        "width": 204,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        {
+                          "height": 9,
+                          "justifyContent": "center",
+                        }
+                      }
+                    >
+                      <Text
+                        allowFontScaling={false}
+                        numberOfLines={1}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              [
+                                {
+                                  "fontFamily": "Baloo2-SemiBold",
+                                  "fontSize": 14,
+                                  "letterSpacing": 0.5,
+                                  "lineHeight": 24,
+                                  "textAlign": "center",
+                                  "textTransform": "uppercase",
+                                },
+                                {},
+                              ],
+                              {
+                                "marginBottom": -40,
+                                "marginTop": -40,
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        send transaction
+                      </Text>
+                    </View>
+                  </View>
+                  <View
+                    collapsable={false}
+                    style={
+                      {
+                        "alignItems": "center",
+                        "backgroundColor": "#BAADA7",
+                        "borderRadius": 16,
+                        "flexDirection": "row",
+                        "gap": 2,
+                        "justifyContent": "center",
+                        "paddingBottom": 4,
+                        "paddingLeft": 6,
+                        "paddingRight": 6,
+                        "paddingTop": 4,
+                      }
+                    }
+                  >
+                    <test-file-stub
+                      fill="#FFFCFA"
+                      style={
+                        [
+                          {
+                            "height": 18,
+                            "width": 18,
+                          },
+                          undefined,
+                        ]
+                      }
+                    />
+                    <test-file-stub
+                      fill="#FFFCFA"
+                      style={
+                        [
+                          {
+                            "height": 18,
+                            "width": 18,
+                          },
+                          undefined,
+                        ]
+                      }
+                    />
+                  </View>
+                  <View
+                    collapsable={false}
+                    style={
+                      {
+                        "opacity": 1,
+                        "paddingTop": 1,
+                        "width": 204,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        {
+                          "height": 9,
+                          "justifyContent": "center",
+                        }
+                      }
+                    >
+                      <Text
+                        allowFontScaling={false}
+                        numberOfLines={1}
+                        style={
+                          [
+                            {
+                              "color": "#2B1911",
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 16,
+                              "letterSpacing": 0.16,
+                              "lineHeight": 24,
+                            },
+                            [
+                              [
+                                {
+                                  "fontFamily": "Baloo2-SemiBold",
+                                  "fontSize": 14,
+                                  "letterSpacing": 0.5,
+                                  "lineHeight": 24,
+                                  "textAlign": "center",
+                                  "textTransform": "uppercase",
+                                },
+                                {},
+                              ],
+                              {
+                                "marginBottom": -40,
+                                "marginTop": -40,
+                              },
+                            ],
+                            false,
+                          ]
+                        }
+                      >
+                        send transaction
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </RCTScrollView>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`SendBitcoinLiquid should set the amount to the peach liquid wallet balance when clicking "send max" 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -746,11 +746,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0.00 000 00
++                               0.
+                              </Text>
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  Array [
+@@ -779,11 +779,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0
++                               21 000 000
+                              </Text>
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+@@ -830,11 +830,11 @@
+                              "paddingTop": 0,
+                              "position": "absolute",
+                              "width": "100%",
+                            }
+                          }
+-                         value="0"
++                         value="21000000"
+                        />
+                      </View>
+                    </View>
+                  </View>
+                  <View"
+`;
+
+exports[`SendBitcoinLiquid should update the address on change 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -357,22 +357,22 @@
+                                  "paddingBottom": 0,
+                                  "paddingTop": 0,
+                                  "width": "100%",
+                                },
+                                Object {
+-                                 "color": "#BAADA7",
++                                 "color": "#2B1911",
+                                },
+                                false,
+                                Object {
+                                  "borderColor": "transparent",
+                                  "borderWidth": 1,
+                                },
+                                false,
+                              ]
+                            }
+                            textAlignVertical="center"
+-                           value=""
++                           value="test"
+                          />
+                          <View
+                            style={
+                              Object {
+                                "flexDirection": "row","
+`;
+
+exports[`SendBitcoinLiquid should update the amount on change 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -746,11 +746,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0.00 000 00
++                               0.00 00
+                              </Text>
+                              <Text
+                                allowFontScaling={false}
+                                style={
+                                  Array [
+@@ -779,11 +779,11 @@
+                                    ],
+                                    false,
+                                  ]
+                                }
+                              >
+-                               0
++                               1 234
+                              </Text>
+                            </View>
+                            <Text
+                              allowFontScaling={false}
+                              style={
+@@ -830,11 +830,11 @@
+                              "paddingTop": 0,
+                              "position": "absolute",
+                              "width": "100%",
+                            }
+                          }
+-                         value="0"
++                         value="1234"
+                        />
+                      </View>
+                    </View>
+                  </View>
+                  <View"
+`;
+
+exports[`SendBitcoinLiquid should update the fee rate on change 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -932,11 +932,11 @@
+                          onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+                          style={
+                            Object {
+                              "alignItems": "center",
+                              "backgroundColor": "#FEEDE5",
+-                             "borderColor": "#F56522",
++                             "borderColor": "transparent",
+                              "borderRadius": 12,
+                              "borderWidth": 2,
+                              "flexDirection": "row",
+                              "gap": 8,
+                              "justifyContent": "space-between",
+@@ -1008,11 +1008,11 @@
+                                </Text>
+                              </Text>
+                            </View>
+                          </View>
+                          <test-file-stub
+-                           fill="#F56522"
++                           fill="#9F8C82"
+                            style={
+                              Array [
+                                Object {
+                                  "height": 24,
+                                  "width": 24,
+@@ -1055,11 +1055,11 @@
+                          onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+                          style={
+                            Object {
+                              "alignItems": "center",
+                              "backgroundColor": "#FEEDE5",
+-                             "borderColor": "transparent",
++                             "borderColor": "#F56522",
+                              "borderRadius": 12,
+                              "borderWidth": 2,
+                              "flexDirection": "row",
+                              "gap": 8,
+                              "justifyContent": "space-between",
+@@ -1131,11 +1131,11 @@
+                                </Text>
+                              </Text>
+                            </View>
+                          </View>
+                          <test-file-stub
+-                           fill="#9F8C82"
++                           fill="#F56522"
+                            style={
+                              Array [
+                                Object {
+                                  "height": 24,
+                                  "width": 24,"
+`;

@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { networks } from "liquidjs-lib";
 import { getResult } from "../../../peach-api/src/utils/result";
 import { account1 } from "../../../tests/unit/data/accountData";
@@ -125,6 +126,12 @@ describe("PeachLiquidJSWallet", () => {
     expect(address).toBe("ex1qcslk785zp5xqj5kjdawegsjglm039w56xzvqsh");
     expect(address2).toBe("ex1qm6df88c6uaqrd565dcswfmuue7s9skym5g8yfq");
     expect(address3).toBe("ex1q4uan5308xusfq7aqzjmwmpyjtj85sdwv0599e6");
+  });
+  it("checks addresses for being used", () => {
+    const { address } = peachLiquidJSWallet.getAddress();
+    expect(peachLiquidJSWallet.isAddressUsed(address)).toBeFalsy();
+    useLiquidWalletState.getState().setAddressUsed(address);
+    expect(peachLiquidJSWallet.isAddressUsed(address)).toBeTruthy();
   });
   it("gets an address by index", () => {
     const addressIndex = 3;

@@ -7,43 +7,26 @@ import { PeachText } from "../../components/text/PeachText";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
-import { TotalBalance, WalletHeader } from "./components";
-import { useLastUnusedAddress, useUTXOs, useWalletAddress } from "./hooks";
+import { useLiquidWalletState } from "../../utils/wallet/useLiquidWalletState";
+import { TotalBalance } from "./components";
+import { WalletHeaderLiquid } from "./components/WalletHeaderLiquid";
 import { useSyncLiquidWallet } from "./hooks/useSyncLiquidWallet";
-import { useSyncWallet } from "./hooks/useSyncWallet";
-import { useWalletBalance } from "./hooks/useWalletBalance";
 
-export const Wallet = () => {
-  const { balance } = useWalletBalance();
-  const {
-    refetch: refetchBitcoin,
-    isRefetching: isRefetchingBitcoin,
-    isLoading: isLoadingBitcoin,
-  } = useSyncWallet({ enabled: true });
+export const LiquidWallet = () => {
+  const balance = useLiquidWalletState((state) => state.balance);
   const { refetch: refetchLiquid, isRefetching: isRefetchingLiquid } =
     useSyncLiquidWallet({ enabled: true });
-
-  const refetch = () => {
-    refetchBitcoin();
-    refetchLiquid();
-  };
-
   return (
-    <Screen header={<WalletHeader />}>
+    <Screen header={<WalletHeaderLiquid />}>
       <SelectLayer />
       <PeachScrollView
         contentContainerStyle={tw`grow`}
-        contentStyle={tw`justify-center py-16 grow`}
+        contentStyle={tw`justify-center py-16 grow gap-4`}
         refreshControl={
-          <RefreshControl refreshing={false} onRefresh={refetch} />
+          <RefreshControl refreshing={false} onRefresh={refetchLiquid} />
         }
       >
-        <TotalBalance
-          amount={balance}
-          isRefreshing={
-            isRefetchingBitcoin || isRefetchingLiquid || isLoadingBitcoin
-          }
-        />
+        <TotalBalance amount={balance} isRefreshing={isRefetchingLiquid} />
         <BackupReminderIcon />
       </PeachScrollView>
       <WalletButtons />
@@ -53,37 +36,29 @@ export const Wallet = () => {
 
 function SelectLayer() {
   const navigation = useStackNavigation();
-  const goToLiquidWallet = () => {
-    navigation.navigate("liquidWallet");
+  const goToBitcoinWallet = () => {
+    navigation.navigate("homeScreen", { screen: "wallet" });
   };
   const goToLightningWallet = () => {
     navigation.navigate("lightningWallet");
   };
   return (
     <View style={tw`flex-row gap-4 justify-center p-4`}>
-      <PeachText style={tw`font-bold`}>on-chain</PeachText>
-      <PeachText onPress={goToLiquidWallet}>liquid</PeachText>
+      <PeachText onPress={goToBitcoinWallet}>on-chain</PeachText>
+      <PeachText style={tw`font-bold`}>liquid</PeachText>
       <PeachText onPress={goToLightningWallet}>lightning</PeachText>
     </View>
   );
 }
-const useAddressPrefetch = () => {
-  const { data } = useLastUnusedAddress();
-  const displayIndex = data?.index ?? 0;
-  useWalletAddress(displayIndex);
-  useWalletAddress(displayIndex + 1);
-  useWalletAddress(displayIndex - 1);
-};
+
 function WalletButtons() {
   const navigation = useStackNavigation();
-  useAddressPrefetch();
-  useUTXOs();
 
   const goToSend = () => {
-    navigation.navigate("sendBitcoin");
+    navigation.navigate("sendBitcoinLiquid");
   };
   const goToReceive = () => {
-    navigation.navigate("receiveBitcoin");
+    navigation.navigate("receiveBitcoinLiquid");
   };
 
   return (

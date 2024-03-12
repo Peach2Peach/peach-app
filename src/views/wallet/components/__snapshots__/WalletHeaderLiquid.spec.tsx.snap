@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WalletHeaderLightning should render correctly 1`] = `
+exports[`WalletHeaderLiquid should render correctly 1`] = `
 <View
   style={
     [
@@ -84,7 +84,7 @@ exports[`WalletHeaderLightning should render correctly 1`] = `
           ]
         }
       >
-        wallet.lightning.title
+        wallet.liquid.title
       </Text>
     </View>
     <View
@@ -96,64 +96,7 @@ exports[`WalletHeaderLightning should render correctly 1`] = `
           "justifyContent": "flex-end",
         }
       }
-    >
-      <View
-        accessibilityHint="go to transaction history"
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
-          }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          {
-            "opacity": 1,
-            "paddingBottom": 2,
-            "paddingLeft": 2,
-            "paddingRight": 2,
-            "paddingTop": 2,
-          }
-        }
-      >
-        <test-file-stub
-          fill="#7D675E"
-          style={
-            [
-              {
-                "height": 24,
-                "width": 24,
-              },
-              {
-                "height": 20,
-                "width": 20,
-              },
-              {},
-            ]
-          }
-        />
-      </View>
-    </View>
+    />
   </View>
 </View>
 `;

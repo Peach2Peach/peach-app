@@ -138,7 +138,7 @@ describe("useStartSwapOut", () => {
     startSwapOut();
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() =>
-      expect(queryByText("Create an invoice for 228543 sats")).toBeTruthy(),
+      expect(queryByText("Create an invoice for 228003 sats")).toBeTruthy(),
     );
   });
 });

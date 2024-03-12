@@ -4,7 +4,7 @@ import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { BTCAmountInput } from "../../components/inputs/BTCAmountInput";
-import { BitcoinAddressInput } from "../../components/inputs/BitcoinAddressInput";
+import { LiquidAddressInput } from "../../components/inputs/LiquidAddressInput";
 import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { ConfirmSlider } from "../../components/inputs/confirmSlider/ConfirmSlider";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
@@ -12,71 +12,79 @@ import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { useHandleTransactionError } from "../../hooks/error/useHandleTransactionError";
-import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
-import { useStackNavigation } from "../../hooks/useStackNavigation";
+import { useLiquidFeeEstimate } from "../../hooks/query/useLiquidFeeEstimate";
+import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { InfoPopup } from "../../popups/InfoPopup";
 import tw from "../../styles/tailwind";
 import { removeNonDigits } from "../../utils/format/removeNonDigits";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
+import { parseError } from "../../utils/parseError";
 import { rules } from "../../utils/validation/rules";
-import { peachWallet } from "../../utils/wallet/setWallet";
-import { useWalletState } from "../../utils/wallet/walletStore";
+import { buildTransaction } from "../../utils/wallet/liquid/buildTransaction";
+import { estimateMiningFees } from "../../utils/wallet/liquid/estimateMiningFees";
+import { peachLiquidWallet } from "../../utils/wallet/setWallet";
+import { useLiquidWalletState } from "../../utils/wallet/useLiquidWalletState";
 import { goToShiftCrypto } from "../../utils/web/goToShiftCrypto";
 import { CustomFeeItem } from "../settings/components/networkFees/CustomFeeItem";
 import { EstimatedFeeItem } from "../settings/components/networkFees/EstimatedFeeItem";
 import { UTXOAddress } from "./components";
-import { WithdrawalConfirmationPopup } from "./components/WithdrawalConfirmationPopup";
+import { WithdrawalConfirmationLiquidPopup } from "./components/WithdrawalConfirmationLiquidPopup";
 import { useUTXOs } from "./hooks";
+import { useSyncLiquidWallet } from "./hooks/useSyncLiquidWallet";
 
-export const SendBitcoin = () => {
+export const SendBitcoinLiquid = () => {
   const [address, setAddress] = useState("");
   const [amount, setAmount] = useState(0);
-  const [shouldDrainWallet, setShouldDrainWallet] = useState(false);
-  const { estimatedFees } = useFeeEstimate();
+  const { estimatedFees } = useLiquidFeeEstimate();
   const [feeRate, setFee] = useState<number | undefined>(
     estimatedFees.fastestFee,
   );
   const handleTransactionError = useHandleTransactionError();
+  const showErrorBanner = useShowErrorBanner();
+
   const setPopup = useSetPopup();
-
-  const { selectedUTXOs } = useUTXOs();
-
-  const maxAmount = selectedUTXOs.length
-    ? selectedUTXOs.reduce((acc, utxo) => acc + utxo.txout.value, 0)
-    : peachWallet?.balance || 0;
-
+  const balance = useLiquidWalletState((state) => state.balance);
+  const maxAmount = balance || 0;
   const onAmountChange = (newText: string) => {
-    setShouldDrainWallet(false);
     const newNumber = Number(removeNonDigits(newText) || "0");
     const newValue = Math.min(newNumber, maxAmount);
     setAmount(newValue);
   };
 
-  const sendTransaction = async () => {
-    if (!feeRate || !peachWallet) return;
+  const sendTransaction = () => {
+    if (!feeRate || !peachLiquidWallet) return;
     try {
-      const { psbt } = await peachWallet.buildFinishedTransaction({
-        address,
-        amount,
+      const { miningFees, sendableAmount } = estimateMiningFees({
         feeRate,
-        shouldDrainWallet,
-        utxos: selectedUTXOs,
+        inputs: peachLiquidWallet.utxos,
+        amount,
       });
-      const fee = await psbt.feeAmount();
+
+      const transaction = buildTransaction({
+        recipient: address,
+        amount: Math.min(amount, sendableAmount),
+        miningFees,
+        inputs: peachLiquidWallet.utxos,
+      });
 
       setPopup(
-        <WithdrawalConfirmationPopup
-          {...{ address, amount, psbt, fee, feeRate }}
+        <WithdrawalConfirmationLiquidPopup
+          {...{ address, amount, transaction, fee: miningFees, feeRate }}
         />,
       );
     } catch (e) {
-      handleTransactionError(e);
+      const error = parseError(e);
+      if (!Array.isArray(error)) {
+        showErrorBanner(error);
+      } else {
+        handleTransactionError(e);
+      }
     }
   };
 
   const isFormValid = useMemo(
-    () => rules.bitcoinAddress(address) && amount !== 0 && !!feeRate,
+    () => rules.liquidAddress(address) && amount !== 0 && !!feeRate,
     [address, amount, feeRate],
   );
 
@@ -85,7 +93,7 @@ export const SendBitcoin = () => {
       <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw`md:py-md`]}>
         <View style={[tw`pb-11 gap-4`, tw`md:pb-14`]}>
           <Section title={i18n("wallet.sendBitcoin.to")}>
-            <BitcoinAddressInput value={address} onChangeText={setAddress} />
+            <LiquidAddressInput value={address} onChangeText={setAddress} />
           </Section>
 
           <HorizontalLine />
@@ -95,7 +103,6 @@ export const SendBitcoin = () => {
             action={{
               label: i18n("wallet.sendBitcoin.sendMax"),
               onPress: () => {
-                setShouldDrainWallet(true);
                 setAmount(maxAmount);
               },
             }}
@@ -137,7 +144,7 @@ function SendBitcoinSlider({
   onConfirm: () => void;
   isFormValid: boolean;
 }) {
-  const isSynced = useWalletState((state) => state.isSynced);
+  const { data: isSynced } = useSyncLiquidWallet();
 
   return (
     <ConfirmSlider
@@ -178,7 +185,7 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
   const [selectedFeeRate, setSelectedFeeRate] =
     useState<(typeof feeRates)[number]>("fastestFee");
   const [customFeeRate, setCustomFeeRate] = useState("");
-  const { estimatedFees } = useFeeEstimate();
+  const { estimatedFees } = useLiquidFeeEstimate();
 
   const onFeeRateChange = (feeRate: (typeof feeRates)[number]) => {
     updateFee(
@@ -229,16 +236,10 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
 function SendBitcoinHeader() {
   const setPopup = useSetPopup();
   const showHelp = () => setPopup(<WithdrawingFundsPopup />);
-  const navigation = useStackNavigation();
   return (
     <Header
       title={i18n("wallet.sendBitcoin.title")}
       icons={[
-        {
-          ...headerIcons.listFlipped,
-          onPress: () => navigation.navigate("coinSelection"),
-          accessibilityHint: `${i18n("goTo")} ${i18n("wallet.coinControl.title")}`,
-        },
         {
           ...headerIcons.help,
           onPress: showHelp,

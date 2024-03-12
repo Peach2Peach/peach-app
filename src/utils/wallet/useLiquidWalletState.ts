@@ -8,6 +8,7 @@ export type UTXOWithPath = UTXO & { derivationPath: string };
 export type LiquidWalletState = {
   balance: number;
   addresses: string[];
+  usedAddresses: Record<string, boolean>;
   internalAddresses: string[];
   utxos: UTXOWithPath[];
   isSynced: boolean;
@@ -16,6 +17,7 @@ export type LiquidWalletState = {
 export type LiquidWalletStore = LiquidWalletState & {
   reset: () => void;
   setAddresses: (addresses: string[]) => void;
+  setAddressUsed: (address: string) => void;
   setInternalAddresses: (addresses: string[]) => void;
   setBalance: (balance: number) => void;
   setUTXO: (utxo: UTXOWithPath[]) => void;
@@ -24,6 +26,7 @@ export type LiquidWalletStore = LiquidWalletState & {
 
 export const defaultWalletState: LiquidWalletState = {
   addresses: [],
+  usedAddresses: {},
   internalAddresses: [],
   balance: 0,
   utxos: [],
@@ -34,10 +37,17 @@ const storage = createPersistStorage(liquidWalletStorage);
 
 export const useLiquidWalletState = create<LiquidWalletStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       ...defaultWalletState,
       reset: () => set(() => defaultWalletState),
       setAddresses: (addresses) => set({ addresses }),
+      setAddressUsed: (address) =>
+        set({
+          usedAddresses: {
+            ...get().usedAddresses,
+            [address]: true,
+          },
+        }),
       setInternalAddresses: (internalAddresses) => set({ internalAddresses }),
       setBalance: (balance) => set({ balance }),
       setUTXO: (utxos) => set({ utxos }),

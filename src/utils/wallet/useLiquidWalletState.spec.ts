@@ -30,6 +30,14 @@ describe("useLiquidWalletState", () => {
     useLiquidWalletState.getState().setAddresses(addresses);
     expect(useLiquidWalletState.getState().addresses).toEqual(addresses);
   });
+  it("sets address as used", () => {
+    const address = "address";
+    expect(useLiquidWalletState.getState().usedAddresses).toEqual({});
+    useLiquidWalletState.getState().setAddressUsed(address);
+    expect(useLiquidWalletState.getState().usedAddresses).toEqual({
+      [address]: true,
+    });
+  });
   it("sets internal addresses", () => {
     const addresses = ["address1", "address2"];
     expect(useLiquidWalletState.getState().internalAddresses).toEqual([]);
