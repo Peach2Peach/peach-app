@@ -53,6 +53,7 @@ jest
 
 describe("useStartSwapOut", () => {
   const minimum = submarineSwapList["L-BTC"].BTC.limits?.minimal ?? 0;
+  const maximum = submarineSwapList["L-BTC"].BTC.limits?.maximal ?? 0;
 
   beforeEach(() => {
     setLiquidWallet(peachWallet);
@@ -119,8 +120,8 @@ describe("useStartSwapOut", () => {
     } = renderHook(useStartSwapOut);
     startSwapOut();
     expect(mockHandleTransactionError).toHaveBeenCalledWith([
-      new Error("BELOW_DUST_LIMIT"),
-      undefined,
+      new Error("INSUFFICIENT_FUNDS"),
+      { available: "0", needed: "10000" },
     ]);
   });
   it("should estimate swappable amount and open SetInvoicePopup", async () => {
@@ -139,6 +140,29 @@ describe("useStartSwapOut", () => {
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() =>
       expect(queryByText("Create an invoice for 228003 sats")).toBeTruthy(),
+    );
+  });
+  it("should estimate swappable amount at max limit", async () => {
+    const utxoCount = 2;
+    const utxos = [utxo, mempoolUTXO].map((utx) => ({
+      ...utx,
+      value: maximum,
+      derivationPath: "1",
+    }));
+    useLiquidWalletState.getState().setUTXO(utxos);
+    useLiquidWalletState.getState().setBalance(
+      Array(utxoCount)
+        .fill(utxo)
+        .map((u) => u.value)
+        .reduce(sum, 0),
+    );
+    const {
+      result: { current: startSwapOut },
+    } = renderHook(useStartSwapOut);
+    startSwapOut();
+    const { queryByText } = render(<GlobalPopup />);
+    await waitFor(() =>
+      expect(queryByText("Create an invoice for 397438 sats")).toBeTruthy(),
     );
   });
 });

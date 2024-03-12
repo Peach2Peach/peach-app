@@ -22,6 +22,7 @@ import { TotalBalance } from "./components";
 import { WalletHeaderLightning } from "./components/WalletHeaderLightning";
 import { SwapButton } from "./components/submarineSwaps/SwapButton";
 import { useLightningWalletBalance } from "./hooks/useLightningWalletBalance";
+import { useSyncLiquidWallet } from "./hooks/useSyncLiquidWallet";
 
 /** @description only needed while testing, production won't require invite code */
 const TesterInvite = () => {
@@ -55,9 +56,20 @@ const TesterInvite = () => {
 };
 
 export const LightningWallet = () => {
-  const { balance, refetch, isRefetching, isLoading, error } =
-    useLightningWalletBalance();
+  const {
+    balance,
+    refetch: refetchLightning,
+    isRefetching,
+    isLoading,
+    error,
+  } = useLightningWalletBalance();
 
+  const { refetch: refetchLiquid } = useSyncLiquidWallet({ enabled: true });
+
+  const refetch = () => {
+    refetchLightning();
+    refetchLiquid();
+  };
   if (isLoading) return <BitcoinLoading text={i18n("wallet.loading")} />;
 
   return (

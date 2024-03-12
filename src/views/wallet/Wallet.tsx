@@ -9,24 +9,16 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { TotalBalance, WalletHeader } from "./components";
 import { useLastUnusedAddress, useUTXOs, useWalletAddress } from "./hooks";
-import { useSyncLiquidWallet } from "./hooks/useSyncLiquidWallet";
 import { useSyncWallet } from "./hooks/useSyncWallet";
 import { useWalletBalance } from "./hooks/useWalletBalance";
 
 export const Wallet = () => {
   const { balance } = useWalletBalance();
   const {
-    refetch: refetchBitcoin,
+    refetch,
     isRefetching: isRefetchingBitcoin,
     isLoading: isLoadingBitcoin,
   } = useSyncWallet({ enabled: true });
-  const { refetch: refetchLiquid, isRefetching: isRefetchingLiquid } =
-    useSyncLiquidWallet({ enabled: true });
-
-  const refetch = () => {
-    refetchBitcoin();
-    refetchLiquid();
-  };
 
   return (
     <Screen header={<WalletHeader />}>
@@ -40,9 +32,7 @@ export const Wallet = () => {
       >
         <TotalBalance
           amount={balance}
-          isRefreshing={
-            isRefetchingBitcoin || isRefetchingLiquid || isLoadingBitcoin
-          }
+          isRefreshing={isRefetchingBitcoin || isLoadingBitcoin}
         />
         <BackupReminderIcon />
       </PeachScrollView>

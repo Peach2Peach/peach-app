@@ -6,7 +6,6 @@ import { useHandleTransactionError } from "../../../../../hooks/error/useHandleT
 import { useLiquidFeeRate } from "../../../../../hooks/useLiquidFeeRate";
 import { useShowErrorBanner } from "../../../../../hooks/useShowErrorBanner";
 import { useSubmarineSwaps } from "../../../../../utils/boltz/query/useSubmarineSwaps";
-import { sum } from "../../../../../utils/math/sum";
 import { parseError } from "../../../../../utils/parseError";
 import { handleTransactionError as parseTransactionError } from "../../../../../utils/wallet/error/handleTransactionError";
 import { estimateMiningFees } from "../../../../../utils/wallet/liquid/estimateMiningFees";
@@ -15,10 +14,9 @@ import { useLiquidWalletState } from "../../../../../utils/wallet/useLiquidWalle
 import { SetInvoicePopup } from "../SetInvoicePopup";
 
 type EstimateSwapAmountProps = {
-  limits: SubmarinePair["limits"];
   fees: SubmarinePair["fees"];
   feeRate: number;
-  liquidBalance: number;
+  amount: number;
 };
 
 /**
@@ -26,20 +24,19 @@ type EstimateSwapAmountProps = {
  * by staging a transaction and after boltz fees
  */
 const estimateSwapAmount = ({
-  limits,
   fees,
   feeRate,
-  liquidBalance,
+  amount,
 }: EstimateSwapAmountProps) => {
   if (!peachLiquidWallet) throw Error("WALLET_NOT_READY");
 
   const { miningFees } = estimateMiningFees({
     feeRate,
     inputs: peachLiquidWallet.utxos,
-    amount: peachLiquidWallet.utxos.map((utxo) => utxo.value).reduce(sum, 0),
+    amount,
   });
 
-  const amountAfterLockup = Math.ceil(liquidBalance - miningFees);
+  const amountAfterLockup = Math.ceil(amount - miningFees);
   const swappableAmount =
     amountAfterLockup * (1 - fees.percentage / CENT) - fees.minerFees;
   return {
@@ -56,8 +53,6 @@ export const useStartSwapOut = () => {
   const feeRate = useLiquidFeeRate();
   const liquidBalance = useLiquidWalletState((state) => state.balance);
 
-  // TODO determine if amount is above maximum > use max
-  // TODO if change is available, ensure that change is sent to change address
   const startSwapOut = useCallback(() => {
     if (!peachLiquidWallet) throw Error("WALLET_NOT_READY");
     const pair = submarineList?.["L-BTC"].BTC;
@@ -76,11 +71,11 @@ export const useStartSwapOut = () => {
 
     try {
       const { swappableAmount, miningFees } = estimateSwapAmount({
-        limits,
         fees,
         feeRate,
-        liquidBalance,
+        amount: Math.min(liquidBalance, limits.maximal),
       });
+      console.log(swappableAmount);
       setPopup(
         <SetInvoicePopup amount={swappableAmount} miningFees={miningFees} />,
       );
