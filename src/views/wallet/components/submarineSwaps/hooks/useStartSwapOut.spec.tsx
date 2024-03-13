@@ -143,26 +143,22 @@ describe("useStartSwapOut", () => {
     );
   });
   it("should estimate swappable amount at max limit", async () => {
-    const utxoCount = 2;
     const utxos = [utxo, mempoolUTXO].map((utx) => ({
       ...utx,
       value: maximum,
       derivationPath: "1",
     }));
     useLiquidWalletState.getState().setUTXO(utxos);
-    useLiquidWalletState.getState().setBalance(
-      Array(utxoCount)
-        .fill(utxo)
-        .map((u) => u.value)
-        .reduce(sum, 0),
-    );
+    useLiquidWalletState
+      .getState()
+      .setBalance(utxos.map((u) => u.value).reduce(sum, 0));
     const {
       result: { current: startSwapOut },
     } = renderHook(useStartSwapOut);
     startSwapOut();
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() =>
-      expect(queryByText("Create an invoice for 397833 sats")).toBeTruthy(),
+      expect(queryByText("Create an invoice for 4288911 sats")).toBeTruthy(),
     );
   });
 });

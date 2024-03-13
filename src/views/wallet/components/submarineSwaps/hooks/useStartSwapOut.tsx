@@ -5,6 +5,7 @@ import { CENT } from "../../../../../constants";
 import { useHandleTransactionError } from "../../../../../hooks/error/useHandleTransactionError";
 import { useLiquidFeeRate } from "../../../../../hooks/useLiquidFeeRate";
 import { useShowErrorBanner } from "../../../../../hooks/useShowErrorBanner";
+import { selectUTXONewestFirst } from "../../../../../utils/blockchain/selectUTXONewestFirst";
 import { useSubmarineSwaps } from "../../../../../utils/boltz/query/useSubmarineSwaps";
 import { sum } from "../../../../../utils/math/sum";
 import { parseError } from "../../../../../utils/parseError";
@@ -33,7 +34,7 @@ const estimateSwapAmount = ({
 
   const { miningFees } = estimateMiningFees({
     feeRate,
-    inputs: peachLiquidWallet.utxos,
+    inputs: selectUTXONewestFirst(peachLiquidWallet.utxos, amount),
     recipients: [
       {
         address: peachLiquidWallet.getAddress(0, false).address,
@@ -83,7 +84,6 @@ export const useStartSwapOut = () => {
         feeRate,
         amount: Math.min(liquidBalance, limits.maximal),
       });
-      console.log(swappableAmount);
       setPopup(
         <SetInvoicePopup amount={swappableAmount} miningFees={miningFees} />,
       );

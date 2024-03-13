@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { shallow } from "zustand/shallow";
 import { useShowErrorBanner } from "../../../../../hooks/useShowErrorBanner";
 import { useBoltzSwapStore } from "../../../../../store/useBoltzSwapStore";
+import { selectUTXONewestFirst } from "../../../../../utils/blockchain/selectUTXONewestFirst";
 import { SubmarineAPIResponse } from "../../../../../utils/boltz/api/postSubmarineSwap";
 import { postSubmarineSwapQuery } from "../../../../../utils/boltz/query/postSubmarineSwapQuery";
 import { parseError } from "../../../../../utils/parseError";
@@ -58,7 +59,10 @@ export const useSwapOut = ({ miningFees, invoice }: UseSwapOutProps) => {
           { address: swapInfo.address, amount: swapInfo.expectedAmount },
         ],
         miningFees,
-        inputs: peachLiquidWallet.utxos,
+        inputs: selectUTXONewestFirst(
+          peachLiquidWallet.utxos,
+          swapInfo.expectedAmount,
+        ),
       });
 
       const { error } = await peachAPI.public.liquid.postTx({
