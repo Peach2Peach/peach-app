@@ -5,10 +5,6 @@ export const selectUTXONewestFirst = (
   utxos: UTXOWithPath[],
   amount: number,
 ) => {
-  console.log(
-    amount,
-    utxos.map((u) => u.value),
-  );
   let selectedAmount = -DUST_LIMIT;
 
   return utxos

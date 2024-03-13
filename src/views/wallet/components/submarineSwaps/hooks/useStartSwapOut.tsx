@@ -79,7 +79,6 @@ export const useStartSwapOut = () => {
     }
 
     try {
-      console.log(liquidBalance, limits.maximal);
       const { swappableAmount, miningFees } = estimateSwapAmount({
         fees,
         feeRate,
