@@ -79,10 +79,6 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
             "id": "bitcoin",
           },
           {
-            "display": "escrow.lightning",
-            "id": "lightning-liquid",
-          },
-          {
             "display": "escrow.liquid",
             "id": "liquid",
           },
@@ -258,10 +254,6 @@ exports[`FundEscrow should show Loading, while escrow is not defined 1`] = `
           {
             "display": "escrow.bitcoin",
             "id": "bitcoin",
-          },
-          {
-            "display": "escrow.lightning",
-            "id": "lightning-liquid",
           },
           {
             "display": "escrow.liquid",
@@ -441,10 +433,6 @@ exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOO
             "id": "bitcoin",
           },
           {
-            "display": "escrow.lightning",
-            "id": "lightning-liquid",
-          },
-          {
             "display": "escrow.liquid",
             "id": "liquid",
           },
@@ -620,10 +608,6 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
           {
             "display": "escrow.bitcoin",
             "id": "bitcoin",
-          },
-          {
-            "display": "escrow.lightning",
-            "id": "lightning-liquid",
           },
           {
             "display": "escrow.liquid",
