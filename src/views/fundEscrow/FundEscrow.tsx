@@ -60,7 +60,7 @@ export const FundEscrow = () => {
     { id: "bitcoin", display: i18n("escrow.bitcoin") },
     funding.liquid.fundingAddress
       ? [
-          funding.liquid.fundingAddresses.length === 0
+          funding.liquid.fundingAddresses.length === 1
             ? { id: "lightning-liquid", display: i18n("escrow.lightning") }
             : undefined,
           { id: "liquid", display: i18n("escrow.liquid") },
