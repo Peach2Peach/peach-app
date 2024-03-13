@@ -43,7 +43,7 @@ type Props = {
   from?: "BTC" | "L-BTC";
   to?: "BTC" | "L-BTC";
   address: string;
-  amount: number;
+  amount?: number;
 };
 
 export const usePostReverseSubmarineSwap = ({
@@ -53,8 +53,9 @@ export const usePostReverseSubmarineSwap = ({
   amount,
 }: Props) => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["boltz", "reverse", from, to, address, amount],
+    queryKey: ["boltz", "reverse", from, to, address, amount || 0],
     queryFn,
+    enabled: !!amount,
     staleTime: Infinity,
   });
   return { data, isLoading, error };

@@ -8,6 +8,8 @@ import { LightningInvoice } from "../../components/bitcoin/LightningInvoice";
 import { Button } from "../../components/buttons/Button";
 import { TradeInfo } from "../../components/offer/TradeInfo";
 import { ErrorBox } from "../../components/ui/ErrorBox";
+import { SATSINBTC } from "../../constants";
+import { useLiquidFeeRate } from "../../hooks/useLiquidFeeRate";
 import { useBoltzSwapStore } from "../../store/useBoltzSwapStore";
 import tw from "../../styles/tailwind";
 import { usePostReverseSubmarineSwap } from "../../utils/boltz/query/usePostReverseSubmarineSwap";
@@ -24,8 +26,18 @@ export type Props = {
   amount: number;
 };
 
+const CLAIM_TX_SIZE_VB = 1380;
+
 export const ReverseSubmarineSwap = ({ offerId, address, amount }: Props) => {
-  const { data, error } = usePostReverseSubmarineSwap({ address, amount });
+  const feeRate = useLiquidFeeRate();
+  const minerFees = CLAIM_TX_SIZE_VB * feeRate;
+  const amountWithTxFees = minerFees
+    ? minerFees / SATSINBTC + amount
+    : undefined;
+  const { data, error } = usePostReverseSubmarineSwap({
+    address,
+    amount: amountWithTxFees,
+  });
   const swapInfo = data?.swapInfo;
   const { status } = useSwapStatus({ id: swapInfo?.id });
   const [saveSwap, mapSwap] = useBoltzSwapStore(
