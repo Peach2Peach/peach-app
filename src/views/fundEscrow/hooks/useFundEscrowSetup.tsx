@@ -30,12 +30,10 @@ const shouldGetFundingStatus = (offer: SellOffer) => {
   );
 };
 
-// TODO liquify
 export const useFundEscrowSetup = () => {
   const { offerId } = useRoute<"fundEscrow">().params;
   const showErrorBanner = useShowErrorBanner();
 
-  // TODO liquify
   const fundMultiple = useWalletState((state) =>
     state.getFundMultipleByOfferId(offerId),
   );
@@ -44,7 +42,6 @@ export const useFundEscrowSetup = () => {
     enabled: true,
   });
 
-  // TODO liquify
   const { offers, isLoading: isLoadingOffers } = useMultipleOfferDetails(
     fundMultiple?.offerIds || [offerId],
   );
@@ -67,7 +64,6 @@ export const useFundEscrowSetup = () => {
     .map((offr) => offr.escrows.liquid)
     .filter(isDefined);
   const fundingAmount = getFundingAmount(fundMultiple, sellOffer?.amount);
-
   const funding: Record<EscrowType, FundingInfo> = {
     bitcoin: {
       fundingAddress: fundMultiple?.address || sellOffer?.escrows.bitcoin,

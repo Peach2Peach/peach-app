@@ -39,6 +39,7 @@ import { ReverseSubmarineSwap } from "./ReverseSubmarineSwap";
 import { TransactionInMempool } from "./components/TransactionInMempool";
 import { useCreateEscrow } from "./hooks/useCreateEscrow";
 import { useFundEscrowSetup } from "./hooks/useFundEscrowSetup";
+import { useFundFromPeachLiquidWallet } from "./hooks/useFundFromPeachLiquidWallet";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
 
 type FundingTab = {
@@ -58,9 +59,16 @@ export const FundEscrow = () => {
   const tabs = [
     { id: "bitcoin", display: i18n("escrow.bitcoin") },
     funding.liquid.fundingAddress
-      ? { id: "lightning-liquid", display: i18n("escrow.lightning") }
+      ? [
+          funding.liquid.fundingAddresses.length === 0
+            ? { id: "lightning-liquid", display: i18n("escrow.lightning") }
+            : undefined,
+          { id: "liquid", display: i18n("escrow.liquid") },
+        ]
       : undefined,
-  ].filter(isDefined) as FundingTab[];
+  ]
+    .flat()
+    .filter(isDefined) as FundingTab[];
   const [currentTab, setCurrentTab] = useState(tabs[0]);
   const escrowType =
     currentTab.id === "lightning-liquid" ? "liquid" : currentTab.id;
@@ -126,7 +134,6 @@ export const FundEscrow = () => {
                 addresses={fundingAddresses}
                 amount={fundingAmount}
                 fundingStatus={activeFunding}
-                // escrowType={escrowType}
               />
             </View>
           </>
@@ -136,6 +143,14 @@ export const FundEscrow = () => {
             offerId={offerId}
             address={fundingAddress}
             amount={fundingAmount / SATSINBTC}
+          />
+        )}
+        {currentTab.id === "liquid" && (
+          <FundFromPeachLiquidWalletButton
+            address={fundingAddress}
+            addresses={fundingAddresses}
+            amount={fundingAmount}
+            fundingStatus={activeFunding}
           />
         )}
       </PeachScrollView>
@@ -255,7 +270,6 @@ type Props = {
   fundingStatus: FundingStatus;
 };
 
-// TODO liquify
 function FundFromPeachWalletButton(props: Props) {
   const { offerId } = useRoute<"fundEscrow">().params;
   const fundFromPeachWallet = useFundFromPeachWallet();
@@ -268,6 +282,47 @@ function FundFromPeachWalletButton(props: Props) {
     setIsFunding(true);
     fundFromPeachWallet({
       offerId,
+      amount: props.amount,
+      fundingStatus: props.fundingStatus.status,
+      address: props.address,
+      addresses: props.addresses,
+    }).then(() => setIsFunding(false));
+  };
+
+  return (
+    <>
+      {fundedFromPeachWallet ? (
+        <TradeInfo
+          text={i18n("fundFromPeachWallet.funded")}
+          IconComponent={
+            <Icon id="checkCircle" size={16} color={tw.color("success-main")} />
+          }
+        />
+      ) : (
+        <Button
+          ghost
+          textColor={tw.color("primary-main")}
+          iconId="sell"
+          onPress={onButtonPress}
+          loading={isFunding}
+        >
+          {i18n("fundFromPeachWallet.button")}
+        </Button>
+      )}
+    </>
+  );
+}
+
+function FundFromPeachLiquidWalletButton(props: Props) {
+  const fundFromPeachWallet = useFundFromPeachLiquidWallet();
+  const fundedFromPeachWallet = useWalletState((state) =>
+    state.isFundedFromPeachWallet(props.address),
+  );
+  const [isFunding, setIsFunding] = useState(false);
+
+  const onButtonPress = () => {
+    setIsFunding(true);
+    fundFromPeachWallet({
       amount: props.amount,
       fundingStatus: props.fundingStatus.status,
       address: props.address,

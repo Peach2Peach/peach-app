@@ -51,8 +51,7 @@ export const TestViewLiquidWallet = () => {
   const send = async () => {
     if (!address || !amount || !peachLiquidWallet) return;
     const transaction = buildTransaction({
-      recipient: address,
-      amount: Number(amount),
+      recipients: [{ address, amount: Number(amount) }],
       miningFees: 500,
       inputs: peachLiquidWallet?.utxos,
     });

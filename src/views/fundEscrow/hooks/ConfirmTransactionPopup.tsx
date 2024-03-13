@@ -1,39 +1,29 @@
-import { PartiallySignedTransaction } from "bdk-rn";
 import { useCallback } from "react";
 import { useClosePopup } from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
 import { LoadingPopupAction } from "../../../components/popup/actions/LoadingPopupAction";
-import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
 import i18n from "../../../utils/i18n";
-import { peachWallet } from "../../../utils/wallet/setWallet";
 
 type Props = {
   title: string;
   content: JSX.Element;
-  psbt: PartiallySignedTransaction;
+  onConfirm: () => Promise<unknown>;
   onSuccess: () => void;
 };
 
 export function ConfirmTransactionPopup({
   title,
   content,
-  psbt,
+  onConfirm,
   onSuccess,
 }: Props) {
   const closePopup = useClosePopup();
-  const handleTransactionError = useHandleTransactionError();
   const confirmAndSend = useCallback(async () => {
-    try {
-      if (!peachWallet) throw new Error("PeachWallet not set");
-      await peachWallet.signAndBroadcastPSBT(psbt);
-      onSuccess();
-    } catch (e) {
-      handleTransactionError(e);
-    } finally {
-      closePopup();
-    }
-  }, [closePopup, handleTransactionError, onSuccess, psbt]);
+    await onConfirm();
+    onSuccess();
+    closePopup();
+  }, [closePopup, onConfirm, onSuccess]);
 
   return (
     <PopupComponent
