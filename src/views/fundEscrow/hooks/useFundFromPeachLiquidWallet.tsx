@@ -11,6 +11,7 @@ import { useLiquidFeeRate } from "../../../hooks/useLiquidFeeRate";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { useConfigStore } from "../../../store/configStore/configStore";
 import tw from "../../../styles/tailwind";
+import { selectUTXONewestFirst } from "../../../utils/blockchain/selectUTXONewestFirst";
 import i18n from "../../../utils/i18n";
 import { ceil } from "../../../utils/math/ceil";
 import { floor } from "../../../utils/math/floor";
@@ -70,12 +71,12 @@ export const useFundFromPeachLiquidWallet = () => {
         miningFees = estimateMiningFees({
           recipients: [{ address, amount: balance }],
           feeRate,
-          inputs: peachLiquidWallet.utxos, // TODO add algorithm to fitting utxo
+          inputs: selectUTXONewestFirst(peachLiquidWallet.utxos, balance),
         }).miningFees;
         transaction = buildTransactionWithFeeRate({
           recipients: [{ address, amount: balance - miningFees }],
           feeRate,
-          inputs: peachLiquidWallet.utxos, // TODO add algorithm to fitting utxo
+          inputs: selectUTXONewestFirst(peachLiquidWallet.utxos, balance),
         });
         return setPopup(
           <ConfirmTransactionPopup
@@ -150,7 +151,7 @@ export const useFundFromPeachLiquidWallet = () => {
         transaction = buildTransactionWithFeeRate({
           feeRate,
           recipients,
-          inputs: peachLiquidWallet.utxos, // TODO add algorithm to fitting utxo
+          inputs: selectUTXONewestFirst(peachLiquidWallet.utxos, amount),
         });
       } catch (e) {
         const parsedError = parseError(e);

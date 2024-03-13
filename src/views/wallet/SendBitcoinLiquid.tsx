@@ -16,6 +16,7 @@ import { useLiquidFeeEstimate } from "../../hooks/query/useLiquidFeeEstimate";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { InfoPopup } from "../../popups/InfoPopup";
 import tw from "../../styles/tailwind";
+import { selectUTXONewestFirst } from "../../utils/blockchain/selectUTXONewestFirst";
 import { removeNonDigits } from "../../utils/format/removeNonDigits";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
@@ -58,7 +59,7 @@ export const SendBitcoinLiquid = () => {
       const transaction = buildTransactionWithFeeRate({
         recipients: [{ address, amount }],
         feeRate,
-        inputs: peachLiquidWallet.utxos,
+        inputs: selectUTXONewestFirst(peachLiquidWallet.utxos, amount),
       });
 
       setPopup(
