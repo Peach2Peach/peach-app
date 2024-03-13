@@ -19,10 +19,10 @@ import tw from "../../styles/tailwind";
 import { removeNonDigits } from "../../utils/format/removeNonDigits";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
+import { ceil } from "../../utils/math/ceil";
 import { parseError } from "../../utils/parseError";
 import { rules } from "../../utils/validation/rules";
-import { buildTransaction } from "../../utils/wallet/liquid/buildTransaction";
-import { estimateMiningFees } from "../../utils/wallet/liquid/estimateMiningFees";
+import { buildTransactionWithFeeRate } from "../../utils/wallet/liquid/buildTransactionWithFeeRate";
 import { peachLiquidWallet } from "../../utils/wallet/setWallet";
 import { useLiquidWalletState } from "../../utils/wallet/useLiquidWalletState";
 import { goToShiftCrypto } from "../../utils/web/goToShiftCrypto";
@@ -55,22 +55,21 @@ export const SendBitcoinLiquid = () => {
   const sendTransaction = () => {
     if (!feeRate || !peachLiquidWallet) return;
     try {
-      const { miningFees, sendableAmount } = estimateMiningFees({
+      const transaction = buildTransactionWithFeeRate({
+        recipients: [{ address, amount }],
         feeRate,
-        inputs: peachLiquidWallet.utxos,
-        amount,
-      });
-
-      const transaction = buildTransaction({
-        recipient: address,
-        amount: Math.min(amount, sendableAmount),
-        miningFees,
         inputs: peachLiquidWallet.utxos,
       });
 
       setPopup(
         <WithdrawalConfirmationLiquidPopup
-          {...{ address, amount, transaction, fee: miningFees, feeRate }}
+          {...{
+            address,
+            amount,
+            transaction,
+            fee: ceil(transaction.virtualSize() * feeRate),
+            feeRate,
+          }}
         />,
       );
     } catch (e) {

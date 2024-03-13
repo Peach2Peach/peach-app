@@ -193,7 +193,7 @@ describe("SendBitcoinLiquid", () => {
 
     await waitFor(() => {
       expect(queryByText("sending funds")).toBeTruthy();
-      expect(queryByText("network fee: 1 068 sats (4 sat/vB)")).toBeTruthy();
+      expect(queryByText("network fee: 1 028 sats (4 sat/vB)")).toBeTruthy();
     });
   });
 });

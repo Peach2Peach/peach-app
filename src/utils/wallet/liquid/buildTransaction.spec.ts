@@ -15,8 +15,7 @@ import { DUST_LIMIT } from "./constants";
 
 describe("buildTransaction", () => {
   const props = {
-    recipient: liquidAddresses.regtest[0],
-    amount: 100000,
+    recipients: [{ address: liquidAddresses.regtest[0], amount: 100000 }],
     miningFees: 210,
     inputs: [utxo].map((u) => ({ ...u, derivationPath: "m/84'/1'/0'/0/0" })),
   };
@@ -39,7 +38,9 @@ describe("buildTransaction", () => {
     const error = await getError<Error>(() =>
       buildTransaction({
         ...props,
-        amount: utxo.value + 1,
+        recipients: [
+          { address: liquidAddresses.regtest[0], amount: utxo.value + 1 },
+        ],
       }),
     );
     expect(error.message).toBe(
@@ -48,7 +49,12 @@ describe("buildTransaction", () => {
   });
   it("should throw if amount below dust limit", async () => {
     const error = await getError<Error>(() =>
-      buildTransaction({ ...props, amount: DUST_LIMIT - 1 }),
+      buildTransaction({
+        ...props,
+        recipients: [
+          { address: liquidAddresses.regtest[0], amount: DUST_LIMIT - 1 },
+        ],
+      }),
     );
     expect(error.message).toBe("BELOW_DUST_LIMIT");
   });
@@ -65,6 +71,32 @@ describe("buildTransaction", () => {
     ]);
     expect(transaction.outs.map((o) => o.script.toString("hex"))).toEqual([
       "00142b05d564e6a7a33c087f16e0f730d1440123799d",
+      "00144b901a92dcae25c5644e596ddeea06759e6e46b7",
+      "",
+    ]);
+  });
+  it("returns finalized transaction with multiple recipients", () => {
+    const transaction = buildTransaction({
+      ...props,
+      recipients: liquidAddresses.regtest.map((address, i) => ({
+        address,
+        amount: 1000 * (i + 1),
+      })),
+    });
+    expect(transaction.toHex()).toBe(
+      "0200000001012fe265fb124e16d49f5d716ff31df3c25cad0ef7d854f6deb2da81b6e6b5e59d000000000000000000060125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a0100000000000003e8001600142b05d564e6a7a33c087f16e0f730d1440123799d0125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a0100000000000007d0001976a9142b05d564e6a7a33c087f16e0f730d1440123799d88ac0125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a010000000000000bb800220020914aec06ed3405dfbcc9494fb13169e8546fe89f31e6630cf0a4506db284055b0125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a010000000000000fa00017a9144382bc8115ce44d91b3de0d21836c6f1ecc4f851870125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a01000000000002e55e001600144b901a92dcae25c5644e596ddeea06759e6e46b70125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a0100000000000000d2000000000000000002483045022100b9188ff87525a31d368909cd86c6092689e7f80e636c6aacb34710971b10b9e10220012729c8c723b8d7056b2794acf2cdb87672ce9b5c9a90c6e6ffd4e0a261e017012102addaf26f93440ddeacb7c2eb618d28f3abfa56e536532df26240c0c2c0f8875400000000000000000000000000",
+    );
+    expect(transaction.ins).toHaveLength(1);
+
+    // eslint-disable-next-line no-magic-numbers
+    expect(transaction.outs.map((o) => numberConverter(o.value))).toEqual([
+      1000, 2000, 3000, 4000, 189790, 210,
+    ]);
+    expect(transaction.outs.map((o) => o.script.toString("hex"))).toEqual([
+      "00142b05d564e6a7a33c087f16e0f730d1440123799d",
+      "76a9142b05d564e6a7a33c087f16e0f730d1440123799d88ac",
+      "0020914aec06ed3405dfbcc9494fb13169e8546fe89f31e6630cf0a4506db284055b",
+      "a9144382bc8115ce44d91b3de0d21836c6f1ecc4f85187",
       "00144b901a92dcae25c5644e596ddeea06759e6e46b7",
       "",
     ]);
@@ -95,7 +127,12 @@ describe("buildTransaction", () => {
   it("returns finalized transaction without change if below the dust limit", () => {
     const transaction = buildTransaction({
       ...props,
-      amount: utxo.value - DUST_LIMIT,
+      recipients: [
+        {
+          address: liquidAddresses.regtest[0],
+          amount: utxo.value - DUST_LIMIT,
+        },
+      ],
     });
     expect(transaction.toHex()).toBe(
       "0200000001012fe265fb124e16d49f5d716ff31df3c25cad0ef7d854f6deb2da81b6e6b5e59d000000000000000000020125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a010000000000030b0c001600142b05d564e6a7a33c087f16e0f730d1440123799d0125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a01000000000000023400000000000000000247304402205a8cb311639e52575a397eccb89c7285296bf078f9965cd735a70b774850714002201121ca13c39b19b98f50b601bef5c1fe3f04795e7c367f737715a5de29b8aa1e012102addaf26f93440ddeacb7c2eb618d28f3abfa56e536532df26240c0c2c0f887540000000000",
@@ -103,7 +140,7 @@ describe("buildTransaction", () => {
     // eslint-disable-next-line no-magic-numbers
     expect(transaction.outs.map((o) => numberConverter(o.value))).toEqual([
       utxo.value - DUST_LIMIT,
-      564,
+      DUST_LIMIT,
     ]);
     expect(transaction.outs.map((o) => o.script.toString("hex"))).toEqual([
       "00142b05d564e6a7a33c087f16e0f730d1440123799d",

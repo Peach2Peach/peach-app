@@ -54,8 +54,9 @@ export const useSwapOut = ({ miningFees, invoice }: UseSwapOutProps) => {
       }
 
       const lockUpTransaction = buildTransaction({
-        recipient: swapInfo.address,
-        amount: swapInfo.expectedAmount,
+        recipients: [
+          { address: swapInfo.address, amount: swapInfo.expectedAmount },
+        ],
         miningFees,
         inputs: peachLiquidWallet.utxos,
       });

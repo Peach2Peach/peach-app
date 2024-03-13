@@ -13,29 +13,30 @@ import { UTXOWithPath } from "../useLiquidWalletState";
 import { DUST_LIMIT } from "./constants";
 
 type BuildTransactionProps = {
-  recipient: string;
-  amount: number;
+  recipients: { address: string; amount: number }[];
   miningFees?: number;
   inputs: UTXOWithPath[];
 };
 export const buildTransaction = ({
-  recipient,
-  amount,
+  recipients,
   miningFees = 1,
   inputs,
 }: BuildTransactionProps): LiquidTransaction => {
   if (!peachLiquidWallet) throw Error("WALLET_NOT_READY");
 
   const available = inputs.map((utxo) => utxo.value).reduce(sum, 0);
-  if (available < amount)
-    throw Error(
-      `InsufficientFunds: Insufficient funds: ${available} sat available of ${amount} sat needed`,
-    );
-  if (amount < DUST_LIMIT) throw Error(`BELOW_DUST_LIMIT`);
-
+  const amounts = recipients.map((recipient) => recipient.amount);
+  const totalAmount = amounts.reduce(sum, 0);
   let finalMiningFees = miningFees;
+  const change = available - totalAmount - miningFees;
 
-  const change = available - amount - miningFees;
+  if (change < -1)
+    throw Error(
+      `InsufficientFunds: Insufficient funds: ${available} sat available of ${totalAmount} sat needed`,
+    );
+  if (amounts.some((amount) => amount < DUST_LIMIT))
+    throw Error(`BELOW_DUST_LIMIT`);
+
   const psbt = new LiquidPsbt();
   const network = getLiquidNetwork();
   const asset = Buffer.concat([
@@ -43,11 +44,13 @@ export const buildTransaction = ({
     Buffer.from(network.assetHash, "hex").reverse(),
   ]);
 
-  psbt.addOutput({
-    script: liquidAddress.toOutputScript(recipient, network),
-    value: ElementsValue.fromNumber(amount).bytes,
-    nonce: Buffer.from("00", "hex"),
-    asset,
+  recipients.forEach((recipient) => {
+    psbt.addOutput({
+      script: liquidAddress.toOutputScript(recipient.address, network),
+      value: ElementsValue.fromNumber(recipient.amount).bytes,
+      nonce: Buffer.from("00", "hex"),
+      asset,
+    });
   });
 
   if (change > DUST_LIMIT) {
@@ -60,7 +63,7 @@ export const buildTransaction = ({
       nonce: Buffer.from("00", "hex"),
       asset,
     });
-  } else {
+  } else if (change > 0) {
     finalMiningFees += change;
   }
 
