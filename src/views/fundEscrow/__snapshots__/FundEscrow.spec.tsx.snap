@@ -82,6 +82,10 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
             "display": "escrow.lightning",
             "id": "lightning-liquid",
           },
+          {
+            "display": "escrow.liquid",
+            "id": "liquid",
+          },
         ]
       }
       select={[Function]}
@@ -258,6 +262,10 @@ exports[`FundEscrow should show Loading, while escrow is not defined 1`] = `
           {
             "display": "escrow.lightning",
             "id": "lightning-liquid",
+          },
+          {
+            "display": "escrow.liquid",
+            "id": "liquid",
           },
         ]
       }
@@ -436,6 +444,10 @@ exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOO
             "display": "escrow.lightning",
             "id": "lightning-liquid",
           },
+          {
+            "display": "escrow.liquid",
+            "id": "liquid",
+          },
         ]
       }
       select={[Function]}
@@ -612,6 +624,10 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
           {
             "display": "escrow.lightning",
             "id": "lightning-liquid",
+          },
+          {
+            "display": "escrow.liquid",
+            "id": "liquid",
           },
         ]
       }

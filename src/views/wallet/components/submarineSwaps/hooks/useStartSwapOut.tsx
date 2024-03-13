@@ -6,6 +6,7 @@ import { useHandleTransactionError } from "../../../../../hooks/error/useHandleT
 import { useLiquidFeeRate } from "../../../../../hooks/useLiquidFeeRate";
 import { useShowErrorBanner } from "../../../../../hooks/useShowErrorBanner";
 import { useSubmarineSwaps } from "../../../../../utils/boltz/query/useSubmarineSwaps";
+import { sum } from "../../../../../utils/math/sum";
 import { parseError } from "../../../../../utils/parseError";
 import { handleTransactionError as parseTransactionError } from "../../../../../utils/wallet/error/handleTransactionError";
 import { estimateMiningFees } from "../../../../../utils/wallet/liquid/estimateMiningFees";
@@ -33,7 +34,14 @@ const estimateSwapAmount = ({
   const { miningFees } = estimateMiningFees({
     feeRate,
     inputs: peachLiquidWallet.utxos,
-    amount,
+    recipients: [
+      {
+        address: peachLiquidWallet.getAddress(0, false).address,
+        amount: peachLiquidWallet.utxos
+          .map((utxo) => utxo.value)
+          .reduce(sum, 0),
+      },
+    ],
   });
 
   const amountAfterLockup = Math.ceil(amount - miningFees);
