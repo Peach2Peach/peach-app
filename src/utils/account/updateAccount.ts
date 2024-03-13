@@ -19,14 +19,13 @@ export const updateAccount = async (acc: Account, overwrite?: boolean) => {
   i18n.setLocale(
     useSettingsStore.getState().locale || getDeviceLocale() || "en",
   );
-  const account = useAccountStore.getState().account;
-  const { mnemonic } = account;
+  const { mnemonic } = newAccount;
   if (mnemonic) {
-    const wallet = loadWalletFromAccount({ ...account, mnemonic });
+    const wallet = loadWalletFromAccount({ ...newAccount, mnemonic });
     await setWallets(wallet, mnemonic);
-    if (!account.base58) {
+    if (!newAccount.base58) {
       storeIdentity({
-        ...account,
+        ...newAccount,
         base58: wallet.toBase58(),
       });
     }

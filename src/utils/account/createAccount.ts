@@ -16,10 +16,9 @@ export const createAccount = async (seedPhrase?: string) => {
   const recipient = await OpenPGP.generate({});
   const publicKey = mainAccount.publicKey.toString("hex");
 
-  const newAccount = {
+  return {
     ...defaultAccount,
     publicKey,
-    privKey: (wallet.privateKey as Buffer).toString("hex"),
     mnemonic,
     base58: wallet.toBase58(),
     pgp: {
@@ -27,6 +26,4 @@ export const createAccount = async (seedPhrase?: string) => {
       publicKey: recipient.publicKey,
     },
   };
-
-  return newAccount;
 };
