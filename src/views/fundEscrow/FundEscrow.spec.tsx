@@ -1,4 +1,5 @@
 import { createRenderer } from "react-test-renderer/shallow";
+import { render } from "test-utils";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { getDefaultFundingStatus } from "../../utils/offer/constants";
 import { FundEscrow } from "./FundEscrow";
@@ -41,8 +42,8 @@ describe("FundEscrow", () => {
 
   it("should render the FundEscrow view", () => {
     useFundEscrowSetupMock.mockReturnValueOnce(defaultReturnValue);
-    renderer.render(<FundEscrow />);
-    expect(renderer.getRenderOutput()).toMatchSnapshot();
+    const { toJSON } = render(<FundEscrow />);
+    expect(toJSON()).toMatchSnapshot();
   });
   it("should show Loading, while escrow is not defined", () => {
     useFundEscrowSetupMock.mockReturnValueOnce({
