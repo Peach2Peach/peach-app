@@ -50,8 +50,8 @@ describe("FundEscrow", () => {
       ...defaultReturnValue,
       fundingAddress: undefined,
     });
-    renderer.render(<FundEscrow />);
-    expect(renderer.getRenderOutput()).toMatchSnapshot();
+    const { toJSON } = render(<FundEscrow />);
+    expect(toJSON()).toMatchSnapshot();
   });
 
   it("should show funded from peach wallet, if funded from peach wallet", () => {
@@ -60,8 +60,8 @@ describe("FundEscrow", () => {
       fundFromPeachWallet: jest.fn(),
       fundedFromPeachWallet: true,
     });
-    renderer.render(<FundEscrow />);
-    expect(renderer.getRenderOutput()).toMatchSnapshot();
+    const { toJSON } = render(<FundEscrow />);
+    expect(toJSON()).toMatchSnapshot();
   });
   it("should show TransactionInMempool, if fundingStatus is MEMPOOL", () => {
     useFundEscrowSetupMock.mockReturnValueOnce({
@@ -72,7 +72,8 @@ describe("FundEscrow", () => {
         txIds: ["txId"],
       },
     });
-    renderer.render(<FundEscrow />);
-    expect(renderer.getRenderOutput()).toMatchSnapshot();
+    const { toJSON } = render(<FundEscrow />);
+
+    expect(toJSON()).toMatchSnapshot();
   });
 });

@@ -38,7 +38,7 @@ export const AddressChecker = () => {
 };
 
 function AddressInfo({ address }: { address: string }) {
-  const isMine = useIsMyAddress(address);
+  const isMine = useIsMyAddress(address, "bitcoin");
 
   return (
     <View>
