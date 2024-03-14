@@ -1,13 +1,28 @@
 import { BIP32Interface } from "bip32";
 import { Signer } from "bip322-liquid-js";
 import * as liquid from "liquidjs-lib";
-import { getUTXO } from "../liquid/getUTXO";
+import { Transaction } from "../../../peach-api/src/@types/electrs-liquid";
+import { getAddressTxs } from "../liquid/getAddressTxs";
 import { error } from "../log/error";
 import { info } from "../log/info";
 import { sum } from "../math/sum";
 import { parseError } from "../parseError";
 import { callWhenInternet } from "../web/callWhenInternet";
+import { toUTXO } from "./liquid/toUTXO";
 import { UTXOWithPath, useLiquidWalletState } from "./useLiquidWalletState";
+
+const getAddressHistory = async (address: string, derivationPath: string) => {
+  const result = await getAddressTxs({ address });
+
+  if (!result.result) return { utxo: [], txs: [] };
+
+  return {
+    utxo: toUTXO(result.result, address)
+      .filter((utxo) => utxo.value)
+      .map((utxo) => ({ ...utxo, derivationPath })),
+    txs: result.result,
+  };
+};
 
 type PeachLiquidJSWalletProps = {
   wallet: BIP32Interface;
@@ -62,9 +77,10 @@ export class PeachLiquidJSWallet {
     return useLiquidWalletState.getState().utxos;
   }
 
-  // TODO improve the logic to load all tx on an address
-  // then determine which ones are unspent (=UTXO)
-  // increase limit by gap limit
+  get transactions() {
+    return useLiquidWalletState.getState().transactions;
+  }
+
   syncWallet() {
     if (this.syncInProgress) return this.syncInProgress;
 
@@ -75,44 +91,43 @@ export class PeachLiquidJSWallet {
 
         try {
           let utxos: UTXOWithPath[] = [];
+          let transactions: Transaction[] = [];
 
           let limit = Math.max(this.gapLimit, this.addresses.length);
           for (let i = 0; i < limit; i++) {
             const { address } = this.getAddress(i, false);
+
             // eslint-disable-next-line no-await-in-loop
-            const result = await getUTXO({ address });
-            if (result.result?.length) {
+            const { utxo, txs } = await getAddressHistory(
+              address,
+              this.getExternalPath(i),
+            );
+            if (txs.length > 0) {
               useLiquidWalletState.getState().setAddressUsed(address);
               limit = i + this.gapLimit;
-              const derivationPath = this.getExternalPath(i);
-
-              utxos = [
-                ...utxos,
-                ...result.result
-                  .filter((utxo) => utxo.value)
-                  .map((utxo) => ({ ...utxo, derivationPath })),
-              ];
             }
+            utxos = [...utxos, ...utxo];
+            transactions = [...transactions, ...txs];
           }
 
           limit = Math.max(this.gapLimit, this.internalAddresses.length);
           for (let i = 0; i < limit; i++) {
             const { address } = this.getInternalAddress(i, false);
             // eslint-disable-next-line no-await-in-loop
-            const result = await getUTXO({ address });
-            if (result.result?.length) {
+            const { utxo, txs } = await getAddressHistory(
+              address,
+              this.getInternalPath(i),
+            );
+            if (txs.length > 0) {
               useLiquidWalletState.getState().setAddressUsed(address);
               limit = i + this.gapLimit;
-              const derivationPath = this.getInternalPath(i);
-              utxos = [
-                ...utxos,
-                ...result.result
-                  .filter((utxo) => utxo.value)
-                  .map((utxo) => ({ ...utxo, derivationPath })),
-              ];
             }
+            utxos = [...utxos, ...utxo];
+            transactions = [...transactions, ...txs];
           }
+
           useLiquidWalletState.getState().setUTXO(utxos);
+          useLiquidWalletState.getState().setTransactions(transactions);
           const balance = this.getBalance();
           useLiquidWalletState.getState().setBalance(balance.total);
           useLiquidWalletState.getState().setIsSynced(true);
@@ -128,7 +143,6 @@ export class PeachLiquidJSWallet {
     return this.syncInProgress;
   }
 
-  // TODO does not yet consider other assets
   getBalance() {
     const confirmed = this.utxos
       .filter((utxo) => utxo.status.confirmed && utxo.value)

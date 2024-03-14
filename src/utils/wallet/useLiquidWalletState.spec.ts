@@ -1,5 +1,6 @@
 import {
   mempoolUTXO,
+  transaction,
   utxo,
 } from "../../../tests/unit/data/liquidBlockExplorerData";
 import { useLiquidWalletState } from "./useLiquidWalletState";
@@ -14,6 +15,7 @@ describe("useLiquidWalletState", () => {
       addresses: [],
       internalAddresses: [],
       utxos: [],
+      transactions: [],
       balance: 0,
       isSynced: false,
     });
@@ -54,6 +56,12 @@ describe("useLiquidWalletState", () => {
     expect(useLiquidWalletState.getState().utxos).toEqual([]);
     useLiquidWalletState.getState().setUTXO(utxos);
     expect(useLiquidWalletState.getState().utxos).toEqual(utxos);
+  });
+  it("sets transactions", () => {
+    const txs = [transaction];
+    expect(useLiquidWalletState.getState().transactions).toEqual([]);
+    useLiquidWalletState.getState().setTransactions(txs);
+    expect(useLiquidWalletState.getState().transactions).toEqual(txs);
   });
   it("sets balance", () => {
     const balance = 10000;

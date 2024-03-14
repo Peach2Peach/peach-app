@@ -7,8 +7,8 @@ export const selectUTXONewestFirst = (
 ) => {
   let selectedAmount = -DUST_LIMIT;
 
-  return utxos
-    .toSorted((a, b) => {
+  return [...utxos]
+    .sort((a, b) => {
       if (!a.status.block_height) return -1;
       if (!b.status.block_height) return 1;
       return a.status.block_height < b.status.block_height ? 1 : -1;

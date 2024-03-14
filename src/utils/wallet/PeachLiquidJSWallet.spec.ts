@@ -4,6 +4,7 @@ import { getResult } from "../../../peach-api/src/utils/result";
 import { account1 } from "../../../tests/unit/data/accountData";
 import {
   mempoolUTXO,
+  transaction,
   utxo,
 } from "../../../tests/unit/data/liquidBlockExplorerData";
 import { getError } from "../../../tests/unit/helpers/getError";
@@ -14,18 +15,27 @@ import { createWalletFromBase58 } from "./createWalletFromBase58";
 import { getNetwork } from "./getNetwork";
 import { useLiquidWalletState } from "./useLiquidWalletState";
 
-jest.mock("../liquid/getUTXO");
+jest.mock("../liquid/getAddressTxs");
 const coinsBetween = [0, 15];
 const coinsBetween2 = [30, 44];
 let i = 0;
-const getUTXOMock = jest
-  .requireMock("../liquid/getUTXO")
-  .getUTXO.mockImplementation(() => {
+const getAddressTxsMock = jest
+  .requireMock("../liquid/getAddressTxs")
+  .getAddressTxs.mockImplementation(({ address }: { address: string }) => {
     i++;
-    if (i >= coinsBetween[0] && i <= coinsBetween[1]) return getResult([utxo]);
+    const mappedTx = {
+      ...transaction,
+      vout: [
+        { ...transaction.vout[0], scriptpubkey_address: address },
+        transaction.vout[1],
+        transaction.vout[2],
+      ],
+    };
+    if (i >= coinsBetween[0] && i <= coinsBetween[1])
+      return Promise.resolve(getResult([mappedTx]));
     if (i >= coinsBetween2[0] && i <= coinsBetween2[1])
-      return getResult([utxo]);
-    return getResult([]);
+      return Promise.resolve(getResult([mappedTx]));
+    return Promise.resolve(getResult([]));
   });
 
 describe("PeachLiquidJSWallet", () => {
@@ -67,6 +77,19 @@ describe("PeachLiquidJSWallet", () => {
   });
   it("syncs wallet", async () => {
     const expectedUTXOs = 30;
+    const expectedUTXO = {
+      txid: "b6e8dbcae9753352dd88bf57cd30f20c73445794544d05dd5f889d83f2d25486",
+      asset: "5ac9f65c0efcc4775e0baec4ec03abdde22473cd3cf33c0419ca290e0751b225",
+      vout: 0,
+      value: 100000,
+      status: {
+        confirmed: true,
+        block_height: 2,
+        block_hash:
+          "0e6d69696a12e9e0b296c0fe5ca1dbcf082a249e6798d368c7fd9fb4b79cc0de",
+        block_time: 1710423780,
+      },
+    };
     const syncInProgress = peachLiquidJSWallet.syncWallet();
     expect(peachLiquidJSWallet.syncInProgress).toBeDefined();
     await syncInProgress;
@@ -74,16 +97,16 @@ describe("PeachLiquidJSWallet", () => {
     expect(peachLiquidJSWallet.utxos).toHaveLength(expectedUTXOs);
     expect(
       peachLiquidJSWallet.utxos.map((u) => omit(u, "derivationPath")),
-    ).toEqual(new Array(expectedUTXOs).fill(utxo));
+    ).toEqual(new Array(expectedUTXOs).fill(expectedUTXO));
     expect(peachLiquidJSWallet.utxos[0].derivationPath).toBe("m/84'/0'/0'/0/0");
     expect(peachLiquidJSWallet.utxos[9].derivationPath).toBe("m/84'/0'/0'/0/9");
     expect(peachLiquidJSWallet.utxos[29].derivationPath).toBe(
       "m/84'/0'/0'/1/14",
     );
     expect(peachLiquidJSWallet.getBalance()).toEqual({
-      confirmed: 6000000,
-      spendable: 6000000,
-      total: 6000000,
+      confirmed: 3000000,
+      spendable: 3000000,
+      total: 3000000,
       trustedPending: 0,
       untrustedPending: 0,
     });
@@ -93,9 +116,9 @@ describe("PeachLiquidJSWallet", () => {
     jest.clearAllMocks();
     const delay = 100;
     const promise = new Promise((resolve) =>
-      setTimeout(() => resolve(getResult([utxo])), delay),
+      setTimeout(() => resolve(getResult([transaction])), delay),
     );
-    getUTXOMock.mockReturnValueOnce(promise);
+    getAddressTxsMock.mockReturnValueOnce(promise);
     expect(peachLiquidJSWallet.syncInProgress).toBeUndefined();
     peachLiquidJSWallet.syncWallet();
     expect(peachLiquidJSWallet.syncInProgress).not.toBeUndefined();
@@ -103,7 +126,7 @@ describe("PeachLiquidJSWallet", () => {
     jest.runAllTimers();
     await peachLiquidJSWallet.syncInProgress;
     expect(peachLiquidJSWallet.syncInProgress).toBeUndefined();
-    expect(getUTXOMock).toHaveBeenCalledTimes(expectedUTXOs);
+    expect(getAddressTxsMock).toHaveBeenCalledTimes(expectedUTXOs);
   });
   it("calculates balance", () => {
     useLiquidWalletState

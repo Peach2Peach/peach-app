@@ -1,6 +1,9 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { UTXO } from "../../../peach-api/src/@types/electrs-liquid";
+import {
+  Transaction,
+  UTXO,
+} from "../../../peach-api/src/@types/electrs-liquid";
 import { createPersistStorage } from "../../store/createPersistStorage";
 import { createStorage } from "../storage/createStorage";
 
@@ -11,6 +14,7 @@ export type LiquidWalletState = {
   usedAddresses: Record<string, boolean>;
   internalAddresses: string[];
   utxos: UTXOWithPath[];
+  transactions: Transaction[];
   isSynced: boolean;
 };
 
@@ -21,6 +25,7 @@ export type LiquidWalletStore = LiquidWalletState & {
   setInternalAddresses: (addresses: string[]) => void;
   setBalance: (balance: number) => void;
   setUTXO: (utxo: UTXOWithPath[]) => void;
+  setTransactions: (transactions: Transaction[]) => void;
   setIsSynced: (isSynced: boolean) => void;
 };
 
@@ -30,6 +35,7 @@ export const defaultWalletState: LiquidWalletState = {
   internalAddresses: [],
   balance: 0,
   utxos: [],
+  transactions: [],
   isSynced: false,
 };
 export const liquidWalletStorage = createStorage("liquidWallet");
@@ -51,6 +57,7 @@ export const useLiquidWalletState = create<LiquidWalletStore>()(
       setInternalAddresses: (internalAddresses) => set({ internalAddresses }),
       setBalance: (balance) => set({ balance }),
       setUTXO: (utxos) => set({ utxos }),
+      setTransactions: (transactions) => set({ transactions }),
       setIsSynced: (isSynced) => set({ isSynced }),
     }),
     {
