@@ -61,7 +61,9 @@ import { SendBitcoin } from "./wallet/SendBitcoin";
 import { SendBitcoinLightning } from "./wallet/SendBitcoinLightning";
 import { SendBitcoinLiquid } from "./wallet/SendBitcoinLiquid";
 import { TransactionDetails } from "./wallet/TransactionDetails";
+import { TransactionDetailsLiquid } from "./wallet/TransactionDetailsLiquid";
 import { TransactionHistory } from "./wallet/TransactionHistory";
+import { TransactionHistoryLiquid } from "./wallet/TransactionHistoryLiquid";
 import { Welcome } from "./welcome/Welcome";
 import { WrongFundingAmount } from "./wrongFundingAmount/WrongFundingAmount";
 import { ExportTradeHistory } from "./yourTrades/ExportTradeHistory";
@@ -98,6 +100,8 @@ const wallet: ViewType[] = [
   { name: "liquidWallet", component: LiquidWallet },
   { name: "sendBitcoinLiquid", component: SendBitcoinLiquid },
   { name: "receiveBitcoinLiquid", component: ReceiveBitcoinLiquid },
+  { name: "transactionHistoryLiquid", component: TransactionHistoryLiquid },
+  { name: "transactionDetailsLiquid", component: TransactionDetailsLiquid },
   { name: "lightningWallet", component: LightningWallet },
   { name: "receiveBitcoinLightning", component: ReceiveBitcoinLightning },
   { name: "sendBitcoinLightning", component: SendBitcoinLightning },

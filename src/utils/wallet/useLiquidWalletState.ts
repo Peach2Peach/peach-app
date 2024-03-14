@@ -11,6 +11,7 @@ export type UTXOWithPath = UTXO & { derivationPath: string };
 export type LiquidWalletState = {
   balance: number;
   addresses: string[];
+  txOfferMap: { [offerId: string]: string[] | undefined };
   usedAddresses: Record<string, boolean>;
   internalAddresses: string[];
   utxos: UTXOWithPath[];
@@ -27,6 +28,7 @@ export type LiquidWalletStore = LiquidWalletState & {
   setUTXO: (utxo: UTXOWithPath[]) => void;
   setTransactions: (transactions: Transaction[]) => void;
   setIsSynced: (isSynced: boolean) => void;
+  updateTxOfferMap: (txid: string, offerIds: string[]) => void;
 };
 
 export const defaultWalletState: LiquidWalletState = {
@@ -37,6 +39,7 @@ export const defaultWalletState: LiquidWalletState = {
   utxos: [],
   transactions: [],
   isSynced: false,
+  txOfferMap: {},
 };
 export const liquidWalletStorage = createStorage("liquidWallet");
 const storage = createPersistStorage(liquidWalletStorage);
@@ -59,6 +62,13 @@ export const useLiquidWalletState = create<LiquidWalletStore>()(
       setUTXO: (utxos) => set({ utxos }),
       setTransactions: (transactions) => set({ transactions }),
       setIsSynced: (isSynced) => set({ isSynced }),
+      updateTxOfferMap: (txId, offerIds) =>
+        set((state) => ({
+          txOfferMap: {
+            ...state.txOfferMap,
+            [txId]: offerIds,
+          },
+        })),
     }),
     {
       name: "liquid-wallet",

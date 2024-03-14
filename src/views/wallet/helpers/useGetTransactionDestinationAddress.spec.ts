@@ -18,6 +18,7 @@ describe("useGetTransactionDestinationAddress", () => {
       initialProps: {
         outs: bitcoinJSTransactionWithRBF1.outs,
         incoming: false,
+        chain: "bitcoin",
       },
     });
     expect(result.current).toEqual(
@@ -26,7 +27,7 @@ describe("useGetTransactionDestinationAddress", () => {
   });
   it("returns the correct address an incoming transaction", () => {
     const { result } = renderHook(useGetTransactionDestinationAddress, {
-      initialProps: { outs, incoming: true },
+      initialProps: { outs, incoming: true, chain: "bitcoin" },
     });
     expect(result.current).toEqual(
       "bcrt1qtevf8qxjr2f3ku982l324rstmknffvwayk6wp3",
@@ -34,7 +35,7 @@ describe("useGetTransactionDestinationAddress", () => {
   });
   it("returns the correct address an outgoing transaction", () => {
     const { result } = renderHook(useGetTransactionDestinationAddress, {
-      initialProps: { outs, incoming: false },
+      initialProps: { outs, incoming: false, chain: "bitcoin" },
     });
     expect(result.current).toEqual("mqb8gXeF3tHTmKs1EB5fh29J9Vii4pGDkj");
   });

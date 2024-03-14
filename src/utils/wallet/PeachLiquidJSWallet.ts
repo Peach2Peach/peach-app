@@ -2,6 +2,7 @@ import { BIP32Interface } from "bip32";
 import { Signer } from "bip322-liquid-js";
 import * as liquid from "liquidjs-lib";
 import { Transaction } from "../../../peach-api/src/@types/electrs-liquid";
+import { uniqueBy } from "../array/uniqueBy";
 import { getAddressTxs } from "../liquid/getAddressTxs";
 import { error } from "../log/error";
 import { info } from "../log/info";
@@ -127,7 +128,9 @@ export class PeachLiquidJSWallet {
           }
 
           useLiquidWalletState.getState().setUTXO(utxos);
-          useLiquidWalletState.getState().setTransactions(transactions);
+          useLiquidWalletState
+            .getState()
+            .setTransactions(transactions.filter(uniqueBy("txid")));
           const balance = this.getBalance();
           useLiquidWalletState.getState().setBalance(balance.total);
           useLiquidWalletState.getState().setIsSynced(true);
@@ -275,5 +278,12 @@ export class PeachLiquidJSWallet {
     info("PeachLiquidJSWallet - signMessage - end");
 
     return signature.toString("base64");
+  }
+
+  isMine(address: string) {
+    return (
+      this.addresses.includes(address) ||
+      this.internalAddresses.includes(address)
+    );
   }
 }

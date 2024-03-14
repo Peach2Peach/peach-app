@@ -31,6 +31,7 @@ describe("useTxSummaries", () => {
     expect(result.current[0].data).toEqual({
       id: confirmed1.txid,
       type: "WITHDRAWAL",
+      chain: "bitcoin",
       offerData: [],
       amount: 0,
       date: new Date(MSINASECOND),
@@ -40,6 +41,7 @@ describe("useTxSummaries", () => {
     expect(result.current[1].data).toEqual({
       id: confirmed2.txid,
       type: "WITHDRAWAL",
+      chain: "bitcoin",
       offerData: [],
       amount: 0,
       date: new Date(2 * MSINASECOND),

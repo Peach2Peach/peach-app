@@ -81,10 +81,14 @@ type RootStackParamList = Onboarding &
     transactionDetails: {
       txId: string;
     };
+    transactionDetailsLiquid: {
+      txId: string;
+    };
     bumpNetworkFees: {
       txId: string;
     };
     liquidWallet: undefined;
+    transactionHistoryLiquid: undefined;
     sendBitcoinLiquid: undefined;
     receiveBitcoinLiquid: undefined;
     lightningWallet: undefined;

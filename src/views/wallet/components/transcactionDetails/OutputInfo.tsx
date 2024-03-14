@@ -1,5 +1,6 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Transaction } from "bitcoinjs-lib";
+import { Transaction as LiquidTransaction } from "liquidjs-lib";
 import { useState } from "react";
 import { LayoutChangeEvent } from "react-native";
 import { TabBar } from "../../../../components/ui/TabBar";
@@ -10,7 +11,7 @@ import { getOfferDataId } from "./TransactionDetailsInfo";
 const Tab = createMaterialTopTabNavigator();
 
 type OutputInfoProps = {
-  transactionDetails: Transaction;
+  transactionDetails: Transaction | LiquidTransaction;
   transactionSummary: TransactionSummary;
   receivingAddress?: string;
 };

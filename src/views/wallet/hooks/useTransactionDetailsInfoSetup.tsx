@@ -1,4 +1,5 @@
-import { Transaction } from "bitcoinjs-lib";
+import { Transaction as BitcoinTransaction } from "bitcoinjs-lib";
+import { Transaction as LiquidTransaction } from "liquidjs-lib";
 import { useMemo } from "react";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { isRBFEnabled } from "../../../utils/bitcoin/isRBFEnabled";
@@ -11,7 +12,7 @@ import { useGetTransactionDestinationAddress } from "../helpers/useGetTransactio
 const incomingTxType: TransactionType[] = ["DEPOSIT", "REFUND", "TRADE"];
 
 type Props = {
-  transactionDetails: Transaction;
+  transactionDetails: BitcoinTransaction | LiquidTransaction;
   transactionSummary: TransactionSummary;
 };
 export const useTransactionDetailsInfoSetup = ({
@@ -22,6 +23,8 @@ export const useTransactionDetailsInfoSetup = ({
   const receivingAddress = useGetTransactionDestinationAddress({
     outs: transactionDetails.outs || [],
     incoming: incomingTxType.includes(transactionSummary.type),
+    chain:
+      transactionDetails instanceof BitcoinTransaction ? "bitcoin" : "liquid",
   });
   const rbfEnabled = transactionDetails && isRBFEnabled(transactionDetails);
   const canBumpFees = useMemo(

@@ -13,9 +13,11 @@ type OfferData = {
   price?: number;
   currency?: Currency;
 };
+type Chain = "bitcoin" | "liquid";
 type TransactionSummary = {
   id: string;
   type: TransactionType;
+  chain: Chain;
   offerData: OfferData[];
   amount: number;
   date: Date;
