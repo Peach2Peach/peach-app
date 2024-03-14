@@ -26,12 +26,13 @@ export const useOfferDetail = (id?: string) => {
 export const useMultipleOfferDetails = (ids: string[]) => {
   const queries = useQueries({ queries: ids.map(buildQuery) });
 
+  const isPending = queries.some((query) => query.isPending);
   const isLoading = queries.some((query) => query.isLoading);
   const isFetching = queries.some((query) => query.isFetching);
   const errors = queries.map((query) => query.error);
   const offers = queries.map((query) => query.data);
 
-  return { offers, isLoading, isFetching, errors };
+  return { offers, isLoading, isFetching, isPending, errors };
 };
 
 function buildQuery(id?: string) {

@@ -104,6 +104,7 @@ describe("useMultipleOfferDetails", () => {
     expect(result.current).toEqual({
       offers: [undefined],
       isLoading: true,
+      isPending: true,
       isFetching: true,
       errors: [null],
     });
@@ -113,6 +114,7 @@ describe("useMultipleOfferDetails", () => {
     expect(result.current).toEqual({
       offers: [sellOffer],
       isLoading: false,
+      isPending: false,
       isFetching: false,
       errors: [null],
     });
@@ -130,6 +132,7 @@ describe("useMultipleOfferDetails", () => {
     expect(result.current).toEqual({
       offers: [undefined],
       isLoading: true,
+      isPending: true,
       isFetching: true,
       errors: [null],
     });
@@ -139,6 +142,7 @@ describe("useMultipleOfferDetails", () => {
     expect(result.current).toEqual({
       offers: [undefined],
       isLoading: false,
+      isPending: false,
       isFetching: false,
       errors: [new Error("UNAUTHORIZED")],
     });
@@ -154,6 +158,7 @@ describe("useMultipleOfferDetails", () => {
     expect(result.current).toEqual({
       offers: [undefined],
       isLoading: true,
+      isPending: true,
       isFetching: true,
       errors: [null],
     });
@@ -163,6 +168,7 @@ describe("useMultipleOfferDetails", () => {
     expect(result.current).toEqual({
       offers: [undefined],
       isLoading: false,
+      isPending: false,
       isFetching: false,
       errors: [expectedError],
     });

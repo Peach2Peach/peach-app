@@ -13,6 +13,7 @@ export const useFundingStatus = (id: string, enabled = true) => {
     data,
     isLoading,
     error: fundingStatusError,
+    isPending,
   } = useQuery({
     queryKey: offerKeys.fundingStatus(id),
     queryFn: getFundingStatusQuery,
@@ -23,13 +24,14 @@ export const useFundingStatus = (id: string, enabled = true) => {
   const fundingStatus = data?.funding || getDefaultFundingStatus(id);
   const fundingStatusLiquid =
     data?.fundingLiquid || getDefaultFundingStatus(id);
-  const userConfirmationRequired = data?.userConfirmationRequired || false;
+  const userConfirmationRequired = data?.userConfirmationRequired;
 
   return {
     fundingStatus,
     fundingStatusLiquid,
     userConfirmationRequired,
     isLoading,
+    isPending,
     error: fundingStatusError,
   };
 };

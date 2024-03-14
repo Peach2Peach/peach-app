@@ -48,8 +48,9 @@ describe("useFundingStatus", () => {
     expect(result.current).toEqual({
       fundingStatus: getDefaultFundingStatus(sellOffer.id),
       fundingStatusLiquid: getDefaultFundingStatus(sellOffer.id),
-      userConfirmationRequired: false,
+      userConfirmationRequired: undefined,
       isLoading: true,
+      isPending: true,
       error: null,
     });
 
@@ -60,6 +61,7 @@ describe("useFundingStatus", () => {
       fundingStatusLiquid: inMempool.fundingLiquid,
       userConfirmationRequired: inMempool.userConfirmationRequired,
       isLoading: false,
+      isPending: false,
       error: null,
     });
   });
@@ -76,8 +78,9 @@ describe("useFundingStatus", () => {
     expect(result.current).toEqual({
       fundingStatus: getDefaultFundingStatus(sellOffer.id),
       fundingStatusLiquid: getDefaultFundingStatus(sellOffer.id),
-      userConfirmationRequired: false,
+      userConfirmationRequired: undefined,
       isLoading: true,
+      isPending: true,
       error: null,
     });
 
@@ -86,8 +89,9 @@ describe("useFundingStatus", () => {
     expect(result.current).toEqual({
       fundingStatus: getDefaultFundingStatus(sellOffer.id),
       fundingStatusLiquid: getDefaultFundingStatus(sellOffer.id),
-      userConfirmationRequired: false,
+      userConfirmationRequired: undefined,
       isLoading: false,
+      isPending: false,
       error: new Error("UNAUTHORIZED"),
     });
   });

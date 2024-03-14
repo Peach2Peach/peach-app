@@ -12,7 +12,7 @@ type Props = {
   offerId: string;
   sellOffer?: SellOffer;
   funding: FundingStatus;
-  userConfirmationRequired: boolean;
+  userConfirmationRequired?: boolean;
 };
 
 export const useHandleFundingStatus = ({
@@ -33,7 +33,7 @@ export const useHandleFundingStatus = ({
   );
 
   useEffect(() => {
-    if (!sellOffer || !funding.status) return;
+    if (!sellOffer || !funding) return;
 
     info("Checked funding status", funding);
 

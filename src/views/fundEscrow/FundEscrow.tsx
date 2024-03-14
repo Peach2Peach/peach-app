@@ -48,13 +48,13 @@ type FundingTab = {
 };
 
 export const FundEscrow = () => {
+  const { offerId } = useRoute<"fundEscrow">().params;
   const {
-    offerId,
     funding,
     activeFunding,
     fundingAmount,
     offerIdsWithoutEscrow,
-    isLoading,
+    isPending,
   } = useFundEscrowSetup();
   const tabs = [
     { id: "bitcoin", display: i18n("escrow.bitcoin") },
@@ -75,7 +75,7 @@ export const FundEscrow = () => {
   const fundingAddress = funding[escrowType].fundingAddress;
   const fundingAddresses = funding[escrowType].fundingAddresses;
 
-  if (isLoading) return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
+  if (isPending) return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
   if (offerIdsWithoutEscrow.length > 0)
     return <CreateEscrowScreen offerIds={offerIdsWithoutEscrow} />;
 

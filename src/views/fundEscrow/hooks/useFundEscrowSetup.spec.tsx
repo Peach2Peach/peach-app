@@ -27,7 +27,7 @@ const useFundingStatusMock = jest
     fundingStatus: getDefaultFundingStatus(sellOffer.id),
     fundingStatusLiquid: getDefaultFundingStatus(sellOffer.id),
     userConfirmationRequired: false,
-    isLoading: false,
+    isPending: false,
   });
 
 const getOfferDetailsMock = jest
@@ -57,7 +57,6 @@ describe("useFundEscrowSetup", () => {
     const { result } = renderHook(useFundEscrowSetup);
     const activeFunding = getDefaultFundingStatus(sellOffer.id);
     expect(result.current).toEqual({
-      offerId: sellOffer.id,
       funding: {
         bitcoin: {
           fundingAddress: undefined,
@@ -72,7 +71,7 @@ describe("useFundEscrowSetup", () => {
       },
       activeFunding,
       fundingAmount: 0,
-      isLoading: true,
+      isPending: true,
       offerIdsWithoutEscrow: [],
     });
   });
@@ -96,7 +95,6 @@ describe("useFundEscrowSetup", () => {
     const activeFunding = getDefaultFundingStatus(sellOffer.id);
 
     expect(result.current).toEqual({
-      offerId: sellOffer.id,
       funding: {
         bitcoin: {
           fundingAddress: sellOffer.escrows.bitcoin,
@@ -111,7 +109,7 @@ describe("useFundEscrowSetup", () => {
       },
       activeFunding,
       fundingAmount: sellOffer.amount,
-      isLoading: false,
+      isPending: false,
       offerIdsWithoutEscrow: [],
     });
   });
@@ -120,7 +118,7 @@ describe("useFundEscrowSetup", () => {
       fundingStatus: getDefaultFundingStatus(sellOffer.id),
       fundingStatusLiquid: getDefaultFundingStatus(sellOffer.id),
       userConfirmationRequired: false,
-      isLoading: false,
+      isPending: false,
       error: new Error(unauthorizedError.error),
     });
     renderHook(useFundEscrowSetup);
@@ -135,7 +133,6 @@ describe("useFundEscrowSetup", () => {
     });
     const { result } = renderHook(useFundEscrowSetup);
     expect(result.current).toEqual({
-      offerId: sellOffer.id,
       funding: {
         bitcoin: {
           fundingAddress: undefined,
@@ -150,7 +147,7 @@ describe("useFundEscrowSetup", () => {
       },
       activeFunding,
       fundingAmount: 0,
-      isLoading: true,
+      isPending: true,
       offerIdsWithoutEscrow: [],
     });
   });
@@ -163,7 +160,6 @@ describe("useFundEscrowSetup", () => {
     });
     const { result } = renderHook(useFundEscrowSetup);
     expect(result.current).toEqual({
-      offerId: sellOffer.id,
       funding: {
         bitcoin: {
           fundingAddress: sellOffer.escrows.bitcoin,
@@ -178,7 +174,7 @@ describe("useFundEscrowSetup", () => {
       },
       activeFunding,
       fundingAmount: sellOffer.amount,
-      isLoading: false,
+      isPending: false,
       offerIdsWithoutEscrow: [],
     });
   });
