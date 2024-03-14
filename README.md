@@ -104,6 +104,12 @@ brew install applesimutils
 
 # Troubleshooting
 
+## Git Submodule merge conflicts
+
+Try to run
+
+`git add peach-api`
+
 ## Can't build Android
 
 ### General
