@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LightningTransactionHistory should render correctly when empty 1`] = `
+exports[`TransactionHistoryLightning should render correctly when empty 1`] = `
 <View
   onLayout={[Function]}
   style={
@@ -228,7 +228,7 @@ exports[`LightningTransactionHistory should render correctly when empty 1`] = `
 </View>
 `;
 
-exports[`LightningTransactionHistory should render correctly with tx 1`] = `
+exports[`TransactionHistoryLightning should render correctly with tx 1`] = `
 <View
   onLayout={[Function]}
   style={
