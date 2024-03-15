@@ -8,6 +8,14 @@ import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { ReceiveBitcoinLightning } from "./ReceiveBitcoinLightning";
 import { MSAT_PER_SAT } from "./hooks/useLightningWalletBalance";
 
+jest.mock("../../hooks/query/useMarketPrices");
+jest
+  .requireMock("../../hooks/query/useMarketPrices")
+  .useMarketPrices.mockReturnValue({
+    data: {
+      EUR: 10000,
+    },
+  });
 jest.mock("@breeztech/react-native-breez-sdk");
 const receivePaymentMock = jest
   .requireMock("@breeztech/react-native-breez-sdk")
@@ -39,17 +47,17 @@ describe("ReceiveBitcoinLightning", () => {
   it("should allow entering amount + description and create an invoice", async () => {
     const amount = 123456;
     const description = "description";
-    const { getByAccessibilityHint, getByText } = render(
+    const { getByAccessibilityHint, getByPlaceholderText, getByText } = render(
       <ReceiveBitcoinLightning />,
     );
     fireEvent.changeText(
       getByAccessibilityHint("form.lightningInvoice.amount.label"),
       amount,
     );
-    fireEvent.changeText(
-      getByAccessibilityHint("from.description.label"),
-      description,
-    );
+    fireEvent.changeText(getByPlaceholderText("label"), description);
+    expect(
+      getByAccessibilityHint("form.lightningInvoice.fiat.label").props.value,
+    ).toBe("12.35");
     fireEvent.press(getByText("wallet.receiveBitcoin.createInvoice"));
 
     await waitFor(() =>
