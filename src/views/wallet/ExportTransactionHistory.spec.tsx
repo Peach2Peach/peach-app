@@ -1,6 +1,7 @@
 import RNFS from "react-native-fs";
 import Share from "react-native-share";
 import { fireEvent, render, waitFor } from "test-utils";
+import { setRouteMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { ExportTransactionHistory } from "./ExportTransactionHistory";
 
 jest.mock("../../utils/date/toShortDateFormat");
@@ -16,6 +17,15 @@ jest.mock("./helpers/useTxSummaries", () => ({
 jest.useFakeTimers();
 describe("ExportTransactionHistory", () => {
   const firstCSVRow = "Date, Type, Amount, Transaction ID\n";
+  beforeAll(() => {
+    setRouteMock({
+      name: "exportTransactionHistory",
+      key: "exportTransactionHistory",
+      params: {
+        chain: "bitcoin",
+      },
+    });
+  });
   it("should render correctly", () => {
     const { toJSON } = render(<ExportTransactionHistory />);
     expect(toJSON()).toMatchSnapshot();
