@@ -79,11 +79,6 @@ type OfferPreferencesActions = {
   setPreferredCurrencyType: (preferredCurrenyType: CurrencyType) => void;
   setBuyOfferSorter: (sorter: BuySorter) => void;
   setSellOfferSorter: (sorter: SellSorter) => void;
-  setBuyOfferFilter: (filter: MatchFilter) => void;
-  setMaxPremiumFilter: (maxPremium: number | null) => void;
-  toggleShouldApplyMaxPremium: () => void;
-  toggleMinReputationFilter: () => void;
-  setMinReputationFilter: (minReputation: number | null) => void;
   toggleInstantTrade: () => void;
   toggleMinTrades: () => void;
   toggleMinReputation: () => void;
@@ -141,17 +136,6 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         set((state) => {
           state.sortBy.sellOffer = [sorter];
         }),
-      setBuyOfferFilter: (filter) =>
-        set((state) => {
-          state.filter.buyOffer = {
-            ...state.filter.buyOffer,
-            ...filter,
-          };
-        }),
-      setMaxPremiumFilter: (maxPremium) =>
-        set((state) => {
-          state.filter.buyOffer.maxPremium = maxPremium;
-        }),
       toggleInstantTrade: () =>
         set((state) => ({ instantTrade: !state.instantTrade })),
       toggleMinTrades: () =>
@@ -167,22 +151,6 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
             state.instantTradeCriteria.minReputation === 0
               ? MIN_REPUTATION_FILTER
               : 0;
-        }),
-      toggleShouldApplyMaxPremium: () =>
-        set((state) => {
-          state.filter.buyOffer.shouldApplyMaxPremium =
-            !state.filter.buyOffer.shouldApplyMaxPremium;
-        }),
-      toggleMinReputationFilter: () =>
-        set((state) => {
-          state.filter.buyOffer.minReputation =
-            state.filter.buyOffer.minReputation === null
-              ? MIN_REPUTATION_FILTER
-              : null;
-        }),
-      setMinReputationFilter: (minReputation) =>
-        set((state) => {
-          state.filter.buyOffer.minReputation = minReputation;
         }),
       toggleBadge: (badge: Medal) =>
         set((state) => {
