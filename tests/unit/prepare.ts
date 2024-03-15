@@ -1,9 +1,5 @@
 import { mockBDKRN } from "./mocks/bdkRN";
 
-module.exports = () => {
-  process.env.TZ = "UTC";
-};
-
 jest.mock("@react-native-cookies/cookies", () => ({
   set: jest.fn(),
 }));
