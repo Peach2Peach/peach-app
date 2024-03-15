@@ -12,6 +12,7 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import { getShortDateFormat } from "../../utils/date/getShortDateFormat";
 import i18n from "../../utils/i18n";
+import { headerIcons } from "../../utils/layout/headerIcons";
 import { EmptyTransactionHistory } from "./components";
 import { TxIcon } from "./components/TransactionIcon";
 import { useLightningPayments } from "./hooks/useLightningPayments";
@@ -90,5 +91,20 @@ export const TransactionHistoryLightning = () => {
 };
 
 function TransactionHistoryHeader() {
-  return <Header title={i18n("wallet.transactionHistory")} />;
+  const navigation = useStackNavigation();
+  const onPress = () => {
+    navigation.navigate("exportTransactionHistory", { chain: "lightning" });
+  };
+  return (
+    <Header
+      title={i18n("wallet.transactionHistory")}
+      icons={[
+        {
+          ...headerIcons.share,
+          onPress,
+          accessibilityHint: `${i18n("goTo")} ${i18n("wallet.exportHistory.title")}`,
+        },
+      ]}
+    />
+  );
 }
