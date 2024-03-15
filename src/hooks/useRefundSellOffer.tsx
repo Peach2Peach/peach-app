@@ -106,7 +106,7 @@ function RefundEscrowPopup({
       actions={
         <>
           {isPeachWallet ? (
-            <GoToWalletAction txId={txId} />
+            <GoToWalletAction txId={txId} chain={network} />
           ) : (
             <ShowTxAction {...{ txId, network }} />
           )}
@@ -140,7 +140,7 @@ function ShowTxAction({
   );
 }
 
-function GoToWalletAction({ txId }: { txId: string }) {
+function GoToWalletAction({ txId, chain }: { txId: string; chain: Chain }) {
   const closePopup = useClosePopup();
   const navigation = useStackNavigation();
   const shouldShowBackupOverlay = useSettingsStore(
@@ -150,14 +150,16 @@ function GoToWalletAction({ txId }: { txId: string }) {
 
   const goToWallet = () => {
     closePopup();
+    const destination =
+      chain === "bitcoin" ? "transactionDetails" : "transactionDetailsLiquid";
     if (shouldShowBackupOverlay) {
       setOverlay(
         <BackupTime
-          navigationParams={[{ name: "transactionDetails", params: { txId } }]}
+          navigationParams={[{ name: destination, params: { txId } }]}
         />,
       );
     } else {
-      navigation.navigate("transactionDetails", { txId });
+      navigation.navigate(destination, { txId });
     }
   };
 

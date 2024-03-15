@@ -50,7 +50,9 @@ describe("useFundFromPeachLiquidWallet", () => {
   const amount = sellOffer.amount;
   const minTradingAmount = 50000;
   const address = sellOffer.escrows.liquid;
+  const offerId = sellOffer.id;
   const initialProps = {
+    offerId,
     address,
     amount: 615000,
     ...getDefaultFundingStatus(sellOffer.id),
@@ -80,6 +82,7 @@ describe("useFundFromPeachLiquidWallet", () => {
     useLiquidWalletState.getState().setBalance(amount);
     const { result } = renderHook(useFundFromPeachLiquidWallet);
     const res = await result.current({
+      offerId,
       address,
       amount: 615000,
       fundingStatus: "FUNDED",
@@ -107,7 +110,7 @@ describe("useFundFromPeachLiquidWallet", () => {
     });
 
     expect(buildTransactionWithFeeRateMock).toHaveBeenCalledWith({
-      feeRate: 6,
+      feeRate: 4,
       inputs: [],
       recipients: [
         {
@@ -128,7 +131,7 @@ describe("useFundFromPeachLiquidWallet", () => {
       await result.current({ ...initialProps, addresses });
     });
     expect(buildTransactionWithFeeRateMock).toHaveBeenCalledWith({
-      feeRate: 6,
+      feeRate: 4,
       inputs: [],
       recipients: [
         { address: "a", amount: 307500 },

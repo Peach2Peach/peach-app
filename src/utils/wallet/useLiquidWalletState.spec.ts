@@ -15,7 +15,6 @@ describe("useLiquidWalletState", () => {
       addresses: [],
       internalAddresses: [],
       utxos: [],
-      txOfferMap: {},
       transactions: [],
       balance: 0,
       isSynced: false,

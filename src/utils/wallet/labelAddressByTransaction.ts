@@ -1,4 +1,3 @@
-import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { contractIdToHex } from "../contract/contractIdToHex";
 import { getOffer } from "../offer/getOffer";
 import { isSellOffer } from "../offer/isSellOffer";
@@ -7,8 +6,8 @@ import { isDefined } from "../validation/isDefined";
 import { isNotNull } from "../validation/isNotNull";
 import { useWalletState } from "./walletStore";
 
-export async function labelAddressByTransaction(tx: TransactionDetails) {
-  const offerIds = useWalletState.getState().txOfferMap[tx.txid] || [];
+export async function labelAddressByTransaction(txId: string) {
+  const offerIds = useWalletState.getState().txOfferMap[txId] || [];
   const offers = (await Promise.all(offerIds.map(getOffer))).filter(isNotNull);
   offers.forEach((offer) => {
     const label = offers

@@ -20,7 +20,7 @@ export const useOptimisticTxHistoryUpdate = () => {
       const fundMultiple = getFundMultipleByOfferId(offerId);
       addTransaction(txDetails);
       updateTxOfferMap(txDetails.txid, fundMultiple?.offerIds || [offerId]);
-      labelAddressByTransaction(txDetails);
+      labelAddressByTransaction(txDetails.txid);
     },
     [addTransaction, getFundMultipleByOfferId, updateTxOfferMap],
   );

@@ -7,6 +7,7 @@ import { sum } from "../../../utils/math/sum";
 import { getOffer } from "../../../utils/offer/getOffer";
 import { isNotNull } from "../../../utils/validation/isNotNull";
 import { useLiquidWalletState } from "../../../utils/wallet/useLiquidWalletState";
+import { useWalletState } from "../../../utils/wallet/walletStore";
 import { walletKeys } from "../hooks/useUTXOs";
 import { getOfferData } from "./getOfferData";
 
@@ -59,6 +60,7 @@ export function getTxSummaryLiquid({
   const received = getReceived(tx);
   return {
     id: tx.txid,
+    chain: "liquid" as Chain,
     type: getTransactionType({ received, sent }, offer),
     amount: Math.abs(sent - received),
     date: tx.status.block_time
@@ -71,7 +73,7 @@ export function getTxSummaryLiquid({
 
 export function useTxSummariesLiquid() {
   const txs = useLiquidWalletState((state) => state.transactions);
-  const txOfferMap = useLiquidWalletState((state) => state.txOfferMap);
+  const txOfferMap = useWalletState((state) => state.txOfferMap);
   const { contracts } = useContractSummaries();
   return useQueries({
     queries: txs.map((tx) => ({

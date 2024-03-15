@@ -11,6 +11,7 @@ import i18n from "../../utils/i18n";
 import { getTxHex } from "../../utils/liquid/getTxHex";
 import { isDefined } from "../../utils/validation/isDefined";
 import { useLiquidWalletState } from "../../utils/wallet/useLiquidWalletState";
+import { useWalletState } from "../../utils/wallet/walletStore";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { TransactionHeader } from "./components/transactionDetails/TransactionHeader";
 import { TransactionDetailsInfo } from "./components/transcactionDetails/TransactionDetailsInfo";
@@ -34,7 +35,7 @@ export const TransactionDetailsLiquid = () => {
     state.transactions.find((tx) => tx.txid === txId),
   );
   const { data: transactionDetails } = useTransactionDetailsLiquid({ txId });
-  const offerIds = useLiquidWalletState((state) => state.txOfferMap[txId]);
+  const offerIds = useWalletState((state) => state.txOfferMap[txId]);
   const { offers } = useMultipleOfferDetails(offerIds || []);
   const { contracts } = useContractSummaries();
   const partialSummary = localTx

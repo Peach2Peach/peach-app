@@ -174,6 +174,7 @@ export class PeachWallet extends PeachJSWallet {
               .forEach(mapTransactionToOffer({ offers, contracts }));
             this.transactions
               .filter(transactionHasBeenMappedToOffers)
+              .map((tx) => tx.txid)
               .forEach(labelAddressByTransaction);
 
             this.lastUnusedAddress = undefined;

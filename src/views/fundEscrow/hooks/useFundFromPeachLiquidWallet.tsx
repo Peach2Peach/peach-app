@@ -26,8 +26,10 @@ import { useWalletState } from "../../../utils/wallet/walletStore";
 import { useSyncLiquidWallet } from "../../wallet/hooks/useSyncLiquidWallet";
 import { ConfirmTransactionPopup } from "./ConfirmTransactionPopup";
 import { ConfirmTxPopup } from "./ConfirmTxPopup";
+import { useOptimisticTxHistoryUpdateLiquid } from "./useOptimisticTxHistoryUpdateLiquid";
 
 type FundFromWalletLiquidParams = {
+  offerId: string;
   amount: number;
   fundingStatus?: FundingStatus["status"];
   address?: string;
@@ -35,6 +37,8 @@ type FundFromWalletLiquidParams = {
 };
 
 type OnSuccessParams = {
+  txId: string;
+  offerId: string;
   address: string;
   addresses: string[];
 };
@@ -43,6 +47,7 @@ export const useFundFromPeachLiquidWallet = () => {
   const minTradingAmount = useConfigStore((state) => state.minTradingAmount);
   const showErrorBanner = useShowErrorBanner();
   const { refetch: syncPeachLiquidWallet } = useSyncLiquidWallet();
+  const optimisticTxHistoryUpdate = useOptimisticTxHistoryUpdateLiquid();
 
   const feeRate = useLiquidFeeRate();
   const [setFundedFromPeachWallet, unregisterFundMultiple] = useWalletState(
@@ -52,16 +57,21 @@ export const useFundFromPeachLiquidWallet = () => {
   const setPopup = useSetPopup();
 
   const onSuccess = useCallback(
-    ({ address, addresses }: OnSuccessParams) => {
+    ({ txId, offerId, address, addresses }: OnSuccessParams) => {
+      optimisticTxHistoryUpdate(txId, offerId);
       unregisterFundMultiple(address);
       setFundedFromPeachWallet(address);
       addresses.forEach(setFundedFromPeachWallet);
     },
-    [setFundedFromPeachWallet, unregisterFundMultiple],
+    [
+      optimisticTxHistoryUpdate,
+      setFundedFromPeachWallet,
+      unregisterFundMultiple,
+    ],
   );
 
   const drainWalletToFund = useCallback(
-    ({ address }: { address: string }) => {
+    ({ address, offerId }: { address: string; offerId: string }) => {
       if (!peachLiquidWallet)
         throw new Error("Peach liquid wallet not defined");
       const balance = useLiquidWalletState.getState().balance;
@@ -100,7 +110,14 @@ export const useFundFromPeachLiquidWallet = () => {
             onConfirm={() =>
               peachAPI.public.liquid.postTx({ tx: transaction.toHex() })
             }
-            onSuccess={() => onSuccess({ address, addresses: [] })}
+            onSuccess={() =>
+              onSuccess({
+                txId: transaction.getId(),
+                offerId,
+                address,
+                addresses: [],
+              })
+            }
           />,
         );
       } catch (e) {
@@ -122,6 +139,7 @@ export const useFundFromPeachLiquidWallet = () => {
   const fundFromPeachWallet = useCallback(
     async ({
       amount,
+      offerId,
       fundingStatus = "NULL",
       address,
       addresses = [],
@@ -168,7 +186,7 @@ export const useFundFromPeachLiquidWallet = () => {
           );
         }
 
-        return drainWalletToFund({ address });
+        return drainWalletToFund({ offerId, address });
       }
 
       return setPopup(
@@ -188,7 +206,14 @@ export const useFundFromPeachLiquidWallet = () => {
           onConfirm={() =>
             peachAPI.public.liquid.postTx({ tx: transaction.toHex() })
           }
-          onSuccess={() => onSuccess({ address, addresses })}
+          onSuccess={() =>
+            onSuccess({
+              txId: transaction.getId(),
+              offerId,
+              address,
+              addresses,
+            })
+          }
         />,
       );
     },

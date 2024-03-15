@@ -263,14 +263,14 @@ function InfoText({ children }: { children: string }) {
   );
 }
 
-type Props = {
+type FundFromPeachWalletButtonProps = {
   address: string;
   addresses: string[];
   amount: number;
   fundingStatus: FundingStatus;
 };
 
-function FundFromPeachWalletButton(props: Props) {
+function FundFromPeachWalletButton(props: FundFromPeachWalletButtonProps) {
   const { offerId } = useRoute<"fundEscrow">().params;
   const fundFromPeachWallet = useFundFromPeachWallet();
   const fundedFromPeachWallet = useWalletState((state) =>
@@ -313,7 +313,17 @@ function FundFromPeachWalletButton(props: Props) {
   );
 }
 
-function FundFromPeachLiquidWalletButton(props: Props) {
+type FundFromPeachLiquidWalletButtonProps = {
+  address: string;
+  addresses: string[];
+  amount: number;
+  fundingStatus: FundingStatus;
+};
+
+function FundFromPeachLiquidWalletButton(
+  props: FundFromPeachLiquidWalletButtonProps,
+) {
+  const { offerId } = useRoute<"fundEscrow">().params;
   const fundFromPeachWallet = useFundFromPeachLiquidWallet();
   const fundedFromPeachWallet = useWalletState((state) =>
     state.isFundedFromPeachWallet(props.address),
@@ -323,6 +333,7 @@ function FundFromPeachLiquidWalletButton(props: Props) {
   const onButtonPress = () => {
     setIsFunding(true);
     fundFromPeachWallet({
+      offerId,
       amount: props.amount,
       fundingStatus: props.fundingStatus.status,
       address: props.address,

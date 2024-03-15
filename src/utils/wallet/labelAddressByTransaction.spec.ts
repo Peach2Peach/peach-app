@@ -29,19 +29,19 @@ describe("labelAddressByTransaction", () => {
     useWalletState
       .getState()
       .updateTxOfferMap(confirmed1.txid, [offerSummary.id]);
-    labelAddressByTransaction(confirmed1);
+    labelAddressByTransaction(confirmed1.txid);
     expect(useWalletState.getState().addressLabelMap).toEqual({});
   });
   it("labels address if associated buy offer can be found", async () => {
     useWalletState.getState().updateTxOfferMap(confirmed1.txid, [buyOffer.id]);
-    await labelAddressByTransaction(confirmed1);
+    await labelAddressByTransaction(confirmed1.txid);
     expect(useWalletState.getState().addressLabelMap).toEqual({
       bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh: "P‑25",
     });
   });
   it("labels address if associated sell offer can be found", async () => {
     useWalletState.getState().updateTxOfferMap(confirmed1.txid, [sellOffer.id]);
-    await labelAddressByTransaction(confirmed1);
+    await labelAddressByTransaction(confirmed1.txid);
     expect(useWalletState.getState().addressLabelMap).toEqual({
       bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh: "P‑26",
     });
@@ -52,7 +52,7 @@ describe("labelAddressByTransaction", () => {
       result: { ...buyOffer, contractId: "11-12" },
       ...responseUtils,
     });
-    await labelAddressByTransaction(confirmed1);
+    await labelAddressByTransaction(confirmed1.txid);
     expect(useWalletState.getState().addressLabelMap).toEqual({
       bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh:
         "PC‑B‑C",
@@ -62,7 +62,7 @@ describe("labelAddressByTransaction", () => {
   it("does not label address if tx default label cannot be determined", () => {
     useWalletState.getState().updateTxOfferMap(confirmed1.txid, [sellOffer.id]);
 
-    labelAddressByTransaction(confirmed1);
+    labelAddressByTransaction(confirmed1.txid);
     expect(useWalletState.getState().addressLabelMap).toEqual({});
   });
 });
