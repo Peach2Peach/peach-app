@@ -1,4 +1,5 @@
 import { GetContractSummariesResponseBody } from "../../../../peach-api/src/@types/api/contractAPI";
+import { BuyOffer, SellOffer } from "../../../../peach-api/src/@types/offer";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 
 export function getOfferData(

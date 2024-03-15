@@ -17,6 +17,8 @@ import { hasMopsConfigured } from "../../utils/offer/hasMopsConfigured";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
 import { cutOffAddress } from "../../utils/string/cutOffAddress";
 import { isValidBitcoinSignature } from "../../utils/validation/isValidBitcoinSignature";
+import { isLiquidAddress } from "../../utils/validation/rules";
+import { getLiquidNetwork } from "../../utils/wallet/getLiquidNetwork";
 import { getNetwork } from "../../utils/wallet/getNetwork";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { usePatchReleaseAddress } from "../contract/components/usePatchReleaseAddress";
@@ -157,7 +159,10 @@ function OfferWalletSelector({
     ],
     shallow,
   );
-  const addressIsInPeachWallet = useIsMyAddress(releaseAddress);
+  const addressIsInPeachWallet = useIsMyAddress(
+    releaseAddress,
+    isLiquidAddress(releaseAddress, getLiquidNetwork()) ? "liquid" : "bitcoin",
+  );
   const { mutate: patchPayoutAddress } = usePatchReleaseAddress(offerId);
 
   const customAddress =

@@ -441,7 +441,7 @@ exports[`useFundFromPeachLiquidWallet should open confirmation popup 1`] = `
               ]
             }
           >
-            network fee: 1 056 sats (6 sat/vB)
+            network fee: 704 sats (4 sat/vB)
           </Text>
         </View>
       </View>

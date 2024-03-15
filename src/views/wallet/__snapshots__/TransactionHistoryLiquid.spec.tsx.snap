@@ -530,6 +530,7 @@ exports[`TransactionHistoryLiquid should render correctly with tx 1`] = `
             [
               {
                 "amount": 900,
+                "chain": "bitcoin",
                 "confirmed": true,
                 "date": 2022-09-14T16:14:02.835Z,
                 "height": 1,
@@ -548,6 +549,7 @@ exports[`TransactionHistoryLiquid should render correctly with tx 1`] = `
               },
               {
                 "amount": 900,
+                "chain": "bitcoin",
                 "confirmed": false,
                 "date": 2022-09-14T16:14:02.835Z,
                 "height": undefined,

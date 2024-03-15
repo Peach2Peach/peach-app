@@ -25,7 +25,6 @@ export const TransactionHistoryLiquid = () => {
   );
   const { refetch, isRefetching } = useSyncLiquidWallet();
 
-  console.log(transactions);
   return (
     <Screen header={<TransactionHistoryHeader />}>
       {transactions.length === 0 ? (

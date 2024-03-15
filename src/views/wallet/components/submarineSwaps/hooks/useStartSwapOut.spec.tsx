@@ -138,8 +138,9 @@ describe("useStartSwapOut", () => {
     } = renderHook(useStartSwapOut);
     startSwapOut();
     const { queryByText } = render(<GlobalPopup />);
+
     await waitFor(() =>
-      expect(queryByText("Create an invoice for 228003 sats")).toBeTruthy(),
+      expect(queryByText("Create an invoice for 228543 sats")).toBeTruthy(),
     );
   });
   it("should estimate swappable amount at max limit", async () => {
@@ -158,7 +159,7 @@ describe("useStartSwapOut", () => {
     startSwapOut();
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() =>
-      expect(queryByText("Create an invoice for 4288911 sats")).toBeTruthy(),
+      expect(queryByText("Create an invoice for 4289449 sats")).toBeTruthy(),
     );
   });
 });

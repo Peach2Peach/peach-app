@@ -19,6 +19,8 @@ import i18n from "../../../utils/i18n";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { cutOffAddress } from "../../../utils/string/cutOffAddress";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
+import { isLiquidAddress } from "../../../utils/validation/rules";
+import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { useContractContext } from "../context";
@@ -70,7 +72,12 @@ export const TradeDetails = () => {
 
 function ChangePayoutWallet() {
   const { contract } = useContractContext();
-  const paidToPeachWallet = useIsMyAddress(contract.releaseAddress);
+  const paidToPeachWallet = useIsMyAddress(
+    contract.releaseAddress,
+    isLiquidAddress(contract.releaseAddress, getLiquidNetwork())
+      ? "liquid"
+      : "bitcoin",
+  );
   const offerId = getOfferIdFromContract(contract);
 
   const [payoutAddress, payoutAddressLabel, payoutAddressSignature] =

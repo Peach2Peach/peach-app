@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { BuyOffer, SellOffer } from "../../../../peach-api/src/@types/offer";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import i18n from "../../../utils/i18n";

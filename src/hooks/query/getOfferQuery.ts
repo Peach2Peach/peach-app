@@ -8,6 +8,8 @@ export async function getOfferQuery({
   queryKey,
 }: QueryFunctionContext<ReturnType<typeof offerKeys.detail>>) {
   const offerId = queryKey[2];
+  if (!offerId) throw new Error("OFFER_ID_MISSING");
+
   const { result: offer, error: err } =
     await peachAPI.private.offer.getOfferDetails({ offerId });
   if (err) {

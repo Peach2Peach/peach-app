@@ -13,6 +13,7 @@ export function getTxSummary({
   const isConfirmed = txIsConfirmed(tx);
   return {
     id: tx.txid,
+    chain: "bitcoin" as Chain,
     type: getTransactionType(tx, offer),
     amount: Math.abs(tx.sent - tx.received),
     date: isConfirmed

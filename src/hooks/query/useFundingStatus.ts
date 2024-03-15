@@ -41,6 +41,7 @@ async function getFundingStatusQuery({
 }: QueryFunctionContext<ReturnType<typeof offerKeys.fundingStatus>>) {
   const offerId = queryKey[2];
 
+  if (!offerId) throw new Error("OFFER_ID_MISSING");
   const { result: fundingStatus, error: err } =
     await peachAPI.private.offer.getFundingStatus({ offerId });
   if (!fundingStatus || err) {

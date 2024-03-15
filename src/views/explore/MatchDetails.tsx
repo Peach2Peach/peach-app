@@ -2,6 +2,7 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { Match as MatchType } from "../../../peach-api/src/@types/match";
+import { BuyOffer } from "../../../peach-api/src/@types/offer";
 import { GradientBorder } from "../../components/GradientBorder";
 import { Header } from "../../components/Header";
 import { PeachyGradient } from "../../components/PeachyGradient";
