@@ -1,6 +1,6 @@
 import { render, waitFor } from "test-utils";
 import { lnPayment } from "../../../tests/unit/data/lightningNetworkData";
-import { LightningTransactionHistory } from "./LightningTransactionHistory";
+import { TransactionHistoryLightning } from "./TransactionHistoryLightning";
 
 jest.mock("@breeztech/react-native-breez-sdk");
 const listPaymentsMock = jest
@@ -9,15 +9,15 @@ const listPaymentsMock = jest
 
 jest.useFakeTimers();
 
-describe("LightningTransactionHistory", () => {
+describe("TransactionHistoryLightning", () => {
   it("should render correctly when empty", () => {
-    const { toJSON } = render(<LightningTransactionHistory />);
+    const { toJSON } = render(<TransactionHistoryLightning />);
 
     expect(toJSON()).toMatchSnapshot();
   });
   it("should render correctly with tx", async () => {
     listPaymentsMock.mockResolvedValueOnce([lnPayment]);
-    const { toJSON, getByText } = render(<LightningTransactionHistory />);
+    const { toJSON, getByText } = render(<TransactionHistoryLightning />);
     await waitFor(() => expect(getByText("sent")).toBeDefined());
     expect(toJSON()).toMatchSnapshot();
   });

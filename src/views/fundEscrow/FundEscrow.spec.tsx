@@ -1,4 +1,3 @@
-import { createRenderer } from "react-test-renderer/shallow";
 import { render } from "test-utils";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { getDefaultFundingStatus } from "../../utils/offer/constants";
@@ -38,7 +37,6 @@ describe("FundEscrow", () => {
     createEscrowError: null,
     offerIdsWithoutEscrow: 0,
   };
-  const renderer = createRenderer();
 
   it("should render the FundEscrow view", () => {
     useFundEscrowSetupMock.mockReturnValueOnce(defaultReturnValue);
