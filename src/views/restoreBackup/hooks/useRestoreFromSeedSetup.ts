@@ -8,6 +8,8 @@ import { createAccount } from "../../../utils/account/createAccount";
 import { deleteAccount } from "../../../utils/account/deleteAccount";
 import { storeAccount } from "../../../utils/account/storeAccount";
 import { useRecoverAccount } from "../../../utils/account/useRecoverAccount";
+import { createWalletFromSeedPhrase } from "../../../utils/wallet/createWalletFromSeedPhrase";
+import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { LOGIN_DELAY } from "../../restoreReputation/LOGIN_DELAY";
 import { NUMBER_OF_WORDS } from "../../settings/components/backups/NUMBER_OF_WORDS";
 import { setupPeachAccount } from "./setupPeachAccount";
@@ -61,7 +63,9 @@ export const useRestoreFromSeedSetup = () => {
   const recoverAccount = useRecoverAccount();
 
   const createAndRecover = async () => {
-    const recoveredAccount = await createAccount(mnemonic);
+    const recoveredAccount = await createAccount(
+      createWalletFromSeedPhrase(mnemonic, getNetwork()),
+    );
 
     const authError = await setupPeachAccount(recoveredAccount);
 

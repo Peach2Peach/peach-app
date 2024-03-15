@@ -19,7 +19,9 @@ import { Explore } from "./explore/Explore";
 import { MatchDetails } from "./explore/MatchDetails";
 import { FundEscrow } from "./fundEscrow/FundEscrow";
 import { HomeScreen } from "./home/HomeScreen";
-import { NewUser } from "./newUser/NewUser";
+import { AccountCreated } from "./newUser/AccountCreated";
+import { CreateAccountError } from "./newUser/CreateAccountError";
+import { UserExistsForDevice } from "./newUser/UserExistsForDevice";
 import { BuyOfferPreferences } from "./offerPreferences/BuyOfferPreferences";
 import { EditBuyPreferences } from "./offerPreferences/EditBuyPreferences";
 import { SellOfferPreferences } from "./offerPreferences/SellOfferPreferences";
@@ -64,7 +66,21 @@ type ViewType = {
 
 const onboarding: ViewType[] = [
   { name: "welcome", component: Welcome, animationEnabled: false },
-  { name: "newUser", component: NewUser, animationEnabled: false },
+  {
+    name: "userExistsForDevice",
+    component: UserExistsForDevice,
+    animationEnabled: false,
+  },
+  {
+    name: "accountCreated",
+    component: AccountCreated,
+    animationEnabled: false,
+  },
+  {
+    name: "createAccountError",
+    component: CreateAccountError,
+    animationEnabled: false,
+  },
   { name: "userSource", component: UserSource, animationEnabled: false },
   { name: "restoreBackup", component: RestoreBackup, animationEnabled: false },
   {
