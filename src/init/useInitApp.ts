@@ -8,7 +8,6 @@ import { defaultAccount, useAccountStore } from "../utils/account/account";
 import { accountStorage } from "../utils/account/accountStorage";
 import { chatStorage } from "../utils/account/chatStorage";
 import { updateAccount } from "../utils/account/updateAccount";
-import { error } from "../utils/log/error";
 import { info } from "../utils/log/info";
 import { getIndexedMap } from "../utils/storage/getIndexedMap";
 import { dataMigrationAfterLoadingAccount } from "./dataMigration/dataMigrationAfterLoadingAccount";
@@ -57,10 +56,7 @@ async function loadAccount() {
   info("Loading full account from secure storage");
   const identity = loadIdentity();
 
-  if (!identity?.publicKey) {
-    error("Account does not exist");
-    return null;
-  }
+  if (!identity?.publicKey) return null;
 
   const [tradingLimit, chats] = await Promise.all([
     loadTradingLimit(),
@@ -96,8 +92,6 @@ function loadIdentity() {
   const identity = accountStorage.getMap("identity");
 
   if (identity) return identity as Identity;
-
-  error("Could not load identity");
   return emptyIdentity;
 }
 
@@ -105,7 +99,5 @@ function loadTradingLimit() {
   const tradingLimit = accountStorage.getMap("tradingLimit");
 
   if (tradingLimit) return tradingLimit as Account["tradingLimit"];
-
-  error("Could not load tradingLimit");
   return defaultAccount.tradingLimit;
 }

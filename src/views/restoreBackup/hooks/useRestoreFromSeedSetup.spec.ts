@@ -1,6 +1,8 @@
 import { act, renderHook, waitFor } from "test-utils";
 import { account1 } from "../../../../tests/unit/data/accountData";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
+import { createWalletFromSeedPhrase } from "../../../utils/wallet/createWalletFromSeedPhrase";
+import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { useRestoreFromSeedSetup } from "./useRestoreFromSeedSetup";
 
 jest.useFakeTimers();
@@ -32,7 +34,11 @@ describe("useRestoreFromSeedSetup", () => {
     await waitFor(() => {
       expect(result.current.restored).toBeTruthy();
     });
-    expect(createAccountMock).toHaveBeenCalledWith(account1.mnemonic);
+    const { wallet, mnemonic } = createWalletFromSeedPhrase(
+      account1.mnemonic,
+      getNetwork(),
+    );
+    expect(createAccountMock).toHaveBeenCalledWith({ wallet, mnemonic });
     expect(mockRecoverAccount).toHaveBeenCalledWith(account1);
     expect(storeAccountMock).toHaveBeenCalledWith(account1);
   });

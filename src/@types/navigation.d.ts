@@ -1,8 +1,8 @@
 type Onboarding = {
   welcome: undefined;
-  newUser: {
-    referralCode?: string;
-  };
+  userExistsForDevice: { referralCode?: string };
+  accountCreated: undefined;
+  createAccountError: { err: string; referralCode?: string };
   userSource: undefined;
   restoreBackup: { tab: "fileBackup" | "seedPhrase" } | undefined;
   restoreReputation: {
