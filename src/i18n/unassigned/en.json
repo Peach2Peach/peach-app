@@ -176,7 +176,7 @@
   "search.popups.offerTaken.title" : "offer taken...",
   "search.popups.unmatch.confirm" : "yes, unmatch",
   "search.popups.unmatch.neverMind" : "never mind",
-  "search.popups.unmatch.text" : "Unmatching now will negatively affect your reputation score.",
+  "search.popups.unmatch.text" : "Unmatching now will negatively affect your reputation score.\n\nYou can unmatch without a penalty after 48 hours.",
   "search.popups.unmatch.title" : "unmatch?",
   "search.popups.unmatched" : "unmatched!",
   "search.searchingForAPeer" : "Peach is searching for a peer",
