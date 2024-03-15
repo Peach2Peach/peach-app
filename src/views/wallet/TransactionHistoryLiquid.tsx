@@ -48,7 +48,7 @@ export const TransactionHistoryLiquid = () => {
 function TransactionHistoryHeader() {
   const navigation = useStackNavigation();
   const onPress = () => {
-    navigation.navigate("exportTransactionHistoryLiquid");
+    navigation.navigate("exportTransactionHistory", { chain: "liquid" });
   };
   return (
     <Header

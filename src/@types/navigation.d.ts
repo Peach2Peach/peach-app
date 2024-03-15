@@ -77,7 +77,9 @@ type RootStackParamList = Onboarding &
     addressChecker: undefined;
     coinSelection: undefined;
     transactionHistory: undefined;
-    exportTransactionHistory: undefined;
+    exportTransactionHistory: {
+      chain: Chain;
+    };
     transactionDetails: {
       txId: string;
     };

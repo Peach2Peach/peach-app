@@ -43,6 +43,8 @@ describe("TransactionHistoryLiquid", () => {
     );
     fireEvent.press(shareIcon);
 
-    expect(navigateMock).toHaveBeenCalledWith("exportTransactionHistoryLiquid");
+    expect(navigateMock).toHaveBeenCalledWith("exportTransactionHistory", {
+      chain: "liquid",
+    });
   });
 });

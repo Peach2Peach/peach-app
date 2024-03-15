@@ -48,7 +48,7 @@ export const TransactionHistory = () => {
 function TransactionHistoryHeader() {
   const navigation = useStackNavigation();
   const onPress = () => {
-    navigation.navigate("exportTransactionHistory");
+    navigation.navigate("exportTransactionHistory", { chain: "bitcoin" });
   };
   return (
     <Header

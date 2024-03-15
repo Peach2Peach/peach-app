@@ -2,6 +2,7 @@ import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
+import { useRoute } from "../../hooks/useRoute";
 import { writeCSV } from "../../hooks/writeCSV";
 import tw from "../../styles/tailwind";
 import { toShortDateFormat } from "../../utils/date/toShortDateFormat";
@@ -9,12 +10,17 @@ import { createCSV } from "../../utils/file/createCSV";
 import i18n from "../../utils/i18n";
 import { isDefined } from "../../utils/validation/isDefined";
 import { useTxSummaries } from "./helpers/useTxSummaries";
+import { useTxSummariesLiquid } from "./helpers/useTxSummariesLiquid";
 
 export const ExportTransactionHistory = () => {
-  const queriesData = useTxSummaries();
+  const { chain } = useRoute<"exportTransactionHistory">().params;
+  const queriesDataBitcoin = useTxSummaries();
+  const queriesDataLiquid = useTxSummariesLiquid();
 
   const onPress = async () => {
-    const transactionSummaries = queriesData
+    const transactionSummaries = (
+      chain === "bitcoin" ? queriesDataBitcoin : queriesDataLiquid
+    )
       .map((query) => query.data)
       .filter(isDefined);
     const csvValue = createCSVValue(transactionSummaries);
