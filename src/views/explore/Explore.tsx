@@ -31,13 +31,13 @@ export function Explore() {
   const { offerId } = useRoute<"explore">().params;
   const {
     allMatches: matches,
-    isLoading,
+    isPending,
     fetchNextPage,
     refetch,
     isRefetching,
   } = useOfferMatches(offerId);
   const hasMatches = matches.length > 0;
-  if (isLoading) return <LoadingScreen />;
+  if (isPending) return <LoadingScreen />;
   return (
     <Screen header={<ExploreHeader />}>
       {hasMatches ? (

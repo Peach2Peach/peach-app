@@ -123,7 +123,7 @@ function SearchHeader({ offer }: { offer: SellOffer }) {
       return [
         ...icons,
         {
-          ...headerIcons.list,
+          ...headerIcons.help,
           onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup,
         },
       ];
