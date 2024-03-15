@@ -1,4 +1,5 @@
 {
+  "accessibility.bulletPoint" : "σημείο αναφοράς",
   "address.changingLocations" : "αλλαγή τοποθεσιών - επικοινωνήστε με τους διοργανωτές",
   "backupRestored" : "ανακτήθηκε το αντίγραφο ασφαλείας",
   "backupTime.description.mandatory" : "Πρέπει να δημιουργήσετε αντίγραφο ασφαλείας του λογαριασμού σας για να αποφύγετε την απώλειά του και των κεφαλαίων σας",
@@ -54,6 +55,7 @@
   "kyc" : "KYC",
   "later" : "αργότερα",
   "lfg" : "LFG!",
+  "linkedIn" : "Linkedin",
   "loading" : "φόρτωση...",
   "lookForAMatch" : "αναζήτηση αντιστοιχίας ",
   "match.atMarketPrice" : "(τιμή ίση με KYC)",

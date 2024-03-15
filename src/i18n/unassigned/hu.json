@@ -1,4 +1,5 @@
 {
+  "accessibility.bulletPoint" : "felsorolási pont",
   "address.changingLocations" : "helyszínváltás – vedd fel a kapcsolatot a szervezőkkel",
   "backupRestored" : "biztonsági mentés visszaállítva",
   "backupTime.description.mandatory" : "Fiókodról biztonsági másolatot kell készítened, hogy elkerüld annak és a pénzeszközeidnek az elvesztését",
@@ -59,6 +60,7 @@
   "kyc" : "ügyfél-azonosítás",
   "later" : "később",
   "lfg" : "HAJRÁ!",
+  "linkedIn" : "Linkedin",
   "loading" : "betöltés...",
   "lookForAMatch" : "keress partnert!",
   "match.atMarketPrice" : "(egyenértékű a hivatalos tőzsdei árral)",
