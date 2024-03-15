@@ -119,7 +119,6 @@ export const SetInvoicePopup = ({
     setTimeout(closePopup, CLOSE_POPUP_TIMEOUT);
   }
 
-  // TODO transaction.lockupFailed when sending wrong amount
   return (
     <PopupComponent
       title={i18n("wallet.swap.invoice")}
