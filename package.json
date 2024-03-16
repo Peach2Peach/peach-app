@@ -30,6 +30,7 @@
     "build:ios:mainnet": "./devUtils/buildIOSMainnet.sh",
     "bump:version": "react-native-version --never-amend",
     "version:patch": "npm version patch && npm i && npm run podinstall && ./devUtils/buildAndroidMainnet.sh && ./devUtils/bundleAndroidMainnet.sh && ./devUtils/prepareRelease.sh",
+    "version:minor": "npm version minor && npm i && npm run podinstall && ./devUtils/buildAndroidMainnet.sh && ./devUtils/bundleAndroidMainnet.sh && ./devUtils/prepareRelease.sh",
     "postversion": "react-native-version",
     "test": "jest ./src",
     "test:coverage": "jest --coverage ./src",
