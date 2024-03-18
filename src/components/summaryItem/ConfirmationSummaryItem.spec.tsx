@@ -11,4 +11,8 @@ describe("ConfirmationSummaryItem", () => {
     renderer.render(<ConfirmationSummaryItem confirmed />);
     expect(renderer.getRenderOutput()).toMatchSnapshot();
   });
+  it("renders correctly when failed", () => {
+    renderer.render(<ConfirmationSummaryItem failed />);
+    expect(renderer.getRenderOutput()).toMatchSnapshot();
+  });
 });

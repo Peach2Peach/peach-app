@@ -10,13 +10,19 @@ import { TradeInfo } from "../../components/offer/TradeInfo";
 import { ErrorBox } from "../../components/ui/ErrorBox";
 import { SATSINBTC } from "../../constants";
 import { useLiquidFeeRate } from "../../hooks/useLiquidFeeRate";
+import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useBoltzSwapStore } from "../../store/useBoltzSwapStore";
 import tw from "../../styles/tailwind";
 import { usePostReverseSubmarineSwap } from "../../utils/boltz/query/usePostReverseSubmarineSwap";
 import { useSwapStatus } from "../../utils/boltz/query/useSwapStatus";
 import i18n from "../../utils/i18n";
+import { error } from "../../utils/log/error";
+import { parseError } from "../../utils/parseError";
 import { useWalletState } from "../../utils/wallet/walletStore";
-import { useLightningWalletBalance } from "../wallet/hooks/useLightningWalletBalance";
+import {
+  MSAT_PER_SAT,
+  useLightningWalletBalance,
+} from "../wallet/hooks/useLightningWalletBalance";
 import { usePayInvoice } from "../wallet/hooks/usePayInvoice";
 import { ClaimReverseSubmarineSwap } from "./components/ClaimReverseSubmarineSwap";
 
@@ -34,10 +40,11 @@ export const ReverseSubmarineSwap = ({ offerId, address, amount }: Props) => {
   const amountWithTxFees = minerFees
     ? minerFees / SATSINBTC + amount
     : undefined;
-  const { data, error } = usePostReverseSubmarineSwap({
-    address,
-    amount: amountWithTxFees,
-  });
+  const { data, error: postReverseSubmarineError } =
+    usePostReverseSubmarineSwap({
+      address,
+      amount: amountWithTxFees,
+    });
   const swapInfo = data?.swapInfo;
   const { status } = useSwapStatus({ id: swapInfo?.id });
   const [saveSwap, mapSwap] = useBoltzSwapStore(
@@ -63,7 +70,8 @@ export const ReverseSubmarineSwap = ({ offerId, address, amount }: Props) => {
     saveSwap,
   ]);
 
-  if (error?.message) return <ErrorBox>{error.message}</ErrorBox>;
+  if (postReverseSubmarineError?.message)
+    return <ErrorBox>{postReverseSubmarineError.message}</ErrorBox>;
   if (!swapInfo?.invoice) return <Loading />;
 
   if (!!data && status?.status === "transaction.mempool")
@@ -84,7 +92,7 @@ export const ReverseSubmarineSwap = ({ offerId, address, amount }: Props) => {
       <FundFromPeachLightningWalletButton
         invoice={swapInfo.invoice}
         address={address}
-        amount={amount}
+        onchainAmount={amount}
       />
     </>
   );
@@ -93,13 +101,14 @@ export const ReverseSubmarineSwap = ({ offerId, address, amount }: Props) => {
 type FundFromPeachLightningWalletButtonProps = {
   invoice: string;
   address: string;
-  amount: number;
+  onchainAmount: number;
 };
 function FundFromPeachLightningWalletButton({
   invoice,
   address,
-  amount,
+  onchainAmount,
 }: FundFromPeachLightningWalletButtonProps) {
+  const showErrorBanner = useShowErrorBanner();
   const [fundedFromPeachWallet, setFundedFromPeachWallet] = useWalletState(
     (state) => [
       state.isFundedFromPeachWallet(address),
@@ -107,20 +116,29 @@ function FundFromPeachLightningWalletButton({
     ],
     shallow,
   );
-  const amountSats = amount * SATSINBTC;
   const paymentRequest = useMemo(() => bolt11.decode(invoice), [invoice]);
+  const amount = useMemo(() => {
+    if (!paymentRequest.millisatoshis) return onchainAmount * SATSINBTC;
+    return Number(paymentRequest.millisatoshis) / MSAT_PER_SAT;
+  }, [onchainAmount, paymentRequest.millisatoshis]);
   const { balance } = useLightningWalletBalance();
   const { payInvoice, isPayingInvoice } = usePayInvoice({
     paymentRequest,
-    amount,
+    amount: amount * MSAT_PER_SAT,
   });
   const onButtonPress = () => {
-    payInvoice().then((data) => {
-      if (data.status !== PaymentStatus.FAILED)
-        setFundedFromPeachWallet(address);
-    });
+    payInvoice()
+      .then((data) => {
+        if (data.status !== PaymentStatus.FAILED)
+          setFundedFromPeachWallet(address);
+      })
+      .catch((e) => {
+        error(parseError(e));
+        showErrorBanner("LIGHTNING_PAYMENT_FAILED");
+      });
   };
 
+  console.log("balance.lightning", balance.lightning);
   return (
     <>
       {fundedFromPeachWallet ? (
@@ -136,7 +154,7 @@ function FundFromPeachLightningWalletButton({
           textColor={tw.color("primary-main")}
           iconId="sell"
           onPress={onButtonPress}
-          disabled={balance.lightning <= amountSats}
+          disabled={balance.lightning <= amount}
           loading={isPayingInvoice}
         >
           {i18n("fundFromPeachWallet.button")}

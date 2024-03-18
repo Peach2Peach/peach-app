@@ -9,6 +9,15 @@ exports[`ConfirmationSummaryItem renders correctly when confirmed 1`] = `
 />
 `;
 
+exports[`ConfirmationSummaryItem renders correctly when failed 1`] = `
+<TextSummaryItem
+  iconColor="#DF321F"
+  iconId="xCircle"
+  text="wallet.transaction.failed"
+  title="status"
+/>
+`;
+
 exports[`ConfirmationSummaryItem renders correctly when pending 1`] = `
 <TextSummaryItem
   iconColor="#9F8C82"

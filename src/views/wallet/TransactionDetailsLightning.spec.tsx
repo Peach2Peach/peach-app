@@ -1,4 +1,4 @@
-import { PaymentType } from "@breeztech/react-native-breez-sdk";
+import { PaymentStatus, PaymentType } from "@breeztech/react-native-breez-sdk";
 import { render, waitFor } from "test-utils";
 import {
   lightningInvoice,
@@ -46,6 +46,19 @@ describe("TransactionDetailsLightning", () => {
     });
     const { getByText, toJSON } = render(<TransactionDetailsLightning />);
     await waitFor(() => expect(getByText("received to wallet")).toBeDefined());
+
+    expect(toJSON()).toMatchSnapshot();
+  });
+  it("should render correctly with failed payment", async () => {
+    paymentByHashMock.mockResolvedValueOnce({
+      ...lnPayment,
+      status: PaymentStatus.PENDING,
+      error: "oops",
+    });
+    const { getByText, toJSON } = render(<TransactionDetailsLightning />);
+    await waitFor(() =>
+      expect(getByText("wallet.transaction.failed")).toBeDefined(),
+    );
 
     expect(toJSON()).toMatchSnapshot();
   });

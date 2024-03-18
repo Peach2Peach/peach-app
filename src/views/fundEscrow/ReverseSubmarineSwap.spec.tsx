@@ -1,5 +1,5 @@
 import bolt11 from "bolt11";
-import { fireEvent, render } from "test-utils";
+import { fireEvent, render, waitFor } from "test-utils";
 import {
   reverseSwapResponse,
   swapStatusCreated,
@@ -10,13 +10,14 @@ import {
   nodeInfo,
 } from "../../../tests/unit/data/lightningNetworkData";
 import { liquidAddresses } from "../../../tests/unit/data/liquidNetworkData";
+import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
 import { SATSINBTC } from "../../constants";
 import { useBoltzSwapStore } from "../../store/useBoltzSwapStore";
 import { MSAT_PER_SAT } from "../wallet/hooks/useLightningWalletBalance";
 import { ReverseSubmarineSwap } from "./ReverseSubmarineSwap";
 
 jest.mock("@breeztech/react-native-breez-sdk");
-jest
+const nodeInfoMock = jest
   .requireMock("@breeztech/react-native-breez-sdk")
   .nodeInfo.mockResolvedValue(nodeInfo);
 
@@ -57,11 +58,18 @@ describe("ReverseSubmarineSwap", () => {
     amount: 0.0003,
   };
 
+  afterEach(() => {
+    queryClient.clear();
+  });
   it("should render correctly", () => {
     const { toJSON } = render(<ReverseSubmarineSwap {...props} />);
     expect(toJSON()).toMatchSnapshot();
   });
   it("should disable fund from peach wallet button when not enough balance", async () => {
+    nodeInfoMock.mockReturnValueOnce({
+      ...nodeInfo,
+      channelsBalanceMsat: 0,
+    });
     const { getByText } = render(
       <ReverseSubmarineSwap
         {...{
@@ -94,12 +102,18 @@ describe("ReverseSubmarineSwap", () => {
     expect(toJSON()).toMatchSnapshot();
   });
 
-  it("should fund from peach lightning wallet", () => {
+  it("should fund from peach lightning wallet", async () => {
     const { getByText } = render(<ReverseSubmarineSwap {...props} />);
     expect(usePayInvoiceMock).toHaveBeenCalledWith({
       paymentRequest: bolt11.decode(reverseSwapResponse.invoice),
-      amount: 0.0003,
+      amount: 30496000,
     });
+    await waitFor(() =>
+      expect(
+        getByText("fund from Peach wallet").parent?.parent?.parent?.props
+          .accessibilityState.disabled,
+      ).toBeFalsy(),
+    );
     fireEvent.press(getByText("fund from Peach wallet"));
     expect(payInvoiceMock).toHaveBeenCalled();
   });

@@ -1,4 +1,8 @@
-import { Payment, PaymentType } from "@breeztech/react-native-breez-sdk";
+import {
+  Payment,
+  PaymentStatus,
+  PaymentType,
+} from "@breeztech/react-native-breez-sdk";
 import { View } from "react-native";
 import { Divider } from "../../components/Divider";
 import { PeachScrollView } from "../../components/PeachScrollView";
@@ -6,6 +10,7 @@ import { Screen } from "../../components/Screen";
 import { AmountSummaryItem } from "../../components/summaryItem";
 import { ConfirmationSummaryItem } from "../../components/summaryItem/ConfirmationSummaryItem";
 import { CopyableSummaryItem } from "../../components/summaryItem/CopyableSummaryItem";
+import { ErrorBox } from "../../components/ui/ErrorBox";
 import { MSINASECOND } from "../../constants";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
@@ -36,7 +41,16 @@ export const TransactionDetailsInfoLightning = ({
 
     <Divider />
 
-    <ConfirmationSummaryItem confirmed={true} />
+    <ConfirmationSummaryItem
+      confirmed={transactionDetails.status === PaymentStatus.COMPLETE}
+      failed={
+        !!transactionDetails.error ||
+        transactionDetails.status === PaymentStatus.FAILED
+      }
+    />
+    {transactionDetails.error && (
+      <ErrorBox>{transactionDetails.error}</ErrorBox>
+    )}
     <CopyableSummaryItem
       title={i18n("time")}
       text={toShortDateFormat(transactionSummary.date, true)}
