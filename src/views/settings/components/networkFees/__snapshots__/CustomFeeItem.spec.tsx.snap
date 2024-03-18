@@ -48,9 +48,11 @@ exports[`CustomFeeItem renders correctly 1`] = `
           "width": 64,
         },
         {
-          "backgroundColor": "#FFFCFA",
           "borderColor": "#7D675E",
           "borderWidth": 1,
+        },
+        {
+          "backgroundColor": "#FFFCFA",
         },
       ]
     }
@@ -105,7 +107,7 @@ exports[`CustomFeeItem renders correctly when disabled 1`] = `
 - First value
 + Second value
 
-@@ -51,11 +51,11 @@
+@@ -53,11 +53,11 @@
           },
         ]
       }

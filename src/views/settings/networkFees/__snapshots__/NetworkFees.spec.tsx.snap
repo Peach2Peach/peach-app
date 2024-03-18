@@ -247,15 +247,12 @@ exports[`NetworkFees should render correctly 1`] = `
             >
               <View
                 style={
-                  [
-                    {
-                      "flexDirection": "row",
-                      "justifyContent": "center",
-                    },
-                    {
-                      "marginBottom": 16,
-                    },
-                  ]
+                  {
+                    "flexDirection": "row",
+                    "gap": 16,
+                    "justifyContent": "space-between",
+                    "marginBottom": 16,
+                  }
                 }
               >
                 <View
@@ -263,7 +260,7 @@ exports[`NetworkFees should render correctly 1`] = `
                     {
                       "busy": undefined,
                       "checked": undefined,
-                      "disabled": undefined,
+                      "disabled": true,
                       "expanded": undefined,
                       "selected": undefined,
                     }
@@ -288,66 +285,61 @@ exports[`NetworkFees should render correctly 1`] = `
                   onStartShouldSetResponder={[Function]}
                   style={
                     {
-                      "flexShrink": 1,
+                      "alignItems": "center",
+                      "backgroundColor": "transparent",
+                      "borderColor": "#F56522",
+                      "borderRadius": 8,
+                      "borderWidth": 1,
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "center",
                       "opacity": 1,
+                      "paddingBottom": 2,
                       "paddingLeft": 8,
                       "paddingRight": 8,
+                      "paddingTop": 2,
                     }
                   }
                 >
-                  <View
-                    style={
-                      {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                      }
-                    }
-                  >
-                    <Text
-                      allowFontScaling={false}
-                      style={
-                        [
-                          {
-                            "color": "#2B1911",
-                            "fontFamily": "Baloo2-Regular",
-                            "fontSize": 16,
-                            "letterSpacing": 0.16,
-                            "lineHeight": 24,
-                          },
-                          [
-                            {
-                              "fontFamily": "Baloo2-Bold",
-                              "fontSize": 16,
-                              "letterSpacing": 0.16,
-                              "lineHeight": 20,
-                              "paddingBottom": 8,
-                              "paddingLeft": 16,
-                              "paddingRight": 16,
-                              "paddingTop": 8,
-                              "textAlign": "center",
-                            },
-                            {
-                              "color": "#2B1911",
-                            },
-                            false,
-                          ],
-                          false,
-                        ]
-                      }
-                    >
-                      bitcoin
-                    </Text>
-                  </View>
-                  <View
+                  <Text
+                    allowFontScaling={false}
                     style={
                       [
                         {
-                          "height": 2,
-                          "width": "100%",
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
                         },
+                        [
+                          {
+                            "fontFamily": "Baloo2-SemiBold",
+                            "fontSize": 14,
+                            "letterSpacing": 0.5,
+                            "lineHeight": 24,
+                            "textAlign": "center",
+                            "textTransform": "uppercase",
+                          },
+                          {
+                            "color": "#F56522",
+                          },
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                    wallet.wallet.bitcoin
+                  </Text>
+                  <test-file-stub
+                    fill="#F56522"
+                    style={
+                      [
                         {
-                          "backgroundColor": "#2B1911",
+                          "height": 12,
+                          "width": 12,
                         },
+                        undefined,
                       ]
                     }
                   />
@@ -357,7 +349,7 @@ exports[`NetworkFees should render correctly 1`] = `
                     {
                       "busy": undefined,
                       "checked": undefined,
-                      "disabled": undefined,
+                      "disabled": false,
                       "expanded": undefined,
                       "selected": undefined,
                     }
@@ -382,56 +374,64 @@ exports[`NetworkFees should render correctly 1`] = `
                   onStartShouldSetResponder={[Function]}
                   style={
                     {
-                      "flexShrink": 1,
+                      "alignItems": "center",
+                      "backgroundColor": "transparent",
+                      "borderColor": "#2B1911",
+                      "borderRadius": 8,
+                      "borderWidth": 1,
+                      "flexDirection": "row",
+                      "gap": 4,
+                      "justifyContent": "center",
                       "opacity": 1,
+                      "paddingBottom": 2,
                       "paddingLeft": 8,
                       "paddingRight": 8,
+                      "paddingTop": 2,
                     }
                   }
                 >
-                  <View
+                  <Text
+                    allowFontScaling={false}
                     style={
-                      {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                      }
-                    }
-                  >
-                    <Text
-                      allowFontScaling={false}
-                      style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
                         [
                           {
-                            "color": "#2B1911",
-                            "fontFamily": "Baloo2-Regular",
-                            "fontSize": 16,
-                            "letterSpacing": 0.16,
+                            "fontFamily": "Baloo2-SemiBold",
+                            "fontSize": 14,
+                            "letterSpacing": 0.5,
                             "lineHeight": 24,
+                            "textAlign": "center",
+                            "textTransform": "uppercase",
                           },
-                          [
-                            {
-                              "fontFamily": "Baloo2-Bold",
-                              "fontSize": 16,
-                              "letterSpacing": 0.16,
-                              "lineHeight": 20,
-                              "paddingBottom": 8,
-                              "paddingLeft": 16,
-                              "paddingRight": 16,
-                              "paddingTop": 8,
-                              "textAlign": "center",
-                            },
-                            {
-                              "color": "#7D675E",
-                            },
-                            false,
-                          ],
-                          false,
-                        ]
-                      }
-                    >
-                      liquid
-                    </Text>
-                  </View>
+                          {
+                            "color": "#2B1911",
+                          },
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                    wallet.wallet.liquid
+                  </Text>
+                  <test-file-stub
+                    fill="#2B1911"
+                    style={
+                      [
+                        {
+                          "height": 12,
+                          "width": 12,
+                        },
+                        undefined,
+                      ]
+                    }
+                  />
                 </View>
               </View>
               <View
@@ -916,9 +916,11 @@ exports[`NetworkFees should render correctly 1`] = `
                               "width": 64,
                             },
                             {
-                              "backgroundColor": "#FFFCFA",
                               "borderColor": "#7D675E",
                               "borderWidth": 1,
+                            },
+                            {
+                              "backgroundColor": "#FFFCFA",
                             },
                           ]
                         }

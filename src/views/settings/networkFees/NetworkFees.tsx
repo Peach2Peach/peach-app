@@ -3,12 +3,10 @@ import { View } from "react-native";
 import { Header } from "../../../components/Header";
 import { PeachScrollView } from "../../../components/PeachScrollView";
 import { Screen } from "../../../components/Screen";
+import { NewBubble } from "../../../components/bubble/Bubble";
 import { Button } from "../../../components/buttons/Button";
 import { RadioButtons } from "../../../components/inputs/RadioButtons";
-import {
-  TabbedNavigation,
-  TabbedNavigationItem,
-} from "../../../components/navigation/TabbedNavigation";
+import { TabbedNavigationItem } from "../../../components/navigation/TabbedNavigation";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { PeachText } from "../../../components/text/PeachText";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
@@ -55,6 +53,7 @@ export const NetworkFees = () => {
       rate === "custom" ? (
         <CustomFeeItem
           {...{
+            chain: currentTab.id,
             customFeeRate,
             setCustomFeeRate,
             disabled: selectedFeeRate !== "custom",
@@ -70,16 +69,32 @@ export const NetworkFees = () => {
   return (
     <Screen header={<NetworkFeesHeader />}>
       <PeachScrollView contentContainerStyle={tw`justify-center flex-1`}>
-        <TabbedNavigation
-          style={tw`mb-4`}
-          items={tabs}
-          selected={currentTab}
-          select={setCurrentTab}
-        />
+        <View style={tw`flex-row gap-4 justify-between mb-4 `}>
+          {tabs.map((tab) => (
+            <NewBubble
+              onPress={() => setCurrentTab(tab)}
+              color={tab.id === currentTab.id ? "orange" : "black"}
+              ghost={true}
+              iconId={`${tab.id}Logo`}
+              disabled={tab.id === currentTab.id}
+            >
+              {i18n(`wallet.wallet.${tab.id}`)}
+            </NewBubble>
+          ))}
+        </View>
         <RadioButtons
           items={options}
           selectedValue={selectedFeeRate}
           onButtonPress={setSelectedFeeRate}
+          radioButtonStyle={
+            currentTab.id === "liquid" ? tw`bg-liquid-secondary` : undefined
+          }
+          radioButtonSelectedStyle={
+            currentTab.id === "liquid" ? tw`border-liquid-primary` : undefined
+          }
+          radioIconColor={
+            currentTab.id === "liquid" ? "liquid-primary" : undefined
+          }
         />
         <HorizontalLine style={tw`mt-8`} />
         <PeachText style={tw`mt-4 text-center text-black-65`}>
@@ -95,7 +110,10 @@ export const NetworkFees = () => {
       <Button
         onPress={submit}
         disabled={!isValid || feeRateSet}
-        style={tw`self-center min-w-52`}
+        style={[
+          tw`self-center min-w-52`,
+          currentTab.id === "liquid" && tw`bg-liquid-primary`,
+        ]}
       >
         {i18n(feeRateSet ? "settings.networkFees.feeRateSet" : "confirm")}
       </Button>
