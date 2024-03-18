@@ -1,0 +1,231 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown opens on press 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -38,11 +38,11 @@
+      contentContainerStyle={
+        Object {
+          "paddingLeft": 8,
+        }
+      }
+-     scrollEnabled={true}
++     scrollEnabled={false}
+      showsVerticalScrollIndicator={false}
+      style={
+        Object {
+          "alignSelf": "flex-start",
+          "backgroundColor": "#FFF9F6",
+@@ -83,66 +83,10 @@
+            }
+          >
+            a
+          </Text>
+        </View>
+-       <Text
+-         allowFontScaling={false}
+-         onPress={[Function onPress]}
+-         style={
+-           Array [
+-             Object {
+-               "color": "#2B1911",
+-               "fontFamily": "Baloo2-Regular",
+-               "fontSize": 16,
+-               "letterSpacing": 0.16,
+-               "lineHeight": 24,
+-             },
+-             Object {
+-               "alignItems": "center",
+-               "flexDirection": "row",
+-               "fontFamily": "Baloo2-SemiBold",
+-               "fontSize": 20,
+-               "gap": 4,
+-               "height": 40,
+-               "letterSpacing": 0.2,
+-               "lineHeight": 40,
+-             },
+-             false,
+-           ]
+-         }
+-       >
+-         b
+-       </Text>
+-       <Text
+-         allowFontScaling={false}
+-         onPress={[Function onPress]}
+-         style={
+-           Array [
+-             Object {
+-               "color": "#2B1911",
+-               "fontFamily": "Baloo2-Regular",
+-               "fontSize": 16,
+-               "letterSpacing": 0.16,
+-               "lineHeight": 24,
+-             },
+-             Object {
+-               "alignItems": "center",
+-               "flexDirection": "row",
+-               "fontFamily": "Baloo2-SemiBold",
+-               "fontSize": 20,
+-               "gap": 4,
+-               "height": 40,
+-               "letterSpacing": 0.2,
+-               "lineHeight": 40,
+-             },
+-             false,
+-           ]
+-         }
+-       >
+-         c
+-       </Text>
+      </View>
+    </RCTScrollView>
+    <View
+      accessibilityState={
+        Object {"
+`;
+
+exports[`Dropdown renders correctly 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "flexDirection": "row",
+      "opacity": 1,
+      "zIndex": 1,
+    }
+  }
+>
+  <RCTScrollView
+    contentContainerStyle={
+      {
+        "paddingLeft": 8,
+      }
+    }
+    scrollEnabled={false}
+    showsVerticalScrollIndicator={false}
+    style={
+      {
+        "alignSelf": "flex-start",
+        "backgroundColor": "#FFF9F6",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "maxHeight": 160,
+      }
+    }
+  >
+    <View>
+      <View
+        style={
+          {
+            "height": 40,
+            "paddingRight": 32,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 20,
+                "letterSpacing": 0.2,
+                "lineHeight": 40,
+              },
+              false,
+            ]
+          }
+        >
+          a
+        </Text>
+      </View>
+    </View>
+  </RCTScrollView>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+        "position": "absolute",
+        "right": 8,
+        "top": 8,
+      }
+    }
+  >
+    <test-file-stub
+      fill="#2B1911"
+      style={
+        [
+          {
+            "height": 24,
+            "width": 24,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+</View>
+`;
