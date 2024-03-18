@@ -1,42 +1,43 @@
 import { View } from "react-native";
-import { PeachText } from "../../components/text/PeachText";
+import { IconType } from "../../assets/icons";
+import { NewBubble } from "../../components/bubble/Bubble";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
+import i18n from "../../utils/i18n";
+import { keys } from "../../utils/object/keys";
 
+const WALLETS = {
+  wallet: "bitcoin",
+  liquidWallet: "liquid",
+  lightningWallet: "lightning",
+};
+const logoMap: Record<keyof typeof WALLETS, IconType> = {
+  wallet: "bitcoinLogo",
+  liquidWallet: "liquidLogo",
+  lightningWallet: "lightningLogo",
+};
 export const ChainSelect = ({ current }: { current: Chain }) => {
   const navigation = useStackNavigation();
-  const goToBitcoinWallet = () => {
-    navigation.navigate("homeScreen", { screen: "wallet" });
-  };
-  const goToLiquidWallet = () => {
-    navigation.navigate("homeScreen", { screen: "liquidWallet" });
-  };
-  const goToLightningWallet = () => {
-    navigation.navigate("homeScreen", { screen: "lightningWallet" });
-  };
   return (
     <View style={tw`flex-row gap-4 justify-center p-4`}>
-      <PeachText
-        onPress={goToBitcoinWallet}
-        disabled={current === "bitcoin"}
-        style={current === "bitcoin" ? tw`font-bold` : undefined}
-      >
-        on-chain
-      </PeachText>
-      <PeachText
-        onPress={goToLiquidWallet}
-        disabled={current === "liquid"}
-        style={current === "liquid" ? tw`font-bold` : undefined}
-      >
-        liquid
-      </PeachText>
-      <PeachText
-        onPress={goToLightningWallet}
-        disabled={current === "lightning"}
-        style={current === "lightning" ? tw`font-bold` : undefined}
-      >
-        lightning
-      </PeachText>
+      {keys(WALLETS).map((wallet) => {
+        const chain = WALLETS[wallet];
+        const logo = logoMap[wallet];
+        const isSelected = current === chain;
+        const goToWallet = () =>
+          navigation.navigate("homeScreen", { screen: wallet });
+        return (
+          <NewBubble
+            onPress={goToWallet}
+            color={isSelected ? "orange" : "black"}
+            ghost={true}
+            iconId={logo}
+            disabled={isSelected}
+          >
+            {i18n(`wallet.wallet.${chain}`)}
+          </NewBubble>
+        );
+      })}
     </View>
   );
 };

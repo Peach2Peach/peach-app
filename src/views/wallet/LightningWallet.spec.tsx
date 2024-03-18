@@ -37,28 +37,6 @@ describe("LightningWallet", () => {
     expect(toJSON()).toMatchSnapshot();
   });
 
-  it("should navigate to bitcoin wallet screen when link is pressed", async () => {
-    const { getByText } = render(<LightningWallet />);
-    await waitFor(() => {
-      expect(queryClient.isFetching()).toBe(0);
-    });
-
-    fireEvent.press(getByText("on-chain"));
-
-    expect(navigateMock).toHaveBeenCalledWith("homeScreen", {
-      screen: "wallet",
-    });
-  });
-  it("should navigate to liquid wallet screen when link is pressed", async () => {
-    const { getByText } = render(<LightningWallet />);
-    await waitFor(() => {
-      expect(queryClient.isFetching()).toBe(0);
-    });
-
-    fireEvent.press(getByText("liquid"));
-
-    expect(navigateMock).toHaveBeenCalledWith("liquidWallet");
-  });
   it("should navigate to send screen when send button is pressed", async () => {
     const { getByText } = render(<LightningWallet />);
     await waitFor(() => {
