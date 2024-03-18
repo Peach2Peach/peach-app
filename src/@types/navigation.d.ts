@@ -20,6 +20,8 @@ type TestViews = {
 type HomeTabParamList = {
   home: undefined;
   wallet: undefined;
+  liquidWallet: undefined;
+  lightningWallet: undefined;
   yourTrades: { tab?: TradeTab };
   settings: undefined;
 };
@@ -89,11 +91,9 @@ type RootStackParamList = Onboarding &
     bumpNetworkFees: {
       txId: string;
     };
-    liquidWallet: undefined;
     transactionHistoryLiquid: undefined;
     sendBitcoinLiquid: undefined;
     receiveBitcoinLiquid: undefined;
-    lightningWallet: undefined;
     sendBitcoinLightning: undefined;
     receiveBitcoinLightning: undefined;
     lightningInvoice: {

@@ -3,11 +3,11 @@ import { BackupReminderIcon } from "../../components/BackupReminderIcon";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
-import { PeachText } from "../../components/text/PeachText";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { useLiquidWalletState } from "../../utils/wallet/useLiquidWalletState";
+import { ChainSelect } from "./ChainSelect";
 import { TotalBalance } from "./components";
 import { WalletHeaderLiquid } from "./components/WalletHeaderLiquid";
 import { useSyncLiquidWallet } from "./hooks/useSyncLiquidWallet";
@@ -18,7 +18,7 @@ export const LiquidWallet = () => {
     useSyncLiquidWallet({ enabled: true });
   return (
     <Screen header={<WalletHeaderLiquid />}>
-      <SelectLayer />
+      <ChainSelect current="liquid" />
       <PeachScrollView
         contentContainerStyle={tw`grow`}
         contentStyle={tw`justify-center py-16 grow gap-4`}
@@ -33,23 +33,6 @@ export const LiquidWallet = () => {
     </Screen>
   );
 };
-
-function SelectLayer() {
-  const navigation = useStackNavigation();
-  const goToBitcoinWallet = () => {
-    navigation.navigate("homeScreen", { screen: "wallet" });
-  };
-  const goToLightningWallet = () => {
-    navigation.navigate("lightningWallet");
-  };
-  return (
-    <View style={tw`flex-row gap-4 justify-center p-4`}>
-      <PeachText onPress={goToBitcoinWallet}>on-chain</PeachText>
-      <PeachText style={tw`font-bold`}>liquid</PeachText>
-      <PeachText onPress={goToLightningWallet}>lightning</PeachText>
-    </View>
-  );
-}
 
 function WalletButtons() {
   const navigation = useStackNavigation();

@@ -141,6 +141,8 @@ const FOOTER_ITEMS = {
   wallet: ({ active }: { active: boolean }) => (
     <FooterItem id="wallet" active={active} />
   ),
+  lightningWallet: undefined,
+  liquidWallet: undefined,
   settings: ({ active }: { active: boolean }) => (
     <FooterItem id="settings" active={active} />
   ),
@@ -159,6 +161,7 @@ function Footer() {
     >
       {homeTabNames.map((name) => {
         const Item = FOOTER_ITEMS[name];
+        if (!Item) return undefined;
         return <Item key={name} active={currentPage === name} />;
       })}
     </View>

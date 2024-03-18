@@ -3,10 +3,10 @@ import { BackupReminderIcon } from "../../components/BackupReminderIcon";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
-import { PeachText } from "../../components/text/PeachText";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { ChainSelect } from "./ChainSelect";
 import { TotalBalance, WalletHeader } from "./components";
 import { useLastUnusedAddress, useUTXOs, useWalletAddress } from "./hooks";
 import { useSyncWallet } from "./hooks/useSyncWallet";
@@ -22,7 +22,7 @@ export const Wallet = () => {
 
   return (
     <Screen header={<WalletHeader />}>
-      <SelectLayer />
+      <ChainSelect current="bitcoin" />
       <PeachScrollView
         contentContainerStyle={tw`grow`}
         contentStyle={tw`justify-center py-16 grow`}
@@ -41,22 +41,6 @@ export const Wallet = () => {
   );
 };
 
-function SelectLayer() {
-  const navigation = useStackNavigation();
-  const goToLiquidWallet = () => {
-    navigation.navigate("liquidWallet");
-  };
-  const goToLightningWallet = () => {
-    navigation.navigate("lightningWallet");
-  };
-  return (
-    <View style={tw`flex-row gap-4 justify-center p-4`}>
-      <PeachText style={tw`font-bold`}>on-chain</PeachText>
-      <PeachText onPress={goToLiquidWallet}>liquid</PeachText>
-      <PeachText onPress={goToLightningWallet}>lightning</PeachText>
-    </View>
-  );
-}
 const useAddressPrefetch = () => {
   const { data } = useLastUnusedAddress();
   const displayIndex = data?.index ?? 0;
