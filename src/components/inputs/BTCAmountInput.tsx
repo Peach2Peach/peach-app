@@ -14,10 +14,14 @@ type Props = {
   containerStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   size?: BTCAmountProps["size"];
+  chain?: Chain;
 } & TextInputProps;
 
 export const BTCAmountInput = forwardRef<TextInput, Props>(
-  ({ containerStyle, textStyle, size = "small", ...props }, ref) => (
+  (
+    { containerStyle, textStyle, size = "small", chain = "bitcoin", ...props },
+    ref,
+  ) => (
     <View
       style={[
         containerStyle,
@@ -27,7 +31,7 @@ export const BTCAmountInput = forwardRef<TextInput, Props>(
           tw`border-2 border-primary-main`,
       ]}
     >
-      <BTCAmount size={size} amount={Number(props.value)} />
+      <BTCAmount chain={chain} size={size} amount={Number(props.value)} />
       <TextInput
         {...props}
         ref={ref}

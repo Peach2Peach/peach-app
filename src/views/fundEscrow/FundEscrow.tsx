@@ -72,6 +72,7 @@ export const FundEscrow = () => {
   const [currentTab, setCurrentTab] = useState(tabs[0]);
   const escrowType =
     currentTab.id === "lightning-liquid" ? "liquid" : currentTab.id;
+  const chain = currentTab.id === "lightning-liquid" ? "lightning" : escrowType;
   const fundingAddress = funding[escrowType].fundingAddress;
   const fundingAddresses = funding[escrowType].fundingAddresses;
 
@@ -99,6 +100,7 @@ export const FundEscrow = () => {
               {i18n("sell.escrow.sendSats")}
             </PeachText>
             <BTCAmount
+              chain={chain}
               style={tw`-mt-0.5`}
               amount={fundingAmount}
               size="medium"

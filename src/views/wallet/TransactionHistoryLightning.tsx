@@ -56,7 +56,10 @@ const LightningPayment = ({ payment }: { payment: Payment }) => {
         />
       }
       amountInfo={
-        <BitcoinAmountInfo amount={payment.amountMsat / MSAT_PER_SAT} />
+        <BitcoinAmountInfo
+          chain="lightning"
+          amount={payment.amountMsat / MSAT_PER_SAT}
+        />
       }
     />
   );

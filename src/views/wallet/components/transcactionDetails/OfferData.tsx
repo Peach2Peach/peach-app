@@ -16,6 +16,7 @@ type OfferDataProps = ComponentProps & {
   currency?: Currency;
   address?: string;
   type: TransactionType;
+  chain: Chain;
   transactionDetails: Transaction | LiquidTransaction;
 };
 export const OfferData = ({
@@ -24,6 +25,7 @@ export const OfferData = ({
   amount: offerAmount,
   address,
   type,
+  chain,
   transactionDetails,
   ...componentProps
 }: OfferDataProps) => {
@@ -36,7 +38,7 @@ export const OfferData = ({
   );
   return (
     <View style={tw`gap-4`} {...componentProps}>
-      <AmountSummaryItem amount={amount} />
+      <AmountSummaryItem chain={chain} amount={amount} />
 
       {price && currency && type !== "REFUND" && (
         <CopyableSummaryItem

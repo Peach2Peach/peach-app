@@ -114,24 +114,36 @@ const TradeStatusInfo = memo(({ item, iconId, color }: Props & TradeTheme) => {
   );
 });
 const AmountInfo = memo(({ item }: Props) => {
-  const { type, amount, currency, premium, price } = getInfoPropsWithType({
-    amount: item.amount,
-    currency: "currency" in item ? item.currency : undefined,
-    premium:
-      "premium" in item && typeof item.premium === "number"
-        ? item.premium
-        : undefined,
-    price: "price" in item ? item.price : undefined,
-    replaced: "newTradeId" in item && !!item.newTradeId,
-  });
+  const { type, amount, currency, premium, price, escrowType } =
+    getInfoPropsWithType({
+      amount: item.amount,
+      escrowType: item.escrowType,
+      currency: "currency" in item ? item.currency : undefined,
+      premium:
+        "premium" in item && typeof item.premium === "number"
+          ? item.premium
+          : undefined,
+      price: "price" in item ? item.price : undefined,
+      replaced: "newTradeId" in item && !!item.newTradeId,
+    });
+  const chain = escrowType || "bitcoin";
   return (
     <>
       {type === "range" ? (
-        <RangeInfo amount={amount} />
+        <RangeInfo chain={chain} amount={amount} />
       ) : type === "fiatAmount" ? (
-        <FiatAmountInfo amount={amount} currency={currency} price={price} />
+        <FiatAmountInfo
+          chain={chain}
+          amount={amount}
+          currency={currency}
+          price={price}
+        />
       ) : type === "amount" ? (
-        <BitcoinAmountInfo amount={amount} premium={premium} />
+        <BitcoinAmountInfo
+          chain={item.escrowType}
+          amount={amount}
+          premium={premium}
+        />
       ) : undefined}
     </>
   );
@@ -180,16 +192,22 @@ function ReplacedTradeStatusInfo({
   );
 }
 
-function RangeInfo({ amount }: { amount: [number, number] }) {
+function RangeInfo({
+  amount,
+  chain,
+}: {
+  amount: [number, number];
+  chain: Chain;
+}) {
   return (
     <View style={tw`items-center -gap-1`}>
-      <BTCAmount size="small" amount={amount[0]} />
+      <BTCAmount chain={chain} size="small" amount={amount[0]} />
       <PeachText
         style={tw`font-baloo-medium text-12px leading-19px text-black-50`}
       >
         ~
       </PeachText>
-      <BTCAmount size="small" amount={amount[1]} />
+      <BTCAmount chain={chain} size="small" amount={amount[1]} />
     </View>
   );
 }
@@ -199,14 +217,16 @@ function FiatAmountInfo({
   amount,
   currency,
   price,
+  chain,
 }: {
   amount: number;
   currency: Currency;
   price: number;
+  chain: Chain;
 }) {
   return (
     <View style={[infoContainerStyle, tw`gap-6px`]}>
-      <BTCAmount size="small" amount={amount} />
+      <BTCAmount chain={chain} size="small" amount={amount} />
       <FixedHeightText style={tw`body-m text-black-65`} height={17}>
         {currency === "SAT"
           ? groupChars(String(price), GROUP_SIZE)
@@ -219,6 +239,7 @@ function FiatAmountInfo({
 
 type InfoProps = {
   amount?: number | [number, number];
+  escrowType?: EscrowType;
   price?: number;
   premium?: number;
   currency?: Currency;

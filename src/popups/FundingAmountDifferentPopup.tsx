@@ -29,11 +29,19 @@ export function FundingAmountDifferentPopup({
           <PeachText>
             {i18n("warning.fundingAmountDifferent.description.1")}
           </PeachText>
-          <BTCAmount amount={actualAmount} size="medium" />
+          <BTCAmount
+            chain={sellOffer.escrowType}
+            amount={actualAmount}
+            size="medium"
+          />
           <PeachText>
             {i18n("warning.fundingAmountDifferent.description.2")}
           </PeachText>
-          <BTCAmount amount={sellOffer.amount} size="medium" />
+          <BTCAmount
+            chain={sellOffer.escrowType}
+            amount={sellOffer.amount}
+            size="medium"
+          />
           <PeachText>
             {i18n(
               "warning.fundingAmountDifferent.description.3",

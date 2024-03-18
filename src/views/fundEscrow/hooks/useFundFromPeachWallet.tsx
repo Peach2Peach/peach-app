@@ -218,11 +218,11 @@ function AmountTooLowPopup({
           <PeachText>
             {i18n("fundFromPeachWallet.amountTooLow.description.1")}
           </PeachText>
-          <BTCAmount amount={available} size="medium" />
+          <BTCAmount chain="bitcoin" amount={available} size="medium" />
           <PeachText>
             {i18n("fundFromPeachWallet.amountTooLow.description.2")}
           </PeachText>
-          <BTCAmount amount={needed} size="medium" />
+          <BTCAmount chain="bitcoin" amount={needed} size="medium" />
         </View>
       }
       actions={<ClosePopupAction style={tw`justify-center`} />}

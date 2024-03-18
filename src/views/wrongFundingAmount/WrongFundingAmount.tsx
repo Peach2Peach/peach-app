@@ -53,7 +53,11 @@ function WrongFundingAmountSummary({ sellOffer }: Props) {
       />
       <View style={tw`gap-1`}>
         <LabelAndAmount label={i18n("escrow.funded")} amount={actualAmount} />
-        <LabelAndAmount label={i18n("amount")} amount={fundingAmount} />
+        <LabelAndAmount
+          label={i18n("amount")}
+          amount={fundingAmount}
+          chain={sellOffer.escrowType}
+        />
       </View>
       <PeachText style={tw`body-s`}>
         {i18n(
@@ -75,13 +79,14 @@ function WrongFundingAmountSummary({ sellOffer }: Props) {
 type LabelAndAmountProps = {
   label: string;
   amount: number;
+  chain: Chain;
 };
 
-function LabelAndAmount({ label, amount }: LabelAndAmountProps) {
+function LabelAndAmount({ label, amount, chain }: LabelAndAmountProps) {
   return (
     <View style={tw`flex-row`}>
       <PeachText style={tw`w-20 text-black-50`}>{label}</PeachText>
-      <BTCAmount amount={amount} size="small" />
+      <BTCAmount chain={chain} amount={amount} size="small" />
     </View>
   );
 }

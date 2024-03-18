@@ -74,6 +74,7 @@ export const TestViewLiquidWallet = () => {
             {i18n("wallet.totalBalance")}:
           </PeachText>
           <BTCAmount
+            chain="liquid"
             style={[tw`self-center`, isRefetching && tw`opacity-60`]}
             amount={balance}
             size="large"

@@ -138,7 +138,7 @@ function ExploreCard({ match }: { match: Match }) {
           ]}
         >
           <Rating rating={user.rating} isNewUser={isNewUser} />
-          <BTCAmount amount={amount} size="small" />
+          <BTCAmount chain={match.escrowType} amount={amount} size="small" />
         </View>
         <View
           style={[

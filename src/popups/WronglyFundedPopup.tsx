@@ -29,11 +29,19 @@ export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
         <PeachText>
           {i18n("warning.fundingAmountDifferent.description.1")}
         </PeachText>
-        <BTCAmount amount={funding.amounts.reduce(sum, 0)} size="medium" />
+        <BTCAmount
+          chain={sellOffer.escrowType}
+          amount={funding.amounts.reduce(sum, 0)}
+          size="medium"
+        />
         <PeachText>
           {i18n("warning.fundingAmountDifferent.description.2")}
         </PeachText>
-        <BTCAmount amount={sellOffer.amount} size="medium" />
+        <BTCAmount
+          chain={sellOffer.escrowType}
+          amount={sellOffer.amount}
+          size="medium"
+        />
         <PeachText>
           {i18n(
             "warning.wrongFundingAmount.description",

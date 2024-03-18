@@ -97,6 +97,7 @@ export const Match = ({
             amount={amount}
             price={matchedPrice}
             currency={selectedCurrency}
+            chain={match.escrowType}
           />
 
           <HorizontalLine />
@@ -349,9 +350,10 @@ type PriceInfoProps = {
   amount: number;
   price: number | null;
   currency?: Currency;
+  chain: Chain;
 };
 
-function SellerPriceInfo({ amount, price, currency }: PriceInfoProps) {
+function SellerPriceInfo({ amount, price, currency, chain }: PriceInfoProps) {
   const { data: priceBook } = useMarketPrices();
   if (!price || !currency) return null;
 
@@ -366,6 +368,7 @@ function SellerPriceInfo({ amount, price, currency }: PriceInfoProps) {
       price={price}
       currency={currency}
       premium={premium}
+      chain={chain}
     />
   );
 }

@@ -74,7 +74,11 @@ function MatchInformation({ offer }: { offer: SellOffer }) {
         {i18n("search.sellOffer")}:
       </PeachText>
       <View style={tw`flex-row items-center justify-center`}>
-        <BTCAmount amount={offer.amount} size="medium" />
+        <BTCAmount
+          chain={offer.escrowType}
+          amount={offer.amount}
+          size="medium"
+        />
         {offer.premium !== undefined && (
           <PeachText style={[tw`leading-loose body-l`, color]}>
             {" "}

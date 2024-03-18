@@ -13,13 +13,14 @@ type Props = {
   price: number;
   currency: Currency;
   premium: number;
+  chain: Chain;
 };
-export function PriceInfo({ amount, price, currency, premium }: Props) {
+export function PriceInfo({ amount, price, currency, premium, chain }: Props) {
   const btcPrice = Math.round((price / amount) * SATSINBTC);
   return (
     <View style={tw`items-center`}>
       <View style={tw`items-center justify-center h-7`}>
-        <BTCAmount amount={amount} size="medium" />
+        <BTCAmount chain={chain} amount={amount} size="medium" />
       </View>
       <PeachText style={tw`text-center`}>
         <PriceFormat

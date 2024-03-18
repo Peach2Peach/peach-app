@@ -52,6 +52,9 @@ function TradeBreakdown({
       releaseAddress,
       inputAmount: amount,
     });
+  const chain = isLiquidAddress(releaseAddress, getLiquidNetwork())
+    ? "liquid"
+    : "bitcoin";
 
   const data = [
     [
@@ -92,7 +95,7 @@ function TradeBreakdown({
                 <PeachText style={tw`subtitle-1 text-black-65 shrink`}>
                   {item.text}
                 </PeachText>
-                <BTCAmount amount={item.amount} size="small" />
+                <BTCAmount chain={chain} amount={item.amount} size="small" />
               </View>
             ))}
           </View>

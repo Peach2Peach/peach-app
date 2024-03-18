@@ -45,7 +45,11 @@ export const OutputInfo = ({
               <OfferData
                 onLayout={adjustHeight}
                 {...offer}
-                {...{ type, transactionDetails }}
+                {...{
+                  type,
+                  chain: transactionSummary.chain,
+                  transactionDetails,
+                }}
               />
             )}
           />
@@ -57,13 +61,19 @@ export const OutputInfo = ({
       <OfferData
         key={`tab-screen-${getOfferDataId(offerData[0])}`}
         {...offerData[0]}
-        {...{ type, transactionDetails }}
+        {...{ type, chain: transactionSummary.chain, transactionDetails }}
       />
     );
   }
   return (
     <OfferData
-      {...{ address: receivingAddress, amount, type, transactionDetails }}
+      {...{
+        address: receivingAddress,
+        amount,
+        type,
+        chain: transactionSummary.chain,
+        transactionDetails,
+      }}
     />
   );
 };

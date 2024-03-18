@@ -276,6 +276,7 @@ type Match = {
   offerId: string;
   amount: number;
   escrow?: string;
+  escrowType: EscrowType;
   prices: Pricebook;
   matchedPrice: number | null;
   premium: number;

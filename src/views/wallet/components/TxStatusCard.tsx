@@ -34,7 +34,7 @@ export const TxStatusCard = ({
           subtext={getShortDateFormat(date)}
         />
       }
-      amountInfo={<BitcoinAmountInfo amount={amount} />}
+      amountInfo={<BitcoinAmountInfo chain={chain} amount={amount} />}
     />
   );
 };

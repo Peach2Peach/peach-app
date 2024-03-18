@@ -37,7 +37,7 @@ export const TransactionDetailsInfoLightning = ({
         text={transactionDetails.description}
       />
     )}
-    <AmountSummaryItem amount={transactionSummary.amount} />
+    <AmountSummaryItem chain="lightning" amount={transactionSummary.amount} />
 
     <Divider />
 

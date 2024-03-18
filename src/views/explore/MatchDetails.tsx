@@ -208,9 +208,6 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
               <HorizontalLine />
 
               <EscrowLink address={match.escrow || ""} />
-              <PeachText style={tw`text-center`}>
-                escrowType: {match.escrowType}
-              </PeachText>
             </View>
             {isMatched && (
               <>
@@ -424,6 +421,7 @@ function BuyerPriceInfo({
       price={displayPrice}
       currency={selectedCurrency}
       premium={premium}
+      chain={match.escrowType}
     />
   );
 }
