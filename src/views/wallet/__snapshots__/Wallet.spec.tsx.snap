@@ -299,64 +299,273 @@ exports[`Wallet should render correctly 1`] = `
             }
           }
         >
-          <Text
-            allowFontScaling={false}
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": true,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                {
-                  "fontWeight": "bold",
-                },
-                false,
-              ]
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderColor": "#F56522",
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "flexDirection": "row",
+                "gap": 4,
+                "justifyContent": "center",
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 2,
+              }
             }
           >
-            on-chain
-          </Text>
-          <Text
-            allowFontScaling={false}
-            onPress={[Function]}
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.5,
+                      "lineHeight": 24,
+                      "textAlign": "center",
+                      "textTransform": "uppercase",
+                    },
+                    {
+                      "color": "#F56522",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              wallet.wallet.bitcoin
+            </Text>
+            <test-file-stub
+              fill="#F56522"
+              style={
+                [
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                  undefined,
+                ]
+              }
+            />
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                undefined,
-                false,
-              ]
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderColor": "#2B1911",
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "flexDirection": "row",
+                "gap": 4,
+                "justifyContent": "center",
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 2,
+              }
             }
           >
-            liquid
-          </Text>
-          <Text
-            allowFontScaling={false}
-            onPress={[Function]}
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.5,
+                      "lineHeight": 24,
+                      "textAlign": "center",
+                      "textTransform": "uppercase",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              wallet.wallet.liquid
+            </Text>
+            <test-file-stub
+              fill="#2B1911"
+              style={
+                [
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                  undefined,
+                ]
+              }
+            />
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                undefined,
-                false,
-              ]
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderColor": "#2B1911",
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "flexDirection": "row",
+                "gap": 4,
+                "justifyContent": "center",
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 2,
+              }
             }
           >
-            lightning
-          </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.5,
+                      "lineHeight": 24,
+                      "textAlign": "center",
+                      "textTransform": "uppercase",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              wallet.wallet.lightning
+            </Text>
+            <test-file-stub
+              fill="#2B1911"
+              style={
+                [
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                  undefined,
+                ]
+              }
+            />
+          </View>
         </View>
         <RCTScrollView
           contentContainerStyle={
@@ -1482,64 +1691,273 @@ exports[`Wallet should render correctly when loading 1`] = `
             }
           }
         >
-          <Text
-            allowFontScaling={false}
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": true,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                {
-                  "fontWeight": "bold",
-                },
-                false,
-              ]
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderColor": "#F56522",
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "flexDirection": "row",
+                "gap": 4,
+                "justifyContent": "center",
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 2,
+              }
             }
           >
-            on-chain
-          </Text>
-          <Text
-            allowFontScaling={false}
-            onPress={[Function]}
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.5,
+                      "lineHeight": 24,
+                      "textAlign": "center",
+                      "textTransform": "uppercase",
+                    },
+                    {
+                      "color": "#F56522",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              wallet.wallet.bitcoin
+            </Text>
+            <test-file-stub
+              fill="#F56522"
+              style={
+                [
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                  undefined,
+                ]
+              }
+            />
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                undefined,
-                false,
-              ]
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderColor": "#2B1911",
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "flexDirection": "row",
+                "gap": 4,
+                "justifyContent": "center",
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 2,
+              }
             }
           >
-            liquid
-          </Text>
-          <Text
-            allowFontScaling={false}
-            onPress={[Function]}
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.5,
+                      "lineHeight": 24,
+                      "textAlign": "center",
+                      "textTransform": "uppercase",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              wallet.wallet.liquid
+            </Text>
+            <test-file-stub
+              fill="#2B1911"
+              style={
+                [
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                  undefined,
+                ]
+              }
+            />
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                undefined,
-                false,
-              ]
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderColor": "#2B1911",
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "flexDirection": "row",
+                "gap": 4,
+                "justifyContent": "center",
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 2,
+              }
             }
           >
-            lightning
-          </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.5,
+                      "lineHeight": 24,
+                      "textAlign": "center",
+                      "textTransform": "uppercase",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              wallet.wallet.lightning
+            </Text>
+            <test-file-stub
+              fill="#2B1911"
+              style={
+                [
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                  undefined,
+                ]
+              }
+            />
+          </View>
         </View>
         <RCTScrollView
           contentContainerStyle={

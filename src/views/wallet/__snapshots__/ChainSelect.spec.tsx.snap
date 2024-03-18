@@ -1,0 +1,499 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChainSelect should render correctly when bitcoin is selected 1`] = `
+<View
+  style={
+    {
+      "flexDirection": "row",
+      "gap": 16,
+      "justifyContent": "center",
+      "paddingBottom": 16,
+      "paddingLeft": 16,
+      "paddingRight": 16,
+      "paddingTop": 16,
+    }
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": true,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderColor": "#F56522",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "opacity": 1,
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.5,
+              "lineHeight": 24,
+              "textAlign": "center",
+              "textTransform": "uppercase",
+            },
+            {
+              "color": "#F56522",
+            },
+          ],
+          false,
+        ]
+      }
+    >
+      wallet.wallet.bitcoin
+    </Text>
+    <test-file-stub
+      fill="#F56522"
+      style={
+        [
+          {
+            "height": 12,
+            "width": 12,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderColor": "#2B1911",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "opacity": 1,
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.5,
+              "lineHeight": 24,
+              "textAlign": "center",
+              "textTransform": "uppercase",
+            },
+            {
+              "color": "#2B1911",
+            },
+          ],
+          false,
+        ]
+      }
+    >
+      wallet.wallet.liquid
+    </Text>
+    <test-file-stub
+      fill="#2B1911"
+      style={
+        [
+          {
+            "height": 12,
+            "width": 12,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderColor": "#2B1911",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "opacity": 1,
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.5,
+              "lineHeight": 24,
+              "textAlign": "center",
+              "textTransform": "uppercase",
+            },
+            {
+              "color": "#2B1911",
+            },
+          ],
+          false,
+        ]
+      }
+    >
+      wallet.wallet.lightning
+    </Text>
+    <test-file-stub
+      fill="#2B1911"
+      style={
+        [
+          {
+            "height": 12,
+            "width": 12,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+</View>
+`;
+
+exports[`ChainSelect should render correctly when lightning is selected 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -14,11 +14,11 @@
+    <View
+      accessibilityState={
+        Object {
+          "busy": undefined,
+          "checked": undefined,
+-         "disabled": false,
++         "disabled": true,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+@@ -41,11 +41,11 @@
+      onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+-         "borderColor": "#2B1911",
++         "borderColor": "#F56522",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "center",
+@@ -76,21 +76,21 @@
+                "lineHeight": 24,
+                "textAlign": "center",
+                "textTransform": "uppercase",
+              },
+              Object {
+-               "color": "#2B1911",
++               "color": "#F56522",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        wallet.wallet.bitcoin
+      </Text>
+      <test-file-stub
+-       fill="#2B1911"
++       fill="#F56522"
+        style={
+          Array [
+            Object {
+              "height": 12,
+              "width": 12,
+@@ -192,11 +192,11 @@
+    <View
+      accessibilityState={
+        Object {
+          "busy": undefined,
+          "checked": undefined,
+-         "disabled": true,
++         "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+@@ -219,11 +219,11 @@
+      onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+-         "borderColor": "#F56522",
++         "borderColor": "#2B1911",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "center",
+@@ -254,21 +254,21 @@
+                "lineHeight": 24,
+                "textAlign": "center",
+                "textTransform": "uppercase",
+              },
+              Object {
+-               "color": "#F56522",
++               "color": "#2B1911",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        wallet.wallet.lightning
+      </Text>
+      <test-file-stub
+-       fill="#F56522"
++       fill="#2B1911"
+        style={
+          Array [
+            Object {
+              "height": 12,
+              "width": 12,"
+`;
+
+exports[`ChainSelect should render correctly when liquid is selected 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -14,11 +14,11 @@
+    <View
+      accessibilityState={
+        Object {
+          "busy": undefined,
+          "checked": undefined,
+-         "disabled": false,
++         "disabled": true,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+@@ -41,11 +41,11 @@
+      onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+-         "borderColor": "#2B1911",
++         "borderColor": "#F56522",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "center",
+@@ -76,21 +76,21 @@
+                "lineHeight": 24,
+                "textAlign": "center",
+                "textTransform": "uppercase",
+              },
+              Object {
+-               "color": "#2B1911",
++               "color": "#F56522",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        wallet.wallet.bitcoin
+      </Text>
+      <test-file-stub
+-       fill="#2B1911"
++       fill="#F56522"
+        style={
+          Array [
+            Object {
+              "height": 12,
+              "width": 12,
+@@ -103,11 +103,11 @@
+    <View
+      accessibilityState={
+        Object {
+          "busy": undefined,
+          "checked": undefined,
+-         "disabled": true,
++         "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+@@ -130,11 +130,11 @@
+      onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+-         "borderColor": "#F56522",
++         "borderColor": "#2B1911",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "center",
+@@ -165,21 +165,21 @@
+                "lineHeight": 24,
+                "textAlign": "center",
+                "textTransform": "uppercase",
+              },
+              Object {
+-               "color": "#F56522",
++               "color": "#2B1911",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        wallet.wallet.liquid
+      </Text>
+      <test-file-stub
+-       fill="#F56522"
++       fill="#2B1911"
+        style={
+          Array [
+            Object {
+              "height": 12,
+              "width": 12,"
+`;

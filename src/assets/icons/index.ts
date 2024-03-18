@@ -121,7 +121,11 @@ import user from "./user.svg";
 import userCheck from "./userCheck.svg";
 import userX from "./userX.svg";
 import users from "./users.svg";
-import wallet from "./wallet.svg";
+import {
+  default as lightningWallet,
+  default as liquidWallet,
+  default as wallet,
+} from "./wallet.svg";
 import watch from "./watch.svg";
 import xCircle from "./xCircle.svg";
 import xSquare from "./xSquare.svg";
@@ -157,11 +161,11 @@ export const Icons = {
   chevronDown,
   chevronLeft,
   chevronRight,
-  chevronUp,
   chevronsDown,
   chevronsLeft,
   chevronsRight,
   chevronsUp,
+  chevronUp,
   circle,
   clipboard,
   clock,
@@ -194,7 +198,9 @@ export const Icons = {
   homeUnselected,
   inbox,
   info,
+  lightningWallet,
   link,
+  liquidWallet,
   list,
   listFlipped,
   mail,
@@ -210,6 +216,7 @@ export const Icons = {
   offline,
   paperclip,
   pauseCircle,
+  peachSettings,
   percent,
   plusCircle,
   plusSquare,
@@ -225,7 +232,6 @@ export const Icons = {
   selectOpen,
   sell,
   send,
-  peachSettings,
   settings,
   share,
   share2,
