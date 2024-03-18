@@ -88,6 +88,10 @@ export default {
           mild: "#93D6F5",
           background: "#D7F2FE",
         },
+        liquid: {
+          primary: "#2CCCBF",
+          secondary: "#9EF2ED",
+        },
         gradient: {
           yellow: "#FFA24C",
           orange: "#FF7A50",

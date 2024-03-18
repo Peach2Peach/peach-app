@@ -1423,9 +1423,11 @@ exports[`SendBitcoinLiquid should render correctly 1`] = `
                                     "width": 64,
                                   },
                                   {
-                                    "backgroundColor": "#FFFCFA",
                                     "borderColor": "#7D675E",
                                     "borderWidth": 1,
+                                  },
+                                  {
+                                    "backgroundColor": "#FFFCFA",
                                   },
                                 ]
                               }

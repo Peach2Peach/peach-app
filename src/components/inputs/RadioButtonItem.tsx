@@ -4,17 +4,22 @@ import tw from "../../styles/tailwind";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
 
-type Props = {
+type Props = ComponentProps & {
   display: ReactNode;
   isSelected: boolean;
   onPress: () => void;
   disabled?: boolean;
+  selectedStyle?: ComponentProps["style"];
+  radioIconColor?: string;
 };
 export const RadioButtonItem = ({
   display,
   isSelected,
   disabled,
   onPress,
+  style,
+  selectedStyle,
+  radioIconColor,
 }: Props) => (
   <TouchableOpacity
     onPress={onPress}
@@ -23,6 +28,8 @@ export const RadioButtonItem = ({
       tw`flex-row items-center justify-between w-full gap-2 px-4 py-2 border-2 bg-primary-background-dark rounded-xl`,
       disabled && tw`opacity-50`,
       isSelected ? tw`border-primary-main` : tw`border-transparent`,
+      style,
+      isSelected && selectedStyle,
     ]}
   >
     {typeof display === "string" ? (
@@ -33,7 +40,9 @@ export const RadioButtonItem = ({
     <Icon
       id={disabled ? "minusCircle" : isSelected ? "radioSelected" : "circle"}
       style={tw`w-5 h-5`}
-      color={tw.color(isSelected ? "primary-main" : "black-50")}
+      color={tw.color(
+        isSelected ? radioIconColor || "primary-main" : "black-50",
+      )}
     />
   </TouchableOpacity>
 );

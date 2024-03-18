@@ -13,6 +13,9 @@ export type RadioButtonProps<T> = ComponentProps & {
   items: RadioButtonItem<T>[];
   selectedValue?: T;
   onButtonPress: (value: T) => void;
+  radioButtonStyle?: ComponentProps["style"];
+  radioButtonSelectedStyle?: ComponentProps["style"];
+  radioIconColor?: string;
 };
 
 export const RadioButtons = <T,>({
@@ -20,6 +23,9 @@ export const RadioButtons = <T,>({
   selectedValue,
   onButtonPress,
   style,
+  radioButtonStyle,
+  radioButtonSelectedStyle,
+  radioIconColor,
 }: RadioButtonProps<T>) => (
   <View style={[tw`gap-2`, style]}>
     {items.map(({ display, disabled, value }, i) => (
@@ -29,6 +35,9 @@ export const RadioButtons = <T,>({
         isSelected={value === selectedValue}
         onPress={() => onButtonPress(value)}
         disabled={disabled}
+        style={radioButtonStyle}
+        selectedStyle={radioButtonSelectedStyle}
+        radioIconColor={radioIconColor}
       />
     ))}
   </View>
