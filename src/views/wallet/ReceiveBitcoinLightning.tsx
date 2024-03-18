@@ -40,7 +40,7 @@ export const ReceiveBitcoinLightning = () => {
 
   const updateAmount = (value: number) => {
     setAmount(value);
-    setFiat(round(((price || 0) / SATSINBTC) * value, 2).toString());
+    setFiat(round(((price || 0) / SATSINBTC) * value, 2).toFixed(2));
   };
   const updateFiat = (value: string) => {
     setAmount(round((Number(value) / price) * SATSINBTC));

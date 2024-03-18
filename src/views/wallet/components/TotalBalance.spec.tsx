@@ -7,8 +7,15 @@ jest.mock("../../../components/bitcoin/BTCAmount", () => ({
   BTCAmount: "BTCAmount",
 }));
 
+jest.mock("../../../hooks/query/useMarketPrices", () => ({
+  useMarketPrices: () => ({
+    data: { EUR: 20000, CHF: 20000 },
+  }),
+}));
+
 describe("TotalBalance", () => {
   const defaultComponent = <TotalBalance amount={100000} />;
+
   it("renders correctly", () => {
     const { toJSON } = render(defaultComponent);
     expect(toJSON()).toMatchSnapshot();

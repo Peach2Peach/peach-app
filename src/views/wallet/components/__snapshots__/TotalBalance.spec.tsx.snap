@@ -18,7 +18,7 @@ exports[`TotalBalance hide balance when the eye icon is pressed 1`] = `
             "busy": undefined,
             "checked": undefined,
             "disabled": undefined,
-@@ -106,9 +106,9 @@
+@@ -106,11 +106,11 @@
         />
       </View>
     </View>
@@ -28,7 +28,22 @@ exports[`TotalBalance hide balance when the eye icon is pressed 1`] = `
 +     showAmount={true}
       size="large"
     />
-  </View>"
+    <View
+      style={
+        Object {
+@@ -194,11 +194,11 @@
+                  },
+                  false,
+                ]
+              }
+              textAlignVertical="center"
+-             value="•••••••••"
++             value="20.00"
+            />
+            <View
+              style={
+                Object {
+                  "flexDirection": "row","
 `;
 
 exports[`TotalBalance renders correctly 1`] = `
@@ -145,6 +160,283 @@ exports[`TotalBalance renders correctly 1`] = `
     showAmount={true}
     size="large"
   />
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "gap": 8,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flexShrink": 1,
+        }
+      }
+    >
+      <View>
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "gap": 4,
+                "justifyContent": "space-between",
+                "paddingLeft": 12,
+                "paddingRight": 12,
+                "width": "100%",
+              },
+              {
+                "borderRadius": 12,
+                "borderWidth": 1,
+                "overflow": "hidden",
+              },
+              {
+                "backgroundColor": "#FFFCFA",
+              },
+              {
+                "borderColor": "#2B1911",
+              },
+              false,
+              false,
+              {
+                "marginBottom": 1,
+                "marginTop": 1,
+              },
+              undefined,
+            ]
+          }
+        >
+          <TextInput
+            accessibilityHint="form.lightningInvoice.fiat.label"
+            allowFontScaling={false}
+            autoCapitalize="none"
+            autoCorrect={false}
+            blurOnSubmit={false}
+            editable={true}
+            keyboardType="numeric"
+            multiline={false}
+            placeholderTextColor="#BAADA7"
+            removeClippedSubviews={false}
+            style={
+              [
+                {
+                  "flexShrink": 1,
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 18,
+                  "height": 40,
+                  "letterSpacing": 0.18,
+                  "lineHeight": 29.25,
+                  "paddingBottom": 0,
+                  "paddingTop": 0,
+                  "width": "100%",
+                },
+                {
+                  "color": "#2B1911",
+                },
+                false,
+                {
+                  "borderColor": "transparent",
+                  "borderWidth": 1,
+                },
+                false,
+              ]
+            }
+            textAlignVertical="center"
+            value="20.00"
+          />
+          <View
+            style={
+              {
+                "flexDirection": "row",
+                "gap": 16,
+              }
+            }
+          />
+        </View>
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-Medium",
+                  "fontSize": 14,
+                  "letterSpacing": 0.14,
+                  "lineHeight": 20,
+                  "marginLeft": 12,
+                  "marginTop": 4,
+                },
+                {
+                  "color": "#DF321F",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+           
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        {
+          "height": 42,
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "flexDirection": "row",
+            "opacity": 1,
+            "zIndex": 1,
+          }
+        }
+      >
+        <RCTScrollView
+          contentContainerStyle={
+            {
+              "paddingLeft": 8,
+            }
+          }
+          scrollEnabled={false}
+          showsVerticalScrollIndicator={false}
+          style={
+            {
+              "alignSelf": "flex-start",
+              "backgroundColor": "#FFF9F6",
+              "borderRadius": 8,
+              "borderWidth": 1,
+              "maxHeight": 160,
+            }
+          }
+        >
+          <View>
+            <View
+              style={
+                {
+                  "height": 40,
+                  "paddingRight": 32,
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 20,
+                      "letterSpacing": 0.2,
+                      "lineHeight": 40,
+                    },
+                    false,
+                  ]
+                }
+              >
+                EUR
+              </Text>
+            </View>
+          </View>
+        </RCTScrollView>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+              "position": "absolute",
+              "right": 8,
+              "top": 8,
+            }
+          }
+        >
+          <test-file-stub
+            fill="#2B1911"
+            style={
+              [
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
 </View>
 `;
 
@@ -168,7 +460,7 @@ exports[`TotalBalance renders correctly when isRefreshing is true 1`] = `
     >
       <View
         style={
-@@ -104,11 +106,51 @@
+@@ -104,14 +106,54 @@
             ]
           }
         />
@@ -219,5 +511,8 @@ exports[`TotalBalance renders correctly when isRefreshing is true 1`] = `
 +       }
 +     }
     />
-  </View>"
+    <View
+      style={
+        Object {
+          "flexDirection": "row","
 `;

@@ -10,6 +10,12 @@ jest
   .requireMock("@breeztech/react-native-breez-sdk")
   .nodeInfo.mockResolvedValue(nodeInfo);
 
+jest.mock("../../hooks/query/useMarketPrices", () => ({
+  useMarketPrices: () => ({
+    data: { EUR: 20000, CHF: 20000 },
+  }),
+}));
+
 jest.useFakeTimers();
 
 describe("LightningWallet", () => {

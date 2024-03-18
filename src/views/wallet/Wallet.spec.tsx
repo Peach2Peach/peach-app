@@ -19,6 +19,12 @@ jest.mock("./hooks/useWalletBalance", () => ({
   useWalletBalance: jest.fn().mockReturnValue({ balance: 21 }),
 }));
 
+jest.mock("../../hooks/query/useMarketPrices", () => ({
+  useMarketPrices: () => ({
+    data: { EUR: 20000, CHF: 20000 },
+  }),
+}));
+
 const addresses = {
   first: {
     address: "firstAddress",
