@@ -18,7 +18,7 @@ exports[`Dropdown opens on press 1`] = `
         Object {
           "alignSelf": "flex-start",
           "backgroundColor": "#FFF9F6",
-@@ -83,66 +83,10 @@
+@@ -83,68 +83,10 @@
             }
           >
             a
@@ -38,6 +38,7 @@ exports[`Dropdown opens on press 1`] = `
 -             },
 -             Object {
 -               "alignItems": "center",
+-               "color": "#9F8C82",
 -               "flexDirection": "row",
 -               "fontFamily": "Baloo2-SemiBold",
 -               "fontSize": 20,
@@ -66,6 +67,7 @@ exports[`Dropdown opens on press 1`] = `
 -             },
 -             Object {
 -               "alignItems": "center",
+-               "color": "#9F8C82",
 -               "flexDirection": "row",
 -               "fontFamily": "Baloo2-SemiBold",
 -               "fontSize": 20,

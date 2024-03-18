@@ -14,16 +14,13 @@ import { CURRENCIES } from "../../../paymentMethods";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
-import { round } from "../../../utils/math/round";
 import { useWalletState } from "../../../utils/wallet/walletStore";
+import { getFiatPrice } from "../helpers/getFiatPrice";
 
 const hiddenBalance = SATSINBTC.toString()
   .split("")
   .map((_) => "•")
   .join("");
-
-const getFiatPrice = (amount: number, btcPrice: number) =>
-  round(((btcPrice || 0) / SATSINBTC) * amount, 2).toFixed(2);
 
 type Props = {
   amount: number;

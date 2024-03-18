@@ -34,7 +34,7 @@ export const Dropdown = <T extends string>({
             .filter((option) => option !== value)
             .map((option) => (
               <PeachText
-                style={tw`flex-row items-center gap-1 h-10 subtitle-0 leading-10`}
+                style={tw`flex-row items-center gap-1 h-10 subtitle-0 leading-10 text-black-50`}
                 onPress={() => {
                   onChange(option);
                   toggleOpen();
