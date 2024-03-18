@@ -18,6 +18,12 @@ describe("BTCAmount", () => {
     const { toJSON } = render(<BTCAmount amount={amount} size="small" />);
     expect(render(defaultBTCAmount).toJSON()).toMatchDiffSnapshot(toJSON());
   });
+  it("should render correctly for different chain", () => {
+    const { toJSON } = render(
+      <BTCAmount chain="liquid" amount={amount} size="medium" />,
+    );
+    expect(render(defaultBTCAmount).toJSON()).toMatchDiffSnapshot(toJSON());
+  });
   it("should render correctly with white", () => {
     const { toJSON } = render(<BTCAmount amount={amount} size="large" white />);
     expect(render(defaultBTCAmount).toJSON()).toMatchDiffSnapshot(toJSON());

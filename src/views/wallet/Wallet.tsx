@@ -31,6 +31,7 @@ export const Wallet = () => {
         }
       >
         <TotalBalance
+          chain="bitcoin"
           amount={balance}
           isRefreshing={isRefetchingBitcoin || isLoadingBitcoin}
         />

@@ -1,5 +1,113 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`BTCAmount should render correctly for different chain 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -6,12 +6,12 @@
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        },
+        Object {
+-         "height": 18,
+-         "width": 196,
++         "height": 13,
++         "width": 152,
+        },
+      ]
+    }
+  >
+    <View
+@@ -19,25 +19,25 @@
+        Array [
+          Object {
+            "flexShrink": 0,
+          },
+          Object {
+-           "paddingBottom": 4,
+-           "paddingLeft": 4,
+-           "paddingRight": 4,
+-           "paddingTop": 4,
++           "paddingBottom": 2.5,
++           "paddingLeft": 2.5,
++           "paddingRight": 2.5,
++           "paddingTop": 2.5,
+          },
+        ]
+      }
+    >
+      <test-file-stub
+        fill="#888"
+        style={
+          Array [
+            Object {
+-             "height": 24,
+-             "width": 24,
++             "height": 15,
++             "width": 15,
+            },
+            undefined,
+          ]
+        }
+      />
+@@ -87,12 +87,15 @@
+                  "textAlign": "right",
+                },
+                Array [
+                  Object {
+                    "fontFamily": "Baloo2-SemiBold",
+-                   "fontSize": 20,
+-                   "letterSpacing": 0.2,
++                   "fontSize": 16,
++                   "letterSpacing": 0.16,
++                   "lineHeight": 28,
++                   "marginBottom": -13,
++                   "marginTop": -13,
+                  },
+                  false,
+                ],
+              ],
+              false,
+@@ -117,12 +120,15 @@
+                  "textAlign": "right",
+                },
+                Array [
+                  Object {
+                    "fontFamily": "Baloo2-SemiBold",
+-                   "fontSize": 20,
+-                   "letterSpacing": 0.2,
++                   "fontSize": 16,
++                   "letterSpacing": 0.16,
++                   "lineHeight": 28,
++                   "marginBottom": -13,
++                   "marginTop": -13,
+                  },
+                  false,
+                ],
+              ],
+              false,
+@@ -144,12 +150,15 @@
+              "lineHeight": 24,
+            },
+            Array [
+              Object {
+                "fontFamily": "Baloo2-SemiBold",
+-               "fontSize": 20,
+-               "letterSpacing": 0.2,
++               "fontSize": 16,
++               "letterSpacing": 0.16,
++               "lineHeight": 28,
++               "marginBottom": -13,
++               "marginTop": -13,
+              },
+              false,
+            ],
+            false,
+          ]"
+`;
+
 exports[`BTCAmount should render correctly for large size 1`] = `
 <View
   style={

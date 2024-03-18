@@ -96,7 +96,11 @@ export const LightningWallet = () => {
             <TesterInvite />
           </>
         )}
-        <TotalBalance amount={balance.lightning} isRefreshing={isRefetching} />
+        <TotalBalance
+          chain="lightning"
+          amount={balance.lightning}
+          isRefreshing={isRefetching}
+        />
         <BackupReminderIcon />
       </PeachScrollView>
       <WalletButtons />

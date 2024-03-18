@@ -28,8 +28,9 @@ const getFiatPrice = (amount: number, btcPrice: number) =>
 type Props = {
   amount: number;
   isRefreshing?: boolean;
+  chain: Chain;
 };
-export const TotalBalance = ({ amount, isRefreshing }: Props) => {
+export const TotalBalance = ({ amount, chain, isRefreshing }: Props) => {
   const [showBalance, toggleShowBalance] = useWalletState(
     (state) => [state.showBalance, state.toggleShowBalance],
     shallow,
@@ -69,6 +70,7 @@ export const TotalBalance = ({ amount, isRefreshing }: Props) => {
       <BTCAmount
         amount={amount}
         size="large"
+        chain={chain}
         showAmount={showBalance}
         style={isRefreshing && tw`opacity-50`}
       />

@@ -26,7 +26,11 @@ export const LiquidWallet = () => {
           <RefreshControl refreshing={false} onRefresh={refetchLiquid} />
         }
       >
-        <TotalBalance amount={balance} isRefreshing={isRefetchingLiquid} />
+        <TotalBalance
+          chain="liquid"
+          amount={balance}
+          isRefreshing={isRefetchingLiquid}
+        />
         <BackupReminderIcon />
       </PeachScrollView>
       <WalletButtons />

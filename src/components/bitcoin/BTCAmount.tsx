@@ -11,6 +11,7 @@ export type BTCAmountProps = {
   amount: number;
   size: "large" | "medium" | "small";
   showAmount?: boolean;
+  chain?: Chain;
   white?: boolean;
   style?: StyleProp<ViewStyle>;
 };
@@ -48,6 +49,7 @@ export const BTCAmount = memo(
     size,
     white = false,
     showAmount = true,
+    chain = "bitcoin",
     style,
   }: BTCAmountProps) => {
     const [greyText, blackText] = useMemo(
@@ -58,6 +60,12 @@ export const BTCAmount = memo(
       () => [styles[size].amount, white && tw`text-primary-background-light`],
       [size, white],
     );
+    const logo =
+      chain === "bitcoin"
+        ? white
+          ? "bitcoinTransparent"
+          : "bitcoinLogo"
+        : `${chain}Logo`;
     return (
       <View
         style={[
@@ -67,10 +75,7 @@ export const BTCAmount = memo(
         ]}
       >
         <View style={[tw`shrink-0`, styles[size].iconContainer]}>
-          <Icon
-            id={white ? "bitcoinTransparent" : "bitcoinLogo"}
-            size={styles[size].iconSize}
-          />
+          <Icon id={logo} size={styles[size].iconSize} />
         </View>
 
         <View
