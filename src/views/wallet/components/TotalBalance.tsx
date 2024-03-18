@@ -1,8 +1,8 @@
 import { TouchableOpacity, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Icon } from "../../../components/Icon";
+import { Loading } from "../../../components/Loading";
 import { Placeholder } from "../../../components/Placeholder";
-import { Loading } from "../../../components/animation/Loading";
 import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
 import { PeachText } from "../../../components/text/PeachText";
 import tw from "../../../styles/tailwind";
@@ -44,7 +44,7 @@ export const TotalBalance = ({ amount, isRefreshing }: Props) => {
           />
         </TouchableOpacity>
       </View>
-      {isRefreshing && <Loading style={tw`absolute w-16 h-16`} />}
+      {isRefreshing && <Loading style={tw`absolute`} size="large" />}
       <BTCAmount
         amount={amount}
         size="large"

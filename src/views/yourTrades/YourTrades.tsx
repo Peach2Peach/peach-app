@@ -5,7 +5,6 @@ import { ContractSummary } from "../../../peach-api/src/@types/contract";
 import { OfferSummary } from "../../../peach-api/src/@types/offer";
 import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
-import { Loading } from "../../components/animation/Loading";
 import { NotificationBubble } from "../../components/bubble/NotificationBubble";
 import { PeachText } from "../../components/text/PeachText";
 import { LinedText } from "../../components/ui/LinedText";
@@ -18,7 +17,7 @@ import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { parseError } from "../../utils/parseError";
 import { useHomeScreenRoute } from "../home/useHomeScreenRoute";
-import { NewLoadingScreen } from "../loading/LoadingScreen";
+import { LoadingScreen } from "../loading/LoadingScreen";
 import { TradeItem } from "./components/TradeItem";
 import { TradePlaceholders } from "./components/TradePlaceholders";
 import { getCategories } from "./utils/getCategories";
@@ -54,7 +53,7 @@ export const YourTrades = () => {
               title: `${i18n(tab)}`,
               tabBarBadge: () => <TabBarBadge summaries={summaries[tab]} />,
               lazy: true,
-              lazyPlaceholder: () => <NewLoadingScreen />,
+              lazyPlaceholder: () => <LoadingScreen />,
             }}
             children={() => (
               <View style={tw`grow`} onStartShouldSetResponder={() => true}>
@@ -88,14 +87,6 @@ export const YourTrades = () => {
           />
         ))}
       </YourTradesTab.Navigator>
-      {isLoading && (
-        <View
-          style={tw`absolute inset-0 items-center justify-center`}
-          pointerEvents="none"
-        >
-          <Loading />
-        </View>
-      )}
     </Screen>
   );
 };

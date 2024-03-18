@@ -3,8 +3,8 @@ import { View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
+import { Loading } from "../../components/Loading";
 import { Screen } from "../../components/Screen";
-import { Loading } from "../../components/animation/Loading";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { useRoute } from "../../hooks/useRoute";
@@ -84,7 +84,7 @@ function RestoreReputationLoading() {
       <PeachText style={tw`text-center body-l text-primary-background-light`}>
         {i18n("newUser.oneSec")}
       </PeachText>
-      <Loading style={tw`w-32 h-32`} color={tw.color("primary-mild-1")} />
+      <Loading size="large" color={tw.color("primary-mild-1")} />
     </View>
   );
 }

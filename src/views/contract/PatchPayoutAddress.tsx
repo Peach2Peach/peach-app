@@ -8,7 +8,7 @@ import { getMessageToSignForAddress } from "../../utils/account/getMessageToSign
 import { getOfferIdFromContract } from "../../utils/contract/getOfferIdFromContract";
 import { isValidBitcoinSignature } from "../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../utils/wallet/getNetwork";
-import { NewLoadingScreen } from "../loading/LoadingScreen";
+import { LoadingScreen } from "../loading/LoadingScreen";
 import { CustomAddressScreen } from "../settings/CustomAddressScreen";
 import { usePatchReleaseAddress } from "./components/usePatchReleaseAddress";
 
@@ -25,7 +25,7 @@ export const PatchPayoutAddress = () => {
 function ContractSuspense({ contractId }: { contractId: string }) {
   const { contract } = useContractDetail(contractId);
 
-  if (!contract) return <NewLoadingScreen />;
+  if (!contract) return <LoadingScreen />;
 
   return (
     <PatchOfferAddress

@@ -4,9 +4,9 @@ import { useCallback, useMemo, useState } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
+import { Loading } from "../../components/Loading";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
-import { Loading } from "../../components/animation/Loading";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { BitcoinAddress } from "../../components/bitcoin/BitcoinAddress";
 import { Button } from "../../components/buttons/Button";
@@ -90,7 +90,7 @@ export const FundEscrow = () => {
           <PeachText style={tw`text-primary-main button-medium`}>
             {i18n("sell.escrow.checkingFundingStatus")}
           </PeachText>
-          <Loading style={tw`w-4 h-4`} color={tw.color("primary-main")} />
+          <Loading size="small" color={tw.color("primary-main")} />
         </View>
         <HorizontalLine />
         <FundFromPeachWalletButton
