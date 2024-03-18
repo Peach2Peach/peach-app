@@ -4,7 +4,7 @@ import {
   lightningInvoice,
   nodeInfo,
 } from "../../../tests/unit/data/lightningNetworkData";
-import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
+import { replaceMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { ReceiveBitcoinLightning } from "./ReceiveBitcoinLightning";
 import { MSAT_PER_SAT } from "./hooks/useLightningWalletBalance";
 
@@ -67,7 +67,7 @@ describe("ReceiveBitcoinLightning", () => {
       }),
     );
     await waitFor(() =>
-      expect(navigateMock).toHaveBeenCalledWith("lightningInvoice", {
+      expect(replaceMock).toHaveBeenCalledWith("lightningInvoice", {
         invoice: lightningInvoice,
       }),
     );

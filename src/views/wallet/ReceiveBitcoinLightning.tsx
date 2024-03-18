@@ -53,7 +53,7 @@ export const ReceiveBitcoinLightning = () => {
   };
   useEffect(() => {
     if (invoice)
-      navigation.navigate("lightningInvoice", {
+      navigation.replace("lightningInvoice", {
         invoice,
       });
   }, [invoice, navigation]);

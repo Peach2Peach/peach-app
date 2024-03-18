@@ -16,7 +16,7 @@ describe("LightningInvoiceScreen", () => {
       key: "lightningInvoice",
       params: {
         invoice:
-          "lnbc2342340n1pj7nshtdqqpp5zyldedlak8wpxaswd6kxpzxym86ptqul094262gdkdv7ppwqgsmsxqrrsssp583u3ue6vylycclcrj3q5944kj6cygay8p45xxsaza4l0lhhs2r2s9qrsgqcqzysrzjqtypre",
+          "lnbc1111110n1pjlgud2dq823jhxaqpp57hnjqhs6jpv29u3srhraasy9x0ys3vuqdc50jmry570aamk3gt3sxqrrsssp5rdy55q69x996yf0xnl0spwrryx088l728ucyzmzuqfqtvtpqzqls9qrsgqcqzysrzjqtypret4hcklglvtfrdt85l3exc0dctdp4qttmtcy5es3lpt6uts6qqqqyqqqqqqqqqqqqlgqqqqqzsqygst0znnqrrg3salscrfu4wm999re0esg9cmtg68flynx7k2a3zaw5dsarjus8eutsm3xm4yvtn2fyxt4z0zfydm5uajkemkkh4tj5cvgqsw5vjr",
       },
     });
   });
