@@ -107,6 +107,7 @@ function FundFromPeachLightningWalletButton({
     ],
     shallow,
   );
+  const amountSats = amount * SATSINBTC;
   const paymentRequest = useMemo(() => bolt11.decode(invoice), [invoice]);
   const { balance } = useLightningWalletBalance();
   const { payInvoice, isPayingInvoice } = usePayInvoice({
@@ -135,7 +136,7 @@ function FundFromPeachLightningWalletButton({
           textColor={tw.color("primary-main")}
           iconId="sell"
           onPress={onButtonPress}
-          disabled={balance.lightning <= amount}
+          disabled={balance.lightning <= amountSats}
           loading={isPayingInvoice}
         >
           {i18n("fundFromPeachWallet.button")}
