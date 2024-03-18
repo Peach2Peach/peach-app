@@ -77,6 +77,7 @@ export const ReceiveBitcoinLightning = () => {
             {i18n("form.lightningInvoice.amount.label")}
           </PeachText>
           <BTCAmountInput
+            chain="lightning"
             accessibilityHint={i18n("form.lightningInvoice.amount.label")}
             value={String(amount)}
             onFocus={onFocus}

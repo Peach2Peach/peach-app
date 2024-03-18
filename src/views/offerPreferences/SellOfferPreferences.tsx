@@ -335,6 +335,7 @@ function SatsInput() {
 
   return (
     <SatsInputComponent
+      chain="bitcoin"
       value={displayValue}
       ref={inputRef}
       onFocus={onFocus}

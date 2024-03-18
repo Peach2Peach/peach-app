@@ -10,14 +10,14 @@ import {
 import tw from "../../styles/tailwind";
 import { BTCAmount, BTCAmountProps } from "../bitcoin/BTCAmount";
 
-type Props = {
+export type BTCAmountInputProps = {
   containerStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   size?: BTCAmountProps["size"];
   chain?: Chain;
 } & TextInputProps;
 
-export const BTCAmountInput = forwardRef<TextInput, Props>(
+export const BTCAmountInput = forwardRef<TextInput, BTCAmountInputProps>(
   (
     { containerStyle, textStyle, size = "small", chain = "bitcoin", ...props },
     ref,

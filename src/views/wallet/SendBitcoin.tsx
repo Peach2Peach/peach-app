@@ -101,6 +101,7 @@ export const SendBitcoin = () => {
             }}
           >
             <BTCAmountInput
+              chain="bitcoin"
               value={amount.toString()}
               onChangeText={onAmountChange}
               size="medium"

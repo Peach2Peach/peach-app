@@ -108,6 +108,7 @@ export const SendBitcoinLiquid = () => {
             }}
           >
             <BTCAmountInput
+              chain="liquid"
               value={amount.toString()}
               onChangeText={onAmountChange}
               size="medium"
