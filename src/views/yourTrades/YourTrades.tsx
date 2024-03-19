@@ -136,7 +136,16 @@ function YourTradesHeader() {
 type SectionHeaderProps = {
   section: SectionListData<
     OfferSummary | ContractSummary,
-    { title: string; data: (OfferSummary | ContractSummary)[] }
+    {
+      title:
+        | "priority"
+        | "openActions"
+        | "waiting"
+        | "newMessages"
+        | "history"
+        | "unknown";
+      data: (OfferSummary | ContractSummary)[];
+    }
   >;
 };
 
@@ -148,7 +157,6 @@ export function SectionHeader({
   return data.length !== 0 && title !== "priority" ? (
     <LinedText style={tw`pb-7 bg-primary-background-main`}>
       <PeachText style={tw`text-black-65`}>
-        {/** @ts-ignore  */}
         {t(`yourTrades.${title}`)}
       </PeachText>
     </LinedText>
