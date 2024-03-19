@@ -15,6 +15,8 @@ const possibleSources = [
   "google",
   "instagram",
   "friend",
+  "telegram",
+  "linkedin",
   "other",
 ] as const;
 

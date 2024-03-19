@@ -36,8 +36,8 @@ const disputeReasons: Record<ContractViewer, DisputeReason[]> = {
 
 function DisputeReasonScreen({ contract }: { contract: Contract }) {
   const { data: decryptedData } = useDecryptedContractData(contract);
-  const account = useAccountStore((state) => state.account);
-  const view = getContractViewer(contract.seller.id, account);
+  const publicKey = useAccountStore((state) => state.account.publicKey);
+  const view = getContractViewer(contract.seller.id, publicKey);
   const availableReasons =
     view === "seller" ? disputeReasons.seller : disputeReasons.buyer;
 

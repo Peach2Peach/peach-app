@@ -1,11 +1,13 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { networks } from "bitcoinjs-lib";
 import { useCallback, useMemo, useState } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
+import { Loading } from "../../components/Loading";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
-import { Loading } from "../../components/animation/Loading";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { BitcoinAddress } from "../../components/bitcoin/BitcoinAddress";
 import { Button } from "../../components/buttons/Button";
@@ -16,6 +18,7 @@ import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { SATSINBTC } from "../../constants";
+import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { CancelSellOffersPopup } from "../../popups/CancelSellOffersPopup";
@@ -31,20 +34,27 @@ import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
 import { openURL } from "../../utils/web/openURL";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { TransactionInMempool } from "./components/TransactionInMempool";
+import { useCreateEscrow } from "./hooks/useCreateEscrow";
 import { useFundEscrowSetup } from "./hooks/useFundEscrowSetup";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
-import { useTranslate } from "@tolgee/react";
 
 export const FundEscrow = () => {
+  const { offerId } = useRoute<"fundEscrow">().params;
   const {
-    offerId,
     fundingAddress,
     fundingAddresses,
     fundingStatus,
     fundingAmount,
+    offerIdsWithoutEscrow,
+    isPending,
   } = useFundEscrowSetup();
   const { t } = useTranslate("sell");
-  if (!fundingAddress)
+
+  if (isPending) return <BitcoinLoading text={t("sell.escrow.loading")} />;
+  if (offerIdsWithoutEscrow.length > 0)
+    return <CreateEscrowScreen offerIds={offerIdsWithoutEscrow} />;
+
+  if (!fundingStatus || !fundingAddress || !fundingAddresses)
     return <BitcoinLoading text={t("sell.escrow.loading")} />;
 
   if (fundingStatus.status === "MEMPOOL")
@@ -82,7 +92,7 @@ export const FundEscrow = () => {
           <PeachText style={tw`text-primary-main button-medium`}>
             {t("sell.escrow.checkingFundingStatus")}
           </PeachText>
-          <Loading style={tw`w-4 h-4`} color={tw.color("primary-main")} />
+          <Loading size="small" color={tw.color("primary-main")} />
         </View>
         <HorizontalLine />
         <FundFromPeachWalletButton
@@ -95,6 +105,31 @@ export const FundEscrow = () => {
     </Screen>
   );
 };
+
+function CreateEscrowScreen({ offerIds }: { offerIds: string[] }) {
+  const { mutate, isPending } = useCreateEscrow();
+  const queryClient = useQueryClient();
+  const { t } = useTranslate("sell");
+  const createEscrow = () => {
+    mutate(offerIds, {
+      onSuccess: () =>
+        Promise.all(
+          offerIds.map((id) =>
+            queryClient.invalidateQueries({
+              queryKey: offerKeys.detail(id),
+            }),
+          ),
+        ),
+    });
+  };
+  return (
+    <Screen style={tw`items-center justify-center flex-1`}>
+      <Button onPress={createEscrow} loading={isPending}>
+        {t("sell.escrow.createEscrow")}
+      </Button>
+    </Screen>
+  );
+}
 
 function FundEscrowHeader() {
   const { offerId } = useRoute<"fundEscrow">().params;

@@ -1,4 +1,5 @@
 import { InfiniteData, useQueryClient } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
 import { Contract } from "../../../peach-api/src/@types/contract";
@@ -23,7 +24,6 @@ import { getChat } from "../../utils/chat/getChat";
 import { getUnsentMessages } from "../../utils/chat/getUnsentMessages";
 import { saveChat } from "../../utils/chat/saveChat";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
-import { getTradingPartner } from "../../utils/contract/getTradingPartner";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { error } from "../../utils/log/error";
 import { parseError } from "../../utils/parseError";
@@ -33,7 +33,6 @@ import { signAndEncryptSymmetric } from "../../utils/pgp/signAndEncryptSymmetric
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { ChatBox } from "./components/ChatBox";
 import { useDecryptedContractData } from "./useDecryptedContractData";
-import { useTranslate } from "@tolgee/react";
 
 export const ContractChat = () => {
   const { contractId } = useRoute<"contractChat">().params;
@@ -60,8 +59,12 @@ function ChatScreen({ contract }: { contract: Contract }) {
     symmetricKey: decryptedData?.symmetricKey,
   });
   const showError = useShowErrorBanner();
-  const account = useAccountStore((state) => state.account);
-  const tradingPartner = contract ? getTradingPartner(contract, account) : null;
+  const publicKey = useAccountStore((state) => state.account.publicKey);
+  const tradingPartner = contract
+    ? publicKey === contract.seller.id
+      ? contract.buyer
+      : contract.seller
+    : null;
   const [chat, setChat] = useState(getChat(contractId));
   const [newMessage, setNewMessage] = useState(chat.draftMessage);
   const [disableSend, setDisableSend] = useState(false);
@@ -82,7 +85,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
       );
       const messageObject: Message = {
         roomId: `contract-${contractId}`,
-        from: account.publicKey,
+        from: publicKey,
         date: new Date(),
         readBy: [],
         message,
@@ -112,7 +115,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
       tradingPartner,
       decryptedData?.symmetricKey,
       contractId,
-      account.publicKey,
+      publicKey,
       connected,
       setAndSaveChat,
       send,
@@ -207,7 +210,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
           return oldQueryData;
         },
       );
-      if (!message.readBy.includes(account.publicKey)) {
+      if (!message.readBy.includes(publicKey)) {
         send(
           JSON.stringify({
             path: "/v1/contract/chat/received",
@@ -233,7 +236,7 @@ function ChatScreen({ contract }: { contract: Contract }) {
     send,
     off,
     decryptedData?.symmetricKey,
-    account.publicKey,
+    publicKey,
     queryClient,
     setAndSaveChat,
   ]);

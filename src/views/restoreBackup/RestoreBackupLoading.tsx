@@ -1,8 +1,8 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
-import { Loading } from "../../components/animation/Loading";
+import { Loading } from "../../components/Loading";
 import { PeachText } from "../../components/text/PeachText";
 import tw from "../../styles/tailwind";
-import { useTranslate } from "@tolgee/react";
 
 export const RestoreBackupLoading = () => {
   const { t } = useTranslate();
@@ -15,7 +15,7 @@ export const RestoreBackupLoading = () => {
       <PeachText style={tw`text-center body-l text-primary-background-light`}>
         {t("newUser.oneSec")}
       </PeachText>
-      <Loading style={tw`w-32 h-32`} color={tw.color("primary-mild-1")} />
+      <Loading size="large" color={tw.color("primary-mild-1")} />
     </View>
   );
 };

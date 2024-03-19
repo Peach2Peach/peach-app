@@ -365,10 +365,6 @@ exports[`Referrals renders correctly 1`] = `
                   ]
                 }
               >
-                Your referrals haven't traded on Peach yet.
-                
-
-
                 Continue saving for cool stuff
               </Text>
               <View

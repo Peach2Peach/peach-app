@@ -33,7 +33,7 @@ export const useAccountStore = create<AccountStore>()(
   immer((set) => ({
     account: defaultAccount,
     isLoggedIn: false,
-    reset: () => set(() => defaultAccount),
+    reset: () => set({ account: defaultAccount, isLoggedIn: false }),
     setAccount: (account) => set({ account }),
     setChat: (id, newChat) =>
       set((state) => {

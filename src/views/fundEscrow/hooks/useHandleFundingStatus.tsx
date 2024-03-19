@@ -12,8 +12,8 @@ import { useOfferMatches } from "../../search/hooks/useOfferMatches";
 type Props = {
   offerId: string;
   sellOffer?: SellOffer;
-  fundingStatus: FundingStatus;
-  userConfirmationRequired: boolean;
+  fundingStatus?: FundingStatus;
+  userConfirmationRequired?: boolean;
 };
 export const useHandleFundingStatus = ({
   offerId,
@@ -30,11 +30,11 @@ export const useHandleFundingStatus = ({
   const { refetch: fetchMatches } = useOfferMatches(
     offerId,
     undefined,
-    fundingStatus.status === "FUNDED",
+    fundingStatus?.status === "FUNDED",
   );
 
   useEffect(() => {
-    if (!sellOffer) return;
+    if (!sellOffer || !fundingStatus) return;
 
     info("Checked funding status", fundingStatus);
     const updatedOffer = {

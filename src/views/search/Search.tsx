@@ -20,7 +20,7 @@ import { headerIcons } from "../../utils/layout/headerIcons";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
-import { NewLoadingScreen as LoadingScreen } from "../loading/LoadingScreen";
+import { LoadingScreen } from "../loading/LoadingScreen";
 import { useOfferMatches } from "./hooks/useOfferMatches";
 import { useRefetchOnNotification } from "./hooks/useRefetchOnNotification";
 import { useTranslate } from "@tolgee/react";
@@ -125,7 +125,7 @@ function SearchHeader({ offer }: { offer: SellOffer }) {
       return [
         ...icons,
         {
-          ...headerIcons.list,
+          ...headerIcons.help,
           onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup,
         },
       ];

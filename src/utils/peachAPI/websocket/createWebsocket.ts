@@ -1,6 +1,5 @@
 import { API_URL } from "@env";
 import { crypto } from "bitcoinjs-lib";
-import { error } from "../../../utils/log/error";
 import { info } from "../../../utils/log/info";
 import { dateTimeReviver } from "../../system/dateTimeReviver";
 import { getAuthenticationChallenge } from "../getAuthenticationChallenge";
@@ -85,11 +84,7 @@ function authWS(websocket: WebSocket) {
   const peachAccount = peachAPI.apiOptions.peachAccount;
   const message = getAuthenticationChallenge();
 
-  if (!peachAccount) {
-    const authError = new Error("Peach Account not set");
-    error(authError);
-    throw authError;
-  }
+  if (!peachAccount) return;
 
   websocket.send(
     JSON.stringify({

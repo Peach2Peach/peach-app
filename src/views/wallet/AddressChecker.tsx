@@ -1,8 +1,8 @@
 import { View } from "react-native";
 import { Icon } from "../../components/Icon";
+import { Loading } from "../../components/Loading";
 import { Placeholder } from "../../components/Placeholder";
 import { Screen } from "../../components/Screen";
-import { Loading } from "../../components/animation/Loading";
 import { BitcoinAddressInput } from "../../components/inputs/BitcoinAddressInput";
 import { TradeInfo } from "../../components/offer/TradeInfo";
 import { InfoFrame } from "../../components/ui/InfoFrame";
@@ -46,7 +46,7 @@ function AddressInfo({ address }: { address: string }) {
     <View>
       {isMine === undefined ? (
         rules.bitcoinAddress(address) ? (
-          <Loading style={tw`w-6 h-6`} />
+          <Loading />
         ) : (
           <Placeholder style={tw`h-24px`} />
         )

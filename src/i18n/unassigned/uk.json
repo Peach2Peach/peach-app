@@ -1,4 +1,5 @@
 {
+  "accessibility.bulletPoint" : "маркер",
   "address.changingLocations" : "Зміна місця проведення - зв'яжіться з організаторами.",
   "backupRestored" : "резервна копія відновлена",
   "backupTime.description.mandatory" : "Ви маєте створити резервну копію вашого акаунту,  щоб зопобігти втрату його чи ваших коштів",
@@ -57,6 +58,7 @@
   "kyc" : "KYC",
   "later" : "пізніше",
   "lfg" : "Гоугоугоу!",
+  "linkedIn" : "Linkedin",
   "loading" : "завантажується...",
   "lookForAMatch" : "у пошуку збігів!",
   "match.atMarketPrice" : "(дорівнює KYC вартості)",

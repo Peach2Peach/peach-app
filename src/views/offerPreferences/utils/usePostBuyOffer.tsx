@@ -65,7 +65,6 @@ export function usePostBuyOffer({
         ? await peachWallet.getAddress()
         : { address: payoutAddress, index: undefined };
       if (!releaseAddress) throw new Error("MISSING_RELEASE_ADDRESS");
-
       const message = getMessageToSignForAddress(publicKey, releaseAddress);
       const messageSignature = payoutToPeachWallet
         ? peachWallet.signMessage(message, releaseAddress, index)

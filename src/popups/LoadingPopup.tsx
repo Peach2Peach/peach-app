@@ -1,4 +1,4 @@
-import { Loading } from "../components/animation/Loading";
+import { Loading } from "../components/Loading";
 import { PopupAction } from "../components/popup/PopupAction";
 import {
   PopupComponent,
@@ -18,7 +18,8 @@ export function LoadingPopup(props: Partial<PopupComponentProps>) {
       title={t("loading")}
       content={
         <Loading
-          style={tw`self-center w-16 h-16`}
+          size="large"
+          style={tw`self-center`}
           color={tw.color("primary-main")}
         />
       }

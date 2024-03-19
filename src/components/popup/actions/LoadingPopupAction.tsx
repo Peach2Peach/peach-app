@@ -11,7 +11,7 @@ export function LoadingPopupAction(props: PopupActionProps) {
         await props.onPress?.();
         setLoading(false);
       }}
-      loading={isLoading}
+      loading={isLoading || props.loading}
     />
   );
 }

@@ -1,10 +1,10 @@
+import { useTranslate } from "@tolgee/react";
 import { TextStyle, TouchableOpacity } from "react-native";
 import { IconType } from "../../assets/icons";
 import tw from "../../styles/tailwind";
 import { Icon } from "../Icon";
-import { Loading } from "../animation/Loading";
+import { Loading } from "../Loading";
 import { PeachText } from "../text/PeachText";
-import { useTranslate } from "@tolgee/react";
 
 export type PopupActionProps = ComponentProps & {
   onPress: (() => void) | (() => Promise<void>) | undefined;
@@ -30,7 +30,7 @@ export const PopupAction = ({
   return (
     <TouchableOpacity
       style={[
-        tw`flex-row items-center grow gap-1 px-6 py-2`,
+        tw`flex-row items-center gap-1 px-6 py-2 grow`,
         disabled && tw`opacity-50`,
         reverseOrder && tw`flex-row-reverse`,
         style,
@@ -39,10 +39,7 @@ export const PopupAction = ({
       disabled={loading || disabled}
     >
       {loading ? (
-        <Loading
-          color={tw.color("primary-background-light")}
-          style={tw`w-4 h-4`}
-        />
+        <Loading size="small" color={tw.color("primary-background-light")} />
       ) : (
         <Icon
           id={iconId}

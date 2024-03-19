@@ -191,6 +191,7 @@ export class PeachWallet extends PeachJSWallet {
 
   async getAddress(index: AddressIndex | number = AddressIndex.New) {
     if (!this.wallet) throw Error("WALLET_NOT_READY");
+    info("Getting address at index ", index);
     const addressInfo = await this.wallet.getAddress(index);
     return {
       ...addressInfo,

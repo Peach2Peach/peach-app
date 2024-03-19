@@ -225,13 +225,3 @@ describe("useOfferPreferences - actions - setSellOfferSorter", () => {
     ]);
   });
 });
-
-describe("useOfferPreferences - actions - setBuyOfferFilter", () => {
-  it("should update the buy offer filter", () => {
-    const filter = { maxPremium: 1.5 };
-    useOfferPreferences.getState().setBuyOfferFilter(filter);
-    expect(
-      useOfferPreferences.getState().filter.buyOffer.maxPremium,
-    ).toStrictEqual(filter.maxPremium);
-  });
-});

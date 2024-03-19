@@ -36,7 +36,7 @@ export function CancelSellOffersPopup({ fundMultiple }: Props) {
     );
   }, [setPopup, t]);
 
-  const { mutateAsync: cancelOffer } = useCancelOffer();
+  const { mutateAsync: cancelOffer, isPending } = useCancelOffer();
 
   const confirmCancelOffer = async () => {
     if (!fundMultiple) return;
@@ -86,6 +86,7 @@ export function CancelSellOffersPopup({ fundMultiple }: Props) {
             label={t({ key: "cancelOffer" })}
             iconId="xCircle"
             onPress={confirmCancelOffer}
+            loading={isPending}
             reverseOrder
           />
         </>

@@ -23,14 +23,13 @@ export const updateAccount = async (acc: Account, overwrite?: boolean) => {
   await tolgee.changeLanguage(
     Object.keys(tolgeeStaticData).includes(newLocale) ? newLocale : "en",
   );
-  const account = useAccountStore.getState().account;
-  const { mnemonic } = account;
+  const { mnemonic } = newAccount;
   if (mnemonic) {
-    const wallet = loadWalletFromAccount({ ...account, mnemonic });
+    const wallet = loadWalletFromAccount({ ...newAccount, mnemonic });
     await setWallets(wallet, mnemonic);
-    if (!account.base58) {
+    if (!newAccount.base58) {
       storeIdentity({
-        ...account,
+        ...newAccount,
         base58: wallet.toBase58(),
       });
     }

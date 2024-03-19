@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useState } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
@@ -17,12 +18,10 @@ import { CustomReferralCodePopup } from "../../popups/referral/CustomReferralCod
 import { RedeemNoPeachFeesPopup } from "../../popups/referral/RedeemNoPeachFeesPopup";
 import tw from "../../styles/tailwind";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { thousands } from "../../utils/string/thousands";
 import { ReferralCode } from "./components/ReferralCode";
 import { REWARDINFO } from "./constants";
 import { isRewardAvailable } from "./helpers/isRewardAvailable";
 import { mapRewardsToRadioButtonItems } from "./helpers/mapRewardsToRadioButtonItems";
-import { useTranslate } from "@tolgee/react";
 
 export const Referrals = () => (
   <Screen header={<ReferralsHeader />}>
@@ -70,7 +69,6 @@ function ReferralRewards() {
   const { t } = useTranslate("global");
   const { user } = useSelfUser();
   const balance = user?.bonusPoints || 0;
-  const referredTradingAmount = user?.referredTradingAmount || 0;
 
   const availableRewards = REWARDINFO.filter((reward) =>
     isRewardAvailable(reward, balance),
@@ -83,15 +81,6 @@ function ReferralRewards() {
   return (
     <>
       <PeachText style={tw`text-center`}>
-        {t(
-          !referredTradingAmount
-            ? "referrals.notTraded"
-            : "referrals.alreadyTraded",
-          t("currency.format.sats", {
-            amount: thousands(referredTradingAmount),
-          }),
-        )}
-        {"\n\n"}
         {t(
           availableRewards
             ? "referrals.selectReward"

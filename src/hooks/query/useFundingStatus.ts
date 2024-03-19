@@ -1,7 +1,6 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { MSINASECOND } from "../../constants";
 import { error } from "../../utils/log/error";
-import { defaultFundingStatus } from "../../utils/offer/constants";
 import { peachAPI } from "../../utils/peachAPI";
 import { offerKeys } from "./useOfferDetail";
 
@@ -13,6 +12,7 @@ export const useFundingStatus = (id: string, enabled = true) => {
     data,
     isLoading,
     error: fundingStatusError,
+    isPending,
   } = useQuery({
     queryKey: offerKeys.fundingStatus(id),
     queryFn: getFundingStatusQuery,
@@ -20,13 +20,11 @@ export const useFundingStatus = (id: string, enabled = true) => {
     refetchInterval: TWENTYSECONDS,
   });
 
-  const fundingStatus = data?.funding || defaultFundingStatus;
-  const userConfirmationRequired = data?.userConfirmationRequired || false;
-
   return {
-    fundingStatus,
-    userConfirmationRequired,
+    fundingStatus: data?.funding,
+    userConfirmationRequired: data?.userConfirmationRequired,
     isLoading,
+    isPending,
     error: fundingStatusError,
   };
 };

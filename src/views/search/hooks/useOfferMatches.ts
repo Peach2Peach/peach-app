@@ -10,10 +10,8 @@ import {
   GetMatchesErrorResponseBody,
   GetMatchesResponseBody,
 } from "../../../../peach-api/src/@types/api/offerAPI";
-import { MSINASECOND } from "../../../constants";
 import { useOfferDetail } from "../../../hooks/query/useOfferDetail";
 import { useOfferPreferences } from "../../../store/offerPreferences";
-import { getAbortWithTimeout } from "../../../utils/getAbortWithTimeout";
 import { info } from "../../../utils/log/info";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 import { peachAPI } from "../../../utils/peachAPI";
@@ -29,7 +27,6 @@ export const matchesKeys = {
     [...matchesKeys.matchesForOffer(offerId), sortBy] as const,
 };
 
-const NUMBER_OF_SECONDS = 30;
 export const useOfferMatches = (
   offerId: string,
   refetchInterval?: number,
@@ -60,7 +57,6 @@ export const useOfferMatches = (
     getNextPageParam: (lastPage) => lastPage?.nextPage,
     placeholderData: keepPreviousData,
   });
-
   const allMatches = useMemo(
     () => (queryData.data?.pages || []).flatMap((page) => page.matches),
     [queryData.data?.pages],
@@ -81,7 +77,6 @@ async function getMatchesQuery({
     offerId: queryKey[1],
     page: pageParam,
     size: PAGESIZE,
-    signal: getAbortWithTimeout(NUMBER_OF_SECONDS * MSINASECOND).signal,
     sortBy: queryKey[2],
   });
 
