@@ -12,7 +12,7 @@ export function AccountCreated() {
     <Screen
       header={
         <Header
-          title={t("welcome.welcomeToPeach.title")}
+          title={t("welcome.welcomeToPeach.title", { ns: "welcome" })}
           theme="transparent"
           hideGoBackButton
         />
