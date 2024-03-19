@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import Share from "react-native-share";
 import { LogoIcons } from "../../assets/logo";
@@ -18,7 +19,6 @@ import { info } from "../../utils/log/info";
 import { peachAPI } from "../../utils/peachAPI";
 import { openURL } from "../../utils/web/openURL";
 import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
-import { useTranslate } from "@tolgee/react";
 
 export function Home() {
   return (
@@ -43,7 +43,7 @@ function FreeTradesDonut() {
   const { user } = useSelfUser();
   const freeTrades = user?.freeTrades || 0;
   const maxFreeTrades = user?.maxFreeTrades || 0;
-  const { t } = useTranslate();
+  const { t } = useTranslate("settings");
   if (freeTrades === 0) return null;
   return (
     <ProgressDonut
