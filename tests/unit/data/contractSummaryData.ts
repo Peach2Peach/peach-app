@@ -4,6 +4,7 @@ export const contractSummary: ContractSummary = {
   id: "123-456",
   offerId: "offerId",
   type: "bid",
+  escrowType: "bitcoin",
   creationDate: new Date("2021-01-01"),
   lastModified: new Date("2021-01-01"),
   tradeStatus: "dispute",

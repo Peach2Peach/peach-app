@@ -32,7 +32,7 @@ export function WithdrawalConfirmationLiquidPopup({
     });
     if (result) {
       refetch();
-      navigation.navigate("liquidWallet");
+      navigation.navigate("homeScreen", { screen: "liquidWallet" });
     }
     if (error) throw Error(error.error);
     closePopup();

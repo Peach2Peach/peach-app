@@ -18,12 +18,12 @@ exports[`TotalBalance hide balance when the eye icon is pressed 1`] = `
             "busy": undefined,
             "checked": undefined,
             "disabled": undefined,
-@@ -106,11 +106,11 @@
-        />
+@@ -107,11 +107,11 @@
       </View>
     </View>
     <BTCAmount
       amount={100000}
+      chain="bitcoin"
 -     showAmount={false}
 +     showAmount={true}
       size="large"
@@ -31,7 +31,7 @@ exports[`TotalBalance hide balance when the eye icon is pressed 1`] = `
     <View
       style={
         Object {
-@@ -194,11 +194,11 @@
+@@ -195,11 +195,11 @@
                   },
                   false,
                 ]
@@ -157,6 +157,7 @@ exports[`TotalBalance renders correctly 1`] = `
   </View>
   <BTCAmount
     amount={100000}
+    chain="bitcoin"
     showAmount={true}
     size="large"
   />
@@ -460,7 +461,7 @@ exports[`TotalBalance renders correctly when isRefreshing is true 1`] = `
     >
       <View
         style={
-@@ -104,14 +106,54 @@
+@@ -104,15 +106,55 @@
             ]
           }
         />
@@ -503,6 +504,7 @@ exports[`TotalBalance renders correctly when isRefreshing is true 1`] = `
 +   />
     <BTCAmount
       amount={100000}
+      chain="bitcoin"
       showAmount={true}
       size="large"
 +     style={

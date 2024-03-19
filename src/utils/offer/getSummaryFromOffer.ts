@@ -1,4 +1,8 @@
-import { OfferSummary } from "../../../peach-api/src/@types/offer";
+import {
+  BuyOffer,
+  OfferSummary,
+  SellOffer,
+} from "../../../peach-api/src/@types/offer";
 
 export const getSummaryFromOffer = (
   offer: BuyOffer | SellOffer,

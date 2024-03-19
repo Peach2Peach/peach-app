@@ -129,6 +129,7 @@ export const buyOfferUnpublished: BuyOfferDraft = {
 export const matchOffer: Match = {
   user: defaultUser,
   offerId: "37",
+  escrowType: "bitcoin",
   prices: {
     EUR: 1,
     CHF: 1.1,

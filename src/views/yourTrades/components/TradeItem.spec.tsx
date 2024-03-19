@@ -15,6 +15,7 @@ describe("OfferItem", () => {
   const defaultOffer: OfferSummary = {
     id: "id",
     type: "bid",
+    escrowType: "bitcoin",
     creationDate: new Date("2021-01-01"),
     lastModified: new Date("2021-01-01"),
     amount: [minAmount, maxAmount],

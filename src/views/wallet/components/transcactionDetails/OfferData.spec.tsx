@@ -11,6 +11,7 @@ describe("OfferData", () => {
   it("should render correctly", () => {
     const { toJSON } = render(
       <OfferData
+        chain="bitcoin"
         price={123}
         currency="EUR"
         amount={10000}
@@ -24,6 +25,7 @@ describe("OfferData", () => {
   it("should render correctly without price, currency and address", () => {
     const { toJSON } = render(
       <OfferData
+        chain="bitcoin"
         amount={100000}
         transactionDetails={bitcoinJSTransactionWithRBF1}
         type="WITHDRAWAL"

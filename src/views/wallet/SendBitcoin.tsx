@@ -206,6 +206,7 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
     display:
       feeRate === "custom" ? (
         <CustomFeeItem
+          chain="bitcoin"
           customFeeRate={customFeeRate}
           setCustomFeeRate={updateCustomFeeRate}
           disabled={selectedFeeRate !== "custom"}
