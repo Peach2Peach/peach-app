@@ -317,7 +317,7 @@ exports[`LightningWallet should render correctly 1`] = `
                 ]
               }
             >
-              wallet.wallet.bitcoin
+              bitcoin
             </Text>
             <test-file-stub
               fill="#2B1911"
@@ -406,7 +406,7 @@ exports[`LightningWallet should render correctly 1`] = `
                 ]
               }
             >
-              wallet.wallet.liquid
+              liquid
             </Text>
             <test-file-stub
               fill="#2B1911"
@@ -495,7 +495,7 @@ exports[`LightningWallet should render correctly 1`] = `
                 ]
               }
             >
-              wallet.wallet.lightning
+              lightning
             </Text>
             <test-file-stub
               fill="#F56522"
@@ -884,7 +884,7 @@ exports[`LightningWallet should render correctly 1`] = `
                         }
                       >
                         <TextInput
-                          accessibilityHint="form.lightningInvoice.fiat.label"
+                          accessibilityHint="fiat"
                           allowFontScaling={false}
                           autoCapitalize="none"
                           autoCorrect={false}
@@ -1679,7 +1679,7 @@ exports[`LightningWallet should render correctly while loading 1`] = `
                 ]
               }
             >
-              wallet.wallet.bitcoin
+              bitcoin
             </Text>
             <test-file-stub
               fill="#2B1911"
@@ -1768,7 +1768,7 @@ exports[`LightningWallet should render correctly while loading 1`] = `
                 ]
               }
             >
-              wallet.wallet.liquid
+              liquid
             </Text>
             <test-file-stub
               fill="#2B1911"
@@ -1857,7 +1857,7 @@ exports[`LightningWallet should render correctly while loading 1`] = `
                 ]
               }
             >
-              wallet.wallet.lightning
+              lightning
             </Text>
             <test-file-stub
               fill="#F56522"
@@ -2285,7 +2285,7 @@ exports[`LightningWallet should render correctly while loading 1`] = `
                         }
                       >
                         <TextInput
-                          accessibilityHint="form.lightningInvoice.fiat.label"
+                          accessibilityHint="fiat"
                           allowFontScaling={false}
                           autoCapitalize="none"
                           autoCorrect={false}

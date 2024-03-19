@@ -297,7 +297,7 @@ exports[`SetInvoicePopup should show loading while lightningwallet generates inv
           ]
         }
       >
-        wallet.swap
+        swap
       </Text>
     </View>
   </View>
@@ -552,7 +552,7 @@ exports[`SetInvoicePopup should show show prefilled invoice field 1`] = `
           onBlur={[Function]}
           onChangeText={[Function]}
           onFocus={[Function]}
-          placeholder="form.address.lightningInvoice.placeholder"
+          placeholder="lightning invoice"
           placeholderTextColor="#EAE3DF"
           removeClippedSubviews={false}
           style={
@@ -896,7 +896,7 @@ exports[`SetInvoicePopup should show show prefilled invoice field 1`] = `
           ]
         }
       >
-        wallet.swap
+        swap
       </Text>
     </View>
   </View>

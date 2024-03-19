@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
+import { NewBubble } from "../../components/bubble/Bubble";
 import { Toggle } from "../../components/inputs/Toggle";
 import { useClosePopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PopupAction } from "../../components/popup/PopupAction";
@@ -90,6 +91,19 @@ export const TransactionBatching = () => {
               : "settings.batching.youPay",
           )}
         </ParsedPeachText>
+        <View style={tw`flex-row items-center mt-4 gap-4`}>
+          <PeachText style={tw`body-l h-6`}>
+            {i18n("settings.batching.thisOnlyAppliesTo")}
+          </PeachText>
+          <NewBubble
+            color={"black"}
+            ghost={true}
+            iconId="bitcoinLogo"
+            disabled={true}
+          >
+            {i18n("wallet.wallet.bitcoin")}
+          </NewBubble>
+        </View>
       </View>
       <Toggle enabled={isBatchingEnabled} onPress={toggleBatching}>
         {i18n("settings.batching.toggle")}

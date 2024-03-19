@@ -50,15 +50,10 @@ describe("ReceiveBitcoinLightning", () => {
     const { getByAccessibilityHint, getByPlaceholderText, getByText } = render(
       <ReceiveBitcoinLightning />,
     );
-    fireEvent.changeText(
-      getByAccessibilityHint("form.lightningInvoice.amount.label"),
-      amount,
-    );
+    fireEvent.changeText(getByAccessibilityHint("amount"), amount);
     fireEvent.changeText(getByPlaceholderText("label"), description);
-    expect(
-      getByAccessibilityHint("form.lightningInvoice.fiat.label").props.value,
-    ).toBe("12.35");
-    fireEvent.press(getByText("wallet.receiveBitcoin.createInvoice"));
+    expect(getByAccessibilityHint("fiat").props.value).toBe("12.35");
+    fireEvent.press(getByText("generate invoice"));
 
     await waitFor(() =>
       expect(receivePaymentMock).toHaveBeenCalledWith({

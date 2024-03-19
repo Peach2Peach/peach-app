@@ -9,6 +9,7 @@ import form from "./form/nl.json";
 import global from "./global/nl.json";
 import help from "./help/nl.json";
 import home from "./home/nl.json";
+import layer2 from "./layer2/nl.json";
 import notification from "./notification/nl.json";
 import offer from "./offer/nl.json";
 import paymentMethod from "./paymentMethod/nl.json";
@@ -44,6 +45,7 @@ const nl: Record<string, string> = {
   ...unassigned,
   ...wallet,
   ...welcome,
+  ...layer2,
 };
 
 export default nl;

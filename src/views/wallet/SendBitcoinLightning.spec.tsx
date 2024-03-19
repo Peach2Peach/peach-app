@@ -37,9 +37,7 @@ describe("SendBitcoinLightning", () => {
 
   it("should allow entering invoice", () => {
     const { getByAccessibilityHint } = render(<SendBitcoinLightning />);
-    const $invoice = getByAccessibilityHint(
-      "form.address.lightningInvoice.label",
-    );
+    const $invoice = getByAccessibilityHint("lightning invoice");
     fireEvent.changeText($invoice, lightningInvoice);
     expect($invoice.props.value).toBe("lnbc1234 ... 4tl577");
   });
@@ -47,34 +45,24 @@ describe("SendBitcoinLightning", () => {
     const { getByAccessibilityHint, getByText } = render(
       <SendBitcoinLightning />,
     );
-    const $invoice = getByAccessibilityHint(
-      "form.address.lightningInvoice.label",
-    );
+    const $invoice = getByAccessibilityHint("lightning invoice");
     fireEvent.changeText($invoice, "invalid");
     expect(getByText("form.lightningInvoice.error")).toBeDefined();
   });
   it("should display amount input when invoice is set", () => {
     const { getByAccessibilityHint } = render(<SendBitcoinLightning />);
-    const $invoice = getByAccessibilityHint(
-      "form.address.lightningInvoice.label",
-    );
+    const $invoice = getByAccessibilityHint("lightning invoice");
     fireEvent.changeText($invoice, lightningInvoice);
-    const $amount = getByAccessibilityHint(
-      "form.lightningInvoice.amount.label",
-    );
+    const $amount = getByAccessibilityHint("amount");
     expect($amount).toBeDefined();
     expect($amount.props.value).toBe("12345");
   });
   it("should display amount and edit it  when invoice with no amount is set", () => {
     const amount = "20000";
     const { getByAccessibilityHint } = render(<SendBitcoinLightning />);
-    const $invoice = getByAccessibilityHint(
-      "form.address.lightningInvoice.label",
-    );
+    const $invoice = getByAccessibilityHint("lightning invoice");
     fireEvent.changeText($invoice, lightningInvoiceNoAmount);
-    const $amount = getByAccessibilityHint(
-      "form.lightningInvoice.amount.label",
-    );
+    const $amount = getByAccessibilityHint("amount");
     expect($amount).toBeDefined();
     fireEvent.changeText($amount, amount);
     expect($amount.props.value).toBe(amount);
@@ -93,9 +81,7 @@ describe("SendBitcoinLightning", () => {
       <SendBitcoinLightning />,
     );
     const $payButton = getByRole("button");
-    const $invoice = getByAccessibilityHint(
-      "form.address.lightningInvoice.label",
-    );
+    const $invoice = getByAccessibilityHint("lightning invoice");
     fireEvent.changeText($invoice, lightningInvoice);
     expect($payButton.props.accessibilityState.disabled).toBeTruthy();
   });
@@ -105,9 +91,7 @@ describe("SendBitcoinLightning", () => {
       <SendBitcoinLightning />,
     );
     const $payButton = getByRole("button");
-    const $invoice = getByAccessibilityHint(
-      "form.address.lightningInvoice.label",
-    );
+    const $invoice = getByAccessibilityHint("lightning invoice");
     fireEvent.changeText($invoice, lightningInvoiceNoAmount);
     expect($payButton.props.accessibilityState.disabled).toBeTruthy();
   });
@@ -116,9 +100,7 @@ describe("SendBitcoinLightning", () => {
       <SendBitcoinLightning />,
     );
     const $payButton = getByRole("button");
-    const $invoice = getByAccessibilityHint(
-      "form.address.lightningInvoice.label",
-    );
+    const $invoice = getByAccessibilityHint("lightning invoice");
     fireEvent.changeText($invoice, lightningInvoice);
     await waitFor(() =>
       expect($payButton.props.accessibilityState.disabled).toBeFalsy(),
@@ -128,9 +110,7 @@ describe("SendBitcoinLightning", () => {
     const { getByRole, getByAccessibilityHint } = render(
       <SendBitcoinLightning />,
     );
-    const $invoice = getByAccessibilityHint(
-      "form.address.lightningInvoice.label",
-    );
+    const $invoice = getByAccessibilityHint("lightning invoice");
     const $payButton = getByRole("button");
     fireEvent.changeText($invoice, lightningInvoice);
     await waitFor(() =>
@@ -138,11 +118,7 @@ describe("SendBitcoinLightning", () => {
     );
     fireEvent.press(getByRole("button"));
     const { getByText } = render(<GlobalPopup />);
-    await waitFor(() =>
-      expect(
-        getByText("wallet.sendBitcoin.lightningPaymentSuccess.title"),
-      ).toBeDefined(),
-    );
+    await waitFor(() => expect(getByText("invoice paid")).toBeDefined());
   });
   it("should display payment failure", async () => {
     sendPaymentMock.mockResolvedValueOnce({
@@ -151,9 +127,7 @@ describe("SendBitcoinLightning", () => {
     const { getByRole, getByAccessibilityHint } = render(
       <SendBitcoinLightning />,
     );
-    const $invoice = getByAccessibilityHint(
-      "form.address.lightningInvoice.label",
-    );
+    const $invoice = getByAccessibilityHint("lightning invoice");
     const $payButton = getByRole("button");
     fireEvent.changeText($invoice, lightningInvoice);
     await waitFor(() =>
@@ -161,15 +135,7 @@ describe("SendBitcoinLightning", () => {
     );
     fireEvent.press(getByRole("button"));
     const { getByText } = render(<GlobalPopup />);
-    await waitFor(() =>
-      expect(
-        getByText("wallet.sendBitcoin.lightningPaymentFailed.title"),
-      ).toBeDefined(),
-    );
-    expect(
-      getByText(
-        "wallet.sendBitcoin.lightningPaymentFailed.text\nmissing route",
-      ),
-    ).toBeDefined();
+    await waitFor(() => expect(getByText("failed to pay")).toBeDefined());
+    expect(getByText("missing route")).toBeDefined();
   });
 });

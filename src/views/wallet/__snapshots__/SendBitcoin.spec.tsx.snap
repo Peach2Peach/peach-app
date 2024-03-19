@@ -415,7 +415,7 @@ exports[`SendBitcoin should render correctly 1`] = `
               ]
             }
           >
-            send bitcoin
+            send lightning bitcoin
           </Text>
         </View>
         <View

@@ -20,17 +20,17 @@ describe("ChainSelect", () => {
   });
   it("should should navigate to each wallet type", () => {
     const { getByText, rerender } = render(<ChainSelect current="lightning" />);
-    fireEvent.press(getByText("wallet.wallet.bitcoin"));
+    fireEvent.press(getByText("bitcoin"));
     expect(navigateMock).toHaveBeenCalledWith("homeScreen", {
       screen: "wallet",
     });
     rerender(<ChainSelect current="bitcoin" />);
-    fireEvent.press(getByText("wallet.wallet.lightning"));
+    fireEvent.press(getByText("lightning"));
     expect(navigateMock).toHaveBeenCalledWith("homeScreen", {
       screen: "lightningWallet",
     });
     rerender(<ChainSelect current="lightning" />);
-    fireEvent.press(getByText("wallet.wallet.liquid"));
+    fireEvent.press(getByText("liquid"));
     expect(navigateMock).toHaveBeenCalledWith("homeScreen", {
       screen: "liquidWallet",
     });

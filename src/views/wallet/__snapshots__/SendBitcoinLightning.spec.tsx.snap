@@ -126,7 +126,7 @@ exports[`SendBitcoinLightning should render correctly 1`] = `
               ]
             }
           >
-            send bitcoin
+            send lightning bitcoin
           </Text>
         </View>
         <View
@@ -210,7 +210,7 @@ exports[`SendBitcoinLightning should render correctly 1`] = `
               ]
             }
           >
-            wallet.sendBitcoin.pasteInvoiceBelow
+            paste your invoice below
           </Text>
           <View>
             <View
@@ -247,7 +247,7 @@ exports[`SendBitcoinLightning should render correctly 1`] = `
               }
             >
               <TextInput
-                accessibilityHint="form.address.lightningInvoice.label"
+                accessibilityHint="lightning invoice"
                 allowFontScaling={false}
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -257,7 +257,7 @@ exports[`SendBitcoinLightning should render correctly 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
-                placeholder="form.address.lightningInvoice.placeholder"
+                placeholder="lightning invoice"
                 placeholderTextColor="#EAE3DF"
                 removeClippedSubviews={false}
                 style={
@@ -452,7 +452,7 @@ exports[`SendBitcoinLightning should render correctly 1`] = `
                 ]
               }
             >
-              form.lightningInvoice.amount.label
+              amount
             </Text>
             <View
               style={
@@ -650,7 +650,7 @@ exports[`SendBitcoinLightning should render correctly 1`] = `
                 </View>
               </View>
               <TextInput
-                accessibilityHint="form.lightningInvoice.amount.label"
+                accessibilityHint="amount"
                 keyboardType="number-pad"
                 onChangeText={[Function]}
                 onFocus={[Function]}
@@ -722,7 +722,7 @@ exports[`SendBitcoinLightning should render correctly 1`] = `
                     }
                   >
                     <TextInput
-                      accessibilityHint="form.lightningInvoice.fiat.label"
+                      accessibilityHint="fiat"
                       allowFontScaling={false}
                       autoCapitalize="none"
                       autoCorrect={false}
@@ -1020,7 +1020,7 @@ exports[`SendBitcoinLightning should render correctly 1`] = `
               ]
             }
           >
-            wallet.sendBitcoin.payInvoice
+            pay invoice
           </Text>
         </View>
       </View>

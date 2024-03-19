@@ -32,8 +32,7 @@ describe("SetInvoicePopup", () => {
     );
     await waitFor(() =>
       expect(
-        getByPlaceholderText("form.address.lightningInvoice.placeholder").props
-          .value.length > 0,
+        getByPlaceholderText("lightning invoice").props.value.length > 0,
       ).toBeTruthy(),
     );
     await waitFor(() =>
@@ -49,15 +48,14 @@ describe("SetInvoicePopup", () => {
     );
     await waitFor(() =>
       expect(
-        getByPlaceholderText("form.address.lightningInvoice.placeholder").props
-          .value,
+        getByPlaceholderText("lightning invoice").props.value,
       ).toBeDefined(),
     );
     expect(useSwapOutMock).toHaveBeenCalledWith({
       miningFees: 210,
       invoice: lightningInvoice,
     });
-    fireEvent.press(getByText("wallet.swap"));
+    fireEvent.press(getByText("swap"));
     expect(swapOutMock).toHaveBeenCalled();
   });
 });

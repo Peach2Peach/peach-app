@@ -78,7 +78,7 @@ exports[`SwapButton should render correctly 1`] = `
       ]
     }
   >
-    wallet.swap
+    swap
   </Text>
   <test-file-stub
     fill="#FFFCFA"

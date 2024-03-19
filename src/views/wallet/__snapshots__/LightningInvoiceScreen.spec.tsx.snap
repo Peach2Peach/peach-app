@@ -126,7 +126,7 @@ exports[`LightningInvoiceScreen should render correctly 1`] = `
               ]
             }
           >
-            wallet.invoice.title
+            receive lightning bitcoin
           </Text>
         </View>
         <View
@@ -607,7 +607,7 @@ exports[`LightningInvoiceScreen should render correctly 1`] = `
                 ]
               }
             >
-              wallet.invoice.checkingInvoiceStatus
+              checking invoice status
             </Text>
             <LottieAnimationView
               autoPlay={true}
@@ -777,7 +777,7 @@ exports[`LightningInvoiceScreen should show success status once invoice has been
               ]
             }
           >
-            wallet.invoice.title
+            receive lightning bitcoin
           </Text>
         </View>
         <View
@@ -1258,7 +1258,7 @@ exports[`LightningInvoiceScreen should show success status once invoice has been
                 ]
               }
             >
-              wallet.invoice.invoicePaid
+              invoice paid
             </Text>
             <test-file-stub
               fill="#65A519"
@@ -1406,7 +1406,7 @@ exports[`LightningInvoiceScreen should show success status once invoice has fail
               ]
             }
           >
-            wallet.invoice.title
+            receive lightning bitcoin
           </Text>
         </View>
         <View
@@ -1887,7 +1887,7 @@ exports[`LightningInvoiceScreen should show success status once invoice has fail
                 ]
               }
             >
-              wallet.invoice.invoiceNotPaid
+              Invoice not Paid
             </Text>
             <test-file-stub
               fill="#DF321F"

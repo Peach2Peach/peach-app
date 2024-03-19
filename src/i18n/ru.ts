@@ -9,6 +9,7 @@ import form from "./form/ru.json";
 import global from "./global/ru.json";
 import help from "./help/ru.json";
 import home from "./home/ru.json";
+import layer2 from "./layer2/ru.json";
 import match from "./match/ru.json";
 import notification from "./notification/ru.json";
 import offer from "./offer/ru.json";
@@ -48,6 +49,7 @@ const ru: Record<string, string> = {
   ...unassigned,
   ...wallet,
   ...welcome,
+  ...layer2,
 };
 
 export default ru;

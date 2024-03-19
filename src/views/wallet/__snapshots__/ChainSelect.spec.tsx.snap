@@ -88,7 +88,7 @@ exports[`ChainSelect should render correctly when bitcoin is selected 1`] = `
         ]
       }
     >
-      wallet.wallet.bitcoin
+      bitcoin
     </Text>
     <test-file-stub
       fill="#F56522"
@@ -177,7 +177,7 @@ exports[`ChainSelect should render correctly when bitcoin is selected 1`] = `
         ]
       }
     >
-      wallet.wallet.liquid
+      liquid
     </Text>
     <test-file-stub
       fill="#2B1911"
@@ -266,7 +266,7 @@ exports[`ChainSelect should render correctly when bitcoin is selected 1`] = `
         ]
       }
     >
-      wallet.wallet.lightning
+      lightning
     </Text>
     <test-file-stub
       fill="#2B1911"
@@ -329,7 +329,7 @@ exports[`ChainSelect should render correctly when lightning is selected 1`] = `
           ]
         }
       >
-        wallet.wallet.bitcoin
+        bitcoin
       </Text>
       <test-file-stub
 -       fill="#2B1911"
@@ -379,7 +379,7 @@ exports[`ChainSelect should render correctly when lightning is selected 1`] = `
           ]
         }
       >
-        wallet.wallet.lightning
+        lightning
       </Text>
       <test-file-stub
 -       fill="#F56522"
@@ -436,7 +436,7 @@ exports[`ChainSelect should render correctly when liquid is selected 1`] = `
           ]
         }
       >
-        wallet.wallet.bitcoin
+        bitcoin
       </Text>
       <test-file-stub
 -       fill="#2B1911"
@@ -486,7 +486,7 @@ exports[`ChainSelect should render correctly when liquid is selected 1`] = `
           ]
         }
       >
-        wallet.wallet.liquid
+        liquid
       </Text>
       <test-file-stub
 -       fill="#F56522"

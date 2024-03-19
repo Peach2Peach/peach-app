@@ -63,7 +63,7 @@ export const ReceiveBitcoinLightning = () => {
   return (
     <Screen
       style={tw`justify-between`}
-      header={i18n("wallet.receiveBitcoin.title")}
+      header={i18n("wallet.receiveBitcoinLightning.title")}
     >
       <View style={tw`gap-6 py-6`}>
         <Input

@@ -30,7 +30,7 @@ describe("SwapButton", () => {
     useLiquidWalletState.getState().setIsSynced(true);
 
     const { getByText } = render(<SwapButton />);
-    fireEvent.press(getByText("wallet.swap"));
+    fireEvent.press(getByText("swap"));
     expect(startSwapOutMock).toHaveBeenCalled();
   });
 });

@@ -210,7 +210,7 @@ exports[`TotalBalance renders correctly 1`] = `
           }
         >
           <TextInput
-            accessibilityHint="form.lightningInvoice.fiat.label"
+            accessibilityHint="fiat"
             allowFontScaling={false}
             autoCapitalize="none"
             autoCorrect={false}

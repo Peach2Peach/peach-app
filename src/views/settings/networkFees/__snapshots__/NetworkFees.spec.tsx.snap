@@ -329,7 +329,7 @@ exports[`NetworkFees should render correctly 1`] = `
                       ]
                     }
                   >
-                    wallet.wallet.bitcoin
+                    bitcoin
                   </Text>
                   <test-file-stub
                     fill="#F56522"
@@ -418,7 +418,7 @@ exports[`NetworkFees should render correctly 1`] = `
                       ]
                     }
                   >
-                    wallet.wallet.liquid
+                    liquid
                   </Text>
                   <test-file-stub
                     fill="#2B1911"

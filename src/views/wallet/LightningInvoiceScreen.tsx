@@ -20,7 +20,7 @@ export const LightningInvoiceScreen = () => {
   const status = lightningPayment?.status || PaymentStatus.PENDING;
   const paymentRequest = useMemo(() => bolt11.decode(invoice), [invoice]);
   return (
-    <Screen header={i18n("wallet.invoice.title")}>
+    <Screen header={i18n("wallet.receiveBitcoinLightning.title")}>
       <View style={tw`items-center justify-center flex-1 gap-8`}>
         <PeachText>{paymentRequest.tagsObject.description}</PeachText>
         <Divider />

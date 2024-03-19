@@ -126,7 +126,7 @@ exports[`ReceiveBitcoinLightning should render correctly 1`] = `
               ]
             }
           >
-            receive bitcoin
+            receive lightning bitcoin
           </Text>
         </View>
         <View
@@ -326,7 +326,7 @@ exports[`ReceiveBitcoinLightning should render correctly 1`] = `
                 ]
               }
             >
-              form.lightningInvoice.amount.label
+              amount
             </Text>
             <View
               style={
@@ -516,7 +516,7 @@ exports[`ReceiveBitcoinLightning should render correctly 1`] = `
                 </View>
               </View>
               <TextInput
-                accessibilityHint="form.lightningInvoice.amount.label"
+                accessibilityHint="amount"
                 keyboardType="number-pad"
                 onChangeText={[Function]}
                 onFocus={[Function]}
@@ -588,7 +588,7 @@ exports[`ReceiveBitcoinLightning should render correctly 1`] = `
                     }
                   >
                     <TextInput
-                      accessibilityHint="form.lightningInvoice.fiat.label"
+                      accessibilityHint="fiat"
                       allowFontScaling={false}
                       autoCapitalize="none"
                       autoCorrect={false}
@@ -887,7 +887,7 @@ exports[`ReceiveBitcoinLightning should render correctly 1`] = `
               ]
             }
           >
-            wallet.receiveBitcoin.createInvoice
+            generate invoice
           </Text>
         </View>
       </View>

@@ -9,6 +9,7 @@ import form from "./form/el-GR.json";
 import global from "./global/el-GR.json";
 import help from "./help/el-GR.json";
 import home from "./home/el-GR.json";
+import layer2 from "./layer2/el-GR.json";
 import match from "./match/el-GR.json";
 import notification from "./notification/el-GR.json";
 import offer from "./offer/el-GR.json";
@@ -48,6 +49,7 @@ const el: Record<string, string> = {
   ...unassigned,
   ...wallet,
   ...welcome,
+  ...layer2,
 };
 
 export default el;
