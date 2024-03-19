@@ -57,7 +57,7 @@ export const EditPremium = () => {
         maxPremium={displayPremium}
       />
       <Premium
-        chain={offer?.escrowType}
+        chain={offer?.escrowType || "bitcoin"}
         premium={displayPremium}
         setPremium={setPremium}
         amount={offer?.amount ?? 0}

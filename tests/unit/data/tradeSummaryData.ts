@@ -12,4 +12,5 @@ export const tradeSummary: OfferSummary | ContractSummary = {
   tradeStatus: "offerCanceled",
   txId: "8ea66bb91bbac381b143bced21926fb2787d28638de4757051ea412ca0887ddc",
   type: "ask",
+  escrowType: "bitcoin",
 };

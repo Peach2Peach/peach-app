@@ -3,6 +3,7 @@ import { Transaction } from "../../../../peach-api/src/@types/electrs-liquid";
 import { OfferSummary } from "../../../../peach-api/src/@types/offer";
 import { MSINASECOND } from "../../../constants";
 import { useContractSummaries } from "../../../hooks/query/useContractSummaries";
+import { useBoltzSwapStore } from "../../../store/useBoltzSwapStore";
 import { sum } from "../../../utils/math/sum";
 import { getOffer } from "../../../utils/offer/getOffer";
 import { isNotNull } from "../../../utils/validation/isNotNull";
@@ -51,9 +52,11 @@ const getTransactionType = (
 export function getTxSummaryLiquid({
   tx,
   offer,
+  swapId,
 }: {
   tx: Transaction;
   offer: SellOffer | BuyOffer | undefined;
+  swapId?: string;
 }) {
   const isConfirmed = tx.status.confirmed;
   const sent = getSent(tx);
@@ -61,7 +64,7 @@ export function getTxSummaryLiquid({
   return {
     id: tx.txid,
     chain: "liquid" as Chain,
-    type: getTransactionType({ received, sent }, offer),
+    type: swapId ? "SWAP" : getTransactionType({ received, sent }, offer),
     amount: Math.abs(sent - received),
     date: tx.status.block_time
       ? new Date(tx.status.block_time * MSINASECOND)
@@ -74,6 +77,7 @@ export function getTxSummaryLiquid({
 export function useTxSummariesLiquid() {
   const txs = useLiquidWalletState((state) => state.transactions);
   const txOfferMap = useWalletState((state) => state.txOfferMap);
+  const map = useBoltzSwapStore((state) => state.map);
   const { contracts } = useContractSummaries();
   return useQueries({
     queries: txs.map((tx) => ({
@@ -84,6 +88,7 @@ export function useTxSummariesLiquid() {
         const partialSummary = getTxSummaryLiquid({
           tx,
           offer: offers.filter(isNotNull)[0],
+          swapId: map[tx.txid]?.[0],
         });
 
         return {

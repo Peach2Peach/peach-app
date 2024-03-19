@@ -1,5 +1,6 @@
 import { memo, useMemo } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
+import { IconType } from "../../assets/icons";
 import { SATSINBTC } from "../../constants";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
@@ -60,7 +61,7 @@ export const BTCAmount = memo(
       () => [styles[size].amount, white && tw`text-primary-background-light`],
       [size, white],
     );
-    const logo =
+    const logo: IconType =
       chain === "bitcoin"
         ? white
           ? "bitcoinTransparent"

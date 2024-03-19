@@ -71,6 +71,7 @@ export const useSwapOut = ({ miningFees, invoice }: UseSwapOutProps) => {
 
       if (error) throw Error(error.error);
 
+      mapSwap(lockUpTransaction.getId(), swapInfo.id);
       peachLiquidWallet.syncWallet();
     } catch (e) {
       showErrorBanner(parseError(e));

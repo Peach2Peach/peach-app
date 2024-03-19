@@ -52,11 +52,15 @@ function WrongFundingAmountSummary({ sellOffer }: Props) {
         text={i18n("offer.requiredAction.fundingAmountDifferent")}
       />
       <View style={tw`gap-1`}>
-        <LabelAndAmount label={i18n("escrow.funded")} amount={actualAmount} />
         <LabelAndAmount
+          chain={sellOffer.escrowType}
+          label={i18n("escrow.funded")}
+          amount={actualAmount}
+        />
+        <LabelAndAmount
+          chain={sellOffer.escrowType}
           label={i18n("amount")}
           amount={fundingAmount}
-          chain={sellOffer.escrowType}
         />
       </View>
       <PeachText style={tw`body-s`}>

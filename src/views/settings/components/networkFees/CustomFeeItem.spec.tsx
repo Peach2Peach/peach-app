@@ -5,9 +5,10 @@ expect.extend({ toMatchDiffSnapshot });
 
 describe("CustomFeeItem", () => {
   const customFeeRate = "4";
+  const chain = "bitcoin";
   const setCustomFeeRate = jest.fn();
   const defaultComponent = (
-    <CustomFeeItem {...{ customFeeRate, setCustomFeeRate }} />
+    <CustomFeeItem {...{ chain, customFeeRate, setCustomFeeRate }} />
   );
   it("renders correctly", () => {
     const { toJSON } = render(defaultComponent);
@@ -17,7 +18,7 @@ describe("CustomFeeItem", () => {
   it("renders correctly when disabled", () => {
     const { toJSON } = render(
       <CustomFeeItem
-        {...{ customFeeRate, setCustomFeeRate, disabled: true }}
+        {...{ chain, customFeeRate, setCustomFeeRate, disabled: true }}
       />,
     );
     const result = toJSON();

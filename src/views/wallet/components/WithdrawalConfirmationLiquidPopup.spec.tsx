@@ -58,7 +58,9 @@ describe("WithdrawalConfirmationLiquidPopup", () => {
 
     expect(postTxSpy).toHaveBeenCalledWith({ tx: liquidTransactionHex });
     await waitFor(() => {
-      expect(navigateMock).toHaveBeenCalledWith("liquidWallet");
+      expect(navigateMock).toHaveBeenCalledWith("homeScreen", {
+        screen: "liquidWallet",
+      });
     });
   });
 });

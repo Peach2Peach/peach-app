@@ -3,7 +3,8 @@ type TransactionType =
   | "ESCROWFUNDED"
   | "REFUND"
   | "WITHDRAWAL"
-  | "DEPOSIT";
+  | "DEPOSIT"
+  | "SWAP";
 
 type OfferData = {
   offerId?: string;
