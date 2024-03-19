@@ -2,11 +2,9 @@ import ecc from "@bitcoinerlab/secp256k1";
 import { BOLTZ_API, NETWORK } from "@env";
 import { SwapStatus } from "boltz-swap-web-context/src/boltz-api/types";
 import ECPairFactory from "ecpair";
-import { View } from "react-native";
 import { WebView } from "react-native-webview";
 import { getError } from "../../../../peach-api/src/utils/result/getError";
 import { getResult } from "../../../../peach-api/src/utils/result/getResult";
-import { Loading } from "../../../components/animation/Loading";
 import { ErrorBox } from "../../../components/ui/ErrorBox";
 import { useBoltzWebcontext } from "../../../hooks/query/useBoltzWebcontext";
 import { useLiquidFeeRate } from "../../../hooks/useLiquidFeeRate";
@@ -50,7 +48,7 @@ const getClaimReverseSubmarineSwapJS = ({
   return getResult(`window.claimReverseSubmarineSwap(${args}); void(0);`);
 };
 
-type ClaimReverseSubmarineSwapProps = {
+export type ClaimReverseSubmarineSwapProps = {
   offerId: string;
   address: string;
   swapInfo: ReverseAPIResponse;
@@ -94,19 +92,15 @@ export const ClaimReverseSubmarineSwap = ({
       </ErrorBox>
     );
 
+  if (!html) return <></>;
   return (
-    <View style={tw`flex-row items-center gap-4`}>
-      <Loading />
-      {!!html && (
-        <WebView
-          style={tw`absolute opacity-0`}
-          source={{ html }}
-          originWhitelist={["*"]}
-          injectedJavaScript={injectedJavaScript.getValue()}
-          javaScriptEnabled={true}
-          onMessage={handleClaimMessage}
-        />
-      )}
-    </View>
+    <WebView
+      style={tw`absolute opacity-0`}
+      source={{ html }}
+      originWhitelist={["*"]}
+      injectedJavaScript={injectedJavaScript.getValue()}
+      javaScriptEnabled={true}
+      onMessage={handleClaimMessage}
+    />
   );
 };

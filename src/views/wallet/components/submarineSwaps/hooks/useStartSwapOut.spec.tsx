@@ -120,8 +120,8 @@ describe("useStartSwapOut", () => {
     } = renderHook(useStartSwapOut);
     startSwapOut();
     expect(mockHandleTransactionError).toHaveBeenCalledWith([
-      new Error("BELOW_DUST_LIMIT"),
-      undefined,
+      new Error("INSUFFICIENT_FUNDS"),
+      { available: "0", needed: "10000" },
     ]);
   });
   it("should estimate swappable amount and open SetInvoicePopup", async () => {
@@ -159,7 +159,7 @@ describe("useStartSwapOut", () => {
     startSwapOut();
     const { queryByText } = render(<GlobalPopup />);
     await waitFor(() =>
-      expect(queryByText("Create an invoice for 4289449 sats")).toBeTruthy(),
+      expect(queryByText("Create an invoice for 4289181 sats")).toBeTruthy(),
     );
   });
 });

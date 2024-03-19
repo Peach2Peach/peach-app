@@ -8,8 +8,8 @@ import { keys } from "../../utils/object/keys";
 
 const WALLETS = {
   wallet: "bitcoin",
-  liquidWallet: "liquid",
   lightningWallet: "lightning",
+  liquidWallet: "liquid",
 };
 const logoMap: Record<keyof typeof WALLETS, IconType> = {
   wallet: "bitcoinLogo",

@@ -1,57 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ClaimSubmarineSwap should render correctly 1`] = `
-<View>
-  <LottieAnimationView
-    autoPlay={true}
-    cacheComposition={true}
-    colorFilters={
-      [
-        {
-          "color": 4294272290,
-          "keypath": "main",
-        },
-      ]
+<WebView
+  injectedJavaScript="window.claimSubmarineSwap({"apiUrl":"http://localhost:9001","network":"regtest","invoice":"invoice","swapInfo":{"id":"Z3zFmeKQbIbM","bip21":"liquidnetwork:el1pq244c89sg3c0ser5k2d0dx4nujv5dy8rvuqqflw6yqmvayamcm2fh8zpzge8sjz6a88vf3dkkttuh4qjjcv8tx78nlj4deru95kcsfmtmnwhe2zqh5s4?amount=0.00030178&label=Send%20to%20BTC%20lightning&assetid=5ac9f65c0efcc4775e0baec4ec03abdde22473cd3cf33c0419ca290e0751b225","address":"el1pq244c89sg3c0ser5k2d0dx4nujv5dy8rvuqqflw6yqmvayamcm2fh8zpzge8sjz6a88vf3dkkttuh4qjjcv8tx78nlj4deru95kcsfmtmnwhe2zqh5s4","swapTree":{"claimLeaf":{"version":196,"output":"a914a453dc64b5244a32cff3d8d4feb136507ba790648820253077aefbfcacb3cb750bec5f43664a661e66e53a65f660da252da40a3fd51fac"},"refundLeaf":{"version":196,"output":"208ba19c1532fa0b209ac3dd86e3c54145ef5761930e3190f040fa294de5f86da9ad026727b1"}},"blindingKey":"06831335949f5ea42ae1bd49650194801d7ce94b0efd2d825cdb64e980f99f02","acceptZeroConf":false,"expectedAmount":30178,"claimPublicKey":"03253077aefbfcacb3cb750bec5f43664a661e66e53a65f660da252da40a3fd51f","timeoutBlockHeight":10087},"privateKey":"742d5032ea5f1b021d2a2c7bbdd85aea14183e343552c94a76b36d4f9b55e341"}); void(0);"
+  onMessage={[Function]}
+  originWhitelist={
+    [
+      "*",
+    ]
+  }
+  source={
+    {
+      "html": "<html></html>",
     }
-    enableMergePathsAndroidForKitKatAndAbove={false}
-    loop={true}
-    onAnimationFinish={[Function]}
-    progress={0}
-    resizeMode="contain"
-    sourceJson="{"v":"5.1.15","fr":60,"ip":0,"op":141,"w":120,"h":120,"nm":"Composição 1","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":0,"ty":4,"nm":"main","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":0,"s":[0],"e":[1080]},{"t":180}],"ix":10},"p":{"a":0,"k":[60,60,0],"ix":2},"a":{"a":0,"k":[-14.604,-15.104,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[106.793,106.793],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"nm":"Caminho da elipse 1","mn":"ADBE Vector Shape - Ellipse","hd":false},{"ty":"st","c":{"a":0,"k":[1,1,1,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":11,"ix":5},"lc":2,"lj":1,"ml":4,"nm":"Traçado 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"tr","p":{"a":0,"k":[-14.604,-15.104],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Elipse 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false},{"ty":"tm","s":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":0,"s":[0],"e":[0]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":60,"s":[0],"e":[67]},{"t":119}],"ix":1},"e":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":0,"s":[3],"e":[70]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":60,"s":[70],"e":[70]},{"t":119}],"ix":2},"o":{"a":0,"k":0,"ix":3},"m":1,"ix":2,"nm":"Aparar caminhos 1","mn":"ADBE Vector Filter - Trim","hd":false}],"ip":0,"op":900,"st":0,"bm":0}],"chars":[],"markers":[]}"
-    speed={1}
-    style={
-      [
-        {
-          "height": 80,
-          "width": 80,
-        },
-        undefined,
-      ]
+  }
+  style={
+    {
+      "opacity": 0,
+      "position": "absolute",
     }
-    textFiltersAndroid={[]}
-    textFiltersIOS={[]}
-    useNativeLooping={false}
-  />
-  <WebView
-    injectedJavaScript="window.claimSubmarineSwap({"apiUrl":"http://localhost:9001","network":"regtest","invoice":"invoice","swapInfo":{"id":"Z3zFmeKQbIbM","bip21":"liquidnetwork:el1pq244c89sg3c0ser5k2d0dx4nujv5dy8rvuqqflw6yqmvayamcm2fh8zpzge8sjz6a88vf3dkkttuh4qjjcv8tx78nlj4deru95kcsfmtmnwhe2zqh5s4?amount=0.00030178&label=Send%20to%20BTC%20lightning&assetid=5ac9f65c0efcc4775e0baec4ec03abdde22473cd3cf33c0419ca290e0751b225","address":"el1pq244c89sg3c0ser5k2d0dx4nujv5dy8rvuqqflw6yqmvayamcm2fh8zpzge8sjz6a88vf3dkkttuh4qjjcv8tx78nlj4deru95kcsfmtmnwhe2zqh5s4","swapTree":{"claimLeaf":{"version":196,"output":"a914a453dc64b5244a32cff3d8d4feb136507ba790648820253077aefbfcacb3cb750bec5f43664a661e66e53a65f660da252da40a3fd51fac"},"refundLeaf":{"version":196,"output":"208ba19c1532fa0b209ac3dd86e3c54145ef5761930e3190f040fa294de5f86da9ad026727b1"}},"blindingKey":"06831335949f5ea42ae1bd49650194801d7ce94b0efd2d825cdb64e980f99f02","acceptZeroConf":false,"expectedAmount":30178,"claimPublicKey":"03253077aefbfcacb3cb750bec5f43664a661e66e53a65f660da252da40a3fd51f","timeoutBlockHeight":10087},"privateKey":"742d5032ea5f1b021d2a2c7bbdd85aea14183e343552c94a76b36d4f9b55e341"}); void(0);"
-    onMessage={[Function]}
-    originWhitelist={
-      [
-        "*",
-      ]
-    }
-    source={
-      {
-        "html": "<html></html>",
-      }
-    }
-    style={
-      {
-        "opacity": 0,
-        "position": "absolute",
-      }
-    }
-  />
-</View>
+  }
+/>
 `;

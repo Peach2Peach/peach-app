@@ -26,6 +26,7 @@
   "wallet.swap.inProgress": "swap in progress",
   "wallet.swap.doNotCloseApp": "Do not close the app now!",
   "wallet.swap.failed": "swap failed",
+  "wallet.swap.swapOut": "swap out",
   "wallet.swap.failed.tryAgain": "Your swap has failed and you can try again",
   "wallet.swap.tryAgain": "Try again",
   "wallet.swap.refund": "Your swap has failed and you can get refunded",

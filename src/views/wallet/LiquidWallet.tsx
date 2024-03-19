@@ -9,6 +9,7 @@ import i18n from "../../utils/i18n";
 import { useLiquidWalletState } from "../../utils/wallet/useLiquidWalletState";
 import { ChainSelect } from "./ChainSelect";
 import { TotalBalance } from "./components";
+import { Swaps } from "./components/Swaps";
 import { WalletHeaderLiquid } from "./components/WalletHeaderLiquid";
 import { useSyncLiquidWallet } from "./hooks/useSyncLiquidWallet";
 
@@ -33,6 +34,7 @@ export const LiquidWallet = () => {
         />
         <BackupReminderIcon />
       </PeachScrollView>
+      <Swaps />
       <WalletButtons />
     </Screen>
   );

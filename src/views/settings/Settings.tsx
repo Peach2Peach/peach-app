@@ -11,10 +11,8 @@ import { PeachText } from "../../components/text/PeachText";
 import { AnalyticsPopup } from "../../popups/AnalyticsPopup";
 import { WarningPopup } from "../../popups/WarningPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
-import { useBoltzSwapStore } from "../../store/useBoltzSwapStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
-import { keys } from "../../utils/object/keys";
 import { checkNotificationStatus } from "../../utils/system/checkNotificationStatus";
 import { isProduction } from "../../utils/system/isProduction";
 import { toggleNotifications } from "../../utils/system/toggleNotifications";
@@ -45,7 +43,6 @@ export const Settings = () => {
       ],
       shallow,
     );
-  const swaps = useBoltzSwapStore((state) => state.swaps);
 
   useFocusEffect(
     useCallback(() => {
@@ -152,12 +149,6 @@ export const Settings = () => {
     { headline: "profileSettings", items: profileSettings },
     { headline: "appSettings", items: appSettings },
   ];
-
-  if (keys(swaps).length)
-    settings.push({
-      headline: "advanced",
-      items: ["swaps"] as SettingsItemType[],
-    });
 
   return (
     <Screen header={<Header title={i18n("settings.title")} hideGoBackButton />}>

@@ -138,7 +138,6 @@ function FundFromPeachLightningWalletButton({
       });
   };
 
-  console.log("balance.lightning", balance.lightning);
   return (
     <>
       {fundedFromPeachWallet ? (

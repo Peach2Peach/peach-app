@@ -60,6 +60,13 @@ const storage = createPersistStorage(boltzSwapStorage);
 export const getSwapType = (swap: SwapInfo) =>
   "expectedAmount" in swap ? "SUBMARINE" : "REVERSE";
 
+export const getSwapAmount = (swap: SwapInfo) =>
+  "onchainAmount" in swap
+    ? swap.onchainAmount
+    : "expectedAmount" in swap
+      ? swap.expectedAmount
+      : undefined;
+
 export const isSwapPending = (swap: SwapInfo): boolean =>
   !swap.status?.status ||
   (!STATUS_MAP[getSwapType(swap)].COMPLETED.includes(swap.status.status) &&
@@ -71,7 +78,7 @@ export const useBoltzSwapStore = create<WalletStore>()(
       ...defaultState,
       reset: () => set(defaultState),
       saveSwap: (swapInfo) => {
-        const swaps = get().swaps;
+        const swaps = { ...get().swaps };
         swaps[swapInfo.id] = swapInfo;
         set({ swaps });
       },

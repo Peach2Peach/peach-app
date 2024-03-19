@@ -157,7 +157,6 @@ type RootStackParamList = Onboarding &
     socials: undefined;
     myProfile: undefined;
     transactionBatching: undefined;
-    swaps: undefined;
     patchPayoutAddress:
       | {
           contractId: Contract["id"];

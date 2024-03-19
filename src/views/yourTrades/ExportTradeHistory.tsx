@@ -5,8 +5,8 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { THOUSANDS_GROUP } from "../../constants";
+import { exportFile } from "../../hooks/exportFile";
 import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
-import { writeCSV } from "../../hooks/writeCSV";
 import tw from "../../styles/tailwind";
 import { sortByKey } from "../../utils/array/sortByKey";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
@@ -26,7 +26,7 @@ export function ExportTradeHistory() {
     const csvValue = createCSVValue(
       summaries["yourTrades.history"].sort(sortByKey("creationDate")),
     );
-    await writeCSV(csvValue, "trade-history.csv");
+    await exportFile(csvValue, "trade-history.csv");
   };
 
   return (
