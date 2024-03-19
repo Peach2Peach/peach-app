@@ -2,10 +2,8 @@ import ecc from "@bitcoinerlab/secp256k1";
 import { BOLTZ_API, NETWORK } from "@env";
 import ECPairFactory from "ecpair";
 import { useMemo } from "react";
-import { View } from "react-native";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
 import { getResult } from "../../../../../peach-api/src/utils/result/getResult";
-import { Loading } from "../../../../components/animation/Loading";
 import { ErrorBox } from "../../../../components/ui/ErrorBox";
 import { useBoltzWebcontext } from "../../../../hooks/query/useBoltzWebcontext";
 import tw from "../../../../styles/tailwind";
@@ -37,7 +35,7 @@ const getClaimSubmarineSwapJS = ({
   return getResult(`window.claimSubmarineSwap(${args}); void(0);`);
 };
 
-type ClaimSubmarineSwapProps = {
+export type ClaimSubmarineSwapProps = {
   invoice: string;
   swapInfo: SubmarineAPIResponse;
   keyPairWIF: string;
@@ -76,18 +74,14 @@ export const ClaimSubmarineSwap = ({
       <ErrorBox>{htmlError?.message || injectedJavaScript.getError()}</ErrorBox>
     );
 
+  if (!html) return <></>;
   return (
-    <View>
-      <Loading />
-      {!!html && (
-        <WebView
-          style={tw`absolute opacity-0`}
-          source={{ html }}
-          originWhitelist={["*"]}
-          injectedJavaScript={injectedJavaScript.getValue()}
-          onMessage={handleClaimMessage}
-        />
-      )}
-    </View>
+    <WebView
+      style={tw`absolute opacity-0`}
+      source={{ html }}
+      originWhitelist={["*"]}
+      injectedJavaScript={injectedJavaScript.getValue()}
+      onMessage={handleClaimMessage}
+    />
   );
 };

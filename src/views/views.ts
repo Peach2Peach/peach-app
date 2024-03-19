@@ -42,7 +42,6 @@ import { AboutPeach } from "./settings/aboutPeach/AboutPeach";
 import { BitcoinProducts } from "./settings/aboutPeach/BitcoinProducts";
 import { PeachFees } from "./settings/aboutPeach/PeachFees";
 import { Socials } from "./settings/aboutPeach/Socials";
-import { Swaps } from "./settings/aboutPeach/Swaps";
 import { NetworkFees } from "./settings/networkFees/NetworkFees";
 import { MyProfile } from "./settings/profile/MyProfile";
 import { UserSource } from "./userSource/UserSource";
@@ -171,7 +170,6 @@ const settings: ViewType[] = [
   { name: "networkFees", component: NetworkFees },
   { name: "transactionBatching", component: TransactionBatching },
   { name: "socials", component: Socials },
-  { name: "swaps", component: Swaps },
 ];
 
 const testViews: ViewType[] = [

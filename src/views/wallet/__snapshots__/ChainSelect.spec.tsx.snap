@@ -177,7 +177,7 @@ exports[`ChainSelect should render correctly when bitcoin is selected 1`] = `
         ]
       }
     >
-      liquid
+      lightning
     </Text>
     <test-file-stub
       fill="#2B1911"
@@ -266,7 +266,7 @@ exports[`ChainSelect should render correctly when bitcoin is selected 1`] = `
         ]
       }
     >
-      lightning
+      liquid
     </Text>
     <test-file-stub
       fill="#2B1911"
@@ -285,113 +285,6 @@ exports[`ChainSelect should render correctly when bitcoin is selected 1`] = `
 `;
 
 exports[`ChainSelect should render correctly when lightning is selected 1`] = `
-"Snapshot Diff:
-- First value
-+ Second value
-
-@@ -14,11 +14,11 @@
-    <View
-      accessibilityState={
-        Object {
-          "busy": undefined,
-          "checked": undefined,
--         "disabled": false,
-+         "disabled": true,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-@@ -41,11 +41,11 @@
-      onStartShouldSetResponder={[Function onStartShouldSetResponder]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "transparent",
--         "borderColor": "#2B1911",
-+         "borderColor": "#F56522",
-          "borderRadius": 8,
-          "borderWidth": 1,
-          "flexDirection": "row",
-          "gap": 4,
-          "justifyContent": "center",
-@@ -76,21 +76,21 @@
-                "lineHeight": 24,
-                "textAlign": "center",
-                "textTransform": "uppercase",
-              },
-              Object {
--               "color": "#2B1911",
-+               "color": "#F56522",
-              },
-            ],
-            false,
-          ]
-        }
-      >
-        bitcoin
-      </Text>
-      <test-file-stub
--       fill="#2B1911"
-+       fill="#F56522"
-        style={
-          Array [
-            Object {
-              "height": 12,
-              "width": 12,
-@@ -192,11 +192,11 @@
-    <View
-      accessibilityState={
-        Object {
-          "busy": undefined,
-          "checked": undefined,
--         "disabled": true,
-+         "disabled": false,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-@@ -219,11 +219,11 @@
-      onStartShouldSetResponder={[Function onStartShouldSetResponder]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "transparent",
--         "borderColor": "#F56522",
-+         "borderColor": "#2B1911",
-          "borderRadius": 8,
-          "borderWidth": 1,
-          "flexDirection": "row",
-          "gap": 4,
-          "justifyContent": "center",
-@@ -254,21 +254,21 @@
-                "lineHeight": 24,
-                "textAlign": "center",
-                "textTransform": "uppercase",
-              },
-              Object {
--               "color": "#F56522",
-+               "color": "#2B1911",
-              },
-            ],
-            false,
-          ]
-        }
-      >
-        lightning
-      </Text>
-      <test-file-stub
--       fill="#F56522"
-+       fill="#2B1911"
-        style={
-          Array [
-            Object {
-              "height": 12,
-              "width": 12,"
-`;
-
-exports[`ChainSelect should render correctly when liquid is selected 1`] = `
 "Snapshot Diff:
 - First value
 + Second value
@@ -473,6 +366,113 @@ exports[`ChainSelect should render correctly when liquid is selected 1`] = `
           "gap": 4,
           "justifyContent": "center",
 @@ -165,21 +165,21 @@
+                "lineHeight": 24,
+                "textAlign": "center",
+                "textTransform": "uppercase",
+              },
+              Object {
+-               "color": "#F56522",
++               "color": "#2B1911",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        lightning
+      </Text>
+      <test-file-stub
+-       fill="#F56522"
++       fill="#2B1911"
+        style={
+          Array [
+            Object {
+              "height": 12,
+              "width": 12,"
+`;
+
+exports[`ChainSelect should render correctly when liquid is selected 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -14,11 +14,11 @@
+    <View
+      accessibilityState={
+        Object {
+          "busy": undefined,
+          "checked": undefined,
+-         "disabled": false,
++         "disabled": true,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+@@ -41,11 +41,11 @@
+      onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+-         "borderColor": "#2B1911",
++         "borderColor": "#F56522",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "center",
+@@ -76,21 +76,21 @@
+                "lineHeight": 24,
+                "textAlign": "center",
+                "textTransform": "uppercase",
+              },
+              Object {
+-               "color": "#2B1911",
++               "color": "#F56522",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        bitcoin
+      </Text>
+      <test-file-stub
+-       fill="#2B1911"
++       fill="#F56522"
+        style={
+          Array [
+            Object {
+              "height": 12,
+              "width": 12,
+@@ -192,11 +192,11 @@
+    <View
+      accessibilityState={
+        Object {
+          "busy": undefined,
+          "checked": undefined,
+-         "disabled": true,
++         "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+@@ -219,11 +219,11 @@
+      onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+-         "borderColor": "#F56522",
++         "borderColor": "#2B1911",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "center",
+@@ -254,21 +254,21 @@
                 "lineHeight": 24,
                 "textAlign": "center",
                 "textTransform": "uppercase",

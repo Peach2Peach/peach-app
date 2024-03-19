@@ -337,95 +337,6 @@ exports[`LightningWallet should render correctly 1`] = `
               {
                 "busy": undefined,
                 "checked": undefined,
-                "disabled": false,
-                "expanded": undefined,
-                "selected": undefined,
-              }
-            }
-            accessibilityValue={
-              {
-                "max": undefined,
-                "min": undefined,
-                "now": undefined,
-                "text": undefined,
-              }
-            }
-            accessible={true}
-            collapsable={false}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              {
-                "alignItems": "center",
-                "backgroundColor": "transparent",
-                "borderColor": "#2B1911",
-                "borderRadius": 8,
-                "borderWidth": 1,
-                "flexDirection": "row",
-                "gap": 4,
-                "justifyContent": "center",
-                "opacity": 1,
-                "paddingBottom": 2,
-                "paddingLeft": 8,
-                "paddingRight": 8,
-                "paddingTop": 2,
-              }
-            }
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    {
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 14,
-                      "letterSpacing": 0.5,
-                      "lineHeight": 24,
-                      "textAlign": "center",
-                      "textTransform": "uppercase",
-                    },
-                    {
-                      "color": "#2B1911",
-                    },
-                  ],
-                  false,
-                ]
-              }
-            >
-              liquid
-            </Text>
-            <test-file-stub
-              fill="#2B1911"
-              style={
-                [
-                  {
-                    "height": 12,
-                    "width": 12,
-                  },
-                  undefined,
-                ]
-              }
-            />
-          </View>
-          <View
-            accessibilityState={
-              {
-                "busy": undefined,
-                "checked": undefined,
                 "disabled": true,
                 "expanded": undefined,
                 "selected": undefined,
@@ -499,6 +410,95 @@ exports[`LightningWallet should render correctly 1`] = `
             </Text>
             <test-file-stub
               fill="#F56522"
+              style={
+                [
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                  undefined,
+                ]
+              }
+            />
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderColor": "#2B1911",
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "flexDirection": "row",
+                "gap": 4,
+                "justifyContent": "center",
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 2,
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.5,
+                      "lineHeight": 24,
+                      "textAlign": "center",
+                      "textTransform": "uppercase",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              liquid
+            </Text>
+            <test-file-stub
+              fill="#2B1911"
               style={
                 [
                   {
@@ -1699,95 +1699,6 @@ exports[`LightningWallet should render correctly while loading 1`] = `
               {
                 "busy": undefined,
                 "checked": undefined,
-                "disabled": false,
-                "expanded": undefined,
-                "selected": undefined,
-              }
-            }
-            accessibilityValue={
-              {
-                "max": undefined,
-                "min": undefined,
-                "now": undefined,
-                "text": undefined,
-              }
-            }
-            accessible={true}
-            collapsable={false}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              {
-                "alignItems": "center",
-                "backgroundColor": "transparent",
-                "borderColor": "#2B1911",
-                "borderRadius": 8,
-                "borderWidth": 1,
-                "flexDirection": "row",
-                "gap": 4,
-                "justifyContent": "center",
-                "opacity": 1,
-                "paddingBottom": 2,
-                "paddingLeft": 8,
-                "paddingRight": 8,
-                "paddingTop": 2,
-              }
-            }
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    {
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 14,
-                      "letterSpacing": 0.5,
-                      "lineHeight": 24,
-                      "textAlign": "center",
-                      "textTransform": "uppercase",
-                    },
-                    {
-                      "color": "#2B1911",
-                    },
-                  ],
-                  false,
-                ]
-              }
-            >
-              liquid
-            </Text>
-            <test-file-stub
-              fill="#2B1911"
-              style={
-                [
-                  {
-                    "height": 12,
-                    "width": 12,
-                  },
-                  undefined,
-                ]
-              }
-            />
-          </View>
-          <View
-            accessibilityState={
-              {
-                "busy": undefined,
-                "checked": undefined,
                 "disabled": true,
                 "expanded": undefined,
                 "selected": undefined,
@@ -1861,6 +1772,95 @@ exports[`LightningWallet should render correctly while loading 1`] = `
             </Text>
             <test-file-stub
               fill="#F56522"
+              style={
+                [
+                  {
+                    "height": 12,
+                    "width": 12,
+                  },
+                  undefined,
+                ]
+              }
+            />
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": false,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "borderColor": "#2B1911",
+                "borderRadius": 8,
+                "borderWidth": 1,
+                "flexDirection": "row",
+                "gap": 4,
+                "justifyContent": "center",
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 2,
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.5,
+                      "lineHeight": 24,
+                      "textAlign": "center",
+                      "textTransform": "uppercase",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              liquid
+            </Text>
+            <test-file-stub
+              fill="#2B1911"
               style={
                 [
                   {

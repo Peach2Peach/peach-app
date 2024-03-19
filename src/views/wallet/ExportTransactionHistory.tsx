@@ -4,8 +4,8 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { MSINASECOND } from "../../constants";
+import { exportFile } from "../../hooks/exportFile";
 import { useRoute } from "../../hooks/useRoute";
-import { writeCSV } from "../../hooks/writeCSV";
 import tw from "../../styles/tailwind";
 import { toShortDateFormat } from "../../utils/date/toShortDateFormat";
 import { createCSV } from "../../utils/file/createCSV";
@@ -33,7 +33,7 @@ export const ExportTransactionHistory = () => {
       chain === "lightning"
         ? createCSVValueLightning(lightningPayments)
         : createCSVValue(transactionSummaries);
-    await writeCSV(csvValue, "transaction-history.csv");
+    await exportFile(csvValue, "transaction-history.csv");
   };
 
   return (

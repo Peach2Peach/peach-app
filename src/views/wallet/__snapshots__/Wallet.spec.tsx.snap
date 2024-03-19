@@ -462,7 +462,7 @@ exports[`Wallet should render correctly 1`] = `
                 ]
               }
             >
-              liquid
+              lightning
             </Text>
             <test-file-stub
               fill="#2B1911"
@@ -551,7 +551,7 @@ exports[`Wallet should render correctly 1`] = `
                 ]
               }
             >
-              lightning
+              liquid
             </Text>
             <test-file-stub
               fill="#2B1911"
@@ -1854,7 +1854,7 @@ exports[`Wallet should render correctly when loading 1`] = `
                 ]
               }
             >
-              liquid
+              lightning
             </Text>
             <test-file-stub
               fill="#2B1911"
@@ -1943,7 +1943,7 @@ exports[`Wallet should render correctly when loading 1`] = `
                 ]
               }
             >
-              lightning
+              liquid
             </Text>
             <test-file-stub
               fill="#2B1911"

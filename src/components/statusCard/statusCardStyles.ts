@@ -7,7 +7,7 @@ export const statusCardStyles = {
     success: tw`bg-success-main`,
     "primary-mild": tw`bg-primary-mild-1`,
     warning: tw`bg-warning-main`,
-    info: tw`bg-info-mild`,
+    info: tw`bg-info-light`,
     black: tw`bg-black-50`,
   },
   border: {
@@ -16,7 +16,7 @@ export const statusCardStyles = {
     success: "border-success-main",
     "primary-mild": "border-primary-mild-1",
     warning: "border-warning-main",
-    info: "border-info-mild",
+    info: "border-info-light",
     black: "border-black-50",
   },
   text: {

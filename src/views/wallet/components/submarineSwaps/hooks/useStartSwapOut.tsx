@@ -7,7 +7,6 @@ import { useLiquidFeeRate } from "../../../../../hooks/useLiquidFeeRate";
 import { useShowErrorBanner } from "../../../../../hooks/useShowErrorBanner";
 import { selectUTXONewestFirst } from "../../../../../utils/blockchain/selectUTXONewestFirst";
 import { useSubmarineSwaps } from "../../../../../utils/boltz/query/useSubmarineSwaps";
-import { sum } from "../../../../../utils/math/sum";
 import { parseError } from "../../../../../utils/parseError";
 import { handleTransactionError as parseTransactionError } from "../../../../../utils/wallet/error/handleTransactionError";
 import { estimateMiningFees } from "../../../../../utils/wallet/liquid/estimateMiningFees";
@@ -38,9 +37,7 @@ const estimateSwapAmount = ({
     recipients: [
       {
         address: peachLiquidWallet.getAddress(0, false).address,
-        amount: peachLiquidWallet.utxos
-          .map((utxo) => utxo.value)
-          .reduce(sum, 0),
+        amount,
       },
     ],
   });

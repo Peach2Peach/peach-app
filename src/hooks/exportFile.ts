@@ -3,11 +3,11 @@ import Share from "react-native-share";
 import { writeFile } from "../utils/file/writeFile";
 import { info } from "../utils/log/info";
 
-export const writeCSV = async (
-  csvValue: string,
+export const exportFile = async (
+  content: string,
   destinationFileName: string,
 ) => {
-  await writeFile(`/${destinationFileName}`, csvValue);
+  await writeFile(`/${destinationFileName}`, content);
   await Share.open({
     title: destinationFileName,
     url: `file://${RNFS.DocumentDirectoryPath}/${destinationFileName}`,
