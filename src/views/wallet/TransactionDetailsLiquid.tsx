@@ -6,6 +6,7 @@ import { Screen } from "../../components/Screen";
 import { useContractSummaries } from "../../hooks/query/useContractSummaries";
 import { useMultipleOfferDetails } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
+import { useBoltzSwapStore } from "../../store/useBoltzSwapStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { getTxHex } from "../../utils/liquid/getTxHex";
@@ -36,12 +37,15 @@ export const TransactionDetailsLiquid = () => {
   );
   const { data: transactionDetails } = useTransactionDetailsLiquid({ txId });
   const offerIds = useWalletState((state) => state.txOfferMap[txId]);
+  const map = useBoltzSwapStore((state) => state.map);
+
   const { offers } = useMultipleOfferDetails(offerIds || []);
   const { contracts } = useContractSummaries();
   const partialSummary = localTx
     ? getTxSummaryLiquid({
         tx: localTx,
         offer: offers.filter(isDefined)[0],
+        swapId: map[txId]?.[0],
       })
     : undefined;
 

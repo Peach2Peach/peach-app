@@ -1,3 +1,4 @@
+import { SwapStatus } from "boltz-swap-web-context/src/boltz-api/types";
 import { useEffect, useMemo } from "react";
 import { View } from "react-native";
 import { Icon } from "../../../../components/Icon";
@@ -22,7 +23,7 @@ import { useSwapOut } from "./hooks/useSwapOut";
 const CLOSE_POPUP_TIMEOUT = 5000;
 
 type SetInvoicePopupContentProps = {
-  status?: string;
+  status?: SwapStatus;
   invoice: string;
   setInvoice: (invoice: string) => void;
   invoiceErrors: string[];
@@ -39,14 +40,14 @@ const SetInvoicePopupContent = ({
   amount,
   keyPairWIF,
 }: SetInvoicePopupContentProps) => {
-  if (status === "transaction.claimed")
+  if (status?.status === "transaction.claimed")
     return (
       <View style={tw`gap-4 items-center`}>
         <Icon size={128} id="checkCircle" color={tw.color(`success-main`)} />
       </View>
     );
 
-  if (status === "invoice.set" && swapInfo?.address)
+  if (status?.status === "invoice.set" && swapInfo?.address)
     return (
       <View style={tw`gap-4 items-center`}>
         <PeachText selectable>
@@ -57,7 +58,16 @@ const SetInvoicePopupContent = ({
       </View>
     );
 
-  if (status === "transaction.claim.pending" && swapInfo && keyPairWIF) {
+  console.log(
+    status?.status === "transaction.claim.pending",
+    !!swapInfo,
+    !!keyPairWIF,
+  );
+  if (
+    status?.status === "transaction.claim.pending" &&
+    swapInfo &&
+    keyPairWIF
+  ) {
     return <ClaimSubmarineSwap {...{ invoice, swapInfo, keyPairWIF }} />;
   }
 
@@ -111,6 +121,7 @@ export const SetInvoicePopup = ({
   useEffect(() => {
     createInvoice();
   }, [createInvoice, setInvoice]);
+
   useEffect(() => {
     if (createdInvoice) setInvoice(createdInvoice);
   }, [createdInvoice, setInvoice]);
@@ -130,7 +141,7 @@ export const SetInvoicePopup = ({
         ) : (
           <SetInvoicePopupContent
             {...{
-              status: status?.status,
+              status,
               invoice,
               setInvoice,
               invoiceErrors,

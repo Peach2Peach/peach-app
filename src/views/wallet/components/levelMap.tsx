@@ -9,4 +9,5 @@ export const levelMap: Record<
   ESCROWFUNDED: "primary",
   DEPOSIT: "success",
   REFUND: "black",
+  SWAP: "info",
 };
