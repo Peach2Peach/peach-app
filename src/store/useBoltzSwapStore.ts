@@ -78,7 +78,7 @@ export const useBoltzSwapStore = create<WalletStore>()(
       ...defaultState,
       reset: () => set(defaultState),
       saveSwap: (swapInfo) => {
-        const swaps = get().swaps;
+        const swaps = { ...get().swaps };
         swaps[swapInfo.id] = swapInfo;
         set({ swaps });
       },
