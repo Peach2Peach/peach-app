@@ -63,18 +63,18 @@ function Disputes({ opened, won, lost, resolved }: User["disputes"]) {
         {t("profile.disputes")}:
       </PeachText>
       <View style={tw`flex-row`}>
-        {[opened, won, lost, resolved].map((value, index) => (
-          <PeachText
-            key={`myProfile-disputes-${index}`}
-            style={tw`pr-4 lowercase subtitle-1`}
-          >
-            {value}{" "}
-            {t(
-              // @ts-ignore
-              `profile.disputes${["Opened", "Won", "Lost", "Resolved"][index]}`,
-            )}
-          </PeachText>
-        ))}
+        <PeachText style={tw`pr-4 lowercase subtitle-1`}>
+          {opened} {t("profile.disputesOpened")}
+        </PeachText>
+        <PeachText style={tw`pr-4 lowercase subtitle-1`}>
+          {won} {t("profile.disputesWon")}
+        </PeachText>
+        <PeachText style={tw`pr-4 lowercase subtitle-1`}>
+          {lost} {t("profile.disputesLost")}
+        </PeachText>
+        <PeachText style={tw`pr-4 lowercase subtitle-1`}>
+          {resolved} {t("profile.disputesResolved")}
+        </PeachText>
       </View>
     </View>
   );
