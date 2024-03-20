@@ -727,8 +727,6 @@ exports[`WrongFundingAmount should render correctly 1`] = `
             style={
               [
                 {
-                  "backgroundColor": "#FEEDE5",
-                  "borderColor": "#FCCCB6",
                   "borderRadius": 20,
                   "borderWidth": 1,
                   "overflow": "hidden",
@@ -737,6 +735,12 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                   "paddingRight": 4,
                   "paddingTop": 4,
                   "width": "100%",
+                },
+                {
+                  "backgroundColor": "#FEEDE5",
+                },
+                {
+                  "borderColor": "#FCCCB6",
                 },
                 undefined,
               ]
@@ -931,8 +935,6 @@ exports[`WrongFundingAmount should render correctly 1`] = `
             style={
               [
                 {
-                  "backgroundColor": "#FEEDE5",
-                  "borderColor": "#FCCCB6",
                   "borderRadius": 20,
                   "borderWidth": 1,
                   "overflow": "hidden",
@@ -941,6 +943,12 @@ exports[`WrongFundingAmount should render correctly 1`] = `
                   "paddingRight": 4,
                   "paddingTop": 4,
                   "width": "100%",
+                },
+                {
+                  "backgroundColor": "#FEEDE5",
+                },
+                {
+                  "borderColor": "#FCCCB6",
                 },
                 undefined,
               ]
