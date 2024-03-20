@@ -1,4 +1,4 @@
-import { address as Address, Transaction } from "bitcoinjs-lib";
+import { Transaction } from "bitcoinjs-lib";
 import { Transaction as LiquidTransaction } from "liquidjs-lib";
 import { View } from "react-native";
 import { CopyableSummaryItem } from "../../../../components/summaryItem";
@@ -8,7 +8,7 @@ import tw from "../../../../styles/tailwind";
 import i18n from "../../../../utils/i18n";
 import { numberConverter } from "../../../../utils/math/numberConverter";
 import { priceFormat } from "../../../../utils/string/priceFormat";
-import { getNetwork } from "../../../../utils/wallet/getNetwork";
+import { scriptToAddress } from "../../helpers/getAddressesFromOutputs";
 
 type OfferDataProps = ComponentProps & {
   price?: number;
@@ -32,8 +32,7 @@ export const OfferData = ({
   const amount = numberConverter(
     transactionDetails?.outs.find(
       (v) =>
-        v.script.byteLength &&
-        Address.fromOutputScript(v.script, getNetwork()) === address,
+        v.script.byteLength > 1 && scriptToAddress(v.script, chain) === address,
     )?.value || offerAmount,
   );
   return (

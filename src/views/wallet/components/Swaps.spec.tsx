@@ -1,3 +1,4 @@
+import { networks } from "liquidjs-lib";
 import { Animated } from "react-native";
 import { toMatchDiffSnapshot } from "snapshot-diff";
 import { act, render, waitFor } from "test-utils";
@@ -42,7 +43,12 @@ describe("Swaps", () => {
 
   const empty = render(<Swaps />).toJSON();
   beforeAll(() => {
-    setLiquidWallet(new PeachLiquidJSWallet({ wallet: createTestWallet() }));
+    setLiquidWallet(
+      new PeachLiquidJSWallet({
+        wallet: createTestWallet(),
+        network: networks.regtest,
+      }),
+    );
   });
   afterEach(() => {
     act(() => useBoltzSwapStore.getState().reset());
@@ -75,7 +81,7 @@ describe("Swaps", () => {
     expect(ClaimSubmarineSwap).toHaveBeenCalledWith(
       {
         invoice: "invoice",
-        keyPairWIF: "L4jqWjAn862ntYH2aAXY28wmKse24oEgdfiyGrC4jQxefMV3pYto",
+        keyPairWIF: "cP6XXAbVctdKDKFmEDySbZ46m4Ns3CzzHuaxAEPCnEuUnMX4pvas",
         swapInfo: claimableSubmarineSwap,
       },
       {},
@@ -84,7 +90,7 @@ describe("Swaps", () => {
       {
         address:
           "ert1qrxl2jwt08lnzxn77hrtdlhrqtr8q9vj2tucmxfw9tla59ws6jxwqw0qh3e",
-        keyPairWIF: "L4jqWjAn862ntYH2aAXY28wmKse24oEgdfiyGrC4jQxefMV3pYto",
+        keyPairWIF: "cP6XXAbVctdKDKFmEDySbZ46m4Ns3CzzHuaxAEPCnEuUnMX4pvas",
         offerId: "38",
         preimage: "preimage",
         swapInfo: claimableReverseSwap,

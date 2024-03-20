@@ -9,12 +9,18 @@ type Props = {
   enabled?: boolean;
   pan: Animated.Value;
   iconId: IconType;
+  color?: string;
 };
 
 const MEDIUM_SCREEN_ICON_SIZE = 18;
 const SMALL_SCREEN_ICON_SIZE = 16;
 
-export const SliderKnob = ({ enabled = true, pan, iconId }: Props) => {
+export const SliderKnob = ({
+  enabled = true,
+  pan,
+  iconId,
+  color = tw.color("primary-main"),
+}: Props) => {
   const isMediumScreen = useIsMediumScreen();
   const icon = {
     color: tw.color("primary-background-light"),
@@ -25,7 +31,7 @@ export const SliderKnob = ({ enabled = true, pan, iconId }: Props) => {
     <Animated.View
       style={[
         enabled
-          ? { backgroundColor: getBackgroundColor(pan) }
+          ? { backgroundColor: getBackgroundColor(pan, color) }
           : tw`bg-black-25`,
         tw`flex-row items-center justify-center py-1 rounded-2xl gap-2px px-6px`,
         tw`md:px-8px md:py-6px md:gap-1`,

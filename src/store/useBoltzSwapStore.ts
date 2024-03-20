@@ -9,7 +9,7 @@ import { createPersistStorage } from "./createPersistStorage";
 
 export const STATUS_MAP = {
   SUBMARINE: {
-    COMPLETED: ["transaction.claimed"],
+    COMPLETED: ["transaction.claimed", "transaction.refunded"],
     CLAIM: ["transaction.claim.pending"],
     ERROR: [
       "transaction.lockupFailed",

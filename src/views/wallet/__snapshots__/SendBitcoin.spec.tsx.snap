@@ -228,7 +228,7 @@ exports[`SendBitcoin should disable the slider while the wallet is not synced 1`
 - First value
 + Second value
 
-@@ -1611,11 +1611,11 @@
+@@ -1615,11 +1615,11 @@
                     <View
                       collapsable={false}
                       style={
@@ -1811,8 +1811,6 @@ exports[`SendBitcoin should render correctly 1`] = `
                 style={
                   [
                     {
-                      "backgroundColor": "#FEEDE5",
-                      "borderColor": "#FCCCB6",
                       "borderRadius": 20,
                       "borderWidth": 1,
                       "overflow": "hidden",
@@ -1821,6 +1819,12 @@ exports[`SendBitcoin should render correctly 1`] = `
                       "paddingRight": 4,
                       "paddingTop": 4,
                       "width": "100%",
+                    },
+                    {
+                      "backgroundColor": "#FEEDE5",
+                    },
+                    {
+                      "borderColor": "#FCCCB6",
                     },
                     undefined,
                   ]

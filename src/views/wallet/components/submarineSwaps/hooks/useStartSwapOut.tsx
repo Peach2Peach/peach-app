@@ -43,10 +43,11 @@ const estimateSwapAmount = ({
   });
 
   const amountAfterLockup = Math.ceil(amount - miningFees);
-  const swappableAmount =
-    amountAfterLockup * (1 - fees.percentage / CENT) - fees.minerFees;
+  const boltzFees = Math.ceil(amountAfterLockup * (fees.percentage / CENT));
+  const swappableAmount = amountAfterLockup - boltzFees - fees.minerFees;
   return {
     swappableAmount: Math.floor(swappableAmount),
+    boltzFees,
     miningFees,
   };
 };
@@ -76,13 +77,17 @@ export const useStartSwapOut = () => {
     }
 
     try {
-      const { swappableAmount, miningFees } = estimateSwapAmount({
+      const { swappableAmount, boltzFees, miningFees } = estimateSwapAmount({
         fees,
         feeRate,
         amount: Math.min(liquidBalance, limits.maximal),
       });
       setPopup(
-        <SetInvoicePopup amount={swappableAmount} miningFees={miningFees} />,
+        <SetInvoicePopup
+          amount={swappableAmount}
+          miningFees={miningFees}
+          boltzFees={boltzFees}
+        />,
       );
     } catch (e) {
       handleTransactionError(parseTransactionError(parseError(e)));

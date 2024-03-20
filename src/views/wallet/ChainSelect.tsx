@@ -28,6 +28,7 @@ export const ChainSelect = ({ current }: { current: Chain }) => {
           navigation.navigate("homeScreen", { screen: wallet });
         return (
           <NewBubble
+            key={wallet}
             onPress={goToWallet}
             color={isSelected ? "orange" : "black"}
             ghost={true}

@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import { shallow } from "zustand/shallow";
 import { useShowErrorBanner } from "../../../../../hooks/useShowErrorBanner";
 import { useBoltzSwapStore } from "../../../../../store/useBoltzSwapStore";
 import { selectUTXONewestFirst } from "../../../../../utils/blockchain/selectUTXONewestFirst";
@@ -31,11 +30,13 @@ type UseSwapOutProps = {
 export const useSwapOut = ({ miningFees, invoice }: UseSwapOutProps) => {
   const [postSwapInProgress, setPostSwapInProgress] = useState(false);
   const showErrorBanner = useShowErrorBanner();
-  const [swaps, saveSwap, mapSwap] = useBoltzSwapStore(
-    (state) => [state.swaps, state.saveSwap, state.mapSwap],
-    shallow,
-  );
-  const swap = swaps[invoice] ? getSwapByInvoice(invoice) : undefined;
+  const [map, saveSwap, mapSwap] = useBoltzSwapStore((state) => [
+    state.map,
+    state.saveSwap,
+    state.mapSwap,
+  ]);
+  const [swapOutError, setSwapOutError] = useState<Error>();
+  const swap = map[invoice] ? getSwapByInvoice(invoice) : undefined;
 
   const swapOut = useCallback(async () => {
     setPostSwapInProgress(true);
@@ -49,7 +50,7 @@ export const useSwapOut = ({ miningFees, invoice }: UseSwapOutProps) => {
 
       if (!("address" in swapInfo) || !swapInfo.address)
         throw Error("NO_LOCKUP_ADDRESS");
-      if (!swaps[invoice]) {
+      if (!map[invoice]) {
         saveSwap({ ...swapInfo, keyPairIndex });
         mapSwap(invoice, swapInfo.id);
       }
@@ -69,7 +70,10 @@ export const useSwapOut = ({ miningFees, invoice }: UseSwapOutProps) => {
         tx: lockUpTransaction.toHex(),
       });
 
-      if (error) throw Error(error.error);
+      if (error) {
+        setSwapOutError(new Error(error.error));
+        return;
+      }
 
       mapSwap(lockUpTransaction.getId(), swapInfo.id);
       peachLiquidWallet.syncWallet();
@@ -77,12 +81,13 @@ export const useSwapOut = ({ miningFees, invoice }: UseSwapOutProps) => {
       showErrorBanner(parseError(e));
       setPostSwapInProgress(false);
     }
-  }, [invoice, mapSwap, miningFees, saveSwap, showErrorBanner, swap, swaps]);
+  }, [invoice, map, mapSwap, miningFees, saveSwap, showErrorBanner, swap]);
 
   return {
     swapOut,
     postSwapInProgress,
     swapInfo: swap?.swapInfo,
     keyPairWIF: swap?.keyPairWIF,
+    swapOutError,
   };
 };

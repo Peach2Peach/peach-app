@@ -1,43 +1,49 @@
 import ecc from "@bitcoinerlab/secp256k1";
 import { BOLTZ_API, NETWORK } from "@env";
 import ECPairFactory from "ecpair";
-import { useMemo } from "react";
-import { WebView, WebViewMessageEvent } from "react-native-webview";
+import { WebView } from "react-native-webview";
+import { getError } from "../../../../../peach-api/src/utils/result/getError";
 import { getResult } from "../../../../../peach-api/src/utils/result/getResult";
 import { ErrorBox } from "../../../../components/ui/ErrorBox";
 import { useBoltzWebcontext } from "../../../../hooks/query/useBoltzWebcontext";
+import { useLiquidFeeRate } from "../../../../hooks/useLiquidFeeRate";
+import { SwapInfo } from "../../../../store/useBoltzSwapStore";
 import tw from "../../../../styles/tailwind";
-import { SubmarineAPIResponse } from "../../../../utils/boltz/api/postSubmarineSwap";
-import { log } from "../../../../utils/log/log";
+import { useRefundSubmarineSwap } from "../../../../utils/boltz/query/useRefundSubmarineSwap";
 import { getLiquidNetwork } from "../../../../utils/wallet/getLiquidNetwork";
 export const ECPair = ECPairFactory(ecc);
 
-type GetClaimSubmarineSwapJSProps = {
-  invoice: string;
-  swapInfo: SubmarineAPIResponse;
+type GetRefundSwapJSProps = {
+  address: string;
+  feeRate: number;
+  swapInfo: SwapInfo;
   keyPairWIF: string;
 };
-const getClaimSubmarineSwapJS = ({
-  invoice,
+const getRefundSubmarineSwapJS = ({
+  address,
+  feeRate,
   swapInfo,
   keyPairWIF,
-}: GetClaimSubmarineSwapJSProps) => {
+}: GetRefundSwapJSProps) => {
+  if (!("claimPublicKey" in swapInfo) || !swapInfo.swapTree)
+    return getError("GENERAL_ERROR");
   const keyPair = ECPair.fromWIF(keyPairWIF, getLiquidNetwork());
 
   const args = JSON.stringify({
     apiUrl: BOLTZ_API,
     network: NETWORK === "bitcoin" ? "liquid" : NETWORK,
-    invoice,
+    address,
+    feeRate,
     swapInfo,
     privateKey: keyPair.privateKey?.toString("hex"),
   });
 
-  return getResult(`window.claimSubmarineSwap(${args}); void(0);`);
+  return getResult(`window.refundSubmarineSwap(${args}); void(0);`);
 };
 
-export type ClaimSubmarineSwapProps = {
-  invoice: string;
-  swapInfo: SubmarineAPIResponse;
+export type RefundSubmarineSwapProps = {
+  address: string;
+  swapInfo: SwapInfo;
   keyPairWIF: string;
 };
 
@@ -47,42 +53,40 @@ export type ClaimSubmarineSwapProps = {
  * We simply inject a function call with the right arguments from the react-native layer
  * and listen for success or error messages from the web context.
  */
-export const ClaimSubmarineSwap = ({
+export const RefundSubmarineSwap = ({
   swapInfo,
-  invoice,
+  address,
   keyPairWIF,
-}: ClaimSubmarineSwapProps) => {
+}: RefundSubmarineSwapProps) => {
+  const feeRate = useLiquidFeeRate();
+  const { error: refundError, handleRefundMessage } = useRefundSubmarineSwap({
+    swap: swapInfo,
+  });
+
   const { data: html, error: htmlError } = useBoltzWebcontext();
-  const injectedJavaScript = useMemo(
-    () =>
-      getClaimSubmarineSwapJS({
-        invoice,
-        swapInfo,
-        keyPairWIF,
-      }),
-    [invoice, keyPairWIF, swapInfo],
-  );
-  const handleClaimMessage = (event: WebViewMessageEvent) => {
-    log("ClaimSubmarineSwap - handleClaimMessage");
+  const injectedJavaScript = getRefundSubmarineSwapJS({
+    address,
+    feeRate,
+    swapInfo,
+    keyPairWIF,
+  });
 
-    const data = JSON.parse(event.nativeEvent.data);
-    if (data.error) throw Error(data.error);
-  };
-
-  if (htmlError || !injectedJavaScript.isOk())
+  if (refundError || htmlError || !injectedJavaScript.isOk())
     return (
-      <ErrorBox>{htmlError?.message || injectedJavaScript.getError()}</ErrorBox>
+      <ErrorBox>
+        {refundError || htmlError?.message || injectedJavaScript.getError()}
+      </ErrorBox>
     );
 
   if (!html) return <></>;
-
   return (
     <WebView
       style={tw`absolute opacity-0`}
       source={{ html }}
       originWhitelist={["*"]}
       injectedJavaScript={injectedJavaScript.getValue()}
-      onMessage={handleClaimMessage}
+      javaScriptEnabled={true}
+      onMessage={handleRefundMessage}
     />
   );
 };
