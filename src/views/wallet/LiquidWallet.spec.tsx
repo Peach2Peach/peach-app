@@ -46,13 +46,4 @@ describe("LiquidWallet", () => {
 
     expect(navigateMock).toHaveBeenCalledWith("sendBitcoinLiquid");
   });
-  it("should navigate to receive screen when receive button is pressed", async () => {
-    const { getByText } = render(<LiquidWallet />);
-    await waitFor(() => {
-      expect(queryClient.isFetching()).toBe(0);
-    });
-    fireEvent.press(getByText("receive"));
-
-    expect(navigateMock).toHaveBeenCalledWith("receiveBitcoinLiquid");
-  });
 });

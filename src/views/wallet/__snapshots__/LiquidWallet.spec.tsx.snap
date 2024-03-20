@@ -226,7 +226,9 @@ exports[`LiquidWallet should render correctly 1`] = `
               "paddingTop": 8,
             },
             {},
-            undefined,
+            {
+              "gap": 16,
+            },
           ]
         }
       >
@@ -1220,89 +1222,6 @@ exports[`LiquidWallet should render correctly 1`] = `
               style={
                 {
                   "alignItems": "center",
-                  "backgroundColor": "#65A519",
-                  "borderColor": undefined,
-                  "borderRadius": 9999,
-                  "flexBasis": "0%",
-                  "flexDirection": "row",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "gap": 8,
-                  "justifyContent": "center",
-                  "minWidth": 104,
-                  "opacity": 1,
-                  "paddingBottom": 3,
-                  "paddingLeft": 24,
-                  "paddingRight": 24,
-                  "paddingTop": 3,
-                }
-              }
-            >
-              <Text
-                allowFontScaling={false}
-                ellipsizeMode="tail"
-                numberOfLines={1}
-                style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 13,
-                        "letterSpacing": 0.47,
-                        "lineHeight": 22,
-                        "textTransform": "uppercase",
-                      },
-                      {},
-                      {
-                        "color": "#FFFCFA",
-                      },
-                    ],
-                    false,
-                  ]
-                }
-              >
-                receive
-              </Text>
-            </View>
-            <View
-              accessibilityRole="button"
-              accessibilityState={
-                {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                }
-              }
-              accessibilityValue={
-                {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                }
-              }
-              accessible={true}
-              collapsable={false}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                {
-                  "alignItems": "center",
                   "backgroundColor": "#F56522",
                   "borderColor": undefined,
                   "borderRadius": 9999,
@@ -1318,6 +1237,7 @@ exports[`LiquidWallet should render correctly 1`] = `
                   "paddingLeft": 24,
                   "paddingRight": 24,
                   "paddingTop": 3,
+                  "width": "50%",
                 }
               }
             >
@@ -1353,6 +1273,106 @@ exports[`LiquidWallet should render correctly 1`] = `
               >
                 send
               </Text>
+            </View>
+            <View
+              style={
+                {
+                  "width": "50%",
+                }
+              }
+            >
+              <View
+                accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": true,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "#037DB5",
+                    "borderColor": undefined,
+                    "borderRadius": 9999,
+                    "flexDirection": "row",
+                    "gap": 8,
+                    "justifyContent": "center",
+                    "minWidth": 104,
+                    "opacity": 0.33,
+                    "paddingBottom": 3,
+                    "paddingLeft": 24,
+                    "paddingRight": 24,
+                    "paddingTop": 3,
+                  }
+                }
+              >
+                <Text
+                  allowFontScaling={false}
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 13,
+                          "letterSpacing": 0.47,
+                          "lineHeight": 22,
+                          "textTransform": "uppercase",
+                        },
+                        {},
+                        {
+                          "color": "#FFFCFA",
+                        },
+                      ],
+                      false,
+                    ]
+                  }
+                >
+                  swap
+                </Text>
+                <test-file-stub
+                  fill="#FFFCFA"
+                  style={
+                    [
+                      {
+                        "height": 18,
+                        "width": 18,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
+              </View>
             </View>
           </View>
         </View>
@@ -1588,7 +1608,9 @@ exports[`LiquidWallet should render correctly while loading 1`] = `
               "paddingTop": 8,
             },
             {},
-            undefined,
+            {
+              "gap": 16,
+            },
           ]
         }
       >
@@ -2582,89 +2604,6 @@ exports[`LiquidWallet should render correctly while loading 1`] = `
               style={
                 {
                   "alignItems": "center",
-                  "backgroundColor": "#65A519",
-                  "borderColor": undefined,
-                  "borderRadius": 9999,
-                  "flexBasis": "0%",
-                  "flexDirection": "row",
-                  "flexGrow": 1,
-                  "flexShrink": 1,
-                  "gap": 8,
-                  "justifyContent": "center",
-                  "minWidth": 104,
-                  "opacity": 1,
-                  "paddingBottom": 3,
-                  "paddingLeft": 24,
-                  "paddingRight": 24,
-                  "paddingTop": 3,
-                }
-              }
-            >
-              <Text
-                allowFontScaling={false}
-                ellipsizeMode="tail"
-                numberOfLines={1}
-                style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 13,
-                        "letterSpacing": 0.47,
-                        "lineHeight": 22,
-                        "textTransform": "uppercase",
-                      },
-                      {},
-                      {
-                        "color": "#FFFCFA",
-                      },
-                    ],
-                    false,
-                  ]
-                }
-              >
-                receive
-              </Text>
-            </View>
-            <View
-              accessibilityRole="button"
-              accessibilityState={
-                {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                }
-              }
-              accessibilityValue={
-                {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                }
-              }
-              accessible={true}
-              collapsable={false}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                {
-                  "alignItems": "center",
                   "backgroundColor": "#F56522",
                   "borderColor": undefined,
                   "borderRadius": 9999,
@@ -2680,6 +2619,7 @@ exports[`LiquidWallet should render correctly while loading 1`] = `
                   "paddingLeft": 24,
                   "paddingRight": 24,
                   "paddingTop": 3,
+                  "width": "50%",
                 }
               }
             >
@@ -2715,6 +2655,106 @@ exports[`LiquidWallet should render correctly while loading 1`] = `
               >
                 send
               </Text>
+            </View>
+            <View
+              style={
+                {
+                  "width": "50%",
+                }
+              }
+            >
+              <View
+                accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": true,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "#037DB5",
+                    "borderColor": undefined,
+                    "borderRadius": 9999,
+                    "flexDirection": "row",
+                    "gap": 8,
+                    "justifyContent": "center",
+                    "minWidth": 104,
+                    "opacity": 0.33,
+                    "paddingBottom": 3,
+                    "paddingLeft": 24,
+                    "paddingRight": 24,
+                    "paddingTop": 3,
+                  }
+                }
+              >
+                <Text
+                  allowFontScaling={false}
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 13,
+                          "letterSpacing": 0.47,
+                          "lineHeight": 22,
+                          "textTransform": "uppercase",
+                        },
+                        {},
+                        {
+                          "color": "#FFFCFA",
+                        },
+                      ],
+                      false,
+                    ]
+                  }
+                >
+                  swap
+                </Text>
+                <test-file-stub
+                  fill="#FFFCFA"
+                  style={
+                    [
+                      {
+                        "height": 18,
+                        "width": 18,
+                      },
+                      undefined,
+                    ]
+                  }
+                />
+              </View>
             </View>
           </View>
         </View>

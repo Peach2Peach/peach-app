@@ -16,14 +16,11 @@ import { useAccountStore } from "../../utils/account/account";
 import i18n from "../../utils/i18n";
 import { initLightningWallet } from "../../utils/lightning/initLightningWallet";
 import { parseError } from "../../utils/parseError";
-import { useLiquidWalletState } from "../../utils/wallet/useLiquidWalletState";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { ChainSelect } from "./ChainSelect";
 import { TotalBalance } from "./components";
 import { WalletHeaderLightning } from "./components/WalletHeaderLightning";
-import { SwapButton } from "./components/submarineSwaps/SwapButton";
 import { useLightningWalletBalance } from "./hooks/useLightningWalletBalance";
-import { useSyncLiquidWallet } from "./hooks/useSyncLiquidWallet";
 
 /** @description only needed while testing, production won't require invite code */
 const TesterInvite = () => {
@@ -65,12 +62,6 @@ export const LightningWallet = () => {
     error,
   } = useLightningWalletBalance();
 
-  const { refetch: refetchLiquid } = useSyncLiquidWallet({ enabled: true });
-
-  const refetch = () => {
-    refetchLightning();
-    refetchLiquid();
-  };
   if (isLoading) return <BitcoinLoading text={i18n("wallet.loading")} />;
 
   return (
@@ -80,7 +71,7 @@ export const LightningWallet = () => {
         contentContainerStyle={tw`grow`}
         contentStyle={tw`justify-center py-16 grow gap-4`}
         refreshControl={
-          <RefreshControl refreshing={false} onRefresh={refetch} />
+          <RefreshControl refreshing={false} onRefresh={refetchLightning} />
         }
       >
         {NETWORK !== "bitcoin" && (
@@ -110,7 +101,6 @@ export const LightningWallet = () => {
 
 function WalletButtons() {
   const navigation = useStackNavigation();
-  const liquidBalance = useLiquidWalletState((state) => state.balance);
 
   const goToSend = () => {
     navigation.navigate("sendBitcoinLightning");
@@ -121,7 +111,6 @@ function WalletButtons() {
 
   return (
     <View style={[tw`items-center justify-center gap-2`, tw`md:gap-4`]}>
-      {liquidBalance > 0 && <SwapButton />}
       <View
         style={[tw`flex-row items-center justify-center gap-2`, tw`md:gap-4`]}
       >

@@ -11,6 +11,7 @@ import { ChainSelect } from "./ChainSelect";
 import { TotalBalance } from "./components";
 import { Swaps } from "./components/Swaps";
 import { WalletHeaderLiquid } from "./components/WalletHeaderLiquid";
+import { SwapButton } from "./components/submarineSwaps/SwapButton";
 import { useSyncLiquidWallet } from "./hooks/useSyncLiquidWallet";
 
 export const LiquidWallet = () => {
@@ -18,7 +19,7 @@ export const LiquidWallet = () => {
   const { refetch: refetchLiquid, isRefetching: isRefetchingLiquid } =
     useSyncLiquidWallet({ enabled: true });
   return (
-    <Screen header={<WalletHeaderLiquid />}>
+    <Screen style={tw`gap-4`} header={<WalletHeaderLiquid />}>
       <ChainSelect current="liquid" />
       <PeachScrollView
         contentContainerStyle={tw`grow`}
@@ -46,21 +47,18 @@ function WalletButtons() {
   const goToSend = () => {
     navigation.navigate("sendBitcoinLiquid");
   };
-  const goToReceive = () => {
-    navigation.navigate("receiveBitcoinLiquid");
-  };
 
   return (
     <View style={[tw`items-center justify-center gap-2`, tw`md:gap-4`]}>
       <View
         style={[tw`flex-row items-center justify-center gap-2`, tw`md:gap-4`]}
       >
-        <Button style={tw`flex-1 bg-success-main`} onPress={goToReceive}>
-          {i18n("wallet.receive")}
-        </Button>
-        <Button style={tw`flex-1`} onPress={goToSend}>
+        <Button style={tw`w-1/2 flex-1`} onPress={goToSend}>
           {i18n("wallet.send")}
         </Button>
+        <View style={tw`w-1/2 `}>
+          <SwapButton />
+        </View>
       </View>
     </View>
   );
