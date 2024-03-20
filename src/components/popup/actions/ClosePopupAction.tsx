@@ -1,6 +1,6 @@
+import { useTranslate } from "@tolgee/react";
 import { useClosePopup } from "../GlobalPopup";
 import { PopupAction, PopupActionProps } from "../PopupAction";
-import { useTranslate } from "@tolgee/react";
 
 type Props = Pick<PopupActionProps, "textStyle" | "reverseOrder" | "style">;
 

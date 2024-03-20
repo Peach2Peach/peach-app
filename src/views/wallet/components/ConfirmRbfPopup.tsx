@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { PartiallySignedTransaction } from "bdk-rn";
 import { Transaction } from "bitcoinjs-lib";
 import { useCallback } from "react";
@@ -14,7 +15,6 @@ import { useHandleTransactionError } from "../../../hooks/error/useHandleTransac
 import tw from "../../../styles/tailwind";
 import { round } from "../../../utils/math/round";
 import { peachWallet } from "../../../utils/wallet/setWallet";
-import { useTranslate } from "@tolgee/react";
 
 type Props = {
   currentFeeRate: number;

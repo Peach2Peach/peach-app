@@ -4,6 +4,7 @@ import { AppPopup } from "../../../popups/AppPopup";
 import tw from "../../../styles/tailwind";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { WarningPopup } from "../../../popups/WarningPopup";
 import { error } from "../../../utils/log/error";
@@ -15,7 +16,6 @@ import { PopupAction } from "../../popup/PopupAction";
 import { ClosePopupAction } from "../../popup/actions/ClosePopupAction";
 import { useSetToast } from "../../toast/Toast";
 import { UndoButton } from "./UndoButton";
-import { useTranslate } from "@tolgee/react";
 
 type Props = {
   match: Pick<Match, "matched" | "offerId">;

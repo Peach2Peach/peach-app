@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useState } from "react";
 import { View, useWindowDimensions } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
@@ -12,7 +13,6 @@ import { BTCAmount } from "../bitcoin/BTCAmount";
 import { PeachText } from "../text/PeachText";
 import { Match } from "./Match";
 import { getPremiumColor } from "./utils/getPremiumColor";
-import { useTranslate } from "@tolgee/react";
 
 const MEDIUM_SCREEN_OFFSET = 48;
 const SMALL_SCREEN_OFFSET = 40;
@@ -69,7 +69,9 @@ function MatchInformation({ offer }: { offer: SellOffer }) {
   return (
     <View>
       <PeachText style={tw`text-center h4 text-primary-main`}>
-        {t(`search.youGot${matches.length === 1 ? "AMatch" : "Matches"}`)}
+        {t(
+          matches.length === 1 ? "search.youGotAMatch" : "search.youGotMatches",
+        )}
       </PeachText>
       <PeachText style={tw`text-center body-l text-black-65`}>
         {t("search.sellOffer")}:

@@ -1,8 +1,8 @@
+import { useTranslate } from "@tolgee/react";
 import { Dispatch } from "react";
 import { TouchableOpacity, View } from "react-native";
 import tw from "../../../../styles/tailwind";
 import { FeeInfo } from "./FeeInfo";
-import { useTranslate } from "@tolgee/react";
 
 type Props = {
   estimatedFees: FeeRecommendation;
@@ -15,7 +15,7 @@ export const FeeEstimates = ({
   setFeeRate,
   isOverpaying,
 }: Props) => {
-  const { t } = useTranslate("settings");
+  const { t } = useTranslate("wallet");
 
   return (
     <View style={tw`flex-row items-center justify-between gap-6 px-2`}>

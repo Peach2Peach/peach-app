@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { PartiallySignedTransaction } from "bdk-rn";
 import { useClosePopup } from "../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../components/popup/PopupAction";
@@ -7,7 +8,6 @@ import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { ConfirmTxPopup } from "../../fundEscrow/hooks/ConfirmTxPopup";
-import { useTranslate } from "@tolgee/react";
 
 type Props = {
   amount: number;

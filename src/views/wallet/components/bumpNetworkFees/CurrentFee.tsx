@@ -1,5 +1,5 @@
-import { FeeInfo } from "./FeeInfo";
 import { useTranslate } from "@tolgee/react";
+import { FeeInfo } from "./FeeInfo";
 
 type Props = {
   fee: number;
@@ -7,10 +7,5 @@ type Props = {
 
 export const CurrentFee = ({ fee }: Props) => {
   const { t } = useTranslate("wallet");
-  return (
-    <FeeInfo
-      label={t("wallet.bumpNetworkFees.currentFee", { ns: "wallet" })}
-      fee={fee}
-    />
-  );
+  return <FeeInfo label={t("wallet.bumpNetworkFees.currentFee")} fee={fee} />;
 };

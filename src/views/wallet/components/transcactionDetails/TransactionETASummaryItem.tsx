@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { useSetPopup } from "../../../../components/popup/GlobalPopup";
 import { TextSummaryItem } from "../../../../components/summaryItem";
@@ -6,7 +7,6 @@ import { HelpPopup } from "../../../../popups/HelpPopup";
 import tw from "../../../../styles/tailwind";
 import { keys } from "../../../../utils/object/keys";
 import { useTxFeeRate } from "../../hooks/useTxFeeRate";
-import { useTranslate } from "@tolgee/react";
 
 type Props = {
   transaction: TransactionDetails;
@@ -24,7 +24,9 @@ export const TransactionETASummaryItem = ({ transaction }: Props) => {
     <TextSummaryItem
       title={t("time", { ns: "global" })}
       text={t(
-        `transaction.eta.${etaInBlocks === 1 ? "in1Block" : "inXBlocks"}`,
+        etaInBlocks === 1
+          ? "transaction.eta.in1Block"
+          : "transaction.eta.inXBlocks",
         { blocks: String(etaInBlocks) },
       )}
       iconId="helpCircle"

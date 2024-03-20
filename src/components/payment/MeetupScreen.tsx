@@ -112,24 +112,19 @@ function MeetupScreenHeader() {
 }
 
 function CashTradesPopup() {
-  const bulletPoints = [];
-  const start = 1;
-  const numerOfBulletPoints = 4;
   const { t } = useTranslate();
-  for (let i = start; i < start + numerOfBulletPoints; i++) {
-    bulletPoints.push(
-      // @ts-ignore
-      <BulletPoint key={i} text={t(`tradingCash.point.${i}`)} />,
-    );
-  }
-
   return (
     <InfoPopup
       title={t("tradingCash")}
       content={
         <View style={tw`gap-3`}>
           <PeachText>{t("tradingCash.text")}</PeachText>
-          <View>{bulletPoints}</View>
+          <View>
+            <BulletPoint text={t("tradingCash.point.1")} />
+            <BulletPoint text={t("tradingCash.point.2")} />
+            <BulletPoint text={t("tradingCash.point.3")} />
+            <BulletPoint text={t("tradingCash.point.4")} />
+          </View>
         </View>
       }
     />

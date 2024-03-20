@@ -1,4 +1,5 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useTranslate } from "@tolgee/react";
 import { shallow } from "zustand/shallow";
 import { fullScreenTabNavigationScreenOptions } from "../../constants";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -19,13 +20,12 @@ import { HorizontalLine } from "../ui/HorizontalLine";
 import { AddPaymentMethodButton } from "./AddPaymentMethodButton";
 import { MeetupPaymentMethods } from "./MeetupPaymentMethods";
 import { RemotePaymentMethods } from "./RemotePaymentMethods";
-import { useTranslate } from "@tolgee/react";
 
 const PaymentMethodsTab = createMaterialTopTabNavigator();
 const tabs = ["online", "meetups"] as const;
 
 export const PaymentMethods = () => {
-  const { t } = useTranslate();
+  const { t } = useTranslate("paymentMethod");
   const navigation = useStackNavigation();
   const [preferredPaymentMethods, select] = useOfferPreferences(
     (state) => [state.preferredPaymentMethods, state.selectPaymentMethod],
@@ -80,9 +80,7 @@ export const PaymentMethods = () => {
           <PaymentMethodsTab.Screen
             key={tab}
             name={tab}
-            options={{
-              title: `${t(`paymentSection.${tab}`, tab !== "online" ? { ns: "paymentMethod" } : { nothing: "" })}`,
-            }}
+            options={{ title: t(`paymentSection.${tab}`) }}
           >
             {() => (
               <PeachScrollView
