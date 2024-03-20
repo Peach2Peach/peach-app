@@ -1,4 +1,4 @@
-import { T, useTranslate } from "@tolgee/react";
+import { useTranslate } from "@tolgee/react";
 import {
   ColorValue,
   ScrollView,
@@ -210,9 +210,7 @@ function Tickers({ type = "sell" }: TickerProps) {
       ]}
     >
       <View style={leftColStyle}>
-        <PeachText style={unitStyle}>
-          1 <T keyName="btc" ns="global" />
-        </PeachText>
+        <PeachText style={unitStyle}>1 {t("btc")}</PeachText>
         <PriceFormat
           style={valueStyle}
           currency={displayCurrency}
@@ -309,13 +307,14 @@ function HeaderSubtitle({
         style={[tw`subtitle-1`, newThemes[theme].subtitle, tw`md:subtitle-0`]}
       >
         {text ??
-          t({
-            key:
-              viewer === "buyer"
-                ? "buy.subtitle.highlight"
-                : "sell.subtitle.highlight",
-            ns: viewer === "buyer" ? "buy" : "sell",
-          })}
+          t(
+            viewer === "buyer"
+              ? "buy.subtitle.highlight"
+              : "sell.subtitle.highlight",
+            {
+              ns: viewer === "buyer" ? "buy" : "sell",
+            },
+          )}
       </PeachText>
       <BTCAmount
         amount={amount}
