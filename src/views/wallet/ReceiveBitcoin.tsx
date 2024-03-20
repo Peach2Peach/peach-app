@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useState } from "react";
 import { View } from "react-native";
 import QRCode from "react-native-qrcode-svg";
@@ -11,7 +12,6 @@ import { getBitcoinAddressParts } from "../../utils/bitcoin/getBitcoinAddressPar
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { AddressNavigation } from "./components";
 import { useLastUnusedAddress, useWalletAddress } from "./hooks";
-import { useTranslate } from "@tolgee/react";
 
 export const ReceiveBitcoin = () => {
   const { data: lastUnusedAddress } = useLastUnusedAddress();
@@ -55,8 +55,8 @@ function AddressQRCode({ index }: { index: number }) {
         <PeachText
           style={[
             tw`text-center h3 text-error-main`,
-            tw`absolute self-center p-1 overflow-hidden rounded-xl bg-opacity-65 top-110px bg-primary-background-light`,
-            tw`md:top-135px md:bg-opacity-85`,
+            tw`absolute self-center p-1 overflow-hidden rounded-xl top-110px bg-primary-background-light/65`,
+            tw`md:top-135px md:bg-primary-background-light/85`,
           ]}
         >
           {t("wallet.address.used")}
