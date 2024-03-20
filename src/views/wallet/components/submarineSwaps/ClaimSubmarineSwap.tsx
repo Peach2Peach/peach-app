@@ -52,7 +52,6 @@ export const ClaimSubmarineSwap = ({
   invoice,
   keyPairWIF,
 }: ClaimSubmarineSwapProps) => {
-  console.log("ClaimSubmarineSwap");
   const { data: html, error: htmlError } = useBoltzWebcontext();
   const injectedJavaScript = useMemo(
     () =>
@@ -75,10 +74,7 @@ export const ClaimSubmarineSwap = ({
       <ErrorBox>{htmlError?.message || injectedJavaScript.getError()}</ErrorBox>
     );
 
-  console.log("ClaimSubmarineSwap -html");
-
   if (!html) return <></>;
-  console.log("ClaimSubmarineSwap -webview");
 
   return (
     <WebView
