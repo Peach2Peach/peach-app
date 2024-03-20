@@ -5,14 +5,16 @@ import { PeachScrollView } from "../../../components/PeachScrollView";
 import { Screen } from "../../../components/Screen";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import tw from "../../../styles/tailwind";
-import i18n, { languageState } from "../../../utils/i18n";
+import { languageState } from "../../../utils/i18n";
 import { getLocalizedLink } from "../../../utils/web/getLocalizedLink";
 import { openURL } from "../../../utils/web/openURL";
 import { SettingsItem } from "../components/SettingsItem";
+import { useTranslate } from "@tolgee/react";
 
 export const AboutPeach = () => {
   const navigation = useStackNavigation();
 
+  const { t } = useTranslate("settings");
   const items: {
     title: string;
     onPress: () => void;
@@ -60,7 +62,7 @@ export const AboutPeach = () => {
   ];
 
   return (
-    <Screen header={i18n("settings.aboutPeach")}>
+    <Screen header={t("settings.aboutPeach")}>
       <PeachScrollView
         contentContainerStyle={tw`justify-center flex-1`}
         contentStyle={tw`gap-6 py-3 px-6px`}

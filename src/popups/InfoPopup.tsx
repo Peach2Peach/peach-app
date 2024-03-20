@@ -8,7 +8,7 @@ import {
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
 import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 export function InfoPopup(
   props: Pick<PopupComponentProps, "title" | "content">,
@@ -35,5 +35,6 @@ function HelpPopupAction({ title }: { title?: string }) {
     closePopup();
     navigation.navigate("report", { topic: title, reason: "other" });
   }, [closePopup, navigation, title]);
-  return <PopupAction label={i18n("help")} iconId="info" onPress={goToHelp} />;
+  const { t } = useTranslate("help");
+  return <PopupAction label={t("help")} iconId="info" onPress={goToHelp} />;
 }

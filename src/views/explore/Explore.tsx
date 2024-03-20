@@ -18,7 +18,6 @@ import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { BuySorters } from "../../popups/sorting/BuySorters";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { LoadingScreen } from "../loading/LoadingScreen";
@@ -26,9 +25,11 @@ import { BuyBitcoinHeader } from "../offerPreferences/components/BuyBitcoinHeade
 import { MarketInfo } from "../offerPreferences/components/MarketInfo";
 import { useOfferMatches } from "../search/hooks/useOfferMatches";
 import { Rating } from "../settings/profile/profileOverview/Rating";
+import { useTranslate } from "@tolgee/react";
 
 export function Explore() {
   const { offerId } = useRoute<"explore">().params;
+  const { t } = useTranslate();
   const {
     allMatches: matches,
     isPending,
@@ -58,7 +59,7 @@ export function Explore() {
         <View style={tw`items-center justify-center flex-1 gap-4`}>
           <BuyOfferMarketInfo />
           <PeachText style={tw`text-center subtitle-2`}>
-            {i18n("search.weWillNotifyYou")}
+            {t("search.weWillNotifyYou")}
           </PeachText>
         </View>
       )}
@@ -95,6 +96,7 @@ function ExploreCard({ match }: { match: Match }) {
     selectedCurrency,
   } = match;
   const { data: priceBook } = useMarketPrices();
+  const { t } = useTranslate("offerPreferences");
   const premium =
     matched && matchedPrice && selectedCurrency
       ? getPremiumOfMatchedOffer(
@@ -125,7 +127,7 @@ function ExploreCard({ match }: { match: Match }) {
           <PeachText
             style={tw`text-center py-2px subtitle-2 text-primary-background-light`}
           >
-            {i18n("offerPreferences.instantTrade")}
+            {t("offerPreferences.instantTrade")}
           </PeachText>
         </View>
       )}

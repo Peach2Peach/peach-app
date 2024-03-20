@@ -13,11 +13,11 @@ import {
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { getTransactionDetails } from "../../../../tests/unit/helpers/getTransactionDetails";
 import { GlobalPopup } from "../../../components/popup/GlobalPopup";
-import i18n from "../../../utils/i18n";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
 import { setPeachWallet } from "../../../utils/wallet/setWallet";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { useBumpFees } from "./useBumpFees";
+import { tolgee } from "../../../tolgee";
 
 jest.mock("../../../hooks/query/useFeeEstimate", () => ({
   useFeeEstimate: () => ({ estimatedFees: mockEstimatedFees }),
@@ -70,7 +70,9 @@ describe("useBumpFees", () => {
 
     const { queryByText } = render(<GlobalPopup />);
     expect(
-      queryByText(i18n("wallet.bumpNetworkFees.confirmRbf.title")),
+      queryByText(
+        tolgee.t("wallet.bumpNetworkFees.confirmRbf.title", { ns: "wallet" }),
+      ),
     ).toBeFalsy();
   });
   it("should show bump fee confirmation popup", async () => {
@@ -80,7 +82,9 @@ describe("useBumpFees", () => {
 
     const { queryByText } = render(<GlobalPopup />);
     expect(
-      queryByText(i18n("wallet.bumpNetworkFees.confirmRbf.title")),
+      queryByText(
+        tolgee.t("wallet.bumpNetworkFees.confirmRbf.title", { ns: "wallet" }),
+      ),
     ).toBeTruthy();
   });
 

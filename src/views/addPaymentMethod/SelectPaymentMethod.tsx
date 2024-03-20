@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 
+import { useTranslate } from "@tolgee/react";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
@@ -12,6 +12,7 @@ import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { PAYMENTCATEGORIES } from "../../paymentMethods";
+import { tolgee } from "../../tolgee";
 import { getApplicablePaymentCategories } from "../../utils/paymentMethod/getApplicablePaymentCategories";
 import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
 import { usePaymentMethodLabel } from "./hooks";
@@ -40,13 +41,16 @@ const NATIONALOPTIONCOUNTRIES: Record<"EUR" | "LATAM", FlagType[]> = {
 
 const mapCountryToDrawerOption =
   (onPress: (country: FlagType) => void) => (country: FlagType) => ({
-    title: i18n(`country.${country}`),
+    // @ts-ignore
+    title: tolgee.t(`country.${country}`, { ns: "global" }),
     flagID: country,
     onPress: () => onPress(country),
   });
 
 export const SelectPaymentMethod = () => {
   const navigation = useStackNavigation();
+  const { t } = useTranslate();
+
   const { selectedCurrency, origin } = useRoute<"selectPaymentMethod">().params;
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
 
@@ -56,9 +60,9 @@ export const SelectPaymentMethod = () => {
     () =>
       getApplicablePaymentCategories(selectedCurrency).map((c) => ({
         value: c,
-        display: i18n(`paymentCategory.${c}`),
+        display: t(`paymentCategory.${c}`, { ns: "paymentMethod" }),
       })),
-    [selectedCurrency],
+    [selectedCurrency, t],
   );
 
   const getPaymentMethodLabel = usePaymentMethodLabel();
@@ -89,13 +93,14 @@ export const SelectPaymentMethod = () => {
   };
 
   const mapMethodToDrawerOption = (method: PaymentMethod) => ({
-    title: i18n(`paymentMethod.${method}`),
+    // @ts-ignore
+    title: tolgee.t(`paymentMethod.${method}`, { ns: "paymentMethod" }),
     logoID: method,
     onPress: () => selectPaymentMethod(method),
   });
 
   const getDrawerConfig = (category: PaymentCategory) => ({
-    title: i18n(`paymentCategory.${category}`),
+    title: tolgee.t(`paymentCategory.${category}`, { ns: "paymentMethod" }),
     show: true,
     onClose: unselectCategory,
   });
@@ -117,8 +122,10 @@ export const SelectPaymentMethod = () => {
   const selectCountry = (country: FlagType, category: PaymentCategory) => {
     const nationalOptions = getNationalOptions()[country];
     const nationalOptionCountries = getNationalOptionCountries();
+
     updateDrawer({
-      title: i18n(`country.${country}`),
+      // @ts-ignore
+      title: tolgee.t(`country.${country}`, { ns: "global" }),
       options: nationalOptions.map(mapMethodToDrawerOption),
       previousDrawer: {
         options: nationalOptionCountries.map(
@@ -160,7 +167,7 @@ export const SelectPaymentMethod = () => {
   };
 
   return (
-    <Screen header={i18n("selectPaymentMethod.title")}>
+    <Screen header={t("selectPaymentMethod.title")}>
       <PeachScrollView
         contentContainerStyle={[tw`justify-center py-4 grow`, tw`md:py-8`]}
       >
@@ -171,7 +178,7 @@ export const SelectPaymentMethod = () => {
         />
       </PeachScrollView>
       <Button style={tw`self-center`} disabled={!selectedPaymentCategory}>
-        {i18n("next")}
+        {t("next")}
       </Button>
     </Screen>
   );

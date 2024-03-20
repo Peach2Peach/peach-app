@@ -1,17 +1,18 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
 import { Screen } from "../../components/Screen";
 import { PeachText } from "../../components/text/PeachText";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 
 export function AccountCreated() {
+  const { t } = useTranslate();
   return (
     <Screen
       header={
         <Header
-          title={i18n("welcome.welcomeToPeach.title")}
+          title={t("welcome.welcomeToPeach.title", { ns: "welcome" })}
           theme="transparent"
           hideGoBackButton
         />
@@ -21,12 +22,12 @@ export function AccountCreated() {
       <View style={tw`items-center justify-center gap-16 grow`}>
         <View>
           <PeachText style={tw`text-center h4 text-primary-background-light`}>
-            {i18n("newUser.title.accountCreated")}
+            {t("newUser.title.accountCreated")}
           </PeachText>
           <PeachText
             style={tw`text-center body-l text-primary-background-light`}
           >
-            {i18n("newUser.welcome")}
+            {t("newUser.welcome")}
           </PeachText>
         </View>
         <Icon

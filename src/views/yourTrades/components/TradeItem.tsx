@@ -17,11 +17,11 @@ import { PeachText } from "../../../components/text/PeachText";
 import { useGoToOfferOrContract } from "../../../hooks/useGoToOfferOrContract";
 import { useTradeNavigation } from "../../../hooks/useTradeNavigation";
 import tw from "../../../styles/tailwind";
+import { tolgee } from "../../../tolgee";
 import { contractIdFromHex } from "../../../utils/contract/contractIdFromHex";
 import { contractIdToHex } from "../../../utils/contract/contractIdToHex";
 import { isDisplayContractId } from "../../../utils/contract/isDisplayContractId";
 import { getShortDateFormat } from "../../../utils/date/getShortDateFormat";
-import i18n from "../../../utils/i18n";
 import { getOffer } from "../../../utils/offer/getOffer";
 import { offerIdFromHex } from "../../../utils/offer/offerIdFromHex";
 import { offerIdToHex } from "../../../utils/offer/offerIdToHex";
@@ -264,7 +264,7 @@ function getTitle(item: OfferSummary | ContractSummary) {
     ? contractIdToHex(item.id)
     : offerIdToHex(item.id);
   if ("newTradeId" in item && !!item.newTradeId) {
-    return `${title} (${i18n("offer.canceled")})`;
+    return `${title} (${tolgee.t("offer.canceled", { ns: "offer" })})`;
   }
   return title;
 }
@@ -309,7 +309,7 @@ function getActionLabel(
   const translationStatusKey = isWaiting ? "waiting" : tradeStatus;
 
   if (!isTradeStatus(tradeSummary.tradeStatus))
-    return i18n("offer.requiredAction.unknown");
+    return tolgee.t("offer.requiredAction.unknown", { ns: "offer" });
 
   if (isContractSummary(tradeSummary)) {
     const { unreadMessages, type, disputeWinner } = tradeSummary;
@@ -317,22 +317,36 @@ function getActionLabel(
     const viewer = type === "bid" ? "buyer" : "seller";
 
     if (isPastOffer(tradeStatus)) {
-      return unreadMessages > 0 ? i18n("yourTrades.newMessages") : undefined;
+      return unreadMessages > 0
+        ? tolgee.t("yourTrades.newMessages")
+        : undefined;
     }
     if (disputeWinner) {
       if (tradeStatus === "releaseEscrow")
-        return i18n("offer.requiredAction.releaseEscrow");
-      return i18n(`offer.requiredAction.${translationStatusKey}.dispute`);
+        return tolgee.t("offer.requiredAction.releaseEscrow", { ns: "offer" });
+      // @ts-ignore
+      return tolgee.t(`offer.requiredAction.${translationStatusKey}.dispute`, {
+        ns: "offer",
+      });
     }
 
     if (tradeStatus === "payoutPending")
-      return i18n("offer.requiredAction.payoutPending");
+      return tolgee.t("offer.requiredAction.payoutPending", { ns: "batching" });
     if (tradeStatus === "confirmCancelation")
-      return i18n(`offer.requiredAction.confirmCancelation.${viewer}`);
+      return tolgee.t(`offer.requiredAction.confirmCancelation.${viewer}`, {
+        ns: "offer",
+      });
 
     return isWaiting || tradeStatus === "rateUser"
-      ? i18n(`offer.requiredAction.${translationStatusKey}.${counterparty}`)
-      : i18n(`offer.requiredAction.${translationStatusKey}`);
+      ? tolgee.t(
+          // @ts-ignore
+          `offer.requiredAction.${translationStatusKey}.${counterparty}`,
+          { ns: "offer" },
+        )
+      : // @ts-ignore
+        tolgee.t(`offer.requiredAction.${translationStatusKey}`, {
+          ns: "offer",
+        });
   }
 
   if (isPastOffer(tradeStatus)) {
@@ -344,10 +358,11 @@ function getActionLabel(
     tradeSummary.id &&
     useWalletState.getState().getFundMultipleByOfferId(tradeSummary.id)
   ) {
-    return i18n("offer.requiredAction.fundMultipleEscrow");
+    return tolgee.t("offer.requiredAction.fundMultipleEscrow", { ns: "offer" });
   }
 
-  return i18n(`offer.requiredAction.${tradeStatus}`);
+  // @ts-ignore
+  return tolgee.t(`offer.requiredAction.${tradeStatus}`, { ns: "offer" });
 }
 
 function getActionIcon(

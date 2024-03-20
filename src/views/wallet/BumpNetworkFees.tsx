@@ -10,7 +10,6 @@ import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { useRoute } from "../../hooks/useRoute";
 import { HelpPopup } from "../../popups/HelpPopup";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { getErrorsInField } from "../../utils/validation/getErrorsInField";
 import { getMessages } from "../../utils/validation/getMessages";
@@ -22,6 +21,7 @@ import { NewFee } from "./components/bumpNetworkFees/NewFee";
 import { useBumpFees } from "./hooks/useBumpFees";
 import { useMappedTransactionDetails } from "./hooks/useMappedTransactionDetails";
 import { useTxFeeRate } from "./hooks/useTxFeeRate";
+import { useTranslate } from "@tolgee/react";
 
 const newFeeRateRules = {
   required: true,
@@ -83,10 +83,11 @@ export const BumpNetworkFees = () => {
 
 function BumpNetworkFeesHeader() {
   const setPopup = useSetPopup();
+  const { t } = useTranslate("wallet");
   const showHelp = () => setPopup(<HelpPopup id="rbf" />);
   return (
     <Header
-      title={i18n("wallet.bumpNetworkFees.title")}
+      title={t("wallet.bumpNetworkFees.title")}
       icons={[{ ...headerIcons.help, onPress: showHelp }]}
     />
   );
@@ -112,10 +113,11 @@ function BumpNetworkFeesButton({
     newFeeRate: Number(newFeeRate),
     sendingAmount,
   });
+  const { t } = useTranslate("global");
 
   return (
     <Button style={tw`self-center`} disabled={disabled} onPress={bumpFees}>
-      {i18n("confirm")}
+      {t("confirm")}
     </Button>
   );
 }

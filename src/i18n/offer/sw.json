@@ -36,7 +36,7 @@
   "offer.requiredAction.releaseEscrow.dispute" : "mzozo umezinduliwa: achilia escrow",
   "offer.requiredAction.searchingForPeer" : "inatafuta vilingana",
   "offer.requiredAction.unknown" : "isiyojulikana - sasaisha programu yako!",
-  "offer.requiredAction.waiting" : "inangojea $0",
+  "offer.requiredAction.waiting" : "inangojea {who}",
   "offer.requiredAction.waiting.buyer" : "inangojea malipo",
   "offer.requiredAction.waiting.seller" : "inangojea muuzaji",
   "offer.sorting.bestReputation" : "sifa bora kwanza",
@@ -58,5 +58,6 @@
   "offer.summary.youAreBuying" : "unataka kununua kati ya",
   "offer.summary.youAreSelling" : "unauza",
   "offer.summary.youWereSelling" : "ulikuwa unauza",
+  "yourTrades.newMessages" : "ujumbe mpya wa mazungumzo",
   "yourTrades.unknown" : "isiyojulikana"
 }

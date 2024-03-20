@@ -7,21 +7,23 @@ import { useCancelContract } from "../../popups/tradeCancelation/useCancelContra
 import { useStartRefundPopup } from "../../popups/useStartRefundPopup";
 import { getSellOfferIdFromContract } from "../../utils/contract/getSellOfferIdFromContract";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
-import i18n from "../../utils/i18n";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { peachAPI } from "../../utils/peachAPI";
 import { useContractContext } from "./context";
 import { useConfirmPaymentSeller } from "./hooks/useConfirmPaymentSeller";
 import { useContractMutation } from "./hooks/useContractMutation";
 import { useRepublishOffer } from "./hooks/useRepublishOffer";
+import { useTranslate } from "@tolgee/react";
 
 export function RepublishOfferSlider() {
   const { contract } = useContractContext();
   const { mutate: republishOffer } = useRepublishOffer();
+  const { t } = useTranslate("contract");
+
   return (
     <ConfirmSlider
       onConfirm={() => republishOffer(contract)}
-      label1={i18n("republishOffer")}
+      label1={t("republishOffer")}
       iconId="refreshCw"
     />
   );
@@ -30,15 +32,17 @@ export function RefundEscrowSlider() {
   const { contract } = useContractContext();
   const startRefund = useStartRefundPopup();
   const { offer } = useOfferDetail(getSellOfferIdFromContract(contract));
+  const { t } = useTranslate("contract");
   const onConfirm = () => {
     if (!offer || !isSellOffer(offer)) return;
     startRefund(offer);
   };
+
   return (
     <ConfirmSlider
       onConfirm={onConfirm}
       enabled={!!offer}
-      label1={i18n("refundEscrow")}
+      label1={t("refundEscrow")}
       iconId="rotateCounterClockwise"
     />
   );
@@ -48,6 +52,7 @@ export function PaymentMadeSlider() {
   const { contractId } = useRoute<"contract">().params;
   const { contract } = useContractContext();
 
+  const { t } = useTranslate("contract");
   const { isPending, mutate } = useContractMutation(
     {
       id: contract.id,
@@ -67,14 +72,15 @@ export function PaymentMadeSlider() {
     <ConfirmSlider
       enabled={!isPending && !isPaymentTooLate(contract)}
       onConfirm={() => mutate()}
-      label1={i18n("contract.payment.buyer.confirm")}
-      label2={i18n("contract.payment.made")}
+      label1={t("contract.payment.buyer.confirm")}
+      label2={t("contract.payment.made")}
     />
   );
 }
 
 export function PaymentReceivedSlider() {
   const { contract } = useContractContext();
+  const { t } = useTranslate("contract");
   const { isPending, mutate } = useConfirmPaymentSeller({
     contract,
     optimisticContract: {
@@ -87,13 +93,14 @@ export function PaymentReceivedSlider() {
     <ConfirmSlider
       enabled={!isPending}
       onConfirm={() => mutate()}
-      label1={i18n("contract.payment.confirm")}
-      label2={i18n("contract.payment.received")}
+      label1={t("contract.payment.confirm")}
+      label2={t("contract.payment.received")}
     />
   );
 }
 export function CancelTradeSlider() {
   const { contract } = useContractContext();
+  const { t } = useTranslate("contract");
   const { mutate } = useCancelContract({
     contractId: contract.id,
     optimisticContract: {
@@ -114,13 +121,14 @@ export function CancelTradeSlider() {
     <ConfirmSlider
       iconId="xCircle"
       onConfirm={cancelContract}
-      label1={i18n("contract.seller.paymentTimerHasRunOut.cancelTrade")}
+      label1={t("contract.seller.paymentTimerHasRunOut.cancelTrade")}
     />
   );
 }
 const MAX_HOURS_FOR_PAYMENT = 12;
 export function ExtendTimerSlider() {
   const { contractId } = useRoute<"contract">().params;
+  const { t } = useTranslate("contract");
   const { mutate } = useContractMutation(
     {
       id: contractId,
@@ -142,13 +150,14 @@ export function ExtendTimerSlider() {
     <ConfirmSlider
       iconId="arrowRightCircle"
       onConfirm={() => mutate()}
-      label1={i18n("contract.seller.giveMoreTime")}
+      label1={t("contract.seller.giveMoreTime")}
     />
   );
 }
 export function ResolveCancelRequestSliders() {
   const { contractId } = useRoute<"contract">().params;
 
+  const { t } = useTranslate("contract");
   const { mutate: continueTrade } = useContractMutation(
     { id: contractId, cancelationRequested: false },
     {
@@ -179,12 +188,12 @@ export function ResolveCancelRequestSliders() {
     <>
       <ConfirmSlider
         onConfirm={() => cancelTrade()}
-        label1={i18n("contract.cancelationRequested.agree")}
+        label1={t("contract.cancelationRequested.agree")}
         iconId="xCircle"
       />
       <ConfirmSlider
         onConfirm={() => continueTrade()}
-        label1={i18n("contract.cancelationRequested.continueTrade")}
+        label1={t("contract.cancelationRequested.continueTrade")}
         iconId="arrowRightCircle"
       />
     </>
@@ -192,6 +201,7 @@ export function ResolveCancelRequestSliders() {
 }
 export function ReleaseEscrowSlider() {
   const { contract } = useContractContext();
+  const { t } = useTranslate();
   const { mutate } = useConfirmPaymentSeller({
     contract,
     optimisticContract: {
@@ -202,6 +212,6 @@ export function ReleaseEscrowSlider() {
   });
 
   return (
-    <ConfirmSlider label1={i18n("releaseEscrow")} onConfirm={() => mutate()} />
+    <ConfirmSlider label1={t("releaseEscrow")} onConfirm={() => mutate()} />
   );
 }

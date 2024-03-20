@@ -6,14 +6,16 @@ import { Placeholder } from "../../../components/Placeholder";
 import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
 import { PeachText } from "../../../components/text/PeachText";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { useWalletState } from "../../../utils/wallet/walletStore";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   amount: number;
   isRefreshing?: boolean;
 };
 export const TotalBalance = ({ amount, isRefreshing }: Props) => {
+  const { t } = useTranslate("wallet");
+
   const [showBalance, toggleShowBalance] = useWalletState(
     (state) => [state.showBalance, state.toggleShowBalance],
     shallow,
@@ -29,10 +31,10 @@ export const TotalBalance = ({ amount, isRefreshing }: Props) => {
       >
         <Placeholder style={tw`w-5 h-5`} />
         <PeachText style={tw`text-center button-medium`}>
-          {i18n("wallet.totalBalance")}:
+          {t("wallet.totalBalance")}:
         </PeachText>
         <TouchableOpacity
-          accessibilityHint={i18n(
+          accessibilityHint={t(
             showBalance ? "wallet.hideBalance" : "wallet.showBalance",
           )}
           onPress={toggleShowBalance}

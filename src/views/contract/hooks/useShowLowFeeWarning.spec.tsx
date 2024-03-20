@@ -11,9 +11,9 @@ import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { Toast } from "../../../components/toast/Toast";
 import { placeholderFees } from "../../../hooks/query/useFeeEstimate";
 import { userKeys } from "../../../hooks/query/useSelfUser";
-import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
 import { useShowLowFeeWarning } from "./useShowLowFeeWarning";
+import { tolgee } from "../../../tolgee";
 
 const getSelfUserMock = jest
   .spyOn(peachAPI.private.user, "getSelfUser")
@@ -38,7 +38,12 @@ describe("useShowLowFeeWarning", () => {
     renderHook(useShowLowFeeWarning, { initialProps });
     await waitFor(() => {
       expect(
-        queryByText(i18n("contract.warning.lowFee.text", "1")),
+        queryByText(
+          tolgee.t("contract.warning.lowFee.text", {
+            ns: "contract",
+            fees: "1",
+          }),
+        ),
       ).toBeTruthy();
     });
   });
@@ -53,7 +58,14 @@ describe("useShowLowFeeWarning", () => {
     renderHook(useShowLowFeeWarning, {
       initialProps: { enabled: false },
     });
-    expect(queryByText(i18n("contract.warning.lowFee.text", "1"))).toBeFalsy();
+    expect(
+      queryByText(
+        tolgee.t("contract.warning.lowFee.text", {
+          ns: "contract",
+          fees: "1",
+        }),
+      ),
+    ).toBeFalsy();
   });
   it("should not show high fee warning banner if fees are higher than minimum", async () => {
     getSelfUserMock.mockResolvedValueOnce({
@@ -68,6 +80,13 @@ describe("useShowLowFeeWarning", () => {
         feeRate: 2,
       });
     });
-    expect(queryByText(i18n("contract.warning.lowFee.text", "1"))).toBeFalsy();
+    expect(
+      queryByText(
+        tolgee.t("contract.warning.lowFee.text", {
+          ns: "contract",
+          fees: "1",
+        }),
+      ),
+    ).toBeFalsy();
   });
 });

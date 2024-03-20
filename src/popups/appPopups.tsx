@@ -1,26 +1,30 @@
 import { View } from "react-native";
 import { PeachText } from "../components/text/PeachText";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
+import { tolgee } from "../tolgee";
+import { useTranslate } from "@tolgee/react";
 
-const ReportSuccess = () => (
-  <View>
-    <PeachText style={tw`my-2`}>{i18n("report.success.text.1")}</PeachText>
-    <PeachText>{i18n("report.success.text.2")}</PeachText>
-  </View>
-);
+const ReportSuccess = () => {
+  const { t } = useTranslate();
+  return (
+    <View>
+      <PeachText style={tw`my-2`}>{t("report.success.text.1")}</PeachText>
+      <PeachText>{t("report.success.text.2")}</PeachText>
+    </View>
+  );
+};
 
 export const appPopups = {
   offerTaken: {
-    title: i18n("search.popups.offerTaken.title"),
-    content: i18n("search.popups.offerTaken.text"),
+    title: tolgee.t("search.popups.offerTaken.title"),
+    content: tolgee.t("search.popups.offerTaken.text"),
   },
   matchUndone: {
-    title: i18n("search.popups.matchUndone.title"),
-    content: i18n("search.popups.matchUndone.text"),
+    title: tolgee.t("search.popups.matchUndone.title"),
+    content: tolgee.t("search.popups.matchUndone.text"),
   },
   reportSuccess: {
-    title: i18n("report.success.title"),
+    title: tolgee.t("report.success.title"),
     content: ReportSuccess,
   },
 };

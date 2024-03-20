@@ -6,8 +6,6 @@
   "grouphug.announcement.text" : "Con GroupHug, raggruppiamo i rilasci dei depositi per avere commissioni di rete inferiori. Attiva, aspetta un po' , risparmia di più. Sei tu al comando, puoi cambiare in qualsiasi momento.",
   "grouphug.announcement.title" : "E' arrivato il momento di GroupHug!",
   "grouphug.goToSettings" : "vai alle impostazioni",
-  "help.payoutPending.description" : "Le transazioni sono pagate a gruppi. Questo si traduce in un attesa affinché il numero minimo di partecipanti o il massimo tempo di attesa sia raggiunto. Ciò ti consente di risparmiare fino al 23% in commissioni di transazione.",
-  "help.payoutPending.title" : "pagamento in attesa",
   "offer.requiredAction.payoutPending" : "pagamento in attesa",
   "settings.batching.delayedPayouts" : "I pagamenti dei depositi verranno aggregati",
   "settings.batching.immediatePayouts" : "I pagamenti dei depositi verranno effettuati immediatamente",

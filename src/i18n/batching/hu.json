@@ -6,8 +6,6 @@
   "grouphug.announcement.text" : "A GroupHug segítségével a letéti kifizetéseket az alacsonyabb tranzakciós díjakért csoportosítjuk.\n\nEngedélyezd, várj egy kicsit, és spórolj többet.\n\nTe irányítasz, bármikor átválthatsz.",
   "grouphug.announcement.title" : "Itt az ideje egy GroupHug-nak!",
   "grouphug.goToSettings" : "menj a beállításokhoz",
-  "help.payoutPending.description" : "A tranzakciókat csoportosítva fizetjük ki. Ez várakozási időt jelent, amíg a csoport megtelik, vagy a maximális várakozási időt eléri.\n\nEz a tranzakciós díjakban neked akár 23% megtakarítással is járhat.",
-  "help.payoutPending.title" : "kifizetés függőben",
   "offer.requiredAction.payoutPending" : "kifizetés függőben",
   "settings.batching.delayedPayouts" : "A letéti kifizetések késleltetve vannak.",
   "settings.batching.immediatePayouts" : "A letéti kifizetések azonnal megtörténnek.",

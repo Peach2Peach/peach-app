@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { TouchableOpacity, View } from "react-native";
 import { APPLINKS } from "../../../APPLINKS";
 import { Icon } from "../../../components/Icon";
@@ -8,11 +9,11 @@ import { PeachText } from "../../../components/text/PeachText";
 import { useOfferDetail } from "../../../hooks/query/useOfferDetail";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import tw from "../../../styles/tailwind";
+import { tolgee } from "../../../tolgee";
 import { contractIdToHex } from "../../../utils/contract/contractIdToHex";
 import { getBitcoinPriceFromContract } from "../../../utils/contract/getBitcoinPriceFromContract";
 import { getBuyOfferIdFromContract } from "../../../utils/contract/getBuyOfferIdFromContract";
 import { toShortDateFormat } from "../../../utils/date/toShortDateFormat";
-import i18n from "../../../utils/i18n";
 import { isBuyOffer } from "../../../utils/offer/isBuyOffer";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { groupChars } from "../../../utils/string/groupChars";
@@ -78,7 +79,8 @@ export const tradeInformationGetters: Record<
   via: getPaymentMethodBubble,
   method: getPaymentMethod,
   meetup: getPaymentMethod,
-  location: (_contract: Contract) => i18n("contract.summary.location.text"),
+  location: (_contract: Contract) =>
+    tolgee.t("contract.summary.location.text", { ns: "contract" }),
 };
 
 const allPossibleFields = [
@@ -142,6 +144,7 @@ function PaymentMethodBubble({ contract }: { contract: Contract }) {
   const { paymentMethod } = contract;
   const url = paymentMethod in APPLINKS ? APPLINKS[paymentMethod] : undefined;
   const hasLink = !!url;
+  const { t } = useTranslate("paymentMethod");
   const openLink = () => (url ? openURL(url) : null);
   const { paymentData } = useContractContext();
   const paymentMethodLabel = usePaymentDataStore((state) =>
@@ -152,7 +155,8 @@ function PaymentMethodBubble({ contract }: { contract: Contract }) {
     <View style={tw`items-end gap-1`}>
       {paymentMethodLabel || !isCashTrade(paymentMethod) ? (
         <Bubble color={"primary-mild"}>
-          {paymentMethodLabel ?? i18n(`paymentMethod.${paymentMethod}`)}
+          {/** @ts-ignore  */}
+          {paymentMethodLabel ?? t(`paymentMethod.${paymentMethod}`)}
         </Bubble>
       ) : (
         <EventNameBubble paymentMethod={paymentMethod} />
@@ -163,7 +167,7 @@ function PaymentMethodBubble({ contract }: { contract: Contract }) {
           style={tw`flex-row items-center justify-end gap-1`}
         >
           <PeachText style={tw`underline body-s text-black-65`}>
-            {i18n("contract.summary.openApp")}
+            {t("contract.summary.openApp", { ns: "contract" })}
           </PeachText>
           <Icon id="externalLink" size={16} color={tw.color("primary-main")} />
         </TouchableOpacity>
@@ -194,7 +198,8 @@ function getRatingBubble(contract: Contract, userType: "Buyer" | "Seller") {
 function getPaymentMethod({ paymentMethod }: Contract) {
   if (isCashTrade(paymentMethod))
     return <EventName paymentMethod={paymentMethod} />;
-  return i18n(`paymentMethod.${paymentMethod}`);
+  // @ts-ignore
+  return tolgee.t(`paymentMethod.${paymentMethod}`, { ns: "paymentMethod" });
 }
 
 function EventName({ paymentMethod }: { paymentMethod: `cash.${string}` }) {

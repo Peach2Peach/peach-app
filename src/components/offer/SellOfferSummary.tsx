@@ -1,12 +1,12 @@
 import { View } from "react-native";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { BTCAmount } from "../bitcoin/BTCAmount";
 import { EscrowLink } from "../matches/components/EscrowLink";
 import { getPremiumColor } from "../matches/utils/getPremiumColor";
 import { PeachText } from "../text/PeachText";
 import { HorizontalLine } from "../ui/HorizontalLine";
 import { SummaryCard } from "./SummaryCard";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   offer: Pick<
@@ -35,11 +35,12 @@ export const SellOfferSummary = ({
   walletLabel,
 }: Props) => {
   const { tradeStatus, amount, premium, meansOfPayment } = offer;
+  const { t } = useTranslate("offer");
   return (
     <SummaryCard>
       <SummaryCard.Section>
         <PeachText style={tw`text-center text-black-65`}>
-          {i18n(
+          {t(
             `offer.summary.${tradeStatus !== "offerCanceled" ? "youAreSelling" : "youWereSelling"}`,
           )}
         </PeachText>
@@ -55,7 +56,7 @@ export const SellOfferSummary = ({
 
       <SummaryCard.Section>
         <PeachText style={tw`text-center text-black-65`}>
-          {i18n("offer.summary.withA")}
+          {t("offer.summary.withA")}
         </PeachText>
         <PeachText
           style={[
@@ -64,9 +65,7 @@ export const SellOfferSummary = ({
           ]}
         >
           <PeachText style={tw`subtitle-1`}>{Math.abs(premium)}% </PeachText>
-          {i18n(
-            premium >= 0 ? "offer.summary.premium" : "offer.summary.discount",
-          )}
+          {t(premium >= 0 ? "offer.summary.premium" : "offer.summary.discount")}
         </PeachText>
       </SummaryCard.Section>
 
@@ -78,7 +77,7 @@ export const SellOfferSummary = ({
 
       <SummaryCard.Section>
         <PeachText style={tw`text-center text-black-65`}>
-          {i18n("offer.summary.refundWallet")}
+          {t("offer.summary.refundWallet")}
         </PeachText>
         {walletLabel}
       </SummaryCard.Section>

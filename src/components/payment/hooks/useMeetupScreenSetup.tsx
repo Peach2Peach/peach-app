@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMeetupEvents } from "../../../hooks/query/useMeetupEvents";
 import { useGoToOrigin } from "../../../hooks/useGoToOrigin";
 import { useRoute } from "../../../hooks/useRoute";
-import { useOfferPreferences } from "../../../store/offerPreferenes";
+import { useOfferPreferences } from "../../../store/offerPreferences";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
 import { useAccountStore } from "../../../utils/account/account";
 import { getPaymentMethodInfo } from "../../../utils/paymentMethod/getPaymentMethodInfo";

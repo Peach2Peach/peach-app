@@ -1,10 +1,10 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { PeachText } from "../../../components/text/PeachText";
 import { CopyAble } from "../../../components/ui/CopyAble";
 import tw from "../../../styles/tailwind";
 import { PEACH_ID_LENGTH } from "../../../utils/account/PEACH_ID_LENGTH";
 import { getDateToDisplay } from "../../../utils/date/getDateToDisplay";
-import i18n from "../../../utils/i18n";
 
 type Props = {
   user: User | PublicUser;
@@ -20,10 +20,12 @@ export const AccountInfo = ({ user }: Props) => (
 );
 
 function PublicKey({ publicKey }: { publicKey: string }) {
+  const { t } = useTranslate("profile");
+
   return (
     <View style={tw`pr-3`}>
       <PeachText style={tw`lowercase text-black-65`}>
-        {i18n("profile.publicKey")}:
+        {t("profile.publicKey")}:
       </PeachText>
       <View style={tw`flex-row items-center gap-3`}>
         <PeachText style={tw`uppercase text-black-100 subtitle-2 shrink`}>
@@ -40,10 +42,11 @@ function PublicKey({ publicKey }: { publicKey: string }) {
 }
 
 function AccountCreated({ creationDate }: { creationDate: Date }) {
+  const { t } = useTranslate("profile");
   return (
     <View>
       <PeachText style={tw`lowercase text-black-65`}>
-        {i18n("profile.accountCreated")}:
+        {t("profile.accountCreated")}:
       </PeachText>
       <PeachText style={tw`subtitle-1`}>
         {getDateToDisplay(creationDate)}
@@ -53,33 +56,36 @@ function AccountCreated({ creationDate }: { creationDate: Date }) {
 }
 
 function Disputes({ opened, won, lost, resolved }: User["disputes"]) {
+  const { t } = useTranslate("profile");
   return (
     <View>
       <PeachText style={tw`lowercase text-black-65`}>
-        {i18n("profile.disputes")}:
+        {t("profile.disputes")}:
       </PeachText>
       <View style={tw`flex-row`}>
-        {[opened, won, lost, resolved].map((value, index) => (
-          <PeachText
-            key={`myProfile-disputes-${index}`}
-            style={tw`pr-4 lowercase subtitle-1`}
-          >
-            {value}{" "}
-            {i18n(
-              `profile.disputes${["Opened", "Won", "Lost", "Resolved"][index]}`,
-            )}
-          </PeachText>
-        ))}
+        <PeachText style={tw`pr-4 lowercase subtitle-1`}>
+          {opened} {t("profile.disputesOpened")}
+        </PeachText>
+        <PeachText style={tw`pr-4 lowercase subtitle-1`}>
+          {won} {t("profile.disputesWon")}
+        </PeachText>
+        <PeachText style={tw`pr-4 lowercase subtitle-1`}>
+          {lost} {t("profile.disputesLost")}
+        </PeachText>
+        <PeachText style={tw`pr-4 lowercase subtitle-1`}>
+          {resolved} {t("profile.disputesResolved")}
+        </PeachText>
       </View>
     </View>
   );
 }
 
 function Trades({ trades }: { trades: number }) {
+  const { t } = useTranslate("profile");
   return (
     <View>
       <PeachText style={tw`lowercase text-black-65`}>
-        {i18n("profile.numberOfTrades")}:
+        {t("profile.numberOfTrades")}:
       </PeachText>
       <PeachText style={tw`subtitle-1`}>{trades}</PeachText>
     </View>

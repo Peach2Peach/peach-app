@@ -4,9 +4,9 @@ import { Button } from "../../components/buttons/Button";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { CurrencyTabs } from "./CurrencyTabs";
 import { usePaymentMethodLabel } from "./hooks";
+import { useTranslate } from "@tolgee/react";
 
 export const SelectCurrency = () => {
   const navigation = useStackNavigation();
@@ -15,6 +15,7 @@ export const SelectCurrency = () => {
   const { origin } = useRoute<"selectCurrency">().params;
 
   const getPaymentMethodLabel = usePaymentMethodLabel();
+  const { t } = useTranslate();
 
   const goToPaymentMethodForm = (type: PaymentMethod) => {
     const label = getPaymentMethodLabel(type);
@@ -34,13 +35,16 @@ export const SelectCurrency = () => {
   };
 
   return (
-    <Screen style={tw`px-0`} header={i18n("selectCurrency.title")}>
+    <Screen
+      style={tw`px-0`}
+      header={t("selectCurrency.title", { ns: "global" })}
+    >
       <CurrencyTabs
         currency={selectedCurrency}
         setCurrency={setSelectedCurrency}
       />
       <Button style={tw`self-center`} onPress={next}>
-        {i18n("next")}
+        {t("next", { ns: "unassigned" })}
       </Button>
     </Screen>
   );

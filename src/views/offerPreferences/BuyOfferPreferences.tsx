@@ -3,7 +3,7 @@ import { shallow } from "zustand/shallow";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { HelpPopup } from "../../popups/HelpPopup";
-import { useOfferPreferences } from "../../store/offerPreferenes";
+import { useOfferPreferences } from "../../store/offerPreferences";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { interpolate } from "../../utils/math/interpolate";

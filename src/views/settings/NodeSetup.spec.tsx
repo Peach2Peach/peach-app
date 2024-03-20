@@ -2,7 +2,6 @@ import { toMatchDiffSnapshot } from "snapshot-diff";
 import { fireEvent, render } from "test-utils";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { GlobalPopup } from "../../components/popup/GlobalPopup";
-import i18n from "../../utils/i18n";
 import { PeachWallet } from "../../utils/wallet/PeachWallet";
 import {
   defaultNodeConfig,
@@ -10,6 +9,7 @@ import {
 } from "../../utils/wallet/nodeConfigStore";
 import { setPeachWallet } from "../../utils/wallet/setWallet";
 import { NodeSetup } from "./NodeSetup";
+import { tolgee } from "../../tolgee";
 expect.extend({ toMatchDiffSnapshot });
 
 jest.mock("./helpers/checkNodeConnection");
@@ -63,6 +63,10 @@ describe("NodeSetup", () => {
     );
 
     fireEvent.press(getByAccessibilityHint("help use your own node"));
-    expect(queryByText(i18n("help.useYourOwnNode.description"))).toBeTruthy();
+    expect(
+      queryByText(
+        tolgee.t("help.useYourOwnNode.description", { ns: "wallet" }),
+      ),
+    ).toBeTruthy();
   });
 });

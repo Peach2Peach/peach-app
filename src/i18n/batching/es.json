@@ -6,8 +6,6 @@
   "grouphug.announcement.text" : "Con GroupHug, ajuntamos las transacciones para disminuir las comisiones de cada usuario. Puedes elegir siempre si quieres, o no quieres participar.",
   "grouphug.announcement.title" : "Es hora de usar GroupHug!",
   "grouphug.goToSettings" : "ir a ajustes",
-  "help.payoutPending.description" : "Las transacciones se pagan en lotes. Eso implica esperar un cierto tiempo hasta que tu lote está lleno, o se agota el tiempo. Esto ahorra hasta un 23% en comisiones de transacción.",
-  "help.payoutPending.title" : "pago pendiente",
   "offer.requiredAction.payoutPending" : "pago pendiente",
   "settings.batching.delayedPayouts" : "Los pagos han sido retrasados.",
   "settings.batching.immediatePayouts" : "Los pagos se harán directamente.",

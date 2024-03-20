@@ -1,10 +1,10 @@
+import { useTranslate } from "@tolgee/react";
 import { useState } from "react";
 import { View, useWindowDimensions } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import {
   PAGESIZE,
   useOfferMatches,
@@ -64,14 +64,17 @@ function MatchInformation({ offer }: { offer: SellOffer }) {
   const { offerId } = useRoute<"search">().params;
   const { allMatches: matches } = useOfferMatches(offerId);
   const color = getPremiumColor(offer.premium || 0, false);
+  const { t } = useTranslate();
 
   return (
     <View>
       <PeachText style={tw`text-center h4 text-primary-main`}>
-        {i18n(`search.youGot${matches.length === 1 ? "AMatch" : "Matches"}`)}
+        {t(
+          matches.length === 1 ? "search.youGotAMatch" : "search.youGotMatches",
+        )}
       </PeachText>
       <PeachText style={tw`text-center body-l text-black-65`}>
-        {i18n("search.sellOffer")}:
+        {t("search.sellOffer")}:
       </PeachText>
       <View style={tw`flex-row items-center justify-center`}>
         <BTCAmount amount={offer.amount} size="medium" />

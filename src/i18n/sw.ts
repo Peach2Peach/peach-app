@@ -23,7 +23,7 @@ import unassigned from "./unassigned/sw.json";
 import wallet from "./wallet/sw.json";
 import welcome from "./welcome/sw.json";
 
-const es: Record<string, string> = {
+const sw: Record<string, string> = {
   ...global,
   ...accessibility,
   ...analytics,
@@ -50,4 +50,4 @@ const es: Record<string, string> = {
   ...welcome,
 };
 
-export default es;
+export default sw;

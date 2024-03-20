@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { Fragment } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -15,7 +16,6 @@ import tw from "../../../styles/tailwind";
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
 import { getOfferIdFromContract } from "../../../utils/contract/getOfferIdFromContract";
-import i18n from "../../../utils/i18n";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { cutOffAddress } from "../../../utils/string/cutOffAddress";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
@@ -35,6 +35,7 @@ export const TradeDetails = () => {
   const { contract, paymentData, isDecryptionError, view } =
     useContractContext();
   const sections = getTradeInfoFields(contract, view);
+  const { t } = useTranslate("contract");
 
   return (
     <View style={tw`justify-center gap-4 grow`}>
@@ -61,7 +62,7 @@ export const TradeDetails = () => {
       )}
       {!paymentData && isDecryptionError && (
         <ErrorBox style={tw`mt-[2px]`}>
-          {i18n("contract.paymentData.decyptionFailed")}
+          {t("contract.paymentData.decyptionFailed")}
         </ErrorBox>
       )}
     </View>
@@ -138,25 +139,28 @@ function ChangePayoutWallet() {
             contractId: contract.id,
           });
         };
+  const { t } = useTranslate();
 
   return (
     <>
       {!contract.paymentMade && (
         <SummaryItem
-          label={i18n("contract.summary.payoutToPeachWallet")}
+          label={t("contract.summary.payoutToPeachWallet", {
+            ns: "contract",
+          })}
           value={<Toggle enabled={!!paidToPeachWallet} onPress={onPress} />}
         />
       )}
       {(!paidToPeachWallet || contract.paymentMade) && (
         <SummaryItem
-          label={i18n("payout.wallet")}
+          label={t("payout.wallet")}
           value={
             <SummaryItem.Text
               value={
                 payoutAddress === contract.releaseAddress
                   ? payoutAddressLabel || cutOffAddress(payoutAddress)
                   : paidToPeachWallet
-                    ? i18n("peachWallet")
+                    ? t("peachWallet", { ns: "wallet" })
                     : cutOffAddress(contract.releaseAddress)
               }
               onPress={editCustomPayoutAddress}
@@ -178,6 +182,7 @@ function NetworkFee() {
   const onPress = () => {
     navigation.navigate("networkFees");
   };
+  const { t } = useTranslate("settings");
 
   const displayFeeRate = String(
     typeof feeRate === "number" ? feeRate : estimatedFees[feeRate],
@@ -185,13 +190,13 @@ function NetworkFee() {
 
   return (
     <SummaryItem
-      label={i18n("settings.networkFees")}
+      label={t("settings.networkFees")}
       value={
         <View style={tw`flex-row items-center justify-end flex-1 gap-10px`}>
           <PeachText
             style={[tw`flex-1 text-right subtitle-1`, tw`md:subtitle-0`]}
           >
-            {i18n("settings.networkFees.xSatsPerByte", displayFeeRate)}
+            {t("settings.networkFees.xSatsPerByte", { fees: displayFeeRate })}
           </PeachText>
           <TouchableIcon
             id="bitcoin"
@@ -206,6 +211,7 @@ function NetworkFee() {
 
 function TradeDetailField({ fieldName }: { fieldName: TradeInfoField }) {
   const { contract, view, paymentData } = useContractContext();
+  const { t } = useTranslate("contract");
 
   const information = isTradeInformationGetter(fieldName)
     ? tradeInformationGetters[fieldName](contract)
@@ -215,7 +221,8 @@ function TradeDetailField({ fieldName }: { fieldName: TradeInfoField }) {
 
   return (
     <SummaryItem
-      label={i18n(`contract.summary.${fieldName}`)}
+      // @ts-ignore
+      label={t(`contract.summary.${fieldName}`)}
       value={
         typeof information === "string" || typeof information === "number" ? (
           <SummaryItem.Text

@@ -1,10 +1,11 @@
 import Clipboard from "@react-native-clipboard/clipboard";
 import { useQRScanner } from "../../hooks/useQRScanner";
-import i18n from "../../utils/i18n";
 import { ScanQR } from "../camera/ScanQR";
 import { Input, InputProps } from "./Input";
+import { useTranslate } from "@tolgee/react";
 
 export const URLInput = (props: InputProps) => {
+  const { t } = useTranslate("wallet");
   const pasteAddress = async () => {
     const clipboard = await Clipboard.getString();
     if (props.onChangeText) props.onChangeText(clipboard);
@@ -18,8 +19,8 @@ export const URLInput = (props: InputProps) => {
 
   return !showQRScanner ? (
     <Input
-      label={i18n("wallet.settings.node.address")}
-      placeholder={i18n("wallet.settings.node.address.placeholder")}
+      label={t("wallet.settings.node.address")}
+      placeholder={t("wallet.settings.node.address.placeholder")}
       {...props}
       icons={
         props.icons ?? [

@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useCallback, useState } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
@@ -7,7 +8,6 @@ import { Checkbox } from "../../../../components/inputs/Checkbox";
 import { useToggleBoolean } from "../../../../hooks/useToggleBoolean";
 import { useSettingsStore } from "../../../../store/settingsStore/useSettingsStore";
 import tw from "../../../../styles/tailwind";
-import i18n from "../../../../utils/i18n";
 import { KeepPhraseSecure } from "./KeepPhraseSecure";
 import { LastSeedBackup } from "./LastSeedBackup";
 import { SecurityInfo } from "./SecurityInfo";
@@ -21,6 +21,7 @@ export const screens = [
 ];
 
 export const SeedPhrase = () => {
+  const { t } = useTranslate("settings");
   const [updateSeedBackupDate, lastSeedBackupDate] = useSettingsStore(
     (state) => [state.updateSeedBackupDate, state.lastSeedBackupDate],
     shallow,
@@ -69,7 +70,7 @@ export const SeedPhrase = () => {
             checked={checked}
             onPress={toggleChecked}
           >
-            {i18n("settings.backups.seedPhrase.readAndUnderstood")}
+            {t("settings.backups.seedPhrase.readAndUnderstood")}
           </Checkbox>
         )}
         {currentScreenIndex !== 0 && (
@@ -78,7 +79,8 @@ export const SeedPhrase = () => {
             style={tw`self-center`}
             disabled={!checked}
           >
-            {i18n(screens[currentScreenIndex].buttonText || "next")}
+            {/** @ts-ignore  */}
+            {t(screens[currentScreenIndex].buttonText || "next")}
           </Button>
         )}
       </View>

@@ -4,29 +4,30 @@ import { PeachText } from "../../../components/text/PeachText";
 import { CENT } from "../../../constants";
 import { useConfigStore } from "../../../store/configStore/configStore";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 export const PeachFees = () => {
   const peachFee = useConfigStore((state) => state.peachFee);
+  const { t } = useTranslate("settings");
 
   return (
-    <Screen style={tw`justify-center`} header={i18n("settings.peachFees")}>
+    <Screen style={tw`justify-center`} header={t("settings.peachFees")}>
       <PeachText>
-        {i18n("settings.fees.text.1")}
+        {t("settings.fees.text.1")}
         <PeachText style={tw`text-primary-main`}>
           {" "}
           {(peachFee * CENT).toString()}%{" "}
         </PeachText>
-        {i18n("settings.fees.text.2")}
+        {t("settings.fees.text.2")}
         {"\n"}
       </PeachText>
       <PeachText>
-        {i18n("settings.fees.text.3")}
+        {t("settings.fees.text.3")}
         {"\n"}
       </PeachText>
-      <BulletPoint text={i18n("settings.fees.point.1")} />
-      <BulletPoint text={i18n("settings.fees.point.2")} />
-      <BulletPoint text={i18n("settings.fees.point.3")} />
+      <BulletPoint text={t("settings.fees.point.1")} />
+      <BulletPoint text={t("settings.fees.point.2")} />
+      <BulletPoint text={t("settings.fees.point.3")} />
     </Screen>
   );
 };

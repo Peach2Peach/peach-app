@@ -5,15 +5,17 @@ import {
   PopupComponentProps,
 } from "../components/popup/PopupComponent";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 /**
  * @deprecated use LoadingPopupAction to indicate loading state
  */
 export function LoadingPopup(props: Partial<PopupComponentProps>) {
+  const { t } = useTranslate();
+
   return (
     <PopupComponent
-      title={i18n("loading")}
+      title={t("loading")}
       content={
         <Loading
           size="large"
@@ -22,11 +24,7 @@ export function LoadingPopup(props: Partial<PopupComponentProps>) {
         />
       }
       actions={
-        <PopupAction
-          label={i18n("loading")}
-          iconId="clock"
-          onPress={() => null}
-        />
+        <PopupAction label={t("loading")} iconId="clock" onPress={() => null} />
       }
       {...props}
     />

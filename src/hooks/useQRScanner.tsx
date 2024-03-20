@@ -11,8 +11,8 @@ import { PopupAction } from "../components/popup/PopupAction";
 import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
 import { WarningPopup } from "../popups/WarningPopup";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
 import { isIOS } from "../utils/system/isIOS";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   onSuccess: (data: string) => void;
@@ -44,10 +44,12 @@ export const useQRScanner = ({ onSuccess }: Props) => {
 };
 
 function MissingPermissionsPopup() {
+  const { t } = useTranslate("settings");
+
   return (
     <WarningPopup
-      title={i18n("settings.missingPermissions")}
-      content={i18n("settings.missingPermissions.text")}
+      title={t("settings.missingPermissions")}
+      content={t("settings.missingPermissions.text")}
       actions={
         <>
           <ClosePopupAction textStyle={tw`text-black-100`} />
@@ -59,9 +61,11 @@ function MissingPermissionsPopup() {
 }
 
 function OpenSettingsAction() {
+  const { t } = useTranslate("settings");
+
   return (
     <PopupAction
-      label={i18n("settings.openSettings")}
+      label={t("settings.openSettings")}
       textStyle={tw`text-black-100`}
       onPress={Linking.openSettings}
       iconId={"settings"}

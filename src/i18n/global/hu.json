@@ -87,7 +87,7 @@
   "currency.format.GBP" : "0$ £",
   "currency.format.SEK" : "0$ SEK",
   "currency.format.USD" : "0$ $",
-  "currency.format.sats" : "$0 sats",
+  "currency.format.sats" : "{amount} sats",
   "default" : "alapértelmezett",
   "delete" : "törlés",
   "deny" : "elutasít",

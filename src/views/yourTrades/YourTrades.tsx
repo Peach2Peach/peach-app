@@ -1,4 +1,5 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useTranslate } from "@tolgee/react";
 import { useEffect, useMemo } from "react";
 import { SectionList, SectionListData, View } from "react-native";
 import { ContractSummary } from "../../../peach-api/src/@types/contract";
@@ -13,7 +14,6 @@ import { useTradeSummaries } from "../../hooks/query/useTradeSummaries";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { parseError } from "../../utils/parseError";
 import { useHomeScreenRoute } from "../home/useHomeScreenRoute";
@@ -30,6 +30,7 @@ const tabs = [
 ] as const;
 
 export const YourTrades = () => {
+  const { t } = useTranslate();
   const { summaries, isLoading, error, refetch } = useTradeSummaries();
   const { params } = useHomeScreenRoute<"yourTrades">();
   const showErrorBanner = useShowErrorBanner();
@@ -50,7 +51,7 @@ export const YourTrades = () => {
             key={tab}
             name={tab}
             options={{
-              title: `${i18n(tab)}`,
+              title: t(tab),
               tabBarBadge: () => <TabBarBadge summaries={summaries[tab]} />,
               lazy: true,
               lazyPlaceholder: () => <LoadingScreen />,
@@ -67,7 +68,9 @@ export const YourTrades = () => {
                     refreshing={false}
                     showsVerticalScrollIndicator={false}
                     sections={getCategories(summaries[tab])}
-                    renderSectionHeader={SectionHeader}
+                    renderSectionHeader={({ section }) => (
+                      <SectionHeader section={section} />
+                    )}
                     renderSectionFooter={() => (
                       <View style={tw`bg-transparent h-7`} />
                     )}
@@ -111,17 +114,18 @@ function TabBarBadge({
 
 function YourTradesHeader() {
   const navigation = useStackNavigation();
+  const { t } = useTranslate();
   const onPress = () => {
     navigation.navigate("exportTradeHistory");
   };
   return (
     <Header
-      title={i18n("yourTrades.title")}
+      title={t("yourTrades.title")}
       icons={[
         {
           ...headerIcons.share,
           onPress,
-          accessibilityHint: `${i18n("goTo")} ${i18n("exportTradeHistory.title")}`,
+          accessibilityHint: `${t("goTo", { ns: "global" })} ${t("exportTradeHistory.title")}`,
         },
       ]}
       hideGoBackButton
@@ -132,16 +136,28 @@ function YourTradesHeader() {
 type SectionHeaderProps = {
   section: SectionListData<
     OfferSummary | ContractSummary,
-    { title: string; data: (OfferSummary | ContractSummary)[] }
+    {
+      title:
+        | "priority"
+        | "openActions"
+        | "waiting"
+        | "newMessages"
+        | "history"
+        | "unknown";
+      data: (OfferSummary | ContractSummary)[];
+    }
   >;
 };
+
 export function SectionHeader({
   section: { title, data },
 }: SectionHeaderProps) {
+  const { t } = useTranslate("");
+
   return data.length !== 0 && title !== "priority" ? (
     <LinedText style={tw`pb-7 bg-primary-background-main`}>
       <PeachText style={tw`text-black-65`}>
-        {i18n(`yourTrades.${title}`)}
+        {t(`yourTrades.${title}`)}
       </PeachText>
     </LinedText>
   ) : null;

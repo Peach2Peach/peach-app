@@ -13,10 +13,10 @@ import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getContractViewer } from "../../utils/contract/getContractViewer";
-import i18n from "../../utils/i18n";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { useRaiseDispute } from "./useRaiseDispute";
+import { useTranslate } from "@tolgee/react";
 
 export const DisputeReasonSelector = () => {
   const { contractId } = useRoute<"disputeReasonSelector">().params;
@@ -45,6 +45,7 @@ function DisputeReasonScreen({ contract }: { contract: Contract }) {
   const showErrorBanner = useShowErrorBanner();
   const setPopup = useSetPopup();
   const { mutate: raiseDispute } = useRaiseDispute();
+  const { t } = useTranslate("contract");
 
   const setReason = (reason: DisputeReason) => {
     if (reason === "noPayment.buyer" || reason === "noPayment.seller") {
@@ -71,9 +72,9 @@ function DisputeReasonScreen({ contract }: { contract: Contract }) {
 
   return (
     <Screen
-      header={i18n(
+      header={t(
         "dispute.disputeForTrade",
-        contract ? contractIdToHex(contract.id) : "",
+        contract ? { tradeId: contractIdToHex(contract.id) } : { tradeId: "" },
       )}
     >
       <PeachScrollView
@@ -81,7 +82,7 @@ function DisputeReasonScreen({ contract }: { contract: Contract }) {
         contentStyle={tw`gap-4`}
       >
         <PeachText style={tw`text-center h6`}>
-          {i18n("contact.whyAreYouContactingUs")}
+          {t("contact.whyAreYouContactingUs")}
         </PeachText>
         {availableReasons.map((reason) => (
           <OptionButton
@@ -89,7 +90,7 @@ function DisputeReasonScreen({ contract }: { contract: Contract }) {
             onPress={() => setReason(reason)}
             style={tw`w-64`}
           >
-            {i18n(`dispute.reason.${reason}`)}
+            {t(`dispute.reason.${reason}`)}
           </OptionButton>
         ))}
       </PeachScrollView>

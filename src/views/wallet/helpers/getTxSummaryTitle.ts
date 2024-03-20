@@ -1,4 +1,4 @@
-import i18n from "../../../utils/i18n";
+import { tolgee } from "../../../tolgee";
 
 export const getTxSummaryTitle = (type: TransactionType) =>
-  i18n(`wallet.transactionSummary.type.${type}`);
+  tolgee.t(`wallet.transactionSummary.type.${type}`, { ns: "wallet" });

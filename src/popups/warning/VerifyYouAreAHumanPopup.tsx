@@ -8,8 +8,8 @@ import { ClosePopupAction } from "../../components/popup/actions/ClosePopupActio
 import { useInitApp } from "../../init/useInitApp";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { WarningPopup } from "../WarningPopup";
+import { useTranslate } from "@tolgee/react";
 
 export const VerifyYouAreAHuman = () => {
   const closePopup = useClosePopup();
@@ -48,10 +48,11 @@ export const VerifyYouAreAHuman = () => {
 };
 
 export function VerifyYouAreAHumanPopup() {
+  const { t } = useTranslate("error");
   return (
     <WarningPopup
-      title={i18n("HUMAN_VERIFICATION_REQUIRED.title")}
-      content={i18n("HUMAN_VERIFICATION_REQUIRED.text")}
+      title={t("HUMAN_VERIFICATION_REQUIRED.title")}
+      content={t("HUMAN_VERIFICATION_REQUIRED.text")}
       actions={
         <>
           <ClosePopupAction textStyle={tw`text-black-100`} />
@@ -64,10 +65,11 @@ export function VerifyYouAreAHumanPopup() {
 
 function GoToChallengeAction() {
   const setPopup = useSetPopup();
+  const { t } = useTranslate("error");
 
   return (
     <PopupAction
-      label={i18n("HUMAN_VERIFICATION_REQUIRED.start")}
+      label={t("HUMAN_VERIFICATION_REQUIRED.start")}
       textStyle={tw`text-black-100`}
       onPress={() => setPopup(<VerifyYouAreAHuman />)}
       iconId={"user"}

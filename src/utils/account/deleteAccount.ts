@@ -1,6 +1,6 @@
 import analytics from "@react-native-firebase/analytics";
 import { useConfigStore } from "../../store/configStore/configStore";
-import { offerPreferencesStorage } from "../../store/offerPreferenes/useOfferPreferences";
+import { offerPreferencesStorage } from "../../store/offerPreferences/useOfferPreferences";
 import { settingsStorage } from "../../store/settingsStore/settingsStorage";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";

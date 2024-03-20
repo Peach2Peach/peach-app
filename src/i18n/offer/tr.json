@@ -35,7 +35,7 @@
   "offer.requiredAction.releaseEscrow.dispute" : "anlaşmazlık kaybedildi: escrow'u serbest bırak",
   "offer.requiredAction.searchingForPeer" : "eşleşme aranıyor",
   "offer.requiredAction.unknown" : "bilinmeyen - uygulamanı güncelle!",
-  "offer.requiredAction.waiting" : "$0 bekleniyor",
+  "offer.requiredAction.waiting" : "{who} bekleniyor",
   "offer.requiredAction.waiting.buyer" : "ödeme bekleniyor",
   "offer.requiredAction.waiting.seller" : "satıcı bekleniyor",
   "offer.sorting.bestReputation" : "en iyi itibar önce",
@@ -57,5 +57,6 @@
   "offer.summary.youAreBuying" : "arasında satın almak istiyorsunuz",
   "offer.summary.youAreSelling" : "satıyorsunuz",
   "offer.summary.youWereSelling" : "satıyordunuz",
+  "yourTrades.newMessages" : "yeni mesajınız var",
   "yourTrades.unknown" : "bilinmeyen"
 }

@@ -4,12 +4,12 @@ import { Header } from "../../components/Header";
 import { Screen } from "../../components/Screen";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { isDefined } from "../../utils/validation/isDefined";
 import { EmptyTransactionHistory, TxStatusCard } from "./components";
 import { useTxSummaries } from "./helpers/useTxSummaries";
 import { useSyncWallet } from "./hooks/useSyncWallet";
+import { useTranslate } from "@tolgee/react";
 
 export const TransactionHistory = () => {
   const transactionSummaries = useTxSummaries();
@@ -47,17 +47,18 @@ export const TransactionHistory = () => {
 
 function TransactionHistoryHeader() {
   const navigation = useStackNavigation();
+  const { t } = useTranslate("wallet");
   const onPress = () => {
     navigation.navigate("exportTransactionHistory");
   };
   return (
     <Header
-      title={i18n("wallet.transactionHistory")}
+      title={t("wallet.transactionHistory")}
       icons={[
         {
           ...headerIcons.share,
           onPress,
-          accessibilityHint: `${i18n("goTo")} ${i18n("wallet.exportHistory.title")}`,
+          accessibilityHint: `${t("goTo", { ns: "global" })} ${t("wallet.exportHistory.title")}`,
         },
       ]}
     />

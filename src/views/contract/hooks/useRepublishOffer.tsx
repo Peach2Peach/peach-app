@@ -8,8 +8,8 @@ import { PopupComponent } from "../../../components/popup/PopupComponent";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { getSellOfferIdFromContract } from "../../../utils/contract/getSellOfferIdFromContract";
-import i18n from "../../../utils/i18n";
 import { peachAPI } from "../../../utils/peachAPI";
+import { useTranslate } from "@tolgee/react";
 
 export const useRepublishOffer = () => {
   const setPopup = useSetPopup();
@@ -62,19 +62,20 @@ function RepublishedOfferPopup({
   closeAction: () => void;
   goToOfferAction: () => void;
 }) {
+  const { t } = useTranslate("contract");
   return (
     <PopupComponent
-      title={i18n("contract.cancel.offerRepublished.title")}
-      content={i18n("contract.cancel.offerRepublished.text")}
+      title={t("contract.cancel.offerRepublished.title")}
+      content={t("contract.cancel.offerRepublished.text")}
       actions={
         <>
           <PopupAction
-            label={i18n("close")}
+            label={t("close", { ns: "global" })}
             iconId="xSquare"
             onPress={closeAction}
           />
           <PopupAction
-            label={i18n("goToOffer")}
+            label={t("goToOffer", { ns: "global" })}
             iconId="arrowRightCircle"
             onPress={goToOfferAction}
             reverseOrder

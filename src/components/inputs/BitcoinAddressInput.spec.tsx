@@ -2,9 +2,9 @@ import Clipboard from "@react-native-clipboard/clipboard";
 import { createRenderer } from "react-test-renderer/shallow";
 import { toMatchDiffSnapshot } from "snapshot-diff";
 import { act, fireEvent, render, waitFor } from "test-utils";
-import i18n from "../../utils/i18n";
 import { ScanQR } from "../camera/ScanQR";
 import { BitcoinAddressInput } from "./BitcoinAddressInput";
+import { tolgee } from "../../tolgee";
 expect.extend({ toMatchDiffSnapshot });
 
 jest.mock("../camera/ScanQR", () => ({
@@ -23,7 +23,9 @@ describe("BitcoinAddressInput", () => {
     const { getByPlaceholderText } = render(
       <BitcoinAddressInput value={fullAddress} />,
     );
-    const input = getByPlaceholderText(i18n("form.address.btc.placeholder"));
+    const input = getByPlaceholderText(
+      tolgee.t("form.address.btc.placeholder", { ns: "form" }),
+    );
 
     fireEvent(input, "focus");
     expect(input.props.value).toBe(fullAddress);
@@ -32,7 +34,9 @@ describe("BitcoinAddressInput", () => {
     const { getByPlaceholderText, toJSON } = render(
       <BitcoinAddressInput value={fullAddress} />,
     );
-    const input = getByPlaceholderText(i18n("form.address.btc.placeholder"));
+    const input = getByPlaceholderText(
+      tolgee.t("form.address.btc.placeholder", { ns: "form" }),
+    );
     const { toJSON: toJSON2 } = render(
       <BitcoinAddressInput value={fullAddress} />,
     );

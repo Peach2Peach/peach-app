@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { Screen } from "../../../components/Screen";
 import { OptionButton } from "../../../components/buttons/OptionButton";
@@ -11,7 +12,6 @@ import {
   YOUTUBE,
 } from "../../../constants";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { openURL } from "../../../utils/web/openURL";
 
 const socials = [
@@ -22,16 +22,20 @@ const socials = [
   { name: "twitch", url: TWITCH },
   { name: "youtube", url: YOUTUBE },
   { name: "nostr", url: NOSTR },
-];
+] as const;
 
-export const Socials = () => (
-  <Screen header={i18n("settings.socials.subtitle")}>
-    <View style={tw`items-center justify-center gap-2 grow`}>
-      {socials.map(({ name, url }) => (
-        <OptionButton key={name} onPress={() => openURL(url)}>
-          {i18n(name)}
-        </OptionButton>
-      ))}
-    </View>
-  </Screen>
-);
+export const Socials = () => {
+  const { t } = useTranslate();
+
+  return (
+    <Screen header={t("settings.socials.subtitle", { ns: "settings" })}>
+      <View style={tw`items-center justify-center gap-2 grow`}>
+        {socials.map(({ name, url }) => (
+          <OptionButton key={name} onPress={() => openURL(url)}>
+            {t(name)}
+          </OptionButton>
+        ))}
+      </View>
+    </Screen>
+  );
+};

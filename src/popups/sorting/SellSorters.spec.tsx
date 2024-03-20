@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor } from "test-utils";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
-import { useOfferPreferences } from "../../store/offerPreferenes";
+import { useOfferPreferences } from "../../store/offerPreferences";
 import { matchesKeys } from "../../views/search/hooks/useOfferMatches";
 import { SellSorters } from "./SellSorters";
 

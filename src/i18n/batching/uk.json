@@ -6,8 +6,6 @@
   "grouphug.announcement.text" : "За допомогою GroupHug ми об’єднуємо депонування з нижчими комісіями за транзакції. Підпишіться, зачекайте трохи, заощаджуйте більше. Ви контролюєте, будь-коли змінюйте.",
   "grouphug.announcement.title" : "Час для GroupHug!",
   "grouphug.goToSettings" : "пройдіть до налаштуваннь",
-  "help.payoutPending.description" : "Транзакції виплачуються пакетами. Це передбачає час очікування, поки партія не заповниться або не буде досягнуто максимального часу очікування. Це заощаджує до 23% на комісії за транзакції.",
-  "help.payoutPending.title" : "очікується виплата",
   "offer.requiredAction.payoutPending" : "очікується виплата",
   "settings.batching.delayedPayouts" : "Виплати за депозитом затримуються.",
   "settings.batching.immediatePayouts" : "Депозит оплачено негайно",

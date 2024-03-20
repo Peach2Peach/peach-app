@@ -1,8 +1,8 @@
 import { Control, useController } from "react-hook-form";
 import { Input, InputProps } from "../../components/inputs/Input";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
-import i18n from "../../utils/i18n";
 import { FormType } from "./PaymentMethodForm";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   control: Control<FormType>;
@@ -21,6 +21,7 @@ export function LabelInput({
   const getPaymentDataByLabel = usePaymentDataStore(
     (state) => state.getPaymentDataByLabel,
   );
+  const { t } = useTranslate("form");
   const {
     field,
     fieldState: { error },
@@ -29,14 +30,14 @@ export function LabelInput({
     defaultValue,
     name,
     rules: {
-      required: i18n("form.required.error"),
+      required: t("form.required.error"),
       validate: {
         duplicate: (value: string) => {
           const isValid = !(
             getPaymentDataByLabel(value) &&
             getPaymentDataByLabel(value)?.id !== id
           );
-          return isValid || i18n("form.duplicate.error");
+          return isValid || t("form.duplicate.error");
         },
       },
     },
@@ -44,8 +45,8 @@ export function LabelInput({
 
   return (
     <Input
-      label={i18n(`form.${name}`)}
-      placeholder={i18n(`form.${name}.placeholder`)}
+      label={t(`form.${name}`)}
+      placeholder={t(`form.${name}.placeholder`)}
       value={field.value}
       errorMessage={error?.message ? [error.message] : undefined}
       onChangeText={field.onChange}

@@ -1,4 +1,5 @@
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { tolgee, tolgeeStaticData } from "../../tolgee";
 import i18n from "../i18n";
 import { getDeviceLocale } from "../system/getDeviceLocale";
 import { defaultAccount, useAccountStore } from "./account";
@@ -16,8 +17,11 @@ export const updateAccount = async (acc: Account, overwrite?: boolean) => {
       };
   useAccountStore.setState({ account: newAccount });
 
-  i18n.setLocale(
-    useSettingsStore.getState().locale || getDeviceLocale() || "en",
+  const newLocale =
+    useSettingsStore.getState().locale || getDeviceLocale() || "en";
+  i18n.setLocale(newLocale);
+  await tolgee.changeLanguage(
+    Object.keys(tolgeeStaticData).includes(newLocale) ? newLocale : "en",
   );
   const { mnemonic } = newAccount;
   if (mnemonic) {

@@ -9,9 +9,9 @@ import {
 } from "react-native";
 import { IconType } from "../../assets/icons";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { TouchableIcon } from "../TouchableIcon";
 import { PeachText } from "../text/PeachText";
+import { useTranslate } from "@tolgee/react";
 
 const themes = {
   default: {
@@ -85,6 +85,7 @@ export const Input = ({
     error,
   } = useMemo(() => themes[theme], [theme]);
   const showError = errorMessage.length > 0 && !disabled && !!value;
+  const { t } = useTranslate("form");
 
   return (
     <View>
@@ -94,7 +95,7 @@ export const Input = ({
           {!required && (
             <PeachText
               style={tw.style(placeholder)}
-            >{` (${i18n("form.optional")})`}</PeachText>
+            >{` (${t("form.optional")})`}</PeachText>
           )}
         </PeachText>
       )}

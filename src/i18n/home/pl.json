@@ -1,5 +1,5 @@
 {
-  "home.averagePremium" : "średnia składka: $0%",
-  "home.openBuyOffers" : "$0 otwarte oferty zakupu",
-  "home.openSellOffers" : "$0 otwarte oferty sprzedaży"
+  "home.averagePremium" : "średnia marża: {premium}%",
+  "home.openBuyOffers" : "{offers} otwarte oferty zakupu",
+  "home.openSellOffers" : "{offers} otwarte oferty sprzedaży"
 }

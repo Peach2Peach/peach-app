@@ -36,7 +36,7 @@
   "offer.requiredAction.releaseEscrow.dispute" : "dispute lost: release escrow",
   "offer.requiredAction.searchingForPeer" : "looking for match",
   "offer.requiredAction.unknown" : "unknown - update your app!",
-  "offer.requiredAction.waiting" : "waiting for $0",
+  "offer.requiredAction.waiting" : "waiting for {who}",
   "offer.requiredAction.waiting.buyer" : "waiting for payment",
   "offer.requiredAction.waiting.seller" : "waiting for seller",
   "offer.sorting.bestReputation" : "best reputation first",
@@ -58,5 +58,6 @@
   "offer.summary.youAreBuying" : "you want to buy between",
   "offer.summary.youAreSelling" : "you're selling",
   "offer.summary.youWereSelling" : "you were selling",
+  "yourTrades.newMessages" : "new chat message",
   "yourTrades.unknown" : "unknown"
 }

@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
@@ -7,19 +8,18 @@ import { PeachText } from "../../components/text/PeachText";
 import { useRoute } from "../../hooks/useRoute";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 
 export function CreateAccountError() {
   const { err } = useRoute<"createAccountError">().params;
   const navigation = useStackNavigation();
   const goToContact = () => navigation.navigate("contact");
   const goToRestoreBackup = () => navigation.navigate("restoreBackup");
-
+  const { t } = useTranslate();
   return (
     <Screen
       header={
         <Header
-          title={i18n("welcome.welcomeToPeach.title")}
+          title={t("welcome.welcomeToPeach.title", { ns: "welcome" })}
           theme="transparent"
           hideGoBackButton
         />
@@ -30,12 +30,13 @@ export function CreateAccountError() {
         <View style={tw`items-center justify-center gap-16 grow`}>
           <View>
             <PeachText style={tw`text-center h4 text-primary-background-light`}>
-              {i18n("newUser.title.create")}
+              {t("newUser.title.create")}
             </PeachText>
             <PeachText
               style={tw`text-center body-l text-primary-background-light`}
             >
-              {i18n(`${err}.text`)}
+              {/** @ts-ignore */}
+              {t(`${err}.text`, { ns: "error" })}
             </PeachText>
           </View>
           <Icon
@@ -51,10 +52,10 @@ export function CreateAccountError() {
             style={tw`bg-primary-background-light`}
             textColor={tw.color("primary-main")}
           >
-            {i18n("contactUs")}
+            {t("contactUs")}
           </Button>
           <Button onPress={goToRestoreBackup} ghost>
-            {i18n("restore")}
+            {t("restore")}
           </Button>
         </View>
       </View>

@@ -1,8 +1,8 @@
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
-import i18n from "../i18n";
 import { PeachWallet } from "../wallet/PeachWallet";
 import { peachWallet, setPeachWallet } from "../wallet/setWallet";
 import { getWalletLabel } from "./getWalletLabel";
+import { tolgee } from "../../tolgee";
 
 describe("getWalletLabel", () => {
   const customAddress = "customPayoutAddress";
@@ -39,7 +39,7 @@ describe("getWalletLabel", () => {
       isPeachWalletActive: true,
     });
 
-    expect(result).toEqual(i18n("peachWallet"));
+    expect(result).toEqual(tolgee.t("peachWallet", { ns: "wallet" }));
   });
 
   it('should return "custom payout address" if address is not peachWallet or customPayoutAddress', () => {

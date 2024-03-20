@@ -3,9 +3,9 @@ import { Control, FieldError } from "react-hook-form";
 import { PaymentMethodField } from "../../../peach-api/src/@types/payment";
 import { TabbedNavigation } from "../../components/navigation/TabbedNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { FormInput } from "./FormInput";
 import { FormType } from "./PaymentMethodForm";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   row: PaymentMethodField[][];
@@ -31,9 +31,10 @@ export function TabbedFormNavigation({
   getValues,
 }: Props) {
   const [selected, setSelected] = useState(0);
+  const { t } = useTranslate("form");
   const tabbedNavigationItems = row.map((column) => ({
     id: column[0],
-    display: i18n(`form.${column[0]}`),
+    display: t(`form.${column[0]}`),
   }));
 
   const errorTabs = useMemo(() => {

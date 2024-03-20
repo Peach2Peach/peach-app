@@ -1,6 +1,7 @@
 {
   "sell.discount" : "Rabatt",
   "sell.escrow.checkingFundingStatus" : "überprüfe den Escrow-Status",
+  "sell.escrow.createEscrow" : "Treuhandkonto anlegen",
   "sell.escrow.loading" : "erstelle Escrow,\n einen Moment...",
   "sell.escrow.mempool" : "Transaktion wurde in den Mempool aufgenommen!",
   "sell.escrow.returnAddress.subtitle" : "(für den Fall, dass du eine Rückerstattung benötigst)",
@@ -11,7 +12,7 @@
   "sell.funding.mempool.title" : "Transaktion ausstehend",
   "sell.meansOfPayment" : "wie möchtest du bezahlt werden?",
   "sell.premium" : "Aufpreis",
-  "sell.premium.currently" : "aktuell $0",
+  "sell.premium.currently" : "aktuell {premium}",
   "sell.premium.marketPrice" : "Marktpreis",
   "sell.premium.title" : "setze deinen Aufpreis / Rabatt",
   "sell.subtitle" : "Du verkaufst:",
@@ -19,7 +20,7 @@
   "sell.summary.title" : "Übersicht des Verkaufsangebots",
   "sell.title" : "Bitcoin verkaufen",
   "sell.title.highlight" : "verkaufen",
-  "warning.incorrectFunding.description" : "Du hast dein Angebot mit $0 Transaktionen finanziert, was wegen übertriebenen Netzwerkgebühren für den Käufer nicht erlaubt ist.\n\nDu bekommst eine Rückerstattung.",
+  "warning.incorrectFunding.description" : "Du hast dein Angebot mit {utxos} Transaktionen finanziert, was wegen übertriebenen Netzwerkgebühren für den Käufer nicht erlaubt ist.\n\nDu bekommst eine Rückerstattung.",
   "warning.incorrectFunding.title" : "Falsche Finanzierung",
   "yourTrades.search.sell.subtitle" : "Verkaufsangebot für"
 }

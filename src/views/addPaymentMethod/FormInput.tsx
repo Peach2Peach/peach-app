@@ -2,11 +2,11 @@ import { useMemo } from "react";
 import { Control, useController } from "react-hook-form";
 import { PaymentMethodField } from "../../../peach-api/src/@types/payment";
 import { Input, InputProps } from "../../components/inputs/Input";
-import i18n from "../../utils/i18n";
 import { Formatter, formatters } from "../../utils/validation/formatters";
 import { getMessages } from "../../utils/validation/getMessages";
 import { getValidators } from "../../utils/validation/validators";
 import { FormType } from "./PaymentMethodForm";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   control: Control<FormType>;
@@ -22,6 +22,7 @@ export function FormInput({
   defaultValue = "",
   ...inputProps
 }: Props) {
+  const { t } = useTranslate("form");
   const {
     field,
     fieldState: { error },
@@ -42,8 +43,8 @@ export function FormInput({
 
   return (
     <Input
-      label={i18n(`form.${name}`)}
-      placeholder={i18n(`form.${name}.placeholder`)}
+      label={t(`form.${name}`)}
+      placeholder={t(`form.${name}.placeholder`)}
       value={field.value}
       errorMessage={error?.message ? [error.message] : undefined}
       onChangeText={field.onChange}

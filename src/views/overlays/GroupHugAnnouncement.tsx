@@ -4,7 +4,7 @@ import { Button } from "../../components/buttons/Button";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import { useConfigStore } from "../../store/configStore/configStore";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 export const GroupHugAnnouncement = ({ offerId }: { offerId: string }) => {
   const navigation = useStackNavigation();
@@ -12,6 +12,7 @@ export const GroupHugAnnouncement = ({ offerId }: { offerId: string }) => {
     (state) => state.setHasSeenGroupHugAnnouncement,
   );
   const setOverlay = useSetOverlay();
+  const { t } = useTranslate("batching");
 
   const goToSettings = () => {
     setHasSeenGroupHugAnnouncement(true);
@@ -32,8 +33,8 @@ export const GroupHugAnnouncement = ({ offerId }: { offerId: string }) => {
 
   return (
     <OverlayComponent
-      title={i18n("grouphug.announcement.title")}
-      text={i18n("grouphug.announcement.text")}
+      title={t("grouphug.announcement.title")}
+      text={t("grouphug.announcement.text")}
       buttons={
         <>
           <Button
@@ -41,10 +42,10 @@ export const GroupHugAnnouncement = ({ offerId }: { offerId: string }) => {
             textColor={tw.color("primary-main")}
             onPress={goToSettings}
           >
-            {i18n("grouphug.goToSettings")}
+            {t("grouphug.goToSettings")}
           </Button>
           <Button onPress={close} ghost>
-            {i18n("close")}
+            {t("close", { ns: "global" })}
           </Button>
         </>
       }

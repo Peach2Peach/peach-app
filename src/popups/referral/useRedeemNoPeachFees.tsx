@@ -6,17 +6,18 @@ import { ClosePopupAction } from "../../components/popup/actions/ClosePopupActio
 import { userKeys } from "../../hooks/query/useSelfUser";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import {
   NUMBER_OF_FREE_TRADES,
   POINTS_PER_FREE_TRADE,
 } from "../../views/referrals/constants";
+import { useTranslate } from "@tolgee/react";
 
 export function useRedeemNoPeachFees() {
   const queryClient = useQueryClient();
   const showErrorBanner = useShowErrorBanner();
   const setPopup = useSetPopup();
+  const { t } = useTranslate("settings");
   return useMutation({
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: userKeys.self() });
@@ -43,8 +44,8 @@ export function useRedeemNoPeachFees() {
     onSuccess: () => {
       setPopup(
         <PopupComponent
-          title={i18n("settings.referrals.noPeachFees.popup.title")}
-          content={i18n("settings.referrals.noPeachFees.popup.success")}
+          title={t("settings.referrals.noPeachFees.popup.title")}
+          content={t("settings.referrals.noPeachFees.popup.success")}
           actions={<ClosePopupAction style={tw`justify-center`} />}
         />,
       );

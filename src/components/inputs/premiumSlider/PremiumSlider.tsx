@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import { Animated, View } from "react-native";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { getTranslateX } from "../../../utils/layout/getTranslateX";
 import { round } from "../../../utils/math/round";
 import { Icon } from "../../Icon";
 import { SliderLabel } from "./SliderLabel";
 import { SliderMarkers } from "./SliderMarkers";
 import { usePremiumSliderSetup } from "./usePremiumSliderSetup";
+import { useTranslate } from "@tolgee/react";
 
 const onStartShouldSetResponder = () => true;
 
@@ -20,6 +20,7 @@ const LABEL_AMOUNT = 5;
 export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
   const { pan, panResponder, onLayout, trackWidth, knobWidth, min, max } =
     usePremiumSliderSetup(premium, setPremium);
+  const { t } = useTranslate("sell");
 
   const labelPosition = useMemo(
     () =>
@@ -66,7 +67,7 @@ export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
           {round(min / 2, -1)}%
         </SliderLabel>
         <SliderLabel position={labelPosition[2]}>
-          {i18n("sell.premium.marketPrice")}
+          {t("sell.premium.marketPrice")}
         </SliderLabel>
         <SliderLabel position={labelPosition[3]}>
           +{round(max / 2, -1)}%

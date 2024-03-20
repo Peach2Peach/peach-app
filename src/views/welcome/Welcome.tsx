@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useRef, useState } from "react";
 import { TouchableOpacity, View, useWindowDimensions } from "react-native";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
@@ -31,6 +32,7 @@ export const Welcome = () => {
   const { width } = useWindowDimensions();
   const $carousel = useRef<ICarouselInstance>(null);
   const [page, setPage] = useState(0);
+  const { t } = useTranslate();
 
   const next = () => {
     $carousel.current?.next();
@@ -60,7 +62,7 @@ export const Welcome = () => {
         ]}
       >
         <PeachText style={tw`text-primary-background-light`}>
-          {i18n("skip")}
+          {t("skip", { ns: "global" })}
         </PeachText>
         <Icon
           id="skipForward"
@@ -96,7 +98,7 @@ export const Welcome = () => {
           onPress={next}
           iconId="arrowRightCircle"
         >
-          {i18n("next")}
+          {t("next")}
         </Button>
       )}
     </Screen>
@@ -107,12 +109,14 @@ function OnboardingHeader() {
   const navigation = useStackNavigation();
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
   const { locale, updateLocale } = useLanguage();
+  const { t } = useTranslate("global");
 
   const openLanguageDrawer = () => {
     updateDrawer({
-      title: i18n("language.select"),
+      title: t("language.select"),
       options: i18n.getLocales().map((l) => ({
-        title: i18n(`languageName.${l}`),
+        // @ts-ignore
+        title: t(`languageName.${l}`),
         onPress: () => {
           updateLocale(l);
           updateDrawer({ show: false });
@@ -136,7 +140,7 @@ function OnboardingHeader() {
   ];
   return (
     <Header
-      title={i18n("welcome.welcomeToPeach.title")}
+      title={t("welcome.welcomeToPeach.title", { ns: "welcome" })}
       icons={headerIcons}
       theme="transparent"
       hideGoBackButton

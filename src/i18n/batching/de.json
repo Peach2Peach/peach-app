@@ -1,10 +1,20 @@
 {
+  "batching.eta" : "ETA",
   "batching.eta.tba" : "ausstehend",
   "batching.slots" : "Plätze",
+  "batching.willBeSentTo" : "wird gesendet an",
+  "grouphug.announcement.text" : "Mit GroupHug bündeln wir Treuhandfreigaben für niedrigere Transaktionsgebühren.\n\nMelden Sie sich an, warten Sie ein bisschen, sparen Sie mehr.\n\nSie haben die Kontrolle und können jederzeit wechseln.",
   "grouphug.goToSettings" : "Gehe zu den Einstellungen",
   "offer.requiredAction.payoutPending" : "Zahlung ausstehend",
+  "settings.batching.immediatePayouts" : "Escrow-Auszahlungen werden sofort vorgenommen",
+  "settings.batching.title" : "Transaktionsstapelverarbeitung",
+  "settings.batching.toggle" : "Transaktionsstapelverarbeitung",
+  "settings.batching.turnOff.description" : "Sie haben eine ausstehende Auszahlung. Wenn Sie die Stapelverarbeitung jetzt deaktivieren, wird dieses Treuhandkonto sofort ausgezahlt, allerdings zu höheren Gebühren.\n\nSind Sie sicher?",
   "settings.batching.turnOff.no" : "nein, warte",
+  "settings.batching.turnOff.title" : "Dosierung abschalten",
   "settings.batching.turnOff.yes" : "ja, auszahlen",
   "settings.batching.youPay" : "Du zahlst bis zu 30% mehr",
-  "settings.batching.youPay.highlight" : "30% mehr"
+  "settings.batching.youPay.highlight" : "30% mehr",
+  "settings.batching.youSave" : "Sie sparen bis zu 23 % an Netzgebühren",
+  "settings.batching.youSave.highlight" : "bis zu 23% sparen"
 }

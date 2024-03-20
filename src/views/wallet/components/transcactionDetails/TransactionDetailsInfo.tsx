@@ -9,12 +9,12 @@ import tw from "../../../../styles/tailwind";
 import { getBitcoinAddressParts } from "../../../../utils/bitcoin/getBitcoinAddressParts";
 import { contractIdToHex } from "../../../../utils/contract/contractIdToHex";
 import { toShortDateFormat } from "../../../../utils/date/toShortDateFormat";
-import i18n from "../../../../utils/i18n";
 import { offerIdToHex } from "../../../../utils/offer/offerIdToHex";
 import { useTransactionDetailsInfoSetup } from "../../hooks/useTransactionDetailsInfoSetup";
 import { AddressLabelInput } from "../AddressLabelInput";
 import { OutputInfo } from "./OutputInfo";
 import { TransactionETASummaryItem } from "./TransactionETASummaryItem";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   localTx: TransactionDetails;
@@ -27,6 +27,7 @@ export const TransactionDetailsInfo = ({
   transactionDetails,
   transactionSummary,
 }: Props) => {
+  const { t } = useTranslate("wallet");
   const { confirmed, height, date } = transactionSummary;
   const { receivingAddress, canBumpFees, goToBumpNetworkFees, openInExplorer } =
     useTransactionDetailsInfoSetup({
@@ -57,9 +58,12 @@ export const TransactionDetailsInfo = ({
       <ConfirmationSummaryItem confirmed={confirmed} />
       {confirmed ? (
         <>
-          <CopyableSummaryItem title={i18n("block")} text={String(height)} />
           <CopyableSummaryItem
-            title={i18n("time")}
+            title={t("block", { ns: "global" })}
+            text={String(height)}
+          />
+          <CopyableSummaryItem
+            title={t("time", { ns: "global" })}
             text={toShortDateFormat(date)}
           />
         </>
@@ -75,7 +79,7 @@ export const TransactionDetailsInfo = ({
           iconSize={16}
           style={tw`self-center`}
         >
-          {i18n("wallet.bumpNetworkFees.button")}
+          {t("wallet.bumpNetworkFees.button")}
         </Bubble>
       )}
 
@@ -89,7 +93,7 @@ export const TransactionDetailsInfo = ({
         iconSize={16}
         onPress={openInExplorer}
       >
-        {i18n("transaction.viewInExplorer")}
+        {t("transaction.viewInExplorer")}
       </Bubble>
     </View>
   );

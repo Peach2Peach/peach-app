@@ -6,12 +6,13 @@ import { ClosePopupAction } from "../../components/popup/actions/ClosePopupActio
 import { PeachText } from "../../components/text/PeachText";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { ErrorPopup } from "../ErrorPopup";
+import { useTranslate } from "@tolgee/react";
 
 export function OpenDisputePopup({ contractId }: { contractId: string }) {
   const navigation = useStackNavigation();
   const closePopup = useClosePopup();
+  const { t } = useTranslate("contract");
 
   const ok = useCallback(() => {
     closePopup();
@@ -20,18 +21,18 @@ export function OpenDisputePopup({ contractId }: { contractId: string }) {
 
   return (
     <ErrorPopup
-      title={i18n("dispute.openDispute")}
+      title={t("dispute.openDispute")}
       content={
         <View style={tw`gap-3`}>
-          <PeachText>{i18n("dispute.openDispute.text.1")}</PeachText>
-          <PeachText>{i18n("dispute.openDispute.text.2")}</PeachText>
-          <PeachText>{i18n("dispute.openDispute.text.3")}</PeachText>
+          <PeachText>{t("dispute.openDispute.text.1")}</PeachText>
+          <PeachText>{t("dispute.openDispute.text.2")}</PeachText>
+          <PeachText>{t("dispute.openDispute.text.3")}</PeachText>
         </View>
       }
       actions={
         <>
           <PopupAction
-            label={i18n("dispute.openDispute")}
+            label={t("dispute.openDispute")}
             iconId="alertOctagon"
             onPress={ok}
           />

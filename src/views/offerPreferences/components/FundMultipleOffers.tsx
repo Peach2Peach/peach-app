@@ -2,13 +2,14 @@ import { View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Checkbox } from "../../../components/inputs/Checkbox";
 import { NumberStepper } from "../../../components/inputs/NumberStepper";
-import { useOfferPreferences } from "../../../store/offerPreferenes/useOfferPreferences";
+import { useOfferPreferences } from "../../../store/offerPreferences/useOfferPreferences";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 const FUND_MULTI_MIN = 3;
 
 export const FundMultipleOffers = () => {
+  const { t } = useTranslate("offer");
   const [multi, setMulti] = useOfferPreferences(
     (state) => [state.multi, state.setMulti],
     shallow,
@@ -18,7 +19,7 @@ export const FundMultipleOffers = () => {
   return (
     <View style={tw`gap-3`}>
       <Checkbox checked={!!multi} onPress={toggleFundMultiple}>
-        {i18n("offer.fundMultiple")}
+        {t("offer.fundMultiple")}
       </Checkbox>
       {!!multi && (
         <NumberStepper

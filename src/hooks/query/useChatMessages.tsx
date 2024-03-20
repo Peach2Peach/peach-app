@@ -1,7 +1,7 @@
 import { useIsFocused } from "@react-navigation/native";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useMemo } from "react";
-import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { contractKeys } from "./useContractDetail";
@@ -16,6 +16,7 @@ export const useChatMessages = ({
   symmetricKey?: string;
 }) => {
   const isFocused = useIsFocused();
+  const { t } = useTranslate("global");
   const {
     data,
     isLoading,
@@ -41,7 +42,8 @@ export const useChatMessages = ({
               const [textId, ...args] = decrypted.split("::");
               return {
                 ...message,
-                message: i18n(textId, ...args),
+                // @ts-ignore
+                message: t(textId, ...args),
                 decrypted: !!decrypted,
               };
             }

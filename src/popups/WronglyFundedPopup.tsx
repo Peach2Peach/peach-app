@@ -5,45 +5,49 @@ import { ClosePopupAction } from "../components/popup/actions/ClosePopupAction";
 import { PeachText } from "../components/text/PeachText";
 import { useConfigStore } from "../store/configStore/configStore";
 import tw from "../styles/tailwind";
-import i18n from "../utils/i18n";
 import { sum } from "../utils/math/sum";
 import { thousands } from "../utils/string/thousands";
 import { WarningPopup } from "./WarningPopup";
 import { useCancelAndStartRefundPopup } from "./useCancelAndStartRefundPopup";
+import { useTranslate } from "@tolgee/react";
 
 export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
   const maxTradingAmount = useConfigStore((state) => state.maxTradingAmount);
   const cancelAndStartRefundPopup = useCancelAndStartRefundPopup();
 
   const utxos = sellOffer.funding.txIds.length;
-  const title = i18n(
+  const { t } = useTranslate();
+  const title = t(
+    // @ts-ignore
     utxos === 1
       ? "warning.wrongFundingAmount.title"
-      : "warning.incorrectFunding.title",
+      : { key: "warning.incorrectFunding.title", ns: "sell" },
   );
   const content =
     utxos === 1 ? (
       <View style={tw`gap-4`}>
         <PeachText>
-          {i18n("warning.fundingAmountDifferent.description.1")}
+          {t("warning.fundingAmountDifferent.description.1")}
         </PeachText>
         <BTCAmount
           amount={sellOffer.funding.amounts.reduce(sum, 0)}
           size="medium"
         />
         <PeachText>
-          {i18n("warning.fundingAmountDifferent.description.2")}
+          {t("warning.fundingAmountDifferent.description.2")}
         </PeachText>
         <BTCAmount amount={sellOffer.amount} size="medium" />
         <PeachText>
-          {i18n(
-            "warning.wrongFundingAmount.description",
-            thousands(maxTradingAmount),
-          )}
+          {t("warning.wrongFundingAmount.description", {
+            amount: thousands(maxTradingAmount),
+          })}
         </PeachText>
       </View>
     ) : (
-      i18n("warning.incorrectFunding.description", String(utxos))
+      t("warning.incorrectFunding.description", {
+        ns: "sell",
+        utxos: String(utxos),
+      })
     );
 
   return (
@@ -54,7 +58,7 @@ export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
         <>
           <ClosePopupAction textStyle={tw`text-black-100`} />
           <PopupAction
-            label={i18n("refundEscrow")}
+            label={t("refundEscrow")}
             iconId="arrowRightCircle"
             textStyle={tw`text-black-100`}
             onPress={() => {

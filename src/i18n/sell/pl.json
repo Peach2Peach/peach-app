@@ -1,6 +1,7 @@
 {
-  "sell.discount" : "zniżka",
+  "sell.discount" : "rabat",
   "sell.escrow.checkingFundingStatus" : "sprawdzanie statusu zasilenia",
+  "sell.escrow.createEscrow" : "tworzenie depozytu",
   "sell.escrow.loading" : "tworzenie depozytu,\njeden moment...",
   "sell.escrow.mempool" : "Transakcja trafiła do Mempoola!",
   "sell.escrow.returnAddress.subtitle" : "(na wypadek potrzeby zwrotu środków)",
@@ -11,15 +12,15 @@
   "sell.funding.mempool.title" : "transakcja oczekuje",
   "sell.meansOfPayment" : "jak chciałbyś otrzymać płatność?",
   "sell.premium" : "marża",
-  "sell.premium.currently" : "obecnie $0",
+  "sell.premium.currently" : "obecnie {premium}",
   "sell.premium.marketPrice" : "cena rynkowa",
-  "sell.premium.title" : "ustaw swoją marżę / zniżkę",
+  "sell.premium.title" : "ustaw swoją marżę / rabat",
   "sell.subtitle" : "Sprzedajesz:",
   "sell.subtitle.highlight" : "sprzedaż",
   "sell.summary.title" : "podsumowanie oferty sprzedaży",
   "sell.title" : "sprzedaj bitcoin",
   "sell.title.highlight" : "sprzedaj",
-  "warning.incorrectFunding.description" : "Zfinansowałeś swoją ofertę $0 transakcjami, co nie jest dozwolone ze względu na nadmierne opłaty sieciowe dla kupującego.\n\nBędziesz zwrócony.",
+  "warning.incorrectFunding.description" : "Sfinansowałeś swoją ofertę {utxos} transakcjami, co nie jest dozwolone ze względu na nadmierne opłaty sieciowe dla kupującego.\n\nOtrzymasz zwrot.",
   "warning.incorrectFunding.title" : "Nieprawidłowe finansowanie",
   "yourTrades.search.sell.subtitle" : "sprzedaj ofertę zą"
 }

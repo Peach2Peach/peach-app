@@ -1,7 +1,7 @@
 import { createRenderer } from "react-test-renderer/shallow";
 import { fireEvent, render } from "test-utils";
-import i18n from "../../utils/i18n";
 import { EmailInput } from "./EmailInput";
+import { tolgee } from "../../tolgee";
 
 describe("EmailInput", () => {
   const renderer = createRenderer();
@@ -15,7 +15,9 @@ describe("EmailInput", () => {
     const { getByPlaceholderText } = render(
       <EmailInput onChangeText={onChangeMock} />,
     );
-    const input = getByPlaceholderText(i18n("form.email.placeholder"));
+    const input = getByPlaceholderText(
+      tolgee.t("form.email.placeholder", { ns: "form" }),
+    );
     fireEvent(input, "onEndEditing", {
       nativeEvent: { text: "SaTOSHI@gmx.com" },
     });

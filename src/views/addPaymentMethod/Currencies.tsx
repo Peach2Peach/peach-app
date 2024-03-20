@@ -1,15 +1,17 @@
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { CURRENCIES } from "../../paymentMethods";
-import { CurrencyType } from "../../store/offerPreferenes/types";
+import { CurrencyType } from "../../store/offerPreferences/types";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
+import { tolgee } from "../../tolgee";
 import { getCurrencyTypeFilter } from "./utils";
 
 const getDisplayName = (c: Currency) => {
-  if (c === "USDT") return i18n(`currency.${c}`);
-  if (c === "SAT") return i18n("paymentMethod.lnurl");
-  return `${i18n(`currency.${c}`)} (${c})`;
+  if (c === "USDT") return tolgee.t(`currency.${c}`, { ns: "global" });
+  if (c === "SAT")
+    return tolgee.t("paymentMethod.lnurl", { ns: "paymentMethod" });
+  // @ts-ignore
+  return `${tolgee.t(`currency.${c}`, { ns: "global" })} (${c})`;
 };
 
 type Props = {

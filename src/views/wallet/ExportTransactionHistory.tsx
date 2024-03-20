@@ -6,9 +6,9 @@ import { writeCSV } from "../../hooks/writeCSV";
 import tw from "../../styles/tailwind";
 import { toShortDateFormat } from "../../utils/date/toShortDateFormat";
 import { createCSV } from "../../utils/file/createCSV";
-import i18n from "../../utils/i18n";
 import { isDefined } from "../../utils/validation/isDefined";
 import { useTxSummaries } from "./helpers/useTxSummaries";
+import { useTranslate } from "@tolgee/react";
 
 export const ExportTransactionHistory = () => {
   const queriesData = useTxSummaries();
@@ -20,20 +20,21 @@ export const ExportTransactionHistory = () => {
     const csvValue = createCSVValue(transactionSummaries);
     await writeCSV(csvValue, "transaction-history.csv");
   };
+  const { t } = useTranslate("wallet");
 
   return (
-    <Screen header={i18n("wallet.exportHistory.title")}>
+    <Screen header={t("wallet.exportHistory.title")}>
       <View style={tw`justify-center gap-8 grow`}>
         <PeachText style={tw`body-l`}>
-          {`${i18n("wallet.exportHistory.description")}
-  • ${i18n("wallet.exportHistory.description.point1")}
-  • ${i18n("wallet.exportHistory.description.point2")}
-  • ${i18n("wallet.exportHistory.description.point3")}
-  • ${i18n("wallet.exportHistory.description.point4")}`}
+          {`${t("wallet.exportHistory.description")}
+  • ${t("wallet.exportHistory.description.point1")}
+  • ${t("wallet.exportHistory.description.point2")}
+  • ${t("wallet.exportHistory.description.point3")}
+  • ${t("wallet.exportHistory.description.point4")}`}
         </PeachText>
       </View>
       <Button style={tw`self-center`} onPress={onPress}>
-        {i18n("wallet.exportHistory.export")}
+        {t("wallet.exportHistory.export")}
       </Button>
     </Screen>
   );

@@ -1,5 +1,5 @@
 {
-  "home.averagePremium" : "средняя премия: $0%",
-  "home.openBuyOffers" : "$0 открытых предложений о покупке",
-  "home.openSellOffers" : "$0 открытых предложений о продаже"
+  "home.averagePremium" : "средняя премия: {premium}%",
+  "home.openBuyOffers" : "{offers} открытых предложений о покупке",
+  "home.openSellOffers" : "{offers} открытых предложений о продаже"
 }

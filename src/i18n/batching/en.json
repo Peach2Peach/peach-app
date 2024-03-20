@@ -6,8 +6,6 @@
   "grouphug.announcement.text" : "With GroupHug, we bundle escrow releases for lower transaction fees.\n\nOpt in, wait a tad, save more.\n\nYou're in control, switch anytime.",
   "grouphug.announcement.title" : "It's time for a GroupHug!",
   "grouphug.goToSettings" : "go to settings",
-  "help.payoutPending.description" : "Transactions are paid out in batches. This implies a waiting time until the batch is full or the maximum waiting time is reached.\n\nThis saves you up to 23% in transaction fees.",
-  "help.payoutPending.title" : "payout pending",
   "offer.requiredAction.payoutPending" : "payout pending",
   "settings.batching.delayedPayouts" : "Escrow payouts are delayed.",
   "settings.batching.immediatePayouts" : "Escrow payouts are done right away",

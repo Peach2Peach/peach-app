@@ -9,6 +9,7 @@ import { useDrawerState } from "../drawer/useDrawerState";
 import { PeachText } from "../text/PeachText";
 import { getCountrySelectDrawerOptions } from "./helpers/getCountrySelectDrawerOptions";
 import { mapEventToDrawerOption } from "./helpers/mapEventToDrawerOption";
+import { useTranslate } from "@tolgee/react";
 
 type Props = ComponentProps & {
   isCash: boolean;
@@ -18,6 +19,7 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
   const navigation = useStackNavigation();
   const updateDrawer = useDrawerState((state) => state.updateDrawer);
   const { data: meetupEvents, isLoading } = useMeetupEvents();
+  const { t } = useTranslate();
   const addPaymentMethods = () => {
     navigation.navigate("selectCurrency", { origin: "paymentMethods" });
   };
@@ -37,7 +39,7 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
     if (!meetupEvents) return;
 
     updateDrawer({
-      title: i18n("meetup.select"),
+      title: t("meetup.select"),
       options: eventsByCountry[selected]
         .sort((a, b) => sortAlphabetically(a.city, b.city))
         .sort((a, b) => Number(b.featured) - Number(a.featured))

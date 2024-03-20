@@ -3,7 +3,7 @@ import { useSetToast } from "../../../components/toast/Toast";
 import { CENT } from "../../../constants";
 import { useFeeRate } from "../../../hooks/useFeeRate";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
-import i18n from "../../../utils/i18n";
+import { useTranslate } from "@tolgee/react";
 
 const ESCROW_TX_SIZE = 173;
 const WARNING_THRESHOLD = 0.1;
@@ -16,6 +16,7 @@ export const useShowHighFeeWarning = ({ enabled, amount }: Props) => {
   const navigation = useStackNavigation();
   const setToast = useSetToast();
   const feeRate = useFeeRate();
+  const { t } = useTranslate("contract");
 
   useEffect(() => {
     if (!enabled || !amount) return;
@@ -31,9 +32,9 @@ export const useShowHighFeeWarning = ({ enabled, amount }: Props) => {
       color: "yellow",
       action: {
         onPress: () => navigation.navigate("networkFees"),
-        label: i18n("contract.warning.highFee.changeFee"),
+        label: t("contract.warning.highFee.changeFee"),
         iconId: "settings",
       },
     });
-  }, [setToast, amount, feeRate, navigation, enabled]);
+  }, [setToast, amount, feeRate, navigation, enabled, t]);
 };

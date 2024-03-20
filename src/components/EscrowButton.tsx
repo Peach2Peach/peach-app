@@ -3,8 +3,8 @@ import { StyleProp, ViewStyle } from "react-native";
 import tw from "../styles/tailwind";
 import { showAddress } from "../utils/bitcoin/showAddress";
 import { showTransaction } from "../utils/bitcoin/showTransaction";
-import i18n from "../utils/i18n";
 import { Button } from "./buttons/Button";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   releaseTxId?: string;
@@ -17,6 +17,7 @@ export function EscrowButton({ releaseTxId, escrow, style }: Props) {
     releaseTxId
       ? showTransaction(releaseTxId, NETWORK)
       : showAddress(escrow, NETWORK);
+  const { t } = useTranslate("offer");
 
   return (
     <Button
@@ -26,7 +27,7 @@ export function EscrowButton({ releaseTxId, escrow, style }: Props) {
       ghost
       onPress={openEscrow}
     >
-      {i18n("escrow")}
+      {t("escrow")}
     </Button>
   );
 }

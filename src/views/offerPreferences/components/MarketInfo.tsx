@@ -2,9 +2,9 @@ import { View } from "react-native";
 import { MeansOfPayment } from "../../../../peach-api/src/@types/payment";
 import { PeachText } from "../../../components/text/PeachText";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { Section } from "./Section";
 import { useFilteredMarketStats } from "./useFilteredMarketStats";
+import { useTranslate } from "@tolgee/react";
 
 export function MarketInfo({
   type,
@@ -17,6 +17,7 @@ export function MarketInfo({
   buyAmountRange?: [number, number];
   sellAmount?: number;
 }) {
+  const { t } = useTranslate("offerPreferences");
   const textStyle =
     type === "buyOffers" ? tw`text-success-main` : tw`text-primary-main`;
 
@@ -32,10 +33,12 @@ export function MarketInfo({
       <View style={tw`items-center`}>
         <View style={tw`-gap-13px`}>
           <PeachText style={[tw`h5`, textStyle]}>
-            {i18n(`offerPreferences.${type}`, String(offersWithinRange.length))}
+            {t(`offerPreferences.${type}`, {
+              offers: String(offersWithinRange.length),
+            })}
           </PeachText>
           <PeachText style={[tw`subtitle-2`, textStyle]}>
-            {i18n("offerPreferences.forYourPreferences")}
+            {t("offerPreferences.forYourPreferences")}
           </PeachText>
         </View>
       </View>
@@ -59,6 +62,7 @@ function AveragePremium({
     | Pick<BuyOffer, "amount">
   )[];
 }) {
+  const { t } = useTranslate("home");
   return (
     <PeachText
       style={[
@@ -66,7 +70,7 @@ function AveragePremium({
         offersWithinRange.length === 0 && tw`opacity-0`,
       ]}
     >
-      {i18n("home.averagePremium", String(averagePremium))}
+      {t("home.averagePremium", { premium: String(averagePremium) })}
     </PeachText>
   );
 }

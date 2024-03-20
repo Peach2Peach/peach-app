@@ -1,20 +1,21 @@
 import { Alert } from "react-native";
-import i18n, { languageState } from "../i18n";
+import { languageState } from "../i18n";
 import { getLocalizedLink } from "../web/getLocalizedLink";
 import { openURL } from "../web/openURL";
 import { deleteUnsentReports } from "./deleteUnsentReports";
 import { sendErrors } from "./sendErrors";
+import { tolgee } from "../../tolgee";
 
 export const openCrashReportPrompt = (errors: Error[]): void => {
   Alert.alert(
-    i18n("crashReport.requestPermission.title"),
+    tolgee.t("crashReport.requestPermission.title", { ns: "error" }),
     [
-      i18n("crashReport.requestPermission.description.1"),
-      i18n("crashReport.requestPermission.description.2"),
+      tolgee.t("crashReport.requestPermission.description.1", { ns: "error" }),
+      tolgee.t("crashReport.requestPermission.description.2", { ns: "error" }),
     ].join("\n\n"),
     [
       {
-        text: i18n("privacyPolicy"),
+        text: tolgee.t("privacyPolicy", { ns: "error" }),
         onPress: () => {
           openCrashReportPrompt(errors);
           openURL(getLocalizedLink("privacy-policy", languageState.locale));
@@ -22,12 +23,14 @@ export const openCrashReportPrompt = (errors: Error[]): void => {
         style: "default",
       },
       {
-        text: i18n("crashReport.requestPermission.deny"),
+        text: tolgee.t("crashReport.requestPermission.deny", { ns: "error" }),
         onPress: deleteUnsentReports,
         style: "default",
       },
       {
-        text: i18n("crashReport.requestPermission.sendReport"),
+        text: tolgee.t("crashReport.requestPermission.sendReport", {
+          ns: "error",
+        }),
         onPress: () => sendErrors(errors),
         style: "default",
       },

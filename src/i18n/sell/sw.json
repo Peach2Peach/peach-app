@@ -11,7 +11,7 @@
   "sell.funding.mempool.title" : "shughuli inasubiri",
   "sell.meansOfPayment" : "ungependa kulipwa vipi?",
   "sell.premium" : "thamani ya ziada",
-  "sell.premium.currently" : "kwa sasa $0",
+  "sell.premium.currently" : "kwa sasa {premium}",
   "sell.premium.marketPrice" : "bei ya\nsokoni",
   "sell.premium.title" : "weka thamani yako ya ziada / punguzo",
   "sell.subtitle" : "Unauza:",
@@ -19,7 +19,7 @@
   "sell.summary.title" : "muhtasari wa ofa ya kuuza",
   "sell.title" : "uuze Bitcoin",
   "sell.title.highlight" : "uuze",
-  "warning.incorrectFunding.description" : "Umefadhili ombi lako na $0 miamala, ambayo haiwezekani kutokana na ada kubwa ya mtandao kwa mnunuzi.\n\nUtarejeshewa fedha.",
+  "warning.incorrectFunding.description" : "Umefadhili ombi lako na {utxos} miamala, ambayo haiwezekani kutokana na ada kubwa ya mtandao kwa mnunuzi.\n\nUtarejeshewa fedha.",
   "warning.incorrectFunding.title" : "Ukosefu wa Fedha Sahihi",
   "yourTrades.search.sell.subtitle" : "toa ofa ya kuuza kwa"
 }

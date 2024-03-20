@@ -8,9 +8,9 @@ import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import tw from "../../styles/tailwind";
 import { getBitcoinAddressParts } from "../../utils/bitcoin/getBitcoinAddressParts";
 import { openInWallet } from "../../utils/bitcoin/openInWallet";
-import i18n from "../../utils/i18n";
 import { Icon } from "../Icon";
 import { PeachText } from "../text/PeachText";
+import { useTranslate } from "@tolgee/react";
 
 type BitcoinAddressProps = {
   address: string;
@@ -34,6 +34,8 @@ export const BitcoinAddress = ({
   const addressTextOpacity = useRef(new Animated.Value(0)).current;
 
   const urn = new URL(`bitcoin:${address}`);
+
+  const { t } = useTranslate("global");
 
   if (amount) urn.searchParams.set("amount", String(amount));
   if (label) {
@@ -67,7 +69,7 @@ export const BitcoinAddress = ({
           ]}
         >
           <PeachText style={tw`text-center subtitle-2`}>
-            {i18n("copied")}
+            {t("copied")}
           </PeachText>
         </Animated.View>
         <TouchableOpacity
@@ -101,7 +103,7 @@ export const BitcoinAddress = ({
             ]}
           >
             <PeachText style={tw`text-center subtitle-1`}>
-              {i18n("copied")}
+              {t("copied")}
             </PeachText>
           </Animated.View>
         </View>

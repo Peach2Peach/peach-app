@@ -10,10 +10,11 @@ import { useContractSummaries } from "../../hooks/query/useContractSummaries";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useToggleBatching } from "../../hooks/user/useToggleBatching";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { LoadingScreen } from "../loading/LoadingScreen";
+import { useTranslate } from "@tolgee/react";
 
 export const TransactionBatching = () => {
+  const { t } = useTranslate("batching");
   const { user, isLoading } = useSelfUser();
   const { mutate } = useToggleBatching(user || { isBatchingEnabled: false });
   const setPopup = useSetPopup();
@@ -26,17 +27,17 @@ export const TransactionBatching = () => {
     if (user?.isBatchingEnabled && hasPendingPayouts) {
       setPopup(
         <PopupComponent
-          title={i18n("settings.batching.turnOff.title")}
-          content={i18n("settings.batching.turnOff.description")}
+          title={t("settings.batching.turnOff.title")}
+          content={t("settings.batching.turnOff.description")}
           actions={
             <>
               <PopupAction
-                label={i18n("settings.batching.turnOff.no")}
+                label={t("settings.batching.turnOff.no")}
                 iconId="xCircle"
                 onPress={closePopup}
               />
               <PopupAction
-                label={i18n("settings.batching.turnOff.yes")}
+                label={t("settings.batching.turnOff.yes")}
                 iconId="arrowRightCircle"
                 onPress={() => {
                   mutate();
@@ -58,33 +59,29 @@ export const TransactionBatching = () => {
   return (
     <Screen
       style={tw`justify-center gap-8`}
-      header={i18n("settings.transactionBatching")}
+      header={t("settings.transactionBatching", { ns: "settings" })}
     >
       <View style={tw`gap-4`}>
         <PeachText style={tw`body-l`}>
-          {i18n(
-            isBatchingEnabled
-              ? "settings.batching.delayedPayouts"
-              : "settings.batching.immediatePayouts",
-          )}
+          {isBatchingEnabled
+            ? t("settings.batching.delayedPayouts")
+            : t("settings.batching.immediatePayouts")}
         </PeachText>
         <ParsedPeachText
           style={tw`body-l`}
           parse={[
             {
               pattern: new RegExp(
-                i18n(
-                  isBatchingEnabled
-                    ? "settings.batching.youSave.highlight"
-                    : "settings.batching.youPay.highlight",
-                ),
+                isBatchingEnabled
+                  ? t("settings.batching.youSave.highlight")
+                  : t("settings.batching.youPay.highlight"),
                 "u",
               ),
               style: tw`text-primary-main`,
             },
           ]}
         >
-          {i18n.break(
+          {t(
             isBatchingEnabled
               ? "settings.batching.youSave"
               : "settings.batching.youPay",
@@ -92,7 +89,7 @@ export const TransactionBatching = () => {
         </ParsedPeachText>
       </View>
       <Toggle enabled={isBatchingEnabled} onPress={toggleBatching}>
-        {i18n("settings.batching.toggle")}
+        {t("settings.batching.toggle")}
       </Toggle>
     </Screen>
   );

@@ -36,7 +36,7 @@
   "offer.requiredAction.releaseEscrow.dispute" : "geschil verloren: borg vrijgeven",
   "offer.requiredAction.searchingForPeer" : "match aan het zoeken",
   "offer.requiredAction.unknown" : "onbekend - update je app!",
-  "offer.requiredAction.waiting" : "wachten op $0",
+  "offer.requiredAction.waiting" : "wachtend op {who}",
   "offer.requiredAction.waiting.buyer" : "wachten op betaling",
   "offer.requiredAction.waiting.seller" : "wachten op verkoper",
   "offer.sorting.bestReputation" : "beste reputatie eerst",
@@ -58,5 +58,6 @@
   "offer.summary.youAreBuying" : "je wil kopen tussen",
   "offer.summary.youAreSelling" : "je verkoopt",
   "offer.summary.youWereSelling" : "jij was aan het verkopen",
+  "yourTrades.newMessages" : "nieuw chat bericht",
   "yourTrades.unknown" : "onbekend"
 }

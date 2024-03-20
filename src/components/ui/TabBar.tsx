@@ -1,7 +1,6 @@
 import { MaterialTopTabBarProps } from "@react-navigation/material-top-tabs";
 import { TouchableOpacity, View } from "react-native";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { PeachScrollView } from "../PeachScrollView";
 import { PeachText } from "../text/PeachText";
 
@@ -35,7 +34,7 @@ export const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
                 item.name === selected ? colors.textSelected : colors.text,
               ]}
             >
-              {i18n(item.name)}
+              {item.name}
             </PeachText>
             {item.name === selected && (
               <View style={[tw`w-full h-0.5`, colors.underline]} />

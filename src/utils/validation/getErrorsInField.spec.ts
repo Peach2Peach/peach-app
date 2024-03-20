@@ -1,6 +1,6 @@
-import i18n from "../i18n";
 import { getErrorsInField } from "./getErrorsInField";
 import { rules } from "./rules";
+import { tolgee } from "../../tolgee";
 
 describe("getErrorsInField", () => {
   it("should check all given rules", () => {
@@ -33,8 +33,12 @@ describe("getErrorsInField", () => {
       required: true,
     });
     expect(multipleErrors.length).toBe(2);
-    expect(multipleErrors.includes(i18n("form.bip39Word.error"))).toBeTruthy();
-    expect(multipleErrors.includes(i18n("form.required.error"))).toBeTruthy();
+    expect(
+      multipleErrors.includes(tolgee.t("form.bip39Word.error", { ns: "form" })),
+    ).toBeTruthy();
+    expect(
+      multipleErrors.includes(tolgee.t("form.required.error", { ns: "form" })),
+    ).toBeTruthy();
   });
   it("should not validate disabled rules", () => {
     const isValid =

@@ -58,3 +58,10 @@ export const fullScreenTabNavigationScreenOptions = {
   tabBarPressColor: "transparent",
   tabBarLabelStyle: tw`lowercase input-title`,
 };
+
+export const estimatedFeeRates = [
+  "fastestFee",
+  "halfHourFee",
+  "hourFee",
+  "custom",
+] as const;

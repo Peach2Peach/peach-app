@@ -10,7 +10,6 @@ import { PeachText } from "../../../components/text/PeachText";
 import { useMarketPrices } from "../../../hooks/query/useMarketPrices";
 import { useBitcoinPrices } from "../../../hooks/useBitcoinPrices";
 import tw from "../../../styles/tailwind";
-import i18n from "../../../utils/i18n";
 import { getTradingAmountLimits } from "../../../utils/market/getTradingAmountLimits";
 import { trackMin } from "../utils/constants";
 import { enforceDigitFormat } from "../utils/enforceDigitFormat";
@@ -22,6 +21,7 @@ import { SatsInputComponent } from "./SatsInputComponent";
 import { Section, sectionContainerGap } from "./Section";
 import { Slider, sliderWidth } from "./Slider";
 import { SliderTrack } from "./SliderTrack";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   setIsSliding: (isSliding: boolean) => void;
@@ -34,12 +34,13 @@ export function AmountSelectorComponent({
   range: [min, max],
   setRange,
 }: Props) {
+  const { t } = useTranslate("offerPreferences");
   const trackWidth = useTrackWidth();
   const minSliderDeltaAsAmount = useMinSliderDeltaAsAmount(trackWidth);
 
   return (
     <Section.Container style={tw`bg-success-mild-1`}>
-      <Section.Title>{i18n("offerPreferences.amountToBuy")}</Section.Title>
+      <Section.Title>{t("offerPreferences.amountToBuy")}</Section.Title>
       <View style={tw`flex-row items-center gap-10px`}>
         <BuyAmountInput
           type="min"

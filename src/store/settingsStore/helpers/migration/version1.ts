@@ -1,6 +1,6 @@
 import { getSelectedPaymentDataIds } from "../../../../utils/account/getSelectedPaymentDataIds";
 import { info } from "../../../../utils/log/info";
-import { useOfferPreferences } from "../../../offerPreferenes";
+import { useOfferPreferences } from "../../../offerPreferences";
 import { SettingsVersion2 } from "./version2";
 
 export type SettingsVersion1 = {

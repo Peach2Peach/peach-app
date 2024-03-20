@@ -1,5 +1,5 @@
-import i18n from "../i18n";
 import { getTimeDiffInDays } from "./getTimeDiffInDays";
+import { tolgee } from "../../tolgee";
 
 /**
  * @example
@@ -11,10 +11,13 @@ export const getDateToDisplay = (date: Date) => {
   const numberOfDays = getTimeDiffInDays(newDate);
   const daysAgo =
     numberOfDays > 1
-      ? i18n("profile.daysAgo", String(getTimeDiffInDays(newDate)))
+      ? tolgee.t("profile.daysAgo", {
+          ns: "profile",
+          days: String(getTimeDiffInDays(newDate)),
+        })
       : numberOfDays === 1
-        ? i18n("yesterday")
-        : i18n("today");
+        ? tolgee.t("yesterday", { ns: "global" })
+        : tolgee.t("today", { ns: "global" });
 
   return `${dateString} (${daysAgo})`;
 };

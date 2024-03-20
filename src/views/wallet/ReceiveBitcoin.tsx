@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useState } from "react";
 import { View } from "react-native";
 import QRCode from "react-native-qrcode-svg";
@@ -8,7 +9,6 @@ import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import tw from "../../styles/tailwind";
 import { getBitcoinAddressParts } from "../../utils/bitcoin/getBitcoinAddressParts";
-import i18n from "../../utils/i18n";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { AddressNavigation } from "./components";
 import { useLastUnusedAddress, useWalletAddress } from "./hooks";
@@ -18,11 +18,12 @@ export const ReceiveBitcoin = () => {
   const [index, setIndex] = useState<number>();
   const displayIndex = index ?? lastUnusedAddress?.index ?? 0;
   const { isLoading } = useWalletAddress(displayIndex);
+  const { t } = useTranslate("wallet");
 
   if (isLoading) return <BitcoinLoading />;
 
   return (
-    <Screen header={i18n("wallet.receiveBitcoin.title")}>
+    <Screen header={t("wallet.receiveBitcoin.title")}>
       <View style={[tw`items-center flex-1 gap-2 py-1`, tw`md:gap-8 md:py-6`]}>
         <AddressNavigation setIndex={setIndex} index={displayIndex} />
 
@@ -42,6 +43,7 @@ const SMALL_SIZE = 275;
 function AddressQRCode({ index }: { index: number }) {
   const { data } = useWalletAddress(index);
   const isMediumScreen = useIsMediumScreen();
+  const { t } = useTranslate("wallet");
   return (
     <>
       <QRCode
@@ -53,11 +55,11 @@ function AddressQRCode({ index }: { index: number }) {
         <PeachText
           style={[
             tw`text-center h3 text-error-main`,
-            tw`absolute self-center p-1 overflow-hidden rounded-xl bg-opacity-65 top-110px bg-primary-background-light`,
-            tw`md:top-135px md:bg-opacity-85`,
+            tw`absolute self-center p-1 overflow-hidden rounded-xl top-110px bg-primary-background-light/65`,
+            tw`md:top-135px md:bg-primary-background-light/85`,
           ]}
         >
-          {i18n("wallet.address.used")}
+          {t("wallet.address.used")}
         </PeachText>
       )}
     </>

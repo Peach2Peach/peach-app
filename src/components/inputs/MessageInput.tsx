@@ -6,8 +6,8 @@ import {
   View,
 } from "react-native";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { Icon } from "../Icon";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   onChangeText: (val: string) => void;
@@ -31,6 +31,7 @@ export const MessageInput = ({
     if (onChangeText && value) onChangeText(value.trim());
   };
   const onSubmitHandler = () => (!disableSubmit ? onSubmit(value) : null);
+  const { t } = useTranslate("chat");
   return (
     <View
       style={[
@@ -50,7 +51,7 @@ export const MessageInput = ({
         blurOnSubmit={false}
         onBlur={onBlurHandler}
         autoCapitalize="sentences"
-        placeholder={i18n("chat.yourMessage")}
+        placeholder={t("chat.yourMessage")}
         {...{ value, onChangeText, onEndEditing }}
       />
       <TouchableOpacity style={tw`px-2 py-3`} onPress={onSubmitHandler}>

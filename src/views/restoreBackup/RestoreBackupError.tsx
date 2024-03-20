@@ -1,16 +1,17 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { Icon } from "../../components/Icon";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 
 type Props = {
   err: string;
 };
 
 export const RestoreBackupError = ({ err }: Props) => {
+  const { t } = useTranslate();
   const navigation = useStackNavigation();
   const goToContact = () => navigation.navigate("contact");
 
@@ -19,12 +20,13 @@ export const RestoreBackupError = ({ err }: Props) => {
       <View style={tw`items-center justify-center gap-16 grow`}>
         <View>
           <PeachText style={tw`text-center h4 text-primary-background-light`}>
-            {i18n("restoreBackup.title")}
+            {t("restoreBackup.title")}
           </PeachText>
           <PeachText
             style={tw`text-center body-l text-primary-background-light`}
           >
-            {i18n(`${err}.text`)}
+            {/** @ts-ignore */}
+            {t(`${err}.text`, { ns: "error" })}
           </PeachText>
         </View>
         <Icon
@@ -38,7 +40,7 @@ export const RestoreBackupError = ({ err }: Props) => {
         textColor={tw.color("primary-main")}
         onPress={goToContact}
       >
-        {i18n("contactUs")}
+        {t("contactUs")}
       </Button>
     </View>
   );

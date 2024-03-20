@@ -1,4 +1,4 @@
-import { useOfferPreferences } from "../../../store/offerPreferenes";
+import { useOfferPreferences } from "../../../store/offerPreferences";
 import { Methods } from "./Methods";
 
 export function PreferenceMethods({ type }: { type: "buy" | "sell" }) {

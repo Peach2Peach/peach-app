@@ -16,7 +16,6 @@ import { CancelOfferPopup } from "../../popups/CancelOfferPopup";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { SellSorters } from "../../popups/sorting/SellSorters";
 import tw from "../../styles/tailwind";
-import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
@@ -24,6 +23,7 @@ import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { useOfferMatches } from "./hooks/useOfferMatches";
 import { useRefetchOnNotification } from "./hooks/useRefetchOnNotification";
+import { useTranslate } from "@tolgee/react";
 
 export const Search = () => {
   const navigation = useStackNavigation();
@@ -64,10 +64,12 @@ export const Search = () => {
 };
 
 function NoMatchesYet({ offer }: { offer: SellOffer }) {
+  const { t } = useTranslate();
+
   return (
     <View style={tw`gap-8`}>
       <PeachText style={tw`text-center subtitle-1`}>
-        {i18n("search.weWillNotifyYou")}
+        {t("search.weWillNotifyYou")}
       </PeachText>
 
       <SellOfferSummary

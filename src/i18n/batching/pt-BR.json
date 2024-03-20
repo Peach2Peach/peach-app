@@ -6,8 +6,6 @@
   "grouphug.announcement.text" : "Com o GroupHug, agrupamos reembolsos de depósito de garantia para reduzir as taxas de transação.\n\nAtive, espere um pouco, economize mais.\n\nVocê está no controle. Pode mude a qualquer momento.",
   "grouphug.announcement.title" : "É hora de um GroupHug!",
   "grouphug.goToSettings" : "ir para configurações",
-  "help.payoutPending.description" : "As transações são pagas em lotes. Isso implica em um tempo de espera até que o lote esteja cheio ou o tempo máximo de espera seja atingido.\n\nIsso economiza até 23% em taxas de transação.",
-  "help.payoutPending.title" : "pagamento pendente",
   "offer.requiredAction.payoutPending" : "pagamento pendente",
   "settings.batching.delayedPayouts" : "Os pagamentos de depósito de garantia estão atrasados.",
   "settings.batching.immediatePayouts" : "Os pagamentos de depósito de garantia são feitos imediatamente",

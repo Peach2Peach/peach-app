@@ -5,8 +5,8 @@ import { PopupAction } from "../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../components/popup/PopupComponent";
 import { LoadingPopupAction } from "../../../components/popup/actions/LoadingPopupAction";
 import { useHandleTransactionError } from "../../../hooks/error/useHandleTransactionError";
-import i18n from "../../../utils/i18n";
 import { peachWallet } from "../../../utils/wallet/setWallet";
+import { useTranslate } from "@tolgee/react";
 
 type Props = {
   title: string;
@@ -21,6 +21,7 @@ export function ConfirmTransactionPopup({
   psbt,
   onSuccess,
 }: Props) {
+  const { t } = useTranslate();
   const closePopup = useClosePopup();
   const handleTransactionError = useHandleTransactionError();
   const confirmAndSend = useCallback(async () => {
@@ -42,12 +43,12 @@ export function ConfirmTransactionPopup({
       actions={
         <>
           <PopupAction
-            label={i18n("cancel")}
+            label={t("cancel", { ns: "global" })}
             iconId="xCircle"
             onPress={closePopup}
           />
           <LoadingPopupAction
-            label={i18n("fundFromPeachWallet.confirm.confirmAndSend")}
+            label={t("fundFromPeachWallet.confirm.confirmAndSend")}
             iconId="arrowRightCircle"
             onPress={confirmAndSend}
             reverseOrder

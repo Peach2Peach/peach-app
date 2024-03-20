@@ -1,11 +1,11 @@
 {
-  "referrals.alreadyTraded" : "Vos filleuls ont déjà effectué $0 d'échanges sur Peach !",
+  "referrals.alreadyTraded" : "Vos filleuls ont déjà effectué {amount} d'échanges sur Peach !",
   "referrals.codeNotFound.text" : "Il semble que ce code de parrainage n'existe pas. Veuillez vérifier si vous l'avez saisi correctement ou en utiliser un autre.",
   "referrals.codeNotFound.title" : "introuvable...",
   "referrals.continueSaving" : "Continuez à économiser pour des trucs sympas",
   "referrals.inviteFriends" : "inviter des amis",
   "referrals.inviteLink" : "lien d'invitation",
-  "referrals.inviteText" : "Salut ! J'adore Peach pour acheter et vendre du Bitcoin – c'est flexible, pair-à-pair et sans KYC. Rejoins-moi en utilisant mon code $0 ou suis simplement ce lien : $1",
+  "referrals.inviteText" : "Salut ! J'adore Peach pour acheter et vendre du Bitcoin – c'est flexible, pair-à-pair et sans KYC. Rejoins-moi en utilisant mon code {refCode}  ou suis simplement ce lien : {link}",
   "referrals.myFavoriteCode.text" : "Votre compte commencera avec 100 points Peach, prêts à l'emploi !",
   "referrals.myFavoriteCode.title" : "mon code favori !",
   "referrals.notTraded" : "Vos filleuls n'ont pas encore effectué d'échanges sur Peach.",
@@ -17,7 +17,7 @@
   "referrals.selectReward" : "Sélectionnez votre récompense ou continuez à économiser pour des trucs sympas",
   "referrals.shareCode" : "partager le code de parrainage",
   "referrals.shareCode.text.1" : "Acheter et vendre du bitcoin sur Peach est super facile !",
-  "referrals.shareCode.text.2" : "Essayez-le maintenant avec mon code de parrainage $0",
+  "referrals.shareCode.text.2" : "Essayez-le maintenant avec mon code de parrainage {refCode}",
   "referrals.use" : "utiliser",
   "referrals.used" : "utilisé",
   "referrals.yourCode" : "votre code de parrainage :"

@@ -3,16 +3,17 @@ import { View } from "react-native";
 import { PeachText } from "../../../../components/text/PeachText";
 import tw from "../../../../styles/tailwind";
 import { useAccountStore } from "../../../../utils/account/account";
-import i18n from "../../../../utils/i18n";
 import { NUMBER_OF_WORDS } from "./NUMBER_OF_WORDS";
 import { Word } from "./Word";
+import { useTranslate } from "@tolgee/react";
 
 export const TwelveWords = () => {
+  const { t } = useTranslate("settings");
   const mnemonic = useAccountStore((state) => state.account?.mnemonic);
   return (
     <>
       <PeachText style={tw`self-center subtitle-1`}>
-        {i18n("settings.backups.seedPhrase.yourSeedPhrase")}
+        {t("settings.backups.seedPhrase.yourSeedPhrase")}
       </PeachText>
       <View style={tw`flex-row gap-4 mt-4`}>
         <View style={tw`flex-1`}>
