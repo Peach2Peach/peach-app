@@ -22,7 +22,7 @@ const socials = [
   { name: "twitch", url: TWITCH },
   { name: "youtube", url: YOUTUBE },
   { name: "nostr", url: NOSTR },
-];
+] as const;
 
 export const Socials = () => {
   const { t } = useTranslate();
@@ -32,7 +32,6 @@ export const Socials = () => {
       <View style={tw`items-center justify-center gap-2 grow`}>
         {socials.map(({ name, url }) => (
           <OptionButton key={name} onPress={() => openURL(url)}>
-            {/** @ts-ignore */}
             {t(name)}
           </OptionButton>
         ))}
