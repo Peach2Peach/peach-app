@@ -58,13 +58,13 @@ function WrongFundingAmountSummary({ sellOffer }: Props) {
           amount={fundingAmount}
         />
       </View>
-      <PeachText style={tw`body-s`}>
+      <PeachText style={tw`body-l`}>
         {t("escrow.wrongFundingAmount.description", {
           actual: thousands(actualAmount),
           expected: thousands(fundingAmount),
         })}
       </PeachText>
-      <PeachText style={tw`body-s`}>
+      <PeachText style={tw`body-l`}>
         {t("escrow.wrongFundingAmount.continueOrRefund", {
           actual: thousands(actualAmount),
         })}
@@ -81,8 +81,8 @@ type LabelAndAmountProps = {
 function LabelAndAmount({ label, amount }: LabelAndAmountProps) {
   return (
     <View style={tw`flex-row items-center gap-4`}>
-      <PeachText style={tw`w-20 text-black-50`}>{label}</PeachText>
-      <BTCAmount amount={amount} size="small" />
+      <PeachText style={tw`w-20 text-black-50 body-l`}>{label}</PeachText>
+      <BTCAmount amount={amount} size="medium" />
     </View>
   );
 }
