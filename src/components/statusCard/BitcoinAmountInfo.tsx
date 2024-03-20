@@ -1,15 +1,14 @@
+import { useTranslate } from "@tolgee/react";
 import { memo } from "react";
 import { View } from "react-native";
 import tw from "../../styles/tailwind";
 import { BTCAmount } from "../bitcoin/BTCAmount";
 import { FixedHeightText } from "../text/FixedHeightText";
 import { infoContainerStyle } from "./infoContainerStyle";
-import { useTranslate } from "@tolgee/react";
 
 export const BitcoinAmountInfo = memo(
   ({ amount, premium }: { amount: number; premium?: number }) => {
-    const { t } = useTranslate(); // Corrected: Use useTranslate hook without arguments
-
+    const { t } = useTranslate("offer");
     return (
       <View style={[infoContainerStyle, tw`gap-6px`]}>
         <BTCAmount size="small" amount={amount} />
