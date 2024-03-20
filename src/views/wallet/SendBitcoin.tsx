@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { useMemo, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Header } from "../../components/Header";
@@ -11,6 +12,7 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
+import { estimatedFeeRates } from "../../constants";
 import { useHandleTransactionError } from "../../hooks/error/useHandleTransactionError";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -27,7 +29,6 @@ import { EstimatedFeeItem } from "../settings/components/networkFees/EstimatedFe
 import { UTXOAddress } from "./components";
 import { WithdrawalConfirmationPopup } from "./components/WithdrawalConfirmationPopup";
 import { useUTXOs } from "./hooks";
-import { useTranslate } from "@tolgee/react";
 
 export const SendBitcoin = () => {
   const [address, setAddress] = useState("");
@@ -174,15 +175,13 @@ function Section({ title, action, children }: SectionProps) {
   );
 }
 
-const feeRates = ["fastestFee", "halfHourFee", "hourFee", "custom"] as const;
-
 function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
   const [selectedFeeRate, setSelectedFeeRate] =
-    useState<(typeof feeRates)[number]>("fastestFee");
+    useState<(typeof estimatedFeeRates)[number]>("fastestFee");
   const [customFeeRate, setCustomFeeRate] = useState("");
   const { estimatedFees } = useFeeEstimate();
 
-  const onFeeRateChange = (feeRate: (typeof feeRates)[number]) => {
+  const onFeeRateChange = (feeRate: (typeof estimatedFeeRates)[number]) => {
     updateFee(
       feeRate === "custom"
         ? customFeeRate === ""
@@ -197,12 +196,12 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
     updateFee(feeRate === "" ? undefined : Number(feeRate));
   };
 
-  const onButtonPress = (feeRate: (typeof feeRates)[number]) => {
+  const onButtonPress = (feeRate: (typeof estimatedFeeRates)[number]) => {
     setSelectedFeeRate(feeRate);
     onFeeRateChange(feeRate);
   };
 
-  const options = feeRates.map((feeRate) => ({
+  const options = estimatedFeeRates.map((feeRate) => ({
     value: feeRate,
     display:
       feeRate === "custom" ? (

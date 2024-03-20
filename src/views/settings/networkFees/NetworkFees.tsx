@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { Header } from "../../../components/Header";
 import { PeachScrollView } from "../../../components/PeachScrollView";
@@ -7,6 +8,7 @@ import { RadioButtons } from "../../../components/inputs/RadioButtons";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { PeachText } from "../../../components/text/PeachText";
 import { HorizontalLine } from "../../../components/ui/HorizontalLine";
+import { estimatedFeeRates } from "../../../constants";
 import { useFeeEstimate } from "../../../hooks/query/useFeeEstimate";
 import { InfoPopup } from "../../../popups/InfoPopup";
 import tw from "../../../styles/tailwind";
@@ -14,14 +16,6 @@ import { headerIcons } from "../../../utils/layout/headerIcons";
 import { CustomFeeItem } from "../components/networkFees/CustomFeeItem";
 import { EstimatedFeeItem } from "../components/networkFees/EstimatedFeeItem";
 import { useNetworkFeesSetup } from "./useNetworkFeesSetup";
-import { useTranslate } from "@tolgee/react";
-
-const estimatedFeeRates = [
-  "fastestFee",
-  "halfHourFee",
-  "hourFee",
-  "custom",
-] as const;
 
 export const NetworkFees = () => {
   const { t } = useTranslate("settings");
