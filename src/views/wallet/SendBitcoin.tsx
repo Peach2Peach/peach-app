@@ -283,11 +283,7 @@ function SelectedUTXOs() {
   return (
     <>
       <HorizontalLine />
-      <Section
-        title={t("wallet.sendBitcoin.sendingFrom.coins", {
-          ns: "wallet",
-        })}
-      >
+      <Section title={t("wallet.sendBitcoin.sendingFrom.coins")}>
         <View style={tw`px-10px`}>
           {selectedUTXOs.map(({ txout: { script } }) => (
             <UTXOAddress key={script.id} script={script} />
