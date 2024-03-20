@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@bitcoinerlab/secp256k1": "^1.0.5",
-    "@breeztech/react-native-breez-sdk": "^0.3.1",
+    "@breeztech/react-native-breez-sdk": "^0.3.6",
     "@msml/react-native-notification-badge": "^0.1.6",
     "@react-native-clipboard/clipboard": "^1.11.2",
     "@react-native-community/cli-platform-android": "^12.3.6",
