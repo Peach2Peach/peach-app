@@ -35,7 +35,7 @@
   "offer.requiredAction.releaseEscrow.dispute" : "спор проигран: отпустите эскроу",
   "offer.requiredAction.searchingForPeer" : "ищем партнёров",
   "offer.requiredAction.unknown" : "неизвестно - обновите свое приложение!",
-  "offer.requiredAction.waiting" : "ждём $0",
+  "offer.requiredAction.waiting" : "ожидание {who}",
   "offer.requiredAction.waiting.buyer" : "ждём платежа",
   "offer.requiredAction.waiting.seller" : "ждём продавца",
   "offer.sorting.bestReputation" : "по репутации",
@@ -57,5 +57,6 @@
   "offer.summary.youAreBuying" : "вы хотите купить между",
   "offer.summary.youAreSelling" : "вы продаёте",
   "offer.summary.youWereSelling" : "вы продавали",
+  "yourTrades.newMessages" : "новое сообщение в чате",
   "yourTrades.unknown" : "неизвестно"
 }

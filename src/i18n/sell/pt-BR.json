@@ -1,6 +1,7 @@
 {
   "sell.discount" : "desconto",
   "sell.escrow.checkingFundingStatus" : "verificando o status do financiamento",
+  "sell.escrow.createEscrow" : "criar caução",
   "sell.escrow.loading" : "criando depósito de garantia,\naguarde um segundo...",
   "sell.escrow.mempool" : "A transação atingiu o Mempool!",
   "sell.escrow.returnAddress.subtitle" : "(apenas no caso de você precisar de um reembolso)",
@@ -11,7 +12,7 @@
   "sell.funding.mempool.title" : "transação pendente",
   "sell.meansOfPayment" : "como você gostaria de receber o pagamento?",
   "sell.premium" : "prêmio",
-  "sell.premium.currently" : "atualmente $0",
+  "sell.premium.currently" : "atualmente {premium}",
   "sell.premium.marketPrice" : "preço\nde mercado",
   "sell.premium.title" : "defina seu prêmio / desconto",
   "sell.subtitle" : "Você está vendendo:",
@@ -19,7 +20,7 @@
   "sell.summary.title" : "resumo da oferta de venda",
   "sell.title" : "vender Bitcoin",
   "sell.title.highlight" : "vender",
-  "warning.incorrectFunding.description" : "Você financiou sua oferta com $0 transações, o que não é permitido devido às taxas excessivas de rede para o comprador.\n\nVocê será reembolsado.",
+  "warning.incorrectFunding.description" : "Você financiou sua oferta com {utxos} transações, o que não é permitido devido às taxas excessivas de rede para o comprador.\n\nVocê será reembolsado.",
   "warning.incorrectFunding.title" : "Financiamento incorreto",
   "yourTrades.search.sell.subtitle" : "oferta de venda para"
 }

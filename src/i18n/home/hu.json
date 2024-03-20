@@ -1,5 +1,5 @@
 {
-  "home.averagePremium" : "átlagos díj: $0%",
-  "home.openBuyOffers" : "$0 nyitott vásárlási ajánlat",
-  "home.openSellOffers" : "$0 nyitott eladási ajánlat"
+  "home.averagePremium" : "átlagos prémium: {premium}%",
+  "home.openBuyOffers" : "{offers} nyitott vételi ajánlatok",
+  "home.openSellOffers" : "{offers} nyitott eladási ajánlatok"
 }

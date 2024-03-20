@@ -1,4 +1,5 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { useTranslate } from "@tolgee/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { Match as MatchType } from "../../../peach-api/src/@types/match";
@@ -38,7 +39,6 @@ import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/payme
 import { peachAPI } from "../../utils/peachAPI";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { matchesKeys } from "../search/hooks/useOfferMatches";
-import { useTranslate } from "@tolgee/react";
 
 export function MatchDetails() {
   const { matchId, offerId } = useRoute<"matchDetails">().params;

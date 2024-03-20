@@ -51,7 +51,7 @@ export const YourTrades = () => {
             key={tab}
             name={tab}
             options={{
-              title: `${t(tab)}`,
+              title: t(tab),
               tabBarBadge: () => <TabBarBadge summaries={summaries[tab]} />,
               lazy: true,
               lazyPlaceholder: () => <LoadingScreen />,

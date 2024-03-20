@@ -6,8 +6,6 @@
   "grouphug.announcement.text" : "Com o GroupHug, agrupamos os pagamentos do depósito de caução com fins a reduzir as taxas de transação.\n\nOpte por isso, aguarde um pouco, economize mais.\n\nEstá no controlo e pode mudar a qualquer momento.",
   "grouphug.announcement.title" : "É hora de um GroupHug!",
   "grouphug.goToSettings" : "ir para as configurações",
-  "help.payoutPending.description" : "As transações são pagas em lotes. Isso implica um tempo de espera até que o lote esteja completo ou o tempo máximo de espera seja atingido.\n\nIsso economiza até 23% em taxas de transação.",
-  "help.payoutPending.title" : "pagamento pendente",
   "offer.requiredAction.payoutPending" : "pagamento pendente",
   "settings.batching.delayedPayouts" : "Os pagamentos de depósitos de caução estão em atraso.",
   "settings.batching.immediatePayouts" : "Os pagamentos de depósitos de caução são feitos imediatamente",

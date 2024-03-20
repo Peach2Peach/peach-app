@@ -1,6 +1,7 @@
 {
   "sell.discount" : "знижка",
   "sell.escrow.checkingFundingStatus" : "перевіряємо статус оплати",
+  "sell.escrow.createEscrow" : "створити ескроу",
   "sell.escrow.loading" : " секундочку, створюється депозит",
   "sell.escrow.mempool" : "Переказ досягнув мемпула!",
   "sell.escrow.returnAddress.subtitle" : "(на випадок, якщо вам потрібно повернути гроші)",
@@ -11,7 +12,7 @@
   "sell.funding.mempool.title" : "транзакція очікує на розгляд",
   "sell.meansOfPayment" : "як ви бажаєте отримати кошти?",
   "sell.premium" : "преміум",
-  "sell.premium.currently" : "наразі $0",
+  "sell.premium.currently" : "наразі {premium}",
   "sell.premium.marketPrice" : "ринкова вартість",
   "sell.premium.title" : "налаштуйте свою премію / знижку",
   "sell.subtitle" : "Ви продаєте:",
@@ -19,7 +20,7 @@
   "sell.summary.title" : "підсумок пропозиції продажу",
   "sell.title" : "продати биткойн",
   "sell.title.highlight" : "продати",
-  "warning.incorrectFunding.description" : "Ви фінансували свою пропозицію за допомогою транзакцій на $0, що не дозволено через занадто великі мережеві витрати для покупця.\n\nВам повернуть гроші.",
+  "warning.incorrectFunding.description" : "Ви фінансували свою пропозицію за допомогою транзакцій на {utxos}, що не дозволено через занадто великі мережеві витрати для покупця.\n\nВам повернуть гроші.",
   "warning.incorrectFunding.title" : "Неправильне фінансування",
   "yourTrades.search.sell.subtitle" : "продати лот за"
 }

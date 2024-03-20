@@ -331,7 +331,7 @@ function getActionLabel(
     }
 
     if (tradeStatus === "payoutPending")
-      return tolgee.t("offer.requiredAction.payoutPending", { ns: "offer" });
+      return tolgee.t("offer.requiredAction.payoutPending", { ns: "batching" });
     if (tradeStatus === "confirmCancelation")
       return tolgee.t(`offer.requiredAction.confirmCancelation.${viewer}`, {
         ns: "offer",

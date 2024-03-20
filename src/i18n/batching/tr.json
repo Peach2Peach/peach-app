@@ -4,8 +4,6 @@
   "batching.willBeSentTo" : "gönderilecek",
   "grouphug.announcement.title" : "Grup sarılması zamanı.",
   "grouphug.goToSettings" : "ayarlara gidin.",
-  "help.payoutPending.description" : "İşlemler kümeler halinde ödenir.  Küme dolana kadar veya maksimum bekleme zamanına ulaşılana kadar beklemeniz gerekir. Küme işlemler ile %23'e kadar ücret tasarrufu sağlayabilirsiniz.",
-  "help.payoutPending.title" : "ödeme bekliyor",
   "offer.requiredAction.payoutPending" : "ödeme bekliyor",
   "settings.batching.delayedPayouts" : "Emanet ödemeleri gecikebilir.",
   "settings.batching.immediatePayouts" : "Emanet ödemeleri hemen yapılıyor.",
