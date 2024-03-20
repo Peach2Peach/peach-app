@@ -139,9 +139,7 @@ describe("useStartSwapOut", () => {
     startSwapOut();
     const { queryByText } = render(<GlobalPopup />);
 
-    await waitFor(() =>
-      expect(queryByText("Create an invoice for 228543 sats")).toBeTruthy(),
-    );
+    await waitFor(() => expect(queryByText("228 543")).toBeTruthy());
   });
   it("should estimate swappable amount at max limit", async () => {
     const utxos = [utxo, mempoolUTXO].map((utx) => ({
@@ -158,8 +156,8 @@ describe("useStartSwapOut", () => {
     } = renderHook(useStartSwapOut);
     startSwapOut();
     const { queryByText } = render(<GlobalPopup />);
-    await waitFor(() =>
-      expect(queryByText("Create an invoice for 4289181 sats")).toBeTruthy(),
-    );
+    await waitFor(() => expect(queryByText("4 289 181")).toBeTruthy());
+    expect(queryByText("network fee: 1 344 sats (4 sat/vB)")).toBeTruthy();
+    expect(queryByText(/swap fee: 4 294 sats/u)).toBeTruthy();
   });
 });

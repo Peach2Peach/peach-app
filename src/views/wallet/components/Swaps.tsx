@@ -35,6 +35,10 @@ import {
   ClaimSubmarineSwap,
   ClaimSubmarineSwapProps,
 } from "./submarineSwaps/ClaimSubmarineSwap";
+import {
+  RefundSubmarineSwap,
+  RefundSubmarineSwapProps,
+} from "./submarineSwaps/RefundSubmarineSwap";
 
 type Props = {
   swap: SwapInfo;
@@ -51,15 +55,14 @@ const SwapDetails = ({ swap }: Props) => {
   const swapType = getSwapType(swap);
   const amount = getSwapAmount(swap);
 
-  const isAlreadyComplete = STATUS_MAP[swapType].COMPLETED.includes(
-    swap.status?.status || "",
-  );
   const canClaim =
-    !STATUS_MAP[swapType].ERROR.includes(swap.status?.status || "") &&
-    !STATUS_MAP[swapType].COMPLETED.includes(swap.status?.status || "");
+    !!swap.status?.status &&
+    !STATUS_MAP[swapType].ERROR.includes(swap.status.status) &&
+    !STATUS_MAP[swapType].COMPLETED.includes(swap.status.status);
+
   const { status = swap.status } = useSwapStatus({
     id: swap.id,
-    enabled: !isAlreadyComplete,
+    enabled: canClaim,
     refetch: canClaim,
   });
 
@@ -85,6 +88,10 @@ const SwapDetails = ({ swap }: Props) => {
   });
   const claimReverseSubmarineSwapData = getClaimReverseSubmarineSwapData({
     offer,
+    swap,
+    status,
+  });
+  const refundSubmarineSwapData = getRefundSubmarineSwapData({
     swap,
     status,
   });
@@ -146,6 +153,9 @@ const SwapDetails = ({ swap }: Props) => {
       {!!claimReverseSubmarineSwapData && (
         <ClaimReverseSubmarineSwap {...claimReverseSubmarineSwapData} />
       )}
+      {!!refundSubmarineSwapData && (
+        <RefundSubmarineSwap {...refundSubmarineSwapData} />
+      )}
     </Animated.View>
   );
 };
@@ -153,20 +163,22 @@ const SwapDetails = ({ swap }: Props) => {
 const HIDE_COMPLETED_AFTER = 5000;
 export const Swaps = () => {
   const swaps = useBoltzSwapStore((state) => Object.values(state.swaps));
-  const pendingSwaps = swaps.filter(isSwapPending);
-  const [justSeen, setJustSeen] = useState(pendingSwaps.map((swap) => swap.id));
-
-  const { interruptibleFn: updateJustSeen } = useInterruptibleFunction(() => {
-    setJustSeen(pendingSwaps.map((swap) => swap.id));
-  }, HIDE_COMPLETED_AFTER);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(updateJustSeen, [pendingSwaps.length]);
-
   const failedSwaps = swaps.filter(
     (swap) =>
       swap.status?.status &&
       STATUS_MAP[getSwapType(swap)].ERROR.includes(swap.status.status),
   );
+  const pendingSwaps = swaps.filter(isSwapPending);
+  const [justSeen, setJustSeen] = useState(
+    [...pendingSwaps, ...failedSwaps].map((swap) => swap.id),
+  );
+
+  const { interruptibleFn: updateJustSeen } = useInterruptibleFunction(() => {
+    setJustSeen([...pendingSwaps, ...failedSwaps].map((swap) => swap.id));
+  }, HIDE_COMPLETED_AFTER);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(updateJustSeen, [[...pendingSwaps, ...failedSwaps].length]);
+
   const justCompletedSwaps = swaps.filter(
     (swap) =>
       swap.status?.status &&
@@ -217,7 +229,23 @@ function getClaimReverseSubmarineSwapData({
     keyPairWIF: peachLiquidWallet.getInternalKeyPair(swap.keyPairIndex).toWIF(),
   };
 }
-
+export function getRefundSubmarineSwapData({
+  swap,
+  status,
+}: {
+  swap: SwapInfo;
+  status?: SwapStatus;
+}): RefundSubmarineSwapProps | undefined {
+  if (!peachLiquidWallet) return undefined;
+  if (!status) return undefined;
+  if (!STATUS_MAP.SUBMARINE.ERROR.includes(status.status)) return undefined;
+  if (!("expectedAmount" in swap)) return undefined;
+  return {
+    address: peachLiquidWallet.getAddress(undefined, false).address,
+    swapInfo: swap,
+    keyPairWIF: peachLiquidWallet.getInternalKeyPair(swap.keyPairIndex).toWIF(),
+  };
+}
 function getClaimSubmarineSwapData({
   invoice,
   swap,

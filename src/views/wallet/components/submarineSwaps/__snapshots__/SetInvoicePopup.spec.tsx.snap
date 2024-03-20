@@ -85,7 +85,7 @@ exports[`SetInvoicePopup should show loading while lightningwallet generates inv
         ]
       }
     >
-      wallet.swap.invoice
+      swap to lightning
     </Text>
     <LottieAnimationView
       autoPlay={true}
@@ -111,7 +111,11 @@ exports[`SetInvoicePopup should show loading while lightningwallet generates inv
             "height": 80,
             "width": 80,
           },
-          undefined,
+          {
+            "alignSelf": "center",
+            "height": 64,
+            "width": 64,
+          },
         ]
       }
       textFiltersAndroid={[]}
@@ -169,6 +173,7 @@ exports[`SetInvoicePopup should show loading while lightningwallet generates inv
           "flexDirection": "row",
           "flexGrow": 1,
           "gap": 4,
+          "justifyContent": "center",
           "opacity": 1,
           "paddingBottom": 8,
           "paddingLeft": 24,
@@ -215,89 +220,6 @@ exports[`SetInvoicePopup should show loading while lightningwallet generates inv
         }
       >
         close
-      </Text>
-    </View>
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": true,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row-reverse",
-          "flexGrow": 1,
-          "gap": 4,
-          "opacity": 0.5,
-          "paddingBottom": 8,
-          "paddingLeft": 24,
-          "paddingRight": 24,
-          "paddingTop": 8,
-        }
-      }
-      testID="popup-action-swapOut"
-    >
-      <test-file-stub
-        fill="#FFFCFA"
-        style={
-          [
-            {
-              "height": 16,
-              "width": 16,
-            },
-            undefined,
-          ]
-        }
-      />
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            [
-              {
-                "color": "#FFFCFA",
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 28,
-              },
-              undefined,
-            ],
-            false,
-          ]
-        }
-      >
-        swap
       </Text>
     </View>
   </View>
@@ -389,124 +311,260 @@ exports[`SetInvoicePopup should show show prefilled invoice field 1`] = `
         ]
       }
     >
-      wallet.swap.invoice
-    </Text>
-    <Text
-      allowFontScaling={false}
-      selectable={true}
-      style={
-        [
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
-          },
-          undefined,
-          false,
-        ]
-      }
-    >
-      Create an invoice for 
-      12345 sats
+      swap to lightning
     </Text>
     <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexShrink": 1,
-          "height": 16,
-          "justifyContent": "center",
-          "opacity": 1,
-          "overflow": "visible",
-          "width": 16,
+          "gap": 12,
         }
       }
     >
-      <test-file-stub
-        fill="#F56522"
+      <Text
+        allowFontScaling={false}
         style={
           [
             {
-              "height": 24,
-              "width": 24,
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            undefined,
+            false,
+          ]
+        }
+      >
+        You're sending:
+      </Text>
+      <View
+        style={
+          [
+            undefined,
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
             },
             {
-              "height": "100%",
-              "width": "100%",
+              "height": 13,
+              "width": 152,
             },
           ]
         }
-      />
-      <View
-        collapsable={false}
-        style={
-          {
-            "bottom": "100%",
-            "marginBottom": 4,
-            "opacity": 0,
-            "position": "absolute",
-          }
-        }
       >
-        <Text
-          allowFontScaling={false}
+        <View
           style={
             [
               {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
+                "flexShrink": 0,
               },
-              [
-                {
-                  "fontFamily": "Baloo2-Medium",
-                  "fontSize": 14,
-                  "letterSpacing": 0.14,
-                  "lineHeight": 20,
-                },
-                {
-                  "color": "#F56522",
-                },
-              ],
-              false,
+              {
+                "paddingBottom": 2.5,
+                "paddingLeft": 2.5,
+                "paddingRight": 2.5,
+                "paddingTop": 2.5,
+              },
             ]
           }
         >
-          copied!
-        </Text>
+          <test-file-stub
+            fill="#888"
+            style={
+              [
+                {
+                  "height": 15,
+                  "width": 15,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexBasis": "0%",
+                "flexDirection": "row",
+                "flexGrow": 1,
+                "flexShrink": 1,
+              },
+              {
+                "gap": 5,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "flexBasis": "0%",
+                "flexDirection": "row",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "justifyContent": "flex-end",
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "opacity": 0.1,
+                      "textAlign": "right",
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 28,
+                        "marginBottom": -13,
+                        "marginTop": -13,
+                      },
+                      false,
+                    ],
+                  ],
+                  false,
+                ]
+              }
+            >
+              0.00 0
+            </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "textAlign": "right",
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 28,
+                        "marginBottom": -13,
+                        "marginTop": -13,
+                      },
+                      false,
+                    ],
+                  ],
+                  false,
+                ]
+              }
+            >
+              12 345
+            </Text>
+          </View>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                    "marginBottom": -13,
+                    "marginTop": -13,
+                  },
+                  false,
+                ],
+                false,
+              ]
+            }
+          >
+            sats
+          </Text>
+        </View>
       </View>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            undefined,
+            false,
+          ]
+        }
+      >
+        network fee: 210 sats (4 sat/vB)
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            undefined,
+            false,
+          ]
+        }
+      >
+        swap fee: 456 sats
+         (
+        3.69
+        %)
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            undefined,
+            false,
+          ]
+        }
+      >
+        total: 666 sats
+      </Text>
     </View>
     <View>
       <View
@@ -717,6 +775,214 @@ exports[`SetInvoicePopup should show show prefilled invoice field 1`] = `
          
       </Text>
     </View>
+    <View
+      onMoveShouldSetResponder={[Function]}
+      onMoveShouldSetResponderCapture={[Function]}
+      onResponderEnd={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderReject={[Function]}
+      onResponderRelease={[Function]}
+      onResponderStart={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      onStartShouldSetResponderCapture={[Function]}
+      style={
+        [
+          {
+            "borderRadius": 20,
+            "borderWidth": 1,
+            "overflow": "hidden",
+            "paddingBottom": 4,
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "paddingTop": 4,
+            "width": "100%",
+          },
+          {
+            "backgroundColor": "#D7F2FE",
+          },
+          {
+            "borderColor": "#93D6F5",
+          },
+          undefined,
+        ]
+      }
+      testID="confirmSlider"
+    >
+      <View
+        collapsable={false}
+        onLayout={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "transform": [
+              {
+                "translateX": 0,
+              },
+            ],
+          }
+        }
+      >
+        <View
+          collapsable={false}
+          style={
+            {
+              "opacity": 0,
+              "paddingTop": 1,
+              "position": "absolute",
+              "right": "100%",
+              "width": 204,
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "height": 9,
+                "justifyContent": "center",
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              numberOfLines={1}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    [
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 14,
+                        "letterSpacing": 0.5,
+                        "lineHeight": 24,
+                        "textAlign": "center",
+                        "textTransform": "uppercase",
+                      },
+                      {},
+                    ],
+                    {
+                      "marginBottom": -40,
+                      "marginTop": -40,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              confirm and send
+            </Text>
+          </View>
+        </View>
+        <View
+          collapsable={false}
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "rgba(9, 157, 226, 1)",
+              "borderRadius": 16,
+              "flexDirection": "row",
+              "gap": 2,
+              "justifyContent": "center",
+              "paddingBottom": 4,
+              "paddingLeft": 6,
+              "paddingRight": 6,
+              "paddingTop": 4,
+            }
+          }
+        >
+          <test-file-stub
+            fill="#FFFCFA"
+            style={
+              [
+                {
+                  "height": 18,
+                  "width": 18,
+                },
+                undefined,
+              ]
+            }
+          />
+          <test-file-stub
+            fill="#FFFCFA"
+            style={
+              [
+                {
+                  "height": 18,
+                  "width": 18,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+        <View
+          collapsable={false}
+          style={
+            {
+              "opacity": 1,
+              "paddingTop": 1,
+              "width": 204,
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "height": 9,
+                "justifyContent": "center",
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              numberOfLines={1}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    [
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 14,
+                        "letterSpacing": 0.5,
+                        "lineHeight": 24,
+                        "textAlign": "center",
+                        "textTransform": "uppercase",
+                      },
+                      {},
+                    ],
+                    {
+                      "marginBottom": -40,
+                      "marginTop": -40,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              confirm and send
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
   </View>
   <View
     style={
@@ -768,6 +1034,7 @@ exports[`SetInvoicePopup should show show prefilled invoice field 1`] = `
           "flexDirection": "row",
           "flexGrow": 1,
           "gap": 4,
+          "justifyContent": "center",
           "opacity": 1,
           "paddingBottom": 8,
           "paddingLeft": 24,
@@ -814,89 +1081,6 @@ exports[`SetInvoicePopup should show show prefilled invoice field 1`] = `
         }
       >
         close
-      </Text>
-    </View>
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": false,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row-reverse",
-          "flexGrow": 1,
-          "gap": 4,
-          "opacity": 1,
-          "paddingBottom": 8,
-          "paddingLeft": 24,
-          "paddingRight": 24,
-          "paddingTop": 8,
-        }
-      }
-      testID="popup-action-swapOut"
-    >
-      <test-file-stub
-        fill="#FFFCFA"
-        style={
-          [
-            {
-              "height": 16,
-              "width": 16,
-            },
-            undefined,
-          ]
-        }
-      />
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            [
-              {
-                "color": "#FFFCFA",
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 28,
-              },
-              undefined,
-            ],
-            false,
-          ]
-        }
-      >
-        swap
       </Text>
     </View>
   </View>
