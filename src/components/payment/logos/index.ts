@@ -49,6 +49,10 @@ import twint from "./twint.svg";
 import vipps from "./vipps.svg";
 import wave from "./wave.svg";
 import wise from "./wise.svg";
+import privat24 from "./privat24.svg";
+import payeer from "./payeer.png";
+import perfectMoney from "./perfectMoney.png";
+import steam from "./steam.svg";
 
 export const PaymentLogos = {
   "cash.amsterdam": bitcoinAmsterdam,
@@ -121,6 +125,10 @@ export const PaymentLogos = {
   wave,
   wirepay: placeholder,
   wise,
+  privat24,
+  payeer,
+  perfectMoney,
+  steam,
 };
 
 export type PaymentLogoType = keyof typeof PaymentLogos;
