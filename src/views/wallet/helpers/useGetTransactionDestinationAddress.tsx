@@ -1,14 +1,7 @@
-import {
-  Transaction as BitcoinTransaction,
-  address as bitcoinAddress,
-} from "bitcoinjs-lib";
-import {
-  Transaction as LiquidTransaction,
-  address as liquidAddress,
-} from "liquidjs-lib";
+import { Transaction as BitcoinTransaction } from "bitcoinjs-lib";
+import { Transaction as LiquidTransaction } from "liquidjs-lib";
 import { useAreMyAddresses } from "../../../hooks/wallet/useIsMyAddress";
-import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
-import { getNetwork } from "../../../utils/wallet/getNetwork";
+import { getAddressesFromOutputs } from "./getAddressesFromOutputs";
 
 type Props = Pick<BitcoinTransaction | LiquidTransaction, "outs"> & {
   incoming: boolean;
@@ -20,15 +13,7 @@ export const useGetTransactionDestinationAddress = ({
   incoming,
   chain,
 }: Props) => {
-  const addresses = outs
-    .map((v) => v.script)
-    .filter((script) => script.byteLength)
-    .map((script) =>
-      chain === "bitcoin"
-        ? bitcoinAddress.fromOutputScript(script, getNetwork())
-        : liquidAddress.fromOutputScript(script, getLiquidNetwork()),
-    );
-
+  const addresses = getAddressesFromOutputs({ outs, chain });
   const areMine = useAreMyAddresses(addresses, chain);
 
   if (addresses.length === 1) return addresses[0];
