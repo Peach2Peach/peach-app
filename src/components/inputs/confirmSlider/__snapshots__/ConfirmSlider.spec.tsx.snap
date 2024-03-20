@@ -17,8 +17,6 @@ exports[`ConfirmSlider renders correctly 1`] = `
   style={
     [
       {
-        "backgroundColor": "#FEEDE5",
-        "borderColor": "#FCCCB6",
         "borderRadius": 20,
         "borderWidth": 1,
         "overflow": "hidden",
@@ -27,6 +25,12 @@ exports[`ConfirmSlider renders correctly 1`] = `
         "paddingRight": 4,
         "paddingTop": 4,
         "width": "100%",
+      },
+      {
+        "backgroundColor": "#FEEDE5",
+      },
+      {
+        "borderColor": "#FCCCB6",
       },
       undefined,
     ]
@@ -65,6 +69,7 @@ exports[`ConfirmSlider renders correctly 1`] = `
       label2
     </ConfirmSliderLabel>
     <SliderKnob
+      color="#F56522"
       enabled={true}
       iconId="checkCircle"
       pan={0}
@@ -96,8 +101,6 @@ exports[`ConfirmSlider renders correctly when not enabled 1`] = `
   style={
     [
       {
-        "backgroundColor": "#FEEDE5",
-        "borderColor": "#FCCCB6",
         "borderRadius": 20,
         "borderWidth": 1,
         "overflow": "hidden",
@@ -106,6 +109,12 @@ exports[`ConfirmSlider renders correctly when not enabled 1`] = `
         "paddingRight": 4,
         "paddingTop": 4,
         "width": "100%",
+      },
+      {
+        "backgroundColor": "#FEEDE5",
+      },
+      {
+        "borderColor": "#FCCCB6",
       },
       undefined,
     ]
@@ -144,6 +153,7 @@ exports[`ConfirmSlider renders correctly when not enabled 1`] = `
       label2
     </ConfirmSliderLabel>
     <SliderKnob
+      color="#F56522"
       enabled={false}
       iconId="checkCircle"
       pan={0}
@@ -175,8 +185,6 @@ exports[`ConfirmSlider renders with different icon 1`] = `
   style={
     [
       {
-        "backgroundColor": "#FEEDE5",
-        "borderColor": "#FCCCB6",
         "borderRadius": 20,
         "borderWidth": 1,
         "overflow": "hidden",
@@ -185,6 +193,12 @@ exports[`ConfirmSlider renders with different icon 1`] = `
         "paddingRight": 4,
         "paddingTop": 4,
         "width": "100%",
+      },
+      {
+        "backgroundColor": "#FEEDE5",
+      },
+      {
+        "borderColor": "#FCCCB6",
       },
       undefined,
     ]
@@ -223,6 +237,7 @@ exports[`ConfirmSlider renders with different icon 1`] = `
       label2
     </ConfirmSliderLabel>
     <SliderKnob
+      color="#F56522"
       enabled={true}
       iconId="award"
       pan={0}
