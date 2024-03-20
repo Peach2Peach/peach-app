@@ -1,3 +1,4 @@
+import { useTranslate } from "@tolgee/react";
 import { View } from "react-native";
 import { Divider } from "../../components/Divider";
 import { Header } from "../../components/Header";
@@ -16,7 +17,6 @@ import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { thousands } from "../../utils/string/thousands";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { useConfirmEscrow } from "./hooks/useConfirmEscrow";
-import { useTranslate } from "@tolgee/react";
 
 export const WrongFundingAmount = () => {
   const { offerId } = useRoute<"wrongFundingAmount">().params;
@@ -49,7 +49,7 @@ function WrongFundingAmountSummary({ sellOffer }: Props) {
     <View style={tw`gap-3 grow`}>
       <Divider
         icon={<Icon id="download" size={20} />}
-        text={t("offer.requiredAction.fundingAmountDifferent")}
+        text={t("offer.requiredAction.fundingAmountDifferent", { ns: "offer" })}
       />
       <View style={tw`gap-1`}>
         <LabelAndAmount label={t("escrow.funded")} amount={actualAmount} />
@@ -80,7 +80,7 @@ type LabelAndAmountProps = {
 
 function LabelAndAmount({ label, amount }: LabelAndAmountProps) {
   return (
-    <View style={tw`flex-row`}>
+    <View style={tw`flex-row items-center gap-4`}>
       <PeachText style={tw`w-20 text-black-50`}>{label}</PeachText>
       <BTCAmount amount={amount} size="small" />
     </View>
