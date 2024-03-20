@@ -1,9 +1,9 @@
+import { useTranslate } from "@tolgee/react";
 import { Dispatch } from "react";
 import { TextInput, View } from "react-native";
 import { PeachText } from "../../../../components/text/PeachText";
 import tw from "../../../../styles/tailwind";
 import { enforceDecimalsFormat } from "../../../../utils/format/enforceDecimalsFormat";
-import { useTranslate } from "@tolgee/react";
 
 type Props = {
   customFeeRate?: string;
@@ -21,10 +21,7 @@ export const CustomFeeItem = ({
   return (
     <View style={tw`flex-row items-center gap-2`}>
       <PeachText style={tw`subtitle-1 leading-base`}>
-        {t("settings.networkFees.custom", {
-          ns: "settings",
-        })}
-        :
+        {t("settings.networkFees.custom")}:
       </PeachText>
       <View
         style={[
@@ -43,7 +40,9 @@ export const CustomFeeItem = ({
           testID="input-custom-fees"
         />
       </View>
-      <PeachText style={tw`text-black-65`}>{t("satsPerByte")}</PeachText>
+      <PeachText style={tw`text-black-65`}>
+        {t("satsPerByte", { ns: "global" })}
+      </PeachText>
     </View>
   );
 };
