@@ -19,7 +19,6 @@ initEccLib(ecc);
 
 export function useInitApp() {
   const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn);
-  const storedPublicKey = useAccountStore((state) => state.account.publicKey);
   const cfClearance = useSettingsStore(
     (state) => state.cloudflareChallenge?.cfClearance,
   );
@@ -29,7 +28,7 @@ export function useInitApp() {
     if (cfClearance) {
       await setCookies(cfClearance);
     }
-    const publicKey = storedPublicKey || (await loadAccount());
+    const publicKey = await loadAccount();
     const statusResponse = await getPeachInfo();
     if (!statusResponse?.error && publicKey) {
       setIsLoggedIn(true);
@@ -38,7 +37,7 @@ export function useInitApp() {
     }
 
     return statusResponse;
-  }, [cfClearance, setIsLoggedIn, storedPublicKey, userUpdate]);
+  }, [cfClearance, setIsLoggedIn, userUpdate]);
 
   return initApp;
 }
