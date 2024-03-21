@@ -22,6 +22,7 @@ describe("FundEscrow", () => {
     fundingStatus: getDefaultFundingStatus(sellOffer.id),
   };
   const defaultReturnValue = {
+    fundingMechanism: "bitcoin",
     offerId: sellOffer.id,
     offer: sellOffer,
     funding: {

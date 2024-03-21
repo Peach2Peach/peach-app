@@ -16,7 +16,7 @@ export function PreferenceScreen({
   header,
 }: Props) {
   return (
-    <Screen header={header}>
+    <Screen style={tw`gap-4`} header={header}>
       <PeachScrollView
         contentStyle={tw`gap-6`}
         scrollEnabled={!isSliding}

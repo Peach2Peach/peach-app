@@ -21,15 +21,12 @@ import { Toggle } from "../../components/inputs/Toggle";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
-import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
 import { marketKeys, useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
-import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
-import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
@@ -52,7 +49,9 @@ import { peachWallet } from "../../utils/wallet/setWallet";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { getFundingAmount } from "../fundEscrow/helpers/getFundingAmount";
 import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
+import { useFundFromPeachLiquidWallet } from "../fundEscrow/hooks/useFundFromPeachLiquidWallet";
 import { useFundFromPeachWallet } from "../fundEscrow/hooks/useFundFromPeachWallet";
+import { ChainSelect } from "../wallet/ChainSelect";
 import { WalletSelector } from "./WalletSelector";
 import { FundMultipleOffers } from "./components/FundMultipleOffers";
 import { MarketInfo } from "./components/MarketInfo";
@@ -508,57 +507,42 @@ function InstantTrade() {
 }
 
 function SellAction() {
-  const [fundWithPeachWallet, toggle] = useToggleBoolean();
+  const [isPublishing, setIsPublishing] = useState(false);
+  const fundFrom = useSettingsStore((state) => state.fundFrom);
+  const canInstantFund = fundFrom !== "lightning";
   return (
-    <>
-      <FundWithPeachWallet
-        fundWithPeachWallet={fundWithPeachWallet}
-        toggle={toggle}
-      />
-      <FundEscrowButton fundWithPeachWallet={fundWithPeachWallet} />
-    </>
+    <View style={canInstantFund && tw`flex-row gap-2`}>
+      <View style={canInstantFund && tw`w-1/2`}>
+        <CreateEscrowButton
+          {...{ isPublishing, setIsPublishing, fundWithPeachWallet: false }}
+        />
+      </View>
+      {canInstantFund && (
+        <View style={tw`w-1/2`}>
+          <CreateEscrowButton
+            {...{ isPublishing, setIsPublishing, fundWithPeachWallet: true }}
+          />
+        </View>
+      )}
+    </View>
   );
 }
 
-function FundWithPeachWallet({
+function CreateEscrowButton({
   fundWithPeachWallet,
-  toggle,
+  isPublishing,
+  setIsPublishing,
 }: {
   fundWithPeachWallet: boolean;
-  toggle: () => void;
-}) {
-  const { user } = useSelfUser();
-  const feeRate = user?.feeRate || "halfHourFee";
-  const feeEstimate = useFeeEstimate();
-  const estimatedFeeRate =
-    typeof feeRate === "number" ? feeRate : feeEstimate.estimatedFees[feeRate];
-  const navigation = useStackNavigation();
-  const onPress = () => navigation.navigate("networkFees");
-  return (
-    <Section.Container style={tw`flex-row justify-between`}>
-      <Checkbox
-        checked={fundWithPeachWallet}
-        onPress={toggle}
-        style={tw`flex-1`}
-      >
-        {i18n("offerPreferences.fundWithPeachWallet", String(estimatedFeeRate))}
-      </Checkbox>
-      <TouchableIcon id="bitcoin" onPress={onPress} />
-    </Section.Container>
-  );
-}
-
-function FundEscrowButton({
-  fundWithPeachWallet,
-}: {
-  fundWithPeachWallet: boolean;
+  isPublishing: boolean;
+  setIsPublishing: (bool: boolean) => void;
 }) {
   const amountRange = useTradingAmountLimits("sell");
+  const [isLoading, setIsLoading] = useState(false);
   const [sellAmount, instantTrade] = useOfferPreferences(
     (state) => [state.sellAmount, state.instantTrade],
     shallow,
   );
-  const [isPublishing, setIsPublishing] = useState(false);
 
   const sellAmountIsValid =
     sellAmount >= amountRange[0] && sellAmount <= amountRange[1];
@@ -581,6 +565,7 @@ function FundEscrowButton({
       paymentData: state.paymentData,
       originalPaymentData: state.originalPaymentData,
       multi: state.multi,
+      fundingMechanism: state.fundingMechanism,
       instantTradeCriteria: state.instantTrade
         ? state.instantTradeCriteria
         : undefined,
@@ -655,6 +640,7 @@ function FundEscrowButton({
   const { mutate: createEscrow } = useCreateEscrow();
   const navigation = useStackNavigation();
   const fundFromPeachWallet = useFundFromPeachWallet();
+  const fundFromPeachLiquidWallet = useFundFromPeachLiquidWallet();
 
   const onPress = async () => {
     if (isPublishing) return;
@@ -664,11 +650,13 @@ function FundEscrowButton({
       return;
     }
     setIsPublishing(true);
+    setIsLoading(true);
     const address = refundToPeachWallet
       ? (await peachWallet.getAddress()).address
       : refundAddress;
     if (!address) {
       setIsPublishing(false);
+      setIsLoading(false);
       return;
     }
     const paymentData = await getPaymentData();
@@ -685,12 +673,17 @@ function FundEscrowButton({
           showErrorBanner(error.message);
           setIsPublishing(false);
         },
-        onSuccess: async (result, offerDraft) => {
-          if (!Array.isArray(result)) {
-            saveOffer({ ...offerDraft, ...result });
+        onSuccess: async (sellOffers, offerDraft) => {
+          let escrowType: EscrowType;
+          if (!Array.isArray(sellOffers)) {
+            saveOffer({ ...offerDraft, ...sellOffers });
+            escrowType = sellOffers.escrowType;
           } else {
             if (!peachWallet) throw new Error("Peach wallet not defined");
-            result.forEach((offer) => saveOffer({ ...offerDraft, ...offer }));
+            sellOffers.forEach((offer) =>
+              saveOffer({ ...offerDraft, ...offer }),
+            );
+            escrowType = sellOffers[0].escrowType;
 
             const internalAddress = await peachWallet.getInternalAddress();
             const diffToNextAddress = 10;
@@ -699,11 +692,13 @@ function FundEscrowButton({
             );
             registerFundMultiple(
               newInternalAddress.address,
-              result.map((offer) => offer.id),
+              sellOffers.map((offer) => offer.id),
             );
           }
           const navigationParams = {
-            offerId: Array.isArray(result) ? result[0].id : result.id,
+            offerId: Array.isArray(sellOffers)
+              ? sellOffers[0].id
+              : sellOffers.id,
           };
 
           const fundMultiple = getFundMultipleByOfferId(
@@ -711,7 +706,7 @@ function FundEscrowButton({
           );
           const offerIds = fundMultiple?.offerIds || [navigationParams.offerId];
           createEscrow(offerIds, {
-            onSuccess: async (res) => {
+            onSuccess: async (createdEscrows) => {
               if (fundWithPeachWallet) {
                 const amount = getFundingAmount(
                   fundMultiple,
@@ -719,12 +714,19 @@ function FundEscrowButton({
                 );
                 const fundingAddress =
                   fundMultiple?.address ||
-                  res.find((e) => e?.offerId === navigationParams.offerId)
-                    ?.escrow;
-                const fundingAddresses = res
-                  .filter(isDefined)
-                  .map((e) => e.escrow);
-                await fundFromPeachWallet({
+                  createdEscrows.find(
+                    (e) => e?.offerId === navigationParams.offerId,
+                  )?.escrows[escrowType];
+
+                const fundingAddresses = createdEscrows
+                  .map((e) => e?.escrows[escrowType])
+                  .filter(isDefined);
+
+                const fundingFunction =
+                  escrowType === "bitcoin"
+                    ? fundFromPeachWallet
+                    : fundFromPeachLiquidWallet;
+                await fundingFunction({
                   offerId: navigationParams.offerId,
                   amount,
                   address: fundingAddress,
@@ -765,26 +767,34 @@ function FundEscrowButton({
 
   return (
     <Button
-      style={[
-        tw`self-center px-5 py-3 min-w-166px`,
-        !formValid && tw`bg-primary-mild-1`,
-      ]}
+      style={[tw`self-center`]}
+      disabled={!formValid}
       onPress={onPress}
-      loading={isPublishing}
+      ghost={!fundWithPeachWallet}
+      textColor={!fundWithPeachWallet ? tw.color("primary-main") : undefined}
+      loading={isLoading}
     >
-      {i18n("offerPreferences.fundEscrow")}
+      {i18n(
+        fundWithPeachWallet
+          ? "sell.escrow.instantFund"
+          : "sell.escrow.createEscrow",
+      )}
     </Button>
   );
 }
 
 function RefundWalletSelector() {
   const [
+    fundFrom,
+    setFundFrom,
     refundToPeachWallet,
     refundAddress,
     refundAddressLabel,
     setRefundToPeachWallet,
   ] = useSettingsStore(
     (state) => [
+      state.fundFrom,
+      state.setFundFrom,
       state.refundToPeachWallet,
       state.refundAddress,
       state.refundAddressLabel,
@@ -792,6 +802,19 @@ function RefundWalletSelector() {
     ],
     shallow,
   );
+  const setFundingMechanism = useOfferPreferences(
+    (state) => state.setFundingMechanism,
+  );
+
+  const updateFundFrom = (chain: Chain) => {
+    const chainFundingMechanismMap: Record<Chain, FundingMechanism> = {
+      bitcoin: "bitcoin",
+      liquid: "liquid",
+      lightning: "lightning-liquid",
+    };
+    setFundingMechanism(chainFundingMechanismMap[chain]);
+    setFundFrom(chain);
+  };
   const navigation = useStackNavigation();
 
   const onExternalWalletPress = () => {
@@ -805,16 +828,22 @@ function RefundWalletSelector() {
   const onPeachWalletPress = () => setRefundToPeachWallet(true);
 
   return (
-    <WalletSelector
-      title={i18n("offerPreferences.refundTo")}
-      backgroundColor={tw.color("primary-background-dark")}
-      bubbleColor="orange"
-      peachWalletActive={refundToPeachWallet}
-      address={refundAddress}
-      addressLabel={refundAddressLabel}
-      onPeachWalletPress={onPeachWalletPress}
-      onExternalWalletPress={onExternalWalletPress}
-    />
+    <Section.Container style={tw`bg-primary-background-dark`}>
+      <Section.Title>{i18n("sellOfferPreferences.fundFrom")}</Section.Title>
+      <ChainSelect current={fundFrom} onSelect={updateFundFrom} />
+      <WalletSelector
+        title={i18n("offerPreferences.refundTo")}
+        backgroundColor={tw.color("primary-background-dark")}
+        bubbleColor={fundFrom === "bitcoin" ? "orange" : "liquid"}
+        peachWalletActive={refundToPeachWallet}
+        address={refundAddress}
+        addressLabel={refundAddressLabel}
+        onPeachWalletPress={onPeachWalletPress}
+        onExternalWalletPress={onExternalWalletPress}
+        showExternalWallet={fundFrom === "bitcoin"}
+        isPeachLiquidWallet={fundFrom !== "bitcoin"}
+      />
+    </Section.Container>
   );
 }
 

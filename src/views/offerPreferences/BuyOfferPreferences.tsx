@@ -60,7 +60,6 @@ function PreferenceWalletSelector() {
     ],
     shallow,
   );
-  const escrowType = useOfferPreferences((state) => state.escrowType);
   const navigation = useStackNavigation();
 
   const onExternalWalletPress = () => {
@@ -79,7 +78,6 @@ function PreferenceWalletSelector() {
       customAddressLabel={payoutAddressLabel}
       onPeachWalletPress={onPeachWalletPress}
       onExternalWalletPress={onExternalWalletPress}
-      showExternalWallet={escrowType === "bitcoin"}
     />
   );
 }

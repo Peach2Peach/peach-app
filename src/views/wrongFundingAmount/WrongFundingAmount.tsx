@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { SellOffer } from "../../../peach-api/src/@types/offer";
 import { Divider } from "../../components/Divider";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";

@@ -7,6 +7,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { GetMatchesResponseBody } from "../../../peach-api/src/@types/api/offerAPI";
+import { SellOffer } from "../../../peach-api/src/@types/offer";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";

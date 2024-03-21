@@ -39,5 +39,7 @@
   "wallet.swap.refund.file": "refund file",
   "wallet.swap.success.title": "swap succeeded",
   "wallet.swap.success.text": "Your swap was successful!",
+  "sellOfferPreferences.fundFrom": "fund from",
+  "sell.escrow.instantFund": "instant fund",
   "peachLiquidWallet": "Peach liquid wallet"
 }

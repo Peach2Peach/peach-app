@@ -68,6 +68,7 @@ export const sellOffer: SellOffer = {
     liquid: "ert1qrxl2jwt08lnzxn77hrtdlhrqtr8q9vj2tucmxfw9tla59ws6jxwqw0qh3e",
   },
   escrowType: "bitcoin",
+  fundingMechanism: "bitcoin",
   amount: 250000,
   premium: 1.5,
   matches: [],
@@ -88,6 +89,7 @@ export const sellOfferLiquid: SellOffer = {
   ...sellOffer,
   id: "12345",
   escrowType: "liquid",
+  fundingMechanism: "liquid",
   escrow: "bcrt1qgkp0epg4a6zqngtp9jhwg77pg4798k6yg7vrrdl5zw67tq9kgklsxe6xjl",
   escrows: {
     bitcoin: "bcrt1qgkp0epg4a6zqngtp9jhwg77pg4798k6yg7vrrdl5zw67tq9kgklsxe6xjl",
@@ -108,7 +110,6 @@ export const wronglyFundedSellOffer: SellOffer = {
 };
 export const buyOfferUnpublished: BuyOfferDraft = {
   type: "bid",
-  escrowType: "bitcoin",
   meansOfPayment: {
     EUR: ["sepa"],
     CHF: ["twint"],

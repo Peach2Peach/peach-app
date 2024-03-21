@@ -36,6 +36,7 @@ describe("usePostSellOffer", () => {
         premium: offerDraft.premium,
         returnAddress: offerDraft.returnAddress,
         type: "ask",
+        fundingMechanism: "bitcoin",
       });
     });
   });
