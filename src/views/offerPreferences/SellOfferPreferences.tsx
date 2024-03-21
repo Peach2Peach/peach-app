@@ -508,22 +508,18 @@ function InstantTrade() {
 
 function SellAction() {
   const [isPublishing, setIsPublishing] = useState(false);
-  const fundFrom = useSettingsStore((state) => state.fundFrom);
-  const canInstantFund = fundFrom !== "lightning";
   return (
-    <View style={canInstantFund && tw`flex-row gap-2`}>
-      <View style={canInstantFund && tw`w-1/2`}>
+    <View style={tw`flex-row gap-2`}>
+      <View style={tw`w-1/2`}>
         <CreateEscrowButton
           {...{ isPublishing, setIsPublishing, fundWithPeachWallet: false }}
         />
       </View>
-      {canInstantFund && (
-        <View style={tw`w-1/2`}>
-          <CreateEscrowButton
-            {...{ isPublishing, setIsPublishing, fundWithPeachWallet: true }}
-          />
-        </View>
-      )}
+      <View style={tw`w-1/2`}>
+        <CreateEscrowButton
+          {...{ isPublishing, setIsPublishing, fundWithPeachWallet: true }}
+        />
+      </View>
     </View>
   );
 }
@@ -552,8 +548,8 @@ function CreateEscrowButton({
     setSellAmount(restrictAmount(sellAmount));
   }
 
-  const [refundToPeachWallet, refundAddress] = useSettingsStore(
-    (state) => [state.refundToPeachWallet, state.refundAddress],
+  const [refundToPeachWallet, refundAddress, fundFrom] = useSettingsStore(
+    (state) => [state.refundToPeachWallet, state.refundAddress, state.fundFrom],
     shallow,
   );
 
@@ -675,30 +671,38 @@ function CreateEscrowButton({
         },
         onSuccess: async (sellOffers, offerDraft) => {
           let escrowType: EscrowType;
+          let fundingMechanism: FundingMechanism;
           if (!Array.isArray(sellOffers)) {
             saveOffer({ ...offerDraft, ...sellOffers });
             escrowType = sellOffers.escrowType;
+            fundingMechanism = sellOffers.fundingMechanism;
           } else {
             if (!peachWallet) throw new Error("Peach wallet not defined");
             sellOffers.forEach((offer) =>
               saveOffer({ ...offerDraft, ...offer }),
             );
             escrowType = sellOffers[0].escrowType;
+            fundingMechanism = sellOffers[0].fundingMechanism;
 
             const internalAddress = await peachWallet.getInternalAddress();
             const diffToNextAddress = 10;
             const newInternalAddress = await peachWallet.getInternalAddress(
               internalAddress.index + diffToNextAddress,
             );
-            registerFundMultiple(
-              newInternalAddress.address,
-              sellOffers.map((offer) => offer.id),
-            );
+            if (fundingMechanism !== "lightning-liquid")
+              registerFundMultiple(
+                newInternalAddress.address,
+                sellOffers.map((offer) => offer.id),
+              );
           }
           const navigationParams = {
             offerId: Array.isArray(sellOffers)
               ? sellOffers[0].id
               : sellOffers.id,
+            instantFund:
+              fundWithPeachWallet && fundFrom === "lightning"
+                ? "true"
+                : undefined,
           };
 
           const fundMultiple = getFundMultipleByOfferId(
@@ -722,10 +726,12 @@ function CreateEscrowButton({
                   .map((e) => e?.escrows[escrowType])
                   .filter(isDefined);
 
-                const fundingFunction =
-                  escrowType === "bitcoin"
-                    ? fundFromPeachWallet
-                    : fundFromPeachLiquidWallet;
+                const fundingMechanisms = {
+                  bitcoin: fundFromPeachWallet,
+                  liquid: fundFromPeachLiquidWallet,
+                  "lightning-liquid": () => undefined,
+                };
+                const fundingFunction = fundingMechanisms[fundingMechanism];
                 await fundingFunction({
                   offerId: navigationParams.offerId,
                   amount,
