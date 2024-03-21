@@ -41,7 +41,7 @@ import { useFundFromPeachLiquidWallet } from "./hooks/useFundFromPeachLiquidWall
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
 
 export const FundEscrow = () => {
-  const { offerId } = useRoute<"fundEscrow">().params;
+  const { offerId, instantFund } = useRoute<"fundEscrow">().params;
   const {
     fundingMechanism,
     funding,
@@ -123,6 +123,7 @@ export const FundEscrow = () => {
             offerId={offerId}
             address={fundingAddress}
             amount={fundingAmount / SATSINBTC}
+            instantFund={instantFund === "true"}
           />
         )}
         {fundingMechanism === "liquid" && (

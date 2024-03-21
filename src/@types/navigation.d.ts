@@ -44,6 +44,7 @@ type SellFlow = {
   sellOfferPreferences: undefined;
   fundEscrow: {
     offerId: string;
+    instantFund?: string;
   };
   wrongFundingAmount: {
     offerId: string;

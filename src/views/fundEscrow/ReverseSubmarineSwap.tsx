@@ -1,6 +1,6 @@
 import { PaymentStatus } from "@breeztech/react-native-breez-sdk";
 import bolt11 from "bolt11";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { shallow } from "zustand/shallow";
 import { Icon } from "../../components/Icon";
 import { Loading } from "../../components/animation/Loading";
@@ -30,11 +30,17 @@ export type Props = {
   offerId: string;
   address: string;
   amount: number;
+  instantFund?: boolean;
 };
 
 const CLAIM_TX_SIZE_VB = 1380;
 
-export const ReverseSubmarineSwap = ({ offerId, address, amount }: Props) => {
+export const ReverseSubmarineSwap = ({
+  offerId,
+  address,
+  amount,
+  instantFund,
+}: Props) => {
   const feeRate = useLiquidFeeRate();
   const minerFees = CLAIM_TX_SIZE_VB * feeRate;
   const amountWithTxFees = minerFees
@@ -93,6 +99,7 @@ export const ReverseSubmarineSwap = ({ offerId, address, amount }: Props) => {
         invoice={swapInfo.invoice}
         address={address}
         onchainAmount={amount}
+        instantFund={instantFund}
       />
     </>
   );
@@ -102,11 +109,13 @@ type FundFromPeachLightningWalletButtonProps = {
   invoice: string;
   address: string;
   onchainAmount: number;
+  instantFund?: boolean;
 };
 function FundFromPeachLightningWalletButton({
   invoice,
   address,
   onchainAmount,
+  instantFund,
 }: FundFromPeachLightningWalletButtonProps) {
   const showErrorBanner = useShowErrorBanner();
   const [fundedFromPeachWallet, setFundedFromPeachWallet] = useWalletState(
@@ -126,7 +135,8 @@ function FundFromPeachLightningWalletButton({
     paymentRequest,
     amount: amount * MSAT_PER_SAT,
   });
-  const onButtonPress = () => {
+  const onButtonPress = useCallback(() => {
+    if (isPayingInvoice) return;
     payInvoice()
       .then((data) => {
         if (data.status !== PaymentStatus.FAILED)
@@ -136,7 +146,18 @@ function FundFromPeachLightningWalletButton({
         error(parseError(e));
         showErrorBanner("LIGHTNING_PAYMENT_FAILED");
       });
-  };
+  }, [
+    address,
+    isPayingInvoice,
+    payInvoice,
+    setFundedFromPeachWallet,
+    showErrorBanner,
+  ]);
+
+  useEffect(() => {
+    if (instantFund) onButtonPress();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
