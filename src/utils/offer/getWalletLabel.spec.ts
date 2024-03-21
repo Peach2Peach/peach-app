@@ -1,17 +1,21 @@
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
-import i18n from "../i18n";
+import { PeachLiquidJSWallet } from "../wallet/PeachLiquidJSWallet";
 import { PeachWallet } from "../wallet/PeachWallet";
-import { peachWallet, setPeachWallet } from "../wallet/setWallet";
+import { setLiquidWallet, setPeachWallet } from "../wallet/setWallet";
 import { getWalletLabel } from "./getWalletLabel";
 
 describe("getWalletLabel", () => {
   const customAddress = "customPayoutAddress";
   const customAddressLabel = "customPayoutAddressLabel";
+  let peachWallet: PeachWallet;
+  let peachLiquidWallet: PeachLiquidJSWallet;
   beforeAll(() => {
-    setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
+    peachWallet = new PeachWallet({ wallet: createTestWallet() });
+    peachLiquidWallet = new PeachLiquidJSWallet({ wallet: createTestWallet() });
+    setPeachWallet(peachWallet);
+    setLiquidWallet(peachLiquidWallet);
   });
   it("should return customPayoutAddressLabel if address is customPayoutAddress", () => {
-    if (!peachWallet) throw new Error("PeachWallet not set");
     const findKeyPairByAddressMock = jest.spyOn(
       peachWallet,
       "findKeyPairByAddress",
@@ -27,8 +31,17 @@ describe("getWalletLabel", () => {
     expect(result).toEqual(customAddressLabel);
   });
 
+  it("should return peach liquid wallet if address is in peachLiquidWallet", () => {
+    const result = getWalletLabel({
+      address: peachLiquidWallet.getAddress().address,
+      customAddress,
+      customAddressLabel,
+      isPeachWalletActive: true,
+    });
+
+    expect(result).toEqual("Peach liquid wallet");
+  });
   it("should return peachWallet if address is in peachWallet", () => {
-    if (!peachWallet) throw new Error("PeachWallet not set");
     jest
       .spyOn(peachWallet, "findKeyPairByAddress")
       .mockReturnValueOnce(createTestWallet());
@@ -39,7 +52,7 @@ describe("getWalletLabel", () => {
       isPeachWalletActive: true,
     });
 
-    expect(result).toEqual(i18n("peachWallet"));
+    expect(result).toEqual("Peach wallet");
   });
 
   it('should return "custom payout address" if address is not peachWallet or customPayoutAddress', () => {

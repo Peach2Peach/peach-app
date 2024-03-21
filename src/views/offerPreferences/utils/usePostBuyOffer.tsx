@@ -16,6 +16,10 @@ import { peachAPI } from "../../../utils/peachAPI";
 import { isPaymentMethod } from "../../../utils/validation/isPaymentMethod";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
 import { isValidLiquidSignature } from "../../../utils/validation/isValidLiquidSignature";
+import { isLiquidAddress } from "../../../utils/validation/rules";
+import { PeachLiquidJSWallet } from "../../../utils/wallet/PeachLiquidJSWallet";
+import { PeachWallet } from "../../../utils/wallet/PeachWallet";
+import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import {
   peachLiquidWallet,
@@ -33,19 +37,13 @@ const isForbiddenPaymentMethodError = (
 
 export function usePostBuyOffer({
   amount,
-  escrowType,
   meansOfPayment,
   paymentData,
   maxPremium,
   minReputation,
 }: Pick<
   BuyOfferDraft,
-  | "amount"
-  | "escrowType"
-  | "meansOfPayment"
-  | "paymentData"
-  | "maxPremium"
-  | "minReputation"
+  "amount" | "meansOfPayment" | "paymentData" | "maxPremium" | "minReputation"
 >) {
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
@@ -72,45 +70,22 @@ export function usePostBuyOffer({
 
   return useMutation({
     mutationFn: async () => {
-      const wallet = escrowType === "bitcoin" ? peachWallet : peachLiquidWallet;
-      if (!wallet) throw new Error("Peach wallet not defined");
+      const { address, message, signature } =
+        payoutToPeachWallet && payoutAddress && payoutAddressSignature
+          ? {
+              address: payoutAddress,
+              message: getMessageToSignForAddress(publicKey, payoutAddress),
+              signature: payoutAddressSignature,
+            }
+          : await getWalletAddress(peachWallet);
+      const {
+        address: releaseAddressLiquid,
+        message: messageLiquid,
+        signature: messageSignatureLiquid,
+      } = await getWalletAddress(peachLiquidWallet);
 
-      const { address, index } = payoutToPeachWallet
-        ? await wallet.getAddress()
-        : { address: payoutAddress, index: undefined };
-
-      if (!address) throw new Error("MISSING_RELEASE_ADDRESS");
-
-      const message = getMessageToSignForAddress(publicKey, address);
-      const signature = payoutToPeachWallet
-        ? wallet.signMessage(message, address, index)
-        : payoutAddressSignature;
-
-      if (!signature) throw new Error("MISSING_SIGNATURE");
-
-      const isValidSignature =
-        escrowType === "bitcoin"
-          ? isValidBitcoinSignature({
-              message,
-              address,
-              signature,
-              network: getNetwork(),
-            })
-          : isValidLiquidSignature({ message, address, signature });
-      if (!isValidSignature) throw new Error("INVALID_SIGNATURE");
-      info(
-        "Generated a valid signature for address ",
-        address,
-        " of user ",
-        publicKey,
-        " with message ",
-        message,
-        ":\n",
-        signature,
-      );
       const finalizedOfferDraft = {
         type: "bid" as const,
-        escrowType,
         amount,
         meansOfPayment,
         paymentData,
@@ -119,6 +94,9 @@ export function usePostBuyOffer({
         releaseAddress: address,
         message,
         messageSignature: signature,
+        releaseAddressLiquid,
+        messageLiquid,
+        messageSignatureLiquid,
       };
 
       const { result, error: err } =
@@ -157,4 +135,52 @@ export function usePostBuyOffer({
       return queryClient.invalidateQueries({ queryKey: offerKeys.summaries() });
     },
   });
+}
+
+async function getWalletAddress(
+  wallet?: PeachWallet | PeachLiquidJSWallet | null,
+) {
+  if (!wallet) throw new Error("Peach wallet not defined");
+  const publicKey = useAccountStore.getState().account.publicKey;
+
+  const { address, index } = await wallet.getAddress();
+
+  if (!address) throw new Error("MISSING_RELEASE_ADDRESS");
+  const isLiquid = isLiquidAddress(address, getLiquidNetwork());
+  const message = getMessageToSignForAddress(publicKey, address);
+  const signature = wallet.signMessage(message, address, index);
+
+  if (!signature)
+    throw new Error(
+      isLiquid ? "MISSING_SIGNATURE_LIQUID" : "MISSING_SIGNATURE",
+    );
+
+  const isValidSignature = isLiquid
+    ? isValidLiquidSignature({ message, address, signature })
+    : isValidBitcoinSignature({
+        message,
+        address,
+        signature,
+        network: getNetwork(),
+      });
+  if (!isValidSignature)
+    throw new Error(
+      isLiquid ? "INVALID_SIGNATURE_LIQUID" : "INVALID_SIGNATURE",
+    );
+  info(
+    "Generated a valid signature for address ",
+    address,
+    " of user ",
+    publicKey,
+    " with message ",
+    message,
+    ":\n",
+    signature,
+  );
+
+  return {
+    address,
+    message,
+    signature,
+  };
 }
