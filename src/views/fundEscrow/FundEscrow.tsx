@@ -40,11 +40,6 @@ import { useFundEscrowSetup } from "./hooks/useFundEscrowSetup";
 import { useFundFromPeachLiquidWallet } from "./hooks/useFundFromPeachLiquidWallet";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
 
-type FundingTab = {
-  id: FundingMechanism;
-  display: string;
-};
-
 export const FundEscrow = () => {
   const { offerId } = useRoute<"fundEscrow">().params;
   const {

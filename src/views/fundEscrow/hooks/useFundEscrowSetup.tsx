@@ -77,10 +77,8 @@ export const useFundEscrowSetup = () => {
   };
   const activeFunding = useMemo(
     () =>
-      fundingStatusLiquid.status !== "NULL"
-        ? fundingStatusLiquid
-        : fundingStatus,
-    [fundingStatus, fundingStatusLiquid],
+      sellOffer?.escrowType === "liquid" ? fundingStatusLiquid : fundingStatus,
+    [fundingStatus, fundingStatusLiquid, sellOffer?.escrowType],
   );
 
   useHandleFundingStatus({
