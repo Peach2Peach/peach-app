@@ -32,6 +32,7 @@ async function postSellOffer(offerDraft: SellOfferDraft) {
     premium: offerDraft.premium,
     meansOfPayment: offerDraft.meansOfPayment,
     paymentData: offerDraft.paymentData,
+    fundingMechanism: offerDraft.fundingMechanism,
     returnAddress: offerDraft.returnAddress,
     returnAddressLiquid: peachLiquidWallet?.getAddress().address,
     multi: offerDraft.multi,

@@ -19,7 +19,6 @@ type SettingsTitle =
   | "payoutAddress"
   | "referrals"
   | "refundAddress"
-  | "swaps"
   | "testView"
   | "transactionBatching";
 

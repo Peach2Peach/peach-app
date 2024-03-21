@@ -1,5 +1,6 @@
 import { Psbt } from "bitcoinjs-lib";
 import { Psbt as LiquidPsbt } from "liquidjs-lib/src/psbt";
+import { SellOffer } from "../../../peach-api/src/@types/offer";
 import { getNetwork } from "../../utils/wallet/getNetwork";
 import { getSellOfferFunding } from "../offer/getSellOfferFunding";
 import { getLiquidNetwork } from "../wallet/getLiquidNetwork";

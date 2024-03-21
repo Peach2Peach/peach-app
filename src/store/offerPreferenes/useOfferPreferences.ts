@@ -17,7 +17,7 @@ import { CurrencyType } from "./types";
 
 type OfferPreferences = {
   buyAmountRange: [number, number];
-  escrowType: EscrowType;
+  fundingMechanism: FundingMechanism;
   sellAmount: number;
   premium: number;
   meansOfPayment: MeansOfPayment;
@@ -42,7 +42,7 @@ type OfferPreferences = {
 
 export const defaultPreferences: OfferPreferences = {
   buyAmountRange: [1, TOTAL_SATS],
-  escrowType: "bitcoin",
+  fundingMechanism: "bitcoin",
   sellAmount: 1,
   premium: 1.5,
   meansOfPayment: {},
@@ -74,7 +74,7 @@ export const defaultPreferences: OfferPreferences = {
 type OfferPreferencesActions = {
   setBuyAmountRange: (buyAmountRange: [number, number]) => void;
   setSellAmount: (sellAmount: number) => void;
-  setEscrowType: (escrowType: EscrowType) => void;
+  setFundingMechanism: (fundingMechanism: FundingMechanism) => void;
   setMulti: (number?: number) => void;
   setPremium: (newPremium: number, isValid?: boolean) => void;
   setPaymentMethods: (ids: string[]) => void;
@@ -105,7 +105,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       ...defaultPreferences,
       setBuyAmountRange: (buyAmountRange) => set({ buyAmountRange }),
       setSellAmount: (sellAmount) => set({ sellAmount }),
-      setEscrowType: (escrowType) => set({ escrowType }),
+      setFundingMechanism: (fundingMechanism) => set({ fundingMechanism }),
       setMulti: (multi) => set({ multi }),
       setPremium: (premium) => set({ premium }),
       setPaymentMethods: (ids) => {

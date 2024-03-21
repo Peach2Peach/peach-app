@@ -1,38 +1,40 @@
 import { toMatchDiffSnapshot } from "snapshot-diff";
 import { fireEvent, render } from "test-utils";
-import { navigateMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { ChainSelect } from "./ChainSelect";
 expect.extend({ toMatchDiffSnapshot });
 
 describe("ChainSelect", () => {
-  const base = render(<ChainSelect current="bitcoin" />).toJSON();
+  const onSelect = jest.fn();
+  const base = render(
+    <ChainSelect current="bitcoin" onSelect={onSelect} />,
+  ).toJSON();
 
   it("should render correctly when bitcoin is selected", () => {
     expect(base).toMatchSnapshot();
   });
   it("should render correctly when liquid is selected", () => {
-    const { toJSON } = render(<ChainSelect current="liquid" />);
+    const { toJSON } = render(
+      <ChainSelect current="liquid" onSelect={onSelect} />,
+    );
     expect(toJSON()).toMatchDiffSnapshot(base);
   });
   it("should render correctly when lightning is selected", () => {
-    const { toJSON } = render(<ChainSelect current="lightning" />);
+    const { toJSON } = render(
+      <ChainSelect current="lightning" onSelect={onSelect} />,
+    );
     expect(toJSON()).toMatchDiffSnapshot(base);
   });
   it("should should navigate to each wallet type", () => {
-    const { getByText, rerender } = render(<ChainSelect current="lightning" />);
+    const { getByText, rerender } = render(
+      <ChainSelect current="lightning" onSelect={onSelect} />,
+    );
     fireEvent.press(getByText("bitcoin"));
-    expect(navigateMock).toHaveBeenCalledWith("homeScreen", {
-      screen: "wallet",
-    });
-    rerender(<ChainSelect current="bitcoin" />);
+    expect(onSelect).toHaveBeenCalledWith("bitcoin");
+    rerender(<ChainSelect current="bitcoin" onSelect={onSelect} />);
     fireEvent.press(getByText("lightning"));
-    expect(navigateMock).toHaveBeenCalledWith("homeScreen", {
-      screen: "lightningWallet",
-    });
-    rerender(<ChainSelect current="lightning" />);
+    expect(onSelect).toHaveBeenCalledWith("lightning");
+    rerender(<ChainSelect current="lightning" onSelect={onSelect} />);
     fireEvent.press(getByText("liquid"));
-    expect(navigateMock).toHaveBeenCalledWith("homeScreen", {
-      screen: "liquidWallet",
-    });
+    expect(onSelect).toHaveBeenCalledWith("liquid");
   });
 });

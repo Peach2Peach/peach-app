@@ -1,6 +1,10 @@
 import { useQueries } from "@tanstack/react-query";
 import { Transaction } from "../../../../peach-api/src/@types/electrs-liquid";
-import { OfferSummary } from "../../../../peach-api/src/@types/offer";
+import {
+  BuyOffer,
+  OfferSummary,
+  SellOffer,
+} from "../../../../peach-api/src/@types/offer";
 import { MSINASECOND } from "../../../constants";
 import { useContractSummaries } from "../../../hooks/query/useContractSummaries";
 import { useBoltzSwapStore } from "../../../store/useBoltzSwapStore";

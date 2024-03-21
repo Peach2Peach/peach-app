@@ -8,6 +8,7 @@ import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { ChainSelect } from "./ChainSelect";
 import { TotalBalance, WalletHeader } from "./components";
+import { WALLETS } from "./constants";
 import { useLastUnusedAddress, useUTXOs, useWalletAddress } from "./hooks";
 import { useSyncWallet } from "./hooks/useSyncWallet";
 import { useWalletBalance } from "./hooks/useWalletBalance";
@@ -19,10 +20,13 @@ export const Wallet = () => {
     isRefetching: isRefetchingBitcoin,
     isLoading: isLoadingBitcoin,
   } = useSyncWallet({ enabled: true });
+  const navigation = useStackNavigation();
+  const navigateToWallet = (chain: Chain) =>
+    navigation.navigate("homeScreen", { screen: WALLETS[chain] });
 
   return (
     <Screen header={<WalletHeader />}>
-      <ChainSelect current="bitcoin" />
+      <ChainSelect current="bitcoin" onSelect={navigateToWallet} />
       <PeachScrollView
         contentContainerStyle={tw`grow`}
         contentStyle={tw`justify-center py-16 grow`}

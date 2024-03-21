@@ -3,7 +3,6 @@ type FundingMechanism = EscrowType | "lightning-liquid";
 
 type OfferDraft = {
   type: "bid" | "ask";
-  escrowType?: EscrowType;
   meansOfPayment: MeansOfPayment;
   paymentData: OfferPaymentData;
   originalPaymentData: PaymentData[];
@@ -35,6 +34,7 @@ type InstantTradeCriteria = {
 
 type SellOfferDraft = OfferDraft & {
   type: "ask";
+  fundingMechanism: FundingMechanism;
   amount: number;
   premium: number;
   returnAddress: string;

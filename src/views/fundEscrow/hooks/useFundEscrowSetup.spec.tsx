@@ -57,6 +57,7 @@ describe("useFundEscrowSetup", () => {
     const { result } = renderHook(useFundEscrowSetup);
     const activeFunding = getDefaultFundingStatus(sellOffer.id);
     expect(result.current).toEqual({
+      fundingMechanism: undefined,
       funding: {
         bitcoin: {
           fundingAddress: undefined,
@@ -95,6 +96,7 @@ describe("useFundEscrowSetup", () => {
     const activeFunding = getDefaultFundingStatus(sellOffer.id);
 
     expect(result.current).toEqual({
+      fundingMechanism: "bitcoin",
       funding: {
         bitcoin: {
           fundingAddress: sellOffer.escrows.bitcoin,
@@ -160,6 +162,7 @@ describe("useFundEscrowSetup", () => {
     });
     const { result } = renderHook(useFundEscrowSetup);
     expect(result.current).toEqual({
+      fundingMechanism: "bitcoin",
       funding: {
         bitcoin: {
           fundingAddress: sellOffer.escrows.bitcoin,

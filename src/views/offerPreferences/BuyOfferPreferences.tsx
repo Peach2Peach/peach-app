@@ -13,7 +13,6 @@ import {
   SERVER_RATING_RANGE,
 } from "../settings/profile/profileOverview/Rating";
 import { useSyncWallet } from "../wallet/hooks/useSyncWallet";
-import { EscrowTypeSelector } from "./EscrowTypeSelector";
 import { PayoutWalletSelector } from "./PayoutWalletSelector";
 import { ShowOffersButton } from "./ShowOffersButton";
 import { AmountSelectorComponent } from "./components/AmountSelectorComponent";
@@ -41,7 +40,6 @@ export function BuyOfferPreferences() {
       <PreferenceMethods type="buy" />
       <AmountSelector setIsSliding={setIsSliding} />
       <Filters />
-      <OfferType />
       <PreferenceWalletSelector />
     </PreferenceScreen>
   );
@@ -62,7 +60,6 @@ function PreferenceWalletSelector() {
     ],
     shallow,
   );
-  const escrowType = useOfferPreferences((state) => state.escrowType);
   const navigation = useStackNavigation();
 
   const onExternalWalletPress = () => {
@@ -81,7 +78,6 @@ function PreferenceWalletSelector() {
       customAddressLabel={payoutAddressLabel}
       onPeachWalletPress={onPeachWalletPress}
       onExternalWalletPress={onExternalWalletPress}
-      showExternalWallet={escrowType === "bitcoin"}
     />
   );
 }
@@ -98,7 +94,6 @@ function PreferenceMarketInfo() {
   const offerPreferenes = useOfferPreferences(
     (state) => ({
       buyAmountRange: state.buyAmountRange,
-      escrowType: state.escrowType,
       meansOfPayment: state.meansOfPayment,
       maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
         ? state.filter.buyOffer.maxPremium || undefined
@@ -146,10 +141,6 @@ function Filters() {
   );
 }
 
-function OfferType() {
-  return <EscrowTypeSelect />;
-}
-
 function ReputationFilter() {
   const [minReputation, toggle] = useOfferPreferences(
     (state) => [
@@ -186,51 +177,24 @@ function MaxPremiumFilter() {
   );
 }
 
-function EscrowTypeSelect() {
-  const [escrowType, setEscrowType] = useOfferPreferences(
-    (state) => [state.escrowType, state.setEscrowType],
-    shallow,
-  );
-  const setPayoutToPeachWallet = useSettingsStore(
-    (state) => state.setPayoutToPeachWallet,
-  );
-  const setEscrowTypeAndUpdateWallet = (type: EscrowType) => {
-    setEscrowType(type);
-
-    if (type !== "bitcoin") setPayoutToPeachWallet(true);
-  };
-  return (
-    <EscrowTypeSelector
-      {...{ escrowType, setEscrowType: setEscrowTypeAndUpdateWallet }}
-    />
-  );
-}
-
 function PublishOfferButton() {
-  const {
-    amount,
-    escrowType,
-    meansOfPayment,
-    paymentData,
-    maxPremium,
-    minReputation,
-  } = useOfferPreferences(
-    (state) => ({
-      amount: state.buyAmountRange,
-      escrowType: state.escrowType,
-      meansOfPayment: state.meansOfPayment,
-      paymentData: state.paymentData,
-      maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
-        ? state.filter.buyOffer.maxPremium
-        : null,
-      minReputation: interpolate(
-        state.filter.buyOffer.minReputation || 0,
-        CLIENT_RATING_RANGE,
-        SERVER_RATING_RANGE,
-      ),
-    }),
-    shallow,
-  );
+  const { amount, meansOfPayment, paymentData, maxPremium, minReputation } =
+    useOfferPreferences(
+      (state) => ({
+        amount: state.buyAmountRange,
+        meansOfPayment: state.meansOfPayment,
+        paymentData: state.paymentData,
+        maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
+          ? state.filter.buyOffer.maxPremium
+          : null,
+        minReputation: interpolate(
+          state.filter.buyOffer.minReputation || 0,
+          CLIENT_RATING_RANGE,
+          SERVER_RATING_RANGE,
+        ),
+      }),
+      shallow,
+    );
 
   const originalPaymentData = useOfferPreferences(
     (state) => state.originalPaymentData,
@@ -255,7 +219,6 @@ function PublishOfferButton() {
   });
   const { mutate: publishOffer, isPending: isPublishing } = usePostBuyOffer({
     amount,
-    escrowType,
     meansOfPayment,
     paymentData,
     maxPremium,
