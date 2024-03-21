@@ -49,6 +49,7 @@ import { peachWallet } from "../../utils/wallet/setWallet";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { getFundingAmount } from "../fundEscrow/helpers/getFundingAmount";
 import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
+import { useFundFromPeachLiquidWallet } from "../fundEscrow/hooks/useFundFromPeachLiquidWallet";
 import { useFundFromPeachWallet } from "../fundEscrow/hooks/useFundFromPeachWallet";
 import { ChainSelect } from "../wallet/ChainSelect";
 import { WalletSelector } from "./WalletSelector";
@@ -507,19 +508,22 @@ function InstantTrade() {
 
 function SellAction() {
   const [isPublishing, setIsPublishing] = useState(false);
-
+  const fundFrom = useSettingsStore((state) => state.fundFrom);
+  const canInstantFund = fundFrom !== "lightning";
   return (
-    <View style={tw`flex-row gap-2`}>
-      <View style={tw`w-1/2`}>
+    <View style={canInstantFund && tw`flex-row gap-2`}>
+      <View style={canInstantFund && tw`w-1/2`}>
         <CreateEscrowButton
           {...{ isPublishing, setIsPublishing, fundWithPeachWallet: false }}
         />
       </View>
-      <View style={tw`w-1/2`}>
-        <CreateEscrowButton
-          {...{ isPublishing, setIsPublishing, fundWithPeachWallet: true }}
-        />
-      </View>
+      {canInstantFund && (
+        <View style={tw`w-1/2`}>
+          <CreateEscrowButton
+            {...{ isPublishing, setIsPublishing, fundWithPeachWallet: true }}
+          />
+        </View>
+      )}
     </View>
   );
 }
@@ -636,6 +640,7 @@ function CreateEscrowButton({
   const { mutate: createEscrow } = useCreateEscrow();
   const navigation = useStackNavigation();
   const fundFromPeachWallet = useFundFromPeachWallet();
+  const fundFromPeachLiquidWallet = useFundFromPeachLiquidWallet();
 
   const onPress = async () => {
     if (isPublishing) return;
@@ -668,12 +673,17 @@ function CreateEscrowButton({
           showErrorBanner(error.message);
           setIsPublishing(false);
         },
-        onSuccess: async (result, offerDraft) => {
-          if (!Array.isArray(result)) {
-            saveOffer({ ...offerDraft, ...result });
+        onSuccess: async (sellOffers, offerDraft) => {
+          let escrowType: EscrowType;
+          if (!Array.isArray(sellOffers)) {
+            saveOffer({ ...offerDraft, ...sellOffers });
+            escrowType = sellOffers.escrowType;
           } else {
             if (!peachWallet) throw new Error("Peach wallet not defined");
-            result.forEach((offer) => saveOffer({ ...offerDraft, ...offer }));
+            sellOffers.forEach((offer) =>
+              saveOffer({ ...offerDraft, ...offer }),
+            );
+            escrowType = sellOffers[0].escrowType;
 
             const internalAddress = await peachWallet.getInternalAddress();
             const diffToNextAddress = 10;
@@ -682,11 +692,13 @@ function CreateEscrowButton({
             );
             registerFundMultiple(
               newInternalAddress.address,
-              result.map((offer) => offer.id),
+              sellOffers.map((offer) => offer.id),
             );
           }
           const navigationParams = {
-            offerId: Array.isArray(result) ? result[0].id : result.id,
+            offerId: Array.isArray(sellOffers)
+              ? sellOffers[0].id
+              : sellOffers.id,
           };
 
           const fundMultiple = getFundMultipleByOfferId(
@@ -694,7 +706,7 @@ function CreateEscrowButton({
           );
           const offerIds = fundMultiple?.offerIds || [navigationParams.offerId];
           createEscrow(offerIds, {
-            onSuccess: async (res) => {
+            onSuccess: async (createdEscrows) => {
               if (fundWithPeachWallet) {
                 const amount = getFundingAmount(
                   fundMultiple,
@@ -702,12 +714,19 @@ function CreateEscrowButton({
                 );
                 const fundingAddress =
                   fundMultiple?.address ||
-                  res.find((e) => e?.offerId === navigationParams.offerId)
-                    ?.escrow;
-                const fundingAddresses = res
-                  .filter(isDefined)
-                  .map((e) => e.escrow);
-                await fundFromPeachWallet({
+                  createdEscrows.find(
+                    (e) => e?.offerId === navigationParams.offerId,
+                  )?.escrows[escrowType];
+
+                const fundingAddresses = createdEscrows
+                  .map((e) => e?.escrows[escrowType])
+                  .filter(isDefined);
+
+                const fundingFunction =
+                  escrowType === "bitcoin"
+                    ? fundFromPeachWallet
+                    : fundFromPeachLiquidWallet;
+                await fundingFunction({
                   offerId: navigationParams.offerId,
                   amount,
                   address: fundingAddress,
@@ -757,7 +776,7 @@ function CreateEscrowButton({
     >
       {i18n(
         fundWithPeachWallet
-          ? "offerPreferences.fundEscrow"
+          ? "sell.escrow.instantFund"
           : "sell.escrow.createEscrow",
       )}
     </Button>
