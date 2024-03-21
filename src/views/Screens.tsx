@@ -10,9 +10,9 @@ import { useStackNavigation } from "../hooks/useStackNavigation";
 import { requestUserPermissions } from "../init/requestUserPermissions";
 import { useInitApp } from "../init/useInitApp";
 import { VerifyYouAreAHumanPopup } from "../popups/warning/VerifyYouAreAHumanPopup";
+import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import tw from "../styles/tailwind";
 import { useGlobalHandlers } from "../useGlobalHandlers";
-import { useAccountStore } from "../utils/account/account";
 import i18n from "../utils/i18n";
 import { screenTransition } from "../utils/layout/screenTransition";
 import { isIOS } from "../utils/system/isIOS";
@@ -23,7 +23,7 @@ const RootStack = createStackNavigator<RootStackParamList>();
 
 export function Screens() {
   const [isLoading, setIsLoading] = useState(true);
-  const isLoggedIn = useAccountStore((state) => state.isLoggedIn);
+  const isLoggedIn = useSettingsStore((state) => state.isLoggedIn);
   useGlobalHandlers();
   useWSQueryInvalidation();
 
