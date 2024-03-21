@@ -508,8 +508,12 @@ function InstantTrade() {
 function SellAction() {
   return (
     <View style={tw`flex-row gap-2`}>
-      <CreateEscrowButton fundWithPeachWallet={false} />
-      <CreateEscrowButton fundWithPeachWallet={true} />
+      <View style={tw`w-1/2`}>
+        <CreateEscrowButton fundWithPeachWallet={false} />
+      </View>
+      <View style={tw`w-1/2`}>
+        <CreateEscrowButton fundWithPeachWallet={true} />
+      </View>
     </View>
   );
 }
