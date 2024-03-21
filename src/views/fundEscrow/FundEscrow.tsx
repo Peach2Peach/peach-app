@@ -10,7 +10,6 @@ import { Loading } from "../../components/animation/Loading";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { BitcoinAddress } from "../../components/bitcoin/BitcoinAddress";
 import { Button } from "../../components/buttons/Button";
-import { TabbedNavigation } from "../../components/navigation/TabbedNavigation";
 import { TradeInfo } from "../../components/offer/TradeInfo";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { ParsedPeachText } from "../../components/text/ParsedPeachText";
@@ -29,7 +28,6 @@ import { headerIcons } from "../../utils/layout/headerIcons";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { generateBlock } from "../../utils/regtest/generateBlock";
 import { generateLiquidBlock } from "../../utils/regtest/generateLiquidBlock";
-import { isDefined } from "../../utils/validation/isDefined";
 import { getNetwork } from "../../utils/wallet/getNetwork";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
@@ -50,33 +48,24 @@ type FundingTab = {
 export const FundEscrow = () => {
   const { offerId } = useRoute<"fundEscrow">().params;
   const {
+    fundingMechanism,
     funding,
     activeFunding,
     fundingAmount,
     offerIdsWithoutEscrow,
     isPending,
   } = useFundEscrowSetup();
-  const tabs = [
-    { id: "bitcoin", display: i18n("escrow.bitcoin") },
-    funding.liquid.fundingAddress
-      ? [
-          funding.liquid.fundingAddresses.length === 1
-            ? { id: "lightning-liquid", display: i18n("escrow.lightning") }
-            : undefined,
-          { id: "liquid", display: i18n("escrow.liquid") },
-        ]
-      : undefined,
-  ]
-    .flat()
-    .filter(isDefined) as FundingTab[];
-  const [currentTab, setCurrentTab] = useState(tabs[0]);
+
+  if (!fundingMechanism || isPending)
+    return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
+
   const escrowType =
-    currentTab.id === "lightning-liquid" ? "liquid" : currentTab.id;
-  const chain = currentTab.id === "lightning-liquid" ? "lightning" : escrowType;
+    fundingMechanism === "lightning-liquid" ? "liquid" : fundingMechanism;
+  const chain =
+    fundingMechanism === "lightning-liquid" ? "lightning" : escrowType;
   const fundingAddress = funding[escrowType].fundingAddress;
   const fundingAddresses = funding[escrowType].fundingAddresses;
 
-  if (isPending) return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
   if (offerIdsWithoutEscrow.length > 0)
     return <CreateEscrowScreen offerIds={offerIdsWithoutEscrow} />;
 
@@ -110,13 +99,7 @@ export const FundEscrow = () => {
           <PeachText style={tw`subtitle-1`}>{offerIdToHex(offerId)}</PeachText>
         </View>
 
-        <TabbedNavigation
-          style={tw`mb-4`}
-          items={tabs}
-          selected={currentTab}
-          select={setCurrentTab}
-        />
-        {currentTab.id === "bitcoin" && (
+        {fundingMechanism === "bitcoin" && (
           <>
             <BitcoinAddress
               address={fundingAddress}
@@ -140,14 +123,14 @@ export const FundEscrow = () => {
             </View>
           </>
         )}
-        {currentTab.id === "lightning-liquid" && (
+        {fundingMechanism === "lightning-liquid" && (
           <ReverseSubmarineSwap
             offerId={offerId}
             address={fundingAddress}
             amount={fundingAmount / SATSINBTC}
           />
         )}
-        {currentTab.id === "liquid" && (
+        {fundingMechanism === "liquid" && (
           <FundFromPeachLiquidWalletButton
             address={fundingAddress}
             addresses={fundingAddresses}

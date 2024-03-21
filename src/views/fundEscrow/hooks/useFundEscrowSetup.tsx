@@ -105,6 +105,7 @@ export const useFundEscrowSetup = () => {
   );
 
   return {
+    fundingMechanism: sellOffer?.fundingMechanism,
     funding,
     activeFunding,
     fundingAmount,
