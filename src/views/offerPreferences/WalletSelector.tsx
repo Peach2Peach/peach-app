@@ -14,6 +14,7 @@ type Props = {
   onExternalWalletPress: NewBubbleProps["onPress"];
   title: string;
   showExternalWallet?: boolean;
+  isPeachLiquidWallet?: boolean;
 };
 
 export function WalletSelector({
@@ -26,6 +27,7 @@ export function WalletSelector({
   onExternalWalletPress,
   title,
   showExternalWallet = true,
+  isPeachLiquidWallet,
 }: Props) {
   return (
     <Section.Container style={{ backgroundColor }}>
@@ -37,7 +39,7 @@ export function WalletSelector({
           disabled={peachWalletActive}
           onPress={onPeachWalletPress}
         >
-          {i18n("peachWallet")}
+          {i18n(isPeachLiquidWallet ? "peachLiquidWallet" : "peachWallet")}
         </NewBubble>
         {showExternalWallet && (
           <NewBubble

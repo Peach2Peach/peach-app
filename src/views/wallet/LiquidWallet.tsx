@@ -12,15 +12,20 @@ import { TotalBalance } from "./components";
 import { Swaps } from "./components/Swaps";
 import { WalletHeaderLiquid } from "./components/WalletHeaderLiquid";
 import { SwapButton } from "./components/submarineSwaps/SwapButton";
+import { WALLETS } from "./constants";
 import { useSyncLiquidWallet } from "./hooks/useSyncLiquidWallet";
 
 export const LiquidWallet = () => {
   const balance = useLiquidWalletState((state) => state.balance);
   const { refetch: refetchLiquid, isRefetching: isRefetchingLiquid } =
     useSyncLiquidWallet({ enabled: true });
+  const navigation = useStackNavigation();
+  const navigateToWallet = (chain: Chain) =>
+    navigation.navigate("homeScreen", { screen: WALLETS[chain] });
+
   return (
     <Screen style={tw`gap-4`} header={<WalletHeaderLiquid />}>
-      <ChainSelect current="liquid" />
+      <ChainSelect current="liquid" onSelect={navigateToWallet} />
       <PeachScrollView
         contentContainerStyle={tw`grow`}
         contentStyle={tw`justify-center py-16 grow gap-4`}

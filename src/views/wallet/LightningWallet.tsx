@@ -20,6 +20,7 @@ import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { ChainSelect } from "./ChainSelect";
 import { TotalBalance } from "./components";
 import { WalletHeaderLightning } from "./components/WalletHeaderLightning";
+import { WALLETS } from "./constants";
 import { useLightningWalletBalance } from "./hooks/useLightningWalletBalance";
 
 /** @description only needed while testing, production won't require invite code */
@@ -61,12 +62,15 @@ export const LightningWallet = () => {
     isLoading,
     error,
   } = useLightningWalletBalance();
+  const navigation = useStackNavigation();
+  const navigateToWallet = (chain: Chain) =>
+    navigation.navigate("homeScreen", { screen: WALLETS[chain] });
 
   if (isLoading) return <BitcoinLoading text={i18n("wallet.loading")} />;
 
   return (
     <Screen header={<WalletHeaderLightning />}>
-      <ChainSelect current="lightning" />
+      <ChainSelect current="lightning" onSelect={navigateToWallet} />
       <PeachScrollView
         contentContainerStyle={tw`grow`}
         contentStyle={tw`justify-center py-16 grow gap-4`}

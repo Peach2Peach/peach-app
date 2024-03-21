@@ -18,6 +18,7 @@ export const defaultSettings: Settings = {
 
   nodeURL: BLOCKEXPLORER,
 
+  fundFrom: "bitcoin",
   refundAddress: undefined,
   refundAddressLabel: undefined,
   refundToPeachWallet: true,

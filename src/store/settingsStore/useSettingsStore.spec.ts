@@ -77,6 +77,15 @@ describe("settingsStore - toggleAnalytics", () => {
   });
 });
 
+describe("settingsStore - setFundFrom", () => {
+  it("should set fundFrom", () => {
+    const fundFrom = "liquid";
+    expect(useSettingsStore.getState().fundFrom).toBe("bitcoin");
+    useSettingsStore.getState().setFundFrom(fundFrom);
+    expect(useSettingsStore.getState().fundFrom).toBe(fundFrom);
+  });
+});
+
 describe("settingsStore - setPayoutAddressSignature", () => {
   it("should set payoutAddressSignature", () => {
     const signature = "signature";
