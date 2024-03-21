@@ -506,13 +506,19 @@ function InstantTrade() {
 }
 
 function SellAction() {
+  const [isPublishing, setIsPublishing] = useState(false);
+
   return (
     <View style={tw`flex-row gap-2`}>
       <View style={tw`w-1/2`}>
-        <CreateEscrowButton fundWithPeachWallet={false} />
+        <CreateEscrowButton
+          {...{ isPublishing, setIsPublishing, fundWithPeachWallet: false }}
+        />
       </View>
       <View style={tw`w-1/2`}>
-        <CreateEscrowButton fundWithPeachWallet={true} />
+        <CreateEscrowButton
+          {...{ isPublishing, setIsPublishing, fundWithPeachWallet: true }}
+        />
       </View>
     </View>
   );
@@ -520,15 +526,19 @@ function SellAction() {
 
 function CreateEscrowButton({
   fundWithPeachWallet,
+  isPublishing,
+  setIsPublishing,
 }: {
   fundWithPeachWallet: boolean;
+  isPublishing: boolean;
+  setIsPublishing: (bool: boolean) => void;
 }) {
   const amountRange = useTradingAmountLimits("sell");
+  const [isLoading, setIsLoading] = useState(false);
   const [sellAmount, instantTrade] = useOfferPreferences(
     (state) => [state.sellAmount, state.instantTrade],
     shallow,
   );
-  const [isPublishing, setIsPublishing] = useState(false);
 
   const sellAmountIsValid =
     sellAmount >= amountRange[0] && sellAmount <= amountRange[1];
@@ -635,11 +645,13 @@ function CreateEscrowButton({
       return;
     }
     setIsPublishing(true);
+    setIsLoading(true);
     const address = refundToPeachWallet
       ? (await peachWallet.getAddress()).address
       : refundAddress;
     if (!address) {
       setIsPublishing(false);
+      setIsLoading(false);
       return;
     }
     const paymentData = await getPaymentData();
@@ -741,7 +753,7 @@ function CreateEscrowButton({
       onPress={onPress}
       ghost={!fundWithPeachWallet}
       textColor={!fundWithPeachWallet ? tw.color("primary-main") : undefined}
-      loading={isPublishing}
+      loading={isLoading}
     >
       {i18n(
         fundWithPeachWallet
