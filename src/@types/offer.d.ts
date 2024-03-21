@@ -34,7 +34,7 @@ type InstantTradeCriteria = {
 
 type SellOfferDraft = OfferDraft & {
   type: "ask";
-  escrowType?: EscrowType;
+  fundingMechanism: FundingMechanism;
   amount: number;
   premium: number;
   returnAddress: string;

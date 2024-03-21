@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, useWindowDimensions } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
+import { SellOffer } from "../../../peach-api/src/@types/offer";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
