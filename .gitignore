@@ -86,3 +86,6 @@ android/app/src/main/res/raw
 
 # E2E Testing
 artifacts
+
+client-key.pem
+client.crt
