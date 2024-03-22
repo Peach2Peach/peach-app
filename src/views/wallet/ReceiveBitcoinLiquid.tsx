@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { View } from "react-native";
 import QRCode from "react-native-qrcode-svg";
+import { Loading } from "../../components/Loading";
 import { Screen } from "../../components/Screen";
-import { Loading } from "../../components/animation/Loading";
 import { PeachText } from "../../components/text/PeachText";
 import { CopyAble } from "../../components/ui/CopyAble";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";

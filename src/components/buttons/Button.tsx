@@ -4,7 +4,7 @@ import { IconType } from "../../assets/icons";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import tw from "../../styles/tailwind";
 import { Icon } from "../Icon";
-import { Loading } from "../animation/Loading";
+import { Loading } from "../Loading";
 import { PeachText } from "../text/PeachText";
 
 export type ButtonProps = {
@@ -53,10 +53,7 @@ export const Button = ({
       </PeachText>
 
       {loading ? (
-        <Loading
-          style={[tw`h-14px w-14px`, tw`md:h-18px md:w-18px`]}
-          color={textColor}
-        />
+        <Loading size={"small"} color={textColor} />
       ) : (
         !!iconId && (
           <Icon

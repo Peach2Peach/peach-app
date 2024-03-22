@@ -2,8 +2,8 @@ import { useMemo, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Icon } from "../../../components/Icon";
+import { Loading } from "../../../components/Loading";
 import { Placeholder } from "../../../components/Placeholder";
-import { Loading } from "../../../components/animation/Loading";
 import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
 import { Dropdown } from "../../../components/inputs/Dropdown";
 import { NumberInput } from "../../../components/inputs/NumberInput";
@@ -63,7 +63,7 @@ export const TotalBalance = ({ amount, chain, isRefreshing }: Props) => {
           />
         </TouchableOpacity>
       </View>
-      {isRefreshing && <Loading style={tw`absolute w-16 h-16`} />}
+      {isRefreshing && <Loading style={tw`absolute`} size="large" />}
       <BTCAmount
         amount={amount}
         size="large"

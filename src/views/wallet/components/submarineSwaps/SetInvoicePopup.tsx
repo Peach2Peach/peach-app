@@ -2,7 +2,7 @@ import { SwapStatus } from "boltz-swap-web-context/src/boltz-api/types";
 import { useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
 import { Icon } from "../../../../components/Icon";
-import { Loading } from "../../../../components/animation/Loading";
+import { Loading } from "../../../../components/Loading";
 import { BTCAmount } from "../../../../components/bitcoin/BTCAmount";
 import { BitcoinAddress } from "../../../../components/bitcoin/BitcoinAddress";
 import { NewBubble } from "../../../../components/bubble/Bubble";

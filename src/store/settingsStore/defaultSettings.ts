@@ -30,4 +30,5 @@ export const defaultSettings: Settings = {
 
   fcmToken: undefined,
   breezInviteCode: undefined,
+  isLoggedIn: false,
 };

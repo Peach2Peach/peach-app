@@ -1,4 +1,5 @@
 {
+  "accessibility.bulletPoint" : "bullet point",
   "address.changingLocations" : "changing locations - get in touch with organizers",
   "backupRestored" : "backup restored",
   "backupTime.description.mandatory" : "You need to back up your account to avoid losing it & your funds",
@@ -59,6 +60,7 @@
   "kyc" : "KYC",
   "later" : "later",
   "lfg" : "LFG!",
+  "linkedIn" : "Linkedin",
   "loading" : "loading...",
   "lookForAMatch" : "look for a match!",
   "match.atMarketPrice" : "(equal to KYC price)",
@@ -176,7 +178,7 @@
   "search.popups.offerTaken.title" : "offer taken...",
   "search.popups.unmatch.confirm" : "yes, unmatch",
   "search.popups.unmatch.neverMind" : "never mind",
-  "search.popups.unmatch.text" : "Unmatching now will negatively affect your reputation score.",
+  "search.popups.unmatch.text" : "Unmatching will negatively affect your reputation score.\nYou can unmatch without a penalty after 48 hours.",
   "search.popups.unmatch.title" : "unmatch?",
   "search.popups.unmatched" : "unmatched!",
   "search.searchingForAPeer" : "Peach is searching for a peer",

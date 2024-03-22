@@ -5,8 +5,8 @@ import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
 import { PeachText } from "../../components/text/PeachText";
 import { MSINASECOND } from "../../constants";
+import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
-import { useAccountStore } from "../../utils/account/account";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
 
@@ -15,11 +15,13 @@ const possibleSources = [
   "google",
   "instagram",
   "friend",
+  "telegram",
+  "linkedin",
   "other",
 ] as const;
 
 export function UserSource() {
-  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn);
+  const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
   const [selectedSource, setSelectedSource] =
     useState<(typeof possibleSources)[number]>();
   const { mutate: submitUserSource } = useSubmitUserSource();

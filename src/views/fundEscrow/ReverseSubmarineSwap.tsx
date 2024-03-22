@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Icon } from "../../components/Icon";
-import { Loading } from "../../components/animation/Loading";
+import { Loading } from "../../components/Loading";
 import { BTCAmount } from "../../components/bitcoin/BTCAmount";
 import { LightningInvoice } from "../../components/bitcoin/LightningInvoice";
 import { Button } from "../../components/buttons/Button";

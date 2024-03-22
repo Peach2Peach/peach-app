@@ -25,6 +25,7 @@ type Settings = {
     cfClearance: string;
     userAgent: string;
   };
+  isLoggedIn: boolean;
 };
 
 type PGPKeychain = {

@@ -23,4 +23,5 @@ export const getPureSettingsState = (state: SettingsStore): Settings => ({
   shouldShowBackupOverlay: state.shouldShowBackupOverlay,
   nodeURL: state.nodeURL,
   cloudflareChallenge: state.cloudflareChallenge,
+  isLoggedIn: state.isLoggedIn,
 });

@@ -1,4 +1,5 @@
 {
+  "accessibility.bulletPoint" : "madde işareti",
   "address.changingLocations" : "Konum değiştiriliyor - organizatörlerle iletişime geçin",
   "backupRestored" : "yedekleme tekrardan yüklendi",
   "backupTime.description.mandatory" : "Hesabınızı kaybetmemek ve paranızı korumak için yedeklemeniz gerekmektedir",
@@ -54,6 +55,7 @@
   "kyc" : "KYC",
   "later" : "daha sonra",
   "lfg" : "Hadi!",
+  "linkedIn" : "Linkedin",
   "loading" : "yükleniyor...",
   "lookForAMatch" : "eşleşme ara!",
   "match.atMarketPrice" : "(KYC fiyatına eşdeğer)",

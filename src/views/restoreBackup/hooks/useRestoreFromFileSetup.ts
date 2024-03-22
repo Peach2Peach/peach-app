@@ -3,7 +3,6 @@ import { Keyboard } from "react-native";
 import { useValidatedState } from "../../../hooks/useValidatedState";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { usePaymentDataStore } from "../../../store/usePaymentDataStore";
-import { useAccountStore } from "../../../utils/account/account";
 import { decryptAccount } from "../../../utils/account/decryptAccount";
 import { deleteAccount } from "../../../utils/account/deleteAccount";
 import { storeAccount } from "../../../utils/account/storeAccount";
@@ -32,7 +31,7 @@ export const useRestoreFromFileSetup = () => {
   const updateFileBackupDate = useSettingsStore(
     (state) => state.updateFileBackupDate,
   );
-  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn);
+  const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
 
   const onError = (errorMsg = "UNKNOWN_ERROR") => {
     if (errorMsg !== "WRONG_PASSWORD") setError(errorMsg);

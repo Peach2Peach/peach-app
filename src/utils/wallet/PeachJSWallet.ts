@@ -91,7 +91,6 @@ export class PeachJSWallet {
     const signature = sign(message, keyPair.privateKey, true).toString(
       "base64",
     );
-    info("Signed message: ", message, " with signature: ", signature);
 
     info("PeachWallet - signMessage - end");
 

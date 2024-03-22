@@ -1,4 +1,5 @@
 {
+  "accessibility.bulletPoint" : "puce",
   "address.changingLocations" : "changement de lieu - contactez les organisateurs",
   "backupRestored" : "sauvegarde restaurée",
   "backupTime.description.mandatory" : "Vous devez sauvegarder votre compte pour éviter de le perdre ainsi que vos fonds",
@@ -39,6 +40,7 @@
   "exportTradeHistory.type" : "type (achat, vente, annulé)",
   "externalWallet" : "portefeuille externe",
   "fees" : "frais",
+  "friend" : "ami",
   "fundFromPeachWallet.amountTooLow.description.1" : "Votre portefeuille Peach contient :",
   "fundFromPeachWallet.amountTooLow.description.2" : "Le coffre doit être financé avec au moins: ",
   "fundFromPeachWallet.amountTooLow.title" : "montant trop bas",
@@ -50,6 +52,7 @@
   "fundFromPeachWallet.insufficientFunds.description.1" : "Votre portefeuille Peach contient :",
   "fundFromPeachWallet.insufficientFunds.description.2" : "Voulez-vous financer le coffre avec ce montant? ",
   "fundFromPeachWallet.insufficientFunds.title" : "fonds insuffisants",
+  "google" : "google",
   "help.matchmatchmatch.description" : "Vous pouvez matcher autant d'offres que vous le souhaitez ! Un échange (trade) sera créé avec le premier vendeur qui vous acceptera votre match.",
   "help.matchmatchmatch.title" : "match, match et match encore ",
   "home.currentPrice" : "prix actuel du bitcoin",
@@ -57,6 +60,7 @@
   "kyc" : "KYC",
   "later" : "plus tard",
   "lfg" : "On y va!",
+  "linkedIn" : "Linkedin",
   "loading" : "chargement...",
   "lookForAMatch" : "rechercher un match !",
   "match.atMarketPrice" : "(égal au prix KYC)",
@@ -99,6 +103,7 @@
   "peachBadges.ambassador.description" : "Ces personnes formidables sont avec nous depuis le tout début !",
   "peachBadges.fastTrader" : "trader rapide",
   "peachBadges.fastTrader.description" : "Un trader rapide est aussi rapide que le réseau Lightning. Ils acceptent les match s et effectuent ou confirment les paiements presque instantanément.",
+  "peachBadges.repeatTrader" : "vendeur connu",
   "peachBadges.superTrader" : "Super Trader",
   "peachBadges.superTrader.description" : "Un super trader est un utilisateur Peach très actif. Ils ont réalisé au moins 20 transactions.",
   "privacyPolicy" : "politique de confidentialité",
@@ -174,7 +179,7 @@
   "search.popups.unmatch.confirm" : "oui, unmatch",
   "search.popups.unmatch.neverMind" : "peu importe",
   "search.popups.unmatch.text" : "Unmatcher maintenant aura un impact négatif sur votre score de réputation.",
-  "search.popups.unmatch.title" : "unmatch ?",
+  "search.popups.unmatch.title" : "dé-matcher ?",
   "search.popups.unmatched" : "unmatched !",
   "search.searchingForAPeer" : "Peach recherche un pair",
   "search.sellOffer" : "pour la vente",
@@ -219,6 +224,8 @@
   "transaction.viewInExplorer" : "voir la dans l'explorateur",
   "twitch" : "Twitch",
   "twitter" : "Twitter",
+  "userSource.subtitle" : "Comment as-tu entendu parler de nous ?",
+  "userSource.title" : "une dernière chose",
   "view" : "afficher",
   "view.maps" : "voir sur les cartes",
   "warning.fundingAmountDifferent.description.1" : "Vous avez financé le coffre avec :",
@@ -247,5 +254,6 @@
   "yourTrades.start.selling" : "commencer à vendre !",
   "yourTrades.title" : "vos échanges",
   "yourTrades.tradeCanceled.subtitle" : "échange annulé",
-  "yourTrades.waiting" : "en attente"
+  "yourTrades.waiting" : "en attente",
+  "youtube" : "YouTube"
 }

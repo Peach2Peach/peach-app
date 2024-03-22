@@ -26,7 +26,7 @@ import { headerIcons } from "../../utils/layout/headerIcons";
 import { getMessages } from "../../utils/validation/getMessages";
 import { isValidBitcoinSignature } from "../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../utils/wallet/getNetwork";
-import { NewLoadingScreen } from "../loading/LoadingScreen";
+import { LoadingScreen } from "../loading/LoadingScreen";
 import { usePatchReleaseAddress } from "./components/usePatchReleaseAddress";
 
 const signatureRules = {
@@ -56,7 +56,7 @@ function SignMessageForGlobalPreference() {
 function ContractSuspense({ contractId }: { contractId: string }) {
   const { contract } = useContractDetail(contractId);
 
-  if (!contract) return <NewLoadingScreen />;
+  if (!contract) return <LoadingScreen />;
 
   return (
     <SignMessageForPatch

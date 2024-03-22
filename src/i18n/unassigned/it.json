@@ -1,4 +1,5 @@
 {
+  "accessibility.bulletPoint" : "Elenco puntato",
   "address.changingLocations" : "Cambio di location - Contatta gli organizzatori",
   "backupRestored" : "Backup ripristinato",
   "backupTime.description.mandatory" : "Devi fare un backup per evitare di perdere il tuo account ed i tuoi fondi",
@@ -57,6 +58,7 @@
   "kyc" : "KYC",
   "later" : "più tardi",
   "lfg" : "Andiamo cazzo",
+  "linkedIn" : "Linkedin",
   "loading" : "caricamento...",
   "lookForAMatch" : "cerco un match!",
   "match.atMarketPrice" : "(uguale al prezzo KYC)",

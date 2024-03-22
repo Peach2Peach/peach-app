@@ -1,6 +1,11 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { createContext, useContext, useReducer, useState } from "react";
+import { createContext, memo, useContext, useReducer, useState } from "react";
+import { View } from "react-native";
 import { shallow } from "zustand/shallow";
+import { premiumBounds } from "../../components/PremiumInput";
+import { PremiumTextInput } from "../../components/PremiumTextInput";
+import { TouchableIcon } from "../../components/TouchableIcon";
+import { Checkbox } from "../../components/inputs/Checkbox";
 import { MeansOfPayment } from "../../components/offer/MeansOfPayment";
 import { useOfferDetail } from "../../hooks/query/useOfferDetail";
 import { PatchBuyOfferData, usePatchBuyOffer } from "../../hooks/usePatchOffer";
@@ -13,6 +18,7 @@ import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
 import i18n from "../../utils/i18n";
 import { interpolate } from "../../utils/math/interpolate";
+import { round } from "../../utils/math/round";
 import { hasMopsConfigured } from "../../utils/offer/hasMopsConfigured";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
 import { cutOffAddress } from "../../utils/string/cutOffAddress";
@@ -35,8 +41,6 @@ import { BuyBitcoinHeader } from "./components/BuyBitcoinHeader";
 import { FilterContainer } from "./components/FilterContainer";
 import { MIN_REPUTATION_FILTER } from "./components/MIN_REPUTATION_FILTER";
 import { MarketInfo } from "./components/MarketInfo";
-import { MaxPremiumFilterComponent } from "./components/MaxPremiumFilterComponent";
-import { ReputationFilterComponent } from "./components/MinReputationFilter";
 import { PreferenceScreen } from "./components/PreferenceScreen";
 import { Section } from "./components/Section";
 import { useTradingAmountLimits } from "./utils/useTradingAmountLimits";
@@ -285,32 +289,24 @@ function AmountSelector({
   );
 }
 
-function Filters() {
-  return (
-    <FilterContainer
-      filters={
-        <>
-          <MaxPremiumFilter />
-          <ReputationFilter />
-        </>
-      }
-    />
-  );
-}
-
-function ReputationFilter() {
+const ReputationFilter = memo(() => {
   const [{ minReputation }, dispatch] = usePreferenceContext();
   const handleToggle = () => dispatch({ type: "reputation_toggled" });
 
   return (
-    <ReputationFilterComponent
-      minReputation={minReputation}
-      toggle={handleToggle}
-    />
+    <Checkbox
+      green
+      checked={minReputation === MIN_REPUTATION_FILTER}
+      onPress={handleToggle}
+      style={tw`self-stretch`}
+    >
+      {i18n("offerPreferences.filters.minReputation", "4.5")}
+    </Checkbox>
   );
-}
+});
 
-function MaxPremiumFilter() {
+const defaultMaxPremium = 0;
+const MaxPremiumFilter = memo(() => {
   const [{ maxPremium }, dispatch] = usePreferenceContext();
 
   function handlePremiumChange(newPremium: number) {
@@ -326,12 +322,66 @@ function MaxPremiumFilter() {
     });
   }
 
+  const onCheckboxPress = () => {
+    handleToggle();
+    if (maxPremium === null) {
+      handlePremiumChange(defaultMaxPremium);
+    }
+  };
+  const onPlusCirclePress = () => {
+    handlePremiumChange(
+      Math.min(
+        round((maxPremium || defaultMaxPremium) + 1, 2),
+        premiumBounds.max,
+      ),
+    );
+  };
+
+  const onMinusCirclePress = () => {
+    handlePremiumChange(
+      Math.max(
+        round((maxPremium || defaultMaxPremium) - 1, 2),
+        premiumBounds.min,
+      ),
+    );
+  };
+
+  const iconColor = tw.color("success-main");
+
   return (
-    <MaxPremiumFilterComponent
-      maxPremium={maxPremium}
-      setMaxPremium={handlePremiumChange}
-      shouldApplyFilter={maxPremium !== null}
-      toggleShouldApplyFilter={handleToggle}
+    <View style={tw`flex-row items-center self-stretch justify-between`}>
+      <Checkbox green checked={maxPremium !== null} onPress={onCheckboxPress}>
+        {i18n("offerPreferences.filters.maxPremium")}
+      </Checkbox>
+      <View style={tw`flex-row items-center gap-10px`}>
+        <TouchableIcon
+          id="minusCircle"
+          iconColor={iconColor}
+          onPress={onMinusCirclePress}
+        />
+        <PremiumTextInput
+          premium={maxPremium || defaultMaxPremium}
+          setPremium={handlePremiumChange}
+        />
+        <TouchableIcon
+          id="plusCircle"
+          iconColor={iconColor}
+          onPress={onPlusCirclePress}
+        />
+      </View>
+    </View>
+  );
+});
+
+function Filters() {
+  return (
+    <FilterContainer
+      filters={
+        <>
+          <MaxPremiumFilter />
+          <ReputationFilter />
+        </>
+      }
     />
   );
 }
