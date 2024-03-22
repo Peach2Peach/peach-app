@@ -5,14 +5,17 @@ import { Icon } from "../../../../components/Icon";
 import { Loading } from "../../../../components/animation/Loading";
 import { BTCAmount } from "../../../../components/bitcoin/BTCAmount";
 import { BitcoinAddress } from "../../../../components/bitcoin/BitcoinAddress";
+import { NewBubble } from "../../../../components/bubble/Bubble";
 import { LightningInvoiceInput } from "../../../../components/inputs/LightningInvoiceInput";
 import { ConfirmSlider } from "../../../../components/inputs/confirmSlider/ConfirmSlider";
 import { useClosePopup } from "../../../../components/popup/GlobalPopup";
 import { PopupAction } from "../../../../components/popup/PopupAction";
 import { PopupComponent } from "../../../../components/popup/PopupComponent";
+import { ParsedPeachText } from "../../../../components/text/ParsedPeachText";
 import { PeachText } from "../../../../components/text/PeachText";
 import { CopyAble } from "../../../../components/ui/CopyAble";
 import { CENT } from "../../../../constants";
+import { exportFile } from "../../../../hooks/exportFile";
 import { useLiquidFeeRate } from "../../../../hooks/useLiquidFeeRate";
 import { useValidatedState } from "../../../../hooks/useValidatedState";
 import {
@@ -25,6 +28,7 @@ import { useSwapStatus } from "../../../../utils/boltz/query/useSwapStatus";
 import i18n from "../../../../utils/i18n";
 import { round } from "../../../../utils/math/round";
 import { thousands } from "../../../../utils/string/thousands";
+import { openURL } from "../../../../utils/web/openURL";
 import { useCreateInvoice } from "../../hooks/useCreateInvoice";
 import { MSAT_PER_SAT } from "../../hooks/useLightningWalletBalance";
 import { getRefundSubmarineSwapData } from "../Swaps";
@@ -42,7 +46,10 @@ const RefundSwap = ({ swapId, status }: RefundSwapProps) => {
   const swaps = useBoltzSwapStore((state) => state.swaps);
   const swap = swaps[swapId];
   const [refund, setRefund] = useState(false);
+  const [refundError, setRefundError] = useState<string>();
   const startRefund = () => setRefund(true);
+  const downloadRefundFile = () =>
+    exportFile(JSON.stringify(swap), `swap-${swapId}.json`);
 
   if (refund) {
     const refundSubmarineSwapData = getRefundSubmarineSwapData({
@@ -51,12 +58,45 @@ const RefundSwap = ({ swapId, status }: RefundSwapProps) => {
     });
     return (
       <View style={tw`gap-5`}>
-        <PeachText style={tw`text-center text-primary-main h5`}>
-          {i18n("wallet.swap.doNotCloseApp")}
-        </PeachText>
-        <Loading style={tw`self-center w-16 h-16`} />
-        {!!refundSubmarineSwapData && (
-          <RefundSubmarineSwap {...refundSubmarineSwapData} />
+        {!refundError ? (
+          <>
+            <PeachText style={tw`text-center text-primary-main h5`}>
+              {i18n("wallet.swap.doNotCloseApp")}
+            </PeachText>
+            <Loading style={tw`self-center w-16 h-16`} />
+            {!!refundSubmarineSwapData && (
+              <RefundSubmarineSwap
+                {...refundSubmarineSwapData}
+                setRefundError={setRefundError}
+              />
+            )}
+          </>
+        ) : (
+          <>
+            <ParsedPeachText
+              style={tw`text-center text-primary-main subtitle-2`}
+              parse={[
+                {
+                  type: "url",
+                  style: tw`underline`,
+                  onPress: openURL,
+                  renderText: (text: string) => `\n${text}`,
+                },
+              ]}
+            >
+              {i18n("wallet.swap.refund.failed") +
+                i18n("wallet.swap.refund.contactCustomerSupport")}
+            </ParsedPeachText>
+            <View style={tw`flex-row justify-center`}>
+              <NewBubble
+                color="orange"
+                onPress={downloadRefundFile}
+                iconId="download"
+              >
+                {i18n("wallet.swap.refund.file")}
+              </NewBubble>
+            </View>
+          </>
         )}
       </View>
     );
