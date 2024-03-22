@@ -309,3 +309,686 @@ exports[`Bubble should render correctly with primary-mild bubble with no backgro
   Text
 </BubbleBase>
 `;
+
+exports[`NewBubble should render correctly a black bubble 1`] = `
+<TouchableOpacity
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#2B1911",
+        },
+      ],
+      {
+        "backgroundColor": "#2B1911",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+</TouchableOpacity>
+`;
+
+exports[`NewBubble should render correctly a black bubble with icon 1`] = `
+<TouchableOpacity
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#2B1911",
+        },
+      ],
+      {
+        "backgroundColor": "#2B1911",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+  <Icon
+    color="#FFFCFA"
+    id="chevronsUp"
+    size={12}
+  />
+</TouchableOpacity>
+`;
+
+exports[`NewBubble should render correctly a gray bubble 1`] = `
+<TouchableOpacity
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#9F8C82",
+        },
+      ],
+      {
+        "backgroundColor": "#9F8C82",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+</TouchableOpacity>
+`;
+
+exports[`NewBubble should render correctly a gray bubble with icon 1`] = `
+<TouchableOpacity
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#9F8C82",
+        },
+      ],
+      {
+        "backgroundColor": "#9F8C82",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+  <Icon
+    color="#FFFCFA"
+    id="chevronsUp"
+    size={12}
+  />
+</TouchableOpacity>
+`;
+
+exports[`NewBubble should render correctly a liquid color bubble 1`] = `
+<TouchableOpacity
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#2CCCBF",
+        },
+      ],
+      {
+        "backgroundColor": "#2CCCBF",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+</TouchableOpacity>
+`;
+
+exports[`NewBubble should render correctly a primary bubble 1`] = `
+<TouchableOpacity
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#F56522",
+        },
+      ],
+      {
+        "backgroundColor": "#F56522",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+</TouchableOpacity>
+`;
+
+exports[`NewBubble should render correctly a primary bubble with icon 1`] = `
+<TouchableOpacity
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#F56522",
+        },
+      ],
+      {
+        "backgroundColor": "#F56522",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+  <Icon
+    color="#FFFCFA"
+    id="chevronsUp"
+    size={12}
+  />
+</TouchableOpacity>
+`;
+
+exports[`NewBubble should render correctly a primary-mild bubble 1`] = `
+<TouchableOpacity
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#FCCCB6",
+        },
+      ],
+      {
+        "backgroundColor": "#FCCCB6",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+</TouchableOpacity>
+`;
+
+exports[`NewBubble should render correctly a primary-mild bubble with icon 1`] = `
+<TouchableOpacity
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#FCCCB6",
+        },
+      ],
+      {
+        "backgroundColor": "#FCCCB6",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+  <Icon
+    color="#FFFCFA"
+    id="chevronsUp"
+    size={12}
+  />
+</TouchableOpacity>
+`;
+
+exports[`NewBubble should render correctly with black bubble with no background 1`] = `
+<TouchableOpacity
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#2B1911",
+        },
+      ],
+      {
+        "backgroundColor": "transparent",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#2B1911",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+</TouchableOpacity>
+`;
+
+exports[`NewBubble should render correctly with gray bubble with no background 1`] = `
+<TouchableOpacity
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#9F8C82",
+        },
+      ],
+      {
+        "backgroundColor": "transparent",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#9F8C82",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+</TouchableOpacity>
+`;
+
+exports[`NewBubble should render correctly with primary bubble with no background 1`] = `
+<TouchableOpacity
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#F56522",
+        },
+      ],
+      {
+        "backgroundColor": "transparent",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#F56522",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+</TouchableOpacity>
+`;
+
+exports[`NewBubble should render correctly with primary-mild bubble with no background 1`] = `
+<TouchableOpacity
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 8,
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+        "paddingBottom": 2,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 2,
+      },
+      [
+        {
+          "borderWidth": 1,
+        },
+        {
+          "borderColor": "#FCCCB6",
+        },
+      ],
+      {
+        "backgroundColor": "transparent",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FCCCB6",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+</TouchableOpacity>
+`;
