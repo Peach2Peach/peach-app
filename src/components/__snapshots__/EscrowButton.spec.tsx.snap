@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EscrowButton should render correctly 1`] = `
+<View
+  accessibilityRole="button"
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "transparent",
+      "borderColor": "#F56522",
+      "borderRadius": 9999,
+      "borderWidth": 2,
+      "flexDirection": "row",
+      "gap": 8,
+      "justifyContent": "center",
+      "marginTop": 16,
+      "minWidth": 104,
+      "opacity": 1,
+      "paddingBottom": 3,
+      "paddingLeft": 24,
+      "paddingRight": 24,
+      "paddingTop": 3,
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    numberOfLines={1}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 13,
+            "letterSpacing": 0.47,
+            "lineHeight": 22,
+            "textTransform": "uppercase",
+          },
+          {},
+          {
+            "color": "#F56522",
+          },
+        ],
+        false,
+      ]
+    }
+  >
+    escrow
+  </Text>
+  <test-file-stub
+    fill="#F56522"
+    style={
+      [
+        {
+          "height": 18,
+          "width": 18,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
+`;
