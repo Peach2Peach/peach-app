@@ -1,6 +1,7 @@
 import ecc from "@bitcoinerlab/secp256k1";
 import { BOLTZ_API, NETWORK } from "@env";
 import ECPairFactory from "ecpair";
+import { useEffect } from "react";
 import { WebView } from "react-native-webview";
 import { getError } from "../../../../../peach-api/src/utils/result/getError";
 import { getResult } from "../../../../../peach-api/src/utils/result/getResult";
@@ -35,7 +36,7 @@ const getRefundSubmarineSwapJS = ({
     address,
     feeRate,
     swapInfo,
-    privateKey: keyPair.privateKey?.toString("hex"),
+    privateKey: `${keyPair.privateKey?.toString("hex")}`,
   });
 
   return getResult(`window.refundSubmarineSwap(${args}); void(0);`);
@@ -45,6 +46,7 @@ export type RefundSubmarineSwapProps = {
   address: string;
   swapInfo: SwapInfo;
   keyPairWIF: string;
+  setRefundError?: (error: string) => void;
 };
 
 /**
@@ -57,6 +59,7 @@ export const RefundSubmarineSwap = ({
   swapInfo,
   address,
   keyPairWIF,
+  setRefundError,
 }: RefundSubmarineSwapProps) => {
   const feeRate = useLiquidFeeRate();
   const { error: refundError, handleRefundMessage } = useRefundSubmarineSwap({
@@ -70,6 +73,10 @@ export const RefundSubmarineSwap = ({
     swapInfo,
     keyPairWIF,
   });
+
+  useEffect(() => {
+    if (refundError && setRefundError) setRefundError(refundError);
+  }, [refundError, setRefundError]);
 
   if (refundError || htmlError || !injectedJavaScript.isOk())
     return (
