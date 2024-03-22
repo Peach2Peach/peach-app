@@ -11,6 +11,8 @@ import {
 } from "../../../tests/unit/data/lightningNetworkData";
 import { liquidAddresses } from "../../../tests/unit/data/liquidNetworkData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
+import { fireSwipeEvent } from "../../../tests/unit/helpers/fireSwipeEvent";
+import { GlobalPopup } from "../../components/popup/GlobalPopup";
 import { SATSINBTC } from "../../constants";
 import { useBoltzSwapStore } from "../../store/useBoltzSwapStore";
 import { MSAT_PER_SAT } from "../wallet/hooks/useLightningWalletBalance";
@@ -115,6 +117,9 @@ describe("ReverseSubmarineSwap", () => {
       ).toBeFalsy(),
     );
     fireEvent.press(getByText("fund from Peach wallet"));
+    const { toJSON, getByTestId } = render(<GlobalPopup />);
+    expect(toJSON()).toMatchSnapshot();
+    fireSwipeEvent({ element: getByTestId("confirmSlider"), x: 260 });
     expect(payInvoiceMock).toHaveBeenCalled();
   });
   it("should render ClaimReverseSubmarineSwap if status transaction.mempool", () => {
