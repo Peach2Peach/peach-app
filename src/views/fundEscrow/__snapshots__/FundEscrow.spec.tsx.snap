@@ -395,6 +395,14 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         }
       >
         <RCTScrollView
+          contentContainerStyle={
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "justifyContent": "center",
+            }
+          }
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
         >
@@ -721,29 +729,6 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
                     </View>
                   </View>
                 </View>
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                      },
-                      false,
-                    ]
-                  }
-                >
-                  P‑NAN
-                </Text>
               </View>
               <View>
                 <View
@@ -1771,6 +1756,14 @@ exports[`FundEscrow should show Loading, while escrow is not defined 1`] = `
         }
       >
         <RCTScrollView
+          contentContainerStyle={
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "justifyContent": "center",
+            }
+          }
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
         >
@@ -2097,29 +2090,6 @@ exports[`FundEscrow should show Loading, while escrow is not defined 1`] = `
                     </View>
                   </View>
                 </View>
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                      },
-                      false,
-                    ]
-                  }
-                >
-                  P‑NAN
-                </Text>
               </View>
               <View>
                 <View
@@ -3147,6 +3117,14 @@ exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOO
         }
       >
         <RCTScrollView
+          contentContainerStyle={
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "justifyContent": "center",
+            }
+          }
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
         >
@@ -3473,29 +3451,6 @@ exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOO
                     </View>
                   </View>
                 </View>
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                      },
-                      false,
-                    ]
-                  }
-                >
-                  P‑NAN
-                </Text>
               </View>
               <View>
                 <View
@@ -4523,6 +4478,14 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
         }
       >
         <RCTScrollView
+          contentContainerStyle={
+            {
+              "flexBasis": "0%",
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "justifyContent": "center",
+            }
+          }
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
         >
@@ -4849,29 +4812,6 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
                     </View>
                   </View>
                 </View>
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                      },
-                      false,
-                    ]
-                  }
-                >
-                  P‑NAN
-                </Text>
               </View>
               <View>
                 <View

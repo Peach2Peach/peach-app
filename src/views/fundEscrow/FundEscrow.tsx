@@ -34,6 +34,7 @@ import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
 import { openURL } from "../../utils/web/openURL";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
 import { ReverseSubmarineSwap } from "./ReverseSubmarineSwap";
+import { ShowInExplorer } from "./components/ShowInExplorer";
 import { TransactionInMempool } from "./components/TransactionInMempool";
 import { useCreateEscrow } from "./hooks/useCreateEscrow";
 import { useFundEscrowSetup } from "./hooks/useFundEscrowSetup";
@@ -50,16 +51,21 @@ export const FundEscrow = () => {
     offerIdsWithoutEscrow,
     isPending,
   } = useFundEscrowSetup();
-
-  if (!fundingMechanism || isPending)
-    return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
-
   const escrowType =
-    fundingMechanism === "lightning-liquid" ? "liquid" : fundingMechanism;
+    fundingMechanism === "lightning-liquid"
+      ? "liquid"
+      : fundingMechanism || "bitcoin";
   const chain =
     fundingMechanism === "lightning-liquid" ? "lightning" : escrowType;
   const fundingAddress = funding[escrowType].fundingAddress;
   const fundingAddresses = funding[escrowType].fundingAddresses;
+
+  const fundedFromPeachWallet = useWalletState((state) =>
+    state.isFundedFromPeachWallet(fundingAddress || ""),
+  );
+
+  if (!fundingMechanism || isPending)
+    return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
 
   if (offerIdsWithoutEscrow.length > 0)
     return <CreateEscrowScreen offerIds={offerIdsWithoutEscrow} />;
@@ -77,64 +83,73 @@ export const FundEscrow = () => {
 
   return (
     <Screen header={<FundEscrowHeader />}>
-      <PeachScrollView contentStyle={tw`items-center gap-4`}>
-        <View style={tw`items-center self-stretch justify-center`}>
-          <View style={tw`flex-row items-center justify-center gap-1`}>
-            <PeachText style={tw`settings`}>
-              {i18n("sell.escrow.sendSats")}
-            </PeachText>
-            <BTCAmount
-              chain={chain}
-              style={tw`-mt-0.5`}
-              amount={fundingAmount}
-              size="medium"
-            />
-            <CopyAble value={fundingAddress} textPosition="bottom" />
-          </View>
-          <PeachText style={tw`subtitle-1`}>{offerIdToHex(offerId)}</PeachText>
+      {fundedFromPeachWallet ? (
+        <View style={tw`flex-1 justify-center items-center gap-15`}>
+          <YouAreSelling amount={fundingAmount} chain={chain} />
+          <CheckingFundingStatus />
+          <ShowInExplorer address={fundingAddress} />
         </View>
-
-        {fundingMechanism === "bitcoin" && (
-          <>
-            <BitcoinAddress
-              address={fundingAddress}
-              amount={fundingAmount / SATSINBTC}
-              label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
-            />
-            <View style={[tw`items-center justify-center gap-4 py-4`]}>
-              <View style={tw`flex-row items-center justify-center gap-2`}>
-                <PeachText style={tw`text-primary-main button-medium`}>
-                  {i18n("sell.escrow.checkingFundingStatus")}
-                </PeachText>
-                <Loading style={tw`w-4 h-4`} color={tw.color("primary-main")} />
+      ) : (
+        <>
+          {fundingMechanism === "bitcoin" && (
+            <PeachScrollView
+              contentContainerStyle={tw`justify-center flex-1`}
+              contentStyle={tw`items-center gap-4`}
+            >
+              <SendSats amount={fundingAmount} chain={chain} />
+              <BitcoinAddress
+                address={fundingAddress}
+                amount={fundingAmount / SATSINBTC}
+                label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
+              />
+              <View style={[tw`items-center justify-center gap-4 py-4`]}>
+                <View style={tw`flex-row items-center justify-center gap-2`}>
+                  <PeachText style={tw`text-primary-main button-medium`}>
+                    {i18n("sell.escrow.checkingFundingStatus")}
+                  </PeachText>
+                  <Loading
+                    style={tw`w-4 h-4`}
+                    color={tw.color("primary-main")}
+                  />
+                </View>
+                <HorizontalLine />
+                <FundFromPeachWalletButton
+                  address={fundingAddress}
+                  addresses={fundingAddresses}
+                  amount={fundingAmount}
+                  fundingStatus={activeFunding}
+                />
               </View>
-              <HorizontalLine />
-              <FundFromPeachWalletButton
+            </PeachScrollView>
+          )}
+          {fundingMechanism === "lightning-liquid" && (
+            <PeachScrollView
+              contentContainerStyle={tw`justify-center flex-1`}
+              contentStyle={tw`items-center gap-4`}
+            >
+              <SendSats amount={fundingAmount} chain={chain} />
+              <ReverseSubmarineSwap
+                offerId={offerId}
+                address={fundingAddress}
+                amount={fundingAmount / SATSINBTC}
+                instantFund={instantFund === "true"}
+              />
+            </PeachScrollView>
+          )}
+          {fundingMechanism === "liquid" && (
+            <View style={tw`flex-1 justify-center items-center gap-15`}>
+              <YouAreSelling amount={fundingAmount} chain={chain} />
+              <CheckingFundingStatus />
+              <FundFromPeachLiquidWalletButton
                 address={fundingAddress}
                 addresses={fundingAddresses}
                 amount={fundingAmount}
                 fundingStatus={activeFunding}
               />
             </View>
-          </>
-        )}
-        {fundingMechanism === "lightning-liquid" && (
-          <ReverseSubmarineSwap
-            offerId={offerId}
-            address={fundingAddress}
-            amount={fundingAmount / SATSINBTC}
-            instantFund={instantFund === "true"}
-          />
-        )}
-        {fundingMechanism === "liquid" && (
-          <FundFromPeachLiquidWalletButton
-            address={fundingAddress}
-            addresses={fundingAddresses}
-            amount={fundingAmount}
-            fundingStatus={activeFunding}
-          />
-        )}
-      </PeachScrollView>
+          )}
+        </>
+      )}
     </Screen>
   );
 };
@@ -343,5 +358,45 @@ function FundFromPeachLiquidWalletButton(
         </Button>
       )}
     </>
+  );
+}
+
+function SendSats({ amount, chain }: { amount: number; chain: Chain }) {
+  return (
+    <View style={tw`items-center self-stretch justify-center`}>
+      <View style={tw`flex-row items-center justify-center gap-1`}>
+        <PeachText style={tw`settings`}>
+          {i18n("sell.escrow.sendSats")}
+        </PeachText>
+        <BTCAmount
+          chain={chain}
+          style={tw`-mt-0.5`}
+          amount={amount}
+          size="medium"
+        />
+        <CopyAble value={String(amount)} textPosition="bottom" />
+      </View>
+    </View>
+  );
+}
+
+function YouAreSelling({ amount, chain }: { amount: number; chain: Chain }) {
+  return (
+    <View style={tw`gap-2`}>
+      <PeachText style={tw`text-center subtitle-1`}>
+        {i18n("offer.summary.youAreSelling")}
+      </PeachText>
+      <BTCAmount chain={chain} amount={amount} size="large" />
+    </View>
+  );
+}
+function CheckingFundingStatus() {
+  return (
+    <View style={tw`flex-row items-center justify-center gap-2`}>
+      <PeachText style={tw`text-primary-main h5`}>
+        {i18n("sell.escrow.checkingFundingStatus")}
+      </PeachText>
+      <Loading style={tw`w-6 h-6`} color={tw.color("primary-main")} />
+    </View>
   );
 }
