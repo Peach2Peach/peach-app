@@ -64,8 +64,11 @@ function SplashScreenComponent({
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
   const initApp = useInitApp();
+  const [isInitializing, setIsInitializing] = useState(false);
   useEffect(() => {
     (async () => {
+      if (isInitializing) return;
+      setIsInitializing(true);
       const statusResponse = await initApp();
 
       if (!statusResponse || statusResponse.error) {
@@ -87,7 +90,7 @@ function SplashScreenComponent({
       setIsLoading(false);
       SplashScreen.hide();
     })();
-  }, [initApp, navigation, setIsLoading, setPopup, setToast]);
+  }, [initApp, isInitializing, navigation, setIsLoading, setPopup, setToast]);
 
   return (
     <View>
