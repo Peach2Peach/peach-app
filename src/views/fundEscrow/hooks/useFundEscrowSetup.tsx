@@ -1,5 +1,4 @@
 import { useEffect, useMemo } from "react";
-import { sellOffer } from "../../../../tests/unit/data/offerData";
 import { MSINAMINUTE } from "../../../constants";
 import { useFundingStatus } from "../../../hooks/query/useFundingStatus";
 import { useMultipleOfferDetails } from "../../../hooks/query/useOfferDetail";
@@ -20,13 +19,13 @@ type FundingInfo = {
   fundingStatus: FundingStatus;
 };
 
-const shouldGetFundingStatus = (offer: SellOffer) => {
-  const funding = getSellOfferFunding(offer);
+const shouldGetFundingStatus = (sellOffer: SellOffer) => {
+  const funding = getSellOfferFunding(sellOffer);
 
   return (
-    !!offer.escrows[sellOffer.escrowType] &&
-    !offer.refunded &&
-    !offer.released &&
+    !!sellOffer.escrows[sellOffer.escrowType] &&
+    !sellOffer.refunded &&
+    !sellOffer.released &&
     funding.status !== "FUNDED"
   );
 };
