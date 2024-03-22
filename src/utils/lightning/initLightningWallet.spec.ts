@@ -16,6 +16,9 @@ const seed = [1, 2, 2];
 jest
   .requireMock("@breeztech/react-native-breez-sdk")
   .mnemonicToSeed.mockResolvedValue(seed);
+jest
+  .requireMock("@breeztech/react-native-breez-sdk")
+  .connect.mockResolvedValue();
 
 const config = {
   breezserver: "unittest",
