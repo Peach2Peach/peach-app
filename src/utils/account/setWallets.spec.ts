@@ -4,6 +4,7 @@ import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { peachAPI } from "../peachAPI";
 import { PeachWallet } from "../wallet/PeachWallet";
+import { peachLiquidWallet, peachWallet } from "../wallet/setWallet";
 import { setWallets } from "./setWallets";
 
 jest.mock("../lightning/initLightningWallet");
@@ -29,6 +30,10 @@ describe("setWallets", () => {
     await setWallets(wallet, account1.mnemonic);
 
     expect(loadWalletSpy).toHaveBeenCalledWith(account1.mnemonic);
+    expect(peachWallet).toBeDefined();
+    expect(peachLiquidWallet?.getAddress().address).toBe(
+      "ert1qvd76ucxafly399qewresqmj8ud0f639fep0raj",
+    );
     expect(initLightningWalletMock).toHaveBeenCalledWith(
       account1.mnemonic,
       BREEZ_API_KEY,
