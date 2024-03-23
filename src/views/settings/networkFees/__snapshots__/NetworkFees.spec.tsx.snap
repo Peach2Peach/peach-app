@@ -1136,3 +1136,203 @@ exports[`NetworkFees should render correctly 1`] = `
   </View>
 </View>
 `;
+
+exports[`NetworkFees should switch to liquid 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -255,11 +255,11 @@
+                  <View
+                    accessibilityState={
+                      Object {
+                        "busy": undefined,
+                        "checked": undefined,
+-                       "disabled": false,
++                       "disabled": true,
+                        "expanded": undefined,
+                        "selected": undefined,
+                      }
+                    }
+                    accessibilityValue={
+@@ -282,11 +282,11 @@
+                    onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "backgroundColor": "transparent",
+-                       "borderColor": "#2B1911",
++                       "borderColor": "#F56522",
+                        "borderRadius": 8,
+                        "borderWidth": 1,
+                        "flexDirection": "row",
+                        "gap": 4,
+                        "justifyContent": "center",
+@@ -317,21 +317,21 @@
+                              "lineHeight": 24,
+                              "textAlign": "center",
+                              "textTransform": "uppercase",
+                            },
+                            Object {
+-                             "color": "#2B1911",
++                             "color": "#F56522",
+                            },
+                          ],
+                          false,
+                        ]
+                      }
+                    >
+                      bitcoin
+                    </Text>
+                    <test-file-stub
+-                     fill="#2B1911"
++                     fill="#F56522"
+                      style={
+                        Array [
+                          Object {
+                            "height": 12,
+                            "width": 12,
+@@ -344,11 +344,11 @@
+                  <View
+                    accessibilityState={
+                      Object {
+                        "busy": undefined,
+                        "checked": undefined,
+-                       "disabled": true,
++                       "disabled": false,
+                        "expanded": undefined,
+                        "selected": undefined,
+                      }
+                    }
+                    accessibilityValue={
+@@ -371,11 +371,11 @@
+                    onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "backgroundColor": "transparent",
+-                       "borderColor": "#F56522",
++                       "borderColor": "#2B1911",
+                        "borderRadius": 8,
+                        "borderWidth": 1,
+                        "flexDirection": "row",
+                        "gap": 4,
+                        "justifyContent": "center",
+@@ -406,21 +406,21 @@
+                              "lineHeight": 24,
+                              "textAlign": "center",
+                              "textTransform": "uppercase",
+                            },
+                            Object {
+-                             "color": "#F56522",
++                             "color": "#2B1911",
+                            },
+                          ],
+                          false,
+                        ]
+                      }
+                    >
+                      liquid
+                    </Text>
+                    <test-file-stub
+-                     fill="#F56522"
++                     fill="#2B1911"
+                      style={
+                        Array [
+                          Object {
+                            "height": 12,
+                            "width": 12,
+@@ -470,12 +470,12 @@
+                    onResponderTerminationRequest={[Function onResponderTerminationRequest]}
+                    onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+                    style={
+                      Object {
+                        "alignItems": "center",
+-                       "backgroundColor": "#9EF2ED",
+-                       "borderColor": "#2CCCBF",
++                       "backgroundColor": "#FEEDE5",
++                       "borderColor": "#F56522",
+                        "borderRadius": 12,
+                        "borderWidth": 2,
+                        "flexDirection": "row",
+                        "gap": 8,
+                        "justifyContent": "space-between",
+@@ -547,11 +547,11 @@
+                          </Text>
+                        </Text>
+                      </View>
+                    </View>
+                    <test-file-stub
+-                     fill="#2CCCBF"
++                     fill="#F56522"
+                      style={
+                        Array [
+                          Object {
+                            "height": 24,
+                            "width": 24,
+@@ -593,11 +593,11 @@
+                    onResponderTerminationRequest={[Function onResponderTerminationRequest]}
+                    onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+                    style={
+                      Object {
+                        "alignItems": "center",
+-                       "backgroundColor": "#9EF2ED",
++                       "backgroundColor": "#FEEDE5",
+                        "borderColor": "transparent",
+                        "borderRadius": 12,
+                        "borderWidth": 2,
+                        "flexDirection": "row",
+                        "gap": 8,
+@@ -716,11 +716,11 @@
+                    onResponderTerminationRequest={[Function onResponderTerminationRequest]}
+                    onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+                    style={
+                      Object {
+                        "alignItems": "center",
+-                       "backgroundColor": "#9EF2ED",
++                       "backgroundColor": "#FEEDE5",
+                        "borderColor": "transparent",
+                        "borderRadius": 12,
+                        "borderWidth": 2,
+                        "flexDirection": "row",
+                        "gap": 8,
+@@ -839,11 +839,11 @@
+                    onResponderTerminationRequest={[Function onResponderTerminationRequest]}
+                    onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+                    style={
+                      Object {
+                        "alignItems": "center",
+-                       "backgroundColor": "#9EF2ED",
++                       "backgroundColor": "#FEEDE5",
+                        "borderColor": "transparent",
+                        "borderRadius": 12,
+                        "borderWidth": 2,
+                        "flexDirection": "row",
+                        "gap": 8,
+@@ -915,11 +915,11 @@
+                              Object {
+                                "borderColor": "#7D675E",
+                                "borderWidth": 1,
+                              },
+                              Object {
+-                               "backgroundColor": "#9EF2ED",
++                               "backgroundColor": "#FFFCFA",
+                              },
+                            ]
+                          }
+                        >
+                          <TextInput
+@@ -1078,11 +1078,11 @@
+            onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+            style={
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+-               "backgroundColor": "#2CCCBF",
++               "backgroundColor": "#F56522",
+                "borderColor": undefined,
+                "borderRadius": 9999,
+                "flexDirection": "row",
+                "gap": 8,
+                "justifyContent": "center","
+`;
