@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 
-export const useInterruptibleFunction = (
-  fn: () => void,
-  delay: number,
-): { interruptibleFn: () => void; interrupt: () => void } => {
+export const useInterruptibleFunction = ({
+  fn,
+  delay,
+}: {
+  fn: () => void;
+  delay: number;
+}): { interruptibleFn: () => void; interrupt: () => void } => {
   const [interrupted, setInterrupted] = useState(false);
   const [interruptFn, setInterruptFn] = useState<null | (() => () => void)>(
     null,

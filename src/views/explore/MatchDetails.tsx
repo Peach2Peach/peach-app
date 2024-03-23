@@ -154,9 +154,12 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
       { onError: () => setShowMatchedCard(false) },
     );
   const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } =
-    useInterruptibleFunction(() => {
-      matchOffer();
-    }, MATCH_DELAY);
+    useInterruptibleFunction({
+      fn: () => {
+        matchOffer();
+      },
+      delay: MATCH_DELAY,
+    });
   const onInterruptMatch = () => {
     interruptMatchFunction();
     setShowMatchedCard(false);

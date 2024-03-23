@@ -173,9 +173,12 @@ export const Swaps = () => {
     [...pendingSwaps, ...failedSwaps].map((swap) => swap.id),
   );
 
-  const { interruptibleFn: updateJustSeen } = useInterruptibleFunction(() => {
-    setJustSeen([...pendingSwaps, ...failedSwaps].map((swap) => swap.id));
-  }, HIDE_COMPLETED_AFTER);
+  const { interruptibleFn: updateJustSeen } = useInterruptibleFunction({
+    fn: () => {
+      setJustSeen([...pendingSwaps, ...failedSwaps].map((swap) => swap.id));
+    },
+    delay: HIDE_COMPLETED_AFTER,
+  });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(updateJustSeen, [[...pendingSwaps, ...failedSwaps].length]);
 
