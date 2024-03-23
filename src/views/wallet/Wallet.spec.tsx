@@ -1,3 +1,4 @@
+/* eslint-disable require-atomic-updates */
 /* eslint-disable no-magic-numbers */
 import { LocalUtxo, OutPoint, TxOut } from "bdk-rn/lib/classes/Bindings";
 import { Script } from "bdk-rn/lib/classes/Script";
@@ -62,7 +63,7 @@ const utxo = new LocalUtxo(outpoint, txOut, false, KeychainKind.External);
 const listUnspentMock = jest.fn().mockResolvedValue([utxo]);
 
 describe("Wallet", () => {
-  beforeAll(() => {
+  beforeAll(async () => {
     setRouteMock({
       name: "homeScreen",
       key: "homeScreen",
@@ -70,6 +71,7 @@ describe("Wallet", () => {
     });
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
     if (!peachWallet) throw new Error("Peach wallet not set");
+    await peachWallet.initWallet();
     peachWallet.getAddressByIndex = jest.fn((index: number) => {
       if (index === 0) return Promise.resolve(addresses.first);
       if (index === 1) return Promise.resolve(addresses.second);

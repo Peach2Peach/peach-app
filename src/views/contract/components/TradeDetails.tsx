@@ -72,12 +72,12 @@ export const TradeDetails = () => {
 
 function ChangePayoutWallet() {
   const { contract } = useContractContext();
-  const paidToPeachWallet = useIsMyAddress(
-    contract.releaseAddress,
-    isLiquidAddress(contract.releaseAddress, getLiquidNetwork())
+  const paidToPeachWallet = useIsMyAddress({
+    address: contract.releaseAddress,
+    chain: isLiquidAddress(contract.releaseAddress, getLiquidNetwork())
       ? "liquid"
       : "bitcoin",
-  );
+  });
   const offerId = getOfferIdFromContract(contract);
 
   const [payoutAddress, payoutAddressLabel, payoutAddressSignature] =

@@ -14,7 +14,7 @@ export const useGetTransactionDestinationAddress = ({
   chain,
 }: Props) => {
   const addresses = getAddressesFromOutputs({ outs, chain });
-  const areMine = useAreMyAddresses(addresses, chain);
+  const areMine = useAreMyAddresses({ addresses, chain });
 
   if (addresses.length === 1) return addresses[0];
 

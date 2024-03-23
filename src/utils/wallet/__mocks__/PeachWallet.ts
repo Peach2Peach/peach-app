@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable class-methods-use-this, require-await */
-import { PartiallySignedTransaction } from "bdk-rn";
+import { PartiallySignedTransaction, Wallet } from "bdk-rn";
 import {
   LocalUtxo,
   OutPoint,
@@ -22,14 +22,16 @@ class PeachWallet {
 
   transactions: TransactionDetails[];
 
-  wallet: BIP32Interface;
+  wallet?: Wallet;
+
+  jsWallet: BIP32Interface;
 
   initialized = false;
 
   network: Network;
 
   constructor({ wallet, network = Network.Bitcoin }: PeachWalletProps) {
-    this.wallet = wallet;
+    this.jsWallet = wallet;
     this.balance = 0;
     this.transactions = [];
     this.network = network;
@@ -44,7 +46,10 @@ class PeachWallet {
 
   async loadWallet() {}
 
-  async initWallet() {}
+  async initWallet() {
+    // @ts-expect-error just a mock
+    this.wallet = await new Wallet().create();
+  }
 
   async setBlockchain() {}
 

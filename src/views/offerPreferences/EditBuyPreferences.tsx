@@ -163,10 +163,12 @@ function OfferWalletSelector({
     ],
     shallow,
   );
-  const addressIsInPeachWallet = useIsMyAddress(
-    releaseAddress,
-    isLiquidAddress(releaseAddress, getLiquidNetwork()) ? "liquid" : "bitcoin",
-  );
+  const addressIsInPeachWallet = useIsMyAddress({
+    address: releaseAddress,
+    chain: isLiquidAddress(releaseAddress, getLiquidNetwork())
+      ? "liquid"
+      : "bitcoin",
+  });
   const { mutate: patchPayoutAddress } = usePatchReleaseAddress(offerId);
 
   const customAddress =

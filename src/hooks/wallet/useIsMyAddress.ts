@@ -21,16 +21,17 @@ const buildQuery = (address: string, chain: Chain) => ({
     (rules.bitcoinAddress(address) || rules.liquidAddress(address)),
 });
 
-export const useIsMyAddress = (address: string, chain: Chain) => {
+type Props = { address: string; chain: Chain };
+export const useIsMyAddress = ({ address, chain }: Props) => {
   const { data: isMine } = useQuery(buildQuery(address, chain));
-
   return isMine;
 };
 
-export const useAreMyAddresses = (
-  addresses: string[],
-  chain: Chain = "bitcoin",
-) => {
+type MultipleProps = {
+  addresses: string[];
+  chain: Chain;
+};
+export const useAreMyAddresses = ({ addresses, chain }: MultipleProps) => {
   const queries = useQueries({
     queries: addresses.map((addr) => buildQuery(addr, chain)),
   });
