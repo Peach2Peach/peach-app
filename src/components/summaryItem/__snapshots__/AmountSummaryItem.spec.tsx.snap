@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AmountSummaryItem renders correctly 1`] = `
+<SummaryItem
+  style={
+    {
+      "marginTop": 16,
+    }
+  }
+  title="amount"
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 8,
+      }
+    }
+  >
+    <Memo
+      amount={1000}
+      chain="bitcoin"
+      size="small"
+    />
+    <ForwardRef
+      value="1000"
+    />
+  </View>
+</SummaryItem>
+`;
+
+exports[`AmountSummaryItem renders correctly for medium screens 1`] = `
+"Snapshot Diff:
+- <SummaryItem style={{"marginTop": 16}} title="amount"><View style={{"alignItems": "center", "flexDirection": "row", "gap": 8}}><Memo amount={1000} chain="bitcoin" size="medium" /><ForwardRef value="1000" /></View></SummaryItem>
++ <SummaryItem style={{"marginTop": 16}} title="amount"><View style={{"alignItems": "center", "flexDirection": "row", "gap": 8}}><Memo amount={1000} chain="bitcoin" size="small" /><ForwardRef value="1000" /></View></SummaryItem>
+
+@@ -54,12 +54,12 @@
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+              },
+              Object {
+-               "height": 13,
+-               "width": 152,
++               "height": 10,
++               "width": 130,
+              },
+            ]
+          }
+        >
+          <View
+@@ -67,25 +67,25 @@
+              Array [
+                Object {
+                  "flexShrink": 0,
+                },
+                Object {
+-                 "paddingBottom": 2.5,
+-                 "paddingLeft": 2.5,
+-                 "paddingRight": 2.5,
+-                 "paddingTop": 2.5,
++                 "paddingBottom": 2,
++                 "paddingLeft": 2,
++                 "paddingRight": 2,
++                 "paddingTop": 2,
+                },
+              ]
+            }
+          >
+            <test-file-stub
+              fill="#888"
+              style={
+                Array [
+                  Object {
+-                   "height": 15,
+-                   "width": 15,
++                   "height": 12,
++                   "width": 12,
+                  },
+                  undefined,
+                ]
+              }
+            />
+@@ -99,11 +99,11 @@
+                  "flexDirection": "row",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                },
+                Object {
+-                 "gap": 5,
++                 "gap": 2,
+                },
+              ]
+            }
+          >
+            <View
+@@ -135,15 +135,15 @@
+                        "textAlign": "right",
+                      },
+                      Array [
+                        Object {
+                          "fontFamily": "Baloo2-SemiBold",
+-                         "fontSize": 16,
+-                         "letterSpacing": 0.16,
+-                         "lineHeight": 28,
+-                         "marginBottom": -13,
+-                         "marginTop": -13,
++                         "fontSize": 14,
++                         "letterSpacing": 0.14,
++                         "lineHeight": 22,
++                         "marginBottom": -10,
++                         "marginTop": -10,
+                        },
+                        false,
+                      ],
+                    ],
+                    false,
+@@ -168,15 +168,15 @@
+                        "textAlign": "right",
+                      },
+                      Array [
+                        Object {
+                          "fontFamily": "Baloo2-SemiBold",
+-                         "fontSize": 16,
+-                         "letterSpacing": 0.16,
+-                         "lineHeight": 28,
+-                         "marginBottom": -13,
+-                         "marginTop": -13,
++                         "fontSize": 14,
++                         "letterSpacing": 0.14,
++                         "lineHeight": 22,
++                         "marginBottom": -10,
++                         "marginTop": -10,
+                        },
+                        false,
+                      ],
+                    ],
+                    false,
+@@ -198,15 +198,15 @@
+                    "lineHeight": 24,
+                  },
+                  Array [
+                    Object {
+                      "fontFamily": "Baloo2-SemiBold",
+-                     "fontSize": 16,
+-                     "letterSpacing": 0.16,
+-                     "lineHeight": 28,
+-                     "marginBottom": -13,
+-                     "marginTop": -13,
++                     "fontSize": 14,
++                     "letterSpacing": 0.14,
++                     "lineHeight": 22,
++                     "marginBottom": -10,
++                     "marginTop": -10,
+                    },
+                    false,
+                  ],
+                  false,
+                ]"
+`;
