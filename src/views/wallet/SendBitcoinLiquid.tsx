@@ -152,6 +152,7 @@ function SendBitcoinSlider({
       label1={i18n("wallet.sendBitcoin.send")}
       onConfirm={onConfirm}
       enabled={isFormValid && isSynced}
+      theme="info"
     />
   );
 }
@@ -231,6 +232,9 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
       items={options}
       selectedValue={selectedFeeRate}
       onButtonPress={onButtonPress}
+      radioButtonStyle={tw`bg-liquid-secondary`}
+      radioButtonSelectedStyle={tw`border-liquid-primary`}
+      radioIconColor={"liquid-primary"}
     />
   );
 }
