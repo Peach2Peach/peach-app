@@ -163,6 +163,7 @@ async function getWalletAddress(
         signature,
         network: getNetwork(),
       });
+
   if (!isValidSignature)
     throw new Error(
       isLiquid ? "INVALID_SIGNATURE_LIQUID" : "INVALID_SIGNATURE",
