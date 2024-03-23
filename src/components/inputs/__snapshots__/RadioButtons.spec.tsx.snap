@@ -23,3 +23,61 @@ exports[`RadioButtons renders correctly 1`] = `
   />
 </View>
 `;
+
+exports[`RadioButtons renders correctly with styles 1`] = `
+<View
+  style={
+    [
+      {
+        "gap": 8,
+      },
+      undefined,
+    ]
+  }
+>
+  <RadioButtonItem
+    display="EUR"
+    isSelected={true}
+    onPress={[Function]}
+    radioIconColor="liquid"
+    selectedStyle={
+      {
+        "paddingBottom": 32,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+        "paddingTop": 32,
+      }
+    }
+    style={
+      {
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      }
+    }
+  />
+  <RadioButtonItem
+    display="GBP"
+    isSelected={false}
+    onPress={[Function]}
+    radioIconColor="liquid"
+    selectedStyle={
+      {
+        "paddingBottom": 32,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+        "paddingTop": 32,
+      }
+    }
+    style={
+      {
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      }
+    }
+  />
+</View>
+`;
