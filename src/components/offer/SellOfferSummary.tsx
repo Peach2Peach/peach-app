@@ -14,6 +14,7 @@ type Props = {
     "amount" | "tradeStatus" | "premium" | "meansOfPayment"
   > & {
     escrow?: string;
+    escrowType: EscrowType;
   };
   numberOfOffers?: number;
   walletLabel: JSX.Element;
@@ -47,7 +48,7 @@ export const SellOfferSummary = ({
           {!!numberOfOffers && (
             <PeachText style={tw`h6`}>{numberOfOffers} x</PeachText>
           )}
-          <BTCAmount amount={amount} size="small" />
+          <BTCAmount chain={offer.escrowType} amount={amount} size="small" />
         </View>
       </SummaryCard.Section>
 
