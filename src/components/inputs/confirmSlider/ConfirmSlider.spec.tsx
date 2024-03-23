@@ -1,17 +1,31 @@
 import { createRenderer } from "react-test-renderer/shallow";
+import { toMatchDiffSnapshot } from "snapshot-diff";
 import { render } from "test-utils";
 import { fireSwipeEvent } from "../../../../tests/unit/helpers/fireSwipeEvent";
 import { ConfirmSlider } from "./ConfirmSlider";
+expect.extend({ toMatchDiffSnapshot });
 
 describe("ConfirmSlider", () => {
   const renderer = createRenderer();
+  renderer.render(
+    <ConfirmSlider label1="label1" label2="label2" onConfirm={jest.fn()} />,
+  );
+  const base = renderer.getRenderOutput();
   const onConfirm = jest.fn();
 
   it("renders correctly", () => {
+    expect(base).toMatchSnapshot();
+  });
+  it("renders correctly with theme", () => {
     renderer.render(
-      <ConfirmSlider label1="label1" label2="label2" onConfirm={jest.fn()} />,
+      <ConfirmSlider
+        label1="label1"
+        label2="label2"
+        onConfirm={jest.fn()}
+        theme="info"
+      />,
     );
-    expect(renderer.getRenderOutput()).toMatchSnapshot();
+    expect(renderer.getRenderOutput()).toMatchDiffSnapshot(base);
   });
   it("renders with different icon", () => {
     renderer.render(

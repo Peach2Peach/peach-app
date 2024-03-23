@@ -168,6 +168,43 @@ exports[`ConfirmSlider renders correctly when not enabled 1`] = `
 </View>
 `;
 
+exports[`ConfirmSlider renders correctly with theme 1`] = `
+"Snapshot Diff:
+- <View onMoveShouldSetResponder={[Function onMoveShouldSetResponder]} onMoveShouldSetResponderCapture={[Function onMoveShouldSetResponderCapture]} onResponderEnd={[Function onResponderEnd]} onResponderGrant={[Function onResponderGrant]} onResponderMove={[Function onResponderMove]} onResponderReject={[Function onResponderReject]} onResponderRelease={[Function onResponderRelease]} onResponderStart={[Function onResponderStart]} onResponderTerminate={[Function onResponderTerminate]} onResponderTerminationRequest={[Function onResponderTerminationRequest]} onStartShouldSetResponder={[Function onStartShouldSetResponder]} onStartShouldSetResponderCapture={[Function onStartShouldSetResponderCapture]} style={[{"borderRadius": 20, "borderWidth": 1, "overflow": "hidden", "paddingBottom": 4, "paddingLeft": 4, "paddingRight": 4, "paddingTop": 4, "width": "100%"}, {"backgroundColor": "#D7F2FE"}, {"borderColor": "#93D6F5"}, undefined]} testID="confirmSlider"><ForwardRef(AnimatedComponentWrapper) onLayout={[Function onLayout]} onStartShouldSetResponder={[Function onStartShouldSetResponder]} style={[{"alignItems": "center", "flexDirection": "row"}, {"transform": [{"translateX": 0}]}]}><ConfirmSliderLabel opacity={0} style={{"position": "absolute", "right": "100%"}} width={204}>label2</ConfirmSliderLabel><SliderKnob color="#099DE2" enabled={true} iconId="checkCircle" pan={0} /><ConfirmSliderLabel opacity={1} width={204}>label1</ConfirmSliderLabel></ForwardRef(AnimatedComponentWrapper)></View>
++ <View onMoveShouldSetResponder={[Function onMoveShouldSetResponder]} onMoveShouldSetResponderCapture={[Function onMoveShouldSetResponderCapture]} onResponderEnd={[Function onResponderEnd]} onResponderGrant={[Function onResponderGrant]} onResponderMove={[Function onResponderMove]} onResponderReject={[Function onResponderReject]} onResponderRelease={[Function onResponderRelease]} onResponderStart={[Function onResponderStart]} onResponderTerminate={[Function onResponderTerminate]} onResponderTerminationRequest={[Function onResponderTerminationRequest]} onStartShouldSetResponder={[Function onStartShouldSetResponder]} onStartShouldSetResponderCapture={[Function onStartShouldSetResponderCapture]} style={[{"borderRadius": 20, "borderWidth": 1, "overflow": "hidden", "paddingBottom": 4, "paddingLeft": 4, "paddingRight": 4, "paddingTop": 4, "width": "100%"}, {"backgroundColor": "#FEEDE5"}, {"borderColor": "#FCCCB6"}, undefined]} testID="confirmSlider"><ForwardRef(AnimatedComponentWrapper) onLayout={[Function onLayout]} onStartShouldSetResponder={[Function onStartShouldSetResponder]} style={[{"alignItems": "center", "flexDirection": "row"}, {"transform": [{"translateX": 0}]}]}><ConfirmSliderLabel opacity={0} style={{"position": "absolute", "right": "100%"}} width={204}>label2</ConfirmSliderLabel><SliderKnob color="#F56522" enabled={true} iconId="checkCircle" pan={0} /><ConfirmSliderLabel opacity={1} width={204}>label1</ConfirmSliderLabel></ForwardRef(AnimatedComponentWrapper)></View>
+
+@@ -22,14 +22,14 @@
+          "paddingRight": 4,
+          "paddingTop": 4,
+          "width": "100%",
+        },
+        Object {
+-         "backgroundColor": "#D7F2FE",
++         "backgroundColor": "#FEEDE5",
+        },
+        Object {
+-         "borderColor": "#93D6F5",
++         "borderColor": "#FCCCB6",
+        },
+        undefined,
+      ]
+    }
+    testID="confirmSlider"
+@@ -110,11 +110,11 @@
+      <View
+        collapsable={false}
+        style={
+          Object {
+            "alignItems": "center",
+-           "backgroundColor": "rgba(9, 157, 226, 1)",
++           "backgroundColor": "rgba(245, 101, 34, 1)",
+            "borderRadius": 16,
+            "flexDirection": "row",
+            "gap": 2,
+            "justifyContent": "center",
+            "paddingBottom": 4,"
+`;
+
 exports[`ConfirmSlider renders with different icon 1`] = `
 <View
   onMoveShouldSetResponder={[Function]}
