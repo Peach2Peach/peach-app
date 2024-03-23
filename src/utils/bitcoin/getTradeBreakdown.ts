@@ -12,6 +12,7 @@ import { log } from "../log/log";
 import { numberConverter } from "../math/numberConverter";
 import { isLiquidAddress } from "../validation/rules";
 import { getLiquidNetwork } from "../wallet/getLiquidNetwork";
+import { getNetwork } from "../wallet/getNetwork";
 
 type TradeBreakdown = {
   totalAmount: number;
@@ -109,6 +110,5 @@ export const getTradeBreakdown = ({
         inputAmount,
         Transaction: BitcoinTransaction,
         address: bitcoinAddress,
-        // network: getNetwork()
-        network: getLiquidNetwork(),
+        network: getNetwork(),
       });
