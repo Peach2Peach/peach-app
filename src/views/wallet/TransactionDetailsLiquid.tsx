@@ -22,7 +22,7 @@ import { useSyncWallet } from "./hooks/useSyncWallet";
 
 const useTransactionDetailsLiquid = ({ txId }: { txId: string }) =>
   useQuery({
-    queryKey: ["electrs", "liquid", "transaction", "hex"],
+    queryKey: ["electrs", "liquid", "transaction", "hex", txId],
     queryFn: async () => {
       const result = await getTxHex({ txId });
       if (!result.result) throw Error("NETWORK_ERROR");
@@ -35,10 +35,9 @@ export const TransactionDetailsLiquid = () => {
   const localTx = useLiquidWalletState((state) =>
     state.transactions.find((tx) => tx.txid === txId),
   );
-  const { data: transactionDetails } = useTransactionDetailsLiquid({ txId });
   const offerIds = useWalletState((state) => state.txOfferMap[txId]);
   const map = useBoltzSwapStore((state) => state.map);
-
+  const { data: transactionDetails } = useTransactionDetailsLiquid({ txId });
   const { offers } = useMultipleOfferDetails(offerIds || []);
   const { contracts } = useContractSummaries();
   const partialSummary = localTx

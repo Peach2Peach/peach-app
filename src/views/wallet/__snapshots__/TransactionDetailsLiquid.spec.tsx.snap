@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransactionDetailsLiquid should render correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+      "gap": 32,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "paddingRight": 6,
+      }
+    }
+  >
+    <Image
+      resizeMode="cover"
+      source={
+        {
+          "testUri": "../../../src/assets/animated/bitcoin.gif",
+        }
+      }
+      style={
+        {
+          "height": 128,
+          "width": 128,
+        }
+      }
+    />
+  </View>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "textAlign": "center",
+        },
+        false,
+      ]
+    }
+  >
+    loading...
+  </Text>
+</View>
+`;
+
+exports[`TransactionDetailsLiquid should render correctly when loaded 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+      "gap": 32,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "paddingRight": 6,
+      }
+    }
+  >
+    <Image
+      resizeMode="cover"
+      source={
+        {
+          "testUri": "../../../src/assets/animated/bitcoin.gif",
+        }
+      }
+      style={
+        {
+          "height": 128,
+          "width": 128,
+        }
+      }
+    />
+  </View>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "textAlign": "center",
+        },
+        false,
+      ]
+    }
+  >
+    loading...
+  </Text>
+</View>
+`;
+
+exports[`TransactionDetailsLiquid should render correctly when loading 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+      "gap": 32,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "paddingRight": 6,
+      }
+    }
+  >
+    <Image
+      resizeMode="cover"
+      source={
+        {
+          "testUri": "../../../src/assets/animated/bitcoin.gif",
+        }
+      }
+      style={
+        {
+          "height": 128,
+          "width": 128,
+        }
+      }
+    />
+  </View>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "textAlign": "center",
+        },
+        false,
+      ]
+    }
+  >
+    loading...
+  </Text>
+</View>
+`;
+
+exports[`TransactionDetailsLiquid should render correctly when loading 2`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+      "gap": 32,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "paddingRight": 6,
+      }
+    }
+  >
+    <Image
+      resizeMode="cover"
+      source={
+        {
+          "testUri": "../../../src/assets/animated/bitcoin.gif",
+        }
+      }
+      style={
+        {
+          "height": 128,
+          "width": 128,
+        }
+      }
+    />
+  </View>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "textAlign": "center",
+        },
+        false,
+      ]
+    }
+  >
+    loading...
+  </Text>
+</View>
+`;
