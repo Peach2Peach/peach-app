@@ -3,9 +3,8 @@ import { Transaction as LiquidTransaction } from "liquidjs-lib";
 import { useMemo } from "react";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { isRBFEnabled } from "../../../utils/bitcoin/isRBFEnabled";
+import { getAddressChain } from "../../../utils/blockchain/getAddressChain";
 import { showTransaction } from "../../../utils/blockchain/showTransaction";
-import { isLiquidAddress } from "../../../utils/validation/rules";
-import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 import { canBumpNetworkFees } from "../helpers/canBumpNetworkFees";
 import { useGetTransactionDestinationAddress } from "../helpers/useGetTransactionDestinationAddress";
 
@@ -34,12 +33,7 @@ export const useTransactionDetailsInfoSetup = ({
   const goToBumpNetworkFees = () =>
     navigation.navigate("bumpNetworkFees", { txId: transactionSummary.id });
   const openInExplorer = () =>
-    showTransaction(
-      transactionSummary.id,
-      receivingAddress && isLiquidAddress(receivingAddress, getLiquidNetwork())
-        ? "liquid"
-        : "bitcoin",
-    );
+    showTransaction(transactionSummary.id, getAddressChain(receivingAddress));
 
   return {
     receivingAddress,

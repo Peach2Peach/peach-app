@@ -8,19 +8,16 @@ import { PeachText } from "../components/text/PeachText";
 import { HorizontalLine } from "../components/ui/HorizontalLine";
 import tw from "../styles/tailwind";
 import { getTradeBreakdown } from "../utils/bitcoin/getTradeBreakdown";
+import { getAddressChain } from "../utils/blockchain/getAddressChain";
 import { showAddress } from "../utils/blockchain/showAddress";
 import { showTransaction } from "../utils/blockchain/showTransaction";
 import i18n from "../utils/i18n";
-import { isLiquidAddress } from "../utils/validation/rules";
-import { getLiquidNetwork } from "../utils/wallet/getLiquidNetwork";
 
 export function TradeBreakdownPopup({ contract }: { contract: Contract }) {
-  const network = isLiquidAddress(contract.releaseAddress, getLiquidNetwork())
-    ? "liquid"
-    : "bitcoin";
+  const chain = getAddressChain(contract.releaseAddress);
   const viewInExplorer = () =>
     contract.releaseTxId
-      ? showTransaction(contract.releaseTxId, network)
+      ? showTransaction(contract.releaseTxId, chain)
       : showAddress(contract.escrow);
   return (
     <PopupComponent
@@ -52,9 +49,7 @@ function TradeBreakdown({
       releaseAddress,
       inputAmount: amount,
     });
-  const chain = isLiquidAddress(releaseAddress, getLiquidNetwork())
-    ? "liquid"
-    : "bitcoin";
+  const chain = getAddressChain(releaseAddress);
 
   const data = [
     [

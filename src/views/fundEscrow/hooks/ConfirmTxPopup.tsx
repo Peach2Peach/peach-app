@@ -3,10 +3,9 @@ import { BTCAmount } from "../../../components/bitcoin/BTCAmount";
 import { ShortBitcoinAddress } from "../../../components/bitcoin/ShortBitcoinAddress";
 import { PeachText } from "../../../components/text/PeachText";
 import tw from "../../../styles/tailwind";
+import { getAddressChain } from "../../../utils/blockchain/getAddressChain";
 import i18n from "../../../utils/i18n";
 import { thousands } from "../../../utils/string/thousands";
-import { isLiquidAddress } from "../../../utils/validation/rules";
-import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 
 type Props = {
   amount: number;
@@ -25,9 +24,7 @@ export function ConfirmTxPopup({
   text,
   secondText,
 }: Props) {
-  const chain = isLiquidAddress(address, getLiquidNetwork())
-    ? "liquid"
-    : "bitcoin";
+  const chain = getAddressChain(address);
   return (
     <View style={tw`gap-3`}>
       <PeachText>{text}</PeachText>

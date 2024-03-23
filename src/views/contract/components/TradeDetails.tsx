@@ -14,13 +14,12 @@ import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore"
 import tw from "../../../styles/tailwind";
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
+import { getAddressChain } from "../../../utils/blockchain/getAddressChain";
 import { getOfferIdFromContract } from "../../../utils/contract/getOfferIdFromContract";
 import i18n from "../../../utils/i18n";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
 import { cutOffAddress } from "../../../utils/string/cutOffAddress";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
-import { isLiquidAddress } from "../../../utils/validation/rules";
-import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
 import { useContractContext } from "../context";
@@ -74,9 +73,7 @@ function ChangePayoutWallet() {
   const { contract } = useContractContext();
   const paidToPeachWallet = useIsMyAddress({
     address: contract.releaseAddress,
-    chain: isLiquidAddress(contract.releaseAddress, getLiquidNetwork())
-      ? "liquid"
-      : "bitcoin",
+    chain: getAddressChain(contract.releaseAddress),
   });
   const offerId = getOfferIdFromContract(contract);
 
