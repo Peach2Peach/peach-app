@@ -50,7 +50,7 @@ const SwapDetails = ({ swap }: Props) => {
   );
   const mappedId = keys(map).find((k) => map[k].includes(swap.id));
   const { offer } = useOfferDetail(
-    !isNaN(Number(mappedId)) ? mappedId : undefined,
+    !isNaN(Number(mappedId)) ? mappedId || "" : "",
   );
   const swapType = getSwapType(swap);
   const amount = getSwapAmount(swap);
