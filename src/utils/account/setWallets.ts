@@ -31,7 +31,6 @@ export const setWallets = async (
   setPeachWallet(peachWallet);
   setLiquidWallet(liquidWallet);
 
-  const breezInviteCode = useSettingsStore.getState().breezInviteCode;
-  if (seedPhrase && breezInviteCode)
-    await initLightningWallet(seedPhrase, BREEZ_API_KEY, breezInviteCode);
+  if (seedPhrase)
+    await initLightningWallet(seedPhrase, BREEZ_API_KEY);
 };

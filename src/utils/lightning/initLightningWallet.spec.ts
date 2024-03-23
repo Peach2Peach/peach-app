@@ -6,9 +6,7 @@ import {
   mnemonicToSeed,
 } from "@breeztech/react-native-breez-sdk";
 import { BREEZ_API_KEY } from "@env";
-import { waitFor } from "@testing-library/react-native";
 import { nodeInfo } from "../../../tests/unit/data/lightningNetworkData";
-import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { initLightningWallet } from "./initLightningWallet";
 
 jest.mock("@breeztech/react-native-breez-sdk");
@@ -34,7 +32,7 @@ describe("initLightningWallet", () => {
   const mnemonic = "mom mom mom mom mom mom mom mom mom mom mom mom";
   const inviteCode = "inviteCode";
   it("should initialise breez sdk lightning wallet", async () => {
-    await initLightningWallet(mnemonic, BREEZ_API_KEY, inviteCode);
+    await initLightningWallet(mnemonic, BREEZ_API_KEY);
     expect(mnemonicToSeed).toHaveBeenCalledWith(mnemonic);
     expect(defaultConfig).toHaveBeenCalledWith(
       EnvironmentType.PRODUCTION,
@@ -45,8 +43,5 @@ describe("initLightningWallet", () => {
       },
     );
     expect(connect).toHaveBeenCalledWith(config, seed, expect.any(Function));
-    await waitFor(() =>
-      expect(useSettingsStore.getState().breezInviteCode).toBe(inviteCode),
-    );
   });
 });

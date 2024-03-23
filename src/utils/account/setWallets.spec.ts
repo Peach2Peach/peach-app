@@ -15,11 +15,7 @@ const initLightningWalletMock = jest.requireMock(
 describe("setWallets", () => {
   const loadWalletSpy = jest.spyOn(PeachWallet.prototype, "loadWallet");
   const wallet = createTestWallet();
-  const breezInviteCode = "breezInviteCode";
 
-  beforeEach(() => {
-    useSettingsStore.getState().setBreezInviteCode(breezInviteCode);
-  });
   it("loads peach account", async () => {
     await setWallets(wallet, account1.mnemonic);
     expect(peachAPI.apiOptions.peachAccount?.privateKey?.toString("hex")).toBe(
@@ -37,7 +33,6 @@ describe("setWallets", () => {
     expect(initLightningWalletMock).toHaveBeenCalledWith(
       account1.mnemonic,
       BREEZ_API_KEY,
-      breezInviteCode,
     );
   });
   it("does not load LN wallet if no invite code is present", async () => {

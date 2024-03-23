@@ -15,7 +15,6 @@ type Settings = {
   displayCurrency: Currency;
   country?: string;
   fcmToken?: string;
-  breezInviteCode?: string;
   lastFileBackupDate?: number;
   lastSeedBackupDate?: number;
   showBackupReminder: boolean;

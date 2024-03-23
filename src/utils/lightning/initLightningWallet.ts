@@ -8,7 +8,8 @@ import {
   mnemonicToSeed,
   nodeInfo,
 } from "@breeztech/react-native-breez-sdk";
-import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { Platform } from "react-native";
+import RNFS from "react-native-fs";
 import { error } from "../log/error";
 import { log } from "../log/log";
 
@@ -16,15 +17,31 @@ const onBreezEvent = (e: BreezEvent) => {
   log(`breez-sdk - Received event ${e.type}`);
 };
 
-export const initLightningWallet = async (
-  mnemonic: string,
-  apiKey: string,
-  inviteCode: string,
-) => {
+const readCertificate = async (path: string) => {
+  const buffer = await (Platform.OS === "android"
+    ? RNFS.readFileAssets(`certs/${path}`, "base64")
+    : RNFS.readFile(
+        `${RNFS.MainBundlePath}/assets/assets/certs/${path}`,
+        "base64",
+      ));
+
+  const binaryBuffer = Buffer.from(buffer, "base64");
+  const byteArray = Array.from(binaryBuffer);
+  return byteArray;
+};
+
+export const initLightningWallet = async (mnemonic: string, apiKey: string) => {
   const seed = await mnemonicToSeed(mnemonic);
+  const deviceKey = await readCertificate("client-key.pem");
+  const deviceCert = await readCertificate("client.crt");
   const nodeConfig: NodeConfig = {
     type: NodeConfigVariant.GREENLIGHT,
-    config: { inviteCode },
+    config: {
+      partnerCredentials: {
+        deviceKey,
+        deviceCert,
+      },
+    },
   };
 
   const config = await defaultConfig(
@@ -36,7 +53,5 @@ export const initLightningWallet = async (
   await connect(config, seed, onBreezEvent).catch((e) => {
     error(`breez-sdk - Error connecting: ${e}`);
   });
-  nodeInfo().then((info) => {
-    if (info.id) useSettingsStore.getState().setBreezInviteCode(inviteCode);
-  });
+  nodeInfo();
 };
