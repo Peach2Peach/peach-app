@@ -5,17 +5,24 @@ import { TransactionBatching } from "./TransactionBatching";
 jest.mock("../../hooks/query/useSelfUser");
 const useSelfUserMock = jest
   .requireMock("../../hooks/query/useSelfUser")
-  .useSelfUser.mockReturnValue({
-    user: account1,
-    isLoading: false,
-  });
+  .useSelfUser.mockReturnValue({ user: account1, isLoading: false });
+
 describe("TransactionBatching", () => {
   it("should render correctly while loading", () => {
-    useSelfUserMock.mockReturnValue({ isLoading: true });
+    useSelfUserMock.mockReturnValueOnce({ isLoading: true });
     const { toJSON } = render(<TransactionBatching />);
     expect(toJSON()).toMatchSnapshot();
   });
-  it("should render correctly", () => {
+  it("should render correctly when loaded", () => {
+    const { toJSON } = render(<TransactionBatching />);
+    expect(toJSON()).toMatchSnapshot();
+  });
+  it("should render correctly when batching is enabled", () => {
+    useSelfUserMock.mockReturnValueOnce({
+      user: { ...account1, isBatchingEnabled: true },
+      isLoading: false,
+    });
+
     const { toJSON } = render(<TransactionBatching />);
     expect(toJSON()).toMatchSnapshot();
   });
