@@ -14,6 +14,8 @@ jest
   .requireMock("../../../hooks/useShowErrorBanner")
   .useShowErrorBanner.mockReturnValue(showErrorBannerMock);
 
+jest.mock("../../../utils/lightning/initLightningWallet");
+
 describe("useCreateEscrow", () => {
   beforeEach(() => {
     updateAccount(account1, true);

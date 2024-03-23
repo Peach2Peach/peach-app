@@ -1,16 +1,13 @@
 import { BREEZ_API_KEY } from "@env";
 import { account1 } from "../../../tests/unit/data/accountData";
 import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
-import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { initLightningWallet } from "../lightning/initLightningWallet";
 import { peachAPI } from "../peachAPI";
 import { PeachWallet } from "../wallet/PeachWallet";
 import { peachLiquidWallet, peachWallet } from "../wallet/setWallet";
 import { setWallets } from "./setWallets";
 
 jest.mock("../lightning/initLightningWallet");
-const initLightningWalletMock = jest.requireMock(
-  "../lightning/initLightningWallet",
-).initLightningWallet;
 
 describe("setWallets", () => {
   const loadWalletSpy = jest.spyOn(PeachWallet.prototype, "loadWallet");
@@ -30,17 +27,9 @@ describe("setWallets", () => {
     expect(peachLiquidWallet?.getAddress().address).toBe(
       "ert1qvd76ucxafly399qewresqmj8ud0f639fep0raj",
     );
-    expect(initLightningWalletMock).toHaveBeenCalledWith(
+    expect(initLightningWallet).toHaveBeenCalledWith(
       account1.mnemonic,
       BREEZ_API_KEY,
     );
-  });
-  it("does not load LN wallet if no invite code is present", async () => {
-    useSettingsStore.getState().reset();
-
-    await setWallets(wallet, account1.mnemonic);
-
-    expect(loadWalletSpy).toHaveBeenCalledWith(account1.mnemonic);
-    expect(initLightningWalletMock).not.toHaveBeenCalled();
   });
 });

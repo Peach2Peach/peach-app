@@ -4,8 +4,8 @@ import { createTestWallet } from "../../../tests/unit/helpers/createTestWallet";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import i18n from "../i18n";
 import { peachAPI } from "../peachAPI";
-import { getWallet } from "../wallet/getWallet";
 import { PeachWallet } from "../wallet/PeachWallet";
+import { getWallet } from "../wallet/getWallet";
 import { defaultAccount, useAccountStore } from "./account";
 import { storeIdentity } from "./storeAccount/storeIdentity";
 import { updateAccount } from "./updateAccount";
@@ -25,6 +25,8 @@ jest.mock("./loadAccountFromSeedPhrase");
 const loadAccountFromSeedPhraseMock = jest.requireMock(
   "./loadAccountFromSeedPhrase",
 ).loadAccountFromSeedPhrase;
+
+jest.mock("../lightning/initLightningWallet");
 
 describe("updateAccount", () => {
   const loadWalletSpy = jest.spyOn(PeachWallet.prototype, "loadWallet");

@@ -1,6 +1,5 @@
 import { BREEZ_API_KEY } from "@env";
 import { BIP32Interface } from "bip32";
-import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import { initLightningWallet } from "../lightning/initLightningWallet";
 import { peachAPI } from "../peachAPI";
 import { PeachLiquidJSWallet } from "../wallet/PeachLiquidJSWallet";
@@ -31,6 +30,5 @@ export const setWallets = async (
   setPeachWallet(peachWallet);
   setLiquidWallet(liquidWallet);
 
-  if (seedPhrase)
-    await initLightningWallet(seedPhrase, BREEZ_API_KEY);
+  if (seedPhrase) await initLightningWallet(seedPhrase, BREEZ_API_KEY);
 };
