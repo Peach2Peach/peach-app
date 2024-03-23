@@ -8,6 +8,7 @@ import { updateAccount } from "../../../utils/account/updateAccount";
 import { TradeItem } from "./TradeItem";
 
 jest.useFakeTimers();
+jest.mock("../../../utils/lightning/initLightningWallet");
 
 describe("OfferItem", () => {
   const minAmount = 21000;

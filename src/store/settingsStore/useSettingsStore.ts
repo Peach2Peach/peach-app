@@ -29,7 +29,6 @@ export type SettingsStore = Settings & {
   setRefundToPeachWallet: (refundToPeachWallet: boolean) => void;
   setPayoutToPeachWallet: (payoutToPeachWallet: boolean) => void;
   setFCMToken: (fcmToken: string) => void;
-  setBreezInviteCode: (breezInviteCode: string) => void;
   setCloudflareChallenge: (
     cloudflareChallenge: Settings["cloudflareChallenge"],
   ) => void;
@@ -92,7 +91,6 @@ export const useSettingsStore = create(
       setPayoutToPeachWallet: (payoutToPeachWallet) =>
         set({ payoutToPeachWallet }),
       setFCMToken: (fcmToken) => set({ fcmToken }),
-      setBreezInviteCode: (breezInviteCode) => set({ breezInviteCode }),
       setCloudflareChallenge: (cloudflareChallenge) =>
         set({ cloudflareChallenge }),
       setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
