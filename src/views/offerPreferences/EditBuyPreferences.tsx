@@ -16,6 +16,7 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
+import { getAddressChain } from "../../utils/blockchain/getAddressChain";
 import i18n from "../../utils/i18n";
 import { interpolate } from "../../utils/math/interpolate";
 import { round } from "../../utils/math/round";
@@ -23,8 +24,6 @@ import { hasMopsConfigured } from "../../utils/offer/hasMopsConfigured";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
 import { cutOffAddress } from "../../utils/string/cutOffAddress";
 import { isValidBitcoinSignature } from "../../utils/validation/isValidBitcoinSignature";
-import { isLiquidAddress } from "../../utils/validation/rules";
-import { getLiquidNetwork } from "../../utils/wallet/getLiquidNetwork";
 import { getNetwork } from "../../utils/wallet/getNetwork";
 import { peachWallet } from "../../utils/wallet/setWallet";
 import { usePatchReleaseAddress } from "../contract/components/usePatchReleaseAddress";
@@ -165,9 +164,7 @@ function OfferWalletSelector({
   );
   const addressIsInPeachWallet = useIsMyAddress({
     address: releaseAddress,
-    chain: isLiquidAddress(releaseAddress, getLiquidNetwork())
-      ? "liquid"
-      : "bitcoin",
+    chain: getAddressChain(releaseAddress),
   });
   const { mutate: patchPayoutAddress } = usePatchReleaseAddress(offerId);
 
