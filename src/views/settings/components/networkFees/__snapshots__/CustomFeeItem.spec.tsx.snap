@@ -102,6 +102,26 @@ exports[`CustomFeeItem renders correctly 1`] = `
 </View>
 `;
 
+exports[`CustomFeeItem renders correctly for liquid 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -47,11 +47,11 @@
+          Object {
+            "borderColor": "#7D675E",
+            "borderWidth": 1,
+          },
+          Object {
+-           "backgroundColor": "#FFFCFA",
++           "backgroundColor": "#9EF2ED",
+          },
+        ]
+      }
+    >
+      <TextInput"
+`;
+
 exports[`CustomFeeItem renders correctly when disabled 1`] = `
 "Snapshot Diff:
 - First value
