@@ -19,7 +19,7 @@ const getSelfUserMock = jest
   });
 
 describe("useNetworkFeesSetup", () => {
-  const initialProps = { network: "bitcoin" } as const;
+  const initialProps = { chain: "bitcoin" } as const;
   afterEach(() => {
     queryClient.clear();
   });
@@ -89,9 +89,7 @@ describe("useNetworkFeesSetup", () => {
     await act(result.current.submit);
 
     expect(mockUpdateUser).toHaveBeenCalledWith(
-      {
-        feeRate: "halfHourFee",
-      },
+      { feeRate: "halfHourFee" },
       {
         onSuccess: expect.any(Function),
         onError: expect.any(Function),
@@ -104,9 +102,7 @@ describe("useNetworkFeesSetup", () => {
     await act(result.current.submit);
 
     expect(mockUpdateUser).toHaveBeenCalledWith(
-      {
-        feeRate: "fastestFee",
-      },
+      { feeRate: "fastestFee" },
       {
         onSuccess: expect.any(Function),
         onError: expect.any(Function),
@@ -122,9 +118,7 @@ describe("useNetworkFeesSetup", () => {
     });
     await act(result.current.submit);
     expect(mockUpdateUser).toHaveBeenCalledWith(
-      {
-        feeRate: 4,
-      },
+      { feeRate: 4 },
       {
         onSuccess: expect.any(Function),
         onError: expect.any(Function),
@@ -133,14 +127,12 @@ describe("useNetworkFeesSetup", () => {
   });
   it("submits liquid fee preferences", async () => {
     const { result } = renderHook(useNetworkFeesSetup, {
-      initialProps: { network: "liquid" },
+      initialProps: { chain: "liquid" },
     });
     await act(result.current.submit);
 
     expect(mockUpdateUser).toHaveBeenCalledWith(
-      {
-        feeRateLiquid: "halfHourFee",
-      },
+      { feeRateLiquid: "halfHourFee" },
       {
         onSuccess: expect.any(Function),
         onError: expect.any(Function),
@@ -153,9 +145,7 @@ describe("useNetworkFeesSetup", () => {
     await act(result.current.submit);
 
     expect(mockUpdateUser).toHaveBeenCalledWith(
-      {
-        feeRateLiquid: "fastestFee",
-      },
+      { feeRateLiquid: "fastestFee" },
       {
         onSuccess: expect.any(Function),
         onError: expect.any(Function),

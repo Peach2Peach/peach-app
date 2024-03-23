@@ -10,11 +10,11 @@ const customFeeRules = {
   feeRate: true,
 };
 type Props = {
-  network: "bitcoin" | "liquid";
+  chain: Chain;
 };
-export const useNetworkFeesSetup = ({ network }: Props) => {
+export const useNetworkFeesSetup = ({ chain }: Props) => {
   const { user } = useSelfUser();
-  const feeRate = network === "bitcoin" ? user?.feeRate : user?.feeRateLiquid;
+  const feeRate = chain === "bitcoin" ? user?.feeRate : user?.feeRateLiquid;
   const queryClient = useQueryClient();
   const defaultFeeRate = feeRate
     ? typeof feeRate === "number"
@@ -43,19 +43,19 @@ export const useNetworkFeesSetup = ({ network }: Props) => {
 
   const submit = useCallback(() => {
     mutate(
-      { [network === "bitcoin" ? "feeRate" : "feeRateLiquid"]: finalFeeRate },
+      { [chain === "bitcoin" ? "feeRate" : "feeRateLiquid"]: finalFeeRate },
       {
         onSuccess: () =>
           queryClient.invalidateQueries({ queryKey: userKeys.self() }),
         onError: (err) => setToast({ msgKey: err.message, color: "red" }),
       },
     );
-  }, [finalFeeRate, mutate, network, queryClient, setToast]);
+  }, [finalFeeRate, mutate, chain, queryClient, setToast]);
 
   useEffect(() => {
     setSelectedFeeRate(undefined);
     setCustomFeeRate(undefined);
-  }, [network, setSelectedFeeRate, setCustomFeeRate]);
+  }, [chain, setSelectedFeeRate, setCustomFeeRate]);
 
   return {
     selectedFeeRate: displayRate,

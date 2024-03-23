@@ -28,7 +28,7 @@ const estimatedFeeRates = [
 ] as const;
 
 export const NetworkFees = () => {
-  const tabs: TabbedNavigationItem<"bitcoin" | "liquid">[] = [
+  const tabs: TabbedNavigationItem<Chain>[] = [
     { id: "bitcoin", display: "bitcoin" },
     { id: "liquid", display: "liquid" },
   ];
@@ -45,7 +45,7 @@ export const NetworkFees = () => {
     submit,
     isValid,
     feeRateSet,
-  } = useNetworkFeesSetup({ network: currentTab.id });
+  } = useNetworkFeesSetup({ chain: currentTab.id });
 
   const options = estimatedFeeRates.map((rate) => ({
     value: rate,
