@@ -31,9 +31,11 @@ const readCertificate = async (path: string) => {
 };
 
 export const initLightningWallet = async (mnemonic: string, apiKey: string) => {
-  const seed = await mnemonicToSeed(mnemonic);
-  const deviceKey = await readCertificate("client-key.pem");
-  const deviceCert = await readCertificate("client.crt");
+  const [seed, deviceKey, deviceCert] = await Promise.all([
+    mnemonicToSeed(mnemonic),
+    readCertificate("client-key.pem"),
+    readCertificate("client.crt"),
+  ]);
   const nodeConfig: NodeConfig = {
     type: NodeConfigVariant.GREENLIGHT,
     config: {
