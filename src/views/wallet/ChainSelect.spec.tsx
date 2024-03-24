@@ -37,4 +37,10 @@ describe("ChainSelect", () => {
     fireEvent.press(getByText("liquid"));
     expect(onSelect).toHaveBeenCalledWith("liquid");
   });
+  it("should filter chains", () => {
+    const { toJSON } = render(
+      <ChainSelect current="bitcoin" filter={["liquid"]} onSelect={onSelect} />,
+    );
+    expect(toJSON()).toMatchDiffSnapshot(base);
+  });
 });

@@ -7,12 +7,15 @@ const CHAINS: Chain[] = ["bitcoin", "lightning", "liquid"];
 export const ChainSelect = ({
   current,
   onSelect,
-}: {
+  filter,
+  style,
+}: ComponentProps & {
   current: Chain;
+  filter?: Chain[];
   onSelect: (chain: Chain) => void;
 }) => (
-  <View style={tw`flex-row gap-4 justify-center p-4`}>
-    {CHAINS.map((chain) => {
+  <View style={[tw`flex-row gap-4 justify-center`, style]}>
+    {CHAINS.filter((chain) => !filter?.includes(chain)).map((chain) => {
       const isSelected = current === chain;
       const goToWallet = () => onSelect(chain);
       return (

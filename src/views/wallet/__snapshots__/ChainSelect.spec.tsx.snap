@@ -1,17 +1,119 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ChainSelect should filter chains 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -186,6 +186,95 @@
+            undefined,
+          ]
+        }
+      />
+    </View>
++   <View
++     accessibilityState={
++       Object {
++         "busy": undefined,
++         "checked": undefined,
++         "disabled": false,
++         "expanded": undefined,
++         "selected": undefined,
++       }
++     }
++     accessibilityValue={
++       Object {
++         "max": undefined,
++         "min": undefined,
++         "now": undefined,
++         "text": undefined,
++       }
++     }
++     accessible={true}
++     collapsable={false}
++     focusable={true}
++     onClick={[Function onClick]}
++     onResponderGrant={[Function onResponderGrant]}
++     onResponderMove={[Function onResponderMove]}
++     onResponderRelease={[Function onResponderRelease]}
++     onResponderTerminate={[Function onResponderTerminate]}
++     onResponderTerminationRequest={[Function onResponderTerminationRequest]}
++     onStartShouldSetResponder={[Function onStartShouldSetResponder]}
++     style={
++       Object {
++         "alignItems": "center",
++         "backgroundColor": "transparent",
++         "borderColor": "#2B1911",
++         "borderRadius": 8,
++         "borderWidth": 1,
++         "flexDirection": "row",
++         "gap": 4,
++         "justifyContent": "center",
++         "opacity": 1,
++         "paddingBottom": 2,
++         "paddingLeft": 8,
++         "paddingRight": 8,
++         "paddingTop": 2,
++       }
++     }
++   >
++     <Text
++       allowFontScaling={false}
++       style={
++         Array [
++           Object {
++             "color": "#2B1911",
++             "fontFamily": "Baloo2-Regular",
++             "fontSize": 16,
++             "letterSpacing": 0.16,
++             "lineHeight": 24,
++           },
++           Array [
++             Object {
++               "fontFamily": "Baloo2-SemiBold",
++               "fontSize": 14,
++               "letterSpacing": 0.5,
++               "lineHeight": 24,
++               "textAlign": "center",
++               "textTransform": "uppercase",
++             },
++             Object {
++               "color": "#2B1911",
++             },
++           ],
++           false,
++         ]
++       }
++     >
++       liquid
++     </Text>
++     <test-file-stub
++       fill="#2B1911"
++       style={
++         Array [
++           Object {
++             "height": 12,
++             "width": 12,
++           },
++           undefined,
++         ]
++       }
++     />
++   </View>
+  </View>"
+`;
+
 exports[`ChainSelect should render correctly when bitcoin is selected 1`] = `
 <View
   style={
-    {
-      "flexDirection": "row",
-      "gap": 16,
-      "justifyContent": "center",
-      "paddingBottom": 16,
-      "paddingLeft": 16,
-      "paddingRight": 16,
-      "paddingTop": 16,
-    }
+    [
+      {
+        "flexDirection": "row",
+        "gap": 16,
+        "justifyContent": "center",
+      },
+      undefined,
+    ]
   }
 >
   <View
@@ -289,7 +391,7 @@ exports[`ChainSelect should render correctly when lightning is selected 1`] = `
 - First value
 + Second value
 
-@@ -14,11 +14,11 @@
+@@ -13,11 +13,11 @@
     <View
       accessibilityState={
         Object {
@@ -302,7 +404,7 @@ exports[`ChainSelect should render correctly when lightning is selected 1`] = `
         }
       }
       accessibilityValue={
-@@ -41,11 +41,11 @@
+@@ -40,11 +40,11 @@
       onStartShouldSetResponder={[Function onStartShouldSetResponder]}
       style={
         Object {
@@ -315,7 +417,7 @@ exports[`ChainSelect should render correctly when lightning is selected 1`] = `
           "flexDirection": "row",
           "gap": 4,
           "justifyContent": "center",
-@@ -76,21 +76,21 @@
+@@ -75,21 +75,21 @@
                 "lineHeight": 24,
                 "textAlign": "center",
                 "textTransform": "uppercase",
@@ -339,7 +441,7 @@ exports[`ChainSelect should render correctly when lightning is selected 1`] = `
             Object {
               "height": 12,
               "width": 12,
-@@ -103,11 +103,11 @@
+@@ -102,11 +102,11 @@
     <View
       accessibilityState={
         Object {
@@ -352,7 +454,7 @@ exports[`ChainSelect should render correctly when lightning is selected 1`] = `
         }
       }
       accessibilityValue={
-@@ -130,11 +130,11 @@
+@@ -129,11 +129,11 @@
       onStartShouldSetResponder={[Function onStartShouldSetResponder]}
       style={
         Object {
@@ -365,7 +467,7 @@ exports[`ChainSelect should render correctly when lightning is selected 1`] = `
           "flexDirection": "row",
           "gap": 4,
           "justifyContent": "center",
-@@ -165,21 +165,21 @@
+@@ -164,21 +164,21 @@
                 "lineHeight": 24,
                 "textAlign": "center",
                 "textTransform": "uppercase",
@@ -396,7 +498,7 @@ exports[`ChainSelect should render correctly when liquid is selected 1`] = `
 - First value
 + Second value
 
-@@ -14,11 +14,11 @@
+@@ -13,11 +13,11 @@
     <View
       accessibilityState={
         Object {
@@ -409,7 +511,7 @@ exports[`ChainSelect should render correctly when liquid is selected 1`] = `
         }
       }
       accessibilityValue={
-@@ -41,11 +41,11 @@
+@@ -40,11 +40,11 @@
       onStartShouldSetResponder={[Function onStartShouldSetResponder]}
       style={
         Object {
@@ -422,7 +524,7 @@ exports[`ChainSelect should render correctly when liquid is selected 1`] = `
           "flexDirection": "row",
           "gap": 4,
           "justifyContent": "center",
-@@ -76,21 +76,21 @@
+@@ -75,21 +75,21 @@
                 "lineHeight": 24,
                 "textAlign": "center",
                 "textTransform": "uppercase",
@@ -446,7 +548,7 @@ exports[`ChainSelect should render correctly when liquid is selected 1`] = `
             Object {
               "height": 12,
               "width": 12,
-@@ -192,11 +192,11 @@
+@@ -191,11 +191,11 @@
     <View
       accessibilityState={
         Object {
@@ -459,7 +561,7 @@ exports[`ChainSelect should render correctly when liquid is selected 1`] = `
         }
       }
       accessibilityValue={
-@@ -219,11 +219,11 @@
+@@ -218,11 +218,11 @@
       onStartShouldSetResponder={[Function onStartShouldSetResponder]}
       style={
         Object {
@@ -472,7 +574,7 @@ exports[`ChainSelect should render correctly when liquid is selected 1`] = `
           "flexDirection": "row",
           "gap": 4,
           "justifyContent": "center",
-@@ -254,21 +254,21 @@
+@@ -253,21 +253,21 @@
                 "lineHeight": 24,
                 "textAlign": "center",
                 "textTransform": "uppercase",

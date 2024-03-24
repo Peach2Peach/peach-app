@@ -21,8 +21,11 @@ import { Toggle } from "../../components/inputs/Toggle";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
+import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
+import { useLiquidFeeEstimate } from "../../hooks/query/useLiquidFeeEstimate";
 import { marketKeys, useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
+import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
@@ -51,6 +54,7 @@ import { getFundingAmount } from "../fundEscrow/helpers/getFundingAmount";
 import { useCreateEscrow } from "../fundEscrow/hooks/useCreateEscrow";
 import { useFundFromPeachLiquidWallet } from "../fundEscrow/hooks/useFundFromPeachLiquidWallet";
 import { useFundFromPeachWallet } from "../fundEscrow/hooks/useFundFromPeachWallet";
+import { EstimatedFeeItem } from "../settings/components/networkFees/EstimatedFeeItem";
 import { ChainSelect } from "../wallet/ChainSelect";
 import { WalletSelector } from "./WalletSelector";
 import { FundMultipleOffers } from "./components/FundMultipleOffers";
@@ -808,6 +812,12 @@ function RefundWalletSelector() {
     ],
     shallow,
   );
+  const { user } = useSelfUser();
+  const feeEstimateBitcoin = useFeeEstimate();
+  const feeEstimateLiquid = useLiquidFeeEstimate();
+  const feeEstimate =
+    fundFrom === "bitcoin" ? feeEstimateBitcoin : feeEstimateLiquid;
+
   const setFundingMechanism = useOfferPreferences(
     (state) => state.setFundingMechanism,
   );
@@ -832,14 +842,17 @@ function RefundWalletSelector() {
   };
 
   const onPeachWalletPress = () => setRefundToPeachWallet(true);
+  const feeRate = user?.feeRate || "halfHourFee";
+  const estimatedFees =
+    typeof feeRate === "number" ? feeRate : feeEstimate.estimatedFees[feeRate];
+  const onPress = () => navigation.navigate("networkFees");
 
   return (
-    <Section.Container style={tw`bg-primary-background-dark`}>
-      <Section.Title>{i18n("sellOfferPreferences.fundFrom")}</Section.Title>
+    <Section.Container style={tw`bg-primary-background-dark gap-4`}>
+      <Section.Title>{i18n("sellOfferPreferences.fundFrom")}:</Section.Title>
       <ChainSelect current={fundFrom} onSelect={updateFundFrom} />
       <WalletSelector
         title={i18n("offerPreferences.refundTo")}
-        backgroundColor={tw.color("primary-background-dark")}
         bubbleColor={fundFrom === "bitcoin" ? "orange" : "liquid"}
         peachWalletActive={refundToPeachWallet}
         address={refundAddress}
@@ -849,6 +862,13 @@ function RefundWalletSelector() {
         showExternalWallet={fundFrom === "bitcoin"}
         isPeachLiquidWallet={fundFrom !== "bitcoin"}
       />
+      <View style={tw`flex-row gap-2 items-center`}>
+        <PeachText style={tw`subtitle-1`}>
+          {i18n("settings.networkFees")}:
+        </PeachText>
+        <EstimatedFeeItem {...{ feeRate: "fastestFee", estimatedFees }} />
+        <TouchableIcon id="bitcoin" onPress={onPress} />
+      </View>
     </Section.Container>
   );
 }

@@ -25,7 +25,11 @@ export const LiquidWallet = () => {
 
   return (
     <Screen style={tw`gap-4`} header={<WalletHeaderLiquid />}>
-      <ChainSelect current="liquid" onSelect={navigateToWallet} />
+      <ChainSelect
+        style={tw`p-4`}
+        current="liquid"
+        onSelect={navigateToWallet}
+      />
       <PeachScrollView
         contentContainerStyle={tw`grow`}
         contentStyle={tw`justify-center py-16 grow gap-4`}

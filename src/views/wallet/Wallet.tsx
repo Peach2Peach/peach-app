@@ -26,7 +26,11 @@ export const Wallet = () => {
 
   return (
     <Screen header={<WalletHeader />}>
-      <ChainSelect current="bitcoin" onSelect={navigateToWallet} />
+      <ChainSelect
+        style={tw`p-4`}
+        current="bitcoin"
+        onSelect={navigateToWallet}
+      />
       <PeachScrollView
         contentContainerStyle={tw`grow`}
         contentStyle={tw`justify-center py-16 grow`}

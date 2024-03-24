@@ -232,15 +232,19 @@ exports[`LightningWallet should render correctly 1`] = `
       >
         <View
           style={
-            {
-              "flexDirection": "row",
-              "gap": 16,
-              "justifyContent": "center",
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
-            }
+            [
+              {
+                "flexDirection": "row",
+                "gap": 16,
+                "justifyContent": "center",
+              },
+              {
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
+              },
+            ]
           }
         >
           <View
@@ -1594,15 +1598,19 @@ exports[`LightningWallet should render correctly while loading 1`] = `
       >
         <View
           style={
-            {
-              "flexDirection": "row",
-              "gap": 16,
-              "justifyContent": "center",
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
-            }
+            [
+              {
+                "flexDirection": "row",
+                "gap": 16,
+                "justifyContent": "center",
+              },
+              {
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
+              },
+            ]
           }
         >
           <View

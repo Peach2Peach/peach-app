@@ -32,7 +32,11 @@ export const LightningWallet = () => {
 
   return (
     <Screen header={<WalletHeaderLightning />}>
-      <ChainSelect current="lightning" onSelect={navigateToWallet} />
+      <ChainSelect
+        style={tw`p-4`}
+        current="lightning"
+        onSelect={navigateToWallet}
+      />
       <PeachScrollView
         contentContainerStyle={tw`grow`}
         contentStyle={tw`justify-center gap-4 py-16 grow`}
