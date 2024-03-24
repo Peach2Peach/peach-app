@@ -189,6 +189,9 @@ export const reverseSwapClaimResponse: PartialSignature = {
 export const swapStatusCreated: SwapStatus = {
   status: "swap.created",
 };
+export const swapStatusFailed: SwapStatus = {
+  status: "transaction.lockupFailed",
+};
 export const swapStatusMempool: SwapStatus = {
   status: "transaction.mempool",
   transaction: {
