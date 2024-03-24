@@ -1,4 +1,3 @@
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { Match as MatchType } from "../../../peach-api/src/@types/match";
@@ -39,11 +38,10 @@ import { keys } from "../../utils/object/keys";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
 import { getPaymentMethods } from "../../utils/paymentMethod/getPaymentMethods";
 import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
-import { peachAPI } from "../../utils/peachAPI";
 import { isLiquidAddress } from "../../utils/validation/rules";
 import { getLiquidNetwork } from "../../utils/wallet/getLiquidNetwork";
+import { useMatchDetails } from "../contract/hooks/useMatchDetails";
 import { LoadingScreen } from "../loading/LoadingScreen";
-import { matchesKeys } from "../search/hooks/useOfferMatches";
 
 export function MatchDetails() {
   const { matchId, offerId } = useRoute<"matchDetails">().params;
@@ -76,34 +74,6 @@ export function MatchDetails() {
 
 function MatchDetailsHeader() {
   return <Header title={i18n("matchDetails.title")} />;
-}
-
-function useMatchDetails({
-  offerId,
-  matchId,
-}: {
-  offerId: string;
-  matchId: string;
-}) {
-  const queryData = useQuery({
-    queryKey: matchesKeys.matchDetail(offerId, matchId),
-    queryFn: getMatchDetails,
-    refetchInterval: 10000,
-  });
-
-  return queryData;
-}
-
-async function getMatchDetails({
-  queryKey,
-}: QueryFunctionContext<ReturnType<typeof matchesKeys.matchDetail>>) {
-  const [, offerId, matchId] = queryKey;
-  const { result, error } = await peachAPI.private.offer.getMatch({
-    offerId,
-    matchId,
-  });
-  if (error || !result) throw new Error(error?.error || "Match not found");
-  return result;
 }
 
 const WalletLabel = ({
