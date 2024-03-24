@@ -1,6 +1,7 @@
 import { BLOCKEXPLORER_LIQUID } from "@env";
 import { getPublicHeaders } from "../../../peach-api/src/helpers/getPublicHeaders";
 import { parseResponse } from "../../../peach-api/src/helpers/parseResponse";
+import fetch from "../fetch";
 
 type Props = {
   txId: string;
