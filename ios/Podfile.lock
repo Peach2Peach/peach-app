@@ -2,12 +2,12 @@ PODS:
   - bdk-rn (0.30.0):
     - React
   - boost (1.76.0)
-  - breez_sdk (0.3.6):
-    - BreezSDK (= 0.3.6)
+  - breez_sdk (0.3.8):
+    - BreezSDK (= 0.3.8)
     - React-Core
-  - breez_sdkFFI (0.3.6)
-  - BreezSDK (0.3.6):
-    - breez_sdkFFI (= 0.3.6)
+  - breez_sdkFFI (0.3.8)
+  - BreezSDK (0.3.8):
+    - breez_sdkFFI (= 0.3.8)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.71.14)
   - FBReactNativeSpec (0.71.14):
@@ -796,9 +796,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   bdk-rn: cfbeb2b1e0c71a5a8650fa650d0c08843e074dec
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
-  breez_sdk: a60bbbc9ea381212af9981697ac0498f4d3eb99b
-  breez_sdkFFI: 3677e8df88a1d95335c0b2988d004d83ae2eff10
-  BreezSDK: c22fc96e1102f30c0c1a2a3a44bb3160807d4e83
+  breez_sdk: a1ae07523e1b7873fed258333f7639ccf701fc35
+  breez_sdkFFI: 3e6fc521466ffd4b89298356be5b553af4bb5714
+  BreezSDK: 2aedefebd3fddd67ea3fa1f78e96595486cc26a2
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 12ea01e587c9594e7b144e1bfc86ac4d9ac28fde
   FBReactNativeSpec: b6ae48e67aaba46442f84d6f9ba598ccfbe2ee66
@@ -844,7 +844,7 @@ SPEC CHECKSUMS:
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-cookies: f54fcded06bb0cda05c11d86788020b43528a26c
   react-native-document-picker: 3599b238843369026201d2ef466df53f77ae0452
-  react-native-fast-openpgp: c080570ed67ce592e025efc5d95733e7a41ec811
+  react-native-fast-openpgp: 6536e89843b6063245ba9c0e9835c642dbb22814
   react-native-mmkv-storage: cfb6854594cfdc5f7383a9e464bb025417d1721c
   react-native-netinfo: fefd4e98d75cbdd6e85fc530f7111a8afdf2b0c5
   react-native-notification-badge: 7d458ff810ed02431eb46de253ecfc6a81148ba1
