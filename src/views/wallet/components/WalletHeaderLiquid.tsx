@@ -7,7 +7,7 @@ export const WalletHeaderLiquid = () => {
   const navigation = useStackNavigation();
   return (
     <Header
-      title={i18n("wallet.liquid.title")}
+      title={i18n("wallet.title")}
       icons={[
         {
           ...headerIcons.list,

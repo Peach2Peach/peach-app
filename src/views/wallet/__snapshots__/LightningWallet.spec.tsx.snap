@@ -126,7 +126,7 @@ exports[`LightningWallet should render correctly 1`] = `
               ]
             }
           >
-            wallet.lightning.title
+            Peach wallet
           </Text>
         </View>
         <View
@@ -1492,7 +1492,7 @@ exports[`LightningWallet should render correctly while loading 1`] = `
               ]
             }
           >
-            wallet.lightning.title
+            Peach wallet
           </Text>
         </View>
         <View

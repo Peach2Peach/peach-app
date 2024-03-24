@@ -84,7 +84,7 @@ exports[`WalletHeaderLiquid should render correctly 1`] = `
           ]
         }
       >
-        wallet.liquid.title
+        Peach wallet
       </Text>
     </View>
     <View

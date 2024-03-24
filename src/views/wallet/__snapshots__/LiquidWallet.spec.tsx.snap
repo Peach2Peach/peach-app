@@ -126,7 +126,7 @@ exports[`LiquidWallet should render correctly 1`] = `
               ]
             }
           >
-            wallet.liquid.title
+            Peach wallet
           </Text>
         </View>
         <View
@@ -1512,7 +1512,7 @@ exports[`LiquidWallet should render correctly while loading 1`] = `
               ]
             }
           >
-            wallet.liquid.title
+            Peach wallet
           </Text>
         </View>
         <View

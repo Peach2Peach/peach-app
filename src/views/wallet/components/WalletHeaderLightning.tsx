@@ -7,7 +7,7 @@ export const WalletHeaderLightning = () => {
   const navigation = useStackNavigation();
   return (
     <Header
-      title={i18n("wallet.lightning.title")}
+      title={i18n("wallet.title")}
       icons={[
         {
           ...headerIcons.list,
