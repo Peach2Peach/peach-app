@@ -1,17 +1,28 @@
+import { ElementsValue, address as liquidAddress } from "liquidjs-lib";
 import { contract } from "../../../../peach-api/src/testData/contract";
+import {
+  asset,
+  liquidAddresses,
+} from "../../../../tests/unit/data/liquidNetworkData";
 import { sellOffer } from "../../../../tests/unit/data/offerData";
+import { constructLiquidPSBT } from "../../../../tests/unit/helpers/constructLiquidPSBT";
 import { constructPSBT } from "../../../../tests/unit/helpers/constructPSBT";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import {
   defaultConfig,
   useConfigStore,
 } from "../../../store/configStore/configStore";
+import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 import { verifyReleasePSBT } from "./verifyReleasePSBT";
 
 const wallet = createTestWallet();
 const psbt = constructPSBT(wallet, undefined, {
   value: contract.amount,
   address: contract.releaseAddress,
+});
+const liquidPSBT = constructLiquidPSBT(wallet, undefined, {
+  value: ElementsValue.fromNumber(contract.amount).bytes,
+  address: liquidAddresses.regtest[1],
 });
 const feeAmount = contract.amount * defaultConfig.peachFee;
 const psbtWithFeeOutput = constructPSBT(wallet, undefined, {
@@ -22,10 +33,27 @@ psbtWithFeeOutput.addOutput({
   address: "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
   value: feeAmount,
 });
+const liquidPSBTWithFeeOutput = constructLiquidPSBT(wallet, undefined, {
+  value: ElementsValue.fromNumber(contract.amount - feeAmount).bytes,
+  address: liquidAddresses.regtest[1],
+});
+liquidPSBTWithFeeOutput.addOutput({
+  script: liquidAddress.toOutputScript(
+    liquidAddresses.regtest[0],
+    getLiquidNetwork(),
+  ),
+  value: ElementsValue.fromNumber(feeAmount).bytes,
+  asset: asset.regtest,
+  nonce: Buffer.from("00", "hex"),
+});
 const mockSellOfferWithoutFunding = sellOffer;
 const mockSellOffer = {
   ...sellOffer,
   funding: {
+    ...sellOffer.funding,
+    txIds: ["d8a31704d33febfc8a4271c3f9d65b5d7679c5cab19f25058f2d7d2bc6e7b86c"],
+  },
+  fundingLiquid: {
     ...sellOffer.funding,
     txIds: ["d8a31704d33febfc8a4271c3f9d65b5d7679c5cab19f25058f2d7d2bc6e7b86c"],
   },
@@ -39,6 +67,15 @@ describe("verifyReleasePSBT", () => {
     expect(
       verifyReleasePSBT(psbtWithFeeOutput, mockSellOffer, {
         ...contract,
+        buyerFee: defaultConfig.peachFee,
+      }),
+    ).toBe("");
+  });
+  it("should verify a valid release liquid PSBT", () => {
+    expect(
+      verifyReleasePSBT(liquidPSBTWithFeeOutput, mockSellOffer, {
+        ...contract,
+        releaseAddress: liquidAddresses.regtest[1],
         buyerFee: defaultConfig.peachFee,
       }),
     ).toBe("");
@@ -68,6 +105,19 @@ describe("verifyReleasePSBT", () => {
     };
     expect(
       verifyReleasePSBT(psbt, mockSellOffer, contractWithDifferentAddress),
+    ).toBe("RETURN_ADDRESS_MISMATCH");
+  });
+  it("should handle invalid liquid release address", () => {
+    const contractWithDifferentAddress = {
+      ...contract,
+      releaseAddress: "differentAddress",
+    };
+    expect(
+      verifyReleasePSBT(
+        liquidPSBT,
+        mockSellOffer,
+        contractWithDifferentAddress,
+      ),
     ).toBe("RETURN_ADDRESS_MISMATCH");
   });
   it("should handle invalid buyer release amount", () => {
