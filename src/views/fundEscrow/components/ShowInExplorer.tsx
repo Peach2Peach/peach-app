@@ -2,25 +2,20 @@ import { TouchableOpacity } from "react-native";
 import { Icon } from "../../../components/Icon";
 import { TradeInfo } from "../../../components/offer/TradeInfo";
 import tw from "../../../styles/tailwind";
+import { getAddressChain } from "../../../utils/blockchain/getAddressChain";
 import { showAddress } from "../../../utils/blockchain/showAddress";
 import { showTransaction } from "../../../utils/blockchain/showTransaction";
 import i18n from "../../../utils/i18n";
-import { isLiquidAddress } from "../../../utils/validation/rules";
-import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 
-export function ShowInExplorer({
-  txId,
-  address,
-}: {
+type Props = {
   txId?: string;
   address: string;
-}) {
+};
+
+export function ShowInExplorer({ txId, address }: Props) {
   const openInExplorer = () =>
     txId
-      ? showTransaction(
-          txId,
-          isLiquidAddress(address, getLiquidNetwork()) ? "liquid" : "bitcoin",
-        )
+      ? showTransaction(txId, getAddressChain(address))
       : showAddress(address);
   return (
     <TouchableOpacity onPress={openInExplorer}>
