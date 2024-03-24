@@ -1,6 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { networks } from "bitcoinjs-lib";
-import { useCallback, useMemo, useState } from "react";
+import { atom, useAtomValue, useSetAtom } from "jotai";
+import { useCallback, useMemo } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
@@ -40,6 +41,13 @@ import { useCreateEscrow } from "./hooks/useCreateEscrow";
 import { useFundEscrowSetup } from "./hooks/useFundEscrowSetup";
 import { useFundFromPeachLiquidWallet } from "./hooks/useFundFromPeachLiquidWallet";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
+
+const isFundingFromPeachLiquidWallet = atom(false);
+export const useSetIsFundingFromPeachLiquidWallet = () =>
+  useSetAtom(isFundingFromPeachLiquidWallet);
+const isFundingFromPeachWallet = atom(false);
+export const useSetIsFundingFromPeachWallet = () =>
+  useSetAtom(isFundingFromPeachWallet);
 
 export const FundEscrow = () => {
   const { offerId, instantFund } = useRoute<"fundEscrow">().params;
@@ -272,7 +280,8 @@ function FundFromPeachWalletButton(props: FundFromPeachWalletButtonProps) {
   const fundedFromPeachWallet = useWalletState((state) =>
     state.isFundedFromPeachWallet(props.address),
   );
-  const [isFunding, setIsFunding] = useState(false);
+  const isFunding = useAtomValue(isFundingFromPeachWallet);
+  const setIsFunding = useSetIsFundingFromPeachWallet();
 
   const onButtonPress = () => {
     setIsFunding(true);
@@ -324,7 +333,8 @@ function FundFromPeachLiquidWalletButton(
   const fundedFromPeachWallet = useWalletState((state) =>
     state.isFundedFromPeachWallet(props.address),
   );
-  const [isFunding, setIsFunding] = useState(false);
+  const isFunding = useAtomValue(isFundingFromPeachLiquidWallet);
+  const setIsFunding = useSetIsFundingFromPeachLiquidWallet();
 
   const onButtonPress = () => {
     setIsFunding(true);

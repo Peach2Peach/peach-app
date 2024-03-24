@@ -1,14 +1,18 @@
 import { sendPayment } from "@breeztech/react-native-breez-sdk";
 import bolt11 from "bolt11";
-import { useCallback, useState } from "react";
+import { atom, useAtomValue, useSetAtom } from "jotai";
+import { useCallback } from "react";
+
+const isPayingInvoiceAtom = atom(false);
+export const useSetIsPayingInvoice = () => useSetAtom(isPayingInvoiceAtom);
 
 type PayInvoiceProps = {
   paymentRequest?: ReturnType<typeof bolt11.decode>;
   amount?: number;
 };
 export const usePayInvoice = ({ paymentRequest, amount }: PayInvoiceProps) => {
-  const [isPayingInvoice, setIsPayingInvoice] = useState(false);
-
+  const isPayingInvoice = useAtomValue(isPayingInvoiceAtom);
+  const setIsPayingInvoice = useSetIsPayingInvoice();
   const payInvoice = useCallback(async () => {
     if (!paymentRequest) throw Error("INVOICE_MISSING");
     const amountMsat = paymentRequest.millisatoshis
@@ -26,7 +30,7 @@ export const usePayInvoice = ({ paymentRequest, amount }: PayInvoiceProps) => {
     } finally {
       setIsPayingInvoice(false);
     }
-  }, [amount, paymentRequest]);
+  }, [amount, paymentRequest, setIsPayingInvoice]);
 
   return { payInvoice, isPayingInvoice };
 };
