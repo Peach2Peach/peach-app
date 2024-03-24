@@ -31,18 +31,17 @@ export const useRefundSubmarineSwap = ({ swap }: { swap: SwapInfo }) => {
             ...swap,
             status: { ...swap.status, status: "transaction.refunded" },
           });
-        } else {
-          setError(err.details);
         }
 
-        saveSwap({
-          ...swap,
-          status: { ...swap.status, status: "transaction.refunded" },
-        });
         return;
       }
       if (!result) {
         setError("GENERAL_ERROR");
+      } else {
+        saveSwap({
+          ...swap,
+          status: { ...swap.status, status: "transaction.refunded" },
+        });
       }
     }
   };
