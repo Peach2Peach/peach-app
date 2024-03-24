@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   GestureResponderEvent,
   NativeSyntheticEvent,
@@ -48,7 +48,7 @@ import { peachAPI } from "../../utils/peachAPI";
 import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
 import { priceFormat } from "../../utils/string/priceFormat";
 import { isDefined } from "../../utils/validation/isDefined";
-import { peachLiquidWallet, peachWallet } from "../../utils/wallet/setWallet";
+import { peachWallet } from "../../utils/wallet/setWallet";
 import { useLiquidWalletState } from "../../utils/wallet/useLiquidWalletState";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { getFundingAmount } from "../fundEscrow/helpers/getFundingAmount";
@@ -57,6 +57,7 @@ import { useFundFromPeachLiquidWallet } from "../fundEscrow/hooks/useFundFromPea
 import { useFundFromPeachWallet } from "../fundEscrow/hooks/useFundFromPeachWallet";
 import { EstimatedFeeItem } from "../settings/components/networkFees/EstimatedFeeItem";
 import { ChainSelect } from "../wallet/ChainSelect";
+import { useSyncLiquidWallet } from "../wallet/hooks/useSyncLiquidWallet";
 import { WalletSelector } from "./WalletSelector";
 import { FundMultipleOffers } from "./components/FundMultipleOffers";
 import { MarketInfo } from "./components/MarketInfo";
@@ -813,6 +814,11 @@ function RefundWalletSelector() {
     ],
     shallow,
   );
+  const [balanceLiquid, isSyncedLiquid] = useLiquidWalletState((state) => [
+    state.balance,
+    state.isSynced,
+  ]);
+  useSyncLiquidWallet({ enabled: !isSyncedLiquid });
   const minTradingAmount = useConfigStore((state) => state.minTradingAmount);
   const multi = useOfferPreferences((state) => state.multi);
   const { user } = useSelfUser();
@@ -825,15 +831,18 @@ function RefundWalletSelector() {
     (state) => state.setFundingMechanism,
   );
 
-  const updateFundFrom = (chain: Chain) => {
-    const chainFundingMechanismMap: Record<Chain, FundingMechanism> = {
-      bitcoin: "bitcoin",
-      liquid: "liquid",
-      lightning: "lightning-liquid",
-    };
-    setFundingMechanism(chainFundingMechanismMap[chain]);
-    setFundFrom(chain);
-  };
+  const updateFundFrom = useCallback(
+    (chain: Chain) => {
+      const chainFundingMechanismMap: Record<Chain, FundingMechanism> = {
+        bitcoin: "bitcoin",
+        liquid: "liquid",
+        lightning: "lightning-liquid",
+      };
+      setFundingMechanism(chainFundingMechanismMap[chain]);
+      setFundFrom(chain);
+    },
+    [setFundFrom, setFundingMechanism],
+  );
   const navigation = useStackNavigation();
 
   const onExternalWalletPress = () => {
@@ -850,10 +859,6 @@ function RefundWalletSelector() {
     typeof feeRate === "number" ? feeRate : feeEstimate.estimatedFees[feeRate];
   const onPress = () => navigation.navigate("networkFees");
 
-  const [balanceLiquid, isSyncedLiquid] = useLiquidWalletState((state) => [
-    state.balance,
-    state.isSynced,
-  ]);
   const neededAmount = (multi || 1) * minTradingAmount;
   const canFundFromLiquid = balanceLiquid > neededAmount;
 
@@ -861,10 +866,6 @@ function RefundWalletSelector() {
     if (isSyncedLiquid && !canFundFromLiquid && fundFrom === "liquid")
       updateFundFrom("bitcoin");
   }, [canFundFromLiquid, fundFrom, isSyncedLiquid, updateFundFrom]);
-
-  useEffect(() => {
-    if (!isSyncedLiquid) peachLiquidWallet?.syncWallet();
-  }, [isSyncedLiquid]);
 
   return (
     <Section.Container style={tw`bg-primary-background-dark gap-4`}>
