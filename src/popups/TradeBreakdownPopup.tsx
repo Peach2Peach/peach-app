@@ -1,4 +1,3 @@
-import { NETWORK } from "@env";
 import { Fragment } from "react";
 import { View } from "react-native";
 import { BTCAmount } from "../components/bitcoin/BTCAmount";
@@ -9,15 +8,17 @@ import { PeachText } from "../components/text/PeachText";
 import { HorizontalLine } from "../components/ui/HorizontalLine";
 import tw from "../styles/tailwind";
 import { getTradeBreakdown } from "../utils/bitcoin/getTradeBreakdown";
-import { showAddress } from "../utils/bitcoin/showAddress";
-import { showTransaction } from "../utils/bitcoin/showTransaction";
+import { getAddressChain } from "../utils/blockchain/getAddressChain";
+import { showAddress } from "../utils/blockchain/showAddress";
+import { showTransaction } from "../utils/blockchain/showTransaction";
 import i18n from "../utils/i18n";
 
 export function TradeBreakdownPopup({ contract }: { contract: Contract }) {
+  const chain = getAddressChain(contract.releaseAddress);
   const viewInExplorer = () =>
     contract.releaseTxId
-      ? showTransaction(contract.releaseTxId, NETWORK)
-      : showAddress(contract.escrow, NETWORK);
+      ? showTransaction(contract.releaseTxId, chain)
+      : showAddress(contract.escrow);
   return (
     <PopupComponent
       title={i18n("tradeComplete.popup.tradeBreakdown.title")}
@@ -48,6 +49,7 @@ function TradeBreakdown({
       releaseAddress,
       inputAmount: amount,
     });
+  const chain = getAddressChain(releaseAddress);
 
   const data = [
     [
@@ -88,7 +90,7 @@ function TradeBreakdown({
                 <PeachText style={tw`subtitle-1 text-black-65 shrink`}>
                   {item.text}
                 </PeachText>
-                <BTCAmount amount={item.amount} size="small" />
+                <BTCAmount chain={chain} amount={item.amount} size="small" />
               </View>
             ))}
           </View>

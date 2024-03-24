@@ -11,7 +11,7 @@ export const placeholderFees = {
 };
 
 export const bitcoinQueryKeys = {
-  feeEstimate: ["feeEstimate"],
+  feeEstimate: ["feeEstimate", "bitcoin"],
 };
 
 export const useFeeEstimate = () => {

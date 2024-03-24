@@ -4,13 +4,13 @@ import { TransactionInMempool } from "./TransactionInMempool";
 describe("TransactionInMempool", () => {
   it("should render correctly", () => {
     const { toJSON } = render(
-      <TransactionInMempool offerId="offerId" txId="txId" />,
+      <TransactionInMempool address="address" offerId="offerId" txId="txId" />,
     );
     expect(toJSON()).toMatchSnapshot();
   });
   it("shoud render correctly with different width", () => {
     const { toJSON, getByTestId } = render(
-      <TransactionInMempool offerId="offerId" txId="txId" />,
+      <TransactionInMempool address="address" offerId="offerId" txId="txId" />,
     );
     const imageContainer = getByTestId("image-container");
     act(() => {

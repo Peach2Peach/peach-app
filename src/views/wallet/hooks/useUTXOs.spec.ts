@@ -24,8 +24,9 @@ describe("useUTXOs", () => {
   const utxo = new LocalUtxo(outpoint, txOut, false, KeychainKind.External);
   const listUnspentMock = jest.fn().mockResolvedValue([utxo]);
 
-  beforeAll(() => {
+  beforeAll(async () => {
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
+    await peachWallet?.initWallet();
     if (peachWallet?.wallet) {
       peachWallet.wallet.listUnspent = listUnspentMock;
     }

@@ -13,12 +13,15 @@ type Onboarding = {
 type TestViews = {
   testView: undefined;
   testViewPeachWallet: undefined;
+  testViewLiquidWallet: undefined;
   testViewPNs: undefined;
 };
 
 type HomeTabParamList = {
   home: undefined;
   wallet: undefined;
+  liquidWallet: undefined;
+  lightningWallet: undefined;
   yourTrades: { tab?: TradeTab };
   settings: undefined;
 };
@@ -41,6 +44,7 @@ type SellFlow = {
   sellOfferPreferences: undefined;
   fundEscrow: {
     offerId: string;
+    instantFund?: string;
   };
   wrongFundingAmount: {
     offerId: string;
@@ -76,12 +80,29 @@ type RootStackParamList = Onboarding &
     addressChecker: undefined;
     coinSelection: undefined;
     transactionHistory: undefined;
-    exportTransactionHistory: undefined;
+    exportTransactionHistory: {
+      chain: Chain;
+    };
     transactionDetails: {
+      txId: string;
+    };
+    transactionDetailsLiquid: {
       txId: string;
     };
     bumpNetworkFees: {
       txId: string;
+    };
+    transactionHistoryLiquid: undefined;
+    sendBitcoinLiquid: undefined;
+    receiveBitcoinLiquid: undefined;
+    sendBitcoinLightning: undefined;
+    receiveBitcoinLightning: undefined;
+    lightningInvoice: {
+      invoice: string;
+    };
+    transactionHistoryLightning: undefined;
+    transactionDetailsLightning: {
+      invoice: string;
     };
     selectCurrency: {
       origin: keyof RootStackParamList;
@@ -137,7 +158,6 @@ type RootStackParamList = Onboarding &
     socials: undefined;
     myProfile: undefined;
     transactionBatching: undefined;
-
     patchPayoutAddress:
       | {
           contractId: Contract["id"];

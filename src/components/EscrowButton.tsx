@@ -1,8 +1,8 @@
-import { NETWORK } from "@env";
 import { StyleProp, ViewStyle } from "react-native";
 import tw from "../styles/tailwind";
-import { showAddress } from "../utils/bitcoin/showAddress";
-import { showTransaction } from "../utils/bitcoin/showTransaction";
+import { getAddressChain } from "../utils/blockchain/getAddressChain";
+import { showAddress } from "../utils/blockchain/showAddress";
+import { showTransaction } from "../utils/blockchain/showTransaction";
 import i18n from "../utils/i18n";
 import { Button } from "./buttons/Button";
 
@@ -13,10 +13,9 @@ type Props = {
 };
 
 export function EscrowButton({ releaseTxId, escrow, style }: Props) {
+  const chain = getAddressChain(escrow);
   const openEscrow = () =>
-    releaseTxId
-      ? showTransaction(releaseTxId, NETWORK)
-      : showAddress(escrow, NETWORK);
+    releaseTxId ? showTransaction(releaseTxId, chain) : showAddress(escrow);
 
   return (
     <Button

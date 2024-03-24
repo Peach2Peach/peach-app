@@ -7,20 +7,20 @@ import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 
 type SettingsTitle =
-  | "myProfile"
-  | "referrals"
+  | "aboutPeach"
   | "backups"
-  | "networkFees"
-  | "transactionBatching"
-  | "paymentMethods"
-  | "nodeSetup"
-  | "refundAddress"
-  | "payoutAddress"
+  | "contact"
   | "currency"
   | "language"
-  | "contact"
-  | "aboutPeach"
-  | "testView";
+  | "myProfile"
+  | "networkFees"
+  | "nodeSetup"
+  | "paymentMethods"
+  | "payoutAddress"
+  | "referrals"
+  | "refundAddress"
+  | "testView"
+  | "transactionBatching";
 
 export type SettingsItemProps = (
   | {

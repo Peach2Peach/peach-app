@@ -7,8 +7,15 @@ jest.mock("../../../components/bitcoin/BTCAmount", () => ({
   BTCAmount: "BTCAmount",
 }));
 
+jest.mock("../../../hooks/query/useMarketPrices", () => ({
+  useMarketPrices: () => ({
+    data: { EUR: 20000, CHF: 20000 },
+  }),
+}));
+
 describe("TotalBalance", () => {
-  const defaultComponent = <TotalBalance amount={100000} />;
+  const defaultComponent = <TotalBalance chain="bitcoin" amount={100000} />;
+
   it("renders correctly", () => {
     const { toJSON } = render(defaultComponent);
     expect(toJSON()).toMatchSnapshot();
@@ -27,7 +34,9 @@ describe("TotalBalance", () => {
   });
   it("renders correctly when isRefreshing is true", () => {
     const base = render(defaultComponent).toJSON();
-    const { toJSON } = render(<TotalBalance amount={100000} isRefreshing />);
+    const { toJSON } = render(
+      <TotalBalance chain="bitcoin" amount={100000} isRefreshing />,
+    );
     expect(base).toMatchDiffSnapshot(toJSON());
   });
 });

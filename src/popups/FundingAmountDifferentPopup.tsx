@@ -7,6 +7,7 @@ import { useStackNavigation } from "../hooks/useStackNavigation";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { sum } from "../utils/math/sum";
+import { getSellOfferFunding } from "../utils/offer/getSellOfferFunding";
 import { thousands } from "../utils/string/thousands";
 import { WarningPopup } from "./WarningPopup";
 
@@ -18,7 +19,8 @@ export function FundingAmountDifferentPopup({
   const navigation = useStackNavigation();
   const closePopup = useClosePopup();
 
-  const actualAmount = sellOffer.funding.amounts.reduce(sum, 0);
+  const funding = getSellOfferFunding(sellOffer);
+  const actualAmount = funding.amounts.reduce(sum, 0);
   return (
     <WarningPopup
       title={i18n("warning.fundingAmountDifferent.title")}
@@ -27,11 +29,19 @@ export function FundingAmountDifferentPopup({
           <PeachText>
             {i18n("warning.fundingAmountDifferent.description.1")}
           </PeachText>
-          <BTCAmount amount={actualAmount} size="medium" />
+          <BTCAmount
+            chain={sellOffer.escrowType}
+            amount={actualAmount}
+            size="medium"
+          />
           <PeachText>
             {i18n("warning.fundingAmountDifferent.description.2")}
           </PeachText>
-          <BTCAmount amount={sellOffer.amount} size="medium" />
+          <BTCAmount
+            chain={sellOffer.escrowType}
+            amount={sellOffer.amount}
+            size="medium"
+          />
           <PeachText>
             {i18n(
               "warning.fundingAmountDifferent.description.3",

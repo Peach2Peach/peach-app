@@ -1,3 +1,4 @@
+/* eslint-disable require-atomic-updates */
 /* eslint-disable no-magic-numbers */
 import { LocalUtxo, OutPoint, TxOut } from "bdk-rn/lib/classes/Bindings";
 import { Script } from "bdk-rn/lib/classes/Script";
@@ -17,6 +18,12 @@ import { walletKeys } from "./hooks/useUTXOs";
 
 jest.mock("./hooks/useWalletBalance", () => ({
   useWalletBalance: jest.fn().mockReturnValue({ balance: 21 }),
+}));
+
+jest.mock("../../hooks/query/useMarketPrices", () => ({
+  useMarketPrices: () => ({
+    data: { EUR: 20000, CHF: 20000 },
+  }),
 }));
 
 const addresses = {
@@ -56,7 +63,7 @@ const utxo = new LocalUtxo(outpoint, txOut, false, KeychainKind.External);
 const listUnspentMock = jest.fn().mockResolvedValue([utxo]);
 
 describe("Wallet", () => {
-  beforeAll(() => {
+  beforeAll(async () => {
     setRouteMock({
       name: "homeScreen",
       key: "homeScreen",
@@ -64,6 +71,7 @@ describe("Wallet", () => {
     });
     setPeachWallet(new PeachWallet({ wallet: createTestWallet() }));
     if (!peachWallet) throw new Error("Peach wallet not set");
+    await peachWallet.initWallet();
     peachWallet.getAddressByIndex = jest.fn((index: number) => {
       if (index === 0) return Promise.resolve(addresses.first);
       if (index === 1) return Promise.resolve(addresses.second);
@@ -101,6 +109,7 @@ describe("Wallet", () => {
     const { toJSON } = render(<Wallet />);
     expect(toJSON()).toMatchSnapshot();
   });
+
   it("should navigate to send screen when send button is pressed", async () => {
     const { getByText } = render(<Wallet />);
     await waitFor(() => {

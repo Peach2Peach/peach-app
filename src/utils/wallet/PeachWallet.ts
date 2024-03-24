@@ -23,6 +23,10 @@ import { parseError } from "../parseError";
 import { isIOS } from "../system/isIOS";
 import { callWhenInternet } from "../web/callWhenInternet";
 import { PeachJSWallet } from "./PeachJSWallet";
+import {
+  BuildTxParams,
+  buildTransaction,
+} from "./bitcoin/transaction/buildTransaction";
 import { buildBlockchainConfig } from "./buildBlockchainConfig";
 import { handleTransactionError } from "./error/handleTransactionError";
 import { getDescriptorsBySeedphrase } from "./getDescriptorsBySeedphrase";
@@ -30,7 +34,6 @@ import { getUTXOAddress } from "./getUTXOAddress";
 import { labelAddressByTransaction } from "./labelAddressByTransaction";
 import { mapTransactionToOffer } from "./mapTransactionToOffer";
 import { NodeConfig, useNodeConfigState } from "./nodeConfigStore";
-import { BuildTxParams, buildTransaction } from "./transaction";
 import { transactionHasBeenMappedToOffers } from "./transactionHasBeenMappedToOffers";
 import { useWalletState } from "./walletStore";
 
@@ -171,6 +174,7 @@ export class PeachWallet extends PeachJSWallet {
               .forEach(mapTransactionToOffer({ offers, contracts }));
             this.transactions
               .filter(transactionHasBeenMappedToOffers)
+              .map((tx) => tx.txid)
               .forEach(labelAddressByTransaction);
 
             this.lastUnusedAddress = undefined;

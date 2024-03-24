@@ -8,9 +8,10 @@
   "coverageReporters": ["lcov", "text-summary"],
   "testPathIgnorePatterns": ["<rootDir>/peach-api"],
   "transformIgnorePatterns": [
-    "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-form-validator|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg|bdk-rn|react-native-parsed-text|react-native-reanimated|react-native-reanimated-carousel|react-native-url-polyfill|react-native-camera)/)"
+    "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-permissions|react-native-qrcode-svg|@breez|bdk-rn|react-native-parsed-text|react-native-reanimated|react-native-reanimated-carousel|react-native-url-polyfill|react-native-camera)/)"
   ],
   "setupFiles": ["./tests/unit/prepare.ts", "dotenv/config"],
+  "globalSetup": "./tests/unit/global.ts",
   "moduleNameMapper": {
     "\\.(ttf|woff|woff2|eot|otf)$": "jest-transform-stub",
     "\\.(svg)$": "<rootDir>/__mocks__/fileMock.js"

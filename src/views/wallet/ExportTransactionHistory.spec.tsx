@@ -1,6 +1,8 @@
 import RNFS from "react-native-fs";
 import Share from "react-native-share";
 import { fireEvent, render, waitFor } from "test-utils";
+import { lnPayment } from "../../../tests/unit/data/lightningNetworkData";
+import { setRouteMock } from "../../../tests/unit/helpers/NavigationWrapper";
 import { ExportTransactionHistory } from "./ExportTransactionHistory";
 
 jest.mock("../../utils/date/toShortDateFormat");
@@ -12,10 +14,25 @@ const mockUseTxSummaries = jest.fn();
 jest.mock("./helpers/useTxSummaries", () => ({
   useTxSummaries: () => mockUseTxSummaries(),
 }));
+const mockUseTxSummariesLiquid = jest.fn();
+jest.mock("./helpers/useTxSummariesLiquid", () => ({
+  useTxSummariesLiquid: () => mockUseTxSummariesLiquid(),
+}));
+const mockUseLightningPayments = jest.fn().mockReturnValue({ data: [] });
+jest.mock("./hooks/useLightningPayments", () => ({
+  useLightningPayments: () => mockUseLightningPayments(),
+}));
 
 jest.useFakeTimers();
 describe("ExportTransactionHistory", () => {
   const firstCSVRow = "Date, Type, Amount, Transaction ID\n";
+  beforeAll(() => {
+    setRouteMock({
+      name: "exportTransactionHistory",
+      key: "exportTransactionHistory",
+      params: { chain: "bitcoin" },
+    });
+  });
   it("should render correctly", () => {
     const { toJSON } = render(<ExportTransactionHistory />);
     expect(toJSON()).toMatchSnapshot();
@@ -33,6 +50,7 @@ describe("ExportTransactionHistory", () => {
       "utf8",
     );
   });
+
   it("should add a row for each transaction", () => {
     mockUseTxSummaries.mockReturnValue([
       {
@@ -54,7 +72,51 @@ describe("ExportTransactionHistory", () => {
       "utf8",
     );
   });
+  it("should create a csv for liquid tx history", () => {
+    setRouteMock({
+      name: "exportTransactionHistory",
+      key: "exportTransactionHistory",
+      params: { chain: "liquid" },
+    });
+    mockUseTxSummariesLiquid.mockReturnValue([
+      {
+        data: { id: "1", date: new Date(), type: "WITHDRAWAL", amount: 189000 },
+      },
+      {
+        data: { id: "2", date: new Date(), type: "WITHDRAWAL", amount: 42000 },
+      },
+    ]);
+    const { getByText } = render(<ExportTransactionHistory />);
+    const exportButton = getByText("export");
+    toShortDateFormatMock.mockReturnValue("18/08/2023 19:50");
 
+    fireEvent.press(exportButton);
+
+    expect(RNFS.writeFile).toHaveBeenCalledWith(
+      "DDirPath//transaction-history.csv",
+      `${firstCSVRow}18/08/2023 19:50, WITHDRAWAL, 189000, 1\n18/08/2023 19:50, WITHDRAWAL, 42000, 2\n`,
+      "utf8",
+    );
+  });
+  it("should create a csv for lightning tx history", () => {
+    setRouteMock({
+      name: "exportTransactionHistory",
+      key: "exportTransactionHistory",
+      params: { chain: "lightning" },
+    });
+    mockUseLightningPayments.mockReturnValue({ data: [lnPayment] });
+    const { getByText } = render(<ExportTransactionHistory />);
+    const exportButton = getByText("export");
+    toShortDateFormatMock.mockReturnValue("18/08/2023 19:50");
+
+    fireEvent.press(exportButton);
+
+    expect(RNFS.writeFile).toHaveBeenCalledWith(
+      "DDirPath//transaction-history.csv",
+      `Date, Type, Amount, ID\n18/08/2023 19:50, sent, 12.345, payment id\n`,
+      "utf8",
+    );
+  });
   it("should open the native share sheet when the export button is pressed", async () => {
     const { getByText } = render(<ExportTransactionHistory />);
     const exportButton = getByText("export");

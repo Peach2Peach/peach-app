@@ -8,6 +8,7 @@ import error from "./error/pt.json";
 import form from "./form/pt.json";
 import global from "./global/pt.json";
 import help from "./help/pt.json";
+import layer2 from "./layer2/pt.json";
 import match from "./match/pt.json";
 import notification from "./notification/pt.json";
 import offer from "./offer/pt.json";
@@ -46,6 +47,7 @@ const pt: Record<string, string> = {
   ...unassigned,
   ...wallet,
   ...welcome,
+  ...layer2,
 };
 
 export default pt;

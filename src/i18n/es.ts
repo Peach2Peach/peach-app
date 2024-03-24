@@ -9,6 +9,7 @@ import form from "./form/es.json";
 import global from "./global/es.json";
 import help from "./help/es.json";
 import home from "./home/es.json";
+import layer2 from "./layer2/es.json";
 import match from "./match/es.json";
 import notification from "./notification/es.json";
 import offer from "./offer/es.json";
@@ -48,6 +49,7 @@ const es: Record<string, string> = {
   ...unassigned,
   ...wallet,
   ...welcome,
+  ...layer2,
 };
 
 export default es;

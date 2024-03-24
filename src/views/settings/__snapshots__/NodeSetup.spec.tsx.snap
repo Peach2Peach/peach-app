@@ -30,8 +30,8 @@ exports[`NodeSetup should change address 1`] = `
                         style={
                           Object {
                             "flexDirection": "row",
-@@ -658,11 +658,11 @@
-          <View
+@@ -659,11 +659,11 @@
+            accessibilityRole="button"
             accessibilityState={
               Object {
                 "busy": undefined,

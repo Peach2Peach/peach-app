@@ -24,6 +24,7 @@ export function useTxSummaries() {
 
         return {
           ...partialSummary,
+          chain: "bitcoin" as Chain,
           offerData: getOfferData(
             offers.filter(isNotNull),
             contracts,

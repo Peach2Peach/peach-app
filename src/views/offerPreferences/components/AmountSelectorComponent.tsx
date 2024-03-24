@@ -195,6 +195,7 @@ function BuyAmountInput({
   return (
     <View style={tw`justify-center grow`}>
       <SatsInputComponent
+        chain="bitcoin"
         ref={inputRef}
         value={displayValue}
         onFocus={onFocus}

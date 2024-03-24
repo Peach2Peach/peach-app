@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClaimSubmarineSwap should render correctly 1`] = `
+<WebView
+  injectedJavaScript="window.claimSubmarineSwap({"apiUrl":"http://localhost:9001","network":"regtest","invoice":"invoice","swapInfo":{"id":"Z3zFmeKQbIbM","bip21":"liquidnetwork:el1pq244c89sg3c0ser5k2d0dx4nujv5dy8rvuqqflw6yqmvayamcm2fh8zpzge8sjz6a88vf3dkkttuh4qjjcv8tx78nlj4deru95kcsfmtmnwhe2zqh5s4?amount=0.00030178&label=Send%20to%20BTC%20lightning&assetid=5ac9f65c0efcc4775e0baec4ec03abdde22473cd3cf33c0419ca290e0751b225","address":"el1pq244c89sg3c0ser5k2d0dx4nujv5dy8rvuqqflw6yqmvayamcm2fh8zpzge8sjz6a88vf3dkkttuh4qjjcv8tx78nlj4deru95kcsfmtmnwhe2zqh5s4","swapTree":{"claimLeaf":{"version":196,"output":"a914a453dc64b5244a32cff3d8d4feb136507ba790648820253077aefbfcacb3cb750bec5f43664a661e66e53a65f660da252da40a3fd51fac"},"refundLeaf":{"version":196,"output":"208ba19c1532fa0b209ac3dd86e3c54145ef5761930e3190f040fa294de5f86da9ad026727b1"}},"blindingKey":"06831335949f5ea42ae1bd49650194801d7ce94b0efd2d825cdb64e980f99f02","acceptZeroConf":false,"expectedAmount":30178,"claimPublicKey":"03253077aefbfcacb3cb750bec5f43664a661e66e53a65f660da252da40a3fd51f","timeoutBlockHeight":10087},"privateKey":"742d5032ea5f1b021d2a2c7bbdd85aea14183e343552c94a76b36d4f9b55e341"}); void(0);"
+  onMessage={[Function]}
+  originWhitelist={
+    [
+      "*",
+    ]
+  }
+  source={
+    {
+      "html": "<html></html>",
+    }
+  }
+  style={
+    {
+      "opacity": 0,
+      "position": "absolute",
+    }
+  }
+/>
+`;

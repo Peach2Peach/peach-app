@@ -53,7 +53,7 @@ export const SendBitcoin = () => {
     setAmount(newValue);
   };
 
-  const sendTrasaction = async () => {
+  const sendTransaction = async () => {
     if (!feeRate || !peachWallet) return;
     try {
       const { psbt } = await peachWallet.buildFinishedTransaction({
@@ -101,6 +101,7 @@ export const SendBitcoin = () => {
             }}
           >
             <BTCAmountInput
+              chain="bitcoin"
               value={amount.toString()}
               onChangeText={onAmountChange}
               size="medium"
@@ -122,7 +123,7 @@ export const SendBitcoin = () => {
         </View>
 
         <SendBitcoinSlider
-          onConfirm={sendTrasaction}
+          onConfirm={sendTransaction}
           isFormValid={isFormValid}
         />
       </PeachScrollView>
@@ -205,6 +206,7 @@ function Fees({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
     display:
       feeRate === "custom" ? (
         <CustomFeeItem
+          chain="bitcoin"
           customFeeRate={customFeeRate}
           setCustomFeeRate={updateCustomFeeRate}
           disabled={selectedFeeRate !== "custom"}

@@ -8,6 +8,7 @@ import { updateAccount } from "../../../utils/account/updateAccount";
 import { TradeItem } from "./TradeItem";
 
 jest.useFakeTimers();
+jest.mock("../../../utils/lightning/initLightningWallet");
 
 describe("OfferItem", () => {
   const minAmount = 21000;
@@ -15,6 +16,7 @@ describe("OfferItem", () => {
   const defaultOffer: OfferSummary = {
     id: "id",
     type: "bid",
+    escrowType: "bitcoin",
     creationDate: new Date("2021-01-01"),
     lastModified: new Date("2021-01-01"),
     amount: [minAmount, maxAmount],

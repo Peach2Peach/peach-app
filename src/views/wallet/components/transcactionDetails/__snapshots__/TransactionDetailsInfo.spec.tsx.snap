@@ -341,6 +341,7 @@ exports[`TransactionDetailsInfo should render correctly for a confirmed transact
     transactionSummary={
       {
         "amount": 1540,
+        "chain": "bitcoin",
         "confirmed": true,
         "date": 2022-09-14T16:14:02.835Z,
         "height": 1,
@@ -736,6 +737,7 @@ exports[`TransactionDetailsInfo should render correctly for a deposit transactio
     transactionSummary={
       {
         "amount": 1540,
+        "chain": "bitcoin",
         "confirmed": false,
         "date": 2022-09-14T16:14:02.835Z,
         "height": undefined,
@@ -1149,6 +1151,7 @@ exports[`TransactionDetailsInfo should render correctly for a pending transactio
     transactionSummary={
       {
         "amount": 1540,
+        "chain": "bitcoin",
         "confirmed": false,
         "date": 2022-09-14T16:14:02.835Z,
         "height": undefined,

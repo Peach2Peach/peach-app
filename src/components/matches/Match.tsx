@@ -7,6 +7,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { GetMatchesResponseBody } from "../../../peach-api/src/@types/api/offerAPI";
+import { SellOffer } from "../../../peach-api/src/@types/offer";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
@@ -97,6 +98,7 @@ export const Match = ({
             amount={amount}
             price={matchedPrice}
             currency={selectedCurrency}
+            chain={match.escrowType}
           />
 
           <HorizontalLine />
@@ -349,9 +351,10 @@ type PriceInfoProps = {
   amount: number;
   price: number | null;
   currency?: Currency;
+  chain: Chain;
 };
 
-function SellerPriceInfo({ amount, price, currency }: PriceInfoProps) {
+function SellerPriceInfo({ amount, price, currency, chain }: PriceInfoProps) {
   const { data: priceBook } = useMarketPrices();
   if (!price || !currency) return null;
 
@@ -366,6 +369,7 @@ function SellerPriceInfo({ amount, price, currency }: PriceInfoProps) {
       price={price}
       currency={currency}
       premium={premium}
+      chain={chain}
     />
   );
 }

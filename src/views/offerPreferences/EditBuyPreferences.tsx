@@ -16,6 +16,7 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
 import { getMessageToSignForAddress } from "../../utils/account/getMessageToSignForAddress";
+import { getAddressChain } from "../../utils/blockchain/getAddressChain";
 import i18n from "../../utils/i18n";
 import { interpolate } from "../../utils/math/interpolate";
 import { round } from "../../utils/math/round";
@@ -161,7 +162,10 @@ function OfferWalletSelector({
     ],
     shallow,
   );
-  const addressIsInPeachWallet = useIsMyAddress(releaseAddress);
+  const addressIsInPeachWallet = useIsMyAddress({
+    address: releaseAddress,
+    chain: getAddressChain(releaseAddress),
+  });
   const { mutate: patchPayoutAddress } = usePatchReleaseAddress(offerId);
 
   const customAddress =

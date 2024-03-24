@@ -1,0 +1,469 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WalletSelector should hide external wallet if showExternalWallet is set to false 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -113,7 +113,84 @@
+          }
+        >
+          Peach wallet
+        </Text>
+      </View>
++     <View
++       accessibilityState={
++         Object {
++           "busy": undefined,
++           "checked": undefined,
++           "disabled": false,
++           "expanded": undefined,
++           "selected": undefined,
++         }
++       }
++       accessibilityValue={
++         Object {
++           "max": undefined,
++           "min": undefined,
++           "now": undefined,
++           "text": undefined,
++         }
++       }
++       accessible={true}
++       collapsable={false}
++       focusable={true}
++       onClick={[Function onClick]}
++       onResponderGrant={[Function onResponderGrant]}
++       onResponderMove={[Function onResponderMove]}
++       onResponderRelease={[Function onResponderRelease]}
++       onResponderTerminate={[Function onResponderTerminate]}
++       onResponderTerminationRequest={[Function onResponderTerminationRequest]}
++       onStartShouldSetResponder={[Function onStartShouldSetResponder]}
++       style={
++         Object {
++           "alignItems": "center",
++           "backgroundColor": "transparent",
++           "borderColor": "#F56522",
++           "borderRadius": 8,
++           "borderWidth": 1,
++           "flexDirection": "row",
++           "gap": 4,
++           "justifyContent": "center",
++           "opacity": 1,
++           "paddingBottom": 2,
++           "paddingLeft": 8,
++           "paddingRight": 8,
++           "paddingTop": 2,
++         }
++       }
++     >
++       <Text
++         allowFontScaling={false}
++         style={
++           Array [
++             Object {
++               "color": "#2B1911",
++               "fontFamily": "Baloo2-Regular",
++               "fontSize": 16,
++               "letterSpacing": 0.16,
++               "lineHeight": 24,
++             },
++             Array [
++               Object {
++                 "fontFamily": "Baloo2-SemiBold",
++                 "fontSize": 14,
++                 "letterSpacing": 0.5,
++                 "lineHeight": 24,
++                 "textAlign": "center",
++                 "textTransform": "uppercase",
++               },
++               Object {
++                 "color": "#F56522",
++               },
++             ],
++             false,
++           ]
++         }
++       >
++         addressLabel
++       </Text>
++     </View>
+    </View>
+  </View>"
+`;
+
+exports[`WalletSelector should render correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "gap": 16,
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+        },
+        false,
+      ]
+    }
+  >
+    title
+  </Text>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 10,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": true,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#F56522",
+          "borderColor": "#F56522",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "center",
+          "opacity": 1,
+          "paddingBottom": 2,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 2,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 14,
+                "letterSpacing": 0.5,
+                "lineHeight": 24,
+                "textAlign": "center",
+                "textTransform": "uppercase",
+              },
+              {
+                "color": "#FFFCFA",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        Peach wallet
+      </Text>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderColor": "#F56522",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "flexDirection": "row",
+          "gap": 4,
+          "justifyContent": "center",
+          "opacity": 1,
+          "paddingBottom": 2,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 2,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 14,
+                "letterSpacing": 0.5,
+                "lineHeight": 24,
+                "textAlign": "center",
+                "textTransform": "uppercase",
+              },
+              {
+                "color": "#F56522",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+        addressLabel
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`WalletSelector should render correctly for liquid 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -67,12 +67,12 @@
+        onResponderTerminationRequest={[Function onResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+        style={
+          Object {
+            "alignItems": "center",
+-           "backgroundColor": "#2CCCBF",
+-           "borderColor": "#2CCCBF",
++           "backgroundColor": "#F56522",
++           "borderColor": "#F56522",
+            "borderRadius": 8,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 4,
+            "justifyContent": "center",
+@@ -110,11 +110,11 @@
+              ],
+              false,
+            ]
+          }
+        >
+-         Peach liquid wallet
++         Peach wallet
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          Object {
+@@ -145,11 +145,11 @@
+        onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+-           "borderColor": "#2CCCBF",
++           "borderColor": "#F56522",
+            "borderRadius": 8,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 4,
+            "justifyContent": "center",
+@@ -180,11 +180,11 @@
+                  "lineHeight": 24,
+                  "textAlign": "center",
+                  "textTransform": "uppercase",
+                },
+                Object {
+-                 "color": "#2CCCBF",
++                 "color": "#F56522",
+                },
+              ],
+              false,
+            ]
+          }"
+`;
+
+exports[`WalletSelector should render correctly if external wallet is not configured 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -187,22 +187,10 @@
+              ],
+              false,
+            ]
+          }
+        >
+-         external wallet
++         addressLabel
+        </Text>
+-       <test-file-stub
+-         fill="#F56522"
+-         style={
+-           Array [
+-             Object {
+-               "height": 12,
+-               "width": 12,
+-             },
+-             undefined,
+-           ]
+-         }
+-       />
+      </View>
+    </View>
+  </View>"
+`;
+
+exports[`WalletSelector should render correctly if peach wallet is not active 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -41,11 +41,11 @@
+      <View
+        accessibilityState={
+          Object {
+            "busy": undefined,
+            "checked": undefined,
+-           "disabled": false,
++           "disabled": true,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+@@ -67,11 +67,11 @@
+        onResponderTerminationRequest={[Function onResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+        style={
+          Object {
+            "alignItems": "center",
+-           "backgroundColor": "transparent",
++           "backgroundColor": "#F56522",
+            "borderColor": "#F56522",
+            "borderRadius": 8,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 4,
+@@ -103,11 +103,11 @@
+                  "lineHeight": 24,
+                  "textAlign": "center",
+                  "textTransform": "uppercase",
+                },
+                Object {
+-                 "color": "#F56522",
++                 "color": "#FFFCFA",
+                },
+              ],
+              false,
+            ]
+          }
+@@ -118,11 +118,11 @@
+      <View
+        accessibilityState={
+          Object {
+            "busy": undefined,
+            "checked": undefined,
+-           "disabled": true,
++           "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+@@ -144,11 +144,11 @@
+        onResponderTerminationRequest={[Function onResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+        style={
+          Object {
+            "alignItems": "center",
+-           "backgroundColor": "#F56522",
++           "backgroundColor": "transparent",
+            "borderColor": "#F56522",
+            "borderRadius": 8,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 4,
+@@ -180,11 +180,11 @@
+                  "lineHeight": 24,
+                  "textAlign": "center",
+                  "textTransform": "uppercase",
+                },
+                Object {
+-                 "color": "#FFFCFA",
++                 "color": "#F56522",
+                },
+              ],
+              false,
+            ]
+          }"
+`;

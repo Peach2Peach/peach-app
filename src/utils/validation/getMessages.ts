@@ -1,12 +1,16 @@
 import i18n from "../i18n";
+import { Rule } from "./rules";
 
-export const getMessages = () => ({
+export const getMessages = (): Record<Rule, string> => ({
   account: i18n("form.account.error"),
   advcashWallet: i18n("form.wallet.error"),
   bic: i18n("form.bic.error"),
   bip39: i18n("form.bip39.error"),
   bip39Word: i18n("form.bip39Word.error"),
   bitcoinAddress: i18n("form.address.btc.error"),
+  liquidAddress: i18n("form.address.btc.error"),
+  lightningInvoice: i18n("form.lightningInvoice.error"),
+  invoiceHasCorrectAmount: i18n("form.lightningInvoice.amount.error"),
   duplicate: i18n("form.duplicate.error"),
   email: i18n("form.email.error"),
   feeRate: i18n("form.feeRate.error"),

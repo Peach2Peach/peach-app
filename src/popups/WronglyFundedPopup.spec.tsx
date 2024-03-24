@@ -1,7 +1,10 @@
+import { ReactTestRendererJSON } from "react-test-renderer";
+import { toMatchDiffSnapshot } from "snapshot-diff";
 import { fireEvent, render } from "test-utils";
 import { sellOffer } from "../../tests/unit/data/offerData";
 import { useConfigStore } from "../store/configStore/configStore";
 import { WronglyFundedPopup } from "./WronglyFundedPopup";
+expect.extend({ toMatchDiffSnapshot });
 
 const mockCancelAndStartRefundPopup = jest.fn();
 jest.mock("./useCancelAndStartRefundPopup", () => ({
@@ -17,23 +20,36 @@ describe("useShowWronglyFundedPopup", () => {
     ...sellOffer,
     amount,
     funding: { txIds: ["1"], amounts: [actualAmount] } as FundingStatus,
+    fundingLiquid: { txIds: ["1"], amounts: [actualAmount] } as FundingStatus,
   };
   const incorrectlyFundedOffer = {
     ...sellOffer,
     amount,
     funding: { txIds: ["1", "2"], amounts: [amount] } as FundingStatus,
+    fundingLiquid: { txIds: ["1", "2"], amounts: [amount] } as FundingStatus,
   };
+  let base: ReactTestRendererJSON | ReactTestRendererJSON[] | null;
 
   beforeEach(() => {
     useConfigStore.setState({ maxTradingAmount });
   });
   it("uses WrongFundingAmount as content if there is only one utxo", () => {
-    const { queryByText } = render(
+    const { toJSON, queryByText } = render(
       <WronglyFundedPopup sellOffer={wronglyFundedOffer} />,
     );
 
+    base = toJSON();
     expect(queryByText("trading limit exceeded")).not.toBeNull();
-    expect(queryByText("Incorrect funding")).toBeNull();
+    expect(base).toMatchSnapshot();
+  });
+  it("uses WrongFundingAmount as content if there is only one utxo for liquid", () => {
+    const { toJSON } = render(
+      <WronglyFundedPopup
+        sellOffer={{ ...wronglyFundedOffer, escrowType: "liquid" }}
+      />,
+    );
+
+    expect(toJSON()).toMatchDiffSnapshot(base);
   });
   it("opens Incorrect Funding popup when funded with multiple transactions", () => {
     const { queryByText } = render(

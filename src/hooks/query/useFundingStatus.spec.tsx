@@ -1,22 +1,27 @@
 import { renderHook, responseUtils, waitFor } from "test-utils";
 import { sellOffer } from "../../../tests/unit/data/offerData";
 import { queryClient } from "../../../tests/unit/helpers/QueryClientWrapper";
-import { defaultFundingStatus } from "../../utils/offer/constants";
+import { getDefaultFundingStatus } from "../../utils/offer/constants";
 import { peachAPI } from "../../utils/peachAPI";
 import { useFundingStatus } from "./useFundingStatus";
 
 const defaultFundingStatusResponse = {
-  funding: defaultFundingStatus,
+  funding: getDefaultFundingStatus(sellOffer.id),
   userConfirmationRequired: false,
 };
 const inMempool = {
   funding: {
     ...defaultFundingStatusResponse.funding,
-    status: "MEMPOOL" as const,
+    status: "MEMPOOL" as FundingStatus["status"],
+  },
+  fundingLiquid: {
+    ...defaultFundingStatusResponse.funding,
+    status: "NULL" as FundingStatus["status"],
   },
   userConfirmationRequired: true,
   returnAddress: "",
   escrow: "",
+  escrows: {},
   offerId: "",
 };
 
@@ -41,7 +46,8 @@ describe("useFundingStatus", () => {
     });
 
     expect(result.current).toEqual({
-      fundingStatus: undefined,
+      fundingStatus: getDefaultFundingStatus(sellOffer.id),
+      fundingStatusLiquid: getDefaultFundingStatus(sellOffer.id),
       userConfirmationRequired: undefined,
       isLoading: true,
       isPending: true,
@@ -52,6 +58,7 @@ describe("useFundingStatus", () => {
 
     expect(result.current).toEqual({
       fundingStatus: inMempool.funding,
+      fundingStatusLiquid: inMempool.fundingLiquid,
       userConfirmationRequired: inMempool.userConfirmationRequired,
       isLoading: false,
       isPending: false,
@@ -68,10 +75,20 @@ describe("useFundingStatus", () => {
       initialProps: sellOffer.id,
     });
 
+    expect(result.current).toEqual({
+      fundingStatus: getDefaultFundingStatus(sellOffer.id),
+      fundingStatusLiquid: getDefaultFundingStatus(sellOffer.id),
+      userConfirmationRequired: undefined,
+      isLoading: true,
+      isPending: true,
+      error: null,
+    });
+
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
     expect(result.current).toEqual({
-      fundingStatus: undefined,
+      fundingStatus: getDefaultFundingStatus(sellOffer.id),
+      fundingStatusLiquid: getDefaultFundingStatus(sellOffer.id),
       userConfirmationRequired: undefined,
       isLoading: false,
       isPending: false,

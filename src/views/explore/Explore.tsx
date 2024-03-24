@@ -77,6 +77,7 @@ function BuyOfferMarketInfo() {
   return (
     <MarketInfo
       type={"sellOffers"}
+      escrowType={offer?.escrowType}
       meansOfPayment={offer?.meansOfPayment}
       maxPremium={offer?.maxPremium || undefined}
       minReputation={offer?.minReputation || undefined}
@@ -137,7 +138,7 @@ function ExploreCard({ match }: { match: Match }) {
           ]}
         >
           <Rating rating={user.rating} isNewUser={isNewUser} />
-          <BTCAmount amount={amount} size="small" />
+          <BTCAmount chain={match.escrowType} amount={amount} size="small" />
         </View>
         <View
           style={[

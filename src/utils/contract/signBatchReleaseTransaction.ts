@@ -1,10 +1,11 @@
 import { BIP32Interface } from "bip32";
 import { Psbt } from "bitcoinjs-lib";
+import { Psbt as LiquidPsbt } from "liquidjs-lib/src/psbt";
 import { isPSBTForBatch, verifyPSBT } from "../../views/contract/helpers";
 import { signPSBT } from "../wallet/signPSBT";
 
 type Props = {
-  psbt: Psbt;
+  psbt: Psbt | LiquidPsbt;
   contract: Contract;
   sellOffer: SellOffer;
   wallet: BIP32Interface;

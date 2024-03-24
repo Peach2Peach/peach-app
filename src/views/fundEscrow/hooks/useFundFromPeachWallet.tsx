@@ -18,11 +18,9 @@ import { useConfigStore } from "../../../store/configStore/configStore";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
 import { parseError } from "../../../utils/parseError";
+import { buildTransaction } from "../../../utils/wallet/bitcoin/transaction/buildTransaction";
+import { setMultipleRecipients } from "../../../utils/wallet/bitcoin/transaction/setMultipleRecipients";
 import { peachWallet } from "../../../utils/wallet/setWallet";
-import {
-  buildTransaction,
-  setMultipleRecipients,
-} from "../../../utils/wallet/transaction";
 import { useWalletState } from "../../../utils/wallet/walletStore";
 import { useSyncWallet } from "../../wallet/hooks/useSyncWallet";
 import { ConfirmTransactionPopup } from "./ConfirmTransactionPopup";
@@ -91,11 +89,12 @@ export const useFundFromPeachWallet = () => {
       if (!address || !amount || fundingStatus !== "NULL") return undefined;
       await syncPeachWallet();
       if (!peachWallet) throw new Error("Peach wallet not defined");
-      if (peachWallet.balance < (addresses.length || 1) * minTradingAmount) {
+      const neededAmount = (addresses.length || 1) * minTradingAmount;
+      if (peachWallet.balance < neededAmount) {
         return setPopup(
           <AmountTooLowPopup
             available={peachWallet.balance}
-            needed={(addresses.length || 1) * minTradingAmount}
+            needed={neededAmount}
           />,
         );
       }
@@ -143,7 +142,14 @@ export const useFundFromPeachWallet = () => {
                   )}
                 />
               }
-              psbt={psbt}
+              onConfirm={async () => {
+                if (!peachWallet) throw new Error("PeachWallet not set");
+                try {
+                  await peachWallet.signAndBroadcastPSBT(psbt);
+                } catch (e2) {
+                  handleTransactionError(e2);
+                }
+              }}
               onSuccess={() =>
                 onSuccess({ txDetails, offerId, address, addresses })
               }
@@ -169,7 +175,14 @@ export const useFundFromPeachWallet = () => {
               {...{ address, feeRate, fee }}
             />
           }
-          psbt={psbt}
+          onConfirm={async () => {
+            if (!peachWallet) throw new Error("PeachWallet not set");
+            try {
+              await peachWallet.signAndBroadcastPSBT(psbt);
+            } catch (e2) {
+              handleTransactionError(e2);
+            }
+          }}
           onSuccess={() =>
             onSuccess({ txDetails, offerId, address, addresses })
           }
@@ -205,11 +218,11 @@ function AmountTooLowPopup({
           <PeachText>
             {i18n("fundFromPeachWallet.amountTooLow.description.1")}
           </PeachText>
-          <BTCAmount amount={available} size="medium" />
+          <BTCAmount chain="bitcoin" amount={available} size="medium" />
           <PeachText>
             {i18n("fundFromPeachWallet.amountTooLow.description.2")}
           </PeachText>
-          <BTCAmount amount={needed} size="medium" />
+          <BTCAmount chain="bitcoin" amount={needed} size="medium" />
         </View>
       }
       actions={<ClosePopupAction style={tw`justify-center`} />}

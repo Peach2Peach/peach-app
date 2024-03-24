@@ -13,6 +13,10 @@ describe("WrongFundingAmount", () => {
       params: { offerId: "0x123" },
     });
   });
+  it("should render correctly while sell offer is being loaded", async () => {
+    const { toJSON } = render(<WrongFundingAmount />);
+    expect(toJSON()).toMatchSnapshot();
+  });
   it("should render correctly", async () => {
     const { toJSON } = render(<WrongFundingAmount />);
     await waitFor(() => {

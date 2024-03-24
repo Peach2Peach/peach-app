@@ -1,17 +1,36 @@
+import { toMatchDiffSnapshot } from "snapshot-diff";
 import { fireEvent, render } from "test-utils";
+import tw from "../../styles/tailwind";
 import { PeachText } from "../text/PeachText";
 import { RadioButtonItem } from "./RadioButtonItem";
+expect.extend({ toMatchDiffSnapshot });
 
 describe("RadioButtonItem", () => {
+  const onPress = jest.fn();
+  it("renders correctly with styles", () => {
+    const props = {
+      display: "EUR",
+      onPress,
+      isSelected: false,
+      style: tw`p-4`,
+      selectedStyle: tw`p-8`,
+      radioIconColor: "blue",
+    };
+    const { toJSON, rerender } = render(<RadioButtonItem {...props} />);
+    const base = toJSON();
+    expect(base).toMatchSnapshot();
+    rerender(<RadioButtonItem {...{ ...props, isSelected: true }} />);
+    expect(toJSON()).toMatchDiffSnapshot(base);
+  });
   it("renders correctly when selected", () => {
     const { toJSON } = render(
-      <RadioButtonItem display="EUR" isSelected onPress={jest.fn()} />,
+      <RadioButtonItem display="EUR" isSelected onPress={onPress} />,
     );
     expect(toJSON()).toMatchSnapshot();
   });
   it("renders correctly when not selected", () => {
     const { toJSON } = render(
-      <RadioButtonItem display="EUR" isSelected={false} onPress={jest.fn()} />,
+      <RadioButtonItem display="EUR" isSelected={false} onPress={onPress} />,
     );
     expect(toJSON()).toMatchSnapshot();
   });
@@ -37,7 +56,6 @@ describe("RadioButtonItem", () => {
     expect(toJSON()).toMatchSnapshot();
   });
   it("calls onPress when pressed", () => {
-    const onPress = jest.fn();
     const { getByText } = render(
       <RadioButtonItem display="EUR" isSelected={false} onPress={onPress} />,
     );
@@ -45,7 +63,6 @@ describe("RadioButtonItem", () => {
     expect(onPress).toHaveBeenCalled();
   });
   it("does not call onPress when disabled", () => {
-    const onPress = jest.fn();
     const { getByText } = render(
       <RadioButtonItem
         display="EUR"

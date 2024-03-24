@@ -1,4 +1,3 @@
-import { NETWORK } from "@env";
 import { useState } from "react";
 import { View } from "react-native";
 import Share from "react-native-share";
@@ -17,7 +16,7 @@ import { useValidatedState } from "../../../hooks/useValidatedState";
 import tw from "../../../styles/tailwind";
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
-import { showTransaction } from "../../../utils/bitcoin/showTransaction";
+import { showTransaction } from "../../../utils/blockchain/showTransaction";
 import i18n from "../../../utils/i18n";
 import { log } from "../../../utils/log/log";
 import { fundAddress } from "../../../utils/regtest/fundAddress";
@@ -73,6 +72,7 @@ export const TestViewPeachWallet = () => {
             {i18n("wallet.totalBalance")}:
           </PeachText>
           <BTCAmount
+            chain="bitcoin"
             style={[tw`self-center`, isRefetching && tw`opacity-60`]}
             amount={balance}
             size="large"
@@ -96,7 +96,7 @@ export const TestViewPeachWallet = () => {
           </Button>
           {!!txId && (
             <View>
-              <PeachText onPress={() => showTransaction(txId, NETWORK)}>
+              <PeachText onPress={() => showTransaction(txId, "bitcoin")}>
                 txId: {txId}
               </PeachText>
             </View>

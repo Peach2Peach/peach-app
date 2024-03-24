@@ -43,6 +43,8 @@ describe("TransactionHistory", () => {
     );
     fireEvent.press(shareIcon);
 
-    expect(navigateMock).toHaveBeenCalledWith("exportTransactionHistory");
+    expect(navigateMock).toHaveBeenCalledWith("exportTransactionHistory", {
+      chain: "bitcoin",
+    });
   });
 });

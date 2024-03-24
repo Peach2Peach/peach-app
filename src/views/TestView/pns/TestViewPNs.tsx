@@ -2,6 +2,7 @@ import { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
 import { QueryKey, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { FlatList, View } from "react-native";
+import { BuyOffer, SellOffer } from "../../../../peach-api/src/@types/offer";
 import { Screen } from "../../../components/Screen";
 import { Button } from "../../../components/buttons/Button";
 import { TabbedNavigation } from "../../../components/navigation/TabbedNavigation";

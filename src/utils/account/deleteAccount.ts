@@ -3,6 +3,7 @@ import { useConfigStore } from "../../store/configStore/configStore";
 import { offerPreferencesStorage } from "../../store/offerPreferenes/useOfferPreferences";
 import { settingsStorage } from "../../store/settingsStore/settingsStorage";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
+import { useBoltzSwapStore } from "../../store/useBoltzSwapStore";
 import { usePaymentDataStore } from "../../store/usePaymentDataStore";
 import {
   notificationStorage,
@@ -10,7 +11,8 @@ import {
 } from "../../views/home/notificationsStore";
 import { info } from "../log/info";
 import { peachAPI } from "../peachAPI";
-import { clearPeachWallet } from "../wallet/setWallet";
+import { clearPeachLiquidWallet, clearPeachWallet } from "../wallet/setWallet";
+import { useLiquidWalletState } from "../wallet/useLiquidWalletState";
 import { useWalletState, walletStorage } from "../wallet/walletStore";
 import { defaultAccount, useAccountStore } from "./account";
 import { accountStorage } from "./accountStorage";
@@ -34,11 +36,14 @@ export const deleteAccount = () => {
     useNotificationStore,
     useConfigStore,
     useWalletState,
+    useLiquidWalletState,
     useSettingsStore,
     usePaymentDataStore,
+    useBoltzSwapStore,
   ].forEach((store) => store.getState().reset());
 
   clearPeachWallet();
+  clearPeachLiquidWallet();
   peachAPI.setPeachAccount(null);
   analytics().logEvent("account_deleted");
 };

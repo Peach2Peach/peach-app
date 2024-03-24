@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { SellOffer } from "../../../peach-api/src/@types/offer";
 import { Divider } from "../../components/Divider";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
@@ -12,6 +13,7 @@ import { useCancelAndStartRefundPopup } from "../../popups/useCancelAndStartRefu
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { sum } from "../../utils/math/sum";
+import { getSellOfferFunding } from "../../utils/offer/getSellOfferFunding";
 import { isSellOffer } from "../../utils/offer/isSellOffer";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { thousands } from "../../utils/string/thousands";
@@ -41,8 +43,9 @@ type Props = {
 };
 
 function WrongFundingAmountSummary({ sellOffer }: Props) {
-  const actualAmount = sellOffer.funding.amounts.reduce(sum, 0);
-  const fundingAmount = sellOffer.amount;
+  const funding = getSellOfferFunding(sellOffer);
+  const actualAmount = funding.amounts.reduce(sum, 0) || 0;
+  const fundingAmount = sellOffer.amount || 0;
   return (
     <View style={tw`gap-3 grow`}>
       <Divider
@@ -50,8 +53,16 @@ function WrongFundingAmountSummary({ sellOffer }: Props) {
         text={i18n("offer.requiredAction.fundingAmountDifferent")}
       />
       <View style={tw`gap-1`}>
-        <LabelAndAmount label={i18n("escrow.funded")} amount={actualAmount} />
-        <LabelAndAmount label={i18n("amount")} amount={fundingAmount} />
+        <LabelAndAmount
+          chain={sellOffer.escrowType}
+          label={i18n("escrow.funded")}
+          amount={actualAmount}
+        />
+        <LabelAndAmount
+          chain={sellOffer.escrowType}
+          label={i18n("amount")}
+          amount={fundingAmount}
+        />
       </View>
       <PeachText style={tw`body-s`}>
         {i18n(
@@ -73,13 +84,14 @@ function WrongFundingAmountSummary({ sellOffer }: Props) {
 type LabelAndAmountProps = {
   label: string;
   amount: number;
+  chain: Chain;
 };
 
-function LabelAndAmount({ label, amount }: LabelAndAmountProps) {
+function LabelAndAmount({ label, amount, chain }: LabelAndAmountProps) {
   return (
     <View style={tw`flex-row`}>
       <PeachText style={tw`w-20 text-black-50`}>{label}</PeachText>
-      <BTCAmount amount={amount} size="small" />
+      <BTCAmount chain={chain} amount={amount} size="small" />
     </View>
   );
 }
@@ -101,7 +113,10 @@ function RefundEscrowSlider({ sellOffer }: Props) {
 function ContinueTradeSlider({ sellOffer }: Props) {
   const { mutate: confirmEscrow } = useConfirmEscrow();
   const confirmEscrowWithSellOffer = () =>
-    confirmEscrow({ offerId: sellOffer.id, funding: sellOffer.funding });
+    confirmEscrow({
+      offerId: sellOffer.id,
+      funding: getSellOfferFunding(sellOffer),
+    });
 
   return (
     <ConfirmSlider

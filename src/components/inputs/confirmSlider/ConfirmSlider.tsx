@@ -9,6 +9,18 @@ import { getLabel1Opacity } from "./helpers/getLabel1Opacity";
 import { getTransform } from "./helpers/getTransform";
 import { useConfirmSliderSetup } from "./hooks/useConfirmSliderSetup";
 
+const themes = {
+  primary: {
+    bg: tw`bg-primary-background-dark`,
+    border: tw`border-primary-mild-1`,
+    knob: tw.color("primary-main"),
+  },
+  info: {
+    bg: tw`bg-info-background`,
+    border: tw`border-info-mild`,
+    knob: tw.color("info-light"),
+  },
+};
 type Props = ComponentProps & {
   label1: string;
   label2?: string;
@@ -16,6 +28,7 @@ type Props = ComponentProps & {
   onConfirm: () => void;
   enabled?: boolean;
   confirmed?: boolean;
+  theme?: keyof typeof themes;
 };
 
 export const ConfirmSlider = ({
@@ -25,6 +38,7 @@ export const ConfirmSlider = ({
   onConfirm,
   enabled = true,
   style,
+  theme = "primary",
 }: Props) => {
   const { panResponder, pan, widthToSlide, onLayout } = useConfirmSliderSetup({
     onConfirm,
@@ -34,7 +48,9 @@ export const ConfirmSlider = ({
   return (
     <View
       style={[
-        tw`w-full p-1 overflow-hidden border rounded-5 bg-primary-background-dark border-primary-mild-1`,
+        tw`w-full p-1 overflow-hidden border rounded-5`,
+        themes[theme].bg,
+        themes[theme].border,
         style,
       ]}
       {...panResponder.panHandlers}
@@ -55,7 +71,7 @@ export const ConfirmSlider = ({
         >
           {label2}
         </ConfirmSliderLabel>
-        <SliderKnob {...{ enabled, pan, iconId }} />
+        <SliderKnob {...{ enabled, pan, iconId, color: themes[theme].knob }} />
         <ConfirmSliderLabel
           width={widthToSlide}
           opacity={getLabel1Opacity(pan)}

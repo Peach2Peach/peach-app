@@ -1,4 +1,5 @@
 import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
+import { Transaction } from "../../../../../peach-api/src/@types/electrs-liquid";
 import { useSetPopup } from "../../../../components/popup/GlobalPopup";
 import { TextSummaryItem } from "../../../../components/summaryItem";
 import { useFeeEstimates } from "../../../../hooks/query/useFeeEstimates";
@@ -9,7 +10,7 @@ import { keys } from "../../../../utils/object/keys";
 import { useTxFeeRate } from "../../hooks/useTxFeeRate";
 
 type Props = {
-  transaction: TransactionDetails;
+  transaction: TransactionDetails | Transaction;
 };
 export const TransactionETASummaryItem = ({ transaction }: Props) => {
   const setPopup = useSetPopup();

@@ -1,6 +1,7 @@
 import { MeetupScreen } from "../components/payment/MeetupScreen";
 import { PaymentMethods } from "../components/payment/PaymentMethods";
 import { TestView } from "./TestView/TestView";
+import { TestViewLiquidWallet } from "./TestView/liquidWallet";
 import { TestViewPeachWallet } from "./TestView/peachWallet";
 import { TestViewPNs } from "./TestView/pns";
 import { PaymentMethodForm } from "./addPaymentMethod/PaymentMethodForm";
@@ -50,10 +51,19 @@ import { AddressChecker } from "./wallet/AddressChecker";
 import { BumpNetworkFees } from "./wallet/BumpNetworkFees";
 import { CoinSelection } from "./wallet/CoinSelection";
 import { ExportTransactionHistory } from "./wallet/ExportTransactionHistory";
+import { LightningInvoiceScreen } from "./wallet/LightningInvoiceScreen";
 import { ReceiveBitcoin } from "./wallet/ReceiveBitcoin";
+import { ReceiveBitcoinLightning } from "./wallet/ReceiveBitcoinLightning";
+import { ReceiveBitcoinLiquid } from "./wallet/ReceiveBitcoinLiquid";
 import { SendBitcoin } from "./wallet/SendBitcoin";
+import { SendBitcoinLightning } from "./wallet/SendBitcoinLightning";
+import { SendBitcoinLiquid } from "./wallet/SendBitcoinLiquid";
 import { TransactionDetails } from "./wallet/TransactionDetails";
+import { TransactionDetailsLightning } from "./wallet/TransactionDetailsLightning";
+import { TransactionDetailsLiquid } from "./wallet/TransactionDetailsLiquid";
 import { TransactionHistory } from "./wallet/TransactionHistory";
+import { TransactionHistoryLightning } from "./wallet/TransactionHistoryLightning";
+import { TransactionHistoryLiquid } from "./wallet/TransactionHistoryLiquid";
 import { Welcome } from "./welcome/Welcome";
 import { WrongFundingAmount } from "./wrongFundingAmount/WrongFundingAmount";
 import { ExportTradeHistory } from "./yourTrades/ExportTradeHistory";
@@ -101,6 +111,21 @@ const wallet: ViewType[] = [
   { name: "exportTransactionHistory", component: ExportTransactionHistory },
   { name: "transactionDetails", component: TransactionDetails },
   { name: "bumpNetworkFees", component: BumpNetworkFees },
+  { name: "sendBitcoinLiquid", component: SendBitcoinLiquid },
+  { name: "receiveBitcoinLiquid", component: ReceiveBitcoinLiquid },
+  { name: "transactionHistoryLiquid", component: TransactionHistoryLiquid },
+  { name: "transactionDetailsLiquid", component: TransactionDetailsLiquid },
+  { name: "receiveBitcoinLightning", component: ReceiveBitcoinLightning },
+  { name: "sendBitcoinLightning", component: SendBitcoinLightning },
+  {
+    name: "transactionDetailsLightning",
+    component: TransactionDetailsLightning,
+  },
+  { name: "lightningInvoice", component: LightningInvoiceScreen },
+  {
+    name: "transactionHistoryLightning",
+    component: TransactionHistoryLightning,
+  },
 ];
 const buyFlow: ViewType[] = [
   { name: "buyOfferPreferences", component: BuyOfferPreferences },
@@ -166,6 +191,7 @@ const settings: ViewType[] = [
 const testViews: ViewType[] = [
   { name: "testView", component: TestView },
   { name: "testViewPeachWallet", component: TestViewPeachWallet },
+  { name: "testViewLiquidWallet", component: TestViewLiquidWallet },
   { name: "testViewPNs", component: TestViewPNs },
 ];
 

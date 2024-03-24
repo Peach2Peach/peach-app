@@ -3,6 +3,7 @@ import { OfferSummary } from "../../../peach-api/src/@types/offer";
 export const offerSummary: OfferSummary = {
   id: "456",
   type: "bid",
+  escrowType: "bitcoin",
   matches: [],
   creationDate: new Date("2021-01-01"),
   lastModified: new Date("2021-01-01"),
@@ -13,6 +14,7 @@ export const offerSummary: OfferSummary = {
 export const canceledOfferSummary: OfferSummary = {
   id: "789",
   type: "ask",
+  escrowType: "bitcoin",
   matches: [],
   creationDate: new Date("2021-01-01"),
   lastModified: new Date("2021-01-01"),

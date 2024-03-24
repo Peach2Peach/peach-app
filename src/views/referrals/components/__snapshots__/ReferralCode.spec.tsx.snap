@@ -319,6 +319,7 @@ exports[`ReferralCode should render component correctly 1`] = `
     </View>
   </View>
   <View
+    accessibilityRole="button"
     accessibilityState={
       {
         "busy": undefined,

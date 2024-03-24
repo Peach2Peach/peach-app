@@ -1,6 +1,7 @@
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { WalletSelector } from "./WalletSelector";
+import { Section } from "./components/Section";
 
 type Props = {
   peachWalletSelected: boolean;
@@ -8,6 +9,7 @@ type Props = {
   customAddressLabel: string | undefined;
   onPeachWalletPress: () => void;
   onExternalWalletPress: () => void;
+  showExternalWallet?: boolean;
 };
 
 export function PayoutWalletSelector({
@@ -16,17 +18,20 @@ export function PayoutWalletSelector({
   customAddressLabel,
   onPeachWalletPress,
   onExternalWalletPress,
+  showExternalWallet = true,
 }: Props) {
   return (
-    <WalletSelector
-      title={i18n("offerPreferences.payoutTo")}
-      backgroundColor={tw.color("success-mild-1")}
-      bubbleColor="green"
-      peachWalletActive={peachWalletSelected}
-      address={customAddress}
-      addressLabel={customAddressLabel}
-      onPeachWalletPress={onPeachWalletPress}
-      onExternalWalletPress={onExternalWalletPress}
-    />
+    <Section.Container style={tw`bg-success-mild-1`}>
+      <WalletSelector
+        title={i18n("offerPreferences.payoutTo")}
+        bubbleColor="green"
+        peachWalletActive={peachWalletSelected}
+        address={customAddress}
+        addressLabel={customAddressLabel}
+        onPeachWalletPress={onPeachWalletPress}
+        onExternalWalletPress={onExternalWalletPress}
+        showExternalWallet={showExternalWallet}
+      />
+    </Section.Container>
   );
 }

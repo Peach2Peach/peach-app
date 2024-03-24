@@ -1,10 +1,22 @@
 import { BuyOffer, SellOffer } from "../../../peach-api/src/@types/offer";
 import { defaultUser } from "../../../peach-api/src/testData/userData";
+import { getDefaultFundingStatus } from "../../../src/utils/offer/constants";
+import { liquidAddresses } from "./liquidNetworkData";
 import {
   twintDataHashes,
   validSEPAData,
   validSEPADataHashes,
 } from "./paymentData";
+
+const BITCOIN_BLOCKS_IN_4_DAYS = 576;
+const LIQUID_BLOCKS_IN_4_DAYS = 5760;
+
+const fundingStatusHelper = (
+  fundingStatus: Omit<FundingStatus, "expiry">,
+): Pick<SellOffer, "funding" | "fundingLiquid"> => ({
+  funding: { ...fundingStatus, expiry: BITCOIN_BLOCKS_IN_4_DAYS },
+  fundingLiquid: { ...fundingStatus, expiry: LIQUID_BLOCKS_IN_4_DAYS },
+});
 
 export const buyOffer: BuyOffer = {
   creationDate: new Date("2022-03-08T11:41:07.245Z"),
@@ -13,6 +25,7 @@ export const buyOffer: BuyOffer = {
   id: "37",
   online: true,
   type: "bid",
+  escrowType: "bitcoin",
   meansOfPayment: {
     EUR: ["sepa"],
     CHF: ["twint"],
@@ -48,13 +61,14 @@ export const sellOffer: SellOffer = {
   paymentData: {
     sepa: { hashes: validSEPADataHashes },
   },
-  funding: {
-    status: "NULL",
-    txIds: [],
-    vouts: [],
-    amounts: [],
-    expiry: 537,
+  ...fundingStatusHelper(getDefaultFundingStatus("38")),
+  escrow: "bcrt1qd82dyvujm7527admrrwqhwhapyrg3l7px4vyz83adlgk3u8zlgasqf6g2a",
+  escrows: {
+    bitcoin: "bcrt1qd82dyvujm7527admrrwqhwhapyrg3l7px4vyz83adlgk3u8zlgasqf6g2a",
+    liquid: "ert1qrxl2jwt08lnzxn77hrtdlhrqtr8q9vj2tucmxfw9tla59ws6jxwqw0qh3e",
   },
+  escrowType: "bitcoin",
+  fundingMechanism: "bitcoin",
   amount: 250000,
   premium: 1.5,
   matches: [],
@@ -71,10 +85,28 @@ export const sellOffer: SellOffer = {
   publicKey: "TODO add public key",
 };
 
+export const sellOfferLiquid: SellOffer = {
+  ...sellOffer,
+  id: "12345",
+  escrowType: "liquid",
+  fundingMechanism: "liquid",
+  escrow: "bcrt1qgkp0epg4a6zqngtp9jhwg77pg4798k6yg7vrrdl5zw67tq9kgklsxe6xjl",
+  escrows: {
+    bitcoin: "bcrt1qgkp0epg4a6zqngtp9jhwg77pg4798k6yg7vrrdl5zw67tq9kgklsxe6xjl",
+    liquid: "ert1qcmwv3ce7jya3x6zqqt4xlrqpqy7huef8j9ap4cxft2dqy9y59cvs2j87pl",
+  },
+  ...fundingStatusHelper(getDefaultFundingStatus("12345")),
+  returnAddress: liquidAddresses.regtest[0],
+};
+
 export const wronglyFundedSellOffer: SellOffer = {
   ...sellOffer,
+  id: "39",
   amount: 42069,
-  funding: { ...sellOffer.funding, amounts: [69420] },
+  ...fundingStatusHelper({
+    ...getDefaultFundingStatus("39"),
+    amounts: [69420],
+  }),
 };
 export const buyOfferUnpublished: BuyOfferDraft = {
   type: "bid",
@@ -98,6 +130,7 @@ export const buyOfferUnpublished: BuyOfferDraft = {
 export const matchOffer: Match = {
   user: defaultUser,
   offerId: "37",
+  escrowType: "bitcoin",
   prices: {
     EUR: 1,
     CHF: 1.1,

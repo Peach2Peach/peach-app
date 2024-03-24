@@ -1,4 +1,4 @@
-import { ESPLORA_URL } from "@env";
+import { BLOCKEXPLORER } from "@env";
 import { useQuery } from "@tanstack/react-query";
 import { getPublicHeaders } from "../../utils/peachAPI/getPublicHeaders";
 import { parseResponse } from "../../utils/peachAPI/parseResponse";
@@ -35,7 +35,7 @@ export const placeholderFeeEstimates: ConfirmationTargets = {
 };
 
 export const esploraKeys = {
-  feeEstimates: ["feeEstimates"],
+  feeEstimates: ["feeEstimates", "bitcoin"],
 };
 
 export const useFeeEstimates = () => {
@@ -47,7 +47,7 @@ export const useFeeEstimates = () => {
 };
 
 async function getFeeEstimatesQuery() {
-  const response = await fetch(`${ESPLORA_URL}/fee-estimates`, {
+  const response = await fetch(`${BLOCKEXPLORER}/fee-estimates`, {
     headers: getPublicHeaders(),
     method: "GET",
   });

@@ -16,17 +16,16 @@ export function useConfirmPaymentSeller({
     },
     {
       mutationFn: async () => {
-        const { releaseTransaction, batchReleasePsbt, errorMsg } =
-          await signReleaseTxOfContract(contract);
-        if (!releaseTransaction) {
-          throw new Error(errorMsg);
+        const { result, error } = await signReleaseTxOfContract(contract);
+        if (!result?.releaseTransaction) {
+          throw new Error(error);
         }
 
         const { error: err } =
           await peachAPI.private.contract.confirmPaymentSeller({
             contractId: contract.id,
-            releaseTransaction,
-            batchReleasePsbt,
+            releaseTransaction: result.releaseTransaction,
+            batchReleasePsbt: result.batchReleasePsbt,
           });
         if (err) throw new Error(err.error);
       },

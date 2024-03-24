@@ -8,16 +8,23 @@ import { TransactionIcon } from "./TransactionIcon";
 import { levelMap } from "./levelMap";
 
 type Props = {
-  item: Pick<TransactionSummary, "amount" | "type" | "date" | "id">;
+  item: Pick<TransactionSummary, "amount" | "chain" | "type" | "date" | "id">;
 };
 
-export const TxStatusCard = ({ item: { type, amount, date, id } }: Props) => {
+export const TxStatusCard = ({
+  item: { type, chain, amount, date, id },
+}: Props) => {
   const navigation = useStackNavigation();
 
   return (
     <StatusCard
       onPress={() => {
-        navigation.navigate("transactionDetails", { txId: id });
+        navigation.navigate(
+          chain === "bitcoin"
+            ? "transactionDetails"
+            : "transactionDetailsLiquid",
+          { txId: id },
+        );
       }}
       color={levelMap[type]}
       statusInfo={
@@ -27,7 +34,7 @@ export const TxStatusCard = ({ item: { type, amount, date, id } }: Props) => {
           subtext={getShortDateFormat(date)}
         />
       }
-      amountInfo={<BitcoinAmountInfo amount={amount} />}
+      amountInfo={<BitcoinAmountInfo chain={chain} amount={amount} />}
     />
   );
 };

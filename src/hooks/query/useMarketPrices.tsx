@@ -5,6 +5,7 @@ import { peachAPI } from "../../utils/peachAPI";
 
 type MarketFilter = {
   type: "bid" | "ask";
+  escrowType?: EscrowType;
   meansOfPayment?: MeansOfPayment;
   maxPremium?: number;
   minReputation?: number;

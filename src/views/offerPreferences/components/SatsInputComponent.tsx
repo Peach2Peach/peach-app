@@ -1,13 +1,16 @@
 import { forwardRef } from "react";
-import { TextInput, TextInputProps } from "react-native";
-import { BTCAmountInput } from "../../../components/inputs/BTCAmountInput";
+import { TextInput } from "react-native";
+import {
+  BTCAmountInput,
+  BTCAmountInputProps,
+} from "../../../components/inputs/BTCAmountInput";
 import tw from "../../../styles/tailwind";
 import { inputContainerStyle } from "../SellOfferPreferences";
 
 export const textStyle =
   "text-center subtitle-1 leading-relaxed py-1px text-black-100 android:h-7";
 
-export const SatsInputComponent = forwardRef<TextInput, TextInputProps>(
+export const SatsInputComponent = forwardRef<TextInput, BTCAmountInputProps>(
   (props, ref) => (
     <BTCAmountInput
       {...props}

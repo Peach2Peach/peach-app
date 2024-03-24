@@ -1,0 +1,284 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches renders correctly 1`] = `
+<View
+  style={
+    {
+      "height": "100%",
+    }
+  }
+>
+  <View>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#F56522",
+            "fontFamily": "Baloo2-Bold",
+            "fontSize": 34,
+            "letterSpacing": 0.34,
+            "lineHeight": 42,
+            "textAlign": "center",
+          },
+          false,
+        ]
+      }
+    >
+      you've got matches!
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#7D675E",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+            "textAlign": "center",
+          },
+          false,
+        ]
+      }
+    >
+      for selling
+      :
+    </Text>
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <View
+        style={
+          [
+            undefined,
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            },
+            {
+              "height": 13,
+              "width": 152,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "flexShrink": 0,
+              },
+              {
+                "paddingBottom": 2.5,
+                "paddingLeft": 2.5,
+                "paddingRight": 2.5,
+                "paddingTop": 2.5,
+              },
+            ]
+          }
+        >
+          <test-file-stub
+            fill="#888"
+            style={
+              [
+                {
+                  "height": 15,
+                  "width": 15,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexBasis": "0%",
+                "flexDirection": "row",
+                "flexGrow": 1,
+                "flexShrink": 1,
+              },
+              {
+                "gap": 5,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "flexBasis": "0%",
+                "flexDirection": "row",
+                "flexGrow": 1,
+                "flexShrink": 1,
+                "justifyContent": "flex-end",
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "opacity": 0.1,
+                      "textAlign": "right",
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 28,
+                        "marginBottom": -13,
+                        "marginTop": -13,
+                      },
+                      false,
+                    ],
+                  ],
+                  false,
+                ]
+              }
+            >
+              0.00
+            </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "textAlign": "right",
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 28,
+                        "marginBottom": -13,
+                        "marginTop": -13,
+                      },
+                      false,
+                    ],
+                  ],
+                  false,
+                ]
+              }
+            >
+               250 000
+            </Text>
+          </View>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                    "marginBottom": -13,
+                    "marginTop": -13,
+                  },
+                  false,
+                ],
+                false,
+              ]
+            }
+          >
+            sats
+          </Text>
+        </View>
+      </View>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 20,
+                "letterSpacing": 0.2,
+                "lineHeight": 40,
+              },
+              {
+                "color": "#65A519",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+         
+        (
+        +
+        1.5
+        %)
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "flexShrink": 1,
+      }
+    }
+  />
+</View>
+`;

@@ -114,7 +114,7 @@ function UTXOItem({
   return (
     <View style={tw`flex-row gap-3 px-2`}>
       <View style={tw`flex-1 gap-1`}>
-        <BTCAmount size="medium" amount={amount} />
+        <BTCAmount chain="bitcoin" size="medium" amount={amount} />
         <UTXOAddress script={script} />
       </View>
       <Checkbox

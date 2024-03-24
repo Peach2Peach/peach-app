@@ -8,6 +8,7 @@ export async function getOfferQuery({
   queryKey,
 }: QueryFunctionContext<ReturnType<typeof offerKeys.detail>>) {
   const offerId = queryKey[2];
+
   const { result: offer, error: err } =
     await peachAPI.private.offer.getOfferDetails({ offerId });
   if (err) {

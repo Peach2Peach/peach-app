@@ -1,6 +1,8 @@
 import { TransactionDetails } from "bdk-rn/lib/classes/Bindings";
-import { Transaction } from "bitcoinjs-lib";
+import { Transaction as BitcoinTransaction } from "bitcoinjs-lib";
+import { Transaction as LiquidTransaction } from "liquidjs-lib";
 import { View } from "react-native";
+import { Transaction } from "../../../../../peach-api/src/@types/electrs-liquid";
 import { Divider } from "../../../../components/Divider";
 import { Bubble } from "../../../../components/bubble/Bubble";
 import { CopyableSummaryItem } from "../../../../components/summaryItem";
@@ -17,8 +19,8 @@ import { OutputInfo } from "./OutputInfo";
 import { TransactionETASummaryItem } from "./TransactionETASummaryItem";
 
 type Props = {
-  localTx: TransactionDetails;
-  transactionDetails: Transaction;
+  localTx: TransactionDetails | Transaction;
+  transactionDetails: BitcoinTransaction | LiquidTransaction;
   transactionSummary: TransactionSummary;
 };
 

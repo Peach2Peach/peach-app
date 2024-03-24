@@ -1,7 +1,15 @@
+import { BREEZ_API_KEY } from "@env";
 import { BIP32Interface } from "bip32";
+import { initLightningWallet } from "../lightning/initLightningWallet";
 import { peachAPI } from "../peachAPI";
+import { PeachLiquidJSWallet } from "../wallet/PeachLiquidJSWallet";
 import { PeachWallet } from "../wallet/PeachWallet";
-import { setPeachWallet, setWallet } from "../wallet/setWallet";
+import { getLiquidNetwork } from "../wallet/getLiquidNetwork";
+import {
+  setLiquidWallet,
+  setPeachWallet,
+  setWallet,
+} from "../wallet/setWallet";
 import { createPeachAccount } from "./createPeachAccount";
 
 export const setWallets = async (
@@ -14,6 +22,13 @@ export const setWallets = async (
   await peachAPI.authenticate();
 
   const peachWallet = new PeachWallet({ wallet });
+  const liquidWallet = new PeachLiquidJSWallet({
+    wallet,
+    network: getLiquidNetwork(),
+  });
   peachWallet.loadWallet(seedPhrase);
   setPeachWallet(peachWallet);
+  setLiquidWallet(liquidWallet);
+
+  if (seedPhrase) await initLightningWallet(seedPhrase, BREEZ_API_KEY);
 };

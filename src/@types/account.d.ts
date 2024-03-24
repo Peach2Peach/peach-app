@@ -3,6 +3,7 @@ type Settings = {
   analyticsPopupSeen?: boolean;
   enableAnalytics?: boolean;
   locale?: string;
+  fundFrom: Chain;
   refundAddress?: string;
   refundAddressLabel?: string;
   refundToPeachWallet: boolean;

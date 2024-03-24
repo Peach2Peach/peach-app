@@ -8,6 +8,7 @@ export const headerIcons = {
   delete: { id: "trash", color: tw.color("error-main") },
   edit: { id: "edit3", color: tw.color("black-65") },
   generateBlock: { id: "cpu", color: tw.color("warning-main") },
+  generateLiquidBlock: { id: "cpu", color: tw.color("info-main") },
   help: { id: "helpCircle", color: tw.color("info-light") },
   list: { id: "yourTrades", color: tw.color("black-65") },
   listFlipped: { id: "listFlipped", color: tw.color("primary-main") },

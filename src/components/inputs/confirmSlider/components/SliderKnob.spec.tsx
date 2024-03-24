@@ -1,14 +1,28 @@
 import { Animated } from "react-native";
 import { createRenderer } from "react-test-renderer/shallow";
+import { toMatchDiffSnapshot } from "snapshot-diff";
+import tw from "../../../../styles/tailwind";
 import { SliderKnob } from "./SliderKnob";
+expect.extend({ toMatchDiffSnapshot });
 
 describe("SliderKnob", () => {
   const renderer = createRenderer();
+  renderer.render(
+    <SliderKnob pan={new Animated.Value(0)} iconId="checkCircle" />,
+  );
+  const base = renderer.getRenderOutput();
   it("renders correctly", () => {
+    expect(base).toMatchSnapshot();
+  });
+  it("renders correctly with different color", () => {
     renderer.render(
-      <SliderKnob pan={new Animated.Value(0)} iconId="checkCircle" />,
+      <SliderKnob
+        pan={new Animated.Value(0)}
+        iconId="checkCircle"
+        color={tw.color("liquid-primary")}
+      />,
     );
-    expect(renderer.getRenderOutput()).toMatchSnapshot();
+    expect(renderer.getRenderOutput()).toMatchDiffSnapshot(base);
   });
   it("renders when disabled", () => {
     renderer.render(

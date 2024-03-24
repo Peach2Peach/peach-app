@@ -1,7 +1,9 @@
-import { render, responseUtils, waitFor } from "test-utils";
+import { toMatchDiffSnapshot } from "snapshot-diff";
+import { fireEvent, render, responseUtils, waitFor } from "test-utils";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../../utils/peachAPI";
 import { NetworkFees } from "./NetworkFees";
+expect.extend({ toMatchDiffSnapshot });
 
 jest.mock("./useNetworkFeesSetup", () => ({
   useNetworkFeesSetup: jest.fn().mockReturnValue({
@@ -27,6 +29,10 @@ jest.spyOn(peachAPI.public.bitcoin, "getFeeEstimate").mockResolvedValue({
   ...responseUtils,
   result: estimatedFees,
 });
+jest.spyOn(peachAPI.public.liquid, "getFeeEstimate").mockResolvedValue({
+  ...responseUtils,
+  result: estimatedFees,
+});
 
 jest.useFakeTimers();
 
@@ -34,10 +40,26 @@ describe("NetworkFees", () => {
   it("should render correctly", async () => {
     const { toJSON } = render(<NetworkFees />);
     await waitFor(() => {
-      expect(queryClient.getQueryData(["feeEstimate"])).toStrictEqual(
+      expect(
+        queryClient.getQueryData(["feeEstimate", "bitcoin"]),
+      ).toStrictEqual(estimatedFees);
+    });
+    expect(toJSON()).toMatchSnapshot();
+  });
+  it("should switch to liquid", async () => {
+    const { toJSON, getByText } = render(<NetworkFees />);
+    await waitFor(() => {
+      expect(
+        queryClient.getQueryData(["feeEstimate", "bitcoin"]),
+      ).toStrictEqual(estimatedFees);
+    });
+    const base = toJSON();
+    fireEvent.press(getByText("liquid"));
+    await waitFor(() => {
+      expect(queryClient.getQueryData(["feeEstimate", "liquid"])).toStrictEqual(
         estimatedFees,
       );
     });
-    expect(toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchDiffSnapshot(base);
   });
 });

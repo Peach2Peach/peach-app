@@ -4,13 +4,7 @@ import { SIGHASH } from "../bitcoin/constants";
 import { setWallet } from "../wallet/setWallet";
 import { signReleaseTxOfContract } from "./signReleaseTxOfContract";
 
-jest.mock("bitcoinjs-lib", () => ({
-  ...jest.requireActual("bitcoinjs-lib"),
-  Psbt: {
-    fromBase64: jest.fn(),
-  },
-}));
-const fromBase64Mock = jest.requireMock("bitcoinjs-lib").Psbt.fromBase64;
+const fromBase64Mock = jest.spyOn(Psbt, "fromBase64");
 
 jest.mock("../../views/contract/helpers/verifyReleasePSBT");
 const verifyReleasePSBTMock = jest.requireMock(
@@ -45,6 +39,7 @@ describe("signReleaseTxOfContract", () => {
   const finalizeInputMock = jest.fn();
 
   const psbt: Partial<Psbt> = {
+    ...new Psbt(),
     data: { inputs: [{ sighashType: SIGHASH.ALL }] } as Psbt["data"],
     signInput: jest.fn().mockReturnValue({ finalizeInput: finalizeInputMock }),
     extractTransaction: jest.fn().mockReturnValue({
@@ -57,6 +52,7 @@ describe("signReleaseTxOfContract", () => {
     ] as Psbt["txOutputs"],
   };
   const batchPsbt: Partial<Psbt> = {
+    ...new Psbt(),
     data: {
       inputs: [{ sighashType: SIGHASH.SINGLE_ANYONECANPAY }],
     } as Psbt["data"],
@@ -65,45 +61,44 @@ describe("signReleaseTxOfContract", () => {
     txInputs: [{}] as Psbt["txInputs"],
     txOutputs: [{ address: "address1", value: 9000 }] as Psbt["txOutputs"],
   };
+
   fromBase64Mock.mockImplementation((base64: string | undefined) =>
-    base64 === mockContract.releasePsbt ? psbt : batchPsbt,
+    base64 === mockContract.releasePsbt ? (psbt as Psbt) : (batchPsbt as Psbt),
   );
   setWallet(createTestWallet());
 
   it("should return null and error message if sell offer id is found", async () => {
     mockGetSellOfferFromContract.mockResolvedValueOnce(null);
-    const { errorMsg } = await signReleaseTxOfContract(
-      mockContract as Contract,
-    );
-    expect(errorMsg).toBe("SELL_OFFER_NOT_FOUND");
+    const { error } = await signReleaseTxOfContract(mockContract as Contract);
+    expect(error).toBe("SELL_OFFER_NOT_FOUND");
   });
   it("should return null and error message if sell offer funding is found", async () => {
     mockGetSellOfferFromContract.mockResolvedValueOnce({
       ...mockSellOffer,
       funding: undefined,
     });
-    const { errorMsg } = await signReleaseTxOfContract(
-      mockContract as Contract,
-    );
-    expect(errorMsg).toBe("SELL_OFFER_NOT_FOUND");
+    const { error } = await signReleaseTxOfContract(mockContract as Contract);
+    expect(error).toBe("SELL_OFFER_NOT_FOUND");
   });
   it("should return null and error message if psbt is not valid", async () => {
     verifyReleasePSBTMock.mockReturnValueOnce("INVALID_INPUT");
-    const { releaseTransaction, batchReleasePsbt, errorMsg } =
-      await signReleaseTxOfContract(mockContract as Contract);
+    const { result, error } = await signReleaseTxOfContract(
+      mockContract as Contract,
+    );
 
-    expect(releaseTransaction).toBe(undefined);
-    expect(batchReleasePsbt).toBe(undefined);
-    expect(errorMsg).toBe("INVALID_INPUT");
+    expect(result?.releaseTransaction).toBe(undefined);
+    expect(result?.batchReleasePsbt).toBe(undefined);
+    expect(error).toBe("INVALID_INPUT");
   });
   it("should sign valid release transaction and return it", async () => {
     verifyReleasePSBTMock.mockReturnValueOnce(null);
-    const { releaseTransaction, batchReleasePsbt, errorMsg } =
-      await signReleaseTxOfContract(mockContract as Contract);
+    const { result, error } = await signReleaseTxOfContract(
+      mockContract as Contract,
+    );
 
-    expect(errorMsg).toBe(undefined);
-    expect(releaseTransaction).toEqual("transactionAsHex");
-    expect(batchReleasePsbt).toEqual(undefined);
+    expect(error).toBe(undefined);
+    expect(result?.releaseTransaction).toEqual("transactionAsHex");
+    expect(result?.batchReleasePsbt).toEqual(undefined);
     expect(psbt.signInput).toHaveBeenCalled();
     expect(fromBase64Mock).toHaveBeenCalledWith(mockContract.releasePsbt, {
       network: networks.regtest,
@@ -116,35 +111,38 @@ describe("signReleaseTxOfContract", () => {
     verifyReleasePSBTMock.mockReturnValueOnce(null);
     verifyReleasePSBTMock.mockReturnValueOnce("INVALID_INPUT");
 
-    const { releaseTransaction, batchReleasePsbt, errorMsg } =
-      await signReleaseTxOfContract(contractWithBatching as Contract);
+    const { result, error } = await signReleaseTxOfContract(
+      contractWithBatching as Contract,
+    );
 
-    expect(releaseTransaction).toBe(undefined);
-    expect(batchReleasePsbt).toBe(undefined);
-    expect(errorMsg).toBe("INVALID_INPUT");
+    expect(result?.releaseTransaction).toBe(undefined);
+    expect(result?.batchReleasePsbt).toBe(undefined);
+    expect(error).toBe("INVALID_INPUT");
   });
   it("should return null and error message if batch psbt is valid but not for batching", async () => {
     verifyReleasePSBTMock.mockReturnValueOnce(null);
     verifyReleasePSBTMock.mockReturnValueOnce(null);
-    fromBase64Mock.mockReturnValueOnce(psbt);
-    fromBase64Mock.mockReturnValueOnce(psbt);
+    fromBase64Mock.mockReturnValueOnce(psbt as Psbt);
+    fromBase64Mock.mockReturnValueOnce(psbt as Psbt);
 
-    const { releaseTransaction, batchReleasePsbt, errorMsg } =
-      await signReleaseTxOfContract(contractWithBatching as Contract);
+    const { result, error } = await signReleaseTxOfContract(
+      contractWithBatching as Contract,
+    );
 
-    expect(releaseTransaction).toBe(undefined);
-    expect(batchReleasePsbt).toBe(undefined);
-    expect(errorMsg).toBe("Transaction is not for batching");
+    expect(result?.releaseTransaction).toBe(undefined);
+    expect(result?.batchReleasePsbt).toBe(undefined);
+    expect(error).toBe("Transaction is not for batching");
   });
   it("should sign release transaction and batch release transaction", async () => {
     verifyReleasePSBTMock.mockReturnValueOnce(null);
     verifyReleasePSBTMock.mockReturnValueOnce(null);
-    const { releaseTransaction, batchReleasePsbt, errorMsg } =
-      await signReleaseTxOfContract(contractWithBatching as Contract);
+    const { result, error } = await signReleaseTxOfContract(
+      contractWithBatching as Contract,
+    );
 
-    expect(errorMsg).toBe(undefined);
-    expect(releaseTransaction).toEqual("transactionAsHex");
-    expect(batchReleasePsbt).toEqual("batchTransactionAsBase64");
+    expect(error).toBe(undefined);
+    expect(result?.releaseTransaction).toEqual("transactionAsHex");
+    expect(result?.batchReleasePsbt).toEqual("batchTransactionAsBase64");
     expect(psbt.signInput).toHaveBeenCalled();
   });
 });

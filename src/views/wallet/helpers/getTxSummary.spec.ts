@@ -28,6 +28,7 @@ const sentTx = { ...baseTx, sent: 100000000 };
 const timestamp = 1234567890000;
 const baseSummary = {
   id: "123",
+  chain: "bitcoin",
   amount: 100000000,
   date: new Date(timestamp),
   height: 1,

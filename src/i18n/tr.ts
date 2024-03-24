@@ -8,6 +8,7 @@ import error from "./error/tr.json";
 import form from "./form/tr.json";
 import global from "./global/tr.json";
 import help from "./help/tr.json";
+import layer2 from "./layer2/tr.json";
 import match from "./match/tr.json";
 import notification from "./notification/tr.json";
 import offer from "./offer/tr.json";
@@ -46,6 +47,7 @@ const tr: Record<string, string> = {
   ...unassigned,
   ...wallet,
   ...welcome,
+  ...layer2,
 };
 
 export default tr;

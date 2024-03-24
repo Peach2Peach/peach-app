@@ -1,3 +1,4 @@
+import { BuyOffer, SellOffer } from "../../../../peach-api/src/@types/offer";
 import { buildPaymentDataFromHashes } from "./buildPaymentDataFromHashes";
 
 export function getPaymentDataFromOffer(

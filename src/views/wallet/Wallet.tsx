@@ -6,27 +6,43 @@ import { Button } from "../../components/buttons/Button";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
-import { BitcoinLoading } from "../loading/BitcoinLoading";
+import { ChainSelect } from "./ChainSelect";
 import { TotalBalance, WalletHeader } from "./components";
+import { WALLETS } from "./constants";
 import { useLastUnusedAddress, useUTXOs, useWalletAddress } from "./hooks";
 import { useSyncWallet } from "./hooks/useSyncWallet";
 import { useWalletBalance } from "./hooks/useWalletBalance";
 
 export const Wallet = () => {
   const { balance } = useWalletBalance();
-  const { refetch, isRefetching, isLoading } = useSyncWallet({ enabled: true });
-  if (isLoading) return <BitcoinLoading text={i18n("wallet.loading")} />;
+  const {
+    refetch,
+    isRefetching: isRefetchingBitcoin,
+    isLoading: isLoadingBitcoin,
+  } = useSyncWallet({ enabled: true });
+  const navigation = useStackNavigation();
+  const navigateToWallet = (chain: Chain) =>
+    navigation.navigate("homeScreen", { screen: WALLETS[chain] });
 
   return (
     <Screen header={<WalletHeader />}>
+      <ChainSelect
+        style={tw`p-4`}
+        current="bitcoin"
+        onSelect={navigateToWallet}
+      />
       <PeachScrollView
         contentContainerStyle={tw`grow`}
         contentStyle={tw`justify-center py-16 grow`}
         refreshControl={
-          <RefreshControl refreshing={false} onRefresh={() => refetch()} />
+          <RefreshControl refreshing={false} onRefresh={refetch} />
         }
       >
-        <TotalBalance amount={balance} isRefreshing={isRefetching} />
+        <TotalBalance
+          chain="bitcoin"
+          amount={balance}
+          isRefreshing={isRefetchingBitcoin || isLoadingBitcoin}
+        />
         <BackupReminderIcon />
       </PeachScrollView>
       <WalletButtons />
@@ -52,16 +68,19 @@ function WalletButtons() {
   const goToReceive = () => {
     navigation.navigate("receiveBitcoin");
   };
+
   return (
-    <View
-      style={[tw`flex-row items-center justify-center gap-2`, tw`md:gap-4`]}
-    >
-      <Button style={tw`flex-1 bg-success-main`} onPress={goToReceive}>
-        {i18n("wallet.receive")}
-      </Button>
-      <Button style={tw`flex-1`} onPress={goToSend}>
-        {i18n("wallet.send")}
-      </Button>
+    <View style={[tw`items-center justify-center gap-2`, tw`md:gap-4`]}>
+      <View
+        style={[tw`flex-row items-center justify-center gap-2`, tw`md:gap-4`]}
+      >
+        <Button style={tw`flex-1 bg-success-main`} onPress={goToReceive}>
+          {i18n("wallet.receive")}
+        </Button>
+        <Button style={tw`flex-1`} onPress={goToSend}>
+          {i18n("wallet.send")}
+        </Button>
+      </View>
     </View>
   );
 }

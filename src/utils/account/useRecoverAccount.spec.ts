@@ -9,6 +9,7 @@ const mockUserUpdate = jest.fn();
 jest.mock("../../init/useUserUpdate", () => ({
   useUserUpdate: () => mockUserUpdate,
 }));
+jest.mock("../lightning/initLightningWallet");
 
 jest.useFakeTimers();
 

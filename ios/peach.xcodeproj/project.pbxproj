@@ -13,6 +13,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3437C51D4F624ACE824256C7 /* Baloo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF9B8092F4B48B49CF6FE55 /* Baloo2-SemiBold.ttf */; };
 		3566516CDCD9E69975782F49 /* libPods-peach-peach mainnet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03126CFC831F657240FE1E3F /* libPods-peach-peach mainnet.a */; };
+		4C1FAFEA2BA5B85800A55205 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67A9CC6529E4306400F514FA /* Images.xcassets */; };
 		4E2649D5628C1A64799D13F1 /* libPods-peach-peachTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CF849D1483A45BBA5696383 /* libPods-peach-peachTests.a */; };
 		671A562E2850E9AE0058434C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		671A562F2850E9AE0058434C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -32,7 +33,6 @@
 		679FE63929B1F73D0013638A /* Baloo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */; };
 		679FE63A29B1F73D0013638A /* Baloo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */; };
 		679FE63B29B1F73D0013638A /* Baloo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF9B8092F4B48B49CF6FE55 /* Baloo2-SemiBold.ttf */; };
-		67A9CC6629E4306400F514FA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67A9CC6529E4306400F514FA /* Images.xcassets */; };
 		67A9CC6729E4309100F514FA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		67AC8BE529E431110014F1AF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67AC8BE429E431100014F1AF /* Images.xcassets */; };
 		7CC2629E48F44EFC87CEBE24 /* Baloo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */; };
@@ -415,11 +415,11 @@
 				675514872812BA4E00A17B6C /* assets in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				6769491227F72D6900C73BEF /* GoogleService-Info.plist in Resources */,
-				67A9CC6629E4306400F514FA /* Images.xcassets in Resources */,
 				67A9CC6729E4309100F514FA /* Images.xcassets in Resources */,
 				F44C7ADD2E084A65814B6133 /* Baloo2-Bold.ttf in Resources */,
 				0F65AADB629A41A99AFB90FE /* Baloo2-Medium.ttf in Resources */,
 				7CC2629E48F44EFC87CEBE24 /* Baloo2-Regular.ttf in Resources */,
+				4C1FAFEA2BA5B85800A55205 /* Images.xcassets in Resources */,
 				676EA9ED2A052B2D00F18766 /* CourierPrime-Bold.ttf in Resources */,
 				3437C51D4F624ACE824256C7 /* Baloo2-SemiBold.ttf in Resources */,
 			);

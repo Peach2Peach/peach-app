@@ -99,6 +99,7 @@ exports[`OfferPublished renders correctly 1`] = `
     }
   >
     <View
+      accessibilityRole="button"
       accessibilityState={
         {
           "busy": undefined,
@@ -178,6 +179,7 @@ exports[`OfferPublished renders correctly 1`] = `
       </Text>
     </View>
     <View
+      accessibilityRole="button"
       accessibilityState={
         {
           "busy": undefined,

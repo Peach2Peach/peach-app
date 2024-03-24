@@ -35,6 +35,26 @@ exports[`SliderKnob renders correctly 1`] = `
 </ForwardRef(AnimatedComponentWrapper)>
 `;
 
+exports[`SliderKnob renders correctly with different color 1`] = `
+"Snapshot Diff:
+- <ForwardRef(AnimatedComponentWrapper) style={[{"backgroundColor": "rgba(44, 204, 191, 1)"}, {"alignItems": "center", "borderRadius": 16, "flexDirection": "row", "gap": 2, "justifyContent": "center", "paddingBottom": 4, "paddingLeft": 6, "paddingRight": 6, "paddingTop": 4}, {}]}><Icon color="#FFFCFA" id="checkCircle" size={18} /><Icon color="#FFFCFA" id="chevronsRight" size={18} /></ForwardRef(AnimatedComponentWrapper)>
++ <ForwardRef(AnimatedComponentWrapper) style={[{"backgroundColor": "rgba(245, 101, 34, 1)"}, {"alignItems": "center", "borderRadius": 16, "flexDirection": "row", "gap": 2, "justifyContent": "center", "paddingBottom": 4, "paddingLeft": 6, "paddingRight": 6, "paddingTop": 4}, {}]}><Icon color="#FFFCFA" id="checkCircle" size={18} /><Icon color="#FFFCFA" id="chevronsRight" size={18} /></ForwardRef(AnimatedComponentWrapper)>
+
+@@ -1,11 +1,11 @@
+  <View
+    collapsable={false}
+    style={
+      Object {
+        "alignItems": "center",
+-       "backgroundColor": "rgba(44, 204, 191, 1)",
++       "backgroundColor": "rgba(245, 101, 34, 1)",
+        "borderRadius": 16,
+        "flexDirection": "row",
+        "gap": 2,
+        "justifyContent": "center",
+        "paddingBottom": 4,"
+`;
+
 exports[`SliderKnob renders when disabled 1`] = `
 <ForwardRef(AnimatedComponentWrapper)
   style={

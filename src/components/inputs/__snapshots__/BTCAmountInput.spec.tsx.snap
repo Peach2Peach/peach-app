@@ -218,3 +218,441 @@ exports[`BTCAmountInput renders correctly 1`] = `
   />
 </View>
 `;
+
+exports[`BTCAmountInput renders correctly for lightning 1`] = `
+<View
+  style={
+    [
+      [
+        {
+          "alignSelf": "stretch",
+          "borderRadius": 12,
+          "height": 38,
+          "justifyContent": "center",
+          "overflow": "hidden",
+          "paddingBottom": 12,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 12,
+        },
+        {
+          "backgroundColor": "#FFFCFA",
+          "borderColor": "#7D675E",
+          "borderWidth": 1,
+        },
+      ],
+      null,
+    ]
+  }
+>
+  <View
+    style={
+      [
+        undefined,
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        },
+        {
+          "height": 13,
+          "width": 152,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "flexShrink": 0,
+          },
+          {
+            "paddingBottom": 2.5,
+            "paddingLeft": 2.5,
+            "paddingRight": 2.5,
+            "paddingTop": 2.5,
+          },
+        ]
+      }
+    >
+      <test-file-stub
+        fill="#888"
+        style={
+          [
+            {
+              "height": 15,
+              "width": 15,
+            },
+            undefined,
+          ]
+        }
+      />
+    </View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          },
+          {
+            "gap": 5,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "justifyContent": "flex-end",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "opacity": 0.1,
+                  "textAlign": "right",
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                    "marginBottom": -13,
+                    "marginTop": -13,
+                  },
+                  false,
+                ],
+              ],
+              false,
+            ]
+          }
+        >
+          0.00 000 00
+        </Text>
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "textAlign": "right",
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                    "marginBottom": -13,
+                    "marginTop": -13,
+                  },
+                  false,
+                ],
+              ],
+              false,
+            ]
+          }
+        >
+          0
+        </Text>
+      </View>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+                "marginBottom": -13,
+                "marginTop": -13,
+              },
+              false,
+            ],
+            false,
+          ]
+        }
+      >
+        sats
+      </Text>
+    </View>
+  </View>
+  <TextInput
+    keyboardType="number-pad"
+    onChangeText={[MockFunction]}
+    style={
+      {
+        "flexGrow": 1,
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 18,
+        "height": 38,
+        "letterSpacing": 0.18,
+        "lineHeight": 29.25,
+        "opacity": 0,
+        "paddingBottom": 0,
+        "paddingTop": 0,
+        "position": "absolute",
+        "width": "100%",
+      }
+    }
+    value="0"
+  />
+</View>
+`;
+
+exports[`BTCAmountInput renders correctly for liquid chain 1`] = `
+<View
+  style={
+    [
+      [
+        {
+          "alignSelf": "stretch",
+          "borderRadius": 12,
+          "height": 38,
+          "justifyContent": "center",
+          "overflow": "hidden",
+          "paddingBottom": 12,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 12,
+        },
+        {
+          "backgroundColor": "#FFFCFA",
+          "borderColor": "#7D675E",
+          "borderWidth": 1,
+        },
+      ],
+      null,
+    ]
+  }
+>
+  <View
+    style={
+      [
+        undefined,
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        },
+        {
+          "height": 13,
+          "width": 152,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "flexShrink": 0,
+          },
+          {
+            "paddingBottom": 2.5,
+            "paddingLeft": 2.5,
+            "paddingRight": 2.5,
+            "paddingTop": 2.5,
+          },
+        ]
+      }
+    >
+      <test-file-stub
+        fill="#888"
+        style={
+          [
+            {
+              "height": 15,
+              "width": 15,
+            },
+            undefined,
+          ]
+        }
+      />
+    </View>
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          },
+          {
+            "gap": 5,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "justifyContent": "flex-end",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "opacity": 0.1,
+                  "textAlign": "right",
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                    "marginBottom": -13,
+                    "marginTop": -13,
+                  },
+                  false,
+                ],
+              ],
+              false,
+            ]
+          }
+        >
+          0.00 000 00
+        </Text>
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "textAlign": "right",
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                    "marginBottom": -13,
+                    "marginTop": -13,
+                  },
+                  false,
+                ],
+              ],
+              false,
+            ]
+          }
+        >
+          0
+        </Text>
+      </View>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+                "marginBottom": -13,
+                "marginTop": -13,
+              },
+              false,
+            ],
+            false,
+          ]
+        }
+      >
+        sats
+      </Text>
+    </View>
+  </View>
+  <TextInput
+    keyboardType="number-pad"
+    onChangeText={[MockFunction]}
+    style={
+      {
+        "flexGrow": 1,
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 18,
+        "height": 38,
+        "letterSpacing": 0.18,
+        "lineHeight": 29.25,
+        "opacity": 0,
+        "paddingBottom": 0,
+        "paddingTop": 0,
+        "position": "absolute",
+        "width": "100%",
+      }
+    }
+    value="0"
+  />
+</View>
+`;

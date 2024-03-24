@@ -8,6 +8,8 @@ export const TestView = () => {
   const navigation = useStackNavigation();
   const goToPeachWalletTesting = () =>
     navigation.navigate("testViewPeachWallet");
+  const goToLiquidWalletTesting = () =>
+    navigation.navigate("testViewLiquidWallet");
   const goToPNTesting = () => navigation.navigate("testViewPNs");
 
   return (
@@ -15,6 +17,9 @@ export const TestView = () => {
       <View style={tw`justify-center gap-4 grow`}>
         <OptionButton onPress={goToPeachWalletTesting}>
           Peach wallet
+        </OptionButton>
+        <OptionButton onPress={goToLiquidWalletTesting}>
+          Liquid wallet
         </OptionButton>
         <OptionButton onPress={goToPNTesting}>Push notifications</OptionButton>
       </View>

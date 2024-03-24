@@ -9,6 +9,7 @@ import form from "./form/pt-BR.json";
 import global from "./global/pt-BR.json";
 import help from "./help/pt-BR.json";
 import home from "./home/pt-BR.json";
+import layer2 from "./layer2/pt-BR.json";
 import match from "./match/pt-BR.json";
 import notification from "./notification/pt-BR.json";
 import offer from "./offer/pt-BR.json";
@@ -48,6 +49,7 @@ const ptBR: Record<string, string> = {
   ...unassigned,
   ...wallet,
   ...welcome,
+  ...layer2,
 };
 
 export default ptBR;

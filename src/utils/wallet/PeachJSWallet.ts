@@ -33,7 +33,7 @@ export class PeachJSWallet {
 
     this.network = network;
     this.gapLimit = gapLimit;
-    this.addresses = useWalletState.getState().addresses;
+    this.addresses = [...useWalletState.getState().addresses];
 
     this.derivationPath = `m/84'/${network === "bitcoin" ? "0" : "1"}'/0'`;
   }

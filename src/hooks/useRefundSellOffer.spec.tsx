@@ -6,7 +6,7 @@ import {
   responseUtils,
   waitFor,
 } from "test-utils";
-import { sellOffer } from "../../tests/unit/data/offerData";
+import { sellOffer, sellOfferLiquid } from "../../tests/unit/data/offerData";
 import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
 import { Overlay } from "../Overlay";
 import { GlobalPopup } from "../components/popup/GlobalPopup";
@@ -23,13 +23,15 @@ jest.mock("../utils/bitcoin/checkRefundPSBT");
 const checkRefundPSBTMock = jest.requireMock(
   "../utils/bitcoin/checkRefundPSBT",
 ).checkRefundPSBT;
+
 jest.mock("../utils/bitcoin/signAndFinalizePSBT");
 const signAndFinalizePSBTMock = jest.requireMock(
   "../utils/bitcoin/signAndFinalizePSBT",
 ).signAndFinalizePSBT;
-jest.mock("../utils/bitcoin/showTransaction");
+
+jest.mock("../utils/blockchain/showTransaction");
 const showTransactionMock = jest.requireMock(
-  "../utils/bitcoin/showTransaction",
+  "../utils/blockchain/showTransaction",
 ).showTransaction;
 
 jest.mock("../utils/offer/saveOffer");
@@ -200,6 +202,23 @@ describe("useRefundEscrow", () => {
       txId: "id",
     });
   });
+  it("should go to peach liquid wallet if peach liquid wallet is active", async () => {
+    mockSuccess();
+    useSettingsStore.setState({ refundToPeachWallet: true });
+    const { result } = renderHook(useRefundSellOffer);
+    act(() => {
+      result.current.mutate({ sellOffer: sellOfferLiquid, rawPSBT: psbt });
+    });
+    const { getByText, queryByText } = render(<GlobalPopup />);
+    await waitFor(() => {
+      expect(queryByText("go to wallet")).toBeTruthy();
+    });
+    fireEvent.press(getByText("go to wallet"));
+    expect(queryByText("escrow refunded")).toBeFalsy();
+    expect(navigateMock).toHaveBeenCalledWith("transactionDetailsLiquid", {
+      txId: "id",
+    });
+  });
   it("should go to backup time if backup is needed when going to wallet", async () => {
     mockSuccess();
     useSettingsStore.setState({ refundToPeachWallet: true });
@@ -231,6 +250,21 @@ describe("useRefundEscrow", () => {
     });
     fireEvent.press(getByText("show tx"));
     expect(queryByText("escrow refunded")).toBeFalsy();
-    expect(showTransactionMock).toHaveBeenCalledWith("id", "regtest");
+    expect(showTransactionMock).toHaveBeenCalledWith("id", "bitcoin");
+  });
+  it("should call showTransaction with liquid if peach liquid wallet is not active", async () => {
+    mockSuccess();
+    useSettingsStore.setState({ refundToPeachWallet: false });
+    const { result } = renderHook(useRefundSellOffer);
+    act(() => {
+      result.current.mutate({ sellOffer: sellOfferLiquid, rawPSBT: psbt });
+    });
+    const { getByText, queryByText } = render(<GlobalPopup />);
+    await waitFor(() => {
+      expect(queryByText("show tx")).toBeTruthy();
+    });
+    fireEvent.press(getByText("show tx"));
+    expect(queryByText("escrow refunded")).toBeFalsy();
+    expect(showTransactionMock).toHaveBeenCalledWith("id", "liquid");
   });
 });

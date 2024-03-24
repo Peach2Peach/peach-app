@@ -24,6 +24,7 @@ export const PopupAction = ({
   textStyle,
   loading,
   disabled,
+  ...props
 }: PopupActionProps) => (
   <TouchableOpacity
     style={[
@@ -34,6 +35,7 @@ export const PopupAction = ({
     ]}
     onPress={onPress}
     disabled={loading || disabled}
+    {...props}
   >
     {loading ? (
       <Loading size="small" color={tw.color("primary-background-light")} />

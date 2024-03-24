@@ -111,7 +111,7 @@ function ConfirmRbf({
         {oldFeeRate} {i18n("satPerByte")} * {bytes} {i18n("bytes")} =
       </PeachText>
       <View>
-        <BTCAmount amount={oldFee} size="medium" />
+        <BTCAmount chain="bitcoin" amount={oldFee} size="medium" />
         <PeachText style={tw`text-primary-main`}>
           {i18n(
             "wallet.bumpNetworkFees.confirmRbf.percentOfTx",
@@ -127,7 +127,7 @@ function ConfirmRbf({
         {newFeeRate} {i18n("satPerByte")} * {bytes} {i18n("bytes")} =
       </PeachText>
       <View>
-        <BTCAmount amount={newFee} size="medium" />
+        <BTCAmount chain="bitcoin" amount={newFee} size="medium" />
         <PeachText style={tw`text-primary-main`}>
           {i18n(
             "wallet.bumpNetworkFees.confirmRbf.percentOfTx",

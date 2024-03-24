@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { GetMatchesResponseBody } from "../../../../peach-api/src/@types/api/offerAPI";
 import { Match } from "../../../../peach-api/src/@types/match";
+import { BuyOffer } from "../../../../peach-api/src/@types/offer";
 import { contractKeys } from "../../../hooks/query/useContractDetail";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";

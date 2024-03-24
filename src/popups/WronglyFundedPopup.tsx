@@ -7,6 +7,7 @@ import { useConfigStore } from "../store/configStore/configStore";
 import tw from "../styles/tailwind";
 import i18n from "../utils/i18n";
 import { sum } from "../utils/math/sum";
+import { getSellOfferFunding } from "../utils/offer/getSellOfferFunding";
 import { thousands } from "../utils/string/thousands";
 import { WarningPopup } from "./WarningPopup";
 import { useCancelAndStartRefundPopup } from "./useCancelAndStartRefundPopup";
@@ -15,7 +16,8 @@ export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
   const maxTradingAmount = useConfigStore((state) => state.maxTradingAmount);
   const cancelAndStartRefundPopup = useCancelAndStartRefundPopup();
 
-  const utxos = sellOffer.funding.txIds.length;
+  const funding = getSellOfferFunding(sellOffer);
+  const utxos = funding.txIds.length;
   const title = i18n(
     utxos === 1
       ? "warning.wrongFundingAmount.title"
@@ -28,13 +30,18 @@ export function WronglyFundedPopup({ sellOffer }: { sellOffer: SellOffer }) {
           {i18n("warning.fundingAmountDifferent.description.1")}
         </PeachText>
         <BTCAmount
-          amount={sellOffer.funding.amounts.reduce(sum, 0)}
+          chain={sellOffer.escrowType}
+          amount={funding.amounts.reduce(sum, 0)}
           size="medium"
         />
         <PeachText>
           {i18n("warning.fundingAmountDifferent.description.2")}
         </PeachText>
-        <BTCAmount amount={sellOffer.amount} size="medium" />
+        <BTCAmount
+          chain={sellOffer.escrowType}
+          amount={sellOffer.amount}
+          size="medium"
+        />
         <PeachText>
           {i18n(
             "warning.wrongFundingAmount.description",

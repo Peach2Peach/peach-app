@@ -1,10 +1,11 @@
 import { BIP32Interface } from "bip32";
 import { Psbt } from "bitcoinjs-lib";
+import { Psbt as LiquidPsbt } from "liquidjs-lib/src/psbt";
 import { verifyPSBT } from "../../views/contract/helpers";
 import { signAndFinalizePSBT } from "../bitcoin/signAndFinalizePSBT";
 
 type Props = {
-  psbt: Psbt;
+  psbt: Psbt | LiquidPsbt;
   contract: Contract;
   sellOffer: SellOffer;
   wallet: BIP32Interface;
@@ -21,5 +22,6 @@ export const signReleaseTransaction = ({
   if (errorMsg) throw Error(errorMsg);
 
   signAndFinalizePSBT(psbt, wallet);
+
   return psbt.extractTransaction().toHex();
 };

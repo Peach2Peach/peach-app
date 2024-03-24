@@ -1,12 +1,13 @@
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { Match as MatchType } from "../../../peach-api/src/@types/match";
+import { BuyOffer } from "../../../peach-api/src/@types/offer";
 import { GradientBorder } from "../../components/GradientBorder";
 import { Header } from "../../components/Header";
 import { PeachyGradient } from "../../components/PeachyGradient";
 import { ProfileInfo } from "../../components/ProfileInfo";
 import { Screen } from "../../components/Screen";
+import { NewBubble } from "../../components/bubble/Bubble";
 import { Button } from "../../components/buttons/Button";
 import {
   ConfirmSlider,
@@ -20,6 +21,7 @@ import { PriceInfo } from "../../components/matches/components/PriceInfo";
 import { useInterruptibleFunction } from "../../components/matches/hooks/useInterruptibleFunction";
 import { useMatchOffer } from "../../components/matches/hooks/useMatchOffer";
 import { getMatchPrice } from "../../components/matches/utils/getMatchPrice";
+import { useWalletLabel } from "../../components/offer/useWalletLabel";
 import { PeachText } from "../../components/text/PeachText";
 import { HorizontalLine } from "../../components/ui/HorizontalLine";
 import { CENT, SATSINBTC } from "../../constants";
@@ -36,9 +38,10 @@ import { keys } from "../../utils/object/keys";
 import { isBuyOffer } from "../../utils/offer/isBuyOffer";
 import { getPaymentMethods } from "../../utils/paymentMethod/getPaymentMethods";
 import { paymentMethodAllowedForCurrency } from "../../utils/paymentMethod/paymentMethodAllowedForCurrency";
-import { peachAPI } from "../../utils/peachAPI";
+import { isLiquidAddress } from "../../utils/validation/rules";
+import { getLiquidNetwork } from "../../utils/wallet/getLiquidNetwork";
+import { useMatchDetails } from "../contract/hooks/useMatchDetails";
 import { LoadingScreen } from "../loading/LoadingScreen";
-import { matchesKeys } from "../search/hooks/useOfferMatches";
 
 export function MatchDetails() {
   const { matchId, offerId } = useRoute<"matchDetails">().params;
@@ -73,34 +76,21 @@ function MatchDetailsHeader() {
   return <Header title={i18n("matchDetails.title")} />;
 }
 
-function useMatchDetails({
-  offerId,
-  matchId,
+const WalletLabel = ({
+  address,
+  isPayoutWallet = false,
 }: {
-  offerId: string;
-  matchId: string;
-}) {
-  const queryData = useQuery({
-    queryKey: matchesKeys.matchDetail(offerId, matchId),
-    queryFn: getMatchDetails,
-    refetchInterval: 10000,
-  });
-
-  return queryData;
-}
-
-async function getMatchDetails({
-  queryKey,
-}: QueryFunctionContext<ReturnType<typeof matchesKeys.matchDetail>>) {
-  const [, offerId, matchId] = queryKey;
-  const { result, error } = await peachAPI.private.offer.getMatch({
-    offerId,
-    matchId,
-  });
-  if (error || !result) throw new Error(error?.error || "Match not found");
-  return result;
-}
-
+  address: string;
+  isPayoutWallet?: boolean;
+}) => {
+  const walletLabel = useWalletLabel({ address, isPayoutWallet });
+  const isLiquid = isLiquidAddress(address, getLiquidNetwork());
+  return (
+    <NewBubble color={isLiquid ? "liquid" : "orange"} disabled={true}>
+      {walletLabel}
+    </NewBubble>
+  );
+};
 const MATCH_DELAY = 5000;
 function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
   const { mutate } = useMatchOffer(offer, match);
@@ -134,9 +124,12 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
       { onError: () => setShowMatchedCard(false) },
     );
   const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } =
-    useInterruptibleFunction(() => {
-      matchOffer();
-    }, MATCH_DELAY);
+    useInterruptibleFunction({
+      fn: () => {
+        matchOffer();
+      },
+      delay: MATCH_DELAY,
+    });
   const onInterruptMatch = () => {
     interruptMatchFunction();
     setShowMatchedCard(false);
@@ -165,6 +158,7 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
             : "matchOffer",
     [isMatched, selectedPaymentData, tradingLimitReached],
   );
+
   return (
     <>
       <View style={tw`justify-center flex-1`}>
@@ -203,6 +197,23 @@ function Match({ match, offer }: { match: MatchType; offer: BuyOffer }) {
                 showPaymentMethodPulse={showPaymentMethodPulse}
               />
 
+              <HorizontalLine />
+
+              <View style={tw`justify-center`}>
+                <PeachText style={tw`text-center text-black-65 subtitle-1`}>
+                  {i18n("payout.wallet")}
+                </PeachText>
+                <View style={tw`flex-row justify-center`}>
+                  <WalletLabel
+                    address={
+                      match.escrowType === "liquid" &&
+                      offer.releaseAddressLiquid
+                        ? offer.releaseAddressLiquid
+                        : offer.releaseAddress
+                    }
+                  />
+                </View>
+              </View>
               <HorizontalLine />
 
               <EscrowLink address={match.escrow || ""} />
@@ -419,6 +430,7 @@ function BuyerPriceInfo({
       price={displayPrice}
       currency={selectedCurrency}
       premium={premium}
+      chain={match.escrowType}
     />
   );
 }

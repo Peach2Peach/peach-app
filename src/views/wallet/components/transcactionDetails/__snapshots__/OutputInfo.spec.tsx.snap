@@ -4,6 +4,7 @@ exports[`OutputInfo should render correctly 1`] = `
 <OfferData
   address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
   amount={900}
+  chain="bitcoin"
   offerId="123"
   transactionDetails={
     Transaction {
@@ -407,6 +408,7 @@ exports[`OutputInfo should render correctly with multiple offers 1`] = `
 exports[`OutputInfo should render correctly without offerData 1`] = `
 <OfferData
   amount={1540}
+  chain="bitcoin"
   transactionDetails={
     Transaction {
       "ins": [

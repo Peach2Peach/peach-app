@@ -1,13 +1,13 @@
-import { NETWORK } from "@env";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { SellOffer } from "../../peach-api/src/@types/offer";
 import { useSetOverlay } from "../Overlay";
 import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { checkRefundPSBT } from "../utils/bitcoin/checkRefundPSBT";
-import { showTransaction } from "../utils/bitcoin/showTransaction";
 import { signAndFinalizePSBT } from "../utils/bitcoin/signAndFinalizePSBT";
+import { showTransaction } from "../utils/blockchain/showTransaction";
 import i18n from "../utils/i18n";
 import { saveOffer } from "../utils/offer/saveOffer";
 import { peachAPI } from "../utils/peachAPI";
@@ -62,7 +62,9 @@ export function useRefundSellOffer() {
       closePopup();
     },
     onSuccess: ([tx, txId], { sellOffer }) => {
-      setPopup(<RefundEscrowPopup txId={txId} />);
+      setPopup(
+        <RefundEscrowPopup txId={txId} network={sellOffer.escrowType} />,
+      );
       saveOffer({
         ...sellOffer,
         tx,
@@ -85,7 +87,13 @@ export function useRefundSellOffer() {
   });
 }
 
-function RefundEscrowPopup({ txId }: { txId: string }) {
+function RefundEscrowPopup({
+  txId,
+  network,
+}: {
+  txId: string;
+  network: "bitcoin" | "liquid";
+}) {
   const isPeachWallet = useSettingsStore((state) => state.refundToPeachWallet);
 
   return (
@@ -99,9 +107,9 @@ function RefundEscrowPopup({ txId }: { txId: string }) {
       actions={
         <>
           {isPeachWallet ? (
-            <GoToWalletAction txId={txId} />
+            <GoToWalletAction txId={txId} chain={network} />
           ) : (
-            <ShowTxAction txId={txId} />
+            <ShowTxAction {...{ txId, network }} />
           )}
           <CloseAction />
         </>
@@ -110,12 +118,18 @@ function RefundEscrowPopup({ txId }: { txId: string }) {
   );
 }
 
-function ShowTxAction({ txId }: { txId: string }) {
+function ShowTxAction({
+  txId,
+  network,
+}: {
+  txId: string;
+  network: "bitcoin" | "liquid";
+}) {
   const closePopup = useClosePopup();
 
   const showTx = () => {
     closePopup();
-    showTransaction(txId, NETWORK);
+    showTransaction(txId, network);
   };
 
   return (
@@ -127,7 +141,7 @@ function ShowTxAction({ txId }: { txId: string }) {
   );
 }
 
-function GoToWalletAction({ txId }: { txId: string }) {
+function GoToWalletAction({ txId, chain }: { txId: string; chain: Chain }) {
   const closePopup = useClosePopup();
   const navigation = useStackNavigation();
   const shouldShowBackupOverlay = useSettingsStore(
@@ -137,14 +151,16 @@ function GoToWalletAction({ txId }: { txId: string }) {
 
   const goToWallet = () => {
     closePopup();
+    const destination =
+      chain === "bitcoin" ? "transactionDetails" : "transactionDetailsLiquid";
     if (shouldShowBackupOverlay) {
       setOverlay(
         <BackupTime
-          navigationParams={[{ name: "transactionDetails", params: { txId } }]}
+          navigationParams={[{ name: destination, params: { txId } }]}
         />,
       );
     } else {
-      navigation.navigate("transactionDetails", { txId });
+      navigation.navigate(destination, { txId });
     }
   };
 

@@ -1,40 +1,25 @@
-import { Psbt } from "bitcoinjs-lib";
-import { parseError } from "../parseError";
+import { getError } from "../../../peach-api/src/utils/result";
+import { Result } from "../../../peach-api/src/utils/result/types";
 import { getEscrowWalletForOffer } from "../wallet/getEscrowWalletForOffer";
-import { getNetwork } from "../wallet/getNetwork";
 import { getSellOfferFromContract } from "./getSellOfferFromContract";
-import { signBatchReleaseTransaction } from "./signBatchReleaseTransaction";
-import { signReleaseTransaction } from "./signReleaseTransaction";
+import { verifyAndSignReleaseTx } from "./verifyAndSignReleaseTx";
 
-export const signReleaseTxOfContract = async (contract: Contract) => {
+type ResultType = Result<
+  {
+    releaseTransaction: string;
+    batchReleasePsbt?: string;
+  },
+  string | undefined
+>;
+
+export const signReleaseTxOfContract = async (
+  contract: Contract,
+): Promise<ResultType> => {
   const sellOffer = await getSellOfferFromContract(contract);
   const sellOfferId = sellOffer?.oldOfferId || sellOffer?.id;
   if (!sellOffer || !sellOfferId || !sellOffer?.funding)
-    return { errorMsg: "SELL_OFFER_NOT_FOUND" };
+    return getError("SELL_OFFER_NOT_FOUND");
 
   const wallet = getEscrowWalletForOffer(sellOffer);
-  try {
-    const releaseTransaction = signReleaseTransaction({
-      psbt: Psbt.fromBase64(contract.releasePsbt, {
-        network: getNetwork(),
-      }),
-      contract,
-      sellOffer,
-      wallet,
-    });
-    const batchReleasePsbt = contract.batchReleasePsbt
-      ? signBatchReleaseTransaction({
-          psbt: Psbt.fromBase64(contract.batchReleasePsbt, {
-            network: getNetwork(),
-          }),
-          contract,
-          sellOffer,
-          wallet,
-        })
-      : undefined;
-
-    return { releaseTransaction, batchReleasePsbt };
-  } catch (e) {
-    return { errorMsg: parseError(e) };
-  }
+  return verifyAndSignReleaseTx(contract, sellOffer, wallet);
 };

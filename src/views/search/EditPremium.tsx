@@ -52,10 +52,12 @@ export const EditPremium = () => {
     <Screen header={<EditPremiumHeader />}>
       <MarketInfo
         type="buyOffers"
+        escrowType={offer?.escrowType}
         meansOfPayment={offer?.meansOfPayment}
         maxPremium={displayPremium}
       />
       <Premium
+        chain={offer?.escrowType || "bitcoin"}
         premium={displayPremium}
         setPremium={setPremium}
         amount={offer?.amount ?? 0}
@@ -115,9 +117,16 @@ type PremiumProps = {
   setPremium: (newPremium: number, isValid?: boolean | undefined) => void;
   amount: number;
   offerPrice: React.ReactNode;
+  chain: Chain;
 };
 
-function Premium({ premium, setPremium, amount, offerPrice }: PremiumProps) {
+function Premium({
+  premium,
+  setPremium,
+  amount,
+  offerPrice,
+  chain,
+}: PremiumProps) {
   return (
     <View style={tw`items-center justify-center grow gap-7`}>
       <View style={tw`items-center`}>
@@ -128,7 +137,7 @@ function Premium({ premium, setPremium, amount, offerPrice }: PremiumProps) {
           <PeachText style={tw`text-center subtitle-1`}>
             {i18n("search.sellOffer")}
           </PeachText>
-          <BTCAmount size="small" amount={amount} />
+          <BTCAmount chain={chain} size="small" amount={amount} />
         </View>
       </View>
       <View style={tw`items-center gap-1`}>

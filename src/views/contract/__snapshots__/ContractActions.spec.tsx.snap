@@ -22,6 +22,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
     }
   >
     <View
+      accessibilityRole="button"
       accessibilityState={
         {
           "busy": undefined,
@@ -117,6 +118,7 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
       />
     </View>
     <View
+      accessibilityRole="button"
       accessibilityState={
         {
           "busy": undefined,
@@ -227,8 +229,6 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
     style={
       [
         {
-          "backgroundColor": "#FEEDE5",
-          "borderColor": "#FCCCB6",
           "borderRadius": 20,
           "borderWidth": 1,
           "overflow": "hidden",
@@ -237,6 +237,12 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
           "paddingRight": 4,
           "paddingTop": 4,
           "width": "100%",
+        },
+        {
+          "backgroundColor": "#FEEDE5",
+        },
+        {
+          "borderColor": "#FCCCB6",
         },
         undefined,
       ]
@@ -431,8 +437,6 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
     style={
       [
         {
-          "backgroundColor": "#FEEDE5",
-          "borderColor": "#FCCCB6",
           "borderRadius": 20,
           "borderWidth": 1,
           "overflow": "hidden",
@@ -441,6 +445,12 @@ exports[`ContractActions should show the paymentTooLate sliders for the seller 1
           "paddingRight": 4,
           "paddingTop": 4,
           "width": "100%",
+        },
+        {
+          "backgroundColor": "#FEEDE5",
+        },
+        {
+          "borderColor": "#FCCCB6",
         },
         undefined,
       ]

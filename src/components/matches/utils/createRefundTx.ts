@@ -1,3 +1,4 @@
+import { SellOffer } from "../../../../peach-api/src/@types/offer";
 import { checkRefundPSBT } from "../../../utils/bitcoin/checkRefundPSBT";
 import { peachAPI } from "../../../utils/peachAPI";
 import { getEscrowWalletForOffer } from "../../../utils/wallet/getEscrowWalletForOffer";

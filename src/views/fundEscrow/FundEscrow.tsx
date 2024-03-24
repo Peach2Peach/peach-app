@@ -1,6 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { networks } from "bitcoinjs-lib";
-import { useCallback, useMemo, useState } from "react";
+import { atom, useAtomValue, useSetAtom } from "jotai";
+import { useCallback, useMemo } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
 import { Icon } from "../../components/Icon";
@@ -27,79 +28,136 @@ import i18n, { languageState } from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { offerIdToHex } from "../../utils/offer/offerIdToHex";
 import { generateBlock } from "../../utils/regtest/generateBlock";
+import { generateLiquidBlock } from "../../utils/regtest/generateLiquidBlock";
 import { getNetwork } from "../../utils/wallet/getNetwork";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { getLocalizedLink } from "../../utils/web/getLocalizedLink";
 import { openURL } from "../../utils/web/openURL";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
+import { ReverseSubmarineSwap } from "./ReverseSubmarineSwap";
+import { ShowInExplorer } from "./components/ShowInExplorer";
 import { TransactionInMempool } from "./components/TransactionInMempool";
 import { useCreateEscrow } from "./hooks/useCreateEscrow";
 import { useFundEscrowSetup } from "./hooks/useFundEscrowSetup";
+import { useFundFromPeachLiquidWallet } from "./hooks/useFundFromPeachLiquidWallet";
 import { useFundFromPeachWallet } from "./hooks/useFundFromPeachWallet";
 
+const isFundingFromPeachLiquidWallet = atom(false);
+export const useSetIsFundingFromPeachLiquidWallet = () =>
+  useSetAtom(isFundingFromPeachLiquidWallet);
+const isFundingFromPeachWallet = atom(false);
+export const useSetIsFundingFromPeachWallet = () =>
+  useSetAtom(isFundingFromPeachWallet);
+
 export const FundEscrow = () => {
-  const { offerId } = useRoute<"fundEscrow">().params;
+  const { offerId, instantFund } = useRoute<"fundEscrow">().params;
   const {
-    fundingAddress,
-    fundingAddresses,
-    fundingStatus,
+    fundingMechanism,
+    funding,
+    activeFunding,
     fundingAmount,
     offerIdsWithoutEscrow,
     isPending,
   } = useFundEscrowSetup();
+  const escrowType =
+    fundingMechanism === "lightning-liquid"
+      ? "liquid"
+      : fundingMechanism || "bitcoin";
+  const chain =
+    fundingMechanism === "lightning-liquid" ? "lightning" : escrowType;
+  const fundingAddress = funding[escrowType].fundingAddress;
+  const fundingAddresses = funding[escrowType].fundingAddresses;
 
-  if (isPending) return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
+  const fundedFromPeachWallet = useWalletState((state) =>
+    state.isFundedFromPeachWallet(fundingAddress || ""),
+  );
+
+  if (!fundingMechanism || isPending)
+    return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
+
   if (offerIdsWithoutEscrow.length > 0)
     return <CreateEscrowScreen offerIds={offerIdsWithoutEscrow} />;
 
-  if (!fundingStatus || !fundingAddress || !fundingAddresses)
+  if (!fundingAddress)
     return <BitcoinLoading text={i18n("sell.escrow.loading")} />;
 
-  if (fundingStatus.status === "MEMPOOL")
+  if (activeFunding.status === "MEMPOOL")
     return (
-      <TransactionInMempool offerId={offerId} txId={fundingStatus.txIds[0]} />
+      <TransactionInMempool
+        {...{ offerId, address: fundingAddress }}
+        txId={activeFunding.txIds[0]}
+      />
     );
 
   return (
     <Screen header={<FundEscrowHeader />}>
-      <PeachScrollView contentStyle={tw`items-center gap-4`}>
-        <View style={tw`items-center self-stretch justify-center`}>
-          <View style={tw`flex-row items-center justify-center gap-1`}>
-            <PeachText style={tw`settings`}>
-              {i18n("sell.escrow.sendSats")}
-            </PeachText>
-            <BTCAmount
-              style={tw`-mt-0.5`}
-              amount={fundingAmount}
-              size="medium"
-            />
-            <CopyAble value={fundingAddress} textPosition="bottom" />
-          </View>
-          <PeachText style={tw`subtitle-1`}>{offerIdToHex(offerId)}</PeachText>
+      {fundedFromPeachWallet ? (
+        <View style={tw`flex-1 justify-center items-center gap-15`}>
+          <YouAreSelling amount={fundingAmount} chain={chain} />
+          <CheckingFundingStatus />
+          <ShowInExplorer address={fundingAddress} />
         </View>
-
-        <BitcoinAddress
-          address={fundingAddress}
-          amount={fundingAmount / SATSINBTC}
-          label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
-        />
-      </PeachScrollView>
-
-      <View style={[tw`items-center justify-center gap-4 py-4`]}>
-        <View style={tw`flex-row items-center justify-center gap-2`}>
-          <PeachText style={tw`text-primary-main button-medium`}>
-            {i18n("sell.escrow.checkingFundingStatus")}
-          </PeachText>
-          <Loading size="small" color={tw.color("primary-main")} />
-        </View>
-        <HorizontalLine />
-        <FundFromPeachWalletButton
-          address={fundingAddress}
-          addresses={fundingAddresses}
-          amount={fundingAmount}
-          fundingStatus={fundingStatus}
-        />
-      </View>
+      ) : (
+        <>
+          {fundingMechanism === "bitcoin" && (
+            <PeachScrollView
+              contentContainerStyle={tw`justify-center flex-1`}
+              contentStyle={tw`items-center gap-4`}
+            >
+              <SendSats amount={fundingAmount} chain={chain} />
+              <BitcoinAddress
+                address={fundingAddress}
+                amount={fundingAmount / SATSINBTC}
+                label={`${i18n("settings.escrow.paymentRequest.label")} ${offerIdToHex(offerId)}`}
+              />
+              <View style={[tw`items-center justify-center gap-4 py-4`]}>
+                <View style={tw`flex-row items-center justify-center gap-2`}>
+                  <PeachText style={tw`text-primary-main button-medium`}>
+                    {i18n("sell.escrow.checkingFundingStatus")}
+                  </PeachText>
+                  <Loading
+                    style={tw`w-4 h-4`}
+                    color={tw.color("primary-main")}
+                  />
+                </View>
+                <HorizontalLine />
+                <FundFromPeachWalletButton
+                  address={fundingAddress}
+                  addresses={fundingAddresses}
+                  amount={fundingAmount}
+                  fundingStatus={activeFunding}
+                />
+              </View>
+            </PeachScrollView>
+          )}
+          {fundingMechanism === "lightning-liquid" && (
+            <PeachScrollView
+              contentContainerStyle={tw`justify-center flex-1`}
+              contentStyle={tw`items-center gap-4`}
+            >
+              <SendSats amount={fundingAmount} chain={chain} />
+              <ReverseSubmarineSwap
+                offerId={offerId}
+                address={fundingAddress}
+                amount={fundingAmount / SATSINBTC}
+                instantFund={instantFund === "true"}
+              />
+            </PeachScrollView>
+          )}
+          {fundingMechanism === "liquid" && (
+            <View style={tw`flex-1 justify-center items-center gap-15`}>
+              <YouAreSelling amount={fundingAmount} chain={chain} />
+              <CheckingFundingStatus />
+              <FundFromPeachLiquidWalletButton
+                address={fundingAddress}
+                addresses={fundingAddresses}
+                amount={fundingAmount}
+                fundingStatus={activeFunding}
+              />
+            </View>
+          )}
+        </>
+      )}
     </Screen>
   );
 };
@@ -156,6 +214,10 @@ function FundEscrowHeader() {
     ];
     if (getNetwork() === networks.regtest) {
       return [
+        {
+          ...headerIcons.generateLiquidBlock,
+          onPress: generateLiquidBlock,
+        },
         { ...headerIcons.generateBlock, onPress: generateBlock },
         ...icons,
       ];
@@ -205,20 +267,21 @@ function InfoText({ children }: { children: string }) {
   );
 }
 
-type Props = {
+type FundFromPeachWalletButtonProps = {
   address: string;
   addresses: string[];
   amount: number;
   fundingStatus: FundingStatus;
 };
 
-function FundFromPeachWalletButton(props: Props) {
+function FundFromPeachWalletButton(props: FundFromPeachWalletButtonProps) {
   const { offerId } = useRoute<"fundEscrow">().params;
   const fundFromPeachWallet = useFundFromPeachWallet();
   const fundedFromPeachWallet = useWalletState((state) =>
     state.isFundedFromPeachWallet(props.address),
   );
-  const [isFunding, setIsFunding] = useState(false);
+  const isFunding = useAtomValue(isFundingFromPeachWallet);
+  const setIsFunding = useSetIsFundingFromPeachWallet();
 
   const onButtonPress = () => {
     setIsFunding(true);
@@ -252,5 +315,98 @@ function FundFromPeachWalletButton(props: Props) {
         </Button>
       )}
     </>
+  );
+}
+
+type FundFromPeachLiquidWalletButtonProps = {
+  address: string;
+  addresses: string[];
+  amount: number;
+  fundingStatus: FundingStatus;
+};
+
+function FundFromPeachLiquidWalletButton(
+  props: FundFromPeachLiquidWalletButtonProps,
+) {
+  const { offerId } = useRoute<"fundEscrow">().params;
+  const fundFromPeachWallet = useFundFromPeachLiquidWallet();
+  const fundedFromPeachWallet = useWalletState((state) =>
+    state.isFundedFromPeachWallet(props.address),
+  );
+  const isFunding = useAtomValue(isFundingFromPeachLiquidWallet);
+  const setIsFunding = useSetIsFundingFromPeachLiquidWallet();
+
+  const onButtonPress = () => {
+    setIsFunding(true);
+    fundFromPeachWallet({
+      offerId,
+      amount: props.amount,
+      fundingStatus: props.fundingStatus.status,
+      address: props.address,
+      addresses: props.addresses,
+    }).then(() => setIsFunding(false));
+  };
+
+  return (
+    <>
+      {fundedFromPeachWallet ? (
+        <TradeInfo
+          text={i18n("fundFromPeachWallet.funded")}
+          IconComponent={
+            <Icon id="checkCircle" size={16} color={tw.color("success-main")} />
+          }
+        />
+      ) : (
+        <Button
+          ghost
+          textColor={tw.color("primary-main")}
+          iconId="sell"
+          onPress={onButtonPress}
+          loading={isFunding}
+        >
+          {i18n("fundFromPeachWallet.button")}
+        </Button>
+      )}
+    </>
+  );
+}
+
+function SendSats({ amount, chain }: { amount: number; chain: Chain }) {
+  return (
+    <View style={tw`items-center self-stretch justify-center`}>
+      <View style={tw`flex-row items-center justify-center gap-1`}>
+        <PeachText style={tw`settings`}>
+          {i18n("sell.escrow.sendSats")}
+        </PeachText>
+        <BTCAmount
+          chain={chain}
+          style={tw`-mt-0.5`}
+          amount={amount}
+          size="medium"
+        />
+        <CopyAble value={String(amount)} textPosition="bottom" />
+      </View>
+    </View>
+  );
+}
+
+function YouAreSelling({ amount, chain }: { amount: number; chain: Chain }) {
+  return (
+    <View style={tw`gap-2`}>
+      <PeachText style={tw`text-center subtitle-1`}>
+        {i18n("offer.summary.youAreSelling")}
+      </PeachText>
+      <BTCAmount chain={chain} amount={amount} size="large" />
+    </View>
+  );
+}
+function CheckingFundingStatus() {
+  return (
+    <View style={tw`flex-row items-center justify-center gap-2`}>
+      <PeachText style={tw`text-primary-main h5`}>
+        {i18n("sell.escrow.checkingFundingStatus")}
+      </PeachText>
+      <Loading style={tw`w-6 h-6`} color={tw.color("primary-main")} />
+    </View>
   );
 }

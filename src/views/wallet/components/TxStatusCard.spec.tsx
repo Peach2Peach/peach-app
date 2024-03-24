@@ -4,7 +4,8 @@ import { TxStatusCard } from "./TxStatusCard";
 
 describe("TxStatusCard", () => {
   const date = new Date("2022-09-15T07:23:25.797Z");
-  const baseTx: Pick<TransactionSummary, "amount" | "date"> = {
+  const baseTx: Pick<TransactionSummary, "chain" | "amount" | "date"> = {
+    chain: "bitcoin",
     amount: 123456,
     date,
   };

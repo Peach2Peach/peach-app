@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, useWindowDimensions } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
+import { SellOffer } from "../../../peach-api/src/@types/offer";
 import { useIsMediumScreen } from "../../hooks/useIsMediumScreen";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
@@ -74,7 +75,11 @@ function MatchInformation({ offer }: { offer: SellOffer }) {
         {i18n("search.sellOffer")}:
       </PeachText>
       <View style={tw`flex-row items-center justify-center`}>
-        <BTCAmount amount={offer.amount} size="medium" />
+        <BTCAmount
+          chain={offer.escrowType}
+          amount={offer.amount}
+          size="medium"
+        />
         {offer.premium !== undefined && (
           <PeachText style={[tw`leading-loose body-l`, color]}>
             {" "}

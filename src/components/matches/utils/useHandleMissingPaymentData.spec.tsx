@@ -1,4 +1,5 @@
 import { act, fireEvent, render, renderHook } from "test-utils";
+import { BuyOffer, SellOffer } from "../../../../peach-api/src/@types/offer";
 import { pushMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import i18n from "../../../utils/i18n";
 import { Toast } from "../../toast/Toast";

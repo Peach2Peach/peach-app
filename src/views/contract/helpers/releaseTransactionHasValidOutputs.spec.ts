@@ -1,13 +1,24 @@
+import { ElementsValue, address } from "liquidjs-lib";
 import { contract } from "../../../../peach-api/src/testData/contract";
+import {
+  asset,
+  liquidAddresses,
+} from "../../../../tests/unit/data/liquidNetworkData";
+import { constructLiquidPSBT } from "../../../../tests/unit/helpers/constructLiquidPSBT";
 import { constructPSBT } from "../../../../tests/unit/helpers/constructPSBT";
 import { createTestWallet } from "../../../../tests/unit/helpers/createTestWallet";
 import { CENT } from "../../../constants";
 import { defaultConfig } from "../../../store/configStore/configStore";
 import { SIGHASH } from "../../../utils/bitcoin/constants";
+import { getLiquidNetwork } from "../../../utils/wallet/getLiquidNetwork";
 import { releaseTransactionHasValidOutputs } from "./releaseTransactionHasValidOutputs";
 
 describe("releaseTransactionHasValidOutputs", () => {
   const wallet = createTestWallet();
+  const liquidContract = {
+    ...contract,
+    releaseAddress: liquidAddresses.regtest[0],
+  };
   const psbt = constructPSBT(wallet, undefined, {
     value: contract.amount,
     address: contract.releaseAddress,
@@ -17,9 +28,26 @@ describe("releaseTransactionHasValidOutputs", () => {
     value: contract.amount - feeAmount,
     address: contract.releaseAddress,
   });
+  const liquidPSBTWithFeeOutput = constructLiquidPSBT(wallet, undefined, {
+    value: ElementsValue.fromNumber(contract.amount - feeAmount).bytes,
+    script: address.toOutputScript(
+      liquidContract.releaseAddress,
+      getLiquidNetwork(),
+    ),
+  });
+
   psbtWithFeeOutput.addOutput({
     address: "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
     value: feeAmount,
+  });
+  liquidPSBTWithFeeOutput.addOutput({
+    script: address.toOutputScript(
+      liquidAddresses.regtest[1],
+      getLiquidNetwork(),
+    ),
+    value: ElementsValue.fromNumber(feeAmount).bytes,
+    asset: asset.regtest,
+    nonce: Buffer.from("00", "hex"),
   });
   const batchPSBT = constructPSBT(
     wallet,
@@ -154,6 +182,15 @@ describe("releaseTransactionHasValidOutputs", () => {
       releaseTransactionHasValidOutputs(
         psbtWithFeeOutput,
         { ...contract, buyerFee: 0.02 },
+        peachFee,
+      ),
+    ).toBeTruthy();
+  });
+  it("should return true for valid liquid PSBTs outputs", () => {
+    expect(
+      releaseTransactionHasValidOutputs(
+        liquidPSBTWithFeeOutput,
+        { ...liquidContract, buyerFee: 0.02 },
         peachFee,
       ),
     ).toBeTruthy();

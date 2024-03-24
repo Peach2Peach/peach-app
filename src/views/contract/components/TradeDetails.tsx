@@ -14,6 +14,7 @@ import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore"
 import tw from "../../../styles/tailwind";
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
+import { getAddressChain } from "../../../utils/blockchain/getAddressChain";
 import { getOfferIdFromContract } from "../../../utils/contract/getOfferIdFromContract";
 import i18n from "../../../utils/i18n";
 import { isCashTrade } from "../../../utils/paymentMethod/isCashTrade";
@@ -70,7 +71,10 @@ export const TradeDetails = () => {
 
 function ChangePayoutWallet() {
   const { contract } = useContractContext();
-  const paidToPeachWallet = useIsMyAddress(contract.releaseAddress);
+  const paidToPeachWallet = useIsMyAddress({
+    address: contract.releaseAddress,
+    chain: getAddressChain(contract.releaseAddress),
+  });
   const offerId = getOfferIdFromContract(contract);
 
   const [payoutAddress, payoutAddressLabel, payoutAddressSignature] =

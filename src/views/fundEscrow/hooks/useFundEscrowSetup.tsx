@@ -4,6 +4,7 @@ import { useFundingStatus } from "../../../hooks/query/useFundingStatus";
 import { useMultipleOfferDetails } from "../../../hooks/query/useOfferDetail";
 import { useRoute } from "../../../hooks/useRoute";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
+import { getSellOfferFunding } from "../../../utils/offer/getSellOfferFunding";
 import { isSellOffer } from "../../../utils/offer/isSellOffer";
 import { parseError } from "../../../utils/parseError";
 import { isDefined } from "../../../utils/validation/isDefined";
@@ -12,11 +13,22 @@ import { useSyncWallet } from "../../wallet/hooks/useSyncWallet";
 import { getFundingAmount } from "../helpers/getFundingAmount";
 import { useHandleFundingStatus } from "./useHandleFundingStatus";
 
-const shouldGetFundingStatus = (offer: SellOffer) =>
-  !!offer.escrow &&
-  !offer.refunded &&
-  !offer.released &&
-  offer.funding.status !== "FUNDED";
+type FundingInfo = {
+  fundingAddress?: string;
+  fundingAddresses: string[];
+  fundingStatus: FundingStatus;
+};
+
+const shouldGetFundingStatus = (sellOffer: SellOffer) => {
+  const funding = getSellOfferFunding(sellOffer);
+
+  return (
+    !!sellOffer.escrows[sellOffer.escrowType] &&
+    !sellOffer.refunded &&
+    !sellOffer.released &&
+    funding.status !== "FUNDED"
+  );
+};
 
 export const useFundEscrowSetup = () => {
   const { offerId } = useRoute<"fundEscrow">().params;
@@ -38,21 +50,41 @@ export const useFundEscrowSetup = () => {
     !!sellOffer && shouldGetFundingStatus(sellOffer);
   const {
     fundingStatus,
+    fundingStatusLiquid,
     userConfirmationRequired,
     error: fundingStatusError,
     isPending: fundingStatusIsPending,
   } = useFundingStatus(offerId, canFetchFundingStatus);
-  const escrows = offers
-    .filter(isDefined)
-    .filter(isSellOffer)
-    .map((offr) => offr.escrow)
+  const sellOffers = offers.filter(isDefined).filter(isSellOffer);
+  const escrows = sellOffers
+    .map((offr) => offr.escrows.bitcoin)
+    .filter(isDefined);
+  const escrowsLiquid = sellOffers
+    .map((offr) => offr.escrows.liquid)
     .filter(isDefined);
   const fundingAmount = getFundingAmount(fundMultiple, sellOffer?.amount);
+  const funding: Record<EscrowType, FundingInfo> = {
+    bitcoin: {
+      fundingAddress: fundMultiple?.address || sellOffer?.escrows.bitcoin,
+      fundingAddresses: escrows,
+      fundingStatus,
+    },
+    liquid: {
+      fundingAddress: fundMultiple?.address || sellOffer?.escrows.liquid,
+      fundingAddresses: escrowsLiquid,
+      fundingStatus: fundingStatusLiquid,
+    },
+  };
+  const activeFunding = useMemo(
+    () =>
+      sellOffer?.escrowType === "liquid" ? fundingStatusLiquid : fundingStatus,
+    [fundingStatus, fundingStatusLiquid, sellOffer?.escrowType],
+  );
 
   useHandleFundingStatus({
     offerId,
     sellOffer,
-    fundingStatus,
+    funding: activeFunding,
     userConfirmationRequired,
   });
 
@@ -71,9 +103,9 @@ export const useFundEscrowSetup = () => {
   );
 
   return {
-    fundingAddress: fundMultiple?.address || sellOffer?.escrow,
-    fundingAddresses: escrows,
-    fundingStatus,
+    fundingMechanism: sellOffer?.fundingMechanism,
+    funding,
+    activeFunding,
     fundingAmount,
     offerIdsWithoutEscrow,
     isPending: !!(offersArePending || fundingStatusIsPending),

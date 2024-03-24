@@ -1,5 +1,5 @@
 import i18n from "../i18n";
-import { peachWallet } from "../wallet/setWallet";
+import { peachLiquidWallet, peachWallet } from "../wallet/setWallet";
 
 type Params = {
   address?: string;
@@ -21,6 +21,9 @@ export const getWalletLabel = ({
   }
   if (!isPeachWalletActive) {
     return i18n("offer.summary.customPayoutAddress");
+  }
+  if (peachLiquidWallet?.isMine(address)) {
+    return i18n("peachLiquidWallet");
   }
   if (peachWallet?.findKeyPairByAddress(address)) {
     return i18n("peachWallet");

@@ -88,7 +88,7 @@ describe("useTransactionDetailsInfoSetup", () => {
     });
     await result.current.openInExplorer();
     expect(openURL).toHaveBeenCalledWith(
-      `https://localhost:3000/tx/${transactionWithRBF2Summary.id}`,
+      `https://mempool.space/tx/${transactionWithRBF2Summary.id}`,
     );
   });
 });

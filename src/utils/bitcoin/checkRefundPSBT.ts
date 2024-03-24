@@ -1,38 +1,68 @@
 import { Psbt } from "bitcoinjs-lib";
+import { Psbt as LiquidPsbt } from "liquidjs-lib/src/psbt";
+import { SellOffer } from "../../../peach-api/src/@types/offer";
 import { getNetwork } from "../../utils/wallet/getNetwork";
+import { getSellOfferFunding } from "../offer/getSellOfferFunding";
+import { getLiquidNetwork } from "../wallet/getLiquidNetwork";
 import { txIdPartOfPSBT } from "./txIdPartOfPSBT";
 
-export const checkRefundPSBT = (
-  psbtBase64: string,
-  offer: SellOffer,
-): {
+// refunds should only have one output on bitcoin but 2 on liquid (mining fees are explicit)
+const EXPECTED_OUTPUTS = {
+  bitcoin: 1,
+  liquid: 2,
+};
+
+type Props = {
+  psbt: Psbt | LiquidPsbt;
+  returnAddress: string;
+  sellOffer: SellOffer;
+};
+const checkRefundPSBTBase = ({
+  psbt,
+  returnAddress,
+  sellOffer,
+}: Props): {
   isValid: boolean;
-  psbt: Psbt;
+  psbt: Psbt | LiquidPsbt;
   err?: string | null;
 } => {
-  const psbt = Psbt.fromBase64(psbtBase64, { network: getNetwork() });
-  if (!offer.id) return { isValid: false, psbt, err: "NOT_FOUND" };
+  if (!sellOffer?.id) return { isValid: false, psbt, err: "NOT_FOUND" };
 
-  if (!psbt || !offer || !offer.funding?.txIds)
+  const funding = getSellOfferFunding(sellOffer);
+  if (!psbt || !funding?.txIds)
     return { isValid: false, psbt, err: "NOT_FOUND" };
 
   // Don't trust the response, verify
-  const txIds = offer.funding.txIds;
+  const txIds = funding.txIds;
   if (!txIds.every((txId) => txIdPartOfPSBT(txId, psbt))) {
     return { isValid: false, psbt, err: "INVALID_INPUT" };
   }
 
-  // refunds should only have one output and this is the expected returnAddress
-  if (psbt.txOutputs.length > 1)
-    return { isValid: false, psbt, err: "INVALID_OUTPUT" };
+  if (psbt.txOutputs.length > EXPECTED_OUTPUTS[sellOffer.escrowType])
+    return {
+      isValid: false,
+      psbt,
+      err: "INVALID_OUTPUT",
+    };
   if (
-    psbt.txOutputs[0].address?.toLowerCase() !==
-    offer.returnAddress?.toLowerCase()
+    psbt.txOutputs[0].address?.toLowerCase() !== returnAddress.toLowerCase()
   ) {
     return { isValid: false, psbt, err: "RETURN_ADDRESS_MISMATCH" };
   }
-  return {
-    isValid: true,
-    psbt,
-  };
+  return { isValid: true, psbt };
 };
+
+export const checkRefundPSBT = (psbtBase64: string, sellOffer: SellOffer) =>
+  sellOffer.escrowType === "liquid" && sellOffer.returnAddressLiquid
+    ? checkRefundPSBTBase({
+        sellOffer,
+        returnAddress: sellOffer.returnAddressLiquid,
+        psbt: LiquidPsbt.fromBase64(psbtBase64, {
+          network: getLiquidNetwork(),
+        }),
+      })
+    : checkRefundPSBTBase({
+        sellOffer,
+        returnAddress: sellOffer.returnAddress,
+        psbt: Psbt.fromBase64(psbtBase64, { network: getNetwork() }),
+      });

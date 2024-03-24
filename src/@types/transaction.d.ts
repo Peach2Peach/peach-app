@@ -3,7 +3,8 @@ type TransactionType =
   | "ESCROWFUNDED"
   | "REFUND"
   | "WITHDRAWAL"
-  | "DEPOSIT";
+  | "DEPOSIT"
+  | "SWAP";
 
 type OfferData = {
   offerId?: string;
@@ -13,9 +14,11 @@ type OfferData = {
   price?: number;
   currency?: Currency;
 };
+type Chain = "bitcoin" | "liquid" | "lightning";
 type TransactionSummary = {
   id: string;
   type: TransactionType;
+  chain: Chain;
   offerData: OfferData[];
   amount: number;
   date: Date;

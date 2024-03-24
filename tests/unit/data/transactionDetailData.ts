@@ -106,6 +106,7 @@ export const pendingReceived1 = createTransaction({
 
 export const pendingTransactionSummary: TransactionSummary = {
   id: pending1.txid,
+  chain: "bitcoin",
   type: "TRADE",
   amount: 900,
   offerData: [
@@ -516,6 +517,7 @@ export const bdkTransactionWithRBF2 = createTransaction({
 export const transactionWithoutRBF1Summary: TransactionSummary = {
   id: "983eca3c0ad59f1459a93fa893ec9a5610d5abdb0501656dbac803be4a564215",
   type: "WITHDRAWAL",
+  chain: "bitcoin",
   offerData: [
     {
       offerId: "123",
@@ -536,6 +538,7 @@ export const transactionWithoutRBF1Summary: TransactionSummary = {
 export const transactionWithRBF1Summary: TransactionSummary = {
   id: "053f320d8b9b77c521e8d9e8e7d90692e9c51a38c3d11010069e66b37b5f53d7",
   type: "WITHDRAWAL",
+  chain: "bitcoin",
   offerData: [
     {
       offerId: "123",
@@ -556,6 +559,7 @@ export const transactionWithRBF1Summary: TransactionSummary = {
 export const transactionWithRBF2Summary: TransactionSummary = {
   id: "acca7d01838630a811b7c3243d20d592f0c6484ae4c9e979a733a115f8409527",
   type: "WITHDRAWAL",
+  chain: "bitcoin",
   offerData: [
     {
       offerId: "123",

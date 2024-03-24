@@ -27,7 +27,7 @@ describe("PeachJSWallet", () => {
 
     expect(peachJSWallet.jsWallet).toEqual(wallet);
     expect(peachJSWallet.derivationPath).toEqual("m/84'/1'/0'");
-    expect(peachJSWallet.addresses).toBe(addresses);
+    expect(peachJSWallet.addresses).toEqual(addresses);
   });
   it("instantiates for mainnet", () => {
     peachJSWallet = new PeachJSWallet({ wallet, network: "bitcoin" });

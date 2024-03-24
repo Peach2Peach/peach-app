@@ -10,18 +10,18 @@ import { createTestWallet } from "../../../../tests/unit/helpers/createTestWalle
 import { getTransactionDetails } from "../../../../tests/unit/helpers/getTransactionDetails";
 import { GlobalPopup } from "../../../components/popup/GlobalPopup";
 import { useConfigStore } from "../../../store/configStore/configStore";
-import { defaultFundingStatus } from "../../../utils/offer/constants";
+import { getDefaultFundingStatus } from "../../../utils/offer/constants";
 import { peachAPI } from "../../../utils/peachAPI";
 import { PeachWallet } from "../../../utils/wallet/PeachWallet";
+import { setMultipleRecipients } from "../../../utils/wallet/bitcoin/transaction/setMultipleRecipients";
 import { peachWallet, setPeachWallet } from "../../../utils/wallet/setWallet";
-import { setMultipleRecipients } from "../../../utils/wallet/transaction";
 import { useFundFromPeachWallet } from "./useFundFromPeachWallet";
 
 jest.mock("../../../hooks/query/useFeeEstimate", () => ({
   useFeeEstimate: () => ({ estimatedFees: mockEstimatedFees }),
 }));
 
-jest.mock("../../../utils/wallet/transaction/setMultipleRecipients");
+jest.mock("../../../utils/wallet/bitcoin/transaction/setMultipleRecipients");
 
 const mockShowErrorBanner = jest.fn();
 jest.mock("../../../hooks/useShowErrorBanner", () => ({
@@ -45,7 +45,7 @@ describe("useFundFromPeachWallet", () => {
     offerId,
     address,
     amount: 615000,
-    fundingStatus: defaultFundingStatus.status,
+    ...getDefaultFundingStatus(offerId),
   };
 
   beforeAll(() => {

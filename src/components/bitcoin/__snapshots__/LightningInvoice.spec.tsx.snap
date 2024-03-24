@@ -1,0 +1,265 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LightningInvoice should render correctly 1`] = `
+<React.Fragment>
+  <View>
+    <ForwardRef(AnimatedComponentWrapper)
+      style={
+        [
+          {
+            "alignSelf": "center",
+            "bottom": "100%",
+            "position": "absolute",
+          },
+          {
+            "opacity": 0,
+          },
+        ]
+      }
+    >
+      <PeachText
+        style={
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.14,
+            "lineHeight": 22,
+            "textAlign": "center",
+          }
+        }
+      >
+        copied!
+      </PeachText>
+    </ForwardRef(AnimatedComponentWrapper)>
+    <TouchableOpacity
+      onLongPress={[Function]}
+      onPress={[Function]}
+    >
+      <QRCode
+        backgroundColor="#FFF9F6"
+        size={327}
+        value="lightning:lnbc1p..."
+      />
+    </TouchableOpacity>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "stretch",
+        "flexDirection": "row",
+        "gap": 8,
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "borderColor": "#BAADA7",
+          "borderRadius": 12,
+          "borderWidth": 1,
+          "flexShrink": 1,
+          "justifyContent": "center",
+          "paddingBottom": 8,
+          "paddingLeft": 12,
+          "paddingRight": 12,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "color": "#9F8C82",
+          }
+        }
+      >
+        lnbc1p...
+        …
+        lnbc1p...
+      </PeachText>
+      <ForwardRef(AnimatedComponentWrapper)
+        style={
+          [
+            {
+              "alignItems": "center",
+              "backgroundColor": "#FFFCFA",
+              "height": "100%",
+              "justifyContent": "center",
+              "position": "absolute",
+              "width": "100%",
+            },
+            {
+              "opacity": 0,
+            },
+          ]
+        }
+      >
+        <PeachText
+          style={
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 28,
+              "textAlign": "center",
+            }
+          }
+        >
+          copied!
+        </PeachText>
+      </ForwardRef(AnimatedComponentWrapper)>
+    </View>
+    <View
+      style={
+        {
+          "gap": 8,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <IconButton
+        iconId="copy"
+        onPress={[Function]}
+      />
+      <IconButton
+        iconId="externalLink"
+        onPress={[Function]}
+      />
+    </View>
+  </View>
+</React.Fragment>
+`;
+
+exports[`LightningInvoice should render correctly for small screens 1`] = `
+<React.Fragment>
+  <View>
+    <ForwardRef(AnimatedComponentWrapper)
+      style={
+        [
+          {
+            "alignSelf": "center",
+            "bottom": "100%",
+            "position": "absolute",
+          },
+          {
+            "opacity": undefined,
+          },
+        ]
+      }
+    >
+      <PeachText
+        style={
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.14,
+            "lineHeight": 22,
+            "textAlign": "center",
+          }
+        }
+      >
+        copied!
+      </PeachText>
+    </ForwardRef(AnimatedComponentWrapper)>
+    <TouchableOpacity
+      onLongPress={[Function]}
+      onPress={[Function]}
+    >
+      <QRCode
+        backgroundColor="#FFF9F6"
+        size={242}
+        value="lightning:lnbc1p..."
+      />
+    </TouchableOpacity>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "stretch",
+        "flexDirection": "row",
+        "gap": 8,
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "borderColor": "#BAADA7",
+          "borderRadius": 12,
+          "borderWidth": 1,
+          "flexShrink": 1,
+          "justifyContent": "center",
+          "paddingBottom": 8,
+          "paddingLeft": 12,
+          "paddingRight": 12,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "color": "#9F8C82",
+          }
+        }
+      >
+        lnbc1p...
+        …
+        lnbc1p...
+      </PeachText>
+      <ForwardRef(AnimatedComponentWrapper)
+        style={
+          [
+            {
+              "alignItems": "center",
+              "backgroundColor": "#FFFCFA",
+              "height": "100%",
+              "justifyContent": "center",
+              "position": "absolute",
+              "width": "100%",
+            },
+            {
+              "opacity": 0,
+            },
+          ]
+        }
+      >
+        <PeachText
+          style={
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 28,
+              "textAlign": "center",
+            }
+          }
+        >
+          copied!
+        </PeachText>
+      </ForwardRef(AnimatedComponentWrapper)>
+    </View>
+    <View
+      style={
+        {
+          "gap": 8,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <IconButton
+        iconId="copy"
+        onPress={[Function]}
+      />
+      <IconButton
+        iconId="externalLink"
+        onPress={[Function]}
+      />
+    </View>
+  </View>
+</React.Fragment>
+`;

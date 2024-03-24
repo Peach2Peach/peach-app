@@ -1,3 +1,6 @@
+type EscrowType = "bitcoin" | "liquid";
+type FundingMechanism = EscrowType | "lightning-liquid";
+
 type OfferDraft = {
   type: "bid" | "ask";
   meansOfPayment: MeansOfPayment;
@@ -31,15 +34,26 @@ type InstantTradeCriteria = {
 
 type SellOfferDraft = OfferDraft & {
   type: "ask";
+  fundingMechanism: FundingMechanism;
   amount: number;
   premium: number;
   returnAddress: string;
-  funding: FundingStatus;
+  returnAddressLiquid?: string;
   multi?: number;
   instantTradeCriteria?: InstantTradeCriteria;
 };
 type SellOffer = Omit<SellOfferDraft & Offer, "originalPaymentData"> & {
+  /** @deprecated */
   escrow?: string;
+
+  escrowType: EscrowType;
+  escrows: {
+    bitcoin?: string;
+    liquid?: string;
+    lightning?: string;
+  };
+  funding: FundingStatus;
+  fundingLiquid: FundingStatus;
   escrowNotifiedUser?: boolean;
   tx?: string;
   refundTx?: string; // base 64 encoded psbt

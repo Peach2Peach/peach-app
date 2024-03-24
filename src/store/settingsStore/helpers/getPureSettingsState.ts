@@ -5,6 +5,7 @@ export const getPureSettingsState = (state: SettingsStore): Settings => ({
   analyticsPopupSeen: state.analyticsPopupSeen,
   enableAnalytics: state.enableAnalytics,
   locale: state.locale,
+  fundFrom: state.fundFrom,
   refundAddress: state.refundAddress,
   refundAddressLabel: state.refundAddressLabel,
   refundToPeachWallet: state.refundToPeachWallet,

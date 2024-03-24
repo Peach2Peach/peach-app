@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { interpolate } from "../../../utils/math/interpolate";
 import { isSellOffer } from "../../../utils/offer/isSellOffer";
 import { peachAPI } from "../../../utils/peachAPI";
+import { peachLiquidWallet } from "../../../utils/wallet/setWallet";
 import {
   CLIENT_RATING_RANGE,
   SERVER_RATING_RANGE,
@@ -31,7 +32,9 @@ async function postSellOffer(offerDraft: SellOfferDraft) {
     premium: offerDraft.premium,
     meansOfPayment: offerDraft.meansOfPayment,
     paymentData: offerDraft.paymentData,
+    fundingMechanism: offerDraft.fundingMechanism,
     returnAddress: offerDraft.returnAddress,
+    returnAddressLiquid: peachLiquidWallet?.getAddress().address,
     multi: offerDraft.multi,
     instantTradeCriteria,
   };

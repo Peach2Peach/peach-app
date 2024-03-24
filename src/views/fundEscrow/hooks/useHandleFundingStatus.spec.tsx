@@ -4,7 +4,7 @@ import { replaceMock } from "../../../../tests/unit/helpers/NavigationWrapper";
 import { GlobalPopup } from "../../../components/popup/GlobalPopup";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { queryClient } from "../../../queryClient";
-import { defaultFundingStatus } from "../../../utils/offer/constants";
+import { getDefaultFundingStatus } from "../../../utils/offer/constants";
 import { useHandleFundingStatus } from "./useHandleFundingStatus";
 
 jest.mock("../../../hooks/query/useTradeSummaries", () => ({
@@ -55,25 +55,21 @@ jest.mock("../../../popups/useStartRefundPopup", () => ({
 
 describe("useHandleFundingStatus", () => {
   const fundingStatusFunded: FundingStatus = {
-    ...defaultFundingStatus,
+    ...getDefaultFundingStatus(sellOffer.id),
     status: "FUNDED",
   };
   const fundedProps = {
     offerId: sellOffer.id,
     sellOffer,
-    fundingStatus: fundingStatusFunded,
+    funding: fundingStatusFunded,
     userConfirmationRequired: false,
   };
-
-  afterEach(() => {
-    queryClient.clear();
-  });
 
   it("should do nothing if no sell offer is passed", () => {
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer: undefined,
-      fundingStatus: defaultFundingStatus,
+      funding: getDefaultFundingStatus(sellOffer.id),
       userConfirmationRequired: false,
     };
     renderHook(useHandleFundingStatus, { initialProps });
@@ -83,43 +79,29 @@ describe("useHandleFundingStatus", () => {
       queryClient.getQueryData(offerKeys.detail(sellOffer.id)),
     ).toBeUndefined();
   });
-  it("should save offer when funding status updates", () => {
-    const fundingStatus = defaultFundingStatus;
-    const initialProps = {
-      offerId: sellOffer.id,
-      sellOffer,
-      fundingStatus,
-      userConfirmationRequired: false,
-    };
-    renderHook(useHandleFundingStatus, { initialProps });
-    expect(queryClient.getQueryData(offerKeys.detail(sellOffer.id))).toEqual({
-      ...sellOffer,
-      funding: fundingStatus,
-    });
-  });
   it("should handle funding status when it is CANCELED", () => {
-    const fundingStatus: FundingStatus = {
-      ...defaultFundingStatus,
+    const funding: FundingStatus = {
+      ...getDefaultFundingStatus(sellOffer.id),
       status: "CANCELED",
     };
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer,
-      fundingStatus,
+      funding,
       userConfirmationRequired: false,
     };
     renderHook(useHandleFundingStatus, { initialProps });
     expect(mockStartRefundPopup).toHaveBeenCalledWith(sellOffer);
   });
   it("should show showWronglyFundedPopup when WRONG_FUNDING_AMOUNT", () => {
-    const fundingStatus: FundingStatus = {
-      ...defaultFundingStatus,
+    const funding: FundingStatus = {
+      ...getDefaultFundingStatus(sellOffer.id),
       status: "WRONG_FUNDING_AMOUNT",
     };
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer,
-      fundingStatus,
+      funding,
       userConfirmationRequired: false,
     };
     renderHook(useHandleFundingStatus, { initialProps });
@@ -127,14 +109,14 @@ describe("useHandleFundingStatus", () => {
     expect(queryByText("refund escrow")).toBeTruthy();
   });
   it("should navigate to wrongFundingAmount when user confirmation is required", () => {
-    const fundingStatus: FundingStatus = {
-      ...defaultFundingStatus,
+    const funding: FundingStatus = {
+      ...getDefaultFundingStatus(sellOffer.id),
       status: "MEMPOOL",
     };
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer,
-      fundingStatus,
+      funding,
       userConfirmationRequired: true,
     };
     renderHook(useHandleFundingStatus, { initialProps });

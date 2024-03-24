@@ -9,6 +9,7 @@ import form from "./form/hu.json";
 import global from "./global/hu.json";
 import help from "./help/hu.json";
 import home from "./home/hu.json";
+import layer2 from "./layer2/hu.json";
 import notification from "./notification/hu.json";
 import offer from "./offer/hu.json";
 import paymentMethod from "./paymentMethod/hu.json";
@@ -44,6 +45,7 @@ const hu: Record<string, string> = {
   ...unassigned,
   ...wallet,
   ...welcome,
+  ...layer2,
 };
 
 export default hu;

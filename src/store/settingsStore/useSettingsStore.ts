@@ -15,6 +15,7 @@ export type SettingsStore = Settings & {
   setEnableAnalytics: (enableAnalytics: boolean) => void;
   toggleAnalytics: () => void;
   setAnalyticsPopupSeen: (analyticsPopupSeen: boolean) => void;
+  setFundFrom: (fundFrom: Chain) => void;
   setRefundAddress: (refundAddress: string | undefined) => void;
   setRefundAddressLabel: (refundAddressLabel: string | undefined) => void;
   setPayoutAddress: (payoutAddress: string | undefined) => void;
@@ -57,6 +58,7 @@ export const useSettingsStore = create(
       toggleAnalytics: () => get().setEnableAnalytics(!get().enableAnalytics),
       setAnalyticsPopupSeen: (analyticsPopupSeen) =>
         set({ analyticsPopupSeen }),
+      setFundFrom: (fundFrom) => set({ fundFrom }),
       setRefundAddress: (refundAddress) => set({ refundAddress }),
       setRefundAddressLabel: (refundAddressLabel) =>
         set({ refundAddressLabel }),
