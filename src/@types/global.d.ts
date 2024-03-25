@@ -27,10 +27,13 @@ type PaymentCategory =
   | "giftCard"
   | "nationalOption"
   | "cash"
+  | "mobileMoney"
   | "other";
+
 type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[];
 };
+
 type NationalOptions = Record<"EUR" | "LATAM", Record<string, PaymentMethod[]>>;
 
 type HashedPaymentData = string;

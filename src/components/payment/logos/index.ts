@@ -51,8 +51,20 @@ import wave from "./wave.svg";
 import wise from "./wise.svg";
 import privat24 from "./privat24.svg";
 import payeer from "./payeer.png";
-import perfectMoney from "./perfectMoney.png";
+import perfectMoney from "./perfectMoney.svg";
 import steam from "./steam.svg";
+import mercadoPago from "./mercadoPago.svg"
+import pix from "./pix.svg"
+import daviplata from "./daviplata.svg"
+import tigoPesa from "./tigoPesa.svg"
+import tigo from "./tigo.svg"
+import apaym from "./apaym.svg"
+import upi from "./upi.svg"
+import paytm from "./paytm.svg"
+import tinkoff from "./tinkoff.svg"
+import sberbank from "./sberbank.svg"
+import paysend from "./paysend.svg"
+import westernUnion from "./westernUnion.svg"
 
 export const PaymentLogos = {
   "cash.amsterdam": bitcoinAmsterdam,
@@ -83,7 +95,7 @@ export const PaymentLogos = {
   liquid,
   lydia,
   mbWay,
-  mercadoPago: placeholder,
+  mercadoPago,
   mobilePay,
   moov,
   mtn,
@@ -108,10 +120,8 @@ export const PaymentLogos = {
   paylib,
   paypal,
   paysera,
-  pix: placeholder,
   postePay: placeholder,
   rappipay: placeholder,
-  rebellion: placeholder,
   revolut,
   satispay,
   sepa,
@@ -129,6 +139,24 @@ export const PaymentLogos = {
   payeer,
   perfectMoney,
   steam,
+  spei: placeholder,
+  pix,
+  daviplata,
+  tigoPesa,
+  tigoHonduras: tigo,
+  tigoParaguay: tigo,
+  tigoSalvador: tigo,
+  tigoBolivia: tigo,
+  tigoGuatemala: tigo,
+  apaym,
+  upi,
+  paytm,
+  tinkoff,
+  sberbank,
+  paysend,
+  twyp: placeholder,
+  tikkie: placeholder,
+  westernUnion,
 };
 
 export type PaymentLogoType = keyof typeof PaymentLogos;

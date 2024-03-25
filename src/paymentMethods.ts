@@ -113,12 +113,33 @@ const onlineWallet: PaymentMethod[] = [
   "wave",
   "wirepay",
   "wise",
+  "boleto",
+  "djamo",
+  "apaym",
+  "privat24",
+  "perfectMoney",
+  "payeer",
+  "yoomoney",
+  "stp",
+  "spei",
+  "daviplata",
+  "tigoPesa",
+  "tigoHonduras",
+  "tigoBolivia",
+  "tigoSalvador",
+  "tigoParaguay",
+  "tigoGuatemala",
+  "upi",
+  "paytm",
+  "sberbank",
+  "paysend",
 ];
 const giftCard: PaymentMethod[] = [
   "giftCard.amazon",
   ...GIFTCARDCOUNTRIES.map(
     (c) => `giftCard.amazon.${c}` satisfies PaymentMethod,
   ),
+  "giftCard.steam",
 ];
 const nationalOption: PaymentMethod[] = [
   "bizum",
@@ -132,7 +153,17 @@ const nationalOption: PaymentMethod[] = [
   "postePay",
   "rebellion",
   "satispay",
+  "tikkie",
+  "twyp",
+  "privat24",
 ];
+const mobileMoney: PaymentMethod[] = [
+  "moov",
+  "mtn",
+  "m-pesa",
+  "mobileAirtime",
+  "vodafoneCash",
+]
 const other: PaymentMethod[] = ["liquid", "lnurl"];
 const cash: PaymentMethod[] = [];
 
@@ -143,6 +174,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
   nationalOption,
   cash,
   other,
+  mobileMoney,
 };
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
