@@ -149,7 +149,6 @@ type PaymentMethodCountry =
   | "BE"
   | "PT"
   | "GR"
-  | "UK"
   | "GB"
   | "CY"
   | "SI"
