@@ -32,7 +32,7 @@ const usePayInvoiceMock = jest
     isPayingInvoice: false,
   });
 jest.mock("../../utils/boltz/query/usePostReverseSubmarineSwap");
-const useClaimReverseSubmarineSwapMock = jest
+const usePostReverseSubmarineSwapMock = jest
   .requireMock("../../utils/boltz/query/usePostReverseSubmarineSwap")
   .usePostReverseSubmarineSwap.mockReturnValue({
     data: {
@@ -67,7 +67,7 @@ describe("ReverseSubmarineSwap", () => {
     const { toJSON } = render(<ReverseSubmarineSwap {...props} />);
     expect(toJSON()).toMatchSnapshot();
   });
-  it("should disable fund from peach wallet button when not enough balance", async () => {
+  it("should disable fund from peach wallet button when not enough balance", () => {
     nodeInfoMock.mockReturnValueOnce({
       ...nodeInfo,
       channelsBalanceMsat: 0,
@@ -92,12 +92,12 @@ describe("ReverseSubmarineSwap", () => {
     ).toBeDefined();
   });
   it("should show loading when swap request is in process", () => {
-    useClaimReverseSubmarineSwapMock.mockReturnValueOnce({ data: undefined });
+    usePostReverseSubmarineSwapMock.mockReturnValueOnce({ data: undefined });
     const { toJSON } = render(<ReverseSubmarineSwap {...props} />);
     expect(toJSON()).toMatchSnapshot();
   });
   it("should show error box if swap process failed", () => {
-    useClaimReverseSubmarineSwapMock.mockReturnValueOnce({
+    usePostReverseSubmarineSwapMock.mockReturnValueOnce({
       error: new Error("GENERAL_ERROR"),
     });
     const { toJSON } = render(<ReverseSubmarineSwap {...props} />);

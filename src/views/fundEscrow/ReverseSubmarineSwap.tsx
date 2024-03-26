@@ -1,6 +1,13 @@
 import { PaymentStatus } from "@breeztech/react-native-breez-sdk";
 import bolt11 from "bolt11";
-import { useCallback, useEffect, useMemo } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { View } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Icon } from "../../components/Icon";
@@ -16,6 +23,7 @@ import { ClosePopupAction } from "../../components/popup/actions/ClosePopupActio
 import { PeachText } from "../../components/text/PeachText";
 import { ErrorBox } from "../../components/ui/ErrorBox";
 import { CENT, SATSINBTC } from "../../constants";
+import { useMarketPrices } from "../../hooks/query/useMarketPrices";
 import { useLiquidFeeRate } from "../../hooks/useLiquidFeeRate";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useBoltzSwapStore } from "../../store/useBoltzSwapStore";
@@ -25,6 +33,7 @@ import { useReverseSubmarineSwaps } from "../../utils/boltz/query/useReverseSubm
 import { useSwapStatus } from "../../utils/boltz/query/useSwapStatus";
 import i18n from "../../utils/i18n";
 import { error } from "../../utils/log/error";
+import { getTradingAmountLimits } from "../../utils/market/getTradingAmountLimits";
 import { round } from "../../utils/math/round";
 import { parseError } from "../../utils/parseError";
 import { thousands } from "../../utils/string/thousands";
@@ -36,6 +45,19 @@ import {
 import { usePayInvoice } from "../wallet/hooks/usePayInvoice";
 import { ClaimReverseSubmarineSwap } from "./components/ClaimReverseSubmarineSwap";
 
+const CLAIM_TX_SIZE_VB = 1380;
+const BOLTZ_FEES_FALLBACK = 0.25;
+const LN_FEE_RESERVE = 0.01;
+
+const useAmountWithTxFees = ({ amount }: { amount: number }) => {
+  const feeRate = useLiquidFeeRate();
+  const minerFees = CLAIM_TX_SIZE_VB * feeRate;
+  const amountWithTxFees = minerFees
+    ? minerFees / SATSINBTC + amount
+    : undefined;
+  return { feeRate, amountWithTxFees };
+};
+
 export type Props = {
   offerId: string;
   address: string;
@@ -43,20 +65,16 @@ export type Props = {
   instantFund?: boolean;
 };
 
-const CLAIM_TX_SIZE_VB = 1380;
-const BOLTZ_FEES_FALLBACK = 0.25;
-
 export const ReverseSubmarineSwap = ({
   offerId,
   address,
   amount,
   instantFund,
 }: Props) => {
-  const feeRate = useLiquidFeeRate();
-  const minerFees = CLAIM_TX_SIZE_VB * feeRate;
-  const amountWithTxFees = minerFees
-    ? minerFees / SATSINBTC + amount
-    : undefined;
+  const [requestAmount, setRequestAmount] = useState(amount);
+  const { feeRate, amountWithTxFees } = useAmountWithTxFees({
+    amount: requestAmount,
+  });
   const { data, error: postReverseSubmarineError } =
     usePostReverseSubmarineSwap({
       address,
@@ -109,9 +127,10 @@ export const ReverseSubmarineSwap = ({
       <FundFromPeachLightningWalletButton
         invoice={swapInfo.invoice}
         address={address}
-        onchainAmount={amount}
+        onchainAmount={requestAmount}
         instantFund={instantFund}
         feeRate={feeRate}
+        setRequestAmount={setRequestAmount}
       />
     </>
   );
@@ -123,6 +142,7 @@ type FundFromPeachLightningWalletButtonProps = {
   onchainAmount: number;
   instantFund?: boolean;
   feeRate: number;
+  setRequestAmount: Dispatch<SetStateAction<number>>;
 };
 function FundFromPeachLightningWalletButton({
   invoice,
@@ -130,9 +150,15 @@ function FundFromPeachLightningWalletButton({
   onchainAmount,
   instantFund,
   feeRate,
+  setRequestAmount,
 }: FundFromPeachLightningWalletButtonProps) {
   const setPopup = useSetPopup();
   const closePopup = useClosePopup();
+  const { data: marketPrices } = useMarketPrices();
+  const [minTradingAmount] = getTradingAmountLimits(
+    marketPrices?.CHF || 0,
+    "sell",
+  );
   const { reverseSubmarineList } = useReverseSubmarineSwaps();
   const pair = reverseSubmarineList?.BTC?.["L-BTC"];
   const feePercentage = pair?.fees?.percentage || BOLTZ_FEES_FALLBACK;
@@ -145,6 +171,7 @@ function FundFromPeachLightningWalletButton({
     ],
     shallow,
   );
+  const [waitForNewAmount, setWaitForNewAmount] = useState(false);
   const paymentRequest = useMemo(() => bolt11.decode(invoice), [invoice]);
   const onchainAmountSats = onchainAmount * SATSINBTC;
   const amount = useMemo(() => {
@@ -152,7 +179,7 @@ function FundFromPeachLightningWalletButton({
     return Number(paymentRequest.millisatoshis) / MSAT_PER_SAT;
   }, [onchainAmountSats, paymentRequest.millisatoshis]);
   const boltzFees = round((feePercentage / CENT) * onchainAmountSats);
-  const minerFees = amount - onchainAmountSats - boltzFees;
+  const minerFees = round(amount - onchainAmountSats - boltzFees);
 
   const { balance } = useLightningWalletBalance();
 
@@ -183,6 +210,17 @@ function FundFromPeachLightningWalletButton({
   ]);
 
   const onButtonPress = useCallback(() => {
+    if (balance.lightning < amount) {
+      const newAmountRequest =
+        balance.lightning -
+        (balance.lightning * feePercentage) / CENT -
+        minerFees;
+      setRequestAmount(
+        (newAmountRequest - balance.lightning * LN_FEE_RESERVE) / SATSINBTC,
+      );
+      setWaitForNewAmount(true);
+      return;
+    }
     setPopup(
       <PopupComponent
         title={i18n("fundFromPeachWallet.confirm.title")}
@@ -215,18 +253,27 @@ function FundFromPeachLightningWalletButton({
     );
   }, [
     amount,
+    balance.lightning,
     boltzFees,
     feePercentage,
     feeRate,
     minerFees,
     payLightningInvoice,
     setPopup,
+    setRequestAmount,
   ]);
 
   useEffect(() => {
     if (instantFund) onButtonPress();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (waitForNewAmount) {
+      setWaitForNewAmount(false);
+      onButtonPress();
+    }
+  }, [waitForNewAmount, amount, onButtonPress]);
 
   return (
     <>
@@ -243,7 +290,7 @@ function FundFromPeachLightningWalletButton({
           textColor={tw.color("primary-main")}
           iconId="sell"
           onPress={onButtonPress}
-          disabled={balance.lightning <= amount}
+          disabled={balance.lightning <= minTradingAmount}
           loading={isPayingInvoice}
         >
           {i18n("fundFromPeachWallet.button")}
