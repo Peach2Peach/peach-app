@@ -24,6 +24,7 @@ type EuPaymentMethods =
   | "nationalTransferCH"
   | "nationalTransferIS"
   | "nationalTransferSE"
+  | "nationalTransferMX"
   | "neteller"
   | "papara"
   | "paylib"
@@ -45,6 +46,9 @@ type EuPaymentMethods =
   | "perfectMoney"
   | "yoomoney"
   | "payeer"
+  | "trFast"
+  | "eft"
+  | "westernUnionEU"
   | "wise";
 type LatAmPaymentMethods =
   | "alias"
@@ -65,6 +69,18 @@ type LatAmPaymentMethods =
   | "tigoSalvador"
   | "tigoParaguay"
   | "tigoGuatemala"
+  | "abitab"
+  | "brou"
+  | "practicaja"
+  | "ted"
+  | "nationalTransferBO"
+  | "nationalTransferCL"
+  | "nationalTransferGT"
+  | "nationalTransferNI"
+  | "nationalTransferPE"
+  | "nationalTransferPY"
+  | "nationalTransferSR"
+  | "nationalTransferVE"
   | "sinpeMovil";
 type AfricaPaymentMethods =
   | "accrue"
@@ -86,14 +102,24 @@ type AfricaPaymentMethods =
   | "apaym"
   | "tigoPesa"
   | "westernUnion"
+  | "equityBank"
+  | "kcbBank"
+  | "nationalTransferKE"
+  | "nationalTransferZA"
   | "mobileAirtime";
 type AsiaPaymentMethods =
   | "payeer"
   | "yoomoney"
   | "upi"
-  | "paytm"
+  | "paytmWallet"
   | "sberbank"
   | "paysend"
+  | "eft"
+  | "tinkoff"
+  | "bankera"
+  | "trFast"
+  | "papara"
+  | "nationalTransferTR"
 
 type BitcoinPaymentMethods = "liquid" | "lnurl";
 type InternationalPaymentMethds =

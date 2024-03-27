@@ -15,7 +15,7 @@ type Props = {
 
 const CurrencyTab = createMaterialTopTabNavigator();
 
-const currencyTabs = ["europe", "latinAmerica", "africa", "other"] as const;
+const currencyTabs = ["europe", "latinAmerica", "africa", "asia", "other"] as const;
 
 export const CurrencyTabs = (props: Props) => {
   const [preferredCurrencyType, setPreferredCurrencyType] = useOfferPreferences(

@@ -18,7 +18,8 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
   ],
   latinAmerica: ["ARS", "COP", "PEN", "MXN", "CLP", "PEN", "COP", "CRC", "BRL"],
   africa: ["USD", "XOF", "CDF", "NGN"],
-  other: ["USDT", "SAT"],
+  asia: ["TRY", "CNY", "JPY", "INR", "IDR", "VND", "PHP"],
+  other: ["USDT", "SAT", "USD"],
 };
 
 export const getCurrencyTypeFilter =
