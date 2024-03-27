@@ -28,6 +28,7 @@ const paymentCategoryIcons: Record<PaymentCategory, IconType | ""> = {
   onlineWallet: "cloud",
   giftCard: "creditCard",
   nationalOption: "flag",
+  mobileMoney: "",
   cash: "",
   other: "shuffle",
 };

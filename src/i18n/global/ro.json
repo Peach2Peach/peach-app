@@ -1,4 +1,6 @@
 {
+  "country.UA": "Ucraina",
+  "country.AR": "Argentina",
   "languageName.de" : "Deutsch",
   "languageName.de-CH" : "Deutsch (Schweiz)",
   "languageName.el-GR" : "Ελληνικά",
@@ -14,5 +16,10 @@
   "languageName.ru" : "Русский",
   "languageName.sw" : "Kiswahili",
   "languageName.tr" : "Türkçe",
-  "languageName.uk" : "Українська"
+  "languageName.uk" : "Українська",
+  "currency.IDR": "Rupie indoneziană",
+  "currency.CNY": "Yuan chinezesc",
+  "currency.JPY": "Yen japonez",
+  "currency.PHP": "Peso filipinez",
+  "currency.VND": "Dong vietnamez"
 }

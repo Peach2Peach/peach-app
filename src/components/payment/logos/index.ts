@@ -50,7 +50,7 @@ import vipps from "./vipps.svg";
 import wave from "./wave.svg";
 import wise from "./wise.svg";
 import privat24 from "./privat24.svg";
-import payeer from "./payeer.png";
+import payeer from "./payeer.svg";
 import perfectMoney from "./perfectMoney.svg";
 import steam from "./steam.svg";
 import mercadoPago from "./mercadoPago.svg"
@@ -60,7 +60,7 @@ import tigoPesa from "./tigoPesa.svg"
 import tigo from "./tigo.svg"
 import apaym from "./apaym.svg"
 import upi from "./upi.svg"
-import paytm from "./paytm.svg"
+import paytmWallet from "./paytm.svg"
 import tinkoff from "./tinkoff.svg"
 import sberbank from "./sberbank.svg"
 import paysend from "./paysend.svg"
@@ -138,7 +138,7 @@ export const PaymentLogos = {
   privat24,
   payeer,
   perfectMoney,
-  steam,
+  "giftCard.Steam": steam,
   spei: placeholder,
   pix,
   daviplata,
@@ -150,13 +150,37 @@ export const PaymentLogos = {
   tigoGuatemala: tigo,
   apaym,
   upi,
-  paytm,
+  paytmWallet,
   tinkoff,
   sberbank,
   paysend,
   twyp: placeholder,
   tikkie: placeholder,
   westernUnion,
+  abitab: placeholder,
+  boleto: placeholder,
+  brou: placeholder,
+  djamo: placeholder,
+  eft: placeholder,
+  equityBank: placeholder,
+  kcbBank: placeholder,
+  nationalTransferBO: placeholder,
+  nationalTransferCL: placeholder,
+  nationalTransferGT: placeholder,
+  nationalTransferKE: placeholder,
+  nationalTransferMX: placeholder,
+  nationalTransferNI: placeholder,
+  nationalTransferPE: placeholder,
+  nationalTransferPY: placeholder,
+  nationalTransferSR: placeholder,
+  nationalTransferVE: placeholder,
+  nationalTransferZA: placeholder,
+  practicaja: placeholder,
+  stp: placeholder,
+  ted: placeholder,
+  vodafoneCash: placeholder,
+  westernUnionEU: westernUnion,
+  yoomoney: placeholder,
 };
 
 export type PaymentLogoType = keyof typeof PaymentLogos;

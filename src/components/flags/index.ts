@@ -1,4 +1,5 @@
 import AD from "./ad.svg";
+import AR from "./ar.svg";
 import AT from "./at.svg";
 import BE from "./be.svg";
 import BG from "./bg.svg";
@@ -38,11 +39,13 @@ import SE from "./se.svg";
 import SI from "./si.svg";
 import SK from "./sk.svg";
 import TR from "./tr.svg";
+import UA from "./ua.svg";
 import US from "./us.svg";
 import ZA from "./za.svg";
 
 export const Flags = {
   AD,
+  AR,
   AT,
   BE,
   BG,
@@ -82,6 +85,7 @@ export const Flags = {
   SI,
   SK,
   TR,
+  UA,
   US,
   ZA,
 };
