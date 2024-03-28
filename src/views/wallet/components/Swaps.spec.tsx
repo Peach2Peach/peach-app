@@ -34,9 +34,14 @@ jest
 jest.useFakeTimers();
 
 describe("Swaps", () => {
-  const submarineSwap = { ...submarineSwapResponse, keyPairIndex: 1 };
+  const submarineSwap = {
+    ...submarineSwapResponse,
+    status: { status: "transaction.claim.pending" },
+    keyPairIndex: 1,
+  };
   const reverseSwap = {
     ...reverseSwapResponse,
+    status: { status: "transaction.mempool" },
     keyPairIndex: 1,
     preimage: "preimage",
   };
