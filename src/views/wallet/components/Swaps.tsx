@@ -107,6 +107,8 @@ const SwapDetails = ({ swap }: Props) => {
     opacityAnimation(opacity);
   }, [opacity, swap]);
 
+  if (!status) return <></>;
+
   return (
     <Animated.View style={[tw`gap-1`, { opacity }]}>
       <StatusCard

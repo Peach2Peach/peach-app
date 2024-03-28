@@ -17,8 +17,8 @@ export const STATUS_MAP = {
       "invoice.failedToPay",
       "transaction.failed",
       "transaction.zeroconf.rejected",
-      "invoice.expired",
     ],
+    EXPIRED: ["invoice.expired"],
   },
   REVERSE: {
     COMPLETED: ["invoice.settled"],
@@ -28,8 +28,8 @@ export const STATUS_MAP = {
       "invoice.failedToPay",
       "transaction.failed",
       "transaction.zeroconf.rejected",
-      "invoice.expired",
     ],
+    EXPIRED: ["invoice.expired"],
   },
 };
 export type SwapInfo = (SubmarineAPIResponse | ReverseAPIResponse) & {
