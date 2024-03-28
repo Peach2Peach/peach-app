@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { RefreshControl } from "react-native";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
@@ -6,6 +7,7 @@ import { useMultipleOfferDetails } from "../../hooks/query/useOfferDetail";
 import { useRoute } from "../../hooks/useRoute";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
+import { getTransactionType } from "../../utils/transaction/getTransactionType";
 import { isDefined } from "../../utils/validation/isDefined";
 import { useWalletState } from "../../utils/wallet/walletStore";
 import { BitcoinLoading } from "../loading/BitcoinLoading";
@@ -23,23 +25,18 @@ export const TransactionDetails = () => {
   const offerIds = useWalletState((state) => state.txOfferMap[txId]);
   const { offers } = useMultipleOfferDetails(offerIds || []);
   const { contracts } = useContractSummaries();
-  const partialSummary = localTx
-    ? getTxSummary({
-        tx: localTx,
-        offer: offers.filter(isDefined)[0],
-      })
-    : undefined;
 
-  const transactionSummary = partialSummary
-    ? {
-        ...partialSummary,
-        offerData: getOfferData(
-          offers.filter(isDefined),
-          contracts,
-          partialSummary.type,
-        ),
-      }
-    : undefined;
+  const transactionSummary = useMemo(() => {
+    if (!localTx) return undefined;
+    const partialSummary = getTxSummary(localTx);
+    const type = getTransactionType(localTx, offers.filter(isDefined)[0]);
+    return {
+      ...partialSummary,
+      type,
+      offerData: getOfferData(offers.filter(isDefined), contracts, type),
+    };
+  }, [localTx, offers, contracts]);
+
   const { refetch: refresh, isRefetching } = useSyncWallet();
 
   if (!localTx || !transactionDetails || !transactionSummary)
