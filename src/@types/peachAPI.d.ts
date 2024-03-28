@@ -96,67 +96,67 @@ type Currency =
   | 'BTC'
   | 'SAT'
   | 'USD'
-  | 'USDT'
   | 'EUR'
   | 'CHF'
   | 'GBP'
   | 'SEK'
-  | 'PLN'
-  | 'NOK'
-  | 'CZK'
   | 'DKK'
+  | 'BGN'
+  | 'CZK'
   | 'HUF'
+  | 'PLN'
   | 'RON'
   | 'ISK'
+  | 'NOK'
   | 'TRY'
-  | 'BGN'
+  | 'USDT'
   | 'ARS'
   | 'COP'
   | 'PEN'
-  | 'GTQ'
   | 'MXN'
-  | 'BRL'
   | 'CLP'
-  | 'CDF'
   | 'XOF'
   | 'NGN'
+  | 'CDF'
   | 'CRC'
+  | 'BRL'
+  | 'GTQ'
   | 'ZAR'
   | 'KES'
   | 'GHS'
-  | 'UAH'
-  | 'XAU'
-  | 'RUB'
-  | 'BOB'
-  | 'CUP'
-  | 'DOP'
-  | 'HNL'
-  | 'NIO'
-  | 'PAB'
-  | 'VES'
-  | 'VEF'
-  | 'UYU'
-  | 'PYG'
   | 'TZS'
-  | 'INR'
-  | 'UZS'
-  | 'RSD'
-  | 'KZT'
-  | 'KWD'
-  | 'ILS'
-  | 'NZD'
-  | 'PHP'
-  | 'EGP'
-  | 'CNY'
-  | 'JPY'
-  | 'AUD'
-  | 'IDR'
   | 'VND'
   | 'MAD'
   | 'RWF'
   | 'XAF'
   | 'MGA'
-  | 'GNF';
+  | 'GNF'
+  | 'VEF'
+  | 'PAB'
+  | 'HNL'
+  | 'DOP'
+  | 'CUP'
+  | 'NIO'
+  | 'PYG'
+  | 'UYU'
+  | 'VES'
+  | 'BOB'
+  | 'UZS'
+  | 'RSD'
+  | 'KWD'
+  | 'KZT'
+  | 'ILS'
+  | 'NZD'
+  | 'EGP'
+  | 'PHP'
+  | 'JPY'
+  | 'AUD'
+  | 'CNY'
+  | 'IDR'
+  | 'INR'
+  | 'RUB'
+  | 'XAU'
+  | 'UAH';
 
 type Pricebook = {
   [key in Currency]?: number;
@@ -181,13 +181,24 @@ type PaymentMethodCountry =
   | "NL"
   | "UK"
   | "BE"
+  | "BR"
   | "PT"
   | "GR"
   | "GB"
   | "CY"
   | "SI"
   | "LV"
+  | "MX"
+  | "AR"
   | "US"
+  | "ZA"
+  | "RU"
+  | "CN"
+  | "JP"
+  | "AU"
+  | "ID"
+  | "VN"
+  | "MA"
   | "FI";
 
 type Country =
@@ -201,6 +212,7 @@ type Country =
   | "FI"
   | "BE"
   | "LV";
+
 type MeetupEvent = {
   id: string;
   currencies: Currency[];

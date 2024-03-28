@@ -5,6 +5,7 @@ describe("shouldUsePaymentMethod", () => {
     bankTransfer: ["sepa", "instantSepa", "fasterPayments"],
     onlineWallet: ["paypal", "revolut", "wise"],
     nationalOption: ["mbWay", "bizum", "satispay", "mobilePay"],
+    mobileMoney: ["tigoPesa", "m-pesa"],
     giftCard: [],
     cash: [],
     other: ["liquid", "lnurl"],

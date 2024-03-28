@@ -129,6 +129,7 @@ const bankTransfer: PaymentMethod[] = [
   "kcbBank",
   "practicaja",
   "ted",
+  "sberbank",
   "trFast",
   ...NATIONALTRANSFERCOUNTRIES.map(
     (c) => `nationalTransfer${c}` satisfies PaymentMethod,
@@ -172,7 +173,7 @@ const onlineWallet: PaymentMethod[] = [
   "yoomoney",
   "stp",
   "spei",
-  "daviplata",
+  "daviPlata",
   "tigoPesa",
   "tigoHonduras",
   "tigoBolivia",
@@ -181,12 +182,11 @@ const onlineWallet: PaymentMethod[] = [
   "tigoGuatemala",
   "upi",
   "paytmWallet",
-  "sberbank",
   "paysend",
   "tinkoff",
 ];
 const giftCard: PaymentMethod[] = [
-  "giftCard.steam",
+  // "giftCard.steam",
   "giftCard.amazon",
   ...GIFTCARDCOUNTRIES.map(
     (c) => `giftCard.amazon.${c}` satisfies PaymentMethod,

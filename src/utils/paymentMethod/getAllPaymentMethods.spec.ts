@@ -1,10 +1,11 @@
 import { getAllPaymentMethods } from "./getAllPaymentMethods";
 
-describe("getAllPaymentMethods", () => {
+describe("getAllPaymentMethods", () => { // Seems deprecated
   const paymentCategories: PaymentCategories = {
     bankTransfer: ["sepa", "instantSepa", "fasterPayments"],
     onlineWallet: ["paypal", "revolut", "wise"],
     nationalOption: ["mbWay", "bizum", "satispay", "mobilePay"],
+    mobileMoney: [],
     giftCard: [],
     cash: [],
     other: ["liquid", "lnurl"],

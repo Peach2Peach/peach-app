@@ -1,4 +1,5 @@
 import i18n from "../i18n";
+import {getValidMobileNetworks} from "./isValidMobileNetwork";
 
 export const getMessages = () => ({
   account: i18n("form.account.error"),
@@ -43,4 +44,12 @@ export const getMessages = () => ({
   ukSortCode: i18n("form.ukSortCode.error"),
   url: i18n("form.invalid.error"),
   userName: i18n("form.invalid.error"),
+  edrpou: i18n("form.edrpou.error"),
+  steam: i18n("form.steam.error"),
+  upi: i18n("form.upiTag.error"),
+  cpf: i18n("form.cpf.error"),
+  rut: i18n("form.rut.error"),
+  dni: i18n("form.dni.error"),
+  mobileNetwork: i18n("form.mobileNetwork.error", getValidMobileNetworks().toString()),
+  // mobileNetwork: i18n("form.mobileNetwork.error", { networks: getValidMobileNetworks().toString() }),
 });

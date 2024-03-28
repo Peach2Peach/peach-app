@@ -26,7 +26,7 @@
 	"paymentMethod.chippercash": "Chippercash",
 	"paymentMethod.currency.select.title": "select $0 currencies",
 	"paymentMethod.cvu": "CVU",
-	"paymentMethod.daviplata": "DaviPlata",
+	"paymentMethod.daviPlata": "daviPlata",
 	"paymentMethod.djamo": "Djamo",
 	"paymentMethod.edit.title": "edit $0 details",
 	"paymentMethod.eft": "EFT",

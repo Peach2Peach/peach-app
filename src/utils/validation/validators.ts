@@ -13,6 +13,13 @@ import { isUKSortCode } from "./isUKSortCode";
 import { isUsername } from "./isUsername";
 import { isValidDigitLength } from "./isValidDigitLength";
 import { isValidPaymentReference } from "./isValidPaymentReference";
+import {isEDRPOU} from "./isEDRPOU";
+import { isSteamFriendCode } from "./isSteamFriendCode";
+import {isUPIId} from "./isUPIId";
+import {isCPFValid} from "./isCPFValid";
+import {isRUTValid} from "./isRUTValid";
+import {isDniValid} from "./isDniValid";
+import {isValidMobileNetwork} from "./isValidMobileNetwork";
 
 const ibanValidator = (value: string) => isIBAN(value) || getMessages().iban;
 const isEUIBANValidator = (value: string) =>
@@ -37,6 +44,20 @@ const maxAccountNumberLength = 28;
 const accountNumberValidator = (value: string) =>
   isValidDigitLength(value, [minAccountNumberLength, maxAccountNumberLength]) ||
   i18n("form.account.errors");
+const edrpouValidator = (value: string) =>
+  isEDRPOU(value) || getMessages().edrpou;
+const steamValidator = (value: string) =>
+  isSteamFriendCode(value) || getMessages().steam;
+const upiValidator = (value: string) =>
+  isUPIId(value) || getMessages().upi;
+const cpfValidator = (value: string) =>
+  isCPFValid(value) || getMessages().cpf;
+const rutValidator = (value: string) =>
+  isRUTValid(value) || getMessages().rut;
+const dniValidator = (value: string) =>
+  isDniValid(value) || getMessages().dni;
+const mobileNetworkValidator = (value: string) =>
+  isValidMobileNetwork(value) || getMessages().mobileNetwork;
 type NewRule = {
   [key: string]: (value: string) => true | string;
 };
@@ -80,24 +101,37 @@ const validators: Record<PaymentMethodField, NewRule> = {
   lnurlAddress: {
     lnurlAddress: emailValidator,
   },
-  // changes TODO: adjust
-  edrpou: {},
+  edrpou: {
+    edrpou: edrpouValidator,
+  },
   clabe: {},
   bankName: {},
-  steamFriendCode: {},
-  upiTag: {},
+  steamFriendCode: {
+    steam: steamValidator,
+  },
+  upiTag: {
+    upi: upiValidator,
+  },
   trSortCode: {},
   cardNumber: {},
   physicalAddress: {},
-  mobileNetwork: {},
+  mobileNetwork: {
+    mobileNetwork: mobileNetworkValidator,
+  },
   bankCode: {},
   brSortCode: {},
-  cpf: {},
+  cpf: {
+    cpf: cpfValidator,
+  },
   cedulaIdentidad: {},
   country: {},
   bankBranch: {},
-  rutNumber: {},
-  dniNumber: {},
+  rutNumber: {
+    rut: rutValidator,
+  },
+  dniNumber: {
+    rut: dniValidator,
+  },
   abitabAgent: {},
 };
 

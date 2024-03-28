@@ -52,10 +52,10 @@ import wise from "./wise.svg";
 import privat24 from "./privat24.svg";
 import payeer from "./payeer.svg";
 import perfectMoney from "./perfectMoney.svg";
-import steam from "./steam.svg";
+// import steam from "./steam.svg";
 import mercadoPago from "./mercadoPago.svg"
 import pix from "./pix.svg"
-import daviplata from "./daviplata.svg"
+import daviPlata from "./daviplata.svg"
 import tigoPesa from "./tigoPesa.svg"
 import tigo from "./tigo.svg"
 import apaym from "./apaym.svg"
@@ -65,6 +65,7 @@ import tinkoff from "./tinkoff.svg"
 import sberbank from "./sberbank.svg"
 import paysend from "./paysend.svg"
 import westernUnion from "./westernUnion.svg"
+import mobileAirtime from "./mobileAirtime.svg"
 
 export const PaymentLogos = {
   "cash.amsterdam": bitcoinAmsterdam,
@@ -96,6 +97,7 @@ export const PaymentLogos = {
   lydia,
   mbWay,
   mercadoPago,
+  mobileAirtime,
   mobilePay,
   moov,
   mtn,
@@ -138,10 +140,10 @@ export const PaymentLogos = {
   privat24,
   payeer,
   perfectMoney,
-  "giftCard.Steam": steam,
+  // "giftCard.Steam": steam,
   spei: placeholder,
   pix,
-  daviplata,
+  daviPlata,
   tigoPesa,
   tigoHonduras: tigo,
   tigoParaguay: tigo,

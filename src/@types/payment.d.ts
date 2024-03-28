@@ -63,7 +63,7 @@ type LatAmPaymentMethods =
   | "boleto"
   | "stp"
   | "spei"
-  | "daviplata"
+  | "daviPlata"
   | "tigoHonduras"
   | "tigoBolivia"
   | "tigoSalvador"
@@ -127,7 +127,7 @@ type InternationalPaymentMethds =
   | "perfectMoney"
   | "payeer"
   | "paysend"
-  | "giftCard.steam"
+  // | "giftCard.steam"
   | `giftCard.amazon.${PaymentMethodCountry}`;
 type CashPaymentMethds = `cash.${string}`;
 
