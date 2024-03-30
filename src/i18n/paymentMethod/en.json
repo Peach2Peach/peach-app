@@ -1,4 +1,6 @@
 {
+	"paymentMethod.mobileAirtime": "Mobile Airtime",
+	"paymentMethod.tigoPesa": "Tigo Pesa",
 	"paymentCategory.bankTransfer": "bank transfer",
 	"paymentCategory.cash": "cash",
 	"paymentCategory.cryptoCurrency": "crypto",
@@ -13,7 +15,7 @@
 	"paymentMethod.advcash": "ADV Cash",
 	"paymentMethod.airtelMoney": "Airtel Money",
 	"paymentMethod.alias": "Alias",
-	"paymentMethod.apaym": "APaym",
+	"paymentMethod.aPaym": "APaym",
 	"paymentMethod.applePay": "Apple Pay",
 	"paymentMethod.bancolombia": "Bancolombia",
 	"paymentMethod.bankera": "Bankera",

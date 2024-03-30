@@ -53,19 +53,19 @@ import privat24 from "./privat24.svg";
 import payeer from "./payeer.svg";
 import perfectMoney from "./perfectMoney.svg";
 // import steam from "./steam.svg";
-import mercadoPago from "./mercadoPago.svg"
-import pix from "./pix.svg"
-import daviPlata from "./daviplata.svg"
-import tigoPesa from "./tigoPesa.svg"
-import tigo from "./tigo.svg"
-import apaym from "./apaym.svg"
-import upi from "./upi.svg"
-import paytmWallet from "./paytm.svg"
-import tinkoff from "./tinkoff.svg"
-import sberbank from "./sberbank.svg"
-import paysend from "./paysend.svg"
-import westernUnion from "./westernUnion.svg"
-import mobileAirtime from "./mobileAirtime.svg"
+import mercadoPago from "./mercadoPago.svg";
+import pix from "./pix.svg";
+import daviPlata from "./daviplata.svg";
+import tigoPesa from "./tigoPesa.svg";
+import tigo from "./tigo.svg";
+import upi from "./upi.svg";
+import paytmWallet from "./paytm.svg";
+import tinkoff from "./tinkoff.svg";
+import sberbank from "./sberbank.svg";
+import paysend from "./paysend.svg";
+import westernUnion from "./westernUnion.svg";
+import mobileAirtime from "./mobileAirtime.svg";
+import aPaym from "./apaym.svg";
 
 export const PaymentLogos = {
   "cash.amsterdam": bitcoinAmsterdam,
@@ -150,7 +150,7 @@ export const PaymentLogos = {
   tigoSalvador: tigo,
   tigoBolivia: tigo,
   tigoGuatemala: tigo,
-  apaym,
+  aPaym,
   upi,
   paytmWallet,
   tinkoff,
@@ -158,6 +158,7 @@ export const PaymentLogos = {
   paysend,
   twyp: placeholder,
   tikkie: placeholder,
+  trFast: placeholder,
   westernUnion,
   abitab: placeholder,
   boleto: placeholder,

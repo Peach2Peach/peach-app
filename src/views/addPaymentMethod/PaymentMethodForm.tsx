@@ -55,7 +55,7 @@ export const PaymentMethodForm = () => {
 
   const onValid = (data: FormType) => {
     const { paymentMethodName, ...rest } = data;
-    const test = {
+    const pm = {
       ...rest,
       id: id || `${paymentMethod}-${Date.now()}`,
       label: paymentMethodName,
@@ -63,11 +63,14 @@ export const PaymentMethodForm = () => {
       country,
     } satisfies PaymentData;
 
-    const dataIsValid = isValidPaymentData(test);
+    const dataIsValid = isValidPaymentData(pm);
     if (dataIsValid) {
-      addPaymentData(test);
-      selectPaymentMethod(test.id);
+      console.log("Adding PM:", pm);
+      addPaymentData(pm);
+      selectPaymentMethod(pm.id);
       goBackTo(origin);
+    } else {
+      console.log("Invalid PM:", pm);
     }
   };
 

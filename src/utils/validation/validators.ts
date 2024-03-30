@@ -13,13 +13,15 @@ import { isUKSortCode } from "./isUKSortCode";
 import { isUsername } from "./isUsername";
 import { isValidDigitLength } from "./isValidDigitLength";
 import { isValidPaymentReference } from "./isValidPaymentReference";
-import {isEDRPOU} from "./isEDRPOU";
+import { isEDRPOU } from "./isEDRPOU";
 import { isSteamFriendCode } from "./isSteamFriendCode";
-import {isUPIId} from "./isUPIId";
-import {isCPFValid} from "./isCPFValid";
-import {isRUTValid} from "./isRUTValid";
-import {isDniValid} from "./isDniValid";
-import {isValidMobileNetwork} from "./isValidMobileNetwork";
+import { isUPIId } from "./isUPIId";
+import { isCPFValid } from "./isCPFValid";
+import { isRUTValid } from "./isRUTValid";
+import { isDniValid } from "./isDniValid";
+import { isValidMobileNetwork } from "./isValidMobileNetwork";
+import { isValidPayeerNumber } from "./isValidPayeerNumber";
+import { isValidPerfectMoney } from "./isValidPerfectMoney";
 
 const ibanValidator = (value: string) => isIBAN(value) || getMessages().iban;
 const isEUIBANValidator = (value: string) =>
@@ -48,19 +50,21 @@ const edrpouValidator = (value: string) =>
   isEDRPOU(value) || getMessages().edrpou;
 const steamValidator = (value: string) =>
   isSteamFriendCode(value) || getMessages().steam;
-const upiValidator = (value: string) =>
-  isUPIId(value) || getMessages().upi;
-const cpfValidator = (value: string) =>
-  isCPFValid(value) || getMessages().cpf;
-const rutValidator = (value: string) =>
-  isRUTValid(value) || getMessages().rut;
-const dniValidator = (value: string) =>
-  isDniValid(value) || getMessages().dni;
+const upiValidator = (value: string) => isUPIId(value) || getMessages().upi;
+const cpfValidator = (value: string) => isCPFValid(value) || getMessages().cpf;
+const rutValidator = (value: string) => isRUTValid(value) || getMessages().rut;
+const dniValidator = (value: string) => isDniValid(value) || getMessages().dni;
 const mobileNetworkValidator = (value: string) =>
   isValidMobileNetwork(value) || getMessages().mobileNetwork;
+const payeerNumberValidator = (value: string) =>
+  isValidPayeerNumber(value) || getMessages().payeerNumber;
+const perfectMoneyValidator = (value: string) =>
+  isValidPerfectMoney(value) || getMessages().perfectMoney;
+
 type NewRule = {
   [key: string]: (value: string) => true | string;
 };
+
 const validators: Record<PaymentMethodField, NewRule> = {
   beneficiary: {},
   iban: {
@@ -133,6 +137,12 @@ const validators: Record<PaymentMethodField, NewRule> = {
     rut: dniValidator,
   },
   abitabAgent: {},
+  payeerNumber: {
+    payeerNumber: payeerNumberValidator,
+  },
+  perfectMoneyNumber: {
+    payeerNumber: perfectMoneyValidator,
+  },
 };
 
 export type PaymentFieldTypes = keyof typeof validators;
@@ -142,6 +152,7 @@ export const getValidators = (
   optional = false,
 ) => {
   const rulesForField = validators[fieldName];
+
   if (!optional) return rulesForField;
 
   const rulesWithEmptyCheck = Object.entries(rulesForField).reduce(
