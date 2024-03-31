@@ -1,7 +1,7 @@
-import { uniqueArray } from "./utils/array/uniqueArray";
-import { isCashTrade } from "./utils/paymentMethod/isCashTrade";
-import { Currency } from "../peach-api/src/@types/global";
-import { PaymentMethod } from "../peach-api/src/@types/payment";
+import {uniqueArray} from "./utils/array/uniqueArray";
+import {isCashTrade} from "./utils/paymentMethod/isCashTrade";
+import {Currency} from "../peach-api/src/@types/global";
+import {PaymentMethod} from "../peach-api/src/@types/payment";
 
 export let CURRENCIES: Currency[] = [
   "SAT",
@@ -133,6 +133,8 @@ const bankTransfer: PaymentMethod[] = [
   "ted",
   "sberbank",
   "trFast",
+  "westernUnion",
+  "westernUnionEU",
   ...NATIONALTRANSFERCOUNTRIES.map(
     (c) => `nationalTransfer${c}` satisfies PaymentMethod,
   ),
