@@ -46,7 +46,7 @@
   "form.chippertag.placeholder": "@chippertag",
   "form.clabe": "clabe",
   "form.clabe.placeholder": "123456789012345678",
-  "form.country.placeholder": "Ελ Σαλβαδόρ",
+  "form.countryField.placeholder": "Ελ Σαλβαδόρ",
   "form.cpf": "Αριθμός CPF",
   "form.cpf.error": "Αυτό δεν είναι έγκυρος αριθμός CPF",
   "form.cpf.placeholder": "123.456.789-01",
@@ -152,5 +152,5 @@
   "form.wallet.error": "αυτό δεν είναι ένα έγκυρο πορτοφόλι",
   "form.wallet.placeholder": "U012345678910",
   "number.decrease": "μειώστε τον αριθμό",
-  "number.increase": "αυξήστε τον αριθμό",
+  "number.increase": "αυξήστε τον αριθμό"
 }

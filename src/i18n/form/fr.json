@@ -46,7 +46,7 @@
   "form.chippertag.placeholder": "@chippertag",
   "form.clabe": "clabe",
   "form.clabe.placeholder": "123456789012345678",
-  "form.country.placeholder": "El Salvador",
+  "form.countryField.placeholder": "El Salvador",
   "form.cpf": "Numéro de CPF",
   "form.cpf.error": "Ce n'est pas un numéro CPF valide",
   "form.cpf.placeholder": "123.456.789-01",

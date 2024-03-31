@@ -46,7 +46,7 @@
   "form.chippertag.placeholder": "@chippertag",
   "form.clabe": "clabe",
   "form.clabe.placeholder": "123456789012345678",
-  "form.country.placeholder": "El Salvador",
+  "form.countryField.placeholder": "El Salvador",
   "form.cpf": "Numero di CPF",
   "form.cpf.error": "Questo non è un numero CPF valido",
   "form.cpf.placeholder": "123.456.789-01",
@@ -155,5 +155,5 @@
   "form.wallet.error": "questo non è un wallet valido",
   "form.wallet.placeholder": "U012345678910",
   "number.decrease": "diminuisci il numero",
-  "number.increase": "aumento il numero",
+  "number.increase": "aumento il numero"
 }

@@ -93,70 +93,70 @@ type TradingLimit = {
 type TradingPair = "BTCEUR" | "BTCCHF" | "BTCGBP";
 
 type Currency =
-  | 'BTC'
-  | 'SAT'
-  | 'USD'
-  | 'EUR'
-  | 'CHF'
-  | 'GBP'
-  | 'SEK'
-  | 'DKK'
-  | 'BGN'
-  | 'CZK'
-  | 'HUF'
-  | 'PLN'
-  | 'RON'
-  | 'ISK'
-  | 'NOK'
-  | 'TRY'
-  | 'USDT'
-  | 'ARS'
-  | 'COP'
-  | 'PEN'
-  | 'MXN'
-  | 'CLP'
-  | 'XOF'
-  | 'NGN'
-  | 'CDF'
-  | 'CRC'
-  | 'BRL'
-  | 'GTQ'
-  | 'ZAR'
-  | 'KES'
-  | 'GHS'
-  | 'TZS'
-  | 'VND'
-  | 'MAD'
-  | 'RWF'
-  | 'XAF'
-  | 'MGA'
-  | 'GNF'
-  | 'VEF'
-  | 'PAB'
-  | 'HNL'
-  | 'DOP'
-  | 'CUP'
-  | 'NIO'
-  | 'PYG'
-  | 'UYU'
-  | 'VES'
-  | 'BOB'
-  | 'UZS'
-  | 'RSD'
-  | 'KWD'
-  | 'KZT'
-  | 'ILS'
-  | 'NZD'
-  | 'EGP'
-  | 'PHP'
-  | 'JPY'
-  | 'AUD'
-  | 'CNY'
-  | 'IDR'
-  | 'INR'
-  | 'RUB'
-  | 'XAU'
-  | 'UAH';
+  | "BTC"
+  | "SAT"
+  | "USD"
+  | "EUR"
+  | "CHF"
+  | "GBP"
+  | "SEK"
+  | "DKK"
+  | "BGN"
+  | "CZK"
+  | "HUF"
+  | "PLN"
+  | "RON"
+  | "ISK"
+  | "NOK"
+  | "TRY"
+  | "USDT"
+  | "ARS"
+  | "COP"
+  | "PEN"
+  | "MXN"
+  | "CLP"
+  | "XOF"
+  | "NGN"
+  | "CDF"
+  | "CRC"
+  | "BRL"
+  | "GTQ"
+  | "ZAR"
+  | "KES"
+  | "GHS"
+  | "TZS"
+  | "VND"
+  | "MAD"
+  | "RWF"
+  | "XAF"
+  | "MGA"
+  | "GNF"
+  | "VEF"
+  | "PAB"
+  | "HNL"
+  | "DOP"
+  | "CUP"
+  | "NIO"
+  | "PYG"
+  | "UYU"
+  | "VES"
+  | "BOB"
+  | "UZS"
+  | "RSD"
+  | "KWD"
+  | "KZT"
+  | "ILS"
+  | "NZD"
+  | "EGP"
+  | "PHP"
+  | "JPY"
+  | "AUD"
+  | "CNY"
+  | "IDR"
+  | "INR"
+  | "RUB"
+  | "XAU"
+  | "UAH";
 
 type Pricebook = {
   [key in Currency]?: number;
@@ -201,7 +201,7 @@ type PaymentMethodCountry =
   | "MA"
   | "FI";
 
-type Country =
+type MeetupCountries =
   | "DE"
   | "FR"
   | "IT"
@@ -216,7 +216,7 @@ type Country =
 type MeetupEvent = {
   id: string;
   currencies: Currency[];
-  country: Country;
+  country: MeetupCountries;
   city: string;
   shortName: string;
   longName: string;
@@ -226,7 +226,7 @@ type MeetupEvent = {
   logo?: string;
   featured: boolean;
 };
-type CountryEventsMap = Record<Country, MeetupEvent[]>;
+type CountryEventsMap = Record<MeetupCountries, MeetupEvent[]>;
 
 type PaymentMethodInfo = {
   id: PaymentMethod;

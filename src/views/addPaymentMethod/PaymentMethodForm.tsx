@@ -65,12 +65,9 @@ export const PaymentMethodForm = () => {
 
     const dataIsValid = isValidPaymentData(pm);
     if (dataIsValid) {
-      console.log("Adding PM:", pm);
       addPaymentData(pm);
       selectPaymentMethod(pm.id);
       goBackTo(origin);
-    } else {
-      console.log("Invalid PM:", pm);
     }
   };
 

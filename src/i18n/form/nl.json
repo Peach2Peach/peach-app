@@ -46,7 +46,7 @@
   "form.chippertag.placeholder": "@chippertag",
   "form.clabe": "clabe",
   "form.clabe.placeholder": "123456789012345678",
-  "form.country.placeholder": "El Salvador",
+  "form.countryField.placeholder": "El Salvador",
   "form.cpf": "CPF-nummer",
   "form.cpf.error": "Dit is geen geldig CPF-nummer",
   "form.cpf.placeholder": "123.456.789-01",
@@ -155,5 +155,5 @@
   "form.wallet.error": "dit is geen geldige wallet",
   "form.wallet.placeholder": "U012345678910",
   "number.decrease": "getal verlagen",
-  "number.increase": "getal verhogen",
+  "number.increase": "getal verhogen"
 }

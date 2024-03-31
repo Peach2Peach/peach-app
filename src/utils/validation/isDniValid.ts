@@ -1,5 +1,8 @@
 export const isDniValid = (dni: string): boolean => {
-    if (!/^\d+$/u.test(dni)) return false;
-    // Proceed with length validation
-    return dni.length >= 7 && dni.length <= 9;
+  const MIN = 7;
+  const MAX = 9;
+
+  if (!/^\d+$/u.test(dni)) return false;
+  // Proceed with length validation
+  return dni.length >= MIN && dni.length <= MAX;
 };

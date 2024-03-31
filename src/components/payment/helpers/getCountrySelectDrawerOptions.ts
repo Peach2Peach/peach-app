@@ -8,7 +8,10 @@ import { mapEventToDrawerOption } from "./mapEventToDrawerOption";
 export const getCountrySelectDrawerOptions = (
   meetupEvents: MeetupEvent[],
   goToEventDetails: (eventID: MeetupEvent["id"]) => void,
-  selectCountry: (eventsByCountry: CountryEventsMap, selected: Country) => void,
+  selectCountry: (
+    eventsByCountry: CountryEventsMap,
+    selected: MeetupCountries,
+  ) => void,
 ) => {
   const eventsByCountry = meetupEvents.reduce(
     structureEventsByCountry,

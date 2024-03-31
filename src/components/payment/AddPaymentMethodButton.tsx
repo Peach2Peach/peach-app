@@ -32,7 +32,7 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
 
   const selectCountry = (
     eventsByCountry: CountryEventsMap,
-    selected: Country,
+    selected: MeetupCountries,
   ) => {
     if (!meetupEvents) return;
 

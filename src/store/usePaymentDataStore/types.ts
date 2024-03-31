@@ -27,7 +27,7 @@ export const PaymentDataInfoFields: PaymentDataField[] = [
   "brSortCode",
   "cpf",
   "cedulaIdentidad",
-  "country",
+  "countryField",
   "bankBranch",
   "rutNumber",
   "dniNumber",
