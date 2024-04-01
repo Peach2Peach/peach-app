@@ -72,14 +72,7 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "PHP",
     "RUB",
   ],
-  other: [
-    "USDT",
-    "SAT",
-    "USD",
-    "NZD",
-    "AUD",
-    "XAU",
-  ],
+  other: ["USDT", "SAT", "USD", "NZD", "AUD", "XAU"],
 };
 
 export const getCurrencyTypeFilter =
