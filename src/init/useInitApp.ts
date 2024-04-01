@@ -17,7 +17,7 @@ import { useUserUpdate } from "./useUserUpdate";
 initEccLib(ecc);
 
 export function useInitApp() {
-  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn);
+  const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
   const storedPublicKey = useAccountStore((state) => state.account.publicKey);
   const cfClearance = useSettingsStore(
     (state) => state.cloudflareChallenge?.cfClearance,

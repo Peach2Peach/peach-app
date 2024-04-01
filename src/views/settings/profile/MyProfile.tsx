@@ -12,8 +12,8 @@ import { TouchableRedText } from "../../../components/text/TouchableRedText";
 import { useSelfUser } from "../../../hooks/query/useSelfUser";
 import { ErrorPopup } from "../../../popups/ErrorPopup";
 import { HelpPopup } from "../../../popups/HelpPopup";
+import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import tw from "../../../styles/tailwind";
-import { useAccountStore } from "../../../utils/account/account";
 import { deleteAccount } from "../../../utils/account/deleteAccount";
 import i18n from "../../../utils/i18n";
 import { headerIcons } from "../../../utils/layout/headerIcons";
@@ -103,7 +103,7 @@ function DeleteAccountButton({ style }: ComponentProps) {
 }
 
 function useLogoutUser() {
-  const setIsLoggedIn = useAccountStore((state) => state.setIsLoggedIn);
+  const setIsLoggedIn = useSettingsStore((state) => state.setIsLoggedIn);
   return useMutation({
     mutationFn: () => peachAPI.private.user.logoutUser(),
     onSuccess: () => setIsLoggedIn(false),
