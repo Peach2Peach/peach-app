@@ -4,7 +4,7 @@ import tw from "../../styles/tailwind";
 import { useMutation } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import { getInstallReferrer } from "react-native-device-info";
-import { NewLoading } from "../../components/animation/Loading";
+import { Loading } from "../../components/Loading";
 import { Button } from "../../components/buttons/Button";
 import { Input } from "../../components/inputs/Input";
 import { PeachText } from "../../components/text/PeachText";
@@ -217,7 +217,7 @@ function CreateAccountLoading() {
       <PeachText style={tw`text-center body-l text-primary-background-light`}>
         {i18n("newUser.oneSec")}
       </PeachText>
-      <NewLoading size={"large"} color={tw.color("primary-mild-1")} />
+      <Loading size={"large"} color={tw.color("primary-mild-1")} />
     </View>
   );
 }

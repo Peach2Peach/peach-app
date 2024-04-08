@@ -31,6 +31,7 @@ export type SettingsStore = Settings & {
   setCloudflareChallenge: (
     cloudflareChallenge: Settings["cloudflareChallenge"],
   ) => void;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
 };
 
 const storage = createPersistStorage<SettingsStore>(settingsStorage);
@@ -90,6 +91,7 @@ export const useSettingsStore = create(
       setFCMToken: (fcmToken) => set({ fcmToken }),
       setCloudflareChallenge: (cloudflareChallenge) =>
         set({ cloudflareChallenge }),
+      setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn }),
     }),
     {
       name: "settings",
