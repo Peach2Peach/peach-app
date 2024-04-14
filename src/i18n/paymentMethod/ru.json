@@ -63,6 +63,8 @@
   "paymentMethod.moov": "Moov",
   "paymentMethod.mtn": "MTN",
   "paymentMethod.n26": "N26",
+  "paymentMethod.nationalTransferPK": "Внутренний перевод Пакистан",
+  "paymentMethod.nationalTransferAE": "Внутренний перевод Эмираты",
   "paymentMethod.nationalTransferBG": "Банковский перевод по Болгарии",
   "paymentMethod.nationalTransferBO": "Национальный Перевод Боливия",
   "paymentMethod.nationalTransferCH": "Банковский перевод по Швейцарии",

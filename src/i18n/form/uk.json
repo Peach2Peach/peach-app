@@ -132,6 +132,7 @@
   "form.rutNumber.placeholder": "12.345.678-9",
   "form.shareLogs": "включити журнали програми",
   "form.signature.error": "недійсний підпис",
+  "form.steamFriendCode": "Контактний код Steam",
   "form.steam.error": "Це не дійсний код друга Steam",
   "form.steamFriendCode.placeholder": "1234567890",
   "form.topic": "тема",

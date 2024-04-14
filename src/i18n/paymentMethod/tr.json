@@ -63,6 +63,8 @@
   "paymentMethod.moov": "Moov",
   "paymentMethod.mtn": "MTN",
   "paymentMethod.n26": "N26",
+  "paymentMethod.nationalTransferPK": "Ulusal transfer Pakistan",
+  "paymentMethod.nationalTransferAE": "Ulusal transfer Birleşik Arap Emirlikleri",
   "paymentMethod.nationalTransferBG": "Ulusal transfer Bulgaristan",
   "paymentMethod.nationalTransferBO": "Ulusal Transfer Bolivya",
   "paymentMethod.nationalTransferCH": "Ulusal transfer İsviçre",

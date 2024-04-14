@@ -132,6 +132,7 @@
   "form.rutNumber.placeholder": "12.345.678-9",
   "form.shareLogs": "dołącz logi aplikacji",
   "form.signature.error": "nieprawidłowy podpis",
+  "form.steamFriendCode": "Kod kontaktowy Steam",
   "form.steam.error": "To nie jest prawidłowy kod znajomego Steam",
   "form.steamFriendCode.placeholder": "1234567890",
   "form.topic": "temat",

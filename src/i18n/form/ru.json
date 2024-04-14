@@ -132,6 +132,7 @@
   "form.rutNumber.placeholder": "12.345.678-9",
   "form.shareLogs": "включить логи приложения",
   "form.signature.error": "неверная цифровая подпись",
+  "form.steamFriendCode": "Контактный код Steam",
   "form.steam.error": "Это недействительный код друга Steam",
   "form.steamFriendCode.placeholder": "1234567890",
   "form.topic": "тема",

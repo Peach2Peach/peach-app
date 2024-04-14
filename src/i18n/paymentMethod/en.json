@@ -64,6 +64,8 @@
 	"paymentMethod.moov": "Moov",
 	"paymentMethod.mtn": "MTN",
 	"paymentMethod.n26": "N26",
+	"paymentMethod.nationalTransferPK": "National Transfer Pakistan",
+	"paymentMethod.nationalTransferAE": "National Transfer Emirates",
 	"paymentMethod.nationalTransferBG": "National transfer Bulgaria",
 	"paymentMethod.nationalTransferBO": "National Transfer Bolivia",
 	"paymentMethod.nationalTransferCH": "National transfer Switzerland",

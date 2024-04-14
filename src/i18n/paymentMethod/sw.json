@@ -63,6 +63,8 @@
   "paymentMethod.moov": "Moov",
   "paymentMethod.mtn": "MTN",
   "paymentMethod.n26": "N26",
+  "paymentMethod.nationalTransferPK": "Uhamisho wa kitaifa Pakistan",
+  "paymentMethod.nationalTransferAE": "Uhamisho wa kitaifa Falme za Kiarabu",
   "paymentMethod.nationalTransferBG": "Uhamisho wa Kitaifa Bulgaria",
   "paymentMethod.nationalTransferBO": "Uhamisho wa Kitaifa Bolivia",
   "paymentMethod.nationalTransferCH": "Uhamisho wa kitaifa Uswizi",

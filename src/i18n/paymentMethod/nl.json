@@ -63,6 +63,8 @@
   "paymentMethod.moov": "Moov",
   "paymentMethod.mtn": "MTN",
   "paymentMethod.n26": "N26",
+  "paymentMethod.nationalTransferPK": "Nationale overboeking Pakistan",
+  "paymentMethod.nationalTransferAE": "Nationale overboeking Emiraten",
   "paymentMethod.nationalTransferBG": "Nationale overschrijving Bulgarije",
   "paymentMethod.nationalTransferBO": "Nationale Overboeking Bolivia",
   "paymentMethod.nationalTransferCH": "Nationale overschrijving Zwitserland",

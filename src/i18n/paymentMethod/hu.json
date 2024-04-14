@@ -63,6 +63,8 @@
   "paymentMethod.moov": "Moov",
   "paymentMethod.mtn": "MTN",
   "paymentMethod.n26": "N26",
+  "paymentMethod.nationalTransferPK": "Nemzeti átutalás Pakisztán",
+  "paymentMethod.nationalTransferAE": "Nemzeti átutalás Egyesült Arab Emírségek",
   "paymentMethod.nationalTransferBG": "Belföldi átutalás Bulgária",
   "paymentMethod.nationalTransferBO": "Nemzeti Átutalás Bolívia",
   "paymentMethod.nationalTransferCH": "Belföldi átutalás Svájc",
