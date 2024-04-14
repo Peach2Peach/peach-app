@@ -194,7 +194,7 @@ const onlineWallet: PaymentMethod[] = [
   "tinkoff",
 ];
 const giftCard: PaymentMethod[] = [
-  // "giftCard.steam",
+  "giftCard.steam",
   "giftCard.amazon",
   ...GIFTCARDCOUNTRIES.map(
     (c) => `giftCard.amazon.${c}` satisfies PaymentMethod,

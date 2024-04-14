@@ -1,2 +1,2 @@
 export const isSteamFriendCode = (friendCode: string): boolean =>
-  /^\d{17}$/u.test(friendCode);
+  /^\d{8,20}$/u.test(friendCode);
