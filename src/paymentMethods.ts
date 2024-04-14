@@ -67,6 +67,8 @@ export let CURRENCIES: Currency[] = [
   "XAF",
   "MGA",
   "GNF",
+  "AED",
+  "PKR",
 ];
 
 export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = [
@@ -103,6 +105,8 @@ export const NATIONALTRANSFERCOUNTRIES = [
   "SR",
   "VE",
   "ZA",
+  "AE",
+  "PK",
 ] as const;
 
 export let PAYMENTMETHODS: PaymentMethod[] = ["sepa"];
