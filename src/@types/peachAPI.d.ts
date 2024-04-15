@@ -158,7 +158,8 @@ type Currency =
   | "XAU"
   | "UAH"
   | "AED"
-  | "PKR";
+  | "PKR"
+  | "SGD";
 
 type Pricebook = {
   [key in Currency]?: number;

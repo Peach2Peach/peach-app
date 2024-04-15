@@ -121,7 +121,9 @@ type AsiaPaymentMethods =
   | "papara"
   | "nationalTransferAE"
   | "nationalTransferPK"
-  | "nationalTransferTR";
+  | "nationalTransferTR"
+  | "nationalTransferSG"
+  | "payLah";
 
 type BitcoinPaymentMethods = "liquid" | "lnurl";
 type InternationalPaymentMethds =

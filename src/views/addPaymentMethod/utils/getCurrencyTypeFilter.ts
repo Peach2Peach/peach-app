@@ -74,6 +74,7 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "RUB",
     "AED",
     "PKR",
+    "SGD",
   ],
   other: ["USDT", "SAT", "USD", "NZD", "AUD", "XAU"],
 };

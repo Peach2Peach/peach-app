@@ -69,6 +69,7 @@ export let CURRENCIES: Currency[] = [
   "GNF",
   "AED",
   "PKR",
+  "SGD",
 ];
 
 export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = [
@@ -107,6 +108,7 @@ export const NATIONALTRANSFERCOUNTRIES = [
   "ZA",
   "AE",
   "PK",
+  "SG",
 ] as const;
 
 export let PAYMENTMETHODS: PaymentMethod[] = ["sepa"];
@@ -191,6 +193,7 @@ const onlineWallet: PaymentMethod[] = [
   "upi",
   "paytmWallet",
   "paysend",
+  "payLah",
   "tinkoff",
 ];
 const giftCard: PaymentMethod[] = [

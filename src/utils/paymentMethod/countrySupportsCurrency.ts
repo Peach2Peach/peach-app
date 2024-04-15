@@ -65,6 +65,7 @@ const map: Record<Currency, PaymentMethodCountry[]> = {
   GNF: [],
   AED: [],
   PKR: [],
+  SGD: [],
 };
 
 export const countrySupportsCurrency =
