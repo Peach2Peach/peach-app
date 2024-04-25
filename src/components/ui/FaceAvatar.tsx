@@ -231,13 +231,13 @@ function generateFace(id: string): Face {
     },
     glasses: {
       id:
-        percent(PropMap.glassesExist) < 0.4
+        percent(PropMap.glassesExist) < 0.3
           ? pick(svgs.glasses, PropMap.glasses)
           : "none",
     },
     accessories: {
       id:
-        percent(PropMap.accessoriesExist) < 0.5
+        percent(PropMap.accessoriesExist) < 0.4
           ? pick(svgs.accessories, PropMap.accessories)
           : "none",
     },
