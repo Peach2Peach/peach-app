@@ -146,7 +146,7 @@ export function FaceAvatar({ id, style, height, width }: FaceAvatarProps) {
       (height ? `${parseInt(height, 10) / SVG_RATIO}px` : style?.width),
   };
 
-  return <div style={styles} ref={element}></div>;
+  return <div style={styles} ref={element} />;
 }
 
 function generateFace(id: string): Face {
@@ -231,13 +231,13 @@ function generateFace(id: string): Face {
     },
     glasses: {
       id:
-        percent(PropMap.glassesExist) < 0.1
+        percent(PropMap.glassesExist) < 0.4
           ? pick(svgs.glasses, PropMap.glasses)
           : "none",
     },
     accessories: {
       id:
-        percent(PropMap.accessoriesExist) < 0.2
+        percent(PropMap.accessoriesExist) < 0.5
           ? pick(svgs.accessories, PropMap.accessories)
           : "none",
     },
