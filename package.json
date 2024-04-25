@@ -70,6 +70,7 @@
     "buffer": "^6.0.3",
     "ecpair": "^2.1.0",
     "events": "^3.3.0",
+    "facesjs": "^4.1.0",
     "iban": "^0.0.14",
     "jotai": "^2.6.4",
     "lottie-react-native": "^6.0.1",

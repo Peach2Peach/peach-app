@@ -1,0 +1,1 @@
+/Users/endriu/Developer/personal/peachbitcoin/app/src/components/FaceAvatar.tsx
