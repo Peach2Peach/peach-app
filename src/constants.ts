@@ -36,7 +36,7 @@ export const setClientServerTimeDifference = (diff: number) =>
 export const UNIQUEID = sha256(getUniqueIdSync());
 export const TWITTER = "https://twitter.com/peachbitcoin";
 export const INSTAGRAM = "https://www.instagram.com/peachbitcoin";
-export const TELEGRAM = "https://t.me/+3KpdrMw25xBhNGJk";
+export const TELEGRAM = "https://t.me/peachtopeach";
 export const DISCORD = "https://discord.gg/ypeHz3SW54";
 export const TWITCH = "https://www.twitch.tv/peachbitcoin";
 export const NOSTR =
