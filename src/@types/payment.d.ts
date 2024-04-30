@@ -49,7 +49,8 @@ type EuPaymentMethods =
   | "trFast"
   | "eft"
   | "westernUnionEU"
-  | "wise";
+  | "wise"
+  | "strike";
 type LatAmPaymentMethods =
   | "alias"
   | "bancolombia"
@@ -81,7 +82,8 @@ type LatAmPaymentMethods =
   | "nationalTransferPY"
   | "nationalTransferSR"
   | "nationalTransferVE"
-  | "sinpeMovil";
+  | "sinpeMovil"
+  | "strike";
 type AfricaPaymentMethods =
   | "accrue"
   | "airtelMoney"

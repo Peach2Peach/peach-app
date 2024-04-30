@@ -67,6 +67,7 @@ import westernUnion from "./westernUnion.svg";
 import mobileAirtime from "./mobileAirtime.svg";
 import aPaym from "./apaym.svg";
 import payLah from "./paylah.svg";
+import strike from "./strike.svg";
 
 export const PaymentLogos = {
   "cash.amsterdam": bitcoinAmsterdam,
@@ -132,6 +133,7 @@ export const PaymentLogos = {
   sinpeMovil,
   skrill,
   straksbetaling: placeholder,
+  strike,
   swish,
   twint,
   vipps,

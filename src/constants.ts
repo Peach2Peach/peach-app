@@ -1,8 +1,4 @@
-import {
-  getBuildNumber,
-  getUniqueIdSync,
-  getVersion,
-} from "react-native-device-info";
+import { getBuildNumber, getUniqueIdSync, getVersion } from "react-native-device-info";
 import { IconType } from "./assets/icons";
 import tw from "./styles/tailwind";
 import { sha256 } from "./utils/crypto/sha256";
