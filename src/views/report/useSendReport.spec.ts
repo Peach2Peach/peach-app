@@ -31,7 +31,6 @@ describe("useSendReport", () => {
       topic,
       message,
       shareDeviceID: false,
-      shareLogs: false,
     });
     await waitFor(() => {
       expect(sendReportSpy).toHaveBeenCalledWith({
@@ -52,7 +51,6 @@ describe("useSendReport", () => {
       topic,
       message,
       shareDeviceID: false,
-      shareLogs: false,
     });
     await waitFor(() => {
       expect(sendErrors).not.toHaveBeenCalled();
@@ -66,7 +64,6 @@ describe("useSendReport", () => {
       topic,
       message,
       shareDeviceID: false,
-      shareLogs: true,
     });
     await waitFor(() => {
       expect(sendReportSpy).toHaveBeenCalledWith({
