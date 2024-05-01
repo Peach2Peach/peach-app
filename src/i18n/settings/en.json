@@ -52,7 +52,7 @@
   "settings.deleteAccount.deleted.title" : "bye - bye data",
   "settings.deleteAccount.forRealsies" : "For realsies. \nNo backup or no password = data gone!",
   "settings.deleteAccount.ok" : "do it",
-  "settings.deleteAccount.popup" : "Without your backup AND your password, you will not be able to regain access to your account!",
+  "settings.deleteAccount.popup" : "Without your backup AND your password, you will not be able to regain access to your account!\n\nFor more information take a look at our privacy policy at https://peachbitcoin.com/privacy-policy",
   "settings.deleteAccount.popup.title" : "delete account?",
   "settings.deleteAccount.success" : "We hope to see you back soon!",
   "settings.deleteAccount.success.title" : "account deleted",
