@@ -302,16 +302,14 @@ function ContractChatHeader({ contract, symmetricKey }: Props) {
   const setPopup = useSetPopup();
 
   const memoizedIcons = useMemo(() => {
-    if (contract?.disputeActive) return [];
+    if (contract?.disputeActive || !symmetricKey) return [];
 
-    const icons = [];
-    if (!!symmetricKey && !contract.disputeActive) {
-      icons.push({
+    return [
+      {
         ...headerIcons.warning,
         onPress: () => setPopup(<OpenDisputePopup contractId={contractId} />),
-      });
-    }
-    return icons;
+      },
+    ];
   }, [contract, contractId, setPopup, symmetricKey]);
 
   return <Header title={contractIdToHex(contractId)} icons={memoizedIcons} />;

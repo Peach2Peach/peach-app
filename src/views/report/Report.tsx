@@ -36,7 +36,6 @@ export const Report = () => {
   const [shareDeviceID, toggleDeviceIDSharing] = useToggleBoolean(
     route.params.shareDeviceID || false,
   );
-  const [shareLogs, toggleShareLogs] = useToggleBoolean(false);
   const reason = route.params.reason;
   const publicKey = useAccountStore((state) => state.account.publicKey);
 
@@ -55,7 +54,6 @@ export const Report = () => {
         topic,
         message,
         shareDeviceID,
-        shareLogs,
       },
       {
         onError: (err) => showError(err.message),
@@ -106,9 +104,6 @@ export const Report = () => {
             {i18n("form.includeDeviceIDHash")}
           </Checkbox>
         )}
-        <Checkbox onPress={toggleShareLogs} checked={shareLogs}>
-          {i18n("form.shareLogs")}
-        </Checkbox>
       </PeachScrollView>
       <Button
         style={tw`self-center`}

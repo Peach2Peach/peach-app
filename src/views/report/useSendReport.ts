@@ -15,7 +15,6 @@ type Params = {
   topic: string;
   message: string;
   shareDeviceID: boolean;
-  shareLogs: boolean;
 };
 async function sendReport({
   email,
@@ -23,19 +22,13 @@ async function sendReport({
   topic,
   message,
   shareDeviceID,
-  shareLogs,
 }: Params) {
   let messageToSend = message;
   if (shareDeviceID) messageToSend += `\n\nDevice ID Hash: ${UNIQUEID}`;
   messageToSend += `\n\nApp version: ${APPVERSION} (${BUILDNUMBER})`;
 
-  if (shareLogs) {
-    messageToSend += "\n\nUser shared app logs, please check crashlytics";
-    messageToSend += `\nSession ID: ${SESSION_ID}`;
-    sendErrors([
-      new Error(`user shared app logs: ${topic} - ${messageToSend}`),
-    ]);
-  }
+  messageToSend += `\n\nUser shared app logs, please check crashlytics\nSession ID: ${SESSION_ID}`;
+  sendErrors([new Error(`user shared app logs: ${topic} - ${messageToSend}`)]);
 
   const { result, error } = await peachAPI.public.contact.sendReport({
     email,
