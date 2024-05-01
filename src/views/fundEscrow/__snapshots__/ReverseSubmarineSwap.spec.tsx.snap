@@ -352,7 +352,7 @@ exports[`ReverseSubmarineSwap should fund from peach lightning wallet 1`] = `
               ]
             }
           >
-            network fee: 421.00000000000364 sats (4 sat/vB)
+            network fee: 421 sats (4 sat/vB)
           </Text>
           <Text
             allowFontScaling={false}
