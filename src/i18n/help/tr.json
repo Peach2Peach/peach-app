@@ -26,7 +26,7 @@
   "help.makePayment.title" : "hızlı öde!",
   "help.mempool.description" : "Bitcoin işlemi yaptığınızda, işlem hemen işlenmez.\n\nBunun yerine, önce \"mempool\" adı verilen onaylanmamış işlemlerin bir listesine konulurlar. En yüksek ücreti ödeyen işlemler önce işlenir.",
   "help.mempool.title" : "mempool",
-  "help.networkFees.description.1" : "Bu, işlem sonrası sats'larınızı almak veya bir iade durumunda bitcoin ağına ödediğiniz ücretlerdir. Bu ücretler zaman içinde değişir ve ağın ne kadar yoğun olduğuna bağlıdır.",
+  "help.networkFees.description.1" : "Bunlar, işlem göndermek için bitcoin ağına ödediğiniz ücretlerdir. Peach emanetinden yapılan tüm ödemelerden düşülürler ve Peach cüzdanınızdan gönderim yaparken bunları ödersiniz,",
   "help.networkFees.description.2" : "Ağ ne kadar yoğunsa, hızlı bir onay almak için daha fazla ödeme yapmanız gerekecektir.",
   "help.networkFees.title" : "bitcoin ağı ücretleri",
   "help.paymentMethodDelete.description" : "Bu işlem geri alınamaz",

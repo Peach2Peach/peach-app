@@ -26,7 +26,7 @@
   "help.makePayment.title" : "pague rápido!",
   "help.mempool.description" : "Quando faz uma transação de bitcoin, esta não é processada imediatamente.\n\nAo invés disso, elas são colocadas numa lista de transações não confirmadas chamada de \"mempool\". As transações que pagam a maior taxa serão processadas primeiro.",
   "help.mempool.title" : "o mempool",
-  "help.networkFees.description.1" : "Essas são as taxas que paga à rede bitcoin para receber seus sats após uma negociação, ou em caso de reembolso. Essas taxas mudam ao longo do tempo, dependendo do nível de atividade da rede.",
+  "help.networkFees.description.1" : "Estas são as taxas que paga à rede bitcoin para enviar transacções. São deduzidas de quaisquer pagamentos de um depósito de garantia da Peach e paga-as quando envia a partir da sua carteira Peach,",
   "help.networkFees.description.2" : "Quanto mais movimentada estiver a rede, mais precisará de pagar para obter uma confirmação rápida.",
   "help.networkFees.title" : "taxas de rede bitcoin",
   "help.paymentMethodDelete.description" : "Isso não pode ser desfeito",

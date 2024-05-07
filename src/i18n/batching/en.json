@@ -8,6 +8,8 @@
   "grouphug.goToSettings" : "go to settings",
   "help.payoutPending.description" : "Transactions are paid out in batches. This implies a waiting time until the batch is full or the maximum waiting time is reached.\n\nThis saves you up to 23% in transaction fees.",
   "help.payoutPending.title" : "payout pending",
+  "help.transactionBatching.description" : "Escrows are paid out in batched transactions with a half hour fee by default. You can opt out of this but make sure to understand the risks involved!\nSince Peach will incur additional consolidation costs from this we ask the user to cover these. They are calculated by multiplying the 30 minute fee by 41. Since this fee is dynamic, the costs incurred are too, so they can become a significant part of the trade amount.",
+  "help.transactionBatching.title" : "payout fees",
   "offer.requiredAction.payoutPending" : "payout pending",
   "settings.batching.delayedPayouts" : "Escrow payouts are delayed.",
   "settings.batching.immediatePayouts" : "Escrow payouts are done right away",
@@ -17,8 +19,8 @@
   "settings.batching.turnOff.no" : "no, wait",
   "settings.batching.turnOff.title" : "turn off batching",
   "settings.batching.turnOff.yes" : "yes, I want it faster",
-  "settings.batching.youPay" : "You’re paying up to 30% more",
-  "settings.batching.youPay.highlight" : "30% more",
+  "settings.batching.youPay" : "Caution! You are paying for the additional costs Peach incurs. This cost is dynamic and can get significant during fee spikes.\nMake sure you understand what you are doing!",
+  "settings.batching.youPay.highlight" : "Caution!",
   "settings.batching.youSave" : "You save up to 23% in network fees",
   "settings.batching.youSave.highlight" : "save up to 23%"
 }

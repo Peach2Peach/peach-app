@@ -8,6 +8,8 @@
   "grouphug.goToSettings" : "menj a beállításokhoz",
   "help.payoutPending.description" : "A tranzakciókat csoportosítva fizetjük ki. Ez várakozási időt jelent, amíg a csoport megtelik, vagy a maximális várakozási időt eléri.\n\nEz a tranzakciós díjakban neked akár 23% megtakarítással is járhat.",
   "help.payoutPending.title" : "kifizetés függőben",
+  "help.transactionBatching.description" : "A letéti számlák alapértelmezés szerint félórás díjjal, kötegelt tranzakciókban kerülnek kifizetésre. Ezt le lehet választani, de győződjön meg róla, hogy tisztában van az ezzel járó kockázatokkal!\nMivel a Peach-nek ebből további konszolidációs költségei keletkeznek, kérjük a felhasználót, hogy ezeket fedezze. Ezek kiszámítása úgy történik, hogy a 30 perces díjat megszorozzuk 41-gyel. Mivel ez a díj dinamikus, a felmerülő költségek is azok, így a kereskedési összeg jelentős részévé válhatnak.",
+  "help.transactionBatching.title" : "kifizetési díjak",
   "offer.requiredAction.payoutPending" : "kifizetés függőben",
   "settings.batching.delayedPayouts" : "A letéti kifizetések késleltetve vannak.",
   "settings.batching.immediatePayouts" : "A letéti kifizetések azonnal megtörténnek.",
@@ -17,8 +19,8 @@
   "settings.batching.turnOff.no" : "nem, várj",
   "settings.batching.turnOff.title" : "csoportosítás kikapcsolása",
   "settings.batching.turnOff.yes" : "igen, gyosabban szeretném",
-  "settings.batching.youPay" : "Akár 30%-kal is többet fizethetsz",
-  "settings.batching.youPay.highlight" : "30%-kal többet",
+  "settings.batching.youPay" : "Vigyázat! A Peach által okozott többletköltségeket Ön fizeti. Ez a költség dinamikus, és a díjcsúcsok idején jelentős lehet.\nGyőződjön meg róla, hogy érti, mire vállalkozik!",
+  "settings.batching.youPay.highlight" : "Vigyázat!",
   "settings.batching.youSave" : "Akár 23%-nyi tranzakciós díjat takaríthatsz meg",
   "settings.batching.youSave.highlight" : "akár 23%-ot takaríthatsz meg"
 }

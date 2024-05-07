@@ -80,6 +80,7 @@
   "settings.networkFees.estimatedTime.hourFee" : "~ 1 hora",
   "settings.networkFees.feeRateSet" : "taxa de comissão definida",
   "settings.networkFees.help" : "Estas são as taxas que paga à rede bitcoin para receber os seus sats após uma transação, ou em caso de reembolso. Essas taxas mudam com o tempo, dependendo do nível de ocupação da rede. Quanto mais ocupada for a rede, mais terá de pagar para obter uma confirmação rápida.",
+  "settings.networkFees.payoutInfo" : "Esta definição não se aplica a pagamentos. Consulte Agrupamento de transacções para obter mais informações.",
   "settings.networkFees.xSatsPerByte" : "$0 sat/vB",
   "settings.nodeSetup" : "Use o seu próprio nó",
   "settings.notifications" : "notificações",

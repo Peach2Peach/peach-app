@@ -8,6 +8,8 @@
   "grouphug.goToSettings" : "ga naar instellingen",
   "help.payoutPending.description" : "Transacties worden in batches uitbetaald. Dit betekent dat de wachttijd is totdat de batch vol is, of de maximale wachttijd is bereikt. Dit bespaart jou tot 23% aan transactiekosten.",
   "help.payoutPending.title" : "uitbetaling in behandeling",
+  "help.transactionBatching.description" : "Escrows worden standaard uitbetaald in batches met een halfuurtarief. Je kunt dit uitschakelen, maar zorg ervoor dat je de risico's begrijpt!\nOmdat Peach hierdoor extra consolidatiekosten maakt, vragen we de gebruiker om deze te dekken. Deze worden berekend door de 30 minuten kosten te vermenigvuldigen met 41. Omdat deze vergoeding dynamisch is, zijn de gemaakte kosten dat ook, dus ze kunnen een aanzienlijk deel van het handelsbedrag worden.",
+  "help.transactionBatching.title" : "uitbetalingsvergoedingen",
   "offer.requiredAction.payoutPending" : "uitbetaling in behandeling",
   "settings.batching.delayedPayouts" : "Borg uitbetalingen zijn vertraagd.",
   "settings.batching.immediatePayouts" : "Borg uitbetalingen worden meteen gedaan",
@@ -17,8 +19,8 @@
   "settings.batching.turnOff.no" : "nee, wacht",
   "settings.batching.turnOff.title" : "batchen uitschakelen",
   "settings.batching.turnOff.yes" : "ja, ik wil het eerder",
-  "settings.batching.youPay" : "Je betaald tot 30% meer",
-  "settings.batching.youPay.highlight" : "30% meer",
+  "settings.batching.youPay" : "Let op! Je betaalt voor de extra kosten die Peach maakt. Deze kosten zijn dynamisch en kunnen aanzienlijk zijn tijdens kostenpieken.\nZorg ervoor dat u begrijpt wat u doet!",
+  "settings.batching.youPay.highlight" : "Let op!",
   "settings.batching.youSave" : "Bespaar tot wel 23% in netwerkkosten",
   "settings.batching.youSave.highlight" : "bespaar tot wel 23%"
 }

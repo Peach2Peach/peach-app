@@ -26,7 +26,7 @@
   "help.makePayment.title" : "paga subito!",
   "help.mempool.description" : "Quando effettui una transazione bitcoin, questa non viene elaborata immediatamente.\n\nViene inserita in una lista di transazioni non confermate chiamata \"mempool\". Le transazioni che pagano commissioni più alte avranno la precedenza.",
   "help.mempool.title" : "La mempool",
-  "help.networkFees.description.1" : "Queste sono le commissioni che paghi alla rete bitcoin per l'utilizzo della stessa. Queste commissioni variano nel tempo, a seconda dell'intasamento della rete.",
+  "help.networkFees.description.1" : "Sono le commissioni che si pagano alla rete bitcoin per l'invio delle transazioni. Vengono detratte da qualsiasi pagamento da un deposito Peach e si pagano quando si invia dal proprio portafoglio Peach,",
   "help.networkFees.description.2" : "Più intasata è la rete, più dovrai pagare per ottenere una conferma rapida.",
   "help.networkFees.title" : "Commissioni di rete bitcoin",
   "help.paymentMethodDelete.description" : "Questa operazione non può essere annullata",
