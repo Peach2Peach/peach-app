@@ -56,6 +56,9 @@ export const NetworkFees = () => {
   return (
     <Screen header={<NetworkFeesHeader />}>
       <PeachScrollView contentContainerStyle={tw`justify-center flex-1`}>
+        <PeachText style={tw`py-2 text-center text-black-65`}>
+          {i18n("settings.networkFees.payoutInfo")}
+        </PeachText>
         <RadioButtons
           items={options}
           selectedValue={selectedFeeRate}
