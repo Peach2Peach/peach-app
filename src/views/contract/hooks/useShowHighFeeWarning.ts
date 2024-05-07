@@ -23,17 +23,17 @@ export const useShowHighFeeWarning = ({ enabled, amount }: Props) => {
     const expectedFees = ESCROW_TX_SIZE * feeRate;
     const feesInPercent = expectedFees / amount;
 
-    if (feesInPercent < WARNING_THRESHOLD) return;
-
-    setToast({
-      msgKey: "contract.warning.highFee",
-      bodyArgs: [String(feeRate), (feesInPercent * CENT).toFixed(1)],
-      color: "yellow",
-      action: {
-        onPress: () => navigation.navigate("networkFees"),
-        label: i18n("contract.warning.highFee.changeFee"),
-        iconId: "settings",
-      },
-    });
+    if (feesInPercent > WARNING_THRESHOLD) {
+      setToast({
+        msgKey: "contract.warning.highFee",
+        bodyArgs: [String(feeRate), (feesInPercent * CENT).toFixed(1)],
+        color: "yellow",
+        action: {
+          onPress: () => navigation.navigate("networkFees"),
+          label: i18n("contract.warning.highFee.changeFee"),
+          iconId: "settings",
+        },
+      });
+    }
   }, [setToast, amount, feeRate, navigation, enabled]);
 };
