@@ -1,12 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { shallow } from "zustand/shallow";
-import { useSetOverlay } from "../../../Overlay";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { offerKeys } from "../../../hooks/query/useOfferDetail";
 import { useShowErrorBanner } from "../../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { InfoPopup } from "../../../popups/InfoPopup";
-import { useConfigStore } from "../../../store/configStore/configStore";
 import { useSettingsStore } from "../../../store/settingsStore/useSettingsStore";
 import { useAccountStore } from "../../../utils/account/account";
 import { getMessageToSignForAddress } from "../../../utils/account/getMessageToSignForAddress";
@@ -16,7 +14,6 @@ import { isPaymentMethod } from "../../../utils/validation/isPaymentMethod";
 import { isValidBitcoinSignature } from "../../../utils/validation/isValidBitcoinSignature";
 import { getNetwork } from "../../../utils/wallet/getNetwork";
 import { peachWallet } from "../../../utils/wallet/setWallet";
-import { GroupHugAnnouncement } from "../../overlays/GroupHugAnnouncement";
 
 const isForbiddenPaymentMethodError = (
   errorMessage: string | null,
@@ -39,16 +36,12 @@ export function usePostBuyOffer({
   const queryClient = useQueryClient();
   const navigation = useStackNavigation();
   const showErrorBanner = useShowErrorBanner();
-  const hasSeenGroupHugAnnouncement = useConfigStore(
-    (state) => state.hasSeenGroupHugAnnouncement,
-  );
   const setPopup = useSetPopup();
   const showHelp = () =>
     setPopup(
       <InfoPopup content={i18n("FORBIDDEN_PAYMENT_METHOD.paypal.text")} />,
     );
   const publicKey = useAccountStore((state) => state.account.publicKey);
-  const setOverlay = useSetOverlay();
   const [payoutAddress, payoutToPeachWallet, payoutAddressSignature] =
     useSettingsStore(
       (state) => [
@@ -111,8 +104,6 @@ export function usePostBuyOffer({
       }
     },
     onSuccess: (offerId) => {
-      if (!hasSeenGroupHugAnnouncement)
-        setOverlay(<GroupHugAnnouncement offerId={offerId} />);
       navigation.reset({
         index: 1,
         routes: [
