@@ -11,7 +11,7 @@
   "help.transactionBatching.description" : "Escrows worden standaard uitbetaald in batches met een halfuurtarief. Je kunt dit uitschakelen, maar zorg ervoor dat je de risico's begrijpt!\nOmdat Peach hierdoor extra consolidatiekosten maakt, vragen we de gebruiker om deze te dekken. Deze worden berekend door de 30 minuten kosten te vermenigvuldigen met 41. Omdat deze vergoeding dynamisch is, zijn de gemaakte kosten dat ook, dus ze kunnen een aanzienlijk deel van het handelsbedrag worden.",
   "help.transactionBatching.title" : "uitbetalingsvergoedingen",
   "offer.requiredAction.payoutPending" : "uitbetaling in behandeling",
-  "settings.batching.delayedPayouts" : "Borg uitbetalingen zijn vertraagd.",
+  "settings.batching.delayedPayouts" : "Escrow-uitbetalingen worden vertraagd. Gratis transacties worden direct uitbetaald.\nJe wordt gewaarschuwd als je meer dan 10% aan mijnbouwkosten betaalt.",
   "settings.batching.immediatePayouts" : "Borg uitbetalingen worden meteen gedaan",
   "settings.batching.title" : "transcties batchen",
   "settings.batching.toggle" : "transcties batchen",

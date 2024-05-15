@@ -11,7 +11,7 @@
   "help.transactionBatching.description" : "Gli escrow vengono pagati in transazioni raggruppate con una commissione di mezz'ora per impostazione predefinita. È possibile scegliere di non farlo, ma assicuratevi di comprendere i rischi connessi!\nPoiché Peach dovrà sostenere ulteriori costi di consolidamento, chiediamo all'utente di coprirli. Tali costi sono calcolati moltiplicando la tariffa di 30 minuti per 41. Poiché questa tariffa è dinamica, lo sono anche i costi sostenuti, che possono diventare una parte significativa dell'importo dell'operazione.",
   "help.transactionBatching.title" : "commissioni di pagamento",
   "offer.requiredAction.payoutPending" : "pagamento in attesa",
-  "settings.batching.delayedPayouts" : "I pagamenti dei depositi verranno aggregati",
+  "settings.batching.delayedPayouts" : "I pagamenti in conto deposito sono ritardati. I Free Trade saranno pagati istantaneamente.\nVerrete avvertiti quando pagherete più del 10% di tasse di estrazione.",
   "settings.batching.immediatePayouts" : "I pagamenti dei depositi verranno effettuati immediatamente",
   "settings.batching.title" : "Transazioni aggregate",
   "settings.batching.toggle" : "Transazioni aggregate",

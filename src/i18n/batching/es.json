@@ -11,7 +11,7 @@
   "help.transactionBatching.description" : "Por defecto, las garantías se pagan por lotes con una comisión de media hora. Puede optar por no hacerlo, pero asegúrese de comprender los riesgos que ello implica.\nDado que Peach incurrirá en costes de consolidación adicionales, pedimos al usuario que los cubra. Se calculan multiplicando por 41 la tarifa de 30 minutos. Dado que esta comisión es dinámica, los costes incurridos también lo son, por lo que pueden convertirse en una parte significativa del importe de la operación.",
   "help.transactionBatching.title" : "comisiones de pago",
   "offer.requiredAction.payoutPending" : "pago pendiente",
-  "settings.batching.delayedPayouts" : "Los pagos han sido retrasados.",
+  "settings.batching.delayedPayouts" : "Los pagos en custodia se retrasan. Las operaciones gratuitas se pagarán al instante.\nSe le advertirá cuando pague más del 10% en tasas de minería.",
   "settings.batching.immediatePayouts" : "Los pagos se harán directamente.",
   "settings.batching.title" : "unión de transacciones",
   "settings.batching.toggle" : "unión de transacciones",

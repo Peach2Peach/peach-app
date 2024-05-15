@@ -11,7 +11,7 @@
   "help.transactionBatching.description" : "Escrows are paid out in batched transactions with a half hour fee by default. You can opt out of this but make sure to understand the risks involved!\nSince Peach will incur additional consolidation costs from this we ask the user to cover these. They are calculated by multiplying the 30 minute fee by 41. Since this fee is dynamic, the costs incurred are too, so they can become a significant part of the trade amount.",
   "help.transactionBatching.title" : "payout fees",
   "offer.requiredAction.payoutPending" : "payout pending",
-  "settings.batching.delayedPayouts" : "Escrow payouts are delayed.",
+  "settings.batching.delayedPayouts" : "Escrow payouts are delayed. Free Trades will be paid out instantly.\nYou will be warned when paying more than 10% in mining fees.",
   "settings.batching.immediatePayouts" : "Escrow payouts are done right away",
   "settings.batching.title" : "transaction batching",
   "settings.batching.toggle" : "transaction batching",

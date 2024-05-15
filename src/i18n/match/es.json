@@ -1,4 +1,5 @@
 {
+  "match.feeWarning" : "Pagará hasta un 0 % en tasas mineras.",
   "match.tradeRequested" : "comercio solicitado",
   "match.waitingForSeller" : "esperando al vendedor"
 }

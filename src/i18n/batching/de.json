@@ -9,7 +9,7 @@
   "help.transactionBatching.description" : "Die Auszahlung von Treuhandgeldern erfolgt standardmäßig in gebündelten Transaktionen mit einer Gebühr von einer halben Stunde. Sie können dies abwählen, sollten sich aber über die damit verbundenen Risiken im Klaren sein!\nDa Peach hierdurch zusätzliche Konsolidierungskosten entstehen, bitten wir den Nutzer, diese zu übernehmen. Sie werden berechnet, indem die 30-Minuten-Gebühr mit 41 multipliziert wird. Da diese Gebühr dynamisch ist, sind auch die anfallenden Kosten dynamisch, so dass sie einen erheblichen Teil des Handelsbetrags ausmachen können.",
   "help.transactionBatching.title" : "Auszahlungsgebühren",
   "offer.requiredAction.payoutPending" : "Zahlung ausstehend",
-  "settings.batching.delayedPayouts" : "Escrow-Auszahlungen werden verzögert.",
+  "settings.batching.delayedPayouts" : "Escrow-Auszahlungen werden verzögert. Kostenlose Trades werden sofort ausgezahlt.\nSie werden gewarnt, wenn Sie mehr als 10 % an Mining-Gebühren zahlen.",
   "settings.batching.immediatePayouts" : "Escrow-Auszahlungen werden sofort vorgenommen",
   "settings.batching.title" : "Transaktionsstapelverarbeitung",
   "settings.batching.toggle" : "Transaktionsstapelverarbeitung",

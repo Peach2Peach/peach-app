@@ -11,7 +11,7 @@
   "help.transactionBatching.description" : "A letéti számlák alapértelmezés szerint félórás díjjal, kötegelt tranzakciókban kerülnek kifizetésre. Ezt le lehet választani, de győződjön meg róla, hogy tisztában van az ezzel járó kockázatokkal!\nMivel a Peach-nek ebből további konszolidációs költségei keletkeznek, kérjük a felhasználót, hogy ezeket fedezze. Ezek kiszámítása úgy történik, hogy a 30 perces díjat megszorozzuk 41-gyel. Mivel ez a díj dinamikus, a felmerülő költségek is azok, így a kereskedési összeg jelentős részévé válhatnak.",
   "help.transactionBatching.title" : "kifizetési díjak",
   "offer.requiredAction.payoutPending" : "kifizetés függőben",
-  "settings.batching.delayedPayouts" : "A letéti kifizetések késleltetve vannak.",
+  "settings.batching.delayedPayouts" : "A letéti kifizetések késnek. Az ingyenes kereskedések azonnal kifizetésre kerülnek.\nFigyelmeztetést kap, ha 10%-nál több bányászati díjat fizet.",
   "settings.batching.immediatePayouts" : "A letéti kifizetések azonnal megtörténnek.",
   "settings.batching.title" : "tranzakció csoportosítás",
   "settings.batching.toggle" : "tranzakció csoportosítás",

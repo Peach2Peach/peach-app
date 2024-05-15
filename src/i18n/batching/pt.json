@@ -11,7 +11,7 @@
   "help.transactionBatching.description" : "As cauções são pagas em transacções agrupadas com uma taxa de meia hora por defeito. Pode optar por não o fazer, mas certifique-se de que compreende os riscos envolvidos!\nUma vez que a Peach incorrerá em custos de consolidação adicionais, pedimos ao utilizador que os cubra. Estes são calculados multiplicando a taxa de 30 minutos por 41. Uma vez que esta taxa é dinâmica, os custos incorridos também o são, pelo que podem tornar-se uma parte significativa do montante da transação.",
   "help.transactionBatching.title" : "taxas de pagamento",
   "offer.requiredAction.payoutPending" : "pagamento pendente",
-  "settings.batching.delayedPayouts" : "Os pagamentos de depósitos de caução estão em atraso.",
+  "settings.batching.delayedPayouts" : "Os pagamentos de caução estão atrasados. As transacções gratuitas serão pagas instantaneamente.\nSerá avisado quando pagar mais de 10% em taxas de mineração.",
   "settings.batching.immediatePayouts" : "Os pagamentos de depósitos de caução são feitos imediatamente",
   "settings.batching.title" : "agrupamento de transações",
   "settings.batching.toggle" : "agrupamento de transações",
