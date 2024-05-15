@@ -13,9 +13,17 @@ type Props = {
   price: number;
   currency: Currency;
   premium: number;
+  miningFeeWarning?: JSX.Element;
 };
-export function PriceInfo({ amount, price, currency, premium }: Props) {
+export function PriceInfo({
+  amount,
+  price,
+  currency,
+  premium,
+  miningFeeWarning,
+}: Props) {
   const btcPrice = Math.round((price / amount) * SATSINBTC);
+
   return (
     <View style={tw`items-center`}>
       <View style={tw`items-center justify-center h-7`}>
@@ -32,6 +40,7 @@ export function PriceInfo({ amount, price, currency, premium }: Props) {
       <PeachText style={tw`subtitle-1`}>
         {btcPrice} {i18n(currency)} / {i18n("btc")}
       </PeachText>
+      {miningFeeWarning}
     </View>
   );
 }
