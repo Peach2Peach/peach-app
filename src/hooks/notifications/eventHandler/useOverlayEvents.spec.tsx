@@ -1,6 +1,6 @@
 import { act, render, renderHook } from "test-utils";
 import { navigateMock } from "../../../../tests/unit/helpers/NavigationWrapper";
-import { Overlay } from "../../../Overlay";
+import { GlobalOverlay } from "../../../Overlay";
 import { useOverlayEvents } from "./useOverlayEvents";
 
 describe("useOverlayEvents", () => {
@@ -13,7 +13,7 @@ describe("useOverlayEvents", () => {
       result.current["user.badge.unlocked"]?.(data);
     });
 
-    const { getByText } = render(<Overlay />);
+    const { getByText } = render(<GlobalOverlay />);
     expect(
       getByText(
         "Congrats, you unlocked the fast trader badge on your profile!",
@@ -39,7 +39,7 @@ describe("useOverlayEvents", () => {
       result.current["offer.escrowFunded"]?.(data);
     });
 
-    const { getByText } = render(<Overlay />);
+    const { getByText } = render(<GlobalOverlay />);
     expect(getByText("offer published!")).toBeTruthy();
   });
 
@@ -62,7 +62,7 @@ describe("useOverlayEvents", () => {
       result.current["contract.paymentMade"]?.(data);
     });
 
-    const { getByText } = render(<Overlay />);
+    const { getByText } = render(<GlobalOverlay />);
     expect(getByText("payment made!")).toBeTruthy();
   });
 

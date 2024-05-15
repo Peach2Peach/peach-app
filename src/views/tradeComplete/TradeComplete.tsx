@@ -153,7 +153,7 @@ function useRateUser({ contract, view, vote }: RateProps) {
       ],
       shallow,
     );
-  const setOverlayContent = useSetOverlay();
+  const setOverlayContent = useSetGlobalOverlay();
 
   return useMutation({
     mutationFn: async () => {

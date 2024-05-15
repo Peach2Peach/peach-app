@@ -8,7 +8,7 @@ import {
 } from "test-utils";
 import { sellOffer } from "../../tests/unit/data/offerData";
 import { navigateMock } from "../../tests/unit/helpers/NavigationWrapper";
-import { Overlay } from "../Overlay";
+import { GlobalOverlay } from "../Overlay";
 import { GlobalPopup } from "../components/popup/GlobalPopup";
 import { useSettingsStore } from "../store/settingsStore/useSettingsStore";
 import { peachAPI } from "../utils/peachAPI";
@@ -164,7 +164,7 @@ describe("useRefundEscrow", () => {
     });
     fireEvent.press(getByText("close"));
     expect(queryByText("escrow refunded")).toBeFalsy();
-    const { getByText: getByOverlayText } = render(<Overlay />);
+    const { getByText: getByOverlayText } = render(<GlobalOverlay />);
     expect(getByOverlayText("backup time!")).toBeTruthy();
   });
 
@@ -214,7 +214,7 @@ describe("useRefundEscrow", () => {
       expect(queryByText("go to wallet")).toBeTruthy();
     });
     fireEvent.press(getByText("go to wallet"));
-    const { getByText: getByOverlayText } = render(<Overlay />);
+    const { getByText: getByOverlayText } = render(<GlobalOverlay />);
     expect(getByOverlayText("backup time!")).toBeTruthy();
   });
 

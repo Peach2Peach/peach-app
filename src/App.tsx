@@ -20,7 +20,7 @@ import { Drawer } from "./components/drawer/Drawer";
 import { GlobalPopup } from "./components/popup/GlobalPopup";
 import { Toast } from "./components/toast/Toast";
 import { useWebSocket } from "./init/websocket";
-import { Overlay } from "./Overlay";
+import { GlobalOverlay } from "./Overlay";
 import { queryClient } from "./queryClient";
 import tw from "./styles/tailwind";
 import { usePartialAppSetup } from "./usePartialAppSetup";
@@ -66,7 +66,7 @@ export const App = () => {
             <Screens />
             <Drawer />
             <GlobalPopup />
-            <Overlay />
+            <GlobalOverlay />
             <Toast />
           </NavigationContainer>
         </SafeAreaProvider>
