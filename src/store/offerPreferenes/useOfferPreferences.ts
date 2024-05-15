@@ -37,6 +37,7 @@ type OfferPreferences = {
   instantTrade: boolean;
   instantTradeCriteria: InstantTradeCriteria;
   hasSeenInstantTradePopup: boolean;
+  fundWithPeachWallet: boolean;
 };
 
 export const defaultPreferences: OfferPreferences = {
@@ -67,6 +68,7 @@ export const defaultPreferences: OfferPreferences = {
     badges: [],
   },
   hasSeenInstantTradePopup: false,
+  fundWithPeachWallet: false,
 };
 
 type OfferPreferencesActions = {
@@ -84,6 +86,7 @@ type OfferPreferencesActions = {
   toggleMinReputation: () => void;
   toggleBadge: (badge: Medal) => void;
   setHasSeenInstantTradePopup: (hasSeenInstantTradePopup: boolean) => void;
+  setFundWithPeachWallet: (fundWithPeachWallet: boolean) => void;
 };
 
 type OfferPreferencesStore = OfferPreferences & OfferPreferencesActions;
@@ -163,6 +166,8 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         }),
       setHasSeenInstantTradePopup: (hasSeenInstantTradePopup) =>
         set({ hasSeenInstantTradePopup }),
+      setFundWithPeachWallet: (fundWithPeachWallet) =>
+        set({ fundWithPeachWallet }),
     })),
     {
       name: "offerPreferences",
