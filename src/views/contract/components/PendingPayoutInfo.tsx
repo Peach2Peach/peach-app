@@ -5,6 +5,7 @@ import {
   TextSummaryItem,
   TimerSummaryItem,
 } from "../../../components/summaryItem";
+import { PeachText } from "../../../components/text/PeachText";
 import { MSINASECOND } from "../../../constants";
 import { HelpPopup } from "../../../popups/HelpPopup";
 import tw from "../../../styles/tailwind";
@@ -27,6 +28,9 @@ export const PendingPayoutInfo = () => {
   const { timeRemaining, participants, maxParticipants } = batchInfo;
   return (
     <View style={tw`justify-center gap-4 grow`}>
+      <PeachText style={tw`text-center subtitle-1`}>
+        {i18n("settings.batching.youSave")}
+      </PeachText>
       <AddressSummaryItem
         title={i18n("batching.willBeSentTo")}
         address={releaseAddress}
