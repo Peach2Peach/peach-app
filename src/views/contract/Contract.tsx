@@ -2,30 +2,57 @@ import { Screen } from "../../components/Screen";
 import tw from "../../styles/tailwind";
 
 import { useCallback, useMemo } from "react";
+import { OverlayComponent } from "../../OverlayComponent";
 import { Header, HeaderIcon } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
+import { useHandleNotifications } from "../../hooks/notifications/useHandleNotifications";
+import { useContractDetail } from "../../hooks/query/useContractDetail";
+import { useRoute } from "../../hooks/useRoute";
 import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { ConfirmTradeCancelationPopup } from "../../popups/tradeCancelation/ConfirmTradeCancelationPopup";
+import { useAccountStore } from "../../utils/account/account";
 import { canCancelContract } from "../../utils/contract/canCancelContract";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
+import { getContractViewer } from "../../utils/contract/getContractViewer";
 import { getRequiredAction } from "../../utils/contract/getRequiredAction";
 import { isPaymentTooLate } from "../../utils/contract/status/isPaymentTooLate";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
+import { TradeComplete } from "../tradeComplete/TradeComplete";
 import { ContractActions } from "./ContractActions";
 import { PendingPayoutInfo } from "./components/PendingPayoutInfo";
 import { TradeInformation } from "./components/TradeInformation";
 import { ContractContext, useContractContext } from "./context";
-import { useContractSetup } from "./hooks/useContractSetup";
 
 export const Contract = () => {
-  const { contract, isLoading, view } = useContractSetup();
+  const { contractId } = useRoute<"contract">().params;
+  const { contract, isLoading, refetch } = useContractDetail(contractId);
+  const publicKey = useAccountStore((state) => state.account.publicKey);
+  const view = contract
+    ? getContractViewer(contract.seller.id, publicKey)
+    : undefined;
+
+  useHandleNotifications(
+    useCallback(
+      (message) => {
+        if (message.data?.contractId === contractId) refetch();
+      },
+      [contractId, refetch],
+    ),
+  );
 
   if (!contract || !view || isLoading) return <LoadingScreen />;
+  if (contract.tradeStatus === "rateUser") {
+    return (
+      <OverlayComponent>
+        <TradeComplete contract={contract} />
+      </OverlayComponent>
+    );
+  }
 
   return <ContractScreen contract={contract} view={view} />;
 };
@@ -163,6 +190,7 @@ function ContractHeader() {
     />
   );
 }
+
 function getHeaderTitle(view: string, contract: Contract) {
   const {
     tradeStatus,

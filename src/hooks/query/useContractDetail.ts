@@ -13,12 +13,11 @@ export const contractKeys = {
   chat: (id: string) => [...contractKeys.detail(id), "chat"] as const,
 };
 
-export const useContractDetail = (id: string, refetchInterval?: number) => {
+export const useContractDetail = (id: string) => {
   const isFocused = useIsFocused();
   const { data, isLoading, isFetching, refetch, error } = useQuery({
     queryKey: contractKeys.detail(id),
     queryFn: getContractDetail,
-    refetchInterval,
     enabled: isFocused,
   });
 
