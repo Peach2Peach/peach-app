@@ -35,6 +35,7 @@ describe("useToggleBatching", () => {
     await waitFor(() => {
       expect(setBatchingMock).toHaveBeenCalledWith({
         enableBatching: !defaultUser.isBatchingEnabled,
+        riskAcknowledged: true,
       });
     });
   });

@@ -10,6 +10,30 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
     }
   }
 >
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "textAlign": "center",
+        },
+        false,
+      ]
+    }
+  >
+    You save up to 23% in network fees
+  </Text>
   <View
     style={
       [
@@ -468,6 +492,30 @@ exports[`PendingPayoutInfo should render correctly when eta is not known yet 1`]
     }
   }
 >
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "textAlign": "center",
+        },
+        false,
+      ]
+    }
+  >
+    You save up to 23% in network fees
+  </Text>
   <View
     style={
       [

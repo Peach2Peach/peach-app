@@ -287,7 +287,7 @@ exports[`NetworkFees should render correctly 1`] = `
                     {
                       "alignItems": "center",
                       "backgroundColor": "#FEEDE5",
-                      "borderColor": "#F56522",
+                      "borderColor": "transparent",
                       "borderRadius": 12,
                       "borderWidth": 2,
                       "flexDirection": "row",
@@ -363,7 +363,7 @@ exports[`NetworkFees should render correctly 1`] = `
                     </View>
                   </View>
                   <test-file-stub
-                    fill="#F56522"
+                    fill="#9F8C82"
                     style={
                       [
                         {
@@ -656,7 +656,7 @@ exports[`NetworkFees should render correctly 1`] = `
                     {
                       "alignItems": "center",
                       "backgroundColor": "#FEEDE5",
-                      "borderColor": "transparent",
+                      "borderColor": "#F56522",
                       "borderRadius": 12,
                       "borderWidth": 2,
                       "flexDirection": "row",
@@ -735,7 +735,7 @@ exports[`NetworkFees should render correctly 1`] = `
                         }
                       >
                         <TextInput
-                          editable={false}
+                          editable={true}
                           keyboardType="decimal-pad"
                           onChangeText={[Function]}
                           style={
@@ -779,7 +779,7 @@ exports[`NetworkFees should render correctly 1`] = `
                     </View>
                   </View>
                   <test-file-stub
-                    fill="#9F8C82"
+                    fill="#F56522"
                     style={
                       [
                         {
@@ -864,7 +864,7 @@ exports[`NetworkFees should render correctly 1`] = `
             {
               "busy": undefined,
               "checked": undefined,
-              "disabled": undefined,
+              "disabled": true,
               "expanded": undefined,
               "selected": undefined,
             }
@@ -898,7 +898,7 @@ exports[`NetworkFees should render correctly 1`] = `
               "gap": 8,
               "justifyContent": "center",
               "minWidth": 208,
-              "opacity": 1,
+              "opacity": 0.9464,
               "paddingBottom": 3,
               "paddingLeft": 24,
               "paddingRight": 24,
@@ -936,7 +936,7 @@ exports[`NetworkFees should render correctly 1`] = `
               ]
             }
           >
-            confirm
+            fee rate set
           </Text>
         </View>
       </View>
