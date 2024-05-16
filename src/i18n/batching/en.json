@@ -2,6 +2,7 @@
   "batching.eta" : "ETA",
   "batching.eta.tba" : "TBA",
   "batching.slots" : "slots",
+  "batching.waitingForParticipants" : "The bucket is not full yet and we are waiting for more participants to join.",
   "batching.willBeSentTo" : "will be sent to",
   "grouphug.announcement.text" : "With GroupHug, we bundle escrow releases for lower transaction fees.\n\nOpt in, wait a tad, save more.\n\nYou're in control, switch anytime.",
   "grouphug.announcement.title" : "It's time for a GroupHug!",

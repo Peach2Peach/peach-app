@@ -2,6 +2,7 @@
   "batching.eta" : "ETA",
   "batching.eta.tba" : "TBA",
   "batching.slots" : "слот",
+  "batching.waitingForParticipants" : "Відро ще не повне, і ми чекаємо на нових учасників, які приєднаються.",
   "batching.willBeSentTo" : " буде надіслано на",
   "grouphug.announcement.text" : "За допомогою GroupHug ми об’єднуємо депонування з нижчими комісіями за транзакції. Підпишіться, зачекайте трохи, заощаджуйте більше. Ви контролюєте, будь-коли змінюйте.",
   "grouphug.announcement.title" : "Час для GroupHug!",

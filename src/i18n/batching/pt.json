@@ -2,6 +2,7 @@
   "batching.eta" : "ETA",
   "batching.eta.tba" : "A ser anunciado",
   "batching.slots" : "vagas",
+  "batching.waitingForParticipants" : "O balde ainda não está cheio e estamos a aguardar a adesão de mais participantes.",
   "batching.willBeSentTo" : "será enviado para",
   "grouphug.announcement.text" : "Com o GroupHug, agrupamos os pagamentos do depósito de caução com fins a reduzir as taxas de transação.\n\nOpte por isso, aguarde um pouco, economize mais.\n\nEstá no controlo e pode mudar a qualquer momento.",
   "grouphug.announcement.title" : "É hora de um GroupHug!",

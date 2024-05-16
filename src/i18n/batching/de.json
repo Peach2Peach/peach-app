@@ -2,6 +2,7 @@
   "batching.eta" : "ETA",
   "batching.eta.tba" : "ausstehend",
   "batching.slots" : "Plätze",
+  "batching.waitingForParticipants" : "Der Eimer ist noch nicht voll und wir warten auf weitere Teilnehmer.",
   "batching.willBeSentTo" : "wird gesendet an",
   "grouphug.announcement.text" : "Mit GroupHug bündeln wir Treuhandfreigaben für niedrigere Transaktionsgebühren.\n\nMelden Sie sich an, warten Sie ein bisschen, sparen Sie mehr.\n\nSie haben die Kontrolle und können jederzeit wechseln.",
   "grouphug.announcement.title" : "Es ist Zeit für einen GroupHug!",

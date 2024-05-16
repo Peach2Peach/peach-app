@@ -2,6 +2,7 @@
   "batching.eta" : "Szacowany czas dostarczenia (ETA)",
   "batching.eta.tba" : "Do ustalenia (TBA)",
   "batching.slots" : "sloty",
+  "batching.waitingForParticipants" : "Wiaderko nie jest jeszcze pełne i czekamy na kolejnych uczestników.",
   "batching.willBeSentTo" : "zostanie wysłane do",
   "grouphug.announcement.text" : "Dzięki GroupHug, zbieramy wypłaty kaucji w pakiety, co pozwala zaoszczędzić na opłatach za transakcje.\n\nZapisz się, poczekaj chwilę i zaoszczędź jeszcze więcej.\n\nMasz pełną kontrolę, możesz zmienić to w każdej chwili.",
   "grouphug.announcement.title" : "Czas na GroupHug!",

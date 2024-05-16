@@ -1,6 +1,7 @@
 {
   "batching.eta" : "ETA",
   "batching.eta.tba" : "TBA",
+  "batching.waitingForParticipants" : "Kova henüz dolmadı ve daha fazla katılımcının katılmasını bekliyoruz.",
   "batching.willBeSentTo" : "gönderilecek",
   "grouphug.announcement.title" : "Grup sarılması zamanı.",
   "grouphug.goToSettings" : "ayarlara gidin.",

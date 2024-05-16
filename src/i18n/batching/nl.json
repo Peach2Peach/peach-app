@@ -2,6 +2,7 @@
   "batching.eta" : "ETA",
   "batching.eta.tba" : "n.t.b.",
   "batching.slots" : "slots",
+  "batching.waitingForParticipants" : "De emmer is nog niet vol en we wachten op meer deelnemers.",
   "batching.willBeSentTo" : "wordt verzonden naar",
   "grouphug.announcement.text" : "Met GroupHug bundelen we borg vrijgaves voor lagere transactiekosten. Meld je aan, wacht eventjes en bespaar meer. Jij hebt de controle, je kunt op elk moment wisselen.",
   "grouphug.announcement.title" : "Het is tijd voor een groepsknuffel!",

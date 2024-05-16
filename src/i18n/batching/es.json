@@ -2,6 +2,7 @@
   "batching.eta" : "ETA",
   "batching.eta.tba" : "por anunciar",
   "batching.slots" : "sitios",
+  "batching.waitingForParticipants" : "El cubo aún no está lleno y esperamos que se sumen más participantes.",
   "batching.willBeSentTo" : "serán enviados a",
   "grouphug.announcement.text" : "Con GroupHug, ajuntamos las transacciones para disminuir las comisiones de cada usuario. Puedes elegir siempre si quieres, o no quieres participar.",
   "grouphug.announcement.title" : "Es hora de usar GroupHug!",

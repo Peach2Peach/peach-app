@@ -2,6 +2,7 @@
   "batching.eta" : "ETA",
   "batching.eta.tba" : "TBA",
   "batching.slots" : "места",
+  "batching.waitingForParticipants" : "Ведро еще не заполнено, и мы ждем новых участников.",
   "batching.willBeSentTo" : "будет отправлено на",
   "grouphug.announcement.text" : "С помощью GroupHug мы собираем вместе выпуск из эскроу-счетов, чтобы снизить комиссию блокчейна. Включите эту функцию, немножко подожите и сэкономьте. Выбор всегда ваш, переключайтесь когда захотите.",
   "grouphug.announcement.title" : "Пришло время GroupHug!",

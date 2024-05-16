@@ -2,6 +2,7 @@
   "batching.eta" : "Várható érkezés",
   "batching.eta.tba" : "Még bejelentésre vár",
   "batching.slots" : "helyek",
+  "batching.waitingForParticipants" : "A vödör még nem telt meg, és további résztvevők csatlakozását várjuk.",
   "batching.willBeSentTo" : "ide lesz küldve:",
   "grouphug.announcement.text" : "A GroupHug segítségével a letéti kifizetéseket az alacsonyabb tranzakciós díjakért csoportosítjuk.\n\nEngedélyezd, várj egy kicsit, és spórolj többet.\n\nTe irányítasz, bármikor átválthatsz.",
   "grouphug.announcement.title" : "Itt az ideje egy GroupHug-nak!",

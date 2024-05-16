@@ -2,6 +2,7 @@
   "batching.eta" : "Tempo stimato di arrivo",
   "batching.eta.tba" : "TBA",
   "batching.slots" : "spazi",
+  "batching.waitingForParticipants" : "Il secchio non è ancora pieno e siamo in attesa di altri partecipanti.",
   "batching.willBeSentTo" : "verrà inviato a",
   "grouphug.announcement.text" : "Con GroupHug, raggruppiamo i rilasci dei depositi per avere commissioni di rete inferiori. Attiva, aspetta un po' , risparmia di più. Sei tu al comando, puoi cambiare in qualsiasi momento.",
   "grouphug.announcement.title" : "E' arrivato il momento di GroupHug!",
