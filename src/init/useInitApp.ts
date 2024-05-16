@@ -29,14 +29,18 @@ export function useInitApp() {
       await setCookies(cfClearance);
     }
     const publicKey = storedPublicKey || (await loadAccount());
-    const statusResponse = await getPeachInfo();
-    if (!statusResponse?.error && publicKey) {
-      setIsLoggedIn(true);
-      userUpdate();
-      dataMigrationAfterLoadingAccount();
-    }
+    try {
+      const statusResponse = await getPeachInfo();
+      if (!statusResponse?.error && publicKey) {
+        setIsLoggedIn(true);
+        userUpdate();
+        dataMigrationAfterLoadingAccount();
+      }
 
-    return statusResponse;
+      return statusResponse;
+    } catch (err) {
+      return null;
+    }
   }, [cfClearance, setIsLoggedIn, storedPublicKey, userUpdate]);
 
   return initApp;

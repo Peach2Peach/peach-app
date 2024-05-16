@@ -22,7 +22,7 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
-import { marketKeys, useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
@@ -36,8 +36,6 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { convertFiatToSats } from "../../utils/market/convertFiatToSats";
-import { getTradingAmountLimits } from "../../utils/market/getTradingAmountLimits";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { defaultFundingStatus } from "../../utils/offer/constants";
@@ -274,8 +272,7 @@ type SellAmountSliderProps = {
 };
 
 function SellAmountSlider({ trackWidth, setIsSliding }: SellAmountSliderProps) {
-  const { data } = useMarketPrices();
-  const [, maxLimit] = getTradingAmountLimits(data?.CHF || 0, "sell");
+  const [, maxLimit] = useTradingAmountLimits("sell");
 
   const trackMax = trackWidth - sliderWidth;
   const trackDelta = trackMax - trackMin;
@@ -376,7 +373,7 @@ function FiatInput() {
   }: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
     const newFiatValue = Number(text);
     const newSatsAmount = restrictAmount(
-      convertFiatToSats(newFiatValue, bitcoinPrice),
+      Math.round((newFiatValue / bitcoinPrice) * SATSINBTC),
     );
     setAmount(newSatsAmount);
     const restrictedFiatValue = priceFormat(

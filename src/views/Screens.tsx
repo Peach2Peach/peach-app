@@ -65,9 +65,8 @@ function SplashScreenComponent({
   const setPopup = useSetPopup();
   const initApp = useInitApp();
   useEffect(() => {
-    (async () => {
+    const initialize = async () => {
       const statusResponse = await initApp();
-
       if (!statusResponse || statusResponse.error) {
         if (statusResponse?.error === "HUMAN_VERIFICATION_REQUIRED") {
           setPopup(<VerifyYouAreAHumanPopup />);
@@ -86,7 +85,8 @@ function SplashScreenComponent({
       requestUserPermissions();
       setIsLoading(false);
       SplashScreen.hide();
-    })();
+    };
+    initialize();
   }, [initApp, navigation, setIsLoading, setPopup, setToast]);
 
   return (

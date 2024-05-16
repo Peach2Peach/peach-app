@@ -1,6 +1,5 @@
 import RNFS from "react-native-fs";
 import { error } from "../log/error";
-import { exists } from "./exists";
 import { writeFile } from "./writeFile";
 
 export const appendFile = async (
@@ -10,7 +9,7 @@ export const appendFile = async (
 ): Promise<boolean> => {
   let newFile;
 
-  if (!(await exists(path))) {
+  if (!(await RNFS.exists(RNFS.DocumentDirectoryPath + path))) {
     newFile = true;
     await writeFile(path, "");
   }
