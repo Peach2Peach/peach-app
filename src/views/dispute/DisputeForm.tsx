@@ -20,7 +20,6 @@ import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getContractViewer } from "../../utils/contract/getContractViewer";
 import { isEmailRequiredForDispute } from "../../utils/dispute/isEmailRequiredForDispute";
 import i18n from "../../utils/i18n";
-import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { useRaiseDispute } from "./useRaiseDispute";
 
@@ -39,7 +38,6 @@ const required = { required: true };
 function DisputeFormScreen({ contract }: { contract: Contract }) {
   const navigation = useStackNavigation();
   const { reason, contractId } = useRoute<"disputeForm">().params;
-  const { data: decryptedData } = useDecryptedContractData(contract);
 
   const emailRules = useMemo(
     () => ({
@@ -59,22 +57,15 @@ function DisputeFormScreen({ contract }: { contract: Contract }) {
   const setPopup = useSetPopup();
   const showErrorBanner = useShowErrorBanner();
 
-  const { mutate: raiseDispute, isPending } = useRaiseDispute();
+  const { mutate: raiseDispute, isPending } = useRaiseDispute(contract);
 
   const submit = () => {
     Keyboard.dismiss();
 
-    if (!decryptedData?.symmetricKey || !isFormValid) return;
+    if (!isFormValid) return;
 
     raiseDispute(
-      {
-        contract,
-        reason,
-        email,
-        message,
-        symmetricKey: decryptedData.symmetricKey,
-        paymentData: decryptedData?.paymentData,
-      },
+      { reason, email, message },
       {
         onSuccess: () => {
           navigation.navigate("contractChat", { contractId });

@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
+import OpenPGP from "react-native-fast-openpgp";
 import { useConfigStore } from "../../store/configStore/configStore";
 import { peachAPI } from "../../utils/peachAPI";
-import { signAndEncrypt } from "../../utils/pgp/signAndEncrypt";
+import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 
 type Props = {
-  contract: Contract;
   symmetricKey?: string;
   reason: DisputeReason;
   email?: string;
@@ -12,32 +12,18 @@ type Props = {
   paymentData?: PaymentData;
 };
 
-export function useRaiseDispute() {
+export function useRaiseDispute(contract: Contract) {
+  const { data } = useDecryptedContractData(contract);
+  const peachPGPPublicKey = useConfigStore((state) => state.peachPGPPublicKey);
   return useMutation({
-    mutationFn: async ({
-      symmetricKey,
-      paymentData,
-      contract,
-      email,
-      reason,
-      message,
-    }: Props) => {
-      if (!symmetricKey) throw new Error("Symmetric key is required");
-      const [
-        { encrypted: symmetricKeyEncrypted },
-        { encrypted: paymentDataSellerEncrypted },
-      ] = await Promise.all([
-        signAndEncrypt(
-          symmetricKey,
-          useConfigStore.getState().peachPGPPublicKey,
-        ),
-        paymentData
-          ? signAndEncrypt(
-              JSON.stringify(paymentData),
-              useConfigStore.getState().peachPGPPublicKey,
-            )
-          : { encrypted: undefined },
-      ]);
+    mutationFn: async ({ email, reason, message }: Props) => {
+      if (!data) throw new Error("Could not decrypt contract data");
+      const { symmetricKey, paymentData } = data;
+      const [symmetricKeyEncrypted, paymentDataSellerEncrypted] =
+        await Promise.all([
+          OpenPGP.encrypt(symmetricKey, peachPGPPublicKey),
+          OpenPGP.encrypt(JSON.stringify(paymentData), peachPGPPublicKey),
+        ]);
       const { result, error: err } =
         await peachAPI.private.contract.raiseDispute({
           contractId: contract.id,
