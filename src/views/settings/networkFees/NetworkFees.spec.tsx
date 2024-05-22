@@ -1,19 +1,8 @@
 import { render, responseUtils, waitFor } from "test-utils";
+import { defaultUser } from "../../../../peach-api/src/testData/userData";
 import { queryClient } from "../../../../tests/unit/helpers/QueryClientWrapper";
 import { peachAPI } from "../../../utils/peachAPI";
 import { NetworkFees } from "./NetworkFees";
-
-jest.mock("./useNetworkFeesSetup", () => ({
-  useNetworkFeesSetup: jest.fn().mockReturnValue({
-    selectedFeeRate: "fastestFee",
-    setSelectedFeeRate: jest.fn(),
-    customFeeRate: "5",
-    setCustomFeeRate: jest.fn(),
-    submit: jest.fn(),
-    isValid: true,
-    feeRateSet: false,
-  }),
-}));
 
 const estimatedFees = {
   fastestFee: 5,
@@ -26,6 +15,13 @@ const estimatedFees = {
 jest.spyOn(peachAPI.public.bitcoin, "getFeeEstimate").mockResolvedValue({
   ...responseUtils,
   result: estimatedFees,
+});
+jest.spyOn(peachAPI.private.user, "getSelfUser").mockResolvedValue({
+  ...responseUtils,
+  result: {
+    ...defaultUser,
+    feeRate: 5,
+  },
 });
 
 jest.useFakeTimers();

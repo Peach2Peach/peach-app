@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSetOverlay } from "../../../Overlay";
+import { useSetGlobalOverlay } from "../../../Overlay";
 import { useSetPopup } from "../../../components/popup/GlobalPopup";
 import { useStackNavigation } from "../../../hooks/useStackNavigation";
 import { WronglyFundedPopup } from "../../../popups/WronglyFundedPopup";
@@ -24,7 +24,7 @@ export const useHandleFundingStatus = ({
   const navigation = useStackNavigation();
   const setPopup = useSetPopup();
 
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
 
   const startRefund = useStartRefundPopup();
   const { refetch: fetchMatches } = useOfferMatches(

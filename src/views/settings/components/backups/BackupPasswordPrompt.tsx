@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import { Keyboard, TextInput, View } from "react-native";
-import { useSetOverlay } from "../../../../Overlay";
+import { useSetGlobalOverlay } from "../../../../Overlay";
 import { PeachScrollView } from "../../../../components/PeachScrollView";
 import { Button } from "../../../../components/buttons/Button";
 import { PasswordInput } from "../../../../components/inputs/PasswordInput";
@@ -41,7 +41,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
   const validate = () =>
     !!password && !!passwordRepeat && passwordIsValid && passwordsMatch;
 
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
 
   const startAccountBackup = () => {
     if (isBackingUp || !validate()) return;

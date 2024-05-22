@@ -14,7 +14,6 @@ import { useAccountStore } from "../../utils/account/account";
 import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import { getContractViewer } from "../../utils/contract/getContractViewer";
 import i18n from "../../utils/i18n";
-import { useDecryptedContractData } from "../contractChat/useDecryptedContractData";
 import { LoadingScreen } from "../loading/LoadingScreen";
 import { useRaiseDispute } from "./useRaiseDispute";
 
@@ -35,7 +34,6 @@ const disputeReasons: Record<ContractViewer, DisputeReason[]> = {
 };
 
 function DisputeReasonScreen({ contract }: { contract: Contract }) {
-  const { data: decryptedData } = useDecryptedContractData(contract);
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const view = getContractViewer(contract.seller.id, publicKey);
   const availableReasons =
@@ -44,7 +42,7 @@ function DisputeReasonScreen({ contract }: { contract: Contract }) {
   const navigation = useStackNavigation();
   const showErrorBanner = useShowErrorBanner();
   const setPopup = useSetPopup();
-  const { mutate: raiseDispute } = useRaiseDispute();
+  const { mutate: raiseDispute } = useRaiseDispute(contract);
 
   const setReason = (reason: DisputeReason) => {
     if (reason === "noPayment.buyer" || reason === "noPayment.seller") {
@@ -53,12 +51,7 @@ function DisputeReasonScreen({ contract }: { contract: Contract }) {
     }
 
     raiseDispute(
-      {
-        contract,
-        reason,
-        symmetricKey: decryptedData?.symmetricKey,
-        paymentData: decryptedData?.paymentData,
-      },
+      { reason },
       {
         onSuccess: () => {
           if (view) setPopup(<DisputeRaisedSuccess view={view} />);

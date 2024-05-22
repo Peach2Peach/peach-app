@@ -22,14 +22,13 @@ import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { CENT, SATSINBTC } from "../../constants";
 import { useFeeEstimate } from "../../hooks/query/useFeeEstimate";
-import { marketKeys, useMarketPrices } from "../../hooks/query/useMarketPrices";
+import { marketKeys } from "../../hooks/query/useMarketPrices";
 import { offerKeys } from "../../hooks/query/useOfferDetail";
 import { useSelfUser } from "../../hooks/query/useSelfUser";
 import { useBitcoinPrices } from "../../hooks/useBitcoinPrices";
 import { useKeyboard } from "../../hooks/useKeyboard";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
-import { useToggleBoolean } from "../../hooks/useToggleBoolean";
 import { HelpPopup } from "../../popups/HelpPopup";
 import { useConfigStore } from "../../store/configStore/configStore";
 import { useOfferPreferences } from "../../store/offerPreferenes";
@@ -37,8 +36,6 @@ import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
-import { convertFiatToSats } from "../../utils/market/convertFiatToSats";
-import { getTradingAmountLimits } from "../../utils/market/getTradingAmountLimits";
 import { round } from "../../utils/math/round";
 import { keys } from "../../utils/object/keys";
 import { defaultFundingStatus } from "../../utils/offer/constants";
@@ -77,7 +74,12 @@ export function SellOfferPreferences() {
   return (
     <PreferenceScreen
       header={<SellHeader />}
-      button={<SellAction />}
+      button={
+        <>
+          <FundWithPeachWallet />
+          <FundEscrowButton />
+        </>
+      }
       isSliding={isSliding}
     >
       <SellPreferenceMarketInfo />
@@ -270,8 +272,7 @@ type SellAmountSliderProps = {
 };
 
 function SellAmountSlider({ trackWidth, setIsSliding }: SellAmountSliderProps) {
-  const { data } = useMarketPrices();
-  const [, maxLimit] = getTradingAmountLimits(data?.CHF || 0, "sell");
+  const [, maxLimit] = useTradingAmountLimits("sell");
 
   const trackMax = trackWidth - sliderWidth;
   const trackDelta = trackMax - trackMin;
@@ -372,7 +373,7 @@ function FiatInput() {
   }: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
     const newFiatValue = Number(text);
     const newSatsAmount = restrictAmount(
-      convertFiatToSats(newFiatValue, bitcoinPrice),
+      Math.round((newFiatValue / bitcoinPrice) * SATSINBTC),
     );
     setAmount(newSatsAmount);
     const restrictedFiatValue = priceFormat(
@@ -507,26 +508,12 @@ function InstantTrade() {
   );
 }
 
-function SellAction() {
-  const [fundWithPeachWallet, toggle] = useToggleBoolean();
-  return (
-    <>
-      <FundWithPeachWallet
-        fundWithPeachWallet={fundWithPeachWallet}
-        toggle={toggle}
-      />
-      <FundEscrowButton fundWithPeachWallet={fundWithPeachWallet} />
-    </>
+function FundWithPeachWallet() {
+  const [fundWithPeachWallet, setFundWithPeachWallet] = useOfferPreferences(
+    (state) => [state.fundWithPeachWallet, state.setFundWithPeachWallet],
+    shallow,
   );
-}
-
-function FundWithPeachWallet({
-  fundWithPeachWallet,
-  toggle,
-}: {
-  fundWithPeachWallet: boolean;
-  toggle: () => void;
-}) {
+  const toggle = () => setFundWithPeachWallet(!fundWithPeachWallet);
   const { user } = useSelfUser();
   const feeRate = user?.feeRate || "halfHourFee";
   const feeEstimate = useFeeEstimate();
@@ -548,14 +535,14 @@ function FundWithPeachWallet({
   );
 }
 
-function FundEscrowButton({
-  fundWithPeachWallet,
-}: {
-  fundWithPeachWallet: boolean;
-}) {
+function FundEscrowButton() {
   const amountRange = useTradingAmountLimits("sell");
-  const [sellAmount, instantTrade] = useOfferPreferences(
-    (state) => [state.sellAmount, state.instantTrade],
+  const [sellAmount, instantTrade, fundWithPeachWallet] = useOfferPreferences(
+    (state) => [
+      state.sellAmount,
+      state.instantTrade,
+      state.fundWithPeachWallet,
+    ],
     shallow,
   );
   const [isPublishing, setIsPublishing] = useState(false);

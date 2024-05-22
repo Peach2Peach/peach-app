@@ -26,7 +26,7 @@
   "help.makePayment.title" : "Schnell bezahlen!",
   "help.mempool.description" : "Wenn du eine Bitcoin-Transaktion durchführst, wird sie nicht sofort verarbeitet.\n\nStattdessen werden sie zunächst in einer Liste von unbestätigten Transaktionen namens \"Mempool\" abgelegt. Die Transaktionen mit der höchsten Gebühr werden zuerst verarbeitet.",
   "help.mempool.title" : "Der Mempool",
-  "help.networkFees.description.1" : "Das sind die Gebühren, die du dem Bitcoin-Netzwerk zahlst, um deine Sats nach einem Handel zu oder im Falle einer Rückerstattung erhalten. Diese Gebühren ändern sich ständig, je nachdem, wie ausgelastet das Netzwerk ist.",
+  "help.networkFees.description.1" : "Dies sind die Gebühren, die Sie für das Senden von Transaktionen an das Bitcoin-Netzwerk zahlen. Sie werden von allen Auszahlungen aus einem Peach-Treuhandkonto abgezogen und Sie zahlen sie, wenn Sie von Ihrer Peach-Brieftasche aus senden,",
   "help.networkFees.description.2" : "Je ausgelasteter das Netzwerk ist, desto mehr musst du bezahlen, um eine schnelle Bestätigung zu erhalten.",
   "help.networkFees.title" : "Bitcoin-Netzwerkgebühren",
   "help.paymentMethodDelete.description" : "Dies kann nicht rückgängig gemacht werden.",

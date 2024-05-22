@@ -80,6 +80,7 @@
   "settings.networkFees.estimatedTime.hourFee" : "~ 1 óra",
   "settings.networkFees.feeRateSet" : "díjarány beállítása",
   "settings.networkFees.help" : "Ezek a bitcoin hálózatnak fizetett díjak, amelyeket egy kereskedés után a satoshijaid fogadásához vagy visszatérítés esetén kell fizetned. Ezek a díjak idővel a hálózat forgalmának függvényében változnak.\n\nMinél forgalmasabb a hálózat, annál többet kell egy gyors jóváhagyásért fizetned.",
+  "settings.networkFees.payoutInfo" : "Ez a beállítás nem vonatkozik a kifizetésekre. További információért lásd a tranzakciók kötegelését.",
   "settings.networkFees.xSatsPerByte" : "$0 sat/bájt",
   "settings.nodeSetup" : "saját csomópont használata",
   "settings.notifications" : "értesítések",

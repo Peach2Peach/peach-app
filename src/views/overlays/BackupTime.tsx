@@ -1,4 +1,4 @@
-import { useSetOverlay } from "../../Overlay";
+import { useSetGlobalOverlay } from "../../Overlay";
 import { OverlayComponent } from "../../components/OverlayComponent";
 import { Button } from "../../components/buttons/Button";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -14,7 +14,7 @@ export function BackupTime({
   navigationParams?: NavigationFunctionParams;
 }) {
   const navigation = useStackNavigation();
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
   const closeOverlay = () => setOverlay(undefined);
   const goToBackups = () => {
     closeOverlay();

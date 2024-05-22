@@ -7,11 +7,9 @@ import {
   View,
 } from "react-native";
 import { PeachText } from "../../../components/text/PeachText";
-import { useMarketPrices } from "../../../hooks/query/useMarketPrices";
 import { useBitcoinPrices } from "../../../hooks/useBitcoinPrices";
 import tw from "../../../styles/tailwind";
 import i18n from "../../../utils/i18n";
-import { getTradingAmountLimits } from "../../../utils/market/getTradingAmountLimits";
 import { trackMin } from "../utils/constants";
 import { enforceDigitFormat } from "../utils/enforceDigitFormat";
 import { useAmountInBounds } from "../utils/useAmountInBounds";
@@ -82,9 +80,7 @@ function AmountSliders({
   range: [min, max],
   setRange,
 }: SliderProps) {
-  const { data } = useMarketPrices();
-  const [, maxLimit] = getTradingAmountLimits(data?.CHF || 0, "buy");
-
+  const [, maxLimit] = useTradingAmountLimits("buy");
   const trackMax = trackWidth - sliderWidth;
   const trackDelta = trackMax - trackMin;
 
@@ -103,7 +99,6 @@ function AmountSliders({
           ? ([trackMin, trackMax - sliderWidth] as const)
           : ([trackMin + sliderWidth, trackMax] as const);
       const newAmount = getAmountInBounds(pageX, bounds);
-
       if (type === "min") {
         const newMaxAmount = Math.max(newAmount + minSliderDeltaAsAmount, max);
         setRange([newAmount, newMaxAmount]);

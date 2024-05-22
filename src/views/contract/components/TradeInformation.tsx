@@ -1,5 +1,5 @@
 import { useContractContext } from "../context";
-import { shouldShowTradeStatusInfo } from "../helpers";
+import { shouldShowTradeStatusInfo } from "../helpers/shouldShowTradeStatusInfo";
 import { TradeDetails } from "./TradeDetails";
 import { TradeStatusInfo } from "./TradeStatusInfo";
 

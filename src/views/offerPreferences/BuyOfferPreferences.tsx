@@ -92,10 +92,10 @@ function PreferenceMarketInfo() {
       buyAmountRange: state.buyAmountRange,
       meansOfPayment: state.meansOfPayment,
       maxPremium: state.filter.buyOffer.shouldApplyMaxPremium
-        ? state.filter.buyOffer.maxPremium || undefined
+        ? state.filter.buyOffer.maxPremium ?? undefined
         : undefined,
       minReputation: interpolate(
-        state.filter.buyOffer.minReputation || 0,
+        state.filter.buyOffer.minReputation ?? 0,
         CLIENT_RATING_RANGE,
         SERVER_RATING_RANGE,
       ),

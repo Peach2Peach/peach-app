@@ -1,6 +1,6 @@
 import { NETWORK } from "@env";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSetOverlay } from "../Overlay";
+import { useSetGlobalOverlay } from "../Overlay";
 import { useClosePopup, useSetPopup } from "../components/popup/GlobalPopup";
 import { PopupAction } from "../components/popup/PopupAction";
 import { PopupComponent } from "../components/popup/PopupComponent";
@@ -133,7 +133,7 @@ function GoToWalletAction({ txId }: { txId: string }) {
   const shouldShowBackupOverlay = useSettingsStore(
     (state) => state.shouldShowBackupOverlay,
   );
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
 
   const goToWallet = () => {
     closePopup();
@@ -164,7 +164,7 @@ function CloseAction() {
   const shouldShowBackupOverlay = useSettingsStore(
     (state) => state.shouldShowBackupOverlay,
   );
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
 
   return (
     <PopupAction

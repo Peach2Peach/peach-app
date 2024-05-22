@@ -2,7 +2,7 @@ import messaging, {
   FirebaseMessagingTypes,
 } from "@react-native-firebase/messaging";
 import { useCallback, useEffect } from "react";
-import { useSetOverlay } from "../Overlay";
+import { useSetGlobalOverlay } from "../Overlay";
 import { useStackNavigation } from "../hooks/useStackNavigation";
 import { error } from "../utils/log/error";
 import { info } from "../utils/log/info";
@@ -22,7 +22,7 @@ const dataIsDefined = (
 
 export const useInitialNavigation = () => {
   const navigation = useStackNavigation();
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
 
   const handleOverlays = useCallback(
     (

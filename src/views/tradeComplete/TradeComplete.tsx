@@ -3,16 +3,13 @@ import { useState } from "react";
 import { TouchableOpacity, View, ViewStyle } from "react-native";
 import { shallow } from "zustand/shallow";
 import { Contract } from "../../../peach-api/src/@types/contract";
-import { useSetOverlay } from "../../Overlay";
+import { useSetGlobalOverlay } from "../../Overlay";
 import { IconType } from "../../assets/icons";
 import { Icon } from "../../components/Icon";
 import { Button } from "../../components/buttons/Button";
-import { useSetPopup } from "../../components/popup/GlobalPopup";
+import { GlobalPopup, useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
-import {
-  contractKeys,
-  useContractDetail,
-} from "../../hooks/query/useContractDetail";
+import { contractKeys } from "../../hooks/query/useContractDetail";
 import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { TradeBreakdownPopup } from "../../popups/TradeBreakdownPopup";
 import { useSettingsStore } from "../../store/settingsStore/useSettingsStore";
@@ -22,17 +19,9 @@ import { createUserRating } from "../../utils/contract/createUserRating";
 import { getContractViewer } from "../../utils/contract/getContractViewer";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
-import { LoadingScreen } from "../loading/LoadingScreen";
 import { BackupTime } from "../overlays/BackupTime";
 
-export const TradeComplete = ({ contractId }: { contractId: string }) => {
-  const { contract } = useContractDetail(contractId);
-  if (!contract) return <LoadingScreen />;
-
-  return <TradeCompleteView contract={contract} />;
-};
-
-function TradeCompleteView({ contract }: { contract: Contract }) {
+export function TradeComplete({ contract }: { contract: Contract }) {
   const [vote, setVote] = useState<"positive" | "negative">();
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const view = getContractViewer(contract.seller.id, publicKey);
@@ -121,6 +110,7 @@ function Rate({ contract, view, vote }: RateProps) {
 
   return (
     <View style={tw`self-center gap-3`}>
+      <GlobalPopup />
       <Button
         onPress={() => rateUser()}
         style={tw`bg-primary-background-light`}
@@ -153,9 +143,26 @@ function useRateUser({ contract, view, vote }: RateProps) {
       ],
       shallow,
     );
-  const setOverlayContent = useSetOverlay();
+  const setOverlayContent = useSetGlobalOverlay();
 
   return useMutation({
+    onMutate: async () => {
+      await queryClient.cancelQueries({
+        queryKey: contractKeys.detail(contract.id),
+      });
+      const previousData = queryClient.getQueryData<Contract>(
+        contractKeys.detail(contract.id),
+      );
+      queryClient.setQueryData<Contract>(
+        contractKeys.detail(contract.id),
+        (old) => {
+          if (!old) return old;
+          return { ...old, tradeStatus: "tradeCompleted" };
+        },
+      );
+
+      return { previousData };
+    },
     mutationFn: async () => {
       if (!vote) throw new Error("No rating provided");
 
@@ -172,17 +179,14 @@ function useRateUser({ contract, view, vote }: RateProps) {
 
       if (err) throw new Error(err.error);
     },
-    onError: (error) => {
+    onError: (error, _vars, context) => {
       showError(error.message);
+      queryClient.setQueryData(
+        contractKeys.detail(contract.id),
+        context?.previousData,
+      );
     },
-    onSuccess: async () => {
-      await Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: contractKeys.detail(contract.id),
-        }),
-        queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
-      ]);
-
+    onSuccess: () => {
       if (shouldShowBackupOverlay && isPeachWalletActive && view === "buyer") {
         setShowBackupReminder(true);
         setOverlayContent(
@@ -194,6 +198,14 @@ function useRateUser({ contract, view, vote }: RateProps) {
         );
       }
       setOverlayContent(undefined);
+    },
+    onSettled: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: contractKeys.detail(contract.id),
+        }),
+        queryClient.invalidateQueries({ queryKey: contractKeys.summaries() }),
+      ]);
     },
   });
 }

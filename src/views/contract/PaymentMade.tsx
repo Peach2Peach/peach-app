@@ -1,4 +1,4 @@
-import { useSetOverlay } from "../../Overlay";
+import { useSetGlobalOverlay } from "../../Overlay";
 import { OverlayComponent } from "../../components/OverlayComponent";
 import { Button } from "../../components/buttons/Button";
 import { useStackNavigation } from "../../hooks/useStackNavigation";
@@ -7,7 +7,7 @@ import i18n from "../../utils/i18n";
 
 export const PaymentMade = ({ contractId }: { contractId: string }) => {
   const navigation = useStackNavigation();
-  const setOverlay = useSetOverlay();
+  const setOverlay = useSetGlobalOverlay();
 
   const close = () => setOverlay(undefined);
 

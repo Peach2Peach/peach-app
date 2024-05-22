@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { sortSummariesByDate } from "../../utils/contract/sortSummariesByDate";
 import { getPastOffers } from "../../views/yourTrades/utils/getPastOffers";
-import { isOpenOffer } from "../../views/yourTrades/utils/isOpenOffer";
+import { isPastOffer } from "../../views/yourTrades/utils/isPastOffer";
 import { useContractSummaries } from "./useContractSummaries";
 import { useOfferSummaries } from "./useOfferSummaries";
 
@@ -34,7 +34,7 @@ export const useTradeSummaries = (enabled = true) => {
   );
 
   const allOpenOffers = useMemo(
-    () => tradeSummaries.filter(({ tradeStatus }) => isOpenOffer(tradeStatus)),
+    () => tradeSummaries.filter(({ tradeStatus }) => !isPastOffer(tradeStatus)),
     [tradeSummaries],
   );
   const summaries = useMemo(
