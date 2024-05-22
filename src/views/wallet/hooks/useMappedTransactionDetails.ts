@@ -16,8 +16,7 @@ export const useMappedTransactionDetails = ({ localTx }: Props) =>
       if (!localTx?.transaction) throw new Error("Transaction not found");
 
       const serialized = await localTx.transaction.serialize();
-      const transaction = Transaction.fromBuffer(Buffer.from(serialized));
-      return transaction;
+      return Transaction.fromBuffer(Buffer.from(serialized));
     },
     enabled: !!localTx?.transaction,
   });
