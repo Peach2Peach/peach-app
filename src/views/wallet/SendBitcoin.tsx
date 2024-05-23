@@ -21,13 +21,13 @@ import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { rules } from "../../utils/validation/rules";
 import { peachWallet } from "../../utils/wallet/setWallet";
-import { useWalletState } from "../../utils/wallet/walletStore";
 import { goToShiftCrypto } from "../../utils/web/goToShiftCrypto";
 import { CustomFeeItem } from "../settings/components/networkFees/CustomFeeItem";
 import { EstimatedFeeItem } from "../settings/components/networkFees/EstimatedFeeItem";
 import { UTXOAddress } from "./components";
 import { WithdrawalConfirmationPopup } from "./components/WithdrawalConfirmationPopup";
 import { useUTXOs } from "./hooks";
+import { useSyncWallet } from "./hooks/useSyncWallet";
 
 export const SendBitcoin = () => {
   const [address, setAddress] = useState("");
@@ -137,13 +137,13 @@ function SendBitcoinSlider({
   onConfirm: () => void;
   isFormValid: boolean;
 }) {
-  const isSynced = useWalletState((state) => state.isSynced);
+  const { isPending } = useSyncWallet({ enabled: true });
 
   return (
     <ConfirmSlider
       label1={i18n("wallet.sendBitcoin.send")}
       onConfirm={onConfirm}
-      enabled={isFormValid && isSynced}
+      enabled={isFormValid && !isPending}
     />
   );
 }

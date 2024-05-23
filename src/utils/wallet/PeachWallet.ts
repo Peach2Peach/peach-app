@@ -147,7 +147,6 @@ export class PeachWallet extends PeachJSWallet {
           return reject(new Error("WALLET_NOT_READY"));
 
         info("PeachWallet - syncWallet - start");
-        useWalletState.getState().setIsSynced(false);
 
         try {
           const success = await this.wallet.sync(this.blockchain);
@@ -174,7 +173,6 @@ export class PeachWallet extends PeachJSWallet {
               .forEach(labelAddressByTransaction);
 
             this.lastUnusedAddress = undefined;
-            useWalletState.getState().setIsSynced(true);
             info("PeachWallet - syncWallet - synced");
           }
 
