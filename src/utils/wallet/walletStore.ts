@@ -17,7 +17,6 @@ export type WalletState = {
   fundMultipleMap: { [address: string]: string[] | undefined };
   showBalance: boolean;
   selectedUTXOIds: string[];
-  isSynced: boolean;
 };
 
 export type FundMultipleInfo = {
@@ -42,7 +41,6 @@ export type WalletStore = WalletState & {
   getFundMultipleByOfferId: (offerId: string) => FundMultipleInfo | undefined;
   toggleShowBalance: () => void;
   setSelectedUTXOIds: (utxos: string[]) => void;
-  setIsSynced: (isSynced: boolean) => void;
 };
 
 export const defaultWalletState: WalletState = {
@@ -55,7 +53,6 @@ export const defaultWalletState: WalletState = {
   fundMultipleMap: {},
   showBalance: true,
   selectedUTXOIds: [],
-  isSynced: false,
 };
 export const walletStorage = createStorage("wallet");
 const storage = createPersistStorage(walletStorage);
@@ -117,17 +114,12 @@ export const useWalletState = create<WalletStore>()(
       toggleShowBalance: () =>
         set((state) => ({ showBalance: !state.showBalance })),
       setSelectedUTXOIds: (utxos) => set({ selectedUTXOIds: utxos }),
-      setIsSynced: (isSynced) => set({ isSynced }),
     }),
     {
       name: "wallet",
       version: 2,
       storage,
       migrate: migrateWalletStore,
-      partialize: (state) => {
-        const { isSynced: _unused, ...rest } = state;
-        return rest;
-      },
     },
   ),
 );

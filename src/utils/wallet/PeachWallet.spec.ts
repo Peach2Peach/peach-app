@@ -71,13 +71,11 @@ describe("PeachWallet", () => {
     peachWallet = new PeachWallet({ wallet });
 
     expect(peachWallet.initialized).toBeFalsy();
-    expect(useWalletState.getState().isSynced).toBeFalsy();
   });
   it("instantiates for mainnet", () => {
     peachWallet = new PeachWallet({ wallet, network: "bitcoin" });
 
     expect(peachWallet.initialized).toBeFalsy();
-    expect(useWalletState.getState().isSynced).toBeFalsy();
   });
   it("synchronises wallet with the blockchain", async () => {
     walletSyncMock.mockResolvedValueOnce(true);
@@ -87,9 +85,7 @@ describe("PeachWallet", () => {
       address: "addres",
       keychain: KeychainKind.External,
     };
-    expect(useWalletState.getState().isSynced).toBeFalsy();
     await peachWallet.syncWallet();
-    expect(useWalletState.getState().isSynced).toBeTruthy();
     expect(walletSyncMock).toHaveBeenCalled();
     expect(peachWallet.lastUnusedAddress).toBeUndefined();
   });
@@ -98,7 +94,6 @@ describe("PeachWallet", () => {
       throw new Error("error");
     });
 
-    expect(useWalletState.getState().isSynced).toBeFalsy();
     const error = await getError<Error>(() => peachWallet.syncWallet());
     expect(error.message).toBe("error");
   });
