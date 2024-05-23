@@ -34,6 +34,7 @@ exports[`ReferralCode should render component correctly 1`] = `
       style={
         {
           "flexDirection": "row",
+          "gap": 4,
           "justifyContent": "center",
         }
       }
@@ -54,7 +55,6 @@ exports[`ReferralCode should render component correctly 1`] = `
               "fontSize": 34,
               "letterSpacing": 0.34,
               "lineHeight": 42,
-              "marginRight": 4,
               "textAlign": "center",
             },
             false,
