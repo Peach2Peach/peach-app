@@ -8,10 +8,9 @@ import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { peachAPI } from "../../utils/peachAPI";
-import {
-  NUMBER_OF_FREE_TRADES,
-  POINTS_PER_FREE_TRADE,
-} from "../../views/referrals/constants";
+
+const POINTS_PER_FREE_TRADE = 200;
+const NUMBER_OF_FREE_TRADES = 2;
 
 export function useRedeemNoPeachFees() {
   const queryClient = useQueryClient();
@@ -36,9 +35,7 @@ export function useRedeemNoPeachFees() {
     },
     mutationFn: async () => {
       const { error } = await peachAPI.private.user.redeemNoPeachFees();
-      if (error) {
-        throw new Error(error.error);
-      }
+      if (error) throw new Error(error.error);
     },
     onSuccess: () => {
       setPopup(

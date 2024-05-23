@@ -1,13 +1,11 @@
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { View } from "react-native";
 import { Header } from "../../components/Header";
 import { PeachScrollView } from "../../components/PeachScrollView";
 import { Screen } from "../../components/Screen";
 import { Button } from "../../components/buttons/Button";
-import {
-  RadioButtonItem,
-  RadioButtons,
-} from "../../components/inputs/RadioButtons";
+import { RadioButtons } from "../../components/inputs/RadioButtons";
 import { useSetPopup } from "../../components/popup/GlobalPopup";
 import { PeachText } from "../../components/text/PeachText";
 import { Progress } from "../../components/ui/Progress";
@@ -18,10 +16,9 @@ import { RedeemNoPeachFeesPopup } from "../../popups/referral/RedeemNoPeachFeesP
 import tw from "../../styles/tailwind";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
+import { peachAPI } from "../../utils/peachAPI";
+import { systemKeys } from "../addPaymentMethod/usePaymentMethodInfo";
 import { ReferralCode } from "./components/ReferralCode";
-import { REWARDINFO } from "./constants";
-import { isRewardAvailable } from "./helpers/isRewardAvailable";
-import { mapRewardsToRadioButtonItems } from "./helpers/mapRewardsToRadioButtonItems";
 
 export const Referrals = () => (
   <Screen header={<ReferralsHeader />}>
@@ -66,20 +63,42 @@ function ReferralsPopup() {
 function ReferralRewards() {
   const { user } = useSelfUser();
   const balance = user?.bonusPoints || 0;
-
-  const availableRewards = REWARDINFO.filter((reward) =>
-    isRewardAvailable(reward, balance),
-  ).length;
+  const { data: REWARDINFO } = useReferralRewardsInfo();
   const [selectedReward, setSelectedReward] = useState<RewardType>();
+  if (!REWARDINFO) return null;
 
-  const rewards: RadioButtonItem<RewardType>[] =
-    mapRewardsToRadioButtonItems(balance);
+  const hasSufficientBalance =
+    balance >= Math.min(REWARDINFO.REFERRALCODE, REWARDINFO.FREETRADES);
+
+  const createReward = (
+    id: RewardType,
+    requiredPoints: number,
+    disabled: boolean,
+  ) => ({
+    value: id,
+    disabled,
+    display: <RewardItem reward={{ id, requiredPoints }} />,
+  });
+
+  const rewards = [
+    createReward(
+      "customReferralCode",
+      REWARDINFO.REFERRALCODE,
+      balance < REWARDINFO.REFERRALCODE,
+    ),
+    createReward(
+      "noPeachFees",
+      REWARDINFO.FREETRADES,
+      balance < REWARDINFO.FREETRADES,
+    ),
+    createReward("sats", REWARDINFO.SATS, true),
+  ];
 
   return (
     <>
       <PeachText style={tw`text-center`}>
         {i18n(
-          availableRewards
+          hasSufficientBalance
             ? "referrals.selectReward"
             : "referrals.continueSaving",
         )}
@@ -91,6 +110,17 @@ function ReferralRewards() {
       />
       <RedeemButton selectedReward={selectedReward} />
     </>
+  );
+}
+
+function RewardItem({ reward }: { reward: Reward }) {
+  return (
+    <View style={tw`flex-row items-center justify-between py-1`}>
+      <PeachText style={tw`subtitle-1`}>
+        {i18n(`referrals.reward.${reward.id}`)}
+      </PeachText>
+      <PeachText style={tw`text-black-65`}>({reward.requiredPoints})</PeachText>
+    </View>
   );
 }
 
@@ -141,4 +171,18 @@ function BonusPointsBar() {
       </PeachText>
     </View>
   );
+}
+
+function useReferralRewardsInfo() {
+  return useQuery({
+    queryKey: systemKeys.referralRewards(),
+    queryFn: async () => {
+      const { result, error } =
+        await peachAPI.public.system.getReferralRewardsInfo();
+      if (error) {
+        throw error;
+      }
+      return result;
+    },
+  });
 }
