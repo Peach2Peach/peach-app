@@ -175,7 +175,7 @@
   "search.popups.offerTaken.title" : "Angebot ist weg...",
   "search.popups.unmatch.confirm" : "Ja, unmatchen",
   "search.popups.unmatch.neverMind" : "Lieber nicht",
-  "search.popups.unmatch.text" : "Ein Unmatchen wird sich negativ auf deinen Ruf auswirken.\nNach 48 Stunden kannst du ohne negative Auswirkung unmatchen.",
+  "search.popups.unmatch.text" : "Ein Unmatchen wird sich negativ auf deinen Ruf auswirken.\nNach 12 Stunden kannst du ohne negative Auswirkung unmatchen.",
   "search.popups.unmatch.title" : "Unmatchen?",
   "search.popups.unmatched" : "Unmatcht!",
   "search.searchingForAPeer" : "Peach sucht nach einem Peer",
