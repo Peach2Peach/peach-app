@@ -11,7 +11,6 @@ describe("walletStore", () => {
   it("returns defaults", () => {
     expect(useWalletState.getState()).toEqual({
       ...useWalletState.getState(),
-      addresses: [],
       balance: 0,
       transactions: [],
       txOfferMap: {},

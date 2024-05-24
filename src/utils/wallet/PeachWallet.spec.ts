@@ -72,11 +72,6 @@ describe("PeachWallet", () => {
 
     expect(peachWallet.initialized).toBeFalsy();
   });
-  it("instantiates for mainnet", () => {
-    peachWallet = new PeachWallet({ wallet, network: "bitcoin" });
-
-    expect(peachWallet.initialized).toBeFalsy();
-  });
   it("synchronises wallet with the blockchain", async () => {
     walletSyncMock.mockResolvedValueOnce(true);
 

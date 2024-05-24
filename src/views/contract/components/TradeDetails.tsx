@@ -89,11 +89,7 @@ function ChangePayoutWallet() {
       const { address: releaseAddress, index } = await peachWallet.getAddress();
 
       const message = getMessageToSignForAddress(publicKey, releaseAddress);
-      const messageSignature = peachWallet.signMessage(
-        message,
-        releaseAddress,
-        index,
-      );
+      const messageSignature = peachWallet.signMessage(message, index);
 
       mutate({ releaseAddress, messageSignature });
     } else {
