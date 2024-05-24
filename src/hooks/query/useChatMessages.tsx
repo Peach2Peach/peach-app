@@ -11,9 +11,11 @@ export const PAGE_SIZE = 22;
 export const useChatMessages = ({
   contractId,
   symmetricKey,
+  isLoadingSymmetricKey,
 }: {
   contractId: string;
   symmetricKey?: string;
+  isLoadingSymmetricKey: boolean;
 }) => {
   const isFocused = useIsFocused();
   const {
@@ -27,28 +29,33 @@ export const useChatMessages = ({
   } = useInfiniteQuery({
     queryKey: contractKeys.chat(contractId),
     queryFn: async ({ queryKey, pageParam }) => {
-      if (!symmetricKey) throw new Error("No symmetric key");
       const encryptedMessages = await getChatQuery({ queryKey, pageParam });
+      if (!symmetricKey) {
+        return encryptedMessages.map((message) => ({
+          ...message,
+          decrypted: false,
+        }));
+      }
 
       const decryptedMessages = await Promise.all(
         encryptedMessages.map(async (message) => {
           try {
-            const decrypted = await decryptSymmetric(
+            const decryptedMessage = await decryptSymmetric(
               message.message,
               symmetricKey,
             );
             if (message.from === "system") {
-              const [textId, ...args] = decrypted.split("::");
+              const [textId, ...args] = decryptedMessage.split("::");
               return {
                 ...message,
                 message: i18n(textId, ...args),
-                decrypted: !!decrypted,
+                decrypted: !!decryptedMessage,
               };
             }
             return {
               ...message,
-              message: decrypted,
-              decrypted: !!decrypted,
+              message: decryptedMessage,
+              decrypted: !!decryptedMessage,
             };
           } catch (e) {
             return {
@@ -62,7 +69,7 @@ export const useChatMessages = ({
       return decryptedMessages;
     },
     placeholderData: keepPreviousData,
-    enabled: !!symmetricKey && isFocused,
+    enabled: isFocused && !isLoadingSymmetricKey,
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) =>
       lastPage.length === PAGE_SIZE ? allPages.length : null,
@@ -87,17 +94,15 @@ type GetChatQueryProps = {
   pageParam: number;
 };
 async function getChatQuery({ queryKey, pageParam }: GetChatQueryProps) {
-  const contractId = queryKey[2];
   const { result, error } = await peachAPI.private.contract.getChat({
-    contractId,
+    contractId: queryKey[2],
     page: pageParam,
   });
-  const messages = result?.map((message) => ({
+
+  if (!result || error) throw new Error(error?.error);
+
+  return result.map((message) => ({
     ...message,
     date: new Date(message.date),
   }));
-
-  if (!messages || error) throw new Error(error?.error);
-
-  return messages;
 }

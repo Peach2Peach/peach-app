@@ -14,7 +14,6 @@ import {
   useContractDetail,
 } from "../../hooks/query/useContractDetail";
 import { useRoute } from "../../hooks/useRoute";
-import { useShowErrorBanner } from "../../hooks/useShowErrorBanner";
 import { OpenDisputePopup } from "../../popups/dispute/OpenDisputePopup";
 import tw from "../../styles/tailwind";
 import { useAccountStore } from "../../utils/account/account";
@@ -26,7 +25,6 @@ import { contractIdToHex } from "../../utils/contract/contractIdToHex";
 import i18n from "../../utils/i18n";
 import { headerIcons } from "../../utils/layout/headerIcons";
 import { error } from "../../utils/log/error";
-import { parseError } from "../../utils/parseError";
 import { useWebsocketContext } from "../../utils/peachAPI/websocket";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { signAndEncryptSymmetric } from "../../utils/pgp/signAndEncryptSymmetric";
@@ -43,21 +41,15 @@ export const ContractChat = () => {
 
 function ChatScreen({ contract }: { contract: Contract }) {
   const queryClient = useQueryClient();
-  const { data: decryptedData } = useDecryptedContractData(contract);
+  const { data: decryptedData, isPending } = useDecryptedContractData(contract);
   const { contractId } = useRoute<"contractChat">().params;
 
   const { connected, send, off, on } = useWebsocketContext();
-  const {
-    messages,
-    isFetching,
-    error: messagesError,
-    page,
-    fetchNextPage,
-  } = useChatMessages({
+  const { messages, isFetching, page, fetchNextPage } = useChatMessages({
     contractId,
     symmetricKey: decryptedData?.symmetricKey,
+    isLoadingSymmetricKey: isPending,
   });
-  const showError = useShowErrorBanner();
   const publicKey = useAccountStore((state) => state.account.publicKey);
   const tradingPartner = contract
     ? publicKey === contract.seller.id
@@ -243,10 +235,6 @@ function ChatScreen({ contract }: { contract: Contract }) {
   useEffect(() => {
     if (messages) setAndSaveChat(contractId, { messages });
   }, [contractId, messages, setAndSaveChat]);
-
-  useEffect(() => {
-    if (messagesError) showError(parseError(messagesError));
-  }, [messagesError, showError]);
 
   return (
     <Screen

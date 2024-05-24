@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { contractKeys } from "../../hooks/query/useContractDetail";
-import { error } from "../../utils/log/error";
 import { decrypt } from "../../utils/pgp/decrypt";
 import { decryptSymmetric } from "../../utils/pgp/decryptSymmetric";
 import { decryptSymmetricKey } from "../contract/helpers/decryptSymmetricKey";
@@ -54,7 +53,7 @@ async function decryptPaymentData(
   symmetricKey: string | null,
 ) {
   if (!paymentDataEncrypted || !paymentDataSignature) {
-    return logAndThrow(new Error("MISSING_PAYMENT_DATA_SECRETS"));
+    throw new Error("MISSING_PAYMENT_DATA_SECRETS");
   }
 
   const verifySignature = (decryptedString: string) =>
@@ -68,20 +67,18 @@ async function decryptPaymentData(
     try {
       const decryptedPaymentDataString = await decrypt(paymentDataEncrypted);
       if (!(await verifySignature(decryptedPaymentDataString))) {
-        return logAndThrow(new Error("PAYMENT_DATA_SIGNATURE_INVALID"));
+        throw new Error("PAYMENT_DATA_SIGNATURE_INVALID");
       }
       const decryptedPaymentData = JSON.parse(
         decryptedPaymentDataString,
       ) as PaymentData;
       return decryptedPaymentData;
     } catch (e) {
-      return logAndThrow(
-        new Error("ASYMMETRIC_PAYMENT_DATA_ENCRYPTION_FAILED"),
-      );
+      throw new Error("ASYMMETRIC_PAYMENT_DATA_ENCRYPTION_FAILED");
     }
   }
   if (!symmetricKey) {
-    return logAndThrow(new Error("MISSING_SYMMETRIC_KEY"));
+    throw new Error("MISSING_SYMMETRIC_KEY");
   }
 
   try {
@@ -90,18 +87,13 @@ async function decryptPaymentData(
       symmetricKey,
     );
     if (!(await verifySignature(decryptedPaymentDataString))) {
-      return logAndThrow(new Error("PAYMENT_DATA_SIGNATURE_INVALID"));
+      throw new Error("PAYMENT_DATA_SIGNATURE_INVALID");
     }
     const decryptedPaymentData = JSON.parse(
       decryptedPaymentDataString,
     ) as PaymentData;
     return decryptedPaymentData;
   } catch (e) {
-    return logAndThrow(new Error("SYMMETRIC_PAYMENT_DATA_ENCRYPTION_FAILED"));
+    throw new Error("SYMMETRIC_PAYMENT_DATA_ENCRYPTION_FAILED");
   }
-}
-
-function logAndThrow(err: Error) {
-  error(err);
-  throw err;
 }
