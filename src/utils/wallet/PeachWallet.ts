@@ -21,7 +21,6 @@ import { waitForHydration } from "../../store/waitForHydration";
 import { error } from "../log/error";
 import { info } from "../log/info";
 import { parseError } from "../parseError";
-import { isIOS } from "../system/isIOS";
 import { callWhenInternet } from "../web/callWhenInternet";
 import { buildBlockchainConfig } from "./buildBlockchainConfig";
 import { handleTransactionError } from "./error/handleTransactionError";
@@ -33,10 +32,6 @@ import { NodeConfig, useNodeConfigState } from "./nodeConfigStore";
 import { BuildTxParams, buildTransaction } from "./transaction";
 import { transactionHasBeenMappedToOffers } from "./transactionHasBeenMappedToOffers";
 import { useWalletState } from "./walletStore";
-
-type PeachWalletProps = {
-  wallet: BIP32Interface;
-};
 
 export class PeachWallet {
   initialized: boolean;
@@ -61,7 +56,7 @@ export class PeachWallet {
 
   jsWallet: BIP32Interface;
 
-  constructor({ wallet }: PeachWalletProps) {
+  constructor({ wallet }: { wallet: BIP32Interface }) {
     this.jsWallet = wallet;
     this.balance = 0;
     this.transactions = [];
@@ -286,7 +281,6 @@ function getDBConfig(
   network: Network,
   nodeType: BlockChainNames = BlockChainNames.Electrum,
 ) {
-  if (isIOS()) return new DatabaseConfig().memory();
   const dbName = `peach-${network}${nodeType}`;
   const directory = `${RNFS.DocumentDirectoryPath}/${dbName}`;
   return new DatabaseConfig().sqlite(directory);
