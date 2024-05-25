@@ -180,11 +180,7 @@ function OfferWalletSelector({
     const { address: peachWalletAddress, index } =
       await peachWallet.getAddress();
     const message = getMessageToSignForAddress(publicKey, peachWalletAddress);
-    const signature = peachWallet.signMessage(
-      message,
-      peachWalletAddress,
-      index,
-    );
+    const signature = peachWallet.signMessage(message, index);
     patchPayoutAddress(
       { releaseAddress: peachWalletAddress, messageSignature: signature },
       { onSuccess: () => setPayoutToPeachWallet(true) },

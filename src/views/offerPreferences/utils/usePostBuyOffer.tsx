@@ -52,24 +52,37 @@ export function usePostBuyOffer({
       shallow,
     );
 
+  const getSignedAddress = async (signWithPeachWallet: boolean) => {
+    if (!peachWallet) throw new Error("Peach wallet not defined");
+    if (signWithPeachWallet) {
+      const { address, index } = await peachWallet.getAddress();
+      const message = getMessageToSignForAddress(publicKey, address);
+      return {
+        address,
+        message,
+        signature: peachWallet.signMessage(message, index),
+      };
+    }
+    if (!payoutAddress) throw new Error("MISSING_RELEASE_ADDRESS");
+    const message = getMessageToSignForAddress(publicKey, payoutAddress);
+    return {
+      address: payoutAddress,
+      message,
+      signature: payoutAddressSignature,
+    };
+  };
+
   return useMutation({
     mutationFn: async () => {
-      if (!peachWallet) throw new Error("Peach wallet not defined");
-      const { address: releaseAddress, index } = payoutToPeachWallet
-        ? await peachWallet.getAddress()
-        : { address: payoutAddress, index: undefined };
-      if (!releaseAddress) throw new Error("MISSING_RELEASE_ADDRESS");
-      const message = getMessageToSignForAddress(publicKey, releaseAddress);
-      const messageSignature = payoutToPeachWallet
-        ? peachWallet.signMessage(message, releaseAddress, index)
-        : payoutAddressSignature;
+      const { message, signature, address } =
+        await getSignedAddress(payoutToPeachWallet);
 
       if (
-        !messageSignature ||
+        !signature ||
         !isValidBitcoinSignature({
           message,
-          address: releaseAddress,
-          signature: messageSignature,
+          address,
+          signature,
           network: getNetwork(),
         })
       ) {
@@ -82,9 +95,9 @@ export function usePostBuyOffer({
         paymentData,
         maxPremium,
         minReputation,
-        releaseAddress,
+        releaseAddress: address,
         message,
-        messageSignature,
+        messageSignature: signature,
       };
 
       const { result, error: err } =

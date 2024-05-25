@@ -9,7 +9,6 @@ import { migrateWalletStore } from "./migration/migrateWalletStore";
 
 export type WalletState = {
   balance: number;
-  addresses: string[];
   transactions: TransactionDetails[];
   fundedFromPeachWallet: string[];
   txOfferMap: { [offerId: string]: string[] | undefined };
@@ -26,7 +25,6 @@ export type FundMultipleInfo = {
 
 export type WalletStore = WalletState & {
   reset: () => void;
-  setAddresses: (addresses: string[]) => void;
   setBalance: (balance: number) => void;
   setTransactions: (txs: TransactionDetails[]) => void;
   addTransaction: (transaction: TransactionDetails) => void;
@@ -44,7 +42,6 @@ export type WalletStore = WalletState & {
 };
 
 export const defaultWalletState: WalletState = {
-  addresses: [],
   balance: 0,
   transactions: [],
   fundedFromPeachWallet: [],
@@ -62,7 +59,6 @@ export const useWalletState = create<WalletStore>()(
     (set, get) => ({
       ...defaultWalletState,
       reset: () => set(() => defaultWalletState),
-      setAddresses: (addresses) => set({ addresses }),
       setBalance: (balance) => set({ balance }),
       setTransactions: (transactions) => set({ transactions }),
       addTransaction: (transaction) =>
