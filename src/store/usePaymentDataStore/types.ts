@@ -1,5 +1,5 @@
 export const PaymentDataInfoFields: PaymentDataField[] = [
-  "userName", // DUPLICATION of peach-api/src/@types/payment.ts PaymentDataField . We should find a way to adapt the type to an array.
+  "userName",
   "email",
   "phone",
   "reference",

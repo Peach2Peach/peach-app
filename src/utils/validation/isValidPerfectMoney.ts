@@ -1,3 +1,2 @@
-export const isValidPerfectMoney = (accountNumber: string): boolean =>
-  // Regular expression to match the specified account format: "U", "E", or "G" followed by 8 digits
+export const isValidPerfectMoney = (accountNumber: string) =>
   /^[UEG]\d{8}$/u.test(accountNumber);

@@ -1,7 +1,7 @@
-import { uniqueArray } from "./utils/array/uniqueArray";
-import { isCashTrade } from "./utils/paymentMethod/isCashTrade";
 import { Currency } from "../peach-api/src/@types/global";
 import { PaymentMethod } from "../peach-api/src/@types/payment";
+import { uniqueArray } from "./utils/array/uniqueArray";
+import { isCashTrade } from "./utils/paymentMethod/isCashTrade";
 
 export let CURRENCIES: Currency[] = [
   "SAT",
@@ -44,7 +44,6 @@ export let CURRENCIES: Currency[] = [
   "NIO",
   "PAB",
   "VES",
-  "VEF",
   "UYU",
   "PYG",
   "TZS",

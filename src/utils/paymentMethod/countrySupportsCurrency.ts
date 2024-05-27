@@ -40,7 +40,6 @@ const map: Record<Currency, PaymentMethodCountry[]> = {
   NIO: [],
   PAB: [],
   VES: [],
-  VEF: [],
   UYU: [],
   PYG: [],
   TZS: [],

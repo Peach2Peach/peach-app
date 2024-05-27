@@ -131,7 +131,6 @@ type Currency =
   | "XAF"
   | "MGA"
   | "GNF"
-  | "VEF"
   | "PAB"
   | "HNL"
   | "DOP"

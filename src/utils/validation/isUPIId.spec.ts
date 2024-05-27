@@ -8,11 +8,11 @@ describe("isUPI", () => {
   });
 
   it("should return false for an invalid UPI ID", () => {
-    expect(isUPIId("justuser")).toBe(false); // Missing '@' and bank code
-    expect(isUPIId("user@")).toBe(false); // Missing bank code
-    expect(isUPIId("@bank")).toBe(false); // Missing user ID
-    expect(isUPIId("user@bank@something")).toBe(false); // Multiple '@' symbols
-    expect(isUPIId("user name@bank")).toBe(false); // Space in user ID
+    expect(isUPIId("justuser")).toBe(false);
+    expect(isUPIId("user@")).toBe(false);
+    expect(isUPIId("@bank")).toBe(false);
+    expect(isUPIId("user@bank@something")).toBe(false);
+    expect(isUPIId("user name@bank")).toBe(false);
   });
 
   it("should return false for an empty string", () => {

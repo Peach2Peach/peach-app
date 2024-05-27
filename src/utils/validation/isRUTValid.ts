@@ -3,18 +3,15 @@ export function isRUTValid(rut: string) {
   const rutMagic = 7;
   const rutTen = 10;
 
-  // Step 1: Validate input format
   if (!rut || !/^(\d{1,3}(\.?\d{3})*)-\w$/u.test(rut)) {
     return false;
   }
 
-  // Step 2: Clean and split the RUT
   const [body, checkDigitInitial] = rut.replace(/\./gu, "").split("-");
-  let checkDigit = checkDigitInitial; // You can then normalize checkDigit as needed
+  let checkDigit = checkDigitInitial;
 
-  if (checkDigit === "k") checkDigit = "K"; // Normalize to uppercase if needed
+  if (checkDigit === "k") checkDigit = "K";
 
-  // Step 3: Calculate expected check digit
   let sum = 0;
   let multiplier = 2;
   for (let i = body.length - 1; i >= 0; i--) {
@@ -31,6 +28,5 @@ export function isRUTValid(rut: string) {
     expectedDigit = computedDigit.toString();
   }
 
-  // Step 4: Compare and return
   return expectedDigit === checkDigit;
 }

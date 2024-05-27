@@ -54,7 +54,6 @@ export const getMessages = () => ({
     "form.mobileNetwork.error",
     getValidMobileNetworks().toString(),
   ),
-  // mobileNetwork: i18n("form.mobileNetwork.error", { networks: getValidMobileNetworks().toString() }),
   payeerNumber: i18n("form.payeerNumber.error"),
   perfectMoney: i18n("form.perfectMoney.error"),
 });
