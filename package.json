@@ -1,6 +1,6 @@
 {
   "name": "peach",
-  "version": "0.5.0",
+  "version": "0.4.5",
   "description": "Peach Application",
   "author": "Peach2Peach",
   "private": true,
@@ -29,7 +29,6 @@
     "build:ios:testnet": "./devUtils/buildIOSTestnet.sh",
     "build:ios:mainnet": "./devUtils/buildIOSMainnet.sh",
     "bump:version": "react-native-version --never-amend",
-    "version:minor": "npm version minor && npm i && npm run podinstall && ./devUtils/buildAndroidMainnet.sh && ./devUtils/bundleAndroidMainnet.sh && ./devUtils/prepareRelease.sh",
     "version:patch": "npm version patch && npm i && npm run podinstall && ./devUtils/buildAndroidMainnet.sh && ./devUtils/bundleAndroidMainnet.sh && ./devUtils/prepareRelease.sh",
     "version:hotfix": "npm run bump:version && npm i && npm run podinstall && ./devUtils/buildAndroidMainnet.sh && ./devUtils/bundleAndroidMainnet.sh && ./devUtils/prepareRelease.sh",
     "postversion": "react-native-version",
