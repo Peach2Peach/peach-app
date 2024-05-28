@@ -185,9 +185,5 @@
     "_stream_duplex": "readable-stream/duplex",
     "_stream_passthrough": "readable-stream/passthrough",
     "stream": "stream-browserify"
-  },
-  "reactNativePermissionsIOS": [
-    "Camera",
-    "Notifications"
-  ]
+  }
 }
