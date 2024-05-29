@@ -27,7 +27,7 @@ const NATIONALOPTIONS: NationalOptions = {
     FR: ["paylib", "lydia", "satispay"],
     DE: ["satispay"],
     GR: ["iris"],
-    NL: ["tikkie"],
+    NL: ["tikkie", "twyp"],
     UA: ["privat24"],
   },
   LATAM: {

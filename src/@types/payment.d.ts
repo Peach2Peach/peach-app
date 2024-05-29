@@ -63,7 +63,7 @@ type LatAmPaymentMethods =
   | "boleto"
   | "stp"
   | "spei"
-  | "daviplata"
+  | "daviPlata"
   | "tigoHonduras"
   | "tigoBolivia"
   | "tigoSalvador"
@@ -99,7 +99,7 @@ type AfricaPaymentMethods =
   | "flutterwave"
   | "vodafoneCash"
   | "djamo"
-  | "apaym"
+  | "aPaym"
   | "tigoPesa"
   | "westernUnion"
   | "equityBank"
@@ -119,7 +119,7 @@ type AsiaPaymentMethods =
   | "bankera"
   | "trFast"
   | "papara"
-  | "nationalTransferTR"
+  | "nationalTransferTR";
 
 type BitcoinPaymentMethods = "liquid" | "lnurl";
 type InternationalPaymentMethds =
@@ -127,8 +127,9 @@ type InternationalPaymentMethds =
   | "perfectMoney"
   | "payeer"
   | "paysend"
-  | "giftCard.steam"
+  // | "giftCard.steam"
   | `giftCard.amazon.${PaymentMethodCountry}`;
+
 type CashPaymentMethds = `cash.${string}`;
 
 type PaymentMethod =

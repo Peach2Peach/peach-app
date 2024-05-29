@@ -20,6 +20,7 @@ export function DeletePaymentMethodPopup({ id }: { id: string }) {
             label={i18n("delete")}
             iconId="trash"
             onPress={() => {
+              console.log("Deleting PM:", id);
               removePaymentData(id, {
                 onSuccess: () => navigation.goBack(),
                 onSettled: closePopup,

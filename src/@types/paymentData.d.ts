@@ -39,6 +39,8 @@ type PaymentDataInfo = {
   rutNumber?: string;
   dniNumber?: string;
   abitabAgent?: string;
+  payeerNumber?: string;
+  perfectMoneyNumber?: string;
 };
 
 type PaymentDataField = keyof PaymentDataInfo;
