@@ -4,7 +4,7 @@ import { paymentMethodAllowedForCurrency } from "../paymentMethod/paymentMethodA
 export const hasApplicablePaymentMethods = (
   paymentCategory: PaymentCategory,
   currency: Currency,
-): boolean =>
+) =>
   PAYMENTCATEGORIES[paymentCategory].filter(
     (paymentMethod) =>
       paymentMethodAllowedForCurrency(paymentMethod, currency) &&

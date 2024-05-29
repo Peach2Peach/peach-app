@@ -6,5 +6,5 @@ export const getValidMobileNetworks = () => [
   "telkom",
 ];
 
-export const isValidMobileNetwork = (mobileNetwork: string): boolean =>
+export const isValidMobileNetwork = (mobileNetwork: string) =>
   getValidMobileNetworks().includes(mobileNetwork.toLowerCase());

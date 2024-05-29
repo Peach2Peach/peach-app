@@ -1,1 +1,1 @@
-export const isEDRPOU = (code: string): boolean => /^\d{8}$/u.test(code);
+export const isEDRPOU = (code: string) => /^\d{8}$/u.test(code);

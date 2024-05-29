@@ -30,7 +30,7 @@ export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
     },
   });
 
-  peachWS.send = (data: string): boolean => {
+  peachWS.send = (data: string) => {
     if (!peachWS.connected) {
       info("Peach WS API - reestablishing connection.");
 

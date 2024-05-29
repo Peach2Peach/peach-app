@@ -6,13 +6,9 @@ describe("isEDRPOU", () => {
   });
 
   it("should return false for an invalid EDRPOU code", () => {
-    // Test for a code that is too short
     expect(isEDRPOU("1234567")).toBe(false);
-    // Test for a code that is too long
     expect(isEDRPOU("123456789")).toBe(false);
-    // Test for a code with non-digit characters
     expect(isEDRPOU("1234abcd")).toBe(false);
-    // Test for a code with special characters
     expect(isEDRPOU("1234-678")).toBe(false);
   });
 
