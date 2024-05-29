@@ -132,6 +132,7 @@
   "form.rutNumber.placeholder": "12.345.678-9",
   "form.shareLogs": "uygulama günlüklerini dahil et",
   "form.signature.error": "geçersiz imza",
+  "form.steamFriendCode": "Steam iletişim kodu",
   "form.steam.error": "Bu geçerli bir Steam arkadaş kodu değil",
   "form.steamFriendCode.placeholder": "1234567890",
   "form.topic": "konu",

@@ -129,6 +129,7 @@
   "form.rutNumber.placeholder": "12.345.678-9",
   "form.shareLogs": "περιλαμβάνει αρχεία καταγραφής εφαρμογής",
   "form.signature.error": "μη έγκυρη υπογραφή",
+  "form.steamFriendCode": "Κωδικός επαφής Steam",
   "form.steam.error": "Αυτό δεν είναι έγκυρος κωδικός φίλου Steam",
   "form.steamFriendCode.placeholder": "1234567890",
   "form.topic": "θέμα",

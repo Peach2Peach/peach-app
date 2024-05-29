@@ -84,6 +84,16 @@ exports[`CurrencyTabs should render correctly 1`] = `
     [Function]
   </Screen>
   <Screen
+    name="asia"
+    options={
+      {
+        "title": "asia",
+      }
+    }
+  >
+    [Function]
+  </Screen>
+  <Screen
     name="other"
     options={
       {

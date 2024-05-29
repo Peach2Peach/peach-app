@@ -66,6 +66,8 @@ import paysend from "./paysend.svg";
 import westernUnion from "./westernUnion.svg";
 import mobileAirtime from "./mobileAirtime.svg";
 import aPaym from "./apaym.svg";
+import payLah from "./paylah.svg";
+import strike from "./strike.svg";
 
 export const PaymentLogos = {
   "cash.amsterdam": bitcoinAmsterdam,
@@ -131,6 +133,7 @@ export const PaymentLogos = {
   sinpeMovil,
   skrill,
   straksbetaling: placeholder,
+  strike,
   swish,
   twint,
   vipps,
@@ -153,6 +156,7 @@ export const PaymentLogos = {
   aPaym,
   upi,
   paytmWallet,
+  payLah,
   tinkoff,
   sberbank,
   paysend,
@@ -167,6 +171,7 @@ export const PaymentLogos = {
   eft: placeholder,
   equityBank: placeholder,
   kcbBank: placeholder,
+  nationalTransferAE: placeholder,
   nationalTransferBO: placeholder,
   nationalTransferCL: placeholder,
   nationalTransferGT: placeholder,
@@ -174,7 +179,9 @@ export const PaymentLogos = {
   nationalTransferMX: placeholder,
   nationalTransferNI: placeholder,
   nationalTransferPE: placeholder,
+  nationalTransferPK: placeholder,
   nationalTransferPY: placeholder,
+  nationalTransferSG: placeholder,
   nationalTransferSR: placeholder,
   nationalTransferVE: placeholder,
   nationalTransferZA: placeholder,

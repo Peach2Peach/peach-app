@@ -132,6 +132,7 @@
   "form.rutNumber.placeholder": "12.345.678-9",
   "form.shareLogs": "App-Protokolle einschließen",
   "form.signature.error": "Ungültige Signatur",
+  "form.steamFriendCode": "Steam-Kontaktcode",
   "form.steam.error": "Dies ist keine gültige Steam-Freundescode",
   "form.steamFriendCode.placeholder": "1234567890",
   "form.topic": "Thema",

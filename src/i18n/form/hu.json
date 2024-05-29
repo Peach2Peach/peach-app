@@ -132,6 +132,7 @@
   "form.rutNumber.placeholder": "12.345.678-9",
   "form.shareLogs": "alkalmazásnaplók hozzáadása",
   "form.signature.error": "érvénytelen aláírás",
+  "form.steamFriendCode": "Steam kapcsolattartó kód",
   "form.steam.error": "Ez nem érvényes Steam barát kód",
   "form.steamFriendCode.placeholder": "1234567890",
   "form.topic": "téma",
