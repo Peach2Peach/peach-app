@@ -34,7 +34,7 @@ type PaymentDataInfo = {
   brSortCode?: string;
   cpf?: string;
   cedulaIdentidad?: string;
-  country?: string;
+  countryField?: string;
   bankBranch?: string;
   rutNumber?: string;
   dniNumber?: string;

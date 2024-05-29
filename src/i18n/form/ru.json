@@ -46,7 +46,7 @@
   "form.chippertag.placeholder": "@chippertag",
   "form.clabe": "клабе",
   "form.clabe.placeholder": "123456789012345678",
-  "form.country.placeholder": "Сальвадор",
+  "form.countryField.placeholder": "Сальвадор",
   "form.cpf": "Номер CPF",
   "form.cpf.error": "Это недействительный номер CPF",
   "form.cpf.placeholder": "123.456.789-01",

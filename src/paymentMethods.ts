@@ -133,6 +133,8 @@ const bankTransfer: PaymentMethod[] = [
   "ted",
   "sberbank",
   "trFast",
+  "westernUnion",
+  "westernUnionEU",
   ...NATIONALTRANSFERCOUNTRIES.map(
     (c) => `nationalTransfer${c}` satisfies PaymentMethod,
   ),

@@ -128,7 +128,7 @@ const validators: Record<PaymentMethodField, NewRule> = {
     cpf: cpfValidator,
   },
   cedulaIdentidad: {},
-  country: {},
+  countryField: {},
   bankBranch: {},
   rutNumber: {
     rut: rutValidator,
