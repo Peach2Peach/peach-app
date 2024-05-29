@@ -52,7 +52,7 @@ import wise from "./wise.svg";
 import privat24 from "./privat24.svg";
 import payeer from "./payeer.svg";
 import perfectMoney from "./perfectMoney.svg";
-// import steam from "./steam.svg";
+import steam from "./steam.svg";
 import mercadoPago from "./mercadoPago.svg";
 import pix from "./pix.svg";
 import daviPlata from "./daviplata.svg";
@@ -140,7 +140,7 @@ export const PaymentLogos = {
   privat24,
   payeer,
   perfectMoney,
-  // "giftCard.Steam": steam,
+  "giftCard.steam": steam,
   spei: placeholder,
   pix,
   daviPlata,

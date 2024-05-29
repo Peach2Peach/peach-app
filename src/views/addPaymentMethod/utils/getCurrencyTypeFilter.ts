@@ -16,6 +16,7 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "NOK",
     "TRY",
     "DKK",
+    "RUB",
     "UAH",
   ],
   latinAmerica: [
@@ -71,6 +72,8 @@ const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
     "ILS",
     "PHP",
     "RUB",
+    "AED",
+    "PKR",
   ],
   other: ["USDT", "SAT", "USD", "NZD", "AUD", "XAU"],
 };

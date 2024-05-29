@@ -119,6 +119,8 @@ type AsiaPaymentMethods =
   | "bankera"
   | "trFast"
   | "papara"
+  | "nationalTransferAE"
+  | "nationalTransferPK"
   | "nationalTransferTR";
 
 type BitcoinPaymentMethods = "liquid" | "lnurl";
@@ -127,7 +129,7 @@ type InternationalPaymentMethds =
   | "perfectMoney"
   | "payeer"
   | "paysend"
-  // | "giftCard.steam"
+  | "giftCard.steam"
   | `giftCard.amazon.${PaymentMethodCountry}`;
 
 type CashPaymentMethds = `cash.${string}`;

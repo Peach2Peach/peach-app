@@ -146,7 +146,7 @@ export const SelectPaymentMethod = () => {
             paymentMethodAllowedForCurrency(method, selectedCurrency),
           )
           .filter(
-            (method) => category !== "giftCard" || method === "giftCard.amazon",
+            (method) => category !== "giftCard" || method === "giftCard.amazon" || method === "giftCard.steam",
           )
           .map(mapMethodToDrawerOption);
 
