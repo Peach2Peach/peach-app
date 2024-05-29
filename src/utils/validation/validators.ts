@@ -80,6 +80,25 @@ const validators: Record<PaymentMethodField, NewRule> = {
   lnurlAddress: {
     lnurlAddress: emailValidator,
   },
+  // changes TODO: adjust
+  edrpou: {},
+  clabe: {},
+  bankName: {},
+  steamFriendCode: {},
+  upiTag: {},
+  trSortCode: {},
+  cardNumber: {},
+  physicalAddress: {},
+  mobileNetwork: {},
+  bankCode: {},
+  brSortCode: {},
+  cpf: {},
+  cedulaIdentidad: {},
+  country: {},
+  bankBranch: {},
+  rutNumber: {},
+  dniNumber: {},
+  abitabAgent: {},
 };
 
 export type PaymentFieldTypes = keyof typeof validators;
