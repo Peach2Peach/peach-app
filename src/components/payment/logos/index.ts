@@ -49,6 +49,22 @@ import twint from "./twint.svg";
 import vipps from "./vipps.svg";
 import wave from "./wave.svg";
 import wise from "./wise.svg";
+import privat24 from "./privat24.svg";
+import payeer from "./payeer.svg";
+import perfectMoney from "./perfectMoney.svg";
+import steam from "./steam.svg";
+import mercadoPago from "./mercadoPago.svg"
+import pix from "./pix.svg"
+import daviplata from "./daviplata.svg"
+import tigoPesa from "./tigoPesa.svg"
+import tigo from "./tigo.svg"
+import apaym from "./apaym.svg"
+import upi from "./upi.svg"
+import paytmWallet from "./paytm.svg"
+import tinkoff from "./tinkoff.svg"
+import sberbank from "./sberbank.svg"
+import paysend from "./paysend.svg"
+import westernUnion from "./westernUnion.svg"
 
 export const PaymentLogos = {
   "cash.amsterdam": bitcoinAmsterdam,
@@ -79,7 +95,7 @@ export const PaymentLogos = {
   liquid,
   lydia,
   mbWay,
-  mercadoPago: placeholder,
+  mercadoPago,
   mobilePay,
   moov,
   mtn,
@@ -104,10 +120,8 @@ export const PaymentLogos = {
   paylib,
   paypal,
   paysera,
-  pix: placeholder,
   postePay: placeholder,
   rappipay: placeholder,
-  rebellion: placeholder,
   revolut,
   satispay,
   sepa,
@@ -121,6 +135,52 @@ export const PaymentLogos = {
   wave,
   wirepay: placeholder,
   wise,
+  privat24,
+  payeer,
+  perfectMoney,
+  "giftCard.Steam": steam,
+  spei: placeholder,
+  pix,
+  daviplata,
+  tigoPesa,
+  tigoHonduras: tigo,
+  tigoParaguay: tigo,
+  tigoSalvador: tigo,
+  tigoBolivia: tigo,
+  tigoGuatemala: tigo,
+  apaym,
+  upi,
+  paytmWallet,
+  tinkoff,
+  sberbank,
+  paysend,
+  twyp: placeholder,
+  tikkie: placeholder,
+  westernUnion,
+  abitab: placeholder,
+  boleto: placeholder,
+  brou: placeholder,
+  djamo: placeholder,
+  eft: placeholder,
+  equityBank: placeholder,
+  kcbBank: placeholder,
+  nationalTransferBO: placeholder,
+  nationalTransferCL: placeholder,
+  nationalTransferGT: placeholder,
+  nationalTransferKE: placeholder,
+  nationalTransferMX: placeholder,
+  nationalTransferNI: placeholder,
+  nationalTransferPE: placeholder,
+  nationalTransferPY: placeholder,
+  nationalTransferSR: placeholder,
+  nationalTransferVE: placeholder,
+  nationalTransferZA: placeholder,
+  practicaja: placeholder,
+  stp: placeholder,
+  ted: placeholder,
+  vodafoneCash: placeholder,
+  westernUnionEU: westernUnion,
+  yoomoney: placeholder,
 };
 
 export type PaymentLogoType = keyof typeof PaymentLogos;

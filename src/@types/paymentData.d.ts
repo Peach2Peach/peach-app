@@ -21,6 +21,24 @@ type PaymentDataInfo = {
   eversendUserName?: string;
   pixAlias?: string;
   postePayNumber?: string;
+  edrpou?: string;
+  clabe?: string;
+  bankName?: string;
+  steamFriendCode?: string;
+  upiTag?: string;
+  trSortCode?: string;
+  cardNumber?: string;
+  physicalAddress?: string;
+  mobileNetwork?: string;
+  bankCode?: string;
+  brSortCode?: string;
+  cpf?: string;
+  cedulaIdentidad?: string;
+  country?: string;
+  bankBranch?: string;
+  rutNumber?: string;
+  dniNumber?: string;
+  abitabAgent?: string;
 };
 
 type PaymentDataField = keyof PaymentDataInfo;

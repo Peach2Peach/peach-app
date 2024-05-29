@@ -27,15 +27,18 @@ const NATIONALOPTIONS: NationalOptions = {
     FR: ["paylib", "lydia", "satispay"],
     DE: ["satispay"],
     GR: ["iris"],
+    NL: ["tikkie"],
+    UA: ["privat24"],
   },
   LATAM: {
     BR: ["pix"],
+    AR: ["cbu", "cvu"],
   },
 };
 
 const NATIONALOPTIONCOUNTRIES: Record<"EUR" | "LATAM", FlagType[]> = {
-  EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR"],
-  LATAM: ["BR"],
+  EUR: ["IT", "PT", "ES", "FI", "HR", "FR", "DE", "GR", "NL", "UA"],
+  LATAM: ["BR", "AR"],
 };
 
 const mapCountryToDrawerOption =

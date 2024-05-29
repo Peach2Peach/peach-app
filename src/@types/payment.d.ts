@@ -24,6 +24,7 @@ type EuPaymentMethods =
   | "nationalTransferCH"
   | "nationalTransferIS"
   | "nationalTransferSE"
+  | "nationalTransferMX"
   | "neteller"
   | "papara"
   | "paylib"
@@ -39,6 +40,15 @@ type EuPaymentMethods =
   | "swish"
   | "twint"
   | "vipps"
+  | "privat24"
+  | "twyp"
+  | "tikkie"
+  | "perfectMoney"
+  | "yoomoney"
+  | "payeer"
+  | "trFast"
+  | "eft"
+  | "westernUnionEU"
   | "wise";
 type LatAmPaymentMethods =
   | "alias"
@@ -50,6 +60,27 @@ type LatAmPaymentMethods =
   | "pix"
   | "rappipay"
   | "sinpe"
+  | "boleto"
+  | "stp"
+  | "spei"
+  | "daviplata"
+  | "tigoHonduras"
+  | "tigoBolivia"
+  | "tigoSalvador"
+  | "tigoParaguay"
+  | "tigoGuatemala"
+  | "abitab"
+  | "brou"
+  | "practicaja"
+  | "ted"
+  | "nationalTransferBO"
+  | "nationalTransferCL"
+  | "nationalTransferGT"
+  | "nationalTransferNI"
+  | "nationalTransferPE"
+  | "nationalTransferPY"
+  | "nationalTransferSR"
+  | "nationalTransferVE"
   | "sinpeMovil";
 type AfricaPaymentMethods =
   | "accrue"
@@ -66,11 +97,37 @@ type AfricaPaymentMethods =
   | "wave"
   | "wirepay"
   | "flutterwave"
+  | "vodafoneCash"
+  | "djamo"
+  | "apaym"
+  | "tigoPesa"
+  | "westernUnion"
+  | "equityBank"
+  | "kcbBank"
+  | "nationalTransferKE"
+  | "nationalTransferZA"
   | "mobileAirtime";
+type AsiaPaymentMethods =
+  | "payeer"
+  | "yoomoney"
+  | "upi"
+  | "paytmWallet"
+  | "sberbank"
+  | "paysend"
+  | "eft"
+  | "tinkoff"
+  | "bankera"
+  | "trFast"
+  | "papara"
+  | "nationalTransferTR"
 
 type BitcoinPaymentMethods = "liquid" | "lnurl";
 type InternationalPaymentMethds =
   | "giftCard.amazon"
+  | "perfectMoney"
+  | "payeer"
+  | "paysend"
+  | "giftCard.steam"
   | `giftCard.amazon.${PaymentMethodCountry}`;
 type CashPaymentMethds = `cash.${string}`;
 
@@ -78,6 +135,7 @@ type PaymentMethod =
   | EuPaymentMethods
   | LatAmPaymentMethods
   | AfricaPaymentMethods
+  | AsiaPaymentMethods
   | InternationalPaymentMethds
   | BitcoinPaymentMethods
   | CashPaymentMethds;
