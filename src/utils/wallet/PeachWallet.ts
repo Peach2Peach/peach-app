@@ -11,6 +11,8 @@ import { AddressInfo, TransactionDetails } from "bdk-rn/lib/classes/Bindings";
 import { AddressIndex, BlockChainNames, Network } from "bdk-rn/lib/lib/enums";
 import { BIP32Interface } from "bip32";
 import { sign } from "bitcoinjs-message";
+import { Platform } from "react-native";
+import { isEmulatorSync } from "react-native-device-info";
 import RNFS from "react-native-fs";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { getContractSummariesQuery } from "../../hooks/query/useContractSummaries";
@@ -281,6 +283,8 @@ function getDBConfig(
   network: Network,
   nodeType: BlockChainNames = BlockChainNames.Electrum,
 ) {
+  if (Platform.OS === "ios" && isEmulatorSync())
+    return new DatabaseConfig().memory();
   const dbName = `peach-${network}${nodeType}`;
   const directory = `${RNFS.DocumentDirectoryPath}/${dbName}`;
   return new DatabaseConfig().sqlite(directory);
