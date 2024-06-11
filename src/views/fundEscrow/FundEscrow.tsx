@@ -73,7 +73,7 @@ export const FundEscrow = () => {
               amount={fundingAmount}
               size="medium"
             />
-            <CopyAble value={fundingAddress} textPosition="bottom" />
+            <CopyAble value={String(fundingAmount)} textPosition="bottom" />
           </View>
           <PeachText style={tw`subtitle-1`}>{offerIdToHex(offerId)}</PeachText>
         </View>
