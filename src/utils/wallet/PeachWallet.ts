@@ -12,7 +12,6 @@ import { AddressIndex, BlockChainNames, Network } from "bdk-rn/lib/lib/enums";
 import { BIP32Interface } from "bip32";
 import { sign } from "bitcoinjs-message";
 import { Platform } from "react-native";
-import { isEmulatorSync } from "react-native-device-info";
 import RNFS from "react-native-fs";
 import { contractKeys } from "../../hooks/query/useContractDetail";
 import { getContractSummariesQuery } from "../../hooks/query/useContractSummaries";
@@ -279,11 +278,15 @@ export class PeachWallet {
   }
 }
 
+const MIN_VERSION_FOR_SQLITE = 16;
 function getDBConfig(
   network: Network,
   nodeType: BlockChainNames = BlockChainNames.Electrum,
 ) {
-  if (Platform.OS === "ios" && isEmulatorSync())
+  if (
+    Platform.OS === "ios" &&
+    parseInt(Platform.Version, 10) < MIN_VERSION_FOR_SQLITE
+  )
     return new DatabaseConfig().memory();
   const dbName = `peach-${network}${nodeType}`;
   const directory = `${RNFS.DocumentDirectoryPath}/${dbName}`;
